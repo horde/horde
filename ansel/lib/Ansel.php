@@ -706,7 +706,9 @@ class Ansel
             $owner = $gallery->get('owner');
         }
         if (!empty($owner)) {
-            if ($owner == Horde_Auth::getAuth()) {
+            if (!$owner) {
+                $owner_title = _("System Galleries");
+            } elseif ($owner == Horde_Auth::getAuth()) {
                 $owner_title = _("My Galleries");
             } elseif (!empty($GLOBALS['conf']['gallery']['customlabel'])) {
                 $uprefs = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'],

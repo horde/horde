@@ -67,7 +67,7 @@ if ($search_mode == 'basic') {
     $current_user = Horde_Auth::getAuth();
     $calendars = array();
     foreach (Kronolith::listCalendars(false, Horde_Perms::READ) as $id => $cal) {
-        if ($cal->get('owner') == $current_user) {
+        if ($cal->get('owner') && $cal->get('owner') == $current_user) {
             $calendars[_("My Calendars:")]['|' . $id] = $cal->get('name');
         } else {
             $calendars[_("Shared Calendars:")]['|' . $id] = $cal->get('name');

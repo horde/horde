@@ -214,10 +214,11 @@ class Kronolith
         // Calendars
         foreach (array(true, false) as $my) {
             foreach ($GLOBALS['all_calendars'] as $id => $calendar) {
-                $owner = $calendar->get('owner') == Horde_Auth::getAuth();
+                $owner = Horde_Auth::getAuth() &&
+                    $calendar->get('owner') == Horde_Auth::getAuth();
                 if (($my && $owner) || (!$my && !$owner)) {
                     $code['conf']['calendars']['internal'][$id] = array(
-                        'name' => ($owner ? '' : '[' . Horde_Auth::convertUsername($calendar->get('owner'), false) . '] ')
+                        'name' => ($owner || !$calendar->get('owner') ? '' : '[' . Horde_Auth::convertUsername($calendar->get('owner'), false) . '] ')
                             . $calendar->get('name'),
                         'desc' => $calendar->get('desc'),
                         'owner' => $owner,
@@ -233,10 +234,11 @@ class Kronolith
                 continue;
             }
             foreach ($GLOBALS['registry']->tasks->listTasklists($my, Horde_Perms::SHOW) as $id => $tasklist) {
-                $owner = $tasklist->get('owner') == Horde_Auth::getAuth();
+                $owner = Horde_Auth::getAuth() &&
+                    $tasklist->get('owner') == Horde_Auth::getAuth();
                 if (($my && $owner) || (!$my && !$owner)) {
                     $code['conf']['calendars']['tasklists']['tasks/' . $id] = array(
-                        'name' => ($owner ? '' : '[' . Horde_Auth::convertUsername($tasklist->get('owner'), false) . '] ')
+                        'name' => ($owner || !$tasklist->get('owner') ? '' : '[' . Horde_Auth::convertUsername($tasklist->get('owner'), false) . '] ')
                             . $tasklist->get('name'),
                         'desc' => $tasklist->get('desc'),
                         'owner' => $owner,
@@ -1317,6 +1319,10 @@ class Kronolith
      */
     public static function listCalendars($owneronly = false, $permission = Horde_Perms::SHOW)
     {
+        if ($owneronly && !Horde_Auth::getAuth()) {
+            return array();
+        }
+
         $calendars = $GLOBALS['kronolith_shares']->listShares(Horde_Auth::getAuth(), $permission, $owneronly ? Horde_Auth::getAuth() : null, 0, 0, 'name');
         if (is_a($calendars, 'PEAR_Error')) {
             Horde::logMessage($calendars, __FILE__, __LINE__, PEAR_LOG_ERR);
@@ -1389,7 +1395,8 @@ class Kronolith
      */
     public static function updateShare(&$calendar, $info)
     {
-        if ($calendar->get('owner') != Horde_Auth::getAuth()) {
+        if (!Horde_Auth::getAuth() ||
+            $calendar->get('owner') != Horde_Auth::getAuth()) {
             return PEAR::raiseError(_("You are not allowed to change this calendar."));
         }
 
@@ -1420,12 +1427,13 @@ class Kronolith
      */
     public static function deleteShare($calendar)
     {
-        if ($calendar->getName() == Horde_Auth::getAuth()) {
-            return PEAR::raiseError(_("This calendar cannot be deleted."));
+        if (!Horde_Auth::getAuth() ||
+            $calendar->get('owner') != Horde_Auth::getAuth()) {
+            return PEAR::raiseError(_("You are not allowed to delete this calendar."));
         }
 
-        if ($calendar->get('owner') != Horde_Auth::getAuth()) {
-            return PEAR::raiseError(_("You are not allowed to delete this calendar."));
+        if ($calendar->getName() == Horde_Auth::getAuth()) {
+            return PEAR::raiseError(_("This calendar cannot be deleted."));
         }
 
         // Delete the calendar.
@@ -1824,7 +1832,9 @@ class Kronolith
         $from = $identity->getDefaultFromAddress(true);
 
         $owner = $share->get('owner');
-        $recipients[$owner] = self::_notificationPref($owner, 'owner');
+        if ($owner) {
+            $recipients[$owner] = self::_notificationPref($owner, 'owner');
+        }
 
         foreach ($share->listUsers(Horde_Perms::READ) as $user) {
             if (!isset($recipients[$user])) {

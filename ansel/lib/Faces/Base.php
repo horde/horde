@@ -250,7 +250,7 @@ class Ansel_Faces_Base
             'filter' => 's.share_owner = ' . $GLOBALS['ansel_db']->quote($owner),
             'order' => 'f.face_id DESC');
 
-        if ($owner != Horde_Auth::getAuth()) {
+        if (!Horde_Auth::getAuth() || $owner != Horde_Auth::getAuth()) {
             $info['filter'] .= ' AND s.gallery_passwd IS NULL';
         }
 
@@ -278,7 +278,7 @@ class Ansel_Faces_Base
     public function countOwnerFaces($owner)
     {
         $info = array('filter' => 's.share_owner = ' . $GLOBALS['ansel_db']->quote($owner));
-        if ($owner != Horde_Auth::getAuth()) {
+        if (!Horde_Auth::getAuth() || $owner != Horde_Auth::getAuth()) {
             $info['filter'] .= ' AND s.gallery_passwd IS NULL';
         }
 

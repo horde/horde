@@ -81,7 +81,9 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
      */
     public function canDownload()
     {
-        if (Horde_Auth::getAuth() == $this->data['share_owner'] || Horde_Auth::isAdmin('ansel:admin')) {
+        if (Horde_Auth::getAuth() &&
+            (Horde_Auth::getAuth() == $this->data['share_owner'] ||
+             Horde_Auth::isAdmin('ansel:admin'))) {
             return true;
         }
 
@@ -748,7 +750,8 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
      */
     public function isOldEnough()
     {
-        if ($this->data['share_owner'] == Horde_Auth::getAuth() ||
+        if ((Horde_Auth::getAuth() &&
+             $this->data['share_owner'] == Horde_Auth::getAuth()) ||
             empty($GLOBALS['conf']['ages']['limits']) ||
             empty($this->data['attribute_age'])) {
 
@@ -780,7 +783,9 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
      */
     public function hasPasswd()
     {
-        if (Horde_Auth::getAuth() == $this->get('owner') || Horde_Auth::isAdmin('ansel:admin')) {
+        if (Horde_Auth::getAuth() &&
+            (Horde_Auth::getAuth() == $this->get('owner') ||
+             Horde_Auth::isAdmin('ansel:admin'))) {
             return false;
         }
 

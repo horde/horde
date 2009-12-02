@@ -207,7 +207,9 @@ class Kronolith_Tagger
                 $filter['calendar'] = array($filter['calendar']);
             }
             foreach ($filter['calendar'] as $calendar) {
-                $owners[] = $GLOBALS['all_calendars'][$calendar]->get('owner');
+                if ($GLOBALS['all_calendars'][$calendar]->get('owner')) {
+                    $owners[] = $GLOBALS['all_calendars'][$calendar]->get('owner');
+                }
             }
             $args = array('tagId' => self::$_tagger->ensureTags($tags),
                           'userId' => $owners,

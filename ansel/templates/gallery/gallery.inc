@@ -113,7 +113,7 @@ if ($prefs->isLocked('default_download')) {
   </td>
 </tr>
 <?php } ?>
-<?php if (empty($gallery) || Horde_Auth::getAuth() == $gallery->get('owner')): ?>
+<?php if (Horde_Auth::getAuth() && !empty($gallery) && Horde_Auth::getAuth() == $gallery->get('owner')): ?>
 <tr>
   <td align="right" valign="top"><strong><?php echo _("Gallery Password") ?></strong>&nbsp;</td>
   <td><input name="gallery_passwd" type="password" value="<?php echo htmlspecialchars($gallery_passwd) ?>" size="50" /></td>

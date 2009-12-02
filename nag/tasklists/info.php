@@ -19,7 +19,8 @@ if (is_a($tasklist, 'PEAR_Error')) {
 }
 
 $subscribe_url = Horde::url($registry->get('webroot', 'horde') . '/rpc.php/nag/', true, -1)
-  . $tasklist->get('owner') . '/' . $tasklist->getName() . '.ics';
+    . ($tasklist->get('owner') ? $tasklist->get('owner') : '')
+    . '/' . $tasklist->getName() . '.ics';
 
 $identity = Horde_Prefs_Identity::singleton('none', $tasklist->get('owner'));
 $owner_name = $identity->getValue('fullname');

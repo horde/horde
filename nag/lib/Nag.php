@@ -362,6 +362,9 @@ class Nag
      */
     function listTasklists($owneronly = false, $permission = Horde_Perms::SHOW)
     {
+        if ($owneronly && !Horde_Auth::getAuth()) {
+            return array();
+        }
         $tasklists = $GLOBALS['nag_shares']->listShares(Horde_Auth::getAuth(), $permission, $owneronly ? Horde_Auth::getAuth() : null, 0, 0, 'name');
         if (is_a($tasklists, 'PEAR_Error')) {
             Horde::logMessage($tasklists, __FILE__, __LINE__, PEAR_LOG_ERR);
@@ -459,7 +462,8 @@ class Nag
      */
     public static function updateTasklist(&$tasklist, $info)
     {
-        if ($tasklist->get('owner') != Horde_Auth::getAuth()) {
+        if (!Horde_Auth::getAuth() ||
+            $tasklist->get('owner') != Horde_Auth::getAuth()) {
             return PEAR::raiseError(_("You are not allowed to change this task list."));
         }
 
@@ -483,7 +487,8 @@ class Nag
             return PEAR::raiseError(_("This task list cannot be deleted."));
         }
 
-        if ($tasklist->get('owner') != Horde_Auth::getAuth()) {
+        if (!Horde_Auth::getAuth() ||
+            $tasklist->get('owner') != Horde_Auth::getAuth()) {
             return PEAR::raiseError(_("You are not allowed to delete this task list."));
         }
 
@@ -828,7 +833,9 @@ class Nag
         $from = $identity->getDefaultFromAddress(true);
 
         $owner = $share->get('owner');
-        $recipients[$owner] = Nag::_notificationPref($owner, 'owner');
+        if (strlen($owner)) {
+            $recipients[$owner] = Nag::_notificationPref($owner, 'owner');
+        }
 
         foreach ($share->listUsers(Horde_Perms::READ) as $user) {
             if (empty($recipients[$user])) {

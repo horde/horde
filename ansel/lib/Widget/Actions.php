@@ -180,7 +180,8 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
             }
         }
 
-        if ($this->_view->gallery->get('owner') == Horde_Auth::getAuth()) {
+        if (Horde_Auth::getAuth() &&
+            $this->_view->gallery->get('owner') == Horde_Auth::getAuth()) {
             $html .= '<li>' . Horde::link('#', '', 'popup widget', '', Horde::popupJs(Horde::applicationUrl('perms.php'), array('params' => array('cid' => $this->_view->gallery->id), 'urlencode' => true)) . 'return false;') . Horde::img('perms.png', '', '', $GLOBALS['registry']->getImageDir('horde')) . ' ' . _("Set permissions") . '</a></li>';
         } elseif (!empty($conf['report_content']['driver']) &&
                   (($conf['report_content']['allow'] == 'authenticated' && Horde_Auth::isAuthenticated()) ||

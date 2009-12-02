@@ -182,7 +182,8 @@ case 'save':
             $gallery->set('age', $gallery_age);
             $gallery->set('download', $gallery_download);
             $gallery->set('view_mode', $gallery_mode);
-            if ($gallery->get('owner') == Horde_Auth::getAuth()) {
+            if (Horde_Auth::getAuth() &&
+                $gallery->get('owner') == Horde_Auth::getAuth()) {
                 $gallery->set('passwd', $gallery_passwd);
             }
 

@@ -27,7 +27,7 @@
   <tr>
    <td><?php echo htmlspecialchars($tasklist->get('name')) ?></td>
    <td><?php $url = Horde_Util::addParameter($display_url_base, 'display_cal', $tasklist->getName(), false); echo Horde::link($url, _("Click or copy this URL to display this task list"), '', '_blank') . htmlspecialchars(shorten_url($url)) . '</a>' ?></td>
-   <td><?php $url = $subscribe_url_base . $tasklist->get('owner') . '/' . $tasklist->getName() . '.ics'; echo Horde::link($url, _("Click or copy this URL to display this task list"), '', '_blank') . htmlspecialchars(shorten_url($url)) . '</a>' ?></td>
+   <td><?php $url = $subscribe_url_base . ($tasklist->get('owner') ? $tasklist->get('owner') : '-system-') . '/' . $tasklist->getName() . '.ics'; echo Horde::link($url, _("Click or copy this URL to display this task list"), '', '_blank') . htmlspecialchars(shorten_url($url)) . '</a>' ?></td>
    <td><?php echo Horde::link(Horde_Util::addParameter($edit_url_base, 't', $tasklist->getName()), _("Edit")) . $edit_img . '</a>' ?></td>
 <?php if (empty($conf['share']['no_sharing'])): ?>
    <td><?php echo Horde::link(Horde_Util::addParameter($perms_url_base, 'share', $tasklist->getName()), _("Change Permissions"), '', '_blank', Horde::popupJs($perms_url_base, array('params' => array('share' => $tasklist->getName()), 'urlencode' => true)) . 'return false;') . $perms_img . '</a>' ?></td>

@@ -68,9 +68,12 @@ function arrowHandler(e)
         if ($this->gallery->canDownload()) {
             $actionHTML .= (empty($this->_params['api']) && $needSeperator ? ' | ' : '') . Horde::link($this->_urls['download'], '', '', '', '', '', '', array('id' => 'image_download_link')) . _("Download Original Photo"); $needSeperator = true . '</a>';
         }
-        if (empty($this->_params['api']) && $this->gallery->get('owner') != Horde_Auth::getAuth() &&
+        if (empty($this->_params['api']) &&
+            (!Horde_Auth::getAuth() ||
+             $this->gallery->get('owner') != Horde_Auth::getAuth()) &&
             !empty($GLOBALS['conf']['report_content']['driver']) &&
-            (($conf['report_content']['allow'] == 'authenticated' && Horde_Auth::isAuthenticated()) ||
+            (($conf['report_content']['allow'] == 'authenticated' && 
+              Horde_Auth::isAuthenticated()) ||
              $conf['report_content']['allow'] == 'all')) {
 
             $actionHTML .=  ($needSeperator ? ' | ' : '' ) . Horde::link($this->_urls['report']) . _("Report") . '</a>';

@@ -15,7 +15,7 @@
 <p><em><?php echo htmlspecialchars($desc) ?></em></p>
 <?php endif; ?>
 <p>
- <?php printf(_("Local calendar owned by %s."), Kronolith::getUserName($calendar->get('owner'))) ?>
+ <?php echo $calendar->get('owner') ? sprintf(_("Local calendar owned by %s."), Kronolith::getUserName($calendar->get('owner'))) : _("Local system calendar") ?>
  <?php echo _("To subscribe to this calendar from another calendar program, use this URL:") ?>
 </p>
 <p class="calendar-info-url">

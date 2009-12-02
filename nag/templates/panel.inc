@@ -8,7 +8,7 @@ $current_user = Horde_Auth::getAuth();
 $my_tasklists = array();
 $shared_tasklists = array();
 foreach (Nag::listTasklists() as $id => $tl) {
-    if ($tl->get('owner') == $current_user) {
+    if ($tl->get('owner') && $tl->get('owner') == $current_user) {
         $my_tasklists[$id] = $tl;
     } else {
         $shared_tasklists[$id] = $tl;
@@ -81,7 +81,7 @@ document.observe('dom:loaded', function() {
  <h4><?php echo _("Shared Task Lists:") ?></h4>
  <ul id="sharedtasklists">
 <?php foreach ($shared_tasklists as $id => $tl): ?>
-  <li><label><input type="checkbox" class="checkbox" name="display_tasklist[]" value="<?php echo htmlspecialchars($id) ?>"<?php echo (in_array($id, $display_tasklists) ? ' checked="checked"' : '') . ' /> [' . htmlspecialchars(Horde_Auth::convertUsername($tl->get('owner'), false)) . '] ' . htmlspecialchars($tl->get('name')) ?></label> <?php echo $info_img ?></li>
+   <li><label><input type="checkbox" class="checkbox" name="display_tasklist[]" value="<?php echo htmlspecialchars($id) ?>"<?php echo (in_array($id, $display_tasklists) ? ' checked="checked"' : '') . ' /> ' . ($tl->get('owner') ? '[' . htmlspecialchars(Horde_Auth::convertUsername($tl->get('owner'), false)) . '] ' : '') . htmlspecialchars($tl->get('name')) ?></label> <?php echo $info_img ?></li>
 <?php endforeach; ?>
  </ul>
 <?php endif; ?>

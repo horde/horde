@@ -39,7 +39,8 @@ case 'edit':
 
     if (is_a($share, 'PEAR_Error')) {
         $notification->push($share, 'horde.error');
-    } elseif (isset($share) && Horde_Auth::getAuth() != $share->get('owner')) {
+    } elseif (!Horde_Auth::getAuth() ||
+              (isset($share) && Horde_Auth::getAuth() != $share->get('owner'))) {
         exit('permission denied');
     }
     break;
@@ -50,7 +51,8 @@ case 'editforminherit':
     if (is_a($share, 'PEAR_Error')) {
         $notification->push(_("Attempt to edit a non-existent share."), 'horde.error');
     } else {
-        if (Horde_Auth::getAuth() != $share->get('owner')) {
+        if (!Horde_Auth::getAuth() ||
+            Horde_Auth::getAuth() != $share->get('owner')) {
             exit('permission denied');
         }
         $perm = &$share->getPermission();

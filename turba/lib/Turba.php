@@ -507,6 +507,9 @@ class Turba {
             // No backends are configured to provide shares
             return array();
         }
+        if ($owneronly && !Horde_Auth::getAuth()) {
+            return array();
+        }
 
         $sources = $GLOBALS['turba_shares']->listShares(
             Horde_Auth::getAuth(), $permission,

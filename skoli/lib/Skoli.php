@@ -132,7 +132,9 @@ class Skoli {
      */
     function listClasses($owneronly = false, $permission = Horde_Perms::SHOW)
     {
-        global $registry;
+        if ($owneronly && !Horde_Auth::getAuth()) {
+            return array();
+        }
 
         $classes = $GLOBALS['skoli_shares']->listShares(Horde_Auth::getAuth(), $permission, $owneronly ? Horde_Auth::getAuth() : null, 0, 0, 'name');
         if (is_a($classes, 'PEAR_Error')) {
@@ -141,7 +143,7 @@ class Skoli {
         }
 
         // Check if we have access to the attached addressbook.
-        $addressbooks = $registry->call('contacts/sources');
+        $addressbooks = $GLOBALS['registry']->call('contacts/sources');
         foreach ($classes as $key=>$val) {
             if (!isset($addressbooks[$val->get('address_book')])) {
                 unset($classes[$key]);

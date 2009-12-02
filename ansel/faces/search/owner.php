@@ -14,10 +14,12 @@ require_once 'tabs.php';
 $page = Horde_Util::getFormData('page', 0);
 $perpage = $prefs->getValue('facesperpage');
 $owner = Horde_Util::getGet('owner', Horde_Auth::getAuth());
-if ($owner == Horde_Auth::getAuth()) {
+if (!$owner) {
+    $title = _("From system galleries");
+} elseif ($owner == Horde_Auth::getAuth()) {
     $title = _("From my galleries");
 } else {
-    $title = sprintf(_("From galleries of %s"));
+    $title = sprintf(_("From galleries of %s"), $owner);
 }
 
 $count = $faces->countOwnerFaces($owner);

@@ -216,7 +216,7 @@ class Ansel_Tags {
                     if (!is_a($gal, 'PEAR_Error')) {
                         $owner = $gal->get('owner');
                         if ($gal->hasPermission(Horde_Auth::getAuth(), Horde_Perms::SHOW) &&
-                            (!isset($user) || (isset($user) && $owner == $user))) {
+                            (!isset($user) || (isset($user) && $owner && $owner == $user))) {
                             $imgs[] = $id;
                         }
                     } else {
@@ -248,7 +248,7 @@ class Ansel_Tags {
                         Horde::logMessage($gallery, __FILE__, __LINE__, PEAR_LOG_ERR);
                         continue;
                     }
-                    if ($gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::SHOW)  && (!isset($user) || (isset($user) && $gallery->get('owner') == $user))) {
+                    if ($gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::SHOW)  && (!isset($user) || (isset($user) && $gallery->get('owner') && $gallery->get('owner') == $user))) {
                         $results['galleries'][] = $id;
                     }
                 }

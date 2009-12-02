@@ -29,7 +29,8 @@ if (strncmp($calendarId, 'remote_', 7) === 0) {
     $rewrite = isset($conf['urls']['pretty']) &&
         $conf['urls']['pretty'] == 'rewrite';
     $subscribe_url = Horde::url($registry->get('webroot', 'horde') . ($rewrite ? '/rpc/kronolith/' : '/rpc.php/kronolith/'), true, -1)
-      . $calendar->get('owner') . '/' . $calendar->getName() . '.ics';
+        . ($calendar->get('owner') ? $calendar->get('owner') : '-system-')
+        . '/' . $calendar->getName() . '.ics';
 }
 
 if (is_null($calendar)) {

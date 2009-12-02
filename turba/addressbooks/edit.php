@@ -25,7 +25,8 @@ if (is_a($addressbook, 'PEAR_Error')) {
     $notification->push($addressbook, 'horde.error');
     header('Location: ' . Horde::applicationUrl('addressbooks/', true));
     exit;
-} elseif ($addressbook->get('owner') != Horde_Auth::getAuth()) {
+} elseif (!Horde_Auth::getAuth() ||
+          $addressbook->get('owner') != Horde_Auth::getAuth()) {
     $notification->push(_("You are not allowed to change this addressbook."), 'horde.error');
     header('Location: ' . Horde::applicationUrl('addressbooks/', true));
     exit;

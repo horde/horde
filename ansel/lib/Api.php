@@ -42,7 +42,7 @@ class Ansel_Api extends Horde_Registry_Api
             $owners = array();
             $galleries = $GLOBALS['ansel_storage']->listGalleries(Horde_Perms::SHOW, null, null, false);
             foreach ($galleries  as $gallery) {
-                $owners[$gallery->data['share_owner']] = true;
+                $owners[$gallery->data['share_owner'] ? $gallery->data['share_owner'] : '-system-'] = true;
             }
 
             $results = array();
