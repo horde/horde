@@ -95,6 +95,16 @@ class Horde_Date_Utils
             return sprintf(_("yesterday at %s"), $date->strftime($time_format));
         }
 
+        $delta = round($delta / 24);
+        if ($delta < 7) {
+            return sprintf(_("%d days ago"), $delta);
+        }
+
+        if (round($delta / 7) < 5) {
+            $delta = round($delta / 7);
+            return sprintf(ngettext("%d week ago", "%d weeks ago", $delta), $delta);
+        }
+
         // Default to the user specified date format.
         $date = new Horde_Date($timestamp);
         return $date->strftime($date_format);
