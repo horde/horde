@@ -915,8 +915,7 @@ class Horde_Registry
         } catch (Horde_Exception_HookNotSet $e) {}
 
         /* Initialize application. */
-        if (!empty($options['init']) ||
-            ($checkPerms && !empty($options['logintasks']))) {
+        if ($checkPerms || !empty($options['init'])) {
             if (file_exists($app_lib . '/base.php')) {
                 // TODO: Remove once there is no more base.php files
                 require_once $app_lib . '/base.php';
