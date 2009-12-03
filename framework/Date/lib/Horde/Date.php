@@ -819,6 +819,8 @@ class Horde_Date
      * Format time using the specifiers available in date() or in the DateTime
      * class' format() method.
      *
+     * To format in languages other than English, use strftime() instead.
+     *
      * @param string $format
      *
      * @return string  Formatted time.
