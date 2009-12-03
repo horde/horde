@@ -642,7 +642,7 @@ class Horde_Date
      */
     public function compareDate($other)
     {
-        if (!is_a($other, 'Horde_Date')) {
+        if (!($other instanceof Horde_Date)) {
             $other = new Horde_Date($other);
         }
 
@@ -705,7 +705,7 @@ class Horde_Date
      */
     public function compareTime($other)
     {
-        if (!is_a($other, 'Horde_Date')) {
+        if (!($other instanceof Horde_Date)) {
             $other = new Horde_Date($other);
         }
 
@@ -732,7 +732,7 @@ class Horde_Date
      */
     public function compareDateTime($other)
     {
-        if (!is_a($other, 'Horde_Date')) {
+        if (!($other instanceof Horde_Date)) {
             $other = new Horde_Date($other);
         }
 

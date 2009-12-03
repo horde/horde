@@ -8,6 +8,7 @@
 require_once dirname(__FILE__) . '/../../../lib/Horde/Date.php';
 require_once dirname(__FILE__) . '/../../../lib/Horde/Date/Utils.php';
 require_once dirname(__FILE__) . '/../../../lib/Horde/Date/Span.php';
+date_default_timezone_set('Europe/Berlin');
 
 /**
  * @category   Horde
@@ -18,9 +19,6 @@ class Horde_Date_DateTest extends PHPUnit_Framework_TestCase
 {
     public function testConstructor()
     {
-        $oldTimezone = date_default_timezone_get();
-        date_default_timezone_set('Europe/Berlin');
-
         $date = new stdClass();
         $date->year = 2001;
         $date->month = 2;
@@ -36,8 +34,6 @@ class Horde_Date_DateTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('2001-02-03 05:05:06', (string)new Horde_Date('20010203T040506Z'));
         $this->assertEquals('2001-02-03 04:05:06', (string)new Horde_Date('2001-02-03 04:05:06'));
         $this->assertEquals('2001-02-03 04:05:06', (string)new Horde_Date(981169506));
-
-        date_default_timezone_set($oldTimezone);
     }
 
     public function testDateCorrection()
@@ -65,6 +61,7 @@ class Horde_Date_DateTest extends PHPUnit_Framework_TestCase
 
     public function testTimestamp()
     {
+        $oldTimezone = date_default_timezone_get();
         date_default_timezone_set('America/New_York');
 
         $date = new Horde_Date(array('mday' => 1, 'month' => 10, 'year' => 2004));
@@ -74,6 +71,8 @@ class Horde_Date_DateTest extends PHPUnit_Framework_TestCase
         $date = new Horde_Date(array('mday' => 1, 'month' => 5, 'year' => 1948));
         $this->assertEquals('-683841600', $date->timestamp());
         $this->assertEquals('-683841600', mktime(0, 0, 0, $date->month, $date->mday, $date->year));
+
+        date_default_timezone_set($oldTimezone);
     }
 
     public function testStrftime()
@@ -121,6 +120,7 @@ class Horde_Date_DateTest extends PHPUnit_Framework_TestCase
 
     public function testSetTimezone()
     {
+        $oldTimezone = date_default_timezone_get();
         date_default_timezone_set('America/New_York');
 
         $date = new Horde_Date('20010203040506');
@@ -134,6 +134,8 @@ class Horde_Date_DateTest extends PHPUnit_Framework_TestCase
 
         $date->setTimezone('Europe/Berlin');
         $this->assertEquals('2001-02-03 05:05:06', (string)$date);
+
+        date_default_timezone_set($oldTimezone);
     }
 
     public function testDateMath()

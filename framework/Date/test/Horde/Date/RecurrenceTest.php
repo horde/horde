@@ -11,6 +11,7 @@ require_once 'Horde/iCalendar.php';
 require_once dirname(__FILE__) . '/../../../lib/Horde/Date.php';
 require_once dirname(__FILE__) . '/../../../lib/Horde/Date/Recurrence.php';
 require_once dirname(__FILE__) . '/../../../lib/Horde/Date/Utils.php';
+date_default_timezone_set('Europe/Berlin');
 
 /**
  * @category   Horde

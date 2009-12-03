@@ -27,7 +27,7 @@ abstract class Horde_Date_Repeater
         }
     }
 
-    public function this($pointer)
+    public function this($pointer = 'future')
     {
         if (is_null($this->now)) {
             throw new Horde_Date_Repeater_Exception('Start point must be set before calling this()');
