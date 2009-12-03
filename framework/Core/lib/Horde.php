@@ -2239,7 +2239,7 @@ HTML;
         $params = new stdClass;
         $pos = strpos($url, '?');
         if ($pos === false) {
-            $params->url = $url;
+            $params->url = (string)$url;
         } else {
             $params->url = substr($url, 0, $pos);
             parse_str(substr($url, $pos + 1), $parsed);
