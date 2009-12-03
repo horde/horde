@@ -32,6 +32,13 @@ class Horde_Url
     public $url;
 
     /**
+     * Whether to output the URL in the raw URL format or HTML-encoded.
+     *
+     * @var boolean
+     */
+    public $raw;
+
+    /**
      * The query parameters.
      *
      * The keys are paramter names, the values parameter values. Array values
@@ -39,14 +46,14 @@ class Horde_Url
      *
      * @var array
      */
-    public $parameters;
+    public $parameters = array();
 
     /**
-     * Whether to output the URL in the raw URL format or HTML-encoded.
+     * Any PATH_INFO to be added to the URL.
      *
-     * @var boolean
+     * @var string
      */
-    public $raw;
+    public $pathInfo;
 
     /**
      * Constructor.
@@ -55,8 +62,19 @@ class Horde_Url
      * @param boolean $raw  Whether to output the URL in the raw URL format or
      *                      HTML-encoded.
      */
-    public function __construct($url, $raw = false)
+    public function __construct($url, $raw = null)
     {
+        /* @todo Remove if all code has been moved to Horde_Url. */
+        if ($url instanceof Horde_Url) {
+            $this->url = $url->url;
+            $this->parameters = $url->parameters;
+            $this->pathInfo = $url->pathInfo;
+            if (is_null($raw)) {
+                $this->raw = $url->raw;
+            }
+            return;
+        }
+
         if (strpos($url, '?') !== false) {
             list($url, $query) = explode('?', $url);
 
@@ -64,9 +82,13 @@ class Horde_Url
              * htmlentities-ized in the URL. */
             if (preg_match('/=.*?&amp;.*?=/', $query)) {
                 $query = html_entity_decode($query);
-                $raw = false;
+                if (is_null($raw)) {
+                    $raw = false;
+                }
             } elseif (preg_match('/=.*?&.*?=/', $query)) {
-                $raw = true;
+                if (is_null($raw)) {
+                    $raw = true;
+                }
             }
             $pairs = explode('&', $query);
             foreach ($pairs as $pair) {
@@ -153,9 +175,15 @@ class Horde_Url
             }
         }
 
-        return count($url_params)
-            ? $this->url . '?' . implode($this->raw ? '&' : '&amp;', $url_params)
-            : $this->url;
+        $url = $this->url;
+        if (strlen($this->pathInfo)) {
+            $url .= '/' . $this->pathInfo;
+        }
+        if (count($url_params)) {
+            $url .= '?' . implode($this->raw ? '&' : '&amp;', $url_params);
+        }
+
+        return $url;
     }
 
 }
