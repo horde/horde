@@ -1199,6 +1199,13 @@ ViewPort_Scroller = Class.create({
         c.observe(Prototype.Browser.Gecko ? 'DOMMouseScroll' : 'mousewheel', function(e) {
             var move_num = Math.min(this.vp.getPageSize(), 3);
             this.moveScroll(this.currentOffset() + ((e.wheelDelta >= 0 || e.detail < 0) ? (-1 * move_num) : move_num));
+            /* Mozilla bug https://bugzilla.mozilla.org/show_bug.cgi?id=502818
+             * Need to stop or else multiple scroll events may be fired. We
+             * lose the ability to have the mousescroll bubble up, but that is
+             * more desirable than having the wrong scrolling behavior. */
+            if (Prototype.Browser.Gecko && !e.stop) {
+                Event.stop(e);
+            }
         }.bindAsEventListener(this));
     },
 
