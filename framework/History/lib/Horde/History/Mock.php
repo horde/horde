@@ -146,7 +146,7 @@ class Horde_History_Mock extends Horde_History
      *
      * @throws Horde_Exception
      */
-    public function _getByTimestamp($cmp, $ts, $filters = array(),
+    public function _getByTimestamp($cmp, $ts, array $filters = array(),
                                     $parent = null)
     {
         $result = array();
@@ -227,7 +227,7 @@ class Horde_History_Mock extends Horde_History
      *
      * @throws Horde_Exception
      */
-    public function removeByNames($names)
+    public function removeByNames(array $names)
     {
         if (!count($names)) {
             return true;
