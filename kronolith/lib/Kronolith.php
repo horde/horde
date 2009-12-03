@@ -171,9 +171,9 @@ class Kronolith
 
         /* Variables used in core javascript files. */
         $code['conf'] = array(
-            'URI_AJAX' => Horde::url($kronolith_webroot . '/ajax.php', true, -1),
+            'URI_AJAX' => (string)Horde::url($kronolith_webroot . '/ajax.php', true, -1),
             'URI_IMG' => $registry->getImageDir() . '/',
-            'URI_SNOOZE' => Horde::url($registry->get('webroot', 'horde') . '/services/snooze.php', true, -1),
+            'URI_SNOOZE' => (string)Horde::url($registry->get('webroot', 'horde') . '/services/snooze.php', true, -1),
             'SESSION_ID' => defined('SID') ? SID : '',
             'user' => Horde_Auth::getAuth(),
             'prefs_url' => str_replace('&amp;', '&', Horde::getServiceLink('options', 'kronolith')),
