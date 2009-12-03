@@ -195,7 +195,7 @@ class Turba_Api extends Horde_Registry_Api
             $shares = Turba::listShares();
             $owners = array('global' => true);
             foreach ($shares as $share) {
-                $owners[$share->get('owner')] = true;
+                $owners[$share->get('owner') ? $share->get('owner') : '-system-'] = true;
             }
 
             foreach (array_keys($owners) as $owner) {
