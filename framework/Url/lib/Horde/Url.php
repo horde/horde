@@ -186,4 +186,33 @@ class Horde_Url
         return $url;
     }
 
+    /**
+     * Generates a HTML link tag out of this URL.
+     *
+     * @param array $attributes A hash with any additional attributes to be
+     *                          added to the link. If the attribute name is
+     *                          suffixed with ".raw", the attribute value
+     *                          won't be HTML-encoded.
+     *
+     * @return string  An <a> tag representing this URL.
+     */
+    public function link(array $attributes = array())
+    {
+        $url = (string)$this;
+        $link = '<a';
+        if (!empty($url)) {
+            $link .= " href=\"$url\"";
+        }
+        foreach ($attributes as $name => $value) {
+            if (substr($name, -4) == '.raw') {
+                $link .= ' ' . htmlspecialchars(substr($name, 0, -4))
+                    . '="' . $value . '"';
+            } else {
+                $link .= ' ' . htmlspecialchars($name)
+                    . '="' . htmlspecialchars($value) . '"';
+            }
+        }
+        return $link . '>';
+    }
+
 }

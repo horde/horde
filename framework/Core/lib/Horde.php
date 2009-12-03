@@ -544,7 +544,7 @@ HTML;
      * @param string $app        The name of the current Horde application.
      * @param boolean $override  Override Horde settings?
      *
-     * @return string  The HTML to create the link.
+     * @return Horde_Url|boolean  The HTML to create the link.
      */
     static public function getServiceLink($type, $app, $override = false)
     {
@@ -557,11 +557,11 @@ HTML;
 
         switch ($type) {
         case 'help':
-            return Horde_Util::addParameter(self::url($webroot . '/services/help/'), array('module' => $app));
+            return self::url($webroot . '/services/help/')->add('module', $app);
 
         case 'problem':
-            $url = self::url($webroot . '/services/problem.php');
-            return Horde_Util::addParameter($url, array('return_url' => urlencode(self::selfUrl(true, true, true))));
+            return self::url($webroot . '/services/problem.php')
+                ->add('return_url', urlencode(self::selfUrl(true, true, true)));
 
         case 'logout':
             return Horde_Auth::getLogoutUrl(array('reason' => Horde_Auth::REASON_LOGOUT));
@@ -572,8 +572,8 @@ HTML;
         case 'options':
         case 'prefsapi':
             if (!in_array($GLOBALS['conf']['prefs']['driver'], array('', 'none'))) {
-                $url = self::url($webroot . ($type == 'options' ? '/services/prefs.php' : '/services/prefs/'));
-                return Horde_Util::addParameter($url, array('app' => $app));
+                return self::url($webroot . ($type == 'options' ? '/services/prefs.php' : '/services/prefs/'))
+                    ->add('app', $app);
             }
             break;
 
@@ -581,7 +581,8 @@ HTML;
             return self::url($webroot . '/services/cache.php', false, -1);
 
         case 'download':
-            return Horde_Util::addParameter(self::url($webroot . '/services/download/'), array('module' => $app));
+            return self::url($webroot . '/services/download/')
+                ->add('module', $app);
 
         case 'go':
             return self::url($webroot . '/services/go.php');
@@ -1252,22 +1253,24 @@ HTML;
                                 $accesskey = '', $attributes = array(),
                                 $escape = true)
     {
+        if (!($url instanceof Horde_Url)) {
+            $url = new Horde_Url($url);
+        }
+
         if (!empty($title2)) {
             $title = $title2;
         }
-
-        $ret = '<a';
-        if (!empty($url)) {
-            $ret .= " href=\"$url\"";
-        }
         if (!empty($onclick)) {
-            $ret .= " onclick=\"$onclick\"";
+            $attributes['onclick'] = $onclick;
         }
         if (!empty($class)) {
-            $ret .= " class=\"$class\"";
+            $attributes['class'] = $class;
         }
         if (!empty($target)) {
-            $ret .= " target=\"$target\"";
+            $attributes['target'] = $target;
+        }
+        if (!empty($accesskey)) {
+            $attributes['accesskey'] = $accesskey;
         }
         if (!empty($title)) {
             if ($escape) {
@@ -1279,19 +1282,13 @@ HTML;
                         nl2br(htmlspecialchars($title, ENT_QUOTES, $charset)),
                         ENT_QUOTES, $charset));
                 error_reporting($old_error);
+                $attributes['title.raw'] = $title;
+            } else {
+                $attributes['title'] = $title;
             }
-            $ret .= ' title="' . $title . '"';
-        }
-        if (!empty($accesskey)) {
-            $ret .= ' accesskey="' . htmlspecialchars($accesskey) . '"';
         }
 
-        foreach ($attributes as $name => $value) {
-            $ret .= ' ' . htmlspecialchars($name) . '="'
-                . htmlspecialchars($value) . '"';
-        }
-
-        return "$ret>";
+        return $url->link($attributes);
     }
 
     /**
