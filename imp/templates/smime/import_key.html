@@ -8,7 +8,7 @@
 
 <table cellspacing="0" width="100%">
  <tr>
-  <td class="header leftAlign" nowrap="nowrap"<if:import_personal_certs> colspan="2"</if:import_personal_certs>><if:import_public_key><gettext>Import Public S/MIME Key</gettext></if:import_public_key><if:import_personal_certs><gettext>Import Personal S/MIME Certificates</gettext></if:import_personal_certs></td>
+  <td class="header leftAlign nowrap"<if:import_personal_certs> colspan="2"</if:import_personal_certs>><if:import_public_key><gettext>Import Public S/MIME Key</gettext></if:import_public_key><if:import_personal_certs><gettext>Import Personal S/MIME Certificates</gettext></if:import_personal_certs></td>
  </tr>
 
 <if:import_public_key>
@@ -65,7 +65,7 @@
 </if:import_personal_certs>
 
  <tr>
-  <td nowrap="nowrap" align="center" class="header" valign="middle">
+  <td align="center" class="header nowrap">
    <input type="submit" name="import" class="button" value="<gettext>Import Key</gettext>" />
    <input type="submit" name="import" class="button" onclick="window.close();" value="<gettext>Cancel</gettext>" />
   </td>
