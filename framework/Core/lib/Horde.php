@@ -1102,7 +1102,7 @@ HTML;
      * @param integer $append_session  0 = only if needed, 1 = always, -1 =
      *                                 never.
      *
-     * @return string  The url with the session id appended.
+     * @return Horde_Url  The url with the session id appended.
      */
     static public function applicationUrl($uri, $full = false,
                                           $append_session = 0)
@@ -1119,7 +1119,7 @@ HTML;
             $uri = $webroot . $uri;
         }
 
-        return (string) self::url($uri, $full, $append_session);
+        return self::url($uri, $full, $append_session);
     }
 
     /**
