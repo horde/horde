@@ -134,3 +134,10 @@ RFC 3156
 
 RFC 3464
     - An Extensible Message Format for Delivery Status Notifications
+
+
+Non-RFC Features
+================
+
+Face Header (view support)
+    - http://quimby.gnus.org/circus/face/

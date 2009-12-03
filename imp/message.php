@@ -258,6 +258,14 @@ if (!empty($from_img)) {
     $display_headers['from'] .= '&nbsp;' . $from_img;
 }
 
+/* Look for Face: information. */
+if ($mime_headers->getValue('face')) {
+    $view_url = IMP::generateIMPUrl('view.php', $imp_mbox['mailbox'], $uid, $mailbox_name);
+    // TODO: Use Data URL
+    $view_url->add('actionID', 'view_face');
+    $display_headers['from'] .= '&nbsp;<img src="' . $view_url . '">';
+}
+
 /* Build To/Cc/Bcc links. */
 foreach (array('to', 'cc', 'bcc') as $val) {
     $msgAddresses[] = $mime_headers->getValue($val);
@@ -362,9 +370,6 @@ if ($next_msg) {
 
 /* Generate the mailbox link. */
 $mailbox_url = Horde_Util::addParameter(IMP::generateIMPUrl('mailbox.php', $imp_mbox['mailbox']), 'start', $msgindex);
-
-/* Generate the view link. */
-$view_link = IMP::generateIMPUrl('view.php', $imp_mbox['mailbox'], $uid, $mailbox_name);
 
 /* Everything below here is related to preparing the output. */
 

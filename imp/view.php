@@ -10,6 +10,7 @@
  *   'download_render'
  *   'save_message'
  *   'view_attach'
+ *   'view_face'
  *   'view_source'
  * 'ctype' - (string) The content-type to use instead of the content-type
  *           found in the original Horde_Mime_Part object.
@@ -193,5 +194,14 @@ case 'save_message':
     echo $hdr;
     rewind($msg);
     fpassthru($msg);
+    break;
+
+case 'view_face':
+    $mime_headers = $contents->getHeaderOb();
+    if ($face = $mime_headers->getValue('face')) {
+        $face = base64_decode($face);
+        $browser->downloadHeaders(null, 'image/png', true, strlen($face));
+        echo $face;
+    }
     break;
 }
