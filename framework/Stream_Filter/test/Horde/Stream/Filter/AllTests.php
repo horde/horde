@@ -31,9 +31,9 @@ class Horde_Stream_Filter_AllTests
         error_reporting(E_ALL | E_STRICT);
 
         // Set up autoload
-        set_include_path(dirname(dirname(dirname(dirname(__FILE__)))) . DIRECTORY_SEPARATOR . 'lib' . PATH_SEPARATOR . get_include_path());
+        set_include_path(dirname(__FILE__) . '/../../../lib' . PATH_SEPARATOR . get_include_path());
         if (!spl_autoload_functions()) {
-            spl_autoload_register(create_function('$class', '$filename = str_replace(array(\'\\\', \'_\'), \'/\', $class); include "$filename.php";'));
+            spl_autoload_register(create_function('$class', '$filename = str_replace(array(\'\\\\\', \'_\'), \'/\', $class); include "$filename.php";'));
         }
 
         $suite = new PHPUnit_Framework_TestSuite('Horde Framework - Horde_Stream_Filter');

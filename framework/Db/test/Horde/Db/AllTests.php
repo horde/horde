@@ -44,10 +44,10 @@ class Horde_Db_AllTests {
         // Ensure a default timezone is set.
         date_default_timezone_set('America/New_York');
 
-        // Set up include_path and autoloading
-        set_include_path(dirname(dirname(dirname(dirname(__FILE__)))) . DIRECTORY_SEPARATOR . 'lib' . PATH_SEPARATOR . get_include_path());
+        // Set up autoload
+        set_include_path(dirname(__FILE__) . '/../../../lib' . PATH_SEPARATOR . get_include_path());
         if (!spl_autoload_functions()) {
-            spl_autoload_register(create_function('$class', '$filename = str_replace(array(\'\\\', \'_\'), \'/\', $class); $er = error_reporting(22525); include "$filename.php"; error_reporting($er);'));
+            spl_autoload_register(create_function('$class', '$filename = str_replace(array(\'\\\\\', \'_\'), \'/\', $class); include "$filename.php";'));
         }
 
         // Build the suite
