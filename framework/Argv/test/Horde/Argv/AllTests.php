@@ -20,28 +20,23 @@ if (!function_exists('_')) {
  * Define the main method
  */
 if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Horde_Url_AllTests::main');
+    define('PHPUnit_MAIN_METHOD', 'Horde_Argv_AllTests::main');
 }
 
 /**
  * Prepare the test setup.
  */
 require_once 'Horde/Test/AllTests.php';
-
-/* Test base classes and helper objects */
-require_once dirname(__FILE__) . '/TestCase.php';
-require_once dirname(__FILE__) . '/ConflictTestCase.php';
-require_once dirname(__FILE__) . '/InterceptedException.php';
-require_once dirname(__FILE__) . '/InterceptingParser.php';
+set_include_path(dirname(__FILE__) . '/../../' . PATH_SEPARATOR . get_include_path());
 
 /**
- * @package    Horde_Url
+ * @package    Horde_Argv
  * @subpackage UnitTests
  */
-class Horde_Url_AllTests extends Horde_Test_AllTests
+class Horde_Argv_AllTests extends Horde_Test_AllTests
 {
 }
 
-if (PHPUnit_MAIN_METHOD == 'Horde_Url_AllTests::main') {
-    Horde_Url_AllTests::main('Horde_Url', __FILE__);
+if (PHPUnit_MAIN_METHOD == 'Horde_Argv_AllTests::main') {
+    Horde_Argv_AllTests::main('Horde_Argv', __FILE__);
 }
