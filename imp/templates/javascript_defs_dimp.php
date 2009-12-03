@@ -13,7 +13,7 @@ $compose_mode = (strstr($_SERVER['PHP_SELF'], 'compose-dimp.php') || strstr($_SE
 $app_urls = $code = $flags = array();
 
 foreach (IMP_Dimp::menuList() as $app) {
-    $app_urls[$app] = Horde::url($GLOBALS['registry']->getInitialPage($app), true);
+    $app_urls[$app] = (string) Horde::url($GLOBALS['registry']->getInitialPage($app), true);
 }
 
 include IMP_BASE . '/config/portal.php';
@@ -21,7 +21,7 @@ foreach ($dimp_block_list as $block) {
     if ($block['ob'] instanceof Horde_Block) {
         $app = $block['ob']->getApp();
         if (empty($app_urls[$app])) {
-            $app_urls[$app] = Horde::url($GLOBALS['registry']->getInitialPage($app), true);
+            $app_urls[$app] = (string) Horde::url($GLOBALS['registry']->getInitialPage($app), true);
         }
     }
 }
@@ -43,14 +43,14 @@ foreach ($imp_flags->getList(array('fgcolor' => true)) as $val) {
 /* Variables used in core javascript files. */
 $code['conf'] = array_filter(array(
     // URL variables
-    'URI_AJAX' => Horde::applicationUrl('ajax.php'),
-    'URI_COMPOSE' => Horde::applicationUrl('compose-dimp.php'),
-    'URI_DIMP' => Horde::applicationUrl('index-dimp.php'),
-    'URI_MESSAGE' => Horde::applicationUrl('message-dimp.php'),
+    'URI_AJAX' => (string) Horde::applicationUrl('ajax.php'),
+    'URI_COMPOSE' => (string) Horde::applicationUrl('compose-dimp.php'),
+    'URI_DIMP' => (string) Horde::applicationUrl('index-dimp.php'),
+    'URI_MESSAGE' => (string) Horde::applicationUrl('message-dimp.php'),
     'URI_PREFS' => (string) Horde::getServiceLink('prefsapi', 'imp'),
     'URI_PREFS_IMP' => str_replace('&amp;', '&', (string) Horde::getServiceLink('options', 'imp')),
-    'URI_SEARCH' => Horde::applicationUrl('search.php'),
-    'URI_VIEW' => Horde::applicationUrl('view.php'),
+    'URI_SEARCH' => (string) Horde::applicationUrl('search.php'),
+    'URI_VIEW' => (string) Horde::applicationUrl('view.php'),
 
     'SESSION_ID' => defined('SID') ? SID : '',
 
@@ -167,7 +167,7 @@ if ($compose_mode) {
     ));
 
     if ($GLOBALS['registry']->hasMethod('contacts/search')) {
-        $code['conf_compose']['URI_ABOOK'] = Horde::applicationUrl('contacts.php');
+        $code['conf_compose']['URI_ABOOK'] = (string) Horde::applicationUrl('contacts.php');
     }
 
     /* Gettext strings used in compose page. */
