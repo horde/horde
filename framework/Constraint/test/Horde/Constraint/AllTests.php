@@ -8,22 +8,23 @@
  * Define the main method
  */
 if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Horde_Horde_Constraint_AllTests::main');
+    define('PHPUnit_MAIN_METHOD', 'Horde_Constraint_AllTests::main');
 }
 
 /**
  * Prepare the test setup.
  */
 require_once 'Horde/Test/AllTests.php';
+set_include_path(dirname(__FILE__) . '/../../' . PATH_SEPARATOR . get_include_path());
 
 /**
- * @package    Horde_Horde_Constraint
+ * @package    Horde_Constraint
  * @subpackage UnitTests
  */
-class Horde_Horde_Constraint_AllTests extends Horde_Test_AllTests
+class Horde_Constraint_AllTests extends Horde_Test_AllTests
 {
 }
 
-if (PHPUnit_MAIN_METHOD == 'Horde_Horde_Constraint_AllTests::main') {
-    Horde_Horde_Constraint_AllTests::main('Horde_Horde_Constraint', __FILE__);
+if (PHPUnit_MAIN_METHOD == 'Horde_Constraint_AllTests::main') {
+    Horde_Constraint_AllTests::main('Horde_Constraint', __FILE__);
 }
