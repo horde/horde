@@ -47,8 +47,8 @@ $code['conf'] = array_filter(array(
     'URI_COMPOSE' => Horde::applicationUrl('compose-dimp.php'),
     'URI_DIMP' => Horde::applicationUrl('index-dimp.php'),
     'URI_MESSAGE' => Horde::applicationUrl('message-dimp.php'),
-    'URI_PREFS' => Horde::getServiceLink('prefsapi', 'imp'),
-    'URI_PREFS_IMP' => str_replace('&amp;', '&', Horde::getServiceLink('options', 'imp')),
+    'URI_PREFS' => (string) Horde::getServiceLink('prefsapi', 'imp'),
+    'URI_PREFS_IMP' => str_replace('&amp;', '&', (string) Horde::getServiceLink('options', 'imp')),
     'URI_SEARCH' => Horde::applicationUrl('search.php'),
     'URI_VIEW' => Horde::applicationUrl('view.php'),
 
