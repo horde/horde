@@ -49,7 +49,7 @@ class Horde_Xml_Element_ElementTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Test', $elt->title(), 'Value before serialization/unserialization');
         $serialized = serialize($elt);
         $unserialized = unserialize($serialized);
-        $this->assertEquals('Test', $unserialized->title(), 'Test', 'Value after serialization/unserialization');
+        $this->assertEquals('Test', $unserialized->title(), 'Value after serialization/unserialization');
     }
 
     public function testArrayGet()
@@ -77,7 +77,7 @@ class Horde_Xml_Element_ElementTest extends PHPUnit_Framework_TestCase
 
     public function testOffsetGet()
     {
-        $this->assertEquals('1.0', $this->element['version'], '1.0', 'Version should be 1.0');
+        $this->assertEquals('1.0', $this->element['version'], 'Version should be 1.0');
         $this->assertEquals('1.0', $this->namespacedElement['version'], 'Version should be 1.0');
     }
 
