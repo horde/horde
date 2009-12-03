@@ -233,56 +233,13 @@ class Horde_Util
             return $url;
         }
 
-        $add = array();
-        $arg = $encode ? '&amp;' : '&';
-
-        if (strpos($url, '?') !== false) {
-            list($url, $query) = explode('?', $url);
-
-            /* Check if the argument separator has been already
-             * htmlentities-ized in the URL. */
-            if (preg_match('/=.*?&amp;.*?=/', $query)) {
-                $query = html_entity_decode($query);
-                $arg = '&amp;';
-            } elseif (preg_match('/=.*?&.*?=/', $query)) {
-                $arg = '&';
-            }
-            $pairs = explode('&', $query);
-            foreach ($pairs as $pair) {
-                $pair = explode('=', urldecode($pair), 2);
-                $pair_val = (count($pair) == 2) ? $pair[1] : '';
-                if (substr($pair[0], -2) == '[]') {
-                    $name = substr($pair[0], 0, -2);
-                    if (!isset($add[$name])) {
-                        $add[$name] = array();
-                    }
-                    $add[$name][] = $pair_val;
-                } else {
-                    $add[$pair[0]] = $pair_val;
-                }
-            }
+        if ($url instanceof Horde_Url) {
+            $url->raw = !$encode;
+            return $url->add($parameter, $value);
         }
 
-        if (is_array($parameter)) {
-            $add = array_merge($add, $parameter);
-        } else {
-            $add[$parameter] = $value;
-        }
-
-        $url_params = array();
-        foreach ($add as $parameter => $value) {
-            if (is_array($value)) {
-                foreach ($value as $val) {
-                    $url_params[] = rawurlencode($parameter) . '[]=' . rawurlencode($val);
-                }
-            } else {
-                $url_params[] = rawurlencode($parameter) . '=' . rawurlencode($value);
-            }
-        }
-
-        return count($url_params)
-            ? $url . '?' . implode($arg, $url_params)
-            : $url;
+        $horde_url = new Horde_Url($url, !$encode);
+        return $horde_url->add($parameter, $value);
     }
 
     /**
@@ -296,61 +253,13 @@ class Horde_Util
      */
     static public function removeParameter($url, $remove)
     {
-        if (!is_array($remove)) {
-            $remove = array($remove);
+        $horde_url = new Horde_Url($url);
+
+        if ($url instanceof Horde_Url) {
+            return $url->remove($parameter);
         }
 
-        /* Return immediately if there are no parameters to remove. */
-        if (($pos = strpos($url, '?')) === false) {
-            return $url;
-        }
-
-        $entities = false;
-        list($url, $query) = explode('?', $url, 2);
-
-        /* Check if the argument separator has been already
-         * htmlentities-ized in the URL. */
-        if (preg_match('/=.*?&amp;.*?=/', $query)) {
-            $entities = true;
-            $query = html_entity_decode($query);
-        }
-
-        /* Get the list of parameters. */
-        $pairs = explode('&', $query);
-        $params = array();
-        foreach ($pairs as $pair) {
-            $pair = explode('=', $pair, 2);
-            $params[$pair[0]] = count($pair) == 2 ? $pair[1] : '';
-        }
-
-        /* Remove the parameters. */
-        foreach ($remove as $param) {
-            unset($params[$param]);
-        }
-
-        if (!count($params)) {
-            return $url;
-        }
-
-        /* Flatten arrays.
-         * FIXME: should handle more than one array level somehow. */
-        $add = array();
-        foreach ($params as $key => $val) {
-            if (is_array($val)) {
-                foreach ($val as $v) {
-                    $add[] = $key . '[]=' . $v;
-                }
-            } else {
-                $add[] = $key . '=' . $val;
-            }
-        }
-
-        $query = implode('&', $add);
-        if ($entities) {
-            $query = htmlentities($query);
-        }
-
-        return $url . '?' . $query;
+        return $horde_url->remove($remove);
     }
 
     /**
