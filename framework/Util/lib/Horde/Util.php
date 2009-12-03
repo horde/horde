@@ -217,12 +217,13 @@ class Horde_Util
      * there are existing parameters and whether to use ?, & or &amp; as the
      * glue.  All data will be urlencoded.
      *
-     * @param string $url       The URL to modify
-     * @param mixed $parameter  Either the name value -or- an array of
-     *                          name/value pairs.
-     * @param string $value     If specified, the value part ($parameter is
-     *                          then assumed to just be the parameter name).
-     * @param boolean $encode   Encode the argument separator?
+     * @param Horde_Url|string $url  The URL to modify.
+     * @param mixed $parameter       Either the name value -or- an array of
+     *                               name/value pairs.
+     * @param string $value          If specified, the value part ($parameter
+     *                               is then assumed to just be the parameter
+     *                               name).
+     * @param boolean $encode        Encode the argument separator?
      *
      * @return string  The modified URL.
      */
@@ -245,9 +246,9 @@ class Horde_Util
     /**
      * Removes name=value pairs from a URL.
      *
-     * @param string $url    The URL to modify.
-     * @param mixed $remove  Either a single parameter to remove or an array
-     *                       of parameters to remove.
+     * @param Horde_Url|string $url  The URL to modify.
+     * @param mixed $remove          Either a single parameter to remove or an
+     *                               array of parameters to remove.
      *
      * @return string  The modified URL.
      */
@@ -266,10 +267,10 @@ class Horde_Util
      * Returns a url with the 'nocache' parameter added, if the browser is
      * buggy and caches old URLs.
      *
-     * @param string $url      The URL to modify.
-     * @param boolean $encode  Encode the argument separator?
+     * @param Horde_Url|string $url  The URL to modify.
+     * @param boolean $encode        Encode the argument separator?
      *
-     * @return string  The requested URI.
+     * @return string  The requested URL.
      */
     static public function nocacheUrl($url, $encode = true)
     {
