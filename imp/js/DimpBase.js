@@ -9,8 +9,8 @@
 
 var DimpBase = {
     // Vars used and defaulting to null/false:
-    //   cfolderaction, folder, folderswitch, offset, pollPE, pp, search,
-    //   template, uid, viewport
+    //   cfolderaction, folder, folderswitch, needSFL, offset, pollPE, pp,
+    //   resize, search, splitbar, template, uid, viewport
     // msglist_template_horiz and msglist_template_vert set via
     //   js/mailbox-dimp.js
     cacheids: {},
@@ -2085,8 +2085,8 @@ var DimpBase = {
             (Prototype.Browser.IE &&
              Object.isUndefined(nfheight) &&
              (nf.getStyle('height') == '0px'))) {
+            this.needSFL = true;
             this._sizeFolderlist();
-            Event.observe(window, 'resize', this._sizeFolderlist.bind(this));
         }
 
         if (r.response.quota) {
@@ -2341,8 +2341,10 @@ var DimpBase = {
 
     _sizeFolderlist: function()
     {
-        var nf = $('normalfolders');
-        nf.setStyle({ height: (document.viewport.getHeight() - nf.cumulativeOffset()[1]) + 'px' });
+        if (this.needSFL) {
+            var nf = $('normalfolders');
+            nf.setStyle({ height: (document.viewport.getHeight() - nf.cumulativeOffset()[1]) + 'px' });
+        }
     },
 
     toggleSubscribed: function()
@@ -2615,6 +2617,7 @@ var DimpBase = {
         document.observe('keydown', this.keydownHandler.bindAsEventListener(this));
         document.observe('change', this.changeHandler.bindAsEventListener(this));
         document.observe('dblclick', this.dblclickHandler.bindAsEventListener(this));
+        Event.observe(window, 'resize', this.onResize.bind(this));
 
         /* Limit to folders sidebar only. */
         $('foldersSidebar').observe('mouseover', this.mouseoverHandler.bindAsEventListener(this));
@@ -2623,7 +2626,24 @@ var DimpBase = {
         $('sidebar').setStyle({ width: DIMP.conf.sidebar_width });
         $('dimpLoading').hide();
         $('dimpPage').show();
-        $('dimpmain').setStyle({ left: $('sidebar').getWidth() + 'px' });
+
+        /* Create splitbar for sidebar. */
+        tmp = $('sidebar').getWidth();
+        this.splitbar = new Element('DIV', { className: 'splitBarVertSidebar' }).setStyle({ height: document.viewport.getHeight() + 'px', left: tmp + 'px' });
+        $('sidebar').insert({ after: this.splitbar });
+        new Drag(this.splitbar, {
+            constraint: 'horizontal',
+            ghosting: true,
+            nodrop: true,
+            onEnd: function(drag) {
+                var w = drag.lastCoord[0];
+                $('sidebar').setStyle({ width: w + 'px' });
+                drag.element.setStyle({ left: w + 'px' });
+                $('dimpmain').setStyle({ left: (w + drag.element.getWidth()) + 'px' });
+            }
+        });
+
+        $('dimpmain').setStyle({ left: (tmp + this.splitbar.getWidth()) + 'px' });
 
         /* Create the folder list. Any pending notifications will be caught
          * via the return from this call. */
@@ -2694,7 +2714,6 @@ var DimpBase = {
         if (DimpCore.is_ie6) {
             /* Disable text selection in preview pane for IE 6. */
             document.observe('selectstart', Event.stop);
-            Event.observe(window, 'resize', this._resizeIE6.bind(this));
 
             /* Since IE 6 doesn't support hover over non-links, use javascript
              * events to replicate mouseover CSS behavior. */
@@ -2731,6 +2750,25 @@ var DimpBase = {
     {
         if (DimpCore.is_ie6) {
             iframe.setStyle({ width: $('dimpmain').getStyle('width'), height: (document.viewport.getHeight() - 20) + 'px' });
+        }
+    },
+
+    /* Resize function. */
+    onResize: function()
+    {
+        if (this.resize) {
+            clearTimeout(this.resize);
+        }
+
+        this.resize = this._onResize.bind(this).delay(0.1);
+    },
+
+    _onResize: function()
+    {
+        this.splitbar.setStyle({ height: document.viewport.getHeight() + 'px' });
+        if (DimpCore.is_ie6) {
+            this._resizeIE6();
+            this._sizeFolderlist();
         }
     }
 

@@ -18,20 +18,19 @@ input {
 /* Main container styles. */
 #sidebar {
     background: #eee;
-    border-right: 1px silver solid;
+    bottom: 0;
     cursor: default;
     left: 0;
+    padding: 5px 0 0 5px;
     position: absolute;
     top: 0;
-    padding: 5px 0 0 5px;
-    z-index: 1;
 }
 #dimpmain {
     bottom: 0;
     margin-left: 5px;
     position: absolute;
-    right: 4px;
-    top: 4px;
+    right: 3px;
+    top: 2px;
 }
 
 /* ini header */
@@ -82,14 +81,14 @@ input {
     cursor: pointer;
 }
 
-/* SplitPane styles. */
+/* Splitbar styles. */
 #msgSplitPane {
     border-left: 1px silver solid;
     border-right: 1px silver solid;
     border-bottom: 1px silver solid;
     position: relative;
 }
-.splitBarHoriz, .splitBarVert {
+.splitBarHoriz, .splitBarVert, .splitBarVertSidebar {
     background: #e9e9e9 no-repeat scroll;
     z-index: 10;
 }
@@ -101,7 +100,7 @@ input {
     cursor: row-resize;
     height: 5px;
 }
-.splitBarVert {
+.splitBarVert, .splitBarVertSidebar {
     background-image: url("graphics/dragHandleVert.png");
     background-position: center;
     border-right: 1px solid silver;
@@ -109,6 +108,9 @@ input {
     cursor: col-resize;
     height: 300px;
     width: 5px;
+}
+.splitBarVertSidebar {
+    position: absolute;
 }
 
 /* Message List */

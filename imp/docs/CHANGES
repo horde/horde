@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Add splitbar to resize sidebar in DIMP.
 [mms] Use LIST-EXTENDED IMAP extension (RFC 5258) to get subscribed
       mailbox information, if available.
 [mms] Split ham/spam reporting actions into two separate preferences (Request
