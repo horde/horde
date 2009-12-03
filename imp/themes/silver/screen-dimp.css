@@ -1,10 +1,10 @@
 #ctx_folder_sub span.contextImg, #ctx_folder_unsub span.contextImg, #ctx_folderopts_sub span.contextImg, #ctx_folderopts_unsub span.contextImg {
     background-image: url("graphics/folders/explore.png");
 }
-#sidebarPanel span.col, #ctx_folderopts_collapse span.contextImg, #ctx_container_collapse span.contextImg, #ctx_folder_collapse span.contextImg {
+#sidebar span.col, #ctx_folderopts_collapse span.contextImg, #ctx_container_collapse span.contextImg, #ctx_folder_collapse span.contextImg {
     background-image: url("graphics/folders/minus.png");
 }
-#sidebarPanel span.exp, #ctx_folderopts_expand span.contextImg, #ctx_container_expand span.contextImg, #ctx_folder_expand span.contextImg {
+#sidebar span.exp, #ctx_folderopts_expand span.contextImg, #ctx_container_expand span.contextImg, #ctx_folder_expand span.contextImg {
     background-image: url("graphics/folders/plus.png");
 }
 

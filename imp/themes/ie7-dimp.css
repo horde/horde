@@ -2,10 +2,10 @@
  * CSS corrections for IE 7.
  */
 
-#sidebarPanel li {
+#sidebar li {
     overflow: hidden;
 }
-#sidebarPanel .folderlist {
+#sidebar .folderlist {
     overflow-y: auto;
 }
 
@@ -21,7 +21,7 @@
     border-width: 2px;
 }
 
-#sidebarPanel li.folder a:hover, #sidebarPanel li.custom a:hover, #sidebarPanel li.servicelink a:hover {
+#sidebar li.folder a:hover, #sidebar li.custom a:hover, #sidebar li.servicelink a:hover {
     font-weight: bold;
     text-decoration: underline;
 }

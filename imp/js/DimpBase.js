@@ -294,7 +294,7 @@ var DimpBase = {
             return;
         }
 
-        var curr = $('sidebarPanel').down('.on'),
+        var curr = $('sidebar').down('.on'),
             elt = $(id);
 
         if (curr == elt) {
@@ -2620,10 +2620,10 @@ var DimpBase = {
         $('foldersSidebar').observe('mouseover', this.mouseoverHandler.bindAsEventListener(this));
 
         /* Show page now. */
-        $('sidebarPanel').setStyle({ width: DIMP.conf.sidebar_width });
+        $('sidebar').setStyle({ width: DIMP.conf.sidebar_width });
         $('dimpLoading').hide();
         $('dimpPage').show();
-        $('dimpmain').setStyle({ left: $('sidebarPanel').getWidth() + 'px' });
+        $('dimpmain').setStyle({ left: $('sidebar').getWidth() + 'px' });
 
         /* Create the folder list. Any pending notifications will be caught
          * via the return from this call. */
@@ -2714,7 +2714,7 @@ var DimpBase = {
     _resizeIE6: function()
     {
         if (DimpCore.is_ie6) {
-            var tmp = parseInt($('sidebarPanel').getStyle('width'), 10),
+            var tmp = parseInt($('sidebar').getStyle('width'), 10),
                 tmp1 = document.viewport.getWidth() - tmp - 30;
             $('normalfolders').setStyle({ width: tmp + 'px' });
             $('dimpmain').setStyle({ width: tmp1 + 'px' });

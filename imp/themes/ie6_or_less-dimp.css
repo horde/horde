@@ -6,11 +6,11 @@
     height: auto;
 }
 
-#sidebarPanel .sepfull, .splitBar, .context div.sep {
+#sidebar .sepfull, .splitBar, .context div.sep {
     overflow: hidden;
 }
 
-#sidebarPanel li {
+#sidebar li {
     width: 100%;
 }
 

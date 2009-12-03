@@ -41,7 +41,7 @@ function _simpleButton($id, $text, $image)
 <div id="dimpPage" style="display:none">
  <div id="header"></div>
  <div id="pageContainer">
-  <div id="sidebarPanel">
+  <div id="sidebar">
    <div id="logo">
     <a id="logolink"><?php echo _("Horde") ?></a>
    </div>

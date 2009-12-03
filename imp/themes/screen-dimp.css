@@ -16,18 +16,15 @@ input {
 }
 
 /* Main container styles. */
-#sidebarPanel {
-    bottom: 0;
-    border-bottom: 0;
+#sidebar {
+    background: #eee;
+    border-right: 1px silver solid;
     cursor: default;
     left: 0;
     position: absolute;
     top: 0;
     padding: 5px 0 0 5px;
-    white-space: normal;
     z-index: 1;
-    -moz-border-radius-bottomright: 0;
-    -webkit-border-bottom-right-radius: 0;
 }
 #dimpmain {
     bottom: 0;
@@ -301,46 +298,48 @@ div.vpRowVert.flagUnseen {
 }
 
 /* Sidebar */
-#sidebarPanel .sepfull {
+#sidebar .sepfull {
     height: 1px !important;
     margin: 5px 0;
     background: silver;
 }
-#sidebarPanel .count {
+#sidebar .count {
     color: silver;
 }
-#sidebarPanel li {
+#sidebar li {
     list-style: none;
     height: 16px;
     line-height: 16px;
     padding-top: 1px;
     white-space: nowrap;
 }
-#sidebarPanel li a, #sidebarPanel li.folder, #sidebarPanel li.container, #sidebarPanel li.custom, #sidebarPanel li.servicelink {
+#sidebar li a, #sidebar li.folder, #sidebar li.container, #sidebar li.custom, #sidebar li.servicelink {
+    color: #000;
+    font-size: 95%;
     text-decoration: none;
 }
-#sidebarPanel li.servicelink a {
+#sidebar li.servicelink a {
     font-weight: bold;
 }
-#sidebarPanel li.custom {
+#sidebar li.custom {
     background: transparent none;
 }
-#sidebarPanel li.custom img {
+#sidebar li.custom img {
     float: left;
     padding: 1px 4px 0 0;
     margin-bottom: -1px;
 }
-#sidebarPanel li.on {
+#sidebar li.on {
     background: #ffa;
 }
-#sidebarPanel li.subfolders {
+#sidebar li.subfolders {
     height: auto;
     margin: 0;
 }
-#sidebarPanel li.subfolders ul {
+#sidebar li.subfolders ul {
     padding-left: 10px;
 }
-#sidebarPanel span.iconSpan {
+#sidebar span.iconSpan {
     display: inline;
     float: left;
     width: 20px;
@@ -350,10 +349,10 @@ div.vpRowVert.flagUnseen {
 #ctx_folder_sub span.contextImg, #ctx_folder_unsub span.contextImg, #ctx_folderopts_sub span.contextImg, #ctx_folderopts_unsub span.contextImg {
     background-image: url("graphics/folders/folder.png");
 }
-#sidebarPanel span.col, #ctx_folderopts_collapse span.contextImg, #ctx_container_collapse span.contextImg, #ctx_folder_collapse span.contextImg {
+#sidebar span.col, #ctx_folderopts_collapse span.contextImg, #ctx_container_collapse span.contextImg, #ctx_folder_collapse span.contextImg {
     background-image: url("graphics/folders/minus.png");
 }
-#sidebarPanel span.exp, #ctx_folderopts_expand span.contextImg, #ctx_container_expand span.contextImg, #ctx_folder_expand span.contextImg {
+#sidebar span.exp, #ctx_folderopts_expand span.contextImg, #ctx_container_expand span.contextImg, #ctx_folder_expand span.contextImg {
     background-image: url("graphics/folders/plus.png");
 }
 #normalfolders {
@@ -362,12 +361,12 @@ div.vpRowVert.flagUnseen {
 #normalfolders li.unsubFolder {
     font-style: italic;
 }
-#sidebarPanel .over a, #sidebarPanel li.folder:hover, #sidebarPanel li.custom:hover, #sidebarPanel li.servicelink:hover {
+#sidebar .over a, #sidebar li.folder:hover, #sidebar li.custom:hover, #sidebar li.servicelink:hover {
     cursor: pointer;
     font-weight: bold;
     text-decoration: underline;
 }
-#sidebarPanel .container span.iconSpan {
+#sidebar .container span.iconSpan {
     cursor: pointer;
 }
 
@@ -1082,7 +1081,7 @@ span.readonlyImg {
         display: block !important;
     }
 
-    #sidebarPanel, #dimpmain_folder_top, #msgSplitPane .msglist, div.sbdiv, .splitBar, #toggleHeaders, #Growler, #GrowlerLog, #writemsg, .dimpActions, .dimpOptions {
+    #sidebar, #dimpmain_folder_top, #msgSplitPane .msglist, div.sbdiv, .splitBar, #toggleHeaders, #Growler, #GrowlerLog, #writemsg, .dimpActions, .dimpOptions {
         display: none !important;
     }
 
