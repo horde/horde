@@ -1020,7 +1020,7 @@ HTML;
      * @param boolean $force_ssl       Ignore $conf['use_ssl'] and force
      *                                 creation of a SSL URL?
      *
-     * @return string  The URL with the session id appended (if needed).
+     * @return Horde_Url  The URL with the session id appended (if needed).
      */
     static public function url($uri, $full = false, $append_session = 0,
                                $force_ssl = false)
@@ -1088,24 +1088,7 @@ HTML;
             }
         }
 
-        if (empty($GLOBALS['conf']['session']['use_only_cookies']) &&
-            (($append_session == 1) ||
-             (($append_session == 0) &&
-              !isset($_COOKIE[session_name()])))) {
-            $url = Horde_Util::addParameter($url, session_name(), session_id());
-        }
-
-        if ($full) {
-            /* We need to run the replace twice, because we only catch every
-             * second match. */
-            return preg_replace(array('/(=?.*?)&amp;(.*?=)/',
-                                      '/(=?.*?)&amp;(.*?=)/'),
-                                '$1&$2', $url);
-        } elseif (preg_match('/=.*&amp;.*=/', $url)) {
-            return $url;
-        } else {
-            return htmlentities($url);
-        }
+        return new Horde_Url($url, $full);
     }
 
     /**
@@ -1179,7 +1162,7 @@ HTML;
      *                          the file 'view.php' located in the current
      *                          app's base directory.
      *
-     * @return string  The download URL.
+     * @return Horde_Url  The download URL.
      */
     static public function downloadUrl($filename, $params = array(),
                                        $url = null)
@@ -1195,7 +1178,7 @@ HTML;
 
         /* Add parameters. */
         if (!is_null($params)) {
-            $url = Horde_Util::addParameter($url, $params);
+            $url->add($params);
         }
 
         /* If we are using the default Horde download link, add the
@@ -1203,12 +1186,13 @@ HTML;
          * many browsers, this should allow every browser to download
          * correctly. */
         if ($horde_url) {
-            $url = Horde_Util::addParameter($url, 'fn', '/' . rawurlencode($filename));
+            $url->add('fn', '/' . rawurlencode($filename));
         } elseif ($browser->hasQuirk('break_disposition_filename')) {
             /* Some browsers will only obtain the filename correctly
              * if the extension is the last argument in the query
              * string and rest of the filename appears in the
              * PATH_INFO element. */
+            $url = (string)$url;
             $filename = rawurlencode($filename);
 
             /* Get the webserver ID. */
@@ -1234,10 +1218,11 @@ HTML;
                     $url .= $name;
                 }
             }
+            $url = new Horde_Url($url);
 
             /* Append the extension, if it exists. */
             if (($server == 'apache2') || !empty($ext)) {
-                $url = Horde_Util::addParameter($url, 'fn_ext', '/' . $filename);
+                $url->add('fn_ext', '/' . $filename);
             }
         }
 
@@ -1247,18 +1232,18 @@ HTML;
     /**
      * Returns an anchor tag with the relevant parameters
      *
-     * @param string $url        The full URL to be linked to.
-     * @param string $title      The link title/description.
-     * @param string $class      The CSS class of the link.
-     * @param string $target     The window target to point to.
-     * @param string $onclick    JavaScript action for the 'onclick' event.
-     * @param string $title2     The link title (tooltip) (deprecated - just
-     *                           use $title).
-     * @param string $accesskey  The access key to use.
-     * @param array $attributes  Any other name/value pairs to add to the <a>
-     *                           tag.
-     * @param boolean $escape    Whether to escape special characters in the
-     *                           title attribute.
+     * @param Horde_Url|string $url  The full URL to be linked to.
+     * @param string $title          The link title/description.
+     * @param string $class          The CSS class of the link.
+     * @param string $target         The window target to point to.
+     * @param string $onclick        JavaScript action for the 'onclick' event.
+     * @param string $title2         The link title (tooltip) (deprecated - just
+     *                               use $title).
+     * @param string $accesskey      The access key to use.
+     * @param array $attributes      Any other name/value pairs to add to the
+     *                               <a> tag.
+     * @param boolean $escape        Whether to escape special characters in the
+     *                               title attribute.
      *
      * @return string  The full <a href> tag.
      */
