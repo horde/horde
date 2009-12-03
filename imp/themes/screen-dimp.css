@@ -357,9 +357,6 @@ div.vpRowVert.flagUnseen {
 #sidebar span.exp, #ctx_folderopts_expand span.contextImg, #ctx_container_expand span.contextImg, #ctx_folder_expand span.contextImg {
     background-image: url("graphics/folders/plus.png");
 }
-#normalfolders {
-    overflow-x: hidden;
-}
 #normalfolders li.unsubFolder {
     font-style: italic;
 }
@@ -370,6 +367,10 @@ div.vpRowVert.flagUnseen {
 }
 #sidebar .container span.iconSpan {
     cursor: pointer;
+}
+
+#logo, #dimpbarActions, #serviceActions, #foldersSidebar {
+    overflow-x: hidden;
 }
 
 #folderopts a {
