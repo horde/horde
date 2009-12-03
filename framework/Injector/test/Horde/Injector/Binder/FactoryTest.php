@@ -3,7 +3,7 @@ class Horde_Injector_Binder_FactoryTest extends Horde_Test_Case
 {
     public function testShouldCallFactoryMethod()
     {
-        $factory = $this->getMock('Factory', array('create'));
+        $factory = $this->getMockSkipConstructor('Horde_Injector_Binder_Factory', array('create'));
         $factory->expects($this->once())
             ->method('create')
             ->with()
