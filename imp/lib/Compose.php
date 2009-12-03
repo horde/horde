@@ -1289,16 +1289,41 @@ class IMP_Compose
             ? 'Re: '
             : 'Re: ' . $GLOBALS['imp_imap']->ob()->utils->getBaseSubject($subject, array('keepblob' => true));
 
+        $force = false;
         if (in_array($type, array('reply', 'reply_auto', '*'))) {
-            ($header['to'] = $to) ||
-            ($header['to'] = Horde_Mime_Address::addrArray2String($h->getOb('reply-to'))) ||
-            ($header['to'] = Horde_Mime_Address::addrArray2String($h->getOb('from')));
+            if (($header['to'] = $to) ||
+                ($header['to'] = Horde_Mime_Address::addrArray2String($h->getOb('reply-to')))) {
+                $force = true;
+            } else {
+                $header['to'] = Horde_Mime_Address::addrArray2String($h->getOb('from'));
+            }
+
             if ($type == '*') {
                 $all_headers['reply'] = $header;
             }
         }
 
-        if (in_array($type, array('reply_all', 'reply_auto', '*'))) {
+        /* We might need $list_info in the reply_all section. */
+        if (in_array($type, array('reply_auto', 'reply_list', '*'))) {
+            $imp_ui = new IMP_Ui_Message();
+            $list_info = $imp_ui->getListInformation($h);
+        } else {
+            $list_info = null;
+        }
+
+        if (!is_null($list_info) && !empty($list_info['reply_list'])) {
+            $header['to'] = $list_info['reply_list'];
+            if ($type == '*') {
+                $all_headers['reply_list'] = $header;
+            }
+
+            $reply_type = 'reply_list';
+        } elseif (in_array($type, array('reply_all', 'reply_auto', '*'))) {
+            /* Clear the To field if we are auto-determining addresses. */
+            if ($type == 'reply_auto') {
+                $header['to'] = '';
+            }
+
             /* Filter out our own address from the addresses we reply to. */
             $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
             $all_addrs = array_keys($identity->getAllFromAddresses(true));
@@ -1308,6 +1333,12 @@ class IMP_Compose
              * personal address), or 3) all remaining Cc addresses. */
             $cc_addrs = array();
             foreach (array('reply-to', 'from', 'to', 'cc') as $val) {
+                /* If either a reply-to or $to is present, we use this address
+                 * INSTEAD of the from address. */
+                if ($force && ($val == 'from')) {
+                    continue;
+                }
+
                 $ob = $h->getOb($val);
                 if (!empty($ob)) {
                     $addr_obs = Horde_Mime_Address::getAddressesFromObject($ob, array('filter' => $all_addrs));
@@ -1317,12 +1348,19 @@ class IMP_Compose
                             foreach ($addr_obs[0]['addresses'] as $addr_ob) {
                                 $all_addrs[] = $addr_ob['inner'];
                             }
-                        } else {
+                        } elseif (($val != 'to') ||
+                                  is_null($list_info) ||
+                                  !$force ||
+                                  empty($list_info['exists'])) {
+                            /* Don't add To address if this is a list that
+                             * doesn't have a post address but does have a
+                             * reply-to address. */
                             if ($val == 'reply-to') {
                                 $header['to'] = $addr_obs[0]['address'];
                             } else {
                                 $cc_addrs = array_merge($cc_addrs, $addr_obs);
                             }
+
                             foreach ($addr_obs as $addr_ob) {
                                 $all_addrs[] = $addr_ob['inner'];
                             }
@@ -1341,11 +1379,6 @@ class IMP_Compose
                 }
             }
 
-            /* Clear the To field if we are auto-determining list. */
-            if ($type == 'reply_auto') {
-                $header['to'] = '';
-            }
-
             $header[empty($header['to']) ? 'to' : 'cc'] = rtrim(implode('', $hdr_cc), ' ,');
 
             /* Build the Bcc: header. */
@@ -1355,19 +1388,6 @@ class IMP_Compose
             }
 
             $reply_type = 'reply_all';
-        }
-
-        if (in_array($type, array('reply_auto', 'reply_list', '*'))) {
-            $imp_ui = new IMP_Ui_Message();
-            $list_info = $imp_ui->getListInformation($h);
-            if ($list_info['exists']) {
-                $header['to'] = $list_info['reply_list'];
-                if ($type == '*') {
-                    $all_headers['reply_list'] = $header;
-                }
-            }
-
-            $reply_type = 'reply_list';
         }
 
         if ($type == '*') {
