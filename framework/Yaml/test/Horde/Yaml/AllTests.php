@@ -13,7 +13,7 @@
  * Define the main method
  */
 if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Horde_Url_AllTests::main');
+    define('PHPUnit_MAIN_METHOD', 'Horde_Yaml_AllTests::main');
 }
 
 /**
@@ -23,13 +23,13 @@ require_once 'Horde/Test/AllTests.php';
 require_once dirname(__FILE__) . '/Helpers.php';
 
 /**
- * @package    Horde_Url
+ * @package    Horde_Yaml
  * @subpackage UnitTests
  */
-class Horde_Url_AllTests extends Horde_Test_AllTests
+class Horde_Yaml_AllTests extends Horde_Test_AllTests
 {
 }
 
-if (PHPUnit_MAIN_METHOD == 'Horde_Url_AllTests::main') {
-    Horde_Url_AllTests::main('Horde_Url', __FILE__);
+if (PHPUnit_MAIN_METHOD == 'Horde_Yaml_AllTests::main') {
+    Horde_Yaml_AllTests::main('Horde_Yaml', __FILE__);
 }
