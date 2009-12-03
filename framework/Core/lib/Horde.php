@@ -1119,7 +1119,7 @@ HTML;
             $uri = $webroot . $uri;
         }
 
-        return self::url($uri, $full, $append_session);
+        return (string) self::url($uri, $full, $append_session);
     }
 
     /**
