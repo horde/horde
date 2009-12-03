@@ -15,7 +15,7 @@
 /**
  * @package Horde_Routes
  */
-class GenerationTest extends PHPUnit_Framework_TestCase
+class Horde_Routes_GenerationTest extends PHPUnit_Framework_TestCase
 {
 
     public function testAllStaticNoReqs()

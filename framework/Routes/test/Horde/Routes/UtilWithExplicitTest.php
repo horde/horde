@@ -17,7 +17,7 @@ require_once dirname(__FILE__) . '/TestHelper.php';
 /**
  * @package Horde_Routes
  */
-class UtilWithExplicitTest extends PHPUnit_Framework_TestCase {
+class Horde_Routes_UtilWithExplicitTest extends PHPUnit_Framework_TestCase {
 
     public function setUp()
     {
