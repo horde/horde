@@ -23,6 +23,9 @@ class Horde_Support_AllTests {
 
     public static function suite()
     {
+        // Catch strict standards
+        error_reporting(E_ALL | E_STRICT);
+
         // Set up autoload
         set_include_path(dirname(__FILE__) . '/../../../lib' . PATH_SEPARATOR . get_include_path());
         if (!spl_autoload_functions()) {

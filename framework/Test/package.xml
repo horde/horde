@@ -30,6 +30,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Test">
+      <file name="AllTests.php" role="php" />
       <file name="Case.php" role="php" />
       <file name="Functional.php" role="php" />
      </dir> <!-- /lib/Horde/Test -->
@@ -53,6 +54,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
+   <install name="lib/Horde/Test/AllTests.php" as="Horde/Test/AllTests.php" />
    <install name="lib/Horde/Test/Case.php" as="Horde/Test/Case.php" />
    <install name="lib/Horde/Test/Functional.php" as="Horde/Test/Functional.php" />
   </filelist>
