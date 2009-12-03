@@ -257,7 +257,7 @@ class Horde_Util
         $horde_url = new Horde_Url($url);
 
         if ($url instanceof Horde_Url) {
-            return $url->remove($parameter);
+            return $url->remove($remove);
         }
 
         return $horde_url->remove($remove);
