@@ -100,7 +100,7 @@ case 'download_all':
         rewind($body);
         fpassthru($body);
     }
-    exit;
+    break;
 
 case 'download_attach':
 case 'download_render':
@@ -150,7 +150,7 @@ case 'download_render':
         $browser->downloadHeaders($name, $type, false, strlen($body));
         echo $body;
     }
-    exit;
+    break;
 
 case 'compose_attach_preview':
 case 'view_attach':
@@ -161,7 +161,7 @@ case 'view_attach':
         $browser->downloadHeaders($render[$key]['name'], $render[$key]['type'], true, strlen($render[$key]['data']));
         echo $render[$key]['data'];
     }
-    exit;
+    break;
 
 case 'view_source':
     $msg = $contents->fullMessageText(array('stream' => true));
@@ -169,7 +169,7 @@ case 'view_source':
     $browser->downloadHeaders('Message Source', 'text/plain', true, ftell($msg));
     rewind($msg);
     fpassthru($msg);
-    exit;
+    break;
 
 case 'save_message':
     $mime_headers = $contents->getHeaderOb();
@@ -193,5 +193,5 @@ case 'save_message':
     echo $hdr;
     rewind($msg);
     fpassthru($msg);
-    exit;
+    break;
 }
