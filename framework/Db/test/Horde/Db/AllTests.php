@@ -16,7 +16,7 @@
  * Define the main method
  */
 if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Horde_Url_AllTests::main');
+    define('PHPUnit_MAIN_METHOD', 'Horde_Db_AllTests::main');
 }
 
 /**
@@ -29,13 +29,13 @@ require_once dirname(__FILE__) . '/Adapter/MissingTest.php';
 date_default_timezone_set('America/New_York');
 
 /**
- * @package    Horde_Url
+ * @package    Horde_Db
  * @subpackage UnitTests
  */
-class Horde_Url_AllTests extends Horde_Test_AllTests
+class Horde_Db_AllTests extends Horde_Test_AllTests
 {
 }
 
-if (PHPUnit_MAIN_METHOD == 'Horde_Url_AllTests::main') {
-    Horde_Url_AllTests::main('Horde_Url', __FILE__);
+if (PHPUnit_MAIN_METHOD == 'Horde_Db_AllTests::main') {
+    Horde_Db_AllTests::main('Horde_Db', __FILE__);
 }
