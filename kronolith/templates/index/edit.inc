@@ -2,8 +2,6 @@
 <form id="kronolithEventForm" action="">
 <input id="kronolithEventId" type="hidden" name="id" />
 <input id="kronolithEventCalendar" type="hidden" name="cal" />
-<input id="kronolithEventLocationLon" type="hidden" name="lon" />
-<input id="kronolithEventLocationLat" type="hidden" name="lat" />
 
 <div>
   <label for="kronolithEventTitle"><?php echo _("Event title") ?>:</label><br />

@@ -303,7 +303,6 @@ class Kronolith
             'prefs' => _("Options"),
             'no_url' => _("You must specify a URL."),
             'wrong_auth' => _("The authentication information you specified wasn't accepted."),
-            'geocode_error' => _("Unable to locate requested address"),
         );
         for ($i = 1; $i <= 12; ++$i) {
             $code['text']['month'][$i - 1] = Horde_Nls::getLangInfo(constant('MON_' . $i));
@@ -2408,16 +2407,6 @@ class Kronolith
         }
 
         return self::$_tagger;
-    }
-
-    public static function getGeoDriver()
-    {
-        /* Get geolocation data */
-        if ($GLOBALS['conf']['geo']['driver']) {
-            return Kronolith_Geo::factory($GLOBALS['conf']['geo']['driver']);
-        } else {
-            return false;
-        }
     }
 
     /**

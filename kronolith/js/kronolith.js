@@ -3560,27 +3560,22 @@ KronolithEventMap =
        // Do something else with the lonlat?
    },
 
-   onError: function(r)
-   {
-       KronolithCore.showNotifications([ { type: 'horde.error', message: Kronolith.text.geocode_error } ]);
-   },
+   onError: function(r) {  },
 
-   onGeocode: function(r)
-   {
-       r = r.shift();
-       ll = new OpenLayers.LonLat(r.lon, r.lat);
-       this._map.moveMarker(this._marker, { lat: r.lat, lon: r.lon });
-       this._map.setCenter(ll);
-       $('kronolithEventLocationLon').value = r.lon;
-       $('kronolithEventLocationLat').value = r.lat;
-   },
+   onGeocode: function(r) { },
 
    geocode: function(a) {
        if (!a) {
            return;
        }
        var gc = new HordeMap.Geocoder[Kronolith.conf.maps.geocoder]();
-       gc.geocode(a, this.onGeocode.bind(this), this.onError);
+       gc.geocode(a, function(r) {
+           r = r.shift();
+           ll = new OpenLayers.LonLat(r.lon, r.lat);
+           this._map.moveMarker(this._marker, { lat: r.lat, lon: r.lon });
+           this._map.setCenter(ll);
+       }.bind(this),
+       this.onError);
    }
 };
 
