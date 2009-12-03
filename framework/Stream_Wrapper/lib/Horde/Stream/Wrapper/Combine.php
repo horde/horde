@@ -79,7 +79,7 @@ class Horde_Stream_Wrapper_Combine
             throw new Exception('A combined stream must be created using the Horde_Support_CombineStream class.');
         }
 
-        $data = &$opts['horde-combine']['data']->getData();
+        $data = $opts['horde-combine']['data']->getData();
 
         reset($data);
         while (list(,$val) = each($data)) {
