@@ -34,6 +34,7 @@
  *   RFC 5258 - LIST-EXTENDED
  *   RFC 5267 - ESORT
  *   RFC 5464 - METADATA
+ *   RFC 5530 - IMAP Response Codes
  *
  *   draft-ietf-morg-sortdisplay-02 - SORT=DISPLAY
  *   draft-ietf-morg-inthread-00 - THREAD=REFS
@@ -4003,6 +4004,71 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 Horde_Imap_Client_Exception::BADCOMPARATOR,
                 substr($ob['line'], $end_pos + 2)
             );
+            break;
+
+        case 'UNAVAILABLE':
+            // Defined by RFC 5530 [3]
+            break;
+
+        case 'AUTHENTICATIONFAILED':
+            // Defined by RFC 5530 [3]
+            break;
+
+        case 'AUTHORIZATIONFAILED':
+            // Defined by RFC 5530 [3]
+            break;
+
+        case 'EXPIRED':
+            // Defined by RFC 5530 [3]
+            break;
+
+        case 'PRIVACYREQUIRED':
+            // Defined by RFC 5530 [3]
+            break;
+
+        case 'CONTACTADMIN':
+            // Defined by RFC 5530 [3]
+            break;
+
+        case 'NOPERM':
+            // Defined by RFC 5530 [3]
+            break;
+
+        case 'INUSE':
+            // Defined by RFC 5530 [3]
+            break;
+
+        case 'EXPUNGEISSUED':
+            // Defined by RFC 5530 [3]
+            break;
+
+        case 'CORRUPTION':
+            // Defined by RFC 5530 [3]
+            break;
+
+        case 'SERVERBUG':
+        case 'CLIENTBUG':
+        case 'CANNOT':
+            // Defined by RFC 5530 [3]
+            if ($this->_debug) {
+                fwrite($this->_debug, "*** Problem with IMAP command. ***\n");
+            }
+            break;
+
+        case 'LIMIT':
+            // Defined by RFC 5530 [3]
+            break;
+
+        case 'OVERQUOTA':
+            // Defined by RFC 5530 [3]
+            break;
+
+        case 'ALREADYEXISTS':
+            // Defined by RFC 5530 [3]
+            break;
+
+        case 'NONEXISTENT':
+            // Defined by RFC 5530 [3]
             break;
 
         case 'XPROXYREUSE':
