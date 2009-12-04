@@ -70,6 +70,12 @@ $compose_disable = !IMP::canCompose();
     <input id="save_sent_mail_folder" name="save_sent_mail_folder" type="hidden" />
    </div>
 <?php endif; ?>
+<?php if ($GLOBALS['prefs']->getValue('set_priority')): ?>
+   <div>
+    <?php echo _("Priority:") ?> <span id="priority_label"></span>
+    <input id="priority" name="priority" type="hidden" value="normal" />
+   </div>
+<?php endif; ?>
   </div>
   <table>
    <tr>

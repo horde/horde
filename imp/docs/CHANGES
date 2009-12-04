@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Add priority setting to DIMP.
 [mms] Simplify and improve priority header generation/display.
 [mms] Add Face: header support to IMP.
 [mms] Add splitbar to resize sidebar in DIMP.

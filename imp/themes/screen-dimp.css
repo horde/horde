@@ -400,6 +400,11 @@ div.vpRowVert.flagUnseen {
     text-decoration: underline;
 }
 
+#priority_label {
+    cursor: default;
+    font-weight: bold;
+}
+
 /* Actions */
 .dimpActions {
     background: #efefef;

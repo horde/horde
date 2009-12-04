@@ -149,6 +149,7 @@ if (count($_POST)) {
         $imptree->eltDiffStart();
 
         $options = array(
+            'priority' => Horde_Util::getFormData('priority'),
             'readreceipt' => Horde_Util::getFormData('request_read_receipt'),
             'save_attachments' => Horde_Util::getFormData('save_attachments_select'),
             'save_sent' => (($prefs->isLocked('save_sent_mail'))

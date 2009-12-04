@@ -166,10 +166,6 @@ if ($compose_mode) {
         'spellcheck' => intval($GLOBALS['prefs']->getValue('compose_spellcheck')),
     ));
 
-    if ($GLOBALS['registry']->hasMethod('contacts/search')) {
-        $code['conf_compose']['URI_ABOOK'] = (string) Horde::applicationUrl('contacts.php');
-    }
-
     /* Gettext strings used in compose page. */
     $code['text_compose'] = array(
         'atc_limit' => _("The attachment limit has been reached."),
@@ -182,6 +178,28 @@ if ($compose_mode) {
         'toggle_html' => _("Really discard all formatting information? This operation cannot be undone."),
         'uploading' => _("Uploading..."),
     );
+
+    if ($GLOBALS['registry']->hasMethod('contacts/search')) {
+        $code['conf_compose']['URI_ABOOK'] = (string) Horde::applicationUrl('contacts.php');
+    }
+
+    if ($GLOBALS['prefs']->getValue('set_priority')) {
+        $code['conf_compose']['priority'] = array(
+            array(
+                'l' => _("High"),
+                'v' => 'high'
+            ),
+            array(
+                'l' => _("Normal"),
+                's' => true,
+                'v' => 'normal'
+            ),
+            array(
+                'l' => _("Low"),
+                'v' => 'low'
+            )
+        );
+    }
 }
 
 Horde::addInlineScript(array(

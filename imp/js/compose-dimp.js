@@ -10,7 +10,7 @@
 var DimpCompose = {
     // Variables defaulting to empty/false:
     //   auto_save_interval, button_pressed, compose_cursor, dbtext,
-    //   drafts_mbox, editor_on, is_popup, knl, mp_padding, resizebcc,
+    //   drafts_mbox, editor_on, is_popup, knl_sm, knl_p, mp_padding, resizebcc,
     //   resizecc, resizeto, row_height, rte, sbtext, skip_spellcheck,
     //   spellcheck, uploading
     last_msg: '',
@@ -154,8 +154,26 @@ var DimpCompose = {
         $('sent_mail_folder_label').writeAttribute('title', l.escapeHTML()).setText(l.truncate(15)).up(1).show();
 
         if (DIMP.conf_compose.flist && sel) {
-            this.knl.setSelected(s);
+            this.knl_sm.setSelected(s);
         }
+    },
+
+    setPriorityLabel: function(s, l)
+    {
+        var label = $('priority_label');
+
+        if (!label) {
+            return;
+        }
+
+        if (!l) {
+            l = DIMP.conf_compose.priority.find(function(f) {
+                return f.v == s;
+            });
+        }
+
+        $('priority').setValue(s);
+        $('priority_label').setText(l.l);
     },
 
     getIdentity: function(id, editor_on)
@@ -812,13 +830,24 @@ var DimpCompose = {
 
         /* Create folderlist. */
         if (DIMP.conf_compose.flist) {
-            this.knl = new KeyNavList('save_sent_mail', {
+            this.knl_sm = new KeyNavList('save_sent_mail', {
                 esc: true,
                 list: DIMP.conf_compose.flist,
                 onChoose: this.setSentMailLabel.bind(this)
             });
-            this.knl.setSelected(this.getIdentity($F('identity'))[3]);
-            $('sent_mail_folder_label').insert({ after: new Element('SPAN', { className: 'popdownImg' }).observe('click', function(e) { this.knl.show(); this.knl.ignoreClick(e); e.stop(); }.bindAsEventListener(this)) });
+            this.knl_sm.setSelected(this.getIdentity($F('identity'))[3]);
+            $('sent_mail_folder_label').insert({ after: new Element('SPAN', { className: 'popdownImg' }).observe('click', function(e) { this.knl_sm.show(); this.knl_sm.ignoreClick(e); e.stop(); }.bindAsEventListener(this)) });
+        }
+
+        /* Create priority list. */
+        if (DIMP.conf_compose.priority) {
+            this.knl_p = new KeyNavList('priority_label', {
+                esc: true,
+                list: DIMP.conf_compose.priority,
+                onChoose: this.setPriorityLabel.bind(this)
+            });
+            this.setPriorityLabel('normal');
+            $('priority_label').insert({ after: new Element('SPAN', { className: 'popdownImg' }).observe('click', function(e) { this.knl_p.show(); this.knl_p.ignoreClick(e); e.stop(); }.bindAsEventListener(this)) });
         }
 
         $('dimpLoading').hide();
