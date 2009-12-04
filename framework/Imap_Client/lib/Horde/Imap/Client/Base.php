@@ -123,7 +123,8 @@ abstract class Horde_Imap_Client_Base
                 Horde_Imap_Client::FETCH_ENVELOPE => 1,
                 Horde_Imap_Client::FETCH_FLAGS => 1,
                 Horde_Imap_Client::FETCH_DATE => 1,
-                Horde_Imap_Client::FETCH_SIZE => 1
+                Horde_Imap_Client::FETCH_SIZE => 1,
+                Horde_Imap_Client::FETCH_HEADERS => 1
             );
         } else {
             $params['cache']['fields'] = array_flip($params['cache']['fields']);
@@ -2034,7 +2035,7 @@ abstract class Horde_Imap_Client_Base
                 $this->_temp['headers_caching'] = array();
 
                 /* Only cache if directly requested. */
-                if ($cache_avail) {
+                if (isset($cf[$k]) && $cache_avail) {
                     $fetch_field = 'headers';
 
                     foreach ($v as $key => $val) {

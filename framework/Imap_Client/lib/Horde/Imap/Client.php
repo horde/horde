@@ -21,14 +21,14 @@
  * 'fields' - [OPTIONAL] (array) The fetch criteria to cache. If not defined,
  *            all cacheable data is cached. The following is a list of
  *            criteria that can be cached:
- * <pre>
- * Horde_Imap_Client::FETCH_STRUCTURE
- * Horde_Imap_Client::FETCH_ENVELOPE
- * Horde_Imap_Client::FETCH_FLAGS (only if server supports CONDSTORE IMAP
- *                                 extension)
- * Horde_Imap_Client::FETCH_DATE
- * Horde_Imap_Client::FETCH_SIZE
- * </pre>
+ *            + Horde_Imap_Client::FETCH_DATE
+ *            + Horde_Imap_Client::FETCH_ENVELOPE
+ *            + Horde_Imap_Client::FETCH_FLAGS
+ *              Only if server supports CONDSTORE extension
+ *            + Horde_Imap_Client::FETCH_HEADERS
+ *              Only for queries that specifically request caching
+ *            + Horde_Imap_Client::FETCH_SIZE
+ *            + Horde_Imap_Client::FETCH_STRUCTURE
  * 'lifetime' - [OPTIONAL] (integer) The lifetime of the cache data (in secs).
  * 'slicesize' - [OPTIONAL] (integer) The slicesize to use.
  * </pre>
