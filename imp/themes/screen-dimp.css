@@ -369,7 +369,7 @@ div.vpRowVert.flagUnseen {
     cursor: pointer;
 }
 
-#logo, #dimpbarActions, #serviceActions, #foldersSidebar {
+#logo, #dimpbarActions, #serviceActions, #foldersSidebar, #normalfolders {
     overflow-x: hidden;
 }
 
