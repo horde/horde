@@ -1,7 +1,9 @@
 <?php
 /**
- * This script displays a rendered Horde_Mime_Part object.
- * The following are potential URL parameters that are honored:
+ * This script displays various data elements generated in IMP.
+ *
+ * URL parameters:
+ * ---------------
  * <pre>
  * 'actionID' - (string) The action ID to perform
  *   'compose_attach_preview'
@@ -34,8 +36,7 @@
 
 function _sanitizeName($name)
 {
-    $name = Horde_String::convertCharset($name, Horde_Nls::getCharset(), 'UTF-8');
-    return Horde_String::convertCharset(trim(preg_replace('/[^\pL\pN-+_. ]/u', '_', $name), ' _'), 'UTF-8');
+    return Horde_String::convertCharset(trim(preg_replace('/[^\pL\pN-+_. ]/u', '_', Horde_String::convertCharset($name, Horde_Nls::getCharset(), 'UTF-8')), ' _'), 'UTF-8');
 }
 
 require_once dirname(__FILE__) . '/lib/Application.php';
@@ -43,18 +44,17 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 /* Don't compress if we are already sending in compressed format. */
 $actionID = Horde_Util::getFormData('actionID');
 new IMP_Application(array('init' => array(
-    'session_control' => 'readonly',
-    'nocompress' => (($actionID == 'download_all') || Horde_Util::getFormData('zip'))
+    'nocompress' => (($actionID == 'download_all') || Horde_Util::getFormData('zip')),
+    'session_control' => 'readonly'
 )));
 
 $ctype = Horde_Util::getFormData('ctype');
 $id = Horde_Util::getFormData('id');
 
-/* 'compose_attach_preview' doesn't use IMP_Contents since there is no
- * IMAP message data - rather, we must use the IMP_Compose object to
- * get the necessary Horde_Mime_Part. */
+/* 'compose_attach_preview' doesn't use IMP_Contents since there is no mail
+ * message data. Rather, we must use the IMP_Compose object to get the
+ * necessary data for Horde_Mime_Part. */
 if ($actionID == 'compose_attach_preview') {
-    /* Initialize the IMP_Compose:: object. */
     $imp_compose = IMP_Compose::singleton(Horde_Util::getFormData('composeCache'));
     $mime = $imp_compose->buildAttachment($id);
     $mime->setMimeId($id);
