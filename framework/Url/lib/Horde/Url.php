@@ -196,7 +196,7 @@ class Horde_Url
      *
      * @return string  An <a> tag representing this URL.
      */
-    public function link($attributes = array())
+    public function link(array $attributes = array())
     {
         $url = (string)$this;
         $link = '<a';
