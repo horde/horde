@@ -1328,9 +1328,10 @@ class IMP_Compose
             $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
             $all_addrs = array_keys($identity->getAllFromAddresses(true));
 
-            /* Build the To: header. It is either 1) the Reply-To address
-             * (if not a personal address), 2) the From address (if not a
-             * personal address), or 3) all remaining Cc addresses. */
+            /* Build the To: header. It is either:
+             * 1) the Reply-To address (if not a personal address)
+             * 2) the From address (if not a personal address)
+             * 3) all remaining Cc addresses. */
             $cc_addrs = array();
             foreach (array('reply-to', 'from', 'to', 'cc') as $val) {
                 /* If either a reply-to or $to is present, we use this address
@@ -1369,7 +1370,10 @@ class IMP_Compose
                 }
             }
 
-            /* Build the Cc: (or possibly the To:) header. */
+            /* Build the Cc: (or possibly the To:) header. If this is a
+             * reply to a message that was already replied to by the user,
+             * this reply will go to the original recipients (Request
+             * #8485).  */
             $hdr_cc = array();
             foreach ($cc_addrs as $ob) {
                 if (isset($ob['groupname'])) {
