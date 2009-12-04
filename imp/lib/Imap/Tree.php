@@ -38,6 +38,7 @@ class IMP_Imap_Tree
     /* The manner to which to traverse the tree when calling next(). */
     const NEXT_SHOWCLOSED = 1;
     const NEXT_SHOWSUB = 2;
+    const NEXT_NOCHILDREN = 4;
 
     /* The string used to indicate the base of the tree. This must be null
      * since this is the only 7-bit character not allowed in IMAP
@@ -50,6 +51,7 @@ class IMP_Imap_Tree
     const FLIST_VFOLDER = 4;
     const FLIST_OB = 8;
     const FLIST_ELT = 16;
+    const FLIST_NOCHILDREN = 32;
 
     /* Add null to folder key since it allows us to sort by name but
      * never conflict with an IMAP mailbox. */
@@ -545,6 +547,7 @@ class IMP_Imap_Tree
      * <pre>
      * IMP_Imap_Tree::NEXT_SHOWCLOSED - Don't ignore closed elements.
      * IMP_Imap_Tree::NEXT_SHOWSUB - Only show subscribed elements.
+     * IMP_Imap_Tree::NEXT_NOCHILDREN - Don't traverse into child elements.
      * </pre>
      *
      * @return mixed  Returns the next element or false if the element doesn't
@@ -563,7 +566,8 @@ class IMP_Imap_Tree
             $this->_showunsub = false;
         }
 
-        if ($this->_activeElt($curr) &&
+        if (!($mask & self::NEXT_NOCHILDREN) &&
+            $this->_activeElt($curr) &&
             (($mask & self::NEXT_SHOWCLOSED) || $this->isOpen($curr)) &&
             ($this->_currparent != $curr['v'])) {
             /* If the current element is open, and children exist, move into
@@ -1708,6 +1712,7 @@ class IMP_Imap_Tree
      * IMP_Imap_Tree::FLIST_VFOLDER - Show Virtual Folders.
      * IMP_Imap_Tree::FLIST_OB - Return full tree object.
      * IMP_Imap_Tree::FLIST_ELT - Return element object.
+     * IMP_Imap_Tree::FLIST_NOCHILDREN - Don't show child elements.
      * </pre>
      * @param string $base  Return all mailboxes below this element.
      *
@@ -1739,6 +1744,11 @@ class IMP_Imap_Tree
             }
         }
 
+        $nextmask = self::NEXT_SHOWCLOSED;
+        if ($mask & self::FLIST_NOCHILDREN) {
+            $nextmask |= self::NEXT_NOCHILDREN;
+        }
+
         if ($mailbox) {
             do {
                 if (!is_null($baseindex) &&
@@ -1756,7 +1766,7 @@ class IMP_Imap_Tree
                         ? $mailbox
                         : (($mask & self::FLIST_ELT) ? $this->element($mailbox['v']) : $mailbox['v']);
                 }
-            } while (($mailbox = $this->next(self::NEXT_SHOWCLOSED)));
+            } while (($mailbox = $this->next($nextmask)));
         }
 
         if (!is_null($diff_unsub)) {
