@@ -731,9 +731,7 @@ var DimpBase = {
 
         case 'ctx_folderopts_expand':
         case 'ctx_folderopts_collapse':
-            $('normalfolders').select('LI.folder').each(function(f) {
-                this._toggleSubFolder(f, id == 'ctx_folderopts_expand' ? 'exp' : 'col', true);
-            }, this);
+            this._toggleSubFolder($('normalfolders'), id == 'ctx_folderopts_expand' ? 'expall' : 'colall', true);
             break;
 
         case 'ctx_folderopts_reload':
@@ -744,10 +742,7 @@ var DimpBase = {
         case 'ctx_container_collapse':
         case 'ctx_folder_expand':
         case 'ctx_folder_collapse':
-            tmp = baseelt.up('LI');
-            [ tmp, $(this.getSubFolderId(tmp.readAttribute('id'))).select('LI.folder') ].flatten().each(function(f) {
-                this._toggleSubFolder(f, (id == 'ctx_container_expand' || id == 'ctx_folder_expand') ? 'exp' : 'col', true);
-            }, this);
+            this._toggleSubFolder(baseelt.up('LI').next(), (id == 'ctx_container_expand' || id == 'ctx_folder_expand') ? 'expall' : 'colall', true);
             break;
 
         case 'ctx_message_spam':
@@ -2060,9 +2055,13 @@ var DimpBase = {
         }
     },
 
-    _folderLoadCallback: function(r)
+    _folderLoadCallback: function(r, callback)
     {
         this._folderCallback(r);
+
+        if (callback) {
+            callback();
+        }
 
         var nf = $('normalfolders'),
             nfheight = nf.getStyle('max-height');
@@ -2118,17 +2117,48 @@ var DimpBase = {
 
     _toggleSubFolder: function(base, mode, noeffect)
     {
-        // Make sure all subfolders are expanded.
-        // The last 2 elements of ancestors() are the BODY and HTML tags -
-        // don't need to parse through them.
-        var subs = (mode == 'exp')
-            ? base.ancestors().slice(0, -2).reverse().findAll(function(n) { return n.hasClassName('subfolders'); })
-            : [ base.next('.subfolders') ];
+        var need = [], subs = [];
 
-        subs.compact().each(function(s) {
+        if (mode == 'expall' || mode == 'colall') {
+            if (base.hasClassName('subfolders')) {
+                subs.push(base);
+            }
+            subs = subs.concat(base.select('.subfolders'));
+        } else if (mode == 'exp') {
+            // If we are explicitly expanding ('exp'), make sure all parent
+            // subfolders are expanded.
+            // The last 2 elements of ancestors() are the BODY and HTML tags -
+            // don't need to parse through them.
+            subs = base.ancestors().slice(0, -2).reverse().findAll(function(n) { return n.hasClassName('subfolders'); });
+        } else {
+            subs = [ base.next('.subfolders') ];
+        }
+
+        if (!subs) {
+            return;
+        }
+
+        if (mode == 'tog' || mode == 'expall') {
+            subs.compact().each(function(s) {
+                if (!s.visible() && !s.down().childElements().size()) {
+                    need.push(s.previous().retrieve('mbox'));
+                }
+            });
+
+            if (need.size()) {
+                this._listFolders({
+                    all: Number(mode == 'expall'),
+                    callback: this._toggleSubFolder.bind(this, base, mode, noeffect),
+                    view: need
+                });
+                return;
+            }
+        }
+
+        subs.each(function(s) {
             if (mode == 'tog' ||
-                (mode == 'exp' && !s.visible()) ||
-                (mode == 'col' && s.visible())) {
+                ((mode == 'exp' || mode == 'expall') && !s.visible()) ||
+                ((mode == 'col' || mode == 'colall') && s.visible())) {
                 s.previous().down().toggleClassName('exp').toggleClassName('col');
 
                 if (noeffect) {
@@ -2143,7 +2173,28 @@ var DimpBase = {
                     });
                 }
             }
-        }, this);
+        });
+    },
+
+    _listFolders: function(params)
+    {
+        var cback;
+
+        params = params || {};
+        params.unsub = Number(this.showunsub);
+        if (!Object.isArray(params.view)) {
+            params.view = [ params.view ];
+        }
+        params.view = params.view.toJSON();
+
+        if (params.callback) {
+            cback = function(func, r) { this._folderLoadCallback(r, func); }.bind(this, params.callback);
+            delete params.callback;
+        } else {
+            cback = this._folderLoadCallback.bind(this);
+        }
+
+        DimpCore.doAction('ListFolders', params, { callback: cback });
     },
 
     // Folder actions.
@@ -2158,6 +2209,10 @@ var DimpBase = {
             submboxid = this.getSubFolderId(fid),
             submbox = $(submboxid),
             title = ob.t || ob.m;
+
+        if ($(fid)) {
+            return;
+        }
 
         if (ob.v) {
             ftype = ob.co ? 'scontainer' : 'virtual';
@@ -2356,7 +2411,7 @@ var DimpBase = {
             this.deleteFolderElt(elt.readAttribute('id'), true);
         }, this);
 
-        DimpCore.doAction('ListFolders', { unsub: Number(this.showunsub) }, { callback: this._folderLoadCallback.bind(this) });
+        this._listFolders({ reload: 1, view: this.folder });
     },
 
     subscribeFolder: function(f, sub)
@@ -2631,10 +2686,6 @@ var DimpBase = {
 
         $('dimpmain').setStyle({ left: ($('sidebar').clientWidth + this.splitbar.clientWidth) + 'px' });
 
-        /* Create the folder list. Any pending notifications will be caught
-         * via the return from this call. */
-        DimpCore.doAction('ListFolders', {}, { callback: this._folderLoadCallback.bind(this) });
-
         /* Init quicksearch. These needs to occur before loading the message
          * list since it may be disabled if we are in a search mailbox. */
         if ($('qsearch')) {
@@ -2651,6 +2702,7 @@ var DimpBase = {
         if (!tmp.empty() && tmp.startsWith('#')) {
             tmp = (tmp.length == 1) ? "" : tmp.substring(1);
         }
+
         if (!tmp.empty()) {
             this.go(unescape(tmp));
         } else if (DIMP.conf.login_view == 'inbox') {
@@ -2659,6 +2711,10 @@ var DimpBase = {
             this.go('portal');
             this.loadMailbox('INBOX', { background: true });
         }
+
+        /* Create the folder list. Any pending notifications will be caught
+         * via the return from this call. */
+        this._listFolders({ initial: 1, view: this.folder} );
 
         this._setQsearchText(true);
 

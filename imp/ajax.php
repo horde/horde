@@ -315,7 +315,37 @@ case 'ListFolders':
     if (Horde_Util::getPost('unsub')) {
         $mask |= IMP_Imap_Tree::FLIST_UNSUB;
     }
-    $result = IMP_Dimp::getFolderResponse($imptree, array('a' => $imptree->folderList($mask), 'c' => array(), 'd' => array()));
+
+    if (!Horde_Util::getPost('all')) {
+        $mask |= IMP_Imap_Tree::FLIST_NOCHILDREN;
+        if (Horde_Util::getPost('initial') || Horde_Util::getPost('reload')) {
+            $mask |= IMP_Imap_Tree::FLIST_ANCESTORS | IMP_Imap_Tree::FLIST_SAMELEVEL;
+        }
+    }
+
+    $folder_list = array();
+    foreach (Horde_Serialize::unserialize($mbox, Horde_Serialize::JSON) as $val) {
+        $folder_list += $imptree->folderList($mask, $val);
+    }
+
+    /* Add special folders explicitly to the initial folder list, since they
+     * are ALWAYS displayed and may appear outside of the folder slice
+     * requested. */
+    if (Horde_Util::getPost('initial')) {
+        foreach ($imptree->getSpecialMailboxes() as $val) {
+            if (!is_array($val)) {
+                $val = array($val);
+            }
+
+            foreach ($val as $val2) {
+                if (!isset($folder_list[$val2])) {
+                    $folder_list[$val2] = $imptree->element($val2);
+                }
+            }
+        }
+    }
+
+    $result = IMP_Dimp::getFolderResponse($imptree, array('a' => array_values($folder_list), 'c' => array(), 'd' => array()));
 
     $quota = _getQuota();
     if (!is_null($quota)) {

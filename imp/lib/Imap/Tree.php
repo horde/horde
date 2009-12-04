@@ -52,6 +52,8 @@ class IMP_Imap_Tree
     const FLIST_OB = 8;
     const FLIST_ELT = 16;
     const FLIST_NOCHILDREN = 32;
+    const FLIST_ANCESTORS = 64;
+    const FLIST_SAMELEVEL = 128;
 
     /* Add null to folder key since it allows us to sort by name but
      * never conflict with an IMAP mailbox. */
@@ -1713,15 +1715,19 @@ class IMP_Imap_Tree
      * IMP_Imap_Tree::FLIST_OB - Return full tree object.
      * IMP_Imap_Tree::FLIST_ELT - Return element object.
      * IMP_Imap_Tree::FLIST_NOCHILDREN - Don't show child elements.
+     * IMP_Imap_Tree::FLIST_ANCESTORS - Include ancestors.
+     * IMP_Imap_Tree::FLIST_SAMELEVEL - Also return mailboxes at the same
+     *                                  level as $base.
      * </pre>
      * @param string $base  Return all mailboxes below this element.
      *
      * @return array  Either an array of IMAP mailbox names or an array of
-     *                objects (if FLIST_OB ot FLIST_ELT is specified).
+     *                objects (if FLIST_OB ot FLIST_ELT is specified). Keys
+     *                are the mailbox name.
      */
     public function folderList($mask = 0, $base = null)
     {
-        $baseindex = null;
+        $baseelt = $baseindex = null;
         $ret_array = array();
 
         $diff_unsub = (($mask & self::FLIST_UNSUB) != $this->_showunsub)
@@ -1733,14 +1739,28 @@ class IMP_Imap_Tree
 
         // Search to base element.
         if (!is_null($base)) {
-            while ($mailbox && $mailbox['v'] != $base) {
+            while ($mailbox && strcasecmp($base, $mailbox['v']) !== 0) {
                 $mailbox = $this->next(self::NEXT_SHOWCLOSED);
             }
+
             if ($mailbox) {
                 $baseindex = count($this->_currstack);
-                $baseparent = $this->_currparent;
-                $basekey = $this->_currkey;
-                $mailbox = $this->next(self::NEXT_SHOWCLOSED);
+
+                if ($mask & self::FLIST_SAMELEVEL) {
+                    --$baseindex;
+                    if ($baseindex >= 0) {
+                        $basekey = $this->_currstack[$baseindex]['k'];
+                        $baseparent = $this->_currstack[$baseindex]['p'];
+                        $baseelt = $mailbox = $this->_tree[$this->_parent[$this->_currparent][0]];
+                    } else {
+                        $mailbox = $this->reset();
+                    }
+                    $this->_currkey = 0;
+                } else {
+                    $basekey = $this->_currkey;
+                    $baseparent = $this->_currparent;
+                    $mailbox = $this->next(self::NEXT_SHOWCLOSED);
+                }
             }
         }
 
@@ -1752,6 +1772,7 @@ class IMP_Imap_Tree
         if ($mailbox) {
             do {
                 if (!is_null($baseindex) &&
+                    ($baseindex >= 0) &&
                     (!isset($this->_currstack[$baseindex]) ||
                      ($this->_currstack[$baseindex]['k'] != $basekey) ||
                      ($this->_currstack[$baseindex]['p'] != $baseparent))) {
@@ -1762,7 +1783,7 @@ class IMP_Imap_Tree
                      !$this->isContainer($mailbox)) &&
                     (($mask & self::FLIST_VFOLDER) ||
                      !$this->isVFolder($mailbox))) {
-                    $ret_array[] = ($mask & self::FLIST_OB)
+                    $ret_array[$mailbox['v']] = ($mask & self::FLIST_OB)
                         ? $mailbox
                         : (($mask & self::FLIST_ELT) ? $this->element($mailbox['v']) : $mailbox['v']);
                 }
@@ -1773,7 +1794,9 @@ class IMP_Imap_Tree
             $this->showUnsubscribed($diff_unsub);
         }
 
-        return $ret_array;
+        return (!is_null($baseelt) && ($mask & self::FLIST_ANCESTORS))
+            ? array_merge($this->folderList($mask, $baseelt['p']), $ret_array)
+            : $ret_array;
     }
 
     /**
