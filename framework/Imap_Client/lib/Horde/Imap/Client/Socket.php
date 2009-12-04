@@ -48,11 +48,11 @@
  *   RFC 2177 - IDLE (probably not necessary due to the limited connection
  *                    time by each HTTP/PHP request)
  *   RFC 2193 - MAILBOX-REFERRALS
- *   RFC 4467/5092/5524/5550 - URLAUTH
+ *   RFC 4467/5092/5524/5550 - URLAUTH, URL-PARTIAL
  *   RFC 4469/5550 - CATENATE
  *   RFC 4978 - COMPRESS=DEFLATE
  *              See: http://bugs.php.net/bug.php?id=48725
- *   RFC 5257 - ANNOTATE
+ *   RFC 5257 - ANNOTATE (Experimental)
  *   RFC 5259 - CONVERT
  *   RFC 5267 - CONTEXT
  *   RFC 5465 - NOTIFY
