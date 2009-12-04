@@ -214,10 +214,14 @@ case 'toggle_subscribed_view':
     break;
 
 case 'poll_folder':
+    if (!empty($folder_list)) {
+        $imaptree->addPollList($folder_list);
+    }
+    break;
+
 case 'nopoll_folder':
     if (!empty($folder_list)) {
-        ($actionID == 'poll_folder') ? $imaptree->addPollList($folder_list) : $imaptree->removePollList($folder_list);
-        $imp_search->createVINBOXFolder();
+        $imaptree->removePollList($folder_list);
     }
     break;
 

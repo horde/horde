@@ -1201,17 +1201,26 @@ class IMP_Imap_Tree
             return;
         }
 
+        $changed = false;
+
         $imp_folder = IMP_Folder::singleton();
         $this->getPollList();
         foreach ($id as $val) {
             if (!$this->isSubscribed($this->_tree[$val])) {
                 $imp_folder->subscribe(array($val));
             }
-            $this->_poll[$val] = true;
             $this->_setPolled($this->_tree[$val], true);
+            if (empty($this->_poll[$val])) {
+                $this->_poll[$val] = true;
+                $changed = true;
+            }
         }
-        $GLOBALS['prefs']->setValue('nav_poll', serialize($this->_poll));
-        $this->_changed = true;
+
+        if ($changed) {
+            $GLOBALS['prefs']->setValue('nav_poll', serialize($this->_poll));
+            $GLOBALS['imp_search']->createVINBOXFolder();
+            $this->_changed = true;
+        }
     }
 
     /**
@@ -1245,6 +1254,7 @@ class IMP_Imap_Tree
 
         if ($removed) {
             $GLOBALS['prefs']->setValue('nav_poll', serialize($this->_poll));
+            $GLOBALS['imp_search']->createVINBOXFolder();
             $this->_changed = true;
         }
     }
