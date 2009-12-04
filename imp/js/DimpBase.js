@@ -2628,22 +2628,24 @@ var DimpBase = {
         $('dimpPage').show();
 
         /* Create splitbar for sidebar. */
-        tmp = $('sidebar').getWidth();
-        this.splitbar = new Element('DIV', { className: 'splitBarVertSidebar' }).setStyle({ height: document.viewport.getHeight() + 'px', left: tmp + 'px' });
+        this.splitbar = new Element('DIV', { className: 'splitBarVertSidebar' }).setStyle({ height: document.viewport.getHeight() + 'px', left: $('sidebar').clientWidth + 'px' });
         $('sidebar').insert({ after: this.splitbar });
         new Drag(this.splitbar, {
             constraint: 'horizontal',
             ghosting: true,
             nodrop: true,
+            onStart: function(drag) {
+                $('messageBodyCover').clonePosition('messageBody').show();
+            },
             onEnd: function(drag) {
-                var w = drag.lastCoord[0];
-                $('sidebar').setStyle({ width: w + 'px' });
-                drag.element.setStyle({ left: w + 'px' });
-                $('dimpmain').setStyle({ left: (w + drag.element.getWidth()) + 'px' });
+                $('messageBodyCover').hide();
+                $('sidebar').setStyle({ width: drag.lastCoord[0] + 'px' });
+                drag.element.setStyle({ left: $('sidebar').clientWidth + 'px' });
+                $('dimpmain').setStyle({ left: ($('sidebar').clientWidth + drag.element.clientWidth) + 'px' });
             }
         });
 
-        $('dimpmain').setStyle({ left: (tmp + this.splitbar.getWidth()) + 'px' });
+        $('dimpmain').setStyle({ left: ($('sidebar').clientWidth + this.splitbar.clientWidth) + 'px' });
 
         /* Create the folder list. Any pending notifications will be caught
          * via the return from this call. */
