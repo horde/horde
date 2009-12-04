@@ -96,13 +96,12 @@ ul.msgactions, ul.msgactions ul {
     font-size: 100%;
 }
 .msgactions li ul {
-    display: none;
-    position: absolute;
-    left: -1px;
-    margin-top: -2px;
-    padding: 2px;
     background: #f4f4f4;
     border: 1px solid #d4d4d4;
+    display: none;
+    left: -1px;
+    padding: 2px;
+    position: absolute;
     z-index: 99;
 }
 .bottomborder .msgactions li ul {
