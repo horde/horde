@@ -117,7 +117,7 @@ input {
 .mboxheader {
     clear: left;
 }
-#msgLoading, #viewportLoading {
+#msgLoading, #viewportLoading, #sendingImg {
     position: absolute;
     margin: 10px 0 0 10px;
 }
@@ -441,11 +441,11 @@ div.vpRowVert.flagUnseen {
     background-color: transparent;
 }
 .dimpactions .disabled, .dimpActions .disabled a, .dimpActions .disabled a:visited, .dimpActions .disabled a:active, .dimpActions .disabled a:hover {
+    color: silver !important;
     cursor: default;
     text-decoration: none;
-    color: silver;
 }
-.dimpActions .disabled span.iconImg, .dimpActions .disabled span.spellcheckPopdownImg {
+.dimpActions .disabled span.iconImg, .dimpActions .disabled span.spellcheckPopdownImg, .dimpActions .disabled img {
     filter: alpha(opacity=25);
     -moz-opacity: .25;
     opacity: .25;

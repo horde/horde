@@ -142,4 +142,6 @@ $compose_disable = !IMP::canCompose();
 </div>
 </form>
 
+<span id="sendingImg" class="loadingImg" style="display:none"></span>
+
 <iframe name="submit_frame" id="submit_frame" style="display:none" src="javascript:false;"></iframe>

@@ -1484,11 +1484,7 @@ var DimpBase = {
     /* Enable/Disable DIMP action buttons as needed. */
     toggleButtons: function()
     {
-        var disable = (this.selectedCount() == 0);
-        $('dimpmain_folder_top').select('DIV.dimpActions A.noselectDisable').each(function(b) {
-            [ b.up() ].invoke(disable ? 'addClassName' : 'removeClassName', 'disabled');
-            DimpCore.DMenu.disable(b.readAttribute('id') + '_img', true, disable);
-        });
+        DimpCore.toggleButtons($('dimpmain_folder_top').select('DIV.dimpActions A.noselectDisable'), this.selectedCount() == 0);
     },
 
     /* Drag/Drop handler. */
@@ -2580,16 +2576,7 @@ var DimpBase = {
 
     loadingImg: function(id, show)
     {
-        var c;
-
-        if (show) {
-            $(id + 'Loading').clonePosition(id == 'viewport' ? 'msgSplitPane' : 'previewPane', { setLeft: false, setTop: true, setHeight: false, setWidth: false }).show();
-            c = 'progress';
-        } else {
-            $(id + 'Loading').fade({ duration: 0.2 });
-            c = 'default';
-        }
-        $(document.body).setStyle({ cursor: c });
+        DimpCore.loadingImg(id + 'Loading', id == 'viewport' ? 'msgSplitPane' : 'previewPane');
     },
 
     // p = (element) Parent element

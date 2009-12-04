@@ -282,6 +282,30 @@ var DimpCore = {
         }
     },
 
+    loadingImg: function(elt, id, show)
+    {
+        var c;
+
+        if (show) {
+            $(elt).clonePosition(id, { setLeft: false, setTop: true, setHeight: false, setWidth: false }).show();
+            c = 'progress';
+        } else {
+            $(elt).fade({ duration: 0.2 });
+            c = 'default';
+        }
+        $(document.body).setStyle({ cursor: c });
+    },
+
+    toggleButtons: function(elts, disable)
+    {
+        elts.each(function(b) {
+            [ b.up() ].invoke(disable ? 'addClassName' : 'removeClassName', 'disabled');
+            if (this.DMenu) {
+                this.DMenu.disable(b.identify() + '_img', true, disable);
+            }
+        }, this);
+    },
+
     /* Add dropdown menus to addresses. */
     buildAddressLinks: function(alist, elt)
     {

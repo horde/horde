@@ -9,10 +9,9 @@
 
 var DimpCompose = {
     // Variables defaulting to empty/false:
-    //   auto_save_interval, button_pressed, compose_cursor, dbtext,
-    //   drafts_mbox, editor_on, is_popup, knl_sm, knl_p, mp_padding, resizebcc,
-    //   resizecc, resizeto, row_height, rte, sbtext, skip_spellcheck,
-    //   spellcheck, uploading
+    //   auto_save_interval, compose_cursor, disabled, drafts_mbox, editor_on,
+    //   is_popup, knl_p, knl_sm, mp_padding, resizebcc, resizecc, resizeto,
+    //   row_height, rte, skip_spellcheck, spellcheck, uploading
     last_msg: '',
 
     confirmCancel: function()
@@ -187,8 +186,7 @@ var DimpCompose = {
 
     uniqueSubmit: function(action)
     {
-        var db, sb,
-            c = $('compose');
+        var c = $('compose');
 
         if (DIMP.SpellCheckerObject &&
             DIMP.SpellCheckerObject.isActive()) {
@@ -197,7 +195,7 @@ var DimpCompose = {
         }
 
         if (action == 'send_message' || action == 'save_draft') {
-            this.button_pressed = true;
+            this.setDisabled(true);
 
             switch (action) {
             case 'send_message':
@@ -213,26 +211,12 @@ var DimpCompose = {
                     DIMP.SpellCheckerObject.spellCheck(this.onNoSpellError.bind(this, action));
                     return;
                 }
-
-                if (!this.sbtext) {
-                    sb = $('send_button');
-                    this.sbtext = sb.getText();
-                    sb.setText(DIMP.text_compose.sending);
-                }
-                break;
-
-            case 'save_draft':
-                if (!this.dbtext) {
-                    db = $('draft_button');
-                    this.dbtext = db.getText();
-                    db.setText(DIMP.text_compose.saving);
-                }
                 break;
             }
 
             // Don't send/save until uploading is completed.
             if (this.uploading) {
-                (function() { if (this.button_pressed) { this.uniqueSubmit(action); } }).bind(this).delay(0.25);
+                (function() { if (this.disabled) { this.uniqueSubmit(action); } }).bind(this).delay(0.25);
                 return;
             }
         }
@@ -275,7 +259,7 @@ var DimpCompose = {
             switch (d.action) {
             case 'auto_save_draft':
             case 'save_draft':
-                this.button_pressed = false;
+                this.setDisabled(false);
 
                 this.updateDraftsMailbox();
 
@@ -291,7 +275,6 @@ var DimpCompose = {
                 break;
 
             case 'send_message':
-                this.button_pressed = false;
                 if (this.is_popup) {
                     if (d.reply_type) {
                         DIMP.baseWindow.DimpBase.flag(d.reply_type == 'reply' ? '\\answered' : '$forwarded', true, { uid: d.uid, mailbox: d.reply_folder, noserver: true });
@@ -322,11 +305,11 @@ var DimpCompose = {
                 if (d.success) {
                     this.addAttach(d.info.number, d.info.name, d.info.type, d.info.size);
                 } else {
-                    this.button_pressed = false;
+                    this.setDisabled(false);
                 }
                 if (DIMP.conf_compose.attach_limit != -1 &&
                     $('attach_list').childElements().size() > DIMP.conf_compose.attach_limit) {
-                    $('upload').writeAttribute('disabled', false);
+                    $('upload').enable();
                     elt = new Element('DIV', [ DIMP.text_compose.atc_limit ]);
                 } else {
                     elt = new Element('INPUT', { type: 'file', name: 'file_1' });
@@ -336,21 +319,20 @@ var DimpCompose = {
                 this.resizeMsgArea();
                 break;
             }
-        } else {
-            this.button_pressed = false;
         }
 
+        this.setDisabled(false);
         $('compose').setStyle({ cursor: null });
+    },
 
-        // Re-enable buttons if needed.
-        if (!this.button_pressed) {
-            if (this.sbtext) {
-                $('send_button').setText(this.sbtext);
-            }
-            if (this.dbtext) {
-                $('draft_button').setText(this.dbtext);
-            }
-            this.dbtext = this.sbtext = null;
+    setDisabled: function(disable)
+    {
+        this.disabled = disable;
+        DimpCore.loadingImg('sendingImg', 'composeMessageParent', disable);
+        DimpCore.toggleButtons($('compose').select('DIV.dimpActions A'), disable);
+        [ $('compose') ].invoke(disable ? 'disable' : 'enable');
+        if (DIMP.SpellCheckerObject) {
+            DIMP.SpellCheckerObject.disable(disable);
         }
     },
 
@@ -743,7 +725,9 @@ var DimpCompose = {
 
             case 'draft_button':
             case 'send_button':
-                this.uniqueSubmit(id == 'send_button' ? 'send_message' : 'save_draft');
+                if (!this.disabled) {
+                    this.uniqueSubmit(id == 'send_button' ? 'send_message' : 'save_draft');
+                }
                 break;
 
             case 'htmlcheckbox':
@@ -836,7 +820,7 @@ var DimpCompose = {
                 onChoose: this.setSentMailLabel.bind(this)
             });
             this.knl_sm.setSelected(this.getIdentity($F('identity'))[3]);
-            $('sent_mail_folder_label').insert({ after: new Element('SPAN', { className: 'popdownImg' }).observe('click', function(e) { this.knl_sm.show(); this.knl_sm.ignoreClick(e); e.stop(); }.bindAsEventListener(this)) });
+            $('sent_mail_folder_label').insert({ after: new Element('SPAN', { className: 'popdownImg' }).observe('click', function(e) { if (!this.disabled) { this.knl_sm.show(); this.knl_sm.ignoreClick(e); e.stop(); } }.bindAsEventListener(this)) });
         }
 
         /* Create priority list. */
@@ -847,7 +831,7 @@ var DimpCompose = {
                 onChoose: this.setPriorityLabel.bind(this)
             });
             this.setPriorityLabel('normal');
-            $('priority_label').insert({ after: new Element('SPAN', { className: 'popdownImg' }).observe('click', function(e) { this.knl_p.show(); this.knl_p.ignoreClick(e); e.stop(); }.bindAsEventListener(this)) });
+            $('priority_label').insert({ after: new Element('SPAN', { className: 'popdownImg' }).observe('click', function(e) { if (!this.disabled) { this.knl_p.show(); this.knl_p.ignoreClick(e); e.stop(); } }.bindAsEventListener(this)) });
         }
 
         $('dimpLoading').hide();

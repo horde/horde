@@ -173,8 +173,6 @@ if ($compose_mode) {
         'fillform' => _("You have already changed the message body, are you sure you want to drop the changes?"),
         'nosubject' => _("The message does not have a Subject entered.") . "\n" . _("Send message without a Subject?"),
         'remove' => _("Remove"),
-        'saving' => _("Saving..."),
-        'sending' => _("Sending..."),
         'toggle_html' => _("Really discard all formatting information? This operation cannot be undone."),
         'uploading' => _("Uploading..."),
     );
