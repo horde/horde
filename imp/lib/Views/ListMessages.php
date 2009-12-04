@@ -297,7 +297,7 @@ class IMP_Views_ListMessages
                 'atc' => isset($ob['structure']) ? $ob['structure'] : null,
                 'flags' => $ob['flags'],
                 'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']['to']),
-                'priority' => $ob['headers']->getValue('x-priority')
+                'priority' => $ob['headers']
             ));
 
             if (!empty($flag_parse)) {

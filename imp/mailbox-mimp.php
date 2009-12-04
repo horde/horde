@@ -142,7 +142,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     $flag_parse = $imp_flags->parse(array(
         'flags' => $ob['flags'],
         'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']['to']),
-        'priority' => $ob['headers']->getValue('x-priority')
+        'priority' => $ob['headers']
     ));
 
     foreach ($flag_parse as $val) {

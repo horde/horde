@@ -603,14 +603,14 @@ $_prefs['compose_confirm'] = array(
     'type' => 'checkbox',
     'desc' => _("Display confirmation after sending a message?"));
 
-// allow the user to add a "X-Priority" header when composing messages?
+// allow the user to add a priority header when composing messages?
 $_prefs['set_priority'] = array(
     'value' => 1,
     // Locked by default
     'locked' => true,
     'shared' => false,
     'type' => 'checkbox',
-    'desc' => _("Set the X-Priority header when composing messages?"));
+    'desc' => _("Set a priority header when composing messages?"));
 
 // compose in a separate window?
 $_prefs['compose_popup'] = array(

@@ -68,6 +68,7 @@ $uid = $index_array['uid'];
 $indices_array = array($mailbox_name => array($uid));
 
 $imp_flags = IMP_Imap_Flags::singleton();
+$imp_hdr_ui = new IMP_Ui_Headers();
 $imp_ui = new IMP_Ui_Message();
 
 switch ($actionID) {
@@ -288,17 +289,16 @@ if ($subject = $mime_headers->getValue('subject')) {
     $title = sprintf(_("%s: %s"), $page_label, $shortsub);
 }
 
-/* See if the 'X-Priority' header has been set. */
-$xpriority = $mime_headers->getValue('x-priority');
-switch ($imp_ui->getXpriority($xpriority)) {
+/* See if the priority has been set. */
+switch ($priority = $imp_hdr_ui->getPriority($mime_headers)) {
 case 'high':
     $basic_headers['priority'] = _("Priority");
-    $display_headers['priority'] = '<div class="msgflags flagHighpriority" title="' . htmlspecialchars(_("High Priority")) . '"></div>&nbsp;' . $xpriority;
+    $display_headers['priority'] = '<div class="msgflags flagHighpriority" title="' . htmlspecialchars(_("High Priority")) . '"></div>&nbsp;' . _("High");
     break;
 
 case 'low':
     $basic_headers['priority'] = _("Priority");
-    $display_headers['priority'] = '<div class="msgflags flagLowpriority" title="' . htmlspecialchars(_("Low Priority")) . '"></div>&nbsp;' . $xpriority;
+    $display_headers['priority'] = '<div class="msgflags flagLowpriority" title="' . htmlspecialchars(_("Low Priority")) . '"></div>&nbsp;' . _("Low");
     break;
 }
 
@@ -336,7 +336,8 @@ if ($all_headers) {
         /* Skip the header if we have already dealt with it. */
         if (!isset($display_headers[$head]) &&
             !isset($all_list_headers[$head]) &&
-            (($head != 'x-priority') || !isset($display_headers['priority']))) {
+            (!in_array($head, array('importance', 'x-priority')) ||
+             !isset($display_headers['priority']))) {
             $full_headers[$head] = $val;
         }
     }

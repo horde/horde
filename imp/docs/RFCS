@@ -45,9 +45,12 @@ RFC 5256        THREAD/SORT
 RFC 5258        LIST-EXTENDED
 RFC 5267        ESORT
 RFC 5464        METADATA
+RFC 5530        IMAP Response Codes
 RFC 5550        Lemonade Profile (specifically [2.8] - $Forwarded flag)
 
 draft-ietf-morg-sortdisplay-02    SORT=DISPLAY
+draft-ietf-morg-inthread-00       THREAD=REFS
+
 
 
 POP3
@@ -141,3 +144,7 @@ Non-RFC Features
 
 Face Header (view support)
     - http://quimby.gnus.org/circus/face/
+
+Importance/Priority Header
+    - See, e.g., RFC 4356 [2.1.3.3.1]
+      http://kb.mozillazine.org/Emulate_Microsoft_email_clients

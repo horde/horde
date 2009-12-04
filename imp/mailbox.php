@@ -738,7 +738,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
         'div' => true,
         'flags' => $ob['flags'],
         'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']['to']),
-        'priority' => $ob['headers']->getValue('x-priority')
+        'priority' => $ob['headers']
     ));
 
     $subject_flags = array();

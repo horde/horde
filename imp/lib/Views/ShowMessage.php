@@ -83,7 +83,7 @@ class IMP_Views_ShowMessage
      * 'bcc' - The Bcc addresses
      * 'headers' - An array of headers (not including basic headers)
      * 'list_info' - List information.
-     * 'priority' - The X-Priority of the message ('low', 'high', 'normal')
+     * 'priority' - The priority of the message ('low', 'high', 'normal')
      * 'replyTo' - The Reply-to addresses
      * 'save_as' - The save link
      * 'title' - The title of the page
@@ -131,7 +131,10 @@ class IMP_Views_ShowMessage
         $envelope = $fetch_ret[$uid]['envelope'];
         $mime_headers = reset($fetch_ret[$uid]['headertext']);
 
-        /* Get the IMP_Ui_Message:: object. */
+        /* Initialize variables. */
+        if (!$preview) {
+            $imp_hdr_ui = new IMP_Ui_Headers();
+        }
         $imp_ui = new IMP_Ui_Message();
 
         /* Develop the list of Headers to display now. Deal with the 'basic'
@@ -234,9 +237,9 @@ class IMP_Views_ShowMessage
             }
         }
 
-        /* Get X-Priority. */
+        /* Get message priority. */
         if (!$preview) {
-            $result['priority'] = $imp_ui->getXpriority($mime_headers->getValue('x-priority'));
+            $result['priority'] = $imp_hdr_ui->getPriority($mime_headers);
         }
 
         // Create message text and attachment list.

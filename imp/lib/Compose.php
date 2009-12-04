@@ -424,7 +424,7 @@ class IMP_Compose
      * 'encrypt' => (integer) A flag whether to encrypt or sign the message.
      *              One of IMP::PGP_ENCRYPT, IMP::PGP_SIGNENC,
      *              IMP::SMIME_ENCRYPT, or IMP::SMIME_SIGNENC.
-     * 'priority' => (integer) The message priority from 1 to 5.
+     * 'priority' => (string) The message priority ('high', 'normal', 'low').
      * 'readreceipt' => (bool) Add return receipt headers?
      * 'useragent' => (string) The User-Agent string to use.
      * </pre>
@@ -481,31 +481,19 @@ class IMP_Compose
         $headers->addReceivedHeader();
         $headers->addMessageIdHeader();
 
-        /* Add the X-Priority header, if requested. */
+        /* Add priority header, if requested. */
         if (!empty($opts['priority'])) {
-            $priority = $opts['priority'];
-            switch ($priority) {
-            case 1:
-                $priority .= ' (Highest)';
+            switch ($opts['priority']) {
+            case 'high':
+                $headers->addHeader('Importance', 'High');
+                $headers->addHeader('X-Priority', '1 (Highest)');
                 break;
 
-            case 2:
-                $priority .= ' (High)';
-                break;
-
-            case 3:
-                $priority .= ' (Normal)';
-                break;
-
-            case 4:
-                $priority .= ' (Low)';
-                break;
-
-            case 5:
-                $priority .= ' (Lowest)';
+            case 'low':
+                $headers->addHeader('Importance', 'Low');
+                $headers->addHeader('X-Priority', '5 (Lowest)');
                 break;
             }
-            $headers->addHeader('X-Priority', $priority);
         }
 
         $headers->addHeader('Date', date('r'));

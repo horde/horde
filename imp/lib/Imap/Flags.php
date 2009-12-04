@@ -233,8 +233,8 @@ class IMP_Imap_Flags
      *              addresses as returned by
      *              Horde_Mime_Address::getAddressesFromObject(), or the
      *              identity that matched the address list..
-     * 'priority' - (string) Message priority. The content of the X-Priority
-     *              header.
+     * 'priority' - (Horde_Mime_Headers) Determines priority information from
+     *              a headers object.
      * </pre>
      *
      * @return array  A list of flags with the following keys:
@@ -272,8 +272,8 @@ class IMP_Imap_Flags
         }
 
         if (!empty($options['priority'])) {
-            $imp_msg_ui = new IMP_Ui_Message();
-            switch ($imp_msg_ui->getXpriority($options['priority'])) {
+            $imp_hdr_ui = new IMP_Ui_Headers();
+            switch ($imp_hdr_ui->getPriority($options['priority'])) {
             case 'high':
                 $process['highpri'] = $f['highpri'];
                 break;

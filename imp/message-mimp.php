@@ -29,6 +29,7 @@ if (!$imp_mailbox->isValidIndex(false)) {
 }
 
 $imp_message = IMP_Message::singleton();
+$imp_hdr_ui = new IMP_Ui_Headers();
 $imp_ui = new IMP_Ui_Message();
 
 /* Determine if mailbox is readonly. */
@@ -199,13 +200,12 @@ $display_headers['subject'] = $subject;
 /* Check for the presence of mailing list information. */
 $list_info = $imp_ui->getListInformation($mime_headers);
 
-/* See if the 'X-Priority' header has been set. */
-$xpriority = $mime_headers->getValue('x-priority');
-switch ($imp_ui->getXpriority($xpriority)) {
+/* See if the priority has been set. */
+switch($priority = $imp_hdr_ui->getPriority($mime_headers)) {
 case 'high':
 case 'low':
     $basic_headers['priority'] = _("Priority");
-    $display_headers['priority'] = $xpriority;
+    $display_headers['priority'] = Horde_String::ucfirst($priority);
     break;
 }
 

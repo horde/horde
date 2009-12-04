@@ -414,7 +414,7 @@ case 'send_message':
         'sent_folder' => $sent_mail_folder,
         'save_attachments' => Horde_Util::getFormData('save_attachments_select'),
         'encrypt' => $prefs->isLocked('default_encrypt') ? $prefs->getValue('default_encrypt') : Horde_Util::getFormData('encrypt_options'),
-        'priority' => Horde_Util::getFormData('x_priority'),
+        'priority' => Horde_Util::getFormData('priority'),
         'readreceipt' => Horde_Util::getFormData('request_read_receipt')
     );
 
@@ -1021,13 +1021,11 @@ if ($redirect) {
         $t->set('priority_label', Horde::label('priority', _("_Priority")));
         $t->set('priority_tabindex', ++$tabindex);
 
-        $priority = Horde_Util::getFormData('x_priority', 3);
+        $priority = Horde_Util::getFormData('priority', 'normal');
         $priorities = array(
-            1 => '1 (' . _("Highest") . ')',
-            2 => '2 (' . _("High") . ')',
-            3 => '3 (' . _("Normal") . ')',
-            4 => '4 (' . _("Low") . ')',
-            5 => '5 (' . _("Lowest") . ')'
+            'high' => _("High"),
+            'normal' => _("Normal"),
+            'low' => _("Low")
         );
         $priority_option = array();
         foreach ($priorities as $key => $val) {
