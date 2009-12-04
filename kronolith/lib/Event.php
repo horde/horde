@@ -113,6 +113,12 @@ abstract class Kronolith_Event
     public $tags = array();
 
     /**
+     * Geolocation
+     *
+     */
+    public $geoLocation = null;
+
+    /**
      * Whether this is the event on the first day of a multi-day event.
      *
      * @var boolen
@@ -257,9 +263,16 @@ abstract class Kronolith_Event
         }
 
         if ($eventObject !== null) {
+
+            /* Get tags */
             $this->fromDriver($eventObject);
             $tagger = Kronolith::getTagger();
             $this->tags = $tagger->getTags($this->getUID(), 'event');
+
+            /* Get geolocation data */
+            if ($gDriver = Kronolith::getGeoDriver()) {
+                $this->geoLocation = $gDriver->getLocation($this->getId());
+            }
         }
     }
 
@@ -1164,6 +1177,7 @@ abstract class Kronolith_Event
             $json->et = $this->end->format($time_format);
             $json->a = $this->alarm;
             $json->tg = array_values($this->tags);
+            $json->gl = array_values($this->geoLocation);
             if ($this->recurs()) {
                 $json->r = $this->recurrence->toJson();
             }
@@ -2052,6 +2066,9 @@ abstract class Kronolith_Event
         // Tags.
         $this->tags = Horde_Util::getFormData('tags', $this->tags);
 
+        // Geolocation
+        $this->geoLocation = array('lat' => Horde_Util::getFormData('lat'),
+                                   'lon' => Horde_Util::getFormData('lon'));
         $this->initialized = true;
     }
 
