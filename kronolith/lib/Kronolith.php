@@ -2413,8 +2413,8 @@ class Kronolith
     public static function getGeoDriver()
     {
         /* Get geolocation data */
-        if ($GLOBALS['conf']['geo']['driver']) {
-            return Kronolith_Geo::factory($GLOBALS['conf']['geo']['driver']);
+        if (!empty($GLOBALS['conf']['maps']['geodriver'])) {
+            return Kronolith_Geo::factory($GLOBALS['conf']['maps']['geodriver']);
         } else {
             return false;
         }

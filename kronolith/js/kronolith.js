@@ -29,6 +29,9 @@ KronolithCore = {
     tasktype: 'incomplete',
     growls: 0,
     alarms: [],
+    mapMarker: null,
+    map: null,
+    mapInitialized: false,
 
     doActionOpts: {
         onException: function(r, e) { KronolithCore.debug('onException', e); },
@@ -2822,8 +2825,8 @@ KronolithCore = {
                 elt.parentNode.addClassName('activeTab');
                 if (id == 'kronolithEventLinkMap') {
                     /* Maps */
-                    if (!Object.isUndefined(KronolithEventMap) && !KronolithEventMap.isInitialized()) {
-                        KronolithEventMap.initialize();
+                    if (!this.mapInitialized) {
+                        this.initializeMap();
                     }
                 }
                 e.stop();
@@ -2831,6 +2834,7 @@ KronolithCore = {
 
             case 'kronolithFormCancel':
                 this._closeRedBox();
+                this.resetMap();
                 window.history.back();
                 e.stop();
                 return;
@@ -2855,7 +2859,7 @@ KronolithCore = {
                 return;
 
             case 'kronolithEventGeo':
-                KronolithEventMap.geocode($F('kronolithEventLocation'));
+                this.geocode($F('kronolithEventLocation'));
                 e.stop();
                 return;
             }
@@ -3089,8 +3093,14 @@ KronolithCore = {
             try {
                 $('kronolithEventForm').focusFirstElement();
             } catch(e) {}
+            if (Kronolith.conf.maps.driver &&
+                $('kronolithEventLinkMap').up().hasClassName('activeTab') &&
+                !this.mapInitialized) {
+
+                this.initializeMap();
+            }
             RedBox.onDisplay = null;
-        };
+        }.bind(this);
 
         this.updateCalendarDropDown('kronolithEventTarget');
         $('kronolithEventForm').enable();
@@ -3138,6 +3148,7 @@ KronolithCore = {
                               this._removeEvent(eventid, cal);
                           }
                           this._loadEventsCallback(r);
+                          this.resetMap();
                           this._closeRedBox();
                           window.history.back();
                       }.bind(this));
@@ -3304,6 +3315,12 @@ KronolithCore = {
 
         /* Tags */
         $('kronolithEventTags').autocompleter.init(ev.tg);
+
+        /* Geo */
+        if (ev.gl) {
+            $('kronolithEventLocationLat').value = ev.gl.lat;
+            $('kronolithEventLocationLon').value = ev.gl.lon;
+        }
 
         if (ev.pe) {
             $('kronolithEventSave').show();
@@ -3490,51 +3507,57 @@ KronolithCore = {
     contextOnShow: Prototype.emptyFunction,
 
     // By default, no context onClick action
-    contextOnClick: Prototype.emptyFunction
+    contextOnClick: Prototype.emptyFunction,
 
-};
+    // Map
+    initializeMap: function()
+    {
+         var layers = [];
+         if (Kronolith.conf.maps.providers) {
+             Kronolith.conf.maps.providers.each(function(l)
+                 {
+                     var p = new HordeMap[l]();
+                     $H(p.getLayers()).values().each(function(e) { layers.push(e); });
+                 });
+         }
 
-KronolithEventMap =
-{
-   _marker: null,
-   _map: null,
-   _initialized: false,
+         this.map = new HordeMap.Map[Kronolith.conf.maps.driver](
+             {
+                 'elt': 'kronolithEventMap',
+                 'delayed': true,
+                 'layers': layers,
+                 'markerDragEnd': this.onMarkerDragEnd.bind(this)
+             });
 
-   initialize: function()
-   {
-        var layers = [];
-        if (Kronolith.conf.maps.providers) {
-            Kronolith.conf.maps.providers.each(function(l)
-                {
-                    var p = new HordeMap[l]();
-                    $H(p.getLayers()).values().each(function(e) { layers.push(e); });
-                });
+         if (!$('kronolithEventId').value) {
+             // New event
+             var ll =  { lat:38.7115479, lon: -9.13774 };
+             this.placeMapMarker(ll, true);
+         } else if ($('kronolithEventLocationLat').value) {
+             var ll = { lat:$('kronolithEventLocationLat').value, lon: $('kronolithEventLocationLon').value };
+             this.placeMapMarker(ll, true);
+             //@TODO: need to move this to hordemap and abstract it out
+             //this.map.map.zoomToExtent(this.map.map.getDataExtent());
+         }
+
+         this.map.display();
+         this.mapInitialized = true;
+    },
+
+    resetMap: function()
+    {
+        this.mapInitialized = false;
+        $('kronolithEventLocationLat').value = null;
+        $('kronolithEventLocationLon').value = null;
+        if (this.mapMarker) {
+            this.mapMarker.destroy();
+            this.mapMarker = null;
         }
-
-        this._map = new HordeMap.Map[Kronolith.conf.maps.driver](
-                {
-                    'elt': 'kronolithEventMap',
-                    'delayed': true,
-                    'layers': layers,
-                    'markerDragEnd': this.onMarkerDragEnd.bind(this)
-                });
-        this._map.display();
-        this._marker = this._map.addMarker(
-                {lat:38.7115479, lon: -9.13774},
-                {'draggable': true},
-                {
-                    'context': this,
-                    'dragend': this.onMarkerDragEnd
-                });
-
-        this._map.setCenter({lat:38.7115479, lon: -9.13774}, 10);
-        this._initialized = true;
-   },
-
-   isInitialized: function()
-   {
-       return this._initialized;
-   },
+        if (this.map) {
+            this.map.destroy();
+            this.map = null;
+        }
+    },
 
    /**
     * Callback for handling marker drag end.
@@ -3545,6 +3568,8 @@ KronolithEventMap =
    onMarkerDragEnd: function(r)
    {
        var ll = r.getLonLat();
+       $('kronolithEventLocationLon').value = ll.lon;
+       $('kronolithEventLocationLat').value = ll.lat;
        var gc = new HordeMap.Geocoder[Kronolith.conf.maps.geocoder]();
        gc.reverseGeocode(ll, this.onReverseGeocode.bind(this), this.onError.bind(this) );
    },
@@ -3569,8 +3594,7 @@ KronolithEventMap =
    {
        r = r.shift();
        ll = new OpenLayers.LonLat(r.lon, r.lat);
-       this._map.moveMarker(this._marker, { lat: r.lat, lon: r.lon });
-       this._map.setCenter(ll);
+       this.placeMapMarker({ lat: r.lat, lon: r.lon }, true);
        $('kronolithEventLocationLon').value = r.lon;
        $('kronolithEventLocationLat').value = r.lat;
    },
@@ -3581,7 +3605,26 @@ KronolithEventMap =
        }
        var gc = new HordeMap.Geocoder[Kronolith.conf.maps.geocoder]();
        gc.geocode(a, this.onGeocode.bind(this), this.onError);
+   },
+
+   placeMapMarker: function(ll, center)
+   {
+       if (!this.mapMarker) {
+           this.mapMarker = this.map.addMarker(
+                   ll,
+                   { 'draggable': true },
+                   {
+                       'context': this,
+                       'dragend': this.onMarkerDragEnd
+                   });
+       } else {
+           this.map.moveMarker(this.mapMarker, ll);
+       }
+       if (center) {
+           this.map.setCenter(ll);
+       }
    }
+
 };
 
 /* Initialize global event handlers. */
