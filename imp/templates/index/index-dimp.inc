@@ -431,7 +431,7 @@ function _simpleButton($id, $text, $image)
 <?php endif; ?>
 <?php if ($has_whitelist): ?>
  <div>
-  <div class="sep"></div>
+  <div<?php if (!$has_blacklist) echo ' class="sep"'; ?>></div>
   <a id="oa_whitelist"><span class="contextImg"></span><?php echo _("Whitelist") ?></a>
  </div>
 <?php endif; ?>
