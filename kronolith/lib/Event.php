@@ -1177,7 +1177,7 @@ abstract class Kronolith_Event
             $json->et = $this->end->format($time_format);
             $json->a = $this->alarm;
             $json->tg = array_values($this->tags);
-            $json->gl = array_values($this->geoLocation);
+            $json->gl = $this->geoLocation;
             if ($this->recurs()) {
                 $json->r = $this->recurrence->toJson();
             }
