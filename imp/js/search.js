@@ -122,6 +122,9 @@ var ImpSearch = {
         switch (elt.readAttribute('id')) {
         case 'recent_searches':
             this.updateSearchCriteria(this.saved_searches[$F(elt)]);
+            if (!$('search_criteria_table').up().visible()) {
+                this._toggleHeader($('search_criteria_table').up().previous());
+            }
             elt.clear();
             break;
 
@@ -407,10 +410,7 @@ var ImpSearch = {
             default:
                 if (elt.hasClassName('arrowExpanded') ||
                     elt.hasClassName('arrowCollapsed')) {
-                    elt.up().down().toggle().next().toggle().up().next().toggle();
-                    if (elt.descendantOf('search_folders_hdr')) {
-                        elt.next('SPAN.searchuiFoldersActions').toggle();
-                    }
+                    this._toggleHeader(elt.up());
                 } else if (elt.hasClassName('searchuiDelete')) {
                     this.deleteCriteria(elt.up('TR'));
                     e.stop();
@@ -425,6 +425,14 @@ var ImpSearch = {
             }
 
             elt = elt.up();
+        }
+    },
+
+    _toggleHeader: function(elt)
+    {
+        elt.down().toggle().next().toggle().up().next().toggle();
+        if (elt.descendantOf('search_folders_hdr')) {
+            elt.next('SPAN.searchuiFoldersActions').toggle();
         }
     },
 
