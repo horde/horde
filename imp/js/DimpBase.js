@@ -9,8 +9,8 @@
 
 var DimpBase = {
     // Vars used and defaulting to null/false:
-    //   cfolderaction, folder, folderswitch, needSFL, offset, pollPE, pp,
-    //   resize, search, splitbar, template, uid, viewport
+    //   cfolderaction, folder, folderswitch, offset, pollPE, pp, resize,
+    //   search, splitbar, template, uid, viewport
     // msglist_template_horiz and msglist_template_vert set via
     //   js/mailbox-dimp.js
     cacheids: {},
@@ -2081,7 +2081,6 @@ var DimpBase = {
             (Prototype.Browser.IE &&
              Object.isUndefined(nfheight) &&
              (nf.getStyle('height') == '0px'))) {
-            this.needSFL = true;
             this._sizeFolderlist();
         }
 
@@ -2337,10 +2336,8 @@ var DimpBase = {
 
     _sizeFolderlist: function()
     {
-        if (this.needSFL) {
-            var nf = $('normalfolders');
-            nf.setStyle({ height: (document.viewport.getHeight() - nf.cumulativeOffset()[1]) + 'px' });
-        }
+        var nf = $('normalfolders');
+        nf.setStyle({ height: (document.viewport.getHeight() - nf.cumulativeOffset()[1]) + 'px' });
     },
 
     toggleSubscribed: function()
@@ -2754,10 +2751,10 @@ var DimpBase = {
 
     _onResize: function()
     {
+        this._sizeFolderlist();
         this.splitbar.setStyle({ height: document.viewport.getHeight() + 'px' });
         if (DimpCore.is_ie6) {
             this._resizeIE6();
-            this._sizeFolderlist();
         }
     }
 
