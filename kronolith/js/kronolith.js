@@ -2859,6 +2859,7 @@ KronolithCore = {
                 return;
 
             case 'kronolithEventGeo':
+                this.ensureMap();
                 this.geocode($F('kronolithEventLocation'));
                 e.stop();
                 return;
@@ -3623,6 +3624,18 @@ KronolithCore = {
        if (center) {
            this.map.setCenter(ll);
        }
+   },
+
+   ensureMap: function()
+   {
+       if (!this.mapInitialized) {
+           this.initializeMap();
+       }
+       var dialog = $('kronolithEventForm')
+       dialog.select('.kronolithTabsOption').invoke('hide');
+       dialog.select('.tabset li').invoke('removeClassName', 'activeTab');
+       $('kronolithEventTabMap').show();
+       $('kronolithEventLinkMap').parentNode.addClassName('activeTab');
    }
 
 };
