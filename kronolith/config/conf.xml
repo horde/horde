@@ -125,6 +125,15 @@
    </case>
    
    <case name="SAPO" desc="Driver for SAPO Mapas API">
+    <configenum default="false" name="geocoder" desc="Which Geocoder service
+    should we use?">
+     <values>
+      <value desc="None" default="true">false</value>
+      <value desc="Google">Google</value>
+      <value desc="SAPO">SAPO</value>
+     </values> 
+    </configenum>
+
     <configenum default="false" name="geodriver" desc="Which driver should we
     use for storing geolocation information?">
      <values>
