@@ -341,7 +341,7 @@ table#calendar-list td {
 /*****************
  * AJAX INTERFACE
  *****************/
-html,body {
+html, body {
     height: 100%;
 }
 body.kronolithAjax {
@@ -454,6 +454,11 @@ body.kronolithAjax {
 }
 #kronolithSearchTerm {
     width: 127px;
+    color: #ccc;
+}
+#kronolithSearchTerm:focus {
+    width: 127px;
+    color: #000;
 }
 #kronolithMenu h3#kronolithCalendarsFirst {
     margin-top: 0;
@@ -540,8 +545,9 @@ span#kronolithQuickEvent {
     font-weight: bold;
 }
 
-.kronolithFormCancel {
+a.kronolithFormCancel {
     cursor: pointer;
+    text-decoration: underline;
 }
 .kronolithFormInfo {
     font-style: italic;
@@ -878,7 +884,7 @@ table.kronolithView td.kronolithFirstCol {
     margin: 2px 2px 0 26px;
     height: 20px;
     line-height: 20px;
-    border-bottom: 1px dotted #808080;
+    border-bottom: 1px dotted #000;
     text-align: left;
     font-weight: bold;
 }
@@ -1021,6 +1027,15 @@ table.kronolithView td.kronolithFirstCol {
 #kronolithViewAgenda div.kronolithEvent .kronolithDate {
     font-weight: normal;
     color: #333;
+}
+#kronolithViewAgenda div.kronolithEvent {
+    margin: 2px;
+    padding: 2px 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+#kronolithAgendaNoItems td {
+    padding: 4px;
 }
 
 /* Main view tasks. */
