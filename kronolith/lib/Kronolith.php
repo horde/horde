@@ -79,9 +79,6 @@ class Kronolith
         Horde::addScriptFile('date.js', 'kronolith');
         Horde::addScriptFile('kronolith.js', 'kronolith');
 
-        // No IE 8 code at the moment.
-        header('X-UA-Compatible: IE=7');
-
         if (isset($GLOBALS['language'])) {
             header('Content-type: text/html; charset=' . Horde_Nls::getCharset());
             header('Vary: Accept-Language');
