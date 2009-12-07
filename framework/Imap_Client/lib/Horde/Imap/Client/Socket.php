@@ -1426,18 +1426,18 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
         }
 
+        $list_msgs = !empty($options['list']);
+        $tmp = &$this->_temp;
+        $tmp['expunge'] = $tmp['vanished'] = array();
+
         /* We need to get sequence num -> UID lookup table if we are caching.
          * There is no guarantee that if we are using QRESYNC that we will get
          * VANISHED responses, so this is necessary. */
-        if ($use_cache && is_null($s_res)) {
+        if (($list_msgs || $use_cache) && is_null($s_res)) {
             /* Keys in $s_res['sort'] start at 0, not 1. */
             $s_res = $this->_getSeqUIDLookup(null, false);
             $s_res['sort'] = $s_res['uids'];
         }
-
-        $tmp = &$this->_temp;
-        $tmp['expunge'] = $tmp['vanished'] = array();
-        $list_msgs = !empty($options['list']);
 
         /* Always use UID EXPUNGE if available. */
         if ($uidplus) {
