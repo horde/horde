@@ -1807,19 +1807,27 @@ class IMP_Imap_Tree
      */
     protected function _initElement()
     {
-        if (isset($this->_eltCache)) {
-            return;
+        if (!isset($this->_eltCache)) {
+            $this->_eltCache = $this->getSpecialMailboxes();
+            $this->_eltCache['image_dir'] = $GLOBALS['registry']->getImageDir();
         }
+    }
 
-        /* Initialize the user's identities. */
+    /**
+     * Return the list of 'special' mailboxes.
+     *
+     * @return array  A list of folders, with keys of 'draft', 'sent', 'spam',
+     *                and 'trash' and values containing the mailbox names
+     *                ('sent' contains a list of mailbox names).
+     */
+    public function getSpecialMailboxes()
+    {
         $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
-
-        $this->_eltCache = array(
-            'trash' => IMP::folderPref($GLOBALS['prefs']->getValue('trash_folder'), true),
+        return array(
             'draft' => IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true),
-            'spam' => IMP::folderPref($GLOBALS['prefs']->getValue('spam_folder'), true),
             'sent' => $identity->getAllSentmailFolders(),
-            'image_dir' => $GLOBALS['registry']->getImageDir(),
+            'spam' => IMP::folderPref($GLOBALS['prefs']->getValue('spam_folder'), true),
+            'trash' => IMP::folderPref($GLOBALS['prefs']->getValue('trash_folder'), true)
         );
     }
 
