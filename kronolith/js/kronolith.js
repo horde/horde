@@ -2715,6 +2715,11 @@ KronolithCore = {
                 e.stop();
                 return;
 
+            case 'kronolithEventsDay':
+                this.go('event:' + this.date.dateString());
+                e.stop();
+                return;
+
             case 'kronolithViewMonth':
                 if (orig.hasClassName('kronolithFirstCol')) {
                     var date = orig.retrieve('date');
@@ -2834,6 +2839,12 @@ KronolithCore = {
                 e.stop();
                 return;
 
+            case 'kronolithEventGeo':
+                this.ensureMap();
+                this.geocode($F('kronolithEventLocation'));
+                e.stop();
+                return;
+
             case 'kronolithTaskRow':
                 if (elt.retrieve('taskid')) {
                     this.go('task:' + elt.retrieve('tasklist') + ':' + elt.retrieve('taskid'));
@@ -2848,9 +2859,8 @@ KronolithCore = {
                 e.stop();
                 return;
 
-            case 'kronolithEventGeo':
-                this.ensureMap();
-                this.geocode($F('kronolithEventLocation'));
+            case 'kronolithEventsWeek':
+                this.go('event:' + elt.identify().substr(elt.identify().length - 8));
                 e.stop();
                 return;
             }
