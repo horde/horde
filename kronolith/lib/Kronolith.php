@@ -1779,14 +1779,20 @@ class Kronolith
             $ics->setContentTypeParameter('METHOD', $method);
             $ics->setCharset(Horde_Nls::getCharset());
 
+            $multipart = new Horde_Mime_Part('multipart/alternative');
+            $body = new Horde_Mime_Part();
+            $body->setType('text/plain');
+            $body->setCharset(Horde_Nls::getCharset());
+            $body->setContents($message);
+            $multipart->addPart($body);
+            $multipart->addPart($ics);
             $recipient = empty($status['name']) ? $email : Horde_Mime_Address::trimAddress($status['name'] . ' <' . $email . '>');
             $mail = new Horde_Mime_Mail(array('subject' => $subject,
-                                              'body' => $message,
                                               'to' => $recipient,
                                               'from' => $from,
                                               'charset' => Horde_Nls::getCharset()));
             $mail->addHeader('User-Agent', 'Kronolith ' . $GLOBALS['registry']->getVersion());
-            $mail->addMimePart($ics);
+            $mail->setBasePart($multipart);
 
             try {
                 $mail->send(Horde::getMailerConfig());
