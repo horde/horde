@@ -195,8 +195,6 @@ var DimpCompose = {
         }
 
         if (action == 'send_message' || action == 'save_draft') {
-            this.setDisabled(true);
-
             switch (action) {
             case 'send_message':
                 if (($F('subject') == '') &&
@@ -239,6 +237,12 @@ var DimpCompose = {
             // Use an AJAX submit here so that we can do javascript-y stuff
             // before having to close the window on success.
             DimpCore.doAction('*' + DIMP.conf.URI_COMPOSE, c.serialize(true), { callback: this.uniqueSubmitCallback.bind(this) });
+
+            // Can't disable until we send the message - or else nothing
+            // will get POST'ed.
+            if (action == 'send_message' || action == 'save_draft') {
+                this.setDisabled(true);
+            }
         }
     },
 
