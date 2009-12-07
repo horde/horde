@@ -464,9 +464,10 @@ body.kronolithAjax {
 #kronolithMenu a.kronolithAdd {
     position: absolute;
     right: 0;
+    width: 16px;
     padding-right: 8px;
     background: transparent url("graphics/plus.png") no-repeat right center;
-    color: transparent;
+    text-indent: -10000px;
     cursor: pointer;
 }
 #kronolithMenu div.kronolithCalendars {
@@ -514,8 +515,9 @@ span#kronolithNewEvent {
 }
 span#kronolithQuickEvent {
     width: 16px;
+    height: 16px;
     background: transparent url("graphics/new.png") no-repeat;
-    color: transparent;
+    text-indent: -10000px;
 }
 
 /* Quick edit */
@@ -775,7 +777,7 @@ div.kronolithFormActions {
     top: 0;
     right: 0;
     width: 16px;
-    color: transparent;
+    text-indent: -10000px;
     cursor: pointer;
     background: transparent url("graphics/right.png") no-repeat right center;
 }
@@ -892,7 +894,7 @@ table.kronolithView td.kronolithFirstCol {
     position: absolute;
     right: 0;
     width: 16px;
-    color: transparent;
+    text-indent: -10000px;
     background: transparent url("graphics/right.png") no-repeat right center;
 }
 .kronolithPrev {
