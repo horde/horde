@@ -17,11 +17,15 @@
     height: 20px;
 }
 .messageList th {
-    text-align: left;
-    cursor: pointer;
-    white-space: nowrap;
     border: 1px solid #eee;
+    cursor: pointer;
     overflow: hidden;
+    padding: 0 0 1px 1px;
+    text-align: left;
+    white-space: nowrap;
+}
+.messageList th .subjectToggle {
+    font-size: 90%;
 }
 .messageList td {
     padding-top: 0;

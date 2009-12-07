@@ -634,7 +634,7 @@ if ($pageOb['msgcount']) {
             $extra = Horde_Imap_Client::SORT_SUBJECT;
             $standard = Horde_Imap_Client::SORT_THREAD;
         }
-        $headers[$standard]['extra'] = '&nbsp;<span style="font-size:95%">[' . Horde::widget(Horde_Util::addParameter($mailbox_imp_url, array('sortby' => $extra, 'actionID' => 'change_sort', 'mailbox_token' => $mailbox_token)), $headers[$extra]['stext'], 'widget" style="font-size:95%; font-weight:normal;', null, 'if (window.event) window.event.cancelBubble = true; else if (event) event.stopPropagation();', $headers[$extra]['text']) . ']</span>';
+        $headers[$standard]['extra'] = '&nbsp;<span style="toggleSubject">[' . Horde::widget(Horde_Util::addParameter($mailbox_imp_url, array('sortby' => $extra, 'actionID' => 'change_sort', 'mailbox_token' => $mailbox_token)), $headers[$extra]['stext'], 'widget', null, 'if (window.event) window.event.cancelBubble = true; else if (event) event.stopPropagation();', $headers[$extra]['text']) . ']</span>';
         unset($headers[$extra]);
     }
 
