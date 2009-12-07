@@ -2023,8 +2023,8 @@ KronolithCore = {
                       function(r) {
                           if (r.response.tasks && taskid) {
                               this._removeTask(taskid, tasklist);
-                              this._loadTasksCallback(r, this.tasktype, false);
                           }
+                          this._loadTasksCallback(r, this.tasktype, false);
                           this._closeRedBox();
                           window.history.back();
                       }.bind(this));
