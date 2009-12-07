@@ -235,13 +235,9 @@ class Horde_Util
         }
 
         if ($url instanceof Horde_Url) {
-            // In many places we re-use URLs assuming they are strings. With
-            // Horde_Url objects, this can lead to reference problems and URLs
-            // being mysteriously modified. For now, we have to clone any
-            // objects to avoid modifying them.
-            $url2 = clone($url);
+            $url2 = $url->cAdd($parameter, $value);
             $url2->raw = !$encode;
-            return $url2->add($parameter, $value);
+            return $url2;
         }
 
         $horde_url = new Horde_Url($url, !$encode);
@@ -260,12 +256,7 @@ class Horde_Util
     static public function removeParameter($url, $remove)
     {
         if ($url instanceof Horde_Url) {
-            // In many places we re-use URLs assuming they are strings. With
-            // Horde_Url objects, this can lead to reference problems and URLs
-            // being mysteriously modified. For now, we have to clone any
-            // objects to avoid modifying them.
-            $url2 = clone($url);
-            return $url2->remove($remove);
+            return $url->cRemove($remove);
         }
 
         $horde_url = new Horde_Url($url);
