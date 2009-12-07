@@ -130,6 +130,7 @@ class IMP_Views_ShowMessage
 
         $envelope = $fetch_ret[$uid]['envelope'];
         $mime_headers = reset($fetch_ret[$uid]['headertext']);
+        $headers = array();
 
         /* Initialize variables. */
         if (!$preview) {
