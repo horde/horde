@@ -81,14 +81,6 @@ class IMP_Auth
             throw new Horde_Auth_Exception($e->getMessage());
         }
 
-        /* Set the IMAP threading algorithm. */
-        $ptr = $GLOBALS['imp_imap']->loadServerConfig($credentials['server']);
-        if (strcasecmp($ptr['protocol'], 'imap') == 0) {
-            $_SESSION['imp']['imap']['thread'] = in_array(isset($ptr['thread']) ? strtoupper($ptr['thread']) : 'REFERENCES', $GLOBALS['imp_imap']->ob()->queryCapability('THREAD'))
-                ? 'REFERENCES'
-                : 'ORDEREDSUBJECT';
-        }
-
         return false;
     }
 
@@ -431,6 +423,11 @@ class IMP_Auth
                     }
                 }
             }
+
+            /* Set the IMAP threading algorithm. */
+            $sess['imap']['thread'] = in_array(isset($ptr['thread']) ? strtoupper($ptr['thread']) : 'REFERENCES', $GLOBALS['imp_imap']->ob()->queryCapability('THREAD'))
+                ? 'REFERENCES'
+                : 'ORDEREDSUBJECT';
         }
 
         /* Set the SMTP options, if needed. */
