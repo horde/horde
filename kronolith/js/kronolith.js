@@ -1694,16 +1694,6 @@ KronolithCore = {
         tasktypes.each(function(type) {
             var tasks = this.tcache.get(type).get(tasklist);
             $H(tasks).each(function(task) {
-                if (tasktype != 'all' &&
-                    !Object.isUndefined(task.value.start) &&
-                    task.value.start.isAfter(now)) {
-                    (function() {
-                        if (this.tasktype == tasktype) {
-                            this._insertTasks(tasktype, tasklist);
-                        }
-                    }).bind(this).delay((task.value.start.getTime() - now.getTime()) / 1000);
-                }
-
                 switch (tasktype) {
                 case 'complete':
                     if (!task.value.cp ||
