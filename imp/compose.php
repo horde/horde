@@ -357,7 +357,7 @@ case 'redirect_send':
     $f_to = Horde_Util::getFormData('to', $imp_ui->getAddressList(Horde_Util::getFormData('to'), Horde_Util::getFormData('to_list'), Horde_Util::getFormData('to_field'), Horde_Util::getFormData('to_new')));
 
     try {
-        $imp_ui->redirectMessage($f_to, $imp_compose, $imp_contents, $encoding);
+        $imp_ui->redirectMessage($f_to, $imp_compose, $imp_contents);
         $imp_compose->destroy();
         if ($isPopup) {
             if ($prefs->getValue('compose_confirm')) {

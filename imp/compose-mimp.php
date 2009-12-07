@@ -137,7 +137,7 @@ case _("Redirect"):
     $f_to = $imp_ui->getAddressList(Horde_Util::getFormData('to'));
 
     try {
-        $imp_ui->redirectMessage($f_to, $imp_compose, $imp_contents, Horde_Nls::getEmailCharset());
+        $imp_ui->redirectMessage($f_to, $imp_compose, $imp_contents);
         if ($prefs->getValue('compose_confirm')) {
             $notification->push(_("Message redirected successfully."), 'horde.success');
         }

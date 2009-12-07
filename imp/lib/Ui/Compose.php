@@ -32,11 +32,9 @@ class IMP_Ui_Compose
     }
 
     /**
-     * $encoding = DEPRECATED
-     *
      * @throws Horde_Exception
      */
-    public function redirectMessage($to, $imp_compose, $contents, $encoding)
+    public function redirectMessage($to, $imp_compose, $contents)
     {
         try {
             $recip = $imp_compose->recipientList(array('to' => $to));
@@ -53,9 +51,6 @@ class IMP_Ui_Compose
 
         $mime_message = $contents->getMIMEMessage();
         $charset = $mime_message->getCharset();
-        if (is_null($charset)) {
-            $charset = $encoding;
-        }
 
         /* We need to set the Return-Path header to the current user - see
            RFC 2821 [4.4]. */
