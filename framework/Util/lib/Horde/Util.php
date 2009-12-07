@@ -235,9 +235,7 @@ class Horde_Util
         }
 
         if ($url instanceof Horde_Url) {
-            $url2 = $url->cAdd($parameter, $value);
-            $url2->raw = !$encode;
-            return $url2;
+            return $url->cAdd($parameter, $value)->setRaw(!$encode);
         }
 
         $horde_url = new Horde_Url($url, !$encode);

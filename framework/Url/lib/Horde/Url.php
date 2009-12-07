@@ -184,6 +184,19 @@ class Horde_Url
     }
 
     /**
+     * Sets the $raw value.  This call can be chained.
+     *
+     * @param boolean  The value to set for $raw.
+     *
+     * @return Horde_Url  This object, to allow chaining.
+     */
+    public function setRaw($raw)
+    {
+        $this->raw = $raw;
+        return $this;
+    }
+
+    /**
      * Creates the full URL string.
      *
      * @return string  The string representation of this object.
