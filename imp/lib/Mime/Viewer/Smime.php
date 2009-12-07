@@ -253,9 +253,9 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
             $hdrs->addHeader('From', $this->_mimepart->getMetadata('imp-smime-from'));
             $stream = $this->_mimepart->toString(array('headers' => $hdrs, 'stream' => true));
         } else {
-            /* This can never be the base of the message since it appears
-             * only within a multipart/signed part. */
-            $stream = $this->_params['contents']->getBodyPart($base_id, array('mimeheaders' => true, 'stream' => true));
+            $stream = $base_id
+                ? $this->_params['contents']->getBodyPart($base_id, array('mimeheaders' => true, 'stream' => true))
+                : $this->_params['contents']->fullMessageText(array('stream' => true));
         }
 
         $raw_text = $this->_mimepart->replaceEOL($stream, Horde_Mime_Part::RFC_EOL);
