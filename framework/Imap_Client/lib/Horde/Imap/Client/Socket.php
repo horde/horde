@@ -959,7 +959,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             // If mode is subscribed, and 'flat' option is true, we can
             // return now.
-            if (($mode == Horde_Imap_Client::MBOX_SUBSCRIBED) && !empty($options['flat'])) {
+            if (($mode == Horde_Imap_Client::MBOX_SUBSCRIBED) &&
+                !empty($options['flat'])) {
                 return $subscribed;
             }
         } else {
@@ -1065,24 +1066,22 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $mode = strtoupper($data[0]);
         $mbox = $data[3];
 
-        /* If dealing with [un]subscribed mailboxes, check to make sure
-         * this mailbox is in the correct category. */
         if ($ml['check'] &&
-            ((($mode == 'LIST') && isset($ml['subscribed'][$mbox])) ||
-             (($mode == 'LSUB') && !isset($ml['subscribed'][$mbox])))) {
+            $ml['subexist'] &&
+            !isset($ml['subscribed'][$mbox])) {
             return;
+        } else if ((!$ml['check'] && $ml['subexist']) ||
+                   (empty($mlo['flat']) && !empty($mlo['attributes']))) {
+            $attr = array_map('strtolower', $data[1]);
+            if ($ml['subexist'] &&
+                !$ml['check'] &&
+                in_array('\\nonexistent', $attr)) {
+                return;
+            }
         }
 
         if (!empty($mlo['utf8'])) {
             $mbox = Horde_Imap_Client_Utf7imap::Utf7ImapToUtf8($mbox);
-        }
-
-        if ($ml['subexist'] ||
-            (empty($mlo['flat']) && !empty($mlo['attributes']))) {
-            $attr = array_map('strtolower', $data[1]);
-            if ($ml['subexist'] && in_array('\\nonexistent', $attr)) {
-                return;
-            }
         }
 
         if (empty($mlo['flat'])) {
