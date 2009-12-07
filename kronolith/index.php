@@ -9,7 +9,8 @@
 require_once dirname(__FILE__) . '/lib/base.php';
 
 /* Load traditional interface? */
-if (!$prefs->getValue('dynamic_view') || !$browser->hasFeature('xmlhttpreq')) {
+if (!$prefs->getValue('dynamic_view') || !$browser->hasFeature('xmlhttpreq') ||
+    ($browser->isBrowser('msie') && $browser->getMajor() <= 6)) {
     include KRONOLITH_BASE . '/' . $prefs->getValue('defaultview') . '.php';
     exit;
 }
