@@ -18,6 +18,8 @@ class Horde_Url_AddTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('test?foo=1&amp;bar=2', (string)$url);
         $url->add('baz', 3);
         $this->assertEquals('test?foo=1&amp;bar=2&amp;baz=3', (string)$url);
+        $url->add('fez');
+        $this->assertEquals('test?foo=1&amp;bar=2&amp;baz=3&amp;fez', (string)$url);
     }
 
     public function testAddArray()
@@ -58,9 +60,20 @@ class Horde_Url_AddTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('test?foo=bar%26baz&x=y', (string)$url);
 
         $url = new Horde_Url('test');
+        $url->setRaw(true)->add('x', 'y')->add('foo', 'bar');
+        $this->assertEquals('test?x=y&foo=bar', (string)$url);
+
+        $url = new Horde_Url('test');
         $url->add('x', 'y')
             ->add('foo', 'bar&baz');
         $this->assertEquals('test?x=y&amp;foo=bar%26baz', (string)$url);
+    }
+
+    public function testAddMultiple()
+    {
+        $url = new Horde_Url('test', true);
+        $url->add('foo[]', 1)->add('foo[]', 2);
+        $this->assertEquals('test?foo[]=1&foo[]=2', (string)$url);
     }
 
     public function testAddChaining()
