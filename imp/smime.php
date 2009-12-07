@@ -254,13 +254,13 @@ if ($openssl_check && $prefs->getValue('use_smime')) {
     if (!$t->get('empty_pubkey_list')) {
         $plist = array();
         foreach ($pubkey_list as $val) {
-            $linkurl = Horde_Util::addParameter($selfURL, 'email', $val['email']);
+            $linkurl = $selfURL->cAdd('email', $val['email']);
             $plist[] = array(
                 'name' => $val['name'],
                 'email' => $val['email'],
-                'view' => Horde::link(Horde_Util::addParameter($linkurl, 'actionID', 'view_public_key'), sprintf(_("View %s Public Key"), $val['name']), null, 'view_key'),
-                'info' => Horde::link(Horde_Util::addParameter($linkurl, 'actionID', 'info_public_key'), sprintf(_("Information on %s Public Key"), $val['name']), null, 'info_key'),
-                'delete' => Horde::link(Horde_Util::addParameter($linkurl, 'actionID', 'delete_public_key'), sprintf(_("Delete %s Public Key"), $val['name']), null, null, "if (confirm('" . addslashes(_("Are you sure you want to delete this public key?")) . "')) { return true; } else { return false; }")
+                'view' => Horde::link($linkurl->cAdd('actionID', 'view_public_key'), sprintf(_("View %s Public Key"), $val['name']), null, 'view_key'),
+                'info' => Horde::link($linkurl->cAdd('actionID', 'info_public_key'), sprintf(_("Information on %s Public Key"), $val['name']), null, 'info_key'),
+                'delete' => Horde::link($linkurl->cAdd('actionID', 'delete_public_key'), sprintf(_("Delete %s Public Key"), $val['name']), null, null, "if (confirm('" . addslashes(_("Are you sure you want to delete this public key?")) . "')) { return true; } else { return false; }")
             );
         }
         $t->set('pubkey_list', $plist);
@@ -281,11 +281,11 @@ if ($openssl_check && $prefs->getValue('use_smime')) {
     if (!$t->get('secure_check')) {
         $t->set('has_key', $prefs->getValue('smime_public_key') && $prefs->getValue('smime_private_key'));
         if ($t->get('has_key')) {
-            $t->set('viewpublic', Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'view_personal_public_key'), _("View Personal Public Key"), null, 'view_key'));
-            $t->set('infopublic', Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'info_personal_public_key'), _("Information on Personal Public Key"), null, 'info_key'));
+            $t->set('viewpublic', Horde::link($selfURL->cAdd('actionID', 'view_personal_public_key'), _("View Personal Public Key"), null, 'view_key'));
+            $t->set('infopublic', Horde::link($selfURL->cAdd('actionID', 'info_personal_public_key'), _("Information on Personal Public Key"), null, 'info_key'));
             $passphrase = $imp_smime->getPassphrase();
-            $t->set('passphrase', empty($passphrase) ? Horde::link('#', _("Enter Passphrase"), null, null, IMP::passphraseDialogJS('SMIMEPersonal') . ';return false;') . _("Enter Passphrase") : Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'unset_passphrase'), _("Unload Passphrase")) . _("Unload Passphrase"));
-            $t->set('viewprivate', Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'view_personal_private_key'), _("View Personal Private Key"), null, 'view_key'));
+            $t->set('passphrase', empty($passphrase) ? Horde::link('#', _("Enter Passphrase"), null, null, IMP::passphraseDialogJS('SMIMEPersonal') . ';return false;') . _("Enter Passphrase") : Horde::link($selfURL->cAdd('actionID', 'unset_passphrase'), _("Unload Passphrase")) . _("Unload Passphrase"));
+            $t->set('viewprivate', Horde::link($selfURL->cAdd('actionID', 'view_personal_private_key'), _("View Personal Private Key"), null, 'view_key'));
             $t->set('deletekeypair', addslashes(_("Are you sure you want to delete your keypair? (This is NOT recommended!)")));
             $t->set('personalkey-delete-help', Horde_Help::link('imp', 'smime-delete-personal-certs'));
         } else {

@@ -700,8 +700,8 @@ class IMP_Contents
             ($id != 0) &&
             (intval($id) != 1) &&
             (strpos($id, '.') === false)) {
-            $url = Horde_Util::removeParameter(Horde::selfUrl(true), array('actionID', 'imapid', 'uid'));
-            $url = Horde_Util::addParameter($url, array('actionID' => 'strip_attachment', 'imapid' => $id, 'uid' => $this->_uid, 'message_token' => Horde::getRequestToken('imp.impcontents')));
+            $url = new Horde_Url(Horde::selfUrl(true));
+            $url->remove(array('actionID', 'imapid', 'uid'))->add(array('actionID' => 'strip_attachment', 'imapid' => $id, 'uid' => $this->_uid, 'message_token' => Horde::getRequestToken('imp.impcontents')));
             $part['strip'] = Horde::link($url, _("Strip Attachment"), 'deleteImg', null, "return window.confirm('" . addslashes(_("Are you sure you wish to PERMANENTLY delete this attachment?")) . "');") . '</a>';
         }
 
@@ -717,7 +717,7 @@ class IMP_Contents
      * <pre>
      * 'dload' - (boolean) Should we generate a download link?
      * 'params' - (array) A list of any additional parameters that need to be
-     *            passed to view.php (key = name).
+     *            passed to view.php (key => name).
      * </pre>
      *
      * @return string  The URL to view.php.
@@ -727,7 +727,7 @@ class IMP_Contents
         $params = $this->_urlViewParams($mime_part, $actionID, isset($options['params']) ? $options['params'] : array());
 
         return empty($options['dload'])
-            ? Horde_Util::addParameter(Horde::applicationUrl('view.php', true), $params)
+            ? Horde::applicationUrl('view.php', true)->add($params)
             : Horde::downloadUrl($mime_part->getName(true), $params);
     }
 

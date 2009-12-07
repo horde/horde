@@ -31,7 +31,7 @@ if ($search_mailbox) {
     $id = $imp_ui_search->processBasicSearch($search_mailbox, Horde_Util::getFormData('search_criteria'), Horde_Util::getFormData('search_criteria_text'), Horde_Util::getFormData('search_criteria_not'), Horde_Util::getFormData('search_flags'));
 
     /* Redirect to the mailbox screen. */
-    header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('mailbox.php', true), 'mailbox', $GLOBALS['imp_search']->createSearchID($id), false));
+    header('Location: ' . Horde::applicationUrl('mailbox.php', true)->setRaw(true)->add('mailbox', $GLOBALS['imp_search']->createSearchID($id)));
     exit;
 }
 
@@ -71,7 +71,7 @@ IMP::menu();
 IMP::status();
 
 if ($browser->hasFeature('javascript')) {
-    $t->set('advsearch', Horde::link(Horde_Util::addParameter(Horde::applicationUrl('search.php'), array('search_mailbox' => $search_mailbox))));
+    $t->set('advsearch', Horde::link(Horde::applicationUrl('search.php')->add(array('search_mailbox' => $search_mailbox))));
 }
 
 echo $t->fetch(IMP_TEMPLATES . '/search/search-basic.html');

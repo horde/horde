@@ -65,7 +65,7 @@ foreach (explode('|', Horde_Util::getFormData('sa')) as $addr) {
 $template = new Horde_Template();
 $template->setOption('gettext', true);
 
-$template->set('action', Horde::url(Horde_Util::addParameter(Horde::applicationUrl('contacts.php'), array('uniq' => uniqid(mt_rand())))));
+$template->set('action', Horde::applicationUrl('contacts.php')->add(array('uniq' => uniqid(mt_rand()))));
 $template->set('formname', $formname);
 $template->set('formInput', Horde_Util::formInput());
 $template->set('search', htmlspecialchars($search));

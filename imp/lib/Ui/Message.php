@@ -282,10 +282,10 @@ class IMP_Ui_Message
     /**
      * Builds a string containing a list of addresses.
      *
-     * @param array $addrlist  The list of addresses from
-     *                         Horde_Mime_Address::parseAddressList().
-     * @param integer $addURL  The self URL.
-     * @param boolean $link    Link each address to the compose screen?
+     * @param array $addrlist    The list of addresses from
+     *                           Horde_Mime_Address::parseAddressList().
+     * @param Horde_Url $addURL  The self URL.
+     * @param boolean $link      Link each address to the compose screen?
      *
      * @return string  String containing the formatted address list.
      */
@@ -307,7 +307,7 @@ class IMP_Ui_Message
         if (!is_null($addURL) && $link && $prefs->getValue('add_source')) {
             try {
                 $add_link = $registry->hasMethod('contacts/import')
-                    ? Horde_Util::addParameter($addURL, 'actionID', 'add_address')
+                    ? $addURL->cAdd('actionID', 'add_address')
                     : null;
             } catch (Horde_Exception $e) {}
         }
@@ -331,7 +331,7 @@ class IMP_Ui_Message
                     /* Append the add address icon to every address if contact
                      * manager is available. */
                     if ($add_link) {
-                        $curr_link = Horde_Util::addParameter($add_link, array('name' => $ad['personal'], 'address' => $ad['inner']));
+                        $curr_link = $add_link->cAdd(array('name' => $ad['personal'], 'address' => $ad['inner']));
                         $ret .= Horde::link($curr_link, sprintf(_("Add %s to my Address Book"), $ad['inner'])) .
                             Horde::img('addressbook_add.png', sprintf(_("Add %s to my Address Book"), $ad['inner'])) . '</a>';
                     }
@@ -359,7 +359,7 @@ class IMP_Ui_Message
                     /* Append the add address icon to every address if contact
                      * manager is available. */
                     if ($add_link) {
-                        $curr_link = Horde_Util::addParameter($add_link, array('name' => $ob['personal'], 'address' => $ob['inner']));
+                        $curr_link = $add_link->cAdd(array('name' => $ob['personal'], 'address' => $ob['inner']));
                         $ret .= Horde::link($curr_link, sprintf(_("Add %s to my Address Book"), $ob['inner'])) .
                             Horde::img('addressbook_add.png', sprintf(_("Add %s to my Address Book"), $ob['inner'])) . '</a>';
                     }

@@ -128,7 +128,7 @@ $t->set('plain', $stationery['t'] == 'plain');
 $t->set('html', $stationery['t'] == 'html');
 $t->set('content_label', Horde::label('content', _("Stationery:")));
 $t->set('content', $stationery['c']);
-$t->set('button_href', Horde_Util::addParameter($compose_url, array('group' => 'compose')));
+$t->set('button_href', $compose_url->cAdd('group', 'compose'));
 $t->set('button_val', htmlspecialchars(_("Return to Message Composition"), ENT_COMPAT, Horde_Nls::getCharset()));
 
 echo $t->fetch(IMP_TEMPLATES . '/stationery/stationery.html');

@@ -26,7 +26,7 @@ class IMP_Ui_Folder
      * @var array $rows     Folder rows returned from IMP_Imap_Tree::build().
      * @var array $options  Additional options:
      * <pre>
-     * 'expand_url' - (string) The URL to use for expand/collapse links.
+     * 'expand_url' - (Horde_Url) The URL to use for expand/collapse links.
      * </pre>
      *
      * @return array  An array of tree image strings.
@@ -61,11 +61,11 @@ class IMP_Ui_Folder
         $imaptree = IMP_Imap_Tree::singleton();
 
         if ($elt['children'] && isset($options['expand_url'])) {
-            $dir = Horde_Util::addParameter($options['expand_url'], 'folder', $elt['value']);
+            $dir = $options['expand_url']->cAdd('folder', $elt['value']);
 
             if ($imaptree->isOpen($elt['base_elt'])) {
                 if (!is_null($dir)) {
-                    $dir = Horde_Util::addParameter($dir, 'actionID', 'collapse_folder');
+                    $dir->add('actionID', 'collapse_folder');
                     $alt = _("Collapse Folder");
                 }
 
@@ -80,7 +80,7 @@ class IMP_Ui_Folder
                 }
             } else {
                 if (!is_null($dir)) {
-                    $dir = Horde_Util::addParameter($dir, 'actionID', 'expand_folder');
+                    $dir->add('actionID', 'expand_folder');
                     $alt = _("Expand Folder");
                 }
 

@@ -28,21 +28,21 @@ class IMP_Mimp
 
         if (!in_array($page, array('mailbox', 'message')) ||
             ($GLOBALS['imp_mbox']['mailbox'] != 'INBOX')) {
-            $items[IMP::generateIMPUrl('mailbox-mimp.php', 'INBOX')] = _("Inbox");
+            $items[] = array(_("Inbox"), IMP::generateIMPUrl('mailbox-mimp.php', 'INBOX'));
         }
 
         if (!in_array($page, array('compose', 'search')) && IMP::canCompose()) {
-            $items[Horde_Util::addParameter(Horde::applicationUrl('compose-mimp.php'), 'u', uniqid(mt_rand()))] = _("New Message");
+            $items[] = array(_("New Message"), Horde::applicationUrl('compose-mimp.php')->add('u', uniqid(mt_rand())));
         }
 
         if (!in_array($page, array('folders', 'search'))) {
-            $items[Horde::applicationUrl('folders-mimp.php')] = _("Folders");
+            $items[] = array(_("Folders"), Horde::applicationUrl('folders-mimp.php'));
         }
 
-        $items[Horde::getServiceLink('logout', 'imp')] = _("Log out");
+        $items[] = array(_("Log out"), Horde::getServiceLink('logout', 'imp'));
 
-        foreach ($items as $link => $label) {
-            $menu->add(new Horde_Mobile_link($label, $link));
+        foreach ($items as $val) {
+            $menu->add(new Horde_Mobile_link($val[0], $val[1]));
         }
 
         $menu = new Horde_Menu();

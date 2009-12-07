@@ -57,7 +57,7 @@ foreach ($tree_ob[0] as $val) {
 $selfurl = Horde::applicationUrl('folders-mimp.php');
 if ($subscribe) {
     $sub_text = $showAll ? _("Show Subscribed Folders") : _("Show All Folders");
-    $sub_link = Horde_Util::addParameter($selfurl, 'ts', 1);
+    $sub_link = $selfurl->cAdd('ts', 1);
 }
 
 $title = _("Folders");

@@ -760,11 +760,11 @@ class IMP_Search
      * @param string $id  The search query id to use (by default, will use
      *                    the current ID set in the object).
      *
-     * @return string  The URL to the search page.
+     * @return Horde_Url  The URL to the search page.
      */
     public function editUrl($id = null)
     {
-        return Horde_Util::addParameter(Horde::applicationUrl('search.php'), array('edit_query' => $this->createSearchID($this->_strip($id))));
+        return Horde::applicationUrl('search.php')->add(array('edit_query' => $this->createSearchID($this->_strip($id))));
     }
 
     /**
@@ -773,11 +773,11 @@ class IMP_Search
      * @param string $id  The search query id to use (by default, will use
      *                    the current ID set in the object).
      *
-     * @return string  The URL to allow deletion of the search query.
+     * @return Horde_Url  The URL to allow deletion of the search query.
      */
     public function deleteUrl($id = null)
     {
-        return Horde_Util::addParameter(Horde::applicationUrl('folders.php'), array(
+        return Horde::applicationUrl('folders.php')->add(array(
             'actionID' => 'delete_search_query',
             'folders_token' => Horde::getRequestToken('imp.folders'),
             'queryid' => $this->createSearchID($this->_strip($id))

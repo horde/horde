@@ -12,15 +12,15 @@
  * @package IMP
  */
 
-function _mailboxReturnURL($encode, $url = null)
+function _mailboxReturnURL($url)
 {
-    if (empty($url)) {
-        $url = Horde::applicationUrl('mailbox.php');
+    if (!$url) {
+        $url = Horde::applicationUrl('mailbox.php')->setRaw(true);
     }
 
     foreach (array('start', 'page', 'mailbox', 'thismailbox') as $key) {
         if (($param = Horde_Util::getFormData($key))) {
-            $url = Horde_Util::addParameter($url, $key, $param, $encode);
+            $url->add($key, $param);
         }
     }
 
@@ -635,15 +635,23 @@ if ($isPopup) {
     /* If the attachments cache is not empty, we must reload this page
      * and delete the attachments. */
     if ($imp_compose->numberOfAttachments()) {
-        $cancel_url = Horde_Util::addParameter(Horde::selfUrl(), array('actionID' => 'cancel_compose', 'composeCache' => $composeCacheID, 'popup' => 1), null, false);
+        $cancel_url = new Horde_Url(Horde::selfUrl(), true);
+        $cancel_url->add(
+            'actionID' => 'cancel_compose',
+            'composeCache' => $composeCacheID,
+            'popup' => 1
+        );
     }
 } else {
     /* If the attachments cache is not empty, we must reload this page and
        delete the attachments. */
     if ($imp_compose->numberOfAttachments()) {
-        $cancel_url = Horde_Util::addParameter(_mailboxReturnURL(true, Horde::selfUrl()), array('actionID' => 'cancel_compose', 'composeCache' => $composeCacheID), null, false);
+        $cancel_url = _mailboxReturnURL(new Horde_Url(Horde::selfUrl(), true))->add(array(
+            'actionID' => 'cancel_compose',
+            'composeCache' => $composeCacheID
+        ));
     } else {
-        $cancel_url = _mailboxReturnURL(true);
+        $cancel_url = _mailboxReturnURL(true)->setRaw(false);
     }
     $showmenu = true;
 }
@@ -812,7 +820,7 @@ if (!$redirect) {
 /* Set up the base template now. */
 $t = new Horde_Template();
 $t->setOption('gettext', true);
-$t->set('post_action', Horde_Util::addParameter(Horde::applicationUrl('compose.php'), 'uniq', uniqid(mt_rand())));
+$t->set('post_action', Horde::applicationUrl('compose.php')->add('uniq', uniqid(mt_rand())));
 $t->set('allow_compose', !$compose_disable);
 
 if ($redirect) {
@@ -825,7 +833,7 @@ if ($redirect) {
 
     if ($registry->hasMethod('contacts/search')) {
         $t->set('has_search', true);
-        $t->set('abook', Horde::link('#', _("Address Book"), 'widget', null, 'window.open(\'' . Horde_Util::addParameter(Horde::applicationUrl('contacts.php'), array('formname' => 'redirect', 'to_only' => 1)) . '\', \'contacts\', \'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100\'); return false;') . Horde::img('addressbook_browse.png') . '<br />' . _("Address Book") . '</a>');
+        $t->set('abook', Horde::link('#', _("Address Book"), 'widget', null, 'window.open(\'' . Horde::applicationUrl('contacts.php')->add(array('formname' => 'redirect', 'to_only' => 1)) . '\', \'contacts\', \'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100\'); return false;') . Horde::img('addressbook_browse.png') . '<br />' . _("Address Book") . '</a>');
         if (!$has_js) {
             $t->set('expand', Horde::link('#', _("Expand Names"), 'widget', null, "$('actionID').value='redirect_expand_addr';ImpCompose.uniqSubmit();return false;") . Horde::img('expand.png') . '<br />' . _("Expand Names") . '</a>', true);
         }
@@ -1203,7 +1211,11 @@ if ($redirect) {
                 );
 
                 if ($type != 'application/octet-stream') {
-                    $preview_url = Horde_Util::addParameter(Horde::applicationUrl('view.php'), array('actionID' => 'compose_attach_preview', 'id' => $atc_num, 'composeCache' => $composeCacheID));
+                    $preview_url = Horde::applicationUrl('view.php')->add(array(
+                        'actionID' => 'compose_attach_preview',
+                        'composeCache' => $composeCacheID,
+                        'id' => $atc_num
+                    ));
                     $entry['name'] = Horde::link($preview_url, _("Preview") . ' ' . $entry['name'], 'link', 'compose_preview_window') . $entry['name'] . '</a>';
                 }
 

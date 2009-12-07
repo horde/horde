@@ -59,8 +59,9 @@ class Horde_Block_imp_summary extends Horde_Block
             $html .= '<tr><td colspan="3">' . $quota_msg . '</td></tr>';
         }
 
-        $newmsgs = array();
         $anyUnseen = false;
+        $mbox_url = Horde::applicationUrl('mailbox.php', true);
+        $newmsgs = array();
 
         foreach ($folders as $folder) {
             if (($folder == 'INBOX') ||
@@ -72,7 +73,7 @@ class Horde_Block_imp_summary extends Horde_Block
                         if (!empty($info['recent'])) {
                             $newmsgs[$folder] = $info['recent'];
                         }
-                        $url = Horde_Util::addParameter(Horde::applicationUrl('mailbox.php', true), array('no_newmail_popup' => 1, 'mailbox' => $folder));
+                        $url = $mbox_url->cAdd(array('no_newmail_popup' => 1, 'mailbox' => $folder));
                         $html .= '<tr style="cursor:pointer" class="text" onclick="self.location=\'' . $url . '\'"><td>';
                         if (!empty($info['unseen'])) {
                             $html .= '<strong>';

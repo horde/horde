@@ -1079,7 +1079,7 @@ class IMP_Compose
             if (($this->_linkAttach &&
                  $GLOBALS['conf']['compose']['link_attachments']) ||
                 !empty($GLOBALS['conf']['compose']['link_all_attachments'])) {
-                $base = $this->linkAttachments(Horde::applicationUrl('attachment.php', true), $textpart, Horde_Auth::getAuth());
+                $base = $this->linkAttachments($textpart);
 
                 if ($this->_pgpAttachPubkey || $this->_attachVCard) {
                     $new_body = new Horde_Mime_Part();
@@ -2199,21 +2199,21 @@ class IMP_Compose
      * attachments to a new folder and remove the Horde_Mime_Parts for the
      * attachments.
      *
-     * @param string $baseurl        The base URL for creating the links.
      * @param Horde_Mime_Part $part  The body of the message.
-     * @param string $auth           The authorized user who owns the
-     *                               attachments.
      *
      * @return Horde_Mime_Part  Modified MIME part with links to attachments.
      * @throws IMP_Compose_Exception
      */
-    public function linkAttachments($baseurl, $part, $auth)
+    public function linkAttachments($part)
     {
         global $conf, $prefs;
 
         if (!$conf['compose']['link_attachments']) {
             throw new IMP_Compose_Exception(_("Linked attachments are forbidden."));
         }
+
+        $auth = Horde_Auth::getAuth();
+        $baseurl = Horde::applicationUrl('attachment.php', true)->setRaw(true);
 
         $vfs = VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs', $conf['vfs']['type']));
 
@@ -2232,7 +2232,7 @@ class IMP_Compose
         }
 
         foreach ($this->getAttachments() as $att) {
-            $trailer .= "\n" . Horde_Util::addParameter($baseurl, array('u' => $auth, 't' => $ts, 'f' => $att->getName()), null, false);
+            $trailer .= "\n" . $baseurl->cAdd(array('u' => $auth, 't' => $ts, 'f' => $att->getName()));
             if ($conf['compose']['use_vfs']) {
                 $res = $vfs->rename(self::VFS_ATTACH_PATH, $att->getInformation('temp_filename'), $fullpath, escapeshellcmd($att->getName()));
             } else {

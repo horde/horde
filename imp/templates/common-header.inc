@@ -61,7 +61,7 @@ default:
 <?php if ($mailbox_url = Horde_Util::nonInputVar('mailbox_url')): ?>
 <link href="<?php echo $mailbox_url ?>" rel="Up" />
 <?php elseif (!Horde_Util::nonInputVar('login_page')): ?>
-<link href="<?php echo Horde_Util::addParameter(Horde::applicationUrl('mailbox.php'), 'mailbox', 'INBOX') ?>" rel="Top" />
+<link href="<?php echo Horde::applicationUrl('mailbox.php')->add('mailbox', 'INBOX') ?>" rel="Top" />
 <?php endif; ?>
 <?php if ($first_url = Horde_Util::nonInputVar('first_url')): ?>
 <link href="<?php echo $first_url ?>" rel="First" />

@@ -283,8 +283,7 @@ class IMP
         }
 
         $options += self::getComposeArgs();
-        $url = Horde_Util::addParameter(Horde::applicationUrl('compose.php', true), $options, null, false);
-        header('Location: ' . $url);
+        header('Location: ' . Horde::applicationUrl('compose.php', true)->setRaw(true)->add($options));
         return true;
     }
 
@@ -330,7 +329,7 @@ class IMP
      *                      compose.php.
      * @param string $view  The IMP view to create a link for.
      *
-     * @return string  The link to the message composition screen.
+     * @return string|Horde_Url  The link to the message composition screen.
      */
     static public function composeLink($args = array(), $extra = array(),
                                        $view = null)
@@ -351,7 +350,7 @@ class IMP
             foreach ($args as $k => $v) {
                 $encode_args[$k] = rawurlencode($v);
             }
-            return 'javascript:void(window.open(\'' . Horde_Util::addParameter(Horde::applicationUrl('compose-dimp.php'), $encode_args, null, false) . '\', \'\', \'width=820,height=610,status=1,scrollbars=yes,resizable=yes\'));';
+            return 'javascript:void(window.open(\'' . Horde::applicationUrl('compose-dimp.php')->setRaw(true)->add($encode_args) . '\', \'\', \'width=820,height=610,status=1,scrollbars=yes,resizable=yes\'));';
         }
 
         if (($view != 'mimp') &&
@@ -363,7 +362,7 @@ class IMP
             return "javascript:" . Horde::popupJs(Horde::applicationUrl('compose.php'), array('params' => $args, 'urlencode' => true));
         }
 
-        return Horde_Util::addParameter(Horde::applicationUrl(($view == 'mimp') ? 'compose-mimp.php' : 'compose.php'), $args);
+        return Horde::applicationUrl(($view == 'mimp') ? 'compose-mimp.php' : 'compose.php')->add($args);
     }
 
     /**
@@ -476,14 +475,14 @@ class IMP
                 }
 
                 if (!empty($mailbox) && !$GLOBALS['imp_imap']->isReadOnly($mailbox)) {
-                    $menu_trash_url = Horde_Util::addParameter(self::generateIMPUrl($menu_mailbox_url, $mailbox), array('actionID' => 'empty_mailbox', 'mailbox_token' => Horde::getRequestToken('imp.mailbox')));
+                    $menu_trash_url = self::generateIMPUrl($menu_mailbox_url, $mailbox)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => Horde::getRequestToken('imp.mailbox')));
                     $menu->add($menu_trash_url, _("Empty _Trash"), 'empty_trash.png', null, null, "return window.confirm('" . addslashes(_("Are you sure you wish to empty your trash folder?")) . "');", '__noselection');
                 }
             }
 
             if (!empty($spam_folder) &&
                 $prefs->getValue('empty_spam_menu')) {
-                $menu_spam_url = Horde_Util::addParameter(self::generateIMPUrl($menu_mailbox_url, $spam_folder), array('actionID' => 'empty_mailbox', 'mailbox_token' => Horde::getRequestToken('imp.mailbox')));
+                $menu_spam_url = self::generateIMPUrl($menu_mailbox_url, $spam_folder)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => Horde::getRequestToken('imp.mailbox')));
                 $menu->add($menu_spam_url, _("Empty _Spam"), 'empty_spam.png', null, null, "return window.confirm('" . addslashes(_("Are you sure you wish to empty your spam folder?")) . "');", '__noselection');
             }
         }
@@ -654,7 +653,7 @@ class IMP
             $folders = array();
             foreach ($var as $mb => $nm) {
                 $folders[] = array(
-                    'url' => Horde_Util::addParameter(self::generateIMPUrl('mailbox.php', $mb), 'no_newmail_popup', 1),
+                    'url' => self::generateIMPUrl('mailbox.php', $mb)->add('no_newmail_popup', 1),
                     'name' => htmlspecialchars(self::displayFolder($mb)),
                     'new' => (int)$nm,
                 );
@@ -664,7 +663,7 @@ class IMP
             if (($_SESSION['imp']['protocol'] != 'pop') &&
                 $GLOBALS['prefs']->getValue('use_vinbox') &&
                 ($vinbox_id = $GLOBALS['prefs']->getValue('vinbox_id'))) {
-                $t->set('vinbox', Horde::link(Horde_Util::addParameter(self::generateIMPUrl('mailbox.php', $GLOBALS['imp_search']->createSearchID($vinbox_id)), 'no_newmail_popup', 1)));
+                $t->set('vinbox', Horde::link(self::generateIMPUrl('mailbox.php', $GLOBALS['imp_search']->createSearchID($vinbox_id))->add('no_newmail_popup', 1)));
             }
         } else {
             $t->set('msg', ($var == 1) ? _("You have 1 new message.") : sprintf(_("You have %s new messages."), $var));
@@ -776,19 +775,24 @@ class IMP
     /**
      * Generates a URL with necessary mailbox/UID information.
      *
-     * @param string $page      Page name to link to.
-     * @param string $mailbox   The base mailbox to use on the linked page.
-     * @param string $uid       The UID to use on the linked page.
-     * @param string $tmailbox  The mailbox associated with $uid.
-     * @param boolean $encode   Encode the argument separator?
+     * @param string|Horde_Url $page  Page name to link to.
+     * @param string $mailbox         The base mailbox to use on the linked
+     *                                page.
+     * @param string $uid             The UID to use on the linked page.
+     * @param string $tmailbox        The mailbox associated with $uid.
+     * @param boolean $encode         Encode the argument separator?
      *
-     * @return string  URL to $page with any necessary mailbox information
-     *                 added to the parameter list of the URL.
+     * @return Horde_Url  URL to $page with any necessary mailbox information
+     *                    added to the parameter list of the URL.
      */
     static public function generateIMPUrl($page, $mailbox, $uid = null,
                                           $tmailbox = null, $encode = true)
     {
-        return Horde_Util::addParameter(Horde::applicationUrl($page), self::getIMPMboxParameters($mailbox, $uid, $tmailbox), null, $encode);
+        $url = ($page instanceof Horde_Url)
+            ? clone $page
+            : Horde::applicationUrl($page);
+
+        return $url->add(self::getIMPMboxParameters($mailbox, $uid, $tmailbox))->setRaw(!$encode);
     }
 
     /**
@@ -1152,11 +1156,13 @@ class IMP
      * removed/altered based on an action that has occurred on the present
      * page.
      *
-     * @return string  The self URL.
+     * @return Horde_Url  The self URL.
      */
     static public function selfUrl()
     {
-        return self::$newUrl ? self::$newUrl : Horde::selfUrl(true);
+        return self::$newUrl
+            ? clone self::$newUrl
+            : new Horde_Url(Horde::selfUrl(true));
     }
 
     /**

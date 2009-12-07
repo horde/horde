@@ -310,7 +310,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
         } else {
             switch ($_SESSION['imp']['view']) {
             case 'imp':
-                $status[] = Horde::link(Horde_Util::addParameter(IMP::selfUrl(), 'smime_verify_msg', 1)) . _("Click HERE to verify the data.") . '</a>';
+                $status[] = Horde::link(IMP::selfUrl()->add('smime_verify_msg', 1)) . _("Click HERE to verify the data.") . '</a>';
                 break;
 
             case 'dimp':

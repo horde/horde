@@ -80,7 +80,7 @@ if (!empty($criteria)) {
             Horde::wrapInlineScript(array('window.parent.DimpBase.go(' . Horde_Serialize::serialize('folder:' . $id, Horde_Serialize::JSON, $charset) . ')')) .
             '</head></html>';
     } else {
-        header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('mailbox.php', true), array('mailbox' => $id), null, false));
+        header('Location: ' . Horde::applicationUrl('mailbox.php', true)->setRaw(true)->add('mailbox', $id));
     }
     exit;
 }

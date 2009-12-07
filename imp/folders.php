@@ -328,7 +328,8 @@ case 'mbox_size':
 /* Token to use in requests */
 $folders_token = Horde::getRequestToken('imp.folders');
 
-$folders_url = Horde_Util::addParameter($folders_url, 'folders_token', $folders_token);
+$folders_url_ob = new Horde_Url($folders_url);
+$folders_url_ob->add('folders_token', $folders_token);
 
 if ($_SESSION['imp']['file_upload'] && ($actionID == 'import_mbox')) {
     $title = _("Folder Navigator");
@@ -341,7 +342,7 @@ if ($_SESSION['imp']['file_upload'] && ($actionID == 'import_mbox')) {
     /* Prepare import template. */
     $i_template = new Horde_Template();
     $i_template->setOption('gettext', true);
-    $i_template->set('folders_url', $folders_url);
+    $i_template->set('folders_url', $folders_url_ob);
     $i_template->set('import_folder', $folder_list[0]);
     $i_template->set('folder_name', htmlspecialchars(Horde_String::convertCharset($folder_list[0], 'UTF7-IMAP'), ENT_COMPAT, $charset));
     $i_template->set('folders_token', $folders_token);
@@ -375,13 +376,13 @@ $refresh_title = _("Reload View");
 $head_template = new Horde_Template();
 $head_template->setOption('gettext', true);
 $head_template->set('title', $refresh_title);
-$head_template->set('folders_url', $folders_url);
+$head_template->set('folders_url', $folders_url_ob);
 $refresh_ak = Horde::getAccessKey($refresh_title);
 $refresh_title = Horde::stripAccessKey($refresh_title);
 if (!empty($refresh_ak)) {
     $refresh_title .= sprintf(_(" (Accesskey %s)"), $refresh_ak);
 }
-$head_template->set('refresh', Horde::link($folders_url, $refresh_title, '', '', '', $refresh_title, $refresh_ak));
+$head_template->set('refresh', Horde::link($folders_url_ob, $refresh_title, '', '', '', $refresh_title, $refresh_ak));
 $head_template->set('folders_token', $folders_token);
 
 /* Prepare the actions template. */
@@ -400,14 +401,14 @@ $a_template->set('create_folder', !empty($GLOBALS['conf']['hooks']['permsdenied'
 if ($prefs->getValue('subscribe')) {
     $a_template->set('subscribe', true);
     $subToggleText = ($showAll) ? _("Hide Unsubscribed") : _("Show Unsubscribed");
-    $a_template->set('toggle_subscribe', Horde::widget(Horde_Util::addParameter($folders_url, array('actionID' => 'toggle_subscribed_view', 'folders_token' => $folders_token)), $subToggleText, 'widget', '', '', $subToggleText, true));
+    $a_template->set('toggle_subscribe', Horde::widget($folders_url_ob->cAdd(array('actionID' => 'toggle_subscribed_view', 'folders_token' => $folders_token)), $subToggleText, 'widget', '', '', $subToggleText, true));
 }
 $a_template->set('nav_poll', !$prefs->isLocked('nav_poll') && !$prefs->getValue('nav_poll_all'));
 $a_template->set('notrash', !$prefs->getValue('use_trash'));
 $a_template->set('file_upload', $_SESSION['imp']['file_upload']);
 $a_template->set('help', Horde_Help::link('imp', 'folder-options'));
-$a_template->set('expand_all', Horde::widget(Horde_Util::addParameter($folders_url, array('actionID' => 'expand_all_folders', 'folders_token' => $folders_token)), _("Expand All Folders"), 'widget', '', '', _("Expand All"), true));
-$a_template->set('collapse_all', Horde::widget(Horde_Util::addParameter($folders_url, array('actionID' => 'collapse_all_folders', 'folders_token' => $folders_token)), _("Collapse All Folders"), 'widget', '', '', _("Collapse All"), true));
+$a_template->set('expand_all', Horde::widget($folders_url_ob->cAdd(array('actionID' => 'expand_all_folders', 'folders_token' => $folders_token)), _("Expand All Folders"), 'widget', '', '', _("Expand All"), true));
+$a_template->set('collapse_all', Horde::widget($folders_url_ob->cAdd(array('actionID' => 'collapse_all_folders', 'folders_token' => $folders_token)), _("Collapse All Folders"), 'widget', '', '', _("Collapse All"), true));
 
 /* Check to see if user wants new mail notification */
 if (!empty($newmsgs)) {
@@ -430,11 +431,11 @@ if (!empty($newmsgs)) {
 
 /* Get the tree images. */
 $imp_ui_folder = new IMP_Ui_Folder();
-$tree_imgs = $imp_ui_folder->getTreeImages($raw_rows, array('expand_url' => $folders_url));
+$tree_imgs = $imp_ui_folder->getTreeImages($raw_rows, array('expand_url' => $folders_url_ob));
 
 /* Add some further information to the $raw_rows array. */
 $rows = array();
-$name_url = Horde_Util::addParameter(Horde::applicationUrl('mailbox.php'), 'no_newmail_popup', 1);
+$name_url = Horde::applicationUrl('mailbox.php')->add('no_newmail_popup', 1);
 $rowct = 0;
 
 foreach ($raw_rows as $key => $val) {
@@ -458,7 +459,7 @@ foreach ($raw_rows as $key => $val) {
         if (!empty($val['unseen'])) {
             $val['name'] = '<strong>' . $val['name'] . '</strong>';
         }
-        $val['name'] = Horde::link(Horde_Util::addParameter($name_url, 'mailbox', $val['value']), $val['vfolder'] ? $val['base_elt']['l'] : $val['display']) . $val['name'] . '</a>';
+        $val['name'] = Horde::link($name_url->cAdd('mailbox', $val['value']), $val['vfolder'] ? $val['base_elt']['l'] : $val['display']) . $val['name'] . '</a>';
     }
 
     $val['line'] = $tree_imgs[$key];
