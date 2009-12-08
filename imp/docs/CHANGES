@@ -7,8 +7,8 @@ v5.0-git
 [mms] Simplify and improve priority header generation/display.
 [mms] Add Face: header support to IMP.
 [mms] Add splitbar to resize sidebar in DIMP.
-[mms] Use LIST-EXTENDED IMAP extension (RFC 5258) to get subscribed
-      mailbox information, if available.
+[mms] Use LIST-EXTENDED IMAP extension (RFC 5258), if available, to get
+      subscribed mailbox information.
 [mms] Split ham/spam reporting actions into two separate preferences (Request
       #8221).
 [mms] When clicking on base reply button, auto-determine the best way to
@@ -61,7 +61,7 @@ v5.0-git
 [mms] Add support for defining and displaying custom IMAP flags and for
       configuring the highlighting of system flags (Request #937).
 [mms] Move attachment display on mailbox page from hook to preference.
-[mms] Always do X-Priority header processing by default.
+[mms] Always process priority/precedence headers.
 [mms] Support $MDNSent keyword (RFC 3503) on IMAP server.
 [mms] Link URLs/e-mails in subjects in message views (Request #7487).
 [mms] Implement spellcheck on send in DIMP.
@@ -114,7 +114,6 @@ v5.0-git
 [mms] Remove support for Xinha as GUI HTML editor.
 [mms] Strip extra 'Fwd' and 'Re' cruft from subject line when replying to or
       forwarding a message.
-[mms] Cache results of address parsing.
 [mms] Don't send server requests when autocompleting addresses when possible.
 [mms] Added readonly mailbox and disable compose hooks.
 [mms] Saving draft on session expiration now handled via VFS.
