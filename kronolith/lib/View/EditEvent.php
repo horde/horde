@@ -40,10 +40,10 @@ class Kronolith_View_EditEvent {
             return;
         }
 
-        if ($this->event->isRemote()) {
-            $calendar_id = Kronolith::getDefaultCalendar(Horde_Perms::EDIT);
-        } else {
+        if ($this->event->hasPermission(Horde_Perms::EDIT)) {
             $calendar_id = $this->event->getCalendar();
+        } else {
+            $calendar_id = Kronolith::getDefaultCalendar(Horde_Perms::EDIT);
         }
         if (!$this->event->hasPermission(Horde_Perms::EDIT) &&
             !is_a($share = &$this->event->getShare(), 'PEAR_Error')) {
@@ -68,14 +68,13 @@ class Kronolith_View_EditEvent {
         $calendars = Kronolith::listCalendars(false, $perms);
 
         $buttons = array();
-        if (($this->event->isRemote() ||
-             !$this->event->hasPermission(Horde_Perms::EDIT)) &&
+        if (!$this->event->hasPermission(Horde_Perms::EDIT) &&
             (!empty($GLOBALS['conf']['hooks']['permsdenied']) ||
              $GLOBALS['perms']->hasAppPermission('max_events') === true ||
              $GLOBALS['perms']->hasAppPermission('max_events') > Kronolith::countEvents())) {
             $buttons[] = '<input type="submit" class="button" name="saveAsNew" value="' . _("Save As New") . '" />';
         } else {
-            if (!$this->event->isRemote()) {
+            if ($this->event->hasPermission(Horde_Perms::EDIT)) {
                 $buttons[] = '<input type="submit" class="button" name="save" value="' . _("Save Event") . '" />';
             }
             if ($this->event->isInitialized()) {

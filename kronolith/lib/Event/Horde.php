@@ -25,11 +25,25 @@ class Kronolith_Event_Horde extends Kronolith_Event
     protected $_api;
 
     /**
+     * The link to this event.
+     *
+     * @var string
+     */
+    protected $_link;
+
+    /**
      * The link to this event in the ajax interface.
      *
      * @var string
      */
-    public $ajax_link;
+    protected $_ajax_link;
+
+    /**
+     * Any parameters to identify the object in the other Horde application.
+     *
+     * @var array
+     */
+    protected $_params;
 
     /**
      * Constructor.
@@ -50,21 +64,17 @@ class Kronolith_Event_Horde extends Kronolith_Event
         $eventStart = new Horde_Date($event['start']);
         $eventEnd = new Horde_Date($event['end']);
         $this->eventID = '_' . $this->_api . $event['id'];
-        $this->external = $this->_api;
-        $this->external_params = $event['params'];
-        $this->external_icon = !empty($event['icon']) ? $event['icon'] : null;
-        $this->external_link = !empty($event['link']) ? $event['link'] : null;
-        $this->ajax_link = !empty($event['ajax_link']) ? $event['ajax_link'] : null;
+        $this->icon = !empty($event['icon']) ? $event['icon'] : null;
         $this->title = $event['title'];
         $this->description = isset($event['description']) ? $event['description'] : '';
         $this->start = $eventStart;
         $this->end = $eventEnd;
         $this->status = Kronolith::STATUS_FREE;
-
-        if (isset($event['color'])) {
-            $this->_backgroundColor = $event['color'];
-            $this->_foregroundColor = Horde_Image::brightness($this->_backgroundColor) < 128 ? '#fff' : '#000';
-        }
+        $this->_params = $event['params'];
+        $this->_link = !empty($event['link']) ? $event['link'] : null;
+        $this->_ajax_link = !empty($event['ajax_link']) ? $event['ajax_link'] : null;
+        $this->_backgroundColor = Kronolith::backgroundColor($event);
+        $this->_foregroundColor = Kronolith::foregroundColor($event);
 
         if (isset($event['recurrence'])) {
             $recurrence = new Horde_Date_Recurrence($eventStart);
@@ -94,16 +104,80 @@ class Kronolith_Event_Horde extends Kronolith_Event
         $this->stored = true;
     }
 
+    /**
+     * Encapsulates permissions checking.
+     *
+     * @param integer $permission  The permission to check for.
+     * @param string $user         The user to check permissions for.
+     *
+     * @return boolean
+     */
+    public function hasPermission($permission, $user = null)
+    {
+        switch ($permission) {
+        case Horde_Perms::SHOW:
+        case Horde_Perms::READ:
+            return true;
+
+        default:
+            return false;
+        }
+    }
+
+    /**
+     * Returns the title of this event.
+     *
+     * @param string $user  The current user.
+     *
+     * @return string  The title of this event.
+     */
+    public function getTitle($user = null)
+    {
+        return !empty($this->title) ? $this->title : _("[Unnamed event]");
+    }
+
+    /**
+     * @param array $params
+     *
+     * @return Horde_Url
+     */
+    public function getViewUrl($params = array(), $full = false)
+    {
+        if (empty($this->_link)) {
+            return null;
+        }
+        $url = clone $this->_link;
+        return $this->_link->setRaw($full);
+    }
+
+    /**
+     * Returns a simple object suitable for json transport representing this
+     * event.
+     *
+     * @param boolean $allDay      If not null, overrides whether the event is
+     *                             an all-day event.
+     * @param boolean $full        Whether to return all event details.
+     * @param string $time_format  The date() format to use for time formatting.
+     *
+     * @return object  A simple object.
+     */
     public function toJson($allDay = null, $full = false, $time_format = 'H:i')
     {
         $json = parent::toJson($allDay, $full, $time_format);
-        $json->ic = $this->external_icon;
-        if ($this->ajax_link) {
-            $json->aj = $this->ajax_link;
+        if ($this->_ajax_link) {
+            $json->aj = $this->_ajax_link;
         } else {
-            $json->ln = $this->getViewUrl(array(), true);
+            $json->ln = (string)$this->getViewUrl(array(), true);
         }
         return $json;
+    }
+
+    /**
+     * @return string  A tooltip for quick descriptions of this event.
+     */
+    public function getTooltip()
+    {
+        return Horde_String::wrap($this->description);
     }
 
 }

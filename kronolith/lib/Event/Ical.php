@@ -30,4 +30,49 @@ class Kronolith_Event_Ical extends Kronolith_Event
         return $this->toiCalendar();
     }
 
+    /**
+     * Encapsulates permissions checking.
+     *
+     * @param integer $permission  The permission to check for.
+     * @param string $user         The user to check permissions for.
+     *
+     * @return boolean
+     */
+    public function hasPermission($permission, $user = null)
+    {
+        switch ($permission) {
+        case Horde_Perms::SHOW:
+        case Horde_Perms::READ:
+            return true;
+
+        default:
+            return false;
+        }
+    }
+
+    /**
+     * Returns the title of this event.
+     *
+     * @param string $user  The current user.
+     *
+     * @return string  The title of this event.
+     */
+    public function getTitle($user = null)
+    {
+        return !empty($this->title) ? $this->title : _("[Unnamed event]");
+    }
+
+    /**
+     * @param array $params
+     *
+     * @return Horde_Url
+     */
+    public function getViewUrl($params = array(), $full = false)
+    {
+        if ($this->url) {
+            return new Horde_Url($this->url, $full);
+        }
+        return parent::getViewUrl($params, $full);
+    }
+
 }

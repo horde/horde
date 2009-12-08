@@ -1,6 +1,6 @@
 <?php $showCalSelect = (!$GLOBALS['prefs']->isLocked('default_share') && count($calendars) > 1 && empty($GLOBALS['show_resource_calendars'])); ?>
 
-<form action="<?php echo ($event->isInitialized() && !$event->isRemote() ? 'edit.php' : 'add.php') ?>" method="post" name="eventform" id="eventform">
+<form action="<?php echo ($event->isInitialized() && $event->hasPermission(Horde_Perms::EDIT)) ? 'edit.php' : 'add.php' ?>" method="post" name="eventform" id="eventform">
 <?php Horde_Util::pformInput() ?>
 <input type="hidden" name="year" value="<?php if (isset($year)) echo htmlspecialchars($year) ?>" />
 <input type="hidden" name="month" value="<?php if (isset($month)) echo htmlspecialchars($month) ?>" />
@@ -9,7 +9,7 @@
 <?php if (isset($url)): ?>
 <input type="hidden" name="url" value="<?php echo htmlspecialchars($url) ?>" />
 <?php endif; ?>
-<?php if ($event->isInitialized() && !$event->isRemote()): ?>
+<?php if ($event->isInitialized() && $event->hasPermission(Horde_Perms::EDIT)): ?>
 <input type="hidden" name="eventID" value="<?php echo htmlspecialchars($event->getId()) ?>" />
 <input type="hidden" name="existingcalendar" value="<?php echo htmlspecialchars($event->getCalendar()) ?>" />
 <?php endif; ?>

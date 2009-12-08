@@ -78,25 +78,25 @@ abstract class Kronolith_Event
     public $status = Kronolith::STATUS_CONFIRMED;
 
     /**
-     * The description for this event
+     * URL to an icon of this event.
+     *
+     * @var string
+     */
+    public $icon = '';
+
+    /**
+     * The description for this event.
      *
      * @var string
      */
     public $description = '';
 
     /**
-     * Remote description of this event (URL).
+     * URL of this event.
      *
      * @var string
      */
-    public $remoteUrl = '';
-
-    /**
-     * Remote calendar name.
-     *
-     * @var string
-     */
-    public $remoteCal = '';
+    public $url = '';
 
     /**
      * Whether the event is private.
@@ -314,18 +314,6 @@ abstract class Kronolith_Event
     {
         if ($user === null) {
             $user = Horde_Auth::getAuth();
-        }
-
-        if ($this->remoteCal) {
-            switch ($permission) {
-            case Horde_Perms::SHOW:
-            case Horde_Perms::READ:
-            case Horde_Perms::EDIT:
-                return true;
-
-            default:
-                return false;
-            }
         }
 
         return (!is_a($share = &$this->getShare(), 'PEAR_Error') &&
@@ -705,7 +693,7 @@ abstract class Kronolith_Event
         // Remote Url
         $url = $vEvent->getAttribute('URL');
         if (!is_array($url) && !is_a($url, 'PEAR_Error')) {
-            $this->remoteUrl = $url;
+            $this->url = $url;
         }
 
         // Location
@@ -1147,6 +1135,9 @@ abstract class Kronolith_Event
         $json->fg = $this->_foregroundColor;
         $json->pe = $this->hasPermission(Horde_Perms::EDIT);
         $json->pd = $this->hasPermission(Horde_Perms::DELETE);
+        if ($this->icon) {
+            $json->ic = $this->icon;
+        }
         if ($this->alarm) {
             if ($this->alarm % 10080 == 0) {
                 $alarm_value = $this->alarm / 10080;
@@ -1355,11 +1346,6 @@ abstract class Kronolith_Event
         return $this->_calendarType;
     }
 
-    public function isRemote()
-    {
-        return (bool)$this->remoteCal;
-    }
-
     /**
      * Returns the locally unique identifier for this event.
      *
@@ -1442,12 +1428,6 @@ abstract class Kronolith_Event
      */
     public function getTitle($user = null)
     {
-        if (isset($this->external) ||
-            isset($this->contactID) ||
-            $this->remoteCal) {
-            return !empty($this->title) ? $this->title : _("[Unnamed event]");
-        }
-
         if (!$this->isInitialized()) {
             return '';
         }
@@ -1692,7 +1672,7 @@ abstract class Kronolith_Event
      *
      * @return void
      */
-    function removeResource($resource)
+    public function removeResource($resource)
     {
         if (isset($this->_resources[$resource->getId()])) {
             unset ($this->_resources[$resource->getId()]);
@@ -2288,77 +2268,64 @@ abstract class Kronolith_Event
     /**
      * @param array $params
      *
-     * @return string
+     * @return Horde_Url
      */
     public function getViewUrl($params = array(), $full = false)
     {
         $params['eventID'] = $this->eventID;
-        if ($this->remoteUrl) {
-            return $this->remoteUrl;
-        } elseif ($this->remoteCal) {
-            $params['calendar'] = '**remote';
-            $params['remoteCal'] = $this->remoteCal;
-        } elseif (!empty($this->external_link)) {
-            return $this->external_link;
-        } else {
-            $params['calendar'] = $this->getCalendar();
-        }
+        $params['calendar'] = $this->getCalendar();
+        $params['type'] = $this->_calendarType;
 
-        return Horde::applicationUrl(Horde_Util::addParameter('event.php', $params), $full);
+        return Horde::applicationUrl('event.php', $full)->add($params);
     }
 
     /**
      * @param array $params
      *
-     * @return string
+     * @return Horde_Url
      */
     public function getEditUrl($params = array())
     {
         $params['view'] = 'EditEvent';
         $params['eventID'] = $this->eventID;
-        if ($this->remoteCal) {
-            $params['calendar'] = '**remote';
-            $params['remoteCal'] = $this->remoteCal;
-        } else {
-            $params['calendar'] = $this->getCalendar();
-        }
+        $params['calendar'] = $this->getCalendar();
+        $params['type'] = $this->_calendarType;
 
-        return Horde::applicationUrl(Horde_Util::addParameter('event.php', $params));
+        return Horde::applicationUrl('event.php')->add($params);
     }
 
     /**
      * @param array $params
      *
-     * @return string
+     * @return Horde_Url
      */
     public function getDeleteUrl($params = array())
     {
         $params['view'] = 'DeleteEvent';
         $params['eventID'] = $this->eventID;
         $params['calendar'] = $this->getCalendar();
-        return Horde::applicationUrl(Horde_Util::addParameter('event.php', $params));
+        $params['type'] = $this->_calendarType;
+
+        return Horde::applicationUrl('event.php')->add($params);
     }
 
     /**
      * @param array $params
      *
-     * @return string
+     * @return Horde_Url
      */
     public function getExportUrl($params = array())
     {
         $params['view'] = 'ExportEvent';
         $params['eventID'] = $this->eventID;
-        if ($this->remoteCal) {
-            $params['calendar'] = '**remote';
-            $params['remoteCal'] = $this->remoteCal;
-        } else {
-            $params['calendar'] = $this->getCalendar();
-        }
+        $params['calendar'] = $this->getCalendar();
+        $params['type'] = $this->_calendarType;
 
-        return Horde::applicationUrl(Horde_Util::addParameter('event.php', $params));
+        return Horde::applicationUrl('event.php')->add($params);
     }
 
-    public function getLink($datetime = null, $icons = true, $from_url = null, $full = false)
+    public function getLink($datetime = null, $icons = true, $from_url = null,
+                            $full = false)
     {
         global $prefs, $registry;
 
@@ -2373,22 +2340,19 @@ abstract class Kronolith_Event
         $view_url = $this->getViewUrl(array('datetime' => $datetime->strftime('%Y%m%d%H%M%S'), 'url' => $from_url), $full);
         $read_permission = $this->hasPermission(Horde_Perms::READ);
 
-        $link = '';
-        if (isset($this->external) && !empty($this->external_link)) {
-            $link = $this->external_link;
-            $link = Horde::linkTooltip(Horde::url($link), '', 'event-tentative', '', '', nl2br(htmlspecialchars(Horde_String::wrap($this->description))));
-        } elseif (isset($this->eventID) && $read_permission) {
-            $link = Horde::linkTooltip($view_url,
+        $link = '<span' . $this->getCSSColors() . '>';
+        if ($read_permission && $view_url) {
+            $link .= Horde::linkTooltip($view_url,
                                        $event_title,
-                                       $this->getStatusClass(), '', '',
+                                       $this->getStatusClass(),
+                                       '',
+                                       '',
                                        $this->getTooltip(),
                                        '',
                                        array('style' => $this->getCSSColors(false)));
         }
-
         $link .= @htmlspecialchars($event_title, ENT_QUOTES, Horde_Nls::getCharset());
-
-        if ($read_permission && (isset($this->eventID) || isset($this->external))) {
+        if ($read_permission && $view_url) {
             $link .= '</a>';
         }
 
@@ -2426,38 +2390,34 @@ abstract class Kronolith_Event
                 $status .= Horde::fullSrcImg('attendees.png', array('attr' => array('alt' => _("Meeting"), 'title' => _("Meeting"), 'class' => 'iconPeople')));
             }
 
-            if (!empty($this->external) && !empty($this->external_icon)) {
-                $link = $status . '<img src="' . $this->external_icon . '" /> ' . $link;
-            } else if (!empty($status)) {
+            if (!empty($this->icon)) {
+                $link = $status . '<img src="' . $this->icon . '" /> ' . $link;
+            } elseif (!empty($status)) {
                 $link .= ' ' . $status;
             }
 
-            if (!$this->eventID || !empty($this->external)) {
-                return $link;
-            }
-
-            $edit = '';
-            $delete = '';
-            if ((!$this->isPrivate() || $this->getCreatorId() == Horde_Auth::getAuth())
-                && $this->hasPermission(Horde_Perms::EDIT)) {
-                $editurl = Horde_Util::addParameter($view_url, 'view', 'EditEvent', !$full);
-                $edit = Horde::link($editurl, sprintf(_("Edit %s"), $event_title), 'iconEdit')
-                    . Horde::fullSrcImg('edit-' . $icon_color . '.png', array('attr' => 'alt="' . _("Edit") . '"'))
+            if (!$this->isPrivate() ||
+                $this->getCreatorId() == Horde_Auth::getAuth()) {
+                $link .= $this->getEditUrl(
+                    array('datetime' => $datetime->strftime('%Y%m%d%H%M%S'),
+                          'url' => $from_url))
+                    ->link(array('title' => sprintf(_("Edit %s"), $event_title),
+                                 'class' => 'iconEdit'))
+                    . Horde::fullSrcImg('edit-' . $icon_color . '.png',
+                                        array('attr' => array('alt' => _("Edit"))))
                     . '</a>';
             }
             if ($this->hasPermission(Horde_Perms::DELETE)) {
-                $delurl = Horde_Util::addParameter($view_url, 'view', 'DeleteEvent', !$full);
-                $delete = Horde::link($delurl, sprintf(_("Delete %s"), $event_title), 'iconDelete')
-                    . Horde::fullSrcImg('delete-' . $icon_color . '.png', array('attr' => 'alt="' . _("Delete") . '"'))
+                $link .= $this->getDeleteUrl()
+                    ->link(array('title' => sprintf(_("Delete %s"), $event_title),
+                                 'class' => 'iconDelete'))
+                    . Horde::fullSrcImg('delete-' . $icon_color . '.png',
+                                        array('attr' => array('alt' => _("Delete"))))
                     . '</a>';
-            }
-
-            if ($edit || $delete) {
-                $link .= $edit . $delete;
             }
         }
 
-        return $link;
+        return $link . '</span>';
     }
 
     /**

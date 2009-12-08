@@ -13,15 +13,21 @@ class Kronolith_View_ExportEvent {
      */
     function Kronolith_View_ExportEvent(&$event)
     {
+        if (!$event || $event instanceof PEAR_Error) {
+            echo '<h3>' . _("Event not found") . '</h3>';
+            exit;
+        }
+
         $iCal = new Horde_iCalendar('2.0');
 
-        if (!$event->isRemote()) {
+        if ($event->getCalendarType() == 'internal') {
             $share = &$GLOBALS['kronolith_shares']->getShare($event->getCalendar());
             if (!is_a($share, 'PEAR_Error')) {
-                $iCal->setAttribute('X-WR-CALNAME',
-                                    Horde_String::convertCharset($share->get('name'),
-                                                           Horde_Nls::getCharset(),
-                                                           'utf-8'));
+                $iCal->setAttribute(
+                    'X-WR-CALNAME',
+                    Horde_String::convertCharset($share->get('name'),
+                                                 Horde_Nls::getCharset(),
+                                                 'utf-8'));
             }
         }
 

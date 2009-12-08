@@ -101,7 +101,9 @@ class Kronolith_View_Event {
         echo '</div>';
 
         if ($active && $GLOBALS['browser']->hasFeature('dom')) {
-            if ($this->event->hasPermission(Horde_Perms::EDIT)) {
+            /* We check for read permissions, because we can always save a
+             * copy if we can read the event. */
+            if ($this->event->hasPermission(Horde_Perms::READ)) {
                 $edit = new Kronolith_View_EditEvent($this->event);
                 $edit->html(false);
             }

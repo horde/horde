@@ -87,7 +87,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                 $event = new Kronolith_Event_Ical($this);
                 $event->status = Kronolith::STATUS_FREE;
                 $event->fromiCalendar($component);
-                $event->remoteCal = $this->_calendar;
+                $event->setCalendar($this->_calendar);
                 // Force string so JSON encoding is consistent across drivers.
                 $event->eventID = 'ical' . $i;
 
@@ -152,8 +152,8 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             $event = new Kronolith_Event_Ical($this);
             $event->status = Kronolith::STATUS_FREE;
             $event->fromiCalendar($components[$eventId]);
-            $event->remoteCal = $this->_calendar;
-            $event->eventID = $eventId;
+            $event->setCalendar($this->_calendar);
+            $event->eventID = 'ical' . $eventId;
 
             return $event;
         }

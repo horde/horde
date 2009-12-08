@@ -16,38 +16,20 @@
 function getDriver($cal)
 {
     list($driver, $calendar) = explode('|', $cal);
-    switch ($driver) {
-    case 'internal':
-        if (!array_key_exists($calendar,
-                              Kronolith::listCalendars(false, Horde_Perms::SHOW))) {
-            $GLOBALS['notification']->push(_("Permission Denied"), 'horde.error');
-            return false;
-        }
-        $driver = '';
-        break;
-    case 'external':
-    case 'tasklists':
-        $driver = 'Horde';
-        break;
-    case 'remote':
-        $driver = 'Ical';
-        break;
-    case 'holiday':
-        $driver = 'Holidays';
-        break;
-    default:
-        $GLOBALS['notification']->push('No calendar driver specified', 'horde.error');
-        break;
+    if ($driver == 'internal' &&
+        !array_key_exists($calendar,
+                          Kronolith::listCalendars(false, Horde_Perms::SHOW))) {
+        $GLOBALS['notification']->push(_("Permission Denied"), 'horde.error');
+        return false;
     }
-
     $kronolith_driver = Kronolith::getDriver($driver, $calendar);
-
-    switch ($driver) {
-    case 'Ical':
-        $kronolith_driver->setParam('timeout', 15);
-        break;
+    if ($kronolith_driver instanceof PEAR_Error) {
+        $GLOBALS['notification']->push($kronolith_driver, 'horde.error');
+        return false;
     }
-
+    if ($driver == 'remote') {
+        $kronolith_driver->setParam('timeout', 15);
+    }
     return $kronolith_driver;
 }
 
@@ -132,7 +114,7 @@ try {
         if (is_null($id = Horde_Util::getFormData('id'))) {
             break;
         }
-        $event = $kronolith_driver->getEvent($id);
+        $event = $kronolith_driver->getEvent($id, Horde_Util::getFormData('date'));
         if ($event instanceof PEAR_Error) {
             $notification->push($event, 'horde.error');
             break;

@@ -142,19 +142,11 @@ class Horde_Block_Kronolith_prevmonthlist extends Horde_Block {
                 } else {
                     $html .= $event->getLocation();
                 }
-
                 if ($event->start->compareDate($startDate) < 0 &&
                     $event->end->compareDate($startDate) > 0) {
                     $html .= '<strong>';
                 }
-                if (isset($event->eventID)) {
-                    $html .= $event->getLink(null, true, null, true);
-                } elseif (isset($this->external)) {
-                    $html .= Horde::link(Horde::url($registry->link($this->external . '/show', $event->external_params),
-                                                    true), $event->getTitle()) . $event->getTitle() . '</a>';
-                } else {
-                    $html .= $event->getTitle();
-                }
+                $html .= $event->getLink(null, true, null, true);
                 if ($event->start->compareDate($startDate) < 0 &&
                     $event->end->compareDate($startDate) > 0) {
                     $html .= '</strong>';

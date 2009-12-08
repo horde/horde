@@ -2083,11 +2083,13 @@ class Kronolith
             array('tabname' => 'Event',
                   'id' => 'tabEvent',
                   'onclick' => 'return ShowTab(\'Event\');'));
+        /* We check for read permissions, because we can always save a copy if
+         * we can read the event. */
         if ((!$event->isPrivate() ||
              $event->getCreatorId() == Horde_Auth::getAuth()) &&
-            $event->hasPermission(Horde_Perms::EDIT)) {
+            $event->hasPermission(Horde_Perms::READ)) {
             $tabs->addTab(
-                $event->isRemote() ? _("Save As New") : _("_Edit"),
+                $event->hasPermission(Horde_Perms::EDIT) ? _("_Edit") : _("Save As New"),
                 $event->getEditUrl(),
                 array('tabname' => 'EditEvent',
                       'id' => 'tabEditEvent',
@@ -2127,6 +2129,22 @@ class Kronolith
      */
     public static function getDriver($driver = null, $calendar = null)
     {
+        switch ($driver) {
+        case 'internal':
+            $driver = '';
+            break;
+        case 'external':
+        case 'tasklists':
+            $driver = 'Horde';
+            break;
+        case 'remote':
+            $driver = 'Ical';
+            break;
+        case 'holiday':
+            $driver = 'Holidays';
+            break;
+        }
+
         if (empty($driver)) {
             $driver = Horde_String::ucfirst($GLOBALS['conf']['calendar']['driver']);
         }
@@ -2160,6 +2178,10 @@ class Kronolith
                     return PEAR::raiseError(_("Holidays are disabled"));
                 }
                 $params['language'] = $GLOBALS['language'];
+                break;
+
+            default:
+                return PEAR::raiseError('No calendar driver specified');
                 break;
             }
 
@@ -2220,71 +2242,45 @@ class Kronolith
             return new $class(self::currentDate());
 
         case 'Event':
-            if (Horde_Util::getFormData('calendar') == '**remote') {
-                $event = self::getDriver('Ical', Horde_Util::getFormData('remoteCal'))
-                    ->getEvent(Horde_Util::getFormData('eventID'));
-            } elseif (strncmp(Horde_Util::getFormData('calendar'), 'resource_', 9) === 0) {
-                $event = self::getDriver('Resource', Horde_Util::getFormData('calendar'))->getEvent(Horde_Util::getFormData('eventID'));
-            } elseif ($uid = Horde_Util::getFormData('uid')) {
-                $event = self::getDriver()->getByUID($uid);
-            } else {
-                $event = self::getDriver(null, Horde_Util::getFormData('calendar'))
-                    ->getEvent(Horde_Util::getFormData('eventID'));
-            }
-            if (!is_a($event, 'PEAR_Error') &&
-                !$event->hasPermission(Horde_Perms::READ)) {
-                $event = PEAR::raiseError(_("Permission Denied"));
-            }
-
-            return new Kronolith_View_Event($event);
-
         case 'EditEvent':
-            if (Horde_Util::getFormData('calendar') == '**remote') {
-                $event = self::getDriver('Ical', Horde_Util::getFormData('remoteCal'))
-                    ->getEvent(Horde_Util::getFormData('eventID'));
-            } elseif (strncmp(Horde_Util::getFormData('calendar'), 'resource_', 9) === 0) {
-                $event = self::getDriver('Resource', Horde_Util::getFormData('calendar'))->getEvent(Horde_Util::getFormData('eventID'));
-            } else {
-                $event = self::getDriver(null, Horde_Util::getFormData('calendar'))
-                    ->getEvent(Horde_Util::getFormData('eventID'));
-            }
-            if (!is_a($event, 'PEAR_Error') &&
-                !$event->hasPermission(Horde_Perms::EDIT)) {
-                $event = PEAR::raiseError(_("Permission Denied"));
-            }
-
-            return new Kronolith_View_EditEvent($event);
-
         case 'DeleteEvent':
-            if (strncmp(Horde_Util::getFormData('calendar'), 'resource_', 9) === 0) {
-                $event = self::getDriver('Resource', Horde_Util::getFormData('calendar'))->getEvent(Horde_Util::getFormData('eventID'));
-            } else {
-                $event = self::getDriver(null, Horde_Util::getFormData('calendar'))
-                    ->getEvent(Horde_Util::getFormData('eventID'));
-            }
-            if (!is_a($event, 'PEAR_Error') &&
-                !$event->hasPermission(Horde_Perms::DELETE)) {
-                $event = PEAR::raiseError(_("Permission Denied"));
-            }
-
-            return new Kronolith_View_DeleteEvent($event);
-
         case 'ExportEvent':
-            if (Horde_Util::getFormData('calendar') == '**remote') {
-                $event = self::getDriver('Ical', Horde_Util::getFormData('remoteCal'))
-                    ->getEvent(Horde_Util::getFormData('eventID'));
-            } elseif ($uid = Horde_Util::getFormData('uid')) {
+            if ($uid = Horde_Util::getFormData('uid')) {
                 $event = self::getDriver()->getByUID($uid);
             } else {
-                $event = self::getDriver(null, Horde_Util::getFormData('calendar'))
-                    ->getEvent(Horde_Util::getFormData('eventID'));
+                $event = self::getDriver(Horde_Util::getFormData('type'),
+                                         Horde_Util::getFormData('calendar'))
+                    ->getEvent(Horde_Util::getFormData('eventID'),
+                               Horde_Util::getFormData('datetime'));
             }
-            if (!is_a($event, 'PEAR_Error') &&
-                !$event->hasPermission(Horde_Perms::READ)) {
-                $event = PEAR::raiseError(_("Permission Denied"));
+            switch ($view) {
+            case 'Event':
+                if (!is_a($event, 'PEAR_Error') &&
+                    !$event->hasPermission(Horde_Perms::READ)) {
+                    $event = PEAR::raiseError(_("Permission Denied"));
+                }
+                return new Kronolith_View_Event($event);
+            case 'EditEvent':
+                /* We check for read permissions, because we can always save a
+                 * copy if we can read the event. */
+                if (!is_a($event, 'PEAR_Error') &&
+                    !$event->hasPermission(Horde_Perms::READ)) {
+                    $event = PEAR::raiseError(_("Permission Denied"));
+                }
+                return new Kronolith_View_EditEvent($event);
+            case 'DeleteEvent':
+                if (!is_a($event, 'PEAR_Error') &&
+                    !$event->hasPermission(Horde_Perms::DELETE)) {
+                    $event = PEAR::raiseError(_("Permission Denied"));
+                }
+                return new Kronolith_View_DeleteEvent($event);
+            case 'ExportEvent':
+                if (!is_a($event, 'PEAR_Error') &&
+                    !$event->hasPermission(Horde_Perms::READ)) {
+                    $event = PEAR::raiseError(_("Permission Denied"));
+                }
+                return new Kronolith_View_ExportEvent($event);
             }
-
-            return new Kronolith_View_ExportEvent($event);
         }
     }
 

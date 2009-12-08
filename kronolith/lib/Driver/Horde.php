@@ -107,14 +107,22 @@ class Kronolith_Driver_Horde extends Kronolith_Driver
     /**
      * @todo: implement getTimeObject in timeobjects API.
      */
-    public function getEvent($eventId = null)
+    public function getEvent($eventId = null, $start = null)
     {
-        $events = $this->listEvents();
+        $end = null;
+        if ($start) {
+            $start = new Horde_Date($start);
+            $end = clone $start;
+            $end->mday++;
+        }
+
+        $events = $this->listEvents($start, $end, (bool)$start);
         foreach ($events as $day) {
             if (isset($day[$eventId])) {
                 return $day[$eventId];
             }
         }
+
         return PEAR::raiseError(_("Event not found"));
     }
 

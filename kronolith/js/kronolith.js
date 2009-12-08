@@ -390,10 +390,12 @@ KronolithCore = {
                 // New event on a certain date.
                 this.editEvent(null, null, locParts[0]);
                 break;
-            case 2:
+            case 3:
                 // Editing event.
-                this.editEvent(locParts[0], locParts[1]);
+                this.editEvent(locParts[0], locParts[1], locParts[2]);
                 break;
+            default:
+                return;
             }
             this.updateMinical(this.date, this.view);
             this._addHistory(fullloc);
@@ -2869,7 +2871,7 @@ KronolithCore = {
                 if (!Object.isUndefined(elt.retrieve('ajax'))) {
                     this.go(elt.retrieve('ajax'));
                 } else {
-                    this.go('event:' + elt.retrieve('calendar') + ':' + elt.retrieve('eventid'));
+                    this.go('event:' + elt.retrieve('calendar') + ':' + elt.retrieve('eventid') + ':' + elt.up().retrieve('date'));
                 }
                 e.stop();
                 return;
@@ -3109,7 +3111,7 @@ KronolithCore = {
         this.doAction('ListTopTags', {}, this._topTags);
         if (id) {
             RedBox.loading();
-            this.doAction('GetEvent', { 'cal': calendar, 'id': id }, this._editEvent.bind(this));
+            this.doAction('GetEvent', { 'cal': calendar, 'id': id, 'date': date }, this._editEvent.bind(this));
         } else {
             $('kronolithEventTags').autocompleter.init();
             var d = date ? this.parseDate(date) : new Date();
