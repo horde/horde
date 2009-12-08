@@ -24,7 +24,7 @@ var Chora_Annotate = {
 
         elt.up('TR').insert({ after: new Element('TR', { className: 'logentry' }).insert(newelt) });
 
-        new Ajax.Updater(newelt, Chora.ANNOTATE_URL +  '=' + rev);
+        new Ajax.Updater(newelt, Chora.ANNOTATE_URL + '=' + rev);
     }
 };
 
