@@ -85,7 +85,7 @@ abstract class Horde_Ui_Widget
     public function preserve($var, $value = null)
     {
         if (!is_array($var)) {
-            $var = array($var);
+            $var = array($var => $value);
         }
 
         foreach ($var as $key => $value) {
