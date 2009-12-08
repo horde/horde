@@ -182,10 +182,10 @@ $ident = Horde_Prefs_Identity::singleton();
 $identities = $ident->getAll('id');
 $vars = Horde_Variables::getDefaultVariables();
 $tabs = new Horde_Ui_Tabs(null, $vars);
-$tabs->addTab(_("Day"), 'javascript:switchView(\'Day\')', 'Day');
-$tabs->addTab(_("Work Week"), 'javascript:switchView(\'Workweek\')', 'Workweek');
-$tabs->addTab(_("Week"), 'javascript:switchView(\'Week\')', 'Week');
-$tabs->addTab(_("Month"), 'javascript:switchView(\'Month\')', 'Month');
+$tabs->addTab(_("Day"), new Horde_Url('javascript:switchView(\'Day\')'), 'Day');
+$tabs->addTab(_("Work Week"), new Horde_Url('javascript:switchView(\'Workweek\')'), 'Workweek');
+$tabs->addTab(_("Week"), new Horde_Url('javascript:switchView(\'Week\')'), 'Week');
+$tabs->addTab(_("Month"), new Horde_Url('javascript:switchView(\'Month\')'), 'Month');
 
 $attendee_view = &Kronolith_FreeBusy_View::singleton($view);
 
