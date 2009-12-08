@@ -106,16 +106,20 @@ class Horde_Auth_Http extends Horde_Auth_Base
      * authentication info present.
      *
      * @return boolean  Whether or not the client is allowed.
-     * @throws Horde_Auth_Exception
      */
     protected function _transparent()
     {
-        if (!empty($_SERVER['PHP_AUTH_USER']) &&
-            !empty($_SERVER['PHP_AUTH_PW'])) {
-            return Horde_Auth::setAuth(Horde_Util::dispelMagicQuotes($_SERVER['PHP_AUTH_USER']), array('password' => Horde_Util::dispelMagicQuotes($_SERVER['PHP_AUTH_PW']), 'transparent' => 1));
+        if (empty($_SERVER['PHP_AUTH_USER']) ||
+            empty($_SERVER['PHP_AUTH_PW'])) {
+            return false;
         }
 
-        throw new Horde_Auth_Exception(_("HTTP Authentication not found."));
+        $this->_credentials['userId'] = $_SERVER['PHP_AUTH_USER'];
+        $this->_credentials['credentials'] = array(
+            'password' => Horde_Util::dispelMagicQuotes($_SERVER['PHP_AUTH_PW'])
+        );
+
+        return true;
     }
 
 }

@@ -76,16 +76,15 @@ class Horde_Auth_Shibboleth extends Horde_Auth_Base
     }
 
     /**
-     * Automatic authentication: Check if the username is set in the
+     * Automatic authentication: check if the username is set in the
      * configured header.
      *
      * @return boolean  Whether or not the client is allowed.
-     * @throws Horde_Auth_Exception
      */
     protected function _transparent()
     {
         if (empty($_SERVER[$this->_params['username_header']])) {
-            throw new Horde_Auth_Exception(_("Shibboleth authentication not available."));
+            return false;
         }
 
         $username = $_SERVER[$this->_params['username_header']];
@@ -96,15 +95,20 @@ class Horde_Auth_Shibboleth extends Horde_Auth_Base
             $username = substr($username, 0, $pos);
         }
 
-        if (!Horde_Auth::setAuth($username, array('transparent' => 1))) {
-            return false;
-        }
+        $this->_credentials['userId'] = $username;
 
         // Set password for hordeauth login.
-        if ($this->_params['password_holder'] == 'header') {
-            Horde_Auth::setCredential('password', $_SERVER[$this->_params['password_header']]);
-        } elseif ($this->_params['password_holder'] == 'preferences') {
-            Horde_Auth::setCredential('password', $GLOBALS['prefs']->getValue($this->_params['password_preference']));
+        switch ($this->_params['password_holder']) {
+        case 'header':
+            $this->_credentials['credentials'] = array(
+                'password' => $_SERVER[$this->_params['password_header']]
+            );
+            break;
+
+        case 'preferences':
+            $this->_credentials['credentials'] = array(
+                'password' => $_SERVER[$this->_params['password_preference']]
+            );
         }
 
         return true;

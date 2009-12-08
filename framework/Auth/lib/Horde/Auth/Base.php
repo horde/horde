@@ -236,10 +236,7 @@ abstract class Horde_Auth_Base
      * to set the credentials in the session.
      *
      * Transparent authentication should normally never throw an error - false
-     * should normally be returned. However, it is also possible that a
-     * transparent authentication is the only available auth method; if so,
-     * attempting to login via a login page may cause an endless loop. In this
-     * case, an Exception should be thrown which will act as a fatal error.
+     * should be returned.
      *
      * @return boolean  Whether transparent login is supported.
      * @throws Horde_Auth_Exception
