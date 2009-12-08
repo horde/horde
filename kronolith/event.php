@@ -33,11 +33,12 @@ case 'DeleteEvent':
 case 'EditEvent':
     if ($view->event->isPrivate() &&
         $view->event->getCreatorId() != Horde_Auth::getAuth()) {
-        $url = Horde_Util::getFormData('url');
-        if (empty($url)) {
+        if (!empty($url = Horde_Util::getFormData('url'))) {
+            $url = new Horde_Url($url, true);
+        } else {
             $url = Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true);
         }
-        header('Location: ' . Horde_Util::addParameter($url, 'unique', hash('md5', microtime()), false));
+        header('Location: ' . $url->add('unique', hash('md5', microtime())));
         exit;
     }
     break;

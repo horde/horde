@@ -35,23 +35,23 @@
 <?php $calendar = $calendars[$calendar_id]; if (is_array($calendar)): ?>
    <td><?php echo htmlspecialchars($calendar['name']) ?></td>
    <td><?php echo _("Remote") ?></td>
-   <td><?php $url = Horde_Util::addParameter($display_url_base, 'display_cal', 'remote_' . $calendar['url'], false); echo Horde::link($url, _("Click or copy this URL to display this calendar"), '', '_blank') . htmlspecialchars(shorten_url($url)) . '</a>' ?></td>
+   <td><?php $url = $display_url_base->add('display_cal', 'remote_' . $calendar['url']); echo $url->link(array('title' => _("Click or copy this URL to display this calendar"), 'target' => '_blank')) . htmlspecialchars(shorten_url($url)) . '</a>' ?></td>
    <td><?php echo Horde::link($calendar['url'], _("Click or copy this URL to display this calendar"), '', '_blank') . htmlspecialchars(shorten_url($calendar['url'])) . '</a>' ?></td>
-   <td><?php echo Horde::link(Horde_Util::addParameter($remote_edit_url_base, 'url', $calendar['url']), _("Edit")) . $edit_img . '</a>' ?></td>
+   <td><?php echo $remote_edit_url_base->add('url', $calendar['url'])->link(array('title' => _("Edit"))) . $edit_img . '</a>' ?></td>
 <?php if (empty($conf['share']['no_sharing'])): ?>
    <td>&nbsp;</td>
 <?php endif; ?>
-   <td><?php echo Horde::link(Horde_Util::addParameter($remote_unsubscribe_url_base, 'url', $calendar['url']), _("Unsubscribe")) . $delete_img . '</a>' ?></td>
+   <td><?php echo $remote_unsubscribe_url_base->add('url', $calendar['url'])->link(array('title' => _("Unsubscribe"))) . $delete_img . '</a>' ?></td>
 <?php else: ?>
    <td><?php echo htmlspecialchars($calendar->get('name')) ?></td>
    <td><?php echo _("Local") ?></td>
-   <td><?php $url = Horde_Util::addParameter($display_url_base, 'display_cal', $calendar->getName(), false); echo Horde::link($url, _("Click or copy this URL to display this calendar")) . htmlspecialchars(shorten_url($url)) . '</a>' ?></td>
+   <td><?php $url = $display_url_base->add('display_cal', $calendar->getName()); echo $url->link(array('title' => _("Click or copy this URL to display this calendar"))) . htmlspecialchars(shorten_url($url)) . '</a>' ?></td>
    <td><?php $url = $subscribe_url_base . ($calendar->get('owner') ? $calendar->get('owner') : '-system-') . '/' . $calendar->getName() . '.ics'; echo Horde::link($url, _("Click or copy this URL to display this calendar"), '', '_blank') . htmlspecialchars(shorten_url($url)) . '</a>' ?></td>
-   <td><?php echo Horde::link(Horde_Util::addParameter($edit_url_base, 'c', $calendar->getName()), _("Edit")) . $edit_img . '</a>' ?></td>
+   <td><?php echo $edit_url_base->add('c', $calendar->getName())->link(array('title' => _("Edit"))) . $edit_img . '</a>' ?></td>
 <?php if (empty($conf['share']['no_sharing'])): ?>
-   <td><?php echo Horde::link(Horde_Util::addParameter($perms_url_base, 'share', $calendar->getName()), _("Change Permissions"), '', '_blank', Horde::popupJs($perms_url_base, array('params' => array('share' => $calendar->getName()), 'urlencode' => true)) . 'return false;') . $perms_img . '</a>' ?></td>
+   <td><?php echo $perms_url_base->add('share', $calendar->getName())->link(array('title' => _("Change Permissions"), 'target' => '_blank', 'onclick' => Horde::popupJs($perms_url_base, array('params' => array('share' => $calendar->getName()), 'urlencode' => true)) . 'return false;')) . $perms_img . '</a>' ?></td>
 <?php endif; ?>
-   <td><?php echo Horde::link(Horde_Util::addParameter($delete_url_base, 'c', $calendar->getName()), _("Delete")) . $delete_img . '</a>' ?></td>
+   <td><?php echo $delete_url_base->add('c', $calendar->getName())->link(array('title' => _("Delete"))) . $delete_img . '</a>' ?></td>
 <?php endif; ?>
   </tr>
 <?php endforeach; ?>

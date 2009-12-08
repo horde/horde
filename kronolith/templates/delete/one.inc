@@ -1,8 +1,7 @@
 <?php
 if (empty($url)) {
-    $url = Horde_Util::addParameter('month.php', array('month' => $month,
-                                                 'year' => $year));
-    $url = Horde::applicationUrl($url, true);
+    $url = Horde::applicationUrl('month.php', true)
+        ->add(array('month' => $month, 'year' => $year));
 }
 ?>
 <form action="delete.php" method="post" name="delete">

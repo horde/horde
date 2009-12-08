@@ -44,9 +44,11 @@ class Kronolith_View_Year {
             // Heading for each month.
             $date = new Horde_Date(sprintf('%04d%02d01010101', $this->year, $month));
             $mtitle = $date->strftime('%B');
-            $url = Horde_Util::addParameter(Horde::applicationUrl('month.php'), array('date' => $date->dateString()));
-            $html .= '<h2 class="smallheader"><a class="smallheader" href="' . $url . '">' . $mtitle . '</a></h2>' .
-                '<table class="nopadding monthgrid" cellspacing="0" width="100%"><thead><tr class="item">';
+            $html .= '<h2 class="smallheader"><a class="smallheader" href="'
+                . Horde::applicationUrl('month.php')
+                ->add('date', $date->dateString())
+                . '">' . $mtitle . '</a></h2>'
+                . '<table class="nopadding monthgrid" cellspacing="0" width="100%"><thead><tr class="item">';
             if (!$prefs->getValue('week_start_monday')) {
                 $html .= '<th>' . _("Su"). '</th>';
             }
@@ -110,8 +112,8 @@ class Kronolith_View_Year {
                     }
 
                     /* Set up the link to the day view. */
-                    $url = Horde::applicationUrl('day.php', true);
-                    $url = Horde_Util::addParameter($url, 'date', $date->dateString());
+                    $url = Horde::applicationUrl('day.php', true)
+                        ->add('date', $date->dateString());
 
                     if ($date->month != $month) {
                         $cellday = '&nbsp;';
@@ -161,7 +163,8 @@ class Kronolith_View_Year {
 
     function link($offset = 0, $full = false)
     {
-        return Horde::applicationUrl(Horde_Util::addParameter('year.php', 'date', $this->year + $offset) . '0101', $full);
+        return Horde::applicationUrl('year.php', $full)
+            ->add('date', ($this->year + $offset) . '0101');
     }
 
     function getName()

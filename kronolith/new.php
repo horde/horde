@@ -11,6 +11,9 @@
 require dirname(__FILE__) . '/lib/base.php';
 
 /* Check permissions. */
+$url = Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true)
+      ->add(array('month' => Horde_Util::getFormData('month'),
+                  'year' => Horde_Util::getFormData('year')));
 if ($GLOBALS['perms']->hasAppPermission('max_events') !== true &&
     $GLOBALS['perms']->hasAppPermission('max_events') <= Kronolith::countEvents()) {
     try {
@@ -19,17 +22,13 @@ if ($GLOBALS['perms']->hasAppPermission('max_events') !== true &&
         $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d events."), $GLOBALS['perms']->hasAppPermission('max_events')), ENT_COMPAT, Horde_Nls::getCharset());
     }
     $notification->push($message, 'horde.error', array('content.raw'));
-    $url = Horde_Util::addParameter($prefs->getValue('defaultview') . '.php', array('month' => Horde_Util::getFormData('month'),
-                                                                              'year' => Horde_Util::getFormData('year')));
-    header('Location: ' . Horde::applicationUrl($url, true));
+    header('Location: ' . $url);
     exit;
 }
 
 $calendar_id = Horde_Util::getFormData('calendar', Kronolith::getDefaultCalendar(Horde_Perms::EDIT));
 if (!$calendar_id) {
-    $url = Horde_Util::addParameter($prefs->getValue('defaultview') . '.php', array('month' => Horde_Util::getFormData('month'),
-                                                                              'year' => Horde_Util::getFormData('year')));
-    header('Location: ' . Horde::applicationUrl($url, true));
+    header('Location: ' . $url);
 }
 
 $event = Kronolith::getDriver()->getEvent();
@@ -59,9 +58,7 @@ $url = Horde_Util::getFormData('url');
 if (isset($url)) {
     $cancelurl = $url;
 } else {
-    $cancelurl = Horde_Util::addParameter('month.php', array('month' => $month,
-                                                       'year' => $year));
-    $cancelurl = Horde::applicationUrl($cancelurl, true);
+    $cancelurl = Horde::applicationUrl('month.php', true)->add('month', $month);
 }
 
 $title = _("Add a new event");

@@ -80,10 +80,10 @@ class Kronolith_FreeBusy_View {
         $optimal->merge($required, false);
         $optimal->merge($optional);
 
-        $base_url = Horde::selfUrl();
-        $base_url = Horde_Util::removeParameter($base_url, 'date');
-        $base_url = Horde_Util::removeParameter($base_url, 'fbview');
-        $base_url = Horde_Util::addParameter($base_url, 'fbview', $this->view);
+        $base_url = Horde::selfUrl()
+            ->remove('date')
+            ->remove('fbview')
+            ->add('fbview', $this->view);
 
         $template = new Horde_Template();
         $template->set('title', $this->_title());

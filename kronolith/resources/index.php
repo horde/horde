@@ -57,13 +57,13 @@ function performAction(action, rid)
  <tr>
   <?php if ($isAdmin):?>
   <td>
-       <?php echo Horde::link(Horde_Util::addParameter($delete_url_base, 'c', $resource->getId()), _("Delete")) . $delete_img . '</a>' ?>
-       <?php echo Horde::link(Horde_Util::addParameter($edit_url_base, 'c', $resource->getId()), _("Edit")) . $edit_img . '</a>' ?>
+   <?php echo $delete_url_base->add('c', $resource->getId())->link(array('title' => _("Delete"))) . $delete_img . '</a>' ?>
+   <?php echo $edit_url_base->add('c', $resource->getId())->link(array('title' => _("Edit"))) . $edit_img . '</a>' ?>
   <?php else:?>
   <td>&nbsp;</td>
   <?php endif;?>
   <td><?php echo htmlspecialchars($resource->get('name')) ?></td>
-  <td><?php $url = Horde_Util::addParameter($display_url_base, 'display_cal', $resource->get('calendar'), false); echo Horde::link($url, _("Click or copy this URL to display this calendar")) . htmlspecialchars(shorten_url($url)) . '</a>' ?></td>
+  <td><?php echo $display_url_base->add('display_cal', $resource->get('calendar'), false)->link(array('title' => _("Click or copy this URL to display this calendar"))) . htmlspecialchars(shorten_url($url)) . '</a>' ?></td>
  </tr>
 <?php endforeach; ?>
 </tbody>

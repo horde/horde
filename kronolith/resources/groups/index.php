@@ -58,8 +58,8 @@ function performAction(action, rid)
  <tr>
   <?php if ($isAdmin):?>
   <td>
-       <?php echo Horde::link(Horde_Util::addParameter($delete_url_base, 'c', $resource->getId()), _("Delete")) . $delete_img . '</a>' ?>
-       <?php echo Horde::link(Horde_Util::addParameter($edit_url_base, 'c', $resource->getId()), _("Edit")) . $edit_img . '</a>' ?>
+    <?php echo $delete_url_base->add('c', $resource->getId())->link(array('title' => _("Delete"))) . $delete_img . '</a>' ?>
+    <?php echo $edit_url_base->add('c', $resource->getId())->link(array('title' => _("Edit"))) . $edit_img . '</a>' ?>
   <?php else:?>
   <td>&nbsp;</td>
   <?php endif;?>

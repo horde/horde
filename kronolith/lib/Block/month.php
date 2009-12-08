@@ -35,21 +35,21 @@ class Horde_Block_Kronolith_month extends Horde_Block {
      */
     function _title()
     {
-        global $registry;
         require_once dirname(__FILE__) . '/../base.php';
 
         $title = _("All Calendars");
-        $url_params = array();
-        if (isset($this->_params['calendar']) && $this->_params['calendar'] != '__all') {
-            $this->_share = &$GLOBALS['kronolith_shares']->getShare($this->_params['calendar']);
+        $url = Horde::url($GLOBALS['registry']->getInitialPage(), true);
+        if (isset($this->_params['calendar']) &&
+            $this->_params['calendar'] != '__all') {
+            $this->_share = $GLOBALS['kronolith_shares']->getShare($this->_params['calendar']);
             if (!is_a($this->_share, 'PEAR_Error')) {
-                $url_params = array('display_cal' => $this->_params['calendar']);
+                $url->add('display_cal', $this->_params['calendar']);
                 $title = htmlspecialchars($this->_share->get('name'));
             }
         }
         $date = new Horde_Date(time());
 
-        return $title . ', ' . Horde::link(Horde::url(Horde_Util::addParameter($registry->getInitialPage(), $url_params), true)) . $date->strftime('%B, %Y') . '</a>';
+        return $title . ', ' . $url->link() . $date->strftime('%B, %Y') . '</a>';
     }
 
     /**
@@ -168,14 +168,13 @@ class Horde_Block_Kronolith_month extends Horde_Block {
             }
             $html .= '<td align="center" class="' . $td_class . '">';
 
-            $url_params = array('date' => $date_ob->dateString());
+            /* Set up the link to the day view. */
+            $url = Horde::applicationUrl('day.php', true)
+                ->add('date', $date_ob->dateString());
             if (isset($this->_params['calendar']) &&
                 $this->_params['calendar'] != '__all') {
-                $url_params['display_cal'] = $this->_params['calendar'];
+                $url->add('display_cal', $this->_params['calendar']);
             }
-            /* Set up the link to the day view. */
-            $url = Horde_Util::addParameter(Horde::applicationUrl('day.php', true),
-                                      $url_params);
 
             $date_stamp = $date_ob->dateString();
             if (empty($all_events[$date_stamp])) {

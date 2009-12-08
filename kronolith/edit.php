@@ -39,7 +39,6 @@ function _check_max()
 
 require_once dirname(__FILE__) . '/lib/base.php';
 
-$url = Horde_Util::getFormData('url');
 $kronolith_driver = Kronolith::getDriver();
 
 if ($exception = Horde_Util::getFormData('del_exception')) {
@@ -173,15 +172,13 @@ if ($exception = Horde_Util::getFormData('del_exception')) {
     }
 }
 
-if (!empty($url)) {
-    $location = $url;
+if (!empty($url = Horde_Util::getFormData('url'))) {
+    $url = new Horde_Url($url, true);
 } else {
-    $url = Horde_Util::addParameter($prefs->getValue('defaultview') . '.php',
-                              array('month' => Horde_Util::getFormData('month'),
-                                    'year' => Horde_Util::getFormData('year')));
-    $location = Horde::applicationUrl($url, true);
+    $url = Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true)
+        ->add(array('month' => Horde_Util::getFormData('month'),
+                    'year' => Horde_Util::getFormData('year')));
 }
 
 // Make sure URL is unique.
-$location = Horde_Util::addParameter($location, 'unique', hash('md5', microtime()), false);
-header('Location: ' . $location);
+header('Location: ' . $url->add('unique', hash('md5', microtime())));

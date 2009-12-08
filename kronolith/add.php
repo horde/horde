@@ -52,11 +52,13 @@ if (!Horde_Util::getFormData('cancel')) {
     }
 }
 
-if ($url = Horde_Util::getFormData('url')) {
-    header('Location: ' . $url);
+if (!empty($url = Horde_Util::getFormData('url'))) {
+    $url = new Horde_Url($url, true);
 } else {
-    $url = Horde_Util::addParameter($prefs->getValue('defaultview') . '.php',
-                              array('month' => Horde_Util::getFormData('month'),
-                                    'year' => Horde_Util::getFormData('year')));
-    header('Location: ' . Horde::applicationUrl($url, true));
+    $url = Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true)
+        ->add(array('month' => Horde_Util::getFormData('month'),
+                    'year' => Horde_Util::getFormData('year')));
 }
+
+// Make sure URL is unique.
+header('Location: ' . $url->add('unique', hash('md5', microtime())));

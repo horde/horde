@@ -142,18 +142,16 @@ case 'dismiss':
         exit;
     }
 
-    $url = Horde_Util::getFormData('url');
-    if (!empty($url)) {
-        $location = Horde::applicationUrl($url, true);
+    if (!empty($url = Horde_Util::getFormData('url'))) {
+        $url = new Horde_Url($url, true);
     } else {
         $date = new Horde_Date(Horde_Util::getFormData('date'));
-        $url = Horde_Util::addParameter($prefs->getValue('defaultview') . '.php', 'date',  $date->dateString());
-        $location = Horde::applicationUrl($url, true);
+        $url = Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true)
+            ->add('date', $date->dateString());
     }
 
     // Make sure URL is unique.
-    $location = Horde_Util::addParameter($location, 'unique', hash('md5', microtime()));
-    header('Location: ' . $location);
+    header('Location: ' . $url->add('unique', hash('md5', microtime())));
     exit;
 
 case 'clear':

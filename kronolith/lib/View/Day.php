@@ -90,14 +90,17 @@ class Kronolith_View_Day extends Kronolith_Day {
         echo '<tbody>';
 
         if ($addLinks) {
-            $newEventUrl = Horde_Util::addParameter(
-                'new.php',
-                array('datetime' => sprintf($this->dateString() . '%02d%02d00',
-                                            $this->slots[0]['hour'], $this->slots[0]['min']),
-                      'allday' => 1,
-                      'url' => $this->link(0, true)));
-            $newEventUrl = Horde::link(Horde::applicationUrl($newEventUrl), _("Create a New Event"), 'hour') . _("All day") .
-                Horde::img('new_small.png', '+', array('class' => 'iconAdd')) . '</a>';
+            $newEventUrl = Horde::applicationUrl('new.php')
+                ->add(array('datetime' => sprintf($this->dateString() . '%02d%02d00',
+                                                  $this->slots[0]['hour'], $this->slots[0]['min']),
+                            'allday' => 1,
+                            'url' => $this->link(0, true)))
+                ->link(array('title' => _("Create a New Event"), 'class' =>
+            'hour'))
+                . _("All day")
+                . Horde::img('new_small.png', '+', array('class' =>
+            'iconAdd'))
+                . '</a>';
         } else {
             $newEventUrl = '<span class="hour">' . _("All day") . '</span>';
         }
@@ -255,13 +258,14 @@ class Kronolith_View_Day extends Kronolith_Day {
             }
 
             if ($addLinks) {
-                $newEventUrl = Horde_Util::addParameter(
-                    'new.php',
-                    array('datetime' => sprintf($this->dateString() . '%02d%02d00',
-                                                $this->slots[$i]['hour'], $this->slots[$i]['min']),
-                          'url' => $this->link(0, true)));
-                $newEventUrl = Horde::link(Horde::applicationUrl($newEventUrl), _("Create a New Event"), $hourclass) .
-                    $time . Horde::img('new_small.png', '+', array('class' => 'iconAdd')) . '</a>';
+                $newEventUrl = Horde::applicationUrl('new.php')
+                    ->add(array('datetime' => sprintf($this->dateString() . '%02d%02d00',
+                                                      $this->slots[$i]['hour'], $this->slots[$i]['min']),
+                                'url' => $this->link(0, true)))
+                    ->link(array('title' =>_("Create a New Event"), 'class' => $hourclass))
+                    . $time
+                    . Horde::img('new_small.png', '+', array('class' => 'iconAdd'))
+                    . '</a>';
             } else {
                 $newEventUrl = '<span class="' . $hourclass . '">' . $time . '</span>';
             }
@@ -454,9 +458,8 @@ class Kronolith_View_Day extends Kronolith_Day {
 
     function link($offset = 0, $full = false)
     {
-        return Horde::applicationUrl(
-            Horde_Util::addParameter('day.php', 'date', $this->getTime('%Y%m%d', $offset)),
-            $full);
+        return Horde::applicationUrl('day.php', $full)
+            ->add('date', $this->getTime('%Y%m%d', $offset));
     }
 
     function getName()

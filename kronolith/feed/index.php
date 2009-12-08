@@ -78,11 +78,11 @@ if (is_a($events, 'PEAR_Error')) {
 }
 
 if (isset($conf['urls']['pretty']) && $conf['urls']['pretty'] == 'rewrite') {
-    $self_url = 'feed/' . $calendar;
+    $self_url = Horde::applicationUrl('feed/' . $calendar, true, -1);
 } else {
-    $self_url = Horde_Util::addParameter('feed/index.php', 'c', $calendar);
+    $self_url = Horde::applicationUrl('feed/index.php', true, -1)
+        ->add('c', $calendar);
 }
-$self_url = Horde::applicationUrl($self_url, true, -1);
 
 $owner = $share->get('owner');
 $identity = Horde_Prefs_Identity::factory('none', $owner);

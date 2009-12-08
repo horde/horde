@@ -63,14 +63,12 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
      */
     function _title()
     {
-        global $registry;
-
-        if (isset($this->_params['calendar']) && $this->_params['calendar'] != '__all') {
-            $url_params = array('display_cal' => $this->_params['calendar']);
-        } else {
-            $url_params = array();
+        $url = Horde::url($GLOBALS['registry']->getInitialPage(), true);
+        if (isset($this->_params['calendar']) &&
+            $this->_params['calendar'] != '__all') {
+            $url->add('display_cal', $this->_params['calendar']);
         }
-        return Horde::link(Horde::url(Horde_Util::addParameter($registry->getInitialPage(), $url_params), true)) . htmlspecialchars($registry->get('name')) . '</a>';
+        return $url->link() . htmlspecialchars($registry->get('name')) . '</a>';
     }
 
     /**
@@ -164,16 +162,14 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
                     } else {
                         $dayname = $day->strftime($prefs->getValue('date_format'));
                     }
-                    $url_params = array('date' => $day->dateString());
+                    $url = Horde::applicationUrl('day.php', true)
+                        ->add('date', $day->dateString());
                     if (isset($this->_params['calendar']) &&
                         $this->_params['calendar'] != '__all') {
-                        $url_params['display_cal'] = $this->_params['calendar'];
+                        $url->add('display_cal', $this->_params['calendar']);
                     }
-                    $daylink = Horde::applicationUrl('day.php', true);
-                    $daylink = Horde_Util::addParameter($daylink, $url_params);
-                    $html .= Horde::link($daylink, sprintf(_("Goto %s"),
-                                                           $dayname));
-                    $html .= $dayname . '</a></strong></td></tr>';
+                    $html .= $url->link(array('title' => sprintf(_("Goto %s"), $dayname)))
+                        . $dayname . '</a></strong></td></tr>';
                     $firstevent = false;
                     $firstday = false;
                 }

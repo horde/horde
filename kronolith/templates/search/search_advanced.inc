@@ -10,7 +10,7 @@ require KRONOLITH_TEMPLATES . '/edit/javascript.inc';
 <br /><br />
 <h1 class="header">
  <span class="smallheader rightFloat">
-  <?php echo Horde::widget(Horde_Util::addParameter(Horde::applicationUrl('search.php'), 'search_mode', 'basic'), _("Basic Search"), 'smallheader', '', '', _("_Basic Search")) ?>
+  <?php echo Horde::widget(Horde::applicationUrl('search.php')->add('search_mode', 'basic'), _("Basic Search"), 'smallheader', '', '', _("_Basic Search")) ?>
  </span>
  <?php echo _("Advanced Search") ?>
 </h1>

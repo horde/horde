@@ -85,12 +85,13 @@ if ($eventID = Horde_Util::getFormData('eventID')) {
     }
 }
 
-if ($url = Horde_Util::getFormData('url')) {
-    $location = $url;
+if (!empty($url = Horde_Util::getFormData('url'))) {
+    $url = new Horde_Url($url, true);
 } else {
-    $url = Horde_Util::addParameter($prefs->getValue('defaultview') . '.php',
-                              'date', Horde_Util::getFormData('date', date('Ymd')));
-    $location = Horde::applicationUrl($url, true);
+    $date = new Horde_Date(Horde_Util::getFormData('date'));
+    $url = Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true)
+        ->add('date', Horde_Util::getFormData('date', date('Ymd')));
 }
 
-header('Location: ' . $location);
+// Make sure URL is unique.
+header('Location: ' . $url->add('unique', hash('md5', microtime())));

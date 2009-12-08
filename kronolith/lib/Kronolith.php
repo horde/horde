@@ -1519,11 +1519,10 @@ class Kronolith
     {
         if (isset($GLOBALS['conf']['urls']['pretty']) &&
             $GLOBALS['conf']['urls']['pretty'] == 'rewrite') {
-            $feed_url = 'feed/' . $calendar;
-        } else {
-            $feed_url = Horde_Util::addParameter('feed/index.php', 'c', $calendar);
+            return Horde::applicationUrl('feed/' . $calendar, true, -1);
         }
-        return Horde::applicationUrl($feed_url, true, -1);
+        return Horde::applicationUrl('feed/index.php', true, -1)
+            ->add('c', $calendar);
     }
 
     /**
@@ -1687,7 +1686,7 @@ class Kronolith
 
         $myemail = $ident->getValue('from_addr');
         if (!$myemail) {
-            $notification->push(sprintf(_("You do not have an email address configured in your Personal Information Options. You must set one %shere%s before event notifications can be sent."), Horde::link(Horde_Util::addParameter(Horde::getServiceLink('options', 'kronolith'), array('app' => 'horde', 'group' => 'identities'))), '</a>'), 'horde.error', array('content.raw'));
+            $notification->push(sprintf(_("You do not have an email address configured in your Personal Information Options. You must set one %shere%s before event notifications can be sent."), Horde::getServiceLink('options', 'kronolith')->add(array('app' => 'horde', 'group' => 'identities'))->link(), '</a>'), 'horde.error', array('content.raw'));
             return;
         }
 
@@ -1753,8 +1752,11 @@ class Kronolith
             $message .= _("Attached is an iCalendar file with more information about the event. If your mail client supports iTip requests you can use this file to easily update your local copy of the event.");
 
             if ($action == self::ITIP_REQUEST) {
-                $attend_link = Horde_Util::addParameter(Horde::applicationUrl('attend.php', true, -1), array('c' => $event->getCalendar(), 'e' => $event->getId(), 'u' => $email), null, false);
-                $message .= "\n\n" . sprintf(_("If your email client doesn't support iTip requests you can use one of the following links to accept or decline the event.\n\nTo accept the event:\n%s\n\nTo accept the event tentatively:\n%s\n\nTo decline the event:\n%s\n"), Horde_Util::addParameter($attend_link, 'a', 'accept', false), Horde_Util::addParameter($attend_link, 'a', 'tentative', false), Horde_Util::addParameter($attend_link, 'a', 'decline', false));
+                $attend_link = Horde::applicationUrl('attend.php', true, -1)
+                    ->add(array('c' => $event->getCalendar(),
+                                'e' => $event->getId(),
+                                'u' => $email));
+                $message .= "\n\n" . sprintf(_("If your email client doesn't support iTip requests you can use one of the following links to accept or decline the event.\n\nTo accept the event:\n%s\n\nTo accept the event tentatively:\n%s\n\nTo decline the event:\n%s\n"), $attend_link->add('a', 'accept'), $attend_link->add('a', 'tentative'), $attend_link->add('a', 'decline'));
             }
 
             /* Build the iCalendar data */
@@ -2370,7 +2372,7 @@ class Kronolith
             (!empty($conf['hooks']['permsdenied']) ||
              $GLOBALS['perms']->hasAppPermission('max_events') === true ||
              $GLOBALS['perms']->hasAppPermission('max_events') > self::countEvents())) {
-            $menu->add(Horde_Util::addParameter(Horde::applicationUrl('new.php'), 'url', Horde::selfUrl(true, false, true)), _("_New Event"), 'new.png');
+            $menu->add(Horde::applicationUrl('new.php')->add('url', Horde::selfUrl(true, false, true)), _("_New Event"), 'new.png');
         }
         if ($browser->hasFeature('dom')) {
             Horde::addScriptFile('goto.js', 'kronolith', array('direct' => false));

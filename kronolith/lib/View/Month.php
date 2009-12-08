@@ -137,7 +137,7 @@ class Kronolith_View_Month {
         $showTime = Kronolith::viewShowTime();
         $day_url = Horde::applicationUrl('day.php');
         $this_link = $this->link(0, true);
-        $new_url = Horde_Util::addParameter(Horde::applicationUrl('new.php'), 'url', $this_link);
+        $new_url = Horde::applicationUrl('new.php')->add('url', $this_link);
         $new_img = Horde::img('new_small.png', '+');
 
         foreach ($this->_currentCalendars as $id => $cal) {
@@ -170,21 +170,24 @@ class Kronolith_View_Month {
 
                 $html .= '<td class="' . $style . '" height="70" width="14%" valign="top"><div>';
 
-                $url = Horde_Util::addParameter($day_url, 'date', $date->dateString());
-                $html .= '<a class="day" href="' . $url . '">' . $date->mday . '</a>';
+                $html .= $day_url->add('date', $date->dateString())
+                    ->link(array('class' => 'day'))
+                    . $date->mday . '</a>';
 
                 if ($addLinks) {
-                    $url = Horde_Util::addParameter($new_url, 'date', $date->dateString());
+                    $new_url->add('date', $date->dateString());
                     if ($sidebyside) {
-                        $url = Horde_Util::addParameter($url, 'calendar', $id);
+                        $new_url->add('calendar', $id);
                     }
-                    $html .= Horde::link($url, _("Create a New Event"), 'newEvent') .
-                        $new_img . '</a>';
+                    $html .= $new_url->link(array('title' => _("Create a New Event"), 'class' => 'newEvent'))
+                        . $new_img . '</a>';
                 }
 
                 if ($date->dayOfWeek() == Horde_Date::DATE_MONDAY) {
-                    $url = Horde_Util::addParameter('week.php', 'date', $date->dateString());
-                    $html .= Horde::link(Horde::applicationUrl($url), '', 'week') . sprintf(_("Week %d"), $week) . '</a>';
+                    $html .= Horde::applicationUrl('week.php')
+                        ->add('date', $date->dateString())
+                        ->link(array('class' => 'week'))
+                        . sprintf(_("Week %d"), $week) . '</a>';
                 }
 
                 $html .= '</div><div class="clear">&nbsp;</div>';
@@ -231,7 +234,8 @@ class Kronolith_View_Month {
     function link($offset = 0, $full = false)
     {
         $month = $this->getMonth($offset);
-        return Horde::applicationUrl(Horde_Util::addParameter('month.php', 'date', $month->dateString()), $full);
+        return Horde::applicationUrl('month.php', $full)
+            ->add('date', $month->dateString());
     }
 
     function getName()

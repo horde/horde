@@ -1315,7 +1315,12 @@ abstract class Kronolith_Event
                                            'mday' => $match[3]));
         $formatted = $horde_date->strftime($GLOBALS['prefs']->getValue('date_format'));
         return $formatted
-            . Horde::link(Horde_Util::addParameter(Horde::applicationUrl('edit.php'), array('calendar' => $this->getCalendar(), 'eventID' => $this->eventID, 'del_exception' => $date, 'url' => Horde_Util::getFormData('url'))), sprintf(_("Delete exception on %s"), $formatted))
+            . Horde::applicationUrl('edit.php')
+            ->add(array('calendar' => $this->getCalendar(),
+                        'eventID' => $this->eventID,
+                        'del_exception' => $date,
+                        'url' => Horde_Util::getFormData('url')))
+            ->link(array('title' => sprintf(_("Delete exception on %s"), $formatted)))
             . Horde::img('delete-small.png', _("Delete"), '', $GLOBALS['registry']->getImageDir('horde'))
             . '</a>';
     }

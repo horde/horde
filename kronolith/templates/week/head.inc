@@ -22,12 +22,13 @@ if (Kronolith::getDefaultCalendar(Horde_Perms::EDIT) &&
     (!empty($conf['hooks']['permsdenied']) ||
      $GLOBALS['perms']->hasAppPermission('max_events') === true ||
      $GLOBALS['perms']->hasAppPermission('max_events') > Kronolith::countEvents())) {
-    $addurl = Horde_Util::addParameter('new.php',
-                                 array('date' => $day->dateString(),
-                                       'url' => $this->link(0, true)));
-    echo Horde::link(Horde::applicationUrl($addurl), _("Create a New Event"), 'iconAdd')
-    . Horde::img('new_small.png', '+')
-    . '</a>';
+    echo Horde::applicationUrl('new.php')
+        ->add(array('date' => $day->dateString(),
+                    'url' => $this->link(0, true)))
+        ->link(array('title' => _("Create a New Event"),
+                     'class' => 'iconAdd'))
+        . Horde::img('new_small.png', '+')
+        . '</a>';
 }
 ?>
    <strong><?php echo Horde::link($day->link(), '', 'widget') . $day->getTime('%A, %d.') ?></a></strong>
