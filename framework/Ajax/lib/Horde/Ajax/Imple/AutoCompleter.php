@@ -55,7 +55,6 @@ abstract class Horde_Ajax_Imple_AutoCompleter extends Horde_Ajax_Imple_Base
                 'score' => 1
             ), $config['params']);
         } elseif (isset($config['pretty'])) {
-
             Horde::addScriptFile('prettyautocomplete.js', 'horde');
             $func = 'PrettyAutocompleter';
             $config['params'] = array_merge(array(
