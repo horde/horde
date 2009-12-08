@@ -401,14 +401,14 @@ $a_template->set('create_folder', !empty($GLOBALS['conf']['hooks']['permsdenied'
 if ($prefs->getValue('subscribe')) {
     $a_template->set('subscribe', true);
     $subToggleText = ($showAll) ? _("Hide Unsubscribed") : _("Show Unsubscribed");
-    $a_template->set('toggle_subscribe', Horde::widget($folders_url_ob->cAdd(array('actionID' => 'toggle_subscribed_view', 'folders_token' => $folders_token)), $subToggleText, 'widget', '', '', $subToggleText, true));
+    $a_template->set('toggle_subscribe', Horde::widget($folders_url_ob->copy()->add(array('actionID' => 'toggle_subscribed_view', 'folders_token' => $folders_token)), $subToggleText, 'widget', '', '', $subToggleText, true));
 }
 $a_template->set('nav_poll', !$prefs->isLocked('nav_poll') && !$prefs->getValue('nav_poll_all'));
 $a_template->set('notrash', !$prefs->getValue('use_trash'));
 $a_template->set('file_upload', $_SESSION['imp']['file_upload']);
 $a_template->set('help', Horde_Help::link('imp', 'folder-options'));
-$a_template->set('expand_all', Horde::widget($folders_url_ob->cAdd(array('actionID' => 'expand_all_folders', 'folders_token' => $folders_token)), _("Expand All Folders"), 'widget', '', '', _("Expand All"), true));
-$a_template->set('collapse_all', Horde::widget($folders_url_ob->cAdd(array('actionID' => 'collapse_all_folders', 'folders_token' => $folders_token)), _("Collapse All Folders"), 'widget', '', '', _("Collapse All"), true));
+$a_template->set('expand_all', Horde::widget($folders_url_ob->copy()->add(array('actionID' => 'expand_all_folders', 'folders_token' => $folders_token)), _("Expand All Folders"), 'widget', '', '', _("Expand All"), true));
+$a_template->set('collapse_all', Horde::widget($folders_url_ob->copy()->add(array('actionID' => 'collapse_all_folders', 'folders_token' => $folders_token)), _("Collapse All Folders"), 'widget', '', '', _("Collapse All"), true));
 
 /* Check to see if user wants new mail notification */
 if (!empty($newmsgs)) {
@@ -459,7 +459,7 @@ foreach ($raw_rows as $key => $val) {
         if (!empty($val['unseen'])) {
             $val['name'] = '<strong>' . $val['name'] . '</strong>';
         }
-        $val['name'] = Horde::link($name_url->cAdd('mailbox', $val['value']), $val['vfolder'] ? $val['base_elt']['l'] : $val['display']) . $val['name'] . '</a>';
+        $val['name'] = Horde::link($name_url->copy()->add('mailbox', $val['value']), $val['vfolder'] ? $val['base_elt']['l'] : $val['display']) . $val['name'] . '</a>';
     }
 
     $val['line'] = $tree_imgs[$key];

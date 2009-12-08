@@ -61,7 +61,7 @@ class IMP_Ui_Folder
         $imaptree = IMP_Imap_Tree::singleton();
 
         if ($elt['children'] && isset($options['expand_url'])) {
-            $dir = $options['expand_url']->cAdd('folder', $elt['value']);
+            $dir = $options['expand_url']->copy()->add('folder', $elt['value']);
 
             if ($imaptree->isOpen($elt['base_elt'])) {
                 if (!is_null($dir)) {

@@ -88,12 +88,12 @@ $pageOb = $imp_mailbox->buildMailboxPage(Horde_Util::getFormData('p'), Horde_Uti
 /* Generate page links. */
 $pages_first = $pages_prev = $pages_last = $pages_next = null;
 if ($pageOb['page'] != 1) {
-    $pages_first = new Horde_Mobile_link(_("First Page"), $mailbox_url->cAdd('p', 1));
-    $pages_prev = new Horde_Mobile_link(_("Previous Page"), $mailbox_url->cAdd('p', $pageOb['page'] - 1));
+    $pages_first = new Horde_Mobile_link(_("First Page"), $mailbox_url->copy()->add('p', 1));
+    $pages_prev = new Horde_Mobile_link(_("Previous Page"), $mailbox_url->copy()->add('p', $pageOb['page'] - 1));
 }
 if ($pageOb['page'] != $pageOb['pagecount']) {
-    $pages_next = new Horde_Mobile_link(_("Next Page"), $mailbox_url->cAdd('p', $pageOb['page'] + 1));
-    $pages_last = new Horde_Mobile_link(_("Last Page"), $mailbox_url->cAdd('p', $pageOb['pagecount']));
+    $pages_next = new Horde_Mobile_link(_("Next Page"), $mailbox_url->copy()->add('p', $pageOb['page'] + 1));
+    $pages_last = new Horde_Mobile_link(_("Last Page"), $mailbox_url->copy()->add('p', $pageOb['pagecount']));
 }
 
 /* Generate mailbox summary string. */
@@ -174,7 +174,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     $msgs[] = $msg;
 }
 
-$mailbox = $mailbox_url->cAdd('p', $pageOb['page']);
+$mailbox = $mailbox_url->copy()->add('p', $pageOb['page']);
 $items = array(array(_("Refresh"), $mailbox));
 $search_mbox = $imp_search->isSearchMbox($imp_mbox['mailbox']);
 
@@ -182,7 +182,7 @@ $search_mbox = $imp_search->isSearchMbox($imp_mbox['mailbox']);
 if (!$readonly &&
     !$prefs->getValue('use_trash') &&
     !$imp_search->isVINBOXFolder()) {
-    $items[] = array(_("Purge Deleted"), $mailbox->cAdd('a', 'e'));
+    $items[] = array(_("Purge Deleted"), $mailbox->copy()->add('a', 'e'));
 }
 
 /* Create sorting links. */
@@ -202,24 +202,24 @@ foreach ($sort_list as $key => $val) {
             IMP::threadSortAvailable($mailbox) &&
             !$search_mbox) {
             if (is_null($imp_thread)) {
-                $items[] = array(_("Sort by Thread"), $mailbox->cAdd(array('a' => 'c', 'sb' => Horde_Imap_Client::SORT_THREAD, 'sd' => $sortdir)));
+                $items[] = array(_("Sort by Thread"), $mailbox->copy()->add(array('a' => 'c', 'sb' => Horde_Imap_Client::SORT_THREAD, 'sd' => $sortdir)));
             } else {
                 $sortkey = Horde_Imap_Client::SORT_THREAD;
-                $items[] = array(_("Do Not Sort by Thread"), $mailbox->cAdd(array('a' => 'c', 'sb' => Horde_Imap_Client::SORT_SUBJECT, 'sd' => $sortdir)));
+                $items[] = array(_("Do Not Sort by Thread"), $mailbox->copy()->add(array('a' => 'c', 'sb' => Horde_Imap_Client::SORT_SUBJECT, 'sd' => $sortdir)));
             }
         }
         if ($sortpref['by'] == $key) {
             $val = '*' . $val;
             $sortdir = !$sortdir;
         }
-        $sort[$key] = new Horde_Mobile_link($val, $mailbox->cAdd(array('a' => 'c', 'sb' => $sortkey, 'sd' => $sortdir)));
+        $sort[$key] = new Horde_Mobile_link($val, $mailbox->copy()->add(array('a' => 'c', 'sb' => $sortkey, 'sd' => $sortdir)));
     }
 }
 
 /* Add search link. */
 if (!$search_mbox &&
     ($_SESSION['imp']['protocol'] == 'imap')) {
-    $items[] = array(_("Search"), $mailbox_url->cAdd('a', 's'));
+    $items[] = array(_("Search"), $mailbox_url->copy()->add('a', 's'));
 }
 
 foreach ($items as $val) {

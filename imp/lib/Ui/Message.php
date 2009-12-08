@@ -307,7 +307,7 @@ class IMP_Ui_Message
         if (!is_null($addURL) && $link && $prefs->getValue('add_source')) {
             try {
                 $add_link = $registry->hasMethod('contacts/import')
-                    ? $addURL->cAdd('actionID', 'add_address')
+                    ? $addURL->copy()->add('actionID', 'add_address')
                     : null;
             } catch (Horde_Exception $e) {}
         }
@@ -331,7 +331,7 @@ class IMP_Ui_Message
                     /* Append the add address icon to every address if contact
                      * manager is available. */
                     if ($add_link) {
-                        $curr_link = $add_link->cAdd(array('name' => $ad['personal'], 'address' => $ad['inner']));
+                        $curr_link = $add_link->copy()->add(array('name' => $ad['personal'], 'address' => $ad['inner']));
                         $ret .= Horde::link($curr_link, sprintf(_("Add %s to my Address Book"), $ad['inner'])) .
                             Horde::img('addressbook_add.png', sprintf(_("Add %s to my Address Book"), $ad['inner'])) . '</a>';
                     }
@@ -359,7 +359,7 @@ class IMP_Ui_Message
                     /* Append the add address icon to every address if contact
                      * manager is available. */
                     if ($add_link) {
-                        $curr_link = $add_link->cAdd(array('name' => $ob['personal'], 'address' => $ob['inner']));
+                        $curr_link = $add_link->copy()->add(array('name' => $ob['personal'], 'address' => $ob['inner']));
                         $ret .= Horde::link($curr_link, sprintf(_("Add %s to my Address Book"), $ob['inner'])) .
                             Horde::img('addressbook_add.png', sprintf(_("Add %s to my Address Book"), $ob['inner'])) . '</a>';
                     }

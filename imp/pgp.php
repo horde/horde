@@ -333,13 +333,13 @@ if ($prefs->getValue('use_pgp')) {
     if (!$t->get('empty_pubkey_list')) {
         $plist = array();
         foreach ($pubkey_list as $val) {
-            $linkurl = $selfURL->cAdd('email', $val['email']);
+            $linkurl = $selfURL->copy()->add('email', $val['email']);
             $plist[] = array(
                 'name' => $val['name'],
                 'email' => $val['email'],
-                'view' => Horde::link($linkurl->cAdd('actionID', 'view_public_key'), sprintf(_("View %s Public Key"), $val['name']), null, 'view_key'),
-                'info' => Horde::link($linkurl->cAdd('actionID', 'info_public_key'), sprintf(_("Information on %s Public Key"), $val['name']), null, 'info_key'),
-                'delete' => Horde::link($linkurl->cAdd('actionID', 'delete_public_key'), sprintf(_("Delete %s Public Key"), $val['name']), null, null, "if (confirm('" . addslashes(_("Are you sure you want to delete this public key?")) . "')) { return true; } else { return false; }")
+                'view' => Horde::link($linkurl->copy()->add('actionID', 'view_public_key'), sprintf(_("View %s Public Key"), $val['name']), null, 'view_key'),
+                'info' => Horde::link($linkurl->copy()->add('actionID', 'info_public_key'), sprintf(_("Information on %s Public Key"), $val['name']), null, 'info_key'),
+                'delete' => Horde::link($linkurl->copy()->add('actionID', 'delete_public_key'), sprintf(_("Delete %s Public Key"), $val['name']), null, null, "if (confirm('" . addslashes(_("Are you sure you want to delete this public key?")) . "')) { return true; } else { return false; }")
             );
         }
         $t->set('pubkey_list', $plist);
@@ -360,14 +360,14 @@ if ($prefs->getValue('use_pgp')) {
     if ($secure_check) {
         $t->set('has_key', $prefs->getValue('pgp_public_key') && $prefs->getValue('pgp_private_key'));
         if ($t->get('has_key')) {
-            $t->set('viewpublic', Horde::link($selfURL->cAdd('actionID', 'view_personal_public_key'), _("View Personal Public Key"), null, 'view_key'));
-            $t->set('infopublic', Horde::link($selfURL->cAdd('actionID', 'info_personal_public_key'), _("Information on Personal Public Key"), null, 'info_key'));
-            $t->set('sendkey', Horde::link($selfURL->cAdd('actionID', 'send_public_key'), _("Send Key to Public Keyserver")));
+            $t->set('viewpublic', Horde::link($selfURL->copy()->add('actionID', 'view_personal_public_key'), _("View Personal Public Key"), null, 'view_key'));
+            $t->set('infopublic', Horde::link($selfURL->copy()->add('actionID', 'info_personal_public_key'), _("Information on Personal Public Key"), null, 'info_key'));
+            $t->set('sendkey', Horde::link($selfURL->copy()->add('actionID', 'send_public_key'), _("Send Key to Public Keyserver")));
             $t->set('personalkey-public-help', Horde_Help::link('imp', 'pgp-personalkey-public'));
             $passphrase = $imp_pgp->getPassphrase('personal');
-            $t->set('passphrase', (empty($passphrase)) ? Horde::link('#', _("Enter Passphrase"), null, null, IMP::passphraseDialogJS('PGPPersonal') . ';return false;') . _("Enter Passphrase") : Horde::link($selfURL->cAdd('actionID', 'unset_passphrase'), _("Unload Passphrase")) . _("Unload Passphrase"));
-            $t->set('viewprivate', Horde::link($selfURL->cAdd('actionID', 'view_personal_private_key'), _("View Personal Private Key"), null, 'view_key'));
-            $t->set('infoprivate', Horde::link($selfURL->cAdd('actionID', 'info_personal_private_key'), _("Information on Personal Private Key"), null, 'info_key'));
+            $t->set('passphrase', (empty($passphrase)) ? Horde::link('#', _("Enter Passphrase"), null, null, IMP::passphraseDialogJS('PGPPersonal') . ';return false;') . _("Enter Passphrase") : Horde::link($selfURL->copy()->add('actionID', 'unset_passphrase'), _("Unload Passphrase")) . _("Unload Passphrase"));
+            $t->set('viewprivate', Horde::link($selfURL->copy()->add('actionID', 'view_personal_private_key'), _("View Personal Private Key"), null, 'view_key'));
+            $t->set('infoprivate', Horde::link($selfURL->copy()->add('actionID', 'info_personal_private_key'), _("Information on Personal Private Key"), null, 'info_key'));
             $t->set('personalkey-private-help', Horde_Help::link('imp', 'pgp-personalkey-private'));
             $t->set('deletekeypair', addslashes(_("Are you sure you want to delete your keypair? (This is NOT recommended!)")));
             $t->set('personalkey-delete-help', Horde_Help::link('imp', 'pgp-personalkey-delete'));

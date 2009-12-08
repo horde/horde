@@ -2232,7 +2232,7 @@ class IMP_Compose
         }
 
         foreach ($this->getAttachments() as $att) {
-            $trailer .= "\n" . $baseurl->cAdd(array('u' => $auth, 't' => $ts, 'f' => $att->getName()));
+            $trailer .= "\n" . $baseurl->copy()->add(array('u' => $auth, 't' => $ts, 'f' => $att->getName()));
             if ($conf['compose']['use_vfs']) {
                 $res = $vfs->rename(self::VFS_ATTACH_PATH, $att->getInformation('temp_filename'), $fullpath, escapeshellcmd($att->getName()));
             } else {

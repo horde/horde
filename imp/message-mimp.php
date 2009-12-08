@@ -295,7 +295,7 @@ if ($prefs->getValue('mimp_preview_msg') &&
     !Horde_Util::getFormData('fullmsg') &&
     (strlen($msg_text) > 250)) {
     $msg_text = Horde_String::substr(trim($msg_text), 0, 250) . " [...]\n";
-    $fullmsg_link = new Horde_Mobile_link(_("View Full Message"), $self_link->cAdd('fullmsg', 1));
+    $fullmsg_link = new Horde_Mobile_link(_("View Full Message"), $self_link->copy()->add('fullmsg', 1));
 } else {
     $fullmsg_link = null;
 }
@@ -306,9 +306,9 @@ $mset = $menu->add(new Horde_Mobile_linkset());
 
 if (!$readonly) {
     if (in_array('\\deleted', $flags)) {
-        $mset->add(new Horde_Mobile_link(_("Undelete"), $self_link->cAdd('a', 'u')));
+        $mset->add(new Horde_Mobile_link(_("Undelete"), $self_link->copy()->add('a', 'u')));
     } else {
-        $mset->add(new Horde_Mobile_link(_("Delete"), $self_link->cAdd(array('a' => 'd', 'mt' => Horde::getRequestToken('imp.message-mimp')))));
+        $mset->add(new Horde_Mobile_link(_("Delete"), $self_link->copy()->add(array('a' => 'd', 'mt' => Horde::getRequestToken('imp.message-mimp')))));
     }
 }
 
@@ -350,13 +350,13 @@ $mset->add(new Horde_Mobile_link(sprintf(_("To %s"), IMP::getLabel($imp_mbox['ma
 if ($conf['spam']['reporting'] &&
     ($conf['spam']['spamfolder'] ||
      ($mailbox_name != IMP::folderPref($prefs->getValue('spam_folder'), true)))) {
-    $mset->add(new Horde_Mobile_link(_("Report as Spam"), $self_link->cAdd(array('a' => 'rs', 'mt' => Horde::getRequestToken('imp.message-mimp')))));
+    $mset->add(new Horde_Mobile_link(_("Report as Spam"), $self_link->copy()->add(array('a' => 'rs', 'mt' => Horde::getRequestToken('imp.message-mimp')))));
 }
 
 if ($conf['notspam']['reporting'] &&
     (!$conf['notspam']['spamfolder'] ||
      ($mailbox_name == IMP::folderPref($prefs->getValue('spam_folder'), true)))) {
-    $mset->add(new Horde_Mobile_link(_("Report as Innocent"), $self_link->cAdd(array('a' => 'ri', 'mt' => Horde::getRequestToken('imp.message-mimp')))));
+    $mset->add(new Horde_Mobile_link(_("Report as Innocent"), $self_link->copy()->add(array('a' => 'ri', 'mt' => Horde::getRequestToken('imp.message-mimp')))));
 }
 
 IMP_Mimp::addMIMPMenu($mset, 'message');
@@ -385,7 +385,7 @@ foreach ($display_headers as $head => $val) {
     }
     $t = $hb->add(new Horde_Mobile_text($val . (($all_to) ? ' ' : "\n")));
     if ($all_to) {
-        $hb->add(new Horde_Mobile_link('[' . _("Show All") . ']', $self_link->cAdd('allto', 1)));
+        $hb->add(new Horde_Mobile_link('[' . _("Show All") . ']', $self_link->copy()->add('allto', 1)));
         $t = $hb->add(new Horde_Mobile_text("\n"));
     }
     $t->set('linebreaks', true);
@@ -400,7 +400,7 @@ foreach ($atc_parts as $key) {
         /* Preference: if set, only show download confirmation screen if
          * attachment over a certain size. */
         $download_link = ($summary['bytes'] > $prefs->getValue('mimp_download_confirm'))
-            ? $self_link->cAdd(array('a' => 'c', 'atc' => $key))
+            ? $self_link->copy()->add(array('a' => 'c', 'atc' => $key))
             : $summary['download'];
         $hb->add(new Horde_Mobile_link($summary['description'], $download_link));
     }
