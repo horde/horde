@@ -102,6 +102,17 @@ class Horde_Url
     }
 
     /**
+     * Returns a clone of this object. Useful for chaining.
+     *
+     * @return Horde_Url  A clone of this object.
+     */
+    public function copy()
+    {
+        $url = clone $this;
+        return $url;
+    }
+
+    /**
      * Adds one or more query parameters.
      *
      * @param mixed $parameters  Either the name value or an array of
@@ -133,22 +144,6 @@ class Horde_Url
     }
 
     /**
-     * Identical to add(), except the return value is a cloned object.
-     *
-     * @param mixed $parameters  Either the name value or an array of
-     *                           name/value pairs.
-     * @param string $value      If specified, the value part ($parameters is
-     *                           then assumed to just be the parameter name).
-     *
-     * @return Horde_Url  Cloned object, to allow chaining.
-     */
-    public function cAdd($parameters, $value = null)
-    {
-        $url = clone $this;
-        return $url->add($parameters, $value);
-    }
-
-    /**
      * Removes one ore more parameters.
      *
      * @param mixed $remove  Either a single parameter to remove or an array
@@ -167,20 +162,6 @@ class Horde_Url
         }
 
         return $this;
-    }
-
-    /**
-     * Identical to remove(), except the return value is a cloned object.
-     *
-     * @param mixed $remove  Either a single parameter to remove or an array
-     *                       of parameters to remove.
-     *
-     * @return Horde_Url  Cloned object, to allow chaining.
-     */
-    public function cRemove($parameters)
-    {
-        $url = clone $this;
-        return $url->remove($parameters);
     }
 
     /**

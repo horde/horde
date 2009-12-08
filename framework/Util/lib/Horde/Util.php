@@ -235,11 +235,18 @@ class Horde_Util
         }
 
         if ($url instanceof Horde_Url) {
-            return $url->cAdd($parameter, $value)->setRaw(!$encode);
+            $url = $url->copy()->add($parameter, $value);
+            if (is_null($url->raw)) {
+                $url->setRaw(!$encode);
+            }
+            return $url;
         }
 
-        $horde_url = new Horde_Url($url, !$encode);
-        return $horde_url->add($parameter, $value);
+        $url = new Horde_Url($url);
+        if (is_null($url->raw) && count($url->parameters)) {
+            $url->setRaw(!$encode);
+        }
+        return $url->add($parameter, $value);
     }
 
     /**
@@ -254,7 +261,7 @@ class Horde_Util
     static public function removeParameter($url, $remove)
     {
         if ($url instanceof Horde_Url) {
-            return $url->cRemove($remove);
+            return $url->copy()->remove($remove);
         }
 
         $horde_url = new Horde_Url($url);
