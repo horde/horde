@@ -186,7 +186,8 @@ class Horde_Url
     /**
      * Sets the $raw value.  This call can be chained.
      *
-     * @param boolean  The value to set for $raw.
+     * @param boolean $raw  Whether to output the URL in the raw URL format or
+     *                      HTML-encoded.
      *
      * @return Horde_Url  This object, to allow chaining.
      */
@@ -199,9 +200,12 @@ class Horde_Url
     /**
      * Creates the full URL string.
      *
+     * @param boolean $raw  Whether to output the URL in the raw URL format or
+     *                      HTML-encoded.
+     *
      * @return string  The string representation of this object.
      */
-    public function __toString()
+    public function toString($raw = false)
     {
         $url_params = array();
         foreach ($this->parameters as $parameter => $value) {
@@ -223,10 +227,20 @@ class Horde_Url
             $url .= '/' . $this->pathInfo;
         }
         if (count($url_params)) {
-            $url .= '?' . implode($this->raw ? '&' : '&amp;', $url_params);
+            $url .= '?' . implode($raw ? '&' : '&amp;', $url_params);
         }
 
         return $url;
+    }
+
+    /**
+     * Creates the full URL string.
+     *
+     * @return string  The string representation of this object.
+     */
+    public function __toString()
+    {
+        return $this->toString($this->raw);
     }
 
     /**
