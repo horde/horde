@@ -1546,8 +1546,7 @@ class Kronolith
         $url = $imple->getUrl();
 
         $html = '<div id="kronolithCal"></div><script src="' . $url
-            . '?imple=Embed/container=kronolithCal/view=month/calendar='
-            . $calendar . '" type="text/javascript"></script>';
+            . '" type="text/javascript"></script>';
 
         return $html;
     }
