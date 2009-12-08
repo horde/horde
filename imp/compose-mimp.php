@@ -288,6 +288,12 @@ case _("Send"):
         break;
     }
     break;
+
+case _("Cancel"):
+    $imp_compose->deleteAllAttachments();
+    $imp_compose->destroy();
+    require IMP_BASE . '/mailbox-mimp.php';
+    exit;
 }
 
 /* Get the message cache ID. */

@@ -48,6 +48,7 @@ if ($conf['user']['allow_folders'] && !$readonly_drafts) {
 }
 
 $f->add(new Horde_Mobile_submit(_("Expand Names"), 'a'));
+$f->add(new Horde_Mobile_submit(_("Cancel"), 'a'));
 
 $mimp_render->add($menu);
 $mimp_render->display();
