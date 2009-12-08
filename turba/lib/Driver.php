@@ -636,12 +636,11 @@ class Turba_Driver
                                  $t_object_end->month,
                                  $t_object_end->mday),
                 'category' => $ob->getValue('category'),
-                // @todo: This should really be Horde_Date_Recurrence::RECUR_YEARLY_DATE.
-                'recurrence' => array('type' => 5,
+                'recurrence' => array('type' => Horde_Date_Recurrence::RECUR_YEARLY_DATE,
                                       'interval' => 1),
                 'params' => array('source' => $this->name, 'key' => $key),
                 'link' => Horde_Util::addParameter(Horde::applicationUrl('contact.php', true), array('source' => $this->name, 'key' => $key), null, false));
-       }
+        }
 
         return $t_objects;
     }
