@@ -338,8 +338,9 @@ case 'ListFolders':
             }
 
             foreach ($val as $val2) {
-                if (!isset($folder_list[$val2])) {
-                    $folder_list[$val2] = $imptree->element($val2);
+                if (!isset($folder_list[$val2]) &&
+                    ($elt = $imptree->element($val2))) {
+                    $folder_list[$val2] = $elt;
                 }
             }
         }
