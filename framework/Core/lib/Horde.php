@@ -1478,19 +1478,21 @@ HTML;
             $src = self::url($src, true, -1);
         }
 
-        /* Build all of the tag attributes. */
-        $attributes = !empty($options['attr']) ? $options['attr'] : array();
-
         $img = '<img';
-        $old_error = error_reporting(0);
-        foreach ($attributes as $attribute => $value) {
-            $img .= ' ' . $attribute . '="' . htmlspecialchars($value, ENT_COMPAT, $charset) . '"';
-        }
-        error_reporting($old_error);
-
-        /* If the user supplied a pre-built string of attributes, add that. */
-        if (!empty($options['attr']) && is_string($options['attr'])) {
-            $img .= ' ' . $options['attr'];
+        if (!empty($options['attr'])) {
+            /* Build all of the tag attributes. */
+            if (is_array($options['attr'])) {
+                $old_error = error_reporting(0);
+                foreach ($options['attr'] as $attribute => $value) {
+                    $img .= ' ' . $attribute . '="' . htmlspecialchars($value, ENT_COMPAT, $charset) . '"';
+                }
+                error_reporting($old_error);
+            }
+            /* If the user supplied a pre-built string of attributes, add
+             * that. */
+            if (is_string($options['attr'])) {
+                $img .= ' ' . $options['attr'];
+            }
         }
 
         /* Return the closed image tag. */
