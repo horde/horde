@@ -76,8 +76,7 @@ class Horde_Ui_Tabs extends Horde_Ui_Widget
         foreach ($this->_tabs as $tab) {
             $link = $this->_addPreserved($tab['link']);
             if (!is_null($this->_name) && !is_null($tab['tabname'])) {
-                $link = Horde_Util::addParameter($link, $this->_name,
-                                           $tab['tabname']);
+                $link->add($this->_name, $tab['tabname']);
             }
 
             $class = '';
@@ -101,10 +100,10 @@ class Horde_Ui_Tabs extends Horde_Ui_Widget
 
             $accesskey = Horde::getAccessKey($tab['title']);
 
-            $html .= '<li' . $class . $id . '>' .
-                Horde::link($link, '', '', $tab['target'], $tab['onclick'], null, $accesskey) .
-                Horde::highlightAccessKey(str_replace(' ', '&nbsp;', $tab['title']), $accesskey) .
-                "</a> </li>\n";
+            $html .= '<li' . $class . $id . '>'
+                . $link->link(array('target' => $tab['target'], 'onclick' => $tab['onclick'], 'accesskey' => $accesskey))
+                . Horde::highlightAccessKey(str_replace(' ', '&nbsp;', $tab['title']), $accesskey)
+                . "</a> </li>\n";
         }
 
         return $html . "</ul></div><br class=\"clear\" />\n";

@@ -99,7 +99,7 @@ abstract class Horde_Ui_Widget
     protected function _addPreserved($link)
     {
         foreach ($this->_preserve as $varName => $varValue) {
-            $link = Horde_Util::addParameter($link, $varName, $varValue);
+            $link->add($varName, $varValue);
         }
 
         return $link;
