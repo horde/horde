@@ -219,7 +219,7 @@ class IMP_Compose
                 $addr = $headers[$k];
                 if ($session) {
                     try {
-                        Horde_Mime::encodeAddress($this->formatAddr($addr), $charset, $_SESSION['imp']['maildomain']);
+                        Horde_Mime::encodeAddress(self::formatAddr($addr), $charset, $_SESSION['imp']['maildomain']);
                     } catch (Horde_Mime_Exception $e) {
                         throw new IMP_Compose_Exception(sprintf(_("Saving the draft failed. The %s header contains an invalid e-mail address: %s."), $k, $e->getMessage()), $e->getCode());
                     }
@@ -2500,7 +2500,7 @@ class IMP_Compose
 
         $headers = array();
         foreach (array('to', 'cc', 'bcc', 'subject') as $val) {
-            $headers[$val] = $imp_ui->getAddressList(Horde_Util::getFormData($val), Horde_Util::getFormData($val . '_list'), Horde_Util::getFormData($val . '_field'), Horde_Util::getFormData($val . '_new'));
+            $headers[$val] = $imp_ui->getAddressList(Horde_Util::getFormData($val));
         }
 
         try {
@@ -2554,7 +2554,9 @@ class IMP_Compose
     {
         /* If there are angle brackets (<>), or a colon (group name
          * delimiter), assume the user knew what they were doing. */
-        return (!empty($addr) && (strpos($addr, '>') === false) && (strpos($addr, ':') === false))
+        return (!empty($addr) &&
+                (strpos($addr, '>') === false) &&
+                (strpos($addr, ':') === false))
             ? preg_replace('|\s+|', ', ', trim(strtr($addr, ';,', '  ')))
             : $addr;
     }

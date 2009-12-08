@@ -1,33 +1,41 @@
 <?php
 
-$c = &$mimp_render->add(new Horde_Mobile_card('m', $title));
+$c = $mimp_render->add(new Horde_Mobile_card('m', $title));
 $c->softkey('#o', _("Menu"));
 
 $imp_notify->setMobileObject($c);
 $notification->notify(array('listeners' => 'status'));
 
-$f = &$c->add(new Horde_Mobile_form('compose-mimp.php'));
+$f = $c->add(new Horde_Mobile_form('compose-mimp.php'));
 
 // Hidden Variables.
 $f->add(new Horde_Mobile_hidden('composeCache', $cacheID));
 $f->add(new Horde_Mobile_hidden('resume_draft', Horde_Util::getFormData('resume_draft', $resume_draft)));
 
 if (!$prefs->isLocked('default_identity')) {
-    $ib = &$f->add(new Horde_Mobile_block(new Horde_Mobile_text(_("Identity: "))));
-    $ident_sel = &$ib->add(new Horde_Mobile_select('identity'));
+    $ib = $f->add(new Horde_Mobile_block(new Horde_Mobile_text(_("Identity: "))));
+    $ident_sel = $ib->add(new Horde_Mobile_select('identity'));
     $default = Horde_Util::getFormData('identity', $identity->getDefault());
     foreach ($select_list as $key => $select) {
         $ident_sel->add($select, $key, ($key == $default));
     }
 }
 
-$f->add(new Horde_Mobile_input('to', $header['to'], _("To: ")));
-if ($prefs->getValue('compose_cc')) {
-    $f->add(new Horde_Mobile_input('cc', $header['cc'], _("Cc: ")));
+foreach ($display_hdrs as $key => $val) {
+    $f->add(new Horde_Mobile_input($key, $header[$key], $val));
+    if (isset($expand[$key])) {
+        if (count($expand[$key][1]) > 5) {
+            $f->add(new Horde_Mobile_text(sprintf(_("Ambiguous matches for \"%s\" (first 5 matches displayed):"), $expand[$key][0])));
+        } else {
+            $f->add(new Horde_Mobile_text(sprintf(_("Ambiguous matches for \"%s\":"), $expand[$key][0])));
+        }
+
+        foreach (array_slice($expand[$key][1], 0, 5) as $key2 => $val2) {
+            $f->add(new Horde_Mobile_checkbox($key . '_expand_' . $key2, htmlspecialchars($val2), $val2, false));
+        }
+    }
 }
-if ($prefs->getValue('compose_bcc')) {
-    $f->add(new Horde_Mobile_input('bcc', $header['bcc'], _("Bcc: ")));
-}
+
 $f->add(new Horde_Mobile_input('subject', $header['subject'], _("Subject: ")));
 
 $f->add(new Horde_Mobile_textarea('message', $msg, _("Message: "), 10, 80));

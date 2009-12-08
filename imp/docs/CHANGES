@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Improved address expansion in MIMP.
 [mms] Load folders on-demand in sidebar (DIMP).
 [mms] Add priority setting to DIMP.
 [mms] Simplify and improve priority header generation/display.

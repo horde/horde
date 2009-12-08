@@ -125,12 +125,12 @@ if (count($_POST)) {
         $header['from'] = $from;
         $header['replyto'] = $identity->getValue('replyto_addr');
 
-        $header['to'] = $imp_ui->getAddressList(Horde_Util::getFormData('to'), Horde_Util::getFormData('to_list'), Horde_Util::getFormData('to_field'), Horde_Util::getFormData('to_new'));
+        $header['to'] = $imp_ui->getAddressList(Horde_Util::getFormData('to'));
         if ($prefs->getValue('compose_cc')) {
-            $header['cc'] = $imp_ui->getAddressList(Horde_Util::getFormData('cc'), Horde_Util::getFormData('cc_list'), Horde_Util::getFormData('cc_field'), Horde_Util::getFormData('cc_new'));
+            $header['cc'] = $imp_ui->getAddressList(Horde_Util::getFormData('cc'));
         }
         if ($prefs->getValue('compose_bcc')) {
-            $header['bcc'] = $imp_ui->getAddressList(Horde_Util::getFormData('bcc'), Horde_Util::getFormData('bcc_list'), Horde_Util::getFormData('bcc_field'), Horde_Util::getFormData('bcc_new'));
+            $header['bcc'] = $imp_ui->getAddressList(Horde_Util::getFormData('bcc'));
         }
 
         $message = Horde_Util::getFormData('message');

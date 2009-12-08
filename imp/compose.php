@@ -78,7 +78,7 @@ if (!$prefs->isLocked('default_identity')) {
 
 /* Catch submits if javascript is not present. */
 if (!($actionID = Horde_Util::getFormData('actionID'))) {
-    foreach (array('send_message', 'save_draft', 'cancel_compose', 'add_attachment', 'compose_expand_addr') as $val) {
+    foreach (array('send_message', 'save_draft', 'cancel_compose', 'add_attachment') as $val) {
         if (Horde_Util::getFormData('btn_' . $val)) {
             $actionID = $val;
             break;
@@ -169,8 +169,7 @@ $charset = $prefs->isLocked('sending_charset') ? Horde_Nls::getEmailCharset() : 
 $encoding = empty($charset) ? Horde_Nls::getEmailCharset() : $charset;
 
 /* Is this a popup window? */
-$has_js = $browser->hasFeature('javascript');
-$isPopup = (($prefs->getValue('compose_popup') || Horde_Util::getFormData('popup')) && $has_js);
+$isPopup = ($prefs->getValue('compose_popup') || Horde_Util::getFormData('popup'));
 
 /* Determine the composition type - text or HTML.
    $rtemode is null if browser does not support it. */
@@ -291,16 +290,6 @@ case 'draft':
     $get_sig = false;
     break;
 
-case 'compose_expand_addr':
-case 'redirect_expand_addr':
-    $header['to'] = $imp_ui->expandAddresses(Horde_Util::getFormData('to'), $imp_compose);
-    if ($actionID == 'compose_expand_addr') {
-        $header['cc'] = $imp_ui->expandAddresses(Horde_Util::getFormData('cc'), $imp_compose);
-        $header['bcc'] = $imp_ui->expandAddresses(Horde_Util::getFormData('bcc'), $imp_compose);
-    }
-    $get_sig = false;
-    break;
-
 case 'reply':
 case 'reply_all':
 case 'reply_auto':
@@ -354,7 +343,7 @@ case 'redirect_send':
         break;
     }
 
-    $f_to = Horde_Util::getFormData('to', $imp_ui->getAddressList(Horde_Util::getFormData('to'), Horde_Util::getFormData('to_list'), Horde_Util::getFormData('to_field'), Horde_Util::getFormData('to_new')));
+    $f_to = $imp_ui->getAddressList(Horde_Util::getFormData('to'));
 
     try {
         $imp_ui->redirectMessage($f_to, $imp_compose, $imp_contents);
@@ -395,12 +384,12 @@ case 'send_message':
     }
     $header['replyto'] = $identity->getValue('replyto_addr');
 
-    $header['to'] = $imp_ui->getAddressList(Horde_Util::getFormData('to'), Horde_Util::getFormData('to_list'), Horde_Util::getFormData('to_field'), Horde_Util::getFormData('to_new'));
+    $header['to'] = $imp_ui->getAddressList(Horde_Util::getFormData('to'));
     if ($prefs->getValue('compose_cc')) {
-        $header['cc'] = $imp_ui->getAddressList(Horde_Util::getFormData('cc'), Horde_Util::getFormData('cc_list'), Horde_Util::getFormData('cc_field'), Horde_Util::getFormData('cc_new'));
+        $header['cc'] = $imp_ui->getAddressList(Horde_Util::getFormData('cc'));
     }
     if ($prefs->getValue('compose_bcc')) {
-        $header['bcc'] = $imp_ui->getAddressList(Horde_Util::getFormData('bcc'), Horde_Util::getFormData('bcc_list'), Horde_Util::getFormData('bcc_field'), Horde_Util::getFormData('bcc_new'));
+        $header['bcc'] = $imp_ui->getAddressList(Horde_Util::getFormData('bcc'));
     }
 
     $message = Horde_Util::getFormData('message');
@@ -598,11 +587,11 @@ case 'add_attachment':
 $composeCacheID = $imp_compose->getCacheId();
 
 /* Are we in redirect mode? */
-$redirect = in_array($actionID, array('redirect_compose', 'redirect_expand_addr'));
+$redirect = ($actionID == 'redirect_compose');
 
 /* Attach autocompleters to the compose form elements. */
 $spellcheck = false;
-if ($has_js) {
+if ($browser->hasFeature('javascript')) {
     if ($redirect) {
         $imp_ui->attachAutoCompleter(array('to'));
     } else {
@@ -694,7 +683,7 @@ if (!$token && ($actionID != 'draft')) {
 
 foreach (array('to', 'cc', 'bcc', 'subject') as $val) {
     if (!isset($header[$val])) {
-        $header[$val] = Horde_Util::getFormData($val, $imp_ui->getAddressList(Horde_Util::getFormData($val), Horde_Util::getFormData($val . '_list'), Horde_Util::getFormData($val . '_field'), Horde_Util::getFormData($val . '_new')));
+        $header[$val] = $imp_ui->getAddressList(Horde_Util::getFormData($val));
     }
 }
 
@@ -834,49 +823,11 @@ if ($redirect) {
     if ($registry->hasMethod('contacts/search')) {
         $t->set('has_search', true);
         $t->set('abook', Horde::link('#', _("Address Book"), 'widget', null, 'window.open(\'' . Horde::applicationUrl('contacts.php')->add(array('formname' => 'redirect', 'to_only' => 1)) . '\', \'contacts\', \'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100\'); return false;') . Horde::img('addressbook_browse.png') . '<br />' . _("Address Book") . '</a>');
-        if (!$has_js) {
-            $t->set('expand', Horde::link('#', _("Expand Names"), 'widget', null, "$('actionID').value='redirect_expand_addr';ImpCompose.uniqSubmit();return false;") . Horde::img('expand.png') . '<br />' . _("Expand Names") . '</a>', true);
-        }
     }
 
     $t->set('to', Horde::label('to', _("To")));
-
-    $tabindex = -1;
-    if (is_array($header['to'])) {
-        $t->set('multiple_to', true);
-        $first_to = true;
-        $to_hdrs = array();
-        foreach ($header['to'] as $to_item) {
-            $entry = array();
-            if (count($to_item) > 1) {
-                $entry['multiple'] = true;
-                $entry['select_tabindex'] = ++$tabindex;
-                $entry['select_name'] = htmlspecialchars($to_item[0]);
-                $entry['select_to'] = array();
-                for ($i = 1, $items = count($to_item); $i < $items; ++$i) {
-                    $entry['select_to'][] = array('val' => htmlspecialchars($to_item[$i]));
-                }
-            } else {
-                $entry['multiple'] = null;
-                $entry['input_value'] = htmlspecialchars($to_item);
-            }
-            $entry['input_tabindex'] = ++$tabindex;
-
-            if ($first_to) {
-                $first_to = false;
-                $entry['help'] = Horde_Help::link('imp', 'compose-to');
-            } else {
-                $entry['help'] = null;
-            }
-            $to_hdrs[] = $entry;
-        }
-        $t->set('to_new_tabindex', ++$tabindex);
-        $t->set('to_hdrs', $to_hdrs);
-    } else {
-        $t->set('input_tabindex', ++$tabindex);
-        $t->set('input_value', htmlspecialchars($header['to']));
-        $t->set('help', Horde_Help::link('imp', 'compose-to'));
-    }
+    $t->set('input_value', htmlspecialchars($header['to']));
+    $t->set('help', Horde_Help::link('imp', 'compose-to'));
 
     $template_output = $t->fetch(IMP_TEMPLATES . '/compose/redirect.html');
 } else {
@@ -964,48 +915,12 @@ if ($redirect) {
 
     $address_array = array();
     foreach ($addr_array as $val => $label) {
-        $addr = array(
+        $address_array[] = array(
             'id' => $val,
-            'label' => Horde::label($val, $label),
+            'input_tabindex' => ++$tabindex,
+            'input_value' => htmlspecialchars($header[$val]),
+            'label' => Horde::label($val, $label)
         );
-
-        $first_addr = false;
-        if (is_array($header[$val])) {
-            $addr['multiple'] = true;
-            $first_addr = true;
-            $hdrs = array();
-            foreach ($header[$val] as $item) {
-                $entry = array();
-                if (count($item) > 1) {
-                    $entry['multiple'] = true;
-                    $entry['select_tabindex'] = ++$tabindex;
-                    $entry['select_name'] = htmlspecialchars($item[0]);
-                    $entry['select_arr'] = array();
-                    for ($i = 1, $items = count($item); $i < $items; ++$i) {
-                        $entry['select_arr'][] = array('val' => htmlspecialchars($item[$i]));
-                    }
-                    $entry['input_value'] = null;
-                } else {
-                    $entry['multiple'] = null;
-                    $entry['input_value'] = htmlspecialchars($item);
-                }
-                $entry['input_tabindex'] = ++$tabindex;
-
-                if ($first_addr) {
-                    $first_addr = false;
-                    $entry['help'] = Horde_Help::link('imp', 'compose-' . $val);
-                } else {
-                    $entry['help'] = null;
-                }
-                $hdrs[] = $entry;
-            }
-            $addr['hdrs'] = $hdrs;
-        } else {
-            $addr['multiple'] = false;
-            $addr['input_tabindex'] = ++$tabindex;
-            $addr['input_value'] = htmlspecialchars($header[$val]);
-        }
-        $address_array[] = $addr;
     }
     $t->set('addr', $address_array);
 
@@ -1059,16 +974,8 @@ if ($redirect) {
         $compose_options[] = array(
             'url' => Horde::link('#', '', 'widget', null, 'window.open(\'' . Horde::applicationUrl('contacts.php') . '\', \'contacts\', \'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100\'); return false;'),
             'img' => Horde::img('addressbook_browse.png'),
-            'label' => $show_text ? _("Address Book") : '');
-        if (!$has_js) {
-            $compose_options[] = array(
-                'url' => Horde::link(
-                    '#', '', 'widget', null,
-                    "ImpCompose.uniqSubmit('compose_expand_addr'); return false;",
-                    '', '', array('name' => 'btn_compose_expand_addr')),
-                'img' => Horde::img('expand.png'),
-                'label' => $show_text ? _("Expand Names") : '');
-        }
+            'label' => $show_text ? _("Address Book") : ''
+        );
     }
     if ($spellcheck) {
         $compose_options[] = array(

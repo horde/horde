@@ -55,33 +55,11 @@
 <loop:addr>
  <tr>
   <td class="light rightAlign"><strong><tag:addr.label />&nbsp;</strong></td>
-<if:addr.multiple>
-<loop:addr.hdrs>
- </tr>
- <tr>
-  <td class="light">&nbsp;</td>
-<if:addr.hdrs.multiple>
-  <td class="item">
-   <select id="<tag:addr.id />" tabindex="<tag:addr.hdrs.select_tabindex />" name="<tag:addr.id />_list[<tag:addr.hdrs.select_name />]" style="width:350px;direction:ltr">
-    <option value="" selected="selected"><gettext>Choose a match or edit the address to the right:</gettext></option>
-<loop:addr.hdrs.select_arr>
-    <option value="<tag:addr.hdrs.select_arr.val />"><tag:addr.hdrs.select_arr.val /></option>
-</loop:addr.hdrs.select_arr>
-   </select>
-   <input type="text" size="15" autocomplete="off" tabindex="<tag:addr.hdrs.input_tabindex />" name="<tag:addr.id />_field[<tag:addr.hdrs.select_name />]" value="<tag:addr.hdrs.select_name />" style="width:150px;direction:ltr" />
-<else:addr.hdrs.multiple>
-  <td class="item">
-   <input type="text" id="<tag:addr.id />" autocomplete="off" tabindex="<tag:addr.hdrs.input_tabindex />" name="<tag:addr.id />_field[]" value="<tag:addr.hdrs.input_value />" style="direction:ltr" />
-</else:addr.hdrs.multiple></if:addr.hdrs.multiple>
-  </td>
-</loop:addr.hdrs>
-<else:addr.multiple>
   <td class="item addressTr">
    <input type="text" id="<tag:addr.id />" autocomplete="off" tabindex="<tag:addr.input_tabindex />" style="direction:ltr" name="<tag:addr.id />" value="<tag:addr.input_value />" />
    <span id="<tag:addr.id />_loading_img" style="display:none;" class="loadingImg"></span>
    <div id="<tag:addr.id />_results" class="autocomplete"></div>
   </td>
-</else:addr.multiple></if:addr.multiple>
  </tr>
 </loop:addr>
 

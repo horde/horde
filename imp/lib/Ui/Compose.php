@@ -14,21 +14,48 @@
 class IMP_Ui_Compose
 {
     /**
+     * Expand addresses in a string. Only the last address in the string will
+     * be expanded.
+     *
+     * @var string $input             The input string.
+     * @var IMP_Compose $imp_compose  An IMP_Compose object.
+     *
+     * @return mixed  If a string, this value should be used as the new
+     *                input string.  If an array, the first value is the
+     *                input string without the search string; the second
+     *                value is the search string; and the third value is
+     *                the list of matching addresses.
      */
     public function expandAddresses($input, $imp_compose)
     {
-        $addr_list = $this->getAddressList($input);
+        $addr_list = $this->getAddressList($input, array('addr_list' => true));
         if (empty($addr_list)) {
             return '';
         }
 
-        $res = $imp_compose->expandAddresses($addr_list);
+        $search = array_pop($addr_list);
 
-        if (is_array($res)) {
-            $GLOBALS['notification']->push(_("Please resolve ambiguous or invalid addresses."), 'horde.warning');
+        /* Don't search if the search string looks like an e-mail address. */
+        if ((strpos($search, '<') !== false) ||
+            (strpos($search, '@') !== false)) {
+            array_push($addr_list, $search);
+            return implode(', ', $addr_list);
         }
 
-        return $res;
+        $res = $imp_compose->expandAddresses($search, array('levenshtein' => true));
+
+        if (count($res) == 1) {
+            array_push($addr_list, reset($res));
+            return implode(', ', $addr_list);
+        }
+
+        $GLOBALS['notification']->push(_("Ambiguous address found."), 'horde.warning');
+
+        return array(
+            implode(', ', $addr_list),
+            $search,
+            $res
+        );
     }
 
     /**
@@ -127,45 +154,34 @@ class IMP_Ui_Compose
     }
 
     /**
+     * Given an address input, parses the input to obtain the list of
+     * addresses to use on the compose page.
+     *
+     * @param string $addr   The value of the header string.
+     * @param array $opts  Additional options:
+     * <pre>
+     * 'addr_list' - (boolean) Return the list of address components?
+     *               DEFAULT: false
+     * </pre>
+     *
+     * @return mixed  TODO
      */
-    public function getAddressList($to, $to_list = array(), $to_field = array(),
-                                   $to_new = '', $expand = false)
+    public function getAddressList($addr, $opts = array())
     {
-        $to = rtrim(trim($to), ',');
-        if (!empty($to)) {
+        $addr = rtrim(trim($addr), ',');
+        $addr_list = array();
+
+        if (!empty($addr)) {
             // Although we allow ';' to delimit addresses in the UI, need to
             // convert to RFC-compliant ',' delimiter for processing.
-            $clean_to = '';
-            foreach (Horde_Mime_Address::explode($to, ',;') as $val) {
-                $val = trim($val);
-                $clean_to .= $val . (($val[Horde_String::length($val) - 1] == ';') ? ' ' : ', ');
-            }
-            if ($expand) {
-                return $clean_to;
-            } else {
-                return IMP_Compose::formatAddr($clean_to);
+            foreach (Horde_Mime_Address::explode($addr, ',;') as $val) {
+                $addr_list[] = IMP_Compose::formatAddr(trim($val));
             }
         }
 
-        $tmp = array();
-        if (is_array($to_field)) {
-            foreach ($to_field as $key => $address) {
-                $tmp[$key] = $address;
-            }
-        }
-        if (is_array($to_list)) {
-            foreach ($to_list as $key => $address) {
-                if ($address != '') {
-                    $tmp[$key] = $address;
-                }
-            }
-        }
-
-        $to_new = rtrim(trim($to_new), ',');
-        if (!empty($to_new)) {
-            $tmp[] = $to_new;
-        }
-        return implode(', ', $tmp);
+        return empty($opts['addr_list'])
+            ? implode(', ', $addr_list)
+            : $addr_list;
     }
 
     /**

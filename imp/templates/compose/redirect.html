@@ -17,7 +17,6 @@
    <table cellspacing="0" width="100%">
     <tr>
      <td align="center"><tag:abook /></td>
-     <if:expand><td align="center"><tag:expand /></td></if:expand>
     </tr>
    </table>
   </td>
@@ -28,52 +27,14 @@
   <td class="light rightAlign"><strong><tag:to />&nbsp;</strong></td>
   <td class="item leftAlign">
    <table border="0" width="100%" cellpadding="0">
-<if:multiple_to>
-<loop:to_hdrs>
     <tr>
      <td class="leftAlign">
-<if:to_hdrs.multiple>
-      <table border="0" cellspacing="0" cellpadding="0">
-       <tr>
-        <td width="350">
-         <select id="to" tabindex="<tag:to_hdrs.select_tabindex />" name="to_list[<tag:to_hdrs.select_name />]" style="width:350px">
-          <option value="" selected="selected"><gettext>Please select or edit in the box to the right:</gettext></option>
-<loop:to_hdrs.select_to>
-          <option value="<tag:to_hdrs.select_to.val />"><tag:to_hdrs.select_to.val /></option>
-</loop:to_hdrs.select_to>
-         </select>
-        </td>
-        <td width="150">
-         <label for="to_field_<tag:to_hdrs.select_name />" class="hidden"><gettext>To field</gettext></label>
-         <input type="text" size="15" tabindex="<tag:to_hdrs.input_tabindex />" id="to_field_<tag:to_hdrs.select_name />" name="to_field[<tag:to_hdrs.select_name />]" value="<tag:to_hdrs.select_name />" style="width:150px" />
-        </td>
-       </tr>
-      </table>
-<else:to_hdrs.multiple>
-      <input type="text" id="to" size="55" tabindex="<tag:to_hdrs.input_tabindex />" name="to_field[]" value="<tag:to_hdrs.input_value />" />
-</else:to_hdrs.multiple></if:to_hdrs.multiple>
-     </td>
-<if:to_hdrs.help>
-     <td class="rightAlign"><tag:to_hdrs.help />&nbsp;</td>
-<else:to_hdrs.help>
-     <td>&nbsp;</td>
-</else:to_hdrs.help></if:to_hdrs.help>
-    </tr>
-</loop:to_hdrs>
-    <tr>
-     <td class="leftAlign"><input type="text" id="to" size="55" tabindex="<tag:to_new_tabindex />" name="to_new" /></td>
-     <td>&nbsp;</td>
-    </tr>
-<else:multiple_to>
-    <tr>
-     <td class="leftAlign">
-      <input type="text" id="to" size="55" tabindex="<tag:input_tabindex />" name="to" value="<tag:input_value />" />
+      <input type="text" id="to" size="55" name="to" value="<tag:input_value />" />
       <span id="to_loading_img" style="display:none;"><tag:loading_img /></span>
       <div id="to_results" class="autocomplete"></div>
      </td>
      <td class="rightAlign"><tag:help />&nbsp;</td>
     </tr>
-</else:multiple_to></if:multiple_to>
    </table>
   </td>
  </tr>

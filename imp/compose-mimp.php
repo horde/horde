@@ -30,8 +30,18 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 new IMP_Application(array('init' => true, 'tz' => true));
 
 /* The message text and headers. */
+$expand = array();
+$header = array('to' => '', 'cc' => '', 'bcc' => '');
 $msg = '';
-$header = array();
+
+/* Get the list of headers to display. */
+$display_hdrs = array('to' => _("To: "));
+if ($prefs->getValue('compose_cc')) {
+    $display_hdrs['cc'] = _("Cc: ");
+}
+if ($prefs->getValue('compose_bcc')) {
+    $display_hdrs['bcc'] = ("Bcc: ");
+}
 
 /* Set the current identity. */
 $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
@@ -59,7 +69,27 @@ if ($imp_imap->isReadOnly($sent_mail_folder)) {
 $compose_disable = !IMP::canCompose();
 
 /* Initialize the IMP_Compose:: object. */
-$imp_compose = IMP_Compose::singleton(Horde_Util::getFormData('composeCache'));
+$composeCache = Horde_Util::getFormData('composeCache');
+$imp_compose = IMP_Compose::singleton($composeCache);
+
+foreach (array_keys($display_hdrs) as $val) {
+    $header[$val] = Horde_Util::getFormData($val);
+
+    /* If we are reloading the screen, check for expand matches. */
+    if ($composeCache) {
+        $expanded = array();
+        for ($i = 0; $i < 5; ++$i) {
+            if ($tmp = Horde_Util::getFormData($val . '_expand_' . $i)) {
+                $expanded[] = $tmp;
+            }
+        }
+        if (!empty($expanded)) {
+            $header['to'] = strlen($header['to'])
+                ? implode(', ', $expanded) . ', ' . $header['to']
+                : implode(', ', $expanded);
+        }
+    }
+}
 
 /* Run through the action handlers. */
 $actionID = Horde_Util::getFormData('a');
@@ -86,15 +116,19 @@ case 'd':
 case _("Expand Names"):
     $action = Horde_Util::getFormData('action');
     $imp_ui = new IMP_Ui_Compose();
-    $header['to'] = $imp_ui->expandAddresses(Horde_Util::getFormData('to'), $imp_compose);
-    if ($action !== 'rc') {
-        if ($prefs->getValue('compose_cc')) {
-            $header['cc'] = $imp_ui->expandAddresses(Horde_Util::getFormData('cc'), $imp_compose);
-        }
-        if ($prefs->getValue('compose_bcc')) {
-            $header['bcc'] = $imp_ui->expandAddresses(Horde_Util::getFormData('bcc'), $imp_compose);
+
+    foreach (array_keys($display_hdrs) as $val) {
+        if (($val == 'to') || ($action != 'rc')) {
+            $res = $imp_ui->expandAddresses($header[$val], $imp_compose);
+            if (is_string($res)) {
+                $header[$val] = $res;
+            } else {
+                $header[$val] = $res[0];
+                $expand[$val] = array_slice($res, 1);
+            }
         }
     }
+
     if (!is_null($action)) {
         $actionID = $action;
     }
@@ -110,7 +144,7 @@ case 'rl':
         break;
     }
     $actions = array('r' => 'reply', 'ra' => 'reply_all', 'rl' => 'reply_list');
-    $reply_msg = $imp_compose->replyMessage($actions[$actionID], $imp_contents, Horde_Util::getFormData('to'));
+    $reply_msg = $imp_compose->replyMessage($actions[$actionID], $imp_contents, $header['to']);
     $header = $reply_msg['headers'];
 
     $notification->push(_("Reply text will be automatically appended to your outgoing message."), 'horde.message');
@@ -134,7 +168,7 @@ case _("Redirect"):
 
     $imp_ui = new IMP_Ui_Compose();
 
-    $f_to = $imp_ui->getAddressList(Horde_Util::getFormData('to'));
+    $f_to = $imp_ui->getAddressList($header['to']);
 
     try {
         $imp_ui->redirectMessage($f_to, $imp_compose, $imp_contents);
@@ -166,8 +200,9 @@ case _("Send"):
     }
 
     $message = Horde_Util::getFormData('message', '');
-    $f_to = Horde_Util::getFormData('to');
+    $f_to = $header['to'];
     $f_cc = $f_bcc = null;
+    $old_header = $header;
     $header = array();
 
     $thismailbox = $imp_compose->getMetadata('mailbox');
@@ -204,12 +239,8 @@ case _("Send"):
 
     $imp_ui = new IMP_Ui_Compose();
 
-    $header['to'] = $imp_ui->getAddressList(Horde_Util::getFormData('to'));
-    if ($prefs->getValue('compose_cc')) {
-        $header['cc'] = $imp_ui->getAddressList(Horde_Util::getFormData('cc'));
-    }
-    if ($prefs->getValue('compose_bcc')) {
-        $header['bcc'] = $imp_ui->getAddressList(Horde_Util::getFormData('bcc'));
+    foreach ($display_hdrs as $val) {
+        $header[$val] = $imp_ui->getAddressList($old_header[$val]);
     }
 
     switch ($actionID) {
@@ -272,14 +303,12 @@ $select_list = $identity->getSelectList();
 if (empty($msg)) {
     $msg = Horde_Util::getFormData('message', '');
 }
-foreach (array('to', 'cc', 'bcc', 'subject') as $val) {
-    if (empty($header[$val])) {
-        $header[$val] = Horde_Util::getFormData($val);
-    }
+if (empty($header['subject'])) {
+    $header['subject'] = Horde_Util::getFormData('subject');
 }
 
 $menu = new Horde_Mobile_card('o', _("Menu"));
-$mset = &$menu->add(new Horde_Mobile_linkset());
+$mset = $menu->add(new Horde_Mobile_linkset());
 IMP_Mimp::addMIMPMenu($mset, 'compose');
 
 if ($actionID == 'rc') {
