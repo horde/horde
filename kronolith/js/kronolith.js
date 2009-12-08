@@ -3527,19 +3527,16 @@ KronolithCore = {
                  'elt': 'kronolithEventMap',
                  'delayed': true,
                  'layers': layers,
-                 'markerDragEnd': this.onMarkerDragEnd.bind(this)
+                 'markerDragEnd': this.onMarkerDragEnd.bind(this),
+                 'afterClickMap': this.afterClickMap.bind(this)
              });
 
-         if (!$('kronolithEventId').value) {
-             // New event
-             var ll =  { lat:38.7115479, lon: -9.13774 };
-             this.placeMapMarker(ll, true);
-         } else if ($('kronolithEventLocationLat').value) {
+         if ($('kronolithEventLocationLat').value) {
              var ll = { lat:$('kronolithEventLocationLat').value, lon: $('kronolithEventLocationLon').value };
              this.placeMapMarker(ll, true);
-             //@TODO: need to move this to hordemap and abstract it out
-             //this.map.map.zoomToExtent(this.map.map.getDataExtent());
          }
+         //@TODO: check for Location field - and if present, but no lat/lon value, attempt to
+         // geocode it.
 
          this.map.display();
          this.mapInitialized = true;
@@ -3551,7 +3548,7 @@ KronolithCore = {
         $('kronolithEventLocationLat').value = null;
         $('kronolithEventLocationLon').value = null;
         if (this.mapMarker) {
-            this.mapMarker.destroy();
+            this.map.removeMarker(this.mapMarker);
             this.mapMarker = null;
         }
         if (this.map) {
@@ -3560,83 +3557,107 @@ KronolithCore = {
         }
     },
 
-   /**
-    * Callback for handling marker drag end.
-    *
-    * @param object r  An object that implenents a getLonLat() method to obtain
-    *                  the new location of the marker.
-    */
-   onMarkerDragEnd: function(r)
-   {
-       var ll = r.getLonLat();
-       $('kronolithEventLocationLon').value = ll.lon;
-       $('kronolithEventLocationLat').value = ll.lat;
-       var gc = new HordeMap.Geocoder[Kronolith.conf.maps.geocoder]();
-       gc.reverseGeocode(ll, this.onReverseGeocode.bind(this), this.onError.bind(this) );
-   },
+    /**
+     * Callback for handling marker drag end.
+     *
+     * @param object r  An object that implenents a getLonLat() method to obtain
+     *                  the new location of the marker.
+     */
+    onMarkerDragEnd: function(r)
+    {
+        var ll = r.getLonLat();
+        $('kronolithEventLocationLon').value = ll.lon;
+        $('kronolithEventLocationLat').value = ll.lat;
+        var gc = new HordeMap.Geocoder[Kronolith.conf.maps.geocoder]();
+        gc.reverseGeocode(ll, this.onReverseGeocode.bind(this), this.onError.bind(this) );
+    },
 
-   /**
-    * Callback for handling a reverse geocode request.
-    *
-    * @param array r  An array of objects containing the results. Each object in
-    *                 the array is {lat:, lon:, address}
-    */
-   onReverseGeocode: function(r) {
-       $('kronolithEventLocation').value = r[0].address;
-       // Do something else with the lonlat?
-   },
+    /**
+     * Callback for handling a reverse geocode request.
+     *
+     * @param array r  An array of objects containing the results. Each object in
+     *                 the array is {lat:, lon:, address}
+     */
+    onReverseGeocode: function(r) {
+        $('kronolithEventLocation').value = r[0].address;
+        // Do something else with the lonlat?
+    },
 
-   onError: function(r)
-   {
-       KronolithCore.showNotifications([ { type: 'horde.error', message: Kronolith.text.geocode_error } ]);
-   },
+    onError: function(r)
+    {
+        KronolithCore.showNotifications([ { type: 'horde.error', message: Kronolith.text.geocode_error } ]);
+    },
 
-   onGeocode: function(r)
-   {
-       r = r.shift();
-       ll = new OpenLayers.LonLat(r.lon, r.lat);
-       this.placeMapMarker({ lat: r.lat, lon: r.lon }, true);
-       $('kronolithEventLocationLon').value = r.lon;
-       $('kronolithEventLocationLat').value = r.lat;
-   },
 
-   geocode: function(a) {
-       if (!a) {
-           return;
-       }
-       var gc = new HordeMap.Geocoder[Kronolith.conf.maps.geocoder]();
-       gc.geocode(a, this.onGeocode.bind(this), this.onError);
-   },
+    /**
+     * Callback for geocoding calls.
+     * @TODO: Figure out the proper zoom level based on the detail of the
+     * provided address.
+     */
+    onGeocode: function(r)
+    {
+        r = r.shift();
+        ll = new OpenLayers.LonLat(r.lon, r.lat);
+        this.placeMapMarker({ lat: r.lat, lon: r.lon }, true);
+        $('kronolithEventLocationLon').value = r.lon;
+        $('kronolithEventLocationLat').value = r.lat;
+    },
 
-   placeMapMarker: function(ll, center)
-   {
-       if (!this.mapMarker) {
-           this.mapMarker = this.map.addMarker(
-                   ll,
-                   { 'draggable': true },
-                   {
-                       'context': this,
-                       'dragend': this.onMarkerDragEnd
-                   });
-       } else {
-           this.map.moveMarker(this.mapMarker, ll);
-       }
-       if (center) {
-           this.map.setCenter(ll);
-       }
-   },
+    geocode: function(a) {
+        if (!a) {
+            return;
+        }
+        var gc = new HordeMap.Geocoder[Kronolith.conf.maps.geocoder]();
+        gc.geocode(a, this.onGeocode.bind(this), this.onError);
+    },
 
-   ensureMap: function()
-   {
-       if (!this.mapInitialized) {
-           this.initializeMap();
-       }
-       var dialog = $('kronolithEventForm')
-       dialog.select('.kronolithTabsOption').invoke('hide');
-       dialog.select('.tabset li').invoke('removeClassName', 'activeTab');
-       $('kronolithEventTabMap').show();
-       $('kronolithEventLinkMap').parentNode.addClassName('activeTab');
-   }
+    /**
+     * Place the event marker on the map, ensuring it exists.
+     * See note in onGeocode about zoomlevel
+     */
+    placeMapMarker: function(ll, center)
+    {
+        if (!this.mapMarker) {
+            this.mapMarker = this.map.addMarker(
+                    ll,
+                    { 'draggable': true },
+                    {
+                        'context': this,
+                        'dragend': this.onMarkerDragEnd
+                    });
+        } else {
+            this.map.moveMarker(this.mapMarker, ll);
+        }
+        if (center) {
+            this.map.setCenter(ll, 8);
+            //this.map.zoomToFit();
+        }
+    },
+
+    ensureMap: function()
+    {
+        if (!this.mapInitialized) {
+            this.initializeMap();
+        }
+        var dialog = $('kronolithEventForm')
+        dialog.select('.kronolithTabsOption').invoke('hide');
+        dialog.select('.tabset li').invoke('removeClassName', 'activeTab');
+        $('kronolithEventTabMap').show();
+        $('kronolithEventLinkMap').parentNode.addClassName('activeTab');
+    },
+
+    /**
+     * Callback that gets called after a new marker has been placed on the map
+     * due to a single click on the map.
+     *
+     * @return object o  { lonlat: }
+     */
+    afterClickMap: function(o)
+    {
+        this.placeMapMarker(o.lonlat, false);
+        var gc = new HordeMap.Geocoder[Kronolith.conf.maps.geocoder]();
+        gc.reverseGeocode(o.lonlat, this.onReverseGeocode.bind(this), this.onError.bind(this) );
+    }
 
 };
 
