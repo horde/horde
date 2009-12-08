@@ -47,6 +47,10 @@ class IMP_Ui_Compose
         if (count($res) == 1) {
             array_push($addr_list, reset($res));
             return implode(', ', $addr_list);
+        } elseif (!count($res)) {
+            $GLOBALS['notification']->push(sprintf(_("Search for \"%s\" failed: no address found."), $search), 'horde.warning');
+            array_push($addr_list, $search);
+            return implode(', ', $addr_list);
         }
 
         $GLOBALS['notification']->push(_("Ambiguous address found."), 'horde.warning');
