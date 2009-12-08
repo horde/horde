@@ -1282,10 +1282,8 @@ HTML;
                         nl2br(htmlspecialchars($title, ENT_QUOTES, $charset)),
                         ENT_QUOTES, $charset));
                 error_reporting($old_error);
-                $attributes['title.raw'] = $title;
-            } else {
-                $attributes['title'] = $title;
             }
+            $attributes['title.raw'] = $title;
         }
 
         return $url->link($attributes);
