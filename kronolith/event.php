@@ -33,7 +33,8 @@ case 'DeleteEvent':
 case 'EditEvent':
     if ($view->event->isPrivate() &&
         $view->event->getCreatorId() != Horde_Auth::getAuth()) {
-        if (!empty($url = Horde_Util::getFormData('url'))) {
+        $url = $url = Horde_Util::getFormData('url');
+        if (!empty($url)) {
             $url = new Horde_Url($url, true);
         } else {
             $url = Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true);

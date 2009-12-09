@@ -142,7 +142,8 @@ case 'dismiss':
         exit;
     }
 
-    if (!empty($url = Horde_Util::getFormData('url'))) {
+    $url = Horde_Util::getFormData('url');
+    if (!empty($url)) {
         $url = new Horde_Url($url, true);
     } else {
         $date = new Horde_Date(Horde_Util::getFormData('date'));

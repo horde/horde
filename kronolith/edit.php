@@ -172,7 +172,8 @@ if ($exception = Horde_Util::getFormData('del_exception')) {
     }
 }
 
-if (!empty($url = Horde_Util::getFormData('url'))) {
+$url = Horde_Util::getFormData('url');
+if (!empty($url)) {
     $url = new Horde_Url($url, true);
 } else {
     $url = Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true)
