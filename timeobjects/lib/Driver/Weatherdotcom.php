@@ -253,7 +253,7 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
                                'end' => $day_end->strftime('%Y-%m-%dT00:00:00'),
                                'recurrence' => Horde_Date_Recurrence::RECUR_NONE,
                                'params' => array(),
-                               'link' => '#',
+                               'link' => new Horde_Url('#'),
                                'icon' =>  (string)Horde::url($GLOBALS['registry']->getImageDir('horde') . '/block/weatherdotcom/23x23/' . ($data['day']['conditionIcon'] == '-' ? 'na' : $data['day']['conditionIcon']) . '.png', true, false));
 
             $day->mday++;
