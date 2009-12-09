@@ -267,9 +267,9 @@ var ImpSearch = {
         this.replaceDate(this.insertCriteria(tmp), id, { y: d.getFullYear(), m: d.getMonth(), d: d.getDate() });
     },
 
-    replaceDate: function(id, type, data)
+    replaceDate: function(id, type, date)
     {
-        $(id).down('TD SPAN SPAN').update(this.data.months[data.m] + ' ' + data.d + ', ' + data.y);
+        $(id).down('TD SPAN SPAN').update(this.data.months[data.getMonth()] + ' ' + data.getDate() + ', ' + data.getYear() + 1900);
         // Need to store date information at all times in criteria, since we
         // have no other way to track this information (there is not form
         // field for this type).
