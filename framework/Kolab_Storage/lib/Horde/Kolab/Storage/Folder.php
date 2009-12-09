@@ -221,6 +221,16 @@ class Horde_Kolab_Storage_Folder
     }
 
     /**
+     * Return the name of the folder.
+     *
+     * @return string The name of the folder.
+     */
+    function getName()
+    {
+        return $this->name;
+    }
+
+    /**
      * Set a new name for the folder. The new name will be realized
      * when saving the folder.
      *
