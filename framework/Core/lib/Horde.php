@@ -2215,8 +2215,8 @@ HTML;
     /**
      * Output the javascript needed to call the popup JS function.
      *
-     * @param string $url      The page to load.
-     * @param array $options  Additional options:
+     * @param string|Horde_Url $url  The page to load.
+     * @param array $options         Additional options:
      * <pre>
      * 'height' - (integer) The height of the popup window.
      *            DEFAULT: 650 px
@@ -2237,17 +2237,19 @@ HTML;
         Horde::addScriptFile('popup.js', 'horde');
 
         $params = new stdClass;
-        $pos = strpos($url, '?');
-        if ($pos === false) {
-            $params->url = (string)$url;
-        } else {
-            $params->url = substr($url, 0, $pos);
-            parse_str(substr($url, $pos + 1), $parsed);
+
+        if (!$url instanceof Horde_Url) {
+            $url = new Horde_Url($url);
+        }
+        $params->url = $url->url;
+
+        if (!empty($url->parameters)) {
             if (!isset($options['params'])) {
                 $options['params'] = array();
             }
-            $options['params'] = array_merge($parsed, $options['params']);
+            $options['params'] = array_merge($url->parameters, $options['params']);
         }
+
         if (!empty($options['height'])) {
             $params->height = $options['height'];
         }
@@ -2255,7 +2257,7 @@ HTML;
             $params->width = $options['width'];
         }
         if (!empty($options['params'])) {
-            $params->params = substr(Horde_Util::addParameter('', $options['params'], null, false), 1);
+            $params->params = http_build_query($options['params']);
         }
         if (!empty($options['menu'])) {
             $params->menu = 1;
