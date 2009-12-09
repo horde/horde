@@ -662,8 +662,10 @@ class IMP_Application extends Horde_Registry_Application
     /**
      * Do anything that we need to do as a result of certain preferences
      * changing.
+     *
+     * @param string $group  The prefGroup name.
      */
-    public function prefsCallback()
+    public function prefsCallback($group)
     {
         global $prefs;
 
@@ -673,30 +675,49 @@ class IMP_Application extends Horde_Registry_Application
             $prefs->getValue('use_trash') &&
             !$prefs->getValue('trash_folder') &&
             !$prefs->getValue('use_vtrash')) {
-                $GLOBALS['notification']->push(_("You have activated move to Trash but no Trash folder is defined. You will be unable to delete messages until you set a Trash folder in the preferences."), 'horde.warning');
+            $GLOBALS['notification']->push(_("You have activated move to Trash but no Trash folder is defined. You will be unable to delete messages until you set a Trash folder in the preferences."), 'horde.warning');
+        }
+
+        switch ($group) {
+        case 'compose':
+            if ($prefs->isDirty('mail_domain')) {
+                $maildomain = preg_replace('/[^-\.a-z0-9]/i', '', $prefs->getValue('mail_domain'));
+                $prefs->setValue('maildomain', $maildomain);
+                if (!empty($maildomain)) {
+                    $_SESSION['imp']['maildomain'] = $maildomain;
+                }
             }
 
-        if ($prefs->isDirty('use_vtrash') || $prefs->isDirty('use_vinbox')) {
-            $imp_search = new IMP_Search();
-            $imp_search->initialize(true);
-        }
-
-        if ($prefs->isDirty('subscribe') || $prefs->isDirty('tree_view')) {
-            $this->_mailboxesChanged();
-        }
-
-        if ($prefs->isDirty('mail_domain')) {
-            $maildomain = preg_replace('/[^-\.a-z0-9]/i', '', $prefs->getValue('mail_domain'));
-            $prefs->setValue('maildomain', $maildomain);
-            if (!empty($maildomain)) {
-                $_SESSION['imp']['maildomain'] = $maildomain;
+            if ($prefs->isDirty('compose_popup')) {
+                Horde::addInlineScript(array(
+                    'if (window.parent.frames.horde_menu) window.parent.frames.horde_menu.location.reload();'
+                ));
             }
-        }
+            break;
 
-        if ($prefs->isDirty('compose_popup')) {
-            Horde::addInlineScript(array(
-                'if (window.parent.frames.horde_menu) window.parent.frames.horde_menu.location.reload();'
-            ));
+        case 'delmove':
+            if ($prefs->isDirty('use_vtrash')) {
+                $imp_search = new IMP_Search();
+                $imp_search->initialize(true);
+            }
+            break;
+
+        case 'display':
+            if ($prefs->isDirty('tree_view')) {
+                $this->_mailboxesChanged();
+            }
+            break;
+
+        case 'server':
+            if ($prefs->isDirty('use_vinbox')) {
+                $imp_search = new IMP_Search();
+                $imp_search->initialize(true);
+            }
+
+            if ($prefs->isDirty('subscribe')) {
+                $this->_mailboxesChanged();
+            }
+            break;
         }
     }
 
