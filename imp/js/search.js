@@ -417,7 +417,7 @@ var ImpSearch = {
                     return;
                 } else if (elt.hasClassName('searchuiCalendar')) {
                     tmp = this.criteria[elt.up('TR').identify()];
-                    Horde_Calendar.open(elt.identify(), { y: tmp.v.y, m: tmp.v.m + 1, d: tmp.v.d }, this.replaceDate.bind(this, elt.up('TR').identify(), tmp.t));
+                    Horde_Calendar.open(elt.identify(), new Date(tmp.v.y, tmp.v.m, tmp.v.d), this.replaceDate.bind(this, elt.up('TR').identify(), tmp.t));
                     e.stop();
                     return;
                 }
