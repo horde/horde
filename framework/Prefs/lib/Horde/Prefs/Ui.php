@@ -10,12 +10,12 @@
  * the "Save Changes" and "Undo Changes" buttons.
  *
  * The following Application API callbacks are available:
- * prefsCallback - TODO
- * prefsInit - TODO
- * prefsMenu - TODO
- * prefsSpecial - TODO
- * prefsSpecialGenerate - TODO
- * prefsStatus - TODO
+ * prefsCallback($group) - TODO
+ * prefsInit($group = '') - TODO
+ * prefsMenu() - TODO
+ * prefsSpecial($pref, $updated) - TODO
+ * prefsSpecialGenerate($pref) - TODO
+ * prefsStatus() - TODO
  *
  * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
  *
@@ -192,7 +192,7 @@ class Horde_Prefs_Ui
 
         if ($updated) {
             if ($registry->hasAppMethod($app, 'prefsCallback')) {
-                $registry->callAppMethod($app, 'prefsCallback');
+                $registry->callAppMethod($app, 'prefsCallback', array('args' => array($group)));
             }
 
             if ($prefs instanceof Horde_Prefs_Session) {
