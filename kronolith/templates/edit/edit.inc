@@ -48,7 +48,7 @@
  <td></td>
  <td colspan="4">
   <?php echo implode("\n", $buttons) ?>
-  <?php echo Horde::link(htmlspecialchars($cancelurl), '', 'button') . _("Cancel") . '</a>' ?>
+  <?php echo $cancelurl->link(array('class' => 'button')) . _("Cancel") . '</a>' ?>
   <input type="button" name="resetButton" class="button" value="<?php echo _("Reset to Defaults") ?>" onclick="document.eventform.reset(); KronolithEventForm.updateWday('start_wday'); KronolithEventForm.updateWday('end_wday');" />
  </td>
 </tr>
@@ -244,7 +244,7 @@ if ($event->alarm) {
 <tr>
  <td></td>
  <td colspan="4">
-  <?php echo Horde::link(Horde::applicationUrl('attendees.php'), '', 'button', '_blank', 'var date = (\'000\' + $F(\'start_year\')).slice(-4) + (\'0\' + $F(\'start_month\')).slice(-2) + (\'0\' + $F(\'start_day\')).slice(-2) + (\'0\' + $(\'start_hour\').value).slice(-2) + (\'0\' + $(\'start_min\').value).slice(-2) + \'00\';var enddate = (\'000\' + $F(\'end_year\')).slice(-4) + (\'0\' + $F(\'end_month\')).slice(-2) + (\'0\' + $F(\'end_day\')).slice(-2) + (\'0\' + $(\'end_hour\').value).slice(-2) + (\'0\' + $(\'end_min\').value).slice(-2) + \'00\'; this.href += (this.href.indexOf(\'?\') == -1 ? \'?\' : \'&\') + \'date=\' + date + \'&enddate=\' + enddate;Horde.popup({ url: this.href });return false;') . _("Edit Attendees and Resources") . '</a>' ?>
+  <?php echo Horde::applicationUrl('attendees.php')->link(array('class' => 'button', 'target' => '_blank', 'onclick' => 'var date = (\'000\' + $F(\'start_year\')).slice(-4) + (\'0\' + $F(\'start_month\')).slice(-2) + (\'0\' + $F(\'start_day\')).slice(-2) + (\'0\' + $(\'start_hour\').value).slice(-2) + (\'0\' + $(\'start_min\').value).slice(-2) + \'00\';var enddate = (\'000\' + $F(\'end_year\')).slice(-4) + (\'0\' + $F(\'end_month\')).slice(-2) + (\'0\' + $F(\'end_day\')).slice(-2) + (\'0\' + $(\'end_hour\').value).slice(-2) + (\'0\' + $(\'end_min\').value).slice(-2) + \'00\'; this.href += (this.href.indexOf(\'?\') == -1 ? \'?\' : \'&\') + \'date=\' + date + \'&enddate=\' + enddate;Horde.popup({ url: this.href });return false;')) . _("Edit Attendees and Resources") . '</a>' ?>
  </td>
 </tr>
 </tbody>
@@ -343,8 +343,8 @@ if ($event->alarm) {
  </td>
  <td>
 <?php
-    Horde::addScriptFile('open_calendar.js', 'horde', array('direct' => false));
-    echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'recur_endimg\', \'recur_end\', \'' . addslashes($event->js('recur_end')) . '\'); return false;') . Horde::img('calendar.png', _("Set recurrence end date"), 'id="recur_endimg"', $GLOBALS['registry']->getImageDir('horde')) . '</a>';
+Horde::addScriptFile('open_calendar.js', 'horde', array('direct' => false));
+echo Horde::url('#')->link(array('title' => _("Select a date"), 'onclick' => 'openCalendar(\'recur_endimg\', \'recur_end\', \'' . addslashes($event->js('recur_end')) . '\'); return false;')) . Horde::img('calendar.png', _("Set recurrence end date"), 'id="recur_endimg"', $GLOBALS['registry']->getImageDir('horde')) . '</a>';
 endif;
 ?>
  </td>
@@ -413,7 +413,7 @@ endif;
  <td></td>
  <td colspan="4">
   <?php echo implode("\n", $buttons) ?>
-  <?php echo Horde::link(htmlspecialchars($cancelurl), '', 'button') . _("Cancel") . '</a>' ?>
+  <?php echo $cancelurl->link(array('class' => 'button')) . _("Cancel") . '</a>' ?>
   <input type="button" name="resetButton" class="button" value="<?php echo _("Reset to Defaults") ?>" onclick="document.eventform.reset(); KronolithEventForm.updateWday('start_wday'); KronolithEventForm.updateWday('end_wday');" />
   </td>
  </tr>

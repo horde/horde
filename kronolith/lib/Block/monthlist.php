@@ -43,13 +43,12 @@ class Horde_Block_Kronolith_monthlist extends Horde_Block {
      */
     function _title()
     {
-        global $registry;
-        if (isset($this->_params['calendar']) && $this->_params['calendar'] != '__all') {
-            $url_params = array('display_cal' => $this->_params['calendar']);
-        } else {
-            $url_params = array();
+        $url = Horde::url($GLOBALS['registry']->getInitialPage(), true);
+        if (isset($this->_params['calendar']) &&
+            $this->_params['calendar'] != '__all') {
+            $url->add('display_cal', $this->_params['calendar']);
         }
-        return Horde::link(Horde::url(Horde_Util::addParameter($registry->getInitialPage(), $url_params), true)) . _("Upcoming Events") . '</a>';
+        return $url->link() . _("Upcoming Events") . '</a>';
     }
 
     /**

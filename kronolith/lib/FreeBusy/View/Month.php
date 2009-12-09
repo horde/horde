@@ -25,11 +25,11 @@ class Kronolith_FreeBusy_View_Month extends Kronolith_FreeBusy_View {
         $prev->month--;
         $next = new Horde_Date($this->_start);
         $next->month++;
-        return Horde::link('#', _("Previous Month"), '', '', 'return switchDate(' . $prev->dateString() . ');')
+        return Horde::url('#')->link(array('title' => _("Previous Month"), 'onclick' => 'return switchDate(' . $prev->dateString() . ');'))
             . Horde::img('nav/left.png', '<', null, $registry->getImageDir('horde'))
             . '</a>'
             . $this->_start->strftime('%B %Y')
-            . Horde::link('#', _("Next Month"), '', '', 'return switchDate(' . $next->dateString() . ');')
+            . Horde::url('#')->link(array('title' => _("Next Month"), 'onclick' => 'return switchDate(' . $next->dateString() . ');'))
             . Horde::img('nav/right.png', '>', null, $registry->getImageDir('horde'))
             . '</a>';
     }
@@ -48,7 +48,8 @@ class Kronolith_FreeBusy_View_Month extends Kronolith_FreeBusy_View {
         $t = new Horde_Date($this->_start);
         while ($span_left > 0) {
             $span_left -= $span;
-            $week_label = Horde::link('#', '', '', '', 'return switchDateView(\'Week\',' . $t->dateString() . ');') . ("Week") . ' ' . $week . '</a>';
+            $week_label = Horde::url('#')->link(array('onclick' => 'return switchDateView(\'Week\',' . $t->dateString() . ');'))
+                . ("Week") . ' ' . $week . '</a>';
             $hours_html .= sprintf('<th colspan="%d" width="%s%%">%s</th>',
                                    $span, $dayWidth, $week_label);
             $week++;
@@ -61,7 +62,8 @@ class Kronolith_FreeBusy_View_Month extends Kronolith_FreeBusy_View {
             $t = new Horde_Date(array('month' => $this->_start->month,
                                       'mday' => $this->_start->mday + $i,
                                       'year' => $this->_start->year));
-            $day_label = Horde::link('#', '', '', '', 'return switchDateView(\'Day\',' . $t->dateString() . ');') . sprintf("%s.", $i + 1) . '</a>';
+            $day_label = Horde::url('#')->link(array('onclick' => 'return switchDateView(\'Day\',' . $t->dateString() . ');'))
+                . ($i + 1) . '.</a>';
             $hours_html .= sprintf('<th width="%s%%">%s</th>',
                                    $dayWidth, $day_label);
         }
