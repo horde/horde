@@ -2145,6 +2145,9 @@ class Kronolith
         case 'holiday':
             $driver = 'Holidays';
             break;
+        case 'resource':
+            $driver = 'Resource';
+            break;
         }
 
         if (empty($driver)) {
