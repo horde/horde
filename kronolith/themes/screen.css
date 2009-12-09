@@ -652,12 +652,6 @@ a.kronolithFormCancel {
 .kronolithDialog label {
     font-weight: bold;
 }
-.kronolithDialog input.kronolithDatePicker {
-    padding-right: 20px;
-    background-image: url("graphics/picker.png");
-    background-position: right center;
-    background-repeat: no-repeat;
-}
 .kronolithLongField {
     width: 100%;
 }
@@ -1296,9 +1290,10 @@ li.panel-tags {
     color: #000;
 }
 
-#color-picker {
+#color-picker, #horde-calendar {
     z-index: 103;
 }
+
 #calendarPrint {
     display: none;
 }
