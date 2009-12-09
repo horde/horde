@@ -68,7 +68,8 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
             $this->_params['calendar'] != '__all') {
             $url->add('display_cal', $this->_params['calendar']);
         }
-        return $url->link() . htmlspecialchars($registry->get('name')) . '</a>';
+        return $url->link()
+            . htmlspecialchars($GLOBALS['registry']->get('name')) . '</a>';
     }
 
     /**
