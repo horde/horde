@@ -169,10 +169,10 @@ class Horde_Template
             foreach ($tag as $tTag => $tVar) {
                 $this->set($tTag, $tVar);
             }
-        } elseif (is_array($var) || is_object($var)) {
+        } elseif (is_array($var)) {
             $this->_arrays[$tag] = $var;
         } else {
-            $this->_scalars[$tag] = $var;
+            $this->_scalars[$tag] = (string) $var;
         }
     }
 
