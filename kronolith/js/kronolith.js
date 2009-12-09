@@ -3599,7 +3599,6 @@ KronolithCore = {
          }
          //@TODO: check for Location field - and if present, but no lat/lon value, attempt to
          // geocode it.
-
          this.map.display();
          this.mapInitialized = true;
     },
@@ -3630,8 +3629,8 @@ KronolithCore = {
         var ll = r.getLonLat();
         $('kronolithEventLocationLon').value = ll.lon;
         $('kronolithEventLocationLat').value = ll.lat;
-        var gc = new HordeMap.Geocoder[Kronolith.conf.maps.geocoder]();
-        gc.reverseGeocode(ll, this.onReverseGeocode.bind(this), this.onError.bind(this) );
+        var gc = new HordeMap.Geocoder[Kronolith.conf.maps.geocoder](this.map.map, 'kronolithEventMap');
+        gc.reverseGeocode(ll, this.onReverseGeocode.bind(this), this.onGeocodeError.bind(this) );
     },
 
     /**
@@ -3641,11 +3640,15 @@ KronolithCore = {
      *                 the array is {lat:, lon:, address}
      */
     onReverseGeocode: function(r) {
+        if (!r.length) {
+            $('kronolithEventLocation').value = '';
+            this.onGeocodeError();
+
+        }
         $('kronolithEventLocation').value = r[0].address;
-        // Do something else with the lonlat?
     },
 
-    onError: function(r)
+    onGeocodeError: function(r)
     {
         KronolithCore.showNotifications([ { type: 'horde.error', message: Kronolith.text.geocode_error } ]);
     },
@@ -3669,8 +3672,8 @@ KronolithCore = {
         if (!a) {
             return;
         }
-        var gc = new HordeMap.Geocoder[Kronolith.conf.maps.geocoder]();
-        gc.geocode(a, this.onGeocode.bind(this), this.onError);
+        var gc = new HordeMap.Geocoder[Kronolith.conf.maps.geocoder](this.map.map, 'kronolithEventMap');
+        gc.geocode(a, this.onGeocode.bind(this), this.onGeocodeError);
     },
 
     /**
@@ -3717,8 +3720,8 @@ KronolithCore = {
     afterClickMap: function(o)
     {
         this.placeMapMarker(o.lonlat, false);
-        var gc = new HordeMap.Geocoder[Kronolith.conf.maps.geocoder]();
-        gc.reverseGeocode(o.lonlat, this.onReverseGeocode.bind(this), this.onError.bind(this) );
+        var gc = new HordeMap.Geocoder[Kronolith.conf.maps.geocoder](this.map.map, 'kronolithEventMap');
+        gc.reverseGeocode(o.lonlat, this.onReverseGeocode.bind(this), this.onGeocodeError.bind(this) );
     }
 
 };
