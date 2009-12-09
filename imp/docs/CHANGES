@@ -48,7 +48,7 @@ v5.0-git
 [mms] Add Folder Options menu to DIMP.
 [mms] Add save link to full message display in DIMP.
 [mms] Allow on-demand filter application (if filter backend supports) in DIMP.
-[mms] Add full IMAP subscription support to DIMP.
+[mms] Add full IMAP subscription support to DIMP (Request #8059).
 [mms] Add message information to preview screen (DIMP).
 [mms] Add Alt + PGUP/PGDN shortcut to scroll through preview message (DIMP).
 [jan] Show possible event conflicts in iTip viewer (Request #3991, Gonçalo
