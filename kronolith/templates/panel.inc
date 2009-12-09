@@ -141,7 +141,7 @@ $ta->attach();
  <h4><?php echo _("Holidays:") ?></h4>
  <ul id="holidays">
 <?php foreach ($GLOBALS['all_holidays'] as $holiday): ?>
-  <li<?php echo Kronolith::getCSSColors($holiday) ?>><label><input type="checkbox" class="checkbox" name="display_cal[]" value="holidays_<?php echo htmlspecialchars($holiday['id']) ?>"<?php echo (in_array($holiday['id'], $display_holidays) ? ' checked="checked"' : '') . ' /> ' . htmlspecialchars($holiday['title']) ?></label></li>
+  <li<?php echo Kronolith::getCSSColors($holiday) ?>><label><input type="checkbox" class="checkbox" name="display_cal[]" value="holiday_<?php echo htmlspecialchars($holiday['id']) ?>"<?php echo (in_array($holiday['id'], $display_holidays) ? ' checked="checked"' : '') . ' /> ' . htmlspecialchars($holiday['title']) ?></label></li>
 <?php endforeach; ?>
  </ul>
 <?php endif; ?>
