@@ -64,9 +64,9 @@ class IMP
 
     /**
      * Returns the plain text label that is displayed for the current mailbox,
-     * replacing virtual search mailboxes with an appropriate description and
+     * replacing virtual search mailboxes with an appropriate description,
      * removing namespace and mailbox prefix information from what is shown to
-     * the user.
+     * the user, and passing the label through a user-defined hook.
      *
      * @param string $mbox  The mailbox to use for the label.
      *
@@ -74,9 +74,15 @@ class IMP
      */
     static public function getLabel($mbox)
     {
-        return IMP_Search::isSearchMbox($mbox)
+        $label = IMP_Search::isSearchMbox($mbox)
             ? $GLOBALS['imp_search']->getLabel($mbox)
             : self::displayFolder($mbox);
+
+        try {
+            return Horde::callHook('mbox_label', array($mbox, $label), 'imp');
+        } catch (Horde_Exception_HookNotSet $e) {
+            return $label;
+        }
     }
 
     /**

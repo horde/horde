@@ -365,6 +365,22 @@ class IMP_Hooks
 
 
     /**
+     * Dynamically alter a mailbox display label.
+     *
+     * @param string $mbox   The mailbox name.
+     * @param string $label  The current label.
+     *
+     * @return string  The display label for $mbox.
+     */
+//    function mbox_label($mbox, $label)
+//    {
+//        // Example #1: Show 'foo' as 'bar'
+//        return ($mbox == 'foo')
+//            ? 'bar'
+//            : $label;
+//    }
+
+    /**
      * Mark a mailbox as read-only.
      *
      * @param string $mailbox  The mailbox name.
