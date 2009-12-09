@@ -3464,6 +3464,66 @@ KronolithCore = {
             }
         });
 
+        // Mouse wheel handler.
+        [ 'kronolithEventStartDate', 'kronolithEventEndDate' ].each(function(field) {
+            $(field).observe(Prototype.Browser.Gecko ? 'DOMMouseScroll' : 'mousewheel', function(e) {
+                var date = Date.parseExact($F(field), Kronolith.conf.date_format);
+                if (!date || (!e.wheelData && !e.detail)) {
+                    return;
+                }
+                date.add(e.wheelData > 0 || e.detail < 0 ? 1 : -1).days();
+                $(field).setValue(date.toString(Kronolith.conf.date_format));
+            });
+        });
+
+        [ 'kronolithEventStartTime', 'kronolithEventEndTime' ].each(function(field) {
+            $(field).observe(Prototype.Browser.Gecko ? 'DOMMouseScroll' : 'mousewheel', function(e) {
+                var time = $F(field).match(/(\d+)\s*:\s*(\d+)\s*((a|p)m)?/i),
+                    hour, minute;
+                if (!time || (!e.wheelData && !e.detail)) {
+                    return;
+                }
+
+                minute = parseInt(time[2]);
+                if (minute % 10) {
+                    if (e.wheelData > 0 || e.detail < 0) {
+                        minute = (minute + 10) / 10 | 0;
+                    } else {
+                        minute = minute / 10 | 0;
+                    }
+                    minute *= 10;
+                } else {
+                    minute += (e.wheelData > 0 || e.detail < 0 ? 10 : -10);
+                }
+                hour = parseInt(time[1]);
+                if (minute < 0) {
+                    if (hour > 0) {
+                        hour--;
+                        minute = 50;
+                    } else {
+                        minute = 0;
+                    }
+                } else if (minute >= 60) {
+                    if (hour < 23) {
+                        hour++;
+                        minute = 0;
+                    } else {
+                        minute = 59;
+                    }
+                }
+
+                $(field).setValue($F(field).replace(/(.*?)\d+(\s*:\s*)\d+(.*)/, '$1' + hour + ':' + minute.toPaddedString(2) + '$3'));
+
+                /* Mozilla bug https://bugzilla.mozilla.org/show_bug.cgi?id=502818
+                 * Need to stop or else multiple scroll events may be fired. We
+                 * lose the ability to have the mousescroll bubble up, but that is
+                 * more desirable than having the wrong scrolling behavior. */
+                if (Prototype.Browser.Gecko && !e.stop) {
+                    Event.stop(e);
+                }
+            });
+        });
+
         if (Horde.dhtmlHistory.initialize()) {
             Horde.dhtmlHistory.addListener(this.go.bind(this));
         }
