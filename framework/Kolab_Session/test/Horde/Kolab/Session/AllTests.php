@@ -4,11 +4,12 @@
  *
  * PHP version 5
  *
- * @category Kolab
- * @package  Kolab_Session
- * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Session
+ * @category   Kolab
+ * @package    Kolab_Session
+ * @subpackage UnitTests
+ * @author     Gunnar Wrobel <wrobel@pardus.de>
+ * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link       http://pear.horde.org/index.php?package=Kolab_Session
  */
 
 /**
@@ -24,8 +25,19 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 require_once 'Horde/Test/AllTests.php';
 
 /**
- * @package    Horde_Kolab_Session
+ * Combine the tests for this package.
+ *
+ * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ *
+ * @category   Kolab
+ * @package    Kolab_Session
  * @subpackage UnitTests
+ * @author     Gunnar Wrobel <wrobel@pardus.de>
+ * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link       http://pear.horde.org/index.php?package=Kolab_Session
  */
 class Horde_Kolab_Session_AllTests extends Horde_Test_AllTests
 {

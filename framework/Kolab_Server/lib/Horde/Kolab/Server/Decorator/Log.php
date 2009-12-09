@@ -38,7 +38,7 @@ implements Horde_Kolab_Server_Interface
     /**
      * The log handler.
      *
-     * @var Horde_Log_Logger
+     * @var mixed
      */
     private $_logger;
 
