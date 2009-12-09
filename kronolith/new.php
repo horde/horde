@@ -56,7 +56,7 @@ $year = $event->start->year;
 $buttons = array('<input type="submit" class="button" name="save" value="' . _("Save Event") . '" />');
 $url = Horde_Util::getFormData('url');
 if (isset($url)) {
-    $cancelurl = $url;
+    $cancelurl = new Horde_Url($url);
 } else {
     $cancelurl = Horde::applicationUrl('month.php', true)->add('month', $month);
 }
