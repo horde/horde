@@ -110,7 +110,6 @@
      <values>
       <value desc="None" default="true">false</value>
       <value desc="Google">Google</value>
-      <value desc="SAPO">SAPO</value>
      </values> 
     </configenum>
     
