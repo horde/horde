@@ -79,11 +79,11 @@ implements Horde_Kolab_FreeBusy_Resource_Freebusy_Interface
      */
     public function getAttributeAcl()
     {
-        return $this->getFolder->getXfbaccess();
+        return $this->getFolder()->getXfbaccess();
     }
 
     /**
-     * Lists all events in the given time range.     *
+     * Lists all events in the given time range.
      *
      * @param Horde_Date $startDate Start of range date object.
      * @param Horde_Date $endDate   End of range data object.
@@ -95,7 +95,7 @@ implements Horde_Kolab_FreeBusy_Resource_Freebusy_Interface
     public function listEvents(Horde_Date $startDate, Horde_Date $endDate)
     {
         try {
-            $objects = $this->_data->getObjects();
+            $objects = $this->getData()->getObjects();
         } catch (Horde_Kolab_Storage_Exception $e) {
             //todo: prior exception
             throw new Horde_Kolab_FreeBusy_Exception($e);
@@ -105,38 +105,37 @@ implements Horde_Kolab_FreeBusy_Resource_Freebusy_Interface
 
         $result = array();
 
+        /**
+         * PERFORMANCE START
+         *
+         * The following section has been performance optimized using
+         * xdebug and kcachegrind.
+         *
+         * If there are many events it takes a lot of time and memory to create
+         * new objects from the array and use those for time comparison. So the
+         * code tries to use the original data array as long as possible and
+         * only converts it to an object if really required (e.g. the event
+         * actually lies in the time span or it recurs in which case the
+         * calculations are more complex).
+         */
         foreach($objects as $object) {
             /* check if event period intersects with given period */
             if (!(($object['start-date'] > $endts) ||
                   ($object['end-date'] < $startts))) {
-                $event = new Kolab_Event($object);
-                $result[] = $event;
+                $result[] = new Horde_Kolab_FreeBusy_Object_Event($object);
                 continue;
             }
 
             /* do recurrence expansion if not keeping anyway */
             if (isset($object['recurrence'])) {
-                $event = new Kolab_Event($object);
-                $next = $event->recurrence->nextRecurrence($startDate);
-                while ($next !== false &&
-                       $event->recurrence->hasException($next->year, $next->month, $next->mday)) {
-                    $next->mday++;
-                    $next = $event->recurrence->nextRecurrence($next);
-                }
-
-                if ($next !== false) {
-                    $duration = $next->timestamp() - $event->start->timestamp();
-                    $next_end = new Horde_Date($event->end->timestamp() + $duration);
-
-                    if ((!(($endDate->compareDateTime($next) < 0) ||
-                           ($startDate->compareDateTime($next_end) > 0)))) {
-                        $result[] = $event;
-                    }
-
+                $event = new Horde_Kolab_FreeBusy_Object_Event($object);
+                if ($event->recursIn($startDate, $endDate)) {
+                    $result[] = $event;
                 }
             }
         }
-
+        /** PERFORMANCE END */
+         
         return $result;
     }
 }

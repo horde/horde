@@ -38,13 +38,6 @@ implements Horde_Kolab_FreeBusy_Resource_Interface
     private $_folder;
 
     /**
-     * The link to the folder data.
-     *
-     * @var Horde_Kolab_Storage_Data
-     */
-    private $_data;
-
-    /**
      * Constructor.
      *
      * @param Horde_Kolab_Storage_Folder $folder The storage folder representing
@@ -53,7 +46,6 @@ implements Horde_Kolab_FreeBusy_Resource_Interface
     public function __construct(Horde_Kolab_Storage_Folder $folder)
     {
         $this->_folder = $folder;
-        $this->_data   = $this->_folder->getData();
     }
 
     /**
@@ -83,7 +75,7 @@ implements Horde_Kolab_FreeBusy_Resource_Interface
      */
     protected function getData()
     {
-        return $this->_data;
+        return $this->_folder->getData();
     }
 
     /**

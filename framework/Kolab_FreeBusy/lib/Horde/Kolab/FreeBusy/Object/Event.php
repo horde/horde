@@ -1,12 +1,5 @@
 <?php
 
-/** Event status - Taken from Kronolith*/
-define('KRONOLITH_STATUS_NONE', 0);
-define('KRONOLITH_STATUS_TENTATIVE', 1);
-define('KRONOLITH_STATUS_CONFIRMED', 2);
-define('KRONOLITH_STATUS_CANCELLED', 3);
-define('KRONOLITH_STATUS_FREE', 4);
-
 /**
  * A reduced event representation derived from the Kronolith event
  * representation.
@@ -21,7 +14,14 @@ define('KRONOLITH_STATUS_FREE', 4);
  * @author  Gunnar Wrobel <wrobel@pardus.de>
  * @package Kolab_FreeBusy
  */
-class Kolab_Event {
+class Horde_Kolab_FreeBusy_Object_Event {
+
+    /** Event status - Taken from Kronolith */
+    const STATUS_NONE      = 0;
+    const STATUS_TENTATIVE = 1;
+    const STATUS_CONFIRMED = 2;
+    const STATUS_CANCELLED = 3;
+    const STATUS_FREE      = 4;
 
     /**
      * The driver unique identifier for this event.
@@ -65,7 +65,7 @@ class Kolab_Event {
      */
     var $private = false;
 
-    function Kolab_Event($event)
+    public function __construct(array $event)
     {
         $this->eventID = $event['uid'];
 
@@ -87,20 +87,20 @@ class Kolab_Event {
         if (isset($event['show-time-as'])) {
             switch ($event['show-time-as']) {
                 case 'free':
-                    $this->status = KRONOLITH_STATUS_FREE;
+                    $this->status = self::STATUS_FREE;
                     break;
 
                 case 'tentative':
-                    $this->status = KRONOLITH_STATUS_TENTATIVE;
+                    $this->status = self::STATUS_TENTATIVE;
                     break;
 
                 case 'busy':
                 case 'outofoffice':
                 default:
-                    $this->status = KRONOLITH_STATUS_CONFIRMED;
+                    $this->status = self::STATUS_CONFIRMED;
             }
         } else {
-            $this->status = KRONOLITH_STATUS_CONFIRMED;
+            $this->status = self::STATUS_CONFIRMED;
         }
 
         // Recurrence
@@ -109,6 +109,35 @@ class Kolab_Event {
             $this->recurrence->fromHash($event['recurrence']);
         }
 
+    }
+
+    /**
+     * Determines if the event recurs in the given time span.
+     *
+     * @param Horde_Date $startDate Start of the time span.
+     * @param Horde_Date $endDate   End of the time span.
+     *
+     * @return boolean True if the event recurs in this time span.
+     */
+    public function recursIn(Horde_Date $startDate, Horde_Date $endDate)
+    {
+        $next = $this->recurrence->nextRecurrence($startDate);
+        while ($next !== false &&
+               $this->recurrence->hasException($next->year, $next->month, $next->mday)) {
+            $next->mday++;
+            $next = $this->recurrence->nextRecurrence($next);
+        }
+
+        if ($next !== false) {
+            $duration = $next->timestamp() - $this->start->timestamp();
+            $next_end = new Horde_Date($this->end->timestamp() + $duration);
+
+            if ((!(($endDate->compareDateTime($next) < 0) ||
+                   ($startDate->compareDateTime($next_end) > 0)))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -144,4 +173,49 @@ class Kolab_Event {
         return ($status == $this->status);
     }
 
+    public function duration()
+    {
+        return $this->end->timestamp() - $this->start->timestamp();
+    }
+
+    public function getEncodedInformation()
+    {
+        return array(
+            'X-UID'      => base64_encode($this->eventID),
+            'X-SUMMARY'  => base64_encode($this->private ? '' : $this->title),
+            'X-LOCATION' => base64_encode($this->private ? '' : $this->location)
+        );
+    }
+
+    public function isFree()
+    {
+        return (
+            $this->status == self::STATUS_FREE ||
+            $this->status == self::STATUS_CANCELLED
+        );
+    }
+
+    public function getBusyTimes(Horde_Date $startDate, Horde_Date $endDate)
+    {
+        if ($this->isFree()) {
+            return array();
+        }
+
+        if (!$this->recurs()) {
+            return array($this->start->timestamp());
+        } else {
+            $result = array();
+            $next = $this->recurrence->nextRecurrence($startDate);
+            while ($next) {
+                if ($endDate->compareDateTime($next) < 0) {
+                    break;
+                }
+                if (!$this->recurrence->hasException($next->year, $next->month, $next->mday)) {
+                    $result[] = $next->timestamp();
+                }
+                $next->mday++;
+                $next = $this->recurrence->nextRecurrence($next);
+            }
+        }
+    }
 }
