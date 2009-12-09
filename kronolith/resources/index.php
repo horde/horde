@@ -63,7 +63,7 @@ function performAction(action, rid)
   <td>&nbsp;</td>
   <?php endif;?>
   <td><?php echo htmlspecialchars($resource->get('name')) ?></td>
-  <td><?php echo $display_url_base->add('display_cal', $resource->get('calendar'), false)->link(array('title' => _("Click or copy this URL to display this calendar"))) . htmlspecialchars(shorten_url($url)) . '</a>' ?></td>
+  <td><?php $url = $display_url_base->add('display_cal', $resource->get('calendar'), false); echo $url->link(array('title' => _("Click or copy this URL to display this calendar"))) . htmlspecialchars(shorten_url($url)) . '</a>' ?></td>
  </tr>
 <?php endforeach; ?>
 </tbody>
