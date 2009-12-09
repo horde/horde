@@ -113,8 +113,9 @@ class Kronolith
     public static function initEventMap($params)
     {
         // Add the apikeys
-        if (!empty($params['layers'])) {
-            foreach ($params['layers'] as $layer) {
+        if (!empty($params['providers'])) {
+            foreach ($params['providers'] as $layer) {
+
                 switch ($layer) {
                 case 'Google':
                     $params['apikeys']['google'] = $GLOBALS['conf']['api']['googlemaps'];
