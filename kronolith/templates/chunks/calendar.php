@@ -14,6 +14,7 @@
 <div>
   <label><?php echo _("Color") ?>:<br />
     <input type="text" name="color" id="kronolithCalendarinternalColor" size="7" />
+    <?php echo Horde::url('#')->link(array('title' => _("Color Picker"), 'onclick' => 'new ColorPicker({ color: $F(\'kronolithCalendarinternalColor\'), offsetParent: Event.element(event), update: [[\'kronolithCalendarinternalColor\', \'value\'], [\'kronolithCalendarinternalColor\', \'background\']] }); return false;')) . Horde::img('colorpicker.png', _("Color Picker"), '', $GLOBALS['registry']->getImageDir('horde')) . '</a>' ?>
   </label>
 </div>
 
@@ -63,6 +64,7 @@ tbd
 <div>
   <label><?php echo _("Color") ?>:<br />
     <input type="text" name="color" id="kronolithCalendartasklistsColor" size="7" />
+    <?php echo Horde::url('#')->link(array('title' => _("Color Picker"), 'onclick' => 'new ColorPicker({ color: $F(\'kronolithCalendartasklistsColor\'), offsetParent: Event.element(event), update: [[\'kronolithCalendartasklistsColor\', \'value\'], [\'kronolithCalendartasklistsColor\', \'background\']] }); return false;')) . Horde::img('colorpicker.png', _("Color Picker"), '', $GLOBALS['registry']->getImageDir('horde')) . '</a>' ?>
   </label>
 </div>
 
@@ -105,6 +107,7 @@ tbd
 <div>
   <label><?php echo _("Color") ?>:<br />
     <input type="text" name="color" id="kronolithCalendarremoteColor" size="7" />
+    <?php echo Horde::url('#')->link(array('title' => _("Color Picker"), 'onclick' => 'new ColorPicker({ color: $F(\'kronolithCalendarremoteColor\'), offsetParent: Event.element(event), update: [[\'kronolithCalendarremoteColor\', \'value\'], [\'kronolithCalendarremoteColor\', \'background\']] }); return false;')) . Horde::img('colorpicker.png', _("Color Picker"), '', $GLOBALS['registry']->getImageDir('horde')) . '</a>' ?>
   </label>
 </div>
 

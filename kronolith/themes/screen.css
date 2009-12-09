@@ -1296,6 +1296,9 @@ li.panel-tags {
     color: #000;
 }
 
+#color-picker {
+    z-index: 103;
+}
 #calendarPrint {
     display: none;
 }
