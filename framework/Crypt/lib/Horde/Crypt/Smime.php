@@ -663,21 +663,24 @@ class Horde_Crypt_Smime extends Horde_Crypt
             return false;
         }
 
-        $cert_details = array();
-        $cert_details['fingerprints']['md5'] = hash('md5', $raw_cert);
-        $cert_details['fingerprints']['sha1'] = hash('sha1', $raw_cert);
-
-        $cert_details['certificate']['extensions'] = array();
-        $cert_details['certificate']['version'] = $cert_data[1][0][1][0][1] + 1;
-        $cert_details['certificate']['serialNumber'] = $cert_data[1][0][1][1][1];
-        $cert_details['certificate']['signature'] = $cert_data[1][0][1][2][1][0][1];
-        $cert_details['certificate']['issuer'] = $cert_data[1][0][1][3][1];
-        $cert_details['certificate']['validity'] = $cert_data[1][0][1][4][1];
-        $cert_details['certificate']['subject'] = @$cert_data[1][0][1][5][1];
-        $cert_details['certificate']['subjectPublicKeyInfo'] = $cert_data[1][0][1][6][1];
-
-        $cert_details['signatureAlgorithm'] = $cert_data[1][1][1][0][1];
-        $cert_details['signature'] = $cert_data[1][2][1];
+        $cert_details = array(
+            'fingerprints' => array(
+                'md5' => hash('md5', $raw_cert),
+                'sha1' => hash('sha1', $raw_cert)
+            ),
+            'certificate' => array(
+                'extensions' => array(),
+                'version' => $cert_data[1][0][1][0][1] + 1,
+                'serialNumber' => $cert_data[1][0][1][1][1],
+                'signature' => $cert_data[1][0][1][2][1][0][1],
+                'issuer' => $cert_data[1][0][1][3][1],
+                'validity' => $cert_data[1][0][1][4][1],
+                'subject' => @$cert_data[1][0][1][5][1],
+                'subjectPublicKeyInfo' => $cert_data[1][0][1][6][1]
+            ),
+            'signatureAlgorithm' => $cert_data[1][1][1][0][1],
+            'signature' => $cert_data[1][2][1]
+        );
 
         // issuer
         $issuer = array();
