@@ -477,7 +477,7 @@ class Ansel_Api extends Horde_Registry_Api
         if (!empty($perm)) {
             // The name is inconsequential; it is only used as a container to
             // represent permissions when passed to the Ansel backend.
-            $permobj = new Horde_Permission('');
+            $permobj = new Horde_Perms_Permission('');
             $permobj->data = $perm;
         } else {
             $permobj = null;
