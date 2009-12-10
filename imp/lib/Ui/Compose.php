@@ -226,4 +226,25 @@ class IMP_Ui_Compose
         ));
     }
 
+    /**
+     * Get the IMP_Contents:: object for a Mailbox -> UID combo.
+     *
+     * @param integer $uid     Message UID.
+     * @param string $mailbox  Message mailbox.
+     *
+     * @return boolean|IMP_Contents  The contents object, or false on error.
+     */
+    public function getIMPContents($uid, $mailbox)
+    {
+        if (!empty($uid)) {
+            try {
+                return IMP_Contents::singleton($uid . IMP::IDX_SEP . $mailbox);
+            } catch (Horde_Exception $e) {
+                $GLOBALS['notification']->push(_("Could not retrieve the message from the mail server."), 'horde.error');
+            }
+        }
+
+        return false;
+    }
+
 }

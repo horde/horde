@@ -12,20 +12,6 @@
  * @package IMP
  */
 
-function _getIMPContents($uid, $mailbox)
-{
-    if (empty($uid)) {
-        return false;
-    }
-    try {
-        $imp_contents = IMP_Contents::singleton($uid . IMP::IDX_SEP . $mailbox);
-        return $imp_contents;
-    } catch (Horde_Exception $e) {
-        $GLOBALS['notification']->push(_("Could not retrieve the message from the mail server."), 'horde.error');
-        return false;
-    }
-}
-
 require_once dirname(__FILE__) . '/lib/Application.php';
 new IMP_Application(array('init' => true, 'tz' => true));
 
@@ -67,9 +53,10 @@ if ($imp_imap->isReadOnly($sent_mail_folder)) {
 /* Determine if compose mode is disabled. */
 $compose_disable = !IMP::canCompose();
 
-/* Initialize the IMP_Compose:: object. */
+/* Initialize objects. */
 $composeCache = Horde_Util::getFormData('composeCache');
 $imp_compose = IMP_Compose::singleton($composeCache);
+$imp_ui = new IMP_Ui_Compose();
 
 foreach (array_keys($display_hdrs) as $val) {
     $header[$val] = Horde_Util::getFormData($val);
@@ -113,7 +100,6 @@ case 'd':
 
 case _("Expand Names"):
     $action = Horde_Util::getFormData('action');
-    $imp_ui = new IMP_Ui_Compose();
 
     foreach (array_keys($display_hdrs) as $val) {
         if (($val == 'to') || ($action != 'rc')) {
@@ -138,7 +124,7 @@ case _("Expand Names"):
 case 'r':
 case 'ra':
 case 'rl':
-    if (!($imp_contents = _getIMPContents($uid, $thismailbox))) {
+    if (!($imp_contents = $imp_ui->getIMPContents($uid, $thismailbox))) {
         break;
     }
     $actions = array('r' => 'reply', 'ra' => 'reply_all', 'rl' => 'reply_list');
@@ -150,7 +136,7 @@ case 'rl':
 
 // 'f' = forward
 case 'f':
-    if (!($imp_contents = _getIMPContents($uid, $thismailbox))) {
+    if (!($imp_contents = $imp_ui->getIMPContents($uid, $thismailbox))) {
         break;
     }
     $fwd_msg = $imp_compose->forwardMessage($imp_contents);
@@ -160,11 +146,9 @@ case 'f':
     break;
 
 case _("Redirect"):
-    if (!($imp_contents = _getIMPContents($uid, $thismailbox))) {
+    if (!($imp_contents = $imp_ui->getIMPContents($uid, $thismailbox))) {
         break;
     }
-
-    $imp_ui = new IMP_Ui_Compose();
 
     $f_to = $imp_ui->getAddressList($header['to']);
 
@@ -207,7 +191,7 @@ case _("Send"):
     $uid = $imp_compose->getMetadata('uid');
 
     if ($ctype = $imp_compose->getMetadata('reply_type')) {
-        if (!($imp_contents = _getIMPContents($uid, $thismailbox))) {
+        if (!($imp_contents = $imp_ui->getIMPContents($uid, $thismailbox))) {
             break;
         }
 
@@ -234,8 +218,6 @@ case _("Send"):
     }
     $header['replyto'] = $identity->getValue('replyto_addr');
     $header['subject'] = Horde_Util::getFormData('subject');
-
-    $imp_ui = new IMP_Ui_Compose();
 
     foreach ($display_hdrs as $val) {
         $header[$val] = $imp_ui->getAddressList($old_header[$val]);

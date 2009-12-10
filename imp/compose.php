@@ -40,21 +40,6 @@ function _popupSuccess()
     require $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc';
 }
 
-function _getIMPContents($uid, $mailbox)
-{
-    if (empty($uid)) {
-        return false;
-    }
-
-    try {
-        $imp_contents = IMP_Contents::singleton($uid . IMP::IDX_SEP . $mailbox);
-        return $imp_contents;
-    } catch (Horde_Exception $e) {
-        $GLOBALS['notification']->push(_("Could not retrieve the message from the mail server."), 'horde.error');
-        return false;
-    }
-}
-
 
 require_once dirname(__FILE__) . '/lib/Application.php';
 new IMP_Application(array('init' => array('session_control' => 'netscape'), 'tz' => true));
@@ -242,7 +227,7 @@ if ($_SESSION['imp']['file_upload']) {
 $title = _("New Message");
 switch ($actionID) {
 case 'mailto':
-    if (!($imp_contents = _getIMPContents($uid, $thismailbox))) {
+    if (!($imp_contents = $imp_ui->getIMPContents($uid, $thismailbox))) {
         break;
     }
     $imp_headers = $imp_contents->getHeaderOb();
@@ -293,7 +278,7 @@ case 'reply':
 case 'reply_all':
 case 'reply_auto':
 case 'reply_list':
-    if (!($imp_contents = _getIMPContents($uid, $thismailbox))) {
+    if (!($imp_contents = $imp_ui->getIMPContents($uid, $thismailbox))) {
         break;
     }
 
@@ -320,7 +305,7 @@ case 'reply_list':
     break;
 
 case 'forward':
-    if (!($imp_contents = _getIMPContents($uid, $thismailbox))) {
+    if (!($imp_contents = $imp_ui->getIMPContents($uid, $thismailbox))) {
         break;
     }
 
@@ -338,7 +323,7 @@ case 'redirect_compose':
     break;
 
 case 'redirect_send':
-    if (!($imp_contents = _getIMPContents($uid, $thismailbox))) {
+    if (!($imp_contents = $imp_ui->getIMPContents($uid, $thismailbox))) {
         break;
     }
 
