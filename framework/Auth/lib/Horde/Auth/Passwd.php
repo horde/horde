@@ -42,7 +42,8 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
      * @var array
      */
     protected $_capabilities = array(
-        'list' => true
+        'list' => true,
+        'authentication' => true,
     );
 
     /**

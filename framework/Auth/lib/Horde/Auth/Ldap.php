@@ -45,7 +45,8 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
         'add' => true,
         'update' => true,
         'remove' => true,
-        'list' => true
+        'list' => true,
+        'authenticate' => true,
     );
 
     /**

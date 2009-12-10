@@ -51,7 +51,8 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
         'list' => true,
         'remove' => true,
         'resetpassword' => true,
-        'update' => true
+        'update' => true,
+        'authenticate' => true,
     );
 
     /**
