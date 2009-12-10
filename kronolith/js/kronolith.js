@@ -3642,7 +3642,6 @@ KronolithCore = {
     onReverseGeocode: function(r) {
         if (!r.length) {
             $('kronolithEventLocation').value = '';
-            this.onGeocodeError();
             return;
         }
         $('kronolithEventLocation').value = r[0].address;
