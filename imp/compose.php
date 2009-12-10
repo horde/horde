@@ -368,8 +368,11 @@ case 'redirect_send':
     }
     break;
 
+case 'auto_save_draft':
+case 'save_draft':
 case 'send_message':
-    if ($compose_disable) {
+    // Drafts readonly is handled below.
+    if (($actionID == 'send_message') && $compose_disable) {
         break;
     }
 
@@ -381,7 +384,6 @@ case 'send_message':
         $notification->push($e);
         break;
     }
-    $header['replyto'] = $identity->getValue('replyto_addr');
 
     $header['to'] = $imp_ui->getAddressList(Horde_Util::getFormData('to'));
     if ($prefs->getValue('compose_cc')) {
@@ -391,8 +393,57 @@ case 'send_message':
         $header['bcc'] = $imp_ui->getAddressList(Horde_Util::getFormData('bcc'));
     }
 
-    $message = Horde_Util::getFormData('message');
     $header['subject'] = Horde_Util::getFormData('subject', '');
+    $message = Horde_Util::getFormData('message');
+
+    /* Save the draft. */
+    if (($actionID == 'auto_save_draft') || ($actionID == 'save_draft')) {
+        if (!$readonly_drafts) {
+            try {
+                $old_uid = $imp_compose->getMetadata('draft_uid');
+
+                $result = $imp_compose->saveDraft($header, $message, Horde_Nls::getCharset(), $rtemode);
+
+                /* Delete existing draft. */
+                $imp_ui->removeDraft($old_uid);
+
+                /* Closing draft if requested by preferences. */
+                if ($actionID == 'save_draft') {
+                    $imp_compose->destroy();
+
+                    if ($isPopup) {
+                        if ($prefs->getValue('close_draft')) {
+                            Horde_Util::closeWindowJS();
+                            exit;
+                        } else {
+                            $notification->push($result, 'horde.success');
+                        }
+                    } else {
+                        $notification->push($result);
+                        header('Location: ' . _mailboxReturnURL(false));
+                        exit;
+                    }
+                }
+            } catch (IMP_Compose_Exception $e) {
+                if ($actionID == 'save_draft') {
+                    $notification->push($e, 'horde.error');
+                }
+            }
+        }
+
+        if ($actionID == 'auto_save_draft') {
+            $request = new stdClass;
+            $request->requestToken = Horde::getRequestToken('imp.compose');
+            $request->formToken = Horde_Token::generateId('compose');
+            Horde::sendHTTPResponse(Horde::prepareResponse($request), 'json');
+            exit;
+        }
+
+        $get_sig = false;
+        break;
+    }
+
+    $header['replyto'] = $identity->getValue('replyto_addr');
 
     if ($smf = Horde_Util::getFormData('sent_mail_folder')) {
         $sent_mail_folder = $smf;
@@ -410,7 +461,8 @@ case 'send_message':
     try {
         $sent = $imp_compose->buildAndSendMessage($message, $header, $charset, $rtemode, $options);
 
-        if ($prefs->getValue('auto_delete_drafts')) {
+        if ($prefs->getValue('auto_save_drafts') ||
+            $prefs->getValue('auto_delete_drafts')) {
             $imp_ui->removeDraft($imp_compose->getMetadata('draft_uid'));
         }
 
@@ -453,50 +505,6 @@ case 'send_message':
         header('Location: ' . _mailboxReturnURL(false));
     }
     exit;
-
-case 'save_draft':
-    if ($readonly_drafts) {
-        break;
-    }
-
-    /* Set up the From address based on the identity. */
-    try {
-        $header['from'] = $identity->getFromLine(null, Horde_Util::getFormData('from'));
-    } catch (Horde_Exception $e) {
-        $header['from'] = '';
-        $get_sig = false;
-        $notification->push($e);
-        break;
-    }
-    foreach (array('to', 'cc', 'bcc', 'subject') as $val) {
-        $header[$val] = Horde_Util::getFormData($val);
-    }
-    $message = Horde_Util::getFormData('message', '');
-
-    /* Save the draft. */
-    try {
-        $result = $imp_compose->saveDraft($header, $message, Horde_Nls::getCharset(), $rtemode);
-        $imp_compose->destroy();
-
-        /* Closing draft if requested by preferences. */
-        if ($isPopup) {
-            if ($prefs->getValue('close_draft')) {
-                Horde_Util::closeWindowJS();
-                exit;
-            } else {
-                $notification->push($result, 'horde.success');
-            }
-        } else {
-            $notification->push($result);
-            header('Location: ' . _mailboxReturnURL(false));
-            exit;
-        }
-    } catch (IMP_Compose_Exception $e) {
-        $notification->push($e, 'horde.error');
-    }
-
-    $get_sig = false;
-    break;
 
 case 'fwd_digest':
     $indices = Horde_Util::getFormData('fwddigest');
@@ -772,15 +780,16 @@ if (!$rtemode) {
 
 /* Define some variables used in the javascript code. */
 $js_code = array(
+    'ImpCompose.auto_save = ' . intval($prefs->getValue('auto_save_drafts')),
     'ImpCompose.cancel_url = \'' . $cancel_url . '\'',
-    'ImpCompose.spellcheck = ' . intval($spellcheck && $prefs->getValue('compose_spellcheck')),
     'ImpCompose.cursor_pos = ' . (is_null($cursor_pos) ? 'null' : $cursor_pos),
     'ImpCompose.max_attachments = ' . (($max_attach === true) ? 'null' : $max_attach),
     'ImpCompose.popup = ' . intval($isPopup),
     'ImpCompose.redirect = ' . intval($redirect),
+    'ImpCompose.reloaded = ' . intval($token),
     'ImpCompose.rtemode = ' . intval($rtemode),
     'ImpCompose.smf_check = ' . intval($smf_check),
-    'ImpCompose.reloaded = ' . intval($token)
+    'ImpCompose.spellcheck = ' . intval($spellcheck && $prefs->getValue('compose_spellcheck'))
 );
 
 /* Create javascript identities array. */

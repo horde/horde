@@ -7,8 +7,9 @@
 
 var ImpCompose = {
     // Variables defined in compose.php:
-    //   cancel_url, spellcheck, cursor_pos, identities, max_attachments,
-    //   popup, redirect, reloaded, rtemode, smf_check, skip_spellcheck
+    //   cancel_url, spellcheck, cursor_pos, identities, last_msg,
+    //   max_attachments, popup, redirect, reloaded, rtemode, smf_check,
+    //   skip_spellcheck
     display_unload_warning: true,
 
     confirmCancel: function(e)
@@ -149,7 +150,7 @@ var ImpCompose = {
 
     uniqSubmit: function(actionID, e)
     {
-        var form;
+        var cur_msg, form;
 
         if (!Object.isUndefined(e)) {
             e.stop();
@@ -194,6 +195,22 @@ var ImpCompose = {
             $('actionID').setValue(actionID);
             break;
 
+        case 'auto_save_draft':
+            // Move HTML text to textarea field for submission.
+            if (this.rtemode) {
+                CKEDITOR.instances.composeMessage.updateElement();
+            }
+
+            cur_msg = $F('composeMessage').replace(/\r/g, '');
+            if (!cur_msg.empty() && this.last_msg != cur_msg) {
+                // Use an AJAX submit here so that the page doesn't reload.
+                $('actionID').setValue(actionID);
+                $('compose').request({ onComplete: this._autoSaveDraft.bind(this) });
+
+                this.last_msg = cur_msg;
+            }
+            return;
+
         case 'toggle_editor':
             form = $('compose');
             break;
@@ -215,6 +232,15 @@ var ImpCompose = {
     {
         this.skip_spellcheck = true;
         this.uniqSubmit(actionID, e);
+    },
+
+    _autoSaveDraft: function(r, o)
+    {
+        if (r.responseJSON && r.responseJSON.response) {
+            r = r.responseJSON.response;
+            $('compose_formToken').setValue(r.formToken);
+            $('compose_requestToken').setValue(r.requestToken);
+        }
     },
 
     attachmentChanged: function()
@@ -383,6 +409,10 @@ var ImpCompose = {
 
         document.observe('click', this.clickHandler.bindAsEventListener(this));
         document.observe('change', this.changeHandler.bindAsEventListener(this));
+
+        if (this.auto_save) {
+            new PeriodicalExecuter(this.uniqSubmit.bind(this, 'auto_save_draft'), this.auto_save * 60);
+        }
 
         this.resize.bind(this).delay(0.25);
     },

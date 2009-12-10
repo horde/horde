@@ -782,7 +782,6 @@ $_prefs['unseen_drafts'] = array(
     'desc' => _("Save drafts as unseen?"));
 
 // auto-save drafts? value is in minutes, 0 == don't save.
-// Only works w/DIMP
 $_prefs['auto_save_drafts'] = array(
     'value' => 5,
     // Locked by default
