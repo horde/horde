@@ -110,6 +110,8 @@
      <values>
       <value desc="None" default="true">false</value>
       <value desc="Google">Google</value>
+      <value desc="Virtual Earth/Bing">Ve</value>
+      <value desc="Yahoo">Yahoo</value>
      </values> 
     </configenum>
     
@@ -127,9 +129,11 @@
     <configenum default="false" name="geocoder" desc="Which Geocoder service
     should we use?">
      <values>
-      <value desc="None" default="true">false</value>
+      <value desc="None">false</value>
+      <value desc="SAPO" default="true">SAPO</value>
       <value desc="Google">Google</value>
-      <value desc="SAPO">SAPO</value>
+      <value desc="Virtual Earth/Bing">Ve</value>
+      <value desc="Yahoo">Yahoo</value>
      </values> 
     </configenum>
 
