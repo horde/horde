@@ -283,7 +283,6 @@ case 'draft':
             $identity->setDefault($result['identity']);
             $sent_mail_folder = $identity->getValue('sent_mail_folder');
         }
-        $resume_draft = true;
     } catch (IMP_Compose_Exception $e) {
         $notification->push($e, 'horde.error');
     }
@@ -409,6 +408,11 @@ case 'send_message':
 
     try {
         $sent = $imp_compose->buildAndSendMessage($message, $header, $charset, $rtemode, $options);
+
+        if ($prefs->getValue('auto_delete_drafts')) {
+            $imp_ui->removeDraft($imp_compose->getMetadata('draft_uid'));
+        }
+
         $imp_compose->destroy();
     } catch (IMP_Compose_Exception $e) {
         $get_sig = false;
@@ -430,16 +434,6 @@ case 'send_message':
             break;
         }
         break;
-    }
-
-    if (Horde_Util::getFormData('resume_draft') &&
-        $prefs->getValue('auto_delete_drafts') &&
-        ($thismailbox == IMP::folderPref($prefs->getValue('drafts_folder'), true))) {
-        $imp_message = IMP_Message::singleton();
-        $idx_array = array($uid . IMP::IDX_SEP . $thismailbox);
-        if ($imp_message->delete($idx_array)) {
-            $notification->push(_("The draft message was automatically deleted because it was successfully completed and sent."), 'horde.success');
-        }
     }
 
     if ($isPopup) {
@@ -854,9 +848,6 @@ if ($redirect) {
     }
     foreach (array('page', 'start', 'popup') as $val) {
         $hidden[$val] = htmlspecialchars(Horde_Util::getFormData($val));
-    }
-    if (!empty($resume_draft)) {
-        $hidden['resume_draft'] = 1;
     }
 
     if ($browser->hasQuirk('broken_multipart_form')) {

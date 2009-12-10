@@ -56,7 +56,6 @@ $save_sent_mail = $prefs->getValue('save_sent_mail');
 $sent_mail_folder = $identity->getValue('sent_mail_folder');
 $thismailbox = Horde_Util::getFormData('thismailbox');
 $uid = Horde_Util::getFormData('uid');
-$resume_draft = false;
 
 /* Determine if mailboxes are readonly. */
 $draft = IMP::folderPref($prefs->getValue('drafts_folder'), true);
@@ -107,7 +106,6 @@ case 'd':
             $identity->setDefault($result['identity']);
             $sent_mail_folder = $identity->getValue('sent_mail_folder');
         }
-        $resume_draft = true;
     } catch (IMP_Compose_Exception $e) {
         $notification->push($e, 'horde.error');
     }
@@ -269,14 +267,12 @@ case _("Send"):
 
         try {
             if ($imp_compose->buildAndSendMessage($message, $header, Horde_Nls::getEmailCharset(), false, $options)) {
-                $imp_compose->destroy();
 
-                if (Horde_Util::getFormData('resume_draft') &&
-                    $prefs->getValue('auto_delete_drafts')) {
-                    $imp_message = IMP_Message::singleton();
-                    $idx_array = array($uid . IMP::IDX_SEP . $thismailbox);
-                    $delete_draft = $imp_message->delete($idx_array, array('nuke' => true));
+                if ($prefs->getValue('auto_delete_drafts')) {
+                    $imp_ui->removeDraft($imp_compose->getMetadata('draft_uid'));
                 }
+
+                $imp_compose->destroy();
 
                 $notification->push(_("Message sent successfully."), 'horde.success');
                 require IMP_BASE . '/mailbox-mimp.php';

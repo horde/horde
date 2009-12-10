@@ -10,7 +10,6 @@ $f = $c->add(new Horde_Mobile_form('compose-mimp.php'));
 
 // Hidden Variables.
 $f->add(new Horde_Mobile_hidden('composeCache', $cacheID));
-$f->add(new Horde_Mobile_hidden('resume_draft', Horde_Util::getFormData('resume_draft', $resume_draft)));
 
 if (!$prefs->isLocked('default_identity')) {
     $ib = $f->add(new Horde_Mobile_block(new Horde_Mobile_text(_("Identity: "))));

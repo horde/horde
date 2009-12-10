@@ -17,14 +17,6 @@
  * @package IMP
  */
 
-function _removeAutoSaveDraft($uid)
-{
-    if (!empty($uid)) {
-        $imp_message = IMP_Message::singleton();
-        $imp_message->delete(array($uid . IMP::IDX_SEP . IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true)), array('nuke' => true));
-    }
-}
-
 require_once dirname(__FILE__) . '/lib/Application.php';
 new IMP_Application(array('init' => true, 'tz' => true));
 
@@ -99,7 +91,7 @@ if (count($_POST)) {
             $result->success = 1;
 
             /* Delete existing draft. */
-            _removeAutoSaveDraft($old_uid);
+            $imp_ui->removeDraft($old_uid);
 
             if ($action == 'auto_save_draft') {
                 $notification->push(_("Draft automatically saved."), 'horde.message');
@@ -171,7 +163,7 @@ if (count($_POST)) {
         /* Remove any auto-saved drafts. */
         if ($prefs->getValue('auto_save_drafts') ||
             $prefs->getValue('auto_delete_drafts')) {
-            _removeAutoSaveDraft($imp_compose->getMetadata('draft_uid'));
+            $imp_ui->removeDraft($imp_compose->getMetadata('draft_uid'));
             $result->draft_delete = 1;
         }
 
