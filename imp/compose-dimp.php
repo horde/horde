@@ -74,6 +74,7 @@ if (count($_POST)) {
     switch ($action) {
     case 'auto_save_draft':
     case 'save_draft':
+    case 'send_message':
         /* Set up the From address based on the identity. */
         try {
             $from = $identity->getFromLine(null, Horde_Util::getFormData('from'));
@@ -82,41 +83,6 @@ if (count($_POST)) {
             break;
         }
         $header['from'] = $from;
-
-        /* Save the draft. */
-        try {
-            $old_uid = $imp_compose->getMetadata('draft_uid');
-
-            $res = $imp_compose->saveDraft($header, Horde_Util::getFormData('message', ''), Horde_Nls::getCharset(), Horde_Util::getFormData('html'));
-            $result->success = 1;
-
-            /* Delete existing draft. */
-            $imp_ui->removeDraft($old_uid);
-
-            if ($action == 'auto_save_draft') {
-                $notification->push(_("Draft automatically saved."), 'horde.message');
-            } else {
-                $notification->push($res);
-            }
-        } catch (IMP_Compose_Exception $e) {
-            $notification->push($e, 'horde.error');
-        }
-        break;
-
-    case 'send_message':
-        if ($compose_disable) {
-            break;
-        }
-
-        try {
-            $from = $identity->getFromLine(null, Horde_Util::getFormData('from'));
-        } catch (Horde_Exception $e) {
-            $notification->push($e);
-            break;
-        }
-        $header['from'] = $from;
-        $header['replyto'] = $identity->getValue('replyto_addr');
-
         $header['to'] = $imp_ui->getAddressList(Horde_Util::getFormData('to'));
         if ($prefs->getValue('compose_cc')) {
             $header['cc'] = $imp_ui->getAddressList(Horde_Util::getFormData('cc'));
@@ -124,6 +90,35 @@ if (count($_POST)) {
         if ($prefs->getValue('compose_bcc')) {
             $header['bcc'] = $imp_ui->getAddressList(Horde_Util::getFormData('bcc'));
         }
+
+        /* Save the draft. */
+        if (($action == 'auto_save_draft') ||
+            ($action == 'save_draft')) {
+            try {
+                $old_uid = $imp_compose->getMetadata('draft_uid');
+
+                $res = $imp_compose->saveDraft($header, Horde_Util::getFormData('message', ''), Horde_Nls::getCharset(), Horde_Util::getFormData('html'));
+                $result->success = 1;
+
+                /* Delete existing draft. */
+                $imp_ui->removeDraft($old_uid);
+
+                if ($action == 'auto_save_draft') {
+                    $notification->push(_("Draft automatically saved."), 'horde.message');
+                } else {
+                    $notification->push($res);
+                }
+            } catch (IMP_Compose_Exception $e) {
+                $notification->push($e, 'horde.error');
+            }
+            break;
+        }
+
+        if ($compose_disable) {
+            break;
+        }
+
+        $header['replyto'] = $identity->getValue('replyto_addr');
 
         $message = Horde_Util::getFormData('message');
         $html = Horde_Util::getFormData('html');
@@ -184,6 +179,7 @@ if (count($_POST)) {
         if (!empty($res)) {
             $result->folder = $res['a'][0];
         }
+        break;
     }
 
     Horde::sendHTTPResponse(Horde::prepareResponse($result, $GLOBALS['imp_notify']), 'json');
