@@ -51,6 +51,7 @@ class Ansel_View_EmbeddedRenderer_GalleryLink extends Ansel_View_Gallery
             'thumb' :
             $this->_params['thumbsize'];
 
+        $images = array();
         foreach ($galleries as $identifier) {
             try {
                 if ($haveSlugs) {
