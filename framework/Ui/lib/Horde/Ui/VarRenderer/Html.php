@@ -487,14 +487,14 @@ class Horde_Ui_VarRenderer_Html extends Horde_Ui_VarRenderer
                              $varname,
                              $this->_getActionScripts($form, $var),
                              $this->selectOptions($dates[$part], $date[$part]));
-            $js_code .= '$(\'' . $varname . '\').setValue(data.' . ($part == 'month' ? 'm + 1' : ($part == 'day' ? 'd' : 'y')) . ');';
+            $js_code .= '$(\'' . $varname . '\').setValue(data.' . ($part == 'month' ? 'getMonth() + 1' : ($part == 'day' ? 'getDate()' : 'getYear()')) . ');';
         }
 
         if ($var->type->getProperty('picker') &&
             $GLOBALS['browser']->hasFeature('javascript')) {
             Horde_Ui_JsCalendar::init();
             $imgId = $this->_genID($var->getVarName(), false) . 'goto';
-            $html .= Horde::link('#', _("Select a date"), '', '', 'Horde_Calendar.open(\'' . $imgId . '\', {}, function(data) { ' . $js_code . ' })') . Horde::img('calendar.png', _("Calendar"), 'id="' . $imgId . '"', $GLOBALS['registry']->getImageDir('horde')) . "</a>\n";
+            $html .= Horde::link('#', _("Select a date"), '', '', 'Horde_Calendar.open(\'' . $imgId . '\', null, function(data) { ' . $js_code . ' })') . Horde::img('calendar.png', _("Calendar"), 'id="' . $imgId . '"', $GLOBALS['registry']->getImageDir('horde')) . "</a>\n";
         }
 
         return $html;
