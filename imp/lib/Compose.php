@@ -155,7 +155,7 @@ class IMP_Compose
          * auto_delete_drafts was true, and we successfully sent the
          * message. */
         if ((($GLOBALS['prefs']->getValue('auto_save_drafts') &&
-              !$this->_getMetadata('resume')) ||
+              !$this->getMetadata('resume')) ||
              ($success && $GLOBALS['prefs']->getValue('auto_delete_drafts'))) &&
             ($uid = $this->getMetadata('draft_uid'))) {
             $imp_message = IMP_Message::singleton();
