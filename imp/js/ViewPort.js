@@ -1596,7 +1596,9 @@ ViewPort_Selection = Class.create({
     // params = (Object) Key is search key, value is object -> key of object
     // must be the following:
     //   equal - Matches any value contained in the query array.
-    //   not - Matches any value not contained in the query array.
+    //   include - Matches if this value is contained within the array.
+    //   notequal - Matches any value not contained in the query array.
+    //   notinclude - Matches if this value is not contained within the array.
     //   regex - Matches the RegExp contained in the query.
     search: function(params)
     {
@@ -1608,9 +1610,14 @@ ViewPort_Selection = Class.create({
                     // s.key = search type; s.value = search query
                     switch (s.key) {
                     case 'equal':
-                    case 'not':
+                    case 'notequal':
                         var r = i[k.key] && s.value.include(i[k.key]);
                         return (s.key == 'equal') ? r : !r;
+
+                    case 'include':
+                    case 'notinclude':
+                        var r = i[k.key] && Object.isArray(i[k.key]) && i[k.key].include(s.value);
+                        return (s.key == 'include') ? r : !r;
 
                     case 'regex':
                         return i[k.key].match(s.value);

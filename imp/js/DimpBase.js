@@ -2499,7 +2499,7 @@ var DimpBase = {
         // Make sure that any given row is not deleted more than once. Need to
         // explicitly mark here because message may already be flagged deleted
         // when we load page (i.e. switching to using trash folder).
-        vs = vs.search({ isdel: { not: [ true ] } });
+        vs = vs.search({ isdel: { notequal: [ true ] } });
         if (!vs.size()) {
             return;
         }
