@@ -226,17 +226,4 @@ class IMP_Ui_Compose
         ));
     }
 
-    /**
-     * Remove draft message.
-     *
-     * @param integer $uid  The draft message UID.
-     */
-    public function removeDraft($uid)
-    {
-        if (!empty($uid)) {
-            $imp_message = IMP_Message::singleton();
-            $imp_message->delete(array($uid . IMP::IDX_SEP . IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true)), array('nuke' => true));
-        }
-    }
-
 }

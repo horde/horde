@@ -267,11 +267,6 @@ case _("Send"):
 
         try {
             if ($imp_compose->buildAndSendMessage($message, $header, Horde_Nls::getEmailCharset(), false, $options)) {
-
-                if ($prefs->getValue('auto_delete_drafts')) {
-                    $imp_ui->removeDraft($imp_compose->getMetadata('draft_uid'));
-                }
-
                 $imp_compose->destroy();
 
                 $notification->push(_("Message sent successfully."), 'horde.success');
@@ -286,7 +281,7 @@ case _("Send"):
     break;
 
 case _("Cancel"):
-    $imp_compose->destroy();
+    $imp_compose->destroy(false);
     require IMP_BASE . '/mailbox-mimp.php';
     exit;
 }

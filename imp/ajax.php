@@ -658,7 +658,7 @@ case 'GetReplyData':
 case 'CancelCompose':
 case 'DeleteDraft':
     $imp_compose = IMP_Compose::singleton(Horde_Util::getPost('imp_compose'));
-    $imp_compose->destroy();
+    $imp_compose->destroy(false);
     $draft_uid = $imp_compose->getMetadata('draft_uid');
     if ($draft_uid && ($action == 'DeleteDraft')) {
         $imp_message = IMP_Message::singleton();

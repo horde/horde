@@ -400,12 +400,7 @@ case 'send_message':
     if (($actionID == 'auto_save_draft') || ($actionID == 'save_draft')) {
         if (!$readonly_drafts) {
             try {
-                $old_uid = $imp_compose->getMetadata('draft_uid');
-
                 $result = $imp_compose->saveDraft($header, $message, Horde_Nls::getCharset(), $rtemode);
-
-                /* Delete existing draft. */
-                $imp_ui->removeDraft($old_uid);
 
                 /* Closing draft if requested by preferences. */
                 if ($actionID == 'save_draft') {
@@ -460,12 +455,6 @@ case 'send_message':
 
     try {
         $sent = $imp_compose->buildAndSendMessage($message, $header, $charset, $rtemode, $options);
-
-        if ($prefs->getValue('auto_save_drafts') ||
-            $prefs->getValue('auto_delete_drafts')) {
-            $imp_ui->removeDraft($imp_compose->getMetadata('draft_uid'));
-        }
-
         $imp_compose->destroy();
     } catch (IMP_Compose_Exception $e) {
         $get_sig = false;
@@ -518,7 +507,7 @@ case 'fwd_digest':
     break;
 
 case 'cancel_compose':
-    $imp_compose->destroy();
+    $imp_compose->destroy(false);
     if ($isPopup) {
         Horde_Util::closeWindowJS();
     } else {

@@ -95,13 +95,8 @@ if (count($_POST)) {
         if (($action == 'auto_save_draft') ||
             ($action == 'save_draft')) {
             try {
-                $old_uid = $imp_compose->getMetadata('draft_uid');
-
                 $res = $imp_compose->saveDraft($header, Horde_Util::getFormData('message', ''), Horde_Nls::getCharset(), Horde_Util::getFormData('html'));
                 $result->success = 1;
-
-                /* Delete existing draft. */
-                $imp_ui->removeDraft($old_uid);
 
                 $imp_compose->destroy();
 
@@ -160,7 +155,6 @@ if (count($_POST)) {
         /* Remove any auto-saved drafts. */
         if ($prefs->getValue('auto_save_drafts') ||
             $prefs->getValue('auto_delete_drafts')) {
-            $imp_ui->removeDraft($imp_compose->getMetadata('draft_uid'));
             $result->draft_delete = 1;
         }
 

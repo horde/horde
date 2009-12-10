@@ -145,9 +145,23 @@ class IMP_Compose
 
     /**
      * Destroys an IMP_Compose instance.
+     *
+     * @param boolean $success  Was the message sent successfully?
      */
-    public function destroy()
+    public function destroy($success = true)
     {
+        /* Delete draft if we were auto saving and this wasn't a resume
+         * draft request, -or- if this was a resume draft request,
+         * auto_delete_drafts was true, and we successfully sent the
+         * message. */
+        if ((($GLOBALS['prefs']->getValue('auto_save_drafts') &&
+              !$this->_getMetadata('resume')) ||
+             ($success && $GLOBALS['prefs']->getValue('auto_delete_drafts'))) &&
+            ($uid = $this->getMetadata('draft_uid'))) {
+            $imp_message = IMP_Message::singleton();
+            $imp_message->delete(array($uid . IMP::IDX_SEP . IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true)), array('nuke' => true));
+        }
+
         $this->deleteAllAttachments();
         $obs = Horde_SessionObjects::singleton();
         $obs->prune($this->_cacheid);
@@ -400,6 +414,7 @@ class IMP_Compose
         }
 
         list($this->_metadata['draft_uid'],) = explode(IMP::IDX_SEP, $uid);
+        $this->_metadata['resume'] = 1;
         $this->_modified = true;
 
         return array(
