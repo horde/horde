@@ -66,14 +66,6 @@ class Ansel_View_EmbeddedRenderer_GalleryLink extends Ansel_View_Gallery
                 return '';
             }
 
-            /*If a gallery_style is not specified, default to the gallery's
-             * defined style. Note that this only matters if the $thumbsize
-             * parameter is set to 'prettythumb' anyway.
-             */
-            $gallery_style = empty($this->_params['style']) ?
-                $gallery->get('style') :
-                $this->_params['style'];
-
             /* Ideally, since gallery default images are unique in that each style
              * needs it's own unique image_id, the thumbsize and style parameters
              * are mutually exclusive - specifying a specific gallery style is only
@@ -83,6 +75,10 @@ class Ansel_View_EmbeddedRenderer_GalleryLink extends Ansel_View_Gallery
             if ($thumbsize == 'thumb') {
                 $images[] = $gallery->getDefaultImage('ansel_default');
             } else {
+                // Default to gallery's defined style if not provided.
+                $gallery_style = empty($this->_params['style']) ?
+                $gallery->get('style') :
+                $this->_params['style'];
                 $images[] = $gallery->getDefaultImage($gallery_style);
             }
         }
