@@ -193,7 +193,6 @@ abstract class Ansel_View_Base
         }
 
         $style = $this->gallery->getStyle();
-
         foreach ($images as $image) {
             // Calculate the page this image will appear on in the
             // gallery view.
