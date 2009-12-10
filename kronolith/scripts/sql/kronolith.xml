@@ -50,6 +50,11 @@
    </field>
 
    <field>
+    <name>event_url</name>
+    <type>clob</type>
+   </field>
+
+   <field>
     <name>event_status</name>
     <type>integer</type>
     <default>0</default>

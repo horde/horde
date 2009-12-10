@@ -118,31 +118,15 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         $cond = '((';
         $values = array();
 
-        if (!empty($query->title)) {
-            $binds = Horde_SQL::buildClause($this->_db, 'event_title', 'LIKE', $this->convertToDriver($query->title), true);
-            if (is_array($binds)) {
-                $cond .= $binds[0] . ' AND ';
-                $values = array_merge($values, $binds[1]);
-            } else {
-                $cond .= $binds;
-            }
-        }
-        if (!empty($query->location)) {
-            $binds = Horde_SQL::buildClause($this->_db, 'event_location', 'LIKE', $this->convertToDriver($query->location), true);
-            if (is_array($binds)) {
-                $cond .= $binds[0] . ' AND ';
-                $values = array_merge($values, $binds[1]);
-            } else {
-                $cond .= $binds;
-            }
-        }
-        if (!empty($query->description)) {
-            $binds = Horde_SQL::buildClause($this->_db, 'event_description', 'LIKE', $this->convertToDriver($query->description), true);
-            if (is_array($binds)) {
-                $cond .= $binds[0] . ' AND ';
-                $values = array_merge($values, $binds[1]);
-            } else {
-                $cond .= $binds;
+        foreach (array('title', 'location', 'url', 'description') as $field) {
+            if (!empty($query->$field)) {
+                $binds = Horde_SQL::buildClause($this->_db, 'event_' . $field, 'LIKE', $this->convertToDriver($query->$field), true);
+                if (is_array($binds)) {
+                    $cond .= $binds[0] . ' AND ';
+                    $values = array_merge($values, $binds[1]);
+                } else {
+                    $cond .= $binds;
+                }
             }
         }
         if (isset($query->status)) {
@@ -154,7 +138,6 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                 $cond .= $binds;
             }
         }
-
         if (!empty($query->creatorID)) {
             $binds = Horde_SQL::buildClause($this->_db, 'event_creator_id', '=', $query->creatorID, true);
             if (is_array($binds)) {
@@ -313,7 +296,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
     {
         $q = 'SELECT event_id, event_uid, event_description, event_location,' .
             ' event_private, event_status, event_attendees,' .
-            ' event_title, event_recurcount,' .
+            ' event_title, event_recurcount, event_url,' .
             ' event_recurtype, event_recurenddate, event_recurinterval,' .
             ' event_recurdays, event_start, event_end, event_allday,' .
             ' event_alarm, event_alarm_methods, event_modified,' .
@@ -426,7 +409,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         $query = 'SELECT event_id, event_uid, event_description,' .
             ' event_location, event_private, event_status, event_attendees,' .
-            ' event_title, event_recurcount,' .
+            ' event_title, event_recurcount, event_url,' .
             ' event_recurtype, event_recurenddate, event_recurinterval,' .
             ' event_recurdays, event_start, event_end, event_allday,' .
             ' event_alarm, event_alarm_methods, event_modified,' .
@@ -467,7 +450,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
     {
         $query = 'SELECT event_id, event_uid, calendar_id, event_description,' .
             ' event_location, event_private, event_status, event_attendees,' .
-            ' event_title, event_recurcount,' .
+            ' event_title, event_recurcount, event_url,' .
             ' event_recurtype, event_recurenddate, event_recurinterval,' .
             ' event_recurdays, event_start, event_end, event_allday,' .
             ' event_alarm, event_alarm_methods, event_modified,' .

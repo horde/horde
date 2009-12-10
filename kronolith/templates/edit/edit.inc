@@ -232,6 +232,20 @@ if ($event->alarm) {
  </td>
 </tr>
 
+<!-- url -->
+<tr>
+ <td colspan="5" class="control toggle" onclick="KronolithEventForm.toggleSection('url')">
+  <?php echo Horde::img('tree/blank.png', '', array('id' => 'toggle_url'), $GLOBALS['registry']->getImageDir('horde')) . ' <strong>' . Horde::label('url', _("URL")) ?></strong>
+  <span class="extra" id="extra_url"><?php echo htmlspecialchars($event->url) ?></span>
+</td>
+</tr>
+<tr id="section_url">
+ <td class="rightAlign"><strong><?php echo Horde::label('url', _("URL")) ?></strong></td>
+ <td colspan="4">
+  <input type="text" name="eventurl" id="url" value="<?php echo htmlspecialchars($event->url) ?>" size="40" maxlength="2048" />
+ </td>
+</tr>
+
 <!-- attendees/resources -->
 <tr>
  <td colspan="5" class="control toggle" onclick="KronolithEventForm.toggleSection('attendees')">

@@ -8,6 +8,14 @@
 </tr>
 <?php endif; ?>
 
+<?php if (!$private && strlen($eventurl)): ?>
+<!-- url -->
+<tr>
+ <td class="rightAlign"><strong><?php echo _("URL") ?>&nbsp;&nbsp;</strong></td>
+ <td><?php echo Horde_Text_Filter::filter($eventurl, 'linkurls') ?></td>
+</tr>
+<?php endif; ?>
+
 <!-- status -->
 <tr>
  <td width="10%" class="rightAlign"><strong><?php echo _("Status") ?>&nbsp;&nbsp;</strong></td>
@@ -135,6 +143,7 @@ if ($this->event->isInitialized() && $this->event->alarm > 0):
      <td colspan="2"><?php echo $tags?></td>
     </tr>
 <?php endif;?>
+
 <?php if (!$private && !empty($description)): ?>
 <!-- description -->
 <tr>
@@ -149,7 +158,7 @@ if ($this->event->isInitialized() && $this->event->alarm > 0):
 
 <?php if (!empty($attendees)): ?>
 <table cellspacing="0">
-<!-- attendees -->
+ <!-- attendees -->
  <tr>
   <td colspan="3" class="control"><strong><?php echo _("Attendees") ?></strong></td>
  </tr>
@@ -165,7 +174,7 @@ if ($this->event->isInitialized() && $this->event->alarm > 0):
   <td><?php echo Kronolith::responseToString($status['response']) ?></td>
  </tr>
  <?php endforeach; ?>
- <!-- Resources -->
+ <!-- resources -->
  <tr>
   <td colspan="3" class="control"><strong><?php echo _("Resources") ?></strong></td>
  </tr>

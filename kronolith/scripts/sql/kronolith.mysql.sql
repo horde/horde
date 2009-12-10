@@ -5,6 +5,7 @@ CREATE TABLE kronolith_events (
     event_creator_id VARCHAR(255) NOT NULL,
     event_description TEXT,
     event_location TEXT,
+    event_url TEXT,
     event_status INT DEFAULT 0,
     event_attendees TEXT,
     event_resources TEXT,

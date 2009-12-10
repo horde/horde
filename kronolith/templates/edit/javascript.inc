@@ -278,6 +278,7 @@ KronolithEventForm.toggleSection = function(section)
 Event.observe(window, 'load', function() {
     KronolithEventForm.toggleSection('alarm');
     KronolithEventForm.toggleSection('description');
+    KronolithEventForm.toggleSection('url');
     KronolithEventForm.toggleSection('attendees');
     KronolithEventForm.toggleSection('recurrence');
     KronolithEventForm.toggleSection('tags');

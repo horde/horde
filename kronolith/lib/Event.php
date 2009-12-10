@@ -487,6 +487,11 @@ abstract class Kronolith_Event
             if (!empty($this->location)) {
                 $vEvent->setAttribute('LOCATION', $v1 ? $this->location : Horde_String::convertCharset($this->location, Horde_Nls::getCharset(), 'utf-8'));
             }
+
+            // URL
+            if (!empty($this->url)) {
+                $vEvent->setAttribute('URL', $this->url);
+            }
         }
         $vEvent->setAttribute('CLASS', $this->isPrivate() ? 'PRIVATE' : 'PUBLIC');
 
@@ -1106,6 +1111,7 @@ abstract class Kronolith_Event
      * - id: event id
      * - ty: calendar type (driver)
      * - l: location
+     * - u: url
      * - sd: formatted start date
      * - st: formatted start time
      * - ed: formatted end date
@@ -1162,6 +1168,7 @@ abstract class Kronolith_Event
             $json->ty = $this->_calendarType;
             $json->d = $this->getDescription();
             $json->l = $this->getLocation();
+            $json->u = $this->url;
             $json->sd = $this->start->strftime('%x');
             $json->st = $this->start->format($time_format);
             $json->ed = $this->end->strftime('%x');
@@ -1747,6 +1754,53 @@ abstract class Kronolith_Event
         $this->setDescription(Horde_Util::getFormData('description', $this->description));
         $this->setLocation(Horde_Util::getFormData('location', $this->location));
         $this->setPrivate(Horde_Util::getFormData('private'));
+
+        // URL.
+        $url = Horde_Util::getFormData('eventurl', $this->url);
+        if (strlen($url)) {
+            // Analyze and re-construct.
+            $url = @parse_url($url);
+            if ($url) {
+                if (function_exists('http_build_url')) {
+                    $url = http_build_url($url);
+                } else {
+                    $new_url = '';
+                    if (isset($url['scheme'])) {
+                        $new_url .= $url['scheme'] . '://';
+                    }
+                    if (isset($url['user'])) {
+                        $new_url .= $url['user'];
+                        if (isset($url['pass'])) {
+                            $new_url .= ':' . $url['pass'];
+                        }
+                        $new_url .= '@';
+                    }
+                    if (isset($url['host'])) {
+                        // Convert IDN hosts to ASCII.
+                        if (Horde_Util::extensionExists('idn')) {
+                            $old_error = error_reporting(0);
+                            $url['host'] = idn_to_ascii(Horde_String::convertCharset($url['host'], Horde_Nls::getCharset(), 'UTF-8'));
+                            error_reporting($old_error);
+                        } elseif (Horde_Mime::is8bit($url['host'])) {
+                            //throw new Kronolith_Exception(_("Invalid character in URL."));
+                            $url['host'] = '';
+                        }
+                        $new_url .= $url['host'];
+                    }
+                    if (isset($url['path'])) {
+                        $new_url .= $url['path'];
+                    }
+                    if (isset($url['query'])) {
+                        $new_url .= '?' . $url['query'];
+                    }
+                    if (isset($url['fragment'])) {
+                        $new_url .= '#' . $url['fragment'];
+                    }
+                    $url = $new_url;
+                }
+            }
+        }
+        $this->url = $url;
 
         // Status.
         $this->setStatus(Horde_Util::getFormData('status', $this->status));

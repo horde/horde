@@ -3221,6 +3221,7 @@ KronolithCore = {
         $('kronolithEventTarget').setValue(ev.ty + '|' + ev.c);
         $('kronolithEventTitle').setValue(ev.t);
         $('kronolithEventLocation').setValue(ev.l);
+        $('kronolithEventUrl').setValue(ev.u);
         $('kronolithEventAllday').setValue(ev.al);
         this.toggleAllDay(ev.al);
         $('kronolithEventStartDate').setValue(ev.sd);

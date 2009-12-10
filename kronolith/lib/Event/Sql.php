@@ -107,6 +107,9 @@ class Kronolith_Event_Sql extends Kronolith_Event
         if (isset($SQLEvent['event_location'])) {
             $this->location = $driver->convertFromDriver($SQLEvent['event_location']);
         }
+        if (isset($SQLEvent['event_url'])) {
+            $this->url = $SQLEvent['event_url'];
+        }
         if (isset($SQLEvent['event_private'])) {
             $this->private = (bool)($SQLEvent['event_private']);
         }
@@ -141,6 +144,7 @@ class Kronolith_Event_Sql extends Kronolith_Event
         $this->_properties['event_title'] = $driver->convertToDriver($this->title);
         $this->_properties['event_description'] = $driver->convertToDriver($this->getDescription());
         $this->_properties['event_location'] = $driver->convertToDriver($this->getLocation());
+        $this->_properties['event_url'] = $this->url;
         $this->_properties['event_private'] = (int)$this->isPrivate();
         $this->_properties['event_status'] = $this->getStatus();
         $this->_properties['event_attendees'] = serialize($driver->convertToDriver($this->getAttendees()));

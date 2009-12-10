@@ -75,6 +75,7 @@ class Kronolith_View_Event {
         $creatorId = $this->event->getCreatorId();
         $description = $this->event->getDescription();
         $location = $this->event->getLocation();
+        $eventurl = $this->event->url;
         $private = $this->event->isPrivate() && $creatorId != Horde_Auth::getAuth();
         $owner = Kronolith::getUserName($creatorId);
         $status = Kronolith::statusToString($this->event->getStatus());

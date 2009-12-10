@@ -145,7 +145,7 @@
 </div>
 
 <div id="kronolithEventTabUrl" class="kronolithTabsOption" style="display:none">
-  <input type="text" name="url" id="kronolithEventUrl" class="kronolithLongField" value="http://" />
+  <input type="text" name="eventurl" id="kronolithEventUrl" class="kronolithLongField" value="http://" />
 </div>
 
 <div id="kronolithEventTabAttendees" class="kronolithTabsOption" style="display:none">
