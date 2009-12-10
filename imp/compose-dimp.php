@@ -103,6 +103,8 @@ if (count($_POST)) {
                 /* Delete existing draft. */
                 $imp_ui->removeDraft($old_uid);
 
+                $imp_compose->destroy();
+
                 if ($action == 'auto_save_draft') {
                     $notification->push(_("Draft automatically saved."), 'horde.message');
                 } else {
@@ -174,6 +176,8 @@ if (count($_POST)) {
                 $result->log = $tmp;
             }
         }
+
+        $imp_compose->destroy();
 
         $res = IMP_Dimp::getFolderResponse($imptree);
         if (!empty($res)) {

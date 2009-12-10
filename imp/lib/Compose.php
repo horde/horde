@@ -148,6 +148,7 @@ class IMP_Compose
      */
     public function destroy()
     {
+        $this->deleteAllAttachments();
         $obs = Horde_SessionObjects::singleton();
         $obs->prune($this->_cacheid);
     }

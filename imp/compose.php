@@ -393,6 +393,7 @@ case 'send_message':
 
     $message = Horde_Util::getFormData('message');
     $header['subject'] = Horde_Util::getFormData('subject', '');
+
     if ($smf = Horde_Util::getFormData('sent_mail_folder')) {
         $sent_mail_folder = $smf;
     }
@@ -509,7 +510,6 @@ case 'fwd_digest':
     break;
 
 case 'cancel_compose':
-    $imp_compose->deleteAllAttachments();
     $imp_compose->destroy();
     if ($isPopup) {
         Horde_Util::closeWindowJS();

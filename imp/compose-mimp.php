@@ -286,7 +286,6 @@ case _("Send"):
     break;
 
 case _("Cancel"):
-    $imp_compose->deleteAllAttachments();
     $imp_compose->destroy();
     require IMP_BASE . '/mailbox-mimp.php';
     exit;
