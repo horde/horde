@@ -69,9 +69,9 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
 
         // Add extra information to the JSON data to be sent:
         foreach ($geodata as $id => $data) {
-            $geodata[$id]['icon'] = Ansel::getImageUrl($geodata[$id]['image_id'], 'mini', true);
+            $geodata[$id]['icon'] = (string)Ansel::getImageUrl($geodata[$id]['image_id'], 'mini', true);
             $geodata[$id]['markerOnly'] = ($viewType == 'Image');
-            $geodata[$id]['link'] = Ansel::getUrlFor('view', array('view' => 'Image',
+            $geodata[$id]['link'] = (string)Ansel::getUrlFor('view', array('view' => 'Image',
                                                                    'gallery' => $this->_view->gallery->id,
                                                                    'image' => $geodata[$id]['image_id']), true);
         }
@@ -82,8 +82,8 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
             $others = $this->_getGalleryImagesWithGeodata();
             foreach ($others as $id => $data) {
                 if ($id != $image_id) {
-                    $others[$id]['icon'] = Ansel::getImageUrl($others[$id]['image_id'], 'mini', true);
-                    $others[$id]['link'] = Ansel::getUrlFor('view', array('view' => 'Image',
+                    $others[$id]['icon'] = (string)Ansel::getImageUrl($others[$id]['image_id'], 'mini', true);
+                    $others[$id]['link'] = (string)Ansel::getUrlFor('view', array('view' => 'Image',
                                                                          'gallery' => $this->_view->gallery->id,
                                                                          'image' => $others[$id]['image_id']), true);
                 } else {

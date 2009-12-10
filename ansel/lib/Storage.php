@@ -866,21 +866,21 @@ class Ansel_Storage
             }
 
             if ($galleries[$gallery_id]['perm']) {
-                $data = array(Ansel::getImageUrl($image->id, $image_view, $full, $style),
+                $data = array((string)Ansel::getImageUrl($image->id, $image_view, $full, $style),
                     htmlspecialchars($image->filename, ENT_COMPAT, Horde_Nls::getCharset()),
                     Horde_Text_Filter::filter($image->caption, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL)),
                     $image->id,
                     0);
 
                 if ($view_links) {
-                    $data[] = Ansel::getUrlFor('view',
+                    $data[] = (string)Ansel::getUrlFor('view',
                         array('gallery' => $image->gallery,
                               'image' => $image->id,
                               'view' => 'Image',
                               'slug' => $galleries[$gallery_id]['gallery']->get('slug')),
                         $full);
 
-                    $data[] = Ansel::getUrlFor('view',
+                    $data[] = (string)Ansel::getUrlFor('view',
                         array('gallery' => $image->gallery,
                               'slug' => $galleries[$gallery_id]['gallery']->get('slug'),
                               'view' => 'Gallery'),

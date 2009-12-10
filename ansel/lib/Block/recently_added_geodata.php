@@ -121,8 +121,8 @@ class Horde_Block_ansel_recently_added_geodata extends Horde_Block {
                       'gallery' => $gallery->id,
                       'image' => $id,
                       'gallery_view' => $style['gallery_view']), true);
-            $images[$key]['icon'] = Ansel::getImageUrl($images[$key]['image_id'], 'mini', true);
-            $images[$key]['link'] = $url;
+            $images[$key]['icon'] = (string)Ansel::getImageUrl($images[$key]['image_id'], 'mini', true);
+            $images[$key]['link'] = (string)$url;
         }
 
         $json = Horde_Serialize::serialize(array_values($images), Horde_Serialize::JSON);

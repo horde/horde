@@ -202,20 +202,20 @@ abstract class Ansel_View_Base
                 $curimage = 0;
             }
 
-            $data = array(Ansel::getImageUrl($image->id, $params['image_view'], $params['full'], $style['name']),
+            $data = array((string)Ansel::getImageUrl($image->id, $params['image_view'], $params['full'], $style['name']),
                           htmlspecialchars($image->filename, ENT_COMPAT, Horde_Nls::getCharset()),
                           Horde_Text_Filter::filter($image->caption, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL)),
                           $image->id,
                           $curpage);
             if ($params['view_links']) {
-                $data[] = Ansel::getUrlFor('view',
+                $data[] = (string)Ansel::getUrlFor('view',
                     array('gallery' => $this->gallery->id,
                           'slug' => $this->gallery->get('slug'),
                           'image' => $image->id,
                           'view' => 'Image',
                           'page' => $curpage),
                     true);
-                $data[] = Ansel::getUrlFor('view',
+                $data[] = (string)Ansel::getUrlFor('view',
                     array('gallery' => $image->gallery,
                           'slug' => $this->gallery->get('slug'),
                           'view' => 'Gallery'),
