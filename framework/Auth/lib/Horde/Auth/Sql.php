@@ -80,7 +80,8 @@ class Horde_Auth_Sql extends Horde_Auth_Base
         'list'          => true,
         'remove'        => true,
         'resetpassword' => true,
-        'update'        => true
+        'update'        => true,
+        'authenticate'  => true,
     );
 
     /**
