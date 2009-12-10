@@ -245,9 +245,11 @@ case _("Send"):
     case _("Save Draft"):
         try {
             $notification->push($imp_compose->saveDraft($header, $message, Horde_Nls::getCharset(), false), 'horde.success');
-            $imp_compose->destroy();
-            require IMP_BASE . '/mailbox-mimp.php';
-            exit;
+            if ($prefs->getValue('close_draft')) {
+                $imp_compose->destroy();
+                require IMP_BASE . '/mailbox-mimp.php';
+                exit;
+            }
         } catch (IMP_Compose_Exception $e) {
             $notification->push($e, 'horde.error');
         }

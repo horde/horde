@@ -98,12 +98,13 @@ if (count($_POST)) {
                 $res = $imp_compose->saveDraft($header, Horde_Util::getFormData('message', ''), Horde_Nls::getCharset(), Horde_Util::getFormData('html'));
                 $result->success = 1;
 
-                $imp_compose->destroy();
-
                 if ($action == 'auto_save_draft') {
                     $notification->push(_("Draft automatically saved."), 'horde.message');
                 } else {
                     $notification->push($res);
+                    if ($prefs->getValue('close_draft')) {
+                        $imp_compose->destroy();
+                    }
                 }
             } catch (IMP_Compose_Exception $e) {
                 $notification->push($e, 'horde.error');

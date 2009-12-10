@@ -404,19 +404,21 @@ case 'send_message':
 
                 /* Closing draft if requested by preferences. */
                 if ($actionID == 'save_draft') {
-                    $imp_compose->destroy();
-
                     if ($isPopup) {
                         if ($prefs->getValue('close_draft')) {
+                            $imp_compose->destroy();
                             Horde_Util::closeWindowJS();
                             exit;
                         } else {
                             $notification->push($result, 'horde.success');
                         }
                     } else {
-                        $notification->push($result);
-                        header('Location: ' . _mailboxReturnURL(false));
-                        exit;
+                        $notification->push($result, 'horde.success');
+                        if ($prefs->getValue('close_draft')) {
+                            $imp_compose->destroy();
+                            header('Location: ' . _mailboxReturnURL(false));
+                            exit;
+                        }
                     }
                 }
             } catch (IMP_Compose_Exception $e) {
