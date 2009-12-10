@@ -119,9 +119,11 @@ class Horde_Crypt_Pgp extends Horde_Crypt
     /**
      * Constructor.
      *
-     * @param array $params  Parameter array containing the path to the GnuPG
-     *                       binary (key = 'program') and to a temporary
-     *                       directory.
+     * @param array $params  The following parameters:
+     * <pre>
+     * 'program' - (string) [REQUIRED] The path to the GnuPG binary.
+     * 'temp' - (string) [OPTIONAL] Path to a temporary directory.
+     * </pre>
      *
      * @throws Horde_Exception
      */
