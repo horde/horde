@@ -17,10 +17,10 @@ class Turba {
     function formatEmailAddresses($data, $name)
     {
         global $registry;
-        static $batchCompose;
+        static $useRegistry;
 
-        if (!isset($batchCompose)) {
-            $batchCompose = $registry->hasMethod('mail/batchCompose');
+        if (!isset($useRegistry)) {
+            $useRegistry = $registry->hasMethod('mail/batchCompose');
         }
 
         $array = is_array($data);
@@ -44,17 +44,15 @@ class Turba {
                 // Get rid of the trailing @ (when no host is included in
                 // the email address).
                 $addresses[$i . ':' . $j] = array('to' => addslashes(str_replace('@>', '>', $address)));
-                if (!$batchCompose) {
-                    $addresses[$i . ':' . $j] = $GLOBALS['registry']->call('mail/compose', $addresses[$i . ':' . $j]);
-                }
             }
         }
 
-        if ($batchCompose) {
+        if ($useRegistry) {
             try {
                 $addresses = $GLOBALS['registry']->call('mail/batchCompose', array($addresses));
             } catch (Horde_Exception $e) {
-                $batchCompose = false;
+                $useRegistry = false;
+                $addresses = array();
             }
         }
 
@@ -62,11 +60,8 @@ class Turba {
             $email_vals = explode(',', $email_vals);
             $email_values = false;
             foreach ($email_vals as $j => $email_val) {
-                if (!is_a($addresses, 'PEAR_Error')) {
+                if (isset($addresses[$i . ':' . $j])) {
                     $mail_link = $addresses[$i . ':' . $j];
-                    if (is_a($mail_link, 'PEAR_Error')) {
-                        $mail_link = 'mailto:' . urlencode($email_val);
-                    }
                 } else {
                     $mail_link = 'mailto:' . urlencode($email_val);
                 }
