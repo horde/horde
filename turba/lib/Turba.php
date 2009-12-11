@@ -20,7 +20,11 @@ class Turba {
         static $batchCompose;
 
         if (!isset($batchCompose)) {
-            $batchCompose = $registry->hasMethod('mail/batchCompose');
+            try {
+                $batchCompose = $registry->hasMethod('mail/batchCompose');
+            } catch (Horde_Exception $e) {
+                $batchCompose = false;
+            }
         }
 
         $array = is_array($data);
