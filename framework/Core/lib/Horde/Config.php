@@ -1063,7 +1063,7 @@ class Horde_Config
     {
         $sql = $this->_configSQL($ctx . '|params');
         $default = $node->get_attribute('default');
-        $default = empty($default) ? 'none' : $default;
+        $default = empty($default) ? 'horde' : $default;
         list($default, $isDefault) = $this->__default($ctx . '|' . $node->get_attribute('switchname'), $default);
 
         $config = array(
