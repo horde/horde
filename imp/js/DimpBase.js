@@ -280,6 +280,7 @@ var DimpBase = {
 
         case 'options':
             this.highlightSidebar('appoptions');
+            location.hash = escape(loc);
             DimpCore.setTitle(DIMP.text.prefs);
             this.iframeContent(loc, DIMP.conf.URI_PREFS_IMP);
             break;
