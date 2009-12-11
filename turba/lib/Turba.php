@@ -20,11 +20,7 @@ class Turba {
         static $batchCompose;
 
         if (!isset($batchCompose)) {
-            try {
-                $batchCompose = $registry->hasMethod('mail/batchCompose');
-            } catch (Horde_Exception $e) {
-                $batchCompose = false;
-            }
+            $batchCompose = $registry->hasMethod('mail/batchCompose');
         }
 
         $array = is_array($data);
@@ -55,7 +51,11 @@ class Turba {
         }
 
         if ($batchCompose) {
-            $addresses = $GLOBALS['registry']->call('mail/batchCompose', array($addresses));
+            try {
+                $addresses = $GLOBALS['registry']->call('mail/batchCompose', array($addresses));
+            } catch (Horde_Exception $e) {
+                $batchCompose = false;
+            }
         }
 
         foreach ($data as $i => $email_vals) {
