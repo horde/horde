@@ -1189,6 +1189,7 @@ KronolithCore = {
      */
     _insertEvent: function(event, date, view)
     {
+        var calendar = event.value.calendar.split('|');
         event.value.nodeId = 'kronolithEvent' + view + event.value.calendar + date + event.key;
 
         _createElement = function(event) {
@@ -1206,8 +1207,8 @@ KronolithCore = {
         case 'week':
             var storage = view + 'Sizes',
                 div = _createElement(event),
-                style = { 'backgroundColor': event.value.bg,
-                          'color': event.value.fg };
+                style = { 'backgroundColor': Kronolith.conf.calendars[calendar[0]][calendar[1]].bg,
+                          'color': Kronolith.conf.calendars[calendar[0]][calendar[1]].fg };
 
             if (event.value.al) {
                 if (view == 'day') {
@@ -1449,8 +1450,8 @@ KronolithCore = {
 
         case 'month':
             var div = _createElement(event)
-                .setStyle({ 'backgroundColor': event.value.bg,
-                            'color': event.value.fg });
+                .setStyle({ 'backgroundColor': Kronolith.conf.calendars[calendar[0]][calendar[1]].bg,
+                            'color': Kronolith.conf.calendars[calendar[0]][calendar[1]].fg });
 
             $('kronolithMonthDay' + date).insert(div);
             if (event.value.pe) {
@@ -1461,8 +1462,8 @@ KronolithCore = {
 
         case 'agenda':
             var div = _createElement(event)
-                .setStyle({ 'backgroundColor': event.value.bg,
-                            'color': event.value.fg });
+                .setStyle({ 'backgroundColor': Kronolith.conf.calendars[calendar[0]][calendar[1]].bg,
+                            'color': Kronolith.conf.calendars[calendar[0]][calendar[1]].fg });
             if (!event.value.al) {
                 div.update(new Element('SPAN', { 'class': 'kronolithDate' }).update(event.value.start.toString('t')))
                     .insert(' ')
@@ -1481,6 +1482,7 @@ KronolithCore = {
 
     _setEventText: function(div, event)
     {
+        var calendar = event.calendar.split('|');
         div.update();
         if (event.ic) {
             div.insert(new Element('IMG', { 'src': event.ic }));
@@ -1488,11 +1490,11 @@ KronolithCore = {
         div.insert(event.t.escapeHTML());
         if (event.a) {
             div.insert(' ')
-                .insert(new Element('IMG', { 'src': Kronolith.conf.URI_IMG + 'alarm-' + event.fg.substr(1) + '.png', 'title': Kronolith.text.alarm + ' ' + event.a }));
+                .insert(new Element('IMG', { 'src': Kronolith.conf.URI_IMG + 'alarm-' + Kronolith.conf.calendars[calendar[0]][calendar[1]].fg.substr(1) + '.png', 'title': Kronolith.text.alarm + ' ' + event.a }));
         }
         if (event.r) {
             div.insert(' ')
-                .insert(new Element('IMG', { 'src': Kronolith.conf.URI_IMG + 'recur-' + event.fg.substr(1) + '.png', 'title': Kronolith.text.recur[event.r] }));
+                .insert(new Element('IMG', { 'src': Kronolith.conf.URI_IMG + 'recur-' + Kronolith.conf.calendars[calendar[0]][calendar[1]].fg.substr(1) + '.png', 'title': Kronolith.text.recur[event.r] }));
         }
         return div;
     },

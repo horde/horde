@@ -1137,8 +1137,6 @@ abstract class Kronolith_Event
         $json->la = $this->last;
         $json->x = $this->status;
         $json->al = is_null($allDay) ? $this->isAllDay() : $allDay;
-        $json->bg = $this->_backgroundColor;
-        $json->fg = $this->_foregroundColor;
         $json->pe = $this->hasPermission(Horde_Perms::EDIT);
         $json->pd = $this->hasPermission(Horde_Perms::DELETE);
         if ($this->icon) {
