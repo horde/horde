@@ -34,9 +34,9 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
         }
         /* INSERT or UPDATE */
         if ($count) {
-            $sql = "UPDATE kronolith_events_geo SET coordinates = GeomFromText('POINT(" . $point['lat'] . " " . $point['lon'] . ")') WHERE event_id = '" . $event_id . "'";
+            $sql = "UPDATE kronolith_events_geo SET event_coordinates = GeomFromText('POINT(" . $point['lat'] . " " . $point['lon'] . ")') WHERE event_id = '" . $event_id . "'";
         } else {
-            $sql = "INSERT into kronolith_events_geo (event_id, coordinates) VALUES('" . $event_id . "', GeomFromText('POINT(" . $point['lat'] . " " . $point['lon'] . ")'))";
+            $sql = "INSERT into kronolith_events_geo (event_id, event_coordinates) VALUES('" . $event_id . "', GeomFromText('POINT(" . $point['lat'] . " " . $point['lon'] . ")'))";
         }
         $result = $this->_write_db->query($sql);
         if ($result instanceof PEAR_Error) {
@@ -53,7 +53,7 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
      */
     public function getLocation($event_id)
     {
-        $sql = "SELECT x(coordinates) as lat, y(coordinates) as lon FROM kronolith_events_geo WHERE event_id = '" . $event_id . "'";
+        $sql = "SELECT x(event_coordinates) as lat, y(event_coordinates) as lon FROM kronolith_events_geo WHERE event_id = '" . $event_id . "'";
         $result = $this->_db->getRow($sql, null, DB_FETCHMODE_ASSOC);
         if ($result instanceof PEAR_Error) {
             throw new Horde_Exception($result->getMessage());
@@ -84,8 +84,8 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
 
         // ... if this works it will be a miracle ;)
         $sql = "SELECT event_id, "
-               . "GLength(LINESTRINGFromWKB(LineString(coordinates, GeomFromText('POINT(" . $point['lat'] . " " . $point['lon'] . ")')))) * " . $factor . " as distance, "
-               . "x(coordinates) as lat, y(coordinates) as lon FROM kronolith_events_geo HAVING distance < " . $radius . " ORDER BY distance ASC LIMIT " . $limit;
+               . "GLength(LINESTRINGFromWKB(LineString(event_coordinates, GeomFromText('POINT(" . $point['lat'] . " " . $point['lon'] . ")')))) * " . $factor . " as distance, "
+               . "x(event_coordinates) as lat, y(event_coordinates) as lon FROM kronolith_events_geo HAVING distance < " . $radius . " ORDER BY distance ASC LIMIT " . $limit;
 
         $results = $this->_db->getAssoc($sql, false, null, DB_FETCHMODE_ASSOC);
         if ($results instanceof PEAR_Error) {
