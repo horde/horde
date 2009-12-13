@@ -247,14 +247,10 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Abstract_Schema
      */
     public function removeColumn($tableName, $columnName)
     {
-        throw new Horde_Db_Exception('Sqlite#removeColumn is not supported');
-        /*@TODO
-        column_names.flatten.each do |column_name|
-          alter_table(table_name) do |definition|
-            definition.columns.delete(definition[column_name])
-          end
-        end
-        */
+        $this->_clearTableCache($tableName);
+
+        return $this->_alterTable($tableName, array('definitionCallback' =>
+            create_function('$definition', 'unset($definition["'.$columnName.'"]);')));
     }
 
     /**
@@ -265,18 +261,15 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Abstract_Schema
      */
     public function changeColumn($tableName, $columnName, $type, $options=array())
     {
-        throw new Horde_Db_Exception('Not supported');
-        /*@TODO
-        alter_table(table_name) do |definition|
-          include_default = options_include_default?(options)
-          definition[column_name].instance_eval do
-            self.type    = type
-            self.limit   = options[:limit] if options.include?(:limit)
-            self.default = options[:default] if include_default
-            self.null    = options[:null] if options.include?(:null)
-          end
-        end
-        */
+        $this->_clearTableCache($tableName);
+
+        $defs = array('$definition["'.$columnName.'"]->setType("'.$type.'");');
+        if (isset($options['limit'])) { $defs[] = '$definition["'.$columnName.'"]->setLimit("'.$options['limit'].'");'; }
+        if (isset($options['default'])) { $defs[] = '$definition["'.$columnName.'"]->setDefault("'.$options['default'].'");'; }
+        if (isset($options['null'])) { $defs[] = '$definition["'.$columnName.'"]->setNull("'.$options['null'].'");'; }
+
+        return $this->_alterTable($tableName, array('definitionCallback' =>
+            create_function('$definition', implode("\n", $defs))));
     }
 
     /**
@@ -286,12 +279,10 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Abstract_Schema
      */
     public function changeColumnDefault($tableName, $columnName, $default)
     {
-        throw new Horde_Db_Exception('Not supported');
-        /*@TODO
-        alter_table(table_name) do |definition|
-          definition[column_name].default = default
-        end
-        */
+        $this->_clearTableCache($tableName);
+
+        return $this->_alterTable($tableName, array('definitionCallback' =>
+            create_function('$definition', '$definition["'.$columnName.'"]->setDefault("'.$default.'");')));
     }
 
     /**
@@ -301,10 +292,9 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Abstract_Schema
      */
     public function renameColumn($tableName, $columnName, $newColumnName)
     {
-        throw new Horde_Db_Exception('Not supported');
-        /*@TODO
-        alter_table(table_name, :rename => {column_name.to_s => new_column_name.to_s})
-        */
+        $this->_clearTableCache($tableName);
+
+        return $this->_alterTable($tableName, array('rename' => array($columnName => $newColumnName)));
     }
 
     /**
@@ -340,91 +330,121 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Abstract_Schema
 
     protected function _defaultPrimaryKeyType()
     {
-        if ($this->supportsAutoIncrement())
+        if ($this->supportsAutoIncrement()) {
             return 'INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL';
-        else
+        } else {
             return 'INTEGER PRIMARY KEY NOT NULL';
+        }
     }
 
-    /*@TODO
-        def alter_table(table_name, options = {}) #:nodoc:
-          altered_table_name = "altered_#{table_name}"
-          caller = lambda {|definition| yield definition if block_given?}
+    protected function _alterTable($tableName, $options = array())
+    {
+        $this->beginDbTransaction();
 
-          transaction do
-            move_table(table_name, altered_table_name,
-              options.merge(:temporary => true))
-            move_table(altered_table_name, table_name, &caller)
-          end
-        end
+        $alteredTableName = "altered_$tableName";
+        $this->_moveTable($tableName, $alteredTableName, array_merge($options, array('temporary' => true)));
+        $this->_moveTable($alteredTableName, $tableName, $options);
 
-        def move_table(from, to, options = {}, &block) #:nodoc:
-          copy_table(from, to, options, &block)
-          drop_table(from)
-        end
+        $this->commitDbTransaction();
 
-        def copy_table(from, to, options = {}) #:nodoc:
-          options = options.merge(:id => !columns(from).detect{|c| c.name == 'id'}.nil?)
-          create_table(to, options) do |definition|
-            @definition = definition
-            columns(from).each do |column|
-              column_name = options[:rename] ?
-                (options[:rename][column.name] ||
-                 options[:rename][column.name.to_sym] ||
-                 column.name) : column.name
+        return true;
+    }
 
-              @definition.column(column_name, column.type,
-                :limit => column.limit, :default => column.default,
-                :null => column.null)
-            end
-            @definition.primary_key(primary_key(from)) if primary_key(from)
-            yield @definition if block_given?
-          end
+    protected function _moveTable($from, $to, $options = array())
+    {
+        $this->_copyTable($from, $to, $options);
+        $this->dropTable($from);
+    }
 
-          copy_table_indexes(from, to, options[:rename] || {})
-          copy_table_contents(from, to,
-            @definition.columns.map {|column| column.name},
-            options[:rename] || {})
-        end
+    protected function _copyTable($from, $to, $options = array())
+    {
+        $fromColumns = $this->columns($from);
+        $options = array_merge($options, array('id' => false));
 
-        def copy_table_indexes(from, to, rename = {}) #:nodoc:
-          indexes(from).each do |index|
-            name = index.name
-            if to == "altered_#{from}"
-              name = "temp_#{name}"
-            elsif from == "altered_#{to}"
-              name = name[5..-1]
-            end
+        $definition = $this->createTable($to, $options);
+        foreach ($fromColumns as $column) {
+            $columnName = isset($options['rename'][$column->getName()]) ? $options['rename'][$column->getName()] : $column->getName();
 
-            to_column_names = columns(to).map(&:name)
-            columns = index.columns.map {|c| rename[c] || c }.select do |column|
-              to_column_names.include?(column)
-            end
+            $definition->column($columnName, $column->getType(), array(
+                'limit' => $column->getLimit(),
+                'default' => $column->getDefault(),
+                'null' => $column->isNull()));
+        }
 
-            unless columns.empty?
-              # index name can't be the same
-              opts = { :name => name.gsub(/_(#{from})_/, "_#{to}_") }
-              opts[:unique] = true if index.unique
-              add_index(to, columns, opts)
-            end
-          end
-        end
+        $primaryKey = $this->primaryKey($from);
+        if ($primaryKey) { $definition->primaryKey($primaryKey); }
 
-        def copy_table_contents(from, to, columns, rename = {}) #:nodoc:
-          column_mappings = Hash[*columns.map {|name| [name, name]}.flatten]
-          rename.inject(column_mappings) {|map, a| map[a.last] = a.first; map}
-          from_columns = columns(from).collect {|col| col.name}
-          columns = columns.find_all{|col| from_columns.include?(column_mappings[col])}
-          quoted_columns = columns.map { |col| quote_column_name(col) } * ','
+        if (isset($options['definitionCallback']) && is_callable($options['definitionCallback'])) {
+            call_user_func($options['definitionCallback'], $definition);
+        }
 
-          quoted_to = quote_table_name(to)
-          @connection.execute "SELECT * FROM #{quote_table_name(from)}" do |row|
-            sql = "INSERT INTO #{quoted_to} (#{quoted_columns}) VALUES ("
-            sql << columns.map {|col| quote row[column_mappings[col]]} * ', '
-            sql << ')'
-            @connection.execute sql
-          end
-        end
-    */
+        $definition->end();
 
+        $this->_copyTableIndexes($from, $to, isset($options['rename']) ? $options['rename'] : array());
+        $this->_copyTableContents($from, $to,
+            array_map(create_function('$c', 'return $c->getName();'), iterator_to_array($definition)),
+            isset($options['rename']) ? $options['rename'] : array());
+    }
+
+    protected function _copyTableIndexes($from, $to, $rename = array())
+    {
+        $toColumnNames = array();
+        foreach ($this->columns($to) as $c) {
+            $toColumnNames[$c->getName()] = true;
+        }
+
+        foreach ($this->indexes($from) as $index) {
+            $name = $index->getName();
+            if ($to == "altered_$from") {
+                $name = "temp_$name";
+            } elseif ($from == "altered_$to") {
+                $name = substr($name, 5);
+            }
+
+            $columns = array();
+            foreach ($index->columns as $c) {
+                if (isset($rename[$c])) {
+                    $c = $rename[$c];
+                }
+                if (isset($toColumnNames[$c])) {
+                    $columns[] = $c;
+                }
+            }
+
+            if (!empty($columns)) {
+                // Index name can't be the same
+                $opts = array('name' => str_replace("_$from_", "_$to_", $name));
+                if ($index->unique) { $opts['unique'] = true; }
+                $this->addIndex($to, $columns, $opts);
+            }
+        }
+    }
+
+    protected function _copyTableContents($from, $to, $columns, $rename = array())
+    {
+        $origColumns = $columns;
+        $columnMappings = array_combine($columns, $columns);
+        foreach ($rename as $renameFrom => $renameTo) {
+            $columnMappings[$renameTo] = $renameFrom;
+        }
+
+        $fromColumns = array();
+        foreach ($this->columns($from) as $col) {
+            $fromColumns[] = $col->getName();
+        }
+        $columns = array_intersect($columns, $fromColumns);
+
+        $fromColumns = array();
+        foreach ($columns as $col) {
+            $fromColumns[] = $columnMappings[$col];
+        }
+
+        $quotedTo = $this->quoteTableName($to);
+        $quotedToColumns = implode(', ', array_map(array($this, 'quoteColumnName'), $columns));
+
+        $quotedFrom = $this->quoteTableName($from);
+        $quotedFromColumns = implode(', ', array_map(array($this, 'quoteColumnName'), $fromColumns));
+
+        $this->execute("INSERT INTO $quotedTo ($quotedToColumns) SELECT $quotedFromColumns FROM $quotedFrom");
+    }
 }
