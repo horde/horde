@@ -29,6 +29,16 @@ class Horde_Db_Adapter_Sqlite_Column extends Horde_Db_Adapter_Base_Column
     protected static $_hasEmptyStringDefault = array('binary', 'string', 'text');
 
 
+    public function extractDefault($default)
+    {
+        $default = parent::extractDefault($default);
+        if ($this->isText()) {
+            $default = $this->_unquote($default);
+        }
+        return $default;
+    }
+
+
     /*##########################################################################
     # Type Juggling
     ##########################################################################*/
@@ -43,4 +53,27 @@ class Horde_Db_Adapter_Sqlite_Column extends Horde_Db_Adapter_Base_Column
         return str_replace(array('%00', '%25'), array("\0", '%'), $value);
     }
 
+
+    /*##########################################################################
+    # Protected
+    ##########################################################################*/
+
+    /**
+     * Unquote a string value
+     *
+     * @return string
+     */
+    protected function _unquote($string)
+    {
+        $first = substr($string, 0, 1);
+        if ($first == "'" || $first == '"') {
+            $string = substr($string, 1);
+            if (substr($string, -1) == $first) {
+                $string = substr($string, 0, -1);
+            }
+            $string = str_replace("$first$first", $first, $string);
+        }
+
+        return $string;
+    }
 }
