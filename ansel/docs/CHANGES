@@ -9,8 +9,8 @@ v2.0-git
 v1.1.1-cvs
 ----------
 
-
-
+[mjr] Protect against divide-by-zero errors (Bug #8761).
+[jan] Fix invalid class name in block for recently geotagged images.
 
 ----
 v1.1
