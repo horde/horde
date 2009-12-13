@@ -462,12 +462,7 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
         $sql = "SELECT name FROM sports WHERE id = 1";
         $this->assertEquals("mlb", $this->_conn->selectValue($sql));
 
-        try {
-            $this->_conn->removeColumn('sports', 'name');
-        } catch (Horde_Db_Exception $e) {
-            return;
-        }
-        $this->fail('SQLite#removeColumn is not yet implemented; should throw Horde_Db_Exception');
+        $this->_conn->removeColumn('sports', 'name');
 
         try {
             $sql = "SELECT name FROM sports WHERE id = 1";
@@ -484,12 +479,7 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
         $beforeChange = $this->_getColumn('sports', 'name');
         $this->assertEquals('', $beforeChange->getDefault());
 
-        try {
-            $this->_conn->changeColumnDefault('sports', 'name', 'test');
-        } catch (Horde_Db_Exception $e) {
-            return;
-        }
-        $this->fail('SQLite#changeColumnDefault is not yet implemented; should throw Horde_Db_Exception');
+        $this->_conn->changeColumnDefault('sports', 'name', 'test');
 
         $afterChange = $this->_getColumn('sports', 'name');
         $this->assertEquals('test', $afterChange->getDefault());
@@ -501,12 +491,7 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
         $beforeChange = $this->_getColumn('sports', 'is_college');
         $this->assertEquals('boolean', $beforeChange->getSqlType());
 
-        try {
-            $this->_conn->changeColumn('sports', 'is_college', 'string');
-        } catch (Horde_Db_Exception $e) {
-            return;
-        }
-        $this->fail('SQLite#changeColumn is not yet implemented; should throw Horde_Db_Exception');
+        $this->_conn->changeColumn('sports', 'is_college', 'string');
 
         $afterChange = $this->_getColumn('sports', 'is_college');
         $this->assertEquals('varchar(255)', $afterChange->getSqlType());
@@ -518,13 +503,8 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
         $beforeChange = $this->_getColumn('sports', 'is_college');
         $this->assertEquals('boolean', $beforeChange->getSqlType());
 
-        try {
-            $this->_conn->changeColumn('sports', 'is_college', 'string',
-                                       array('limit' => '40'));
-        } catch (Horde_Db_Exception $e) {
-            return;
-        }
-        $this->fail('SQLite#changeColumn is not yet implemented; should throw Horde_Db_Exception');
+        $this->_conn->changeColumn('sports', 'is_college', 'string',
+                                    array('limit' => '40'));
 
         $afterChange = $this->_getColumn('sports', 'is_college');
         $this->assertEquals('varchar(40)', $afterChange->getSqlType());
@@ -536,13 +516,8 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
         $beforeChange = $this->_getColumn('sports', 'is_college');
         $this->assertEquals('boolean', $beforeChange->getSqlType());
 
-        try {
-            $this->_conn->changeColumn('sports', 'is_college', 'decimal',
-                                       array('precision' => '5', 'scale' => '2'));
-        } catch (Horde_Db_Exception $e) {
-            return;
-        }
-        $this->fail('SQLite#changeColumn is not yet implemented; should throw Horde_Db_Exception');
+        $this->_conn->changeColumn('sports', 'is_college', 'decimal',
+                                    array('precision' => '5', 'scale' => '2'));
 
         $afterChange = $this->_getColumn('sports', 'is_college');
         $this->assertEquals('decimal(5,2)', $afterChange->getSqlType());
@@ -555,12 +530,7 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
         $beforeChange = $this->_getColumn('sports', 'is_college');
         $this->assertEquals('boolean', $beforeChange->getSqlType());
 
-        try {
-            $this->_conn->renameColumn('sports', 'is_college', 'is_renamed');
-        } catch (Horde_Db_Exception $e) {
-            return;
-        }
-        $this->fail('SQLite#renameColumn is not yet implemented; should throw Horde_Db_Exception');
+        $this->_conn->renameColumn('sports', 'is_college', 'is_renamed');
 
         $afterChange = $this->_getColumn('sports', 'is_renamed');
         $this->assertEquals('boolean', $afterChange->getSqlType());
