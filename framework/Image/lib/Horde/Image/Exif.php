@@ -298,6 +298,9 @@ class Horde_Image_Exif
         case 'ExposureTime':
             if (strpos($data, '/') !== false) {
                 list($n, $d) = explode('/', $data, 2);
+                if ($d == 0) {
+                    return;
+                }
                 $data = $n / $d;
             }
             return self::_formatExposure($data);
@@ -305,6 +308,9 @@ class Horde_Image_Exif
         case 'ShutterSpeedValue':
             if (strpos($data, '/') !== false) {
                 list($n, $d) = explode('/', $data, 2);
+                if ($d == 0) {
+                    return;
+                }
                 $data = $n / $d;
             }
             $data = exp($data * log(2));
@@ -317,6 +323,9 @@ class Horde_Image_Exif
         case 'MaxApertureValue':
             if (strpos($data, '/') !== false) {
                 list($n, $d) = explode('/', $data, 2);
+                if ($d == 0) {
+                    return;
+                }
                 $data = $n / $d;
                 $data = exp(($data * log(2)) / 2);
 
@@ -328,6 +337,9 @@ class Horde_Image_Exif
         case 'FocalLength':
             if (strpos($data, '/') !== false) {
                 list($n, $d) = explode('/', $data, 2);
+                if ($d == 0) {
+                    return;
+                }
                 return sprintf(_("%d mm"), round($n / $d));
             }
             return sprintf(_("%d mm"), $data);
