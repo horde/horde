@@ -34,7 +34,7 @@ class Horde_Db_Migration_Base
      * @var integer
      */
     public $version = null;
-    
+
     /**
      * Database connection adapter
      * @var Horde_Db_Adapter_Abstract
@@ -48,10 +48,10 @@ class Horde_Db_Migration_Base
 
     /**
      */
-    public function __construct($context)
+    public function __construct(Horde_Db_Adapter_Abstract $connection, $version = null)
     {
-        $this->version = $context['version'];
-        $this->_connection = $context['connection'];
+        $this->_connection = $connection;
+        $this->version = $version;
     }
 
 
