@@ -504,7 +504,7 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('boolean', $beforeChange->getSqlType());
 
         $this->_conn->changeColumn('sports', 'is_college', 'string',
-                                    array('limit' => '40'));
+                                   array('limit' => '40'));
 
         $afterChange = $this->_getColumn('sports', 'is_college');
         $this->assertEquals('varchar(40)', $afterChange->getSqlType());
@@ -517,10 +517,10 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('boolean', $beforeChange->getSqlType());
 
         $this->_conn->changeColumn('sports', 'is_college', 'decimal',
-                                    array('precision' => '5', 'scale' => '2'));
+                                   array('precision' => '5', 'scale' => '2'));
 
         $afterChange = $this->_getColumn('sports', 'is_college');
-        $this->assertEquals('decimal(5,2)', $afterChange->getSqlType());
+        $this->assertRegExp('/^decimal\(5,\s*2\)$/', $afterChange->getSqlType());
     }
 
     public function testRenameColumn()
