@@ -53,6 +53,19 @@ class Horde_Db_Adapter_Sqlite_Column extends Horde_Db_Adapter_Base_Column
         return str_replace(array('%00', '%25'), array("\0", '%'), $value);
     }
 
+    /**
+     * @param   mixed  $value
+     * @return  boolean
+     */
+    public function valueToBoolean($value)
+    {
+        if ($value == '"t"' || $value == "'t'") {
+            return true;
+        } else {
+            return parent::valueToBoolean($value);
+        }
+    }
+
 
     /*##########################################################################
     # Protected
