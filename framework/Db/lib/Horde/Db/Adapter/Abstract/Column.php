@@ -52,14 +52,15 @@ class Horde_Db_Adapter_Abstract_Column
         $this->_name      = $name;
         $this->_sqlType   = $sqlType;
         $this->_null      = $null;
+
+        $this->_type      = $this->_simplifiedType($sqlType);
+        $this->_isText    = $this->_type == 'text'  || $this->_type == 'string';
+        $this->_isNumber  = $this->_type == 'float' || $this->_type == 'integer' || $this->_type == 'decimal';
+
         $this->_limit     = $this->_extractLimit($sqlType);
         $this->_precision = $this->_extractPrecision($sqlType);
         $this->_scale     = $this->_extractScale($sqlType);
-        $this->_type      = $this->_simplifiedType($sqlType);
         $this->_default   = $this->extractDefault($default);
-
-        $this->_isText    = $this->_type == 'text'  || $this->_type == 'string';
-        $this->_isNumber  = $this->_type == 'float' || $this->_type == 'integer' || $this->_type == 'decimal';
     }
 
     /**
