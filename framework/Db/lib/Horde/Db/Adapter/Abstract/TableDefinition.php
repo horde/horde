@@ -21,7 +21,7 @@
  * @package    Horde_Db
  * @subpackage Adapter
  */
-class Horde_Db_Adapter_Abstract_TableDefinition implements ArrayAccess
+class Horde_Db_Adapter_Abstract_TableDefinition implements ArrayAccess, IteratorAggregate
 {
     protected $_name    = null;
     protected $_base    = null;
@@ -59,7 +59,7 @@ class Horde_Db_Adapter_Abstract_TableDefinition implements ArrayAccess
         return $this->_options;
     }
 
-    /**
+    /**v
      * @param   string  $name
      */
     public function primaryKey($name)
@@ -217,6 +217,16 @@ class Horde_Db_Adapter_Abstract_TableDefinition implements ArrayAccess
                 unset($this->_columns[$key]);
             }
         }
+    }
+
+
+    /*##########################################################################
+    # ArrayAccess
+    ##########################################################################*/
+
+    public function getIterator()
+    {
+        return new ArrayIterator($this->_columns);
     }
 
 
