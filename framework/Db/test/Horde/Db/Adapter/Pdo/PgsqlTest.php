@@ -789,7 +789,7 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
 
 
     /*##########################################################################
-    # Test table cache
+    # Table cache
     ##########################################################################*/
 
     public function testCachedTableIndexes()
