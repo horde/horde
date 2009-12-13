@@ -312,10 +312,111 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
     # Schema Statements
     ##########################################################################*/
 
+    /**
+     * We specifically do a manual INSERT here, and then test only the SELECT
+     * functionality. This allows us to more easily catch INSERT being broken,
+     * but SELECT actually working fine.
+     */
+    public function testNativeDecimalInsertManualVsAutomatic()
+    {
+        $table = $this->_conn->createTable('users');
+          $table->column('company_id',  'integer',  array('limit' => 11));
+          $table->column('name',        'string',   array('limit' => 255, 'default' => ''));
+          $table->column('first_name',  'string',   array('limit' => 40, 'default' => ''));
+          $table->column('approved',    'boolean',  array('default' => true));
+          $table->column('type',        'string',   array('limit' => 255, 'default' => ''));
+          $table->column('created_at',  'datetime', array('default' => '0000-00-00 00:00:00'));
+          $table->column('created_on',  'date',     array('default' => '0000-00-00'));
+          $table->column('updated_at',  'datetime', array('default' => '0000-00-00 00:00:00'));
+          $table->column('updated_on',  'date',     array('default' => '0000-00-00'));
+        $table->end();
+
+        $correctValue = 12345678901234567890.0123456789;
+
+        $this->_conn->addColumn("users", "wealth", 'decimal', array('precision' => 30, 'scale' => 10));
+
+        // do a manual insertion
+        $this->_conn->execute("INSERT INTO users (wealth) VALUES ('12345678901234567890.0123456789')");
+
+        // SELECT @todo - type cast attribute values
+        $user = (object)$this->_conn->selectOne('SELECT * FROM users');
+        // assert_kind_of BigDecimal, row.wealth
+
+        // If this assert fails, that means the SELECT is broken!
+        $this->assertEquals($correctValue, $user->wealth);
+
+        // Reset to old state
+        $this->_conn->delete('DELETE FROM users');
+
+        // Now use the Adapter insertion
+        $this->_conn->insert('INSERT INTO users (wealth) VALUES (12345678901234567890.0123456789)');
+
+        // SELECT @todo - type cast attribute values
+        $user = (object)$this->_conn->selectOne('SELECT * FROM users');
+        // assert_kind_of BigDecimal, row.wealth
+
+        // If these asserts fail, that means the INSERT (create function, or cast to SQL) is broken!
+        $this->assertEquals($correctValue, $user->wealth);
+
+        $this->_conn->dropTable('users');
+    }
+
+    public function testNativeTypes()
+    {
+        $table = $this->_conn->createTable('users');
+          $table->column('company_id',  'integer',  array('limit' => 11));
+          $table->column('name',        'string',   array('limit' => 255, 'default' => ''));
+          $table->column('first_name',  'string',   array('limit' => 40, 'default' => ''));
+          $table->column('approved',    'boolean',  array('default' => true));
+          $table->column('type',        'string',   array('limit' => 255, 'default' => ''));
+          $table->column('created_at',  'datetime', array('default' => '0000-00-00 00:00:00'));
+          $table->column('created_on',  'date',     array('default' => '0000-00-00'));
+          $table->column('updated_at',  'datetime', array('default' => '0000-00-00 00:00:00'));
+          $table->column('updated_on',  'date',     array('default' => '0000-00-00'));
+        $table->end();
+
+        $this->_conn->addColumn("users", "last_name",       'string');
+        $this->_conn->addColumn("users", "bio",             'text');
+        $this->_conn->addColumn("users", "age",             'integer');
+        $this->_conn->addColumn("users", "height",          'float');
+        $this->_conn->addColumn("users", "wealth",          'decimal', array('precision' => '30', 'scale' => '10'));
+        $this->_conn->addColumn("users", "birthday",        'datetime');
+        $this->_conn->addColumn("users", "favorite_day",    'date');
+        $this->_conn->addColumn("users", "moment_of_truth", 'datetime');
+        $this->_conn->addColumn("users", "male",            'boolean');
+
+        $this->_conn->insert('INSERT INTO USERS (first_name, last_name, bio, age, height, wealth, birthday, favorite_day, moment_of_truth, male, company_id) ' .
+                             "VALUES ('bob', 'bobsen', 'I was born ....', 18, 1.78, 12345678901234567890.0123456789, '2005-01-01 12:23:40', '1980-03-05', '1582-10-10 21:40:18', 1, 1)");
+
+        $bob = (object)$this->_conn->selectOne('SELECT * FROM users');
+        $this->assertEquals('bob',             $bob->first_name);
+        $this->assertEquals('bobsen',          $bob->last_name);
+        $this->assertEquals('I was born ....', $bob->bio);
+        $this->assertEquals(18,                $bob->age);
+
+        // Test for 30 significent digits (beyond the 16 of float), 10 of them
+        // after the decimal place.
+        $this->assertEquals('12345678901234567890.0123456789', $bob->wealth);
+        $this->assertEquals(true,                              $bob->male);
+
+        // @todo - type casting
+    }
+
     public function testNativeDatabaseTypes()
     {
         $types = $this->_conn->nativeDatabaseTypes();
         $this->assertEquals(array('name' => 'int', 'limit' => 11), $types['integer']);
+    }
+
+    public function testUnabstractedDatabaseDependentTypes()
+    {
+        $this->_conn->delete('DELETE FROM users');
+
+        $this->_conn->addColumn('users', 'intelligence_quotient', 'tinyint');
+        $this->_conn->insert('INSERT INTO users (intelligence_quotient) VALUES (300)');
+
+        $jonnyg = (object)$this->_conn->selectOne('SELECT * FROM users');
+        $this->assertEquals('127', $jonnyg->intelligence_quotient);
     }
 
     public function testTableAliasLength()
@@ -817,7 +918,7 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
 
 
     /*##########################################################################
-    # Test table cache
+    # Table cache
     ##########################################################################*/
 
     public function testCachedTableIndexes()
