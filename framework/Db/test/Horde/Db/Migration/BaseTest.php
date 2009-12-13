@@ -201,7 +201,7 @@ client:
         $table = $this->_conn->createTable('testings');
             $table->column('foo', 'string');
         $table->end();
-        $this->_conn->addColumn('testings', 'bar', 'string', array('null' => false));
+        $this->_conn->addColumn('testings', 'bar', 'string', array('null' => false, 'default' => ''));
 
         try {
             $this->_conn->execute("INSERT INTO testings (foo, bar) VALUES ('hello', NULL)");
@@ -235,7 +235,7 @@ client:
     {
         $correctValue = 12345678901234567890.0123456789;
 
-        $this->_conn->delete('DELETE * FROM users');
+        $this->_conn->delete('DELETE FROM users');
         $this->_conn->addColumn("users", "wealth", 'decimal', array('precision' => 30, 'scale' => 10));
 
         // do a manual insertion
@@ -249,7 +249,7 @@ client:
         $this->assertEquals($correctValue, $user->wealth);
 
         // Reset to old state
-        $this->_conn->delete('DELETE * FROM users');
+        $this->_conn->delete('DELETE FROM users');
 
         // Now use the Rails insertion
         $this->_conn->insert('INSERT INTO users (wealth) VALUES (12345678901234567890.0123456789)');
@@ -264,7 +264,7 @@ client:
 
     public function testNativeTypes()
     {
-        $this->_conn->delete('DELETE * FROM users');
+        $this->_conn->delete('DELETE FROM users');
 
         $this->_conn->addColumn("users", "last_name",       'string');
         $this->_conn->addColumn("users", "bio",             'text');
@@ -277,7 +277,7 @@ client:
         $this->_conn->addColumn("users", "male",            'boolean');
 
         $this->_conn->insert('INSERT INTO USERS (first_name, last_name, bio, age, height, wealth, birthday, favorite_day, moment_of_truth, male, company_id) ' .
-                             "VALUES ('bob', 'bobsen', 'I was born ....', 18, 1.78, 12345678901234567890.0123456789, '2005-01-01 12:23:40', '1980-03-05', '1582-10-10 21:40:18', true, 1)");
+                             "VALUES ('bob', 'bobsen', 'I was born ....', 18, 1.78, 12345678901234567890.0123456789, '2005-01-01 12:23:40', '1980-03-05', '1582-10-10 21:40:18', 1, 1)");
 
         $bob = (object)$this->_conn->selectOne('SELECT * FROM users');
         $this->assertEquals('bob',             $bob->first_name);
@@ -295,7 +295,7 @@ client:
 
     public function testUnabstractedDatabaseDependentTypes()
     {
-        $this->_conn->delete('DELETE * FROM users');
+        $this->_conn->delete('DELETE FROM users');
 
         $this->_conn->addColumn('users', 'intelligence_quotient', 'tinyint');
         $this->_conn->insert('INSERT INTO users (intelligence_quotient) VALUES (300)');
@@ -317,7 +317,7 @@ client:
 
     public function testAddRename()
     {
-        $this->_conn->delete('DELETE * FROM users');
+        $this->_conn->delete('DELETE FROM users');
 
         $this->_conn->addColumn('users', 'girlfriend', 'string');
         $this->_conn->insert("INSERT INTO users (girlfriend) VALUES ('bobette')");
@@ -483,7 +483,7 @@ client:
         } catch (Exception $e) {}
         $this->assertType('Horde_Db_Exception', $e);
 
-        $m = new WeNeedReminders1;
+        $m = new WeNeedReminders1($this->_conn);
         $m->up();
 
         $this->_conn->insert("INSERT INTO reminders (content, remind_at) VALUES ('hello world', '2005-01-01 11:10:01')");
@@ -507,7 +507,7 @@ client:
         } catch (Exception $e) {}
         $this->assertType('Horde_Db_Exception', $e);
 
-        $m = new GiveMeBigNumbers;
+        $m = new GiveMeBigNumbers($this->_conn);
         $m->up();
 
         $this->_conn->insert('INSERT INTO big_numbers (bank_balance, big_bank_balance, world_population, my_house_population, value_of_e) VALUES (1586.43, 1000234000567.95, 6000000000, 3, 2.7182818284590452353602875)');
@@ -548,7 +548,7 @@ client:
     {
         $columns = array();
         foreach ($this->_conn->columns($tableName) as $c) {
-            $columns[] = $c->name;
+            $columns[] = $c->getName();
         }
         return $columns;
     }
