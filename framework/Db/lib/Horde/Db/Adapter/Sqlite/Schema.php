@@ -267,6 +267,8 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
         if (isset($options['limit'])) { $defs[] = '$definition["'.$columnName.'"]->setLimit("'.$options['limit'].'");'; }
         if (isset($options['default'])) { $defs[] = '$definition["'.$columnName.'"]->setDefault("'.$options['default'].'");'; }
         if (isset($options['null'])) { $defs[] = '$definition["'.$columnName.'"]->setNull("'.$options['null'].'");'; }
+        if (isset($options['precision'])) { $defs[] = '$definition["'.$columnName.'"]->setPrecision("'.$options['precision'].'");'; }
+        if (isset($options['scale'])) { $defs[] = '$definition["'.$columnName.'"]->setScale("'.$options['scale'].'");'; }
 
         return $this->_alterTable($tableName, array('definitionCallback' =>
             create_function('$definition', implode("\n", $defs))));
