@@ -176,11 +176,9 @@ client:
         }
 
         $this->assertEquals('hello', $columns['one']->getDefault());
-
         $this->assertTrue($columns['two']->getDefault());
         $this->assertFalse($columns['three']->getDefault());
-
-        $this->assertEquals(true,     $columns['four']->getDefault());
+        $this->assertEquals(1, $columns['four']->getDefault());
     }
 
     public function testCreateTableWithLimits()
