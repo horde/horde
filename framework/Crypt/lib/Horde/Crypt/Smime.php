@@ -659,7 +659,14 @@ class Horde_Crypt_Smime extends Horde_Crypt
         $cert_data = $this->_parseASN($raw_cert);
         if (!is_array($cert_data) ||
             ($cert_data[0] == 'UNKNOWN') ||
-            ($cert_data[1][0] == 'UNKNOWN')) {
+            ($cert_data[1][0] == 'UNKNOWN') ||
+            /* Bug #8751: Check for required number of fields. The ASN
+             * parsing code doesn't seem to be able to handle v1 data - it
+             * combines the version and serial number fields.
+             * openssl_x509_parse() works, but doesn't have a stable API.
+             * Since v1 is such an old standard anyway, best just to abort
+             * here. */
+            (count($cert_data[1][0][1]) != 7)) {
             return false;
         }
 
