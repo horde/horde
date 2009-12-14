@@ -365,12 +365,14 @@ class IMP_Mailbox
      *
      * @param integer $results  A Horde_Imap_Client::SORT_* constant that
      *                          indicates the desired return type.
+     * @param boolean $uid      Return UIDs instead of sequence numbers (for
+     *                          $results queries that return message lists).
      *
      * @return mixed  Whatever is requested in $results.
      */
-    public function newMessages($results)
+    public function newMessages($results, $uid = false)
     {
-        return $this->_msgFlagSearch('recent', $results);
+        return $this->_msgFlagSearch('recent', $results, $uid);
     }
 
     /**
@@ -379,13 +381,14 @@ class IMP_Mailbox
      *
      * @param integer $results  A Horde_Imap_Client::SORT_RESULTS_* constant
      *                          that indicates the desired return type.
+     * @param boolean $uid      Return UIDs instead of sequence numbers (for
+     *                          $results queries that return message lists).
      *
-     * @return mixed  Whatever is requested in $results. NOTE: Returns
-     *                sequence numbers instead of UIDs.
+     * @return mixed  Whatever is requested in $results.
      */
-    public function unseenMessages($results)
+    public function unseenMessages($results, $uid = false)
     {
-        return $this->_msgFlagSearch('unseen', $results);
+        return $this->_msgFlagSearch('unseen', $results, $uid);
     }
 
     /**
@@ -394,11 +397,12 @@ class IMP_Mailbox
      * @param string $type      The search type - either 'recent' or 'unseen'.
      * @param integer $results  A Horde_Imap_Client::SORT_RESULTS_* constant
      *                          that indicates the desired return type.
+     * @param boolean $uid      Return UIDs instead of sequence numbers (for
+     *                          $results queries that return message lists).
      *
-     * @return mixed  Whatever is requested in $results. NOTE: Returns
-     *                sequence numbers instead of UIDs.
+     * @return mixed  Whatever is requested in $results.
      */
-    protected function _msgFlagSearch($type, $results)
+    protected function _msgFlagSearch($type, $results, $uid)
     {
         $count = $results == Horde_Imap_Client::SORT_RESULTS_COUNT;
 
@@ -426,7 +430,7 @@ class IMP_Mailbox
         }
 
         try {
-            $res = $GLOBALS['imp_imap']->ob()->search($this->_mailbox, $criteria, array('results' => array($results), 'sequence' => true));
+            $res = $GLOBALS['imp_imap']->ob()->search($this->_mailbox, $criteria, array('results' => array($results), 'sequence' => !$uid));
             return $count ? $res['count'] : $res;
         } catch (Horde_Imap_Client_Exception $e) {
             return $count ? 0 : array();
@@ -590,7 +594,7 @@ class IMP_Mailbox
      *
      * @param integer $total  The total number of messages in the mailbox.
      *
-     * @return integer  The sequence number in the mailbox.
+     * @return integer  The sequence number in the sorted mailbox.
      */
     public function mailboxStart($total)
     {
@@ -621,16 +625,16 @@ class IMP_Mailbox
                 return 1;
             }
 
-            $unseen_msgs = $this->unseenMessages(Horde_Imap_Client::SORT_RESULTS_MIN);
+            $unseen_msgs = $this->unseenMessages(Horde_Imap_Client::SORT_RESULTS_MIN, true);
             return empty($unseen_msgs['min'])
                 ? 1
-                : $unseen_msgs['min'];
+                : ($this->getArrayIndex($unseen_msgs['min']) + 1);
 
         case IMP::MAILBOX_START_LASTUNSEEN:
-            $unseen_msgs = $this->unseenMessages(Horde_Imap_Client::SORT_RESULTS_MAX);
+            $unseen_msgs = $this->unseenMessages(Horde_Imap_Client::SORT_RESULTS_MAX, true);
             return empty($unseen_msgs['max'])
                 ? 1
-                : $unseen_msgs['max'];
+                : ($this->getArrayIndex($unseen_msgs['max']) + 1);
         }
     }
 
