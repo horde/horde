@@ -59,7 +59,9 @@ class Horde_Db_Migration_Migrator
         $this->_migrationsPath = $migrationsPath;
         /* @TODO */
         //$this->_logger         = $logger;
+        //$this->_inflector      = $inflector;
         $this->_logger         = new Horde_Support_Stub();
+        $this->_inflector      = new Horde_Support_Inflector();
 
         $this->_connection->initializeSchemaInformation();
     }
@@ -200,11 +202,8 @@ class Horde_Db_Migration_Migrator
      */
     protected function _getMigrationClass($migrationName, $version)
     {
-        $className = Horde_Support_Inflector::camelize($migrationName);
-        return new $className(array(
-            'connection' => $this->_connection,
-            'version' => $version,
-        ));
+        $className = $this->_inflector->camelize($migrationName);
+        return new $className($this->_connection, $version);
     }
 
     /**
