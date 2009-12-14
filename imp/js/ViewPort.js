@@ -110,14 +110,18 @@
  * ------------------------------------------------
  * cacheid: (string) A unique string that changes whenever the viewport
  *          list changes.
- * data: (object) TODO
+ * data: (object) Data for each entry that is passed to the template to create
+ *       the viewable rows. Keys are a unique ID (see also the 'rowlist'
+ *       entry). Values are the data objects. Internal keys for these data
+ *       objects must NOT begin with the string 'vp'.
  * label: (string) The label to use for the current view.
  * metadata [optional]: (object) TODO
  * rangelist: TODO
  * requestid: (string) The request ID sent in the outgoing AJAX request.
  * reset [optional]: (integer) If set, purges all cached data.
  * resetmd [optional]: (integer) If set, purges all user metadata.
- * rowlist: TODO
+ * rowlist: (object) A mapping of unique IDs (keys) to the row numbers
+ *          (values). Row numbers start at 1.
  * rownum [optional]: (integer) The row number to position screen on.
  * totalrows: (integer) Total number of rows in the view.
  * update [optional]: (integer) If set, update the rowlist instead of

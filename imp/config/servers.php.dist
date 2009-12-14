@@ -148,8 +148,17 @@
  *                        everyone.
  *
  * 'debug' - (string) If set, will output debug information from the IMAP
- *                    library.  The value can be any PHP supported wrapper
- *                    that can be opened via fopen().
+ *           library. The value can be any PHP supported wrapper that can be
+ *           opened via fopen(). For example, to output to a file (the default
+ *           PHP wrapper), provide the full path to the file (this file must
+ *           be writable by the PHP process). This setting should not be
+ *           enabled by default on production servers, since the log file will
+ *           quickly grow very large.
+ *
+ *           To restrict logging to a certain user ('foo'), and to log this
+ *           output to the file '/tmp/imaplog', the following can be used:
+ *
+ *             ((Horde_Auth::getAuth() == 'foo') ? '/tmp/imaplog' : false)
  *
  *
  * *** The following options should NOT be set unless you REALLY know what ***
