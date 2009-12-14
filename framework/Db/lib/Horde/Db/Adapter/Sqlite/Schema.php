@@ -249,8 +249,8 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     {
         $this->_clearTableCache($tableName);
 
-        return $this->_alterTable($tableName, array('definitionCallback' =>
-            create_function('$definition', 'unset($definition["'.$columnName.'"]);')));
+        return $this->_alterTable($tableName, array(),
+            create_function('$definition', 'unset($definition["'.$columnName.'"]);'));
     }
 
     /**
@@ -270,8 +270,8 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
         if (isset($options['precision'])) { $defs[] = '$definition["'.$columnName.'"]->setPrecision("'.$options['precision'].'");'; }
         if (isset($options['scale'])) { $defs[] = '$definition["'.$columnName.'"]->setScale("'.$options['scale'].'");'; }
 
-        return $this->_alterTable($tableName, array('definitionCallback' =>
-            create_function('$definition', implode("\n", $defs))));
+        return $this->_alterTable($tableName, array(),
+            create_function('$definition', implode("\n", $defs)));
     }
 
     /**
@@ -283,8 +283,8 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     {
         $this->_clearTableCache($tableName);
 
-        return $this->_alterTable($tableName, array('definitionCallback' =>
-            create_function('$definition', '$definition["'.$columnName.'"]->setDefault("'.$default.'");')));
+        return $this->_alterTable($tableName, array(),
+            create_function('$definition', '$definition["'.$columnName.'"]->setDefault("'.$default.'");'));
     }
 
     /**
@@ -339,26 +339,26 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
         }
     }
 
-    protected function _alterTable($tableName, $options = array())
+    protected function _alterTable($tableName, $options = array(), $callback = null)
     {
         $this->beginDbTransaction();
 
         $alteredTableName = "altered_$tableName";
         $this->_moveTable($tableName, $alteredTableName, array_merge($options, array('temporary' => true)));
-        $this->_moveTable($alteredTableName, $tableName, $options);
+        $this->_moveTable($alteredTableName, $tableName, array(), $callback);
 
         $this->commitDbTransaction();
 
         return true;
     }
 
-    protected function _moveTable($from, $to, $options = array())
+    protected function _moveTable($from, $to, $options = array(), $callback = null)
     {
-        $this->_copyTable($from, $to, $options);
+        $this->_copyTable($from, $to, $options, $callback);
         $this->dropTable($from);
     }
 
-    protected function _copyTable($from, $to, $options = array())
+    protected function _copyTable($from, $to, $options = array(), $callback = null)
     {
         $fromColumns = $this->columns($from);
         $options = array_merge($options, array('id' => false));
@@ -376,8 +376,8 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
         $primaryKey = $this->primaryKey($from);
         if ($primaryKey) { $definition->primaryKey($primaryKey); }
 
-        if (isset($options['definitionCallback']) && is_callable($options['definitionCallback'])) {
-            call_user_func($options['definitionCallback'], $definition);
+        if (is_callable($callback)) {
+            call_user_func($callback, $definition);
         }
 
         $definition->end();
@@ -424,8 +424,8 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
 
     protected function _copyTableContents($from, $to, $columns, $rename = array())
     {
-        $origColumns = $columns;
         $columnMappings = array_combine($columns, $columns);
+
         foreach ($rename as $renameFrom => $renameTo) {
             $columnMappings[$renameTo] = $renameFrom;
         }
@@ -434,7 +434,14 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
         foreach ($this->columns($from) as $col) {
             $fromColumns[] = $col->getName();
         }
-        $columns = array_intersect($columns, $fromColumns);
+
+        $tmpColumns = array();
+        foreach ($columns as $col) {
+            if (in_array($columnMappings[$col], $fromColumns)) {
+                $tmpColumns[] = $col;
+            }
+        }
+        $columns = $tmpColumns;
 
         $fromColumns = array();
         foreach ($columns as $col) {
