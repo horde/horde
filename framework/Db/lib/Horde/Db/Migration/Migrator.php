@@ -96,9 +96,7 @@ class Horde_Db_Migration_Migrator
      */
     public function up($targetVersion = null)
     {
-        if (!is_null($targetVersion)) {
-            $this->_targetVersion = $targetVersion;
-        }
+        $this->_targetVersion = $targetVersion;
         $this->_direction = 'up';
         $this->_doMigrate();
     }
@@ -108,9 +106,7 @@ class Horde_Db_Migration_Migrator
      */
     public function down($targetVersion = null)
     {
-        if (!is_null($targetVersion)) {
-            $this->_targetVersion = $targetVersion;
-        }
+        $this->_targetVersion = $targetVersion;
         $this->_direction = 'down';
         $this->_doMigrate();
     }
@@ -262,5 +258,4 @@ class Horde_Db_Migration_Migrator
         return ($this->_isUp()   && $version <= self::getCurrentVersion()) ||
                ($this->_isDown() && $version >  self::getCurrentVersion());
     }
-
 }
