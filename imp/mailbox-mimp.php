@@ -101,7 +101,7 @@ $title = IMP::getLabel($imp_mbox['mailbox']);
 $mimp_render->set('title', $title);
 if ($pageOb['msgcount']) {
     $msgcount = $pageOb['msgcount'];
-    $unseen = $imp_mailbox->unseenMessages(true);
+    $unseen = $imp_mailbox->unseenMessages(Horde_Imap_Client::SORT_RESULTS_COUNT);
 }
 
 $curr_time = time();
