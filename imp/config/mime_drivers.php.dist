@@ -116,9 +116,6 @@ $mime_drivers['imp']['images'] = array(
     'handles' => array(
         'image/*'
     ),
-    'icons' => array(
-        'default' => 'image.png'
-    ),
     /* Display thumbnails for all images, not just large images? */
     'allthumbs' => true,
     /* Display images inline that are less than this size (in bytes). */
@@ -282,9 +279,6 @@ $mime_drivers['imp']['rfc822'] = array(
     'inline' => false,
     'handles' => array(
         'message/rfc822', 'x-extension/eml'
-    ),
-    'icons' => array(
-        'default' => 'mail.png'
     )
 );
 
