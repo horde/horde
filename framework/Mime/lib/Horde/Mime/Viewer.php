@@ -83,7 +83,7 @@ class Horde_Mime_Viewer
         } elseif (($ob['match'] !== 0) && ($app != 'horde')) {
             $obHorde = self::_getIcon($mime_type, 'horde');
             if (!is_null($ob['match']) &&
-                ($obHorde['match'] <= $ob['match'])) {
+                ($obHorde['match'] < $ob['match'])) {
                 return $obHorde['url'];
             }
         }
@@ -230,9 +230,11 @@ class Horde_Mime_Viewer
      *
      * @return mixed  Null if not found, or an array with the following keys:
      * <pre>
-     * 'exact' - (integer) How exact the match is.
-     *           0 => 'exact', 1 => 'primary', 2 => 'driver',
-     *           3 => 'default', or null.
+     * 'exact' - (integer) How exact the match is. Null if no match.
+     *           0 - 'exact'
+     *           1 - 'primary'
+     *           2 - 'driver',
+     *           3 - 'default'
      * 'url' - (string) URL to an icon, or null if none could be found.
      * </pre>
      */
@@ -279,4 +281,5 @@ class Horde_Mime_Viewer
 
         return $ret;
     }
+
 }
