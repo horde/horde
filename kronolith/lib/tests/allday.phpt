@@ -4,10 +4,7 @@ Import of all-day events
 <?php
 
 class Driver {
-    function getCalendar()
-    {
-        return 'foo';
-    }
+    public $calendar = 'foo';
 }
 class Prefs {
     function getValue()
@@ -19,6 +16,7 @@ $prefs = new Prefs;
 
 require 'Date/Calc.php';
 require 'Horde/Date.php';
+require 'Horde/String.php';
 require 'Horde/iCalendar.php';
 
 $iCal = new Horde_iCalendar();

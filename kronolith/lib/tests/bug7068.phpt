@@ -4,15 +4,13 @@ Bug #7068: Single EXDATE properties not imported
 <?php
 
 class Driver {
-    function getCalendar()
-    {
-        return 'foo';
-    }
+    public $calendar = 'foo';
 }
 
 require 'Date/Calc.php';
 require 'Horde/Date.php';
 require 'Horde/Date/Recurrence.php';
+require 'Horde/String.php';
 require 'Horde/iCalendar.php';
 
 $iCal = new Horde_iCalendar();
