@@ -1331,7 +1331,9 @@ class Horde_Mime_Part
             }
         } else {
             $this->setMimeId($id);
-            $id .= '.';
+            $id = $id
+                ? $id . '.'
+                : '';
 
             if ($this->getType() == 'message/rfc822') {
                 if (count($this->_parts)) {
