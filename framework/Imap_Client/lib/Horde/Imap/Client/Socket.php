@@ -3609,7 +3609,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             switch ($char) {
             case '"':
                 if ($c['in_quote']) {
-                    if ($i && ($line[$i - 1] != '//')) {
+                    if ($i && ($line[$i - 1] != '\\')) {
                         $c['in_quote'] = false;
                         $c['ptr'][$c['paren']][] = stripcslashes($tmp);
                         $tmp = '';
