@@ -218,7 +218,7 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
 
                 $part2 = new Horde_Mime_Part();
                 $part2->setType('application/octet-stream');
-                $part2->setContents($message_encrypt);
+                $part2->setContents(implode("\n", $val['data']));
                 $part2->setDisposition('inline');
 
                 $part->addPart($part1);
