@@ -244,18 +244,12 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
             $status[] = _("The data in this part has been compressed via PGP.");
         } else {
             $status[] = _("The data in this part has been encrypted via PGP.");
-            if (!$symmetric) {
-                if (!$this->_imppgp->getPersonalPrivateKey()) {
-                    /* Output if there is no personal private key to decrypt
-                     * with. */
-                    $status[] = _("The data in this part has been encrypted via PGP, however, no personal private key exists so the message cannot be decrypted.");
-                    return null;
-                } else {
-                    $personal_pass = $this->_imppgp->getPassphrase('personal');
 
+            if (!$symmetric) {
+                if ($this->_imppgp->getPersonalPrivateKey()) {
+                    $personal_pass = $this->_imppgp->getPassphrase('personal');
                     if (is_null($personal_pass)) {
                         $js_action = '';
-                        $status[] = _("The data in this part has been encrypted via PGP.");
 
                         switch ($_SESSION['imp']['view']) {
                         case 'dimp':
@@ -270,6 +264,11 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
                         }
                         return null;
                     }
+                } else {
+                    /* Output if there is no personal private key to decrypt
+                     * with. */
+                    $status[] = _("However, no personal private key exists so the message cannot be decrypted.");
+                    return null;
                 }
             }
         }
