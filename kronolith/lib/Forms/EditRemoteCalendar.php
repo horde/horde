@@ -31,45 +31,43 @@ class Kronolith_EditRemoteCalendarForm extends Horde_Form {
         $this->addVariable(_("Name"), 'name', 'text', true);
         $v = &$this->addVariable(_("URL"), 'new_url', 'text', true);
         $v->setDefault($vars->get('url'));
-        $this->addVariable(_("Username"), 'username', 'text', false);
+        $this->addVariable(_("Username"), 'user', 'text', false);
         $this->addVariable(_("Password"), 'password', 'password', false);
+        $this->addVariable(_("Color"), 'color', 'colorpicker', false);
+        $this->addVariable(_("Description"), 'desc', 'longtext', false, false, null, array(4, 60));
 
         $this->setButtons(array(_("Save")));
     }
 
     function execute()
     {
-        $name = trim($this->_vars->get('name'));
+        $info = array();
+        foreach (array('name', 'new_url', 'user', 'password', 'color', 'desc') as $key) {
+            $info[$key == 'new_url' ? 'url' : $key] = $this->_vars->get($key);
+        }
         $url = trim($this->_vars->get('url'));
-        $new_url = trim($this->_vars->get('new_url'));
-        $username = trim($this->_vars->get('username'));
-        $password = trim($this->_vars->get('password'));
 
-        if (!(strlen($name) && strlen($url))) {
+        if (!strlen($info['name']) || !strlen($url)) {
             return false;
         }
 
-        if (strlen($username) || strlen($password)) {
+        if (strlen($info['username']) || strlen($info['password'])) {
             $key = Horde_Auth::getCredential('password');
             if ($key) {
-                $username = base64_encode(Horde_Secret::write($key, $username));
-                $password = base64_encode(Horde_Secret::write($key, $password));
+                $info['username'] = base64_encode(Horde_Secret::write($key, $info['username']));
+                $info['password'] = base64_encode(Horde_Secret::write($key, $info['password']));
             }
         }
 
         $remote_calendars = unserialize($GLOBALS['prefs']->getValue('remote_cals'));
         foreach ($remote_calendars as $key => $calendar) {
             if ($calendar['url'] == $url) {
-                $remote_calendars[$key]['name'] = $name;
-                $remote_calendars[$key]['url'] = $new_url;
-                $remote_calendars[$key]['user'] = $username;
-                $remote_calendars[$key]['password'] = $password;
+                $remote_calendars[$key] = $info;
                 break;
             }
         }
 
         $GLOBALS['prefs']->setValue('remote_cals', serialize($remote_calendars));
-        return true;
     }
 
 }

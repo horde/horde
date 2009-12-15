@@ -61,12 +61,12 @@ if ($key) {
 $vars->set('name', $calendar['name']);
 $vars->set('url', $calendar['url']);
 if (isset($calendar['desc'])) {
-    $vars->set('decription', $calendar['desc']);
+    $vars->set('desc', $calendar['desc']);
 }
 if (isset($calendar['color'])) {
     $vars->set('color', $calendar['color']);
 }
-$vars->set('username', $username);
+$vars->set('user', $username);
 $vars->set('password', $password);
 $title = $form->getTitle();
 require KRONOLITH_TEMPLATES . '/common-header.inc';
