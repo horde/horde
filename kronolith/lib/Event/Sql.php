@@ -34,16 +34,22 @@ class Kronolith_Event_Sql extends Kronolith_Event
      */
     public function __construct($driver, $eventObject = null)
     {
-        static $alarm;
-
         /* Set default alarm value. */
         if (!isset($alarm) && isset($GLOBALS['prefs'])) {
-            $alarm = $GLOBALS['prefs']->getValue('default_alarm');
+            $this->alarm = $GLOBALS['prefs']->getValue('default_alarm');
         }
 
-        $this->alarm = $alarm;
-
         parent::__construct($driver, $eventObject);
+
+        if (!empty($this->calendar) &&
+            isset($GLOBALS['all_calendars'][$this->calendar])) {
+            $share = $GLOBALS['all_calendars'][$this->calendar];
+            $backgroundColor = $share->get('color');
+            if (!empty($backgroundColor)) {
+                $this->_backgroundColor = $backgroundColor;
+                $this->_foregroundColor = Horde_Image::brightness($this->_backgroundColor) < 128 ? '#fff' : '#000';
+            }
+        }
     }
 
     public function fromDriver($SQLEvent)

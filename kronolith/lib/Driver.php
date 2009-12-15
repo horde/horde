@@ -15,18 +15,32 @@
 class Kronolith_Driver
 {
     /**
-     * A hash containing any parameters for the current driver.
-     *
-     * @var array
-     */
-    protected $_params = array();
-
-    /**
      * The current calendar.
      *
      * @var string
      */
     public $calendar;
+
+    /**
+     * The HTML background color to be used for this event.
+     *
+     * @var string
+     */
+    public $backgroundColor = '#ddd';
+
+    /**
+     * The HTML foreground color to be used for this event.
+     *
+     * @var string
+     */
+    public $foregroundColor = '#000';
+
+    /**
+     * A hash containing any parameters for the current driver.
+     *
+     * @var array
+     */
+    protected $_params = array();
 
     /**
      * An error message to throw when something is wrong.
@@ -76,9 +90,35 @@ class Kronolith_Driver
         $this->_params[$param] = $value;
     }
 
+    /**
+     * Selects a calendar as the currently opened calendar.
+     *
+     * @param string $calendar  A calendar identifier.
+     */
     public function open($calendar)
     {
         $this->calendar = $calendar;
+    }
+
+    /**
+     * Returns the background color of the current calendar.
+     *
+     * @return string  The calendar color.
+     */
+    public function backgroundColor()
+    {
+        return '#dddddd';
+    }
+
+    /**
+     * Returns the colors of the current calendar.
+     *
+     * @return array  The calendar background and foreground color.
+     */
+    public function colors()
+    {
+        $color = $this->backgroundColor();
+        return array($color, Kronolith::foregroundColor($color));
     }
 
     /**

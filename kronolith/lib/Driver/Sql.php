@@ -47,6 +47,23 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      */
     protected $_eventClass = 'Kronolith_Event_Sql';
 
+    /**
+     * Returns the background color of the current calendar.
+     *
+     * @return string  The calendar color.
+     */
+    public function backgroundColor()
+    {
+        if (isset($GLOBALS['all_calendars'][$this->calendar])) {
+            $share = $GLOBALS['all_calendars'][$this->calendar];
+            $color = $share->get('color');
+            if (!empty($color)) {
+                return $color;
+            }
+        }
+        return '#dddddd';
+    }
+
     public function listAlarms($date, $fullevent = false)
     {
         $allevents = $this->listEvents($date, null, false, true);

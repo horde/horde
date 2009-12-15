@@ -226,7 +226,7 @@ abstract class Kronolith_Event
      *
      * @var string
      */
-    protected $_foregroundColor = '#000';
+    protected $_foregroundColor = '#000000';
 
     /**
      * The VarRenderer class to use for printing select elements.
@@ -253,21 +253,12 @@ abstract class Kronolith_Event
     public function __construct($driver, $eventObject = null)
     {
         $this->calendar = $driver->calendar;
-        // FIXME: Move color definitions anywhere else.
-        if (!empty($this->calendar) &&
-            isset($GLOBALS['all_calendars'][$this->calendar])) {
-            $share = $GLOBALS['all_calendars'][$this->calendar];
-            $backgroundColor = $share->get('color');
-            if (!empty($backgroundColor)) {
-                $this->_backgroundColor = $backgroundColor;
-                $this->_foregroundColor = Horde_Image::brightness($this->_backgroundColor) < 128 ? '#fff' : '#000';
-            }
-        }
+        list($this->_backgroundColor, $this->_foregroundColor) = $driver->colors();
 
-        if ($eventObject !== null) {
+        if (!is_null($eventObject)) {
+            $this->fromDriver($eventObject);
 
             /* Get tags */
-            $this->fromDriver($eventObject);
             $tagger = Kronolith::getTagger();
             $this->tags = $tagger->getTags($this->uid, 'event');
 

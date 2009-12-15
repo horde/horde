@@ -322,7 +322,6 @@ class Kronolith_Api extends Horde_Registry_Api
                 if (is_a($content, 'Horde_iCalendar_vevent')) {
                     $event = $kronolith_driver->getEvent();
                     $event->fromiCalendar($content);
-                    $event->calendar = $calendar;
                     $uid = $event->uid;
                     // Remove from uids_remove list so we won't delete in the
                     // end.
@@ -608,9 +607,8 @@ class Kronolith_Api extends Horde_Registry_Api
                 if (is_a($content, 'Horde_iCalendar_vevent')) {
                     $event = $kronolith_driver->getEvent();
                     $event->fromiCalendar($content);
-                    $event->calendar = $calendar;
-                    // Check if the entry already exists in the data source, first
-                    // by UID.
+                    // Check if the entry already exists in the data source,
+                    // first by UID.
                     $uid = $event->uid;
                     $existing_event = $kronolith_driver->getByUID($uid, array($calendar));
                     if (!is_a($existing_event, 'PEAR_Error')) {

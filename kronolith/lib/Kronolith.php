@@ -268,7 +268,6 @@ class Kronolith
 
         // Remote calendars
         foreach ($GLOBALS['all_remote_calendars'] as $calendar) {
-
             $code['conf']['calendars']['remote'][$calendar['url']] = array_merge(
                 array('name' => $calendar['name'],
                       'desc' => isset($calendar['desc']) ? $calendar['desc'] : '',
@@ -2325,16 +2324,18 @@ class Kronolith
     }
 
     /**
-     * Returns the foreground color for a calendar.
+     * Returns the foreground color for a calendar or a background color.
      *
-     * @param array|Horde_Share_Object $calendar  A calendar share or a hash
-     *                                            from a remote calender
-     *                                            definition.
+     * @param array|Horde_Share_Object|string $calendar  A color string, a
+     *                                                   calendar share or a
+     *                                                   hash from a remote
+     *                                                   calender definition.
+     *
      * @return string  A HTML color code.
      */
     public static function foregroundColor($calendar)
     {
-        return Horde_Image::brightness(self::backgroundColor($calendar)) < 128 ? '#fff' : '#000';
+        return Horde_Image::brightness(is_string($calendar) ? $calendar : self::backgroundColor($calendar)) < 128 ? '#fff' : '#000';
     }
 
     /**

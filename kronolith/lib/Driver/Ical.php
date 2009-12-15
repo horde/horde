@@ -30,6 +30,23 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
      */
     private $_cache = array();
 
+    /**
+     * Returns the background color of the current calendar.
+     *
+     * @return string  The calendar color.
+     */
+    public function backgroundColor()
+    {
+        foreach ($GLOBALS['all_remote_calendars'] as $calendar) {
+            if ($calendar['url'] == $this->calendar) {
+                return empty($calendar['color'])
+                    ? '#dddddd'
+                    : $calendar['color'];
+            }
+        }
+        return '#dddddd';
+    }
+
     public function listAlarms($date, $fullevent = false)
     {
         return array();
@@ -87,7 +104,6 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                 $event = new Kronolith_Event_Ical($this);
                 $event->status = Kronolith::STATUS_FREE;
                 $event->fromiCalendar($component);
-                $event->calendar = $this->calendar;
                 // Force string so JSON encoding is consistent across drivers.
                 $event->id = 'ical' . $i;
 
@@ -152,7 +168,6 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             $event = new Kronolith_Event_Ical($this);
             $event->status = Kronolith::STATUS_FREE;
             $event->fromiCalendar($components[$eventId]);
-            $event->calendar = $this->calendar;
             $event->id = 'ical' . $eventId;
 
             return $event;

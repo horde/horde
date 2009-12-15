@@ -58,16 +58,34 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
     }
 
     /**
-     * Change current calendar
+     * Selects a calendar as the currently opened calendar.
+     *
+     * @param string $calendar  A calendar identifier.
      */
     public function open($calendar)
     {
-        if ($this->calendar != $calendar) {
-            $this->calendar = $calendar;
-            $this->reset();
+        if ($this->calendar == $calendar) {
+            return;
         }
+        $this->calendar = $calendar;
+        $this->reset();
+    }
 
-        return true;
+    /**
+     * Returns the background color of the current calendar.
+     *
+     * @return string  The calendar color.
+     */
+    public function backgroundColor()
+    {
+        if (isset($GLOBALS['all_calendars'][$this->calendar])) {
+            $share = $GLOBALS['all_calendars'][$this->calendar];
+            $color = $share->get('color');
+            if (!empty($color)) {
+                return $color;
+            }
+        }
+        return '#dddddd';
     }
 
     /**

@@ -94,7 +94,6 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
         } else {
             /* Create a new event */
             $e = $driver->getEvent();
-            $e->calendar = $this->get('calendar');
             $e->fromiCalendar($event->toiCalendar(new Horde_iCalendar('2.0')));
             $e->save();
         }
