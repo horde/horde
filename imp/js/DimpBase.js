@@ -2147,12 +2147,17 @@ var DimpBase = {
             });
 
             if (need.size()) {
+                if (mode == 'tog') {
+                    base.down('A').update(DIMP.text.loading);
+                }
                 this._listFolders({
                     all: Number(mode == 'expall'),
                     callback: this._toggleSubFolder.bind(this, base, mode, noeffect),
                     view: need
                 });
                 return;
+            } else if (mode == 'tog') {
+                base.down('A').update(base.retrieve('l'));
             }
         }
 
