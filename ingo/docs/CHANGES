@@ -7,8 +7,15 @@ v2.0-git
 
 
 ----------
-v1.2.3-cvs
+v1.2.4-cvs
 ----------
+
+
+
+
+------
+v1.2.3
+------
 
 [jan] Log Sieve communication with DEBUG log level.
 [jan] Fix Oracle SQL scripts.

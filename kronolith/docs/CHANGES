@@ -24,13 +24,20 @@ v3.0-git
 
 
 ----------
-v2.3.3-cvs
+v2.3.4-cvs
 ----------
 
+
+
+
+------
+v2.3.3
+------
+
 [jan] Fix editing URLs of remote calendars.
-[gwr] Fixed recurring weekly events with fixed number of occurences but
-      multiple incidences per week (kolab/issue3846).
-[gwr] Fixed recurring weekly events with intervals > 1 (Bug #8546).
+[gwr] Fix recurring weekly events with fixed number of occurences but multiple
+      incidences per week (kolab/issue3846).
+[gwr] Fix recurring weekly events with intervals > 1 (Bug #8546).
 [jan] Optimize event link generation (patrick.abiven@apitech.fr).
 [jan] Fix Oracle SQL scripts.
 [jan] Fix charset of ajax responses.

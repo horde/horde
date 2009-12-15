@@ -125,8 +125,15 @@ v5.0-git
 
 
 ----------
-v4.3.6-cvs
+v4.3.7-cvs
 ----------
+
+
+
+
+------
+v4.3.6
+------
 
 [cjh] Fix the default value for the nav_audio preference
       (sistemisti-posta@csi.it, Bug #8725).

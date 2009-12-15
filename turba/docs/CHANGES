@@ -7,8 +7,15 @@ v3.0-git
       (Request #8504).
 
 ----------
-v2.3.3-cvs
+v2.3.4-cvs
 ----------
+
+
+
+
+------
+v2.3.3
+------
 
 [jan] Fix syntax of MSSQL scripts (Bug #8664).
 [jan] Add preference for the name format to use for sorting (Request #6721).
