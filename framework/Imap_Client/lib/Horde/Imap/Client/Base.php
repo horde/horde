@@ -207,7 +207,8 @@ abstract class Horde_Imap_Client_Base
      */
     protected function _initCache($current = false)
     {
-        if (empty($this->_params['cache']['fields'])) {
+        if (empty($this->_params['cache']['fields']) ||
+            !empty($this->_temp['nocache'])) {
             return false;
         }
 
@@ -2629,9 +2630,10 @@ abstract class Horde_Imap_Client_Base
         if (empty($status['uidnext'])) {
             /* UIDNEXT is not strictly required on mailbox open. If it is
              * not available, use the last UID in the mailbox instead. */
-            $search_res = $this->fetch($this->_selected, array(Horde_Imap_Client::FETCH_UID => true), array('ids' => array('*'), 'sequence' => true));
-            $result = reset($search_res);
-            $status['uidnext'] = $result['uid'];
+            $this->_temp['nocache'] = true;
+            $search_res = $this->_getSeqUIDLookup(array($status['messages']), true);
+            unset($this->_temp['nocache']);
+            $status['uidnext'] = reset($search_res['uids']);
         }
 
         return implode('|', array($status['uidvalidity'], $status['uidnext'], $status['messages']));

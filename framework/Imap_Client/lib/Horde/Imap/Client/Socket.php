@@ -4080,4 +4080,5 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             break;
         }
     }
+
 }
