@@ -78,7 +78,7 @@ class IMP_Horde_Mime_Viewer_Appledouble extends Horde_Mime_Viewer_Driver
         }
 
         $status = array(
-            'icon' => Horde::img('apple.png', _("Macintosh File")),
+            'icon' => Horde::img('mime/apple.png', _("Macintosh File")),
             'text' => array(
                 sprintf(_("This message contains a Macintosh file (named \"%s\")."), $data_name),
                 sprintf(_("The Macintosh resource fork can be downloaded %s."), $this->_params['contents']->linkViewJS($applefile_part, 'download_attach', _("HERE"), array('jstext' => _("The Macintosh resource fork"))))
@@ -89,9 +89,6 @@ class IMP_Horde_Mime_Viewer_Appledouble extends Horde_Mime_Viewer_Driver
         $ret = array();
         if ($inline && (($disp = $this->_params['contents']->canDisplay($data_part, IMP_Contents::RENDER_INLINE | IMP_Contents::RENDER_INFO)))) {
             $ret = $this->_params['contents']->renderMIMEPart($data_id, $disp, array('params' => $this->_params));
-            $status['text'][] = _("The contents of the Macintosh file are below.");
-        } else {
-            $status['text'][] = sprintf(_("The contents of the Macintosh file can be downloaded %s."), $this->_params['contents']->linkViewJS($data_part, 'download_attach', _("HERE"), array('jstext' => _("The Macintosh file"))));
         }
 
         foreach ($parts_list as $val) {
@@ -100,7 +97,8 @@ class IMP_Horde_Mime_Viewer_Appledouble extends Horde_Mime_Viewer_Driver
                     ? array(
                           'data' => '',
                           'status' => array($status),
-                          'type' => 'text/html; charset=' . Horde_Nls::getCharset()
+                          'type' => 'text/html; charset=' . Horde_Nls::getCharset(),
+                          'wrap' => 'mimePartWrap'
                       )
                     : null;
             }

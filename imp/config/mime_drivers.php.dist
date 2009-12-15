@@ -220,6 +220,9 @@ $mime_drivers['imp']['appledouble'] = array(
     'inline' => true,
     'handles' => array(
         'multipart/appledouble'
+    ),
+    'icons' => array(
+        'default' => 'apple.png'
     )
 );
 
