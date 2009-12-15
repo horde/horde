@@ -76,8 +76,7 @@ class IMP_Views_ShowMessage
      * 'uid' - The IMAP UID
      *
      * FOR PREVIEW MODE:
-     * 'fulldate' - The fully formatted date
-     * 'minidate' - A miniature date
+     * 'localdate' - The date formatted to the user's timezone
      *
      * FOR NON-PREVIEW MODE:
      * 'bcc' - The Bcc addresses
@@ -207,11 +206,11 @@ class IMP_Views_ShowMessage
         if ($preview) {
             /* Get minidate. */
             $imp_mailbox_ui = new IMP_Ui_Mailbox();
-            $minidate = $imp_mailbox_ui->getDate($envelope['date']);
-            if (empty($minidate)) {
-                $minidate = _("Unknown Date");
+            $localdate = $imp_mailbox_ui->getDate($envelope['date']);
+            if (empty($localdate)) {
+                $localdate = _("Unknown Date");
             }
-            $result['localdate'] = $result['minidate'] = htmlspecialchars($minidate);
+            $result['localdate'] = htmlspecialchars($localdate);
         } else {
             /* Display the user-specified headers for the current identity. */
             $user_hdrs = $imp_ui->getUserHeaders();

@@ -1144,8 +1144,7 @@ var DimpBase = {
         tmp.invoke('update', r.subject === null ? '[' + DIMP.text.badsubject + ']' : r.subject);
 
         // Add date
-        $('msgHeadersColl').select('.date').invoke('update', r.minidate);
-        $('msgHeaderDate').select('.date').invoke('update', r.localdate);
+        [ $('msgHeadersColl').select('.date'), $('msgHeaderDate').select('.date') ].flatten().invoke('update', r.localdate);
 
         // Add from/to/cc headers
         [ 'from', 'to', 'cc' ].each(function(a) {
