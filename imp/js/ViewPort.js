@@ -212,8 +212,14 @@ var ViewPort = Class.create({
             this.page_size = ps;
         }
 
-        if (this.view && (view != this.view)) {
+        if (this.view) {
             if (!background) {
+                // If this is the same view, send an ajax request with the
+                // given parameters.
+                if (view == this.view) {
+                    return this._fetchBuffer({ search: search });
+                }
+
                 // Need to store current buffer to save current offset
                 buffer = this._getBuffer();
                 buffer.setMetaData({ offset: this.currentOffset() }, true);
@@ -497,6 +503,7 @@ var ViewPort = Class.create({
     //
     // OPTIONAL:
     //   background: (boolean) Do fetch in background
+    //   callback: (function) A callback to run when the request is complete
     //   initial: (boolean) Is this the initial access to this view?
     //   nearing: (string) TODO [only used w/offset]
     //   params: (object) Parameters to add to outgoing URL
@@ -587,6 +594,12 @@ var ViewPort = Class.create({
             b.setMetaData({ llist: llist }, true);
 
             params.update({ slice: rlist.first() + ':' + rlist.last() });
+        }
+
+        if (opts.callback) {
+            tmp = b.getMetaData('callback') || $H();
+            tmp.set(r_id, opts.callback);
+            b.setMetaData({ callback: tmp }, true);
         }
 
         if (!opts.background) {
@@ -744,7 +757,7 @@ var ViewPort = Class.create({
         this.isbusy = true;
         this._clearWait();
 
-        var offset,
+        var callback, offset,
             buffer = this._getBuffer(r.view),
             llist = buffer.getMetaData('llist') || $H();
 
@@ -766,8 +779,15 @@ var ViewPort = Class.create({
         if (r.requestid &&
             r.requestid == this.active_req) {
             this.active_req = null;
+            callback = buffer.getMetaData('callback');
             offset = buffer.getMetaData('req_offset');
-            buffer.setMetaData({ req_offset: undefined });
+
+            if (callback && callback.get(r.requestid)) {
+                callback.get(r.requestid)(r);
+                callback.unset(r.requestid);
+            }
+
+            buffer.setMetaData({ callback: undefined, req_offset: undefined }, true);
 
             if (this.opts.onEndFetch) {
                 this.opts.onEndFetch();
@@ -1108,15 +1128,39 @@ var ViewPort = Class.create({
         return this.createSelection('uid', buffer ? buffer.getAllUIDs() : [], view);
     },
 
-    // vs = (Viewport_Selection | array) A Viewport_Selection object -or-, if
+    getMissing: function(view)
+    {
+        var buffer = this._getBuffer(view);
+        if (!buffer) {
+            return '';
+        }
+        return this.createSelection('uid', buffer ? buffer.getAllUIDs() : [], view);
+    },
+
+    // vs = (Viewport_Selection | array) A Viewport_Selection object -or- if
     //       opts.range is set, an array of row numbers.
-    // opts = (object) TODO [add, range]
+    // opts = (object) TODO [add, range, search]
     select: function(vs, opts)
     {
         opts = opts || {};
 
         var b = this._getBuffer(),
             sel, slice;
+
+        if (opts.search) {
+            if (this.opts.onFetch) {
+                this.opts.onFetch();
+            }
+
+            return this._fetchBuffer({
+                callback: function(r) {
+                    if (r.rownum) {
+                        this.select(this.createSelection('rownum', [ r.rownum ]), { add: opts.add, range: opts.range });
+                    }
+                }.bind(this),
+                search: opts.search
+            });
+        }
 
         if (opts.range) {
             slice = this.createSelection('rownum', vs);
@@ -1125,8 +1169,7 @@ var ViewPort = Class.create({
                     this.opts.onFetch();
                 }
 
-                this._ajaxRequest({ rangeslice: 1, slice: vs.min() + ':' + vs.size() });
-                return;
+                return this._ajaxRequest({ rangeslice: 1, slice: vs.min() + ':' + vs.size() });
             }
             vs = slice;
         }

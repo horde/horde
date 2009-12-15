@@ -95,42 +95,6 @@ class IMP_Views_ListMessages
         $result->cacheid = $imp_mailbox->getCacheID();
         $result->totalrows = $msgcount;
 
-        /* If this is the initial request for a mailbox, figure out the
-         * starting location based on user's preferences. */
-        $rownum = $args['initial']
-            ? intval($imp_mailbox->mailboxStart($msgcount))
-            : null;
-
-        /* Determine the row slice to process. */
-        if (isset($args['search_uid']) || !is_null($rownum)) {
-            if (is_null($rownum)) {
-                $rownum = 1;
-                foreach (array_keys($sorted_list['s'], $args['search_uid']) as $val) {
-                    if (empty($sorted_list['m'][$val]) ||
-                        ($sorted_list['m'][$val] == $args['search_mbox'])) {
-                        $rownum = $val;
-                        break;
-                    }
-                }
-            }
-
-            $slice_start = $rownum - $args['before'];
-            $slice_end = $rownum + $args['after'];
-            if ($slice_start < 1) {
-                $slice_end += abs($slice_start) + 1;
-            } elseif ($slice_end > $msgcount) {
-                $slice_start -= $slice_end - $msgcount;
-            }
-
-            $result->rownum = $rownum;
-        } else {
-            $slice_start = $args['slice_start'];
-            $slice_end = $args['slice_end'];
-        }
-
-        $slice_start = max(1, $slice_start);
-        $slice_end = min($msgcount, $slice_end);
-
         /* Mail-specific viewport information. */
         $md = &$result->metadata;
         if (!IMP::threadSortAvailable($mbox)) {
@@ -197,6 +161,53 @@ class IMP_Views_ListMessages
             }
             $cached = array_flip($cached);
         }
+
+        if (isset($args['search_unseen'])) {
+            /* Do an unseen search.  We know what messages the browser
+             * doesn't have based on $cached. Thus, search for the first
+             * unseen message not located in $cached. */
+            $unseen_search = $imp_mailbox->unseenMessages(Horde_Imap_Client::SORT_RESULTS_MATCH, true);
+            if (!($uid_search = array_diff($unseen_search['match'], array_keys($cached)))) {
+                return $result;
+            }
+            $rownum = array_search(reset($uid_search), $sorted_list['s']);
+        } else {
+            /* If this is the initial request for a mailbox, figure out the
+             * starting location based on user's preferences. */
+            $rownum = $args['initial']
+                ? intval($imp_mailbox->mailboxStart($msgcount))
+                : null;
+        }
+
+        /* Determine the row slice to process. */
+        if (isset($args['search_uid']) || !is_null($rownum)) {
+            if (is_null($rownum)) {
+                $rownum = 1;
+                foreach (array_keys($sorted_list['s'], $args['search_uid']) as $val) {
+                    if (empty($sorted_list['m'][$val]) ||
+                        ($sorted_list['m'][$val] == $args['search_mbox'])) {
+                        $rownum = $val;
+                        break;
+                    }
+                }
+            }
+
+            $slice_start = $rownum - $args['before'];
+            $slice_end = $rownum + $args['after'];
+            if ($slice_start < 1) {
+                $slice_end += abs($slice_start) + 1;
+            } elseif ($slice_end > $msgcount) {
+                $slice_start -= $slice_end - $msgcount;
+            }
+
+            $result->rownum = $rownum;
+        } else {
+            $slice_start = $args['slice_start'];
+            $slice_end = $args['slice_end'];
+        }
+
+        $slice_start = max(1, $slice_start);
+        $slice_end = min($msgcount, $slice_end);
 
         /* Generate the message list and the UID -> rownumber list. */
         $data = $msglist = $rowlist = array();

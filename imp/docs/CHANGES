@@ -3,6 +3,7 @@ v5.0-git
 --------
 
 [mms] Add auto-save draft to IMP (Request #7656).
+[mms] Add keyboard shortcut to move to next unseen message (Request #8223).
 [mms] Add hook to dynamically change mailbox label (Request #6734).
 [mms] Improved address expansion in MIMP.
 [mms] Load folders on-demand in sidebar (DIMP).

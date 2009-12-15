@@ -1274,12 +1274,17 @@ var DimpBase = {
         }
 
         sel = this.viewport.createSelection('dataob', r);
-        unseen = Number($(this.getFolderId(r.view)).retrieve('u'));
+        unseen = this.getUnseenCount(r.view);
 
         unseen += setflag ? -1 : 1;
         this.updateFlag(sel, '\\seen', setflag);
 
         this.updateUnseenStatus(r.view, unseen);
+    },
+
+    getUnseenCount: function(mbox)
+    {
+        return Number($(this.getFolderId(mbox)).retrieve('u'));
     },
 
     updateUnseenStatus: function(mbox, unseen)
@@ -1528,7 +1533,8 @@ var DimpBase = {
     /* Keydown event handler */
     keydownHandler: function(e)
     {
-        var co, form, h, pp, ps, r, row, rowoff, sel,
+        var all, cnt, co, form, h, need, pp, ps, r, row, rownum, rowoff, sel,
+            tmp, vsel,
             elt = e.element(),
             kc = e.keyCode || e.charCode;
 
@@ -1669,6 +1675,79 @@ var DimpBase = {
         case 97: // a
             if (e.ctrlKey) {
                 this.selectAll();
+                e.stop();
+            }
+            break;
+
+        case 78: // N
+        case 110: // n
+            if (e.shiftKey && !this.isSearch(this.folder)) {
+                cnt = this.getUnseenCount(this.folder);
+                if (Object.isUndefined(cnt) || cnt) {
+                    vsel = this.viewport.getSelection();
+                    row = vsel.search({ flag: { include: '\\seen' } }).get('rownum');
+                    all = (vsel.size() == this.viewport.getMetaData('total_rows'));
+
+                    if (all ||
+                        (!Object.isUndefined(cnt) && row.size() == cnt)) {
+                        // Here we either have the entire mailbox in buffer,
+                        // or all unseen messages are in the buffer.
+                        if (sel.size()) {
+                            tmp = sel.get('rownum').last();
+                            if (tmp) {
+                                rownum = row.detect(function(r) {
+                                    return tmp < r;
+                                });
+                            }
+                        } else {
+                            rownum = tmp = row.first();
+                        }
+                    } else {
+                        // Here there is no guarantee that the next unseen
+                        // message will appear in the current buffer. Need to
+                        // determine if any gaps are between last selected
+                        // message and next unseen message in buffer.
+                        vsel = vsel.get('rownum');
+
+                        if (sel.size()) {
+                            // We know that the selected rows are in the
+                            // buffer.
+                            tmp = sel.get('rownum').last();
+                        } else if (vsel.include(1)) {
+                            // If no selected rows, start searching from the
+                            // first entry.
+                            tmp = 0;
+                        } else {
+                            // First message is not in current buffer.
+                            need = true;
+                        }
+
+                        if (!need) {
+                            rownum = vsel.detect(function(r) {
+                                if (r > tmp) {
+                                    if (++tmp != r) {
+                                        // We have found a gap.
+                                        need = true;
+                                        throw $break;
+                                    }
+                                    return row.include(tmp);
+                                }
+                            });
+
+                            if (!need && !rownum) {
+                                need = (tmp !== this.viewport.getMetaData('total_rows'));
+                            }
+                        }
+
+                        if (need) {
+                            this.viewport.select(null, { search: { unseen: 1 } });
+                        }
+                    }
+
+                    if (rownum) {
+                        this.moveSelected(rownum, true);
+                    }
+                }
                 e.stop();
             }
             break;
