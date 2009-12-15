@@ -36,15 +36,15 @@ class Horde_Mime_Viewer
      * Attempts to return a concrete Horde_Mime_Viewer_* object based on the
      * MIME type.
      *
-     * @param Horde_Mime_Part &$mime_part  Reference to an object with the
-     *                                     information to be rendered.
-     * @param string $mime_type            The MIME type (overrides the value
-     *                                     in the MIME part).
+     * @param Horde_Mime_Part $mime_part  An object with the information to be
+     *                                    rendered.
+     * @param string $mime_type           The MIME type (overrides the value
+     *                                    in the MIME part).
      *
      * @return Horde_Mime_Viewer  The Horde_Mime_Viewer object, or false on
      *                            error.
      */
-    static final public function factory(&$mime_part, $mime_type = null)
+    static final public function factory($mime_part, $mime_type = null)
     {
         if (is_null($mime_type)) {
             $mime_type = $mime_part->getType();
