@@ -86,42 +86,44 @@ class IMP_Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Tnef
         $tnef = Horde_Compress::factory('tnef');
         $tnefData = $tnef->decompress($this->_mimepart->getContents());
 
+        if (!count($tnefData)) {
+            /* Ignore attachment if it doesn't contain any files. */
+            return array(
+                $this->_mimepart->getMimeId() => null
+            );
+        }
+
         $text = '';
 
-        if (!count($tnefData)) {
-            $status = array(
-                'text' => array(_("No attachments found."))
-            );
-        } else {
-            $status = array(
-                'text' => array(_("The following files were attached to this part:"))
-            );
+        reset($tnefData);
+        while (list($key, $data) = each($tnefData)) {
+            $temp_part = $this->_mimepart;
+            $temp_part->setName($data['name']);
+            $temp_part->setDescription($data['name']);
 
-            reset($tnefData);
-            while (list($key, $data) = each($tnefData)) {
-                $temp_part = $this->_mimepart;
-                $temp_part->setName($data['name']);
-                $temp_part->setDescription($data['name']);
-
-                /* Short-circuit MIME-type guessing for winmail.dat parts;
-                 * we're showing enough entries for them already. */
-                $type = $data['type'] . '/' . $data['subtype'];
-                if (in_array($type, array('application/octet-stream', 'application/base64'))) {
-                    $type = Horde_Mime_Magic::filenameToMIME($data['name']);
-                }
-                $temp_part->setType($type);
-
-                $link = $this->_params['contents']->linkView($temp_part, 'view_attach', htmlspecialchars($data['name']), array('jstext' => sprintf(_("View %s"), $data['name']), 'params' => array('tnef_attachment' => $key + 1)));
-                $text .= _("Attached File:") . '&nbsp;&nbsp;' . $link . '&nbsp;&nbsp;(' . $data['type'] . '/' . $data['subtype'] . ")<br />\n";
+            /* Short-circuit MIME-type guessing for winmail.dat parts;
+             * we're showing enough entries for them already. */
+            $type = $data['type'] . '/' . $data['subtype'];
+            if (in_array($type, array('application/octet-stream', 'application/base64'))) {
+                $type = Horde_Mime_Magic::filenameToMIME($data['name']);
             }
+            $temp_part->setType($type);
+
+            $link = $this->_params['contents']->linkView($temp_part, 'view_attach', htmlspecialchars($data['name']), array('jstext' => sprintf(_("View %s"), $data['name']), 'params' => array('tnef_attachment' => $key + 1)));
+            $text .= _("Attached File:") . '&nbsp;&nbsp;' . $link . '&nbsp;&nbsp;(' . $data['type'] . '/' . $data['subtype'] . ")<br />\n";
         }
 
         return array(
             $this->_mimepart->getMimeId() => array(
                 'data' => $text,
-                'status' => array($status),
+                'status' => array(
+                    array(
+                        'text' => array(_("The following files were attached to this part:"))
+                    )
+                ),
                 'type' => 'text/html; charset=' . Horde_Nls::getCharset()
             )
         );
     }
+
 }
