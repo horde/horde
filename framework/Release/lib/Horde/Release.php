@@ -375,7 +375,7 @@ class Horde_Release
         }
         if (!$old) {
             include "$directory/RELEASE_NOTES";
-            if (strlen(htmlspecialchars($this->notes['fm']['changes'])) > 600) {
+            if (strlen($this->notes['fm']['changes']) > 600) {
                 print "WARNING: freshmeat release notes are longer than 600 characters!\n";
             }
         }
@@ -548,7 +548,7 @@ class Horde_Release
 
         // Params to add new release on FM
         $version = array('version' => $this->_sourceVersionString,
-                         'changelog' => htmlspecialchars($this->notes['fm']['changes']));
+                         'changelog' => $this->notes['fm']['changes']);
 
         if (is_array($this->notes['fm']['focus'])) {
             $version['tag_list'] = $this->notes['fm']['focus'];
@@ -659,7 +659,7 @@ class Horde_Release
 
         // Building and sending message
         $mail = new Horde_Mime_Mail();
-        $mail->setBody($body, 'iso-8859-1', false);
+        $mail->setBody($body, 'utf-8', false);
         $mail->addHeaders($headers);
         $result = $mail->send(array('type' => $this->_options['mailer']['type'], 'params' => $this->_options['mailer']['params']));
         if (is_a($result, 'PEAR_Error')) {
