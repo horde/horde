@@ -593,11 +593,6 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     overflow: auto;
 }
 
-#messageBodyCover {
-    position: absolute;
-    z-index: 1000;
-}
-
 /* Message Composition. */
 .composeAddrbook {
     color: blue;

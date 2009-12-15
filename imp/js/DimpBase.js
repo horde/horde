@@ -634,12 +634,6 @@ var DimpBase = {
                     this._updatePrefs('dimp_splitbar', this.viewport.getPageSize());
                 }
             }.bind(this),
-            onSplitBarEnd: function(mode) {
-                $('messageBodyCover').hide();
-            },
-            onSplitBarStart: function(mode) {
-                $('messageBodyCover').clonePosition('messageBody').show();
-            },
             onWait: function() {
                 if ($('dimpmain_folder').visible()) {
                     DimpCore.showNotifications([ { type: 'horde.warning', message: DIMP.text.listmsg_wait } ]);
@@ -2757,11 +2751,7 @@ var DimpBase = {
             constraint: 'horizontal',
             ghosting: true,
             nodrop: true,
-            onStart: function(drag) {
-                $('messageBodyCover').clonePosition('messageBody').show();
-            },
             onEnd: function(drag) {
-                $('messageBodyCover').hide();
                 $('sidebar').setStyle({ width: drag.lastCoord[0] + 'px' });
                 drag.element.setStyle({ left: $('sidebar').clientWidth + 'px' });
                 $('dimpmain').setStyle({ left: ($('sidebar').clientWidth + drag.element.clientWidth) + 'px' });
@@ -2930,15 +2920,11 @@ DimpBase._msgDragConfig = {
         } else {
             DimpBase.msgSelect(id, args);
         }
-
-        $('messageBodyCover').clonePosition('messageBody').show();
     },
     onEnd: function(d, e) {
         if (d.selectIfNoDrag && !d.wasDragged) {
             DimpBase.msgSelect(d.element.id, { right: e.isRightClick() });
         }
-
-        $('messageBodyCover').hide();
     }
 };
 
@@ -2949,12 +2935,7 @@ DimpBase._folderDragConfig = {
     scroll: 'normalfolders',
     threshold: 5,
     onStart: function(d, e) {
-        if (DimpCore.DMenu.operaCheck(e)) {
-            d.opera = true;
-        } else {
-            d.opera = false;
-            $('messageBodyCover').clonePosition('messageBody').show();
-        }
+        d.opera = DimpCore.DMenu.operaCheck(e);
     },
     onDrag: function(d, e) {
         if (!d.opera && !d.wasDragged) {
@@ -2964,12 +2945,9 @@ DimpBase._folderDragConfig = {
         }
     },
     onEnd: function(d, e) {
-        if (!d.opera) {
-            if (d.wasDragged) {
-                $('folderopts').show();
-                $('dropbase').hide();
-            }
-            $('messageBodyCover').hide();
+        if (!d.opera && d.wasDragged) {
+            $('folderopts').show();
+            $('dropbase').hide();
         }
     }
 };
