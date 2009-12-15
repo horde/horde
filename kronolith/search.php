@@ -20,8 +20,8 @@ if ($search_mode == 'basic') {
     $title = Horde_Util::getFormData('pattern_title');
     if (strlen($desc) || strlen($title)) {
         $event = Kronolith::getDriver()->getEvent();
-        $event->setDescription($desc);
-        $event->setTitle($title);
+        $event->description = $desc;
+        $event->title = $title;
         $event->status = null;
 
         $time1 = $_SERVER['REQUEST_TIME'];

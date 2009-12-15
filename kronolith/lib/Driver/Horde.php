@@ -25,7 +25,7 @@ class Kronolith_Driver_Horde extends Kronolith_Driver
     public function open($calendar)
     {
         parent::open($calendar);
-        list($this->api,) = explode('/', $this->_calendar, 2);
+        list($this->api,) = explode('/', $this->calendar, 2);
     }
 
     public function listAlarms($date, $fullevent = false)
@@ -54,7 +54,7 @@ class Kronolith_Driver_Horde extends Kronolith_Driver
                                $showRecurrence = false, $hasAlarm = false,
                                $json = false)
     {
-        list($this->api, $category) = explode('/', $this->_calendar, 2);
+        list($this->api, $category) = explode('/', $this->calendar, 2);
         if (!$this->_params['registry']->hasMethod($this->api . '/listTimeObjects')) {
             return array();
         }

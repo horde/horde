@@ -16,7 +16,7 @@ class Kronolith_Event_Holidays extends Kronolith_Event
      *
      * @var string
      */
-    protected $_calendarType = 'holiday';
+    public $calendarType = 'holiday';
 
     /**
      * The status of this event.
@@ -42,11 +42,11 @@ class Kronolith_Event_Holidays extends Kronolith_Event
     {
         $this->stored = true;
         $this->initialized = true;
-        $this->setTitle(Horde_String::convertCharset($dhEvent->getTitle(), 'UTF-8'));
+        $this->title = Horde_String::convertCharset($dhEvent->getTitle(), 'UTF-8');
         $this->start = new Horde_Date($dhEvent->_date->getTime());
         $this->end = new Horde_Date($this->start);
         $this->end->mday++;
-        $this->setId($dhEvent->getInternalName() . '-' . $this->start->dateString());
+        $this->id = $dhEvent->getInternalName() . '-' . $this->start->dateString();
     }
 
     /**

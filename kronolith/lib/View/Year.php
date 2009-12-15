@@ -122,8 +122,9 @@ class Kronolith_View_Year {
                          * them. */
                         $day_events = '';
                         foreach ($this->_events[$date->dateString()] as $event) {
-                            if ($event->getStatus() == Kronolith::STATUS_CONFIRMED) {
-                                /* Set the background color to distinguish the day */
+                            if ($event->status == Kronolith::STATUS_CONFIRMED) {
+                                /* Set the background color to distinguish the
+                                 * day */
                                 $style = 'year-event';
                             }
 
@@ -133,7 +134,7 @@ class Kronolith_View_Year {
                                 $day_events .= $event->start->strftime($prefs->getValue('twentyFour') ? '%R' : '%I:%M%p') . '-' . $event->end->strftime($prefs->getValue('twentyFour') ? '%R' : '%I:%M%p');
                             }
                             $day_events .= ':'
-                                . (($event->getLocation()) ? ' (' . $event->getLocation() . ')' : '')
+                                . (($event->location) ? ' (' . $event->location . ')' : '')
                                 . ' ' . $event->getTitle() . "\n";
                         }
                         /* Bold the cell if there are events. */

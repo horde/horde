@@ -69,10 +69,10 @@ class Kronolith_Driver_Holidays extends Kronolith_Driver
 
         $results = array();
         for ($year = $startDate->year; $year <= $endDate->year; $year++) {
-            $dh = Date_Holidays::factory($this->_calendar, $year, $this->_params['language']);
+            $dh = Date_Holidays::factory($this->calendar, $year, $this->_params['language']);
             if (Date_Holidays::isError($dh)) {
                 Horde::logMessage(sprintf('Factory was unable to produce driver object for driver %s in year %s with locale %s',
-                                          $this->_calendar, $year, $this->_params['language']),
+                                          $this->calendar, $year, $this->_params['language']),
                                   __FILE__, __LINE__, PEAR_LOG_ERR);
                 continue;
             }
@@ -97,10 +97,10 @@ class Kronolith_Driver_Holidays extends Kronolith_Driver
         list($id, $date) = explode('-', $eventId, 2);
         $year = substr($date, 0, 4);
 
-        $dh = Date_Holidays::factory($this->_calendar, $year, $this->_params['language']);
+        $dh = Date_Holidays::factory($this->calendar, $year, $this->_params['language']);
         if (Date_Holidays::isError($dh)) {
             Horde::logMessage(sprintf('Factory was unable to produce driver object for driver %s in year %s with locale %s',
-                                      $this->_calendar, $year, $this->_params['language']),
+                                      $this->calendar, $year, $this->_params['language']),
                               __FILE__, __LINE__, PEAR_LOG_ERR);
             return false;
         }

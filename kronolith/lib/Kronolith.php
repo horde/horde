@@ -560,7 +560,7 @@ class Kronolith
                     if ($coverDates) {
                         self::addCoverDates($results, $event, $event->start, $event->end, $json);
                     } else {
-                        $results[$event->start->dateString()][$event->getId()] = $json ? $event->toJson() : $event;
+                        $results[$event->start->dateString()][$event->id] = $json ? $event->toJson() : $event;
                     }
                 }
 
@@ -587,7 +587,7 @@ class Kronolith
                         $addEvent = clone $event;
                         $addEvent->start = $next;
                         $addEvent->end = $nextEnd;
-                        $results[$addEvent->start->dateString()][$addEvent->getId()] = $json ? $addEvent->toJson() : $addEvent;
+                        $results[$addEvent->start->dateString()][$addEvent->id] = $json ? $addEvent->toJson() : $addEvent;
 
                     }
                 }
@@ -601,7 +601,7 @@ class Kronolith
             }
         } else {
             if (!$coverDates) {
-                $results[$event->start->dateString()][$event->getId()] = $json ? $event->toJson() : $event;
+                $results[$event->start->dateString()][$event->id] = $json ? $event->toJson() : $event;
             } else {
                 /* Event only occurs once. */
                 $allDay = $event->isAllDay();
@@ -681,7 +681,7 @@ class Kronolith
                             $addEvent->last = false;
                         }
 
-                        $results[$loopDate->dateString()][$addEvent->getId()] = $json ? $addEvent->toJson($allDay) : $addEvent;
+                        $results[$loopDate->dateString()][$addEvent->id] = $json ? $addEvent->toJson($allDay) : $addEvent;
                     }
 
                     $loopDate = new Horde_Date(
@@ -723,7 +723,7 @@ class Kronolith
                 if ($loopDate->compareDate($eventEnd) != 0) {
                     $addEvent->last = false;
                 }
-                $results[$loopDate->dateString()][$addEvent->getId()] = $json ? $addEvent->toJson($allDay) : $addEvent;
+                $results[$loopDate->dateString()][$addEvent->id] = $json ? $addEvent->toJson($allDay) : $addEvent;
             }
             $loopDate->mday++;
         }
@@ -743,7 +743,7 @@ class Kronolith
 
         $kronolith_driver = self::getDriver();
         $calendars = self::listCalendars(true, Horde_Perms::ALL);
-        $current_calendar = $kronolith_driver->getCalendar();
+        $current_calendar = $kronolith_driver->calendar;
 
         $count = 0;
         foreach (array_keys($calendars) as $calendar) {
@@ -791,8 +791,8 @@ class Kronolith
         $kronolith_driver = Kronolith::getDriver(null, $calendar);
         $event = $kronolith_driver->getEvent();
         $event->initialized = true;
-        $event->setTitle($title);
-        $event->setDescription($description);
+        $event->title = $title;
+        $event->description = $description;
         $event->start = $d;
         $event->end = $d->add(array('hour' => 1));
 
@@ -1616,7 +1616,7 @@ class Kronolith
                         . $newAttendeeParsedPart->host;
                     // Avoid overwriting existing attendees with the default
                     // values.
-                    $attendees[$email] = array(
+                    $attendees[Horde_String::lower($email)] = array(
                         'attendance' => Kronolith::PART_REQUIRED,
                         'response'   => Kronolith::RESPONSE_NONE,
                         'name'       => $name);
@@ -1639,7 +1639,7 @@ class Kronolith
         $attendees = array();
 
         /* Attendees */
-        if (isset($_SESSION['kronolith']['attendees']) ||
+        if (isset($_SESSION['kronolith']['attendees']) &&
             is_array($_SESSION['kronolith']['attendees'])) {
 
             $attendees = array();
@@ -1650,7 +1650,7 @@ class Kronolith
         }
 
         /* Resources */
-        if (isset($_SESSION['kronolith']['resources']) ||
+        if (isset($_SESSION['kronolith']['resources']) &&
             is_array($_SESSION['kronolith']['resources'])) {
 
             foreach ($_SESSION['kronolith']['resources'] as $resource) {
@@ -1680,12 +1680,11 @@ class Kronolith
     {
         global $conf;
 
-        $attendees = $event->getAttendees();
-        if (!$attendees) {
+        if (!$event->attendees) {
             return;
         }
 
-        $ident = Horde_Prefs_Identity::singleton('none', $event->getCreatorId());
+        $ident = Horde_Prefs_Identity::singleton('none', $event->creator);
 
         $myemail = $ident->getValue('from_addr');
         if (!$myemail) {
@@ -1696,9 +1695,9 @@ class Kronolith
         $myemail = explode('@', $myemail);
         $from = Horde_Mime_Address::writeAddress($myemail[0], isset($myemail[1]) ? $myemail[1] : '', $ident->getValue('fullname'));
 
-        $share = &$GLOBALS['kronolith_shares']->getShare($event->getCalendar());
+        $share = &$GLOBALS['kronolith_shares']->getShare($event->calendar);
 
-        foreach ($attendees as $email => $status) {
+        foreach ($event->attendees as $email => $status) {
             /* Don't bother sending an invitation/update if the recipient does
              * not need to participate, or has declined participating, or
              * doesn't have an email address. */
@@ -1737,27 +1736,27 @@ class Kronolith
                 sprintf(_("on %s at %s"), $event->start->strftime('%x'), $event->start->strftime('%X')) .
                 ")\n\n";
 
-            if ($event->getLocation() != '') {
-                $message .= sprintf(_("Location: %s"), $event->getLocation()) . "\n\n";
+            if (strlen($event->location)) {
+                $message .= sprintf(_("Location: %s"), $event->location) . "\n\n";
             }
 
-            if ($event->getAttendees()) {
+            if ($event->attendees) {
                 $attendee_list = array();
-                foreach ($event->getAttendees() as $mail => $attendee) {
+                foreach ($event->attendees as $mail => $attendee) {
                     $attendee_list[] = empty($attendee['name']) ? $mail : Horde_Mime_Address::trimAddress($attendee['name'] . (strpos($mail, '@') === false ? '' : ' <' . $mail . '>'));
                 }
                 $message .= sprintf(_("Attendees: %s"), implode(', ', $attendee_list)) . "\n\n";
             }
 
-            if ($event->getDescription() != '') {
-                $message .= _("The following is a more detailed description of the event:") . "\n\n" . $event->getDescription() . "\n\n";
+            if ($event->description != '') {
+                $message .= _("The following is a more detailed description of the event:") . "\n\n" . $event->description . "\n\n";
             }
             $message .= _("Attached is an iCalendar file with more information about the event. If your mail client supports iTip requests you can use this file to easily update your local copy of the event.");
 
             if ($action == self::ITIP_REQUEST) {
                 $attend_link = Horde::applicationUrl('attend.php', true, -1)
-                    ->add(array('c' => $event->getCalendar(),
-                                'e' => $event->getId(),
+                    ->add(array('c' => $event->calendar,
+                                'e' => $event->id,
                                 'u' => $email));
                 $message .= "\n\n" . sprintf(_("If your email client doesn't support iTip requests you can use one of the following links to accept or decline the event.\n\nTo accept the event:\n%s\n\nTo accept the event tentatively:\n%s\n\nTo decline the event:\n%s\n"), $attend_link->add('a', 'accept'), $attend_link->add('a', 'tentative'), $attend_link->add('a', 'decline'));
             }
@@ -1829,7 +1828,7 @@ class Kronolith
         require_once 'Horde/Group.php';
 
         $groups = &Group::singleton();
-        $calendar = $event->getCalendar();
+        $calendar = $event->calendar;
         $recipients = array();
         $share = &$GLOBALS['kronolith_shares']->getShare($calendar);
         if (is_a($share, 'PEAR_Error')) {
@@ -1916,7 +1915,7 @@ class Kronolith
                                   $share->get('name'),
                                   $event->start->strftime($df),
                                   $event->start->strftime($tf ? '%R' : '%I:%M%p'))
-                        . "\n\n" . $event->getDescription();
+                        . "\n\n" . $event->description;
 
                     $mime_mail = new Horde_Mime_Mail(array('subject' => $subject . ' ' . $event->title,
                                                            'to' => implode(',', $df_recipients),
@@ -2073,7 +2072,7 @@ class Kronolith
      */
     public static function eventTabs($tabname, $event)
     {
-        if (!$event->isInitialized()) {
+        if (!$event->initialized) {
             return;
         }
 
@@ -2090,8 +2089,8 @@ class Kronolith
                   'onclick' => 'return ShowTab(\'Event\');'));
         /* We check for read permissions, because we can always save a copy if
          * we can read the event. */
-        if ((!$event->isPrivate() ||
-             $event->getCreatorId() == Horde_Auth::getAuth()) &&
+        if ((!$event->private ||
+             $event->creator == Horde_Auth::getAuth()) &&
             $event->hasPermission(Horde_Perms::READ)) {
             $tabs->addTab(
                 $event->hasPermission(Horde_Perms::EDIT) ? _("_Edit") : _("Save As New"),

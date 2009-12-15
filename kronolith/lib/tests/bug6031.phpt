@@ -80,7 +80,7 @@ if (is_a($a, 'PEAR_Error')) {
     var_dump($a->getMessage());
 } else {
     $events = reset($a);
-    var_dump($events[0]->getId());
+    var_dump($events[0]->id);
 }
 --EXPECT--
 bool(true)

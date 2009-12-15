@@ -10,8 +10,8 @@ if (empty($url)) {
 <input type="hidden" name="month" value="<?php if (isset($month)) echo htmlspecialchars($month) ?>" />
 <input type="hidden" name="mday" value="<?php if (isset($day)) echo htmlspecialchars($day) ?>" />
 <input type="hidden" name="url" value="<?php echo htmlspecialchars($url) ?>" />
-<input type="hidden" name="eventID" value="<?php echo htmlspecialchars($this->event->getId()) ?>" />
-<input type="hidden" name="calendar" value="<?php echo htmlspecialchars($this->event->getCalendar()) ?>" />
+<input type="hidden" name="eventID" value="<?php echo htmlspecialchars($this->event->id) ?>" />
+<input type="hidden" name="calendar" value="<?php echo htmlspecialchars($this->event->calendar) ?>" />
 
 <table class="striped" cellspacing="0">
 <tr><td class="warning"><?php echo _("This is a recurring event. Delete the current event only, this<br />occurrence and all future occurences, or all occurences?") ?></td></tr>

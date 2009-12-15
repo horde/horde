@@ -41,7 +41,7 @@ class Kronolith_View_EditEvent {
         }
 
         if ($this->event->hasPermission(Horde_Perms::EDIT)) {
-            $calendar_id = $this->event->getCalendar();
+            $calendar_id = $this->event->calendar;
         } else {
             $calendar_id = Kronolith::getDefaultCalendar(Horde_Perms::EDIT);
         }
@@ -49,7 +49,7 @@ class Kronolith_View_EditEvent {
             !is_a($share = &$this->event->getShare(), 'PEAR_Error')) {
             $calendar_id .= ':' . $share->get('owner');
         }
-        $_SESSION['kronolith']['attendees'] = $this->event->getAttendees();
+        $_SESSION['kronolith']['attendees'] = $this->event->attendees;
         $_SESSION['kronolith']['resources'] = $this->event->getResources();
         if ($datetime = Horde_Util::getFormData('datetime')) {
             $datetime = new Horde_Date($datetime);
@@ -62,7 +62,7 @@ class Kronolith_View_EditEvent {
 
         $url = Horde_Util::getFormData('url');
         $perms = Horde_Perms::EDIT;
-        if ($this->event->getCreatorId() == Horde_Auth::getAuth()) {
+        if ($this->event->creator == Horde_Auth::getAuth()) {
             $perms |= Kronolith::PERMS_DELEGATE;
         }
         $calendars = Kronolith::listCalendars(false, $perms);
@@ -77,7 +77,7 @@ class Kronolith_View_EditEvent {
             if ($this->event->hasPermission(Horde_Perms::EDIT)) {
                 $buttons[] = '<input type="submit" class="button" name="save" value="' . _("Save Event") . '" />';
             }
-            if ($this->event->isInitialized()) {
+            if ($this->event->initialized) {
                 if (!$this->event->recurs() &&
                     (!empty($conf['hooks']['permsdenied']) ||
                      $GLOBALS['perms']->hasAppPermission('max_events') === true ||
@@ -98,7 +98,7 @@ class Kronolith_View_EditEvent {
 
         // Tags
         $tagger = Kronolith::getTagger();
-        $tags = $tagger->getTags($event->getUID(), 'event');
+        $tags = $tagger->getTags($event->uid, 'event');
         $tags = implode(',', array_values($tags));
 
         echo '<div id="EditEvent"' . ($active ? '' : ' style="display:none"') . '>';

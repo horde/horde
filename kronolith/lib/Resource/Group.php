@@ -110,16 +110,16 @@ class Kronolith_Resource_Group extends Kronolith_Resource_Base
             /* Check for conflicts, ignoring the conflict if it's for the
              * same event that is passed. */
             if (!is_array($event)) {
-                $uid = $event->getUID();
+                $uid = $event->uid;
             } else {
                 $uid = 0;
             }
 
             foreach ($busy as $events) {
                 foreach ($events as $e) {
-                    if (!($e->hasStatus(Kronolith::STATUS_CANCELLED) ||
-                          $e->hasStatus(Kronolith::STATUS_FREE)) &&
-                         $e->getUID() !== $uid) {
+                    if (!($e->status == Kronolith::STATUS_CANCELLED ||
+                          $e->status == Kronolith::STATUS_FREE) &&
+                         $e->uid !== $uid) {
 
                          if (!($e->start->compareDateTime($end) >= 0) &&
                              !($e->end->compareDateTime($start) <= 0)) {

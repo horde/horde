@@ -109,14 +109,14 @@ foreach ($events as $day_events) {
     foreach ($day_events as $id => $event) {
         /* Modification date. */
         $modified = $history->getActionTimestamp('kronolith:' . $calendar . ':'
-                                                 . $event->getUID(), 'modify');
+                                                 . $event->uid, 'modify');
         if (!$modified) {
             $modified = $history->getActionTimestamp('kronolith:' . $calendar . ':'
-                                                     . $event->getUID(), 'add');
+                                                     . $event->uid, 'add');
         }
         $modified = new Horde_Date($modified);
         /* Description. */
-        $desc = @htmlspecialchars($event->getDescription(), ENT_COMPAT, Horde_Nls::getCharset());
+        $desc = @htmlspecialchars($event->description, ENT_COMPAT, Horde_Nls::getCharset());
         if (strlen($desc)) {
             $desc .= '<br /><br />';
         }
@@ -129,16 +129,16 @@ foreach ($events as $day_events) {
         }
         /* Attendees. */
         $attendees = array();
-        foreach ($event->getAttendees() as $attendee => $status) {
+        foreach ($event->attendees as $attendee => $status) {
             $attendees[] = empty($status['name']) ? $attendee : Horde_Mime_Address::trimAddress($status['name'] . (strpos($attendee, '@') === false ? '' : ' <' . $attendee . '>'));
         }
         if (count($attendees)) {
             $desc .= '<br />' . _("Who:") . ' ' . @htmlspecialchars(implode(', ', $attendees), ENT_COMPAT, Horde_Nls::getCharset());
         }
-        if (strlen($event->getLocation())) {
-            $desc .= '<br />' . _("Where:") . ' ' . @htmlspecialchars($event->getLocation(), ENT_COMPAT, Horde_Nls::getCharset());
+        if (strlen($event->location)) {
+            $desc .= '<br />' . _("Where:") . ' ' . @htmlspecialchars($event->location, ENT_COMPAT, Horde_Nls::getCharset());
         }
-        $desc .= '<br />' . _("Event Status:") . ' ' . Kronolith::statusToString($event->getStatus());
+        $desc .= '<br />' . _("Event Status:") . ' ' . Kronolith::statusToString($event->status);
 
         $entries[$id]['title'] = @htmlspecialchars($event->getTitle(), ENT_COMPAT, Horde_Nls::getCharset());
         $entries[$id]['desc'] = @htmlspecialchars($desc, ENT_COMPAT, Horde_Nls::getCharset());

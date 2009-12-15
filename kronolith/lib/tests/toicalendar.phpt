@@ -13,12 +13,12 @@ $driver = new Kronolith_Driver();
 $object = new Kronolith_Event_Sql($driver);
 $object->start = new Horde_Date('2007-03-15 13:10:20');
 $object->end = new Horde_Date('2007-03-15 14:20:00');
-$object->setCreatorId('joe');
-$object->setUID('20070315143732.4wlenqz3edq8@horde.org');
-$object->setTitle('Hübscher Termin');
-$object->setDescription("Schöne Bescherung\nNew line");
-$object->setLocation('Allgäu');
-$object->setAlarm(10);
+$object->creator = 'joe';
+$object->uid = '20070315143732.4wlenqz3edq8@horde.org';
+$object->title = 'Hübscher Termin';
+$object->description = "Schöne Bescherung\nNew line";
+$object->location = 'Allgäu';
+$object->alarm = 10;
 $object->tags = array('Schöngeistiges');
 $object->recurrence = new Horde_Date_Recurrence($object->start);
 $object->recurrence->setRecurType(Horde_Date_Recurrence::RECUR_DAILY);
@@ -36,13 +36,13 @@ $cal = $object->toiCalendar($ical);
 $ical->addComponent($cal);
 echo $ical->exportvCalendar() . "\n";
 
-$object->setPrivate(true);
-$object->setStatus(Kronolith::STATUS_TENTATIVE);
+$object->private = true;
+$object->status = Kronolith::STATUS_TENTATIVE;
 $object->recurrence = new Horde_Date_Recurrence($object->start);
 $object->recurrence->setRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_DATE);
 $object->recurrence->setRecurInterval(1);
 $object->recurrence->addException(2007, 4, 15);
-$object->setAttendees(
+$object->attendees =
     array('juergen@example.com' =>
           array('attendance' => Kronolith::PART_REQUIRED,
                 'response' => Kronolith::RESPONSE_NONE,
@@ -57,7 +57,7 @@ $object->setAttendees(
                 'name' => 'Jack Doe'),
           'jenny@example.com' =>
           array('attendance' => Kronolith::PART_NONE,
-                'response' => Kronolith::RESPONSE_TENTATIVE)));
+                'response' => Kronolith::RESPONSE_TENTATIVE));
 
 $ical = new Horde_iCalendar('1.0');
 $cal = $object->toiCalendar($ical);
@@ -130,7 +130,7 @@ DTSTART:20070315T121020Z
 DTEND:20070315T132000Z
 DTSTAMP:%d%d%d%d%d%d%d%dT%d%d%d%d%d%dZ
 UID:20070315143732.4wlenqz3edq8@horde.org
-SUMMARY:Private Event from 1:10pm to 2:20pm
+SUMMARY:busy
 ORGANIZER;CN=joe:mailto:joe
 CLASS:PRIVATE
 STATUS:TENTATIVE
@@ -154,7 +154,7 @@ DTSTART:20070315T121020Z
 DTEND:20070315T132000Z
 DTSTAMP:%d%d%d%d%d%d%d%dT%d%d%d%d%d%dZ
 UID:20070315143732.4wlenqz3edq8@horde.org
-SUMMARY:Private Event from 1:10pm to 2:20pm
+SUMMARY:busy
 ORGANIZER;CN=joe:mailto:joe
 CLASS:PRIVATE
 STATUS:TENTATIVE

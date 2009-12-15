@@ -191,7 +191,7 @@ class Horde_Block_Kronolith_month extends Horde_Block {
                         $day_events .= $event->start->strftime($prefs->getValue('twentyFour') ? '%R' : '%I:%M%p') . '-' . $event->end->strftime($prefs->getValue('twentyFour') ? '%R' : '%I:%M%p');
                     }
                     $day_events .= ':'
-                        . (($event->getLocation()) ? ' (' . $event->getLocation() . ')' : '')
+                        . (($event->location) ? ' (' . $event->location . ')' : '')
                         . ' ' . $event->getTitle() . "\n";
                 }
                 $cell = Horde::linkTooltip($url, _("View Day"), '', '', '', $day_events) . $date_ob->mday . '</a>';

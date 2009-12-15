@@ -62,8 +62,8 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
      */
     public function open($calendar)
     {
-        if ($this->_calendar != $calendar) {
-            $this->_calendar = $calendar;
+        if ($this->calendar != $calendar) {
+            $this->calendar = $calendar;
             $this->reset();
         }
 
@@ -89,7 +89,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         }
 
         // Connect to the Kolab backend
-        $result = $this->_kolab->open($this->_calendar, 1);
+        $result = $this->_kolab->open($this->calendar, 1);
         if (is_a($result, 'PEAR_Error')) {
             return $result;
         }
@@ -118,7 +118,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
 
             if (!$event->recurs()) {
                 $start = new Horde_Date($event->start);
-                $start->min -= $event->getAlarm();
+                $start->min -= $event->alarm;
                 if ($start->compareDateTime($date) <= 0 &&
                     $date->compareDateTime($event->end) <= -1) {
                     $events[] = $fullevent ? $event : $eventId;
@@ -129,7 +129,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
                         continue;
                     }
                     $start = new Horde_Date($next);
-                    $start->min -= $event->getAlarm();
+                    $start->min -= $event->alarm;
                     $end = new Horde_Date(array('year' => $next->year,
                                                 'month' => $next->month,
                                                 'mday' => $next->mday,
@@ -166,9 +166,9 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
     public function exists($uid, $calendar_id = null)
     {
         // Log error if someone uses this function in an unsupported way
-        if ($calendar_id != $this->_calendar) {
-            Horde::logMessage(sprintf("Kolab::exists called for calendar %s. Currently active is %s.", $calendar_id, $this->_calendar), __FILE__, __LINE__, PEAR_LOG_ERR);
-            return PEAR::raiseError(sprintf("Kolab::exists called for calendar %s. Currently active is %s.", $calendar_id, $this->_calendar));
+        if ($calendar_id != $this->calendar) {
+            Horde::logMessage(sprintf("Kolab::exists called for calendar %s. Currently active is %s.", $calendar_id, $this->calendar), __FILE__, __LINE__, PEAR_LOG_ERR);
+            return PEAR::raiseError(sprintf("Kolab::exists called for calendar %s. Currently active is %s.", $calendar_id, $this->calendar));
         }
 
         $result = $this->synchronize();
@@ -227,7 +227,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
 
         $events = array();
         foreach($this->_events_cache as $event) {
-            if ($hasAlarm && !$event->getAlarm()) {
+            if ($hasAlarm && !$event->alarm) {
                 continue;
             }
 
@@ -325,16 +325,16 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
             return $result;
         }
 
-        $uid = $event->getUID();
+        $uid = $event->uid;
         if ($uid == null) {
-            $event->setUID($this->_store->generateUID());
+            $event->uid = $this->_store->generateUID();
         }
 
         $attributes = $event->toDriver();
 
         $edit = false;
         $stored_uid = null;
-        if ($event->isStored() || $event->exists()) {
+        if ($event->stored || $event->exists()) {
             $stored_uid = $attributes['uid'];
             $action = array('action' => 'modify');
             $edit = true;
@@ -350,9 +350,9 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         /* Deal with tags */
         $tagger = Kronolith::getTagger();
         if (!empty($edit)) {
-            $tagger->replaceTags($event->getUID(), $event->tags, 'event');
+            $tagger->replaceTags($event->uid, $event->tags, 'event');
         } else {
-            $tagger->tag($event->getUID(), $event->tags, 'event');
+            $tagger->tag($event->uid, $event->tags, 'event');
         }
 
         /* Notify about the changed event. */
@@ -363,16 +363,16 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
 
         /* Log the creation/modification of this item in the history log. */
         $history = Horde_History::singleton();
-        $history->log('kronolith:' . $event->getCalendar() . ':' . $event->getUID(), $action, true);
+        $history->log('kronolith:' . $event->calendar . ':' . $event->uid, $action, true);
 
         // refresh IMAP cache
         $this->synchronize(true);
 
         if (is_callable('Kolab', 'triggerFreeBusyUpdate')) {
-            Kolab::triggerFreeBusyUpdate($this->_store->parseFolder($event->getCalendar()));
+            Kolab::triggerFreeBusyUpdate($this->_store->parseFolder($event->calendar));
         }
 
-        return $event->getUID();
+        return $event->uid;
     }
 
     /**
@@ -400,14 +400,14 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         }
 
         if (is_callable('Kolab', 'triggerFreeBusyUpdate')) {
-            Kolab::triggerFreeBusyUpdate($this->_store->parseFolder($this->_calendar));
+            Kolab::triggerFreeBusyUpdate($this->_store->parseFolder($this->calendar));
             Kolab::triggerFreeBusyUpdate($this->_store->parseFolder($newCalendar));
         }
 
         /* Log the moving of this item in the history log. */
-        $uid = $event->getUID();
+        $uid = $event->uid;
         $history = Horde_History::singleton();
-        $history->log('kronolith:' . $event->getCalendar() . ':' . $uid, array('action' => 'delete'), true);
+        $history->log('kronolith:' . $event->calendar . ':' . $uid, array('action' => 'delete'), true);
         $history->log('kronolith:' . $newCalendar . ':' . $uid, array('action' => 'add'), true);
 
         return $result;
@@ -483,10 +483,10 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
 
             /* Log the deletion of this item in the history log. */
             $history = Horde_History::singleton();
-            $history->log('kronolith:' . $event->getCalendar() . ':' . $event->getUID(), array('action' => 'delete'), true);
+            $history->log('kronolith:' . $event->calendar . ':' . $event->uid, array('action' => 'delete'), true);
 
             if (is_callable('Kolab', 'triggerFreeBusyUpdate')) {
-                Kolab::triggerFreeBusyUpdate($this->_store->parseFolder($event->getCalendar()));
+                Kolab::triggerFreeBusyUpdate($this->_store->parseFolder($event->calendar));
             }
 
             unset($this->_events_cache[$eventId]);

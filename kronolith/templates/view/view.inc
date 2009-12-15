@@ -49,7 +49,7 @@
  <td class="rightAlign"><strong><?php echo _("Alarm") ?>&nbsp;&nbsp;</strong></td>
  <td>
 <?php
-if ($this->event->isInitialized() && $this->event->alarm > 0):
+if ($this->event->initialized && $this->event->alarm > 0):
     if ($this->event->alarm % 10080 == 0) {
         $alarm_value = $this->event->alarm / 10080;
         $alarm_unit = _("Week(s)");

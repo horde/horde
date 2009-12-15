@@ -38,14 +38,14 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
          * it is attached to. Not sure if there is a better way to do this...
          */
         $delete_event = $this->getEvent($event);
-        $uid = $delete_event->getUID();
+        $uid = $delete_event->uid;
         $driver = Kronolith::getDriver();
         $events = $driver->getByUID($uid, null, true);
         foreach ($events as $e) {
             $resources = $e->getResources();
             if (count($resources)) {
                 // found the right entry
-                $r = $this->getResource($this->getResourceIdByCalendar($delete_event->getCalendar()));
+                $r = $this->getResource($this->getResourceIdByCalendar($delete_event->calendar));
                 $e->removeResource($r);
                 $e->save();
             }

@@ -15,7 +15,7 @@ class Kronolith_Event_Horde extends Kronolith_Event
      *
      * @var string
      */
-    protected $_calendarType = 'external';
+    public $calendarType = 'external';
 
     /**
      * The API (application) of this event.
@@ -63,7 +63,7 @@ class Kronolith_Event_Horde extends Kronolith_Event
     {
         $eventStart = new Horde_Date($event['start']);
         $eventEnd = new Horde_Date($event['end']);
-        $this->eventID = '_' . $this->_api . $event['id'];
+        $this->id = '_' . $this->_api . $event['id'];
         $this->icon = !empty($event['icon']) ? $event['icon'] : null;
         $this->title = $event['title'];
         $this->description = isset($event['description']) ? $event['description'] : '';

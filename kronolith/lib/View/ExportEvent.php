@@ -20,8 +20,8 @@ class Kronolith_View_ExportEvent {
 
         $iCal = new Horde_iCalendar('2.0');
 
-        if ($event->getCalendarType() == 'internal') {
-            $share = &$GLOBALS['kronolith_shares']->getShare($event->getCalendar());
+        if ($event->calendarType == 'internal') {
+            $share = &$GLOBALS['kronolith_shares']->getShare($event->calendar);
             if (!is_a($share, 'PEAR_Error')) {
                 $iCal->setAttribute(
                     'X-WR-CALNAME',

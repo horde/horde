@@ -28,8 +28,8 @@ if ($eventID = Horde_Util::getFormData('eventID')) {
         exit;
     }
     if ($driver != 'Resource') {
-        $share = &$kronolith_shares->getShare($event->getCalendar());
-        if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE, $event->getCreatorID())) {
+        $share = &$kronolith_shares->getShare($event->calendar);
+        if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE, $event->creator)) {
             $notification->push(_("You do not have permission to delete this event."), 'horde.warning');
         } else {
             $have_perms = true;
@@ -51,7 +51,7 @@ if ($eventID = Horde_Util::getFormData('eventID')) {
                                              'mday' => Horde_Util::getFormData('mday', date('j')) - 1,
                                              'year' => Horde_Util::getFormData('year', date('Y'))));
             if ($event->end->compareDate($recurEnd) > 0) {
-                $result = $kronolith_driver->deleteEvent($event->getId());
+                $result = $kronolith_driver->deleteEvent($event->id);
                 if (is_a($result, 'PEAR_Error')) {
                     $notification->push($result, 'horde.error');
                 }
@@ -73,7 +73,7 @@ if ($eventID = Horde_Util::getFormData('eventID')) {
         if (!$event->recurs() ||
             Horde_Util::getFormData('all') ||
             !$event->recurrence->hasActiveRecurrence()) {
-            $result = $kronolith_driver->deleteEvent($event->getId());
+            $result = $kronolith_driver->deleteEvent($event->id);
             if (is_a($result, 'PEAR_Error')) {
                 $notification->push($result, 'horde.error');
             }

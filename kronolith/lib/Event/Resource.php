@@ -19,7 +19,7 @@ class Kronolith_Event_Resource extends Kronolith_Event
      *
      * @var string
      */
-    protected $_calendarType = 'resource';
+    public $calendarType = 'resource';
 
     /**
      * @var array
@@ -45,9 +45,9 @@ class Kronolith_Event_Resource extends Kronolith_Event
         $this->durMin = ($this->end->timestamp() - $this->start->timestamp()) / 60;
 
         $this->title = $driver->convertFromDriver($SQLEvent['event_title']);
-        $this->eventID = $SQLEvent['event_id'];
+        $this->id = $SQLEvent['event_id'];
         $this->setUID($SQLEvent['event_uid']);
-        $this->creatorID = $SQLEvent['event_creator_id'];
+        $this->creator = $SQLEvent['event_creator_id'];
 
         if (!empty($SQLEvent['event_recurtype'])) {
             $this->recurrence = new Horde_Date_Recurrence($this->start);
@@ -117,13 +117,13 @@ class Kronolith_Event_Resource extends Kronolith_Event
         $driver = $this->getDriver();
 
         /* Basic fields. */
-        $this->_properties['event_creator_id'] = $driver->convertToDriver($this->getCreatorId());
+        $this->_properties['event_creator_id'] = $driver->convertToDriver($this->creator);
         $this->_properties['event_title'] = $driver->convertToDriver($this->title);
-        $this->_properties['event_description'] = $driver->convertToDriver($this->getDescription());
-        $this->_properties['event_location'] = $driver->convertToDriver($this->getLocation());
-        $this->_properties['event_private'] = (int)$this->isPrivate();
-        $this->_properties['event_status'] = $this->getStatus();
-        $this->_properties['event_attendees'] = serialize($driver->convertToDriver($this->getAttendees()));
+        $this->_properties['event_description'] = $driver->convertToDriver($this->description);
+        $this->_properties['event_location'] = $driver->convertToDriver($this->location);
+        $this->_properties['event_private'] = (int)$this->private;
+        $this->_properties['event_status'] = $this->status;
+        $this->_properties['event_attendees'] = serialize($driver->convertToDriver($this->attendees));
         $this->_properties['event_resources'] = serialize($driver->convertToDriver($this->getResources()));
         $this->_properties['event_modified'] = $_SERVER['REQUEST_TIME'];
 
@@ -147,7 +147,7 @@ class Kronolith_Event_Resource extends Kronolith_Event
         }
 
         /* Alarm. */
-        $this->_properties['event_alarm'] = (int)$this->getAlarm();
+        $this->_properties['event_alarm'] = (int)$this->alarm;
 
         /* Alarm Notification Methods. */
         $this->_properties['event_alarm_methods'] = serialize($driver->convertToDriver($this->methods));
@@ -195,7 +195,7 @@ class Kronolith_Event_Resource extends Kronolith_Event
      */
     public function getDriver()
     {
-        return Kronolith::getDriver('Resource', $this->_calendar);
+        return Kronolith::getDriver('Resource', $this->calendar);
     }
 
     /**

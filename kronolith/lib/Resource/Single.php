@@ -46,15 +46,15 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
         /* Check for conflicts, ignoring the conflict if it's for the
          * same event that is passed. */
         if (!is_array($event)) {
-            $uid = $event->getUID();
+            $uid = $event->uid;
         } else {
             $uid = 0;
         }
         foreach ($busy as $events) {
             foreach ($events as $e) {
-                if (!($e->hasStatus(Kronolith::STATUS_CANCELLED) ||
-                      $e->hasStatus(Kronolith::STATUS_FREE)) &&
-                     $e->getUID() !== $uid) {
+                if (!($e->status == Kronolith::STATUS_CANCELLED ||
+                      $e->status == Kronolith::STATUS_FREE) &&
+                     $e->uid !== $uid) {
 
                      // Comparing to zero allows the events to start at the same
                      // the previous event ends.
@@ -84,7 +84,7 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
         $driver = $this->getDriver();
 
         /* Make sure it's not already attached. */
-        $uid = $event->getUID();
+        $uid = $event->uid;
         $existing = $driver->getByUID($uid, array($this->get('calendar')));
         if (!($existing instanceof PEAR_Error)) {
             /* Already attached, just update */
@@ -94,7 +94,7 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
         } else {
             /* Create a new event */
             $e = $driver->getEvent();
-            $e->setCalendar($this->get('calendar'));
+            $e->calendar = $this->get('calendar');
             $e->fromiCalendar($event->toiCalendar(new Horde_iCalendar('2.0')));
             $e->save();
         }
@@ -109,7 +109,7 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
     public function removeEvent($event)
     {
         $driver = Kronolith::getDriver('Resource', $this->get('calendar'));
-        $re = $driver->getByUID($event->getUID(), array($this->get('calendar')));
+        $re = $driver->getByUID($event->uid, array($this->get('calendar')));
         // Event will only be in the calendar if it's been accepted. This error
         // should never happen, but put it here as a safeguard for now.
         if (!($re instanceof PEAR_Error)) {

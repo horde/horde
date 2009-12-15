@@ -92,10 +92,10 @@ class Kronolith_FreeBusy {
         /* Add all the busy periods. */
         foreach ($busy as $events) {
             foreach ($events as $event) {
-                if ($event->hasStatus(Kronolith::STATUS_FREE)) {
+                if ($event->status == Kronolith::STATUS_FREE) {
                     continue;
                 }
-                if ($event->hasStatus(Kronolith::STATUS_CANCELLED)) {
+                if ($event->status == Kronolith::STATUS_CANCELLED) {
                     continue;
                 }
 

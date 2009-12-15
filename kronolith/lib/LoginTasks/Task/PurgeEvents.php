@@ -49,17 +49,17 @@ class Kronolith_LoginTasks_Task_PurgeEvents extends Horde_LoginTasks_Task
         $query->end = $del_time;
         $query->status = null;
         $query->calendars = array_keys($calendars);
-        $query->creatorID = Horde_Auth::getAuth();
+        $query->creator = Horde_Auth::getAuth();
 
         /* Perform the search */
         $events = Kronolith::search($query);
         $count = 0;
         foreach ($events as $event) {
             if (!$event->recurs()) {
-                if ($event->getCalendar() != $kronolith_driver->getCalendar()) {
-                    $kronolith_driver->open($event->getCalendar());
+                if ($event->calendar != $kronolith_driver->calendar) {
+                    $kronolith_driver->open($event->calendar);
                 }
-                $results = $kronolith_driver->deleteEvent($event->getId(), true);
+                $results = $kronolith_driver->deleteEvent($event->id, true);
                 ++$count;
                 if (is_a($results, 'PEAR_Error')) {
                     Horde::logMessage($results, __FILE__, __LINE__, PEAR_LOG_ERR);

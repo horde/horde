@@ -10,7 +10,7 @@ if (empty($url)) {
 <input type="hidden" name="month" value="<?php if (isset($month)) echo htmlspecialchars($month) ?>" />
 <input type="hidden" name="mday" value="<?php if (isset($day)) echo htmlspecialchars($day) ?>" />
 <input type="hidden" name="url" value="<?php echo htmlspecialchars($url) ?>" />
-<input type="hidden" name="eventID" value="<?php echo htmlspecialchars($this->event->getId()) ?>" />
+<input type="hidden" name="eventID" value="<?php echo htmlspecialchars($this->event->id) ?>" />
 <input type="hidden" name="calendar" value="<?php echo htmlspecialchars(Horde_Util::getFormData('calendar')) ?>" />
 
 <div class="headerbox">

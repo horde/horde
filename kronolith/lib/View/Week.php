@@ -140,7 +140,7 @@ class Kronolith_View_Week {
                                 . 'valign="top">'
                                 . $event->getLink($this->days[$j], true, $this->link(0, true));
                             if ($showLocation) {
-                                $row .= '<div class="event-location">' . htmlspecialchars($event->getLocation()) . '</div>';
+                                $row .= '<div class="event-location">' . htmlspecialchars($event->location) . '</div>';
                             }
                             $row .= '</td>';
                         }
@@ -205,7 +205,7 @@ class Kronolith_View_Week {
 
                     foreach ($this->days[$j]->_event_matrix[$cid][$i] as $key) {
                         $event = &$this->days[$j]->_events[$key];
-                        if ($include_all_events || $event->getCalendar() == $cid) {
+                        if ($include_all_events || $event->calendar == $cid) {
                             // Since we've made sure that this event's
                             // overlap is a factor of the total span,
                             // we get this event's individual span by
@@ -290,7 +290,7 @@ class Kronolith_View_Week {
                                     $row .= '<div class="event-time">' . htmlspecialchars($event->getTimeRange()) . '</div>';
                                 }
                                 if ($showLocation) {
-                                    $row .= '<div class="event-location">' . htmlspecialchars($event->getLocation()) . '</div>';
+                                    $row .= '<div class="event-location">' . htmlspecialchars($event->location) . '</div>';
                                 }
                                 $row .= '</td>';
                             }

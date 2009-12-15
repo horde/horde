@@ -68,6 +68,7 @@ case 'add':
 
 case 'edit':
     // Edit the specified attendee.
+    $actionValue = Horde_String::lower($actionValue);
     if (isset($attendees[$actionValue])) {
         if (empty($attendees[$actionValue]['name'])) {
             $editAttendee = $actionValue;
@@ -85,6 +86,7 @@ case 'edit':
 
 case 'remove':
     // Remove the specified attendee.
+    $actionValue = Horde_String::lower($actionValue);
     if (isset($attendees[$actionValue])) {
         unset($attendees[$actionValue]);
         $_SESSION['kronolith']['attendees'] = $attendees;
@@ -111,6 +113,7 @@ case 'changeResourceResp':
 case 'changeatt':
     // Change the attendance status of an attendee
     list($partval, $partname) = explode(' ', $actionValue, 2);
+    $partname = Horde_String::lower($partname);
     if (isset($attendees[$partname])) {
         $attendees[$partname]['attendance'] = $partval;
         $_SESSION['kronolith']['attendees'] = $attendees;
@@ -120,6 +123,7 @@ case 'changeatt':
 case 'changeResourceAtt':
     // Change attendance status of a resource
     list($partval, $partname) = explode(' ', $actionValue, 2);
+    $partname = Horde_String::lower($partname);
     if (isset($resources[$partname])) {
         $resources[$partname]['attendance'] = $partval;
         $_SESSION['kronolith']['resources'] = $resources;
@@ -129,6 +133,7 @@ case 'changeResourceAtt':
 case 'changeresp':
     // Change the response status of an attendee
     list($partval, $partname) = explode(' ', $actionValue, 2);
+    $partname = Horde_String::lower($partname);
     if (isset($attendees[$partname])) {
         $attendees[$partname]['response'] = $partval;
         $_SESSION['kronolith']['attendees'] = $attendees;
@@ -157,10 +162,7 @@ case 'dismiss':
 
 case 'clear':
     // Remove all the attendees and resources.
-    $attendees = array();
-    $resources = array();
-    $_SESSION['kronolith']['attendees'] = $attendees;
-    $_SESSION['kronolith']['resources'] = $resources;
+    $_SESSION['kronolith']['attendees'] = $_SESSION['kronolith']['resources'] = array();
     break;
 }
 

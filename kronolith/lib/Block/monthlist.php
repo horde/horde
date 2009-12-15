@@ -144,9 +144,9 @@ class Horde_Block_Kronolith_monthlist extends Horde_Block {
                 $html .= '<td class="text" nowrap="nowrap" valign="top">';
                 if ($event->start->compareDate($now) < 0 &&
                     $event->end->compareDate($now) > 0) {
-                    $html .= '<strong>' . $event->getLocation() . '</strong>';
+                    $html .= '<strong>' . $event->location . '</strong>';
                 } else {
-                    $html .= $event->getLocation();
+                    $html .= $event->location;
                 }
                 if ($event->start->compareDate($now) < 0 &&
                     $event->end->compareDate($now) > 0) {

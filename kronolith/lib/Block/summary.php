@@ -187,8 +187,8 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
                 }
 
                 $text = $event->getTitle();
-                if ($location = $event->getLocation()) {
-                    $text .= ' (' . $location . ')';
+                if ($event->location) {
+                    $text .= ' (' . $event->location . ')';
                 }
                 $html .= $time;
                 if ($event_active) {

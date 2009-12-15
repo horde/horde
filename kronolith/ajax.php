@@ -46,7 +46,7 @@ function saveEvent($event)
     $end->min = $end->sec = 59;
     Kronolith::addEvents($events, $event, $start, $end, true, true);
     $result = new stdClass;
-    $result->cal = $event->getCalendarType() . '|' . $event->getCalendar();
+    $result->cal = $event->calendarType . '|' . $event->calendar;
     $result->view = Horde_Util::getFormData('view');
     $result->sig = $start->dateString() . $end->dateString();
     if (count($events)) {
@@ -245,7 +245,7 @@ try {
             $notification->push(_("You do not have permission to delete this event."), 'horde.warning');
             break;
         }
-        $deleted = $kronolith_driver->deleteEvent($event->getId());
+        $deleted = $kronolith_driver->deleteEvent($event->id);
         if ($deleted instanceof PEAR_Error) {
             $notification->push($deleted, 'horde.error');
             break;

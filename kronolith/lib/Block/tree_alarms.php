@@ -28,11 +28,11 @@ class Horde_Block_kronolith_tree_alarms extends Horde_Block {
         }
         foreach ($alarms as $calId => $calAlarms) {
             foreach ($calAlarms as $event) {
-                if ($horde_alarm && $horde_alarm->isSnoozed($event->getUID(), Horde_Auth::getAuth())) {
+                if ($horde_alarm && $horde_alarm->isSnoozed($event->uid, Horde_Auth::getAuth())) {
                     continue;
                 }
                 $alarmCount++;
-                $tree->addNode($parent . $calId . $event->getId(),
+                $tree->addNode($parent . $calId . $event->id,
                                $parent,
                                $event->getTitle(),
                                $indent + 1,

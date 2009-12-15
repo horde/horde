@@ -1,6 +1,6 @@
 <?php $showCalSelect = (!$GLOBALS['prefs']->isLocked('default_share') && count($calendars) > 1 && empty($GLOBALS['show_resource_calendars'])); ?>
 
-<form action="<?php echo ($event->isInitialized() && $event->hasPermission(Horde_Perms::EDIT)) ? 'edit.php' : 'add.php' ?>" method="post" name="eventform" id="eventform">
+<form action="<?php echo ($event->initialized && $event->hasPermission(Horde_Perms::EDIT)) ? 'edit.php' : 'add.php' ?>" method="post" name="eventform" id="eventform">
 <?php Horde_Util::pformInput() ?>
 <input type="hidden" name="year" value="<?php if (isset($year)) echo htmlspecialchars($year) ?>" />
 <input type="hidden" name="month" value="<?php if (isset($month)) echo htmlspecialchars($month) ?>" />
@@ -9,15 +9,15 @@
 <?php if (isset($url)): ?>
 <input type="hidden" name="url" value="<?php echo htmlspecialchars($url) ?>" />
 <?php endif; ?>
-<?php if ($event->isInitialized() && $event->hasPermission(Horde_Perms::EDIT)): ?>
-<input type="hidden" name="eventID" value="<?php echo htmlspecialchars($event->getId()) ?>" />
-<input type="hidden" name="existingcalendar" value="<?php echo htmlspecialchars($event->getCalendar()) ?>" />
+<?php if ($event->initialized && $event->hasPermission(Horde_Perms::EDIT)): ?>
+<input type="hidden" name="eventID" value="<?php echo htmlspecialchars($event->id) ?>" />
+<input type="hidden" name="existingcalendar" value="<?php echo htmlspecialchars($event->calendar) ?>" />
 <?php endif; ?>
 <?php if (!$showCalSelect): ?>
 <input type="hidden" name="targetcalendar" value="<?php echo htmlspecialchars($calendar_id) ?>" />
 <?php endif; ?>
 
-<?php if (!$event->isInitialized()): ?>
+<?php if (!$event->initialized): ?>
 <!-- header -->
 <h1 class="header">
  <?php echo _("Add Event") ?>
@@ -68,7 +68,6 @@
  <td colspan="4">
     <select id="targetcalendar" name="targetcalendar">
     <?php
-    $creator = $event->getCreatorId();
     if (!empty($GLOBALS['display_resource_calendars'])) {
         // We are editing/viewing resource calendars
         foreach ($GLOBALS['display_resource_calendars'] as $cal) {
@@ -81,7 +80,7 @@
         // Normal view
         foreach ($calendars as $id => $cal) {
             $delegates = array();
-            if ($cal->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT, $creator)) {
+            if ($cal->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT, $event->creator)) {
                 $delegates[$id] = htmlspecialchars($cal->get('name'));
             } else {
                 $delegates[$id . ':' . $cal->get('owner')] = htmlspecialchars($cal->get('name'). ' (' . sprintf(_("as %s"), Kronolith::getUserName($cal->get('owner'))) . ')');
@@ -103,7 +102,7 @@
 <tr>
  <td class="rightAlign"><strong><?php echo Horde::label('location', _("Lo_cation")) ?></strong></td>
  <td colspan="4">
-  <input type="text" name="location" id="location" value="<?php echo htmlspecialchars($event->getLocation()) ?>" size="40" maxlength="255" />
+  <input type="text" name="location" id="location" value="<?php echo htmlspecialchars($event->location) ?>" size="40" maxlength="255" />
  </td>
 </tr>
 
@@ -113,7 +112,7 @@
     <strong><?php echo Horde::label('status', _("Stat_us")) ?></strong>
  </td>
  <td colspan="4">
-  <?php echo Kronolith::buildStatusWidget('status', $event->getStatus()) ?>
+  <?php echo Kronolith::buildStatusWidget('status', $event->status) ?>
  </td>
 </tr>
 
@@ -123,7 +122,7 @@
     <strong><?php echo Horde::label('private', _("Private?")) ?></strong>
  </td>
  <td colspan="4">
-  <input type="checkbox" class="checkbox" id="private" name="private"<?php if ($event->isPrivate()) echo ' checked="checked"' ?> />
+  <input type="checkbox" class="checkbox" id="private" name="private"<?php if ($event->private) echo ' checked="checked"' ?> />
  </td>
 </tr>
 <?php require KRONOLITH_TEMPLATES . '/edit/edit_timespan.inc' ?>
@@ -223,12 +222,12 @@ if ($event->alarm) {
 <tr>
  <td colspan="5" class="control toggle" onclick="KronolithEventForm.toggleSection('description')">
   <?php echo Horde::img('tree/blank.png', '', array('id' => 'toggle_description'), $GLOBALS['registry']->getImageDir('horde')) . ' <strong>' . Horde::label('description', _("Descri_ption")) ?></strong>
-  <span class="extra" id="extra_description"><?php echo htmlspecialchars(substr(str_replace(array("\r", "\n"), '  ', $event->getDescription()), 0, 80)) ?></span>
+  <span class="extra" id="extra_description"><?php echo htmlspecialchars(substr(str_replace(array("\r", "\n"), '  ', $event->description), 0, 80)) ?></span>
 </td>
 </tr>
 <tr id="section_description">
  <td colspan="5">
-  <textarea id="description" name="description" rows="4"><?php echo htmlspecialchars($event->getDescription()) ?></textarea>
+  <textarea id="description" name="description" rows="4"><?php echo htmlspecialchars($event->description) ?></textarea>
  </td>
 </tr>
 
@@ -405,7 +404,7 @@ endif;
    <input type="text" name="tags" id="tags" value="<?php echo (!empty($tags) ? htmlspecialchars($tags) : '')?>" size="40" />
    <div id="tags_results" name="tags_results" class="autocomplete"></div>
    <span id="tags_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
-   <?php $tac = Horde_Ajax_Imple::factory(array('kronolith', 'TagAutoCompleter'), array('triggerId' => 'tags', 'id' => $event->getUID()));
+   <?php $tac = Horde_Ajax_Imple::factory(array('kronolith', 'TagAutoCompleter'), array('triggerId' => 'tags', 'id' => $event->uid));
          $tac->attach();
    ?>
  </td>
@@ -420,7 +419,7 @@ endif;
  <td></td>
  <td colspan="4">
   <input id="sendupdates" type="checkbox" class="checkbox" name="sendupdates" />
-  <label for="sendupdates"><?php echo $event->isInitialized() ? _("Send updates to all attendees?") : _("Send invitations to all attendees?") ?></label>
+  <label for="sendupdates"><?php echo $event->initialized ? _("Send updates to all attendees?") : _("Send invitations to all attendees?") ?></label>
  </td>
 </tr>
 <tr>

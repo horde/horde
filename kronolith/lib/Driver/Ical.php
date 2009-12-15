@@ -87,9 +87,9 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                 $event = new Kronolith_Event_Ical($this);
                 $event->status = Kronolith::STATUS_FREE;
                 $event->fromiCalendar($component);
-                $event->setCalendar($this->_calendar);
+                $event->calendar = $this->calendar;
                 // Force string so JSON encoding is consistent across drivers.
-                $event->eventID = 'ical' . $i;
+                $event->id = 'ical' . $i;
 
                 /* Catch RECURRENCE-ID attributes which mark single recurrence
                  * instances. */
@@ -124,8 +124,8 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         $results = array();
         foreach ($events as $key => $event) {
             if ($event->recurs() &&
-                isset($exceptions[$event->getUID()][$event->getSequence()])) {
-                $timestamp = $exceptions[$event->getUID()][$event->getSequence()];
+                isset($exceptions[$event->uid][$event->sequence])) {
+                $timestamp = $exceptions[$event->uid][$event->sequence];
                 $events[$key]->recurrence->addException(date('Y', $timestamp), date('m', $timestamp), date('d', $timestamp));
             }
             Kronolith::addEvents($results, $event, $startDate, $endDate,
@@ -152,8 +152,8 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             $event = new Kronolith_Event_Ical($this);
             $event->status = Kronolith::STATUS_FREE;
             $event->fromiCalendar($components[$eventId]);
-            $event->setCalendar($this->_calendar);
-            $event->eventID = 'ical' . $eventId;
+            $event->calendar = $this->calendar;
+            $event->id = 'ical' . $eventId;
 
             return $event;
         }
@@ -170,7 +170,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
      */
     public function getRemoteCalendar($cache = true)
     {
-        $url = trim($this->_calendar);
+        $url = trim($this->calendar);
 
         /* Treat webcal:// URLs as http://. */
         if (substr($url, 0, 9) == 'webcal://') {

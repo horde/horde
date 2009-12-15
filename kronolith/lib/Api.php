@@ -186,7 +186,7 @@ class Kronolith_Api extends Horde_Registry_Api
             $results = array();
             foreach ($events as $dayevents) {
                 foreach ($dayevents as $event) {
-                    $key = 'kronolith/' . $path . '/' . $event->getId();
+                    $key = 'kronolith/' . $path . '/' . $event->id;
                     if (in_array('name', $properties)) {
                         $results[$key]['name'] = $event->getTitle();
                     }
@@ -210,10 +210,10 @@ class Kronolith_Api extends Horde_Registry_Api
                         $results[$key]['contentlength'] = 1;
                     }
                     if (in_array('modified', $properties)) {
-                        $results[$key]['modified'] = $this->modified($event->getUID());
+                        $results[$key]['modified'] = $this->modified($event->uid);
                     }
                     if (in_array('created', $properties)) {
-                        $results[$key]['created'] = $this->getActionTimestamp($event->getUID(), 'add');
+                        $results[$key]['created'] = $this->getActionTimestamp($event->uid, 'add');
                     }
                 }
             }
@@ -230,9 +230,9 @@ class Kronolith_Api extends Horde_Registry_Api
                 }
 
                 $result = array(
-                    'data' => $this->export($event->getUID(), 'text/calendar'),
+                    'data' => $this->export($event->uid, 'text/calendar'),
                     'mimetype' => 'text/calendar');
-                $modified = $this->modified($event->getUID());
+                $modified = $this->modified($event->uid);
                 if (!empty($modified)) {
                     $result['mtime'] = $modified;
                 }
@@ -322,8 +322,8 @@ class Kronolith_Api extends Horde_Registry_Api
                 if (is_a($content, 'Horde_iCalendar_vevent')) {
                     $event = $kronolith_driver->getEvent();
                     $event->fromiCalendar($content);
-                    $event->setCalendar($calendar);
-                    $uid = $event->getUID();
+                    $event->calendar = $calendar;
+                    $uid = $event->uid;
                     // Remove from uids_remove list so we won't delete in the
                     // end.
                     if (isset($uids_remove[$uid])) {
@@ -361,7 +361,7 @@ class Kronolith_Api extends Horde_Registry_Api
                             }
 
                         // Don't change creator/owner.
-                        $event->setCreatorId($existing_event->getCreatorId());
+                        $event->creator = $existing_event->creator;
                     }
 
                     // Save entry.
@@ -369,7 +369,7 @@ class Kronolith_Api extends Horde_Registry_Api
                     if (is_a($saved, 'PEAR_Error')) {
                         return $saved;
                     }
-                    $ids[] = $event->getUID();
+                    $ids[] = $event->uid;
                 }
             }
             break;
@@ -490,7 +490,7 @@ class Kronolith_Api extends Horde_Registry_Api
         $uids = array();
         foreach ($events as $dayevents) {
             foreach ($dayevents as $event) {
-                $uids[] = $event->getUID();
+                $uids[] = $event->uid;
             }
         }
 
@@ -608,10 +608,10 @@ class Kronolith_Api extends Horde_Registry_Api
                 if (is_a($content, 'Horde_iCalendar_vevent')) {
                     $event = $kronolith_driver->getEvent();
                     $event->fromiCalendar($content);
-                    $event->setCalendar($calendar);
+                    $event->calendar = $calendar;
                     // Check if the entry already exists in the data source, first
                     // by UID.
-                    $uid = $event->getUID();
+                    $uid = $event->uid;
                     $existing_event = $kronolith_driver->getByUID($uid, array($calendar));
                     if (!is_a($existing_event, 'PEAR_Error')) {
                         return PEAR::raiseError(_("Already Exists"),
@@ -626,7 +626,7 @@ class Kronolith_Api extends Horde_Registry_Api
                                 $match->title == $event->title &&
                                 $match->location == $event->location &&
                                 $match->hasPermission(Horde_Perms::EDIT)) {
-                                    return PEAR::raiseError(_("Already Exists"), 'horde.message', null, null, $match->getUID());
+                                    return PEAR::raiseError(_("Already Exists"), 'horde.message', null, null, $match->uid);
                                 }
                         }
                     }
@@ -635,7 +635,7 @@ class Kronolith_Api extends Horde_Registry_Api
                     if (is_a($eventId, 'PEAR_Error')) {
                         return $eventId;
                     }
-                    $ids[] = $event->getUID();
+                    $ids[] = $event->uid;
                 }
             }
             if (count($ids) == 0) {
@@ -678,7 +678,7 @@ class Kronolith_Api extends Horde_Registry_Api
             return $event;
         }
 
-        return $event->getUID();
+        return $event->uid;
     }
 
     /**
@@ -715,7 +715,7 @@ class Kronolith_Api extends Horde_Registry_Api
         case 'text/x-vcalendar':
             $version = '1.0';
         case 'text/calendar':
-            $share = $kronolith_shares->getShare($event->getCalendar());
+            $share = $kronolith_shares->getShare($event->calendar);
 
             $iCal = new Horde_iCalendar($version);
             $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset($share->get('name'), Horde_Nls::getCharset(), 'utf-8'));
@@ -824,7 +824,7 @@ class Kronolith_Api extends Horde_Registry_Api
         if (empty($event)) {
             $ownerCalendars = Kronolith::listCalendars(true, Horde_Perms::DELETE);
             foreach ($events as $ev) {
-                if (Horde_Auth::isAdmin() || isset($ownerCalendars[$ev->getCalendar()])) {
+                if (Horde_Auth::isAdmin() || isset($ownerCalendars[$ev->calendar])) {
                     $event = $ev;
                     break;
                 }
@@ -835,8 +835,8 @@ class Kronolith_Api extends Horde_Registry_Api
         if (empty($event)) {
             $deletableCalendars = Kronolith::listCalendars(false, Horde_Perms::DELETE);
             foreach ($events as $ev) {
-                if (isset($deletableCalendars[$ev->getCalendar()])) {
-                    $kronolith_driver->open($ev->getCalendar());
+                if (isset($deletableCalendars[$ev->calendar])) {
+                    $kronolith_driver->open($ev->calendar);
                     $event = $ev;
                     break;
                 }
@@ -847,7 +847,7 @@ class Kronolith_Api extends Horde_Registry_Api
             return PEAR::raiseError(_("Permission Denied"));
         }
 
-        return $kronolith_driver->deleteEvent($event->getId());
+        return $kronolith_driver->deleteEvent($event->id);
     }
 
     /**
@@ -875,7 +875,7 @@ class Kronolith_Api extends Horde_Registry_Api
         }
 
         if (!$event->hasPermission(Horde_Perms::EDIT) ||
-            ($event->isPrivate() && $event->getCreatorId() != Horde_Auth::getAuth())) {
+            ($event->private && $event->creator != Horde_Auth::getAuth())) {
             return PEAR::raiseError(_("Permission Denied"));
         }
 
@@ -916,7 +916,7 @@ class Kronolith_Api extends Horde_Registry_Api
         $event->fromiCalendar($component);
         // Ensure we keep the original UID, even when content does not
         // contain one and fromiCalendar creates a new one.
-        $event->setUID($uid);
+        $event->uid = $uid;
         $eventId = $event->save();
 
         return is_a($eventId, 'PEAR_Error') ? $eventId : true;
@@ -1008,7 +1008,7 @@ class Kronolith_Api extends Horde_Registry_Api
         $ownerCalendars = Kronolith::listCalendars(true, Horde_Perms::EDIT);
         $event = null;
         foreach ($events as $ev) {
-            if (isset($ownerCalendars[$ev->getCalendar()])) {
+            if (isset($ownerCalendars[$ev->calendar])) {
                 $event = $ev;
                 break;
             }
@@ -1018,7 +1018,7 @@ class Kronolith_Api extends Horde_Registry_Api
         if (empty($event)) {
             $editableCalendars = Kronolith::listCalendars(false, Horde_Perms::EDIT);
             foreach ($events as $ev) {
-                if (isset($editableCalendars[$ev->getCalendar()])) {
+                if (isset($editableCalendars[$ev->calendar])) {
                     $event = $ev;
                     break;
                 }
@@ -1026,7 +1026,7 @@ class Kronolith_Api extends Horde_Registry_Api
         }
 
         if (empty($event) ||
-            ($event->isPrivate() && $event->getCreatorId() != Horde_Auth::getAuth())) {
+            ($event->private && $event->creator != Horde_Auth::getAuth())) {
             return PEAR::raiseError(_("Permission Denied"));
         }
 

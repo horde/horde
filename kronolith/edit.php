@@ -13,7 +13,7 @@ function _save(&$event)
 {
     $res = $event->save();
     $tagger = Kronolith::getTagger();
-    $tagger->replaceTags($event->getUID(), Horde_Util::getFormData('tags'));
+    $tagger->replaceTags($event->uid, Horde_Util::getFormData('tags'));
     if (is_a($res, 'PEAR_Error')) {
         $GLOBALS['notification']->push(sprintf(_("There was an error editing the event: %s"), $res->getMessage()), 'horde.error');
     } elseif (Horde_Util::getFormData('sendupdates', false)) {
@@ -100,7 +100,7 @@ if ($exception = Horde_Util::getFormData('del_exception')) {
                 /* Set recurrence end. */
                 $exception->mday--;
                 if ($event->end->compareDate($exception) > 0) {
-                    $result = $kronolith_driver->deleteEvent($event->getId());
+                    $result = $kronolith_driver->deleteEvent($event->id);
                     if (is_a($result, 'PEAR_Error')) {
                         $notification->push($result, 'horde.error');
                     }
@@ -117,7 +117,7 @@ if ($exception = Horde_Util::getFormData('del_exception')) {
                 break;
             }
 
-            $event->setUID(null);
+            $event->uid = null;
             _save($event);
             $event = null;
         } elseif (Horde_Util::getFormData('saveAsNew') ||
@@ -159,10 +159,10 @@ if ($exception = Horde_Util::getFormData('del_exception')) {
                 && !$sourceShare->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
                 $notification->push(_("You do not have permission to move this event."), 'horde.warning');
             } elseif ($user != Horde_Auth::getAuth() &&
-                      !$share->hasPermission(Horde_Auth::getAuth(), Kronolith::PERMS_DELEGATE, $event->getCreatorID())) {
+                      !$share->hasPermission(Horde_Auth::getAuth(), Kronolith::PERMS_DELEGATE, $event->creator)) {
                 $notification->push(sprintf(_("You do not have permission to delegate events to %s."), Kronolith::getUserName($user)), 'horde.warning');
             } elseif ($user == Horde_Auth::getAuth() &&
-                      !$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT, $event->getCreatorID())) {
+                      !$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT, $event->creator)) {
                 $notification->push(_("You do not have permission to edit this event."), 'horde.warning');
             } else {
                 $event->readForm();

@@ -17,7 +17,7 @@ class Kronolith_Event_Kolab extends Kronolith_Event
      *
      * @var string
      */
-    protected $_calendarType = 'internal';
+    public $calendarType = 'internal';
 
     /**
      * Const'r
@@ -43,8 +43,8 @@ class Kronolith_Event_Kolab extends Kronolith_Event
 
     public function fromDriver($event)
     {
-        $this->eventID = $event['uid'];
-        $this->setUID($this->eventID);
+        $this->id = $event['uid'];
+        $this->uid = $this->id;
 
         if (isset($event['summary'])) {
             $this->title = $event['summary'];
@@ -58,14 +58,14 @@ class Kronolith_Event_Kolab extends Kronolith_Event
 
         if (isset($event['sensitivity']) &&
             ($event['sensitivity'] == 'private' || $event['sensitivity'] == 'confidential')) {
-            $this->setPrivate(true);
+            $this->private = true;
         }
 
         if (isset($event['organizer']['smtp-address'])) {
             if (Kronolith::isUserEmail(Horde_Auth::getAuth(), $event['organizer']['smtp-address'])) {
-                $this->creatorID = Horde_Auth::getAuth();
+                $this->creator = Horde_Auth::getAuth();
             } else {
-                $this->creatorID = $event['organizer']['smtp-address'];
+                $this->creator = $event['organizer']['smtp-address'];
             }
         }
 
@@ -160,22 +160,17 @@ class Kronolith_Event_Kolab extends Kronolith_Event
     public function toDriver()
     {
         $event = array();
-        $event['uid'] = $this->getUID();
+        $event['uid'] = $this->uid;
         $event['summary'] = $this->title;
         $event['body']  = $this->description;
         $event['location'] = $this->location;
-
-        if ($this->isPrivate()) {
-            $event['sensitivity'] = 'private';
-        } else {
-            $event['sensitivity'] = 'public';
-        }
+        $event['sensitivity'] = $this->private ? 'private' : 'public';
 
         // Only set organizer if this is a new event
         if ($this->getID() == null) {
             $organizer = array(
-                            'display-name' => Kronolith::getUserName($this->getCreatorId()),
-                            'smtp-address' => Kronolith::getUserEmail($this->getCreatorId())
+                            'display-name' => Kronolith::getUserName($this->creator),
+                            'smtp-address' => Kronolith::getUserEmail($this->creator)
                          );
             $event['organizer'] = $organizer;
         }
@@ -214,9 +209,7 @@ class Kronolith_Event_Kolab extends Kronolith_Event
 
         // Attendees
         $event['attendee'] = array();
-        $attendees = $this->getAttendees();
-
-        foreach($attendees as $email => $attendee) {
+        foreach ($this->attendees as $email => $attendee) {
             $new_attendee = array();
             $new_attendee['display-name'] = $attendee['name'];
 

@@ -33,31 +33,33 @@ abstract class Kronolith_Event
      *
      * @var string
      */
-    public $eventID = null;
+    protected $_id = null;
 
     /**
      * The UID for this event.
      *
      * @var string
      */
-    protected $_uid = null;
+    public $uid = null;
 
     /**
      * The iCalendar SEQUENCE for this event.
      *
      * @var integer
      */
-    protected $_sequence = null;
+    public $sequence = null;
 
     /**
      * The user id of the creator of the event.
      *
      * @var string
      */
-    public $creatorID = null;
+    protected $_creator = null;
 
     /**
      * The title of this event.
+     *
+     * For displaying in the interface use getTitle() instead.
      *
      * @var string
      */
@@ -203,14 +205,14 @@ abstract class Kronolith_Event
      *
      * @var string
      */
-    protected $_calendar;
+    public $calendar;
 
     /**
      * The type of the calender this event exists on.
      *
      * @var string
      */
-    protected $_calendarType;
+    public $calendarType;
 
     /**
      * The HTML background color to be used for this event.
@@ -250,11 +252,11 @@ abstract class Kronolith_Event
      */
     public function __construct($driver, $eventObject = null)
     {
-        $this->_calendar = $driver->getCalendar();
+        $this->calendar = $driver->calendar;
         // FIXME: Move color definitions anywhere else.
-        if (!empty($this->_calendar) &&
-            isset($GLOBALS['all_calendars'][$this->_calendar])) {
-            $share = $GLOBALS['all_calendars'][$this->_calendar];
+        if (!empty($this->calendar) &&
+            isset($GLOBALS['all_calendars'][$this->calendar])) {
+            $share = $GLOBALS['all_calendars'][$this->calendar];
             $backgroundColor = $share->get('color');
             if (!empty($backgroundColor)) {
                 $this->_backgroundColor = $backgroundColor;
@@ -267,13 +269,68 @@ abstract class Kronolith_Event
             /* Get tags */
             $this->fromDriver($eventObject);
             $tagger = Kronolith::getTagger();
-            $this->tags = $tagger->getTags($this->getUID(), 'event');
+            $this->tags = $tagger->getTags($this->uid, 'event');
 
             /* Get geolocation data */
             if ($gDriver = Kronolith::getGeoDriver()) {
-                $this->geoLocation = $gDriver->getLocation($this->getId());
+                $this->geoLocation = $gDriver->getLocation($this->id);
             }
         }
+    }
+
+    /**
+     * Setter.
+     *
+     * Sets the 'id' and 'creator' properties.
+     *
+     * @param string $name  Property name.
+     * @param mixed $value  Property value.
+     */
+    public function __set($name, $value)
+    {
+        switch ($name) {
+        case 'id':
+            if (substr($value, 0, 10) == 'kronolith:') {
+                $value = substr($value, 10);
+            }
+            // Fall through.
+        case 'creator':
+            $this->{'_' . $name} = $value;
+            return;
+        }
+        $trace = debug_backtrace();
+        trigger_error('Undefined property via __set(): ' . $name
+                      . ' in ' . $trace[0]['file']
+                      . ' on line ' . $trace[0]['line'],
+                      E_USER_NOTICE);
+    }
+
+    /**
+     * Getter.
+     *
+     * Returns the 'id' and 'creator' properties.
+     *
+     * @param string $name  Property name.
+     *
+     * @return mixed  Property value.
+     */
+    public function __get($name)
+    {
+        switch ($name) {
+        case 'creator':
+            if (empty($this->_creator)) {
+                $this->_creator = Horde_Auth::getAuth();
+            }
+            // Fall through.
+        case 'id':
+            return $this->{'_' . $name};
+        }
+        $trace = debug_backtrace();
+        trigger_error('Undefined property via __set(): ' . $name
+                      . ' in ' . $trace[0]['file']
+                      . ' on line ' . $trace[0]['line'],
+                      E_USER_NOTICE);
+        return null;
     }
 
     /**
@@ -284,7 +341,7 @@ abstract class Kronolith_Event
      */
     public function getDriver()
     {
-        return Kronolith::getDriver(null, $this->_calendar);
+        return Kronolith::getDriver(null, $this->calendar);
     }
 
     /**
@@ -294,8 +351,8 @@ abstract class Kronolith_Event
      */
     public function getShare()
     {
-        if (isset($GLOBALS['all_calendars'][$this->getCalendar()])) {
-            $share = $GLOBALS['all_calendars'][$this->getCalendar()];
+        if (isset($GLOBALS['all_calendars'][$this->calendar])) {
+            $share = $GLOBALS['all_calendars'][$this->calendar];
         } else {
             $share = PEAR::raiseError('Share not found');
         }
@@ -317,7 +374,7 @@ abstract class Kronolith_Event
         }
 
         return (!is_a($share = &$this->getShare(), 'PEAR_Error') &&
-                $share->hasPermission($user, $permission, $this->getCreatorId()));
+                $share->hasPermission($user, $permission, $this->creator));
     }
 
     /**
@@ -327,7 +384,7 @@ abstract class Kronolith_Event
      */
     public function save()
     {
-        if (!$this->isInitialized()) {
+        if (!$this->initialized) {
             return PEAR::raiseError('Event not yet initialized');
         }
 
@@ -343,7 +400,7 @@ abstract class Kronolith_Event
              * someone is silly enough to add a resource to it's own event.*/
             $resource = Kronolith::getDriver('Resource')->getResource($id);
             $rcal = $resource->get('calendar');
-            if ($rcal == $this->getCalendar()) {
+            if ($rcal == $this->calendar) {
                 continue;
             }
 
@@ -432,12 +489,12 @@ abstract class Kronolith_Event
         }
 
         $vEvent->setAttribute('DTSTAMP', $_SERVER['REQUEST_TIME']);
-        $vEvent->setAttribute('UID', $this->_uid);
+        $vEvent->setAttribute('UID', $this->uid);
 
         /* Get the event's history. */
         $history = &Horde_History::singleton();
         $created = $modified = null;
-        $log = $history->getHistory('kronolith:' . $this->_calendar . ':' . $this->_uid);
+        $log = $history->getHistory('kronolith:' . $this->calendar . ':' . $this->uid);
         if ($log && !is_a($log, 'PEAR_Error')) {
             foreach ($log->getData() as $entry) {
                 switch ($entry['action']) {
@@ -462,14 +519,14 @@ abstract class Kronolith_Event
         }
 
         $vEvent->setAttribute('SUMMARY', $v1 ? $this->getTitle() : Horde_String::convertCharset($this->getTitle(), Horde_Nls::getCharset(), 'utf-8'));
-        $name = Kronolith::getUserName($this->getCreatorId());
+        $name = Kronolith::getUserName($this->creator);
         if (!$v1) {
             $name = Horde_String::convertCharset($name, Horde_Nls::getCharset(), 'utf-8');
         }
         $vEvent->setAttribute('ORGANIZER',
-                              'mailto:' . Kronolith::getUserEmail($this->getCreatorId()),
+                              'mailto:' . Kronolith::getUserEmail($this->creator),
                               array('CN' => $name));
-        if (!$this->isPrivate() || $this->getCreatorId() == Horde_Auth::getAuth()) {
+        if (!$this->private || $this->creator == Horde_Auth::getAuth()) {
             if (!empty($this->description)) {
                 $vEvent->setAttribute('DESCRIPTION', $v1 ? $this->description : Horde_String::convertCharset($this->description, Horde_Nls::getCharset(), 'utf-8'));
             }
@@ -493,10 +550,10 @@ abstract class Kronolith_Event
                 $vEvent->setAttribute('URL', $this->url);
             }
         }
-        $vEvent->setAttribute('CLASS', $this->isPrivate() ? 'PRIVATE' : 'PUBLIC');
+        $vEvent->setAttribute('CLASS', $this->private ? 'PRIVATE' : 'PUBLIC');
 
         // Status.
-        switch ($this->getStatus()) {
+        switch ($this->status) {
         case Kronolith::STATUS_FREE:
             // This is not an official iCalendar value, but we need it for
             // synchronization.
@@ -523,7 +580,7 @@ abstract class Kronolith_Event
         }
 
         // Attendees.
-        foreach ($this->getAttendees() as $email => $status) {
+        foreach ($this->attendees as $email => $status) {
             $params = array();
             switch ($status['attendance']) {
             case Kronolith::PART_REQUIRED:
@@ -668,19 +725,19 @@ abstract class Kronolith_Event
         // Unique ID.
         $uid = $vEvent->getAttribute('UID');
         if (!empty($uid) && !is_a($uid, 'PEAR_Error')) {
-            $this->setUID($uid);
+            $this->uid = $uid;
         }
 
         // Sequence.
         $seq = $vEvent->getAttribute('SEQUENCE');
         if (is_int($seq)) {
-            $this->_sequence = $seq;
+            $this->sequence = $seq;
         }
 
         // Title, tags and description.
         $title = $vEvent->getAttribute('SUMMARY');
         if (!is_array($title) && !is_a($title, 'PEAR_Error')) {
-            $this->setTitle($title);
+            $this->title = $title;
         }
 
         // Tags
@@ -692,7 +749,7 @@ abstract class Kronolith_Event
         // Description
         $desc = $vEvent->getAttribute('DESCRIPTION');
         if (!is_array($desc) && !is_a($desc, 'PEAR_Error')) {
-            $this->setDescription($desc);
+            $this->description = $desc;
         }
 
         // Remote Url
@@ -704,18 +761,14 @@ abstract class Kronolith_Event
         // Location
         $location = $vEvent->getAttribute('LOCATION');
         if (!is_array($location) && !is_a($location, 'PEAR_Error')) {
-            $this->setLocation($location);
+            $this->location = $location;
         }
 
         // Class
         $class = $vEvent->getAttribute('CLASS');
         if (!is_array($class) && !is_a($class, 'PEAR_Error')) {
             $class = Horde_String::upper($class);
-            if ($class == 'PRIVATE' || $class == 'CONFIDENTIAL') {
-                $this->setPrivate(true);
-            } else {
-                $this->setPrivate(false);
-            }
+            $this->private = $class == 'PRIVATE' || $class == 'CONFIDENTIAL';
         }
 
         // Status.
@@ -726,7 +779,7 @@ abstract class Kronolith_Event
                 $status = 'CANCELLED';
             }
             if (defined('Kronolith::STATUS_' . $status)) {
-                $this->setStatus(constant('Kronolith::STATUS_' . $status));
+                $this->status = constant('Kronolith::STATUS_' . $status);
             }
         }
 
@@ -900,19 +953,19 @@ abstract class Kronolith_Event
     public function fromHash($hash)
     {
         // See if it's a new event.
-        if ($this->getId() === null) {
-            $this->setCreatorId(Horde_Auth::getAuth());
+        if ($this->id === null) {
+            $this->creator = Horde_Auth::getAuth();
         }
         if (!empty($hash['title'])) {
-            $this->setTitle($hash['title']);
+            $this->title = $hash['title'];
         } else {
             return PEAR::raiseError(_("Events must have a title."));
         }
         if (!empty($hash['description'])) {
-            $this->setDescription($hash['description']);
+            $this->description = $hash['description'];
         }
         if (!empty($hash['location'])) {
-            $this->setLocation($hash['location']);
+            $this->location = $hash['location'];
         }
         if (!empty($hash['start_date'])) {
             $date = explode('-', $hash['start_date']);
@@ -972,7 +1025,7 @@ abstract class Kronolith_Event
             }
         }
         if (!empty($hash['alarm'])) {
-            $this->setAlarm($hash['alarm']);
+            $this->alarm = (int)$hash['alarm'];
         } elseif (!empty($hash['alarm_date']) &&
                   !empty($hash['alarm_time'])) {
             $date = explode('-', $hash['alarm_date']);
@@ -987,7 +1040,7 @@ abstract class Kronolith_Event
                                               'month' => $date[1],
                                               'mday'  => $date[2],
                                               'year'  => $date[0]));
-                $this->setAlarm(($this->start->timestamp() - $alarm->timestamp()) / 60);
+                $this->alarm = ($this->start->timestamp() - $alarm->timestamp()) / 60;
             }
         }
         if (!empty($hash['recur_type'])) {
@@ -1019,7 +1072,7 @@ abstract class Kronolith_Event
      */
     public function toAlarm($time, $user = null, $prefs = null)
     {
-        if (!$this->getAlarm()) {
+        if (!$this->alarm) {
             return;
         }
 
@@ -1039,12 +1092,12 @@ abstract class Kronolith_Event
 
         $methods = !empty($this->methods) ? $this->methods : @unserialize($prefs->getValue('event_alarms'));
         $start = clone $this->start;
-        $start->min -= $this->getAlarm();
+        $start->min -= $this->alarm;
         if (isset($methods['notify'])) {
             $methods['notify']['show'] = array(
                 '__app' => $GLOBALS['registry']->getApp(),
-                'event' => $this->getId(),
-                'calendar' => $this->getCalendar());
+                'event' => $this->id,
+                'calendar' => $this->calendar);
             if (!empty($methods['notify']['sound'])) {
                 if ($methods['notify']['sound'] == 'on') {
                     // Handle boolean sound preferences.
@@ -1058,7 +1111,7 @@ abstract class Kronolith_Event
         }
         if (isset($methods['popup'])) {
             $methods['popup']['message'] = $this->getTitle($user);
-            $description = $this->getDescription();
+            $description = $this->description;
             if (!empty($description)) {
                 $methods['popup']['message'] .= "\n\n" . $description;
             }
@@ -1070,18 +1123,18 @@ abstract class Kronolith_Event
                 $this->location,
                 $this->start->strftime($prefs->getValue('date_format')),
                 $this->start->format($prefs->getValue('twentyFour') ? 'H:i' : 'h:ia'),
-                $this->getDescription());
+                $this->description);
         }
 
         return array(
-            'id' => $this->getUID(),
+            'id' => $this->uid,
             'user' => $user,
             'start' => $start->timestamp(),
             'end' => $this->end->timestamp(),
             'methods' => array_keys($methods),
             'params' => $methods,
             'title' => $this->getTitle($user),
-            'text' => $this->getDescription());
+            'text' => $this->description);
     }
 
     /**
@@ -1130,7 +1183,7 @@ abstract class Kronolith_Event
     {
         $json = new stdClass;
         $json->t = $this->getTitle();
-        $json->c = $this->getCalendar();
+        $json->c = $this->calendar;
         $json->s = $this->start->toJson();
         $json->e = $this->end->toJson();
         $json->fi = $this->first;
@@ -1162,10 +1215,10 @@ abstract class Kronolith_Event
         }
 
         if ($full) {
-            $json->id = $this->getId();
-            $json->ty = $this->_calendarType;
-            $json->d = $this->getDescription();
-            $json->l = $this->getLocation();
+            $json->id = $this->id;
+            $json->ty = $this->calendarType;
+            $json->d = $this->description;
+            $json->l = $this->location;
             $json->u = $this->url;
             $json->sd = $this->start->strftime('%x');
             $json->st = $this->start->format($time_format);
@@ -1193,22 +1246,6 @@ abstract class Kronolith_Event
     }
 
     /**
-     * TODO
-     */
-    public function isInitialized()
-    {
-        return $this->initialized;
-    }
-
-    /**
-     * TODO
-     */
-    public function isStored()
-    {
-        return $this->stored;
-    }
-
-    /**
      * Checks if the current event is already present in the calendar.
      *
      * Does the check based on the uid.
@@ -1217,15 +1254,15 @@ abstract class Kronolith_Event
      */
     public function exists()
     {
-        if (!isset($this->_uid) || !isset($this->_calendar)) {
+        if (!isset($this->uid) || !isset($this->calendar)) {
             return false;
         }
 
-        $eventID = $this->getDriver()->exists($this->_uid, $this->_calendar);
+        $eventID = $this->getDriver()->exists($this->uid, $this->calendar);
         if (is_a($eventID, 'PEAR_Error') || !$eventID) {
             return false;
         } else {
-            $this->eventID = $eventID;
+            $this->id = $eventID;
             return true;
         }
     }
@@ -1321,8 +1358,8 @@ abstract class Kronolith_Event
         $formatted = $horde_date->strftime($GLOBALS['prefs']->getValue('date_format'));
         return $formatted
             . Horde::applicationUrl('edit.php')
-            ->add(array('calendar' => $this->getCalendar(),
-                        'eventID' => $this->eventID,
+            ->add(array('calendar' => $this->calendar,
+                        'eventID' => $this->id,
                         'del_exception' => $date,
                         'url' => Horde_Util::getFormData('url')))
             ->link(array('title' => sprintf(_("Delete exception on %s"), $formatted)))
@@ -1341,94 +1378,6 @@ abstract class Kronolith_Event
         return implode(', ', array_map(array($this, 'exceptionLink'), $this->recurrence->getExceptions()));
     }
 
-    public function getCalendar()
-    {
-        return $this->_calendar;
-    }
-
-    public function setCalendar($calendar)
-    {
-        $this->_calendar = $calendar;
-    }
-
-    public function getCalendarType()
-    {
-        return $this->_calendarType;
-    }
-
-    /**
-     * Returns the locally unique identifier for this event.
-     *
-     * @return string  The local identifier for this event.
-     */
-    public function getId()
-    {
-        return $this->eventID;
-    }
-
-    /**
-     * Sets the locally unique identifier for this event.
-     *
-     * @param string $eventId  The local identifier for this event.
-     */
-    public function setId($eventId)
-    {
-        if (substr($eventId, 0, 10) == 'kronolith:') {
-            $eventId = substr($eventId, 10);
-        }
-        $this->eventID = $eventId;
-    }
-
-    /**
-     * Returns the global UID for this event.
-     *
-     * @return string  The global UID for this event.
-     */
-    public function getUID()
-    {
-        return $this->_uid;
-    }
-
-    /**
-     * Sets the global UID for this event.
-     *
-     * @param string $uid  The global UID for this event.
-     */
-    public function setUID($uid)
-    {
-        $this->_uid = $uid;
-    }
-
-    /**
-     * Returns the iCalendar SEQUENCE for this event.
-     *
-     * @return integer  The sequence for this event.
-     */
-    public function getSequence()
-    {
-        return $this->_sequence;
-    }
-
-    /**
-     * Returns the id of the user who created the event.
-     *
-     * @return string  The creator id
-     */
-    public function getCreatorId()
-    {
-        return !empty($this->creatorID) ? $this->creatorID : Horde_Auth::getAuth();
-    }
-
-    /**
-     * Sets the id of the creator of the event.
-     *
-     * @param string $creatorID  The user id for the user who created the event
-     */
-    public function setCreatorId($creatorID)
-    {
-        $this->creatorID = $creatorID;
-    }
-
     /**
      * Returns the title of this event.
      *
@@ -1438,7 +1387,7 @@ abstract class Kronolith_Event
      */
     public function getTitle($user = null)
     {
-        if (!$this->isInitialized()) {
+        if (!$this->initialized) {
             return '';
         }
 
@@ -1451,126 +1400,14 @@ abstract class Kronolith_Event
         $end = $this->end->format($twentyFour ? 'G:i' : 'g:ia');
 
         // We explicitly allow admin access here for the alarms notifications.
-        if (!Horde_Auth::isAdmin() && $this->isPrivate() &&
-            $this->getCreatorId() != $user) {
+        if (!Horde_Auth::isAdmin() && $this->private &&
+            $this->creator != $user) {
             return _("busy");
         } elseif (Horde_Auth::isAdmin() || $this->hasPermission(Horde_Perms::READ, $user)) {
             return strlen($this->title) ? $this->title : _("[Unnamed event]");
         } else {
             return _("busy");
         }
-    }
-
-    /**
-     * Sets the title of this event.
-     *
-     * @param string  The new title for this event.
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-    }
-
-    /**
-     * Returns the description of this event.
-     *
-     * @return string  The description of this event.
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * Sets the description of this event.
-     *
-     * @param string $description  The new description for this event.
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-    }
-
-    /**
-     * Returns the location this event occurs at.
-     *
-     * @return string  The location of this event.
-     */
-    public function getLocation()
-    {
-        return $this->location;
-    }
-
-    /**
-     * Sets the location this event occurs at.
-     *
-     * @param string $location  The new location for this event.
-     */
-    public function setLocation($location)
-    {
-        $this->location = $location;
-    }
-
-    /**
-     * Returns whether this event is private.
-     *
-     * @return boolean  Whether this even is private.
-     */
-    public function isPrivate()
-    {
-        return $this->private;
-    }
-
-    /**
-     * Sets the private flag of this event.
-     *
-     * @param boolean $private  Whether this event should be marked private.
-     */
-    public function setPrivate($private)
-    {
-        $this->private = !empty($private);
-    }
-
-    /**
-     * Returns the event status.
-     *
-     * @return integer  The status of this event.
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * Checks whether the events status is the same as the specified value.
-     *
-     * @param integer $status  The status value to check against.
-     *
-     * @return boolean  True if the events status is the same as $status.
-     */
-    public function hasStatus($status)
-    {
-        return ($status == $this->status);
-    }
-
-    /**
-     * Sets the status of this event.
-     *
-     * @param integer $status  The new event status.
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-    }
-
-    /**
-     * Returns the entire attendees array.
-     *
-     * @return array  A copy of the attendees array.
-     */
-    public function getAttendees()
-    {
-        return $this->attendees;
     }
 
     /**
@@ -1586,17 +1423,6 @@ abstract class Kronolith_Event
     {
         $email = Horde_String::lower($email);
         return isset($this->attendees[$email]);
-    }
-
-    /**
-     * Sets the entire attendee array.
-     *
-     * @param array $attendees  The new attendees array. This should be of the
-     *                          correct format to avoid driver problems.
-     */
-    public function setAttendees($attendees)
-    {
-        $this->attendees = array_change_key_case($attendees);
     }
 
     /**
@@ -1633,19 +1459,6 @@ abstract class Kronolith_Event
     }
 
     /**
-     * Removes the specified attendee from the current event.
-     *
-     * @param string $email  The email address of the attendee.
-     */
-    public function removeAttendee($email)
-    {
-        $email = Horde_String::lower($email);
-        if (isset($this->attendees[$email])) {
-            unset($this->attendees[$email]);
-        }
-    }
-
-    /**
      * Adds a single Kronolith_Resource to this event.
      * No validation or acceptence/denial is done here...it should be done
      * when saving the Event.
@@ -1664,18 +1477,6 @@ abstract class Kronolith_Event
     }
 
     /**
-     * Directly set/replace the _resources array. Called from Event::readForm
-     * to bulk load the resources from $_SESSION
-     *
-     * @param $resources
-     * @return unknown_type
-     */
-    public function setResources($resources)
-    {
-        $this->_resources = $resources;
-    }
-
-    /**
      * Remove a Kronolith_Resource from this event
      *
      * @param Kronolith_Resource $resource  The resource to remove
@@ -1685,7 +1486,7 @@ abstract class Kronolith_Event
     public function removeResource($resource)
     {
         if (isset($this->_resources[$resource->getId()])) {
-            unset ($this->_resources[$resource->getId()]);
+            unset($this->_resources[$resource->getId()]);
         }
     }
 
@@ -1699,20 +1500,6 @@ abstract class Kronolith_Event
         return $this->_resources;
     }
 
-    /**
-     * Checks to see whether the specified resource is associated with this
-     * event.
-     *
-     * @param string $uid  The resource uid.
-     *
-     * @return boolean  True if the specified attendee is present for this
-     *                  event.
-     */
-    public function hasResource($uid)
-    {
-        return isset($this->_resources[$uid]);
-    }
-
     public function isAllDay()
     {
         return $this->allday ||
@@ -1724,16 +1511,6 @@ abstract class Kronolith_Event
                 $this->end->year > $this->start->year))));
     }
 
-    public function getAlarm()
-    {
-        return $this->alarm;
-    }
-
-    public function setAlarm($alarm)
-    {
-        $this->alarm = $alarm;
-    }
-
     public function readForm()
     {
         global $prefs, $cManager;
@@ -1741,17 +1518,16 @@ abstract class Kronolith_Event
         // Event owner.
         $targetcalendar = Horde_Util::getFormData('targetcalendar');
         if (strpos($targetcalendar, ':')) {
-            list(, $creator) = explode(':', $targetcalendar, 2);
-        } else {
-            $creator = isset($this->eventID) ? $this->getCreatorId() : Horde_Auth::getAuth();
+            list(, $this->creator) = explode(':', $targetcalendar, 2);
+        } elseif (!isset($this->id)) {
+            $this->creator = Horde_Auth::getAuth();
         }
-        $this->setCreatorId($creator);
 
         // Basic fields.
-        $this->setTitle(Horde_Util::getFormData('title', $this->title));
-        $this->setDescription(Horde_Util::getFormData('description', $this->description));
-        $this->setLocation(Horde_Util::getFormData('location', $this->location));
-        $this->setPrivate(Horde_Util::getFormData('private'));
+        $this->title = Horde_Util::getFormData('title', $this->title);
+        $this->description = Horde_Util::getFormData('description', $this->description);
+        $this->location = Horde_Util::getFormData('location', $this->location);
+        $this->private = (bool)Horde_Util::getFormData('private');
 
         // URL.
         $url = Horde_Util::getFormData('eventurl', $this->url);
@@ -1801,22 +1577,22 @@ abstract class Kronolith_Event
         $this->url = $url;
 
         // Status.
-        $this->setStatus(Horde_Util::getFormData('status', $this->status));
+        $this->status = Horde_Util::getFormData('status', $this->status);
 
         // Attendees.
         if (isset($_SESSION['kronolith']['attendees']) && is_array($_SESSION['kronolith']['attendees'])) {
-            $this->setAttendees($_SESSION['kronolith']['attendees']);
+            $this->attendees = $_SESSION['kronolith']['attendees'];
         }
         if ($attendees = Horde_Util::getFormData('attendees')) {
             $attendees = Kronolith::parseAttendees(trim($attendees));
             if ($attendees) {
-                $this->setAttendees($attendees);
+                $this->attendees = $attendees;
             }
         }
 
         // Resources
         if (isset($_SESSION['kronolith']['resources']) && is_array($_SESSION['kronolith']['resources'])) {
-            $this->setResources($_SESSION['kronolith']['resources']);
+            $this->_resources = $_SESSION['kronolith']['resources'];
         }
 
         // strptime() is locale dependent, i.e. %p is not always matching
@@ -1946,7 +1722,7 @@ abstract class Kronolith_Event
         // Alarm.
         if (!is_null($alarm = Horde_Util::getFormData('alarm'))) {
             if ($alarm) {
-                $this->setAlarm(Horde_Util::getFormData('alarm_value') * Horde_Util::getFormData('alarm_unit'));
+                $this->alarm = Horde_Util::getFormData('alarm_value') * Horde_Util::getFormData('alarm_unit');
                 // Notification.
                 if (Horde_Util::getFormData('alarm_change_method')) {
                     $types = Horde_Util::getFormData('event_alarms');
@@ -1971,7 +1747,7 @@ abstract class Kronolith_Event
                     $this->methods = array();
                 }
             } else {
-                $this->setAlarm(0);
+                $this->alarm = 0;
                 $this->methods = array();
             }
         }
@@ -2329,9 +2105,9 @@ abstract class Kronolith_Event
      */
     public function getViewUrl($params = array(), $full = false)
     {
-        $params['eventID'] = $this->eventID;
-        $params['calendar'] = $this->getCalendar();
-        $params['type'] = $this->_calendarType;
+        $params['eventID'] = $this->id;
+        $params['calendar'] = $this->calendar;
+        $params['type'] = $this->calendarType;
 
         return Horde::applicationUrl('event.php', $full)->add($params);
     }
@@ -2344,9 +2120,9 @@ abstract class Kronolith_Event
     public function getEditUrl($params = array())
     {
         $params['view'] = 'EditEvent';
-        $params['eventID'] = $this->eventID;
-        $params['calendar'] = $this->getCalendar();
-        $params['type'] = $this->_calendarType;
+        $params['eventID'] = $this->id;
+        $params['calendar'] = $this->calendar;
+        $params['type'] = $this->calendarType;
 
         return Horde::applicationUrl('event.php')->add($params);
     }
@@ -2359,9 +2135,9 @@ abstract class Kronolith_Event
     public function getDeleteUrl($params = array())
     {
         $params['view'] = 'DeleteEvent';
-        $params['eventID'] = $this->eventID;
-        $params['calendar'] = $this->getCalendar();
-        $params['type'] = $this->_calendarType;
+        $params['eventID'] = $this->id;
+        $params['calendar'] = $this->calendar;
+        $params['type'] = $this->calendarType;
 
         return Horde::applicationUrl('event.php')->add($params);
     }
@@ -2374,9 +2150,9 @@ abstract class Kronolith_Event
     public function getExportUrl($params = array())
     {
         $params['view'] = 'ExportEvent';
-        $params['eventID'] = $this->eventID;
-        $params['calendar'] = $this->getCalendar();
-        $params['type'] = $this->_calendarType;
+        $params['eventID'] = $this->id;
+        $params['calendar'] = $this->calendar;
+        $params['type'] = $this->calendarType;
 
         return Horde::applicationUrl('event.php')->add($params);
     }
@@ -2438,7 +2214,7 @@ abstract class Kronolith_Event
                 $status .= Horde::fullSrcImg('recur-' . $icon_color . '.png', array('attr' => array('alt' => $title, 'title' => $title, 'class' => 'iconRecur')));
             }
 
-            if ($this->isPrivate()) {
+            if ($this->private) {
                 $title = _("Private event");
                 $status .= Horde::fullSrcImg('private-' . $icon_color . '.png', array('attr' => array('alt' => $title, 'title' => $title, 'class' => 'iconPrivate')));
             }
@@ -2453,8 +2229,8 @@ abstract class Kronolith_Event
                 $link .= ' ' . $status;
             }
 
-            if (!$this->isPrivate() ||
-                $this->getCreatorId() == Horde_Auth::getAuth()) {
+            if (!$this->private ||
+                $this->creator == Horde_Auth::getAuth()) {
                 $link .= $this->getEditUrl(
                     array('datetime' => $datetime->strftime('%Y%m%d%H%M%S'),
                           'url' => $from_url))
@@ -2500,10 +2276,10 @@ abstract class Kronolith_Event
     public function getTooltip()
     {
         $tooltip = $this->getTimeRange()
-            . "\n" . sprintf(_("Owner: %s"), ($this->getCreatorId() == Horde_Auth::getAuth() ?
-                                              _("Me") : Kronolith::getUserName($this->getCreatorId())));
+            . "\n" . sprintf(_("Owner: %s"), ($this->creator == Horde_Auth::getAuth() ?
+                                              _("Me") : Kronolith::getUserName($this->creator)));
 
-        if (!$this->isPrivate() || $this->getCreatorId() == Horde_Auth::getAuth()) {
+        if (!$this->private || $this->creator == Horde_Auth::getAuth()) {
             if ($this->location) {
                 $tooltip .= "\n" . _("Location") . ': ' . $this->location;
             }

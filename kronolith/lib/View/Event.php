@@ -42,11 +42,11 @@ class Kronolith_View_Event {
         $createdby = '';
         $modifiedby = '';
         $userId = Horde_Auth::getAuth();
-        if ($this->event->getUID()) {
+        if ($this->event->uid) {
             /* Get the event's history. */
             $history = &Horde_History::singleton();
-            $log = $history->getHistory('kronolith:' . $this->event->getCalendar() . ':' .
-                                        $this->event->getUID());
+            $log = $history->getHistory('kronolith:' . $this->event->calendar . ':' .
+                                        $this->event->uid);
             if ($log && !is_a($log, 'PEAR_Error')) {
                 foreach ($log->getData() as $entry) {
                     switch ($entry['action']) {
@@ -72,14 +72,14 @@ class Kronolith_View_Event {
             }
         }
 
-        $creatorId = $this->event->getCreatorId();
-        $description = $this->event->getDescription();
-        $location = $this->event->getLocation();
+        $creatorId = $this->event->creator;
+        $description = $this->event->description;
+        $location = $this->event->location;
         $eventurl = $this->event->url;
-        $private = $this->event->isPrivate() && $creatorId != Horde_Auth::getAuth();
+        $private = $this->event->private && $creatorId != Horde_Auth::getAuth();
         $owner = Kronolith::getUserName($creatorId);
-        $status = Kronolith::statusToString($this->event->getStatus());
-        $attendees = $this->event->getAttendees();
+        $status = Kronolith::statusToString($this->event->status);
+        $attendees = $this->event->attendees;
         $resources = $this->event->getResources();
         if ($datetime = Horde_Util::getFormData('datetime')) {
             $datetime = new Horde_Date($datetime);

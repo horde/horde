@@ -138,9 +138,9 @@ class Horde_Block_Kronolith_prevmonthlist extends Horde_Block {
                 $html .= '<td class="text" nowrap="nowrap" valign="top">';
                 if ($event->start->compareDate($startDate) < 0 &&
                     $event->end->compareDate($startDate) > 0) {
-                    $html .= '<strong>' . $event->getLocation() . '</strong>';
+                    $html .= '<strong>' . $event->location . '</strong>';
                 } else {
-                    $html .= $event->getLocation();
+                    $html .= $event->location;
                 }
                 if ($event->start->compareDate($startDate) < 0 &&
                     $event->end->compareDate($startDate) > 0) {

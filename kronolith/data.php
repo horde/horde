@@ -96,7 +96,7 @@ case 'export':
         $calendars = array($calendars);
     }
     foreach ($calendars as $cal) {
-        if ($kronolith_driver->getCalendar() != $cal) {
+        if ($kronolith_driver->calendar != $cal) {
             $kronolith_driver->open($cal);
         }
         $events[$cal] = $kronolith_driver->listEvents($start, $end);
@@ -153,7 +153,7 @@ case 'export':
 
         $calNames = array();
         foreach ($events as $cal => $calevents) {
-            if ($kronolith_driver->getCalendar() != $cal) {
+            if ($kronolith_driver->calendar != $cal) {
                 $kronolith_driver->open($cal);
             }
 

@@ -130,7 +130,7 @@ class Kronolith_View_Day extends Kronolith_Day {
                         . 'valign="top" colspan="' . $this->_span[$cid] . '">'
                         . $event->getLink($this, true, $this->link(0, true));
                     if ($showLocation) {
-                        $row .= '<div class="event-location">' . htmlspecialchars($event->getLocation()) . '</div>';
+                        $row .= '<div class="event-location">' . htmlspecialchars($event->location) . '</div>';
                     }
                     $row .= '</td>';
                 }
@@ -245,7 +245,7 @@ class Kronolith_View_Day extends Kronolith_Day {
                             $row .= '<div class="event-time">' . htmlspecialchars($event->getTimeRange()) . '</div>';
                         }
                         if ($showLocation) {
-                            $row .= '<div class="event-location">' . htmlspecialchars($event->getLocation()) . '</div>';
+                            $row .= '<div class="event-location">' . htmlspecialchars($event->location) . '</div>';
                         }
                         $row .= '</td>';
                     }
@@ -307,7 +307,7 @@ class Kronolith_View_Day extends Kronolith_Day {
             // If we have side_by_side we only want to include the
             // event in the proper calendar.
             if ($this->_sidebyside) {
-                $cid = $event->getCalendar();
+                $cid = $event->calendar;
             } else {
                 $cid = 0;
             }
@@ -362,7 +362,7 @@ class Kronolith_View_Day extends Kronolith_Day {
                 // If we have side_by_side we only want to include the
                 // event in the proper calendar.
                 if ($this->_sidebyside) {
-                    $cid = $event->getCalendar();
+                    $cid = $event->calendar;
                 } else {
                     $cid = 0;
                 }

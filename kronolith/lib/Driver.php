@@ -26,7 +26,7 @@ class Kronolith_Driver
      *
      * @var string
      */
-    protected $_calendar;
+    public $calendar;
 
     /**
      * An error message to throw when something is wrong.
@@ -78,17 +78,7 @@ class Kronolith_Driver
 
     public function open($calendar)
     {
-        $this->_calendar = $calendar;
-    }
-
-    /**
-     * Returns the currently open calendar.
-     *
-     * @return string  The current calendar name.
-     */
-    public function getCalendar()
-    {
-        return $this->_calendar;
+        $this->calendar = $calendar;
     }
 
     /**
@@ -137,13 +127,13 @@ class Kronolith_Driver
                     (empty($query->title) ||
                      stristr($event->getTitle(), $query->title)) &&
                     (empty($query->location) ||
-                     stristr($event->getLocation(), $query->location)) &&
+                     stristr($event->location, $query->location)) &&
                     (empty($query->description) ||
-                     stristr($event->getDescription(), $query->description)) &&
-                    (empty($query->creatorID) ||
-                     stristr($event->getCreatorID(), $query->creatorID))  &&
+                     stristr($event->description, $query->description)) &&
+                    (empty($query->creator) ||
+                     stristr($event->creator, $query->creator))  &&
                     (!isset($query->status) ||
-                     $event->getStatus() == $query->status)) {
+                     $event->status == $query->status)) {
                     Kronolith::addEvents($results, $event, $event->start, $event->end, false, $json, false);
                 }
             }

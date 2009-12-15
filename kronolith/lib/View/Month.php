@@ -195,14 +195,14 @@ class Kronolith_View_Month {
                 $date_stamp = $date->dateString();
                 if (!empty($this->_events[$date_stamp])) {
                     foreach ($this->_events[$date_stamp] as $event) {
-                        if (!$sidebyside || $event->getCalendar() == $id) {
+                        if (!$sidebyside || $event->calendar == $id) {
                             $html .= '<div class="month-eventbox"' . $event->getCSSColors() . '>'
                                 . $event->getLink($date, true, $this_link);
                             if ($showTime) {
                                 $html .= '<div class="event-time">' . htmlspecialchars($event->getTimeRange()) . '</div>';
                             }
                             if ($showLocation) {
-                                $html .= '<div class="event-location">' . htmlspecialchars($event->getLocation()) . '</div>';
+                                $html .= '<div class="event-location">' . htmlspecialchars($event->location) . '</div>';
                             }
                             $html .= '</div>';
                         }

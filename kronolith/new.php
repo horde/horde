@@ -32,7 +32,7 @@ if (!$calendar_id) {
 }
 
 $event = Kronolith::getDriver()->getEvent();
-$_SESSION['kronolith']['attendees'] = $event->getAttendees();
+$_SESSION['kronolith']['attendees'] = $event->attendees;
 $_SESSION['kronolith']['resources'] = $event->getResources();
 
 $date = Horde_Util::getFormData('datetime');
