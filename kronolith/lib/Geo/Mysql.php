@@ -24,8 +24,6 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
      */
     public function setLocation($event_id, $point)
     {
-        var_dump($event_id);
-        var_dump($point);
         /* First make sure it doesn't already exist */
         $sql = "SELECT COUNT(*) FROM kronolith_events_geo WHERE event_id = ('" . $event_id . "')";
         $count = $this->_db->getOne($sql);
