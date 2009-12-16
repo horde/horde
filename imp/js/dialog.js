@@ -13,6 +13,8 @@ var IMPDialog = {
 
     display: function(data)
     {
+        this.noreload = false;
+
         if (Object.isString(data)) {
             data = decodeURIComponent(data).evalJSON(true);
         }
@@ -30,8 +32,8 @@ var IMPDialog = {
 
     _display: function(data)
     {
-        this.action = data.action;
         this.params = data.params;
+        this.type = data.type;
         this.uri = data.uri;
 
         var n = new Element('FORM', { action: '#', id: 'RB_confirm' }).insert(
@@ -80,13 +82,8 @@ var IMPDialog = {
 
         if (r.response.success) {
             this._close();
-            if (this.action) {
-                if (Object.isFunction(this.action)) {
-                    this.action();
-                } else {
-                    eval(this.action)();
-                }
-            } else {
+            document.fire('IMPDialog:success', this.type);
+            if (!this.noreload) {
                 location.reload();
             }
         } else if (r.response.error) {

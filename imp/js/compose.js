@@ -447,3 +447,15 @@ document.observe('dom:loaded', ImpCompose.onDomLoad.bind(ImpCompose));
 
 /* Warn before closing the window. */
 Event.observe(window, 'beforeunload', ImpCompose.onBeforeUnload.bind(ImpCompose));
+
+/* Catch dialog actions. */
+document.observe('IMPDialog:success', function(e) {
+    switch (e.memo) {
+    case 'PGPPersonal':
+    case 'PGPSymmetric':
+    case 'SMIMEPersonal':
+        IMPDialog.noreload = true;
+        ImpCompose.uniqSubmit('send_message');
+        break;
+    }
+});

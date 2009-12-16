@@ -504,6 +504,18 @@ var DimpCore = {
         /* Add click handler. */
         document.observe('click', DimpCore.clickHandler.bindAsEventListener(DimpCore));
 
+        /* Catch dialog actions. */
+        document.observe('IMPDialog:success', function(e) {
+            switch (e.memo) {
+            case 'PGPPersonal':
+            case 'PGPSymmetric':
+            case 'SMIMEPersonal':
+                IMPDialog.noreload = true;
+                this.reloadMessage({});
+                break;
+            }
+        }.bindAsEventListener(this));
+
         /* Determine base window. Need a try/catch block here since, if the
          * page was loaded by an opener out of this current domain, this will
          * throw an exception. */

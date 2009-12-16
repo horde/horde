@@ -209,20 +209,12 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
                 $symmetric_pass = $this->_imppgp->getPassphrase('symmetric', $symmetric_id);
 
                 if (is_null($symmetric_pass)) {
-                    $js_action = '';
                     $status[] = _("The data in this part has been encrypted via PGP.");
 
-                    switch ($_SESSION['imp']['view']) {
-                    case 'dimp':
-                        $js_action = 'DimpCore.reloadMessage({});';
-                        // Fall through
+                    /* Ask for the correct passphrase if this is encrypted
+                     * symmetrically. */
+                    $status[] = Horde::link('#', '', '', '', IMP::passphraseDialogJS('PGPSymmetric', array('symmetricid' => $symmetric_id)) . ';return false;') . _("You must enter the passphrase used to encrypt this message to view it.") . '</a>';
 
-                    case 'imp':
-                        /* Ask for the correct passphrase if this is encrypted
-                         * symmetrically. */
-                        $status[] = Horde::link('#', '', '', '', IMP::passphraseDialogJS('PGPSymmetric', $js_action, array('symmetricid' => $symmetric_id)) . ';return false;') . _("You must enter the passphrase used to encrypt this message to view it.") . '</a>';
-                        break;
-                    }
                     return null;
                 }
             }
@@ -249,19 +241,9 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
                 if ($this->_imppgp->getPersonalPrivateKey()) {
                     $personal_pass = $this->_imppgp->getPassphrase('personal');
                     if (is_null($personal_pass)) {
-                        $js_action = '';
-
-                        switch ($_SESSION['imp']['view']) {
-                        case 'dimp':
-                            $js_action = 'DimpCore.reloadMessage({});';
-                            // Fall through
-
-                        case 'imp':
-                            /* Ask for the private key's passphrase if this is
-                             * encrypted asymmetrically. */
-                            $status[] = Horde::link('#', '', '', '', IMP::passphraseDialogJS('PGPPersonal', $js_action) . ';return false;') . _("You must enter the passphrase for your PGP private key to view this message.") . '</a>';
-                            break;
-                        }
+                        /* Ask for the private key's passphrase if this is
+                         * encrypted asymmetrically. */
+                        $status[] = Horde::link('#', '', '', '', IMP::passphraseDialogJS('PGPPersonal') . ';return false;') . _("You must enter the passphrase for your PGP private key to view this message.") . '</a>';
                         return null;
                     }
                 } else {

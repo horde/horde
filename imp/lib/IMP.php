@@ -1111,15 +1111,12 @@ class IMP
      * Generate the JS code necessary to open a passphrase dialog. Adds the
      * necessary JS files to open the dialog.
      *
-     * @param string $type    The dialog type.
-     * @param string $action  The JS code to run after success. Defaults to
-     *                        reloading the current window.
-     * @param array $params   Any additional parameters to pass.
+     * @param string $type   The dialog type.
+     * @param array $params  Any additional parameters to pass.
      *
      * @return string  The generated JS code.
      */
-    static public function passphraseDialogJS($type, $action = null,
-                                              $params = array())
+    static public function passphraseDialogJS($type, $params = array())
     {
         Horde::addScriptFile('effects.js', 'horde');
         Horde::addScriptFile('redbox.js', 'horde');
@@ -1145,13 +1142,13 @@ class IMP
         }
 
         $js_params = array(
-            'action' => $action,
-            'uri' => Horde::applicationUrl('ajax.php', true, -1) . '/' . $type,
-            'params' => $params,
-            'text' => $text,
-            'password' => true,
+            'cancel_text' => _("Cancel"),
             'ok_text' => _("OK"),
-            'cancel_text' => _("Cancel")
+            'params' => $params,
+            'password' => true,
+            'text' => $text,
+            'type' => $type,
+            'uri' => Horde::applicationUrl('ajax.php', true, -1) . '/' . $type
         );
 
         return 'IMPDialog.display(' . Horde::escapeJson($js_params, array('urlencode' => true)) . ')';

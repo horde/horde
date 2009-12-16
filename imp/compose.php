@@ -688,16 +688,16 @@ if ($get_sig && isset($msg) && !empty($sig)) {
 if ($pgp_passphrase_dialog || $pgp_symmetric_passphrase_dialog) {
     if ($pgp_passphrase_dialog) {
         Horde::addInlineScript(array(
-           IMP::passphraseDialogJS('PGPPersonal', 'ImpCompose.uniqSubmit(\'send_message\')')
+           IMP::passphraseDialogJS('PGPPersonal')
        ), 'dom');
     } else {
         Horde::addInlineScript(array(
-            IMP::passphraseDialogJS('PGPSymmetric', 'ImpCompose.uniqSubmit(\'send_message\')', array('symmetricid' => 'imp_compose_' . $composeCacheID))
+            IMP::passphraseDialogJS('PGPSymmetric', array('symmetricid' => 'imp_compose_' . $composeCacheID))
        ), 'dom');
     }
 } elseif ($smime_passphrase_dialog) {
     Horde::addInlineScript(array(
-        IMP::passphraseDialogJS('SMIMEPersonal', 'ImpCompose.uniqSubmit(\'send_message\')')
+        IMP::passphraseDialogJS('SMIMEPersonal')
     ), 'dom');
 }
 
