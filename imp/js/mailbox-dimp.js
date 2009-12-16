@@ -12,7 +12,7 @@
  */
 
 DimpBase.msglist_template_horiz =
-'<div class="#{className}" id="#{domid}" style="#{style}">' +
+'<div class="#{className}" id="#{VP_domid}" style="#{style}">' +
  '<div class="msgStatus sep">' +
   '<div class="msCheck"></div>' +
   '#{status}' +
@@ -24,7 +24,7 @@ DimpBase.msglist_template_horiz =
 '</div>';
 
 DimpBase.msglist_template_vert =
-'<div class="#{className}" id="#{domid}" style="#{style}">' +
+'<div class="#{className}" id="#{VP_domid}" style="#{style}">' +
  '<div class="msgStatus">' +
   '<div class="msCheck"></div>' +
   '#{status}' +

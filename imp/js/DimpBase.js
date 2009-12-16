@@ -125,7 +125,7 @@ var DimpBase = {
 
             case 1:
                 curr_row = sel.get('dataob').first();
-                curr = curr_row.rownum + num;
+                curr = curr_row.VP_rownum + num;
                 break;
 
             default:
@@ -140,7 +140,7 @@ var DimpBase = {
         if (row.size()) {
             row_data = row.get('dataob').first();
             if (!curr_row || row_data.imapuid != curr_row.imapuid) {
-                this.viewport.scrollTo(row_data.rownum);
+                this.viewport.scrollTo(row_data.VP_rownum);
                 this.viewport.select(row, { delay: 0.3 });
             }
         } else {
@@ -395,7 +395,7 @@ var DimpBase = {
                             }
                             r.status += ptr.elt;
 
-                            r.bg.push(ptr.c);
+                            r.VP_bg.push(ptr.c);
 
                             if (ptr.b) {
                                 bg = ptr.b;
@@ -426,17 +426,17 @@ var DimpBase = {
                     r.subject = r.subjecttitle = '[' + DIMP.text.badsubject + ']';
                 }
 
-                r.bg.push('vpRow');
+                r.VP_bg.push('vpRow');
 
                 switch (mode) {
                 case 'vert':
-                    r.bg.unshift('vpRowVert');
-                    r.className = r.bg.join(' ');
+                    r.VP_bg.unshift('vpRowVert');
+                    r.className = r.VP_bg.join(' ');
                     return this.template.vert.evaluate(r);
 
                 default:
-                    r.bg.unshift('vpRowHoriz');
-                    r.className = r.bg.join(' ');
+                    r.VP_bg.unshift('vpRowHoriz');
+                    r.className = r.VP_bg.join(' ');
                     return this.template.horiz.evaluate(r);
                 }
             }.bind(this),
@@ -514,8 +514,8 @@ var DimpBase = {
 
             e.memo.each(function(row) {
                 // Add context menu
-                this._addMouseEvents({ id: row.domid, type: row.menutype });
-                new Drag(row.domid, this._msgDragConfig);
+                this._addMouseEvents({ id: row.VP_domid, type: row.menutype });
+                new Drag(row.VP_domid, this._msgDragConfig);
             }, this);
 
             if (this.uid) {
@@ -1592,7 +1592,7 @@ var DimpBase = {
         case Event.KEY_BACKSPACE:
             r = sel.get('dataob');
             if (e.shiftKey) {
-                this.moveSelected((r.last().rownum == this.viewport.getMetaData('total_rows')) ? (r.first().rownum - 1) : (r.last().rownum + 1), true);
+                this.moveSelected((r.last().rownum == this.viewport.getMetaData('total_rows')) ? (r.first().VP_rownum - 1) : (r.last().VP_rownum + 1), true);
             }
             this.deleteMsg({ vs: sel });
             e.stop();
@@ -1604,8 +1604,8 @@ var DimpBase = {
                 row = this.viewport.createSelection('rownum', this.lastrow + ((kc == Event.KEY_UP) ? -1 : 1));
                 if (row.size()) {
                     row = row.get('dataob').first();
-                    this.viewport.scrollTo(row.rownum);
-                    this.msgSelect(row.domid, { shift: true });
+                    this.viewport.scrollTo(row.VP_rownum);
+                    this.msgSelect(row.VP_domid, { shift: true });
                 }
             } else {
                 this.moveSelected(kc == Event.KEY_UP ? -1 : 1);
@@ -2089,7 +2089,7 @@ var DimpBase = {
                 });
             });
 
-            search = this.viewport.getSelection().search({ vp_id: { equal: uids } });
+            search = this.viewport.getSelection().search({ VP_id: { equal: uids } });
         } else {
             r.uids = r.uids[this.folder];
             r.uids.each(function(f, u) {

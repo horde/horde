@@ -20,8 +20,8 @@
  *            This function MUST return the HTML representation of the row.
  *
  *            This representation MUST include both the DOM ID (stored in
- *            the domid field) and the CSS class name (stored as an array in
- *            the bg field) in the outermost element.
+ *            the VP_domid data entry) and the CSS class name (stored as an
+ *            array in the VP_bg data entry) in the outermost element.
  *
  *            Selected rows will contain the classname 'vpRowSelected'.
  *
@@ -147,7 +147,7 @@
  * data: (object) Data for each entry that is passed to the template to create
  *       the viewable rows. Keys are a unique ID (see also the 'rowlist'
  *       entry). Values are the data objects. Internal keys for these data
- *       objects must NOT begin with the string 'vp'.
+ *       objects must NOT begin with the string 'VP_'.
  * label: (string) [REQUIRED when initial is true] The label to use for the
  *        view.
  * metadata [optional]: (object) Metadata for the view. Entries in buffer are
@@ -163,6 +163,15 @@
  * update [optional]: (integer) If set, update the rowlist instead of
  *                    overwriting it.
  * view: (string) The view ID of the request.
+ *
+ *
+ * Data entries:
+ * -------------
+ * In addition to the data provided from the server, the following
+ * dynamically created entries are also available:
+ *   VP_domid: (string) The DOM ID of the row.
+ *   VP_id: (string) The unique ID used to store the data entry.
+ *   VP_rownum: (integer) The row number of the row.
  *
  *
  * Scroll bars use ars styled using these CSS class names:
@@ -882,20 +891,16 @@ var ViewPort = Class.create({
     {
         var r = Object.clone(row);
 
-        r.bg = r.bg
-            ? row.bg.clone()
+        r.VP_bg = this.getSelected().contains('uid', r.VP_id)
+            ? [ 'vpRowSelected' ]
             : [];
-
-        if (this.getSelected().contains('uid', r.vp_id)) {
-            r.bg.push('vpRowSelected');
-        }
 
         return this.opts.onContent(r, this.pane_mode);
     },
 
     updateRow: function(row)
     {
-        var d = $(row.domid);
+        var d = $(row.VP_domid);
         if (d) {
             this.opts.container.fire('ViewPort:clear', [ d ]);
 
@@ -903,7 +908,6 @@ var ViewPort = Class.create({
 
             this.opts.container.fire('ViewPort:contentComplete', [ row ]);
         }
-
     },
 
     _handleWait: function(call)
@@ -978,7 +982,7 @@ var ViewPort = Class.create({
         if (!this.split_pane[mode].lh) {
             // To avoid hardcoding the line height, create a temporary row to
             // figure out what the CSS says.
-            var d = new Element('DIV', { className: this.opts.list_class }).insert(this.prepareRow({ domid: null }, mode)).hide();
+            var d = new Element('DIV', { className: this.opts.list_class }).insert(this.prepareRow({ VP_domid: null }, mode)).hide();
             $(document.body).insert(d);
             this.split_pane[mode].lh = d.getHeight();
             d.remove();
@@ -1435,9 +1439,9 @@ ViewPort_Buffer = Class.create({
             if (!Object.isUndefined(e)) {
                 // We can directly write the rownum to the original object
                 // since we will always rewrite when creating rows.
-                e.domid = 'vp_row' + u;
-                e.rownum = this.uidlist.get(u);
-                e.vp_id = u;
+                e.VP_domid = 'VP_row' + u;
+                e.VP_rownum = this.uidlist.get(u);
+                e.VP_id = u;
                 return e;
             }
         }, this).compact();
@@ -1583,11 +1587,13 @@ ViewPort_Selection = Class.create({
     {
         d = Object.isArray(d) ? d : [ d ];
 
+        // Data is stored internally as UIDs.
         switch (format) {
         case 'dataob':
-            return d.pluck('vp_id');
+            return d.pluck('VP_id');
 
         case 'div':
+            // ID here is the DOM ID of the element object.
             return d.pluck('id').invoke('substring', 6);
 
         case 'domid':
@@ -1619,13 +1625,13 @@ ViewPort_Selection = Class.create({
             return d;
 
         case 'div':
-            return d.pluck('domid').collect(function(e) { return $(e); }).compact();
+            return d.pluck('VP_domid').collect(function(e) { return $(e); }).compact();
 
         case 'domid':
-            return d.pluck('domid');
+            return d.pluck('VP_domid');
 
         case 'rownum':
-            return d.pluck('rownum');
+            return d.pluck('VP_rownum');
         }
     },
 
@@ -1665,7 +1671,7 @@ ViewPort_Selection = Class.create({
                     }
                 });
             });
-        }).pluck('vp_id'));
+        }).pluck('VP_id'));
     },
 
     size: function()
