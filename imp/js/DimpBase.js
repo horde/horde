@@ -9,7 +9,7 @@
 
 var DimpBase = {
     // Vars used and defaulting to null/false:
-    //   cfolderaction, folder, folderswitch, offset, pollPE, pp, resize,
+    //   cfolderaction, folder, folderswitch, pollPE, pp, resize, rownum,
     //   search, splitbar, template, uid, viewport
     // msglist_template_horiz and msglist_template_vert set via
     //   js/mailbox-dimp.js
@@ -144,7 +144,7 @@ var DimpBase = {
                 this.viewport.select(row, { delay: 0.3 });
             }
         } else {
-            this.offset = curr;
+            this.rownum = curr;
             this.viewport.requestContentRefresh(curr - 1);
         }
     },
@@ -490,6 +490,20 @@ var DimpBase = {
                 }
                 return this.cacheids[id];
             }.bind(this),
+            onContentOffset: function(offset) {
+                if (this.uid) {
+                    var row = this.viewport.getSelection().search({ imapuid: { equal: [ this.uid ] }, view: { equal: [ this.folder ] } });
+                    if (row.size()) {
+                        this.rownum = row.get('rownum').first();
+                        this.viewport.scrollTo(this.rownum, { noupdate: true, top: true });
+                        offset = this.viewport.currentOffset();
+                    }
+                    this.uid = null;
+                } else if (this.rownum) {
+                    offset = this.rownum - 1;
+                }
+                return offset;
+            }.bind(this),
             onSlide: this.setMessageListTitle.bind(this)
         });
 
@@ -503,7 +517,7 @@ var DimpBase = {
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:contentComplete', function(e) {
-            var row, ssc, tmp,
+            var ssc, tmp,
                 l = this.viewport.getMetaData('label');
 
             this.setMessageListTitle();
@@ -512,22 +526,16 @@ var DimpBase = {
             }
             this.updateTitle();
 
+            if (this.rownum) {
+                this.viewport.select(this.viewport.createSelection('rownum', this.rownum));
+                this.rownum = null;
+            }
+
             e.memo.each(function(row) {
                 // Add context menu
                 this._addMouseEvents({ id: row.VP_domid, type: row.menutype });
                 new Drag(row.VP_domid, this._msgDragConfig);
             }, this);
-
-            if (this.uid) {
-                row = this.viewport.getSelection().search({ imapuid: { equal: [ this.uid ] }, view: { equal: [ this.folder ] } });
-                if (row.size()) {
-                    this.viewport.scrollTo(row.get('rownum').first());
-                    this.viewport.select(row);
-                }
-            } else if (this.offset) {
-                this.viewport.select(this.viewport.createSelection('rownum', this.offset));
-            }
-            this.offset = this.uid = null;
 
             // 'label' will not be set if there has been an error
             // retrieving data from the server.

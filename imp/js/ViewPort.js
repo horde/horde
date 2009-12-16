@@ -45,6 +45,10 @@
  * onAjaxRequest: (function) TODO
  * onAjaxResponse: (function) TODO
  * onCachedList: (function) TODO
+ * onContentOffset: (function) Callback function that alters the starting
+ *                  offset of the content about to be rendered.
+ *                  params: (integer) The current offset.
+ *                  return: (integer) The altered offset.
  * onSlide: (function) TODO
  * page_size: (integer) Default page size to view on load. Only used if
  *            pane_mode is 'horiz'.
@@ -871,6 +875,10 @@ var ViewPort = Class.create({
         this.scrollTo(offset + 1, { noupdate: true, top: true });
 
         offset = this.currentOffset();
+        if (this.opts.onContentOffset) {
+            offset = this.opts.onContentOffset(offset);
+        }
+
         rows = this.createSelection('rownum', $A($R(offset + 1, offset + page_size)));
 
         if (rows.size()) {
