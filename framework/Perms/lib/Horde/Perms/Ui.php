@@ -76,7 +76,7 @@ class Horde_Perms_Ui
         $blank_img = Horde::img('blank.gif', '', array('width' => 16, 'height' => 16));
 
         /* Set up the tree. */
-        $tree = Horde_Tree::singleton('perms_ui', 'javascript');
+        $tree = Horde_Tree::singleton('perms_ui', 'Javascript');
         $tree->setOption(array('alternate' => true, 'hideHeaders' => true));
         $tree->setHeader(array(array('width' => '50%')));
 
