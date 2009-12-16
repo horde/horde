@@ -114,8 +114,11 @@ class Kronolith
     {
         // Add the apikeys
         if (!empty($params['providers'])) {
-            foreach ($params['providers'] as $layer) {
+            $params['conf'] = array(
+                'URI_IMG_HORDE' => $GLOBALS['registry']->getImageDir('horde') . '/',
+                'useMarkerLayer' => true);
 
+            foreach ($params['providers'] as $layer) {
                 switch ($layer) {
                 case 'Google':
                     $params['apikeys']['google'] = $GLOBALS['conf']['api']['googlemaps'];
