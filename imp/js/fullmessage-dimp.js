@@ -142,9 +142,9 @@ var DimpFullmessage = {
         parentfunc(e);
     },
 
-    contextOnClick: function(parentfunc, elt, baseelt, menu)
+    contextOnClick: function(parentfunc, e)
     {
-        var id = elt.readAttribute('id');
+        var id = e.memo.elt.readAttribute('id');
 
         switch (id) {
         case 'ctx_reply_reply':
@@ -154,7 +154,7 @@ var DimpFullmessage = {
             break;
 
         default:
-            parentfunc(elt, baseelt, menu);
+            parentfunc(e);
             break;
         }
     },

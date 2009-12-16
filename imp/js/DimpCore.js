@@ -443,13 +443,13 @@ var DimpCore = {
         }
     },
 
-    contextOnShow: function(ctx_id, baseelt)
+    contextOnShow: function(e)
     {
         var tmp;
 
-        switch (ctx_id) {
+        switch (e.memo.id) {
         case 'ctx_contacts':
-            tmp = $(ctx_id).down('DIV.contactAddr');
+            tmp = $(e.memo.id).down('DIV.contactAddr');
             if (tmp) {
                 tmp.next().remove();
                 tmp.remove();
@@ -457,23 +457,24 @@ var DimpCore = {
 
             // Add e-mail info to context menu if personal name is shown on
             // page.
-            if (baseelt.retrieve('personal')) {
-                $(ctx_id).insert({ top: new Element('DIV', { className: 'sep' }) });
-                $(ctx_id).insert({ top: new Element('DIV', { className: 'contactAddr' }).insert(baseelt.retrieve('email').escapeHTML()) });
+            if (e.memo.base.retrieve('personal')) {
+                $(e.memo.id)
+                    .insert({ top: new Element('DIV', { className: 'sep' }) })
+                    .insert({ top: new Element('DIV', { className: 'contactAddr' }).insert(e.memo.base.retrieve('email').escapeHTML()) });
             }
             break;
         }
     },
 
-    contextOnClick: function(elt, baseelt, menu)
+    contextOnClick: function(e)
     {
-        switch (elt.readAttribute('id')) {
+        switch (e.memo.elt.readAttribute('id')) {
         case 'ctx_contacts_new':
-            this.compose('new', { to: baseelt.retrieve('address') });
+            this.compose('new', { to: e.memo.baseelt.retrieve('address') });
             break;
 
         case 'ctx_contacts_add':
-            this.doAction('AddContact', { name: baseelt.retrieve('personal'), email: baseelt.retrieve('email') }, {}, true);
+            this.doAction('AddContact', { name: e.memo.baseelt.retrieve('personal'), email: e.memo.baseelt.retrieve('email') }, {}, true);
             break;
         }
     },
@@ -487,10 +488,9 @@ var DimpCore = {
         this.is_init = true;
 
         if (typeof ContextSensitive != 'undefined') {
-            this.DMenu = new ContextSensitive({
-                onClick: this.contextOnClick.bind(this),
-                onShow: this.contextOnShow.bind(this)
-            });
+            this.DMenu = new ContextSensitive();
+            document.observe('ContextSensitive:click', this.contextOnClick.bindAsEventListener(this));
+            document.observe('ContextSensitive:show', this.contextOnShow.bindAsEventListener(this));
         }
 
         /* Add Growler notification handler. */

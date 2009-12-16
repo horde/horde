@@ -41,6 +41,11 @@
  * list_class: (string) The CSS class to use for the list container.
  * lookbehind: (integer) What percentage of the received buffer should be
  *             used to download rows before the given row number?
+ * onAjaxFailure: (function) TODO
+ * onAjaxRequest: (function) TODO
+ * onAjaxResponse: (function) TODO
+ * onCachedList: (function) TODO
+ * onSlide: (function) TODO
  * page_size: (integer) Default page size to view on load. Only used if
  *            pane_mode is 'horiz'.
  * pane_data: (Element/string) A DOM element/ID of the container to hold
@@ -57,27 +62,56 @@
  *       built.
  *
  *
- * Callbacks:
- * ----------
- * onAjaxRequest
- * onAjaxResponse
- * onCachedList
- * onCacheUpdate
- * onClear
- * onContent
- * onContentComplete
- * onDeselect
- * onEndFetch
- * onFetch
- * onSelect
- * onSlide
+ * Custom events:
+ * --------------
+ * Custom events are triggered on the container element. The parameters given
+ * below are available through the 'memo' property of the Event object.
  *
- * onSplitBarChange
- * onSplitBarEnd
- * onSplitBarStart
- *   + Passed the current pane mode (either 'horiz' or 'vert').
+ * ViewPort:cacheUpdate
+ *   Fired on TODO
+ *   params: (string) View which is being updated.
  *
- * onWait
+ * ViewPort:clear
+ *   Fired on TODO
+ *   params: (array) TODO
+ *
+ * ViewPort:contentComplete
+ *   Fired on TODO
+ *   params: (array) TODO
+ *
+ * ViewPort:deselect
+ *   Fired on TODO
+ *   params: (object) opts = (object) Boolean options [right]
+ *                    vs = (ViewPort_Selection) A ViewPort_Selection object.
+ *
+ * ViewPort:endFetch
+ *   Fired on TODO
+ *   params: (string) Current view.
+ *
+ * ViewPort:fetch
+ *   Fired on TODO
+ *   params: (string) Current view.
+ *
+ * ViewPort:select
+ *   Fired on TODO
+ *   params: (object) opts = (object) Boolean options [delay, right]
+ *                    vs = (ViewPort_Selection) A ViewPort_Selection object.
+ *
+ * ViewPort:splitBarChange
+ *   Fired on TODO
+ *   params: (string) The current pane mode ('horiz' or 'vert').
+ *
+ * ViewPort:splitBarEnd
+ *   Fired on TODO
+ *   params: (string) The current pane mode ('horiz' or 'vert').
+ *
+ * ViewPort:splitBarStart
+ *   Fired on TODO
+ *   params: (string) The current pane mode ('horiz' or 'vert').
+ *
+ * ViewPort:wait
+ *   Fired on TODO
+ *   params: (string) Current view.
  *
  *
  * Outgoing AJAX request has the following params:
@@ -248,9 +282,7 @@ var ViewPort = Class.create({
         }
 
         if (!init) {
-            if (this.opts.onClear) {
-                this.opts.onClear(this.visibleRows());
-            }
+            this.opts.content.fire('ViewPort:clear', this.visibleRows());
             this.opts.content.update();
             this.scroller.clear();
         }
@@ -372,15 +404,11 @@ var ViewPort = Class.create({
     {
         this._getBuffer(opts.view).setMetaData({ total_rows: this.getMetaData('total_rows', opts.view) - vs.size() }, true);
 
-        if (this.opts.onClear) {
-            this.opts.onClear(vs.get('div').compact());
-        }
+        this.opts.content.fire('ViewPort:clear', vs.get('div').compact());
 
         this._getBuffer().remove(vs.get('rownum'));
 
-        if (this.opts.onCacheUpdate) {
-            this.opts.onCacheUpdate(opts.view || this.view);
-        }
+        this.opts.container.fire('ViewPort:cacheUpdate', opts.view || this.view);
 
         if (!opts.noupdate) {
             this.requestContentRefresh(this.currentOffset());
@@ -518,16 +546,16 @@ var ViewPort = Class.create({
 
         this.isbusy = true;
 
-        // Only call onFetch() if we are loading in foreground.
-        if (!opts.background && this.opts.onFetch) {
-            this.opts.onFetch();
-        }
-
         var llist, lrows, rlist, tmp, type, value,
             view = (opts.view || this.view),
             b = this._getBuffer(view),
             params = $H(opts.params),
             r_id = this.request_num++;
+
+        // Only fire fetch event if we are loading in foreground.
+        if (!opts.background) {
+            this.opts.container.fire('ViewPort:fetch', view);
+        }
 
         params.update({ requestid: r_id });
 
@@ -714,6 +742,7 @@ var ViewPort = Class.create({
             evalJS: false,
             evalJSON: true,
             onComplete: this.ajax_response,
+            onFailure: this.opts.onAjaxFailure || Prototype.emptyFunction,
             parameters: this.addRequestParams(params, other)
         }));
     },
@@ -736,9 +765,7 @@ var ViewPort = Class.create({
 
         if (r.rangelist) {
             this.select(this.createSelection('uid', r.rangelist, r.view));
-            if (this.opts.onEndFetch) {
-                this.opts.onEndFetch();
-            }
+            this.opts.container.fire('ViewPort:endFetch', r.view);
         }
 
         if (!Object.isUndefined(r.cacheid)) {
@@ -772,9 +799,7 @@ var ViewPort = Class.create({
             total_rows: r.totalrows
         }, true);
 
-        if (this.opts.onCacheUpdate) {
-            this.opts.onCacheUpdate(r.view);
-        }
+        this.opts.container.fire('ViewPort:cacheUpdate', r.view);
 
         if (r.requestid &&
             r.requestid == this.active_req) {
@@ -789,9 +814,7 @@ var ViewPort = Class.create({
 
             buffer.setMetaData({ callback: undefined, req_offset: undefined }, true);
 
-            if (this.opts.onEndFetch) {
-                this.opts.onEndFetch();
-            }
+            this.opts.container.fire('ViewPort:endFetch', r.view);
         }
 
         // TODO: Flag for no _fetchBuffer()?
@@ -824,9 +847,7 @@ var ViewPort = Class.create({
             page_size = this.getPageSize(),
             rows;
 
-        if (this.opts.onClear) {
-            this.opts.onClear(this.visibleRows());
-        }
+        this.opts.container.fire('ViewPort:clear', this.visibleRows());
 
         this.scroller.setSize(page_size, this.getMetaData('total_rows'));
         this.scrollTo(offset + 1, { noupdate: true, top: true });
@@ -843,9 +864,7 @@ var ViewPort = Class.create({
 
         this.scroller.updateDisplay();
 
-        if (this.opts.onContentComplete) {
-            this.opts.onContentComplete(c_nodes);
-        }
+        this.opts.container.fire('ViewPort:contentComplete', c_nodes);
 
         return true;
     },
@@ -869,15 +888,11 @@ var ViewPort = Class.create({
     {
         var d = $(row.domid);
         if (d) {
-            if (this.opts.onClear) {
-                this.opts.onClear([ d ]);
-            }
+            this.opts.container.fire('ViewPort:clear', [ d ]);
 
             d.replace(this.prepareRow(row));
 
-            if (this.opts.onContentComplete) {
-                this.opts.onContentComplete([ row ]);
-            }
+            this.opts.container.fire('ViewPort:contentComplete', [ row ]);
         }
 
     },
@@ -888,8 +903,8 @@ var ViewPort = Class.create({
 
         // Server did not respond in defined amount of time.  Alert the
         // callback function and set the next timeout.
-        if (call && this.opts.onWait) {
-            this.opts.onWait();
+        if (call) {
+            this.opts.container.fire('ViewPort:wait', this.view);
         }
 
         // Call wait handler every x seconds
@@ -1047,9 +1062,7 @@ var ViewPort = Class.create({
                         orig: this.page_size,
                         pos: this.opts.content.positionedOffset()[1]
                     };
-                    if (this.opts.onSplitBarStart) {
-                        this.opts.onSplitBarStart('horiz');
-                    }
+                    this.opts.container.fire('ViewPort:splitBarStart', 'horiz');
                 }.bind(this),
                 snap: function(x, y, elt) {
                     var l = parseInt((y - this.sp.pos) / this.sp.lh);
@@ -1063,22 +1076,18 @@ var ViewPort = Class.create({
                 }.bind(this),
                 onEnd: function() {
                     this.onResize(true, this.sp.lines);
-                    if (this.opts.onSplitBarChange &&
-                        this.sp.orig != this.sp.lines) {
-                        this.opts.onSplitBarChange('horiz');
+                    if (this.sp.orig != this.sp.lines) {
+                        this.opts.container.fire('ViewPort:splitBarChange', 'horiz');
                     }
-                    if (this.opts.onSplitBarEnd) {
-                        this.opts.onSplitBarEnd('horiz');
-                    }
+                    this.opts.container.fire('ViewPort:splitBarEnd', 'horiz');
                 }.bind(this)
             });
 
             sp.currbar.observe('dblclick', function() {
                 var old_size = this.page_size;
                 this.onResize(true, this.getPageSize('default'));
-                if (this.opts.onSplitBarChange &&
-                    old_size != this.page_size) {
-                    this.opts.onSplitBarChange('horiz');
+                if (old_size != this.page_size) {
+                    this.opts.container.fire('ViewPort:splitBarChange', 'horiz');
                 }
             }.bind(this));
             break;
@@ -1090,27 +1099,21 @@ var ViewPort = Class.create({
                 nodrop: true,
                 snapToParent: true,
                 onStart: function(drag) {
-                    if (this.opts.onSplitBarStart) {
-                        this.opts.onSplitBarStart('vert');
-                    }
+                    this.opts.container.fire('ViewPort:splitBarStart', 'vert');
                 }.bind(this),
                 onEnd: function(drag) {
                     sp.vert.width = drag.lastCoord[0];
                     this.opts.content.setStyle({ width: sp.vert.width + 'px' });
-                    if (this.opts.onSplitBarChange && drag.wasDragged) {
-                        this.opts.onSplitBarChange('vert');
+                    if (drag.wasDragged) {
+                        this.opts.container.fire('ViewPort:splitBarChange', 'vert');
                     }
-                    if (this.opts.onSplitBarEnd) {
-                        this.opts.onSplitBarEnd('vert');
-                    }
+                    this.opts.container.fire('ViewPort:splitBarEnd', 'vert');
                 }.bind(this)
             });
 
             sp.currbar.observe('dblclick', function() {
                 this.opts.content.setStyle({ width: parseInt(this.opts.container.clientWidth * 0.45, 10) + 'px' });
-                if (this.opts.onSplitBarChange) {
-                    this.opts.onSplitBarChange('vert');
-                }
+                this.opts.container.fire('ViewPort:splitBarChange', 'vert');
             }.bind(this));
             break;
         }
@@ -1128,15 +1131,6 @@ var ViewPort = Class.create({
         return this.createSelection('uid', buffer ? buffer.getAllUIDs() : [], view);
     },
 
-    getMissing: function(view)
-    {
-        var buffer = this._getBuffer(view);
-        if (!buffer) {
-            return '';
-        }
-        return this.createSelection('uid', buffer ? buffer.getAllUIDs() : [], view);
-    },
-
     // vs = (Viewport_Selection | array) A Viewport_Selection object -or- if
     //       opts.range is set, an array of row numbers.
     // opts = (object) TODO [add, range, search]
@@ -1148,9 +1142,7 @@ var ViewPort = Class.create({
             sel, slice;
 
         if (opts.search) {
-            if (this.opts.onFetch) {
-                this.opts.onFetch();
-            }
+            this.opts.container.fire('ViewPort:fetch', this.view);
 
             return this._fetchBuffer({
                 callback: function(r) {
@@ -1165,9 +1157,7 @@ var ViewPort = Class.create({
         if (opts.range) {
             slice = this.createSelection('rownum', vs);
             if (vs.size() != slice.size()) {
-                if (this.opts.onFetch) {
-                    this.opts.onFetch();
-                }
+                this.opts.container.fire('ViewPort:fetch', this.view);
 
                 return this._ajaxRequest({ rangeslice: 1, slice: vs.min() + ':' + vs.size() });
             }
@@ -1181,9 +1171,7 @@ var ViewPort = Class.create({
         }
         b.select(vs);
         vs.get('div').invoke('addClassName', 'vpRowSelected');
-        if (this.opts.onSelect) {
-            this.opts.onSelect(vs, opts);
-        }
+        this.opts.container.fire('ViewPort:select', { opts: opts, vs: vs });
     },
 
     // vs = (Viewport_Selection) A Viewport_Selection object.
@@ -1195,9 +1183,7 @@ var ViewPort = Class.create({
         if (vs.size() &&
             this._getBuffer().deselect(vs, opts && opts.clearall)) {
             vs.get('div').invoke('removeClassName', 'vpRowSelected');
-            if (this.opts.onDeselect) {
-                this.opts.onDeselect(vs, opts)
-            }
+            this.opts.container.fire('ViewPort:deselect', { opts: opts, vs: vs });
         }
     },
 
@@ -1232,12 +1218,15 @@ ViewPort_Scroller = Class.create({
         this.scrollDiv = new Element('DIV', { className: 'vpScroll' }).setStyle({ overflow: 'hidden' }).hide();
         c.insert({ after: this.scrollDiv });
 
+        this.scrollDiv.observe('DimpSlider:change', this._onScroll.bind(this));
+        if (this.vp.opts.onSlide) {
+            this.scrollDiv.observe('DimpSlider:slide', this.vp.opts.onSlide);
+        }
+
         // Create scrollbar object.
         this.scrollbar = new DimpSlider(this.scrollDiv, {
             buttonclass: { up: 'vpScrollUp', down: 'vpScrollDown' },
             cursorclass: 'vpScrollCursor',
-            onChange: this._onScroll.bind(this),
-            onSlide: this.vp.opts.onSlide ? this.vp.opts.onSlide : null,
             pagesize: this.vp.getPageSize(),
             totalsize: this.vp.getMetaData('total_rows')
        });

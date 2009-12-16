@@ -29,48 +29,6 @@ var DimpBase = {
 
     // Message selection functions
 
-    // vs = (ViewPort_Selection) A ViewPort_Selection object.
-    // opts = (object) Boolean options [delay, right]
-    _select: function(vs, opts)
-    {
-        var d = vs.get('rownum');
-        if (d.size() == 1) {
-            this.lastrow = this.pivotrow = d.first();
-        }
-
-        this.toggleButtons();
-
-        if (DIMP.conf.preview_pref) {
-            if (opts.right) {
-                this.clearPreviewPane();
-            } else {
-                if (opts.delay) {
-                    this.initPreviewPane.bind(this).delay(opts.delay);
-                } else {
-                    this.initPreviewPane();
-                }
-            }
-        }
-    },
-
-    // vs = (ViewPort_Selection) A ViewPort_Selection object.
-    // opts = (object) Boolean options [right]
-    _deselect: function(vs, opts)
-    {
-        var sel = this.viewport.getSelected(),
-            count = sel.size();
-        if (!count) {
-            this.lastrow = this.pivotrow = -1;
-        }
-
-        this.toggleButtons();
-        if (opts.right || !count) {
-            this.clearPreviewPane();
-        } else if ((count == 1) && DIMP.conf.preview_pref) {
-            this.loadPreview(sel.get('dataob').first());
-        }
-    },
-
     // id = (string) DOM ID
     // opts = (Object) Boolean options [ctrl, right, shift]
     msgSelect: function(id, opts)
@@ -384,6 +342,8 @@ var DimpBase = {
 
     _createViewPort: function()
     {
+        var container = $('msgSplitPane');
+
         [ $('msglistHeader') ].invoke(DIMP.conf.preview_pref == 'vert' ? 'hide' : 'show');
 
         this.template = {
@@ -394,7 +354,7 @@ var DimpBase = {
         this.viewport = new ViewPort({
             // Mandatory config
             ajax_url: DIMP.conf.URI_AJAX + '/ViewPort',
-            container: 'msgSplitPane',
+            container: container,
             onContent: function(r, mode) {
                 var bg, re, u,
                     thread = $H(this.viewport.getMetaData('thread')),
@@ -493,6 +453,12 @@ var DimpBase = {
             wait: DIMP.conf.viewport_wait,
 
             // Callbacks
+            onAjaxFailure: function() {
+                if ($('dimpmain_folder').visible()) {
+                    DimpCore.showNotifications([ { type: 'horde.error', message: DIMP.text.listmsg_timeout } ]);
+                }
+                this.loadingImg('viewport', false);
+            }.bind(this),
             onAjaxRequest: function(id) {
                 var p = $H();
                 if (this.folderswitch && this.isSearch(id, true)) {
@@ -524,120 +490,155 @@ var DimpBase = {
                 }
                 return this.cacheids[id];
             }.bind(this),
-            onCacheUpdate: function(id) {
-                delete this.cacheids[id];
-            }.bind(this),
-            onClear: function(r) {
-                r.each(this._removeMouseEvents.bind(this));
-            }.bind(this),
-            onContentComplete: function(rows) {
-                var row, ssc, tmp,
-                    l = this.viewport.getMetaData('label');
+            onSlide: this.setMessageListTitle.bind(this)
+        });
 
-                this.setMessageListTitle();
-                if (!this.isSearch()) {
-                    this.setFolderLabel(this.folder, this.viewport.getMetaData('unseen') || 0);
-                }
-                this.updateTitle();
+        /* Custom ViewPort events. */
+        container.observe('ViewPort:cacheUpdate', function(e) {
+            delete this.cacheids[e.memo];
+        }.bindAsEventListener(this));
 
-                rows.each(function(row) {
-                    // Add context menu
-                    this._addMouseEvents({ id: row.domid, type: row.menutype });
-                    new Drag(row.domid, this._msgDragConfig);
-                }, this);
+        container.observe('ViewPort:clear', function(e) {
+            e.memo.each(this._removeMouseEvents.bind(this));
+        }.bindAsEventListener(this));
 
-                if (this.uid) {
-                    row = this.viewport.getSelection().search({ imapuid: { equal: [ this.uid ] }, view: { equal: [ this.folder ] } });
-                    if (row.size()) {
-                        this.viewport.scrollTo(row.get('rownum').first());
-                        this.viewport.select(row);
-                    }
-                } else if (this.offset) {
-                    this.viewport.select(this.viewport.createSelection('rownum', this.offset));
-                }
-                this.offset = this.uid = null;
-
-                // 'label' will not be set if there has been an error
-                // retrieving data from the server.
+        container.observe('ViewPort:contentComplete', function(e) {
+            var row, ssc, tmp,
                 l = this.viewport.getMetaData('label');
-                if (l) {
-                    if (this.isSearch(null, true)) {
-                        l += ' (' + this.search.mbox + ')';
-                    }
-                    $('folderName').update(l);
+
+            this.setMessageListTitle();
+            if (!this.isSearch()) {
+                this.setFolderLabel(this.folder, this.viewport.getMetaData('unseen') || 0);
+            }
+            this.updateTitle();
+
+            e.memo.each(function(row) {
+                // Add context menu
+                this._addMouseEvents({ id: row.domid, type: row.menutype });
+                new Drag(row.domid, this._msgDragConfig);
+            }, this);
+
+            if (this.uid) {
+                row = this.viewport.getSelection().search({ imapuid: { equal: [ this.uid ] }, view: { equal: [ this.folder ] } });
+                if (row.size()) {
+                    this.viewport.scrollTo(row.get('rownum').first());
+                    this.viewport.select(row);
                 }
+            } else if (this.offset) {
+                this.viewport.select(this.viewport.createSelection('rownum', this.offset));
+            }
+            this.offset = this.uid = null;
 
-                if (this.folderswitch) {
-                    this.folderswitch = false;
+            // 'label' will not be set if there has been an error
+            // retrieving data from the server.
+            l = this.viewport.getMetaData('label');
+            if (l) {
+                if (this.isSearch(null, true)) {
+                    l += ' (' + this.search.mbox + ')';
+                }
+                $('folderName').update(l);
+            }
 
-                    tmp = $('applyfilterlink');
-                    if (tmp) {
-                        if (this.isSearch() ||
-                            (!DIMP.conf.filter_any &&
-                             this.folder.toUpperCase() != 'INBOX')) {
-                            tmp.hide();
-                        } else {
-                            tmp.show();
-                        }
-                    }
+            if (this.folderswitch) {
+                this.folderswitch = false;
 
-                    if (this.folder == DIMP.conf.spam_mbox) {
-                        if (!DIMP.conf.spam_spammbox && $('button_spam')) {
-                            [ $('button_spam').up(), $('ctx_message_spam') ].invoke('hide');
-                        }
-                        if ($('button_ham')) {
-                            [ $('button_ham').up(), $('ctx_message_ham') ].invoke('show');
-                        }
+                tmp = $('applyfilterlink');
+                if (tmp) {
+                    if (this.isSearch() ||
+                        (!DIMP.conf.filter_any &&
+                         this.folder.toUpperCase() != 'INBOX')) {
+                        tmp.hide();
                     } else {
-                        if ($('button_spam')) {
-                            [ $('button_spam').up(), $('ctx_message_spam') ].invoke('show');
-                        }
-                        if ($('button_ham')) {
-                            [ $('button_ham').up(), $('ctx_message_ham') ].invoke(DIMP.conf.ham_spammbox ? 'hide' : 'show');
-                        }
+                        tmp.show();
                     }
+                }
 
-                    /* Read-only changes. 'oa_setflag' is handled
-                     * elsewhere. */
-                    tmp = [ $('button_deleted') ].compact().invoke('up', 'SPAN');
-                    [ 'ctx_message_', 'ctx_draft_' ].each(function(c) {
-                        tmp = tmp.concat($(c + 'deleted', c + 'setflag', c + 'undeleted'));
-                    });
+                if (this.folder == DIMP.conf.spam_mbox) {
+                    if (!DIMP.conf.spam_spammbox && $('button_spam')) {
+                        [ $('button_spam').up(), $('ctx_message_spam') ].invoke('hide');
+                    }
+                    if ($('button_ham')) {
+                        [ $('button_ham').up(), $('ctx_message_ham') ].invoke('show');
+                    }
+                } else {
+                    if ($('button_spam')) {
+                        [ $('button_spam').up(), $('ctx_message_spam') ].invoke('show');
+                    }
+                    if ($('button_ham')) {
+                        [ $('button_ham').up(), $('ctx_message_ham') ].invoke(DIMP.conf.ham_spammbox ? 'hide' : 'show');
+                    }
+                }
 
-                    if (this.viewport.getMetaData('readonly')) {
-                        tmp.compact().invoke('hide');
-                        $('folderName').next().show();
+                /* Read-only changes. 'oa_setflag' is handled elsewhere. */
+                tmp = [ $('button_deleted') ].compact().invoke('up', 'SPAN');
+                [ 'ctx_message_', 'ctx_draft_' ].each(function(c) {
+                    tmp = tmp.concat($(c + 'deleted', c + 'setflag', c + 'undeleted'));
+                });
+
+                if (this.viewport.getMetaData('readonly')) {
+                    tmp.compact().invoke('hide');
+                    $('folderName').next().show();
+                } else {
+                    tmp.compact().invoke('show');
+                    $('folderName').next().hide();
+                }
+            } else if (this.filtertoggle &&
+                       this.viewport.getMetaData('sortby') == $H(DIMP.conf.sort).get('thread').v) {
+                ssc = $H(DIMP.conf.sort).get('date').v;
+            }
+
+            this.setSortColumns(ssc);
+        }.bindAsEventListener(this));
+
+        container.observe('ViewPort:deselect', function(e) {
+            var sel = this.viewport.getSelected(),
+                count = sel.size();
+            if (!count) {
+                this.lastrow = this.pivotrow = -1;
+            }
+
+            this.toggleButtons();
+            if (e.memo.opts.right || !count) {
+                this.clearPreviewPane();
+            } else if ((count == 1) && DIMP.conf.preview_pref) {
+                this.loadPreview(sel.get('dataob').first());
+            }
+        }.bindAsEventListener(this));
+
+        container.observe('ViewPort:endFetch', this.loadingImg.bind(this, 'viewport', false));
+
+        container.observe('ViewPort:fetch', this.loadingImg.bind(this, 'viewport', true));
+
+        container.observe('ViewPort:select', function(e) {
+            var d = e.memo.vs.get('rownum');
+            if (d.size() == 1) {
+                this.lastrow = this.pivotrow = d.first();
+            }
+
+            this.toggleButtons();
+
+            if (DIMP.conf.preview_pref) {
+                if (e.memo.opts.right) {
+                    this.clearPreviewPane();
+                } else {
+                    if (e.memo.opts.delay) {
+                        this.initPreviewPane.bind(this).delay(e.memo.opts.delay);
                     } else {
-                        tmp.compact().invoke('show');
-                        $('folderName').next().hide();
+                        this.initPreviewPane();
                     }
-                } else if (this.filtertoggle &&
-                           this.viewport.getMetaData('sortby') == $H(DIMP.conf.sort).get('thread').v) {
-                    ssc = $H(DIMP.conf.sort).get('date').v;
                 }
+            }
+        }.bindAsEventListener(this));
 
-                this.setSortColumns(ssc);
-            }.bind(this),
-            onDeselect: this._deselect.bind(this),
-            onEndFetch: this.loadingImg.bind(this, 'viewport', false),
-            onFail: function() {
-                if ($('dimpmain_folder').visible()) {
-                    DimpCore.showNotifications([ { type: 'horde.error', message: DIMP.text.listmsg_timeout } ]);
-                }
-                this.loadingImg('viewport', false);
-            }.bind(this),
-            onFetch: this.loadingImg.bind(this, 'viewport', true),
-            onSelect: this._select.bind(this),
-            onSlide: this.setMessageListTitle.bind(this),
-            onSplitBarChange: function(mode) {
-                if (mode = 'horiz') {
-                    this._updatePrefs('dimp_splitbar', this.viewport.getPageSize());
-                }
-            }.bind(this),
-            onWait: function() {
-                if ($('dimpmain_folder').visible()) {
-                    DimpCore.showNotifications([ { type: 'horde.warning', message: DIMP.text.listmsg_wait } ]);
-                }
+        container.observe('ViewPort:splitBarChange', function(e) {
+            if (e.memo = 'horiz') {
+                this._updatePrefs('dimp_splitbar', this.viewport.getPageSize());
+            }
+        }.bindAsEventListener(this));
+
+        container.observe('ViewPort:wait', function() {
+            if ($('dimpmain_folder').visible()) {
+                DimpCore.showNotifications([ { type: 'horde.warning', message: DIMP.text.listmsg_wait } ]);
             }
         });
     },
@@ -667,9 +668,13 @@ var DimpBase = {
         }
     },
 
-    contextOnClick: function(parentfunc, elt, baseelt, menu)
+    contextOnClick: function(parentfunc, e)
     {
-        var flag, id = elt.readAttribute('id'), tmp;
+        var flag, tmp,
+            baseelt = e.memo.base,
+            elt = e.memo.elt,
+            id = elt.readAttribute('id'),
+            menu = e.memo.trigger;
 
         switch (id) {
         case 'ctx_folder_create':
@@ -834,15 +839,17 @@ var DimpBase = {
                 };
                 this.loadMailbox(DIMP.conf.fsearchid);
             } else {
-                parentfunc(elt, baseelt, menu);
+                parentfunc(e);
             }
             break;
         }
     },
 
-    contextOnShow: function(parentfunc, ctx_id, baseelt)
+    contextOnShow: function(parentfunc, e)
     {
-        var elts, ob, sel, tmp;
+        var elts, ob, sel, tmp,
+            baseelt = e.memo.base,
+            ctx_id = e.memo.id;
 
         switch (ctx_id) {
         case 'ctx_folder':
@@ -925,7 +932,7 @@ var DimpBase = {
             break;
 
         default:
-            parentfunc(ctx_id, baseelt);
+            parentfunc(e);
             break;
         }
     },

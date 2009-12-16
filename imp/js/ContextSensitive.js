@@ -9,6 +9,25 @@
  *
  * Requires prototypejs 1.6+ and scriptaculous 1.8+ (effects.js only).
  *
+ *
+ * Usage:
+ * ------
+ * cs = new ContextSensitive();
+ *
+ * Custom Events:
+ * --------------
+ * Custom events are triggered on the document element. The parameters given
+ * below are available through the 'memo' property of the Event object.
+ *
+ * ContextSensitive:click
+ *   Fired on TODO
+ *   params: (object) TODO [base, elt, trigger]
+ *
+ * ContextSensitive:show
+ *   Fired on TODO
+ *   params: (object) TODO [base, id]
+ *
+ *
  * Original code by Havard Eide (http://eide.org/) released under the MIT
  * license.
  *
@@ -33,12 +52,11 @@
 
 var ContextSensitive = Class.create({
 
-    initialize: function(opts)
+    initialize: function()
     {
         this.baseelt = null;
         this.current = [];
         this.elements = $H();
-        this.opts = opts || {};
         this.submenus = $H();
         this.triggers = [];
 
@@ -173,9 +191,7 @@ var ContextSensitive = Class.create({
                     base = this.baseelt;
                     trigger = this.triggers.last();
                     this.close();
-                    if (this.opts.onClick) {
-                        this.opts.onClick(elt, base, trigger);
-                    }
+                    document.fire('ContextSensitive:click', { base: base, elt: elt, trigger: trigger });
                 }
                 return;
             }
@@ -278,9 +294,7 @@ var ContextSensitive = Class.create({
                 : (v.width - size.width - 10);
         }
 
-        if (this.opts.onShow) {
-            this.opts.onShow(id, this.baseelt);
-        }
+        document.fire('ContextSensitive:show', { base: this.baseelt, id: id });
 
         elt.setStyle({ left: x + 'px', top: y + 'px' })
 

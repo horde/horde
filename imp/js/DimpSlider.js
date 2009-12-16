@@ -1,7 +1,30 @@
 /**
  * DimpSlider.js - A minimalist library to create a slider that acts like a
  * browser's native scrollbar.
+ *
  * Requires prototype.js 1.6.0.2+
+ *
+ *
+ * Usage:
+ * ------
+ * slider = new DimpSlider(track, opts);
+ *
+ *   track - (element|string) TODO
+ *   opts - (object) TODO
+ *
+ * Custom Events:
+ * --------------
+ * Custom events are triggered on the track element. The parameters given
+ * below are available through the 'memo' property of the Event object.
+ *
+ * DimpSlider:change
+ *   Fired on TODO
+ *   params: NONE
+ *
+ * DimpSlider:slide
+ *   Fired on TODO
+ *   params: NONE
+ *
  *
  * Adapted from script.aculo.us slider.js v1.8.0
  *   (c) 2005-2007 Marty Haught, Thomas Fuchs
@@ -110,9 +133,7 @@ var DimpSlider = Class.create({
         if (this.active) {
             this.dragging = true;
             this._setScrollPosition('px', Math.min(Math.max(0, e.pointerY() - this.offsetY - this.curroffsets[1]), this.handletop));
-            if (this.options.onSlide) {
-                this.options.onSlide();
-            }
+            this.track.fire('DimpSlider:slide');
             if (Prototype.Browser.WebKit) {
                 window.scrollBy(0,0);
             }
@@ -139,9 +160,7 @@ var DimpSlider = Class.create({
 
     _updateFinished: function()
     {
-        if (this.options.onChange) {
-            this.options.onChange();
-        }
+        this.track.fire('DimpSlider:change');
     },
 
     setHandleLength: function(pagesize, totalsize)
