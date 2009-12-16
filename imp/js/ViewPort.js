@@ -41,15 +41,34 @@
  * list_class: (string) The CSS class to use for the list container.
  * lookbehind: (integer) What percentage of the received buffer should be
  *             used to download rows before the given row number?
- * onAjaxFailure: (function) TODO
- * onAjaxRequest: (function) TODO
- * onAjaxResponse: (function) TODO
- * onCachedList: (function) TODO
+ * onAjaxFailure: (function) Callback function that handles a failure response
+ *                from an AJAX request.
+ *                params: (XMLHttpRequest object)
+ *                        (mixed) Result of evaluating the X-JSON response
+ *                        header, if any (can be null).
+ *                return: NONE
+ * onAjaxRequest: (function) Callback function that allows additional
+ *                parameters to be added to the outgoing AJAX request.
+                  params: (string) The current view.
+                  return: (Hash) Parameters to add to the outgoing request.
+ * onAjaxResponse: (function) Callback function that allows user-defined code
+ *                 to additionally process the AJAX return data.
+ *                params: (XMLHttpRequest object)
+ *                        (mixed) Result of evaluating the X-JSON response
+ *                        header, if any (can be null).
+ *                return: NONE
+ * onCachedList: (function) Callback function that allows the cache ID string
+ *               to be dynamically generated.
+                 params: (string) The current view.
+                 return: (string) The cache ID string to use.
  * onContentOffset: (function) Callback function that alters the starting
  *                  offset of the content about to be rendered.
  *                  params: (integer) The current offset.
  *                  return: (integer) The altered offset.
- * onSlide: (function) TODO
+ * onSlide: (function) Callback function that is triggered when the
+ *          viewport slider bar is moved.
+ *          params: NONE
+ *          return: NONE
  * page_size: (integer) Default page size to view on load. Only used if
  *            pane_mode is 'horiz'.
  * pane_data: (Element/string) A DOM element/ID of the container to hold
@@ -72,49 +91,49 @@
  * below are available through the 'memo' property of the Event object.
  *
  * ViewPort:cacheUpdate
- *   Fired on TODO
+ *   Fired when the internal cached data of a view is changed.
  *   params: (string) View which is being updated.
  *
  * ViewPort:clear
- *   Fired on TODO
- *   params: (array) TODO
+ *   Fired when a row is being removed from the screen.
+ *   params: (array) The list of viewport rows being removed.
  *
  * ViewPort:contentComplete
- *   Fired on TODO
- *   params: (array) TODO
+ *   Fired when a row has been added to the screen.
+ *   params: (array) The list of viewport rows that were added.
  *
  * ViewPort:deselect
- *   Fired on TODO
+ *   Fired when rows are deselected.
  *   params: (object) opts = (object) Boolean options [right]
  *                    vs = (ViewPort_Selection) A ViewPort_Selection object.
  *
  * ViewPort:endFetch
- *   Fired on TODO
+ *   Fired when a fetch AJAX response is completed.
  *   params: (string) Current view.
  *
  * ViewPort:fetch
- *   Fired on TODO
+ *   Fired when a non-background AJAX response is sent.
  *   params: (string) Current view.
  *
  * ViewPort:select
- *   Fired on TODO
+ *   Fired when rows are deselected.
  *   params: (object) opts = (object) Boolean options [delay, right]
  *                    vs = (ViewPort_Selection) A ViewPort_Selection object.
  *
  * ViewPort:splitBarChange
- *   Fired on TODO
+ *   Fired when the splitbar is moved.
  *   params: (string) The current pane mode ('horiz' or 'vert').
  *
  * ViewPort:splitBarEnd
- *   Fired on TODO
+ *   Fired when the splitbar is released.
  *   params: (string) The current pane mode ('horiz' or 'vert').
  *
  * ViewPort:splitBarStart
- *   Fired on TODO
+ *   Fired when the splitbar is initially clicked.
  *   params: (string) The current pane mode ('horiz' or 'vert').
  *
  * ViewPort:wait
- *   Fired on TODO
+ *   Fired if viewport_wait seconds have passed since request was sent.
  *   params: (string) Current view.
  *
  *
@@ -156,7 +175,9 @@
  *        view.
  * metadata [optional]: (object) Metadata for the view. Entries in buffer are
  *                      updated with these entries (unless resetmd is set).
- * rangelist [optional]: TODO
+ * rangelist [optional]: (object) The list of unique IDs -> rownumbers that
+ *                       correspond the the given request. Only returned for
+ *                       a rangeslice request.
  * requestid: (string) The request ID sent in the outgoing AJAX request.
  * reset [optional]: (integer) If set, purges all cached data.
  * resetmd [optional]: (integer) If set, purges all user metadata.
@@ -833,7 +854,6 @@ var ViewPort = Class.create({
             this.opts.container.fire('ViewPort:endFetch', r.view);
         }
 
-        // TODO: Flag for no _fetchBuffer()?
         if (this.view == r.view) {
             this._updateContent(Object.isUndefined(r.rownum) ? (Object.isUndefined(offset) ? this.currentOffset() : offset) : Number(r.rownum) - 1);
         } else if (r.rownum) {
