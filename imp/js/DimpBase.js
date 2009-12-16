@@ -471,7 +471,9 @@ var DimpBase = {
                 }
                 return DimpCore.addRequestParams(p);
             }.bind(this),
-            onAjaxResponse: DimpCore.doActionComplete.bind(DimpCore),
+            onAjaxResponse: function(o, h) {
+                DimpCore.doActionComplete(o);
+            },
             onCachedList: function(id) {
                 var tmp, vs;
                 if (!this.cacheids[id]) {
