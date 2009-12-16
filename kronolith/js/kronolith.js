@@ -3668,8 +3668,6 @@ KronolithCore = {
         r = r.shift();
         ll = new OpenLayers.LonLat(r.lon, r.lat);
         this.placeMapMarker({ lat: r.lat, lon: r.lon }, true);
-        $('kronolithEventLocationLon').value = r.lon;
-        $('kronolithEventLocationLat').value = r.lat;
     },
 
     geocode: function(a) {
@@ -3697,6 +3695,8 @@ KronolithCore = {
         } else {
             this.map.moveMarker(this.mapMarker, ll);
         }
+        $('kronolithEventLocationLon').value = ll.lon;
+        $('kronolithEventLocationLat').value = ll.lat;
         if (center) {
             this.map.setCenter(ll, 8);
             //this.map.zoomToFit();
