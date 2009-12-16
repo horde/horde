@@ -111,7 +111,7 @@ class Ansel
         global $ansel_storage;
         $galleries = $ansel_storage->listGalleries($perm, $attributes, $parent,
                                                    $allLevels, $from, $count);
-        $tree = Horde_Tree::factory('gallery_tree', 'select');
+        $tree = Horde_Tree::factory('gallery_tree', 'Select');
 
         if (!empty($ignore)) {
            unset($galleries[$ignore]);

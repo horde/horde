@@ -13,7 +13,7 @@ function Submit(action)
             return;
         }
     }
-    
+
     document.accounts.actionID.value = action;
     document.accounts.submit();
 }
@@ -30,7 +30,7 @@ function Submit(action)
 <?php
 
 $params = array('icondir' => $GLOBALS['registry']->getImageDir(), 'icon' => '');
-$tree = Horde_Tree::factory('account_tree', 'javascript');
+$tree = Horde_Tree::factory('account_tree', 'Javascript');
 
 foreach ($accounts as $accountId => $account) {
     $params['icon'] = $account['icon'];
