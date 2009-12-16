@@ -3595,7 +3595,7 @@ KronolithCore = {
                  'delayed': true,
                  'layers': layers,
                  'markerDragEnd': this.onMarkerDragEnd.bind(this),
-                 'afterClickMap': this.afterClickMap.bind(this)
+                 'mapClick': this.afterClickMap.bind(this)
              });
 
          if ($('kronolithEventLocationLat').value) {
