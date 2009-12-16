@@ -262,13 +262,7 @@ var ViewPort = Class.create({
         }
 
         if (this.view) {
-            if (!background) {
-                // If this is the same view, send an ajax request with the
-                // given parameters.
-                if (view == this.view) {
-                    return this._fetchBuffer({ search: search });
-                }
-
+            if (!background && (view != this.view)) {
                 // Need to store current buffer to save current offset
                 buffer = this._getBuffer();
                 buffer.setMetaData({ offset: this.currentOffset() }, true);
