@@ -681,7 +681,7 @@ var DimpBase = {
     contextOnClick: function(parentfunc, e)
     {
         var flag, tmp,
-            baseelt = e.memo.base,
+            baseelt = e.element(),
             elt = e.memo.elt,
             id = elt.readAttribute('id'),
             menu = e.memo.trigger;
@@ -858,8 +858,8 @@ var DimpBase = {
     contextOnShow: function(parentfunc, e)
     {
         var elts, ob, sel, tmp,
-            baseelt = e.memo.base,
-            ctx_id = e.memo.id;
+            baseelt = e.element(),
+            ctx_id = e.memo;
 
         switch (ctx_id) {
         case 'ctx_folder':

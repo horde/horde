@@ -446,9 +446,9 @@ var DimpCore = {
     {
         var tmp;
 
-        switch (e.memo.id) {
+        switch (e.memo) {
         case 'ctx_contacts':
-            tmp = $(e.memo.id).down('DIV.contactAddr');
+            tmp = $(e.memo).down('DIV.contactAddr');
             if (tmp) {
                 tmp.next().remove();
                 tmp.remove();
@@ -456,10 +456,10 @@ var DimpCore = {
 
             // Add e-mail info to context menu if personal name is shown on
             // page.
-            if (e.memo.base.retrieve('personal')) {
-                $(e.memo.id)
+            if (e.element().retrieve('personal')) {
+                $(e.memo)
                     .insert({ top: new Element('DIV', { className: 'sep' }) })
-                    .insert({ top: new Element('DIV', { className: 'contactAddr' }).insert(e.memo.base.retrieve('email').escapeHTML()) });
+                    .insert({ top: new Element('DIV', { className: 'contactAddr' }).insert(e.element().retrieve('email').escapeHTML()) });
             }
             break;
         }
@@ -467,13 +467,15 @@ var DimpCore = {
 
     contextOnClick: function(e)
     {
+        var baseelt = e.element();
+
         switch (e.memo.elt.readAttribute('id')) {
         case 'ctx_contacts_new':
-            this.compose('new', { to: e.memo.baseelt.retrieve('address') });
+            this.compose('new', { to: baseelt.retrieve('address') });
             break;
 
         case 'ctx_contacts_add':
-            this.doAction('AddContact', { name: e.memo.baseelt.retrieve('personal'), email: e.memo.baseelt.retrieve('email') }, {}, true);
+            this.doAction('AddContact', { name: baseelt.retrieve('personal'), email: baseelt.retrieve('email') }, {}, true);
             break;
         }
     },

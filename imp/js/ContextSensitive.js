@@ -16,16 +16,17 @@
  *
  * Custom Events:
  * --------------
- * Custom events are triggered on the document element. The parameters given
+ * Custom events are triggered on the base element. The parameters given
  * below are available through the 'memo' property of the Event object.
  *
  * ContextSensitive:click
- *   Fired on TODO
- *   params: (object) TODO [base, elt, trigger]
+ *   Fired when a contextmenu element is clicked on.
+ *   params: (object) elt - (Element) The menu element clicked on.
+ *                    trigger - (string) The parent menu.
  *
  * ContextSensitive:show
- *   Fired on TODO
- *   params: (object) TODO [base, id]
+ *   Fired before a contextmenu is displayed.
+ *   params: (string) The DOM ID of the context menu.
  *
  *
  * Original code by Havard Eide (http://eide.org/) released under the MIT
@@ -191,7 +192,7 @@ var ContextSensitive = Class.create({
                     base = this.baseelt;
                     trigger = this.triggers.last();
                     this.close();
-                    document.fire('ContextSensitive:click', { base: base, elt: elt, trigger: trigger });
+                    base.fire('ContextSensitive:click', { elt: elt, trigger: trigger });
                 }
                 return;
             }
@@ -294,7 +295,7 @@ var ContextSensitive = Class.create({
                 : (v.width - size.width - 10);
         }
 
-        document.fire('ContextSensitive:show', { base: this.baseelt, id: id });
+        this.baseelt.fire('ContextSensitive:show', id);
 
         elt.setStyle({ left: x + 'px', top: y + 'px' })
 
