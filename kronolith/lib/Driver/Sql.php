@@ -647,6 +647,16 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             $tagger = Kronolith::getTagger();
             $tagger->tag($event->uid, $event->tags, 'event');
 
+            /* Update Geolocation */
+            if ($gDriver = Kronolith::getGeoDriver()) {
+                try {
+                    $gDriver->setLocation($event->id, $event->geoLocation);
+                } catch (Horde_Exception $e) {
+                    Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+                    return new PEAR_Error($e->getMessage());
+                }
+            }
+
             /* Notify users about the new event. */
             $result = Kronolith::sendNotification($event, 'add');
             if (is_a($result, 'PEAR_Error')) {
