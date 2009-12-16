@@ -285,15 +285,14 @@ var DimpCore = {
     loadingImg: function(elt, id, show)
     {
         var c;
+        elt = $(elt);
 
         if (show) {
-            $(elt).clonePosition(id, { setLeft: false, setTop: true, setHeight: false, setWidth: false }).show();
-            c = 'progress';
+            c = $(id).cumulativeScrollOffset();
+            elt.clonePosition(id, { offsetLeft: c[0], offsetTop: c[1], setHeight: false, setWidth: false }).show();
         } else {
-            $(elt).fade({ duration: 0.2 });
-            c = 'default';
+            elt.fade({ duration: 0.2 });
         }
-        $(document.body).setStyle({ cursor: c });
     },
 
     toggleButtons: function(elts, disable)
