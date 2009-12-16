@@ -71,7 +71,7 @@ var IMPDialog = {
         var params = $H((!this.params || Object.isArray(this.params)) ? {} : this.params);
         params.update(e.findElement('form').serialize(true));
 
-        new Ajax.Request(this.uri, { parameters: params, onSuccess: this._onSuccess.bind(this), onFailure: this._onFailure.bind(this) });
+        new Ajax.Request(this.uri, { parameters: params, onSuccess: this._onSuccess.bind(this) });
     },
 
     _onSuccess: function(r)
@@ -92,10 +92,6 @@ var IMPDialog = {
         } else if (r.response.error) {
             alert(r.response.error);
         }
-    },
-
-    _onFailure: function(r)
-    {
     }
 
 };
