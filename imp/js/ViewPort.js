@@ -435,9 +435,7 @@ var ViewPort = Class.create({
         this._getBuffer(opts.view).setMetaData({ total_rows: this.getMetaData('total_rows', opts.view) - vs.size() }, true);
 
         this.opts.content.fire('ViewPort:clear', vs.get('div').compact());
-
         this._getBuffer().remove(vs.get('rownum'));
-
         this.opts.container.fire('ViewPort:cacheUpdate', opts.view || this.view);
 
         if (!opts.noupdate) {
@@ -1177,8 +1175,6 @@ var ViewPort = Class.create({
             sel, slice;
 
         if (opts.search) {
-            this.opts.container.fire('ViewPort:fetch', this.view);
-
             return this._fetchBuffer({
                 callback: function(r) {
                     if (r.rownum) {
@@ -1193,7 +1189,6 @@ var ViewPort = Class.create({
             slice = this.createSelection('rownum', vs);
             if (vs.size() != slice.size()) {
                 this.opts.container.fire('ViewPort:fetch', this.view);
-
                 return this._ajaxRequest({ rangeslice: 1, slice: vs.min() + ':' + vs.size() });
             }
             vs = slice;
