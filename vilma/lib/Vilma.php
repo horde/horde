@@ -108,6 +108,8 @@ class Vilma {
             Vilma::setCurDomain($domain);
         } elseif (isset($_SESSION['vilma']['domain'])) {
             $domain = $_SESSION['vilma']['domain'];
+        } else {
+            $domain = false;
         }
 
         return $domain;
