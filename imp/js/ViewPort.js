@@ -11,7 +11,7 @@
  * ajax_url: (string) The URL to send the viewport requests to.
  *           This URL should return its response in an object named
  *           'ViewPort' (other information can be returned in the response and
- *           will be ignored by the viewport object).
+ *           will be ignored by this class).
  * container: (Element/string) A DOM element/ID of the container that holds
  *            the viewport. This element should be empty and have no children.
  * onContent: (function) A function that takes 2 arguments - the data object
@@ -120,7 +120,7 @@
  *   cache: (string) The list of uids cached on the browser.
  *   cacheid: (string) A unique string that changes whenever the viewport
  *            list changes.
- *   initial: (integer) TODO
+ *   initial: (integer) This is the initial browser request for this view.
  *   requestid: (integer) A unique identifier for this AJAX request.
  *   view: (string) The view of the request.
  *
@@ -148,9 +148,11 @@
  *       the viewable rows. Keys are a unique ID (see also the 'rowlist'
  *       entry). Values are the data objects. Internal keys for these data
  *       objects must NOT begin with the string 'vp'.
- * label: (string) The label to use for the current view.
- * metadata [optional]: (object) TODO
- * rangelist: TODO
+ * label: (string) [REQUIRED when initial is true] The label to use for the
+ *        view.
+ * metadata [optional]: (object) Metadata for the view. Entries in buffer are
+ *                      updated with these entries (unless resetmd is set).
+ * rangelist [optional]: TODO
  * requestid: (string) The request ID sent in the outgoing AJAX request.
  * reset [optional]: (integer) If set, purges all cached data.
  * resetmd [optional]: (integer) If set, purges all user metadata.
@@ -567,9 +569,13 @@ var ViewPort = Class.create({
                 type = 'search';
                 value = opts.search;
                 params.set('search', Object.toJSON(value));
-            } else if (opts.initial) {
+            }
+
+            if (opts.initial) {
                 params.set('initial', 1);
-            } else {
+            }
+
+            if (opts.purge) {
                 b.resetRowlist();
             }
 
@@ -784,7 +790,7 @@ var ViewPort = Class.create({
         this.isbusy = true;
         this._clearWait();
 
-        var callback, offset,
+        var callback, offset, tmp,
             buffer = this._getBuffer(r.view),
             llist = buffer.getMetaData('llist') || $H();
 
@@ -792,12 +798,15 @@ var ViewPort = Class.create({
 
         llist.unset(r.requestid);
 
-        buffer.setMetaData({
+        tmp = {
             cacheid: r.cacheid,
-            label: r.label,
             llist: llist,
             total_rows: r.totalrows
-        }, true);
+        };
+        if (r.label) {
+            tmp.label = r.label;
+        }
+        buffer.setMetaData(tmp, true);
 
         this.opts.container.fire('ViewPort:cacheUpdate', r.view);
 

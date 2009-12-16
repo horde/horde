@@ -73,7 +73,9 @@ function _getListMessages($mbox, $change)
         'qsearch' => Horde_Util::getPost('qsearch'),
         'qsearchflag' => Horde_Util::getPost('qsearchflag'),
         'qsearchmbox' => Horde_Util::getPost('qsearchmbox'),
-        'qsearchflagnot' => Horde_Util::getPost('qsearchflagnot')
+        'qsearchflagnot' => Horde_Util::getPost('qsearchflagnot'),
+        'sortby' => Horde_Util::getPost('sortby'),
+        'sortdir' => Horde_Util::getPost('sortdir'),
     );
 
     $search = Horde_Util::getPost('search');

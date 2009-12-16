@@ -70,6 +70,8 @@ class IMP_Views_ListMessages
             if ($is_search) {
                 $GLOBALS['imp_search']->createSearchQuery($query, array($args['qsearchmbox']), array(), _("Search Results"), $mbox);
             }
+        } else {
+            $is_search = $GLOBALS['imp_search']->isSearchMbox($mbox);
         }
 
         /* Set the current time zone. */
@@ -94,25 +96,34 @@ class IMP_Views_ListMessages
         $result = $this->getBaseOb($mbox);
         $result->cacheid = $imp_mailbox->getCacheID();
         $result->totalrows = $msgcount;
+        if (!$args['initial']) {
+            unset($result->label);
+        }
 
         /* Mail-specific viewport information. */
         $md = &$result->metadata;
         if (!IMP::threadSortAvailable($mbox)) {
             $md->nothread = 1;
         }
-        $md->sortby = intval($sortpref['by']);
-        $md->sortdir = intval($sortpref['dir']);
-        if ($sortpref['limit']) {
-            $md->sortlimit = 1;
+        if ($args['initial'] || !is_null($args['sortby'])) {
+            $md->sortby = intval($sortpref['by']);
         }
-        if (IMP::isSpecialFolder($mbox)) {
+        if ($args['initial'] || !is_null($args['sortdir'])) {
+            $md->sortdir = intval($sortpref['dir']);
+        }
+        if ($args['initial'] && IMP::isSpecialFolder($mbox)) {
             $md->special = 1;
         }
-        if ($is_search || $GLOBALS['imp_search']->isSearchMbox($mbox)) {
+        if ($args['initial'] && $is_search) {
             $md->search = 1;
         }
-        if ($GLOBALS['imp_imap']->isReadOnly($mbox)) {
-            $md->readonly = 1;
+
+        /* These entries may change during a session, so always need to
+         * update them. */
+        $md->readonly = intval($GLOBALS['imp_imap']->isReadOnly($mbox));
+        if (!$is_search &&
+            !empty($GLOBALS['conf']['server']['sort_limit'])) {
+            $md->sortlimit = $sortpref['limit'] ? 1 : 0;
         }
 
         /* Check for mailbox existence now. If there are no messages, there
@@ -363,7 +374,7 @@ class IMP_Views_ListMessages
     }
 
     /**
-     * Prepare the base object used by the ViewPort javascript object.
+     * Prepare the base object used by the ViewPort javascript class.
      *
      * @param string $mbox  The mailbox name.
      *
