@@ -151,18 +151,20 @@ KronolithCore = {
                     className: 'horde-alarm',
                     life: 8,
                     log: false,
-                    sticky: true,
-                    created: function() {
-                        if (m.type == 'horde.alarm') {
-                            this.alarms.push(m.alarm.id);
-                        }
-                    }.bind(this),
-                    destroyed: function() {
-                        if (m.type == 'horde.alarm') {
-                            this.alarms = this.alarms.without(m.alarm.id);
-                        }
-                    }.bind(this)
+                    sticky: true
                 });
+
+                document.observe('Growler:created', function() {
+                    if (m.type == 'horde.alarm') {
+                        this.alarms.push(m.alarm.id);
+                    }
+                }.bind(this));
+                document.observe('Growler:destroyed', function() {
+                    if (m.type == 'horde.alarm') {
+                        this.alarms = this.alarms.without(m.alarm.id);
+                    }
+                }.bind(this));
+
                 if (m.alarm.user) {
                     select.observe('change', function() {
                         if (select.getValue()) {
