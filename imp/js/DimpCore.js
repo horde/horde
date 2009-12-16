@@ -65,7 +65,7 @@ var DimpCore = {
     // str = (string) An IMP UID range string.
     parseRangeString: function(str)
     {
-        var count, end, i, mbox,
+        var count, end, i, mbox, uidstr,
             mlist = {},
             uids = [];
         str = str.strip();
