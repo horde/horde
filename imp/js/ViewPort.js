@@ -264,11 +264,13 @@ var ViewPort = Class.create({
     },
 
     // view = (string) ID of view.
-    // search = (object) Search parameters
-    // background = (boolean) Load view in background?
-    loadView: function(view, search, background)
+    // opts = (object) background: (boolean) Load view in background?
+    //                 search: (object) Search parameters
+    loadView: function(view, opts)
     {
-        var buffer, curr, init = true, opts = {}, ps;
+        var buffer, curr, ps,
+            f_opts = {},
+            init = true;
 
         this._clearWait();
 
@@ -277,13 +279,13 @@ var ViewPort = Class.create({
         if (this.page_size === null) {
             ps = this.getPageSize(this.pane_mode ? 'default' : 'max');
             if (isNaN(ps)) {
-                return this.loadView.bind(this, view, search, background).defer();
+                return this.loadView.bind(this, view, opts).defer();
             }
             this.page_size = ps;
         }
 
         if (this.view) {
-            if (!background && (view != this.view)) {
+            if (!opts.background && (view != this.view)) {
                 // Need to store current buffer to save current offset
                 buffer = this._getBuffer();
                 buffer.setMetaData({ offset: this.currentOffset() }, true);
@@ -292,8 +294,8 @@ var ViewPort = Class.create({
             init = false;
         }
 
-        if (background) {
-            opts = { background: true, view: view };
+        if (opts.background) {
+            f_opts = { background: true, view: view };
         } else {
             if (!this.view) {
                 this.onResize(true);
@@ -304,8 +306,8 @@ var ViewPort = Class.create({
         }
 
         if (curr = this.views[view]) {
-            this._updateContent(curr.getMetaData('offset') || 0, opts);
-            if (!background) {
+            this._updateContent(curr.getMetaData('offset') || 0, f_opts);
+            if (!opts.background) {
                 this._ajaxRequest({ checkcache: 1 });
             }
             return;
@@ -319,15 +321,15 @@ var ViewPort = Class.create({
 
         this.views[view] = buffer = this._getBuffer(view, true);
 
-        if (search) {
-            opts.search = search;
+        if (opts.search) {
+            f_opts.search = opts.search;
         } else {
-            opts.offset = 0;
+            f_opts.offset = 0;
         }
 
-        opts.initial = 1;
+        f_opts.initial = 1;
 
-        this._fetchBuffer(opts);
+        this._fetchBuffer(f_opts);
     },
 
     // view = ID of view
@@ -364,7 +366,7 @@ var ViewPort = Class.create({
         s.noupdate = false;
     },
 
-    // rownum = Row number
+    // rownum = (integer) Row number
     isVisible: function(rownum)
     {
         var offset = this.currentOffset();
@@ -373,7 +375,7 @@ var ViewPort = Class.create({
             : ((rownum > (offset + this.getPageSize('current'))) ? 1 : 0);
     },
 
-    // params = TODO
+    // params = (object) Parameters to add to outgoing URL
     reload: function(params)
     {
         this._fetchBuffer({
@@ -416,7 +418,7 @@ var ViewPort = Class.create({
             // Set 'to' to a value slightly above 0 to prevent fade()
             // from auto hiding.  Hiding is unnecessary, since we will be
             // removing from the document shortly.
-            args = { duration: 0.25, to: 0.01 };
+            args = { duration: 0.2, to: 0.01 };
             visible.each(function(v) {
                 if (++i == vsize) {
                     args.afterFinish = this._removeids.bind(this, vs, opts);
@@ -1440,8 +1442,6 @@ ViewPort_Buffer = Class.create({
                 return 'bottom';
             }
         }
-
-        return false;
     },
 
     _rangeCheck: function(range)
