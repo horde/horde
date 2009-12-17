@@ -438,6 +438,9 @@ class csstidy {
      * @return bool
      */
     function parse($string) {
+        $old = setlocale(LC_ALL, 0);
+        setlocale(LC_ALL, 'C');
+
         // PHP bug? Settings need to be refreshed in PHP4
         $this->print = new csstidy_print($this);
         $this->optimise = new csstidy_optimise($this);
@@ -811,6 +814,7 @@ class csstidy {
         $this->optimise->postparse();
 
         $this->print->_reset();
+        setlocale(LC_ALL, $old);
 
         return !(empty($this->css) && empty($this->import) && empty($this->charset) && empty($this->tokens) && empty($this->namespace));
     }
