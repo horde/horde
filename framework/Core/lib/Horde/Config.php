@@ -542,6 +542,10 @@ class Horde_Config
                 }
                 break;
 
+            case 'configldap':
+                $conf[$node->get_attribute('switchname')] = $this->_configLDAP($ctx, $node);
+                break;
+
             case 'configphp':
                 $conf[$name] = array(
                     '_type' => 'php',
@@ -605,6 +609,144 @@ class Horde_Config
                 break;
             }
         }
+    }
+
+    /**
+     * Returns the configuration tree for an LDAP backend configuration to
+     * replace a <configldap> tag.
+     * Subnodes will be parsed and added to both the Horde defaults and the
+     * Custom configuration parts.
+     *
+     * @param string $ctx         The context of the <configldap> tag.
+     * @param DomNode $node       The DomNode representation of the <configldap>
+     *                            tag.
+     * @param string $switchname  If DomNode is not set, the value of the
+     *                            tag's switchname attribute.
+     *
+     * @return array  An associative array with the SQL configuration tree.
+     */
+    protected function _configLDAP($ctx, $node = null,
+                                  $switchname = 'driverconfig')
+    {
+        $hostspec = array(
+            '_type' => 'text',
+            'required' => true,
+            'desc' => 'LDAP server/hostname',
+            'default' => $this->_default($ctx . '|hostspec', '')
+        );
+
+        $searchdn = array(
+            '_type' => 'text',
+            'required' => false,
+            'desc' => 'DN used to bind to LDAP for searches (blank for anonymous)',
+            'default' => $this->_default($ctx . '|searchdn', '')
+        );
+
+        $searchpw = array(
+            '_type' => 'text',
+            'required' => false,
+            'desc' => 'Password for search bind DN (blank for anonymous)',
+            'default' => $this->_default($ctx . '|searchpw', '')
+        );
+
+        $basedn = array(
+            '_type' => 'text',
+            'required' => true,
+            'desc' => 'Base DN',
+            'default' => $this->_default($ctx . '|basedn', '')
+        );
+
+        $port = array(
+            '_type' => 'int',
+            'required' => false,
+            'desc' => 'Port on which LDAP is listening, if non-standard',
+            'default' => $this->_default($ctx . '|port', null)
+        );
+
+        $writedn = array(
+            'desc' => 'Bind to LDAP as which user when performing writes?',
+            'default' => $this->_default($ctx . '|writedn', 'search'),
+            'switch' => array(
+                'user' => array(
+                    'desc' => 'Bind as the currently logged-in user',
+                ),
+                'admin' => array(
+                    'desc' => 'Bind with administrative/system credentials',
+                    'fields' => array(
+                        'binddn' => array(
+                            '_type' => 'text',
+                            'required' => true,
+                            'desc' => 'DN used to bind to LDAP for writes',
+                            'default' => $this->_default($ctx . '|writedn', '')
+                        ),
+                        'bindpw' => array(
+                            '_type' => 'text',
+                            'required' => true,
+                            'desc' => 'Password for write bind DN',
+                            'default' => $this->_default($ctx . '|writepw', '')
+                        )
+                    )
+                ),
+                'search' => array(
+                    'desc' => 'Use same credentials as used for LDAP searches'
+                )
+            )
+        );
+
+        $tls = array(
+            '_type' => 'boolean',
+            'required' => false,
+            'desc' => 'Use TLS to connect to the server?',
+            'default' => $this->_default($ctx . '|tls', false)
+        );
+
+        $ca = array(
+            '_type' => 'text',
+            'required' => false,
+            'desc' => 'Certification Authority to use for SSL connections',
+            'default' => $this->_default($ctx . '|ca', '')
+        );
+
+        $custom_fields = array(
+            'hostspec' => $hostspec,
+            'port' => $port,
+            'tls' => $tls,
+            'searchdn' => $searchdn,
+            'searchpw' => $searchpw,
+            'basedn' => $basedn,
+            'writedn' => $writedn,
+            'ca' => $ca
+        );
+    
+        if (isset($node) && $node->get_attribute('baseconfig') == 'true') {
+            return $custom_fields;
+        }
+
+        list($default, $isDefault) = $this->__default($ctx . '|' . (isset($node) ? $node->get_attribute('switchname') : $switchname), 'horde');
+        $config = array(
+            'desc' => 'Driver configuration',
+            'default' => $default,
+            'is_default' => $isDefault,
+            'switch' => array(
+                'horde' => array(
+                    'desc' => 'Horde defaults',
+                    'fields' => array()
+                ),
+                'custom' => array(
+                    'desc' => 'Custom parameters',
+                    'fields' => $custom_fields
+                )
+            )
+        );
+
+        if (isset($node) && $node->has_child_nodes()) {
+            $cur = array();
+            $this->_parseLevel($cur, $node->child_nodes(), $ctx);
+            $config['switch']['horde']['fields'] = array_merge($config['switch']['horde']['fields'], $cur);
+            $config['switch']['custom']['fields'] = array_merge($config['switch']['custom']['fields'], $cur);
+        }
+
+        return $config;
     }
 
     /**
