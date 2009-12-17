@@ -6,6 +6,7 @@
  * did not receive this file, see http://cvs.horde.org/co.php/vilma/LICENSE.
  *
  * @author Marko Djukic <marko@oblo.com>
+ * @author Daniel Collins <horde_dev@argentproductions.com>
  * @package Vilma
  */
 class Vilma_Driver {
@@ -94,6 +95,7 @@ class Vilma_Driver {
      */
     function getAddressInfo($address, $type = 'all')
     {
+        Horde::logMessage("Get Addresses Called for $domain with type $type and key $key", __FILE__, __LINE__, PEAR_LOG_DEBUG);
         $domain = Vilma::stripDomain($address);
         $addresses = $this->getAddresses($domain, $type);
         foreach($addresses as $addrinfo) {
@@ -156,6 +158,80 @@ class Vilma_Driver {
         return $status;
     }
 
+    /* Saves or creates alias records for a given user.
+     * 
+     * @param array info The info used to store the information.
+     *                   Required fields are:
+     *                    'address' => The destination address (used for LDAP ID lookup)
+     *                    'alias_address'   => The alias to create or the new data for the modified entry
+     *                    'alias'  => The alias we are modifying, if we are modifying an existing one.
+     */
+    function saveAlias(&$info)
+    {
+        Horde::logMessage("saveAlias called with info: " . print_r($info, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $result = $this->_saveAlias($info);
+        if (is_a($result, 'PEAR_Error')) {
+          return $result;
+        }
+        
+        return true;
+    }
+    
+    /* Deletes alias records for a given user.
+     * 
+     * @param array info The info used to store the information.
+     *                   Required fields are:
+     *                    'address' => The destination address (used for LDAP ID lookup)
+     *                    'alias'  => The alias we are deleting.
+     */
+    function deleteAlias(&$info)
+    {
+        Horde::logMessage("deleteAlias called with info: " . print_r($info, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $result = $this->_deleteAlias($info);
+        if (is_a($result, 'PEAR_Error')) {
+          return $result;
+        }
+        
+        return true;
+    }
+    
+    /* Saves or creates forward records for a given user.
+     * 
+     * @param array info The info used to store the information.
+     *                   Required fields are:
+     *                    'address' => The destination address (used for LDAP ID lookup)
+     *                    'forward_address'   => The forward to create or the new data for the modified entry
+     *                    'forward'  => The forward we are modifying, if we are modifying an existing one.
+     */
+    function saveForward(&$info)
+    {
+        Horde::logMessage("saveForward called with info: " . print_r($info, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $result = $this->_saveForward($info);
+        if (is_a($result, 'PEAR_Error')) {
+          return $result;
+        }
+        
+        return true;
+    }
+    
+    /* Deletes forward records for a given user.
+     * 
+     * @param array info The info used to store the information.
+     *                   Required fields are:
+     *                    'address' => The destination address (used for LDAP ID lookup)
+     *                    'forward'  => The forward we are deleting.
+     */
+    function deleteForward(&$info)
+    {
+        Horde::logMessage("deleteForward called with info: " . print_r($info, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $result = $this->_deleteForwrd($info);
+        if (is_a($result, 'PEAR_Error')) {
+          return $result;
+        }
+        
+        return true;
+    }
+    
     function saveUser(&$info)
     {
         $create = false;

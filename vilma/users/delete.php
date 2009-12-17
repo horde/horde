@@ -80,14 +80,14 @@ $domain = $vilma_driver->getDomainByName($domain);
 $vars->set('domain', $domain);
 $vars->set('mode', 'edit');
 
-$form = new Horde_Form($vars, _("Delete User"));
+$form = new Horde_Form($vars, _("Delete " . $type));
 /* Set up the form. */
 $form->setButtons(array(_("Delete"), _("Do not delete")));
 //$form->addHidden($user_id, 'user_id', 'text', false);
 $form->addHidden($address['address'], 'address', 'text', false);
 $form->addHidden($section, 'section', 'text', false);
 
-$desc = "Delete user \"%s\"";
+$desc = "Delete $type \"%s\"";
 $sub = " and all dependencies?";
 $tot = $aliasesCount + $groupsCount + $forwardsCount;
 if($tot > 0) {
@@ -109,15 +109,38 @@ if ($vars->get('submitbutton') == _("Delete")) {
     if($type == 'alias') {
         if ($form->validate($vars)) {
             $form->getInfo($vars, $info);
-            $delete = $vilma_driver->_savealias($address['address'],'delete');
+            $deleteInfo = array();
+             $deleteInfo['address'] = $address['destination'];
+             $deleteInfo['alias'] = $user_id;
+             $delete = $vilma_driver->deleteAlias($deleteInfo);
             if (is_a($delete, 'PEAR_Error')) {
                 Horde::logMessage($delete, __FILE__, __LINE__, PEAR_LOG_ERR);
-                $notification->push(sprintf(_("Error deleting user. %s."), $delete->getMessage()), 'horde.error');
+                 $notification->push(sprintf(_("Error deleting alias. %s."), $delete->getMessage()), 'horde.error');
+                 $url = Util::addParameter(Horde::applicationUrl('users/index.php'), 'domain_id', $domain['id'], false);
+                 header('Location: ' . $url);
+                 exit;
+             } else {
+                 $notification->push(_("Alias deleted."), 'horde.success');
+                 $url = Util::addParameter(Horde::applicationUrl('users/index.php'), 'domain_id', $domain['id'], false);
+                 header('Location: ' . $url);
+                 exit;
+             }
+         }
+     } elseif ($type == 'forward') {
+      if ($form->validate($vars)) {
+            $form->getInfo($vars, $info);
+            $deleteInfo = array();
+            $deleteInfo['address'] = $address['destination'];
+            $deleteInfo['forward'] = $user_id;
+            $delete = $vilma_driver->deleteForward($deleteInfo);
+            if (is_a($delete, 'PEAR_Error')) {
+                Horde::logMessage($delete, __FILE__, __LINE__, PEAR_LOG_ERR);
+                $notification->push(sprintf(_("Error deleting forward. %s."), $delete->getMessage()), 'horde.error');
                 $url = Horde_Util::addParameter(Horde::applicationUrl('users/index.php'), 'domain_id', $domain['id'], false);
                 header('Location: ' . $url);
                 exit;
             } else {
-                $notification->push(_("User deleted."), 'horde.success');
+                $notification->push(_("Forward deleted."), 'horde.success');
                 $url = Horde_Util::addParameter(Horde::applicationUrl('users/index.php'), 'domain_id', $domain['id'], false);
                 header('Location: ' . $url);
                 exit;
@@ -135,7 +158,7 @@ if ($vars->get('submitbutton') == _("Delete")) {
                 header('Location: ' . $url);
                 exit;
             } else {
-                $notification->push(_("User deleted."), 'horde.success');
+                $notification->push(_("$type deleted."), 'horde.success');
                 $url = Horde_Util::addParameter(Horde::applicationUrl('users/index.php'), 'domain_id', $domain['id'], false);
                 header('Location: ' . $url);
                 exit;

@@ -114,6 +114,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
     function getAddresses($domain, $type = 'all', $key = 'user_name',
                           $direction = 0)
     {
+        Horde::logMessage("Get Addresses Called for $domain with type $type and key $key", __FILE__, __LINE__, PEAR_LOG_DEBUG);
         $addresses = array();
         if ($type == 'all' || $type == 'user') {
             $users = $this->_getUsers($domain);
@@ -483,6 +484,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
      */
     function getAddressInfo($address, $type = 'all')
     {
+        Horde::logMessage("Get Addresses Called for $address with type $type and key $key", __FILE__, __LINE__, PEAR_LOG_DEBUG);
         if ($type != 'alias') {
             return parent::getAddressInfo($address, $type);
         } else {
@@ -493,7 +495,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
                 // Add each objectClass from parameters
                 $filter .= '(objectClass=' . $objectclass . ')';
             }
-            $filter .= '(mailAlternateAddress= ' . $address . ')';
+            $filter .= '(mailAlternateAddress=' . $address . ')';
             $filter .= ')'; // End filter
             Horde::logMessage($filter, __FILE__, __LINE__, PEAR_LOG_DEBUG);
             $res = @ldap_search($this->_ldap, $this->_ldapparams['basedn'], $filter);
@@ -668,7 +670,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
             return PEAR::raiseError(_("Unable to acquire handle on DN.  Aborting delete operation."));
         } else if($res['count'] !== 1) {
             return PEAR::raiseError(_("More than one DN returned.  Aborting delete operation."));
-        } 
+        }
         return $res; 
     }
 
@@ -716,65 +718,322 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
     }
 
     /**
-     * Modifies alias data on the backend.
+     * Modifies alias data on the backend.  See Driver::saveAlias() for parameter info.
      *
      * @param mixed $info     The alias, or an array containing the alias and supporting data.
-     * @param string $mode    The operation requested: add, update, delete.
      *
      * @return mixed  True on success or PEAR error otherwise.
      */
-    function _savealias($info,$mode = null)
+    function _saveAlias($info)
     {
-        if ($mode == 'delete') {
-            $address = $info;
-
-            $user_info = $this->searchForAliases($address);
-            $aliasesList = $user_info[0]['mailalternateaddress'];
-            if (is_a($user_info, 'PEAR_Error') || ($res['count'] === 0) ) { 
-                return PEAR::raiseError(_("Error reading address information from backend."));
-            }
-            $addrinfo = $this->getAddressInfo($address);
-            if (is_a($addrinfo, 'PEAR_Error')) {
-                return $addrinfo;
-            }
-            $type = $addrinfo['type'];
-            $addrinfo = $this->getAddressInfo($address,$type);
-            if (is_a($addrinfo, 'PEAR_Error')) {
-                return $addrinfo;
-            }
-            $objectClassData = null;
-            if(isset($user_info[0]['objectclass'])) {
-                $objectClassData = $user_info[0]['objectclass'];
-            }
-            if ($this->_ldap) {
-                // bind with appropriate dn to give update access
-                $res = ldap_bind($this->_ldap, $this->_ldapparams['binddn'],
-                                 $this->_ldapparams['bindpw']);
-                if (!$res) {
-                    return PEAR::raiseError(_("Unable to bind to the LDAP server. Check authentication credentials."));
-                }
-                $tmp = array();
-                $key = null;
-                foreach($aliasesList as $key => $val) {
-                    if($val != $address) {
-                        array_push($tmp,$val);
-                    }
-                }
-                $entry["mailalternateaddress"] = $tmp;
-                
-                $rdn = 'mail=' . $addrinfo['destination'];
-                $dn = $rdn . ',' . $this->_ldapparams['basedn'];
-                $res = @ldap_modify($this->_ldap, $dn, $entry);
-                if ($res === false) {
-                    return PEAR::raiseError(sprintf(_("Error modifying account: %s"), @ldap_error($this->_ldap)));
-                } else {
-                    return TRUE;
-                }
-            }
-        }
+        Horde::logMessage("_saveAlias called with info: " . print_r($info, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $address = $info['address'];
+        if (!empty($info['alias'])) {
+          $alias = $info['alias'];
+          $create = false;
+        } else {
+          $create = true;
+        } // if
+        $alias_address = $info['alias_address'];
         
-        return  PEAR::raiseError(_("Unable to save user information."));
+        $user_res = $this->searchForUser($address);
+        if (is_a($user_res, 'PEAR_Error') || ($res['count'] === 0) ) {
+          return PEAR::raiseError(_("Error reading address information from backend."));
+        } // if
+        $user = $user_res[0];
+        
+        // Retrieve the current MAA values
+        if (array_key_exists('mailalternateaddress', $user_res[0])) {
+          $maa = $user['mailalternateaddress'];
+          unset($maa['count']);
+        } else {
+          $maa = array();
+        } // if
+        
+        Horde::logMessage("Resource contains: " . print_r($maa, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+
+        $update = false;
+        $oldmaa = $maa;
+        if ($create) {
+          // Verify that it does not already exist
+          if (in_array($alias_address, $maa) === false) {
+            // Not there, we create it
+            // return PEAR::raiseError(_("We would create a new entry here."));
+            $maa[] = $alias_address;
+            // usort($maa, "compareEmailSort");
+            sort($maa);
+            $update = true;
+          } else {
+            // Already exists, throw a notification
+            return PEAR::raiseError(_("That alias already exists!"));
+          } // if
+          
+        } else {
+          if ($alias == $alias_address) {
+            /* do nothing */;
+          } else {
+            $key = array_search($alias, $maa);
+            if ($key > 0 || $key === 0) {
+              $maa[$key] = $alias_address;
+              // usort($maa, "compareEmailSort");
+              sort($maa);
+              $update = true;
+            } else {
+              return PEAR::raiseError(sprintf(_("Existing entry \"%s\" could not be found: " . print_r($key, true)), $alias));
+            } // if
+          }
+        } // if
+        
+        
+        if ($update) {
+          $dn = $user['dn'];
+          Horde::logMessage("UPDATING: $dn \nOld MAA: " . print_r($oldmaa, true) . "\nNew MAA: " . print_r($maa, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+          // return PEAR::raiseError(sprintf(_("Update Code Not Written."), $alias));
+          if ($this->_ldap) {
+            // bind with appropriate dn to give update access
+            $res = ldap_bind($this->_ldap, $this->_ldapparams['binddn'],
+                             $this->_ldapparams['bindpw']);
+            if (!$res) {
+                return PEAR::raiseError(_("Unable to bind to the LDAP server. Check authentication credentials."));
+            }
+            $entry["mailAlternateAddress"] = $maa;
+            
+            $res = @ldap_modify($this->_ldap, $dn, $entry);
+            if ($res === false) {
+                return PEAR::raiseError(sprintf(_("Error modifying account: %s"), @ldap_error($this->_ldap)));
+            } else {
+                return TRUE;
+            } // if
+          } // if
+        } // if
+        
+        return true;
     }
+    
+    function _deleteAlias($info)
+    {
+        Horde::logMessage("_deleteAlias called with info: " . print_r($info, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $address = $info['address'];
+        $alias = $info['alias'];
+        
+        $user_res = $this->searchForUser($address);
+        if (is_a($user_res, 'PEAR_Error') || ($res['count'] === 0) ) {
+          return PEAR::raiseError(_("Error reading address information from backend."));
+        } // if
+        $user = $user_res[0];
+        
+        // Retrieve the current MAA values
+        if (array_key_exists('mailalternateaddress', $user_res[0])) {
+          $maa = $user['mailalternateaddress'];
+          unset($maa['count']);
+        } else {
+          $maa = array();
+        } // if
+        
+        Horde::logMessage("Resource contains: " . print_r($maa, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+
+        $update = false;
+        $oldmaa = $maa;
+        $key = array_search($alias, $maa);
+        if ($key > 0 || $key === 0) {
+          unset($maa[$key]);
+          sort($maa);
+          $update = true;
+        } else {
+          /* skip */;
+        } // if        
+        
+        if ($update) {
+          $dn = $user['dn'];
+          Horde::logMessage("UPDATING: $dn \nOld MAA: " . print_r($oldmaa, true) . "\nNew MAA: " . print_r($maa, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+          // return PEAR::raiseError(sprintf(_("Update Code Not Written."), $alias));
+          if ($this->_ldap) {
+            // bind with appropriate dn to give update access
+            $res = ldap_bind($this->_ldap, $this->_ldapparams['binddn'],
+                             $this->_ldapparams['bindpw']);
+            if (!$res) {
+                return PEAR::raiseError(_("Unable to bind to the LDAP server. Check authentication credentials."));
+            }
+            $entry["mailAlternateAddress"] = $maa;
+            
+            $res = @ldap_modify($this->_ldap, $dn, $entry);
+            if ($res === false) {
+                return PEAR::raiseError(sprintf(_("Error modifying account: %s"), @ldap_error($this->_ldap)));
+            } else {
+                return TRUE;
+            } // if
+          } // if
+        } // if
+        
+        return true;
+    }
+    
+    /**
+     * Modifies forward data on the backend.  See Driver::saveForward() for parameter info.
+     *
+     * @param mixed $info     An array containing the alias and supporting data.
+     *
+     * @return mixed  True on success or PEAR error otherwise.
+     */
+    function _saveForward($info)
+    {
+      Horde::logMessage("_saveForward called with info: " . print_r($info, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $address = $info['address'];
+        if (!empty($info['forward'])) {
+          $forward = $info['forward'];
+          $create = false;
+        } else {
+          $create = true;
+        } // if
+        $forward_address = $info['forward_address'];
+        
+        $user_res = $this->searchForUser($address);
+        if (is_a($user_res, 'PEAR_Error') || ($res['count'] === 0) ) {
+          return PEAR::raiseError(_("Error reading address information from backend."));
+        } // if
+        $user = $user_res[0];
+        
+        // Retrieve the current MAA values
+        if (array_key_exists('mailforwardingaddress', $user_res[0])) {
+          $mfa = $user['mailforwardingaddress'];
+          unset($mfa['count']);
+        } else {
+          $mfa = array();
+        } // if
+        
+        Horde::logMessage("Resource contains: " . print_r($mfa, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+
+        $update = false;
+        $oldmfa = $mfa;
+        if ($create) {
+          // Verify that it does not already exist
+          if (in_array($forward_address, $mfa) === false) {
+            // Not there, we create it
+            // return PEAR::raiseError(_("We would create a new entry here."));
+            $mfa[] = $forward_address;
+            // usort($mfa, "compareEmailSort");
+            sort($mfa);
+            $update = true;
+          } else {
+            // Already exists, throw a notification
+            return PEAR::raiseError(sprintf(_("That forward, \"%s\", already exists!"), $forward_address));
+          } // if
+          
+        } else {
+          if ($forward == $forward_address) {
+            /* do nothing */;
+          } else {
+            $key = array_search($forward, $mfa);
+            if ($key > 0 || $key === 0) {
+              $mfa[$key] = $forward_address;
+              // usort($mfa, "compareEmailSort");
+              sort($mfa);
+              $update = true;
+            } else {
+              return PEAR::raiseError(sprintf(_("Existing entry \"%s\" could not be found: " . print_r($key, true)), $forward));
+            } // if
+          }
+        } // if
+        
+        
+        if ($update) {
+          $dn = $user['dn'];
+          Horde::logMessage("UPDATING: $dn \nOld MFA: " . print_r($oldmfa, true) . "\nNew MFA: " . print_r($mfa, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+          // return PEAR::raiseError(sprintf(_("Update Code Not Written."), $alias));
+          if ($this->_ldap) {
+            // bind with appropriate dn to give update access
+            $res = ldap_bind($this->_ldap, $this->_ldapparams['binddn'],
+                             $this->_ldapparams['bindpw']);
+            if (!$res) {
+                return PEAR::raiseError(_("Unable to bind to the LDAP server. Check authentication credentials."));
+            }
+            $entry["mailForwardingAddress"] = $mfa;
+            
+            $res = @ldap_modify($this->_ldap, $dn, $entry);
+            if ($res === false) {
+                return PEAR::raiseError(sprintf(_("Error modifying account: %s"), @ldap_error($this->_ldap)));
+            } else {
+                return TRUE;
+            } // if
+          } // if
+        } // if
+        
+        return true;
+    }
+
+    /**
+     * Deletes forward data on the backend.  See Driver::deleteForward() for parameter info.
+     *
+     * @param mixed $info     An array containing the forward and supporting data.
+     *
+     * @return mixed  True on success or PEAR error otherwise.
+     */
+    function _deleteForward($info)
+    {
+      Horde::logMessage("_deleteForward called with info: " . print_r($info, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $address = $info['address'];
+        $forward = $info['forward'];
+        
+        $user_res = $this->searchForUser($address);
+        if (is_a($user_res, 'PEAR_Error') || ($res['count'] === 0) ) {
+          return PEAR::raiseError(_("Error reading address information from backend."));
+        } // if
+        $user = $user_res[0];
+        
+        // Retrieve the current MFA values
+        if (array_key_exists('mailforwardingaddress', $user_res[0])) {
+          $mfa = $user['mailforwardingaddress'];
+          unset($mfa['count']);
+        } else {
+          $mfa = array();
+        } // if
+        
+        Horde::logMessage("Resource contains: " . print_r($mfa, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+
+        $update = false;
+        $oldmfa = $mfa;
+        $key = array_search($forward, $mfa);
+        if ($key > 0 || $key === 0) {
+          unset($mfa[$key]);
+          sort($mfa);
+          $update = true;
+        } else {
+          /* skip */;
+        } // if
+        
+        if ($update) {
+          $dn = $user['dn'];
+          Horde::logMessage("UPDATING: $dn \nOld MFA: " . print_r($oldmfa, true) . "\nNew MFA: " . print_r($mfa, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+          // return PEAR::raiseError(sprintf(_("Update Code Not Written."), $alias));
+          if ($this->_ldap) {
+            // bind with appropriate dn to give update access
+            $res = ldap_bind($this->_ldap, $this->_ldapparams['binddn'],
+                             $this->_ldapparams['bindpw']);
+            if (!$res) {
+                return PEAR::raiseError(_("Unable to bind to the LDAP server. Check authentication credentials."));
+            }
+            $entry["mailForwardingAddress"] = $mfa;
+            
+            $res = @ldap_modify($this->_ldap, $dn, $entry);
+            if ($res === false) {
+                return PEAR::raiseError(sprintf(_("Error modifying account: %s"), @ldap_error($this->_ldap)));
+            } else {
+                return TRUE;
+            } // if
+          } // if
+        } // if
+        
+        return true;
+    }
+    
+    /* Sorting function to sort aliases, forwards, and accounts by domain name first,
+     * then by user component.
+     */
+    function compareEmailSort($a, $b) {
+      $a_comp = split("@", $a);
+      $b_comp = split("@", $b);
+      // not finished.
+    } 
 
     function _saveUser(&$info)
     {
