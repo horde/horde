@@ -1,127 +1,126 @@
 <?php
-/* vim: set expandtab tabstop=4 shiftwidth=4: */
 /**
-* File containing the Net_LDAP2_Search interface class.
-*
-* PHP version 5
-*
-* @category  Net
-* @package   Net_LDAP2
-* @author    Tarjej Huse <tarjei@bergfald.no>
-* @author    Benedikt Hallinger <beni@php.net>
-* @copyright 2009 Tarjej Huse, Benedikt Hallinger
-* @license   http://www.gnu.org/licenses/lgpl-3.0.txt LGPLv3
-* @version   SVN: $Id: Search.php 286718 2009-08-03 07:30:49Z beni $
-* @link      http://pear.php.net/package/Net_LDAP2/
-*/
+ * File containing the Net_LDAP2_Search interface class.
+ *
+ * PHP version 5
+ *
+ * @category  Net
+ * @package   Net_LDAP2
+ * @author    Tarjej Huse <tarjei@bergfald.no>
+ * @author    Benedikt Hallinger <beni@php.net>
+ * @copyright 2009 Tarjej Huse, Benedikt Hallinger
+ * @license   http://www.gnu.org/licenses/lgpl-3.0.txt LGPLv3
+ * @version   SVN: $Id: Search.php 286718 2009-08-03 07:30:49Z beni $
+ * @link      http://pear.php.net/package/Net_LDAP2/
+ */
 
 /**
-* Includes
-*/
-require_once 'PEAR.php';
+ * Includes
+ */
+#require_once 'PEAR.php';
 
 /**
-* Result set of an LDAP search
-*
-* @category Net
-* @package  Net_LDAP2
-* @author   Tarjej Huse <tarjei@bergfald.no>
-* @author   Benedikt Hallinger <beni@php.net>
-* @license  http://www.gnu.org/copyleft/lesser.html LGPL
-* @link     http://pear.php.net/package/Net_LDAP22/
-*/
+ * Result set of an LDAP search
+ *
+ * @category Net
+ * @package  Net_LDAP2
+ * @author   Tarjej Huse <tarjei@bergfald.no>
+ * @author   Benedikt Hallinger <beni@php.net>
+ * @license  http://www.gnu.org/copyleft/lesser.html LGPL
+ * @link     http://pear.php.net/package/Net_LDAP22/
+ */
 class Net_LDAP2_Search extends PEAR implements Iterator
 {
     /**
-    * Search result identifier
-    *
-    * @access protected
-    * @var resource
-    */
+     * Search result identifier
+     *
+     * @access protected
+     * @var resource
+     */
     protected $_search;
 
     /**
-    * LDAP resource link
-    *
-    * @access protected
-    * @var resource
-    */
+     * LDAP resource link
+     *
+     * @access protected
+     * @var resource
+     */
     protected $_link;
 
     /**
-    * Net_LDAP2 object
-    *
-    * A reference of the Net_LDAP2 object for passing to Net_LDAP2_Entry
-    *
-    * @access protected
-    * @var object Net_LDAP2
-    */
+     * Net_LDAP2 object
+     *
+     * A reference of the Net_LDAP2 object for passing to Net_LDAP2_Entry
+     *
+     * @access protected
+     * @var object Net_LDAP2
+     */
     protected $_ldap;
 
     /**
-    * Result entry identifier
-    *
-    * @access protected
-    * @var resource
-    */
+     * Result entry identifier
+     *
+     * @access protected
+     * @var resource
+     */
     protected $_entry = null;
 
     /**
-    * The errorcode the search got
-    *
-    * Some errorcodes might be of interest, but might not be best handled as errors.
-    * examples: 4 - LDAP_SIZELIMIT_EXCEEDED - indicates a huge search.
-    *               Incomplete results are returned. If you just want to check if there's anything in the search.
-    *               than this is a point to handle.
-    *           32 - no such object - search here returns a count of 0.
-    *
-    * @access protected
-    * @var int
-    */
+     * The errorcode the search got
+     *
+     * Some errorcodes might be of interest, but might not be best handled as errors.
+     * examples: 4 - LDAP_SIZELIMIT_EXCEEDED - indicates a huge search.
+     *               Incomplete results are returned. If you just want to check if there's anything in the search.
+     *               than this is a point to handle.
+     *           32 - no such object - search here returns a count of 0.
+     *
+     * @access protected
+     * @var int
+     */
     protected $_errorCode = 0; // if not set - sucess!
 
     /**
-    * Cache for all entries already fetched from iterator interface
-    *
-    * @access protected
-    * @var array
-    */
+     * Cache for all entries already fetched from iterator interface
+     *
+     * @access protected
+     * @var array
+     */
     protected $_iteratorCache = array();
 
     /**
-    * What attributes we searched for
-    *
-    * The $attributes array contains the names of the searched attributes and gets
-    * passed from $Net_LDAP2->search() so the Net_LDAP2_Search object can tell
-    * what attributes was searched for ({@link searchedAttrs())
-    *
-    * This variable gets set from the constructor and returned
-    * from {@link searchedAttrs()}
-    *
-    * @access protected
-    * @var array
-    */
+     * What attributes we searched for
+     *
+     * The $attributes array contains the names of the searched attributes and gets
+     * passed from $Net_LDAP2->search() so the Net_LDAP2_Search object can tell
+     * what attributes was searched for ({@link searchedAttrs())
+     *
+     * This variable gets set from the constructor and returned
+     * from {@link searchedAttrs()}
+     *
+     * @access protected
+     * @var array
+     */
     protected $_searchedAttrs = array();
 
     /**
-    * Cache variable for storing entries fetched internally
-    *
-    * This currently is only used by {@link pop_entry()}
-    *
-    * @access protected
-    * @var array
-    */
+     * Cache variable for storing entries fetched internally
+     *
+     * This currently is only used by {@link pop_entry()}
+     *
+     * @access protected
+     * @var array
+     */
     protected $_entry_cache = false;
 
     /**
-    * Constructor
-    *
-    * @param resource           &$search    Search result identifier
-    * @param Net_LDAP2|resource &$ldap      Net_LDAP2 object or just a LDAP-Link resource
-    * @param array              $attributes (optional) Array with searched attribute names. (see {@link $_searchedAttrs})
-    *
-    * @access public
-    */
+     * Constructor
+     *
+     * @param resource           &$search    Search result identifier
+     * @param Net_LDAP2|resource &$ldap      Net_LDAP2 object or just a LDAP-Link resource
+     * @param array              $attributes (optional) Array with searched attribute names. (see {@link $_searchedAttrs})
+     *
+     * @access public
+     */
     public function __construct(&$search, &$ldap, $attributes = array())
     {
         $this->PEAR('Net_LDAP2_Error');
@@ -143,10 +142,10 @@ class Net_LDAP2_Search extends PEAR implements Iterator
     }
 
     /**
-    * Returns an array of entry objects
-    *
-    * @return array Array of entry objects.
-    */
+     * Returns an array of entry objects
+     *
+     * @return array Array of entry objects.
+     */
     public function entries()
     {
         $entries = array();
@@ -159,14 +158,14 @@ class Net_LDAP2_Search extends PEAR implements Iterator
     }
 
     /**
-    * Get the next entry in the searchresult.
-    *
-    * This will return a valid Net_LDAP2_Entry object or false, so
-    * you can use this method to easily iterate over the entries inside
-    * a while loop.
-    *
-    * @return Net_LDAP2_Entry|false  Reference to Net_LDAP2_Entry object or false
-    */
+     * Get the next entry in the searchresult.
+     *
+     * This will return a valid Net_LDAP2_Entry object or false, so
+     * you can use this method to easily iterate over the entries inside
+     * a while loop.
+     *
+     * @return Net_LDAP2_Entry|false  Reference to Net_LDAP2_Entry object or false
+     */
     public function &shiftEntry()
     {
         if ($this->count() == 0 ) {
@@ -190,11 +189,11 @@ class Net_LDAP2_Search extends PEAR implements Iterator
     }
 
     /**
-    * Alias function of shiftEntry() for perl-ldap interface
-    *
-    * @see shiftEntry()
-    * @return Net_LDAP2_Entry|false
-    */
+     * Alias function of shiftEntry() for perl-ldap interface
+     *
+     * @see shiftEntry()
+     * @return Net_LDAP2_Entry|false
+     */
     public function shift_entry()
     {
         $args = func_get_args();
@@ -202,13 +201,13 @@ class Net_LDAP2_Search extends PEAR implements Iterator
     }
 
     /**
-    * Retrieve the next entry in the searchresult, but starting from last entry
-    *
-    * This is the opposite to {@link shiftEntry()} and is also very useful
-    * to be used inside a while loop.
-    *
-    * @return Net_LDAP2_Entry|false
-    */
+     * Retrieve the next entry in the searchresult, but starting from last entry
+     *
+     * This is the opposite to {@link shiftEntry()} and is also very useful
+     * to be used inside a while loop.
+     *
+     * @return Net_LDAP2_Entry|false
+     */
     public function popEntry()
     {
         if (false === $this->_entry_cache) {
@@ -221,11 +220,11 @@ class Net_LDAP2_Search extends PEAR implements Iterator
     }
 
     /**
-    * Alias function of popEntry() for perl-ldap interface
-    *
-    * @see popEntry()
-    * @return Net_LDAP2_Entry|false
-    */
+     * Alias function of popEntry() for perl-ldap interface
+     *
+     * @see popEntry()
+     * @return Net_LDAP2_Entry|false
+     */
     public function pop_entry()
     {
         $args = func_get_args();
@@ -233,33 +232,33 @@ class Net_LDAP2_Search extends PEAR implements Iterator
     }
 
     /**
-    * Return entries sorted as array
-    *
-    * This returns a array with sorted entries and the values.
-    * Sorting is done with PHPs {@link array_multisort()}.
-    * This method relies on {@link as_struct()} to fetch the raw data of the entries.
-    *
-    * Please note that attribute names are case sensitive!
-    *
-    * Usage example:
-    * <code>
-    *   // to sort entries first by location, then by surename, but descending:
-    *   $entries = $search->sorted_as_struct(array('locality','sn'), SORT_DESC);
-    * </code>
-    *
-    * @param array $attrs Array of attribute names to sort; order from left to right.
-    * @param int   $order Ordering direction, either constant SORT_ASC or SORT_DESC
-    *
-    * @return array|Net_LDAP2_Error   Array with sorted entries or error
-    * @todo what about server side sorting as specified in http://www.ietf.org/rfc/rfc2891.txt?
-    */
+     * Return entries sorted as array
+     *
+     * This returns a array with sorted entries and the values.
+     * Sorting is done with PHPs {@link array_multisort()}.
+     * This method relies on {@link as_struct()} to fetch the raw data of the entries.
+     *
+     * Please note that attribute names are case sensitive!
+     *
+     * Usage example:
+     * <code>
+     *   // to sort entries first by location, then by surename, but descending:
+     *   $entries = $search->sorted_as_struct(array('locality','sn'), SORT_DESC);
+     * </code>
+     *
+     * @param array $attrs Array of attribute names to sort; order from left to right.
+     * @param int   $order Ordering direction, either constant SORT_ASC or SORT_DESC
+     *
+     * @return array|Net_LDAP2_Error   Array with sorted entries or error
+     * @todo what about server side sorting as specified in http://www.ietf.org/rfc/rfc2891.txt?
+     */
     public function sorted_as_struct($attrs = array('cn'), $order = SORT_ASC)
     {
         /*
-        * Old Code, suitable and fast for single valued sorting
-        * This code should be used if we know that single valued sorting is desired,
-        * but we need some method to get that knowledge...
-        */
+         * Old Code, suitable and fast for single valued sorting
+         * This code should be used if we know that single valued sorting is desired,
+         * but we need some method to get that knowledge...
+         */
         /*
         $attrs = array_reverse($attrs);
         foreach ($attrs as $attribute) {
@@ -278,8 +277,8 @@ class Net_LDAP2_Search extends PEAR implements Iterator
         }*/
 
         /*
-        * New code: complete "client side" sorting
-        */
+         * New code: complete "client side" sorting
+         */
         // first some parameterchecks
         if (!is_array($attrs)) {
             return PEAR::raiseError("Sorting failed: Parameterlist must be an array!");
@@ -338,28 +337,28 @@ class Net_LDAP2_Search extends PEAR implements Iterator
     }
 
     /**
-    * Return entries sorted as objects
-    *
-    * This returns a array with sorted Net_LDAP2_Entry objects.
-    * The sorting is actually done with {@link sorted_as_struct()}.
-    *
-    * Please note that attribute names are case sensitive!
-    * Also note, that it is (depending on server capabilitys) possible to let
-    * the server sort your results. This happens through search controls
-    * and is described in detail at {@link http://www.ietf.org/rfc/rfc2891.txt}
-    *
-    * Usage example:
-    * <code>
-    *   // to sort entries first by location, then by surename, but descending:
-    *   $entries = $search->sorted(array('locality','sn'), SORT_DESC);
-    * </code>
-    *
-    * @param array $attrs Array of sort attributes to sort; order from left to right.
-    * @param int   $order Ordering direction, either constant SORT_ASC or SORT_DESC
-    *
-    * @return array|Net_LDAP2_Error   Array with sorted Net_LDAP2_Entries or error
-    * @todo Entry object construction could be faster. Maybe we could use one of the factorys instead of fetching the entry again
-    */
+     * Return entries sorted as objects
+     *
+     * This returns a array with sorted Net_LDAP2_Entry objects.
+     * The sorting is actually done with {@link sorted_as_struct()}.
+     *
+     * Please note that attribute names are case sensitive!
+     * Also note, that it is (depending on server capabilitys) possible to let
+     * the server sort your results. This happens through search controls
+     * and is described in detail at {@link http://www.ietf.org/rfc/rfc2891.txt}
+     *
+     * Usage example:
+     * <code>
+     *   // to sort entries first by location, then by surename, but descending:
+     *   $entries = $search->sorted(array('locality','sn'), SORT_DESC);
+     * </code>
+     *
+     * @param array $attrs Array of sort attributes to sort; order from left to right.
+     * @param int   $order Ordering direction, either constant SORT_ASC or SORT_DESC
+     *
+     * @return array|Net_LDAP2_Error   Array with sorted Net_LDAP2_Entries or error
+     * @todo Entry object construction could be faster. Maybe we could use one of the factorys instead of fetching the entry again
+     */
     public function sorted($attrs = array('cn'), $order = SORT_ASC)
     {
         $return = array();
@@ -379,32 +378,32 @@ class Net_LDAP2_Search extends PEAR implements Iterator
     }
 
     /**
-    * Return entries as array
-    *
-    * This method returns the entries and the selected attributes values as
-    * array.
-    * The first array level contains all found entries where the keys are the
-    * DNs of the entries. The second level arrays contian the entries attributes
-    * such that the keys is the lowercased name of the attribute and the values
-    * are stored in another indexed array. Note that the attribute values are stored
-    * in an array even if there is no or just one value.
-    *
-    * The array has the following structure:
-    * <code>
-    * $return = array(
-    *           'cn=foo,dc=example,dc=com' => array(
-    *                                                'sn'       => array('foo'),
-    *                                                'multival' => array('val1', 'val2', 'valN')
-    *                                             )
-    *           'cn=bar,dc=example,dc=com' => array(
-    *                                                'sn'       => array('bar'),
-    *                                                'multival' => array('val1', 'valN')
-    *                                             )
-    *           )
-    * </code>
-    *
-    * @return array      associative result array as described above
-    */
+     * Return entries as array
+     *
+     * This method returns the entries and the selected attributes values as
+     * array.
+     * The first array level contains all found entries where the keys are the
+     * DNs of the entries. The second level arrays contian the entries attributes
+     * such that the keys is the lowercased name of the attribute and the values
+     * are stored in another indexed array. Note that the attribute values are stored
+     * in an array even if there is no or just one value.
+     *
+     * The array has the following structure:
+     * <code>
+     * $return = array(
+     *           'cn=foo,dc=example,dc=com' => array(
+     *                                                'sn'       => array('foo'),
+     *                                                'multival' => array('val1', 'val2', 'valN')
+     *                                             )
+     *           'cn=bar,dc=example,dc=com' => array(
+     *                                                'sn'       => array('bar'),
+     *                                                'multival' => array('val1', 'valN')
+     *                                             )
+     *           )
+     * </code>
+     *
+     * @return array      associative result array as described above
+     */
     public function as_struct()
     {
         $return  = array();
@@ -425,36 +424,36 @@ class Net_LDAP2_Search extends PEAR implements Iterator
     }
 
     /**
-    * Set the search objects resource link
-    *
-    * @param resource &$search Search result identifier
-    *
-    * @access public
-    * @return void
-    */
+     * Set the search objects resource link
+     *
+     * @param resource &$search Search result identifier
+     *
+     * @access public
+     * @return void
+     */
     public function setSearch(&$search)
     {
         $this->_search = $search;
     }
 
     /**
-    * Set the ldap ressource link
-    *
-    * @param resource &$link Link identifier
-    *
-    * @access public
-    * @return void
-    */
+     * Set the ldap ressource link
+     *
+     * @param resource &$link Link identifier
+     *
+     * @access public
+     * @return void
+     */
     public function setLink(&$link)
     {
         $this->_link = $link;
     }
 
     /**
-    * Returns the number of entries in the searchresult
-    *
-    * @return int Number of entries in search.
-    */
+     * Returns the number of entries in the searchresult
+     *
+     * @return int Number of entries in search.
+     */
     public function count()
     {
         // this catches the situation where OL returned errno 32 = no such object!
@@ -465,52 +464,52 @@ class Net_LDAP2_Search extends PEAR implements Iterator
     }
 
     /**
-    * Get the errorcode the object got in its search.
-    *
-    * @return int The ldap error number.
-    */
+     * Get the errorcode the object got in its search.
+     *
+     * @return int The ldap error number.
+     */
     public function getErrorCode()
     {
         return $this->_errorCode;
     }
 
     /**
-    * Destructor
-    *
-    * @access protected
-    */
+     * Destructor
+     *
+     * @access protected
+     */
     public function _Net_LDAP2_Search()
     {
         @ldap_free_result($this->_search);
     }
 
     /**
-    * Closes search result
-    *
-    * @return void
-    */
+     * Closes search result
+     *
+     * @return void
+     */
     public function done()
     {
         $this->_Net_LDAP2_Search();
     }
 
     /**
-    * Return the attribute names this search selected
-    *
-    * @return array
-    * @see $_searchedAttrs
-    * @access protected
-    */
+     * Return the attribute names this search selected
+     *
+     * @return array
+     * @see $_searchedAttrs
+     * @access protected
+     */
     protected function searchedAttrs()
     {
         return $this->_searchedAttrs;
     }
 
     /**
-    * Tells if this search exceeds a sizelimit
-    *
-    * @return boolean
-    */
+     * Tells if this search exceeds a sizelimit
+     *
+     * @return boolean
+     */
     public function sizeLimitExceeded()
     {
         return ($this->getErrorCode() == 4);
@@ -518,26 +517,26 @@ class Net_LDAP2_Search extends PEAR implements Iterator
 
 
     /*
-    * SPL Iterator interface methods.
-    * This interface allows to use Net_LDAP2_Search
-    * objects directly inside a foreach loop!
-    */
+     * SPL Iterator interface methods.
+     * This interface allows to use Net_LDAP2_Search
+     * objects directly inside a foreach loop!
+     */
     /**
-    * SPL Iterator interface: Return the current element.
-    *
-    * The SPL Iterator interface allows you to fetch entries inside
-    * a foreach() loop: <code>foreach ($search as $dn => $entry) { ...</code>
-    *
-    * Of course, you may call {@link current()}, {@link key()}, {@link next()},
-    * {@link rewind()} and {@link valid()} yourself.
-    *
-    * If the search throwed an error, it returns false.
-    * False is also returned, if the end is reached
-    * In case no call to next() was made, we will issue one,
-    * thus returning the first entry.
-    *
-    * @return Net_LDAP2_Entry|false
-    */
+     * SPL Iterator interface: Return the current element.
+     *
+     * The SPL Iterator interface allows you to fetch entries inside
+     * a foreach() loop: <code>foreach ($search as $dn => $entry) { ...</code>
+     *
+     * Of course, you may call {@link current()}, {@link key()}, {@link next()},
+     * {@link rewind()} and {@link valid()} yourself.
+     *
+     * If the search throwed an error, it returns false.
+     * False is also returned, if the end is reached
+     * In case no call to next() was made, we will issue one,
+     * thus returning the first entry.
+     *
+     * @return Net_LDAP2_Entry|false
+     */
     public function current()
     {
         if (count($this->_iteratorCache) == 0) {
@@ -549,11 +548,11 @@ class Net_LDAP2_Search extends PEAR implements Iterator
     }
 
     /**
-    * SPL Iterator interface: Return the identifying key (DN) of the current entry.
-    *
-    * @see current()
-    * @return string|false DN of the current entry; false in case no entry is returned by current()
-    */
+     * SPL Iterator interface: Return the identifying key (DN) of the current entry.
+     *
+     * @see current()
+     * @return string|false DN of the current entry; false in case no entry is returned by current()
+     */
     public function key()
     {
         $entry = $this->current();
@@ -561,14 +560,14 @@ class Net_LDAP2_Search extends PEAR implements Iterator
     }
 
     /**
-    * SPL Iterator interface: Move forward to next entry.
-    *
-    * After a call to {@link next()}, {@link current()} will return
-    * the next entry in the result set.
-    *
-    * @see current()
-    * @return void
-    */
+     * SPL Iterator interface: Move forward to next entry.
+     *
+     * After a call to {@link next()}, {@link current()} will return
+     * the next entry in the result set.
+     *
+     * @see current()
+     * @return void
+     */
     public function next()
     {
         // fetch next entry.
@@ -585,26 +584,26 @@ class Net_LDAP2_Search extends PEAR implements Iterator
     }
 
     /**
-    * SPL Iterator interface:  Check if there is a current element after calls to {@link rewind()} or {@link next()}.
-    *
-    * Used to check if we've iterated to the end of the collection.
-    *
-    * @see current()
-    * @return boolean FALSE if there's nothing more to iterate over
-    */
+     * SPL Iterator interface:  Check if there is a current element after calls to {@link rewind()} or {@link next()}.
+     *
+     * Used to check if we've iterated to the end of the collection.
+     *
+     * @see current()
+     * @return boolean FALSE if there's nothing more to iterate over
+     */
     public function valid()
     {
         return ($this->current() instanceof Net_LDAP2_Entry);
     }
 
     /**
-    * SPL Iterator interface: Rewind the Iterator to the first element.
-    *
-    * After rewinding, {@link current()} will return the first entry in the result set.
-    *
-    * @see current()
-    * @return void
-    */
+     * SPL Iterator interface: Rewind the Iterator to the first element.
+     *
+     * After rewinding, {@link current()} will return the first entry in the result set.
+     *
+     * @see current()
+     * @return void
+     */
     public function rewind()
     {
         reset($this->_iteratorCache);

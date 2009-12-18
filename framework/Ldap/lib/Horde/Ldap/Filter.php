@@ -1,109 +1,108 @@
 <?php
-/* vim: set expandtab tabstop=4 shiftwidth=4: */
 /**
-* File containing the Net_LDAP2_Filter interface class.
-*
-* PHP version 5
-*
-* @category  Net
-* @package   Net_LDAP2
-* @author    Benedikt Hallinger <beni@php.net>
-* @copyright 2009 Benedikt Hallinger
-* @license   http://www.gnu.org/licenses/lgpl-3.0.txt LGPLv3
-* @version   SVN: $Id: Filter.php 289978 2009-10-27 09:56:41Z beni $
-* @link      http://pear.php.net/package/Net_LDAP2/
-*/
+ * File containing the Net_LDAP2_Filter interface class.
+ *
+ * PHP version 5
+ *
+ * @category  Net
+ * @package   Net_LDAP2
+ * @author    Benedikt Hallinger <beni@php.net>
+ * @copyright 2009 Benedikt Hallinger
+ * @license   http://www.gnu.org/licenses/lgpl-3.0.txt LGPLv3
+ * @version   SVN: $Id: Filter.php 289978 2009-10-27 09:56:41Z beni $
+ * @link      http://pear.php.net/package/Net_LDAP2/
+ */
 
 /**
-* Includes
-*/
-require_once 'PEAR.php';
-require_once 'Util.php';
+ * Includes
+ */
+#require_once 'PEAR.php';
+#require_once 'Util.php';
 
 /**
-* Object representation of a part of a LDAP filter.
-*
-* This Class is not completely compatible to the PERL interface!
-*
-* The purpose of this class is, that users can easily build LDAP filters
-* without having to worry about right escaping etc.
-* A Filter is built using several independent filter objects
-* which are combined afterwards. This object works in two
-* modes, depending how the object is created.
-* If the object is created using the {@link create()} method, then this is a leaf-object.
-* If the object is created using the {@link combine()} method, then this is a container object.
-*
-* LDAP filters are defined in RFC-2254 and can be found under
-* {@link http://www.ietf.org/rfc/rfc2254.txt}
-*
-* Here a quick copy&paste example:
-* <code>
-* $filter0 = Net_LDAP2_Filter::create('stars', 'equals', '***');
-* $filter_not0 = Net_LDAP2_Filter::combine('not', $filter0);
-*
-* $filter1 = Net_LDAP2_Filter::create('gn', 'begins', 'bar');
-* $filter2 = Net_LDAP2_Filter::create('gn', 'ends', 'baz');
-* $filter_comp = Net_LDAP2_Filter::combine('or',array($filter_not0, $filter1, $filter2));
-*
-* echo $filter_comp->asString();
-* // This will output: (|(!(stars=\0x5c0x2a\0x5c0x2a\0x5c0x2a))(gn=bar*)(gn=*baz))
-* // The stars in $filter0 are treaten as real stars unless you disable escaping.
-* </code>
-*
-* @category Net
-* @package  Net_LDAP2
-* @author   Benedikt Hallinger <beni@php.net>
-* @license  http://www.gnu.org/copyleft/lesser.html LGPL
-* @link     http://pear.php.net/package/Net_LDAP2/
-*/
+ * Object representation of a part of a LDAP filter.
+ *
+ * This Class is not completely compatible to the PERL interface!
+ *
+ * The purpose of this class is, that users can easily build LDAP filters
+ * without having to worry about right escaping etc.
+ * A Filter is built using several independent filter objects
+ * which are combined afterwards. This object works in two
+ * modes, depending how the object is created.
+ * If the object is created using the {@link create()} method, then this is a leaf-object.
+ * If the object is created using the {@link combine()} method, then this is a container object.
+ *
+ * LDAP filters are defined in RFC-2254 and can be found under
+ * {@link http://www.ietf.org/rfc/rfc2254.txt}
+ *
+ * Here a quick copy&paste example:
+ * <code>
+ * $filter0 = Net_LDAP2_Filter::create('stars', 'equals', ' * * *');
+ * $filter_not0 = Net_LDAP2_Filter::combine('not', $filter0);
+ *
+ * $filter1 = Net_LDAP2_Filter::create('gn', 'begins', 'bar');
+ * $filter2 = Net_LDAP2_Filter::create('gn', 'ends', 'baz');
+ * $filter_comp = Net_LDAP2_Filter::combine('or',array($filter_not0, $filter1, $filter2));
+ *
+ * echo $filter_comp->asString();
+ * // This will output: (|(!(stars=\0x5c0x2a\0x5c0x2a\0x5c0x2a))(gn=bar *)(gn= *baz))
+ * // The stars in $filter0 are treaten as real stars unless you disable escaping.
+ * </code>
+ *
+ * @category Net
+ * @package  Net_LDAP2
+ * @author   Benedikt Hallinger <beni@php.net>
+ * @license  http://www.gnu.org/copyleft/lesser.html LGPL
+ * @link     http://pear.php.net/package/Net_LDAP2/
+ */
 class Net_LDAP2_Filter extends PEAR
 {
     /**
-    * Storage for combination of filters
-    *
-    * This variable holds a array of filter objects
-    * that should be combined by this filter object.
-    *
-    * @access protected
-    * @var array
-    */
+     * Storage for combination of filters
+     *
+     * This variable holds a array of filter objects
+     * that should be combined by this filter object.
+     *
+     * @access protected
+     * @var array
+     */
     protected $_subfilters = array();
 
     /**
-    * Match of this filter
-    *
-    * If this is a leaf filter, then a matching rule is stored,
-    * if it is a container, then it is a logical operator
-    *
-    * @access protected
-    * @var string
-    */
+     * Match of this filter
+     *
+     * If this is a leaf filter, then a matching rule is stored,
+     * if it is a container, then it is a logical operator
+     *
+     * @access protected
+     * @var string
+     */
     protected $_match;
 
     /**
-    * Single filter
-    *
-    * If we operate in leaf filter mode,
-    * then the constructing method stores
-    * the filter representation here
-    *
-    * @acces private
-    * @var string
-    */
+     * Single filter
+     *
+     * If we operate in leaf filter mode,
+     * then the constructing method stores
+     * the filter representation here
+     *
+     * @acces private
+     * @var string
+     */
     protected $_filter;
 
     /**
-    * Create a new Net_LDAP2_Filter object and parse $filter.
-    *
-    * This is for PERL Net::LDAP interface.
-    * Construction of Net_LDAP2_Filter objects should happen through either
-    * {@link create()} or {@link combine()} which give you more control.
-    * However, you may use the perl iterface if you already have generated filters.
-    *
-    * @param string $filter LDAP filter string
-    *
-    * @see parse()
-    */
+     * Create a new Net_LDAP2_Filter object and parse $filter.
+     *
+     * This is for PERL Net::LDAP interface.
+     * Construction of Net_LDAP2_Filter objects should happen through either
+     * {@link create()} or {@link combine()} which give you more control.
+     * However, you may use the perl iterface if you already have generated filters.
+     *
+     * @param string $filter LDAP filter string
+     *
+     * @see parse()
+     */
     public function __construct($filter = false)
     {
         // The optional parameter must remain here, because otherwise create() crashes
@@ -118,42 +117,42 @@ class Net_LDAP2_Filter extends PEAR
     }
 
     /**
-    * Constructor of a new part of a LDAP filter.
-    *
-    * The following matching rules exists:
-    *    - equals:         One of the attributes values is exactly $value
-    *                      Please note that case sensitiviness is depends on the
-    *                      attributes syntax configured in the server.
-    *    - begins:         One of the attributes values must begin with $value
-    *    - ends:           One of the attributes values must end with $value
-    *    - contains:       One of the attributes values must contain $value
-    *    - present | any:  The attribute can contain any value but must be existent
-    *    - greater:        The attributes value is greater than $value
-    *    - less:           The attributes value is less than $value
-    *    - greaterOrEqual: The attributes value is greater or equal than $value
-    *    - lessOrEqual:    The attributes value is less or equal than $value
-    *    - approx:         One of the attributes values is similar to $value
-    *
-    * If $escape is set to true (default) then $value will be escaped
-    * properly. If it is set to false then $value will be treaten as raw filter value string.
-    * You should escape yourself using {@link Net_LDAP2_Util::escape_filter_value()}!
-    *
-    * Examples:
-    * <code>
-    *   // This will find entries that contain an attribute "sn" that ends with "foobar":
-    *   $filter = new Net_LDAP2_Filter('sn', 'ends', 'foobar');
-    *
-    *   // This will find entries that contain an attribute "sn" that has any value set:
-    *   $filter = new Net_LDAP2_Filter('sn', 'any');
-    * </code>
-    *
-    * @param string  $attr_name Name of the attribute the filter should apply to
-    * @param string  $match     Matching rule (equals, begins, ends, contains, greater, less, greaterOrEqual, lessOrEqual, approx, any)
-    * @param string  $value     (optional) if given, then this is used as a filter
-    * @param boolean $escape    Should $value be escaped? (default: yes, see {@link Net_LDAP2_Util::escape_filter_value()} for detailed information)
-    *
-    * @return Net_LDAP2_Filter|Net_LDAP2_Error
-    */
+     * Constructor of a new part of a LDAP filter.
+     *
+     * The following matching rules exists:
+     *    - equals:         One of the attributes values is exactly $value
+     *                      Please note that case sensitiviness is depends on the
+     *                      attributes syntax configured in the server.
+     *    - begins:         One of the attributes values must begin with $value
+     *    - ends:           One of the attributes values must end with $value
+     *    - contains:       One of the attributes values must contain $value
+     *    - present | any:  The attribute can contain any value but must be existent
+     *    - greater:        The attributes value is greater than $value
+     *    - less:           The attributes value is less than $value
+     *    - greaterOrEqual: The attributes value is greater or equal than $value
+     *    - lessOrEqual:    The attributes value is less or equal than $value
+     *    - approx:         One of the attributes values is similar to $value
+     *
+     * If $escape is set to true (default) then $value will be escaped
+     * properly. If it is set to false then $value will be treaten as raw filter value string.
+     * You should escape yourself using {@link Net_LDAP2_Util::escape_filter_value()}!
+     *
+     * Examples:
+     * <code>
+     *   // This will find entries that contain an attribute "sn" that ends with "foobar":
+     *   $filter = new Net_LDAP2_Filter('sn', 'ends', 'foobar');
+     *
+     *   // This will find entries that contain an attribute "sn" that has any value set:
+     *   $filter = new Net_LDAP2_Filter('sn', 'any');
+     * </code>
+     *
+     * @param string  $attr_name Name of the attribute the filter should apply to
+     * @param string  $match     Matching rule (equals, begins, ends, contains, greater, less, greaterOrEqual, lessOrEqual, approx, any)
+     * @param string  $value     (optional) if given, then this is used as a filter
+     * @param boolean $escape    Should $value be escaped? (default: yes, see {@link Net_LDAP2_Util::escape_filter_value()} for detailed information)
+     *
+     * @return Net_LDAP2_Filter|Net_LDAP2_Error
+     */
     public static function &create($attr_name, $match, $value = '', $escape = true)
     {
         $leaf_filter = new Net_LDAP2_Filter();
@@ -203,19 +202,19 @@ class Net_LDAP2_Filter extends PEAR
     }
 
     /**
-    * Combine two or more filter objects using a logical operator
-    *
-    * This static method combines two or more filter objects and returns one single
-    * filter object that contains all the others.
-    * Call this method statically: $filter = Net_LDAP2_Filter('or', array($filter1, $filter2))
-    * If the array contains filter strings instead of filter objects, we will try to parse them.
-    *
-    * @param string                 $log_op  The locicall operator. May be "and", "or", "not" or the subsequent logical equivalents "&", "|", "!"
-    * @param array|Net_LDAP2_Filter $filters array with Net_LDAP2_Filter objects
-    *
-    * @return Net_LDAP2_Filter|Net_LDAP2_Error
-    * @static
-    */
+     * Combine two or more filter objects using a logical operator
+     *
+     * This static method combines two or more filter objects and returns one single
+     * filter object that contains all the others.
+     * Call this method statically: $filter = Net_LDAP2_Filter('or', array($filter1, $filter2))
+     * If the array contains filter strings instead of filter objects, we will try to parse them.
+     *
+     * @param string                 $log_op  The locicall operator. May be "and", "or", "not" or the subsequent logical equivalents "&", "|", "!"
+     * @param array|Net_LDAP2_Filter $filters array with Net_LDAP2_Filter objects
+     *
+     * @return Net_LDAP2_Filter|Net_LDAP2_Error
+     * @static
+     */
     public static function &combine($log_op, $filters)
     {
         if (PEAR::isError($filters)) {
@@ -281,16 +280,16 @@ class Net_LDAP2_Filter extends PEAR
     }
 
     /**
-    * Parse FILTER into a Net_LDAP2_Filter object
-    *
-    * This parses an filter string into Net_LDAP2_Filter objects.
-    *
-    * @param string $FILTER The filter string
-    *
-    * @access static
-    * @return Net_LDAP2_Filter|Net_LDAP2_Error
-    * @todo Leaf-mode: Do we need to escape at all? what about *-chars?check for the need of encoding values, tackle problems (see code comments)
-    */
+     * Parse FILTER into a Net_LDAP2_Filter object
+     *
+     * This parses an filter string into Net_LDAP2_Filter objects.
+     *
+     * @param string $FILTER The filter string
+     *
+     * @access static
+     * @return Net_LDAP2_Filter|Net_LDAP2_Error
+     * @todo Leaf-mode: Do we need to escape at all? what about *-chars?check for the need of encoding values, tackle problems (see code comments)
+     */
     public static function parse($FILTER)
     {
         if (preg_match('/^\((.+?)\)$/', $FILTER, $matches)) {
@@ -400,15 +399,15 @@ class Net_LDAP2_Filter extends PEAR
     }
 
     /**
-    * Get the string representation of this filter
-    *
-    * This method runs through all filter objects and creates
-    * the string representation of the filter. If this
-    * filter object is a leaf filter, then it will return
-    * the string representation of this filter.
-    *
-    * @return string|Net_LDAP2_Error
-    */
+     * Get the string representation of this filter
+     *
+     * This method runs through all filter objects and creates
+     * the string representation of the filter. If this
+     * filter object is a leaf filter, then it will return
+     * the string representation of this filter.
+     *
+     * @return string|Net_LDAP2_Error
+     */
     public function asString()
     {
         if ($this->isLeaf()) {
@@ -424,27 +423,27 @@ class Net_LDAP2_Filter extends PEAR
     }
 
     /**
-    * Alias for perl interface as_string()
-    *
-    * @see asString()
-    * @return string|Net_LDAP2_Error
-    */
+     * Alias for perl interface as_string()
+     *
+     * @see asString()
+     * @return string|Net_LDAP2_Error
+     */
     public function as_string()
     {
         return $this->asString();
     }
 
     /**
-    * Print the text representation of the filter to FH, or the currently selected output handle if FH is not given
-    *
-    * This method is only for compatibility to the perl interface.
-    * However, the original method was called "print" but due to PHP language restrictions,
-    * we can't have a print() method.
-    *
-    * @param resource $FH (optional) A filehandle resource
-    *
-    * @return true|Net_LDAP2_Error
-    */
+     * Print the text representation of the filter to FH, or the currently selected output handle if FH is not given
+     *
+     * This method is only for compatibility to the perl interface.
+     * However, the original method was called "print" but due to PHP language restrictions,
+     * we can't have a print() method.
+     *
+     * @param resource $FH (optional) A filehandle resource
+     *
+     * @return true|Net_LDAP2_Error
+     */
     public function printMe($FH = false)
     {
         if (!is_resource($FH)) {
@@ -472,24 +471,24 @@ class Net_LDAP2_Filter extends PEAR
     }
 
     /**
-    * This can be used to escape a string to provide a valid LDAP-Filter.
-    *
-    * LDAP will only recognise certain characters as the
-    * character istself if they are properly escaped. This is
-    * what this method does.
-    * The method can be called statically, so you can use it outside
-    * for your own purposes (eg for escaping only parts of strings)
-    *
-    * In fact, this is just a shorthand to {@link Net_LDAP2_Util::escape_filter_value()}.
-    * For upward compatibiliy reasons you are strongly encouraged to use the escape
-    * methods provided by the Net_LDAP2_Util class.
-    *
-    * @param string $value Any string who should be escaped
-    *
-    * @static
-    * @return string         The string $string, but escaped
-    * @deprecated  Do not use this method anymore, instead use Net_LDAP2_Util::escape_filter_value() directly
-    */
+     * This can be used to escape a string to provide a valid LDAP-Filter.
+     *
+     * LDAP will only recognise certain characters as the
+     * character istself if they are properly escaped. This is
+     * what this method does.
+     * The method can be called statically, so you can use it outside
+     * for your own purposes (eg for escaping only parts of strings)
+     *
+     * In fact, this is just a shorthand to {@link Net_LDAP2_Util::escape_filter_value()}.
+     * For upward compatibiliy reasons you are strongly encouraged to use the escape
+     * methods provided by the Net_LDAP2_Util class.
+     *
+     * @param string $value Any string who should be escaped
+     *
+     * @static
+     * @return string         The string $string, but escaped
+     * @deprecated  Do not use this method anymore, instead use Net_LDAP2_Util::escape_filter_value() directly
+     */
     public static function escape($value)
     {
         $return = Net_LDAP2_Util::escape_filter_value(array($value));
@@ -497,11 +496,11 @@ class Net_LDAP2_Filter extends PEAR
     }
 
     /**
-    * Is this a container or a leaf filter object?
-    *
-    * @access protected
-    * @return boolean
-    */
+     * Is this a container or a leaf filter object?
+     *
+     * @access protected
+     * @return boolean
+     */
     protected function isLeaf()
     {
         if (count($this->_subfilters) > 0) {

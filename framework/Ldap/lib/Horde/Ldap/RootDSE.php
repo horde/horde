@@ -1,60 +1,59 @@
 <?php
-/* vim: set expandtab tabstop=4 shiftwidth=4: */
 /**
-* File containing the Net_LDAP2_RootDSE interface class.
-*
-* PHP version 5
-*
-* @category  Net
-* @package   Net_LDAP2
-* @author    Jan Wagner <wagner@netsols.de>
-* @copyright 2009 Jan Wagner
-* @license   http://www.gnu.org/licenses/lgpl-3.0.txt LGPLv3
-* @version   SVN: $Id: RootDSE.php 286718 2009-08-03 07:30:49Z beni $
-* @link      http://pear.php.net/package/Net_LDAP2/
-*/
+ * File containing the Net_LDAP2_RootDSE interface class.
+ *
+ * PHP version 5
+ *
+ * @category  Net
+ * @package   Net_LDAP2
+ * @author    Jan Wagner <wagner@netsols.de>
+ * @copyright 2009 Jan Wagner
+ * @license   http://www.gnu.org/licenses/lgpl-3.0.txt LGPLv3
+ * @version   SVN: $Id: RootDSE.php 286718 2009-08-03 07:30:49Z beni $
+ * @link      http://pear.php.net/package/Net_LDAP2/
+ */
 
 /**
-* Includes
-*/
-require_once 'PEAR.php';
+ * Includes
+ */
+#require_once 'PEAR.php';
 
 /**
-* Getting the rootDSE entry of a LDAP server
-*
-* @category Net
-* @package  Net_LDAP2
-* @author   Jan Wagner <wagner@netsols.de>
-* @license  http://www.gnu.org/copyleft/lesser.html LGPL
-* @link     http://pear.php.net/package/Net_LDAP22/
-*/
+ * Getting the rootDSE entry of a LDAP server
+ *
+ * @category Net
+ * @package  Net_LDAP2
+ * @author   Jan Wagner <wagner@netsols.de>
+ * @license  http://www.gnu.org/copyleft/lesser.html LGPL
+ * @link     http://pear.php.net/package/Net_LDAP22/
+ */
 class Net_LDAP2_RootDSE extends PEAR
 {
     /**
-    * @access protected
-    * @var object Net_LDAP2_Entry
-    **/
+     * @access protected
+     * @var object Net_LDAP2_Entry
+     **/
     protected $_entry;
 
     /**
-    * Class constructor
-    *
-    * @param Net_LDAP2_Entry &$entry Net_LDAP2_Entry object of the RootDSE
-    */
+     * Class constructor
+     *
+     * @param Net_LDAP2_Entry &$entry Net_LDAP2_Entry object of the RootDSE
+     */
     protected function __construct(&$entry)
     {
         $this->_entry = $entry;
     }
 
     /**
-    * Fetches a RootDSE object from an LDAP connection
-    *
-    * @param Net_LDAP2 $ldap  Directory from which the RootDSE should be fetched
-    * @param array     $attrs Array of attributes to search for
-    *
-    * @access static
-    * @return Net_LDAP2_RootDSE|Net_LDAP2_Error
-    */
+     * Fetches a RootDSE object from an LDAP connection
+     *
+     * @param Net_LDAP2 $ldap  Directory from which the RootDSE should be fetched
+     * @param array     $attrs Array of attributes to search for
+     *
+     * @access static
+     * @return Net_LDAP2_RootDSE|Net_LDAP2_Error
+     */
     public static function fetch($ldap, $attrs = null)
     {
         if (!$ldap instanceof Net_LDAP2) {
@@ -87,28 +86,28 @@ class Net_LDAP2_RootDSE extends PEAR
     }
 
     /**
-    * Gets the requested attribute value
-    *
-    * Same usuage as {@link Net_LDAP2_Entry::getValue()}
-    *
-    * @param string $attr    Attribute name
-    * @param array  $options Array of options
-    *
-    * @access public
-    * @return mixed Net_LDAP2_Error object or attribute values
-    * @see Net_LDAP2_Entry::get_value()
-    */
+     * Gets the requested attribute value
+     *
+     * Same usuage as {@link Net_LDAP2_Entry::getValue()}
+     *
+     * @param string $attr    Attribute name
+     * @param array  $options Array of options
+     *
+     * @access public
+     * @return mixed Net_LDAP2_Error object or attribute values
+     * @see Net_LDAP2_Entry::get_value()
+     */
     public function getValue($attr = '', $options = '')
     {
         return $this->_entry->get_value($attr, $options);
     }
 
     /**
-    * Alias function of getValue() for perl-ldap interface
-    *
-    * @see getValue()
-    * @return mixed
-    */
+     * Alias function of getValue() for perl-ldap interface
+     *
+     * @see getValue()
+     * @return mixed
+     */
     public function get_value()
     {
         $args = func_get_args();
@@ -116,24 +115,24 @@ class Net_LDAP2_RootDSE extends PEAR
     }
 
     /**
-    * Determines if the extension is supported
-    *
-    * @param array $oids Array of oids to check
-    *
-    * @access public
-    * @return boolean
-    */
+     * Determines if the extension is supported
+     *
+     * @param array $oids Array of oids to check
+     *
+     * @access public
+     * @return boolean
+     */
     public function supportedExtension($oids)
     {
         return $this->checkAttr($oids, 'supportedExtension');
     }
 
     /**
-    * Alias function of supportedExtension() for perl-ldap interface
-    *
-    * @see supportedExtension()
-    * @return boolean
-    */
+     * Alias function of supportedExtension() for perl-ldap interface
+     *
+     * @see supportedExtension()
+     * @return boolean
+     */
     public function supported_extension()
     {
         $args = func_get_args();
@@ -141,24 +140,24 @@ class Net_LDAP2_RootDSE extends PEAR
     }
 
     /**
-    * Determines if the version is supported
-    *
-    * @param array $versions Versions to check
-    *
-    * @access public
-    * @return boolean
-    */
+     * Determines if the version is supported
+     *
+     * @param array $versions Versions to check
+     *
+     * @access public
+     * @return boolean
+     */
     public function supportedVersion($versions)
     {
         return $this->checkAttr($versions, 'supportedLDAPVersion');
     }
 
     /**
-    * Alias function of supportedVersion() for perl-ldap interface
-    *
-    * @see supportedVersion()
-    * @return boolean
-    */
+     * Alias function of supportedVersion() for perl-ldap interface
+     *
+     * @see supportedVersion()
+     * @return boolean
+     */
     public function supported_version()
     {
         $args = func_get_args();
@@ -166,24 +165,24 @@ class Net_LDAP2_RootDSE extends PEAR
     }
 
     /**
-    * Determines if the control is supported
-    *
-    * @param array $oids Control oids to check
-    *
-    * @access public
-    * @return boolean
-    */
+     * Determines if the control is supported
+     *
+     * @param array $oids Control oids to check
+     *
+     * @access public
+     * @return boolean
+     */
     public function supportedControl($oids)
     {
         return $this->checkAttr($oids, 'supportedControl');
     }
 
     /**
-    * Alias function of supportedControl() for perl-ldap interface
-    *
-    * @see supportedControl()
-    * @return boolean
-    */
+     * Alias function of supportedControl() for perl-ldap interface
+     *
+     * @see supportedControl()
+     * @return boolean
+     */
     public function supported_control()
     {
         $args = func_get_args();
@@ -191,24 +190,24 @@ class Net_LDAP2_RootDSE extends PEAR
     }
 
     /**
-    * Determines if the sasl mechanism is supported
-    *
-    * @param array $mechlist SASL mechanisms to check
-    *
-    * @access public
-    * @return boolean
-    */
+     * Determines if the sasl mechanism is supported
+     *
+     * @param array $mechlist SASL mechanisms to check
+     *
+     * @access public
+     * @return boolean
+     */
     public function supportedSASLMechanism($mechlist)
     {
         return $this->checkAttr($mechlist, 'supportedSASLMechanisms');
     }
 
     /**
-    * Alias function of supportedSASLMechanism() for perl-ldap interface
-    *
-    * @see supportedSASLMechanism()
-    * @return boolean
-    */
+     * Alias function of supportedSASLMechanism() for perl-ldap interface
+     *
+     * @see supportedSASLMechanism()
+     * @return boolean
+     */
     public function supported_sasl_mechanism()
     {
         $args = func_get_args();
@@ -216,14 +215,14 @@ class Net_LDAP2_RootDSE extends PEAR
     }
 
     /**
-    * Checks for existance of value in attribute
-    *
-    * @param array  $values values to check
-    * @param string $attr   attribute name
-    *
-    * @access protected
-    * @return boolean
-    */
+     * Checks for existance of value in attribute
+     *
+     * @param array  $values values to check
+     * @param string $attr   attribute name
+     *
+     * @access protected
+     * @return boolean
+     */
     protected function checkAttr($values, $attr)
     {
         if (!is_array($values)) $values = array($values);
