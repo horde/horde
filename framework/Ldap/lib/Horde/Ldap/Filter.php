@@ -1,16 +1,15 @@
 <?php
 /**
- * File containing the Net_LDAP2_Filter interface class.
+ * File containing the Horde_Ldap_Filter interface class.
  *
  * PHP version 5
  *
  * @category  Net
- * @package   Net_LDAP2
+ * @package   Horde_Ldap
  * @author    Benedikt Hallinger <beni@php.net>
- * @copyright 2009 Benedikt Hallinger
+ * @author    Ben Klang <ben@alkaloid.net>
+ * @copyright 2009 Benedikt Hallinger, The Horde Project
  * @license   http://www.gnu.org/licenses/lgpl-3.0.txt LGPLv3
- * @version   SVN: $Id: Filter.php 289978 2009-10-27 09:56:41Z beni $
- * @link      http://pear.php.net/package/Net_LDAP2/
  */
 
 /**
@@ -37,12 +36,12 @@
  *
  * Here a quick copy&paste example:
  * <code>
- * $filter0 = Net_LDAP2_Filter::create('stars', 'equals', ' * * *');
- * $filter_not0 = Net_LDAP2_Filter::combine('not', $filter0);
+ * $filter0 = Horde_Ldap_Filter::create('stars', 'equals', '***');
+ * $filter_not0 = Horde_Ldap_Filter::combine('not', $filter0);
  *
- * $filter1 = Net_LDAP2_Filter::create('gn', 'begins', 'bar');
- * $filter2 = Net_LDAP2_Filter::create('gn', 'ends', 'baz');
- * $filter_comp = Net_LDAP2_Filter::combine('or',array($filter_not0, $filter1, $filter2));
+ * $filter1 = Horde_Ldap_Filter::create('gn', 'begins', 'bar');
+ * $filter2 = Horde_Ldap_Filter::create('gn', 'ends', 'baz');
+ * $filter_comp = Horde_Ldap_Filter::combine('or',array($filter_not0, $filter1, $filter2));
  *
  * echo $filter_comp->asString();
  * // This will output: (|(!(stars=\0x5c0x2a\0x5c0x2a\0x5c0x2a))(gn=bar *)(gn= *baz))
@@ -50,12 +49,12 @@
  * </code>
  *
  * @category Net
- * @package  Net_LDAP2
+ * @package  Horde_Ldap
  * @author   Benedikt Hallinger <beni@php.net>
  * @license  http://www.gnu.org/copyleft/lesser.html LGPL
- * @link     http://pear.php.net/package/Net_LDAP2/
+ * @link     http://pear.php.net/package/Horde_Ldap/
  */
-class Net_LDAP2_Filter extends PEAR
+class Horde_Ldap_Filter extends PEAR
 {
     /**
      * Storage for combination of filters
@@ -92,10 +91,10 @@ class Net_LDAP2_Filter extends PEAR
     protected $_filter;
 
     /**
-     * Create a new Net_LDAP2_Filter object and parse $filter.
+     * Create a new Horde_Ldap_Filter object and parse $filter.
      *
      * This is for PERL Net::LDAP interface.
-     * Construction of Net_LDAP2_Filter objects should happen through either
+     * Construction of Horde_Ldap_Filter objects should happen through either
      * {@link create()} or {@link combine()} which give you more control.
      * However, you may use the perl iterface if you already have generated filters.
      *
@@ -135,29 +134,29 @@ class Net_LDAP2_Filter extends PEAR
      *
      * If $escape is set to true (default) then $value will be escaped
      * properly. If it is set to false then $value will be treaten as raw filter value string.
-     * You should escape yourself using {@link Net_LDAP2_Util::escape_filter_value()}!
+     * You should escape yourself using {@link Horde_Ldap_Util::escape_filter_value()}!
      *
      * Examples:
      * <code>
      *   // This will find entries that contain an attribute "sn" that ends with "foobar":
-     *   $filter = new Net_LDAP2_Filter('sn', 'ends', 'foobar');
+     *   $filter = new Horde_Ldap_Filter('sn', 'ends', 'foobar');
      *
      *   // This will find entries that contain an attribute "sn" that has any value set:
-     *   $filter = new Net_LDAP2_Filter('sn', 'any');
+     *   $filter = new Horde_Ldap_Filter('sn', 'any');
      * </code>
      *
      * @param string  $attr_name Name of the attribute the filter should apply to
      * @param string  $match     Matching rule (equals, begins, ends, contains, greater, less, greaterOrEqual, lessOrEqual, approx, any)
      * @param string  $value     (optional) if given, then this is used as a filter
-     * @param boolean $escape    Should $value be escaped? (default: yes, see {@link Net_LDAP2_Util::escape_filter_value()} for detailed information)
+     * @param boolean $escape    Should $value be escaped? (default: yes, see {@link Horde_Ldap_Util::escape_filter_value()} for detailed information)
      *
-     * @return Net_LDAP2_Filter|Net_LDAP2_Error
+     * @return Horde_Ldap_Filter|Horde_Ldap_Error
      */
     public static function &create($attr_name, $match, $value = '', $escape = true)
     {
-        $leaf_filter = new Net_LDAP2_Filter();
+        $leaf_filter = new Horde_Ldap_Filter();
         if ($escape) {
-            $array = Net_LDAP2_Util::escape_filter_value(array($value));
+            $array = Horde_Ldap_Util::escape_filter_value(array($value));
             $value = $array[0];
         }
         switch (strtolower($match)) {
@@ -196,7 +195,7 @@ class Net_LDAP2_Filter extends PEAR
             $leaf_filter->_filter = '(' . $attr_name . '=*)';
             break;
         default:
-            return PEAR::raiseError('Net_LDAP2_Filter create error: matching rule "' . $match . '" not known!');
+            throw new Horde_Ldap_Exception('Horde_Ldap_Filter create error: matching rule "' . $match . '" not known!');
         }
         return $leaf_filter;
     }
@@ -206,21 +205,17 @@ class Net_LDAP2_Filter extends PEAR
      *
      * This static method combines two or more filter objects and returns one single
      * filter object that contains all the others.
-     * Call this method statically: $filter = Net_LDAP2_Filter('or', array($filter1, $filter2))
+     * Call this method statically: $filter = Horde_Ldap_Filter('or', array($filter1, $filter2))
      * If the array contains filter strings instead of filter objects, we will try to parse them.
      *
      * @param string                 $log_op  The locicall operator. May be "and", "or", "not" or the subsequent logical equivalents "&", "|", "!"
-     * @param array|Net_LDAP2_Filter $filters array with Net_LDAP2_Filter objects
+     * @param array|Horde_Ldap_Filter $filters array with Horde_Ldap_Filter objects
      *
-     * @return Net_LDAP2_Filter|Net_LDAP2_Error
+     * @return Horde_Ldap_Filter|Horde_Ldap_Error
      * @static
      */
     public static function &combine($log_op, $filters)
     {
-        if (PEAR::isError($filters)) {
-            return $filters;
-        }
-
         // substitude named operators to logical operators
         if ($log_op == 'and') $log_op = '&';
         if ($log_op == 'or')  $log_op = '|';
@@ -229,48 +224,36 @@ class Net_LDAP2_Filter extends PEAR
         // tests for sane operation
         if ($log_op == '!') {
             // Not-combination, here we only accept one filter object or filter string
-            if ($filters instanceof Net_LDAP2_Filter) {
+            if ($filters instanceof Horde_Ldap_Filter) {
                 $filters = array($filters); // force array
             } elseif (is_string($filters)) {
-                $filter_o = self::parse($filters);
-                if (PEAR::isError($filter_o)) {
-                    $err = PEAR::raiseError('Net_LDAP2_Filter combine error: '.$filter_o->getMessage());
-                    return $err;
-                } else {
-                    $filters = array($filter_o);
+                try {
+                    $filter_o = self::parse($filters);
+                } catch (Exception $e) {
+                    throw new Horde_Ldap_Exception('Horde_Ldap_Filter combine error: '.$e->getMessage());
                 }
+                $filters = array($filter_o);
             } elseif (is_array($filters)) {
-                $err = PEAR::raiseError('Net_LDAP2_Filter combine error: operator is "not" but $filter is an array!');
-                return $err;
+                throw new Horde_Ldap_Exception('Horde_Ldap_Filter combine error: operator is "not" but $filter is an array!');
             } else {
-                $err = PEAR::raiseError('Net_LDAP2_Filter combine error: operator is "not" but $filter is not a valid Net_LDAP2_Filter nor a filter string!');
-                return $err;
+                throw new Horde_Ldap_Exception('Horde_Ldap_Filter combine error: operator is "not" but $filter is not a valid Horde_Ldap_Filter nor a filter string!');
             }
         } elseif ($log_op == '&' || $log_op == '|') {
             if (!is_array($filters) || count($filters) < 2) {
-                $err = PEAR::raiseError('Net_LDAP2_Filter combine error: parameter $filters is not an array or contains less than two Net_LDAP2_Filter objects!');
-                return $err;
+                throw new Horde_Ldap_Exception('Horde_Ldap_Filter combine error: parameter $filters is not an array or contains less than two Horde_Ldap_Filter objects!');
             }
         } else {
-            $err = PEAR::raiseError('Net_LDAP2_Filter combine error: logical operator is not known!');
-            return $err;
+            throw new Horde_Ldap_Exception('Horde_Ldap_Filter combine error: logical operator is not known!');
         }
 
-        $combined_filter = new Net_LDAP2_Filter();
+        $combined_filter = new Horde_Ldap_Filter();
         foreach ($filters as $key => $testfilter) {     // check for errors
-            if (PEAR::isError($testfilter)) {
-                return $testfilter;
-            } elseif (is_string($testfilter)) {
+            if (is_string($testfilter)) {
                 // string found, try to parse into an filter object
                 $filter_o = self::parse($testfilter);
-                if (PEAR::isError($filter_o)) {
-                    return $filter_o;
-                } else {
-                    $filters[$key] = $filter_o;
-                }
-            } elseif (!$testfilter instanceof Net_LDAP2_Filter) {
-                $err = PEAR::raiseError('Net_LDAP2_Filter combine error: invalid object passed in array $filters!');
-                return $err;
+                $filters[$key] = $filter_o;
+            } elseif (!$testfilter instanceof Horde_Ldap_Filter) {
+                throw new Horde_Ldap_Exception('Horde_Ldap_Filter combine error: invalid object passed in array $filters!');
             }
         }
 
@@ -280,14 +263,14 @@ class Net_LDAP2_Filter extends PEAR
     }
 
     /**
-     * Parse FILTER into a Net_LDAP2_Filter object
+     * Parse FILTER into a Horde_Ldap_Filter object
      *
-     * This parses an filter string into Net_LDAP2_Filter objects.
+     * This parses an filter string into Horde_Ldap_Filter objects.
      *
      * @param string $FILTER The filter string
      *
      * @access static
-     * @return Net_LDAP2_Filter|Net_LDAP2_Error
+     * @return Horde_Ldap_Filter|Horde_Ldap_Error
      * @todo Leaf-mode: Do we need to escape at all? what about *-chars?check for the need of encoding values, tackle problems (see code comments)
      */
     public static function parse($FILTER)
@@ -347,22 +330,18 @@ class Net_LDAP2_Filter extends PEAR
                 } elseif (count($subfilters) > 1) {
                     // several subfilters found
                     if ($log_op == "!") {
-                        return PEAR::raiseError("Filter parsing error: invalid filter syntax - NOT operator detected but several arguments given!");
+                        throw new Horde_Ldap_Exception("Filter parsing error: invalid filter syntax - NOT operator detected but several arguments given!");
                     }
                 } else {
                     // this should not happen unless the user specified a wrong filter
-                    return PEAR::raiseError("Filter parsing error: invalid filter syntax - got operator '$log_op' but no argument!");
+                    throw new Horde_Ldap_Exception("Filter parsing error: invalid filter syntax - got operator '$log_op' but no argument!");
                 }
 
                 // Now parse the subfilters into objects and combine them using the operator
                 $subfilters_o = array();
                 foreach ($subfilters as $s_s) {
                     $o = self::parse($s_s);
-                    if (PEAR::isError($o)) {
-                        return $o;
-                    } else {
-                        array_push($subfilters_o, self::parse($s_s));
-                    }
+                    array_push($subfilters_o, self::parse($s_s));
                 }
 
                 $filter_o = self::combine($log_op, $subfilters_o);
@@ -375,16 +354,16 @@ class Net_LDAP2_Filter extends PEAR
                 // detect multiple leaf components
                 // [TODO] Maybe this will make problems with filters containing brackets inside the value
                 if (stristr($matches[1], ')(')) {
-                    return PEAR::raiseError("Filter parsing error: invalid filter syntax - multiple leaf components detected!");
+                    throw new Horde_Ldap_Exception("Filter parsing error: invalid filter syntax - multiple leaf components detected!");
                 } else {
                     $filter_parts = preg_split('/(?<!\\\\)(=|=~|>|<|>=|<=)/', $matches[1], 2, PREG_SPLIT_DELIM_CAPTURE);
                     if (count($filter_parts) != 3) {
-                        return PEAR::raiseError("Filter parsing error: invalid filter syntax - unknown matching rule used");
+                        throw new Horde_Ldap_Exception("Filter parsing error: invalid filter syntax - unknown matching rule used");
                     } else {
-                        $filter_o          = new Net_LDAP2_Filter();
+                        $filter_o          = new Horde_Ldap_Filter();
                         // [TODO]: Do we need to escape at all? what about *-chars user provide and that should remain special?
                         //         I think, those prevent escaping! We need to check against PERL Net::LDAP!
-                        // $value_arr         = Net_LDAP2_Util::escape_filter_value(array($filter_parts[2]));
+                        // $value_arr         = Horde_Ldap_Util::escape_filter_value(array($filter_parts[2]));
                         // $value             = $value_arr[0];
                         $value             = $filter_parts[2];
                         $filter_o->_filter = '('.$filter_parts[0].$filter_parts[1].$value.')';
@@ -394,7 +373,7 @@ class Net_LDAP2_Filter extends PEAR
             }
         } else {
                // ERROR: Filter components must be enclosed in round brackets
-               return PEAR::raiseError("Filter parsing error: invalid filter syntax - filter components must be enclosed in round brackets");
+               throw new Horde_Ldap_Exception("Filter parsing error: invalid filter syntax - filter components must be enclosed in round brackets");
         }
     }
 
@@ -406,7 +385,7 @@ class Net_LDAP2_Filter extends PEAR
      * filter object is a leaf filter, then it will return
      * the string representation of this filter.
      *
-     * @return string|Net_LDAP2_Error
+     * @return string|Horde_Ldap_Error
      */
     public function asString()
     {
@@ -426,7 +405,7 @@ class Net_LDAP2_Filter extends PEAR
      * Alias for perl interface as_string()
      *
      * @see asString()
-     * @return string|Net_LDAP2_Error
+     * @return string|Horde_Ldap_Error
      */
     public function as_string()
     {
@@ -442,29 +421,18 @@ class Net_LDAP2_Filter extends PEAR
      *
      * @param resource $FH (optional) A filehandle resource
      *
-     * @return true|Net_LDAP2_Error
+     * @return true|Horde_Ldap_Error
      */
     public function printMe($FH = false)
     {
         if (!is_resource($FH)) {
-            if (PEAR::isError($FH)) {
-                return $FH;
-            }
             $filter_str = $this->asString();
-            if (PEAR::isError($filter_str)) {
-                return $filter_str;
-            } else {
-                print($filter_str);
-            }
+            print($filter_str);
         } else {
             $filter_str = $this->asString();
-            if (PEAR::isError($filter_str)) {
-                return $filter_str;
-            } else {
-                $res = @fwrite($FH, $this->asString());
-                if ($res == false) {
-                    return PEAR::raiseError("Unable to write filter string to filehandle \$FH!");
-                }
+            $res = @fwrite($FH, $this->asString());
+            if ($res == false) {
+                throw new Horde_Ldap_Exception("Unable to write filter string to filehandle \$FH!");
             }
         }
         return true;
@@ -479,19 +447,19 @@ class Net_LDAP2_Filter extends PEAR
      * The method can be called statically, so you can use it outside
      * for your own purposes (eg for escaping only parts of strings)
      *
-     * In fact, this is just a shorthand to {@link Net_LDAP2_Util::escape_filter_value()}.
+     * In fact, this is just a shorthand to {@link Horde_Ldap_Util::escape_filter_value()}.
      * For upward compatibiliy reasons you are strongly encouraged to use the escape
-     * methods provided by the Net_LDAP2_Util class.
+     * methods provided by the Horde_Ldap_Util class.
      *
      * @param string $value Any string who should be escaped
      *
      * @static
      * @return string         The string $string, but escaped
-     * @deprecated  Do not use this method anymore, instead use Net_LDAP2_Util::escape_filter_value() directly
+     * @deprecated  Do not use this method anymore, instead use Horde_Ldap_Util::escape_filter_value() directly
      */
     public static function escape($value)
     {
-        $return = Net_LDAP2_Util::escape_filter_value(array($value));
+        $return = Horde_Ldap_Util::escape_filter_value(array($value));
         return $return[0];
     }
 

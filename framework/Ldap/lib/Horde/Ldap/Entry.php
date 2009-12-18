@@ -1,5 +1,4 @@
 <?php
-/* vim: set expandtab tabstop=4 shiftwidth=4: */
 /**
  * File containing the Horde_Ldap_Entry interface class.
  *
@@ -133,8 +132,6 @@ class Horde_Ldap_Entry
      */
     protected function __construct(&$ldap, $entry = null)
     {
-        $this->PEAR('Horde_Ldap_Error');
-
         // set up entry resource or DN
         if (is_resource($entry)) {
             $this->_entry = &$entry;
@@ -191,7 +188,7 @@ class Horde_Ldap_Entry
     public static function createFresh($dn, $attrs = array())
     {
         if (!is_array($attrs)) {
-            return PEAR::raiseError("Unable to create fresh entry: Parameter \$attrs needs to be an array!");
+            throw new Horde_Ldap_Exception("Unable to create fresh entry: Parameter \$attrs needs to be an array!");
         }
 
         $entry = new Horde_Ldap_Entry($attrs, $dn);
@@ -218,10 +215,10 @@ class Horde_Ldap_Entry
     public static function createConnected($ldap, $entry)
     {
         if (!$ldap instanceof Horde_Ldap) {
-            return PEAR::raiseError("Unable to create connected entry: Parameter \$ldap needs to be a Horde_Ldap object!");
+            throw new Horde_Ldap_Exception("Unable to create connected entry: Parameter \$ldap needs to be a Horde_Ldap object!");
         }
         if (!is_resource($entry)) {
-            return PEAR::raiseError("Unable to create connected entry: Parameter \$entry needs to be a ldap entry resource!");
+            throw new Horde_Ldap_Exception("Unable to create connected entry: Parameter \$entry needs to be a ldap entry resource!");
         }
 
         $entry = new Horde_Ldap_Entry($ldap, $entry);
@@ -261,7 +258,7 @@ class Horde_Ldap_Entry
     public static function createExisting($dn, $attrs = array())
     {
         if (!is_array($attrs)) {
-            return PEAR::raiseError("Unable to create entry object: Parameter \$attrs needs to be an array!");
+            throw new Horde_Ldap_Exception("Unable to create entry object: Parameter \$attrs needs to be an array!");
         }
 
         $entry = Horde_Ldap_Entry::createFresh($dn, $attrs);
@@ -440,7 +437,7 @@ class Horde_Ldap_Entry
         $attr = $this->getAttrName($attr);
 
         if (false == array_key_exists($attr, $this->_attributes)) {
-            return PEAR::raiseError("Unknown attribute ($attr) requested");
+            throw new Horde_Ldap_Exception("Unknown attribute ($attr) requested");
         }
 
         $value = $this->_attributes[$attr];
@@ -512,7 +509,7 @@ class Horde_Ldap_Entry
     public function add($attr = array())
     {
         if (false == is_array($attr)) {
-            return PEAR::raiseError("Parameter must be an array");
+            throw new Horde_Ldap_Exception("Parameter must be an array");
         }
         foreach ($attr as $k => $v) {
             $k = $this->getAttrName($k);
@@ -658,7 +655,7 @@ class Horde_Ldap_Entry
     public function replace($attr = array(), $force = false)
     {
         if (false == is_array($attr)) {
-            return PEAR::raiseError("Parameter must be an array");
+            throw new Horde_Ldap_Exception("Parameter must be an array");
         }
         foreach ($attr as $k => $v) {
             $k = $this->getAttrName($k);
@@ -706,22 +703,23 @@ class Horde_Ldap_Entry
     public function update($ldap = null)
     {
         if ($ldap) {
-            $msg = $this->setLDAP($ldap);
-            if (Horde_Ldap::isError($msg)) {
-                return PEAR::raiseError('You passed an invalid $ldap variable to update()');
+            try {
+                $msg = $this->setLDAP($ldap);
+            } catch (Exception $e) {
+                throw new Horde_Ldap_Exception('You passed an invalid $ldap variable to update()');
             }
         }
 
         // ensure we have a valid LDAP object
         $ldap =& $this->getLDAP();
         if (!$ldap instanceof Horde_Ldap) {
-            return PEAR::raiseError("The entries LDAP object is not valid");
+            throw new Horde_Ldap_Exception("The entries LDAP object is not valid");
         }
 
         // Get and check link
         $link = $ldap->getLink();
         if (!is_resource($link)) {
-            return PEAR::raiseError("Could not update entry: internal LDAP link is invalid");
+            throw new Horde_Ldap_Exception("Could not update entry: internal LDAP link is invalid");
         }
 
         /*
@@ -736,9 +734,7 @@ class Horde_Ldap_Entry
          */
         if (true === $this->_new) {
             $msg = $ldap->add($this);
-            if (Horde_Ldap::isError($msg)) {
-                return $msg;
-            }
+
             $this->_new                = false;
             $this->_changes['add']     = array();
             $this->_changes['delete']  = array();
@@ -754,13 +750,11 @@ class Horde_Ldap_Entry
          */
         if (false == is_null($this->_newdn)) {
             if ($ldap->getLDAPVersion() !== 3) {
-                return PEAR::raiseError("Renaming/Moving an entry is only supported in LDAPv3");
+                throw new Horde_Ldap_Exception("Renaming/Moving an entry is only supported in LDAPv3");
             }
             // make dn relative to parent (needed for ldap rename)
             $parent = Horde_Ldap_Util::ldap_explode_dn($this->_newdn, array('casefolding' => 'none', 'reverse' => false, 'onlyvalues' => false));
-            if (Horde_Ldap::isError($parent)) {
-                return $parent;
-            }
+
             $child = array_shift($parent);
             // maybe the dn consist of a multivalued RDN, we must build the dn in this case
             // because the $child-RDN is an array!
@@ -771,8 +765,8 @@ class Horde_Ldap_Entry
 
             // rename/move
             if (false == @ldap_rename($link, $this->_dn, $child, $parent, true)) {
-                return PEAR::raiseError("Entry not renamed: " .
-                                        @ldap_error($link), @ldap_errno($link));
+                throw new Horde_Ldap_Exception("Entry not renamed: " .
+                                               @ldap_error($link), @ldap_errno($link));
             }
             // reflect changes to local copy
             $this->_dn    = $this->_newdn;
@@ -787,14 +781,14 @@ class Horde_Ldap_Entry
             // if attribute exists, add new values
             if ($this->exists($attr)) {
                 if (false === @ldap_mod_add($link, $this->dn(), array($attr => $value))) {
-                    return PEAR::raiseError("Could not add new values to attribute $attr: " .
-                                            @ldap_error($link), @ldap_errno($link));
+                    throw new Horde_Ldap_Exception("Could not add new values to attribute $attr: " .
+                                                   @ldap_error($link), @ldap_errno($link));
                 }
             } else {
                 // new attribute
                 if (false === @ldap_modify($link, $this->dn(), array($attr => $value))) {
-                    return PEAR::raiseError("Could not add new attribute $attr: " .
-                                            @ldap_error($link), @ldap_errno($link));
+                    throw new Horde_Ldap_Exception("Could not add new attribute $attr: " .
+                                                   @ldap_error($link), @ldap_errno($link));
                 }
             }
             // all went well here, I guess
@@ -808,8 +802,8 @@ class Horde_Ldap_Entry
                 $value = $this->_original[$attr];
             }
             if (false === @ldap_mod_del($link, $this->dn(), array($attr => $value))) {
-                return PEAR::raiseError("Could not delete attribute $attr: " .
-                                        @ldap_error($link), @ldap_errno($link));
+                throw new Horde_Ldap_Exception("Could not delete attribute $attr: " .
+                                               @ldap_error($link), @ldap_errno($link));
             }
             unset($this->_changes["delete"][$attr]);
         }
@@ -817,8 +811,8 @@ class Horde_Ldap_Entry
         // REPLACE
         foreach ($this->_changes["replace"] as $attr => $value) {
             if (false === @ldap_modify($link, $this->dn(), array($attr => $value))) {
-                return PEAR::raiseError("Could not replace attribute $attr values: " .
-                                        @ldap_error($link), @ldap_errno($link));
+                throw new Horde_Ldap_Exception("Could not replace attribute $attr values: " .
+                                               @ldap_error($link), @ldap_errno($link));
             }
             unset($this->_changes["replace"][$attr]);
         }
@@ -856,8 +850,7 @@ class Horde_Ldap_Entry
     public function &getLDAP()
     {
         if (!$this->_ldap instanceof Horde_Ldap) {
-            $err = new PEAR_Error('LDAP is not a valid Horde_Ldap object');
-            return $err;
+            throw new Horde_Ldap_Exception('LDAP is not a valid Horde_Ldap object');
         } else {
             return $this->_ldap;
         }
@@ -877,7 +870,7 @@ class Horde_Ldap_Entry
     public function setLDAP(&$ldap)
     {
         if (!$ldap instanceof Horde_Ldap) {
-            return PEAR::raiseError("LDAP is not a valid Horde_Ldap object");
+            throw new Horde_Ldap_Exception("LDAP is not a valid Horde_Ldap object");
         } else {
             $this->_ldap =& $ldap;
             return true;
@@ -949,11 +942,7 @@ class Horde_Ldap_Entry
 
         // fetch attribute values
         $attr = $this->getValue($attr_name, 'all');
-        if (Horde_Ldap::isError($attr)) {
-            return $attr;
-        } else {
-            unset($attr['count']);
-        }
+        unset($attr['count']);
 
         // perform preg_match() on all values
         $match = false;
