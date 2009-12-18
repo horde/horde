@@ -188,7 +188,7 @@ var DimpBase = {
 
                 // This catches the refresh case - no need to re-add to history
                 if (!Object.isUndefined(this.folder) && !this.search) {
-                    location.hash = escape(loc);
+                    location.hash = encodeURIComponent(loc);
                 }
             }
 
@@ -208,7 +208,7 @@ var DimpBase = {
                 return;
             }
             this.highlightSidebar('app' + app);
-            location.hash = escape(loc);
+            location.hash = encodeURIComponent(loc);
             if (data) {
                 this.iframeContent(loc, data);
             } else if (DIMP.conf.app_urls[app]) {
@@ -231,14 +231,14 @@ var DimpBase = {
 
         case 'portal':
             this.highlightSidebar('appportal');
-            location.hash = escape(loc);
+            location.hash = encodeURIComponent(loc);
             DimpCore.setTitle(DIMP.text.portal);
             DimpCore.doAction('ShowPortal', {}, { callback: this._portalCallback.bind(this) });
             break;
 
         case 'options':
             this.highlightSidebar('appoptions');
-            location.hash = escape(loc);
+            location.hash = encodeURIComponent(loc);
             DimpCore.setTitle(DIMP.text.prefs);
             this.iframeContent(loc, DIMP.conf.URI_PREFS_IMP);
             break;
@@ -1198,7 +1198,7 @@ var DimpBase = {
             eval(r.js.join(';'));
         }
 
-        location.hash = escape('msg:' + row.view + ':' + row.imapuid);
+        location.hash = encodeURIComponent('msg:' + row.view + ':' + row.imapuid);
     },
 
     // opts = mailbox, uid
@@ -2795,7 +2795,7 @@ var DimpBase = {
         }
 
         if (!tmp.empty()) {
-            this.go(unescape(tmp));
+            this.go(decodeURIComponent(tmp));
         } else if (DIMP.conf.login_view == 'inbox') {
             this.go('folder:INBOX');
         } else {
