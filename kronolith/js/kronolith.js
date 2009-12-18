@@ -2540,7 +2540,7 @@ KronolithCore = {
 
     clickHandler: function(e, dblclick)
     {
-        if (e.isRightClick()) {
+        if (e.isRightClick() || typeof e.element != 'function') {
             return;
         }
 
