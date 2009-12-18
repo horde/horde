@@ -775,7 +775,7 @@ case 'PurgeDeleted':
     }
     break;
 
-case 'ModifyPollFolder':
+case 'ModifyPoll':
     if (empty($mbox)) {
         break;
     }
