@@ -79,10 +79,6 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
      */
     function _content()
     {
-        global $registry, $prefs;
-
-        // @TODO Remove this hack when maintenance is refactored.
-        $no_maint = true;
         require_once dirname(__FILE__) . '/../base.php';
 
         Horde::addScriptFile('tooltips.js', 'horde');
@@ -161,7 +157,7 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
                     } elseif ($day->diff() < 7) {
                         $dayname = $day->strftime('%A');
                     } else {
-                        $dayname = $day->strftime($prefs->getValue('date_format'));
+                        $dayname = $day->strftime($GLOBALS['prefs']->getValue('date_format'));
                     }
                     $url = Horde::applicationUrl('day.php', true)
                         ->add('date', $day->dateString());
@@ -178,23 +174,19 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
                 if ($event_active) {
                     $html .= '<strong>';
                 }
-
                 if ($event->isAllDay()) {
                     $time = _("All day");
                 } else {
-                    $time = $event->start->format($prefs->getValue('twentyFour') ? 'H:i' : 'h:ia')
-                        . '-' . $event->end->format($prefs->getValue('twentyFour') ? 'H:i' : 'h:ia');
-                }
-
-                $text = $event->getTitle();
-                if ($event->location) {
-                    $text .= ' (' . $event->location . ')';
+                    $time = $event->start->format($GLOBALS['prefs']->getValue('twentyFour') ? 'H:i' : 'h:ia')
+                        . '-' . $event->end->format($GLOBALS['prefs']->getValue('twentyFour') ? 'H:i' : 'h:ia');
                 }
                 $html .= $time;
                 if ($event_active) {
                     $html .= '</strong>';
                 }
+                $html .= '&nbsp;</td>';
 
+                $html .= '<td class="text" valign="top">';
                 if ($event_active) {
                     $html .= '<strong>';
                 }
