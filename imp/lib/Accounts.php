@@ -36,7 +36,7 @@ class IMP_Accounts
     static public function singleton()
     {
         if (!isset(self::$_instance)) {
-            self::$_instance = new IMP_Accounts();
+            self::$_instance = new self();
         }
 
         return self::$_instance;

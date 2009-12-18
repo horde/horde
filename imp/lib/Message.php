@@ -42,7 +42,7 @@ class IMP_Message
     public static function singleton()
     {
         if (!self::$_instance) {
-            self::$_instance = new IMP_Message();
+            self::$_instance = new self();
         }
 
         return self::$_instance;

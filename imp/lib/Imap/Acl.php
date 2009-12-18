@@ -45,7 +45,7 @@ class IMP_Imap_Acl
     static public function singleton()
     {
         if (!self::$_instance) {
-            self::$_instance = new IMP_Imap_Acl();
+            self::$_instance = new self();
         }
 
         return self::$_instance;

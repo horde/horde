@@ -39,7 +39,7 @@ class IMP_Imap_Flags
     static public function singleton()
     {
         if (!isset(self::$_instance)) {
-            self::$_instance = new IMP_Imap_Flags();
+            self::$_instance = new self();
         }
 
         return self::$_instance;

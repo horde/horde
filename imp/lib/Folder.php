@@ -49,7 +49,7 @@ class IMP_Folder
     static public function singleton()
     {
         if (is_null(self::$_instance)) {
-            self::$_instance = new IMP_Folder();
+            self::$_instance = new self();
         }
 
         return self::$_instance;

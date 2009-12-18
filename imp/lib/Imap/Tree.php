@@ -221,7 +221,7 @@ class IMP_Imap_Tree
             }
 
             if (empty(self::$_instance)) {
-                self::$_instance = new IMP_Imap_Tree();
+                self::$_instance = new self();
             }
         }
 

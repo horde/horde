@@ -68,7 +68,7 @@ class IMP_Quota
     static public function factory($driver, $params = array())
     {
         $driver = basename($driver);
-        $class = 'IMP_Quota_' . ucfirst($driver);
+        $class = __CLASS__ . '_' . ucfirst($driver);
 
         if (class_exists($class)) {
             return new $class($params);

@@ -112,7 +112,7 @@ class IMP_Contents
             : $in;
 
         if (empty(self::$_instances[$sig])) {
-            self::$_instances[$sig] = new IMP_Contents($in);
+            self::$_instances[$sig] = new self($in);
         }
 
         return self::$_instances[$sig];

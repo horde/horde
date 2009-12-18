@@ -84,7 +84,7 @@ class IMP_Mailbox
     static public function singleton($mailbox, $uid = null)
     {
         if (!isset(self::$_instances[$mailbox])) {
-            self::$_instances[$mailbox] = new IMP_Mailbox($mailbox, $uid);
+            self::$_instances[$mailbox] = new self($mailbox, $uid);
         } elseif (!is_null($uid)) {
             self::$_instances[$mailbox]->setIndex($uid);
         }

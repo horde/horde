@@ -105,7 +105,7 @@ class IMP_Compose
 
         if (is_null($cacheid) || empty(self::$_instances[$cacheid])) {
             $cacheid = is_null($cacheid) ? uniqid(mt_rand()) : $cacheid;
-            self::$_instances[$cacheid] = new IMP_Compose($cacheid);
+            self::$_instances[$cacheid] = new self($cacheid);
         }
 
         return self::$_instances[$cacheid];
