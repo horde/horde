@@ -498,11 +498,11 @@ class IMP_Hooks
 //
 //        $session = ssh2_connect($host);
 //        if (!$session) {
-//            throw new Horde_Exception(_("Connection to server failed."), 'horde.error');
+//            throw new IMP_Exception(_("Connection to server failed."), 'horde.error');
 //        }
 //
 //        if (!ssh2_auth_password($session, $user, $pass)) {
-//            throw new Horde_Exception(_("Authentication failed."), 'horde.error');
+//            throw new IMP_Exception(_("Authentication failed."), 'horde.error');
 //        }
 //
 //        $stream = ssh2_exec($session, $command, false);
@@ -516,7 +516,7 @@ class IMP_Hooks
      * Retrieves public S/MIME keys of message recipients.
      *
      * The hook will be called first when searching for the keys, and further
-     * lookup techniques will only be used if the hook throws an excpetion or
+     * lookup techniques will only be used if the hook throws an exception or
      * returns an empty result.
      *
      * @param string $address  The email address of the recipient.
@@ -558,7 +558,7 @@ class IMP_Hooks
      * Retrieves public PGP keys of message recipients.
      *
      * The hook will be called first when searching for the keys, and further
-     * lookup techniques will only be used if the hook throws an excpetion or
+     * lookup techniques will only be used if the hook throws an exception or
      * returns an empty result.
      *
      * @param string $address  The email address of the recipient.

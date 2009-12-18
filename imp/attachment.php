@@ -23,7 +23,7 @@ $self_url = Horde::selfUrl(false, true, true);
 
 // Lets see if we are even able to send the user an attachment.
 if (!$conf['compose']['link_attachments']) {
-    throw new Horde_Exception(_("Linked attachments are forbidden."));
+    throw new IMP_Exception(_("Linked attachments are forbidden."));
 }
 
 // Gather required form variables.
@@ -31,13 +31,13 @@ $mail_user = Horde_Util::getFormData('u');
 $time_stamp = Horde_Util::getFormData('t');
 $file_name = Horde_Util::getFormData('f');
 if (is_null($mail_user) || is_null($time_stamp) || is_null($file_name)) {
-    throw new Horde_Exception(_("The attachment was not found."));
+    throw new IMP_Exception(_("The attachment was not found."));
 }
 
 // Initialize the VFS.
 $vfsroot = VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs', $conf['vfs']['type']));
 if ($vfsroot instanceof PEAR_Error) {
-    throw new Horde_Exception(sprintf(_("Could not create the VFS backend: %s"), $vfsroot->getMessage()));
+    throw new IMP_Exception(sprintf(_("Could not create the VFS backend: %s"), $vfsroot->getMessage()));
 }
 
 // Check if the file exists.
@@ -46,7 +46,7 @@ $time_stamp = basename($time_stamp);
 $file_name = escapeshellcmd(basename($file_name));
 $full_path = sprintf(IMP_Compose::VFS_LINK_ATTACH_PATH . '/%s/%d', $mail_user, $time_stamp);
 if (!$vfsroot->exists($full_path, $file_name)) {
-    throw new Horde_Exception(_("The specified attachment does not exist. It may have been deleted by the original sender."));
+    throw new IMP_Exception(_("The specified attachment does not exist. It may have been deleted by the original sender."));
 }
 
 // Check to see if we need to send a verification message.
@@ -110,7 +110,7 @@ if ($conf['compose']['link_attachments_notify']) {
 $file_data = $vfsroot->read($full_path, $file_name);
 if ($file_data instanceof PEAR_Error) {
     Horde::logMessage($file_data, __FILE__, __LINE__, PEAR_LOG_ERR);
-    throw new Horde_Exception(_("The specified file cannot be read."));
+    throw new IMP_Exception(_("The specified file cannot be read."));
 }
 $mime_type = Horde_Mime_Magic::analyzeData($file_data, isset($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null);
 if ($mime_type === false) {

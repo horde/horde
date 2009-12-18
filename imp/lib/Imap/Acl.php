@@ -40,6 +40,7 @@ class IMP_Imap_Acl
      * It will only create a new instance if no instance currently exists.
      *
      * @return IMP_Imap_Acl  The created concrete instance.
+     * @throws Horde_Exception
      */
     static public function singleton()
     {
@@ -52,6 +53,8 @@ class IMP_Imap_Acl
 
     /**
      * Constructor.
+     *
+     * @throws Horde_Exception
      */
     protected function __construct()
     {

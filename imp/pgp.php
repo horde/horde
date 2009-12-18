@@ -265,7 +265,7 @@ case 'save_attachment_public_key':
     $contents = IMP_Contents::singleton(Horde_Util::getFormData('uid') . IMP::IDX_SEP . Horde_Util::getFormData('mailbox'));
     $mime_part = $contents->getMIMEPart(Horde_Util::getFormData('mime_id'));
     if (empty($mime_part)) {
-        throw new Horde_Exception('Cannot retrieve public key from message.');
+        throw new IMP_Exception('Cannot retrieve public key from message.');
     }
 
     /* Add the public key to the storage system. */
