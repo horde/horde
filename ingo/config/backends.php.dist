@@ -209,7 +209,11 @@ $backends['sieve'] = array(
         // 'password' => '*****',
     ),
     'script' => 'sieve',
-    'scriptparams' => array(),
+    'scriptparams' => array(
+        // If using Dovecot or any other Sieve implementation that requires
+        // folder names to be UTF-8 encoded, set this parameter to true.
+        'utf8' => false,
+     ),
     'shares' => false
 );
 

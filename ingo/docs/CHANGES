@@ -10,7 +10,7 @@ v2.0-git
 v1.2.4-cvs
 ----------
 
-
+[jan] Add Sieve configuration to use UTF-8 encoded folder names (for Dovecot).
 
 
 ------

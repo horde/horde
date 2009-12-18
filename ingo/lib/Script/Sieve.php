@@ -266,7 +266,7 @@ class Ingo_Script_Sieve extends Ingo_Script {
             $action[] = new Sieve_Action_Keep();
             $action[] = new Sieve_Action_Removeflag(array('flags' => Ingo_Storage::FLAG_DELETED));
         } else {
-            $action[] = new Sieve_Action_Fileinto(array('folder' => $folder));
+            $action[] = new Sieve_Action_Fileinto(array_merge($this->_params, array('folder' => $folder)));
         }
 
         $action[] = new Sieve_Action_Stop();
@@ -435,9 +435,7 @@ class Ingo_Script_Sieve extends Ingo_Script {
         $this->_blocks[] = new Sieve_Comment(_("Spam Filter"));
 
         $actions = array();
-        $actions[] = new Sieve_Action_Fileinto(array(
-            'folder' => $spam->getSpamFolder()
-        ));
+        $actions[] = new Sieve_Action_Fileinto(array_merge($this->_params, array('folder' => $spam->getSpamFolder())));
 
         if ($GLOBALS['conf']['spam']['compare'] == 'numeric') {
             $vals = array(
@@ -506,7 +504,7 @@ class Ingo_Script_Sieve extends Ingo_Script {
                     $action[] = new Sieve_Action_Addflag(array('flags' => $filter['flags']));
                 }
 
-                $action[] = new Sieve_Action_Fileinto(array('folder' => $filter['action-value']));
+                $action[] = new Sieve_Action_Fileinto(array_merge($this->_params, array('folder' => $filter['action-value'])));
 
                 if (!empty($filter['flags'])) {
                     $action[] = new Sieve_Action_RemoveFlag(array('flags' => $filter['flags']));
@@ -540,7 +538,7 @@ class Ingo_Script_Sieve extends Ingo_Script {
                 }
 
                 $action[] = new Sieve_Action_Keep();
-                $action[] = new Sieve_Action_Fileinto(array('folder' => $filter['action-value']));
+                $action[] = new Sieve_Action_Fileinto(array_merge($this->_params, array('folder' => $filter['action-value'])));
 
                 if (!empty($filter['flags'])) {
                     $action[] = new Sieve_Action_RemoveFlag(array('flags' => $filter['flags']));
@@ -2515,6 +2513,9 @@ class Sieve_Action_Fileinto extends Sieve_Action {
     function Sieve_Action_Fileinto($vars = array())
     {
         $this->_vars['folder'] = (isset($vars['folder'])) ? $vars['folder'] : '';
+        if (!empty($vars['utf8'])) {
+            $this->_vars['folder'] = String::convertCharset($this->_vars['folder'], 'UTF7-IMAP', 'UTF-8');
+        }
     }
 
     /**
