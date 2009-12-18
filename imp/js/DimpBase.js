@@ -971,6 +971,8 @@ var DimpBase = {
                 if (unseen > 0) {
                     label += ' (' + unseen + ')';
                 }
+            } else {
+                this.updateTitle.bind(this).defer();
             }
         }
         DimpCore.setTitle(label);
