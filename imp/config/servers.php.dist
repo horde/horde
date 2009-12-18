@@ -39,7 +39,7 @@
  *         with SSL support and the mail server supports secure connections.
  *
  *         The use of 'ssl' is STRONGLY DISCOURAGED. If a secure connection
- *         is needed, 'tls' should be used and  connection should be made
+ *         is needed, 'tls' should be used and the connection should be made
  *         to the base protocol port (110 for POP3, 143 for IMAP).
  *
  * port: (integer) The port that the mail service/protocol you selected runs
@@ -100,7 +100,9 @@
  *                   imp/config/hooks.php).
  *          'imap' - Use the IMAP QUOTA extension to handle quotas.
  *                   You must be connecting to a IMAP server capable of the
- *                   QUOTAROOT command to use this driver.
+ *                   QUOTAROOT command to use this driver. This is the
+ *                   RECOMMENDED way of handling quotas if the IMAP server
+ *                   supports it.
  *          'logfile' - Allow quotas on servers where IMAP Quota commands are
  *                      not supported, but quota info appears in the servers
  *                      messages log for the IMAP server.
@@ -116,12 +118,12 @@
  *        IMAP server needs to support mailbox management via IMAP commands.
  *        Do not define this value if you do not want mailbox management.
  *
- *        The following paramaeters are available (defined in 'params'):
+ *        The following parameters are available (defined in 'params'):
  *        'admin_user' - The admin user.
- *        'admin_password' - The admin user.
+ *        'admin_password' - The admin user's password.
  *        'userhierarchy' - The hierarchy where user mailboxes are stored.
  *
- * acl: (boolean) Set to true if you want to use Access Control Lists (folder
+ * acl: (boolean) Set to true if you want to use Access Control Lists (mailbox
  *      sharing). Set to false to disable (DEFAULT). Not all IMAP servers
  *      support this feature.
  *
@@ -140,20 +142,22 @@
  *                       installation of a separate PECL module and provides
  *                       less compression but is extremely fast (within 5% of
  *                       regular string operations).  If available, 'lzf' is
- *                       highly recommended.
+ *                       highly RECOMMENDED.
  *          'lifetime' - (integer) The lifetime, in seconds, of the cached
  *                       data.
  *          'slicesize' - (integer) The number of messages stored in each
  *                        cache slice.  The default should be fine for most
- *                        everyone.
+ *                        installations.
  *
  * 'debug' - (string) If set, will output debug information from the IMAP
  *           library. The value can be any PHP supported wrapper that can be
- *           opened via fopen(). For example, to output to a file (the default
- *           PHP wrapper), provide the full path to the file (this file must
- *           be writable by the PHP process). This setting should not be
- *           enabled by default on production servers, since the log file will
- *           quickly grow very large.
+ *           opened via fopen(). This setting should not be enabled by default
+ *           on production servers, since the log file will quickly grow very
+ *           large.
+ *
+ *           For example, to output to a file, provide the full path to the
+ *           file (a bare string is interpreted by PHP to be a filename). This
+ *           file must be writable by the PHP process.
  *
  *           To restrict logging to a certain user ('foo'), and to log this
  *           output to the file '/tmp/imaplog', the following can be used:
@@ -171,35 +175,34 @@
  *             extension for this setting to have an effect. By default,
  *             the server default comparator is used. (IMAP only)
  *
- * id: (array) Send ID information to the IMAP server. This must be a an array
+ * id: (array) Send ID information to the IMAP server. This must be an array
  *     with the keys being the fields to send and the values being the
  *     associated values. Your IMAP server must support the ID extension for
  *     this setting to have an effect. See RFC 2971 [3.3] for a list of
  *     defined field values. (IMAP only)
  *
  * lang: (array) A list of languages (in priority order) to be used to display
- *       display human readable messages returned by the IMAP server. Your
- *       IMAP server must support the LANGUAGE extensions for this setting to
- *       have an effect. By default, IMAP messages are output in the IMAP
- *       server default language. (IMAP only)
+ *       human readable messages returned by the IMAP server. Your IMAP server
+ *       must support the LANGUAGE extensions for this setting to have an
+ *       effect. By default, IMAP messages are output in the IMAP server
+ *       default language. (IMAP only)
  *
  * namespace: (array) The list of namespaces that exist on the server. The
  *            entries must be encoded in the UTF7-IMAP charset. Example:
  *
- *              'namespace' => array('#shared/', '#news/', '#public/')
+ *              array('#shared/', '#news/', '#public/')
  *
  *            This parameter should only be used if you want to allow access
  *            to namespaces that may not be publicly advertised by the IMAP
  *            server (see RFC 2342 [3]). These additional namespaces will be
- *            added to the list of available namespaces returned by the
- *            server.  (IMAP only)
+ *            ADDED to the list of available namespaces returned by the
+ *            server. (IMAP only)
  *
  * preferred: (string) Only useful if you want to use the same servers.php
- *            file for different machines: if the hostname of the IMP machine
- *            is identical to one of those in the preferred list, then the
- *            corresponding option in the select box will include SELECTED
- *            (i.e. it is selected per default). Otherwise the first entry
- *            in the list is selected.
+ *            file for different machines. If the hostname of the IMP machine
+ *            is identical to one of those in the preferred list, then that
+ *            entry will be selected by default on the login screen. Otherwise
+ *            the first entry in the list is selected.
  *
  * thread: (string) Set the preferred thread sort algorithm. This algorithm
  *         must be supported by the remote server. By default, IMP attempts
