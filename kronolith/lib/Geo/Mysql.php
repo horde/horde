@@ -30,6 +30,15 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
         if ($count instanceof PEAR_Error) {
             throw new Horde_Exception($count->getMessage());
         }
+
+        /* Do we actually have data? */
+        if (!$point && $count) {
+            // Delete the record.
+            $sql = "DELETE FROM kronolith_events_geo WHERE event_id = '" . $event_id . "'";
+        } elseif (!$point) {
+            return;
+        }
+
         /* INSERT or UPDATE */
         if ($count) {
             $sql = "UPDATE kronolith_events_geo SET event_coordinates = GeomFromText('POINT(" . $point['lat'] . " " . $point['lon'] . ")') WHERE event_id = '" . $event_id . "'";

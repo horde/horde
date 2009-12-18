@@ -117,6 +117,14 @@ class Kronolith_Geo_Sql extends Kronolith_Geo
             throw new Horde_Exception($count->getMessage());
         }
 
+        /* Do we actually have data? */
+        if (!$point && $count) {
+            // Delete the record.
+            $sql = "DELETE FROM kronolith_events_geo WHERE event_id = '" . $event_id . "'";
+        } elseif (!$point) {
+            return;
+        }
+
         /* INSERT or UPDATE */
         $params = array($point['lat'], $point['lng'], $event_id);
         if ($count) {
