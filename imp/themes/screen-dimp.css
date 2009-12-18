@@ -652,9 +652,9 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     position: absolute;
     z-index: 100;
     background-color: #000;
-    filter: alpha(opacity=50);
-    -moz-opacity: .5;
-    opacity: .5;
+    filter: alpha(opacity=35);
+    -moz-opacity: .35;
+    opacity: .35;
 }
 #rteloadingtxt {
     position: absolute;

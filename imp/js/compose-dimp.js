@@ -338,6 +338,9 @@ var DimpCompose = {
         if (DIMP.SpellCheckerObject) {
             DIMP.SpellCheckerObject.disable(disable);
         }
+        if (this.editor_on) {
+            this.RTELoading(disable ? 'show' : 'hide', true);
+        }
     },
 
     onNoSpellError: function(action)
@@ -399,16 +402,23 @@ var DimpCompose = {
         $('html').setValue(this.editor_on ? 1 : 0);
     },
 
-     RTELoading: function(cmd)
-     {
-         var o, r;
-         if (!$('rteloading')) {
-             r = new Element('DIV', { id: 'rteloading' }).clonePosition($('composeMessageParent'));
-             $(document.body).insert(r);
-             o = r.viewportOffset();
-             $(document.body).insert(new Element('SPAN', { id: 'rteloadingtxt' }).setStyle({ top: (o.top + 15) + 'px', left: (o.left + 15) + 'px' }).insert(DIMP.text.loading));
-         }
-         $('rteloading', 'rteloadingtxt').invoke(cmd);
+    RTELoading: function(cmd, notxt)
+    {
+        var o;
+
+        if (!$('rteloading')) {
+            $(document.body).insert(new Element('DIV', { id: 'rteloading' }).hide()).insert(new Element('SPAN', { id: 'rteloadingtxt' }).hide().insert(DIMP.text.loading));
+        }
+
+        if (cmd == 'hide') {
+            $('rteloading', 'rteloadingtxt').invoke('hide');
+        } else {
+            $('rteloading').clonePosition('composeMessageParent').show();
+            if (!notxt) {
+                o = $('rteloading').viewportOffset();
+                $('rteloadingtxt').setStyle({ top: (o.top + 15) + 'px', left: (o.left + 15) + 'px' }).show();
+            }
+        }
     },
 
     getMsgAreaHeight: function()
@@ -605,7 +615,6 @@ var DimpCompose = {
 
         if (this.editor_on) {
             this.rte.resize('100%', this.getMsgAreaHeight(), false);
-            return;
         }
 
         if (!this.row_height) {
