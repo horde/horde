@@ -46,7 +46,7 @@ class Kronolith_Event_Resource extends Kronolith_Event
 
         $this->title = $driver->convertFromDriver($SQLEvent['event_title']);
         $this->id = $SQLEvent['event_id'];
-        $this->setUID($SQLEvent['event_uid']);
+        $this->uid = $SQLEvent['event_uid'];
         $this->creator = $SQLEvent['event_creator_id'];
 
         if (!empty($SQLEvent['event_recurtype'])) {
