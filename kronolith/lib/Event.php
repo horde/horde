@@ -150,9 +150,7 @@ abstract class Kronolith_Event
      * All resources of this event.
      *
      * This is an associative array where keys are resource uids values are
-     * associative arrays with keys attendance and response... actually, do we
-     * *need* an attendence setting for resources? Shouldn't they be required
-     * by definition?
+     * associative arrays with keys attendance and response.
      *
      * @var unknown_type
      */
