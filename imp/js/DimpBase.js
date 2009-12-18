@@ -520,6 +520,7 @@ var DimpBase = {
 
         container.observe('ViewPort:contentComplete', function(e) {
             var ssc, tmp,
+                ham = spam = 'show',
                 l = this.viewport.getMetaData('label');
 
             this.setMessageListTitle();
@@ -564,19 +565,18 @@ var DimpBase = {
                 }
 
                 if (this.folder == DIMP.conf.spam_mbox) {
-                    if (!DIMP.conf.spam_spammbox && $('button_spam')) {
-                        [ $('button_spam').up(), $('ctx_message_spam') ].invoke('hide');
+                    if (!DIMP.conf.spam_spammbox) {
+                        spam = 'hide';
                     }
-                    if ($('button_ham')) {
-                        [ $('button_ham').up(), $('ctx_message_ham') ].invoke('show');
-                    }
-                } else {
-                    if ($('button_spam')) {
-                        [ $('button_spam').up(), $('ctx_message_spam') ].invoke('show');
-                    }
-                    if ($('button_ham')) {
-                        [ $('button_ham').up(), $('ctx_message_ham') ].invoke(DIMP.conf.ham_spammbox ? 'hide' : 'show');
-                    }
+                } else if (DIMP.conf.ham_spammbox) {
+                    ham = 'hide';
+                }
+
+                if ($('button_ham')) {
+                    [ $('button_ham').up(), $('ctx_message_ham') ].invoke(ham);
+                }
+                if ($('button_spam')) {
+                    [ $('button_spam').up(), $('ctx_message_spam') ].invoke(spam);
                 }
 
                 /* Read-only changes. 'oa_setflag' is handled elsewhere. */
