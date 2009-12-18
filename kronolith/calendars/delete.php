@@ -29,7 +29,8 @@ if (is_a($calendar, 'PEAR_Error')) {
     $notification->push($calendar, 'horde.error');
     header('Location: ' . Horde::applicationUrl('calendars/', true));
     exit;
-} elseif ($calendar->get('owner') != Horde_Auth::getAuth()) {
+} elseif ($calendar->get('owner') != Horde_Auth::getAuth() &&
+          (!is_null($calendar->get('owner')) || !Horde_Auth::isAdmin())) {
     $notification->push(_("You are not allowed to delete this calendar."), 'horde.error');
     header('Location: ' . Horde::applicationUrl('calendars/', true));
     exit;

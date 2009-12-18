@@ -1376,6 +1376,9 @@ class Kronolith
         $calendar->set('name', $info['name']);
         $calendar->set('color', $info['color']);
         $calendar->set('desc', $info['description']);
+        if (!empty($info['system'])) {
+            $calendar->set('owner', null);
+        }
         $tagger = self::getTagger();
         $tagger->tag($calendar->getName(), $info['tags'], 'calendar');
 
@@ -1399,7 +1402,8 @@ class Kronolith
     public static function updateShare(&$calendar, $info)
     {
         if (!Horde_Auth::getAuth() ||
-            $calendar->get('owner') != Horde_Auth::getAuth()) {
+            ($calendar->get('owner') != Horde_Auth::getAuth() &&
+             (!is_null($calendar->get('owner')) || !Horde_Auth::isAdmin()))) {
             return PEAR::raiseError(_("You are not allowed to change this calendar."));
         }
 
@@ -1407,6 +1411,7 @@ class Kronolith
         $calendar->set('name', $info['name']);
         $calendar->set('color', $info['color']);
         $calendar->set('desc', $info['description']);
+        $calendar->set('owner', empty($info['system']) ? Horde_Auth::getAuth() : null);
         if ($original_name != $info['name']) {
             $result = Kronolith::getDriver()->rename($original_name, $info['name']);
             if (is_a($result, 'PEAR_Error')) {
@@ -1430,13 +1435,14 @@ class Kronolith
      */
     public static function deleteShare($calendar)
     {
-        if (!Horde_Auth::getAuth() ||
-            $calendar->get('owner') != Horde_Auth::getAuth()) {
-            return PEAR::raiseError(_("You are not allowed to delete this calendar."));
-        }
-
         if ($calendar->getName() == Horde_Auth::getAuth()) {
             return PEAR::raiseError(_("This calendar cannot be deleted."));
+        }
+
+        if (!Horde_Auth::getAuth() ||
+            ($calendar->get('owner') != Horde_Auth::getAuth() &&
+             (!is_null($calendar->get('owner')) || !Horde_Auth::isAdmin()))) {
+            return PEAR::raiseError(_("You are not allowed to delete this calendar."));
         }
 
         // Delete the calendar.

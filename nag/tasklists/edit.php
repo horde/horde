@@ -21,6 +21,11 @@ if (is_a($tasklist, 'PEAR_Error')) {
     $notification->push($tasklist, 'horde.error');
     header('Location: ' . Horde::applicationUrl('tasklists/', true));
     exit;
+} elseif ($tasklist->get('owner') != Horde_Auth::getAuth() &&
+          (!is_null($tasklist->get('owner')) || !Horde_Auth::isAdmin())) {
+    $notification->push(_("You are not allowed to change this task list."), 'horde.error');
+    header('Location: ' . Horde::applicationUrl('tasklists/', true));
+    exit;
 }
 $form = new Nag_EditTaskListForm($vars, $tasklist);
 
@@ -44,6 +49,7 @@ if ($form->validate($vars)) {
 
 $vars->set('name', $tasklist->get('name'));
 $vars->set('description', $tasklist->get('desc'));
+$vars->set('system', is_null($tasklist->get('owner')));
 $title = $form->getTitle();
 require NAG_TEMPLATES . '/common-header.inc';
 require NAG_TEMPLATES . '/menu.inc';

@@ -36,6 +36,9 @@ class Nag_EditTaskListForm extends Horde_Form {
         $this->addHidden('', 't', 'text', true);
         $this->addVariable(_("Task List Name"), 'name', 'text', true);
         $this->addVariable(_("Task List Description"), 'description', 'longtext', false, false, null, array(4, 60));
+        if (Horde_Auth::isAdmin()) {
+            $this->addVariable(_("System Task List"), 'system', 'boolean', false, false, _("System task lists don't have an owner. Only administrators can change the task list settings and permissions."));
+        }
 
         $this->setButtons(array(_("Save")));
     }
@@ -43,7 +46,7 @@ class Nag_EditTaskListForm extends Horde_Form {
     function execute()
     {
         $info = array();
-        foreach (array('name', 'color', 'description') as $key) {
+        foreach (array('name', 'color', 'description', 'system') as $key) {
             $info[$key] = $this->_vars->get($key);
         }
         return Nag::updateTasklist($this->_tasklist, $info);

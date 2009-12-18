@@ -442,6 +442,9 @@ class Nag
         $tasklist->set('name', $info['name']);
         $tasklist->set('color', $info['color']);
         $tasklist->set('desc', $info['description']);
+        if (!empty($info['system'])) {
+            $tasklist->set('owner', null);
+        }
 
         $result = $GLOBALS['nag_shares']->addShare($tasklist);
         if (is_a($result, 'PEAR_Error')) {
@@ -463,13 +466,15 @@ class Nag
     public static function updateTasklist(&$tasklist, $info)
     {
         if (!Horde_Auth::getAuth() ||
-            $tasklist->get('owner') != Horde_Auth::getAuth()) {
+            ($tasklist->get('owner') != Horde_Auth::getAuth() &&
+             (!is_null($tasklist->get('owner')) || !Horde_Auth::isAdmin()))) {
             return PEAR::raiseError(_("You are not allowed to change this task list."));
         }
 
         $tasklist->set('name', $info['name']);
         $tasklist->set('color', $info['color']);
         $tasklist->set('desc', $info['description']);
+        $tasklist->set('owner', empty($info['system']) ? Horde_Auth::getAuth() : null);
         $result = $tasklist->save();
         if (is_a($result, 'PEAR_Error')) {
             return PEAR::raiseError(sprintf(_("Unable to save task list \"%s\": %s"), $info['name'], $result->getMessage()));
@@ -488,7 +493,8 @@ class Nag
         }
 
         if (!Horde_Auth::getAuth() ||
-            $tasklist->get('owner') != Horde_Auth::getAuth()) {
+            ($tasklist->get('owner') != Horde_Auth::getAuth() &&
+             (!is_null($tasklist->get('owner')) || !Horde_Auth::isAdmin()))) {
             return PEAR::raiseError(_("You are not allowed to delete this task list."));
         }
 

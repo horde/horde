@@ -23,7 +23,8 @@ if (is_a($calendar, 'PEAR_Error')) {
     $notification->push($calendar, 'horde.error');
     header('Location: ' . Horde::applicationUrl('calendars/', true));
     exit;
-} elseif ($calendar->get('owner') != Horde_Auth::getAuth()) {
+} elseif ($calendar->get('owner') != Horde_Auth::getAuth() &&
+          (!is_null($calendar->get('owner')) || !Horde_Auth::isAdmin())) {
     $notification->push(_("You are not allowed to change this calendar."), 'horde.error');
     header('Location: ' . Horde::applicationUrl('calendars/', true));
     exit;
@@ -53,6 +54,7 @@ $vars->set('color', $calendar->get('color'));
 $vars->set('description', $calendar->get('desc'));
 $tagger = Kronolith::getTagger();
 $vars->set('tags', implode(',', array_values($tagger->getTags($calendar->getName(), 'calendar'))));
+$vars->set('system', is_null($calendar->get('owner')));
 $title = $form->getTitle();
 require KRONOLITH_TEMPLATES . '/common-header.inc';
 require KRONOLITH_TEMPLATES . '/menu.inc';

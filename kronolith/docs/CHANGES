@@ -2,10 +2,11 @@
 v3.0-git
 --------
 
+[jan] Add system calendars (Request #2059).
 [jan] Add URL field to events.
 [jan] Add task management capabilities to the Ajax interface.
 [jan] Manage holidays like any other calendar driver.
-[mjr] Add support for resource scheduling.
+[mjr] Add resource scheduling.
 [jan] Integrate tasks into Ajax interface (Gonçalo Queirós
       <mail@goncaloqueiros.net>).
 [mjr] Extend listTimeObjects API to include optional links and icons.

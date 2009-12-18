@@ -46,6 +46,13 @@ $sorted_tasklists = array();
 foreach ($tasklists as $tasklist) {
     $sorted_tasklists[$tasklist->getName()] = $tasklist->get('name');
 }
+if (Horde_Auth::isAdmin()) {
+    $system_tasklists = $nag_shares->listSystemShares();
+    foreach ($system_tasklists as $tasklist) {
+        $tasklists[$tasklist->getName()] = $tasklist;
+        $sorted_tasklists[$tasklist->getName()] = $tasklist->get('name');
+    }
+}
 asort($sorted_tasklists);
 
 $edit_img = Horde::img('edit.png', _("Edit"), null, $registry->getImageDir('horde'));

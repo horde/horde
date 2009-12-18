@@ -44,7 +44,7 @@
    <td><?php echo $remote_unsubscribe_url_base->add('url', $calendar['url'])->link(array('title' => _("Unsubscribe"))) . $delete_img . '</a>' ?></td>
 <?php else: ?>
    <td><?php echo htmlspecialchars($calendar->get('name')) ?></td>
-   <td><?php echo _("Local") ?></td>
+   <td><?php echo is_null($calendar->get('owner')) ? _("System") : _("Local") ?></td>
    <td><?php $url = $display_url_base->add('display_cal', $calendar->getName()); echo $url->link(array('title' => _("Click or copy this URL to display this calendar"))) . htmlspecialchars(shorten_url($url)) . '</a>' ?></td>
    <td><?php $url = new Horde_Url($subscribe_url_base . ($calendar->get('owner') ? $calendar->get('owner') : '-system-') . '/' . $calendar->getName() . '.ics'); echo $url->link(array('title' => _("Click or copy this URL to display this calendar"), 'target' => '_blank')) . htmlspecialchars(shorten_url($url)) . '</a>' ?></td>
    <td><?php echo $edit_url_base->add('c', $calendar->getName())->link(array('title' => _("Edit"))) . $edit_img . '</a>' ?></td>

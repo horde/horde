@@ -38,13 +38,17 @@ class Kronolith_EditCalendarForm extends Horde_Form {
         $this->addVariable(_("Color"), 'color', 'colorpicker', false);
         $this->addVariable(_("Description"), 'description', 'longtext', false, false, null, array(4, 60));
         $this->addVariable(_("Tags"), 'tags', 'text', false);
+        if (Horde_Auth::isAdmin()) {
+            $this->addVariable(_("System Calendar"), 'system', 'boolean', false, false, _("System calendars don't have an owner. Only administrators can change the calendar settings and permissions."));
+        }
+
         $this->setButtons(array(_("Save")));
     }
 
     function execute()
     {
         $info = array();
-        foreach (array('name', 'color', 'description', 'tags') as $key) {
+        foreach (array('name', 'color', 'description', 'tags', 'system') as $key) {
             $info[$key] = $this->_vars->get($key);
         }
         return Kronolith::updateShare($this->_calendar, $info);

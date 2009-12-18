@@ -15,6 +15,7 @@
  <thead>
   <tr>
    <th class="sortdown"><?php echo _("Task List") ?></th>
+   <th><?php echo _("Kind") ?></th>
    <th class="tasklist-list-url nosort"><?php echo _("Display URL") ?></th>
    <th class="tasklist-list-url nosort"><?php echo _("Subscription URL") ?></th>
    <th class="tasklist-list-icon nosort" colspan="<?php echo empty($conf['share']['no_sharing']) ? 3 : 2 ?>">&nbsp;</th>
@@ -26,6 +27,7 @@
  <?php $tasklist = $tasklists[$tasklist_id] ?>
   <tr>
    <td><?php echo htmlspecialchars($tasklist->get('name')) ?></td>
+   <td><?php echo is_null($tasklist->get('owner')) ? _("System") : _("Local") ?></td>
    <td><?php $url = Horde_Util::addParameter($display_url_base, 'display_cal', $tasklist->getName(), false); echo Horde::link($url, _("Click or copy this URL to display this task list"), '', '_blank') . htmlspecialchars(shorten_url($url)) . '</a>' ?></td>
    <td><?php $url = $subscribe_url_base . ($tasklist->get('owner') ? $tasklist->get('owner') : '-system-') . '/' . $tasklist->getName() . '.ics'; echo Horde::link($url, _("Click or copy this URL to display this task list"), '', '_blank') . htmlspecialchars(shorten_url($url)) . '</a>' ?></td>
    <td><?php echo Horde::link(Horde_Util::addParameter($edit_url_base, 't', $tasklist->getName()), _("Edit")) . $edit_img . '</a>' ?></td>
