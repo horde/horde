@@ -264,16 +264,16 @@ var ImpSearch = {
                 new Element('EM').insert(this.getLabel(id)),
                 new Element('SPAN').insert(new Element('SPAN')).insert(new Element('A', { href: '#', className: 'calendarPopup', title: this.text.dateselection }).insert(new Element('SPAN', { className: 'searchuiImg searchuiCalendar' })))
             ];
-        this.replaceDate(this.insertCriteria(tmp), id, { y: d.getFullYear(), m: d.getMonth(), d: d.getDate() });
+        this.replaceDate(this.insertCriteria(tmp), id, d);
     },
 
-    replaceDate: function(id, type, date)
+    replaceDate: function(id, type, d)
     {
-        $(id).down('TD SPAN SPAN').update(this.data.months[data.getMonth()] + ' ' + data.getDate() + ', ' + data.getYear() + 1900);
+        $(id).down('TD SPAN SPAN').update(this.data.months[d.getMonth()] + ' ' + d.getDate() + ', ' + (d.getYear() + 1900));
         // Need to store date information at all times in criteria, since we
         // have no other way to track this information (there is not form
         // field for this type).
-        this.criteria[id] = { t: type, v: data };
+        this.criteria[id] = { t: type, v: d };
     },
 
     insertWithin: function(id, data)
@@ -416,8 +416,7 @@ var ImpSearch = {
                     e.stop();
                     return;
                 } else if (elt.hasClassName('searchuiCalendar')) {
-                    tmp = this.criteria[elt.up('TR').identify()];
-                    Horde_Calendar.open(elt.identify(), new Date(tmp.v.y, tmp.v.m, tmp.v.d), this.replaceDate.bind(this, elt.up('TR').identify(), tmp.t));
+                    Horde_Calendar.open(elt.identify(), this.criteria[elt.up('TR').identify()].v);
                     e.stop();
                     return;
                 }
@@ -440,9 +439,16 @@ var ImpSearch = {
     {
         this.updateFolderList(r.responseJSON);
         this.updateSelectedFolders(flist);
+    },
+
+    calendarSelectHandler: function(e)
+    {
+        var elt = e.element();
+        this.replaceDate(elt.up('TR').identify(), this.criteria[elt.identify()], e.memo);
     }
 
 };
 
-document.observe('change', ImpSearch.changeHandler.bind(ImpSearch));
-document.observe('click', ImpSearch.clickHandler.bind(ImpSearch));
+document.observe('change', ImpSearch.changeHandler.bindAsEventListener(ImpSearch));
+document.observe('click', ImpSearch.clickHandler.bindAsEventListener(ImpSearch));
+document.observe('Horde_Calendar:select', ImpSearch.calendarSelectHandler.bindAsEventListener(ImpSearch));
