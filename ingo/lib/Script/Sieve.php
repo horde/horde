@@ -952,7 +952,7 @@ class Sieve_If {
     /**
      * Constructor.
      *
-     * @params Sieve_Test $test  A Sieve_Test object.
+     * @param Sieve_Test $test  A Sieve_Test object.
      */
     function Sieve_If($test = null)
     {
@@ -1111,7 +1111,7 @@ class Sieve_Else {
     /**
      * Constructor.
      *
-     * @params Sieve_Action|array $actions  A Sieve_Action object or a list of
+     * @param Sieve_Action|array $actions  A Sieve_Action object or a list of
      *                                      Sieve_Action objects.
      */
     function Sieve_Else($actions = null)
@@ -1215,7 +1215,7 @@ class Sieve_Elsif {
     /**
      * Constructor.
      *
-     * @params Sieve_Test $test  A Sieve_Test object.
+     * @param Sieve_Test $test  A Sieve_Test object.
      */
     function Sieve_Elsif($test = null)
     {
@@ -1436,7 +1436,7 @@ class Sieve_Test_Allof extends Sieve_Test {
     /**
      * Constructor.
      *
-     * @params Sieve_Test|array $test  A Sieve_Test object or a list of
+     * @param Sieve_Test|array $test  A Sieve_Test object or a list of
      *                                 Sieve_Test objects.
      */
     function Sieve_Test_Allof($test = null)
@@ -1534,7 +1534,7 @@ class Sieve_Test_Anyof extends Sieve_Test {
     /**
      * Constructor.
      *
-     * @params Sieve_Test|array $test  A Sieve_Test object or a list of
+     * @param Sieve_Test|array $test  A Sieve_Test object or a list of
      *                                 Sieve_Test objects.
      */
     function Sieve_Test_Anyof($test = null)
@@ -1628,7 +1628,7 @@ class Sieve_Test_Relational extends Sieve_Test {
     /**
      * Constructor.
      *
-     * @params array $vars  Any required parameters.
+     * @param array $vars  Any required parameters.
      */
     function Sieve_Test_Relational($vars = array())
     {
@@ -1727,7 +1727,7 @@ class Sieve_Test_Size extends Sieve_Test {
     /**
      * Constructor.
      *
-     * @params array $vars  Any required parameters.
+     * @param array $vars  Any required parameters.
      */
     function Sieve_Test_Size($vars = array())
     {
@@ -1776,7 +1776,7 @@ class Sieve_Test_Not extends Sieve_Test {
     /**
      * Constructor.
      *
-     * @params Sieve_Test $test  A Sieve_Test object.
+     * @param Sieve_Test $test  A Sieve_Test object.
      */
     function Sieve_Test_Not($test)
     {
@@ -1829,7 +1829,7 @@ class Sieve_Test_Exists extends Sieve_Test {
     /**
      * Constructor.
      *
-     * @params array $vars  Any required parameters.
+     * @param array $vars  Any required parameters.
      */
     function Sieve_Test_Exists($vars = array())
     {
@@ -1892,7 +1892,7 @@ class Sieve_Test_Address extends Sieve_Test {
     /**
      * Constructor.
      *
-     * @params array $vars  Any required parameters.
+     * @param array $vars  Any required parameters.
      */
     function Sieve_Test_Address($vars)
     {
@@ -2005,7 +2005,7 @@ class Sieve_Test_Header extends Sieve_Test {
     /**
      * Constructor.
      *
-     * @params array $vars  Any required parameters.
+     * @param array $vars  Any required parameters.
      */
     function Sieve_Test_Header($vars = array())
     {
@@ -2118,7 +2118,7 @@ class Sieve_Test_Body extends Sieve_Test {
     /**
      * Constructor.
      *
-     * @params array $vars  Any required parameters.
+     * @param array $vars  Any required parameters.
      */
     function Sieve_Test_Body($vars = array())
     {
@@ -2204,7 +2204,7 @@ class Sieve_Comment {
     /**
      * Constructor.
      *
-     * @params string $comment  The comment text.
+     * @param string $comment  The comment text.
      */
     function Sieve_Comment($comment)
     {
@@ -2320,7 +2320,7 @@ class Sieve_Action_Redirect extends Sieve_Action {
     /**
      * Constructor.
      *
-     * @params array $vars  Any required parameters.
+     * @param array $vars  Any required parameters.
      */
     function Sieve_Action_Redirect($vars = array())
     {
@@ -2361,7 +2361,7 @@ class Sieve_Action_Reject extends Sieve_Action {
     /**
      * Constructor.
      *
-     * @params array $vars  Any required parameters.
+     * @param array $vars  Any required parameters.
      */
     function Sieve_Action_Reject($vars = array())
     {
@@ -2510,7 +2510,7 @@ class Sieve_Action_Fileinto extends Sieve_Action {
     /**
      * Constructor.
      *
-     * @params array $vars  Any required parameters.
+     * @param array $vars  Any required parameters.
      */
     function Sieve_Action_Fileinto($vars = array())
     {
@@ -2566,7 +2566,7 @@ class Sieve_Action_Vacation extends Sieve_Action {
     /**
      * Constructor.
      *
-     * @params array $vars  Any required parameters.
+     * @param array $vars  Any required parameters.
      */
     function Sieve_Action_Vacation($vars = array())
     {
@@ -2917,7 +2917,7 @@ class Sieve_Action_Notify extends Sieve_Action {
     /**
      * Constructor.
      *
-     * @params array $vars  Any required parameters.
+     * @param array $vars  Any required parameters.
      */
     function Sieve_Action_Notify($vars = array())
     {
