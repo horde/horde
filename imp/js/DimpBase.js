@@ -1388,20 +1388,21 @@ var DimpBase = {
             args = this.viewport.addRequestParams({});
         }
         $('checkmaillink').down('A').update('[' + DIMP.text.check + ']');
-        DimpCore.doAction('Poll', args, { callback: this._pollCallback.bind(this) });
+        DimpCore.doAction('Poll', args);
     },
 
-    _pollCallback: function(r)
+    pollCallback: function(r)
     {
-        r = r.response;
         if (r.poll) {
             $H(r.poll).each(function(u) {
                 this.updateUnseenStatus(u.key, u.value);
             }, this);
         }
+
         if (r.quota) {
             this._displayQuota(r.quota);
         }
+
         $('checkmaillink').down('A').update(DIMP.text.getmail);
     },
 
@@ -1536,7 +1537,7 @@ var DimpBase = {
 
             if (uids.size()) {
                 if (e.ctrlKey) {
-                    DimpCore.doAction('CopyMessage', this.viewport.addRequestParams({ tofld: foldername }), { uids: uids, callback: this._pollCallback.bind(this) });
+                    DimpCore.doAction('CopyMessage', this.viewport.addRequestParams({ tofld: foldername }), { uids: uids });
                 } else if (this.folder != foldername) {
                     // Don't allow drag/drop to the current folder.
                     this.updateFlag(uids, '\\deleted', true);
@@ -2093,7 +2094,6 @@ var DimpBase = {
         var search = null, uids = [], vs;
 
         this.loadingImg('viewport', false);
-        this._pollCallback(r);
 
         r = r.response;
         if (!r.uids || r.folder != this.folder) {
@@ -2153,7 +2153,6 @@ var DimpBase = {
                     this.updateFlag(this.viewport.createSelection('rownum', $A($R(1, this.viewport.getMetaData('total_rows')))), f, r.response.set);
                 }, this);
             }
-            this._pollCallback(r);
         }
     },
 
@@ -2726,10 +2725,9 @@ var DimpBase = {
             p.response.poll[f] = 0;
         }
 
-        this._pollCallback(p);
-
         if (!r.add) {
             fid.store('u', null);
+            this.updateUnseenStatus(r.folder, 0);
         }
     },
 
@@ -3022,12 +3020,11 @@ DimpBase._folderDropConfig = {
     onDrop: DimpBase._folderDropHandler.bind(DimpBase)
 };
 
-/* Need to register a callback function for doAction to catch viewport
- * information returned from the server. */
 DimpCore.onDoActionComplete = function(r) {
     if (DimpBase.viewport) {
         DimpBase.viewport.parseJSONResponse(r);
     }
+    DimpBase.pollCallback(r);
 };
 
 /* Click handler. */
