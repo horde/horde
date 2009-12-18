@@ -424,7 +424,7 @@ body.kronolithAjax {
     top: 10px;
     bottom: 10px;
     left: 10px;
-    width: 153px;
+    width: 165px;
 }
 #kronolithMenuCalendars {
     position: absolute;
@@ -821,7 +821,7 @@ div.kronolithFormActions {
 #kronolithBody {
     position: absolute;
     top: 43px;
-    left: 175px;
+    left: 185px;
     right: 10px;
     bottom: 10px;
     overflow: auto;
