@@ -63,6 +63,7 @@ if (isset($url)) {
 
 $title = _("Add a new event");
 $calendars = Kronolith::listCalendars(false, Horde_Perms::EDIT | Kronolith::PERMS_DELEGATE);
+Horde::addScriptFile('new.js', 'kronolith');
 Horde::addScriptFile('popup.js', 'horde');
 require KRONOLITH_TEMPLATES . '/common-header.inc';
 require KRONOLITH_TEMPLATES . '/menu.inc';

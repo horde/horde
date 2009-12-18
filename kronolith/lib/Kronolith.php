@@ -79,6 +79,7 @@ class Kronolith
         Horde::addScriptFile($datejs, 'kronolith');
         Horde::addScriptFile('date.js', 'kronolith');
         Horde::addScriptFile('kronolith.js', 'kronolith');
+        Horde::addScriptFile('new.js', 'kronolith');
         Horde_Ui_JsCalendar::init();
 
         if (isset($GLOBALS['language'])) {
