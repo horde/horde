@@ -13,8 +13,6 @@ var IMPDialog = {
 
     display: function(data)
     {
-        this.noreload = false;
-
         if (Object.isString(data)) {
             data = decodeURIComponent(data).evalJSON(true);
         }
@@ -82,6 +80,7 @@ var IMPDialog = {
 
         if (r.response.success) {
             this._close();
+            this.noreload = false;
             document.fire('IMPDialog:success', this.type);
             if (!this.noreload) {
                 location.reload();
