@@ -1541,7 +1541,7 @@ var DimpBase = {
                 } else if (this.folder != foldername) {
                     // Don't allow drag/drop to the current folder.
                     this.updateFlag(uids, '\\deleted', true);
-                    DimpCore.doAction('MoveMessage', this.viewport.addRequestParams({ tofld: foldername }), { uids: uids, callback: this._deleteCallback.bind(this) });
+                    DimpCore.doAction('MoveMessage', this.viewport.addRequestParams({ tofld: foldername }), { uids: uids });
                 }
             }
         }
@@ -2089,13 +2089,17 @@ var DimpBase = {
         }
     },
 
-    _deleteCallback: function(r)
+    deleteCallback: function(r)
     {
         var search = null, uids = [], vs;
 
+        if (!r.delete) {
+            return;
+        }
+
         this.loadingImg('viewport', false);
 
-        r = r.response;
+        r = r.delete;
         if (!r.uids || r.folder != this.folder) {
             return;
         }
@@ -2563,7 +2567,7 @@ var DimpBase = {
             // This needs to be synchronous Ajax if we are calling from a
             // popup window because Mozilla will not correctly call the
             // callback function if the calling window has been closed.
-            DimpCore.doAction(type, this.viewport.addRequestParams(args), { uids: vs, callback: this._deleteCallback.bind(this), ajaxopts: { asynchronous: !(opts.uid && opts.mailbox) } });
+            DimpCore.doAction(type, this.viewport.addRequestParams(args), { uids: vs, ajaxopts: { asynchronous: !(opts.uid && opts.mailbox) } });
             return vs;
         }
 
@@ -2704,7 +2708,7 @@ var DimpBase = {
     /* Miscellaneous folder actions. */
     purgeDeleted: function()
     {
-        DimpCore.doAction('PurgeDeleted', this.viewport.addRequestParams({}), { callback: this._deleteCallback.bind(this) });
+        DimpCore.doAction('PurgeDeleted', this.viewport.addRequestParams({}));
     },
 
     modifyPoll: function(folder, add)
@@ -3021,6 +3025,7 @@ DimpBase._folderDropConfig = {
 };
 
 DimpCore.onDoActionComplete = function(r) {
+    DimpBase.deleteCallback(r);
     if (DimpBase.viewport) {
         DimpBase.viewport.parseJSONResponse(r);
     }

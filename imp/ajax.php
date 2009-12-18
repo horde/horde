@@ -15,12 +15,15 @@ function _generateDeleteResult($mbox, $indices, $change, $nothread = false)
 {
     $imp_mailbox = IMP_Mailbox::singleton($mbox);
 
-    $result = new stdClass;
-    $result->folder = $mbox;
-    $result->uids = $GLOBALS['imp_imap']->ob()->utils->toSequenceString($indices, array('mailbox' => true));
-    $result->remove = intval($GLOBALS['prefs']->getValue('hide_deleted') ||
+    $del = new stdClass;
+    $del->folder = $mbox;
+    $del->uids = $GLOBALS['imp_imap']->ob()->utils->toSequenceString($indices, array('mailbox' => true));
+    $del->remove = intval($GLOBALS['prefs']->getValue('hide_deleted') ||
                              $GLOBALS['prefs']->getValue('use_trash'));
-    $result->cacheid = $imp_mailbox->getCacheID($mbox);
+    $del->cacheid = $imp_mailbox->getCacheID($mbox);
+
+    $result = new stdClass;
+    $result->delete = $del;
 
     /* Check if we need to update thread information. */
     if (!$change && !$nothread) {
@@ -446,7 +449,7 @@ case 'CopyMessage':
                 $result = _generateDeleteResult($mbox, $indices, $change);
                 // Need to manually set remove to true since we want to remove
                 // message from the list no matter the current pref settings.
-                $result->remove = 1;
+                $result->delete->remove = 1;
             }
 
             // Update poll information for destination folder if necessary.
@@ -536,7 +539,7 @@ case 'ReportSpam':
         $result = _generateDeleteResult($mbox, $indices, $change);
         // If result is non-zero, then we know the message has been removed
         // from the current mailbox.
-        $result->remove = 1;
+        $result->delete->remove = 1;
     } elseif (!is_null($change)) {
         $check_uidvalidity = true;
     }
@@ -770,7 +773,7 @@ case 'PurgeDeleted':
             $result = _generateDeleteResult($mbox, $expunged, $change);
             // Need to manually set remove to true since we want to remove
             // message from the list no matter the current pref settings.
-            $result->remove = 1;
+            $result->delete->remove = 1;
         }
     }
     break;
