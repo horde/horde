@@ -40,7 +40,7 @@ case 'save_image':
 
 if (!$registry->hasMethod('images/selectGalleries') ||
     !$registry->hasMethod('images/saveImage')) {
-    throw new IMP_Exception(_("Image saving is not available."));
+    throw new IMP_Exception('Image saving is not available.');
 }
 
 /* Build the template. */
