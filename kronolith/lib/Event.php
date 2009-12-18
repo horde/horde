@@ -241,6 +241,34 @@ abstract class Kronolith_Event
     public $recurrence;
 
     /**
+     * Used in view renderers.
+     *
+     * @var integer
+     */
+    protected $_overlap;
+
+    /**
+     * Used in view renderers.
+     *
+     * @var integer
+     */
+    protected $_indent;
+
+    /**
+     * Used in view renderers.
+     *
+     * @var integer
+     */
+    protected $_span;
+
+    /**
+     * Used in view renderers.
+     *
+     * @var integer
+     */
+    protected $_rowspan;
+
+    /**
      * Constructor.
      *
      * @param Kronolith_Driver $driver  The backend driver that this event is
@@ -284,6 +312,10 @@ abstract class Kronolith_Event
             }
             // Fall through.
         case 'creator':
+        case 'overlap':
+        case 'indent':
+        case 'span':
+        case 'rowspan':
             $this->{'_' . $name} = $value;
             return;
         }
@@ -312,6 +344,10 @@ abstract class Kronolith_Event
             }
             // Fall through.
         case 'id':
+        case 'overlap':
+        case 'indent':
+        case 'span':
+        case 'rowspan':
             return $this->{'_' . $name};
         }
         $trace = debug_backtrace();
