@@ -88,14 +88,19 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
         $existing = $driver->getByUID($uid, array($this->get('calendar')));
         if (!($existing instanceof PEAR_Error)) {
             /* Already attached, just update */
-            $existing->fromiCalendar($event->toiCalendar(new Horde_iCalendar('2.0')));
-            $existing->status = $event->status;
-            $existing->save();
+            $this->_copyEvent($event, $existing);
+            $result = $existing->save();
+            if (is_a($result, 'PEAR_Error')) {
+                throw new Kronolith_Exception($result->getMessage());
+            }
         } else {
             /* Create a new event */
             $e = $driver->getEvent();
-            $e->fromiCalendar($event->toiCalendar(new Horde_iCalendar('2.0')));
-            $e->save();
+            $this->_copyEvent($event, $e);
+            $result = $e->save();
+            if (is_a($result, 'PEAR_Error')) {
+                throw new Kronolith_Exception($result->getMessage());
+            }
         }
     }
 
@@ -142,6 +147,35 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
     public function getResponseType()
     {
         return $this->get('response_type');
+    }
+
+    /**
+     * Utility function to copy select event properties from $from to $to in
+     * order to add an event to the resource calendar.
+     *
+     * @param Kronolith_Event $from
+     * @param Kronolith_Event $to
+     *
+     * @return void
+     */
+    private function _copyEvent($from, &$to)
+    {
+        $to->uid = $from->uid;
+        $to->title = $from->title;
+        $to->location = $from->location;
+        $to->status = $from->status;
+        $to->description = $from->description;
+        $to->url = $from->url;
+        $to->tags = $from->tags;
+        $to->geoLocation = $from->geoLocation;
+        $to->first = $from ->first;
+        $to->last = $from->last;
+        $to->start = $from->start;
+        $to->end = $from->end;
+        $to->durMin = $from->durMin;
+        $to->allday = $from->allday;
+        $to->recurrence = $from->recurrence;
+        $to->initialized = true;
     }
 
 }
