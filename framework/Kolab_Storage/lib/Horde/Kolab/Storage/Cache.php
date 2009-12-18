@@ -166,7 +166,7 @@ class Horde_Kolab_Storage_Cache
     static public function singleton()
     {
         if (!isset(self::$instance)) {
-            self::$instance = new Horde_Kolab_Storage_Cache();
+            self::$instance = new self();
         }
 
         return self::$instance;

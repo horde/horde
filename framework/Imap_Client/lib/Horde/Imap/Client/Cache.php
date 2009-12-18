@@ -99,7 +99,7 @@ class Horde_Imap_Client_Cache
         ksort($params);
         $sig = hash('md5', serialize($params));
         if (!isset(self::$_instances[$sig])) {
-            self::$_instances[$sig] = new Horde_Imap_Client_Cache($params);
+            self::$_instances[$sig] = new self($params);
         }
 
         return self::$_instances[$sig];

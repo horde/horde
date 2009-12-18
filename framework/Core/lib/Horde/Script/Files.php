@@ -41,7 +41,7 @@ class Horde_Script_Files
     static public function singleton()
     {
         if (!self::$_instance) {
-            self::$_instance = new Horde_Script_Files();
+            self::$_instance = new self();
         }
 
         return self::$_instance;

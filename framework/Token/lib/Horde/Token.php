@@ -48,15 +48,16 @@ class Horde_Token
         }
 
         $driver = basename($driver);
-        $class = ($driver == 'none')
-            ? 'Horde_Token'
-            : 'Horde_Token_' . ucfirst($driver);
+        $class = __CLASS__;
+        if ($driver == 'none') {
+            $class .= '_' . ucfirst($driver);
+        }
 
         if (!class_exists($class)) {
             /* If driver class doesn't exist or the driver is not
              * available just default to the parent class, and it is
              * not necessary to warn about degraded service. */
-            $class = 'Horde_Token';
+            $class = __CLASS__;
         }
 
         return new $class($params);
@@ -90,7 +91,7 @@ class Horde_Token
         $sig = hash('md5', serialize(array($driver, $params)));
 
         if (!isset(self::$_instances[$sig])) {
-            self::$_instances[$sig] = Horde_Token::factory($driver, $params);
+            self::$_instances[$sig] = self::factory($driver, $params);
         }
 
         return self::$_instances[$sig];

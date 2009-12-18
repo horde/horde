@@ -163,7 +163,7 @@ class Horde_Imap_Client
      */
     static public function factory($driver, $params = array())
     {
-        $class = 'Horde_Imap_Client_' . strtr(ucfirst(basename($driver)), '-', '_');
+        $class = __CLASS__ . '_' . strtr(ucfirst(basename($driver)), '-', '_');
         if (class_exists($class)) {
             return new $class($params);
         }

@@ -57,7 +57,7 @@ class Horde_Block_Collection
         sort($apps);
         $signature = serialize(array($type, $apps));
         if (!isset(self::$_instances[$signature])) {
-            self::$_instances[$signature] = new Horde_Block_Collection($type, $apps);
+            self::$_instances[$signature] = new self($type, $apps);
         }
 
         return self::$_instances[$signature];

@@ -68,7 +68,7 @@ class Horde_Prefs_Credentials
     static public function singleton($app)
     {
         if (is_null(self::$_instance)) {
-            self::$_instance = new Horde_Prefs_Credentials();
+            self::$_instance = new self();
         }
         self::$_instance->app = $app;
 

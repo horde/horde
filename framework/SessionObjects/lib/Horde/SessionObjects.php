@@ -65,7 +65,7 @@ class Horde_SessionObjects
         $sig = md5(Horde_Serialize::serialize($params, Horde_Serialize::BASIC));
 
         if (!isset(self::$_instance[$sig])) {
-            self::$_instance[$sig] = new Horde_SessionObjects($params);
+            self::$_instance[$sig] = new self($params);
         }
 
         return self::$_instance[$sig];

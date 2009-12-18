@@ -119,7 +119,7 @@ class Horde_Auth
             $params = Horde::getDriverConfig('auth', $driver);
         }
 
-        $class = 'Horde_Auth_' . $driver;
+        $class = __CLASS__ . '_' . $driver;
         if (class_exists($class)) {
             return new $class($params);
         }
@@ -148,7 +148,7 @@ class Horde_Auth
         $signature = hash('md5', serialize(array($driver, $params)));
 
         if (!isset(self::$_instances[$signature])) {
-            self::$_instances[$signature] = Horde_Auth::factory($driver, $params);
+            self::$_instances[$signature] = self::factory($driver, $params);
         }
 
         return self::$_instances[$signature];
@@ -495,7 +495,7 @@ class Horde_Auth
         } else {
             switch ($e->getCode()) {
             case Horde_Registry::PERMISSION_DENIED:
-                $params = array('app' => $app, 'reason' => Horde_Auth::REASON_MESSAGE, 'msg' => $e->getMessage());
+                $params = array('app' => $app, 'reason' => self::REASON_MESSAGE, 'msg' => $e->getMessage());
                 break;
 
             case Horde_Registry::AUTH_FAILURE:

@@ -161,10 +161,10 @@ class Horde_Tree
         $id = $name . ':' . $renderer . ':' . serialize($params);
 
         if (!isset(self::$_instances[$id])) {
-            self::$_instances[$id] = Horde_Tree::factory($name, $renderer, $params);
+            self::$_instances[$id] = self::factory($name, $renderer, $params);
             if (!self::$_instances[$id]->isSupported()) {
-                $renderer = Horde_Tree::fallback($renderer);
-                return Horde_Tree::singleton($name, $renderer, $params);
+                $renderer = self::fallback($renderer);
+                return self::singleton($name, $renderer, $params);
             }
         }
 
@@ -186,7 +186,7 @@ class Horde_Tree
      */
     static public function factory($name, $renderer, $params = array())
     {
-        $class = 'Horde_Tree_' . ucfirst($renderer);
+        $class = __CLASS__ . '_' . ucfirst($renderer);
         if (class_exists($class)) {
             return new $class($name, $params);
         }

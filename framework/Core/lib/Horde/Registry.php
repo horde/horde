@@ -98,7 +98,7 @@ class Horde_Registry
     static public function singleton($session_flags = 0)
     {
         if (!isset(self::$_instance)) {
-            self::$_instance = new Horde_Registry($session_flags);
+            self::$_instance = new self($session_flags);
         }
 
         return self::$_instance;

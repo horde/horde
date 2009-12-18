@@ -145,7 +145,7 @@ class Horde_Kolab_FreeBusy
     static public function singleton($params = array())
     {
         if (!isset(self::$instance)) {
-            self::$instance = new Horde_Kolab_FreeBusy($params);
+            self::$instance = new self($params);
         }
 
         return self::$instance;

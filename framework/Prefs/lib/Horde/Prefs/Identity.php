@@ -527,7 +527,7 @@ class Horde_Prefs_Identity
 
         /* Return a base Identity object if no driver is specified. */
         if (empty($driver) || (strcasecmp($driver, 'none') == 0)) {
-            $instance = new Horde_Prefs_Identity($user);
+            $instance = new self($user);
             $instance->init();
             return $instance;
         }
@@ -570,7 +570,7 @@ class Horde_Prefs_Identity
     {
         $signature = hash('md5', serialize(array($type, $user)));
         if (!isset(self::$_instances[$signature])) {
-            self::$_instances[$signature] = Horde_Prefs_Identity::factory($type, $user);
+            self::$_instances[$signature] = self::factory($type, $user);
         }
 
         return self::$_instances[$signature];

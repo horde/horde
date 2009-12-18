@@ -95,7 +95,7 @@ class Horde_Nls_Geoip
     static public function singleton($datafile)
     {
         if (!isset(self::$_instance)) {
-            self::$_instance = new Horde_Nls_Geoip($datafile);
+            self::$_instance = new self($datafile);
         }
 
         return self::$_instance;

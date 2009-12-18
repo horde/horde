@@ -166,35 +166,20 @@ class Horde_Lock
 
         $driver = Horde_String::ucfirst(basename($driver));
         if (empty($driver) || ($driver == 'None')) {
-            return new Horde_Lock();
+            return new self();
         }
 
         if (is_null($params)) {
             $params = Horde::getDriverConfig('lock', $driver);
         }
 
-        $class = 'Horde_Lock_' . $driver;
-        $include_error = '';
-        if (!class_exists($class)) {
-            $oldTrackErrors = ini_set('track_errors', 1);
-            if (!empty($app)) {
-                include $GLOBALS['registry']->get('fileroot', $app) . '/lib/Horde_Lock/' . $driver . '.php';
-            } else {
-                include 'Horde/Lock/' . $driver . '.php';
-            }
-            if (isset($php_errormsg)) {
-                $include_error = $php_errormsg;
-            }
-            ini_set('track_errors', $oldTrackErrors);
-        }
+        $class = __CLASS__ . '_' . $driver;
 
         if (class_exists($class)) {
-            $lock = new $class($params);
-        } else {
-            throw new Horde_Log_Exception('Horde_Lock Driver (' . $class . ') not found' . ($include_error ? ': ' . $include_error : '') . '.');
+            return new $class($params);
         }
 
-        return $lock;
+        throw new Horde_Log_Exception('Horde_Lock Driver (' . $class . ') not found');
     }
 
     /**

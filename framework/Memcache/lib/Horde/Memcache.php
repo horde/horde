@@ -99,7 +99,7 @@ class Horde_Memcache
     public static function singleton()
     {
         if (!self::$_instance) {
-            self::$_instance = new Horde_Memcache();
+            self::$_instance = new self();
         }
 
         return self::$_instance;

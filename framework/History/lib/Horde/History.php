@@ -82,15 +82,15 @@ class Horde_History
         if (!isset(self::$_instances[$driver])) {
             $injector = new Horde_Injector(new Horde_Injector_TopLevel());
             $injector->bindFactory(
-                'Horde_History',
-                'Horde_History_Factory',
+                __CLASS__,
+                __CLASS__ . '_Factory',
                 'getHistory'
             );
             $config = new stdClass;
             $config->driver = $driver;
             $config->params = $params;
-            $injector->setInstance('Horde_History_Config', $config);
-            self::$_instances[$driver] = $injector->getInstance('Horde_History');
+            $injector->setInstance(__CLASS__ . '_Config', $config);
+            self::$_instances[$driver] = $injector->getInstance(__CLASS__);
         }
 
         return self::$_instances[$driver];

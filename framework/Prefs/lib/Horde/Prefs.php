@@ -185,7 +185,7 @@ class Horde_Prefs
             $driver = 'Session';
         }
 
-        $class = 'Horde_Prefs_' . $driver;
+        $class = __CLASS__ . '_' . $driver;
         if (!class_exists($class)) {
             throw new Horde_Exception('Class definition of ' . $class . ' not found.');
         }

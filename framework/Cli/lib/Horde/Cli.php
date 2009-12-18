@@ -131,7 +131,7 @@ class Horde_Cli
     static public function singleton()
     {
         if (!isset(self::$_instance)) {
-            self::$_instance = new Horde_Cli();
+            self::$_instance = new self();
         }
 
         return self::$_instance;

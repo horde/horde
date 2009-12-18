@@ -80,7 +80,7 @@ class Horde_SessionHandler
             $params = array();
         }
 
-        $class = 'Horde_SessionHandler_' . ucfirst($driver);
+        $class = __CLASS__ . '_' . ucfirst($driver);
 
         if (class_exists($class)) {
             if (empty($params)) {

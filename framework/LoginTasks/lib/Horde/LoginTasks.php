@@ -69,7 +69,7 @@ class Horde_LoginTasks
     static public function singleton($app)
     {
         if (empty(self::$_instances[$app])) {
-            self::$_instances[$app] = new Horde_LoginTasks($app);
+            self::$_instances[$app] = new self($app);
         }
 
         return self::$_instances[$app];

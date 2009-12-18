@@ -39,7 +39,7 @@ class Horde_Editor
             return new Horde_Editor();
         }
 
-        $class = 'Horde_Editor_' . $driver;
+        $class = __CLASS__ . '_' . $driver;
         if (!class_exists($class)) {
             throw new Exception('Driver ' . $driver . ' not found');
         }

@@ -71,17 +71,15 @@ class Horde_Perms
         }
 
         if (is_null($driver)) {
-            $perms = new Perms($params);
-        } else {
-            $class = 'Horde_Perms_' . ucfirst(basename($driver));
-            if (!class_exists($class)) {
-                throw new Horde_Perms_Exception('Bad permissions class name: ' . $class);
-            }
-
-            $perms = new $class($params);
+            return new self($params);
         }
 
-        return $perms;
+        $class = __CLASS__ . '_' . ucfirst(basename($driver));
+        if (!class_exists($class)) {
+            throw new Horde_Perms_Exception('Bad permissions class name: ' . $class);
+        }
+
+        return new $class($params);
     }
 
     /**

@@ -267,7 +267,7 @@ class Horde_Browser
     public static function singleton($userAgent = null, $accept = null)
     {
         // trigger_error - warning?
-        return new Horde_Browser($userAgent, $accept);
+        return new self($userAgent, $accept);
     }
 
     /**
