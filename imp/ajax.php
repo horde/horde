@@ -786,7 +786,7 @@ case 'ModifyPoll':
     $imptree = IMP_Imap_Tree::singleton();
 
     $result = new stdClass;
-    $result->add = (bool)$add;
+    $result->add = intval($add);
     $result->folder = $mbox;
 
     if ($add) {
