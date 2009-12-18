@@ -389,6 +389,10 @@ function _simpleButton($id, $text, $image)
 <?php if (!$usetrash): ?>
  <a id="ctx_message_undeleted"><span class="contextImg"></span><?php echo _("Undelete") ?></a>
 <?php endif; ?>
+ <div style="display:none">
+  <div class="sep"></div>
+  <a id="ctx_message_source"><span class="contextImg"></span><?php echo _("View Source") ?></a>
+ </div>
 </div>
 
 <div class="context" id="ctx_draft" style="display:none">

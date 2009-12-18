@@ -774,6 +774,12 @@ var DimpBase = {
             this.composeMailbox('forward');
             break;
 
+        case 'ctx_message_source':
+            this.viewport.getSelected().get('dataob').each(function(v) {
+                DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: v.imapuid, mailbox: v.view, actionID: 'view_source', id: 0 }, true), v.imapuid + '|' + v.view);
+            }, this);
+            break;
+
         case 'ctx_draft_resume':
             this.composeMailbox('resume');
             break;
@@ -939,6 +945,10 @@ var DimpBase = {
         case 'ctx_qsearchby':
             $(ctx_id).descendants().invoke('removeClassName', 'contextSelected');
             $(ctx_id + '_' + DIMP.conf.qsearchfield).addClassName('contextSelected');
+            break;
+
+        case 'ctx_message':
+            [ $('ctx_message_source').up() ].invoke(DIMP.conf.preview_pref ? 'hide' : 'show');
             break;
 
         default:

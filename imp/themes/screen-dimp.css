@@ -944,6 +944,9 @@ span.dimpactionDrafts {
 #ctx_message_unsetflag span.contextImg, #ctx_draft_unsetflag span.contextImg, #oa_unsetflag span.contextImg {
     background-image: url("graphics/mail_clearflag.png");
 }
+#ctx_message_source span.contextImg, #msg_view_source span.iconImg {
+    background-image: url("graphics/message_source.png");
+}
 #ctx_draft_resume span.contextImg {
     background-image: url("graphics/mail_draft.png");
 }
@@ -1033,9 +1036,6 @@ div.msgSubject span.treeImg {
     background-image: url("graphics/arrow_expanded.png");
     cursor: pointer;
     margin-right: 0;
-}
-#msg_view_source span.iconImg {
-    background-image: url("graphics/message_source.png");
 }
 
 span.popdownImg, span.spellcheckPopdownImg {
