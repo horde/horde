@@ -18,9 +18,19 @@ if (!Horde_Auth::getAuth()) {
 }
 
 $vars = Horde_Variables::getDefaultVariables();
-$calendar = $kronolith_shares->getShare($vars->get('c'));
+$calendar_id = $vars->get('c');
+if ($calendar_id == Horde_Auth::getAuth()) {
+    $notification->push(_("This calendar cannot be deleted."), 'horde.warning');
+    header('Location: ' . Horde::applicationUrl('calendars/', true));
+    exit;
+}
+$calendar = $kronolith_shares->getShare($calendar_id);
 if (is_a($calendar, 'PEAR_Error')) {
     $notification->push($calendar, 'horde.error');
+    header('Location: ' . Horde::applicationUrl('calendars/', true));
+    exit;
+} elseif ($calendar->get('owner') != Horde_Auth::getAuth()) {
+    $notification->push(_("You are not allowed to delete this calendar."), 'horde.error');
     header('Location: ' . Horde::applicationUrl('calendars/', true));
     exit;
 }

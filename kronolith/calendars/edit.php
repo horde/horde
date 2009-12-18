@@ -23,6 +23,10 @@ if (is_a($calendar, 'PEAR_Error')) {
     $notification->push($calendar, 'horde.error');
     header('Location: ' . Horde::applicationUrl('calendars/', true));
     exit;
+} elseif ($calendar->get('owner') != Horde_Auth::getAuth()) {
+    $notification->push(_("You are not allowed to change this calendar."), 'horde.error');
+    header('Location: ' . Horde::applicationUrl('calendars/', true));
+    exit;
 }
 $form = new Kronolith_EditCalendarForm($vars, $calendar);
 
