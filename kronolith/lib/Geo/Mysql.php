@@ -32,10 +32,10 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
         }
 
         /* Do we actually have data? */
-        if (!$point && $count) {
+        if ((empty($point['lat']) || empty($point['lon'])) && $count) {
             // Delete the record.
             $sql = "DELETE FROM kronolith_events_geo WHERE event_id = '" . $event_id . "'";
-        } elseif (!$point) {
+        } elseif (empty($point['lat']) || empty($point['lon'])) {
             return;
         }
 
