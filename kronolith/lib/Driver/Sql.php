@@ -788,6 +788,11 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         $tagger = Kronolith::getTagger();
         $tagger->replaceTags($event->uid, array(), 'event');
 
+        /* Remove any geolocation data */
+        if ($gDriver = Kronolith::getGeoDriver()) {
+            $gDriver->deleteLocation($event->id);
+        }
+
         /* Notify about the deleted event. */
         if (!$silent) {
             $result = Kronolith::sendNotification($event, 'delete');
