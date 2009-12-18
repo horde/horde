@@ -15,13 +15,6 @@
 class IMP_Auth
 {
     /**
-     * The preferred server based on the value from the login form.
-     *
-     * @var string
-     */
-    static public $prefServer = null;
-
-    /**
      * Authenticate to the mail server.
      *
      * @param array $credentials  An array of login credentials. If empty,
@@ -268,23 +261,16 @@ class IMP_Auth
      */
     static public function isPreferredServer($server, $key = null)
     {
-        if (!is_null(self::$prefServer)) {
-            return ($key == self::$prefServer);
+        if (empty($server['preferred'])) {
+            return false;
         }
 
-        if (!empty($server['preferred'])) {
-            if (is_array($server['preferred'])) {
-                if (in_array($_SERVER['SERVER_NAME'], $server['preferred']) ||
-                    in_array($_SERVER['HTTP_HOST'], $server['preferred'])) {
-                    return true;
-                }
-            } elseif (($server['preferred'] == $_SERVER['SERVER_NAME']) ||
-                      ($server['preferred'] == $_SERVER['HTTP_HOST'])) {
-                return true;
-            }
-        }
+        $preferred = is_array($server['preferred'])
+            ? $server['preferred']
+            : array($server['preferred']);
 
-        return false;
+        return in_array($_SERVER['SERVER_NAME'], $preferred) ||
+               in_array($_SERVER['HTTP_HOST'], $preferred);
     }
 
     /**
