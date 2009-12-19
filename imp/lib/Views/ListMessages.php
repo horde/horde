@@ -129,7 +129,7 @@ class IMP_Views_ListMessages
         /* Check for mailbox existence now. If there are no messages, there
          * is a chance that the mailbox doesn't exist. If there is at least
          * 1 message, we don't need this check. */
-        if (empty($msgcount) && !isset($md->search)) {
+        if (empty($msgcount) && !$is_search) {
             $imp_folder = IMP_Folder::singleton();
             if (!$imp_folder->exists($mbox)) {
                 $GLOBALS['notification']->push(sprintf(_("Mailbox %s does not exist."), IMP::getLabel($mbox)), 'horde.error');
@@ -142,7 +142,7 @@ class IMP_Views_ListMessages
          * cacheid returned from the browser. If it has changed, we need to
          * purge the cached items on the browser (send 'reset' param to
          * ViewPort). */
-        if (!isset($md->search) &&
+        if (!$is_search &&
             !empty($args['cacheid']) &&
             !empty($args['cache'])) {
             $uid_expire = false;
@@ -164,7 +164,7 @@ class IMP_Views_ListMessages
         if (empty($args['cache'])) {
             $cached = array();
         } else {
-            if (isset($md->search)) {
+            if ($is_search) {
                 $cached = Horde_Serialize::unserialize($args['cache'], Horde_Serialize::JSON);
             } else {
                 $cached = $GLOBALS['imp_imap']->ob()->utils->fromSequenceString($args['cache']);
@@ -247,10 +247,10 @@ class IMP_Views_ListMessages
         }
 
         /* Build the overview list. */
-        $result->data = $this->_getOverviewData($imp_mailbox, $mbox, $data, isset($md->search));
+        $result->data = $this->_getOverviewData($imp_mailbox, $mbox, $data, $is_search);
 
         /* Get unseen/thread information. */
-        if (!isset($md->search)) {
+        if (!$is_search) {
             $imptree = IMP_Imap_Tree::singleton();
             $info = $imptree->getElementInfo($mbox);
             if (!empty($info)) {
