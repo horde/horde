@@ -23,7 +23,7 @@ function _generateDeleteResult($mbox, $indices, $change, $nothread = false)
     $del->cacheid = $imp_mailbox->getCacheID($mbox);
 
     $result = new stdClass;
-    $result->delete = $del;
+    $result->deleted = $del;
 
     /* Check if we need to update thread information. */
     if (!$change && !$nothread) {
@@ -449,7 +449,7 @@ case 'CopyMessage':
                 $result = _generateDeleteResult($mbox, $indices, $change);
                 // Need to manually set remove to true since we want to remove
                 // message from the list no matter the current pref settings.
-                $result->delete->remove = 1;
+                $result->deleted->remove = 1;
             }
 
             // Update poll information for destination folder if necessary.
@@ -507,7 +507,7 @@ case 'DeleteMessage':
     $imp_message = IMP_Message::singleton();
     $change = _changed($mbox, $cacheid, true);
 
-    if ($imp_message->delete($indices)) {
+    if ($imp_message->deleted($indices)) {
         $result = _generateDeleteResult($mbox, $indices, $change, !$prefs->getValue('hide_deleted') && !$prefs->getValue('use_trash'));
     } elseif (!is_null($change)) {
         $check_uidvalidity = true;
@@ -539,7 +539,7 @@ case 'ReportSpam':
         $result = _generateDeleteResult($mbox, $indices, $change);
         // If result is non-zero, then we know the message has been removed
         // from the current mailbox.
-        $result->delete->remove = 1;
+        $result->deleted->remove = 1;
     } elseif (!is_null($change)) {
         $check_uidvalidity = true;
     }
@@ -773,7 +773,7 @@ case 'PurgeDeleted':
             $result = _generateDeleteResult($mbox, $expunged, $change);
             // Need to manually set remove to true since we want to remove
             // message from the list no matter the current pref settings.
-            $result->delete->remove = 1;
+            $result->deleted->remove = 1;
         }
     }
     break;

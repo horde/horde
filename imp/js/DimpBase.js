@@ -2093,13 +2093,13 @@ var DimpBase = {
     {
         var search = null, uids = [], vs;
 
-        if (!r.delete) {
+        if (!r.deleted) {
             return;
         }
 
         this.loadingImg('viewport', false);
 
-        r = r.delete;
+        r = r.deleted;
         if (!r.uids || r.folder != this.folder) {
             return;
         }
