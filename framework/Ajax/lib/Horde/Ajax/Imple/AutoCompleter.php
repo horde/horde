@@ -60,7 +60,7 @@ abstract class Horde_Ajax_Imple_AutoCompleter extends Horde_Ajax_Imple_Base
             $config['params'] = array_merge(array(
                 'boxClass' => 'hordeACBox kronolithLongField',
                 'trigger' => $this->_params['triggerId'],
-                'uri' => $this->_getUrl($config['pretty'], $GLOBALS['registry']->getApp()),
+                'uri' => (string)$this->_getUrl($config['pretty'], $GLOBALS['registry']->getApp()),
                 'URI_IMG_HORDE' => $GLOBALS['registry']->getImageDir('horde'),
                 'box' => !empty($this->_params['box']) ? $this->_params['box'] : ''
             ), $config['params']);
