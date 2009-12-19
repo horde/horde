@@ -507,7 +507,7 @@ case 'DeleteMessage':
     $imp_message = IMP_Message::singleton();
     $change = _changed($mbox, $cacheid, true);
 
-    if ($imp_message->deleted($indices)) {
+    if ($imp_message->delete($indices)) {
         $result = _generateDeleteResult($mbox, $indices, $change, !$prefs->getValue('hide_deleted') && !$prefs->getValue('use_trash'));
     } elseif (!is_null($change)) {
         $check_uidvalidity = true;
