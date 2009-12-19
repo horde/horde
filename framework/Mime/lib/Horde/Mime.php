@@ -591,7 +591,7 @@ class Horde_Mime
      */
     static public function generateRandomId($length = 24)
     {
-        return substr(base_convert(dechex(strtr(microtime(), array('0.' => '', ' ' => ''))) . uniqid(mt_rand(), true), 16, 36), $length);
+        return substr(base_convert(dechex(strtr(microtime(), array('0.' => '', ' ' => ''))) . strtr(uniqid(mt_rand(), true), array('.' => '')), 16, 36), 0, $length);
     }
 
     /**
