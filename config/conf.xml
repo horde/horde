@@ -19,7 +19,7 @@
   </configsection>
  </configtab>
  <configtab name="devices" desc="VoIP Devices">
-  <configsection name="storage">
+  <configsection name="devices">
    <configheader>Device Storage</configheader>
    <configswitch name="driver" desc="What backend should we use for storing Asterisk phone user configuration?">ldap
     <case name="ldap" desc="LDAP">
