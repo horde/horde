@@ -14,7 +14,6 @@
  * @since   Shout 0.1
  * @package Shout
  */
-require_once SHOUT_BASE . "/config/defines.php";
 
 class Shout
 {
@@ -27,7 +26,7 @@ class Shout
      *
      * @access public
      */
-    function getMenu($returnType = 'object')
+    static public function getMenu($returnType = 'object')
     {
         global $conf, $context, $section, $action;
 
@@ -92,7 +91,7 @@ class Shout
      *
      * @return object Horde_UI_Tabs
      */
-    function getTabs($context, &$vars)
+    static public function getTabs($context, &$vars)
     {
         global $shout;
         $perms = Horde_Perms::singleton();
@@ -156,7 +155,7 @@ class Shout
      *
      * @return boolean the effective permissions for the user.
      */
-    function checkRights($permname, $permmask = null, $numparents = 0)
+    static public function checkRights($permname, $permmask = null, $numparents = 0)
     {
         if (Horde_Auth::isAdmin()) { return true; }
 
@@ -191,213 +190,11 @@ print "Shout::checkRights() returning $ret";
         return ($test & $permmask) == $permmask;
     }
 
-    function getContextTypes()
+    static public function getContextTypes()
     {
         return array(SHOUT_CONTEXT_CUSTOMERS => _("Customers"),
                      SHOUT_CONTEXT_EXTENSIONS => _("Dialplan"),
                      SHOUT_CONTEXT_MOH => _("Music On Hold"),
                      SHOUT_CONTEXT_CONFERENCE => _("Conference Calls"));
-    }
-
-    /**
-     * Given an integer value of permissions returns an array
-     * representation of the integer.
-     *
-     * @param integer $int  The integer representation of permissions.
-     */
-    function integerToArray($int)
-    {
-        static $array = array();
-        if (isset($array[$int])) {
-            return $array[$int];
-        }
-
-        $array[$int] = array();
-
-        /* Get the available perms array. */
-        $types = Shout::getContextTypes();
-
-        /* Loop through each perm and check if its value is included in the
-         * integer representation. */
-        foreach ($types as $val => $label) {
-            if ($int & $val) {
-                $array[$int][$val] = true;
-            }
-        }
-
-        return $array[$int];
-    }
-
-    /**
-     * Convert Asterisk's special extensions to friendly names
-     *
-     * @param string $extension  Extension to search for friendly name.
-     */
-    function exten2name($exten)
-    {
-        # Cast as a string to avoid misinterpreted digits
-        switch((string)$exten) {
-        case 'i':
-            $nodetext = 'Invalid Handler';
-            break;
-        case 's':
-            $nodetext = 'Entry Point';
-            break;
-        case 't':
-            $nodetext = 'Timeout Handler';
-            break;
-        case 'o':
-            $nodetext = 'Operator';
-            break;
-        case 'h':
-            $nodetext = 'Hangup Handler';
-            break;
-        case 'fax':
-            $nodetext = 'FAX Detection';
-            break;
-        default:
-            $nodetext = "Extension $exten";
-            break;
-        }
-
-        return $nodetext;
-    }
-
-    /**
-     * Compare two inputs as extensions and return them in the following order:
-     * 's', numbers (low to high), single chars, multi-chars
-     * 's' comes first because in Asterisk it is commonly the 'starting' exten.
-     * This function is expected to be used with uksort()
-     *
-     * @param string $e1
-     *
-     * @param string $e2
-     *
-     * @return int Relation of $e1 to $e2
-     */
-    function extensort($e1, $e2)
-    {
-        # Assumptions: We don't have to deal with negative numbers.  If we do
-        # they'll sort as strings
-        $e1 = (string)$e1;
-        $e2 = (string)$e2;
-        # Try to return quickly if either extension is 's'
-        if ($e1 == 's' || $e2 == 's') {
-            if ($e1 == $e2) {
-                # They are both s?
-                # FIXME Should we warn here?  Or assume the rest of the app
-                # is smart enough to handle this condition?
-                return 0;
-            }
-
-            return ($e1 == 's') ? -1 : 1;
-        }
-
-        # Next check for numeric extensions
-        if (preg_match('/^[*#0-9]+$/', $e1)) {
-            # e1 is a numeric extension
-            if (preg_match('/^[*#0-9]+$/', $e2)) {
-                # e2 is also numeric
-                if (strlen($e1) == 1 || strlen($e2) == 1) {
-                    if (strlen($e1) == strlen($e2)) {
-                        # Both are 1 digit long
-                        return ($e1 < $e2) ? -1 : 1;
-                    } else {
-                        return (strlen($e1) == 1) ? -1 : 1;
-                    }
-                }
-                return ($e1 < $e2) ? -1 : 1;
-            } else {
-                # e2 is not a numeric extension so it must sort after e1
-                return -1;
-            }
-        } elseif (preg_match('/^[*#0-9]+$/', $e2)) {
-            # e2 is numeric but e1 is not.  e2 must sort before e1
-            return 1;
-        }
-
-        # e1 and e2 are both strings
-        if (strlen($e1) == 1 || strlen($e2) == 1) {
-            # e1 or e2 is a single char extension (reserved in Asterisk)
-            return (strlen($e1) == 1) ? -1 : 1;
-        } else {
-            # e1 and e2 are both multi-char strings.  Sort them equally.
-            # FIXME Should add logic to make one multi-char take precedence
-            # over another?
-            return 0;
-        }
-    }
-
-    function getApplist()
-    {
-        if (isset($_SESSION['shout']['applist'])) {
-            return $_SESSION['shout']['applist'];
-        }
-
-        $file = SHOUT_BASE . '/config/applist.xml';
-
-        $xml_parser = xml_parser_create();
-        $ShoutObject = new Shout;
-        xml_set_element_handler($xml_parser,
-            array(&$ShoutObject, '_xml2applist_startElement'),
-            array(&$ShoutObject, '_xml2applist_startElement'));
-        xml_set_character_data_handler($xml_parser,
-            array(&$ShoutObject, '_xml2applist_characterData'));
-
-        if (!$fp = fopen($file, 'r')) {
-            return PEAR::raiseError('Unable to open applist.xml for reading');
-        }
-
-        while ($data = fread($fp, 4096)) {
-            if (!xml_parse($xml_parser, $data, feof($fp))) {
-                return PEAR::raiseError(sprintf("Invalid XML %s at line %d",
-                    xml_error_string(xml_get_error_code($xml_parser)),
-                    xml_get_current_line_number($xml_parser)));
-            }
-        }
-        ksort($ShoutObject->applist);
-        xml_parser_free($xml_parser);
-        $_SESSION['shout']['applist'] = $ShoutObject->applist;
-        unset($ShoutObject);
-        return $_SESSION['shout']['applist'];
-    }
-
-    function _xml2applist_startElement($parser, $name, $attrs = array())
-    {
-        if (count($attrs) > 1) { print_r($attrs); }
-        switch($name) {
-        case 'APPLICATION':
-            if (isset($attrs['NAME'])) {
-                $this->_applist_curapp = $attrs['NAME'];
-                if (!isset($this->applist[$name])) {
-                    $this->applist[$this->_applist_curapp] = array();
-                }
-                $this->_applist_curfield = '';
-            }
-            break;
-        case 'SYNOPSIS':
-        case 'USAGE':
-            $this->_applist_curfield = $name;
-            if (!isset($this->applist[$name])) {
-                $this->applist[$this->_applist_curapp][$name] = "";
-            }
-            break;
-        }
-    }
-
-    function _xml2applist_endElement($parser, $name)
-    {
-        print ''; #NOOP
-    }
-
-    function _xml2applist_characterData($parser, $string)
-    {
-        $string = preg_replace('/^\s+/', '', $string);
-        $string = preg_replace('/\s+$/', '', $string);
-        if (strlen($string) > 1) {
-            $field = $this->_applist_curfield;
-            $app = $this->_applist_curapp;
-            $this->applist[$app][$field] .= "$string ";
-        }
     }
 }

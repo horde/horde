@@ -44,7 +44,7 @@ class Shout_Driver {
     */
     function getContexts($filters = "all", $filterperms = null)
     {
-        return PEAR::raiseError("This function is not implemented.");
+        throw new Shout_Exception("This function is not implemented.");
     }
 
     /**
@@ -61,7 +61,7 @@ class Shout_Driver {
      */
     function checkContextType($context, $type)
     {
-        return PEAR::raiseError("This function is not implemented.");
+        throw new Shout_Exception("This function is not implemented.");
     }
 
     /**
@@ -74,7 +74,7 @@ class Shout_Driver {
      */
     function getUsers($context)
     {
-        return PEAR::raiseError("This function is not implemented.");
+        throw new Shout_Exception("This function is not implemented.");
     }
 
     /**
@@ -84,7 +84,7 @@ class Shout_Driver {
      */
     function getHomeContext()
     {
-        return PEAR::raiseError("This function is not implemented.");
+        throw new Shout_Exception("This function is not implemented.");
     }
 
     /**
@@ -96,7 +96,7 @@ class Shout_Driver {
      */
     function getContextProperties($context)
     {
-        return PEAR::raiseError("This function is not implemented.");
+        throw new Shout_Exception("This function is not implemented.");
     }
 
     /**
@@ -110,7 +110,7 @@ class Shout_Driver {
      */
     function getDialplan($context)
     {
-        return PEAR::raiseError("This function is not implemented.");
+        throw new Shout_Exception("This function is not implemented.");
     }
 
     /**
