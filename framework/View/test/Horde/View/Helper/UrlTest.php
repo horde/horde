@@ -53,8 +53,8 @@ class Horde_View_Helper_UrlTest extends Horde_Test_Case
 
     public function testLinkTagWithImg()
     {
-        $this->assertEquals("<a href=\"http://www.example.com\"><img src='/favicon.jpg' /></a>",
-                            $this->view->linkTo("<img src='/favicon.jpg' />", "http://www.example.com"));
+        $this->assertEquals("<a href=\"http://www.example.com\"><img src='/favicon.jpg'></a>",
+                            $this->view->linkTo("<img src='/favicon.jpg'>", "http://www.example.com"));
     }
 
     public function testLinkToUnless()
@@ -102,8 +102,8 @@ class Horde_View_Helper_UrlTest extends Horde_Test_Case
 
     public function testMailToWithImg()
     {
-        $this->assertEquals('<a href="mailto:feedback@example.com"><img src="/feedback.png" /></a>',
-                            $this->view->mailTo('feedback@example.com', '<img src="/feedback.png" />'));
+        $this->assertEquals('<a href="mailto:feedback@example.com"><img src="/feedback.png"></a>',
+                            $this->view->mailTo('feedback@example.com', '<img src="/feedback.png">'));
     }
 
     public function testMailToWithHex()

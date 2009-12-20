@@ -48,15 +48,15 @@ class Horde_View_Helper_FormTest extends Horde_Test_Case
     public function testTextField()
     {
         $this->assertEquals(
-            '<input id="post_title" name="post[title]" size="30" type="text" value="Hello World" />',
+            '<input id="post_title" name="post[title]" size="30" type="text" value="Hello World">',
             $this->view->textField('post', 'title'));
 
         $this->assertEquals(
-            '<input id="post_title" name="post[title]" size="30" type="password" value="Hello World" />',
+            '<input id="post_title" name="post[title]" size="30" type="password" value="Hello World">',
             $this->view->passwordField('post', 'title'));
 
         $this->assertEquals(
-            '<input id="person_name" name="person[name]" size="30" type="password" />',
+            '<input id="person_name" name="person[name]" size="30" type="password">',
             $this->view->passwordField("person", "name"));
     }
 
@@ -64,26 +64,26 @@ class Horde_View_Helper_FormTest extends Horde_Test_Case
     {
         $this->post->title = '<b>Hello World</b>';
         $this->assertEquals(
-            '<input id="post_title" name="post[title]" size="30" type="text" value="&lt;b&gt;Hello World&lt;/b&gt;" />',
+            '<input id="post_title" name="post[title]" size="30" type="text" value="&lt;b&gt;Hello World&lt;/b&gt;">',
             $this->view->textField('post', 'title'));
     }
 
     public function testTextFieldWithOptions()
     {
-        $expected = '<input id="post_title" name="post[title]" size="35" type="text" value="Hello World" />';
+        $expected = '<input id="post_title" name="post[title]" size="35" type="text" value="Hello World">';
         $this->assertEquals($expected, $this->view->textField('post', 'title', array('size' => 35)));
     }
 
     public function testTextFieldAssumingSize()
     {
-        $expected = '<input id="post_title" maxlength="35" name="post[title]" size="35" type="text" value="Hello World" />';
+        $expected = '<input id="post_title" maxlength="35" name="post[title]" size="35" type="text" value="Hello World">';
         $this->assertEquals($expected, $this->view->textField('post', 'title', array('maxlength' => 35)));
     }
 
     public function testTextFieldDoesntChangeParamValues()
     {
         $objectName = 'post[]';
-        $expected = '<input id="post_123_title" name="post[123][title]" size="30" type="text" value="Hello World" />';
+        $expected = '<input id="post_123_title" name="post[123][title]" size="30" type="text" value="Hello World">';
         $this->assertEquals($expected, $this->view->textField($objectName, 'title'));
         $this->assertEquals($objectName, 'post[]');
     }
@@ -91,23 +91,23 @@ class Horde_View_Helper_FormTest extends Horde_Test_Case
     public function testCheckBox()
     {
         $this->assertEquals(
-             '<input name="post[secret]" type="hidden" value="0" /><input checked="checked" id="post_secret" name="post[secret]" type="checkbox" value="1" />',
+             '<input name="post[secret]" type="hidden" value="0"><input checked id="post_secret" name="post[secret]" type="checkbox" value="1">',
             $this->view->checkBox('post', 'secret'));
 
         $this->post->secret = 0;
 
         $this->assertEquals(
-            '<input name="post[secret]" type="hidden" value="0" /><input id="post_secret" name="post[secret]" type="checkbox" value="1" />',
+            '<input name="post[secret]" type="hidden" value="0"><input id="post_secret" name="post[secret]" type="checkbox" value="1">',
             $this->view->checkBox('post', 'secret'));
 
         $this->assertEquals(
-            '<input name="post[secret]" type="hidden" value="0" /><input checked="checked" id="post_secret" name="post[secret]" type="checkbox" value="1" />',
-            $this->view->checkBox('post', 'secret', array('checked' => 'checked')));
+            '<input name="post[secret]" type="hidden" value="0"><input checked id="post_secret" name="post[secret]" type="checkbox" value="1">',
+            $this->view->checkBox('post', 'secret', array('checked' => true)));
 
         $this->post->secret = true;
 
         $this->assertEquals(
-            '<input name="post[secret]" type="hidden" value="0" /><input checked="checked" id="post_secret" name="post[secret]" type="checkbox" value="1" />',
+            '<input name="post[secret]" type="hidden" value="0"><input checked id="post_secret" name="post[secret]" type="checkbox" value="1">',
             $this->view->checkBox('post', 'secret'));
     }
 
@@ -116,32 +116,32 @@ class Horde_View_Helper_FormTest extends Horde_Test_Case
         $this->post->secret = 'on';
 
         $this->assertEquals(
-            '<input name="post[secret]" type="hidden" value="off" /><input checked="checked" id="post_secret" name="post[secret]" type="checkbox" value="on" />',
+            '<input name="post[secret]" type="hidden" value="off"><input checked id="post_secret" name="post[secret]" type="checkbox" value="on">',
             $this->view->checkBox('post', 'secret', array(), 'on', 'off'));
     }
 
     public function testRadioButton()
     {
         $this->assertEquals(
-            '<input checked="checked" id="post_title_hello_world" name="post[title]" type="radio" value="Hello World" />',
+            '<input checked id="post_title_hello_world" name="post[title]" type="radio" value="Hello World">',
             $this->view->radioButton('post', 'title', 'Hello World'));
 
         $this->assertEquals(
-            '<input id="post_title_goodbye_world" name="post[title]" type="radio" value="Goodbye World" />',
+            '<input id="post_title_goodbye_world" name="post[title]" type="radio" value="Goodbye World">',
             $this->view->radioButton('post', 'title', 'Goodbye World'));
     }
 
     public function testRadioButtonIsCheckedWithIntegers()
     {
         $this->assertEquals(
-            '<input checked="checked" id="post_secret_1" name="post[secret]" type="radio" value="1" />',
+            '<input checked id="post_secret_1" name="post[secret]" type="radio" value="1">',
             $this->view->radioButton('post', 'secret', '1'));
     }
 
     public function testRadioButtonRespectsPassedInId()
     {
         $this->assertEquals(
-            '<input checked="checked" id="foo" name="post[secret]" type="radio" value="1" />',
+            '<input checked id="foo" name="post[secret]" type="radio" value="1">',
             $this->view->radioButton('post', 'secret', '1', array('id' => 'foo')));
     }
 
@@ -177,7 +177,7 @@ class Horde_View_Helper_FormTest extends Horde_Test_Case
     public function testExplicitName()
     {
         $this->assertEquals(
-            '<input id="post_title" name="dont guess" size="30" type="text" value="Hello World" />',
+            '<input id="post_title" name="dont guess" size="30" type="text" value="Hello World">',
             $this->view->textField("post", "title", array("name" => "dont guess")));
 
         $this->assertEquals(
@@ -185,14 +185,14 @@ class Horde_View_Helper_FormTest extends Horde_Test_Case
             $this->view->textArea("post", "body", array("name" => "really!")));
 
         $this->assertEquals(
-            '<input name="i mean it" type="hidden" value="0" /><input checked="checked" id="post_secret" name="i mean it" type="checkbox" value="1" />',
+            '<input name="i mean it" type="hidden" value="0"><input checked id="post_secret" name="i mean it" type="checkbox" value="1">',
             $this->view->checkBox("post", "secret", array("name" => "i mean it")));
     }
 
     public function testExplicitId()
     {
         $this->assertEquals(
-            '<input id="dont guess" name="post[title]" size="30" type="text" value="Hello World" />',
+            '<input id="dont guess" name="post[title]" size="30" type="text" value="Hello World">',
             $this->view->textField("post", "title", array("id" => "dont guess")));
 
         $this->assertEquals(
@@ -200,7 +200,7 @@ class Horde_View_Helper_FormTest extends Horde_Test_Case
             $this->view->textArea("post", "body", array("id" => "really!")));
 
         $this->assertEquals(
-            '<input name="post[secret]" type="hidden" value="0" /><input checked="checked" id="i mean it" name="post[secret]" type="checkbox" value="1" />',
+            '<input name="post[secret]" type="hidden" value="0"><input checked id="i mean it" name="post[secret]" type="checkbox" value="1">',
             $this->view->checkBox("post", "secret", array("id" => "i mean it")));
     }
 
@@ -209,7 +209,7 @@ class Horde_View_Helper_FormTest extends Horde_Test_Case
         $pid = $this->post->id;
 
         $this->assertEquals(
-            "<input id=\"post_{$pid}_title\" name=\"post[{$pid}][title]\" size=\"30\" type=\"text\" value=\"Hello World\" />",
+            "<input id=\"post_{$pid}_title\" name=\"post[{$pid}][title]\" size=\"30\" type=\"text\" value=\"Hello World\">",
             $this->view->textField("post[]", "title"));
 
         $this->assertEquals(
@@ -217,15 +217,15 @@ class Horde_View_Helper_FormTest extends Horde_Test_Case
             $this->view->textArea("post[]", "body"));
 
         $this->assertEquals(
-            "<input name=\"post[{$pid}][secret]\" type=\"hidden\" value=\"0\" /><input checked=\"checked\" id=\"post_{$pid}_secret\" name=\"post[{$pid}][secret]\" type=\"checkbox\" value=\"1\" />",
+            "<input name=\"post[{$pid}][secret]\" type=\"hidden\" value=\"0\"><input checked id=\"post_{$pid}_secret\" name=\"post[{$pid}][secret]\" type=\"checkbox\" value=\"1\">",
             $this->view->checkBox('post[]', 'secret'));
 
         $this->assertEquals(
-            "<input checked=\"checked\" id=\"post_{$pid}_title_hello_world\" name=\"post[{$pid}][title]\" type=\"radio\" value=\"Hello World\" />",
+            "<input checked id=\"post_{$pid}_title_hello_world\" name=\"post[{$pid}][title]\" type=\"radio\" value=\"Hello World\">",
             $this->view->radioButton('post[]', 'title', 'Hello World'));
 
         $this->assertEquals(
-            "<input id=\"post_{$pid}_title_goodbye_world\" name=\"post[{$pid}][title]\" type=\"radio\" value=\"Goodbye World\" />",
+            "<input id=\"post_{$pid}_title_goodbye_world\" name=\"post[{$pid}][title]\" type=\"radio\" value=\"Goodbye World\">",
             $this->view->radioButton('post[]', 'title', 'Goodbye World'));
     }
 
@@ -241,11 +241,11 @@ class Horde_View_Helper_FormTest extends Horde_Test_Case
 
         $expected =
           '<form action="http://www.example.com" id="create-post" method="post">' .
-          '<input id="post_title" name="post[title]" size="30" type="text" value="Hello World" />' .
+          '<input id="post_title" name="post[title]" size="30" type="text" value="Hello World">' .
           '<textarea cols="40" id="post_body" name="post[body]" rows="20">Back to the hill and over it again!</textarea>' .
-          '<input name="post[secret]" type="hidden" value="0" />' .
-          '<input checked="checked" id="post_secret" name="post[secret]" type="checkbox" value="1" />' .
-          '<input id="post_submit" name="commit" type="submit" value="Create post" />' .
+          '<input name="post[secret]" type="hidden" value="0">' .
+          '<input checked id="post_secret" name="post[secret]" type="checkbox" value="1">' .
+          '<input id="post_submit" name="commit" type="submit" value="Create post">' .
           "</form>";
 
         $this->assertEquals($expected, ob_get_clean());
@@ -263,11 +263,11 @@ class Horde_View_Helper_FormTest extends Horde_Test_Case
 
         $expected =
           '<form action="http://www.example.com" id="create-post" method="post">' .
-          '<div style="margin:0;padding:0"><input name="_method" type="hidden" value="put" /></div>' .
-          '<input id="post_title" name="post[title]" size="30" type="text" value="Hello World" />' .
+          '<div style="margin:0;padding:0"><input name="_method" type="hidden" value="put"></div>' .
+          '<input id="post_title" name="post[title]" size="30" type="text" value="Hello World">' .
           '<textarea cols="40" id="post_body" name="post[body]" rows="20">Back to the hill and over it again!</textarea>' .
-          '<input name="post[secret]" type="hidden" value="0" />' .
-          '<input checked="checked" id="post_secret" name="post[secret]" type="checkbox" value="1" />' .
+          '<input name="post[secret]" type="hidden" value="0">' .
+          '<input checked id="post_secret" name="post[secret]" type="checkbox" value="1">' .
           "</form>";
 
         $this->assertEquals($expected, ob_get_clean());
@@ -284,10 +284,10 @@ class Horde_View_Helper_FormTest extends Horde_Test_Case
 
         $expected =
           '<form action="http://www.example.com" id="create-post" method="post">' .
-          '<input id="post_title" name="post[title]" size="30" type="text" value="Hello World" />' .
+          '<input id="post_title" name="post[title]" size="30" type="text" value="Hello World">' .
           '<textarea cols="40" id="post_body" name="post[body]" rows="20">Back to the hill and over it again!</textarea>' .
-          '<input name="post[secret]" type="hidden" value="0" />' .
-          '<input checked="checked" id="post_secret" name="post[secret]" type="checkbox" value="1" />' .
+          '<input name="post[secret]" type="hidden" value="0">' .
+          '<input checked id="post_secret" name="post[secret]" type="checkbox" value="1">' .
           "</form>";
 
         $this->assertEquals($expected, ob_get_clean());
@@ -304,10 +304,10 @@ class Horde_View_Helper_FormTest extends Horde_Test_Case
 
         $expected =
           '<form action="http://www.example.com" method="post">' .
-          '<input id="post_123_title" name="post[123][title]" size="30" type="text" value="Hello World" />' .
+          '<input id="post_123_title" name="post[123][title]" size="30" type="text" value="Hello World">' .
           '<textarea cols="40" id="post_123_body" name="post[123][body]" rows="20">Back to the hill and over it again!</textarea>' .
-          '<input name="post[123][secret]" type="hidden" value="0" />' .
-          '<input checked="checked" id="post_123_secret" name="post[123][secret]" type="checkbox" value="1" />' .
+          '<input name="post[123][secret]" type="hidden" value="0">' .
+          '<input checked id="post_123_secret" name="post[123][secret]" type="checkbox" value="1">' .
           '</form>';
 
         $this->assertEquals($expected, ob_get_clean());
@@ -323,10 +323,10 @@ class Horde_View_Helper_FormTest extends Horde_Test_Case
         $fields->end();
 
         $expected =
-          '<input id="post_title" name="post[title]" size="30" type="text" value="Hello World" />' .
+          '<input id="post_title" name="post[title]" size="30" type="text" value="Hello World">' .
           '<textarea cols="40" id="post_body" name="post[body]" rows="20">Back to the hill and over it again!</textarea>' .
-          '<input name="post[secret]" type="hidden" value="0" />' .
-          '<input checked="checked" id="post_secret" name="post[secret]" type="checkbox" value="1" />';
+          '<input name="post[secret]" type="hidden" value="0">' .
+          '<input checked id="post_secret" name="post[secret]" type="checkbox" value="1">';
 
         $this->assertEquals($expected, ob_get_clean());
     }
@@ -342,7 +342,7 @@ class Horde_View_Helper_FormTest extends Horde_Test_Case
 
         $expected =
             '<form action="http://www.example.com" method="post">' .
-            '<input id="post_comment_title" name="post[comment][title]" size="30" type="text" value="Hello World" />' .
+            '<input id="post_comment_title" name="post[comment][title]" size="30" type="text" value="Hello World">' .
             '</form>';
 
         $this->assertEquals($expected, ob_get_clean());
@@ -358,10 +358,10 @@ class Horde_View_Helper_FormTest extends Horde_Test_Case
         $fields->end();
 
         $expected =
-          '<input id="post_title" name="post[title]" size="30" type="text" value="Hello World" />' .
+          '<input id="post_title" name="post[title]" size="30" type="text" value="Hello World">' .
           '<textarea cols="40" id="post_body" name="post[body]" rows="20">Back to the hill and over it again!</textarea>' .
-          '<input name="post[secret]" type="hidden" value="0" />' .
-          '<input checked="checked" id="post_secret" name="post[secret]" type="checkbox" value="1" />';
+          '<input name="post[secret]" type="hidden" value="0">' .
+          '<input checked id="post_secret" name="post[secret]" type="checkbox" value="1">';
 
         $this->assertEquals($expected, ob_get_clean());
     }
@@ -374,7 +374,7 @@ class Horde_View_Helper_FormTest extends Horde_Test_Case
         $fields->end();
 
         $this->assertEquals(
-            '<input id="author_post_title" name="author[post][title]" size="30" type="text" value="Hello World" />',
+            '<input id="author_post_title" name="author[post][title]" size="30" type="text" value="Hello World">',
             ob_get_clean());
     }
 
@@ -398,10 +398,10 @@ class Horde_View_Helper_FormTest extends Horde_Test_Case
 
         $expected =
           '<form action="http://www.example.com" id="create-post" method="post">' .
-          '<input id="post_title" name="post[title]" size="30" type="text" value="Hello World" />' .
+          '<input id="post_title" name="post[title]" size="30" type="text" value="Hello World">' .
           '<textarea cols="40" id="post_body" name="post[body]" rows="20">Back to the hill and over it again!</textarea>' .
-          '<input name="parent_post[secret]" type="hidden" value="0" />' .
-          '<input checked="checked" id="parent_post_secret" name="parent_post[secret]" type="checkbox" value="1" />' .
+          '<input name="parent_post[secret]" type="hidden" value="0">' .
+          '<input checked id="parent_post_secret" name="parent_post[secret]" type="checkbox" value="1">' .
           '</form>';
 
         $this->assertEquals($expected, ob_get_clean());
@@ -417,8 +417,8 @@ class Horde_View_Helper_FormTest extends Horde_Test_Case
 
         $expected =
             '<form action="http://www.example.com" method="post">' .
-            '<input id="post_bar" name="post[bar]" size="30" type="text" />' .
-            '<foo /></form>';
+            '<input id="post_bar" name="post[bar]" size="30" type="text">' .
+            '<foo></form>';
 
         $this->assertEquals($expected, ob_get_clean());
     }
@@ -437,8 +437,8 @@ class Horde_View_Helper_FormTest extends Horde_Test_Case
 
             $expected =
                 '<form action="http://www.example.com" method="post">' .
-                '<input id="post_bar" name="post[bar]" size="30" type="text" />' .
-                '<foo /></form>';
+                '<input id="post_bar" name="post[bar]" size="30" type="text">' .
+                '<foo></form>';
 
             $this->assertEquals($expected, ob_get_clean());
         } catch (Exception $e) {}
@@ -458,7 +458,7 @@ class Horde_View_Helper_FormTest extends Horde_Test_Case
         $fields->end();
 
         $this->assertEquals(
-            '<input id="post_bar" name="post[bar]" size="30" type="text" /><foo />',
+            '<input id="post_bar" name="post[bar]" size="30" type="text"><foo>',
             ob_get_clean());
     }
 
@@ -483,7 +483,7 @@ class Horde_View_Helper_FormTest extends Horde_Test_Case
 
         $expected =
           '<form action="http://www.example.com" method="post">' .
-          '<input id="post_title" name="post[title]" type="hidden" value="Hello World" />' .
+          '<input id="post_title" name="post[title]" type="hidden" value="Hello World">' .
           '</form>';
 
         $this->assertEquals($expected, ob_get_clean());
@@ -498,7 +498,7 @@ class Horde_View_Helper_FormTest extends Horde_Test_Case
 
         $expected =
           '<form action="http://www.example.com" method="post">' .
-          '<input id="post_title" name="post[title]" size="30" type="file" />' .
+          '<input id="post_title" name="post[title]" size="30" type="file">' .
           '</form>';
 
         $this->assertEquals($expected, ob_get_clean());
@@ -521,6 +521,6 @@ class Horde_View_Helper_FormTest_BuilderMock extends Horde_View_Helper_Form_Buil
 {
     public function foo()
     {
-        return '<foo />';
+        return '<foo>';
     }
 }

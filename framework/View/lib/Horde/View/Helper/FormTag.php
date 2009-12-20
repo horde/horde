@@ -80,13 +80,11 @@ class Horde_View_Helper_FormTag extends Horde_View_Helper_Base
 
     public function checkBoxTag($name, $value = '1', $checked = false, $options = array())
     {
-        $htmlOptions = array_merge(array('type' => 'checkbox',
-                                         'name' => $name,
-                                         'id' => $name,
-                                         'value' => $value), $options);
-        if ($checked) {
-            $htmlOptions['checked'] = 'checked';
-        }
+        $htmlOptions = array_merge(array('type'  => 'checkbox',
+                                         'name'  => $name,
+                                         'id'    => $name,
+                                         'value' => $value,
+                                         'checked' => $checked), $options);
 
         return $this->tag('input', $htmlOptions);
     }
@@ -99,10 +97,8 @@ class Horde_View_Helper_FormTag extends Horde_View_Helper_Base
         $htmlOptions = array_merge(array('type'  => 'radio',
                                          'name'  => $name,
                                          'id'    => "{$name}_{$prettyTagValue}",
-                                         'value' => $value), $options);
-        if ($checked) {
-            $htmlOptions['checked'] = 'checked';
-        }
+                                         'value' => $value,
+                                         'checked' => $checked), $options);
 
         return $this->tag('input', $htmlOptions);
     }

@@ -14,7 +14,7 @@
 
 /**
  * Use these methods to generate HTML tags programmatically.
- * By default, they output XHTML compliant tags.
+ * By default, they output HTML 4.01 Strict compliant tags.
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -27,37 +27,32 @@
 class Horde_View_Helper_Tag extends Horde_View_Helper_Base
 {
     /**
-     * HTML attributes that get converted from boolean to the attribute name:
-     * array('disabled' => true) becomes array('disabled' => 'disabled')
+     * Boolean HTML attributes:
+     * array('disabled' => true) is displayed as just "disabled".
      *
      * @var array
      */
-    private $_booleanAttributes = array('disabled', 'readonly', 'multiple');
+    private $_booleanAttributes = array('checked', 'disabled', 'multiple', 'readonly', 'selected');
 
     /**
-     * Returns an empty HTML tag of type $name which by default is XHTML
-     * compliant. Setting $open to true will create an open tag compatible
-     * with HTML 4.0 and below. Add HTML attributes by passing an attributes
-     * hash to $options. For attributes with no value (like disabled and
-     * readonly), give it a value of TRUE in the $options array.
+     * Returns an empty HTML tag of type $name. Add HTML attributes by passing
+     * an attributes hash to $options. For attributes with no value (like
+     * disabled and readonly), give it a value of TRUE in the $options array.
      *
      *   $this->tag("br")
-     *      # => <br />
-     *   $this->tag("br", null, true)
-     *     # => <br>
+     *      # => <br>
      *   $this->tag("input", array('type' => 'text', 'disabled' => true))
-     *      # => <input type="text" disabled="disabled" />
+     *      # => <input type="text" disabled="disabled">
      *
      * @param string   $name     Tag name
      * @param string   $options  Tag attributes
-     * @param boolean  $open     Leave tag open for HTML 4.0 and below?
-     * @param string             Generated HTML tag
+     * @return string            Generated HTML tag
      */
-    public function tag($name, $options = null, $open = false)
+    public function tag($name, $options = null)
     {
         return "<$name"
-             . ($options ? $this->tagOptions($options) : '')
-             . ($open ? '>' : ' />');
+            . ($options ? $this->tagOptions($options) : '')
+            . '>';
     }
 
     /**
@@ -139,19 +134,19 @@ class Horde_View_Helper_Tag extends Horde_View_Helper_Base
      */
     public function tagOptions($options)
     {
-        foreach ($options as $k => &$v) {
+        foreach ($options as $k => $v) {
             if ($v === null || $v === false) {
                 unset($options[$k]);
-            } else {
-                if (in_array($k, $this->_booleanAttributes)) {
-                    $v = $k;
-                }
             }
         }
 
         if (! empty($options)) {
             foreach ($options as $k => &$v) {
-                $v = $k . '="' . $this->escapeOnce($v) . '"';
+                if (in_array($k, $this->_booleanAttributes)) {
+                    $v = $k;
+                } else {
+                    $v = $k . '="' . $this->escapeOnce($v) . '"';
+                }
             }
             sort($options);
             return ' ' . implode(' ', $options);

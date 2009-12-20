@@ -62,9 +62,7 @@ class Horde_View_Helper_Form_InstanceTag_Form extends Horde_View_Helper_Form_Ins
         } else {
             $checked = $this->isRadioButtonChecked($this->value($this->object()), $tagValue);
         }
-        if ($checked) {
-            $options['checked'] = 'checked';
-        }
+        $options['checked'] = (boolean)$checked;
 
         $prettyTagValue = strval($tagValue);
         $prettyTagValue = preg_replace('/\s/', '_', $prettyTagValue);
@@ -116,9 +114,7 @@ class Horde_View_Helper_Form_InstanceTag_Form extends Horde_View_Helper_Form_Ins
         } else {
             $checked = $this->isCheckBoxChecked($this->value($this->object()), $checkedValue);
         }
-        if ($checked) {
-            $options['checked'] = 'checked';
-        }
+        $options['checked'] = (boolean)$checked;
         $options = $this->addDefaultNameAndId($options);
 
         // hidden must output first in PHP to not overwrite checkbox value
