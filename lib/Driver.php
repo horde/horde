@@ -4,7 +4,7 @@
  *
  * $Id$
  *
- * Copyright 2005 Ben Klang <ben@alkaloid.net>
+ * Copyright 2005-2009 Ben Klang <ben@alkaloid.net>
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
@@ -15,10 +15,8 @@
  * @package Shout
  */
 
-// {{{ Shout_Driver class
 class Shout_Driver {
 
-    // {{{ Class local variables
     /**
      * Hash containing connection parameters.
      *
@@ -26,16 +24,11 @@ class Shout_Driver {
      */
     var $_params = array();
 
-    // }}}
-
-    // {{{ Shout_Driver constructor
     function Shout_Driver($params = array())
     {
         $this->_params = $params;
     }
-    // }}}
 
-    // {{{ getContexts function
     /**
     * Get a list of contexts from the instantiated driver and filter
     * the returned contexts for those which the current user can see/edit
@@ -53,9 +46,7 @@ class Shout_Driver {
     {
         return PEAR::raiseError("This function is not implemented.");
     }
-    // }}}
 
-    // {{{ checkContextType
     /**
      * For the given context and type, make sure the context has the
      * appropriate properties, that it is effectively of that "type"
@@ -72,9 +63,7 @@ class Shout_Driver {
     {
         return PEAR::raiseError("This function is not implemented.");
     }
-    //}}}
 
-    // {{{
     /**
      * Get a list of users valid for the current context.  Return an array
      * indexed by the extension.
@@ -87,9 +76,7 @@ class Shout_Driver {
     {
         return PEAR::raiseError("This function is not implemented.");
     }
-    // }}}
 
-    // {{{ getHomeContext method
     /**
      * Returns the name of the user's default context
      *
@@ -99,9 +86,7 @@ class Shout_Driver {
     {
         return PEAR::raiseError("This function is not implemented.");
     }
-    // }}}
 
-    // {{{
     /**
      * Get a context's properties
      *
@@ -113,9 +98,7 @@ class Shout_Driver {
     {
         return PEAR::raiseError("This function is not implemented.");
     }
-    // }}}
 
-    // {{{ getExtensions method
     /**
      * Get a context's extensions and return as a multi-dimensional associative
      * array
@@ -129,9 +112,7 @@ class Shout_Driver {
     {
         return PEAR::raiseError("This function is not implemented.");
     }
-    // }}}
 
-    // {{{ factory method
     /**
      * Attempts to return a concrete Shout_Driver instance based on
      * $driver.
@@ -169,9 +150,7 @@ class Shout_Driver {
             return false;
         }
     }
-    // }}}
 
-    // {{{ singleton method
     /**
      * Attempts to return a reference to a concrete Shout_Driver
      * instance based on $driver. It will only create a new instance
