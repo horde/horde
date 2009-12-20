@@ -23,8 +23,11 @@ var ImpLogin = {
     onDomLoad: function()
     {
         /* Activate dynamic view. */
-        var s = $('imp_select_view'),
-            o = s.down('option[value=dimp]').show();
+        var s = $('imp_select_view');
+        if (!s) {
+            return;
+        }
+        o = s.down('option[value=dimp]').show();
         if (this.dimp_sel) {
             s.selectedIndex = o.index;
         }
