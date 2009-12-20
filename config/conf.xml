@@ -7,12 +7,12 @@
    <configswitch name="driver" desc="What backend should we use for storing Asterisk phone user configuration?">ldap
     <case name="ldap" desc="LDAP">
      <configsection name="params">
-      <configldap switchname="extensionsdriver" />
+      <configldap switchname="driver" />
      </configsection>
     </case>
     <case name="sql" desc="SQL">
      <configsection name="params">
-      <configsql switchname="extensionsdriver" />
+      <configsql switchname="driver" />
      </configsection>
     </case>
    </configswitch>
@@ -24,12 +24,12 @@
    <configswitch name="driver" desc="What backend should we use for storing Asterisk phone user configuration?">ldap
     <case name="ldap" desc="LDAP">
      <configsection name="params">
-      <configldap switchname="devicesdriver" />
+      <configldap switchname="driver" />
      </configsection>
     </case>
     <case name="sql" desc="SQL">
      <configsection name="params">
-      <configsql switchname="devicesdriver" />
+      <configsql switchname="driver" />
      </configsection>
     </case>
    </configswitch>
