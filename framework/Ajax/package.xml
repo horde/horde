@@ -36,6 +36,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="AutoCompleter.php" role="php" />
        <file name="Base.php" role="php" />
        <file name="SpellChecker.php" role="php" />
+       <dir name="Geocoder">
+        <file name="Geonames.php" role="php" />
+       </dir>
       </dir> <!-- /lib/Horde/Ajax/Imple -->
       <file name="Imple.php" role="php" />
      </dir> <!-- /lib/Horde/Ajax -->
@@ -73,6 +76,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Ajax/Imple/Base.php" as="Horde/Ajax/Imple/Base.php" />
    <install name="lib/Horde/Ajax/Imple/SpellChecker.php" as="Horde/Ajax/Imple/SpellChecker.php" />
    <install name="lib/Horde/Ajax/Imple.php" as="Horde/Ajax/Imple.php" />
+   <install name="lib/Horde/Ajax/Imple/Geocoder/Geonames.php" as="Horde/Ajax/Imple/Geocoder/Geonames.php" />
   </filelist>
  </phprelease>
  <changelog/>
