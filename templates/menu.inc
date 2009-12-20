@@ -7,15 +7,31 @@ $menu_view = $prefs->getValue('menu_view');
 
 <div id="menu">
 
+<?php
+// Only show the context selector if there is more than one available context
+if (count($contexts) > 1) { ?>
+<script language="JavaScript" type="text/javascript">
+<!--
+var loading;
+function contextSubmit(clear)
+{
 
+    if (document.contextMenu.context[document.contextMenu.context.selectedIndex].name != '') {
+        if ((loading == null) || (clear != null)) {
+            loading = true;
+            document.contextMenu.submit();
+        }
+    }
+}
+// -->
+</script>
  <form action="index.php" method="get" name="contextMenu">
   <span style="float:right">
    <?php Horde_Util::pformInput() ?>
    <label for="context" accesskey="<?php echo $accesskey ?>">
     <select id="context" name="context" onchange="contextSubmit()">
      <?php
-        $contexts = &$shout->getContexts();
-        foreach ($contexts as $c => $cdata) {
+        foreach ($contexts as $c) {
             print "<option value=\"$c\"";
             if ($c == $context) {
                 print " selected";
@@ -46,21 +62,7 @@ $menu_view = $prefs->getValue('menu_view');
   ?>
  </div>
 
+<?php } // if (count(contexts) > 1) ?>
+
   <?php echo Shout::getMenu('string') ?>
 </div>
-
-<script language="JavaScript" type="text/javascript">
-<!--
-var loading;
-function contextSubmit(clear)
-{
-
-    if (document.contextMenu.context[document.contextMenu.context.selectedIndex].name != '') {
-        if ((loading == null) || (clear != null)) {
-            loading = true;
-            document.contextMenu.submit();
-        }
-    }
-}
-// -->
-</script>
