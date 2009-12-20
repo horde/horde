@@ -202,8 +202,8 @@ Configuring Kronolith
       ``kronolith/scripts/agenda.php``, and running the job once a day is
       recommended, e.g. at 2 a.m.::
 
-         # Kronolith reminders
-         0 2 * * * /usr/bin/php /var/www/horde/kronolith/scripts/reminders.php
+         # Kronolith agenda
+         0 2 * * * /usr/bin/php /var/www/horde/kronolith/scripts/agenda.php
 
    Replace ``/usr/bin/php`` with the path to your PHP CLI and
    ``/var/www/horde/kronolith`` with the path to your Kronolith installation.
