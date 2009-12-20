@@ -189,36 +189,24 @@ Configuring Kronolith
 
 4. Setting up reminder emails
 
-   There are two kind of reminders sent to users, reminders on individual
-   events with alarms, and daily agendas. How to set them up correctly depends
-   on whether you are using Horde 3.2 and have enabled the Alarm system there.
-   Generally, if you set up cron jobs, you must have the PHP CLI installed (a
-   CGI binary is not supported - ``php -v`` will report what kind of PHP
-   binary you have).
+   There are two kind of reminders sent to users, reminders on individual events
+   with alarms, and daily agendas. Generally, if you set up cron jobs, you must
+   have the PHP CLI installed (a CGI binary is not supported - ``php -v`` will
+   report what kind of PHP binary you have).
 
-   a. If you are using Horde 3.2 and the Alarm system, you have to set up a
-      cron entry for the Horde alarm script to sent out reminders on
-      individual events, see `horde/docs/INSTALL`_. You still have to set up a
-      cron entry for ``kronolith/scripts/reminders.php``, and running the job
-      once a day is recommended, e.g. at 2 a.m.::
+   a. If you have not already set up the Horde Alarm system, you have to set up
+      a cron entry for the Horde alarm script as documented in
+      `horde/docs/INSTALL`_. This will send reminders for individual events.
+
+   b. To send daily agendas, you must create a cron entry for
+      ``kronolith/scripts/agenda.php``, and running the job once a day is
+      recommended, e.g. at 2 a.m.::
 
          # Kronolith reminders
          0 2 * * * /usr/bin/php /var/www/horde/kronolith/scripts/reminders.php
 
-   b. If you are using Horde versions older than 3.2 or not using the Alarm
-      system, you have to set up a cron entry for
-      ``kronolith/scripts/reminders.php``, and running the job every 5 minutes
-      is recommended::
-
-         # Kronolith reminders
-         */5 * * * * /usr/bin/php /var/www/horde/kronolith/scripts/reminders.php
-
-   In all examples replace ``/usr/bin/php`` with the path to your PHP CLI and
-   ``/var/www/horde/kronolith`` with the path to your Kronolith installation)
-
-   The user who runs these cron jobs **MUST** be able to write to the Horde
-   VFS backend, or the script will not be able to remember which reminders it
-   has already sent.
+   Replace ``/usr/bin/php`` with the path to your PHP CLI and
+   ``/var/www/horde/kronolith`` with the path to your Kronolith installation.
 
 5. Testing Kronolith
 
