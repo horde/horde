@@ -15,15 +15,15 @@
                 $rowcolor = $line % 2;
                 $line++;
                 $url = Horde::applicationUrl("index.php");
-                $url = Util::addParameter($url,
+                $url = Horde_Util::addParameter($url,
                     array(
                         'context' => $context,
                         'extension' => $extension,
                         'section' => $section,
                     )
                 );
-                $editurl = Util::addParameter($url, "action=edit");
-                $deleteurl = Util::addParameter($url, "action=delete");
+                $editurl = Horde_Util::addParameter($url, "action=edit");
+                $deleteurl = Horde_Util::addParameter($url, "action=delete");
         ?>
         <tr class="item<?php echo $rowcolor; ?>">
             <td style="width: 20%">

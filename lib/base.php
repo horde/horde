@@ -17,8 +17,7 @@ if (!defined('HORDE_BASE')) {
 // Load the Horde Framework core, and set up inclusion paths.
 require_once HORDE_BASE . '/lib/core.php';
 
-// Registry.
-$registry = &Registry::singleton();
+$registry = &Horde_Registry::singleton();
 if (is_a(($pushed = $registry->pushApp('shout', !defined('AUTH_HANDLER'))),
 'PEAR_Error')) {
     if ($pushed->getCode() == 'permission_denied') {
@@ -44,8 +43,7 @@ if (!$shout_configured) {
         #, 'prefs.php'));
 }
 
-// Notification system.
-$notification = &Notification::singleton();
+$notification = &Horde_Notification::singleton();
 $notification->attach('status');
 
 // Shout base libraries.
@@ -68,8 +66,8 @@ $shout = Shout_Driver::singleton();
 // Horde libraries.
 require_once 'Horde/Help.php';
 
-$context = Util::getFormData('context');
-$section = Util::getFormData('section');
+$context = Horde_Util::getFormData('context');
+$section = Horde_Util::getFormData('section');
 
 $contexts = $shout->getContexts();
 

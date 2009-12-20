@@ -1,39 +1,13 @@
 <?xml version="1.0"?>
 <!-- $Id$ -->
 <configuration>
-  <configtab name="storage" desc="Storage Backend">
+  <configtab name="devices" desc="VoIP Devices">
     <configsection name="storage">
-      <configheader>Shout Storage</configheader>
+      <configheader>Device Storage</configheader>
       <configswitch name="driver" desc="What backend should we use for
         storing Asterisk phone user configuration?">ldap
         <case name="ldap" desc="LDAP">
-          <configsection name="params">
-            <configstring name="hostspec" desc="The hostname of the LDAP
-              server">localhost</configstring>
-            <configstring name="basedn" desc="The base DN for the LDAP server"/>
-            <configstring name="binddn" required="false" desc="The DN used to
-              bind to the LDAP server"/>
-            <configstring name="password" required="false" desc="The password
-              used to bind to the LDAP server"/>
-            <configenum name="version" desc="LDAP Protocol Version">3
-              <values>
-                <value desc="LDAPv2 (Deprecated)">2</value>
-                <value desc="LDAPv3">3</value>
-              </values>
-            </configenum>
-            <configstring name="uid" desc="The username search key"/>
-            <configswitch name="filter_type" desc="How to specify a filter for
-              the user lists">objectclass
-              <case name="objectclass" desc="One or more objectclass filters">
-                <configlist name="objectclass" desc="The objectclass filter used
-                  to search for users. Can be a single objectclass or a list."/>
-              </case>
-              <case name="free" desc="A complete LDAP filter expression">
-                <configstring name="filter" desc="The LDAP RFC formatted filter
-                  used to search for users."/>
-              </case>
-            </configswitch>
-          </configsection>
+          <configldap name="params" />
         </case>
       </configswitch>
     </configsection>

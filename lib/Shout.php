@@ -33,14 +33,14 @@ class Shout
 
         require_once 'Horde/Menu.php';
 
-        $menu = &new Menu(HORDE_MENU_MASK_ALL);
+        $menu = new Horde_Menu(HORDE_MENU_MASK_ALL);
         $permprefix = "shout:contexts:$context";
 
         if (isset($context) && $section == "usermgr" &&
             Shout::checkRights("$permprefix:users",
                 PERMS_EDIT, 1)) {
             $url = Horde::applicationUrl("index.php");
-            $url = Util::addParameter($url, array('context' => $context,
+            $url = Horde_Util::addParameter($url, array('context' => $context,
                                                   'section' => $section,
                                                   'action' => 'add'));
 
@@ -61,7 +61,7 @@ class Shout
             Shout::checkRights("$permprefix:dialplan",
                 PERMS_EDIT, 1)) {
             $url = Horde::applicationUrl("dialplan.php");
-            $url = Util::addParameter($url, array('context' => $context,
+            $url = Horde_Util::addParameter($url, array('context' => $context,
                                                   'section' => $section,
                                                   'action' => 'add'));
 
@@ -95,16 +95,17 @@ class Shout
     function getTabs($context, &$vars)
     {
         global $shout;
+        $perms = Horde_Perms::singleton();
 
         $permprefix = 'shout:contexts:' . $context;
 
-        $tabs = &new Horde_UI_Tabs('section', $vars);
+        $tabs = new Horde_UI_Tabs('section', $vars);
 
         if (Shout::checkRights($permprefix . ':users', null, 1) &&
             $shout->checkContextType($context, 'users')) {
 
             $url = Horde::applicationUrl('usermgr.php');
-            $url = Util::addParameter($url, 'context', $context);
+            $url = Horde_Util::addParameter($url, 'context', $context);
             $tabs->addTab(_("_User Manager"), $url, 'usermgr');
         }
 
@@ -112,7 +113,7 @@ class Shout
             $shout->checkContextType($context, 'dialplan')) {
 
             $url = Horde::applicationUrl('dialplan.php');
-            $url = Util::addParameter($url, 'context', $context);
+            $url = Horde_Util::addParameter($url, 'context', $context);
             $tabs->addTab(_("_Dial Plan"), $url, 'dialplan');
         }
 
@@ -120,7 +121,7 @@ class Shout
             $shout->checkContextType($context, 'conference')) {
 
             $url = Horde::applicationUrl('conference.php');
-            $url = Util::addParameter($url, 'context', $context);
+            $url = Horde_Util::addParameter($url, 'context', $context);
             $tabs->addTab(_("_Conference Rooms"), $url, 'conference');
         }
 
@@ -128,13 +129,13 @@ class Shout
             $shout->checkContextType($context, "moh")) {
 
             $url = Horde::applicationUrl('moh.php');
-            $url = Util::addParameter($url, 'context', $context);
+            $url = Horde_Util::addParameter($url, 'context', $context);
             $tabs->addTab(_("_Music on Hold"), $url, 'moh');
         }
 
-        if (Perms::hasPermission('shout:superadmin', Auth::getAuth(), PERMS_SHOW|PERMS_READ)) {
+        if ($perms->hasPermission('shout:superadmin', Horde_Auth::getAuth(), PERMS_SHOW|PERMS_READ)) {
             $url = Horde::applicationUrl('security.php');
-            $url = Util::addParameter($url, 'context', $context);
+            $url = Horde_Util::addParameter($url, 'context', $context);
             $tabs->addTab(_("_Security"), $url, 'security');
         }
 
@@ -157,9 +158,9 @@ class Shout
      */
     function checkRights($permname, $permmask = null, $numparents = 0)
     {
-        if (Auth::isAdmin()) { return true; }
+        if (Horde_Auth::isAdmin()) { return true; }
 
-        $perms = Perms::singleton();
+        $perms = Horde_Perms::singleton();
         if ($permmask === null) {
             $permmask = PERMS_SHOW|PERMS_READ;
         }
@@ -169,11 +170,11 @@ class Shout
         $superadmin = 0;
 
         $superadmin = $perms->hasPermission('shout:superadmin',
-            Auth::getAuth(), $permmask);
+            Horde_Auth::getAuth(), $permmask);
 
         while ($numparents >= 0) {
             $tmpuser = $perms->hasPermission($permname,
-                Auth::getAuth(), $permmask);
+                Horde_Auth::getAuth(), $permmask);
 
             $user = $user | $tmpuser;
             if ($numparents > 0) {

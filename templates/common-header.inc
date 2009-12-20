@@ -1,6 +1,6 @@
 <?php
      if (isset($language)) {
-     header('Content-type: text/html; charset=' . NLS::getCharset());
+     header('Content-type: text/html; charset=' . Horde_NLS::getCharset());
      header('Vary: Accept-Language');
      }
      ?>
@@ -25,8 +25,8 @@
 
                 ?>
                 <title><?php echo $page_title ?></title>
-                <?php echo Horde::stylesheetLink('shout') ?>
+                <?php echo Horde::includeStylesheetFiles() ?>
 </head>
 
-<body<?php if (Util::nonInputVar('bodyClass')) echo ' class="' . $bodyClass .
+<body<?php if (Horde_Util::nonInputVar('bodyClass')) echo ' class="' . $bodyClass .
 '"' ?>>

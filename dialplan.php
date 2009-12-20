@@ -21,7 +21,7 @@ $dialplan = &$shout->getDialplan($context);
 // Set up the tree.
 $dpgui = Shout_Dialplan::singleton('x', $dialplan);
 
-//$action = Util::getFormData("action");
+//$action = Horde_Util::getFormData("action");
 // $action = 'manager';
 
 $title = _("Dialplan Manager");

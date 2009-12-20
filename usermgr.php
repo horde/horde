@@ -17,10 +17,10 @@ if (!isset($SHOUT_RUNNING) || !$SHOUT_RUNNING) {
     exit();
 }
 
-$action = Util::getFormData('action');
-$extension = Util::getFormData('extension');
+$action = Horde_Util::getFormData('action');
+$extension = Horde_Util::getFormData('extension');
 
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 
 $tabs = Shout::getTabs($context, $vars);
 $tabs->preserve('context', $context);

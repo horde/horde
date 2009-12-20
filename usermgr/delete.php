@@ -12,8 +12,8 @@
 @define('SHOUT_BASE', dirname(__FILE__) . '/..');
 //require_once 'Horde/Variables.php';
 
-$context = Util::getFormData('context');
-$extension = Util::getFormData('extension');
+$context = Horde_Util::getFormData('context');
+$extension = Horde_Util::getFormData('extension');
 
 $res = $shout->deleteUser($context, $extension);
 

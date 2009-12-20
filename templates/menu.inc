@@ -10,7 +10,7 @@ $menu_view = $prefs->getValue('menu_view');
 
  <form action="index.php" method="get" name="contextMenu">
   <span style="float:right">
-   <?php Util::pformInput() ?>
+   <?php Horde_Util::pformInput() ?>
    <label for="context" accesskey="<?php echo $accesskey ?>">
     <select id="context" name="context" onchange="contextSubmit()">
      <?php
