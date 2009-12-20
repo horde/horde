@@ -3142,6 +3142,7 @@ KronolithCore = {
             viewDates = this.viewDates(this.date, this.view),
             start = viewDates[0].dateString(),
             end = viewDates[1].dateString();
+        $('kronolithEventTags').autocompleter.shutdown();
         this.startLoading(cal, start + end);
         this.doAction('SaveEvent',
                       $H($('kronolithEventForm').serialize({ 'hash': true }))
