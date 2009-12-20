@@ -86,7 +86,6 @@ $ta->attach();
       </ul>
       <div class="clear">&nbsp;</div>
       <input type="text" name="newtags-input_<?php echo $id?>" id="newtags-input_<?php echo $id?>" size="10" /><input type="button" class="button" value="add" name="newtags-button_<?php echo $id?>" id="newtags-button_<?php echo $id?>" />
-      <div id="newtags-input_<?php echo $id?>_results" class="autocomplete"></div>
       <span id="newtags-input_<?php echo $id?>_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
      <?php
       $tac = Horde_Ajax_Imple::factory(array('kronolith', 'TagAutoCompleter'), array('triggerId' => 'newtags-input_' . $id, 'id' => $id));
