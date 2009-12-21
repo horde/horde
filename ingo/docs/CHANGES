@@ -10,6 +10,8 @@ v2.0-git
 v1.2.4-cvs
 ----------
 
+[jan] Fix unconditional debug output with Net_Sieve earlier than 1.2.0
+      (Bug #8794).
 [jan] Add Sieve configuration to use UTF-8 encoded folder names (for Dovecot).
 
 

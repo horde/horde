@@ -41,14 +41,12 @@ class Ingo_Driver_Timsieved extends Ingo_Driver
     }
 
     /**
-     * Connect to the sieve server.
-     *
-     * @return mixed  True on success, PEAR_Error on false.
+     * Connects to the sieve server.
      */
-    public function _connect()
+    protected function _connect()
     {
         if (!empty($this->_sieve)) {
-            return true;
+            return;
         }
 
         if (empty($this->_params['admin'])) {
@@ -70,9 +68,10 @@ class Ingo_Driver_Timsieved extends Ingo_Driver
         if (is_a($res, 'PEAR_Error')) {
             unset($this->_sieve);
             return $res;
-        } else {
+        }
+
+        if (!empty($this->_params['debug'])) {
             $this->_sieve->setDebug(true, array($this, '_debug'));
-            return true;
         }
     }
 
@@ -82,7 +81,7 @@ class Ingo_Driver_Timsieved extends Ingo_Driver
      * @param Net_Sieve $sieve  A Net_Sieve object.
      * @param string $message   The tracked Sieve communication.
      */
-    function _debug($sieve, $message)
+    protected function _debug($sieve, $message)
     {
         Horde::logMessage($message, __FILE__, __LINE__, PEAR_LOG_DEBUG);
     }

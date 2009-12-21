@@ -207,6 +207,10 @@ $backends['sieve'] = array(
         // an admin user if you want to use shared rules.
         // 'username' => 'cyrus',
         // 'password' => '*****',
+        // Enable debugging. With Net_Sieve 1.2.0 or later, the sieve protocol
+        // communication is logged with the DEBUG level. Earlier versions
+        // print the log to the screen.
+        'debug' => false,
     ),
     'script' => 'sieve',
     'scriptparams' => array(
