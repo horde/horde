@@ -91,34 +91,27 @@ $compose_disable = !IMP::canCompose();
    <tr id="sendto">
     <td class="label"><span><?php echo _("To: ") ?></span></td>
     <td>
-     <textarea id="to" name="to" rows="1" cols="75"></textarea>
-    </td>
-    <td>
      <span id="to_loading_img" class="loadingImg" style="display:none"></span>
+     <textarea id="to" name="to" rows="1" cols="75"></textarea>
     </td>
    </tr>
    <tr id="sendcc" style="display:none">
     <td class="label"><span><?php echo _("Cc: ") ?></span></td>
     <td>
-     <textarea id="cc" name="cc" rows="1" cols="75"></textarea>
-    </td>
-    <td>
      <span id="cc_loading_img" class="loadingImg" style="display:none"></span>
+     <textarea id="cc" name="cc" rows="1" cols="75"></textarea>
     </td>
    </tr>
    <tr id="sendbcc" style="display:none">
     <td class="label"><span><?php echo _("Bcc: ") ?></span></td>
     <td>
-     <textarea id="bcc" name="bcc" rows="1" cols="75"></textarea>
-    </td>
-    <td>
      <span id="bcc_loading_img" class="loadingImg" style="display:none"></span>
+     <textarea id="bcc" name="bcc" rows="1" cols="75"></textarea>
     </td>
    </tr>
    <tr>
     <td class="label"><?php echo _("Subject: ") ?></td>
     <td class="subject"><input type="text" id="subject" name="subject" /></td>
-    <td></td>
    </tr>
    <tr class="atcrow">
     <td class="label"><span class="iconImg attachmentImg"></span>: </td>

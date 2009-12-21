@@ -631,7 +631,8 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     padding: 4px 4px 0 4px;
 }
 .msgwrite span.loadingImg {
-    display: block;
+    float: right;
+    padding: 0;
 }
 
 #composeMessageParent {
