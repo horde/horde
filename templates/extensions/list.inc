@@ -11,7 +11,7 @@
         </tr>
         <?php
             $line = 0;
-            foreach ($users as $extension => $user) {
+            foreach ($extensions as $extension => $user) {
                 $rowcolor = $line % 2;
                 $line++;
                 $url = Horde::applicationUrl("index.php");

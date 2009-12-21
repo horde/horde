@@ -38,7 +38,6 @@ $conf = &$GLOBALS['conf'];
 // Ensure Shout is properly configured before use
 $shout_configured = (@is_readable(SHOUT_BASE . '/config/conf.php'));
 if (!$shout_configured) {
-    require SHOUT_BASE . '/../lib/Test.php';
     Horde_Test::configFilesMissing('Shout', SHOUT_BASE, array('conf.php'));
 }
 
@@ -60,16 +59,15 @@ $notification->attach('status');
 //// UI classes.
 //require_once 'Horde/UI/Tabs.php';
 
-$shout = Shout_Driver::singleton();
-
-//// Horde libraries.
-//require_once 'Horde/Help.php';
+$shout_storage = Shout_Driver::factory('storage');
+$shout_extensions = Shout_Driver::factory('extensions');
+$shout_devices = Shout_Driver::factory('devices');
 
 $context = Horde_Util::getFormData('context');
 $section = Horde_Util::getFormData('section');
 
 try {
-    $contexts = $shout->getContexts();
+    $contexts = $shout_storage->getContexts();
 } catch (Shout_Exception $e) {
     $notification->push($e);
     $contexts = false;
@@ -78,12 +76,12 @@ try {
 if (count($contexts) == 1) {
     // Default to the user's only context
     $context = $contexts[0];
-} elseif (!$context) {
-    try {
-        // Attempt to locate the user's "home" context
-        $context = $shout->getHomeContext();
-    } catch (Shout_Exception $e) {
-        $notification->push($e);
-    }
+} elseif (!empty($context) && !in_array($context, $contexts)) {
+    $notification->push('You do not have permission to access that context.', 'horde.error');
+    $context = false;
+} elseif (!empty($context)) {
+    $notification->push("Please select a context to continue.", 'horde.info');
     $context = false;
 }
+
+$_SESSION['shout']['context'] = $context;

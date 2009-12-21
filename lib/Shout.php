@@ -100,42 +100,28 @@ class Shout
 
         $tabs = new Horde_UI_Tabs('section', $vars);
 
-        if (Shout::checkRights($permprefix . ':users', null, 1) &&
-            $shout->checkContextType($context, 'users')) {
-
-            $url = Horde::applicationUrl('usermgr.php');
+        if (Shout::checkRights($permprefix . ':extensions', null, 1)) {
+            $url = Horde::applicationUrl('extensions.php');
             $url = Horde_Util::addParameter($url, 'context', $context);
-            $tabs->addTab(_("_User Manager"), $url, 'usermgr');
+            $tabs->addTab(_("_Extensions"), $url, 'usermgr');
         }
 
-        if (Shout::checkRights($permprefix . ':dialplan', null, 1) &&
-            $shout->checkContextType($context, 'dialplan')) {
-
+        if (Shout::checkRights($permprefix . ':dialplan', null, 1)) {
             $url = Horde::applicationUrl('dialplan.php');
             $url = Horde_Util::addParameter($url, 'context', $context);
-            $tabs->addTab(_("_Dial Plan"), $url, 'dialplan');
+            $tabs->addTab(_("_Automated Attendant"), $url, 'dialplan');
         }
 
-        if (Shout::checkRights($permprefix . ':conference', null, 1) &&
-            $shout->checkContextType($context, 'conference')) {
-
+        if (Shout::checkRights($permprefix . ':conference', null, 1)) {
             $url = Horde::applicationUrl('conference.php');
             $url = Horde_Util::addParameter($url, 'context', $context);
             $tabs->addTab(_("_Conference Rooms"), $url, 'conference');
         }
 
-       if (Shout::checkRights($permprefix . ':moh', null, 1) &&
-            $shout->checkContextType($context, "moh")) {
-
+       if (Shout::checkRights($permprefix . ':moh', null, 1)) {
             $url = Horde::applicationUrl('moh.php');
             $url = Horde_Util::addParameter($url, 'context', $context);
             $tabs->addTab(_("_Music on Hold"), $url, 'moh');
-        }
-
-        if ($perms->hasPermission('shout:superadmin', Horde_Auth::getAuth(), PERMS_SHOW|PERMS_READ)) {
-            $url = Horde::applicationUrl('security.php');
-            $url = Horde_Util::addParameter($url, 'context', $context);
-            $tabs->addTab(_("_Security"), $url, 'security');
         }
 
         return $tabs;
@@ -188,13 +174,5 @@ class Shout
 $ret = ($test & $permmask) == $permmask;
 print "Shout::checkRights() returning $ret";
         return ($test & $permmask) == $permmask;
-    }
-
-    static public function getContextTypes()
-    {
-        return array(SHOUT_CONTEXT_CUSTOMERS => _("Customers"),
-                     SHOUT_CONTEXT_EXTENSIONS => _("Dialplan"),
-                     SHOUT_CONTEXT_MOH => _("Music On Hold"),
-                     SHOUT_CONTEXT_CONFERENCE => _("Conference Calls"));
     }
 }

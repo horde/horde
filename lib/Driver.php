@@ -129,69 +129,32 @@ class Shout_Driver {
      * @return mixed  The newly created concrete Shout_Driver instance, or
      *                false on an error.
      */
-    function &factory($driver = null, $params = null)
+    function &factory($class, $driver = null, $params = null)
     {
         if (is_null($driver)) {
-            $driver = $GLOBALS['conf']['storage']['driver'];
+            $driver = $GLOBALS['conf'][$class]['driver'];
         }
 
         $driver = basename($driver);
 
         if (is_null($params)) {
-            $params = Horde::getDriverConfig('storage', $driver);
+            if ($GLOBALS['conf'][$class]['params']['driverconfig'] == 'horde') {
+                $params = array_merge($GLOBALS['conf'][$class]['params'],
+                                      Horde::getDriverConfig('storage', $driver));
+            } else {
+                $params = $GLOBALS['conf'][$class]['params'];
+            }
         }
+
+        $params['class'] = $class;
 
         require_once dirname(__FILE__) . '/Driver/' . $driver . '.php';
         $class = 'Shout_Driver_' . $driver;
         if (class_exists($class)) {
-            $shout = new $class($params);
-            return $shout;
+            return new $class($params);
         } else {
             return false;
         }
     }
 
-    /**
-     * Attempts to return a reference to a concrete Shout_Driver
-     * instance based on $driver. It will only create a new instance
-     * if no Shout_Driver instance with the same parameters currently
-     * exists.
-     *
-     * This method must be invoked as: $var = &Shout_Driver::singleton()
-     *
-     * @param string $driver  The type of concrete Shout_Driver subclass
-     *                        to return.  The is based on the storage
-     *                        driver ($driver).  The code is dynamically
-     *                        included.
-     * @param array $params   (optional) A hash containing any additional
-     *                        configuration or connection parameters a
-     *                        subclass might need.
-     *
-     * @return mixed  The created concrete Shout_Driver instance, or false
-     *                on error.
-     */
-    function &singleton($driver = null, $params = null)
-    {
-        static $instances;
-
-        if (is_null($driver)) {
-            $driver = $GLOBALS['conf']['storage']['driver'];
-        }
-
-        if (is_null($params)) {
-            $params = Horde::getDriverConfig('storage', $driver);
-        }
-
-        if (!isset($instances)) {
-            $instances = array();
-        }
-
-        $signature = serialize(array($driver, $params));
-        if (!isset($instances[$signature])) {
-            $instances[$signature] = &Shout_Driver::factory($driver, $params);
-        }
-
-        return $instances[$signature];
-    }
 }
-// }}}

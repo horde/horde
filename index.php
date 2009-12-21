@@ -11,15 +11,13 @@
  */
 
 @define('SHOUT_BASE', dirname(__FILE__));
-$shout_configured = (is_readable(SHOUT_BASE . '/config/conf.php') &&
-                     is_readable(SHOUT_BASE . '/config/applist.xml') &&
-                     is_readable(SHOUT_BASE . '/config/defines.php'));
+$shout_configured = (is_readable(SHOUT_BASE . '/config/conf.php'));
 
 if (!$shout_configured) {
 require SHOUT_BASE . '/../lib/Test.php';
     Horde_Test::configFilesMissing('Shout', SHOUT_BASE,
-        array('conf.php', 'applist.xml', 'defines.php'));
+        array('conf.php'));
 }
 
 require_once SHOUT_BASE . '/lib/base.php';
-header('Location: ' . Horde::applicationUrl('usermgr.php'));
+header('Location: ' . Horde::applicationUrl('extensions.php'));

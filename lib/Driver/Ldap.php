@@ -1,9 +1,6 @@
 <?php
 
-# Make Shout methods available
-require_once SHOUT_BASE . '/lib/Shout.php';
-
-class Shout_Driver_ldap extends Shout_Driver
+class Shout_Driver_Ldap extends Shout_Driver
 {
     var $_ldapKey;  // Index used for storing objects
     var $_appKey;   // Index used for moving info to/from the app
@@ -12,14 +9,14 @@ class Shout_Driver_ldap extends Shout_Driver
      * Handle for the current database connection.
      * @var object LDAP $_LDAP
      */
-    var $_LDAP;
+    private $_LDAP;
 
     /**
      * Boolean indicating whether or not we're connected to the LDAP
      * server.
      * @var boolean $_connected
      */
-    var $_connected = false;
+    private $_connected = false;
 
 
     /**
@@ -27,9 +24,9 @@ class Shout_Driver_ldap extends Shout_Driver
     *
     * @param array  $params    A hash containing connection parameters.
     */
-    function Shout_Driver_ldap($params = array())
+    function __construct($params = array())
     {
-        parent::Shout_Driver($params);
+        parent::__construct($params);
         $this->_connect();
 
         /* These next lines will translate between indexes used in the
@@ -71,165 +68,13 @@ class Shout_Driver_ldap extends Shout_Driver
     }
 
     /**
-    * Get a list of contexts from the backend
-    *
-    * @param string $filter Search filter
-    *
-    * @return array Contexts valid for this system
-    *
-    * @access private
-    */
-    function &getContexts($searchfilters = SHOUT_CONTEXT_ALL,
-                         $filterperms = null)
-    {
-        static $entries = array();
-        if (isset($entries[$searchfilters])) {
-            return $entries[$searchfilters];
-        }
-
-        if ($filterperms === null) {
-            $filterperms = PERMS_SHOW|PERMS_READ;
-        }
-
-        # TODO Add caching mechanism here.  Possibly cache results per
-        # filter $this->contexts['customer'] and return either data
-        # or possibly a reference to that data
-
-        # Determine which combination of contexts need to be returned
-        if ($searchfilters == SHOUT_CONTEXT_ALL) {
-            $searchfilter="(objectClass=asteriskObject)";
-        } else {
-            $searchfilter = "(&";
-            # FIXME Change this to non-V-Office specific objectClass
-            if ($searchfilters & SHOUT_CONTEXT_CUSTOMERS) {
-                # FIXME what does this objectClass really do for us?
-                $searchfilter.="(objectClass=vofficeCustomer)";
-            }
-            if ($searchfilters & SHOUT_CONTEXT_EXTENSIONS) {
-                $searchfilter.="(objectClass=asteriskExtensions)";
-            }
-            if ($searchfilters & SHOUT_CONTEXT_MOH) {
-                $searchfilter.="(objectClass=asteriskMusicOnHold)";
-            }
-            if ($searchfilters & SHOUT_CONTEXT_CONFERENCE) {
-                $searchfilter.="(objectClass=asteriskMeetMe)";
-            }
-            $searchfilter .= ")";
-        }
-
-        $attributes = array(SHOUT_ACCOUNT_ID_ATTRIBUTE, 'objectClass', 'context');
-
-        # Collect all the possible contexts from the backend
-        $res = @ldap_search($this->_LDAP,
-            SHOUT_ASTERISK_BRANCH.','.$this->_params['basedn'],
-            "$searchfilter");
-            #array('context', 'associatedDomain'));
-        if (!$res) {
-            return PEAR::raiseError("Unable to locate any contexts " .
-            "underneath ".SHOUT_ASTERISK_BRANCH.",".$this->_params['basedn'] .
-            " matching those search filters" . ldap_error($this->_LDAP));
-        }
-
-        $res = ldap_get_entries($this->_LDAP, $res);
-        $i = 0;
-        $entries[$searchfilters] = array();
-        while ($i < $res['count']) {
-            $context = $res[$i]['context'][0];
-            $type = SHOUT_CONTEXT_NONE;
-            foreach ($res[$i][strtolower('objectClass')] as $objectClass) {
-                switch ($objectClass) {
-                    case SHOUT_CONTEXT_CUSTOMERS_OBJECTCLASS:
-                        # FIXME What does this objectClass really get us?
-                        $type = $type | SHOUT_CONTEXT_CUSTOMERS;
-                        break;
-                    case SHOUT_CONTEXT_EXTENSIONS_OBJECTCLASS:
-                        $type = $type | SHOUT_CONTEXT_EXTENSIONS;
-                        break;
-                    case SHOUT_CONTEXT_MOH_OBJECTCLASS:
-                        $type = $type | SHOUT_CONTEXT_MOH;
-                        break;
-                    case SHOUT_CONTEXT_CONFERENCE_OBJECTCLASS:
-                        $type = $type | SHOUT_CONTEXT_CONFERENCE;
-                        break;
-                    case SHOUT_CONTEXT_VOICEMAIL_OBJECTCLASS:
-                        $type = $type | SHOUT_CONTEXT_VOICEMAIL;
-                        break;
-                }
-            }
-            if (Shout::checkRights("shout:contexts:$context", $filterperms)) {
-                $entries[$searchfilters][$context] =
-                    array(
-                        'custid' => SHOUT_ACCOUNT_ID_ATTRIBUTE,
-                        'type' => $type,
-                    );
-            }
-            $i++;
-        }
-        # return the array
-        return $entries[$searchfilters];
-    }
-
-    /**
-     * For the given context and type, make sure the context has the
-     * appropriate properties, that it is effectively of that "type"
-     *
-     * @param string $context the context to check type for
-     *
-     * @param string $type the type to verify the context is of
-     *
-     * @return boolean true of the context is of type, false if not
-     *
-     * @access public
-     */
-    function checkContextType($context, $type) {
-        switch ($type) {
-            case "users":
-                $searchfilter = '(objectClass='.SHOUT_CONTEXT_VOICEMAIL_OBJECTCLASS.')';
-                break;
-            case "dialplan":
-                $searchfilter = '(objectClass='.SHOUT_CONTEXT_EXTENSIONS_OBJECTCLASS.')';
-                break;
-            case "moh":
-                $searchfilter='(objectClass='.SHOUT_CONTEXT_MOH_OBJECTCLASS.')';
-                break;
-            case "conference":
-                $searchfilter='(objectClass='.SHOUT_CONTEXT_CONFERENCE_OBJECTCLASS.')';
-                break;
-            case "all":
-            default:
-                $searchfilter="";
-                break;
-        }
-
-        $res = @ldap_search($this->_LDAP,
-            SHOUT_ASTERISK_BRANCH.','.$this->_params['basedn'],
-            "(&(objectClass=asteriskObject)$searchfilter(context=$context))",
-            array("context"));
-        if (!$res) {
-            return PEAR::raiseError("Unable to search directory for context
-type");
-        }
-
-        $res = ldap_get_entries($this->_LDAP, $res);
-        if (!$res) {
-            return PEAR::raiseError("Unable to get results from LDAP query");
-        }
-
-        if ($res['count'] == 1) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
      * Get a list of users valid for the contexts
      *
-     * @param string $context Context on which to search
+     * @param string $context  Context in which to search
      *
      * @return array User information indexed by voice mailbox number
      */
-    function getUsers($context)
+    public function getExtensions($context)
     {
 
         static $entries = array();
@@ -237,84 +82,61 @@ type");
             return $entries[$context];
         }
 
-        $basedn = SHOUT_USERS_BRANCH.','.$this->_params['basedn'];
+        $this->_params['basedn'];
 
         $filter  = '(&';
-        $filter .= '(objectClass='.SHOUT_USER_OBJECTCLASS.')';
-        $filter .= '(context='.$context.')';
+        $filter .= '(objectClass=AsteriskVoiceMail)';
+        $filter .= '(AstContext='.$context.')';
         $filter .= ')';
 
         $attributes = array(
-            'voiceMailbox',
-            'asteriskUserDialOptions',
-            'asteriskVoiceMailboxOptions',
-            'voiceMailboxPin',
             'cn',
-            'telephoneNumber',
-            'asteriskUserDialTimeout',
             'mail',
-            'asteriskPager',
+            'AstVoicemailMailbox',
+            'AstVoicemailPassword',
+            'AstVoicemailOptions',
+            'AstVoicemailPager'
         );
 
-        $search = @ldap_search($this->_LDAP, $basedn, $filter, $attributes);
-
-        if (!$search) {
-            return PEAR::raiseError("Unable to search directory: " .
-                ldap_error($this->_LDAP));
+        $search = ldap_search($this->_LDAP, $this->_params['basedn'], $filter, $attributes);
+        if ($search === false) {
+            throw new Shout_Exception("Unable to search directory: " .
+                ldap_error($this->_LDAP), ldap_errno($this->_LDAP));
         }
 
         $res = ldap_get_entries($this->_LDAP, $search);
-        #
-        # ATTRIBUTES RETURNED FROM ldap_get_entries ARE ALL LOWER CASE!!
-        #
+        if ($res === false) {
+            throw new Shout_Exception("Unable to fetch results from directory: " .
+                ldap_error($this->_LDAP), ldap_errno($this->_LDAP));
+        }
+
+        // ATTRIBUTES RETURNED FROM ldap_get_entries ARE ALL LOWER CASE!!
+        // It's a PHP thing.
         $entries[$context] = array();
         $i = 0;
         while ($i < $res['count']) {
-            $extension = $res[$i]['voicemailbox'][0];
-            $uid = md5($res[$i]['dn']);
+            list($extension) = explode('@', $res[$i]['AstVoicemailMailbox'][0]);
             $entries[$context][$extension] = array();
-            $entries[$context][$extension]['uid'] = $uid;
-
-            $j = 0;
-            $entries[$context][$extension]['dialopts'] = array();
-            while ($j < @$res[$i]['asteriskuserdialoptions']['count']) {
-                $entries[$context][$extension]['dialopts'][] =
-                    $res[$i]['asteriskuserdialoptions'][$j];
-                $j++;
-            }
 
             $j = 0;
             $entries[$context][$extension]['mailboxopts'] = array();
-            while ($j < @$res[$i]['asteriskvoicemailboxoptions']['count']) {
+            while ($j < @$res[$i]['astvoicemailoptions']['count']) {
                 $entries[$context][$extension]['mailboxopts'][] =
-                    $res[$i]['asteriskvoicemailboxoptions'][$j];
+                    $res[$i]['astvoicemailoptions'][$j];
                 $j++;
             }
 
             $entries[$context][$extension]['mailboxpin'] =
-                $res[$i]['voicemailboxpin'][0];
+                $res[$i]['astvoicemailpassword'][0];
 
-            @$entries[$context][$extension]['name'] =
+            $entries[$context][$extension]['name'] =
                 $res[$i]['cn'][0];
-
-            $j = 0;
-            $entries[$context][$extension]['telephonenumber'] = array();
-            while ($j < @$res[$i]['telephonenumber']['count']) {
-                // Start with 1 for telephone numbers for user convenience
-                $entries[$context][$extension]['telephonenumber'][$j+1] =
-                    $res[$i]['telephonenumber'][$j];
-                $j++;
-            }
-
-            # FIXME Do some sanity checking here.  Also set a default?
-            @$entries[$context][$extension]['dialtimeout'] =
-                $res[$i]['asteriskuserdialtimeout'][0];
 
             @$entries[$context][$extension]['email'] =
                 $res[$i]['mail'][0];
 
             @$entries[$context][$extension]['pageremail'] =
-                $res[$i]['asteriskpager'][0];
+                $res[$i]['astvoicemailpager'][0];
 
             $i++;
 
@@ -326,51 +148,13 @@ type");
     }
 
     /**
-     * Returns the name of the user's default context
-     *
-     * @return string User's default context
-     */
-    function getHomeContext()
-    {
-        # FIXME Cache this lookup?
-
-        $basedn = SHOUT_USERS_BRANCH.','.$this->_params['basedn'];
-        $filter  = '(&';
-        $filter .= '(mail='.Auth::getAuth().')';
-        $filter .= '(objectClass='.SHOUT_USER_OBJECTCLASS.')';
-        $filter .= ')';
-        $attributes = array('context');
-
-        $res = @ldap_search($this->_LDAP, $basedn, $filter, $attributes);
-        if (!$res) {
-            return PEAR::raiseError("Unable to locate any customers " .
-            "underneath ".SHOUT_ASTERISK_BRANCH.",".$this->_params['basedn'] .
-            " matching those search filters");
-            # FIXME Better error string above
-        }
-
-        $res = ldap_get_entries($this->_LDAP, $res);
-
-        # Assume the user only has one context.  The schema enforces this
-        # FIXME: Handle cases where the managing user isn't a valid telephone
-        # system user
-        # FIXME: Do we want to warn?  If so, how?  This PEAR::Error shows up
-        # in unfavorable places (ie. perms screen)
-        if ($res['count'] != 1) {
-            //return PEAR::raiseError(_("Unable to determine default context"));
-            return '';
-        }
-        return $res[0]['context'][0];
-    }
-
-    /**
      * Get a context's properties
      *
      * @param string $context Context to get properties for
      *
      * @return integer Bitfield of properties valid for this context
      */
-    function getContextProperties($context)
+    public function getContextProperties($context)
     {
 
         $res = @ldap_search($this->_LDAP,
@@ -424,7 +208,7 @@ for $context"));
      * @return array Multi-dimensional associative array of extensions data
      *
      */
-    function &getDialplan($context, $preprocess = false)
+    public function getDialplan($context, $preprocess = false)
     {
         # FIXME Implement preprocess functionality.  Don't forget to cache!
         static $dialplans = array();
@@ -556,7 +340,7 @@ for $context"));
      * @return array Array with elements indicating various limits
      */
      # FIXME Figure out how this fits into Shout/Congregation better
-    function &getLimits($context = null, $extension = null)
+    public function getLimits($context = null, $extension = null)
     {
 
         $limits = array('telephonenumbersmax',
@@ -684,7 +468,7 @@ for $context"));
      *
      * @return TRUE on success, PEAR::Error object on error
      */
-    function saveUser($context, $extension, $userdetails)
+    public function saveUser($context, $extension, $userdetails)
     {
         $ldapKey = &$this->_ldapKey;
         $appKey = &$this->_appKey;
@@ -852,7 +636,7 @@ for $context"));
      *
      * @return boolean True on success, PEAR::Error object on error
      */
-    function deleteUser($context, $extension)
+    public function deleteUser($context, $extension)
     {
         $ldapKey = &$this->_ldapKey;
         $appKey = &$this->_appKey;
@@ -881,7 +665,7 @@ for $context"));
 
 
     /* Needed because uksort can't take a classed function as its callback arg */
-    function _sortexten($e1, $e2)
+    protected function _sortexten($e1, $e2)
     {
         print "$e1 and $e2\n";
         $ret =  Shout::extensort($e1, $e2);
@@ -896,37 +680,75 @@ for $context"));
      *
      * @access private
      */
-    function _connect()
+    protected function _connect()
     {
-        if (!$this->_connected) {
-            # FIXME What else is needed for this assert?
-            Horde::assertDriverConfig($this->_params, 'storage',
-                array('hostspec', 'basedn', 'binddn', 'password'));
-
-            # FIXME Add other sane defaults here (mostly objectClass related)
-            if (!isset($this->_params['userObjectclass'])) {
-                $this->_params['userObjectclass'] = 'asteriskUser';
-            }
-
-            $this->_LDAP = ldap_connect($this->_params['hostspec'], 389); #FIXME
-            if (!$this->_LDAP) {
-                Horde::fatal("Unable to connect to LDAP server $hostname on
-$port", __FILE__, __LINE__); #FIXME: $port
-            }
-            $res = ldap_set_option($this->_LDAP, LDAP_OPT_PROTOCOL_VERSION,
-$this->_params['version']);
-            if (!$res) {
-                return PEAR::raiseError("Unable to set LDAP protocol version");
-            }
-            $res = ldap_bind($this->_LDAP, $this->_params['binddn'],
-$this->_params['password']);
-            if (!$res) {
-                return PEAR::raiseError("Unable to bind to the LDAP server.
-Check authentication credentials.");
-            }
-
-            $this->_connected = true;
+        if ($this->_connected) {
+            return;
         }
-        return true;
+
+        if (!Horde_Util::extensionExists('ldap')) {
+            throw new Horde_Exception('Required LDAP extension not found.');
+        }
+
+        Horde::assertDriverConfig($this->_params, $this->_params['class'],
+            array('hostspec', 'basedn', 'writedn'));
+
+        /* Open an unbound connection to the LDAP server */
+        $conn = ldap_connect($this->_params['hostspec'], $this->_params['port']);
+        if (!$conn) {
+             Horde::logMessage(
+                sprintf('Failed to open an LDAP connection to %s.',
+                        $this->_params['hostspec']),
+                __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Horde_Exception('Internal LDAP error. Details have been logged for the administrator.');
+        }
+
+        /* Set hte LDAP protocol version. */
+        if (isset($this->_params['version'])) {
+            $result = ldap_set_option($conn, LDAP_OPT_PROTOCOL_VERSION,
+                                       $this->_params['version']);
+            if ($result === false) {
+                Horde::logMessage(
+                    sprintf('Set LDAP protocol version to %d failed: [%d] %s',
+                            $this->_params['version'],
+                            ldap_errno($conn),
+                            ldap_error($conn)),
+                    __FILE__, __LINE__, PEAR_LOG_WARNING);
+                throw new Horde_Exception('Internal LDAP error. Details have been logged for the administrator.', ldap_errno($conn));
+            }
+        }
+
+        /* Start TLS if we're using it. */
+        if (!empty($this->_params['tls'])) {
+            if (!@ldap_start_tls($conn)) {
+                Horde::logMessage(
+                    sprintf('STARTTLS failed: [%d] %s',
+                            @ldap_errno($this->_ds),
+                            @ldap_error($this->_ds)),
+                    __FILE__, __LINE__, PEAR_LOG_ERR);
+            }
+        }
+
+        /* If necessary, bind to the LDAP server as the user with search
+         * permissions. */
+        if (!empty($this->_params['searchdn'])) {
+            $bind = ldap_bind($conn, $this->_params['searchdn'],
+                              $this->_params['searchpw']);
+            if ($bind === false) {
+                Horde::logMessage(
+                    sprintf('Bind to server %s:%d with DN %s failed: [%d] %s',
+                            $this->_params['hostspec'],
+                            $this->_params['port'],
+                            $this->_params['searchdn'],
+                            @ldap_errno($conn),
+                            @ldap_error($conn)),
+                    __FILE__, __LINE__, PEAR_LOG_ERR);
+                throw new Horde_Exception('Internal LDAP error. Details have been logged for the administrator.', ldap_errno($conn));
+            }
+        }
+
+        /* Store the connection handle at the instance level. */
+        $this->_LDAP = $conn;
     }
+
 }
