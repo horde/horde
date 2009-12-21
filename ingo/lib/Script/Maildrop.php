@@ -301,14 +301,14 @@ class Ingo_Script_Maildrop extends Ingo_Script {
                         'action' => $spam_action,
                         'disable' => $disable);
         $recipe = new Maildrop_Recipe($params, $this->_params);
-        if ($GLOBALS['conf']['spam']['compare'] == 'numeric') {
+        if ($this->_params['spam_compare'] == 'numeric') {
             $recipe->addCondition(array('match' => 'greater than or equal to',
-                                        'field' => $GLOBALS['conf']['spam']['header'],
+                                        'field' => $this->_params['spam_header'],
                                         'value' => $spam->getSpamLevel()));
-        } elseif ($GLOBALS['conf']['spam']['compare'] == 'string') {
+        } elseif ($this->_params['spam_compare'] == 'string') {
             $recipe->addCondition(array('match' => 'contains',
-                                        'field' => $GLOBALS['conf']['spam']['header'],
-                                        'value' => str_repeat($GLOBALS['conf']['spam']['char'], $spam->getSpamLevel())));
+                                        'field' => $this->_params['spam_header'],
+                                        'value' => str_repeat($this->_params['spam_char'], $spam->getSpamLevel())));
         }
 
         $this->addItem($recipe);

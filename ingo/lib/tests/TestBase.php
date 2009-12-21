@@ -1,4 +1,9 @@
 <?php
+
+define('INGO_BASE', dirname(__FILE__) . '/../..');
+define('HORDE_BASE', dirname(__FILE__) . '/../../..');
+require_once HORDE_BASE . '/lib/core.php';
+
 /**
  * Common library for Ingo test cases
  *
@@ -45,7 +50,15 @@ class Ingo_TestBase extends PHPUnit_Framework_TestCase {
         }
 
         $new_script = join("\n", $new);
-        $this->assertEqual($expect, $new_script);
+        $this->assertEquals($expect, $new_script);
+    }
+
+}
+
+class Ingo_Test_Notification {
+
+    function push()
+    {
     }
 
 }

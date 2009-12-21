@@ -117,12 +117,6 @@ class Ingo_Script_Imap extends Ingo_Script
         /* Grab the rules list. */
         $filters = &$GLOBALS['ingo_storage']->retrieve(Ingo_Storage::ACTION_FILTERS);
 
-        /* Should we filter only [un]seen messages? */
-        $seen_flag = $GLOBALS['prefs']->getValue('filter_seen');
-
-        /* Should we use detailed notification messages? */
-        $detailmsg = $GLOBALS['prefs']->getValue('show_filter_msg');
-
         /* Parse through the rules, one-by-one. */
         foreach ($filters->getFilterList() as $rule) {
             /* Check to make sure this is a valid rule and that the rule is
@@ -140,11 +134,11 @@ class Ingo_Script_Imap extends Ingo_Script
                 $bl_folder = null;
 
                 if ($rule['action'] == Ingo_Storage::ACTION_BLACKLIST) {
-                    $blacklist = &$GLOBALS['ingo_storage']->retrieve(Ingo_Storage::ACTION_BLACKLIST);
+                    $blacklist = $GLOBALS['ingo_storage']->retrieve(Ingo_Storage::ACTION_BLACKLIST);
                     $addr = $blacklist->getBlacklist();
                     $bl_folder = $blacklist->getBlacklistFolder();
                 } else {
-                    $whitelist = &$GLOBALS['ingo_storage']->retrieve(Ingo_Storage::ACTION_WHITELIST);
+                    $whitelist = $GLOBALS['ingo_storage']->retrieve(Ingo_Storage::ACTION_WHITELIST);
                     $addr = $whitelist->getWhitelist();
                 }
 
@@ -157,9 +151,9 @@ class Ingo_Script_Imap extends Ingo_Script
                 foreach ($addr as $val) {
                     $ob = new Horde_Imap_Client_Search_Query();
                     $ob->flag('\\deleted', false);
-                    if ($seen_flag == Ingo_Script::FILTER_UNSEEN) {
+                    if ($params['filter_seen'] == Ingo_Script::FILTER_UNSEEN) {
                         $ob->flag('\\seen', false);
-                    } elseif ($seen_flag == Ingo_Script::FILTER_SEEN) {
+                    } elseif ($params['filter_seen'] == Ingo_Script::FILTER_SEEN) {
                         $ob->flag('\\seen', true);
                     }
                     $ob->headerText('from', $val);
@@ -206,9 +200,9 @@ class Ingo_Script_Imap extends Ingo_Script
                 foreach ($rule['conditions'] as $val) {
                     $ob = new Horde_Imap_Client_Search_Query();
                     $ob->flag('\\deleted', false);
-                    if ($seen_flag == Ingo_Script::FILTER_UNSEEN) {
+                    if ($params['filter_seen'] == Ingo_Script::FILTER_UNSEEN) {
                         $ob->flag('\\seen', false);
-                    } elseif ($seen_flag == Ingo_Script::FILTER_SEEN) {
+                    } elseif ($params['filter_seen'] == Ingo_Script::FILTER_SEEN) {
                         $ob->flag('\\seen', true);
                     }
                     if (!empty($val['type']) &&
@@ -263,7 +257,7 @@ class Ingo_Script_Imap extends Ingo_Script
                         $ignore_ids = array_unique($indices + $ignore_ids);
                     } elseif ($rule['action'] == Ingo_Storage::ACTION_MOVE) {
                         /* We need to grab the overview first. */
-                        if ($detailmsg) {
+                        if ($params['show_filter_msg']) {
                             $overview = $this->_api->fetchEnvelope($indices);
                         }
 
@@ -271,7 +265,7 @@ class Ingo_Script_Imap extends Ingo_Script
                         $this->_api->moveMessages($indices, $rule['action-value']);
 
                         /* Display notification message(s). */
-                        if ($detailmsg) {
+                        if ($params['show_filter_msg']) {
                             foreach ($overview as $msg) {
                                 $GLOBALS['notification']->push(
                                     sprintf(_("Filter activity: The message \"%s\" from \"%s\" has been moved to the folder \"%s\"."),
@@ -287,7 +281,7 @@ class Ingo_Script_Imap extends Ingo_Script
                         }
                     } elseif ($rule['action'] == Ingo_Storage::ACTION_DISCARD) {
                         /* We need to grab the overview first. */
-                        if ($detailmsg) {
+                        if ($params['show_filter_msg']) {
                             $overview = $this->_api->fetchEnvelope($indices);
                         }
 
@@ -295,7 +289,7 @@ class Ingo_Script_Imap extends Ingo_Script
                         $this->_api->deleteMessages($indices);
 
                         /* Display notification message(s). */
-                        if ($detailmsg) {
+                        if ($params['show_filter_msg']) {
                             foreach ($overview as $msg) {
                                 $GLOBALS['notification']->push(
                                     sprintf(_("Filter activity: The message \"%s\" from \"%s\" has been deleted."),
@@ -312,7 +306,7 @@ class Ingo_Script_Imap extends Ingo_Script
                                                  $rule['action-value']);
 
                         /* Display notification message(s). */
-                        if ($detailmsg) {
+                        if ($params['show_filter_msg']) {
                             $overview = $this->_api->fetchEnvelope($indices);
                             foreach ($overview as $msg) {
                                 $GLOBALS['notification']->push(
@@ -361,7 +355,7 @@ class Ingo_Script_Imap extends Ingo_Script
     public function apply()
     {
         return $this->canApply()
-            ? $this->perform(array('mailbox' => 'INBOX'))
+            ? $this->perform(array('mailbox' => 'INBOX', 'filter_seen' => $GLOBALS['prefs']->getValue('filter_seen'), 'show_filter_msg' => $GLOBALS['prefs']->getValue('show_filter_msg')))
             : false;
     }
 

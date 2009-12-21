@@ -24,10 +24,17 @@ class Ingo_SieveTest extends Ingo_TestBase {
         $GLOBALS['conf']['spam'] = array('enabled' => true,
                                          'char' => '*',
                                          'header' => 'X-Spam-Level');
-        $GLOBALS['ingo_storage'] = &Ingo_Storage::factory('mock',
-                                                 array('maxblacklist' => 3,
-                                                       'maxwhitelist' => 3));
-        $GLOBALS['ingo_script'] = &Ingo_Script::factory('sieve', array());
+        $GLOBALS['ingo_storage'] = Ingo_Storage::factory(
+            'mock',
+            array('maxblacklist' => 3,
+                  'maxwhitelist' => 3));
+        $GLOBALS['ingo_script'] = Ingo_Script::factory(
+            'sieve',
+            array('spam_compare' => 'string',
+                  'spam_header' => 'X-Spam-Level',
+                  'spam_char' => '*',
+                  'date_format' => '%x',
+                  'time_format' => '%R'));
     }
 
     function testForwardKeep()
@@ -39,7 +46,10 @@ class Ingo_SieveTest extends Ingo_TestBase {
         $this->store($forward);
         $this->assertScript('if true {
 redirect "joefabetes@example.com";
+}
+if true {
 keep;
+stop;
 }');
     }
 
@@ -52,6 +62,7 @@ keep;
         $this->store($forward);
         $this->assertScript('if true {
 redirect "joefabetes@example.com";
+stop;
 }');
     }
 
@@ -104,8 +115,8 @@ stop;
         $this->store($vacation);
         $this->_enableRule(Ingo_Storage::ACTION_VACATION);
 
-        $this->assertScript('require "vacation";
-if allof ( not exists ["list-help", "list-unsubscribe", "list-subscribe", "list-owner", "list-post", "list-archive", "list-id"], not header :comparator "i;ascii-casemap" :is "Precedence" "list,bulk" ) {
+        $this->assertScript('require ["vacation", "regex"];
+if allof ( not exists ["list-help", "list-unsubscribe", "list-subscribe", "list-owner", "list-post", "list-archive", "list-id", "Mailing-List"], not header :comparator "i;ascii-casemap" :is "Precedence" ["list", "bulk", "junk"], not header :comparator "i;ascii-casemap" :matches "To" "Multiple recipients of*" ) {
 vacation :days 7 :addresses "from@example.com" :subject "Subject" "Because I don\'t like working!";
 }');
     }
@@ -131,6 +142,7 @@ vacation :days 7 :addresses "from@example.com" :subject "Subject" "Because I don
         $this->assertScript('require "fileinto";
 if header :comparator "i;ascii-casemap" :contains "X-Spam-Level" "*******"  {
 fileinto "Junk";
+stop;
 }');
     }
 

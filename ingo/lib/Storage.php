@@ -142,12 +142,12 @@ class Ingo_Storage
                     $cacheSess = Horde_SessionObjects::singleton();
                     $this->_cache[$field]['ob'] = $cacheSess->query($_SESSION['ingo']['storage'][$field]);
                 } else {
-                    $this->_cache[$field]['ob'] = &$this->_retrieve($field, $readonly);
+                    $this->_cache[$field]['ob'] = $this->_retrieve($field, $readonly);
                 }
             }
-            $ob = &$this->_cache[$field]['ob'];
+            $ob = $this->_cache[$field]['ob'];
         } else {
-            $ob = &$this->_retrieve($field, $readonly);
+            $ob = $this->_retrieve($field, $readonly);
         }
 
         return $ob;

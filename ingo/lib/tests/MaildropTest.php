@@ -21,10 +21,16 @@ class Ingo_MaildropTest extends Ingo_TestBase {
 
     function setUp()
     {
-        $GLOBALS['ingo_storage'] = &Ingo_Storage::factory('mock',
-                                                 array('maxblacklist' => 3,
-                                                       'maxwhitelist' => 3));
-        $GLOBALS['ingo_script'] = &Ingo_Script::factory('maildrop', array('path_style' => 'mbox'));
+        $GLOBALS['ingo_storage'] = Ingo_Storage::factory(
+            'mock',
+            array('maxblacklist' => 3,
+                  'maxwhitelist' => 3));
+        $GLOBALS['ingo_script'] = Ingo_Script::factory(
+            'maildrop',
+            array('path_style' => 'mbox',
+                  'spam_compare' => 'string',
+                  'spam_header' => 'X-Spam-Level',
+                  'spam_char' => '*'));
     }
 
     function testForwardKeep()
@@ -35,7 +41,7 @@ class Ingo_MaildropTest extends Ingo_TestBase {
 
         $this->store($forward);
         $this->assertScript('if( \
-/^From: .*/:h \
+/^From:\s*.*/:h \
 )
 exception {
 cc "! joefabetes@example.com"
@@ -51,7 +57,7 @@ to "${DEFAULT}"
 
         $this->store($forward);
         $this->assertScript('if( \
-/^From: .*/:h \
+/^From:\s*.*/:h \
 )
 exception {
 cc "! joefabetes@example.com"
@@ -67,7 +73,7 @@ exit
 
         $this->store($bl);
         $this->assertScript('if( \
-/^From: .*spammer@example\.com/:h \
+/^From:\s*.*spammer@example\.com/:h \
 )
 exception {
 to Junk
@@ -82,7 +88,7 @@ to Junk
 
         $this->store($bl);
         $this->assertScript('if( \
-/^From: .*spammer@example\.com/:h \
+/^From:\s*.*spammer@example\.com/:h \
 )
 exception {
 to ++DELETE++
@@ -97,10 +103,10 @@ to ++DELETE++
 
         $this->store($bl);
         $this->assertScript('if( \
-/^From: .*spammer@example\.com/:h \
+/^From:\s*.*spammer@example\.com/:h \
 )
 exception {
-to "/dev/null"
+exit
 }');
     }
 
@@ -111,7 +117,7 @@ to "/dev/null"
 
         $this->store($wl);
         $this->assertScript('if( \
-/^From: .*spammer@example\.com/:h \
+/^From:\s*.*spammer@example\.com/:h \
 )
 exception {
 to "${DEFAULT}"

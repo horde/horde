@@ -117,6 +117,26 @@ class Ingo_Script
         $script = basename($script);
         $class = 'Ingo_Script_' . ucfirst($script);
 
+        if (!isset($params['spam_compare'])) {
+            $params['spam_compare'] = $GLOBALS['conf']['spam']['compare'];
+        }
+        if (!isset($params['spam_header'])) {
+            $params['spam_header'] = $GLOBALS['conf']['spam']['header'];
+        }
+        if (!isset($params['spam_char'])) {
+            $params['spam_char'] = $GLOBALS['conf']['spam']['char'];
+        }
+        if ($script == 'sieve') {
+            if (!isset($params['date_format'])) {
+                $params['date_format'] = $GLOBALS['prefs']->getValue('date_format');;
+            }
+            if (!isset($params['time_format'])) {
+                // %R and %r don't work on Windows, but who runs a Sieve
+                // backend on a Windows server?
+                $params['time_format'] = $GLOBALS['prefs']->getValue('twentyFour') ? '%R' : '%r';
+            }
+        }
+
         return class_exists($class)
             ? new $class($params)
             : PEAR::raiseError(sprintf(_("Unable to load the definition of %s."), $class));
@@ -129,19 +149,21 @@ class Ingo_Script
      */
     public function __construct($params = array())
     {
-        global $registry;
-
         $this->_params = $params;
+
+        if (!isset($GLOBALS['registry'])) {
+            return;
+        }
 
         /* Determine if ingo should handle the blacklist. */
         $key = array_search(Ingo_Storage::ACTION_BLACKLIST, $this->_categories);
-        if ($key !== false && ($registry->hasMethod('mail/blacklistFrom') != 'ingo')) {
+        if ($key !== false && ($GLOBALS['registry']->hasMethod('mail/blacklistFrom') != 'ingo')) {
             unset($this->_categories[$key]);
         }
 
         /* Determine if ingo should handle the whitelist. */
         $key = array_search(Ingo_Storage::ACTION_WHITELIST, $this->_categories);
-        if ($key !== false && ($registry->hasMethod('mail/whitelistFrom') != 'ingo')) {
+        if ($key !== false && ($GLOBALS['registry']->hasMethod('mail/whitelistFrom') != 'ingo')) {
             unset($this->_categories[$key]);
         }
     }
