@@ -1340,14 +1340,21 @@ var DimpBase = {
         var fid = this.getFolderId(f),
             elt = $(fid);
 
-        if (!elt ||
-            Object.isUndefined(elt.retrieve('u')) ||
-            elt.retrieve('u') == unseen) {
+        if (!elt) {
             return;
         }
 
-        unseen = Number(unseen);
-        elt.store('u', unseen);
+        if (Object.isUndefined(unseen)) {
+            unseen = this.getUnseenCount(f);
+        } else {
+            if (Object.isUndefined(elt.retrieve('u')) ||
+                elt.retrieve('u') == unseen) {
+                return;
+            }
+
+            unseen = Number(unseen);
+            elt.store('u', unseen);
+        }
 
         if (f == 'INBOX' && window.fluid) {
             window.fluid.setDockBadge(unseen ? unseen : '');
@@ -2261,7 +2268,7 @@ var DimpBase = {
                 });
                 return;
             } else if (mode == 'tog') {
-                base.down('A').update(base.retrieve('l'));
+                this.setFolderLabel(base.retrieve('mbox'));
             }
         }
 
