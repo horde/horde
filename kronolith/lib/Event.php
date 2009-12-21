@@ -1902,7 +1902,7 @@ abstract class Kronolith_Event
         }
 
         // Tags.
-        $this->tags = htmlspecialchars_decode(Horde_Util::getFormData('tags', $this->tags));
+        $this->tags = Horde_Util::getFormData('tags', $this->tags);
 
         // Geolocation
         $this->geoLocation = array('lat' => Horde_Util::getFormData('lat'),
