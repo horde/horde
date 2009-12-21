@@ -360,19 +360,23 @@ var ImpCompose = {
         }
     },
 
+    keyDownHandler: function(e)
+    {
+        if (e.keyCode == 10 || e.keyCode == Event.KEY_RETURN) {
+            e.stop();
+        }
+    },
+
     onDomLoad: function()
     {
+        var handler = this.keyDownHandler.bindAsEventListener(this);
+
         /* Prevent Return from sending messages - it should bring us out of
          * autocomplete, not submit the whole form. */
-        $$('INPUT').each(function(i) {
+        $('compose').select('INPUT').each(function(i) {
             /* Attach to everything but button and submit elements. */
             if (i.type != 'submit' && i.type != 'button') {
-                i.observe('keydown', function(e) {
-                    if (e.keyCode == 10 || e.keyCode == Event.KEY_RETURN) {
-                        e.stop();
-                        return false;
-                    }
-                });
+                i.observe('keydown', handler);
             }
         });
 
