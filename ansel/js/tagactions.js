@@ -12,7 +12,7 @@ function addTag()
                                 if (r.responseJSON.response == 1) {
                                     $('tags').update(r.responseJSON.message);
                                 }
-                            }      
+                            }
                          });
     }
 

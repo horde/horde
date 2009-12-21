@@ -17,7 +17,7 @@ class Ansel_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
 
         $url = $this->_getUrl('TagActions', 'ansel', array('gallery' => $this->_params['gallery'],
                                                            'image' =>  (isset($this->_params['image']) ? $this->_params['image'] : 0)));
-        $params = array('url' => $url,
+        $params = array('url' => (string)$url,
                         'gallery' => $this->_params['gallery'],
                         'image' => (isset($this->_params['image']) ? $this->_params['image'] : 0),
                         'bindTo' => $this->_params['bindTo'],
@@ -67,6 +67,8 @@ class Ansel_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
         case 'add':
             if (!empty($tags)) {
                 $tags = explode(',', $tags);
+                $tags = array_map('rawurldecode', $tags);
+
                 /* Get current tags so we don't overwrite them */
                 $etags = Ansel_Tags::readTags($id, $type);
                 $tags = array_keys(array_flip(array_merge($tags, array_values($etags))));
@@ -108,7 +110,7 @@ class Ansel_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
         $links = Ansel_Tags::getTagLinks($tags, 'add');
         $html = '<ul>';
         foreach ($tags as $tag_id => $taginfo) {
-            $html .= '<li>' . Horde::link($links[$tag_id], sprintf(ngettext("%d photo", "%d photos", $taginfo['total']), $taginfo['total'])) . $taginfo['tag_name'] . '</a>' . ($hasEdit ? '<a href="#" onclick="removeTag(' . $tag_id . ');">' . Horde::img('delete-small.png', _("Remove Tag"), '', $registry->getImageDir('horde')) . '</a>' : '') . '</li>';
+            $html .= '<li>' . Horde::link($links[$tag_id], sprintf(ngettext("%d photo", "%d photos", $taginfo['total']), $taginfo['total'])) . htmlspecialchars($taginfo['tag_name']) . '</a>' . ($hasEdit ? '<a href="#" onclick="removeTag(' . $tag_id . ');">' . Horde::img('delete-small.png', _("Remove Tag"), '', $registry->getImageDir('horde')) . '</a>' : '') . '</li>';
         }
         $html .= '</ul>';
         return $html;
