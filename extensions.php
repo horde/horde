@@ -9,14 +9,16 @@
  */
 @define('SHOUT_BASE', dirname(__FILE__));
 require_once SHOUT_BASE . '/lib/base.php';
+require_once SHOUT_BASE . '/lib/Forms/ExtensionForm.php';
 //require_once SHOUT_BASE . '/lib/Shout.php';
 
 $action = Horde_Util::getFormData('action');
 $extension = Horde_Util::getFormData('extension');
+$extensions = $shout_extensions->getExtensions($context);
 
 $vars = Horde_Variables::getDefaultVariables();
 
-$tabs = Shout::getTabs($context, $vars);
+//$tabs = Shout::getTabs($context, $vars);
 
 $RENDERER = new Horde_Form_Renderer();
 
@@ -29,43 +31,19 @@ switch ($action) {
 
         # Treat adds just like an empty edit
         $action = 'edit';
-        $extension = 0;
+
     case 'edit':
         $title .= sprintf(_("Edit Extension %s"), $extension);
 
-        $beendone = 0;
-        $wereerrors = 0;
-
         $FormName = 'UserDetailsForm';
+        $vars = new Horde_Variables($extensions[$extension]);
         $Form = &Horde_Form::singleton($FormName, $vars);
-        if (is_a($Form, 'PEAR_Error')) {
-            $notification->push($Form);
-        } else {
-            $FormValid = $Form->validate($vars, true);
-            if (is_a($FormValid, 'PEAR_Error')) {
-                $notification->push($FormValid);
-            } else {
-                $Form->fillUserForm($vars, $extension);
-            }
-        }
 
+        $Form->open($RENDERER, $vars, 'index.php', 'post');
+        $Form->preserveVarByPost($vars, 'extension');
+        $Form->preserveVarByPost($vars, 'context');
+        $Form->preserveVarByPost($vars, 'section');
 
-        if (!$FormValid || !$Form->isSubmitted()) {
-            # Display the form for editing
-            $Form->open($RENDERER, $vars, 'index.php', 'post');
-            $Form->preserveVarByPost($vars, 'extension');
-            $Form->preserveVarByPost($vars, 'context');
-            $Form->preserveVarByPost($vars, 'section');
-            $RENDERER->beginActive($Form->getTitle());
-            $RENDERER->renderFormActive($Form, $vars);
-            $RENDERER->submit();
-            $RENDERER->end();
-            $Form->close($RENDERER);
-        } else {
-            # Process the Valid and Submitted form
-            $notification->push("How did we get HERE?!", 'horde.error');
-        }
-        
         break;
     case 'save':
         $title .= sprintf(_("Save Extension %s"), $extension);
@@ -120,7 +98,6 @@ switch ($action) {
         break;
     case 'delete':
         $title .= sprintf(_("Delete Extension %s"), $extension);
-        $context = Horde_Util::getFormData('context');
         $extension = Horde_Util::getFormData('extension');
 
         $res = $shout->deleteUser($context, $extension);
@@ -135,7 +112,6 @@ switch ($action) {
     default:
         $action = 'list';
         $title .= _("List Users");
-        $extensions = $shout_extensions->getExtensions($context);
 }
 
 require SHOUT_TEMPLATES . '/common-header.inc';
@@ -143,7 +119,7 @@ require SHOUT_TEMPLATES . '/menu.inc';
 
 $notification->notify();
 
-echo $tabs->render($section);
+//echo $tabs->render($section);
 
 require SHOUT_TEMPLATES . '/extensions/' . $action . '.inc';
 

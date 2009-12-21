@@ -115,8 +115,8 @@ class Shout_Driver_Ldap extends Shout_Driver
         $entries[$context] = array();
         $i = 0;
         while ($i < $res['count']) {
-            list($extension) = explode('@', $res[$i]['AstVoicemailMailbox'][0]);
-            $entries[$context][$extension] = array();
+            list($extension) = explode('@', $res[$i]['astvoicemailmailbox'][0]);
+            $entries[$context][$extension] = array('extension' => $extension);
 
             $j = 0;
             $entries[$context][$extension]['mailboxopts'] = array();

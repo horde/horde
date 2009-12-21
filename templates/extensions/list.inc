@@ -11,29 +11,26 @@
         </tr>
         <?php
             $line = 0;
-            foreach ($extensions as $extension => $user) {
-                $rowcolor = $line % 2;
-                $line++;
-                $url = Horde::applicationUrl("index.php");
+            foreach ($extensions as $extension => $info) {
+
+                $url = Horde::applicationUrl("extensions.php");
                 $url = Horde_Util::addParameter($url,
                     array(
-                        'context' => $context,
                         'extension' => $extension,
-                        'section' => $section,
                     )
                 );
-                $editurl = Horde_Util::addParameter($url, "action=edit");
-                $deleteurl = Horde_Util::addParameter($url, "action=delete");
+                $editurl = Horde_Util::addParameter($url, 'action', 'edit');
+                $deleteurl = Horde_Util::addParameter($url, 'action', 'delete');
         ?>
-        <tr class="item<?php echo $rowcolor; ?>">
+        <tr class="item">
             <td style="width: 20%">
                 <?php echo Horde::link($editurl); echo $extension; ?></a>
             </td>
             <td style="width: 35%;">
-                <?php echo Horde::link($editurl); echo $user['name']; ?></a>
+                <?php echo Horde::link($editurl); echo $info['name']; ?></a>
             </td>
             <td style="width: 45%">
-                <?php echo $user['email']; ?>
+                <?php echo $info['email']; ?>
             </td>
         </tr>
         <?php

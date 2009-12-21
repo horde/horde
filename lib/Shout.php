@@ -33,49 +33,10 @@ class Shout
         require_once 'Horde/Menu.php';
 
         $menu = new Horde_Menu(HORDE_MENU_MASK_ALL);
-        $permprefix = "shout:contexts:$context";
 
-        if (isset($context) && $section == "usermgr" &&
-            Shout::checkRights("$permprefix:users",
-                PERMS_EDIT, 1)) {
-            $url = Horde::applicationUrl("index.php");
-            $url = Horde_Util::addParameter($url, array('context' => $context,
-                                                  'section' => $section,
-                                                  'action' => 'add'));
+        $menu->add(Horde::applicationUrl('extensions.php'), _("Extensions"), "user.png");
+        $menu->add(Horde::applicationUrl('routes.php'), _("Call Paths"));
 
-            # Goofy hack to make the icon make a little more sense
-            # when editing/deleting users
-//             if (!isset($action)) {
-                $icontitle = "Add";
-//             } else {
-//                 $icontitle = $action;
-//                 $icontitle[0] = strtoupper($action[0]);
-//             }
-            # End goofy hack
-
-            $menu->add($url, _("$icontitle User"), "add-user.gif");
-        }
-
-        if (isset($context) && isset($section) && $section == "dialplan" &&
-            Shout::checkRights("$permprefix:dialplan",
-                PERMS_EDIT, 1)) {
-            $url = Horde::applicationUrl("dialplan.php");
-            $url = Horde_Util::addParameter($url, array('context' => $context,
-                                                  'section' => $section,
-                                                  'action' => 'add'));
-
-            # Goofy hack to make the icon make a little sense
-            # when editing/deleting users
-            if (!isset($action)) {
-                $icontitle = "Add";
-            } else {
-                $icontitle = $action;
-                $icontitle[0] = strtoupper($action[0]);
-            }
-            # End goofy hack
-
-            $menu->add($url, _("$icontitle Extension"), "add-extension.gif");
-        }
 
         if ($returnType == 'object') {
             return $menu;
@@ -102,25 +63,21 @@ class Shout
 
         if (Shout::checkRights($permprefix . ':extensions', null, 1)) {
             $url = Horde::applicationUrl('extensions.php');
-            $url = Horde_Util::addParameter($url, 'context', $context);
-            $tabs->addTab(_("_Extensions"), $url, 'usermgr');
+            $tabs->addTab(_("_Extensions"), $url, 'extensions');
         }
 
         if (Shout::checkRights($permprefix . ':dialplan', null, 1)) {
             $url = Horde::applicationUrl('dialplan.php');
-            $url = Horde_Util::addParameter($url, 'context', $context);
             $tabs->addTab(_("_Automated Attendant"), $url, 'dialplan');
         }
 
         if (Shout::checkRights($permprefix . ':conference', null, 1)) {
             $url = Horde::applicationUrl('conference.php');
-            $url = Horde_Util::addParameter($url, 'context', $context);
             $tabs->addTab(_("_Conference Rooms"), $url, 'conference');
         }
 
        if (Shout::checkRights($permprefix . ':moh', null, 1)) {
             $url = Horde::applicationUrl('moh.php');
-            $url = Horde_Util::addParameter($url, 'context', $context);
             $tabs->addTab(_("_Music on Hold"), $url, 'moh');
         }
 
