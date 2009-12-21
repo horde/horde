@@ -98,7 +98,7 @@ class Kronolith_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
         }
 
         foreach ($tags as $tag_id => $tag) {
-            $html .= '<li class="panel-tags">' . htmlspecialchars($tag) . ($hasEdit ? '<a href="#" onclick="removeTag(\'' . $id . '\', \'' . $type . '\',' . $tag_id . ', \'' . Horde::url('imple.php', true) . '\'); Event.stop(event)" id="remove' . md5($id . $tag_id) . '">' . Horde::img('delete-small.png', _("Remove Tag"), '', $GLOBALS['registry']->getImageDir('horde')) . '</a>' : '') . '</li>';
+            $html .= '<li class="panel-tags">' . htmlspecialchars($tag) . ($hasEdit ? '<a href="#" onclick="removeTag(\'' . $id . '\', \'' . $type . '\', ' . $tag_id . ',\'' . $this->_getUrl('TagActions', 'kronolith') . '\'); Event.stop(event);" id="remove' . md5($id . $tag_id) . '">' . Horde::img('delete-small.png', _("Remove Tag"), '', $GLOBALS['registry']->getImageDir('horde')) . '</a>' : '') . '</li>';
         }
 
         return $html;
