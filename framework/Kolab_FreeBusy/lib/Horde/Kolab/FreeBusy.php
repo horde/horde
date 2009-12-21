@@ -35,14 +35,21 @@ class Horde_Kolab_FreeBusy
      *
      * @var Horde_Kolab_FreeBusy
      */
-    static protected $instance;
+    static private $_instance;
 
     /**
-     * The provider for dependency injection
+     * The dependency injection container.
      *
-     * @var Horde_Provider_Base
+     * @var Horde_Injector
      */
-    protected $provider;
+    private $_injector;
+
+    /**
+     * The backend used for the export.
+     *
+     * @var string
+     */
+    private $_backend;
 
     /**
      * Constructor.
@@ -50,42 +57,110 @@ class Horde_Kolab_FreeBusy
      * @param array $params The parameters required to initialize the
      *                      application.
      */
-    public function __construct($params = array())
+    public function __construct($backend, $params = array())
     {
-        $this->provider             = new Horde_Provider_Base();
-        $this->provider->params     = $params;
-        $this->provider->request    = new Horde_Provider_Injection_Factory(array('Horde_Kolab_FreeBusy_Factory', 'getRequest'));
-        $this->provider->mapper     = new Horde_Provider_Injection_Factory(array('Horde_Kolab_FreeBusy_Factory', 'getMapper'));
-        $this->provider->dispatcher = new Horde_Provider_Injection_Factory(array('Horde_Kolab_FreeBusy_Factory', 'getDispatcher'));
-        $this->provider->logger     = new Horde_Provider_Injection_Factory(array('Horde_Kolab_FreeBusy_Factory', 'getLogger'));
-        $this->provider->driver     = new Horde_Provider_Injection_Factory(array('Horde_Kolab_FreeBusy_Driver_Base', 'factory'));
+        $this->setBackend($backend);
 
-        $this->provider->user       = new Horde_Provider_Injection_Factory(array('Horde_Kolab_FreeBusy_User', 'factory'));
+        $this->_injector = new Horde_Injector(
+            new Horde_Injector_TopLevel()
+        );
+        $this->set(
+            'Horde_Kolab_FreeBusy_Configuration_Interface',
+            $params
+        );
+        $this->_injector->bindFactory(
+            'Horde_Controller_Request_Base',
+            'Horde_Kolab_FreeBusy_Factory_Base',
+            'getRequest'
+        );
+        $this->_injector->bindFactory(
+            'Horde_Route_Mapper',
+            'Horde_Kolab_FreeBusy_Factory_Base',
+            'getMapper'
+        );
+        $this->_injector->bindFactory(
+            'Horde_Controller_Dispatcher',
+            'Horde_Kolab_FreeBusy_Factory_Base',
+            'getDispatcher'
+        );
+        $this->_injector->bindFactory(
+            'Horde_Log_Logger',
+            'Horde_Kolab_FreeBusy_Factory_Base',
+            'getLogger'
+        );
+    }
+
+    /**
+     * Sets the export type and prepares the injector for retrieval of the
+     * correct elements required for the export.
+     *
+     * @param string $type The type of the requested export.
+     *
+     * @return NULL
+     */
+    public function setExport($type)
+    {
+        $this->_injector->bindFactory(
+            'Horde_Kolab_FreeBusy_User_Interface',
+            'Horde_Kolab_FreeBusy_Factory_' . $type . '_' . $this->getBackend(),
+            'getUser'
+        );
+        $this->_injector->bindFactory(
+            'Horde_Kolab_FreeBusy_Resource_Interface',
+            'Horde_Kolab_FreeBusy_Factory_' . $type . '_' . $this->getBackend(),
+            'getResource'
+        );
+        $this->_injector->bindImpementation(
+            'Horde_Kolab_FreeBusy_Export_Interface',
+            'Horde_Kolab_FreeBusy_Export_' . $type . '_' . $this->getBackend()
+        );
+    }
+
+    /**
+     * Set the backend the application should use for the export.
+     *
+     * @param string $backend The backend used for the export.
+     *
+     * @return NULL
+     */
+    private function setBackend($backend)
+    {
+        $this->_backend = $backend;
+    }
+
+    /**
+     * Return the backend the application should use for the export.
+     *
+     * @return string The backend used for the export.
+     */
+    private function getBackend()
+    {
+        return $this->_backend;
     }
 
     /**
      * Get an element.
      *
-     * @param string $key The key of the element to retrieve.
+     * @param string $interface The element to retrieve.
      *
      * @return mixed The element.
      */
-    public function __get($key)
+    public function get($interface)
     {
-        return $this->provider->{$key};
+        return $this->_injector->getInstance($interface);
     }
 
     /**
      * Set an element to the given value.
      *
-     * @param string $key   The key of the element to set.
-     * @param mixed  $value The value to set the element to.
+     * @param string $interface The element to set.
+     * @param mixed  $instance  The value to set the element to.
      *
      * @return NULL
      */
-    public function __set($key, $value)
+    public function set($interface, $instance)
     {
-        $this->provider->{$key} = $value;
+        return $this->_injector->setInstance($interface, $instance);
     }
 
     /**
@@ -171,7 +246,9 @@ class Horde_Kolab_FreeBusy
     public function dispatch()
     {
         try {
-            $this->provider->dispatcher->dispatch($this->provider->request);
+            $this->get('Horde_Controller_Dispatcher')->dispatch(
+                $this->get('Horde_Controller_Request_Base')
+            );
         } catch (Exception $e) {
             //@todo: Error view
             throw $e;

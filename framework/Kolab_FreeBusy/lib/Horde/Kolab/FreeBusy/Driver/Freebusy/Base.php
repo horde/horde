@@ -60,81 +60,82 @@ class Horde_Kolab_FreeBusy_Driver_Freebusy_Base extends Horde_Kolab_FreeBusy_Dri
      */
     public function trigger(array $params)
     {
-        $callee   = $this->getCallee();
-        $calendar = $this->getCalendar($callee);
-
-        $cache = $this->getCache();
-
-        if (!$this->cacheRequested() || !$this->cacheValid($calendar, $callee)) {
-            if (!$callee->isAuthenticated()) {
-                throw new Exception();
-            }
-            $result = $calendar->fetch();
-            if ($result->isCacheable()) {
-                $cache->store($calendar, $result);
-            }
-            return $result;
-        }
-        return $cache->load($calendar);
     }
-        $this->logger->debug(sprintf("Partial free/busy data of owner %s on server %s requested by user %s.",
-                                     $this->callee, $this->freebusyserver, $this->user));
+/*         $callee   = $this->getCallee(); */
+/*         $calendar = $this->getCalendar($callee); */
 
-        if (!empty($this->remote)) {
-            /* Try to fetch the data if it is stored on a remote server */
-            //@todo: How to determine which hook/processor to run? 
-            return $this->triggerRemote($params);
-            // if (is_a($result, 'PEAR_Error')) {
-            //    $error = array('type' => FREEBUSY_ERROR_UNAUTHORIZED, 'error' => $result);
-        }
+/*         $cache = $this->getCache(); */
 
-        if (!$req_cache) {
-            /* User wants to regenerate the cache */
+/*         if (!$this->cacheRequested() || !$this->cacheValid($calendar, $callee)) { */
+/*             if (!$callee->isAuthenticated()) { */
+/*                 throw new Exception(); */
+/*             } */
+/*             $result = $calendar->fetch(); */
+/*             if ($result->isCacheable()) { */
+/*                 $cache->store($calendar, $result); */
+/*             } */
+/*             return $result; */
+/*         } */
+/*         return $cache->load($calendar); */
+/*     } */
+/*         $this->logger->debug(sprintf("Partial free/busy data of owner %s on server %s requested by user %s.", */
+/*                                      $this->callee, $this->freebusyserver, $this->user)); */
 
-            /* Here we really need an authenticated IMAP user */
-            $result = $access->authenticated();
-            if (is_a($result, 'PEAR_Error')) {
-                $error = array('type' => FREEBUSY_ERROR_UNAUTHORIZED,
-                               'error' => $result);
-                $view = new Horde_Kolab_FreeBusy_View_error($error);
-                return $view;
-            }
+/*         if (!empty($this->remote)) { */
+/*             /\* Try to fetch the data if it is stored on a remote server *\/ */
+/*             //@todo: How to determine which hook/processor to run?  */
+/*             return $this->triggerRemote($params); */
+/*             // if (is_a($result, 'PEAR_Error')) { */
+/*             //    $error = array('type' => FREEBUSY_ERROR_UNAUTHORIZED, 'error' => $result); */
+/*         } */
 
-            if (empty($access->owner)) {
-                $message = sprintf(_("No such account %s!"),
-                                   htmlentities($access->req_owner));
-                $error = array('type' => FREEBUSY_ERROR_NOTFOUND,
-                               'error' => PEAR::raiseError($message));
-                $view = new Horde_Kolab_FreeBusy_View_error($error);
-                return $view;
-            }
+/*         if (!$req_cache) { */
+/*             /\* User wants to regenerate the cache *\/ */
 
-            /* Update the cache */
-            $result = $this->_cache->store($access);
-            if (is_a($result, 'PEAR_Error')) {
-                $error = array('type' => FREEBUSY_ERROR_NOTFOUND,
-                               'error' => $result);
-                $view = new Horde_Kolab_FreeBusy_View_error($error);
-                return $view;
-            }
-        }
+/*             /\* Here we really need an authenticated IMAP user *\/ */
+/*             $result = $access->authenticated(); */
+/*             if (is_a($result, 'PEAR_Error')) { */
+/*                 $error = array('type' => FREEBUSY_ERROR_UNAUTHORIZED, */
+/*                                'error' => $result); */
+/*                 $view = new Horde_Kolab_FreeBusy_View_error($error); */
+/*                 return $view; */
+/*             } */
 
-        /* Load the cache data */
-        $vfb = $this->_cache->loadPartial($access, $req_extended);
-        if (is_a($vfb, 'PEAR_Error')) {
-            $error = array('type' => FREEBUSY_ERROR_NOTFOUND,
-                           'error' => $vfb);
-            $view = new Horde_Kolab_FreeBusy_View_error($error);
-            return $view;
-        }
+/*             if (empty($access->owner)) { */
+/*                 $message = sprintf(_("No such account %s!"), */
+/*                                    htmlentities($access->req_owner)); */
+/*                 $error = array('type' => FREEBUSY_ERROR_NOTFOUND, */
+/*                                'error' => PEAR::raiseError($message)); */
+/*                 $view = new Horde_Kolab_FreeBusy_View_error($error); */
+/*                 return $view; */
+/*             } */
 
-        /* Generate the renderer */
-        //$data = array('fb' => $vfb, 'name' => $access->owner . '.ifb');
-        //$view = new Horde_Kolab_FreeBusy_View_vfb($data);
+/*             /\* Update the cache *\/ */
+/*             $result = $this->_cache->store($access); */
+/*             if (is_a($result, 'PEAR_Error')) { */
+/*                 $error = array('type' => FREEBUSY_ERROR_NOTFOUND, */
+/*                                'error' => $result); */
+/*                 $view = new Horde_Kolab_FreeBusy_View_error($error); */
+/*                 return $view; */
+/*             } */
+/*         } */
 
-        /* Finish up */
-        return $view;
-    }
+/*         /\* Load the cache data *\/ */
+/*         $vfb = $this->_cache->loadPartial($access, $req_extended); */
+/*         if (is_a($vfb, 'PEAR_Error')) { */
+/*             $error = array('type' => FREEBUSY_ERROR_NOTFOUND, */
+/*                            'error' => $vfb); */
+/*             $view = new Horde_Kolab_FreeBusy_View_error($error); */
+/*             return $view; */
+/*         } */
+
+/*         /\* Generate the renderer *\/ */
+/*         //$data = array('fb' => $vfb, 'name' => $access->owner . '.ifb'); */
+/*         //$view = new Horde_Kolab_FreeBusy_View_vfb($data); */
+
+/*         /\* Finish up *\/ */
+/*         return $view; */
+/*     } */
 
     /**
      * Fetch the free/busy data.

@@ -1,6 +1,6 @@
 <?php
 /**
- * The Kolab implementation of the free/busy system.
+ * This class represents the user accessing the export system.
  *
  * PHP version 5
  *
@@ -13,7 +13,7 @@
  */
 
 /**
- * This class represents the user accessing the free/bisy system.
+ * This class represents the user accessing the export system.
  *
  * Copyright 2009 The Horde Project (http://www.horde.org/)
  *
@@ -29,7 +29,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  * @since    Horde 3.2
  */
-class Horde_Kolab_FreeBusy_User
+class Horde_Kolab_FreeBusy_User_Base
 {
     /**
      * The user calling the script.
@@ -39,18 +39,11 @@ class Horde_Kolab_FreeBusy_User
     protected $user;
 
     /**
-     * The password of the user calling the script.
-     *
-     * @var string
-     */
-    protected $pass;
-
-    /**
-     * Are the provided user credentials valid?
+     * Has the user authenticated successfully?
      *
      * @var boolean
      */
-    public $authenticated;
+    private $_authenticated;
 
     /**
      * Constructor.
@@ -60,35 +53,38 @@ class Horde_Kolab_FreeBusy_User
      */
     public function __construct(Horde_Auth_Base $auth, Horde_Log_Logger $logger)
     {
-        list($this->user, $this->pass) = $this->getCredentials();
+        list($this->user, $pass) = $this->getCredentials();
 
         if (!empty($this->user)) {
-            $this->authenticated = $auth->authenticate($this->user, array('password' => $pass), false);
+            $this->authenticate($pass);
             if ($this->authenticated) {
-                $logger->notice(sprintf('Login success for %s [%s] to free/busy.', $this->user, $_SERVER['REMOTE_ADDR']));
+                $logger->notice(sprintf('Login success for %s from %s to free/busy.', $this->user, $_SERVER['REMOTE_ADDR']));
             } else {
-                $logger->err(sprintf('FAILED LOGIN for %s [%s] to free/busy', $this->user, $_SERVER['REMOTE_ADDR']));
+                $logger->err(sprintf('Failed login for %s from %s to free/busy', $this->user, $_SERVER['REMOTE_ADDR']));
             }
         } else {
-            $logger->notice(sprintf('Anonymous login [%s] to free/busy.', $this->user, $_SERVER['REMOTE_ADDR']));
+            $logger->notice(sprintf('Anonymous login from %s to free/busy.', $this->user, $_SERVER['REMOTE_ADDR']));
         }
     }
 
     /**
-     * Create a new user object.
+     * Finds out if a set of login credentials are valid.
      *
-     * @param Horde_Provider $provider The instance providing required
-     *                                 dependencies.
+     * @param array $pass The password to check.
      *
-     * @return Horde_Kolab_FreeBusy_User The new user object.
+     * @return boolean  Whether or not the password was correct.
      */
-    static public function factory($provider)
+    public function authenticate($pass)
     {
-        $user = new Horde_Kolab_FreeBusy_User($provider->auth,
-                                              $provider->logger);
-        return $user;
+        $this->authenticated = $auth->authenticate($this->user, array('password' => $pass), false);
+        return $this->authenticated;
     }
 
+    /**
+     * Extract the user credentials from the request.
+     *
+     * @return array The user credentials.
+     */
     protected function getCredentials()
     {
         $user = isset($_SERVER['PHP_AUTH_USER']) ? $_SERVER['PHP_AUTH_USER'] : false;

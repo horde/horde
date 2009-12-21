@@ -1,6 +1,6 @@
 <?php
 /**
- * The Kolab implementation of the free/busy system.
+ * Factory methods for basic objects required by the export.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * Factory methods for objects required by the free/busy system.
+ * Factory methods for basic objects required by the export.
  *
  * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
  *
@@ -32,16 +32,17 @@ class Horde_Kolab_FreeBusy_Factory
     /**
      * Create the object representing the current request.
      *
-     * @param Horde_Provider $provider The instance providing required
+     * @param Horde_Injector $injector The instance providing required
      *                                 dependencies.
      *
      * @return Horde_Controller_Request_Base The current request.
      *
      * @throws Horde_Exception
      */
-    static public function getRequest($provider)
+    static public function getRequest($injector)
     {
-        $params = isset($provider->params['request']) ? $provider->params['request'] : array();
+        $configuration = $injector->getInstance('Horde_Kolab_FreeBusy_Configuration');
+        $params = isset($configuration['request']) ? $configuration['request'] : array();
         if (!empty($params['class'])) {
             $request_class = $params['class'];
         } else {
@@ -68,16 +69,17 @@ class Horde_Kolab_FreeBusy_Factory
     /**
      * Create the mapper.
      *
-     * @param Horde_Provider $provider The instance providing required
+     * @param Horde_Injector $injector The instance providing required
      *                                 dependencies.
      *
      * @return Horde_Route_Mapper The mapper.
      *
      * @throws Horde_Exception
      */
-    static public function getMapper($provider)
+    static public function getMapper($injector)
     {
-        $params = isset($provider->params['mapper']) ? $provider->params['mapper'] : array();
+        $configuration = $injector->getInstance('Horde_Kolab_FreeBusy_Configuration');
+        $params = isset($configuration['mapper']) ? $configuration['mapper'] : array();
         if (!empty($params['params'])) {
             $mapper_params = $params['params'];
         } else {
@@ -89,15 +91,15 @@ class Horde_Kolab_FreeBusy_Factory
          * Application routes are relative only to the application. Let the
          * mapper know where they start.
          */
-        if (!empty($provider->params['script'])) {
-            $mapper->prefix = dirname($provider->params['script']);
+        if (!empty($configuration['script'])) {
+            $mapper->prefix = dirname($configuration['script']);
         } else {
             $mapper->prefix = dirname($_SERVER['PHP_SELF']);
         }
 
         // Check for route definitions.
-        if (!empty($provider->params['config']['dir'])) {
-            $routeFile = $provider->params['config']['dir'] . '/routes.php';
+        if (!empty($configuration['config']['dir'])) {
+            $routeFile = $configuration['config']['dir'] . '/routes.php';
         }
         if (empty($params['config']['dir'])
             || !file_exists($routeFile)) {
@@ -139,14 +141,15 @@ class Horde_Kolab_FreeBusy_Factory
     /**
      * Create the dispatcher.
      *
-     * @param Horde_Provider $provider The instance providing required
+     * @param Horde_Injector $injector The instance providing required
      *                                 dependencies.
      *
      * @return Horde_Controller_Dispatcher The dispatcher.
      */
-    static public function getDispatcher($provider)
+    static public function getDispatcher($injector)
     {
-        $params = isset($provider->params['dispatch']) ? $provider->params['dispatch'] : array();
+        $configuration = $injector->getInstance('Horde_Kolab_FreeBusy_Configuration');
+        $params = isset($configuration['dispatch']) ? $configuration['dispatch'] : array();
         if (empty($params['controllerDir'])) {
             $controllerDir = dirname(__FILE__) . '/Controller';
         } else {
@@ -160,10 +163,10 @@ class Horde_Kolab_FreeBusy_Factory
         }
 
         $context = array(
-            'mapper'        => $provider->mapper,
+            'mapper'        => $injector->getInstance('Horde_Routes_Mapper'),
             'controllerDir' => $controllerDir,
             'viewsDir'      => $viewsDir,
-            'logger'        => $provider->logger,
+            'logger'        => $injector->getInstance('Horde_Log_Logger');
         );
 
         $dispatcher = Horde_Controller_Dispatcher::singleton($context);
@@ -174,19 +177,20 @@ class Horde_Kolab_FreeBusy_Factory
     /**
      * Return the logger.
      *
-     * @param Horde_Provider $provider The instance providing required
+     * @param Horde_Injector $injector The instance providing required
      *                                 dependencies.
      *
      * @return Horde_Log_Logger The logger.
      */
-    static public function getLogger($provider)
+    static public function getLogger($injector)
     {
         $logger = new Horde_Log_Logger();
 
-        $logger_params = isset($provider->params['logger']) ? $provider->params['logger'] : array();
+        $configuration = $injector->getInstance('Horde_Kolab_FreeBusy_Configuration');
+        $logger_params = isset($configuration['logger']) ? $configuration['logger'] : array();
 
         if (empty($params)) {
-            $handlers = array('Horde_Log_Handler_Syslog' => array());
+            $handlers = array('Horde_Log_Handler_Null' => array());
         } else {
             $handlers = $logger_params['logger'];
         }

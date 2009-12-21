@@ -35,26 +35,23 @@ class Horde_Kolab_FreeBusy_Export_Freebusy
 {
 
     public function __construct(
-        Horde_Kolab_FreeBusy_Resource_Freebusy_Interface $resource,
-        Horde_Kolab_FreeBusy_User_Freebusy $user,
-        array $params
+        Horde_Kolab_FreeBusy_Resource_Freebusy_Interface $resource
     ) {
         $this->_resource = $resource;
-        $this->_user     = $user;
-        $this->_params   = $params;
+        $this->_owner    = $resource->getOwner();
     }
 
     public function getStart()
     {
         $start = new Horde_Date();
-        $start->mday = $start->mday - $user->getFreeBusyPast();
+        $start->mday = $start->mday - $this->_owner->getFreeBusyPast();
         return $start;
     }
 
     public function getEnd()
     {
         $end = new Horde_Date();
-        $end->mday = $end->mday - $user->getFreeBusyFuture();
+        $end->mday = $end->mday - $this->_owner->getFreeBusyFuture();
         return $end;
     }
 
@@ -65,14 +62,14 @@ class Horde_Kolab_FreeBusy_Export_Freebusy
 
     public function getOrganizerMail()
     {
-        return 'MAILTO:' . $this->_user->getMail();
+        return 'MAILTO:' . $this->_owner->getMail();
     }
 
     public function getOrganizerName()
     {
         $params = array();
-        if (!empty($this->_user->getName())) {
-            $params['cn'] = $this->_user->getName();
+        if (!empty($this->_owner->getName())) {
+            $params['cn'] = $this->_owner->getName();
         }
         return $params;
     }

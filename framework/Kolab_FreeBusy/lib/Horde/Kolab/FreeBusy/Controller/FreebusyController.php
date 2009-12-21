@@ -42,28 +42,7 @@ class FreeBusyController extends Horde_Controller_Base
      *
      * @var Horde_Kolab_FreeBusy
      */
-    protected $app;
-
-    /**
-     * A reference to the logger.
-     *
-     * @var Horde_Log_Logger
-     */
-    protected $logger;
-
-    /**
-     * Parameters provided to this class.
-     *
-     * @var array
-     */
-    var $_params;
-
-    /**
-     * Link to the cache.
-     *
-     * @var Horde_Kolab_FreeBusy_Cache
-     */
-    var $_cache;
+    private $_app;
 
     /**
      * Constructor.
@@ -73,10 +52,10 @@ class FreeBusyController extends Horde_Controller_Base
         /**
          * The dispatcher does not know how to construct this class so we are
          * left to fetching our dependencies ourselves. The application class is
-         * used as a service locator here.
+         * used as a service locator.
          */
-        $this->app    = Horde_Kolab_FreeBusy::singleton();
-        $this->logger = $this->app->logger;
+        $this->_app = Horde_Kolab_FreeBusy::singleton();
+        $this->_app->setExport('Freebusy');
     }
 
     /**
@@ -91,10 +70,10 @@ class FreeBusyController extends Horde_Controller_Base
 
         $params = array('extended' => $this->params->type == 'xfb');
 
-	// @todo: Reconsider this. We have been decoupled from the
-	// global context here but reinjecting this value seems
-	// extremely weird. Are there any other options?
-	$this->app->callee = $this->params->callee;
+        // @todo: Reconsider this. We have been decoupled from the
+        // global context here but reinjecting this value seems
+        // extremely weird. Are there any other options?
+        $this->app->callee = $this->params->callee;
         $this->data = $this->app->driver->fetch($this->params);
 
         $this->logger->debug('Delivering complete free/busy data.');
@@ -110,27 +89,30 @@ class FreeBusyController extends Horde_Controller_Base
      *
      * @return NULL
      */
-    function &trigger()
+    public function trigger()
     {
-        $this->logger->debug(sprintf("Starting generation of partial free/busy data for folder %s",
-                                      $this->params->part));
-
-        $params = array('extended' => $this->params->type == 'pxfb',
-                        'cached' => $this->params->cache);
-
-	// @todo: Reconsider this. We have been decoupled from the
-	// global context here but reinjecting this value seems
-	// extremely weird. Are there any other options?
-	$this->app->callee_part = $this->params->part;
-        $this->data = $this->app->driver->trigger($this->params);
-
-        $this->logger->debug("Delivering partial free/busy data.");
-
-        /* Display the result to the user */
-        $this->render();
-
-        $this->logger->debug("Free/busy generation complete.");
+        $this->export = $this->_app->get(
+            'Horde_Kolab_FreeBusy_Export_Interface'
+        );
     }
+/*         $this->logger->debug(sprintf("Starting generation of partial free/busy data for folder %s", */
+/*                                       $this->params->part)); */
+
+/*         $params = array('extended' => $this->params->type == 'pxfb', */
+/*                         'cached' => $this->params->cache); */
+
+/* 	// @todo: Reconsider this. We have been decoupled from the */
+/* 	// global context here but reinjecting this value seems */
+/* 	// extremely weird. Are there any other options? */
+/* 	$this->app->callee_part = $this->params->part; */
+/*         $this->data = $this->app->driver->trigger($this->params); */
+
+/*         $this->logger->debug("Delivering partial free/busy data."); */
+
+/*         /\* Display the result to the user *\/ */
+/*         $this->render(); */
+
+/*         $this->logger->debug("Free/busy generation complete."); */
 
 
     /**
