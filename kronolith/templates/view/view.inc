@@ -140,7 +140,7 @@ if ($this->event->initialized && $this->event->alarm > 0):
      <td colspan="2" class="control"><strong><?php echo _("Tags")?></strong></td>
     </tr>
     <tr>
-     <td colspan="2"><?php echo $tags?></td>
+     <td colspan="2"><?php echo htmlspecialchars($tags)?></td>
     </tr>
 <?php endif;?>
 

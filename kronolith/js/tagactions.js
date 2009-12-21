@@ -1,7 +1,7 @@
 function addTag(resource, type, endpoint)
 {
     if (!$('newtags-input_' + resource).value.blank()) {
-        var params = { "params": "resource=" + resource + "/type=" + type + "/tags=" + $('newtags-input_' + resource).value };
+        var params = { "params": "resource=" + resource + "/type=" + type + "/tags=" + encodeURIComponent($('newtags-input_' + resource).value) };
         new Ajax.Updater({success:'tags_' + resource},
                          endpoint + "/action=add/post=params",
                          {

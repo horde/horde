@@ -67,7 +67,7 @@ $tagger = Kronolith::getTagger();
         <?php foreach ($tags as $tag_id => $tag): ?>
          <li class="panel-tags">
 <?php
-echo $tag;
+echo htmlspecialchars($tag);
 if ($cal->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
     echo '<a href="#" id="remove' . md5($id . $tag_id) . '">'
         . Horde::img('delete-small.png', _("Remove Tag"), '', $registry->getImageDir('horde'))

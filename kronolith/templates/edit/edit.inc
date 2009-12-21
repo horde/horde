@@ -402,7 +402,6 @@ endif;
  </td>
  <td colspan="4">
    <input type="text" name="tags" id="tags" value="<?php echo (!empty($tags) ? htmlspecialchars($tags) : '')?>" size="40" />
-   <div id="tags_results" name="tags_results" class="autocomplete"></div>
    <span id="tags_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
    <?php $tac = Horde_Ajax_Imple::factory(array('kronolith', 'TagAutoCompleter'), array('triggerId' => 'tags', 'id' => $event->uid));
          $tac->attach();
