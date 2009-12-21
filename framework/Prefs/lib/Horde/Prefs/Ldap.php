@@ -176,7 +176,7 @@ class Horde_Prefs_Ldap extends Horde_Prefs
                             @ldap_errno($conn),
                             @ldap_error($conn)),
                     __FILE__, __LINE__, PEAR_LOG_ERR);
-                throw new Horde_Exception('Internal LDAP error. Details have been logged for the administrator.');
+                throw new Horde_Exception('Internal LDAP error. Details have been logged for the administrator.', @ldap_errno($conn));
             }
         }
 
@@ -189,7 +189,7 @@ class Horde_Prefs_Ldap extends Horde_Prefs
                             @ldap_errno($conn),
                             @ldap_error($conn)),
                     __FILE__, __LINE__, PEAR_LOG_WARNING);
-                return PEAR::raiseError(_("Internal LDAP error.  Details have been logged for the administrator."));
+                throw new Horde_Exception(_("Internal LDAP error.  Details have been logged for the administrator."), @ldap_errno($conn));
             }
         }
 
@@ -205,7 +205,7 @@ class Horde_Prefs_Ldap extends Horde_Prefs
                         @ldap_errno($this->_connection),
                         @ldap_error($this->_connection)),
                 __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Horde_Exception('Internal LDAP error. Details have been logged for the administrator.');
+            throw new Horde_Exception('Internal LDAP error. Details have been logged for the administrator.', @ldap_errno($conn));
         }
 
         $result = @ldap_get_entries($this->_connection, $search);
@@ -215,7 +215,7 @@ class Horde_Prefs_Ldap extends Horde_Prefs
                         @ldap_errno($this->_connection),
                         @ldap_error($this->_connection)),
                 __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Horde_Exception('Internal LDAP error. Details have been logged for the administrator.');
+            throw new Horde_Exception('Internal LDAP error. Details have been logged for the administrator.', @ldap_errno($this->_connection));
         }
 
         if ($result['count'] != 1) {
@@ -253,7 +253,7 @@ class Horde_Prefs_Ldap extends Horde_Prefs
                         @ldap_errno($this->_connection),
                         @ldap_error($this->_connection)),
                 __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Horde_Exception('Internal LDAP error. Details have been logged for the administrator.');
+            throw new Horde_Exception('Internal LDAP error. Details have been logged for the administrator.', @ldap_Errno($this->_connection));
         }
 
         // We now have a ready-to-use connection.
