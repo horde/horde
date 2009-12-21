@@ -92,7 +92,6 @@ $compose_disable = !IMP::canCompose();
     <td class="label"><span><?php echo _("To: ") ?></span></td>
     <td>
      <textarea id="to" name="to" rows="1" cols="75"></textarea>
-     <div id="to_results" class="autocomplete" style="display:none"></div>
     </td>
     <td>
      <span id="to_loading_img" class="loadingImg" style="display:none"></span>
@@ -102,7 +101,6 @@ $compose_disable = !IMP::canCompose();
     <td class="label"><span><?php echo _("Cc: ") ?></span></td>
     <td>
      <textarea id="cc" name="cc" rows="1" cols="75"></textarea>
-     <div id="cc_results" class="autocomplete" style="display:none"></div>
     </td>
     <td>
      <span id="cc_loading_img" class="loadingImg" style="display:none"></span>
@@ -112,7 +110,6 @@ $compose_disable = !IMP::canCompose();
     <td class="label"><span><?php echo _("Bcc: ") ?></span></td>
     <td>
      <textarea id="bcc" name="bcc" rows="1" cols="75"></textarea>
-     <div id="bcc_results" class="autocomplete" style="display:none"></div>
     </td>
     <td>
      <span id="bcc_loading_img" class="loadingImg" style="display:none"></span>
