@@ -497,13 +497,15 @@ var DimpBase = {
                     var row = this.viewport.getSelection().search({ imapuid: { equal: [ this.uid ] }, view: { equal: [ this.folder ] } });
                     if (row.size()) {
                         this.rownum = row.get('rownum').first();
-                        this.viewport.scrollTo(this.rownum, { noupdate: true, top: true });
-                        offset = this.viewport.currentOffset();
                     }
                     this.uid = null;
-                } else if (this.rownum) {
-                    offset = this.rownum - 1;
                 }
+
+                if (this.rownum) {
+                    this.viewport.scrollTo(this.rownum, { noupdate: true, top: true });
+                    offset = this.viewport.currentOffset();
+                }
+
                 return offset;
             }.bind(this),
             onSlide: this.setMessageListTitle.bind(this)
