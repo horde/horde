@@ -337,7 +337,7 @@ var DimpBase = {
             }
         }
 
-        this.viewport.loadView(f, { search: (this.uid ? { imapuid: Number(this.uid), view: f } : null), background: opts.background});
+        this.viewport.loadView(f, { search: (this.uid ? { imapuid: Number(this.uid) } : null), background: opts.background});
     },
 
     _createViewPort: function()

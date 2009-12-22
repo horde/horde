@@ -100,8 +100,7 @@ function _getListMessages($mbox, $change)
         $search = Horde_Serialize::unserialize($search, Horde_Serialize::JSON);
         $args += array(
             'search_uid' => isset($search->imapuid) ? $search->imapuid : null,
-            'search_unseen' => isset($search->unseen) ? $search->unseen : null,
-            'search_view' => isset($search->view) ? $search->view : null
+            'search_unseen' => isset($search->unseen) ? $search->unseen : null
         );
     }
 

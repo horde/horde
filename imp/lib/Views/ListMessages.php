@@ -173,7 +173,7 @@ class IMP_Views_ListMessages
             $cached = array_flip($cached);
         }
 
-        if (isset($args['search_unseen'])) {
+        if (!empty($args['search_unseen'])) {
             /* Do an unseen search.  We know what messages the browser
              * doesn't have based on $cached. Thus, search for the first
              * unseen message not located in $cached. */
@@ -182,6 +182,15 @@ class IMP_Views_ListMessages
                 return $result;
             }
             $rownum = array_search(reset($uid_search), $sorted_list['s']);
+        } elseif (!empty($args['search_uid'])) {
+            $rownum = 1;
+            foreach (array_keys($sorted_list['s'], $args['search_uid']) as $val) {
+                if (empty($sorted_list['m'][$val]) ||
+                    ($sorted_list['m'][$val] == $args['search_mbox'])) {
+                    $rownum = $val;
+                    break;
+                }
+            }
         } else {
             /* If this is the initial request for a mailbox, figure out the
              * starting location based on user's preferences. */
@@ -191,18 +200,10 @@ class IMP_Views_ListMessages
         }
 
         /* Determine the row slice to process. */
-        if (isset($args['search_uid']) || !is_null($rownum)) {
-            if (is_null($rownum)) {
-                $rownum = 1;
-                foreach (array_keys($sorted_list['s'], $args['search_uid']) as $val) {
-                    if (empty($sorted_list['m'][$val]) ||
-                        ($sorted_list['m'][$val] == $args['search_mbox'])) {
-                        $rownum = $val;
-                        break;
-                    }
-                }
-            }
-
+        if (is_null($rownum)) {
+            $slice_start = $args['slice_start'];
+            $slice_end = $args['slice_end'];
+        } else {
             $slice_start = $rownum - $args['before'];
             $slice_end = $rownum + $args['after'];
             if ($slice_start < 1) {
@@ -212,9 +213,6 @@ class IMP_Views_ListMessages
             }
 
             $result->rownum = $rownum;
-        } else {
-            $slice_start = $args['slice_start'];
-            $slice_end = $args['slice_end'];
         }
 
         $slice_start = max(1, $slice_start);
