@@ -1291,11 +1291,11 @@ ViewPort_Scroller = Class.create({
         if (this.scrollbar.needScroll()) {
             switch (this.vp.pane_mode) {
             case 'horiz':
-                this.scrollDiv.setStyle({ float: 'left', position: 'static' }).setStyle({ marginLeft: '-' + this.scrollDiv.getWidth() + 'px' });
+                this.scrollDiv.setStyle({ float: 'left' }).setStyle({ marginLeft: '-' + this.scrollDiv.getWidth() + 'px' });
                 break;
 
             case 'vert':
-                this.scrollDiv.setStyle({ float: 'left', marginLeft: 0, position: 'static' });
+                this.scrollDiv.setStyle({ float: 'left', marginLeft: 0 });
                 if (!this.vertscroll) {
                     c.setStyle({ width: (c.clientWidth - this.scrollDiv.getWidth()) + 'px' });
                 }
@@ -1303,12 +1303,12 @@ ViewPort_Scroller = Class.create({
                 break;
 
             default:
-                this.scrollDiv.setStyle({ float: 'none', position: 'absolute', right: 0, top: 0 }).setStyle({ marginLeft: '-' + this.scrollDiv.getWidth() + 'px' });
+                this.scrollDiv.setStyle({ float: 'none' }).setStyle({ marginLeft: '-' + this.scrollDiv.getWidth() + 'px' });
                 break;
             }
 
             this.scrollDiv.setStyle({ height: c.clientHeight + 'px' });
-        } else if ((this.vp.pane_mode =='vert') && this.vertscroll) {
+        } else if ((this.vp.pane_mode == 'vert') && this.vertscroll) {
             c.setStyle({ width: (c.clientWidth + this.scrollDiv.getWidth()) + 'px' });
         }
 

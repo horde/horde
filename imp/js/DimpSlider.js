@@ -76,6 +76,10 @@ var DimpSlider = Class.create({
             [ this.sbup, this.sbdown ].invoke('observe', 'mousedown', this._arrowClick.bindAsEventListener(this));
         }
 
+        if (Prototype.Browser.IE) {
+            [ this.track, this.sbup ].invoke('makePositioned');
+        }
+
         this.sbdownsize = this.sbupsize = this.value = 0;
         this.active = this.dragging = false;
 
@@ -92,7 +96,7 @@ var DimpSlider = Class.create({
     _initScroll: function()
     {
         if (this.init) {
-            return false;
+            return;
         }
         this.init = true;
         this.track.show();
@@ -101,7 +105,6 @@ var DimpSlider = Class.create({
             this.sbdownsize = this.sbdown.offsetHeight;
         }
         this._updateHandleLength();
-        return true;
     },
 
     _startDrag: function(e)
@@ -174,7 +177,7 @@ var DimpSlider = Class.create({
         if (!this.needScroll()) {
             this.value = 0;
             this.track.hide();
-        } else if (!this._initScroll()) {
+        } else {
             this.track.show();
             this._updateHandleLength();
         }
