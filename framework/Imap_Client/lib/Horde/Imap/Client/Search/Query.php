@@ -108,7 +108,7 @@ class Horde_Imap_Client_Search_Query
      *                     for other criteria. In the format returned by
      *                     Horde_Imap_Client_Base::capability().
      *
-     * @return array  An array with 3 elements:
+     * @return array  An array with these elements:
      * <pre>
      * 'charset' - (string) The charset of the search string.
      * 'exts' - (array) The list of IMAP extensions used to create the string.
