@@ -131,13 +131,13 @@ class Kronolith
             foreach ($params['providers'] as $layer) {
                 switch ($layer) {
                 case 'Google':
-                    $params['apikeys']['google'] = $GLOBALS['conf']['api']['googlemaps'];
+                    $params['conf']['apikeys']['google'] = $GLOBALS['conf']['api']['googlemaps'];
                     break;
                 case 'Yahoo':
-                    $params['apikeys']['yahoo'] = $GLOBALS['conf']['api']['yahoomaps'];
+                    $params['conf']['apikeys']['yahoo'] = $GLOBALS['conf']['api']['yahoomaps'];
                     break;
                 case 'Cloudmade':
-                    $params['apikeys']['cloudemade'] = $GLOBALS['conf']['api']['cloudemade'];
+                    $params['conf']['apikeys']['cloudmade'] = $GLOBALS['conf']['api']['cloudmade'];
                     break;
                 }
             }
@@ -146,13 +146,13 @@ class Kronolith
         if (!empty($params['geocoder'])) {
             switch ($params['geocoder']) {
             case 'Google':
-                $params['apikeys']['google'] = $GLOBALS['conf']['api']['googlemaps'];
+                $params['conf']['apikeys']['google'] = $GLOBALS['conf']['api']['googlemaps'];
                 break;
             case 'Yahoo':
-                $params['apikeys']['yahoo'] = $GLOBALS['conf']['api']['yahoomaps'];
+                $params['conf']['apikeys']['yahoo'] = $GLOBALS['conf']['api']['yahoomaps'];
                 break;
             case 'Cloudmade':
-                $params['apikeys']['cloudemade'] = $GLOBALS['conf']['api']['cloudemade'];
+                $params['conf']['apikeys']['cloudmade'] = $GLOBALS['conf']['api']['cloudmade'];
                 break;
             }
         }
