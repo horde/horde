@@ -14,7 +14,7 @@ class Ingo_Storage_Mock extends Ingo_Storage
 {
     protected $_data = array();
 
-    protected function &_retrieve($field)
+    protected function _retrieve($field)
     {
         if (empty($this->_data[$field])) {
             switch ($field) {
@@ -31,7 +31,7 @@ class Ingo_Storage_Mock extends Ingo_Storage
                 return new Ingo_Storage_Forward();
 
             case self::ACTION_VACATION:
-                return new Ingo_Storage_Vacation();
+                return new Ingo_Storage_VacationTest();
 
             case self::ACTION_WHITELIST:
                 return new Ingo_Storage_Whitelist();

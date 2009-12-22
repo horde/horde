@@ -23,7 +23,7 @@ class Ingo_Storage_Vacation extends Ingo_Storage_Rule
 
     public function setVacationAddresses($data, $sort = true)
     {
-        $this->_addr = &$this->_addressList($data, $sort);
+        $this->_addr = $this->_addressList($data, $sort);
     }
 
     public function setVacationDays($data)
@@ -33,7 +33,7 @@ class Ingo_Storage_Vacation extends Ingo_Storage_Rule
 
     public function setVacationExcludes($data, $sort = true)
     {
-        $this->_excludes = &$this->_addressList($data, $sort);
+        $this->_excludes = $this->_addressList($data, $sort);
     }
 
     public function setVacationIgnorelist($data)

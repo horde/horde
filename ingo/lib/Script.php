@@ -114,8 +114,8 @@ class Ingo_Script
      */
     static public function factory($script, $params = array())
     {
-        $script = basename($script);
-        $class = 'Ingo_Script_' . ucfirst($script);
+        $script = Horde_String::ucfirst(basename($script));
+        $class = 'Ingo_Script_' . $script;
 
         if (!isset($params['spam_compare'])) {
             $params['spam_compare'] = $GLOBALS['conf']['spam']['compare'];
@@ -126,7 +126,10 @@ class Ingo_Script
         if (!isset($params['spam_char'])) {
             $params['spam_char'] = $GLOBALS['conf']['spam']['char'];
         }
-        if ($script == 'sieve') {
+        if (!isset($params['charset'])) {
+            $params['charset'] = Horde_Nls::getCharset();
+        }
+        if ($script == 'Sieve') {
             if (!isset($params['date_format'])) {
                 $params['date_format'] = $GLOBALS['prefs']->getValue('date_format');;
             }

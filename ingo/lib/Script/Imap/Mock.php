@@ -24,7 +24,7 @@ class Ingo_Script_Imap_Mock extends Ingo_Script_Imap_Api
         $dh = opendir($dir);
         while (($dent = readdir($dh)) !== false) {
             if (!in_array($dent, array('.', '..'))) {
-                $this->_fixtures[$dent] = Horde_Mime_Part::parseHeaders(file_get_contents($dir . '/' . $dent));
+                $this->_fixtures[$dent] = Horde_Mime_Headers::parseHeaders(file_get_contents($dir . '/' . $dent));
             }
         }
         closedir($dh);
@@ -54,9 +54,11 @@ class Ingo_Script_Imap_Mock extends Ingo_Script_Imap_Api
     }
 
     /**
-     * TODO
+     * @todo The new Horde_Imap library *only* does server-side searches now,
+     *       so we can't use Horde_Imap_Client_Search_Query for mock searches
+     *       anymore.
      */
-    public function search(&$query)
+    public function search($query)
     {
         $result = array();
         foreach ($this->_folders['INBOX'] as $message) {

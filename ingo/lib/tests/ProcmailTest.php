@@ -31,6 +31,7 @@ class Ingo_ProcmailTest extends Ingo_TestBase {
         $GLOBALS['ingo_script'] = Ingo_Script::factory(
             'procmail',
             array('path_style' => 'mbox',
+                  'charset' => 'UTF-8',
                   'spam_compare' => 'string',
                   'spam_header' => 'X-Spam-Level',
                   'spam_char' => '*'));
@@ -38,7 +39,7 @@ class Ingo_ProcmailTest extends Ingo_TestBase {
 
     function testForwardKeep()
     {
-        $forward = new Ingo_Storage_forward();
+        $forward = new Ingo_Storage_Forward();
         $forward->setForwardAddresses('joefabetes@example.com');
         $forward->setForwardKeep(true);
 
@@ -70,7 +71,7 @@ $DEFAULT
 
     function testForwardNoKeep()
     {
-        $forward = new Ingo_Storage_forward();
+        $forward = new Ingo_Storage_Forward();
         $forward->setForwardAddresses('joefabetes@example.com');
         $forward->setForwardKeep(false);
 
@@ -102,7 +103,7 @@ $DEFAULT
 
     function testBlacklistWithFolder()
     {
-        $bl = new Ingo_Storage_blacklist(3);
+        $bl = new Ingo_Storage_Blacklist(3);
         $bl->setBlacklist(array('spammer@example.com'));
         $bl->setBlacklistFolder('Junk');
 
@@ -114,7 +115,7 @@ Junk');
 
     function testBlacklistMarker()
     {
-        $bl = new Ingo_Storage_blacklist(3);
+        $bl = new Ingo_Storage_Blacklist(3);
         $bl->setBlacklist(array('spammer@example.com'));
         $bl->setBlacklistFolder(Ingo::BLACKLIST_MARKER);
 
@@ -126,7 +127,7 @@ Junk');
 
     function testBlacklistDiscard()
     {
-        $bl = new Ingo_Storage_blacklist(3);
+        $bl = new Ingo_Storage_Blacklist(3);
         $bl->setBlacklist(array('spammer@example.com'));
         $bl->setBlacklistFolder(null);
 
@@ -138,7 +139,7 @@ Junk');
 
     function testWhitelist()
     {
-        $wl = new Ingo_Storage_whitelist(3);
+        $wl = new Ingo_Storage_Whitelist(3);
         $wl->setWhitelist(array('spammer@example.com'));
 
         $this->store($wl);
@@ -149,7 +150,7 @@ $DEFAULT');
 
     function testVacationDisabled()
     {
-        $vacation = new Ingo_Storage_vacation();
+        $vacation = new Ingo_Storage_VacationTest();
         $vacation->setVacationAddresses(array('from@example.com'));
         $vacation->setVacationSubject('Subject');
         $vacation->setVacationReason("Because I don't like working!");
@@ -160,7 +161,7 @@ $DEFAULT');
 
     function testVacationEnabled()
     {
-        $vacation = new Ingo_Storage_vacation();
+        $vacation = new Ingo_Storage_VacationTest();
         $vacation->setVacationAddresses(array('from@example.com'));
         $vacation->setVacationSubject('Subject');
         $vacation->setVacationReason("Because I don't like working!");
