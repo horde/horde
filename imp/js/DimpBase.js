@@ -1060,11 +1060,11 @@ var DimpBase = {
         }
 
         togglesort.each(function(hdr) {
-            hdr.t.update(ptr.get(hdr.l).e.removeClassName('smallSort').update(ptr.get(hdr.l).t));
+            hdr.t.update().update(ptr.get(hdr.l).e.removeClassName('smallSort').update(ptr.get(hdr.l).t));
             if (hdr.s) {
                 hdr.t.insert(ptr.get(hdr.s).e.addClassName('smallSort').update('[' + ptr.get(hdr.s).t + ']'));
             }
-        }, this);
+        });
 
         ptr.find(function(s) {
             return (sortby == s.value.v)
