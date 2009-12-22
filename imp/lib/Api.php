@@ -152,21 +152,6 @@ class IMP_Api extends Horde_Registry_Api
     }
 
     /**
-     * Return envelope information for the given list of indices.
-     *
-     * @param string $mailbox  The name of the mailbox (UTF7-IMAP).
-     * @param array $indices   The list of UIDs.
-     *
-     * @return array  The envelope information. See
-     *                Horde_Imap_Client_Base::fetch() for the format.
-     * @throws Horde_Imap_Client_Exception
-     */
-    public function msgEnvelope($mailbox, $indices)
-    {
-        return $GLOBALS['imp_imap']->ob()->fetch($mailbox, array(Horde_Imap_Client::FETCH_ENVELOPE => true), array('ids' => $indices));
-    }
-
-    /**
      * Perform a search query on the remote IMAP server.
      *
      * @param string $mailbox                        The name of the source
@@ -178,19 +163,6 @@ class IMP_Api extends Horde_Registry_Api
     public function searchMailbox($mailbox, $query)
     {
         return $GLOBALS['imp_search']->runSearchQuery($query, $mailbox);
-    }
-
-    /**
-     * Returns the cache ID value for a mailbox
-     *
-     * @param string $mailbox  The name of the source mailbox (UTF7-IMAP).
-     *
-     * @return string  The cache ID string.
-     * @throws Horde_Imap_Client_Exception
-     */
-    public function mailboxCacheId($mailbox)
-    {
-        return $GLOBALS['imp_imap']->ob()->getCacheId($mailbox);
     }
 
     /**
@@ -229,6 +201,16 @@ class IMP_Api extends Horde_Registry_Api
     {
         $sentmail = IMP_Sentmail::factory();
         return $sentmail->favouriteRecipients($limit, $filter);
+    }
+
+    /**
+     * Returns the Horde_Imap_Client object created using the IMP credentials.
+     *
+     * @return Horde_Imap_Client_Base  The imap object.
+     */
+    public function imapOb($mailbox, $indices)
+    {
+        return $GLOBALS['imp_imap']->ob();
     }
 
 }

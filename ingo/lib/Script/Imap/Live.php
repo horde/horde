@@ -53,9 +53,14 @@ class Ingo_Script_Imap_Live extends Ingo_Script_Imap_Api
      */
     public function fetchEnvelope($indices)
     {
-        return $GLOBALS['registry']->hasMethod('mail/msgEnvelope')
-            ? $GLOBALS['registry']->call('mail/msgEnvelope', array($this->_params['mailbox'], $indices))
-            : false;
+        if ($GLOBALS['registry']->hasMethod('mail/imapOb')) {
+            $ob = $GLOBALS['registry']->call('mail/imapOb');
+            try {
+                return $ob->fetch($this->_params['mailbox'], array(Horde_Imap_Client::FETCH_ENVELOPE => true), array('ids' => $indices));
+            } catch (Horde_Imap_Client_Exception $e) {}
+        }
+
+        return false;
     }
 
     /**
@@ -102,9 +107,14 @@ class Ingo_Script_Imap_Live extends Ingo_Script_Imap_Api
      */
     protected function _cacheId()
     {
-        return $GLOBALS['registry']->hasMethod('mail/mailboxCacheId')
-            ? $GLOBALS['registry']->call('mail/mailboxCacheId', array($this->_params['mailbox']))
-            : time();
+        if ($GLOBALS['registry']->hasMethod('mail/imapOb')) {
+            $ob = $GLOBALS['registry']->call('mail/imapOb');
+            try {
+                return $ob->getCacheId($this->_params['mailbox']);
+            } catch (Horde_Imap_Client_Exception $e) {}
+        }
+
+        return time();
     }
 
 }
