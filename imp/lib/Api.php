@@ -13,6 +13,15 @@
 class IMP_Api extends Horde_Registry_Api
 {
     /**
+     * The listing of API calls that do not require permissions checking.
+     *
+     * @var array
+     */
+    public $noPerms = array(
+        'compose', 'batchCompose'
+    );
+
+    /**
      * Returns a compose window link.
      *
      * @param string|array $args  List of arguments to pass to compose.php.
@@ -46,31 +55,20 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function batchCompose($args = array(), $extra = array())
     {
-        require_once dirname(__FILE__) . '/Application.php';
-        new IMP_Application(array('init' => array('authentication' => 'none')));
-
         $links = array();
         foreach ($args as $i => $arg) {
             $links[$i] = IMP::composeLink($arg, !empty($extra[$i]) ? $extra[$i] : array());
         }
-
         return $links;
     }
 
     /**
      * Returns the list of folders.
      *
-     * @return array  The list of IMAP folders or false if not available.
+     * @return array  The list of IMAP folders.
      */
     public function folderlist()
     {
-        require_once dirname(__FILE__) . '/Application.php';
-        try {
-            new IMP_Application(array('init' => array('authentication' => 'throw')));
-        } catch (Horde_Exception $e) {
-            return false;
-        }
-
         $imp_folder = IMP_Folder::singleton();
         return $imp_folder->flist();
     }
@@ -81,18 +79,15 @@ class IMP_Api extends Horde_Registry_Api
      * @param string $folder  The name of the folder to create (UTF7-IMAP).
      *
      * @return string  The full folder name created or false on failure.
+     * @throws Horde_Exception
      */
     public function createFolder($folder)
     {
-        require_once dirname(__FILE__) . '/Application.php';
-        try {
-            new IMP_Application(array('init' => array('authentication' => 'throw')));
-        } catch (Horde_Exception $e) {
-            return false;
-        }
-
         $imp_folder = IMP_Folder::singleton();
-        return $imp_folder->create($GLOBALS['imp_imap']->appendNamespace($folder), $GLOBALS['prefs']->getValue('subscribe'));
+        $fname = $GLOBALS['imp_imap']->appendNamespace($folder);
+        return $imp_folder->create($fname, $GLOBALS['prefs']->getValue('subscribe'))
+            ? $fname
+            : false;
     }
 
     /**
@@ -106,13 +101,6 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function deleteMessages($mailbox, $indices)
     {
-        require_once dirname(__FILE__) . '/Application.php';
-        try {
-            new IMP_Application(array('init' => array('authentication' => 'throw')));
-        } catch (Horde_Exception $e) {
-            return false;
-        }
-
         $imp_message = IMP_Message::singleton();
         return $imp_message->delete(array($mailbox => $indices), array('nuke' => true));
     }
@@ -128,13 +116,6 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function copyMessages($mailbox, $indices, $target)
     {
-        require_once dirname(__FILE__) . '/Application.php';
-        try {
-            new IMP_Application(array('init' => array('authentication' => 'throw')));
-        } catch (Horde_Exception $e) {
-            return false;
-        }
-
         $imp_message = IMP_Message::singleton();
         return $imp_message->copy($target, 'copy', array($mailbox => $indices), true);
     }
@@ -150,13 +131,6 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function moveMessages($mailbox, $indices, $target)
     {
-        require_once dirname(__FILE__) . '/Application.php';
-        try {
-            new IMP_Application(array('init' => array('authentication' => 'throw')));
-        } catch (Horde_Exception $e) {
-            return false;
-        }
-
         $imp_message = IMP_Message::singleton();
         return $imp_message->copy($target, 'move', array($mailbox => $indices), true);
     }
@@ -173,15 +147,8 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function flagMessages($mailbox, $indices, $flags, $set)
     {
-        require_once dirname(__FILE__) . '/Application.php';
-        try {
-            new IMP_Application(array('init' => array('authentication' => 'throw')));
-        } catch (Horde_Exception $e) {
-            return false;
-        }
-
         $imp_message = IMP_Message::singleton();
-        return $imp_message->flag($flags, 'move', array($mailbox => $indices), $set);
+        return $imp_message->flag($flags, array($mailbox => $indices), $set);
     }
 
     /**
@@ -190,17 +157,12 @@ class IMP_Api extends Horde_Registry_Api
      * @param string $mailbox  The name of the mailbox (UTF7-IMAP).
      * @param array $indices   The list of UIDs.
      *
-     * @return array|boolean  TODO if successful, false if not.
+     * @return array  The envelope information. See
+     *                Horde_Imap_Client_Base::fetch() for the format.
+     * @throws Horde_Imap_Client_Exception
      */
     public function msgEnvelope($mailbox, $indices)
     {
-        require_once dirname(__FILE__) . '/Application.php';
-        try {
-            new IMP_Application(array('init' => array('authentication' => 'throw')));
-        } catch (Horde_Exception $e) {
-            return false;
-        }
-
         return $GLOBALS['imp_imap']->ob()->fetch($mailbox, array(Horde_Imap_Client::FETCH_ENVELOPE => true), array('ids' => $indices));
     }
 
@@ -211,17 +173,10 @@ class IMP_Api extends Horde_Registry_Api
      *                                               mailbox (UTF7-IMAP).
      * @param Horde_Imap_Client_Search_Query $query  The query object.
      *
-     * @return array|boolean  The search results (UID list) or false.
+     * @return array  The search results (UID list).
      */
     public function searchMailbox($mailbox, $query)
     {
-        require_once dirname(__FILE__) . '/Application.php';
-        try {
-            new IMP_Application(array('init' => array('authentication' => 'throw')));
-        } catch (Horde_Exception $e) {
-            return false;
-        }
-
         return $GLOBALS['imp_search']->runSearchQuery($query, $mailbox);
     }
 
@@ -230,26 +185,18 @@ class IMP_Api extends Horde_Registry_Api
      *
      * @param string $mailbox  The name of the source mailbox (UTF7-IMAP).
      *
-     * @return string|boolean  The cache ID value, or false if not
-     *                         authenticated.
+     * @return string  The cache ID string.
+     * @throws Horde_Imap_Client_Exception
      */
     public function mailboxCacheId($mailbox)
     {
-        require_once dirname(__FILE__) . '/Application.php';
-        try {
-            new IMP_Application(array('init' => array('authentication' => 'throw')));
-        } catch (Horde_Exception $e) {
-            return false;
-        }
-
         return $GLOBALS['imp_imap']->ob()->getCacheId($mailbox);
     }
 
     /**
      * Returns information on the currently logged on IMAP server.
      *
-     * @return mixed  Returns null if the user has not authenticated into IMP
-     *                yet Otherwise, an array with the following entries:
+     * @return mixed  An array with the following entries:
      * <pre>
      * 'hostspec' - (string) The server hostname.
      * 'port' - (integer) The server port.
@@ -259,13 +206,6 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function server()
     {
-        require_once dirname(__FILE__) . '/Application.php';
-        try {
-            new IMP_Application(array('init' => array('authentication' => 'throw')));
-        } catch (Horde_Exception $e) {
-            return null;
-        }
-
         $imap_obj = unserialize($_SESSION['imp']['imap_ob'][$_SESSION['imp']['server_key']]);
         return array(
             'hostspec' => $imap_obj->getParam('hostspec'),
@@ -287,15 +227,8 @@ class IMP_Api extends Horde_Registry_Api
     public function favouriteRecipients($limit,
                                         $filter = array('new', 'forward', 'reply', 'redirect'))
     {
-        require_once dirname(__FILE__) . '/Application.php';
-        new IMP_Application(array('init' => array('authentication' => 'none')));
-
-        if ($GLOBALS['conf']['sentmail']['driver'] != 'none') {
-            $sentmail = IMP_Sentmail::factory();
-            return $sentmail->favouriteRecipients($limit, $filter);
-        }
-
-        return array();
+        $sentmail = IMP_Sentmail::factory();
+        return $sentmail->favouriteRecipients($limit, $filter);
     }
 
 }
