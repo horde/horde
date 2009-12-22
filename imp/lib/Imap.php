@@ -127,6 +127,7 @@ class IMP_Imap
         }
 
         if (empty($_SESSION['imp']) ||
+            empty($_SESSION['imp']['server_key']) ||
             empty($_SESSION['imp']['imap_ob'][$_SESSION['imp']['server_key']])) {
             return false;
         }
