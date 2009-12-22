@@ -457,11 +457,11 @@ body.kronolithAjax {
     top: 15px;
 }
 #kronolithSearchTerm {
-    width: 127px;
+    width: 126px;
     color: #ccc;
 }
 #kronolithSearchTerm:focus {
-    width: 127px;
+    width: 126px;
     color: #000;
 }
 #kronolithMenu h3#kronolithCalendarsFirst {
