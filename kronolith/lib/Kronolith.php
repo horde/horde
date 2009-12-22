@@ -115,9 +115,18 @@ class Kronolith
     {
         // Add the apikeys
         if (!empty($params['providers'])) {
+            /* It is safe to put configuration specific to horde driver inside
+            this block since horde driver *must* contain a provider array */
+
+            // Language specific file needed?
+            $language = str_replace('_', '-', $GLOBALS['language']);
+            if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/hordemap/' . $language . '.js')) {
+                $language = 'en-US';
+            }
             $params['conf'] = array(
                 'URI_IMG_HORDE' => $GLOBALS['registry']->getImageDir('horde') . '/',
-                'useMarkerLayer' => true);
+                'useMarkerLayer' => true,
+                'language' => $language);
 
             foreach ($params['providers'] as $layer) {
                 switch ($layer) {
@@ -127,8 +136,6 @@ class Kronolith
                 case 'Yahoo':
                     $params['apikeys']['yahoo'] = $GLOBALS['conf']['api']['yahoomaps'];
                     break;
-                //case 'Ve':
-                    // none needed.
                 case 'Cloudmade':
                     $params['apikeys']['cloudemade'] = $GLOBALS['conf']['api']['cloudemade'];
                     break;
@@ -144,8 +151,6 @@ class Kronolith
             case 'Yahoo':
                 $params['apikeys']['yahoo'] = $GLOBALS['conf']['api']['yahoomaps'];
                 break;
-            //case 'Ve':
-                // none needed.
             case 'Cloudmade':
                 $params['apikeys']['cloudemade'] = $GLOBALS['conf']['api']['cloudemade'];
                 break;
