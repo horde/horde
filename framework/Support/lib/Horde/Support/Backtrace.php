@@ -111,4 +111,30 @@ class Horde_Support_Backtrace
     {
         return $this->getContext(1);
     }
+
+    /**
+     * Returns a simple, human-readable list of the complete backtrace.
+     *
+     * @return string  The backtrace map.
+     */
+    public function getMap()
+    {
+        $count = count($this->_backtrace);
+        $pad = strlen($count);
+        $map = '';
+        for ($i = $count - 1; $i >= 0; $i--) {
+            $map .= str_pad($count - $i, $pad, ' ', STR_PAD_LEFT) . '. ';
+            if (isset($this->_backtrace[$i]['class'])) {
+                $map .= $this->_backtrace[$i]['class']
+                    . $this->_backtrace[$i]['type'];
+            }
+            $map .= $this->_backtrace[$i]['function'] . '()';
+            if (isset($this->_backtrace[$i]['file'])) {
+                $map .= ' ' . $this->_backtrace[$i]['file']
+                    . ':' . $this->_backtrace[$i]['line'];
+            }
+            $map .= "\n";
+        }
+        return $map;
+    }
 }

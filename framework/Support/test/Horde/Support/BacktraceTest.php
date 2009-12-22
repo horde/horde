@@ -7,6 +7,11 @@
  * @license    http://opensource.org/licenses/bsd-license.php
  */
 
+function backtraceTestFunction()
+{
+    return debug_backtrace(false);
+}
+
 /**
  * @group      support
  * @category   Horde
@@ -17,6 +22,18 @@
  */
 class Horde_Support_BacktraceTest extends PHPUnit_Framework_TestCase
 {
+    // Keep these two methods on the top so that the line numbers don't change
+    // when new tests are added.
+    public function instanceMethod()
+    {
+        return Horde_Support_BacktraceTest::staticMethod();
+    }
+
+    public static function staticMethod()
+    {
+        return backtraceTestFunction();
+    }
+
     public function testCreateFromDefaultBacktrace()
     {
         $trace = new Horde_Support_Backtrace();
@@ -65,6 +82,18 @@ class Horde_Support_BacktraceTest extends PHPUnit_Framework_TestCase
         $backtrace = new Horde_Support_Backtrace();
         $dbt = debug_backtrace();
         $this->assertEquals(count($dbt), $backtrace->getNestingLevel());
+    }
+
+    public function testGetMap()
+    {
+        $backtrace = new Horde_Support_Backtrace(array_slice($this->instanceMethod(), 0, 4));
+        $file = __FILE__;
+        $this->assertEquals("1. Horde_Support_BacktraceTest->testGetMap()
+2. Horde_Support_BacktraceTest->instanceMethod() $file:89
+3. Horde_Support_BacktraceTest::staticMethod() $file:29
+4. backtraceTestFunction() $file:34
+",
+                            $backtrace->getMap());
     }
 
     public function returnBacktrace()
