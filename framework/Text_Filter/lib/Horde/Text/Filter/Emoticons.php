@@ -61,11 +61,11 @@ class Horde_Text_Filter_Emoticons extends Horde_Text_Filter
         ':|=' => 'vampire',
         ':-(' => 'frown', ':(' => 'frown',
         ':D' => 'biggrin', ':-D' => 'biggrin', ':d' => 'biggrin', ':-d' => 'biggrin',
-        '8)' => 'cool',
+        // '8)' => 'cool',
         // In English, 8PM occurs sufficiently often to specifically
         // search for and exclude
-        '8p(?<![Mm]\s+)' => 'cooltongue', // '8Þ' => 'cooltongue',
-        '8D' => 'coolgrin',
+        // '8p(?<![Mm]\s+)' => 'cooltongue', // '8Þ' => 'cooltongue',
+        // '8D' => 'coolgrin',
         ':p' => 'tongueout', ':P' => 'tongueout', // ':Þ' => 'tongueout',
         '?:(' => 'confused', '%-(' => 'confused',
         // ':)&' => 'love',
