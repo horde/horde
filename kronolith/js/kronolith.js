@@ -2931,8 +2931,9 @@ KronolithCore = {
                 while (!$('kronolithCalendar' + type + i).visible()) {
                     i++;
                 }
-                if (type == 'remote' && !$F('kronolithCalendarremoteId')) {
+                if (type == 'remote') {
                     elt.disable();
+                    var params = { url: $F('kronolithCalendarremoteUrl') };
                     if (i == 1) {
                         if (!$F('kronolithCalendarremoteUrl')) {
                             this.showNotifications([ { type: 'horde.warning', message: Kronolith.text.no_url }]);
@@ -2940,7 +2941,7 @@ KronolithCore = {
                             return;
                         }
                         this.doAction('GetRemoteInfo',
-                                      { url: $F('kronolithCalendarremoteUrl') },
+                                      params,
                                       function(r) {
                                           if (r.response.success) {
                                               if (r.response.name) {
@@ -2960,7 +2961,6 @@ KronolithCore = {
                                       { asynchronous: false });
                     }
                     if (i == 2) {
-                        var params = { url: $F('kronolithCalendarremoteUrl') };
                         if ($F('kronolithCalendarremoteUsername')) {
                             params.username = $F('kronolithCalendarremoteUsername');
                             params.password =  $F('kronolithCalendarremotePassword');
@@ -2969,10 +2969,12 @@ KronolithCore = {
                                       params,
                                       function(r) {
                                           if (r.response.success) {
-                                              if (r.response.name) {
+                                              if (r.response.name &&
+                                                  !$F('kronolithCalendarremoteName')) {
                                                   $('kronolithCalendarremoteName').setValue(r.response.name);
                                               }
-                                              if (r.response.desc) {
+                                              if (r.response.desc &&
+                                                  !$F('kronolithCalendarremoteDescription')) {
                                                   $('kronolithCalendarremoteDescription').setValue(r.response.desc);
                                               }
                                               this._calendarNext(type);
