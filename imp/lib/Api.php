@@ -213,4 +213,32 @@ class IMP_Api extends Horde_Registry_Api
         return $GLOBALS['imp_imap']->ob();
     }
 
+    /**
+     * Return the list of user-settable IMAP flags.
+     *
+     * @param string $mailbox  If set, returns the list of flags filtered by
+     *                         what the mailbox allows.
+     *
+     * @return array  See IMP_Imap_Flags::getList() for the output. The
+     *                'f' key will be set.
+     */
+    public function flagList($mailbox = null)
+    {
+        if ($_SESSION['imp']['protocol'] == 'pop') {
+            return array();
+        }
+
+        $opts = array(
+            'fgcolor' => true,
+            'imap' => true,
+        );
+
+        if (!is_null($mailbox)) {
+            $opts['mailbox'] = $mailbox;
+        }
+
+        $imp_flags = IMP_Imap_Flags::singleton();
+        return $imp_flags->getList($opts);
+    }
+
 }
