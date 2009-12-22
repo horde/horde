@@ -284,12 +284,10 @@ var DimpCore = {
 
     loadingImg: function(elt, id, show)
     {
-        var c;
         elt = $(elt);
 
         if (show) {
-            c = $(id).cumulativeScrollOffset();
-            elt.clonePosition(id, { offsetLeft: c[0], offsetTop: c[1], setHeight: false, setWidth: false }).show();
+            elt.clonePosition(id, { offsetTop: $('previewPane').scrollTop, setHeight: false, setLeft: false, setWidth: false }).show();
         } else {
             elt.fade({ duration: 0.2 });
         }

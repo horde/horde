@@ -150,7 +150,6 @@ function _simpleButton($id, $text, $image)
      <div class="header mboxheader">
       <div>
        <span class="rightFloat" id="msgHeader"></span>
-       <span id="viewportLoading" class="loadingImg" style="display:none"></span>
        <span id="folderName"></span>
        <span class="iconImg readonlyImg" style="display:none" title="<?php echo htmlspecialchars(_("Read-Only")) ?>"></span>
       </div>
@@ -191,6 +190,7 @@ function _simpleButton($id, $text, $image)
     </div>
 
     <div id="msgSplitPane"></div>
+    <span id="viewportLoading" class="loadingImg" style="display:none"></span>
 
     <div id="previewPane" style="display:none">
      <span id="msgLoading" class="loadingImg" style="display:none"></span>

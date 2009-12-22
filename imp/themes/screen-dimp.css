@@ -86,7 +86,6 @@ input {
     border-left: 1px silver solid;
     border-right: 1px silver solid;
     border-bottom: 1px silver solid;
-    position: relative;
 }
 .splitBarHoriz, .splitBarVert, .splitBarVertSidebar {
     background: #e9e9e9 no-repeat scroll;
