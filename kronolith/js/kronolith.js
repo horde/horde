@@ -20,6 +20,7 @@ KronolithCore = {
 
     view: '',
     ecache: $H(),
+    holidays: [],
     tcache: $H(),
     efifo: {},
     eventsLoading: {},
@@ -444,6 +445,8 @@ KronolithCore = {
      */
     updateView: function(date, view, data)
     {
+        this.holidays = [];
+
         switch (view) {
         case 'day':
             this.dayEvents = [];
@@ -1132,6 +1135,12 @@ KronolithCore = {
                 case 'agenda':
                     if (calendar != event.value.calendar) {
                         return;
+                    }
+                    if (calendar.startsWith('holiday|')) {
+                        if (this.holidays.include(event.key)) {
+                            return;
+                        }
+                        this.holidays.push(event.key);
                     }
                     break;
 
