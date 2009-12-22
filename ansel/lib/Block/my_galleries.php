@@ -37,7 +37,7 @@ class Horde_Block_ansel_my_galleries extends Horde_Block {
 
     function _content()
     {
-        Horde::addScriptFile('ToolTips.js', 'horde');
+        Horde::addScriptFile('tooltips.js', 'horde');
         /* Get the top level galleries */
         $galleries = $GLOBALS['ansel_storage']->listGalleries(
             Horde_Perms::EDIT, Horde_Auth::getAuth(), null, false, 0,
