@@ -2072,8 +2072,21 @@ KronolithCore = {
         $('kronolithCalendar' + type + '1').show();
         $('kronolithCalendarForm' + type).select('.kronolithCalendarContinue').invoke('enable');
 
+        var newCalendar = !calendar;
+        if (calendar &&
+            (Object.isUndefined(Kronolith.conf.calendars[type]) ||
+             Object.isUndefined(Kronolith.conf.calendars[type][calendar]))) {
+            if (type == 'remote') {
+                newCalendar = true;
+            } else {
+                this._closeRedBox();
+                window.history.back();
+                return;
+            }
+        }
+
         /* Reset form to defaults if this is for adding calendars. */
-        if (!calendar) {
+        if (newCalendar) {
             var fields = [ 'Id', 'Name' ];
             switch (type) {
             case 'internal':
@@ -2089,13 +2102,9 @@ KronolithCore = {
             });
             $('kronolithCalendar' + type + 'Color').setValue('#dddddd').setStyle({ 'backgroundColor': '#dddddd', 'color': '#000' });
             $('kronolithCalendarForm' + type).down('.kronolithCalendarDelete').hide();
-            return;
-        }
-
-        if (Object.isUndefined(Kronolith.conf.calendars[type]) ||
-            Object.isUndefined(Kronolith.conf.calendars[type][calendar])) {
-            this._closeRedBox();
-            window.history.back();
+            if (calendar && type == 'remote') {
+                $('kronolithCalendarremoteUrl').setValue(calendar);
+            }
             return;
         }
 
