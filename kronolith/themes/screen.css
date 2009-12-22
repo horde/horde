@@ -426,6 +426,9 @@ body.kronolithAjax {
     left: 10px;
     width: 153px;
 }
+#kronolithMenu .button {
+	padding: 1px 2px;
+}
 #kronolithMenuCalendars {
     position: absolute;
     top: 265px;
