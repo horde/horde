@@ -88,9 +88,10 @@ class Ingo_Script_Imap extends Ingo_Script
      * Perform the filtering specified in the rules.
      *
      * @param array $params  The parameter array. It MUST contain:
-     * <pre>
-     * 'mailbox' - The name of the mailbox to filter.
-     * </pre>
+     *                       - 'mailbox': The name of the mailbox to filter.
+     *                       - 'show_filter_msg': Show detailed filter status
+     *                          messages?
+     *                       - 'filter_seen': Only filter seen messages?
      *
      * @return boolean  True if filtering performed, false if not.
      */
@@ -149,13 +150,7 @@ class Ingo_Script_Imap extends Ingo_Script
 
                 $query = new Horde_Imap_Client_Search_Query();
                 foreach ($addr as $val) {
-                    $ob = new Horde_Imap_Client_Search_Query();
-                    $ob->flag('\\deleted', false);
-                    if ($params['filter_seen'] == Ingo_Script::FILTER_UNSEEN) {
-                        $ob->flag('\\seen', false);
-                    } elseif ($params['filter_seen'] == Ingo_Script::FILTER_SEEN) {
-                        $ob->flag('\\seen', true);
-                    }
+                    $ob = $this->_getQuery($params);
                     $ob->headerText('from', $val);
                     $search_array[] = $ob;
                 }
@@ -198,13 +193,7 @@ class Ingo_Script_Imap extends Ingo_Script
             case Ingo_Storage::ACTION_DISCARD:
                 $query = new Horde_Imap_Client_Search_Query();
                 foreach ($rule['conditions'] as $val) {
-                    $ob = new Horde_Imap_Client_Search_Query();
-                    $ob->flag('\\deleted', false);
-                    if ($params['filter_seen'] == Ingo_Script::FILTER_UNSEEN) {
-                        $ob->flag('\\seen', false);
-                    } elseif ($params['filter_seen'] == Ingo_Script::FILTER_SEEN) {
-                        $ob->flag('\\seen', true);
-                    }
+                    $ob = $this->_getQuery($params);
                     if (!empty($val['type']) &&
                         ($val['type'] == Ingo_Storage::TYPE_SIZE)) {
                         $ob->size($val['value'], ($val['match'] == 'greater than'));
@@ -212,7 +201,21 @@ class Ingo_Script_Imap extends Ingo_Script
                               ($val['type'] == Ingo_Storage::TYPE_BODY)) {
                         $ob->text($val['value'], true, ($val['match'] == 'not contain'));
                     } else {
-                        $ob->headerText($val['field'], $val['value'], ($val['match'] == 'not contain'));
+                        if (strpos($val['field'], ',') == false) {
+                            $ob->headerText($val['field'], $val['value'], $val['match'] == 'not contain');
+                        } else {
+                            $headers = array();
+                            foreach (explode($val['field'], ',') as $header) {
+                                $headerOb = $this->_getQuery($params);
+                                $headerOb->headerText($header, $val['value'], $val['match'] == 'not contain');
+                                $headers[] = $headerOb;
+                            }
+                            if ($val['match'] == 'contains') {
+                                $ob->orSearch($headers);
+                            } elseif ($val['match'] == 'not contain') {
+                                $ob->andSearch($headers);
+                            }
+                        }
                     }
                     $search_array[] = $ob;
                 }
@@ -357,6 +360,22 @@ class Ingo_Script_Imap extends Ingo_Script
         return $this->canApply()
             ? $this->perform(array('mailbox' => 'INBOX', 'filter_seen' => $GLOBALS['prefs']->getValue('filter_seen'), 'show_filter_msg' => $GLOBALS['prefs']->getValue('show_filter_msg')))
             : false;
+    }
+
+    /**
+     * Returns a query object prepared for adding further criteria.
+     *
+     * @param array $params  The parameter array. It MUST contain:
+     *                       - 'filter_seen': Only filter seen messages?
+     *
+     * @return Ingo_IMAP_Search_Query  A query object.
+     */
+    protected function _getQuery($params)
+    {
+        $ob = new Horde_Imap_Client_Search_Query();
+        $ob->flag('\\deleted', false);
+        $ob->flag('\\seen', $params['filter_seen'] == Ingo_Script::FILTER_SEEN);
+        return $ob;
     }
 
 }
