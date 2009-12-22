@@ -1622,7 +1622,7 @@ var DimpBase = {
         case Event.KEY_BACKSPACE:
             r = sel.get('dataob');
             if (e.shiftKey) {
-                this.moveSelected((r.last().rownum == this.viewport.getMetaData('total_rows')) ? (r.first().VP_rownum - 1) : (r.last().VP_rownum + 1), true);
+                this.moveSelected((r.last().VP_rownum == this.viewport.getMetaData('total_rows')) ? (r.first().VP_rownum - 1) : (r.last().VP_rownum + 1), true);
             }
             this.deleteMsg({ vs: sel });
             e.stop();
