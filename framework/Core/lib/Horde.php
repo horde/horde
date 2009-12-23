@@ -1712,7 +1712,7 @@ HTML;
                     // comments.
                     $tmp = preg_replace(array('/(url\(["\']?)([^\/])/i', '/\s+/', '/\/\*.*?\*\//'), array('$1' . $path . '$2', ' ', ''), implode('', file($file['f'], $flags)));
                     if ($GLOBALS['browser']->hasFeature('dataurl')) {
-                        $tmp = preg_replace_callback('/(background(?:-image)?:[^;}]*(?:url\(["\']?))(.*?)((?:["\']?\)))/i', array('Horde', 'stylesheetCallback'), $tmp);
+                        $tmp = preg_replace_callback('/(background(?:-image)?:[^;}]*(?:url\(["\']?))(.*?)((?:["\']?\)))/i', array(self, 'stylesheetCallback'), $tmp);
                     }
                     $out .= $tmp;
                 }
@@ -1755,7 +1755,7 @@ HTML;
      */
     public function stylesheetCallback($matches)
     {
-        return $matches[1] . Horde::base64ImgData($matches[2]) . $matches[3];
+        return $matches[1] . self::base64ImgData($matches[2]) . $matches[3];
     }
 
     /**
@@ -1824,7 +1824,7 @@ HTML;
 
         foreach ($apps as $app) {
             $themes_fs = $GLOBALS['registry']->get('themesfs', $app) . '/';
-            $themes_uri = Horde::url($GLOBALS['registry']->get('themesuri', $app), false, -1) . '/';
+            $themes_uri = self::url($GLOBALS['registry']->get('themesuri', $app), false, -1) . '/';
 
             foreach ($css_list as $css_name) {
                 $css[$themes_fs . $css_name . '.css'] = $themes_uri . $css_name . '.css';
@@ -2234,7 +2234,7 @@ HTML;
      */
     static public function popupJs($url, $options = array())
     {
-        Horde::addScriptFile('popup.js', 'horde');
+        self::addScriptFile('popup.js', 'horde');
 
         $params = new stdClass;
 

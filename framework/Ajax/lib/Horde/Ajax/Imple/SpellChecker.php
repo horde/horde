@@ -65,7 +65,7 @@ class Horde_Ajax_Imple_SpellChecker extends Horde_Ajax_Imple_Base
             'sc' => 'widget',
             'statusButton' => $this->_params['triggerId'],
             'target' => $this->_params['targetId'],
-            'url' => $this->_getUrl('SpellChecker', 'horde', array('input' => $this->_params['targetId']))
+            'url' => strval($this->_getUrl('SpellChecker', 'horde', array('input' => $this->_params['targetId'])))
         );
         if (isset($this->_params['states'])) {
             $opts['bs'] = $this->_params['states'];
