@@ -24,25 +24,28 @@ var RedBox = {
 
     appearWindow: function()
     {
-        var loading = $('RB_loading');
+        var loading = $('RB_loading'),
+            opts = { duration: 0.4, queue: 'end' },
+            w = $('RB_window');
+
         if (loading && loading.visible()) {
             loading.hide();
         } else {
             this.showOverlay();
         }
-        var opts = { duration: 0.4, queue: 'end' },
-            w = $('RB_window');
+
         if (this.onDisplay) {
             opts.afterFinish = this.onDisplay;
         }
-        new Effect.Appear(w, opts);
-        w.scrollTo();
+
+        w.appear(opts).scrollTo();
     },
 
     loading: function()
     {
-        this.showOverlay();
         var rl = $('RB_loading');
+
+        this.showOverlay();
         if (rl) {
             rl.show();
         }
@@ -51,20 +54,21 @@ var RedBox = {
 
     close: function()
     {
-        new Effect.Fade('RB_window', { duration: 0.4 });
+        $('RB_window').fade({ duration: 0.4 });
         if (this.overlay) {
-            new Effect.Fade('RB_overlay', { duration: 0.4 });
+            $('RB_overlay').fade({ duration: 0.4 });
         }
     },
 
     showOverlay: function()
     {
-        var rb = $('RB_redbox');
+        var rb = $('RB_redbox'), ov;
+
         if (!rb) {
             rb = new Element('DIV', { id: 'RB_redbox', align: 'center' });
             $(document.body).insert(rb);
 
-            var ov = new Element('DIV', { id: 'RB_overlay' }).hide();
+            ov = new Element('DIV', { id: 'RB_overlay' }).hide();
             rb.insert({ top: new Element('DIV', { id: 'RB_window' }).hide() }).insert({ top: ov });
 
             if (this.overlay) {
@@ -74,12 +78,14 @@ var RedBox = {
 
         if (this.overlay) {
             this.setOverlaySize();
-            new Effect.Appear('RB_overlay', { duration: 0.4, to: 0.6, queue: 'end' });
+            $('RB_overlay').appear({ duration: 0.4, to: 0.6, queue: 'end' });
         }
     },
 
     setOverlaySize: function()
     {
+        var yScroll;
+
         if (window.innerHeight && window.scrollMaxY) {
             yScroll = window.innerHeight + window.scrollMaxY;
         } else if (document.body.scrollHeight > document.body.offsetHeight) {
@@ -90,13 +96,14 @@ var RedBox = {
             // and Safari
             yScroll = document.body.offsetHeight;
         }
-        Element.setStyle('RB_overlay', { height: yScroll + 'px' });
+
+        $('RB_overlay').setStyle({ height: yScroll + 'px' });
     },
 
     setWindowPosition: function()
     {
-        var win = $('RB_window');
-        var d = win.getDimensions(),
+        var win = $('RB_window'),
+            d = win.getDimensions(),
             v = document.viewport.getDimensions();
         win.setStyle({ width: 'auto', height: 'auto', left: ((v.width - d.width) / 2) + 'px', top: ((v.height - d.height) / 2) + 'px' });
     },
