@@ -11,7 +11,7 @@ var DimpCompose = {
     // Variables defaulting to empty/false:
     //   auto_save_interval, compose_cursor, disabled, drafts_mbox, editor_on,
     //   is_popup, knl_p, knl_sm, mp_padding, resizebcc, resizecc, resizeto,
-    //   row_height, rte, skip_spellcheck, spellcheck, uploading
+    //   row_height, rte, skip_spellcheck, spellcheck, sc_submit, uploading
     last_msg: '',
 
     confirmCancel: function()
@@ -206,7 +206,8 @@ var DimpCompose = {
                     DIMP.conf_compose.spellcheck &&
                     DIMP.SpellCheckerObject &&
                     !DIMP.SpellCheckerObject.isActive()) {
-                    DIMP.SpellCheckerObject.spellCheck(this.onNoSpellError.bind(this, action));
+                    this.sc_submit = action;
+                    DIMP.SpellCheckerObject.spellCheck();
                     return;
                 }
                 break;
@@ -343,12 +344,6 @@ var DimpCompose = {
         }
     },
 
-    onNoSpellError: function(action)
-    {
-        this.skip_spellcheck = true;
-        this.uniqueSubmit(action);
-    },
-
     toggleHtmlEditor: function(noupdate)
     {
         if (!DIMP.conf_compose.rte_avail) {
@@ -432,33 +427,44 @@ var DimpCompose = {
 
     initializeSpellChecker: function()
     {
-        if (!DIMP.conf_compose.rte_avail) {
-            return;
-        }
+        document.observe('SpellChecker:noerror', this._onSpellCheckNoError.bind(this));
 
-        if (typeof DIMP.SpellCheckerObject != 'object') {
-            // If we fired before the onload that initializes the spellcheck,
-            // wait.
-            this.initializeSpellChecker.bind(this).defer();
-            return;
+        if (DIMP.conf_compose.rte_avail) {
+            document.observe('SpellChecker:after', this._onSpellCheckAfter.bind(this));
+            document.observe('SpellChecker:before', this._onSpellCheckBefore.bind(this));
         }
+    },
 
-        DIMP.SpellCheckerObject.onBeforeSpellCheck = function() {
-            if (!this.editor_on) {
-                return;
-            }
-            DIMP.SpellCheckerObject.htmlAreaParent = 'composeMessageParent';
-            this.rte.updateElement();
-            $('composeMessage').next().hide();
-        }.bind(this);
-        DIMP.SpellCheckerObject.onAfterSpellCheck = function() {
-            if (!this.editor_on) {
-                return;
-            }
-            DIMP.SpellCheckerObject.htmlAreaParent = null;
+    _onSpellCheckAfter: function()
+    {
+        if (this.editor_on) {
             this.rte.setData($F('composeMessage'));
             $('composeMessage').next().show();
-        }.bind(this);
+        }
+        this.sc_submit = false;
+    },
+
+    _onSpellCheckBefore: function()
+    {
+        DIMP.SpellCheckerObject.htmlAreaParent = this.editor_on
+            ? 'composeMessageParent'
+            : null;
+
+        if (this.editor_on) {
+            this.rte.updateElement();
+            $('composeMessage').next().hide();
+        }
+    },
+
+    _onSpellCheckNoError: function()
+    {
+        if (this.sc_submit) {
+            this.skip_spellcheck = true;
+            this.uniqueSubmit(this.sc_submit);
+        } else {
+            DimpCore.showNotifications([ { type: 'horde.message', message: DIMP.text_compose.spell_noerror } ]);
+            this._onSpellCheckAfter();
+        }
     },
 
     setMessageText: function(r)

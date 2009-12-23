@@ -8,8 +8,8 @@
 var ImpCompose = {
     // Variables defined in compose.php:
     //   cancel_url, spellcheck, cursor_pos, identities, last_msg,
-    //   max_attachments, popup, redirect, reloaded, rtemode, smf_check,
-    //   skip_spellcheck
+    //   max_attachments, popup, redirect, reloaded, rtemode, sc_submit,
+    //   smf_check, skip_spellcheck
     display_unload_warning: true,
 
     confirmCancel: function(e)
@@ -177,7 +177,8 @@ var ImpCompose = {
                 this.spellcheck &&
                 IMP.SpellCheckerObject &&
                 !IMP.SpellCheckerObject.isActive()) {
-                IMP.SpellCheckerObject.spellCheck(this.onNoSpellError.bind(this, actionID, e));
+                this.sc_submit = { a: actionID, e: e };
+                IMP.SpellCheckerObject.spellCheck();
                 return;
             }
 
@@ -228,12 +229,6 @@ var ImpCompose = {
         form.submit();
     },
 
-    onNoSpellError: function(actionID, e)
-    {
-        this.skip_spellcheck = true;
-        this.uniqSubmit(actionID, e);
-    },
-
     _autoSaveDraft: function(r, o)
     {
         if (r.responseJSON && r.responseJSON.response) {
@@ -276,33 +271,6 @@ var ImpCompose = {
                 lastRow.parentNode.insertBefore(newRow, lastRow.nextSibling);
             }
         }
-    },
-
-    initializeSpellChecker: function()
-    {
-        if (typeof IMP.SpellCheckerObject != 'object') {
-            // If we fired before the onload that initializes the spellcheck,
-            // wait.
-            this.initializeSpellChecker.bind(this).defer();
-            return;
-        }
-
-        IMP.SpellCheckerObject.onBeforeSpellCheck = this._beforeSpellCheck.bind(this);
-        IMP.SpellCheckerObject.onAfterSpellCheck = this._afterSpellCheck.bind(this);
-    },
-
-    _beforeSpellCheck: function()
-    {
-        IMP.SpellCheckerObject.htmlAreaParent = 'composeMessageParent';
-        $('composeMessage').next().hide();
-        CKEDITOR.instances.composeMessage.updateElement();
-    },
-
-    _afterSpellCheck: function()
-    {
-        IMP.SpellCheckerObject.htmlAreaParent = null;
-        CKEDITOR.instances.composeMessage.setData($F('composeMessage'));
-        $('composeMessage').next().show();
     },
 
     clickHandler: function(e)
@@ -397,7 +365,8 @@ var ImpCompose = {
             }
 
             if (this.rtemode) {
-                this.initializeSpellChecker();
+                document.observe('SpellChecker:after', this._onAfterSpellCheck.bind(this));
+                document.observe('SpellChecker:before', this._onBeforeSpellCheck.bind(this));
             }
 
             if ($('to') && !$F('to')) {
@@ -413,12 +382,39 @@ var ImpCompose = {
 
         document.observe('click', this.clickHandler.bindAsEventListener(this));
         document.observe('change', this.changeHandler.bindAsEventListener(this));
+        document.observe('SpellChecker:noerror', this._onNoErrorSpellCheck.bind(this));
 
         if (this.auto_save) {
             new PeriodicalExecuter(this.uniqSubmit.bind(this, 'auto_save_draft'), this.auto_save * 60);
         }
 
         this.resize.bind(this).delay(0.25);
+    },
+
+    _onAfterSpellCheck: function()
+    {
+        CKEDITOR.instances.composeMessage.setData($F('composeMessage'));
+        $('composeMessage').next().show();
+        this.sc_submit = null;
+    },
+
+    _onBeforeSpellCheck: function()
+    {
+        IMP.SpellCheckerObject.htmlAreaParent = 'composeMessageParent';
+        $('composeMessage').next().hide();
+        CKEDITOR.instances.composeMessage.updateElement();
+    },
+
+    onNoSpellError: function()
+    {
+        if (this.sc_submit) {
+            this.skip_spellcheck = true;
+            this.uniqSubmit(this.sc_submit.a, this.sc_submit.e);
+        } else if (this.rtemode) {
+            this._onAfterSpellCheck();
+        } else {
+            this.sc_submit = null;
+        }
     },
 
     resize: function()
