@@ -240,9 +240,11 @@ var ViewPort = Class.create({
 
         this.split_pane = {
             curr: null,
+            currbar: null,
             horiz: {
                 loc: opts.page_size
             },
+            init: false,
             vert: {
                 width: opts.pane_width
             }
@@ -1087,44 +1089,18 @@ var ViewPort = Class.create({
                 constraint: 'vertical',
                 ghosting: true,
                 nodrop: true,
-                onStart: function() {
-                    // Cache these values since we will be using them multiple
-                    // times in snap().
-                    this.sp = {
-                        lh: this._getLineHeight(),
-                        lines: this.page_size,
-                        max: this.getPageSize('splitmax'),
-                        orig: this.page_size,
-                        pos: this.opts.content.positionedOffset()[1]
-                    };
-                    this.opts.container.fire('ViewPort:splitBarStart', 'horiz');
-                }.bind(this),
                 snap: function(x, y, elt) {
-                    var l = parseInt((y - this.sp.pos) / this.sp.lh);
+                    var sp = this.split_pane,
+                        l = parseInt((y - sp.pos) / sp.lh);
                     if (l < 1) {
                         l = 1;
-                    } else if (l > this.sp.max) {
-                        l = this.sp.max;
+                    } else if (l > sp.max) {
+                        l = sp.max;
                     }
-                    this.sp.lines = l;
-                    return [ x, this.sp.pos + (l * this.sp.lh) ];
-                }.bind(this),
-                onEnd: function() {
-                    this.onResize(true, this.sp.lines);
-                    if (this.sp.orig != this.sp.lines) {
-                        this.opts.container.fire('ViewPort:splitBarChange', 'horiz');
-                    }
-                    this.opts.container.fire('ViewPort:splitBarEnd', 'horiz');
+                    sp.lines = l;
+                    return [ x, sp.pos + (l * sp.lh) ];
                 }.bind(this)
             });
-
-            sp.currbar.observe('dblclick', function() {
-                var old_size = this.page_size;
-                this.onResize(true, this.getPageSize('default'));
-                if (old_size != this.page_size) {
-                    this.opts.container.fire('ViewPort:splitBarChange', 'horiz');
-                }
-            }.bind(this));
             break;
 
         case 'vert':
@@ -1132,25 +1108,90 @@ var ViewPort = Class.create({
                 constraint: 'horizontal',
                 ghosting: true,
                 nodrop: true,
-                snapToParent: true,
-                onStart: function(drag) {
-                    this.opts.container.fire('ViewPort:splitBarStart', 'vert');
-                }.bind(this),
-                onEnd: function(drag) {
-                    sp.vert.width = drag.lastCoord[0];
-                    this.opts.content.setStyle({ width: sp.vert.width + 'px' });
-                    if (drag.wasDragged) {
-                        this.opts.container.fire('ViewPort:splitBarChange', 'vert');
-                    }
-                    this.opts.container.fire('ViewPort:splitBarEnd', 'vert');
-                }.bind(this)
+                snapToParent: true
             });
-
-            sp.currbar.observe('dblclick', function() {
-                this.opts.content.setStyle({ width: parseInt(this.opts.container.clientWidth * 0.45, 10) + 'px' });
-                this.opts.container.fire('ViewPort:splitBarChange', 'vert');
-            }.bind(this));
             break;
+        }
+
+        if (!sp.init) {
+            document.observe('DragDrop2:end', this._onDragEnd.bindAsEventListener(this));
+            document.observe('DragDrop2:start', this._onDragStart.bindAsEventListener(this));
+            document.observe('dblclick', this._onDragDblClick.bindAsEventListener(this));
+            sp.init = true;
+        }
+    },
+
+    _onDragStart: function(e)
+    {
+        var sp = this.split_pane;
+
+        if (e.element() != sp.currbar) {
+            return;
+        }
+
+        if (this.pane_mode == 'horiz') {
+            // Cache these values since we will be using them multiple
+            // times in snap().
+            sp.lh = this._getLineHeight();
+            sp.lines = this.page_size;
+            sp.max = this.getPageSize('splitmax');
+            sp.orig = this.page_size;
+            sp.pos = this.opts.content.positionedOffset()[1];
+        }
+
+        this.opts.container.fire('ViewPort:splitBarStart', this.pane_mode);
+    },
+
+    _onDragEnd: function(e)
+    {
+        var change, drag,
+            sp = this.split_pane;
+
+        if (e.element() != sp.currbar) {
+            return;
+        }
+
+        switch (this.pane_mode) {
+        case 'horiz':
+            this.onResize(true, sp.lines);
+            change = (sp.orig != sp.lines);
+            break;
+
+        case 'vert':
+            drag = DropDrag.Drags.get(e.element());
+            sp.vert.width = drag.lastCoord[0];
+            this.opts.content.setStyle({ width: sp.vert.width + 'px' });
+            change = drag.wasDragged;
+            break;
+        }
+
+        if (change) {
+            this.opts.container.fire('ViewPort:splitBarChange', this.pane_mode);
+        }
+        this.opts.container.fire('ViewPort:splitBarEnd', this.pane_mode);
+    },
+
+    _onDragDblClick: function(e)
+    {
+        if (e.element() != this.split_pane.currbar) {
+            return;
+        }
+
+        var change, old_size = this.page_size;
+
+        switch (this.pane_mode) {
+        case 'horiz':
+            this.onResize(true, this.getPageSize('default'));
+            change = (old_size != this.page_size);
+            break;
+
+        case 'vert':
+            this.opts.content.setStyle({ width: parseInt(this.opts.container.clientWidth * 0.45, 10) + 'px' });
+            change = true;
+        }
+
+        if (change) {
+            this.opts.container.fire('ViewPort:splitBarChange', this.pane_mode);
         }
     },
 

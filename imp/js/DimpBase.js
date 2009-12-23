@@ -1521,9 +1521,11 @@ var DimpBase = {
     },
 
     /* Drag/Drop handler. */
-    _folderDropHandler: function(drop, drag, e)
+    folderDropHandler: function(e)
     {
         var dropbase, sel, uids,
+            drag = e.memo,
+            drop = e.element(),
             foldername = drop.retrieve('mbox'),
             ftype = drop.retrieve('ftype');
 
@@ -1560,6 +1562,74 @@ var DimpBase = {
     {
         var cnt = this.selectedCount();
         return cnt + ' ' + (cnt == 1 ? DIMP.text.message : DIMP.text.messages);
+    },
+
+    onDragStart: function(e)
+    {
+        var args,
+            elt = e.element(),
+            id = elt.identify(),
+            d = DragDrop.Drags.getDrag(id);
+
+        if (elt.hasClassName('vpRow')) {
+            args = { right: e.memo.isRightClick() };
+            d.selectIfNoDrag = false;
+
+            // Handle selection first.
+            if (DimpCore.DMenu.operaCheck(e)) {
+                if (!this.isSelected('domid', id)) {
+                    this.msgSelect(id, { right: true });
+                }
+            } else if (!args.right && (e.memo.ctrlKey || e.memo.metaKey)) {
+                this.msgSelect(id, $H({ ctrl: true }).merge(args).toObject());
+            } else if (e.memo.shiftKey) {
+                this.msgSelect(id, $H({ shift: true }).merge(args).toObject());
+            } else if (e.memo.element().hasClassName('msCheck')) {
+                this.msgSelect(id, { ctrl: true, right: true });
+            } else if (this.isSelected('domid', id)) {
+                if (!args.right && this.selectedCount()) {
+                    d.selectIfNoDrag = true;
+                }
+            } else {
+                this.msgSelect(id, args);
+            }
+        } else if (elt.hasClassName('folder')) {
+            d.opera = DimpCore.DMenu.operaCheck(e);
+        }
+    },
+
+    onDrag: function(e)
+    {
+        if (e.element().hasClassName('folder')) {
+            var d = e.memo;
+            if (!d.opera && !d.wasDragged) {
+                $('folderopts').hide();
+                $('dropbase').show();
+                d.ghost.removeClassName('on');
+            }
+        }
+    },
+
+    onDragEnd: function(e)
+    {
+        var elt = e.element(),
+            id = elt.identify(),
+            d = DragDrop.Drags.getDrag(id);
+
+        if (elt.hasClassName('vpRow')) {
+            if (d.selectIfNoDrag && !d.wasDragged) {
+                this.msgSelect(id, { right: e.memo.isRightClick() });
+            }
+        } else if (elt.hasClassName('folder')) {
+            if (!d.opera && d.wasDragged) {
+                $('folderopts').show();
+                $('dropbase').hide();
+            }
+        } else if (elt.hasClassName('splitBarVertSidebar')) {
+            $('sidebar').setStyle({ width: d.lastCoord[0] + 'px' });
+            elt.setStyle({ left: $('sidebar').clientWidth + 'px' });
+            $('dimpmain').setStyle({ left: ($('sidebar').clientWidth + elt.clientWidth) + 'px' });
+        }
     },
 
     /* Keydown event handler */
@@ -2790,12 +2860,7 @@ var DimpBase = {
         new Drag(this.splitbar, {
             constraint: 'horizontal',
             ghosting: true,
-            nodrop: true,
-            onEnd: function(drag) {
-                $('sidebar').setStyle({ width: drag.lastCoord[0] + 'px' });
-                drag.element.setStyle({ left: $('sidebar').clientWidth + 'px' });
-                $('dimpmain').setStyle({ left: ($('sidebar').clientWidth + drag.element.clientWidth) + 'px' });
-            }
+            nodrop: true
         });
 
         $('dimpmain').setStyle({ left: ($('sidebar').clientWidth + this.splitbar.clientWidth) + 'px' });
@@ -2945,37 +3010,7 @@ DimpBase._msgDragConfig = {
     classname: 'msgdrag',
     scroll: 'normalfolders',
     threshold: 5,
-    caption: DimpBase.dragCaption.bind(DimpBase),
-    onStart: function(d, e) {
-        var args = { right: e.isRightClick() },
-            id = d.element.id;
-
-        d.selectIfNoDrag = false;
-
-        // Handle selection first.
-        if (DimpCore.DMenu.operaCheck(e)) {
-            if (!DimpBase.isSelected('domid', id)) {
-                DimpBase.msgSelect(id, { right: true });
-            }
-        } else if (!args.right && (e.ctrlKey || e.metaKey)) {
-            DimpBase.msgSelect(id, $H({ ctrl: true }).merge(args).toObject());
-        } else if (e.shiftKey) {
-            DimpBase.msgSelect(id, $H({ shift: true }).merge(args).toObject());
-        } else if (e.element().hasClassName('msCheck')) {
-            DimpBase.msgSelect(id, { ctrl: true, right: true });
-        } else if (DimpBase.isSelected('domid', id)) {
-            if (!args.right && DimpBase.selectedCount()) {
-                d.selectIfNoDrag = true;
-            }
-        } else {
-            DimpBase.msgSelect(id, args);
-        }
-    },
-    onEnd: function(d, e) {
-        if (d.selectIfNoDrag && !d.wasDragged) {
-            DimpBase.msgSelect(d.element.id, { right: e.isRightClick() });
-        }
-    }
+    caption: DimpBase.dragCaption.bind(DimpBase)
 };
 
 DimpBase._folderDragConfig = {
@@ -2983,23 +3018,7 @@ DimpBase._folderDragConfig = {
     ghosting: true,
     offset: { x: 15, y: 0 },
     scroll: 'normalfolders',
-    threshold: 5,
-    onStart: function(d, e) {
-        d.opera = DimpCore.DMenu.operaCheck(e);
-    },
-    onDrag: function(d, e) {
-        if (!d.opera && !d.wasDragged) {
-            $('folderopts').hide();
-            $('dropbase').show();
-            d.ghost.removeClassName('on');
-        }
-    },
-    onEnd: function(d, e) {
-        if (!d.opera && d.wasDragged) {
-            $('folderopts').show();
-            $('dropbase').hide();
-        }
-    }
+    threshold: 5
 };
 
 DimpBase._folderDropConfig = {
@@ -3039,9 +3058,14 @@ DimpBase._folderDropConfig = {
             }
         }
     },
-    keypress: true,
-    onDrop: DimpBase._folderDropHandler.bind(DimpBase)
+    keypress: true
 };
+
+/* Drag/drop listeners. */
+document.observe('DragDrop2:drag', DimpBase.onDrag.bindAsEventListener(DimpBase));
+document.observe('DragDrop2:drop', DimpBase.folderDropHandler.bindAsEventListener(DimpBase));
+document.observe('DragDrop2:end', DimpBase.onDragEnd.bindAsEventListener(DimpBase));
+document.observe('DragDrop2:start', DimpBase.onDragStart.bindAsEventListener(DimpBase));
 
 DimpCore.onDoActionComplete = function(r) {
     DimpBase.deleteCallback(r);

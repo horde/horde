@@ -16,7 +16,7 @@ var frames = { horde_main: true },
 KronolithCore = {
     // Vars used and defaulting to null/false:
     //   DMenu, Growler, inAjaxCallback, is_logout, onDoActionComplete,
-    //   daySizes, viewLoading, freeBusy
+    //   daySizes, viewLoading, freeBusy, dragvars
 
     view: '',
     ecache: $H(),
@@ -592,29 +592,7 @@ KronolithCore = {
             if (dateString == today) {
                 cell.addClassName('kronolithToday');
             }
-            new Drop(cell, { onDrop: function(drop) {
-                var el = DragDrop.Drags.drag.element,
-                    eventid = el.retrieve('eventid'),
-                    cal = el.retrieve('calendar');
-                if (drop == el.parentNode) {
-                    return;
-                }
-                drop.insert(el);
-                this.startLoading(cal, start + end);
-                this.doAction('UpdateEvent',
-                              { 'cal': cal,
-                                'id': eventid,
-                                'view': this.view,
-                                'view_start': start,
-                                'view_end': end,
-                                'att': $H({ start_date: drop.retrieve('date') }).toJSON() },
-                              function(r) {
-                                  if (r.response.events) {
-                                      this._removeEvent(eventid, cal);
-                                  }
-                                  this._loadEventsCallback(r);
-                              }.bind(this));
-            }.bind(this) });
+            new Drop(cell);
             cell.store('date', dateString)
                 .down('.kronolithDay')
                 .store('date', dateString)
@@ -1260,7 +1238,7 @@ KronolithCore = {
 
             if (event.value.pe) {
                 div.addClassName('kronolithEditable');
-                    // Number of pixels that cover 10 minutes.
+                // Number of pixels that cover 10 minutes.
                 var step = this[storage].height / 6;
                 if (draggerTop) {
                     // Top position of top dragger
@@ -1302,50 +1280,18 @@ KronolithCore = {
                     maxDiv = 24 * this[storage].height - divHeight,
                     // Whether the top dragger is dragged, vs. the bottom
                     // dragger
-                    draggingTop,
                     opts = {
-                        'threshold': 5,
-                        'constraint': 'vertical',
-                        'scroll': 'kronolithBody',
-                        'nodrop': true,
-                        'parentElement': function() {
+                        threshold: 5,
+                        constraint: 'vertical',
+                        scroll: 'kronolithBody',
+                        nodrop: true,
+                        parentElement: function() {
                             return $(view == 'day' ? 'kronolithEventsDay' : 'kronolithEventsWeek' + date);
-                        },
-                        'onStart': function(d, e) {
-                            this.addClassName('kronolithSelected');
-                        }.bind(div),
-                        'onEnd': function(d, e) {
-                            this[0]._onDragEnd(d, this[1], innerDiv, event, midnight, view, step, draggingTop);
-                        }.bind([this, div]),
-                        'onDrag': function(d, e) {
-                            var div = this[1],
-                                top = d.ghost.cumulativeOffset().top,
-                                offset, height, dates;
-                            draggingTop = d.ghost.hasClassName('kronolithDraggerTop');
-                            if (draggingTop) {
-                                offset = top - dragTop;
-                                height = div.offsetHeight - offset;
-                                div.setStyle({
-                                    'top': (div.offsetTop + offset) + 'px'
-                                });
-                                offset = d.ghost.offsetTop;
-                                dragTop = top;
-                            } else {
-                                offset = top - dragBottom;
-                                height = div.offsetHeight + offset;
-                                offset = div.offsetTop;
-                                dragBottom = top;
-                            }
-                            div.setStyle({
-                                'height': height + 'px'
-                            });
-                            this[0]._calculateEventDates(event.value, storage, step, offset, height);
-                            innerDiv.update('(' + event.value.start.toString(Kronolith.conf.time_format) + ' - ' + event.value.end.toString(Kronolith.conf.time_format) + ') ' + event.value.t.escapeHTML());
-                        }.bind([this, div])
+                        }
                     };
 
                 if (draggerTop) {
-                    opts.snap = function(x, y, elm) {
+                    opts.snap = function(x, y) {
                         y = Math.max(0, step * (Math.min(maxTop, y) / step | 0));
                         return [0, y];
                     }
@@ -1353,7 +1299,7 @@ KronolithCore = {
                 }
 
                 if (draggerBottom) {
-                    opts.snap = function(x, y, elm) {
+                    opts.snap = function(x, y) {
                         y = Math.min(maxBottom + dragBottomHeight + KronolithCore[storage].spacing, step * ((Math.max(minBottom, y) + dragBottomHeight + KronolithCore[storage].spacing) / step | 0)) - dragBottomHeight - KronolithCore[storage].spacing;
                         return [0, y];
                     }
@@ -1362,50 +1308,34 @@ KronolithCore = {
 
                 if (view == 'week') {
                     var dates = this.viewDates(midnight, view),
-                        eventStart = event.value.start.clone(),
-                        eventEnd = event.value.end.clone(),
                         minLeft = $('kronolithEventsWeek' + dates[0].toString('yyyyMMdd')).offsetLeft - $('kronolithEventsWeek' + date).offsetLeft,
                         maxLeft = $('kronolithEventsWeek' + dates[1].toString('yyyyMMdd')).offsetLeft - $('kronolithEventsWeek' + date).offsetLeft,
                         stepX = (maxLeft - minLeft) / 6;
                 }
-                var startTop = div.offsetTop;
                 new Drag(div, {
-                    'threshold': 5,
-                    'nodrop': true,
-                    'parentElement': function() { return $(view == 'day' ? 'kronolithEventsDay' : 'kronolithEventsWeek' + date); },
-                    'snap': function(x, y, elm) {
-                        if (view == 'week') {
-                            x = Math.max(minLeft, stepX * ((Math.min(maxLeft, x) + stepX / 2) / stepX | 0));
-                        } else {
-                            x = 0;
-                        }
+                    threshold: 5,
+                    nodrop: true,
+                    parentElement: function() { return $(view == 'day' ? 'kronolithEventsDay' : 'kronolithEventsWeek' + date); },
+                    snap: function(x, y) {
+                        x = (view == 'week')
+                            ? Math.max(minLeft, stepX * ((Math.min(maxLeft, x) + stepX / 2) / stepX | 0))
+                            : 0;
                         y = Math.max(0, step * (Math.min(maxDiv, y) / step | 0));
                         return [x, y];
-                    },
-                    'onStart': function(d, e) {
-                        this.addClassName('kronolithSelected');
-                        this.setStyle({ 'left': 0, 'width': '100%', 'zIndex': 1 });
-                    }.bind(div),
-                    'onDrag': function(d, e) {
-                        if (Object.isUndefined(d.innerDiv)) {
-                            d.innerDiv = d.ghost.select('.kronolithEventInfo')[0];
-                        }
-                        if (view == 'week') {
-                            var offsetX = Math.round(d.ghost.offsetLeft / stepX);
-                            event.value.offsetDays = offsetX;
-                            this[0]._calculateEventDates(event.value, storage, step, d.ghost.offsetTop, divHeight, eventStart.clone().addDays(offsetX), eventEnd.clone().addDays(offsetX));
-                        } else {
-                            event.value.offsetDays = 0;
-                            this[0]._calculateEventDates(event.value, storage, step, d.ghost.offsetTop, divHeight);
-                        }
-                        event.value.offsetTop = d.ghost.offsetTop - startTop;
-                        d.innerDiv.update('(' + event.value.start.toString(Kronolith.conf.time_format) + ' - ' + event.value.end.toString(Kronolith.conf.time_format) + ') ' + event.value.t.escapeHTML());
-                        this[1].clonePosition(d.ghost);
-                    }.bind([this, div]),
-                    'onEnd': function(d, e) {
-                        this[0]._onDragEnd(d, this[1], innerDiv, event, midnight, view, step);
-                    }.bind([this, div])
+                    }
                 });
+
+                // Hack - the drag event callbacks need access to these
+                //        variables.
+                this.dragvars = {
+                    divHeight: divHeight,
+                    event: event.value,
+                    innerDiv: innerDiv,
+                    midnight: midnight,
+                    step: step,
+                    stepX: stepX,
+                    storage: storage
+                };
             }
 
             var column = 1, columns, width, left, conflict = false,
@@ -1552,49 +1482,6 @@ KronolithCore = {
             minute: minute,
             second: second
         });
-    },
-
-    /**
-     * Called as the event handler after dragging/resizing a day/week event.
-     */
-    _onDragEnd: function(drag, div, innerDiv, event, date, view, step, top)
-    {
-        var dates = this.viewDates(date, view),
-            start = dates[0].toString('yyyyMMdd'),
-            end = dates[1].toString('yyyyMMdd'),
-            attributes;
-        div.removeClassName('kronolithSelected');
-        this._setEventText(innerDiv, event.value);
-        drag.destroy();
-        this.startLoading(event.value.calendar, start + end);
-        if (!Object.isUndefined(event.value.offsetTop)) {
-            attributes = $H({ 'offDays': event.value.offsetDays,
-                              'offMins': event.value.offsetTop / step * 10 });
-        } else if (!Object.isUndefined(top)) {
-            if (top) {
-                attributes = $H({ 'start': event.value.start });
-            } else {
-                attributes = $H({ 'end': event.value.end });
-            }
-        } else {
-            attributes = $H({ 'start': event.value.start,
-                              'end': event.value.end });
-        }
-        this.doAction(
-            'UpdateEvent',
-            { 'cal': event.value.calendar,
-              'id': event.key,
-              'view': view,
-              'view_start': start,
-              'view_end': end,
-              'att': attributes.toJSON()
-            },
-            function(r) {
-                if (r.response.events) {
-                    this._removeEvent(event.key, event.value.calendar);
-                }
-                this._loadEventsCallback(r);
-            }.bind(this));
     },
 
     /**
@@ -3109,6 +2996,144 @@ KronolithCore = {
         */
     },
 
+    onDrop: function(e)
+    {
+        var drop = e.element(),
+            el = e.memo,
+            eventid = el.retrieve('eventid'),
+            cal = el.retrieve('calendar');
+
+        if (drop == el.parentNode) {
+            return;
+        }
+
+        drop.insert(el);
+        this.startLoading(cal, start + end);
+        this.doAction('UpdateEvent',
+                      { 'cal': cal,
+                        'id': eventid,
+                        'view': this.view,
+                        'view_start': start,
+                        'view_end': end,
+                        'att': $H({ start_date: drop.retrieve('date') }).toJSON() },
+                      function(r) {
+                          if (r.response.events) {
+                              this._removeEvent(eventid, cal);
+                          }
+                          this._loadEventsCallback(r);
+                      }.bind(this));
+    },
+
+    onDragStart: function(e)
+    {
+        var elt = e.element();
+
+        if (elt.hasClassName('kronolithDragger')) {
+            elt = elt.up().addClassName('kronolithSelected');
+        } else if (elt.hasClassName('kronolithEditable')) {
+            elt.addClassName('kronolithSelected').setStyle({ 'left': 0, 'width': '100%', 'zIndex': 1 });
+        }
+    },
+
+    onDrag: function(e)
+    {
+        var elt = e.element(),
+            d = DragDrop.Drags.getDrag(elt);
+
+        if (elt.hasClassName('kronolithDragger')) {
+            var div = elt.up(),
+                top = d.ghost.cumulativeOffset().top,
+                offset, height, dates;
+
+            if (elt.hasClassName('kronolithDraggerTop')) {
+                offset = top - dragTop;
+                height = div.offsetHeight - offset;
+                div.setStyle({
+                    'top': (div.offsetTop + offset) + 'px'
+                });
+                offset = d.ghost.offsetTop;
+                dragTop = top;
+            } else {
+                offset = top - dragBottom;
+                height = div.offsetHeight + offset;
+                offset = div.offsetTop;
+                dragBottom = top;
+            }
+            div.setStyle({
+                'height': height + 'px'
+            });
+
+            this._calculateEventDates(this.dragvars.event.value, this.dragvars.storage, this.dragvars.step, offset, height);
+            innerDiv.update('(' + this.dragvars.event.value.start.toString(Kronolith.conf.time_format) + ' - ' + this.dragvars.event.value.end.toString(Kronolith.conf.time_format) + ') ' + this.dragvars.event.value.t.escapeHTML());
+        } else if (elt.hasClassName('kronolithEditable')) {
+            if (Object.isUndefined(d.innerDiv)) {
+                d.innerDiv = d.ghost.select('.kronolithEventInfo')[0];
+            }
+            if (view == 'week') {
+                var offsetX = Math.round(d.ghost.offsetLeft / this.dragvars.stepX);
+                this.dragvars.event.value.offsetDays = offsetX;
+                this._calculateEventDates(this.dragvars.event.value, this.dragvars.storage, this.dragvars.step, d.ghost.offsetTop, this.dragvars.divHeight, this.dragvars.event.value.start.clone().addDays(offsetX), this.dragvars.event.value.end.clone().addDays(offsetX));
+            } else {
+                this.dragvars.event.value.offsetDays = 0;
+                this._calculateEventDates(this.dragvars.event.value, this.dragvars.storage, this.dragvars.step, d.ghost.offsetTop, this.dragvars.divHeight);
+            }
+            this.dragvars.event.value.offsetTop = d.ghost.offsetTop - div.offsetTop;
+            d.innerDiv.update('(' + this.dragvars.event.value.start.toString(Kronolith.conf.time_format) + ' - ' + this.dragvars.event.value.end.toString(Kronolith.conf.time_format) + ') ' + this.dragvars.event.value.t.escapeHTML());
+            elt.clonePosition(d.ghost);
+        }
+    },
+
+    onDragEnd: function(e)
+    {
+        if (!e.element().hasClassName('kronolithDragger') &&
+            !e.element().hasClassName('kronolithEditable')) {
+            return;
+        }
+
+        var div = e.element(),
+            drag = DragDrop.Drags.getDrag(div),
+            innerDiv = this.dragvars.innerDiv,
+            event = this.dragvars.event,
+            date = this.dragvars.midnight,
+            view = this.dragvars.view,
+            step = this.dragvars.step,
+            dates = this.viewDates(date, view),
+            start = dates[0].toString('yyyyMMdd'),
+            end = dates[1].toString('yyyyMMdd'),
+            attributes;
+
+        div.removeClassName('kronolithSelected');
+        this._setEventText(innerDiv, event.value);
+        drag.destroy();
+        this.startLoading(event.value.calendar, start + end);
+        if (!Object.isUndefined(event.value.offsetTop)) {
+            attributes = $H({ 'offDays': event.value.offsetDays,
+                              'offMins': event.value.offsetTop / step * 10 });
+        } else if (div.hasClassName('kronolithDraggerTop')) {
+            attributes = $H({ 'start': event.value.start });
+        } else if (div.hasClassName('kronolithDraggerBottom')) {
+            attributes = $H({ 'end': event.value.end });
+        } else {
+            attributes = $H({ 'start': event.value.start,
+                              'end': event.value.end });
+        }
+        this.doAction(
+            'UpdateEvent',
+            { 'cal': event.value.calendar,
+              'id': event.key,
+              'view': view,
+              'view_start': start,
+              'view_end': end,
+              'att': attributes.toJSON()
+            },
+            function(r) {
+                if (r.response.events) {
+                    this._removeEvent(event.key, event.value.calendar);
+                }
+                this._loadEventsCallback(r);
+            }.bind(this));
+    },
+
     editEvent: function(calendar, id, date)
     {
         if (Object.isUndefined($('kronolithEventTags').autocompleter)) {
@@ -3767,3 +3792,7 @@ KronolithCore = {
 /* Initialize global event handlers. */
 document.observe('dom:loaded', KronolithCore.onDomLoad.bind(KronolithCore));
 Event.observe(window, 'resize', KronolithCore.onResize.bind(KronolithCore));
+document.observe('DragDrop2:drag', KronolithCore.onDrag.bindAsEventListener(KronolithCore));
+document.observe('DragDrop2:drop', KronolithCore.onDrop.bindAsEventListener(KronolithCore));
+document.observe('DragDrop2:end', KronolithCore.onDragEnd.bindAsEventListener(KronolithCore));
+document.observe('DragDrop2:start', KronolithCore.onDragStart.bindAsEventListener(KronolithCore));
