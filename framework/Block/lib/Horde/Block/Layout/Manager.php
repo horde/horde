@@ -83,11 +83,11 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
      *
      * @param string $name                        TODO
      * @param Horde_Block_Collection $collection  TODO
-     * @param string $data                        TODO
+     * @param array $data                        TODO
      *
      * @return Horde_Block_Layout_Manager  The requested instance.
      */
-    static public function &singleton($name, $collection, $data = '')
+    static public function &singleton($name, $collection, $data = array())
     {
         if (!isset(self::$_instances[$name])) {
             self::$_instances[$name] = new Horde_Block_Layout_Manager($collection, $data);
