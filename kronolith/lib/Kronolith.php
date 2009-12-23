@@ -298,6 +298,7 @@ class Kronolith
 
         /* Gettext strings used in core javascript files. */
         $code['text'] = array(
+            'ajax_error' => _("Error when communicating with the server."),
             'ajax_timeout' => _("There has been no contact with the calendar server for several minutes. The server may be temporarily unavailable or network problems may be interrupting your session. You will not see any updates until the connection is restored."),
             'ajax_recover' => _("The connection to the calendar server has been restored."),
             'alarm' => _("Alarm:"),
