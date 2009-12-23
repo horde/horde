@@ -75,6 +75,17 @@ Object.extend(String.prototype, {
                 window[func[1]] = eval(func[1]);
             }
         });
+    },
+
+    /* More efficient String.unfilterJSON() function. */
+    unfilterJSON: function(filter) {
+        if (filter) {
+            return this.replace(filter, '$1');
+        } else if (this.startsWith('/*-secure-') &&
+                   this.endsWith('*/')) {
+            return this.slice(10, -2);
+        }
+        return this;
     }
 });
 
