@@ -7,6 +7,19 @@
  *
  * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
  *
+ * Custom Events:
+ * --------------
+ * Custom events are triggered on the target element.
+ *
+ * 'SpellChecker:after'
+ *    Fired when the spellcheck processing ends.
+ *
+ * 'SpellChecker:before'
+ *    Fired before the spellcheck is performed.
+ *
+ * 'SpellChecker:noerror'
+ *    Fired when no spellcheck errors are found.
+ *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
@@ -14,37 +27,38 @@
 var SpellChecker = Class.create({
 
     // Vars used and defaulting to null:
-    //   bad, choices, disabled, htmlAreaParent, lc, locale, onAfterSpellCheck,
-    //   onBeforeSpellCheck, onNoError, reviewDiv, statusButton, statusClass,
-    //   suggestions, target, url
+    //   bad, choices, disabled, htmlAreaParent, lc, locale, reviewDiv,
+    //   statusButton, statusClass, suggestions, target, url
     options: {},
     resumeOnDblClick: true,
     state: 'CheckSpelling',
 
-    // url = (string) URL of specllchecker handler
-    // target = (string) DOM ID of message data
-    // statusButton = (string/element) DOM ID or element of the status button
-    // bs = (array) Button states
-    // locales = (array) List of locales. See KeyNavList for structure.
-    // sc = (string) Status class
-    initialize: function(url, target, statusButton, bs, locales, sc)
+    // Options:
+    //   bs = (array) Button states
+    //   locales = (array) List of locales. See KeyNavList for structure.
+    //   sc = (string) Status class
+    //   statusButton = (string/element) DOM ID or element of the status
+    //                  button
+    //   target = (string|Element) DOM element containing data
+    //   url = (string) URL of specllchecker handler
+    initialize: function(opts)
     {
         var d, lc, tmp, ul;
 
-        this.url = url;
-        this.target = target;
-        this.statusButton = $(statusButton);
-        this.buttonStates = bs;
-        this.statusClass = sc || '';
+        this.url = opts.url;
+        this.target = $(opts.target);
+        this.statusButton = $(opts.statusButton);
+        this.buttonStates = opts.bs;
+        this.statusClass = opts.sc || '';
         this.disabled = false;
 
         this.options.onComplete = this.onComplete.bind(this);
 
         document.observe('click', this.onClick.bindAsEventListener(this));
 
-        if (locales) {
+        if (opts.locales) {
             this.lc = new KeyNavList(this.statusButton, {
-                list: locales,
+                list: opts.locales,
                 onChoose: this.setLocale.bindAsEventListener(this)
             });
 
@@ -61,18 +75,14 @@ var SpellChecker = Class.create({
 
     targetValue: function()
     {
-        var input = $(this.target);
-        return (Object.isUndefined(input.value)) ? input.innerHTML : input.value;
+        return Object.isUndefined(this.target.value)
+            ? this.target.innerHTML
+            : this.target.value;
     },
 
-    // noerror - (function) A callback function to run if no errors are
-    //           identified. If not specified, will remain in spell check
-    //           mode even if no errors are present.
-    spellCheck: function(noerror)
+    spellCheck: function()
     {
-        if (this.onBeforeSpellCheck) {
-            this.onBeforeSpellCheck();
-        }
+        this.target.fire('SpellChecker:before');
 
         var opts = Object.clone(this.options),
             p = $H(),
@@ -80,9 +90,7 @@ var SpellChecker = Class.create({
 
         this.setStatus('Checking');
 
-        this.onNoError = noerror;
-
-        p.set(this.target, this.targetValue());
+        p.set(this.target.identify(), this.targetValue());
         opts.parameters = p.toQueryString();
 
         if (this.locale) {
@@ -99,7 +107,6 @@ var SpellChecker = Class.create({
     {
         var bad, content, d,
             i = 0,
-            input = $(this.target),
             result = request.responseJSON;
 
         if (Object.isUndefined(result)) {
@@ -109,9 +116,9 @@ var SpellChecker = Class.create({
 
         this.suggestions = result.suggestions || [];
 
-        if (this.onNoError && !this.suggestions.size()) {
+        if (!this.suggestions.size()) {
             this.setStatus('CheckSpelling');
-            this.onNoError();
+            this.target.fire('SpellChecker:noerror');
             return;
         }
 
@@ -133,13 +140,13 @@ var SpellChecker = Class.create({
         }, this);
 
         if (!this.reviewDiv) {
-            this.reviewDiv = new Element('div', { className: input.readAttribute('className') }).addClassName('spellcheck').setStyle({ overflow: 'auto' });
+            this.reviewDiv = new Element('div', { className: this.target.readAttribute('className') }).addClassName('spellcheck').setStyle({ overflow: 'auto' });
             if (this.resumeOnDblClick) {
                 this.reviewDiv.observe('dblclick', this.resume.bind(this));
             }
         }
 
-        d = input.getDimensions();
+        d = this.target.getDimensions();
         this.reviewDiv.setStyle({ width: d.width + 'px', height: d.height + 'px'});
 
         if (!this.htmlAreaParent) {
@@ -150,7 +157,7 @@ var SpellChecker = Class.create({
         if (this.htmlAreaParent) {
             $(this.htmlAreaParent).insert({ bottom: this.reviewDiv });
         } else {
-            input.hide().insert({ before: this.reviewDiv });
+            this.target.hide().insert({ before: this.reviewDiv });
         }
 
         this.setStatus('ResumeEdit');
@@ -211,8 +218,7 @@ var SpellChecker = Class.create({
             return;
         }
 
-        var input = $(this.target),
-            t;
+        var t;
 
         this.reviewDiv.select('span.spellcheckIncorrect').each(function(n) {
             n.replace(n.innerHTML);
@@ -222,8 +228,8 @@ var SpellChecker = Class.create({
         if (!this.htmlAreaParent) {
             t = t.replace(/<br *\/?>/gi, '~~~').unescapeHTML().replace(/~~~/g, "\n");
         }
-        input.value = t;
-        input.disabled = false;
+        this.target.setValue(t);
+        this.target.enable();
 
         if (this.resumeOnDblClick) {
             this.reviewDiv.stopObserving('dblclick');
@@ -234,12 +240,10 @@ var SpellChecker = Class.create({
         this.setStatus('CheckSpelling');
 
         if (!this.htmlAreaParent) {
-            input.show();
+            this.target.show();
         }
 
-        if (this.onAfterSpellCheck) {
-            this.onAfterSpellCheck();
-        }
+        this.target.fire('SpellChecker:after');
     },
 
     setStatus: function(state)
@@ -251,7 +255,7 @@ var SpellChecker = Class.create({
         this.state = state;
         switch (this.statusButton.tagName) {
         case 'INPUT':
-            this.statusButton.value = this.buttonStates[state];
+            this.statusButton.setValue(this.buttonStates[state]);
             break;
 
         case 'A':
@@ -263,7 +267,7 @@ var SpellChecker = Class.create({
 
     isActive: function()
     {
-        return (this.reviewDiv);
+        return this.reviewDiv;
     },
 
     disable: function(disable)

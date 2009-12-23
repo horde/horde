@@ -29,17 +29,15 @@ class Horde_Ajax_Imple_SpellChecker extends Horde_Ajax_Imple_Base
         if (empty($params['id'])) {
             $params['id'] = $this->_randomid();
         }
+
         if (empty($params['targetId'])) {
             $params['targetId'] = $this->_randomid();
         }
+
         if (empty($params['triggerId'])) {
             $params['triggerId'] = $params['targetId'] . '_trigger';
         }
-        if (empty($params['states'])) {
-            $params['states'] = '""';
-        } else {
-            $params['states'] = Horde_Serialize::serialize($params['states'], Horde_Serialize::JSON, Horde_Nls::getCharset());
-        }
+
         if (empty($params['locales'])) {
             $key_list = array_keys(Horde_Nls::$config['spelling']);
             asort($key_list, SORT_LOCALE_STRING);
@@ -49,7 +47,6 @@ class Horde_Ajax_Imple_SpellChecker extends Horde_Ajax_Imple_Base
                 $params['locales'][] = array('l' => Horde_Nls::$config['languages'][$lcode], 'v' => $lcode);
             }
         }
-        $params['locales'] = Horde_Serialize::serialize($params['locales'], Horde_Serialize::JSON, Horde_Nls::getCharset());
 
         parent::__construct($params);
     }
@@ -63,9 +60,20 @@ class Horde_Ajax_Imple_SpellChecker extends Horde_Ajax_Imple_Base
         Horde::addScriptFile('KeyNavList.js', 'horde');
         Horde::addScriptFile('SpellChecker.js', 'horde');
 
-        $url = $this->_getUrl('SpellChecker', 'horde', array('input' => $this->_params['targetId']));
+        $opts = array(
+            'locales' => $this->_params['locales'],
+            'sc' => 'widget',
+            'statusButton' => $this->_params['triggerId'],
+            'target' => $this->_params['targetId'],
+            'url' => $this->_getUrl('SpellChecker', 'horde', array('input' => $this->_params['targetId']))
+        );
+        if (isset($this->_params['states'])) {
+            $opts['bs'] = $this->_params['states'];
+        }
 
-        Horde::addInlineScript($this->_params['id'] . ' = new SpellChecker("' . $url . '", "' . $this->_params['targetId'] . '", "' . $this->_params['triggerId'] . '", ' . $this->_params['states'] . ', ' . $this->_params['locales'] . ', \'widget\');', 'dom');
+        Horde::addInlineScript(array(
+            $this->_params['id'] . ' = new SpellChecker(' . Horde_Serialize::serialize($opts, Horde_Serialize::JSON, Horde_Nls::getCharset()) . ')'
+        ), 'dom');
     }
 
     /**
