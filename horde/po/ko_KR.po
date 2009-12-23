@@ -15,173 +15,6 @@ msgstr ""
 "Content-Type: text/plain; charset=EUC-KR\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: po/translation.php:49
-msgid ""
-"  -M, --message=MESSAGE  Use this commit message instead of the default ones."
-msgstr ""
-
-#: po/translation.php:53
-msgid ""
-"  -a, --add=FILE        Add this PO file to the compendium. Useful to\n"
-"                        include a compendium from a different branch to\n"
-"                        the generated compendium."
-msgstr ""
-
-#: po/translation.php:113
-msgid ""
-"  -b, --base=/PATH  Full path to the (Horde) base directory that should be\n"
-"                    used."
-msgstr ""
-
-#: po/translation.php:69
-msgid ""
-"  -c, --compendium=FILE  Merge new translations to this compendium file\n"
-"                         instead of the default one (compendium.po in the\n"
-"                         horde/po directory."
-msgstr ""
-
-#: po/translation.php:63 po/translation.php:81 po/translation.php:87
-msgid ""
-"  -c, --compendium=FILE  Use this compendium file instead of the default\n"
-"                         one (compendium.po in the horde/po directory)."
-msgstr ""
-
-#: po/translation.php:114
-msgid "  -d, --debug       Show error messages from the executed binaries."
-msgstr ""
-
-#: po/translation.php:54
-msgid "  -d, --directory=DIR   Create compendium in this directory."
-msgstr ""
-
-#: po/translation.php:115
-msgid "  -h, --help        Show this help message."
-msgstr ""
-
-#: po/translation.php:42 po/translation.php:67 po/translation.php:75
-msgid "  -l, --locale=ll_CC     Use only this locale."
-msgstr ""
-
-#: po/translation.php:47 po/translation.php:61 po/translation.php:79
-#: po/translation.php:85
-msgid "  -l, --locale=ll_CC     Use this locale."
-msgstr ""
-
-#: po/translation.php:55
-msgid "  -l, --locale=ll_CC    Use this locale."
-msgstr ""
-
-#: po/translation.php:68
-msgid "  -m, --module=MODULE    Build MO files only for this (Horde) module."
-msgstr ""
-
-#: po/translation.php:43
-msgid "  -m, --module=MODULE    Cleanup PO files only for this (Horde) module."
-msgstr ""
-
-#: po/translation.php:48
-msgid ""
-"  -m, --module=MODULE    Commit translations only for this (Horde) module."
-msgstr ""
-
-#: po/translation.php:62
-msgid "  -m, --module=MODULE    Create a PO file only for this (Horde) module."
-msgstr ""
-
-#: po/translation.php:80
-msgid "  -m, --module=MODULE    Merge PO files only for this (Horde) module."
-msgstr ""
-
-#: po/translation.php:76
-msgid ""
-"  -m, --module=MODULE    Update help files only for this (Horde) module."
-msgstr ""
-
-#: po/translation.php:86
-msgid "  -m, --module=MODULE    Update only this (Horde) module."
-msgstr ""
-
-#: po/translation.php:58
-msgid "  -m, --module=MODULE  Generate POT file only for this (Horde) module."
-msgstr ""
-
-#: po/translation.php:70
-msgid ""
-"  -n, --no-compendium    Don't merge new translations to the compendium."
-msgstr ""
-
-#: po/translation.php:64 po/translation.php:82 po/translation.php:88
-msgid "  -n, --no-compendium    Don't use a compendium."
-msgstr ""
-
-#: po/translation.php:71
-msgid "  -s, --statistics       Save translation statistics in a local file."
-msgstr ""
-
-#: po/translation.php:116
-msgid "  -t, --test        Show the executed commands but don't run anything."
-msgstr ""
-
-#: po/translation.php:105
-msgid ""
-"  cleanup     Cleans the PO files up from untranslated and obsolete entries."
-msgstr ""
-
-#: po/translation.php:108
-msgid "  commit      Commit translations to the CVS server."
-msgstr ""
-
-#: po/translation.php:109
-msgid "  commit-help Commit help files to the CVS server."
-msgstr ""
-
-#: po/translation.php:99
-msgid ""
-"  compendium  Rebuild the compendium file. Warning: This overwrites the\n"
-"              current compendium."
-msgstr ""
-
-#: po/translation.php:100
-msgid "  extract     Generate PO template (.pot) files."
-msgstr ""
-
-#: po/translation.php:98
-msgid "  help        Show this help message."
-msgstr ""
-
-#: po/translation.php:101
-msgid ""
-"  init        Create one or more PO files for a new locale. Warning: This\n"
-"              overwrites the existing PO files of this locale."
-msgstr ""
-
-#: po/translation.php:106
-msgid "  make        Build binary MO files from the specified PO files."
-msgstr ""
-
-#: po/translation.php:107
-msgid ""
-"  make-help   Mark all entries in the XML help file being up-to-date and\n"
-"              prepare the file for the next execution of update-help. You\n"
-"              should only run make-help AFTER update-help and revising the\n"
-"              help file."
-msgstr ""
-
-#: po/translation.php:102
-msgid ""
-"  merge       Merge the current PO file with the current PO template file."
-msgstr ""
-
-#: po/translation.php:103
-msgid "  update      Run extract and merge sequent."
-msgstr ""
-
-#: po/translation.php:104
-msgid ""
-"  update-help Extract all new and changed entries from the English XML help\n"
-"              file and merge them with the existing ones."
-msgstr ""
-
 #: templates/maintenance/confirm_top.inc:11
 #, php-format
 msgid ""
@@ -189,19 +22,9 @@ msgid ""
 msgstr ""
 " &#151; %s은(는) 아래에 설정된 유지관리 작업을 수행할 준비가 되었습니다."
 
-#: lib/Horde/Form.php:2352
-#, php-format
-msgid " (%s days ago)"
-msgstr ""
-
 #: lib/Horde.php:1283
 msgid " (Accesskey %s)"
 msgstr " (단축키 %s)"
-
-#: lib/Horde/Form.php:2360
-#, php-format
-msgid " (in %s days)"
-msgstr ""
 
 #: lib/Horde/Form.php:2356
 msgid " (today)"
@@ -215,30 +38,6 @@ msgstr " (내일)"
 msgid " (yesterday)"
 msgstr " (어제)"
 
-#: lib/Block/weatherdotcom.php:214
-msgid " at "
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:200
-#, php-format
-msgid "%d %s and %s"
-msgstr ""
-
-#: po/translation.php:1164
-#, php-format
-msgid "%d bytes written."
-msgstr ""
-
-#: po/translation.php:1265
-#, php-format
-msgid "%d of %d entries marked as up-to-date"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:241
-#, php-format
-msgid "%d-day forecast"
-msgstr ""
-
 #: templates/maintenance/notice_top.inc:4
 #, fuzzy, php-format
 msgid "%s - Notice"
@@ -248,120 +47,29 @@ msgstr "참조"
 msgid "%s Administration"
 msgstr "%s 관리"
 
-#: lib/Horde/Crypt/smime.php:728
-#, php-format
-msgid "%s Fingerprint"
-msgstr ""
-
-#: lib/Horde/MIME/Contents.php:857 lib/Horde/MIME/Contents.php:859
-#, php-format
-msgid "%s KB"
-msgstr ""
-
 #: templates/maintenance/confirm_top.inc:4
 #, php-format
 msgid "%s Maintenance Operations - Confirmation"
 msgstr "%s 유지관리 작업 - 확인"
 
-#: admin/setup/config.php:30 admin/setup/index.php:209
-#, php-format
-msgid "%s Setup"
-msgstr ""
-
-#: lib/Horde/Auth/Signup.php:276
-#, php-format
-msgid "%s Sign Up"
-msgstr ""
-
-#: templates/maintenance/agreement_top.inc:4
-#, php-format
-msgid "%s Terms of Agreement"
-msgstr ""
-
 #: lib/VFS/ftp.php:596 lib/VFS/ftp.php:666
 msgid "%s already exists."
 msgstr "\"%s\"는 이미 있습니다."
-
-#: lib/Block/metar.php:157 lib/Block/metar.php:163 lib/Block/metar.php:237
-#: lib/Block/metar.php:343 lib/Block/metar.php:349
-#, php-format
-msgid "%s at %s %s"
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:530
-#, php-format
-msgid "%s has cancelled %s."
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:426
-#, php-format
-msgid "%s has replied to a free/busy request."
-msgstr ""
 
 #: lib/Horde/MIME/Viewer/icalendar.php:524
 #, fuzzy, php-format
 msgid "%s has replied to the invitation to %s."
 msgstr "%s 정의를 읽을 수 없습니다."
 
-#: lib/Horde/MIME/Viewer/icalendar.php:416
-#, php-format
-msgid "%s has sent you free/busy information."
-msgstr ""
-
-#: po/translation.php:287 po/translation.php:314
-#, php-format
-msgid "%s is not writable."
-msgstr ""
-
-#: lib/Horde/Form.php:2322
-#, php-format
-msgid "%s is required"
-msgstr ""
-
 #: lib/Block/metar.php:284
 #, fuzzy, php-format
 msgid "%s minutes"
 msgstr "5분 마다"
 
-#: lib/Horde/Block/Collection.php:123 po/translation.php:1331
-#, php-format
-msgid "%s not found."
-msgstr ""
-
-#: po/translation.php:585
-#, php-format
-msgid "%s not found. Run 'translation extract' first."
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:421
-#, php-format
-msgid "%s requests your free/busy information."
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:508
-#, php-format
-msgid "%s requests your presence at %s."
-msgstr ""
-
 #: templates/admin/user/list.inc:6
 #, fuzzy, php-format
 msgid "%s to %s of %s"
 msgstr "%d / %d (메시지: %d)"
-
-#: lib/Horde/MIME/Viewer/icalendar.php:513
-#, php-format
-msgid "%s wishes to add to %s."
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:502
-#, php-format
-msgid "%s wishes to make you aware of %s."
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:518
-#, php-format
-msgid "%s wishes to receive the latest information about %s."
-msgstr ""
 
 #: lib/Horde/Kolab.php:912
 #, fuzzy, php-format
@@ -373,69 +81,15 @@ msgstr "주소록"
 msgid "%s's Calendar"
 msgstr "달력"
 
-#: lib/Horde/Kolab.php:896
-#, php-format
-msgid "%s's Notepad"
-msgstr ""
-
-#: lib/Horde/Kolab.php:920
-#, php-format
-msgid "%s's Tasklist"
-msgstr ""
-
-#: lib/Horde/Notification/Listener/mobile.php:97
-#, php-format
-msgid "%s: %s"
-msgstr ""
-
-#: lib/Horde/CLI.php:270
-#, php-format
-msgid "'%s' is not a valid choice."
-msgstr ""
-
 #: lib/Horde/Registry.php:582 lib/Horde/Registry.php:982
 #, php-format
 msgid "'%s' is not configured in the Horde Registry."
 msgstr "%s'이(가) Horde 레지스트리에서 설정되어 있지 않습니다."
 
-#: lib/Horde/Tree.php:160
-#, php-format
-msgid "'%s' tree renderer not found."
-msgstr ""
-
 #: admin/groups.php:57
 #, fuzzy, php-format
 msgid "'%s' was added to the groups system."
 msgstr "'%s'가 시스템에 추가되었습니다."
-
-#: admin/perms/addchild.php:85
-#, php-format
-msgid "'%s' was added to the permissions system."
-msgstr ""
-
-#: admin/groups.php:55 admin/perms/addchild.php:83
-#, php-format
-msgid "'%s' was not created: %s."
-msgstr ""
-
-#: lib/Block/metar.php:186 lib/Block/metar.php:191
-#, php-format
-msgid ", gusting %s %s"
-msgstr ""
-
-#: lib/Block/metar.php:199
-#, php-format
-msgid ", variable from %s to %s"
-msgstr ""
-
-#: lib/Horde/Form.php:2053 lib/Horde/Form.php:2112
-#: lib/Horde/UI/VarRenderer/html.php:691
-msgid "-- select --"
-msgstr ""
-
-#: po/translation.php:1309 po/translation.php:1311
-msgid "---------------------------"
-msgstr ""
 
 #: lib/Block/time.php:20
 #, fuzzy
@@ -451,118 +105,23 @@ msgstr "정보"
 msgid "24 hours"
 msgstr "24 시간"
 
-#: po/translation.php:344
-#, php-format
-msgid ""
-"<gettext> tag not closed in file %s.\n"
-"Opening tag found in line %d."
-msgstr ""
-
-#: lib/Block/metar.php:117
-msgid "A database backend is required for this block."
-msgstr ""
-
 #: lib/Horde.php:166
 #, fuzzy
 msgid "A fatal error has occurred"
 msgstr "<b>치명적인 오류 발생:</b>"
 
-#: lib/Horde/Crypt/pgp.php:941
-msgid "A public PGP key is required to encrypt a message."
-msgstr ""
-
-#: lib/Horde/Crypt/pgp.php:1167
-msgid "A public PGP key is required to verify a signed message."
-msgstr ""
-
-#: lib/Horde/Crypt/pgp.php:1098
-msgid ""
-"A public PGP key, private PGP key, and passphrase are required to decrypt a "
-"message."
-msgstr ""
-
-#: lib/Horde/Crypt/pgp.php:1017
-msgid ""
-"A public PGP key, private PGP key, and passphrase are required to sign a "
-"message."
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:523
-msgid ""
-"A public S/MIME key, private S/MIME key, and passphrase are required to "
-"decrypt a message."
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:449
-msgid ""
-"A public S/MIME key, private S/MIME key, and passphrase are required to sign "
-"a message."
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:382
-msgid "A public SMIME key is required to encrypt a message."
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:325
-msgid "AM Rain"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:326
-msgid "AM Showers"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:327
-msgid "AM Snow Showers"
-msgstr ""
-
 #: templates/data/time.inc:29
 msgid "AM/PM"
 msgstr "오전/오후"
-
-#: lib/Net/SMS/clickatell_http.php:204
-msgid "API ID"
-msgstr ""
 
 #: templates/javascript/htmlarea_lang.js:30
 msgid "About this editor"
 msgstr "이 에디터는"
 
-#: services/help/index.php:52
-msgid "About..."
-msgstr ""
-
-#: templates/javascript/htmlarea_lang.js:74
-msgid "Absbottom"
-msgstr ""
-
-#: templates/javascript/htmlarea_lang.js:72
-msgid "Absmiddle"
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:640
-msgid "Accept request"
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:681
-msgid "Accepted"
-msgstr ""
-
-#: lib/VFS/musql.php:285
-msgid "Access denied creating VFS directory."
-msgstr ""
-
-#: lib/VFS/musql.php:138
-msgid "Access denied creating VFS file."
-msgstr ""
-
 #: config/prefs.php.dist:75
 #, fuzzy
 msgid "Account Password"
 msgstr "암호 확인"
-
-#: lib/Net/SMS/clickatell_http.php:302
-msgid "Account frozen."
-msgstr ""
 
 #: config/registry.php.dist:320
 #, fuzzy
@@ -580,44 +139,14 @@ msgstr "실행"
 msgid "Add"
 msgstr "추가"
 
-#: admin/groups.php:214 admin/groups.php:215
-msgid "Add Child Group"
-msgstr ""
-
-#: lib/Horde/Perms/UI.php:81 lib/Horde/Perms/UI.php:82
-msgid "Add Child Permission"
-msgstr ""
-
 #: templates/portal/add.inc:5
 #, fuzzy
 msgid "Add Here:"
 msgstr "사용자 추가"
 
-#: admin/groups.php:208 admin/groups.php:209
-msgid "Add New Group"
-msgstr ""
-
-#: lib/Horde/Perms/UI.php:70 lib/Horde/Perms/UI.php:71
-msgid "Add New Permission"
-msgstr ""
-
-#: templates/admin/groups/addchild.inc:9
-#, php-format
-msgid "Add a child group to '%s'"
-msgstr ""
-
-#: admin/perms/addchild.php:53 lib/Horde/Perms/UI.php:135
-#, php-format
-msgid "Add a child permission to '%s'"
-msgstr ""
-
 #: admin/user.php:30
 msgid "Add a new user:"
 msgstr "새로운 사용자 추가:"
-
-#: lib/Horde/UI/VarRenderer/html.php:529
-msgid "Add column"
-msgstr ""
 
 #: templates/admin/groups/edit.inc:35
 #, fuzzy
@@ -627,16 +156,6 @@ msgstr "새로운 사용자 추가:"
 #: templates/data/csvmap.inc:103
 msgid "Add pair"
 msgstr "페어(pair) 추가"
-
-#: config/prefs.php.dist:357
-#, php-format
-msgid "Add the %s Menu as a Mozilla Sidebar"
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:631
-#: lib/Horde/MIME/Viewer/icalendar.php:637
-msgid "Add this to my calendar"
-msgstr ""
 
 #: lib/Horde/MIME/Viewer/vcard.php:74
 #, fuzzy
@@ -652,22 +171,6 @@ msgstr "(%s)를 주소록에 추가"
 msgid "Add user"
 msgstr "사용자 추가"
 
-#: admin/user.php:79
-#, php-format
-msgid ""
-"Added '%s' to the system, but could not add additional signup information: %"
-"s."
-msgstr ""
-
-#: signup.php:46
-#, php-format
-msgid "Added '%s' to the system. You can log in now."
-msgstr ""
-
-#: po/translation.php:956
-msgid "Adding new files to repository:"
-msgstr ""
-
 #: templates/admin/user/noadd.inc:4
 msgid "Adding users is disabled."
 msgstr "사용자 추가 사용안함"
@@ -681,10 +184,6 @@ msgstr "주소"
 msgid "Address Book"
 msgstr "주소록"
 
-#: lib/Horde/IMAP/ACL/rfc2086.php:97
-msgid "Administer - set permissions for other users"
-msgstr ""
-
 #: admin/index.php:19 services/portal/sidebar.php:114
 msgid "Administration"
 msgstr "관리"
@@ -693,11 +192,6 @@ msgstr "관리"
 #, fuzzy
 msgid "Ads"
 msgstr "추가"
-
-#: lib/Horde/NLS/tld.php:18 lib/Horde/NLS/countries.php:11
-#: lib/Horde/NLS/GeoIP.php:57
-msgid "Afghanistan"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:21 lib/Horde/NLS/countries.php:12
 #: lib/Horde/NLS/GeoIP.php:58
@@ -727,102 +221,28 @@ msgstr "정렬:"
 msgid "All"
 msgstr "모두 선택"
 
-#: admin/perms/edit.php:118 templates/shares/edit.inc:65
-msgid "All Authenticated Users"
-msgstr ""
-
-#: admin/groups.php:33 admin/groups.php:212
-msgid "All Groups"
-msgstr ""
-
-#: admin/perms/addchild.php:38 lib/Horde/Perms/UI.php:74
-msgid "All Permissions"
-msgstr ""
-
 #: templates/javascript/htmlarea_table_lang.js:17
 msgid "All four sides"
 msgstr "모든 4면"
-
-#: lib/Horde/Form.php:1855
-msgid "Allow multiple addresses"
-msgstr ""
-
-#: config/prefs.php.dist:523
-msgid "Allow setting of ordered list type?"
-msgstr ""
-
-#: lib/Horde/DataTree/sql.php:403
-msgid "Already exists"
-msgstr ""
-
-#: config/prefs.php.dist:122
-msgid "Alternate IMSP Login"
-msgstr ""
-
-#: config/prefs.php.dist:496
-msgid "Alternate IMSP Password"
-msgstr ""
-
-#: config/prefs.php.dist:488
-msgid "Alternate IMSP Username"
-msgstr ""
 
 #: services/resetpassword.php:35
 #, fuzzy
 msgid "Alternate email address"
 msgstr "잘못된 이메일 주소"
 
-#: admin/templates.php:142
-msgid "Alternate templates"
-msgstr ""
-
 #: templates/javascript/htmlarea_lang.js:122
 #: templates/javascript/htmlarea_anselimage_lang.js:25
 msgid "Alternate text:"
 msgstr "대체 글"
 
-#: lib/Horde/NLS/tld.php:27 lib/Horde/NLS/countries.php:14
-#: lib/Horde/NLS/GeoIP.php:59
-msgid "American Samoa"
-msgstr ""
-
 #: lib/Horde/Prefs/UI.php:97 lib/Horde/Prefs/UI.php:117
 msgid "An illegal value was specified."
 msgstr "잘못된 문자가 있습니다."
-
-#: lib/Horde/NLS/tld.php:16 lib/Horde/NLS/countries.php:15
-#: lib/Horde/NLS/GeoIP.php:56
-msgid "Andorra"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:24 lib/Horde/NLS/countries.php:16
-#: lib/Horde/NLS/GeoIP.php:59
-msgid "Angola"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:20 lib/Horde/NLS/countries.php:17
-#: lib/Horde/NLS/GeoIP.php:58
-msgid "Anguilla"
-msgstr ""
-
-#: lib/Horde/NLS/GeoIP.php:120
-msgid "Anonymous Proxy"
-msgstr ""
 
 #: services/resetpassword.php:49
 #, fuzzy
 msgid "Answer"
 msgstr "회신한 메일"
-
-#: lib/Horde/NLS/tld.php:25 lib/Horde/NLS/countries.php:18
-#: lib/Horde/NLS/GeoIP.php:59
-msgid "Antarctica"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:19 lib/Horde/NLS/countries.php:19
-#: lib/Horde/NLS/GeoIP.php:57
-msgid "Antigua and Barbuda"
-msgstr ""
 
 #: admin/templates.php:74 admin/phpshell.php:30 lib/Horde/Block/UI.php:59
 #: templates/admin/setup/index.html:6
@@ -830,44 +250,10 @@ msgstr ""
 msgid "Application"
 msgstr "실행"
 
-#: util/icon_browser.php:42
-msgid "Application List"
-msgstr ""
-
-#: admin/setup/index.php:130
-msgid "Application is ready."
-msgstr ""
-
-#: templates/shares/edit.inc:218
-msgid "Apply to Child Shares"
-msgstr ""
-
-#: templates/admin/user/approve.inc:33
-msgid "Approve"
-msgstr ""
-
-#: lib/Horde/MIME/Contents.php:857
-msgid "Approximate Size"
-msgstr ""
-
 #: lib/Horde/UI/VarRenderer/html.php:377 lib/Horde/UI/VarRenderer/html.php:414
 #: templates/javascript/open_calendar.js:68
 msgid "April"
 msgstr "4월"
-
-#: config/nls.php.dist:171
-msgid "Arabic (Windows-1256)"
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/rar.php:62 lib/Horde/MIME/Viewer/zip.php:66
-#: lib/Horde/MIME/Viewer/tgz.php:81
-msgid "Archive File Size"
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/rar.php:61 lib/Horde/MIME/Viewer/zip.php:65
-#: lib/Horde/MIME/Viewer/tgz.php:80
-msgid "Archive Name"
-msgstr ""
 
 #: templates/admin/user/removequeued.inc:9
 #, fuzzy, php-format
@@ -879,90 +265,19 @@ msgstr "계속 진행하시겠습니까?"
 msgid "Are you sure you wish to delete '%s' and any sub-groups?"
 msgstr "이 메시지를 영원히 삭제하시겠습니까?"
 
-#: lib/Horde/NLS/tld.php:26 lib/Horde/NLS/countries.php:20
-#: lib/Horde/NLS/GeoIP.php:59
-msgid "Argentina"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:22 lib/Horde/NLS/countries.php:21
-#: lib/Horde/NLS/GeoIP.php:58
-msgid "Armenia"
-msgstr ""
-
-#: config/nls.php.dist:172
-msgid "Armenian (ARMSCII-8)"
-msgstr ""
-
-#: lib/Block/fortune.php:28
-msgid "Art"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:30 lib/Horde/NLS/countries.php:22
-#: lib/Horde/NLS/GeoIP.php:60
-msgid "Aruba"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:15
-msgid "Ascension Island"
-msgstr ""
-
-#: lib/Block/fortune.php:29
-msgid "Ascii Art"
-msgstr ""
-
-#: lib/Horde/NLS/GeoIP.php:56
-msgid "Asia/Pacific Region"
-msgstr ""
-
 #: config/prefs.php.dist:415
 msgid "Ask for confirmation before doing maintenance operations?"
 msgstr "유지관리실행전 확인하기"
-
-#: lib/Horde/Form.php:3098
-msgid "Assignment columns"
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:166
-#: lib/Horde/MIME/Viewer/icalendar.php:249
-#: lib/Horde/MIME/Viewer/icalendar.php:318
-msgid "Attached is an iCalendar file reply to a request you sent"
-msgstr ""
-
-#: admin/groups.php:75
-msgid "Attempt to delete a non-existent group."
-msgstr ""
-
-#: admin/perms/delete.php:38
-msgid "Attempt to delete a non-existent permission."
-msgstr ""
-
-#: admin/perms/edit.php:98
-msgid "Attempt to edit a non-existent permission."
-msgstr ""
-
-#: services/shares/edit.php:53
-msgid "Attempt to edit a non-existent share."
-msgstr ""
 
 #: lib/Horde/MIME/Viewer/icalendar.php:577
 #, fuzzy
 msgid "Attendees"
 msgstr "파일 첨부"
 
-#: lib/Horde/MIME/Viewer/rar.php:67 lib/Horde/MIME/Viewer/zip.php:71
-#: lib/Horde/MIME/Viewer/tgz.php:86
-msgid "Attributes"
-msgstr ""
-
 #: lib/Horde/UI/VarRenderer/html.php:381 lib/Horde/UI/VarRenderer/html.php:418
 #: templates/javascript/open_calendar.js:72
 msgid "August"
 msgstr "8월"
-
-#: lib/Horde/NLS/tld.php:29 lib/Horde/NLS/countries.php:23
-#: lib/Horde/NLS/GeoIP.php:60
-msgid "Australia"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:28 lib/Horde/NLS/countries.php:24
 #: lib/Horde/NLS/GeoIP.php:60
@@ -970,58 +285,10 @@ msgstr ""
 msgid "Austria"
 msgstr "8월"
 
-#: lib/Horde/Auth/cyrsql.php:163
-msgid "Auth_cyrsql: Required imap extension not found."
-msgstr ""
-
-#: lib/Horde/Auth/cyrus.php:137
-msgid "Auth_cyrus: Backend does not have required capabilites."
-msgstr ""
-
-#: lib/Horde/Auth/cyrus.php:124
-msgid "Auth_cyrus: Required imap extension not found."
-msgstr ""
-
-#: lib/Horde/Auth/ftp.php:40
-msgid ""
-"Auth_ftp: Required FTP extension not found. Compile PHP with the --enable-"
-"ftp switch."
-msgstr ""
-
-#: lib/Horde/Auth/imap.php:68
-msgid "Auth_imap: Required IMAP extension not found."
-msgstr ""
-
-#: lib/Horde/Auth/krb5.php:53
-msgid "Auth_krb5: Required krb5 extension not found."
-msgstr ""
-
-#: lib/Horde/Auth/ldap.php:61
-msgid "Auth_ldap: Required LDAP extension not found."
-msgstr ""
-
 #: lib/Horde/Auth/ldap.php:189
 #, fuzzy, php-format
 msgid "Auth_ldap: Unable to add user %s. This is what the server said: "
 msgstr "임시보관함 저장 오류. 서버의 오류 메시지: %s"
-
-#: lib/Horde/Auth/ldap.php:229
-#, php-format
-msgid "Auth_ldap: Unable to remove user %s"
-msgstr ""
-
-#: lib/Horde/Auth/ldap.php:289
-#, php-format
-msgid "Auth_ldap: Unable to update user %s"
-msgstr ""
-
-#: lib/Horde/Auth/mcal.php:50
-msgid "Auth_mcal: Required MCAL extension not found."
-msgstr ""
-
-#: lib/Horde/Auth/smb.php:65
-msgid "Auth_smbauth: Required smbauth extension not found."
-msgstr ""
 
 #: lib/Net/SMS/clickatell_http.php:299
 #, fuzzy
@@ -1033,10 +300,6 @@ msgstr "삭제 실패"
 msgid "Authentication failed. %s"
 msgstr "메일 전달 오류:"
 
-#: lib/Horde/Auth/radius.php:181
-msgid "Authentication rejected by RADIUS server."
-msgstr ""
-
 #: lib/VFS/ftp.php:800
 #, fuzzy
 msgid "Authentication to FTP server failed."
@@ -1046,19 +309,6 @@ msgstr "ftp 서버 연결 오류."
 msgid "Available fields:"
 msgstr "가능한 필드:"
 
-#: lib/Horde/MIME/Viewer/icalendar.php:614
-msgid "Awaiting Response"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:31 lib/Horde/NLS/countries.php:25
-#: lib/Horde/NLS/GeoIP.php:60
-msgid "Azerbaijan"
-msgstr ""
-
-#: lib/Block/fortune.php:30
-msgid "BOFH Excuses"
-msgstr ""
-
 #: templates/javascript/htmlarea_table_lang.js:18
 msgid "Background"
 msgstr "배경"
@@ -1067,82 +317,11 @@ msgstr "배경"
 msgid "Background Color"
 msgstr "배경 색깔"
 
-#: lib/Horde/Auth/krb5.php:83
-msgid "Bad kerberos password."
-msgstr ""
-
-#: lib/Horde/Auth/krb5.php:85
-msgid "Bad kerberos username."
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:45 lib/Horde/NLS/countries.php:26
-#: lib/Horde/NLS/GeoIP.php:63
-msgid "Bahamas"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:38 lib/Horde/NLS/countries.php:27
-#: lib/Horde/NLS/GeoIP.php:62
-msgid "Bahrain"
-msgstr ""
-
-#: config/nls.php.dist:173
-msgid "Baltic (ISO-8859-13)"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:34 lib/Horde/NLS/countries.php:28
-#: lib/Horde/NLS/GeoIP.php:61
-msgid "Bangladesh"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:33 lib/Horde/NLS/countries.php:29
-#: lib/Horde/NLS/GeoIP.php:61
-msgid "Barbados"
-msgstr ""
-
-#: lib/Horde/Form.php:2593
-msgid "Bare"
-msgstr ""
-
-#: util/icon_browser.php:31
-#, php-format
-msgid "Base graphics directory '%s' not found."
-msgstr ""
-
-#: templates/javascript/htmlarea_table_lang.js:19
-#: templates/javascript/htmlarea_lang.js:73
-msgid "Baseline"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:49 lib/Horde/NLS/countries.php:30
-#: lib/Horde/NLS/GeoIP.php:64
-msgid "Belarus"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:35 lib/Horde/NLS/countries.php:31
-#: lib/Horde/NLS/GeoIP.php:61
-msgid "Belgium"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:50 lib/Horde/NLS/countries.php:32
 #: lib/Horde/NLS/GeoIP.php:64
 #, fuzzy
 msgid "Belize"
 msgstr "크기"
-
-#: lib/Horde/NLS/tld.php:40 lib/Horde/NLS/countries.php:33
-#: lib/Horde/NLS/GeoIP.php:62
-msgid "Benin"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:41 lib/Horde/NLS/countries.php:34
-#: lib/Horde/NLS/GeoIP.php:63
-msgid "Bermuda"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:46 lib/Horde/NLS/countries.php:35
-#: lib/Horde/NLS/GeoIP.php:64
-msgid "Bhutan"
-msgstr ""
 
 #: lib/Horde/MIME/Viewer/vcard.php:114
 msgid "Birthday"
@@ -1153,26 +332,9 @@ msgstr "생일"
 msgid "Block \"%s\" of application \"%s\" not found."
 msgstr "통지 리스너 %s을(를) 찾을 수 없습니다."
 
-#: templates/portal/layout.inc:89
-msgid "Block Settings"
-msgstr ""
-
-#: templates/portal/layout.inc:74
-msgid "Block Type"
-msgstr ""
-
 #: templates/javascript/htmlarea_lang.js:8
 msgid "Bold"
 msgstr "굵게"
-
-#: lib/Horde/NLS/tld.php:43 lib/Horde/NLS/countries.php:36
-#: lib/Horde/NLS/GeoIP.php:63
-msgid "Bolivia"
-msgstr ""
-
-#: config/registry.php.dist:186
-msgid "Bookmarks"
-msgstr ""
 
 #: templates/javascript/htmlarea_table_lang.js:20
 msgid "Border"
@@ -1186,29 +348,14 @@ msgstr "경계 두께"
 msgid "Borders"
 msgstr "경계"
 
-#: lib/Horde/NLS/tld.php:32 lib/Horde/NLS/countries.php:37
-#: lib/Horde/NLS/GeoIP.php:61
-msgid "Bosnia and Herzegovina"
-msgstr ""
-
 #: lib/Block/fortune.php:96
 msgid "Both"
 msgstr "모두"
-
-#: lib/Horde/NLS/tld.php:48 lib/Horde/NLS/countries.php:38
-#: lib/Horde/NLS/GeoIP.php:64
-msgid "Botswana"
-msgstr ""
 
 #: templates/javascript/htmlarea_table_lang.js:22
 #: templates/javascript/htmlarea_lang.js:75
 msgid "Bottom"
 msgstr "아래"
-
-#: lib/Horde/NLS/tld.php:47 lib/Horde/NLS/countries.php:39
-#: lib/Horde/NLS/GeoIP.php:64
-msgid "Bouvet Island"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:44 lib/Horde/NLS/countries.php:40
 #: lib/Horde/NLS/GeoIP.php:63
@@ -1216,57 +363,14 @@ msgstr ""
 msgid "Brazil"
 msgstr "웹메일"
 
-#: lib/Horde/NLS/tld.php:117 lib/Horde/NLS/countries.php:41
-#: lib/Horde/NLS/GeoIP.php:82
-msgid "British Indian Ocean Territory"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:42 lib/Horde/NLS/countries.php:42
-#: lib/Horde/NLS/GeoIP.php:63
-msgid "Brunei Darussalam"
-msgstr ""
-
-#: po/translation.php:661
-#, php-format
-msgid "Building MO files for module %s..."
-msgstr ""
-
-#: po/translation.php:673
-#, php-format
-msgid "Building locale %s... "
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:37 lib/Horde/NLS/countries.php:43
-#: lib/Horde/NLS/GeoIP.php:62
-msgid "Bulgaria"
-msgstr ""
-
 #: templates/javascript/htmlarea_lang.js:19
 msgid "Bulleted List"
 msgstr "기호 리스트"
-
-#: lib/Horde/NLS/tld.php:36 lib/Horde/NLS/countries.php:44
-#: lib/Horde/NLS/GeoIP.php:62
-msgid "Burkina Faso"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:39 lib/Horde/NLS/countries.php:45
-#: lib/Horde/NLS/GeoIP.php:62
-msgid "Burundi"
-msgstr ""
 
 #: config/registry.php.dist:397
 #, fuzzy
 msgid "CMS"
 msgstr "CVS"
-
-#: lib/Horde/MIME/Viewer/zip.php:75
-msgid "CRC"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:621
-msgid "CRL Distribution Points"
-msgstr ""
 
 #: templates/javascript/htmlarea_context_lang.js:27
 msgid "C_ell Properties..."
@@ -1280,20 +384,6 @@ msgstr "달력"
 #, fuzzy
 msgid "Calm"
 msgstr "취소"
-
-#: lib/Horde/NLS/tld.php:128 lib/Horde/NLS/countries.php:46
-#: lib/Horde/NLS/GeoIP.php:84
-msgid "Cambodia"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:60 lib/Horde/NLS/countries.php:47
-#: lib/Horde/NLS/GeoIP.php:68
-msgid "Cameroon"
-msgstr ""
-
-#: services/resetpassword.php:20
-msgid "Can not reset password automatically, contact your administrator."
-msgstr ""
 
 #: lib/Horde/Auth/cyrus.php:241 lib/Horde/Auth/cyrsql.php:312
 #, fuzzy, php-format
@@ -1318,57 +408,9 @@ msgstr "취소"
 msgid "Cancel Problem Report"
 msgstr "오류 보고하기 취소"
 
-#: lib/VFS/ftp.php:269
-#, php-format
-msgid "Cannot delete file \"%s\"."
-msgstr ""
-
-#: lib/VFS/ISOWriter/RealInputStrategy/copy.php:47
-#: lib/VFS/ISOWriter/RealOutputStrategy/copy.php:53
-msgid "Cannot find a temporary directory."
-msgstr ""
-
-#: lib/VFS/ISOWriter.php:97
-msgid "Cannot proceed without 'targetFile' parameter."
-msgstr ""
-
-#: lib/VFS/ftp.php:265
-#, php-format
-msgid "Cannot remove directory \"%s\"."
-msgstr ""
-
-#: lib/Horde/DataTree.php:112 lib/Horde/DataTree/sql.php:578
-#, php-format
-msgid "Cannot remove, %d children exist."
-msgstr ""
-
-#: lib/Horde/DataTree/sql.php:504
-msgid ""
-"Cannot reorder, number of entries supplied for reorder does not match number "
-"stored."
-msgstr ""
-
-#: lib/Net/SMS/clickatell_http.php:318
-msgid "Cannot route message to specified number."
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:65 lib/Horde/NLS/countries.php:49
-#: lib/Horde/NLS/GeoIP.php:69
-msgid "Cape Verde"
-msgstr ""
-
 #: templates/javascript/htmlarea_table_lang.js:24
 msgid "Caption"
 msgstr "캡션"
-
-#: config/prefs.php.dist:90
-msgid "Categories and Labels"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:135 lib/Horde/NLS/countries.php:50
-#: lib/Horde/NLS/GeoIP.php:87
-msgid "Cayman Islands"
-msgstr ""
 
 #: lib/Horde/MIME/Viewer/vcard.php:197
 msgid "Cell Phone"
@@ -1394,30 +436,9 @@ msgstr "셀 간격"
 msgid "Cellphone"
 msgstr "휴대폰"
 
-#: config/nls.php.dist:174
-msgid "Celtic (ISO-8859-14)"
-msgstr ""
-
 #: templates/javascript/htmlarea_table_lang.js:26
 msgid "Center"
 msgstr "가운데"
-
-#: lib/Horde/NLS/tld.php:54 lib/Horde/NLS/countries.php:51
-#: lib/Horde/NLS/GeoIP.php:66
-msgid "Central African Republic"
-msgstr ""
-
-#: config/nls.php.dist:175
-msgid "Central European (ISO-8859-2)"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:723
-msgid "Certificate Details"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:620
-msgid "Certificate Policies"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:221 lib/Horde/NLS/countries.php:52
 #: lib/Horde/NLS/GeoIP.php:109
@@ -1465,14 +486,6 @@ msgstr "제목"
 msgid "China"
 msgstr "중국"
 
-#: config/nls.php.dist:176
-msgid "Chinese Simplified (GB2312)"
-msgstr ""
-
-#: config/nls.php.dist:177
-msgid "Chinese Traditional (Big5)"
-msgstr ""
-
 #: lib/Horde/Auth/Signup.php:282
 #, fuzzy
 msgid "Choose a password"
@@ -1489,33 +502,14 @@ msgstr "메시지 작성"
 msgid "Choose an action:"
 msgstr "선택사항:"
 
-#: config/prefs.php.dist:288
-msgid "Choose how to display dates:"
-msgstr ""
-
 #: templates/javascript/htmlarea_listtype_lang.js:22
 msgid "Choose list style type (for ordered lists)"
 msgstr "순서 리스트 종류 선택"
-
-#: lib/Horde/NLS/tld.php:66 lib/Horde/NLS/countries.php:55
-#: lib/Horde/NLS/GeoIP.php:69
-msgid "Christmas Island"
-msgstr ""
 
 #: lib/VFS.php:655 lib/Net/SMS.php:311
 #, fuzzy, php-format
 msgid "Class definition of %s not found."
 msgstr "통지 리스너 %s을(를) 찾을 수 없습니다."
-
-#: po/translation.php:855
-#, php-format
-msgid "Cleaning up PO files for module %s..."
-msgstr ""
-
-#: po/translation.php:867
-#, php-format
-msgid "Cleaning up locale %s... "
-msgstr ""
 
 #: lib/Block/weatherdotcom.php:328
 #, fuzzy
@@ -1526,45 +520,19 @@ msgstr "달력"
 msgid "Clear MSOffice tags"
 msgstr "MS오피스 테그 지우기"
 
-#: templates/admin/user/clear.inc:7
-#, php-format
-msgid "Clear out user: %s"
-msgstr ""
-
 #: templates/admin/user/clear.inc:16
 #, fuzzy
 msgid "Clear user"
 msgstr "검색항목 초기화"
 
-#: templates/admin/user/list.inc:37
-msgid "Clear user data"
-msgstr ""
-
-#: templates/maintenance/notice_bottom.inc:6
-msgid "Click to Continue"
-msgstr ""
-
-#: lib/Net/SMS/clickatell_http.php:186
-msgid "Clickatell via HTTP"
-msgstr ""
-
 #: services/keyboard.php:146 templates/shares/edit.inc:12
 msgid "Close Window"
 msgstr "창 닫기"
-
-#: lib/Block/metar.php:242
-msgid "Clouds"
-msgstr ""
 
 #: lib/Block/weatherdotcom.php:329
 #, fuzzy
 msgid "Cloudy"
 msgstr "복사"
-
-#: lib/Horde/NLS/tld.php:52 lib/Horde/NLS/countries.php:56
-#: lib/Horde/NLS/GeoIP.php:65
-msgid "Cocos (Keeling) Islands"
-msgstr ""
 
 #: templates/portal/sidebar.inc:4
 msgid "Collapse Sidebar"
@@ -1574,26 +542,10 @@ msgstr "왼쪽막대 닫기"
 msgid "Collapsed borders"
 msgstr "합쳐진 경계"
 
-#: lib/Horde/NLS/tld.php:62 lib/Horde/NLS/countries.php:57
-#: lib/Horde/NLS/GeoIP.php:68
-msgid "Colombia"
-msgstr ""
-
 #: lib/Block/color.php:18 lib/Block/color.php:29
 #: templates/javascript/htmlarea_table_lang.js:29
 msgid "Color"
 msgstr "색깔"
-
-#: lib/Horde/Block/Collection.php:297 lib/Horde/Block/Collection.php:298
-#: lib/Horde/UI/VarRenderer/html.php:472 services/images/colorpicker.php:14
-#: templates/prefs/categorymanagement.inc:51
-#: templates/prefs/categorymanagement.inc:52
-#: templates/prefs/categorymanagement.inc:68
-#: templates/prefs/categorymanagement.inc:69
-#: templates/prefs/categorymanagement.inc:85
-#: templates/prefs/categorymanagement.inc:86
-msgid "Color Picker"
-msgstr ""
 
 #: lib/Horde/Form.php:2835
 #, fuzzy
@@ -1604,10 +556,6 @@ msgstr "선택사항:"
 msgid "Cols:"
 msgstr "열:"
 
-#: lib/Horde/Form.php:1930
-msgid "Column titles"
-msgstr ""
-
 #: config/registry.php.dist:289
 msgid "Comics"
 msgstr "Comics"
@@ -1617,30 +565,10 @@ msgstr "Comics"
 msgid "Command"
 msgstr "회사"
 
-#: admin/cmdshell.php:20
-msgid "Command Shell"
-msgstr ""
-
-#: po/translation.php:38
-msgid "Command options:"
-msgstr ""
-
 #: po/translation.php:97
 #, fuzzy
 msgid "Commands:"
 msgstr "회사"
-
-#: lib/Horde/Crypt/pgp.php:399
-msgid "Comment"
-msgstr ""
-
-#: po/translation.php:995
-msgid "Committing:"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:590
-msgid "Common Name"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:130 lib/Horde/NLS/countries.php:58
 #: lib/Horde/NLS/GeoIP.php:85
@@ -1673,32 +601,9 @@ msgstr "새 메일"
 msgid "Conditions"
 msgstr "결론"
 
-#: admin/setup/diff.php:89
-msgid "Configuration Differences"
-msgstr ""
-
-#: admin/setup/index.php:125
-msgid "Configuration needs updating."
-msgstr ""
-
-#: admin/setup/index.php:99
-#, php-format
-msgid "Configure %s"
-msgstr ""
-
 #: templates/admin/user/update.inc:37
 msgid "Confirm Password"
 msgstr "암호 확인"
-
-#: lib/Horde/NLS/tld.php:55 lib/Horde/NLS/countries.php:59
-#: lib/Horde/NLS/GeoIP.php:67
-msgid "Congo"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:53 lib/Horde/NLS/countries.php:60
-#: lib/Horde/NLS/GeoIP.php:66
-msgid "Congo, The Democratic Republic of the"
-msgstr ""
 
 #: lib/Horde/IMAP/ACL/rfc2086.php:206 lib/Horde/IMAP/ACL/rfc2086.php:319
 #, fuzzy
@@ -1715,11 +620,6 @@ msgstr "삭제 실패"
 msgid "Connection refused to the public keyserver."
 msgstr "ftp 서버 연결 오류."
 
-#: lib/Horde/Crypt/pgp.php:795
-#, php-format
-msgid "Connection refused to the public keyserver. Reason: %s (%s)"
-msgstr ""
-
 #: lib/VFS/ftp.php:794
 #, fuzzy
 msgid "Connection to FTP server failed."
@@ -1735,15 +635,6 @@ msgstr "항목 \"%s\"가 주소록에 추가되었습니다."
 #, php-format
 msgid "Contents of '%s'"
 msgstr "'%s'의 내용"
-
-#: services/resetpassword.php:29
-msgid "Continue"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:58 lib/Horde/NLS/countries.php:61
-#: lib/Horde/NLS/GeoIP.php:67
-msgid "Cook Islands"
-msgstr ""
 
 #: lib/Block/fortune.php:32
 #, fuzzy
@@ -1763,132 +654,20 @@ msgstr "복사"
 msgid "Copying %s to %s"
 msgstr "[라인 %s / %s]"
 
-#: lib/Horde/NLS/tld.php:63 lib/Horde/NLS/countries.php:62
-#: lib/Horde/NLS/GeoIP.php:68
-msgid "Costa Rica"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:57 lib/Horde/NLS/countries.php:63
-#: lib/Horde/NLS/GeoIP.php:67
-msgid "Cote d'Ivoire"
-msgstr ""
-
-#: lib/Horde/Crypt/pgp.php:977
-msgid "Could not PGP encrypt message."
-msgstr ""
-
 #: lib/Horde/Crypt/pgp.php:1055
 #, fuzzy
 msgid "Could not PGP sign message."
 msgstr "1개의 새로운 메시지가 있습니다."
-
-#: lib/Horde/Crypt/smime.php:411
-msgid "Could not S/MIME encrypt message."
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:485
-msgid "Could not S/MIME sign message."
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:184
-#, php-format
-msgid "Could not add contact. %s"
-msgstr ""
 
 #: lib/Horde/Auth/ldap.php:113
 #, fuzzy
 msgid "Could not bind to LDAP server."
 msgstr "LDAP 서버 접속 실패"
 
-#: lib/Net/SMS/sms2email_http.php:154 lib/Net/SMS/clickatell_http.php:173
-#, php-format
-msgid "Could not check balance. %s"
-msgstr ""
-
-#: admin/setup/index.php:48
-#, php-format
-msgid "Could not connect to server '%s' using FTP: %s"
-msgstr ""
-
-#: po/translation.php:1075
-#, php-format
-msgid "Could not copy %s to %s"
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:329
-#, php-format
-msgid "Could not create distribution list. %s"
-msgstr ""
-
-#: po/translation.php:681 po/translation.php:1065
-#, php-format
-msgid "Could not create locale directory for locale %s:"
-msgstr ""
-
-#: lib/Horde/Crypt/pgp.php:1126
-msgid "Could not decrypt PGP data."
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:540
-msgid "Could not decrypt S/MIME data."
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:250
-#, php-format
-msgid "Could not delete contact. %s"
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:365
-#, php-format
-msgid "Could not delete distribution list. %s"
-msgstr ""
-
-#: admin/setup/scripts.php:37
-#, php-format
-msgid "Could not delete setup upgrade script '%s'."
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:399 lib/Horde/Crypt/pgp.php:959
-msgid "Could not determine the recipient's e-mail address."
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:288
-msgid "Could not fetch complete address book."
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:510
-msgid "Could not fetch complete distribution list."
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:461
-msgid "Could not fetch the complete list of distribution lists."
-msgstr ""
-
-#: lib/VFS/ISOWriter/RealOutputStrategy.php:69
-#: lib/VFS/ISOWriter/RealInputStrategy.php:85
-#, php-format
-msgid "Could not load strategy '%s'."
-msgstr ""
-
-#: lib/VFS/ISOWriter/RealInputStrategy/copy.php:111
-#: lib/VFS/ISOWriter/RealOutputStrategy/direct.php:31
-#, php-format
-msgid "Could not mkdir '%s'."
-msgstr ""
-
-#: lib/Horde/Crypt/pgp.php:720
-msgid "Could not obtain public key from the keyserver."
-msgstr ""
-
 #: lib/Net/SMS/sms2email_http.php:702 lib/Net/SMS/clickatell_http.php:354
 #, fuzzy, php-format
 msgid "Could not open %s."
 msgstr "%s를 엽니다?"
-
-#: lib/VFS/ISOWriter/RealInputStrategy/copy.php:140
-#, php-format
-msgid "Could not open '%s' for writing."
-msgstr ""
 
 #: lib/Horde/Maintenance.php:415
 #, php-format
@@ -1900,131 +679,30 @@ msgstr "Maintenance_Task 모듈 %s 를 열 수 없습니다."
 msgid "Could not open directory '%s'."
 msgstr "Maintenance_Task 모듈 %s을(를) 열 수 없습니다."
 
-#: lib/VFS/Object.php:270
-#, php-format
-msgid "Could not read %s."
-msgstr ""
-
-#: services/resetpassword.php:85
-msgid ""
-"Could not reset the password for the requested user. Some or all of the "
-"details are not correct. Try again or contact your administrator if you need "
-"further help."
-msgstr ""
-
-#: lib/Horde/IMAP/ACL/rfc2086.php:318 lib/Horde/IMAP/ACL/rfc2086.php:349
-#: lib/Horde/IMAP/ACL/rfc2086.php:386 lib/Horde/IMAP/ACL/rfc2086.php:392
-#: lib/Horde/IMAP/ACL/rfc2086.php:398
-msgid "Could not retrieve ACL"
-msgstr ""
-
 #: lib/Net/SMS/sms2email_http.php:279
 #, fuzzy, php-format
 msgid "Could not retrieve address book. %s"
 msgstr "쓰기가능한 주소록이 없습니다."
-
-#: lib/Net/SMS/sms2email_http.php:501
-#, php-format
-msgid "Could not retrieve distribution list. %s"
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:452
-#, php-format
-msgid "Could not retrieve distribution lists. %s"
-msgstr ""
-
-#: lib/Horde/IMAP/ACL/rfc2086.php:206 lib/Horde/IMAP/ACL/rfc2086.php:226
-#: lib/Horde/IMAP/ACL/rfc2086.php:230
-msgid "Could not retrieve server's capabilities"
-msgstr ""
 
 #: admin/setup/config.php:54
 #, fuzzy
 msgid "Could not revert configuration."
 msgstr "Horde가 바르게 설정되지 않았습니다."
 
-#: lib/VFS/ISOWriter/RealInputStrategy/copy.php:95
-#, php-format
-msgid "Could not rmdir '%s'."
-msgstr ""
-
 #: admin/setup/scripts.php:71
 #, fuzzy, php-format
 msgid "Could not save %s configuration."
 msgstr "VFS 설정 정보에서 'port'이 없습니다."
-
-#: admin/setup/index.php:63 admin/setup/scripts.php:57
-msgid "Could not save a backup configuation."
-msgstr ""
-
-#: admin/setup/index.php:61
-#, php-format
-msgid "Could not save a backup configuation: %s"
-msgstr ""
-
-#: admin/setup/scripts.php:92
-#, php-format
-msgid "Could not save setup upgrade script to: '%s'."
-msgstr ""
-
-#: admin/setup/config.php:64
-#, php-format
-msgid "Could not save the backup configuration file %s."
-msgstr ""
-
-#: admin/setup/config.php:74
-#, php-format
-msgid ""
-"Could not save the configuration file %s. You can either use one of the "
-"options to save the code back on %s or copy manually the code below to %s."
-msgstr ""
 
 #: lib/Horde/Auth/ldap.php:123
 #, fuzzy
 msgid "Could not search the LDAP server."
 msgstr "LDAP 서버 접속 실패"
 
-#: lib/VFS/ISOWriter/RealInputStrategy/copy.php:87
-#, php-format
-msgid "Could not unlink '%s'."
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:221
-#, php-format
-msgid "Could not update contact. %s"
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:409
-#, php-format
-msgid "Could not update distribution list. %s"
-msgstr ""
-
-#: admin/setup/index.php:70
-#, php-format
-msgid "Could not write configuration for '%s': %s"
-msgstr ""
-
-#: config/prefs.php.dist:356
-msgid "Couldn't find the Mozilla Sidebar. Make sure the sidebar is open."
-msgstr ""
-
-#: lib/Horde/IMAP/ACL/rfc2086.php:159
-#, php-format
-msgid "Couldn't give user '%s' the following rights for the folder '%s': %s"
-msgstr ""
-
 #: lib/Horde/Form.php:1416
 #, fuzzy
 msgid "Counted text"
 msgstr "교정된 문자열"
-
-#: lib/Horde/Crypt/smime.php:593
-msgid "Country"
-msgstr ""
-
-#: config/registry.php.dist:273
-msgid "Courses"
-msgstr ""
 
 #: templates/rpcsum/rpcsum.inc:21 templates/rpcsum/rpcsum.inc:97
 #: templates/rpcsum/rpcsum.inc:101
@@ -2045,28 +723,11 @@ msgstr "휴지통 새로 만들기"
 msgid "Create sub folders"
 msgstr "새폴더 만들기"
 
-#: admin/perms/edit.php:136 lib/Horde/Perms/UI.php:222
-msgid "Creator Permissions"
-msgstr ""
-
-#: lib/Horde/Form.php:3215
-msgid "Credit card number"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:109 lib/Horde/NLS/countries.php:64
 #: lib/Horde/NLS/GeoIP.php:80
 #, fuzzy
 msgid "Croatia"
 msgstr "만들기"
-
-#: lib/Horde/NLS/tld.php:64 lib/Horde/NLS/countries.php:65
-#: lib/Horde/NLS/GeoIP.php:69
-msgid "Cuba"
-msgstr ""
-
-#: lib/Block/moon.php:26
-msgid "Current Phase"
-msgstr ""
 
 #: lib/Block/time.php:3 lib/Block/time.php:30
 #, fuzzy
@@ -2076,14 +737,6 @@ msgstr "교정된 문자열"
 #: templates/javascript/htmlarea_context_lang.js:53
 msgid "Current URL is"
 msgstr "현재 URL은"
-
-#: lib/Block/metar.php:25
-msgid "Current Weather"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:233
-msgid "Current condition: "
-msgstr ""
 
 #: templates/javascript/htmlarea_lang.js:32
 msgid "Current style"
@@ -2102,28 +755,6 @@ msgstr "자르기"
 msgid "Cut selection"
 msgstr "자르기"
 
-#: lib/Horde/NLS/tld.php:67 lib/Horde/NLS/countries.php:66
-#: lib/Horde/NLS/GeoIP.php:69
-msgid "Cyprus"
-msgstr ""
-
-#: config/nls.php.dist:178
-msgid "Cyrillic (KOI8-R)"
-msgstr ""
-
-#: config/nls.php.dist:179
-msgid "Cyrillic (Windows-1251)"
-msgstr ""
-
-#: config/nls.php.dist:180
-msgid "Cyrillic/Ukrainian (KOI8-U)"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:68 lib/Horde/NLS/countries.php:67
-#: lib/Horde/NLS/GeoIP.php:70
-msgid "Czech Republic"
-msgstr ""
-
 #: lib/Horde/UI/VarRenderer/html.php:423 templates/data/date.inc:47
 #: templates/data/date.inc:48 templates/data/date.inc:49
 #: templates/data/date.inc:50
@@ -2139,10 +770,6 @@ msgstr "일별"
 msgid "Data"
 msgstr "일자"
 
-#: admin/datatree.php:65
-msgid "DataTree Browser"
-msgstr ""
-
 #: lib/Horde/Form.php:2382 lib/Horde/MIME/Viewer/rfc822.php:77
 msgid "Date"
 msgstr "날짜"
@@ -2151,10 +778,6 @@ msgstr "날짜"
 #, fuzzy
 msgid "Date Received"
 msgstr "수신 날짜:"
-
-#: lib/Horde/Form.php:2796
-msgid "Date selection"
-msgstr ""
 
 #: lib/Block/weatherdotcom.php:277
 #, fuzzy
@@ -2196,14 +819,6 @@ msgstr "기본값 사용"
 #: lib/Horde/Identity.php:92
 msgid "Default Identity"
 msgstr "기본 식별자"
-
-#: admin/perms/edit.php:119 lib/Horde/Perms/UI.php:204
-msgid "Default Permissions"
-msgstr ""
-
-#: lib/Horde/Perms/UI.php:205
-msgid "Default permissions"
-msgstr ""
 
 #: lib/Block/fortune.php:33
 #, fuzzy
@@ -2254,20 +869,6 @@ msgstr "셀 삭제"
 msgid "Delete column"
 msgstr "열 삭제"
 
-#: admin/templates.php:148
-msgid "Delete existing alternate template"
-msgstr ""
-
-#: admin/perms/delete.php:50 lib/Horde/Perms/UI.php:326
-#, php-format
-msgid "Delete permissions for '%s'"
-msgstr ""
-
-#: lib/Horde/Perms/UI.php:329
-#, php-format
-msgid "Delete permissions for '%s' and any sub-permissions?"
-msgstr ""
-
 #: templates/javascript/htmlarea_table_lang.js:67
 msgid "Delete row"
 msgstr "행 삭제"
@@ -2285,33 +886,11 @@ msgstr "현재 열 지움"
 msgid "Delete the current row"
 msgstr "현재 행 지움"
 
-#: admin/perms/delete.php:48
-msgid "Delete this permission and any sub-permissions?"
-msgstr ""
-
-#: admin/setup/scripts.php:35
-#, php-format
-msgid "Deleted setup upgrade script '%s'."
-msgstr ""
-
 #: lib/Net/SMS/sms2email_http.php:585 lib/Net/SMS/sms2email_http.php:619
 #: lib/Net/SMS/clickatell_http.php:227 lib/Net/SMS/clickatell_http.php:261
 #, fuzzy
 msgid "Delivery time"
 msgstr "삭제"
-
-#: lib/Horde/NLS/tld.php:71 lib/Horde/NLS/countries.php:68
-#: lib/Horde/NLS/GeoIP.php:70
-msgid "Denmark"
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:642
-msgid "Deny request"
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:471
-msgid "Deny request for free/busy information"
-msgstr ""
 
 #: services/problem.php:95 services/problem.php:99 services/problem.php:109
 msgid "Describe the Problem"
@@ -2322,67 +901,22 @@ msgstr "오류 설명"
 msgid "Description"
 msgstr "설명:"
 
-#: lib/Horde.php:201
-msgid "Details (also in Horde's logfile):"
-msgstr ""
-
 #: lib/Horde.php:205
 msgid "Details have been logged for the administrator."
 msgstr "세부정보가 관리자를 위해 기록되어졌습니다."
-
-#: config/registry.php.dist:193
-msgid "Development"
-msgstr ""
-
-#: lib/Block/metar.php:215
-msgid "Dew Point"
-msgstr ""
-
-#: lib/Block/metar.php:292
-msgid "Dew Point for last hour: "
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:190
-msgid "Dew point: "
-msgstr ""
-
-#: templates/javascript/htmlarea_lang.js:38
-msgid "Direction left to right"
-msgstr ""
-
-#: templates/javascript/htmlarea_lang.js:39
-msgid "Direction right to left"
-msgstr ""
 
 #: lib/Block/google.php:39
 msgid "Directory"
 msgstr "디렉토리"
 
-#: config/prefs.php.dist:256
-msgid "Display 24-hour times?"
-msgstr ""
-
 #: config/prefs.php.dist:97
 msgid "Display Options"
 msgstr "화면 설정"
-
-#: lib/Block/metar.php:83
-msgid "Display forecast (TAF)"
-msgstr ""
 
 #: lib/Horde/Form.php:2806
 #, fuzzy
 msgid "Display format"
 msgstr "화면 설정"
-
-#: lib/Horde/MIME/MDN.php:203
-msgid "Disposition Notification"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:70 lib/Horde/NLS/countries.php:69
-#: lib/Horde/NLS/GeoIP.php:70
-msgid "Djibouti"
-msgstr ""
 
 #: admin/perms/delete.php:46 lib/Horde/Perms/UI.php:327
 #, fuzzy
@@ -2397,16 +931,6 @@ msgstr "maintenance.php에 직접 접근하지 마세요."
 msgid "Does the first row contain the field names? If yes, check this box:"
 msgstr "첫번째 행은 항목 이름을 갖고 있습니까? 그렇다면, 여기를 체크하세요:"
 
-#: lib/Horde/NLS/tld.php:72 lib/Horde/NLS/countries.php:70
-#: lib/Horde/NLS/GeoIP.php:70
-msgid "Dominica"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:73 lib/Horde/NLS/countries.php:71
-#: lib/Horde/NLS/GeoIP.php:71
-msgid "Dominican Republic"
-msgstr ""
-
 #: lib/Horde/MIME/Contents.php:868
 msgid "Download"
 msgstr "내려받기"
@@ -2415,14 +939,6 @@ msgstr "내려받기"
 #, php-format
 msgid "Download %s"
 msgstr "%s 내려받기"
-
-#: admin/setup/index.php:156
-msgid "Download generated configuration as PHP script."
-msgstr ""
-
-#: lib/Horde/Form.php:2091
-msgid "Drop down list"
-msgstr ""
 
 #: lib/Block/fortune.php:34
 #, fuzzy
@@ -2434,15 +950,6 @@ msgstr "벌레들"
 msgid "E-Mail"
 msgstr "웹메일"
 
-#: lib/Horde/Notification/Listener/mobile.php:37
-msgid "ERR"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:75 lib/Horde/NLS/countries.php:72
-#: lib/Horde/NLS/GeoIP.php:71
-msgid "Ecuador"
-msgstr ""
-
 #: lib/Horde/Perms.php:296 templates/shares/edit.inc:35
 #: templates/shares/edit.inc:69 templates/shares/edit.inc:92
 #: templates/shares/edit.inc:115 templates/shares/edit.inc:138
@@ -2450,22 +957,6 @@ msgstr ""
 #: templates/portal/edit.inc:22
 msgid "Edit"
 msgstr "수정"
-
-#: lib/Horde/Block/UI.php:51 templates/portal/edit.inc:22
-msgid "Edit Block"
-msgstr ""
-
-#: admin/groups.php:188 admin/groups.php:216
-msgid "Edit Group"
-msgstr ""
-
-#: lib/Horde/Perms/UI.php:59 lib/Horde/Perms/UI.php:83
-msgid "Edit Permission"
-msgstr ""
-
-#: services/shares/edit.php:237
-msgid "Edit Permissions"
-msgstr ""
 
 #: services/shares/edit.php:239
 msgid "Edit Permissions for %s"
@@ -2475,30 +966,10 @@ msgstr "%s 권한 수정"
 msgid "Edit options for:"
 msgstr "선택사항 수정:"
 
-#: templates/shares/edit.inc:14
-#, php-format
-msgid "Edit permissions for %s"
-msgstr ""
-
-#: admin/perms/edit.php:204 lib/Horde/Perms/UI.php:288
-#, php-format
-msgid "Edit permissions for '%s'"
-msgstr ""
-
 #: lib/Block/fortune.php:35
 #, fuzzy
 msgid "Education"
 msgstr "소개"
-
-#: lib/Horde/NLS/tld.php:77 lib/Horde/NLS/countries.php:73
-#: lib/Horde/NLS/GeoIP.php:71
-msgid "Egypt"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:217 lib/Horde/NLS/countries.php:74
-#: lib/Horde/NLS/GeoIP.php:108
-msgid "El Salvador"
-msgstr ""
 
 #: templates/javascript/htmlarea_context_lang.js:42
 msgid "Element..."
@@ -2541,56 +1012,14 @@ msgstr "중요한 메일"
 msgid "Empty result."
 msgstr "결과 없음"
 
-#: lib/Horde/SQL/Keywords.php:114
-msgid "Empty search terms"
-msgstr ""
-
-#: config/prefs.php.dist:532
-msgid "Enable insertion of images from Photo Galleries in text?"
-msgstr ""
-
-#: config/prefs.php.dist:507
-msgid "Enable right click context menu?"
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:448
-#: lib/Horde/MIME/Viewer/icalendar.php:553
-msgid "End"
-msgstr ""
-
-#: lib/Horde/Form.php:2591 lib/Horde/Form.php:2800
-msgid "End year"
-msgstr ""
-
 #: templates/javascript/htmlarea_lang.js:29
 msgid "Enlarge Editor"
 msgstr "편집기 확대"
-
-#: config/prefs.php.dist:211
-msgid ""
-"Enter a security question which you will be asked if you need to reset your "
-"password, e.g. 'what is the name of your pet?':"
-msgstr ""
 
 #: templates/javascript/htmlarea_lang.js:119
 #: templates/javascript/htmlarea_anselimage_lang.js:22
 msgid "Enter the image URL here"
 msgstr "그림 URL 입력"
-
-#: po/translation.php:1151
-#, php-format
-msgid "Entries: %d total, %d up-to-date, %d new, %d changed, %d unknown"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:99 lib/Horde/NLS/countries.php:75
-#: lib/Horde/NLS/GeoIP.php:77
-msgid "Equatorial Guinea"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:79 lib/Horde/NLS/countries.php:76
-#: lib/Horde/NLS/GeoIP.php:72
-msgid "Eritrea"
-msgstr ""
 
 #: lib/Horde/Notification/Listener/status.php:29
 #: lib/Block/weatherdotcom.php:41 lib/Block/weatherdotcom.php:51
@@ -2598,45 +1027,11 @@ msgstr ""
 msgid "Error"
 msgstr "오류"
 
-#: lib/Horde/MIME/Viewer/icalendar.php:195
-#: lib/Horde/MIME/Viewer/icalendar.php:278
-#: lib/Horde/MIME/Viewer/icalendar.php:347
-#, php-format
-msgid "Error sending reply: %s."
-msgstr ""
-
-#: lib/Net/SMS/clickatell_http.php:314
-msgid "Error with email message."
-msgstr ""
-
-#: lib/VFS/ISOWriter/RealInputStrategy/copy.php:143
-#, php-format
-msgid "Error writing '%s'."
-msgstr ""
-
 #: po/translation.php:413 po/translation.php:522 po/translation.php:1358
 #: po/translation.php:1419 po/translation.php:1482
 #, fuzzy
 msgid "Error: "
 msgstr "오류"
-
-#: lib/Horde/NLS/tld.php:76 lib/Horde/NLS/countries.php:77
-#: lib/Horde/NLS/GeoIP.php:71
-msgid "Estonia"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:81 lib/Horde/NLS/countries.php:78
-#: lib/Horde/NLS/GeoIP.php:72
-msgid "Ethiopia"
-msgstr ""
-
-#: lib/Block/fortune.php:36
-msgid "Ethnic"
-msgstr ""
-
-#: lib/Horde/NLS/GeoIP.php:56
-msgid "Europe"
-msgstr ""
 
 #: config/prefs.php.dist:329
 msgid "Every 15 minutes"
@@ -2671,17 +1066,6 @@ msgstr "매분"
 msgid "Example values:"
 msgstr "예:"
 
-#: admin/phpshell.php:76 admin/cmdshell.php:50 admin/sqlshell.php:136
-msgid "Execute"
-msgstr ""
-
-#: po/translation.php:299 po/translation.php:320 po/translation.php:362
-#: po/translation.php:441 po/translation.php:541 po/translation.php:601
-#: po/translation.php:702 po/translation.php:737 po/translation.php:798
-#: po/translation.php:875 po/translation.php:989 po/translation.php:1011
-msgid "Executing:"
-msgstr ""
-
 #: lib/Horde/Block/Layout.php:386
 #, fuzzy
 msgid "Expand"
@@ -2691,35 +1075,14 @@ msgstr "모두 확장"
 msgid "Expand Sidebar"
 msgstr "왼쪽막대 확장"
 
-#: lib/Horde/SQL/Keywords.php:169
-msgid "Expected ')'"
-msgstr ""
-
-#: lib/Horde/SQL/Keywords.php:176
-msgid "Expected bare word or quoted search term"
-msgstr ""
-
-#: lib/Horde/Crypt/pgp.php:398
-msgid "Expiration Date"
-msgstr ""
-
 #: lib/Horde/Crypt/smime.php:700
 #, fuzzy
 msgid "Exponent"
 msgstr "엑스포트"
 
-#: po/translation.php:272
-#, php-format
-msgid "Extracting from %s... "
-msgstr ""
-
 #: templates/javascript/htmlarea_table_lang.js:31
 msgid "FG Color"
 msgstr "전경색"
-
-#: admin/setup/index.php:171
-msgid "FTP upload of setup"
-msgstr ""
 
 #: lib/Horde/Prefs/sql.php:240
 msgid "Failed retrieving preferences."
@@ -2733,11 +1096,6 @@ msgstr "LDAP 서버 접속 실패"
 #, fuzzy
 msgid "Failed to connect to SMB server."
 msgstr "LDAP 서버 접속 실패"
-
-#: lib/VFS/ftp.php:631
-#, php-format
-msgid "Failed to copy from \"%s\"."
-msgstr ""
 
 #: lib/VFS/ftp.php:636
 #, fuzzy, php-format
@@ -2759,16 +1117,6 @@ msgstr "LDAP 서버 접속 실패"
 msgid "Fair"
 msgstr "필터"
 
-#: lib/Horde/NLS/tld.php:84 lib/Horde/NLS/countries.php:79
-#: lib/Horde/NLS/GeoIP.php:73
-msgid "Falkland Islands (Malvinas)"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:86 lib/Horde/NLS/countries.php:80
-#: lib/Horde/NLS/GeoIP.php:74
-msgid "Faroe Islands"
-msgstr ""
-
 #: lib/Horde/CLI.php:235
 #, fuzzy
 msgid "Fatal Error:"
@@ -2782,43 +1130,6 @@ msgstr "팩스"
 #: templates/javascript/open_calendar.js:66
 msgid "February"
 msgstr "2월"
-
-#: lib/Block/metar.php:218
-msgid "Feels Like"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:194
-msgid "Feels like: "
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:331
-msgid "Few Showers"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:332
-msgid "Few Snow Showers"
-msgstr ""
-
-#: lib/Horde/Form.php:1928
-msgid "Field matrix"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:83 lib/Horde/NLS/countries.php:81
-#: lib/Horde/NLS/GeoIP.php:73
-msgid "Fiji"
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/rar.php:63 lib/Horde/MIME/Viewer/zip.php:67
-#: lib/Horde/MIME/Viewer/tgz.php:82
-#, php-format
-msgid "File Count: %s file"
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/rar.php:63 lib/Horde/MIME/Viewer/zip.php:67
-#: lib/Horde/MIME/Viewer/tgz.php:82
-#, php-format
-msgid "File Count: %s files"
-msgstr ""
 
 #: config/registry.php.dist:349
 msgid "File Manager"
@@ -2840,10 +1151,6 @@ msgstr "규칙(률) 선택 오류"
 msgid "File upload"
 msgstr "필드"
 
-#: lib/Horde/Browser.php:874
-msgid "File uploads not supported."
-msgstr ""
-
 #: config/registry.php.dist:86
 msgid "Filters"
 msgstr "필터"
@@ -2864,75 +1171,19 @@ msgstr "첫페이지"
 msgid "First Quarter"
 msgstr "첫페이지"
 
-#: lib/Horde/UI/VarRenderer/html.php:239
-msgid "Fix ratio"
-msgstr ""
-
-#: lib/Horde/UI/VarRenderer/html.php:214
-msgid "Flip"
-msgstr ""
-
-#: templates/javascript/htmlarea_table_lang.js:32
-msgid "Float"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:333
-msgid "Fog"
-msgstr ""
-
-#: lib/VFS/sql.php:163 lib/VFS/musql.php:108
-#, php-format
-msgid "Folder %s does not exist"
-msgstr ""
-
 #: templates/javascript/htmlarea_lang.js:22
 msgid "Font Color"
 msgstr "글자 색깔"
-
-#: lib/Block/fortune.php:37
-msgid "Food"
-msgstr ""
-
-#: templates/javascript/htmlarea_lang.js:123
-#: templates/javascript/htmlarea_anselimage_lang.js:26
-msgid "For browsers that don't support images"
-msgstr ""
-
-#: lib/Block/metar.php:332
-msgid "Forecast (TAF)"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:74
-msgid ""
-"Forecast Days (note that the returned forecast returns both day and night; a "
-"large number here could result in a wide block)"
-msgstr ""
-
-#: templates/login/login.inc:95
-msgid "Forgot your password?"
-msgstr ""
 
 #: config/registry.php.dist:431
 #, fuzzy
 msgid "Forms"
 msgstr "위치"
 
-#: lib/Block/fortune.php:21
-msgid "Fortune"
-msgstr ""
-
-#: lib/Block/fortune.php:99
-msgid "Fortune type"
-msgstr ""
-
 #: lib/Block/fortune.php:38
 #, fuzzy
 msgid "Fortunes"
 msgstr "참조"
-
-#: lib/Block/fortune.php:39
-msgid "Fortunes 2"
-msgstr ""
 
 #: config/registry.php.dist:414
 #, fuzzy
@@ -2943,15 +1194,6 @@ msgstr "메일함"
 #, fuzzy
 msgid "Forwards"
 msgstr "전달"
-
-#: po/translation.php:1439
-#, php-format
-msgid "Found applications: %s"
-msgstr ""
-
-#: po/translation.php:1433
-msgid "Found directories:"
-msgstr ""
 
 #: templates/javascript/open_calendar.js:60
 #, fuzzy
@@ -2968,42 +1210,10 @@ msgstr "프레임"
 msgid "France"
 msgstr "취소"
 
-#: lib/Horde/NLS/GeoIP.php:74
-msgid "France, Metropolitan"
-msgstr ""
-
 #: lib/Horde/MIME/Viewer/icalendar.php:417
 #, fuzzy
 msgid "Free/Busy Information"
 msgstr "메일 서버 정보사항"
-
-#: lib/Horde/MIME/Viewer/icalendar.php:427
-msgid "Free/Busy Reply"
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:422
-msgid "Free/Busy Request"
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:272
-#: lib/Horde/MIME/Viewer/icalendar.php:341
-msgid "Free/Busy Request Response"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:91 lib/Horde/NLS/countries.php:84
-#: lib/Horde/NLS/GeoIP.php:75
-msgid "French Guiana"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:184 lib/Horde/NLS/countries.php:85
-#: lib/Horde/NLS/GeoIP.php:99
-msgid "French Polynesia"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:222 lib/Horde/NLS/countries.php:86
-#: lib/Horde/NLS/GeoIP.php:110
-msgid "French Southern Territories"
-msgstr ""
 
 #: lib/Horde/MIME/Viewer/rfc822.php:79
 msgid "From"
@@ -3019,55 +1229,10 @@ msgstr "위치"
 msgid "Full Description"
 msgstr "전체 설명:"
 
-#: lib/Block/moon.php:82 lib/Block/moon.php:181
-msgid "Full Moon"
-msgstr ""
-
 #: templates/admin/user/update.inc:39
 #, fuzzy
 msgid "Full Name"
 msgstr "이름:"
-
-#: po/translation.php:657
-msgid "Fuzzy"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:88 lib/Horde/NLS/countries.php:87
-#: lib/Horde/NLS/GeoIP.php:74
-msgid "Gabon"
-msgstr ""
-
-#: templates/javascript/htmlarea_anselimage_lang.js:30
-msgid "Gallery to take image from"
-msgstr ""
-
-#: templates/javascript/htmlarea_anselimage_lang.js:29
-msgid "Gallery:"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:96 lib/Horde/NLS/countries.php:88
-#: lib/Horde/NLS/GeoIP.php:76
-msgid "Gambia"
-msgstr ""
-
-#: admin/setup/config.php:42
-#, php-format
-msgid "Generate %s Configuration"
-msgstr ""
-
-#: templates/admin/setup/config.html:10
-msgid "Generated Code"
-msgstr ""
-
-#: po/translation.php:479
-#, php-format
-msgid "Generating status for module %s..."
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:90 lib/Horde/NLS/countries.php:89
-#: lib/Horde/NLS/GeoIP.php:75
-msgid "Georgia"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:69 lib/Horde/NLS/countries.php:90
 #: lib/Horde/NLS/GeoIP.php:70
@@ -3079,16 +1244,6 @@ msgstr "독일"
 msgid "Getopt Error: "
 msgstr "읽어오기(임포트) 오류: "
 
-#: lib/Horde/NLS/tld.php:93 lib/Horde/NLS/countries.php:91
-#: lib/Horde/NLS/GeoIP.php:76
-msgid "Ghana"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:94 lib/Horde/NLS/countries.php:92
-#: lib/Horde/NLS/GeoIP.php:76
-msgid "Gibraltar"
-msgstr ""
-
 #: lib/Horde/Crypt/smime.php:599
 #, fuzzy
 msgid "Given Name"
@@ -3098,32 +1253,10 @@ msgstr "필드이름"
 msgid "Go"
 msgstr "가기"
 
-#: lib/Block/fortune.php:40
-msgid "Goedel"
-msgstr ""
-
 #: lib/Block/google.php:3 lib/Block/google.php:21 lib/Block/google.php:41
 #, fuzzy
 msgid "Google Search"
 msgstr "검색항목 초기화"
-
-#: lib/Horde/UI/VarRenderer/html.php:220
-msgid "Grayscale"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:100 lib/Horde/NLS/countries.php:93
-#: lib/Horde/NLS/GeoIP.php:77
-msgid "Greece"
-msgstr ""
-
-#: config/nls.php.dist:181
-msgid "Greek (ISO-8859-7)"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:95 lib/Horde/NLS/countries.php:94
-#: lib/Horde/NLS/GeoIP.php:76
-msgid "Greenland"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:89 lib/Horde/NLS/countries.php:95
 #: lib/Horde/NLS/GeoIP.php:75
@@ -3136,47 +1269,6 @@ msgstr "읽지 않은 메일"
 msgid "Group Administration"
 msgstr "관리"
 
-#: lib/Horde/Group.php:57
-msgid "Group names must be non-empty"
-msgstr ""
-
-#: admin/perms/edit.php:201 lib/Horde/Perms/UI.php:285
-msgid "Group permissions"
-msgstr ""
-
-#: admin/perms/edit.php:176 lib/Horde/Perms/UI.php:258 lib/Block/google.php:38
-#: templates/shares/edit.inc:177
-msgid "Groups"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:98 lib/Horde/NLS/countries.php:96
-#: lib/Horde/NLS/GeoIP.php:77
-msgid "Guadeloupe"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:103 lib/Horde/NLS/countries.php:97
-#: lib/Horde/NLS/GeoIP.php:78
-msgid "Guam"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:102 lib/Horde/NLS/countries.php:98
-#: lib/Horde/NLS/GeoIP.php:78
-msgid "Guatemala"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:92
-msgid "Guernsey"
-msgstr ""
-
-#: admin/perms/edit.php:127 lib/Horde/Perms/UI.php:213
-#: templates/shares/edit.inc:88
-msgid "Guest Permissions"
-msgstr ""
-
-#: admin/perms/edit.php:128 lib/Horde/Perms/UI.php:214
-msgid "Guest permissions"
-msgstr ""
-
 #: config/registry.php.dist:439
 #, fuzzy
 msgid "Guestbook"
@@ -3188,66 +1280,10 @@ msgstr "주소록"
 msgid "Guinea"
 msgstr "6월"
 
-#: lib/Horde/NLS/tld.php:104 lib/Horde/NLS/countries.php:100
-#: lib/Horde/NLS/GeoIP.php:79
-msgid "Guinea-Bissau"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:105 lib/Horde/NLS/countries.php:101
-#: lib/Horde/NLS/GeoIP.php:79
-msgid "Guyana"
-msgstr ""
-
-#: lib/Horde/UI/VarRenderer/html.php:331
-msgid "HH"
-msgstr ""
-
-#: lib/Horde/Form.php:955
-msgid "HTML"
-msgstr ""
-
-#: templates/javascript/htmlarea_table_lang.js:85
-msgid "HTMLArea cowardly refuses to delete the last cell in row."
-msgstr ""
-
-#: templates/javascript/htmlarea_table_lang.js:86
-msgid "HTMLArea cowardly refuses to delete the last column in table."
-msgstr ""
-
-#: templates/javascript/htmlarea_table_lang.js:87
-msgid "HTMLArea cowardly refuses to delete the last row in table."
-msgstr ""
-
-#: lib/Horde/Auth/http.php:164
-msgid "HTTP Authentication not found."
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:110 lib/Horde/NLS/countries.php:102
-#: lib/Horde/NLS/GeoIP.php:81
-msgid "Haiti"
-msgstr ""
-
-#: lib/Horde/Crypt/pgp.php:399
-msgid "Hash-Algorithm"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:334
-msgid "Haze"
-msgstr ""
-
 #: lib/Horde/Form.php:914 lib/Horde/Form.php:2921
 #, fuzzy
 msgid "Header"
 msgstr "헤드라인"
-
-#: lib/Horde/NLS/tld.php:107 lib/Horde/NLS/countries.php:103
-#: lib/Horde/NLS/GeoIP.php:80
-msgid "Heard Island and McDonald Islands"
-msgstr ""
-
-#: config/nls.php.dist:182
-msgid "Hebrew (ISO-8859-8-I)"
-msgstr ""
 
 #: templates/javascript/htmlarea_table_lang.js:34
 msgid "Height"
@@ -3267,38 +1303,14 @@ msgstr "도움말"
 msgid "Helper"
 msgstr "도움말"
 
-#: po/translation.php:95
-msgid ""
-"Helper application to create and maintain translations for the Horde\n"
-"framework and its applications.\n"
-"For an introduction read the file README in this directory."
-msgstr ""
-
-#: lib/Block/moon.php:29
-msgid "Hemisphere"
-msgstr ""
-
 #: templates/data/tsvinfo.inc:17 templates/data/csvinfo.inc:17
 msgid "Here is the beginning of the file:"
 msgstr "파일의 시작이 다음과 같습니다:"
-
-#: lib/Block/weatherdotcom.php:376
-msgid "High"
-msgstr ""
-
-#: lib/Horde/History.php:322
-msgid "History entry names must be non-empty"
-msgstr ""
 
 #: templates/portal/menu.inc:6 templates/admin/common-header.inc:4
 #, fuzzy
 msgid "Ho_me"
 msgstr "Horde"
-
-#: lib/Horde/NLS/tld.php:243 lib/Horde/NLS/countries.php:104
-#: lib/Horde/NLS/GeoIP.php:115
-msgid "Holy See (Vatican City State)"
-msgstr ""
 
 #: lib/Horde.php:1466
 #, fuzzy
@@ -3313,38 +1325,9 @@ msgstr "집 주소"
 msgid "Home Phone"
 msgstr "집 전화번호"
 
-#: lib/Horde/NLS/tld.php:108 lib/Horde/NLS/countries.php:105
-#: lib/Horde/NLS/GeoIP.php:80
-msgid "Honduras"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:106 lib/Horde/NLS/countries.php:106
-#: lib/Horde/NLS/GeoIP.php:79
-msgid "Hong Kong"
-msgstr ""
-
 #: config/registry.php.dist:62
 msgid "Horde"
 msgstr "Horde"
-
-#: po/translation.php:1310
-msgid "Horde translation generator"
-msgstr ""
-
-#: lib/Horde/Kolab.php:420
-#, php-format
-msgid "Horde/Kolab: Invalid %s XML data encountered in message %s"
-msgstr ""
-
-#: lib/Horde/Kolab.php:277
-#, php-format
-msgid "Horde/Kolab: No message corresponds to object %s"
-msgstr ""
-
-#: lib/Horde/Kolab.php:413
-#, php-format
-msgid "Horde/Kolab: No object of type %s found in message %s"
-msgstr ""
 
 #: lib/Horde/Kolab.php:1236
 #, fuzzy, php-format
@@ -3355,40 +1338,6 @@ msgstr "메일함 \"%s\"이 \"%s\"로 변경되었습니다."
 #, fuzzy, php-format
 msgid "Horde/Kolab: Successfully synchronised %s \"%s\""
 msgstr "\"%s\" 메일함을 사용합니다."
-
-#: lib/Horde/Kolab.php:223
-msgid "Horde/Kolab: The integration engine requires the 'domxml' PHP extension"
-msgstr ""
-
-#: lib/Horde/Kolab.php:481
-#, php-format
-msgid "Horde/Kolab: Unable to create new XML tree for object %s"
-msgstr ""
-
-#: lib/Horde/Kolab.php:1233
-#, php-format
-msgid "Horde/Kolab: Unable to remove %s \"%s\": %s"
-msgstr ""
-
-#: lib/Horde/Kolab.php:452
-#, php-format
-msgid "Horde/Kolab: Unable to retrieve MIME ID for the part of type %s"
-msgstr ""
-
-#: lib/Horde/Kolab.php:1179
-#, php-format
-msgid "Horde/Kolab: Unable to synchronise %s \"%s\": %s"
-msgstr ""
-
-#: lib/Horde/Kolab.php:1310
-#, php-format
-msgid "Horde/Kolab: Unable to synchronise shares: %s"
-msgstr ""
-
-#: lib/Horde/Kolab.php:318
-#, php-format
-msgid "Horde/Kolab: Unknown share \"%s\""
-msgstr ""
 
 #: templates/javascript/htmlarea_lang.js:24
 msgid "Horizontal Rule"
@@ -3402,10 +1351,6 @@ msgstr "가로 채움"
 msgid "Horizontal:"
 msgstr "가로:"
 
-#: templates/javascript/htmlarea_context_lang.js:50
-msgid "How did you get here? (Please report!)"
-msgstr ""
-
 #: templates/javascript/htmlarea_table_lang.js:35
 msgid "How many columns would you like to merge?"
 msgstr "합치고 싶은 열의 수"
@@ -3418,63 +1363,14 @@ msgstr "항목(열)의 수?"
 msgid "How many rows would you like to merge?"
 msgstr "합치고 싶은 행의 수"
 
-#: lib/Block/metar.php:228
-msgid "Humidity"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:217
-msgid "Humidity: "
-msgstr ""
-
-#: lib/Block/fortune.php:41
-msgid "Humorists"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:111 lib/Horde/NLS/countries.php:107
-#: lib/Horde/NLS/GeoIP.php:81
-msgid "Hungary"
-msgstr ""
-
-#: lib/Horde/Auth/cyrus.php:176 lib/Horde/Auth/cyrsql.php:223
-#, php-format
-msgid "IMAP mailbox creation failed: %s"
-msgstr ""
-
-#: lib/Horde/Auth/cyrus.php:220 lib/Horde/Auth/cyrsql.php:288
-#, php-format
-msgid "IMAP mailbox deletion failed: %s"
-msgstr ""
-
-#: lib/Horde/Auth/cyrus.php:183 lib/Horde/Auth/cyrsql.php:230
-#, php-format
-msgid "IMAP mailbox quota creation failed: %s"
-msgstr ""
-
 #: lib/Horde/Form.php:1312
 #, fuzzy
 msgid "IP Address"
 msgstr "주소"
 
-#: lib/Horde/Auth/ipbasic.php:82
-msgid "IP Address not available."
-msgstr ""
-
-#: lib/Horde/Auth/ipbasic.php:94
-msgid "IP Address not within allowed CIDR block."
-msgstr ""
-
-#: lib/Net/SMS/clickatell_http.php:304
-msgid "IP lockdown violation."
-msgstr ""
-
 #: templates/javascript/htmlarea_context_lang.js:29
 msgid "I_nsert Row Before"
 msgstr "_n앞에 행 추가"
-
-#: lib/Horde/NLS/tld.php:120 lib/Horde/NLS/countries.php:108
-#: lib/Horde/NLS/GeoIP.php:83
-msgid "Iceland"
-msgstr ""
 
 #: config/prefs.php.dist:366
 msgid "Icons Only"
@@ -3493,23 +1389,6 @@ msgstr "아이콘과 문자"
 msgid "Identity's name:"
 msgstr "식별자 이름:"
 
-#: lib/Horde/MIME/Contents.php:608
-#, php-format
-msgid "If it is not displayed correctly, %s to open it in a new window."
-msgstr ""
-
-#: config/prefs.php.dist:445
-msgid ""
-"If you don't see any icons using Internet Explorer, you may need to check "
-"this box to turn off PNG transparency."
-msgstr ""
-
-#: lib/Horde/UI/VarRenderer/html.php:158
-msgid ""
-"If you see this message but no image, the image you want to upload can't be "
-"displayed by your browser."
-msgstr ""
-
 #: templates/javascript/htmlarea_lang.js:125
 #: templates/javascript/htmlarea_anselimage_lang.js:28
 msgid "Image Preview:"
@@ -3524,22 +1403,6 @@ msgstr "그림 URL"
 msgid "Image URL:"
 msgstr "그림 URL:"
 
-#: templates/javascript/htmlarea_anselimage_lang.js:32
-msgid "Image from gallery"
-msgstr ""
-
-#: templates/javascript/htmlarea_anselimage_lang.js:31
-msgid "Image from gallery:"
-msgstr ""
-
-#: lib/Horde/Form.php:1749
-msgid "Image upload"
-msgstr ""
-
-#: lib/Block/google.php:37
-msgid "Images"
-msgstr ""
-
 #: templates/data/tsvinfo.inc:10 templates/data/datemap.inc:10
 #: templates/data/csvmap.inc:57 templates/data/csvinfo.inc:10
 msgid "Import, Step %d"
@@ -3553,17 +1416,9 @@ msgstr "가져온 항목: %s"
 msgid "Imported fields:"
 msgstr "가져온 항목:"
 
-#: lib/Horde/MIME/Viewer/icalendar.php:701
-msgid "In Process"
-msgstr ""
-
 #: templates/javascript/htmlarea_context_lang.js:30
 msgid "In_sert Row After"
 msgstr "_s다음에 행 추가"
-
-#: lib/Horde/Compress/zip.php:141
-msgid "Incorrect action code given."
-msgstr ""
 
 #: lib/Net/SMS/sms2email_http.php:657
 #, fuzzy
@@ -3582,15 +1437,6 @@ msgstr ""
 msgid "Increase Indent"
 msgstr "들여쓰기"
 
-#: lib/Horde/NLS/tld.php:116 lib/Horde/NLS/countries.php:109
-#: lib/Horde/NLS/GeoIP.php:82
-msgid "India"
-msgstr ""
-
-#: admin/perms/edit.php:141 templates/shares/edit.inc:134
-msgid "Individual Users"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:112 lib/Horde/NLS/countries.php:110
 #: lib/Horde/NLS/GeoIP.php:81
 #, fuzzy
@@ -3606,11 +1452,6 @@ msgstr "무시"
 #, fuzzy
 msgid "Information"
 msgstr "정보"
-
-#: po/translation.php:582
-#, php-format
-msgid "Initializing module %s... "
-msgstr ""
 
 #: templates/javascript/htmlarea_context_lang.js:34
 msgid "Insert C_olumn After"
@@ -3658,14 +1499,6 @@ msgstr "현재 지점 뒤에 단락 추가"
 msgid "Insert a paragraph before the current node"
 msgstr "현재 지점 앞에 단락 추가"
 
-#: admin/templates.php:150
-msgid "Insert alternate template"
-msgstr ""
-
-#: config/prefs.php.dist:229
-msgid "Insert an email address to which you can receive the new password:"
-msgstr ""
-
 #: templates/javascript/htmlarea_table_lang.js:58
 msgid "Insert cell after"
 msgstr "뒤에 셀 추가"
@@ -3703,10 +1536,6 @@ msgstr "뒤에 행 추가"
 msgid "Insert row before"
 msgstr "앞에 행 추가"
 
-#: config/prefs.php.dist:220
-msgid "Insert the required answer to the security question:"
-msgstr ""
-
 #: templates/javascript/htmlarea_lang.js:26
 msgid "Insert/Modify Image"
 msgstr "그림 추가/수정"
@@ -3714,31 +1543,6 @@ msgstr "그림 추가/수정"
 #: templates/javascript/htmlarea_lang.js:89
 msgid "Insert/Modify Link"
 msgstr "링크 추가/수정"
-
-#: lib/Net/SMS/sms2email_http.php:668
-msgid "Insufficient credit to send to the distribution list."
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:660
-msgid "Insufficient credit."
-msgstr ""
-
-#: lib/Horde/Form.php:1070
-msgid "Integer"
-msgstr ""
-
-#: lib/Horde/Form.php:1128
-msgid "Integer list"
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:283
-#: lib/Horde/MIME/Viewer/icalendar.php:352
-msgid "Invalid Action selected for this component."
-msgstr ""
-
-#: lib/Net/SMS/clickatell_http.php:306
-msgid "Invalid UDH. (User Data Header)."
-msgstr ""
 
 #: admin/setup/config.php:34
 #, fuzzy
@@ -3761,19 +1565,10 @@ msgstr "잘못된 이름."
 msgid "Invalid destination address."
 msgstr "잘못된 이메일 주소"
 
-#: lib/Horde/Compress/dbx.php:84 lib/Horde/Compress/dbx.php:103
-#: lib/Horde/Compress/dbx.php:223
-msgid "Invalid file format"
-msgstr ""
-
 #: lib/Net/SMS/clickatell_http.php:316
 #, fuzzy
 msgid "Invalid msg_type."
 msgstr "잘못된 이름."
-
-#: lib/Net/SMS/clickatell_http.php:312
-msgid "Invalid or missing api_id."
-msgstr ""
 
 #: lib/Net/SMS/clickatell_http.php:305
 #, fuzzy
@@ -3790,11 +1585,6 @@ msgstr "잘못된 주소록"
 msgid "Invalid protocol."
 msgstr "잘못된 주소록"
 
-#: lib/Net/SMS/sms2email_http.php:91
-#, php-format
-msgid "Invalid recipient: '%s'"
-msgstr ""
-
 #: lib/Horde/Kolab.php:1071 lib/Horde/Kolab.php:1248
 #, fuzzy
 msgid "Invalid share object"
@@ -3810,42 +1600,11 @@ msgstr "잘못된 이메일 주소"
 msgid "Invalid unicode data."
 msgstr "잘못된 이름."
 
-#: config/registry.php.dist:328
-msgid "Inventory"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:119 lib/Horde/NLS/countries.php:111
-#: lib/Horde/NLS/GeoIP.php:83
-msgid "Iran, Islamic Republic of"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:118 lib/Horde/NLS/countries.php:112
-#: lib/Horde/NLS/GeoIP.php:82
-msgid "Iraq"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:113 lib/Horde/NLS/countries.php:113
 #: lib/Horde/NLS/GeoIP.php:81
 #, fuzzy
 msgid "Ireland"
 msgstr "읽지 않은 메일"
-
-#: lib/Horde/NLS/tld.php:115
-msgid "Isle of Man"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:335
-msgid "Isolated T-Storms"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:114 lib/Horde/NLS/countries.php:114
-#: lib/Horde/NLS/GeoIP.php:81
-msgid "Israel"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:649
-msgid "Issuer"
-msgstr ""
 
 #: templates/javascript/htmlarea_lang.js:9
 msgid "Italic"
@@ -3856,11 +1615,6 @@ msgstr "기울이기"
 #, fuzzy
 msgid "Italy"
 msgstr "일별"
-
-#: lib/Horde/NLS/tld.php:123 lib/Horde/NLS/countries.php:116
-#: lib/Horde/NLS/GeoIP.php:83
-msgid "Jamaica"
-msgstr ""
 
 #: lib/Horde/UI/VarRenderer/html.php:374 lib/Horde/UI/VarRenderer/html.php:411
 #: templates/javascript/open_calendar.js:65
@@ -3875,15 +1629,6 @@ msgstr "일본"
 #: config/nls.php.dist:183
 msgid "Japanese (ISO-2022-JP)"
 msgstr "일본어 (ISO-2022-JP)"
-
-#: lib/Horde/NLS/tld.php:122
-msgid "Jersey"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:124 lib/Horde/NLS/countries.php:118
-#: lib/Horde/NLS/GeoIP.php:84
-msgid "Jordan"
-msgstr ""
 
 #: lib/Horde/UI/VarRenderer/html.php:380 lib/Horde/UI/VarRenderer/html.php:417
 #: templates/javascript/open_calendar.js:71
@@ -3919,66 +1664,10 @@ msgstr "왼쪽 정렬"
 msgid "Justify Right"
 msgstr "오른쪽 정렬"
 
-#: lib/Horde/NLS/tld.php:136 lib/Horde/NLS/countries.php:119
-#: lib/Horde/NLS/GeoIP.php:87
-msgid "Kazakhstan"
-msgstr ""
-
-#: lib/Horde/UI/VarRenderer/html.php:246
-msgid "Keep original?"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:126 lib/Horde/NLS/countries.php:120
-#: lib/Horde/NLS/GeoIP.php:84
-msgid "Kenya"
-msgstr ""
-
-#: lib/Horde/Auth/krb5.php:87
-msgid "Kerberos server rejected authentication."
-msgstr ""
-
-#: lib/Block/fortune.php:42
-msgid "Kernel Newbies"
-msgstr ""
-
-#: lib/Horde/Crypt/pgp.php:397
-msgid "Key Creation"
-msgstr ""
-
-#: lib/Horde/Crypt/pgp.php:400
-msgid "Key Fingerprint"
-msgstr ""
-
-#: lib/Horde/Crypt/pgp.php:398
-msgid "Key Length"
-msgstr ""
-
-#: lib/Horde/Crypt/pgp.php:397
-msgid "Key Type"
-msgstr ""
-
 #: lib/Horde/Crypt/smime.php:622
 #, fuzzy
 msgid "Key Usage"
 msgstr "메시지"
-
-#: lib/Horde/Crypt/pgp.php:743
-msgid "Key already exists on the public keyserver."
-msgstr ""
-
-#: lib/Block/fortune.php:43
-msgid "Kids"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:129 lib/Horde/NLS/countries.php:121
-#: lib/Horde/NLS/GeoIP.php:85
-msgid "Kiribati"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:132 lib/Horde/NLS/countries.php:122
-#: lib/Horde/NLS/GeoIP.php:86
-msgid "Korea, Democratic People's Republic of"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:133 lib/Horde/NLS/countries.php:123
 #: lib/Horde/NLS/GeoIP.php:86
@@ -3989,16 +1678,6 @@ msgstr "대한민국"
 msgid "Korean (EUC-KR)"
 msgstr "한국어 (EUC-KR)"
 
-#: lib/Horde/NLS/tld.php:134 lib/Horde/NLS/countries.php:124
-#: lib/Horde/NLS/GeoIP.php:87
-msgid "Kuwait"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:127 lib/Horde/NLS/countries.php:125
-#: lib/Horde/NLS/GeoIP.php:84
-msgid "Kyrgyzstan"
-msgstr ""
-
 #: templates/portal/menu.inc:8
 #, fuzzy
 msgid "La_yout"
@@ -4007,11 +1686,6 @@ msgstr "로그아웃"
 #: templates/login/login.inc:76 po/translation.php:657
 msgid "Language"
 msgstr "언어"
-
-#: lib/Horde/NLS/tld.php:137 lib/Horde/NLS/countries.php:126
-#: lib/Horde/NLS/GeoIP.php:88
-msgid "Lao People's Democratic Republic"
-msgstr ""
 
 #: lib/Block/moon.php:174
 #, fuzzy
@@ -4040,129 +1714,35 @@ msgstr "마지막 로그인: %s, 접속 위치: %s"
 msgid "Last login: Never"
 msgstr "마지막 로그인: 없음"
 
-#: lib/Horde/NLS/tld.php:146 lib/Horde/NLS/countries.php:127
-#: lib/Horde/NLS/GeoIP.php:90
-msgid "Latvia"
-msgstr ""
-
-#: lib/Block/fortune.php:44
-msgid "Law"
-msgstr ""
-
 #: templates/javascript/htmlarea_table_lang.js:39
 #: templates/javascript/htmlarea_lang.js:79
 msgid "Layout"
 msgstr "레이아웃"
-
-#: templates/javascript/htmlarea_lang.js:86
-msgid "Leave empty for no border"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:138 lib/Horde/NLS/countries.php:128
-#: lib/Horde/NLS/GeoIP.php:88
-msgid "Lebanon"
-msgstr ""
 
 #: templates/javascript/htmlarea_table_lang.js:40
 #: templates/javascript/htmlarea_lang.js:69
 msgid "Left"
 msgstr "왼쪽"
 
-#: lib/Horde/Form.php:3104
-msgid "Left header"
-msgstr ""
-
 #: lib/Horde/Form.php:3100
 #, fuzzy
 msgid "Left values"
 msgstr "예:"
-
-#: lib/Horde/NLS/tld.php:143 lib/Horde/NLS/countries.php:129
-#: lib/Horde/NLS/GeoIP.php:89
-msgid "Lesotho"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:142 lib/Horde/NLS/countries.php:130
-#: lib/Horde/NLS/GeoIP.php:89
-msgid "Liberia"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:147 lib/Horde/NLS/countries.php:131
-#: lib/Horde/NLS/GeoIP.php:90
-msgid "Libyan Arab Jamahiriya"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:140 lib/Horde/NLS/countries.php:132
-#: lib/Horde/NLS/GeoIP.php:89
-msgid "Liechtenstein"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:336
-msgid "Light Drizzle"
-msgstr ""
 
 #: lib/Block/weatherdotcom.php:337
 #, fuzzy
 msgid "Light Rain"
 msgstr "로그인"
 
-#: lib/Block/weatherdotcom.php:338
-msgid "Light Rain Early"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:339
-msgid "Light Rain Late"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:340
-msgid "Light Rain Shower"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:341
-msgid "Light Rain with Thunder"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:342
-msgid "Light Snow"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:343
-msgid "Light Snow Shower"
-msgstr ""
-
-#: lib/Block/fortune.php:45
-msgid "Limerick"
-msgstr ""
-
 #: lib/Horde/Form.php:1802
 #, fuzzy
 msgid "Link"
 msgstr "로그인"
 
-#: templates/javascript/htmlarea_context_lang.js:56
-msgid "Link points to:"
-msgstr ""
-
-#: lib/Horde/Form.php:1859
-msgid "Link the email address to the compose page when displaying"
-msgstr ""
-
 #: lib/Horde/Text/Filter/html2text.php:181
 #, fuzzy
 msgid "Links"
 msgstr "로그인 시작작업"
-
-#: lib/Block/fortune.php:46
-msgid "Linux Cookie"
-msgstr ""
-
-#: lib/Horde/IMAP/ACL/rfc2086.php:89
-msgid "List - user can see the folder"
-msgstr ""
-
-#: admin/sqlshell.php:138
-msgid "List Databases"
-msgstr ""
 
 #: services/help/index.php:50
 msgid "List Help Topics"
@@ -4173,26 +1753,10 @@ msgstr "도움알 목차"
 msgid "List Tables"
 msgstr "마지막 페이지"
 
-#: lib/Horde/MIME/Headers.php:637
-msgid "List-Archive"
-msgstr ""
-
 #: lib/Horde/MIME/Headers.php:632
 #, fuzzy
 msgid "List-Help"
 msgstr "도움알 목차"
-
-#: lib/Horde/MIME/Headers.php:639
-msgid "List-Id"
-msgstr ""
-
-#: lib/Horde/MIME/Headers.php:635
-msgid "List-Owner"
-msgstr ""
-
-#: lib/Horde/MIME/Headers.php:636
-msgid "List-Post"
-msgstr ""
 
 #: lib/Horde/MIME/Headers.php:634
 #, fuzzy
@@ -4207,31 +1771,6 @@ msgstr "사용하지 않는 메일함 숨김"
 #: templates/admin/user/nolist.inc:4
 msgid "Listing users is disabled."
 msgstr "사용할 수 없는 사용자 목록."
-
-#: lib/Block/fortune.php:47
-msgid "Literature"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:144 lib/Horde/NLS/countries.php:133
-#: lib/Horde/NLS/GeoIP.php:90
-msgid "Lithuania"
-msgstr ""
-
-#: po/translation.php:1319
-msgid "Loading libraries..."
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/images.php:86
-msgid "Loading..."
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:174
-msgid "Local time: "
-msgstr ""
-
-#: config/prefs.php.dist:83
-msgid "Locale and Time"
-msgstr ""
 
 #: lib/Horde/Crypt/smime.php:595 lib/Horde/MIME/Viewer/icalendar.php:570
 #: lib/Block/weatherdotcom.php:60 lib/Block/sunrise.php:22
@@ -4275,10 +1814,6 @@ msgstr "로그아웃"
 msgid "Love"
 msgstr "이동"
 
-#: lib/Block/weatherdotcom.php:374
-msgid "Low"
-msgstr ""
-
 #: templates/javascript/htmlarea_listtype_lang.js:21
 msgid "Lower greek letters"
 msgstr "그리스 소문자"
@@ -4291,11 +1826,6 @@ msgstr "라틴 소문자"
 msgid "Lower roman numbers"
 msgstr "로마 소문자 숫자"
 
-#: lib/Horde/NLS/tld.php:145 lib/Horde/NLS/countries.php:134
-#: lib/Horde/NLS/GeoIP.php:90
-msgid "Luxembourg"
-msgstr ""
-
 #: lib/Horde/UI/VarRenderer/html.php:342 lib/Horde/UI/VarRenderer/html.php:373
 #: lib/Horde/UI/VarRenderer/html.php:410 templates/data/date.inc:47
 #: templates/data/date.inc:48 templates/data/date.inc:49
@@ -4303,34 +1833,16 @@ msgstr ""
 msgid "MM"
 msgstr "MM"
 
-#: config/registry.php.dist:256
-msgid "MOTD"
-msgstr ""
-
 #: lib/Horde/MIME/Viewer/tnef.php:39
 #, fuzzy
 msgid "MS-TNEF Attachment contained no data."
 msgstr "파일에 아무런 자료가 없습니다."
-
-#: lib/Horde/Notification/Listener/mobile.php:40
-msgid "MSG"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:157 lib/Horde/NLS/countries.php:135
 #: lib/Horde/NLS/GeoIP.php:93
 #, fuzzy
 msgid "Macao"
 msgstr "3월"
-
-#: lib/Horde/NLS/tld.php:153 lib/Horde/NLS/countries.php:136
-#: lib/Horde/NLS/GeoIP.php:92
-msgid "Macedonia, The Former Yugoslav Republic of"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:151 lib/Horde/NLS/countries.php:137
-#: lib/Horde/NLS/GeoIP.php:91
-msgid "Madagascar"
-msgstr ""
 
 #: lib/Block/fortune.php:49
 #, fuzzy
@@ -4341,33 +1853,15 @@ msgstr "웹메일"
 msgid "Mail"
 msgstr "메일"
 
-#: config/registry.php.dist:114
-msgid "Mail Admin"
-msgstr ""
-
 #: templates/javascript/htmlarea_context_lang.js:40
 msgid "Make lin_k..."
 msgstr "_k링크 만들기..."
-
-#: po/translation.php:1338
-msgid "Make sure that you have PEAR installed and in your include path."
-msgstr ""
-
-#: po/translation.php:678 po/translation.php:1062
-#, php-format
-msgid "Making directory %s"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:165 lib/Horde/NLS/countries.php:138
 #: lib/Horde/NLS/GeoIP.php:95
 #, fuzzy
 msgid "Malawi"
 msgstr "웹메일"
-
-#: lib/Horde/NLS/tld.php:167 lib/Horde/NLS/countries.php:139
-#: lib/Horde/NLS/GeoIP.php:96
-msgid "Malaysia"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:164 lib/Horde/NLS/countries.php:140
 #: lib/Horde/NLS/GeoIP.php:95
@@ -4387,21 +1881,6 @@ msgstr "웹메일"
 msgid "Malta"
 msgstr "웹메일"
 
-#: config/prefs.php.dist:91
-msgid ""
-"Manage the list of categories you have to label items with, and colors "
-"associated with those categories."
-msgstr ""
-
-#: lib/Horde/UI/VarRenderer/html.php:1040
-msgid "Map24 map"
-msgstr ""
-
-#: lib/Horde/UI/VarRenderer/html.php:978
-#: lib/Horde/UI/VarRenderer/html.php:1055
-msgid "MapQuest map"
-msgstr ""
-
 #: lib/Horde/UI/VarRenderer/html.php:376 lib/Horde/UI/VarRenderer/html.php:413
 #: templates/javascript/open_calendar.js:67
 msgid "March"
@@ -4411,57 +1890,9 @@ msgstr "3월"
 msgid "Margin"
 msgstr "가장자리"
 
-#: lib/Horde/IMAP/ACL/rfc2086.php:91
-msgid "Mark with Seen/Unseen flags"
-msgstr ""
-
-#: lib/Horde/IMAP/ACL/rfc2086.php:92
-msgid "Mark with other flags (e.g. Important/Answered)"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:152 lib/Horde/NLS/countries.php:143
-#: lib/Horde/NLS/GeoIP.php:92
-msgid "Marshall Islands"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:159 lib/Horde/NLS/countries.php:144
-#: lib/Horde/NLS/GeoIP.php:94
-msgid "Martinique"
-msgstr ""
-
 #: templates/data/csvmap.inc:111
 msgid "Matching fields"
 msgstr "일치하는 항목"
-
-#: lib/Horde/NLS/tld.php:160 lib/Horde/NLS/countries.php:145
-#: lib/Horde/NLS/GeoIP.php:94
-msgid "Mauritania"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:163 lib/Horde/NLS/countries.php:146
-#: lib/Horde/NLS/GeoIP.php:95
-msgid "Mauritius"
-msgstr ""
-
-#: lib/Net/SMS/clickatell_http.php:324
-msgid "Max allowed credit."
-msgstr ""
-
-#: lib/Net/SMS/clickatell_http.php:317
-msgid "Max message parts exceeded."
-msgstr ""
-
-#: lib/Block/metar.php:304
-msgid "Max temp last 24 hours: "
-msgstr ""
-
-#: lib/Block/metar.php:296
-msgid "Max temp last 6 hours: "
-msgstr ""
-
-#: lib/Horde/Form.php:893 lib/Horde/Form.php:1209 lib/Horde/Form.php:1231
-msgid "Maximum length"
-msgstr ""
 
 #: lib/Horde/UI/VarRenderer/html.php:378 lib/Horde/UI/VarRenderer/html.php:415
 #: templates/javascript/open_calendar.js:69
@@ -4474,35 +1905,15 @@ msgstr "5월"
 msgid "Mayotte"
 msgstr "5월"
 
-#: lib/Block/fortune.php:50
-msgid "Medicine"
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:531
-msgid "Meeting Cancellation"
-msgstr ""
-
 #: lib/Horde/MIME/Viewer/icalendar.php:503
 #, fuzzy
 msgid "Meeting Information"
 msgstr "메일 서버 정보사항"
 
-#: lib/Horde/MIME/Viewer/icalendar.php:509
-msgid "Meeting Proposal"
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:525
-msgid "Meeting Reply"
-msgstr ""
-
 #: lib/Horde/MIME/Viewer/icalendar.php:514
 #, fuzzy
 msgid "Meeting Update"
 msgstr "시작하기"
-
-#: lib/Horde/MIME/Viewer/icalendar.php:519
-msgid "Meeting Update Request"
-msgstr ""
 
 #: templates/admin/groups/edit.inc:19
 #, fuzzy
@@ -4517,35 +1928,9 @@ msgstr "메뉴 모드"
 msgid "Merge cells"
 msgstr "셀 합치기"
 
-#: po/translation.php:527
-#, php-format
-msgid "Merging all %s.po files to the compendium... "
-msgstr ""
-
-#: po/translation.php:438
-#, php-format
-msgid "Merging locale %s... "
-msgstr ""
-
-#: po/translation.php:788
-#, php-format
-msgid "Merging the PO file for %s to the compendium... "
-msgstr ""
-
-#: po/translation.php:425
-#, php-format
-msgid "Merging translation for module %s..."
-msgstr ""
-
 #: lib/Horde/Notification/Listener/status.php:32
 msgid "Message"
 msgstr "메시지"
-
-#: lib/Horde/Crypt/smime.php:226
-msgid ""
-"Message Verified Successfully but the signer's certificate could not be "
-"verified."
-msgstr ""
 
 #: lib/Net/SMS/clickatell_http.php:319
 #, fuzzy
@@ -4558,91 +1943,26 @@ msgstr "메시지 항목"
 msgid "Message type"
 msgstr "메시지 일자"
 
-#: lib/Block/metar.php:3
-msgid "Metar Weather"
-msgstr ""
-
-#: lib/Block/metar.php:37
-msgid "Metar block not available."
-msgstr ""
-
 #: lib/Block/metar.php:110
 #, fuzzy
 msgid ""
 "Metar block not available. Details have been logged for the administrator."
 msgstr "세부정보가 관리자를 위해 기록되어졌습니다."
 
-#: lib/Horde/MIME/Viewer/rar.php:70 lib/Horde/MIME/Viewer/zip.php:74
-msgid "Method"
-msgstr ""
-
-#: lib/Horde/RPC/xmlrpc.php:82 lib/Horde/RPC/soap.php:117
-#, php-format
-msgid "Method '%s' is not defined"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:69 lib/Block/metar.php:73
-msgid "Metric"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:166 lib/Horde/NLS/countries.php:148
-#: lib/Horde/NLS/GeoIP.php:96
-msgid "Mexico"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:85 lib/Horde/NLS/countries.php:149
-#: lib/Horde/NLS/GeoIP.php:73
-msgid "Micronesia, Federated States of"
-msgstr ""
-
 #: templates/javascript/htmlarea_table_lang.js:42
 #: templates/javascript/htmlarea_lang.js:76
 msgid "Middle"
 msgstr "가운데"
-
-#: lib/Horde/MIME/Viewer/tnef.php:41
-msgid "Mime Type"
-msgstr ""
-
-#: lib/Block/metar.php:308
-msgid "Min temp last 24 hours: "
-msgstr ""
-
-#: lib/Block/metar.php:300
-msgid "Min temp last 6 hours: "
-msgstr ""
 
 #: lib/Horde/UI/VarRenderer/html.php:217
 #, fuzzy
 msgid "Mirror"
 msgstr "오류"
 
-#: lib/Block/fortune.php:51
-msgid "Miscellaneous"
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:697 lib/Net/SMS/clickatell_http.php:349
-msgid "Missing PEAR package HTTP_Request."
-msgstr ""
-
-#: admin/setup/index.php:105
-msgid ""
-"Missing configuration. You have to generate it now if you want to use this "
-"application."
-msgstr ""
-
 #: lib/Net/SMS/clickatell_http.php:313
 #, fuzzy
 msgid "Missing message ID."
 msgstr "메시지 이동하기"
-
-#: lib/Net/SMS/vodafoneitaly_smtp.php:57
-msgid "Missing required PEAR package Mail."
-msgstr ""
-
-#: lib/Net/SMS/clickatell_http.php:303
-msgid "Missing session ID."
-msgstr ""
 
 #: templates/javascript/open_calendar.js:56
 #, fuzzy
@@ -4654,15 +1974,6 @@ msgstr "이동"
 msgid "Mobile Mail"
 msgstr "새 메일"
 
-#: lib/Block/weatherdotcom.php:375
-msgid "Moderate"
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/rar.php:69 lib/Horde/MIME/Viewer/zip.php:73
-#: lib/Horde/MIME/Viewer/tgz.php:88
-msgid "Modified Date"
-msgstr ""
-
 #: templates/javascript/htmlarea_context_lang.js:52
 msgid "Modify URL"
 msgstr "URL 수정"
@@ -4672,58 +1983,9 @@ msgstr "URL 수정"
 msgid "Module"
 msgstr "역할"
 
-#: lib/Horde/Crypt/smime.php:697
-msgid "Modulus"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:150 lib/Horde/NLS/countries.php:150
-#: lib/Horde/NLS/GeoIP.php:91
-msgid "Moldova, Republic of"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:149 lib/Horde/NLS/countries.php:151
-#: lib/Horde/NLS/GeoIP.php:91
-msgid "Monaco"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:156 lib/Horde/NLS/countries.php:152
-#: lib/Horde/NLS/GeoIP.php:93
-msgid "Mongolia"
-msgstr ""
-
-#: lib/Horde/Form.php:2587
-msgid "Month and year"
-msgstr ""
-
 #: lib/Horde/Maintenance.php:36
 msgid "Monthly"
 msgstr "매월"
-
-#: lib/Horde/NLS/tld.php:161 lib/Horde/NLS/countries.php:153
-#: lib/Horde/NLS/GeoIP.php:95
-msgid "Montserrat"
-msgstr ""
-
-#: lib/Block/moon.php:3 lib/Block/moon.php:16
-msgid "Moon Phases"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:148 lib/Horde/NLS/countries.php:154
-#: lib/Horde/NLS/GeoIP.php:91
-msgid "Morocco"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:344
-msgid "Mostly Clear"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:345
-msgid "Mostly Cloudy"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:346
-msgid "Mostly Sunny"
-msgstr ""
 
 #: lib/Horde/Block/Layout.php:420
 msgid "Move Down"
@@ -4733,10 +1995,6 @@ msgstr "아래로 이동"
 #, fuzzy
 msgid "Move Left"
 msgstr "위로 이동"
-
-#: lib/Horde/Block/Layout.php:428
-msgid "Move Right"
-msgstr ""
 
 #: lib/Horde/Block/Layout.php:416
 msgid "Move Up"
@@ -4752,54 +2010,10 @@ msgstr "아래로 이동"
 msgid "Move up"
 msgstr "위로 이동"
 
-#: lib/Horde/NLS/tld.php:168 lib/Horde/NLS/countries.php:155
-#: lib/Horde/NLS/GeoIP.php:96
-msgid "Mozambique"
-msgstr ""
-
-#: lib/Horde/Form.php:2168
-msgid "Multi-level drop down lists"
-msgstr ""
-
-#: lib/Horde/Form.php:2226
-msgid "Multiple selection"
-msgstr ""
-
-#: config/registry.php.dist:334 config/registry.php.dist:341
-msgid "My Account"
-msgstr ""
-
-#: services/portal/index.php:51
-msgid "My Portal"
-msgstr ""
-
-#: services/portal/edit.php:124
-msgid "My Portal Layout"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:155 lib/Horde/NLS/countries.php:156
-#: lib/Horde/NLS/GeoIP.php:93
-msgid "Myanmar"
-msgstr ""
-
-#: templates/maintenance/agreement_bottom.inc:7
-msgid "NO, I Do NOT Agree"
-msgstr ""
-
 #: lib/Horde/Crypt/pgp.php:397 lib/Horde/MIME/Viewer/vcard.php:105
 #: lib/Horde/MIME/Viewer/tnef.php:41 lib/Horde/MIME/Viewer/icalendar.php:583
 msgid "Name"
 msgstr "이름"
-
-#: lib/Horde/NLS/tld.php:169 lib/Horde/NLS/countries.php:157
-#: lib/Horde/NLS/GeoIP.php:96
-msgid "Namibia"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:178 lib/Horde/NLS/countries.php:158
-#: lib/Horde/NLS/GeoIP.php:98
-msgid "Nauru"
-msgstr ""
 
 #: lib/Horde/MIME/Viewer/icalendar.php:706
 #, fuzzy
@@ -4812,48 +2026,6 @@ msgstr "실행"
 msgid "Nepal"
 msgstr "새 메일"
 
-#: lib/Horde/NLS/tld.php:175 lib/Horde/NLS/countries.php:160
-#: lib/Horde/NLS/GeoIP.php:98
-msgid "Netherlands"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:23 lib/Horde/NLS/countries.php:161
-#: lib/Horde/NLS/GeoIP.php:58
-msgid "Netherlands Antilles"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:605
-msgid "Netscape Base URL"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:607
-msgid "Netscape CA Revocation URL"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:609
-msgid "Netscape CA policy URL"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:608
-msgid "Netscape Renewal URL"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:606
-msgid "Netscape Revocation URL"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:610
-msgid "Netscape SSL server name"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:611
-msgid "Netscape certificate comment"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:604
-msgid "Netscape certificate type"
-msgstr ""
-
 #: config/registry.php.dist:242
 msgid "Network"
 msgstr "네트워크"
@@ -4862,16 +2034,6 @@ msgstr "네트워크"
 #: config/prefs.php.dist:376
 msgid "Never"
 msgstr "사용안함"
-
-#: lib/Horde/NLS/tld.php:170 lib/Horde/NLS/countries.php:162
-#: lib/Horde/NLS/GeoIP.php:96
-msgid "New Caledonia"
-msgstr ""
-
-#: lib/Horde/Prefs/CategoryManager.php:51
-#: templates/prefs/categorymanagement.inc:27
-msgid "New Category"
-msgstr ""
 
 #: lib/Block/moon.php:46 lib/Block/moon.php:68 lib/Block/moon.php:179
 #, fuzzy
@@ -4899,10 +2061,6 @@ msgstr "새 창(_blank)"
 msgid "News"
 msgstr "새 메일"
 
-#: config/registry.php.dist:106
-msgid "Newsgroups"
-msgstr ""
-
 #: templates/data/tsvinfo.inc:21 templates/data/datemap.inc:46
 #: templates/data/csvmap.inc:137 templates/data/csvinfo.inc:32
 msgid "Next"
@@ -4922,25 +2080,11 @@ msgstr "다음 페이지"
 msgid "Next options"
 msgstr "옵션으로 돌아가기"
 
-#: lib/Horde/NLS/tld.php:174 lib/Horde/NLS/countries.php:164
-#: lib/Horde/NLS/GeoIP.php:97
-msgid "Nicaragua"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:171 lib/Horde/NLS/countries.php:165
 #: lib/Horde/NLS/GeoIP.php:97
 #, fuzzy
 msgid "Niger"
 msgstr "사용안함"
-
-#: lib/Horde/NLS/tld.php:173 lib/Horde/NLS/countries.php:166
-#: lib/Horde/NLS/GeoIP.php:97
-msgid "Nigeria"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:289
-msgid "Night"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:179 lib/Horde/NLS/countries.php:167
 #: lib/Horde/NLS/GeoIP.php:98
@@ -4952,23 +2096,6 @@ msgstr "참조"
 msgid "No"
 msgstr "아니오"
 
-#: templates/admin/setup/diff.html:16
-msgid "No available configuration data to show differences for."
-msgstr ""
-
-#: lib/VFS/ISOWriter.php:111
-msgid "No available strategy for making ISO images."
-msgstr ""
-
-#: lib/Net/SMS/clickatell_http.php:322
-msgid "No batch template."
-msgstr ""
-
-#: lib/Horde/Block/Layout.php:78 lib/Horde/Block/Layout.php:224
-#: lib/Horde/Block/Layout.php:246
-msgid "No block exists at the requested position"
-msgstr ""
-
 #: lib/Horde/Auth/mcal.php:54
 #, fuzzy
 msgid "No calendar name provided for MCAL authentication."
@@ -4978,14 +2105,6 @@ msgstr "SQL 인증 설정정보가 없습니다."
 #, fuzzy
 msgid "No change."
 msgstr "변경사항 되돌리기"
-
-#: lib/Horde/Perms/UI.php:144
-msgid "No child permissions are to be added below this level."
-msgstr ""
-
-#: admin/perms/addchild.php:61
-msgid "No children can be added to this permission."
-msgstr ""
 
 #: po/translation.php:1358
 #, fuzzy
@@ -5009,36 +2128,10 @@ msgstr "SQL VFS 설정정보가 없습니다."
 msgid "No configuration information specified for SQL-File VFS."
 msgstr "SQL-File VFS 설정정보가 없습니다."
 
-#: lib/Net/SMS/clickatell_http.php:323
-msgid "No credit left."
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:659
-msgid "No destination supplied."
-msgstr ""
-
-#: po/translation.php:1252
-#, php-format
-msgid "No entry with the id '%s' exists in the original help file."
-msgstr ""
-
-#: lib/Horde/Browser.php:892
-msgid "No file uploaded"
-msgstr ""
-
-#: util/icon_browser.php:71
-msgid "No icons found."
-msgstr ""
-
 #: po/translation.php:413 po/translation.php:522
 #, fuzzy
 msgid "No locale specified."
 msgstr "폴더를 선택하세요"
-
-#: lib/Block/weatherdotcom.php:116 lib/Block/sunrise.php:40
-#: lib/Block/metar.php:121
-msgid "No location is set."
-msgstr ""
 
 #: lib/Net/SMS/sms2email_http.php:658
 #, fuzzy
@@ -5054,22 +2147,6 @@ msgstr "문자열 입력 오류"
 #, fuzzy
 msgid "No number specified."
 msgstr "문자열 입력 오류"
-
-#: lib/Block/fortune.php:94
-msgid "No offensive fortunes"
-msgstr ""
-
-#: lib/Horde/Auth/http.php:93
-msgid "No password provided for HTTP authentication."
-msgstr ""
-
-#: lib/Horde/Auth/imap.php:112
-msgid "No password provided for IMAP authentication."
-msgstr ""
-
-#: lib/Horde/Auth/krb5.php:74
-msgid "No password provided for Kerberos authentication."
-msgstr ""
 
 #: lib/Horde/Auth/ldap.php:97
 #, fuzzy
@@ -5092,16 +2169,6 @@ msgstr "SQL 인증 설정정보가 없습니다."
 msgid "No password provided for SMB authentication."
 msgstr "SQL 인증 설정정보가 없습니다."
 
-#: lib/Horde/Crypt/smime.php:1318
-msgid ""
-"No path to the OpenSSL binary provided. The OpenSSL binary is necessary to "
-"work with PKCS 12 data."
-msgstr ""
-
-#: templates/admin/user/approve.inc:19
-msgid "No pending signups."
-msgstr ""
-
 #: templates/javascript/htmlarea_table_lang.js:43
 #, fuzzy
 msgid "No rules"
@@ -5112,63 +2179,16 @@ msgstr "참조"
 msgid "No sides"
 msgstr "참조"
 
-#: lib/Block/weatherdotcom.php:126
-msgid "No temporary directory available for cache."
-msgstr ""
-
 #: lib/Net/SMS/sms2email_http.php:656
 #, fuzzy
 msgid "No username and/or password sent."
 msgstr "사용자이름과 암호를 입력하세요"
-
-#: lib/Horde/RPC/xmlrpc.php:141
-msgid "No valid XML data returned"
-msgstr ""
-
-#: lib/Horde/UI/VarRenderer/html.php:896 lib/Horde/UI/VarRenderer/html.php:906
-#: lib/Horde/UI/VarRenderer/html.php:917 lib/Horde/UI/VarRenderer/html.php:934
-msgid "No values"
-msgstr ""
-
-#: admin/setup/index.php:110
-msgid "No version found in original configuration. Regenerate configuration."
-msgstr ""
-
-#: admin/setup/index.php:118
-msgid "No version found in your configuration. Regenerate configuration."
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:604
-msgid "Non Participant"
-msgstr ""
 
 #: lib/Horde/Crypt/pgp.php:413 lib/Horde/MIME/Viewer/icalendar.php:560
 #: templates/javascript/htmlarea_table_lang.js:45
 #: templates/prefs/identityselect.inc:88
 msgid "None"
 msgstr "선택하지 않음"
-
-#: templates/javascript/htmlarea_lang.js:90
-msgid "None (use implicit)"
-msgstr ""
-
-#: config/nls.php.dist:185
-msgid "Nordic (ISO-8859-10)"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:172 lib/Horde/NLS/countries.php:168
-#: lib/Horde/NLS/GeoIP.php:97
-msgid "Norfolk Island"
-msgstr ""
-
-#: lib/Block/moon.php:32 lib/Block/moon.php:60
-msgid "Northern Hemisphere"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:158 lib/Horde/NLS/countries.php:169
-#: lib/Horde/NLS/GeoIP.php:94
-msgid "Northern Mariana Islands"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:176 lib/Horde/NLS/countries.php:170
 #: lib/Horde/NLS/GeoIP.php:98
@@ -5180,10 +2200,6 @@ msgstr "전달"
 #, fuzzy
 msgid "Not After"
 msgstr "임시보관되지 않은 메일"
-
-#: lib/Horde/Crypt/smime.php:663
-msgid "Not Before"
-msgstr ""
 
 #: lib/VFS/file.php:356
 #, fuzzy
@@ -5203,19 +2219,9 @@ msgstr "삭제되지 않은 메일"
 msgid "Not set"
 msgstr "제목 없음"
 
-#: lib/VFS.php:184 lib/VFS.php:203 lib/VFS.php:221 lib/VFS.php:238
-#: lib/VFS.php:255 lib/VFS.php:271 lib/VFS.php:289 lib/VFS.php:325
-#: lib/VFS.php:388 lib/VFS.php:472 lib/VFS.php:544 lib/VFS.php:562
-msgid "Not supported."
-msgstr ""
-
 #: lib/Horde/MIME/Viewer/vcard.php:247 config/registry.php.dist:159
 msgid "Notes"
 msgstr "참조"
-
-#: services/obrowser/index.php:36
-msgid "Nothing to browse, go back."
-msgstr ""
 
 #: templates/maintenance/confirm_top.inc:10
 msgid "Notice"
@@ -5231,10 +2237,6 @@ msgstr "11월"
 msgid "Number"
 msgstr "11월"
 
-#: lib/Horde/Form.php:1422
-msgid "Number of characters"
-msgstr ""
-
 #: lib/Horde/Form.php:1366 lib/Horde/Form.php:1420 lib/Horde/Form.php:1442
 #: templates/javascript/htmlarea_lang.js:104
 msgid "Number of columns"
@@ -5245,91 +2247,24 @@ msgstr "열의 수"
 msgid "Number of rows"
 msgstr "행의 수"
 
-#: lib/Net/SMS/sms2email_http.php:669
-msgid "Numbers not specified for updating in distribution list."
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:483
-#: lib/Horde/MIME/Viewer/icalendar.php:663
-#: templates/javascript/htmlarea_lang.js:46
-#: templates/javascript/htmlarea_lang.js:64 po/translation.php:148
-#: po/translation.php:1329
-msgid "OK"
-msgstr ""
-
 #: lib/Horde/UI/VarRenderer/html.php:814
 #, fuzzy
 msgid "Object"
 msgstr "제목"
-
-#: templates/shares/edit.inc:111
-msgid "Object Creator"
-msgstr ""
-
-#: admin/perms/edit.php:137 lib/Horde/Perms/UI.php:223
-msgid "Object creator permissions"
-msgstr ""
-
-#: lib/Horde/Form.php:1099
-msgid "Octal"
-msgstr ""
 
 #: lib/Horde/UI/VarRenderer/html.php:383 lib/Horde/UI/VarRenderer/html.php:420
 #: templates/javascript/open_calendar.js:74
 msgid "October"
 msgstr "10월"
 
-#: lib/Block/fortune.php:92
-msgid "Offense filter"
-msgstr ""
-
-#: config/registry.php.dist:304
-msgid "Office"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:181 lib/Horde/NLS/countries.php:171
-#: lib/Horde/NLS/GeoIP.php:99
-msgid "Oman"
-msgstr ""
-
-#: lib/Horde/IMAP/ACL/rfc2086.php:76
-msgid "Only IMAP servers support shared folders."
-msgstr ""
-
-#: lib/Block/fortune.php:95
-msgid "Only offensive fortunes"
-msgstr ""
-
 #: lib/Horde/Form.php:1835 lib/Horde/Form.php:1955
 #, fuzzy
 msgid "Only one email address allowed."
 msgstr "잘못된 이메일 주소"
 
-#: services/shares/edit.php:65
-msgid ""
-"Only the owner or system administrator may change ownership or owner "
-"permissions for a share"
-msgstr ""
-
-#: lib/Block/iframe.php:35
-msgid "Open in a new window"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:257
-msgid "OpenSSL error: Could not extract data from signed S/MIME part."
-msgstr ""
-
 #: templates/javascript/htmlarea_context_lang.js:54
 msgid "Opens this link in a new window"
 msgstr "새 창에 링크 열기"
-
-#: lib/Block/fortune.php:53
-msgid "Operating System"
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:600
-msgid "Optional Participant"
-msgstr ""
 
 #: services/portal/sidebar.php:152
 msgid "Options"
@@ -5351,23 +2286,6 @@ msgstr "숫자 목록"
 msgid "Organisation"
 msgstr "단체"
 
-#: lib/Horde/Crypt/smime.php:592
-msgid "Organisational Unit"
-msgstr ""
-
-#: config/registry.php.dist:127
-msgid "Organizing"
-msgstr ""
-
-#: admin/templates.php:135
-msgid "Original application template"
-msgstr ""
-
-#: admin/templates.php:117
-#, php-format
-msgid "Original templates in %s:"
-msgstr ""
-
 #: lib/Horde/NLS/GeoIP.php:120 services/keyboard.php:117
 #: templates/javascript/htmlarea_lang.js:94
 msgid "Other"
@@ -5379,101 +2297,20 @@ msgstr "기타"
 msgid "Other Information"
 msgstr "기타 정보"
 
-#: templates/shares/edit.inc:31
-msgid "Owner Permissions"
-msgstr ""
-
-#: lib/Horde/Auth/pam.php:83
-msgid "PAM authentication is not available."
-msgstr ""
-
-#: lib/Horde/Crypt/pgp.php:1279
-msgid "PGP Digital Signature"
-msgstr ""
-
-#: lib/Horde/Crypt/pgp.php:1328
-msgid "PGP Encrypted Data"
-msgstr ""
-
-#: lib/Horde/Crypt/pgp.php:1387
-msgid "PGP Public Key"
-msgstr ""
-
-#: lib/Horde/Crypt/pgp.php:1366
-msgid "PGP Signed/Encrypted Data"
-msgstr ""
-
 #: admin/phpshell.php:63
 #, fuzzy
 msgid "PHP Code"
 msgstr "Horde"
 
-#: admin/phpshell.php:20
-msgid "PHP Shell"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:348
-msgid "PM Light Rain"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:349
-msgid "PM Showers"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:350
-msgid "PM Snow"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:351
-msgid "PM Snow Showers"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:352
-msgid "PM T-Storms"
-msgstr ""
-
-#: lib/api.php:126
-msgid "P_HP Shell"
-msgstr ""
-
 #: templates/javascript/htmlarea_table_lang.js:46
 msgid "Padding"
 msgstr "페딩"
-
-#: lib/Horde/NLS/tld.php:187 lib/Horde/NLS/countries.php:172
-#: lib/Horde/NLS/GeoIP.php:100
-msgid "Pakistan"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:194 lib/Horde/NLS/countries.php:173
-#: lib/Horde/NLS/GeoIP.php:102
-msgid "Palau"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:192 lib/Horde/NLS/countries.php:174
-#: lib/Horde/NLS/GeoIP.php:102
-msgid "Palestinian Territory, Occupied"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:182 lib/Horde/NLS/countries.php:175
 #: lib/Horde/NLS/GeoIP.php:99
 #, fuzzy
 msgid "Panama"
 msgstr "이름"
-
-#: lib/Horde/NLS/tld.php:185 lib/Horde/NLS/countries.php:176
-#: lib/Horde/NLS/GeoIP.php:100
-msgid "Papua New Guinea"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:195 lib/Horde/NLS/countries.php:177
-#: lib/Horde/NLS/GeoIP.php:103
-msgid "Paraguay"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:347
-msgid "Partly Cloudy"
-msgstr ""
 
 #: admin/user.php:36 admin/setup/index.php:174 lib/Horde/Form.php:2002
 #: lib/Net/SMS/sms2email_http.php:557 lib/Net/SMS/clickatell_http.php:203
@@ -5486,14 +2323,6 @@ msgstr "암호"
 #, fuzzy
 msgid "Password incorrect"
 msgstr "암호"
-
-#: lib/Horde/Auth/radius.php:157
-msgid "Password required for RADIUS authentication."
-msgstr ""
-
-#: lib/Horde/Form.php:2037
-msgid "Password with confirmation"
-msgstr ""
 
 #: templates/rpcsum/rpcsum.inc:90
 #, fuzzy
@@ -5522,10 +2351,6 @@ msgstr "클립보드에서 붙이기"
 msgid "Path"
 msgstr "경로"
 
-#: templates/admin/user/approve.inc:4 templates/admin/user/removequeued.inc:4
-msgid "Pending Signups:"
-msgstr ""
-
 #: lib/Block/fortune.php:54
 #, fuzzy
 msgid "People"
@@ -5550,72 +2375,23 @@ msgstr "유지 관리 작업 실행"
 msgid "Permission"
 msgstr "개인 메일"
 
-#: admin/perms/delete.php:68
-#, php-format
-msgid "Permission '%s' not deleted."
-msgstr ""
-
 #: admin/perms/edit.php:224 admin/perms/addchild.php:93
 #: admin/perms/index.php:22 admin/perms/delete.php:74
 #, fuzzy
 msgid "Permissions Administration"
 msgstr "관리"
 
-#: lib/Horde/Perms/UI.php:149 lib/Horde/Perms/UI.php:152
-#: lib/Horde/Perms/UI.php:156
-msgid "Permissions for"
-msgstr ""
-
 #: config/prefs.php.dist:65
 msgid "Personal Information"
 msgstr "개인 정보"
-
-#: lib/Horde/NLS/tld.php:183 lib/Horde/NLS/countries.php:178
-#: lib/Horde/NLS/GeoIP.php:99
-msgid "Peru"
-msgstr ""
-
-#: lib/Block/fortune.php:55
-msgid "Pets"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:186 lib/Horde/NLS/countries.php:179
-#: lib/Horde/NLS/GeoIP.php:100
-msgid "Philippines"
-msgstr ""
 
 #: lib/Horde/MIME/Viewer/vcard.php:199
 msgid "Phone"
 msgstr "전화번호"
 
-#: config/registry.php.dist:447
-msgid "Photos"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:190 lib/Horde/NLS/countries.php:180
-#: lib/Horde/NLS/GeoIP.php:101
-msgid "Pitcairn"
-msgstr ""
-
 #: templates/javascript/htmlarea_lang.js:108
 msgid "Pixels"
 msgstr "픽셀"
-
-#: lib/Block/fortune.php:56
-msgid "Platitudes"
-msgstr ""
-
-#: templates/javascript/htmlarea_table_lang.js:47
-msgid "Please click into some cell"
-msgstr ""
-
-#: templates/javascript/htmlarea_context_lang.js:48
-msgid "Please confirm that you want to remove this element:"
-msgstr ""
-
-#: templates/javascript/htmlarea_context_lang.js:55
-msgid "Please confirm that you want to unlink this element."
-msgstr ""
 
 #: lib/Horde/Form.php:2556
 #, fuzzy
@@ -5632,10 +2408,6 @@ msgstr "\\n새로운 메일함의 이름을 입력하세요:\\n"
 msgid "Please enter a valid IP address."
 msgstr "올바른 검색 범주를 입력하세요."
 
-#: lib/Horde/Form.php:2652
-msgid "Please enter a valid date, check the number of days in the month."
-msgstr ""
-
 #: lib/Horde/Form.php:2434
 #, fuzzy
 msgid "Please enter a valid time."
@@ -5649,23 +2421,6 @@ msgstr "문제에 대한 요약을 입력해 주세요."
 msgid "Please provide your username and password"
 msgstr "사용자이름과 암호를 입력하세요"
 
-#: templates/maintenance/agreement_top.inc:12
-#, php-format
-msgid ""
-"Please read the following text.  You MUST agree with the terms to use the "
-"system."
-msgstr ""
-
-#: po/translation.php:17
-msgid "Please report any bugs to i18n@lists.horde.org."
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:540
-msgid ""
-"Please review the following information, and then select an action from the "
-"menu below."
-msgstr ""
-
 #: lib/Horde/MIME/Viewer/icalendar.php:435
 #, fuzzy
 msgid "Please select an action from the menu below."
@@ -5676,65 +2431,9 @@ msgstr "검색할 최소한 한개의 메일함을 선택하세요."
 msgid "Please type the new category name:"
 msgstr "새로운 이름을 입력하세요:"
 
-#: lib/Horde/NLS/tld.php:188 lib/Horde/NLS/countries.php:181
-#: lib/Horde/NLS/GeoIP.php:100
-msgid "Poland"
-msgstr ""
-
-#: lib/Block/fortune.php:57
-msgid "Politics"
-msgstr ""
-
-#: config/registry.php.dist:456
-msgid "Polls"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:193 lib/Horde/NLS/countries.php:182
-#: lib/Horde/NLS/GeoIP.php:102
-msgid "Portugal"
-msgstr ""
-
-#: templates/javascript/htmlarea_lang.js:124
-#: templates/javascript/htmlarea_anselimage_lang.js:27
-msgid "Positioning of this image"
-msgstr ""
-
-#: templates/javascript/htmlarea_lang.js:111
-msgid "Positioning of this table"
-msgstr ""
-
-#: lib/Horde/IMAP/ACL/rfc2086.php:94
-msgid "Post to this folder (not enforced by IMAP)"
-msgstr ""
-
-#: lib/Block/metar.php:264 lib/Block/metar.php:269
-#, php-format
-msgid "Precipitation for last %s hour(s): "
-msgstr ""
-
-#: lib/Horde/Prefs/ldap.php:99
-msgid "Prefs_ldap: Required LDAP extension not found."
-msgstr ""
-
-#: lib/Horde/Prefs/session.php:36
-msgid "Prefs_session: Required session extension not found."
-msgstr ""
-
 #: config/registry.php.dist:298
 msgid "Presentations"
 msgstr "환경설정"
-
-#: lib/Block/metar.php:223
-msgid "Pressure"
-msgstr ""
-
-#: lib/Block/metar.php:257
-msgid "Pressure at sea level: "
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:198
-msgid "Pressure: "
-msgstr ""
 
 #: lib/Horde/UI/VarRenderer/html.php:188
 #: templates/javascript/htmlarea_lang.js:120
@@ -5760,10 +2459,6 @@ msgstr "이전 메시지"
 msgid "Print document"
 msgstr "문서 인쇄"
 
-#: lib/Horde/Crypt/pgp.php:409
-msgid "Private Key"
-msgstr ""
-
 #: lib/Horde/Menu.php:175
 #, fuzzy
 msgid "Problem"
@@ -5772,81 +2467,6 @@ msgstr "문제 발생?"
 #: services/problem.php:112
 msgid "Problem Description"
 msgstr "문제 설명"
-
-#: config/registry.php.dist:216
-msgid "Projects"
-msgstr ""
-
-#: lib/Horde/Form.php:2095 lib/Horde/Form.php:2172
-msgid "Prompt text"
-msgstr ""
-
-#: lib/Horde/Crypt/pgp.php:409
-msgid "Public Key"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:669
-msgid "Public Key Algorithm"
-msgstr ""
-
-#: lib/Horde/Crypt/pgp.php:223
-msgid "Public/Private keypair not generated successfully."
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:191 lib/Horde/NLS/countries.php:183
-#: lib/Horde/NLS/GeoIP.php:101
-msgid "Puerto Rico"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:196 lib/Horde/NLS/countries.php:184
-#: lib/Horde/NLS/GeoIP.php:103
-msgid "Qatar"
-msgstr ""
-
-#: admin/sqlshell.php:70
-msgid "Query"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:687
-#, php-format
-msgid "RSA Public Key (%d bit)"
-msgstr ""
-
-#: lib/Horde/Form.php:2248
-msgid "Radio selection"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:353
-msgid "Rain"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:354
-msgid "Rain Early"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:355
-msgid "Rain Late"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:356
-msgid "Rain Shower"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:357
-msgid "Rain and Snow"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:358
-msgid "Rain to Snow"
-msgstr ""
-
-#: lib/Block/fortune.php:3
-msgid "Random Fortune"
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/rar.php:71 lib/Horde/MIME/Viewer/zip.php:76
-msgid "Ratio"
-msgstr ""
 
 #: lib/Horde/Perms.php:295 templates/shares/edit.inc:34
 #: templates/shares/edit.inc:68 templates/shares/edit.inc:91
@@ -5861,23 +2481,9 @@ msgstr "읽지 않은 메일"
 msgid "Read messages"
 msgstr "새 메일"
 
-#: templates/admin/user/remove.inc:12
-#, php-format
-msgid "Really delete %s? This operation cannot be undone."
-msgstr ""
-
-#: templates/admin/user/clear.inc:12
-#, php-format
-msgid "Really remove user data for user %s? This operation cannot be undone."
-msgstr ""
-
 #: templates/javascript/htmlarea_lang.js:34
 msgid "Redoes your last action"
 msgstr "마지막 명령 반복"
-
-#: config/prefs.php.dist:381
-msgid "Refresh Dynamic Menu Elements:"
-msgstr ""
 
 #: config/prefs.php.dist:331
 #, fuzzy
@@ -5889,27 +2495,10 @@ msgstr "메일함 새로 읽기:"
 msgid "Regex"
 msgstr "재설정"
 
-#: lib/Horde/Form.php:3234
-msgid "Relationship Browser"
-msgstr ""
-
-#: lib/Block/metar.php:324
-msgid "Remarks"
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:457
-#: lib/Horde/MIME/Viewer/icalendar.php:476
-msgid "Remember the free/busy information."
-msgstr ""
-
 #: config/prefs.php.dist:114
 #, fuzzy
 msgid "Remote Servers"
 msgstr "선택된 메일 삭제"
-
-#: templates/rpcsum/rpcsum.inc:84
-msgid "Remote URL (http://www.example.com/horde):"
-msgstr ""
 
 #: templates/admin/groups/edit.inc:21 templates/admin/user/approve.inc:40
 #: templates/admin/user/removequeued.inc:15
@@ -5927,30 +2516,14 @@ msgstr "선택된 메일 삭제"
 msgid "Remove column"
 msgstr "아래로 이동"
 
-#: templates/javascript/htmlarea_lang.js:40
-msgid "Remove formatting"
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:658
-msgid "Remove from my calendar"
-msgstr ""
-
 #: templates/data/csvmap.inc:136
 msgid "Remove pair"
 msgstr "페어(pair) 삭제"
-
-#: admin/setup/index.php:196
-msgid "Remove saved script from server's temporary directory."
-msgstr ""
 
 #: templates/javascript/htmlarea_context_lang.js:41
 #, fuzzy
 msgid "Remove the"
 msgstr "선택된 메일 삭제"
-
-#: templates/javascript/htmlarea_context_lang.js:49
-msgid "Remove this node from the document"
-msgstr ""
 
 #: templates/admin/user/remove.inc:16
 #, fuzzy
@@ -5969,28 +2542,10 @@ msgstr "페어(pair) 삭제"
 msgid "Reply Sent."
 msgstr "회신:"
 
-#: lib/Horde/MIME/Viewer/icalendar.php:459
-#: lib/Horde/MIME/Viewer/icalendar.php:468
-#: lib/Horde/MIME/Viewer/icalendar.php:478
-msgid "Reply with Not Supported Message"
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:466
-msgid "Reply with free/busy for next 2 months."
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:465
-msgid "Reply with requested free/busy information."
-msgstr ""
-
 #: lib/Horde/MIME/Viewer/icalendar.php:189
 #, fuzzy, php-format
 msgid "Reply: %s"
 msgstr "회신:"
-
-#: lib/Horde/RPC/xmlrpc.php:139
-msgid "Request couldn't be answered. Returned errorcode: "
-msgstr ""
 
 #: lib/Horde.php:180 lib/Horde.php:503
 #, fuzzy, php-format
@@ -6006,14 +2561,6 @@ msgstr "VFS 설정 정보에서 'port'이 없습니다."
 #, fuzzy, php-format
 msgid "Required '%s' not specified in configuration."
 msgstr "VFS 설정 정보에서 'port'이 없습니다."
-
-#: lib/Horde/Form/Renderer.php:329
-msgid "Required Field"
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:592
-msgid "Required Participant"
-msgstr ""
 
 #: admin/user.php:31 lib/Horde/Form.php:339 lib/Horde/Form/Renderer.php:316
 #: templates/rpcsum/rpcsum.inc:101 templates/admin/user/update.inc:44
@@ -6035,10 +2582,6 @@ msgstr "암호 확인"
 msgid "Results"
 msgstr "검색 결과"
 
-#: po/translation.php:821
-msgid "Results (including Horde):"
-msgstr ""
-
 #: po/translation.php:819
 #, fuzzy
 msgid "Results:"
@@ -6047,11 +2590,6 @@ msgstr "검색 결과"
 #: templates/rpcsum/rpcsum.inc:102 templates/prefs/end.inc:7
 msgid "Return to Options"
 msgstr "옵션으로 돌아가기"
-
-#: lib/Horde/NLS/tld.php:197 lib/Horde/NLS/countries.php:185
-#: lib/Horde/NLS/GeoIP.php:103
-msgid "Reunion"
-msgstr ""
 
 #: admin/setup/config.php:44 admin/setup/config.php:48
 #, fuzzy
@@ -6063,22 +2601,10 @@ msgstr "메일 서버 정보사항"
 msgid "Rich Text Editor Options"
 msgstr "옵션으로 돌아가기"
 
-#: lib/Block/fortune.php:58
-msgid "Riddles"
-msgstr ""
-
 #: templates/javascript/htmlarea_table_lang.js:48
 #: templates/javascript/htmlarea_lang.js:70
 msgid "Right"
 msgstr "오른쪽"
-
-#: lib/Horde/Form.php:3106
-msgid "Right header"
-msgstr ""
-
-#: lib/Horde/Form.php:3102
-msgid "Right values"
-msgstr ""
 
 #: templates/javascript/htmlarea_context_lang.js:28
 msgid "Ro_w Properties..."
@@ -6087,23 +2613,6 @@ msgstr "_w행 속성..."
 #: lib/Horde/MIME/Viewer/vcard.php:237 lib/Horde/MIME/Viewer/icalendar.php:583
 msgid "Role"
 msgstr "역할"
-
-#: lib/Horde/NLS/tld.php:198 lib/Horde/NLS/countries.php:186
-#: lib/Horde/NLS/GeoIP.php:103
-msgid "Romania"
-msgstr ""
-
-#: lib/Horde/UI/VarRenderer/html.php:208
-msgid "Rotate 180"
-msgstr ""
-
-#: lib/Horde/UI/VarRenderer/html.php:205
-msgid "Rotate Left"
-msgstr ""
-
-#: lib/Horde/UI/VarRenderer/html.php:211
-msgid "Rotate Right"
-msgstr ""
 
 #: templates/javascript/htmlarea_table_lang.js:49
 msgid "Row Properties"
@@ -6122,127 +2631,24 @@ msgstr "행:"
 msgid "Rules"
 msgstr "역할"
 
-#: templates/javascript/htmlarea_table_lang.js:50
-msgid "Rules will appear between all rows and columns"
-msgstr ""
-
-#: templates/javascript/htmlarea_table_lang.js:51
-msgid "Rules will appear between columns only"
-msgstr ""
-
-#: templates/javascript/htmlarea_table_lang.js:52
-msgid "Rules will appear between rows only"
-msgstr ""
-
-#: admin/sqlshell.php:129
-msgid "Run"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:199 lib/Horde/NLS/countries.php:187
-#: lib/Horde/NLS/GeoIP.php:104
-msgid "Russian Federation"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:200 lib/Horde/NLS/countries.php:188
-#: lib/Horde/NLS/GeoIP.php:104
-msgid "Rwanda"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:300
-msgid "S/MIME Cryptographic Signature"
-msgstr ""
-
 #: lib/Horde/Crypt/smime.php:341
 #, fuzzy
 msgid "S/MIME Encrypted Message"
 msgstr "메시지 전송"
-
-#: lib/Horde/Auth/sasl.php:86
-msgid "SASL authentication is not available."
-msgstr ""
 
 #: config/registry.php.dist:481
 #, fuzzy
 msgid "SMS Messaging"
 msgstr "메시지 보기"
 
-#: admin/sqlshell.php:21
-msgid "SQL Shell"
-msgstr ""
-
-#: lib/Horde/UI/VarRenderer/html.php:358
-msgid "SS"
-msgstr ""
-
-#: config/registry.php.dist:375
-msgid "SSH"
-msgstr ""
-
-#: lib/Horde/Notification/Listener/mobile.php:38
-msgid "SUCCESS"
-msgstr ""
-
-#: lib/api.php:130
-msgid "S_QL Shell"
-msgstr ""
-
 #: templates/javascript/open_calendar.js:61
 #, fuzzy
 msgid "Sa"
 msgstr "저장"
 
-#: lib/Horde/NLS/tld.php:207 lib/Horde/NLS/countries.php:189
-#: lib/Horde/NLS/GeoIP.php:105
-msgid "Saint Helena"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:131 lib/Horde/NLS/countries.php:190
-#: lib/Horde/NLS/GeoIP.php:85
-msgid "Saint Kitts and Nevis"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:139 lib/Horde/NLS/countries.php:191
-#: lib/Horde/NLS/GeoIP.php:88
-msgid "Saint Lucia"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:189 lib/Horde/NLS/countries.php:192
-#: lib/Horde/NLS/GeoIP.php:101
-msgid "Saint Pierre and Miquelon"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:244 lib/Horde/NLS/countries.php:193
-#: lib/Horde/NLS/GeoIP.php:116
-msgid "Saint Vincent and the Grenadines"
-msgstr ""
-
 #: templates/javascript/htmlarea_lang.js:92
 msgid "Same frame (_self)"
 msgstr "같은 프레임(_self)"
-
-#: lib/Horde/NLS/tld.php:251 lib/Horde/NLS/countries.php:194
-#: lib/Horde/NLS/GeoIP.php:118
-msgid "Samoa"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:212 lib/Horde/NLS/countries.php:195
-#: lib/Horde/NLS/GeoIP.php:107
-msgid "San Marino"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:216 lib/Horde/NLS/countries.php:196
-#: lib/Horde/NLS/GeoIP.php:108
-msgid "Sao Tome and Principe"
-msgstr ""
-
-#: lib/Horde/NLS/GeoIP.php:120
-msgid "Satellite Provider"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:201 lib/Horde/NLS/countries.php:197
-#: lib/Horde/NLS/GeoIP.php:104
-msgid "Saudi Arabia"
-msgstr ""
 
 #: templates/portal/layout.inc:98
 msgid "Save"
@@ -6262,26 +2668,6 @@ msgstr "다른이름으로 저장"
 msgid "Save Options"
 msgstr "선택사항 저장"
 
-#: admin/setup/index.php:161
-msgid ""
-"Save generated configuration as a PHP script to your server's temporary "
-"directory."
-msgstr ""
-
-#: admin/setup/scripts.php:69
-#, php-format
-msgid "Saved %s configuration."
-msgstr ""
-
-#: admin/setup/scripts.php:90
-#, php-format
-msgid "Saved setup upgrade script to: '%s'."
-msgstr ""
-
-#: lib/Block/fortune.php:59
-msgid "Science"
-msgstr ""
-
 #: templates/admin/user/list.inc:15 templates/admin/user/list.inc:17
 msgid "Search"
 msgstr "검색"
@@ -6290,15 +2676,6 @@ msgstr "검색"
 #, fuzzy
 msgid "Search Engines"
 msgstr "검색 결과"
-
-#: po/translation.php:1429
-#, php-format
-msgid "Searching Horde applications in %s"
-msgstr ""
-
-#: po/translation.php:123
-msgid "Searching gettext binaries..."
-msgstr ""
 
 #: lib/Horde/Form.php:2958
 #, fuzzy
@@ -6309,10 +2686,6 @@ msgstr "모두 선택"
 #, fuzzy
 msgid "Select a date"
 msgstr "식별자 선택"
-
-#: templates/shares/edit.inc:198
-msgid "Select a group to add"
-msgstr ""
 
 #: templates/shares/edit.inc:43
 #, fuzzy
@@ -6371,10 +2744,6 @@ msgstr "시간 형식 선택"
 msgid "Select two matching fields."
 msgstr "두개의 일치하는 항목 선택"
 
-#: config/prefs.php.dist:296
-msgid "Select your color scheme."
-msgstr ""
-
 #: config/prefs.php.dist:238
 msgid "Select your preferred language:"
 msgstr "자주사용하는 언어를 선택하세요."
@@ -6393,44 +2762,15 @@ msgstr "문제발생 보고서 전송하기"
 msgid "Send SMS"
 msgstr "메시지 전송"
 
-#: lib/Horde/NLS/tld.php:213 lib/Horde/NLS/countries.php:198
-#: lib/Horde/NLS/GeoIP.php:107
-msgid "Senegal"
-msgstr ""
-
-#: lib/Block/metar.php:314
-msgid "Sensor: "
-msgstr ""
-
 #: lib/Horde/UI/VarRenderer/html.php:382 lib/Horde/UI/VarRenderer/html.php:419
 #: templates/javascript/open_calendar.js:73
 msgid "September"
 msgstr "9월"
 
-#: lib/Horde/NLS/countries.php:199
-msgid "Serbia and Montenegro"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:725
-msgid "Serial Number"
-msgstr ""
-
-#: lib/Net/SMS/clickatell_http.php:301
-msgid "Session ID expired."
-msgstr ""
-
 #: lib/Horde/Form.php:2296
 #, fuzzy
 msgid "Set"
 msgstr "메시지 선택"
-
-#: config/prefs.php.dist:76
-msgid "Set options to allow you to reset your password if you ever forget it."
-msgstr ""
-
-#: config/prefs.php.dist:115
-msgid "Set up remote servers that you want to access from your portal."
-msgstr ""
 
 #: config/prefs.php.dist:84
 #, fuzzy
@@ -6444,70 +2784,15 @@ msgid ""
 "display options."
 msgstr "페이지 갱신주기 및 기타 화면 설정을 하세요."
 
-#: admin/setup/config.php:74
-msgid "Setup"
-msgstr ""
-
-#: templates/admin/setup/index.html:38
-msgid "Setup upgrade scripts available"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:149
-msgid "Several locations possible with the parameter: "
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:203 lib/Horde/NLS/countries.php:200
-#: lib/Horde/NLS/GeoIP.php:105
-msgid "Seychelles"
-msgstr ""
-
-#: config/registry.php.dist:473
-msgid "Shopping"
-msgstr ""
-
 #: templates/problem/problem.inc:43
 #, fuzzy
 msgid "Short Summary"
 msgstr "간단한 요약:"
 
-#: config/prefs.php.dist:436
-msgid "Should access keys be defined for most links?"
-msgstr ""
-
-#: lib/Horde/Perms.php:294 templates/shares/edit.inc:33
-#: templates/shares/edit.inc:67 templates/shares/edit.inc:90
-#: templates/shares/edit.inc:113 templates/shares/edit.inc:136
-#: templates/shares/edit.inc:179
-msgid "Show"
-msgstr ""
-
-#: admin/setup/index.php:149
-msgid ""
-"Show differences between currently saved and the newly generated "
-"configuration."
-msgstr ""
-
 #: config/prefs.php.dist:480
 #, fuzzy
 msgid "Show last login time when logging in?"
 msgstr "로그인시 최종 로그인 시간 보여주기"
-
-#: lib/Horde/Form.php:1753
-msgid "Show option to keep original"
-msgstr ""
-
-#: lib/Horde/Form.php:2802
-msgid "Show picker"
-msgstr ""
-
-#: config/prefs.php.dist:515
-msgid "Show table operations menu bar?"
-msgstr ""
-
-#: config/prefs.php.dist:339
-#, php-format
-msgid "Show the %s Menu on the left?"
-msgstr ""
 
 #: templates/javascript/htmlarea_context_lang.js:58
 msgid "Show the Table Cell Properties dialog"
@@ -6530,59 +2815,10 @@ msgstr "그림 속성창 보기"
 msgid "Show upload"
 msgstr "내려받기"
 
-#: lib/Block/weatherdotcom.php:359
-msgid "Showers"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:360
-msgid "Showers Early"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:361
-msgid "Showers Late"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:362
-msgid "Showers in the Vicinity"
-msgstr ""
-
-#: lib/Horde/Block/Layout.php:391
-msgid "Shrink"
-msgstr ""
-
-#: lib/Horde/Block/Layout.php:684 lib/Horde/Block/Layout.php:746
-#: lib/Horde/Block/Layout.php:804 lib/Horde/Block/Layout.php:866
-#: lib/Horde/Block/Layout.php:901 lib/Horde/Block/Layout.php:938
-#: lib/Horde/Block/Layout.php:966 lib/Horde/Block/Layout.php:996
-msgid "Shrink or move neighbouring block(s) out of the way first"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:211 lib/Horde/NLS/countries.php:201
-#: lib/Horde/NLS/GeoIP.php:106
-msgid "Sierra Leone"
-msgstr ""
-
-#: lib/Horde/Auth/Signup.php:278
-msgid "Sign up"
-msgstr ""
-
-#: templates/login/login.inc:89
-msgid "Sign up if not registered"
-msgstr ""
-
 #: lib/Horde/Crypt/smime.php:736
 #, fuzzy
 msgid "Signature"
 msgstr "서명:"
-
-#: lib/Horde/Crypt/smime.php:735
-msgid "Signature Algorithm"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:206 lib/Horde/NLS/countries.php:202
-#: lib/Horde/NLS/GeoIP.php:105
-msgid "Singapore"
-msgstr ""
 
 #: lib/Horde/Form.php:891 lib/Horde/Form.php:1207 lib/Horde/Form.php:1229
 #: lib/Horde/Form.php:2230 lib/Horde/Form.php:2919 lib/Horde/Form.php:3108
@@ -6595,63 +2831,6 @@ msgstr "크기"
 msgid "Skip Maintenance"
 msgstr "유지관리 생략"
 
-#: po/translation.php:431 po/translation.php:484 po/translation.php:666
-#: po/translation.php:860 po/translation.php:1204
-msgid "Skipped..."
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:210 lib/Horde/NLS/countries.php:203
-#: lib/Horde/NLS/GeoIP.php:106
-msgid "Slovakia"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:208 lib/Horde/NLS/countries.php:204
-#: lib/Horde/NLS/GeoIP.php:106
-msgid "Slovenia"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:363
-msgid "Snow"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:364
-msgid "Snow Shower"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:365
-msgid "Snow Showers"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:366
-msgid "Snow Showers Early"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:367
-msgid "Snow Showers Late"
-msgstr ""
-
-#: lib/Block/metar.php:276
-msgid "Snow depth: "
-msgstr ""
-
-#: lib/Block/metar.php:280
-msgid "Snow equivalent in water: "
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:202 lib/Horde/NLS/countries.php:205
-#: lib/Horde/NLS/GeoIP.php:104
-msgid "Solomon Islands"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:214 lib/Horde/NLS/countries.php:206
-#: lib/Horde/NLS/GeoIP.php:107
-msgid "Somalia"
-msgstr ""
-
-#: lib/Block/fortune.php:60
-msgid "Songs & Poems"
-msgstr ""
-
 #: lib/Horde/Form.php:2915
 #, fuzzy
 msgid "Sort order selection"
@@ -6662,24 +2841,6 @@ msgstr "정렬 방법"
 #, fuzzy
 msgid "Source address"
 msgstr "직장 주소"
-
-#: lib/Horde/NLS/tld.php:255 lib/Horde/NLS/countries.php:207
-#: lib/Horde/NLS/GeoIP.php:119
-msgid "South Africa"
-msgstr ""
-
-#: config/nls.php.dist:186
-msgid "South European (ISO-8859-3)"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:101 lib/Horde/NLS/countries.php:208
-#: lib/Horde/NLS/GeoIP.php:78
-msgid "South Georgia and the South Sandwich Islands"
-msgstr ""
-
-#: lib/Block/moon.php:33 lib/Block/moon.php:62
-msgid "Southern Hemisphere"
-msgstr ""
 
 #: templates/javascript/htmlarea_lang.js:113
 msgid "Space between adjacent cells"
@@ -6703,15 +2864,6 @@ msgstr "거리"
 msgid "Spacing and padding"
 msgstr "거리와 채우기"
 
-#: lib/Horde/NLS/tld.php:80 lib/Horde/NLS/countries.php:209
-#: lib/Horde/NLS/GeoIP.php:72
-msgid "Spain"
-msgstr ""
-
-#: config/registry.php.dist:95
-msgid "Spam"
-msgstr ""
-
 #: services/keyboard.php:14
 msgid "Special Character Input"
 msgstr "특수 문자 입력"
@@ -6733,41 +2885,10 @@ msgstr "행 분할"
 msgid "Sports"
 msgstr "읽어오기(임포트)"
 
-#: lib/Horde/NLS/tld.php:141 lib/Horde/NLS/countries.php:210
-#: lib/Horde/NLS/GeoIP.php:89
-msgid "Sri Lanka"
-msgstr ""
-
 #: lib/Block/weatherdotcom.php:68 lib/Block/metar.php:72
 #, fuzzy
 msgid "Standard"
 msgstr "달력"
-
-#: lib/Block/fortune.php:62
-msgid "Star Trek"
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:443
-#: lib/Horde/MIME/Viewer/icalendar.php:548
-msgid "Start"
-msgstr ""
-
-#: lib/Horde/Form.php:2589 lib/Horde/Form.php:2798
-msgid "Start year"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:594
-msgid "State or Province"
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:583 templates/admin/setup/index.html:12
-msgid "Status"
-msgstr ""
-
-#: po/translation.php:491
-#, php-format
-msgid "Status for locale %s... "
-msgstr ""
 
 #: lib/Horde/Form.php:2804
 #, fuzzy
@@ -6783,21 +2904,9 @@ msgstr "직장 주소"
 msgid "Strikethrough"
 msgstr "가운데줄"
 
-#: lib/Horde/Form.php:1225
-msgid "String list"
-msgstr ""
-
-#: lib/Horde/Form.php:1857
-msgid "Strip domain from the address"
-msgstr ""
-
 #: templates/javascript/htmlarea_table_lang.js:23
 msgid "Style [CSS]"
 msgstr "스타일[CSS]"
-
-#: templates/javascript/open_calendar.js:62
-msgid "Su"
-msgstr ""
 
 #: util/icon_browser.php:37
 #, fuzzy, php-format
@@ -6808,20 +2917,9 @@ msgstr "통지 리스너 %s을(를) 찾을 수 없습니다."
 msgid "Subject"
 msgstr "제목"
 
-#: lib/Horde/Crypt/smime.php:668
-msgid "Subject Public Key Info"
-msgstr ""
-
 #: lib/Horde/Form.php:332 lib/Horde/Form/Renderer.php:313
 msgid "Submit"
 msgstr "제출"
-
-#: signup.php:50
-#, php-format
-msgid ""
-"Submitted request to add '%s' to the system. You can not log in until your "
-"request has been approved."
-msgstr ""
 
 #: templates/javascript/htmlarea_lang.js:12
 msgid "Subscript"
@@ -6851,19 +2949,6 @@ msgstr "'%s'가 시스템에 추가되었습니다."
 msgid "Successfully removed '%s' from the system."
 msgstr "'%s'가 시스템에서 삭제되었습니다."
 
-#: admin/setup/config.php:51
-msgid "Successfully reverted configuration. Reload to see changes."
-msgstr ""
-
-#: admin/setup/index.php:59 admin/setup/scripts.php:55
-msgid "Successfully saved backup configuration."
-msgstr ""
-
-#: admin/setup/config.php:62
-#, php-format
-msgid "Successfully saved the backup configuration file %s."
-msgstr ""
-
 #: admin/user.php:168
 #, fuzzy, php-format
 msgid "Successfully updated '%s'"
@@ -6874,40 +2959,11 @@ msgstr "'%s'가 시스템에 추가되었습니다."
 msgid "Successfully wrote %s"
 msgstr "'%s'가 시스템에 추가되었습니다."
 
-#: lib/Horde/NLS/tld.php:204 lib/Horde/NLS/countries.php:211
-#: lib/Horde/NLS/GeoIP.php:105
-msgid "Sudan"
-msgstr ""
-
 #: lib/Horde/MIME/Viewer/icalendar.php:558
 #: lib/Horde/MIME/Viewer/icalendar.php:560
 #: templates/javascript/htmlarea_table_lang.js:56
 msgid "Summary"
 msgstr "요약"
-
-#: lib/Block/sunrise.php:66
-msgid "Sun Rise"
-msgstr ""
-
-#: lib/Block/sunrise.php:71
-msgid "Sun Set"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:368
-msgid "Sunny"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:179
-msgid "Sunrise"
-msgstr ""
-
-#: lib/Block/sunrise.php:3 lib/Block/sunrise.php:16
-msgid "Sunrise/Sunset"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:178
-msgid "Sunrise: "
-msgstr ""
 
 #: lib/Block/weatherdotcom.php:182
 #, fuzzy
@@ -6939,43 +2995,11 @@ msgstr "이름"
 msgid "Surname"
 msgstr "이름"
 
-#: lib/Horde/NLS/tld.php:209 lib/Horde/NLS/countries.php:213
-#: lib/Horde/NLS/GeoIP.php:106
-msgid "Svalbard and Jan Mayen"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:219 lib/Horde/NLS/countries.php:214
-#: lib/Horde/NLS/GeoIP.php:109
-msgid "Swaziland"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:205 lib/Horde/NLS/countries.php:215
 #: lib/Horde/NLS/GeoIP.php:105
 #, fuzzy
 msgid "Sweden"
 msgstr "읽은 메일"
-
-#: lib/Horde/NLS/tld.php:56 lib/Horde/NLS/countries.php:216
-#: lib/Horde/NLS/GeoIP.php:67
-msgid "Switzerland"
-msgstr ""
-
-#: lib/Horde/SQL/Keywords.php:98
-msgid "Syntax error in search terms"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:218 lib/Horde/NLS/countries.php:217
-#: lib/Horde/NLS/GeoIP.php:108
-msgid "Syrian Arab Republic"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:369
-msgid "T-Storm"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:370
-msgid "T-Storms"
-msgstr ""
 
 #: lib/Horde/Data/tsv.php:171
 #, fuzzy
@@ -6995,65 +3019,14 @@ msgstr "표 속성"
 msgid "Table properties"
 msgstr "표 속성"
 
-#: lib/Horde/NLS/tld.php:234 lib/Horde/NLS/GeoIP.php:112
-msgid "Taiwan"
-msgstr ""
-
-#: lib/Horde/NLS/countries.php:218
-msgid "Taiwan, Province of China"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:225 lib/Horde/NLS/countries.php:219
-#: lib/Horde/NLS/GeoIP.php:110
-msgid "Tajikistan"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:235 lib/Horde/NLS/countries.php:220
-#: lib/Horde/NLS/GeoIP.php:113
-msgid "Tanzania, United Republic of"
-msgstr ""
-
-#: templates/javascript/htmlarea_lang.js:95
-msgid "Target:"
-msgstr ""
-
 #: config/registry.php.dist:168
 msgid "Tasks"
 msgstr "작업"
-
-#: lib/Horde/Crypt/smime.php:597
-msgid "Telephone Number"
-msgstr ""
-
-#: lib/Block/metar.php:288
-msgid "Temp for last hour: "
-msgstr ""
-
-#: lib/Block/metar.php:212
-msgid "Temperature"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:186
-msgid "Temperature: "
-msgstr ""
-
-#: lib/Horde/Template.php:211
-#, php-format
-msgid "Template '%s' not found."
-msgstr ""
 
 #: admin/templates.php:169
 #, fuzzy
 msgid "Template Administration"
 msgstr "관리"
-
-#: lib/Horde/MIME/Viewer/icalendar.php:641
-msgid "Tentatively Accept request"
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:689
-msgid "Tentatively Accepted"
-msgstr ""
 
 #: lib/Horde/Form.php:1203
 msgid "Text"
@@ -7072,104 +3045,14 @@ msgstr "문자 정렬"
 msgid "Texttop"
 msgstr "문자열"
 
-#: templates/javascript/open_calendar.js:59
-msgid "Th"
-msgstr ""
-
-#: config/nls.php.dist:187
-msgid "Thai (TIS-620)"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:224 lib/Horde/NLS/countries.php:221
-#: lib/Horde/NLS/GeoIP.php:110
-msgid "Thailand"
-msgstr ""
-
 #: lib/Horde/Auth.php:944
 msgid "Thank you for using the system."
 msgstr "사용해주셔서 감사합니다."
-
-#: po/translation.php:1057
-#, php-format
-msgid "The %s help file for %s doesn't yet exist. Creating a new one."
-msgstr ""
-
-#: lib/VFS/ftp.php:769
-msgid "The FTP extension is not available."
-msgstr ""
-
-#: lib/Horde/Kolab.php:924
-#, php-format
-msgid "The Horde/Kolab integration engine does not support \"%s\""
-msgstr ""
-
-#: services/maintenance.php:29
-msgid "The Maintenance:: class did not load successfully"
-msgstr ""
-
-#: services/images/colorpicker.php:29
-msgid "The Options window has closed. Exiting."
-msgstr ""
-
-#: lib/Horde/Perms.php:160 lib/Horde/Perms.php:171 lib/Horde/Perms.php:182
-#: lib/Horde/Perms.php:194 lib/Horde/Perms.php:205 lib/Horde/Perms.php:223
-#: lib/Horde/Perms.php:235 lib/Horde/Perms.php:274
-msgid ""
-"The administrator needs to configure a permanent Permissions backend if you "
-"want to use Permissions."
-msgstr ""
-
-#: templates/javascript/htmlarea_table_lang.js:75
-msgid "The bottom side only"
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:49
-msgid "The calendar data is invalid"
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:664
-msgid ""
-"The contact ID number was not specified, left blank or was not found in the "
-"database."
-msgstr ""
 
 #: lib/Horde/MIME/Viewer/vcard.php:54
 #, fuzzy
 msgid "The contact was successfully added to your address book."
 msgstr "항목 \"%s\"가 주소록에 추가되었습니다."
-
-#: lib/Horde/Crypt/pgp.php:1171
-msgid ""
-"The detached PGP signature block is required to verify the signed message."
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:666
-msgid ""
-"The distribution list ID was either not specified, left blank or not found "
-"in the database."
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:667
-msgid "The distribution list was not specified."
-msgstr ""
-
-#: lib/Horde/Crypt.php:127
-msgid "The encryption features require a secure web connection."
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:78
-msgid "The event has been added to your calendar."
-msgstr ""
-
-#: lib/Horde.php:181 lib/Horde.php:504
-#, php-format
-msgid "The file %s should contain a %s setting."
-msgstr ""
-
-#: lib/Horde.php:174 lib/Horde.php:494
-#, php-format
-msgid "The file %s should contain some %s settings."
-msgstr ""
 
 #: lib/VFS/file.php:164
 #, fuzzy
@@ -7184,56 +3067,10 @@ msgstr "파일에 아무런 자료가 없습니다."
 msgid "The following are the headers for this message/rfc822 message."
 msgstr "아래는 이 message/rfc822 편지의 머릿말입니다."
 
-#: templates/javascript/htmlarea_lang.js:56
-msgid ""
-"The full screen mode is known to cause problems with Internet Explorer, due "
-"to browser bugs that we weren't able to workaround.  You might experience "
-"garbage display, lack of editor functions and/or random browser crashes.  If "
-"your system is Windows 9x it's very likely that you'll get a 'General "
-"Protection Fault' and need to reboot.\\n\\nYou have been warned.  Please "
-"press OK if you still want to try the full screen editor."
-msgstr ""
-
-#: po/translation.php:1085 po/translation.php:1216
-#, php-format
-msgid "The help file %s didn't start with <?xml"
-msgstr ""
-
 #: services/prefs.php:88
 #, php-format
 msgid "The identity \"%s\" has been deleted."
 msgstr "식별자 \"%s\" 가 삭제되었습니다."
-
-#: templates/javascript/htmlarea_table_lang.js:76
-msgid "The left-hand side only"
-msgstr ""
-
-#: lib/Horde/Crypt/pgp.php:136
-msgid ""
-"The location of the GnuPG binary must be given to the Crypt_pgp:: class."
-msgstr ""
-
-#: lib/Horde/MIME/MDN.php:214
-#, php-format
-msgid ""
-"The message sent on %s to %s with subject \"%s\" has been displayed.\n"
-"This is no guarantee that the message has been read or understood."
-msgstr ""
-
-#: lib/Horde/Form.php:1861
-msgid "The name to use when linking to the compose page"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:1259
-msgid "The openssl module is required for the Horde_Crypt_smime:: class."
-msgstr ""
-
-#: lib/Horde/Prefs.php:291
-#, php-format
-msgid ""
-"The preference \"%s\" could not be saved because its data exceeded the "
-"maximum allowable size"
-msgstr ""
 
 #: lib/Horde/MIME/Viewer/deb.php:35 lib/Horde/MIME/Viewer/enscript.php:37
 #: lib/Horde/MIME/Viewer/mspowerpoint.php:35
@@ -7245,14 +3082,6 @@ msgstr ""
 msgid ""
 "The program used to view this data type (%s) was not found on the system."
 msgstr "이 메시지 형태(%s)를 보기 위한 프로그램을 찾을 수 없습니다."
-
-#: templates/javascript/htmlarea_table_lang.js:77
-msgid "The right and left sides only"
-msgstr ""
-
-#: templates/javascript/htmlarea_table_lang.js:78
-msgid "The right-hand side only"
-msgstr ""
 
 #: services/portal/rpcsum.php:78
 #, fuzzy, php-format
@@ -7269,31 +3098,6 @@ msgstr "식별자 \"%s\" 가 저장되었습니다."
 msgid "The signup request for %s has been removed."
 msgstr "식별자 \"%s\" 가 저장되었습니다."
 
-#: lib/Horde/Block/Layout.php:284
-msgid "The specified row does not exist."
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:108
-msgid "The task has been added to your tasklist."
-msgstr ""
-
-#: lib/VFS/sql.php:111
-#, php-format
-msgid "The temporary file \"%s\" does not exist."
-msgstr ""
-
-#: templates/javascript/htmlarea_table_lang.js:79
-msgid "The top and bottom sides only"
-msgstr ""
-
-#: templates/javascript/htmlarea_table_lang.js:80
-msgid "The top side only"
-msgstr ""
-
-#: lib/Horde/Data.php:311
-msgid "The uploaded data was lost since the previous step."
-msgstr ""
-
 #: lib/Horde/Data/csv.php:250 lib/Horde/Data/tsv.php:177
 #, fuzzy
 msgid "The uploaded file could not be saved."
@@ -7304,35 +3108,9 @@ msgstr "서명을 변경할 수 없습니다."
 msgid "The user's free/busy information was sucessfully stored."
 msgstr "서명이 변경되었습니다."
 
-#: lib/Block/weatherdotcom.php:42 lib/Block/weatherdotcom.php:52
-#: lib/Block/weatherdotcom.php:103 lib/Block/weatherdotcom.php:107
-msgid "The weather.com block is not available."
-msgstr ""
-
-#: util/icon_browser.php:25
-#, php-format
-msgid "Themes directory '%s' not found."
-msgstr ""
-
 #: lib/Horde/Prefs/UI.php:182
 msgid "There are no options available."
 msgstr "이용가능한 선택사항이 없습니다."
-
-#: lib/Horde/MIME/Contents.php:340
-msgid "There are no parts that can be displayed inline."
-msgstr ""
-
-#: lib/Horde/Form.php:1398
-#, php-format
-msgid ""
-"There are too many characters in this field. You have entered %s characters; "
-"you must enter less than %s."
-msgstr ""
-
-#: po/translation.php:1048
-#, php-format
-msgid "There doesn't yet exist a help file for %s."
-msgstr ""
 
 #: signup.php:55
 #, fuzzy, php-format
@@ -7408,26 +3186,6 @@ msgstr "데이타 임포트 오류"
 msgid "There was an error importing user's free/busy information: %s."
 msgstr "데이타 임포트 오류"
 
-#: admin/setup/config.php:79
-msgid ""
-"There was an error in the configuration form. Perhaps you left out a "
-"required field."
-msgstr ""
-
-#: po/translation.php:1095 po/translation.php:1101 po/translation.php:1226
-#: po/translation.php:1232
-#, php-format
-msgid ""
-"There was an error opening the file %s. Try running translation.php with the "
-"flag -d to see any error messages from the xml parser."
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:663
-msgid ""
-"There was an error performing the specified address book function. Please "
-"try again later."
-msgstr ""
-
 #: lib/Net/SMS/sms2email_http.php:665
 #, fuzzy
 msgid ""
@@ -7440,155 +3198,33 @@ msgid ""
 "There was an error updating the distribution list. Please try again later."
 msgstr "요청된 메시지 읽기 오류"
 
-#: lib/Horde/IMAP/ACL/rfc2086.php:153
-msgid "This IMAP server does not support sharing folders."
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:82
-#: lib/Horde/MIME/Viewer/icalendar.php:96
-#: lib/Horde/MIME/Viewer/icalendar.php:112
-#: lib/Horde/MIME/Viewer/icalendar.php:200
-msgid "This action is not supported."
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:118
-#: lib/Horde/MIME/Viewer/icalendar.php:359
-msgid "This action is not yet implemented."
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/rar.php:51
-msgid "This does not appear to be a valid rar archive."
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/zip.php:55
-msgid "This does not appear to be a valid zip file."
-msgstr ""
-
 #: lib/Horde/Form.php:3130
 #, fuzzy
 msgid "This does not seem to be a valid card number."
 msgstr "이 값은 숫자여야 합니다."
-
-#: lib/Net/SMS/clickatell_http.php:187
-msgid ""
-"This driver allows sending of messages through the Clickatell (http://"
-"clickatell.com) gateway, using the HTTP API"
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:534
-msgid ""
-"This driver allows sending of messages through the sms2email (http://"
-"sms2email.com) gateway, using the HTTP API"
-msgstr ""
-
-#: lib/Net/SMS/vodafoneitaly_smtp.php:82
-msgid ""
-"This driver allows sending of messages via SMTP through the Vodafone Italy "
-"gateway, only to Vodafone numbers. It requires an email account with "
-"Vodafone Italy (http://www.190.it)."
-msgstr ""
-
-#: lib/Horde/Form.php:973 lib/Horde/Form.php:1052 lib/Horde/Form.php:1081
-#: lib/Horde/Form.php:1110 lib/Horde/Form.php:1174 lib/Horde/Form.php:1248
-#: lib/Horde/Form.php:1282 lib/Horde/Form.php:1395 lib/Horde/Form.php:1547
-#: lib/Horde/Form.php:1827 lib/Horde/Form.php:1942 lib/Horde/Form.php:1989
-#: lib/Horde/Form.php:2013 lib/Horde/Form.php:2062 lib/Horde/Form.php:2133
-#: lib/Horde/Form.php:2205 lib/Horde/Form.php:2393 lib/Horde/Form.php:2437
-#: lib/Horde/Form.php:2649 lib/Horde/Form.php:2817 lib/Horde/Form.php:3122
-#: lib/Horde/Form.php:3692 lib/Horde/Form.php:3700
-msgid "This field is required."
-msgstr ""
-
-#: lib/Horde/Form.php:1060
-msgid "This field may only contain integers."
-msgstr ""
-
-#: lib/Horde/Form.php:2401
-msgid "This field may only contain numbers and the colon."
-msgstr ""
-
-#: lib/Horde/Form.php:1089
-msgid "This field may only contain octal values."
-msgstr ""
-
-#: lib/Horde/Form.php:1118
-msgid "This field must be a comma or space separated list of integers"
-msgstr ""
 
 #: lib/Horde/Form.php:984
 #, fuzzy
 msgid "This field must be a valid number."
 msgstr "이 값은 숫자여야 합니다."
 
-#: lib/Horde/Form.php:2825
-msgid ""
-"This field must contain a color code in the RGB Hex format, for example "
-"'#1234af'."
-msgstr ""
-
 #: lib/Horde/Form.php:561
 #, fuzzy
 msgid "This form has already been processed."
 msgstr "이미 주소록에 등록되어 있습니다."
 
-#: templates/help/about.inc:1
-#, php-format
-msgid "This is %s."
-msgstr ""
-
-#: lib/Horde/Kolab.php:437
-#, php-format
-msgid ""
-"This is a Kolab Groupware object. To view this object you will need an email "
-"client that understands the Kolab Groupware format. For a list of such email "
-"clients please visit %s"
-msgstr ""
-
-#: lib/Horde/MIME/Contents.php:607
-#, php-format
-msgid "This message was written in a character set (%s) other than your own."
-msgstr ""
-
 #: lib/Horde/Prefs/UI.php:128
 msgid "This number must be at least one."
 msgstr "이 숫자는 최소한 1자리 이상이어야 합니다."
-
-#: po/translation.php:1285
-msgid "This script must be run from the command line."
-msgstr ""
-
-#: lib/Horde/Compress/gzip.php:48
-msgid "This server can't uncompress zip and gzip files."
-msgstr ""
-
-#: lib/Horde/Registry.php:147
-msgid "This system is currently deactivated."
-msgstr ""
 
 #: lib/Horde/Prefs/UI.php:126
 msgid "This value must be a number."
 msgstr "이 값은 숫자여야 합니다."
 
-#: services/images/colorpicker.php:35
-msgid "This window must be called from an Options window"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:371
-msgid "Thunder"
-msgstr ""
-
-#: config/registry.php.dist:225
-msgid "Tickets"
-msgstr ""
-
 #: lib/Horde/Form.php:2411
 #, fuzzy
 msgid "Time"
 msgstr "제목"
-
-#: config/registry.php.dist:311
-msgid "Time Tracking"
-msgstr ""
 
 #: lib/Block/time.php:17
 #, fuzzy
@@ -7599,11 +3235,6 @@ msgstr "시간 설정"
 #, fuzzy
 msgid "Time selection"
 msgstr "시간 설정"
-
-#: lib/Horde/NLS/tld.php:230 lib/Horde/NLS/countries.php:222
-#: lib/Horde/NLS/GeoIP.php:111
-msgid "Timor-Leste"
-msgstr ""
 
 #: lib/Horde/MIME/Viewer/vcard.php:232 lib/Block/iframe.php:20
 msgid "Title"
@@ -7616,12 +3247,6 @@ msgstr "타이틀(툴팁):"
 #: lib/Horde/MIME/Viewer/rfc822.php:80
 msgid "To"
 msgstr "받는 사람"
-
-#: lib/Horde/UI/VarRenderer/html.php:629
-msgid ""
-"To select multiple items, hold down the Control (PC) or Command (Mac) key "
-"while clicking."
-msgstr ""
 
 #: lib/Block/weatherdotcom.php:251
 #, fuzzy
@@ -7638,20 +3263,6 @@ msgstr "HTML 소스 보기"
 msgid "Togo"
 msgstr "받는 사람"
 
-#: lib/Horde/NLS/tld.php:226 lib/Horde/NLS/countries.php:224
-#: lib/Horde/NLS/GeoIP.php:111
-msgid "Tokelau"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:253
-msgid "Tomorrow"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:229 lib/Horde/NLS/countries.php:225
-#: lib/Horde/NLS/GeoIP.php:111
-msgid "Tonga"
-msgstr ""
-
 #: templates/javascript/htmlarea_table_lang.js:81
 #: templates/javascript/htmlarea_lang.js:77
 msgid "Top"
@@ -7661,95 +3272,19 @@ msgstr "위"
 msgid "Top frame (_top)"
 msgstr "상위 프레임(_top)"
 
-#: po/translation.php:657
-msgid "Translated"
-msgstr ""
-
 #: lib/Block/fortune.php:63
 #, fuzzy
 msgid "Translations"
 msgstr "환경설정"
 
-#: lib/Horde/NLS/tld.php:232 lib/Horde/NLS/countries.php:226
-#: lib/Horde/NLS/GeoIP.php:112
-msgid "Trinidad and Tobago"
-msgstr ""
-
-#: lib/Horde/Form.php:1778
-msgid "True or false"
-msgstr ""
-
-#: templates/javascript/open_calendar.js:57
-msgid "Tu"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:228 lib/Horde/NLS/countries.php:227
-#: lib/Horde/NLS/GeoIP.php:111
-msgid "Tunisia"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:231 lib/Horde/NLS/countries.php:228
-#: lib/Horde/NLS/GeoIP.php:112
-msgid "Turkey"
-msgstr ""
-
-#: config/nls.php.dist:188
-msgid "Turkish (ISO-8859-9)"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:227 lib/Horde/NLS/countries.php:229
-#: lib/Horde/NLS/GeoIP.php:111
-msgid "Turkmenistan"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:220 lib/Horde/NLS/countries.php:230
-#: lib/Horde/NLS/GeoIP.php:109
-msgid "Turks and Caicos Islands"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:233 lib/Horde/NLS/countries.php:231
-#: lib/Horde/NLS/GeoIP.php:112
-msgid "Tuvalu"
-msgstr ""
-
-#: lib/Horde/CLI.php:262
-msgid "Type your choice: "
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:227
-msgid "U.V. index: "
-msgstr ""
-
 #: lib/Horde/MIME/Viewer/vcard.php:252 lib/Block/iframe.php:17
 msgid "URL"
 msgstr "URL"
-
-#: lib/Net/SMS/sms2email_http.php:561
-msgid "URL for your script delivery status report"
-msgstr ""
-
-#: templates/javascript/htmlarea_lang.js:97
-msgid "URL:"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:237 lib/Horde/NLS/countries.php:232
-#: lib/Horde/NLS/GeoIP.php:113
-msgid "Uganda"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:236 lib/Horde/NLS/countries.php:233
-#: lib/Horde/NLS/GeoIP.php:113
-msgid "Ukraine"
-msgstr ""
 
 #: lib/VFS/file.php:360
 #, fuzzy
 msgid "Unable to access VFS directory."
 msgstr "vfsroot 디렉토리를 읽을 수 없습니다."
-
-#: lib/Horde/Auth/Signup.php:100
-msgid "Unable to add extra user information when signing up."
-msgstr ""
 
 #: lib/VFS/ftp.php:346
 #, fuzzy, php-format
@@ -7800,10 +3335,6 @@ msgstr "VFS 파일 %s/%s을(를) 변경할 수 없습니다."
 #, fuzzy
 msgid "Unable to create empty VFS file."
 msgstr "VFS 파일 %s/%s을(를) 변경할 수 없습니다."
-
-#: lib/Horde/Compress/tar.php:79 lib/Horde/Compress/gzip.php:82
-msgid "Unable to decompress data."
-msgstr ""
 
 #: lib/VFS/ftp.php:249
 #, fuzzy, php-format
@@ -7859,10 +3390,6 @@ msgstr "VFS 파일 %s/%s을(를) 변경할 수 없습니다."
 msgid "Unable to determine current directory."
 msgstr "vfsroot 디렉토리를 읽을 수 없습니다."
 
-#: lib/Horde/Crypt/smime.php:627
-msgid "Unable to extract certificate details"
-msgstr ""
-
 #: lib/Net/IMSP.php:460 lib/Net/IMSP/Auth.php:119
 #, php-format
 msgid "Unable to load the definition of %s."
@@ -7897,11 +3424,6 @@ msgstr "환경설정을 변경할 수 없습니다."
 #: lib/VFS/file.php:622
 msgid "Unable to read the vfsroot directory."
 msgstr "vfsroot 디렉토리를 읽을 수 없습니다."
-
-#: lib/Horde/Kolab.php:1095
-#, php-format
-msgid "Unable to rename %s to %s: destination folder already exists"
-msgstr ""
 
 #: lib/VFS/sql_file.php:316
 #, fuzzy
@@ -7965,34 +3487,11 @@ msgstr "변경사항 되돌리기"
 msgid "Undoes your last action"
 msgstr "마지막 명령 취소"
 
-#: lib/Horde/IMAP/ACL/rfc2086.php:230 lib/Horde/IMAP/ACL/rfc2086.php:399
-msgid "Unexpected response from server on connection: "
-msgstr ""
-
-#: lib/Horde/IMAP/ACL/rfc2086.php:226 lib/Horde/IMAP/ACL/rfc2086.php:350
-#: lib/Horde/IMAP/ACL/rfc2086.php:387 lib/Horde/IMAP/ACL/rfc2086.php:393
-msgid "Unexpected response from server to: "
-msgstr ""
-
 #: lib/Horde/Prefs/CategoryManager.php:58
 #: templates/prefs/categorymanagement.inc:64
 #, fuzzy
 msgid "Unfiled"
 msgstr "읽지 않은 메일"
-
-#: lib/Horde/MIME/Viewer/icalendar.php:384
-#, php-format
-msgid "Unhandled component of type: %s"
-msgstr ""
-
-#: config/nls.php.dist:189
-msgid "Unicode (UTF-8)"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:17 lib/Horde/NLS/countries.php:234
-#: lib/Horde/NLS/GeoIP.php:57
-msgid "United Arab Emirates"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:238 lib/Horde/NLS/countries.php:235
 #: lib/Horde/NLS/GeoIP.php:75
@@ -8004,35 +3503,10 @@ msgstr "영국"
 msgid "United States"
 msgstr "미국"
 
-#: lib/Horde/NLS/tld.php:239 lib/Horde/NLS/countries.php:237
-#: lib/Horde/NLS/GeoIP.php:114
-msgid "United States Minor Outlying Islands"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:65 lib/Block/metar.php:69
-msgid "Units"
-msgstr ""
-
-#: lib/Horde/Crypt/pgp.php:415 lib/Horde/Crypt/pgp.php:416
-msgid "Unknown"
-msgstr ""
-
-#: lib/Net/SMS/clickatell_http.php:307
-msgid "Unknown apimsgid (API Message ID)."
-msgstr ""
-
-#: lib/Net/SMS/clickatell_http.php:308
-msgid "Unknown climsgid (Client Message ID)."
-msgstr ""
-
 #: po/translation.php:1482
 #, fuzzy, php-format
 msgid "Unknown command: %s"
 msgstr "%s 내려받기"
-
-#: lib/Net/SMS/clickatell_http.php:300
-msgid "Unknown username or password."
-msgstr ""
 
 #: templates/javascript/htmlarea_context_lang.js:57
 msgid "Unlink the current element"
@@ -8042,21 +3516,9 @@ msgstr "현재 요소에 링크 제거"
 msgid "Unnamed"
 msgstr "이름 없음"
 
-#: templates/javascript/htmlarea_lang.js:59
-msgid ""
-"Unprivileged scripts cannot access Cut/Copy/Paste programatically for "
-"security reasons.  Click OK to see a technical note at mozilla.org which "
-"shows you how to allow a script to access the clipboard."
-msgstr ""
-
 #: templates/javascript/htmlarea_table_lang.js:82
 msgid "Unset color"
 msgstr "색깔 제거"
-
-#: lib/Horde/Crypt/smime.php:710 lib/Horde/Crypt/smime.php:952
-#: lib/Horde/Crypt/smime.php:958
-msgid "Unsupported Extension"
-msgstr ""
 
 #: po/translation.php:657
 #, fuzzy
@@ -8069,41 +3531,10 @@ msgstr "회신하지 않은 메일"
 msgid "Update"
 msgstr "일자"
 
-#: templates/admin/user/update.inc:31
-#, php-format
-msgid "Update %s"
-msgstr ""
-
-#: lib/Horde/MIME/Viewer/icalendar.php:648
-msgid "Update respondent status"
-msgstr ""
-
 #: templates/admin/user/update.inc:43
 #, fuzzy
 msgid "Update user"
 msgstr "사용자 추가"
-
-#: admin/groups.php:137 admin/perms/edit.php:217 services/shares/edit.php:230
-#, php-format
-msgid "Updated '%s'."
-msgstr ""
-
-#: po/translation.php:1080 po/translation.php:1211
-#, php-format
-msgid "Updating %s help file for %s."
-msgstr ""
-
-#: admin/setup/scripts.php:81
-msgid "Upgrade script deleted."
-msgstr ""
-
-#: admin/setup/index.php:172 lib/Horde/UI/VarRenderer/html.php:182
-msgid "Upload"
-msgstr ""
-
-#: admin/setup/index.php:180
-msgid "Uploaded all application setup files to the server."
-msgstr ""
 
 #: templates/javascript/htmlarea_listtype_lang.js:20
 msgid "Upper latin letters"
@@ -8113,33 +3544,10 @@ msgstr "라틴어 대문자"
 msgid "Upper roman numbers"
 msgstr "로마 대문자 숫자"
 
-#: lib/Horde/NLS/tld.php:241 lib/Horde/NLS/countries.php:238
-#: lib/Horde/NLS/GeoIP.php:114
-msgid "Uruguay"
-msgstr ""
-
 #: po/translation.php:35 po/translation.php:92 po/translation.php:93
 #, fuzzy
 msgid "Usage:"
 msgstr "메시지"
-
-#: lib/Horde/Prefs/CategoryManager.php:46
-#, php-format
-msgid "Use Current: %s"
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:558
-msgid "Use SSL"
-msgstr ""
-
-#: config/prefs.php.dist:123
-msgid "Use if name/password is different for IMSP server."
-msgstr ""
-
-#: lib/Horde/Registry.php:651
-#, php-format
-msgid "User %s is not authorised for %s."
-msgstr ""
 
 #: admin/user.php:204
 #, fuzzy
@@ -8154,10 +3562,6 @@ msgstr "사용자 선택사항"
 #, fuzzy
 msgid "User Registration"
 msgstr "Horde 사용자 관리"
-
-#: signup.php:19
-msgid "User Registration has been disabled for this site."
-msgstr ""
 
 #: admin/perms/edit.php:172 lib/Horde/Perms/UI.php:254
 msgid "User permissions"
@@ -8194,67 +3598,15 @@ msgstr "사용자명"
 msgid "Users in the system:"
 msgstr "시스템의 사용자:"
 
-#: lib/Horde/NLS/tld.php:242 lib/Horde/NLS/countries.php:239
-#: lib/Horde/NLS/GeoIP.php:115
-msgid "Uzbekistan"
-msgstr ""
-
-#: lib/VFS/file.php:109 lib/VFS/file.php:202
-msgid "VFS directory does not exist."
-msgstr ""
-
 #: config/registry.php.dist:383
 #, fuzzy
 msgid "Vacation"
 msgstr "실행"
 
-#: lib/Horde/Form.php:861
-msgid "Valid locations found include: "
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:662
-msgid "Validity"
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:621 lib/Net/SMS/clickatell_http.php:263
-msgid "Value in minutes from now."
-msgstr ""
-
-#: lib/Horde/Form.php:2228 lib/Horde/Form.php:2250 lib/Horde/Form.php:2298
-#: lib/Horde/Form.php:2917
-msgid "Values"
-msgstr ""
-
-#: lib/Horde/Form.php:2093 lib/Horde/Form.php:2170
-msgid "Values to select from"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:249 lib/Horde/NLS/countries.php:240
-#: lib/Horde/NLS/GeoIP.php:118
-msgid "Vanuatu"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:207
-msgid "Variable"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:245 lib/Horde/NLS/countries.php:241
-#: lib/Horde/NLS/GeoIP.php:116
-msgid "Venezuela"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:228
-msgid "Verification failed - this message may have been tampered with."
-msgstr ""
-
 #: lib/Horde/Crypt/smime.php:724
 #, fuzzy
 msgid "Version"
 msgstr "개인 메일"
-
-#: config/registry.php.dist:200
-msgid "Version Control"
-msgstr ""
 
 #: templates/javascript/htmlarea_table_lang.js:83
 msgid "Vertical align"
@@ -8264,81 +3616,20 @@ msgstr "수직 정렬"
 msgid "Vertical padding"
 msgstr "수직 채움"
 
-#: templates/javascript/htmlarea_lang.js:83
-msgid "Vertical:"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:377
-msgid "Very High"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:248 lib/Horde/NLS/countries.php:242
-#: lib/Horde/NLS/GeoIP.php:117
-msgid "Viet Nam"
-msgstr ""
-
-#: config/nls.php.dist:190
-msgid "Vietnamese (VISCII)"
-msgstr ""
-
 #: lib/Horde/MIME/Contents.php:994
 #, php-format
 msgid "View %s"
 msgstr "%s 보기"
-
-#: lib/Block/iframe.php:3
-msgid "View an external web page"
-msgstr ""
 
 #: lib/Horde/MIME/Contents.php:845
 #, fuzzy, php-format
 msgid "View as %s"
 msgstr "%s 보기"
 
-#: lib/Horde/MIME/Viewer/icalendar.php:79
-msgid "View event"
-msgstr ""
-
 #: lib/Horde/MIME/Viewer/icalendar.php:109
 #, fuzzy
 msgid "View task"
 msgstr "%s 보기"
-
-#: lib/Horde/NLS/tld.php:246 lib/Horde/NLS/countries.php:243
-#: lib/Horde/NLS/GeoIP.php:117
-msgid "Virgin Islands, British"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:247 lib/Horde/NLS/countries.php:244
-#: lib/Horde/NLS/GeoIP.php:117
-msgid "Virgin Islands, U.S."
-msgstr ""
-
-#: lib/Block/metar.php:207
-msgid "Visibility"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:221
-msgid "Visibility: "
-msgstr ""
-
-#: lib/Net/SMS/vodafoneitaly_smtp.php:81
-msgid "Vodafone Italy via SMTP"
-msgstr ""
-
-#: lib/Horde/Notification/Listener/mobile.php:39
-msgid "WARN"
-msgstr ""
-
-#: admin/setup/scripts.php:83
-#, php-format
-msgid "WARNING!!! REMOVE SCRIPT MANUALLY FROM %s."
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:250 lib/Horde/NLS/countries.php:245
-#: lib/Horde/NLS/GeoIP.php:118
-msgid "Wallis and Futuna"
-msgstr ""
 
 #: lib/Horde/Notification/Listener/status.php:31
 msgid "Warning"
@@ -8352,30 +3643,6 @@ msgstr "경고"
 #, fuzzy
 msgid "Warning: "
 msgstr "경고"
-
-#: templates/javascript/open_calendar.js:58
-msgid "We"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:25
-msgid "Weather Forecast"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:305
-msgid "Weather data provided by"
-msgstr ""
-
-#: lib/Horde/Form.php:887
-msgid "Weather.com"
-msgstr ""
-
-#: lib/Block/google.php:36
-msgid "Web"
-msgstr ""
-
-#: config/registry.php.dist:390
-msgid "Web Site"
-msgstr ""
 
 #: lib/Horde/Maintenance.php:37
 msgid "Weekly"
@@ -8395,24 +3662,6 @@ msgstr "환영합니다! %s 입니다."
 msgid "Welcome, %s"
 msgstr "환영합니다, %s"
 
-#: config/nls.php.dist:191
-msgid "Western (ISO-8859-1)"
-msgstr ""
-
-#: config/nls.php.dist:192
-msgid "Western (ISO-8859-15)"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:78 lib/Horde/NLS/countries.php:246
-#: lib/Horde/NLS/GeoIP.php:72
-msgid "Western Sahara"
-msgstr ""
-
-#: config/prefs.php.dist:427
-#, php-format
-msgid "What application should %s display after login?"
-msgstr ""
-
 #: templates/data/csvinfo.inc:21
 msgid "What is the delimiter character?"
 msgstr "구분 문자는 무엇입니까?"
@@ -8421,26 +3670,9 @@ msgstr "구분 문자는 무엇입니까?"
 msgid "What is the quote character?"
 msgstr "인용 부호는 무엇입니까?"
 
-#: lib/Block/moon.php:23
-msgid "Which phases"
-msgstr ""
-
-#: config/prefs.php.dist:131
-msgid "Which plugins to enable for the Rich Text editor."
-msgstr ""
-
 #: templates/javascript/htmlarea_table_lang.js:84
 msgid "Width"
 msgstr "너비"
-
-#: lib/Horde/Form.php:3110
-msgid "Width in CSS units"
-msgstr ""
-
-#: config/prefs.php.dist:347
-#, php-format
-msgid "Width of the %s menu on the left (takes effect on next log-in):"
-msgstr ""
 
 #: templates/javascript/htmlarea_lang.js:106
 msgid "Width of the table"
@@ -8454,22 +3686,10 @@ msgstr "너비 단위"
 msgid "Width:"
 msgstr "너비:"
 
-#: config/registry.php.dist:490
-msgid "Wiki"
-msgstr ""
-
 #: lib/Block/weatherdotcom.php:372
 #, fuzzy
 msgid "Wind"
 msgstr "찾기"
-
-#: lib/Block/weatherdotcom.php:373
-msgid "Wind Early"
-msgstr ""
-
-#: lib/Block/metar.php:78
-msgid "Wind speed in knots"
-msgstr ""
 
 #: lib/Block/metar.php:154
 #, fuzzy
@@ -8480,14 +3700,6 @@ msgstr "찾기"
 #, fuzzy
 msgid "Wind: "
 msgstr "찾기"
-
-#: lib/Block/fortune.php:64
-msgid "Wisdom"
-msgstr ""
-
-#: config/registry.php.dist:177
-msgid "Wishlists"
-msgstr ""
 
 #: lib/Block/fortune.php:65
 #, fuzzy
@@ -8502,35 +3714,6 @@ msgstr "직장 주소:"
 msgid "Work Phone"
 msgstr "직장 전화번호"
 
-#: po/translation.php:1157
-#, php-format
-msgid "Writing updated help file to %s."
-msgstr ""
-
-#: config/registry.php.dist:234
-msgid "X-Ref"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:617
-msgid "X509v3 Basic Constraints"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:616
-msgid "X509v3 Extended Key Usage"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:618
-msgid "X509v3 Subject Alternative Name"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:619
-msgid "X509v3 Subject Key Identifier"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:706
-msgid "X509v3 extensions"
-msgstr ""
-
 #: templates/data/date.inc:47 templates/data/date.inc:48
 #: templates/data/date.inc:49 templates/data/date.inc:50
 msgid "YY"
@@ -8540,10 +3723,6 @@ msgstr "YY"
 #, fuzzy
 msgid "YYYY"
 msgstr "YY"
-
-#: lib/Horde/UI/VarRenderer/html.php:1002
-msgid "Yahoo! map"
-msgstr ""
 
 #: lib/Horde/Maintenance.php:35
 msgid "Yearly"
@@ -8559,21 +3738,9 @@ msgstr "읽은 메일"
 msgid "Yes"
 msgstr "예"
 
-#: templates/maintenance/agreement_bottom.inc:6
-msgid "Yes, I Agree"
-msgstr ""
-
 #: templates/javascript/htmlarea_lang.js:52
 msgid "You are in TEXT MODE.  Use the [<>] button to switch back to WYSIWYG."
 msgstr "TEXT모드입니다. [<>] 버튼을 누르면 WYSIWYG 모드로 돌아갑니다."
-
-#: lib/Horde.php:1326
-msgid "You are not authenticated."
-msgstr ""
-
-#: lib/Horde/Identity.php:304
-msgid "You can not have the '\\' character in your full name."
-msgstr ""
 
 #: lib/Horde/Form.php:1839 lib/Horde/Form.php:1959
 #, fuzzy
@@ -8590,24 +3757,6 @@ msgstr "임포트된 파일의 어떤 항목도 Turba의 항목에 맞게 설정하지 않았습니다."
 #: lib/Horde/Auth.php:944
 msgid "You have been logged out."
 msgstr "로그아웃 하였습니다."
-
-#: lib/Horde/Form.php:1253
-msgid ""
-"You have to enter a valid cellphone number, digits only with an optional '+' "
-"for the international dialing prefix."
-msgstr ""
-
-#: lib/Horde/Form.php:1180
-msgid "You have to enter a valid value."
-msgstr ""
-
-#: lib/Horde/Auth/Signup.php:38
-msgid "You must configure a DataTree backend to use Signups."
-msgstr ""
-
-#: lib/Horde.php:447
-msgid "You must configure a VFS backend."
-msgstr ""
 
 #: templates/problem/problem.inc:11
 msgid "You must describe the problem before you can send the problem report."
@@ -8668,13 +3817,6 @@ msgstr "메일 주소:"
 msgid "Your Information"
 msgstr "정보"
 
-#: lib/Horde/Auth.php:936
-#, php-format
-msgid ""
-"Your Internet Address has changed since the beginning of your %s session. To "
-"protect your security, you must login again."
-msgstr ""
-
 #: templates/problem/problem.inc:33
 msgid "Your Name"
 msgstr "이름:"
@@ -8694,13 +3836,6 @@ msgid ""
 msgstr ""
 "당신의 인증클라이언트가 사용자 목록보기를 지원하지 않습니다. 또는 다른 이유"
 "로 사용자 목록보기를 사용할 수 없습니다."
-
-#: lib/Horde/Auth.php:940
-#, php-format
-msgid ""
-"Your browser appears to have changed since the beginning of your %s session. "
-"To protect your security, you must login again."
-msgstr ""
 
 #: lib/Block/iframe.php:50
 msgid "Your browser does not support this feature."
@@ -8726,17 +3861,6 @@ msgstr "기본 식별자:"
 msgid "Your full name:"
 msgstr "전체 이름:"
 
-#: po/translation.php:145
-msgid ""
-"Your gettext version is too old and does not support PHP natively.\n"
-"Not all strings will be extracted."
-msgstr ""
-
-#: services/resetpassword.php:76
-#, php-format
-msgid "Your new password for %s is: %s"
-msgstr ""
-
 #: lib/Horde/Prefs/UI.php:156
 msgid "Your options have been updated for the duration of this session."
 msgstr "이 세션 동안 옵션이 저장됩니다."
@@ -8745,42 +3869,10 @@ msgstr "이 세션 동안 옵션이 저장됩니다."
 msgid "Your options have been updated."
 msgstr "옵션이 저장되었습니다."
 
-#: services/resetpassword.php:75
-msgid "Your password has been reset"
-msgstr ""
-
-#: services/resetpassword.php:79
-msgid ""
-"Your password has been reset, check your email and log in with your new "
-"password."
-msgstr ""
-
 #: templates/rpcsum/rpcsum.inc:58
 #, fuzzy
 msgid "Your remote servers:"
 msgstr "메일 주소:"
-
-#: lib/Horde/NLS/tld.php:254 lib/Horde/NLS/GeoIP.php:119
-msgid "Yugoslavia"
-msgstr ""
-
-#: lib/Horde/NLS/GeoIP.php:119
-msgid "Zaire"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:256 lib/Horde/NLS/countries.php:248
-#: lib/Horde/NLS/GeoIP.php:119
-msgid "Zambia"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:257 lib/Horde/NLS/countries.php:249
-#: lib/Horde/NLS/GeoIP.php:119
-msgid "Zimbabwe"
-msgstr ""
-
-#: lib/Block/fortune.php:66
-msgid "Zippy"
-msgstr ""
 
 #: lib/Horde/Text/Filter/highlightquotes.php:172
 #: templates/javascript/quoteBlocks.js:12
@@ -8808,10 +3900,6 @@ msgstr "[라인 %s / %s]"
 msgid "_Administration"
 msgstr "_A관리"
 
-#: lib/api.php:134
-msgid "_CLI"
-msgstr ""
-
 #: lib/api.php:122
 #, fuzzy
 msgid "_DataTree"
@@ -8820,10 +3908,6 @@ msgstr "일자"
 #: templates/javascript/htmlarea_context_lang.js:31
 msgid "_Delete Row"
 msgstr "_D행 지움"
-
-#: lib/api.php:114
-msgid "_Groups"
-msgstr ""
 
 #: lib/Horde/Menu.php:181
 msgid "_Help"
@@ -8859,17 +3943,9 @@ msgstr "토론"
 msgid "_Remove Link..."
 msgstr "_r링크 삭제.."
 
-#: lib/api.php:106
-msgid "_Setup"
-msgstr ""
-
 #: templates/javascript/htmlarea_context_lang.js:32
 msgid "_Table Properties..."
 msgstr "_t표 속성..."
-
-#: lib/api.php:110
-msgid "_Users"
-msgstr ""
 
 #: lib/Horde/Kolab.php:911
 #, fuzzy
@@ -8886,15 +3962,6 @@ msgstr "<b>치명적인 오류 발생:</b>"
 msgid "calendar"
 msgstr "달력"
 
-#: lib/Block/metar.php:170 lib/Block/metar.php:356
-#, php-format
-msgid "calm"
-msgstr ""
-
-#: lib/Horde/MIME/Contents.php:608
-msgid "click here"
-msgstr ""
-
 #: po/translation.php:445 po/translation.php:550 po/translation.php:611
 #: po/translation.php:749 po/translation.php:810 po/translation.php:887
 #, fuzzy
@@ -8907,35 +3974,10 @@ msgstr "완료"
 msgid "failed"
 msgstr "새로운 연락처 추가 실패"
 
-#: lib/Block/weatherdotcom.php:378
-msgid "falling"
-msgstr ""
-
 #: lib/Horde/Browser.php:870
 #, fuzzy
 msgid "file"
 msgstr "제목"
-
-#: po/translation.php:129
-msgid "found: "
-msgstr ""
-
-#: lib/Block/metar.php:172 lib/Block/metar.php:358 lib/Block/metar.php:384
-#, php-format
-msgid "from the %s (%s) at %s %s"
-msgstr ""
-
-#: lib/Horde/UI/VarRenderer/html.php:232
-msgid "h:"
-msgstr ""
-
-#: config/registry.php.dist:208
-msgid "i18n"
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:587 lib/Net/SMS/clickatell_http.php:229
-msgid "immediate"
-msgstr ""
 
 #: admin/setup/diff.php:68 admin/setup/diff.php:76
 #, fuzzy
@@ -8946,11 +3988,6 @@ msgstr "없음"
 msgid "lines]"
 msgstr "줄]"
 
-#: lib/VFS/ISOWriter/mkisofs.php:54
-#, php-format
-msgid "mkisofs error code %d while making ISO."
-msgstr ""
-
 #: lib/Horde/Prefs/UI.php:288 services/portal/sidebar.php:207
 msgid "name"
 msgstr "이름"
@@ -8959,10 +3996,6 @@ msgstr "이름"
 #, fuzzy
 msgid "not changed"
 msgstr "변경사항 되돌리기"
-
-#: po/translation.php:131
-msgid "not found"
-msgstr ""
 
 #: lib/Horde/RPC.php:122
 #, fuzzy
@@ -8997,39 +4030,14 @@ msgstr "경고"
 msgid "show differences"
 msgstr "사용자 환경"
 
-#: lib/Net/SMS/sms2email_http.php:533
-msgid "sms2email via HTTP"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:379
-msgid "steady"
-msgstr ""
-
 #: lib/Horde/Kolab.php:919
 #, fuzzy
 msgid "task list"
 msgstr "수신거부"
 
-#: po/translation.php:725
-#, php-format
-msgid "the Horde PO file for the locale %s does not exist:"
-msgstr ""
-
-#: admin/user.php:36 lib/Horde/Auth/Signup.php:282
-msgid "type the password twice to confirm"
-msgstr ""
-
-#: admin/setup/diff.php:68 admin/setup/diff.php:76
-msgid "unified"
-msgstr ""
-
 #: lib/Horde/MIME/Part.php:17
 msgid "unnamed"
 msgstr "이름 없음"
-
-#: po/translation.php:375
-msgid "updated"
-msgstr ""
 
 #: lib/Net/SMS/sms2email_http.php:587 lib/Net/SMS/clickatell_http.php:229
 #, fuzzy
@@ -9044,7 +4052,3 @@ msgstr "vCard"
 #, fuzzy
 msgid "w:"
 msgstr "전달:"
-
-#: lib/Block/weatherdotcom.php:3
-msgid "weather.com"
-msgstr ""

@@ -2361,10 +2361,6 @@ msgstr "E-post"
 msgid "ERR"
 msgstr "ERR"
 
-#: lib/Block/vatid.php:3
-msgid "EU VAT identification"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:237
 msgid "East Timor"
 msgstr "Ida-Timor"
@@ -6932,18 +6928,6 @@ msgid ""
 "The location of the GnuPG binary must be given to the Crypt_pgp:: class."
 msgstr "Crypt_pgp:: klassi jaoks peab olema määratud GnuPG programmi asukoht."
 
-#: lib/Block/vatid.php:77
-msgid ""
-"The member state service could not be reached in time. Try again later or "
-"with a different member state."
-msgstr ""
-
-#: lib/Block/vatid.php:74
-msgid ""
-"The member state service is currently not available. Try again later or with "
-"a different member state."
-msgstr ""
-
 #: lib/Horde/MIME/MDN.php:195
 #, php-format
 msgid ""
@@ -7167,14 +7151,6 @@ msgstr "Jaotusnimekirja uuendamisel tekkis viga. Palun proovi hiljem uuesti."
 #: lib/Horde/IMAP/ACL/rfc2086.php:163 lib/Horde/IMAP/ACL/rfc2086.php:326
 msgid "This IMAP server does not support sharing folders."
 msgstr "See IMAP server ei võimalda kaustade jagamist."
-
-#: lib/Block/vatid.php:90
-msgid "This VAT identification number is invalid."
-msgstr ""
-
-#: lib/Block/vatid.php:87
-msgid "This VAT identification number is valid."
-msgstr ""
 
 #: lib/Horde/Alarm.php:136
 msgid "This alarm cannot be snoozed."
@@ -7946,14 +7922,6 @@ msgstr "Kasutajad süsteemis:"
 #: lib/Horde/NLS/GeoIP.php:114
 msgid "Uzbekistan"
 msgstr "Usbekistan"
-
-#: lib/Block/vatid.php:19
-msgid "VAT id number verification"
-msgstr ""
-
-#: lib/Block/vatid.php:42
-msgid "VAT identification number:"
-msgstr ""
 
 #: lib/Block/vatid.php:94
 #, fuzzy

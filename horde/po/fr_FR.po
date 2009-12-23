@@ -131,11 +131,6 @@ msgstr "%d jours avant l'expiration de votre mot de passe."
 msgid "%d minutes"
 msgstr "%d minutes"
 
-#: services/portal/syncml.php:37
-#, php-format
-msgid "%d sync anchors for device '%s' database '%s' deleted."
-msgstr ""
-
 #: services/portal/syncml.php:62
 #, fuzzy, php-format
 msgid "%d sync data deleted."
@@ -332,8 +327,8 @@ msgid ""
 "address. The new email address is activated as soon as you confirm this "
 "message."
 msgstr ""
-"Un message de confirmation a été envoyé à « %s ». Cette nouvelle adresse "
-"sera activée dès que vous aurez confirmé ce message."
+"Un message de confirmation a été envoyé à « %s ». Cette nouvelle adresse sera "
+"activée dès que vous aurez confirmé ce message."
 
 #: admin/setup/index.php:133 admin/setup/index.php:168
 #, php-format
@@ -830,10 +825,6 @@ msgstr ""
 msgid "Assignment columns"
 msgstr "Colonnes des tâches"
 
-#: templates/problem/problem.inc:43
-msgid "Attachment"
-msgstr ""
-
 #: admin/groups.php:80
 msgid "Attempt to delete a non-existent group."
 msgstr "Tentative d'effacement d'un groupe inexistant."
@@ -917,8 +908,8 @@ msgstr "Auth_ldap : extension requise LDAP non trouvée."
 #, php-format
 msgid "Auth_ldap: Unable to add user \"%s\". This is what the server said: "
 msgstr ""
-"Auth_ldap : impossible d'ajouter l'utilisateur « %s ». Ceci est la réponse "
-"du serveur : "
+"Auth_ldap : impossible d'ajouter l'utilisateur « %s ». Ceci est la réponse du "
+"serveur : "
 
 #: lib/Horde/Auth/ldap.php:420
 #, php-format
@@ -940,8 +931,8 @@ msgstr ""
 #, php-format
 msgid "Auth_msad: Unable to add user \"%s\". This is what the server said: "
 msgstr ""
-"Auth_msad : impossible d'ajouter l'utilisateur « %s ». Ceci est la réponse "
-"du serveur : "
+"Auth_msad : impossible d'ajouter l'utilisateur « %s ». Ceci est la réponse du "
+"serveur : "
 
 #: lib/Horde/Auth/msad.php:190
 #, php-format
@@ -1502,10 +1493,6 @@ msgstr "Cliquer pour poursuivre"
 #: lib/Net/SMS/clickatell_http.php:194
 msgid "Clickatell via HTTP"
 msgstr "Clickatell via HTTP"
-
-#: templates/syncml/syncml.inc:12
-msgid "Client-TS"
-msgstr ""
 
 #: services/keyboard.php:156 templates/shares/edit.inc:12
 msgid "Close Window"
@@ -2233,10 +2220,6 @@ msgstr "Effacer"
 #, php-format
 msgid "Delete \"%s\""
 msgstr "Effacer « %s »"
-
-#: templates/syncml/syncml.inc:61
-msgid "Delete All SyncML Data"
-msgstr ""
 
 #: lib/Horde/IMAP/ACL/rfc4314.php:67
 msgid "Delete Folders"
@@ -3178,8 +3161,7 @@ msgstr "Le groupe n'a pas été créé : %s."
 #: lib/Horde/Group/ldap.php:302
 #, php-format
 msgid "Group_ldap: Unable to add group \"%s\". This is what the server said: "
-msgstr ""
-"Group_ldap : ajout impossible du groupe « %s ». Le serveur a répondu : "
+msgstr "Group_ldap : ajout impossible du groupe « %s ». Le serveur a répondu : "
 
 #: lib/Horde/Group/ldap.php:117 lib/Horde/Group/ldap.php:123
 #: lib/Horde/Group/ldap.php:419
@@ -3187,8 +3169,8 @@ msgstr ""
 msgid ""
 "Group_ldap: Unable to delete group \"%s\". This is what the server said: %s"
 msgstr ""
-"Group_ldap : suppression impossible du groupe « %s ». Le serveur a répondu : "
-"%s"
+"Group_ldap : suppression impossible du groupe « %s ». Le serveur a répondu : %"
+"s"
 
 #: lib/Horde/Group/ldap.php:380
 #, php-format
@@ -3202,8 +3184,7 @@ msgstr ""
 msgid ""
 "Group_ldap: Unable to update group \"%s\". This is what the server said: %s"
 msgstr ""
-"Group_ldap : modification impossible du groupe « %s ». Message du serveur : %"
-"s"
+"Group_ldap : modification impossible du groupe « %s ». Message du serveur : %s"
 
 #: admin/groups.php:246 lib/Horde/Perms/UI.php:313
 #: templates/shares/edit.inc:258
@@ -5302,11 +5283,6 @@ msgstr "Code PHP"
 msgid "PHP Shell"
 msgstr "Interpréteur PHP"
 
-#: lib/Horde/Kolab/IMAP/cclient.php:501
-#, php-format
-msgid "PHP does not support imap_myrights."
-msgstr ""
-
 #: lib/Block/weatherdotcom_strings.php:51
 msgid "PM Clouds"
 msgstr "Nuages l'après-midi"
@@ -6283,10 +6259,6 @@ msgstr "Numéro de série"
 msgid "Server data wrong or not available."
 msgstr "Les données du serveur sont fausses ou non disponibles."
 
-#: templates/syncml/syncml.inc:11
-msgid "Server-TS"
-msgstr ""
-
 #: admin/sessions.php:28
 msgid "Session Admin"
 msgstr "Administration des sessions"
@@ -7078,13 +7050,6 @@ msgstr ""
 msgid "The image file was larger than the maximum allowed size (%d bytes)."
 msgstr "Le fichier image était plus gros que le maximum autorisé (%d octets)."
 
-#: lib/Horde/MIME/Viewer/html.php:137
-#, php-format
-msgid ""
-"The links that caused this warning have the same background color as this "
-"message."
-msgstr ""
-
 #: lib/Horde/Crypt/pgp.php:158
 msgid ""
 "The location of the GnuPG binary must be given to the Crypt_pgp:: class."
@@ -7265,8 +7230,8 @@ msgstr "Un problème est apparu lors de l'ajout de « %s » : %s"
 #, php-format
 msgid "There was a problem clearing data for user \"%s\" from the system: "
 msgstr ""
-"Un problème est apparu lors de la suppression des données de l'utilisateur "
-"« %s » : "
+"Un problème est apparu lors de la suppression des données de l'utilisateur « %"
+"s » : "
 
 #: admin/user.php:112
 #, php-format
@@ -7531,10 +7496,6 @@ msgstr "Sélection de l'heure"
 #: templates/data/datetime.inc:58 templates/data/datetime.inc:67
 msgid "Timestamp or unknown"
 msgstr "Format date ou inconnu"
-
-#: templates/syncml/syncml.inc:2
-msgid "Timestamps of successful sync sessions"
-msgstr ""
 
 #: lib/Horde/NLS/GeoIP.php:110 lib/Horde/NLS/countries.php:222
 #: lib/Horde/NLS/tld.php:233
@@ -9034,40 +8995,6 @@ msgstr "bloc-notes"
 #: lib/Horde/MIME/Message.php:172
 msgid "permission denied"
 msgstr "permission refusée"
-
-#: lib/Horde/Kolab/XML.php:1063
-msgid "recurrence tag error: cycle attribute missing"
-msgstr ""
-
-#: lib/Horde/Kolab/XML.php:1111
-msgid "recurrence tag error: day tag missing for type weekday"
-msgstr ""
-
-#: lib/Horde/Kolab/XML.php:1077
-msgid "recurrence tag error: day tag missing for weekly recurrence"
-msgstr ""
-
-#: lib/Horde/Kolab/XML.php:1090
-msgid "recurrence tag error: daynumber tag missing"
-msgstr ""
-
-#: lib/Horde/Kolab/XML.php:1067
-msgid "recurrence tag error: interval tag missing"
-msgstr ""
-
-#: lib/Horde/Kolab/XML.php:1125
-msgid "recurrence tag error: month tag missing for type monthday"
-msgstr ""
-
-#: lib/Horde/Kolab/XML.php:1086
-msgid "recurrence tag error: type attribute missing"
-msgstr ""
-
-#: lib/Horde/Kolab/XML.php:1118
-msgid ""
-"recurrence tag error: type monthday/yearday is only allowed for yearly "
-"recurrences"
-msgstr ""
 
 #: lib/Horde/MIME/Message.php:168
 msgid "remote error in protocol"

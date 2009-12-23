@@ -285,14 +285,6 @@ msgstr "Za ta blok je potrebna povezava na podatkovni strežnik"
 msgid "A fatal error has occurred"
 msgstr "Pojavila se je huda napaka"
 
-#: framework/Prefs/Identity.php:422
-#, php-format
-msgid ""
-"A message has been sent to \"%s\" to verify that this is really your "
-"address. The new email address is activated as soon as you confirm this "
-"message."
-msgstr ""
-
 #: framework/Crypt/Crypt/pgp.php:1158
 msgid "A passphrase is required to decrypt a message."
 msgstr "Za dešifriranje sporočila je potrebno geslo."
@@ -1016,10 +1008,6 @@ msgstr "Bolgarija"
 msgid "Burkina Faso"
 msgstr "Burkina Faso"
 
-#: themes/burntorange/info.php:9
-msgid "Burnt Orange"
-msgstr ""
-
 #: framework/NLS/NLS/tld.php:39 framework/NLS/NLS/countries.php:45
 #: framework/NLS/NLS/GeoIP.php:61
 msgid "Burundi"
@@ -1510,10 +1498,6 @@ msgstr "Piškotek"
 #, php-format
 msgid "Copy failed: %s"
 msgstr "Kopiranje ni uspelo: %s"
-
-#: themes/cornflower/info.php:6
-msgid "Cornflower"
-msgstr ""
 
 #: framework/Net_SMS/SMS/win_http.php:179
 #: framework/Net_SMS/SMS/win_http.php:204
@@ -2804,10 +2788,6 @@ msgstr "Splošne Možnosti"
 msgid "Go"
 msgstr "Pojdi"
 
-#: lib/Block/fortune.php:45
-msgid "Goedel"
-msgstr ""
-
 #: framework/UI/UI/VarRenderer/html.php:1210
 msgid "Google Maps"
 msgstr "Googlove mape"
@@ -3222,10 +3202,6 @@ msgstr "Informacije o sestanku"
 msgid "Information no longer available."
 msgstr "Informacije niso več dosegljive."
 
-#: templates/admin/groups/edit.inc:35
-msgid "Inherited Members"
-msgstr ""
-
 #: framework/IMAP/IMAP/ACL/rfc4314.php:64
 #: framework/IMAP/IMAP/ACL/rfc2086.php:102
 msgid "Insert"
@@ -3383,10 +3359,6 @@ msgstr "Irak"
 #: framework/NLS/NLS/GeoIP.php:80
 msgid "Ireland"
 msgstr "Irska"
-
-#: framework/NLS/NLS/tld.php:115
-msgid "Isle of Man"
-msgstr ""
 
 #: lib/Block/weatherdotcom_strings.php:26
 msgid "Isolated T-Storms"
@@ -3587,10 +3559,6 @@ msgstr "Zadnja prijava: Nikoli"
 msgid "Latvia"
 msgstr "Latvija "
 
-#: themes/lavander/info.php:6
-msgid "Lavender"
-msgstr ""
-
 #: lib/Block/fortune.php:49
 msgid "Law"
 msgstr "Pravo"
@@ -3663,10 +3631,6 @@ msgstr "Rahel sneg"
 #: lib/Block/weatherdotcom_strings.php:34
 msgid "Light Snow Shower"
 msgstr "Snežni metež"
-
-#: lib/Block/fortune.php:50
-msgid "Limerick"
-msgstr ""
 
 #: framework/Form/Form.php:1906
 msgid "Link"
@@ -3831,14 +3795,6 @@ msgstr "Ljubezen"
 #: lib/Block/weatherdotcom_strings.php:71
 msgid "Low"
 msgstr "Nizek"
-
-#: themes/luc/info.php:6
-msgid "Loyola"
-msgstr ""
-
-#: themes/lucblue/info.php:6
-msgid "Loyola Blue"
-msgstr ""
 
 #: framework/NLS/NLS/tld.php:145 framework/NLS/NLS/countries.php:134
 #: framework/NLS/NLS/GeoIP.php:89
@@ -5076,10 +5032,6 @@ msgstr "Fotografije"
 msgid "Pitcairn"
 msgstr "Pitcairn"
 
-#: lib/Block/fortune.php:61
-msgid "Platitudes"
-msgstr ""
-
 #: framework/Form/Form.php:3036
 msgid "Please enter a month and a year."
 msgstr "Prosimo, da vnesete mesec in leto."
@@ -5531,10 +5483,6 @@ msgstr "S/MIME kodirano sporočilo"
 msgid "SASL authentication is not available."
 msgstr "SASL Overjanje ni uspelo"
 
-#: framework/Net_SMS/SMS/generic_smpp.php:86
-msgid "SMPP Gateway"
-msgstr ""
-
 #: config/registry.php.dist:517
 msgid "SMS Messaging"
 msgstr "SMS sporočilo"
@@ -5974,10 +5922,6 @@ msgstr "Podpis"
 msgid "Signature Algorithm"
 msgstr "Algoritmičen podpis"
 
-#: themes/simplex/info.php:6
-msgid "Simplex"
-msgstr ""
-
 #: framework/NLS/NLS/tld.php:206 framework/NLS/NLS/countries.php:202
 #: framework/NLS/NLS/GeoIP.php:104
 msgid "Singapore"
@@ -6359,10 +6303,6 @@ msgstr "Tanzanija, Združena republika"
 msgid "Tasks"
 msgstr "Opravila"
 
-#: themes/gennevilliers/info.php:14
-msgid "Teal"
-msgstr ""
-
 #: framework/Crypt/Crypt/smime.php:574
 msgid "Telephone Number"
 msgstr "Telefonska številka"
@@ -6413,10 +6353,6 @@ msgstr "Samo besedilo"
 #: templates/javascript/open_calendar.js:69
 msgid "Th"
 msgstr "Če"
-
-#: config/nls.php.dist:226
-msgid "Thai (TIS-620)"
-msgstr ""
 
 #: framework/NLS/NLS/tld.php:224 framework/NLS/NLS/countries.php:221
 #: framework/NLS/NLS/GeoIP.php:109
@@ -6925,11 +6861,6 @@ msgstr "Izbira časa."
 #: templates/data/datetime.inc:58 templates/data/datetime.inc:67
 msgid "Timestamp or unknown"
 msgstr "Čas ali neznano"
-
-#: framework/NLS/NLS/tld.php:230 framework/NLS/NLS/countries.php:222
-#: framework/NLS/NLS/GeoIP.php:110
-msgid "Timor-Leste"
-msgstr ""
 
 #: framework/MIME/MIME/Viewer/vcard.php:229 lib/Block/iframe.php:20
 msgid "Title"
@@ -8103,10 +8034,6 @@ msgstr "Zambija"
 msgid "Zimbabwe"
 msgstr "Zimbabve"
 
-#: lib/Block/fortune.php:71
-msgid "Zippy"
-msgstr ""
-
 #: framework/Text_Filter/Filter/highlightquotes.php:202
 #: templates/javascript/quoteBlocks.js:12
 msgid "[Hide Quoted Text]"
@@ -8231,10 +8158,6 @@ msgstr "datoteka"
 #, php-format
 msgid "from the %s (%s) at %s %s"
 msgstr "iz %s (%s) k %s %s"
-
-#: lib/Block/weatherdotcom.php:262
-msgid "gusting"
-msgstr ""
 
 #: framework/UI/UI/VarRenderer/html.php:261
 msgid "h:"

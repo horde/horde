@@ -16,216 +16,6 @@ msgstr ""
 "Content-Type: text/html; charset=CP1256\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: po/translation.php:65
-msgid ""
-"  -M, --message=MESSAGE  Use this commit message instead of the default ones."
-msgstr ""
-
-#: po/translation.php:69
-msgid ""
-"  -a, --add=FILE        Add this PO file to the compendium. Useful to\n"
-"                        include a compendium from a different branch to\n"
-"                        the generated compendium."
-msgstr ""
-
-#: po/translation.php:125
-msgid ""
-"  -b, --base=/PATH  Full path to the (Horde) base directory that should be\n"
-"                    used."
-msgstr ""
-
-#: po/translation.php:83
-msgid ""
-"  -c, --compendium=FILE  Merge new translations to this compendium file\n"
-"                         instead of the default one (compendium.po in the\n"
-"                         horde/po directory."
-msgstr ""
-
-#: po/translation.php:94 po/translation.php:100
-msgid ""
-"  -c, --compendium=FILE  Use this compendium file instead of the default\n"
-"                         one (compendium.po in the horde/po directory)."
-msgstr ""
-
-#: po/translation.php:126
-msgid "  -d, --debug       Show error messages from the executed binaries."
-msgstr ""
-
-#: po/translation.php:70
-msgid "  -d, --directory=DIR   Create compendium in this directory."
-msgstr ""
-
-#: po/translation.php:127
-msgid "  -h, --help        Show this help message."
-msgstr ""
-
-#: po/translation.php:81 po/translation.php:88
-msgid "  -l, --locale=ll_CC     Use only this locale."
-msgstr ""
-
-#: po/translation.php:63 po/translation.php:92 po/translation.php:98
-msgid "  -l, --locale=ll_CC     Use this locale."
-msgstr ""
-
-#: po/translation.php:71 po/translation.php:77
-msgid "  -l, --locale=ll_CC    Use this locale."
-msgstr ""
-
-#: po/translation.php:82
-msgid "  -m, --module=MODULE    Build MO files only for this (Horde) module."
-msgstr ""
-
-#: po/translation.php:64
-msgid ""
-"  -m, --module=MODULE    Commit translations only for this (Horde) module."
-msgstr ""
-
-#: po/translation.php:93
-msgid "  -m, --module=MODULE    Merge PO files only for this (Horde) module."
-msgstr ""
-
-#: po/translation.php:89
-msgid ""
-"  -m, --module=MODULE    Update help files only for this (Horde) module."
-msgstr ""
-
-#: po/translation.php:99
-msgid "  -m, --module=MODULE    Update only this (Horde) module."
-msgstr ""
-
-#: po/translation.php:78
-msgid "  -m, --module=MODULE   Create a PO file only for this (Horde) module."
-msgstr ""
-
-#: po/translation.php:74
-msgid "  -m, --module=MODULE  Generate POT file only for this (Horde) module."
-msgstr ""
-
-#: po/translation.php:66
-msgid ""
-"  -n, --new              This is a new translation, commit also CREDITS,\n"
-"                         CHANGES and lang.php.dist."
-msgstr ""
-
-#: po/translation.php:84
-msgid ""
-"  -n, --no-compendium    Don't merge new translations to the compendium."
-msgstr ""
-
-#: po/translation.php:95 po/translation.php:101
-msgid "  -n, --no-compendium    Don't use a compendium."
-msgstr ""
-
-#: po/translation.php:128
-msgid "  -t, --test        Show the executed commands but don't run anything."
-msgstr ""
-
-#: po/translation.php:120
-msgid "  commit      Commit translations to the CVS server."
-msgstr ""
-
-#: po/translation.php:121
-msgid "  commit-help Commit help files to the CVS server."
-msgstr ""
-
-#: po/translation.php:112
-msgid ""
-"  compendium  Rebuild the compendium file. Warning: This overwrites the\n"
-"              current compendium."
-msgstr ""
-
-#: po/translation.php:113
-msgid "  extract     Generate PO template (.pot) files."
-msgstr ""
-
-#: po/translation.php:111
-msgid "  help        Show this help message."
-msgstr ""
-
-#: po/translation.php:114
-msgid ""
-"  init        Create one or more PO files for a new locale. Warning: This\n"
-"              overwrites the existing PO files of this locale."
-msgstr ""
-
-#: po/translation.php:118
-msgid "  make        Build binary MO files from the specified PO files."
-msgstr ""
-
-#: po/translation.php:119
-msgid ""
-"  make-help   Mark all entries in the XML help file being up-to-date and\n"
-"              prepare the file for the next execution of update-help. You\n"
-"              should only run make-help AFTER update-help and revising the\n"
-"              help file."
-msgstr ""
-
-#: po/translation.php:115
-msgid ""
-"  merge       Merge the current PO file with the current PO template file."
-msgstr ""
-
-#: po/translation.php:116
-msgid "  update      Run extract and merge sequent."
-msgstr ""
-
-#: po/translation.php:117
-msgid ""
-"  update-help Extract all new and changed entries from the English XML help\n"
-"              file and merge them with the existing ones."
-msgstr ""
-
-#: templates/maintenance/confirm_top.inc:14
-#, php-format
-msgid ""
-" &#151; %s is ready to perform the maintenance operations checked below."
-msgstr ""
-
-#: po/translation.php:858
-#, php-format
-msgid "%d bytes written."
-msgstr ""
-
-#: po/translation.php:959
-#, php-format
-msgid "%d of %d entries marked as up-to-date"
-msgstr ""
-
-#: templates/maintenance/confirm_top.inc:7
-#, php-format
-msgid "%s Maintenance Operations - Confirmation"
-msgstr ""
-
-#: po/translation.php:368
-#, php-format
-msgid "%s not found. Run 'translation extract' first."
-msgstr ""
-
-#: po/translation.php:155
-#, php-format
-msgid ""
-"%sWarning:%s This program was only tested on gettext 0.11. There is no\n"
-"guarantee that it will work with your version of gettext."
-msgstr ""
-
-#: po/translation.php:140
-#, php-format
-msgid "%sfound:%s %s"
-msgstr ""
-
-#: lib/Registry.php:453 lib/Registry.php:753
-#, php-format
-msgid "'%s' is not configured in the Horde Registry."
-msgstr ""
-
-#: po/translation.php:167
-msgid ", trying C++ instead"
-msgstr ""
-
-#: po/translation.php:1014 po/translation.php:1016
-msgid "---------------------------"
-msgstr ""
-
 #: templates/data/datemap.inc:102
 msgid "24 hours"
 msgstr "24 ÓÇÚÉ"
@@ -242,10 +32,6 @@ msgstr "äåÇÑÇğ/áíáÇğ"
 msgid "Add pair"
 msgstr "ÃÖİ ËäÇÆí"
 
-#: po/translation.php:647
-msgid "Adding new files to repository:"
-msgstr ""
-
 #: lib/MIME/Viewer/vcard.php:86
 msgid "Address"
 msgstr "ÇáÚäæÇä"
@@ -253,10 +39,6 @@ msgstr "ÇáÚäæÇä"
 #: config/registry.php.dist:123
 msgid "Address Book"
 msgstr "ÏİÊÑ ÚäÇæíä"
-
-#: lib/MIME/Viewer/vcard.php:64
-msgid "Alias"
-msgstr ""
 
 #: lib/PrefsUI.php:100
 msgid "An illegal value was specified."
@@ -331,10 +113,6 @@ msgstr "ÅÛáÇŞ ÇáäÇİĞÉ"
 #: config/registry.php.dist:168
 msgid "Comics"
 msgstr "ÑÓæãÇÊ"
-
-#: po/translation.php:58
-msgid "Command options:"
-msgstr ""
 
 #: po/translation.php:110
 msgid "Commands:"
@@ -438,7 +216,8 @@ msgstr "áÇÊæÌÏ äÊÇÆÌ."
 #: po/translation.php:845
 #, php-format
 msgid "Entries: %d total, %d up-to-date, %d new, %d changed, %d unknown"
-msgstr "ÇáÅÏÎÇáÇÊ: ÇáãÌãæÚ %d¡ ÇáÍÏíËÉ %d¡ ÇáÌÏíÏÉ %d¡ ÇáãÚÏáÉ %d¡ ÛíÑ ãÚÑæİÉ %d"
+msgstr ""
+"ÇáÅÏÎÇáÇÊ: ÇáãÌãæÚ %d¡ ÇáÍÏíËÉ %d¡ ÇáÌÏíÏÉ %d¡ ÇáãÚÏáÉ %d¡ ÛíÑ ãÚÑæİÉ %d"
 
 #: status.php:16 lib/Notification/status.php:41
 msgid "Error"
@@ -642,8 +421,8 @@ msgid ""
 "Login failed for some reason. Most likely your username or password was "
 "entered incorrectly."
 msgstr ""
-"ÍÕá ÎØÃ áÓÈÈ ãÇ ÃËäÇÁ ÇáÏÎæá. Úáì ÇáÃÑÌÍ Ãä ÇÓã ÇáãÓÊÎÏã Ãæ ßáãÉ ÇáãÑæÑ"
-"áíÓÊ ÕÍíÍÉ"
+"ÍÕá ÎØÃ áÓÈÈ ãÇ ÃËäÇÁ ÇáÏÎæá. Úáì ÇáÃÑÌÍ Ãä ÇÓã ÇáãÓÊÎÏã Ãæ ßáãÉ ÇáãÑæÑáíÓÊ "
+"ÕÍíÍÉ"
 
 #: config/registry.php.dist:105
 msgid "Logout"
@@ -768,10 +547,6 @@ msgstr "áÇÊæÌÏ ÈíÇäÇÊ ÊÍÊ ÇáãÚÑİ '%s' İí ãáİ ÇáãÓÇÚÏÉ ÇáÃÓÇÓí."
 msgid "No locale specified."
 msgstr "áã íÊã ÊÍÏíÏ áÛÉ ãÍáíÉ."
 
-#: lib/Auth/imap.php:103
-msgid "No password provided for IMAP authentication."
-msgstr ""
-
 #: lib/Auth/krb5.php:91
 msgid "No password provided for Kerberos authentication."
 msgstr "áÇÊæÌÏ ßáãÉ ãÑæÑ ááÊÍŞŞ ßíÑÈíÑæÓ"
@@ -857,10 +632,6 @@ msgstr "ÇáÑÌÇÁ ÅÑÓÇá Ãí ãÔßáÉ Ãæ ÎØÃ İí ÇáÈÑäÇãÌ Åáì i18n@lists.horde.org."
 #: problem.php:110
 msgid "Problem Description"
 msgstr "ÔÑÍ ÇáãÔßáÉ"
-
-#: config/prefs.php.dist:43
-msgid "Refresh Summary View:"
-msgstr ""
 
 #: templates/data/csvmap.inc:127
 msgid "Remove pair"
@@ -1039,8 +810,7 @@ msgstr "ÈÍË Úä ÇáÊÑãíÒ ÇáËäÇÆí áÜ gettext"
 msgid ""
 "Select the characters you need from the boxes below. You can then copy and "
 "paste them from the textarea."
-msgstr "ÍÏÏ ÇáÍÑæİ/ÇáÑãæÒ ÇáÊí ÊÑíÏåÇ ÃÏäÇå. æãä Ëã íãßä äÓÎåÇ"
-"æáÕŞåÇ Öãä ÇáäÕ."
+msgstr "ÍÏÏ ÇáÍÑæİ/ÇáÑãæÒ ÇáÊí ÊÑíÏåÇ ÃÏäÇå. æãä Ëã íãßä äÓÎåÇæáÕŞåÇ Öãä ÇáäÕ."
 
 #: templates/data/datemap.inc:54 templates/data/datemap.inc:90
 msgid "Select the date delimiter:"
@@ -1127,8 +897,8 @@ msgid ""
 "The registry is how Horde applications find out how to talk to each other. "
 "You should list any installed Horde applications that you have here."
 msgstr ""
-"ÇáÊÓÌíá íÚäí ØÑíŞÉ ÇáÊÎÇØÈ Èíä ÇáÈÑÇãÌ ÇáãßæäÉ áäÙÇã åæÑÏí"
-"íÌÈ ÅÏÑÇÌ Ãí ÈÑäÇãÌ íÚãá ãÚ åæÑÏí ŞÏ Êã ÊÑßíÈå Úäßã."
+"ÇáÊÓÌíá íÚäí ØÑíŞÉ ÇáÊÎÇØÈ Èíä ÇáÈÑÇãÌ ÇáãßæäÉ áäÙÇã åæÑÏííÌÈ ÅÏÑÇÌ Ãí "
+"ÈÑäÇãÌ íÚãá ãÚ åæÑÏí ŞÏ Êã ÊÑßíÈå Úäßã."
 
 #: po/translation.php:743
 #, php-format
@@ -1142,8 +912,8 @@ msgid ""
 "There was an error opening the file %s. Try running translation.php with the "
 "flag -d to see any error messages from the xml parser."
 msgstr ""
-"ÍÕá ÎØÃ ÎáÇá İÊÍ ãáİ ÇáÊÑÌãÉ %s. ÍÇæá ÊÔÛíá translation.php ãÚ"
-"(flag -d) áÚÑÖ ÑÓÇáÉ ÇáÎØÃ ãä ãÚÇáÌ ÇáÜ xml."
+"ÍÕá ÎØÃ ÎáÇá İÊÍ ãáİ ÇáÊÑÌãÉ %s. ÍÇæá ÊÔÛíá translation.php ãÚ(flag -d) áÚÑÖ "
+"ÑÓÇáÉ ÇáÎØÃ ãä ãÚÇáÌ ÇáÜ xml."
 
 #: templates/index/notconfigured.inc:28
 msgid ""
@@ -1151,34 +921,36 @@ msgid ""
 "allowing applications to make use of programs such as enscript or mswordview "
 "to render content into HTML for viewing in a browser."
 msgstr ""
-"íÊÍßã åĞÇ Çáãáİ ÈÇáÅÚÏÇÏÇÊ ÇáÚÇãÉ áÈÑÇãÌ ÇáŞíÇÏÉ ááÜ MIME ááåæÑÏí"
-"áÅÙåÇÑ ÇáãáİÇÊ ÇáãÑİŞÉ Öãä ÕİÍÉ ÇáæíÈ İí ÇáãÊÕİÍ."
+"íÊÍßã åĞÇ Çáãáİ ÈÇáÅÚÏÇÏÇÊ ÇáÚÇãÉ áÈÑÇãÌ ÇáŞíÇÏÉ ááÜ MIME ááåæÑÏíáÅÙåÇÑ "
+"ÇáãáİÇÊ ÇáãÑİŞÉ Öãä ÕİÍÉ ÇáæíÈ İí ÇáãÊÕİÍ."
 
 #: templates/index/notconfigured.inc:21
 msgid ""
 "This file controls the stylesheet that is used to set colors and fonts for "
 "the Horde framework and all applications that do not provide their own "
 "settings."
-msgstr "íÊÍßã åĞÇ Çáãáİ İí ÔÑíÍÉ  ÇáÓãÇÊ ÇáÊí ÊÓÊÎÏã áÖÈØ ÇáÃáæÇä æÇáÎØæØ"
-"ááÅØÇÑ ÇáÚÇã áåæÑÏí Ãæ ÇáÈÑÇãÌ ÇáÚÇãáÉ Öãäå ÇáÊí áÇ Êãáß ãáİåÇ ÇáÎÇÕ"
-"áåĞÇ ÇáäæÚ ãä ÇáÅÚÏÇÏÇÊ."
+msgstr ""
+"íÊÍßã åĞÇ Çáãáİ İí ÔÑíÍÉ  ÇáÓãÇÊ ÇáÊí ÊÓÊÎÏã áÖÈØ ÇáÃáæÇä æÇáÎØæØááÅØÇÑ "
+"ÇáÚÇã áåæÑÏí Ãæ ÇáÈÑÇãÌ ÇáÚÇãáÉ Öãäå ÇáÊí áÇ Êãáß ãáİåÇ ÇáÎÇÕáåĞÇ ÇáäæÚ ãä "
+"ÇáÅÚÏÇÏÇÊ."
 
 #: templates/index/notconfigured.inc:35
 msgid ""
 "This file maps file extensions to logical MIME types, enabling Horde "
 "applications to figure out how to handle some content such as email "
 "attachments or CVS checkouts."
-msgstr "íÍÊæí åĞÇ Çáãáİ Úáì ãÎØØ ÇáÅãÊÏÇÏÇÊ ááÃäæÇÚ ÇáãäØŞíÉ ááãáİÇÊ ÇáÊí ÊÌÚá ÈÑÇãÌ"
-"åæÑÏí ŞÇÏÑÉ Úáì ÇáÊÚÇãá ãÚ ÈÚÖ ÇáÃäæÇÚ ãä ÇáãÍÊæíÇÊ ááÈÑíÏ"
-"ãËá ÈÚÖ ãÑİŞÇÊ ÇáÑÓÇÆá Ãæ ãáİÇÊ ãä äæÚ CVS."
+msgstr ""
+"íÍÊæí åĞÇ Çáãáİ Úáì ãÎØØ ÇáÅãÊÏÇÏÇÊ ááÃäæÇÚ ÇáãäØŞíÉ ááãáİÇÊ ÇáÊí ÊÌÚá "
+"ÈÑÇãÌåæÑÏí ŞÇÏÑÉ Úáì ÇáÊÚÇãá ãÚ ÈÚÖ ÇáÃäæÇÚ ãä ÇáãÍÊæíÇÊ ááÈÑíÏãËá ÈÚÖ "
+"ãÑİŞÇÊ ÇáÑÓÇÆá Ãæ ãáİÇÊ ãä äæÚ CVS."
 
 #: templates/index/notconfigured.inc:14
 msgid ""
 "This is the main Horde configuration file. It contains paths and basic items "
 "that apply to the core framework and all Horde applications."
 msgstr ""
-"åĞÇ Çáãáİ íÍæí ÇáÅÚÏÇÏÇÊ ÇáÑÆíÓíÉ áåæÑÏí. íÍÊæí Úáì ÇáãÓÇÑÇÊ æÇáãßæäÇÊ ÇáÃÓÇÓíÉ"
-"ááÅØÇÑ ÇáÚÇã æÌãíÚ ÇáÈÑÇãÌ ÇáÊí ÊÚãá Öãä ÅØÇÑ åæÑÏí."
+"åĞÇ Çáãáİ íÍæí ÇáÅÚÏÇÏÇÊ ÇáÑÆíÓíÉ áåæÑÏí. íÍÊæí Úáì ÇáãÓÇÑÇÊ æÇáãßæäÇÊ "
+"ÇáÃÓÇÓíÉááÅØÇÑ ÇáÚÇã æÌãíÚ ÇáÈÑÇãÌ ÇáÊí ÊÚãá Öãä ÅØÇÑ åæÑÏí."
 
 #: lib/PrefsUI.php:109
 msgid "This number must be at least one."

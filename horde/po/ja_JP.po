@@ -2822,14 +2822,6 @@ msgstr "上弦の月"
 msgid "Fix ratio"
 msgstr "固定比率"
 
-#: lib/Net/SMS/clickatell_http.php:233 lib/Net/SMS/sms2email_http.php:576
-msgid "Flash"
-msgstr ""
-
-#: lib/Horde/UI/VarRenderer/html.php:239
-msgid "Flip"
-msgstr ""
-
 #: lib/Block/weatherdotcom_strings.php:27
 msgid "Fog"
 msgstr "霧"
@@ -2945,11 +2937,6 @@ msgstr "フランス領極南諸島"
 msgid "From"
 msgstr "From"
 
-#: lib/Block/weatherdotcom.php:260 lib/Block/weatherdotcom.php:370
-#: lib/Block/weatherdotcom.php:416
-msgid "From the "
-msgstr ""
-
 #: templates/problem/problem.inc:42
 msgid "Full Description"
 msgstr "詳しい説明"
@@ -3009,10 +2996,6 @@ msgstr "姓"
 #: templates/prefs/app.inc:19
 msgid "Global Options"
 msgstr "共通オプション"
-
-#: templates/prefs/app.inc:17
-msgid "Go"
-msgstr ""
 
 #: lib/Block/fortune.php:45
 msgid "Goedel"
@@ -3628,10 +3611,6 @@ msgstr "不正な発信元アドレスです。"
 msgid "Invalid unicode data."
 msgstr "不正なunicodeデータです。"
 
-#: config/registry.php.dist:361
-msgid "Inventory"
-msgstr ""
-
 #: lib/Horde/UI/VarRenderer/html.php:732
 #: lib/Horde/UI/VarRenderer/tableset_html.php:25
 msgid "Invert selection"
@@ -4246,10 +4225,6 @@ msgstr "モーリタニア・イスラム共和国"
 msgid "Mauritius"
 msgstr "モーリシャス共和国"
 
-#: lib/Net/SMS/clickatell_http.php:323
-msgid "Max allowed credit."
-msgstr ""
-
 #: lib/Net/SMS/clickatell_http.php:316
 msgid "Max message parts exceeded."
 msgstr "メッセージパートの最大数を超過しています。"
@@ -4349,10 +4324,6 @@ msgstr "メソッド"
 #, php-format
 msgid "Method \"%s\" is not defined"
 msgstr "メソッド \"%s\" は定義されてません"
-
-#: lib/Block/metar.php:87 lib/Block/weatherdotcom.php:72
-msgid "Metric"
-msgstr ""
 
 #: lib/Horde/NLS/countries.php:148 lib/Horde/NLS/GeoIP.php:95
 #: lib/Horde/NLS/tld.php:170
@@ -5471,10 +5442,6 @@ msgid "Precipitation for last %d hour: "
 msgid_plural "Precipitation for last %d hours: "
 msgstr[0] "過去 %d 時間の降水量："
 
-#: lib/Block/weatherdotcom.php:309
-msgid "Precipitation<br />chance"
-msgstr ""
-
 #: lib/Horde/Prefs/ldap.php:139
 msgid "Prefs_ldap: Required LDAP extension not found."
 msgstr "Prefs_ldap: 必要なLDAP拡張機能が見つかりません。"
@@ -5676,10 +5643,6 @@ msgstr "%s に関連するのは %s です"
 #: services/portal/syncml.php:112
 msgid "Reload"
 msgstr "リロード"
-
-#: lib/Block/metar.php:333
-msgid "Remarks"
-msgstr ""
 
 #: admin/sessions.php:55 admin/sessions.php:60
 msgid "Remote Host:"
@@ -6099,10 +6062,6 @@ msgstr "色調を選択してください."
 msgid "Select your preferred language:"
 msgstr "言語を選択してください:"
 
-#: admin/setup/scripts.php:88
-msgid "Self-destructing..."
-msgstr ""
-
 #: templates/problem/problem.inc:51
 msgid "Send Problem Report"
 msgstr "障害レポートを送信する"
@@ -6193,10 +6152,6 @@ msgstr "設定"
 #: templates/admin/setup/index.html:61
 msgid "Setup upgrade scripts available"
 msgstr "設定更新スクリプト"
-
-#: lib/Block/weatherdotcom.php:198
-msgid "Several locations possible with the parameter: "
-msgstr ""
 
 #: lib/Horde/NLS/countries.php:200 lib/Horde/NLS/GeoIP.php:104
 #: lib/Horde/NLS/tld.php:208
@@ -6352,14 +6307,6 @@ msgstr "スロバキア共和国"
 #: lib/Horde/NLS/tld.php:213
 msgid "Slovenia"
 msgstr "スロベニア共和国"
-
-#: lib/Block/iframe.php:24
-msgid "Small"
-msgstr ""
-
-#: lib/Horde/Alarm.php:350
-msgid "Snooze..."
-msgstr ""
 
 #: lib/Block/weatherdotcom_strings.php:71
 msgid "Snow"
@@ -6689,10 +6636,6 @@ msgstr "表組"
 msgid "Table operations menu bar"
 msgstr "表操作メニューバー"
 
-#: lib/Block/cloud.php:3 lib/Block/cloud.php:42
-msgid "Tag Cloud"
-msgstr ""
-
 #: lib/Horde/NLS/GeoIP.php:111 lib/Horde/NLS/tld.php:241
 msgid "Taiwan"
 msgstr "台湾"
@@ -6908,18 +6851,6 @@ msgid ""
 "The location of the GnuPG binary must be given to the Crypt_pgp:: class."
 msgstr ""
 "GnuPG バイナリのパスが Crypt_pgp クラスに設定されている必要があります。"
-
-#: lib/Block/vatid.php:77
-msgid ""
-"The member state service could not be reached in time. Try again later or "
-"with a different member state."
-msgstr ""
-
-#: lib/Block/vatid.php:74
-msgid ""
-"The member state service is currently not available. Try again later or with "
-"a different member state."
-msgstr ""
 
 #: lib/Horde/MIME/MDN.php:195
 #, php-format
@@ -7261,11 +7192,6 @@ msgstr "このフィールドは16進RGB表記の色コードなくてはいけません。例:'#1234af'."
 msgid "This form has already been processed."
 msgstr "このフォームは既に処理されています。"
 
-#: templates/help/about.inc:1
-#, php-format
-msgid "This is %s."
-msgstr ""
-
 #: lib/Horde/Kolab/IMAP.php:567 lib/Horde/Kolab/IMAP.php:1195
 #, php-format
 msgid ""
@@ -7448,10 +7374,6 @@ msgstr "Kolab XML オブジェクト中に UID が見つかりません"
 #: lib/Block/iframe.php:17 lib/Horde/MIME/Viewer/vcard.php:253
 msgid "URL"
 msgstr "URL"
-
-#: lib/Net/SMS/sms2email_http.php:550
-msgid "URL for your script delivery status report"
-msgstr ""
 
 #: lib/Horde/NLS/countries.php:232 lib/Horde/NLS/GeoIP.php:112
 #: lib/Horde/NLS/tld.php:244
@@ -8667,18 +8589,9 @@ msgstr "データ形式エラー"
 msgid "entry not found"
 msgstr "項目がありません"
 
-#: lib/Block/weatherdotcom_strings.php:88
-msgid "falling"
-msgstr ""
-
 #: lib/Horde/Browser.php:942
 msgid "file"
 msgstr "ファイル"
-
-#: lib/Block/metar.php:181 lib/Block/metar.php:367 lib/Block/metar.php:393
-#, php-format
-msgid "from the %s (%s) at %s %s"
-msgstr ""
 
 #: lib/Block/weatherdotcom.php:262
 msgid "gusting"
@@ -8695,10 +8608,6 @@ msgstr "hh"
 #: lib/Horde/MIME/Message.php:137
 msgid "host name unknown"
 msgstr "ホスト名が不明"
-
-#: lib/Net/SMS/clickatell_http.php:231 lib/Net/SMS/sms2email_http.php:574
-msgid "immediate"
-msgstr ""
 
 #: admin/setup/diff.php:64 admin/setup/diff.php:76
 msgid "inline"
@@ -8746,10 +8655,6 @@ msgstr "アクセスは拒否されました"
 msgid "remote error in protocol"
 msgstr "リモートでのプロトコルエラー"
 
-#: lib/Block/weatherdotcom_strings.php:90
-msgid "rising"
-msgstr ""
-
 #: lib/Horde/MIME/Message.php:141
 msgid "service unavailable"
 msgstr "サービス不能"
@@ -8765,10 +8670,6 @@ msgstr "HTTP 経由の sms2email"
 #: lib/Horde/UI/VarRenderer/html.php:408
 msgid "ss"
 msgstr "ss"
-
-#: lib/Block/weatherdotcom_strings.php:89
-msgid "steady"
-msgstr ""
 
 #: lib/Horde/MIME/Message.php:149
 msgid "system error"
@@ -8787,17 +8688,9 @@ msgstr "一時的なエラー"
 msgid "type the password twice to confirm"
 msgstr "確認のためパスワード2度入力して下さい"
 
-#: admin/setup/diff.php:64 admin/setup/diff.php:76
-msgid "unified"
-msgstr ""
-
 #: lib/Horde/MIME/Part.php:27
 msgid "unnamed"
 msgstr "無名"
-
-#: lib/Net/SMS/clickatell_http.php:231 lib/Net/SMS/sms2email_http.php:574
-msgid "user select"
-msgstr ""
 
 #: lib/Horde/MIME/Viewer/vcard.php:35
 msgid "vCard"

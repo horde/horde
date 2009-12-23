@@ -295,16 +295,6 @@ msgstr ""
 "Absender. Folgen Sie keinen Links in dieser Nachricht und hüten Sie sich "
 "davor, dem Absender persönliche Daten preiszugeben."
 
-#: framework/Kolab_Filter/lib/Horde/Kolab/Filter/Content.php:396
-#, php-format
-msgid "(UNTRUSTED, sender <%s> is not authenticated)"
-msgstr ""
-
-#: framework/Kolab_Filter/lib/Horde/Kolab/Filter/Content.php:390
-#, php-format
-msgid "(UNTRUSTED, sender is <%s>)"
-msgstr ""
-
 #: lib/Block/weatherdotcom.php:370 lib/Block/weatherdotcom.php:415
 msgid ", gusting "
 msgstr ", böig "
@@ -3119,11 +3109,6 @@ msgstr "Der Order %s existiert nicht!"
 #, php-format
 msgid "Folder %s has type \"%s\" not \"event\"!"
 msgstr "Der Ordner %s hat den Typ \"%s\" nicht \"event\"!"
-
-#: framework/Kolab_FreeBusy/lib/Horde/Kolab/FreeBusy/Cache.php:188
-#, php-format
-msgid "Folder %s is irrelevant for user %s."
-msgstr ""
 
 #: framework/Form/Form.php:4268
 msgid "Font"
@@ -7531,11 +7516,6 @@ msgstr ""
 #, fuzzy
 msgid "The following event has been successfully removed:"
 msgstr "Ihre Bestellung wurde erfolgreich weitergeleitet."
-
-#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:579
-#, php-format
-msgid "The following event that was canceled is not present in %s's calendar:"
-msgstr ""
 
 #: framework/Horde/Horde.php:227
 msgid ""

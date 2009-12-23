@@ -1681,10 +1681,6 @@ msgstr "A másolás nem sikerült: %s"
 msgid "Cornflower"
 msgstr "Búzavirág"
 
-#: lib/Net/SMS/win_http.php:179 lib/Net/SMS/win_http.php:204
-msgid "Cost ID"
-msgstr ""
-
 #: lib/Horde/NLS/countries.php:62 lib/Horde/NLS/GeoIP.php:67
 #: lib/Horde/NLS/tld.php:64
 msgid "Costa Rica"
@@ -3447,10 +3443,6 @@ msgstr "%s ikonjai"
 #: config/prefs.php.dist:412
 msgid "Icons with text"
 msgstr "ikonok és szöveg"
-
-#: lib/Horde/Form.php:3710
-msgid "Id"
-msgstr ""
 
 #: themes/ideas/info.php:6
 msgid "Ideas"
@@ -5303,10 +5295,6 @@ msgstr "Délutáni zivatarok"
 msgid "POSIX extension is missing"
 msgstr "Hiányzik a POSIX bõvítés"
 
-#: lib/api.php:209
-msgid "P_HP Shell"
-msgstr ""
-
 #: lib/Horde/NLS/countries.php:172 lib/Horde/NLS/GeoIP.php:99
 #: lib/Horde/NLS/tld.php:191
 msgid "Pakistan"
@@ -5747,10 +5735,6 @@ msgstr "Az indulóoldal frissítésének gyakorisága:"
 msgid "Refresh rate:"
 msgstr "Frissítési gyakoriság:"
 
-#: lib/Horde/Form.php:1202 lib/Horde/Form.php:1222
-msgid "Regex"
-msgstr ""
-
 #: lib/Horde/Form.php:3966
 msgid "Relationship browser"
 msgstr "Kapcsolat böngészõ"
@@ -5973,10 +5957,6 @@ msgstr "SQL parancsértelmezõ"
 #: lib/Horde/Form.php:4007
 msgid "SQL statement for value lookups"
 msgstr "SQL parancs a kereséshez"
-
-#: config/registry.php.dist:442
-msgid "SSH"
-msgstr ""
 
 #: lib/Horde/Notification/Listener/mobile.php:35
 msgid "SUCCESS"
@@ -6761,10 +6741,6 @@ msgstr "Svájc"
 #: services/portal/syncml.php:52
 msgid "Sync log deleted"
 msgstr "Töröltük a sync logot"
-
-#: config/prefs.php.dist:155
-msgid "SyncML"
-msgstr ""
 
 #: lib/Block/feed.php:5
 msgid "Syndicated Feed"
@@ -8368,10 +8344,6 @@ msgstr "Nem megfelelõ a mezõk száma. Várt: %d, talált: %d."
 msgid "Wrong offset %d while reading a VFS file."
 msgstr "Hibás %d offset a VFS állomány olvasásakor."
 
-#: config/registry.php.dist:270
-msgid "X-Ref"
-msgstr ""
-
 #: lib/Horde/Crypt/smime.php:598
 msgid "X509v3 Basic Constraints"
 msgstr "X509v3 alapvetõ korlátozások"
@@ -8398,10 +8370,6 @@ msgstr "X509v3 kiterjesztések"
 #: templates/data/datetime.inc:89 templates/data/datetime.inc:90
 msgid "YY"
 msgstr "ÉÉ"
-
-#: lib/Horde/UI/VarRenderer/html.php:435 lib/Horde/UI/VarRenderer/html.php:477
-msgid "YYYY"
-msgstr ""
 
 #: lib/Horde/UI/VarRenderer/html.php:1219
 msgid "Yahoo! map"
@@ -8904,10 +8872,6 @@ msgstr "széllökések"
 msgid "h:"
 msgstr "m:"
 
-#: lib/Horde/UI/VarRenderer/html.php:380
-msgid "hh"
-msgstr ""
-
 #: lib/Horde/MIME/Message.php:136
 msgid "host name unknown"
 msgstr "a gép neve nem ismert"
@@ -8937,10 +8901,6 @@ msgstr "sor]"
 msgid "mkisofs error code %d while making ISO."
 msgstr ""
 "Az mkisofs program %d hibakóddal leállt az ISO állomány készítése közben."
-
-#: lib/Horde/UI/VarRenderer/html.php:391
-msgid "mm"
-msgstr ""
 
 #: lib/Horde/Prefs/UI.php:310 services/portal/sidebar.php:160
 #: services/portal/sidebar.php:233
@@ -8978,10 +8938,6 @@ msgstr "nézzük meg a különbségeket"
 #: lib/Net/SMS/sms2email_http.php:524
 msgid "sms2email via HTTP"
 msgstr "sms2email szolgáltatás HTTP-n át"
-
-#: lib/Horde/UI/VarRenderer/html.php:408
-msgid "ss"
-msgstr ""
 
 #: lib/Block/weatherdotcom_strings.php:94
 msgid "steady"
@@ -9027,10 +8983,6 @@ msgstr "vCard"
 #: lib/Horde/UI/VarRenderer/html.php:249
 msgid "w:"
 msgstr "sz:"
-
-#: lib/Block/weatherdotcom.php:6
-msgid "weather.com"
-msgstr ""
 
 #: lib/Horde/Form.php:1404
 #, php-format

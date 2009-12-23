@@ -174,11 +174,6 @@ msgstr "%s Операції профілактики - Підтвердження"
 msgid "%s Setup"
 msgstr "%s Установлення"
 
-#: lib/Horde/Auth/Signup.php:185
-#, php-format
-msgid "%s Sign Up"
-msgstr ""
-
 #: services/maintenance.php:60
 #, php-format
 msgid "%s Terms of Agreement"
@@ -229,16 +224,6 @@ msgstr "%s необхідний"
 #, php-format
 msgid "%s not found."
 msgstr "%s не знайдено."
-
-#: lib/Horde/Argv/Parser.php:466
-#, php-format
-msgid "%s option does not take a value"
-msgstr ""
-
-#: lib/Horde/Argv/Parser.php:457 lib/Horde/Argv/Parser.php:502
-#, php-format
-msgid "%s option requires %d arguments"
-msgstr ""
 
 #: lib/Horde/Argv/Parser.php:455 lib/Horde/Argv/Parser.php:500
 #, php-format
@@ -309,10 +294,6 @@ msgstr "6 годин"
 msgid "<Previous"
 msgstr "<Попередня"
 
-#: services/keyboard.php:48
-msgid "A characters"
-msgstr ""
-
 #: lib/Block/metar.php:134
 msgid "A database backend is required for this block."
 msgstr "Цей блок потребує базу даних."
@@ -378,54 +359,6 @@ msgstr ""
 #: lib/Horde/Form.php:1621 lib/Horde/Form.php:1667
 msgid "A temporary directory"
 msgstr "Тимчасова папка"
-
-#: lib/Block/weatherdotcom_strings.php:9
-msgid "AM Clouds"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:10
-msgid "AM Dizzle"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:11
-msgid "AM Fog"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:12
-msgid "AM Light Rain"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:13
-msgid "AM Light Snow"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:14
-msgid "AM Rain"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:15
-msgid "AM Showers"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:16
-msgid "AM Snow"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:17
-msgid "AM Snow Showers"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:18
-msgid "AM Sun"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:19
-msgid "AM T-Showers"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:20
-msgid "AM T-Storms"
-msgstr ""
 
 #: templates/data/time.inc:29 templates/data/datetime.inc:110
 msgid "AM/PM"
@@ -557,14 +490,6 @@ msgstr "Адреса"
 msgid "Address Book"
 msgstr "Адресник"
 
-#: lib/Horde/IMAP/ACL/rfc4314.php:70 lib/Horde/IMAP/ACL/rfc2086.php:106
-msgid "Administer"
-msgstr ""
-
-#: lib/Horde/IMAP/ACL/rfc4314.php:56 lib/Horde/IMAP/ACL/rfc2086.php:94
-msgid "Administer - set permissions for other users"
-msgstr ""
-
 #: services/portal/sidebar.php:118
 msgid "Administration"
 msgstr "Адміністрування"
@@ -577,10 +502,6 @@ msgstr "Ads"
 #: lib/Horde/NLS/GeoIP.php:56
 msgid "Afghanistan"
 msgstr "Афганістан"
-
-#: lib/Horde/NLS/tld.php:31
-msgid "Aland Islands"
-msgstr ""
 
 #: lib/Horde/Notification/Listener/status.php:31
 msgid "Alarm"
@@ -644,17 +565,9 @@ msgstr "Всі Групи"
 msgid "All Permissions"
 msgstr "Всі Права"
 
-#: services/portal/syncml.php:46
-msgid "All synchronization sessions deleted."
-msgstr ""
-
 #: lib/Horde/Form.php:2380
 msgid "Allow multiple addresses?"
 msgstr "Дозволити багато адрес?"
-
-#: config/prefs.php.dist:569
-msgid "Allow setting of ordered list type"
-msgstr ""
 
 #: config/prefs.php.dist:146
 msgid "Alternate IMSP Login"
@@ -731,10 +644,6 @@ msgstr "Антігуа і Барбуда"
 msgid "Application"
 msgstr "Модуль"
 
-#: admin/phpshell.php:47
-msgid "Application Context: "
-msgstr ""
-
 #: util/icon_browser.php:44
 msgid "Application List"
 msgstr "Список модулів"
@@ -799,18 +708,10 @@ msgstr "Вірменія"
 msgid "Armenian (ARMSCII-8)"
 msgstr "Armenian (ARMSCII-8)"
 
-#: lib/Block/fortune.php:37
-msgid "Art"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:30 lib/Horde/NLS/countries.php:22
 #: lib/Horde/NLS/GeoIP.php:59
 msgid "Aruba"
 msgstr "Аруба"
-
-#: lib/Horde/NLS/tld.php:15
-msgid "Ascension Island"
-msgstr ""
 
 #: lib/Block/fortune.php:38
 msgid "Ascii Art"
@@ -823,10 +724,6 @@ msgstr "Азія/Тихоокеанський регіон"
 #: config/prefs.php.dist:483
 msgid "Ask for confirmation before doing maintenance operations?"
 msgstr "Вимагати підтвердження для операцій профілактики?"
-
-#: lib/Horde/Form.php:4021
-msgid "Assignment columns"
-msgstr ""
 
 #: templates/problem/problem.inc:43
 msgid "Attachment"
@@ -998,14 +895,6 @@ msgstr "Доступні поля:"
 msgid "Azerbaijan"
 msgstr "Азербайджан"
 
-#: themes/azur/info.php:8
-msgid "Azur"
-msgstr ""
-
-#: lib/Block/fortune.php:39
-msgid "BOFH Excuses"
-msgstr ""
-
 #: lib/Horde/Auth/krb5.php:82
 msgid "Bad kerberos password."
 msgstr "Неправильний пароль для kerberos"
@@ -1167,10 +1056,6 @@ msgstr "Болгарія"
 msgid "Burkina Faso"
 msgstr "Буркіна Фасо"
 
-#: themes/burntorange/info.php:9
-msgid "Burnt Orange"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:40 lib/Horde/NLS/countries.php:45
 #: lib/Horde/NLS/GeoIP.php:61
 msgid "Burundi"
@@ -1230,18 +1115,10 @@ msgstr "Відмінити"
 msgid "Cancel Problem Report"
 msgstr "Відмінити рапорт про проблему"
 
-#: admin/sessions.php:23
-msgid "Cannot administer external session handlers."
-msgstr ""
-
 #: lib/Horde/Auth/cyrus.php:241
 #, php-format
 msgid "Cannot connect to IMAP server: %s"
 msgstr "Не можу з'єднатися з IMAP сервером: %s"
-
-#: lib/Horde/Kolab/Server/ldap.php:58
-msgid "Cannot connect to the Kolab LDAP server. PHP does not support LDAP!"
-msgstr ""
 
 #: lib/VFS.php:409 lib/VFS/smb.php:496 lib/VFS/sql_file.php:181
 #: lib/VFS/ssh2.php:729 lib/VFS/file.php:272 lib/VFS/ftp.php:749
@@ -1310,20 +1187,10 @@ msgstr "Не можу очистити пароль автоматично, сконтактуйтесь з адміністратором."
 msgid "Cannot route message to specified number."
 msgstr "Не можу спрямувати лист до вказаного номера."
 
-#: lib/Horde/Kolab.php:836
-#, php-format
-msgid "Cannot trigger shared folder %s."
-msgstr ""
-
 #: lib/File/CSV.php:418
 #, php-format
 msgid "Cannot write to file \"%s\""
 msgstr "Не можу записати у файл \"%s\""
-
-#: lib/Horde/NLS/tld.php:66 lib/Horde/NLS/countries.php:49
-#: lib/Horde/NLS/GeoIP.php:68
-msgid "Cape Verde"
-msgstr ""
 
 #: lib/Net/SMS/generic_smtp.php:104
 msgid "Carrier"
@@ -1408,21 +1275,9 @@ msgstr ""
 msgid "Character to split multiple addresses with"
 msgstr "Символ для розмежування кількох адрес"
 
-#: lib/Block/vatid.php:45
-msgid "Check"
-msgstr ""
-
 #: templates/admin/setup/index.html:4
 msgid "Check for newer versions"
 msgstr "Перевірити наявність нових версій"
-
-#: lib/Block/vatid.php:47
-msgid "Checking"
-msgstr ""
-
-#: templates/admin/groups/addchild.inc:10
-msgid "Child"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:60 lib/Horde/NLS/countries.php:53
 #: lib/Horde/NLS/GeoIP.php:67
@@ -1458,11 +1313,6 @@ msgstr "Оберіть назву користувача"
 msgid "Choose how to display dates:"
 msgstr "Оберіть формат дати:"
 
-#: lib/Horde/NLS/tld.php:67 lib/Horde/NLS/countries.php:55
-#: lib/Horde/NLS/GeoIP.php:68
-msgid "Christmas Island"
-msgstr ""
-
 #: lib/VFS.php:1067 lib/Net/SMS.php:294
 #, php-format
 msgid "Class definition of %s not found."
@@ -1489,14 +1339,6 @@ msgstr "Очистити користувача"
 msgid "Clear user data"
 msgstr "Очистити дані користувача"
 
-#: lib/Block/weatherdotcom_strings.php:22
-msgid "Clearing Early"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:23
-msgid "Clearing Late"
-msgstr ""
-
 #: templates/maintenance/maintenance.html:60
 msgid "Click to Continue"
 msgstr "Клацніть для продовження"
@@ -1504,10 +1346,6 @@ msgstr "Клацніть для продовження"
 #: lib/Net/SMS/clickatell_http.php:194
 msgid "Clickatell via HTTP"
 msgstr "Clickatell через НТТР"
-
-#: templates/syncml/syncml.inc:12
-msgid "Client Anchor"
-msgstr ""
 
 #: services/keyboard.php:156 templates/shares/edit.inc:12
 msgid "Close Window"
@@ -1520,10 +1358,6 @@ msgstr "Хмари"
 #: lib/Block/weatherdotcom_strings.php:24
 msgid "Clouds Early"
 msgstr "Ранні хмари"
-
-#: lib/Block/weatherdotcom_strings.php:25
-msgid "Clouds Late"
-msgstr ""
 
 #: lib/Block/weatherdotcom_strings.php:26
 msgid "Cloudy"
@@ -1578,10 +1412,6 @@ msgstr "Командний рядок"
 msgid "Comment"
 msgstr "Коментар"
 
-#: lib/Horde/Crypt/smime.php:573
-msgid "Common Name"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:133 lib/Horde/NLS/countries.php:58
 #: lib/Horde/NLS/GeoIP.php:84
 msgid "Comoros"
@@ -1590,10 +1420,6 @@ msgstr "Комори"
 #: lib/Horde/MIME/Viewer/vcard.php:281
 msgid "Company"
 msgstr "Компанія"
-
-#: lib/Block/fortune.php:40
-msgid "Computers"
-msgstr ""
 
 #: lib/Block/weatherdotcom.php:303
 msgid "Condition"
@@ -1704,14 +1530,6 @@ msgstr "Cookie"
 #, php-format
 msgid "Copy failed: %s"
 msgstr "Копіювання невдале: %s"
-
-#: themes/cornflower/info.php:6
-msgid "Cornflower"
-msgstr ""
-
-#: lib/Net/SMS/win_http.php:179 lib/Net/SMS/win_http.php:204
-msgid "Cost ID"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:64 lib/Horde/NLS/countries.php:62
 #: lib/Horde/NLS/GeoIP.php:67
@@ -1874,10 +1692,6 @@ msgstr "Не можу доступитися до LDAP сервера: %s"
 msgid "Could not read %s."
 msgstr "Не можу прочитати %s."
 
-#: lib/Net/SMS/generic_smpp.php:144
-msgid "Could not read response PDU"
-msgstr ""
-
 #: services/resetpassword.php:86
 msgid ""
 "Could not reset the password for the requested user. Some or all of the "
@@ -1967,11 +1781,6 @@ msgstr "Не можу шукати LDAP сервер."
 #: lib/Horde/Auth/msad.php:367
 msgid "Could not search the MSAD server."
 msgstr "Не можу шукати у MSAD сервері."
-
-#: lib/VFS/ISOWriter/RealInputStrategy/copy.php:86
-#, php-format
-msgid "Could not unlink \"%s\"."
-msgstr ""
 
 #: lib/Net/SMS/sms2email_http.php:228
 #, php-format
@@ -2077,10 +1886,6 @@ msgstr "Поточна погода"
 msgid "Current condition: "
 msgstr "Поточні умови: "
 
-#: lib/Horde/Kolab/Storage/Session.php:158
-msgid "Current user is not a standard Kolab user."
-msgstr ""
-
 #: config/prefs.php.dist:131
 #, php-format
 msgid "Customize tasks to run upon logon to %s."
@@ -2130,26 +1935,9 @@ msgstr "Щодня"
 msgid "Data"
 msgstr "Дані"
 
-#: lib/Horde/Kolab/Format/XML.php:483 lib/Horde/Kolab/Format/XML.php:669
-#, php-format
-msgid "Data value for %s is empty in Kolab XML object!"
-msgstr ""
-
-#: admin/datatree.php:68
-msgid "DataTree"
-msgstr ""
-
-#: admin/datatree.php:65
-msgid "DataTree Browser"
-msgstr ""
-
 #: templates/syncml/syncml.inc:10
 msgid "Database"
 msgstr "База даних"
-
-#: lib/Horde/Form.php:4190
-msgid "Database lookup"
-msgstr ""
 
 #: lib/Block/vatid.php:95 lib/Horde/Form.php:3092
 #: lib/Horde/MIME/Viewer/rfc822.php:75
@@ -2195,10 +1983,6 @@ msgstr "Основний колір"
 msgid "Default Identity"
 msgstr "Основна іпостась"
 
-#: lib/Block/account.php:80
-msgid "Default Shell"
-msgstr ""
-
 #: lib/Block/fortune.php:42
 msgid "Definitions"
 msgstr "Визначення"
@@ -2221,10 +2005,6 @@ msgstr "Витерти"
 #, php-format
 msgid "Delete \"%s\""
 msgstr "Витерти \"%s\""
-
-#: templates/syncml/syncml.inc:38
-msgid "Delete All SyncML Data"
-msgstr ""
 
 #: lib/Horde/IMAP/ACL/rfc4314.php:67
 msgid "Delete Folders"
@@ -2273,11 +2053,6 @@ msgstr "Витерти/знищити"
 msgid "Deleted setup upgrade script \"%s\"."
 msgstr "Витерто інсталяційний скрипт обновлення \"%s\"."
 
-#: services/portal/syncml.php:33
-#, php-format
-msgid "Deleted synchronization session for device \"%s\" and database \"%s\"."
-msgstr ""
-
 #: lib/Net/SMS/clickatell_http.php:229 lib/Net/SMS/clickatell_http.php:261
 #: lib/Net/SMS/sms2email_http.php:572 lib/Net/SMS/sms2email_http.php:604
 msgid "Delivery time"
@@ -2304,10 +2079,6 @@ msgstr "Опис"
 msgid "Details have been logged for the administrator."
 msgstr "Деталі збережені для адміністратора."
 
-#: lib/Horde.php:227
-msgid "Details:"
-msgstr ""
-
 #: config/registry.php.dist:233
 msgid "Development"
 msgstr "Розробка"
@@ -2327,11 +2098,6 @@ msgstr "Точка роси за останню годину: "
 #: lib/Block/weatherdotcom.php:234
 msgid "Dew point: "
 msgstr "Точка роси: "
-
-#: lib/Horde/UI/VarRenderer/html.php:1171
-#, php-format
-msgid "Dial %s"
-msgstr ""
 
 #: lib/Horde/Prefs/file.php:71
 #, php-format
@@ -2375,10 +2141,6 @@ msgstr "Джібуті"
 msgid "Do not delete"
 msgstr "Не витирати"
 
-#: services/maintenance.php:26
-msgid "Do not directly access maintenance.php"
-msgstr ""
-
 #: templates/data/csvinfo.inc:12 templates/data/tsvinfo.inc:12
 msgid "Does the first row contain the field names? If yes, check this box:"
 msgstr "Перший рядок містить назви полів? Якщо так, позначте цю опцію:"
@@ -2411,10 +2173,6 @@ msgstr "Скачати %s"
 msgid "Download generated configuration as PHP script."
 msgstr "Завантажити створену конфігурацію як РНР скрипт."
 
-#: lib/Block/weatherdotcom_strings.php:27
-msgid "Drizzle"
-msgstr ""
-
 #: lib/Horde/Form.php:2776
 msgid "Drop down list"
 msgstr "Спадний список"
@@ -2423,14 +2181,6 @@ msgstr "Спадний список"
 msgid "Drugs"
 msgstr "Медикаменти"
 
-#: config/registry.php.dist:66
-msgid "Dynamic Mail"
-msgstr ""
-
-#: services/keyboard.php:66
-msgid "E characters"
-msgstr ""
-
 #: lib/Horde/Crypt/pgp.php:440
 msgid "E-Mail"
 msgstr "E-пошта"
@@ -2438,10 +2188,6 @@ msgstr "E-пошта"
 #: lib/Horde/Notification/Listener/mobile.php:34
 msgid "ERR"
 msgstr "ERR"
-
-#: lib/Block/vatid.php:3
-msgid "EU VAT identification"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:237
 msgid "East Timor"
@@ -2517,10 +2263,6 @@ msgstr "Е-пошта"
 msgid "Email Address"
 msgstr "Адреса e-пошти"
 
-#: lib/Horde/Alarm.php:460
-msgid "Email Notification"
-msgstr ""
-
 #: lib/Horde/Alarm.php:462
 msgid "Email address (optional)"
 msgstr "Адреса е-пошти (опціонально)"
@@ -2528,10 +2270,6 @@ msgstr "Адреса е-пошти (опціонально)"
 #: lib/Horde/Form.php:2627
 msgid "Email addresses must match."
 msgstr "Адреси е-пошти мусять співпадати."
-
-#: lib/Horde/Identity.php:467
-msgid "Email addresses to confirm not found."
-msgstr ""
 
 #: lib/Horde/Form.php:2655
 msgid "Email with confirmation"
@@ -2570,10 +2308,6 @@ msgstr ""
 "Введіть контрольне питання, яке Вас запитають, якщо Вам треба буде оновити "
 "пароль. напр. 'Дівоче прізвище матері?':"
 
-#: lib/Horde/UI/VarRenderer/html.php:966 lib/Horde/UI/VarRenderer/html.php:978
-msgid "Enter the letters below:"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:102 lib/Horde/NLS/countries.php:75
 #: lib/Horde/NLS/GeoIP.php:76
 msgid "Equatorial Guinea"
@@ -2595,31 +2329,10 @@ msgstr "Помилка"
 msgid "Error connecting to LDAP server %s!"
 msgstr "Помилка з'єднання з LDAP сервером %s!"
 
-#: lib/SyncML/Device/Sync4j.php:574
-msgid "Error converting notes."
-msgstr ""
-
-#: lib/Horde/RPC/webdav.php:206
-#, php-format
-msgid "Error deleting from path %s; must be [app]/[path]"
-msgstr ""
-
-#: services/portal/syncml.php:29
-msgid "Error deleting synchronization session:"
-msgstr ""
-
-#: services/portal/syncml.php:42
-msgid "Error deleting synchronization sessions:"
-msgstr ""
-
 #: lib/Horde/Group/kolab.php:285
 #, php-format
 msgid "Error searching for user with the email address \"%s\"!"
 msgstr "Помилка пошуку користувача з адресою е-пошти: \"%s\"!"
-
-#: lib/Net/SMS/generic_smpp.php:139
-msgid "Error sending PDU"
-msgstr ""
 
 #: lib/Horde/Kolab/Server/ldap.php:86
 #, php-format
@@ -2657,10 +2370,6 @@ msgstr "Етнічний"
 #: lib/Horde/NLS/GeoIP.php:55
 msgid "Europe"
 msgstr "Європа"
-
-#: lib/Horde/NLS/tld.php:83
-msgid "European Union"
-msgstr ""
 
 #: templates/portal/layout.inc:101 config/prefs.php.dist:397
 msgid "Every 15 minutes"
@@ -2717,33 +2426,6 @@ msgstr "Дата закінчення"
 msgid "Exponent"
 msgstr "Експонент"
 
-#: lib/Block/iframe.php:27
-msgid "Extra Large"
-msgstr ""
-
-#: templates/admin/setup/index.html:74
-msgid "FTP upload of setup"
-msgstr ""
-
-#: themes/fadetogreen/info.php:9
-msgid "Fade to Green"
-msgstr ""
-
-#: lib/Horde/Kolab/Storage/IMAP/pear.php:275
-#, php-format
-msgid "Failed fetching IMAP message %s. Error was %s"
-msgstr ""
-
-#: lib/Horde/Kolab/Storage/IMAP/pear.php:248
-#, php-format
-msgid "Failed fetching body of IMAP message %s. Error was %s"
-msgstr ""
-
-#: lib/Horde/Kolab/Storage/IMAP/pear.php:221
-#, php-format
-msgid "Failed fetching headers of IMAP message %s. Error was %s"
-msgstr ""
-
 #: lib/Horde/Auth/ldap.php:98
 msgid "Failed to connect to LDAP server."
 msgstr "Не можу з'єднатися з LDAP сервером."
@@ -2770,21 +2452,6 @@ msgstr "Невдале копіювання з \"%s\"."
 msgid "Failed to create new SASL connection."
 msgstr "Невдале створення нового SASL з'єднання"
 
-#: lib/Horde/Kolab/Format.php:52
-#, php-format
-msgid "Failed to load Kolab Format driver %s"
-msgstr ""
-
-#: lib/Horde/Kolab/Storage/IMAP.php:134
-#, php-format
-msgid "Failed to load Kolab IMAP driver %s"
-msgstr ""
-
-#: lib/Horde/Kolab/Format/XML.php:358
-#, php-format
-msgid "Failed to load Kolab XML driver %s"
-msgstr ""
-
 #: lib/VFS/smb.php:574 lib/VFS/ssh2.php:820 lib/VFS/ftp.php:837
 #, php-format
 msgid "Failed to move to \"%s\"."
@@ -2794,10 +2461,6 @@ msgstr "Невдале переміщення в \"%s\"."
 #, php-format
 msgid "Failed to retrieve: %s"
 msgstr "Неможливо отримати: %s"
-
-#: lib/Block/weatherdotcom_strings.php:28
-msgid "Fair"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:86 lib/Horde/NLS/countries.php:79
 #: lib/Horde/NLS/GeoIP.php:72
@@ -2822,14 +2485,6 @@ msgstr "Факс"
 msgid "February"
 msgstr "Лютий"
 
-#: lib/Block/feed.php:46
-msgid "Feed"
-msgstr ""
-
-#: lib/Block/feed.php:22
-msgid "Feed Address"
-msgstr ""
-
 #: lib/Block/metar.php:232
 msgid "Feels Like"
 msgstr "Відчуття як"
@@ -2845,18 +2500,6 @@ msgstr "Невеликі дощі"
 #: lib/Block/weatherdotcom_strings.php:30
 msgid "Few Snow Showers"
 msgstr "Слабий снігопад"
-
-#: lib/Horde/Form.php:2609
-msgid "Field matrix"
-msgstr ""
-
-#: lib/Horde/Form.php:4245
-msgid "Figlet CAPTCHA"
-msgstr ""
-
-#: lib/Horde/Form.php:4249
-msgid "Figlet font"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:85 lib/Horde/NLS/countries.php:81
 #: lib/Horde/NLS/GeoIP.php:72
@@ -2914,29 +2557,9 @@ msgstr "Перша четвертина"
 msgid "Fix ratio"
 msgstr "Фіксоване співвідношення"
 
-#: lib/Net/SMS/clickatell_http.php:233 lib/Net/SMS/sms2email_http.php:576
-msgid "Flash"
-msgstr ""
-
-#: lib/Horde/UI/VarRenderer/html.php:250
-msgid "Flip"
-msgstr ""
-
 #: lib/Block/weatherdotcom_strings.php:31
 msgid "Fog"
 msgstr "Туман"
-
-#: lib/Block/weatherdotcom_strings.php:32
-msgid "Fog Early"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:33
-msgid "Fog Late"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:34
-msgid "Foggy"
-msgstr ""
 
 #: lib/VFS/sql.php:289 lib/VFS/musql.php:106
 #, php-format
@@ -2947,19 +2570,9 @@ msgstr "Папки \"%s\" не існує"
 msgid "Font"
 msgstr "Шрифт"
 
-#: lib/Block/fortune.php:46
-msgid "Food"
-msgstr ""
-
 #: lib/Block/metar.php:346
 msgid "Forecast (TAF)"
 msgstr "Прогноз (TAF)"
-
-#: lib/Block/weatherdotcom.php:77
-msgid ""
-"Forecast Days (note that the returned forecast returns both day and night; a "
-"large number here could result in a wide block)"
-msgstr ""
 
 #: templates/login/login.inc:89
 msgid "Forgot your password?"
@@ -2969,34 +2582,9 @@ msgstr "Забули Ваш пароль?"
 msgid "Forms"
 msgstr "Форми"
 
-#: lib/Block/fortune.php:30
-msgid "Fortune"
-msgstr ""
-
-#: lib/Block/fortune.php:108
-msgid "Fortune type"
-msgstr ""
-
-#: lib/Block/fortune.php:47
-msgid "Fortunes"
-msgstr ""
-
-#: lib/Block/fortune.php:48
-msgid "Fortunes 2"
-msgstr ""
-
 #: config/registry.php.dist:423
 msgid "Forums"
 msgstr "Форуми"
-
-#: config/registry.php.dist:102
-msgid "Forwards"
-msgstr ""
-
-#: lib/Horde/Kolab/Server/ldap.php:304 lib/Horde/Kolab/Server/ldap.php:362
-#, php-format
-msgid "Found %s results when expecting only one!"
-msgstr ""
 
 #: templates/javascript/open_calendar.js:52
 msgid "Fr"
@@ -3010,10 +2598,6 @@ msgstr "Франція"
 #: lib/Horde/NLS/GeoIP.php:73
 msgid "France, Metropolitan"
 msgstr "Франція, Метрополітен"
-
-#: lib/Block/weatherdotcom_strings.php:35
-msgid "Freezing Drizzle"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:94 lib/Horde/NLS/countries.php:84
 #: lib/Horde/NLS/GeoIP.php:74
@@ -3103,10 +2687,6 @@ msgstr "Загальні опції"
 msgid "Go"
 msgstr "Далі"
 
-#: lib/Block/fortune.php:49
-msgid "Goedel"
-msgstr ""
-
 #: lib/Horde/UI/VarRenderer/html.php:1316
 msgid "Google Maps"
 msgstr "Карта Google"
@@ -3118,10 +2698,6 @@ msgstr "Пошук в Google"
 #: lib/Block/google.php:32
 msgid "Google search is not enabled."
 msgstr "Пошук в Google не дозволений."
-
-#: lib/Horde/UI/VarRenderer/html.php:256
-msgid "Grayscale"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:103 lib/Horde/NLS/countries.php:93
 #: lib/Horde/NLS/GeoIP.php:76
@@ -3250,10 +2826,6 @@ msgstr "Гаїті"
 msgid "Hash-Algorithm"
 msgstr "Хеш-алгоритм"
 
-#: lib/Block/weatherdotcom_strings.php:36
-msgid "Haze"
-msgstr ""
-
 #: lib/Horde/Form.php:922 lib/Horde/Form.php:3833
 msgid "Header"
 msgstr "Заголовок"
@@ -3261,18 +2833,6 @@ msgstr "Заголовок"
 #: lib/Horde/Form/Type/tableset.php:61
 msgid "Headers"
 msgstr "Заголовки"
-
-#: lib/Horde/NLS/countries.php:103 lib/Horde/NLS/GeoIP.php:79
-msgid "Heard Island and McDonald Islands"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:110
-msgid "Heard and McDonald Islands"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:37
-msgid "Heavy Rain"
-msgstr ""
 
 #: lib/Block/weatherdotcom_strings.php:38
 msgid "Heavy T-Storm"
@@ -3295,10 +2855,6 @@ msgstr "Довідка"
 msgid "Help _Topics"
 msgstr "Теми Довідки"
 
-#: lib/Horde/Form.php:1400
-msgid "Helpers"
-msgstr ""
-
 #: lib/Block/moon.php:29
 msgid "Hemisphere"
 msgstr "Півкуля"
@@ -3318,11 +2874,6 @@ msgstr "Сховати результати"
 #: lib/Block/weatherdotcom_strings.php:101
 msgid "High"
 msgstr "Високий"
-
-#: lib/Horde/NLS/tld.php:250 lib/Horde/NLS/countries.php:104
-#: lib/Horde/NLS/GeoIP.php:114
-msgid "Holy See (Vatican City State)"
-msgstr ""
 
 #: lib/Horde/MIME/Viewer/vcard.php:122 lib/Horde/MIME/Viewer/vcard.php:180
 msgid "Home Address"
@@ -3350,10 +2901,6 @@ msgstr "Гонг-Конг"
 msgid "Horde"
 msgstr "Horde"
 
-#: themes/hordeweb/info.php:6
-msgid "Horde Website"
-msgstr ""
-
 #: lib/Horde/Kolab/Deprecated.php:562
 #, php-format
 msgid "Horde/Kolab: No object of type %s found in message %s"
@@ -3364,25 +2911,9 @@ msgstr "Horde/Kolab: Не знайдено об'єкту типу %s в листі %s"
 msgid "Horde/Kolab: Unable to retrieve MIME ID for the part of type %s"
 msgstr "Horde/Kolab: Не можу отримати МІМЕ ID для частини типу %s"
 
-#: lib/Horde/Kolab/Server/ldap.php:72
-msgid "Horde_Kolab_Server_ldap needs a base_dn parameter!"
-msgstr ""
-
-#: lib/Horde/Kolab/Server/ldap.php:65
-msgid "Horde_Kolab_Server_ldap needs a server parameter!"
-msgstr ""
-
-#: lib/Net/SMS/generic_smpp.php:100
-msgid "Host"
-msgstr ""
-
 #: templates/data/csvinfo.inc:21
 msgid "How many fields (columns) are there?"
 msgstr "Скільки полів (колонок) є там?"
-
-#: lib/Block/feed.php:26
-msgid "How many seconds before we check for new articles?"
-msgstr ""
 
 #: lib/Block/metar.php:242 lib/Block/weatherdotcom.php:306
 msgid "Humidity"
@@ -3392,18 +2923,10 @@ msgstr "Вологість"
 msgid "Humidity: "
 msgstr "Вологість:"
 
-#: lib/Block/fortune.php:50
-msgid "Humorists"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:114 lib/Horde/NLS/countries.php:107
 #: lib/Horde/NLS/GeoIP.php:80
 msgid "Hungary"
 msgstr "Угорщина"
-
-#: services/keyboard.php:80
-msgid "I characters"
-msgstr ""
 
 #: lib/Horde/Kolab/Storage/IMAP/cclient.php:159
 #: lib/Horde/Kolab/Storage/IMAP/cclient.php:200
@@ -3435,12 +2958,6 @@ msgstr "Помилка IMAP. Папка: %s. Помилка: %s"
 msgid "IMAP error. Message: %s. Error: %s"
 msgstr "Помилка IMAP. Лист: %s. Помилка: %s"
 
-#: lib/Horde/Kolab/Storage/IMAP/cclient.php:105
-#: lib/Horde/Kolab/Storage/IMAP/cclient.php:133
-#, php-format
-msgid "IMAP error. Server: %s. Error: %s"
-msgstr ""
-
 #: lib/Horde/Auth/cyrsql.php:307 lib/Horde/Auth/cyrus.php:170
 #, php-format
 msgid "IMAP mailbox creation failed: %s"
@@ -3468,10 +2985,6 @@ msgstr "ІР адреса поза межаим дозволеного CIDR блоку."
 msgid "IP address"
 msgstr "IP адреса"
 
-#: lib/Net/SMS/clickatell_http.php:303
-msgid "IP lockdown violation."
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:123 lib/Horde/NLS/countries.php:108
 #: lib/Horde/NLS/GeoIP.php:82
 msgid "Iceland"
@@ -3490,14 +3003,6 @@ msgstr "Іконки для %s"
 msgid "Icons with text"
 msgstr "Іконки з текстом"
 
-#: lib/Horde/Form.php:3897
-msgid "Id"
-msgstr ""
-
-#: themes/ideas/info.php:6
-msgid "Ideas"
-msgstr ""
-
 #: config/prefs.php.dist:218
 msgid "Identity's name:"
 msgstr "Назва Іпостасі:"
@@ -3514,10 +3019,6 @@ msgid ""
 msgstr ""
 "Якщо Ви бачите це повідомлення, але жодного зображення, отже зображення, яке "
 "Ви хочете підванатажити не відображається Вашим браузером"
-
-#: lib/Horde/Form.php:4264
-msgid "Image CAPTCHA"
-msgstr ""
 
 #: lib/Horde/Form.php:2024
 msgid "Image upload"
@@ -3537,14 +3038,6 @@ msgstr "Імпортоване поле: %s"
 #: templates/data/csvmap.inc:59
 msgid "Imported fields:"
 msgstr "Імпортовані поля:"
-
-#: templates/data/csvmap.inc:57
-msgid ""
-"In the lists below select both, a field imported from the source file at the "
-"left, and the matching field available in your address book at the right. "
-"Then hit \"Add pair\" to mark them for the import. Once your are finished "
-"hit \"Next\"."
-msgstr ""
 
 #: lib/Horde/Compress/zip.php:135
 msgid "Incorrect action code given."
@@ -3584,14 +3077,6 @@ msgstr "Інформація"
 msgid "Information no longer available."
 msgstr "Інформація більше не доступна."
 
-#: templates/admin/groups/edit.inc:36
-msgid "Inherited Members"
-msgstr ""
-
-#: lib/Horde/Alarm.php:453
-msgid "Inline Notification"
-msgstr ""
-
 #: lib/Horde/IMAP/ACL/rfc4314.php:64 lib/Horde/IMAP/ACL/rfc2086.php:102
 msgid "Insert"
 msgstr "Вставити"
@@ -3612,14 +3097,6 @@ msgstr "Введіть правильну відповідь на контрольне запитання:"
 msgid "Insertion of images from Photo Galleries in text"
 msgstr "Вставка зображень з Фотогалерей в текст"
 
-#: lib/Net/SMS/sms2email_http.php:652
-msgid "Insufficient credit to send to the distribution list."
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:644
-msgid "Insufficient credit."
-msgstr ""
-
 #: lib/Horde/Form.php:1070
 msgid "Integer"
 msgstr "Ціле"
@@ -3627,11 +3104,6 @@ msgstr "Ціле"
 #: lib/Horde/Form.php:1124
 msgid "Integer list"
 msgstr "Список цілих"
-
-#: lib/Horde/Group/ldap.php:479
-#, php-format
-msgid "Internal Error: An attribute must ALWAYS match itself: %s"
-msgstr ""
 
 #: lib/Horde/Prefs/ldap.php:153 lib/Horde/Prefs/ldap.php:167
 #: lib/Horde/Prefs/ldap.php:185 lib/Horde/Prefs/ldap.php:198
@@ -3651,18 +3123,9 @@ msgstr "Внутрішня помилка бази даних. Деталі збережені для адміністратора."
 msgid "International Address"
 msgstr "Міжнародна адреса"
 
-#: lib/Horde/Kolab/Server.php:171
-#, php-format
-msgid "Invalid Kolab object type \"%s\"."
-msgstr ""
-
 #: lib/Net/SMS/clickatell_http.php:305
 msgid "Invalid UDH. (User Data Header)."
 msgstr "Неправильний UDH. (Заголовок Даних Користувача)"
-
-#: lib/Block/vatid.php:52
-msgid "Invalid VAT identification number format."
-msgstr ""
 
 #: lib/Horde/Compress/zip.php:168 lib/Horde/Compress/zip.php:195
 #: lib/Horde/Compress/zip.php:213
@@ -3676,10 +3139,6 @@ msgstr "Неправильний модуль."
 #: lib/Horde/Group/ldap.php:713
 msgid "Invalid basedn configured"
 msgstr "Вказано некоректний basedn."
-
-#: lib/Net/SMS/clickatell_http.php:320
-msgid "Invalid batch ID."
-msgstr ""
 
 #: lib/Horde/MIME/Mail.php:386
 #, php-format
@@ -3700,22 +3159,9 @@ msgstr "Неправильна адреса призначення."
 msgid "Invalid file format"
 msgstr "Неправильний формат файлу"
 
-#: lib/Horde/Group/ldap.php:398 lib/Horde/Group/ldap.php:517
-#: lib/Horde/Group/ldap.php:544 lib/Horde/Group/ldap.php:718
-msgid "Invalid group ID passed (bad DN syntax)"
-msgstr ""
-
 #: lib/Block/weatherdotcom.php:183
 msgid "Invalid license key."
 msgstr "Неправильний ліцензійний ключ."
-
-#: lib/Block/weatherdotcom.php:177
-msgid "Invalid location provided."
-msgstr ""
-
-#: lib/Net/SMS/clickatell_http.php:315
-msgid "Invalid msg_type."
-msgstr ""
 
 #: lib/Net/SMS/clickatell_http.php:311
 msgid "Invalid or missing api_id."
@@ -3725,17 +3171,9 @@ msgstr "Неправильне або невказане api_id."
 msgid "Invalid or missing parameters."
 msgstr "Неправильні або невказані параметри"
 
-#: admin/perms/addchild.php:28
-msgid "Invalid parent permission."
-msgstr ""
-
 #: lib/Block/weatherdotcom.php:179
 msgid "Invalid partner id."
 msgstr "Неправильне id партнера"
-
-#: lib/Block/weatherdotcom.php:181
-msgid "Invalid product code."
-msgstr ""
 
 #: lib/Net/SMS/clickatell_http.php:314
 msgid "Invalid protocol."
@@ -3754,10 +3192,6 @@ msgstr "Помилка у відповіді сервера."
 #: lib/Net/SMS/clickatell_http.php:309
 msgid "Invalid source address."
 msgstr "Неправильна адреса джерела."
-
-#: lib/Net/SMS/clickatell_http.php:319
-msgid "Invalid unicode data."
-msgstr ""
 
 #: config/registry.php.dist:346
 msgid "Inventory"
@@ -3782,14 +3216,6 @@ msgstr "Ірак"
 #: lib/Horde/NLS/GeoIP.php:80
 msgid "Ireland"
 msgstr "Ірландія"
-
-#: lib/Horde/NLS/tld.php:118
-msgid "Isle of Man"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:39
-msgid "Isolated T-Storms"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:117 lib/Horde/NLS/countries.php:114
 #: lib/Horde/NLS/GeoIP.php:80
@@ -3873,10 +3299,6 @@ msgstr "Створення ключа"
 msgid "Key Fingerprint"
 msgstr "Штамп ключа"
 
-#: lib/Horde/Crypt/pgp.php:441
-msgid "Key ID"
-msgstr ""
-
 #: lib/Horde/Crypt/pgp.php:439
 msgid "Key Length"
 msgstr "Довжина ключа"
@@ -3893,27 +3315,10 @@ msgstr "Використання ключа"
 msgid "Key already exists on the public keyserver."
 msgstr "Ключ вже існує на відкритому сервері ключів."
 
-#: services/help/index.php:156
-msgid "Keyword"
-msgstr ""
-
-#: lib/Block/fortune.php:52
-msgid "Kids"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:132 lib/Horde/NLS/countries.php:121
 #: lib/Horde/NLS/GeoIP.php:84
 msgid "Kiribati"
 msgstr "Кірібаті"
-
-#: themes/kolab/info.php:9
-msgid "Kolab"
-msgstr ""
-
-#: lib/Horde/Kolab/Storage/Data.php:566
-#, php-format
-msgid "Kolab cache: Object uid %s does not exist in the cache!"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:135 lib/Horde/NLS/countries.php:122
 #: lib/Horde/NLS/GeoIP.php:85
@@ -3939,11 +3344,6 @@ msgstr "Кувейт"
 msgid "Kyrgyzstan"
 msgstr "Киргизстан"
 
-#: lib/Horde/Kolab/Server/ldap.php:189
-#, php-format
-msgid "LDAP Error: Empty result for: %s."
-msgstr ""
-
 #: lib/Horde/Kolab/Server/ldap.php:154
 #, php-format
 msgid "LDAP Error: Failed to search using filter %s. Error was: %s"
@@ -3967,10 +3367,6 @@ msgstr "Мова"
 #: lib/Horde/NLS/GeoIP.php:87
 msgid "Lao People's Democratic Republic"
 msgstr "Лаоська Народо-Демократична Республіка"
-
-#: lib/Block/iframe.php:26
-msgid "Large"
-msgstr ""
 
 #: lib/Block/moon.php:169
 msgid "Last Half"
@@ -4006,14 +3402,6 @@ msgstr "Останній вхід: ніколи"
 #: lib/Horde/NLS/GeoIP.php:89
 msgid "Latvia"
 msgstr "Латвія"
-
-#: themes/lavander/info.php:6
-msgid "Lavender"
-msgstr ""
-
-#: lib/Block/fortune.php:53
-msgid "Law"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:141 lib/Horde/NLS/countries.php:128
 #: lib/Horde/NLS/GeoIP.php:87
@@ -4060,18 +3448,6 @@ msgstr "Легкий, дрібний дощ"
 msgid "Light Rain"
 msgstr "Легкий дощ"
 
-#: lib/Block/weatherdotcom_strings.php:42
-msgid "Light Rain Early"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:43
-msgid "Light Rain Late"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:44
-msgid "Light Rain Shower"
-msgstr ""
-
 #: lib/Block/weatherdotcom_strings.php:45
 msgid "Light Rain with Thunder"
 msgstr "Гроза"
@@ -4080,58 +3456,9 @@ msgstr "Гроза"
 msgid "Light Snow"
 msgstr "Слабий сніг"
 
-#: lib/Block/weatherdotcom_strings.php:47
-msgid "Light Snow Early"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:48
-msgid "Light Snow Late"
-msgstr ""
-
 #: lib/Block/weatherdotcom_strings.php:49
 msgid "Light Snow Shower"
 msgstr "Снігопад"
-
-#: lib/Block/fortune.php:54
-msgid "Limerick"
-msgstr ""
-
-#: lib/Horde/Form.php:2084
-msgid "Link"
-msgstr ""
-
-#: lib/Horde/Form.php:2087
-msgid "Link URL"
-msgstr ""
-
-#: lib/Horde/Form.php:2102
-msgid "Link access key"
-msgstr ""
-
-#: lib/Horde/Form.php:3901
-msgid "Link style"
-msgstr ""
-
-#: lib/Horde/Form.php:2093
-msgid "Link target"
-msgstr ""
-
-#: lib/Horde/Form.php:2090 lib/Horde/Form.php:3899
-msgid "Link text"
-msgstr ""
-
-#: lib/Horde/Form.php:2386
-msgid "Link the email address to the compose page when displaying?"
-msgstr ""
-
-#: lib/Horde/Form.php:2099
-msgid "Link title attribute"
-msgstr ""
-
-#: lib/Horde/Text/Filter/html2text.php:192
-#: lib/Horde/Text/Filter/html2text.php:193
-msgid "Links"
-msgstr ""
 
 #: lib/Block/fortune.php:55
 msgid "Linux Cookie"
@@ -4140,51 +3467,6 @@ msgstr "Linux Cookie"
 #: lib/Horde/IMAP/ACL/rfc4314.php:60 lib/Horde/IMAP/ACL/rfc2086.php:98
 msgid "List"
 msgstr "Список"
-
-#: lib/Horde/IMAP/ACL/rfc4314.php:46 lib/Horde/IMAP/ACL/rfc2086.php:86
-msgid "List - user can see the folder"
-msgstr ""
-
-#: admin/sqlshell.php:139
-msgid "List Databases"
-msgstr ""
-
-#: admin/sqlshell.php:138
-msgid "List Tables"
-msgstr ""
-
-#: lib/Horde/MIME/Headers.php:511
-msgid "List-Archive"
-msgstr ""
-
-#: lib/Horde/MIME/Headers.php:506
-msgid "List-Help"
-msgstr ""
-
-#: lib/Horde/MIME/Headers.php:513
-msgid "List-Id"
-msgstr ""
-
-#: lib/Horde/MIME/Headers.php:509
-msgid "List-Owner"
-msgstr ""
-
-#: lib/Horde/MIME/Headers.php:510
-msgid "List-Post"
-msgstr ""
-
-#: lib/Horde/MIME/Headers.php:508
-msgid "List-Subscribe"
-msgstr ""
-
-#: lib/Horde/MIME/Headers.php:507
-msgid "List-Unsubscribe"
-msgstr ""
-
-#: admin/alarms.php:129
-#, php-format
-msgid "Listing alarms failed: %s"
-msgstr ""
 
 #: admin/sessions.php:42
 #, php-format
@@ -4250,21 +3532,9 @@ msgstr "Ввійти не вдалося."
 msgid "Long text"
 msgstr "Довгий текст"
 
-#: lib/Block/fortune.php:57
-msgid "Love"
-msgstr ""
-
 #: lib/Block/weatherdotcom_strings.php:99
 msgid "Low"
 msgstr "Низький"
-
-#: themes/luc/info.php:6
-msgid "Loyola"
-msgstr ""
-
-#: themes/lucblue/info.php:6
-msgid "Loyola Blue"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:148 lib/Horde/NLS/countries.php:134
 #: lib/Horde/NLS/GeoIP.php:89
@@ -4306,17 +3576,9 @@ msgstr "Колишня Югославська Республіка Македонія"
 msgid "Madagascar"
 msgstr "Мадагаскар"
 
-#: lib/Block/fortune.php:58
-msgid "Magic"
-msgstr ""
-
 #: config/registry.php.dist:74
 msgid "Mail"
 msgstr "E-пошта"
-
-#: config/registry.php.dist:484
-msgid "Mail Admin"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:169 lib/Horde/NLS/countries.php:138
 #: lib/Horde/NLS/GeoIP.php:94
@@ -4361,14 +3623,6 @@ msgstr "Карта MapQuest"
 msgid "March"
 msgstr "Березень"
 
-#: lib/Horde/IMAP/ACL/rfc4314.php:63 lib/Horde/IMAP/ACL/rfc2086.php:101
-msgid "Mark (Other)"
-msgstr ""
-
-#: lib/Horde/IMAP/ACL/rfc4314.php:62 lib/Horde/IMAP/ACL/rfc2086.php:100
-msgid "Mark (Seen)"
-msgstr ""
-
 #: lib/Horde/IMAP/ACL/rfc4314.php:48 lib/Horde/IMAP/ACL/rfc2086.php:88
 msgid "Mark with Seen/Unseen flags"
 msgstr "Помітити прапорцями прочитані/нечитані"
@@ -4386,10 +3640,6 @@ msgstr "Маршалові Острови"
 #: lib/Horde/NLS/GeoIP.php:93
 msgid "Martinique"
 msgstr "Мартініка"
-
-#: templates/data/csvmap.inc:96
-msgid "Matching fields:"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:164 lib/Horde/NLS/countries.php:145
 #: lib/Horde/NLS/GeoIP.php:93
@@ -4434,26 +3684,13 @@ msgstr "Максимальна довжина"
 msgid "May"
 msgstr "Травень"
 
-#: lib/Horde/NLS/tld.php:260 lib/Horde/NLS/countries.php:147
-#: lib/Horde/NLS/GeoIP.php:117
-msgid "Mayotte"
-msgstr ""
-
 #: lib/Block/fortune.php:59
 msgid "Medicine"
 msgstr "Медицина"
 
-#: lib/Block/iframe.php:25
-msgid "Medium"
-msgstr ""
-
 #: templates/admin/groups/edit.inc:17
 msgid "Members"
 msgstr "Члени"
-
-#: lib/Horde/SessionHandler/memcache.php:298
-msgid "Memcache session tracking not enabled."
-msgstr ""
 
 #: config/prefs.php.dist:436
 msgid "Menu mode:"
@@ -4470,10 +3707,6 @@ msgid ""
 msgstr ""
 "Лист успішно перевірений, але сертифікат підписувача не може бути "
 "перевірений."
-
-#: lib/Net/SMS/clickatell_http.php:318
-msgid "Message expired."
-msgstr ""
 
 #: lib/Net/SMS/clickatell_http.php:235 lib/Net/SMS/clickatell_http.php:268
 #: lib/Net/SMS/sms2email_http.php:578 lib/Net/SMS/sms2email_http.php:611
@@ -4537,14 +3770,6 @@ msgstr "Мін temp триває 6 годин: "
 #: lib/Horde/Auth/ldap.php:475
 msgid "Minimum password age has not yet expired"
 msgstr "Ще не закінчився мінімальний термін дії паролю"
-
-#: lib/Horde/UI/VarRenderer/html.php:253
-msgid "Mirror"
-msgstr ""
-
-#: lib/Block/fortune.php:60
-msgid "Miscellaneous"
-msgstr ""
 
 #: admin/setup/index.php:180
 msgid ""
@@ -4696,10 +3921,6 @@ msgstr "Багаторівнева Карта UK"
 msgid "Multiple selection"
 msgstr "Множинний Вибір"
 
-#: lib/Horde/Lock/sql.php:343
-msgid "Must supply a valid lock ID."
-msgstr ""
-
 #: config/registry.php.dist:379
 msgid "My Account"
 msgstr "Мій аккаунт"
@@ -4715,11 +3936,6 @@ msgstr "Мій Портал"
 #: services/portal/edit.php:44
 msgid "My Portal Layout"
 msgstr "План мого порталу"
-
-#: lib/Horde/NLS/tld.php:159 lib/Horde/NLS/countries.php:156
-#: lib/Horde/NLS/GeoIP.php:92
-msgid "Myanmar"
-msgstr ""
 
 #: templates/maintenance/maintenance.html:57
 msgid "NO, I Do NOT Agree"
@@ -4739,10 +3955,6 @@ msgstr "Намібія"
 #: lib/Horde/NLS/GeoIP.php:97
 msgid "Nauru"
 msgstr "Науру"
-
-#: themes/NeXTgrey/info.php:6
-msgid "NeXT"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:181 lib/Horde/NLS/countries.php:159
 #: lib/Horde/NLS/GeoIP.php:97
@@ -4881,11 +4093,6 @@ msgstr "Нігерія"
 msgid "Night"
 msgstr "Ніч"
 
-#: lib/Horde/NLS/tld.php:183 lib/Horde/NLS/countries.php:167
-#: lib/Horde/NLS/GeoIP.php:97
-msgid "Niue"
-msgstr ""
-
 #: lib/Horde/UI/VarRenderer/html.php:1074
 msgid "No"
 msgstr "Ні"
@@ -4901,10 +4108,6 @@ msgstr "Немає доступної конфігурації, щоб показати різницю."
 #: lib/VFS/ISOWriter.php:106
 msgid "No available strategy for making ISO images."
 msgstr "Немає доступного плану для створення ISO образів"
-
-#: lib/Net/SMS/clickatell_http.php:321
-msgid "No batch template."
-msgstr ""
 
 #: lib/Horde/Block/Layout/Manager.php:102
 #: lib/Horde/Block/Layout/Manager.php:394
@@ -4966,20 +4169,6 @@ msgstr "Не вказано місце."
 msgid "No location provided."
 msgstr "Не надано місце."
 
-#: lib/Horde/Lock.php:59 lib/Horde/Lock.php:80 lib/Horde/Lock.php:94
-#: lib/Horde/Lock.php:133 lib/Horde/Lock.php:149
-msgid "No lock driver configured!"
-msgstr ""
-
-#: lib/Horde/Kolab/Deprecated.php:499
-#, php-format
-msgid "No message corresponds to object %s"
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:642
-msgid "No message supplied."
-msgstr ""
-
 #: lib/Net/SMS/sms2email_http.php:645
 msgid "No name specified."
 msgstr "Не вказано імені."
@@ -4987,14 +4176,6 @@ msgstr "Не вказано імені."
 #: lib/Net/SMS/sms2email_http.php:646
 msgid "No number specified."
 msgstr "Не вказано номер."
-
-#: lib/Block/fortune.php:103
-msgid "No offensive fortunes"
-msgstr ""
-
-#: lib/Horde/Kolab/Format/XML.php:379
-msgid "No or unreadable content in Kolab XML object"
-msgstr ""
 
 #: lib/Horde/Crypt/smime.php:1312
 msgid ""
@@ -5012,17 +4193,9 @@ msgstr "Немає підписів в очікуванні."
 msgid "No quota set."
 msgstr "Квоту не встановлено."
 
-#: lib/Horde/Date/Recurrence.php:198
-msgid "No recurrence"
-msgstr ""
-
 #: lib/File/CSV.php:555
 msgid "No separator specified."
 msgstr "Не вказано розділювача."
-
-#: admin/setup/index.php:131 admin/setup/index.php:166
-msgid "No stable version exists yet."
-msgstr ""
 
 #: lib/VFS/smb.php:644
 msgid "No such file"
@@ -5161,10 +4334,6 @@ msgstr "Кількість рядків"
 msgid "Numbers not specified for updating in distribution list."
 msgstr "Кількість не вказана для оновлення в листі розповсюдження"
 
-#: services/keyboard.php:94
-msgid "O characters"
-msgstr ""
-
 #: lib/Horde/UI/VarRenderer/html.php:947
 msgid "Object"
 msgstr "Об'єкт"
@@ -5177,23 +4346,10 @@ msgstr "Створювач об'єкту"
 msgid "Object not found."
 msgstr "Об'єкт не знайдено."
 
-#: lib/Horde/Kolab/Deprecated.php:233
-#, php-format
-msgid "Object type %s not allowed for folder type %s!"
-msgstr ""
-
-#: lib/Horde/Form.php:1097
-msgid "Octal"
-msgstr ""
-
 #: lib/Horde/UI/VarRenderer/html.php:454 lib/Horde/UI/VarRenderer/html.php:492
 #: templates/javascript/open_calendar.js:69
 msgid "October"
 msgstr "Жовтень"
-
-#: lib/Block/fortune.php:101
-msgid "Offense filter"
-msgstr ""
 
 #: config/registry.php.dist:323
 msgid "Office"
@@ -5207,11 +4363,6 @@ msgstr "Старий і новий паролі повинні відрізнятися."
 #, php-format
 msgid "Old object %s does not exist."
 msgstr "Старий об'єкт %s не існує."
-
-#: lib/Horde/Kolab/Storage/Data.php:298
-#, php-format
-msgid "Old object %s does not map to a uid."
-msgstr ""
 
 #: services/changepassword.php:38
 msgid "Old password"
@@ -5233,10 +4384,6 @@ msgstr "Подія при натисканні"
 #: lib/Horde/IMAP/ACL/rfc2086.php:73
 msgid "Only IMAP servers support shared folders."
 msgstr "Тільки IMAP-сервери підтримують папки-пісочниці."
-
-#: lib/Block/fortune.php:104
-msgid "Only offensive fortunes"
-msgstr ""
 
 #: lib/Horde/Form.php:2638
 msgid "Only one email address allowed."
@@ -5353,39 +4500,6 @@ msgstr "Код РНР"
 msgid "PHP Shell"
 msgstr "Оболонка РНР"
 
-#: lib/Horde/Kolab/Storage/IMAP/cclient.php:569
-#, php-format
-msgid "PHP does not support imap_myrights."
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:55
-msgid "PM Clouds"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:56
-msgid "PM Dizzle"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:57
-msgid "PM Fog"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:58
-msgid "PM Light Rain"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:59
-msgid "PM Light Snow"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:60
-msgid "PM Rain"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:61
-msgid "PM Showers"
-msgstr ""
-
 #: lib/Block/weatherdotcom_strings.php:62
 msgid "PM Snow"
 msgstr "Післяобідній сніг"
@@ -5397,14 +4511,6 @@ msgstr "Післяобідній снігопад"
 #: lib/Block/weatherdotcom_strings.php:64
 msgid "PM Sun"
 msgstr "Післяобіднє сонце"
-
-#: lib/Block/weatherdotcom_strings.php:65
-msgid "PM T-Showers"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:66
-msgid "PM T-Storms"
-msgstr ""
 
 #: lib/Block/account.php:289
 msgid "POSIX extension is missing"
@@ -5493,10 +4599,6 @@ msgstr "Пароль має співпадати."
 msgid "Paste"
 msgstr "Вставити"
 
-#: lib/Horde/Form.php:1619
-msgid "Path to the GnuPG binary"
-msgstr ""
-
 #: templates/admin/user/approve.inc:2 templates/admin/user/removequeued.inc:7
 msgid "Pending Signups:"
 msgstr "Підписи в очікуванні:"
@@ -5544,10 +4646,6 @@ msgstr "Особисті Дані"
 msgid "Peru"
 msgstr "Перу"
 
-#: lib/Block/fortune.php:64
-msgid "Pets"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:190 lib/Horde/NLS/countries.php:179
 #: lib/Horde/NLS/GeoIP.php:99
 msgid "Philippines"
@@ -5569,29 +4667,9 @@ msgstr "Фото"
 msgid "Photos"
 msgstr "Фото"
 
-#: lib/Horde/NLS/countries.php:180 lib/Horde/NLS/GeoIP.php:100
-msgid "Pitcairn"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:194
-msgid "Pitcairn Island"
-msgstr ""
-
 #: lib/Horde/MIME/Mail.php:438
 msgid "Plaintext Version of Message"
 msgstr "Текстова версія листа"
-
-#: lib/Block/fortune.php:65
-msgid "Platitudes"
-msgstr ""
-
-#: lib/Horde/Alarm.php:455
-msgid "Play a sound?"
-msgstr ""
-
-#: lib/Horde/Form.php:3739
-msgid "Please choose a sound."
-msgstr ""
 
 #: lib/Horde/Form.php:3263
 msgid "Please enter a month and a year."
@@ -5642,14 +4720,6 @@ msgstr "Польща"
 msgid "Politics"
 msgstr "Політика"
 
-#: config/registry.php.dist:457
-msgid "Polls"
-msgstr ""
-
-#: lib/Horde/Alarm.php:458
-msgid "Popup Notification"
-msgstr ""
-
 #: lib/Net/SMS/generic_smpp.php:102
 msgid "Port"
 msgstr "Порт"
@@ -5659,45 +4729,13 @@ msgstr "Порт"
 msgid "Portugal"
 msgstr "Португалія"
 
-#: lib/Horde/IMAP/ACL/rfc4314.php:65 lib/Horde/IMAP/ACL/rfc2086.php:103
-msgid "Post"
-msgstr ""
-
-#: lib/Horde/IMAP/ACL/rfc4314.php:51 lib/Horde/IMAP/ACL/rfc2086.php:91
-msgid "Post to this folder (not enforced by IMAP)"
-msgstr ""
-
 #: lib/Horde/MIME/Viewer/vcard.php:134 lib/Horde/MIME/Viewer/vcard.php:192
 msgid "Postal Address"
 msgstr "Поштова Адреса"
 
-#: themes/postnuke/info.php:6
-msgid "Postnuke"
-msgstr ""
-
-#: lib/Block/metar.php:278 lib/Block/metar.php:283
-#, php-format
-msgid "Precipitation for last %d hour: "
-msgid_plural "Precipitation for last %d hours: "
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: lib/Block/weatherdotcom.php:304
-msgid "Precipitation<br />chance"
-msgstr ""
-
-#: lib/Horde/Prefs/file.php:66
-msgid "Preference storage directory is not available."
-msgstr ""
-
 #: lib/Horde/Kolab.php:777 lib/Horde/Share/kolab.php:453
 msgid "Preferences"
 msgstr "Налаштування"
-
-#: lib/Horde/MIME/Viewer/vcard.php:140 lib/Horde/MIME/Viewer/vcard.php:198
-msgid "Preferred Address"
-msgstr ""
 
 #: lib/Horde/Prefs/ldap.php:139
 msgid "Prefs_ldap: Required LDAP extension not found."
@@ -5735,11 +4773,6 @@ msgstr "Проблема"
 #: services/problem.php:155
 msgid "Problem Description"
 msgstr "Опис проблеми"
-
-#: lib/Horde/Form.php:1696 lib/Horde/Form.php:2780 lib/Horde/Form.php:2856
-#: lib/Horde/Form.php:4196
-msgid "Prompt text"
-msgstr ""
 
 #: lib/Horde/Form.php:2383
 msgid "Protect address from spammers?"
@@ -5796,10 +4829,6 @@ msgstr "Квота"
 msgid "RSA Public Key (%d bit)"
 msgstr "RSA відкритий ключ (%d біт)"
 
-#: lib/Horde/Form.php:2944
-msgid "Radio selection"
-msgstr ""
-
 #: lib/Block/weatherdotcom_strings.php:67
 msgid "Rain"
 msgstr "Дощ"
@@ -5823,10 +4852,6 @@ msgstr "Дощ і Сніг"
 #: lib/Block/weatherdotcom_strings.php:72
 msgid "Rain to Snow"
 msgstr "Дощ до снігу"
-
-#: lib/Block/fortune.php:6
-msgid "Random Fortune"
-msgstr ""
 
 #: lib/Horde/MIME/Viewer/rar.php:66 lib/Horde/MIME/Viewer/zip.php:90
 msgid "Ratio"
@@ -5862,10 +4887,6 @@ msgid ""
 "Really remove user data for user \"%s\"? This operation cannot be undone."
 msgstr "Дійсно видалити дані для користувача \"%s\"? Ця операція незворотня."
 
-#: admin/sessions.php:54
-msgid "Realm:"
-msgstr ""
-
 #: config/prefs.php.dist:449
 msgid "Refresh Dynamic Menu Elements:"
 msgstr "Оновити елементи Динамічного меню:"
@@ -5881,10 +4902,6 @@ msgstr "Частота оновлення:"
 #: lib/Horde/Form.php:1203 lib/Horde/Form.php:1223 lib/Horde/Form.php:1252
 msgid "Regex"
 msgstr "Regex"
-
-#: lib/Horde/Form.php:4153
-msgid "Relationship browser"
-msgstr ""
 
 #: lib/Block/metar.php:338
 msgid "Remarks"
@@ -5926,10 +4943,6 @@ msgstr "Видалити користувача"
 msgid "Remove user: %s"
 msgstr "Видалити користувача: %s"
 
-#: lib/Horde/MIME/Viewer/rfc822.php:80
-msgid "Reply-To"
-msgstr ""
-
 #: lib/Horde/RPC/phpgw.php:168
 msgid "Request couldn't be answered. Returned errorcode: "
 msgstr "Відповіді на запит не може бути. Код помилки: "
@@ -5958,10 +4971,6 @@ msgstr "Необхідний \"%s\" не вказаний в кофігурації."
 msgid "Required Field"
 msgstr "Необхідне поле"
 
-#: lib/Horde/Form.php:628
-msgid "Required secret is invalid - potentially malicious request."
-msgstr ""
-
 #: admin/user.php:32 lib/Horde/Form.php:353
 #: lib/Horde/UI/VarRenderer/html.php:238 lib/Horde/Form/Renderer.php:318
 #: templates/admin/user/update.inc:78 templates/rpcsum/rpcsum.inc:91
@@ -5989,16 +4998,6 @@ msgstr "Результати"
 msgid "Results for %s"
 msgstr "Результати для %s"
 
-#: lib/Horde/Kolab/Server/ldap.php:318
-#, php-format
-msgid "Retrieving DN failed. Error was: %s"
-msgstr ""
-
-#: lib/Horde/Kolab/Server/ldap.php:376
-#, php-format
-msgid "Retrieving attributes failed. Error was: %s"
-msgstr ""
-
 #: templates/syncml/syncml.inc:39 templates/rpcsum/rpcsum.inc:92
 #: templates/prefs/end.inc:4
 msgid "Return to Options"
@@ -6012,14 +5011,6 @@ msgstr "Отримане повідомлення про помилку:"
 msgid "Retype new password"
 msgstr "Ще раз введіть новий пароль"
 
-#: lib/Horde/NLS/countries.php:185 lib/Horde/NLS/GeoIP.php:102
-msgid "Reunion"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:201
-msgid "Reunion Island"
-msgstr ""
-
 #: admin/setup/config.php:44 admin/setup/config.php:48
 msgid "Revert Configuration"
 msgstr "Повернути конфігурацію"
@@ -6031,14 +5022,6 @@ msgstr "Ключ відкликання не згенерований успішно."
 #: config/prefs.php.dist:155
 msgid "Rich Text Editor Options"
 msgstr "Опції редактора Rich Text"
-
-#: lib/Block/fortune.php:67
-msgid "Riddles"
-msgstr ""
-
-#: config/prefs.php.dist:567
-msgid "Right click context menu"
-msgstr ""
 
 #: lib/Horde/Form.php:4029
 msgid "Right header"
@@ -6107,17 +5090,9 @@ msgstr "Шлюз SMPP"
 msgid "SQL Shell"
 msgstr "Оболонка SQL"
 
-#: lib/Horde/Form.php:4194
-msgid "SQL statement for value lookups"
-msgstr ""
-
 #: config/registry.php.dist:410
 msgid "SSH"
 msgstr "SSH"
-
-#: lib/Horde/Notification/Listener/mobile.php:35
-msgid "SUCCESS"
-msgstr ""
 
 #: lib/api.php:220
 msgid "S_QL Shell"
@@ -6126,11 +5101,6 @@ msgstr "Оболонка SQL"
 #: templates/javascript/open_calendar.js:53
 msgid "Sa"
 msgstr "Сб"
-
-#: lib/Horde/NLS/tld.php:212 lib/Horde/NLS/countries.php:189
-#: lib/Horde/NLS/GeoIP.php:104
-msgid "Saint Helena"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:134 lib/Horde/NLS/countries.php:190
 #: lib/Horde/NLS/GeoIP.php:84
@@ -6166,10 +5136,6 @@ msgstr "Сан Марин"
 #: lib/Horde/NLS/GeoIP.php:107
 msgid "Sao Tome and Principe"
 msgstr "Сао Том і Прінсіпі"
-
-#: lib/Horde/NLS/GeoIP.php:119
-msgid "Satellite Provider"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:206 lib/Horde/NLS/countries.php:197
 #: lib/Horde/NLS/GeoIP.php:103
@@ -6210,14 +5176,6 @@ msgstr "Збережена %s конфігурація."
 #, php-format
 msgid "Saved setup upgrade script to: \"%s\"."
 msgstr "Збережений інсталяційний скрипт оновлення в: \"%s\""
-
-#: lib/Block/weatherdotcom_strings.php:73
-msgid "Scattered Showers"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:74
-msgid "Scattered T-Storms"
-msgstr ""
 
 #: lib/Block/fortune.php:68
 msgid "Science"
@@ -6286,10 +5244,6 @@ msgstr "Виберіть зображення"
 msgid "Select an object"
 msgstr "Виберіть об'єкт"
 
-#: config/prefs.php.dist:572
-msgid "Select editor plugins"
-msgstr ""
-
 #: lib/Horde/UI/VarRenderer/html.php:753
 #: lib/Horde/UI/VarRenderer/tableset_html.php:24
 msgid "Select none"
@@ -6339,10 +5293,6 @@ msgstr "Виберіть Вашу Схему кольорів."
 msgid "Select your preferred language:"
 msgstr "Виберіть бажану мову:"
 
-#: admin/setup/scripts.php:88
-msgid "Self-destructing..."
-msgstr ""
-
 #: templates/problem/problem.inc:57
 msgid "Send Problem Report"
 msgstr "Відіслати рапорт про проблему"
@@ -6360,10 +5310,6 @@ msgstr "Відсилання невдале: %s"
 #: lib/Horde/NLS/GeoIP.php:106
 msgid "Senegal"
 msgstr "Сенегал"
-
-#: lib/Block/metar.php:328
-msgid "Sensor: "
-msgstr ""
 
 #: lib/Horde/UI/VarRenderer/html.php:453 lib/Horde/UI/VarRenderer/html.php:491
 #: templates/javascript/open_calendar.js:68
@@ -6390,14 +5336,6 @@ msgstr "Серверний час"
 msgid "Server data wrong or not available."
 msgstr "Серверні дані неправильні або недоступні."
 
-#: admin/sessions.php:28
-msgid "Session Admin"
-msgstr ""
-
-#: lib/Net/SMS/clickatell_http.php:300
-msgid "Session ID expired."
-msgstr ""
-
 #: admin/sessions.php:52
 msgid "Session Timestamp:"
 msgstr "Часова мітка сесії:"
@@ -6409,12 +5347,6 @@ msgstr "Сесії"
 #: lib/Horde/Form.php:2993
 msgid "Set"
 msgstr "Встановити"
-
-#: config/prefs.php.dist:90
-msgid ""
-"Set authentication credentials like user names and passwords for external "
-"servers."
-msgstr ""
 
 #: config/prefs.php.dist:99
 msgid "Set options to allow you to reset your password if you ever forget it."
@@ -6468,10 +5400,6 @@ msgstr "Пісочниці \"%s\" не існує."
 msgid "Share ID %d does not exist."
 msgstr "Пісочниці з ID %d не існує."
 
-#: lib/Horde/Share/sql_hierarchical.php:552
-msgid "Share names are not supported in this driver"
-msgstr ""
-
 #: lib/Horde/Auth/shibboleth.php:65
 msgid "Shibboleth authentication not available."
 msgstr "Аутентифікація Shibboleth не доступна."
@@ -6504,10 +5432,6 @@ msgid ""
 "configuration."
 msgstr "Показати різницю між щойно збереженою і новоствореною конфігурацією."
 
-#: lib/Block/feed.php:29
-msgid "Show extra detail?"
-msgstr ""
-
 #: lib/Horde/Form.php:3903
 msgid "Show icon?"
 msgstr "Показати іконку?"
@@ -6519,10 +5443,6 @@ msgstr "Показувати час останнього входу при входженні?"
 #: lib/Horde/Form.php:2028
 msgid "Show option to keep original?"
 msgstr "Показати опцію для збереження оригіналу?"
-
-#: lib/Horde/Form.php:3507 lib/Horde/Form.php:3673
-msgid "Show picker?"
-msgstr ""
 
 #: lib/Horde/Form.php:3231 lib/Horde/Form.php:3679
 msgid "Show seconds?"
@@ -6585,10 +5505,6 @@ msgstr "Підписи"
 msgid "Signature Algorithm"
 msgstr "Алгоритм підпису"
 
-#: themes/simplex/info.php:6
-msgid "Simplex"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:211 lib/Horde/NLS/countries.php:202
 #: lib/Horde/NLS/GeoIP.php:104
 msgid "Singapore"
@@ -6615,25 +5531,9 @@ msgstr "Словакія"
 msgid "Slovenia"
 msgstr "Словенія"
 
-#: lib/Block/iframe.php:24
-msgid "Small"
-msgstr ""
-
-#: lib/Horde/Alarm.php:350
-msgid "Snooze..."
-msgstr ""
-
 #: lib/Block/weatherdotcom_strings.php:79
 msgid "Snow"
 msgstr "Сніг"
-
-#: lib/Block/weatherdotcom_strings.php:80
-msgid "Snow Early"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:81
-msgid "Snow Late"
-msgstr ""
 
 #: lib/Block/weatherdotcom_strings.php:82
 msgid "Snow Shower"
@@ -6705,14 +5605,6 @@ msgstr "Південна Грузія і Південні Сандвічеві Острови"
 msgid "Southern Hemisphere"
 msgstr "Південна Півкуля"
 
-#: lib/Horde/NLS/tld.php:222
-msgid "Soviet Union"
-msgstr ""
-
-#: lib/Horde/Form.php:905
-msgid "Spacer"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:81 lib/Horde/NLS/countries.php:209
 #: lib/Horde/NLS/GeoIP.php:71
 msgid "Spain"
@@ -6730,14 +5622,6 @@ msgstr "Ввід спецсимволів"
 msgid "Special characters"
 msgstr "Спецсимволи"
 
-#: lib/Horde/Kolab/Server/Object.php:99
-msgid "Specify either the DN or a search result!"
-msgstr ""
-
-#: lib/Block/fortune.php:70
-msgid "Sports"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:144 lib/Horde/NLS/countries.php:210
 #: lib/Horde/NLS/GeoIP.php:88
 msgid "Sri Lanka"
@@ -6748,14 +5632,6 @@ msgstr "Шрі-Ланка"
 msgid "Standard"
 msgstr "Стандарт"
 
-#: lib/Block/fortune.php:71
-msgid "Star Trek"
-msgstr ""
-
-#: lib/Horde/Form.php:3287 lib/Horde/Form.php:3503 lib/Horde/Form.php:3669
-msgid "Start year"
-msgstr ""
-
 #: lib/Horde/Crypt/smime.php:577
 msgid "State or Province"
 msgstr "Область або Регіон"
@@ -6763,22 +5639,6 @@ msgstr "Область або Регіон"
 #: templates/admin/setup/index.html:17
 msgid "Status"
 msgstr "Статус"
-
-#: lib/Horde/Form.php:3509 lib/Horde/Form.php:3675
-msgid "Storage format"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:579
-msgid "Street Address"
-msgstr ""
-
-#: lib/Horde/Form.php:1221
-msgid "String list"
-msgstr ""
-
-#: lib/Horde/Form.php:1250
-msgid "String list returning an array"
-msgstr ""
 
 #: templates/javascript/open_calendar.js:47
 msgid "Su"
@@ -6903,14 +5763,6 @@ msgstr "Сурінам"
 msgid "Surname"
 msgstr "Прізвище"
 
-#: lib/Horde/NLS/countries.php:213 lib/Horde/NLS/GeoIP.php:105
-msgid "Svalbard and Jan Mayen"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:214
-msgid "Svalbard and Jan Mayen Islands"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:225 lib/Horde/NLS/countries.php:214
 #: lib/Horde/NLS/GeoIP.php:108
 msgid "Swaziland"
@@ -6926,14 +5778,6 @@ msgstr "Швеція"
 msgid "Switzerland"
 msgstr "Швейцарія"
 
-#: config/prefs.php.dist:162
-msgid "SyncML"
-msgstr ""
-
-#: lib/Block/feed.php:5
-msgid "Syndicated Feed"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:224 lib/Horde/NLS/countries.php:217
 #: lib/Horde/NLS/GeoIP.php:107
 msgid "Syrian Arab Republic"
@@ -6946,10 +5790,6 @@ msgstr "Грози"
 #: lib/Block/weatherdotcom_strings.php:88
 msgid "T-Showers Early"
 msgstr "Ранні грози"
-
-#: lib/Block/weatherdotcom_strings.php:89
-msgid "T-Showers Late"
-msgstr ""
 
 #: lib/Block/weatherdotcom_strings.php:90
 msgid "T-Storm"
@@ -6967,25 +5807,9 @@ msgstr "Грози"
 msgid "T-Storms Early"
 msgstr "Ранні грози"
 
-#: lib/Block/weatherdotcom_strings.php:94
-msgid "T-Storms Late"
-msgstr ""
-
 #: lib/Horde/Data/tsv.php:189
 msgid "TSV file"
 msgstr "TSV файл"
-
-#: lib/Horde/Form/Type/tableset.php:57
-msgid "Table Set"
-msgstr ""
-
-#: config/prefs.php.dist:568
-msgid "Table operations menu bar"
-msgstr ""
-
-#: lib/Block/cloud.php:3 lib/Block/cloud.php:42
-msgid "Tag Cloud"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:241 lib/Horde/NLS/GeoIP.php:111
 msgid "Taiwan"
@@ -7000,10 +5824,6 @@ msgstr "Китайська Провінція Тайвань"
 msgid "Tajikistan"
 msgstr "Таджикістан"
 
-#: themes/tango-blue/info.php:26
-msgid "Tango Blue"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:242 lib/Horde/NLS/countries.php:220
 #: lib/Horde/NLS/GeoIP.php:112
 msgid "Tanzania, United Republic of"
@@ -7013,10 +5833,6 @@ msgstr "Об'єднана Республіка Танзанія"
 #: config/registry.php.dist:171
 msgid "Tasks"
 msgstr "Завдання"
-
-#: themes/gennevilliers/info.php:14
-msgid "Teal"
-msgstr ""
 
 #: lib/Horde/Crypt/smime.php:580
 msgid "Telephone Number"
@@ -7047,10 +5863,6 @@ msgstr "Шаблон \"%s\" не знайдений."
 #: lib/Horde/Form.php:1201 lib/Horde/Form.php:4247 lib/Horde/Form.php:4266
 msgid "Text"
 msgstr "Текст"
-
-#: services/keyboard.php:150
-msgid "Text Area"
-msgstr ""
 
 #: config/prefs.php.dist:433
 msgid "Text Only"
@@ -7086,14 +5898,6 @@ msgstr "Horde/Kolab інтеграція не підтримує \"%s\""
 msgid "The IMSP log could not be initialized."
 msgstr "IMSP лог не ініціалізується."
 
-#: lib/Horde/Group/kolab.php:37
-msgid "The Kolab group driver requires LDAP support."
-msgstr ""
-
-#: lib/Horde/Share/kolab.php:681
-msgid "The Kolab share object has not been initialized yet!"
-msgstr ""
-
 #: services/maintenance.php:32
 msgid "The Maintenance:: class did not load successfully"
 msgstr "Профілактика: class did not load successfully"
@@ -7101,18 +5905,6 @@ msgstr "Профілактика: class did not load successfully"
 #: lib/VFS/ssh2.php:916
 msgid "The SSH2 PECL extension is not available."
 msgstr "Розширення SSH2 PECL не доступне."
-
-#: lib/Horde/Kolab/Storage/Session.php:175
-msgid "The URL for the Kolab IMAP Server is not available!"
-msgstr ""
-
-#: lib/Horde/Perms.php:199 lib/Horde/Perms.php:210 lib/Horde/Perms.php:221
-#: lib/Horde/Perms.php:233 lib/Horde/Perms.php:244 lib/Horde/Perms.php:340
-#: lib/Horde/Perms.php:380
-msgid ""
-"The administrator needs to configure a permanent Permissions backend if you "
-"want to use Permissions."
-msgstr ""
 
 #: lib/Horde/Alarm.php:62
 msgid "The alarm backend is not currently available."
@@ -7179,56 +5971,15 @@ msgstr "Файл %s мав би містити деякі %s значення."
 msgid "The file contained no data."
 msgstr "Файл не містить даних."
 
-#: lib/Horde/Auth.php:452
-#, php-format
-msgid "The following applications encountered errors removing user data: %s"
-msgstr ""
-
-#: lib/Horde.php:228
-msgid ""
-"The full error message is logged in Horde's log file, and is shown below "
-"only to administrators. Non-adminitrative users will not see error details."
-msgstr ""
-
 #: services/prefs.php:134
 #, php-format
 msgid "The identity \"%s\" has been deleted."
 msgstr "Іпостась \"%s\" витерто."
 
-#: lib/Horde/Form.php:1826
-msgid ""
-"The image file size could not be determined or it was 0 bytes. The upload "
-"may have been interrupted."
-msgstr ""
-
 #: lib/Horde/Form.php:1830
 #, php-format
 msgid "The image file was larger than the maximum allowed size (%d bytes)."
 msgstr "Зображення перевищує максимально дозволений розмір (%d байт)."
-
-#: lib/Horde/MIME/Viewer/html.php:136
-#, php-format
-msgid ""
-"The links that caused this warning have the same background color as this "
-"message."
-msgstr ""
-
-#: lib/Horde/Crypt/pgp.php:158
-msgid ""
-"The location of the GnuPG binary must be given to the Crypt_pgp:: class."
-msgstr ""
-
-#: lib/Block/vatid.php:77
-msgid ""
-"The member state service could not be reached in time. Try again later or "
-"with a different member state."
-msgstr ""
-
-#: lib/Block/vatid.php:74
-msgid ""
-"The member state service is currently not available. Try again later or with "
-"a different member state."
-msgstr ""
 
 #: lib/Horde/MIME/MDN.php:193
 #, php-format
@@ -7243,10 +5994,6 @@ msgstr ""
 #: lib/Horde/Form.php:2389
 msgid "The name to use when linking to the compose page"
 msgstr "Назва для використанння при посиланні на сторінку створення."
-
-#: services/prefs.php:113
-msgid "The new from address can't be verified, try again later: "
-msgstr ""
 
 #: lib/File/CSV.php:547
 msgid "The number of fields must be numeric."
@@ -7265,14 +6012,6 @@ msgstr ""
 "Налаштування \"%s\" не можуть бути збережені, бо їх дані перевищують "
 "максимально дозволений розмір"
 
-#: lib/Horde/Prefs/ldap.php:335 lib/Horde/Prefs/file.php:80
-#: lib/Horde/Prefs/imsp.php:90 lib/Horde/Prefs/kolab_imap.php:108
-#: lib/Horde/Prefs/sql.php:135
-msgid ""
-"The preferences backend is currently unavailable and your preferences have "
-"not been loaded. You may continue to use the system with default settings."
-msgstr ""
-
 #: lib/Horde/MIME/Viewer/msexcel.php:31 lib/Horde/MIME/Viewer/rtf.php:33
 #: lib/Horde/MIME/Viewer/srchighlite.php:36 lib/Horde/MIME/Viewer/rpm.php:31
 #: lib/Horde/MIME/Viewer/wordperfect.php:32
@@ -7283,10 +6022,6 @@ msgstr ""
 msgid ""
 "The program used to view this data type (%s) was not found on the system."
 msgstr "Програма для перегляду цього типу даних (%s) не знайдена в системі."
-
-#: lib/Block/vatid.php:68
-msgid "The provided country code is invalid."
-msgstr ""
 
 #: lib/File/CSV.php:560
 msgid "The quote character must be one single character."
@@ -7305,18 +6040,6 @@ msgstr "Сервер \"%s\" витерто."
 #, php-format
 msgid "The server \"%s\" has been saved."
 msgstr "Сервер \"%s\" збережено."
-
-#: lib/Block/vatid.php:71
-msgid "The service is currently not available. Try again later."
-msgstr ""
-
-#: lib/Block/vatid.php:80
-msgid "The service is currently too busy. Try again later."
-msgstr ""
-
-#: lib/Horde/Share/kolab.php:469
-msgid "The share has already been initialized!"
-msgstr ""
 
 #: admin/user.php:215
 #, php-format
@@ -7460,14 +6183,6 @@ msgstr "Трапилась помилка оновлення списку розповсюдження. Спробуйте пізніше."
 msgid "This IMAP server does not support sharing folders."
 msgstr "Цей IMAP-сервер не підтримує роздачі папок."
 
-#: lib/Block/vatid.php:90
-msgid "This VAT identification number is invalid."
-msgstr ""
-
-#: lib/Block/vatid.php:87
-msgid "This VAT identification number is valid."
-msgstr ""
-
 #: lib/Horde/Alarm.php:136
 msgid "This alarm cannot be snoozed."
 msgstr "Цей дзвоник не може дрімати."
@@ -7572,29 +6287,10 @@ msgstr ""
 msgid "This form has already been processed."
 msgstr "Ця форма вже оброблена."
 
-#: lib/Horde/Kolab/Deprecated.php:589 lib/Horde/Kolab/Storage/Folder.php:914
-#, php-format
-msgid ""
-"This is a Kolab Groupware object. To view this object you will need an email "
-"client that understands the Kolab Groupware format. For a list of such email "
-"clients please visit %s"
-msgstr ""
-
 #: lib/Horde/MIME/Contents.php:624
 #, php-format
 msgid "This message was written in a character set (%s) other than your own."
 msgstr "Цей лист створено в іншому кодуванні (%s), ніж вказане у Вас."
-
-#: lib/Horde/Prefs/UI.php:126
-msgid "This number must be at least one."
-msgstr ""
-
-#: lib/Horde.php:334
-#, php-format
-msgid ""
-"This request cannot be completed because the link you followed or the form "
-"you submitted was only valid for %s minutes"
-msgstr ""
 
 #: lib/Horde/Compress/gzip.php:44
 msgid "This server can't uncompress zip and gzip files."
@@ -7620,10 +6316,6 @@ msgstr "Таргани"
 msgid "Time"
 msgstr "Час"
 
-#: config/registry.php.dist:358
-msgid "Time Tracking"
-msgstr ""
-
 #: lib/Block/time.php:25
 msgid "Time format"
 msgstr "Формат часу"
@@ -7631,14 +6323,6 @@ msgstr "Формат часу"
 #: lib/Horde/Form.php:3229
 msgid "Time selection"
 msgstr "Вибір часу"
-
-#: templates/data/datetime.inc:60 templates/data/datetime.inc:69
-msgid "Timestamp or unknown"
-msgstr ""
-
-#: templates/syncml/syncml.inc:2
-msgid "Timestamps of successful synchronization sessions"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:233 lib/Horde/NLS/countries.php:222
 #: lib/Horde/NLS/GeoIP.php:110
@@ -7652,12 +6336,6 @@ msgstr "Назва"
 #: lib/Horde/MIME/Viewer/rfc822.php:77
 msgid "To"
 msgstr "До"
-
-#: templates/data/csvmap.inc:95
-msgid ""
-"To exclude a particular field form the import or to correct a wrong match "
-"select a field in the lists below and hit \"Remove pair\"."
-msgstr ""
 
 #: lib/Horde/UI/VarRenderer/html.php:725
 msgid ""
@@ -7730,11 +6408,6 @@ msgstr "Turkish (ISO-8859-9)"
 msgid "Turkmenistan"
 msgstr "Туркменістан"
 
-#: lib/Horde/NLS/tld.php:226 lib/Horde/NLS/countries.php:230
-#: lib/Horde/NLS/GeoIP.php:108
-msgid "Turks and Caicos Islands"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:240 lib/Horde/NLS/countries.php:231
 #: lib/Horde/NLS/GeoIP.php:111
 msgid "Tuvalu"
@@ -7744,25 +6417,13 @@ msgstr "Тувалу"
 msgid "Type your choice: "
 msgstr "Введіть Ваш Вибір"
 
-#: services/keyboard.php:110
-msgid "U characters"
-msgstr ""
-
 #: lib/Block/weatherdotcom.php:276
 msgid "U.V. index: "
 msgstr "U. V. індекс: "
 
-#: lib/Horde/Kolab/Format/XML.php:402
-msgid "UID not found in Kolab XML object"
-msgstr ""
-
 #: lib/Block/iframe.php:17 lib/Horde/MIME/Viewer/vcard.php:295
 msgid "URL"
 msgstr "URL"
-
-#: lib/Net/SMS/sms2email_http.php:550
-msgid "URL for your script delivery status report"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:244 lib/Horde/NLS/countries.php:232
 #: lib/Horde/NLS/GeoIP.php:112
@@ -7970,12 +6631,6 @@ msgstr "Не можу прочитати кореневий каталог vfsroot."
 msgid "Unable to rename %s to %s: destination folder already exists"
 msgstr "Не можу перйменувати %s на %s: папка призначення вже існує."
 
-#: lib/Horde/RPC/webdav.php:299
-#, php-format
-msgid ""
-"Unable to rename %s; must be [app]/[path] and within the same application."
-msgstr ""
-
 #: lib/VFS/sql_file.php:311
 msgid "Unable to rename VFS directory."
 msgstr "Не можу перейменувати VFS директорію."
@@ -8015,11 +6670,6 @@ msgstr "Не можу перекласти документ Word."
 #: lib/Horde/MIME/Viewer/wordperfect.php:46
 msgid "Unable to translate this WordPerfect document"
 msgstr "Не можу перекласти документ WordPerfect"
-
-#: lib/Horde/Kolab.php:856
-#, php-format
-msgid "Unable to trigger free/busy update for folder %s on URL %s"
-msgstr ""
 
 #: lib/VFS/ssh2.php:212 lib/VFS/ssh2.php:215 lib/VFS/ftp.php:223
 #: lib/VFS/ftp.php:226
@@ -8088,15 +6738,6 @@ msgstr "Великобританія"
 msgid "United States"
 msgstr "Сполучені Штати"
 
-#: lib/Horde/NLS/tld.php:246 lib/Horde/NLS/countries.php:237
-#: lib/Horde/NLS/GeoIP.php:113
-msgid "United States Minor Outlying Islands"
-msgstr ""
-
-#: lib/Block/metar.php:86 lib/Block/weatherdotcom.php:67
-msgid "Units"
-msgstr ""
-
 #: lib/Horde/Crypt/pgp.php:465 lib/Horde/Crypt/pgp.php:466
 #: lib/Horde/Crypt/pgp.php:467 lib/Horde/MIME/Viewer/tgz.php:68
 msgid "Unknown"
@@ -8118,24 +6759,9 @@ msgstr "Надано Невідоме місце знаходження"
 msgid "Unknown username or password."
 msgstr "Невідоме ім'я або пароль."
 
-#: lib/Horde/Kolab/Server/ldap.php:441
-#, php-format
-msgid "Unkown Kolab object type for DN %s."
-msgstr ""
-
 #: lib/Horde/Identity.php:330
 msgid "Unnamed"
 msgstr "Неназваний"
-
-#: lib/Horde/Group/mock.php:42 lib/Horde/Group/mock.php:53
-#: lib/Horde/Group/mock.php:64 lib/Horde/Group/mock.php:76
-#: lib/Horde/Group/mock.php:86 lib/Horde/Group/mock.php:97
-#: lib/Horde/Group/kolab.php:92 lib/Horde/Group/kolab.php:104
-#: lib/Horde/Group/kolab.php:114 lib/Horde/Group/kolab.php:125
-#: lib/Horde/Group/kolab.php:383 lib/Horde/Group/kolab.php:394
-#: lib/Horde/Group/kolab.php:406
-msgid "Unsupported"
-msgstr ""
 
 #: lib/Horde/Crypt/smime.php:693 lib/Horde/Crypt/smime.php:933
 #: lib/Horde/Crypt/smime.php:939
@@ -8177,24 +6803,6 @@ msgstr "Закачати всі файли setup на сервер."
 msgid "Uruguay"
 msgstr "Уругвай"
 
-#: lib/Horde/Argv/TitledHelpFormatter.php:29
-msgid "Usage"
-msgstr ""
-
-#: lib/Horde/Argv/IndentedHelpFormatter.php:29
-#, php-format
-msgid "Usage:"
-msgstr ""
-
-#: lib/Horde/Prefs/CategoryManager.php:48
-#, php-format
-msgid "Use Current: %s"
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:547
-msgid "Use SSL"
-msgstr ""
-
 #: config/prefs.php.dist:147
 msgid "Use if name/password is different for IMSP server."
 msgstr "Використати якщо ім'я/пароль є іншими для IMSP cерверу."
@@ -8231,10 +6839,6 @@ msgstr "Реєстрація користувачів неналежно сконфігурована для цього сайту."
 #: lib/Block/account.php:564
 msgid "User account not found"
 msgstr "Реєстр користувача не знайдено"
-
-#: lib/Horde/Auth/kolab.php:162
-msgid "User is not a standard Kolab user."
-msgstr ""
 
 #: templates/shares/edit.inc:217
 msgid "User to add:"
@@ -8273,18 +6877,6 @@ msgstr "Користувачі в системі:"
 #: lib/Horde/NLS/GeoIP.php:114
 msgid "Uzbekistan"
 msgstr "Узбекистан"
-
-#: lib/Block/vatid.php:19
-msgid "VAT id number verification"
-msgstr ""
-
-#: lib/Block/vatid.php:42
-msgid "VAT identification number:"
-msgstr ""
-
-#: lib/Block/vatid.php:94
-msgid "VAT number"
-msgstr ""
 
 #: lib/VFS/file.php:197 lib/VFS/file.php:318
 msgid "VFS directory does not exist."
@@ -8333,10 +6925,6 @@ msgstr "Венесуела"
 #: lib/Horde/Crypt/smime.php:218
 msgid "Verification failed - an unknown error has occurred."
 msgstr "Перевірка невдала - трапилась невідома помилка."
-
-#: lib/Horde/Crypt/smime.php:220
-msgid "Verification failed - this message may have been tampered with."
-msgstr ""
 
 #: lib/Horde/Crypt/smime.php:707
 msgid "Version"
@@ -8408,14 +6996,6 @@ msgstr "УВАГА!!! ВИДАЛІТЬ СКРИПТ ВРУЧНУ З %s."
 msgid "WIN via HTTP"
 msgstr "WIN через НТТР"
 
-#: lib/Horde/NLS/countries.php:245 lib/Horde/NLS/GeoIP.php:117
-msgid "Wallis and Futuna"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:257
-msgid "Wallis and Futuna Islands"
-msgstr ""
-
 #: lib/Block/account.php:100 lib/Horde/Notification/Listener/status.php:29
 #: lib/Horde/MIME/Viewer/html.php:136
 msgid "Warning"
@@ -8424,12 +7004,6 @@ msgstr "Зауваження"
 #: templates/javascript/open_calendar.js:50
 msgid "We"
 msgstr "Ср"
-
-#: lib/Horde.php:330
-msgid ""
-"We cannot verify that this request was really sent by you. It could be a "
-"malicious request."
-msgstr ""
 
 #: lib/Block/weatherdotcom.php:34
 msgid "Weather Forecast"
@@ -8487,14 +7061,6 @@ msgstr "Що є розділовим знаком?"
 msgid "What is the quote character?"
 msgstr "Що є символом цитати?"
 
-#: lib/Horde/UI/VarRenderer/html.php:1218
-msgid "Whereis Australia map"
-msgstr ""
-
-#: config/prefs.php.dist:353
-msgid "Which day would you like to be displayed as the first day of the week?"
-msgstr ""
-
 #: lib/Block/moon.php:23
 msgid "Which phases"
 msgstr "Які фази"
@@ -8520,14 +7086,6 @@ msgstr "Wiki"
 msgid "Wind"
 msgstr "Вітер"
 
-#: lib/Block/weatherdotcom_strings.php:97
-msgid "Wind Early"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:98
-msgid "Wind Late"
-msgstr ""
-
 #: lib/Block/metar.php:95
 msgid "Wind speed in knots"
 msgstr "Швидкість вітру у вузлах"
@@ -8539,10 +7097,6 @@ msgstr "Вітер:"
 #: lib/Block/weatherdotcom.php:249
 msgid "Wind: "
 msgstr "Вітер:"
-
-#: lib/Block/account.php:637
-msgid "Windows"
-msgstr ""
 
 #: lib/Block/fortune.php:73
 msgid "Wisdom"
@@ -8564,11 +7118,6 @@ msgstr "Робоча адреса"
 msgid "Work Phone"
 msgstr "Робочий телефон"
 
-#: lib/Horde/Prefs/file.php:219
-#, php-format
-msgid "Write of preferences to %s failed"
-msgstr ""
-
 #: lib/File/CSV.php:212 lib/File/CSV.php:357
 #, php-format
 msgid "Wrong number of fields in line %d. Expected %d, found %d."
@@ -8583,11 +7132,6 @@ msgstr "Неправильна кількість полів. Потрібно %d, знайдено %d."
 #, php-format
 msgid "Wrong offset %d while reading a VFS file."
 msgstr "Неправилне зміщення %d під час читання VFS файлу."
-
-#: lib/Horde/Prefs/file.php:117
-#, php-format
-msgid "Wrong version number found: %s (should be %d)"
-msgstr ""
 
 #: config/registry.php.dist:271
 msgid "X-Ref"
@@ -8728,18 +7272,6 @@ msgstr "Ви не вказали відповідність полів з імпортованого файлу і %s."
 msgid "You have been logged out."
 msgstr "Ви вийшли з системи."
 
-#: lib/Horde/Identity.php:410
-#, php-format
-msgid ""
-"You have requested to add the email address \"%s\" to the list of your "
-"personal email addresses.\n"
-"\n"
-"Go to the following link to confirm that this is really your address:\n"
-"%s\n"
-"\n"
-"If you don't know what this message means, you can delete it."
-msgstr ""
-
 #: lib/Horde/Form.php:3574
 msgid "You must choose a date."
 msgstr "Ви повинні вказати дату."
@@ -8785,11 +7317,6 @@ msgstr "Ви повинні ввести адресу e-пошти."
 #: lib/Horde/Form.php:2200
 msgid "You must enter at least one email address."
 msgstr "Ви повинні ввести хоча б одну адресу е-пошти."
-
-#: lib/Horde/Prefs/UI.php:149
-#, php-format
-msgid "You must provide a setting for \"%s\"."
-msgstr ""
 
 #: services/portal/rpcsum.php:82
 msgid "You must select an server to be deleted."
@@ -8908,10 +7435,6 @@ msgstr "Основна іпостась:"
 #: config/prefs.php.dist:229
 msgid "Your full name:"
 msgstr "Ваше повне ім'я:"
-
-#: lib/Horde/Auth.php:1015
-msgid "Your login has expired."
-msgstr ""
 
 #: services/resetpassword.php:74
 #, php-format
@@ -9043,11 +7566,6 @@ msgstr "Користувачі"
 msgid "addressee unknown"
 msgstr "адресант невідомий"
 
-#: lib/Horde/Argv/AmbiguousOptionException.php:21
-#, php-format
-msgid "ambiguous option: %s (%s?)"
-msgstr ""
-
 #: services/problem.php:60
 msgid "attachment"
 msgstr "додаток"
@@ -9089,10 +7607,6 @@ msgstr "Помилка формату даних"
 msgid "entry not found"
 msgstr "запис не знайдено"
 
-#: lib/Block/weatherdotcom_strings.php:103
-msgid "falling"
-msgstr ""
-
 #: lib/Horde/Browser.php:1029
 msgid "file"
 msgstr "файл"
@@ -9117,10 +7631,6 @@ msgstr "гг:"
 #: lib/Horde/MIME/Message.php:136
 msgid "host name unknown"
 msgstr "невідома назва вузла"
-
-#: lib/Net/SMS/clickatell_http.php:231 lib/Net/SMS/sms2email_http.php:574
-msgid "immediate"
-msgstr ""
 
 #: admin/setup/diff.php:64 admin/setup/diff.php:76
 msgid "inline"
@@ -9162,26 +7672,6 @@ msgstr "наразі не реалізовано"
 msgid "option %s: %s"
 msgstr "опція %s: %s"
 
-#: lib/Horde/Argv/Option.php:122
-#, php-format
-msgid "option %s: invalid choice: '%s' (choose from %s)"
-msgstr ""
-
-#: lib/Horde/Argv/Option.php:104
-#, php-format
-msgid "option %s: invalid floating-point value: '%s'"
-msgstr ""
-
-#: lib/Horde/Argv/Option.php:94
-#, php-format
-msgid "option %s: invalid integer value: '%s'"
-msgstr ""
-
-#: lib/Horde/Argv/Option.php:95
-#, php-format
-msgid "option %s: invalid long integer value: '%s'"
-msgstr ""
-
 #: lib/Horde/MIME/Message.php:172
 msgid "permission denied"
 msgstr "доступ заборонено"
@@ -9201,14 +7691,6 @@ msgstr "сервіс недоступний"
 #: admin/setup/config.php:101
 msgid "show differences"
 msgstr "показати різницю"
-
-#: lib/Horde/Argv/Parser.php:144
-msgid "show program's version number and exit"
-msgstr ""
-
-#: lib/Horde/Argv/Parser.php:138
-msgid "show this help message and exit"
-msgstr ""
 
 #: lib/Net/SMS/sms2email_http.php:524
 msgid "sms2email via HTTP"
@@ -9242,14 +7724,6 @@ msgstr "уніфікований"
 #: lib/VFS/horde.php:279
 msgid "unknown error"
 msgstr "невідома помилка"
-
-#: lib/Horde/MIME/Part.php:27
-msgid "unnamed"
-msgstr ""
-
-#: lib/Net/SMS/clickatell_http.php:231 lib/Net/SMS/sms2email_http.php:574
-msgid "user select"
-msgstr ""
 
 #: lib/Horde/MIME/Viewer/vcard.php:34
 msgid "vCard"

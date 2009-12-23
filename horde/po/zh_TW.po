@@ -6970,13 +6970,6 @@ msgstr "無法判斷影像檔尺寸或者該檔案大小是 0 bytes. 上傳動作可能已經被中斷."
 msgid "The image file was larger than the maximum allowed size (%d bytes)."
 msgstr "影像檔的大小超過允許最大值 (%d bytes)."
 
-#: lib/Horde/MIME/Viewer/html.php:137
-#, php-format
-msgid ""
-"The links that caused this warning have the same background color as this "
-"message."
-msgstr ""
-
 #: lib/Horde/Crypt/pgp.php:158
 msgid ""
 "The location of the GnuPG binary must be given to the Crypt_pgp:: class."
@@ -7386,10 +7379,6 @@ msgstr "時分下拉選擇"
 #: templates/data/datetime.inc:58 templates/data/datetime.inc:67
 msgid "Timestamp or unknown"
 msgstr "時間戳記或未知"
-
-#: templates/syncml/syncml.inc:2
-msgid "Timestamps of successful synchronization sessions"
-msgstr ""
 
 #: lib/Horde/NLS/countries.php:222 lib/Horde/NLS/GeoIP.php:110
 #: lib/Horde/NLS/tld.php:233

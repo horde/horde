@@ -1965,11 +1965,6 @@ msgstr "República Txeca"
 msgid "DD"
 msgstr "DD"
 
-#: framework/Form/Form.php:3290
-msgid ""
-"DSN (see http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
-msgstr ""
-
 #: framework/Maintenance/Maintenance.php:59
 msgid "Daily"
 msgstr "Diàriament"
@@ -2261,10 +2256,6 @@ msgstr "Drogues"
 #: framework/Crypt/Crypt/pgp.php:413
 msgid "E-Mail"
 msgstr "Correu electrònic"
-
-#: framework/Net_SMS/SMS/generic_smtp.php:92
-msgid "EMail-to-SMS gateway driver, for carriers which provide this service."
-msgstr ""
 
 #: framework/Notification/Notification/Listener/mobile.php:34
 msgid "ERR"
@@ -2633,10 +2624,6 @@ msgstr "Pocs xàfecs de neu"
 #: framework/Form/Form.php:1962
 msgid "Field matrix"
 msgstr "Matriu del camp"
-
-#: framework/Form/Form.php:3343
-msgid "Figlet CAPTCHA"
-msgstr ""
 
 #: framework/Form/Form.php:3347
 #, fuzzy
@@ -5634,10 +5621,6 @@ msgstr "Qatar"
 msgid "Query"
 msgstr "Consulta"
 
-#: lib/Block/account.php:80
-msgid "Quota"
-msgstr ""
-
 #: framework/Crypt/Crypt/smime.php:664
 #, php-format
 msgid "RSA Public Key (%d bit)"
@@ -5964,10 +5947,6 @@ msgstr "Missatgeria SMS"
 #: admin/sqlshell.php:21
 msgid "SQL Shell"
 msgstr "Intèrpret d'ordres SQL"
-
-#: framework/Form/Form.php:3292
-msgid "SQL statement for value lookups"
-msgstr ""
 
 #: config/registry.php.dist:433
 msgid "SSH"
@@ -6758,10 +6737,6 @@ msgstr "Tempesta i ventós"
 #: lib/Block/weatherdotcom_strings.php:66
 msgid "T-Storms"
 msgstr "Tempestes"
-
-#: lib/Block/weatherdotcom_strings.php:67
-msgid "T-Storms Early"
-msgstr ""
 
 #: framework/Data/Data/tsv.php:170
 msgid "TSV file"

@@ -2,7 +2,7 @@
 # Copyright 2002 Per-Stian Vatne
 # This file is distributed under the same license as the Horde package.
 # Per-Stian Vatne <psv@orsta.org>, 2002.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde 3.0-cvs\n"
@@ -389,8 +389,12 @@ msgstr "Logg inn"
 msgid "Log out"
 msgstr "Logg ut"
 
-msgid "Login failed for some reason. Most likely your username or password was entered incorrectly."
-msgstr "Kunne av ein eller annan grunn ikkje logge inn. Sannsynlegvis er brukarnamn eller passord tasta inn feil."
+msgid ""
+"Login failed for some reason. Most likely your username or password was "
+"entered incorrectly."
+msgstr ""
+"Kunne av ein eller annan grunn ikkje logge inn. Sannsynlegvis er brukarnamn "
+"eller passord tasta inn feil."
 
 msgid "MM"
 msgstr "MM"
@@ -511,8 +515,12 @@ msgstr "Skriv inn eit samandrag av problemet."
 msgid "Please provide your username and password"
 msgstr "Skriv inn ditt brukarnamn og passord"
 
-msgid "Please read the following text.  You MUST agree with the terms to use the system."
-msgstr "Ver venleg og les følgjande tekst. Du MÅ vere samd med vilkåra for å bruke systemet."
+msgid ""
+"Please read the following text.  You MUST agree with the terms to use the "
+"system."
+msgstr ""
+"Ver venleg og les følgjande tekst. Du MÅ vere samd med vilkåra for å bruke "
+"systemet."
 
 msgid "Presentations"
 msgstr "Presentasjonar"
@@ -539,58 +547,69 @@ msgid "Request couldn't be answered"
 msgstr "Kunne ikkje svare på førespurnad"
 
 msgid "Required 'basedn' not specified in authentication configuration."
-msgstr "Nødvendig variabel 'basedn' ikkje spesifisert i konfigurasjon for autentisering."
+msgstr ""
+"Nødvendig variabel 'basedn' ikkje spesifisert i konfigurasjon for "
+"autentisering."
 
 msgid "Required 'basedn' not specified in preferences configuration."
-msgstr "Nødvendig 'basedn' ikkje spesifisert i konfigurasjon for innstillingar."
+msgstr ""
+"Nødvendig 'basedn' ikkje spesifisert i konfigurasjon for innstillingar."
 
 msgid "Required 'database' not specified in VFS configuration."
 msgstr "Nødvendig 'database' ikkje spesifisert i konfigurasjon for VFS."
 
 msgid "Required 'database' not specified in authentication configuration."
-msgstr "Nødvendig 'database' ikkje spesifisert i konfigurasjon for autentisering."
+msgstr ""
+"Nødvendig 'database' ikkje spesifisert i konfigurasjon for autentisering."
 
 msgid "Required 'database' not specified in categories configuration."
 msgstr "Nødvendig 'database' ikkje spesifisert i konfigurasjon for kategoriar."
 
 msgid "Required 'database' not specified in preferences configuration."
-msgstr "Nødvendig 'database' ikkje spesifisert i konfigurasjon for innstillingar."
+msgstr ""
+"Nødvendig 'database' ikkje spesifisert i konfigurasjon for innstillingar."
 
 msgid "Required 'hostspec' not specified in VFS configuration."
 msgstr "Nødvendig 'hostspec' ikkje spesifisert i konfigurasjon for VFS."
 
 msgid "Required 'hostspec' not specified in authentication configuration."
-msgstr "Nødvendig 'hostspec' ikkje spesifisert i konfigurasjon for autentisering."
+msgstr ""
+"Nødvendig 'hostspec' ikkje spesifisert i konfigurasjon for autentisering."
 
 msgid "Required 'hostspec' not specified in categories configuration."
 msgstr "Nødvendig 'hostspec' ikkje spesifisert i konfigurasjon for kategoriar."
 
 msgid "Required 'hostspec' not specified in preferences configuration."
-msgstr "Nødvendig 'hostspec' ikkje spesifisert i konfigurasjon for innstillingar."
+msgstr ""
+"Nødvendig 'hostspec' ikkje spesifisert i konfigurasjon for innstillingar."
 
 msgid "Required 'password' not specified in VFS configuration."
 msgstr "Nødvendig 'password' ikkje spesifisert i konfigurasjon for VFS."
 
 msgid "Required 'password' not specified in authentication configuration."
-msgstr "Nødvendig 'password' ikkje spesifisert i konfigurasjon for autentisering."
+msgstr ""
+"Nødvendig 'password' ikkje spesifisert i konfigurasjon for autentisering."
 
 msgid "Required 'password' not specified in categories configuration."
 msgstr "Nødvendig 'password' ikkje spesifisert i konfigurasjon for kategoriar."
 
 msgid "Required 'password' not specified in preferences configuration."
-msgstr "Nødvendig 'password' ikkje spesifisert i konfigurasjon for innstillingar."
+msgstr ""
+"Nødvendig 'password' ikkje spesifisert i konfigurasjon for innstillingar."
 
 msgid "Required 'phptype' not specified in VFS configuration."
 msgstr "Nødvendig 'phptype' ikkje spesifisert i konfigurasjon for VFS."
 
 msgid "Required 'phptype' not specified in authentication configuration."
-msgstr "Nødvendig 'phptype' ikkje spesifisert i konfigurasjon for autentisering."
+msgstr ""
+"Nødvendig 'phptype' ikkje spesifisert i konfigurasjon for autentisering."
 
 msgid "Required 'phptype' not specified in categories configuration."
 msgstr "Nødvendig 'phptype' ikkje spesifisert i konfigurasjon for kategoriar."
 
 msgid "Required 'phptype' not specified in preferences configuration."
-msgstr "Nødvendig 'phptype' ikkje spesifisert i konfigurasjon for innstillingar."
+msgstr ""
+"Nødvendig 'phptype' ikkje spesifisert i konfigurasjon for innstillingar."
 
 msgid "Required 'table' not specified in VFS configuration."
 msgstr "Nødvendig 'table' ikkje spesifisert i konfigurasjon for VFS."
@@ -605,7 +624,8 @@ msgid "Required 'table' not specified in preferences configuration."
 msgstr "Nødvendig 'table' ikkje spesifisert i konfigurasjon for innstillingar."
 
 msgid "Required 'tableRelations' not specified in categories configuration."
-msgstr "Nødvendig 'tableRelations' ikkje spesifisert i konfigurasjon for kategoriar."
+msgstr ""
+"Nødvendig 'tableRelations' ikkje spesifisert i konfigurasjon for kategoriar."
 
 msgid "Required 'uid' not specified in authentication configuration."
 msgstr "Nødvendig 'uid' ikkje spesifisert i konfigurasjon for autentisering."
@@ -617,13 +637,15 @@ msgid "Required 'username' not specified in VFS configuration."
 msgstr "Nødvendig 'username' ikkje spesifisert i konfigurasjon for VFS."
 
 msgid "Required 'username' not specified in authentication configuration."
-msgstr "Nødvendig 'username' ikkje spesifisert i konfigurasjon for autentisering."
+msgstr ""
+"Nødvendig 'username' ikkje spesifisert i konfigurasjon for autentisering."
 
 msgid "Required 'username' not specified in categories configuration."
 msgstr "Nødvendig 'username' ikkje spesifisert i konfigurasjon for kategoriar."
 
 msgid "Required 'username' not specified in preferences configuration."
-msgstr "Nødvendig 'username' ikkje spesifisert i konfigurasjon for innstillingar."
+msgstr ""
+"Nødvendig 'username' ikkje spesifisert i konfigurasjon for innstillingar."
 
 msgid "Reset"
 msgstr "Nullstill"
@@ -641,8 +663,12 @@ msgstr "Lagre '%s'"
 msgid "Save Options"
 msgstr "Lagre alternativ"
 
-msgid "Select the characters you need from the boxes below. You can then copy and paste them from the textarea."
-msgstr "Vel teikna du treng frå boksane under. Du kan så kopiere og lime dei inn frå tekstboksa."
+msgid ""
+"Select the characters you need from the boxes below. You can then copy and "
+"paste them from the textarea."
+msgstr ""
+"Vel teikna du treng frå boksane under. Du kan så kopiere og lime dei inn frå "
+"tekstboksa."
 
 msgid "Select the date delimiter:"
 msgstr "Vel skiljeteikn for dato:"
@@ -717,11 +743,17 @@ msgid "The encryption features require a secure web connection."
 msgstr "Krypteringsfunksjonane krev ei sikker nettoppkopling."
 
 #, c-format
-msgid "The program used to view this message type (%s) was not found on the system."
-msgstr "Fann ikkje programmet som brukast til å vise denne typen meldingar (%s)."
+msgid ""
+"The program used to view this message type (%s) was not found on the system."
+msgstr ""
+"Fann ikkje programmet som brukast til å vise denne typen meldingar (%s)."
 
-msgid "The registry is how Horde applications find out how to talk to each other. You should list any installed Horde applications that you have here."
-msgstr "Registeret er der Horde-applikasjonar finn ut korleis dei skal snakke med kvarandre. Skriv opp alle dei Horde-applikasjonane du har installert her."
+msgid ""
+"The registry is how Horde applications find out how to talk to each other. "
+"You should list any installed Horde applications that you have here."
+msgstr ""
+"Registeret er der Horde-applikasjonar finn ut korleis dei skal snakke med "
+"kvarandre. Skriv opp alle dei Horde-applikasjonane du har installert her."
 
 #, c-format
 msgid "There was a problem adding '%s' to the system."
@@ -731,17 +763,41 @@ msgstr "Problem med å legge til '%s' til systemet."
 msgid "There was a problem removing '%s' from the system."
 msgstr "Problem ved fjerning av '%s' frå systemet."
 
-msgid "This file controls the global set of MIME drivers for the Horde framework, allowing applications to make use of programs such as enscript or mswordview to render content into HTML for viewing in a browser."
-msgstr "Denne fila kontrollerer det globale settet med MIME-koplingar for rammeverket til Horde. Dette gjer at applikasjonar kan bruke program som enscript eller mswordview for å gjere om innhald til HTML som kan visast i ein nettlesar."
+msgid ""
+"This file controls the global set of MIME drivers for the Horde framework, "
+"allowing applications to make use of programs such as enscript or mswordview "
+"to render content into HTML for viewing in a browser."
+msgstr ""
+"Denne fila kontrollerer det globale settet med MIME-koplingar for "
+"rammeverket til Horde. Dette gjer at applikasjonar kan bruke program som "
+"enscript eller mswordview for å gjere om innhald til HTML som kan visast i "
+"ein nettlesar."
 
-msgid "This file controls the stylesheet that is used to set colors and fonts for the Horde framework and all applications that do not provide their own settings."
-msgstr "Denne fila kontrollerer stilarket som blir brukt til å definere fargar og skrifttypar for rammeverket til Horde, og til alle applikasjonar som ikkje har sine eigne definisjonar."
+msgid ""
+"This file controls the stylesheet that is used to set colors and fonts for "
+"the Horde framework and all applications that do not provide their own "
+"settings."
+msgstr ""
+"Denne fila kontrollerer stilarket som blir brukt til å definere fargar og "
+"skrifttypar for rammeverket til Horde, og til alle applikasjonar som ikkje "
+"har sine eigne definisjonar."
 
-msgid "This file maps file extensions to logical MIME types, enabling Horde applications to figure out how to handle some content such as email attachments or CVS checkouts."
-msgstr "Denne fila koplar filetternamn til logiske MIME-typar, slik at Horde-applikasjonar kan finne ut korleis innhald som e-postvedlegg eller CVS-utsjekk skal handsamast."
+msgid ""
+"This file maps file extensions to logical MIME types, enabling Horde "
+"applications to figure out how to handle some content such as email "
+"attachments or CVS checkouts."
+msgstr ""
+"Denne fila koplar filetternamn til logiske MIME-typar, slik at Horde-"
+"applikasjonar kan finne ut korleis innhald som e-postvedlegg eller CVS-"
+"utsjekk skal handsamast."
 
-msgid "This is the main Horde configuration file. It contains paths and basic items that apply to the core framework and all Horde applications."
-msgstr "Dette er hovedkonfigurasjonsfila for Horde. Den inneheld katalognamn og grunnleggjande element som gjeld kjerna av rammeverket og alle Horde-applikasjonar."
+msgid ""
+"This is the main Horde configuration file. It contains paths and basic items "
+"that apply to the core framework and all Horde applications."
+msgstr ""
+"Dette er hovedkonfigurasjonsfila for Horde. Den inneheld katalognamn og "
+"grunnleggjande element som gjeld kjerna av rammeverket og alle Horde-"
+"applikasjonar."
 
 msgid "This number must be at least one."
 msgstr "Dette talet må vere minst ein."
@@ -859,11 +915,17 @@ msgstr "Din informasjon"
 msgid "Your Name:"
 msgstr "Ditt namn:"
 
-msgid "Your authentication backend does not support adding users, or the feature has been disabled for some other reason."
+msgid ""
+"Your authentication backend does not support adding users, or the feature "
+"has been disabled for some other reason."
 msgstr "Autentiseringsbakdeln"
 
-msgid "Your authentication backend does not support listing users, or the feature has been disabled for some other reason."
-msgstr "Listing av brukarar er ikkje støtta av bakre autentisering, eller funksjonen har av ein eller annan grunn blitt slått av."
+msgid ""
+"Your authentication backend does not support listing users, or the feature "
+"has been disabled for some other reason."
+msgstr ""
+"Listing av brukarar er ikkje støtta av bakre autentisering, eller funksjonen "
+"har av ein eller annan grunn blitt slått av."
 
 msgid "Your options have been updated."
 msgstr "Alternativa dine har blitt oppdaterte."
@@ -880,4 +942,3 @@ msgstr "i18n"
 
 msgid "vCard"
 msgstr "vCard"
-

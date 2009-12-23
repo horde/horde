@@ -50,11 +50,6 @@ msgstr " (jutro)"
 msgid " (yesterday)"
 msgstr " (wczoraj)"
 
-#: lib/Block/weatherdotcom.php:244 lib/Block/weatherdotcom.php:349
-#: lib/Block/weatherdotcom.php:395
-msgid " at "
-msgstr ""
-
 #: lib/Horde/CLI.php:272
 #, php-format
 msgid "\"%s\" is not a valid choice."
@@ -130,11 +125,6 @@ msgstr "Konfiguracja %s"
 msgid "%s Sign Up"
 msgstr "Rejestracja %s"
 
-#: templates/maintenance/agreement_top.inc:4
-#, php-format
-msgid "%s Terms of Agreement"
-msgstr ""
-
 #: lib/VFS/ftp.php:568 lib/VFS/ftp.php:636
 #, php-format
 msgid "%s already exists."
@@ -191,19 +181,10 @@ msgstr "Lista zadañ %s"
 msgid "%s: %s"
 msgstr "%s: %s"
 
-#: lib/Block/weatherdotcom.php:353 lib/Block/weatherdotcom.php:398
-msgid ", gusting "
-msgstr ""
-
 #: lib/Block/metar.php:188 lib/Block/metar.php:193
 #, fuzzy, php-format
 msgid ", gusting %s %s"
 msgstr "%s do %s z %s"
-
-#: lib/Block/metar.php:201
-#, php-format
-msgid ", variable from %s to %s"
-msgstr ""
 
 #: lib/Horde/Form.php:2070 lib/Horde/Form.php:2129
 #: lib/Horde/UI/VarRenderer/html.php:688
@@ -280,33 +261,9 @@ msgstr ""
 msgid "A public SMIME key is required to encrypt a message."
 msgstr "Potrzebny jest klucz publiczny SMIME do zaszyfrowania wiadomo¶ci."
 
-#: lib/Block/weatherdotcom_strings.php:9
-msgid "AM Clouds"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:10
-msgid "AM Light Rain"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:11
-msgid "AM Rain"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:12
-msgid "AM Showers"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:13
-msgid "AM Snow Showers"
-msgstr ""
-
 #: templates/data/time.inc:29
 msgid "AM/PM"
 msgstr "AM/PM"
-
-#: lib/Net/SMS/clickatell_http.php:200
-msgid "API ID"
-msgstr ""
 
 #: templates/javascript/htmlarea_lang.js:30
 msgid "About this editor"
@@ -315,14 +272,6 @@ msgstr "O tym edytorze"
 #: services/help/index.php:52
 msgid "About..."
 msgstr "O programie..."
-
-#: templates/javascript/htmlarea_lang.js:74
-msgid "Absbottom"
-msgstr ""
-
-#: templates/javascript/htmlarea_lang.js:72
-msgid "Absmiddle"
-msgstr ""
 
 #: lib/VFS/musql.php:270
 #, fuzzy
@@ -498,10 +447,6 @@ msgstr "Wszystkie grupy"
 msgid "All Permissions"
 msgstr "Wszystkie uprawnienia"
 
-#: templates/javascript/htmlarea_table_lang.js:17
-msgid "All four sides"
-msgstr ""
-
 #: lib/Horde/Form.php:1872
 msgid "Allow multiple addresses"
 msgstr "Pozwól na wiele adresów"
@@ -582,11 +527,6 @@ msgstr "Odpowied¼"
 msgid "Antarctica"
 msgstr "Antarktyda"
 
-#: lib/Horde/NLS/tld.php:19 lib/Horde/NLS/countries.php:19
-#: lib/Horde/NLS/GeoIP.php:56
-msgid "Antigua and Barbuda"
-msgstr ""
-
 #: admin/templates.php:74 admin/phpshell.php:35 lib/Horde/Block/UI.php:58
 #: templates/admin/setup/index.html:6
 msgid "Application"
@@ -595,10 +535,6 @@ msgstr "Aplikacja"
 #: admin/setup/index.php:139
 msgid "Application is ready."
 msgstr "Aplikacja gotowa."
-
-#: templates/shares/edit.inc:218
-msgid "Apply to Child Shares"
-msgstr ""
 
 #: templates/admin/user/approve.inc:21
 msgid "Approve"
@@ -647,10 +583,6 @@ msgstr "Argentyna"
 msgid "Armenia"
 msgstr "Armenia"
 
-#: config/nls.php.dist:176
-msgid "Armenian (ARMSCII-8)"
-msgstr ""
-
 #: lib/Block/fortune.php:28
 msgid "Art"
 msgstr "Sztuka"
@@ -660,25 +592,9 @@ msgstr "Sztuka"
 msgid "Aruba"
 msgstr "Aruba"
 
-#: lib/Horde/NLS/tld.php:15
-msgid "Ascension Island"
-msgstr ""
-
-#: lib/Block/fortune.php:29
-msgid "Ascii Art"
-msgstr ""
-
-#: lib/Horde/NLS/GeoIP.php:55
-msgid "Asia/Pacific Region"
-msgstr ""
-
 #: config/prefs.php.dist:417
 msgid "Ask for confirmation before doing maintenance operations?"
 msgstr "Popro¶ o potwierdzenie przed wykonaniem operacji cyklicznych?"
-
-#: lib/Horde/Form.php:3112
-msgid "Assignment columns"
-msgstr ""
 
 #: admin/groups.php:75
 msgid "Attempt to delete a non-existent group."
@@ -836,11 +752,6 @@ msgstr "Ba³tycki (ISO-8859-13)"
 msgid "Bangladesh"
 msgstr "Bangladesz"
 
-#: lib/Horde/NLS/tld.php:33 lib/Horde/NLS/countries.php:29
-#: lib/Horde/NLS/GeoIP.php:60
-msgid "Barbados"
-msgstr ""
-
 #: templates/javascript/htmlarea_table_lang.js:19
 #: templates/javascript/htmlarea_lang.js:73
 #, fuzzy
@@ -931,11 +842,6 @@ msgstr "Bo¶nia i Hercegowina"
 msgid "Both"
 msgstr "Oba"
 
-#: lib/Horde/NLS/tld.php:48 lib/Horde/NLS/countries.php:38
-#: lib/Horde/NLS/GeoIP.php:63
-msgid "Botswana"
-msgstr ""
-
 #: templates/javascript/htmlarea_table_lang.js:22
 #: templates/javascript/htmlarea_lang.js:75
 msgid "Bottom"
@@ -952,16 +858,6 @@ msgstr "Wyspy Owcze"
 msgid "Brazil"
 msgstr "Brazylia"
 
-#: lib/Horde/NLS/tld.php:117 lib/Horde/NLS/countries.php:41
-#: lib/Horde/NLS/GeoIP.php:81
-msgid "British Indian Ocean Territory"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:42 lib/Horde/NLS/countries.php:42
-#: lib/Horde/NLS/GeoIP.php:62
-msgid "Brunei Darussalam"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:37 lib/Horde/NLS/countries.php:43
 #: lib/Horde/NLS/GeoIP.php:61
 msgid "Bulgaria"
@@ -972,16 +868,6 @@ msgstr "Bu³garia"
 msgid "Bulleted List"
 msgstr "Lista punktowana"
 
-#: lib/Horde/NLS/tld.php:36 lib/Horde/NLS/countries.php:44
-#: lib/Horde/NLS/GeoIP.php:61
-msgid "Burkina Faso"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:39 lib/Horde/NLS/countries.php:45
-#: lib/Horde/NLS/GeoIP.php:61
-msgid "Burundi"
-msgstr ""
-
 #: config/registry.php.dist:383
 msgid "CMS"
 msgstr "CMS"
@@ -989,10 +875,6 @@ msgstr "CMS"
 #: lib/Horde/MIME/Viewer/zip.php:75
 msgid "CRC"
 msgstr "CRC"
-
-#: lib/Horde/Crypt/smime.php:597
-msgid "CRL Distribution Points"
-msgstr ""
 
 #: templates/javascript/htmlarea_context_lang.js:27
 msgid "C_ell Properties..."
@@ -1006,10 +888,6 @@ msgstr "Inicjowanie cache nie zosta³o zakoñczone."
 #: lib/Horde/UI/VarRenderer/html.php:456 config/registry.php.dist:148
 msgid "Calendar"
 msgstr "Kalendarz"
-
-#: lib/Block/weatherdotcom.php:234
-msgid "Calm"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:128 lib/Horde/NLS/countries.php:46
 #: lib/Horde/NLS/GeoIP.php:83
@@ -1073,12 +951,6 @@ msgstr "Nie mo¿na skasowaæ katalogu \"%s\""
 msgid "Cannot remove, %d children exist."
 msgstr "Nie mo¿na skasowaæ katalogu \"%s\""
 
-#: lib/Horde/DataTree/sql.php:512
-msgid ""
-"Cannot reorder, number of entries supplied for reorder does not match number "
-"stored."
-msgstr ""
-
 #: lib/Net/SMS/clickatell_http.php:309
 msgid "Cannot route message to specified number."
 msgstr "Nie mo¿na przekierowaæ wiadomo¶ci do wybranego numeru."
@@ -1118,10 +990,6 @@ msgstr "Przesuniêcie komórki"
 #: templates/javascript/htmlarea_table_lang.js:61
 msgid "Cell properties"
 msgstr "W³a¶ciwo¶ci komórki"
-
-#: templates/javascript/htmlarea_lang.js:112
-msgid "Cell spacing:"
-msgstr ""
 
 #: lib/Horde/Form.php:1274
 msgid "Cellphone"
@@ -1195,14 +1063,6 @@ msgstr "Chile"
 msgid "China"
 msgstr "Chiny"
 
-#: config/nls.php.dist:180
-msgid "Chinese Simplified (GB2312)"
-msgstr ""
-
-#: config/nls.php.dist:181
-msgid "Chinese Traditional (Big5)"
-msgstr ""
-
 #: lib/Horde/Auth/Signup.php:269
 msgid "Choose a password"
 msgstr "Podaj has³o"
@@ -1229,10 +1089,6 @@ msgstr "Wyspa Bo¿ego Narodzenia"
 msgid "Class definition of %s not found."
 msgstr "Nie znaleziono definicji klasy %s."
 
-#: lib/Block/weatherdotcom_strings.php:14
-msgid "Clear"
-msgstr ""
-
 #: templates/javascript/htmlarea_lang.js:42
 msgid "Clear MSOffice tags"
 msgstr "Wyczy¶æ tagi MSOffice"
@@ -1252,33 +1108,13 @@ msgstr "Wyczy¶æ u¿ytkownika"
 msgid "Clear user data"
 msgstr "Wyczy¶æ dane u¿ytkownika"
 
-#: lib/Block/weatherdotcom_strings.php:15
-msgid "Clearing Late"
-msgstr ""
-
 #: templates/maintenance/notice_bottom.inc:6
 msgid "Click to Continue"
 msgstr "Kliknij by kontynuowaæ"
 
-#: lib/Net/SMS/clickatell_http.php:184
-msgid "Clickatell via HTTP"
-msgstr ""
-
 #: services/keyboard.php:146 templates/shares/edit.inc:12
 msgid "Close Window"
 msgstr "Zamknij okno"
-
-#: lib/Block/metar.php:244
-msgid "Clouds"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:16
-msgid "Clouds Early"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:17
-msgid "Cloudy"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:52 lib/Horde/NLS/countries.php:56
 #: lib/Horde/NLS/GeoIP.php:64
@@ -1328,10 +1164,6 @@ msgstr "Kolumn:"
 msgid "Column titles"
 msgstr "Tytu³y kolumn"
 
-#: config/registry.php.dist:286
-msgid "Comics"
-msgstr ""
-
 #: admin/cmdshell.php:25
 msgid "Command"
 msgstr "Komenda"
@@ -1343,10 +1175,6 @@ msgstr "Pow³oka"
 #: lib/Horde/Crypt/pgp.php:402
 msgid "Comment"
 msgstr "Komentarz"
-
-#: lib/Horde/Crypt/smime.php:566
-msgid "Common Name"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:130 lib/Horde/NLS/countries.php:58
 #: lib/Horde/NLS/GeoIP.php:84
@@ -1464,11 +1292,6 @@ msgstr "Skopiuj wybór"
 #: lib/Horde/NLS/GeoIP.php:67
 msgid "Costa Rica"
 msgstr "Kostaryka"
-
-#: lib/Horde/NLS/tld.php:57 lib/Horde/NLS/countries.php:63
-#: lib/Horde/NLS/GeoIP.php:66
-msgid "Cote d'Ivoire"
-msgstr ""
 
 #: lib/Horde/Crypt/pgp.php:956
 msgid "Could not PGP encrypt message."
@@ -1712,17 +1535,9 @@ msgstr ""
 "Nie mo¿na przyznaæ u¿ytkownikowi \"%s\" nastêpuj±cych praw do folderu \"%s"
 "\": %s"
 
-#: lib/Horde/Form.php:1421
-msgid "Counted text"
-msgstr ""
-
 #: lib/Horde/Crypt/smime.php:569
 msgid "Country"
 msgstr "Kraj"
-
-#: config/registry.php.dist:270
-msgid "Courses"
-msgstr ""
 
 #: templates/rpcsum/rpcsum.inc:21 templates/rpcsum/rpcsum.inc:97
 #: templates/rpcsum/rpcsum.inc:101
@@ -1760,10 +1575,6 @@ msgstr "Chorwacja"
 #: lib/Horde/NLS/GeoIP.php:68
 msgid "Cuba"
 msgstr "Kuba"
-
-#: lib/Block/moon.php:26
-msgid "Current 4 Phases"
-msgstr ""
 
 #: lib/Block/time.php:3 lib/Block/time.php:30
 msgid "Current Time"
@@ -1808,18 +1619,6 @@ msgstr "Wytnij zaznaczenie"
 msgid "Cyprus"
 msgstr "Cypr"
 
-#: config/nls.php.dist:182
-msgid "Cyrillic (KOI8-R)"
-msgstr ""
-
-#: config/nls.php.dist:183
-msgid "Cyrillic (Windows-1251)"
-msgstr ""
-
-#: config/nls.php.dist:184
-msgid "Cyrillic/Ukrainian (KOI8-U)"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:68 lib/Horde/NLS/countries.php:67
 #: lib/Horde/NLS/GeoIP.php:69
 msgid "Czech Republic"
@@ -1834,10 +1633,6 @@ msgstr "DD"
 #: lib/Horde/Maintenance.php:59
 msgid "Daily"
 msgstr "Codziennie"
-
-#: admin/datatree.php:65
-msgid "DataTree Browser"
-msgstr ""
 
 #: lib/Horde/Form.php:2398 lib/Horde/MIME/Viewer/rfc822.php:72
 msgid "Date"
@@ -2008,18 +1803,6 @@ msgstr "Szczegó³y zosta³y zalogowane dla administratora."
 msgid "Development"
 msgstr "Dzia³"
 
-#: lib/Block/metar.php:217
-msgid "Dew Point"
-msgstr ""
-
-#: lib/Block/metar.php:294
-msgid "Dew Point for last hour: "
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:215
-msgid "Dew point: "
-msgstr ""
-
 #: templates/javascript/htmlarea_lang.js:38
 msgid "Direction left to right"
 msgstr "Kierunek z lewej do prawej"
@@ -2039,14 +1822,6 @@ msgstr "Wy¶wietl czas w formacie 24-godzinnym?"
 #: config/prefs.php.dist:97
 msgid "Display Options"
 msgstr "Ustawienia wygl±du"
-
-#: lib/Block/weatherdotcom.php:88
-msgid "Display detailed forecast"
-msgstr ""
-
-#: lib/Block/metar.php:85
-msgid "Display forecast (TAF)"
-msgstr ""
 
 #: lib/Horde/Form.php:2816
 #, fuzzy
@@ -2112,10 +1887,6 @@ msgstr "Narkotyki"
 msgid "E-Mail"
 msgstr "E-mail"
 
-#: lib/Horde/Notification/Listener/mobile.php:34
-msgid "ERR"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:75 lib/Horde/NLS/countries.php:72
 #: lib/Horde/NLS/GeoIP.php:70
 msgid "Ecuador"
@@ -2179,14 +1950,6 @@ msgstr "Egipt"
 #: lib/Horde/NLS/GeoIP.php:107
 msgid "El Salvador"
 msgstr "Salwador"
-
-#: templates/javascript/htmlarea_context_lang.js:42
-msgid "Element..."
-msgstr ""
-
-#: templates/javascript/htmlarea_lang.js:109
-msgid "Em"
-msgstr ""
 
 #: lib/Horde/Form.php:1870 lib/Horde/MIME/Viewer/vcard.php:224
 msgid "Email"
@@ -2346,17 +2109,9 @@ msgstr "Rozwiñ pasek"
 msgid "Expected ')'"
 msgstr "Oczekiwano ')'"
 
-#: lib/Horde/SQL/Keywords.php:175
-msgid "Expected bare word or quoted search term"
-msgstr ""
-
 #: lib/Horde/Crypt/pgp.php:401
 msgid "Expiration Date"
 msgstr "Data ekspiracji"
-
-#: lib/Horde/Crypt/smime.php:676
-msgid "Exponent"
-msgstr ""
 
 #: templates/javascript/htmlarea_table_lang.js:31
 #, fuzzy
@@ -2401,10 +2156,6 @@ msgstr "B³±d podczas ³±czenia siê z serwerem SASL %s."
 msgid "Failed to move to \"%s\"."
 msgstr "B³±d podczas przenoszenia do \"%s\"."
 
-#: lib/Block/weatherdotcom_strings.php:18
-msgid "Fair"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:84 lib/Horde/NLS/countries.php:79
 #: lib/Horde/NLS/GeoIP.php:72
 msgid "Falkland Islands (Malvinas)"
@@ -2427,26 +2178,6 @@ msgstr "Faks"
 #: templates/javascript/open_calendar.js:66
 msgid "February"
 msgstr "Luty"
-
-#: lib/Block/metar.php:220
-msgid "Feels Like"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:219
-msgid "Feels like: "
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:19
-msgid "Few Showers"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:20
-msgid "Few Snow Showers"
-msgstr ""
-
-#: lib/Horde/Form.php:1945
-msgid "Field matrix"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:83 lib/Horde/NLS/countries.php:81
 #: lib/Horde/NLS/GeoIP.php:72
@@ -2495,18 +2226,6 @@ msgstr "Filtry"
 msgid "Finland"
 msgstr "Finlandia"
 
-#: lib/Block/moon.php:171
-msgid "First Half"
-msgstr ""
-
-#: lib/Block/moon.php:74 lib/Block/moon.php:76
-msgid "First Quarter"
-msgstr ""
-
-#: lib/Horde/UI/VarRenderer/html.php:239
-msgid "Fix ratio"
-msgstr ""
-
 #: lib/Horde/UI/VarRenderer/html.php:214
 msgid "Flip"
 msgstr "Odwróæ"
@@ -2514,10 +2233,6 @@ msgstr "Odwróæ"
 #: templates/javascript/htmlarea_table_lang.js:32
 msgid "Float"
 msgstr "P³ywaj±ce"
-
-#: lib/Block/weatherdotcom_strings.php:21
-msgid "Fog"
-msgstr ""
 
 #: lib/VFS/musql.php:107 lib/VFS/sql.php:160
 #, fuzzy, php-format
@@ -2539,23 +2254,9 @@ msgstr "Jedzenie"
 msgid "For browsers that don't support images"
 msgstr "Dla przegl±darek, które nie wspieraj± obrazków"
 
-#: lib/Block/metar.php:334
-msgid "Forecast (TAF)"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:71
-msgid ""
-"Forecast Days (note that the returned forecast returns both day and night; a "
-"large number here could result in a wide block)"
-msgstr ""
-
 #: templates/login/login.inc:98
 msgid "Forgot your password?"
 msgstr "Zapomnieæ has³o?"
-
-#: config/registry.php.dist:409
-msgid "Forms"
-msgstr ""
 
 #: lib/Block/fortune.php:21
 #, fuzzy
@@ -2582,10 +2283,6 @@ msgstr "Fortunki 2"
 msgid "Forums"
 msgstr "Fora"
 
-#: config/registry.php.dist:109
-msgid "Forwards"
-msgstr ""
-
 #: templates/javascript/open_calendar.js:60
 #, fuzzy
 msgid "Fr"
@@ -2600,10 +2297,6 @@ msgstr "Ramki"
 #: lib/Horde/NLS/GeoIP.php:73
 msgid "France"
 msgstr "Francja"
-
-#: lib/Horde/NLS/GeoIP.php:73
-msgid "France, Metropolitan"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:91 lib/Horde/NLS/countries.php:84
 #: lib/Horde/NLS/GeoIP.php:74
@@ -2634,10 +2327,6 @@ msgstr "Od"
 #, fuzzy
 msgid "Full Description"
 msgstr "Pe³ny opis"
-
-#: lib/Block/moon.php:82 lib/Block/moon.php:181
-msgid "Full Moon"
-msgstr ""
 
 #: templates/admin/user/update.inc:39
 #, fuzzy
@@ -2671,11 +2360,6 @@ msgstr "Wygeneruj konfiguracjê %s"
 msgid "Generated Code"
 msgstr "Wygenerowany kod"
 
-#: lib/Horde/NLS/tld.php:90 lib/Horde/NLS/countries.php:89
-#: lib/Horde/NLS/GeoIP.php:74
-msgid "Georgia"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:69 lib/Horde/NLS/countries.php:90
 #: lib/Horde/NLS/GeoIP.php:69
 msgid "Germany"
@@ -2699,10 +2383,6 @@ msgstr "Nazwisko"
 #: templates/prefs/app.inc:12
 msgid "Go"
 msgstr "Id¼"
-
-#: lib/Block/fortune.php:40
-msgid "Goedel"
-msgstr ""
 
 #: lib/Block/google.php:3 lib/Block/google.php:21 lib/Block/google.php:41
 msgid "Google Search"
@@ -2781,10 +2461,6 @@ msgstr "Domy¶lne uprawnienia dla go¶ci"
 msgid "Guest permissions"
 msgstr "Domy¶lne uprawnienia dla go¶ci"
 
-#: config/registry.php.dist:417
-msgid "Guestbook"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:97 lib/Horde/NLS/countries.php:99
 #: lib/Horde/NLS/GeoIP.php:75
 msgid "Guinea"
@@ -2831,10 +2507,6 @@ msgstr "Haiti"
 msgid "Hash-Algorithm"
 msgstr "Algorytm podpisu"
 
-#: lib/Block/weatherdotcom_strings.php:22
-msgid "Haze"
-msgstr ""
-
 #: lib/Horde/Form.php:919 lib/Horde/Form.php:2931
 #, fuzzy
 msgid "Header"
@@ -2844,10 +2516,6 @@ msgstr "Nag³ówek"
 #: lib/Horde/NLS/GeoIP.php:79
 msgid "Heard Island and McDonald Islands"
 msgstr "Wyspy Heard i McDonalda"
-
-#: lib/Block/weatherdotcom_strings.php:23
-msgid "Heavy T-Storm"
-msgstr ""
 
 #: config/nls.php.dist:186
 #, fuzzy
@@ -2873,21 +2541,9 @@ msgstr "Pomoc w u¿ywaniu edytora"
 msgid "Helper"
 msgstr "Pomoc"
 
-#: lib/Block/moon.php:29
-msgid "Hemisphere"
-msgstr ""
-
 #: templates/data/tsvinfo.inc:17 templates/data/csvinfo.inc:17
 msgid "Here is the beginning of the file:"
 msgstr "Pocz±tek pliku:"
-
-#: lib/Block/weatherdotcom_strings.php:69
-msgid "High"
-msgstr ""
-
-#: lib/Horde/History.php:321
-msgid "History entry names must be non-empty"
-msgstr ""
 
 #: templates/portal/menu.inc:6 templates/admin/common-header.inc:4
 msgid "Ho_me"
@@ -2953,20 +2609,10 @@ msgstr "Horde/Kolab: Zsynchronizowano %s \"%s\""
 msgid "Horde/Kolab: The integration engine requires the 'domxml' PHP extension"
 msgstr "Horde/Kolab: Silnik integracyjny wymaga rozszerzenia 'domxml'"
 
-#: lib/Horde/Kolab.php:481
-#, php-format
-msgid "Horde/Kolab: Unable to create new XML tree for object %s"
-msgstr ""
-
 #: lib/Horde/Kolab.php:1205
 #, fuzzy, php-format
 msgid "Horde/Kolab: Unable to remove %s \"%s\": %s"
 msgstr "Horde/Kolab: Nie mo¿na usun±æ %s \"%s\": %s"
-
-#: lib/Horde/Kolab.php:452
-#, php-format
-msgid "Horde/Kolab: Unable to retrieve MIME ID for the part of type %s"
-msgstr ""
 
 #: lib/Horde/Kolab.php:1151
 #, fuzzy, php-format
@@ -3010,18 +2656,6 @@ msgstr "Ile jest pól (kolumn)"
 #: templates/javascript/htmlarea_table_lang.js:36
 msgid "How many rows would you like to merge?"
 msgstr "Ile wierszy chcia³by¶ po³±czyæ?"
-
-#: lib/Block/weatherdotcom.php:288 lib/Block/metar.php:230
-msgid "Humidity"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:247
-msgid "Humidity: "
-msgstr ""
-
-#: lib/Block/fortune.php:41
-msgid "Humorists"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:111 lib/Horde/NLS/countries.php:107
 #: lib/Horde/NLS/GeoIP.php:80
@@ -3083,11 +2717,6 @@ msgstr "Ikony z tekstem"
 #: config/prefs.php.dist:182
 msgid "Identity's name:"
 msgstr "Nazwa to¿samo¶ci:"
-
-#: lib/Horde/MIME/Contents.php:589
-#, php-format
-msgid "If it is not displayed correctly, %s to open it in a new window."
-msgstr ""
 
 #: config/prefs.php.dist:447
 msgid ""
@@ -3155,10 +2784,6 @@ msgstr "Importowane pola:"
 msgid "In_sert Row After"
 msgstr "Wprowad¼ wiersz po"
 
-#: lib/Horde/Compress/zip.php:135
-msgid "Incorrect action code given."
-msgstr ""
-
 #: lib/Net/SMS/sms2email_http.php:632
 #, fuzzy
 msgid "Incorrect username and/or password."
@@ -3182,10 +2807,6 @@ msgstr "Zwiêksz wciêcie"
 msgid "India"
 msgstr "Indie"
 
-#: admin/perms/edit.php:141 templates/shares/edit.inc:134
-msgid "Individual Users"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:112 lib/Horde/NLS/countries.php:110
 #: lib/Horde/NLS/GeoIP.php:80
 msgid "Indonesia"
@@ -3199,10 +2820,6 @@ msgstr "Info"
 #, fuzzy
 msgid "Information"
 msgstr "Twoje informacje"
-
-#: lib/Block/weatherdotcom.php:318
-msgid "Information no longer available."
-msgstr ""
 
 #: templates/javascript/htmlarea_context_lang.js:34
 #, fuzzy
@@ -3324,14 +2941,6 @@ msgstr "Dodaj/Zmieñ obrazek..."
 msgid "Insert/Modify Link"
 msgstr "Dodaj/Zmieñ link..."
 
-#: lib/Net/SMS/sms2email_http.php:643
-msgid "Insufficient credit to send to the distribution list."
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:635
-msgid "Insufficient credit."
-msgstr ""
-
 #: lib/Horde/Form.php:1075
 #, fuzzy
 msgid "Integer"
@@ -3341,10 +2950,6 @@ msgstr "Liczba"
 #, fuzzy
 msgid "Integer list"
 msgstr "Odwróæ"
-
-#: lib/Net/SMS/clickatell_http.php:297
-msgid "Invalid UDH. (User Data Header)."
-msgstr ""
 
 #: lib/Horde/Compress/zip.php:170 lib/Horde/Compress/zip.php:201
 #: lib/Horde/Compress/zip.php:210
@@ -3380,55 +2985,10 @@ msgstr "Nieprawid³owy format pliku"
 msgid "Invalid license key."
 msgstr "Nieprawid³owy klucz licencji."
 
-#: lib/Block/weatherdotcom.php:158
-msgid "Invalid location provided."
-msgstr ""
-
-#: lib/Net/SMS/clickatell_http.php:307
-msgid "Invalid msg_type."
-msgstr ""
-
-#: lib/Net/SMS/clickatell_http.php:303
-msgid "Invalid or missing api_id."
-msgstr ""
-
-#: lib/Net/SMS/clickatell_http.php:296
-msgid "Invalid or missing parameters."
-msgstr ""
-
 #: admin/perms/addchild.php:43
 #, fuzzy
 msgid "Invalid parent permission."
 msgstr "Nieprawid³owe uprawnienia nadrzêdne."
-
-#: lib/Block/weatherdotcom.php:160
-msgid "Invalid partner id."
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:162
-msgid "Invalid product code."
-msgstr ""
-
-#: lib/Net/SMS/clickatell_http.php:306
-msgid "Invalid protocol."
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:93
-#, php-format
-msgid "Invalid recipient: \"%s\""
-msgstr ""
-
-#: lib/Horde/Kolab.php:1043 lib/Horde/Kolab.php:1220
-msgid "Invalid share object"
-msgstr ""
-
-#: lib/Net/SMS/clickatell_http.php:301
-msgid "Invalid source address."
-msgstr ""
-
-#: lib/Net/SMS/clickatell_http.php:311
-msgid "Invalid unicode data."
-msgstr ""
 
 #: config/registry.php.dist:325
 #, fuzzy
@@ -3449,14 +3009,6 @@ msgstr "Irak"
 #: lib/Horde/NLS/GeoIP.php:80
 msgid "Ireland"
 msgstr "Irlandia"
-
-#: lib/Horde/NLS/tld.php:115
-msgid "Isle of Man"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:24
-msgid "Isolated T-Storms"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:114 lib/Horde/NLS/countries.php:114
 #: lib/Horde/NLS/GeoIP.php:80
@@ -3558,10 +3110,6 @@ msgstr "Kenia"
 msgid "Kerberos server rejected authentication."
 msgstr "Serwer Kerberos odrzuci³ autoryzacjê."
 
-#: lib/Block/fortune.php:42
-msgid "Kernel Newbies"
-msgstr ""
-
 #: lib/Horde/Crypt/pgp.php:400
 msgid "Key Creation"
 msgstr "Tworzenie klucza"
@@ -3577,10 +3125,6 @@ msgstr "D³ugo¶æ klucza"
 #: lib/Horde/Crypt/pgp.php:400
 msgid "Key Type"
 msgstr "Typ klucza"
-
-#: lib/Horde/Crypt/smime.php:598
-msgid "Key Usage"
-msgstr ""
 
 #: lib/Horde/Crypt/pgp.php:729
 msgid "Key already exists on the public keyserver."
@@ -3632,18 +3176,6 @@ msgstr "Jêzyk"
 msgid "Lao People's Democratic Republic"
 msgstr "Laos"
 
-#: lib/Block/moon.php:174
-msgid "Last Half"
-msgstr ""
-
-#: lib/Block/moon.php:88 lib/Block/moon.php:90
-msgid "Last Quarter"
-msgstr ""
-
-#: lib/Block/metar.php:151
-msgid "Last Updated:"
-msgstr ""
-
 #: lib/Horde/Auth.php:686
 #, php-format
 msgid "Last login: %s"
@@ -3673,10 +3205,6 @@ msgstr "Prawo"
 #, fuzzy
 msgid "Layout"
 msgstr "Wygl±d"
-
-#: templates/javascript/htmlarea_lang.js:86
-msgid "Leave empty for no border"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:138 lib/Horde/NLS/countries.php:128
 #: lib/Horde/NLS/GeoIP.php:87
@@ -3719,38 +3247,6 @@ msgstr "Libia"
 msgid "Liechtenstein"
 msgstr "Liechtenstein"
 
-#: lib/Block/weatherdotcom_strings.php:25
-msgid "Light Drizzle"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:26
-msgid "Light Rain"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:27
-msgid "Light Rain Early"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:28
-msgid "Light Rain Late"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:29
-msgid "Light Rain Shower"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:30
-msgid "Light Rain with Thunder"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:31
-msgid "Light Snow"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:32
-msgid "Light Snow Shower"
-msgstr ""
-
 #: lib/Block/fortune.php:45
 #, fuzzy
 msgid "Limerick"
@@ -3774,10 +3270,6 @@ msgstr "£±cz adres email ze stron± nowej wiadomo¶ci przy wy¶wietlaniu"
 msgid "Links"
 msgstr "Linki"
 
-#: lib/Block/fortune.php:46
-msgid "Linux Cookie"
-msgstr ""
-
 #: lib/Horde/IMAP/ACL/rfc2086.php:86
 msgid "List - user can see the folder"
 msgstr "Lista - u¿ytkownik mo¿e widzieæ folder"
@@ -3795,34 +3287,6 @@ msgstr "Wy¶wietl tematy pomocy"
 #, fuzzy
 msgid "List Tables"
 msgstr "Wy¶wietl tabele"
-
-#: lib/Horde/MIME/Headers.php:594
-msgid "List-Archive"
-msgstr ""
-
-#: lib/Horde/MIME/Headers.php:589
-msgid "List-Help"
-msgstr ""
-
-#: lib/Horde/MIME/Headers.php:596
-msgid "List-Id"
-msgstr ""
-
-#: lib/Horde/MIME/Headers.php:592
-msgid "List-Owner"
-msgstr ""
-
-#: lib/Horde/MIME/Headers.php:593
-msgid "List-Post"
-msgstr ""
-
-#: lib/Horde/MIME/Headers.php:591
-msgid "List-Subscribe"
-msgstr ""
-
-#: lib/Horde/MIME/Headers.php:590
-msgid "List-Unsubscribe"
-msgstr ""
 
 #: templates/admin/user/nolist.inc:4
 msgid "Listing users is disabled."
@@ -3888,10 +3352,6 @@ msgstr "D³ugi tekst"
 #, fuzzy
 msgid "Love"
 msgstr "Mi³o¶æ"
-
-#: lib/Block/weatherdotcom_strings.php:67
-msgid "Low"
-msgstr ""
 
 #: templates/javascript/htmlarea_listtype_lang.js:21
 msgid "Lower greek letters"
@@ -4012,14 +3472,6 @@ msgstr "Marzec"
 msgid "Margin"
 msgstr "Margines"
 
-#: lib/Horde/IMAP/ACL/rfc2086.php:88
-msgid "Mark with Seen/Unseen flags"
-msgstr ""
-
-#: lib/Horde/IMAP/ACL/rfc2086.php:89
-msgid "Mark with other flags (e.g. Important/Answered)"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:152 lib/Horde/NLS/countries.php:143
 #: lib/Horde/NLS/GeoIP.php:91
 msgid "Marshall Islands"
@@ -4044,22 +3496,6 @@ msgstr "Mauretania"
 msgid "Mauritius"
 msgstr "Mauritius"
 
-#: lib/Net/SMS/clickatell_http.php:315
-msgid "Max allowed credit."
-msgstr ""
-
-#: lib/Net/SMS/clickatell_http.php:308
-msgid "Max message parts exceeded."
-msgstr ""
-
-#: lib/Block/metar.php:306
-msgid "Max temp last 24 hours: "
-msgstr ""
-
-#: lib/Block/metar.php:298
-msgid "Max temp last 6 hours: "
-msgstr ""
-
 #: lib/Horde/Form.php:898 lib/Horde/Form.php:1217 lib/Horde/Form.php:1239
 msgid "Maximum length"
 msgstr "Maksymalna d³ugo¶æ"
@@ -4073,10 +3509,6 @@ msgstr "Maj"
 #: lib/Horde/NLS/GeoIP.php:117
 msgid "Mayotte"
 msgstr "Majotta"
-
-#: lib/Block/fortune.php:50
-msgid "Medicine"
-msgstr ""
 
 #: templates/admin/groups/edit.inc:19
 #, fuzzy
@@ -4095,25 +3527,10 @@ msgstr "Po³±cz komórki"
 msgid "Message"
 msgstr "Wiadomo¶æ"
 
-#: lib/Horde/Crypt/smime.php:216
-msgid ""
-"Message Verified Successfully but the signer's certificate could not be "
-"verified."
-msgstr ""
-
 #: lib/Net/SMS/clickatell_http.php:310
 #, fuzzy
 msgid "Message expired."
 msgstr "Wiadomo¶æ wygas³a"
-
-#: lib/Net/SMS/sms2email_http.php:569 lib/Net/SMS/sms2email_http.php:602
-#: lib/Net/SMS/clickatell_http.php:227 lib/Net/SMS/clickatell_http.php:260
-msgid "Message type"
-msgstr ""
-
-#: lib/Block/metar.php:3
-msgid "Metar Weather"
-msgstr ""
 
 #: lib/Block/metar.php:37
 msgid "Metar block not available."
@@ -4126,10 +3543,6 @@ msgstr ""
 "Blok \"Metar\" nie jest dostêpny. Szczegó³y zdarzenia zosta³y zalogowane dla "
 "administratora."
 
-#: lib/Block/weatherdotcom.php:152
-msgid "MetarDB is not connected."
-msgstr ""
-
 #: lib/Horde/MIME/Viewer/rar.php:67 lib/Horde/MIME/Viewer/zip.php:74
 #, fuzzy
 msgid "Method"
@@ -4139,10 +3552,6 @@ msgstr "Metoda"
 #, fuzzy, php-format
 msgid "Method \"%s\" is not defined"
 msgstr "Metoda \"%s\" jest niezdefiniowana"
-
-#: lib/Block/weatherdotcom.php:66 lib/Block/metar.php:75
-msgid "Metric"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:166 lib/Horde/NLS/countries.php:148
 #: lib/Horde/NLS/GeoIP.php:95
@@ -4164,45 +3573,15 @@ msgstr "Stanowisko"
 msgid "Mime Type"
 msgstr "Typ Mime"
 
-#: lib/Block/metar.php:310
-msgid "Min temp last 24 hours: "
-msgstr ""
-
-#: lib/Block/metar.php:302
-msgid "Min temp last 6 hours: "
-msgstr ""
-
 #: lib/Horde/UI/VarRenderer/html.php:217
 #, fuzzy
 msgid "Mirror"
 msgstr "Lustro"
 
-#: lib/Block/fortune.php:51
-msgid "Miscellaneous"
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:672 lib/Net/SMS/clickatell_http.php:340
-msgid "Missing PEAR package HTTP_Request."
-msgstr ""
-
-#: admin/setup/index.php:114
-msgid ""
-"Missing configuration. You have to generate it now if you want to use this "
-"application."
-msgstr ""
-
 #: lib/Net/SMS/clickatell_http.php:304
 #, fuzzy
 msgid "Missing message ID."
 msgstr "Wiadomo¶æ do"
-
-#: lib/Net/SMS/vodafoneitaly_smtp.php:58
-msgid "Missing required PEAR package Mail."
-msgstr ""
-
-#: lib/Net/SMS/clickatell_http.php:294
-msgid "Missing session ID."
-msgstr ""
 
 #: templates/javascript/open_calendar.js:56
 msgid "Mo"
@@ -4213,10 +3592,6 @@ msgstr "Pn"
 msgid "Mobile Mail"
 msgstr "Nowa poczta"
 
-#: lib/Block/weatherdotcom_strings.php:68
-msgid "Moderate"
-msgstr ""
-
 #: lib/Horde/MIME/Viewer/rar.php:66 lib/Horde/MIME/Viewer/zip.php:73
 #: lib/Horde/MIME/Viewer/tgz.php:85
 msgid "Modified Date"
@@ -4225,10 +3600,6 @@ msgstr "Ostatnia modyfikacja"
 #: templates/javascript/htmlarea_context_lang.js:52
 msgid "Modify URL"
 msgstr "Zmieñ link"
-
-#: lib/Horde/Crypt/smime.php:673
-msgid "Modulus"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:150 lib/Horde/NLS/countries.php:150
 #: lib/Horde/NLS/GeoIP.php:90
@@ -4268,18 +3639,6 @@ msgstr "Fazy ksiê¿yca"
 msgid "Morocco"
 msgstr "Maroko"
 
-#: lib/Block/weatherdotcom_strings.php:33
-msgid "Mostly Clear"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:34
-msgid "Mostly Cloudy"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:35
-msgid "Mostly Sunny"
-msgstr ""
-
 #: lib/Horde/Block/Layout.php:428
 msgid "Move Down"
 msgstr "Przesuñ w dó³"
@@ -4308,10 +3667,6 @@ msgstr "Przesuñ w górê"
 #: lib/Horde/NLS/GeoIP.php:95
 msgid "Mozambique"
 msgstr "Mozambik"
-
-#: lib/Horde/Form.php:2185
-msgid "Multi-level drop down lists"
-msgstr ""
 
 #: lib/Horde/Form.php:2243
 #, fuzzy
@@ -4370,38 +3725,6 @@ msgstr "Holandia"
 msgid "Netherlands Antilles"
 msgstr "Antyle Holenderskie"
 
-#: lib/Horde/Crypt/smime.php:581
-msgid "Netscape Base URL"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:583
-msgid "Netscape CA Revocation URL"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:585
-msgid "Netscape CA policy URL"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:584
-msgid "Netscape Renewal URL"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:582
-msgid "Netscape Revocation URL"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:586
-msgid "Netscape SSL server name"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:587
-msgid "Netscape certificate comment"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:580
-msgid "Netscape certificate type"
-msgstr ""
-
 #: config/registry.php.dist:239
 msgid "Network"
 msgstr "Sieæ"
@@ -4420,10 +3743,6 @@ msgstr "Nowa Kaledonia"
 #: templates/prefs/categorymanagement.inc:27
 msgid "New Category"
 msgstr "Nowa kategoria"
-
-#: lib/Block/moon.php:46 lib/Block/moon.php:68 lib/Block/moon.php:179
-msgid "New Moon"
-msgstr ""
 
 #: templates/admin/user/update.inc:35
 msgid "New Username (optional)"
@@ -4501,34 +3820,9 @@ msgstr "Nie"
 msgid "No available configuration data to show differences for."
 msgstr "Brak konfiguracji, by pokazaæ ró¿nicê."
 
-#: lib/VFS/ISOWriter.php:105
-msgid "No available strategy for making ISO images."
-msgstr ""
-
-#: lib/Net/SMS/clickatell_http.php:313
-msgid "No batch template."
-msgstr ""
-
-#: lib/Horde/Block/Layout.php:79 lib/Horde/Block/Layout.php:230
-#: lib/Horde/Block/Layout.php:252
-msgid "No block exists at the requested position"
-msgstr ""
-
-#: lib/Horde/Auth/mcal.php:50
-msgid "No calendar name provided for MCAL authentication."
-msgstr ""
-
 #: admin/setup/diff.php:54
 msgid "No change."
 msgstr "Bez zmian."
-
-#: lib/Horde/Perms/UI.php:140
-msgid "No child permissions are to be added below this level."
-msgstr ""
-
-#: admin/perms/addchild.php:61
-msgid "No children can be added to this permission."
-msgstr ""
 
 #: lib/Horde.php:167 lib/Horde.php:477 lib/Horde/Util.php:776
 #, php-format
@@ -4550,10 +3844,6 @@ msgstr "Brak informacji o serwerze SQL."
 msgid "No configuration information specified for SQL-File VFS."
 msgstr "Brak informacji o serwerze SQL z kategoriami."
 
-#: lib/Net/SMS/clickatell_http.php:314
-msgid "No credit left."
-msgstr ""
-
 #: lib/Net/SMS/sms2email_http.php:634
 #, fuzzy
 msgid "No destination supplied."
@@ -4563,23 +3853,10 @@ msgstr "Nie podano adresu docelowego"
 msgid "No file uploaded"
 msgstr "Nie wgrano pliku"
 
-#: lib/Block/weatherdotcom.php:115 lib/Block/sunrise.php:40
-#: lib/Block/metar.php:123
-msgid "No location is set."
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:156
-msgid "No location provided."
-msgstr ""
-
 #: lib/Net/SMS/sms2email_http.php:633
 #, fuzzy
 msgid "No message supplied."
 msgstr "Brak wiadomo¶ci."
-
-#: lib/Net/SMS/sms2email_http.php:636
-msgid "No name specified."
-msgstr ""
 
 #: lib/Net/SMS/sms2email_http.php:637
 #, fuzzy
@@ -4620,36 +3897,10 @@ msgstr "Nie podano has³a dla uwierzytelnienia PASSWD."
 msgid "No password provided for SMB authentication."
 msgstr "Nie podano has³a dla uwierzytelnienia SMB."
 
-#: lib/Horde/Crypt/smime.php:1286
-msgid ""
-"No path to the OpenSSL binary provided. The OpenSSL binary is necessary to "
-"work with PKCS 12 data."
-msgstr ""
-
-#: templates/admin/user/approve.inc:6
-msgid "No pending signups."
-msgstr ""
-
 #: templates/javascript/htmlarea_table_lang.js:43
 #, fuzzy
 msgid "No rules"
 msgstr "Bez linijek"
-
-#: templates/javascript/htmlarea_table_lang.js:44
-msgid "No sides"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:125
-msgid "No temporary directory available for cache."
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:631
-msgid "No username and/or password sent."
-msgstr ""
-
-#: lib/Horde/RPC/xmlrpc.php:140
-msgid "No valid XML data returned"
-msgstr ""
 
 #: lib/Horde/UI/VarRenderer/html.php:893 lib/Horde/UI/VarRenderer/html.php:903
 #: lib/Horde/UI/VarRenderer/html.php:914 lib/Horde/UI/VarRenderer/html.php:931
@@ -4673,10 +3924,6 @@ msgstr ""
 msgid "None"
 msgstr "¯adna"
 
-#: templates/javascript/htmlarea_lang.js:90
-msgid "None (use implicit)"
-msgstr ""
-
 #: config/nls.php.dist:189
 #, fuzzy
 msgid "Nordic (ISO-8859-10)"
@@ -4692,23 +3939,10 @@ msgstr "Norfolk"
 msgid "Northern Hemisphere"
 msgstr "Pó³nocna pó³kula"
 
-#: lib/Horde/NLS/tld.php:158 lib/Horde/NLS/countries.php:169
-#: lib/Horde/NLS/GeoIP.php:93
-msgid "Northern Mariana Islands"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:176 lib/Horde/NLS/countries.php:170
 #: lib/Horde/NLS/GeoIP.php:97
 msgid "Norway"
 msgstr "Norwegia"
-
-#: lib/Horde/Crypt/smime.php:640
-msgid "Not After"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:639
-msgid "Not Before"
-msgstr ""
 
 #: lib/VFS/file.php:331
 #, fuzzy
@@ -4738,10 +3972,6 @@ msgstr "Nieobs³ugiwane"
 #: lib/Horde/MIME/Viewer/vcard.php:244 config/registry.php.dist:164
 msgid "Notes"
 msgstr "Uwagi"
-
-#: services/obrowser/index.php:36
-msgid "Nothing to browse, go back."
-msgstr ""
 
 #: templates/maintenance/confirm_top.inc:10
 msgid "Notice"
@@ -4792,22 +4022,10 @@ msgstr "Temat"
 msgid "Object Creator"
 msgstr "Kreator obiektów"
 
-#: admin/perms/edit.php:137 lib/Horde/Perms/UI.php:215
-msgid "Object creator permissions"
-msgstr ""
-
-#: lib/Horde/Form.php:1104
-msgid "Octal"
-msgstr ""
-
 #: lib/Horde/UI/VarRenderer/html.php:383 lib/Horde/UI/VarRenderer/html.php:420
 #: templates/javascript/open_calendar.js:74
 msgid "October"
 msgstr "Pa¼dziernik"
-
-#: lib/Block/fortune.php:92
-msgid "Offense filter"
-msgstr ""
 
 #: config/registry.php.dist:301
 msgid "Office"
@@ -4831,28 +4049,14 @@ msgstr "Tylko ofensywne fortunki"
 msgid "Only one email address allowed."
 msgstr "Tylko jeden adres e-mail jest dozwolony."
 
-#: services/shares/edit.php:65
-msgid ""
-"Only the owner or system administrator may change ownership or owner "
-"permissions for a share"
-msgstr ""
-
 #: lib/Block/iframe.php:35
 msgid "Open in a new window"
 msgstr "Otwórz w nowym oknie"
-
-#: lib/Horde/Crypt/smime.php:245
-msgid "OpenSSL error: Could not extract data from signed S/MIME part."
-msgstr ""
 
 #: templates/javascript/htmlarea_context_lang.js:54
 #, fuzzy
 msgid "Opens this link in a new window"
 msgstr "Otwórz ten link w nowym oknie"
-
-#: lib/Block/fortune.php:53
-msgid "Operating System"
-msgstr ""
 
 #: services/portal/sidebar.php:151
 msgid "Options"
@@ -4879,15 +4083,6 @@ msgstr "Jednostka organizacyjna"
 #: config/registry.php.dist:132
 msgid "Organizing"
 msgstr "Organizator"
-
-#: admin/templates.php:135
-msgid "Original application template"
-msgstr ""
-
-#: admin/templates.php:117
-#, php-format
-msgid "Original templates in %s:"
-msgstr ""
 
 #: lib/Horde/NLS/GeoIP.php:119 services/keyboard.php:117
 #: templates/javascript/htmlarea_lang.js:94
@@ -4932,30 +4127,6 @@ msgstr "Kod PHP"
 msgid "PHP Shell"
 msgstr "Pow³oka PHP"
 
-#: lib/Block/weatherdotcom_strings.php:37
-msgid "PM Light Rain"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:38
-msgid "PM Showers"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:39
-msgid "PM Snow"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:40
-msgid "PM Snow Showers"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:41
-msgid "PM Sun"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:42
-msgid "PM T-Storms"
-msgstr ""
-
 #: lib/api.php:128
 msgid "P_HP Shell"
 msgstr "Pow³oka P_HP"
@@ -4975,11 +4146,6 @@ msgstr "Pakistan"
 msgid "Palau"
 msgstr "Palau"
 
-#: lib/Horde/NLS/tld.php:192 lib/Horde/NLS/countries.php:174
-#: lib/Horde/NLS/GeoIP.php:101
-msgid "Palestinian Territory, Occupied"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:182 lib/Horde/NLS/countries.php:175
 #: lib/Horde/NLS/GeoIP.php:98
 msgid "Panama"
@@ -4994,10 +4160,6 @@ msgstr "Papua-Nowa Gwinea"
 #: lib/Horde/NLS/GeoIP.php:102
 msgid "Paraguay"
 msgstr "Paragwaj"
-
-#: lib/Block/weatherdotcom_strings.php:36
-msgid "Partly Cloudy"
-msgstr ""
 
 #: admin/user.php:36 admin/setup/index.php:183
 #: lib/Net/SMS/sms2email_http.php:537 lib/Net/SMS/clickatell_http.php:199
@@ -5044,10 +4206,6 @@ msgstr "Wklej ze schowka"
 #, fuzzy
 msgid "Path"
 msgstr "¦cie¿ka"
-
-#: templates/admin/user/approve.inc:2 templates/admin/user/removequeued.inc:4
-msgid "Pending Signups:"
-msgstr ""
 
 #: lib/Block/fortune.php:54
 #, fuzzy
@@ -5097,10 +4255,6 @@ msgstr "Informacje osobiste"
 msgid "Peru"
 msgstr "Peru"
 
-#: lib/Block/fortune.php:55
-msgid "Pets"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:186 lib/Horde/NLS/countries.php:179
 #: lib/Horde/NLS/GeoIP.php:99
 msgid "Philippines"
@@ -5110,10 +4264,6 @@ msgstr "Filipiny"
 msgid "Phone"
 msgstr "Telefon"
 
-#: config/registry.php.dist:425
-msgid "Photos"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:190 lib/Horde/NLS/countries.php:180
 #: lib/Horde/NLS/GeoIP.php:100
 msgid "Pitcairn"
@@ -5122,10 +4272,6 @@ msgstr "Pitcairn"
 #: templates/javascript/htmlarea_lang.js:108
 msgid "Pixels"
 msgstr "Piksele"
-
-#: lib/Block/fortune.php:56
-msgid "Platitudes"
-msgstr ""
 
 #: templates/javascript/htmlarea_table_lang.js:47
 msgid "Please click into some cell"
@@ -5212,19 +4358,6 @@ msgstr "Pozycjonowanie obrazka"
 msgid "Positioning of this table"
 msgstr "Pozycjonowanie tabeli"
 
-#: lib/Horde/IMAP/ACL/rfc2086.php:91
-msgid "Post to this folder (not enforced by IMAP)"
-msgstr ""
-
-#: lib/Block/metar.php:266 lib/Block/metar.php:271
-#, php-format
-msgid "Precipitation for last %s hour(s): "
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:286
-msgid "Precipitation<br />chance"
-msgstr ""
-
 #: lib/Horde/Prefs/ldap.php:98
 #, fuzzy
 msgid "Prefs_ldap: Required LDAP extension not found."
@@ -5234,18 +4367,6 @@ msgstr "Auth_ldap: Nie znaleziono wymaganego rozszerzenia LDAP."
 #, fuzzy
 msgid "Prefs_session: Required session extension not found."
 msgstr "Prefs_session: Wymagane rozszerzenie sesji nie znalezione."
-
-#: lib/Block/metar.php:225
-msgid "Pressure"
-msgstr ""
-
-#: lib/Block/metar.php:259
-msgid "Pressure at sea level: "
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:223
-msgid "Pressure: "
-msgstr ""
 
 #: lib/Horde/UI/VarRenderer/html.php:188
 #: templates/javascript/htmlarea_lang.js:120
@@ -5284,10 +4405,6 @@ msgstr "Opis problemu"
 msgid "Projects"
 msgstr "Projekty"
 
-#: lib/Horde/Form.php:2112 lib/Horde/Form.php:2189
-msgid "Prompt text"
-msgstr ""
-
 #: lib/Horde/Crypt/pgp.php:412
 msgid "Public Key"
 msgstr "Klucz publiczny"
@@ -5322,34 +4439,6 @@ msgstr "Zapytanie"
 #, php-format
 msgid "RSA Public Key (%d bit)"
 msgstr "Klucz publiczny RSA (%d bitów)"
-
-#: lib/Horde/Form.php:2265
-msgid "Radio selection"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:43
-msgid "Rain"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:44
-msgid "Rain Early"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:45
-msgid "Rain Late"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:46
-msgid "Rain Shower"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:47
-msgid "Rain and Snow"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:48
-msgid "Rain to Snow"
-msgstr ""
 
 #: lib/Block/fortune.php:3
 #, fuzzy
@@ -5397,18 +4486,6 @@ msgstr "Od¶wie¿ dynamiczne elementy menu:"
 msgid "Refresh Portal View:"
 msgstr "Od¶wie¿ widok serwisu:"
 
-#: lib/Horde/Form.php:894 lib/Horde/Form.php:1213 lib/Horde/Form.php:1235
-msgid "Regex"
-msgstr ""
-
-#: lib/Horde/Form.php:3248
-msgid "Relationship Browser"
-msgstr ""
-
-#: lib/Block/metar.php:326
-msgid "Remarks"
-msgstr ""
-
 #: config/prefs.php.dist:114
 msgid "Remote Servers"
 msgstr "Zdalne serwery"
@@ -5439,17 +4516,9 @@ msgstr "Usuñ formatowanie"
 msgid "Remove pair"
 msgstr "Usuñ parê"
 
-#: admin/setup/index.php:205
-msgid "Remove saved script from server's temporary directory."
-msgstr ""
-
 #: templates/javascript/htmlarea_context_lang.js:41
 msgid "Remove the"
 msgstr "Usuñ"
-
-#: templates/javascript/htmlarea_context_lang.js:49
-msgid "Remove this node from the document"
-msgstr ""
 
 #: templates/admin/user/remove.inc:16
 msgid "Remove user"
@@ -5459,10 +4528,6 @@ msgstr "Usuñ u¿ytkownika"
 #, php-format
 msgid "Remove user: %s"
 msgstr "Usuñ u¿ytkownika: %s"
-
-#: lib/Horde/RPC/xmlrpc.php:138
-msgid "Request couldn't be answered. Returned errorcode: "
-msgstr ""
 
 #: lib/Block/weatherdotcom.php:144
 #, fuzzy
@@ -5588,18 +4653,6 @@ msgstr "Wiersze:"
 msgid "Rules"
 msgstr "Linijki"
 
-#: templates/javascript/htmlarea_table_lang.js:50
-msgid "Rules will appear between all rows and columns"
-msgstr ""
-
-#: templates/javascript/htmlarea_table_lang.js:51
-msgid "Rules will appear between columns only"
-msgstr ""
-
-#: templates/javascript/htmlarea_table_lang.js:52
-msgid "Rules will appear between rows only"
-msgstr ""
-
 #: admin/sqlshell.php:121
 msgid "Run"
 msgstr "Wykonaj"
@@ -5613,10 +4666,6 @@ msgstr "Rosja"
 #: lib/Horde/NLS/GeoIP.php:103
 msgid "Rwanda"
 msgstr "Ruanda"
-
-#: lib/Horde/Crypt/smime.php:285
-msgid "S/MIME Cryptographic Signature"
-msgstr ""
 
 #: lib/Horde/Crypt/smime.php:323
 msgid "S/MIME Encrypted Message"
@@ -5638,10 +4687,6 @@ msgstr "Powloka SQL"
 #: config/registry.php.dist:370
 msgid "SSH"
 msgstr "SSH"
-
-#: lib/Horde/Notification/Listener/mobile.php:35
-msgid "SUCCESS"
-msgstr ""
 
 #: lib/api.php:132
 msgid "S_QL Shell"
@@ -5676,10 +4721,6 @@ msgstr "Saint-Pierre i Miquelon"
 msgid "Saint Vincent and the Grenadines"
 msgstr "Saint Vincent i Grenadyny"
 
-#: templates/javascript/htmlarea_lang.js:92
-msgid "Same frame (_self)"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:251 lib/Horde/NLS/countries.php:194
 #: lib/Horde/NLS/GeoIP.php:117
 msgid "Samoa"
@@ -5689,15 +4730,6 @@ msgstr "Samoa"
 #: lib/Horde/NLS/GeoIP.php:106
 msgid "San Marino"
 msgstr "San Marino"
-
-#: lib/Horde/NLS/tld.php:216 lib/Horde/NLS/countries.php:196
-#: lib/Horde/NLS/GeoIP.php:107
-msgid "Sao Tome and Principe"
-msgstr ""
-
-#: lib/Horde/NLS/GeoIP.php:119
-msgid "Satellite Provider"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:201 lib/Horde/NLS/countries.php:197
 #: lib/Horde/NLS/GeoIP.php:103
@@ -5722,12 +4754,6 @@ msgstr "Zapisz \"%s\""
 msgid "Save Options"
 msgstr "Zapisz opcje"
 
-#: admin/setup/index.php:170
-msgid ""
-"Save generated configuration as a PHP script to your server's temporary "
-"directory."
-msgstr ""
-
 #: admin/setup/scripts.php:69
 #, fuzzy, php-format
 msgid "Saved %s configuration."
@@ -5737,10 +4763,6 @@ msgstr "Zapisano konfiguracjê."
 #, fuzzy, php-format
 msgid "Saved setup upgrade script to: \"%s\"."
 msgstr "Nie mo¿na otworzyæ modu³u Maintenance_Task %s"
-
-#: lib/Block/weatherdotcom_strings.php:49
-msgid "Scattered T-Storms"
-msgstr ""
 
 #: lib/Block/fortune.php:59
 #, fuzzy
@@ -5784,10 +4806,6 @@ msgstr "Wybierz serwer"
 #, fuzzy
 msgid "Select a user to add"
 msgstr "Wybierz u¿ytkownika do dodania"
-
-#: lib/Horde/Form.php:2662
-msgid "Select all date components."
-msgstr ""
 
 #: lib/Horde/UI/VarRenderer/html.php:811
 #, fuzzy
@@ -5848,10 +4866,6 @@ msgstr "Wy¶lij SMS"
 msgid "Senegal"
 msgstr "Senegal"
 
-#: lib/Block/metar.php:316
-msgid "Sensor: "
-msgstr ""
-
 #: lib/Horde/UI/VarRenderer/html.php:382 lib/Horde/UI/VarRenderer/html.php:419
 #: templates/javascript/open_calendar.js:73
 msgid "September"
@@ -5865,21 +4879,9 @@ msgstr "Serbia i Montenegro"
 msgid "Serial Number"
 msgstr "Numer seryjny"
 
-#: lib/Block/weatherdotcom.php:148
-msgid "Server data wrong or not available."
-msgstr ""
-
-#: lib/Net/SMS/clickatell_http.php:292
-msgid "Session ID expired."
-msgstr ""
-
 #: lib/Horde/Form.php:2313
 msgid "Set"
 msgstr "Ustaw"
-
-#: config/prefs.php.dist:76
-msgid "Set options to allow you to reset your password if you ever forget it."
-msgstr ""
 
 #: config/prefs.php.dist:115
 msgid "Set up remote servers that you want to access from your portal."
@@ -5901,14 +4903,6 @@ msgstr ""
 msgid "Setup"
 msgstr "Konfiguracja"
 
-#: templates/admin/setup/index.html:39
-msgid "Setup upgrade scripts available"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:174
-msgid "Several locations possible with the parameter: "
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:203 lib/Horde/NLS/countries.php:200
 #: lib/Horde/NLS/GeoIP.php:104
 msgid "Seychelles"
@@ -5923,22 +4917,12 @@ msgstr "Zakupy"
 msgid "Short Summary"
 msgstr "Krótki opis"
 
-#: config/prefs.php.dist:438
-msgid "Should access keys be defined for most links?"
-msgstr ""
-
 #: lib/Horde/Perms.php:292 templates/shares/edit.inc:33
 #: templates/shares/edit.inc:67 templates/shares/edit.inc:90
 #: templates/shares/edit.inc:113 templates/shares/edit.inc:136
 #: templates/shares/edit.inc:179
 msgid "Show"
 msgstr "Poka¿"
-
-#: admin/setup/index.php:158
-msgid ""
-"Show differences between currently saved and the newly generated "
-"configuration."
-msgstr ""
 
 #: config/prefs.php.dist:482
 msgid "Show last login time when logging in?"
@@ -5947,14 +4931,6 @@ msgstr "Pokazywaæ czas ostatniego zalogowania po logowaniu?"
 #: lib/Horde/Form.php:1766
 msgid "Show option to keep original"
 msgstr "Pokazywaæ opcjê do zachowywania orygina³u"
-
-#: lib/Horde/Form.php:2812
-msgid "Show picker"
-msgstr ""
-
-#: config/prefs.php.dist:518
-msgid "Show table operations menu bar?"
-msgstr ""
 
 #: config/prefs.php.dist:341
 #, php-format
@@ -5986,33 +4962,10 @@ msgstr "Wy¶wietl w³a¶ciwo¶ci obrazka"
 msgid "Show upload"
 msgstr "Wgrywanie pliku"
 
-#: lib/Block/weatherdotcom_strings.php:50
-msgid "Showers"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:51
-msgid "Showers Early"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:52
-msgid "Showers Late"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:53
-msgid "Showers in the Vicinity"
-msgstr ""
-
 #: lib/Horde/Block/Layout.php:399
 #, fuzzy
 msgid "Shrink"
 msgstr "Skróæ"
-
-#: lib/Horde/Block/Layout.php:692 lib/Horde/Block/Layout.php:754
-#: lib/Horde/Block/Layout.php:812 lib/Horde/Block/Layout.php:874
-#: lib/Horde/Block/Layout.php:909 lib/Horde/Block/Layout.php:946
-#: lib/Horde/Block/Layout.php:974 lib/Horde/Block/Layout.php:1004
-msgid "Shrink or move neighbouring block(s) out of the way first"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:211 lib/Horde/NLS/countries.php:201
 #: lib/Horde/NLS/GeoIP.php:105
@@ -6062,34 +5015,6 @@ msgstr "S³owacja"
 msgid "Slovenia"
 msgstr "S³owenia"
 
-#: lib/Block/weatherdotcom_strings.php:54
-msgid "Snow"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:55
-msgid "Snow Shower"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:56
-msgid "Snow Showers"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:57
-msgid "Snow Showers Early"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:58
-msgid "Snow Showers Late"
-msgstr ""
-
-#: lib/Block/metar.php:278
-msgid "Snow depth: "
-msgstr ""
-
-#: lib/Block/metar.php:282
-msgid "Snow equivalent in water: "
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:202 lib/Horde/NLS/countries.php:205
 #: lib/Horde/NLS/GeoIP.php:103
 msgid "Solomon Islands"
@@ -6099,19 +5024,6 @@ msgstr "Wyspy Salomona"
 #: lib/Horde/NLS/GeoIP.php:106
 msgid "Somalia"
 msgstr "Somalia"
-
-#: lib/Block/fortune.php:60
-msgid "Songs & Poems"
-msgstr ""
-
-#: lib/Horde/Form.php:2925
-msgid "Sort order selection"
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:559 lib/Net/SMS/sms2email_http.php:589
-#: lib/Net/SMS/clickatell_http.php:217 lib/Net/SMS/clickatell_http.php:247
-msgid "Source address"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:255 lib/Horde/NLS/countries.php:207
 #: lib/Horde/NLS/GeoIP.php:118
@@ -6131,27 +5043,6 @@ msgstr "Georgia Po³udniowa"
 #, fuzzy
 msgid "Southern Hemisphere"
 msgstr "Po³udniowa pó³kula"
-
-#: templates/javascript/htmlarea_lang.js:113
-msgid "Space between adjacent cells"
-msgstr ""
-
-#: templates/javascript/htmlarea_lang.js:115
-msgid "Space between content and border in cell"
-msgstr ""
-
-#: lib/Horde/Form.php:815
-msgid "Spacer"
-msgstr ""
-
-#: templates/javascript/htmlarea_table_lang.js:55
-#: templates/javascript/htmlarea_lang.js:80
-msgid "Spacing"
-msgstr ""
-
-#: templates/javascript/htmlarea_table_lang.js:54
-msgid "Spacing and padding"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:80 lib/Horde/NLS/countries.php:209
 #: lib/Horde/NLS/GeoIP.php:71
@@ -6188,14 +5079,6 @@ msgstr "Import"
 msgid "Sri Lanka"
 msgstr "Sri Lanka"
 
-#: lib/Block/weatherdotcom.php:65 lib/Block/metar.php:74
-msgid "Standard"
-msgstr ""
-
-#: lib/Block/fortune.php:62
-msgid "Star Trek"
-msgstr ""
-
 #: lib/Horde/Form.php:2595 lib/Horde/Form.php:2808
 #, fuzzy
 msgid "Start year"
@@ -6222,10 +5105,6 @@ msgstr "Adres domowy"
 msgid "Strikethrough"
 msgstr "Przekre¶lenie"
 
-#: lib/Horde/Form.php:1233
-msgid "String list"
-msgstr ""
-
 #: lib/Horde/Form.php:1874
 msgid "Strip domain from the address"
 msgstr "Usuñ domenê z adresu"
@@ -6245,13 +5124,6 @@ msgstr "Temat"
 #: lib/Horde/Form.php:332 lib/Horde/Form/Renderer.php:312
 msgid "Submit"
 msgstr "Wy¶lij"
-
-#: signup.php:49
-#, php-format
-msgid ""
-"Submitted request to add \"%s\" to the system. You can not log in until your "
-"request has been approved."
-msgstr ""
 
 #: templates/javascript/htmlarea_lang.js:12
 #, fuzzy
@@ -6327,33 +5199,9 @@ msgstr "Wschód s³oñca"
 msgid "Sun Set"
 msgstr "Zachód s³oñca"
 
-#: lib/Block/weatherdotcom_strings.php:59
-msgid "Sunny"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:204
-msgid "Sunrise"
-msgstr ""
-
 #: lib/Block/sunrise.php:3 lib/Block/sunrise.php:16
 msgid "Sunrise/Sunset"
 msgstr "Wschód/zachód s³oñca"
-
-#: lib/Block/weatherdotcom.php:203
-msgid "Sunrise: "
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:207
-msgid "Sunset"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:206
-msgid "Sunset: "
-msgstr ""
-
-#: templates/javascript/htmlarea_lang.js:13
-msgid "Superscript"
-msgstr ""
 
 #: config/registry.php.dist:443
 #, fuzzy
@@ -6369,11 +5217,6 @@ msgstr "Surinam"
 #, fuzzy
 msgid "Surname"
 msgstr "Nazwisko"
-
-#: lib/Horde/NLS/tld.php:209 lib/Horde/NLS/countries.php:213
-#: lib/Horde/NLS/GeoIP.php:105
-msgid "Svalbard and Jan Mayen"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:219 lib/Horde/NLS/countries.php:214
 #: lib/Horde/NLS/GeoIP.php:108
@@ -6399,26 +5242,6 @@ msgstr "B³±d sk³adni w szukanych wyra¿eniach"
 #: lib/Horde/NLS/GeoIP.php:107
 msgid "Syrian Arab Republic"
 msgstr "Syria"
-
-#: lib/Block/weatherdotcom_strings.php:60
-msgid "T-Storm"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:61
-msgid "T-Storm and Windy"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:62
-msgid "T-Storms"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:63
-msgid "T-Storms Early"
-msgstr ""
-
-#: lib/Horde/Data/tsv.php:166
-msgid "TSV file"
-msgstr ""
 
 #: lib/Horde/UI/Table.php:136
 #, fuzzy
@@ -6466,23 +5289,6 @@ msgstr "Zadania"
 msgid "Telephone Number"
 msgstr "Numer telefonu"
 
-#: lib/Block/metar.php:290
-msgid "Temp for last hour: "
-msgstr ""
-
-#: lib/Block/metar.php:214
-msgid "Temperature"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:211
-msgid "Temperature: "
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:281
-#, php-format
-msgid "Temperature<br />(%sHi%s/%sLo%s) &deg;%s"
-msgstr ""
-
 #: lib/Horde/Template.php:217
 #, fuzzy, php-format
 msgid "Template \"%s\" not found."
@@ -6507,17 +5313,9 @@ msgstr "Tylko tekst"
 msgid "Text align"
 msgstr "Wyrównanie tekstu"
 
-#: templates/javascript/htmlarea_lang.js:71
-msgid "Texttop"
-msgstr ""
-
 #: templates/javascript/open_calendar.js:59
 msgid "Th"
 msgstr "Cz"
-
-#: config/nls.php.dist:191
-msgid "Thai (TIS-620)"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:224 lib/Horde/NLS/countries.php:221
 #: lib/Horde/NLS/GeoIP.php:109
@@ -6533,15 +5331,6 @@ msgstr "Dziêkujemy za korzystanie z serwisu."
 msgid "The FTP extension is not available."
 msgstr "Rozszerzenie FTP jest niedostêpne."
 
-#: lib/Horde/Kolab.php:903
-#, php-format
-msgid "The Horde/Kolab integration engine does not support \"%s\""
-msgstr ""
-
-#: lib/Net/IMSP/Book.php:1294
-msgid "The IMSP log could not be initialized."
-msgstr ""
-
 #: services/maintenance.php:29
 msgid "The Maintenance:: class did not load successfully"
 msgstr "Klasa Maintenance nie zosta³a za³adowana"
@@ -6550,24 +5339,6 @@ msgstr "Klasa Maintenance nie zosta³a za³adowana"
 #, fuzzy
 msgid "The Options window has closed. Exiting."
 msgstr "Okno Opcje zosta³o zamkniête. Wychodzenie."
-
-#: lib/Horde/Perms.php:158 lib/Horde/Perms.php:169 lib/Horde/Perms.php:180
-#: lib/Horde/Perms.php:192 lib/Horde/Perms.php:203 lib/Horde/Perms.php:221
-#: lib/Horde/Perms.php:233 lib/Horde/Perms.php:272
-msgid ""
-"The administrator needs to configure a permanent Permissions backend if you "
-"want to use Permissions."
-msgstr ""
-
-#: templates/javascript/htmlarea_table_lang.js:75
-msgid "The bottom side only"
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:639
-msgid ""
-"The contact ID number was not specified, left blank or was not found in the "
-"database."
-msgstr ""
 
 #: lib/Horde/MIME/Viewer/vcard.php:51
 #, fuzzy
@@ -6588,24 +5359,10 @@ msgid ""
 "in the database."
 msgstr "Ta operacja nie jest obs³ugiwana."
 
-#: lib/Net/SMS/sms2email_http.php:642
-msgid "The distribution list was not specified."
-msgstr ""
-
 #: lib/Horde/Crypt.php:113
 #, fuzzy
 msgid "The encryption features require a secure web connection."
 msgstr "Obs³uga osobistego klucza PGP wymaga bezpiecznego po³±czenia www."
-
-#: lib/Horde.php:175 lib/Horde.php:488
-#, php-format
-msgid "The file %s should contain a %s setting."
-msgstr ""
-
-#: lib/Horde.php:168 lib/Horde.php:478
-#, php-format
-msgid "The file %s should contain some %s settings."
-msgstr ""
 
 #: lib/VFS/file.php:152
 msgid "The file can not be copied onto itself."
@@ -6615,33 +5372,10 @@ msgstr "Plik nie mo¿e zostaæ skopiowany na siebie."
 msgid "The file contained no data."
 msgstr "Plik nie zawiera danych."
 
-#: lib/Horde/MIME/Viewer/rfc822.php:67
-msgid "The following are the headers for this message/rfc822 message."
-msgstr ""
-
-#: templates/javascript/htmlarea_lang.js:56
-msgid ""
-"The full screen mode is known to cause problems with Internet Explorer, due "
-"to browser bugs that we weren't able to workaround.  You might experience "
-"garbage display, lack of editor functions and/or random browser crashes.  If "
-"your system is Windows 9x it's very likely that you'll get a 'General "
-"Protection Fault' and need to reboot.\\n\\nYou have been warned.  Please "
-"press OK if you still want to try the full screen editor."
-msgstr ""
-
 #: services/prefs.php:88
 #, php-format
 msgid "The identity \"%s\" has been deleted."
 msgstr "To¿samo¶æ \"%s\" zosta³a usuniêta."
-
-#: templates/javascript/htmlarea_table_lang.js:76
-msgid "The left-hand side only"
-msgstr ""
-
-#: lib/Horde/Crypt/pgp.php:146
-msgid ""
-"The location of the GnuPG binary must be given to the Crypt_pgp:: class."
-msgstr ""
 
 #: lib/Horde/MIME/MDN.php:201
 #, php-format
@@ -6651,21 +5385,6 @@ msgid ""
 msgstr ""
 "Wiadomo¶æ wys³ana %s do %s z tematem \"%s\" zosta³a wy¶wietlona.\n"
 "Nie ma gwarancji, ¿e wiadomo¶æ zosta³a przeczytana albo zrozumiana."
-
-#: lib/Horde/Form.php:1878
-msgid "The name to use when linking to the compose page"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:1231
-msgid "The openssl module is required for the Horde_Crypt_smime:: class."
-msgstr ""
-
-#: lib/Horde/Prefs.php:285
-#, php-format
-msgid ""
-"The preference \"%s\" could not be saved because its data exceeded the "
-"maximum allowable size"
-msgstr ""
 
 #: lib/Horde/MIME/Viewer/deb.php:32 lib/Horde/MIME/Viewer/enscript.php:35
 #: lib/Horde/MIME/Viewer/mspowerpoint.php:32
@@ -6679,14 +5398,6 @@ msgid ""
 msgstr ""
 "Program u¿ywany do przegl±dania danego typu danych (%s) nie zosta³ "
 "znaleziony w systemie."
-
-#: templates/javascript/htmlarea_table_lang.js:77
-msgid "The right and left sides only"
-msgstr ""
-
-#: templates/javascript/htmlarea_table_lang.js:78
-msgid "The right-hand side only"
-msgstr ""
 
 #: services/portal/rpcsum.php:78
 #, php-format
@@ -6713,18 +5424,6 @@ msgstr "Okre¶lony wiersz nie istnieje."
 msgid "The temporary file \"%s\" does not exist."
 msgstr "Plik tymczasowy \"%s\" nie istnieje."
 
-#: templates/javascript/htmlarea_table_lang.js:79
-msgid "The top and bottom sides only"
-msgstr ""
-
-#: templates/javascript/htmlarea_table_lang.js:80
-msgid "The top side only"
-msgstr ""
-
-#: lib/Horde/Data.php:307
-msgid "The uploaded data was lost since the previous step."
-msgstr ""
-
 #: lib/Horde/Data/csv.php:240 lib/Horde/Data/tsv.php:172
 msgid "The uploaded file could not be saved."
 msgstr "Wgrywany plik nie móg³ byæ zapisany."
@@ -6741,13 +5440,6 @@ msgstr "Nie ma ¿adnych dostêpnych opcji."
 #, fuzzy
 msgid "There are no parts that can be displayed inline."
 msgstr "Nie ma ¿adnych alternatywnych czê¶ci, które mog³yby zostaæ pokazane."
-
-#: lib/Horde/Form.php:1403
-#, php-format
-msgid ""
-"There are too many characters in this field. You have entered %s characters; "
-"you must enter less than %s."
-msgstr ""
 
 #: signup.php:53 admin/user.php:73
 #, php-format
@@ -6770,24 +5462,6 @@ msgstr "Wyst±pi³ problem przy usuwaniu \"%s\" z systemu."
 msgid "There was a problem updating \"%s\": %s"
 msgstr "Wyst±pi³ problem przy uaktualnianiu \"%s\": %s"
 
-#: lib/Horde/Browser.php:888
-#, php-format
-msgid "There was a problem with the file upload: No %s was uploaded."
-msgstr ""
-
-#: lib/Horde/Browser.php:893
-#, php-format
-msgid ""
-"There was a problem with the file upload: The %s was larger than the maximum "
-"allowed size (%d bytes)."
-msgstr ""
-
-#: lib/Horde/Browser.php:895
-#, php-format
-msgid ""
-"There was a problem with the file upload: The %s was only partially uploaded."
-msgstr ""
-
 #: lib/Horde/MIME/Viewer/rfc822.php:35
 msgid "There was an error displaying this message part"
 msgstr "Wyst±pi³ b³±d podczas wy¶wietlania tej czê¶ci wiadomo¶ci"
@@ -6808,22 +5482,6 @@ msgid ""
 "required field."
 msgstr "Wyst±pi³ b³±d podczas aktualizacji tego wpisu: %s"
 
-#: lib/Net/SMS/sms2email_http.php:638
-msgid ""
-"There was an error performing the specified address book function. Please "
-"try again later."
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:640
-msgid ""
-"There was an error updating the contact details. Please try again later."
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:645
-msgid ""
-"There was an error updating the distribution list. Please try again later."
-msgstr ""
-
 #: lib/Horde/IMAP/ACL/rfc2086.php:148
 #, fuzzy
 msgid "This IMAP server does not support sharing folders."
@@ -6836,29 +5494,6 @@ msgstr "Plik nie wygl±da na poprawne archiwum RAR."
 #: lib/Horde/MIME/Viewer/zip.php:52
 msgid "This does not appear to be a valid zip file."
 msgstr "Plik nie wygl±da na poprawne archiwum ZIP."
-
-#: lib/Horde/Form.php:3144
-msgid "This does not seem to be a valid card number."
-msgstr ""
-
-#: lib/Net/SMS/clickatell_http.php:185
-msgid ""
-"This driver allows sending of messages through the Clickatell (http://"
-"clickatell.com) gateway, using the HTTP API"
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:515
-msgid ""
-"This driver allows sending of messages through the sms2email (http://"
-"sms2email.com) gateway, using the HTTP API"
-msgstr ""
-
-#: lib/Net/SMS/vodafoneitaly_smtp.php:85
-msgid ""
-"This driver allows sending of messages via SMTP through the Vodafone Italy "
-"gateway, only to Vodafone numbers. It requires an email account with "
-"Vodafone Italy (http://www.190.it)."
-msgstr ""
 
 #: lib/Horde/Form.php:978 lib/Horde/Form.php:1057 lib/Horde/Form.php:1086
 #: lib/Horde/Form.php:1115 lib/Horde/Form.php:1182 lib/Horde/Form.php:1256
@@ -6892,28 +5527,10 @@ msgstr ""
 msgid "This field must be a valid number."
 msgstr "To pole musi byæ poprawn± liczb±."
 
-#: lib/Horde/Form.php:2835
-msgid ""
-"This field must contain a color code in the RGB Hex format, for example "
-"'#1234af'."
-msgstr ""
-
-#: lib/Horde/Form.php:561
-msgid "This form has already been processed."
-msgstr ""
-
 #: templates/help/about.inc:1
 #, php-format
 msgid "This is %s."
 msgstr "To jest %s."
-
-#: lib/Horde/Kolab.php:437
-#, php-format
-msgid ""
-"This is a Kolab Groupware object. To view this object you will need an email "
-"client that understands the Kolab Groupware format. For a list of such email "
-"clients please visit %s"
-msgstr ""
 
 #: lib/Horde/MIME/Contents.php:588
 #, php-format
@@ -6944,42 +5561,17 @@ msgstr "Musisz wprowadziæ liczbê."
 msgid "This window must be called from an Options window"
 msgstr "To okno musi zostaæ wywo³ane przez okno kompozytora wiadomo¶ci."
 
-#: lib/Block/weatherdotcom_strings.php:64
-msgid "Thunder"
-msgstr ""
-
-#: config/registry.php.dist:222
-msgid "Tickets"
-msgstr ""
-
 #: lib/Horde/Form.php:2427
 msgid "Time"
 msgstr "Czas"
-
-#: config/registry.php.dist:308
-msgid "Time Tracking"
-msgstr ""
 
 #: lib/Block/time.php:17
 msgid "Time format"
 msgstr "Format czasu"
 
-#: lib/Horde/Form.php:2538
-msgid "Time selection"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:230 lib/Horde/NLS/countries.php:222
-#: lib/Horde/NLS/GeoIP.php:110
-msgid "Timor-Leste"
-msgstr ""
-
 #: lib/Block/iframe.php:20 lib/Horde/MIME/Viewer/vcard.php:229
 msgid "Title"
 msgstr "Tytu³"
-
-#: templates/javascript/htmlarea_lang.js:96
-msgid "Title (tooltip):"
-msgstr ""
 
 #: lib/Horde/MIME/Viewer/rfc822.php:75
 msgid "To"
@@ -7026,10 +5618,6 @@ msgstr "Tonga"
 msgid "Top"
 msgstr "góra"
 
-#: templates/javascript/htmlarea_lang.js:93
-msgid "Top frame (_top)"
-msgstr ""
-
 #: lib/Block/fortune.php:63
 #, fuzzy
 msgid "Translations"
@@ -7067,31 +5655,14 @@ msgstr "Turecki (ISO-8859-9)"
 msgid "Turkmenistan"
 msgstr "Turkmenistan"
 
-#: lib/Horde/NLS/tld.php:220 lib/Horde/NLS/countries.php:230
-#: lib/Horde/NLS/GeoIP.php:108
-msgid "Turks and Caicos Islands"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:233 lib/Horde/NLS/countries.php:231
 #: lib/Horde/NLS/GeoIP.php:111
 msgid "Tuvalu"
 msgstr "Tuvalu"
 
-#: lib/Horde/CLI.php:264
-msgid "Type your choice: "
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:257
-msgid "U.V. index: "
-msgstr ""
-
 #: lib/Block/iframe.php:17 lib/Horde/MIME/Viewer/vcard.php:249
 msgid "URL"
 msgstr "URL"
-
-#: lib/Net/SMS/sms2email_http.php:541
-msgid "URL for your script delivery status report"
-msgstr ""
 
 #: templates/javascript/htmlarea_lang.js:97
 msgid "URL:"
@@ -7111,10 +5682,6 @@ msgstr "Ukraina"
 #, fuzzy
 msgid "Unable to access VFS directory."
 msgstr "Nie mo¿na siê po³±czyæ z katalogiem VFS."
-
-#: lib/Horde/Auth/Signup.php:96
-msgid "Unable to add extra user information when signing up."
-msgstr ""
 
 #: lib/VFS/ftp.php:326
 #, fuzzy, php-format
@@ -7229,11 +5796,6 @@ msgstr "B³±d przy okre¶laniu bie¿±cego katalogu."
 msgid "Unable to extract certificate details"
 msgstr "B³±d przy pobieraniu detali certyfikatu"
 
-#: lib/Net/IMSP.php:451 lib/Net/IMSP/Auth.php:117
-#, php-format
-msgid "Unable to load the definition of %s."
-msgstr ""
-
 #: lib/VFS/file.php:129 lib/VFS/file.php:134 lib/VFS/sql_file.php:158
 #: lib/VFS/sql_file.php:163
 #, fuzzy
@@ -7320,10 +5882,6 @@ msgstr "B³±d przy zapisie pliku na VFS \"%s\"."
 msgid "Unable to write VFS file (copy() failed)."
 msgstr "B³±d przy zapisie pliku na VFS (copy() zawiod³o)"
 
-#: lib/VFS/file.php:209 lib/VFS/sql_file.php:130 lib/VFS/sql_file.php:135
-msgid "Unable to write VFS file data."
-msgstr ""
-
 #: templates/javascript/htmlarea_lang.js:10
 #, fuzzy
 msgid "Underline"
@@ -7338,24 +5896,11 @@ msgstr "Cofnij zmiany"
 msgid "Undoes your last action"
 msgstr "Cofa ostatni± operacjê"
 
-#: lib/Horde/IMAP/ACL/rfc2086.php:223 lib/Horde/IMAP/ACL/rfc2086.php:390
-msgid "Unexpected response from server on connection: "
-msgstr ""
-
-#: lib/Horde/IMAP/ACL/rfc2086.php:219 lib/Horde/IMAP/ACL/rfc2086.php:341
-#: lib/Horde/IMAP/ACL/rfc2086.php:378 lib/Horde/IMAP/ACL/rfc2086.php:384
-msgid "Unexpected response from server to: "
-msgstr ""
-
 #: lib/Horde/Prefs/CategoryManager.php:57
 #: templates/prefs/categorymanagement.inc:64
 #, fuzzy
 msgid "Unfiled"
 msgstr "Niewype³nione"
-
-#: config/nls.php.dist:193
-msgid "Unicode (UTF-8)"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:17 lib/Horde/NLS/countries.php:234
 #: lib/Horde/NLS/GeoIP.php:56
@@ -7372,31 +5917,10 @@ msgstr "Wielka Brytania"
 msgid "United States"
 msgstr "USA"
 
-#: lib/Horde/NLS/tld.php:239 lib/Horde/NLS/countries.php:237
-#: lib/Horde/NLS/GeoIP.php:113
-msgid "United States Minor Outlying Islands"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:61 lib/Block/metar.php:71
-msgid "Units"
-msgstr ""
-
 #: lib/Horde/MIME/Viewer/tgz.php:58 lib/Horde/Crypt/pgp.php:418
 #: lib/Horde/Crypt/pgp.php:419
 msgid "Unknown"
 msgstr "Nieznane"
-
-#: lib/Net/SMS/clickatell_http.php:298
-msgid "Unknown apimsgid (API Message ID)."
-msgstr ""
-
-#: lib/Net/SMS/clickatell_http.php:299
-msgid "Unknown climsgid (Client Message ID)."
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:146
-msgid "Unknown location provided."
-msgstr ""
 
 #: lib/Net/SMS/clickatell_http.php:291
 #, fuzzy
@@ -7411,13 +5935,6 @@ msgstr "Usuñ"
 #: lib/Horde/Identity.php:296
 msgid "Unnamed"
 msgstr "Bez nazwy"
-
-#: templates/javascript/htmlarea_lang.js:59
-msgid ""
-"Unprivileged scripts cannot access Cut/Copy/Paste programatically for "
-"security reasons.  Click OK to see a technical note at mozilla.org which "
-"shows you how to allow a script to access the clipboard."
-msgstr ""
 
 #: templates/javascript/htmlarea_table_lang.js:82
 #, fuzzy
@@ -7458,10 +5975,6 @@ msgstr "Nie wygenerowano ¿adnego skryptu."
 msgid "Upload"
 msgstr "Za³aduj"
 
-#: admin/setup/index.php:189
-msgid "Uploaded all application setup files to the server."
-msgstr ""
-
 #: templates/javascript/htmlarea_listtype_lang.js:20
 msgid "Upper latin letters"
 msgstr "Wielkie litery ³aciñskie"
@@ -7476,18 +5989,9 @@ msgstr "Wielkie liczby rzymskie"
 msgid "Uruguay"
 msgstr "Urugwaj"
 
-#: lib/Horde/Prefs/CategoryManager.php:45
-#, php-format
-msgid "Use Current: %s"
-msgstr ""
-
 #: lib/Net/SMS/sms2email_http.php:538
 msgid "Use SSL"
 msgstr "U¿yj SSL"
-
-#: config/prefs.php.dist:124
-msgid "Use if name/password is different for IMSP server."
-msgstr ""
 
 #: lib/Horde/Registry.php:618
 #, php-format
@@ -7560,41 +6064,16 @@ msgstr "Okre¶lony katalog nie istnieje."
 msgid "Vacation"
 msgstr "Wakacje"
 
-#: lib/Horde/Form.php:866
-msgid "Valid locations found include: "
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:638
-msgid "Validity"
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:597 lib/Net/SMS/clickatell_http.php:255
-msgid "Value in minutes from now."
-msgstr ""
-
-#: lib/Horde/Form.php:856 lib/Horde/Form.php:1177
-#, php-format
-msgid "Value is over the maximum length of %s."
-msgstr ""
-
 #: lib/Horde/Form.php:2245 lib/Horde/Form.php:2267 lib/Horde/Form.php:2315
 #: lib/Horde/Form.php:2927
 #, fuzzy
 msgid "Values"
 msgstr "Warto¶ci"
 
-#: lib/Horde/Form.php:2110 lib/Horde/Form.php:2187
-msgid "Values to select from"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:249 lib/Horde/NLS/countries.php:240
 #: lib/Horde/NLS/GeoIP.php:117
 msgid "Vanuatu"
 msgstr "Vanuatu"
-
-#: lib/Block/weatherdotcom.php:232
-msgid "Variable"
-msgstr ""
 
 #: lib/Horde/NLS/tld.php:245 lib/Horde/NLS/countries.php:241
 #: lib/Horde/NLS/GeoIP.php:115
@@ -7629,18 +6108,10 @@ msgstr "Pionowe przesuniêcie"
 msgid "Vertical:"
 msgstr "Pionowo:"
 
-#: lib/Block/weatherdotcom_strings.php:70
-msgid "Very High"
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:248 lib/Horde/NLS/countries.php:242
 #: lib/Horde/NLS/GeoIP.php:116
 msgid "Viet Nam"
 msgstr "Wietnam"
-
-#: config/nls.php.dist:194
-msgid "Vietnamese (VISCII)"
-msgstr ""
 
 #: lib/Horde/MIME/Contents.php:959
 #, php-format
@@ -7666,27 +6137,6 @@ msgstr "Brytyjskie Wyspy Dziewicze"
 msgid "Virgin Islands, U.S."
 msgstr "Wyspy Dziewicze Stanów Zjednoczonych"
 
-#: lib/Block/metar.php:209
-msgid "Visibility"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:251
-msgid "Visibility: "
-msgstr ""
-
-#: lib/Net/SMS/vodafoneitaly_smtp.php:84
-msgid "Vodafone Italy via SMTP"
-msgstr ""
-
-#: lib/Horde/Notification/Listener/mobile.php:36
-msgid "WARN"
-msgstr ""
-
-#: admin/setup/scripts.php:83
-#, php-format
-msgid "WARNING!!! REMOVE SCRIPT MANUALLY FROM %s."
-msgstr ""
-
 #: lib/Horde/NLS/tld.php:250 lib/Horde/NLS/countries.php:245
 #: lib/Horde/NLS/GeoIP.php:117
 msgid "Wallis and Futuna"
@@ -7699,18 +6149,6 @@ msgstr "Ostrze¿enie"
 #: templates/javascript/open_calendar.js:58
 msgid "We"
 msgstr "¦r"
-
-#: lib/Block/weatherdotcom.php:29
-msgid "Weather Forecast"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:415
-msgid "Weather data provided by"
-msgstr ""
-
-#: lib/Horde/Form.php:892
-msgid "Weather.com"
-msgstr ""
 
 #: lib/Block/google.php:36
 msgid "Web"
@@ -7765,10 +6203,6 @@ msgstr "Jaki jest znak separatora?"
 msgid "What is the quote character?"
 msgstr "Jaki jest znak cytowania?"
 
-#: lib/Block/moon.php:23
-msgid "Which phases"
-msgstr ""
-
 #: config/prefs.php.dist:133
 msgid "Which plugins to enable for the Rich Text editor."
 msgstr "Jakie wtyczki aktywowaæ w Rozbudowanym edytorze tekstu."
@@ -7808,34 +6242,6 @@ msgstr "Szeroko¶æ:"
 msgid "Wiki"
 msgstr "Wiki"
 
-#: lib/Block/weatherdotcom.php:288 lib/Block/weatherdotcom_strings.php:65
-msgid "Wind"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:66
-msgid "Wind Early"
-msgstr ""
-
-#: lib/Block/metar.php:80
-msgid "Wind speed in knots"
-msgstr ""
-
-#: lib/Block/metar.php:156
-msgid "Wind:"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:230
-msgid "Wind: "
-msgstr ""
-
-#: lib/Block/fortune.php:64
-msgid "Wisdom"
-msgstr ""
-
-#: config/registry.php.dist:182
-msgid "Wishlists"
-msgstr ""
-
 #: lib/Block/fortune.php:65
 #, fuzzy
 msgid "Work"
@@ -7849,30 +6255,6 @@ msgstr "Adres do pracy"
 msgid "Work Phone"
 msgstr "Tel. do pracy"
 
-#: config/registry.php.dist:231
-msgid "X-Ref"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:593
-msgid "X509v3 Basic Constraints"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:592
-msgid "X509v3 Extended Key Usage"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:594
-msgid "X509v3 Subject Alternative Name"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:595
-msgid "X509v3 Subject Key Identifier"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:682
-msgid "X509v3 extensions"
-msgstr ""
-
 #: templates/data/date.inc:47 templates/data/date.inc:48
 #: templates/data/date.inc:49 templates/data/date.inc:50
 msgid "YY"
@@ -7881,10 +6263,6 @@ msgstr "RR"
 #: lib/Horde/UI/VarRenderer/html.php:386 lib/Horde/UI/VarRenderer/html.php:427
 msgid "YYYY"
 msgstr "RRRR"
-
-#: lib/Horde/UI/VarRenderer/html.php:1001
-msgid "Yahoo! map"
-msgstr ""
 
 #: lib/Horde/Maintenance.php:56
 msgid "Yearly"
@@ -7920,22 +6298,9 @@ msgstr "Nie mo¿esz mieæ znaku '\\' w imieniu i nazwisku."
 msgid "You did not enter a valid email address."
 msgstr "Nie wprowadzi³e¶ prawid³owego adresu email."
 
-#: lib/Horde/Data.php:270
-#, php-format
-msgid ""
-"You didn't map any fields from the imported file to the corresponding fields "
-"in %s."
-msgstr ""
-
 #: lib/Horde/Auth.php:923
 msgid "You have been logged out."
 msgstr "Wylogowa³e¶ siê."
-
-#: lib/Horde/Form.php:1261
-msgid ""
-"You have to enter a valid cellphone number, digits only with an optional '+' "
-"for the international dialing prefix."
-msgstr ""
 
 #: lib/Horde/Form.php:1188
 #, fuzzy
@@ -7955,10 +6320,6 @@ msgstr "Musisz skonfigurowaæ backend VFS."
 #: templates/problem/problem.inc:11
 msgid "You must describe the problem before you can send the problem report."
 msgstr "Musisz opisaæ problem zanim go wy¶lesz."
-
-#: templates/javascript/htmlarea_lang.js:98
-msgid "You must enter the URL where this link points to"
-msgstr ""
 
 #: services/portal/rpcsum.php:80
 #, fuzzy
@@ -7992,10 +6353,6 @@ msgstr "Musisz okre¶liæ akcjê, któr± chcesz wykonaæ."
 #, fuzzy
 msgid "You must type a new category name."
 msgstr "Podaj nazwê nowej kategorii."
-
-#: lib/Net/SMS/vodafoneitaly_smtp.php:73
-msgid "You need to provide an Italian phone number"
-msgstr ""
 
 #: lib/Horde/Auth.php:911
 #, php-format
@@ -8097,12 +6454,6 @@ msgstr "Twoje ustawienia zosta³y uaktualnione."
 msgid "Your password has been reset"
 msgstr "Twoim nowym has³em w %s jest: %s"
 
-#: services/resetpassword.php:79
-msgid ""
-"Your password has been reset, check your email and log in with your new "
-"password."
-msgstr ""
-
 #: templates/rpcsum/rpcsum.inc:58
 msgid "Your remote servers:"
 msgstr "Twoje zdalne serwery:"
@@ -8124,10 +6475,6 @@ msgstr "Zambia"
 #: lib/Horde/NLS/GeoIP.php:118
 msgid "Zimbabwe"
 msgstr "Zimbabwe"
-
-#: lib/Block/fortune.php:66
-msgid "Zippy"
-msgstr ""
 
 #: lib/Horde/Text/Filter/highlightquotes.php:172
 #: templates/javascript/quoteBlocks.js:12
@@ -8177,10 +6524,6 @@ msgstr "_Grupy"
 msgid "_Help"
 msgstr "_Pomoc"
 
-#: templates/javascript/htmlarea_context_lang.js:23
-msgid "_Image Properties..."
-msgstr ""
-
 #: lib/Horde/Menu.php:194
 msgid "_Log in"
 msgstr "_Zaloguj"
@@ -8226,43 +6569,9 @@ msgstr "ksi±¿ka adresowa"
 msgid "calendar"
 msgstr "kalendarz"
 
-#: lib/Block/metar.php:172 lib/Block/metar.php:358
-#, php-format
-msgid "calm"
-msgstr ""
-
-#: lib/Horde/MIME/Contents.php:589
-msgid "click here"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:71
-msgid "falling"
-msgstr ""
-
 #: lib/Horde/Browser.php:859
 msgid "file"
 msgstr "plik"
-
-#: lib/Block/metar.php:174 lib/Block/metar.php:360 lib/Block/metar.php:386
-#, php-format
-msgid "from the %s (%s) at %s %s"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:238
-msgid "gusting"
-msgstr ""
-
-#: lib/Horde/UI/VarRenderer/html.php:232
-msgid "h:"
-msgstr ""
-
-#: lib/Horde/UI/VarRenderer/html.php:331
-msgid "hh"
-msgstr ""
-
-#: lib/Net/SMS/sms2email_http.php:565 lib/Net/SMS/clickatell_http.php:223
-msgid "immediate"
-msgstr ""
 
 #: admin/setup/diff.php:67 admin/setup/diff.php:79
 #, fuzzy
@@ -8273,15 +6582,6 @@ msgstr "Nag³ówki"
 #, fuzzy
 msgid "lines]"
 msgstr "linii]"
-
-#: lib/VFS/ISOWriter/mkisofs.php:53
-#, php-format
-msgid "mkisofs error code %d while making ISO."
-msgstr ""
-
-#: lib/Horde/UI/VarRenderer/html.php:342
-msgid "mm"
-msgstr ""
 
 #: lib/Horde/Prefs/UI.php:288 services/portal/sidebar.php:205
 msgid "name"
@@ -8310,25 +6610,9 @@ msgstr "procent"
 msgid "pixels"
 msgstr "pixeli"
 
-#: lib/Block/weatherdotcom_strings.php:73
-msgid "rising"
-msgstr ""
-
 #: admin/setup/config.php:98
 msgid "show differences"
 msgstr "poka¿ ró¿nice"
-
-#: lib/Net/SMS/sms2email_http.php:514
-msgid "sms2email via HTTP"
-msgstr ""
-
-#: lib/Horde/UI/VarRenderer/html.php:358
-msgid "ss"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:72
-msgid "steady"
-msgstr ""
 
 #: lib/Horde/Kolab.php:898
 #, fuzzy
@@ -8339,10 +6623,6 @@ msgstr "lista zadañ"
 #, fuzzy
 msgid "type the password twice to confirm"
 msgstr "Wpisz has³o dwa razy, by potwierdziæ"
-
-#: admin/setup/diff.php:67 admin/setup/diff.php:79
-msgid "unified"
-msgstr ""
 
 #: lib/Horde/MIME/Part.php:27
 msgid "unnamed"
@@ -8361,7 +6641,3 @@ msgstr "vCard"
 #, fuzzy
 msgid "w:"
 msgstr "Fwd:"
-
-#: lib/Block/weatherdotcom.php:6
-msgid "weather.com"
-msgstr ""

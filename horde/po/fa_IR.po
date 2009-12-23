@@ -1,6 +1,6 @@
 # Horde Persian translations.
 # This file is distributed under the same license as the Horde package.
-# 
+#
 # Copyright 2004 High Concil of Informatics (www.shci.ir)
 # Provided by  Amirkabir Metanetworking Ltd, 2004 <persian-horde@metanetworking.com>
 # Mohsen Nader-Badr       <naderi@metanetworking.com>
@@ -9,7 +9,7 @@
 # Hamed Gheybi            <gheybi@metanetworking.com>
 # Vahid Ghafarpour        <ghafarpour@metanetworking.com>
 # Zahra Ahmadi            <ahmadi@metanetworking.com>
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde 3 \n"
@@ -29,7 +29,7 @@ msgid " (%s days ago)"
 msgstr " (روز قبل %s)"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde.php:1279 lib/Horde/Horde.php:1279
 #, php-format
 msgid " (Accesskey %s)"
@@ -58,24 +58,24 @@ msgid " at "
 msgstr " در "
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/groups.php:58
 msgid "\"%s\" was added to the groups system."
 msgstr "\"%s\" به گروه‌های سامانه اضافه شد"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/perms/addchild.php:52
 msgid "\"%s\" was added to the permissions system."
 msgstr "\"%s\" به سامانه مجوز‌ها اضافه شد"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/groups.php:56 admin/perms/addchild.php:50
 msgid "\"%s\" was not created: %s."
 msgstr "\"%s\" ایجاد نشده بود: %s."
 
-# 
+#
 #: lib/Block/account.php:70
 #, php-format
 msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
@@ -92,14 +92,14 @@ msgid "%d days until your password expires."
 msgstr "اسم رمز شما %d روز دیگر معتبر است."
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Block/weatherdotcom.php:260
 #, php-format
 msgid "%d-day forecast"
 msgstr "پیش­بینی %d-روزه"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: services/maintenance.php:68
 #, php-format
 msgid "%s - Notice"
@@ -122,7 +122,7 @@ msgid "%s KB"
 msgstr "کیلوبایت %s"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: services/maintenance.php:49
 #, php-format
 msgid "%s Maintenance Operations - Confirmation"
@@ -139,20 +139,20 @@ msgid "%s Sign Up"
 msgstr "%s ثبت نام"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: services/maintenance.php:59
 #, php-format
 msgid "%s Terms of Agreement"
 msgstr "شروط توافق %s"
 
-# 
+#
 #: lib/Horde/VFS/ftp.php:592 lib/Horde/VFS/ftp.php:662
 #, php-format
 msgid "%s already exists."
 msgstr "%s از قبل موجود است"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Block/metar.php:157 lib/Block/metar.php:163 lib/Block/metar.php:237
 #: lib/Block/metar.php:343 lib/Block/metar.php:349
 #, php-format
@@ -197,7 +197,7 @@ msgid "%s is required"
 msgstr "%s مورد نیاز است"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Block/metar.php:284
 #, php-format
 msgid "%s minutes"
@@ -220,7 +220,7 @@ msgstr "%s اطلاعات آزاد/مشغول شما را درخواست دار�
 msgid "%s requests your presence at %s."
 msgstr "%s حضور شما را در %s خواستار است"
 
-# 
+#
 #: templates/admin/user/list.inc:6
 #, php-format
 msgid "%s to %s of %s"
@@ -255,7 +255,7 @@ msgid "%s's Calendar"
 msgstr "تقویم %s"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/Kolab.php:918 lib/Horde/Horde/Kolab.php:918
 #, php-format
 msgid "%s's Notepad"
@@ -271,13 +271,6 @@ msgstr "فهرست وظایف %s"
 #, php-format
 msgid "%s: %s"
 msgstr "%s: %s"
-
-#: lib/Horde/Horde/MIME/Viewer/html.php:278 lib/Horde/MIME/Viewer/html.php:278
-#, php-format
-msgid ""
-"%s: This message may not be from whom it claims to be. Beware of following "
-"any links in it or of providing the sender with any personal information."
-msgstr ""
 
 #: lib/Horde/CLI.php:269 lib/Horde/Horde/CLI.php:269
 #, php-format
@@ -296,13 +289,13 @@ msgid "'%s' tree renderer not found."
 msgstr "'%s' اجرا کننده درخت پیدا نشد"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Block/weatherdotcom.php:343 lib/Block/weatherdotcom.php:388
 msgid ", gusting "
 msgstr "، باد"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Block/metar.php:186 lib/Block/metar.php:191
 #, php-format
 msgid ", gusting %s %s"
@@ -405,10 +398,6 @@ msgstr "تگرگ صبحگاهی"
 #: templates/data/time.inc:29
 msgid "AM/PM"
 msgstr "صبح/عصر"
-
-#: lib/Horde/Net/SMS/clickatell_http.php:203
-msgid "API ID"
-msgstr ""
 
 #: templates/javascript/htmlarea_lang.js:30
 msgid "About this editor"
@@ -545,7 +534,7 @@ msgid "Add user"
 msgstr "اضافه كردن کاربر"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/user.php:79
 msgid ""
 "Added '%s' to the system, but could not add additional signup information: %"
@@ -554,7 +543,7 @@ msgstr ""
 "'%s' به سامانه اضافه شد، اما نمی‌توان اطلاعات دیگر افتتاح حساب را اضافه کرد"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: signup.php:46
 #, php-format
 msgid "Added '%s' to the system. You can log in now."
@@ -576,7 +565,7 @@ msgid "Address Book"
 msgstr "کتابچهٔ آدرس "
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/Horde/IMAP/ACL/rfc2086.php:94 lib/Horde/IMAP/ACL/rfc2086.php:94
 msgid "Administer - set permissions for other users"
 msgstr "سرپرست سامانه- تعیین مجوزهای کاربران دیگر"
@@ -588,24 +577,6 @@ msgstr "سرپرستی"
 #: config/registry.php.dist:441 config/themes/registry.php.dist:441
 msgid "Ads"
 msgstr "تبلیغات"
-
-#: lib/Horde/NLS/tld.php:18 lib/Horde/NLS/GeoIP.php:56
-#: lib/Horde/NLS/countries.php:11 lib/Horde/Horde/NLS/tld.php:18
-#: lib/Horde/Horde/NLS/GeoIP.php:56 lib/Horde/Horde/NLS/countries.php:11
-msgid "Afghanistan"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:21 lib/Horde/NLS/GeoIP.php:57
-#: lib/Horde/NLS/countries.php:12 lib/Horde/Horde/NLS/tld.php:21
-#: lib/Horde/Horde/NLS/GeoIP.php:57 lib/Horde/Horde/NLS/countries.php:12
-msgid "Albania"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:74 lib/Horde/NLS/GeoIP.php:70
-#: lib/Horde/NLS/countries.php:13 lib/Horde/Horde/NLS/tld.php:74
-#: lib/Horde/Horde/NLS/GeoIP.php:70 lib/Horde/Horde/NLS/countries.php:13
-msgid "Algeria"
-msgstr ""
 
 #: lib/Horde/Horde/MIME/Viewer/vcard.php:109
 #: lib/Horde/MIME/Viewer/vcard.php:109
@@ -679,34 +650,10 @@ msgstr "الگو‌های جایگزین"
 msgid "Alternate text:"
 msgstr "متن جایگزین:"
 
-#: lib/Horde/NLS/tld.php:27 lib/Horde/NLS/GeoIP.php:58
-#: lib/Horde/NLS/countries.php:14 lib/Horde/Horde/NLS/tld.php:27
-#: lib/Horde/Horde/NLS/GeoIP.php:58 lib/Horde/Horde/NLS/countries.php:14
-msgid "American Samoa"
-msgstr ""
-
 #: lib/Horde/Horde/Prefs/UI.php:97 lib/Horde/Horde/Prefs/UI.php:117
 #: lib/Horde/Prefs/UI.php:97 lib/Horde/Prefs/UI.php:117
 msgid "An illegal value was specified."
 msgstr "یک مقدار نادرست تعیین شده بود"
-
-#: lib/Horde/NLS/tld.php:16 lib/Horde/NLS/GeoIP.php:55
-#: lib/Horde/NLS/countries.php:15 lib/Horde/Horde/NLS/tld.php:16
-#: lib/Horde/Horde/NLS/GeoIP.php:55 lib/Horde/Horde/NLS/countries.php:15
-msgid "Andorra"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:24 lib/Horde/NLS/GeoIP.php:58
-#: lib/Horde/NLS/countries.php:16 lib/Horde/Horde/NLS/tld.php:24
-#: lib/Horde/Horde/NLS/GeoIP.php:58 lib/Horde/Horde/NLS/countries.php:16
-msgid "Angola"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:20 lib/Horde/NLS/GeoIP.php:57
-#: lib/Horde/NLS/countries.php:17 lib/Horde/Horde/NLS/tld.php:20
-#: lib/Horde/Horde/NLS/GeoIP.php:57 lib/Horde/Horde/NLS/countries.php:17
-msgid "Anguilla"
-msgstr ""
 
 #: lib/Horde/NLS/GeoIP.php:119 lib/Horde/Horde/NLS/GeoIP.php:119
 msgid "Anonymous Proxy"
@@ -715,18 +662,6 @@ msgstr "پیشکار"
 #: services/resetpassword.php:49
 msgid "Answer"
 msgstr "پاسخ"
-
-#: lib/Horde/NLS/tld.php:25 lib/Horde/NLS/GeoIP.php:58
-#: lib/Horde/NLS/countries.php:18 lib/Horde/Horde/NLS/tld.php:25
-#: lib/Horde/Horde/NLS/GeoIP.php:58 lib/Horde/Horde/NLS/countries.php:18
-msgid "Antarctica"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:19 lib/Horde/NLS/GeoIP.php:56
-#: lib/Horde/NLS/countries.php:19 lib/Horde/Horde/NLS/tld.php:19
-#: lib/Horde/Horde/NLS/GeoIP.php:56 lib/Horde/Horde/NLS/countries.php:19
-msgid "Antigua and Barbuda"
-msgstr ""
 
 #: admin/templates.php:74 admin/phpshell.php:30 lib/Horde/Block/UI.php:58
 #: lib/Horde/Horde/Block/UI.php:58 templates/admin/setup/index.html:6
@@ -784,23 +719,11 @@ msgid "Are you sure you want to remove the signup request for %s ?"
 msgstr "آیا شما مطمئنید که می‌خواهید اطلاعات افتتاح حساب %s را پاک کنید؟"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: templates/admin/groups/delete.inc:9
 #, php-format
 msgid "Are you sure you wish to delete '%s' and any sub-groups?"
 msgstr "آیا شما مطمئنید که می‌خواهید '%s' و تمام زیر گروه‌هایش را حذف کنید؟"
-
-#: lib/Horde/NLS/tld.php:26 lib/Horde/NLS/GeoIP.php:58
-#: lib/Horde/NLS/countries.php:20 lib/Horde/Horde/NLS/tld.php:26
-#: lib/Horde/Horde/NLS/GeoIP.php:58 lib/Horde/Horde/NLS/countries.php:20
-msgid "Argentina"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:22 lib/Horde/NLS/GeoIP.php:57
-#: lib/Horde/NLS/countries.php:21 lib/Horde/Horde/NLS/tld.php:22
-#: lib/Horde/Horde/NLS/GeoIP.php:57 lib/Horde/Horde/NLS/countries.php:21
-msgid "Armenia"
-msgstr ""
 
 #: config/nls.php.dist:172 config/themes/nls.php.dist:172
 msgid "Armenian (ARMSCII-8)"
@@ -809,24 +732,6 @@ msgstr "Armenian (ARMSCII-8)"
 #: lib/Block/fortune.php:28
 msgid "Art"
 msgstr "هنر"
-
-#: lib/Horde/NLS/tld.php:30 lib/Horde/NLS/GeoIP.php:59
-#: lib/Horde/NLS/countries.php:22 lib/Horde/Horde/NLS/tld.php:30
-#: lib/Horde/Horde/NLS/GeoIP.php:59 lib/Horde/Horde/NLS/countries.php:22
-msgid "Aruba"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:15 lib/Horde/Horde/NLS/tld.php:15
-msgid "Ascension Island"
-msgstr ""
-
-#: lib/Block/fortune.php:29
-msgid "Ascii Art"
-msgstr ""
-
-#: lib/Horde/NLS/GeoIP.php:55 lib/Horde/Horde/NLS/GeoIP.php:55
-msgid "Asia/Pacific Region"
-msgstr ""
 
 #: config/prefs.php.dist:415 config/themes/prefs.php.dist:415
 msgid "Ask for confirmation before doing maintenance operations?"
@@ -880,18 +785,6 @@ msgstr "‌ویژگیها"
 msgid "August"
 msgstr "آگوست"
 
-#: lib/Horde/NLS/tld.php:29 lib/Horde/NLS/GeoIP.php:59
-#: lib/Horde/NLS/countries.php:23 lib/Horde/Horde/NLS/tld.php:29
-#: lib/Horde/Horde/NLS/GeoIP.php:59 lib/Horde/Horde/NLS/countries.php:23
-msgid "Australia"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:28 lib/Horde/NLS/GeoIP.php:59
-#: lib/Horde/NLS/countries.php:24 lib/Horde/Horde/NLS/tld.php:28
-#: lib/Horde/Horde/NLS/GeoIP.php:59 lib/Horde/Horde/NLS/countries.php:24
-msgid "Austria"
-msgstr ""
-
 #: lib/Horde/Auth/cyrsql.php:161 lib/Horde/Horde/Auth/cyrsql.php:161
 msgid "Auth_cyrsql: Required imap extension not found."
 msgstr "Auth_cyrsql: بسط مورد نیاز IMAP پیدا نشد"
@@ -922,7 +815,7 @@ msgstr "Auth_krb5: بسط مورد نیاز krb5 پیدا نشد"
 msgid "Auth_ldap: Required LDAP extension not found."
 msgstr "Auth_ldap: بسط مورد نیاز LDAP پیدا نشد"
 
-# 
+#
 #: lib/Horde/Auth/ldap.php:182 lib/Horde/Horde/Auth/ldap.php:182
 #, php-format
 msgid "Auth_ldap: Unable to add user %s. This is what the server said: "
@@ -974,16 +867,6 @@ msgstr "فیلدهای قابل دسترسی:"
 msgid "Awaiting Response"
 msgstr "منتظر پاسخ"
 
-#: lib/Horde/NLS/tld.php:31 lib/Horde/NLS/GeoIP.php:59
-#: lib/Horde/NLS/countries.php:25 lib/Horde/Horde/NLS/tld.php:31
-#: lib/Horde/Horde/NLS/GeoIP.php:59 lib/Horde/Horde/NLS/countries.php:25
-msgid "Azerbaijan"
-msgstr ""
-
-#: lib/Block/fortune.php:30
-msgid "BOFH Excuses"
-msgstr ""
-
 #: templates/javascript/htmlarea_table_lang.js:18
 msgid "Background"
 msgstr "پس‌زمینه"
@@ -1000,33 +883,9 @@ msgstr "اسم رمز نادرست kerberos"
 msgid "Bad kerberos username."
 msgstr "نام کاربر نادرست kerberos"
 
-#: lib/Horde/NLS/tld.php:45 lib/Horde/NLS/GeoIP.php:62
-#: lib/Horde/NLS/countries.php:26 lib/Horde/Horde/NLS/tld.php:45
-#: lib/Horde/Horde/NLS/GeoIP.php:62 lib/Horde/Horde/NLS/countries.php:26
-msgid "Bahamas"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:38 lib/Horde/NLS/GeoIP.php:61
-#: lib/Horde/NLS/countries.php:27 lib/Horde/Horde/NLS/tld.php:38
-#: lib/Horde/Horde/NLS/GeoIP.php:61 lib/Horde/Horde/NLS/countries.php:27
-msgid "Bahrain"
-msgstr ""
-
 #: config/nls.php.dist:173 config/themes/nls.php.dist:173
 msgid "Baltic (ISO-8859-13)"
 msgstr "Baltic (ISO-8859-13)"
-
-#: lib/Horde/NLS/tld.php:34 lib/Horde/NLS/GeoIP.php:60
-#: lib/Horde/NLS/countries.php:28 lib/Horde/Horde/NLS/tld.php:34
-#: lib/Horde/Horde/NLS/GeoIP.php:60 lib/Horde/Horde/NLS/countries.php:28
-msgid "Bangladesh"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:33 lib/Horde/NLS/GeoIP.php:60
-#: lib/Horde/NLS/countries.php:29 lib/Horde/Horde/NLS/tld.php:33
-#: lib/Horde/Horde/NLS/GeoIP.php:60 lib/Horde/Horde/NLS/countries.php:29
-msgid "Barbados"
-msgstr ""
 
 #: lib/Horde/Form.php:2604 lib/Horde/Horde/Form.php:2604
 msgid "Bare"
@@ -1041,47 +900,6 @@ msgstr "شاخه گرافیکی مبنای '%s' یافت نشد"
 #: templates/javascript/htmlarea_table_lang.js:19
 msgid "Baseline"
 msgstr "خط مبنا"
-
-#: lib/Horde/NLS/tld.php:49 lib/Horde/NLS/GeoIP.php:63
-#: lib/Horde/NLS/countries.php:30 lib/Horde/Horde/NLS/tld.php:49
-#: lib/Horde/Horde/NLS/GeoIP.php:63 lib/Horde/Horde/NLS/countries.php:30
-msgid "Belarus"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:35 lib/Horde/NLS/GeoIP.php:60
-#: lib/Horde/NLS/countries.php:31 lib/Horde/Horde/NLS/tld.php:35
-#: lib/Horde/Horde/NLS/GeoIP.php:60 lib/Horde/Horde/NLS/countries.php:31
-msgid "Belgium"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:50 lib/Horde/NLS/GeoIP.php:63
-#: lib/Horde/NLS/countries.php:32 lib/Horde/Horde/NLS/tld.php:50
-#: lib/Horde/Horde/NLS/GeoIP.php:63 lib/Horde/Horde/NLS/countries.php:32
-msgid "Belize"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:40 lib/Horde/NLS/GeoIP.php:61
-#: lib/Horde/NLS/countries.php:33 lib/Horde/Horde/NLS/tld.php:40
-#: lib/Horde/Horde/NLS/GeoIP.php:61 lib/Horde/Horde/NLS/countries.php:33
-msgid "Benin"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:41 lib/Horde/NLS/GeoIP.php:62
-#: lib/Horde/NLS/countries.php:34 lib/Horde/Horde/NLS/tld.php:41
-#: lib/Horde/Horde/NLS/GeoIP.php:62 lib/Horde/Horde/NLS/countries.php:34
-msgid "Bermuda"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:46 lib/Horde/NLS/GeoIP.php:63
-#: lib/Horde/NLS/countries.php:35 lib/Horde/Horde/NLS/tld.php:46
-#: lib/Horde/Horde/NLS/GeoIP.php:63 lib/Horde/Horde/NLS/countries.php:35
-msgid "Bhutan"
-msgstr ""
-
-#: lib/Horde/Horde/MIME/Viewer/vcard.php:113
-#: lib/Horde/MIME/Viewer/vcard.php:113
-msgid "Birthday"
-msgstr ""
 
 #: lib/Horde/Block/Collection.php:325 lib/Horde/Horde/Block/Collection.php:325
 #, php-format
@@ -1100,12 +918,6 @@ msgstr "نوع بلوک"
 msgid "Bold"
 msgstr "سیاه"
 
-#: lib/Horde/NLS/tld.php:43 lib/Horde/NLS/GeoIP.php:62
-#: lib/Horde/NLS/countries.php:36 lib/Horde/Horde/NLS/tld.php:43
-#: lib/Horde/Horde/NLS/GeoIP.php:62 lib/Horde/Horde/NLS/countries.php:36
-msgid "Bolivia"
-msgstr ""
-
 #: config/registry.php.dist:200 config/themes/registry.php.dist:200
 msgid "Bookmarks"
 msgstr "چوب الف"
@@ -1122,72 +934,18 @@ msgstr "پهنای لبه:"
 msgid "Borders"
 msgstr "لبه‌ها"
 
-#: lib/Horde/NLS/tld.php:32 lib/Horde/NLS/GeoIP.php:60
-#: lib/Horde/NLS/countries.php:37 lib/Horde/Horde/NLS/tld.php:32
-#: lib/Horde/Horde/NLS/GeoIP.php:60 lib/Horde/Horde/NLS/countries.php:37
-msgid "Bosnia and Herzegovina"
-msgstr ""
-
 #: lib/Block/fortune.php:96
 msgid "Both"
 msgstr "هر دو"
-
-#: lib/Horde/NLS/tld.php:48 lib/Horde/NLS/GeoIP.php:63
-#: lib/Horde/NLS/countries.php:38 lib/Horde/Horde/NLS/tld.php:48
-#: lib/Horde/Horde/NLS/GeoIP.php:63 lib/Horde/Horde/NLS/countries.php:38
-msgid "Botswana"
-msgstr ""
 
 #: templates/javascript/htmlarea_lang.js:75
 #: templates/javascript/htmlarea_table_lang.js:22
 msgid "Bottom"
 msgstr "پایین"
 
-#: lib/Horde/NLS/tld.php:47 lib/Horde/NLS/GeoIP.php:63
-#: lib/Horde/NLS/countries.php:39 lib/Horde/Horde/NLS/tld.php:47
-#: lib/Horde/Horde/NLS/GeoIP.php:63 lib/Horde/Horde/NLS/countries.php:39
-msgid "Bouvet Island"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:44 lib/Horde/NLS/GeoIP.php:62
-#: lib/Horde/NLS/countries.php:40 lib/Horde/Horde/NLS/tld.php:44
-#: lib/Horde/Horde/NLS/GeoIP.php:62 lib/Horde/Horde/NLS/countries.php:40
-msgid "Brazil"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:117 lib/Horde/NLS/GeoIP.php:81
-#: lib/Horde/NLS/countries.php:41 lib/Horde/Horde/NLS/tld.php:117
-#: lib/Horde/Horde/NLS/GeoIP.php:81 lib/Horde/Horde/NLS/countries.php:41
-msgid "British Indian Ocean Territory"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:42 lib/Horde/NLS/GeoIP.php:62
-#: lib/Horde/NLS/countries.php:42 lib/Horde/Horde/NLS/tld.php:42
-#: lib/Horde/Horde/NLS/GeoIP.php:62 lib/Horde/Horde/NLS/countries.php:42
-msgid "Brunei Darussalam"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:37 lib/Horde/NLS/GeoIP.php:61
-#: lib/Horde/NLS/countries.php:43 lib/Horde/Horde/NLS/tld.php:37
-#: lib/Horde/Horde/NLS/GeoIP.php:61 lib/Horde/Horde/NLS/countries.php:43
-msgid "Bulgaria"
-msgstr ""
-
 #: templates/javascript/htmlarea_lang.js:19
 msgid "Bulleted List"
 msgstr "لیست بولت‌دار"
-
-#: lib/Horde/NLS/tld.php:36 lib/Horde/NLS/GeoIP.php:61
-#: lib/Horde/NLS/countries.php:44 lib/Horde/Horde/NLS/tld.php:36
-#: lib/Horde/Horde/NLS/GeoIP.php:61 lib/Horde/Horde/NLS/countries.php:44
-msgid "Burkina Faso"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:39 lib/Horde/NLS/GeoIP.php:61
-#: lib/Horde/NLS/countries.php:45 lib/Horde/Horde/NLS/tld.php:39
-#: lib/Horde/Horde/NLS/GeoIP.php:61 lib/Horde/Horde/NLS/countries.php:45
-msgid "Burundi"
-msgstr ""
 
 #: config/registry.php.dist:432 config/themes/registry.php.dist:432
 msgid "CMS"
@@ -1216,18 +974,6 @@ msgstr "تقویم"
 msgid "Calm"
 msgstr "آرام"
 
-#: lib/Horde/NLS/tld.php:128 lib/Horde/NLS/GeoIP.php:83
-#: lib/Horde/NLS/countries.php:46 lib/Horde/Horde/NLS/tld.php:128
-#: lib/Horde/Horde/NLS/GeoIP.php:83 lib/Horde/Horde/NLS/countries.php:46
-msgid "Cambodia"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:60 lib/Horde/NLS/GeoIP.php:67
-#: lib/Horde/NLS/countries.php:47 lib/Horde/Horde/NLS/tld.php:60
-#: lib/Horde/Horde/NLS/GeoIP.php:67 lib/Horde/Horde/NLS/countries.php:47
-msgid "Cameroon"
-msgstr ""
-
 #: services/resetpassword.php:20
 msgid "Can not reset password automatically, contact your administrator."
 msgstr ""
@@ -1247,12 +993,6 @@ msgstr "نمی‌توان به کارساز پست الکترونیک متصل �
 #: lib/Horde/File/CSV.php:413
 msgid "Can't open file \"%s\"."
 msgstr "نمی‌توان پرونده \"%s\" را باز کرد"
-
-#: lib/Horde/NLS/tld.php:51 lib/Horde/NLS/GeoIP.php:64
-#: lib/Horde/NLS/countries.php:48 lib/Horde/Horde/NLS/tld.php:51
-#: lib/Horde/Horde/NLS/GeoIP.php:64 lib/Horde/Horde/NLS/countries.php:48
-msgid "Canada"
-msgstr ""
 
 #: admin/user.php:101 admin/user.php:120
 #: templates/javascript/htmlarea_lang.js:47
@@ -1280,7 +1020,7 @@ msgid "Cannot proceed without 'targetFile' parameter."
 msgstr "نمی‌توان بدون پارامتر 'پرونده مقصد' ادامه داد"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/VFS/ftp.php:264
 #, php-format
 msgid "Cannot remove directory \"%s\"."
@@ -1304,12 +1044,6 @@ msgstr ""
 msgid "Cannot route message to specified number."
 msgstr "نمی‌توان پیغام را به شماره تعیین شده گذر داد"
 
-#: lib/Horde/NLS/tld.php:65 lib/Horde/NLS/GeoIP.php:68
-#: lib/Horde/NLS/countries.php:49 lib/Horde/Horde/NLS/tld.php:65
-#: lib/Horde/Horde/NLS/GeoIP.php:68 lib/Horde/Horde/NLS/countries.php:49
-msgid "Cape Verde"
-msgstr ""
-
 #: templates/javascript/htmlarea_table_lang.js:24
 msgid "Caption"
 msgstr "عنوان"
@@ -1321,12 +1055,6 @@ msgstr "حامل"
 #: config/prefs.php.dist:90 config/themes/prefs.php.dist:90
 msgid "Categories and Labels"
 msgstr "گروه‌ها و برچسبها"
-
-#: lib/Horde/NLS/tld.php:135 lib/Horde/NLS/GeoIP.php:86
-#: lib/Horde/NLS/countries.php:50 lib/Horde/Horde/NLS/tld.php:135
-#: lib/Horde/Horde/NLS/GeoIP.php:86 lib/Horde/Horde/NLS/countries.php:50
-msgid "Cayman Islands"
-msgstr ""
 
 #: lib/Horde/Horde/MIME/Viewer/vcard.php:196
 #: lib/Horde/MIME/Viewer/vcard.php:196
@@ -1361,12 +1089,6 @@ msgstr "Celtic (ISO-8859-14)"
 msgid "Center"
 msgstr "مرکز"
 
-#: lib/Horde/NLS/tld.php:54 lib/Horde/NLS/GeoIP.php:65
-#: lib/Horde/NLS/countries.php:51 lib/Horde/Horde/NLS/tld.php:54
-#: lib/Horde/Horde/NLS/GeoIP.php:65 lib/Horde/Horde/NLS/countries.php:51
-msgid "Central African Republic"
-msgstr ""
-
 #: config/nls.php.dist:175 config/themes/nls.php.dist:175
 msgid "Central European (ISO-8859-2)"
 msgstr "Central European (ISO-8859-2)"
@@ -1378,12 +1100,6 @@ msgstr "جزئیات گواهی "
 #: lib/Horde/Crypt/smime.php:620 lib/Horde/Horde/Crypt/smime.php:620
 msgid "Certificate Policies"
 msgstr "سیاستهای گواهی"
-
-#: lib/Horde/NLS/tld.php:221 lib/Horde/NLS/GeoIP.php:108
-#: lib/Horde/NLS/countries.php:52 lib/Horde/Horde/NLS/tld.php:221
-#: lib/Horde/Horde/NLS/GeoIP.php:108 lib/Horde/Horde/NLS/countries.php:52
-msgid "Chad"
-msgstr ""
 
 #: lib/Horde/Horde/MIME/Viewer/icalendar.php:596
 #: lib/Horde/MIME/Viewer/icalendar.php:596
@@ -1428,12 +1144,6 @@ msgstr "بررسی پیوند..."
 msgid "Chile"
 msgstr "‌"
 
-#: lib/Horde/NLS/tld.php:61 lib/Horde/NLS/GeoIP.php:67
-#: lib/Horde/NLS/countries.php:54 lib/Horde/Horde/NLS/tld.php:61
-#: lib/Horde/Horde/NLS/GeoIP.php:67 lib/Horde/Horde/NLS/countries.php:54
-msgid "China"
-msgstr ""
-
 #: config/nls.php.dist:176 config/themes/nls.php.dist:176
 msgid "Chinese Simplified (GB2312)"
 msgstr "Chinese Simplified (GB2312)"
@@ -1465,12 +1175,6 @@ msgstr "انتخاب چگونگی نمایش تاریخ:"
 msgid "Choose list style type (for ordered lists)"
 msgstr "انتخاب نوع سبک فهرست (برای فهرستهای مرتب)"
 
-#: lib/Horde/NLS/tld.php:66 lib/Horde/NLS/GeoIP.php:68
-#: lib/Horde/NLS/countries.php:55 lib/Horde/Horde/NLS/tld.php:66
-#: lib/Horde/Horde/NLS/GeoIP.php:68 lib/Horde/Horde/NLS/countries.php:55
-msgid "Christmas Island"
-msgstr ""
-
 #: lib/VFS.php:655 lib/Horde/VFS.php:655 lib/Horde/Net/SMS.php:311
 #, php-format
 msgid "Class definition of %s not found."
@@ -1485,7 +1189,7 @@ msgid "Clear MSOffice tags"
 msgstr "پاک کردن تگهای MSOffice"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: templates/admin/user/clear.inc:7
 #, php-format
 msgid "Clear out user: %s"
@@ -1519,12 +1223,6 @@ msgstr "ابرها"
 msgid "Cloudy"
 msgstr "ابری"
 
-#: lib/Horde/NLS/tld.php:52 lib/Horde/NLS/GeoIP.php:64
-#: lib/Horde/NLS/countries.php:56 lib/Horde/Horde/NLS/tld.php:52
-#: lib/Horde/Horde/NLS/GeoIP.php:64 lib/Horde/Horde/NLS/countries.php:56
-msgid "Cocos (Keeling) Islands"
-msgstr ""
-
 #: templates/portal/sidebar.inc:4
 msgid "Collapse Sidebar"
 msgstr "جمع شدن نوار کناری"
@@ -1532,12 +1230,6 @@ msgstr "جمع شدن نوار کناری"
 #: templates/javascript/htmlarea_table_lang.js:28
 msgid "Collapsed borders"
 msgstr "چمع شدن لبه‌ها"
-
-#: lib/Horde/NLS/tld.php:62 lib/Horde/NLS/GeoIP.php:67
-#: lib/Horde/NLS/countries.php:57 lib/Horde/Horde/NLS/tld.php:62
-#: lib/Horde/Horde/NLS/GeoIP.php:67 lib/Horde/Horde/NLS/countries.php:57
-msgid "Colombia"
-msgstr ""
 
 #: lib/Block/color.php:18 lib/Block/color.php:29
 #: templates/javascript/htmlarea_table_lang.js:29
@@ -1590,12 +1282,6 @@ msgstr "توضیح"
 msgid "Common Name"
 msgstr "نام عمومی"
 
-#: lib/Horde/NLS/tld.php:130 lib/Horde/NLS/GeoIP.php:84
-#: lib/Horde/NLS/countries.php:58 lib/Horde/Horde/NLS/tld.php:130
-#: lib/Horde/Horde/NLS/GeoIP.php:84 lib/Horde/Horde/NLS/countries.php:58
-msgid "Comoros"
-msgstr ""
-
 #: lib/Horde/Horde/MIME/Viewer/vcard.php:241
 #: lib/Horde/MIME/Viewer/vcard.php:241
 msgid "Company"
@@ -1606,7 +1292,7 @@ msgstr "شرکت"
 msgid "Completed"
 msgstr "کامل شد"
 
-# 
+#
 #: lib/Horde/Text/Filter/emails.php:81 lib/Horde/Text/Filter/emails.php:87
 #: lib/Horde/Text/Filter/emails.php:97 lib/Horde/Text/Filter/emails.php:101
 #: lib/Horde/Horde/Text/Filter/emails.php:81
@@ -1638,7 +1324,7 @@ msgid "Configuration needs updating."
 msgstr "پیکربندی به بروزرسانی نیاز دارد"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/setup/index.php:100
 #, php-format
 msgid "Configure %s"
@@ -1647,18 +1333,6 @@ msgstr "پیکربندی %s"
 #: templates/admin/user/update.inc:49
 msgid "Confirm Password"
 msgstr "تأیید اسم رمز"
-
-#: lib/Horde/NLS/tld.php:55 lib/Horde/NLS/GeoIP.php:66
-#: lib/Horde/NLS/countries.php:59 lib/Horde/Horde/NLS/tld.php:55
-#: lib/Horde/Horde/NLS/GeoIP.php:66 lib/Horde/Horde/NLS/countries.php:59
-msgid "Congo"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:53 lib/Horde/NLS/GeoIP.php:65
-#: lib/Horde/NLS/countries.php:60 lib/Horde/Horde/NLS/tld.php:53
-#: lib/Horde/Horde/NLS/GeoIP.php:65 lib/Horde/Horde/NLS/countries.php:60
-msgid "Congo, The Democratic Republic of the"
-msgstr ""
 
 #: lib/Horde/Horde/IMAP/ACL/rfc2086.php:203
 #: lib/Horde/Horde/IMAP/ACL/rfc2086.php:316 lib/Horde/IMAP/ACL/rfc2086.php:203
@@ -1689,7 +1363,7 @@ msgstr "اتصال به کارساز FTP ناموفّق بود"
 msgid "Contacts"
 msgstr "نماسها"
 
-# 
+#
 #: lib/Horde/Horde/MIME/Viewer/vcard.php:55 lib/Horde/MIME/Viewer/vcard.php:55
 msgid "Contacts were successfully added to your address book."
 msgstr "تماسها با موفّقیّت به کتابچهٔ آدرس شما اضافه شده بود"
@@ -1706,12 +1380,6 @@ msgstr "محتوای '%s' "
 msgid "Continue"
 msgstr "ادامه"
 
-#: lib/Horde/NLS/tld.php:58 lib/Horde/NLS/GeoIP.php:66
-#: lib/Horde/NLS/countries.php:61 lib/Horde/Horde/NLS/tld.php:58
-#: lib/Horde/Horde/NLS/GeoIP.php:66 lib/Horde/Horde/NLS/countries.php:61
-msgid "Cook Islands"
-msgstr ""
-
 #: lib/Block/fortune.php:32
 msgid "Cookie"
 msgstr "کوکی"
@@ -1723,22 +1391,6 @@ msgstr "رونوشت"
 #: templates/javascript/htmlarea_lang.js:36
 msgid "Copy selection"
 msgstr "رونوشت برداشتن از بخش انتخابی"
-
-#: lib/Horde/Net/SMS/win_http.php:174 lib/Horde/Net/SMS/win_http.php:201
-msgid "Cost ID"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:63 lib/Horde/NLS/GeoIP.php:67
-#: lib/Horde/NLS/countries.php:62 lib/Horde/Horde/NLS/tld.php:63
-#: lib/Horde/Horde/NLS/GeoIP.php:67 lib/Horde/Horde/NLS/countries.php:62
-msgid "Costa Rica"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:57 lib/Horde/NLS/GeoIP.php:66
-#: lib/Horde/NLS/countries.php:63 lib/Horde/Horde/NLS/tld.php:57
-#: lib/Horde/Horde/NLS/GeoIP.php:66 lib/Horde/Horde/NLS/countries.php:63
-msgid "Cote d'Ivoire"
-msgstr ""
 
 #: lib/Horde/Crypt/pgp.php:979 lib/Horde/Horde/Crypt/pgp.php:979
 msgid "Could not PGP encrypt message."
@@ -1757,7 +1409,7 @@ msgid "Could not S/MIME sign message."
 msgstr "نمی‌تواند پیغام را امضاء کند S/MIME"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/Net/SMS/sms2email_http.php:185
 #, php-format
 msgid "Could not add contact. %s"
@@ -1772,7 +1424,7 @@ msgid "Could not bind to ldap server"
 msgstr "نمی‌توان به کارساز ldap پیوست"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/Net/SMS/sms2email_http.php:155
 #: lib/Horde/Net/SMS/clickatell_http.php:172
 #, php-format
@@ -1784,20 +1436,20 @@ msgid "Could not connect to ldap server"
 msgstr "نمی‌توان به کارساز ldap متصل شد"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/setup/index.php:48
 #, php-format
 msgid "Could not connect to server '%s' using FTP: %s"
 msgstr "نمی‌توان با استفاده از FTP به کارساز '%s' وصل شد: %s"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/Net/SMS/sms2email_http.php:331
 msgid "Could not create distribution list. %s"
 msgstr "نمی‌توان فهرست توزیعی ایجاد کرد. %s"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/Crypt/pgp.php:1128 lib/Horde/Horde/Crypt/pgp.php:1128
 msgid "Could not decrypt PGP data."
 msgstr "نمی‌توان داده PGP را رمزگشایی نمود "
@@ -1807,21 +1459,21 @@ msgid "Could not decrypt S/MIME data."
 msgstr "نمی‌توان داده S/MIME را رمزگشایی نمود "
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/Net/SMS/sms2email_http.php:251
 #, php-format
 msgid "Could not delete contact. %s"
 msgstr "نمی‌توان تماس را حذف نمود. %s"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/Net/SMS/sms2email_http.php:367
 #, php-format
 msgid "Could not delete distribution list. %s"
 msgstr "نمی‌توان فهرست توزیعی را حذف نمود. %s"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/setup/scripts.php:38
 #, php-format
 msgid "Could not delete setup upgrade script '%s'."
@@ -1845,7 +1497,7 @@ msgid "Could not fetch the complete list of distribution lists."
 msgstr "نمی‌توان فهرست کامل فهرست توزیعی را واکشی نمود"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/VFS/ISOWriter/RealOutputStrategy.php:68
 #: lib/Horde/VFS/ISOWriter/RealInputStrategy.php:84
 #, php-format
@@ -1863,7 +1515,7 @@ msgid "Could not obtain public key from the keyserver."
 msgstr "نمی‌توان کلید عمومی را از کارساز کلید بدست آورد"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/Net/SMS/sms2email_http.php:706 lib/Horde/Net/SMS/win_http.php:269
 #: lib/Horde/Net/SMS/clickatell_http.php:354
 #, php-format
@@ -1871,7 +1523,7 @@ msgid "Could not open %s."
 msgstr "نمی‌توان %s را باز کرد"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/VFS/ISOWriter/RealInputStrategy/copy.php:139
 #, php-format
 msgid "Could not open '%s' for writing."
@@ -1883,14 +1535,14 @@ msgid "Could not open Maintenance_Task module %s"
 msgstr "نمی‌توان مدول وظایف نگهداری %s را باز نمود"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/VFS/ISOWriter/RealInputStrategy/copy.php:70
 #, php-format
 msgid "Could not open directory '%s'."
 msgstr "نمی‌توان شاخه '%s' را باز نمود"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/VFS/Object.php:269
 msgid "Could not read %s."
 msgstr "نمی‌توان %s را خواند"
@@ -1916,21 +1568,21 @@ msgid "Could not retrieve ACL"
 msgstr "نمی‌توان ACL را دوباره بدست آورد"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/Net/SMS/sms2email_http.php:281
 #, php-format
 msgid "Could not retrieve address book. %s"
 msgstr "نمی‌توان کتابچهٔ آدرس را دوباره بدست آورد. %s"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/Net/SMS/sms2email_http.php:503
 #, php-format
 msgid "Could not retrieve distribution list. %s"
 msgstr "نمی‌توان فهرست توزیعی را دوباره بدست آورد. %s"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/Net/SMS/sms2email_http.php:454
 #, php-format
 msgid "Could not retrieve distribution lists. %s"
@@ -1944,7 +1596,7 @@ msgid "Could not retrieve server's capabilities"
 msgstr "نمی‌توان قابلیتهای کارساز را دوباره بدست آورد"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/setup/config.php:54
 msgid "Could not revert configuration."
 msgstr "نمی‌توان پیکربندی را بازگرداند"
@@ -1955,41 +1607,41 @@ msgid "Could not rmdir '%s'."
 msgstr "نمی‌توان شاخه '%s' را حذف نمود ."
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/setup/scripts.php:73
 #, php-format
 msgid "Could not save %s configuration."
 msgstr "نمی‌توان پیکربندی %s را دخیره کرد"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/setup/index.php:63 admin/setup/scripts.php:59
 msgid "Could not save a backup configuation."
 msgstr "نمی‌توان پیکربندی پشتیبان را حفظ کرد"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/setup/index.php:61
 #, php-format
 msgid "Could not save a backup configuation: %s"
 msgstr "نمی‌توان پیکربندی پشتیبان را حفظ کرد: %s "
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/setup/scripts.php:95
 #, php-format
 msgid "Could not save setup upgrade script to: '%s'."
 msgstr "نمی‌توان اسکریپت بروزرسانی راه‌اندازی را حفظ نمود: '%s'."
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/setup/config.php:64
 #, php-format
 msgid "Could not save the backup configuration file %s."
 msgstr "نمی‌توان پرونده پشتیبان پیکربندی %s را حفظ کرد"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/setup/config.php:75
 #, php-format
 msgid ""
@@ -2009,21 +1661,21 @@ msgid "Could not unlink '%s'."
 msgstr "نمی‌توان پیوند '%s' را قطع کرد"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/Net/SMS/sms2email_http.php:222
 #, php-format
 msgid "Could not update contact. %s"
 msgstr "نمی‌توان تماس  را بروزرسانی کرد. %s"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/Net/SMS/sms2email_http.php:409
 #, php-format
 msgid "Could not update distribution list. %s"
 msgstr "نمی‌توان فهرست توزیعی را بروزرسانی کرد. %s"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/setup/index.php:70
 #, php-format
 msgid "Could not write configuration for '%s': %s"
@@ -2034,7 +1686,7 @@ msgid "Couldn't find the Mozilla Sidebar. Make sure the sidebar is open."
 msgstr ""
 "نمی‌توان نوار جانبی موزیلا را پیدا کرد. مطمئن شوید که نوار جانبی باز است"
 
-# 
+#
 #: lib/Horde/Horde/IMAP/ACL/rfc2086.php:156 lib/Horde/IMAP/ACL/rfc2086.php:156
 #, php-format
 msgid "Couldn't give user '%s' the following rights for the folder '%s': %s"
@@ -2077,18 +1729,6 @@ msgstr "مجوزهای ایجاد کننده"
 msgid "Credit card number"
 msgstr "شماره کارت اعتباری"
 
-#: lib/Horde/NLS/tld.php:109 lib/Horde/NLS/GeoIP.php:79
-#: lib/Horde/NLS/countries.php:64 lib/Horde/Horde/NLS/tld.php:109
-#: lib/Horde/Horde/NLS/GeoIP.php:79 lib/Horde/Horde/NLS/countries.php:64
-msgid "Croatia"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:64 lib/Horde/NLS/GeoIP.php:68
-#: lib/Horde/NLS/countries.php:65 lib/Horde/Horde/NLS/tld.php:64
-#: lib/Horde/Horde/NLS/GeoIP.php:68 lib/Horde/Horde/NLS/countries.php:65
-msgid "Cuba"
-msgstr ""
-
 #: lib/Block/moon.php:26
 msgid "Current Phase"
 msgstr "فاز فعلی"
@@ -2126,12 +1766,6 @@ msgstr "بریدن"
 msgid "Cut selection"
 msgstr "بریدن انتخاب"
 
-#: lib/Horde/NLS/tld.php:67 lib/Horde/NLS/GeoIP.php:68
-#: lib/Horde/NLS/countries.php:66 lib/Horde/Horde/NLS/tld.php:67
-#: lib/Horde/Horde/NLS/GeoIP.php:68 lib/Horde/Horde/NLS/countries.php:66
-msgid "Cyprus"
-msgstr ""
-
 #: config/nls.php.dist:178 config/themes/nls.php.dist:178
 msgid "Cyrillic (KOI8-R)"
 msgstr "Cyrillic (KOI8-R)"
@@ -2143,12 +1777,6 @@ msgstr "Cyrillic (Windows-1251)"
 #: config/nls.php.dist:180 config/themes/nls.php.dist:180
 msgid "Cyrillic/Ukrainian (KOI8-U)"
 msgstr "Cyrillic/Ukrainian (KOI8-U)"
-
-#: lib/Horde/NLS/tld.php:68 lib/Horde/NLS/GeoIP.php:69
-#: lib/Horde/NLS/countries.php:67 lib/Horde/Horde/NLS/tld.php:68
-#: lib/Horde/Horde/NLS/GeoIP.php:69 lib/Horde/Horde/NLS/countries.php:67
-msgid "Czech Republic"
-msgstr ""
 
 #: lib/Horde/Horde/UI/VarRenderer/html.php:423
 #: lib/Horde/UI/VarRenderer/html.php:423 templates/data/date.inc:47
@@ -2280,7 +1908,7 @@ msgid "Delete existing alternate template"
 msgstr "حذف الگوی جایگزین موجود"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/Perms/UI.php:431 lib/Horde/Horde/Perms/UI.php:431
 msgid "Delete permissions for \"%s\""
 msgstr "حذف مجوزها برای  \"%s\""
@@ -2306,7 +1934,7 @@ msgid "Delete the current row"
 msgstr "حذف سطر فعلی"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/setup/scripts.php:36
 #, php-format
 msgid "Deleted setup upgrade script '%s'."
@@ -2318,12 +1946,6 @@ msgstr "اسکریپت حذف شدهٔ بروزرسانی تنظیمات '%s'."
 #: lib/Horde/Net/SMS/clickatell_http.php:260
 msgid "Delivery time"
 msgstr "زمان ارسال"
-
-#: lib/Horde/NLS/tld.php:71 lib/Horde/NLS/GeoIP.php:69
-#: lib/Horde/NLS/countries.php:68 lib/Horde/Horde/NLS/tld.php:71
-#: lib/Horde/Horde/NLS/GeoIP.php:69 lib/Horde/Horde/NLS/countries.php:68
-msgid "Denmark"
-msgstr ""
 
 #: lib/Horde/Horde/MIME/Viewer/icalendar.php:642
 #: lib/Horde/MIME/Viewer/icalendar.php:642
@@ -2406,12 +2028,6 @@ msgstr "نمایش قالب"
 msgid "Disposition Notification"
 msgstr "حالت تذکر"
 
-#: lib/Horde/NLS/tld.php:70 lib/Horde/NLS/GeoIP.php:69
-#: lib/Horde/NLS/countries.php:69 lib/Horde/Horde/NLS/tld.php:70
-#: lib/Horde/Horde/NLS/GeoIP.php:69 lib/Horde/Horde/NLS/countries.php:69
-msgid "Djibouti"
-msgstr ""
-
 #: lib/Horde/Perms/UI.php:432 lib/Horde/Horde/Perms/UI.php:432
 msgid "Do not delete"
 msgstr "حذف نشود"
@@ -2424,18 +2040,6 @@ msgstr "دسترسی مستقیم به maintenance.php ممکن نیست"
 msgid "Does the first row contain the field names? If yes, check this box:"
 msgstr ""
 "آیا سطر اول شامل فیلد نام می‌باشد؟ اگر چنین است، این جعبه را علامت بزنید:"
-
-#: lib/Horde/NLS/tld.php:72 lib/Horde/NLS/GeoIP.php:69
-#: lib/Horde/NLS/countries.php:70 lib/Horde/Horde/NLS/tld.php:72
-#: lib/Horde/Horde/NLS/GeoIP.php:69 lib/Horde/Horde/NLS/countries.php:70
-msgid "Dominica"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:73 lib/Horde/NLS/GeoIP.php:70
-#: lib/Horde/NLS/countries.php:71 lib/Horde/Horde/NLS/tld.php:73
-#: lib/Horde/Horde/NLS/GeoIP.php:70 lib/Horde/Horde/NLS/countries.php:71
-msgid "Dominican Republic"
-msgstr ""
 
 #: lib/Horde/Horde/MIME/Contents.php:878 lib/Horde/MIME/Contents.php:878
 msgid "Download"
@@ -2462,20 +2066,10 @@ msgstr "داروها"
 msgid "E-Mail"
 msgstr "نامه الکترونیکی"
 
-#: lib/Horde/Net/SMS/generic_smtp.php:90
-msgid "EMail-to-SMS gateway driver, for carriers which provide this service."
-msgstr ""
-
 #: lib/Horde/Notification/Listener/mobile.php:36
 #: lib/Horde/Horde/Notification/Listener/mobile.php:36
 msgid "ERR"
 msgstr "ERR"
-
-#: lib/Horde/NLS/tld.php:75 lib/Horde/NLS/GeoIP.php:70
-#: lib/Horde/NLS/countries.php:72 lib/Horde/Horde/NLS/tld.php:75
-#: lib/Horde/Horde/NLS/GeoIP.php:70 lib/Horde/Horde/NLS/countries.php:72
-msgid "Ecuador"
-msgstr ""
 
 #: lib/Horde/Perms.php:326 lib/Horde/Horde/Perms.php:326
 #: templates/shares/edit.inc:35 templates/shares/edit.inc:69
@@ -2504,7 +2098,7 @@ msgid "Edit Permissions"
 msgstr "ویرایش مجوزها"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: services/shares/edit.php:239
 #, php-format
 msgid "Edit Permissions for %s"
@@ -2515,13 +2109,13 @@ msgid "Edit options for:"
 msgstr "گزینه‌های ویرایش:"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/Perms/UI.php:373 lib/Horde/Horde/Perms/UI.php:373
 msgid "Edit permissions for \"%s\""
 msgstr "ویرایش مجوز‌ها برای \"%s\""
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: templates/shares/edit.inc:14
 #, php-format
 msgid "Edit permissions for %s"
@@ -2530,18 +2124,6 @@ msgstr "ویرایش مجوز‌ها برای %s"
 #: lib/Block/fortune.php:35
 msgid "Education"
 msgstr "تحصیلات"
-
-#: lib/Horde/NLS/tld.php:77 lib/Horde/NLS/GeoIP.php:70
-#: lib/Horde/NLS/countries.php:73 lib/Horde/Horde/NLS/tld.php:77
-#: lib/Horde/Horde/NLS/GeoIP.php:70 lib/Horde/Horde/NLS/countries.php:73
-msgid "Egypt"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:217 lib/Horde/NLS/GeoIP.php:107
-#: lib/Horde/NLS/countries.php:74 lib/Horde/Horde/NLS/tld.php:217
-#: lib/Horde/Horde/NLS/GeoIP.php:107 lib/Horde/Horde/NLS/countries.php:74
-msgid "El Salvador"
-msgstr ""
 
 #: templates/javascript/htmlarea_context_lang.js:42
 msgid "Element..."
@@ -2569,10 +2151,6 @@ msgstr "آدرسهای نامه‌های الکترونیکی باید منطب�
 #: lib/Horde/Form.php:1982 lib/Horde/Horde/Form.php:1982
 msgid "Email with confirmation"
 msgstr "نامهٔ الکترونیکی با تأیید"
-
-#: lib/Horde/Net/SMS/generic_smtp.php:89
-msgid "Email-to-SMS Gateway"
-msgstr ""
 
 #: lib/Horde/Horde/UI/VarRenderer/html.php:280
 #: lib/Horde/UI/VarRenderer/html.php:280
@@ -2628,18 +2206,6 @@ msgstr ""
 msgid "Enter the image URL here"
 msgstr "URL تصویر را اینجا وارد کنید"
 
-#: lib/Horde/NLS/tld.php:99 lib/Horde/NLS/GeoIP.php:76
-#: lib/Horde/NLS/countries.php:75 lib/Horde/Horde/NLS/tld.php:99
-#: lib/Horde/Horde/NLS/GeoIP.php:76 lib/Horde/Horde/NLS/countries.php:75
-msgid "Equatorial Guinea"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:79 lib/Horde/NLS/GeoIP.php:71
-#: lib/Horde/NLS/countries.php:76 lib/Horde/Horde/NLS/tld.php:79
-#: lib/Horde/Horde/NLS/GeoIP.php:71 lib/Horde/Horde/NLS/countries.php:76
-msgid "Eritrea"
-msgstr ""
-
 #: lib/Block/weatherdotcom.php:45 lib/Block/weatherdotcom.php:55
 #: lib/Block/metar.php:36 lib/Horde/Notification/Listener/status.php:29
 #: lib/Horde/Horde/Notification/Listener/status.php:29
@@ -2647,17 +2213,17 @@ msgstr ""
 msgid "Error"
 msgstr "خطا"
 
-# 
+#
 #: lib/Horde/Template.php:443 lib/Horde/Horde/Template.php:443
 msgid "Error creating block: %s"
 msgstr "بلوک ایجاد خطا: %s"
 
-# 
+#
 #: lib/Horde/Template.php:448 lib/Horde/Horde/Template.php:448
 msgid "Error getting content: %s"
 msgstr "خطا در کسب محتوا:%s"
 
-# 
+#
 #: lib/Horde/Horde/MIME/Viewer/icalendar.php:195
 #: lib/Horde/Horde/MIME/Viewer/icalendar.php:278
 #: lib/Horde/Horde/MIME/Viewer/icalendar.php:347
@@ -2676,23 +2242,11 @@ msgstr "خطا در بروزرسانی اسم رمز : %s"
 msgid "Error with email message."
 msgstr "خطا با پیغام نامهٔ الکترونیکی"
 
-# 
+#
 #: lib/Horde/VFS/ISOWriter/RealInputStrategy/copy.php:142
 #, php-format
 msgid "Error writing '%s'."
 msgstr "خطای نوشتن '%s' "
-
-#: lib/Horde/NLS/tld.php:76 lib/Horde/NLS/GeoIP.php:70
-#: lib/Horde/NLS/countries.php:77 lib/Horde/Horde/NLS/tld.php:76
-#: lib/Horde/Horde/NLS/GeoIP.php:70 lib/Horde/Horde/NLS/countries.php:77
-msgid "Estonia"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:81 lib/Horde/NLS/GeoIP.php:71
-#: lib/Horde/NLS/countries.php:78 lib/Horde/Horde/NLS/tld.php:81
-#: lib/Horde/Horde/NLS/GeoIP.php:71 lib/Horde/Horde/NLS/countries.php:78
-msgid "Ethiopia"
-msgstr ""
 
 #: lib/Block/fortune.php:36
 msgid "Ethnic"
@@ -2753,10 +2307,6 @@ msgstr "بازکردن نوار کناری"
 msgid "Expected ')'"
 msgstr "انتظار برای '('"
 
-#: lib/Horde/SQL/Keywords.php:175 lib/Horde/Horde/SQL/Keywords.php:175
-msgid "Expected bare word or quoted search term"
-msgstr ""
-
 #: lib/Horde/Crypt/pgp.php:406 lib/Horde/Horde/Crypt/pgp.php:406
 msgid "Expiration Date"
 msgstr "تاریخ انقضاء"
@@ -2791,7 +2341,7 @@ msgid "Failed to copy from \"%s\"."
 msgstr " تهیه رونوشت از \"%s\" ناموفّق بود"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/VFS/ftp.php:632
 msgid "Failed to copy to \"%s\"."
 msgstr "ایجاد رونوشت در \"%s\" ناموفّق بود"
@@ -2809,18 +2359,6 @@ msgstr " انتقال به \"%s\" ناموفّق بود"
 msgid "Fair"
 msgstr "لطیف"
 
-#: lib/Horde/NLS/tld.php:84 lib/Horde/NLS/GeoIP.php:72
-#: lib/Horde/NLS/countries.php:79 lib/Horde/Horde/NLS/tld.php:84
-#: lib/Horde/Horde/NLS/GeoIP.php:72 lib/Horde/Horde/NLS/countries.php:79
-msgid "Falkland Islands (Malvinas)"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:86 lib/Horde/NLS/GeoIP.php:73
-#: lib/Horde/NLS/countries.php:80 lib/Horde/Horde/NLS/tld.php:86
-#: lib/Horde/Horde/NLS/GeoIP.php:73 lib/Horde/Horde/NLS/countries.php:80
-msgid "Faroe Islands"
-msgstr ""
-
 #: lib/Horde/CLI.php:234 lib/Horde/Horde/CLI.php:234
 msgid "Fatal Error:"
 msgstr "خطای جدی: "
@@ -2837,14 +2375,6 @@ msgstr "فکس"
 msgid "February"
 msgstr "فوریه"
 
-#: lib/Block/metar.php:218
-msgid "Feels Like"
-msgstr ""
-
-#: lib/Block/weatherdotcom.php:206
-msgid "Feels like: "
-msgstr ""
-
 #: lib/Block/weatherdotcom.php:432
 msgid "Few Showers"
 msgstr "رگبار خفیف"
@@ -2852,16 +2382,6 @@ msgstr "رگبار خفیف"
 #: lib/Block/weatherdotcom.php:433
 msgid "Few Snow Showers"
 msgstr "کمی تگرگ"
-
-#: lib/Horde/Form.php:1937 lib/Horde/Horde/Form.php:1937
-msgid "Field matrix"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:83 lib/Horde/NLS/GeoIP.php:72
-#: lib/Horde/NLS/countries.php:81 lib/Horde/Horde/NLS/tld.php:83
-#: lib/Horde/Horde/NLS/GeoIP.php:72 lib/Horde/Horde/NLS/countries.php:81
-msgid "Fiji"
-msgstr ""
 
 #: lib/Horde/Horde/MIME/Viewer/zip.php:66
 #: lib/Horde/Horde/MIME/Viewer/rar.php:62
@@ -2906,12 +2426,6 @@ msgstr "ارسال پرونده پشتیبانی نمی‌شود.."
 msgid "Filters"
 msgstr "فیلترها"
 
-#: lib/Horde/NLS/tld.php:82 lib/Horde/NLS/GeoIP.php:71
-#: lib/Horde/NLS/countries.php:82 lib/Horde/Horde/NLS/tld.php:82
-#: lib/Horde/Horde/NLS/GeoIP.php:71 lib/Horde/Horde/NLS/countries.php:82
-msgid "Finland"
-msgstr ""
-
 #: lib/Block/moon.php:171
 msgid "First Half"
 msgstr "نیمه اول"
@@ -2924,11 +2438,6 @@ msgstr "ربع اول"
 #: lib/Horde/UI/VarRenderer/html.php:239
 msgid "Fix ratio"
 msgstr "نسبت ثابت"
-
-#: lib/Horde/Horde/UI/VarRenderer/html.php:214
-#: lib/Horde/UI/VarRenderer/html.php:214
-msgid "Flip"
-msgstr ""
 
 #: templates/javascript/htmlarea_table_lang.js:32
 msgid "Float"
@@ -2959,12 +2468,6 @@ msgstr "برای مرورگرهایی که تصاویر را پشتیبانی ن
 #: lib/Block/metar.php:332
 msgid "Forecast (TAF)"
 msgstr "پیش­بینی"
-
-#: lib/Block/weatherdotcom.php:79
-msgid ""
-"Forecast Days (note that the returned forecast returns both day and night; a "
-"large number here could result in a wide block)"
-msgstr ""
 
 #: templates/login/login.inc:99
 msgid "Forgot your password?"
@@ -3006,16 +2509,6 @@ msgstr "جمعه"
 msgid "Frames"
 msgstr "چارچوبها"
 
-#: lib/Horde/NLS/tld.php:87 lib/Horde/NLS/GeoIP.php:73
-#: lib/Horde/NLS/countries.php:83 lib/Horde/Horde/NLS/tld.php:87
-#: lib/Horde/Horde/NLS/GeoIP.php:73 lib/Horde/Horde/NLS/countries.php:83
-msgid "France"
-msgstr ""
-
-#: lib/Horde/NLS/GeoIP.php:73 lib/Horde/Horde/NLS/GeoIP.php:73
-msgid "France, Metropolitan"
-msgstr ""
-
 #: lib/Horde/Horde/MIME/Viewer/icalendar.php:417
 #: lib/Horde/MIME/Viewer/icalendar.php:417
 msgid "Free/Busy Information"
@@ -3037,24 +2530,6 @@ msgstr "درخواست آزاد/مشغول"
 #: lib/Horde/MIME/Viewer/icalendar.php:341
 msgid "Free/Busy Request Response"
 msgstr "پاسخ درخواست آزاد/مشغول"
-
-#: lib/Horde/NLS/tld.php:91 lib/Horde/NLS/GeoIP.php:74
-#: lib/Horde/NLS/countries.php:84 lib/Horde/Horde/NLS/tld.php:91
-#: lib/Horde/Horde/NLS/GeoIP.php:74 lib/Horde/Horde/NLS/countries.php:84
-msgid "French Guiana"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:184 lib/Horde/NLS/GeoIP.php:98
-#: lib/Horde/NLS/countries.php:85 lib/Horde/Horde/NLS/tld.php:184
-#: lib/Horde/Horde/NLS/GeoIP.php:98 lib/Horde/Horde/NLS/countries.php:85
-msgid "French Polynesia"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:222 lib/Horde/NLS/GeoIP.php:109
-#: lib/Horde/NLS/countries.php:86 lib/Horde/Horde/NLS/tld.php:222
-#: lib/Horde/Horde/NLS/GeoIP.php:109 lib/Horde/Horde/NLS/countries.php:86
-msgid "French Southern Territories"
-msgstr ""
 
 #: lib/Horde/Horde/MIME/Viewer/rfc822.php:78
 #: lib/Horde/MIME/Viewer/rfc822.php:78
@@ -3078,12 +2553,6 @@ msgstr "ماه کامل"
 msgid "Full Name"
 msgstr "نام کامل"
 
-#: lib/Horde/NLS/tld.php:88 lib/Horde/NLS/GeoIP.php:73
-#: lib/Horde/NLS/countries.php:87 lib/Horde/Horde/NLS/tld.php:88
-#: lib/Horde/Horde/NLS/GeoIP.php:73 lib/Horde/Horde/NLS/countries.php:87
-msgid "Gabon"
-msgstr ""
-
 #: templates/javascript/htmlarea_anselimage_lang.js:30
 msgid "Gallery to take image from"
 msgstr "گالری برای دریافت تصویر "
@@ -3092,14 +2561,8 @@ msgstr "گالری برای دریافت تصویر "
 msgid "Gallery:"
 msgstr "گالری:"
 
-#: lib/Horde/NLS/tld.php:96 lib/Horde/NLS/GeoIP.php:75
-#: lib/Horde/NLS/countries.php:88 lib/Horde/Horde/NLS/tld.php:96
-#: lib/Horde/Horde/NLS/GeoIP.php:75 lib/Horde/Horde/NLS/countries.php:88
-msgid "Gambia"
-msgstr ""
-
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/setup/config.php:42
 #, php-format
 msgid "Generate %s Configuration"
@@ -3109,30 +2572,6 @@ msgstr "تولید پیکربندی %s"
 msgid "Generated Code"
 msgstr "کد تولید شده"
 
-#: lib/Horde/NLS/tld.php:90 lib/Horde/NLS/GeoIP.php:74
-#: lib/Horde/NLS/countries.php:89 lib/Horde/Horde/NLS/tld.php:90
-#: lib/Horde/Horde/NLS/GeoIP.php:74 lib/Horde/Horde/NLS/countries.php:89
-msgid "Georgia"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:69 lib/Horde/NLS/GeoIP.php:69
-#: lib/Horde/NLS/countries.php:90 lib/Horde/Horde/NLS/tld.php:69
-#: lib/Horde/Horde/NLS/GeoIP.php:69 lib/Horde/Horde/NLS/countries.php:90
-msgid "Germany"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:93 lib/Horde/NLS/GeoIP.php:75
-#: lib/Horde/NLS/countries.php:91 lib/Horde/Horde/NLS/tld.php:93
-#: lib/Horde/Horde/NLS/GeoIP.php:75 lib/Horde/Horde/NLS/countries.php:91
-msgid "Ghana"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:94 lib/Horde/NLS/GeoIP.php:75
-#: lib/Horde/NLS/countries.php:92 lib/Horde/Horde/NLS/tld.php:94
-#: lib/Horde/Horde/NLS/GeoIP.php:75 lib/Horde/Horde/NLS/countries.php:92
-msgid "Gibraltar"
-msgstr ""
-
 #: lib/Horde/Crypt/smime.php:599 lib/Horde/Horde/Crypt/smime.php:599
 msgid "Given Name"
 msgstr "نام داده شده"
@@ -3140,10 +2579,6 @@ msgstr "نام داده شده"
 #: templates/prefs/app.inc:12
 msgid "Go"
 msgstr "برو"
-
-#: lib/Block/fortune.php:40
-msgid "Goedel"
-msgstr ""
 
 #: lib/Block/google.php:3 lib/Block/google.php:21 lib/Block/google.php:41
 msgid "Google Search"
@@ -3154,27 +2589,9 @@ msgstr "جسنجوی گوگل"
 msgid "Grayscale"
 msgstr "درجه خاکستری"
 
-#: lib/Horde/NLS/tld.php:100 lib/Horde/NLS/GeoIP.php:76
-#: lib/Horde/NLS/countries.php:93 lib/Horde/Horde/NLS/tld.php:100
-#: lib/Horde/Horde/NLS/GeoIP.php:76 lib/Horde/Horde/NLS/countries.php:93
-msgid "Greece"
-msgstr ""
-
 #: config/nls.php.dist:181 config/themes/nls.php.dist:181
 msgid "Greek (ISO-8859-7)"
 msgstr "Greek (ISO-8859-7)"
-
-#: lib/Horde/NLS/tld.php:95 lib/Horde/NLS/GeoIP.php:75
-#: lib/Horde/NLS/countries.php:94 lib/Horde/Horde/NLS/tld.php:95
-#: lib/Horde/Horde/NLS/GeoIP.php:75 lib/Horde/Horde/NLS/countries.php:94
-msgid "Greenland"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:89 lib/Horde/NLS/GeoIP.php:74
-#: lib/Horde/NLS/countries.php:95 lib/Horde/Horde/NLS/tld.php:89
-#: lib/Horde/Horde/NLS/GeoIP.php:74 lib/Horde/Horde/NLS/countries.php:95
-msgid "Grenada"
-msgstr ""
 
 #: admin/groups.php:171
 msgid "Group Administration"
@@ -3189,28 +2606,6 @@ msgstr "نام گروه نباید خالی باشد"
 msgid "Groups"
 msgstr "گروه&#x200c;ها"
 
-#: lib/Horde/NLS/tld.php:98 lib/Horde/NLS/GeoIP.php:76
-#: lib/Horde/NLS/countries.php:96 lib/Horde/Horde/NLS/tld.php:98
-#: lib/Horde/Horde/NLS/GeoIP.php:76 lib/Horde/Horde/NLS/countries.php:96
-msgid "Guadeloupe"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:103 lib/Horde/NLS/GeoIP.php:77
-#: lib/Horde/NLS/countries.php:97 lib/Horde/Horde/NLS/tld.php:103
-#: lib/Horde/Horde/NLS/GeoIP.php:77 lib/Horde/Horde/NLS/countries.php:97
-msgid "Guam"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:102 lib/Horde/NLS/GeoIP.php:77
-#: lib/Horde/NLS/countries.php:98 lib/Horde/Horde/NLS/tld.php:102
-#: lib/Horde/Horde/NLS/GeoIP.php:77 lib/Horde/Horde/NLS/countries.php:98
-msgid "Guatemala"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:92 lib/Horde/Horde/NLS/tld.php:92
-msgid "Guernsey"
-msgstr ""
-
 #: lib/Horde/Perms/UI.php:232 lib/Horde/Horde/Perms/UI.php:232
 #: templates/shares/edit.inc:88
 msgid "Guest Permissions"
@@ -3219,24 +2614,6 @@ msgstr "مجوزهای مهمان"
 #: config/registry.php.dist:474 config/themes/registry.php.dist:474
 msgid "Guestbook"
 msgstr "کتابچهٔ یادبود"
-
-#: lib/Horde/NLS/tld.php:97 lib/Horde/NLS/GeoIP.php:75
-#: lib/Horde/NLS/countries.php:99 lib/Horde/Horde/NLS/tld.php:97
-#: lib/Horde/Horde/NLS/GeoIP.php:75 lib/Horde/Horde/NLS/countries.php:99
-msgid "Guinea"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:104 lib/Horde/NLS/GeoIP.php:78
-#: lib/Horde/NLS/countries.php:100 lib/Horde/Horde/NLS/tld.php:104
-#: lib/Horde/Horde/NLS/GeoIP.php:78 lib/Horde/Horde/NLS/countries.php:100
-msgid "Guinea-Bissau"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:105 lib/Horde/NLS/GeoIP.php:78
-#: lib/Horde/NLS/countries.php:101 lib/Horde/Horde/NLS/tld.php:105
-#: lib/Horde/Horde/NLS/GeoIP.php:78 lib/Horde/Horde/NLS/countries.php:101
-msgid "Guyana"
-msgstr ""
 
 #: lib/Horde/Horde/UI/VarRenderer/html.php:331
 #: lib/Horde/UI/VarRenderer/html.php:331
@@ -3263,12 +2640,6 @@ msgstr "HTMLArea حذف آخرین ردیف را در جدول رد می‌کن�
 msgid "HTTP Authentication not found."
 msgstr "تصدیق هویّت HTTP یافته نشد"
 
-#: lib/Horde/NLS/tld.php:110 lib/Horde/NLS/GeoIP.php:80
-#: lib/Horde/NLS/countries.php:102 lib/Horde/Horde/NLS/tld.php:110
-#: lib/Horde/Horde/NLS/GeoIP.php:80 lib/Horde/Horde/NLS/countries.php:102
-msgid "Haiti"
-msgstr ""
-
 #: lib/Horde/Crypt/pgp.php:407 lib/Horde/Horde/Crypt/pgp.php:407
 msgid "Hash-Algorithm"
 msgstr "الگوریتم Hash"
@@ -3281,12 +2652,6 @@ msgstr "مه‌آلود"
 #: lib/Horde/Horde/Form.php:2932
 msgid "Header"
 msgstr "سرآمد"
-
-#: lib/Horde/NLS/tld.php:107 lib/Horde/NLS/GeoIP.php:79
-#: lib/Horde/NLS/countries.php:103 lib/Horde/Horde/NLS/tld.php:107
-#: lib/Horde/Horde/NLS/GeoIP.php:79 lib/Horde/Horde/NLS/countries.php:103
-msgid "Heard Island and McDonald Islands"
-msgstr ""
 
 #: config/nls.php.dist:182 config/themes/nls.php.dist:182
 msgid "Hebrew (ISO-8859-8-I)"
@@ -3330,12 +2695,6 @@ msgstr "نام ورودی تاریخی نباید خالی باشد"
 msgid "Ho_me"
 msgstr "خانه"
 
-#: lib/Horde/NLS/tld.php:243 lib/Horde/NLS/GeoIP.php:114
-#: lib/Horde/NLS/countries.php:104 lib/Horde/Horde/NLS/tld.php:243
-#: lib/Horde/Horde/NLS/GeoIP.php:114 lib/Horde/Horde/NLS/countries.php:104
-msgid "Holy See (Vatican City State)"
-msgstr ""
-
 #: lib/Horde.php:1462 lib/Horde/Horde.php:1462
 msgid "Home"
 msgstr "خانه"
@@ -3354,18 +2713,6 @@ msgstr "شاخهٔ اصلی"
 #: lib/Horde/MIME/Viewer/vcard.php:192
 msgid "Home Phone"
 msgstr "شماره تلفن منزل"
-
-#: lib/Horde/NLS/tld.php:108 lib/Horde/NLS/GeoIP.php:79
-#: lib/Horde/NLS/countries.php:105 lib/Horde/Horde/NLS/tld.php:108
-#: lib/Horde/Horde/NLS/GeoIP.php:79 lib/Horde/Horde/NLS/countries.php:105
-msgid "Honduras"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:106 lib/Horde/NLS/GeoIP.php:78
-#: lib/Horde/NLS/countries.php:106 lib/Horde/Horde/NLS/tld.php:106
-#: lib/Horde/Horde/NLS/GeoIP.php:78 lib/Horde/Horde/NLS/countries.php:106
-msgid "Hong Kong"
-msgstr ""
 
 #: config/registry.php.dist:62 config/themes/registry.php.dist:62
 msgid "Horde"
@@ -3386,15 +2733,11 @@ msgstr "Horde/Kolab: هیچ پیغامی مطابقت با شیء %s ندارد"
 msgid "Horde/Kolab: No object of type %s found in message %s"
 msgstr "Horde/Kolab: هیچ شیئی از نوع %s در پیغام %s یافت نشد"
 
-# 
+#
 #: lib/Horde/Kolab.php:1259 lib/Horde/Horde/Kolab.php:1259
 #, php-format
 msgid "Horde/Kolab: Successfully removed %s \"%s\""
 msgstr "Horde/Kolab: با موفّقیّت %s \"%s\" حذف شد"
-
-#: lib/Horde/Kolab.php:223 lib/Horde/Horde/Kolab.php:223
-msgid "Horde/Kolab: The integration engine requires the 'domxml' PHP extension"
-msgstr ""
 
 #: lib/Horde/Kolab.php:503 lib/Horde/Horde/Kolab.php:503
 #, php-format
@@ -3460,16 +2803,6 @@ msgstr "رطوبت"
 msgid "Humidity: "
 msgstr "رطوبت: "
 
-#: lib/Block/fortune.php:41
-msgid "Humorists"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:111 lib/Horde/NLS/GeoIP.php:80
-#: lib/Horde/NLS/countries.php:107 lib/Horde/Horde/NLS/tld.php:111
-#: lib/Horde/Horde/NLS/GeoIP.php:80 lib/Horde/Horde/NLS/countries.php:107
-msgid "Hungary"
-msgstr ""
-
 #: lib/Horde/Auth/cyrus.php:177 lib/Horde/Auth/cyrsql.php:217
 #: lib/Horde/Horde/Auth/cyrus.php:177 lib/Horde/Horde/Auth/cyrsql.php:217
 #, php-format
@@ -3500,26 +2833,16 @@ msgstr "آدرس IP قابل دسترسی نیست"
 msgid "IP Address not within allowed CIDR block."
 msgstr "آدرس IP در داخل بلوک CIDR اجازه داده نمی‌شود"
 
-#: lib/Horde/Net/SMS/clickatell_http.php:304
-msgid "IP lockdown violation."
-msgstr ""
-
 #: templates/javascript/htmlarea_context_lang.js:29
 msgid "I_nsert Row Before"
 msgstr "ابتدا سطر را وارد کنید"
-
-#: lib/Horde/NLS/tld.php:120 lib/Horde/NLS/GeoIP.php:82
-#: lib/Horde/NLS/countries.php:108 lib/Horde/Horde/NLS/tld.php:120
-#: lib/Horde/Horde/NLS/GeoIP.php:82 lib/Horde/Horde/NLS/countries.php:108
-msgid "Iceland"
-msgstr ""
 
 #: config/prefs.php.dist:366 config/themes/prefs.php.dist:366
 msgid "Icons Only"
 msgstr "فقط آیکونها"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: util/icon_browser.php:49
 #, php-format
 msgid "Icons for %s"
@@ -3586,7 +2909,7 @@ msgid "Images"
 msgstr "تصاویر"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: templates/data/csvinfo.inc:10 templates/data/csvmap.inc:57
 #: templates/data/datemap.inc:10 templates/data/tsvinfo.inc:10
 #, php-format
@@ -3594,7 +2917,7 @@ msgid "Import, Step %d"
 msgstr "درون‌برد، گام %d"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: templates/data/datemap.inc:20
 #, php-format
 msgid "Imported field: %s"
@@ -3633,22 +2956,10 @@ msgstr ""
 msgid "Increase Indent"
 msgstr "افزایش تورفتگی"
 
-#: lib/Horde/NLS/tld.php:116 lib/Horde/NLS/GeoIP.php:81
-#: lib/Horde/NLS/countries.php:109 lib/Horde/Horde/NLS/tld.php:116
-#: lib/Horde/Horde/NLS/GeoIP.php:81 lib/Horde/Horde/NLS/countries.php:109
-msgid "India"
-msgstr ""
-
 #: lib/Horde/Perms/UI.php:260 lib/Horde/Horde/Perms/UI.php:260
 #: templates/shares/edit.inc:134
 msgid "Individual Users"
 msgstr "کاربران خاص"
-
-#: lib/Horde/NLS/tld.php:112 lib/Horde/NLS/GeoIP.php:80
-#: lib/Horde/NLS/countries.php:110 lib/Horde/Horde/NLS/tld.php:112
-#: lib/Horde/Horde/NLS/GeoIP.php:80 lib/Horde/Horde/NLS/countries.php:110
-msgid "Indonesia"
-msgstr ""
 
 #: lib/Horde/Horde/MIME/Viewer/rfc822.php:71
 #: lib/Horde/MIME/Viewer/rfc822.php:71
@@ -3868,37 +3179,9 @@ msgstr "موجودی"
 msgid "Invert selection"
 msgstr "برگرداندن انتخاب"
 
-#: lib/Horde/NLS/tld.php:119 lib/Horde/NLS/GeoIP.php:82
-#: lib/Horde/NLS/countries.php:111 lib/Horde/Horde/NLS/tld.php:119
-#: lib/Horde/Horde/NLS/GeoIP.php:82 lib/Horde/Horde/NLS/countries.php:111
-msgid "Iran, Islamic Republic of"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:118 lib/Horde/NLS/GeoIP.php:81
-#: lib/Horde/NLS/countries.php:112 lib/Horde/Horde/NLS/tld.php:118
-#: lib/Horde/Horde/NLS/GeoIP.php:81 lib/Horde/Horde/NLS/countries.php:112
-msgid "Iraq"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:113 lib/Horde/NLS/GeoIP.php:80
-#: lib/Horde/NLS/countries.php:113 lib/Horde/Horde/NLS/tld.php:113
-#: lib/Horde/Horde/NLS/GeoIP.php:80 lib/Horde/Horde/NLS/countries.php:113
-msgid "Ireland"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:115 lib/Horde/Horde/NLS/tld.php:115
-msgid "Isle of Man"
-msgstr ""
-
 #: lib/Block/weatherdotcom.php:436
 msgid "Isolated T-Storms"
 msgstr "T-Storms"
-
-#: lib/Horde/NLS/tld.php:114 lib/Horde/NLS/GeoIP.php:80
-#: lib/Horde/NLS/countries.php:114 lib/Horde/Horde/NLS/tld.php:114
-#: lib/Horde/Horde/NLS/GeoIP.php:80 lib/Horde/Horde/NLS/countries.php:114
-msgid "Israel"
-msgstr ""
 
 #: lib/Horde/Crypt/smime.php:649 lib/Horde/Horde/Crypt/smime.php:649
 msgid "Issuer"
@@ -3908,30 +3191,12 @@ msgstr "منتشر کننده"
 msgid "Italic"
 msgstr "حروف کج"
 
-#: lib/Horde/NLS/tld.php:121 lib/Horde/NLS/GeoIP.php:82
-#: lib/Horde/NLS/countries.php:115 lib/Horde/Horde/NLS/tld.php:121
-#: lib/Horde/Horde/NLS/GeoIP.php:82 lib/Horde/Horde/NLS/countries.php:115
-msgid "Italy"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:123 lib/Horde/NLS/GeoIP.php:82
-#: lib/Horde/NLS/countries.php:116 lib/Horde/Horde/NLS/tld.php:123
-#: lib/Horde/Horde/NLS/GeoIP.php:82 lib/Horde/Horde/NLS/countries.php:116
-msgid "Jamaica"
-msgstr ""
-
 #: lib/Horde/Horde/UI/VarRenderer/html.php:374
 #: lib/Horde/Horde/UI/VarRenderer/html.php:411
 #: lib/Horde/UI/VarRenderer/html.php:374 lib/Horde/UI/VarRenderer/html.php:411
 #: templates/javascript/open_calendar.js:65
 msgid "January"
 msgstr "ژانویه"
-
-#: lib/Horde/NLS/tld.php:125 lib/Horde/NLS/GeoIP.php:83
-#: lib/Horde/NLS/countries.php:117 lib/Horde/Horde/NLS/tld.php:125
-#: lib/Horde/Horde/NLS/GeoIP.php:83 lib/Horde/Horde/NLS/countries.php:117
-msgid "Japan"
-msgstr ""
 
 #: config/nls.php.dist:183 config/themes/nls.php.dist:183
 msgid "Japanese (ISO-2022-JP)"
@@ -3940,12 +3205,6 @@ msgstr "Japanese (ISO-2022-JP)"
 #: lib/Horde/NLS/tld.php:122 lib/Horde/Horde/NLS/tld.php:122
 msgid "Jersey"
 msgstr "زیرپیراهنی"
-
-#: lib/Horde/NLS/tld.php:124 lib/Horde/NLS/GeoIP.php:83
-#: lib/Horde/NLS/countries.php:118 lib/Horde/Horde/NLS/tld.php:124
-#: lib/Horde/Horde/NLS/GeoIP.php:83 lib/Horde/Horde/NLS/countries.php:118
-msgid "Jordan"
-msgstr ""
 
 #: lib/Horde/Horde/UI/VarRenderer/html.php:380
 #: lib/Horde/Horde/UI/VarRenderer/html.php:417
@@ -3985,30 +3244,14 @@ msgstr "هم‌ترازی چپ"
 msgid "Justify Right"
 msgstr "هم‌ترازی راست "
 
-#: lib/Horde/NLS/tld.php:136 lib/Horde/NLS/GeoIP.php:86
-#: lib/Horde/NLS/countries.php:119 lib/Horde/Horde/NLS/tld.php:136
-#: lib/Horde/Horde/NLS/GeoIP.php:86 lib/Horde/Horde/NLS/countries.php:119
-msgid "Kazakhstan"
-msgstr ""
-
 #: lib/Horde/Horde/UI/VarRenderer/html.php:246
 #: lib/Horde/UI/VarRenderer/html.php:246
 msgid "Keep original?"
 msgstr "اصلی نگه داشته شود؟"
 
-#: lib/Horde/NLS/tld.php:126 lib/Horde/NLS/GeoIP.php:83
-#: lib/Horde/NLS/countries.php:120 lib/Horde/Horde/NLS/tld.php:126
-#: lib/Horde/Horde/NLS/GeoIP.php:83 lib/Horde/Horde/NLS/countries.php:120
-msgid "Kenya"
-msgstr ""
-
 #: lib/Horde/Auth/krb5.php:87 lib/Horde/Horde/Auth/krb5.php:87
 msgid "Kerberos server rejected authentication."
 msgstr "کارساز kerberose تصدیق هویّت را رد کرد"
-
-#: lib/Block/fortune.php:42
-msgid "Kernel Newbies"
-msgstr ""
 
 #: lib/Horde/Crypt/pgp.php:405 lib/Horde/Horde/Crypt/pgp.php:405
 msgid "Key Creation"
@@ -4038,39 +3281,9 @@ msgstr "کلید قبلاً در کارساز عمومی کلید موجود ا�
 msgid "Kids"
 msgstr "‌بچه‌ها"
 
-#: lib/Horde/NLS/tld.php:129 lib/Horde/NLS/GeoIP.php:84
-#: lib/Horde/NLS/countries.php:121 lib/Horde/Horde/NLS/tld.php:129
-#: lib/Horde/Horde/NLS/GeoIP.php:84 lib/Horde/Horde/NLS/countries.php:121
-msgid "Kiribati"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:132 lib/Horde/NLS/GeoIP.php:85
-#: lib/Horde/NLS/countries.php:122 lib/Horde/Horde/NLS/tld.php:132
-#: lib/Horde/Horde/NLS/GeoIP.php:85 lib/Horde/Horde/NLS/countries.php:122
-msgid "Korea, Democratic People's Republic of"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:133 lib/Horde/NLS/GeoIP.php:85
-#: lib/Horde/NLS/countries.php:123 lib/Horde/Horde/NLS/tld.php:133
-#: lib/Horde/Horde/NLS/GeoIP.php:85 lib/Horde/Horde/NLS/countries.php:123
-msgid "Korea, Republic of"
-msgstr ""
-
 #: config/nls.php.dist:184 config/themes/nls.php.dist:184
 msgid "Korean (EUC-KR)"
 msgstr "Korean (EUC-KR)"
-
-#: lib/Horde/NLS/tld.php:134 lib/Horde/NLS/GeoIP.php:86
-#: lib/Horde/NLS/countries.php:124 lib/Horde/Horde/NLS/tld.php:134
-#: lib/Horde/Horde/NLS/GeoIP.php:86 lib/Horde/Horde/NLS/countries.php:124
-msgid "Kuwait"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:127 lib/Horde/NLS/GeoIP.php:83
-#: lib/Horde/NLS/countries.php:125 lib/Horde/Horde/NLS/tld.php:127
-#: lib/Horde/Horde/NLS/GeoIP.php:83 lib/Horde/Horde/NLS/countries.php:125
-msgid "Kyrgyzstan"
-msgstr ""
 
 #: templates/portal/menu.inc:8
 msgid "La_yout"
@@ -4079,12 +3292,6 @@ msgstr "جانمایی"
 #: templates/login/login.inc:80
 msgid "Language"
 msgstr "زبان"
-
-#: lib/Horde/NLS/tld.php:137 lib/Horde/NLS/GeoIP.php:87
-#: lib/Horde/NLS/countries.php:126 lib/Horde/Horde/NLS/tld.php:137
-#: lib/Horde/Horde/NLS/GeoIP.php:87 lib/Horde/Horde/NLS/countries.php:126
-msgid "Lao People's Democratic Republic"
-msgstr ""
 
 #: lib/Block/moon.php:174
 msgid "Last Half"
@@ -4107,7 +3314,7 @@ msgstr "آخرین بروزرسانی:"
 msgid "Last login: %s"
 msgstr "آخرین ورود: %s"
 
-# 
+#
 #: lib/Horde/Auth.php:724 lib/Horde/Horde/Auth.php:724
 #, php-format
 msgid "Last login: %s from %s"
@@ -4117,12 +3324,6 @@ msgstr "آخرین ورود : %s از %s"
 msgid "Last login: Never"
 msgstr "آخرین ورود: هرگز"
 
-#: lib/Horde/NLS/tld.php:146 lib/Horde/NLS/GeoIP.php:89
-#: lib/Horde/NLS/countries.php:127 lib/Horde/Horde/NLS/tld.php:146
-#: lib/Horde/Horde/NLS/GeoIP.php:89 lib/Horde/Horde/NLS/countries.php:127
-msgid "Latvia"
-msgstr ""
-
 #: lib/Block/fortune.php:44
 msgid "Law"
 msgstr "حقوق"
@@ -4131,16 +3332,6 @@ msgstr "حقوق"
 #: templates/javascript/htmlarea_table_lang.js:39
 msgid "Layout"
 msgstr "جانمایی"
-
-#: templates/javascript/htmlarea_lang.js:86
-msgid "Leave empty for no border"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:138 lib/Horde/NLS/GeoIP.php:87
-#: lib/Horde/NLS/countries.php:128 lib/Horde/Horde/NLS/tld.php:138
-#: lib/Horde/Horde/NLS/GeoIP.php:87 lib/Horde/Horde/NLS/countries.php:128
-msgid "Lebanon"
-msgstr ""
 
 #: templates/javascript/htmlarea_lang.js:69
 #: templates/javascript/htmlarea_table_lang.js:40
@@ -4154,30 +3345,6 @@ msgstr "سرآمد چپ"
 #: lib/Horde/Form.php:3111 lib/Horde/Horde/Form.php:3111
 msgid "Left values"
 msgstr "مقادیر چپ"
-
-#: lib/Horde/NLS/tld.php:143 lib/Horde/NLS/GeoIP.php:88
-#: lib/Horde/NLS/countries.php:129 lib/Horde/Horde/NLS/tld.php:143
-#: lib/Horde/Horde/NLS/GeoIP.php:88 lib/Horde/Horde/NLS/countries.php:129
-msgid "Lesotho"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:142 lib/Horde/NLS/GeoIP.php:88
-#: lib/Horde/NLS/countries.php:130 lib/Horde/Horde/NLS/tld.php:142
-#: lib/Horde/Horde/NLS/GeoIP.php:88 lib/Horde/Horde/NLS/countries.php:130
-msgid "Liberia"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:147 lib/Horde/NLS/GeoIP.php:89
-#: lib/Horde/NLS/countries.php:131 lib/Horde/Horde/NLS/tld.php:147
-#: lib/Horde/Horde/NLS/GeoIP.php:89 lib/Horde/Horde/NLS/countries.php:131
-msgid "Libyan Arab Jamahiriya"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:140 lib/Horde/NLS/GeoIP.php:88
-#: lib/Horde/NLS/countries.php:132 lib/Horde/Horde/NLS/tld.php:140
-#: lib/Horde/Horde/NLS/GeoIP.php:88 lib/Horde/Horde/NLS/countries.php:132
-msgid "Liechtenstein"
-msgstr ""
 
 #: lib/Block/weatherdotcom.php:437
 msgid "Light Drizzle"
@@ -4210,10 +3377,6 @@ msgstr "برف سبک"
 #: lib/Block/weatherdotcom.php:444
 msgid "Light Snow Shower"
 msgstr "برف و رگبار سبک"
-
-#: lib/Block/fortune.php:45
-msgid "Limerick"
-msgstr ""
 
 #: lib/Horde/Form.php:1811 lib/Horde/Horde/Form.php:1811
 msgid "Link"
@@ -4288,12 +3451,6 @@ msgstr "فهرست کاربران فعال نمی‌باشد"
 msgid "Literature"
 msgstr "ادبیات"
 
-#: lib/Horde/NLS/tld.php:144 lib/Horde/NLS/GeoIP.php:89
-#: lib/Horde/NLS/countries.php:133 lib/Horde/Horde/NLS/tld.php:144
-#: lib/Horde/Horde/NLS/GeoIP.php:89 lib/Horde/Horde/NLS/countries.php:133
-msgid "Lithuania"
-msgstr ""
-
 #: lib/Horde/Horde/MIME/Viewer/images.php:85
 #: lib/Horde/MIME/Viewer/images.php:85
 msgid "Loading..."
@@ -4364,12 +3521,6 @@ msgstr "حروف کوچک لاتین"
 msgid "Lower roman numbers"
 msgstr "اعداد کوچک یونانی"
 
-#: lib/Horde/NLS/tld.php:145 lib/Horde/NLS/GeoIP.php:89
-#: lib/Horde/NLS/countries.php:134 lib/Horde/Horde/NLS/tld.php:145
-#: lib/Horde/Horde/NLS/GeoIP.php:89 lib/Horde/Horde/NLS/countries.php:134
-msgid "Luxembourg"
-msgstr ""
-
 #: lib/Horde/Horde/UI/VarRenderer/html.php:342
 #: lib/Horde/Horde/UI/VarRenderer/html.php:373
 #: lib/Horde/Horde/UI/VarRenderer/html.php:410
@@ -4393,24 +3544,6 @@ msgstr "پیوست MS-TNEF شامل هیچ داده‌ا‌یی نیست"
 msgid "MSG"
 msgstr "MSG"
 
-#: lib/Horde/NLS/tld.php:157 lib/Horde/NLS/GeoIP.php:92
-#: lib/Horde/NLS/countries.php:135 lib/Horde/Horde/NLS/tld.php:157
-#: lib/Horde/Horde/NLS/GeoIP.php:92 lib/Horde/Horde/NLS/countries.php:135
-msgid "Macao"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:153 lib/Horde/NLS/GeoIP.php:91
-#: lib/Horde/NLS/countries.php:136 lib/Horde/Horde/NLS/tld.php:153
-#: lib/Horde/Horde/NLS/GeoIP.php:91 lib/Horde/Horde/NLS/countries.php:136
-msgid "Macedonia, The Former Yugoslav Republic of"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:151 lib/Horde/NLS/GeoIP.php:90
-#: lib/Horde/NLS/countries.php:137 lib/Horde/Horde/NLS/tld.php:151
-#: lib/Horde/Horde/NLS/GeoIP.php:90 lib/Horde/Horde/NLS/countries.php:137
-msgid "Madagascar"
-msgstr ""
-
 #: lib/Block/fortune.php:49
 msgid "Magic"
 msgstr "جادو"
@@ -4426,36 +3559,6 @@ msgstr "سرپرست نامه"
 #: templates/javascript/htmlarea_context_lang.js:40
 msgid "Make lin_k..."
 msgstr "ساختن پیوند..."
-
-#: lib/Horde/NLS/tld.php:165 lib/Horde/NLS/GeoIP.php:94
-#: lib/Horde/NLS/countries.php:138 lib/Horde/Horde/NLS/tld.php:165
-#: lib/Horde/Horde/NLS/GeoIP.php:94 lib/Horde/Horde/NLS/countries.php:138
-msgid "Malawi"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:167 lib/Horde/NLS/GeoIP.php:95
-#: lib/Horde/NLS/countries.php:139 lib/Horde/Horde/NLS/tld.php:167
-#: lib/Horde/Horde/NLS/GeoIP.php:95 lib/Horde/Horde/NLS/countries.php:139
-msgid "Malaysia"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:164 lib/Horde/NLS/GeoIP.php:94
-#: lib/Horde/NLS/countries.php:140 lib/Horde/Horde/NLS/tld.php:164
-#: lib/Horde/Horde/NLS/GeoIP.php:94 lib/Horde/Horde/NLS/countries.php:140
-msgid "Maldives"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:154 lib/Horde/NLS/GeoIP.php:92
-#: lib/Horde/NLS/countries.php:141 lib/Horde/Horde/NLS/tld.php:154
-#: lib/Horde/Horde/NLS/GeoIP.php:92 lib/Horde/Horde/NLS/countries.php:141
-msgid "Mali"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:162 lib/Horde/NLS/GeoIP.php:94
-#: lib/Horde/NLS/countries.php:142 lib/Horde/Horde/NLS/tld.php:162
-#: lib/Horde/Horde/NLS/GeoIP.php:94 lib/Horde/Horde/NLS/countries.php:142
-msgid "Malta"
-msgstr ""
 
 #: config/prefs.php.dist:91 config/themes/prefs.php.dist:91
 msgid ""
@@ -4494,33 +3597,9 @@ msgstr "علامت گذاری با پرچم مشاهده شده/ مشاهده ن
 msgid "Mark with other flags (e.g. Important/Answered)"
 msgstr " علامت گذاری با علائم دیگر (مانند مهم/پاسخ داده شده)"
 
-#: lib/Horde/NLS/tld.php:152 lib/Horde/NLS/GeoIP.php:91
-#: lib/Horde/NLS/countries.php:143 lib/Horde/Horde/NLS/tld.php:152
-#: lib/Horde/Horde/NLS/GeoIP.php:91 lib/Horde/Horde/NLS/countries.php:143
-msgid "Marshall Islands"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:159 lib/Horde/NLS/GeoIP.php:93
-#: lib/Horde/NLS/countries.php:144 lib/Horde/Horde/NLS/tld.php:159
-#: lib/Horde/Horde/NLS/GeoIP.php:93 lib/Horde/Horde/NLS/countries.php:144
-msgid "Martinique"
-msgstr ""
-
 #: templates/data/csvmap.inc:111
 msgid "Matching fields"
 msgstr "فیلد‌های انطباق"
-
-#: lib/Horde/NLS/tld.php:160 lib/Horde/NLS/GeoIP.php:93
-#: lib/Horde/NLS/countries.php:145 lib/Horde/Horde/NLS/tld.php:160
-#: lib/Horde/Horde/NLS/GeoIP.php:93 lib/Horde/Horde/NLS/countries.php:145
-msgid "Mauritania"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:163 lib/Horde/NLS/GeoIP.php:94
-#: lib/Horde/NLS/countries.php:146 lib/Horde/Horde/NLS/tld.php:163
-#: lib/Horde/Horde/NLS/GeoIP.php:94 lib/Horde/Horde/NLS/countries.php:146
-msgid "Mauritius"
-msgstr ""
 
 #: lib/Horde/Net/SMS/clickatell_http.php:324
 msgid "Max allowed credit."
@@ -4550,12 +3629,6 @@ msgstr "بیشینه طول"
 #: templates/javascript/open_calendar.js:69
 msgid "May"
 msgstr "می"
-
-#: lib/Horde/NLS/tld.php:253 lib/Horde/NLS/GeoIP.php:117
-#: lib/Horde/NLS/countries.php:147 lib/Horde/Horde/NLS/tld.php:253
-#: lib/Horde/Horde/NLS/GeoIP.php:117 lib/Horde/Horde/NLS/countries.php:147
-msgid "Mayotte"
-msgstr ""
 
 #: lib/Block/fortune.php:50
 msgid "Medicine"
@@ -4650,26 +3723,9 @@ msgstr "روش"
 msgid "Method '%s' is not defined"
 msgstr "روش '%s' تعریف نشده است"
 
-#: lib/Horde/RPC/rest.php:61 lib/Horde/Horde/RPC/rest.php:61
-#, php-format
-msgid "Method not defined. Called method: %s"
-msgstr ""
-
 #: lib/Block/weatherdotcom.php:74 lib/Block/metar.php:73
 msgid "Metric"
 msgstr "اندازه‌ای"
-
-#: lib/Horde/NLS/tld.php:166 lib/Horde/NLS/GeoIP.php:95
-#: lib/Horde/NLS/countries.php:148 lib/Horde/Horde/NLS/tld.php:166
-#: lib/Horde/Horde/NLS/GeoIP.php:95 lib/Horde/Horde/NLS/countries.php:148
-msgid "Mexico"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:85 lib/Horde/NLS/GeoIP.php:72
-#: lib/Horde/NLS/countries.php:149 lib/Horde/Horde/NLS/tld.php:85
-#: lib/Horde/Horde/NLS/GeoIP.php:72 lib/Horde/Horde/NLS/countries.php:149
-msgid "Micronesia, Federated States of"
-msgstr ""
 
 #: templates/javascript/htmlarea_lang.js:76
 #: templates/javascript/htmlarea_table_lang.js:42
@@ -4697,11 +3753,6 @@ msgstr "آینه"
 msgid "Miscellaneous"
 msgstr "متفرقه"
 
-#: lib/Horde/Net/SMS/sms2email_http.php:701 lib/Horde/Net/SMS/win_http.php:257
-#: lib/Horde/Net/SMS/clickatell_http.php:349
-msgid "Missing PEAR package HTTP_Request."
-msgstr ""
-
 #: admin/setup/index.php:106
 msgid ""
 "Missing configuration. You have to generate it now if you want to use this "
@@ -4713,10 +3764,6 @@ msgstr ""
 #: lib/Horde/Net/SMS/clickatell_http.php:313
 msgid "Missing message ID."
 msgstr "از بین رفتن ID پیغام"
-
-#: lib/Horde/Net/SMS/vodafoneitaly_smtp.php:57
-msgid "Missing required PEAR package Mail."
-msgstr ""
 
 #: lib/Horde/Net/SMS/clickatell_http.php:303
 msgid "Missing session ID."
@@ -4745,28 +3792,6 @@ msgstr "تاریخ تغییر یافته"
 msgid "Modify URL"
 msgstr "تغییر URL"
 
-#: lib/Horde/Crypt/smime.php:697 lib/Horde/Horde/Crypt/smime.php:697
-msgid "Modulus"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:150 lib/Horde/NLS/GeoIP.php:90
-#: lib/Horde/NLS/countries.php:150 lib/Horde/Horde/NLS/tld.php:150
-#: lib/Horde/Horde/NLS/GeoIP.php:90 lib/Horde/Horde/NLS/countries.php:150
-msgid "Moldova, Republic of"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:149 lib/Horde/NLS/GeoIP.php:90
-#: lib/Horde/NLS/countries.php:151 lib/Horde/Horde/NLS/tld.php:149
-#: lib/Horde/Horde/NLS/GeoIP.php:90 lib/Horde/Horde/NLS/countries.php:151
-msgid "Monaco"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:156 lib/Horde/NLS/GeoIP.php:92
-#: lib/Horde/NLS/countries.php:152 lib/Horde/Horde/NLS/tld.php:156
-#: lib/Horde/Horde/NLS/GeoIP.php:92 lib/Horde/Horde/NLS/countries.php:152
-msgid "Mongolia"
-msgstr ""
-
 #: lib/Horde/Form.php:2598 lib/Horde/Horde/Form.php:2598
 msgid "Month and year"
 msgstr "ماه و سال"
@@ -4775,26 +3800,9 @@ msgstr "ماه و سال"
 msgid "Monthly"
 msgstr "ماهانه"
 
-#: lib/Horde/NLS/tld.php:161 lib/Horde/NLS/GeoIP.php:94
-#: lib/Horde/NLS/countries.php:153 lib/Horde/Horde/NLS/tld.php:161
-#: lib/Horde/Horde/NLS/GeoIP.php:94 lib/Horde/Horde/NLS/countries.php:153
-msgid "Montserrat"
-msgstr ""
-
 #: lib/Block/moon.php:3 lib/Block/moon.php:16
 msgid "Moon Phases"
 msgstr "فازهای ماه"
-
-#: lib/Horde/File/CSV.php:172 lib/Horde/File/CSV.php:253
-#, php-format
-msgid "More fields found in line %d than the expected %d."
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:148 lib/Horde/NLS/GeoIP.php:90
-#: lib/Horde/NLS/countries.php:154 lib/Horde/Horde/NLS/tld.php:148
-#: lib/Horde/Horde/NLS/GeoIP.php:90 lib/Horde/Horde/NLS/countries.php:154
-msgid "Morocco"
-msgstr ""
 
 #: lib/Block/weatherdotcom.php:445
 msgid "Mostly Clear"
@@ -4835,20 +3843,9 @@ msgstr "انتقال به پایین"
 msgid "Move up"
 msgstr "انتقال به بالا"
 
-#: lib/Horde/NLS/tld.php:168 lib/Horde/NLS/GeoIP.php:95
-#: lib/Horde/NLS/countries.php:155 lib/Horde/Horde/NLS/tld.php:168
-#: lib/Horde/Horde/NLS/GeoIP.php:95 lib/Horde/Horde/NLS/countries.php:155
-msgid "Mozambique"
-msgstr ""
-
 #: lib/Horde/Form.php:2177 lib/Horde/Horde/Form.php:2177
 msgid "Multi-level drop down lists"
 msgstr "فهرست پایین‌پر چند سطحی"
-
-#: lib/Horde/Horde/UI/VarRenderer/html.php:1010
-#: lib/Horde/UI/VarRenderer/html.php:1010
-msgid "Multimap UK map"
-msgstr ""
 
 #: lib/Horde/Form.php:2235 lib/Horde/Horde/Form.php:2235
 msgid "Multiple selection"
@@ -4871,12 +3868,6 @@ msgstr "درگاه من"
 msgid "My Portal Layout"
 msgstr "جانمایی درگاه من"
 
-#: lib/Horde/NLS/tld.php:155 lib/Horde/NLS/GeoIP.php:92
-#: lib/Horde/NLS/countries.php:156 lib/Horde/Horde/NLS/tld.php:155
-#: lib/Horde/Horde/NLS/GeoIP.php:92 lib/Horde/Horde/NLS/countries.php:156
-msgid "Myanmar"
-msgstr ""
-
 #: templates/maintenance/maintenance.html:58
 msgid "NO, I Do NOT Agree"
 msgstr "نه، من موافق نیستم"
@@ -4890,40 +3881,10 @@ msgstr "نه، من موافق نیستم"
 msgid "Name"
 msgstr "نام"
 
-#: lib/Horde/NLS/tld.php:169 lib/Horde/NLS/GeoIP.php:95
-#: lib/Horde/NLS/countries.php:157 lib/Horde/Horde/NLS/tld.php:169
-#: lib/Horde/Horde/NLS/GeoIP.php:95 lib/Horde/Horde/NLS/countries.php:157
-msgid "Namibia"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:178 lib/Horde/NLS/GeoIP.php:97
-#: lib/Horde/NLS/countries.php:158 lib/Horde/Horde/NLS/tld.php:178
-#: lib/Horde/Horde/NLS/GeoIP.php:97 lib/Horde/Horde/NLS/countries.php:158
-msgid "Nauru"
-msgstr ""
-
 #: lib/Horde/Horde/MIME/Viewer/icalendar.php:706
 #: lib/Horde/MIME/Viewer/icalendar.php:706
 msgid "Needs Action"
 msgstr "نیاز به عمل"
-
-#: lib/Horde/NLS/tld.php:177 lib/Horde/NLS/GeoIP.php:97
-#: lib/Horde/NLS/countries.php:159 lib/Horde/Horde/NLS/tld.php:177
-#: lib/Horde/Horde/NLS/GeoIP.php:97 lib/Horde/Horde/NLS/countries.php:159
-msgid "Nepal"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:175 lib/Horde/NLS/GeoIP.php:97
-#: lib/Horde/NLS/countries.php:160 lib/Horde/Horde/NLS/tld.php:175
-#: lib/Horde/Horde/NLS/GeoIP.php:97 lib/Horde/Horde/NLS/countries.php:160
-msgid "Netherlands"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:23 lib/Horde/NLS/GeoIP.php:57
-#: lib/Horde/NLS/countries.php:161 lib/Horde/Horde/NLS/tld.php:23
-#: lib/Horde/Horde/NLS/GeoIP.php:57 lib/Horde/Horde/NLS/countries.php:161
-msgid "Netherlands Antilles"
-msgstr ""
 
 #: lib/Horde/Crypt/smime.php:605 lib/Horde/Horde/Crypt/smime.php:605
 msgid "Netscape Base URL"
@@ -4945,10 +3906,6 @@ msgstr "Netscape Renewal URL"
 msgid "Netscape Revocation URL"
 msgstr "Netscape Revocation URL"
 
-#: lib/Horde/Crypt/smime.php:610 lib/Horde/Horde/Crypt/smime.php:610
-msgid "Netscape SSL server name"
-msgstr ""
-
 #: lib/Horde/Crypt/smime.php:611 lib/Horde/Horde/Crypt/smime.php:611
 msgid "Netscape certificate comment"
 msgstr "توضیح گواهی Netscape"
@@ -4967,12 +3924,6 @@ msgstr "شبکه"
 msgid "Never"
 msgstr "هرگز"
 
-#: lib/Horde/NLS/tld.php:170 lib/Horde/NLS/GeoIP.php:95
-#: lib/Horde/NLS/countries.php:162 lib/Horde/Horde/NLS/tld.php:170
-#: lib/Horde/Horde/NLS/GeoIP.php:95 lib/Horde/Horde/NLS/countries.php:162
-msgid "New Caledonia"
-msgstr ""
-
 #: lib/Horde/Horde/Prefs/CategoryManager.php:50
 #: lib/Horde/Prefs/CategoryManager.php:50
 #: templates/prefs/categorymanagement.inc:27
@@ -4986,12 +3937,6 @@ msgstr "ماه نو"
 #: templates/admin/user/update.inc:37
 msgid "New Username (optional)"
 msgstr "نام کاربری جدید (اختیاری)"
-
-#: lib/Horde/NLS/tld.php:180 lib/Horde/NLS/GeoIP.php:98
-#: lib/Horde/NLS/countries.php:163 lib/Horde/Horde/NLS/tld.php:180
-#: lib/Horde/Horde/NLS/GeoIP.php:98 lib/Horde/Horde/NLS/countries.php:163
-msgid "New Zealand"
-msgstr ""
 
 #: services/changepassword.php:37
 msgid "New password"
@@ -5038,33 +3983,9 @@ msgstr "فاز بعدی"
 msgid "Next options"
 msgstr "گزینه‌های بعدی"
 
-#: lib/Horde/NLS/tld.php:174 lib/Horde/NLS/GeoIP.php:96
-#: lib/Horde/NLS/countries.php:164 lib/Horde/Horde/NLS/tld.php:174
-#: lib/Horde/Horde/NLS/GeoIP.php:96 lib/Horde/Horde/NLS/countries.php:164
-msgid "Nicaragua"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:171 lib/Horde/NLS/GeoIP.php:96
-#: lib/Horde/NLS/countries.php:165 lib/Horde/Horde/NLS/tld.php:171
-#: lib/Horde/Horde/NLS/GeoIP.php:96 lib/Horde/Horde/NLS/countries.php:165
-msgid "Niger"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:173 lib/Horde/NLS/GeoIP.php:96
-#: lib/Horde/NLS/countries.php:166 lib/Horde/Horde/NLS/tld.php:173
-#: lib/Horde/Horde/NLS/GeoIP.php:96 lib/Horde/Horde/NLS/countries.php:166
-msgid "Nigeria"
-msgstr ""
-
 #: lib/Block/weatherdotcom.php:358
 msgid "Night"
 msgstr "شب"
-
-#: lib/Horde/NLS/tld.php:179 lib/Horde/NLS/GeoIP.php:97
-#: lib/Horde/NLS/countries.php:167 lib/Horde/Horde/NLS/tld.php:179
-#: lib/Horde/Horde/NLS/GeoIP.php:97 lib/Horde/Horde/NLS/countries.php:167
-msgid "Niue"
-msgstr ""
 
 #: lib/Horde/Horde/UI/VarRenderer/html.php:920
 #: lib/Horde/UI/VarRenderer/html.php:920
@@ -5101,7 +4022,7 @@ msgstr "بدون تغییر"
 msgid "No children can be added to this permission."
 msgstr "هیچ مجوز فرعی‌ای نمی‌تواند به این مجوز اضافه شود"
 
-# 
+#
 #: lib/Horde.php:173 lib/Horde.php:489 lib/Horde/Util.php:795
 #: lib/Horde/Horde.php:173 lib/Horde/Horde.php:489
 #: lib/Horde/Horde/Util.php:795
@@ -5184,12 +4105,6 @@ msgstr "برای تصدیق هویّت PASSWD اسم رمزی فراهم نشد�
 msgid "No password provided for SMB authentication."
 msgstr "برای تصدیق هویّت SMB اسم رمزی فراهم نشده است"
 
-#: lib/Horde/Crypt/smime.php:1318 lib/Horde/Horde/Crypt/smime.php:1318
-msgid ""
-"No path to the OpenSSL binary provided. The OpenSSL binary is necessary to "
-"work with PKCS 12 data."
-msgstr ""
-
 #: templates/admin/user/approve.inc:19
 msgid "No pending signups."
 msgstr "تقاضای ثبت نامی در انتظار تأیید نیست"
@@ -5256,27 +4171,9 @@ msgstr "هیچ‌کدام (ضمنی استفاده کنید)"
 msgid "Nordic (ISO-8859-10)"
 msgstr "Nordic (ISO-8859-10)"
 
-#: lib/Horde/NLS/tld.php:172 lib/Horde/NLS/GeoIP.php:96
-#: lib/Horde/NLS/countries.php:168 lib/Horde/Horde/NLS/tld.php:172
-#: lib/Horde/Horde/NLS/GeoIP.php:96 lib/Horde/Horde/NLS/countries.php:168
-msgid "Norfolk Island"
-msgstr ""
-
 #: lib/Block/moon.php:32 lib/Block/moon.php:60
 msgid "Northern Hemisphere"
 msgstr "نیم کره شمالی"
-
-#: lib/Horde/NLS/tld.php:158 lib/Horde/NLS/GeoIP.php:93
-#: lib/Horde/NLS/countries.php:169 lib/Horde/Horde/NLS/tld.php:158
-#: lib/Horde/Horde/NLS/GeoIP.php:93 lib/Horde/Horde/NLS/countries.php:169
-msgid "Northern Mariana Islands"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:176 lib/Horde/NLS/GeoIP.php:97
-#: lib/Horde/NLS/countries.php:170 lib/Horde/Horde/NLS/tld.php:176
-#: lib/Horde/Horde/NLS/GeoIP.php:97 lib/Horde/Horde/NLS/countries.php:170
-msgid "Norway"
-msgstr ""
 
 #: lib/Horde/Crypt/smime.php:664 lib/Horde/Horde/Crypt/smime.php:664
 msgid "Not After"
@@ -5380,7 +4277,7 @@ msgid "Object Creator"
 msgstr "ایجاد کننده شیء"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/Form.php:1104 lib/Horde/Horde/Form.php:1104
 msgid "Octal"
 msgstr "هشتایی"
@@ -5412,12 +4309,6 @@ msgstr "اسم رمز قدیمی"
 msgid "Old password is not correct."
 msgstr "اسم رمز  قدیمی نادرست است"
 
-#: lib/Horde/NLS/tld.php:181 lib/Horde/NLS/GeoIP.php:98
-#: lib/Horde/NLS/countries.php:171 lib/Horde/Horde/NLS/tld.php:181
-#: lib/Horde/Horde/NLS/GeoIP.php:98 lib/Horde/Horde/NLS/countries.php:171
-msgid "Oman"
-msgstr ""
-
 #: lib/Horde/Horde/IMAP/ACL/rfc2086.php:73 lib/Horde/IMAP/ACL/rfc2086.php:73
 msgid "Only IMAP servers support shared folders."
 msgstr "تنها کارسازهای IMAPپوشه‌های مشترک را پشتیبانی می‌کنند "
@@ -5443,10 +4334,6 @@ msgstr ""
 msgid "Open in a new window"
 msgstr "در یک پنجره جدید باز شود"
 
-#: lib/Horde/Crypt/smime.php:257 lib/Horde/Horde/Crypt/smime.php:257
-msgid "OpenSSL error: Could not extract data from signed S/MIME part."
-msgstr ""
-
 #: templates/javascript/htmlarea_context_lang.js:54
 msgid "Opens this link in a new window"
 msgstr "این پیوند در یک پنجره جدید باز شود"
@@ -5465,7 +4352,7 @@ msgid "Options"
 msgstr "گزینه&#x200c;ها"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: services/prefs.php:31 templates/prefs/app.inc:15
 #, php-format
 msgid "Options for %s"
@@ -5492,7 +4379,7 @@ msgid "Original application template"
 msgstr "الگوی اصلی برنامهٔ کاربردی"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/templates.php:117
 #, php-format
 msgid "Original templates in %s:"
@@ -5518,10 +4405,6 @@ msgstr "مجوز‌های مالک"
 #: lib/Horde/Auth/pam.php:81 lib/Horde/Horde/Auth/pam.php:81
 msgid "PAM authentication is not available."
 msgstr "تصدیق هویّت PAM قابل دسترسی نیست"
-
-#: lib/Horde/Net/SMS/generic_smtp.php:103
-msgid "PEAR::Mail backend"
-msgstr ""
 
 #: lib/Horde/Crypt/pgp.php:1278 lib/Horde/Horde/Crypt/pgp.php:1278
 msgid "PGP Digital Signature"
@@ -5578,42 +4461,6 @@ msgstr "پوسته PHP"
 #: templates/javascript/htmlarea_table_lang.js:46
 msgid "Padding"
 msgstr "فاصله‌گذاری"
-
-#: lib/Horde/NLS/tld.php:187 lib/Horde/NLS/GeoIP.php:99
-#: lib/Horde/NLS/countries.php:172 lib/Horde/Horde/NLS/tld.php:187
-#: lib/Horde/Horde/NLS/GeoIP.php:99 lib/Horde/Horde/NLS/countries.php:172
-msgid "Pakistan"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:194 lib/Horde/NLS/GeoIP.php:101
-#: lib/Horde/NLS/countries.php:173 lib/Horde/Horde/NLS/tld.php:194
-#: lib/Horde/Horde/NLS/GeoIP.php:101 lib/Horde/Horde/NLS/countries.php:173
-msgid "Palau"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:192 lib/Horde/NLS/GeoIP.php:101
-#: lib/Horde/NLS/countries.php:174 lib/Horde/Horde/NLS/tld.php:192
-#: lib/Horde/Horde/NLS/GeoIP.php:101 lib/Horde/Horde/NLS/countries.php:174
-msgid "Palestinian Territory, Occupied"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:182 lib/Horde/NLS/GeoIP.php:98
-#: lib/Horde/NLS/countries.php:175 lib/Horde/Horde/NLS/tld.php:182
-#: lib/Horde/Horde/NLS/GeoIP.php:98 lib/Horde/Horde/NLS/countries.php:175
-msgid "Panama"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:185 lib/Horde/NLS/GeoIP.php:99
-#: lib/Horde/NLS/countries.php:176 lib/Horde/Horde/NLS/tld.php:185
-#: lib/Horde/Horde/NLS/GeoIP.php:99 lib/Horde/Horde/NLS/countries.php:176
-msgid "Papua New Guinea"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:195 lib/Horde/NLS/GeoIP.php:102
-#: lib/Horde/NLS/countries.php:177 lib/Horde/Horde/NLS/tld.php:195
-#: lib/Horde/Horde/NLS/GeoIP.php:102 lib/Horde/Horde/NLS/countries.php:177
-msgid "Paraguay"
-msgstr ""
 
 #: lib/Block/weatherdotcom.php:448
 msgid "Partly Cloudy"
@@ -5693,7 +4540,7 @@ msgid "Permission"
 msgstr "مجوز"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/perms/delete.php:52
 msgid "Permission \"%s\" not deleted."
 msgstr "مجوز  \"%s\" حذف نشد"
@@ -5712,21 +4559,9 @@ msgstr "سرپرستی مجوزها"
 msgid "Personal Information"
 msgstr "اطلاعات شخصی"
 
-#: lib/Horde/NLS/tld.php:183 lib/Horde/NLS/GeoIP.php:98
-#: lib/Horde/NLS/countries.php:178 lib/Horde/Horde/NLS/tld.php:183
-#: lib/Horde/Horde/NLS/GeoIP.php:98 lib/Horde/Horde/NLS/countries.php:178
-msgid "Peru"
-msgstr ""
-
 #: lib/Block/fortune.php:55
 msgid "Pets"
 msgstr "حیوانات خانگی"
-
-#: lib/Horde/NLS/tld.php:186 lib/Horde/NLS/GeoIP.php:99
-#: lib/Horde/NLS/countries.php:179 lib/Horde/Horde/NLS/tld.php:186
-#: lib/Horde/Horde/NLS/GeoIP.php:99 lib/Horde/Horde/NLS/countries.php:179
-msgid "Philippines"
-msgstr ""
 
 #: lib/Horde/Horde/MIME/Viewer/vcard.php:198
 #: lib/Horde/MIME/Viewer/vcard.php:198
@@ -5737,19 +4572,9 @@ msgstr "تلفن"
 msgid "Photos"
 msgstr "عکسها"
 
-#: lib/Horde/NLS/tld.php:190 lib/Horde/NLS/GeoIP.php:100
-#: lib/Horde/NLS/countries.php:180 lib/Horde/Horde/NLS/tld.php:190
-#: lib/Horde/Horde/NLS/GeoIP.php:100 lib/Horde/Horde/NLS/countries.php:180
-msgid "Pitcairn"
-msgstr ""
-
 #: templates/javascript/htmlarea_lang.js:108
 msgid "Pixels"
 msgstr "پیکسلها"
-
-#: lib/Block/fortune.php:56
-msgid "Platitudes"
-msgstr ""
 
 #: templates/javascript/htmlarea_table_lang.js:47
 msgid "Please click into some cell"
@@ -5792,7 +4617,7 @@ msgid "Please provide your username and password"
 msgstr "لطفاً نام کاربر و اسم رمز  خود را آماده کنید"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: services/maintenance.php:58
 msgid ""
 "Please read the following text. You MUST agree with the terms to use the "
@@ -5817,12 +4642,6 @@ msgstr "لطفاً یک فعالیت از گزینگان زیر را برگزی�
 msgid "Please type the new category name:"
 msgstr "لطفاً نام دسته جدید را وارد کنید:"
 
-#: lib/Horde/NLS/tld.php:188 lib/Horde/NLS/GeoIP.php:99
-#: lib/Horde/NLS/countries.php:181 lib/Horde/Horde/NLS/tld.php:188
-#: lib/Horde/Horde/NLS/GeoIP.php:99 lib/Horde/Horde/NLS/countries.php:181
-msgid "Poland"
-msgstr ""
-
 #: lib/Block/fortune.php:57
 msgid "Politics"
 msgstr "سیاستها"
@@ -5830,12 +4649,6 @@ msgstr "سیاستها"
 #: config/registry.php.dist:491 config/themes/registry.php.dist:491
 msgid "Polls"
 msgstr "آراء"
-
-#: lib/Horde/NLS/tld.php:193 lib/Horde/NLS/GeoIP.php:101
-#: lib/Horde/NLS/countries.php:182 lib/Horde/Horde/NLS/tld.php:193
-#: lib/Horde/Horde/NLS/GeoIP.php:101 lib/Horde/Horde/NLS/countries.php:182
-msgid "Portugal"
-msgstr ""
 
 #: templates/javascript/htmlarea_anselimage_lang.js:27
 #: templates/javascript/htmlarea_lang.js:124
@@ -5942,18 +4755,6 @@ msgstr "الگوریتم کلید عمومی"
 msgid "Public/Private keypair not generated successfully."
 msgstr "جفت کلید عمومی/خصوصی با موفّقیّت تولید نشد"
 
-#: lib/Horde/NLS/tld.php:191 lib/Horde/NLS/GeoIP.php:100
-#: lib/Horde/NLS/countries.php:183 lib/Horde/Horde/NLS/tld.php:191
-#: lib/Horde/Horde/NLS/GeoIP.php:100 lib/Horde/Horde/NLS/countries.php:183
-msgid "Puerto Rico"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:196 lib/Horde/NLS/GeoIP.php:102
-#: lib/Horde/NLS/countries.php:184 lib/Horde/Horde/NLS/tld.php:196
-#: lib/Horde/Horde/NLS/GeoIP.php:102 lib/Horde/Horde/NLS/countries.php:184
-msgid "Qatar"
-msgstr ""
-
 #: admin/sqlshell.php:63
 msgid "Query"
 msgstr "پرس‌وجو"
@@ -6017,14 +4818,14 @@ msgid "Read messages"
 msgstr "خواندن پیغامها "
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: templates/admin/user/remove.inc:11
 #, php-format
 msgid "Really delete %s? This operation cannot be undone."
 msgstr "واقعاْ %s حذف شود؟ این عمل قابل واگرد نیست"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: templates/admin/user/clear.inc:11
 #, php-format
 msgid "Really remove user data for user %s? This operation cannot be undone."
@@ -6041,12 +4842,6 @@ msgstr "بازآوری عناصر گزینگان دینامیکی:"
 #: config/prefs.php.dist:331 config/themes/prefs.php.dist:331
 msgid "Refresh Portal View:"
 msgstr "بازآوری نمای درگاه:"
-
-#: lib/Horde/Form.php:894 lib/Horde/Form.php:1213 lib/Horde/Form.php:1235
-#: lib/Horde/Horde/Form.php:894 lib/Horde/Horde/Form.php:1213
-#: lib/Horde/Horde/Form.php:1235
-msgid "Regex"
-msgstr ""
 
 #: lib/Horde/Form.php:3245 lib/Horde/Horde/Form.php:3245
 msgid "Relationship Browser"
@@ -6115,7 +4910,7 @@ msgid "Remove user"
 msgstr "حذف کاربر"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: templates/admin/user/remove.inc:7
 #, php-format
 msgid "Remove user: %s"
@@ -6160,7 +4955,7 @@ msgid "Request couldn't be answered. Returned errorcode: "
 msgstr "تقاضا قابل پاسخگویی نیست. کد خطای برگردانده شده:"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde.php:180 lib/Horde.php:499 lib/Horde/Horde.php:180
 #: lib/Horde/Horde.php:499
 #, php-format
@@ -6168,7 +4963,7 @@ msgid "Required '%s' not specified in %s configuration."
 msgstr "'%s' مورد نیاز در پیکربندی %s مشخص نشده است"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/VFS/ftp.php:775 lib/Horde/VFS/sql.php:595
 #: lib/Horde/VFS/sql_file.php:724
 #, php-format
@@ -6176,7 +4971,7 @@ msgid "Required '%s' not specified in VFS configuration."
 msgstr "'%s' مورد نیاز در پیکربندی VFS مشخص نشده است"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/Util.php:803 lib/Horde/Horde/Util.php:803
 #, php-format
 msgid "Required '%s' not specified in configuration."
@@ -6224,7 +5019,7 @@ msgid "Reunion"
 msgstr "گردهمایی"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/setup/config.php:44 admin/setup/config.php:48
 msgid "Revert Configuration"
 msgstr "بازگرداندن پیکربندی"
@@ -6259,12 +5054,6 @@ msgstr "خصوصیات سطر..."
 #: lib/Horde/MIME/Viewer/icalendar.php:583 lib/Horde/MIME/Viewer/vcard.php:236
 msgid "Role"
 msgstr "نقش"
-
-#: lib/Horde/NLS/tld.php:198 lib/Horde/NLS/GeoIP.php:102
-#: lib/Horde/NLS/countries.php:186 lib/Horde/Horde/NLS/tld.php:198
-#: lib/Horde/Horde/NLS/GeoIP.php:102 lib/Horde/Horde/NLS/countries.php:186
-msgid "Romania"
-msgstr ""
 
 #: lib/Horde/Horde/UI/VarRenderer/html.php:208
 #: lib/Horde/UI/VarRenderer/html.php:208
@@ -6313,22 +5102,6 @@ msgstr "قواعد فقط بین تمام سطرها نمایان خواهد ش�
 msgid "Run"
 msgstr "اجرا"
 
-#: lib/Horde/NLS/tld.php:199 lib/Horde/NLS/GeoIP.php:103
-#: lib/Horde/NLS/countries.php:187 lib/Horde/Horde/NLS/tld.php:199
-#: lib/Horde/Horde/NLS/GeoIP.php:103 lib/Horde/Horde/NLS/countries.php:187
-msgid "Russian Federation"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:200 lib/Horde/NLS/GeoIP.php:103
-#: lib/Horde/NLS/countries.php:188 lib/Horde/Horde/NLS/tld.php:200
-#: lib/Horde/Horde/NLS/GeoIP.php:103 lib/Horde/Horde/NLS/countries.php:188
-msgid "Rwanda"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:300 lib/Horde/Horde/Crypt/smime.php:300
-msgid "S/MIME Cryptographic Signature"
-msgstr ""
-
 #: lib/Horde/Crypt/smime.php:341 lib/Horde/Horde/Crypt/smime.php:341
 msgid "S/MIME Encrypted Message"
 msgstr "پیغام رمزبندی  شدهٔ S/MIME "
@@ -6367,81 +5140,23 @@ msgstr "پوسته SQL"
 msgid "Sa"
 msgstr "شنبه"
 
-#: lib/Horde/NLS/tld.php:207 lib/Horde/NLS/GeoIP.php:104
-#: lib/Horde/NLS/countries.php:189 lib/Horde/Horde/NLS/tld.php:207
-#: lib/Horde/Horde/NLS/GeoIP.php:104 lib/Horde/Horde/NLS/countries.php:189
-msgid "Saint Helena"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:131 lib/Horde/NLS/GeoIP.php:84
-#: lib/Horde/NLS/countries.php:190 lib/Horde/Horde/NLS/tld.php:131
-#: lib/Horde/Horde/NLS/GeoIP.php:84 lib/Horde/Horde/NLS/countries.php:190
-msgid "Saint Kitts and Nevis"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:139 lib/Horde/NLS/GeoIP.php:87
-#: lib/Horde/NLS/countries.php:191 lib/Horde/Horde/NLS/tld.php:139
-#: lib/Horde/Horde/NLS/GeoIP.php:87 lib/Horde/Horde/NLS/countries.php:191
-msgid "Saint Lucia"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:189 lib/Horde/NLS/GeoIP.php:100
-#: lib/Horde/NLS/countries.php:192 lib/Horde/Horde/NLS/tld.php:189
-#: lib/Horde/Horde/NLS/GeoIP.php:100 lib/Horde/Horde/NLS/countries.php:192
-msgid "Saint Pierre and Miquelon"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:244 lib/Horde/NLS/GeoIP.php:115
-#: lib/Horde/NLS/countries.php:193 lib/Horde/Horde/NLS/tld.php:244
-#: lib/Horde/Horde/NLS/GeoIP.php:115 lib/Horde/Horde/NLS/countries.php:193
-msgid "Saint Vincent and the Grenadines"
-msgstr ""
-
 #: templates/javascript/htmlarea_lang.js:92
 msgid "Same frame (_self)"
 msgstr "همان چارچوب (خودش)"
-
-#: lib/Horde/NLS/tld.php:251 lib/Horde/NLS/GeoIP.php:117
-#: lib/Horde/NLS/countries.php:194 lib/Horde/Horde/NLS/tld.php:251
-#: lib/Horde/Horde/NLS/GeoIP.php:117 lib/Horde/Horde/NLS/countries.php:194
-msgid "Samoa"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:212 lib/Horde/NLS/GeoIP.php:106
-#: lib/Horde/NLS/countries.php:195 lib/Horde/Horde/NLS/tld.php:212
-#: lib/Horde/Horde/NLS/GeoIP.php:106 lib/Horde/Horde/NLS/countries.php:195
-msgid "San Marino"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:216 lib/Horde/NLS/GeoIP.php:107
-#: lib/Horde/NLS/countries.php:196 lib/Horde/Horde/NLS/tld.php:216
-#: lib/Horde/Horde/NLS/GeoIP.php:107 lib/Horde/Horde/NLS/countries.php:196
-msgid "Sao Tome and Principe"
-msgstr ""
-
-#: lib/Horde/NLS/GeoIP.php:119 lib/Horde/Horde/NLS/GeoIP.php:119
-msgid "Satellite Provider"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:201 lib/Horde/NLS/GeoIP.php:103
-#: lib/Horde/NLS/countries.php:197 lib/Horde/Horde/NLS/tld.php:201
-#: lib/Horde/Horde/NLS/GeoIP.php:103 lib/Horde/Horde/NLS/countries.php:197
-msgid "Saudi Arabia"
-msgstr ""
 
 #: templates/portal/layout.inc:98
 msgid "Save"
 msgstr "حفظ کردن"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: templates/shares/edit.inc:216
 #, php-format
 msgid "Save %s"
 msgstr "حفظ کردن %s"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: templates/admin/groups/edit.inc:53
 #, php-format
 msgid "Save '%s'"
@@ -6458,14 +5173,14 @@ msgid ""
 msgstr "پیکربندی تولید شده بعنوان دست ‌نویس PHP در شاخهٔ موقت کارساز شما حفظ شود"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/setup/scripts.php:71
 #, php-format
 msgid "Saved %s configuration."
 msgstr "پیکربندی %s حفظ شد"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/setup/scripts.php:93
 #, php-format
 msgid "Saved setup upgrade script to: '%s'."
@@ -6594,12 +5309,6 @@ msgstr "ارسال گزارش"
 msgid "Send SMS"
 msgstr "ارسال SMS"
 
-#: lib/Horde/NLS/tld.php:213 lib/Horde/NLS/GeoIP.php:106
-#: lib/Horde/NLS/countries.php:198 lib/Horde/Horde/NLS/tld.php:213
-#: lib/Horde/Horde/NLS/GeoIP.php:106 lib/Horde/Horde/NLS/countries.php:198
-msgid "Senegal"
-msgstr ""
-
 #: lib/Block/metar.php:314
 msgid "Sensor: "
 msgstr "حسگر: "
@@ -6610,10 +5319,6 @@ msgstr "حسگر: "
 #: templates/javascript/open_calendar.js:73
 msgid "September"
 msgstr "سپتامبر"
-
-#: lib/Horde/NLS/countries.php:199 lib/Horde/Horde/NLS/countries.php:199
-msgid "Serbia and Montenegro"
-msgstr ""
 
 #: lib/Horde/Crypt/smime.php:725 lib/Horde/Horde/Crypt/smime.php:725
 msgid "Serial Number"
@@ -6654,7 +5359,7 @@ msgid "Setup"
 msgstr "راه&#x200c;اندازی"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: templates/admin/setup/index.html:38
 msgid "Setup upgrade scripts available"
 msgstr "دست ‌نویس  بروزرسانی راه‌اندازی در دسترس است"
@@ -6662,12 +5367,6 @@ msgstr "دست ‌نویس  بروزرسانی راه‌اندازی در دست
 #: lib/Block/weatherdotcom.php:161
 msgid "Several locations possible with the parameter: "
 msgstr "چندین موقعیّت با پارامتر ممکن است:"
-
-#: lib/Horde/NLS/tld.php:203 lib/Horde/NLS/GeoIP.php:104
-#: lib/Horde/NLS/countries.php:200 lib/Horde/Horde/NLS/tld.php:203
-#: lib/Horde/Horde/NLS/GeoIP.php:104 lib/Horde/Horde/NLS/countries.php:200
-msgid "Seychelles"
-msgstr ""
 
 #: config/registry.php.dist:508 config/themes/registry.php.dist:508
 msgid "Shopping"
@@ -6711,7 +5410,7 @@ msgid "Show table operations menu bar?"
 msgstr "آیا میله گزینگان عملیات جدول‌ نمایش داده شود؟"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: config/prefs.php.dist:339 config/themes/prefs.php.dist:339
 #, php-format
 msgid "Show the %s Menu on the left?"
@@ -6749,10 +5448,6 @@ msgstr "رگبار زودهنگام"
 msgid "Showers Late"
 msgstr "رگبار دیرهنگام"
 
-#: lib/Block/weatherdotcom.php:463
-msgid "Showers in the Vicinity"
-msgstr ""
-
 #: lib/Horde/Block/Layout.php:395 lib/Horde/Horde/Block/Layout.php:401
 msgid "Shrink"
 msgstr "جمع شدن"
@@ -6767,12 +5462,6 @@ msgstr "جمع شدن"
 #: lib/Horde/Horde/Block/Layout.php:976 lib/Horde/Horde/Block/Layout.php:1006
 msgid "Shrink or move neighbouring block(s) out of the way first"
 msgstr "جمع شدن یا انتقال بلوکهای مجاور"
-
-#: lib/Horde/NLS/tld.php:211 lib/Horde/NLS/GeoIP.php:105
-#: lib/Horde/NLS/countries.php:201 lib/Horde/Horde/NLS/tld.php:211
-#: lib/Horde/Horde/NLS/GeoIP.php:105 lib/Horde/Horde/NLS/countries.php:201
-msgid "Sierra Leone"
-msgstr ""
 
 #: lib/Horde/Auth/Signup.php:275 lib/Horde/Horde/Auth/Signup.php:275
 msgid "Sign up"
@@ -6790,12 +5479,6 @@ msgstr "امضاء"
 msgid "Signature Algorithm"
 msgstr "الگوریتم امضاء"
 
-#: lib/Horde/NLS/tld.php:206 lib/Horde/NLS/GeoIP.php:104
-#: lib/Horde/NLS/countries.php:202 lib/Horde/Horde/NLS/tld.php:206
-#: lib/Horde/Horde/NLS/GeoIP.php:104 lib/Horde/Horde/NLS/countries.php:202
-msgid "Singapore"
-msgstr ""
-
 #: lib/Horde/Form.php:896 lib/Horde/Form.php:1215 lib/Horde/Form.php:1237
 #: lib/Horde/Form.php:2239 lib/Horde/Form.php:2930 lib/Horde/Form.php:3119
 #: lib/Horde/Horde/Form.php:896 lib/Horde/Horde/Form.php:1215
@@ -6811,18 +5494,6 @@ msgstr "اندازه"
 #: templates/maintenance/maintenance.html:53
 msgid "Skip Maintenance"
 msgstr "صرفنظر از نگهداری"
-
-#: lib/Horde/NLS/tld.php:210 lib/Horde/NLS/GeoIP.php:105
-#: lib/Horde/NLS/countries.php:203 lib/Horde/Horde/NLS/tld.php:210
-#: lib/Horde/Horde/NLS/GeoIP.php:105 lib/Horde/Horde/NLS/countries.php:203
-msgid "Slovakia"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:208 lib/Horde/NLS/GeoIP.php:105
-#: lib/Horde/NLS/countries.php:204 lib/Horde/Horde/NLS/tld.php:208
-#: lib/Horde/Horde/NLS/GeoIP.php:105 lib/Horde/Horde/NLS/countries.php:204
-msgid "Slovenia"
-msgstr ""
 
 #: lib/Block/weatherdotcom.php:464
 msgid "Snow"
@@ -6852,18 +5523,6 @@ msgstr "عمق برف: "
 msgid "Snow equivalent in water: "
 msgstr "معادل برف در آب: "
 
-#: lib/Horde/NLS/tld.php:202 lib/Horde/NLS/GeoIP.php:103
-#: lib/Horde/NLS/countries.php:205 lib/Horde/Horde/NLS/tld.php:202
-#: lib/Horde/Horde/NLS/GeoIP.php:103 lib/Horde/Horde/NLS/countries.php:205
-msgid "Solomon Islands"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:214 lib/Horde/NLS/GeoIP.php:106
-#: lib/Horde/NLS/countries.php:206 lib/Horde/Horde/NLS/tld.php:214
-#: lib/Horde/Horde/NLS/GeoIP.php:106 lib/Horde/Horde/NLS/countries.php:206
-msgid "Somalia"
-msgstr ""
-
 #: lib/Block/fortune.php:60
 msgid "Songs & Poems"
 msgstr "شعرها و آوازها"
@@ -6880,21 +5539,9 @@ msgstr "انتخاب جهت مرتب سازی"
 msgid "Source address"
 msgstr "آدرس سرچشمه"
 
-#: lib/Horde/NLS/tld.php:255 lib/Horde/NLS/GeoIP.php:118
-#: lib/Horde/NLS/countries.php:207 lib/Horde/Horde/NLS/tld.php:255
-#: lib/Horde/Horde/NLS/GeoIP.php:118 lib/Horde/Horde/NLS/countries.php:207
-msgid "South Africa"
-msgstr ""
-
 #: config/nls.php.dist:186 config/themes/nls.php.dist:186
 msgid "South European (ISO-8859-3)"
 msgstr "South European (ISO-8859-3)"
-
-#: lib/Horde/NLS/tld.php:101 lib/Horde/NLS/GeoIP.php:77
-#: lib/Horde/NLS/countries.php:208 lib/Horde/Horde/NLS/tld.php:101
-#: lib/Horde/Horde/NLS/GeoIP.php:77 lib/Horde/Horde/NLS/countries.php:208
-msgid "South Georgia and the South Sandwich Islands"
-msgstr ""
 
 #: lib/Block/moon.php:33 lib/Block/moon.php:62
 msgid "Southern Hemisphere"
@@ -6920,12 +5567,6 @@ msgstr "فاصله"
 #: templates/javascript/htmlarea_table_lang.js:54
 msgid "Spacing and padding"
 msgstr "فاصله‌گذاری و درزگذاری"
-
-#: lib/Horde/NLS/tld.php:80 lib/Horde/NLS/GeoIP.php:71
-#: lib/Horde/NLS/countries.php:209 lib/Horde/Horde/NLS/tld.php:80
-#: lib/Horde/Horde/NLS/GeoIP.php:71 lib/Horde/Horde/NLS/countries.php:209
-msgid "Spain"
-msgstr ""
 
 #: config/registry.php.dist:95 config/themes/registry.php.dist:95
 msgid "Spam"
@@ -6953,12 +5594,6 @@ msgstr "تقسیم سطر"
 #: lib/Block/fortune.php:61
 msgid "Sports"
 msgstr "ورزشی"
-
-#: lib/Horde/NLS/tld.php:141 lib/Horde/NLS/GeoIP.php:88
-#: lib/Horde/NLS/countries.php:210 lib/Horde/Horde/NLS/tld.php:141
-#: lib/Horde/Horde/NLS/GeoIP.php:88 lib/Horde/Horde/NLS/countries.php:210
-msgid "Sri Lanka"
-msgstr ""
 
 #: lib/Block/weatherdotcom.php:73 lib/Block/metar.php:72
 msgid "Standard"
@@ -6997,17 +5632,9 @@ msgstr "قالب ذخیره سازی"
 msgid "Street Address"
 msgstr "آدرس خیابان"
 
-#: templates/javascript/htmlarea_lang.js:11
-msgid "Strikethrough"
-msgstr ""
-
 #: lib/Horde/Form.php:1233 lib/Horde/Horde/Form.php:1233
 msgid "String list"
 msgstr "فهرست رشته"
-
-#: lib/Horde/Form.php:1866 lib/Horde/Horde/Form.php:1866
-msgid "Strip domain from the address"
-msgstr ""
 
 #: templates/javascript/htmlarea_table_lang.js:23
 msgid "Style [CSS]"
@@ -7056,71 +5683,65 @@ msgid "Success"
 msgstr "موفّقیّت"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/user.php:85
 #, php-format
 msgid "Successfully added '%s' to the system."
 msgstr "'%s' با موفّقیّت به سامانه اضافه شد"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/user.php:124
 #, php-format
 msgid "Successfully cleared data for user '%s' from the system."
 msgstr " دادهٔ کاربر '%s'با موفّقیّت از سامانه پاک شد"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/groups.php:82 admin/perms/delete.php:46
 msgid "Successfully deleted \"%s\"."
 msgstr "\"%s\" با موفّقیّت حذف شد"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/user.php:105
 #, php-format
 msgid "Successfully removed '%s' from the system."
 msgstr "'%s' با موفّقیّت از سامانه پاک شد"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/setup/config.php:51
 msgid "Successfully reverted configuration. Reload to see changes."
 msgstr ""
 "پیکربندی با موفّقیّت بازگردانده شد. برای مشاهده تغییرات مجدداْ آنرا بار نمایید"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/setup/index.php:59 admin/setup/scripts.php:57
 msgid "Successfully saved backup configuration."
 msgstr "پیکربندی پشتیبان با موفّقیّت حفظ شد"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/setup/config.php:62
 #, php-format
 msgid "Successfully saved the backup configuration file %s."
 msgstr "پرونده پشتیبان پیکربندی %s با موفّقیّت حفظ شد"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/user.php:168
 #, php-format
 msgid "Successfully updated '%s'"
 msgstr "'%s' با موفّقیّت به روز شد"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/setup/index.php:72 admin/setup/config.php:71
 #, php-format
 msgid "Successfully wrote %s"
 msgstr "%s با موفّقیّت نوشته شد"
-
-#: lib/Horde/NLS/tld.php:204 lib/Horde/NLS/GeoIP.php:104
-#: lib/Horde/NLS/countries.php:211 lib/Horde/Horde/NLS/tld.php:204
-#: lib/Horde/Horde/NLS/GeoIP.php:104 lib/Horde/Horde/NLS/countries.php:211
-msgid "Sudan"
-msgstr ""
 
 #: lib/Horde/Horde/MIME/Viewer/icalendar.php:558
 #: lib/Horde/Horde/MIME/Viewer/icalendar.php:560
@@ -7170,49 +5791,13 @@ msgstr "بالانویس"
 msgid "Support"
 msgstr "پشتیبانی"
 
-#: lib/Horde/NLS/tld.php:215 lib/Horde/NLS/GeoIP.php:106
-#: lib/Horde/NLS/countries.php:212 lib/Horde/Horde/NLS/tld.php:215
-#: lib/Horde/Horde/NLS/GeoIP.php:106 lib/Horde/Horde/NLS/countries.php:212
-msgid "Suriname"
-msgstr ""
-
 #: lib/Horde/Crypt/smime.php:598 lib/Horde/Horde/Crypt/smime.php:598
 msgid "Surname"
 msgstr "نام خانوادگی"
 
-#: lib/Horde/NLS/tld.php:209 lib/Horde/NLS/GeoIP.php:105
-#: lib/Horde/NLS/countries.php:213 lib/Horde/Horde/NLS/tld.php:209
-#: lib/Horde/Horde/NLS/GeoIP.php:105 lib/Horde/Horde/NLS/countries.php:213
-msgid "Svalbard and Jan Mayen"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:219 lib/Horde/NLS/GeoIP.php:108
-#: lib/Horde/NLS/countries.php:214 lib/Horde/Horde/NLS/tld.php:219
-#: lib/Horde/Horde/NLS/GeoIP.php:108 lib/Horde/Horde/NLS/countries.php:214
-msgid "Swaziland"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:205 lib/Horde/NLS/GeoIP.php:104
-#: lib/Horde/NLS/countries.php:215 lib/Horde/Horde/NLS/tld.php:205
-#: lib/Horde/Horde/NLS/GeoIP.php:104 lib/Horde/Horde/NLS/countries.php:215
-msgid "Sweden"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:56 lib/Horde/NLS/GeoIP.php:66
-#: lib/Horde/NLS/countries.php:216 lib/Horde/Horde/NLS/tld.php:56
-#: lib/Horde/Horde/NLS/GeoIP.php:66 lib/Horde/Horde/NLS/countries.php:216
-msgid "Switzerland"
-msgstr ""
-
 #: lib/Horde/SQL/Keywords.php:97 lib/Horde/Horde/SQL/Keywords.php:97
 msgid "Syntax error in search terms"
 msgstr "خطای نحوی در موارد جستجو"
-
-#: lib/Horde/NLS/tld.php:218 lib/Horde/NLS/GeoIP.php:107
-#: lib/Horde/NLS/countries.php:217 lib/Horde/Horde/NLS/tld.php:218
-#: lib/Horde/Horde/NLS/GeoIP.php:107 lib/Horde/Horde/NLS/countries.php:217
-msgid "Syrian Arab Republic"
-msgstr ""
 
 #: lib/Block/weatherdotcom.php:470
 msgid "T-Storm"
@@ -7237,27 +5822,6 @@ msgstr "خصوصیات جدول"
 #: templates/javascript/htmlarea_table_lang.js:72
 msgid "Table properties"
 msgstr "خصوصیات جدول"
-
-#: lib/Horde/NLS/tld.php:234 lib/Horde/NLS/GeoIP.php:111
-#: lib/Horde/Horde/NLS/tld.php:234 lib/Horde/Horde/NLS/GeoIP.php:111
-msgid "Taiwan"
-msgstr ""
-
-#: lib/Horde/NLS/countries.php:218 lib/Horde/Horde/NLS/countries.php:218
-msgid "Taiwan, Province of China"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:225 lib/Horde/NLS/GeoIP.php:109
-#: lib/Horde/NLS/countries.php:219 lib/Horde/Horde/NLS/tld.php:225
-#: lib/Horde/Horde/NLS/GeoIP.php:109 lib/Horde/Horde/NLS/countries.php:219
-msgid "Tajikistan"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:235 lib/Horde/NLS/GeoIP.php:112
-#: lib/Horde/NLS/countries.php:220 lib/Horde/Horde/NLS/tld.php:235
-#: lib/Horde/Horde/NLS/GeoIP.php:112 lib/Horde/Horde/NLS/countries.php:220
-msgid "Tanzania, United Republic of"
-msgstr ""
 
 #: templates/javascript/htmlarea_lang.js:95
 msgid "Target:"
@@ -7332,12 +5896,6 @@ msgstr "پنجشنبه"
 msgid "Thai (TIS-620)"
 msgstr "Thai (TIS-620)"
 
-#: lib/Horde/NLS/tld.php:224 lib/Horde/NLS/GeoIP.php:109
-#: lib/Horde/NLS/countries.php:221 lib/Horde/Horde/NLS/tld.php:224
-#: lib/Horde/Horde/NLS/GeoIP.php:109 lib/Horde/Horde/NLS/countries.php:221
-msgid "Thailand"
-msgstr ""
-
 #: lib/Horde/Auth.php:1007 lib/Horde/Horde/Auth.php:1007
 msgid "Thank you for using the system."
 msgstr "از شما به خاطر استفاده از سامانه متشکریم"
@@ -7345,11 +5903,6 @@ msgstr "از شما به خاطر استفاده از سامانه متشکری�
 #: lib/Horde/VFS/ftp.php:765
 msgid "The FTP extension is not available."
 msgstr "بسط FTP قابل دسترس نیست"
-
-#: lib/Horde/Kolab.php:946 lib/Horde/Horde/Kolab.php:946
-#, php-format
-msgid "The Horde/Kolab integration engine does not support \"%s\""
-msgstr ""
 
 #: services/maintenance.php:31
 msgid "The Maintenance:: class did not load successfully"
@@ -7388,7 +5941,7 @@ msgid ""
 "database."
 msgstr "شماره ID تماس مشخص نشده است، این شماره در دادگان یافت نشد"
 
-# 
+#
 #: lib/Horde/Horde/MIME/Viewer/vcard.php:53 lib/Horde/MIME/Viewer/vcard.php:53
 msgid "The contact was successfully added to your address book."
 msgstr "تماس  %s با موفّقیّت به کتابچه آدرس شما اضافه شد"
@@ -7437,11 +5990,6 @@ msgstr "پرونده بر روی خودش نمی‌تواند رونوشت شو�
 msgid "The file contained no data."
 msgstr "پرونده حاوی داده‌ا‌یی نیست "
 
-#: lib/Horde/Horde/MIME/Viewer/rfc822.php:71
-#: lib/Horde/MIME/Viewer/rfc822.php:71
-msgid "The following are the headers for this message/rfc822 message."
-msgstr ""
-
 #: templates/javascript/htmlarea_lang.js:56
 msgid ""
 "The full screen mode is known to cause problems with Internet Explorer, due "
@@ -7455,7 +6003,7 @@ msgstr ""
 "می‌خواهید حالت ویرایشگر تمام صفحه را امتحان کنید، لطفاً کلید تأیید را فشار "
 "دهید "
 
-# 
+#
 #: services/prefs.php:90
 #, php-format
 msgid "The identity \"%s\" has been deleted."
@@ -7464,11 +6012,6 @@ msgstr "هویّت \"%s\" حذف شده است"
 #: templates/javascript/htmlarea_table_lang.js:76
 msgid "The left-hand side only"
 msgstr "تنها سمت چپ"
-
-#: lib/Horde/Crypt/pgp.php:145 lib/Horde/Horde/Crypt/pgp.php:145
-msgid ""
-"The location of the GnuPG binary must be given to the Crypt_pgp:: class."
-msgstr ""
 
 #: lib/Horde/Horde/MIME/MDN.php:213 lib/Horde/MIME/MDN.php:213
 #, php-format
@@ -7486,10 +6029,6 @@ msgstr "نامی که به هنگام پیونددهی به صفحه ایجاد 
 #: lib/Horde/File/CSV.php:441
 msgid "The number of fields must be numeric."
 msgstr "تعداد فیلد‌ها باید یک عدد باشد"
-
-#: lib/Horde/Crypt/smime.php:1259 lib/Horde/Horde/Crypt/smime.php:1259
-msgid "The openssl module is required for the Horde_Crypt_smime:: class."
-msgstr ""
 
 #: lib/Horde/Prefs.php:290 lib/Horde/Horde/Prefs.php:290
 #, php-format
@@ -7520,10 +6059,6 @@ msgstr ""
 "برنامه‌ا‌یی که برای مشاهده این نوع داده (%s) قبلاً مورد استفاده قرار می‌گرفت، در "
 "سامانه موجود نیست"
 
-#: lib/Horde/File/CSV.php:454
-msgid "The quote character must be one single character."
-msgstr ""
-
 #: templates/javascript/htmlarea_table_lang.js:77
 msgid "The right and left sides only"
 msgstr "تنها سمت راست و چپ"
@@ -7537,21 +6072,21 @@ msgid "The separator must be one single character."
 msgstr "جدا کننده باید یک نویسه باشد"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: services/portal/rpcsum.php:78
 #, php-format
 msgid "The server \"%s\" has been deleted."
 msgstr "کارساز \"%s\" حذف شده است"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: services/portal/rpcsum.php:49
 #, php-format
 msgid "The server \"%s\" has been saved."
 msgstr "کارساز \"%s\" حفظ شده است"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/user.php:198
 #, php-format
 msgid "The signup request for %s has been removed."
@@ -7621,35 +6156,35 @@ msgstr ""
 "شما باید کمتر از %s نویسه وارد کنید"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: signup.php:55
 #, php-format
 msgid "There was a problem adding '%s' to the system. %s."
 msgstr "مشکلی در اضافه کردن '%s' به سامانه رخ داده است. %s"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/user.php:73
 #, php-format
 msgid "There was a problem adding '%s' to the system: %s"
 msgstr "مشکلی در اضافه کردن '%s' به سامانه رخ داده است: %s"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/user.php:122
 #, php-format
 msgid "There was a problem clearing data for user '%s' from the system: "
 msgstr "مشکلی در پاک کردن دادهٔ کاربر '%s' از سامانه رخ داده است: "
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/user.php:103
 #, php-format
 msgid "There was a problem removing '%s' from the system: "
 msgstr "مشکلی در حذف '%s' از سامانه رخ داده است: "
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/user.php:159
 #, php-format
 msgid "There was a problem updating '%s': %s"
@@ -7687,14 +6222,14 @@ msgstr "خطایی در نمایش این بخش پیغام رخ داده است
 msgid "There was an error importing the contact data."
 msgstr "خطایی در درون‌برد کردن داده تماس رخ داده است"
 
-# 
+#
 #: lib/Horde/Horde/MIME/Viewer/icalendar.php:75
 #: lib/Horde/MIME/Viewer/icalendar.php:75
 #, php-format
 msgid "There was an error importing the event: %s."
 msgstr "خطایی در درون‌برد کردن رویداد رخ داده است: %s."
 
-# 
+#
 #: lib/Horde/Data/imc.php:32 lib/Horde/Horde/Data/imc.php:32
 msgid "There was an error importing the iCalendar data."
 msgstr "خطایی در درون‌برد کردن دادهٔ تقویم رخ داده است"
@@ -7726,13 +6261,13 @@ msgstr ""
 "خطایی در اجرا کردن عملیات مشخص شدهٔ کتابچه آدرس رخ داده است. لطفاً دوباره سعی "
 "کنید"
 
-# 
+#
 #: lib/Horde/Net/SMS/sms2email_http.php:669
 msgid ""
 "There was an error updating the contact details. Please try again later."
 msgstr "خطایی در بروزرسانی جزئیات تماس رخ داده است. لطفاً دوباره سعی کنید"
 
-# 
+#
 #: lib/Horde/Net/SMS/sms2email_http.php:674 lib/Horde/Net/SMS/win_http.php:229
 msgid ""
 "There was an error updating the distribution list. Please try again later."
@@ -7760,45 +6295,20 @@ msgstr "این عمل پشتیبانی نمی‌شود"
 msgid "This action is not yet implemented."
 msgstr "این عمل هنوز پیاده‌سازی نشده است"
 
-# 
+#
 #: lib/Horde/Horde/MIME/Viewer/rar.php:50 lib/Horde/MIME/Viewer/rar.php:50
 msgid "This does not appear to be a valid rar archive."
 msgstr " به نظر نمی‌رسد که آرشیو rar معتبری باشد"
 
-# 
+#
 #: lib/Horde/Horde/MIME/Viewer/zip.php:54 lib/Horde/MIME/Viewer/zip.php:54
 msgid "This does not appear to be a valid zip file."
 msgstr " به نظر نمی‌رسد که پرونده zip معتبری باشد"
 
-# 
+#
 #: lib/Horde/Form.php:3141 lib/Horde/Horde/Form.php:3141
 msgid "This does not seem to be a valid card number."
 msgstr "به نظر نمی‌رسد که شماره کارت معتبری باشد"
-
-#: lib/Horde/Net/SMS/clickatell_http.php:186
-msgid ""
-"This driver allows sending of messages through the Clickatell (http://"
-"clickatell.com) gateway, using the HTTP API"
-msgstr ""
-
-#: lib/Horde/Net/SMS/win_http.php:134
-msgid ""
-"This driver allows sending of messages through the WIN (http://winplc.com) "
-"gateway, using the HTTP API"
-msgstr ""
-
-#: lib/Horde/Net/SMS/sms2email_http.php:536
-msgid ""
-"This driver allows sending of messages through the sms2email (http://"
-"sms2email.com) gateway, using the HTTP API"
-msgstr ""
-
-#: lib/Horde/Net/SMS/vodafoneitaly_smtp.php:82
-msgid ""
-"This driver allows sending of messages via SMTP through the Vodafone Italy "
-"gateway, only to Vodafone numbers. It requires an email account with "
-"Vodafone Italy (http://www.190.it)."
-msgstr ""
 
 #: lib/Horde/Form.php:978 lib/Horde/Form.php:1057 lib/Horde/Form.php:1086
 #: lib/Horde/Form.php:1115 lib/Horde/Form.php:1182 lib/Horde/Form.php:1256
@@ -7844,30 +6354,12 @@ msgstr ""
 msgid "This field must be a valid number."
 msgstr "این فیلد باید یک عدد معتبر باشد"
 
-#: lib/Horde/Form.php:2836 lib/Horde/Horde/Form.php:2836
-msgid ""
-"This field must contain a color code in the RGB Hex format, for example "
-"'#1234af'."
-msgstr ""
-
-#: lib/Horde/Form.php:561 lib/Horde/Horde/Form.php:561
-msgid "This form has already been processed."
-msgstr ""
-
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: templates/help/about.inc:1
 #, php-format
 msgid "This is %s."
 msgstr "این %s می‌باشد"
-
-#: lib/Horde/Kolab.php:459 lib/Horde/Horde/Kolab.php:459
-#, php-format
-msgid ""
-"This is a Kolab Groupware object. To view this object you will need an email "
-"client that understands the Kolab Groupware format. For a list of such email "
-"clients please visit %s"
-msgstr ""
 
 #: lib/Horde/Horde/MIME/Contents.php:617 lib/Horde/MIME/Contents.php:617
 #, php-format
@@ -7920,12 +6412,6 @@ msgstr "قالب زمان"
 msgid "Time selection"
 msgstr " انتخاب زمان "
 
-#: lib/Horde/NLS/tld.php:230 lib/Horde/NLS/GeoIP.php:110
-#: lib/Horde/NLS/countries.php:222 lib/Horde/Horde/NLS/tld.php:230
-#: lib/Horde/Horde/NLS/GeoIP.php:110 lib/Horde/Horde/NLS/countries.php:222
-msgid "Timor-Leste"
-msgstr ""
-
 #: lib/Block/iframe.php:20 lib/Horde/Horde/MIME/Viewer/vcard.php:231
 #: lib/Horde/MIME/Viewer/vcard.php:231
 msgid "Title"
@@ -7953,31 +6439,9 @@ msgstr ""
 msgid "Today"
 msgstr "امروز"
 
-#: templates/javascript/htmlarea_lang.js:28
-msgid "Toggle HTML Source"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:223 lib/Horde/NLS/GeoIP.php:109
-#: lib/Horde/NLS/countries.php:223 lib/Horde/Horde/NLS/tld.php:223
-#: lib/Horde/Horde/NLS/GeoIP.php:109 lib/Horde/Horde/NLS/countries.php:223
-msgid "Togo"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:226 lib/Horde/NLS/GeoIP.php:110
-#: lib/Horde/NLS/countries.php:224 lib/Horde/Horde/NLS/tld.php:226
-#: lib/Horde/Horde/NLS/GeoIP.php:110 lib/Horde/Horde/NLS/countries.php:224
-msgid "Tokelau"
-msgstr ""
-
 #: lib/Block/weatherdotcom.php:288
 msgid "Tomorrow"
 msgstr "فردا"
-
-#: lib/Horde/NLS/tld.php:229 lib/Horde/NLS/GeoIP.php:110
-#: lib/Horde/NLS/countries.php:225 lib/Horde/Horde/NLS/tld.php:229
-#: lib/Horde/Horde/NLS/GeoIP.php:110 lib/Horde/Horde/NLS/countries.php:225
-msgid "Tonga"
-msgstr ""
 
 #: templates/javascript/htmlarea_lang.js:77
 #: templates/javascript/htmlarea_table_lang.js:81
@@ -7992,12 +6456,6 @@ msgstr "چارچوب بالا (بالا)"
 msgid "Translations"
 msgstr "ترجمه‌ها"
 
-#: lib/Horde/NLS/tld.php:232 lib/Horde/NLS/GeoIP.php:111
-#: lib/Horde/NLS/countries.php:226 lib/Horde/Horde/NLS/tld.php:232
-#: lib/Horde/Horde/NLS/GeoIP.php:111 lib/Horde/Horde/NLS/countries.php:226
-msgid "Trinidad and Tobago"
-msgstr ""
-
 #: lib/Horde/Form.php:1787 lib/Horde/Horde/Form.php:1787
 msgid "True or false"
 msgstr "درست و یا نادرست"
@@ -8006,39 +6464,9 @@ msgstr "درست و یا نادرست"
 msgid "Tu"
 msgstr "سه شنبه"
 
-#: lib/Horde/NLS/tld.php:228 lib/Horde/NLS/GeoIP.php:110
-#: lib/Horde/NLS/countries.php:227 lib/Horde/Horde/NLS/tld.php:228
-#: lib/Horde/Horde/NLS/GeoIP.php:110 lib/Horde/Horde/NLS/countries.php:227
-msgid "Tunisia"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:231 lib/Horde/NLS/GeoIP.php:111
-#: lib/Horde/NLS/countries.php:228 lib/Horde/Horde/NLS/tld.php:231
-#: lib/Horde/Horde/NLS/GeoIP.php:111 lib/Horde/Horde/NLS/countries.php:228
-msgid "Turkey"
-msgstr ""
-
 #: config/nls.php.dist:188 config/themes/nls.php.dist:188
 msgid "Turkish (ISO-8859-9)"
 msgstr "Turkish (ISO-8859-9)"
-
-#: lib/Horde/NLS/tld.php:227 lib/Horde/NLS/GeoIP.php:110
-#: lib/Horde/NLS/countries.php:229 lib/Horde/Horde/NLS/tld.php:227
-#: lib/Horde/Horde/NLS/GeoIP.php:110 lib/Horde/Horde/NLS/countries.php:229
-msgid "Turkmenistan"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:220 lib/Horde/NLS/GeoIP.php:108
-#: lib/Horde/NLS/countries.php:230 lib/Horde/Horde/NLS/tld.php:220
-#: lib/Horde/Horde/NLS/GeoIP.php:108 lib/Horde/Horde/NLS/countries.php:230
-msgid "Turks and Caicos Islands"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:233 lib/Horde/NLS/GeoIP.php:111
-#: lib/Horde/NLS/countries.php:231 lib/Horde/Horde/NLS/tld.php:233
-#: lib/Horde/Horde/NLS/GeoIP.php:111 lib/Horde/Horde/NLS/countries.php:231
-msgid "Tuvalu"
-msgstr ""
 
 #: lib/Horde/CLI.php:261 lib/Horde/Horde/CLI.php:261
 msgid "Type your choice: "
@@ -8053,25 +6481,9 @@ msgstr "شاخص U.V. : "
 msgid "URL"
 msgstr "URL"
 
-#: lib/Horde/Net/SMS/sms2email_http.php:564
-msgid "URL for your script delivery status report"
-msgstr ""
-
 #: templates/javascript/htmlarea_lang.js:97
 msgid "URL:"
 msgstr "URL:"
-
-#: lib/Horde/NLS/tld.php:237 lib/Horde/NLS/GeoIP.php:112
-#: lib/Horde/NLS/countries.php:232 lib/Horde/Horde/NLS/tld.php:237
-#: lib/Horde/Horde/NLS/GeoIP.php:112 lib/Horde/Horde/NLS/countries.php:232
-msgid "Uganda"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:236 lib/Horde/NLS/GeoIP.php:112
-#: lib/Horde/NLS/countries.php:233 lib/Horde/Horde/NLS/tld.php:236
-#: lib/Horde/Horde/NLS/GeoIP.php:112 lib/Horde/Horde/NLS/countries.php:233
-msgid "Ukraine"
-msgstr ""
 
 #: lib/Horde/VFS/file.php:358
 msgid "Unable to access VFS directory."
@@ -8082,7 +6494,7 @@ msgid "Unable to add extra user information when signing up."
 msgstr "امکان اضافه کردن اطلاعات اضافی کاربر به هنگام ثبت نام نیست"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/VFS/ftp.php:344
 #, php-format
 msgid "Unable to change permission for VFS file \"%s\"."
@@ -8094,7 +6506,7 @@ msgid "Unable to change permission for VFS file %s/%s."
 msgstr "نمی‌توان مجوزها را برای پرونده %s/%s VFS  تغییر داد"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/VFS/ftp.php:700
 #, php-format
 msgid "Unable to change to %s."
@@ -8125,7 +6537,7 @@ msgid "Unable to create VFS directory."
 msgstr "نمی‌توان شاخه VFS را ایجاد نمود"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/VFS/musql.php:122
 msgid "Unable to create VFS file."
 msgstr "نمی‌توان پرونده VFS را ایجاد نمود"
@@ -8145,7 +6557,7 @@ msgid "Unable to delete \"%s\", the directory is not empty."
 msgstr "حذف \"%s\" ممکن نیست، شاخه خالی نیست"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/groups.php:80 admin/perms/delete.php:44
 msgid "Unable to delete \"%s\": %s."
 msgstr "نمی‌توان \"%s\" را حذف کرد: %s."
@@ -8161,7 +6573,7 @@ msgid "Unable to delete VFS directory recursively."
 msgstr "نمی‌توان شاخه VFS را به صورت تو در تو حذف نمود"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/VFS/file.php:274 lib/Horde/VFS/musql.php:328
 #: lib/Horde/VFS/musql.php:341 lib/Horde/VFS/musql.php:349
 #: lib/Horde/VFS/sql_file.php:348
@@ -8169,21 +6581,21 @@ msgid "Unable to delete VFS directory."
 msgstr "نمی‌توان شاخه VFS را حذف نمود"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/VFS/sql.php:340 lib/Horde/VFS/sql.php:352
 #, php-format
 msgid "Unable to delete VFS directory: %s."
 msgstr "نمی‌توان شاخه VFS را حذف نمود: %s."
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/VFS/ftp.php:178
 #, php-format
 msgid "Unable to delete VFS file \"%s\"."
 msgstr "نمی‌توان پرونده VFS \"%s\" را حذف نمود"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/VFS/file.php:240 lib/Horde/VFS/sql.php:210
 #: lib/Horde/VFS/musql.php:167 lib/Horde/VFS/musql.php:180
 #: lib/Horde/VFS/musql.php:187 lib/Horde/VFS/sql_file.php:384
@@ -8192,7 +6604,7 @@ msgid "Unable to delete VFS file."
 msgstr "نمی‌توان پرونده VFS را حذف نمود"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/VFS/sql.php:329
 #, php-format
 msgid "Unable to delete VFS recursively: %s."
@@ -8217,7 +6629,7 @@ msgid "Unable to move VFS file."
 msgstr "نمی‌توان پرونده VFS را انتقال داد"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/VFS/ftp.php:78
 #, php-format
 msgid "Unable to open VFS file \"%s\"."
@@ -8260,7 +6672,7 @@ msgid "Unable to rename VFS file \"%s\"."
 msgstr "نمی‌توان پرونده VFS \"%s\" را تغییر نام داد"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/VFS/file.php:561 lib/Horde/VFS/musql.php:231
 #, php-format
 msgid "Unable to rename VFS file %s/%s."
@@ -8273,7 +6685,7 @@ msgid "Unable to rename VFS file."
 msgstr "نمی‌توان پرونده VFS را تغییر نام داد"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/VFS/ISOWriter/mkisofs.php:50
 msgid "Unable to run 'mkisofs'."
 msgstr "نمی‌توان 'mkisofs' را اجرا نمود"
@@ -8284,7 +6696,7 @@ msgid "Unable to translate this Word document"
 msgstr "نمی‌توان این سند Word را ترجمه نمود"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/VFS/ftp.php:126 lib/Horde/VFS/ftp.php:129
 #, php-format
 msgid "Unable to write VFS file \"%s\"."
@@ -8332,39 +6744,9 @@ msgstr "پاسخ غیر منتظره از کارساز به:"
 msgid "Unfiled"
 msgstr "غیر حوزه"
 
-#: lib/Horde/Horde/MIME/Viewer/icalendar.php:384
-#: lib/Horde/MIME/Viewer/icalendar.php:384
-#, php-format
-msgid "Unhandled component of type: %s"
-msgstr ""
-
 #: config/nls.php.dist:189 config/themes/nls.php.dist:189
 msgid "Unicode (UTF-8)"
 msgstr "Unicode (UTF-8)"
-
-#: lib/Horde/NLS/tld.php:17 lib/Horde/NLS/GeoIP.php:56
-#: lib/Horde/NLS/countries.php:234 lib/Horde/Horde/NLS/tld.php:17
-#: lib/Horde/Horde/NLS/GeoIP.php:56 lib/Horde/Horde/NLS/countries.php:234
-msgid "United Arab Emirates"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:238 lib/Horde/NLS/GeoIP.php:74
-#: lib/Horde/NLS/countries.php:235 lib/Horde/Horde/NLS/tld.php:238
-#: lib/Horde/Horde/NLS/GeoIP.php:74 lib/Horde/Horde/NLS/countries.php:235
-msgid "United Kingdom"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:240 lib/Horde/NLS/GeoIP.php:113
-#: lib/Horde/NLS/countries.php:236 lib/Horde/Horde/NLS/tld.php:240
-#: lib/Horde/Horde/NLS/GeoIP.php:113 lib/Horde/Horde/NLS/countries.php:236
-msgid "United States"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:239 lib/Horde/NLS/GeoIP.php:113
-#: lib/Horde/NLS/countries.php:237 lib/Horde/Horde/NLS/tld.php:239
-#: lib/Horde/Horde/NLS/GeoIP.php:113 lib/Horde/Horde/NLS/countries.php:237
-msgid "United States Minor Outlying Islands"
-msgstr ""
 
 #: lib/Block/weatherdotcom.php:69 lib/Block/metar.php:69
 msgid "Units"
@@ -8374,14 +6756,6 @@ msgstr "واحدها"
 #: lib/Horde/Horde/Crypt/pgp.php:423 lib/Horde/Horde/Crypt/pgp.php:424
 msgid "Unknown"
 msgstr "داده ناشناخته"
-
-#: lib/Horde/Net/SMS/clickatell_http.php:307
-msgid "Unknown apimsgid (API Message ID)."
-msgstr ""
-
-#: lib/Horde/Net/SMS/clickatell_http.php:308
-msgid "Unknown climsgid (Client Message ID)."
-msgstr ""
 
 #: lib/Horde/Net/SMS/clickatell_http.php:300
 msgid "Unknown username or password."
@@ -8421,7 +6795,7 @@ msgid "Update"
 msgstr "بروزرسانی"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: templates/admin/user/update.inc:31
 #, php-format
 msgid "Update %s"
@@ -8437,7 +6811,7 @@ msgid "Update user"
 msgstr "بروزرسانی کاربر"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/groups.php:138 admin/perms/edit.php:102 services/shares/edit.php:230
 msgid "Updated \"%s\"."
 msgstr "\"%s\" بروزرسانی شد"
@@ -8462,12 +6836,6 @@ msgstr "حروف بزرگ لاتین"
 #: templates/javascript/htmlarea_listtype_lang.js:18
 msgid "Upper roman numbers"
 msgstr "اعداد یونانی بزرگ"
-
-#: lib/Horde/NLS/tld.php:241 lib/Horde/NLS/GeoIP.php:113
-#: lib/Horde/NLS/countries.php:238 lib/Horde/Horde/NLS/tld.php:241
-#: lib/Horde/Horde/NLS/GeoIP.php:113 lib/Horde/Horde/NLS/countries.php:238
-msgid "Uruguay"
-msgstr ""
 
 #: lib/Horde/Horde/Prefs/CategoryManager.php:45
 #: lib/Horde/Prefs/CategoryManager.php:45
@@ -8516,7 +6884,7 @@ msgstr "حساب کاربر پیدا نشد"
 msgid "Username"
 msgstr "نام کاربر"
 
-# 
+#
 #: lib/Horde/Auth/Signup.php:130 lib/Horde/Horde/Auth/Signup.php:130
 #, php-format
 msgid "Username '%s' already exists."
@@ -8533,12 +6901,6 @@ msgstr "نام کاربر: "
 #: templates/admin/user/list.inc:4
 msgid "Users in the system:"
 msgstr "کاربران سامانه:"
-
-#: lib/Horde/NLS/tld.php:242 lib/Horde/NLS/GeoIP.php:114
-#: lib/Horde/NLS/countries.php:239 lib/Horde/Horde/NLS/tld.php:242
-#: lib/Horde/Horde/NLS/GeoIP.php:114 lib/Horde/Horde/NLS/countries.php:239
-msgid "Uzbekistan"
-msgstr ""
 
 #: lib/Horde/VFS/file.php:107 lib/Horde/VFS/file.php:200
 msgid "VFS directory does not exist."
@@ -8579,25 +6941,9 @@ msgstr "مقادیر"
 msgid "Values to select from"
 msgstr "مقادیر برای انتخاب از"
 
-#: lib/Horde/NLS/tld.php:249 lib/Horde/NLS/GeoIP.php:117
-#: lib/Horde/NLS/countries.php:240 lib/Horde/Horde/NLS/tld.php:249
-#: lib/Horde/Horde/NLS/GeoIP.php:117 lib/Horde/Horde/NLS/countries.php:240
-msgid "Vanuatu"
-msgstr ""
-
 #: lib/Block/weatherdotcom.php:219
 msgid "Variable"
 msgstr "متغییر"
-
-#: lib/Horde/NLS/tld.php:245 lib/Horde/NLS/GeoIP.php:115
-#: lib/Horde/NLS/countries.php:241 lib/Horde/Horde/NLS/tld.php:245
-#: lib/Horde/Horde/NLS/GeoIP.php:115 lib/Horde/Horde/NLS/countries.php:241
-msgid "Venezuela"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:228 lib/Horde/Horde/Crypt/smime.php:228
-msgid "Verification failed - this message may have been tampered with."
-msgstr ""
 
 #: lib/Horde/Crypt/smime.php:724 lib/Horde/Horde/Crypt/smime.php:724
 msgid "Version"
@@ -8622,12 +6968,6 @@ msgstr "عمودی:"
 #: lib/Block/weatherdotcom.php:478
 msgid "Very High"
 msgstr "خیلی بالا"
-
-#: lib/Horde/NLS/tld.php:248 lib/Horde/NLS/GeoIP.php:116
-#: lib/Horde/NLS/countries.php:242 lib/Horde/Horde/NLS/tld.php:248
-#: lib/Horde/Horde/NLS/GeoIP.php:116 lib/Horde/Horde/NLS/countries.php:242
-msgid "Viet Nam"
-msgstr ""
 
 #: config/nls.php.dist:190 config/themes/nls.php.dist:190
 msgid "Vietnamese (VISCII)"
@@ -8657,18 +6997,6 @@ msgstr "نمای رویداد"
 msgid "View task"
 msgstr "نمای وظیفه"
 
-#: lib/Horde/NLS/tld.php:246 lib/Horde/NLS/GeoIP.php:116
-#: lib/Horde/NLS/countries.php:243 lib/Horde/Horde/NLS/tld.php:246
-#: lib/Horde/Horde/NLS/GeoIP.php:116 lib/Horde/Horde/NLS/countries.php:243
-msgid "Virgin Islands, British"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:247 lib/Horde/NLS/GeoIP.php:116
-#: lib/Horde/NLS/countries.php:244 lib/Horde/Horde/NLS/tld.php:247
-#: lib/Horde/Horde/NLS/GeoIP.php:116 lib/Horde/Horde/NLS/countries.php:244
-msgid "Virgin Islands, U.S."
-msgstr ""
-
 #: lib/Block/metar.php:207
 msgid "Visibility"
 msgstr "قابلیت مشاهده"
@@ -8677,31 +7005,12 @@ msgstr "قابلیت مشاهده"
 msgid "Visibility: "
 msgstr "قابلیت مشاهده: "
 
-#: lib/Horde/Net/SMS/vodafoneitaly_smtp.php:81
-msgid "Vodafone Italy via SMTP"
-msgstr ""
-
-#: lib/Horde/Notification/Listener/mobile.php:38
-#: lib/Horde/Horde/Notification/Listener/mobile.php:38
-msgid "WARN"
-msgstr ""
-
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: admin/setup/scripts.php:85
 #, php-format
 msgid "WARNING!!! REMOVE SCRIPT MANUALLY FROM %s."
 msgstr "اخطار!!! دست ‌نویس را بطور دستی از %s حذف کنید"
-
-#: lib/Horde/Net/SMS/win_http.php:133
-msgid "WIN via HTTP"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:250 lib/Horde/NLS/GeoIP.php:117
-#: lib/Horde/NLS/countries.php:245 lib/Horde/Horde/NLS/tld.php:250
-#: lib/Horde/Horde/NLS/GeoIP.php:117 lib/Horde/Horde/NLS/countries.php:245
-msgid "Wallis and Futuna"
-msgstr ""
 
 #: lib/Horde/Notification/Listener/status.php:31
 #: lib/Horde/Horde/Notification/Listener/status.php:31
@@ -8743,16 +7052,16 @@ msgstr "خوش آمدید"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 # #-#-#-#-#  fa_IR.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: templates/login/login.inc:54 templates/login/mobile.inc:4
 #, php-format
 msgid "Welcome to %s"
 msgstr "به %s خوش آمدید"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: services/portal/mobile.php:29 templates/portal/menu.inc:2
 #, php-format
 msgid "Welcome, %s"
@@ -8766,14 +7075,8 @@ msgstr "Western (ISO-8859-1)"
 msgid "Western (ISO-8859-15)"
 msgstr "Western (ISO-8859-15)"
 
-#: lib/Horde/NLS/tld.php:78 lib/Horde/NLS/GeoIP.php:71
-#: lib/Horde/NLS/countries.php:246 lib/Horde/Horde/NLS/tld.php:78
-#: lib/Horde/Horde/NLS/GeoIP.php:71 lib/Horde/Horde/NLS/countries.php:246
-msgid "Western Sahara"
-msgstr ""
-
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: config/prefs.php.dist:427 config/themes/prefs.php.dist:427
 #, php-format
 msgid "What application should %s display after login?"
@@ -8786,11 +7089,6 @@ msgstr "نویسهٔ‌ حائل چیست؟"
 #: templates/data/csvinfo.inc:24
 msgid "What is the quote character?"
 msgstr "نویسه‌ی نقل قول چیست؟"
-
-#: lib/Horde/Horde/UI/VarRenderer/html.php:1016
-#: lib/Horde/UI/VarRenderer/html.php:1016
-msgid "Whereis Australia map"
-msgstr ""
 
 #: lib/Block/moon.php:23
 msgid "Which phases"
@@ -8872,40 +7170,6 @@ msgstr "آدرس محل کار"
 msgid "Work Phone"
 msgstr "تلفن محل کار"
 
-#: lib/Horde/File/CSV.php:169 lib/Horde/File/CSV.php:262
-#, php-format
-msgid "Wrong number of fields in line %d. Expected %d, found %d."
-msgstr ""
-
-#: lib/Horde/File/CSV.php:300
-#, php-format
-msgid "Wrong number of fields. Expected %d, found %d."
-msgstr ""
-
-#: config/registry.php.dist:255 config/themes/registry.php.dist:255
-msgid "X-Ref"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:617 lib/Horde/Horde/Crypt/smime.php:617
-msgid "X509v3 Basic Constraints"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:616 lib/Horde/Horde/Crypt/smime.php:616
-msgid "X509v3 Extended Key Usage"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:618 lib/Horde/Horde/Crypt/smime.php:618
-msgid "X509v3 Subject Alternative Name"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:619 lib/Horde/Horde/Crypt/smime.php:619
-msgid "X509v3 Subject Key Identifier"
-msgstr ""
-
-#: lib/Horde/Crypt/smime.php:706 lib/Horde/Horde/Crypt/smime.php:706
-msgid "X509v3 extensions"
-msgstr ""
-
 #: templates/data/date.inc:47 templates/data/date.inc:48
 #: templates/data/date.inc:49 templates/data/date.inc:50
 msgid "YY"
@@ -8917,20 +7181,9 @@ msgstr "‌YY"
 msgid "YYYY"
 msgstr "YYYY"
 
-#: lib/Horde/Horde/UI/VarRenderer/html.php:1063
-#: lib/Horde/UI/VarRenderer/html.php:1063
-msgid "Yahoo! map"
-msgstr ""
-
 #: lib/Horde/Maintenance.php:35 lib/Horde/Horde/Maintenance.php:35
 msgid "Yearly"
 msgstr "سالانه"
-
-#: lib/Horde/NLS/tld.php:252 lib/Horde/NLS/GeoIP.php:117
-#: lib/Horde/NLS/countries.php:247 lib/Horde/Horde/NLS/tld.php:252
-#: lib/Horde/Horde/NLS/GeoIP.php:117 lib/Horde/Horde/NLS/countries.php:247
-msgid "Yemen"
-msgstr ""
 
 #: lib/Horde/Horde/UI/VarRenderer/html.php:920
 #: lib/Horde/UI/VarRenderer/html.php:920
@@ -8983,13 +7236,13 @@ msgid "You have to enter a valid value."
 msgstr "شما مجبور هستید یک مقدار معتبر وارد کنید"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde/Auth/Signup.php:37 lib/Horde/Horde/Auth/Signup.php:37
 msgid "You must configure a DataTree backend to use Signups."
 msgstr "شما باید یک پشتیبان درخت داده برای استفاده از ثبت نام پیکربندی کنید"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde.php:443 lib/Horde/Horde.php:443
 msgid "You must configure a VFS backend."
 msgstr "شما باید یک سامانه پشتیبان VFS را پیکربندی کنید"
@@ -9150,31 +7403,6 @@ msgstr "اسم رمز  شما منقضی شده است"
 msgid "Your remote servers:"
 msgstr "کارساز‌های راه‌دور شما:"
 
-#: lib/Horde/NLS/tld.php:254 lib/Horde/NLS/GeoIP.php:118
-#: lib/Horde/Horde/NLS/tld.php:254 lib/Horde/Horde/NLS/GeoIP.php:118
-msgid "Yugoslavia"
-msgstr ""
-
-#: lib/Horde/NLS/GeoIP.php:118 lib/Horde/Horde/NLS/GeoIP.php:118
-msgid "Zaire"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:256 lib/Horde/NLS/GeoIP.php:118
-#: lib/Horde/NLS/countries.php:248 lib/Horde/Horde/NLS/tld.php:256
-#: lib/Horde/Horde/NLS/GeoIP.php:118 lib/Horde/Horde/NLS/countries.php:248
-msgid "Zambia"
-msgstr ""
-
-#: lib/Horde/NLS/tld.php:257 lib/Horde/NLS/GeoIP.php:118
-#: lib/Horde/NLS/countries.php:249 lib/Horde/Horde/NLS/tld.php:257
-#: lib/Horde/Horde/NLS/GeoIP.php:118 lib/Horde/Horde/NLS/countries.php:249
-msgid "Zimbabwe"
-msgstr ""
-
-#: lib/Block/fortune.php:66
-msgid "Zippy"
-msgstr ""
-
 #: lib/Horde/Text/Filter/highlightquotes.php:172
 #: lib/Horde/Horde/Text/Filter/highlightquotes.php:172
 #: templates/javascript/quoteBlocks.js:12
@@ -9196,7 +7424,7 @@ msgid "[Show Quoted Text - %s lines]"
 msgstr "نمایش متن نقل قول شده[ - %s خط]"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Horde.php:199 lib/Horde/Horde.php:199
 #, php-format
 msgid "[line %s of %s]"
@@ -9275,7 +7503,7 @@ msgid "calendar"
 msgstr "تقویم"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Block/metar.php:170 lib/Block/metar.php:356
 #, php-format
 msgid "calm"
@@ -9285,23 +7513,19 @@ msgstr "آرام"
 msgid "click here"
 msgstr "اینجا را فشار دهید"
 
-#: lib/Block/weatherdotcom.php:479
-msgid "falling"
-msgstr ""
-
 #: lib/Horde/Browser.php:884 lib/Horde/Horde/Browser.php:885
 msgid "file"
 msgstr "پرونده"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Block/metar.php:172 lib/Block/metar.php:358 lib/Block/metar.php:384
 #, php-format
 msgid "from the %s (%s) at %s %s"
 msgstr "از %s (%s) در %s %s"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: lib/Block/weatherdotcom.php:225
 msgid "gusting"
 msgstr "باد"
@@ -9327,11 +7551,6 @@ msgstr "درخط"
 #: templates/javascript/quoteBlocks.js:13
 msgid "lines]"
 msgstr "خطوط]"
-
-#: lib/Horde/VFS/ISOWriter/mkisofs.php:53
-#, php-format
-msgid "mkisofs error code %d while making ISO."
-msgstr ""
 
 #: lib/Horde/Horde/Prefs/UI.php:293 lib/Horde/Prefs/UI.php:293
 #: services/portal/sidebar.php:170 services/portal/sidebar.php:233
@@ -9365,10 +7584,6 @@ msgstr "طلوع"
 #: admin/setup/config.php:99
 msgid "show differences"
 msgstr "نمایش تفاوتها"
-
-#: lib/Horde/Net/SMS/sms2email_http.php:535
-msgid "sms2email via HTTP"
-msgstr ""
 
 #: lib/Block/weatherdotcom.php:480
 msgid "steady"
