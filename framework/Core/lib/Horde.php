@@ -89,6 +89,7 @@ class Horde
                                       $priority = PEAR_LOG_INFO)
     {
         $logger = self::getLogger();
+
         if ($logger === false) {
             return;
         }
@@ -151,8 +152,7 @@ class Horde
         global $conf;
 
         if (empty($conf['log']['enabled'])) {
-            $ret = false;
-            return $ret;
+            return false;
         }
 
         if (isset(self::$_logger)) {
