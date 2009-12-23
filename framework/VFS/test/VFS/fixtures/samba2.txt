@@ -1,0 +1,30 @@
+  .                                   D        0  Fri Apr 24 13:29:13 2009
+  ..                                  D        0  Fri Jun  6 22:23:04 2008
+  tmp                                 D        0  Mon Jan  7 10:23:03 2008
+  Der Fischer und seine Frau Märchen.odt      A    22935  Thu Jan 25 21:55:36 2007
+  Tänze                              D        0  Thu Jan 25 21:26:53 2007
+  Availabilities+rates EE-Dateien      D        0  Tue Sep 13 14:46:53 2005
+  Briefkopf.odt                       A     9564  Fri Jan 20 11:42:11 2006
+  Deckblatt.pdf                       A    18027  Wed Nov 28 22:06:42 2007
+  Babymassage.sxw                     A     9228  Tue Dec  7 00:40:14 2004
+  Gutschein.pdf                       A    10621  Sat Jan  6 17:50:42 2007
+  Die zertanzten Schuh.pdf            A   257955  Mon Jan 22 17:32:45 2007
+  Flyer Im Takt.pdf                   A    42905  Sat Jan 27 10:54:44 2007
+  Availabilities+rates EE.doc         A  1407488  Sun Aug 14 20:27:26 2005
+  Availabilities+rates EE.htm         A   262588  Tue Sep 13 14:42:16 2005
+  tt0208m_.ttf                        A    47004  Sat Mar 19 17:34:56 2005
+  Alte Dateien.zip                    A  5566512  Sun May 20 23:51:52 2007
+  Availabilities+rates SQ-Dateien      D        0  Tue Sep 13 14:46:07 2005
+  Bobath-Befund.pdf                   A   123696  Wed Nov 28 21:43:20 2007
+  Availabilities+rates SQ.doc         A   109056  Sun Aug 14 20:27:42 2005
+  Availabilities+rates SQ.htm         A   266079  Tue Sep 13 14:41:30 2005
+  tt0586m_.ttf                        A    35928  Sat Mar 19 17:34:58 2005
+  Gartenkonzept SZOE.html                 168801  Mon Jan  7 10:27:10 2008
+  .DS_Store                          AH    12292  Wed Mar  9 18:58:27 2005
+  Pfefferkuchenmann.odt                    14399  Wed Dec 20 20:57:59 2006
+  Sockenstrickanleitung mit Bildern.sxw            9518  Mon Dec 27 19:32:09 2004
+  Gartenkonzept SZOE.doc                32959488  Mon May 28 17:22:32 2007
+  Gartenkonzept SZOE.odt              A 32526103  Mon May 28 17:18:48 2007
+  Gartenkonzept SZOE.pdf              A 32632182  Sun May 20 23:39:40 2007
+
+		48828 blocks of size 2097152. 14773 blocks available

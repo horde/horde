@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>File_PDF</name>
+ <channel>pear.php.net</channel>
+ <summary>PDF generation using only PHP.</summary>
+ <description>This package provides PDF generation using only PHP, without requiring any external libraries.</description>
+ <lead>
+  <name>Marko Djukic</name>
+  <user>mdjukic</user>
+  <email>mdjukic@horde.org</email>
+  <active>no</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>yunosh</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chagenbu</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2008-02-26</date>
+ <version>
+  <release>0.3.2</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>* Automatically restore font styles after adding headers and footers (PEAR Request #12310).
+* Pass $params to the class constructor to allow subclasses to receive and handle additional parameters (PEAR Request #12441).
+* Fix creating linked images (Horde Bug #5964).</notes>
+ <contents>
+  <dir name="/">
+   <dir name="PDF">
+    <dir name="fonts">
+     <file baseinstalldir="/File" name="courier.php" role="php" />
+     <file baseinstalldir="/File" name="helvetica.php" role="php" />
+     <file baseinstalldir="/File" name="helveticab.php" role="php" />
+     <file baseinstalldir="/File" name="helveticabi.php" role="php" />
+     <file baseinstalldir="/File" name="helveticai.php" role="php" />
+     <file baseinstalldir="/File" name="symbol.php" role="php" />
+     <file baseinstalldir="/File" name="times.php" role="php" />
+     <file baseinstalldir="/File" name="timesb.php" role="php" />
+     <file baseinstalldir="/File" name="timesbi.php" role="php" />
+     <file baseinstalldir="/File" name="timesi.php" role="php" />
+     <file baseinstalldir="/File" name="zapfdingbats.php" role="php" />
+    </dir> <!-- /PDF/fonts -->
+   </dir> <!-- /PDF -->
+   <dir name="tests">
+    <file baseinstalldir="/File" name="auto_break.phpt" role="test" />
+    <file baseinstalldir="/File" name="factory.phpt" role="test" />
+    <file baseinstalldir="/File" name="hello_world.phpt" role="test" />
+    <file baseinstalldir="/File" name="horde-power1.png" role="test" />
+    <file baseinstalldir="/File" name="links.phpt" role="test" />
+    <file baseinstalldir="/File" name="locale_floats.phpt" role="test" />
+    <file baseinstalldir="/File" name="pear12310.phpt" role="test" />
+    <file baseinstalldir="/File" name="text_color.phpt" role="test" />
+   </dir> <!-- /tests -->
+   <file baseinstalldir="/File" name="PDF.php" role="php" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+  </required>
+  <optional>
+   <package>
+    <name>HTTP_Download</name>
+    <channel>pear.php.net</channel>
+   </package>
+  </optional>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.3.1</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2007-11-07</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>* Fixed escaping of parenthesis in PDF documents (PEAR Bug #12092).
+* Always reset position to the left margin before starting footers.
+* Fixed fill color overwriting text color (PEAR Bug #12310).</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.3.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2007-09-14</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>* Add flush() method to allow processing of very large PDF files (Request #10077).
+* Fix underlined fonts (Bug #11447).
+* Workaround BC break in PHP 4.3.10 with some locales (Horde Bug #4094).</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2007-01-22</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>* Catch errors from parsing images (Bug #8856).
+* Fix font width calculation of comma character (Andrew Teixeira, Bug #9595).
+* Add getPageWidth() and getPageHeight() methods (Request #9267).</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-08-28</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>* Preserve font settings when adding new pages (Bug #2682).
+* Add setFontStyle() method (d.baechtold@unico.ch, Request #5230).
+* Allow all coordinates to be specified as negative values from the right or bottom edges (Request #5230).
+* Add setTextColor() to specify text colors different from fill colors (Request #1767).</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.2</release>
+    <api>0.0.2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2005-04-14</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>* Fixed loading of font metrics in setFont().
+* Fixed typo preventing setFillColor() and setDrawColor() from accepting any other colorspace than &apos;rgb&apos; (Horde Bug 1276).
+* Allow to use factory() method with custom class extended from File_PDF (Bug 1543).
+* Fixed typo in link() (Bug 1737).
+* Fixed save() method to actually save the whole document (Bug 1768).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-06-04</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Initial release as a PEAR package
+   </notes>
+  </release>
+ </changelog>
+</package>

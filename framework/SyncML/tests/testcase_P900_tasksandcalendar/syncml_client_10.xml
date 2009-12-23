@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><SyncML xmlns='SYNCML:SYNCML1.0'><SyncHdr><VerDTD>1.0</VerDTD><VerProto>SyncML/1.0</VerProto><SessionID>1613468436</SessionID><MsgID>1</MsgID><Target><LocURI>http://example.com/rpc.php</LocURI></Target><Source><LocURI>351965-00-340413-3</LocURI></Source><Cred><Meta><Format xmlns='syncml:metinf'>b64</Format><Type xmlns='syncml:metinf'>syncml:auth-basic</Type></Meta><Data>c3luY21sdGVzdDpzeW5jbWx0ZXN0</Data></Cred><Meta><MaxMsgSize xmlns='syncml:metinf'>200000</MaxMsgSize></Meta></SyncHdr><SyncBody><Put><CmdID>1</CmdID><Meta><Type xmlns='syncml:metinf'>application/vnd.syncml-devinf+xml</Type></Meta><Item><Source><LocURI>./devinf10</LocURI></Source><Data><DevInf xmlns='syncml:devinf'><VerDTD>1.0</VerDTD>
+<Man>Sony Ericsson</Man>
+<Mod>P900</Mod>
+<OEM>Symbian</OEM>
+<FwV>R5B02</FwV>
+<SwV>1.0</SwV>
+<HwV>R1A</HwV>
+<DevTyp>smartphone</DevTyp>
+<DevID>351965-00-340413-3</DevID><DataStore><SourceRef>c:\Documents\agenda\agenda</SourceRef>
+
+	<MaxGUIDSize>4</MaxGUIDSize>
+	<Rx-Pref>
+		<CTType>text/x-vcalendar</CTType>
+		<VerCT>1.0</VerCT>
+	</Rx-Pref>
+	<Tx-Pref>
+		<CTType>text/x-vcalendar</CTType>
+		<VerCT>1.0</VerCT>
+	</Tx-Pref>
+	<DSMem>
+	</DSMem>
+	<SyncCap>
+		<SyncType>1</SyncType>
+		<SyncType>2</SyncType>
+	</SyncCap>
+</DataStore>
+<CTCap>
+	<CTType>text/x-vcalendar</CTType>
+	<PropName>AALARM</PropName>
+	<PropName>ATTACH</PropName>
+	<PropName>ATTENDEE</PropName>
+		<ParamName>EXPECT</ParamName>
+		<ParamName>ROLE</ParamName>
+		<ParamName>RSVP</ParamName>
+		<ParamName>STATUS</ParamName>
+	<PropName>BEGIN</PropName>
+		<ValEnum>VCALENDAR</ValEnum>
+		<ValEnum>VEVENT</ValEnum>
+		<ValEnum>VTODO</ValEnum>
+	<PropName>CATEGORIES</PropName>
+	<PropName>COMPLETED</PropName>
+	<PropName>CLASS</PropName>
+		<ValEnum>PUBLIC</ValEnum>
+		<ValEnum>PRIVATE</ValEnum>
+		<ValEnum>CONFIDENTIAL</ValEnum>
+	<PropName>DAYLIGHT</PropName>
+	<PropName>DCREATED</PropName>
+	<PropName>DESCRIPTION</PropName>
+	<PropName>DTSTART</PropName>
+	<PropName>DTEND</PropName>
+	<PropName>DUE</PropName>
+	<PropName>END</PropName>
+		<ValEnum>VEVENT</ValEnum>
+		<ValEnum>VCALENDAR</ValEnum>
+		<ValEnum>VTODO</ValEnum>
+	<PropName>EXDATE</PropName>
+	<PropName>LAST-MODIFIED</PropName>
+	<PropName>LOCATION</PropName>
+	<PropName>PRIORITY</PropName>
+	<PropName>RRULE</PropName>
+	<PropName>STATUS</PropName>
+	<PropName>SUMMARY</PropName>
+	<PropName>UID</PropName>
+	<PropName>VERSION</PropName>
+		<ValEnum>1.0</ValEnum>
+</CTCap></DevInf></Data></Item></Put><Get><CmdID>2</CmdID><Meta><Type xmlns='syncml:metinf'>application/vnd.syncml-devinf+xml</Type></Meta><Item><Target><LocURI>./devinf10</LocURI></Target></Item></Get><Alert><CmdID>3</CmdID><Data>200</Data><Item><Target><LocURI>calendar</LocURI></Target><Source><LocURI>c:\Documents\agenda\agenda</LocURI></Source><Meta><Anchor xmlns='syncml:metinf'><Last>20061222T204212Z</Last><Next>20061222T205323Z</Next></Anchor></Meta></Item></Alert><Final/></SyncBody></SyncML>

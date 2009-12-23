@@ -1,0 +1,4 @@
+First Name,Last Name,Name,Nickname,E-mail Address,Home Street,Home City,Home Postal Code,Home State,Home Country/Region,Home Phone,Home Fax,Mobile Phone,Personal Web Page,Business Street,Business City,Business Postal Code,Business State,Business Country/Region,Business Web Page,Business Phone,Business Fax,Pager,Company,Job Title,Department,Office Location,Notes
+foo,bar,foo,foo,foo@bar.com,"Foo Street 8, 20 Building",foo,9999999,foo,Afghanistan,Foo Street 8,99999999,999999999,http://foo.bar.com,Foo Street 8,Foo,99999,Foo,Foo/Foo,,Foo Street 8,99999999,99999999,foo,Web Developer,Foo Net,Foo Building,"I'm
+multiline 
+memo."

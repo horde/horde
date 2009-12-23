@@ -1,0 +1,109 @@
+# German translations for Kolab_Filter package
+# German messages for Kolab_Filter.
+# Copyright (C) 2008 KDAB
+# This file is distributed under the same license as the Kolab_Filter package.
+# Gunnar Wrobel <p@rdus.de>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Kolab_Filter\n"
+"Report-Msgid-Bugs-To: p@rdus.de\n"
+"POT-Creation-Date: 2008-12-14 17:09+0100\n"
+"PO-Revision-Date: 2008-12-14 17:58+0100\n"
+"Last-Translator:  <p@rdus.de>\n"
+"Language-Team: German\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:887
+#: lib/Horde/Kolab/Resource.php:887
+#, php-format
+msgid "%s has accepted the invitation to the following event:"
+msgstr "%s hat die Einladung für folgenden Termin akzeptiert:"
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:886
+#: lib/Horde/Kolab/Resource.php:886
+#, php-format
+msgid "%s has accepted the update to the following event:"
+msgstr "%s hat die Aktualisierung für folgenden Termin akzeptiert:"
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:621
+#: lib/Horde/Kolab/Resource.php:621
+#, php-format
+msgid "%s has been cancelled"
+msgstr "%s wurde storniert."
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:877
+#: lib/Horde/Kolab/Resource.php:877
+#, php-format
+msgid "%s has declined the invitation to the following event:"
+msgstr "%s hat die Einladung für folgenden Termin abgelehnt:"
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:876
+#: lib/Horde/Kolab/Resource.php:876
+#, php-format
+msgid "%s has declined the update to the following event:"
+msgstr "%s hat die Aktualisierung für folgenden Termin abgelehnt:"
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:897
+#: lib/Horde/Kolab/Resource.php:897
+#, php-format
+msgid "%s has tentatively accepted the invitation to the following event:"
+msgstr "%s hat die Einladung für folgenden Termin unter Vorbehalt akzeptiert:"
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:896
+#: lib/Horde/Kolab/Resource.php:896
+#, php-format
+msgid "%s has tentatively accepted the update to the following event:"
+msgstr "%s hat die Aktualisierung für folgenden Termin unter Vorbehalt akzeptiert:"
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Filter/Content.php:403
+#: lib/Horde/Kolab/Filter/Content.php:403
+#, php-format
+msgid "(UNTRUSTED, sender <%s> is not authenticated)"
+msgstr "(NICHT VERTRAUENSWÜRDIG, der Absender <%s> ist nicht authentifiziert)"
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Filter/Content.php:397
+#: lib/Horde/Kolab/Filter/Content.php:397
+#, php-format
+msgid "(UNTRUSTED, sender is <%s>)"
+msgstr "(NICHT VERTRAUENSWÜRDIG, der Absender ist <%s>)"
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:888
+#: lib/Horde/Kolab/Resource.php:888
+msgid "Accepted: "
+msgstr "Akzeptiert: "
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:878
+#: lib/Horde/Kolab/Resource.php:878
+msgid "Declined: "
+msgstr "Abgelehnt: "
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:603
+#: lib/Horde/Kolab/Resource.php:603
+#, php-format
+msgid "Error processing \"%s\""
+msgstr "Fehler beim Verarbeiten von \"%s\""
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:825
+#: lib/Horde/Kolab/Resource.php:825
+msgid "No summary available"
+msgstr "Keine Zusammenfassung verfügbar"
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:898
+#: lib/Horde/Kolab/Resource.php:898
+msgid "Tentative: "
+msgstr "Unter Vorbehalt: "
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:620
+#: lib/Horde/Kolab/Resource.php:620
+msgid "The following event has been successfully removed:"
+msgstr "Der folgende Termin wurde erfolgreich gelöscht:"
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:602
+#: lib/Horde/Kolab/Resource.php:602
+#, php-format
+msgid "The following event that was canceled is not present in %s's calendar:"
+msgstr "Es wurde versucht den folgenden Termin zu löschen, aber dieser ist im Kalender von %s nicht vorhanden:"

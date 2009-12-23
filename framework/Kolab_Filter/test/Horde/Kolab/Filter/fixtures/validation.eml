@@ -1,0 +1,10 @@
+To: %2$s
+Subject: test
+From: %1$s
+Date: Tue, 27 Nov 2007 08:49:39 +0100
+Message-ID: <878x4k6sbw.fsf@kolab.example.com>
+User-Agent: Gnus/5.1008 (Gnus v5.10.8) Emacs/22.1.50 (x86_64-pc-linux-gnu)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+
+test

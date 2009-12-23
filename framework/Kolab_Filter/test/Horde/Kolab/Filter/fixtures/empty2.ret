@@ -1,0 +1,9 @@
+Mail from sender: wrobel@example.org
+Mail to recipient: me@example.org
+From: me@example.com
+To:me@example.com
+Subject: xx
+X-Kolab-Scheduling-Message: FALSE
+
+xx
+.

@@ -1,0 +1,11 @@
+  .                                   D        0  Wed May 27 15:18:42 2009
+  ..                                  D        0  Thu May 28 16:04:56 2009
+  SystemHiddenReadonlyArchive     DAHSR        0  Wed May 27 14:17:21 2009
+  Ein ziemlich langer Ordner mit vielen Buchstaben, der nicht kurz ist      D        0  Wed May 27 14:14:11 2009
+  Eine ziemlich lange Datei mit vielen Buchstaben, die nicht kurz ist.txt      A        0  Wed May 27 14:14:42 2009
+  Ordner mit Sonderzeichen & ( ) _ - toll      D        0  Wed May 27 14:15:05 2009
+  Datei mit SOnderzeichen ¿ € § µ ° juhuuu.txt      A        0  Wed May 27 14:15:38 2009
+  SystemHiddenReadonlyArchive.txt   AHSR        0  Wed May 27 14:16:32 2009
+  SystemHiddenReadonlyArchive.txte    AHR       31  Wed May 27 15:18:42 2009
+
+		49152 blocks of size 65536. 2 blocks available

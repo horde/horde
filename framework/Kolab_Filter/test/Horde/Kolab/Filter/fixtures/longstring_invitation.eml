@@ -1,0 +1,29 @@
+To: wrobel@example.org
+From: test@example.org
+Subject: Invitation kolab/issue3236
+Date: Fri, 21 Nov 2008 19:25:35 +0100
+MIME-Version: 1.0
+Content-Type: text/calendar;
+  method=request;
+  charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+BEGIN:VCALENDAR
+PRODID:-//Microsoft Corporation//Outlook 11.0 MIMEDIR//EN
+VERSION:2.0
+METHOD:REQUEST
+BEGIN:VEVENT
+ATTENDEE;ROLE=REQ-PARTICIPANT;RSVP=TRUE:MAILTO:wrobel@example.org
+ORGANIZER:MAILTO:test@example.org
+DTSTART:20081122T190000Z
+DTEND:20081122T193000Z
+SEQUENCE:0
+UID:040000008200E00074C5B7101A82E0080000000020D533ED0E4CC9010000000000000000100
+ 00000094C5C0A65E8CC4DB1AEC47FD1255FCD
+DTSTAMP:20081121T182534Z
+DESCRIPTION:Zeit: Samstag\, 22. November 2008 20:00-20:30 (GMT+01:00)
+  Amsterdam\, Berlin\, Bern\, Rom\, Stockholm\,
+  Wien.\\n\\n*~*~*~*~*~*~*~*~*~*\\n\\n\\n
+SUMMARY:invitationtest2
+END:VEVENT
+END:VCALENDAR

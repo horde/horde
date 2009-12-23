@@ -1,0 +1,109 @@
+# Dutch translations for Kolab_Filter package
+# Copyright (C) 2009 Richard Bos
+# This file is distributed under the same license as the Kolab_Filter package.
+# Richard Bos <ml@radoeka.nl>, 2009
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Kolab_Filter\n"
+"Report-Msgid-Bugs-To: p@rdus.de\n"
+"POT-Creation-Date: 2008-12-14 17:09+0100\n"
+"PO-Revision-Date: 2009-03-17 11:44+0100\n"
+"Last-Translator: Richard Bos <ml@radoeka.nl>\n"
+"Language-Team: Dutch\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:887
+#: lib/Horde/Kolab/Resource.php:887
+#, php-format
+msgid "%s has accepted the invitation to the following event:"
+msgstr "%s heeft de uitnodiging voor de volgende gebeurtenis geaccepteerd:"
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:886
+#: lib/Horde/Kolab/Resource.php:886
+#, php-format
+msgid "%s has accepted the update to the following event:"
+msgstr "%s heeft de wijziging voor de volgende gebeurtenis geaccepteerd:"
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:621
+#: lib/Horde/Kolab/Resource.php:621
+#, php-format
+msgid "%s has been cancelled"
+msgstr "%s is afgelast"
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:877
+#: lib/Horde/Kolab/Resource.php:877
+#, php-format
+msgid "%s has declined the invitation to the following event:"
+msgstr "%s heeft de uitnodiging voor de volgende gebeurtenis afgewezen:"
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:876
+#: lib/Horde/Kolab/Resource.php:876
+#, php-format
+msgid "%s has declined the update to the following event:"
+msgstr "%s heeft de wijziging voor de volgende gebeurtenis afgewezen:"
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:897
+#: lib/Horde/Kolab/Resource.php:897
+#, php-format
+msgid "%s has tentatively accepted the invitation to the following event:"
+msgstr "%s heeft de uitnodiging voor de volgende gebeurtenis voorlopig accepteerd:"
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:896
+#: lib/Horde/Kolab/Resource.php:896
+#, php-format
+msgid "%s has tentatively accepted the update to the following event:"
+msgstr "%s heeft de wijziging voor de volgende gebeurtenis voorlopig accepteerd:"
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Filter/Content.php:403
+#: lib/Horde/Kolab/Filter/Content.php:403
+#, php-format
+msgid "(UNTRUSTED, sender <%s> is not authenticated)"
+msgstr "(NIET VERTROUWD, afzender <%s> is niet geauthenticeerd)"
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Filter/Content.php:397
+#: lib/Horde/Kolab/Filter/Content.php:397
+#, php-format
+msgid "(UNTRUSTED, sender is <%s>)"
+msgstr "(NIET VERTROUWD, afzender <%s>)"
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:888
+#: lib/Horde/Kolab/Resource.php:888
+msgid "Accepted: "
+msgstr "Geaccepteerd: "
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:878
+#: lib/Horde/Kolab/Resource.php:878
+msgid "Declined: "
+msgstr "Afgewezen: "
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:603
+#: lib/Horde/Kolab/Resource.php:603
+#, php-format
+msgid "Error processing \"%s\""
+msgstr "Fout tijdens het bewerken "
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:825
+#: lib/Horde/Kolab/Resource.php:825
+msgid "No summary available"
+msgstr "Geen samenvatting beschikbaar"
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:898
+#: lib/Horde/Kolab/Resource.php:898
+msgid "Tentative: "
+msgstr "Voorlopig"
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:620
+#: lib/Horde/Kolab/Resource.php:620
+msgid "The following event has been successfully removed:"
+msgstr "De volgende gebeurtenis is succesvol verwijderd:"
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:602
+#: lib/Horde/Kolab/Resource.php:602
+#, php-format
+msgid "The following event that was canceled is not present in %s's calendar:"
+msgstr "De volgende afgezegde gebeurtenis is niet beschikbaar in de agenda van %s: "
+

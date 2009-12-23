@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Horde_Form</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde Form API</summary>
+ <description>The Horde_Form:: package provides form rendering, validation, and other functionality for the Horde Application Framework.
+ </description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2006-05-08</date>
+ <time>21:43:34</time>
+ <version>
+  <release>0.0.2</release>
+  <api>0.0.2</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>Converted to package.xml 2.0 for pear.horde.org
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="Form">
+    <dir name="Action">
+     <file baseinstalldir="/Horde" name="ConditionalEnable.php" role="php" />
+     <file baseinstalldir="/Horde" name="ConditionalSetValue.php" role="php" />
+     <file baseinstalldir="/Horde" name="conditional_enable.php" role="php" />
+     <file baseinstalldir="/Horde" name="conditional_setvalue.php" role="php" />
+     <file baseinstalldir="/Horde" name="reload.php" role="php" />
+     <file baseinstalldir="/Horde" name="setcursorpos.php" role="php" />
+     <file baseinstalldir="/Horde" name="submit.php" role="php" />
+     <file baseinstalldir="/Horde" name="sum_fields.php" role="php" />
+     <file baseinstalldir="/Horde" name="updatefield.php" role="php" />
+    </dir> <!-- //Form/Action -->
+    <dir name="Type">
+     <file baseinstalldir="/Horde" name="tableset.php" role="php" />
+    </dir> <!-- //Form/Type -->
+    <file baseinstalldir="/Horde" name="Action.php" role="php" />
+    <file baseinstalldir="/Horde" name="Renderer.php" role="php" />
+    <file baseinstalldir="/Horde" name="Type.php" role="php" />
+    <file baseinstalldir="/Horde" name="Variable.php" role="php" />
+   </dir> <!-- //Form -->
+   <file baseinstalldir="/Horde" name="Form.php" role="php" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+   <package>
+    <name>Horde_Framework</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Token</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Util</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </required>
+  <optional>
+   <extension>
+    <name>gettext</name>
+   </extension>
+  </optional>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2003-07-03</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Initial release as a PEAR package
+   </notes>
+  </release>
+ </changelog>
+</package>

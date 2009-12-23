@@ -1,0 +1,32 @@
+Mail from sender: wrobel@example.org
+Mail to recipient: test@example.com
+Received: from localhost (localhost [127.0.0.1]) by localhost (Horde MIME library) with HTTP; Sat, 18 Apr 2009 21:46:38 +0200
+Message-ID: <20090418214638.lji09a8nk8ggg0os@localhost>
+Date: Sat, 18 Apr 2009 21:46:38 +0200
+From: cn=Gunnar Wrobel <wrobel@example.org>
+To: test@example.com
+Subject: Accepted: issue3521
+MIME-Version: 1.0
+Content-Type: text/calendar;
+	charset=UTF-8;
+	method="REPLY"
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+\r\n\r\nBEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//kolab.org//NONSGML Kolab Server 2//EN
+METHOD:REPLY
+BEGIN:VEVENT
+UID:libkcal-865928855.207
+SUMMARY:issue3521
+DTSTART;VALUE=3DDATE:20090417
+DTEND;VALUE=3DDATE:20090418
+SEQUENCE:0
+ORGANIZER;CN=3DTest:MAILTO:test@example.com
+ATTENDEE;CN=3Dcn=3DGunnar Wrobel;PARTSTAT=3DACCEPTED:MAILTO:wrobel@example.o=
+rg
+DTSTAMP:20090418T194638Z
+END:VEVENT
+END:VCALENDAR
+.

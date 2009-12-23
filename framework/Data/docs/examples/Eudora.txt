@@ -1,0 +1,2 @@
+alias firman firman@php.net
+note firman <first:Firman><last:Wandayandi><displayname:Firman Wandayandi><email:firman@php.net><address:Foo Street><city:Bandung><zip:99999><state:West Java><country:Indonesia><phone:99999999><fax:99999999><mobile:999999999><web:http://php.hm/~firman><address2:Foo Street><city2:Bandung><zip2:99999><state2:West Java><country2:Indonesia><phone2:99999999><fax2:99999999><company:Foo><title:Web Developer>It's a notes.

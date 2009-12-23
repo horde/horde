@@ -1,0 +1,14 @@
+<?php
+$params = array('phptype' => 'mysql',
+                'database' => 'horde',
+                'username' => 'horde',
+                'password' => 'horde',
+                'charset' => 'iso-8859-1');
+
+require_once 'Log.php';
+$conf['log'] = array('priority' => PEAR_LOG_DEBUG,
+                     'ident' => 'HEADHORDE',
+                     'params' => array('append' => true),
+                     'name' => '/tmp/horde.log',
+                     'type' => 'file',
+                     'enabled' => true);

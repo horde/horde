@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Net_IMSP</name>
+ <channel>pear.horde.org</channel>
+ <summary>IMSP API</summary>
+ <description>Provides an API into an IMSP server for Addressbooks and Options
+ </description>
+ <lead>
+  <name>Michael Rubinsky</name>
+  <user>mrubinsk</user>
+  <email>mrubinsk@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2006-05-08</date>
+ <time>22:36:36</time>
+ <version>
+  <release>0.0.6</release>
+  <api>0.0.6</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>Converted to package.xml 2.0 for pear.horde.org
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="IMSP">
+    <dir name="Auth">
+     <file baseinstalldir="/Net" name="cram_md5.php" role="php" />
+     <file baseinstalldir="/Net" name="imtest.php" role="php" />
+     <file baseinstalldir="/Net" name="plaintext.php" role="php" />
+    </dir> <!-- //IMSP/Auth -->
+    <file baseinstalldir="/Net" name="Auth.php" role="php" />
+    <file baseinstalldir="/Net" name="Book.php" role="php" />
+    <file baseinstalldir="/Net" name="Options.php" role="php" />
+    <file baseinstalldir="/Net" name="Utils.php" role="php" />
+   </dir> <!-- //IMSP -->
+   <file baseinstalldir="/Net" name="IMSP.php" role="php" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.0.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.0.5</release>
+    <api>0.0.5</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-01-01</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Suport for using Horde_Share added.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.4</release>
+    <api>0.0.4</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2005-04-12</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Support for automatically creating a user&apos;s default addressbook and
+functions added to the Net_IMSP_Utils class for easily adding and deleting
+addressbook.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.3</release>
+    <api>0.0.3</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2005-02-23</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Added support for authentication using mtest for Cyrus IMAP
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.2</release>
+    <api>0.0.2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2005-02-06</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Bug fix for addressbook names containing spaces
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2004-02-05</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Initial packaging and release of code
+   </notes>
+  </release>
+ </changelog>
+</package>

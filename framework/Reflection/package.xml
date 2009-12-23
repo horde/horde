@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.7.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+    http://pear.php.net/dtd/tasks-1.0.xsd
+    http://pear.php.net/dtd/package-2.0
+    http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Horde_Reflection</name>
+ <channel>pear.horde.org</channel>
+ <summary>Method reflection and documentation package</summary>
+ <description>The Reflection package provides methods for generationg code reflection and automatic documentation of methods.
+The package has a driver based output generation and currently generates HTML and Text_Wiki output.</description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jakob Munih</name>
+  <user>duck</user>
+  <email>duck@obala.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2008-02-14</date>
+ <time>13:32:45</time>
+ <version>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+ <notes>First release</notes>
+ <contents>
+  <dir name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Reflection">
+      <file name="Cli.php" role="php" />
+      <file name="Html.php" role="php" />
+      <file name="Wiki.php" role="php" />
+     </dir> <!-- /lib/Horde/Reflection -->
+     <file name="Reflection.php" role="php" />
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.0.3</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install name="lib/Horde/Reflection.php" as="Horde/Reflection.php" />
+   <install name="lib/Horde/Reflection/Cli.php" as="Horde/Reflection/Cli.php" />
+   <install name="lib/Horde/Reflection/Html.php" as="Horde/Reflection/Html.php" />
+   <install name="lib/Horde/Reflection/Wiki.php" as="Horde/Reflection/Wiki.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2008-02-14</date>
+   <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+   <notes>First release</notes>
+  </release>
+ </changelog>
+</package>

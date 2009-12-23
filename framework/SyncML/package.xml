@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>SyncML</name>
+ <channel>pear.horde.org</channel>
+ <summary>SyncML provides an API for processing SyncML requests.</summary>
+ <description>This package provides classes for implementing a SyncML server.
+ </description>
+ <lead>
+  <name>Karsten Fourmont</name>
+  <user>karsten</user>
+  <email>karsten@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2007-01-11</date>
+ <time>13:58:57</time>
+ <version>
+  <release>0.7.0</release>
+  <api>0.7.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>Make the SyncML package independant from Horde, provide a new Sql backend as a reference implementation for a backend.</notes>
+ <contents>
+  <dir name="/">
+   <dir name="docs">
+    <file name="INSTALL.p900.txt" role="doc" />
+    <file name="README.program_flow.txt" role="doc" />
+    <file name="README.syncml_primer.txt" role="doc" />
+    <file name="TODO" role="doc" />
+   </dir> <!-- /docs -->
+   <dir name="SyncML">
+    <dir name="Command">
+     <file name="Alert.php" role="php" />
+     <file name="Final.php" role="php" />
+     <file name="Get.php" role="php" />
+     <file name="Map.php" role="php" />
+     <file name="Put.php" role="php" />
+     <file name="Results.php" role="php" />
+     <file name="Status.php" role="php" />
+     <file name="Sync.php" role="php" />
+     <file name="SyncHdr.php" role="php" />
+     <file name="SyncElement.php" role="php" />
+    </dir> <!-- /SyncML/Command -->
+    <dir name="Device">
+     <file name="Nokia.php" role="php" />
+     <file name="P800.php" role="php" />
+     <file name="Sync4j.php" role="php" />
+     <file name="Synthesis.php" role="php" />
+     <file name="Sync4JMozilla.php" role="php" />
+    </dir> <!-- /SyncML/Device -->
+    <dir name="Backend">
+     <file name="Horde.php" role="php" />
+     <file name="Sql.php" role="php" />
+    </dir> <!-- /SyncML/Backend -->
+    <file name="Backend.php" role="php" />
+    <file name="Command.php" role="php" />
+    <file name="Constants.php" role="php" />
+    <file name="Device.php" role="php" />
+    <file name="DeviceInfo.php" role="php" />
+    <file name="State.php" role="php" />
+    <file name="Sync.php" role="php" />
+    <file name="XMLOutput.php" role="php" />
+   </dir> <!-- /SyncML -->
+   <file name="SyncML.php" role="php" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+   <package>
+    <name>XML_WBXML</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+   <release>
+   <version>
+    <release>0.6.0</release>
+    <api>0.6.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-01-01</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Passes all tests of SyncML conformance suite now.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.3</release>
+    <api>0.0.3</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2005-04-23</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Major update
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2004-01-19</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Initial implementation
+   </notes>
+  </release>
+ </changelog>
+</package>

@@ -1,0 +1,39 @@
+From: User1 <somebody@example.org>
+Sender: User2 <%1$s>
+To: User3 <%2$s>
+Subject: kolab/issue3192
+Date: Mon, 23 Feb 2009 15:16:14 +0100
+Message-ID: <000001c995c1$49c4a2a0$140ba8c0@invalid>
+MIME-Version: 1.0
+Content-Type: text/calendar; method=REQUEST;
+	charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Office Outlook 11
+Thread-Index: AcmVuGgcYR9Pp2HUSHalFjSgcQETAwAAAq8gAAIyVwA=
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2900.2670
+
+BEGIN:VCALENDAR
+PRODID:-//Microsoft Corporation//Outlook 11.0 MIMEDIR//EN
+VERSION:2.0
+METHOD:REQUEST
+BEGIN:VEVENT
+ATTENDEE;ROLE=REQ-PARTICIPANT;RSVP=TRUE:MAILTO:%(user3)s
+DTSTART:20090223T140000Z
+DTEND:20090223T150000Z
+TRANSP:OPAQUE
+SEQUENCE:0
+UID:libkcal-910600374.601
+DTSTAMP:20090223T131221Z
+DESCRIPTION:Zeit: Montag\, 23. Februar 2009 15:00-16:00 (GMT+01:00)
+  Amsterdam\, Berlin\, Bern\, Rom\, Stockholm\,
+  Wien.\n\n*~*~*~*~*~*~*~*~*~*\n\n\n\n>_____________________________________
+ ________\n>Von: 	User1  \n>Gesendet:	Montag\, 23. Februar 2009
+  14:12\n>An:	User1\; %(user2)s\n>Betreff:	kolab/issue3192\n>Zeit:
+ 	Montag\, 23. Februar 2009 15:00-16:00 (GMT+01:00) Amsterdam\, Berlin\,
+  Bern\, Rom\, Stockholm\, Wien.\n>Ort:	\n>\n>\n
+SUMMARY:WG: kolab/issue3192
+PRIORITY:5
+X-MICROSOFT-CDO-IMPORTANCE:1
+CLASS:PUBLIC
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,61 @@
+From: Test User <test@oberon.co.za>
+To: test2@oberon.co.za
+Subject: a
+Date: Wed, 19 May 2004 10:38:41 +0200
+User-Agent: KMail/1.6.52
+MIME-Version: 1.0
+Content-Type: Multipart/Mixed;
+  boundary="Boundary-00=_R0xqAO2ZmkKUNMZ"
+Message-Id: <200405191038.41626.test@oberon.co.za>
+Status: R
+X-Status: NQ
+X-KMail-EncryptionState:  
+X-KMail-SignatureState:  
+X-KMail-MDN-Sent:  
+
+--Boundary-00=_R0xqAO2ZmkKUNMZ
+Content-Type: text/plain;
+  charset="us-ascii";
+  boundary=""
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+Organizer: test@oberon.co.za
+Summary: a
+Start Date: 2004-05-19
+Start Time: 12:00
+End Date: 2004-05-19
+End Time: 14:00
+
+--Boundary-00=_R0xqAO2ZmkKUNMZ
+Content-Type: text/calendar;
+  name="cal.ics";
+  method="request"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment
+
+BEGIN:VCALENDAR
+PRODID:-//K Desktop Environment//NONSGML libkcal 3.2//EN
+VERSION:2.0
+METHOD:REQUEST
+BEGIN:VEVENT
+DTSTAMP:20040519T083835Z
+ORGANIZER:MAILTO:test@oberon.co.za
+ATTENDEE;CN=Test2 User;RSVP=TRUE;PARTSTAT=NEEDS-ACTION;ROLE=REQ-PARTICIPANT:mailto:test2@oberon.co.za
+CREATED:20040519T083734Z
+UID:libkcal-67797385.1001
+SEQUENCE:1
+LAST-MODIFIED:20040519T083734Z
+SUMMARY:a
+CLASS:PUBLIC
+PRIORITY:3
+DTSTART:20040614T080000Z
+DTEND:20040614T100000Z
+TRANSP:OPAQUE
+END:VEVENT
+
+END:VCALENDAR
+
+
+--Boundary-00=_R0xqAO2ZmkKUNMZ--
+
