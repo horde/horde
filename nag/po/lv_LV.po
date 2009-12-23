@@ -87,30 +87,6 @@ msgstr "(zemâkâ)"
 msgid "1 task"
 msgstr "1 uzdevums"
 
-#: task.php:258
-msgid "Access denied completing task %s."
-msgstr ""
-
-#: task.php:232
-msgid "Access denied deleting %s."
-msgstr ""
-
-#: task.php:198
-msgid "Access denied moving the task to %s."
-msgstr ""
-
-#: task.php:201
-msgid "Access denied removing task from %s."
-msgstr ""
-
-#: task.php:133
-msgid "Access denied saving task to %s."
-msgstr ""
-
-#: task.php:131
-msgid "Access denied saving task: %s"
-msgstr ""
-
 #: task.php:58
 msgid "Adding A New Task"
 msgstr "Pievienot uzdevumu"

@@ -649,7 +649,9 @@ msgstr ""
 
 #: lib/MIME/Viewer/itip.php:387
 msgid "Attached is a reply to a calendar request you sent."
-msgstr "Im Anhang finden Sie eine Antwort auf eine Terminanfrage, die Sie gestellt haben."
+msgstr ""
+"Im Anhang finden Sie eine Antwort auf eine Terminanfrage, die Sie gestellt "
+"haben."
 
 #: templates/javascript_defs.php:41 templates/compose/compose.html:280
 #: templates/compose/compose.html:339
@@ -933,7 +935,9 @@ msgstr "Ändern Sie die Einstellungen zu Ihrem E-Mail-Server und Ihren Ordnern."
 msgid ""
 "Change the name, address, and signature that people see when they read and "
 "reply to your email."
-msgstr "Ändern Sie den Namen, die Adresse oder die Signatur, die die Empfänger Ihrer E-Mail-Nachrichten sehen, wenn sie diese lesen oder darauf antworten."
+msgstr ""
+"Ändern Sie den Namen, die Adresse oder die Signatur, die die Empfänger Ihrer "
+"E-Mail-Nachrichten sehen, wenn sie diese lesen oder darauf antworten."
 
 #: config/prefs.php.dist:1109
 msgid "Characters to display:"

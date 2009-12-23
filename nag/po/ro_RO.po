@@ -2,7 +2,6 @@
 # Copyright 2003-2009 The Horde Project
 # Eugen Hoanca <eugenh@urban-grafx.ro>, 2003.
 # Marius Dragulescu <mariusd@urban-grafx.ro>, 2003.
-
 msgid ""
 msgstr ""
 "Project-Id-Version: Nag 1.1\n"
@@ -333,8 +332,8 @@ msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
 msgstr ""
-"Acest fisier controleaza schema de culori si fonturi ce vor fi diferite "
-"de cele implicite Horde."
+"Acest fisier controleaza schema de culori si fonturi ce vor fi diferite de "
+"cele implicite Horde."
 
 msgid ""
 "This is the main Nag configuration file. It contains options for all Nag "

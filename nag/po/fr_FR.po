@@ -926,8 +926,8 @@ msgstr "L'heure courante"
 msgid ""
 "The task \"%s\" has been added to \"%s\" tasklist, with a due date of: %s."
 msgstr ""
-"La tâche « %s » a été ajoutée à la liste « %s », avec une date de remise "
-"au : %s."
+"La tâche « %s » a été ajoutée à la liste « %s », avec une date de remise au : %"
+"s."
 
 #: lib/Nag.php:641
 #, php-format
@@ -935,8 +935,8 @@ msgid ""
 "The task \"%s\" has been deleted from \"%s\" tasklist, with a due date of: %"
 "s."
 msgstr ""
-"La tâche « %s » a été retirée de la liste « %s », avec une date de remise "
-"au : %s."
+"La tâche « %s » a été retirée de la liste « %s », avec une date de remise au : "
+"%s."
 
 #: lib/Nag.php:636
 #, php-format

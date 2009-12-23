@@ -161,7 +161,8 @@ msgid "Pri"
 msgstr "Pri"
 
 msgid "Priorities must be between 1 and 5. Please enter a valid priority:"
-msgstr "Prioritetar må vere mellom 1 og 5. Ver venleg og bruk ein lovleg prioritet:"
+msgstr ""
+"Prioritetar må vere mellom 1 og 5. Ver venleg og bruk ein lovleg prioritet:"
 
 msgid "Priority"
 msgstr "Prioritet"
@@ -277,11 +278,19 @@ msgstr "Problem med å setje oppgåveprioritet."
 msgid "This file contains preferences for Nag."
 msgstr "Denne fila inneheld innstillingar for Nag."
 
-msgid "This file controls the stylesheet that is used to set colors and fonts in addition to or overriding Horde defaults."
-msgstr "Denne fila kontrollerer stilarket som blir brukt til å definere fargar og skrifttypar, legg til eller overstyrer standardverdiar i Horde."
+msgid ""
+"This file controls the stylesheet that is used to set colors and fonts in "
+"addition to or overriding Horde defaults."
+msgstr ""
+"Denne fila kontrollerer stilarket som blir brukt til å definere fargar og "
+"skrifttypar, legg til eller overstyrer standardverdiar i Horde."
 
-msgid "This is the main Nag configuration file. It contains options for all Nag scripts."
-msgstr "Dette er hovedkonfigurasjonsfila for Nag. Den inneheld alternativ for alle Nag-skripta."
+msgid ""
+"This is the main Nag configuration file. It contains options for all Nag "
+"scripts."
+msgstr ""
+"Dette er hovedkonfigurasjonsfila for Nag. Den inneheld alternativ for alle "
+"Nag-skripta."
 
 msgid "Undo Changes"
 msgstr "Angre endringar"
@@ -315,4 +324,3 @@ msgstr "Oppgåvelista di er tom."
 
 msgid "at"
 msgstr "den"
-

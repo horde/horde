@@ -61,11 +61,6 @@ msgstr "%d 分"
 msgid "%d minutes"
 msgstr "%d 分"
 
-#: lib/Nag.php:364
-#, php-format
-msgid "%s at %s"
-msgstr ""
-
 #: lib/Nag.php:590 lib/Block/tree_alarms.php:42 lib/Block/summary.php:106
 #, php-format
 msgid "%s is due in %s"
@@ -239,10 +234,6 @@ msgstr "%s 完了。"
 msgid "Completed Tasks"
 msgstr "完了タスク"
 
-#: templates/list/task_summaries.inc:16
-msgid "Completed parent task, mark it as incomplete first"
-msgstr ""
-
 #: templates/view/task.inc:38 templates/list/task_headers.inc:31
 #: lib/Forms/task.php:91 config/prefs.php.dist:92 config/prefs.php.dist:107
 msgid "Completed?"
@@ -334,10 +325,6 @@ msgstr "期日"
 msgid "Due Date"
 msgstr "期日"
 
-#: lib/UI/VarRenderer/nag.php:99
-msgid "Due date specified."
-msgstr ""
-
 #: view.php:102
 msgid "Edit"
 msgstr "編集"
@@ -410,10 +397,6 @@ msgstr "_P未完タスク"
 msgid "Incomplete Tasks"
 msgstr "未完タスク"
 
-#: templates/list/task_summaries.inc:8
-msgid "Incomplete sub tasks, complete them first"
-msgstr ""
-
 #: config/prefs.php.dist:202
 msgid "Incomplete tasks"
 msgstr "未完タスク"
@@ -421,15 +404,6 @@ msgstr "未完タスク"
 #: templates/view/task.inc:64
 msgid "Last Modified"
 msgstr "最終更新日時"
-
-#: templates/list/task_summaries.inc:19
-#, php-format
-msgid "Mark \"%s\" as incomplete"
-msgstr ""
-
-#: templates/view/task.inc:44
-msgid "Mark as incomplete"
-msgstr ""
 
 #: lib/api.php:120
 msgid "Maximum Number of Tasks"
@@ -501,10 +475,6 @@ msgstr "新タスク"
 #: templates/data/import.inc:39
 msgid "Next"
 msgstr "次"
-
-#: config/prefs.php.dist:167
-msgid "No"
-msgstr ""
 
 #: lib/UI/VarRenderer/nag.php:46
 msgid "No delay"
@@ -1149,15 +1119,6 @@ msgstr "午前"
 #: data.php:31
 msgid "iCalendar (vTodo)"
 msgstr "iCalendar (vTodo)"
-
-#: lib/Block/tree_menu.php:37
-#, php-format
-msgid "in %s"
-msgstr ""
-
-#: lib/Nag.php:79
-msgid "no time"
-msgstr ""
 
 #: templates/prefs/defaultduetimeselect.inc:15
 msgid "pm"

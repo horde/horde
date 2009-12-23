@@ -647,10 +647,6 @@ msgstr "Uppgiftslistan '%s' raderades."
 msgid "The task list \"%s\" has been saved."
 msgstr "Uppgiftslistan '%s' sparades."
 
-#: config/prefs.php.dist:75
-msgid "Then:"
-msgstr ""
-
 #: templates/list/empty.inc:3
 msgid "There are no tasks matching the current criteria."
 msgstr "Inga uppgifter matchar aktuellt urval."

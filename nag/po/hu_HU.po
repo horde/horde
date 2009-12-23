@@ -1199,10 +1199,6 @@ msgstr "Feladatlista"
 msgid "am"
 msgstr "de."
 
-#: data.php:31
-msgid "iCalendar (vTodo)"
-msgstr ""
-
 #: lib/Block/tree_menu.php:36
 #, php-format
 msgid "in %s"

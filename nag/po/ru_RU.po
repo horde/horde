@@ -14,11 +14,6 @@ msgstr ""
 "Content-Type: text/plain; charset=CP1251\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: templates/view/task.inc:35
-#, php-format
-msgid " (%s including sub-tasks)"
-msgstr ""
-
 # fuzzy, php-format
 #: lib/Nag.php:71
 #, php-format
@@ -59,16 +54,6 @@ msgstr "Каждые 5 минут"
 #, fuzzy, php-format
 msgid "%d minutes"
 msgstr "Каждые 5 минут"
-
-#: lib/Nag.php:590 lib/Block/summary.php:106 lib/Block/tree_alarms.php:41
-#, php-format
-msgid "%s is due in %s"
-msgstr ""
-
-#: lib/Nag.php:588 lib/Block/summary.php:104 lib/Block/tree_alarms.php:43
-#, php-format
-msgid "%s is due now."
-msgstr ""
 
 #: task.php:231
 #, fuzzy, php-format
@@ -269,10 +254,6 @@ msgstr "Завершить задачу"
 msgid "Completed Tasks"
 msgstr "Завершенные"
 
-#: templates/list/task_summaries.inc:16
-msgid "Completed parent task, mark it as incomplete first"
-msgstr ""
-
 # fuzzy
 #: templates/view/task.inc:38 templates/list/task_headers.inc:31
 #: lib/Forms/task.php:94 config/prefs.php.dist:91 config/prefs.php.dist:106
@@ -446,10 +427,6 @@ msgstr "Экспорт"
 msgid "Export Tasks"
 msgstr "Экспорт задач"
 
-#: config/prefs.php.dist:56
-msgid "External Data"
-msgstr ""
-
 # fuzzy
 #: config/prefs.php.dist:12 config/prefs.php.dist:19 config/prefs.php.dist:26
 msgid "General Options"
@@ -486,10 +463,6 @@ msgstr "Незавершенные"
 msgid "Incomplete Tasks"
 msgstr "Незавершенные"
 
-#: templates/list/task_summaries.inc:8
-msgid "Incomplete sub tasks, complete them first"
-msgstr ""
-
 # fuzzy
 #: config/prefs.php.dist:201
 msgid "Incomplete tasks"
@@ -504,15 +477,6 @@ msgstr "Исправлена"
 msgid "Manage Task Lists"
 msgstr "Управление списками задач"
 
-#: templates/list/task_summaries.inc:19
-#, php-format
-msgid "Mark \"%s\" as incomplete"
-msgstr ""
-
-#: templates/view/task.inc:44
-msgid "Mark as incomplete"
-msgstr ""
-
 #: lib/api.php:120
 #, fuzzy
 msgid "Maximum Number of Tasks"
@@ -523,10 +487,6 @@ msgstr "Максимальное количество страниц"
 #, fuzzy
 msgid "Menu Alarms"
 msgstr "Уведомить"
-
-#: lib/Block/tree_menu.php:3
-msgid "Menu List"
-msgstr ""
 
 # fuzzy
 #: lib/UI/VarRenderer/nag.php:112
@@ -549,10 +509,6 @@ msgstr "Ежемесячно"
 msgid "More Options..."
 msgstr "Настройки пользователя"
 
-#: lib/api.php:1001
-msgid "Multiple iCalendar components found; only one vTodo is supported."
-msgstr ""
-
 # fuzzy
 #: templates/panel.inc:70
 msgid "My Task Lists:"
@@ -572,11 +528,6 @@ msgstr "Название"
 #: templates/list/task_headers.inc:45
 msgid "Na_me"
 msgstr "Задача"
-
-#: lib/Driver/kolab.php:741
-#, php-format
-msgid "Nag/kolab: Did not find task %s"
-msgstr ""
 
 #: data.php:52 lib/Forms/EditTaskList.php:43 lib/Forms/CreateTaskList.php:36
 #: lib/Forms/task.php:65
@@ -611,10 +562,6 @@ msgstr "Прикрепленные"
 #: lib/Forms/task.php:50
 msgid "No parent task"
 msgstr "Нет родительской задачи"
-
-#: lib/Nag.php:605
-msgid "No task lists are available to guests."
-msgstr ""
 
 #: templates/list/task_footers.inc:5
 #, fuzzy
@@ -693,13 +640,6 @@ msgstr "Личная задача"
 #: templates/view/task.inc:12 lib/Forms/task.php:85
 msgid "Private?"
 msgstr "Личная"
-
-#: lib/Forms/DeleteTaskList.php:43
-#, php-format
-msgid ""
-"Really delete the task list \"%s\"? This cannot be undone and all data on "
-"this task list will be permanently removed."
-msgstr ""
 
 # fuzzy
 # fuzzy
@@ -781,18 +721,6 @@ msgstr "Отобразить название списка задач отдельной колонкой при выборе задачи?"
 #: lib/Block/summary.php:45
 msgid "Show action buttons?"
 msgstr "Кнопки"
-
-#: config/prefs.php.dist:203
-msgid "Show complete, incomplete, or all tasks in the task list?"
-msgstr ""
-
-#: config/prefs.php.dist:190
-msgid "Show data from any of these other applications in your task list?"
-msgstr ""
-
-#: config/prefs.php.dist:57
-msgid "Show data from other applications or sources."
-msgstr ""
 
 # fuzzy
 #: lib/Block/summary.php:48
@@ -961,11 +889,6 @@ msgstr "Задачи"
 msgid "Tasks Summary"
 msgstr "Состояние"
 
-#: data.php:193
-#, php-format
-msgid "The %s file didn't contain any tasks."
-msgstr ""
-
 #: lib/Driver.php:56
 #, fuzzy
 msgid "The Tasks backend is not currently available."
@@ -988,13 +911,6 @@ msgstr ""
 #: templates/prefs/defaultduetimeselect.inc:8
 msgid "The current hour"
 msgstr "Текущий час"
-
-#: lib/Nag.php:641
-#, php-format
-msgid ""
-"The task \"%s\" has been deleted from \"%s\" tasklist, with a due date of: %"
-"s."
-msgstr ""
 
 # fuzzy, php-format
 # fuzzy, php-format
@@ -1045,10 +961,6 @@ msgstr "Затем по:"
 msgid "There are no tasks matching the current criteria."
 msgstr "Подходящих задач не найдено"
 
-#: templates/tasklist_info.php:7
-msgid "To subscribe to this task list from another program, use this URL: "
-msgstr ""
-
 #: lib/Driver.php:140
 #, php-format
 msgid "Unable to load the definition of %s."
@@ -1078,19 +990,6 @@ msgstr "Отсутствует"
 msgid "Unsupported Content-Type: %s"
 msgstr "Некорректное имя."
 
-#: lib/Driver.php:1084
-#, php-format
-msgid ""
-"We would like to remind you of this due task.\n"
-"\n"
-"%s\n"
-"\n"
-"Date: %s\n"
-"Time: %s\n"
-"\n"
-"%s"
-msgstr ""
-
 # fuzzy
 #: templates/task/task.inc:77 lib/Nag.php:408 lib/UI/VarRenderer/nag.php:136
 msgid "Week(s)"
@@ -1111,19 +1010,6 @@ msgstr ""
 #: config/prefs.php.dist:137
 msgid "When creating a new task, should it default to having a due date?"
 msgstr "При создании новой задачи, задавать по умолчанию дату завершения?"
-
-#: templates/data/import.inc:21
-msgid "Which tasklist should the tasks be added to?"
-msgstr ""
-
-#: lib/Nag.php:641
-msgid ""
-"You requested to be notified when tasks are deleted from your tasklists."
-msgstr ""
-
-#: lib/Nag.php:636
-msgid "You requested to be notified when tasks are edited on your tasklists."
-msgstr ""
 
 # fuzzy
 #: templates/prefs/tasklistselect.inc:10
@@ -1255,11 +1141,3 @@ msgstr "1 заметка"
 #, fuzzy
 msgid "pm"
 msgstr "Внимание"
-
-#: data.php:100 templates/data/export.inc:1
-msgid "tasks.csv"
-msgstr ""
-
-#: data.php:111
-msgid "tasks.ics"
-msgstr ""
