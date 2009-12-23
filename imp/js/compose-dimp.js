@@ -425,16 +425,6 @@ var DimpCompose = {
         return document.viewport.getHeight() - $('composeMessageParent').cumulativeOffset()[1] - this.mp_padding;
     },
 
-    initializeSpellChecker: function()
-    {
-        document.observe('SpellChecker:noerror', this._onSpellCheckNoError.bind(this));
-
-        if (DIMP.conf_compose.rte_avail) {
-            document.observe('SpellChecker:after', this._onSpellCheckAfter.bind(this));
-            document.observe('SpellChecker:before', this._onSpellCheckBefore.bind(this));
-        }
-    },
-
     _onSpellCheckAfter: function()
     {
         if (this.editor_on) {
@@ -817,7 +807,13 @@ var DimpCompose = {
         $('submit_frame').observe('load', this.attachmentComplete.bind(this));
 
         this.resizeMsgArea();
-        this.initializeSpellChecker();
+
+        // Initialize spell checker
+        document.observe('SpellChecker:noerror', this._onSpellCheckNoError.bind(this));
+        if (DIMP.conf_compose.rte_avail) {
+            document.observe('SpellChecker:after', this._onSpellCheckAfter.bind(this));
+            document.observe('SpellChecker:before', this._onSpellCheckBefore.bind(this));
+        }
 
         // Automatically resize address fields.
         this.resizeto = new ResizeTextArea('to', boundResize);
