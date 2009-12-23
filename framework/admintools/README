@@ -1,0 +1,20 @@
+=========================
+Horde Administrator Tools
+=========================
+
+Introduction
+------------
+
+This directory contains various utility scripts for Horde administrators.
+
+
+Script Index
+------------
+
+horde-remove-prefs.php
+    Remove all entries of a preference name/scope combination from an
+    SQL prefs backend.
+
+horde-update.sh
+    Facilitates the updating and/or installation of horde and its
+    applications.

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>devtools</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde Developer Tools</summary>
+ <description>This package contains scripts useful to people doing Horde development.
+ </description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-12-23</date>
+ <version>
+  <release>0.2.0</release>
+  <api>0.2.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>* Initial Horde 4 release.
+ </notes>
+ <contents>
+  <dir name="/">
+   <file name="horde-fw-symlinks.php" role="script">
+    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config"/>
+   </file>
+   <file name="horde-highlight.php" role="script">
+    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config"/>
+   </file>
+   <file name="horde-merge.php" role="script">
+    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config"/>
+   </file>
+   <file name="horde-rev-cmp.sh" role="script" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install name="horde-fw-symlinks.php" as="horde-fw-symlinks.php" />
+   <install name="horde-highlight.php" as="horde-highlight.php" />
+   <install name="horde-merge.php" as="horde-merge.php" />
+   <install name="horde-rev-cmp.sh" as="horde-rev-cmp.sh" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <date>2006-09-11</date>
+   <version>
+    <release>0.2.0</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>* Initial Horde 4 release.
+   </notes>
+  </release>
+ </changelog>
+</package>
