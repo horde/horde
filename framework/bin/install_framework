@@ -112,7 +112,7 @@ if (strpos(ini_get('include_path'), $destDir) === false) {
 // Do CLI checks and environment setup first.
 if (!@include_once 'Horde/Cli.php') {
     if (!@include_once $srcDir . '/Cli/lib/Horde/Cli.php') {
-        if (!@include_once $cwd . DIRECTORY_SEPARATOR . 'framework/Cli/lib/Horde/Cli.php') {
+        if (!@include_once $cwd . DIRECTORY_SEPARATOR . '../Cli/lib/Horde/Cli.php') {
             print_usage('Horde_Cli library is not in the include_path or in the src directory.');
         }
     }
