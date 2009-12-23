@@ -245,24 +245,18 @@ var KeyNavList = Class.create({
 
     markPrevious: function()
     {
-        var elt;
-
-        if (this.selected) {
-            elt = this.selected.previous();
-        }
-
-        this.markSelected((!this.selected || !elt) ? this.div.down().childElements().last() : elt);
+        this.markSelected(this.selected ? this.selected.previous() : null);
     },
 
     markNext: function()
     {
-        var elt;
+        var elt = this.selected
+            ? this.selected.next()
+            : this.div.down().childElements().first();
 
-        if (this.selected) {
-            elt = this.selected.next();
+        if (elt) {
+            this.markSelected(elt);
         }
-
-        this.markSelected((!this.selected || !elt) ? this.div.down().childElements().first() : elt);
     },
 
     getCurrentEntry: function()
