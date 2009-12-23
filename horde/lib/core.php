@@ -26,24 +26,17 @@ if (ini_get('register_globals')) {
     }
 }
 
-/* Local overrides for library paths, ini variables, etc. This is a transition
- * file, to make it easy for developers to maintain customizations as we move
- * to Horde 4.
- *
- * For example, if the Horde Framework packages are not installed in PHP's
- * global include_path, you can add an ini_set() call in this file to set up the
- * correct include_path.
- *
- * Example:
- *   ini_set('include_path', dirname(__FILE__) . PATH_SEPARATOR . ini_get('include_path'));
- */
 $horde_dir = dirname(__FILE__);
 if (!defined('HORDE_BASE')) {
     define('HORDE_BASE', $horde_dir . '/..');
 }
 
-if (file_exists($horde_dir . '/core.local.php')) {
-    include $horde_dir . '/core.local.php';
+/* Define any local include_path alterations in horde/config/horde.local.php.
+ * Example:
+ *   ini_set('include_path', dirname(__FILE__) . PATH_SEPARATOR . ini_get('include_path'));
+ */
+if (file_exists($horde_dir . '/../config/horde.local.php')) {
+    include $horde_dir . '/../config/horde.local.php';
 }
 
 /* PEAR base class. */

@@ -1,0 +1,25 @@
+<?php
+
+// Debug output
+$debug = false;
+
+// Do git update before building web directory? If this is non-false, runs
+// this command in each repository
+// $git = 'git fetch && ( git rebase -v origin || ( git stash && ( git rebase -v origin || echo "WARNING: Run \'git stash pop\' manually!" ) && git stash pop ) )';
+$git = false;
+
+// The list of apps to create symlinks for
+$apps = array();
+
+// The location of the horde-git repository
+$horde_git = '';
+
+// The location of the horde-hatchery repository
+$horde_hatchery = '';
+
+// The web-accessible base directory for horde
+$web_dir = '';
+
+// The group name/mode to use for the '/horde/static' directory
+$static_group = '';
+$static_mode = 0775;

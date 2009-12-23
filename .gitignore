@@ -9,6 +9,7 @@
 *.orig
 *.rej
 
-horde/lib/core.local.php
 horde/libs/
 horde/static/*.*
+
+framework/bin/*.conf
