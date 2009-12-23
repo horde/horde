@@ -25,8 +25,7 @@ var RedBox = {
     appearWindow: function()
     {
         var loading = $('RB_loading'),
-            opts = { duration: 0.4, queue: 'end' },
-            w = $('RB_window');
+            opts = { duration: 0.4, queue: 'end' };
 
         if (loading && loading.visible()) {
             loading.hide();
@@ -38,7 +37,7 @@ var RedBox = {
             opts.afterFinish = this.onDisplay;
         }
 
-        w.appear(opts).scrollTo();
+        $('RB_window').appear(opts).scrollTo();
     },
 
     loading: function()
