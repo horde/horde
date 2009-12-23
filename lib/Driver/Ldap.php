@@ -148,52 +148,49 @@ class Shout_Driver_Ldap extends Shout_Driver
     }
 
     /**
-     * Get a context's properties
+     * Get a list of destinations valid for this extension.
+     * A destination is either a telephone number, a VoIP device or an
+     * Instant Messaging address (a special case of VoIP).
      *
-     * @param string $context Context to get properties for
-     *
-     * @return integer Bitfield of properties valid for this context
+     * @param string $context    Context for the extension
+     * @param string $extension  Extension for which to return destinations
      */
-    public function getContextProperties($context)
+    function getDestinations($context, $extension)
     {
+        // FIXME: LDAP filter injection
+        $filter = '(&(AstContext=%s)(AstVoicemailMailbox=%s))';
+        $filter = sprintf($filter, $context, $extension);
 
-        $res = @ldap_search($this->_LDAP,
-            SHOUT_ASTERISK_BRANCH.','.$this->_params['basedn'],
-            "(&(objectClass=asteriskObject)(context=$context))",
-            array('objectClass'));
-        if(!$res) {
-            return PEAR::raiseError(_("Unable to get properties for $context"));
+        $attrs = array('telephoneNumber', 'AstExtensions');
+
+        $res = ldap_search($this->_LDAP, $this->_params['basedn'],
+                           $filter, $attrs);
+
+        if ($res === false) {
+            $msg = sprintf('Error while searching LDAP.  Code %s; Message "%s"',
+                           ldap_errno($this->_LDAP), ldap_error($this->_LDAP));
+            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Shout_Exception(_("Internal error searching the directory."));
         }
 
         $res = ldap_get_entries($this->_LDAP, $res);
 
-        $properties = 0;
+        if ($res === false) {
+            $msg = sprintf('Error while searching LDAP.  Code %s; Message "%s"',
+                           ldap_errno($this->_LDAP), ldap_error($this->_LDAP));
+            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Shout_Exception(_("Internal error searching the directory."));
+        }
+
         if ($res['count'] != 1) {
-            return PEAR::raiseError(_("Incorrect number of properties found
-for $context"));
+            $msg = sprintf('Error while searching LDAP.  Code %s; Message "%s"',
+                           ldap_errno($this->_LDAP), ldap_error($this->_LDAP));
+            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Shout_Exception(_("Wrong number of entries found for this search."));
         }
 
-        foreach ($res[0]['objectclass'] as $objectClass) {
-            switch ($objectClass) {
-                case "vofficeCustomer":
-                    # FIXME What does this objectClass really do for us?
-                    $properties = $properties | SHOUT_CONTEXT_CUSTOMERS;
-                    break;
-
-                case "asteriskExtensions":
-                    $properties = $properties | SHOUT_CONTEXT_EXTENSIONS;
-                    break;
-
-                case "asteriskMusicOnHold":
-                    $properties = $properties | SHOUT_CONTEXT_MOH;
-                    break;
-
-                case "asteriskMeetMe":
-                    $properties = $properties | SHOUT_CONTEXT_CONFERENCE;
-                    break;
-            }
-        }
-        return $properties;
+        return array('numbers' => $res['telephonenumbers'],
+                     'devices' => $res['astextensions']);
     }
 
     /**

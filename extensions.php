@@ -27,22 +27,21 @@ $title = _("Extensions: ");
 
 switch ($action) {
     case 'add':
-        $title .= _("Add Extension");
-
-        # Treat adds just like an empty edit
-        $action = 'edit';
-
     case 'edit':
-        $title .= sprintf(_("Edit Extension %s"), $extension);
+        if ($action == 'add') {
+            $title .= _("New Extension");
+            // Treat adds just like an empty edit
+            $action = 'edit';
+        } else {
+            $title .= sprintf(_("Edit Extension %s"), $extension);
+
+        }
 
         $FormName = 'UserDetailsForm';
         $vars = new Horde_Variables($extensions[$extension]);
         $Form = &Horde_Form::singleton($FormName, $vars);
 
-        $Form->open($RENDERER, $vars, 'index.php', 'post');
-        $Form->preserveVarByPost($vars, 'extension');
-        $Form->preserveVarByPost($vars, 'context');
-        $Form->preserveVarByPost($vars, 'section');
+        $Form->open($RENDERER, $vars, Horde::applicationUrl('extensions.php'), 'post');
 
         break;
     case 'save':
@@ -54,46 +53,28 @@ switch ($action) {
         $FormValid = $Form->validate($vars, true);
 
         if (!$FormValid || !$Form->isSubmitted()) {
-            require SHOUT_BASE . '/usermgr/edit.php';
+            $notification->push("FIXME: Redirect to re-edit");
         } else {
-            # Form is Valid and Submitted
+            // Form is Valid and Submitted
             $extension = $vars->get('extension');
 
-            $limits = $shout->getLimits($context, $extension);
-
             # FIXME: Input Validation (Text::??)
-            $userdetails = array(
+            $details = array(
                 "newextension" => $vars->get('newextension'),
                 "name" => $vars->get('name'),
                 "mailboxpin" => $vars->get('mailboxpin'),
                 "email" => $vars->get('email'),
-                "uid" => $vars->get('uid'),
             );
 
-            $userdetails['telephonenumber'] = array();
-            $telephonenumber = $vars->get("telephonenumber");
-            if (!empty($telephonenumber) && is_array($telephonenumber)) {
-                $i = 1;
-                while ($i <= $limits['telephonenumbersmax']) {
-                    if (!empty($telephonenumber[$i])) {
-                        $userdetails['telephonenumber'][] = $telephonenumber[$i++];
-                    } else {
-                        $i++;
-                    }
-                }
+            try {
+                $res = $shout_extensions->saveUser($context,
+                                                   $extension, $details);
+            } catch (Exception $e) {
+                $notification->push($e);
             }
-
-            $userdetails['dialopts'] = array();
-
-            $res = $shout->saveUser($context, $extension, $userdetails);
-            if (is_a($res, 'PEAR_Error')) {
-                $notification->push($res);
-            } else {
-                $notification->push(_("User information updated."),
+            $notification->push(_("User information updated."),
                                       'horde.success');
-            }
-
-        }
+         }
 
         break;
     case 'delete':

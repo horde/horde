@@ -10,10 +10,9 @@
  * @package Shout
  */
 
-// {{{
 class UserDetailsForm extends Horde_Form {
 
-    function UserDetailsForm(&$vars)
+    function __construct(&$vars)
     {
         global $shout_extensions;
         $context = $vars->get('context');

@@ -35,6 +35,7 @@ class Shout
         $menu = new Horde_Menu(HORDE_MENU_MASK_ALL);
 
         $menu->add(Horde::applicationUrl('extensions.php'), _("Extensions"), "user.png");
+        $menu->add(Horde::applicationUrl('devices.php'), _("Devices"), "shout.png");
         $menu->add(Horde::applicationUrl('routes.php'), _("Call Paths"));
 
 

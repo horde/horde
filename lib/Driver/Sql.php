@@ -61,41 +61,52 @@ class Shout_Driver_Sql extends Shout_Driver
     /**
      * Get a list of devices for a given context
      *
-     * @param string $context    Context in which to search for devices
-     * @param string $extension  Extension in which to search for devices
+     * @param string $context    Context in which to search for devicess
      *
      * @return array  Array of devices within this context with their information
      *
      * @access private
      */
-    public function getDevices($context, $extension)
+    public function getDevices($context)
     {
-        $sql = 'SELECT id, name, callerid, context, host, permit, nat, ' .
-               'secret, disallow, allow FROM %s WHERE mailbox = ?';
+        $sql = 'SELECT id, name, alias, callerid, context, mailbox, host, permit, ' .
+               'nat, secret, disallow, allow FROM %s WHERE accountcode = ?';
         $sql = sprintf($sql, $this->_params['table']);
-        $args = array($extension . '@' . $context);
-
+        $args = array($context);
         $result = $this->_db->query($sql, $args);
-        if (is_a($result instanceof PEAR_Error)) {
-            throw Shout_Exception($result);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
         }
 
         $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
         if ($row instanceof PEAR_Error) {
-            throw Shout_Exception($row);
+            throw new Shout_Exception($row);
         }
 
         $devices = array();
         while ($row && !($row instanceof PEAR_Error)) {
-            /* Add this new foo to the $_foo list. */
-            $devices[] = $row;
+            // Asterisk uses the "name" field to indicate the registration
+            // identifier.  We use the field "alias" to put a friendly name on
+            // the device.  Thus devid -> name and name => alias
+            $devid = $row['name'];
+            $row['devid'] = $devid;
+            $row['name'] = $row['alias'];
+            unset($row['alias']);
+
+            // Trim off the context from the mailbox number
+            list($row['mailbox']) = explode('@', $row['mailbox']);
+
+            // Hide the DB internal ID from the front-end
+            unset($row['id']);
+
+            $devices[$devid] = $row;
 
             /* Advance to the new row in the result set. */
             $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
         }
 
         $result->free();
-
+        return $devices;
     }
 
     /**

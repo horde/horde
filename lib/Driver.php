@@ -139,8 +139,8 @@ class Shout_Driver {
 
         if (is_null($params)) {
             if ($GLOBALS['conf'][$class]['params']['driverconfig'] == 'horde') {
-                $params = array_merge($GLOBALS['conf'][$class]['params'],
-                                      Horde::getDriverConfig('storage', $driver));
+                $params = array_merge(Horde::getDriverConfig('storage', $driver),
+                                      $GLOBALS['conf'][$class]['params']);
             } else {
                 $params = $GLOBALS['conf'][$class]['params'];
             }
