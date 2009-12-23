@@ -138,7 +138,6 @@ function check_binaries()
     global $gettext_version, $c;
 
     $c->writeln('Searching gettext binaries...');
-    require_once 'System.php';
     foreach (array('gettext', 'msgattrib', 'msgcat', 'msgcomm', 'msgfmt', 'msginit', 'msgmerge', 'xgettext') as $binary) {
         $GLOBALS[$binary] = System::which($binary);
         if ($GLOBALS[$binary]) {
@@ -216,37 +215,6 @@ function get_languages($dir)
     return $langs;
 }
 
-function search_applications()
-{
-    $dirs = array();
-    $horde = false;
-    if (is_dir(BASE . DS . 'po')) {
-        $dirs[] = BASE;
-        $horde = true;
-    }
-    $dh = opendir(BASE);
-    if ($dh) {
-        while ($entry = readdir($dh)) {
-            $dir = BASE . DS . $entry;
-            if (is_dir($dir) &&
-                substr($entry, 0, 1) != '.' &&
-                fileinode(HORDE_BASE) != fileinode($dir)) {
-                $sub = opendir($dir);
-                if ($sub) {
-                    while ($subentry = readdir($sub)) {
-                        if ($subentry == 'po' && is_dir($dir . DS . $subentry)) {
-                            $dirs[] = $dir;
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    return $dirs;
-}
-
 function strip_horde($file)
 {
     if (is_array($file)) {
@@ -272,7 +240,6 @@ function xtract()
         }
     }
 
-    require_once 'Horde/Array.php';
     if ($GLOBALS['php_support']) {
         $language = 'PHP';
     } else {
@@ -716,7 +683,6 @@ function make()
     $horde_msg = array();
     $stats_array = array();
 
-    require_once 'Console/Table.php';
     $stats = new Console_Table();
     $stats->setHeaders(array('Module', 'Language', 'Translated', 'Fuzzy', 'Untranslated', 'Updated'));
 
@@ -739,7 +705,6 @@ function make()
             $c->writeln(sprintf('Building locale %s...', $c->bold($locale)));
             $dir = $dirs[$i] . DS . 'locale' . DS . $locale . DS . 'LC_MESSAGES';
             if (!is_dir($dir)) {
-                require_once 'System.php';
                 if ($debug) {
                     $c->writeln(sprintf('Making directory %s', $dir));
                 }
@@ -1180,7 +1145,6 @@ function update_help()
                 $c->message(sprintf('The %s help file for %s doesn\'t yet exist. Creating a new one.', $c->bold($locale), $c->bold($apps[$i])), 'cli.warning');
                 $dir_loc = substr($file_loc, 0, -9);
                 if (!is_dir($dir_loc)) {
-                    require_once 'System.php';
                     if ($debug || $test) {
                         $c->writeln(sprintf('Making directory %s', $dir_loc));
                     }
@@ -1535,15 +1499,22 @@ if (array_key_exists($cmd, $options_list)) {
 check_binaries();
 
 $c->writeln(sprintf('Searching Horde applications in %s', BASE));
-$dirs = search_applications();
+
+$apps = $dirs = array();
+$registry = Horde_Registry::singleton(Horde_Registry::SESSION_NONE);
+foreach ($registry->listApps() as $val) {
+    $fileroot = rtrim($registry->get('fileroot', $val), DS);
+    if (is_dir($fileroot . DS . 'po')) {
+        $apps[] = strip_horde($val);
+        $dirs[] = $fileroot;
+    }
+}
 
 if ($debug) {
     $c->writeln('Found directories:');
     $c->writeln(implode("\n", $dirs));
 }
 
-$apps = strip_horde($dirs);
-$apps[0] = 'horde';
 $c->writeln(wordwrap(sprintf('Found applications: %s', implode(', ', $apps))));
 $c->writeln();
 
