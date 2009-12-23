@@ -2926,6 +2926,16 @@ var DimpBase = {
         if (DimpCore.is_ie6) {
             this._resizeIE6();
         }
+    },
+
+    /* Extend AJAX exception handling. */
+    onAjaxException: function(parentfunc, r, e)
+    {
+        /* Make sure loading images are closed. */
+        this.loadingImg('msg', false);
+        this.loadingImg('viewport', false);
+        DimpCore.showNotifications([ { type: 'horde.error', message: DIMP.text.ajax_error } ]);
+        parentfunc(r, e);
     }
 
 };
@@ -3047,6 +3057,9 @@ DimpCore.clickHandler = DimpCore.clickHandler.wrap(DimpBase.clickHandler.bind(Di
 /* ContextSensitive functions. */
 DimpCore.contextOnClick = DimpCore.contextOnClick.wrap(DimpBase.contextOnClick.bind(DimpBase));
 DimpCore.contextOnShow = DimpCore.contextOnShow.wrap(DimpBase.contextOnShow.bind(DimpBase));
+
+/* Extend AJAX exception handling. */
+DimpCore.doActionOpts.onException = DimpCore.doActionOpts.onException.wrap(DimpBase.onAjaxException.bind(DimpBase));
 
 /* Initialize onload handler. */
 document.observe('dom:loaded', DimpBase.onDomLoad.bind(DimpBase));
