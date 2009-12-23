@@ -33,30 +33,51 @@
  *                                // "snap" into place.
  *       snapToParent: false      // Keep image snapped inside the parent
  *                                // element.
- *       threshold: 0,            // Move threshold
- *       // For the following functions, d = drag element, e = event object
- *       onStart: function(d,e),  // A function to run on mousedown
- *       onDrag: function(d,e),   // A function to run on mousemove
- *       onEnd: function(d,e)     // A function to run on mouseup
+ *       threshold: 0             // Move threshold
  *   });
  *
+ *  Events fired for Drags:
+ *  -----------------------
+ *  Custom events are triggered on the drag element. The 'memo' property of
+ *  the Event object contains the original event object.
+ *
+ *  'DragDrop2:drag'
+ *    Fired on mousemove.
+ *
+ *  'DragDrop2:end'
+ *    Fired on mousedown.
+ *
+ *  'DragDrop2:start'
+ *    Fired on mouseup.
+ *
+ *
  *   new Drop(element, {
- *       accept: [],           // Accept filter by tag name(s) or leave empty
- *                             // to accept all tags
- *       caption: '',          // Either string or function to set caption on
- *                             // mouse over
- *       hoverclass: '',       // Change the drag element to this class when
- *                             // hovering over an element.
- *                             // DEFAULT: 'dragdrop'
- *       keypress: false,      // If true, will re-render caption if a
- *                             // keypress is detected while a drop is active
- *                             // (useful for ctrl/shift actions).
- *       onDrop: function(drop,drag)  // Function fired when mouse button
- *                                    // released (a/k/a a drop event)
- *       onOver: function(drop,drag)  // Function fired when mouse over zone
- *       onOut: function(drop,drag)   // Function fired when mouse leaves the
- *                                    // zone
+ *       accept: [],      // Accept filter by tag name(s) or leave empty to
+ *                        // accept all tags
+ *       caption: '',     // Either string or function to set caption on
+ *                        // mouseover
+ *       hoverclass: '',  // Change the drag element to this class when
+ *                        // hovering over an element.
+ *                        // DEFAULT: 'dragdrop'
+ *       keypress: false  // If true, will re-render caption if a keypress
+ *                        // is detected while a drop is active (useful for
+ *                        // CTRL/SHIFT actions).
  *  });
+ *
+ *  Events fired for Drops:
+ *  -----------------------
+ *  Custom events are triggered on the drop element. The 'memo' property of
+ *  the Event object contains the drag element.
+ *
+ *  'DragDrop2:drop'
+ *    Fired when mouse button released (a/k/a a drop event).
+ *
+ *  'DragDrop2:out'
+ *    Fired when mouse leaves the drop zone.
+ *
+ *  'DragDrop2:over'
+ *    Fired when mouse over drop zone.
+ *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -205,9 +226,6 @@ Drag = Class.create({
             constraint: null,
             ghosting: false,
             nodrop: false,
-            onDrag: null,
-            onEnd: null,
-            onStart: null,
             parentElement: null,
             scroll: null,
             snap: null,
@@ -243,9 +261,7 @@ Drag = Class.create({
         this.wasDragged = false;
         this.lastcaption = null;
 
-        if (Object.isFunction(this.options.onStart)) {
-            this.options.onStart(this, e);
-        }
+        this.element.fire('DragDrop2:start', e);
 
         if (this.options.ghosting || this.options.caption) {
             if (!DragDrop.Drags.cover) {
@@ -380,11 +396,9 @@ Drag = Class.create({
             this._onMoveDrag(xy, e);
         }
 
-        if (Object.isFunction(this.options.onDrag)) {
-            this.options.onDrag(this, e);
-        }
-
         this.wasDragged = true;
+
+        this.element.fire('DragDrop2:drag', e);
 
         if (this.options.scroll) {
             this._onMoveScroll();
@@ -408,9 +422,8 @@ Drag = Class.create({
 
         DragDrop.Drags.div.hide();
 
-        if (DragDrop.validDrop(this.element) &&
-            Object.isFunction(d.options.onDrop)) {
-            d.options.onDrop(d.element, this.element, e);
+        if (DragDrop.validDrop(this.element)) {
+            d.element.fire('DragDrop2:drop', this.element);
         }
 
         DragDrop.Drags.deactivate();
@@ -420,9 +433,7 @@ Drag = Class.create({
             DragDrop.Drags.cover.down().siblings().invoke('remove');
         }
 
-        if (Object.isFunction(this.options.onEnd)) {
-            this.options.onEnd(this, e);
-        }
+        this.element.fire('DragDrop2:end', e);
     },
 
     _onMoveDrag: function(xy, e)
@@ -693,10 +704,7 @@ Drop = Class.create({
             accept: [],
             caption: '',
             hoverclass: 'dragdrop',
-            keypress: false,
-            onDrop: null,
-            onOut: null,
-            onOver: null
+            keypress: false
         }, arguments[1] || {});
         DragDrop.Drops.register(this);
     },
@@ -709,16 +717,12 @@ Drop = Class.create({
     mouseOver: function()
     {
         DragDrop.Drops.drop = this;
-        if (Object.isFunction(this.options.onOver)) {
-            this.options.onOver(this.element, DragDrop.Drags.drag);
-        }
+        this.element.fire('DragDrop2:over', DragDrop.Drags.drag);
     },
 
     mouseOut: function()
     {
-        if (Object.isFunction(this.options.onOut)) {
-            this.options.onOut(this.element, DragDrop.Drags.drag);
-        }
+        this.element.fire('DragDrop2:out', DragDrop.Drags.drag);
         DragDrop.Drops.drop = null;
     }
 
