@@ -405,7 +405,7 @@ var ImpCompose = {
         CKEDITOR.instances.composeMessage.updateElement();
     },
 
-    onNoSpellError: function()
+    _onNoErrorSpellCheck: function()
     {
         if (this.sc_submit) {
             this.skip_spellcheck = true;
