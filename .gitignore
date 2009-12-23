@@ -4,6 +4,11 @@
 .settings
 .buildpath
 run-tests.log
+/framework/*/tests/*.diff
+/framework/*/tests/*.exp
+/framework/*/tests/*.log
+/framework/*/tests/*.out
+/framework/*/tests/*.php
 *~
 .#*
 *.orig
