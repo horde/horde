@@ -527,16 +527,3 @@ var DimpCore = {
     }
 
 };
-
-/* More efficient String.unfilterJSON() function. */
-Object.extend(String.prototype, {
-    unfilterJSON: function(filter) {
-        if (filter) {
-            return this.replace(filter, '$1');
-        } else if (this.startsWith('/*-secure-') &&
-                   this.endsWith('*/')) {
-            return this.slice(10, -2);
-        }
-        return this;
-    }
-});
