@@ -1,0 +1,51 @@
+<?php
+/**
+ * Release focus. Possible values:
+ * 0 - N/A
+ * 1 - Initial freshmeat announcement
+ * 2 - Documentation
+ * 3 - Code cleanup
+ * 4 - Minor feature enhancements
+ * 5 - Major feature enhancements
+ * 6 - Minor bugfixes
+ * 7 - Major bugfixes
+ * 8 - Minor security fixes
+ * 9 - Major security fixes
+ */
+$this->notes['fm']['focus'] = 4;
+
+/* Mailing list release notes. */
+$this->notes['ml']['changes'] = <<<ML
+The Horde Team is pleased to announce the first release candidate of the Horde
+Application Framework version 3.2.
+
+The Horde Application Framework is a modular, general-purpose web application
+framework written in PHP.  It provides an extensive array of classes that are
+targeted at the common problems and tasks involved in developing modern web
+applications.
+
+This is a preview version that should not be used on production systems.  This
+version is considered feature complete but there might still be a few bugs.
+You should not use this preview version over existing production data.
+
+We encourage widespread testing and feedback via the mailing lists or our bug
+tracking system.  Updated translations are very welcome, though some strings
+might still change before the final release.
+
+The major changes compared to the Horde version H3 (3.2-ALPHA) are:
+    * Added more sounds for alarm notifications.
+    * Added a JSON RPC backend.
+    * Stabilized Kolab support.
+    * Improved Horde_Image library.
+    * Fixed share caching.
+    * Many further bugfixes and improvements.
+ML;
+
+/* Freshmeat release notes, not more than 600 characters. */
+$this->notes['fm']['changes'] = <<<FM
+More sounds for alarm notifications have been added. A JSON RPC backend has been added. Kolab support has further been stabilized. The Horde_Image library has been improved. Share caching has been fixed. Many further bugfixes and improvements have been made.
+FM;
+
+$this->notes['name'] = 'Horde';
+$this->notes['fm']['project'] = 'horde';
+$this->notes['fm']['branch'] = 'Horde 3';

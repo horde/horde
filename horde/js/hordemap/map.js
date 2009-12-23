@@ -1,0 +1,136 @@
+/**
+ * Initial bootstrap file for hordemap
+ */
+HordeMap = {
+
+    Map: {},
+    _includes: [],
+    _opts: {},
+    conf: {},
+
+    /**
+     * Initialize hordemap javascript
+     *
+     * @param object opts  Hash containing:
+     *      'driver': HordeMap driver to use (Horde | SAPO)
+     *      'geocoder': Geocoder driver to use
+     *      'providers': default provider layers to add (Google, Yahoo etc...)
+     *
+     *      'conf': Any driver specific config settings such as:
+     *          'language':
+     *          'apikeys': An object containing any api keys needed by the mapping
+     *                     provider(s). {'google': 'xxxxx', ...}
+     *          'useMarkerLayer': whether or not to use the 'built-in' marker
+     *                            layer (only applies to the Horde driver).
+     *
+     *          'URI_IMG_HORDE':  Path to horde's image directory
+     */
+    initialize: function(opts)
+    {
+        this._opts = opts;
+        var path = this._getScriptLocation();
+        this.conf = this._opts.conf;
+        if (this._opts.driver == 'Horde') {
+            this._addScript(path + 'OpenLayers.js');
+            if (this._opts.conf.language != 'en-US') {
+                this._addScript(path + this._opts.conf.language + '.js');
+            }
+        } else if (this._opts.driver == 'SAPO') {
+            this._addScript(this._getProviderUrl('SAPO'));
+        }
+        this._addScript(path + this._opts.driver.toLowerCase() + '.js');
+
+        if (this._opts.geocoder) {
+            this._addScript(this._getProviderUrl(this._opts.geocoder));
+            this._addScript(path + this._opts.geocoder.toLowerCase() + '.js');
+        }
+
+        if (this._opts.providers) {
+            this._opts.providers.each(function(p) {
+                var u = this._getProviderUrl(p);
+                if (u) {
+                    this._addScript(u);
+                }
+                this._addScript(path + p.toLowerCase() + '.js');
+            }.bind(this));
+        }
+
+        this._includeScripts();
+    },
+
+    _includeScripts: function()
+    {
+        var files = this._includes;
+        var agent = navigator.userAgent;
+        var docWrite = (agent.match("MSIE") || agent.match("Safari"));
+        var writeFiles = [];
+        for (var i = 0, len = files.length; i < len; i++) {
+            if (docWrite) {
+                writeFiles.push('<script src="' + files[i] + '"></script>');
+            } else {
+                var s = document.createElement("script");
+                s.src = files[i];
+                var h = document.getElementsByTagName("head").length ?
+                           document.getElementsByTagName("head")[0] :
+                           document.body;
+                h.appendChild(s);
+            }
+        }
+
+        if (docWrite) {
+            document.write(writeFiles.join(""));
+        }
+    },
+
+    _addScript: function(s)
+    {
+        var l = this._includes.length;
+        for (var i = 0; i < l; i++) {
+            if (this._includes[i] == s) {
+                return;
+            }
+        }
+        this._includes.push(s);
+    },
+
+    /**
+     * Return the path to this script.
+     *
+     * @return string Path to this script
+     */
+    _getScriptLocation: function () {
+        var scriptLocation = "";
+        var isMap = new RegExp("(^|(.*?\hordemap\/))(map.js)(\\?|$)");
+
+        var scripts = document.getElementsByTagName('script');
+        for (var i=0, len=scripts.length; i<len; i++) {
+            var src = scripts[i].getAttribute('src');
+            if (src) {
+                var match = src.match(isMap);
+                if(match) {
+                    scriptLocation = match[1];
+                    break;
+                }
+            }
+        }
+        return scriptLocation;
+    },
+
+    _getProviderUrl: function(p)
+    {
+        switch (p) {
+        case 'Google':
+            return 'http://maps.google.com/maps?file=api&v=2&sensor=false&key=' + this.conf['apikeys']['google'];
+        case 'Yahoo':
+            return 'http://api.maps.yahoo.com/ajaxymap?v=3.8&appid=' + this.conf['apikeys']['yahoo'];
+        case 'Ve':
+            return 'http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.1';
+        case 'SAPO':
+            return 'http://js.sapo.pt/Bundles/SAPOMapsAPI-1.0.js';
+        }
+    },
+
+    Geocoder: {
+        Horde: {} // TODO
+    }
+};

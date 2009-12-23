@@ -1,0 +1,114 @@
+=============================
+ Horde Release Process Notes
+=============================
+
+:Contact:       horde@lists.horde.org
+
+.. contents:: Contents
+
+
+The steps to use when cutting a new release
+===========================================
+
+1. Examine ``*/docs/CHANGES`` files:
+
+   - Add the word SECURITY in front of any security-related changes,
+     and move them to the top, to draw attention to them.
+
+   - Cull out the most important ones, and prepare the text of an
+     announcement.
+
+   - Write the release announcements into the ``docs/RELEASE_NOTES`` file and
+     check if it parses with ``php -l docs/RELEASE_NOTES``.
+
+   - Make sure sentinel reflects the most recent version (i.e. remove the
+     '-cvs' suffix).
+
+   As an extra effort to ensure completeness, you could also check the CVS
+   changelogs for any changes that may not have been inserted in the
+   ``*/docs/CHANGES`` file and integrate them into the above points.
+
+2. Examine ``*/README`` and ``docs/*`` files, and update the version if
+   this is a major release. Minor releases should not change the versions in
+   these files.
+
+3. Update the .pot file: ``./po/translation.php extract --module foo`` and
+   commit it.
+
+4. Make sure your settings in ``horde-make-release-conf.php`` are correct. The
+   configuration file is loaded from the same directory as
+   ``horde-make-release.php``.
+
+5. If you want to use another ``CVSROOT`` than the default one, set the
+   ``CVSROOT`` environment variable to a user with commit privs
+   (e.g. ``user@cvs.horde.org:/repository``) and change to an empty directory.
+
+6. Make a "dry run" of the ``horde-make-release.php`` script by adding
+  ``--dryrun`` to the command line parameters.
+
+7. Create the tarballs/patches using ``horde-make-release.php``::
+
+   - Must be run as root (to set file ownership).
+   - Omit ``--branch`` when building HEAD.
+   - For usage, use the ``--help`` flag.
+
+8. If upgrading from a release candidate, remove the old tarball from the FTP
+   server.
+
+9. Update the web site (``hordeweb`` CVS directory):
+
+   - Edit ``config/news.php`` to include the release announcement link.
+
+   - Edit ``config/versions.php`` to update the version information.
+
+   - Edit ``main.html`` to include a blurb on the release.
+
+   - If applicable (i.e. new branch, new major release), under
+     ``hordeweb/source`` edit::
+
+        versions.html
+        modules.html
+
+10. Add new version to bugs.horde.org if not added automatically by the
+    release script.
+
+11. Bump version numbers of showstopper tickets that didn't go into the
+    release, then bump version number in the showstopper query on
+    bugs.horde.org.
+
+
+Guidelines for release candidates (RCs)
+=======================================
+
+* The last time we introduced a bug with code from a new minor release so we
+  had to release another version right after. This might always happen if
+  there is more than one change since the last release or if the changes were
+  done recently.
+
+* If we have a security leak that needs to be plugged immediately, it is the
+  common way to release a new minor version that *only* contains the fix for
+  that leak.
+
+* RCs are necessary for every release (except 3) because many translators only
+  update their translations when there is a new (minor) release cycle starting
+  because they don't translate on CVS versions.
+
+
+Example format for announcement messages
+========================================
+
+The Horde Team is pleased to announce the (first release candidate|official
+release) of the [MODULE NAME] [MODULE DESCRIPTION] version [VERSION].
+
+[MODULE DESCRIPTION]
+
+[Barring any problems, this code will be released as [MODULE] [VERSION].
+Testing is requested and comments are encouraged.
+Updated translations would also be great.]
+
+[[MODULE] version H3 ([VERSION]) is a major upgrade in the a.x release series,
+including these enhancements:]
+[The major changes compared to the [MODULE] version H3 (a.b) are:]
+  * [CHANGE 1]
+  * [CHANGE 2]
+  * ...

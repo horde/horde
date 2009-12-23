@@ -1,0 +1,28 @@
+<?php
+/**
+ * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ *
+ * @author Chuck Hagenbuch <chuck@horde.org>
+ * @author Jan Schneider <jan@horde.org>
+ */
+
+require_once dirname(__FILE__) . '/../../lib/base.php';
+
+if (!Horde_Auth::isAdmin()) {
+    Horde::authenticationFailureRedirect();
+}
+
+$perm_id = Horde_Util::getFormData('perm_id');
+
+$title = _("Permissions Administration");
+require HORDE_TEMPLATES . '/common-header.inc';
+require HORDE_TEMPLATES . '/admin/menu.inc';
+
+$ui = new Horde_Perms_Ui($perms);
+$notification->notify();
+$ui->renderTree($perm_id);
+
+require HORDE_TEMPLATES . '/common-footer.inc';

@@ -1,0 +1,13 @@
+/**
+ * CSS corrections for Opera.
+ */
+
+.treeRow {
+    overflow: visible;
+    height: 20px;
+}
+
+#menu {
+    overflow: visible;
+    height: 50px;
+}
