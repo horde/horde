@@ -39,7 +39,7 @@ class IMP_Hooks
      *
      * See horde/config/hooks.php.dist for more information.
      */
-     function postauthenticate($userId, $credentials)
+//     function postauthenticate($userId, $credentials)
 //     {
 //         return true;
 //     }
