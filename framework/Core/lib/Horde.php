@@ -1712,7 +1712,7 @@ HTML;
                     // comments.
                     $tmp = preg_replace(array('/(url\(["\']?)([^\/])/i', '/\s+/', '/\/\*.*?\*\//'), array('$1' . $path . '$2', ' ', ''), implode('', file($file['f'], $flags)));
                     if ($GLOBALS['browser']->hasFeature('dataurl')) {
-                        $tmp = preg_replace_callback('/(background(?:-image)?:[^;}]*(?:url\(["\']?))(.*?)((?:["\']?\)))/i', array(self, 'stylesheetCallback'), $tmp);
+                        $tmp = preg_replace_callback('/(background(?:-image)?:[^;}]*(?:url\(["\']?))(.*?)((?:["\']?\)))/i', array('Horde', 'stylesheetCallback'), $tmp);
                     }
                     $out .= $tmp;
                 }
