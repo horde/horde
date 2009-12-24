@@ -1,0 +1,274 @@
+# Hebrew translations for Imp package.
+# Copyright 2006 Matt Selsky <selsky@columbia.edu>
+# This file is distributed under the same license as the Imp package.
+# Automatically generated, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Imp H3 (4.2-cvs)\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2006-01-24 16:57+0100\n"
+"PO-Revision-Date: 2006-01-24 16:57+0100\n"
+"Last-Translator: Matt Selsky <selsky@columbia.edu>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: lib/Compose.php:1558
+msgid "      Cc: "
+msgstr "      העתקים: "
+
+#: lib/Compose.php:1555
+msgid "      To: "
+msgstr "      אל: "
+
+#: lib/Compose.php:1543
+msgid "    Date: "
+msgstr "    תאריך: "
+
+#: lib/Compose.php:1546
+msgid "    From: "
+msgstr "    מאת: "
+
+#: lib/Compose.php:1552
+msgid " Subject: "
+msgstr " נושא: "
+
+#: templates/mailbox/navbar.html:7
+msgid "All"
+msgstr "הכל"
+
+#: message.php:235 lib/Search.php:615 templates/contacts/contacts.html:42
+#: templates/login/recompose.html:32
+msgid "Bcc"
+msgstr "העתקים עיוורים"
+
+#: message.php:565 mailbox.php:490
+msgid "Blacklist"
+msgstr "רשימה שחורה"
+
+#: templates/smime/passphrase.inc:21 templates/smime/import_key.inc:86
+#: templates/pgp/passphrase.inc:32 templates/contacts/contacts.html:74
+#: templates/folders/folders_confirm.html:23 templates/folders/import.html:17
+#: templates/saveimage/saveimage.html:19 templates/compose/spelling.html:60
+#: templates/pgp/import_key.html:49
+msgid "Cancel"
+msgstr "שנה"
+
+#: message.php:234 lib/Search.php:611 templates/contacts/contacts.html:41
+#: templates/login/recompose.html:23
+msgid "Cc"
+msgstr "העתקים"
+
+#: templates/fetchmail/fetchmail.inc:28
+msgid "Close"
+msgstr "סגור"
+
+#: compose.php:150
+msgid "Close this window"
+msgstr "סגירת חלון זה"
+
+#: templates/pgp/pgp.inc:103
+msgid "Comment"
+msgstr "תגובה"
+
+#: mailbox.php:565
+msgid "Dat_e"
+msgstr "תאריך"
+
+#: message.php:231 thread.php:150
+msgid "Date"
+msgstr "תאריך"
+
+#: message.php:537 mailbox.php:463 mailbox.php:466
+#: templates/fetchmail/manage.inc:68 templates/smime/smime.inc:25
+#: templates/pgp/pgp.inc:27 lib/IMAP/Tree.php:412
+#: templates/contacts/contacts.html:64
+msgid "Delete"
+msgstr "מחק"
+
+#: templates/pgp/pgp.inc:108
+msgid "E-mail Address"
+msgstr "דואר-אלקטרוני"
+
+#: message.php:554 mailbox.php:501
+msgid "Fo_rward"
+msgstr "הפץ"
+
+#: message.php:554 mailbox.php:501 lib/Compose.php:1455
+msgid "Forward"
+msgstr "הפץ"
+
+#: lib/Compose.php:1441
+msgid "Forward:"
+msgstr "הפץ:"
+
+#: mailbox.php:575
+msgid "Fro_m"
+msgstr "מאת"
+
+#: message.php:232 thread.php:151 lib/Search.php:603
+#: templates/compose/compose.html:31
+msgid "From"
+msgstr "מאת"
+
+#: config/prefs.php.dist:13 config/prefs.php.dist:22 config/prefs.php.dist:30
+#: config/prefs.php.dist:38
+msgid "General Options"
+msgstr "אפשרויות כלליות"
+
+#: folders.php:288 lib/MIME/Viewer/itip.php:554 lib/MIME/Viewer/itip.php:728
+msgid "Go"
+msgstr "לך"
+
+#: message.php:683
+msgid "Headers"
+msgstr "כותרות"
+
+#: lib/IMP.php:657
+msgid "INBOX"
+msgstr "דואר נכנס"
+
+#: templates/folders/import.html:16
+msgid "Import"
+msgstr "יבא"
+
+#: message.php:503 message.php:695 mailbox.php:419 mailbox.php:997
+msgid "Move"
+msgstr "העבר"
+
+#: lib/MIME/Viewer/itip.php:683 templates/contacts/contacts.html:58
+msgid "Name"
+msgstr "שם"
+
+#: lib/Block/summary.php:26 lib/Block/summary.php:27
+#: lib/Block/tree_folders.php:31
+msgid "New Message"
+msgstr "הודעה חדשה"
+
+#: templates/contacts/contacts.html:73
+msgid "OK"
+msgstr "אישור"
+
+#: templates/smime/import_key.inc:49 templates/search/search.html:49
+#: templates/pgp/import_key.html:30
+msgid "OR"
+msgstr "או"
+
+#: templates/fetchmail/manage.inc:20 templates/smime/import_key.inc:71
+#: templates/login/login.html:90
+msgid "Password"
+msgstr "סיסמא"
+
+#: message.php:594
+msgid "Print"
+msgstr "הדפס"
+
+#: message.php:540
+msgid "Reply"
+msgstr "השב"
+
+#: message.php:549
+msgid "Reply to All"
+msgstr "השב לכל"
+
+#: mailbox.php:356 lib/Block/tree_folders.php:39
+#: templates/contacts/contacts.html:25
+msgid "Search"
+msgstr "חפש"
+
+#: templates/compose/compose.html:314
+msgid "Size:"
+msgstr "גודל:"
+
+#: mailbox.php:585
+msgid "Sub_ject"
+msgstr "נושא"
+
+#: message.php:237 thread.php:152 lib/Search.php:619
+#: templates/login/recompose.html:41
+msgid "Subject"
+msgstr "נושא"
+
+#: message.php:233 compose.php:879 mailbox.php:570 mailbox.php:746
+#: lib/Search.php:607 templates/contacts/contacts.html:39
+#: templates/login/recompose.html:14
+msgid "To"
+msgstr "אל"
+
+#: templates/smime/import_key.inc:58
+msgid "Upload"
+msgstr "העלאה"
+
+#: templates/pgp/import_key.html:38
+msgid "Upload:"
+msgstr "העלאה:"
+
+#: templates/login/login.html:83
+msgid "Username"
+msgstr "שם משתמש"
+
+#: mailbox.php:1009
+msgid "You have 1 new message."
+msgstr "ישׁ לך דואר חדש."
+
+#: compose.php:1130
+msgid "_Bcc"
+msgstr "העתקים עיוורים"
+
+#: message.php:565 mailbox.php:490
+msgid "_Blacklist"
+msgstr "רשימה שחורה"
+
+#: compose.php:1127
+msgid "_Cc"
+msgstr "העתקים"
+
+#: message.php:537 mailbox.php:463 mailbox.php:466
+msgid "_Delete"
+msgstr "מחק"
+
+#: lib/IMP.php:793
+msgid "_Folders"
+msgstr "תיקיות"
+
+#: lib/IMP.php:758
+msgid "_Inbox"
+msgstr "דואר נכנס"
+
+#: lib/IMP.php:834
+msgid "_Log out"
+msgstr "התנתקות"
+
+#: lib/IMP.php:790
+msgid "_New Message"
+msgstr "הודעה חדשה"
+
+#: message.php:594
+msgid "_Print"
+msgstr "הדפס"
+
+#: message.php:540
+msgid "_Reply"
+msgstr "השב"
+
+#: lib/IMP.php:795
+msgid "_Search"
+msgstr "חפש"
+
+#: compose.php:1123 compose.php:1125
+msgid "_To"
+msgstr "אל"
+
+#: templates/contacts/contacts.html:16
+msgid "from"
+msgstr "מאת"
+
+#: lib/Message.php:524 lib/Compose.php:640
+msgid "name"
+msgstr "שם"
+
+#: templates/compose/spelling.html:50
+msgid "or"
+msgstr "או"

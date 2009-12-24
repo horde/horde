@@ -1,0 +1,479 @@
+====================
+ Installing IMP 5.0
+====================
+
+:Contact: imp@lists.horde.org
+
+.. contents:: Contents
+.. section-numbering::
+
+This document contains instructions for installing the IMP web-based mail
+client on your system.
+
+For information on the capabilities and features of IMP, see the file README_
+in the top-level directory of the IMP distribution.
+
+
+Obtaining IMP
+=============
+
+IMP can be obtained from the Horde website and FTP server, at
+
+   http://www.horde.org/imp/
+
+   ftp://ftp.horde.org/pub/imp/
+
+Or use the mirror closest to you:
+
+   http://www.horde.org/mirrors.php
+
+Bleeding-edge development versions of IMP are available via Git; see the file
+`horde/docs/HACKING`_ in the Horde distribution, or the website
+http://www.horde.org/source/, for information on accessing the Horde Git
+repository.
+
+
+Prerequisites
+=============
+
+To function properly, IMP **requires** the following:
+
+1. A working Horde installation.
+
+   IMP runs within the `Horde Application Framework`_, a set of common tools
+   for Web applications written in PHP.  You must install Horde before
+   before installing IMP.
+
+   .. Important:: IMP 5.0 requires version 4.0+ of the Horde Framework -
+                  earlier versions of Horde will **not** work.
+
+   .. _`Horde Application Framework`: http://www.horde.org/horde/
+
+   The Horde Framework can be obtained from the Horde website and FTP server,
+   at
+
+      http://www.horde.org/horde/
+
+      ftp://ftp.horde.org/pub/horde/
+
+   .. Important:: Be sure to have completed all of the steps in the
+                  `horde/docs/INSTALL`_ file for the Horde Framework before
+                  installing IMP. Many of IMP's prerequisites are also Horde
+                  prerequisites. Additionally, many of IMP's optional features
+                  are configured via the Horde install.
+
+2. The following PHP capabilities:
+
+   a. File Upload Support
+
+      File upload support is **required** to allow attachments in mail
+      composition and to allow various importing features to work (e.g.
+      importing PGP or S/MIME keys, importing mbox files).  See
+      `horde/docs/INSTALL`_ for instructions on how to enable file upload
+      support.
+
+3. The following PEAR modules:
+   (See `horde/docs/INSTALL`_ for instructions on installing PEAR modules)
+
+   a. Auth_SASL [OPTIONAL]
+
+      Auth_SASL is required only if your IMAP server uses CRAM-MD5 or
+      DIGEST-MD5 authentication.
+
+4. At least one IMAP or POP3 server.
+
+   While IMP is an application that is installed on a Web server and is run
+   from a Web browser, it is only an IMAP and POP3 *client*, like Outlook,
+   Apple Mail, or Thunderbird. You must have access to an IMAP or POP3
+   server(s) on which your users' mail is stored in order to use IMP.
+
+   IMAP is *strongly* recommended over POP3.  See, e.g.,
+   http://www.imap.org/imap.vs.pop.brief.html
+
+   Freely available IMAP servers (for \*nix systems) that have been verified
+   to work with IMP include:
+
+   - Archiveopteryx (http://www.archiveopteryx.org/)
+   - Courier-IMAP (http://www.inter7.com/courierimap.html)
+   - Cyrus (http://asg.web.cmu.edu/cyrus/)
+   - Dovecot (http://www.dovecot.org/)
+   - UW-IMAP (ftp://ftp.cac.washington.edu/imap/)
+
+   Most of these pacakages also include POP3 support as well.
+
+   The selected IMAP server MUST support IMAP4rev1 (RFC 3501).
+   The selected POP server MUST support POP3 (RFC 1939/STD 53).
+
+   .. If using a POP server, caching, on-demand filtering, searching, and
+      sorting are disabled.
+      POP3 support is limited essentially to only viewing messages.
+      An IMAP server is REQUIRED for all other advanced features.
+
+The following items are not required, but are strongly **RECOMMENDED**:
+
+1. Sendmail or equivalent.
+
+   While Horde can send mail via either a local sendmail or a remote SMTP
+   server, sendmail is recommended for use with IMP for improved performance
+   and error handling/reporting, as well as a more accurate mail envelope.
+
+   See `horde/docs/INSTALL`_ for further information.
+
+2. Turba, the Horde contacts manager.
+
+   Turba is the Horde contact management application, designed to be
+   integrated with other Horde applications to provide a unified interface to
+   contact management throughout the Horde suite.
+
+   Turba is available from:
+
+      http://www.horde.org/turba/
+
+      ftp://ftp.horde.org/pub/turba/
+
+   Turba provides the local address book and an LDAP directory search function
+   to IMP.
+
+   You must use the 3.x branch of Turba with IMP 5.x.
+
+3. Ingo, the Horde mail filters manager.
+
+   Ingo is the Horde mail filters management application, designed to be
+   integrated with other Horde applications to provide a unified interface to
+   mail filter management throughout the Horde suite.
+
+   Ingo is available from:
+
+      http://www.horde.org/ingo/
+
+      ftp://ftp.horde.org/pub/ingo/
+
+   Ingo provides the mail filtering interfaces to IMP.
+
+   You must use the 2.x branch of Ingo with IMP 5.x.
+
+4. Nag, the Horde tasks manager.
+
+   Nag is the Horde tasks management application, designed to be integrated
+   with other Horde applications to provide a unified interface to task
+   management throughout the Horde suite.
+
+   Nag is available from:
+
+      http://www.horde.org/nag/
+
+      ftp://ftp.horde.org/pub/nag/
+
+   If Nag is available on your system, users can easily create new tasks from
+   individual email messages.
+
+   You must use the 3.x branch of Nag with IMP 5.x.
+
+5. Gollem, the Horde file manager.
+
+   Gollem is the Horde file management application, designed to be
+   integrated with other Horde applications to provide a unified interface to
+   access VFS filesystems throughout the Horde suite.
+
+   Gollem is available from:
+
+      http://www.horde.org/gollem/
+
+      ftp://ftp.horde.org/pub/gollem/
+
+   Gollem allows a user to attach files from various VFS filesystems to
+   outgoing messages in IMP.
+
+   You must use the 2.x branch of Gollem with IMP 5.x.
+
+6. A web server with PATH_INFO support.
+
+   IMP requires the PATH_INFO environment variable for several features. Every
+   modern web server supports this, but you might have to enable this feature
+   in the web server configuration. e.g. Apache servers require::
+
+      AcceptPathInfo On
+
+   If the webserver does not provide PATH_INFO information, IMP attempts to
+   create the information using other server variables, but this process is
+   slower and less reliable.
+
+7. A configured VFS backend.
+
+   During composition of messages, it is possible that the PHP session may
+   timeout. If VFS is enabled in Horde, IMP can store the draft message and
+   allow the user to recover the message when they next login.
+
+
+Installing IMP
+==============
+
+IMP is written in PHP, and must be installed in a web-accessible directory.
+The precise location of this directory will differ from system to system.
+Conventionally, IMP is installed directly underneath Horde in the web server's
+document tree.
+
+Since IMP is written in PHP, there is no compilation necessary; simply expand
+the distribution where you want it to reside and rename the root directory of
+the distribution to whatever you wish to appear in the URL.  For example, with
+the Apache web server's default document root of ``/usr/local/apache/htdocs``,
+you would type::
+
+   cd /usr/local/apache/htdocs/horde
+   tar zxvf /path/to/imp-x.y.z.tar.gz
+   mv imp-x.y.z imp
+
+and would then find IMP at the URL::
+
+   http://your-server/horde/imp/
+
+
+Configuring IMP
+===============
+
+1. Configuring Horde for IMP
+
+   a. Register the application
+
+      In ``horde/config/registry.php``, find the ``applications['imp']``
+      stanza.  The default settings here should be okay, but you can change
+      them if desired.  If you have changed the location of IMP relative to
+      Horde, either in the URL, in the filesystem or both, you must update the
+      ``fileroot`` and ``webroot`` settings to their correct values.
+
+   b. Enable IMP authentication [OPTIONAL]
+
+      If you would prefer that your users authenticate directly with IMP,
+      without having to authenticate through Horde first, load the
+      ``Administration/Setup/Authentication`` page and from the ``What backend
+      should we use for authenticating users to Horde`` pulldown menu select
+      ``Let a Horde application handle authentication``.  (Please see the
+      second note below.) Select ``imp`` from the ``The application which is
+      providing authentication`` pulldown menu.
+
+      .. Note:: **You will have to log in twice if you don't do this** -- Once
+                to Horde and a second time to IMP.
+
+      .. Note:: If this is a new install, you will not be able to configure
+                IMP using the Horde Administration/Setup page if you first
+                enabled IMP authentication for Horde.  You must set Horde to
+                use another authentication method (refer to the
+                `horde/docs/INSTALL`_ file), configure IMP, then reset Horde
+                to use IMP authentication.  One way to reset Horde in order to
+                reach the Administration page is to replace the Horde
+                configuration file ``conf.php`` with the original in
+                ``horde/config/conf.php.dist``.  You should of course back up
+                your current settings since they will otherwise be permanently
+                lost.
+
+2. Creating the database table
+
+   The specific steps to create the IMP database table depend on which
+   database you've chosen to use.
+
+   First, look in ``scripts/sql/`` to see if a script already exists
+   for your database type.  If so, you should be able to simply execute that
+   script as superuser in your database.  (Note that executing the script as
+   the "horde" user will probably fail when granting privileges.)
+
+   If such a script does not exist, you'll need to build your own, using the
+   file imp.sql as a starting point.  If you need assistance in creating
+   databases, you may wish to let us know on the IMP mailing list.
+
+3. Configuring IMP
+
+   To configure IMP, change to the ``imp/config/`` directory of the installed
+   distribution, and make copies of all of the configuration ``dist`` files
+   without the ``dist`` suffix::
+
+      cd config/
+      for foo in *.dist; do cp $foo `basename $foo .dist`; done
+
+   Or on Windows::
+
+      copy *.dist *.
+
+   Documentation on the format and purpose of those files can be found in each
+   file.  You may edit these files if you wish to customize IMP's appearance
+   and behavior.  With the following exception, the defaults will be correct
+   for most sites.
+
+   a. servers.php
+
+      You must be sure to list your IMAP/POP3 server names and configuration
+      information in ``servers.php``.
+
+   You must login to Horde as a Horde Administrator to finish the
+   configuration of IMP.  Use the Horde ``Administration`` menu item to get to
+   the administration page, and then click on the ``Setup`` icon to get the
+   configuration page.  Select ``Mail`` from the selection list of
+   applications.  Fill in or change any configuration values as needed.  When
+   done click on ``Generate Mail Configuration`` to generate the ``conf.php``
+   file.  If your web server doesn't have write permissions to the IMP
+   configuration directory or file, it will not be able to write the file.  In
+   this case, go back to ``Setup`` and choose one of the other methods to
+   create the configuration file ``imp/config/conf.php``.
+
+   Note for international users: IMP uses GNU gettext to provide local
+   translations of text displayed by applications; the translations are found
+   in the ``po/`` directory.  If a translation is not yet available for your
+   locale (and you wish to create one), see the ``horde/po/README`` file, or
+   if you're having trouble using a provided translation, please see the
+   `horde/docs/TRANSLATIONS`_ file for instructions.
+
+   IMP Configuration Pointers
+
+   * By default, IMP is configured to NOT display text/html message parts
+     inline.  This is done for various security reasons.  If you would like
+     to see text/html parts inline, you must make this change in
+     ``imp/config/mime_drivers.php``::
+
+     $mime_drivers['imp']['html']['inline'] = true;
+
+4. Securing IMP
+
+   Before you can secure IMP, you need a secure Horde installation.  Please
+   read the file in `horde/docs/SECURITY`_ for Horde security information
+   before proceeding.
+
+   There are two channels by which, unless steps are taken to avoid it, IMP
+   encourages users to pass their IMAP and POP3 passwords around the Internet
+   unencrypted.
+
+   The first channel is between their browser and the Web server.  We strongly
+   recommend using an SSL-capable Web server to give users the option of
+   encrypting communications between their browser and the Web server on which
+   IMP is running; some sites may wish to disable non-SSL access entirely.
+
+   The second channel is between the Web server and their IMAP or POP3 server.
+   The simplest way to avoid this is to have the mail server running on the
+   same system as the Web server, and configuring IMP to connect to the IMAP
+   or POP3 server on ``localhost`` instead of on the Internet hostname.  In
+   cases where that is not possible, it is highly recommended that the mail
+   server be located on a private, secure network. Alternatively, the mail
+   server can be accessed via TLS (or via the deprecated SSL-specific ports)
+   to ensure that users' passwords remain safe after they have entrusted them
+   to IMP.
+
+   Other security steps you can take to increase security include:
+
+   * Use session cookies instead of URL based sessions.
+   * Set your php ``session.entropy_length`` to a larger value (e.g. 16) and
+     ``session.entropy_file`` to a random source (e.g. ``/dev/urandom``)
+   * Enable and use the php mycrypt extension.
+   * If your database, mail server, and web server are on the same host
+     machine, then:
+
+     * Use unix socket database access and disable tcp database access.
+     * Use ``localhost`` for all TCP/IP connections to avoid the network.
+     * Use the command-line sendmail for sending mail if possible.
+
+5. Testing IMP
+
+   Once you have configured IMP, bring up the included test page in your Web
+   browser to ensure that all necessary prerequisites have been met.  See the
+   `horde/docs/INSTALL`_ document for further details on Horde test
+   scripts. If you installed IMP as described above, the URL to the test page
+   would be::
+
+      http://your-server/horde/imp/test.php
+
+   The test script will also allow you to test your connection to the mail
+   server and provide some auto-detected configuration parameters that can
+   then be inserted into the server configuration located in
+   ``imp/config/servers.php``.
+
+   Next, use IMP to login to a known working IMAP or POP3 server.  Test at
+   least the following:
+
+   - Sending mail (via the ``Compose`` item in the menu bar).
+   - Setting preferences (check to see if they survive after logging out and
+     back in, if you are using an SQL or LDAP preferences system).
+   - Reading mail.
+   - Deleting mail.
+   - Flagging mail (if using IMAP).
+   - Changing folders (if using IMAP).
+
+6. Tuning IMP (Performance)
+
+   See `horde/docs/PERFORMANCE`_.
+
+   IMP Specific Performance Information::
+
+   IMP can use persistent caching on the server side to store information
+   about user's messages.  This results in much reduced mail server traffic
+   and requires the server to parse the structure of every message only once.
+   The tradeoff is your cache backend must be able to handle the potentially
+   large amounts of cached data this option will produce. However, cache
+   storage is potentially cheap when compared to the performance gained by
+   using caching.
+
+   To use this caching, you must have a ``Cache System`` configured in Horde's
+   ``Administration/Setup`` screen and have the relevant settings enabled in
+   IMP's setup screen (``Administration/Setup/Webmail/Mailbox``).
+
+
+Dynamic View Troubleshooting
+============================
+
+IMP's dynamic, AJAX-based view (formerly known as DIMP) differs from
+traditional Horde applications in that it requires javascript support; in
+fact, javascript performs the bulk of the page display.  As such, debugging
+the dynamic view is more complex than with other Horde applications.
+
+If you run into problems with the dynamic view, first follow the
+troubleshooting steps for Horde - namely checking PHP error logs and Horde
+debug logs to determine if the problem is located there.  Server-based errors
+will be logged in the traditional manner.
+
+Only if traditional debugging is unsuccessful will you need to move to
+javascript debugging.  It is highly recommended to use Mozilla Firefox with
+the `Firebug`_ extension installed in order to better track javascript
+errors - it is what the developers use and makes deciphering error codes and
+error line numbers much easier.  You will also want to turn off javascript
+caching, if on, in ``horde/conf/conf.php``.
+
+If you do find a javascript error, it would be great if you could fix the
+issue and provide a patch :)  Absent that, before reporting to the mailing
+list, IRC room, or bug tracker make sure you have a valid javascript error,
+the file the error is being caused in, the line number of the error, and a
+reliable way to reproduce the error.  Developers/other interested folks will
+be much more likely to help you if all this information is provided.
+
+
+Obtaining Support
+=================
+
+If you encounter problems with IMP, help is available!
+
+The Horde Frequently Asked Questions List (FAQ), available on the Web at
+
+  http://www.horde.org/faq/
+
+The Horde Project runs a number of mailing lists, for individual applications
+and for issues relating to the project as a whole.  Information, archives, and
+subscription information can be found at
+
+  http://www.horde.org/mail/
+
+Lastly, Horde developers, contributors and users may also be found on IRC,
+on the channel #horde on the Freenode Network (irc.freenode.net).
+
+Please keep in mind that IMP is free software written by volunteers.  For
+information on reasonable support expectations, please read
+
+  http://www.horde.org/support.php
+
+Thanks for using IMP!
+
+The IMP team
+
+
+.. _README: ?f=README.html
+.. _`horde/docs/HACKING`: ../../horde/docs/?f=HACKING.html
+.. _`horde/docs/INSTALL`: ../../horde/docs/?f=INSTALL.html
+.. _`horde/docs/PERFORMANCE`: ../../horde/docs/?f=PERFORMANCE.html
+.. _`horde/docs/SECURITY`: ../../horde/docs/?f=SECURITY.html
+.. _`horde/docs/TRANSLATIONS`: ../../horde/docs/?f=TRANSLATIONS.html
+.. _`File Uploads`: http://wiki.horde.org/FAQ/Admin/FileUploads
+.. _`Firebug`: http://www.getfirebug.com/
