@@ -314,6 +314,7 @@ var DimpBase = {
 
     loadMailbox: function(f, opts)
     {
+        var need_delete;
         opts = opts || {};
 
         if (!this.viewport) {
@@ -328,6 +329,13 @@ var DimpBase = {
                 $('folderName').update(DIMP.text.loading);
                 $('msgHeader').update();
                 this.folderswitch = true;
+
+                /* Don't cache results of search folders - since we will need
+                 * to grab new copy if we ever return to it. */
+                if (this.isSearch(this.folder)) {
+                    need_delete = this.folder;
+                }
+
                 this.folder = f;
 
                 if (this.isSearch(f) &&
@@ -338,6 +346,10 @@ var DimpBase = {
         }
 
         this.viewport.loadView(f, { search: (this.uid ? { imapuid: Number(this.uid) } : null), background: opts.background});
+
+        if (need_delete) {
+            this.viewport.deleteView(need_delete);
+        }
     },
 
     _createViewPort: function()
