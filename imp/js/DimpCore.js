@@ -402,10 +402,6 @@ var DimpCore = {
                 window.print();
                 break;
 
-            case 'alertsloglink':
-                $('alertsloglink').down('A').update(this.Growler.toggleLog() ? DIMP.text.hidealog : DIMP.text.showalog);
-                break;
-
             case 'largeaddrspan_active':
                 tmp = elt.down();
                 if (!tmp.next().visible() ||

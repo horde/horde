@@ -129,8 +129,7 @@ $code['text'] = array(
     'createsub_prompt' => _("Create subfolder:"),
     'delete_folder' => _("Permanently delete %s?"),
     'empty_folder' => _("Permanently delete all messages in %s?"),
-    'getmail' => Horde::highlightAccessKey(addslashes(_("_Get Mail")), Horde::getAccessKey(_("_Get Mail"), true)),
-    'hidealog' => _("Hide Alerts Log"),
+    'hidealog' => Horde::highlightAccessKey(_("Hide Alerts _Log"), Horde::getAccessKey(_("Alerts _Log"), true)),
     'listmsg_wait' => _("The server is still generating the message list."),
     'listmsg_timeout' => _("The server was unable to generate the message list."),
     'loading' => _("Loading..."),
@@ -147,7 +146,6 @@ $code['text'] = array(
     'prefs' => _("User Options"),
     'rename_prompt' => _("Rename folder to:"),
     'search' => _("Search"),
-    'showalog' => Horde::highlightAccessKey(addslashes(_("_Alerts Log")), Horde::getAccessKey(_("_Alerts Log"), true)),
     'verify' => _("Verifying..."),
     'vp_empty' => _("There are no messages in this mailbox."),
 );

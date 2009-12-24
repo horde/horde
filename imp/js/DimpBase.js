@@ -1935,6 +1935,10 @@ var DimpBase = {
                 e.stop();
                 return;
 
+            case 'alertsloglink':
+                $('alertsloglink').down('A').update(DimpCore.Growler.toggleLog() ? DIMP.text.hidealog : DIMP.text.showalog);
+                break;
+
             case 'applyfilterlink':
                 if (this.viewport) {
                     this.viewport.reload({ applyfilter: 1 });
@@ -2899,6 +2903,10 @@ var DimpBase = {
             DM.addSubMenu('ctx_qsearchopts_filter', 'ctx_flag');
             DM.addSubMenu('ctx_qsearchopts_filternot', 'ctx_flag');
         }
+
+        /* Store these text strings for updating purposes. */
+        DIMP.text.getmail = $('checkmaillink').down('A').innerHTML;
+        DIMP.text.showalog = $('alertsloglink').down('A').innerHTML;
 
         /* Initialize the starting page. */
         tmp = location.hash;
