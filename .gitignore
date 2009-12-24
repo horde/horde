@@ -9,6 +9,7 @@
 *.orig
 *.rej
 
+!horde/config/nls.php
 horde/config/registry.d/*.php
 horde/libs/
 horde/static/*.*
