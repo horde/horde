@@ -1,0 +1,27 @@
+=================
+ Upgrading Whups
+=================
+
+:Last update:   $Date: 2009/09/07 09:56:43 $
+:Revision:      $Revision: 1.1 $
+:Contact:       horde@lists.horde.org
+
+
+These are instructions to upgrade from earlier Whups versions. Please backup
+your existing data before running any of the steps described below. You can't
+use the updated data with your old Whups version anymore.
+
+
+Upgrading Whups from 1.0 to 1.0.1
+=================================
+
+SQL Backends
+------------
+
+A field to store whether a version is still active has been added to the
+default SQL table layout.
+
+Execute the provided SQL script to update your data to the new Whups version,
+e.g.::
+
+   mysql --user=root --password=<MySQL-root-password>  <db name> < scripts/upgrades/1.0_to_1.0.1.sql

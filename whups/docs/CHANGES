@@ -1,0 +1,356 @@
+--------
+v2.0-cvs
+--------
+
+
+
+
+----------
+v1.0.2-cvs
+----------
+
+
+
+
+------
+v1.0.1
+------
+
+[jan] Fix Oracle SQL scripts.
+[jan] Render private comments for everyone, but hide the comment text.
+[jan] Add flag to disable old versions.
+[jan] Apply simple markup highlighting on comments.
+[jan] Save queue email addresses when editing queues (horde@hatzidakis.org,
+      Bug #7905).
+[jan] Fix charset conversion of comments added with mail-filter.php
+      (thomas@gelf.net, Bug #7730).
+[cjh] Show version changes in the ticket history.
+[jan] Use all credentials and mailer settings when sending mails.
+[cjh] Allow changing the queue version from the Update screen.
+[cjh] Add more date formats to the report_time_format preference
+      (b5b5b5b5@centrum.sk, Request #7793).
+[jan] Escape SQL wildcards in string queries.
+[cjh] Enforce queue permissions in ticket-listing blocks (Bug #7614).
+[cjh] Ensure the DB library is explicitly loaded (Bug #7647).
+[jan] Add Turkish translation (Akif Dinc <akif@dinc.org>).
+[jan] Fix linking to queries if URL rewriting is turned off.
+
+
+----
+v1.0
+----
+
+[jan] Change group field in shares table to work with LDAP groups (Bug #6883).
+[jan] Fix rendering attribute criteria in the query tree.
+[jan] Generate a valid Message-ID.
+[mjr] Fix an issue with searching on installations with a single queue that
+      was causing all existing tickets in the queue to be displayed on entering
+      the search page.
+
+
+--------
+v1.0-RC2
+--------
+
+[jan] Add date search criteria (Duck <duck@obala.net>, Request #7274).
+[cjh] Add an RSS feed of search results (Duck <duck@obala.net>, Request #7259).
+[jan] Group statistics by ticket type.
+[jan] Add Precedence and Auto-Submitted headers to notification messages
+      (Request #7082).
+[jan] Add In-Reply-To header to notification messages (Request #7103).
+[jan] Add button to save searches as queries (Request #5921).
+[jan] Add query slugs and RSS feeds (Request #5924).
+[jan] Implement editing of query elements.
+[mjr] Fix saving of queries.
+
+
+--------
+v1.0-RC1
+--------
+
+[jan] Remove attributes hooks.
+[jan] Add form replies.
+[jan] Add support for queue-specific notification messages.
+[jan] Add email address per queue for ticket notifications.
+[jan] Use highlightquotes filter for quoted comments.
+[jan] Send notification messages in flowed text format (requires Horde 3.2.1).
+[jan] Allow to specify field types and parameters for attributes.
+[jan] Add a hook that is called if a ticket is being updated, for automatic
+      ticket changes.
+[jan] Add auto-completion to retrieve requesters from the address book.
+[jan] Add per-queue permission to manually set the ticket requester.
+[jan] Deal with queue vs. admin permissions more consistently.
+[jan] Add configuration option whether to include email headers in comments.
+[cjh] Improve resource usage in datatree_to_sql share migration script
+      (Bug #6740).
+[cjh] Add an upgrade script for the new SQL share driver (Request #6109).
+[jan] Add preference to only receive notifications if a comment has been added.
+[jan] Send personalized ticket notification messages.
+[jan] Add addAttachment API method.
+[jan] Add message templates for email notifications.
+[jan] Sequentially number comments (Request #4895).
+[jan] Unset resolved date when un-resolving tickets (Bug #6310).
+[jan] Add mail sender as requester when using the --default-auth argument with
+      scripts/mail-filter.php.
+[jan] Notify watchers that have just been added by email.
+[jan] Add attributes search to query builder.
+[jan] Rename API methods get_assigned_ticket_ids, get_requested_ticket_ids,
+      get_schema, add_tickets, and set_ticket_attributes.
+[jan] Add --guess-queue argument to mail-filter.php.
+[cjh] Use pretty URLs if Horde is configured for them (Request #5922).
+[jan] Add configuration for default types, states, and priorities.
+[mjr] Attribute values now show correctly in initial ticket notifications.
+[jan] Add a hook to customize field grouping in the ticket views.
+[cjh] Combine Type and Category selects in search form (php@ideacode.com,
+      Request #4928).
+[jan] Show attribute changes in ticket history.
+[jan] Allow scripts/mail-filter.php to process attachments.
+[jan] Add ability to read messages from a mailbox to scripts/mail-filter.php.
+[cjh] Don't re-use old attachment names even if the attachment has since been
+      deleted (Bug #4472).
+[cjh] Store the guest user associated with transactions that only add an
+      attachment, with no comment text (Bug #2890).
+[cjh] Include attribute values in ticket emails, including "diffs" for changes
+      (Bug #1083).
+[cjh] When creating a ticket, preserve attachments uploaded in step 3 when
+      step 4 is used to assign the ticket (Bug #2514).
+[cjh] When replying to a restricted comment, default to the same restriction
+      (Request #4902).
+[cjh] Support split read and write databases (<duck@obala.net>, Request #5926).
+[jan] Add Lithuanian translation (Vilius Sumskas <vilius@lnk.lt>).
+[cjh] Add an addComment API method.
+[jan] Add OpenSearch interface for direct ticket access through browser bars.
+[jan] Move all Whups-specific hook examples from Horde's config/ directory.
+[cjh] Rename whups_tickets_listeners to whups_ticket_listeners for consistency.
+[cjh] Add a tree menu block (Jakob Schroeter <js@camaya.net>).
+[cjh] On the search screen, only show types that are associated with queues
+      that are available/active (tinu@humbapa.ch, Request #4107).
+[jan] Add Polish translation (Tadeusz Lesiecki <lesiecki@tmtsystem.pl>, Piotr
+      Tarnowski <drfugazi@drfugazi.eu.org>).
+[jan] Add Ukrainian translation (Andriy Kopystyansky <anri@polynet.lviv.ua>).
+[cjh] Ensure that a due date in a prior year doesn't make the EditTicketForm
+      invalid (Bug #4763).
+[cjh] Remove saved searches (Request #4897).
+[cjh] Calculate ticket date attributes when they change instead of on every
+      access (php@ideacode.com, Request #4893).
+[cjh] Queries are now managed as shares, but the serialized bits are stored
+      and managed by Whups in their own dedicated table.
+[jan] Allow guest access to query page.
+[cjh] Smarter word wrapping in string representations of tickets
+      (Request #4510).
+[cjh] Add a Queue Summary block showing queues with the number of open
+      tickets in each (Request #4628).
+[cjh] Combine the People tab with the Update tab.
+[cjh] Allow changing ticket queues as long as the user has DELETE permissions
+      on the current queue and EDIT permissions on the new queue
+      (tmerritt@email.arizona.edu, Request #4268).
+[cjh] Add hours and minutes to due dates.
+[cjh] Always use Summary for the ticket summary field label.
+[jan] Add Slovenian translation (Duck <duck@obala.net>).
+[cjh] Show the requester in search results (rodion (at) nezna (dot) com,
+      Bug #2820).
+[cjh] Show either the Comment or Update tabs depending on permissions,
+      but not both.
+[cjh] Report the last-updated date for tickets (Bug #2396).
+[cjh] Tickets now have an optional due date field.
+[cjh] New updateTicket API call (Ben Klang <ben@alkaloid.net>, Bug #4101).
+[cjh] Check permissions when setting ticket attributes through an API call
+      (Ben Klang <ben@alkaloid.net>, Bug #4098).
+[cjh] If guests can add tickets but not view them, don't tell them adding
+      failed (Bug #3630).
+[cjh] Add Unassigned Tickets Horde_Block (Request #766).
+[mas] Fix sorting in summary page to better handle dates. (Bug #2930)
+[cjh] Add CAPTCHA support to the Add Comment and Create Ticket forms.
+[cjh] Deliver RSS feeds in a way that supports USM
+      (http://www.kbcafe.com/rss/usm.html, Request #2593).
+[cjh] processMail() now ignores emails that were generated by Whups
+      (Bug #3398).
+[ben] Better support for MS-SQL.
+[jan] Add Norwegian (Bokmal) translation (Torbjorn Grindhaug
+      <grindhaug@gmail.com>).
+[cjh] "My Bugs" page is now a Horde_Block layout (Request #3202).
+[cjh] Fix permissions checking for ticket comments when an admin user is the
+      one making the comment (Bug #2673).
+[cjh] Delete searches by getvars string, not by name (Bug #3197).
+[jan] Allow to assign tickets to foreign groups
+      (ronny.adsetts@amazinginternet.com, Request #2477).
+[cjh] Add support for dynamic re-sorting of search results, including saving
+      the sort preferences on any changes.
+[mas] Protect against HTML tags in the search results summary.
+[jan] Allow other applications to provide versions.
+[jan] Simplify UI for query editor and allow to search for versions.
+[jan] Allow to send notification mails to queue-specific addresses (Marcus
+      Boerger <helly@php.net>).
+[jan] Allow other applications to provide queues.
+[cjh] Add *-id arguments for type, priority, state, and queue to
+      mail-filter.php (Bug #2347).
+[cjh] Add a link to return to the list of search results, along with the
+      previous/next links (Bug #1751).
+[cjh] Fix the Quicksearch links.
+[cjh] mail-filter.php now handles replies as well (Bug #280).
+[cjh] Use the date_format preference for displaying TicketDetailsForm
+      as well (Bug #2151).
+[jan] Add Russian translation (Illya Belov <belov@iop.irkps.ru>).
+[mas] Add ability to search by ticket requester.
+[mas] Change any output of <b> and <i> tags to <strong> and <em> for better
+      accessibility support.
+[cjh] Add links to Update/Comment from individual transactions, which quote
+      that transaction's comment text (Bug #823).
+[cjh] Add explicit permissions for assigning and updating tickets
+      (tmerritt@email.arizona.edu, Bug #1955).
+[jan] Strike-through links to resolved tickets.
+[jan] Make server name and port in mail-filter.php configurable (Bug #2004).
+[cjh] Honor creator permissions on tickets (tmerritt@email.arizona.edu,
+      Bug #1945).
+[cjh] Implement ticket watchers (tmerritt@email.arizona.edu, Bug #867).
+[cjh] Enforce permissions on queues in reports, let guests see reports
+      if they have permissions (Bug #1812).
+[cjh] Allow export templates to define a callback function for filtering
+      data. Includes an example for properly quoting CSV data (Bug #1774).
+[jan] Use bind variables in the SQL driver (Bug #1701).
+[cjh] Queries are stored as Horde_Share objects with full permissions.
+      (Bug #1481).
+[cjh] Delete queue permissions when deleting a queue (Bug #1462).
+[jan] Add MIME viewer for ZIP files.
+[cjh] Queries can now be deleted (Bug #1193).
+[cjh] Preserve the current search criteria when re-sorting results (Bug #1024).
+[cjh] Link to ticket RSS feeds on all ticket display pages.
+[cjh] Allow administrators to delete attachments (Bug #1252).
+[cjh] Allow uploading an attachment when initially creating a ticket.
+[cjh] Fix group-restricted comments (Bug #1225).
+[jan] Add Brazilian Portuguese translation (Daniel V. Hoisel
+      <daniel@maxlinux.com.br>).
+[cjh] Whups_Mail::processMail needs to use Whups_Ticket for ticket creation
+      to trigger email notifications, etc (Bug #1134).
+[cjh] Allow inserting explicit Type filters into Query Builder queries
+      (Bug #434).
+[cjh] Force users to choose a queue when creating tickets with the goal
+      of cutting down on misfiled tickets (Bug #588).
+[cjh] Remove the Attachment tab, as it currently serves no purpose beyond
+      the Comment tab (Bug #868).
+[cjh] Add a numeric log_value_num field for faster logs table comparisons
+      and for compatibility with databases that can't cast strings into
+      integer comparisons (Oracle, etc) (rvs (at) angara (dot) ru).
+[jan] Add Finnish translation (Leena Heino <liinu@uta.fi>).
+[jan] Add Spanish translation (Manuel Perez Ayala <mperaya@alcazaba.unex.es>).
+[cjh] The way ticket histories are stored and retrieved has been completely
+      revamped to be quicker, more robust, and more complete.
+[cjh] Add a 'summary' search option in the basic search form (Bug #269).
+[cjh] Queue is now a valid query builder criterion.
+[cjh] Add previous/next navigation when there's a current list of search
+      results to navigate through.
+[cjh] Changing a ticket's queue now also allows setting a queue version.
+[cjh] Group ticket histories by transaction, not by individual change.
+[cjh] Show users their saved queries as well as saved searches.
+[jan] Add Simplified Chinese translation (Liaobin <liaobin@jite.net>).
+[cjh] Add a basic "Update" screen for changing summary, state, priority,
+      and adding attachments/comments, all at once.
+[cjh] Finish renaming "module" to "queue" throughout the data and SQL.
+[cjh] Add $conf['mail']['always_copy'] to allow Whups to always copy
+      a specific email address on ticket mail.
+[cjh] Mail can be configured to come from a single email address now,
+      making it easier to allow Whups to post ticket email to a
+      mailing list, etc.
+[cjh] Add a "DO NOT REPLY" note to generated emails if Whups isn't
+      configured to handle replies to ticket mail.
+[cjh] Advertise permissions through the API.
+[jan] Add Dutch translation (Stefan de Konink <skinkie@xs4all.nl>).
+[cjh] Make ticket owners available in search results again.
+[jan] Allow uploading of attachments.
+[cjh] Allow assigning tickets to groups.
+[cjh] Add Set Type action to the details page (Bo Daley <bo@tilda.com.au>).
+[cjh] Allow clearing of all or individual searches (Bo Daley <bo@tilda.com.au>).
+[cjh] Start of a reminder-sending daemon.
+[cjh] Allow assignment of a ticket to multiple users.
+[cjh] Queue/Type matrix is now functional and allows very quick editing
+      of which ticket types are associated with each module.
+[jan] Add Romanian translation (Eugen Hoanca <eugenh@urban-grafx.ro>).
+[cjh] Allow much more flexible configuration of who gets email on
+      various actions (Bo Daley <bo@tilda.com.au>).
+[cjh] Whups can now send out simple reminders.
+[cjh] By giving users the 'whups:admin' permission, people can administer
+      individual queues in Whups, or just Whups as opposed to all of Horde.
+[cjh] Allow multiple levels of sorting (first by date, then type, etc).
+[cjh] Phrases in ticket comments can now be linked to the ticket in question
+      automatically (Mike Baptiste <mike@msbnetworks.net>).
+[cjh] Use Horde_Template to generate configurable reports from
+      search result sets.
+[cjh] Add a New Ticket link in the summary screen
+      (Brian Keifer <brian@valinor.net>).
+[cjh] Add a preference for not showing requested tickets in the summary
+      screen (Brian Keifer <brian@valinor.net>).
+[cjh] Prevent guest users from assigning tickets and make them enter
+      the ticket password to change state/priority.
+[cjh] Guest users can now add tickets and add comments to tickets when
+      they have permissions to do so.
+[cjh] We can now retrieve much more flexible datasets, such as the
+      average time it takes to resolve a ticket by developer,
+      requester, module, etc.
+[cjh] Add a flexible set of stats, such as the average time a ticket
+      is unresolved.
+[cjh] Add a much more flexible set of graphs, and a "My Bugs"
+      section for ticket summaries.
+[cjh] Search results can now specify the results title header.
+[cjh] Reports currently lacks pretty graphs, but now shows more useful
+      information - all assigned and requested tickets.
+[cjh] Fix usage of Variables:: class.
+[jan] Add Traditional Chinese translation (David Chang <david@thbuo.gov.tw>).
+[jan] Add Bulgarian translation (Miroslav Pendev <miro@cybershade.us>).
+[cjh] Better enforcement of permissions on modules, especially
+      during searches.
+[cjh] Add options for how many comments are sent in bug emails,
+      and in what order.
+[cjh] Make sure that comments mailed to users don't include private
+      comments they aren't authorized to see.
+[cjh] Clean up the format of generated emails to be much clearer.
+[cjh] All email notification triggers now work.
+[cjh] Add a standard Horde menu.
+[cjh] Add an Options screen.
+[cjh] Fix the Query Builder.
+[cjh] Whups now uses the Horde FormSprocket:: API for all form handling.
+[cjh] Ticket search results are now fully sortable, and a user preference.
+[jan] Add French translation (Thierry Thomas).
+[cjh] Use users' identities for showing names of requester, owner, etc.
+[cjh] Include assigned and resolved dates in the search results view.
+[cjh] Include date created, assigned, and resolved in the details view.
+[cjh] Don't show resolved tickets in the summary.
+[cjh] Require permission (whups:hiddenComments, at level Edit) to make
+      comments specific to a group.
+[cjh] Display comments which are restricted differently.
+[cjh] Add the ability to restrict viewing of a comment to a Group.
+[cjh] Improve the reporting data that gets saved by a lot.
+[jan] Add Czech translation.
+[cjh] Fix some non-portable SQL.
+[cjh] Add the option to keep track of different versions for a module.
+[cjh] Fix problems when there are no types associated with a module.
+[cjh] Default select lists which have only one value to that value. In
+      some cases this allows for auto-filling of forms (creating tickets).
+[cjh] Include session ID in forms/links.
+[cjh] Only show users queues which they have permissions for.
+[cjh] Add a link from the edit queue section to edit the permissions on
+      that module.
+[cjh] Add managing of which users can have tickets assigned to them, on a
+      per-module basis.
+[cjh] Remove the sample data, as it poses sequence problems and isn't needed
+      now that the administration interface works.
+[cjh] Don't create the sequence tables in whups.sql; PEAR needs to create
+      them itself to get implementation-specific details right.
+[cjh] Administration interface - adding, deleting, and editing of modules,
+      types, states, and priorities all work now.
+[jon] Adapt to the new Horde::img() syntax.
+[cjh] Types can now map to multiple modules, instead of either one or global.
+      This is a much more flexible setup, and actually allows re-use of types.
+[cjh] Added a SetType for collections of on/off values (a checkbox set).
+[cjh] Use $registry->get() in place of other $registry->get
+      functions.
+[cjh] Use WHUPS_TEMPLATES for template paths.
+[jon] Enable the "portability" option in the SQL driver.
+[jan] Remove the standard value for the language preference. The language to
+      fall back to should be set Horde wide in lang.php instead.
+[cjh] Add API method and implementation for adding modules.
+[rec] Add query builder, many UI improvements, more horde-style design.
+[cjh] Apply patches from Alex L. for assignment, users, etc.
+[avsm] Replace $conf['paths'] with the $registry equivalents.
+[cjh] Convert short tags (<?) to <?php.
+[cjh] Make all copyright notices refer to BSD license.
+[cjh] Added initial CHANGES file.

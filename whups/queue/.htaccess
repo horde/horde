@@ -1,0 +1,9 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond   %{REQUEST_FILENAME}  !-d
+    RewriteCond   %{REQUEST_FILENAME}  !-f
+    RewriteRule   ^([0-9]+)/?$ index.php?id=$1 [QSA]
+    RewriteRule   ^([0-9]+)/rss/?$ rss.php?id=$1 [QSA]
+    RewriteRule   ^([a-zA-Z0-9_]+)/?$ index.php?slug=$1 [QSA]
+    RewriteRule   ^([a-zA-Z0-9_]+)/rss/?$ rss.php?slug=$1 [QSA]
+</IfModule>

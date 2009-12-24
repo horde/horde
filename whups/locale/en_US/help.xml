@@ -1,0 +1,16 @@
+<?xml version='1.0'?>
+<!-- $Horde: whups/locale/en_US/help.xml,v 1.1 2002/10/25 03:20:13 ericr Exp $ -->
+<help>
+
+<entry id="Overview">
+    <title>Overview</title>
+    <heading>Introduction</heading>
+    <para>
+    Whups is a Horde ticket-tracking application. It is very flexible in design and can be used for help desk requests, tracking software development, and anything else which needs to track a set of requests and their status.
+    </para>
+    <para>
+    Whups has complex searching, reporting and charting, email notification triggers, and a simple permissions system.
+    </para>
+</entry>
+
+</help>

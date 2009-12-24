@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!-- $Horde: whups/locale/fi_FI/help.xml,v 1.1 2005/03/16 15:30:27 jan Exp $ -->
+<help>
+  <entry id="Overview" md5="90121a4de0888ca80c3655099269ebc4" state="uptodate">
+    <title>Yleiskuva</title>
+    <heading>Esittely</heading>
+    <para>
+    Whups on Horden tikettien seuraamiseen tarkoitettu ohjelmisto. Ohjelmisto on suunniteltu varsin joustavaksi ja sit&#xE4; voidaan k&#xE4;ytt&#xE4;&#xE4; help desk -pyynt&#xF6;jen seuraamiseen, seuraamaan ohjelmiston kehityst&#xE4; tai mihin tahansa muuhun toimintoon, jossa tarvitsee seurata pyynt&#xF6;j&#xE4; ja niiden tilaa.
+    </para>
+    <para>
+    Whups sis&#xE4;lt&#xE4;&#xE4; my&#xF6;s hakutoiminnon, raportoinnin ja kuvaajat, s&#xE4;hk&#xF6;posti-ilmoitukset ja yksinkertaisen lupaj&#xE4;rjestelm&#xE4;n.
+    </para>
+</entry>
+</help>

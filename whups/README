@@ -1,0 +1,143 @@
+What is Whups?
+==============
+
+:Last update:   $Date: 2008/09/02 16:13:13 $
+:Revision:      $Revision: 1.10 $
+:Contact:       horde@lists.horde.org
+
+.. contents:: Contents
+.. section-numbering::
+
+Whups is a Horde ticket-tracking application. It is very flexible in design,
+and can be used for help-desk requests, tracking sofware development, and
+anything else that needs to track a set of requests and their status.
+
+This software is OSI Certified Open Source Software.  OSI Certified is a
+certification mark of the `Open Source Initiative`_.
+
+.. _`Open Source Initiative`: http://www.opensource.org/
+
+
+Features
+--------
+
+Currently Whups supports the following features:
+
+* Support for multiple "Queues" (aka Projects).
+* Custom ticket types, states, priorities, attributes per Queue.
+* Create, update, assign, close tickets.
+* Search for tickets matching specific criteria.
+* A complex query building for building and saving/storing custom searches.
+* Guest access (in addition to login access).
+* E-mail notification of changes to tickets.
+* Ticket creation and updating through e-mail messages.
+* Permissions support.
+
+
+Terminology
+-----------
+
+Queues
+  Project name (or other major category name). This is the top level
+  structure.
+
+Types
+  Project Type, each Type has the following components:
+
+  States
+    State (Stage) of the current item. For example: new, open, closed,
+    resolved, etc.
+
+  Priorities
+    Priority of the current item. For example: Critical, High, Low, Normal,
+    Urgent, etc. Could also be abstracted (Red, Yellow, Green; 1, 2, 3; etc)
+
+  Attributes
+    From a large set of attribute types, an arbitrary number of attributes can
+    be added, including attribute names, descriptions, whether they are
+    required etc.
+
+  Form Replies
+    Reply texts for updating tickets, used for automatically filling ticket
+    comments with stock phrases.
+
+Responsible Users
+  Users responsible for a queue. These can be anyone, but should be Horde
+  users. Notifications only work with Horde users who have identities with an
+  email address set.
+
+Versions
+  Allows you to track multiple versions of the same project. Can be used for
+  actual versions (CVS HEAD, 1.0, etc), development cycles (planning,
+  prototyping, production), etc.
+
+Tickets
+  This is an "Instance" of a Type.
+
+
+Obtaining Whups
+------------------
+
+Further information on Whups and the latest version can be obtained at
+
+  http://www.horde.org/whups/
+
+
+Documentation
+-------------
+
+The following documentation is available in the Whups distribution:
+
+:README_:            This file
+:LICENSE_:           Copyright and license information
+:`docs/CHANGES`_:    Changes by release
+:`docs/CREDITS`_:    Project developers
+:`docs/INSTALL`_:    Installation instructions and notes
+:`docs/TODO`_:       Development TODO list
+
+
+Installation
+------------
+
+Instructions for installing Whups can be found in the file INSTALL_ in the
+``docs/`` directory of the Whups distribution.
+
+
+Assistance
+----------
+
+If you encounter problems with Whups, help is available!
+
+The Horde Frequently Asked Questions List (FAQ), available on the Web at
+
+  http://www.horde.org/faq/
+
+The Horde Project runs a number of mailing lists, for individual applications
+and for issues relating to the project as a whole. Information, archives, and
+subscription information can be found at
+
+  http://www.horde.org/mail/
+
+Lastly, Horde developers, contributors and users also make occasional
+appearances on IRC, on the channel #horde on the freenode Network
+(irc.freenode.net).
+
+
+Licensing
+---------
+
+For licensing and copyright information, please see the file LICENSE_ in the
+Whups distribution.
+
+Thanks,
+
+The Whups team
+
+
+.. _README: ?f=README.html
+.. _LICENSE: http://www.horde.org/licenses/bsdl.php
+.. _docs/CHANGES: ?f=CHANGES.html
+.. _docs/CREDITS: ?f=CREDITS.html
+.. _INSTALL:
+.. _docs/INSTALL: ?f=INSTALL.html
+.. _docs/TODO: ?f=TODO.html

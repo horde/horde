@@ -1,0 +1,16 @@
+<?xml version='1.0'?>
+<!-- $Horde: whups/locale/es_ES/help.xml,v 1.1 2008/03/28 17:33:30 jan Exp $ -->
+<help>
+
+<entry id="Overview">
+    <title>Introducción</title>
+    <heading>Introducción</heading>
+    <para>
+	    Whups es una aplicación de seguimiento de incidencias de Horde. Tiene un diseño muy flexible y se puede utilizar para solicitudes de asistencia, seguimiento de desarrollo de software y cualquier otra cosa que requiera controlar un conjunto de solicitudes y su estado.
+    </para>
+    <para>
+	    Whups dispone de un complejo sistema de búsqueda, informes y gráficos, disparadores de notificación de correo y un sistema de permisos sencillo.
+    </para>
+</entry>
+
+</help>

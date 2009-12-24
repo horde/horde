@@ -1,0 +1,54 @@
+========================
+ Whups Development Team
+========================
+
+
+Core Developers
+===============
+
+Robert E. Coyle <robertecoyle@hotmail.com>
+
+- Initial codebase
+- Query builder
+
+Chuck Hagenbuch <chuck@horde.org>
+
+- Horde cleanup
+- Reports generation
+- Administration GUI
+
+Jan Schneider <jan@horde.org>
+
+- Attachments
+- E-mail support
+- Form replies
+- Stuff
+
+
+Localization
+============
+
+======================  ===============================================
+Brazilian Portuguese    Daniel V. Hoisel <daniel@maxlinux.com.br>
+Bulgarian               Miroslav Pendev <miro@cybershade.us>
+Chinese (Simplified)    Liaobin <liaobin@jite.net>
+Chinese (Traditional)   David Chang <david@tmv.gov.tw>
+Czech                   Pavel Chytil <pavel@chytil.tk>
+                        Václav Hůla <ax@natur.cuni.cz>
+Dutch                   Stefan de Konink <skinkie@xs4all.nl>
+                        Han Spruyt <han.spruyt@ijsselgroep.nl>
+Finnish                 Leena Heino <liinu@uta.fi>
+French                  Thierry Thomas <thierry@pompo.net>
+Italian                 Fabio Pedretti <fabio.pedretti@ing.unibs.it>
+Lithuanian              Vilius Šumskas <vilius@lnk.lt>
+Norwegian (Bokmal)      Torbjorn Grindhaug <grindhaug@gmail.com>
+Polish                  Tadeusz Lesiecki <lesiecki@tmtsystem.pl>
+                        Piotr Tarnowski <drfugazi@drfugazi.eu.org>
+Romanian                Eugen Hoanca <eugenh@urban-grafx.ro>
+Russian                 Illya Belov <belov@iop.irkps.ru>
+                        Alexey Zakharov <themech@tut.by>
+Slovenian               Duck <duck@obala.net>
+Spanish                 Manuel Perez Ayala <mperaya@alcazaba.unex.es>
+Turkish                 Akif Dinc <akif@dinc.org>
+Ukrainian               Andriy Kopystyansky <anri@polynet.lviv.ua>
+======================  ===============================================
