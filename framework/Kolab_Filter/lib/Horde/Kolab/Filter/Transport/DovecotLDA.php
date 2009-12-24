@@ -1,15 +1,11 @@
 <?PHP
 /**
- * $Horde: framework/Kolab_Filter/lib/Horde/Kolab/Filter/Transport/DovecotLDA.php,v 1.4 2008/12/12 15:24:04 wrobel Exp $
- *
  * @package Kolab_Filter
  */
 
 /**
  * Defines a transport mechanism for delivering mails to the dovecot
  * IMAP server.
- *
- * $Horde: framework/Kolab_Filter/lib/Horde/Kolab/Filter/Transport/DovecotLDA.php,v 1.4 2008/12/12 15:24:04 wrobel Exp $
  *
  * Copyright 2008 Intevation GmbH
  *

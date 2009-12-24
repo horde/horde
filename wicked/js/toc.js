@@ -1,8 +1,6 @@
 /**
  * Javascript code for making the ToC collapsible.
  *
- * $Horde: wicked/js/toc.js,v 1.3 2007/01/02 00:42:09 jan Exp $
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */

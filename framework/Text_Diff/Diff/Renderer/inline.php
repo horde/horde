@@ -2,8 +2,6 @@
 /**
  * "Inline" diff renderer.
  *
- * $Horde: framework/Text_Diff/Diff/Renderer/inline.php,v 1.24 2009/09/03 10:14:21 jan Exp $
- *
  * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did

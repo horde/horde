@@ -53,8 +53,6 @@ define('WICKED_VFS_ATTACH_PATH', '.horde/wicked/attachments');
 /**
  * Wicked Base Class.
  *
- * $Horde: wicked/lib/Wicked.php,v 1.55 2009-11-27 02:59:00 mrubinsk Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

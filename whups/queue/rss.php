@@ -2,8 +2,6 @@
 /**
  * Whups RSS feed.
  *
- * $Horde: whups/queue/rss.php,v 1.20 2009/07/09 08:18:48 slusarz Exp $
- *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you

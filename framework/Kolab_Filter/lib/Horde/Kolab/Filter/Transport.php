@@ -1,14 +1,10 @@
 <?php
 /**
- * $Horde: framework/Kolab_Filter/lib/Horde/Kolab/Filter/Transport.php,v 1.7 2009-11-29 10:12:59 wrobel Exp $
- *
  * @package Kolab_Filter
  */
 
 /**
  * Provides a delivery mechanism for a mail message.
- *
- * $Horde: framework/Kolab_Filter/lib/Horde/Kolab/Filter/Transport.php,v 1.7 2009-11-29 10:12:59 wrobel Exp $
  *
  * Copyright 2004-2008 Klarälvdalens Datakonsult AB
  *

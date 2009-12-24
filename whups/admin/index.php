@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: whups/admin/index.php,v 1.27 2009-11-27 00:12:53 mrubinsk Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you

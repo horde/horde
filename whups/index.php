@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: whups/index.php,v 1.30 2009/01/06 18:02:33 jan Exp $
- *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
  * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
  *

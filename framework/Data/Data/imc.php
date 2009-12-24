@@ -8,8 +8,6 @@ require_once 'Horde/iCalendar.php';
  * methods that vCard and iCalendar implementation can share and rely
  * on.
  *
- * $Horde: framework/Data/Data/imc.php,v 1.44 2009/02/09 23:40:46 mrubinsk Exp $
- *
  * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

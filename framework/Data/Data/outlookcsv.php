@@ -5,8 +5,6 @@ require_once 'Horde/Data/csv.php';
 /**
  * Horde_Data implementation for Outlook comma-separated data (CSV).
  *
- * $Horde: framework/Data/Data/outlookcsv.php,v 1.5 2005/07/03 04:42:36 selsky Exp $
- *
  * @package Horde_Data
  */
 class Horde_Data_outlookcsv extends Horde_Data_csv {

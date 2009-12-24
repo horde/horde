@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: whups/opensearch.php,v 1.7 2009/07/13 20:05:59 slusarz Exp $
- *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you

@@ -2,8 +2,6 @@
 /**
  * Base class for Whups test cases
  *
- * $Horde: whups/lib/tests/TestBase.php,v 1.11 2009/07/09 06:09:03 slusarz Exp $
- *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * @author     Michael J. Rubinsky <mrubinsk@horde.org>

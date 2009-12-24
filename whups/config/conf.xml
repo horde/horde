@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-<!-- $Horde: whups/config/conf.xml,v 1.39 2009/08/27 09:25:27 jan Exp $ -->
 <configuration>
  <configtab name="tickets" desc="Tickets Driver Settings">
   <configsection name="tickets">

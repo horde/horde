@@ -9,8 +9,6 @@ require_once 'Horde/Form/Variable.php';
  * The Horde_Form:: package provides form rendering, validation, and
  * other functionality for the Horde Application Framework.
  *
- * $Horde: framework/Form/Form.php,v 1.458 2009/10/14 00:05:36 chuck Exp $
- *
  * Copyright 2001-2007 Robert E. Coyle <robertecoyle@hotmail.com>
  * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
  *

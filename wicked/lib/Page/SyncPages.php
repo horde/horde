@@ -6,8 +6,6 @@ require_once WICKED_BASE . '/lib/Sync.php';
 /**
  * Wicked SyncPages class.
  *
- * $Horde: wicked/lib/Page/SyncPages.php,v 1.6 2009/06/10 17:33:48 slusarz Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

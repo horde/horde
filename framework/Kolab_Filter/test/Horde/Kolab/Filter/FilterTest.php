@@ -2,13 +2,11 @@
 /**
  * Test the base filter class within the Kolab filter implementation.
  *
- * $Horde: framework/Kolab_Filter/test/Horde/Kolab/Filter/FilterTest.php,v 1.7 2009/02/24 11:48:41 wrobel Exp $
- *
  * @package Horde_Kolab_Filter
  */
 
 /**
- *  We need the unit test framework 
+ *  We need the unit test framework
  */
 require_once 'PHPUnit/Framework.php';
 require_once 'PHPUnit/Extensions/OutputTestCase.php';
@@ -18,8 +16,6 @@ require_once 'Horde/Kolab/Filter/Incoming.php';
 
 /**
  * Test the filter class.
- *
- * $Horde: framework/Kolab_Filter/test/Horde/Kolab/Filter/FilterTest.php,v 1.7 2009/02/24 11:48:41 wrobel Exp $
  *
  * Copyright 2008 Klarälvdalens Datakonsult AB
  *

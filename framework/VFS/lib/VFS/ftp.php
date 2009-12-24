@@ -28,8 +28,6 @@
  *                       Possible values: 'unix', 'win', 'netware'
  *                       By default, we attempt to auto-detect type.</pre>
  *
- * $Horde: framework/VFS/lib/VFS/ftp.php,v 1.7 2009/10/15 17:13:28 jan Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  * Copyright 2002-2007 Michael Varghese <mike.varghese@ascellatech.com>
  *

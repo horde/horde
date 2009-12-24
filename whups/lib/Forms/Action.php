@@ -8,8 +8,6 @@ require_once 'Horde/Form/Action.php';
  * form with the current (not the original) value after the form element
  * that the action is attached to is modified.
  *
- * $Horde: whups/lib/Forms/Action.php,v 1.2 2009/01/06 18:02:34 jan Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you

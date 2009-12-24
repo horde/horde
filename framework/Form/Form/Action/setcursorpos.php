@@ -5,8 +5,6 @@
  *
  * The params array contains the desired cursor position.
  *
- * $Horde: framework/Form/Form/Action/setcursorpos.php,v 1.6 2009/10/06 18:58:57 slusarz Exp $
- *
  * Copyright 2006-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

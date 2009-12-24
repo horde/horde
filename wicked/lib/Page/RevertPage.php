@@ -5,8 +5,6 @@ require_once WICKED_BASE . '/lib/Page/StandardPage.php';
 /**
  * Wicked RevertPage class (for confirming reversions).
  *
- * $Horde: wicked/lib/Page/RevertPage.php,v 1.6 2009/06/10 05:25:32 slusarz Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

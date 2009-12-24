@@ -2,8 +2,6 @@
 /**
  * The Group:: class provides the Horde groups system.
  *
- * $Horde: framework/Group/Group/mock.php,v 1.3 2009/01/06 17:49:18 jan Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

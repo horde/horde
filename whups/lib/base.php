@@ -5,8 +5,6 @@
  * This file brings in all of the dependencies that every Whups script will
  * need, and sets up objects that all scripts use.
  *
- * $Horde: whups/lib/base.php,v 1.83 2009-11-21 01:05:53 chuck Exp $
- *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
  * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
  *

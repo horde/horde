@@ -1,9 +1,6 @@
 <?php
-
 /**
  * Strategy for copying input tree out of a VFS
- *
- * $Horde: framework/VFS_ISOWriter/ISOWriter/RealInputStrategy/copy.php,v 1.10 2009/01/06 17:49:59 jan Exp $
  *
  * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
  *

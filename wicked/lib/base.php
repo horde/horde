@@ -5,8 +5,6 @@
  * This file brings in all of the dependencies that every Wicked
  * script will need and sets up objects that all scripts use.
  *
- * $Horde: wicked/lib/base.php,v 1.21 2009/07/13 20:05:59 slusarz Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

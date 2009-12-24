@@ -3,8 +3,6 @@
  * The Horde_Form_Action class provides an API for adding actions to
  * Horde_Form variables.
  *
- * $Horde: framework/Form/Form/Action.php,v 1.31 2009/01/06 17:49:17 jan Exp $
- * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

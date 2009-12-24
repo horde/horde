@@ -1,7 +1,3 @@
-##
-## $Horde: framework/SyncML/docs/README.program_flow.txt,v 1.4 2006/09/10 04:55:06 chuck Exp $
-##
-
 rpc.php in horde's main directory is the starting point for our (and any)
 RPC call.
 

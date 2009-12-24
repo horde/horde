@@ -3,8 +3,6 @@
  * This class provides a parser which can construct an SQL WHERE
  * clause from a Google-like search expression.
  *
- * $Horde: framework/SQL/SQL/Keywords.php,v 1.12 2009/01/06 17:49:42 jan Exp $
- *
  * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

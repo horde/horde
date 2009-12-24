@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: wicked/lib/Text_Wiki/Render/Xhtml/Wickedblock.php,v 1.1 2006/03/24 19:52:09 chuck Exp $
- *
  * This class renders Wicked blocks.
  *
  * @package Wicked

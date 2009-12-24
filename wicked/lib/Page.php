@@ -2,8 +2,6 @@
 /**
  * Wicked Abtract Page Class.
  *
- * $Horde: wicked/lib/Page.php,v 1.114 2009-11-27 03:01:36 mrubinsk Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

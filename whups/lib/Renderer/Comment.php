@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: whups/lib/Renderer/Comment.php,v 1.24 2009-11-19 16:34:58 jan Exp $
- *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
  * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
  *

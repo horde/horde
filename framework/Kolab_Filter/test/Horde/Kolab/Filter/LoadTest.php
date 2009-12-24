@@ -2,13 +2,11 @@
 /**
  * Test the incoming filter class for its load behaviour..
  *
- * $Horde: framework/Kolab_Filter/test/Horde/Kolab/Filter/LoadTest.php,v 1.8 2009/04/09 20:16:25 wrobel Exp $
- *
  * @package Horde_Kolab_Filter
  */
 
 /**
- *  We need the unit test framework 
+ *  We need the unit test framework
  */
 require_once 'PHPUnit/Framework.php';
 require_once 'PHPUnit/Extensions/PerformanceTestCase.php';
@@ -18,8 +16,6 @@ require_once 'Horde/Kolab/Filter/Incoming.php';
 
 /**
  * Test the incoming filter load.
- *
- * $Horde: framework/Kolab_Filter/test/Horde/Kolab/Filter/LoadTest.php,v 1.8 2009/04/09 20:16:25 wrobel Exp $
  *
  * Copyright 2008 Klarälvdalens Datakonsult AB
  *

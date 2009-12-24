@@ -6,8 +6,6 @@
  * Instances of this class are created during the XML parsing by
  * SyncML_Command_Sync.
  *
- * $Horde: framework/SyncML/SyncML/Command/SyncElement.php,v 1.18 2009/04/05 20:12:12 jan Exp $
- *
  * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

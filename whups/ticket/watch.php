@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: whups/ticket/watch.php,v 1.16 2009/07/01 18:30:21 selsky Exp $
- *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
  * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
  *

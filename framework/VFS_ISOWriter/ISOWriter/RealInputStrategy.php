@@ -3,8 +3,6 @@
  * Encapsulate strategies for getting a real, local filesystem structure from
  * a VFS.
  *
- * $Horde: framework/VFS_ISOWriter/ISOWriter/RealInputStrategy.php,v 1.14 2009/07/14 00:25:32 mrubinsk Exp $
- *
  * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

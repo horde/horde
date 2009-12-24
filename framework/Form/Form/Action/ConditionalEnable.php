@@ -16,8 +16,6 @@
  * action is attached to if the value of 'foo' is 1 or 2, and disable it
  * otherwise.
  *
- * $Horde: framework/Form/Form/Action/ConditionalEnable.php,v 1.6 2009/10/06 18:58:57 slusarz Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

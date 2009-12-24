@@ -2,8 +2,6 @@
 /**
  * This file contains all Horde_Form classes for attribute administration.
  *
- * $Horde: whups/lib/Forms/Admin/Attribute.php,v 1.3 2009/01/06 18:02:35 jan Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you

@@ -10,8 +10,6 @@ require_once 'SyncML/Command.php';
  * This is not strictly a command but specifies the request status code for a
  * corresponding SyncML command.
  *
- * $Horde: framework/SyncML/SyncML/Command/Status.php,v 1.33 2009/08/26 15:24:13 jan Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

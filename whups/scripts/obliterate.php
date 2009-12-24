@@ -6,8 +6,6 @@
  * This script deletes all queues, types, and tickets from the current Whups
  * database.
  *
- * $Horde: whups/scripts/obliterate.php,v 1.10 2009/07/09 06:09:04 slusarz Exp $
- *
  * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
  *
  * @author Jon Parise <jon@horde.org>

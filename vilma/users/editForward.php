@@ -2,8 +2,6 @@
 /**
  * The Vilma script to add/edit forwardes.
  *
- * $Horde: vilma/users/edit.php,v 1.42 2009/05/27 23:57:33 daniel Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did
@@ -29,7 +27,7 @@ $vars = Variables::getDefaultVariables();
 if ($vars->exists('mode')) {
   Horde::logMessage("Submit Detected: " . print_r(serialize($vars), true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
   $form = &new EditForwardForm($vars);
- 
+
   if ($form->validate($vars)) {
       $form->getInfo($vars, $info);
       $forward_id = $vilma_driver->saveForward($info);
@@ -63,7 +61,7 @@ if (!$vars->exists('mode') || $vars->getExists('retry')) {
         if (is_a($addrInfo, 'PEAR_Error')) {
             $notification->push(sprintf(_("Error reading address information from backend: %s"), $addrInfo->getMessage()), 'horde.error');
             $url = '/users/index.php';
-            require VILMA_BASE . $url; 
+            require VILMA_BASE . $url;
             exit;
         }
         $address = $vilma_driver->getAddressInfo($addrInfo['destination']);

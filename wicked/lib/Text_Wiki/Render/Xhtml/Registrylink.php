@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: wicked/lib/Text_Wiki/Render/Xhtml/Registrylink.php,v 1.1 2005/10/14 20:44:04 chuck Exp $
- *
  * This class renders Horde Registry links.
  *
  * @package Wicked

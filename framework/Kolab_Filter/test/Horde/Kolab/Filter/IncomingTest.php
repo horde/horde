@@ -2,8 +2,6 @@
 /**
  * Test the incoming filter class within the Kolab filter implementation.
  *
- * $Horde: framework/Kolab_Filter/test/Horde/Kolab/Filter/IncomingTest.php,v 1.8 2009/03/20 23:41:40 wrobel Exp $
- *
  * @package Horde_Kolab_Filter
  */
 
@@ -13,7 +11,7 @@
 require_once 'Horde/Kolab/Test/Filter.php';
 
 /**
- *  We need the unit test framework 
+ *  We need the unit test framework
  */
 require_once 'PHPUnit/Extensions/OutputTestCase.php';
 
@@ -22,8 +20,6 @@ require_once 'Horde/Kolab/Filter/Incoming.php';
 
 /**
  * Test the incoming filter.
- *
- * $Horde: framework/Kolab_Filter/test/Horde/Kolab/Filter/IncomingTest.php,v 1.8 2009/03/20 23:41:40 wrobel Exp $
  *
  * Copyright 2008 Klarälvdalens Datakonsult AB
  *

@@ -6,8 +6,6 @@
  * This script imports the contents of an existing Bugzilla bug database into
  * a Whups database.
  *
- * $Horde: whups/scripts/bugzilla-import.php,v 1.17 2009/09/07 08:58:19 jan Exp $
- *
  * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
  *
  * @author Jon Parise <jon@horde.org>

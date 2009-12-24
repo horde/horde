@@ -2,8 +2,6 @@
 /**
  * Base for PHPUnit scenarios.
  *
- * $Horde: framework/Kolab_Filter/lib/Horde/Kolab/Test/Filter.php,v 1.9 2009/06/09 23:23:37 slusarz Exp $
- *
  * PHP version 5
  *
  * @category Kolab
@@ -20,8 +18,6 @@ require_once 'Horde/Kolab/Test/Storage.php';
 
 /**
  * Base for PHPUnit scenarios.
- *
- * $Horde: framework/Kolab_Filter/lib/Horde/Kolab/Test/Filter.php,v 1.9 2009/06/09 23:23:37 slusarz Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *

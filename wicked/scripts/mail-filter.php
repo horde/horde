@@ -1,8 +1,6 @@
 #!/usr/bin/php
 <?php
 /*
- * $Horde: wicked/scripts/mail-filter.php,v 1.13 2009/06/10 19:58:06 slusarz Exp $
- *
  * This script accepts a MIME message on standard input and creates a new
  * wiki page from it.  It can also append the e-mail to the end of another
  * page.

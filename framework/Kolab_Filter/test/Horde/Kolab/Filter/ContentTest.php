@@ -2,13 +2,11 @@
 /**
  * Test the content filter class within the Kolab filter implementation.
  *
- * $Horde: framework/Kolab_Filter/test/Horde/Kolab/Filter/ContentTest.php,v 1.9 2009/03/20 23:41:40 wrobel Exp $
- *
  * @package Horde_Kolab_Filter
  */
 
 /**
- *  We need the unit test framework 
+ *  We need the unit test framework
  */
 require_once 'Horde/Kolab/Test/Filter.php';
 
@@ -17,8 +15,6 @@ require_once 'Horde/Kolab/Filter/Content.php';
 
 /**
  * Test the content filter.
- *
- * $Horde: framework/Kolab_Filter/test/Horde/Kolab/Filter/ContentTest.php,v 1.9 2009/03/20 23:41:40 wrobel Exp $
  *
  * Copyright 2008 Klarälvdalens Datakonsult AB
  *

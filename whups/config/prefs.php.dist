@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: whups/config/prefs.php.dist,v 1.30 2008/12/20 17:34:22 chuck Exp $
- *
  * See horde/config/prefs.php for documentation on the structure of this file.
  */
 

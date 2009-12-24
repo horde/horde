@@ -9,8 +9,6 @@
  * The current implementation should handle all DevInf 1.1 DTD elements
  * except <DSMem> entries.
  *
- * $Horde: framework/SyncML/SyncML/DeviceInfo.php,v 1.20 2009/01/06 17:49:48 jan Exp $
- *
  * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

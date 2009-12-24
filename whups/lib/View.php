@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: whups/lib/View.php,v 1.5 2009/01/06 18:02:34 jan Exp $
- *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>

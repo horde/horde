@@ -10,8 +10,6 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * $Horde: framework/Net_SMS/SMS/vodafoneitaly_smtp.php,v 1.26 2009/01/06 17:49:34 jan Exp $
- *
  * @author Marko Djukic <marko@oblo.com>
  * @author Matteo Zambelli <mmzambe@hotmail.com>
  * @package Net_SMS

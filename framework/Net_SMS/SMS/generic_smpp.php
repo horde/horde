@@ -8,8 +8,6 @@ include_once 'Net/SMPP/Client.php';
  * This driver interfaces with the email-to-sms gateways provided by many
  * carriers, particularly those based in the U.S.
  *
- * $Horde: framework/Net_SMS/SMS/generic_smpp.php,v 1.2 2007/06/27 17:22:58 jan Exp $
- *
  * Copyright 2005-2007 WebSprockets, LLC
  *
  * See the enclosed file COPYING for license information (LGPL). If you

@@ -17,8 +17,6 @@ include_once 'HTTP/Request.php';
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * $Horde: framework/Net_SMS/SMS/clickatell_http.php,v 1.30 2009/01/06 17:49:34 jan Exp $
- *
  * @author Marko Djukic <marko@oblo.com>
  * @package Net_SMS
  */

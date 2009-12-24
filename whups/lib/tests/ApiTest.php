@@ -5,8 +5,6 @@ require_once dirname(__FILE__) . '/TestBase.php';
 /**
  * API tests for Whups.
  *
- * $Horde: whups/lib/tests/ApiTest.php,v 1.9 2009/01/06 18:02:36 jan Exp $
- *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * @author     Michael J. Rubinsky <mrubinsk@horde.org>

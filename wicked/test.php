@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: wicked/test.php,v 1.15 2009/10/04 05:25:52 mrubinsk Exp $
- *
  * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

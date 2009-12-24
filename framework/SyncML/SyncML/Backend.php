@@ -165,8 +165,6 @@
  *    testTearDown() to create a clean (empty) enviroment for the test user
  *    "syncmltest".  See the SyncML_Backend_Sql implementation for details.
  *
- * $Horde: framework/SyncML/SyncML/Backend.php,v 1.60 2009/09/15 13:41:32 jan Exp $
- *
  * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

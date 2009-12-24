@@ -2,8 +2,6 @@
 /**
  * The Group:: class provides the Horde groups system.
  *
- * $Horde: framework/Group/Group/sql.php,v 1.14 2009/07/17 21:00:12 slusarz Exp $
- *
  * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

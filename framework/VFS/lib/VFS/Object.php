@@ -5,8 +5,6 @@ require_once dirname(__FILE__) . '/../VFS.php';
 /**
  * A wrapper for the VFS class to return objects, instead of arrays.
  *
- * $Horde: framework/VFS/lib/VFS/Object.php,v 1.2 2009/07/14 00:25:32 mrubinsk Exp $
- *
  * Copyright 2002-2007 Jon Wood <jon@jellybob.co.uk>
  *
  * See the enclosed file COPYING for license information (LGPL). If you

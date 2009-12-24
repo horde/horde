@@ -1,9 +1,6 @@
 <?php
-
 /**
  * Strategy for directly writing output file to VFS.
- *
- * $Horde: framework/VFS_ISOWriter/ISOWriter/RealOutputStrategy/direct.php,v 1.10 2009/01/06 17:49:59 jan Exp $
  *
  * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
  *

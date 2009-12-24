@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-<!-- $Horde: wicked/config/conf.xml,v 1.27 2009/10/31 15:57:16 jan Exp $ -->
 <configuration>
  <configsection name="wicked">
   <configheader>

@@ -6,8 +6,6 @@ $block_name = _("My Tickets");
  * Horde_Block_Whups_mytickets:: Implementation of the Horde_Block API
  * to display a summary of the current user's assigned tickets.
  *
- * $Horde: whups/lib/Block/mytickets.php,v 1.12 2009-11-27 02:48:39 mrubinsk Exp $
- *
  * @package Horde_Block
  */
 class Horde_Block_Whups_mytickets extends Horde_Block {

@@ -36,8 +36,6 @@
  *
  * $cron->run();
  *
- * $Horde: framework/Scheduler/lib/Horde/Scheduler/cron.php,v 1.3 2009/07/14 00:25:30 mrubinsk Exp $
- *
  * @author  Ryan Flynn <ryan@ryanflynn.com>
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Horde_Scheduler

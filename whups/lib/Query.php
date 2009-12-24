@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: whups/lib/Query.php,v 1.80 2009-11-27 02:50:40 mrubinsk Exp $
- *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
  * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
  *

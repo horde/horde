@@ -9,8 +9,6 @@ require_once 'SyncML/Command.php';
  *
  * The Replace command is used to replace data on the recipient device.
  *
- * $Horde: framework/SyncML/SyncML/Command/Replace.php,v 1.19 2009/01/06 17:49:50 jan Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

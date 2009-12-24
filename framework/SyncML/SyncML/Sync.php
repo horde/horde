@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: framework/SyncML/SyncML/Sync.php,v 1.61 2009/08/26 10:59:22 jan Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

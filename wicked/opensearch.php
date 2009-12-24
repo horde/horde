@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: wicked/opensearch.php,v 1.6 2009/07/13 20:05:59 slusarz Exp $
- *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

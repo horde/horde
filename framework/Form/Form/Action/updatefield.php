@@ -4,8 +4,6 @@
  * the value of one Horde_Form variable as the variable the action is
  * attached to is updated.
  *
- * $Horde: framework/Form/Form/Action/updatefield.php,v 1.14 2009/01/06 17:49:17 jan Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

@@ -2,13 +2,11 @@
 /**
  * All tests for the Horde_Kolab_Filter:: package.
  *
- * $Horde: framework/Kolab_Filter/test/Horde/Kolab/Filter/AllTests.php,v 1.2 2009/01/06 17:49:21 jan Exp $
- *
  * @package Horde_Kolab_Filter
  */
 
 /**
- * Define the main method 
+ * Define the main method
  */
 if (!defined('PHPUnit_MAIN_METHOD')) {
     define('PHPUnit_MAIN_METHOD', 'Horde_Kolab_Filter_AllTests::main');
@@ -19,8 +17,6 @@ require_once 'PHPUnit/TextUI/TestRunner.php';
 
 /**
  * Combine the tests for this package.
- *
- * $Horde: framework/Kolab_Filter/test/Horde/Kolab/Filter/AllTests.php,v 1.2 2009/01/06 17:49:21 jan Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *

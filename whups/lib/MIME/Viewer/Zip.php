@@ -3,8 +3,6 @@
  * The Whups_Horde_Mime_Viewer_Zip class renders out the contents of ZIP files
  * in HTML format and allows downloading of extractable files.
  *
- * $Horde: whups/lib/Mime/Viewer/Zip.php,v 1.6 2009/09/23 08:12:30 selsky Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

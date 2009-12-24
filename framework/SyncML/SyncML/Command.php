@@ -12,8 +12,6 @@
  * executed for a single SyncML command are handled by these objects, by means
  * of the handleCommand() method.
  *
- * $Horde: framework/SyncML/SyncML/Command.php,v 1.23 2009/04/05 16:09:13 jan Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

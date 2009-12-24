@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: framework/Kolab_Filter/lib/Horde/Kolab/Filter/Response.php,v 1.5 2009/07/14 00:28:32 mrubinsk Exp $
- *
  * @package Kolab_Filter
  */
 
@@ -31,8 +29,6 @@ define('EX_CONFIG', 78);      /* local configuration error */
 
 /**
  * Provides error handling for the Kolab server filter scripts.
- *
- * $Horde: framework/Kolab_Filter/lib/Horde/Kolab/Filter/Response.php,v 1.5 2009/07/14 00:28:32 mrubinsk Exp $
  *
  * Copyright 2004-2008 Klarälvdalens Datakonsult AB
  *

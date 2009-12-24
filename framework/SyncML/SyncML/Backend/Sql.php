@@ -4,8 +4,6 @@
  *
  * This can be used as a starting point for a custom backend implementation.
  *
- * $Horde: framework/SyncML/SyncML/Backend/Sql.php,v 1.13 2009/04/05 16:42:05 jan Exp $
- *
  * Copyright 2006-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

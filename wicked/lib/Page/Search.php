@@ -6,8 +6,6 @@ require_once WICKED_BASE . '/lib/Page/StandardPage/StdHistoryPage.php';
 /**
  * Wicked SearchAll class.
  *
- * $Horde: wicked/lib/Page/Search.php,v 1.7 2009/01/06 18:02:40 jan Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

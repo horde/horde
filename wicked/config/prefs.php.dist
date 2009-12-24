@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: wicked/config/prefs.php.dist,v 1.13 2008/08/17 19:41:24 chuck Exp $
- *
  * See horde/config/prefs.php for documentation on the structure of this file.
  */
 

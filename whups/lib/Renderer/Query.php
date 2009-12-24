@@ -2,8 +2,6 @@
 /**
  * A Horde_Form_Renderer for rendering Whups queries.
  *
- * $Horde: whups/lib/Renderer/Query.php,v 1.9 2009-11-23 23:44:47 jan Exp $
- *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
  * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
  *

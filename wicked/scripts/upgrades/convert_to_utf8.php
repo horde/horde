@@ -4,8 +4,6 @@
  * This script converts the data in an SQL backend from any supported charset
  * to UTF-8.
  *
- * $Horde: wicked/scripts/upgrades/convert_to_utf8.php,v 1.4 2009/06/10 19:58:06 slusarz Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

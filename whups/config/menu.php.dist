@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: whups/config/menu.php.dist,v 1.1 2002/11/18 03:49:59 chuck Exp $
- *
  * This file lets you extend Whups' menu with your own items.
  *
  * To add a new menu item, simply add a new entry to the $_menu array.
@@ -20,7 +18,7 @@
  *
  * Here's an example entry:
  *
- *  $_menu[] = array(   
+ *  $_menu[] = array(
  *      'url' =>        'http://www.example.com/',
  *      'text' =>       'Example, Inc.',
  *      'icon' =>       'example.gif',

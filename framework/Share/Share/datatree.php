@@ -6,8 +6,6 @@ require_once 'Horde/DataTree.php';
  * Horde_Share_datatree:: provides the datatree backend for the horde share
  * driver.
  *
- * $Horde: framework/Share/Share/datatree.php,v 1.29 2009-12-10 19:24:08 mrubinsk Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  * Copyright 2002-2007 Infoteck Internet <webmaster@infoteck.qc.ca>
  *

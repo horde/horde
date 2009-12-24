@@ -10,8 +10,6 @@
  * echo $renderer->render($diff);
  * </code>
  *
- * $Horde: framework/Text_Diff/Diff/Engine/string.php,v 1.11 2009/07/24 12:26:30 jan Exp $
- *
  * Copyright 2005 Örjan Persson <o@42mm.org>
  * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
  *

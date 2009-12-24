@@ -2,7 +2,6 @@
 /**
  * Whups_Reports:: class.
  *
- * $Horde: whups/lib/Reports.php,v 1.36 2009/01/06 18:02:34 jan Exp $
  *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *

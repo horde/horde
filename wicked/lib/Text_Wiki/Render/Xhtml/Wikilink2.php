@@ -3,8 +3,6 @@
 require_once 'Text/Wiki/Render/Xhtml/Wikilink.php';
 
 /**
- * $Horde: wicked/lib/Text_Wiki/Render/Xhtml/Wikilink2.php,v 1.1 2007/06/22 04:40:19 chuck Exp $
- *
  * @package Wicked
  */
 class Text_Wiki_Render_Xhtml_Wikilink2 extends Text_Wiki_Render_Xhtml_Wikilink {

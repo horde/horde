@@ -2,8 +2,6 @@
 /**
  * This is a utility class, every method is static.
  *
- * $Horde: framework/LDAP/LDAP.php,v 1.21 2009/10/04 03:03:45 chuck Exp $
- *
  * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

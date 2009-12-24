@@ -3,8 +3,6 @@
 /**
  * This script accepts a MIME message on standard input or from a mail server
  * and creates a new ticket from its contents.
- *
- * $Horde: whups/scripts/mail-filter.php,v 1.40 2009/07/26 19:53:06 chuck Exp $
  */
 
 function usage()

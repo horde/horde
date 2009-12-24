@@ -5,8 +5,6 @@ $block_name = _("Queue Contents");
 /**
  * Horde_Block_Whups_queuecontents:: Show the open tickets in a queue.
  *
- * $Horde: whups/lib/Block/queuecontents.php,v 1.5 2009-11-27 02:48:39 mrubinsk Exp $
- *
  * @package Horde_Block
  */
 class Horde_Block_Whups_queuecontents extends Horde_Block {

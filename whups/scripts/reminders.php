@@ -1,8 +1,6 @@
 #!/usr/bin/env php
 <?php
 /**
- * $Horde: whups/scripts/reminders.php,v 1.20 2009/08/24 09:04:03 jan Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

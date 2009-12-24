@@ -31,8 +31,6 @@
  * The table structure for the DataTree system is in
  * scripts/sql/horde_datatree.sql.
  *
- * $Horde: framework/DataTree/DataTree/sql.php,v 1.251 2009/07/09 08:17:54 slusarz Exp $
- *
  * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If

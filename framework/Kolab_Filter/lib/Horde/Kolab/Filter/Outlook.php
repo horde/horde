@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: framework/Kolab_Filter/lib/Horde/Kolab/Filter/Outlook.php,v 1.7 2009/07/14 00:28:32 mrubinsk Exp $
- *
  * @package Kolab_Filter
  */
 
@@ -17,8 +15,6 @@ require_once 'Horde/MIME/Structure.php';
 
 /**
  * Provides Mail rewriting for malformed Outlook messages
- *
- * $Horde: framework/Kolab_Filter/lib/Horde/Kolab/Filter/Outlook.php,v 1.7 2009/07/14 00:28:32 mrubinsk Exp $
  *
  * Copyright 2004-2008 Klarälvdalens Datakonsult AB
  *

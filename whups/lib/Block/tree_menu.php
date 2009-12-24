@@ -4,8 +4,6 @@ $block_name = _("Menu List");
 $block_type = 'tree';
 
 /**
- * $Horde: whups/lib/Block/tree_menu.php,v 1.2 2007/08/09 04:01:02 chuck Exp $
- *
  * @package Horde_Block
  */
 class Horde_Block_whups_tree_menu extends Horde_Block {

@@ -2,8 +2,6 @@
 /**
  * Horde_Data implementation for tab-separated data (TSV).
  *
- * $Horde: framework/Data/Data/tsv.php,v 1.44 2009/06/09 23:23:33 slusarz Exp $
- *
  * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

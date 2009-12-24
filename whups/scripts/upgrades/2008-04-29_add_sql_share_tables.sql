@@ -1,5 +1,3 @@
--- $Horde: whups/scripts/upgrades/2008-04-29_add_sql_share_tables.sql,v 1.3 2009/10/20 21:28:28 jan Exp $
-
 CREATE TABLE whups_shares (
     share_id INT NOT NULL,
     share_name VARCHAR(255) NOT NULL,

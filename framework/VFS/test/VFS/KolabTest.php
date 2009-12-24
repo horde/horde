@@ -2,8 +2,6 @@
 /**
  * Test the Kolab based virtual file system.
  *
- * $Horde: framework/VFS/test/VFS/KolabTest.php,v 1.2 2009/01/06 17:49:58 jan Exp $
- *
  * PHP version 5
  *
  * @category   Horde
@@ -23,8 +21,6 @@ require_once 'VFS.php';
 
 /**
  * Test the Kolab based virtual file system.
- *
- * $Horde: framework/VFS/test/VFS/KolabTest.php,v 1.2 2009/01/06 17:49:58 jan Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *

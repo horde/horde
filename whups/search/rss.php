@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: whups/search/rss.php,v 1.5 2009/07/09 08:18:48 slusarz Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you

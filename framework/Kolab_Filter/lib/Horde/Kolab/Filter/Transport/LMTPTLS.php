@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: framework/Kolab_Filter/lib/Horde/Kolab/Filter/Transport/LMTPTLS.php,v 1.3 2009/01/06 17:49:21 jan Exp $
- *
  * @package Kolab_Filter
  */
 

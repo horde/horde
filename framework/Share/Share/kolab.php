@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: framework/Share/Share/kolab.php,v 1.70 2009-12-10 19:24:08 mrubinsk Exp $
- *
  * @package Horde_Share
  */
 

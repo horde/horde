@@ -3,8 +3,6 @@
  * Horde_Mobile_Renderer:: framework for mobile device markup
  * renderers.
  *
- * $Horde: framework/Mobile/Mobile/Renderer.php,v 1.29 2009/01/06 17:49:33 jan Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

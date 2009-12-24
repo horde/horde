@@ -9,8 +9,6 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
  *
- * $Horde: framework/Kolab_Filter/script/Horde/Kolab/Filter/kolabmailboxfilter.php,v 1.3 2008/12/12 15:24:04 wrobel Exp $
- *
  * @package Kolab
  */
 

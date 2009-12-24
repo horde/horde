@@ -2,8 +2,6 @@
 /**
  * Allows direct access to open tickets in specified queue.
  *
- * $Horde: whups/queue/index.php,v 1.8 2009/06/10 05:25:29 slusarz Exp $
- *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you

@@ -14,8 +14,6 @@ require_once 'SyncML/Command.php';
  * The data is stored in a SyncML_DeviceInfo object which is defined in
  * Device.php and then stored in SyncML_Device as an attribute.
  *
- * $Horde: framework/SyncML/SyncML/Command/Put.php,v 1.40 2009/10/01 09:27:24 jan Exp $
- *
  * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

@@ -6,8 +6,6 @@ $block_name = _("Unassigned Tickets");
  * Horde_Block_Whups_unassigned:: Implementation of the Horde_Block API
  * to display a summary of unassigned tickets.
  *
- * $Horde: whups/lib/Block/unassigned.php,v 1.9 2009-11-27 02:48:39 mrubinsk Exp $
- *
  * @package Horde_Block
  */
 class Horde_Block_Whups_unassigned extends Horde_Block {

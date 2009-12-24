@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: framework/Kolab_Filter/lib/Horde/Kolab/Filter/Content.php,v 1.12 2009-11-29 10:49:08 wrobel Exp $
- *
  * @package Kolab_Filter
  */
 
@@ -19,8 +17,6 @@ define('RM_STATE_READING_BODY',   5 );
 
 /**
  * A Kolab Server filter for outgoing mails.
- *
- * $Horde: framework/Kolab_Filter/lib/Horde/Kolab/Filter/Content.php,v 1.12 2009-11-29 10:49:08 wrobel Exp $
  *
  * Copyright 2004-2008 Klarälvdalens Datakonsult AB
  *

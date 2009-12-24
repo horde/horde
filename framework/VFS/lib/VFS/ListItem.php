@@ -2,8 +2,6 @@
 /**
  * An item returned from a folder list.
  *
- * $Horde: framework/VFS/lib/VFS/ListItem.php,v 1.1 2007/12/07 00:24:22 chuck Exp $
- *
  * Copyright 2002-2007 Jon Wood <jon@jellybob.co.uk>
  *
  * See the enclosed file COPYING for license information (LGPL). If you

@@ -17,7 +17,7 @@
 
 - Provide a mechanism to easily annotate (insert a (possibly signed) comment
   at any point in the page.
-  
+
 - Also, an easy 'Reply' feature, allowing the user to select text and reply
   to it in thread mode.
 
@@ -60,6 +60,3 @@
   to Paul Jones for the reference)
 
 - Ability to export a book to PDF.
-
-
-$Horde: wicked/docs/TODO,v 1.25 2009/04/20 17:08:32 chuck Exp $

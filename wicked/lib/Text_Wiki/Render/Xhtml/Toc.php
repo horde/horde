@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: wicked/lib/Text_Wiki/Render/Xhtml/Toc.php,v 1.2 2006/12/18 21:47:16 chuck Exp $
- *
  * @package Wicked
  */
 class Text_Wiki_Render_Xhtml_Toc extends Text_Wiki_Render {

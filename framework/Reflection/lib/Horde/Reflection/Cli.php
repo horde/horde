@@ -4,8 +4,6 @@
  *
  * Based on the PEAR XML_RPC2_Server_Method class by Sergio Carvalho
  *
- * $Horde: framework/Reflection/lib/Horde/Reflection/Cli.php,v 1.3 2009/06/10 19:57:54 slusarz Exp $
- *
  * Copyright 2004-2006 Sergio Gonalves Carvalho
  *                     (<sergio.carvalho@portugalmail.com>)
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)

@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: wicked/lib/Text_Wiki/Render/Xhtml/Url.php,v 1.9 2006/03/19 02:38:28 chuck Exp $
- *
  * @package Wicked
  */
 class Text_Wiki_Render_Xhtml_Url extends Text_Wiki_Render {

@@ -2,8 +2,6 @@
 /**
  * SearchForm Class.
  *
- * $Horde: whups/lib/Forms/Search.php,v 1.13 2009-11-27 02:48:39 mrubinsk Exp $
- *
  * @author  Robert E. Coyle <robertecoyle@hotmail.com>
  * @package Whups
  */

@@ -6,8 +6,6 @@ $block_name = _("My Queries");
  * Horde_Block_Whups_myqueries:: Implementation of the Horde_Block API
  * to show the current user's queries.
  *
- * $Horde: whups/lib/Block/myqueries.php,v 1.20 2009/07/08 18:30:06 slusarz Exp $
- *
  * @package Horde_Block
  */
 class Horde_Block_Whups_myqueries extends Horde_Block {

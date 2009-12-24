@@ -11,8 +11,6 @@
  *   'command'         Path to the imtest command on localhost
  *   'auth_mechanism'  Authentication method to use with imtest</pre>
  *
- * $Horde: framework/Net_IMSP/IMSP/Auth/imtest.php,v 1.19 2009/01/06 17:49:34 jan Exp $
- *
  * Copyright 2005-2007      Liam Hoekenga <liamr@umich.edu>
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *

@@ -11,8 +11,6 @@ define('VFS_QUOTA_METRIC_GB', 4);
 /**
  * VFS API for abstracted file storage and access.
  *
- * $Horde: framework/VFS/lib/VFS.php,v 1.9 2009/01/06 17:49:57 jan Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

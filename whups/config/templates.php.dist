@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: whups/config/templates.php.dist,v 1.12 2005/04/12 21:17:58 chuck Exp $
- *
  * This file defines the templates used in various parts of Whups.
  *
  * Hopefully this will all migrate to a database in the future, but

@@ -6,8 +6,6 @@
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
- *
- * $Horde: framework/Alarm/Alarm.php,v 1.62 2009-11-23 20:37:47 slusarz Exp $
  */
 
 /**

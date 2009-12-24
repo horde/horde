@@ -9,8 +9,6 @@
  *   'user'      A valid Horde user name.
  *   'password'  The user's password.</pre>
  *
- * $Horde: framework/VFS/lib/VFS/horde.php,v 1.8 2009-11-22 18:15:23 slusarz Exp $
- *
  * Copyright 2006-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

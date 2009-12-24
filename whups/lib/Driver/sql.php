@@ -3,8 +3,6 @@
  * Whups_Driver_sql class - implements a Whups backend for the
  * PEAR::DB abstraction layer.
  *
- * $Horde: whups/lib/Driver/sql.php,v 1.319 2009-11-27 02:48:39 mrubinsk Exp $
- *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
  * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
  *

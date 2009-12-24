@@ -3,8 +3,6 @@
  * This file contains any general Horde_Form classes for administration
  * purposes that don't have have their own file in the Admin/ subdirectory.
  *
- * $Horde: whups/lib/Forms/Admin.php,v 1.17 2009-11-27 02:48:39 mrubinsk Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you

@@ -3,8 +3,6 @@
  * The Group_ldap class provides an LDAP backend for the Horde groups
  * system.
  *
- * $Horde: framework/Group/Group/ldap.php,v 1.49 2009/07/27 06:15:27 slusarz Exp $
- *
  * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

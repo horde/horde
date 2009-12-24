@@ -3,8 +3,6 @@
  * The DataTree_null:: class provides a dummy implementation of the
  * DataTree:: API; no data will last beyond a single page request.
  *
- * $Horde: framework/DataTree/DataTree/null.php,v 1.37 2009/01/06 17:49:14 jan Exp $
- *
  * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

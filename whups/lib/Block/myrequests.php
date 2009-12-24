@@ -6,8 +6,6 @@ $block_name = _("My Requests");
  * Horde_Block_Whups_myrequests:: Implementation of the Horde_Block API
  * to display a summary of the current user's requested tickets.
  *
- * $Horde: whups/lib/Block/myrequests.php,v 1.14 2009-11-27 02:48:39 mrubinsk Exp $
- *
  * @package Horde_Block
  */
 class Horde_Block_Whups_myrequests extends Horde_Block {

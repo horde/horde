@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: whups/lib/Ajax/Imple/ContactAutoCompleter.php,v 1.1 2009-11-11 00:47:04 mrubinsk Exp $
- *
  * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you

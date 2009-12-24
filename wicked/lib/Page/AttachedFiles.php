@@ -6,8 +6,6 @@ require_once WICKED_BASE . '/lib/Page/StandardPage.php';
 /**
  * Wicked AttachedFiles class.
  *
- * $Horde: wicked/lib/Page/AttachedFiles.php,v 1.40 2009/06/15 14:17:14 mrubinsk Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

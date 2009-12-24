@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: wicked/lib/Text_Wiki/Parse/Default/Attribute.php,v 1.1 2007/05/23 21:43:30 ben Exp $
- *
  * This parser parses "attributes," which carry meta-information about the
  * page.  These attributes are in the form [[WikiWord: value]].
  *

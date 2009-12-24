@@ -10,8 +10,6 @@ require_once 'Horde/LDAP.php';
  * FIXME: A better solution would be to let this class rely on
  *        Horde/Kolab/LDAP.php.
  *
- * $Horde: framework/Group/Group/kolab.php,v 1.7 2009/07/09 08:17:55 slusarz Exp $
- *
  * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

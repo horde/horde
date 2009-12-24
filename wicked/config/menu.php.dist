@@ -1,7 +1,5 @@
 <?php
 /*
- * $Horde: wicked/config/menu.php.dist,v 1.2 2006/05/01 20:15:09 karsten Exp $
- *
  * This file lets you extend Wicked's menu with your own items.
  *
  * To add a new menu item, simply add a new entry to the $_menu array.

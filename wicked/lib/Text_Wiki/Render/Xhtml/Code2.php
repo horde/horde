@@ -3,8 +3,6 @@
 require_once 'Text/Wiki/Render/Xhtml/Code.php';
 
 /**
- * $Horde: wicked/lib/Text_Wiki/Render/Xhtml/Code2.php,v 1.7 2007/09/17 17:31:03 jan Exp $
- *
  * @package Wicked
  */
 class Text_Wiki_Render_Xhtml_Code2 extends Text_Wiki_Render_Xhtml_Code {

@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: whups/search.php,v 1.128 2009/07/08 18:30:05 slusarz Exp $
- *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
  * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
  *

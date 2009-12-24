@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: framework/VFS/lib/VFS/sql_file.php,v 1.3 2009/10/15 17:13:28 jan Exp $
- *
  * @package VFS
  */
 
@@ -45,8 +43,6 @@ include_once 'VFS/file.php';
  *
  * The table structure for the VFS can be found in
  * data/vfs.sql.
- *
- * $Horde: framework/VFS/lib/VFS/sql_file.php,v 1.3 2009/10/15 17:13:28 jan Exp $
  *
  * @author  Michael Varghese <mike.varghese@ascellatech.com>
  * @package VFS

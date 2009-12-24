@@ -5,8 +5,6 @@
  * See the enclosed file LICENSE for license information (BSD). If you did
  * did not receive this file, see http://cvs.horde.org/co.php/vilma/LICENSE.
  *
- * $Horde: vilma/lib/Forms/EditUserForm.php,v 1.6 2009/05/27 23:57:32 bklang Exp $
- *
  * @author  Daniel Collins <horde_dev@argentproductions.com>
  * @package Vilma
  */

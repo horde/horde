@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: wicked/lib/Text_Wiki/Parse/Default/Wickedblock.php,v 1.1 2007/05/23 21:43:30 ben Exp $
- *
  * This parser parses Wicked blocks, which add Horde_Blocks to the
  * page.  Basic syntax is [[block block-app/block-name block-args]].
  *

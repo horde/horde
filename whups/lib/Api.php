@@ -5,8 +5,6 @@
  * This file defines Whups' external API interface. Other applications
  * can interact with Whups through this API.
  *
- * $Horde: whups/lib/Api.php,v 1.6 2009-11-27 02:50:40 mrubinsk Exp $
- *
  * @package Whups
  */
 class Whups_Api extends Horde_Registry_Api

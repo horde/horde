@@ -3,8 +3,6 @@
  * Implementation of Horde_Share class for shared objects that are hierarchical
  * in nature.
  *
- * $Horde: framework/Share/Share/sql_hierarchical.php,v 1.56 2009-12-10 19:24:08 mrubinsk Exp $
- *
  * @author  Duck <duck@obala.net>
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @since   Horde 3.2

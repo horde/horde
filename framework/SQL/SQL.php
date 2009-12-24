@@ -2,8 +2,6 @@
 /**
  * This is a utility class, every method is static.
  *
- * $Horde: framework/SQL/SQL.php,v 1.54 2009/09/25 07:53:26 selsky Exp $
- *
  * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

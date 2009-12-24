@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: wicked/lib/Driver/sql.php,v 1.86 2009-11-13 13:08:30 jan Exp $
- *
  * @package Wicked
  */
 

@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: wicked/lib/Text_Wiki/Parse/Default/Registrylink.php,v 1.1 2007/05/23 21:43:30 ben Exp $
- *
  * This parser parses Horde Registry links, which allow calling Horde
  * API "*"/show methods from within the page. Basic syntax is
  * [[link link title | link-app/link-method argname1=value1 argname2=value2 ...]].

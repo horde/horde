@@ -6,8 +6,6 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @package Wicked
- *
- * $Horde: wicked/lib/Sync/wicked.php,v 1.2 2009/01/06 18:02:40 jan Exp $
  */
 
 /** Horde_RPC */

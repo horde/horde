@@ -2,8 +2,6 @@
 /**
  * Basic Ticket Editing form.
  *
- * $Horde: whups/lib/Forms/EditTicket.php,v 1.25 2009/08/27 09:25:26 jan Exp $
- *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Whups
  */

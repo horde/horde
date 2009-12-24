@@ -2,8 +2,6 @@
 /**
  * All tests for the Horde_Share:: package.
  *
- * $Horde: framework/Share/tests/Horde/Share/AllTests.php,v 1.2 2009/01/06 17:49:46 jan Exp $
- *
  * PHP version 5
  *
  * @category   Horde
@@ -15,7 +13,7 @@
  */
 
 /**
- * Define the main method 
+ * Define the main method
  */
 if (!defined('PHPUnit_MAIN_METHOD')) {
     define('PHPUnit_MAIN_METHOD', 'Horde_Share_AllTests::main');
@@ -26,8 +24,6 @@ require_once 'PHPUnit/TextUI/TestRunner.php';
 
 /**
  * Combine the tests for this package.
- *
- * $Horde: framework/Share/tests/Horde/Share/AllTests.php,v 1.2 2009/01/06 17:49:46 jan Exp $
  *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *

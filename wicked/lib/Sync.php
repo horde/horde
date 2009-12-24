@@ -3,8 +3,6 @@
  * Wicked_Sync:: defines an API for implementing synchronization backends for
  * Wicked.
  *
- * $Horde: wicked/lib/Sync.php,v 1.3 2009/07/08 18:30:08 slusarz Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

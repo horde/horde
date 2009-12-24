@@ -2,8 +2,6 @@
 /**
  * Handling Kolab shares.
  *
- * $Horde: framework/Share/tests/Horde/Share/KolabScenarioTest.php,v 1.4 2009/03/20 23:47:03 wrobel Exp $
- *
  * PHP version 5
  *
  * @category   Horde
@@ -21,8 +19,6 @@ require_once 'Horde/Kolab/Test/Storage.php';
 
 /**
  * Handling groups.
- *
- * $Horde: framework/Share/tests/Horde/Share/KolabScenarioTest.php,v 1.4 2009/03/20 23:47:03 wrobel Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *

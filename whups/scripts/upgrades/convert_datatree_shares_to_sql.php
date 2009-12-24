@@ -5,8 +5,6 @@
  * Horde_Share driver to the new SQL Horde_Share driver. You should
  * run the 2008-04-29_add_sql_share_tables.sql upgrade script before
  * executing this script.
- *
- * $Horde: whups/scripts/upgrades/convert_datatree_shares_to_sql.php,v 1.9 2009/09/02 13:43:42 jan Exp $
  */
 
 @define('AUTH_HANDLER', true);

@@ -6,8 +6,6 @@ include_once 'XML/WBXML/DTD.php';
  * From Binary XML Content Format Specification Version 1.3, 25 July 2001
  * found at http://www.wapforum.org
  *
- * $Horde: framework/XML_WBXML/WBXML/DTD/SyncML.php,v 1.20 2009/01/06 17:50:00 jan Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

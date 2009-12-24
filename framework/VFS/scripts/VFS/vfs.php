@@ -5,8 +5,6 @@
  *
  * `vfs.php help' shows some usage instructions.
  *
- * $Horde: framework/VFS/scripts/VFS/vfs.php,v 1.2 2008/02/16 15:49:12 jan Exp $
- *
  * @package VFS
  */
 

@@ -6,8 +6,6 @@ $block_name = _("Query Results");
  * Horde_Block_Whups_query:: Display the results of a saved Query in a
  * block.
  *
- * $Horde: whups/lib/Block/query.php,v 1.10 2009-11-27 02:48:39 mrubinsk Exp $
- *
  * @package Horde_Block
  */
 class Horde_Block_Whups_query extends Horde_Block {

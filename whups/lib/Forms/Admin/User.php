@@ -3,8 +3,6 @@
  * This file contains all Horde_Form classes for administrating responsible
  * users.
  *
- * $Horde: whups/lib/Forms/Admin/User.php,v 1.3 2009/07/08 18:30:07 slusarz Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you

@@ -1,5 +1,3 @@
--- $Horde: framework/VFS/data/VFS/muvfs.sql,v 1.3 2008/07/19 23:14:36 chuck Exp $
-
 CREATE TABLE muvfs (
     vfs_id        INT UNSIGNED NOT NULL,
     vfs_type      SMALLINT UNSIGNED NOT NULL,

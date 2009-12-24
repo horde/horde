@@ -8,8 +8,6 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * $Horde: framework/SyncML/SyncML/Device/Nokia.php,v 1.19 2009/08/18 17:16:43 jan Exp $
- *
  * @author  Karsten Fourmont <karsten@horde.org>
  * @package SyncML
  */

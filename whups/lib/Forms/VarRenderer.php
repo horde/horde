@@ -3,8 +3,6 @@
  * This file contains all Horde_UI_VarRenderer extensions for Whups specific
  * form fields.
  *
- * $Horde: whups/lib/Forms/VarRenderer.php,v 1.7 2009-11-27 00:12:53 mrubinsk Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you

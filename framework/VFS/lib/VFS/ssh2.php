@@ -12,8 +12,6 @@
  *      'port'           The port used to connect to the ssh2 server if other
  *                       than 22.</pre>
  *
- * $Horde: framework/VFS/lib/VFS/ssh2.php,v 1.16 2009-11-01 02:28:54 chuck Exp $
- *
  * Copyright 2006-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

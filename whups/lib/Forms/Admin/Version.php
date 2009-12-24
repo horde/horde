@@ -2,8 +2,6 @@
 /**
  * This file contains all Horde_Form classes for version administration.
  *
- * $Horde: whups/lib/Forms/Admin/Version.php,v 1.3 2009/09/07 08:58:18 jan Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you

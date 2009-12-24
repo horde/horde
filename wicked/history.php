@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: wicked/history.php,v 1.23 2009/06/10 05:25:31 slusarz Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

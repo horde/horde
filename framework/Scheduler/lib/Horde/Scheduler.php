@@ -6,8 +6,6 @@ require_once 'VFS.php';
 /**
  * Horde_Scheduler
  *
- * $Horde: framework/Scheduler/lib/Horde/Scheduler.php,v 1.3 2009/07/14 00:25:30 mrubinsk Exp $
- *
  * @package Horde_Scheduler
  */
 class Horde_Scheduler {

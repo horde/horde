@@ -2,8 +2,6 @@
 /**
  * Whups mail processing library.
  *
- * $Horde: whups/lib/Mail.php,v 1.55 2009/07/08 18:30:06 slusarz Exp $
- *
  * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you

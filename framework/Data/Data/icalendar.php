@@ -6,8 +6,6 @@ require_once dirname(__FILE__) . '/imc.php';
 /**
  * This is iCalendar (vCalendar).
  *
- * $Horde: framework/Data/Data/icalendar.php,v 1.37 2009/01/06 17:49:13 jan Exp $
- *
  * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

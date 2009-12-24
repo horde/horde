@@ -3,8 +3,6 @@
  * The Whups_Ticket class encapsulates some logic relating to tickets, sending
  * updates, etc.
  *
- * $Horde: whups/lib/Ticket.php,v 1.106 2009-11-27 19:38:44 mrubinsk Exp $
- *
  * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you

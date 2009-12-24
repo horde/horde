@@ -5,8 +5,6 @@ require_once WICKED_BASE . '/lib/Page/StandardPage.php';
 /**
  * Special page for merging or renaming pages.
  *
- * $Horde: wicked/lib/Page/MergeOrRename.php,v 1.31 2009/07/09 08:18:51 slusarz Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

@@ -55,8 +55,6 @@ define('VFS_FLAG_WRITE', 2);
  *    mssql.textsize = 0 ; zero to pass through
  * </code>
  *
- * $Horde: framework/VFS/lib/VFS/musql.php,v 1.4 2009/01/06 17:49:58 jan Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

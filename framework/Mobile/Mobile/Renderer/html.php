@@ -3,8 +3,6 @@
  * Horde_Mobile_Renderer:: output module for simple HTML and
  * Imode/Avantgo/similar devices.
  *
- * $Horde: framework/Mobile/Mobile/Renderer/html.php,v 1.46 2009/10/09 22:07:41 slusarz Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

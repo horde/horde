@@ -19,8 +19,6 @@
  *   location exist. If so, the replace should replace this value rather than
  *   create a new one as a duplicate.
  *
- * $Horde: framework/SyncML/SyncML.php,v 1.79 2009/07/14 00:25:30 mrubinsk Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

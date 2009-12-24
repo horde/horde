@@ -5,8 +5,6 @@ require_once WICKED_BASE . '/lib/Page/StandardPage.php';
 /**
  * Wicked RecentChanges class.
  *
- * $Horde: wicked/lib/Page/RecentChanges.php,v 1.30 2009/06/15 14:17:14 mrubinsk Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

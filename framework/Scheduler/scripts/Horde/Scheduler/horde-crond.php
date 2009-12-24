@@ -1,8 +1,6 @@
 #!@php_bin@
 <?php
 /**
- * $Horde: framework/Scheduler/scripts/Horde/Scheduler/horde-crond.php,v 1.4 2009/06/10 19:57:55 slusarz Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

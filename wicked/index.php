@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: wicked/index.php,v 1.14 2009/01/06 18:02:39 jan Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

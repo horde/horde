@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: whups/config/mime_drivers.php.dist,v 1.4 2005/03/14 13:27:10 jan Exp $
- *
  * Decide which output drivers you want to activate for the Whups application.
  * Settings in this file override settings in horde/config/mime_drivers.php.
  *

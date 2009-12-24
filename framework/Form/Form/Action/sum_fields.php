@@ -6,8 +6,6 @@
  * The params array should contain the names of the fields which will be
  * summed.
  *
- * $Horde: framework/Form/Form/Action/sum_fields.php,v 1.13 2009/10/06 18:58:57 slusarz Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

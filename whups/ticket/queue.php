@@ -2,8 +2,6 @@
 /**
  * Displays and handles the form to move a ticket to a different queue.
  *
- * $Horde: whups/ticket/queue.php,v 1.33 2009-11-27 02:48:40 mrubinsk Exp $
- *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
  * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
  *

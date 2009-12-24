@@ -1,8 +1,6 @@
 <?php
 /**
  * @package SyncML
- *
- * $Horde: framework/SyncML/SyncML/Device/Sync4j.php,v 1.73 2009/10/26 18:03:46 jan Exp $
  */
 
 /** Horde_Date */

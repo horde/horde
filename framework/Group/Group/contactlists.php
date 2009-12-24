@@ -3,8 +3,6 @@
  * The Group_contactlists class provides a groups system based on Turba
  * contact lists. Only SQL sources are supported.
  *
- * $Horde: framework/Group/Group/contactlists.php,v 1.6 2009-11-22 18:15:21 slusarz Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

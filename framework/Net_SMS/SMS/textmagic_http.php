@@ -9,11 +9,9 @@
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * $Horde: framework/Net_SMS/SMS/textmagic_http.php,v 1.1 2009/07/17 15:27:56 chuck Exp $
- *
  * @package Net_SMS
  * @author  Fedyashev Nikita <nikita@realitydrivendeveloper.com>
- * 
+ *
  */
 class Net_SMS_textmagic_http extends Net_SMS
 {
@@ -21,9 +19,9 @@ class Net_SMS_textmagic_http extends Net_SMS
 
     function Net_SMS_textmagic_http($params)
     {
-        
+
         parent::Net_SMS($params);
-        
+
         if (!extension_loaded('json')) {
             die ("JSON extenstion isn't loaded!");
         }
@@ -49,7 +47,7 @@ class Net_SMS_textmagic_http extends Net_SMS
                               'credit'         => true,
                               'addressbook'    => false,
                               'lists'          => false,
-    
+
                               'message_status' => true,
                               'delete_reply'   => true,
                               'check_number'   => true);
@@ -69,29 +67,29 @@ class Net_SMS_textmagic_http extends Net_SMS
 
         $unicode    = $this->_getUnicodeParam($message);
         $max_length = $this->_getMaxLengthParam($message);
-        
+
         $to = implode(',', $to);
 
         $url = sprintf('cmd=send&phone=%s&text=%s&unicode=%s&max_length=%s',
-                       urlencode($to), 
+                       urlencode($to),
                        urlencode($message['text']),
                        $unicode,
                        $max_length);
-        
+
         $response = $this->_callURL($url);
-        
+
         if (is_a($response, 'PEAR_Error')) {
               return PEAR::raiseError(sprintf(_("Send failed.")));
         }
-        
+
         $result = array();
-        
+
         if (!array_key_exists('error_code', $response)) {
-            
+
             if (count(explode(',', $to)) == 1) {
-                
+
                 $message_ids = array_keys($response['message_id']);
-                
+
                 $result[$to] = array(
                     0 => 1,
                     1 => $message_ids[0]
@@ -102,9 +100,9 @@ class Net_SMS_textmagic_http extends Net_SMS
                 }
             }
         } else {
-            
+
             if (count(explode(',', $to)) == 1) {
-                
+
                 $result[$to] = array(
                     0 => 0,
                     1 => $response['error_message']
@@ -115,35 +113,35 @@ class Net_SMS_textmagic_http extends Net_SMS
                 }
             }
         }
-        
+
         return $result;
     }
 
     function _getMaxLengthParam($message) {
         $default_params = $this->getDefaultSendParams();
-        
+
         if (isset($message['send_params']['max_length'])) {
             $max_length = $message['send_params']['max_length'];
         } else {
             $max_length = $default_params['max_length']['default_value'];
         }
-        
+
         return $max_length;
-        
+
     }
-    
+
     function _getUnicodeParam($message) {
         $default_params = $this->getDefaultSendParams();
-        
+
         if (isset($message['send_params']['unicode'])) {
             $unicode = $message['send_params']['unicode'];
         } else {
             $unicode = $default_params['unicode']['default_value'];
         }
-        
+
         return $unicode;
     }
-    
+
     /**
      * This function check message delivery status.
      *
@@ -154,28 +152,28 @@ class Net_SMS_textmagic_http extends Net_SMS
      */
     function messageStatus($ids)
     {
-        
+
         if (!is_array($ids)) {
             $ids = array($ids);
         }
 
         $ids = implode(',', $ids);
-        
+
         $url = sprintf('cmd=message_status&ids=%s',
                        urlencode($ids));
-        
+
         $response = $this->_callURL($url);
-        
+
         if (is_a($response, 'PEAR_Error')) {
               return PEAR::raiseError(sprintf(_("Send failed.")));
         }
-        
+
         $result = array();
-        
+
         if (!array_key_exists('error_code', $response)) {
-            
+
             if (count(explode(',', $ids)) == 1) {
-                
+
                 $result[$ids] = array(
                     0 => 1,
                     1 => $response[$ids]
@@ -186,9 +184,9 @@ class Net_SMS_textmagic_http extends Net_SMS
                 }
             }
         } else {
-            
+
             if (count(explode(',', $ids)) == 1) {
-                
+
                 $result[$to] = array(
                     0 => 0,
                     1 => $response['error_message']
@@ -199,10 +197,10 @@ class Net_SMS_textmagic_http extends Net_SMS
                 }
             }
         }
-        
+
         return $result;
-    }    
-    
+    }
+
     /**
      * This function retrieves incoming messages.
      *
@@ -218,29 +216,29 @@ class Net_SMS_textmagic_http extends Net_SMS
         }
 
         $url = sprintf('cmd=receive&last=%s', $last_retrieved_id);
-        
+
         $response = $this->_callURL($url);
-        
+
         if (is_a($response, 'PEAR_Error')) {
               return PEAR::raiseError(sprintf(_("Send failed.")));
         }
-        
+
         $result = array();
-        
+
         if (!array_key_exists('error_code', $response)) {
             $result[0] = 1;
-            
+
             $result[1] = $response;
         } else {
             $result[0] = 0;
-            
+
             $result[1] = $response['error_message'];
         }
-        
-        return $result;
-    }    
 
-    
+        return $result;
+    }
+
+
     /**
      * This function allows you to delete Incoming message
      *
@@ -251,29 +249,29 @@ class Net_SMS_textmagic_http extends Net_SMS
      */
     function deleteReply($ids)
     {
-        
+
         if (!is_array($ids)) {
             $ids = array($ids);
         }
 
         $ids = implode(',', $ids);
-        
+
         /* Set up the http sending url. */
         $url = sprintf('cmd=delete_reply&ids=%s',
                        urlencode($ids));
-        
+
         $response = $this->_callURL($url);
 
         if (is_a($response, 'PEAR_Error')) {
               return PEAR::raiseError(sprintf(_("Send failed.")));
         }
-        
+
         $result = array();
 
         if (!array_key_exists('error_code', $response)) {
-            
+
             if (count(explode(',', $ids)) == 1) {
-                
+
                 $result[$ids] = array(
                     0 => 1,
                     1 => true
@@ -284,9 +282,9 @@ class Net_SMS_textmagic_http extends Net_SMS
                 }
             }
         } else {
-            
+
             if (count(explode(',', $ids)) == 1) {
-                
+
                 $result[$to] = array(
                     0 => 0,
                     1 => $response['error_message']
@@ -303,7 +301,7 @@ class Net_SMS_textmagic_http extends Net_SMS
 
      /**
      * This function allows you to validate phone number's format,
-     * check its country and message price to the destination . 
+     * check its country and message price to the destination .
      *
      * @param array $numbers Phone numbers array to be checked.
      *
@@ -312,66 +310,66 @@ class Net_SMS_textmagic_http extends Net_SMS
      */
     function checkNumber($numbers)
     {
-        
+
         if (!is_array($numbers)) {
             $numbers = array($numbers);
         }
 
         $numbers = implode(',', $numbers);
-        
+
         $url = sprintf('cmd=check_number&phone=%s',
                        urlencode($numbers));
-        
+
         $response = $this->_callURL($url);
 
         if (is_a($response, 'PEAR_Error')) {
               return PEAR::raiseError(sprintf(_("Send failed.")));
         }
-        
+
         if (is_a($response, 'PEAR_Error')) {
               return PEAR::raiseError(sprintf(_("Send failed.")));
         }
-        
+
         $result = array();
-        
+
         if (!array_key_exists('error_code', $response)) {
-            
+
             if (count(explode(',', $numbers)) == 1) {
-                
+
                 $result[$numbers] = array(
                     0 => 1,
                     1 => array(
                         "price" => $response[$numbers]['price'],
-                        "country" => $response[$numbers]['country'] 
+                        "country" => $response[$numbers]['country']
                     )
                 );
             } else {
                 foreach (explode(',', $numbers) as $number) {
                     $result[$number] = array(1, array(
                         "price" => $response[$number]['price'],
-                        "country" => $response[$number]['country'] 
+                        "country" => $response[$number]['country']
                     ));
                 }
             }
         } else {
-            
+
             if (count(explode(',', $numbers)) == 1) {
-                
+
                 $result[explode(',', $numbers)] = array(
                     0 => 0,
                     1 => $response['error_message']
                 );
-            } else {    
+            } else {
                 foreach (explode(',', $numbers) as $number) {
                     $result[$number] = array(0, $response['error_message']);
                 }
             }
         }
-        
+
         return $result;
-        
-    }     
-    
+
+    }
+
     /**
      * Returns the current credit balance on the gateway.
      *
@@ -382,13 +380,13 @@ class Net_SMS_textmagic_http extends Net_SMS
     function _getBalance()
     {
         $url = 'cmd=account';
-        
+
         $response = $this->_callURL($url);
-        
+
         if (is_a($response, 'PEAR_Error')) {
             return PEAR::raiseError(sprintf(_("Send failed. %s"), $response['error_message']));
         }
-        
+
         if (!array_key_exists('error_code', $response)) {
             return $response['balance'];
         } else {
@@ -446,7 +444,7 @@ class Net_SMS_textmagic_http extends Net_SMS
             'label' => _("Unicode message flag"),
             'type' => 'int',
             'default_value' => 1);
-        
+
         return $params;
     }
 
@@ -464,7 +462,7 @@ class Net_SMS_textmagic_http extends Net_SMS
                 'label' => _("Max messages quantity"),
                 'type' => 'int');
         }
-        
+
         if (empty($params['unicode'])) {
             $params['unicode'] = array(
                 'label' => _("Unicode message flag"),
@@ -502,7 +500,7 @@ class Net_SMS_textmagic_http extends Net_SMS
                         13 => _("Your account has been deactivated"),
                         14 => _("Unknwon message ID"),
                         15 => _("Unicode characters detected on unicode=0 option"));
-        
+
         if (!empty($error_text)) {
             return $error_text;
         } else {
@@ -527,12 +525,12 @@ class Net_SMS_textmagic_http extends Net_SMS
             return PEAR::raiseError(_("Missing PEAR package HTTP_Request."));
         }
         $http = &new HTTP_Request($this->_base_url . $url, $options);
-        
+
         /* Add the authentication values to POST. */
         $http->addPostData('username', $this->_params['user']);
         $http->addPostData('password', $this->_params['password']);
-        
-        
+
+
         @$http->sendRequest();
         if ($http->getResponseCode() != 200) {
             return PEAR::raiseError(sprintf(_("Could not open %s."), $url));

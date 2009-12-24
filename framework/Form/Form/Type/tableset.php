@@ -3,8 +3,6 @@
 require_once 'Horde/Form.php';
 
 /**
- * $Horde: framework/Form/Form/Type/tableset.php,v 1.3 2005/05/31 08:42:01 jan Exp $
- *
  * @package Horde_Form
  * @since   Horde 3.1
  */

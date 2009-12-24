@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: wicked/lib/Text_Wiki/Render/Xhtml/Attribute.php,v 1.5 2005/07/03 01:59:04 selsky Exp $
- *
  * @package Wicked
  */
 class Text_Wiki_Render_Xhtml_Attribute extends Text_Wiki_Render {

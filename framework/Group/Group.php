@@ -8,8 +8,6 @@ define('GROUP_ROOT', -1);
 /**
  * The Group:: class provides the Horde groups system.
  *
- * $Horde: framework/Group/Group.php,v 1.122 2009/10/04 03:03:45 chuck Exp $
- *
  * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

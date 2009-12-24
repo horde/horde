@@ -1,14 +1,10 @@
 <?php
 /**
- * $Horde: framework/Kolab_Filter/lib/Horde/Kolab/Filter/Transport/lmtp.php,v 1.4 2009/07/14 00:28:32 mrubinsk Exp $
- *
  * @package Kolab_Filter
  */
 
 /**
  * Provides LMTP for delivering a mail.
- *
- * $Horde: framework/Kolab_Filter/lib/Horde/Kolab/Filter/Transport/lmtp.php,v 1.4 2009/07/14 00:28:32 mrubinsk Exp $
  *
  * Copyright 2004-2008 Klarälvdalens Datakonsult AB
  *

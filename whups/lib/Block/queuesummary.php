@@ -6,8 +6,6 @@ $block_name = _("Queue Summary");
  * Horde_Block_Whups_queuesummary:: Show a summary of all available queues
  * and their number of open tickets.
  *
- * $Horde: whups/lib/Block/queuesummary.php,v 1.7 2009-11-27 02:48:39 mrubinsk Exp $
- *
  * @package Horde_Block
  */
 class Horde_Block_Whups_queuesummary extends Horde_Block {

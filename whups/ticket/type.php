@@ -2,8 +2,6 @@
 /**
  * Displays and handles the form to change the ticket type.
  *
- * $Horde: whups/ticket/type.php,v 1.27 2009/07/08 18:30:08 slusarz Exp $
- *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
  * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
  *

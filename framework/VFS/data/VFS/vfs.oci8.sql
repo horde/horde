@@ -1,5 +1,3 @@
--- $Horde: framework/VFS/data/VFS/vfs.oci8.sql,v 1.1 2007/12/07 00:24:22 chuck Exp $
-
 CREATE TABLE vfs (
     vfs_id        NUMBER(16) NOT NULL,
     vfs_type      NUMBER(8) NOT NULL,

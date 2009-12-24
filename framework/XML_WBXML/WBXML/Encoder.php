@@ -8,8 +8,6 @@ include_once 'XML/WBXML/DTDManager.php';
  * From Binary XML Content Format Specification Version 1.3, 25 July 2001
  * found at http://www.wapforum.org
  *
- * $Horde: framework/XML_WBXML/WBXML/Encoder.php,v 1.53 2009/01/06 17:50:00 jan Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

@@ -4,8 +4,6 @@
  *
  * This class renders the diff in classic "context diff" format.
  *
- * $Horde: framework/Text_Diff/Diff/Renderer/context.php,v 1.6 2009/01/06 17:49:52 jan Exp $
- *
  * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did

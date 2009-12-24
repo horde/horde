@@ -4,8 +4,6 @@
  * form after the form element that the action is attached to is
  * modified.
  *
- * $Horde: framework/Form/Form/Action/submit.php,v 1.19 2009/10/06 18:58:57 slusarz Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

@@ -5,8 +5,6 @@ $block_name = _("Wiki page");
 /**
  * This class extends Horde_Block:: to display a Wiki page.
  *
- * $Horde: wicked/lib/Block/page.php,v 1.13 2009/01/06 18:02:40 jan Exp $
- *
  * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

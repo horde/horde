@@ -2,8 +2,6 @@
 /**
  * Wicked Page class for old versions of pages.
  *
- * $Horde: wicked/lib/Page/StandardPage/StdHistoryPage.php,v 1.23 2009/09/28 22:16:44 jan Exp $
- *
  * @author  Tyler Colbert <tyler@colberts.us>
  * @package Wicked
  */

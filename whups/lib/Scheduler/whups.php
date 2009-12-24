@@ -6,8 +6,6 @@ require_once 'Horde/Scheduler/cron.php';
  * Horde_Scheduler_whups:: Send reminders for tickets based on the
  * reminders configuration file.
  *
- * $Horde: whups/lib/Scheduler/whups.php,v 1.14 2009/07/01 18:30:20 selsky Exp $
- *
  * @package Horde_Scheduler
  */
 class Horde_Scheduler_whups extends Horde_Scheduler {

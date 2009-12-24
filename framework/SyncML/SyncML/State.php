@@ -10,8 +10,6 @@ require_once 'SyncML/Command/SyncElement.php';
 /**
  * The SyncML_State class provides a SyncML state object.
  *
- * $Horde: framework/SyncML/SyncML/State.php,v 1.58 2009/04/07 10:43:41 jan Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

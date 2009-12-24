@@ -1,8 +1,6 @@
 #!/usr/bin/php -q
 <?php
 /**
-* $Horde: wicked/scripts/wicked.php,v 1.9 2009/07/09 06:09:05 slusarz Exp $
-*
 * This script interfaces with Wicked via the command-line
 *
 * See the enclosed file COPYING for license information (GPL). If you

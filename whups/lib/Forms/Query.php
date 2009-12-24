@@ -2,8 +2,6 @@
 /**
  * Forms for editing queries.
  *
- * $Horde: whups/lib/Forms/Query.php,v 1.15 2009-11-27 02:48:39 mrubinsk Exp $
- *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
  * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
  *

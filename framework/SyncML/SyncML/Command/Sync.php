@@ -19,8 +19,6 @@ require_once 'SyncML/Command/SyncElement.php';
  * Then the server modifications are sent back to the client by the
  * handleSync() method which is called from within the output method.
  *
- * $Horde: framework/SyncML/SyncML/Command/Sync.php,v 1.66 2009/10/02 22:37:57 jan Exp $
- *
  * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

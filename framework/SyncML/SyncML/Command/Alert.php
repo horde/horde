@@ -12,8 +12,6 @@ require_once 'SyncML/Command.php';
  * information, such as state information or notifications to an application
  * on the recipient device.
  *
- * $Horde: framework/SyncML/SyncML/Command/Alert.php,v 1.58 2009/04/07 11:10:51 jan Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

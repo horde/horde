@@ -5,8 +5,6 @@
  * This file defines Wicked's external API interface. Other applications
  * can interact with Wicked through this API.
  *
- * $Horde: wicked/lib/api.php,v 1.32 2009/01/06 18:02:39 jan Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

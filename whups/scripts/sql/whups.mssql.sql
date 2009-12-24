@@ -1,6 +1,4 @@
 --
--- $Horde: whups/scripts/sql/whups.mssql.sql,v 1.27 2009/10/20 21:28:28 jan Exp $
---
 -- Copyright 2001-2005 Robert E. Coyle <robertecoyle@hotmail.com>
 --
 -- See the enclosed file LICENSE for license information (BSD). If you

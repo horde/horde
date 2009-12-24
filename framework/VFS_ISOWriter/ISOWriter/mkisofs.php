@@ -1,9 +1,6 @@
 <?php
-
 /**
  * Driver for using mkisofs for creating ISO images.
- *
- * $Horde: framework/VFS_ISOWriter/ISOWriter/mkisofs.php,v 1.10 2009/01/06 17:49:59 jan Exp $
  *
  * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
  *

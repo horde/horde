@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: whups/lib/Forms/AddComment.php,v 1.5 2009-11-27 02:48:39 mrubinsk Exp $
- *
  * @package Whups
  */
 class AddCommentForm extends Horde_Form {

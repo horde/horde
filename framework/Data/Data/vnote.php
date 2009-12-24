@@ -5,8 +5,6 @@ require_once dirname(__FILE__) . '/imc.php';
 /**
  * Implement the Horde_Data:: API for vNote data.
  *
- * $Horde: framework/Data/Data/vnote.php,v 1.17 2009/07/14 00:25:28 mrubinsk Exp $
- *
  * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

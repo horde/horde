@@ -2,8 +2,6 @@
 /**
  * This file contains all Horde_Form classes to create a new ticket.
  *
- * $Horde: whups/lib/Forms/CreateTicket.php,v 1.25 2009-11-27 02:48:39 mrubinsk Exp $
- *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
  * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
  *

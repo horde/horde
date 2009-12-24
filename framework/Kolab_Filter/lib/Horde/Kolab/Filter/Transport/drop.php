@@ -1,14 +1,10 @@
 <?php
 /**
- * $Horde: framework/Kolab_Filter/lib/Horde/Kolab/Filter/Transport/drop.php,v 1.5 2009/07/14 00:28:32 mrubinsk Exp $
- *
  * @package Kolab_Filter
  */
 
 /**
  * Drops a mail instead of delivering it.
- *
- * $Horde: framework/Kolab_Filter/lib/Horde/Kolab/Filter/Transport/drop.php,v 1.5 2009/07/14 00:28:32 mrubinsk Exp $
  *
  * Copyright 2008 Klarälvdalens Datakonsult AB
  *
@@ -35,8 +31,6 @@ class Horde_Kolab_Filter_Transport_drop extends Horde_Kolab_Filter_Transport
 /**
  * Defines a wrapper that provides functionality comparable to the
  * Net/*MTP.php classes.
- *
- * $Horde: framework/Kolab_Filter/lib/Horde/Kolab/Filter/Transport/drop.php,v 1.5 2009/07/14 00:28:32 mrubinsk Exp $
  *
  * Copyright 2008 Klarälvdalens Datakonsult AB
  *

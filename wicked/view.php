@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: wicked/view.php,v 1.10 2009/06/10 05:25:31 slusarz Exp $
- *
  * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

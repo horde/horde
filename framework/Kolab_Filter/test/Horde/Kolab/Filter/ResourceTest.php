@@ -2,8 +2,6 @@
 /**
  * Test resource handling within the Kolab filter implementation.
  *
- * $Horde: framework/Kolab_Filter/test/Horde/Kolab/Filter/ResourceTest.php,v 1.13 2009-11-16 19:01:33 wrobel Exp $
- *
  * @package Horde_Kolab_Filter
  */
 
@@ -20,8 +18,6 @@ require_once 'Horde/iCalendar/vfreebusy.php';
 
 /**
  * Test resource handling
- *
- * $Horde: framework/Kolab_Filter/test/Horde/Kolab/Filter/ResourceTest.php,v 1.13 2009-11-16 19:01:33 wrobel Exp $
  *
  * Copyright 2008 Klarälvdalens Datakonsult AB
  *

@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: whups/mybugs.php,v 1.50 2009/07/08 18:30:05 slusarz Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you

@@ -10,8 +10,6 @@ require_once 'PEAR.php';
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * $Horde: framework/Net_SMS/SMS.php,v 1.26 2009/07/14 00:25:29 mrubinsk Exp $
- *
  * @author  Marko Djukic <marko@oblo.com>
  * @package Net_SMS
  */

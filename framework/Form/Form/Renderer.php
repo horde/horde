@@ -3,8 +3,6 @@
  * The Horde_Form_Renderer class provides HTML and other renderings of
  * forms for the Horde_Form:: package.
  *
- * $Horde: framework/Form/Form/Renderer.php,v 1.228 2009-11-21 16:54:37 chuck Exp $
- *
  * Copyright 2001-2007 Robert E. Coyle <robertecoyle@hotmail.com>
  *
  * See the enclosed file COPYING for license information (LGPL). If you

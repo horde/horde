@@ -17,8 +17,6 @@ define('WICKED_PAGE_MATCH_ANY', 4);
  * Wicked_Driver:: defines an API for implementing storage backends for
  * Wicked.
  *
- * $Horde: wicked/lib/Driver.php,v 1.68 2009-11-13 13:08:30 jan Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

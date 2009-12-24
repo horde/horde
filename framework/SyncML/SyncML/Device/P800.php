@@ -22,8 +22,6 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * $Horde: framework/SyncML/SyncML/Device/P800.php,v 1.29 2009/01/06 17:49:50 jan Exp $
- *
  * @author  Karsten Fourmont <karsten@horde.org>
  * @package SyncML
  */

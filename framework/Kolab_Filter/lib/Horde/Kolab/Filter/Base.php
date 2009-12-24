@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: framework/Kolab_Filter/lib/Horde/Kolab/Filter/Base.php,v 1.10 2009/07/09 08:17:56 slusarz Exp $
- *
  * @package Kolab_Filter
  */
 
@@ -27,8 +25,6 @@ require_once 'Horde/Argv/Parser.php';
 
 /**
  * A basic definition for a PHP based postfix filter.
- *
- * $Horde: framework/Kolab_Filter/lib/Horde/Kolab/Filter/Base.php,v 1.10 2009/07/09 08:17:56 slusarz Exp $
  *
  * Copyright 2004-2008 Klarälvdalens Datakonsult AB
  *

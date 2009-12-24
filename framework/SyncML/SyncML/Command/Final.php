@@ -10,8 +10,6 @@ require_once 'SyncML/Command.php';
  * The Final command is an indicator that the SyncML message is the last
  * message in the current SyncML package.
  *
- * $Horde: framework/SyncML/SyncML/Command/Final.php,v 1.35 2009/04/05 16:09:14 jan Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

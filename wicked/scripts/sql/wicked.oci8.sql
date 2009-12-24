@@ -1,5 +1,3 @@
--- $Horde: wicked/scripts/sql/wicked.oci8.sql,v 1.3 2009/10/19 11:18:27 jan Exp $
-
 CREATE TABLE wicked_pages (
     page_id           NUMBER(16) NOT NULL,
     page_name         VARCHAR2(100) NOT NULL,

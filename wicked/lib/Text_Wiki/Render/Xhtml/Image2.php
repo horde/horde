@@ -2,8 +2,6 @@
 /**
  * This class renders an inline image.
  *
- * $Horde: wicked/lib/Text_Wiki/Render/Xhtml/Image2.php,v 1.12 2009/06/10 05:25:33 slusarz Exp $
- *
  * @package Wicked
  */
 class Text_Wiki_Render_Xhtml_Image2 extends Text_Wiki_Render {

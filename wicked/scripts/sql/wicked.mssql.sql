@@ -1,5 +1,3 @@
--- $Horde: wicked/scripts/sql/wicked.mssql.sql,v 1.4 2009/10/19 10:55:34 jan Exp $
-
 CREATE TABLE wicked_pages (
     page_id           INT NOT NULL,
     page_name         VARCHAR(100) NOT NULL,

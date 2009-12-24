@@ -6,8 +6,6 @@ require_once dirname(__FILE__) . '/imc.php';
 /**
  * Implement the Horde_Data:: API for vTodo data.
  *
- * $Horde: framework/Data/Data/vtodo.php,v 1.14 2009/01/06 17:49:13 jan Exp $
- *
  * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

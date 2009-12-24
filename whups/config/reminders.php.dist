@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: whups/config/reminders.php.dist,v 1.2 2004/05/15 14:03:22 chuck Exp $
- *
  * This file defines reminders sent automatically by Whups (if you
  * schedule scripts/reminders.php in your crontab).
  *
