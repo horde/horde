@@ -1,5 +1,4 @@
 #!/bin/sh
-# $Horde: framework/admintools/horde-update.sh,v 1.1 2006/09/11 05:01:14 chuck Exp $
 #
 # update_horde.sh - Marcus I. Ryan <marcus@riboflavin.net>
 #
@@ -28,7 +27,7 @@
 # <rel>_ver   - A list of the various CVS distributions for realease <ver>
 #               and the CVS branches to download.  See examples.
 #
-# WARNING: I do not currently have it set up to check if a patch fails 
+# WARNING: I do not currently have it set up to check if a patch fails
 #          completely.  This is not usually a problem, but if a *.dist file
 #          is drastically updated it has been known to cause problems.
 #          If you use this script, please keep an eye out for this.  That

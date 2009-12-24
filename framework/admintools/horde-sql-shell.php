@@ -1,8 +1,6 @@
 #!@php_bin@
 <?php
 /**
- * $Horde: framework/admintools/horde-sql-shell.php,v 1.10 2009/07/22 06:40:30 slusarz Exp $
- *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

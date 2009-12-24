@@ -1,8 +1,6 @@
 #!@php_bin@
 <?php
 /**
- * $Horde: framework/admintools/horde-remove-pref.php,v 1.4 2009/07/22 06:40:30 slusarz Exp $
- *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * This script removes a pref from users' settings. Helps when a setting is
