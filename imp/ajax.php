@@ -71,9 +71,11 @@ function _getListMessages($mbox, $change)
         'applyfilter' => Horde_Util::getPost('applyfilter'),
         'cache' => Horde_Util::getPost('cache'),
         'cacheid' => Horde_Util::getPost('cacheid'),
+        'change' => $change,
         'initial' => Horde_Util::getPost('initial'),
         'mbox' => $mbox,
         'rangeslice' => Horde_Util::getPost('rangeslice'),
+        'requestid' => Horde_Util::getPost('requestid'),
         'qsearch' => Horde_Util::getPost('qsearch'),
         'qsearchflag' => Horde_Util::getPost('qsearchflag'),
         'qsearchmbox' => Horde_Util::getPost('qsearchmbox'),
@@ -106,20 +108,7 @@ function _getListMessages($mbox, $change)
     }
 
     $list_msg = new IMP_Views_ListMessages();
-    $res = $list_msg->listMessages($args);
-
-    // TODO: This can potentially be optimized for arrival time sort - if the
-    // cache ID changes, we know the changes must occur at end of mailbox.
-    if (empty($res->reset) && $change) {
-        $res->update = 1;
-    }
-
-    $req_id = Horde_Util::getPost('requestid');
-    if (!is_null($req_id)) {
-        $res->requestid = intval($req_id);
-    }
-
-    return $res;
+    return $list_msg->listMessages($args);
 }
 
 function _getIdxString($indices)

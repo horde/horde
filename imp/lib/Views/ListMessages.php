@@ -95,6 +95,9 @@ class IMP_Views_ListMessages
         /* Create the base object. */
         $result = $this->getBaseOb($mbox);
         $result->cacheid = $imp_mailbox->getCacheID();
+        if (!empty($args['requestid'])) {
+            $result->requestid = intval($args['requestid']);
+        }
         $result->totalrows = $msgcount;
         if (!$args['initial']) {
             unset($result->label);
@@ -158,6 +161,13 @@ class IMP_Views_ListMessages
                 $args['cache'] = array();
                 $result->reset = $result->resetmd = 1;
             }
+        }
+
+        /* TODO: This can potentially be optimized for arrival time sort - if
+         * the cache ID changes, we know the changes must occur at end of
+         * mailbox. */
+        if (!isset($result->reset) && !empty($args['change'])) {
+            $result->update = 1;
         }
 
         /* Get the cached list. */
