@@ -1306,9 +1306,11 @@ var DimpBase = {
         this.updateUnseenStatus(r.view, unseen);
     },
 
+    // mbox = (string)
     getUnseenCount: function(mbox)
     {
-        return Number($(this.getFolderId(mbox)).retrieve('u'));
+        var elt = $(this.getFolderId(mbox));
+        return elt ? Number(elt.retrieve('u')) : 0;
     },
 
     updateUnseenStatus: function(mbox, unseen)
@@ -1337,17 +1339,25 @@ var DimpBase = {
         }
     },
 
+    // f = (string|Element)
     setFolderLabel: function(f, unseen)
     {
-        var fid = this.getFolderId(f),
-            elt = $(fid);
+        var elt, fid;
+
+        if (Object.isElement(f)) {
+            fid = f.identify();
+            elt = f;
+        } else {
+            fid = f;
+            elt = $(this.getFolderId(f));
+        }
 
         if (!elt) {
             return;
         }
 
         if (Object.isUndefined(unseen)) {
-            unseen = this.getUnseenCount(f);
+            unseen = this.getUnseenCount(fid);
         } else {
             if (Object.isUndefined(elt.retrieve('u')) ||
                 elt.retrieve('u') == unseen) {
@@ -1358,7 +1368,7 @@ var DimpBase = {
             elt.store('u', unseen);
         }
 
-        if (f == 'INBOX' && window.fluid) {
+        if (fid == 'INBOX' && window.fluid) {
             window.fluid.setDockBadge(unseen ? unseen : '');
         }
 
@@ -2340,7 +2350,9 @@ var DimpBase = {
                 });
                 return;
             } else if (mode == 'tog') {
-                this.setFolderLabel(base.retrieve('mbox'));
+                // Need to pass element here, since we might be working
+                // with 'special' folders.
+                this.setFolderLabel(base);
             }
         }
 
