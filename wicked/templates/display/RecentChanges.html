@@ -1,0 +1,17 @@
+<div class="pagebody">
+<table class="table RecentChanges" cellspacing="0">
+ <loop:changes>
+ <tr>
+  <th colspan="4" class="table-cell control"><tag:changes.date /></th>
+ </tr>
+ <loop:changes.pages>
+ <tr>
+  <td class="table-cell nowrap" style="width:20%" valign="top"><a href="<tag:changes.pages.url />"><tag:changes.pages.name /></a></td>
+  <td class="table-cell nowrap" style="width:5%" valign="top"><a href="<tag:changes.pages.version_url />" title="<tag:changes.pages.version_alt />"><tag:changes.pages.version /></a> <a href="<tag:changes.pages.diff_url />" title="<tag:changes.pages.diff_alt />"><tag:changes.pages.diff_img /></a></td>
+  <td class="table-cell nowrap" style="width:15%" valign="top"><tag:changes.pages.author /></td>
+  <td class="table-cell" style="width:58%" valign="top"><tag:changes.pages.change_log /></td>
+ </tr>
+ </loop:changes.pages>
+ </loop:changes>
+</table>
+</div>

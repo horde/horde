@@ -1,0 +1,29 @@
+/**
+ * $Horde: wicked/themes/hordeweb/screen.css,v 1.3 2008/08/18 17:04:30 jan Exp $
+ */
+
+.control {
+    padding-left: 5px;
+    padding-right: 5px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+}
+
+.pagebody {
+    padding: 0;
+}
+.pagebody h1, .pagebody h2 {
+    border: none;
+}
+#pagefooter {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.filelist, #toc {
+    font-size: 100%;
+    background: #cfc;
+    border: none;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+}

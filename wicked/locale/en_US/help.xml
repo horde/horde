@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<!-- $Horde: wicked/locale/en_US/help.xml,v 1.2 2006/02/23 20:21:53 chuck Exp $ -->
+<help>
+
+<entry id="Overview">
+ <title>Overview</title>
+ <heading>Introduction</heading>
+ <para>
+  Wiki is a WikiWikiWeb application integrated with Horde.
+ </para>
+</entry>
+
+<entry id="Templates">
+ <title>Page Templates</title>
+ <heading></heading>
+ <para>
+  Templates are pages that begin or end with &quot;Template&quot;
+  (capitalization counts). They can be used to provide initial content
+  or structure when creating new pages.
+ </para>
+</entry>
+
+</help>

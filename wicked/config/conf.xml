@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<!-- $Horde: wicked/config/conf.xml,v 1.27 2009/10/31 15:57:16 jan Exp $ -->
+<configuration>
+ <configsection name="wicked">
+  <configheader>
+   Application Settings
+  </configheader>
+
+  <configstring name="notify_address" required="false" desc="The email address
+  to which changes on pages should be mailed. Leave empty if you don't want
+  notification messages to be sent."/>
+  <configstring name="guest_address" required="false" desc="The email address
+  that should be used as the sender if guests are making changes."/>
+  <configenum name="diff_format" desc="The diff format that should be used
+  when sending notifications.">unified
+   <values>
+    <value desc="Unified context">unified</value>
+    <value desc="Copied context">context</value>
+    <value desc="Side by side">sidebyside</value>
+   </values>
+  </configenum>
+  <configboolean name="require_change_log" desc="Require users to enter a
+  change description?">false</configboolean>
+  <configswitch name="captcha" quote="false" desc="Require users to enter a
+  verification string with each message to protect against spam? (Requires
+  Horde 3.1)">false
+   <case name="false" desc="No"/>
+   <case name="true" desc="Yes">
+    <configstring name="figlet_font" desc="The path to a Figlet
+    (http://www.figlet.org/) font
+    file">/usr/share/games/figlet/fonts/big.flf</configstring>
+   </case>
+  </configswitch>
+  <configenum name="format" quote="true" desc="Which Wiki format should
+  be used?">Default
+   <values>
+    <value desc="Default">Default</value>
+    <value desc="BBCode">BBCode</value>
+    <value desc="Creole">Creole</value>
+    <value desc="Mediawiki">Mediawiki</value>
+    <value desc="Tiki">Tiki</value>
+   </values>
+  </configenum>
+  <configsection name="lock">
+   <configinteger name="time" desc="How many minutes should pages be locked
+   for editing?">10</configinteger>
+  </configsection>
+ </configsection>
+
+ <configsection name="options" desc="Look and feel">
+  <configheader>Look and feel</configheader>
+  <configboolean name="use_mod_rewrite" desc="Should we use mod_rewrite URL translations for page URLs? If your webserver doesn't have mod_rewrite enabled, enabling this will result in broken links. The default/fallback if this is off is to use GET to pass the page name.">false</configboolean>
+ </configsection>
+
+ <configsection name="menu">
+  <configheader>
+    Menu Settings
+  </configheader>
+
+  <configmultienum name="pages" desc="What standard pages would you like to
+  show up as links in Wicked's menu?">WikiHome
+   <values>
+    <value desc="WikiHome">_WikiHome</value>
+    <value desc="HowToUseWiki">HowTo_UseWiki</value>
+    <value desc="RecentChanges">_RecentChanges</value>
+    <value desc="AllPages">_AllPages</value>
+   </values>
+  </configmultienum>
+
+  <configmultienum name="apps" desc="Select any applications that should be
+  linked in Wicked's menu">
+   <values>
+    <configspecial name="list-horde-apps" />
+   </values>
+  </configmultienum>
+ </configsection>
+
+ <configsection name="storage">
+   <configheader>
+    Storage System Settings
+   </configheader>
+
+  <configenum name="driver" desc="What storage driver should we use?">sql
+   <values>
+    <value desc="SQL">sql</value>
+   </values>
+  </configenum>
+
+  <configsection name="params">
+   <configsql switchname="driverconfig">
+    <configstring name="table" desc="Database table">wicked_pages</configstring>
+    <configstring name="historytable" desc="History database table">wicked_history</configstring>
+    <configstring name="attachmenttable" desc="Attachments table">wicked_attachments</configstring>
+    <configstring name="attachmenthistorytable" desc="Attachments history table">wicked_attachment_history</configstring>
+   </configsql>
+  </configsection>
+ </configsection>
+
+</configuration>
+

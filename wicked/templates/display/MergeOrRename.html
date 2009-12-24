@@ -1,0 +1,67 @@
+<form method="post" action="<tag:formAction />" name="TitleSearch">
+<tag:formInput />
+<input type="hidden" name="page" value="MergeOrRename" />
+<input type="hidden" name="referrer" value="<tag:referrer />" />
+<input type="hidden" name="actionID" value="special" />
+
+<h1 class="header">
+ <tag:pageName />: <a href="<tag:referrerLink />"><tag:referrer /></a>
+</h1>
+
+<table class="striped" style="width:100%" cellspacing="0">
+ <tr valign="top">
+  <td width="20%" align="right">
+    <span class="form-error"><tag:requiredMarker /></span>&nbsp;
+    <strong><gettext>New name</gettext></strong>
+    <span class="form-error"><tag:errors.new_name /></span>
+  </td>
+  <td>
+    <input type="text" name="new_name" size="40" value="<tag:new_name />" />
+  </td>
+ </tr>
+
+ <tr valign="top">
+  <td align="right">
+    <span class="form-error"><tag:requiredMarker /></span>&nbsp;
+    <strong><gettext>If a page with the new name already exists, then</gettext></strong>
+    <span class="form-error"><tag:errors.collision /></span>
+  </td>
+  <td>
+    <input type="radio" name="collision" value="merge" checked="checked" />
+     <gettext>Add the text from this page</gettext><br />
+    <input type="radio" name="collision" value="fail" />
+     <gettext>Stop and don't do anything</gettext><br />
+  </td>
+ </tr>
+
+ <tr>
+  <td class="control" colspan="2">
+   <strong>
+    <gettext>Change references to this page from:</gettext>
+   </strong>
+  </td>
+ </tr>
+ <tr>
+  <td colspan="2"> &nbsp; <em><tag:referenceCount /></em></td>
+ </tr>
+
+ <loop:references>
+  <tr>
+    <td align="right">
+     <input type="checkbox" name="ref[<tag:references.checkbox />]" checked="checked" />
+    </td>
+    <td>
+      <strong><a href="<tag:references.page_url />"><tag:references.page_name /></a></strong>
+    </td>
+  </tr>
+ </loop:references>
+
+ <tr>
+  <td colspan="2">
+   <input type="submit" class="button" name="submit" value="<gettext>Submit</gettext>" />
+   <input type="submit" class="button" name="submit" value="<gettext>Cancel</gettext>" />
+  </td>
+ </tr>
+</table>
+
+</form>

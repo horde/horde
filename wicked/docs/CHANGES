@@ -1,0 +1,123 @@
+--------
+v1.0-cvs
+--------
+
+[jan] Drop support for coWiki markup.
+[jan] Fix Oracle SQL scripts.
+[jan] Implement pessimistic locking based on Horde_Lock.
+[mjr] Add default lighttpd-style rewrite rules.
+[jan] Add Brazilian Portuguese translation (Luis Felipe Marzagao
+      <duli@fedoraproject.org>).
+[cjh] Support arbitrary charsets for page names (Bug #7805).
+[cjh] Fix saveTemplate API call (Duck <duck@obala.net>, Bug #7620).
+[jan] Add Italian translation (Fabio Pedretti <fabio.pedretti@ing.unibs.it>).
+[jan] Add Precedence and Auto-Submitted headers to notification messages.
+[cjh] Add an API method for fetching recent changes, and allow specifying
+      the number of days to look back in the RecentChanges page
+      (Duck <duck@obala.net>, Request #7230).
+[jan] Add script to convert data to UTF-8 in the backend.
+[cjh] Allow downloading from/uploading to a remote wiki server
+      (Duck <duck@obala.net>, Request #7191).
+[cjh] Add getMultiplePageInfo() and getPageHistory() API calls, along with
+      page checksums (Duck <duck@obala.net>, Request #7189).
+[cjh] Add Download this page as... link (Duck <duck@obala.net>, Request #7168).
+[cjh] Add renderPage() API call (duck@obala.net).
+[cjh] Add list(), getPageInfo(), show(), and pageExists() API calls
+      (Duck <duck@obala.net>, Request #7149).
+[jan] Add display and edit API methods (Duck <duck@obala.net>, Request #6130).
+[jan] Add Japanese translation (Takeshi Taguchi <taguchi@iij.ad.jp>).
+[cjh] Fix permission checks for non-admins when deleting and reverting
+      (Bug #5806).
+[cjh] Fix removing the most recent revision with some databases (Bug #5807).
+[jan] Work around problems with Text_Wiki and PHP 5.2.5+ (Bug #5951).
+[mms] Compress download data.
+[jan] Add OpenSearch interface for page search through browser bars.
+[jan] Add Ukrainian translation (Andriy Kopystyansky <anri@polynet.lviv.ua>).
+[cjh] Support mod_rewrite style URLs with Text_Wiki 1.2 (Bug #4740).
+[jan] Allow to add images from other pages (Request #5448).
+[cjh] Enforce READ permissions for all page modes (Bug #5328).
+[jan] Add Slovenian translation (Duck <duck@obala.net>).
+[jan] Fix searching for non-ascii strings (Bug #4644).
+[mms] Add initial CAPTCHA support.
+[cjh] Fix deletion of the most recent revision.
+[cjh] Table of Contents is now floated to the right and collapses/expands on
+      click.
+[jan] Show similar pages before creating a new one.
+[cjh] Ensure external links attached to images go through Horde::externalUrl()
+      (tasin@fhm.edu, Bug #3151).
+[cjh] Include matching context in PageSearch results (Request #2485).
+[cjh] Encode notification emails correctly (tasin@fhm.edu, Bug #3153).
+[cjh] Don't create pages until they have content (Bug #2534).
+[cjh] Run all revert actions through a non-JavaScript, POST
+      confirmation page.
+[cjh] Run all page/version deletion through a non-JavaScript, POST
+      confirmation page.
+[ben] Better support for MS-SQL.
+[cjh] Add [[link ...]] syntax for calling $registry->link() in pages
+      (Bug #1474).
+[cjh] Fix Wiki Page Block when the page being displayed has attachments
+      (Bug #2258).
+[cjh] Only list standard pages in Wicked's "Back to" history (Bug #2252).
+[cjh] Delete all attachments to a page when that page is deleted.
+[cjh] Attachments can now be deleted (Bug #2246).
+[cjh] Send notification emails when files are attached (Bug #2248).
+[mas] Include changelogs in emails, if available. (Bug #2068)
+[cjh] If there is only one search result, go directly to it.
+[jan] Support type="htmlphp" attribute for code blocks.
+[cjh] Show a summary of any attachments on a page (Bug #1473).
+[cjh] Fix updating of attachments (Bug #1579).
+[cjh] Add a config option to toggle use of pretty URLS with mod_rewrite
+      (Bug #1878).
+[jan] Support arbitrary charsets for page contents (with Text_Wiki > 1.0.0).
+[cjh] Require PERMS_EDIT to attach files to a page (tasin@fhm.edu, Bug #1880).
+[cjh] Send email on MergeOrRename (Bug #916).
+[cjh] Go to the newly merged or renamed page after MergeOrRename (Bug #916).
+[cjh] Display the page that was edited after editing instead of going to
+      WikiHome (Bug #1478).
+[cjh] Require PERMS_EDIT to MergeOrRename a page (Bug #915).
+[cjh] Use bind variables in SQL driver (selsky@columbia.edu, #1746).
+[cjh] Multiple-definition guard for separator() (Bug #1710).
+[jmf] References to special pages in wiki text no longer look deleted.
+[jmf] Ability to set permissions on special pages.
+[jmf] Prevent loosing attachments when renaming pages.
+[jan] Add test page.
+[jan] Add Finnish translation (Leena Heino <liinu@uta.fi>).
+[jmf] Add command-line script to manipulate wiki pages (Vijay Mahrra
+      <vijay.mahrra@es.easynet.net>).
+[jmf] Add "Create" buttons on TitleSearch and PageSearch pages (Vijay Mahrra
+      <vijay.mahrra@es.easynet.net>).
+[jmf] Add quick diff link (show changes from last version) when viewing page.
+[jmf] Add configuration option to require change descriptions.
+[jan] Notify about page deletions.
+[jmf] Add support for displaying attached images.
+[jmf] Add the ability to attach files to pages.
+[jmf] Add the ability to merge and rename pages.
+[jan] Add Spanish translation (Manuel Perez Ayala <mperaya@alcazaba.unex.es>).
+[jmf] Implement templates (templates are pages which begin or end with
+      "Template").
+[jan] Add Traditional Chinese translation (David Chang <david@tmv.gov.tw>).
+[jan] Add history drop down list to jump to the last visited pages.
+[cjh] Add MostPopular and LeastPopular wiki pages.
+[cjh] Log page views.
+[cjh] A parameter of autocreate=1 must now be passed to display.php for pages
+      that don't exist to be created automatically. This is done by default
+      for "?" links, but for external incoming links and results of the top
+      left jump box, users will get a form that allows them to confirm
+      creation of the new page.
+[cjh] Add AllPages Page and Block implementations.
+[cjh] Wicked now provides Horde_Blocks for doing TitleSearches and viewing
+      RecentChanges.
+[cjh] TitleSearch now works and is available as a global menu option.
+[cjh] Add a Preview button in the EditPage screen.
+[cjh] Move BackLinks and LikePages to the toolbar.
+[cjh] Store and display changelogs for page revisions.
+[cjh] In the history view, diffs between page versions work now.
+[jmf] Add jump box.
+[jan] Update to work with Text_Wiki 0.8.
+[cjh] Use Text_Diff for diff generation.
+[jan] Add Page::allows().
+[jan] Add Wicked::mail().
+[jan] Add diff and notification support.
+[jan] Add German translation.
+[jan] Allow keeping guests from editing and creating pages.
+[tjc] Initial version.

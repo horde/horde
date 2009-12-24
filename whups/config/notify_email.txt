@@ -1,2 +1,0 @@
-@@dont_reply@@@@ticket_url@@
-@@table@@@@comment@@

@@ -1,0 +1,15 @@
+<loop:pages>
+<tr>
+ <td>
+  <a href="<tag:pages.url />" class="<tag:pages.class />"><tag:pages.name /></a><if:pages.context> <small>(<tag:pages.context />)</small></if:pages.context>
+ </td>
+ <td class="nowrap">
+  <a href="<tag:pages.url />" class="<tag:pages.class />"><tag:pages.version /></a>
+ </td>
+ <td class="nowrap"><tag:pages.author /></td>
+ <td class="nowrap"><tag:pages.created /></td>
+ <if:hits>
+  <td class="nowrap"><tag:pages.hits /></td>
+ </if:hits>
+</tr>
+</loop:pages>

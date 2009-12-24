@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!-- $Horde: wicked/locale/fi_FI/help.xml,v 1.3 2008/02/22 13:36:05 jan Exp $ -->
+<help>
+  <entry id="Overview" md5="d1cc1502e3ddeb34b209a5c3f631a586" state="uptodate">
+    <title>Yleiskuva</title>
+    <heading>Esittely</heading>
+    <para>
+    Wiki on Horden WikiWikiWeb ohjelmisto.
+    </para>
+</entry>
+  <entry id="Templates" state="uptodate" md5="0889184f1837cd40dd5c5ed60670fd65">
+ <title>Page Templates</title>
+ <heading/>
+ <para>
+  Templates are pages that begin or end with "Template"
+  (capitalization counts). They can be used to provide initial content
+  or structure when creating new pages.
+ </para>
+</entry>
+</help>
