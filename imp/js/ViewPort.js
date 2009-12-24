@@ -171,6 +171,9 @@
  *       the viewable rows. Keys are a unique ID (see also the 'rowlist'
  *       entry). Values are the data objects. Internal keys for these data
  *       objects must NOT begin with the string 'VP_'.
+ * disappear: (array) If update is set, this is the list of unique IDs that
+ *            have been cached by the browser but no longer appear on the
+ *            server.
  * label: (string) [REQUIRED when initial is true] The label to use for the
  *        view.
  * metadata [optional]: (object) Metadata for the view. Entries in buffer are
@@ -828,6 +831,9 @@ var ViewPort = Class.create({
 
         if (r.reset) {
             this.select(new ViewPort_Selection());
+        } else if (r.update && r.disappear && r.disappear.size()) {
+            this.deselect(this.createSelection('uid', r.disappear, r.view));
+            buffer.removeData(r.disappear);
         }
 
         llist.unset(r.requestid);
@@ -1573,6 +1579,14 @@ ViewPort_Buffer = Class.create({
                     this.rowlist.unset(n);
                 }
             }
+        }, this);
+    },
+
+    removeData: function(uids)
+    {
+        uids.each(function(u) {
+            this.data.unset(u);
+            this.uidlist.unset(u);
         }, this);
     },
 

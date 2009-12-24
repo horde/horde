@@ -230,20 +230,36 @@ class IMP_Views_ListMessages
 
         /* Generate the message list and the UID -> rownumber list. */
         $data = $msglist = $rowlist = array();
-        foreach (range($slice_start, $slice_end) as $key) {
-            $uid = $sorted_list['s'][$key] .
-                (isset($sorted_list['m'][$key])
-                    ? IMP::IDX_SEP . $sorted_list['m'][$key]
-                    : '');
-            if ($uid) {
-                $msglist[$key] = $sorted_list['s'][$key];
-                $rowlist[$uid] = $key;
-                if (!isset($cached[$uid])) {
-                    $data[] = $key;
-                }
+        $uidlist = $this->_getUidList($slice_start, $slice_end, $sorted_list);
+        foreach ($uidlist as $uid => $seq) {
+            $msglist[$seq] = $sorted_list['s'][$seq];
+            $rowlist[$uid] = $seq;
+            if (!isset($cached[$uid])) {
+                $data[] = $seq;
             }
         }
         $result->rowlist = $rowlist;
+
+        /* If we are updating the rowlist on the browser, and we have cached
+         * browser data information, we need to send a list of messages that
+         * have 'disappeared'. */
+        if (isset($result->update)) {
+            if (($slice_start != 0) &&
+                ($slice_end != count($sorted_list['s']))) {
+                $uidlist = $this->_getUidList(0, count($sorted_list['s']), $sorted_list);
+            }
+
+            $disappear = array();
+            foreach (array_keys($cached) as $val) {
+                if (!isset($uidlist[$val])) {
+                    $disappear[] = $val;
+                }
+            }
+
+            if (!empty($disappear)) {
+                $result->disappear = $disappear;
+            }
+        }
 
         /* Build the list for rangeslice information. */
         if ($args['rangeslice']) {
@@ -275,6 +291,32 @@ class IMP_Views_ListMessages
         }
 
         return $result;
+    }
+
+    /**
+     * Generates the list of unique UIDs for the current mailbox.
+     *
+     * @param integer $start      The slice start.
+     * @param integer $end        The slice end.
+     * @param array $sorted_list  The sorted list array.
+     *
+     * @param array  UIDs as the keys, and sequence numbers as the values.
+     */
+    protected function _getUidList($start, $end, $sorted_list)
+    {
+        $ret = array();
+
+        for ($i = $start; $i <= $end; ++$i) {
+            $uid = $sorted_list['s'][$i] .
+                (isset($sorted_list['m'][$i])
+                    ? IMP::IDX_SEP . $sorted_list['m'][$i]
+                    : '');
+            if ($uid) {
+                $ret[$uid] = $i;
+            }
+        }
+
+        return $ret;
     }
 
     /**

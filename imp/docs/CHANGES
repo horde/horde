@@ -2,7 +2,10 @@
 v5.0-git
 --------
 
-[mms] Only update search mailbox on explicit user action (Request #7297).
+[mms] If selected message(s) disappear from mailbox, gracefully handle in the
+      user interface (DIMP).
+[mms] Only update search mailbox on explicit user action (Request #7297)
+      (DIMP).
 [mms] Add auto-save draft to IMP (Request #7656).
 [mms] Add keyboard shortcut to move to next unseen message (Request #8223).
 [mms] Add hook to dynamically change mailbox label (Request #6734).
