@@ -1,0 +1,21 @@
+/**
+ * $Horde: agora/themes/screen.css,v 1.4 2007/05/07 18:58:35 chuck Exp $
+ */
+
+.messageContainer {
+    width: 100%;
+    padding: 2px;
+    background: #e9e9e9;
+    margin-bottom: 8px;
+}
+.messageAuthor {
+    width: 10%;
+}
+.messageBody {
+    width: 90%;
+    background: #fff;
+    border: 1px solid #ccc;
+}
+.messageBody p {
+    padding: 1em;
+}

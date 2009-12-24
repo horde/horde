@@ -1,0 +1,22 @@
+=============================
+ Agora Development TODO List
+=============================
+
+:Last update:   $Date: 2007/12/17 11:49:15 $
+:Revision:      $Revision: 1.20 $
+:Contact:       dev@lists.horde.org
+
+- Add per-forum custom templates.
+
+- Write an agorad daemon that provided access to agora forums via NNTP,
+  possibly IMAP, etc.
+
+- Split threads per page in threaded view.
+
+- Add per-forum text filter settings.
+
+- Add permission management interface
+
+- Reduce number of loops in for thread display
+
+- AJAX reply submission

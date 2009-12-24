@@ -1,0 +1,47 @@
+--------
+v2.0-cvs
+--------
+
+[] Horde_Template to Horde_View (Duck <duck@obala.net>)
+[] DB to MDB2 (Duck <duck@obala.net>)
+[] Requires PHP5 (Duck <duck@obala.net>)
+
+--------
+v1.0-cvs
+--------
+
+[jan] Enable output compression.
+[jan] Add Japanese translation (Takeshi Taguchi <taguchi@tcltk.jp>).
+[cjh] Merge Horde_Template_Compiling to stable Agora branch as Agora_Template.
+[mjr] Added batch api methods for retrieving message counts and threads for
+      more than one forum at a time.
+[jan] Add Hungarian translation (Garami Gábor <hron@hronszoft.dyndns.biz>).
+[cjh] Migrate from DataTree to local SQL usage (Duck <duck@obala.net>).
+[jan] Add Slovenian translation (Duck <duck@obala.net>).
+[jan] Allow to manage forums and messages added throught the comments API.
+[jan] Add CAPTCHA test with Figlet fonts.
+[jmf] Implement search page.
+[jan] Use 'rel="nofollow"' link attributes to prevent spam if showing messages
+      through the API.
+[cjh] Add avatar support (Andrew Hosie <ahosie@gmail.com>).
+[cjh] Use DataTree::sortByAttributes() to do more sorting in the database
+      and avoid loading excess objects (Duck <duck@obala.net>).
+[cjh] Work around IE bugs for threaded message views by having columns
+      total 99% instead of 100% (Bug #1298).
+[jan] Add Lithuanian translation (Vilius Sumskas <vilius@lnk.lt>).
+[mdj] Add attachments and moderation.
+[mms] Allow user to specify how many forums/threads to display in the
+      block view.
+[mms] Added paging of forum and thread pages.
+[jan] Add Spanish translation (Manuel Perez Ayala <mperaya@alcazaba.unex.es>).
+[jan] Add Traditional Chinese translation (Chih-Wei Yeh
+      <cwyeh@ccca.nctu.edu.tw>).
+[jan] Add sorting by thread.
+[jan] Quote replied messages.
+[jan] Add Finnish translation (Petteri Karttunen <pkarttun@siba.fi>).
+[cjh] Add deletion of messages.
+[mdj] Add Romanian translation (Eugen Hoanca <eugenh@urban-grafx.ro>).
+[cjh] Fix permissions checking semantics.
+[jan] Add German translation.
+[jan] Add French translation (Florent Aide <faide@alphacent.com>).
+[mdj] Initial import to CVS.
