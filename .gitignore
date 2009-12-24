@@ -1,17 +1,20 @@
-*/config/*.php
 .DS_Store
-/lib/
 .cache
 .project
 .settings
+.buildpath
 *~
 .#*
 *.orig
 *.rej
 
+# Ignore locally defined config
+*/config/*.php
+
+# Application specific excludes
+framework/bin/*.conf
+
 !horde/config/nls.php
 horde/config/registry.d/*.php
 horde/libs/
 horde/static/*.*
-
-framework/bin/*.conf
