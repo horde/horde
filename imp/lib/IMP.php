@@ -638,50 +638,6 @@ class IMP
     }
 
     /**
-     * Outputs the necessary javascript code to display the new mail
-     * notification message.
-     *
-     * @param mixed $var  Either an associative array with mailbox names as
-     *                    the keys and the message count as the values or
-     *                    an integer indicating the number of new messages
-     *                    in the current mailbox.
-     *
-     * @return string  The javascript for the popup message.
-     */
-    static public function getNewMessagePopup($var)
-    {
-        $t = new Horde_Template();
-        $t->setOption('gettext', true);
-        if (is_array($var)) {
-            if (empty($var)) {
-                return;
-            }
-            $folders = array();
-            foreach ($var as $mb => $nm) {
-                $folders[] = array(
-                    'url' => self::generateIMPUrl('mailbox.php', $mb)->add('no_newmail_popup', 1),
-                    'name' => htmlspecialchars(self::displayFolder($mb)),
-                    'new' => (int)$nm,
-                );
-            }
-            $t->set('folders', $folders);
-
-            if (($_SESSION['imp']['protocol'] != 'pop') &&
-                $GLOBALS['prefs']->getValue('use_vinbox') &&
-                ($vinbox_id = $GLOBALS['prefs']->getValue('vinbox_id'))) {
-                $t->set('vinbox', Horde::link(self::generateIMPUrl('mailbox.php', $GLOBALS['imp_search']->createSearchID($vinbox_id))->add('no_newmail_popup', 1)));
-            }
-        } else {
-            $t->set('msg', ($var == 1) ? _("You have 1 new message.") : sprintf(_("You have %s new messages."), $var));
-        }
-        $t_html = str_replace("\n", ' ', $t->fetch(IMP_TEMPLATES . '/newmsg/alert.html'));
-
-        Horde::addScriptFile('effects.js', 'horde');
-        Horde::addScriptFile('redbox.js', 'horde');
-        return 'RedBox.overlay = false; RedBox.showHtml(\'' . addcslashes($t_html, "'/") . '\');';
-    }
-
-    /**
      * Get message indices list.
      *
      * @param mixed $indices  The following inputs are allowed:
@@ -1182,5 +1138,70 @@ class IMP
             return true;
         }
     }
+
+    /**
+     * Output configured alerts for newmail.
+     *
+     * @param mixed $var  Either an associative array with mailbox names as
+     *                    the keys and the message count as the values or
+     *                    an integer indicating the number of new messages
+     *                    in the current mailbox.
+     *
+     * @param integer $msgs  The number of new messages.
+     */
+    static public function newmailAlerts($var)
+    {
+        if ($GLOBALS['prefs']->getValue('nav_popup')) {
+            Horde::addInlineScript(array(
+                self::_getNewMessagePopup($var)
+            ), 'dom');
+        }
+
+        if ($sound = $GLOBALS['prefs']->getValue('nav_audio')) {
+            $GLOBALS['notification']->push($GLOBALS['registry']->getImageDir() . '/audio/' . $sound, 'audio');
+        }
+    }
+
+    /**
+     * Outputs the necessary javascript code to display the new mail
+     * notification message.
+     *
+     * @param mixed $var  See self::newmailAlerts().
+     *
+     * @return string  The javascript for the popup message.
+     */
+    static protected function _getNewMessagePopup($var)
+    {
+        $t = new Horde_Template();
+        $t->setOption('gettext', true);
+        if (is_array($var)) {
+            if (empty($var)) {
+                return;
+            }
+            $folders = array();
+            foreach ($var as $mb => $nm) {
+                $folders[] = array(
+                    'url' => self::generateIMPUrl('mailbox.php', $mb)->add('no_newmail_popup', 1),
+                    'name' => htmlspecialchars(self::displayFolder($mb)),
+                    'new' => (int)$nm,
+                );
+            }
+            $t->set('folders', $folders);
+
+            if (($_SESSION['imp']['protocol'] != 'pop') &&
+                $GLOBALS['prefs']->getValue('use_vinbox') &&
+                ($vinbox_id = $GLOBALS['prefs']->getValue('vinbox_id'))) {
+                $t->set('vinbox', Horde::link(self::generateIMPUrl('mailbox.php', $GLOBALS['imp_search']->createSearchID($vinbox_id))->add('no_newmail_popup', 1)));
+            }
+        } else {
+            $t->set('msg', ($var == 1) ? _("You have 1 new message.") : sprintf(_("You have %s new messages."), $var));
+        }
+        $t_html = str_replace("\n", ' ', $t->fetch(IMP_TEMPLATES . '/newmsg/alert.html'));
+
+        Horde::addScriptFile('effects.js', 'horde');
+        Horde::addScriptFile('redbox.js', 'horde');
+        return 'RedBox.overlay = false; RedBox.showHtml(\'' . addcslashes($t_html, "'/") . '\');';
+    }
+
 
 }

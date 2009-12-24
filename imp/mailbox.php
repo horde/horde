@@ -391,14 +391,8 @@ if (!empty($newmsgs)) {
     $imp_imap->ob()->openMailbox($imp_mbox['mailbox'], Horde_Imap_Client::OPEN_READWRITE);
 
     if (!Horde_Util::getFormData('no_newmail_popup')) {
-        /* Newmail audio. */
-        if (($sound = $prefs->getValue('nav_audio'))) {
-            $notification->push($registry->getImageDir() . '/audio/' . $sound, 'audio');
-        }
-        /* Newmail alert. */
-        if ($prefs->getValue('nav_popup')) {
-            Horde::addInlineScript(IMP::getNewMessagePopup($newmsgs), 'dom');
-        }
+        /* Newmail alerts. */
+        IMP::newmailAlerts($newmsgs);
     }
 }
 

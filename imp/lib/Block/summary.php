@@ -110,14 +110,9 @@ class Horde_Block_imp_summary extends Horde_Block
                 $GLOBALS['imp_imap']->ob()->openMailbox($mbox, Horde_Imap_Client::OPEN_READWRITE);
             }
 
-            if ($prefs->getValue('nav_popup')) {
-                $html .= Horde_Util::bufferOutput(Horde::addInlineScript((IMP::getNewMessagePopup($newmsgs)), 'dom'));
-            }
-
-            if (($sound = $prefs->getValue('nav_audio'))) {
-                $notification->push($registry->getImageDir() .
-                                    '/audio/' . $sound, 'audio');
-                $html .= Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'audio'));
+            if ($prefs->getValue('nav_audio') || $prefs->getValue('nav_popup')) {
+                $html .= Horde_Util::bufferOutput(IMP::newmailAlerts($newmsgs)) .
+                    Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'audio'));
             }
         } elseif (!empty($this->_params['show_unread'])) {
             if (count($folders) == 0) {

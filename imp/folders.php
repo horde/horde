@@ -418,15 +418,7 @@ if (!empty($newmsgs)) {
         $imp_imap->ob()->openMailbox($mbox, Horde_Imap_Client::OPEN_READWRITE);
     }
 
-    if ($prefs->getValue('nav_popup')) {
-        Horde::addInlineScript((
-            IMP::getNewMessagePopup($newmsgs)
-        ), 'dom');
-    }
-
-    if (($sound = $prefs->getValue('nav_audio'))) {
-        $notification->push($registry->getImageDir() . '/audio/' . $sound, 'audio');
-    }
+    IMP::newmailAlerts($newmsgs);
 }
 
 /* Get the tree images. */
@@ -490,5 +482,4 @@ if (count($rows) > 10) {
 /* No need for extra template - close out the tags here. */
 echo '</form></div>';
 
-$notification->notify(array('listeners' => 'audio'));
 require $registry->get('templates', 'horde') . '/common-footer.inc';
