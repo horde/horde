@@ -712,8 +712,8 @@ class IMP_Mailbox
      * @param integer $mbox  The message mailbox (defaults to the current
      *                       mailbox).
      *
-     * @return integer  The array index of the location of the message UID in
-     *                  the current mailbox.
+     * @return mixed  The array index of the location of the message UID in
+     *                the current mailbox. Returns null if not found.
      */
     public function getArrayIndex($uid, $mbox = null)
     {

@@ -99,8 +99,8 @@ class IMP_Contents
      * Ensures that only one IMP_Contents instance for any given message is
      * available at any one time.
      *
-     * @param mixed $in  Either a uid string (see IMP_Contents::singleton()
-     *                   for the format) or a Horde_Mime_Part object.
+     * @param mixed $in  Either a UID string (UID . IMP::IDX_SEP . Mailbox) or
+     *                   a Horde_Mime_Part object.
      *
      * @return IMP_Contents  The IMP_Contents object.
      * @throws Horde_Exception
@@ -121,8 +121,8 @@ class IMP_Contents
     /**
      * Constructor.
      *
-     * @param mixed $in  Either a uid string (see IMP_Contents::singleton()
-     *                   for the format) or a Horde_Mime_Part object.
+     * @param mixed $in  Either a UID string (UID . IMP::IDX_SEP . Mailbox) or
+     *                   a Horde_Mime_Part object.
      * @throws Horde_Exception
      */
     protected function __construct($in)
