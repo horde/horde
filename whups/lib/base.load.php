@@ -11,7 +11,7 @@
  */
 
 if (!defined('WHUPS_BASE')) {
-    define('WHUPS__BASE', dirname(__FILE__) . '/..');
+    define('WHUPS_BASE', dirname(__FILE__) . '/..');
 }
 
 if (!defined('HORDE_BASE')) {

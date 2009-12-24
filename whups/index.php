@@ -17,7 +17,7 @@ $whups_configured = (is_readable(WHUPS_BASE . '/config/conf.php') &&
                      is_readable(WHUPS_BASE . '/config/templates.php'));
 
 if (!$whups_configured) {
-    require WHUPS_BASE . '/../lib/Test.php';
+    require HORDE_BASE . '/lib/Test.php';
     Horde_Test::configFilesMissing('Whups', WHUPS_BASE,
         array('conf.php', 'mime_drivers.php', 'prefs.php'),
         array('templates.php' => 'This file defines the templates that various parts of Whups use to format data.',
