@@ -1,6 +1,4 @@
 .DS_Store
-/lib/
-/libs/
 .cache
 .project
 .settings
@@ -11,30 +9,20 @@ run-tests.log
 *.orig
 *.rej
 
-# Ignore locally defined HORDE_BASE config
-*/config/*.local.php
-*/lib/base.local.php
+# Ignore locally defined config
+*/config/*.php
+*/config/*.txt
 
-# Application specific patterns
-ansel/config/*.php
-chora/config/*.php
-gollem/config/*.php
-imp/config/*.php
-imp/config/*.txt
-ingo/config/*.php
-jeta/config/*.php
-kronolith/config/*.php
-nag/config/*.php
-turba/config/*.php
-vilma/config/*.php
-
+# Application specific excludes
 framework/Rdo/examples/Horde/Rdo/conf.php
+
 iPhoto2Ansel/build/
 iPhoto2Ansel/iPhoto2Ansel.xcodeproj/*.pbxuser
 !iPhoto2Ansel/iPhoto2Ansel.xcodeproj/default.pbxuser
 iPhoto2Ansel/iPhoto2Ansel.xcodeproj/*.perspectivev3
 iPhoto2Ansel/*.pbxproject
 iPhoto2Ansel/Installer/*.pkg
+
 ApertureToAnselExportPlugin/build/
 ApertureToAnselExportPlugin/ApertureToAnselExportPlugin.xcodeproj/*.pbxuser
 !ApertureToAnselExportPlugin/ApertureToAnselExportPlugin.xcodeproj/default.pbxuser
