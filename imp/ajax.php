@@ -43,10 +43,11 @@ function _generateDeleteResult($mbox, $indices, $change, $nothread = false)
     return $result;
 }
 
-function _changed($mbox, $compare, $rw = null)
+function _changed($mbox, $compare, $action, $rw = null)
 {
-    if ($GLOBALS['imp_search']->isVFolder($mbox)) {
-        return true;
+    /* Only update search mailboxes on forced refreshes. */
+    if ($GLOBALS['imp_search']->isSearchMbox($mbox)) {
+        return ($action == 'ViewPort') || Horde_Util::getPost('forceUpdate');
     }
 
     /* We know we are going to be dealing with this mailbox, so select it on
@@ -373,7 +374,7 @@ case 'Poll':
 
     $changed = false;
     if (!empty($mbox)) {
-        $changed =_changed($mbox, $cacheid);
+        $changed =_changed($mbox, $cacheid, $action);
         if ($changed) {
             $result->ViewPort = _getListMessages($mbox, true);
         }
@@ -408,7 +409,7 @@ case 'ViewPort':
         IMP::setSort($sortby, $sortdir, $mbox);
     }
 
-    $changed = _changed($mbox, $cacheid, false);
+    $changed = _changed($mbox, $cacheid, $action, false);
 
     if (is_null($changed)) {
         $list_msg = new IMP_Views_ListMessages();
@@ -435,7 +436,7 @@ case 'CopyMessage':
     }
 
     $change = ($action == 'MoveMessage')
-        ? _changed($mbox, $cacheid, true)
+        ? _changed($mbox, $cacheid, $action, true)
         : false;
 
     if (!is_null($change)) {
@@ -504,7 +505,7 @@ case 'DeleteMessage':
     }
 
     $imp_message = IMP_Message::singleton();
-    $change = _changed($mbox, $cacheid, true);
+    $change = _changed($mbox, $cacheid, $action, true);
 
     if ($imp_message->delete($indices)) {
         $result = _generateDeleteResult($mbox, $indices, $change, !$prefs->getValue('hide_deleted') && !$prefs->getValue('use_trash'));
@@ -532,7 +533,7 @@ case 'AddContact':
     break;
 
 case 'ReportSpam':
-    $change = _changed($mbox, $cacheid, false);
+    $change = _changed($mbox, $cacheid, $action, false);
 
     if (IMP_Spam::reportSpam($indices, Horde_Util::getPost('spam') ? 'spam' : 'notspam')) {
         $result = _generateDeleteResult($mbox, $indices, $change);
@@ -551,7 +552,7 @@ case 'Blacklist':
 
     $imp_filter = new IMP_Filter();
     if (Horde_Util::getPost('blacklist')) {
-        $change = _changed($mbox, $cacheid, false);
+        $change = _changed($mbox, $cacheid, $action, false);
         if (!is_null($change)) {
             try {
                 if ($imp_filter->blacklistMessage($indices, false)) {
@@ -753,7 +754,7 @@ case 'chunkContent':
     break;
 
 case 'PurgeDeleted':
-    $change = _changed($mbox, $cacheid, $indices);
+    $change = _changed($mbox, $cacheid, $action, $indices);
     if (!is_null($change)) {
         if (!$change) {
             $sort = IMP::getSort($mbox);

@@ -21,12 +21,13 @@ $show_quota = (isset($_SESSION['imp']['quota']) && is_array($_SESSION['imp']['qu
 $imp_flags = IMP_Imap_Flags::singleton();
 $flag_list = $imp_flags->getList(array('imap' => true));
 
-function _simpleButton($id, $text, $image)
+function _simpleButton($id, $text, $image, $nodisplay = false)
 {
     $ak = Horde::getAccessKey($text, true);
     return '<li class="servicelink"' .
         (strlen($id) ? ' id="' . $id . '"' : '') .
-        (strlen($ak) ? ' accesskey="' . $ak . '"' : '') . '>' .
+        (strlen($ak) ? ' accesskey="' . $ak . '"' : '') .
+        ($nodisplay ? ' style="display:none"' : '') . '>' .
         '<span class="iconSpan ' . $image . '"></span>' .
         '<a>' . Horde::highlightAccessKey($text, $ak) . '</a></li>';
 }
@@ -48,6 +49,7 @@ function _simpleButton($id, $text, $image)
    <ul id="dimpbarActions">
     <?php echo _simpleButton('composelink', _("_New Message"), 'dimpactionCompose') ?>
     <?php echo _simpleButton('checkmaillink', _("_Get Mail"), 'dimpactionCheckmail') ?>
+    <?php echo _simpleButton('refreshlink', _("_Refresh Search"), 'dimpactionRefresh', true) ?>
     <?php echo _simpleButton('alertsloglink', _("Alerts _Log"), 'infoIcon') ?>
 <?php if (!empty($_SESSION['imp']['filteravail'])): ?>
     <?php echo _simpleButton('applyfilterlink', _("Apply Filters"), 'filtersIcon') ?>

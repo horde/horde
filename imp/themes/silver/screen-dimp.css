@@ -63,6 +63,9 @@ span.dimpactionCompose {
 span.dimpactionCheckmail {
     background-image: url("graphics/checkmail.png");
 }
+span.dimpactionRefresh {
+    background-image: url("graphics/reload.png");
+}
 span.dimpactionDelete {
     background-image: url("graphics/delete.png");
 }

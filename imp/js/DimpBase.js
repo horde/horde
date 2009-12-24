@@ -338,9 +338,13 @@ var DimpBase = {
 
                 this.folder = f;
 
-                if (this.isSearch(f) &&
-                    (!this.search || this.search.flag)) {
-                    this._quicksearchDeactivate(!this.search);
+                if (this.isSearch(f)) {
+                    if (!this.search || this.search.flag) {
+                        this._quicksearchDeactivate(!this.search);
+                    }
+                    $('refreshlink').show();
+                } else {
+                    $('refreshlink').hide();
                 }
             }
         }
@@ -1403,9 +1407,10 @@ var DimpBase = {
     },
 
     /* Folder list updates. */
-    poll: function()
+    poll: function(force)
     {
-        var args = {};
+        var args = {},
+            check = 'checkmaillink';
 
         // Reset poll folder counter.
         this.setPoll();
@@ -1418,7 +1423,13 @@ var DimpBase = {
             this.viewport.getMetaData('label')) {
             args = this.viewport.addRequestParams({});
         }
-        $('checkmaillink').down('A').update('[' + DIMP.text.check + ']');
+
+        if (force) {
+            args.set('forceUpdate', 1);
+            check = 'refreshlink';
+        }
+
+        $(check).down('A').update('[' + DIMP.text.check + ']');
         DimpCore.doAction('Poll', args);
     },
 
@@ -1435,6 +1446,9 @@ var DimpBase = {
         }
 
         $('checkmaillink').down('A').update(DIMP.text.getmail);
+        if ($('refreshlink').visible()) {
+            $('refreshlink').down('A').update(DIMP.text.refresh);
+        }
     },
 
     _displayQuota: function(r)
@@ -1931,7 +1945,8 @@ var DimpBase = {
                 return;
 
             case 'checkmaillink':
-                this.poll();
+            case 'refreshlink':
+                this.poll(id == 'refreshlink');
                 e.stop();
                 return;
 
@@ -2906,6 +2921,7 @@ var DimpBase = {
 
         /* Store these text strings for updating purposes. */
         DIMP.text.getmail = $('checkmaillink').down('A').innerHTML;
+        DIMP.text.refresh = $('refreshlink').down('A').innerHTML;
         DIMP.text.showalog = $('alertsloglink').down('A').innerHTML;
 
         /* Initialize the starting page. */

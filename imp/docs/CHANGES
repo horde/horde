@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Only update search mailbox on explicit user action (Request #7297).
 [mms] Add auto-save draft to IMP (Request #7656).
 [mms] Add keyboard shortcut to move to next unseen message (Request #8223).
 [mms] Add hook to dynamically change mailbox label (Request #6734).
