@@ -826,6 +826,10 @@ var ViewPort = Class.create({
 
         buffer.update(Object.isArray(r.data) ? {} : r.data, Object.isArray(r.rowlist) ? {} : r.rowlist, r.metadata || {}, { reset: r.reset, resetmd: r.resetmd, update: r.update });
 
+        if (r.reset) {
+            this.select(new ViewPort_Selection());
+        }
+
         llist.unset(r.requestid);
 
         tmp = {
