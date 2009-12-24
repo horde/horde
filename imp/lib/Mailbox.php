@@ -71,15 +71,14 @@ class IMP_Mailbox
     protected $_changed = false;
 
     /**
-     * Attempts to return a reference to a concrete IMP_Mailbox instance.
-     * It will only create a new instance if no IMP_Mailbox instance with
-     * the same parameters currently exists.
+     * Attempts to return a reference to a concrete instance.
+     * It will only create a new instance if no instance with the same
+     * parameters currently exists.
      *
      * @param string $mailbox  See constructor.
-     * @param integer $uid     See constructor.
+     * @param string $uid      UID string (UID . IMP::IDX_SEP . Mailbox).
      *
-     * @return mixed  The created concrete IMP_Mailbox instance, or false
-     *                on error.
+     * @return IMP_Mailbox  The created instance.
      */
     static public function singleton($mailbox, $uid = null)
     {
@@ -96,7 +95,7 @@ class IMP_Mailbox
      * Constructor.
      *
      * @param string $mailbox  The mailbox to work with.
-     * @param integer $uid     The UID of the current message.
+     * @param string $uid      UID string (UID . IMP::IDX_SEP . Mailbox).
      */
     protected function __construct($mailbox, $uid = null)
     {
@@ -131,7 +130,7 @@ class IMP_Mailbox
             /* Casting $_sorted to integers saves a significant amount of
              * space when json_encoding (no need to quote every value). Only
              * can do for IMAP though (since POP3 UIDs are not limited to
-             * integers. */
+             * integers). */
             $sorted = ($_SESSION['imp']['protocol'] == 'pop')
                 ? $this->_sorted
                 : array_map('intval', $this->_sorted);
@@ -641,11 +640,11 @@ class IMP_Mailbox
     /**
      * Updates the message array index.
      *
-     * @param integer $data  If $type is 'offset', the number of messages to
-     *                       increase array index by.  If type is 'uid',
-     *                       sets array index to the value of the given
-     *                       message UID.
-     * @param string $type   Either 'offset' or 'uid'.
+     * @param mixed $data   If $type is 'offset', the number of messages to
+     *                      increase array index by.  If type is 'uid', sets
+     *                      array index to the value of the given message
+     *                      UID string (UID . IMP::IDX_SEP . Mailbox).
+     * @param string $type  Either 'offset' or 'uid'.
      */
     public function setIndex($data, $type = 'uid')
     {
@@ -661,10 +660,11 @@ class IMP_Mailbox
             break;
 
         case 'uid':
-            $this->_arrayIndex = $this->getArrayIndex($data);
+            list($uid, $mailbox) = explode(IMP::IDX_SEP, $data);
+            $this->_arrayIndex = $this->getArrayIndex($uid, $mailbox);
             if (empty($this->_arrayIndex)) {
                 $this->_rebuild(true);
-                $this->_arrayIndex = $this->getArrayIndex($data);
+                $this->_arrayIndex = $this->getArrayIndex($uid, $mailbox);
             }
             break;
         }

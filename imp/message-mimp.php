@@ -22,7 +22,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 new IMP_Application(array('init' => true, 'tz' => true));
 
 /* Make sure we have a valid index. */
-$imp_mailbox = IMP_Mailbox::singleton($imp_mbox['mailbox'], $imp_mbox['uid']);
+$imp_mailbox = IMP_Mailbox::singleton($imp_mbox['mailbox'], $imp_mbox['uid'] . IMP::IDX_SEP . $imp_mbox['thismailbox']);
 if (!$imp_mailbox->isValidIndex(false)) {
     header('Location: ' . IMP::generateIMPUrl('mailbox-mimp.php', $imp_mbox['mailbox'])->setRaw(true)->add('a', 'm'));
     exit;

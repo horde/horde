@@ -18,7 +18,7 @@ new IMP_Application(array('init' => true, 'tz' => true));
  */
 $mode = Horde_Util::getFormData('mode', 'thread');
 
-$imp_mailbox = IMP_Mailbox::singleton($imp_mbox['mailbox'], $imp_mbox['uid']);
+$imp_mailbox = IMP_Mailbox::singleton($imp_mbox['mailbox'], $imp_mbox['uid'] . IMP::IDX_SEP . $imp_mbox['thismailbox']);
 
 $error = false;
 if ($mode == 'thread') {
