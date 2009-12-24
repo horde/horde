@@ -397,7 +397,7 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
         // Test for 30 significent digits (beyond the 16 of float), 10 of them
         // after the decimal place.
         $this->assertEquals('12345678901234567890.0123456789', $bob->wealth);
-        $this->assertEquals(true,                              $bob->male);
+        $this->assertEquals(1,                                 $bob->male);
 
         // @todo - type casting
     }
