@@ -14,11 +14,8 @@
  * @package Whups
  */
 
-// Check for a prior definition of HORDE_BASE (perhaps by an auto_prepend_file
-// definition for site customization).
-if (!defined('HORDE_BASE')) {
-    define('HORDE_BASE', dirname(__FILE__) . '/../..');
-}
+// Determine BASE directories.
+require_once dirname(__FILE__) . '/base.load.php';
 
 // Load the Horde Framework core, and set up inclusion paths.
 require_once HORDE_BASE . '/lib/core.php';

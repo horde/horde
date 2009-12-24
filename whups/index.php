@@ -7,7 +7,8 @@
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  */
 
-define('WHUPS_BASE', dirname(__FILE__));
+// Determine BASE directories.
+require_once dirname(__FILE__) . '/lib/base.load.php';
 $whups_configured = (is_readable(WHUPS_BASE . '/config/conf.php') &&
                      is_readable(WHUPS_BASE . '/config/create_email.txt') &&
                      is_readable(WHUPS_BASE . '/config/mime_drivers.php') &&
