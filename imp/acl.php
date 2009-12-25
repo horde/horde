@@ -18,7 +18,7 @@ new IMP_Application(array('init' => true));
 /* Redirect back to the options screen if ACL is not enabled. */
 $prefs_url = Horde::getServiceLink('options', 'imp');
 if ($prefs->isLocked('acl') || empty($_SESSION['imp']['acl'])) {
-    $notification->push(_("Folder sharing is not enabled."), 'horde.error');
+    $notification->push('Folder sharing is not enabled.', 'horde.error');
     header('Location: ' . $prefs_url);
     exit;
 }
@@ -26,7 +26,7 @@ if ($prefs->isLocked('acl') || empty($_SESSION['imp']['acl'])) {
 try {
     $ACLDriver = IMP_Imap_Acl::singleton();
 } catch (Horde_Exception $e) {
-    $notification->push($error, _("This server does not support sharing folders."));
+    $notification->push(_("This server does not support sharing folders."), 'horde.error');
     header('Location: ' . $prefs_url);
     exit;
 }
@@ -36,7 +36,7 @@ $folder = Horde_Util::getFormData('folder');
 $new_user = Horde_Util::getFormData('new_user');
 if ($new_user) {
     $new_acl = Horde_Util::getFormData('new_acl');
-    /* check to see if $new_user already has an acl on the folder */
+    /* Check to see if $new_user already has an acl on the folder. */
     if (isset($acls[$new_user])) {
         $acls[$new_user] = $new_acl;
         $new_user = '';

@@ -562,23 +562,22 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     float: right;
     text-align: right;
 }
+#msgHeadersColl span.subject, #msgHeadersColl span.from {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+}
 #msgHeadersColl span.subject {
     float: left;
     font-weight: bold;
     max-width: 50%;
-    overflow: hidden;
     padding-left: 2px;
-    text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
 }
 #msgHeadersColl span.fromcontainer {
     padding-left: 5px;
 }
 #msgHeadersColl span.from {
     max-width: 40%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
 }
 /* end msg small header */
 
