@@ -27,7 +27,7 @@ class Horde_Db_Migration_Base
      * Print messages as migrations happen
      * @var boolean
      */
-    public static $verbose = true;
+    public $verbose = true;
 
     /**
      * The migration version
@@ -48,10 +48,11 @@ class Horde_Db_Migration_Base
 
     /**
      */
-    public function __construct(Horde_Db_Adapter_Base $connection, $version = null)
+    public function __construct(Horde_Db_Adapter_Base $connection, $version = null, $verbose = true)
     {
         $this->_connection = $connection;
         $this->version = $version;
+        $this->verbose = $verbose;
     }
 
 
@@ -136,7 +137,7 @@ class Horde_Db_Migration_Base
      */
     public function write($text = '')
     {
-        if (self::$verbose) {
+        if ($this->verbose) {
             echo "$text\n";
         }
     }
