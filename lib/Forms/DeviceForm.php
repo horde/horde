@@ -14,22 +14,26 @@ class DeviceDetailsForm extends Horde_Form {
 
     function __construct(&$vars)
     {
-        parent::__construct($vars);
         global $shout_extensions;
-        $context = $vars->get('context');
+
         if ($vars->exists('devid')) {
             $formtitle = "Edit Device";
             $devid = $vars->get('devid');
+            $edit = true;
         } else {
             $formtitle = "Add Device";
+            $edit = false;
         }
 
         parent::__construct($vars, _("$formtitle - Context: $context"));
         $this->addHidden('', 'action', 'text', true);
         $vars->set('action', 'save');
-        $this->addHidden('', 'devid', 'int', true);
-        $this->addVariable(_("Device Name"), 'name', 'text', true);
-        $this->addVariable(_("Mailbox"), 'mailbox', 'int', true);
+        if ($edit) {
+            $this->addHidden('', 'devid', 'text', true);
+
+        }
+        $this->addVariable(_("Device Name"), 'name', 'text', false);
+        $this->addVariable(_("Mailbox"), 'mailbox', 'int', false);
         $this->addVariable(_("CallerID"), 'callerid', 'text', false);
 
 

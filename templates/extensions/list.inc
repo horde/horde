@@ -28,6 +28,14 @@
             </td>
             <td style="width: 35%;">
                 <?php echo Horde::link($editurl); echo $info['name']; ?></a>
+                <?php
+                foreach ($info['devices'] as $device) {
+                    echo Horde::img('shout.png');
+                }
+                foreach ($info['numbers'] as $number) {
+                    echo Horde::img('telephone-pole.png');
+                }
+                ?>
             </td>
             <td style="width: 45%">
                 <?php echo $info['email']; ?>

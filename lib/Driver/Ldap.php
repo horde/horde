@@ -95,7 +95,9 @@ class Shout_Driver_Ldap extends Shout_Driver
             'AstVoicemailMailbox',
             'AstVoicemailPassword',
             'AstVoicemailOptions',
-            'AstVoicemailPager'
+            'AstVoicemailPager',
+            'telephoneNumber',
+            'AstExtension'
         );
 
         $search = ldap_search($this->_LDAP, $this->_params['basedn'], $filter, $attributes);
@@ -120,7 +122,10 @@ class Shout_Driver_Ldap extends Shout_Driver
 
             $j = 0;
             $entries[$context][$extension]['mailboxopts'] = array();
-            while ($j < @$res[$i]['astvoicemailoptions']['count']) {
+            if (empty($res[$i]['astvoicemailoptions']['count'])) {
+                $res[$i]['astvoicemailoptions']['count'] = -1;
+            }
+            while ($j < $res[$i]['astvoicemailoptions']['count']) {
                 $entries[$context][$extension]['mailboxopts'][] =
                     $res[$i]['astvoicemailoptions'][$j];
                 $j++;
@@ -132,11 +137,34 @@ class Shout_Driver_Ldap extends Shout_Driver
             $entries[$context][$extension]['name'] =
                 $res[$i]['cn'][0];
 
-            @$entries[$context][$extension]['email'] =
+            $entries[$context][$extension]['email'] =
                 $res[$i]['mail'][0];
 
-            @$entries[$context][$extension]['pageremail'] =
+            $entries[$context][$extension]['pageremail'] =
                 $res[$i]['astvoicemailpager'][0];
+
+            $j = 0;
+            $entries[$context][$extension]['numbers'] = array();
+            if (empty($res[$i]['telephonenumber']['count'])) {
+                $res[$i]['telephonenumber']['count'] = -1;
+            }
+            while ($j < $res[$i]['telephonenumber']['count']) {
+                $entries[$context][$extension]['numbers'][] =
+                    $res[$i]['telephonenumber'][$j];
+                $j++;
+            }
+
+            $j = 0;
+            $entries[$context][$extension]['devices'] = array();
+            if (empty($res[$i]['astextension']['count'])) {
+                $res[$i]['astextension']['count'] = -1;
+            }
+            while ($j < $res[$i]['astextension']['count']) {
+                $entries[$context][$extension]['devices'][] =
+                    $res[$i]['astextension'][$j];
+                $j++;
+            }
+
 
             $i++;
 

@@ -23,13 +23,16 @@ $title = _("Devices: ");
 
 switch ($action) {
     case 'save':
-        print_r($vars);
         $Form = new DeviceDetailsForm($vars);
-        print_r($Form);
+
         // Show the list if the save was successful, otherwise back to edit.
-        $success = ($Form->isSubmitted() && $Form->isValid());
-        if ($success) {
-            $notification->push(_("Device settings saved."));
+        if ($Form->isSubmitted() && $Form->isValid()) {
+            try {
+                $shout_devices->saveDevice($Form->getVars());
+                $notification->push(_("Device settings saved."));
+            } catch (Exception $e) {
+                $notification->push($e);
+            }
             $action = 'list';
             break;
         } else {
@@ -53,12 +56,12 @@ switch ($action) {
         $Form->open($RENDERER, $vars, Horde::applicationUrl('devices.php'), 'post');
 
         break;
-    
+
 
     case 'delete':
         $notification->push("Not supported.");
         break;
- 
+
     case 'list':
     default:
         $action = 'list';

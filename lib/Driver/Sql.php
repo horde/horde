@@ -110,6 +110,35 @@ class Shout_Driver_Sql extends Shout_Driver
     }
 
     /**
+     * Save a device (add or edit) to the backend.
+     *
+     * @param string $context  The context in which this device is valid
+     * @param array $info      Array of device details
+     */
+    public function saveDevice($context, $info)
+    {
+        // See getDevices() for an explanation of these conversions
+        $info['alias'] = $info['name'];
+        $info['mailbox'] = $info['mailbox'] . '@' . $context;
+
+        if ($info['devid']) {
+            // This is an edit
+            $info['name'] = $info['devid'];
+            $sql = 'UPDATE %s SET ';
+        } else {
+            // This is an add.  Generate a new unique ID and secret
+            $devid = $context . uniqid();
+            $secret = md5(uniqid(mt_rand));
+            $sql = 'INSERT INTO %s (name, accountcode, callerid, mailbox, ' .
+                   'secret, alias, canreinvite, nat, type) ' .
+                   ' VALUES (?, ?, ?, ?, ?, ?, "no", "yes", "peer")';
+
+        }
+
+
+    }
+
+    /**
      * Get a list of users valid for the contexts
      *
      * @param string $context Context on which to search
