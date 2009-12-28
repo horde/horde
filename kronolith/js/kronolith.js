@@ -665,7 +665,7 @@ KronolithCore = {
         var table = $('kronolithYearTemplate').cloneNode(true),
             tbody = table.down('tbody');
         table.removeAttribute('id');
-        tbody.writeAttribute('id', 'kronolithYearTable' + month)
+        tbody.writeAttribute('id', 'kronolithYearTable' + month);
 
         // Set month name.
         table.down('span')
@@ -1294,7 +1294,7 @@ KronolithCore = {
                     opts.snap = function(x, y) {
                         y = Math.max(0, step * (Math.min(maxTop, y) / step | 0));
                         return [0, y];
-                    }
+                    };
                     new Drag(event.value.nodeId + 'top', opts);
                 }
 
@@ -1302,7 +1302,7 @@ KronolithCore = {
                     opts.snap = function(x, y) {
                         y = Math.min(maxBottom + dragBottomHeight + KronolithCore[storage].spacing, step * ((Math.max(minBottom, y) + dragBottomHeight + KronolithCore[storage].spacing) / step | 0)) - dragBottomHeight - KronolithCore[storage].spacing;
                         return [0, y];
-                    }
+                    };
                     new Drag(event.value.nodeId + 'bottom', opts);
                 }
 
@@ -3767,7 +3767,7 @@ KronolithCore = {
         if (!this.mapInitialized) {
             this.initializeMap();
         }
-        var dialog = $('kronolithEventForm')
+        var dialog = $('kronolithEventForm');
         dialog.select('.kronolithTabsOption').invoke('hide');
         dialog.select('.tabset li').invoke('removeClassName', 'activeTab');
         $('kronolithEventTabMap').show();
