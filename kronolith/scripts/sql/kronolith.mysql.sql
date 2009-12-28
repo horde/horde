@@ -95,3 +95,11 @@ CREATE TABLE kronolith_resources (
 
 CREATE INDEX kronolith_resources_type_idx ON kronolith_resources (resource_type);
 CREATE INDEX kronolith_resources_calendar_idx ON kronolith_resources (resource_calendar);
+
+CREATE TABLE kronolith_events_geo (
+    event_id VARCHAR(32) NOT NULL,
+    event_coordinates POINT NOT NULL,
+    SPATIAL INDEX (event_coordinates)
+);
+
+CREATE INDEX kronolith_events_geo_idx ON kronolith_events_geo (event_id);
