@@ -3623,7 +3623,7 @@ KronolithCore = {
         this._closeRedBox();
         this.showNotifications([ { type: 'horde.error', message: Kronolith.text.ajax_error } ]);
         KronolithCore.debug('onException', e);
-    }
+    },
 
     toggleCalendar: function(elm)
     {
