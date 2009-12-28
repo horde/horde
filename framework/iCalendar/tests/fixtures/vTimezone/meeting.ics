@@ -1,0 +1,71 @@
+BEGIN:VCALENDAR
+METHOD:REQUEST
+PRODID:Microsoft CDO for Microsoft Exchange
+VERSION:2.0
+BEGIN:VTIMEZONE
+TZID:(GMT-05.00) Eastern Time (US & Canada)
+X-MICROSOFT-CDO-TZID:10
+BEGIN:STANDARD
+DTSTART:16010101T020000
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+RRULE:FREQ=YEARLY;WKST=MO;INTERVAL=1;BYMONTH=10;BYDAY=-1SU
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:16010101T020000
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0400
+RRULE:FREQ=YEARLY;WKST=MO;INTERVAL=1;BYMONTH=4;BYDAY=1SU
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+DTSTAMP:20060524T175426Z
+DTSTART;TZID="(GMT-05.00) Eastern Time (US & Canada)":20060605T130000
+SUMMARY:Updated: Webex Training - Encryption Push
+UID:040000008200E00074C5B7101A82E008000000009067FAA5207FC601000000000000000
+ 010000000CE96E700B6553147A79107627E39018C
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=TRUE;CN="CT-Sales"
+ :MAILTO:CT-Sales@CipherTrust.com
+ORGANIZER;CN="Maribell Buchanan":MAILTO:Maribell.Buchanan@CipherTrust.com
+LOCATION:
+DTEND;TZID="(GMT-05.00) Eastern Time (US & Canada)":20060605T140000
+DESCRIPTION:Topic: Encryption Push Training (Note unlisted meeting)\NDate: 
+ Monday\, June 5\, 2006 \NTime: 1:00 pm\, Eastern Daylight Time (GMT -04:00
+ \, New York) \NMeeting number: 481 417 492 \NMeeting password: ctpush \N\N
+ Please click the following link to view or edit your meeting information\,
+  or to start your meeting. \N\N<https://ciphertrust.webex.com/ciphertrust/
+ j.php?ED=90368382> \N\NTeleconference: \NUS Dial In:  877.208.5357 or 770.
+ 659.4232\NUnited Kingdom Dial In:  08000320432\NConference Code:  67890491
+ 98 \N\NTo add this meeting to your calendar program (for example\, Microso
+ ft Outlook or Lotus Notes)\, do the following:  \N\N* For all calendar pro
+ grams (except Lotus Notes)\, click the following link\, or copy the link a
+ nd paste it into your Web browser: \N<https://ciphertrust.webex.com/cipher
+ trust/j.php?ED=90368382&UID=478103317&ICS=MS> \N\N*For Lotus Notes\, follo
+ w these steps: \N1.Right-click the attached iCalendar format (*.ics) file\
+ , and then choose View. \N2.Click Import All. A new broadcast email messag
+ e is added to your Inbox. \N3.Open the new message. \N4.Click Respond butt
+ on. A menu appears. \N5.Click Accept. \N\NTo check for compatibility of ri
+ ch media players for Universal Communications Format (UCF)\, click the fol
+ lowing link: \Nhttps://ciphertrust.webex.com/ciphertrust/systemdiagnosis.p
+ hp \N\Nhttp://www.webex.com\NWe've got to start meeting like this(TM) \N\N
+ \N
+SEQUENCE:0
+PRIORITY:5
+CLASS:
+CREATED:20060524T175427Z
+LAST-MODIFIED:20060524T175428Z
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+X-MICROSOFT-CDO-BUSYSTATUS:BUSY
+X-MICROSOFT-CDO-INSTTYPE:0
+X-MICROSOFT-CDO-INTENDEDSTATUS:BUSY
+X-MICROSOFT-CDO-ALLDAYEVENT:FALSE
+X-MICROSOFT-CDO-IMPORTANCE:1
+X-MICROSOFT-CDO-OWNERAPPTID:974673878
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:REMINDER
+TRIGGER;RELATED=START:-PT00H15M00S
+END:VALARM
+END:VEVENT
+END:VCALENDAR

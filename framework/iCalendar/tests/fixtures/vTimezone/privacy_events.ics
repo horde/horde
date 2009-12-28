@@ -1,0 +1,263 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Mozilla.org/NONSGML Mozilla Calendar V1.1//EN
+BEGIN:VEVENT
+CREATED:20060719T072322Z
+LAST-MODIFIED:20060719T072322Z
+DTSTAMP:20060719T072322Z
+UID:uuid:1149656622168
+SUMMARY:Australian Smart Card Summit
+CLASS:PUBLIC
+DTSTART;TZID=/mozilla.org/20050126_1/Australia/Sydney:20060628T140000
+DTEND;TZID=/mozilla.org/20050126_1/Australia/Sydney:20060628T150000
+URL:http://www.acevents.com.au/cards2006/
+DESCRIPTION:The Summit brings together the users and suppliers of smart 
+ card technology to discuss critical industry trends\, partnerships & 
+ alliances\, developing standards\, new applications\, new business 
+ opportunities and future direction.
+LOCATION:Sydney Convention and Exhibition Centre
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20060719T072322Z
+LAST-MODIFIED:20060719T072322Z
+DTSTAMP:20060719T072322Z
+UID:uuid:1149657736010
+SUMMARY:Privacy Laws & Business - 19th Annual International Conference
+CLASS:PUBLIC
+DTSTART;VALUE=DATE:20060702
+DTEND;VALUE=DATE:20060703
+URL:http://www.privacylaws.com/conferences.annual.html
+DESCRIPTION:Privacy Crisis Ahead? Investing enough in data protection to 
+ strengthen and defend your reputation\nThe Privacy Laws & Business 19th 
+ Annual International Conference features 50 speakers from 10 countries 
+ over three intensive days. Over half of these speakers are giving a 
+ presentation at this conference for the first time.
+LOCATION:St. John's College\, Cambridge\, UK
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20060719T072322Z
+LAST-MODIFIED:20060724T033326Z
+DTSTAMP:20060724T033326Z
+UID:uuid:1151539498937
+SUMMARY:Privacy in Practice 2006 - Introductory and Advanced sessions for 
+ Privacy Contact Officers\, tailored for the public and private sectors
+PRIORITY:0
+CLASS:PUBLIC
+DTSTART;VALUE=DATE:20061024
+DTEND;VALUE=DATE:20061027
+LOCATION:Sydney CBD
+DESCRIPTION:Anna Johnston and Nigel Waters\, former Deputy Privacy 
+ Commissioners for NSW and the Commonwealth respectively\, are offering 
+ Privacy Contact Officers (PCOs) an opportunity to update their knowledge 
+ and upgrade their skills in the practical implementation of privacy 
+ laws.\n\nIntroductory half day sessions on 24 October offer newly 
+ appointed PCOs the opportunity to familiarise themselves with the 
+ relevant privacy principles as they are being interpreted and applied in 
+ practice\, and to learn about the practical role of a PCO\, including 
+ compliance strategies.\n\nSeparate advanced full day sessions will focus 
+ on the law as it applies to the NSW public sector (25 October)\, and to 
+ the private sector in NSW (26 October)\, exploring in more depth the 
+ interpretation and enforcement of  privacy laws\, including new laws 
+ covering health information\, workplace surveillance\, and 
+ telecommunications.  The advanced sessions will also involve small group 
+ workshopping of scenarios\, to further develop the practical skills and 
+ compliance strategies needed to fulfil the PCO role.
+URL:http:
+ //home.iprimus.com.au/nigelwaters/Privacy%20in%20Practice%20seminar%202006
+ .htm
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20060719T072322Z
+LAST-MODIFIED:20060719T072322Z
+DTSTAMP:20060719T072322Z
+UID:uuid:1149656344744
+SUMMARY:Australian Biotechnology Summit 2006
+CLASS:PUBLIC
+DTSTART;VALUE=DATE:20060725
+DTEND;VALUE=DATE:20060727
+URL:http://www.acevents.com.au/bio2006
+DESCRIPTION:Now into its 4th year\, this summit attracts leading medical 
+ practitioners\, policy heads\, project financiers\, thought leaders and 
+ scientists. This July\, a distinguished panel of speakers is updating 
+ attendees about advances in a sector valued globally at US$63 billion. 
+ (Source: Chicago Tribune\, April 2006)\n\nBe there this July for a 
+ first-hand look at how the big pharmas\, medical institutions\, partners 
+ and consumers are benefiting from medical discoveries\, commercial 
+ alliances and partnerships\, venture partnerships\, co-development\, as 
+ well as mergers and acquisitions.\n\nMake sure you attend to share 
+ practical and time-saving strategies to:\n\n- DELIVER profits across your 
+ product pipeline\n- MOVE from trials to commercialisation\n- MAXIMISE the 
+ value of your assets\n- STRENGHTEN branding and distribution\n- BENEFIT 
+ from *mergers & acquisitions *co-licensing *joint ventures *capital 
+ raisings\n- READY products for manufacturing and sales
+LOCATION:Sydney Convention and Exhibition Centre
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20060719T072322Z
+LAST-MODIFIED:20060719T072322Z
+DTSTAMP:20060719T072322Z
+UID:uuid:1149657358209
+SUMMARY:SOCAP Australia 2006 Symposium
+CLASS:PUBLIC
+DTSTART;TZID=/mozilla.org/20050126_1/Australia/Sydney:20060815T133000
+DTEND;TZID=/mozilla.org/20050126_1/Australia/Sydney:20060815T160000
+URL:http:
+ //socap.org.au/html/s02_article/article_view.asp?id=638&nav_cat_id=134&nav
+ _top_id=58&dsa=20
+DESCRIPTION:The Society of Consumer Affairs Professionals (SOCAP) 
+ Australia Symposium is the oldest and most prestigious consumer affairs 
+ and customer service event in Australia. Supported by the various 
+ industry regulatory bodies in Australia\, the Symposium provides a forum 
+ that promotes best practice and research into customer service and 
+ consumer affairs.
+LOCATION:Sydney\, Manly Pacific
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20060719T072322Z
+LAST-MODIFIED:20060719T072322Z
+DTSTAMP:20060719T072322Z
+UID:uuid:1151028064071
+SUMMARY:Health Informatics Conference
+CLASS:PUBLIC
+DTSTART;VALUE=DATE:20060819
+DTEND;VALUE=DATE:20060822
+URL:http://www.hic.org.au
+DESCRIPTION:Bridging the Digital Divide: Consumers\, Clinicians & 
+ Computers\n\nHIC 2006 is Australia's premier health informatics 
+ conference. This event brings national and international experts in 
+ health information technology together to address some of the critical 
+ information systems issues in Australian health care. It is also an 
+ important opportunity to meet and exchange views with colleagues in the 
+ health information technology sector.
+LOCATION:Sydney Convention Centre
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20060720T041700Z
+LAST-MODIFIED:20060720T042923Z
+DTSTAMP:20060720T042923Z
+UID:uuid1153369107395
+SUMMARY:Security 2006
+PRIORITY:0
+CLASS:PUBLIC
+DTSTART;VALUE=DATE:20060829
+DTEND;VALUE=DATE:20060901
+DESCRIPTION:Security 2006 Conference & Exhibition is the event that 
+ brings the industry's key decision makers\, leaders\, suppliers and 
+ customers together to do business.\n\nNow entering its 21st year\, 
+ Australia's premier security industry event offers a unique platform to 
+ target a highly qualified audience of security professionals.
+LOCATION:Hall 5 and 6\, Sydney Convention and Exhibition Centre\, Darling 
+ Harbour
+URL:http:
+ //www.asial.com.au/default.asp?page=security+expo/home&flashver=8.0.22
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20060720T041921Z
+LAST-MODIFIED:20060720T042110Z
+DTSTAMP:20060720T042110Z
+UID:uuid1153369270069
+SUMMARY:Border Control & Port Security 2006
+PRIORITY:0
+CLASS:PUBLIC
+DTSTART;VALUE=DATE:20060807
+DTEND;VALUE=DATE:20060809
+DESCRIPTION:Border Control & Port Security 2006 will focus on the 
+ legislative and technology challenges facilitating the transformation of 
+ inter- agency initiatives to secure ports and strategic points of entry 
+ into Australia. This event will analyse and review the progress\, 
+ achievements and pitfalls of agency and industry initiatives and focus on 
+ future directions.
+LOCATION:The Vibe Savoy Hotel\, Melbourne\, Victoria
+URL:http:
+ //www.iir.com.au/conferences/confdetail.html?detail=I0354.html&cat_code=se
+ curity&conf_code=I0354
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20060728T011147Z
+LAST-MODIFIED:20060728T011338Z
+DTSTAMP:20060728T011338Z
+UID:uuid1154049185025
+SUMMARY:Identity Fraud Summit
+PRIORITY:0
+CLASS:PUBLIC
+DTSTART;VALUE=DATE:20061031
+DTEND;VALUE=DATE:20061103
+DESCRIPTION:The key meeting place for those involved with Fraud & 
+ Identity Management in the public and private sector.\nDeveloping a 
+ synthesis between public and private sector to produce a national 
+ response.\n- DISCOVER... the latest Global trends in Identity Fraud\n- 
+ FIND OUT... what the impact and cost of Identity Fraud is on Australia\n- 
+ TAKE PART... in Seven Interactive Discussions\n- MEET... and swap ideas 
+ with your industry peers at the Networking Drinks\n- LEARN... how 
+ collaboration can help to combat Identity Fraud (trust centre concept)... 
+ from Westpac & Australia Post\n- GET INFORMED... on the Hong Kong 
+ National Identity Card featuring Raymond Wai-man Wong\n- UNDERSTAND... 
+ the role and value of the government health and welfare access card
+LOCATION:Swissôtel Sydney
+URL:http:
+ //www.iir.com.au/conferences/confdetail.html?conf_code=L1282&cat_code=fina
+ nce&detail=L1282.html
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20060809T015738Z
+LAST-MODIFIED:20060809T023217Z
+DTSTAMP:20060809T023217Z
+UID:uuid1155089998351
+SUMMARY:Privacy Awareness Week
+PRIORITY:0
+CLASS:PUBLIC
+DTSTART;VALUE=DATE;TZID=/mozilla.org/20050126_1/Asia/Sakhalin:20060827
+DTEND;VALUE=DATE;TZID=/mozilla.org/20050126_1/Asia/Sakhalin:20060903
+URL:http://www.privacy.gov.au/news/paw.html
+LOCATION:Victoria\, NSW\, NT and Federal
+DESCRIPTION:The week is an opportunity for organisations and agencies 
+ affected by the Privacy Act 1998 (Cth) to promote privacy awareness to 
+ their staff\, custotmers\, and to the wider community.\n\nPrivacy 
+ Awareness Week is a promotional campaign first initiated by Privacy 
+ Victoria in 2001. This year\, for the first time\, Privacy Awareness Week 
+ has gone national and will be jointly promoted by the Office of the 
+ Privacy Commissioner\, Privacy Victorian and Privacy NSW and the Office 
+ of the Information Commissioner of the Northern Territory.\n\nThe theme 
+ is \"Don't leave privacy to chance\".\n\nOPC - http:
+ //www.privacy.gov.au/news/paw.html\nVictoria - http:
+ //www.privacy.vic.gov.au/dir100/priweb.nsf\nNSW - http:
+ //www.lawlink.nsw.gov.au/lawlink/privacynsw/ll_pnsw.nsf/pages/PNSW_index\n
+ NT - http://www.privacy.nt.gov.au/
+END:VEVENT
+BEGIN:VTIMEZONE
+TZID:/mozilla.org/20050126_1/Asia/Sakhalin
+X-LIC-LOCATION:Asia/Sakhalin
+BEGIN:STANDARD
+TZOFFSETFROM:+1100
+TZOFFSETTO:+1000
+TZNAME:SAKT
+DTSTART:19701025T030000
+RRULE:FREQ=YEARLY;INTERVAL=1;BYDAY=-1SU;BYMONTH=10
+END:STANDARD
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+1000
+TZOFFSETTO:+1100
+TZNAME:SAKST
+DTSTART:19700329T020000
+RRULE:FREQ=YEARLY;INTERVAL=1;BYDAY=-1SU;BYMONTH=3
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VTIMEZONE
+TZID:/mozilla.org/20050126_1/Australia/Sydney
+X-LIC-LOCATION:Australia/Sydney
+BEGIN:STANDARD
+TZOFFSETFROM:+1100
+TZOFFSETTO:+1000
+TZNAME:EST
+DTSTART:19700329T030000
+RRULE:FREQ=YEARLY;INTERVAL=1;BYDAY=-1SU;BYMONTH=3
+END:STANDARD
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+1000
+TZOFFSETTO:+1100
+TZNAME:EST
+DTSTART:19701025T020000
+RRULE:FREQ=YEARLY;INTERVAL=1;BYDAY=-1SU;BYMONTH=10
+END:DAYLIGHT
+END:VTIMEZONE
+END:VCALENDAR
