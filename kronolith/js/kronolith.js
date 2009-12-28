@@ -35,7 +35,17 @@ KronolithCore = {
     mapInitialized: false,
 
     doActionOpts: {
-        onException: this.onAjaxException.bind(this),
+        onException: function(parentfunc, r, e)
+        {
+            /* Make sure loading images are closed. */
+            this.loading--;
+            if (!this.loading) {
+                    $('kronolithLoading').hide();
+            }
+            this._closeRedBox();
+            this.showNotifications([ { type: 'horde.error', message: Kronolith.text.ajax_error } ]);
+            KronolithCore.debug('onException', e);
+        }.bind(this),
         onFailure: function(t, o) { KronolithCore.debug('onFailure', t); },
         evalJS: false,
         evalJSON: true
@@ -3610,19 +3620,6 @@ KronolithCore = {
                 e.observe('mouseover', e.addClassName.curry('over')).observe('mouseout', e.removeClassName.curry('over'));
             });
         }
-    },
-
-    /* Extend AJAX exception handling. */
-    onAjaxException: function(parentfunc, r, e)
-    {
-        /* Make sure loading images are closed. */
-        this.loading--;
-        if (!this.loading) {
-                $('kronolithLoading').hide();
-        }
-        this._closeRedBox();
-        this.showNotifications([ { type: 'horde.error', message: Kronolith.text.ajax_error } ]);
-        KronolithCore.debug('onException', e);
     },
 
     toggleCalendar: function(elm)
