@@ -45,16 +45,16 @@ class Net_LDAP2_SimpleFileSchemaCache implements Net_LDAP2_SchemaCache
     */
     public function Net_LDAP2_SimpleFileSchemaCache($cfg)
     {
-    	foreach ($cfg as $key => $value) {
-			if (array_key_exists($key, $this->config)) {
-				if (gettype($this->config[$key]) != gettype($value)) {
-					$this->getCore()->dropFatalError(__CLASS__.": Could not set config! Key $key does not match type ".gettype($this->config[$key])."!");
-				}
-				$this->config[$key] = $value;
-			} else {
-				$this->getCore()->dropFatalError(__CLASS__.": Could not set config! Key $key is not defined!");
-			}
-		}
+        foreach ($cfg as $key => $value) {
+            if (array_key_exists($key, $this->config)) {
+                if (gettype($this->config[$key]) != gettype($value)) {
+                    $this->getCore()->dropFatalError(__CLASS__.": Could not set config! Key $key does not match type ".gettype($this->config[$key])."!");
+                }
+                $this->config[$key] = $value;
+            } else {
+                $this->getCore()->dropFatalError(__CLASS__.": Could not set config! Key $key is not defined!");
+            }
+        }
     }
 
     /**

@@ -774,7 +774,7 @@ class Horde_Ldap
                 if (($this->errorMessage($error_code) === 'LDAP_OPERATIONS_ERROR') &&
                     ($this->_config['auto_reconnect'])) {
                     // The server has become disconnected before trying the
-                    // operation.  We should try again, possibly with a 
+                    // operation.  We should try again, possibly with a
                     // different server.
                     $this->_link = false;
                     $this->performReconnect();
