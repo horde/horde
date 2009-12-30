@@ -451,15 +451,16 @@ class SyncML_Backend {
         $database = $this->_normalize($databaseURI);
 
         switch($database) {
-        case 'tasks';
-        case 'calendar';
-        case 'notes';
-        case 'contacts';
+        case 'tasks':
+        case 'calendar':
+        case 'notes':
+        case 'contacts':
+        case 'configuration':
             return true;
 
         default:
-            $this->logMessage('Invalid database ' . $database
-                              . '. Try tasks, calendar, notes or contacts.',
+            $this->logMessage('Invalid database "' . $database
+                              . '". Try tasks, calendar, notes or contacts.',
                               __FILE__, __LINE__, PEAR_LOG_ERR);
             return false;
         }

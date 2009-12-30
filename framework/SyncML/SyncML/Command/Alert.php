@@ -151,6 +151,10 @@ class SyncML_Command_Alert extends SyncML_Command {
                                                 RESPONSE_NOT_FOUND);
             return;
         }
+        if ($database == 'configuration') {
+            $this->_outputHandler->outputStatus($this->_cmdID, $this->_cmdName,
+                                                RESPONSE_OK);
+        }
 
         $clientAnchorNext = $this->_metaAnchorNext;
 

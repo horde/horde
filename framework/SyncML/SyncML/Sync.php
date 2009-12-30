@@ -601,6 +601,9 @@ class SyncML_Sync {
     function _retrieveChanges($syncDB, &$adds, &$replaces, &$deletes)
     {
         $adds = $replaces = $deletes = array();
+        if ($syncDB == 'configuration') {
+            return;
+        }
         $result = $GLOBALS['backend']->getServerChanges($syncDB,
                                                         $this->_serverAnchorLast,
                                                         $this->_serverAnchorNext,
