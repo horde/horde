@@ -656,6 +656,14 @@ class Horde_Config
             'default' => $this->_default($ctx . '|basedn', '')
         );
 
+        $version = array(
+            '_type' => 'int',
+            'required' => true,
+            'desc' => 'LDAP protocol version',
+            'switch' => array('2' => array('desc' => '2 (deprecated)'), '3' => array('desc' => '3')),
+            'default' => $this->_default($ctx . '|version', 3)
+        );
+
         $port = array(
             '_type' => 'int',
             'required' => false,
@@ -710,6 +718,7 @@ class Horde_Config
         $custom_fields = array(
             'hostspec' => $hostspec,
             'port' => $port,
+            'version' => $version,
             'tls' => $tls,
             'searchdn' => $searchdn,
             'searchpw' => $searchpw,
