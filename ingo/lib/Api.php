@@ -110,11 +110,17 @@ class Ingo_Api extends Horde_Registry_Api
         if (!empty($GLOBALS['ingo_shares'])) {
             $_SESSION['ingo']['current_share'] = $signature;
         }
-
         $ingo_script = Ingo::loadIngoScript();
-        return $ingo_script
-            ? $ingo_script->perform($params)
-            : false;
+        if (!$ingo_script) {
+            return false;
+        }
+        if (!isset($params['filter_seen'])) {
+            $params['filter_seen'] = $GLOBALS['prefs']->getValue('filter_seen');
+        }
+        if (!isset($params['show_filter_msg'])) {
+            $params['show_filter_msg'] = $GLOBALS['prefs']->getValue('show_filter_msg');
+        }
+        return $ingo_script->perform($params);
     }
 
     /**
