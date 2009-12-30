@@ -18,22 +18,23 @@ $form = new EditRecord($vars);
 
 if ($form->validate($vars)) {
     $form->getInfo($vars, $info);
-    $result = $beatnik_driver->saveRecord($info);
 
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push($result->getMessage() . ': ' . $result->getDebugInfo(), 'horde.error');
+    try {
+        $result = $beatnik_driver->saveRecord($info);
+    } catch (Exception $e) {
+        $notification->push($e->getMessage(), 'horde.error');
+    }
+
+    $notification->push('Record data saved.', 'horde.success');
+
+    // Check to see if this is a new domain
+    $edit = $vars->get('id');
+    if ($info['rectype'] == 'soa' && !$edit) {
+        // if added a soa redirect to the autogeneration page
+        $url = Horde_Util::addParameter(Horde::applicationUrl('autogenerate.php'),
+                                  array('rectype' => 'soa', 'curdomain' => $info['zonename']), false, false);
     } else {
-        $notification->push('Record data saved.', 'horde.success');
-
-        // Check to see if this is a new domain
-        $edit = $vars->get('id');
-        if ($info['rectype'] == 'soa' && !$edit) {
-            // if added a soa redirect to the autogeneration page
-            $url = Horde_Util::addParameter(Horde::applicationUrl('autogenerate.php'),
-                                      array('rectype' => 'soa', 'curdomain' => $info['zonename']), false, false);
-        } else {
-            $url = Horde::applicationUrl('viewzone.php');
-        }
+        $url = Horde::applicationUrl('viewzone.php');
     }
 
     header('Location: ' . $url);

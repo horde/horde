@@ -141,7 +141,7 @@ class Beatnik_Driver_sql extends Beatnik_Driver
      *
      * @param array $info Array of record data
      *
-     * @return boolean true on success, PEAR::raiseError on error
+     * @return boolean true on success
      */
     function _saveRecord($info)
     {

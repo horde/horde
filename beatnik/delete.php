@@ -20,17 +20,18 @@ $form = new DeleteRecord($vars);
 if ($form->validate($vars)) {
     $form->getInfo($vars, $info);
     if (Horde_Util::getFormData('submitbutton') == _("Delete")) {
-        $result = $beatnik_driver->deleteRecord($info);
-        if (is_a($result, 'PEAR_Error')) {
-            $notification->push($result->getMessage() . ': ' . $result->getDebugInfo(), 'horde.error');
+        try {
+            $result = $beatnik_driver->deleteRecord($info);
+        } catch (Exception $e) {
+            $notification->push($e->getMessage(), 'horde.error');
             header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('viewzone.php'), $info));
+            exit;
+        }
+        $notification->push(_("Record deleted"), 'horde.success');
+        if ($info['rectype'] == 'soa') {
+            header('Location: ' . Horde::applicationUrl('listzones.php'));
         } else {
-            $notification->push(_("Record deleted"), 'horde.success');
-            if ($info['rectype'] == 'soa') {
-                header('Location: ' . Horde::applicationUrl('listzones.php'));
-            } else {
-                header('Location: ' . Horde::applicationUrl('viewzone.php'));
-            }
+            header('Location: ' . Horde::applicationUrl('viewzone.php'));
         }
     } else {
         $notification->push(_("Record not deleted"), 'horde.warning');

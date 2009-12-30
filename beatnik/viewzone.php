@@ -10,9 +10,10 @@ define('BEATNIK_BASE', dirname(__FILE__));
 require_once BEATNIK_BASE . '/lib/base.php';
 require_once BEATNIK_BASE . '/lib/Beatnik.php';
 
-$zonedata = $beatnik_driver->getRecords($_SESSION['beatnik']['curdomain']['zonename']);
-if (is_a($zonedata, 'PEAR_Error')) {
-    $notification->push($zonedata, 'horde.error');
+try {
+    $zonedata = $beatnik_driver->getRecords($_SESSION['beatnik']['curdomain']['zonename']);
+} catch (Exception $e) {
+    $notification->push($e, 'horde.error');
     header('Location:' . Horde::applicationUrl('listzones.php'));
     exit;
 }

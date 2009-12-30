@@ -134,14 +134,14 @@ class Beatnik_Driver_ldap2dns extends Beatnik_Driver
             "(objectClass=dnszone)");
 
         if ($res === false) {
-            return PEAR::raiseError("Unable to locate any DNS zones " .
+            throw new Horde_Exception("Unable to locate any DNS zones " .
             "underneath ".$this->_params['basedn']);
         }
 
         $res = ldap_get_entries($this->_LDAP, $res);
 
         if ($res === false) {
-            return PEAR::raiseError(sprintf(_("Unable to retrieve data from LDAP results: %s"), @ldap_error($this->_LDAP)));
+            throw new Horde_Exception(sprintf(_("Unable to retrieve data from LDAP results: %s"), @ldap_error($this->_LDAP)));
         }
 
         $fields = Beatnik::getRecFields('soa');
@@ -234,14 +234,14 @@ class Beatnik_Driver_ldap2dns extends Beatnik_Driver
         $res = @ldap_list($this->_LDAP, $dn, '(objectClass=dnsrrset)');
 
         if ($res === false) {
-            return PEAR::raiseError("Unable to locate any DNS data for $domain");
+            throw new Horde_Exception("Unable to locate any DNS data for $domain");
         }
 
         # FIXME Cache these results
         $zonedata = array();
         $res = @ldap_get_entries($this->_LDAP, $res);
         if ($res === false) {
-            return PEAR::raiseError(sprintf(_("Internal error: %s"), @ldap_error($this->_LDAP)));
+            throw new Horde_Exception(sprintf(_("Internal error: %s"), @ldap_error($this->_LDAP)));
         }
 
         $i = 0;
@@ -289,13 +289,13 @@ class Beatnik_Driver_ldap2dns extends Beatnik_Driver
      *
      * @param array $info  Reference to array of record information for deletion
      *
-     * @return boolean true on success, PEAR::raiseError on error
+     * @return boolean true on success
      */
     function _deleteRecord(&$info)
     {
         // Ensure we have a record ID before continuing
         if (!isset($info['id'])) {
-            return PEAR::raiseError(_("Unable to delete record: No record ID specified."));
+            throw new Horde_Exception(_("Unable to delete record: No record ID specified."));
         }
 
         // Attribute used to identify objects
@@ -304,7 +304,7 @@ class Beatnik_Driver_ldap2dns extends Beatnik_Driver
         $suffix = $dnattr . '=' . $_SESSION['beatnik']['curdomain']['zonename'] . ',' . $this->_params['basedn'];
         if ($info['rectype'] == 'soa') {
             // FIXME: Add recursion
-            return PEAR::raiseError(_("Unsupported recursive delete."));
+            throw new Horde_Exception(_("Unsupported recursive delete."));
 
             $domain = $this->cleanDNString($info['zonename']);
             $dn = $suffix;
@@ -316,7 +316,7 @@ class Beatnik_Driver_ldap2dns extends Beatnik_Driver
 
         $res = @ldap_delete($this->_LDAP, $dn);
         if ($res === false) {
-            return PEAR::raiseError(sprintf(_("Unable to delete record.  Reason: %s"), @ldap_error($this->_LDAP)));
+            throw new Horde_Exception(sprintf(_("Unable to delete record.  Reason: %s"), @ldap_error($this->_LDAP)));
         }
         return true;
     }
@@ -329,7 +329,6 @@ class Beatnik_Driver_ldap2dns extends Beatnik_Driver
      * @param array $info Array from Horde_Form with record data
      *
      * @return mixed  The new or modified record ID on success;
-     *                PEAR_Error on error
      */
     function _saveRecord($info)
     {
@@ -344,7 +343,7 @@ class Beatnik_Driver_ldap2dns extends Beatnik_Driver
         }
 
         if (!$rdata) {
-            return PEAR::raiseError(_("Invalid record type specified."));
+            throw new Horde_Exception(_("Invalid record type specified."));
         }
 
         $recfields = Beatnik::getRecFields($rectype);
@@ -395,7 +394,7 @@ class Beatnik_Driver_ldap2dns extends Beatnik_Driver
 
             if (!isset($entry[$key]) && $fdata['required']) {
                 // No value available but required field
-                return PEAR::raiseError(sprintf(_("Missing required field %s to save record."), $fdata['name']));
+                throw new Horde_Exception(sprintf(_("Missing required field %s to save record."), $fdata['name']));
             }
 
             // Construct an ID for this object as a tuple of its data.
@@ -432,12 +431,12 @@ class Beatnik_Driver_ldap2dns extends Beatnik_Driver
                 // We have an old DN but it doesn't match the new DN.
                 // Need to rename the old object
                 if ($rectype == 'soa') {
-                    return PEAR::raiseError(_("Unsupported operation: cannot rename a domain."));
+                    throw new Horde_Exception(_("Unsupported operation: cannot rename a domain."));
                 }
                 $res = @ldap_rename($this->_LDAP, $oldRDN . ',' . $suffix,
                     $dn, $suffix, true);
                 if ($res === false) {
-                    return PEAR::raiseError(sprintf(_("Unable to rename old object.  Reason: %s"), @ldap_error($this->_LDAP)));
+                    throw new Horde_Exception(sprintf(_("Unable to rename old object.  Reason: %s"), @ldap_error($this->_LDAP)));
                 }
             }
 
@@ -447,7 +446,7 @@ class Beatnik_Driver_ldap2dns extends Beatnik_Driver
             // Modify the existing record
             $res = @ldap_mod_replace($this->_LDAP, $dn, $entry);
             if ($res === false) {
-                return PEAR::raiseError(sprintf(_("Unable to modify record.  Reason: %s"), @ldap_error($this->_LDAP)));
+                throw new Horde_Exception(sprintf(_("Unable to modify record.  Reason: %s"), @ldap_error($this->_LDAP)));
             }
 
         } else {
@@ -464,7 +463,7 @@ class Beatnik_Driver_ldap2dns extends Beatnik_Driver
             }
             $res = @ldap_add($this->_LDAP, $dn, $entry);
             if ($res === false) {
-                return PEAR::raiseError(sprintf(_("Unable to add record to LDAP. Reason: %s"), @ldap_error($this->_LDAP)));
+                throw new Horde_Exception(sprintf(_("Unable to add record to LDAP. Reason: %s"), @ldap_error($this->_LDAP)));
             }
         }
 
@@ -510,11 +509,11 @@ class Beatnik_Driver_ldap2dns extends Beatnik_Driver
             }
             $res = ldap_set_option($this->_LDAP, LDAP_OPT_PROTOCOL_VERSION, $this->_params['version']);
             if ($res === false) {
-                return PEAR::raiseError("Unable to set LDAP protocol version");
+                throw new Horde_Exception("Unable to set LDAP protocol version");
             }
             $res = ldap_bind($this->_LDAP, $this->_params['binddn'], $this->_params['password']);
             if ($res === false) {
-                return PEAR::raiseError("Unable to bind to the LDAP server. Check authentication credentials.");
+                throw new Horde_Exception("Unable to bind to the LDAP server. Check authentication credentials.");
             }
 
             $this->_connected = true;

@@ -425,7 +425,7 @@ class Beatnik {
             return true;
         } else {
             // Somebody sent something they should not have...
-            return PEAR::raiseError(_("Unable to determine if domain needs committing: invalid parameter."));
+            throw new Horde_Exception(_("Unable to determine if domain needs committing: invalid parameter."));
         }
     }
 
@@ -488,9 +488,10 @@ class Beatnik {
 
         require BEATNIK_BASE . '/config/autogenerate.php';
         $template = $templates[$vars->get('template')];
-        $zonedata = $GLOBALS['beatnik_driver']->getRecords($_SESSION['beatnik']['curdomain']['zonename']);
-        if (is_a($zonedata, 'PEAR_Error')) {
-            return $zonedata;
+        try {
+            $zonedata = $GLOBALS['beatnik_driver']->getRecords($_SESSION['beatnik']['curdomain']['zonename']);
+        } catch (Exception $e) {
+            $GLOBALS['notification']->push($e);
         }
 
         foreach ($template['types'] as $rectype => $definitions) {
@@ -500,9 +501,10 @@ class Beatnik {
                 switch($definitions['replace']) {
                 case 'all':
                     foreach ($zonedata[$rectype] as $record) {
+                        try {
                         $result = $GLOBALS['beatnik_driver']->deleteRecord($record);
-                        if (is_a($result, 'PEAR_Error')) {
-                            $GLOBALS['notification']->push($result);
+                        } catch (Exception $e) {
+                            $GLOBALS['notification']->push($e);
                         }
                     }
                     break;
@@ -513,9 +515,10 @@ class Beatnik {
                         // hostname matches
                         foreach ($definitions['records'] as $Trecord) {
                             if ($record['hostname'] == $Trecord['hostname']) {
-                                $result = $GLOBALS['beatnik_driver']->deleteRecord($record);
-                                if (is_a($result, 'PEAR_Error')) {
-                                    $GLOBALS['notification']->push($result);
+                                try {
+                                    $result = $GLOBALS['beatnik_driver']->deleteRecord($record);
+                                } catch (Exception $e) {
+                                    $GLOBALS['notification']->push($e);
                                 }
                             }
                         }
@@ -534,12 +537,12 @@ class Beatnik {
                     $GLOBALS['notification']->push(_("Skipping existing identical record"));
                     continue;
                 }
-                $result = $GLOBALS['beatnik_driver']->saveRecord(array_merge($defaults, $info));
-                if (is_a($result, 'PEAR_Error')) {
+                try {
+                    $result = $GLOBALS['beatnik_driver']->saveRecord(array_merge($defaults, $info));
+                } catch (Exception $e) {
                     $GLOBALS['notification']->push($result->getMessage() . ': ' . $result->getDebugInfo(), 'horde.error');
-                } else {
-                    $GLOBALS['notification']->push(sprintf(_('Record added: %s/%s'), $rectype, $info['hostname']), 'horde.success');
                 }
+                $GLOBALS['notification']->push(sprintf(_('Record added: %s/%s'), $rectype, $info['hostname']), 'horde.success');
             }
         }
         return true;

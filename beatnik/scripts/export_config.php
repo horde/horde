@@ -35,10 +35,10 @@ $cli = &Horde_CLI::singleton();
 
 // We accept the user name on the command-line.
 require_once 'Console/Getopt.php';
-$ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'h:u:p:t:r',
+try {
+    Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'h:u:p:t:r',
                               array('help', 'username=', 'password=', 'type=', 'rpc='));
-
-if (is_a($ret, 'PEAR_Error')) {
+} catch (Exception $e) {
     $error = _("Couldn't read command-line options.");
     Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_DEBUG);
     $cli->fatal($error);
@@ -83,21 +83,18 @@ foreach ($opts as $opt) {
 
 // We will fetch data from RPC
 if (!empty($rpc)) {
-
-    require_once 'Horde/RPC.php';
-    $domains = Horde_RPC::request('xmlrpc', $rpc,
-                                                            'dns.getDomains',
-                                                                array(),
-                                                                    array('user' => $username,
-                                                                                'pass' => $password));
-    if (is_a($result, 'PEAR_Error')) {
-        $cli->fatal($domains);
+    try {
+        $domains = Horde_RPC::request('xmlrpc', $rpc, 'dns.getDomains', array(),
+                                      array('user' => $username,
+                                            'pass' => $password));
+    } catch (Exception $e) {
+        $cli->fatal($e);
     }
     
 // Login to horde if username & password are set and load module.
 } elseif (!empty($username) && !empty($password)) {
 
-     require_once HORDE_BASE . '/lib/base.php';
+    require_once HORDE_BASE . '/lib/base.php';
     $auth = &Horde_Auth::singleton($conf['auth']['driver']);
     if (!$auth->authenticate($username, array('password' => $password))) {
         $error = _("Login is incorrect.");
@@ -150,18 +147,18 @@ function _getRecords($domain)
     if (empty($GLOBALS['rpc'])) {
         $result = $GLOBALS['beatnik_driver']->getRecords($domain);
     } else {
+        try {
         $result = Horde_RPC::request('xmlrpc', $GLOBALS['rpc'],
-                                                            'dns.getRecords',
-                                                                array($domain),
-                                                                    array('user' => $GLOBALS['username'],
-                                                                                'pass' => $GLOBALS['password']));
+                                     'dns.getRecords',
+                                     array($domain),
+                                     array('user' => $GLOBALS['username'],
+                                     'pass' => $GLOBALS['password']));
+        } catch (Exception $e) {
+            $GLOBALS['cli']->fatal($e);
+        }
     }
     
-    if (is_a($result, 'PEAR_Error')) {
-        $GLOBALS['cli']->fatal($result);    
-    } else {
-        return $result;
-    }
+    return $result;
 }
 
 /**

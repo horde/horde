@@ -21,12 +21,13 @@ $form = new Autogenerate($vars);
 
 if ($form->validate($vars)) {
     if (Horde_Util::getFormData('submitbutton') == _("Autogenerate")) {
-       $result = Beatnik::autogenerate($vars);
-       if (is_a($result, 'PEAR_Error')) {
-           $notification->push($zonedata, 'horde.error');
-           header('Location:' . Horde::applicationUrl('listzones.php'));
-           exit;
-       }
+        try {
+            $result = Beatnik::autogenerate($vars);
+        } catch (Exception $e) {
+            $notification->push($e->getMessage(), 'horde.error');
+            header('Location:' . Horde::applicationUrl('listzones.php'));
+            exit;
+        }
     } else {
         $notification->push(_("Autogeneration not performed"), 'horde.warning');
     }

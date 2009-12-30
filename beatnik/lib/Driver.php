@@ -57,9 +57,10 @@ class Beatnik_Driver {
      */
     function getDomains($perms = Horde_Perms::SHOW)
     {
-        $domains = $this->_getDomains();
-        if (is_a($domains, 'PEAR_Error')) {
-            $GLOBALS['notification']->push($domains->getMessage() . ': ' . $domains->getDebugInfo(), 'horde.warning');
+        try {
+            $domains = $this->_getDomains();
+        } catch (Exception $e) {
+            $GLOBALS['notification']->push($e->getMessage(), 'horde.warning');
             return array();
         }
 
@@ -90,8 +91,7 @@ class Beatnik_Driver {
      *
      * @param string $domain   Domain for which to return SOA information
      *
-     * @return mixed           Array of SOA information for domain or PEAR_Error
-     *                         on failure.
+     * @return mixed           Array of SOA information for domain
      */
     function getDomain($domainname)
     {
@@ -102,7 +102,7 @@ class Beatnik_Driver {
                 return $domain;
             }
         }
-        return PEAR::raiseError(sprintf(_("Unable to read requested domain %s"), $domainname));
+        throw new Horde_Exception(sprintf(_("Unable to read requested domain %s"), $domainname));
     }
 
     /**
@@ -161,9 +161,10 @@ class Beatnik_Driver {
      */
     function recordExists($record, $rectype)
     {
-        $zonedata = $this->getRecords($_SESSION['beatnik']['curdomain']['zonename']);
-        if (is_a($zonedata, 'PEAR_Error')) {
-            $notification->push($zonedata, 'horde.error');
+        try {
+            $zonedata = $this->getRecords($_SESSION['beatnik']['curdomain']['zonename']);
+        } catch (Exception $e) {
+            $notification->push($e, 'horde.error');
             header('Location:' . Horde::applicationUrl('listzones.php'));
             exit;
         }
@@ -201,7 +202,7 @@ class Beatnik_Driver {
         if ($info['rectype'] == 'soa' && $info['zonename'] != $_SESSION['beatnik']['curdomain']['zonename']) {
             // Make sure the user has permissions to add domains
             if (!Beatnik::hasPermission('beatnik:domains', Horde_Perms::EDIT)) {
-                return PEAR::raiseError(_('You do not have permission to create new domains.'));
+                throw new Horde_Exception(_('You do not have permission to create new domains.'));
             }
 
             // Create a dummy old domain for comparison purposes
@@ -214,12 +215,12 @@ class Beatnik_Driver {
             if ($info['rectype'] == 'soa') {
                 $node = 'beatnik:domains:' . $info['zonename'];
                 if (!Beatnik::hasPermission($node, Horde_Perms::EDIT, 1)) {
-                    return PEAR::raiseError(_('You do not have permssion to edit the SOA of this zone.'));
+                    throw new Horde_Exception(_('You do not have permssion to edit the SOA of this zone.'));
                 }
             } else {
                 $node = 'beatnik:domains:' . $_SESSION['beatnik']['curdomain']['zonename'] . ':' . $info['id'];
                 if (!Beatnik::hasPermission($node, Horde_Perms::EDIT, 2)) {
-                    return PEAR::raiseError(_('You do not have permssion to edit this record.'));
+                    throw new Horde_Exception(_('You do not have permssion to edit this record.'));
                 }
             }
         }
@@ -228,19 +229,13 @@ class Beatnik_Driver {
         // FIXME: Modify saveRecord() to return the new (possibly changed) ID of the
         // record and then use that ID to update permissions
         $return = $this->_saveRecord($info);
-
         $oldsoa =& $_SESSION['beatnik']['curdomain'];
-
-        if (is_a($return, 'PEAR_Error')) {
-            return $return;
+        if ($info['rectype'] == 'soa' &&
+           ($oldsoa['serial'] < $info['serial'])) {
+            // Clear the commit flag (if set)
+            Beatnik::needCommit($oldsoa['zonename'], false);
         } else {
-            if ($info['rectype'] == 'soa' &&
-               ($oldsoa['serial'] < $info['serial'])) {
-                // Clear the commit flag (if set)
-                Beatnik::needCommit($oldsoa['zonename'], false);
-            } else {
-                Beatnik::needCommit($oldsoa['zonename'], true);
-            }
+            Beatnik::needCommit($oldsoa['zonename'], true);
         }
 
         // Check to see if an SOA was just added or updated.
@@ -259,21 +254,16 @@ class Beatnik_Driver {
      *
      * @param array $info  Reference to array of record information for deletion
      *
-     * @return boolean true on success, PEAR::raiseError on error
+     * @return boolean true on success
      */
     function deleteRecord(&$info)
     {
         $return = $this->_deleteRecord($info);
-
         $oldsoa =& $_SESSION['beatnik']['curdomain'];
 
-        if (is_a($return, 'PEAR_Error')) {
-            return $return;
-        } else {
-            // No need to commit if the whole zone is gone
-            if ($info['rectype'] != 'soa') {
-                Beatnik::needCommit($oldsoa['zonename'], true);
-            }
+        // No need to commit if the whole zone is gone
+        if ($info['rectype'] != 'soa') {
+            Beatnik::needCommit($oldsoa['zonename'], true);
         }
     }
 
@@ -320,7 +310,7 @@ class Beatnik_Driver {
         if (class_exists($class)) {
             return new $class($params);
         } else {
-            return PEAR::raiseError(_('Driver not found.'));
+            throw new Horde_Exception(_('Driver not found.'));
         }
     }
 

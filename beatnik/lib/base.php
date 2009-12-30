@@ -47,9 +47,10 @@ $notification->attach('status');
 require_once BEATNIK_BASE . '/lib/Beatnik.php';
 require_once BEATNIK_BASE . '/lib/Driver.php';
 
-$GLOBALS['beatnik_driver'] = Beatnik_Driver::factory();
-if (is_a($GLOBALS['beatnik_driver'], 'PEAR_Error')) {
-    Horde::fatal($GLOBALS['beatnik_driver'], __FILE__, __LINE__);
+try {
+    $GLOBALS['beatnik_driver'] = Beatnik_Driver::factory();
+} catch (Exception $e) {
+    Horde::fatal($e, __FILE__, __LINE__);
 }
 
 // Get a list of domains to work with
@@ -57,9 +58,10 @@ $domains = $GLOBALS['beatnik_driver']->getDomains();
 
 // Jump to new domain
 if (Horde_Util::getFormData('curdomain') !== null && !empty($domains)) {
-    $domain = $GLOBALS['beatnik_driver']->getDomain(Horde_Util::getFormData('curdomain'));
-    if (is_a($domain, 'PEAR_Error')) {
-        $notification->push($domain->getMessage() . ': ' . $domain->getDebugInfo(), 'horde.error');
+    try {
+        $domain = $GLOBALS['beatnik_driver']->getDomain(Horde_Util::getFormData('curdomain'));
+    } catch (Exception $e) {
+        $notification->push($e->getMessage(), 'horde.error');
         $domain = $domains[0];
     }
 

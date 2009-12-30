@@ -36,13 +36,13 @@ foreach ($domains as $domain) {
     $form->setSubmitted(true);
     if ($form->validate($vars)) {
         $form->getInfo($vars, $info);
-        $result = $beatnik_driver->saveRecord($info);
 
-        if (is_a($result, 'PEAR_Error')) {
-            $notification->push($result->getMessage() . ': ' . $result->getDebugInfo(), 'horde.error');
-        } else {
-            $notification->push(sprintf(_('Zone serial for %s incremented.'), $domain['zonename']), 'horde.success');
+        try {
+            $result = $beatnik_driver->saveRecord($info);
+        } catch (Exception $e) {
+            $notification->push($e->getMessage(), 'horde.error');
         }
+        $notification->push(sprintf(_('Zone serial for %s incremented.'), $domain['zonename']), 'horde.success');
     } else {
         $notification->push(sprintf(_("Unable to construct valid SOA for %s.  Not incrementing serial."), $domain['zonename']), 'horde.error');
     }
