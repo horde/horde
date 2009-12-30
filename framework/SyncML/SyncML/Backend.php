@@ -503,10 +503,12 @@ class SyncML_Backend {
      *                             this is the guid.
      * @param string $contentType  Content-Type: the MIME type in which the
      *                             function should return the data.
+     * @param array $fields        Hash of field names and SyncML_Property
+     *                             properties with the requested fields.
      *
      * @return mixed  A string with the data entry or a PEAR_Error object.
      */
-    function retrieveEntry($databaseURI, $suid, $contentType)
+    function retrieveEntry($databaseURI, $suid, $contentType, $fields)
     {
         die('retrieveEntry() not implemented!');
     }

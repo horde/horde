@@ -728,20 +728,20 @@ class Turba_Api extends Horde_Registry_Api
      * Export a contact, identified by UID, in the requested contentType.
      *
      * @param string $uid            Identify the contact to export.
-     * @param mixed $contentType     What format should the data be in?
-     *                               Either a string with one of:
-     *                               - text/directory
-     *                               - text/vcard
-     *                               - text/x-vcard
-     *                               The first two produce a vcard3.0 (rfc2426),
-     *                               the second produces a vcard in old 2.1 format
+     * @param mixed $contentType     What format should the data be in?  Either
+     *                               a string with one of: - text/directory -
+     *                               text/vcard - text/x-vcard The first two
+     *                               produce a vcard3.0 (rfc2426), the second
+     *                               produces a vcard in old 2.1 format
      *                               defined by imc.org
-     * @param string|array $sources  The source(s) from which the contact will be
-     *                               exported.
+     * @param string|array $sources The source(s) from which the contact will
+     *                               be exported.
+     * @param array $fields          Hash of field names and SyncML_Property
+     *                               properties with the requested fields.
      *
      * @return mixed  The requested data | PEAR_Error
      */
-    public function export($uid, $contentType, $sources = null)
+    public function export($uid, $contentType, $sources = null, $fields = null)
     {
         require_once dirname(__FILE__) . '/base.php';
         global $cfgSources, $prefs;
@@ -796,9 +796,10 @@ class Turba_Api extends Horde_Registry_Api
             case 'text/directory':
                 $export = '';
                 foreach ($result->objects as $obj) {
-                    $vcard = $driver->tovCard($obj, $version);
-                    /* vCards are not enclosed in BEGIN:VCALENDAR..END:VCALENDAR.
-                     * Export the individual cards instead. */
+                    $vcard = $driver->tovCard($obj, $version, $fields);
+                    /* vCards are not enclosed in
+                     * BEGIN:VCALENDAR..END:VCALENDAR.  Export the individual
+                     * cards instead. */
                     $export .= $vcard->exportvCalendar();
                 }
                 return $export;

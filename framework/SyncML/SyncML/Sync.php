@@ -375,6 +375,12 @@ class SyncML_Sync {
             $this->_targetLocURI, $this->_sourceLocURI);
         $contentTypeTasks = $device->getPreferredContentTypeClient(
             'tasks', $this->_sourceLocURI);
+        if ($state->deviceInfo && $state->deviceInfo->CTCaps) {
+            $fields = array($contentType => isset($state->deviceInfo->CTCaps[$contentType]) ? $state->deviceInfo->CTCaps[$contentType] : null,
+                            $contentTypeTasks => isset($state->deviceInfo->CTCaps[$contentTypeTasks]) ? $state->deviceInfo->CTCaps[$contentTypeTasks] : null);
+        } else {
+            $fields = array($contentType => null, $contentTypeTasks => null);
+        }
 
         /* If server modifications are not retrieved yet (first Sync element),
          * do it now. */
@@ -479,7 +485,7 @@ class SyncML_Sync {
             $syncDB = isset($this->_server_task_adds[$suid]) ? 'tasks' : $this->_targetLocURI;
             $ct = isset($this->_server_task_adds[$suid]) ? $contentTypeTasks : $contentType;
 
-            $c = $backend->retrieveEntry($syncDB, $suid, $ct);
+            $c = $backend->retrieveEntry($syncDB, $suid, $ct, $fields[$ct]);
             /* Item in history but not in database. Strange, but can
              * happen. */
             if (is_a($c, 'PEAR_Error')) {
@@ -533,7 +539,7 @@ class SyncML_Sync {
         foreach ($replaces as $suid => $cuid) {
             $syncDB = isset($replaces2[$suid]) ? 'tasks' : $this->_targetLocURI;
             $ct = isset($replaces2[$suid]) ? $contentTypeTasks : $contentType;
-            $c = $backend->retrieveEntry($syncDB, $suid, $ct);
+            $c = $backend->retrieveEntry($syncDB, $suid, $ct, $fields[$ct]);
             if (is_a($c, 'PEAR_Error')) {
                 /* Item in history but not in database. */
                 unset($this->_server_replaces[$suid]);
