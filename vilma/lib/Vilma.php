@@ -77,7 +77,7 @@ class Vilma {
     function getUserMgrTabs(&$vars)
     {
         $url = Horde::applicationUrl('users/index.php');
-        $tabs = &new Horde_Ui_Tabs('section', $vars);
+        $tabs = new Horde_Ui_Tabs('section', $vars);
         foreach (Vilma::getUserMgrTypes() as $section => $desc) {
             $tabs->addTab($desc['plural'], $url, $section);
         }

@@ -40,7 +40,7 @@ require_once VILMA_BASE . '/lib/Vilma.php';
 require_once VILMA_BASE . '/lib/Driver.php';
 
 /* Templates */
-$template = &new Horde_Template();
+$template = new Horde_Template();
 
 /* Notification system. */
 $notification = &Horde_Notification::singleton();
