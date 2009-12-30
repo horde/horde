@@ -10,8 +10,15 @@
  * @package Shout
  */
 
-class UserDetailsForm extends Horde_Form {
+class ExtensionDetailsForm extends Horde_Form {
 
+    /**
+     * ExtensionDetailsForm constructor.
+     * 
+     * @global <type> $shout_extensions
+     * @param <type> $vars
+     * @return <type> 
+     */
     function __construct(&$vars)
     {
         global $shout_extensions;
@@ -35,6 +42,29 @@ class UserDetailsForm extends Horde_Form {
         $this->addVariable(_("PIN"), 'mailboxpin', 'int', true);
 
         return true;
+    }
+
+    /**
+     * Process this form, saving its information to the backend.
+     *
+     * @param string $context  Context in which to execute this save
+     * FIXME: is there a better way to get the $context and $shout_extensions?
+     */
+    function execute($context)
+    {
+        global $shout_extensions;
+
+        $extension = $this->vars->get('extension');
+
+        # FIXME: Input Validation (Text::??)
+        $details = array(
+            'newextension' => $vars->get('newextension'),
+            'name' => $vars->get('name'),
+            'mailboxpin' => $vars->get('mailboxpin'),
+            'email' => $vars->get('email'),
+        );
+
+        $res = $shout_extensions->saveExtension($context, $extension, $details);
     }
 
 }

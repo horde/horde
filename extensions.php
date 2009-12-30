@@ -26,73 +26,65 @@ $section = 'extensions';
 $title = _("Extensions: ");
 
 switch ($action) {
-    case 'add':
-    case 'edit':
-        if ($action == 'add') {
-            $title .= _("New Extension");
-            // Treat adds just like an empty edit
-            $action = 'edit';
-        } else {
-            $title .= sprintf(_("Edit Extension %s"), $extension);
+case 'save':
+    $title .= sprintf(_("Save Extension %s"), $extension);
+    $FormName = $vars->get('formname');
 
+    $Form = &Horde_Form::singleton($FormName, $vars);
+
+    $FormValid = $Form->validate($vars, true);
+
+    if ($Form->isSubmitted() && $FormValid) {
+        // Form is Valid and Submitted
+        try {
+            $Form->execute();
+        } catch (Exception $e) {
+            $notification->push($e);
         }
-
-        $FormName = 'UserDetailsForm';
-        $vars = new Horde_Variables($extensions[$extension]);
-        $Form = &Horde_Form::singleton($FormName, $vars);
-
-        $Form->open($RENDERER, $vars, Horde::applicationUrl('extensions.php'), 'post');
-
+        $notification->push(_("User information updated."),
+                                  'horde.success');
         break;
-    case 'save':
-        $title .= sprintf(_("Save Extension %s"), $extension);
-        $FormName = $vars->get('formname');
+     } else {
+         $action = 'edit';
+         // Fall-through to the "edit" action
+     }
 
-        $Form = &Horde_Form::singleton($FormName, $vars);
+case 'add':
+case 'edit':
+    if ($action == 'add') {
+        $title .= _("New Extension");
+        // Treat adds just like an empty edit
+        $action = 'edit';
+    } else {
+        $title .= sprintf(_("Edit Extension %s"), $extension);
 
-        $FormValid = $Form->validate($vars, true);
+    }
 
-        if (!$FormValid || !$Form->isSubmitted()) {
-            $notification->push("FIXME: Redirect to re-edit");
-        } else {
-            // Form is Valid and Submitted
-            $extension = $vars->get('extension');
+    $FormName = 'ExtensionDetailsForm';
+    $vars = new Horde_Variables($extensions[$extension]);
+    $Form = &Horde_Form::singleton($FormName, $vars);
 
-            # FIXME: Input Validation (Text::??)
-            $details = array(
-                "newextension" => $vars->get('newextension'),
-                "name" => $vars->get('name'),
-                "mailboxpin" => $vars->get('mailboxpin'),
-                "email" => $vars->get('email'),
-            );
+    $Form->open($RENDERER, $vars, Horde::applicationUrl('extensions.php'), 'post');
 
-            try {
-                $res = $shout_extensions->saveUser($context,
-                                                   $extension, $details);
-            } catch (Exception $e) {
-                $notification->push($e);
-            }
-            $notification->push(_("User information updated."),
-                                      'horde.success');
-         }
+    break;
 
-        break;
-    case 'delete':
-        $title .= sprintf(_("Delete Extension %s"), $extension);
-        $extension = Horde_Util::getFormData('extension');
+case 'delete':
+    $title .= sprintf(_("Delete Extension %s"), $extension);
+    $extension = Horde_Util::getFormData('extension');
 
-        $res = $shout->deleteUser($context, $extension);
+    $res = $shout->deleteUser($context, $extension);
 
-        if (!$res) {
-            echo "Failed!";
-            print_r($res);
-        }
-        $notification->push("User Deleted.");
-        break;
-    case 'list':
-    default:
-        $action = 'list';
-        $title .= _("List Users");
+    if (!$res) {
+        echo "Failed!";
+        print_r($res);
+    }
+    $notification->push("User Deleted.");
+    break;
+
+case 'list':
+default:
+    $action = 'list';
+    $title .= _("List Users");
 }
 
 require SHOUT_TEMPLATES . '/common-header.inc';

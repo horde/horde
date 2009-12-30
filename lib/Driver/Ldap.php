@@ -483,35 +483,32 @@ class Shout_Driver_Ldap extends Shout_Driver
     }
 
     /**
-     * Save a user to the LDAP tree
+     * Save an extension to the LDAP tree
      *
      * @param string $context Context to which the user should be added
      *
      * @param string $extension Extension to be saved
      *
-     * @param array $userdetails Phone numbers, PIN, options, etc to be saved
+     * @param array $details Phone numbers, PIN, options, etc to be saved
      *
      * @return TRUE on success, PEAR::Error object on error
      */
-    public function saveUser($context, $extension, $userdetails)
+    public function saveExtension($context, $extension, $details)
     {
         $ldapKey = &$this->_ldapKey;
         $appKey = &$this->_appKey;
         # FIXME Access Control/Authorization
-        if (
-            !(Shout::checkRights("shout:contexts:$context:users", PERMS_EDIT, 1))
-            &&
-            !($userdetails[$appKey] == Auth::getAuth())
-            ) {
-            return PEAR::raiseError("No permission to modify users in this " .
-                "context.");
+        if (!Shout::checkRights("shout:contexts:$context:extensions", PERMS_EDIT, 1)) {
+            // FIXME: Allow users to edit themselves
+            //&& !($details[$appKey] == Auth::getAuth())) {
+            throw new Shout_Exception(_("Permission denied to save extensions in this context."));
         }
 
         $contexts = &$this->getContexts();
 //         $domain = $contexts[$context]['domain'];
 
         # Check to ensure the extension is unique within this context
-        $filter = "(&(objectClass=asteriskVoiceMailbox)(context=$context))";
+        $filter = "(&(objectClass=AstVoicemailMailbox)(context=$context))";
         $reqattrs = array('dn', $ldapKey);
         $res = @ldap_search($this->_LDAP,
             SHOUT_USERS_BRANCH . ',' . $this->_params['basedn'],
@@ -522,30 +519,30 @@ class Shout_Driver_Ldap extends Shout_Driver
         }
         if (($res['count'] > 1) ||
             ($res['count'] != 0 &&
-            !in_array($res[0][$ldapKey], $userdetails[$appKey]))) {
+            !in_array($res[0][$ldapKey], $details[$appKey]))) {
             return PEAR::raiseError('Duplicate extension found.  Not saving changes.');
         }
 
         $entry = array(
-            'cn' => $userdetails['name'],
-            'sn' => $userdetails['name'],
-            'mail' => $userdetails['email'],
-            'uid' => $userdetails['email'],
-            'voiceMailbox' => $userdetails['newextension'],
-            'voiceMailboxPin' => $userdetails['mailboxpin'],
+            'cn' => $details['name'],
+            'sn' => $details['name'],
+            'mail' => $details['email'],
+            'uid' => $details['email'],
+            'voiceMailbox' => $details['newextension'],
+            'voiceMailboxPin' => $details['mailboxpin'],
             'context' => $context,
-            'asteriskUserDialOptions' => $userdetails['dialopts'],
+            'asteriskUserDialOptions' => $details['dialopts'],
         );
 
-        if (!empty ($userdetails['telephonenumber'])) {
-            $entry['telephoneNumber'] = $userdetails['telephonenumber'];
+        if (!empty ($details['telephonenumber'])) {
+            $entry['telephoneNumber'] = $details['telephonenumber'];
         }
 
         $validusers = &$this->getUsers($context);
         if (!isset($validusers[$extension])) {
             # Test to see if we're modifying an existing user that has
             # no telephone system objectClasses and update that object/user
-            $rdn = $ldapKey.'='.$userdetails[$appKey].',';
+            $rdn = $ldapKey.'='.$details[$appKey].',';
             $branch = SHOUT_USERS_BRANCH.','.$this->_params['basedn'];
 
             # This test is something of a hack.  I want a cheap way to check
@@ -555,7 +552,7 @@ class Shout_Driver_Ldap extends Shout_Driver
             # it'll return error.  If it ever returns false something wierd
             # is going on.
             $res = @ldap_compare($this->_LDAP, $rdn.$branch,
-                    $ldapKey, $userdetails[$appKey]);
+                    $ldapKey, $details[$appKey]);
             if ($res === false) {
                 # We should never get here: a DN should ALWAYS match itself
                 return PEAR::raiseError("Internal Error: " . __FILE__ . " at " .
@@ -563,7 +560,7 @@ class Shout_Driver_Ldap extends Shout_Driver
             } elseif ($res === true) {
                 # The object/user exists but doesn't have the Asterisk
                 # objectClasses
-                $extension = $userdetails['newextension'];
+                $extension = $details['newextension'];
 
                 # $tmp is the minimal information required to establish
                 # an account in LDAP as required by the objectClasses.
@@ -584,7 +581,7 @@ class Shout_Driver_Ldap extends Shout_Driver
                 # Populate the $validusers array to make the edit go smoothly
                 # below
                 $validusers[$extension] = array();
-                $validusers[$extension][$appKey] = $userdetails[$appKey];
+                $validusers[$extension][$appKey] = $details[$appKey];
 
                 # The remainder of the work is done at the outside of the
                 # parent if() like a normal edit.
