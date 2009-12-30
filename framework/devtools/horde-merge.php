@@ -59,7 +59,7 @@ foreach ($lines as $line) {
         continue;
     }
     $tok = preg_split('/\s+/', $line, -1, PREG_SPLIT_NO_EMPTY);
-    $file = str_replace(array('horde/', 'Attic/'), '', $tok[3]);
+    $file = str_replace('Attic/', '', $tok[3]);
     if (isset($tok[4]) && $tok[4] == '(dead)') {
         $cmd = $CVS . ' remove -f ' . $file;
         $new_version = $tok[0];
@@ -99,7 +99,7 @@ foreach ($lines as $line) {
             $cmd = sprintf($CVS . ' diff -N -r %s -r %s -kk %s | patch %s',
                            $old_version,
                            $new_version,
-                           $file,
+                           str_replace('horde/', '', $file),
                            $target . $file);
         }
     }
