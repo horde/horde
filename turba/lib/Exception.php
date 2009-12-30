@@ -1,0 +1,15 @@
+<?php
+/**
+ * Base exception class for Turba.
+ *
+ * Copyright 2009 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (ASL).  If you
+ * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ *
+ * @author  Jan Schneider <jan@horde.org>
+ * @package Turba
+ */
+class Turba_Exception extends Horde_Exception
+{
+}
