@@ -31,6 +31,10 @@ v4.0-cvs
 v3.3.7-cvs
 ----------
 
+[jan] Work around Funambol clients requiring a "configuration" database
+      (Bug #8621).
+[jan] Add support for synchronizing only those fields that are supported by
+      the client.
 [jan] Workaround broken PHP number formatting with some locales (Bug #8780).
 
 
