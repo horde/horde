@@ -205,7 +205,7 @@ class Ingo_Script_Imap extends Ingo_Script
                             $ob->headerText($val['field'], $val['value'], $val['match'] == 'not contain');
                         } else {
                             $headers = array();
-                            foreach (explode($val['field'], ',') as $header) {
+                            foreach (explode(',', $val['field']) as $header) {
                                 $headerOb = $this->_getQuery($params);
                                 $headerOb->headerText($header, $val['value'], $val['match'] == 'not contain');
                                 $headers[] = $headerOb;
