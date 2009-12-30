@@ -13,6 +13,7 @@
   <option value="<?php echo Horde_Data::EXPORT_OUTLOOKCSV ?>"><?php echo _("Comma separated values (Microsoft Outlook)") ?></option>
   <option value="<?php echo Horde_Data::EXPORT_TSV ?>"><?php echo _("Tab separated values") ?></option>
   <option value="<?php echo Horde_Data::EXPORT_VCARD ?>"><?php echo _("vCard") ?></option>
+  <option value="vcard30"><?php echo _("vCard (3.0)") ?></option>
   <option value="ldif"><?php echo _("LDIF Address Book") ?></option>
  </select><br />
 

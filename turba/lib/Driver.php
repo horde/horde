@@ -948,12 +948,11 @@ class Turba_Driver
      * @param string $version       The vcard version to produce.
      * @param array $fields         Hash of field names and SyncML_Property
      *                              properties with the requested fields.
-     *
-     * @static
+     * @param boolean $skipEmpty    Whether to skip empty fields.
      *
      * @return Horde_iCalendar_vcard  A Horde_iCalendar_vcard object.
      */
-    function tovCard($object, $version = '2.1', $fields = null)
+    function tovCard($object, $version = '2.1', $fields = null, $skipEmpty = false)
     {
         $hash = $object->getAttributes();
         $vcard = new Horde_iCalendar_vcard($version);
@@ -962,6 +961,10 @@ class Turba_Driver
         $geo = null;
 
         foreach ($hash as $key => $val) {
+            if ($skipEmpty && !strlen($val)) {
+                continue;
+            }
+
             if ($version != '2.1') {
                 $val = Horde_String::convertCharset($val, Horde_Nls::getCharset(), 'utf-8');
             }
@@ -1631,15 +1634,24 @@ class Turba_Driver
         }
 
         if (!$formattedname && (!$fields || isset($fields['FN']))) {
-            $val = empty($hash['firstname']) ? $hash['lastname'] : $hash['firstname'] . ' ' . $hash['lastname'];
+            if (!empty($this->alternativeName) &&
+                isset($hash[$this->alternativeName])) {
+                $val = $hash[$this->alternativeName];
+            } elseif (isset($hash['lastname'])) {
+                $val = empty($hash['firstname']) ? $hash['lastname'] : $hash['firstname'] . ' ' . $hash['lastname'];
+            } else {
+                $val = '';
+            }
             $vcard->setAttribute('FN', $val, Horde_Mime::is8bit($val) ? $charset : array());
         }
 
         $org = array();
-        if (array_key_exists('company', $hash)) {
+        if (!empty($hash['company']) ||
+            (!$skipEmpty && array_key_exists('company', $hash))) {
             $org[] = $hash['company'];
         }
-        if (array_key_exists('department', $hash)) {
+        if (!empty($hash['department']) ||
+            (!$skipEmpty && array_key_exists('department', $hash))) {
             $org[] = $hash['department'];
         }
         if (count($org) && (!$fields || isset($fields['ORG']))) {
@@ -1652,14 +1664,23 @@ class Turba_Driver
         }
 
         if ((!$fields || isset($fields['ADR'])) &&
-            (array_key_exists('commonAddress', $hash) ||
-             array_key_exists('commonStreet', $hash) ||
-             array_key_exists('commonPOBox', $hash) ||
-             array_key_exists('commonExtended', $hash) ||
-             array_key_exists('commonCity', $hash) ||
-             array_key_exists('commonProvince', $hash) ||
-             array_key_exists('commonPostalCode', $hash) ||
-             array_key_exists('commonCountry', $hash))) {
+            (!empty($hash['commonAddress']) ||
+             !empty($hash['commonStreet']) ||
+             !empty($hash['commonPOBox']) ||
+             !empty($hash['commonExtended']) ||
+             !empty($hash['commonCity']) ||
+             !empty($hash['commonProvince']) ||
+             !empty($hash['commonPostalCode']) ||
+             !empty($hash['commonCountry']) ||
+             (!$skipEmpty &&
+              (array_key_exists('commonAddress', $hash) ||
+               array_key_exists('commonStreet', $hash) ||
+               array_key_exists('commonPOBox', $hash) ||
+               array_key_exists('commonExtended', $hash) ||
+               array_key_exists('commonCity', $hash) ||
+               array_key_exists('commonProvince', $hash) ||
+               array_key_exists('commonPostalCode', $hash) ||
+               array_key_exists('commonCountry', $hash))))) {
             /* We can't know if this particular Turba source uses a single
              * address field or multiple for
              * street/city/province/postcode/country. Try to deal with
@@ -1703,14 +1724,23 @@ class Turba_Driver
              (isset($fields['ADR']) &&
               (!isset($fields['ADR']->Params['TYPE']) ||
                isset($fields['ADR']->Params['TYPE']->ValEnum['HOME'])))) &&
-            (array_key_exists('homeAddress', $hash) ||
-             array_key_exists('homeStreet', $hash) ||
-             array_key_exists('homePOBox', $hash) ||
-             array_key_exists('homeExtended', $hash) ||
-             array_key_exists('homeCity', $hash) ||
-             array_key_exists('homeProvince', $hash) ||
-             array_key_exists('homePostalCode', $hash) ||
-             array_key_exists('homeCountry', $hash))) {
+            (!empty($hash['homeAddress']) ||
+             !empty($hash['homeStreet']) ||
+             !empty($hash['homePOBox']) ||
+             !empty($hash['homeExtended']) ||
+             !empty($hash['homeCity']) ||
+             !empty($hash['homeProvince']) ||
+             !empty($hash['homePostalCode']) ||
+             !empty($hash['homeCountry']) ||
+             (!$skipEmpty &&
+              (array_key_exists('homeAddress', $hash) ||
+               array_key_exists('homeStreet', $hash) ||
+               array_key_exists('homePOBox', $hash) ||
+               array_key_exists('homeExtended', $hash) ||
+               array_key_exists('homeCity', $hash) ||
+               array_key_exists('homeProvince', $hash) ||
+               array_key_exists('homePostalCode', $hash) ||
+               array_key_exists('homeCountry', $hash))))) {
             if (isset($hash['homeAddress']) && !isset($hash['homeStreet'])) {
                 $hash['homeStreet'] = $hash['homeAddress'];
             }
@@ -1749,14 +1779,23 @@ class Turba_Driver
              (isset($fields['ADR']) &&
               (!isset($fields['ADR']->Params['TYPE']) ||
                isset($fields['ADR']->Params['TYPE']->ValEnum['WORK'])))) &&
-            (array_key_exists('workAddress', $hash) ||
-             array_key_exists('workStreet', $hash) ||
-             array_key_exists('workPOBox', $hash) ||
-             array_key_exists('workExtended', $hash) ||
-             array_key_exists('workCity', $hash) ||
-             array_key_exists('workProvince', $hash) ||
-             array_key_exists('workPostalCode', $hash) ||
-             array_key_exists('workCountry', $hash))) {
+            (!empty($hash['workAddress']) ||
+             !empty($hash['workStreet']) ||
+             !empty($hash['workPOBox']) ||
+             !empty($hash['workExtended']) ||
+             !empty($hash['workCity']) ||
+             !empty($hash['workProvince']) ||
+             !empty($hash['workPostalCode']) ||
+             !empty($hash['workCountry']) ||
+             (!$skipEmpty &&
+              (array_key_exists('workAddress', $hash) ||
+               array_key_exists('workStreet', $hash) ||
+               array_key_exists('workPOBox', $hash) ||
+               array_key_exists('workExtended', $hash) ||
+               array_key_exists('workCity', $hash) ||
+               array_key_exists('workProvince', $hash) ||
+               array_key_exists('workPostalCode', $hash) ||
+               array_key_exists('workCountry', $hash))))) {
             if (isset($hash['workAddress']) && !isset($hash['workStreet'])) {
                 $hash['workStreet'] = $hash['workAddress'];
             }

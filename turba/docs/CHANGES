@@ -10,6 +10,8 @@ v3.0-git
 v2.3.4-cvs
 ----------
 
+[jan] Only export non-empty fields if exporting manually.
+[jan] Add export to vCard 3.0.
 [jan] Only synchronize those fields that are supported by the client
       (Request #6658, requires Horde 3.3.7).
 
