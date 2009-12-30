@@ -449,7 +449,7 @@ class Horde_Cli
     {
         /* Run constructor now because it requires $_SERVER['SERVER_NAME'] to
          * be empty if called with a CGI SAPI. */
-        $cli = &self::singleton();
+        $cli = self::singleton();
 
         @set_time_limit(0);
         ob_implicit_flush(true);
