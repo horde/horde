@@ -10,6 +10,7 @@ v2.0-git
 v1.2.4-cvs
 ----------
 
+[jan] Fix procmail scripts when using composite headers (Bug #8804).
 [jan] Support some non-standard Date: headers in Sieve vacation rules
       (Request #8783).
 [jan] Support composite header rules with IMAP backends (Request #7343).

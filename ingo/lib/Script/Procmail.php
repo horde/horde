@@ -633,10 +633,10 @@ class Procmail_Recipe {
 
         default:
             // convert 'field' to PCRE pattern matching
-            if (strpos($condition['field'], ',') == false) {
+            if (!strpos($condition['field'], ',')) {
                 $string = '^' . $condition['field'] . ':';
             } else {
-                $string .= '/^(' . str_replace(',', '|', $condition['field']) . '):';
+                $string .= '^(' . str_replace(',', '|', $condition['field']) . '):';
             }
             $prefix = ' ';
         }
