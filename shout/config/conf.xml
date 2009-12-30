@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!-- $Id$ -->
+<configuration>
+ <configtab name="storage" desc="Storage">
+  <configsection name="storage">
+   <configheader>Context Storage</configheader>
+   <configswitch name="driver" desc="What backend should we use for storing the list of valid contexts/customers?">Sql
+    <case name="Sql" desc="SQL">
+     <configsection name="params">
+      <configsql switchname="driverconfig" />
+      <configstring name="table" desc="Table to hold the list of contexts/customers" required="true">contexts</configstring>
+     </configsection>
+    </case>
+   </configswitch>
+  </configsection>
+ </configtab>
+ <configtab name="extensions" desc="Extensions">
+  <configsection name="extensions">
+   <configheader>Extension Storage</configheader>
+   <configswitch name="driver" desc="What backend should we use for storing Asterisk phone user configuration?">Ldap
+    <case name="Ldap" desc="LDAP">
+     <configsection name="params">
+      <configldap switchname="driverconfig" />
+     </configsection>
+    </case>
+    <case name="Sql" desc="SQL">
+     <configsection name="params">
+      <configsql switchname="driverconfig" />
+      <configstring name="table" desc="Table to hold the list of extensions" required="true"></configstring>
+     </configsection>
+    </case>
+   </configswitch>
+  </configsection>
+ </configtab>
+ <configtab name="devices" desc="VoIP Devices">
+  <configsection name="devices">
+   <configheader>Device Storage</configheader>
+   <configswitch name="driver" desc="What backend should we use for storing Asterisk phone user configuration?">Ldap
+    <case name="Ldap" desc="LDAP">
+     <configsection name="params">
+      <configldap switchname="driverconfig" />
+     </configsection>
+    </case>
+    <case name="Sql" desc="SQL">
+     <configsection name="params">
+      <configsql switchname="driverconfig" />
+      <configstring name="table" desc="Table to hold the device configuration data" required="true">sip_peers</configstring>
+     </configsection>
+    </case>
+   </configswitch>
+  </configsection>
+ </configtab>
+</configuration>
+
