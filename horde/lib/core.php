@@ -26,32 +26,26 @@ if (ini_get('register_globals')) {
     }
 }
 
-$horde_dir = dirname(__FILE__);
 if (!defined('HORDE_BASE')) {
-    define('HORDE_BASE', $horde_dir . '/..');
+    define('HORDE_BASE', dirname(__FILE__) . '/..');
 }
 
 /* Define any local include_path alterations in horde/config/horde.local.php.
  * Example:
  *   ini_set('include_path', dirname(__FILE__) . PATH_SEPARATOR . ini_get('include_path'));
  */
-if (file_exists($horde_dir . '/../config/horde.local.php')) {
-    include $horde_dir . '/../config/horde.local.php';
+if (file_exists(HORDE_BASE . '/config/horde.local.php')) {
+    include HORDE_BASE . '/config/horde.local.php';
 }
 
-/* PEAR base class. */
-include_once 'PEAR.php';
-
-/* Log (need to include because of constants). */
-include_once 'Log.php';
-
-/* Horde Autoloader. */
-include_once 'Horde/Autoloader.php';
-
 /* Set up autoload paths for core Horde libs (located in lib/). This can't
- * be defined in Horde_Autoloader since the $horde_dir path can not be
+ * be defined in Horde_Autoloader since the current directory path can not be
  * determined there. */
-Horde_Autoloader::addClassPattern('/^Horde(?:$|_)/i', $horde_dir);
+include_once 'Horde/Autoloader.php';
+Horde_Autoloader::addClassPattern('/^Horde(?:$|_)/i', dirname(__FILE__));
+
+/* Log (need to include because of LOG constants). */
+include_once 'Log.php';
 
 /* Default exception handler for uncaught exceptions. The default fatal
  * exception handler output may include things like passwords, etc. so don't
