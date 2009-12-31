@@ -1,8 +1,18 @@
 <div class="header">
+    <ul id="controls">
+        <?php
+        $addurl = Horde::applicationUrl('extensions.php');
+        $addurl = Horde_Util::addParameter($addurl, 'action', 'add');
+        ?>
+        <li><a href="<?php echo $addurl; ?>">
+            <?php echo Horde::img('add-extension.png'); ?>&nbsp;New Extension
+            </a>
+        </li>
+    </ul>
     Context: <?php echo $context; ?>
 </div>
 
-<div id="userList" class="userList">
+<div id="extensionList">
     <table width="100%" cellspacing="0">
         <tr>
             <td class="uheader">Extension</td>
