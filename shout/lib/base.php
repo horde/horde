@@ -59,7 +59,7 @@ $notification->attach('status');
 //// UI classes.
 //require_once 'Horde/UI/Tabs.php';
 
-$shout_storage = Shout_Driver::factory('storage');
+$shout_contexts = Shout_Driver::factory('storage');
 $shout_extensions = Shout_Driver::factory('extensions');
 $shout_devices = Shout_Driver::factory('devices');
 
@@ -67,7 +67,7 @@ $context = Horde_Util::getFormData('context');
 $section = Horde_Util::getFormData('section');
 
 try {
-    $contexts = $shout_storage->getContexts();
+    $contexts = $shout_contexts->getContexts();
 } catch (Shout_Exception $e) {
     $notification->push($e);
     $contexts = false;
@@ -75,9 +75,12 @@ try {
 
 if (count($contexts) == 1) {
     // Default to the user's only context
+    if (!empty($context) && $context != $contexts[0]) {
+        $notification->push(_("You do not have permission to access that context."), 'horde.error');
+    }
     $context = $contexts[0];
 } elseif (!empty($context) && !in_array($context, $contexts)) {
-    $notification->push('You do not have permission to access that context.', 'horde.error');
+    $notification->push(_("You do not have permission to access that context."), 'horde.error');
     $context = false;
 } elseif (!empty($context)) {
     $notification->push("Please select a context to continue.", 'horde.info');
