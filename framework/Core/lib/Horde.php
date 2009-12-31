@@ -2257,7 +2257,7 @@ HTML;
             $params->width = $options['width'];
         }
         if (!empty($options['params'])) {
-            $params->params = http_build_query($options['params']);
+            $params->params = http_build_query(array_map('rawurlencode', $options['params']));
         }
         if (!empty($options['menu'])) {
             $params->menu = 1;
