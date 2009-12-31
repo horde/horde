@@ -213,12 +213,12 @@ class Horde_Perms_Ui
     /**
      * Function to validate any add form input.
      *
-     * @param TODO $info  TODO
+     * @param array &$info  Ref to hold info from the form
      *
      * @return mixed  Either false if the form does not validate correctly or
      *                an array with all the form values.
      */
-    public function validateAddForm($info)
+    public function validateAddForm(&$info)
     {
         if (!$this->_form->validate($this->_vars)) {
             return false;
