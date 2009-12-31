@@ -282,7 +282,7 @@ class IMP_Compose
      * @param string $data  The text of the draft message.
      *
      * @return string  Status string.
-     * @throw IMP_Compose_Exception
+     * @throws IMP_Compose_Exception
      */
     protected function _saveDraftServer($data)
     {

@@ -1644,7 +1644,7 @@ class IMP_Imap_Tree
     /**
      * Get any custom icon configured for the given element.
      *
-     * @params array $elt  A tree element.
+     * @param array $elt  A tree element.
      *
      * @return array  An array with the 'icon', 'icondir', and 'alt'
      *                information for the element, or false if no icon

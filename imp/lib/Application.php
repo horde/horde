@@ -1,4 +1,15 @@
 <?php
+/**
+ * IMP application API.
+ *
+ * This file defines Horde's core API interface. Other core Horde libraries
+ * can interact with Horde through this API.
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
+ * @package IMP
+ */
 
 /* Determine the base directories. */
 if (!defined('IMP_BASE')) {
@@ -19,17 +30,6 @@ if (!defined('HORDE_BASE')) {
  * Horde_Registry_Application::). */
 require_once HORDE_BASE . '/lib/core.php';
 
-/**
- * IMP application API.
- *
- * This file defines IMP's external API interface. Other applications
- * can interact with IMP through this API.
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
- *
- * @package IMP
- */
 class IMP_Application extends Horde_Registry_Application
 {
     /**
@@ -105,10 +105,15 @@ class IMP_Application extends Horde_Registry_Application
      * IMP base initialization.
      *
      * Global variables defined:
-     *   $imp_imap    - An IMP_Imap object
-     *   $imp_mbox    - Current mailbox information
-     *   $imp_notify  - A Horde_Notification_Listener object
-     *   $imp_search  - An IMP_Search object
+     *   $imp_imap     - An IMP_Imap object
+     *   $imp_mbox     - Current mailbox information
+     *   $imp_notify   - A Horde_Notification_Listener object
+     *   $imp_search   - An IMP_Search object
+     *   $notification - Notification object
+     *   $registry     - Registry object
+     *
+     * Global constants defined:
+     *   IMP_TEMPLATES - (string) Location of template files.
      *
      * @param array $args  Optional arguments:
      * <pre>

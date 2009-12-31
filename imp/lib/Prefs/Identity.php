@@ -11,8 +11,7 @@
  *
  * @author   Jan Schneider <jan@horde.org>
  * @author   Chuck Hagenbuch <chuck@horde.org>
- * @category IMP
- * @package  Horde_Prefs
+ * @package  IMP
  */
 class Imp_Prefs_Identity extends Horde_Prefs_Identity
 {

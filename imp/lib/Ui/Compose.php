@@ -17,8 +17,8 @@ class IMP_Ui_Compose
      * Expand addresses in a string. Only the last address in the string will
      * be expanded.
      *
-     * @var string $input             The input string.
-     * @var IMP_Compose $imp_compose  An IMP_Compose object.
+     * @param string $input             The input string.
+     * @param IMP_Compose $imp_compose  An IMP_Compose object.
      *
      * @return mixed  If a string, this value should be used as the new
      *                input string.  If an array, the first value is the
