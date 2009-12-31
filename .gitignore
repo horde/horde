@@ -19,6 +19,13 @@ run-tests.log
 */config/*.txt
 
 # Application specific excludes
+ApertureToAnselExportPlugin/build/
+ApertureToAnselExportPlugin/ApertureToAnselExportPlugin.xcodeproj/*.pbxuser
+!ApertureToAnselExportPlugin/ApertureToAnselExportPlugin.xcodeproj/default.pbxuser
+ApertureToAnselExportPlugin/ApertureToAnselExportPlugin.xcodeproj/*.perspectivev3
+ApertureToAnselExportPlugin/*.pbxproject
+ApertureToAnselExportPlugin/Installer/*.pkg
+
 framework/Rdo/examples/Horde/Rdo/conf.php
 
 iPhoto2Ansel/build/
@@ -27,10 +34,3 @@ iPhoto2Ansel/iPhoto2Ansel.xcodeproj/*.pbxuser
 iPhoto2Ansel/iPhoto2Ansel.xcodeproj/*.perspectivev3
 iPhoto2Ansel/*.pbxproject
 iPhoto2Ansel/Installer/*.pkg
-
-ApertureToAnselExportPlugin/build/
-ApertureToAnselExportPlugin/ApertureToAnselExportPlugin.xcodeproj/*.pbxuser
-!ApertureToAnselExportPlugin/ApertureToAnselExportPlugin.xcodeproj/default.pbxuser
-ApertureToAnselExportPlugin/ApertureToAnselExportPlugin.xcodeproj/*.perspectivev3
-ApertureToAnselExportPlugin/*.pbxproject
-ApertureToAnselExportPlugin/Installer/*.pkg
