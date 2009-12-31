@@ -24,7 +24,7 @@ class Shout_Driver {
      */
     var $_params = array();
 
-    function Shout_Driver($params = array())
+    function __construct($params = array())
     {
         $this->_params = $params;
     }
