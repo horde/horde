@@ -92,7 +92,7 @@ require SHOUT_TEMPLATES . '/menu.inc';
 
 $notification->notify();
 
-//echo $tabs->render($section);
+echo "<br>\n";
 
 require SHOUT_TEMPLATES . '/extensions/' . $action . '.inc';
 

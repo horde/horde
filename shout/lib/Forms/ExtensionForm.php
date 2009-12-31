@@ -22,7 +22,7 @@ class ExtensionDetailsForm extends Horde_Form {
     function __construct(&$vars)
     {
         global $shout_extensions;
-        $context = $vars->get('context');
+        $context = $_SESSION['shout']['context'];
         if ($vars->exists('extension')) {
             $formtitle = "Edit User";
             $extension = $vars->get('extension');
