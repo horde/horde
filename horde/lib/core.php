@@ -17,13 +17,9 @@ ini_set('magic_quotes_runtime', 0);
 ini_set('zend.ze1_compatibility_mode', 0);
 ini_set('allow_url_include', 0);
 
-/* Unset all variables populated through register_globals. */
+/* Exit immediately if register_globals is active. */
 if (ini_get('register_globals')) {
-    foreach (array($_GET, $_POST, $_COOKIE, $_ENV, $_SERVER) as $var) {
-        foreach (array_keys($var) as $key) {
-            unset($$key);
-        }
-    }
+    exit('Register globals is enabled. Exiting.');
 }
 
 if (!defined('HORDE_BASE')) {

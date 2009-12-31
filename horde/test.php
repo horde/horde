@@ -151,6 +151,10 @@ $setting_list = array(
         'setting' => 'value',
         'error' => 'If PHP\'s internal memory limit is not set high enough Horde will not be able to handle large data items. You should set the value of memory_limit in php.ini to a sufficiently high value - at least 64M is recommended.'
     ),
+    'register_globals' => array(
+        'setting' => false,
+        'error' => 'Register globals has been deprecated in PHP 5. Horde will fatally exit if it is set. Turn it off.'
+    ),
     'safe_mode' => array(
         'setting' => false,
         'error' => 'If safe_mode is enabled, Horde cannot set enviroment variables, which means Horde will be unable to translate the user interface into different languages.'
