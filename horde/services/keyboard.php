@@ -8,8 +8,8 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-$horde_no_logintasks = true;
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+new Horde_Application(array('nologintasks' => true));
 
 $title = _("Special Character Input");
 require HORDE_TEMPLATES . '/common-header.inc';

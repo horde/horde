@@ -8,7 +8,8 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../../lib/base.php';
+require_once dirname(__FILE__) . '/../../lib/Application.php';
+new Horde_Application();
 
 $rpc_servers = @unserialize($prefs->getValue('remote_summaries'));
 if (!is_array($rpc_servers)) {

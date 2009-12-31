@@ -10,7 +10,8 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+new Horde_Application();
 
 /* Set the language. */
 $_SESSION['horde_language'] = Horde_Nls::select();

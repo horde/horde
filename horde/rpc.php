@@ -19,7 +19,8 @@
 
 require_once dirname(__FILE__) . '/lib/core.php';
 
-$input = null;
+$input = $session_control = null;
+$nocompress = false;
 $params = array();
 
 /* Look at the Content-type of the request, if it is available, to try
@@ -31,13 +32,13 @@ if (!empty($_SERVER['PATH_INFO']) ||
     if (strpos($_SERVER['CONTENT_TYPE'], 'application/vnd.syncml+xml') !== false) {
         $serverType = 'Syncml';
         /* Syncml does its own session handling. */
-        $horde_session_control = 'none';
-        $horde_no_compress = true;
+        $session_control = 'none';
+        $nocompress = true;
     } elseif (strpos($_SERVER['CONTENT_TYPE'], 'application/vnd.syncml+wbxml') !== false) {
         $serverType = 'Syncml_Wbxml';
         /* Syncml does its own session handling. */
-        $horde_session_control = 'none';
-        $horde_no_compress = true;
+        $session_control = 'none';
+        $nocompress = true;
     } elseif (strpos($_SERVER['CONTENT_TYPE'], 'text/xml') !== false) {
         $input = Horde_Rpc::getInput();
         /* Check for SOAP namespace URI. */
@@ -61,7 +62,7 @@ if (!empty($_SERVER['PATH_INFO']) ||
 if ($serverType == 'Soap' &&
     (!isset($_SERVER['REQUEST_METHOD']) ||
      $_SERVER['REQUEST_METHOD'] != 'POST')) {
-    $horde_session_control = 'none';
+    $session_control = 'none';
     $params['requireAuthorization'] = false;
     if (Horde_Util::getGet('wsdl') !== null) {
         $input = 'wsdl';
@@ -77,8 +78,7 @@ if (($ra = Horde_Util::getGet('requestMissingAuthorization')) !== null) {
 }
 
 /* Load base libraries. */
-$horde_authentication = 'none';
-require_once HORDE_BASE . '/lib/base.php';
+new Horde_Application(array('authentication' => 'none', 'nocompress' => $nocompress, 'session_control' => $session_control));
 
 /* Load the RPC backend based on $serverType. */
 $server = Horde_Rpc::factory($serverType, $params);

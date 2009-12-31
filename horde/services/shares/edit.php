@@ -8,21 +8,20 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
+require_once dirname(__FILE__) . '/../../lib/Application.php';
+new Horde_Application();
+
+// Exit if the user shouldn't be able to change share permissions.
+if (!empty($conf['share']['no_sharing'])) {
+    throw new Horde_Exception('Permission denied.');
+}
+
 $fieldsList = array(
     'show' => 0,
     'read' => 1,
     'edit' => 2,
     'delete' => 3
 );
-
-@define('HORDE_BASE', dirname(__FILE__) . '/../..');
-require_once dirname(__FILE__) . '/../../lib/base.php';
-require_once 'Horde/Group.php';
-
-// Exit if the user shouldn't be able to change share permissions.
-if (!empty($conf['share']['no_sharing'])) {
-    exit('permission denied');
-}
 
 $app = Horde_Util::getFormData('app');
 $shares = Horde_Share::singleton($app);

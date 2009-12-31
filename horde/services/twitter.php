@@ -9,7 +9,8 @@
  *
  */
 
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+new Horde_Application();
 
 if (empty($GLOBALS['conf']['twitter']['enabled'])) {
     $horde_url = Horde::url($registry->get('webroot', 'horde') . '/index.php');

@@ -22,8 +22,7 @@ if (!Horde_Cli::runningFromCLI()) {
 Horde_Cli::init();
 
 // Include needed libraries.
-$horde_authentication = 'none';
-require_once HORDE_BASE . '/lib/base.php';
+new Horde_Application(array('authentication' => 'none'));
 
 // Authenticate as administrator.
 if (!count($conf['auth']['admins'])) {

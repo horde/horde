@@ -8,12 +8,8 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../../lib/base.php';
-
-if (!Horde_Auth::getAuth()) {
-    header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('login.php', true), 'url', Horde::selfUrl(), false));
-    exit;
-}
+require_once dirname(__FILE__) . '/../../lib/Application.php';
+new Horde_Application();
 
 $identity = Horde_Prefs_Identity::singleton();
 $fullname = $identity->getValue('fullname');

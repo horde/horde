@@ -7,7 +7,6 @@
 
 // Do CLI checks and environment setup first.
 require_once dirname(__FILE__) . '/../../lib/core.php';
-require_once 'Horde/Group.php';
 
 // Make sure no one runs this from the web.
 if (!Horde_Cli::runningFromCLI()) {
@@ -18,9 +17,9 @@ if (!Horde_Cli::runningFromCLI()) {
 // some variables, etc.
 Horde_Cli::init();
 
-$horde_authentication = 'none';
-require_once HORDE_BASE . '/lib/base.php';
+new Horde_Application(array('authentication' => 'none'));
 
+require_once 'Horde/Group.php';
 $g = Group::factory();
 
 $group_query = '

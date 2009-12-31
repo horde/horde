@@ -10,11 +10,8 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../../lib/base.php';
-
-if (!Horde_Auth::isAdmin()) {
-    throw new Horde_Exception('Forbidden.');
-}
+require_once dirname(__FILE__) . '/../../lib/Application.php';
+new Horde_Application(array('admin' => true));
 
 /**
  * Does an FTP upload to save the configuration.

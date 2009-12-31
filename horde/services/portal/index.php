@@ -8,7 +8,8 @@
  * @author Mike Cochrane <mike@graftonhall.co.nz>
  */
 
-require_once dirname(__FILE__) . '/../../lib/base.php';
+require_once dirname(__FILE__) . '/../../lib/Application.php';
+new Horde_Application();
 
 // Get full name.
 $identity = Horde_Prefs_Identity::singleton();

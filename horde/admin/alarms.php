@@ -8,11 +8,8 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/base.php';
-
-if (!Horde_Auth::isAdmin()) {
-    Horde::authenticationFailureRedirect();
-}
+require_once dirname(__FILE__) . '/../lib/Application.php';
+new Horde_Application(array('admin' => true));
 
 $horde_alarm = Horde_Alarm::factory();
 $methods = array();

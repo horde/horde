@@ -8,8 +8,8 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-$horde_authentication = 'none';
 require_once dirname(__FILE__) . '/../lib/base.php';
+new Horde_Application(array('authentication' => 'none'));
 
 // Make sure signups are enabled before proceeding
 $auth = Horde_Auth::singleton($conf['auth']['driver']);

@@ -40,9 +40,8 @@ if (empty($args['nocache'])) {
 } else {
     $session_cache_limiter = 'nocache';
 }
-$horde_no_logintasks = true;
-$horde_session_control = 'readonly';
-require_once HORDE_BASE . '/lib/base.php';
+
+new Horde_Application(array('authentication' => 'none', 'session_control' => 'readonly'));
 
 switch ($type) {
 case 'app':

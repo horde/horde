@@ -8,12 +8,8 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../../lib/base.php';
-require_once 'Horde/Config.php';
-
-if (!Horde_Auth::isAdmin()) {
-    throw new Horde_Exception('Forbidden.');
-}
+require_once dirname(__FILE__) . '/../../lib/Application.php';
+new Horde_Application(array('admin' => true));
 
 if (!Horde_Util::extensionExists('domxml') &&
     !Horde_Util::extensionExists('dom')) {
@@ -32,6 +28,8 @@ if (empty($app) || !in_array($app, $registry->listApps(array('inactive', 'hidden
 }
 
 $vars = Horde_Variables::getDefaultVariables();
+
+require_once 'Horde/Config.php';
 $form = new ConfigForm($vars, $app);
 $form->setButtons(sprintf(_("Generate %s Configuration"), $appname));
 if (file_exists($registry->get('fileroot', $app) . '/config/conf.bak.php')) {

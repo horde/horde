@@ -9,7 +9,9 @@
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  */
-require_once dirname(__FILE__) . '/../lib/base.php';
+
+require_once dirname(__FILE__) . '/../lib/Application.php';
+new Horde_Application();
 
 if (empty($GLOBALS['conf']['facebook']['enabled']) ||
     empty($GLOBALS['conf']['facebook']['key']) ||

@@ -17,8 +17,7 @@ if (!Horde_Cli::runningFromCLI()) {
 // some variables, etc.
 Horde_Cli::init();
 
-$horde_authentication = 'none';
-require_once HORDE_BASE . '/lib/base.php';
+new Horde_Application(array('authentication' => 'none'));
 
 $p = Perms::factory('datatree');
 

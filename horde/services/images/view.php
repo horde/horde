@@ -10,8 +10,8 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-$horde_no_logintasks = true;
-require_once dirname(__FILE__) . '/../../lib/base.php';
+require_once dirname(__FILE__) . '/../../lib/Application.php';
+new Horde_Application(array('nologintasks' => true));
 
 /* Get file info. The following parameters are available:
  *  'f' - the filename.

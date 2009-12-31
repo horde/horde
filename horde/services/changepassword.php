@@ -8,8 +8,8 @@
  * @author Jason Felice <jason.m.felice@gmail.com>
  */
 
-$horde_no_logintasks = true;
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+new Horde_Application(array('nologintasks' => true));
 
 // Make sure auth backend allows passwords to be reset.
 $auth = Horde_Auth::singleton($conf['auth']['driver']);

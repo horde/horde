@@ -6,8 +6,8 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  */
 
-$horde_authentication = 'none';
-require_once dirname(__FILE__) . '/../../lib/base.php';
+require_once dirname(__FILE__) . '/../../lib/Application.php';
+new Horde_Application(array('authentication' => 'none'));
 
 $rtl = isset(Horde_Nls::$config['rtl'][$language]);
 $title = _("Help");

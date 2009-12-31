@@ -26,13 +26,10 @@ function addTree($parent, $parent_id, $indent = 1)
     }
 }
 
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+new Horde_Application(array('admin' => true));
+
 require_once 'Horde/DataTree.php';
-
-if (!Horde_Auth::isAdmin()) {
-    Horde::authenticationFailureRedirect();
-}
-
 $tree = Horde_Tree::factory('datatree', 'Html');
 $tree->setOption('alternate', true);
 

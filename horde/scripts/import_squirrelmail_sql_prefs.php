@@ -37,8 +37,8 @@ if ($argc != 2) {
 $dsn = $argv[1];
 
 // Make sure we load Horde base to get the auth config
-$horde_authentication = 'none';
-require_once HORDE_BASE . '/lib/base.php';
+new Horde_Application(array('authentication' => 'none'));
+
 require_once dirname(__FILE__) . '/import_squirrelmail_prefs.php';
 
 // Connect to database.

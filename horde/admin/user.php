@@ -8,11 +8,9 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+new Horde_Application(array('admin' => true));
 
-if (!Horde_Auth::isAdmin()) {
-    throw new Horde_Exception('Forbidden.');
-}
 $auth = Horde_Auth::singleton($conf['auth']['driver']);
 
 if ($conf['signup']['allow'] && $conf['signup']['approve']) {

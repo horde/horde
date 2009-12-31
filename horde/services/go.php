@@ -12,9 +12,8 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-$horde_authentication = 'none';
-$horde_session_control = 'none';
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+new Horde_Application(array('authentication' => 'none', 'session_control' => 'none'));
 
 if (empty($_GET['url'])) {
     exit;

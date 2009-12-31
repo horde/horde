@@ -8,8 +8,8 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-$horde_authentication = 'none';
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+new Horde_Application(array('authentication' => 'none'));
 
 // Make sure auth backend allows passwords to be reset.
 $auth = Horde_Auth::singleton($conf['auth']['driver']);

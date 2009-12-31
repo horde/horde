@@ -8,7 +8,8 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once '../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+new Horde_Application();
 
 $auth = Horde_Auth::singleton($conf['auth']['driver']);
 
