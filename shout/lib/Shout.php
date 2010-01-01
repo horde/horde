@@ -129,8 +129,7 @@ class Shout
             $numparents--;
         }
         $test = $superadmin | $user;
-$ret = ($test & $permmask) == $permmask;
-print "Shout::checkRights() returning $ret";
+
         return ($test & $permmask) == $permmask;
     }
 }

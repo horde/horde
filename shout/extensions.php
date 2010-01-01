@@ -13,10 +13,6 @@ require_once SHOUT_BASE . '/lib/Forms/ExtensionForm.php';
 //require_once SHOUT_BASE . '/lib/Shout.php';
 
 $action = Horde_Util::getFormData('action');
-$extension = Horde_Util::getFormData('extension');
-$extensions = $shout_extensions->getExtensions($context);
-
-$vars = Horde_Variables::getDefaultVariables();
 
 //$tabs = Shout::getTabs($context, $vars);
 
@@ -26,46 +22,37 @@ $section = 'extensions';
 $title = _("Extensions: ");
 
 switch ($action) {
-case 'save':
-    $title .= sprintf(_("Save Extension %s"), $extension);
-    $FormName = $vars->get('formname');
-
-    $Form = &Horde_Form::singleton($FormName, $vars);
+case 'add':
+case 'edit':
+    $vars = Horde_Variables::getDefaultVariables();
+    $Form = new ExtensionDetailsForm($vars);
 
     $FormValid = $Form->validate($vars, true);
 
     if ($Form->isSubmitted() && $FormValid) {
         // Form is Valid and Submitted
         try {
-            $Form->execute();
+            $Form->execute($context);
+            $notification->push(_("User information updated."),
+                                  'horde.success');
+            $action = 'list';
         } catch (Exception $e) {
             $notification->push($e);
         }
-        $notification->push(_("User information updated."),
-                                  'horde.success');
-        break;
-     } else {
-         $action = 'edit';
-         // Fall-through to the "edit" action
-     }
-
-case 'add':
-case 'edit':
-    if ($action == 'add') {
-        $title .= _("New Extension");
-        // Treat adds just like an empty edit
-        $action = 'edit';
     } else {
-        $title .= sprintf(_("Edit Extension %s"), $extension);
-
+        // Create a new add/edit form
+        $extension = Horde_Util::getFormData('extension');
+        $extensions = $shout_extensions->getExtensions($context);
+        $vars = new Horde_Variables($extensions[$extension]);
+        if ($action == 'edit') {
+            $vars->set('oldextension', $extension);
+        }
+        $vars->set('action', $action);
+        $Form = new ExtensionDetailsForm($vars);
+        $Form->open($RENDERER, $vars, Horde::applicationUrl('extensions.php'), 'post');
+        // Make sure we get the right template below.
+        $action = 'edit';
     }
-
-    $FormName = 'ExtensionDetailsForm';
-    $vars = new Horde_Variables($extensions[$extension]);
-    $Form = &Horde_Form::singleton($FormName, $vars);
-
-    $Form->open($RENDERER, $vars, Horde::applicationUrl('extensions.php'), 'post');
-
     break;
 
 case 'delete':
@@ -86,6 +73,9 @@ default:
     $action = 'list';
     $title .= _("List Users");
 }
+
+// Fetch the (possibly updated) list of extensions
+$extensions = $shout_extensions->getExtensions($context);
 
 require SHOUT_TEMPLATES . '/common-header.inc';
 require SHOUT_TEMPLATES . '/menu.inc';

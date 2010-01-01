@@ -69,8 +69,9 @@ class Shout_Driver_Sql extends Shout_Driver
      */
     public function getDevices($context)
     {
-        $sql = 'SELECT id, name, alias, callerid, context, mailbox, host, permit, ' .
-               'nat, secret, disallow, allow FROM %s WHERE accountcode = ?';
+        $sql = 'SELECT id, name, alias, callerid, context, mailbox, host, ' .
+               'permit, nat, secret, disallow, allow ' .
+               'FROM %s WHERE accountcode = ?';
         $sql = sprintf($sql, $this->_params['table']);
         $args = array($context);
         $result = $this->_db->query($sql, $args);
@@ -163,6 +164,7 @@ class Shout_Driver_Sql extends Shout_Driver
      */
     public function saveExtension($context, $extension, $userdetails)
     {
+        parent::saveExtension($context, $extension, $details);
         throw new Shout_Exception("Not implemented.");
     }
 
@@ -182,7 +184,7 @@ class Shout_Driver_Sql extends Shout_Driver
     /**
      * Attempts to open a persistent connection to the SQL server.
      *
-     * @throws Horde_Exception
+     * @throws Shout_Exception
      */
     protected function _connect()
     {
@@ -207,7 +209,7 @@ class Shout_Driver_Sql extends Shout_Driver
         $this->_write_db = DB::connect($this->_params,
                                        array('persistent' => !empty($this->_params['persistent'])));
         if ($this->_write_db instanceof PEAR_Error) {
-            throw Horde_Exception($this->_write_db);
+            throw Shout_Exception($this->_write_db);
         }
 
         // Set DB portability options.
@@ -226,7 +228,7 @@ class Shout_Driver_Sql extends Shout_Driver
             $this->_db = DB::connect($params,
                                      array('persistent' => !empty($params['persistent'])));
             if ($this->_db instanceof PEAR_Error) {
-                throw Horde_Exception($this->_db);
+                throw Shout_Exception($this->_db);
             }
 
             // Set DB portability options.

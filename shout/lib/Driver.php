@@ -114,6 +114,25 @@ class Shout_Driver {
     }
 
     /**
+     * Save an extension to the LDAP tree
+     *
+     * @param string $context Context to which the user should be added
+     *
+     * @param string $extension Extension to be saved
+     *
+     * @param array $details Phone numbers, PIN, options, etc to be saved
+     *
+     * @return TRUE on success, PEAR::Error object on error
+     * @throws Shout_Exception
+     */
+    public function saveExtension($context, $extension, $details)
+    {
+        if (!Shout::checkRights("shout:contexts:$context:extensions", PERMS_EDIT, 1)) {
+            throw new Shout_Exception(_("Permission denied to save extensions in this context."));
+        }
+    }
+
+    /**
      * Attempts to return a concrete Shout_Driver instance based on
      * $driver.
      *

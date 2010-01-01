@@ -91,7 +91,7 @@ class Shout_Driver_Ldap extends Shout_Driver
 
         $attributes = array(
             'cn',
-            'mail',
+            'AstVoicemailEmail',
             'AstVoicemailMailbox',
             'AstVoicemailPassword',
             'AstVoicemailOptions',
@@ -138,7 +138,7 @@ class Shout_Driver_Ldap extends Shout_Driver
                 $res[$i]['cn'][0];
 
             $entries[$context][$extension]['email'] =
-                $res[$i]['mail'][0];
+                $res[$i]['astvoicemailemail'][0];
 
             $entries[$context][$extension]['pageremail'] =
                 $res[$i]['astvoicemailpager'][0];
@@ -492,162 +492,96 @@ class Shout_Driver_Ldap extends Shout_Driver
      * @param array $details Phone numbers, PIN, options, etc to be saved
      *
      * @return TRUE on success, PEAR::Error object on error
+     * @throws Shout_Exception
      */
     public function saveExtension($context, $extension, $details)
     {
-        $ldapKey = &$this->_ldapKey;
-        $appKey = &$this->_appKey;
-        # FIXME Access Control/Authorization
-        if (!Shout::checkRights("shout:contexts:$context:extensions", PERMS_EDIT, 1)) {
-            // FIXME: Allow users to edit themselves
-            //&& !($details[$appKey] == Auth::getAuth())) {
-            throw new Shout_Exception(_("Permission denied to save extensions in this context."));
-        }
+        parent::saveExtension($context, $extension, $details);
 
-        $contexts = &$this->getContexts();
-//         $domain = $contexts[$context]['domain'];
-
-        # Check to ensure the extension is unique within this context
-        $filter = "(&(objectClass=AstVoicemailMailbox)(context=$context))";
-        $reqattrs = array('dn', $ldapKey);
-        $res = @ldap_search($this->_LDAP,
-            SHOUT_USERS_BRANCH . ',' . $this->_params['basedn'],
-            $filter, $reqattrs);
-        if (!$res) {
-            return PEAR::raiseError('Unable to check directory for duplicate extension: ' .
-                ldap_error($this->_LDAP));
-        }
-        if (($res['count'] > 1) ||
-            ($res['count'] != 0 &&
-            !in_array($res[0][$ldapKey], $details[$appKey]))) {
-            return PEAR::raiseError('Duplicate extension found.  Not saving changes.');
-        }
-
+        // FIXME: Fix and uncomment the below
+//        // Check to ensure the extension is unique within this context
+//        $filter = "(&(objectClass=AstVoicemailMailbox)(context=$context))";
+//        $reqattrs = array('dn', $ldapKey);
+//        $res = @ldap_search($this->_LDAP, $this->_params['basedn'],
+//                            $filter, $reqattrs);
+//        if ($res === false) {
+//            $msg = sprintf('LDAP Error (%s): %s', ldap_errno($this->_LDAP),
+//                                                  ldap_error($this->_LDAP));
+//            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+//            throw new Shout_Exception(_("Error while searching the directory.  Details have been logged for the administrator."));
+//        }
+//        if (($res['count'] != 1) ||
+//            ($res['count'] != 0 &&
+//            !in_array($res[0][$ldapKey], $details[$appKey]))) {
+//            throw new Shout_Exception(_("Duplicate extension found.  Not saving changes."));
+//        }
+        // FIXME: Quote these strings
+        $uid = $extension . '@' . $context;
         $entry = array(
+            'objectClass' => array('top', 'account', 'AsteriskVoicemail'),
+            'uid' => $uid,
             'cn' => $details['name'],
-            'sn' => $details['name'],
-            'mail' => $details['email'],
-            'uid' => $details['email'],
-            'voiceMailbox' => $details['newextension'],
-            'voiceMailboxPin' => $details['mailboxpin'],
-            'context' => $context,
-            'asteriskUserDialOptions' => $details['dialopts'],
+            'AstVoicemailEmail' => $details['email'],
+            'AstVoicemailMailbox' => $extension,
+            'AstVoicemailPassword' => $details['mailboxpin'],
+            'AstContext' => $context,
         );
+        $rdn = 'uid=' . $uid;
+        $dn = $rdn . ',' . $this->_params['basedn'];
 
-        if (!empty ($details['telephonenumber'])) {
-            $entry['telephoneNumber'] = $details['telephonenumber'];
-        }
+        if (!empty($details['oldextension'])) {
+            // This is a change to an existing extension
+            // First, identify the DN to modify
+            // FIXME: Quote these strings
+            $filter = '(&(AstVoicemailMailbox=%s)(AstContext=%s))';
+            $filter = sprintf($filter, $details['oldextension'], $context);
+            $attributes = array('dn');
 
-        $validusers = &$this->getUsers($context);
-        if (!isset($validusers[$extension])) {
-            # Test to see if we're modifying an existing user that has
-            # no telephone system objectClasses and update that object/user
-            $rdn = $ldapKey.'='.$details[$appKey].',';
-            $branch = SHOUT_USERS_BRANCH.','.$this->_params['basedn'];
-
-            # This test is something of a hack.  I want a cheap way to check
-            # for the existance of an object.  I don't want to do a full search
-            # so instead I compare that the dn equals the dn.  If the object
-            # exists then it'll return true.  If the object doesn't exist,
-            # it'll return error.  If it ever returns false something wierd
-            # is going on.
-            $res = @ldap_compare($this->_LDAP, $rdn.$branch,
-                    $ldapKey, $details[$appKey]);
+            $res = ldap_search($this->_LDAP, $this->_params['basedn'],
+                               $filter, $attributes);
             if ($res === false) {
-                # We should never get here: a DN should ALWAYS match itself
-                return PEAR::raiseError("Internal Error: " . __FILE__ . " at " .
-                    __LINE__);
-            } elseif ($res === true) {
-                # The object/user exists but doesn't have the Asterisk
-                # objectClasses
-                $extension = $details['newextension'];
-
-                # $tmp is the minimal information required to establish
-                # an account in LDAP as required by the objectClasses.
-                # The entry will be fully populated below.
-                $tmp = array();
-                $tmp['objectClass'] = array(
-                    'asteriskUser',
-                    'asteriskVoiceMailbox'
-                );
-                $tmp['voiceMailbox'] = $extension;
-                $tmp['context'] = $context;
-                $res = @ldap_mod_replace($this->_LDAP, $rdn.$branch, $tmp);
-                if (!$res) {
-                    return PEAR::raiseError("Unable to modify the user: " .
-                        ldap_error($this->_LDAP));
-                }
-
-                # Populate the $validusers array to make the edit go smoothly
-                # below
-                $validusers[$extension] = array();
-                $validusers[$extension][$appKey] = $details[$appKey];
-
-                # The remainder of the work is done at the outside of the
-                # parent if() like a normal edit.
-
-            } elseif ($res === -1) {
-                # We must be adding a new user.
-                $entry['objectClass'] = array(
-                    'top',
-                    'person',
-                    'organizationalPerson',
-                    'inetOrgPerson',
-                    'hordePerson',
-                    'asteriskUser',
-                    'asteriskVoiceMailbox'
-                );
-
-                # Check to see if the maximum number of users for this context
-                # has been reached
-                $limits = $this->getLimits($context);
-                if (is_a($limits, "PEAR_Error")) {
-                    return $limits;
-                }
-                if (count($validusers) >= $limits['asteriskusersmax']) {
-                    return PEAR::raiseError('Maximum number of users reached.');
-                }
-
-                $res = @ldap_add($this->_LDAP, $rdn.$branch, $entry);
-                if (!$res) {
-                    return PEAR::raiseError('LDAP Add failed: ' .
-                        ldap_error($this->_LDAP));
-                }
-
-                return true;
-            } elseif (is_a($res, 'PEAR_Error')) {
-                # Some kind of internal error; not even sure if this is a
-                # possible outcome or not but I'll play it safe.
-                return $res;
+                $msg = sprintf('LDAP Error (%s): %s', ldap_errno($this->_LDAP),
+                                                      ldap_error($this->_LDAP));
+                Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+                throw new Shout_Exception(_("Error while searching the directory.  Details have been logged for the administrator."));
             }
-        }
 
-        # Anything after this point is an edit.
+            // If the extension has changed we need to perform an object rename
+            if ($extension != $details['oldextension']) {
+                $res = ldap_rename($this->_LDAP, $res['dn'], $rdn,
+                                   $this->_params['basedn'], true);
 
-        # Check to see if the object needs to be renamed (DN changed)
-        if ($validusers[$extension][$appKey] != $entry[$ldapKey]) {
-            $oldrdn = $ldapKey.'='.$validusers[$extension][$appKey];
-            $oldparent = SHOUT_USERS_BRANCH.','.$this->_params['basedn'];
-            $newrdn = $ldapKey.'='.$entry[$ldapKey];
-            $res = @ldap_rename($this->_LDAP, "$oldrdn,$oldparent",
-                $newrdn, $oldparent, true);
-            if (!$res) {
-                return PEAR::raiseError('LDAP Rename failed: ' .
-                    ldap_error($this->_LDAP));
+                if ($res === false) {
+                $msg = sprintf('LDAP Error (%s): %s', ldap_errno($this->_LDAP),
+                                                      ldap_error($this->_LDAP));
+                Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+                throw new Shout_Exception(_("Error while modifying the directory.  Details have been logged for the administrator."));
+                }
             }
+
+            // Now apply the changes
+            $res = ldap_modify($this->_LDAP, $dn, $entry);
+            if ($res === false) {
+                $msg = sprintf('LDAP Error (%s): %s', ldap_errno($this->_LDAP),
+                                                      ldap_error($this->_LDAP));
+                Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+                throw new Shout_Exception(_("Error while modifying the directory.  Details have been logged for the administrator."));
+            }
+
+            return true;
+        } else {
+            // This is an add of a new extension
+            $res = ldap_add($this->_LDAP, $dn, $entry);
+            if ($res === false) {
+                $msg = sprintf('LDAP Error (%s): %s', ldap_errno($this->_LDAP),
+                                                      ldap_error($this->_LDAP));
+                Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+                throw new Shout_Exception(_("Error while modifying the directory.  Details have been logged for the administrator."));
+            }
+            return true;
         }
 
-        # Update the object/user
-        $dn = $ldapKey.'='.$entry[$ldapKey];
-        $dn .= ','.SHOUT_USERS_BRANCH.','.$this->_params['basedn'];
-        $res = @ldap_modify($this->_LDAP, $dn, $entry);
-        if (!$res) {
-            return PEAR::raiseError('LDAP Modify failed: ' .
-                ldap_error($this->_LDAP));
-        }
-
-        # We must have been successful
-        return true;
+        throw new Shout_Exception(_("Unspecified error."));
     }
 
     /**
@@ -709,7 +643,7 @@ class Shout_Driver_Ldap extends Shout_Driver
         }
 
         if (!Horde_Util::extensionExists('ldap')) {
-            throw new Horde_Exception('Required LDAP extension not found.');
+            throw new Shout_Exception('Required LDAP extension not found.');
         }
 
         Horde::assertDriverConfig($this->_params, $this->_params['class'],
@@ -722,7 +656,7 @@ class Shout_Driver_Ldap extends Shout_Driver
                 sprintf('Failed to open an LDAP connection to %s.',
                         $this->_params['hostspec']),
                 __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Horde_Exception('Internal LDAP error. Details have been logged for the administrator.');
+            throw new Shout_Exception('Internal LDAP error. Details have been logged for the administrator.');
         }
 
         /* Set hte LDAP protocol version. */
@@ -736,7 +670,7 @@ class Shout_Driver_Ldap extends Shout_Driver
                             ldap_errno($conn),
                             ldap_error($conn)),
                     __FILE__, __LINE__, PEAR_LOG_WARNING);
-                throw new Horde_Exception('Internal LDAP error. Details have been logged for the administrator.', ldap_errno($conn));
+                throw new Shout_Exception('Internal LDAP error. Details have been logged for the administrator.', ldap_errno($conn));
             }
         }
 
@@ -765,7 +699,7 @@ class Shout_Driver_Ldap extends Shout_Driver
                             @ldap_errno($conn),
                             @ldap_error($conn)),
                     __FILE__, __LINE__, PEAR_LOG_ERR);
-                throw new Horde_Exception('Internal LDAP error. Details have been logged for the administrator.', ldap_errno($conn));
+                throw new Shout_Exception('Internal LDAP error. Details have been logged for the administrator.', ldap_errno($conn));
             }
         }
 

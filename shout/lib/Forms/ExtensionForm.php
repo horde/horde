@@ -23,22 +23,23 @@ class ExtensionDetailsForm extends Horde_Form {
     {
         global $shout_extensions;
         $context = $_SESSION['shout']['context'];
-        if ($vars->exists('extension')) {
+        $action = $vars->get('action');
+        if ($action == 'edit') {
             $formtitle = "Edit User";
-            $extension = $vars->get('extension');
         } else {
             $formtitle = "Add User";
         }
 
+        $extension = $vars->get('extension');
+
         parent::__construct($vars, _("$formtitle - Context: $context"));
+        
         $this->addHidden('', 'action', 'text', true);
-        $vars->set('action', 'save');
-        $this->addHidden('', 'extension', 'int', true);
-        $vars->set('newextension', $extension);
+        $this->addHidden('', 'oldextension', 'text', false);
         $this->addVariable(_("Full Name"), 'name', 'text', true);
-        $this->addVariable(_("Extension"), 'newextension', 'int', true);
+        $this->addVariable(_("Extension"), 'extension', 'int', true);
         $this->addVariable(_("E-Mail Address"), 'email', 'email', true);
-        $this->addVariable(_("Pager E-Mail Address"), 'pageremail', 'email', false);
+        //$this->addVariable(_("Pager E-Mail Address"), 'pageremail', 'email', false);
         $this->addVariable(_("PIN"), 'mailboxpin', 'int', true);
 
         return true;
@@ -54,15 +55,16 @@ class ExtensionDetailsForm extends Horde_Form {
     {
         global $shout_extensions;
 
-        $extension = $this->vars->get('extension');
+        $extension = $this->_vars->get('extension');
 
-        # FIXME: Input Validation (Text::??)
+        // FIXME: Input Validation (Text::??)
         $details = array(
-            'newextension' => $vars->get('newextension'),
-            'name' => $vars->get('name'),
-            'mailboxpin' => $vars->get('mailboxpin'),
-            'email' => $vars->get('email'),
-        );
+            'name' => $this->_vars->get('name'),
+            'oldextension' => $this->_vars->get('oldextension'),
+            'email' => $this->_vars->get('email'),
+            //'pager' => $this->_vars->get('pageremail')
+            'mailboxpin' => $this->_vars->get('mailboxpin'),
+            );
 
         $res = $shout_extensions->saveExtension($context, $extension, $details);
     }
