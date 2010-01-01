@@ -51,11 +51,12 @@ class ExtensionDetailsForm extends Horde_Form {
      * @param string $context  Context in which to execute this save
      * FIXME: is there a better way to get the $context and $shout_extensions?
      */
-    function execute($context)
+    function execute()
     {
         global $shout_extensions;
 
         $extension = $this->_vars->get('extension');
+        $context = $this->_vars->get('context');
 
         // FIXME: Input Validation (Text::??)
         $details = array(
@@ -66,7 +67,28 @@ class ExtensionDetailsForm extends Horde_Form {
             'mailboxpin' => $this->_vars->get('mailboxpin'),
             );
 
-        $res = $shout_extensions->saveExtension($context, $extension, $details);
+        $shout_extensions->saveExtension($context, $extension, $details);
     }
 
+}
+
+class ExtensionDeleteForm extends Horde_Form
+{
+    function __construct(&$vars)
+    {
+        parent::__construct($vars, _("Delete Extension %s - Context: $context"));
+
+        $this->addHidden('', 'context', 'text', true);
+        $this->addHidden('', 'extension', 'int', true);
+        $this->addHidden('', 'action', 'text', true);
+        $this->setButtons(array(_("Delete"), _("Cancel")));
+    }
+
+    function execute()
+    {
+        global $shout_extensions;
+        $context = $this->_vars->get('extension');
+        $extension = $this->_vars->get('extension');
+        $shout_extensions->deleteExtension($context, $extension);
+    }
 }

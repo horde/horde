@@ -25,6 +25,7 @@ switch ($action) {
 case 'add':
 case 'edit':
     $vars = Horde_Variables::getDefaultVariables();
+    $vars->set('context', $context);
     $Form = new ExtensionDetailsForm($vars);
 
     $FormValid = $Form->validate($vars, true);
@@ -32,7 +33,7 @@ case 'edit':
     if ($Form->isSubmitted() && $FormValid) {
         // Form is Valid and Submitted
         try {
-            $Form->execute($context);
+            $Form->execute();
             $notification->push(_("User information updated."),
                                   'horde.success');
             $action = 'list';
@@ -59,13 +60,26 @@ case 'delete':
     $title .= sprintf(_("Delete Extension %s"), $extension);
     $extension = Horde_Util::getFormData('extension');
 
-    $res = $shout->deleteUser($context, $extension);
+    $vars = Horde_Variables::getDefaultVariables();
+    $vars->set('context', $context);
+    $Form = new ExtensionDeleteForm($vars);
 
-    if (!$res) {
-        echo "Failed!";
-        print_r($res);
+    $FormValid = $Form->validate($vars, true);
+
+    if ($Form->isSubmitted() && $FormValid) {
+        try {
+            $Form->execute();
+            $notification->push(_("Extension Deleted."));
+        } catch (Exception $e) {
+            $notification->push($e);
+            $action = 'list';
+        }
+    } else {
+        $vars = Horde_Variables::getDefaultVariables(array());
+        $Form = new ExtensionDeleteForm($vars);
+        $Form->open($RENDERER, $vars, Horde::applicationUrl('extensions.php'), 'post');
     }
-    $notification->push("User Deleted.");
+
     break;
 
 case 'list':
