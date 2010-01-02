@@ -40,20 +40,25 @@ case 'edit':
         } catch (Exception $e) {
             $notification->push($e);
         }
-    } else {
-        // Create a new add/edit form
-        $extension = Horde_Util::getFormData('extension');
-        $extensions = $shout_extensions->getExtensions($context);
-        $vars = new Horde_Variables($extensions[$extension]);
-        if ($action == 'edit') {
-            $vars->set('oldextension', $extension);
-        }
-        $vars->set('action', $action);
-        $Form = new ExtensionDetailsForm($vars);
-        $Form->open($RENDERER, $vars, Horde::applicationUrl('extensions.php'), 'post');
-        // Make sure we get the right template below.
-        $action = 'edit';
+
+        break;
+    } elseif ($Form->isSubmitted()) {
+        $notification->push(_("Problem processing the form.  Please check below and try again."), 'horde.warning');
     }
+
+    // Create a new add/edit form
+    $extension = Horde_Util::getFormData('extension');
+    $extensions = $shout_extensions->getExtensions($context);
+    $vars = new Horde_Variables($extensions[$extension]);
+    if ($action == 'edit') {
+        $vars->set('oldextension', $extension);
+    }
+    $vars->set('action', $action);
+    $Form = new ExtensionDetailsForm($vars);
+    $Form->open($RENDERER, $vars, Horde::applicationUrl('extensions.php'), 'post');
+    // Make sure we get the right template below.
+    $action = 'edit';
+
     break;
 
 case 'delete':
@@ -70,15 +75,18 @@ case 'delete':
         try {
             $Form->execute();
             $notification->push(_("Extension Deleted."));
+            $action = 'list';
         } catch (Exception $e) {
             $notification->push($e);
-            $action = 'list';
         }
-    } else {
-        $vars = Horde_Variables::getDefaultVariables(array());
-        $Form = new ExtensionDeleteForm($vars);
-        $Form->open($RENDERER, $vars, Horde::applicationUrl('extensions.php'), 'post');
+    } elseif ($Form->isSubmitted()) {
+        $notification->push(_("Problem processing the form.  Please check below and try again."), 'horde.warning');
     }
+
+    $vars = Horde_Variables::getDefaultVariables(array());
+    $vars->set('context', $context);
+    $Form = new ExtensionDeleteForm($vars);
+    $Form->open($RENDERER, $vars, Horde::applicationUrl('extensions.php'), 'post');
 
     break;
 

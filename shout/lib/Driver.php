@@ -127,8 +127,24 @@ class Shout_Driver {
      */
     public function saveExtension($context, $extension, $details)
     {
+        if (empty($context) || empty($extension)) {
+            throw new Shout_Exception(_("Invalid extension."));
+        }
+        
         if (!Shout::checkRights("shout:contexts:$context:extensions", PERMS_EDIT, 1)) {
             throw new Shout_Exception(_("Permission denied to save extensions in this context."));
+        }
+    }
+
+    public function deleteExtension($context, $extension)
+    {
+        if (empty($context) || empty($extension)) {
+            throw new Shout_Exception(_("Invalid extension."));
+        }
+
+        if (!Shout::checkRights("shout:contexts:$context:users",
+            PERMS_DELETE, 1)) {
+            throw new Shout_Exception(_("Permission denied to delete users in this context."));
         }
     }
 

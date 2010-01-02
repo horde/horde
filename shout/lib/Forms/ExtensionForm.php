@@ -76,7 +76,12 @@ class ExtensionDeleteForm extends Horde_Form
 {
     function __construct(&$vars)
     {
-        parent::__construct($vars, _("Delete Extension %s - Context: $context"));
+        $extension = $vars->get('extension');
+        $context = $vars->get('context');
+
+        $title = _("Delete Extension %s - Context: %s");
+        $title = sprintf($title, $extension, $context);
+        parent::__construct($vars, $title);
 
         $this->addHidden('', 'context', 'text', true);
         $this->addHidden('', 'extension', 'int', true);
@@ -87,7 +92,7 @@ class ExtensionDeleteForm extends Horde_Form
     function execute()
     {
         global $shout_extensions;
-        $context = $this->_vars->get('extension');
+        $context = $this->_vars->get('context');
         $extension = $this->_vars->get('extension');
         $shout_extensions->deleteExtension($context, $extension);
     }

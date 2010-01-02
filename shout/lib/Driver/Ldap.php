@@ -496,6 +496,7 @@ class Shout_Driver_Ldap extends Shout_Driver
      */
     public function saveExtension($context, $extension, $details)
     {
+        // Check permissions
         parent::saveExtension($context, $extension, $details);
 
         // FIXME: Fix and uncomment the below
@@ -533,33 +534,24 @@ class Shout_Driver_Ldap extends Shout_Driver
             // This is a change to an existing extension
             // First, identify the DN to modify
             // FIXME: Quote these strings
-            $filter = '(&(AstVoicemailMailbox=%s)(AstContext=%s))';
-            $filter = sprintf($filter, $details['oldextension'], $context);
-            $attributes = array('dn');
-
-            $res = ldap_search($this->_LDAP, $this->_params['basedn'],
-                               $filter, $attributes);
-            if ($res === false) {
-                $msg = sprintf('LDAP Error (%s): %s', ldap_errno($this->_LDAP),
-                                                      ldap_error($this->_LDAP));
-                Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
-                throw new Shout_Exception(_("Error while searching the directory.  Details have been logged for the administrator."));
-            }
+            $olddn = $this->_getExtensionDn($context, $extension);
 
             // If the extension has changed we need to perform an object rename
             if ($extension != $details['oldextension']) {
-                $res = ldap_rename($this->_LDAP, $res['dn'], $rdn,
+                $res = ldap_rename($this->_LDAP, $olddn, $rdn,
                                    $this->_params['basedn'], true);
 
                 if ($res === false) {
-                $msg = sprintf('LDAP Error (%s): %s', ldap_errno($this->_LDAP),
+                    $msg = sprintf('LDAP Error (%s): %s', ldap_errno($this->_LDAP),
                                                       ldap_error($this->_LDAP));
-                Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
-                throw new Shout_Exception(_("Error while modifying the directory.  Details have been logged for the administrator."));
+                    Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+                    throw new Shout_Exception(_("Error while modifying the directory.  Details have been logged for the administrator."));
                 }
             }
 
             // Now apply the changes
+            // Avoid changing the objectClass, just in case
+            unset($entry['objectClass']);
             $res = ldap_modify($this->_LDAP, $dn, $entry);
             if ($res === false) {
                 $msg = sprintf('LDAP Error (%s): %s', ldap_errno($this->_LDAP),
@@ -581,44 +573,79 @@ class Shout_Driver_Ldap extends Shout_Driver
             return true;
         }
 
+        // Catch-all.  We should not get here.
         throw new Shout_Exception(_("Unspecified error."));
     }
 
     /**
-     * Deletes a user from the LDAP tree
+     * Deletes an extension from the LDAP tree
      *
      * @param string $context Context to delete the user from
      * @param string $extension Extension of the user to be deleted
      *
      * @return boolean True on success, PEAR::Error object on error
      */
-    public function deleteUser($context, $extension)
+    public function deleteExtension($context, $extension)
     {
-        $ldapKey = &$this->_ldapKey;
-        $appKey = &$this->_appKey;
+        // Check permissions
+        parent::deleteExtension($context, $extension);
 
-        if (!Shout::checkRights("shout:contexts:$context:users",
-            PERMS_DELETE, 1)) {
-            return PEAR::raiseError("No permission to delete users in this " .
-                "context.");
-        }
-
-        $validusers = $this->getUsers($context);
-        if (!isset($validusers[$extension])) {
-            return PEAR::raiseError("That extension does not exist.");
-        }
-
-        $dn = "$ldapKey=".$validusers[$extension][$appKey];
-        $dn .= ',' . SHOUT_USERS_BRANCH . ',' . $this->_params['basedn'];
+        $dn = $this->_getExtensionDn($context, $extension);
 
         $res = @ldap_delete($this->_LDAP, $dn);
-        if (!$res) {
-            return PEAR::raiseError("Unable to delete $extension from " .
-                "$context: " . ldap_error($this->_LDAP));
+        if ($res === false) {
+            $msg = sprintf('LDAP Error (%s): %s', ldap_errno($this->_LDAP),
+                                                  ldap_error($this->_LDAP));
+            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Horde_Exception(_("Error while deleting from the directory.  Details have been logged for the administrator."));
         }
+        
         return true;
     }
 
+    /**
+     *
+     * @param <type> $context
+     * @param <type> $extension 
+     */
+    protected function _getExtensionDn($context, $extension)
+    {
+        // FIXME: Sanitize filter string against LDAP injection
+        $filter = '(&(AstVoicemailMailbox=%s)(AstContext=%s))';
+        $filter = sprintf($filter, $extension, $context);
+        $attributes = array('dn');
+
+        $res = ldap_search($this->_LDAP, $this->_params['basedn'],
+                           $filter, $attributes);
+        if ($res === false) {
+            $msg = sprintf('LDAP Error (%s): %s', ldap_errno($this->_LDAP),
+                                                  ldap_error($this->_LDAP));
+            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Shout_Exception(_("Error while searching the directory.  Details have been logged for the administrator."));
+        }
+
+        if (ldap_count_entries($this->_LDAP, $res) < 1) {
+            throw new Shout_Exception(_("No such extension found."));
+        }
+
+        $res = ldap_first_entry($this->_LDAP, $res);
+        if ($res === false) {
+            $msg = sprintf('LDAP Error (%s): %s', ldap_errno($this->_LDAP),
+                                                  ldap_error($this->_LDAP));
+            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Shout_Exception(_("Error while searching the directory.  Details have been logged for the administrator."));
+        }
+
+        $dn = ldap_get_dn($this->_LDAP, $res);
+        if ($dn === false) {
+            $msg = sprintf('LDAP Error (%s): %s', ldap_errno($this->_LDAP),
+                                                  ldap_error($this->_LDAP));
+            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Shout_Exception(_("Internal LDAP error.  Details have been logged for the administrator."));
+        }
+
+        return $dn;
+    }
 
     /* Needed because uksort can't take a classed function as its callback arg */
     protected function _sortexten($e1, $e2)
