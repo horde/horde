@@ -25,6 +25,7 @@ class DeviceDetailsForm extends Horde_Form {
             $edit = false;
         }
 
+        $context = $vars->get('context');
         parent::__construct($vars, _("$formtitle - Context: $context"));
         $this->addHidden('', 'action', 'text', true);
         if ($edit) {
