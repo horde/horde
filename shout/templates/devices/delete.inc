@@ -1,4 +1,4 @@
-Extension: <?php echo $vars->get('extension'); ?><br>
+Device: <?php echo $vars->get('devid'); ?><br>
 <?php
 $RENDERER->beginActive($Form->getTitle());
 $RENDERER->renderFormActive($Form, $vars);
