@@ -2,15 +2,13 @@
 /**
  * Shout_Driver:: defines an API for implementing storage backends for Shout.
  *
- * $Id$
+ * Copyright 2005-2010 Alkaloid Networks LLC (http://projects.alkaloid.net)
  *
- * Copyright 2005-2009 Ben Klang <ben@alkaloid.net>
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * See the enclosed file COPYING for license information (BSD). If you
+ * did not receive this file, see
+ * http://www.opensource.org/licenses/bsd-license.php.
  *
  * @author  Ben Klang <ben@alkaloid.net>
- * @version $Revision: 76 $
  * @since   Shout 0.1
  * @package Shout
  */

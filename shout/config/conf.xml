@@ -1,5 +1,17 @@
 <?xml version="1.0"?>
-<!-- $Id$ -->
+<!--
+ * conf.xml defines the configuration parameters for Shout.
+ *
+ * Copyright 2005-2010 Alkaloid Networks LLC (http://projects.alkaloid.net)
+ *
+ * See the enclosed file COPYING for license information (BSD). If you
+ * did not receive this file, see
+ * http://www.opensource.org/licenses/bsd-license.php.
+ *
+ * @author  Ben Klang <ben@alkaloid.net>
+ * @since   Shout 0.1
+ * @package Shout
+-->
 <configuration>
  <configtab name="storage" desc="Storage">
   <configsection name="storage">

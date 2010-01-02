@@ -1,11 +1,12 @@
 <?php
 /**
- * $Id$
+ * Copyright 2005-2010 Alkaloid Networks LLC (http://projects.alkaloid.net)
  *
- * Copyright 2005-2009 Ben Klang <ben@alkaloid.net>
+ * See the enclosed file COPYING for license information (BSD). If you
+ * did not receive this file, see
+ * http://www.opensource.org/licenses/bsd-license.php.
  *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * @author  Ben Klang <ben@alkaloid.net>
  */
 @define('SHOUT_BASE', dirname(__FILE__));
 require_once SHOUT_BASE . '/lib/base.php';

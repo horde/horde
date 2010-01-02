@@ -1,19 +1,17 @@
 <?php
 /**
- * Vilma application interface.
+ * Shout application interface.
  *
- * This file defines Vilma's application interface.
+ * This file defines Shout's application interface.
  *
- * Copyright 2006-2010 Alkaloid Networks <http://www.alkaloid.net/>
+ * Copyright 2006-2010 Alkaloid Networks (http://projects.alkaloid.net/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
- * did not receive this file, see http://cvs.horde.org/co.php/vilma/LICENSE.
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
- *
+ * did not receive this file, see
+ * http://www.opensource.org/licenses/bsd-license.html.
+ * 
  * @author  Ben Klang <ben@alkaloid.net>
- * @package Vilma
+ * @package Shout
  */
 define('SHOUT_BASE', dirname(__FILE__) . '/..');
 

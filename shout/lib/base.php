@@ -2,10 +2,15 @@
 /**
  * Shout base inclusion file.
  *
- * $Id$
+ * Copyright 2005-2010 Alkaloid Networks LLC (http://projects.alkaloid.net)
  *
- * This file brings in all of the dependencies that every Shout
- * script will need and sets up objects that all scripts use.
+ * See the enclosed file COPYING for license information (BSD). If you
+ * did not receive this file, see
+ * http://www.opensource.org/licenses/bsd-license.php.
+ *
+ * @author  Ben Klang <ben@alkaloid.net>
+ * @since   Shout 0.1
+ * @package Shout
  */
 
 if (!defined('SHOUT_BASE')) {

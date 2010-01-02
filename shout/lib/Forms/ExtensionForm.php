@@ -2,11 +2,13 @@
 /**
  * $Id$
  *
- * Copyright 2005-2009 Ben Klang <ben@alkaloid.net>
+ * Copyright 2005-2009 Alkaloid Networks LLC (http://projects.alkaloid.net)
  *
- * See the enclosed file LICENSE for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.php.
+ * See the enclosed file LICENSE for license information (BSD). If you
+ * did not receive this file, see
+ * http://www.opensource.org/licenses/bsd-license.php.
  *
+ * @author Ben Klang <ben@alkaloid.net>
  * @package Shout
  */
 

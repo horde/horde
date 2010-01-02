@@ -1,4 +1,18 @@
 <?php
+/**
+ * Provides the SQL backend driver for the Shout application.
+ *
+ * Copyright 2009-2010 Alkaloid Networks LLC (http://projects.alkaloid.net)
+ *
+ * See the enclosed file COPYING for license information (BSD). If you
+ * did not receive this file, see
+ * http://www.opensource.org/licenses/bsd-license.php.
+ *
+ * @author  Ben Klang <ben@alkaloid.net>
+ * @since   Shout 0.1
+ * @package Shout
+ */
+
 
 class Shout_Driver_Sql extends Shout_Driver
 {
