@@ -123,8 +123,9 @@ class Shout_Driver_Ldap extends Shout_Driver
                 $res[$i]['astextension']['count'] = -1;
             }
             while ($j < $res[$i]['astextension']['count']) {
-                $entries[$context][$extension]['devices'][] =
-                    $res[$i]['astextension'][$j];
+                // Trim off the Asterisk channel type from the device string
+                $device = explode('/', $res[$i]['astextension'][$j], 2);
+                $entries[$context][$extension]['devices'][] = $device[1];
                 $j++;
             }
 
