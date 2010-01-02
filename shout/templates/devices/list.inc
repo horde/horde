@@ -12,8 +12,8 @@
     Context: <?php echo $context; ?>
 </div>
 
-<div id="userList" class="userList">
-    <table width="100%" cellspacing="0">
+<div id="extensionList">
+    <table width="100%" cellspacing="0" class="striped">
         <tr>
             <td class="uheader">Device ID</td>
             <td class="uheader">Mailbox</td>

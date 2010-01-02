@@ -95,6 +95,7 @@ default:
 // Fetch the (possibly updated) list of extensions
 $devices = $shout_devices->getDevices($context);
 
+Horde::addScriptFile('stripe.js', 'horde');
 require SHOUT_TEMPLATES . '/common-header.inc';
 require SHOUT_TEMPLATES . '/menu.inc';
 

@@ -13,14 +13,13 @@
 </div>
 
 <div id="extensionList">
-    <table width="100%" cellspacing="0">
+    <table width="100%" cellspacing="0" class="striped">
         <tr>
             <td class="uheader">Extension</td>
             <td class="uheader">Name</td>
             <td class="uheader">E-Mail Address</td>
         </tr>
         <?php
-            $line = 0;
             foreach ($extensions as $extension => $info) {
 
                 $url = Horde::applicationUrl("extensions.php");
@@ -36,7 +35,7 @@
             <td style="width: 20%">
                 <?php echo Horde::link($editurl); echo $extension; ?></a>
             </td>
-            <td style="width: 35%;">
+            <td style="width: 35%;" id="myid">
                 <?php echo Horde::link($editurl); echo $info['name']; ?></a>
                 <?php
                 foreach ($info['devices'] as $device) {
