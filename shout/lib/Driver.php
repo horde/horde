@@ -114,7 +114,11 @@ class Shout_Driver {
     }
 
     /**
-     * Save an extension to the LDAP tree
+     * Save an extension to the backend.
+     *
+     * This method is intended to be overridden by a child class.  However it
+     * also implements some basic checks, so a typical backend will still
+     * call this method via parent::
      *
      * @param string $context Context to which the user should be added
      *
@@ -142,9 +146,66 @@ class Shout_Driver {
             throw new Shout_Exception(_("Invalid extension."));
         }
 
-        if (!Shout::checkRights("shout:contexts:$context:users",
+        if (!Shout::checkRights("shout:contexts:$context:extensions",
             PERMS_DELETE, 1)) {
-            throw new Shout_Exception(_("Permission denied to delete users in this context."));
+            throw new Shout_Exception(_("Permission denied to delete extensions in this context."));
+        }
+    }
+
+    /**
+     * Save a device to the backend.
+     *
+     * This method is intended to be overridden by a child class.  However it
+     * also implements some basic checks, so a typical backend will still
+     * call this method via parent::
+     *
+     * @param string $context Context to which the user should be added
+     *
+     * @param string $extension Extension to be saved
+     *
+     * @param array $details Phone numbers, PIN, options, etc to be saved
+     *
+     * @return TRUE on success, PEAR::Error object on error
+     * @throws Shout_Exception
+     */
+    public function saveDevice($context, $devid, &$details)
+    {
+        if (empty($context)) {
+            throw new Shout_Exception(_("Invalid device information."));
+        }
+
+        if (!Shout::checkRights("shout:contexts:$context:devices", PERMS_EDIT, 1)) {
+            throw new Shout_Exception(_("Permission denied to save devices in this context."));
+        }
+
+        if (empty($devid) || !empty($details['genauthtok'])) {
+            list($devid, $password) = Shout::genDeviceAuth($context);
+            $details['devid'] = $devid;
+            $details['password'] = $password;
+        }
+
+
+    }
+
+    /**
+     * Delete a device from the backend.
+     *
+     * This method is intended to be overridden by a child class.  However it
+     * also implements some basic checks, so a typical backend will still
+     * call this method via parent::
+     *
+     * @param <type> $context
+     * @param <type> $devid
+     */
+    public function deleteDevice($context, $devid)
+    {
+        if (empty($context) || empty($devid)) {
+            throw new Shout_Exception(_("Invalid device."));
+        }
+
+        if (!Shout::checkRights("shout:contexts:$context:devices",
+            PERMS_DELETE, 1)) {
+            throw new Shout_Exception(_("Permission denied to delete devices in this context."));
         }
     }
 

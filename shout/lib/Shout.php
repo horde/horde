@@ -132,4 +132,52 @@ class Shout
 
         return ($test & $permmask) == $permmask;
     }
+
+    /**
+     * Generate new device authentication tokens.
+     *
+     * This method is designed to generate random strings for the
+     * authentication ID and password.  The result is intended to be used
+     * for automatically generated device information.  The user is prevented
+     * from specifying usernames and passwords for these reasons:
+     * 1) If a username and/or password can be easily guessed, monetary loss
+     *    is likely through the fraudulent placing of telephone calls.
+     *    This has been observed in the wild far too many times already.
+     *
+     * 2) The username and password are only needed to be programmed into the
+     *    device once, and then stored semi-permanently.  In some cases, the
+     *    provisioning can be done automatically.  For these reasons, having
+     *    user-friendly usernames and passswords is not terribly important.
+     *
+     * @param string $context  Context for this credential pair
+     *
+     * @return array  Array of (string $deviceID, string $devicePassword)
+     */
+    static public function genDeviceAuth($context)
+    {
+        $devid = uniqid($context);
+        $password = uudecode(md5(uniqid(mt_rand(), true)));
+
+        // This simple password generation algorithm inspired by Jon Haworth
+        // http://www.laughing-buddha.net/jon/php/password/
+
+        // define possible characters
+        // Vowels excluded to avoid potential pronounceability
+        $possible = "0123456789bcdfghjkmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ";
+
+        $password = "";
+        $i = 0;
+        while ($i < 12) {
+            // pick a random character from the possible ones
+            $char = substr($possible, mt_rand(0, strlen($possible)-1), 1);
+
+            // we don't want this character if it's already in the password
+            if (!strstr($password, $char)) {
+              $password .= $char;
+              $i++;
+            }
+        }
+
+        return array($devid, $password);
+    }
 }

@@ -9,6 +9,12 @@ class Shout_Driver_Sql extends Shout_Driver
     protected $_db = null;
 
     /**
+     * Handle for the current writable database connection.
+     * @var object $_db
+     */
+    protected $_write_db = null;
+
+    /**
      * Boolean indicating whether or not we're connected to the LDAP
      * server.
      * @var boolean $_connected
@@ -35,6 +41,8 @@ class Shout_Driver_Sql extends Shout_Driver
         $sql = sprintf($sql, $this->_params['table']);
         $vars = array();
 
+        $msg = 'SQL query in Shout_Driver_Sql#getContexts(): ' . $sql;
+        Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
         $result = $this->_db->query($sql, $vars);
         if ($result instanceof PEAR_Error) {
             throw Shout_Exception($result);
@@ -74,7 +82,10 @@ class Shout_Driver_Sql extends Shout_Driver
                'FROM %s WHERE accountcode = ?';
         $sql = sprintf($sql, $this->_params['table']);
         $args = array($context);
-        $result = $this->_db->query($sql, $args);
+        $msg = 'SQL query in Shout_Driver_Sql#getDevices(): ' . $sql;
+        Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $sth = $this->_db->prepare($sql);
+        $result = $this->_db->execute($sth, $args);
         if ($result instanceof PEAR_Error) {
             throw new Shout_Exception($result);
         }
@@ -88,7 +99,7 @@ class Shout_Driver_Sql extends Shout_Driver
         while ($row && !($row instanceof PEAR_Error)) {
             // Asterisk uses the "name" field to indicate the registration
             // identifier.  We use the field "alias" to put a friendly name on
-            // the device.  Thus devid -> name and name => alias
+            // the device.  Thus devid => name and name => alias
             $devid = $row['name'];
             $row['devid'] = $devid;
             $row['name'] = $row['alias'];
@@ -96,6 +107,10 @@ class Shout_Driver_Sql extends Shout_Driver
 
             // Trim off the context from the mailbox number
             list($row['mailbox']) = explode('@', $row['mailbox']);
+
+            // The UI calls the 'secret' a 'password'
+            $row['password'] = $row['secret'];
+            unset($row['secret']);
 
             // Hide the DB internal ID from the front-end
             unset($row['id']);
@@ -114,29 +129,74 @@ class Shout_Driver_Sql extends Shout_Driver
      * Save a device (add or edit) to the backend.
      *
      * @param string $context  The context in which this device is valid
-     * @param array $info      Array of device details
+     * @param string $devid    Device ID to save
+     * @param array $details      Array of device details
      */
-    public function saveDevice($context, $info)
+    public function saveDevice($context, $devid, &$details)
     {
-        // See getDevices() for an explanation of these conversions
-        $info['alias'] = $info['name'];
-        $info['mailbox'] = $info['mailbox'] . '@' . $context;
+        // Check permissions and possibly update the authentication tokens
+        parent::saveDevice($context, $devid, $details);
 
-        if ($info['devid']) {
+        // See getDevices() for an explanation of these conversions
+        $details['alias'] = $details['name'];
+        $details['name'] = $details['devid'];
+        $details['mailbox'] .= '@' . $context;
+
+        if (!empty($devid)) {
             // This is an edit
-            $info['name'] = $info['devid'];
-            $sql = 'UPDATE %s SET ';
+            $details['name'] = $details['devid'];
+            $sql = 'UPDATE %s SET accountcode = ?, callerid = ?, ' .
+                   'mailbox = ?, secret = ?, alias = ?, canreinvite = "no", ' .
+                   'nat = "yes", type = "peer" WHERE name = ?';
         } else {
             // This is an add.  Generate a new unique ID and secret
-            $devid = $context . uniqid();
-            $secret = md5(uniqid(mt_rand));
-            $sql = 'INSERT INTO %s (name, accountcode, callerid, mailbox, ' .
-                   'secret, alias, canreinvite, nat, type) ' .
-                   ' VALUES (?, ?, ?, ?, ?, ?, "no", "yes", "peer")';
+            $sql = 'INSERT INTO %s (accountcode, callerid, mailbox, ' .
+                   'secret, alias, name, canreinvite, nat, type) ' .
+                   'VALUES (?, ?, ?, ?, ?, ?, "no", "yes", "peer")';
 
         }
 
+        $sql = sprintf($sql, $this->_params['table']);
 
+        $args = array(
+            $context,
+            $details['callerid'],
+            $details['mailbox'],
+            $details['password'],
+            $details['alias'],
+            $details['name'],
+        );
+
+        $msg = 'SQL query in Shout_Driver_Sql#saveDevice(): ' . $sql;
+        Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $sth = $this->_write_db->prepare($sql);
+        $result = $this->_write_db->execute($sth, $args);
+        if ($result instanceof PEAR_Error) {
+            $msg = $result->getMessage() . ': ' . $result->getDebugInfo();
+            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Shout_Exception(_("Internal database error.  Details have been logged for the administrator."));
+        }
+
+        return true;
+    }
+
+    public function deleteDevice($context, $devid)
+    {
+        parent::deleteDevice($context, $devid);
+
+        $sql = 'DELETE FROM %s WHERE devid = ?';
+        $sql = sprintf($sql, $this->_params['table']);
+        $values = array($devid);
+
+        $msg = 'SQL query in Shout_Driver_Sql#deleteDevice(): ' . $sql;
+        Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $res = $this->_write_db->query($sql);
+
+        if ($res instanceof PEAR_Error) {
+            throw new Shout_Exception($res->getMessage(), $res->getCode());
+        }
+
+        return true;
     }
 
     /**
@@ -260,5 +320,5 @@ class Shout_Driver_Sql extends Shout_Driver
             $this->_write_db->disconnect();
         }
     }
-    
+
 }

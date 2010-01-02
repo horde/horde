@@ -10,70 +10,97 @@ require_once SHOUT_BASE . '/lib/base.php';
 require_once SHOUT_BASE . '/lib/Forms/DeviceForm.php';
 
 $action = Horde_Util::getFormData('action');
-$devices = $shout_devices->getDevices($context);
-$devid = Horde_Util::getFormData('devid');
 $vars = Horde_Variables::getDefaultVariables();
 
 //$tabs = Shout::getTabs($context, $vars);
 
 $RENDERER = new Horde_Form_Renderer();
 
-$section = 'devices';
 $title = _("Devices: ");
 
 switch ($action) {
-    case 'save':
-        $Form = new DeviceDetailsForm($vars);
+case 'add':
+case 'edit':
+    $vars = Horde_Variables::getDefaultVariables();
+    $vars->set('context', $context);
+    $Form = new DeviceDetailsForm($vars);
 
-        // Show the list if the save was successful, otherwise back to edit.
-        if ($Form->isSubmitted() && $Form->isValid()) {
-            try {
-                $shout_devices->saveDevice($Form->getVars());
-                $notification->push(_("Device settings saved."));
-            } catch (Exception $e) {
-                $notification->push($e);
-            }
+    // Show the list if the save was successful, otherwise back to edit.
+    if ($Form->isSubmitted() && $Form->isValid()) {
+        // Form is Valid and Submitted
+        try {
+            $devid = Horde_Util::getFormData('devid');
+
+            $Form->execute();
+            $notification->push(_("Device information updated."),
+                                  'horde.success');
             $action = 'list';
             break;
-        } else {
-            $action = 'edit';
+
+        } catch (Exception $e) {
+            $notification->push($e);
         }
-    case 'add':
-    case 'edit':
-        if ($action == 'add') {
-            $title .= _("New Device");
-            // Treat adds just like an empty edit
-            $action = 'edit';
-        } else {
-            $title .= sprintf(_("Edit Device %s"), $extension);
+    } elseif ($Form->isSubmitted()) {
+        // Submitted but not valid
+        $notification->push(_("Problem processing the form.  Please check below and try again."), 'horde.warning');
+    }
 
+    // Create a new add/edit form
+    $devid = Horde_Util::getFormData('devid');
+    $devices = $shout_devices->getDevices($context);
+    $vars = new Horde_Variables($devices[$devid]);
+
+    $vars->set('action', $action);
+    $Form = new DeviceDetailsForm($vars);
+    $Form->open($RENDERER, $vars, Horde::applicationUrl('devices.php'), 'post');
+    // Make sure we get the right template below.
+    $action = 'edit';
+
+    break;
+case 'delete':
+    $title .= sprintf(_("Delete Devices %s"), $extension);
+    $devid = Horde_Util::getFormData('devid');
+
+    $vars = Horde_Variables::getDefaultVariables();
+    $vars->set('context', $context);
+    $Form = new DeviceDeleteForm($vars);
+
+    $FormValid = $Form->validate($vars, true);
+
+    if ($Form->isSubmitted() && $FormValid) {
+        try {
+            $Form->execute();
+            $notification->push(_("Device Deleted."));
+            $action = 'list';
+        } catch (Exception $e) {
+            $notification->push($e);
         }
+    } elseif ($Form->isSubmitted()) {
+        $notification->push(_("Problem processing the form.  Please check below and try again."), 'horde.warning');
+    }
 
-        $FormName = 'DeviceDetailsForm';
-        $vars = new Horde_Variables($devices[$devid]);
-        $Form = new DeviceDetailsForm($vars);
+    $vars = Horde_Variables::getDefaultVariables(array());
+    $vars->set('context', $context);
+    $Form = new DeviceDeleteForm($vars);
+    $Form->open($RENDERER, $vars, Horde::applicationUrl('devices.php'), 'post');
 
-        $Form->open($RENDERER, $vars, Horde::applicationUrl('devices.php'), 'post');
+    break;
 
-        break;
-
-
-    case 'delete':
-        $notification->push("Not supported.");
-        break;
-
-    case 'list':
-    default:
-        $action = 'list';
-        $title .= _("List Users");
+case 'list':
+default:
+    $action = 'list';
+    $title .= _("List Devices");
 }
+
+// Fetch the (possibly updated) list of extensions
+$devices = $shout_devices->getDevices($context);
 
 require SHOUT_TEMPLATES . '/common-header.inc';
 require SHOUT_TEMPLATES . '/menu.inc';
 
 $notification->notify();
 
-//echo $tabs->render($section);
+echo "<br>\n";
 
 require SHOUT_TEMPLATES . '/devices/' . $action . '.inc';
 
