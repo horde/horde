@@ -425,7 +425,7 @@ class Beatnik {
             return true;
         } else {
             // Somebody sent something they should not have...
-            throw new Horde_Exception(_("Unable to determine if domain needs committing: invalid parameter."));
+            throw new Beatnik_Exception(_("Unable to determine if domain needs committing: invalid parameter."));
         }
     }
 

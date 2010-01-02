@@ -102,7 +102,7 @@ class Beatnik_Driver {
                 return $domain;
             }
         }
-        throw new Horde_Exception(sprintf(_("Unable to read requested domain %s"), $domainname));
+        throw new Beatnik_Exception(sprintf(_("Unable to read requested domain %s"), $domainname));
     }
 
     /**
@@ -202,7 +202,7 @@ class Beatnik_Driver {
         if ($info['rectype'] == 'soa' && $info['zonename'] != $_SESSION['beatnik']['curdomain']['zonename']) {
             // Make sure the user has permissions to add domains
             if (!Beatnik::hasPermission('beatnik:domains', Horde_Perms::EDIT)) {
-                throw new Horde_Exception(_('You do not have permission to create new domains.'));
+                throw new Beatnik_Exception(_('You do not have permission to create new domains.'));
             }
 
             // Create a dummy old domain for comparison purposes
@@ -215,12 +215,12 @@ class Beatnik_Driver {
             if ($info['rectype'] == 'soa') {
                 $node = 'beatnik:domains:' . $info['zonename'];
                 if (!Beatnik::hasPermission($node, Horde_Perms::EDIT, 1)) {
-                    throw new Horde_Exception(_('You do not have permssion to edit the SOA of this zone.'));
+                    throw new Beatnik_Exception(_('You do not have permssion to edit the SOA of this zone.'));
                 }
             } else {
                 $node = 'beatnik:domains:' . $_SESSION['beatnik']['curdomain']['zonename'] . ':' . $info['id'];
                 if (!Beatnik::hasPermission($node, Horde_Perms::EDIT, 2)) {
-                    throw new Horde_Exception(_('You do not have permssion to edit this record.'));
+                    throw new Beatnik_Exception(_('You do not have permssion to edit this record.'));
                 }
             }
         }
@@ -310,7 +310,7 @@ class Beatnik_Driver {
         if (class_exists($class)) {
             return new $class($params);
         } else {
-            throw new Horde_Exception(_('Driver not found.'));
+            throw new Beatnik_Exception(_('Driver not found.'));
         }
     }
 

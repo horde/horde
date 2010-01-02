@@ -75,7 +75,7 @@ class Beatnik_Driver_pdnsgsql extends Beatnik_Driver
         $domainlist =  $this->_db->getAll($query, null, DB_FETCHMODE_ASSOC);
         if (is_a($domainlist, 'PEAR_Error')) {
             Horde::logMessage($domainlist, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Horde_Exception(_("Error getting domain list.  Details have been logged for the administrator."));
+            throw new Beatnik_Exception(_("Error getting domain list.  Details have been logged for the administrator."));
         }
 
         $results = array();
@@ -123,11 +123,11 @@ class Beatnik_Driver_pdnsgsql extends Beatnik_Driver
         $result =  $this->_db->getAll($query, $values, DB_FETCHMODE_ASSOC);
         if (is_a($result, 'PEAR_Error')) {
             Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Horde_Exception(_("An error occurred while searching the database.  Details have been logged for the administrator."), __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Beatnik_Exception(_("An error occurred while searching the database.  Details have been logged for the administrator."), __FILE__, __LINE__, PEAR_LOG_ERR);
         }
 
         if (count($result) != 1) {
-            throw new Horde_Exception(_("Too many domains matched that name.  Contact your administrator."));
+            throw new Beatnik_Exception(_("Too many domains matched that name.  Contact your administrator."));
         }
 
         $info = $result[0];
@@ -135,7 +135,7 @@ class Beatnik_Driver_pdnsgsql extends Beatnik_Driver
         $soa = explode(' ', $info['content']);
         if (count($soa) != 7) {
             Horde::logMessage(sprintf('Invalid SOA found for %s, skipping.', $info['name']), __FILE__, __LINE__, PEAR_LOG_WARN);
-            throw new Horde_Exception(_("Corrupt SOA found for zone.  Contact your administrator."), __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Beatnik_Exception(_("Corrupt SOA found for zone.  Contact your administrator."), __FILE__, __LINE__, PEAR_LOG_ERR);
         }
 
         $ret = array();
@@ -177,7 +177,7 @@ class Beatnik_Driver_pdnsgsql extends Beatnik_Driver
         $result = $this->_db->getAll($query, $values, DB_FETCHMODE_ASSOC);
         if (is_a($result, 'PEAR_Error')) {
             Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Horde_Exception(_("An error occurred while searching the database.  Details have been logged for the administrator."), __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Beatnik_Exception(_("An error occurred while searching the database.  Details have been logged for the administrator."), __FILE__, __LINE__, PEAR_LOG_ERR);
         }
 
         foreach ($result as $rec) {
@@ -404,7 +404,7 @@ class Beatnik_Driver_pdnsgsql extends Beatnik_Driver
     {
         $this->_connect();
 
-        throw new Horde_Exception(_("Not implemented."));
+        throw new Beatnik_Exception(_("Not implemented."));
     }
 
     /**
