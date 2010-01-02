@@ -34,13 +34,12 @@ case 'edit':
         // Form is Valid and Submitted
         try {
             $Form->execute();
-            $notification->push(_("User information updated."),
+            $notification->push(_("Extension information updated."),
                                   'horde.success');
             $action = 'list';
         } catch (Exception $e) {
             $notification->push($e);
         }
-
         break;
     } elseif ($Form->isSubmitted()) {
         $notification->push(_("Problem processing the form.  Please check below and try again."), 'horde.warning');
@@ -80,6 +79,7 @@ case 'delete':
             $notification->push($e);
         }
     } elseif ($Form->isSubmitted()) {
+        // Submitted but not valid
         $notification->push(_("Problem processing the form.  Please check below and try again."), 'horde.warning');
     }
 
