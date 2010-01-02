@@ -140,32 +140,33 @@ class Shout_Driver_Sql extends Shout_Driver
         // See getDevices() for an explanation of these conversions
         $details['alias'] = $details['name'];
         $details['name'] = $details['devid'];
+        unset($details['devid']);
         $details['mailbox'] .= '@' . $context;
 
-        if (!empty($devid)) {
-            // This is an edit
-            $details['name'] = $details['devid'];
-            $sql = 'UPDATE %s SET accountcode = ?, callerid = ?, ' .
-                   'mailbox = ?, secret = ?, alias = ?, canreinvite = "no", ' .
-                   'nat = "yes", type = "peer" WHERE name = ?';
-        } else {
-            // This is an add.  Generate a new unique ID and secret
-            $sql = 'INSERT INTO %s (accountcode, callerid, mailbox, ' .
-                   'secret, alias, name, canreinvite, nat, type) ' .
-                   'VALUES (?, ?, ?, ?, ?, ?, "no", "yes", "peer")';
-
-        }
-
-        $sql = sprintf($sql, $this->_params['table']);
-
+        // Prepare the SQL query and arguments
         $args = array(
+            $details['name'],
             $context,
             $details['callerid'],
             $details['mailbox'],
             $details['password'],
             $details['alias'],
-            $details['name'],
         );
+        if (!empty($devid)) {
+            // This is an edit
+            $details['name'] = $details['devid'];
+            $sql = 'UPDATE %s SET name = ?, accountcode = ?, callerid = ?, ' .
+                   'mailbox = ?, secret = ?, alias = ?, canreinvite = "no", ' .
+                   'nat = "yes", type = "peer" WHERE name = ?';
+            $args[] = $devid;
+        } else {
+            // This is an add.  Generate a new unique ID and secret
+            $sql = 'INSERT INTO %s (name, accountcode, callerid, mailbox, ' .
+                   'secret, alias, canreinvite, nat, type) ' .
+                   'VALUES (?, ?, ?, ?, ?, ?, "no", "yes", "peer")';
+
+        }
+        $sql = sprintf($sql, $this->_params['table']);
 
         $msg = 'SQL query in Shout_Driver_Sql#saveDevice(): ' . $sql;
         Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);

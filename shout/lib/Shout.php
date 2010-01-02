@@ -155,8 +155,7 @@ class Shout
      */
     static public function genDeviceAuth($context)
     {
-        $devid = uniqid($context);
-        $password = uudecode(md5(uniqid(mt_rand(), true)));
+        $devid = $context . substr(uniqid(), 6);
 
         // This simple password generation algorithm inspired by Jon Haworth
         // http://www.laughing-buddha.net/jon/php/password/
