@@ -1,4 +1,14 @@
 <div class="header">
+    <ul id="controls">
+        <?php
+        $addurl = Horde::applicationUrl('devices.php');
+        $addurl = Horde_Util::addParameter($addurl, 'action', 'add');
+        ?>
+        <li><a href="<?php echo $addurl; ?>">
+            <?php echo Horde::img('add-device.png'); ?>&nbsp;New Device
+            </a>
+        </li>
+    </ul>
     Context: <?php echo $context; ?>
 </div>
 
