@@ -14,7 +14,7 @@ class Vilma_MailboxDriver_maildrop extends Vilma_MailboxDriver {
     {
         if (empty($this->_params['mail_dir_base'])) {
             require_once 'PEAR.php';
-            return PEAR::raiseError(_("No 'mail_dir_base' parameter specified to maildrop driver."));
+            throw new Vilma_Exception(_("No 'mail_dir_base' parameter specified to maildrop driver."));
         }
         $dir = $this->_params['mail_dir_base'];
         $usedomain = isset($this->_params['usedomain']) ? $this->_params['usedomain'] : false;
@@ -40,7 +40,7 @@ class Vilma_MailboxDriver_maildrop extends Vilma_MailboxDriver {
 
         if (!$exists[$dir]) {
             require_once 'PEAR.php';
-            return PEAR::raiseError(sprintf(_("Maildrop directory \"%s\" does not exist."), $dir));
+            throw new Vilma_Exception(sprintf(_("Maildrop directory \"%s\" does not exist."), $dir));
         }
 
         return true;
@@ -54,7 +54,7 @@ class Vilma_MailboxDriver_maildrop extends Vilma_MailboxDriver {
         }
         if (empty($this->_params['system_user'])) {
             require_once 'PEAR.php';
-            return PEAR::raiseError(_("No 'system_user' parameter specified to maildrop driver."));
+            throw new Vilma_Exception(_("No 'system_user' parameter specified to maildrop driver."));
         }
 
         $create_function = sprintf('sudo -u %s maildirmake %s',

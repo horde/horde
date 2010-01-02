@@ -40,7 +40,7 @@ class Vilma_MailboxDriver_imap extends Vilma_MailboxDriver {
         }
 
         if (!$this->_imapAdmin->mailboxExists($user . '@' . $domain)) {
-            return PEAR::raiseError(sprintf(_("Mailbox '%s@%s' does not exist."), $user, $domain));
+            throw new Vilma_Exception(sprintf(_("Mailbox '%s@%s' does not exist."), $user, $domain));
         }
     }
 

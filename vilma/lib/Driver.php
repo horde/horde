@@ -105,7 +105,7 @@ class Vilma_Driver {
                 return $addrinfo;
             }
         }
-        return PEAR::raiseError(sprintf(_("No such address %s of type %s found."), $address, $type));
+        throw new Vilma_Exception(sprintf(_("No such address %s of type %s found."), $address, $type));
     }
 
     /**
@@ -268,13 +268,13 @@ class Vilma_Driver {
                            escapeshellarg($info['password']));
             $msg = system($cmd, $ec);
             if ($msg === false) {
-                return PEAR::raiseError(_("Error running authentication update script."));
+                throw new Vilma_Exception(_("Error running authentication update script."));
             }
             if ($ec != 0) {
                 if (empty($msg)) {
                     $msg = _("Unknown error running authentication update script.");
                 }
-                return PEAR::raiseError($msg);
+                throw new Vilma_Exception($msg);
             }
         }
 
@@ -283,7 +283,7 @@ class Vilma_Driver {
 
     function deleteUser($user_id)
     {
-        return PEAR::raiseError(_("Vilma_Driver::deleteUser(): Method Not Implemented."));
+        throw new Vilma_Exception(_("Vilma_Driver::deleteUser(): Method Not Implemented."));
     }
 
     /**
@@ -302,7 +302,7 @@ class Vilma_Driver {
 
         $ret = Horde::callHook('_vilma_hook_savedomain', array($info), 'vilma');
         if (!$ret) {
-            return PEAR::raiseError(_("Domain added but an error was encountered while calling the configured hook.  Contact your administrator for futher assistance."));
+            throw new Vilma_Exception(_("Domain added but an error was encountered while calling the configured hook.  Contact your administrator for futher assistance."));
         }
 
         return $domain_id;
@@ -318,7 +318,7 @@ class Vilma_Driver {
      */
     function _saveDomain(&$info)
     {
-        return PEAR::raiseError(_("Not implemented."));
+        throw new Vilma_Exception(_("Not implemented."));
     }
 
     /**
@@ -353,7 +353,7 @@ class Vilma_Driver {
                                array($domain_record['domain_name']),
                                'vilma');
         if (!$ret) {
-            return PEAR::raiseError(_("Error while calling hook to delete domain."));
+            throw new Vilma_Exception(_("Error while calling hook to delete domain."));
         }
     }
 
@@ -367,7 +367,7 @@ class Vilma_Driver {
      */
     function _deleteDomain($domain_id)
     {
-        return PEAR::raiseError(_("Not implemented."));
+        throw new Vilma_Exception(_("Not implemented."));
     }
 
     /**
