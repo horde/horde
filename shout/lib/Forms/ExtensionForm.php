@@ -14,14 +14,15 @@ class ExtensionDetailsForm extends Horde_Form {
 
     /**
      * ExtensionDetailsForm constructor.
-     * 
+     *
      * @global <type> $shout_extensions
      * @param <type> $vars
-     * @return <type> 
+     * @return <type>
      */
     function __construct(&$vars)
     {
         global $shout_extensions;
+
         $context = $_SESSION['shout']['context'];
         $action = $vars->get('action');
         if ($action == 'edit') {
@@ -30,10 +31,10 @@ class ExtensionDetailsForm extends Horde_Form {
             $formtitle = "Add User";
         }
 
+        parent::__construct($vars, _("$formtitle - Context: $context"));
+
         $extension = $vars->get('extension');
 
-        parent::__construct($vars, _("$formtitle - Context: $context"));
-        
         $this->addHidden('', 'action', 'text', true);
         $this->addHidden('', 'oldextension', 'text', false);
         $this->addVariable(_("Full Name"), 'name', 'text', true);

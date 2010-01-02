@@ -20,6 +20,10 @@
             <td class="uheader">E-Mail Address</td>
         </tr>
         <?php
+            $expandAttrs = array('onclick' => 'javascript:alert(this.getNode().parent);',
+                'id' => 'myid');
+            $expandButton = Horde::img('tree/plusonly.png', _("Expand"), $expandAttrs,
+                                       $registry->getImageDir('horde'));
             foreach ($extensions as $extension => $info) {
 
                 $url = Horde::applicationUrl("extensions.php");
@@ -35,8 +39,10 @@
             <td style="width: 20%">
                 <?php echo Horde::link($editurl); echo $extension; ?></a>
             </td>
-            <td style="width: 35%;" id="myid">
+            <td style="width: 35%;">
+                <?php echo $expandButton; ?>
                 <?php echo Horde::link($editurl); echo $info['name']; ?></a>
+                <span id="destX<?php echo $extension; ?>summary">
                 <?php
                 foreach ($info['devices'] as $device) {
                     echo Horde::img('shout.png');
@@ -45,6 +51,21 @@
                     echo Horde::img('telephone-pole.png');
                 }
                 ?>
+                </span>
+
+                <form>
+                <div class="extensionDestinations" id="destX<?php echo $extension; ?>">
+                    <input type="hidden" name="extension" value="<?php echo $extension; ?>">
+                    <?php
+                    foreach ($info['devices'] as $device) {
+                        echo Horde::img('shout.png') . "&nbsp;" . $device . "<br>\n";
+                    }
+                    foreach ($info['numbers'] as $number) {
+                        echo Horde::img('telephone-pole.png') . "&nbsp;" . $number . "<br>\n";
+                    }
+                    ?>
+                </div>
+                </form>
             </td>
             <td style="width: 45%">
                 <?php echo $info['email']; ?>
