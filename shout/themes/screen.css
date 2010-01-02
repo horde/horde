@@ -34,6 +34,12 @@ table {
     padding: 5px;
   }
 
+.extensionDestinations
+{
+    /*display: none;*/
+    position: relative;
+    left: 24px;
+}
 
 #extensionDetail {
     left: 200px;
@@ -50,7 +56,7 @@ table {
 }
 
 #extensionDetail .darkHint{
-     background: #797
+     background: #797;
      color: #fff;
 }
 
