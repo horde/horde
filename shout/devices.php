@@ -8,8 +8,11 @@
  *
  * @author  Ben Klang <ben@alkaloid.net>
  */
-@define('SHOUT_BASE', dirname(__FILE__));
-require_once SHOUT_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+
+$shout = new Shout_Application(array('init' => true));
+$context = $_SESSION['shout']['context'];
+
 require_once SHOUT_BASE . '/lib/Forms/DeviceForm.php';
 
 $action = Horde_Util::getFormData('action');
@@ -50,7 +53,7 @@ case 'edit':
 
     // Create a new add/edit form
     $devid = Horde_Util::getFormData('devid');
-    $devices = $shout_devices->getDevices($context);
+    $devices = $shout->devices->getDevices($context);
     $vars = new Horde_Variables($devices[$devid]);
 
     $vars->set('action', $action);
@@ -96,7 +99,7 @@ default:
 }
 
 // Fetch the (possibly updated) list of extensions
-$devices = $shout_devices->getDevices($context);
+$devices = $shout->devices->getDevices($context);
 
 Horde::addScriptFile('stripe.js', 'horde');
 require SHOUT_TEMPLATES . '/common-header.inc';

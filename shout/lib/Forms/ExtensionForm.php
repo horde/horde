@@ -17,13 +17,13 @@ class ExtensionDetailsForm extends Horde_Form {
     /**
      * ExtensionDetailsForm constructor.
      *
-     * @global <type> $shout_extensions
+     * @global <type> $shout->extensions
      * @param <type> $vars
      * @return <type>
      */
     function __construct(&$vars)
     {
-        global $shout_extensions;
+        global $shout;
 
         $context = $_SESSION['shout']['context'];
         $action = $vars->get('action');
@@ -52,11 +52,11 @@ class ExtensionDetailsForm extends Horde_Form {
      * Process this form, saving its information to the backend.
      *
      * @param string $context  Context in which to execute this save
-     * FIXME: is there a better way to get the $context and $shout_extensions?
+     * FIXME: is there a better way to get the $context and $shout->extensions?
      */
     function execute()
     {
-        global $shout_extensions;
+        global $shout;
 
         $extension = $this->_vars->get('extension');
         $context = $this->_vars->get('context');
@@ -70,7 +70,7 @@ class ExtensionDetailsForm extends Horde_Form {
             'mailboxpin' => $this->_vars->get('mailboxpin'),
             );
 
-        $shout_extensions->saveExtension($context, $extension, $details);
+        $shout->extensions->saveExtension($context, $extension, $details);
     }
 
 }
@@ -94,9 +94,9 @@ class ExtensionDeleteForm extends Horde_Form
 
     function execute()
     {
-        global $shout_extensions;
+        global $shout;
         $context = $this->_vars->get('context');
         $extension = $this->_vars->get('extension');
-        $shout_extensions->deleteExtension($context, $extension);
+        $shout->extensions->deleteExtension($context, $extension);
     }
 }
