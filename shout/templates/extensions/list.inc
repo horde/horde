@@ -37,7 +37,7 @@
             </td>
             <td style="width: 35%;">
                 <?php
-                $attrs = array('onclick' => 'javascript:destinations("' . $extension . '");',
+                $attrs = array('onclick' => 'javascript:destinfo("' . $extension . '");',
                                'id' => 'destX' . $extension . 'toggle');
                 echo Horde::img('tree/plusonly.png', _("Destinations"), $attrs,
                                 $registry->getImageDir('horde'));
@@ -54,21 +54,27 @@
                 }
                 ?>
                 </span>
-
-                <form method="post"
-                      action="<?php echo Horde::applicationUrl('extensions.php'); ?>">
-                <div class="extensionDestinations" id="destX<?php echo $extension; ?>">
-                    <input type="hidden" name="extension" value="<?php echo $extension; ?>">
+                <div class="extensionDestinations" id="destX<?php echo $extension; ?>info">
                     <?php
                     foreach ($info['devices'] as $device) {
-                        echo Horde::img('shout.png') . "&nbsp;" . $device . "<br>\n";
+                        echo Horde::img('shout.png') .
+                             "&nbsp;" . $device . "<br>\n";
                     }
                     foreach ($info['numbers'] as $number) {
-                        echo Horde::img('telephone-pole.png') . "&nbsp;" . $number . "<br>\n";
+                        echo Horde::img('telephone-pole.png') .
+                             "&nbsp;" . $number . "<br>\n";
                     }
                     ?>
+                    <form method="post"
+                      action="<?php echo Horde::applicationUrl('extensions.php'); ?>"
+                      id="destX<?php echo $extension; ?>form">
+                    </form>
+                    <a class="addDest"
+                       id="destX<?php echo $extension; ?>addDest"
+                       href="#" onclick="javascript:addDest('<?php echo $extension; ?>')">
+                       Add more destinations...
+                    </a>
                 </div>
-                </form>
             </td>
             <td style="width: 45%">
                 <?php echo $info['email']; ?>
@@ -83,17 +89,77 @@
 <script type="text/javascript">
 <!--
 
+var device_image = "<?php echo $registry->getImageDir() . '/shout.png'; ?>";
+var number_image = "<?php echo $registry->getImageDir() . '/telephone-pole.png'; ?>";
+
+var destinations = new Array();
 <?php
 foreach ($extensions as $extension => $info)
 {
+    echo "destinations[${extension}] = {";
+    if (count($info['devices'])) {
+        echo 'devices: ["' . implode('","', $info['devices']) . '"],';
+    }
+    if (count($info['numbers'])) {
+        echo 'numbers: ["' . implode('","', $info['numbers']) . '"],';
+    }
+    echo "};\n";
+
     echo "contract('${extension}');\n";
 }
 ?>
 
-function destinations(exten)
-{    
+var destX101 = {
+    numbers: []
+}
+
+function resetDestInfo(exten)
+{
+    while ((e = $('destX'+exten+'info').childNodes[0]) != null) {
+        $('destX'+exten+'info').removeChild(e);
+    }
+
+    destinations[exten]['devices'].each(function(s) {
+        e = document.createElement('img');
+        e.src = device_image;
+        t = document.createTextNode(" "+s);
+        b = document.createElement('br');
+        $('destX'+exten+'info').appendChild(e);
+        $('destX'+exten+'info').appendChild(t);
+        $('destX'+exten+'info').appendChild(b);
+    });
+
+
+    destinations[exten]['numbers'].each(function(s) {
+        e = document.createElement('img');
+        e.src = number_image;
+        t = document.createTextNode(" "+s);
+        b = document.createElement('br');
+        $('destX'+exten+'info').appendChild(e);
+        $('destX'+exten+'info').appendChild(t);
+        $('destX'+exten+'info').appendChild(b);
+    });
+
+    form = document.createElement('form');
+    form.method = 'post';
+    form.action = '#';
+    form.id = 'destX'+exten+'form';
+    $('destX'+exten+'info').appendChild(form);
+
+    a = document.createElement('a');
+    a.id = 'destX'+exten+'addDest';
+    a.class = 'addDest';
+    a.href='#';
+    a.onclick='addDest('+exten+')';
+    t = document.createTextNode('Add more destinations...');
+    a.appendChild(t);
+    $('destX'+exten+'info').appendChild(a);
+}
+
+function destinfo(exten)
+{
     // Use the summary icons span as our state key
-    if ($("destX" + exten + "summary").style.display == 'none') {
+    if ($('destX' + exten + 'summary').style.display == 'none') {
         // Icons hidden, we are expanded
         contract(exten);
     } else {
@@ -104,15 +170,33 @@ function destinations(exten)
 function expand(exten)
 {
     $('destX'+exten+'summary').hide();
-    $('destX'+exten).show();
-    $("destX" + exten + "toggle").src = '<?php echo $registry->getImageDir('horde') . '/tree/minusonly.png'; ?>';
+    $('destX'+exten+'info').show();
+    $('destX' + exten + 'toggle').src = '<?php echo $registry->getImageDir('horde') . '/tree/minusonly.png'; ?>';
 }
 
 function contract(exten)
 {
     $('destX'+exten+'summary').show();
-    $('destX'+exten).hide();
-    $("destX" + exten + "toggle").src = '<?php echo $registry->getImageDir('horde') . '/tree/plusonly.png'; ?>';
+    $('destX'+exten+'info').hide();
+    $('destX' + exten + 'toggle').src = '<?php echo $registry->getImageDir('horde') . '/tree/plusonly.png'; ?>';
 }
+
+function processForm(event)
+{
+    Event.stop(event);
+    alert(event.target.childNodes);
+}
+
+function addDest(exten)
+{
+    //$('destX'+exten+'addDest').hide();
+    e = document.createElement('input');
+    e.type = "text";
+    e.length = 10;
+    $('destX'+exten+'form').appendChild(e);
+    $('destX'+exten+'form').focusFirstElement();
+    Event.observe($('destX'+exten+'form'), 'submit', function(event) {processForm(event);});
+}
+
 // -->
 </script>
