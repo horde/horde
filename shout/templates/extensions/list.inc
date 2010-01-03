@@ -93,25 +93,6 @@ var device_image = "<?php echo $registry->getImageDir() . '/shout.png'; ?>";
 var number_image = "<?php echo $registry->getImageDir() . '/telephone-pole.png'; ?>";
 
 var destinations = new Array();
-<?php
-foreach ($extensions as $extension => $info)
-{
-    echo "destinations[${extension}] = {";
-    if (count($info['devices'])) {
-        echo 'devices: ["' . implode('","', $info['devices']) . '"],';
-    }
-    if (count($info['numbers'])) {
-        echo 'numbers: ["' . implode('","', $info['numbers']) . '"],';
-    }
-    echo "};\n";
-
-    echo "contract('${extension}');\n";
-}
-?>
-
-var destX101 = {
-    numbers: []
-}
 
 function resetDestInfo(exten)
 {
@@ -148,9 +129,9 @@ function resetDestInfo(exten)
 
     a = document.createElement('a');
     a.id = 'destX'+exten+'addDest';
-    a.class = 'addDest';
+    a['className'] = 'addDest';
     a.href='#';
-    a.onclick='addDest('+exten+')';
+    a.setAttribute('onclick', 'addDest('+exten+')');
     t = document.createTextNode('Add more destinations...');
     a.appendChild(t);
     $('destX'+exten+'info').appendChild(a);
@@ -196,6 +177,26 @@ function addDest(exten)
     $('destX'+exten+'form').appendChild(e);
     $('destX'+exten+'form').focusFirstElement();
     Event.observe($('destX'+exten+'form'), 'submit', function(event) {processForm(event);});
+}
+
+<?php
+foreach ($extensions as $extension => $info)
+{
+    echo "destinations[${extension}] = {";
+    if (count($info['devices'])) {
+        echo 'devices: ["' . implode('","', $info['devices']) . '"],';
+    }
+    if (count($info['numbers'])) {
+        echo 'numbers: ["' . implode('","', $info['numbers']) . '"],';
+    }
+    echo "};\n";
+}
+?>
+
+// Initialize the data.
+for (var i in destinations) {
+    resetDestInfo(i);
+    contract(i);
 }
 
 // -->
