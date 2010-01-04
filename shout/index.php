@@ -8,14 +8,9 @@
  *
  * @author  Ben Klang <ben@alkaloid.net>
  */
-@define('SHOUT_BASE', dirname(__FILE__));
-$shout_configured = (is_readable(SHOUT_BASE . '/config/conf.php'));
+// Will redirect to login page if not authenticated.
+require_once dirname(__FILE__) . '/lib/Application.php';
+new Shout_Application();
 
-if (!$shout_configured) {
-require SHOUT_BASE . '/../lib/Test.php';
-    Horde_Test::configFilesMissing('Shout', SHOUT_BASE,
-        array('conf.php'));
-}
-
-require_once SHOUT_BASE . '/lib/base.php';
-header('Location: ' . Horde::applicationUrl('extensions.php'));
+// Load initial page as defined by view mode & preferences.
+require 'extensions.php';
