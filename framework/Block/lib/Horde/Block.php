@@ -144,6 +144,16 @@ class Horde_Block
     }
 
     /**
+     * Returns a hash of block parameters and their configured values.
+     *
+     * @return array  Parameter values.
+     */
+    public function getParamValues()
+    {
+        return $this->_params;
+    }
+
+    /**
      * Returns the content for this block.
      *
      * This function handles the changing of current application as

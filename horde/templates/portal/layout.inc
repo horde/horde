@@ -79,7 +79,7 @@
 <?php
 if ($blocks->isEditable($blockInfo['app'], $blockInfo['block'])):
     $block = &$layout->getBlock($row, $col);
-    foreach ($block->getParams() as $key => $val) {
+    foreach ($block->getParamValues() as $key => $val) {
         $defaults[$key] = $val;
     }
     if (!isset($defaults['_refresh_time'])) {
