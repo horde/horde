@@ -62,9 +62,8 @@ try {
 /* See if this group has a custom URL. */
 if ($group && !empty($prefGroups[$group]['url'])) {
     $pref_url = $prefGroups[$group]['url'];
-    $filename = realpath($appbase . '/' . $pref_url);
-    if (file_exists($filename) &&
-        (strpos($filename, $appbase) === 0)) {
+    $filename = $appbase . '/' . $pref_url;
+    if (file_exists($filename)) {
         require $filename;
         return;
     }
