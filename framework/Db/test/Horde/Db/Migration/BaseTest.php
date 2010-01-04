@@ -98,8 +98,6 @@ client:
   updated_at: '2008-01-01 12:20:00'
   updated_on: '2008-01-01'
         */
-
-        Horde_Db_Migration_Base::$verbose = false;
     }
 
     public function testAddIndex()
