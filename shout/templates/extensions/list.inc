@@ -115,7 +115,7 @@ function resetDestInfo(exten)
     a['className'] = 'addDest';
     a.href='#';
     a.setAttribute('onclick', 'addDest('+exten+')');
-    t = document.createTextNode('Add more destinations...');
+    t = document.createTextNode('Add destination...');
     a.appendChild(t);
     $('destX'+exten+'info').appendChild(a);
 }
