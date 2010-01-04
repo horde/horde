@@ -103,6 +103,7 @@ default:
 $extensions = $shout->extensions->getExtensions($context);
 
 Horde::addScriptFile('stripe.js', 'horde');
+Horde::addScriptFile('prototype.js', 'horde');
 require SHOUT_TEMPLATES . '/common-header.inc';
 require SHOUT_TEMPLATES . '/menu.inc';
 
