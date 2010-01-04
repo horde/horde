@@ -20,8 +20,8 @@ class Horde_Block_gollem_tree_menu extends Horde_Block {
 
     function _buildTree(&$tree, $indent = 0, $parent = null)
     {
-        $GLOBALS['gollem_authentication'] = 'none';
-        require_once dirname(__FILE__) . '/../base.php';
+        require_once dirname(__FILE__) . '/../Application.php';
+        new Gollem_Application(array('init' => true));
 
         return;
 
