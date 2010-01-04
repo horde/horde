@@ -55,25 +55,6 @@
                 ?>
                 </span>
                 <div class="extensionDestinations" id="destX<?php echo $extension; ?>info">
-                    <?php
-                    foreach ($info['devices'] as $device) {
-                        echo Horde::img('shout.png') .
-                             "&nbsp;" . $device . "<br>\n";
-                    }
-                    foreach ($info['numbers'] as $number) {
-                        echo Horde::img('telephone-pole.png') .
-                             "&nbsp;" . $number . "<br>\n";
-                    }
-                    ?>
-                    <form method="post"
-                      action="<?php echo Horde::applicationUrl('extensions.php'); ?>"
-                      id="destX<?php echo $extension; ?>form">
-                    </form>
-                    <a class="addDest"
-                       id="destX<?php echo $extension; ?>addDest"
-                       href="#" onclick="javascript:addDest('<?php echo $extension; ?>')">
-                       Add more destinations...
-                    </a>
                 </div>
             </td>
             <td style="width: 45%">
@@ -89,9 +70,6 @@
 <script type="text/javascript">
 <!--
 
-var device_image = "<?php echo $registry->getImageDir() . '/shout.png'; ?>";
-var number_image = "<?php echo $registry->getImageDir() . '/telephone-pole.png'; ?>";
-
 var destinations = new Array();
 
 function resetDestInfo(exten)
@@ -102,7 +80,7 @@ function resetDestInfo(exten)
 
     destinations[exten]['devices'].each(function(s) {
         e = document.createElement('img');
-        e.src = device_image;
+        e.src = "<?php echo $registry->getImageDir() . '/shout.png'; ?>";
         t = document.createTextNode(" "+s);
         b = document.createElement('br');
         $('destX'+exten+'info').appendChild(e);
@@ -113,7 +91,7 @@ function resetDestInfo(exten)
 
     destinations[exten]['numbers'].each(function(s) {
         e = document.createElement('img');
-        e.src = number_image;
+        e.src = "<?php echo $registry->getImageDir() . '/telephone-pole.png'; ?>";
         t = document.createTextNode(" "+s);
         b = document.createElement('br');
         $('destX'+exten+'info').appendChild(e);
@@ -125,6 +103,11 @@ function resetDestInfo(exten)
     form.method = 'post';
     form.action = '#';
     form.id = 'destX'+exten+'form';
+    hidden = document.createElement('input');
+    hidden.type = 'hidden';
+    hidden.name = 'extension';
+    hidden.value = exten;
+    form.appendChild(hidden);
     $('destX'+exten+'info').appendChild(form);
 
     a = document.createElement('a');
@@ -165,7 +148,15 @@ function contract(exten)
 function processForm(event)
 {
     Event.stop(event);
-    alert(event.target.childNodes);
+    spinner = document.createElement('img');
+    spinner.src = "<?php echo $registry->getImageDir('horde') . '/loading.gif'; ?>"
+    form = event.target;
+    Element.extend(form);
+
+    
+
+    alert(event);
+
 }
 
 function addDest(exten)
