@@ -199,7 +199,10 @@ class Horde_Db_Migration_Migrator
     protected function _getMigrationClass($migrationName, $version)
     {
         $className = $this->_inflector->camelize($migrationName);
-        return new $className($this->_connection, $version);
+        $class = new $className($this->_connection, $version);
+        $class->setLogger($this->_logger);
+
+        return $class;
     }
 
     /**
