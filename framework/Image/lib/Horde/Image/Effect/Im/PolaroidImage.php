@@ -43,7 +43,7 @@ class Horde_Image_Effect_Im_PolaroidImage extends Horde_Image_Effect
                                                           $this->_params['angle'], $this->_params['background']));
         } else {
             $size = $this->_image->getDimensions();
-            $this->_image->addPostSrcOperation(sprintf("-bordercolor \"#eee\" -border 8 bordercolor grey90 -border 1 -bordercolor none -background none -rotate %s \( +clone -shadow 60x1.5+1+1 -rotate 90 -wave 1x%s -rotate 90 \) +swap -rotate 90 -wave 1x%s -rotate -90 -flatten \( +clone -fill %s -draw 'color 0,0 reset ' \) +swap -flatten",
+            $this->_image->addPostSrcOperation(sprintf("-bordercolor \"#eee\" -border 8 -bordercolor grey90 -border 1 -bordercolor none -background none -rotate %s \( +clone -shadow 60x1.5+1+1 -rotate 90 -wave 1x%s -rotate 90 \) +swap -rotate 90 -wave 1x%s -rotate -90 -flatten \( +clone -fill %s -draw 'color 0,0 reset ' \) +swap -flatten",
                                                            $this->_params['angle'], $size['height'] * 2, $size['height'] * 2, $this->_params['background']));
         }
 
