@@ -212,7 +212,7 @@
  * timeout: (integer) Set the server timeout (in seconds).
  *
  *
- * $Id: d0ffbac2cdec20ab3a7505dd643d4c8f2791b372 $
+ * $Id$
  */
 
 /* Any entries whose key value ('foo' in $servers['foo']) begin with '_'

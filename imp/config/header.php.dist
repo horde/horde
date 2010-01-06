@@ -6,7 +6,7 @@
  * KEY:   Header name (must be in US-ASCII charset))
  * VALUE: Header data (must be in US-ASCII charset)
  *
- * $Id: 7bde6ec9418e8c67fff71a87364c32eaa793b4a6 $
+ * $Id$
  */
 
 $_header = array(

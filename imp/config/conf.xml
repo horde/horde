@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- $Id: 904d193cdfa992f09000e524880456592a5f04ed $ -->
+<!-- $Id$ -->
 <configuration>
  <configtab name="user" desc="User Capabilities and Constraints">
   <configsection name="user">

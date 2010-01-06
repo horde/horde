@@ -2,7 +2,7 @@
 /**
  * See horde/config/prefs.php for documentation on the structure of this file.
  *
- * $Id: ad765501fddbc6c9735999dc7a6221c0c15aa80a $
+ * $Id$
  */
 
 // Make sure that constants are defined.

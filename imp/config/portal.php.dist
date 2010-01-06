@@ -15,7 +15,7 @@
  *            'tag' => A tag name to add to the template array. Allows
  *                     the use of <if:block.tag> in custom template files.
  *
- * $Id: fc35863e634219d65dde5db35d9d72310567741e $
+ * $Id$
  */
 
 $collection = new Horde_Block_Collection();

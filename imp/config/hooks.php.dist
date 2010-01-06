@@ -8,7 +8,7 @@
  *
  * For more information please see the horde/config/hooks.php.dist file.
  *
- * $Id: 0f30312eb8b8cd1d7b2492bdf28de323b4d5baae $
+ * $Id$
  */
 
 class IMP_Hooks

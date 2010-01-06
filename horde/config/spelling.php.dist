@@ -3,7 +3,7 @@
  * This file defines a custom list of words that will be added to the spell
  * checker dictionary.
  *
- * $Id: 70becd51e9f3d20b27c40624fbfb8bd530ec14b3 $
+ * $Id$
  */
 
 /* Default list (English). */
