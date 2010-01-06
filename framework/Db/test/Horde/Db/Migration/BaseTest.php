@@ -28,328 +28,12 @@ require_once dirname(dirname(__FILE__)) . '/fixtures/migrations_with_decimal/1_g
  */
 class Horde_Db_Migration_BaseTest extends PHPUnit_Framework_TestCase
 {
-    public function setUp()
-    {
-        $this->_conn = Horde_Db_Adapter::factory(array(
-            'adapter' => 'pdo_sqlite',
-            'dbname' => ':memory:',
-        ));
-
-        /*
-CREATE TABLE users (
-  id         int(11) auto_increment,
-  company_id int(11),
-  name       varchar(255) default '',
-  first_name varchar(40) default '',
-  approved   tinyint(1) default '1',
-  type       varchar(255) default '',
-  created_at datetime default '0000-00-00 00:00:00',
-  created_on date default '0000-00-00',
-  updated_at datetime default '0000-00-00 00:00:00',
-  updated_on date default '0000-00-00',
-  PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-        */
-        $table = $this->_conn->createTable('users');
-          $table->column('company_id',  'integer',  array('limit' => 11));
-          $table->column('name',        'string',   array('limit' => 255, 'default' => ''));
-          $table->column('first_name',  'string',   array('limit' => 40, 'default' => ''));
-          $table->column('approved',    'boolean',  array('default' => true));
-          $table->column('type',        'string',   array('limit' => 255, 'default' => ''));
-          $table->column('created_at',  'datetime', array('default' => '0000-00-00 00:00:00'));
-          $table->column('created_on',  'date',     array('default' => '0000-00-00'));
-          $table->column('updated_at',  'datetime', array('default' => '0000-00-00 00:00:00'));
-          $table->column('updated_on',  'date',     array('default' => '0000-00-00'));
-        $table->end();
-        /*
-mike:
-  id:         1
-  company_id: 1
-  name:       Mike Naberezny
-  first_name: Mike
-  approved:   1
-  type:       User
-  created_at: '2008-01-01 12:20:00'
-  created_on: '2008-01-01'
-  updated_at: '2008-01-01 12:20:00'
-  updated_on: '2008-01-01'
-
-derek:
-  id:         2
-  company_id: 1
-  name:       Derek DeVries
-  first_name: Derek
-  approved:   1
-  type:       User
-  created_at: '<?php echo date("Y-m-d H:i:s", strtotime("-1 day")) ?>'
-  created_on: '<?php echo date("Y-m-d",       strtotime("-1 day")) ?>'
-  updated_at: '<?php echo date("Y-m-d H:i:s", strtotime("-1 day")) ?>'
-  updated_on: '<?php echo date("Y-m-d",       strtotime("-1 day")) ?>'
-
-client:
-  id:         3
-  company_id: 1
-  name:       Extreme
-  first_name: Engineer
-  approved:   1
-  type:       Client
-  created_at: '2008-01-01 12:20:00'
-  created_on: '2008-01-01'
-  updated_at: '2008-01-01 12:20:00'
-  updated_on: '2008-01-01'
-        */
-    }
-
-    public function testAddIndex()
-    {
-        // Limit size of last_name and key columns to support Firebird index limitations
-        $this->_conn->addColumn('users', 'last_name',     'string',  array('limit' => 100));
-        $this->_conn->addColumn('users', 'key',           'string',  array('limit' => 100));
-        $this->_conn->addColumn('users', 'administrator', 'boolean');
-
-        $this->_conn->addIndex('users', 'last_name');
-        $this->_conn->removeIndex('users', 'last_name');
-
-        $this->_conn->addIndex('users', array('last_name', 'first_name'));
-        $this->_conn->removeIndex('users', array('column' => array('last_name', 'first_name')));
-
-        $this->_conn->addIndex('users', array('last_name', 'first_name'));
-        $this->_conn->removeIndex('users', array('name' => 'index_users_on_last_name_and_first_name'));
-
-        $this->_conn->addIndex('users', array('last_name', 'first_name'));
-        $this->_conn->removeIndex('users', 'last_name_and_first_name');
-
-        // quoting
-
-        $this->_conn->addIndex('users', array('key'), array('name' => 'key_idx', 'unique' => true));
-        $this->_conn->removeIndex('users', array('name' => 'key_idx', 'unique' => true));
-
-        $this->_conn->addIndex('users', array('last_name', 'first_name', 'administrator'),
-                                        array('name' => "named_admin"));
-
-        $this->_conn->removeIndex('users', array('name' => 'named_admin'));
-    }
-
-    public function testCreateTableAddsId()
-    {
-        $table = $this->_conn->createTable('testings');
-            $table->column('foo', 'string');
-        $table->end();
-
-        $columns = array();
-        foreach ($this->_conn->columns('testings') as $col) {
-            $columns[] = $col->getName();
-        }
-        sort($columns);
-        $this->assertEquals(array('foo', 'id'), $columns);
-    }
-
-    public function testCreateTableWithNotNullColumn()
-    {
-        $table = $this->_conn->createTable('testings');
-            $table->column('foo', 'string', array('null' => false));
-        $table->end();
-
-        try {
-            $this->_conn->execute("INSERT INTO testings (foo) VALUES (NULL)");
-        } catch (Exception $e) { return; }
-        $this->fail('Expected exception wasn\'t raised');
-    }
-
-    /**
-     * @see  Horde_Db_Adapter_Abstract_ColumnTest
-     */
-    public function testCreateTableWithDefaults()
-    {
-        $table = $this->_conn->createTable('testings');
-            $table->column('one',   'string',  array('default' => 'hello'));
-            $table->column('two',   'boolean', array('default' => true));
-            $table->column('three', 'boolean', array('default' => false));
-            $table->column('four',  'integer', array('default' => 1));
-        $table->end();
-
-        $columns = array();
-        foreach ($this->_conn->columns('testings') as $col) {
-            $columns[$col->getName()] = $col;
-        }
-
-        $this->assertEquals('hello', $columns['one']->getDefault());
-        $this->assertTrue($columns['two']->getDefault());
-        $this->assertFalse($columns['three']->getDefault());
-        $this->assertEquals(1, $columns['four']->getDefault());
-    }
-
-    public function testCreateTableWithLimits()
-    {
-        $table = $this->_conn->createTable('testings');
-            $table->column('foo', 'string', array('limit' => 80));
-        $table->end();
-
-        $columns = array();
-        foreach ($this->_conn->columns('testings') as $col) {
-            $columns[$col->getName()] = $col;
-        }
-        $this->assertEquals(80, $columns['foo']->getLimit());
-    }
-
-    public function testAddColumnNotNullWithoutDefault()
-    {
-        $table = $this->_conn->createTable('testings');
-            $table->column('foo', 'string');
-        $table->end();
-        $this->_conn->addColumn('testings', 'bar', 'string', array('null' => false, 'default' => ''));
-
-        try {
-            $this->_conn->execute("INSERT INTO testings (foo, bar) VALUES ('hello', NULL)");
-        } catch (Exception $e) { return; }
-        $this->fail('Expected exception wasn\'t raised');
-
-    }
-
-    public function testAddColumnNotNullWithDefault()
-    {
-        $table = $this->_conn->createTable('testings');
-            $table->column('foo', 'string');
-        $table->end();
-
-        $this->_conn->execute("INSERT INTO testings (id, foo) VALUES ('1', 'hello')");
-
-        $this->_conn->addColumn('testings', 'bar', 'string', array('null' => false, 'default' => 'default'));
-
-        try {
-            $this->_conn->execute("INSERT INTO testings (id, foo, bar) VALUES (2, 'hello', NULL)");
-        } catch (Exception $e) { return; }
-        $this->fail('Expected exception wasn\'t raised');
-    }
-
-    public function testAddRemoveSingleField()
-    {
-        $this->assertFalse(in_array('last_name', $this->_columnNames('users')));
-
-        $this->_conn->addColumn('users', 'last_name', 'string');
-        $this->assertTrue(in_array('last_name', $this->_columnNames('users')));
-
-        $this->_conn->removeColumn('users', 'last_name');
-        $this->assertFalse(in_array('last_name', $this->_columnNames('users')));
-    }
-
-    public function testAddRename()
-    {
-        $this->_conn->delete('DELETE FROM users');
-
-        $this->_conn->addColumn('users', 'girlfriend', 'string');
-        $this->_conn->insert("INSERT INTO users (girlfriend) VALUES ('bobette')");
-
-        $this->_conn->renameColumn('users', 'girlfriend', 'exgirlfriend');
-
-        $bob = (object)$this->_conn->selectOne('SELECT * FROM users');
-        $this->assertEquals('bobette', $bob->exgirlfriend);
-    }
-
-    public function testRenameColumn()
-    {
-        $this->_conn->renameColumn('users', 'first_name', 'nick_name');
-        $this->assertTrue(in_array('nick_name', $this->_columnNames('users')));
-    }
-
-    public function testRenameColumnWithSqlReservedWord()
-    {
-        $this->_conn->renameColumn('users', 'first_name', 'group');
-        $this->assertTrue(in_array('group', $this->_columnNames('users')));
-    }
-
-    public function testRenameTable()
-    {
-        $table = $this->_conn->createTable('octopuses');
-            $table->column('url', 'string');
-        $table->end();
-
-        $this->_conn->renameTable('octopuses', 'octopi');
-
-        $sql = "INSERT INTO octopi (id, url) VALUES (1, 'http://www.foreverflying.com/octopus-black7.jpg')";
-        $this->_conn->execute($sql);
-
-        $this->assertEquals('http://www.foreverflying.com/octopus-black7.jpg',
-                $this->_conn->selectValue("SELECT url FROM octopi WHERE id=1"));
-    }
-
-    public function testRenameTableWithAnIndex()
-    {
-        $table = $this->_conn->createTable('octopuses');
-            $table->column('url', 'string');
-        $table->end();
-        $this->_conn->addIndex('octopuses', 'url');
-        $this->_conn->renameTable('octopuses', 'octopi');
-
-        $sql = "INSERT INTO octopi (id, url) VALUES (1, 'http://www.foreverflying.com/octopus-black7.jpg')";
-        $this->_conn->execute($sql);
-
-        $this->assertEquals('http://www.foreverflying.com/octopus-black7.jpg',
-                $this->_conn->selectValue("SELECT url FROM octopi WHERE id=1"));
-
-        $indexes = $this->_conn->indexes('octopi');
-        $this->assertEquals('url', $indexes[0]->columns[0]);
-    }
-
-    public function testChangeColumn()
-    {
-        $this->_conn->addColumn('users', 'age', 'integer');
-        $oldColumns = $this->_conn->columns('users', "User Columns");
-
-        $found = false;
-        foreach ($oldColumns as $c) {
-            if ($c->getName() == 'age' && $c->getType() == 'integer') { $found = true; }
-        }
-        $this->assertTrue($found);
-
-        $this->_conn->changeColumn('users', 'age', 'string');
-
-        $newColumns = $this->_conn->columns('users', "User Columns");
-
-        $found = false;
-        foreach ($newColumns as $c) {
-            if ($c->getName() == 'age' && $c->getType() == 'integer') { $found = true; }
-        }
-        $this->assertFalse($found);
-        $found = false;
-        foreach ($newColumns as $c) {
-            if ($c->getName() == 'age' && $c->getType() == 'string') { $found = true; }
-        }
-        $this->assertTrue($found);
-
-        $found = false;
-        foreach ($oldColumns as $c) {
-            if ($c->getName() == 'approved' && $c->getType() == 'boolean' &&
-                $c->getDefault() == true) { $found = true; }
-        }
-        $this->assertTrue($found);
-
-        // changeColumn() throws exception on error
-        $this->_conn->changeColumn('users', 'approved', 'boolean', array('default' => false));
-
-        $newColumns = $this->_conn->columns('users', "User Columns");
-
-        $found = false;
-        foreach ($newColumns as $c) {
-            if ($c->getName() == 'approved' && $c->getType() == 'boolean' &&
-                $c->getDefault() == true) { $found = true; }
-        }
-        $this->assertFalse($found);
-
-        $found = false;
-        foreach ($newColumns as $c) {
-            if ($c->getName() == 'approved' && $c->getType() == 'boolean' &&
-                $c->getDefault() == false) { $found = true; }
-        }
-        $this->assertTrue($found);
-
-        // changeColumn() throws exception on error
-        $this->_conn->changeColumn('users', 'approved', 'boolean', array('default' => true));
-    }
-
+    /** These tests need support for pulling default properties for an object from a table definition **/
+    /*
     public function testChangeColumnWithNilDefault()
     {
-        $this->markTestSkipped();
+        $this->_createTestUsersTable();
+
         $this->_conn->addColumn('users', 'contributor', 'boolean', array('default' => true));
         $user = new User;
         $this->assertTrue($user->contributor);
@@ -363,7 +47,8 @@ client:
 
     public function testChangeColumnWithNewDefault()
     {
-        $this->markTestSkipped();
+        $this->_createTestUsersTable();
+
         $this->_conn->addColumn('users', 'administrator', 'boolean', array('default' => true));
         $user = new User;
         $this->assertTrue($user->administrator);
@@ -377,7 +62,8 @@ client:
 
     public function testChangeColumnDefault()
     {
-        $this->markTestSkipped();
+        $this->_createTestUsersTable();
+
         $this->_conn->changeColumnDefault('users', 'first_name', 'Tester');
 
         $user = new User;
@@ -386,11 +72,21 @@ client:
 
     public function testChangeColumnDefaultToNull()
     {
-        $this->markTestSkipped();
+        $this->_createTestUsersTable();
+
         $this->_conn->changeColumnDefault('users', 'first_name', null);
 
         $user = new User;
         $this->assertNull($user->first_name);
+    }
+    */
+
+    public function setUp()
+    {
+        $this->_conn = Horde_Db_Adapter::factory(array(
+            'adapter' => 'pdo_sqlite',
+            'dbname' => ':memory:',
+        ));
     }
 
     public function testAddTable()
@@ -444,31 +140,4 @@ client:
         } catch (Exception $e) {}
         $this->assertType('Horde_Db_Exception', $e);
     }
-
-    public function testCreateTableWithBinaryColumn()
-    {
-        try {
-            $table = $this->_conn->createTable('binary_testings');
-                $table->column('data', 'binary', array('null' => false));
-            $table->end();
-        } catch (Exception $e) { $this->fail('Unexepected exception raised'); }
-
-        $columns = $this->_conn->columns('binary_testings');
-
-        foreach ($columns as $c) {
-            if ($c->getName() == 'data') { $dataColumn = $c; }
-        }
-        $this->assertEquals('', $dataColumn->getDefault());
-    }
-
-
-    protected function _columnNames($tableName)
-    {
-        $columns = array();
-        foreach ($this->_conn->columns($tableName) as $c) {
-            $columns[] = $c->getName();
-        }
-        return $columns;
-    }
-
 }
