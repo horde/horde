@@ -536,8 +536,6 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('http://www.foreverflying.com/octopus-black7.jpg',
                 $this->_conn->selectValue("SELECT url FROM octopi WHERE id=1"));
 
-        $this->_conn->dropTable('octopi');
-
         // Make sure the old table name isn't still there
         try {
             $sql = "SELECT id FROM octopuses WHERE id = 1";
@@ -564,8 +562,6 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
 
         $indexes = $this->_conn->indexes('octopi');
         $this->assertEquals('url', $indexes[0]->columns[0]);
-
-        $this->_conn->dropTable('octopi');
     }
 
     public function testDropTable()
@@ -1148,27 +1144,23 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
      */
     protected function _dropTestTables()
     {
-        try {
-            $this->_conn->dropTable('unit_tests');
-        } catch (Exception $e) {}
-        try {
-            $this->_conn->dropTable('testings');
-        } catch (Exception $e) {}
-        try {
-            $this->_conn->dropTable('users');
-        } catch (Exception $e) {}
-        try {
-            $this->_conn->dropTable('sports');
-        } catch (Exception $e) {}
-        try {
-            $this->_conn->dropTable('my_sports');
-        } catch (Exception $e) {}
-        try {
-            $this->_conn->dropTable('schema_info');
-        } catch (Exception $e) {}
-        try {
-            $this->_conn->dropTable('cache_table');
-        } catch (Exception $e) {}
+        $tables = array(
+            'binary_testings',
+            'cache_table',
+            'my_sports',
+            'octopi',
+            'schema_info',
+            'sports',
+            'testings',
+            'unit_tests',
+            'users',
+        );
+
+        foreach ($tables as $table) {
+            try {
+                $this->_conn->dropTable($table);
+            } catch (Exception $e) {}
+        }
     }
 
     protected function _columnNames($tableName)
