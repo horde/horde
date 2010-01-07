@@ -1,0 +1,28 @@
+<div id="menu">
+ <tag:menu />
+</div>
+<br />
+
+<tag:notify />
+
+<table width="100%" border="0" cellpadding="2" cellspacing="0">
+  <tr class="header">
+    <td class="header">
+      <gettext>Number:</gettext> <tag:number />
+    </td><td align="right">
+      <loop:actions><divider:actions> | </divider:actions><tag:actions /></loop:actions>
+    </td>
+  </tr>
+</table>
+<br />
+<table width="100%" border="0" cellpadding="2" cellspacing="1">
+  <tr class="smallheader" align="center">
+    <td>
+      <gettext>Pages</gettext>
+    </td>
+  </tr><tr>
+    <td>
+    <loop:pages><tag:pages.preview /></loop:pages>
+    </td>
+  </tr>
+</table>
