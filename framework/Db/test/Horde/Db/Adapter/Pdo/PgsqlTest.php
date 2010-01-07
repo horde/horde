@@ -1129,10 +1129,10 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
           $table->column('first_name',  'string',   array('limit' => 40, 'default' => ''));
           $table->column('approved',    'boolean',  array('default' => true));
           $table->column('type',        'string',   array('limit' => 255, 'default' => ''));
-          $table->column('created_at',  'datetime', array('default' => '0000-00-00 00:00:00'));
-          $table->column('created_on',  'date',     array('default' => '0000-00-00'));
-          $table->column('updated_at',  'datetime', array('default' => '0000-00-00 00:00:00'));
-          $table->column('updated_on',  'date',     array('default' => '0000-00-00'));
+          $table->column('created_at',  'datetime', array());
+          $table->column('created_on',  'date',     array());
+          $table->column('updated_at',  'datetime', array());
+          $table->column('updated_on',  'date',     array());
         $table->end();
     }
 
