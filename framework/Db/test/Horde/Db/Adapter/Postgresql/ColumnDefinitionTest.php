@@ -29,13 +29,6 @@ class Horde_Db_Adapter_Postgresql_ColumnDefinitionTest extends PHPUnit_Framework
         list($this->_conn,) = $this->sharedFixture->getConnection();
     }
 
-    protected function tearDown()
-    {
-        // close connection
-        $this->_conn->disconnect();
-    }
-
-
     public function testConstruct()
     {
         $col = new Horde_Db_Adapter_Base_ColumnDefinition(

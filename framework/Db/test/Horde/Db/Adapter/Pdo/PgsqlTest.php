@@ -78,9 +78,6 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
     {
         // clean up
         $this->_dropTestTables();
-
-        // close connection
-        $this->_conn->disconnect();
     }
 
 

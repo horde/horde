@@ -29,12 +29,6 @@ class Horde_Db_Adapter_Postgresql_TableDefinitionTest extends PHPUnit_Framework_
         list($this->_conn,) = $this->sharedFixture->getConnection();
     }
 
-    protected function tearDown()
-    {
-        // close connection
-        $this->_conn->disconnect();
-    }
-
 
     /*##########################################################################
     # Public methods
