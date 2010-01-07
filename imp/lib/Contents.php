@@ -681,9 +681,11 @@ class IMP_Contents
          * than 200 KB. */
         if ($is_atc &&
             $download_zip &&
-            ($part['bytes'] > 204800) &&
-            !in_array($mime_type, array('application/zip', 'application/x-zip-compressed'))) {
-            $part['download_zip'] = $this->linkView($mime_part, 'download_attach', null, array('class' => 'downloadZipAtc', 'dload' => true, 'jstext' => sprintf(_("Download %s in .zip Format"), $mime_part->getDescription(true)), 'params' => array('zip' => 1)));
+            ($part['bytes'] > 204800)) {
+            $viewer = Horde_Mime_Viewer::factory($mime_part, $mime_type);
+            if (!$viewer->getMetadata('compressed')) {
+                $part['download_zip'] = $this->linkView($mime_part, 'download_attach', null, array('class' => 'downloadZipAtc', 'dload' => true, 'jstext' => sprintf(_("Download %s in .zip Format"), $mime_part->getDescription(true)), 'params' => array('zip' => 1)));
+            }
         }
 
         /* Display the image save link if the required registry calls are
