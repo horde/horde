@@ -14,69 +14,72 @@
  * MIT-style license.
  *
  * Usage:
- *   new Drag(element, {
- *       caption: '',             // Either string or function to set caption
- *                                // on mouse move
- *       classname: '',           // Class name of the drag element
+ * ------
+ * new Drag(element, {
+ *     caption: '',               // Either string or function to set caption
+ *                                // on mouse move.
+ *     classname: '',             // Class name of the drag element.
  *                                // DEFAULT: 'drag'
- *       constraint: '',          // Constrain movement to 'horizontal'
- *                                // or 'vertical'
- *       ghosting: false,         // Show ghost outline when dragging.
- *       nodrop: false,           // Don't do drop checking. Optimizes
+ *     constraint: '',            // Constrain movement to 'horizontal' or
+ *                                // 'vertical'.
+ *     ghosting: false,           // Show ghost outline when dragging.
+ *     nodrop: false,             // Don't do drop checking. Optimizes
  *                                // movement speed.
- *       offset: { x:0, y:0 },    // An offset to apply to ghosted elements.
- *       parentElement: function(), // Function returns the parent element.
- *       scroll: element,         // Scroll this element when above/below.
- *                                // Only working for vertical elements
- *       snap: null,              // If ghosting, snap allows to specify
+ *     offset: { x:0, y:0 },      // An offset to apply to ghosted elements.
+ *     parentElement: function(), // Function returns the parent element.
+ *     scroll: element,           // Scroll this element when above/below (
+ *                                // only for vertical elements).
+ *     snap: null,                // If ghosting, snap allows to specify
  *                                // coords at which the ghosted image will
  *                                // "snap" into place.
- *       snapToParent: false      // Keep image snapped inside the parent
+ *     snapToParent: false        // Keep image snapped inside the parent
  *                                // element.
- *       threshold: 0             // Move threshold
- *   });
+ *     threshold: 0               // Move threshold.
+ * });
  *
- *  Events fired for Drags:
- *  -----------------------
- *  Custom events are triggered on the drag element. The 'memo' property of
- *  the Event object contains the original event object.
+ * Events fired for Drags:
+ * -----------------------
+ * Custom events are triggered on the drag element. The 'memo' property of
+ * the Event object contains the original event object.
  *
- *  'DragDrop2:drag'
- *    Fired on mousemove.
+ * 'DragDrop2:drag'
+ *   Fired on mousemove.
  *
- *  'DragDrop2:end'
- *    Fired on mousedown.
+ * 'DragDrop2:end'
+ *   Fired on mousedown.
  *
- *  'DragDrop2:start'
- *    Fired on mouseup.
+ * 'DragDrop2:start'
+ *   Fired on mouseup.
  *
  *
- *   new Drop(element, {
- *       accept: [],      // Accept filter by tag name(s) or leave empty to
- *                        // accept all tags
- *       caption: '',     // Either string or function to set caption on
- *                        // mouseover
- *       hoverclass: '',  // Change the drag element to this class when
- *                        // hovering over an element.
- *                        // DEFAULT: 'dragdrop'
- *       keypress: false  // If true, will re-render caption if a keypress
- *                        // is detected while a drop is active (useful for
- *                        // CTRL/SHIFT actions).
- *  });
+ * new Drop(element, {
+ *     accept: [],      // Accept filter by tag name(s) or leave empty to
+ *                      // accept all tags.
+ *     caption: '',     // Either string or function to set caption on
+ *                      // mouseover.
+ *     hoverclass: '',  // Change the drag element to this class when hovering
+ *                      // over an element.
+ *                      // DEFAULT: 'dragdrop'
+ *     keypress: false  // If true, will re-render caption if a keypress is
+ *                      // detected while a drop is active (useful for
+ *                      // CTRL/SHIFT actions).
+ * });
  *
- *  Events fired for Drops:
- *  -----------------------
- *  Custom events are triggered on the drop element. The 'memo' property of
- *  the Event object contains the drag element.
+ * Events fired for Drops:
+ * -----------------------
+ * Custom events are triggered on the drop element. The 'memo' property of
+ * the Event object contains the Drag object. The dragged element is available
+ * in 'memo.element'. The browser event that triggered the custom event is
+ * available in 'memo.dragevent'.
  *
- *  'DragDrop2:drop'
- *    Fired when mouse button released (a/k/a a drop event).
+ * 'DragDrop2:drop'
+ *   Fired when mouse button released (a/k/a a drop event).
  *
- *  'DragDrop2:out'
- *    Fired when mouse leaves the drop zone.
+ * 'DragDrop2:out'
+ *   Fired when mouse leaves the drop zone.
  *
- *  'DragDrop2:over'
- *    Fired when mouse over drop zone.
+ * 'DragDrop2:over'
+ *   Fired when mouse over drop zone.
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -218,6 +221,7 @@ Drag = Class.create({
 
     initialize: function(el)
     {
+        this.dragevent = null;
         this.element = $(el);
         this.ghostOffset = [ 0, 0 ];
         this.options = Object.extend({
@@ -423,7 +427,8 @@ Drag = Class.create({
         DragDrop.Drags.div.hide();
 
         if (DragDrop.validDrop(this.element)) {
-            d.element.fire('DragDrop2:drop', this.element);
+            this.dragevent = e;
+            d.element.fire('DragDrop2:drop', this);
         }
 
         DragDrop.Drags.deactivate();
@@ -472,11 +477,11 @@ Drag = Class.create({
                 if (elt == d) {
                     d_update = false;
                 } else {
-                    elt.mouseOver();
+                    elt.mouseOver(e);
                     d = elt;
                 }
             } else if (d) {
-                d.mouseOut();
+                d.mouseOut(e);
                 d = null;
             }
         }
@@ -714,15 +719,17 @@ Drop = Class.create({
         DragDrop.Drops.unregister(this);
     },
 
-    mouseOver: function()
+    mouseOver: function(e)
     {
         DragDrop.Drops.drop = this;
+        DragDrop.Drags.drag.dragevent = e;
         this.element.fire('DragDrop2:over', DragDrop.Drags.drag);
     },
 
-    mouseOut: function()
+    mouseOut: function(e)
     {
         this.element.fire('DragDrop2:out', DragDrop.Drags.drag);
+        DragDrop.Drags.drag.dragevent = e;
         DragDrop.Drops.drop = null;
     }
 

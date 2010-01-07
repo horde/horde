@@ -1560,7 +1560,7 @@ var DimpBase = {
     folderDropHandler: function(e)
     {
         var dropbase, sel, uids,
-            drag = e.memo,
+            drag = e.memo.element,
             drop = e.element(),
             foldername = drop.retrieve('mbox'),
             ftype = drop.retrieve('ftype');
@@ -1583,7 +1583,7 @@ var DimpBase = {
             }
 
             if (uids.size()) {
-                if (e.ctrlKey) {
+                if (e.dragevent.ctrlKey) {
                     DimpCore.doAction('CopyMessage', this.viewport.addRequestParams({ tofld: foldername }), { uids: uids });
                 } else if (this.folder != foldername) {
                     // Don't allow drag/drop to the current folder.
