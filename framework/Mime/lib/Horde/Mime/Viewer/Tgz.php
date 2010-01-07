@@ -13,17 +13,27 @@
 class Horde_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Driver
 {
     /**
-     * Can this driver render various views?
+     * This driver's display capabilities.
      *
-     * @var boolean
+     * @var array
      */
     protected $_capability = array(
-        'embedded' => false,
-        'forceinline' => true,
         'full' => false,
         'info' => true,
         'inline' => true,
         'raw' => false
+    );
+
+    /**
+     * Metadata for the current viewer/data.
+     *
+     * @var array
+     */
+    protected $_metadata = array(
+        // Compression detection handled in constructor.
+        'compressed' => false,
+        'embedded' => false,
+        'forceinline' => true
     );
 
     /**
@@ -35,6 +45,21 @@ class Horde_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Driver
         'x-compressed-tar', 'tgz', 'x-tgz', 'gzip', 'x-gzip',
         'x-gzip-compressed', 'x-gtar'
     );
+
+    /**
+     * Constructor.
+     *
+     * @param Horde_Mime_Part $mime_part  Reference to an object with the
+     *                                    information to be rendered.
+     * @param array $conf                 Configuration specific to the
+     *                                    driver.
+     */
+    public function __construct($mime_part, $conf = array())
+    {
+        parent::__construct($mime_part, $conf);
+
+        $this->_metadata['compressed'] = in_array($mime_part->getSubType(), $this->_gzipSubtypes);
+    }
 
     /**
      * Return the rendered inline version of the Horde_Mime_Part object.
@@ -115,4 +140,5 @@ class Horde_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Driver
     {
         return $this->_renderInline();
     }
+
 }

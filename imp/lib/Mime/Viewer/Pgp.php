@@ -23,13 +23,11 @@
 class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
 {
     /**
-     * Can this driver render various views?
+     * This driver's display capabilities.
      *
-     * @var boolean
+     * @var array
      */
     protected $_capability = array(
-        'embedded' => true,
-        'forceinline' => true,
         'full' => false,
         'info' => false,
         'inline' => true,
@@ -37,6 +35,17 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
          * application/pgp-signature parts that have been processed by the
          * text/plain driver. This is handled via the canRender() function. */
         'raw' => false
+    );
+
+    /**
+     * Metadata for the current viewer/data.
+     *
+     * @var array
+     */
+    protected $_metadata = array(
+        'compressed' => false,
+        'embedded' => true,
+        'forceinline' => true
     );
 
     /**

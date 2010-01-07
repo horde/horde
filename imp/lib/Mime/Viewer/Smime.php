@@ -25,17 +25,26 @@
 class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
 {
     /**
-     * Can this driver render various views?
+     * This driver's display capabilities.
      *
-     * @var boolean
+     * @var array
      */
     protected $_capability = array(
-        'embedded' => true,
-        'forceinline' => true,
         'full' => false,
         'info' => false,
         'inline' => true,
         'raw' => false
+    );
+
+    /**
+     * Metadata for the current viewer/data.
+     *
+     * @var array
+     */
+    protected $_metadata = array(
+        'compressed' => false,
+        'embedded' => true,
+        'forceinline' => true
     );
 
     /**

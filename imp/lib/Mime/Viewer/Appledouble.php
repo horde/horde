@@ -14,17 +14,26 @@
 class IMP_Horde_Mime_Viewer_Appledouble extends Horde_Mime_Viewer_Driver
 {
     /**
-     * This driver's capabilities.
+     * This driver's display capabilities.
      *
-     * @var boolean
+     * @var array
      */
     protected $_capability = array(
-        'embedded' => false,
-        'forceinline' => true,
         'full' => false,
         'info' => true,
         'inline' => true,
         'raw' => false
+    );
+
+    /**
+     * Metadata for the current viewer/data.
+     *
+     * @var array
+     */
+    protected $_metadata = array(
+        'compressed' => false,
+        'embedded' => false,
+        'forceinline' => true
     );
 
     /**

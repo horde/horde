@@ -14,13 +14,11 @@
 class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
 {
     /**
-     * Can this driver render various views?
+     * This driver's display capabilities.
      *
-     * @var boolean
+     * @var array
      */
     protected $_capability = array(
-        'embedded' => false,
-        'forceinline' => false,
         'full' => true,
         'info' => true,
         'inline' => true,

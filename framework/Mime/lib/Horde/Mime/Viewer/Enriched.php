@@ -26,13 +26,11 @@
 class Horde_Mime_Viewer_Enriched extends Horde_Mime_Viewer_Driver
 {
     /**
-     * This driver's capabilities.
+     * This driver's display capabilities.
      *
-     * @var boolean
+     * @var array
      */
     protected $_capability = array(
-        'embedded' => false,
-        'forceinline' => false,
         'full' => true,
         'info' => false,
         'inline' => true,

@@ -15,17 +15,26 @@
 class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Driver
 {
     /**
-     * Can this driver render various views?
+     * This driver's display capabilities.
      *
-     * @var boolean
+     * @var array
      */
     protected $_capability = array(
-        'embedded' => false,
-        'forceinline' => true,
         'full' => true,
         'info' => false,
         'inline' => true,
         'raw' => false
+    );
+
+    /**
+     * Metadata for the current viewer/data.
+     *
+     * @var array
+     */
+    protected $_metadata = array(
+        'compressed' => true,
+        'embedded' => false,
+        'forceinline' => true
     );
 
     /**

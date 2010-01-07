@@ -14,17 +14,26 @@
 class IMP_Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Tnef
 {
     /**
-     * Can this driver render various views?
+     * This driver's display capabilities.
      *
-     * @var boolean
+     * @var array
      */
     protected $_capability = array(
-        'embedded' => false,
-        'forceinline' => true,
         'full' => true,
         'info' => true,
         'inline' => false,
         'raw' => false
+    );
+
+    /**
+     * Metadata for the current viewer/data.
+     *
+     * @var array
+     */
+    protected $_metadata = array(
+        'compressed' => true,
+        'embedded' => false,
+        'forceinline' => true
     );
 
     /**
