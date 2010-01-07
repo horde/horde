@@ -1583,7 +1583,7 @@ var DimpBase = {
             }
 
             if (uids.size()) {
-                if (e.dragevent.ctrlKey) {
+                if (e.memo.dragevent.ctrlKey) {
                     DimpCore.doAction('CopyMessage', this.viewport.addRequestParams({ tofld: foldername }), { uids: uids });
                 } else if (this.folder != foldername) {
                     // Don't allow drag/drop to the current folder.
