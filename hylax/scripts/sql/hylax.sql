@@ -24,6 +24,6 @@ CREATE TABLE hylax_fax_attributes (
     attribute_value     TEXT
 );
 
-CREATE INDEX fax_attribute_idx ON hylax_fax_attributes (fax_id);
-CREATE INDEX fax_attribute_name_idx ON hylax_fax_attributes (attribute_name);
-CREATE INDEX fax_attribute_key_idx ON hylax_fax_attributes (attribute_key);
+CREATE INDEX hylax_attribute_idx ON hylax_fax_attributes (fax_id);
+CREATE INDEX hylax_attribute_name_idx ON hylax_fax_attributes (attribute_name);
+CREATE INDEX hylax_attribute_key_idx ON hylax_fax_attributes (attribute_key);
