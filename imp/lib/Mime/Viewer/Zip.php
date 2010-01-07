@@ -59,14 +59,14 @@ class IMP_Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Zip
     }
 
     /**
-     * Return the rendered inline version of the Horde_Mime_Part object.
+     * Return the rendered information about the Horde_Mime_Part object.
      *
      * @return array  See Horde_Mime_Viewer_Driver::render().
      */
-    protected function _renderInline()
+    protected function _renderInfo()
     {
         $this->_callback = array(&$this, '_IMPcallback');
-        return parent::_renderInline();
+        return parent::_renderInfo();
     }
 
     /**
@@ -91,4 +91,5 @@ class IMP_Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Zip
 
         return $val;
     }
+
 }

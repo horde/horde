@@ -33,7 +33,7 @@ class IMP_Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Tnef
     protected $_metadata = array(
         'compressed' => true,
         'embedded' => false,
-        'forceinline' => true
+        'forceinline' => false
     );
 
     /**

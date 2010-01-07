@@ -20,8 +20,8 @@ class Horde_Mime_Viewer_Deb extends Horde_Mime_Viewer_Driver
      */
     protected $_capability = array(
         'full' => true,
-        'info' => false,
-        'inline' => true,
+        'info' => true,
+        'inline' => false,
         'raw' => false
     );
 
@@ -33,7 +33,7 @@ class Horde_Mime_Viewer_Deb extends Horde_Mime_Viewer_Driver
     protected $_metadata = array(
         'compressed' => true,
         'embedded' => false,
-        'forceinline' => true
+        'forceinline' => false
     );
 
     /**
@@ -43,7 +43,7 @@ class Horde_Mime_Viewer_Deb extends Horde_Mime_Viewer_Driver
      */
     protected function _render()
     {
-        $ret = $this->_renderInline();
+        $ret = $this->_renderInfo();
         if (!empty($ret)) {
             reset($ret);
             $ret[key($ret)]['data'] = '<html><body>' . $ret[key($ret)]['data'] . '</body></html>';
@@ -52,11 +52,11 @@ class Horde_Mime_Viewer_Deb extends Horde_Mime_Viewer_Driver
     }
 
     /**
-     * Return the rendered inline version of the Horde_Mime_Part object.
+     * Return the rendered information about the Horde_Mime_Part object.
      *
      * @return array  See Horde_Mime_Viewer_Driver::render().
      */
-    protected function _renderInline()
+    protected function _renderInfo()
     {
         /* Check to make sure the viewer program exists. */
         if (!isset($this->_conf['location']) ||

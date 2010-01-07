@@ -20,7 +20,7 @@ class Horde_Mime_Viewer_Rpm extends Horde_Mime_Viewer_Driver
      */
     protected $_capability = array(
         'full' => true,
-        'info' => false,
+        'info' => true,
         'inline' => false,
         'raw' => false
     );
@@ -33,7 +33,7 @@ class Horde_Mime_Viewer_Rpm extends Horde_Mime_Viewer_Driver
     protected $_metadata = array(
         'compressed' => true,
         'embedded' => false,
-        'forceinline' => true
+        'forceinline' => false
     );
 
     /**
@@ -42,6 +42,21 @@ class Horde_Mime_Viewer_Rpm extends Horde_Mime_Viewer_Driver
      * @return array  See Horde_Mime_Viewer_Driver::render().
      */
     protected function _render()
+    {
+        $ret = $this->_renderInfo();
+        if (!empty($ret)) {
+            reset($ret);
+            $ret[key($ret)]['data'] = '<html><body>' . $ret[key($ret)]['data'] . '</body></html>';
+        }
+        return $ret;
+    }
+
+    /**
+     * Return the rendered information about the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _renderInfo()
     {
         /* Check to make sure the viewer program exists. */
         if (!isset($this->_conf['location']) ||
@@ -62,10 +77,11 @@ class Horde_Mime_Viewer_Rpm extends Horde_Mime_Viewer_Driver
 
         return array(
             $this->_mimepart->getMimeId() => array(
-                'data' => '<html><body><pre>' . htmlentities($data) . '</pre></body></html>',
+                'data' => '<pre>' . htmlentities($data) . '</pre>',
                 'status' => array(),
                 'type' => 'text/html; charset=' . Horde_Nls::getCharset()
             )
         );
     }
+
 }

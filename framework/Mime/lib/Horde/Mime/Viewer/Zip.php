@@ -21,8 +21,8 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Driver
      */
     protected $_capability = array(
         'full' => true,
-        'info' => false,
-        'inline' => true,
+        'info' => true,
+        'inline' => false,
         'raw' => false
     );
 
@@ -34,7 +34,7 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Driver
     protected $_metadata = array(
         'compressed' => true,
         'embedded' => false,
-        'forceinline' => true
+        'forceinline' => false
     );
 
     /**
@@ -61,12 +61,12 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Driver
     }
 
     /**
-     * Return the rendered inline version of the Horde_Mime_Part object.
+     * Return the rendered information about the Horde_Mime_Part object.
      *
      * @return array  See Horde_Mime_Viewer_Driver::render().
      * @throws Horde_Exception
      */
-    protected function _renderInline()
+    protected function _renderInfo()
     {
         return $this->_toHTML();
     }
