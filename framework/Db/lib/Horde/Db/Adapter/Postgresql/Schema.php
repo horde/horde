@@ -42,7 +42,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
     {
         return '"' . str_replace('"', '""', $name) . '"';
     }
-    
+
     /**
      * Quotes sequence names for use in SQL queries.
      *
@@ -457,7 +457,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
         $default = isset($options['default']) ? $options['default'] : null;
         $notnull = isset($options['null']) && $options['null'] === false;
         if (array_key_exists('default', $options))
-            $this->changeColumnDefault($tableName, $columnName, $fault);
+            $this->changeColumnDefault($tableName, $columnName, $default);
         if ($notnull)
             $this->changeColumnNull($tableName, $columnName, false, $default);
     }
@@ -535,7 +535,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
     {
         $this->_clearTableCache($tableName);
         if (!($null || is_null($default))) {
-            $this->execute('UPDATE '.$this->quoteTableName($tableName).' SET '.$this->quoteColumnName($columName).' = '.$this->quote($default).' WHERE '.$this->quoteColumnName($columnName).' IS NULL');
+            $this->execute('UPDATE '.$this->quoteTableName($tableName).' SET '.$this->quoteColumnName($columnName).' = '.$this->quote($default).' WHERE '.$this->quoteColumnName($columnName).' IS NULL');
         }
         return $this->execute('ALTER TABLE '.$this->quoteTableName($tableName).' ALTER '.$this->quoteColumnName($columnName).' '.($null ? 'DROP' : 'SET').' NOT NULL');
     }
