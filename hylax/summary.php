@@ -26,7 +26,7 @@ foreach ($outbox as $item) {
 }
 
 /* Set up actions. */
-$template = &new Horde_Template();
+$template = new Horde_Template();
 $template->set('in_faxes', $gateway->numFaxesIn());
 $template->set('out_faxes', $gateway->numFaxesOut());
 $template->set('inbox', $fmt_inbox, true);

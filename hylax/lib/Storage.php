@@ -90,7 +90,7 @@ class Hylax_Storage {
 
         /* Create a fax image object. */
         require_once HYLAX_BASE . '/lib/Image.php';
-        $image = &new Hylax_Image();
+        $image = new Hylax_Image();
         $image->loadData($data);
         if (empty($info['fax_pages'])) {
             $info['fax_pages'] = $image->getNumPages();
@@ -155,7 +155,7 @@ class Hylax_Storage {
         include_once dirname(__FILE__) . '/Storage/' . $driver . '.php';
         $class = 'Hylax_Storage_' . $driver;
         if (class_exists($class)) {
-            $storage = &new $class($params);
+            $storage = new $class($params);
             return $storage;
         } else {
             Horde::fatal(PEAR::raiseError(sprintf(_("No such backend \"%s\" found"), $driver)), __FILE__, __LINE__);

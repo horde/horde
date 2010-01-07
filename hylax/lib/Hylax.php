@@ -47,7 +47,7 @@ class Hylax {
 
         /* Get the image. */
         require_once HYLAX_BASE . '/lib/Image.php';
-        $image = &new Hylax_Image();
+        $image = new Hylax_Image();
         $image->loadData($data);
         $image->getImage($page, $preview);
     }
@@ -58,7 +58,7 @@ class Hylax {
 
         /* Get the pdf. */
         require_once HYLAX_BASE . '/lib/Image.php';
-        $image = &new Hylax_Image();
+        $image = new Hylax_Image();
         $image->loadData($data);
         $image->getPDF();
     }

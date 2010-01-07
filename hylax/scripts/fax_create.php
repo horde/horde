@@ -22,7 +22,7 @@ if (!Horde_Cli::runningFromCLI()) {
 
 /* Load the CLI environment - make sure there's no time limit, init
  * some variables, etc. */
-$cli = &new Horde_Cli();
+$cli = new Horde_Cli();
 $cli->init();
 
 /* Create the fax information array. Set fax_type to 1 for outgoing. */

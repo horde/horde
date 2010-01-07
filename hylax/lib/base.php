@@ -13,10 +13,18 @@
  * $Horde: incubator/hylax/lib/base.php,v 1.16 2009/07/13 20:05:46 slusarz Exp $
  */
 
-// Check for a prior definition of HORDE_BASE (perhaps by an
-// auto_prepend_file definition for site customization).
+if (!defined('HYLAX_BASE')) {
+    define('HYLAX_BASE', dirname(__FILE__). '/..');
+}
+
 if (!defined('HORDE_BASE')) {
-    @define('HORDE_BASE', dirname(__FILE__) . '/../..');
+    /* If horde does not live directly under the app directory, the HORDE_BASE
+     * constant should be defined in config/horde.local.php. */
+    if (file_exists(HYLAX_BASE. '/config/horde.local.php')) {
+        include HYLAX_BASE . '/config/horde.local.php';
+    } else {
+        define('HORDE_BASE', HYLAX_BASE . '/..');
+    }
 }
 
 // Load the Horde Framework core, and set up inclusion paths.

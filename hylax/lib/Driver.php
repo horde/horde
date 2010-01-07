@@ -50,7 +50,7 @@ class Hylax_Driver {
         include_once dirname(__FILE__) . '/Driver/' . $driver . '.php';
         $class = 'Hylax_Driver_' . $driver;
         if (class_exists($class)) {
-            $hylax = &new $class($params);
+            $hylax = new $class($params);
             return $hylax;
         } else {
             Horde::fatal(PEAR::raiseError(sprintf(_("No such backend \"%s\" found"), $driver)), __FILE__, __LINE__);

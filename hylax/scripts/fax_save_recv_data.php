@@ -22,7 +22,7 @@ if (!Horde_Cli::runningFromCLI()) {
 
 /* Load the CLI environment - make sure there's no time limit, init some
  * variables, etc. */
-$cli = &new Horde_Cli();
+$cli = new Horde_Cli();
 $cli->init();
 
 /* Get the arguments. The first argument is the filename from which the job ID
