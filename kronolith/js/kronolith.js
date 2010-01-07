@@ -3009,7 +3009,7 @@ KronolithCore = {
     onDrop: function(e)
     {
         var drop = e.element(),
-            el = e.memo,
+            el = e.memo.element,
             eventid = el.retrieve('eventid'),
             cal = el.retrieve('calendar');
 
