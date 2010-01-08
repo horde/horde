@@ -47,7 +47,7 @@ class Shout_Application extends Horde_Registry_Application
                 $registry->pushApp('shout', array('check_perms' => true,
                                                              'logintasks' => true));
             } catch (Horde_Exception $e) {
-                Horde::authenticationFailure('shout', $e);
+                Horde_Auth::authenticateFailure('shout', $e);
             }
 
             // Ensure Shout is properly configured before use
