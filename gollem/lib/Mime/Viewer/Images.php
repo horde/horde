@@ -19,11 +19,10 @@ class Gollem_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
      * @var boolean
      */
     protected $_capability = array(
-        'embedded' => false,
-        'forceinline' => false,
         'full' => true,
         'info' => false,
-        'inline' => false
+        'inline' => false,
+        'raw' => false
     );
 
     /**

@@ -28,7 +28,7 @@ class Whups_Horde_Mime_Viewer_zip extends Horde_Mime_Viewer_Zip
     protected function _render()
     {
         if (!Horde_Util::getFormData('zip_attachment')) {
-            $this->_callback = array(&$this, '_WhupsCallback');
+            $this->_callback = array($this, '_whupsCallback');
             return parent::_render();
         }
 
@@ -62,10 +62,10 @@ class Whups_Horde_Mime_Viewer_zip extends Horde_Mime_Viewer_Zip
      *
      * @return array  See Horde_Mime_Viewer_Driver::render().
      */
-    protected function _renderInline()
+    protected function _renderInfo()
     {
-        $this->_callback = array(&$this, '_WhupsCallback');
-        return parent::_renderInline();
+        $this->_callback = array($this, '_whupsCallback');
+        return parent::_renderInfo();
     }
 
     /**
@@ -76,7 +76,7 @@ class Whups_Horde_Mime_Viewer_zip extends Horde_Mime_Viewer_Zip
      *
      * @return string  The content-type of the output.
      */
-    protected function _WhupsCallback($key, $val)
+    protected function _whupsCallback($key, $val)
     {
         $name = preg_replace('/(&nbsp;)+$/', '', $val['name']);
 
