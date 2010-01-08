@@ -19,8 +19,6 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 new IMP_Application(array('init' => array('authentication' => 'none', 'session_control' => 'none')));
 
-$self_url = Horde::selfUrl(false, true, true);
-
 // Lets see if we are even able to send the user an attachment.
 if (!$conf['compose']['link_attachments']) {
     throw new IMP_Exception(_("Linked attachments are forbidden."));

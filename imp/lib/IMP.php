@@ -1120,8 +1120,8 @@ class IMP
     static public function selfUrl()
     {
         return self::$newUrl
-            ? clone self::$newUrl
-            : new Horde_Url(Horde::selfUrl(true));
+            ? self::$newUrl->copy()
+            : Horde::selfUrl(true);
     }
 
     /**

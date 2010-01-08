@@ -602,8 +602,7 @@ if ($isPopup) {
     /* If the attachments cache is not empty, we must reload this page
      * and delete the attachments. */
     if ($imp_compose->numberOfAttachments()) {
-        $cancel_url = new Horde_Url(Horde::selfUrl(), true);
-        $cancel_url->add(array(
+        $cancel_url = Horde::selfUrl()->setRaw(true)->add(array(
             'actionID' => 'cancel_compose',
             'composeCache' => $composeCacheID,
             'popup' => 1
@@ -613,7 +612,7 @@ if ($isPopup) {
     /* If the attachments cache is not empty, we must reload this page and
        delete the attachments. */
     if ($imp_compose->numberOfAttachments()) {
-        $cancel_url = _mailboxReturnURL(new Horde_Url(Horde::selfUrl(), true))->add(array(
+        $cancel_url = _mailboxReturnURL(Horde::selfUrl()->setRaw(true))->add(array(
             'actionID' => 'cancel_compose',
             'composeCache' => $composeCacheID
         ));

@@ -1359,7 +1359,7 @@ HTML;
      * @param boolean $force_ssl     Ignore $conf['use_ssl'] and force creation
      *                               of a SSL URL?
      *
-     * @return string  The requested URI.
+     * @return Horde_Url  The requested URL.
      */
     static public function selfUrl($script_params = false, $nocache = true,
                                    $full = false, $force_ssl = false)
