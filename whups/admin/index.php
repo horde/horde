@@ -12,7 +12,7 @@
 require_once WHUPS_BASE . '/lib/base.php';
 
 if (!Horde_Auth::isAdmin('whups:admin')) {
-    Horde::authenticationFailureRedirect();
+    Horde_Auth::authenticateFailure('whups', $e);
 }
 
 // Set up the page config vars.
