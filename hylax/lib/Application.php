@@ -35,10 +35,10 @@ class Hylax_Application extends Horde_Registry_Application
     public $gateway = null;
     public $storage = null;
 
-    function __constructor($args = array())
+    function __construct($args = array())
     {
         if (!empty($args['init'])) {
-
+            
             // Registry.
             $registry = Horde_Registry::singleton();
             $GLOBALS['registry'] = &$registry;
