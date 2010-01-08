@@ -12,12 +12,8 @@
  * @author Joel Vandal <joel@scopserv.com>
  */
 
-@define('HYLAX_BASE', dirname(__FILE__));
-require_once HYLAX_BASE . '/lib/base.php';
-require_once 'Horde/Form.php';
-require_once 'Horde/Form/Renderer.php';
-require_once 'Horde/Form/Action.php';
-require_once 'Horde/Template.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+$hylax = new Hylax_Application(array('init' => true));
 
 /* Load Cover Page templates */
 require HYLAX_BASE . '/config/covers.php';

@@ -127,13 +127,13 @@ class Hylax_Storage {
 
     function send($fax_id, $number)
     {
-        global $conf, $gateway;
+        global $hylax;
 
         $this->_setFaxNumber($fax_id, $number);
 
         $data = $this->getFaxData($fax_id);
 
-        $job_id = $gateway->send($number, $data);
+        $job_id = $hylax->gateway->send($number, $data);
 
         $this->_setJobId($fax_id, $job_id);
     }

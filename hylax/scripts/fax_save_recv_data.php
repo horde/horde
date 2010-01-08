@@ -7,13 +7,8 @@
 // No need for auth.
 @define('AUTH_HANDLER', true);
 
-// Find the base file paths.
-@define('HORDE_BASE', dirname(__FILE__) . '/../..');
-@define('HYLAX_BASE', dirname(__FILE__) . '/..');
-
-// Do CLI checks and environment setup first.
-require_once HYLAX_BASE . '/lib/base.php';
-require_once 'Console/Getopt.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+$hylax = new Hylax_Application(array('init' => true));
 
 // Make sure no one runs this from the web.
 if (!Horde_Cli::runningFromCLI()) {
@@ -41,7 +36,7 @@ if (empty($data)) {
 }
 
 /* Get the file and store into VFS. */
-$fax_id = $hylax_storage->saveFaxData($data, '.ps');
+$fax_id = $hylax->storage->saveFaxData($data, '.ps');
 if (is_a($fax_id, 'PEAR_Error')) {
     echo '0';
     exit;

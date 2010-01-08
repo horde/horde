@@ -7,8 +7,8 @@
  *
  * $Horde: incubator/hylax/folder.php,v 1.7 2009/06/10 05:24:17 slusarz Exp $
  */
-@define('HYLAX_BASE', dirname(__FILE__));
-require_once HYLAX_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+$hylax = new Hylax_Application(array('init' => true));
 
 $folder = strtolower(Horde_Util::getFormData('folder', 'inbox'));
 $path = Horde_Util::getFormData('path');
@@ -71,7 +71,7 @@ foreach ($folder_list as $key => $value) {
     } elseif (empty($value['fax_number']) && $value['fax_type'] == 0) {
         $folder_list[$key]['fax_number'] = _("unknown");
     }
-    $folder_list[$key]['fax_status'] = $gateway->getStatus($value['job_id']);
+    $folder_list[$key]['fax_status'] = $hylax->gateway->getStatus($value['job_id']);
 }
 
 /* Set up actions. */

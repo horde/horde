@@ -8,9 +8,10 @@
  * $Horde: incubator/hylax/img.php,v 1.4 2009/06/10 05:24:17 slusarz Exp $
  */
 
-@define('AUTH_HANDLER', true);
-@define('HYLAX_BASE', dirname(__FILE__));
-require_once HYLAX_BASE . '/lib/base.php';
+// FIXME: Do we need AUTH_HANDLER here?
+//@define('AUTH_HANDLER', true);
+require_once dirname(__FILE__) . '/lib/Application.php';
+$hylax = new Hylax_Application(array('init' => true));
 
 $fax_id = Horde_Util::getFormData('fax_id');
 $page = Horde_Util::getFormData('page');

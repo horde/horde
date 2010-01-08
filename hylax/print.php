@@ -8,8 +8,8 @@
  * $Horde: incubator/hylax/print.php,v 1.5 2009/06/10 05:24:17 slusarz Exp $
  */
 
-@define('HYLAX_BASE', dirname(__FILE__));
-require_once HYLAX_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+$hylax = new Hylax_Application(array('init' => true));
 
 $fax_id = Horde_Util::getFormData('fax_id');
 $url = Horde_Util::getFormData('url', 'folder.php');

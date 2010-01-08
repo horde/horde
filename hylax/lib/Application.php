@@ -10,7 +10,6 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * $Horde: incubator/hylax/lib/base.php,v 1.16 2009/07/13 20:05:46 slusarz Exp $
  */
 
 if (!defined('HYLAX_BASE')) {
@@ -33,6 +32,9 @@ require_once HORDE_BASE . '/lib/core.php';
 
 class Hylax_Application extends Horde_Registry_Application
 {
+    public $gateway = null;
+    public $storage = null;
+
     function __constructor($args = array())
     {
         if (!empty($args['init'])) {
@@ -62,10 +64,11 @@ class Hylax_Application extends Horde_Registry_Application
             define('HYLAX_BASE', dirname(__FILE__) . '/..');
 
             /* Hylax Driver */
-            $gateway = Hylax_Driver::singleton($conf['fax']['driver'], $conf['fax']['params']);
+            $this->gateway = Hylax_Driver::singleton($conf['fax']['driver'],
+                                                     $conf['fax']['params']);
 
             /* Hylax storage driver. */
-            $hylax_storage = Hylax_Storage::singleton('sql', $conf['sql']);
+            $this->storage = Hylax_Storage::singleton('sql', $conf['sql']);
 
             /* Start compression, if requested. */
             Horde::compressOutput();

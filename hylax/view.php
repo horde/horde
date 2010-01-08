@@ -8,8 +8,8 @@
  * $Horde: incubator/hylax/view.php,v 1.7 2009/06/10 05:24:18 slusarz Exp $
  */
 
-@define('HYLAX_BASE', dirname(__FILE__));
-require_once HYLAX_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+$hylax = new Hylax_Application(array('init' => true));
 
 $fax_id = Horde_Util::getFormData('fax_id');
 $url = Horde_Util::getFormData('url');
@@ -24,7 +24,7 @@ if (Horde_Util::getFormData('action') == 'download') {
     exit;
 }
 
-$fax = $hylax_storage->getFax($fax_id);
+$fax = $hylax->storage->getFax($fax_id);
 if (is_a($fax, 'PEAR_Error')) {
     $notification->push(sprintf(_("Could not open fax ID \"%s\". %s"), $fax_id, $fax->getMessage()), 'horde.error');
     if (empty($url)) {

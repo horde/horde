@@ -8,9 +8,8 @@
  * $Horde: incubator/hylax/send.php,v 1.8 2009/06/10 17:33:26 slusarz Exp $
  */
 
-@define('HYLAX_BASE', dirname(__FILE__));
-require_once HYLAX_BASE . '/lib/base.php';
-require_once 'Horde/Form.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+$hylax = new Hylax_Application(array('init' => true));
 
 $fax_id = Horde_Util::getFormData('fax_id');
 $folder = strtolower(Horde_Util::getFormData('folder'));
@@ -21,7 +20,7 @@ $vars = Horde_Variables::getDefaultVariables();
 $fax_id = $vars->get('fax_id');
 $url = $vars->get('url', 'folder.php');
 
-$fax = $hylax_storage->getFax($fax_id);
+$fax = $hylax->storage->getFax($fax_id);
 if (is_a($fax, 'PEAR_Error')) {
     $notification->push(sprintf(_("Could not open fax ID \"%s\". %s"), $fax_id, $fax->getMessage()), 'horde.error');
     $url = Horde::applicationUrl($url, true);
@@ -45,7 +44,7 @@ $form->addVariable(_("Fax destination"), 'fax_number', 'text', true, false, null
 
 if ($form->validate($vars)) {
     $form->getInfo($vars, $info);
-    $send = $hylax_storage->send($info['fax_id'], $info['fax_number']);
+    $send = $hylax->storage->send($info['fax_id'], $info['fax_number']);
     if (is_a($send, 'PEAR_Error')) {
         $notification->push(sprintf(_("Could not send fax ID \"%s\". %s"), $info['fax_id'], $send->getMessage()), 'horde.error');
     } else {

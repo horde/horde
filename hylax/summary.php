@@ -8,11 +8,11 @@
  * $Horde: incubator/hylax/summary.php,v 1.6 2009/06/10 05:24:17 slusarz Exp $
  */
 
-@define('HYLAX_BASE', dirname(__FILE__));
-require_once HYLAX_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+$hylax = new Hylax_Application(array('init' => true));
 
 $fmt_inbox = array();
-$inbox = $gateway->getInbox();
+$inbox = $hylax->gateway->getInbox();
 foreach ($inbox as $item) {
     $fmt_inbox[] = array('owner' => $item[2]);
 }
@@ -27,8 +27,8 @@ foreach ($outbox as $item) {
 
 /* Set up actions. */
 $template = new Horde_Template();
-$template->set('in_faxes', $gateway->numFaxesIn());
-$template->set('out_faxes', $gateway->numFaxesOut());
+$template->set('in_faxes', $hylax->gateway->numFaxesIn());
+$template->set('out_faxes', $hylax->gateway->numFaxesOut());
 $template->set('inbox', $fmt_inbox, true);
 $template->set('outbox', $fmt_outbox, true);
 $template->set('menu', Hylax::getMenu('string'));
