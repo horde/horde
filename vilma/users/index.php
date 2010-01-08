@@ -15,7 +15,7 @@ require_once VILMA_BASE . '/lib/base.php';
 
 /* Only admin should be using this. */
 if (!Vilma::hasPermission($curdomain)) {
-    Horde::authenticationFailureRedirect();
+    Horde_Auth::authenticateFailure('vilma', $e);
 }
 
 // Input validation: make sure we have a valid section

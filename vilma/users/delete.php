@@ -14,7 +14,7 @@ require_once 'Horde/Form.php';
 
 /* Only admin should be using this. */
 if (!Vilma::hasPermission($domain)) {
-    Horde::authenticationFailureRedirect();
+    Horde_Auth::authenticateFailure('vilma', $e);
 }
 
 $vars = Horde_Variables::getDefaultVariables();
