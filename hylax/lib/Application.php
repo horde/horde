@@ -47,7 +47,7 @@ class Hylax_Application extends Horde_Registry_Application
                 $registry->pushApp('hylax', !defined('AUTH_HANDLER'));
             } catch (Horde_Exception $e) {
                 if ($e->getCode() == 'permission_denied') {
-                    Horde::authenticationFailureRedirect();
+                    Horde_Auth::authenticateFailure('hylax', $e);
                 }
                 Horde::fatal($e, __FILE__, __LINE__, false);
             }
