@@ -23,7 +23,7 @@ try {
     $registry->pushApp('wicked', !defined('AUTH_HANDLER'));
 } catch (Horde_Exception $e) {
     if ($e->getCode() == 'permission_denied') {
-        Horde::authenticationFailureRedirect();
+        Horde_Auth::authenticateFailure('wicked', $e);
     }
     Horde::fatal($e, __FILE__, __LINE__, false);
 }
