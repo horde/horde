@@ -24,8 +24,11 @@ var ImpLogin = {
     {
         /* Activate dynamic view. */
         var s = $('imp_select_view');
-        if (s && this.dimp_sel) {
-            s.selectedIndex = s.down('option[value=dimp]').show().index;
+        if (s) {
+            s.down('option[value=dimp]').show();
+            if (this.dimp_sel) {
+                s.selectedIndex = s.down('option[value=dimp]').index;
+            }
         }
     }
 };
