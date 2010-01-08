@@ -3078,33 +3078,32 @@ DimpBase._folderDropConfig = {
 
         if (drop == $('dropbase')) {
             return DIMP.text.moveto.replace(/%s/, d).replace(/%s/, DIMP.text.baselevel);
-        } else {
-            switch (e.type) {
-            case 'mousemove':
-                m = (e.ctrlKey) ? DIMP.text.copyto : DIMP.text.moveto;
-                break;
-
-            case 'keydown':
-                /* Can't use ctrlKey here since different browsers handle
-                 * the ctrlKey in different ways when it comes to firing
-                 * keyboard events. */
-                m = (e.keyCode == 17) ? DIMP.text.copyto : DIMP.text.moveto;
-                break;
-
-            case 'keyup':
-                if (e.keyCode == 17) {
-                    m = DIMP.text.moveto;
-                } else {
-                    m = (e.ctrlKey) ? DIMP.text.copyto : DIMP.text.moveto;
-                }
-                break;
-            }
-            if (drag.hasClassName('folder')) {
-                return (ftype != 'special' && !DimpBase.isSubfolder(drag, drop)) ? m.replace(/%s/, d).replace(/%s/, l) : '';
-            } else {
-                return ftype != 'container' ? m.replace(/%s/, DimpBase.dragCaption()).replace(/%s/, l) : '';
-            }
         }
+
+        switch (e.type) {
+        case 'mousemove':
+            m = (e.ctrlKey) ? DIMP.text.copyto : DIMP.text.moveto;
+            break;
+
+        case 'keydown':
+            /* Can't use ctrlKey here since different browsers handle the
+             * ctrlKey in different ways when it comes to firing keyboard
+             * events. */
+            m = (e.keyCode == 17) ? DIMP.text.copyto : DIMP.text.moveto;
+            break;
+
+        case 'keyup':
+            m = (e.keyCode == 17)
+                ? DIMP.text.moveto
+                : (e.ctrlKey) ? DIMP.text.copyto : DIMP.text.moveto;
+            break;
+        }
+
+        if (drag.hasClassName('folder')) {
+            return (ftype != 'special' && !DimpBase.isSubfolder(drag, drop)) ? m.replace(/%s/, d).replace(/%s/, l) : '';
+        }
+
+        return ftype != 'container' ? m.replace(/%s/, DimpBase.dragCaption()).replace(/%s/, l) : '';
     },
     keypress: true
 };
@@ -3115,6 +3114,7 @@ document.observe('DragDrop2:drop', DimpBase.folderDropHandler.bindAsEventListene
 document.observe('DragDrop2:end', DimpBase.onDragEnd.bindAsEventListener(DimpBase));
 document.observe('DragDrop2:start', DimpBase.onDragStart.bindAsEventListener(DimpBase));
 
+/* Route AJAX responses through ViewPort. */
 DimpCore.onDoActionComplete = function(r) {
     DimpBase.deleteCallback(r);
     if (DimpBase.viewport) {
