@@ -97,11 +97,13 @@ class Shout_Application extends Horde_Registry_Application
         if (!empty($perms)) {
             return $perms;
         }
-        
-        require_once dirname(__FILE__) . '/base.php';
 
         $perms['tree']['shout']['superadmin'] = false;
         $perms['title']['shout:superadmin'] = _("Super Administrator");
+
+        if (empty($this->contexts)) {
+            $this->__construct(array('init' => true));
+        }
 
         $contexts = $this->contexts->getContexts();
 
