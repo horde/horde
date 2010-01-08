@@ -1,0 +1,30 @@
+#!/bin/bash
+# This should go into the /usr/lib/cups/backend directory to allow the fax to
+# be set up as a regular printer for cups.
+
+SCRIPT_DIR="__SCRIPT_DIR__"
+
+# Nothing to see below.
+DATA_SCRIPT="fax_save_data.php"
+FAX_SCRIPT="fax_create.php"
+FAX_USER=$2
+DATA=$6
+
+# Called with no arguments, we list the provided HylaFAX backend
+# (serial devices are irrelevant here).
+if [ $# -eq 0 ]; then
+    echo "direct hylafax:/local \"Unknown\" \"Local HylaFAX server\""
+    exit 0
+fi
+
+# Call using sudo so that VFS creates correctly owned directories for web use.
+if [ -n $DATA ]; then
+    # The spool filename has been passed, cat the contents to the data script.
+    FAX_ID=`cat $DATA|sudo -u __WWW_USER__ $SCRIPT_DIR/$DATA_SCRIPT`
+else
+    # No spool filename, use what comes through on STDIN.
+    FAX_ID=`sudo -u __WWW_USER__ $SCRIPT_DIR/$DATA_SCRIPT`
+fi
+
+# Call the fax creation script to create a stub in the DB for this new data.
+$SCRIPT_DIR/$FAX_SCRIPT $FAX_ID $FAX_USER

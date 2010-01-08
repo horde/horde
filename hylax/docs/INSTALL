@@ -1,0 +1,35 @@
+
+Hylafax
+=======
+
+- In the /var/spool/fax/etc/hosts.hfaxd file add something like the following line or lines:
+    localhost:faxuser
+    127.0.0.1:faxuser
+
+- Add the following group to your /etc/group file:
+    groupadd -g 60002 faxuser
+
+- Make sure the apache user is part of the faxuser group:
+    faxuser:x:60002:apache
+
+
+SpanDSP w/ Asterisk
+===================
+
+- Add the following line in your /etc/asterisk/extensions.conf
+
+[macro-faxreceive]
+exten => s,1,SetVar(FAXFILE=/var/spool/asterisk/fax/${CALLEDFAX}/${UNIQUEID})
+exten => s,2,rxfax(${FAXFILE}.tif) 
+	    
+[fax]
+exten => 5551212,1,Macro(faxreceive) 
+exten => h,1,System(/var/www/horde/hylax/scripts/spandsp/faxrcvd "${FAXFILE}" "${CALLERIDNUM}" "${CALLEDFAX}")
+
+[default] 
+
+exten => 5551212,1,SetVar(CALLEDFAX=${EXTEN}) 
+exten => 5551212,2,Answer 
+exten => 5551212,3,Goto(fax,${EXTEN},1) 
+      
+      

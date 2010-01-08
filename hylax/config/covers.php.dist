@@ -1,0 +1,27 @@
+<?php
+/**
+ * $Horde: incubator/hylax/config/covers.php.dist,v 1.1 2005/07/09 20:56:18 jvandal Exp $
+ *
+ * This file defines the templates used to generate Cover Page.
+ *
+ */
+
+$_covers['default'] = array(
+    'name' => _("Default Cover Page"),
+    'template' => '<table>
+<tr>
+  <th>From</th>
+  <th>To</th>
+  <th>Date</th>
+</tr>
+
+<loop:faxes>
+<tr>
+  <td><tag:faxes.from_name /></td>
+  <td><tag:faxes.to_name /></td>
+  <td><tag:faxes.date_created /></td>
+</tr>
+</loop:faxes>
+
+</table>'
+);

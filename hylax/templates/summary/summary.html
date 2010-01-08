@@ -1,0 +1,52 @@
+<div id="menu">
+ <tag:menu />
+</div>
+<br />
+
+<tag:notify />
+
+<table width="100%" border="0" cellpadding="2" cellspacing="0">
+  <tr class="header">
+    <td class="header">
+      <gettext>Summary</gettext>
+    </td>
+  </tr>
+</table>
+<br />
+<table width="100%" border="0" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="smallheader" width="50%">
+      <gettext>New faxes</gettext> <strong><tag:in_faxes /></strong>
+    </td><td class="smallheader" width="50%">
+      <gettext>Faxes waiting to be sent</gettext> <strong><tag:out_faxes /></strong>
+    </td>
+  </tr><tr>
+    <td>
+      <if:inbox>
+      <table width="100%" border="0" cellpadding="2" cellspacing="1">
+        <loop:inbox>
+        <tr>
+          <td>
+          </td><td>
+            <tag:inbox.owner />
+          </td>
+        </tr>
+        </loop:inbox>
+      </table>
+      </if:inbox>
+    </td><td>
+      <if:outbox>
+      <table width="100%" border="0" cellpadding="2" cellspacing="1">
+        <loop:outbox>
+        <tr class="item">
+          <td>
+          </td><td>
+            <tag:outbox.owner />
+          </td>
+        </tr>
+        </loop:outbox>
+      </table>
+      </if:outbox>
+    </td>
+  </tr>
+</table>

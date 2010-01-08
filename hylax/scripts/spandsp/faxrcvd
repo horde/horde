@@ -1,0 +1,32 @@
+#!/bin/bash 
+
+#
+# faxrcvd faxfile callerID calledFax
+#
+if [ $# -lt 2 ]; then
+    echo "Usage: $0 file callerId calledFax"
+    exit 1
+fi
+
+SCRIPT_DIR="__SCRIPT_DIR__"
+
+# Nothing to see below.
+DATA_SCRIPT="fax_save_recv_data.php"
+FAX_SCRIPT="fax_create_recv.php"
+
+FAXFILE=$1
+FAXSENDER=$2
+RECIPIENT=$3
+
+FAX_ID=`tiff2ps -a2 $FAXFILE | sudo -u __WWW_USER__ $SCRIPT_DIR/$DATA_SCRIPT $FAXFILE`
+
+DATETIME=`date +"%Y:%M:%d %T"`
+PAGES=$(tiffinfo $FILE | grep "Page") 
+
+echo "Sender: $FAXSENDER" > ${FAXFILE}.txt
+echo "Pages: $PAGES" >> ${FAXFILE}.txt
+echo "Received: $DATETIME" >> ${FAXFILE}.txt
+
+cat ${FAXFILE}.txt | sudo -u __WWW_USER__ $SCRIPT_DIR/$FAX_SCRIPT $FAX_ID $FAXFILE
+rm -rf ${FAXFILE}.txt
+    
