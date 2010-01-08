@@ -12,7 +12,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 new Gollem_Application(array('init' => true));
 
 if (!Horde_Auth::isAdmin()) {
-    Horde::authenticationFailureRedirect('gollem');
+    Horde_Auth::authenticateFailure('gollem', $e);
 }
 
 if (!Gollem::getBackends('all')) {
