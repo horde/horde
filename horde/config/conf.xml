@@ -1109,7 +1109,12 @@
    commonly processed objects.">file
     <case name="none" desc="Don't cache any objects"/>
     <case name="apc" desc="Use the APC cache"/>
-    <case name="eaccelerator" desc="Use the eAccelerator cache"/>
+    <case name="eaccelerator" desc="Use the eAccelerator cache">
+     <configdescription>
+     eAccelerator must be built with --with-eaccelerator-shared-memory at
+     compile time to allow caching.
+     </configdescription>
+    </case>
     <case name="memcache" desc="Use a Memcache server"/>
     <case name="xcache" desc="Use the xCache cache"/>
     <case name="file" desc="Store objects in filesystem">

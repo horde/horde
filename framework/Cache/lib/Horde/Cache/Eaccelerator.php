@@ -13,6 +13,21 @@
  */
 class Horde_Cache_Eaccelerator extends Horde_Cache_Base
 {
+     /**
+      * Construct a new Horde_Cache object.
+      *
+      * @param array $params  Parameter array.
+      * @throws Horde_Exception
+      */
+    public function __construct($params = array())
+    {
+        if (!function_exists('eaccelerator_gc')) {
+            throw new Horde_Exception('eAccelerator must be compiled with support for shared memory to use as caching backend.');
+        }
+
+        parent::__construct($params);
+    }
+
     /**
      * Attempts to retrieve a piece of cached data and return it to the caller.
      *
