@@ -17,7 +17,7 @@ $registry = Horde_Registry::singleton();
 try {
     $registry->pushApp('skeleton', array('check_perms' => true, 'logintasks' => true));
 } catch (Horde_Exception $e) {
-    Horde::authenticationFailureRedirect('skeleton', $e);
+    Horde_Auth::authenticateFailure('skeleton', $e);
 }
 
 $conf = &$GLOBALS['conf'];
