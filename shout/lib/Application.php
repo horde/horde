@@ -50,12 +50,6 @@ class Shout_Application extends Horde_Registry_Application
                 Horde_Auth::authenticateFailure('shout', $e);
             }
 
-            // Ensure Shout is properly configured before use
-            $shout_configured = (@is_readable(SHOUT_BASE . '/config/conf.php'));
-            if (!$shout_configured) {
-                Horde_Test::configFilesMissing('Shout', SHOUT_BASE, array('conf.php'));
-            }
-
             define('SHOUT_TEMPLATES', $registry->get('templates'));
 
             $this->contexts = Shout_Driver::factory('storage');

@@ -8,14 +8,4 @@
  * @author Tyler Colbert <tyler@colberts.us>
  */
 
-@define('WICKED_BASE', dirname(__FILE__));
-$wicked_configured = (is_readable(WICKED_BASE . '/config/conf.php') &&
-                      is_readable(WICKED_BASE . '/config/prefs.php'));
-
-if (!$wicked_configured) {
-    require WICKED_BASE . '/../lib/Test.php';
-    Horde_Test::configFilesMissing('Wicked', WICKED_BASE,
-                                   array('conf.php', 'prefs.php'));
-}
-
-require WICKED_BASE . '/display.php';
+require dirname(__FILE__) . '/display.php';

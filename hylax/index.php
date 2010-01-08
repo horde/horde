@@ -10,16 +10,4 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-@define('HYLAX_BASE', dirname(__FILE__));
-$hylax_configured = (is_readable(HYLAX_BASE . '/config/conf.php') &&
-                     is_readable(HYLAX_BASE . '/config/prefs.php') &&
-                     is_readable(HYLAX_BASE . '/config/covers.php'));
-
-if (!$hylax_configured) {
-    require HYLAX_BASE . '/../lib/Test.php';
-    Horde_Test::configFilesMissing('Hylax', HYLAX_BASE,
-        array('conf.php', 'prefs.php'),
-        array('covers.php' => 'This file defines the templates for Cover Sheets.'));
-}
-
-require HYLAX_BASE . '/folder.php';
+require dirname(__FILE__) . '/folder.php';
