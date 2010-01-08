@@ -27,7 +27,7 @@ Start with Calendar/Tasks:
 	name can be anything
 	server database: must be "calendar"
 
-For Jotter the server database name is "notes". 
+For Jotter the server database name is "notes".
 
 However you should start with activating one type only.
 
@@ -43,9 +43,9 @@ If it's not working:
 
 make sure the /tmp/sync directory exists and is writeable by your
 webserver (user might be wwwrun). Try to Sync once more and check
-the input/output in this directory. 
+the input/output in this directory.
 Maybe change your php.ini settings so php logs ERROR messages and
-NOTICEs in a file as well. Check this file. Your phone gets 
+NOTICEs in a file as well. Check this file. Your phone gets
 confused when the XML is cluttered with stuff like
 
 "PHP Notice:  Undefined index:  body in /blah/blub.php on line 256"

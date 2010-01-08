@@ -50,7 +50,7 @@ To function properly, Kastalia **requires** the following:
 
 2. Install the MCrypt module for php. (optional)
 
-   Kastalia uses the MCrypt module for php to encrypt/decrypt files on the 
+   Kastalia uses the MCrypt module for php to encrypt/decrypt files on the
    server. If you want to store files encrypted on the server you have to
    install this module.
 
@@ -156,7 +156,7 @@ Configuring Kastalia
       chmod 440 config/*
 
    To ensure you have a secure file sharing application you should use _https_
-   instead of http. We also recomment to use the option to store files encrypted 
+   instead of http. We also recomment to use the option to store files encrypted
    (Prerequisites: 2. Install the MCrypt module for php).
 
 5. Testing Kastalia
@@ -169,7 +169,7 @@ Configuring Kastalia
 Obtaining Support
 =================
 
-If you encounter problems with Kastalia, help is available! Please contact the 
+If you encounter problems with Kastalia, help is available! Please contact the
 author of Kastalia.
 
 Thanks for using Kastalia!

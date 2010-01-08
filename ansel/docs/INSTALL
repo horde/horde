@@ -247,11 +247,8 @@ Configuring Ansel
 
    Once you have configured Ansel, bring up the included test page in your Web
    browser to ensure that all necessary prerequisites have been met. See the
-   `horde/docs/INSTALL`_ document for further details on Horde test
-   scripts. If you installed Ansel as described above, the URL to the test
-   page would be::
-
-      http://your-server/horde/ansel/test.php
+   `horde/docs/INSTALL`_ document for further details on the Horde test
+   script.
 
    Next, use Ansel to create galleries and photos. Test at least the
    following:
