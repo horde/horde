@@ -20,7 +20,7 @@ class Hylax_Driver_spandsp extends Hylax_Driver {
 
     public function __construct($params)
     {
-        parent::Hylax_Driver($params);
+        parent::__construct($params);
 
         $this->_states = Hylax::getStates();
         $this->_stat_cols = Hylax::getStatCols();
@@ -71,28 +71,27 @@ class Hylax_Driver_spandsp extends Hylax_Driver {
         //return count($outbox);
     }
 
-    public function getInbox()
+    public function getFolder($folder, $path = null)
     {
-        // return $this->_getFolder('inbox');
-    }
-
-    protected function _getFolder($folder, $path = null)
-    {
+        // FIXME: This method is intended to return an array of items in the
+        // specified folder.
+        // Need to figure out how to make this work with SpanDSP.
         switch ($folder) {
         case 'inbox':
-            // return $this->_parseFaxStat($this->_exec('faxstat -r'));
+            return array();
             break;
 
         case 'outbox':
-            // return $this->_parseFaxStat($this->_exec('faxstat -s'));
+            return array();
             break;
 
         case 'sent':
-            // return $this->_parseFaxStat($this->_exec('faxstat -d'));
+            return array();
             break;
 
         case 'archive':
             //return $GLOBALS['storage']->getFolder($path);
+            return array();
             break;
         }
     }

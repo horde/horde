@@ -12,13 +12,13 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 $hylax = new Hylax_Application(array('init' => true));
 
 $fmt_inbox = array();
-$inbox = $hylax->gateway->getInbox();
+$inbox = $hylax->gateway->getFolder('inbox');
 foreach ($inbox as $item) {
     $fmt_inbox[] = array('owner' => $item[2]);
 }
 
 $fmt_outbox = array();
-//$outbox = $fax->getOutbox();
+$outbox = $hylax->gateway->getFolder('outbox');
 foreach ($outbox as $item) {
     $fmt_outbox[] = array(//'time' => $item
                           'owner' => $item[2],

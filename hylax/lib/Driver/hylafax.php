@@ -20,7 +20,7 @@ class Hylax_Driver_hylafax extends Hylax_Driver {
 
     public function __construct($params)
     {
-        parent::Hylax_Driver($params);
+        parent::__construct($params);
 
         $this->_states = Hylax::getStates();
         $this->_stat_cols = Hylax::getStatCols();
@@ -71,12 +71,7 @@ class Hylax_Driver_hylafax extends Hylax_Driver {
         //return count($outbox);
     }
 
-    public function getInbox()
-    {
-        return $this->_getFolder('inbox');
-    }
-
-    public function _getFolder($folder, $path = null)
+    public function getFolder($folder, $path = null)
     {
         switch ($folder) {
         case 'inbox':

@@ -15,7 +15,7 @@ $path = Horde_Util::getFormData('path');
 $base_folders = Hylax::getBaseFolders();
 
 /* Get the list of faxes in folder. */
-$folder_list = $hylax_storage->listFaxes($folder);
+$folder_list = $hylax->storage->listFaxes($folder);
 
 /* Set up URLs which will be used in the list. */
 $view_url  = Horde::applicationUrl('view.php');
