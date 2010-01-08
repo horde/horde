@@ -18,7 +18,7 @@ class Hylax_Driver_hylafax extends Hylax_Driver {
     var $_stat_cols = array();
     var $_cmd = array();
 
-    function Hylax_Driver_hylafax($params)
+    public function __construct($params)
     {
         parent::Hylax_Driver($params);
 
@@ -27,7 +27,7 @@ class Hylax_Driver_hylafax extends Hylax_Driver {
         $this->_cmd = array('sendfax' => '/usr/bin/sendfax');
     }
 
-    function send($number, $data, $time = null)
+    public function send($number, $data, $time = null)
     {
         $command = sprintf('%s -n -d %s',
                            $this->_cmd['sendfax'],
@@ -59,24 +59,24 @@ class Hylax_Driver_hylafax extends Hylax_Driver {
         return PEAR::raiseError(sprintf(_("Could not send fax. %s"), $output));
     }
 
-    function numFaxesIn()
+    public function numFaxesIn()
     {
         //$inbox = $this->getInbox();
         //return count($inbox);
     }
 
-    function numFaxesOut()
+    public function numFaxesOut()
     {
         //$outbox = $this->getOutbox();
         //return count($outbox);
     }
 
-    function getInbox()
+    public function getInbox()
     {
         return $this->_getFolder('inbox');
     }
 
-    function _getFolder($folder, $path = null)
+    public function _getFolder($folder, $path = null)
     {
         switch ($folder) {
         case 'inbox':
@@ -97,7 +97,7 @@ class Hylax_Driver_hylafax extends Hylax_Driver {
         }
     }
 
-    function getJob($job_id, $folder, $path = null)
+    public function getJob($job_id, $folder, $path = null)
     {
         global $conf;
 
@@ -127,7 +127,7 @@ class Hylax_Driver_hylafax extends Hylax_Driver {
         return $job;
     }
 
-    function getStatus($job_id)
+    public function getStatus($job_id)
     {
         static $send_q = array();
         static $done_q = array();
@@ -160,7 +160,7 @@ class Hylax_Driver_hylafax extends Hylax_Driver {
         return '';
     }
 
-    function _getParseSendJob($filename)
+    protected function _getParseSendJob($filename)
     {
         $job = array();
         $job_file = file_get_contents($filename);
@@ -179,7 +179,7 @@ class Hylax_Driver_hylafax extends Hylax_Driver {
         return $job;
     }
 
-    function getThumbs($job_id, $ps)
+    public function getThumbs($job_id, $ps)
     {
         if ($this->_vfs->exists(HYLAX_VFS_PATH, $job_id)) {
             /* Return thumb image list. */
@@ -192,7 +192,7 @@ class Hylax_Driver_hylafax extends Hylax_Driver {
         return array_keys($images);
     }
 
-    function imagesToVFS($job_id, $ps)
+    public function imagesToVFS($job_id, $ps)
     {
         global $conf;
 
@@ -211,7 +211,7 @@ class Hylax_Driver_hylafax extends Hylax_Driver {
         return $this->_vfs->listFolder(HYLAX_VFS_PATH . '/' . $job_id, 'doc.png');
     }
 
-    function _exec($cmd, $input = '')
+    protected function _exec($cmd, $input = '')
     {
         $spec = array(//0 => array('pipe', 'r'),
                       1 => array('pipe', 'w'),
@@ -234,7 +234,7 @@ class Hylax_Driver_hylafax extends Hylax_Driver {
         return $result;
     }
 
-    function _parseFaxStat($result)
+    protected function _parseFaxStat($result)
     {
         $out = array();
         $i = 0;

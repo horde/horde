@@ -14,16 +14,16 @@
  */
 class Hylax_Driver {
 
-    var $_params;
+    protected $_params;
 
-    function Hylax_Driver($params)
+    public function __construct($params)
     {
         global $conf;
 
         $this->_params = $params;
     }
 
-    function getFolder($folder, $path = null)
+    public function getFolder($folder, $path = null)
     {
         return $this->_getFolder($folder, $path);
     }
@@ -39,7 +39,7 @@ class Hylax_Driver {
      * @return Hylax_Driver   The newly created concrete Hylax_Driver
      *                        instance, or false on error.
      */
-    function &factory($driver = null, $params = null)
+    public function &factory($driver = null, $params = null)
     {
         if (is_null($driver)) {
             $driver = $GLOBALS['conf']['fax']['driver'];
@@ -74,7 +74,7 @@ class Hylax_Driver {
      * @return mixed  The created concrete Hylax_Driver instance, or false on
      *                error.
      */
-    function &singleton($driver = null, $params = null)
+    public function &singleton($driver = null, $params = null)
     {
         static $instances;
 
