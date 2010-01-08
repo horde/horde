@@ -78,6 +78,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Oci8.php" role="php" />
        <file name="Mysqli.php" role="php" />
       </dir> <!-- /lib/Horde/Db/Adapter -->
+      <dir name="Migration">
+       <file name="Base.php" role="php" />
+       <file name="Exception.php" role="php" />
+       <file name="Migrator.php" role="php" />
+      </dir> <!-- /lib/Horde/Db/Migration -->
       <file name="Adapter.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="StatementParser.php" role="php" />
@@ -129,6 +134,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
 
    <install name="lib/Horde/Db/Adapter/Sqlite/Column.php" as="Horde/Db/Adapter/Sqlite/Column.php" />
    <install name="lib/Horde/Db/Adapter/Sqlite/Schema.php" as="Horde/Db/Adapter/Sqlite/Schema.php" />
+
+   <install name="lib/Horde/Db/Migration/Base.php" as="Horde/Db/Migration/Base.php" />
+   <install name="lib/Horde/Db/Migration/Exception.php" as="Horde/Db/Migration/Exception.php" />
+   <install name="lib/Horde/Db/Migration/Migrator.php" as="Horde/Db/Migration/Migrator.php" />
 
    <install name="lib/Horde/Db/Adapter.php" as="Horde/Db/Adapter.php" />
    <install name="lib/Horde/Db/Exception.php" as="Horde/Db/Exception.php" />
