@@ -78,7 +78,17 @@ function resetDestInfo(exten)
         $('destX'+exten+'info').removeChild(e);
     }
 
-    destinations[exten]['devices'].each(function(s) {
+    dest = destinations.get(exten);
+
+    if (dest['devices'] == null) {
+        dest['devices'] = new Array();
+    }
+
+    if (dest['numbers'] == null) {
+        dest['numbers'] = new Array();
+    }
+
+    dest['devices'].each(function(s) {
         e = document.createElement('img');
         e.src = "<?php echo $registry->getImageDir() . '/shout.png'; ?>";
         t = document.createTextNode(" "+s);
@@ -89,7 +99,7 @@ function resetDestInfo(exten)
     });
 
 
-    destinations[exten]['numbers'].each(function(s) {
+    dest['numbers'].each(function(s) {
         e = document.createElement('img');
         e.src = "<?php echo $registry->getImageDir() . '/telephone-pole.png'; ?>";
         t = document.createTextNode(" "+s);
@@ -113,8 +123,8 @@ function resetDestInfo(exten)
     a = document.createElement('a');
     a.id = 'destX'+exten+'addDest';
     a['className'] = 'addDest';
-    a.href='#';
-    a.setAttribute('onclick', 'addDest('+exten+')');
+    a.href='javascript:addDest('+exten+')';
+    //a.setAttribute('onclick', 'addDest('+exten+')');
     t = document.createTextNode('Add destination...');
     a.appendChild(t);
     $('destX'+exten+'info').appendChild(a);
@@ -153,42 +163,76 @@ function processForm(event)
     form = event.target;
     Element.extend(form);
 
-    
+    exten = form.getInputs('hidden', 'extension').first().value;
 
-    alert(event);
+    resetDestInfo(exten);
+
+    $('destX'+exten+'addDest').show();
 
 }
 
 function addDest(exten)
 {
-    //$('destX'+exten+'addDest').hide();
-    e = document.createElement('input');
-    e.type = "text";
-    e.length = 10;
-    $('destX'+exten+'form').appendChild(e);
-    $('destX'+exten+'form').focusFirstElement();
+    $('destX'+exten+'addDest').hide();
+    select = document.createElement('select');
+    select.name = 'type';
+
+    option = document.createElement('option');
+    option.name = 'number';
+    text = document.createTextNode("<?php echo _("Number"); ?>");
+    option.appendChild(text);
+    select.appendChild(option);
+
+    option = document.createElement('option');
+    option.name = 'device';
+    text = document.createTextNode("<?php echo _("Device"); ?>");
+    option.appendChild(text);
+    select.appendChild(option);
+
+    input = document.createElement('input');
+    input.name = 'destination';
+    input.id = 'destination';
+    input.type = "text";
+    input.size = 12;
+    input.maxlength = 15;
+
+    save = document.createElement("input");
+    save.name = "action";
+    save.value = "Save";
+    save.type = "submit";
+
+    br = document.createElement('br');
+
+    $('destX'+exten+'form').appendChild(select);
+    $('destX'+exten+'form').appendChild(input);
+    $('destX'+exten+'form').appendChild(save);
+    $('destX'+exten+'form').appendChild(br);
+    input.focus();
     Event.observe($('destX'+exten+'form'), 'submit', function(event) {processForm(event);});
 }
 
+destinations = $H({
 <?php
 foreach ($extensions as $extension => $info)
 {
-    echo "destinations[${extension}] = {";
+    echo "'${extension}': {\n";
     if (count($info['devices'])) {
-        echo 'devices: ["' . implode('","', $info['devices']) . '"],';
+        echo '  \'devices\': ["' . implode('","', $info['devices']) . '"],';
     }
     if (count($info['numbers'])) {
-        echo 'numbers: ["' . implode('","', $info['numbers']) . '"],';
+        echo '  \'numbers\': ["' . implode('","', $info['numbers']) . '"],';
     }
-    echo "};\n";
+    echo "},\n";
 }
 ?>
+});
 
 // Initialize the data.
-for (var i in destinations) {
-    resetDestInfo(i);
-    contract(i);
-}
+destinations.each(function(item) {
+    exten = item.key;
+    resetDestInfo(exten);
+    contract(exten);
+})
 
 // -->
 </script>
