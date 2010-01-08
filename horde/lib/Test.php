@@ -1,22 +1,4 @@
 <?php
-
-/**
- * Include the main Horde library, since we require it for this package.
- */
-require_once dirname(__FILE__) . '/core.php';
-
-/**
- * Set the path to the templates needed for testing output.
- */
-define('TEST_TEMPLATES', HORDE_BASE . '/templates/test/');
-
-/* If gettext is not loaded, define a dummy _() function so that
- * including any file with gettext strings won't cause a fatal error,
- * causing test.php to return a blank page. */
-if (!function_exists('_')) {
-    function _($s) { return $s; }
-}
-
 /**
  * The Horde_Test:: class provides functions used in the test scripts
  * used in the various applications (test.php).
@@ -32,51 +14,316 @@ if (!function_exists('_')) {
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Test
  */
-class Horde_Test {
 
-    /**
-     * Array that holds the list of Horde applications.
-     * (Loaded from config/registry.php)
-     *
-     * @var array
-     */
-    var $applications = array();
+/* If gettext is not loaded, define a dummy _() function so that
+ * including any file with gettext strings won't cause a fatal error,
+ * causing test.php to return a blank page. */
+if (!function_exists('_')) {
+    function _($s) { return $s; }
+}
 
-    /**
-     * Cached results of getApplications().
-     *
-     * @var array
-     */
-    var $_appoutput = array();
-
+class Horde_Test
+{
     /**
      * The PHP version of the system.
      *
      * @var array
      */
-    var $_phpver;
+    protected $_phpver;
 
     /**
      * Supported versions of PHP.
      *
      * @var array
      */
-    var $_supported = array(
+    protected $_supported = array(
         '5.2', '5.3'
     );
 
     /**
+     * The module list
+     * <pre>
+     * KEY:   module name
+     * VALUE: Either the description or an array with the following entries:
+     *        'descrip' - (string) Module description
+     *        'error' - (string) Error message
+     *        'fatal' - (boolean) Is missing module fatal?
+     *        'phpver' - (string) The PHP version above which to do the test
+     * </pre>
+     *
+     * @var array
+     */
+    protected $_moduleList = array(
+        'ctype' => array(
+            'descrip' => 'Ctype Support',
+            'error' => 'The ctype functions are required by the help system, the weather portal blocks, and a few Horde applications.'
+        ),
+        'dom' => array(
+            'descrip' => 'DOM XML Support',
+            'error' => 'DOM support is required for the configuration frontend and Kolab support.'
+        ),
+        'fileinfo' => array(
+            'descrip' => 'MIME Magic Support (fileinfo)',
+            'error' => 'The fileinfo PECL module is used to provide MIME Magic scanning on unknown data. See horde/docs/INSTALL for information on how to install PECL extensions.'
+        ),
+        'ftp' => array(
+            'descrip' => 'FTP Support',
+            'error' => 'FTP support is only required if you want to authenticate against an FTP server, upload your configuration files with FTP, or use an FTP server for file storage.'
+        ),
+        'gd' => array(
+            'descrip' => 'GD Support',
+            'error' => 'Horde will use the GD extension to perform manipulations on image data. You can also use the ImageMagick software to do these manipulations instead.'
+        ),
+        'gettext' => array(
+            'descrip' => 'Gettext Support',
+            'error' => 'Horde will not run without gettext support. Compile PHP with <code>--with-gettext</code> before continuing.',
+            'fatal' => true
+        ),
+        'geoip' => array(
+            'descrip' => 'GeoIP Support (PECL extension)',
+            'error' => 'Horde can optionally use the GeoIP extension to provide faster country name lookups.'
+        ),
+        'hash' => array(
+            'descrip' => 'Hash Support',
+            'error' => 'Horde will not run without the hash extension. Don\'t compile PHP with <code>--disable-all/--disable-hash</code>, or enable the hash extension individually before continuing.',
+            'fatal' => true
+        ),
+        'iconv' => array(
+            'descrip' => 'Iconv Support',
+            'error' => 'If you want to take full advantage of Horde\'s localization features and character set support, you will need the iconv extension.'
+        ),
+        'iconv_libiconv' => array(
+            'descrip' => 'GNU Iconv Support',
+            'error' => 'For best results make sure the iconv extension is linked against GNU libiconv.',
+            'function' => '_checkIconvImplementation'
+        ),
+        'idn' => array(
+            'descrip' => 'Internationalized Domain Names Support (PECL extension)',
+            'error' => 'Horde requires the idn module to handle Internationalized Domain Names.'
+        ),
+        'imagick' => array(
+            'descrip' => 'Imagick Library',
+            'error' => 'Horde can make use of the Imagick Library, if it is installed on your system.  It is highly recommended to use either ImageMagick\'s convert utility or the Imagick php library for faster results.'
+        ),
+        'json' => array(
+            'descrip' => 'JSON Support',
+            'error' => 'Horde will not run without the json extension. Don\'t compile PHP with <code>--disable-all/--disable-json</code>, or enable the json extension individually before continuing.',
+            'fatal' => true
+        ),
+        'ldap' => array(
+            'descrip' => 'LDAP Support',
+            'error' => 'LDAP support is only required if you want to use an LDAP server for anything like authentication, address books, or preference storage.'
+        ),
+        'lzf' => array(
+            'descrip' => 'LZF Compression Support (PECL extension)',
+            'error' => 'If the lzf PECL module is available, Horde can compress some cached data in your session to make your session size smaller.'
+        ),
+        'mbstring' => array(
+            'descrip' => 'Mbstring Support',
+            'error' => 'If you want to take full advantage of Horde\'s localization features and character set support, you will need the mbstring extension.'
+        ),
+        'mcrypt' => array(
+            'descrip' => 'Mcrypt Support',
+            'error' => 'Mcrypt is a general-purpose cryptography library which is broader and significantly more efficient (FASTER!) than PHP\'s own cryptographic code and will provider faster logins.'
+        ),
+        'memcache' => array(
+            'descrip' => 'memcached Support (memcache) (PECL extension)',
+            'error' => 'The memcache PECL module is only needed if you are using a memcached server for caching or sessions. See horde/docs/INSTALL for information on how to install PECL/PHP extensions.'
+        ),
+        'mysql' => array(
+            'descrip' => 'MySQL Support',
+            'error' => 'The MySQL extension is only required if you want to use a MySQL database server for data storage.'
+        ),
+        'openssl' => array(
+            'descrip' => 'OpenSSL Support',
+            'error' => 'The OpenSSL extension is required for any kind of S/MIME support.'
+        ),
+        'pcre' => array(
+            'descrip' => 'PCRE Support',
+            'error' => 'Horde will not run without the pcre extension. Don\'t compile PHP with <code>--disable-all/--without-pcre-regex</code>, or enable the pcre extension individually before continuing.',
+            'fatal' => true
+        ),
+        'pgsql' => array(
+            'descrip' => 'PostgreSQL Support',
+            'error' => 'The PostgreSQL extension is only required if you want to use a PostgreSQL database server for data storage.'
+        ),
+        'session' => array(
+            'descrip' => 'Session Support',
+            'fatal' => true
+        ),
+        'tidy' => array(
+            'descrip' => 'Tidy support',
+            'error' => 'The tidy PHP extension is used to sanitize HTML data.'
+        ),
+        'xml' => array(
+            'descrip' => 'XML Support',
+            'error' => 'XML support is required for the help system.'
+        ),
+        'zlib' => array(
+            'descrip' => 'Zlib Support',
+            'error' => 'The zlib module is highly recommended for use with Horde.  It allows page compression and handling of ZIP and GZ data. Compile PHP with <code>--with-zlib</code> to activate.'
+        )
+    );
+
+    /**
+     * PHP settings list.
+     * <pre>
+     * KEY:   setting name
+     * VALUE: An array with the following entries:
+     *        'error' - (string) Error Message
+     *        'setting' - (mixed) Either a boolean (whether setting should be
+     *                    on or off) or 'value', which will simply output the
+     *                    value of the setting.
+     * </pre>
+     *
+     * @var array
+     */
+    protected $_settingsList = array(
+        'magic_quotes_runtime' => array(
+            'setting' => false,
+            'error' => 'magic_quotes_runtime may cause problems with database inserts, etc. Turn it off.'
+        ),
+        'memory_limit' => array(
+            'setting' => 'value',
+            'error' => 'If PHP\'s internal memory limit is not set high enough Horde will not be able to handle large data items. You should set the value of memory_limit in php.ini to a sufficiently high value - at least 64M is recommended.'
+        ),
+        'register_globals' => array(
+            'setting' => false,
+            'error' => 'Register globals has been deprecated in PHP 5. Horde will fatally exit if it is set. Turn it off.'
+        ),
+        'safe_mode' => array(
+            'setting' => false,
+            'error' => 'If safe_mode is enabled, Horde cannot set enviroment variables, which means Horde will be unable to translate the user interface into different languages.'
+        ),
+        'session.auto_start' => array(
+            'setting' => false,
+            'error' => 'Horde won\'t work with automatically started sessions, because it explicitly creates new session when necessary to protect against session fixations.'
+        ),
+        'session.gc_divisor' => array(
+            'setting' => 'value',
+            'error' => 'PHP automatically garbage collects old session information, as long as this setting (and session.gc_probability) are set to non-zero. It is recommended that this value be "10000" or higher (see docs/INSTALL).'
+        ),
+        'session.gc_probability' => array(
+            'setting' => 'value',
+            'error' => 'PHP automatically garbage collects old session information, as long as this setting (and session.gc_divisor) are set to non-zero. It is recommended that this value be "1".'
+        ),
+        'session.use_trans_sid' => array(
+            'setting' => false,
+            'error' => 'Horde will work with session.use_trans_sid turned on, but you may see double session-ids in your URLs, and if the session name in php.ini differs from the session name configured in Horde, you may get two session ids and see other odd behavior. The URL-rewriting that use_trans_sid does also tends to break XHTML compliance. In short, you should really disable this.'
+        ),
+        'zend_accelerator.compress_all' => array(
+            'setting' => false,
+            'error' => 'You should not enable output compression unconditionally because some browsers and scripts don\'t work well with output compression. Enable compression in Horde\'s configuration instead, so that we have full control over the conditions where to enable and disable it.'
+        ),
+        'zlib.output_compression' => array(
+            'setting' => false,
+            'error' => 'You should not enable output compression unconditionally because some browsers and scripts don\'t work well with output compression. Enable compression in Horde\'s configuration instead, so that we have full control over the conditions where to enable and disable it.'
+        )
+    );
+
+    /**
+     * PEAR modules list.
+     * <pre>
+     * KEY:   PEAR class name
+     * VALUE: An array with the following entries:
+     *        'depends' - (?) This module depends on another module.
+     *        'error' - (string) Error message.
+     *        'function' - (string) Reference to function to run if module is
+     *                     found.
+     *        'path' - (string) The path to the PEAR module. Only needed if
+     *                 KEY is not autoloadable.
+     *        'required' - (boolean) Is this PEAR module required?
+     * </pre>
+     *
+     * @var array
+     */
+    protected $_pearList = array(
+        'Auth_SASL' => array(
+            'error' => 'Horde will work without the Auth_SASL class, but if you use Access Control Lists in IMP you should be aware that without this class passwords will be sent to the IMAP server in plain text when retrieving ACLs.'
+        ),
+        'Cache' => array(
+            'error' => 'Cache is used by the Services_Weather module on the weather applet/block on the portal page.'
+        ),
+        'Date' => array(
+            'path' => 'Date/Calc.php',
+            'error' => 'Horde requires the Date_Calc class for Kronolith to calculate dates.'
+        ),
+        'DB' => array(
+            'error' => 'You will need DB if you are using SQL.',
+            'function' => '_checkPearDbVersion'
+        ),
+        'HTTP_Request' => array(
+            'error' => 'Parts of Horde (Jonah, the XML-RPC client/server) use the HTTP_Request library to retrieve URLs and do other HTTP requests.'
+        ),
+        'HTTP_WebDAV_Server' => array(
+            'error' => 'The HTTP_WebDAV_Server is required if you want to use the WebDAV interface of Horde, e.g. to access calendars or tasklists with external clients.'
+        ),
+        'Log' => array(
+            'error' => 'Make sure you are using a version of PEAR which includes the Log classes, or that you have installed the Log package seperately. See the INSTALL file for instructions on installing Log.',
+            'function' => '_checkPearLogVersion',
+            'required' => true
+        ),
+        'Mail' => array(
+            'path' => 'Mail/RFC822.php',
+            'error' => 'You do not have the Mail package installed on your system. See the INSTALL file for instructions on how to install the package.'
+        ),
+        'MDB2' => array(
+            'error' => 'You will need MDB2 if you are using the SQL driver for Shares.',
+        ),
+        'Net_DNS' => array(
+            'error' => 'Net_DNS can speed up hostname lookups against broken DNS servers.'
+        ),
+        'Net_SMTP' => array(
+            'error' => 'Make sure you are using the Net_SMTP module if you want "smtp" to work as a mailer option.'
+        ),
+        'Net_Socket' => array(
+            'error' => 'Make sure you are using a version of PEAR which includes the Net_Socket class, or that you have installed the Net_Socket package seperately. See the INSTALL file for instructions on installing Net_Socket.'
+        ),
+        'Services_Weather' => array(
+            'error' => 'Services_Weather is used by the weather applet/block on the portal page.'
+        ),
+        'XML_Serializer' => array(
+            'error' => 'XML_Serializer is used by the Services_Weather module on the weather applet/block on the portal page.'
+        )
+    );
+
+    /**
+     * Required configuration files.
+     * <pre>
+     * KEY:   file path
+     * VALUE: The error message to use (null to use default message)
+     * </pre>
+     *
+     * @var array
+     */
+    protected $_fileList = array(
+        'config/conf.php' => null,
+        'config/mime_drivers.php' => null,
+        'config/nls.php' => null,
+        'config/prefs.php' => null,
+        'config/registry.php' => null
+    );
+
+    /**
+     * Inter-Horde application dependencies.
+     * <pre>
+     * KEY:   app name
+     * VALUE: An array with the following entries:
+     *        'error' - (string) Error message.
+     *        'version' - (string) Minimum version required of the app.
+     * </pre>
+     *
+     * @var array
+     */
+    protected $_appList = array();
+
+    /**
      * Constructor.
      */
-    function Horde_Test()
+    public function __construct()
     {
-        if (file_exists(HORDE_BASE . '/config/registry.php')) {
-            include HORDE_BASE . '/config/registry.php';
-            ksort($this->applications);
-        }
-
         /* Store the PHP version information. */
-        $this->_phpver = $this->splitPHPVersion(PHP_VERSION);
+        $this->_phpver = $this->_splitPhpVersion(PHP_VERSION);
 
         /* We want to be as verbose as possible here. */
         error_reporting(E_ALL);
@@ -94,7 +341,7 @@ class Horde_Test {
      * @param array  The parsed string.
      *               Keys: 'major', 'minor', 'subminor', 'class'
      */
-    function splitPHPVersion($version)
+    protected function _splitPhpVersion($version)
     {
         /* First pick off major version, and lower-case the rest. */
         if ((strlen($version) >= 3) && ($version[1] == '.')) {
@@ -125,7 +372,7 @@ class Horde_Test {
         $phpver['minor'] = substr($version, 0, $s);
         if ((strlen($version) > $s) &&
             (($version[$s] == '.') || ($version[$s] == '-'))) {
-            $s++;
+            ++$s;
         }
         $phpver['subminor'] = substr($version, $s);
         if (($phpver['subminor'] == 'cvs') ||
@@ -146,24 +393,13 @@ class Horde_Test {
     /**
      * Check the list of PHP modules.
      *
-     * @param array $modlist  The module list.
-     * <pre>
-     * KEY:   module name
-     * VALUE: Either the description or an array with the following entries:
-     *        'descrip'  --  Module Description
-     *        'error'    --  Error Message
-     *        'fatal'    --  Is missing module fatal?
-     *        'phpver'   --  The PHP version above which to do the test
-     * </pre>
-     *
      * @return string  The HTML output.
      */
-    function phpModuleCheck($modlist)
+    public function phpModuleCheck()
     {
         $output = '';
-        $output_array = array();
 
-        foreach ($modlist as $key => $val) {
+        foreach ($this->_moduleList as $key => $val) {
             $error_msg = $mod_test = $status_out = $fatal = null;
             $test_function = null;
             $entry = array();
@@ -188,7 +424,7 @@ class Horde_Test {
 
             if (is_null($status_out)) {
                 if (!is_null($test_function)) {
-                    $mod_test = call_user_func($test_function);
+                    $mod_test = call_user_func(array($this, $test_function));
                 } else {
                     $mod_test = extension_loaded($key);
                 }
@@ -218,25 +454,32 @@ class Horde_Test {
     }
 
     /**
+     * Additional check for iconv module implementation.
+     *
+     * @return string  Returns error string on error.
+     */
+    protected function _checkIconvImplementation()
+    {
+        return extension_loaded('iconv') &&
+               in_array(ICONV_IMPL, array('libiconv', 'glibc'));
+    }
+
+    /**
      * Checks the list of PHP settings.
      *
-     * @param array $modlist  The settings list.
-     * <code>
-     * KEY:   setting name
-     * VALUE: An array with the following entries:
-     *        'error'    --  Error Message
-     *        'setting'  --  Either a boolean (whether setting should be on or
-     *                       off) or 'value', which will simply output the
-     *                       value of the setting.
-     * </code>
+     * @params array $settings  The list of settings to check.
      *
      * @return string  The HTML output.
      */
-    function phpSettingCheck($settings_list)
+    public function phpSettingCheck($settings = null)
     {
         $output = '';
 
-        foreach ($settings_list as $key => $val) {
+        if (is_null($settings)) {
+            $settings = $this->_settingsList;
+        }
+
+        foreach ($settings as $key => $val) {
             $entry = array();
             if (is_bool($val['setting'])) {
                 $result = (ini_get($key) == $val['setting']);
@@ -262,20 +505,9 @@ class Horde_Test {
     /**
      * Check the list of PEAR modules.
      *
-     * @param array $pear_list  The PEAR module list.
-     * <pre>
-     * KEY:   PEAR class name
-     * VALUE: An array with the following entries:
-     *        'depends'   --  This module depends on another module
-     *        'error'     --  Error Message
-     *        'function'  --  Reference to function to run if module is found
-     *        'path'      --  The path to the PEAR module
-     *        'required'  --  Is this PEAR module required? (boolean)
-     * </pre>
-     *
      * @return string  The HTML output.
      */
-    function PEARModuleCheck($pear_list)
+    public function pearModuleCheck()
     {
         $output = '';
 
@@ -286,23 +518,20 @@ class Horde_Test {
         $output .= $this->_outputLine(array("<strong>PEAR Search Path (PHP's include_path)</strong>", '&nbsp;<tt>' . ini_get('include_path') . '</tt>'));
 
         /* Check for PEAR in general. */
-        {
-            $entry = array();
-            $entry[] = 'PEAR';
-            @include_once 'PEAR.php';
-            $entry[] = $this->_status(!isset($php_errormsg));
-            if (isset($php_errormsg)) {
-                $entry[] = 'Check your PHP include_path setting to make sure it has the PEAR library directory.';
-                $output .= $this->_outputLine($entry);
-                ini_restore('track_errors');
-                return $output;
-            }
+        $entry = array();
+        $entry[] = 'PEAR';
+        $entry[] = $this->_status(!isset($php_errormsg));
+        if (isset($php_errormsg)) {
+            $entry[] = 'Check your PHP include_path setting to make sure it has the PEAR library directory.';
             $output .= $this->_outputLine($entry);
+            ini_restore('track_errors');
+            return $output;
         }
+        $output .= $this->_outputLine($entry);
 
         /* Check for a recent PEAR version. */
         $entry = array();
-        $newpear = $this->isRecentPEAR();
+        $newpear = $this->_isRecentPear();
         $entry[] = 'Recent PEAR';
         $entry[] = $this->_status($newpear);
         if (!$newpear) {
@@ -312,19 +541,21 @@ class Horde_Test {
 
         /* Go through module list. */
         $succeeded = array();
-        foreach ($pear_list as $key => $val) {
+        foreach ($this->_pearList as $key => $val) {
             $entry = array();
 
             /* If this module depends on another module that we
              * haven't succesfully found, fail the test. */
             if (!empty($val['depends']) && empty($succeeded[$val['depends']])) {
                 $result = false;
+            } elseif (empty($val['path'])) {
+                $result = class_exists($key);
             } else {
                 $result = @include_once $val['path'];
             }
             $error_msg = $val['error'];
             if ($result && isset($val['function'])) {
-                $func_output = call_user_func($val['function']);
+                $func_output = call_user_func(array($this, $val['function']));
                 if ($func_output) {
                     $result = false;
                     $error_msg = $func_output;
@@ -355,23 +586,42 @@ class Horde_Test {
     }
 
     /**
-     * Check the list of required files
+     * Additional check for PEAR Log module for its version.
      *
-     * @param array $file_list  The file list.
-     * <pre>
-     * KEY:   file path
-     * VALUE: The error message to use (null to use default message)
-     * </pre>
+     * @return string  Returns error string on error.
+     */
+    protected function _checkPearLogVersion()
+    {
+        if (!defined('PEAR_LOG_INFO')) {
+            return 'Your version of Log is not recent enough.';
+        }
+    }
+
+    /**
+     * Additional check for PEAR DB module for its version.
+     *
+     * @return string  Returns error string on error.
+     */
+    protected function _checkPearDbVersion()
+    {
+        if (!defined('DB_PORTABILITY_LOWERCASE')) {
+            return 'Your version of DB is not recent enough.';
+        }
+    }
+
+    /**
+     * Check the list of required files
      *
      * @return string  The HTML output.
      */
-    function requiredFileCheck($file_list)
+    public function requiredFileCheck()
     {
         $output = '';
+        $filedir = $GLOBALS['registry']->get('fileroot');
 
-        foreach ($file_list as $key => $val) {
+        foreach ($this->_fileList as $key => $val) {
             $entry = array();
-            $result = file_exists('./' . $key);
+            $result = file_exists($filedir . '/' . $key);
 
             $entry[] = $key;
             $entry[] = $this->_status($result);
@@ -391,156 +641,34 @@ class Horde_Test {
     }
 
     /**
-     * Displays an error screen with a list of all configuration files that
-     * are missing, together with a description what they do and how they are
-     * created. If a file can be automatically created from the defaults, then
-     * we do that instead and don't display an error.
-     *
-     * @param string $app        The application name
-     * @param string $appBase    The path to the application
-     * @param array  $files      An array with the "standard" configuration
-     *                           files that should be checked. Currently
-     *                           supported:
-     *                           - conf.php
-     *                           - prefs.php
-     *                           - mime_drivers.php
-     * @param array $additional  An associative array containing more files (as
-     *                           keys) and error message (as values) if they
-     *                           don't exist.
-     */
-    function configFilesMissing($app, $appBase, $files, $additional = array())
-    {
-        /* Try to load a basic framework if we're testing an app other than
-         * the Horde base files. */
-        if ($app != 'Horde') {
-            $GLOBALS['registry'] = Horde_Registry::singleton();
-            $GLOBALS['registry']->pushApp('horde', array('check_perms' => false));
-        }
-
-        if (!is_array($files)) {
-            $files = array($files);
-        }
-        $files = array_merge($files, array_keys($additional));
-
-        /* Try to auto-create missing .dist files. */
-        $indices = array_keys($files);
-        foreach ($indices as $index) {
-            if (is_readable($appBase . '/config/' . $files[$index])) {
-                unset($files[$index]);
-            } else {
-                if (file_exists($appBase . '/config/' . $files[$index] . '.dist') &&
-                    @copy($appBase . '/config/' . $files[$index] . '.dist', $appBase . '/config/' . $files[$index])) {
-                    unset($files[$index]);
-                }
-            }
-        }
-
-        /* Return if we have no missing files left. */
-        if (!count($files)) {
-            return;
-        }
-
-        $descriptions = array_merge(array(
-            'conf.php' => sprintf('This is the main %s configuration file. ' .
-                                  'It contains paths and options for the %s ' .
-                                  'scripts. You need to login as an ' .
-                                  'administrator and create the file with ' .
-                                  'the web frontend under "Administration => ' .
-                                  'Setup".',
-                                  $app, $app, $appBase . '/config'),
-            'prefs.php' => sprintf('This file controls the default preferences ' .
-                                   'for %s, and also controls which preferences ' .
-                                   'users can alter.', $app),
-            'mime_drivers.php' => sprintf('This file controls local MIME ' .
-                                          'drivers for %s, specifically what ' .
-                                          'kinds of files are viewable and/or ' .
-                                          'downloadable.', $app),
-            'backends.php' => sprintf('This file controls what backends are ' .
-                                      'available from %s.', $app),
-            'sources.php' => sprintf('This file defines the list of available ' .
-                                     'sources for %s.', $app)
-        ), $additional);
-
-        /* If we know the user is an admin, give them a direct link to
-         * generate conf.php. In the future, should we try generating
-         * a basic conf.php automagically here? */
-        if (Horde_Auth::isAdmin()) {
-            $setup_url = Horde::link(Horde::url($GLOBALS['registry']->get('webroot', 'horde') .
-                                                '/admin/setup/config.php?app=' . Horde_String::lower($app))) .
-                'Configuration Web Interface' . '</a>';
-            $descriptions['conf.php'] =
-                sprintf('This is the main %s configuration file. ' .
-                        'Generate it by going to the %s.',
-                        $app, $setup_url);
-        }
-
-        $title = sprintf('%s is not properly configured', $app);
-        $header = sprintf('Some of %s\'s configuration files are missing or unreadable', $app);
-        $footer = sprintf('Create these files from their .dist versions in %s and change them according to your needs.', $appBase . '/config');
-
-        echo <<< HEADER
-<html>
-<head><title>$title</title></head>
-<body style="background-color: white; color: black;">
-<h1>$header</h1>
-HEADER;
-
-        foreach ($files as $file) {
-            if (empty($descriptions[$file])) {
-                continue;
-            }
-            $description = $descriptions[$file];
-            echo <<< FILE
-    <h3>$file</h3><p>$description</p>
-FILE;
-        }
-
-        echo <<< FOOTER
-
-<h2>$footer</h2>
-</body>
-</html>
-FOOTER;
-        exit;
-    }
-
-    /**
      * Check the list of required Horde applications.
-     *
-     * @param array $app_list  The application list.
-     * <pre>
-     * KEY:   application name
-     * VALUE: An array with the following entries:
-     *        'error'    --  Error Message
-     *        'version'  --  The minimum version required
-     * </pre>
      *
      * @return string  The HTML output.
      */
-    function requiredAppCheck($app_list)
+    public function requiredAppCheck()
     {
         $output = '';
 
-        $apps = $this->applicationList();
+        $horde_apps = $GLOBALS['registry']->listApps(null, true);
 
-        foreach ($app_list as $key => $val) {
+        foreach ($this->_appList as $key => $val) {
             $entry = array();
             $entry[] = $key;
 
-            if (!isset($apps[$key])) {
+            if (!isset($horde_apps[$key])) {
                 $entry[] = $this->_status(false, false);
                 $entry[] = $val['error'];
                 $entry[] = 1;
             } else {
-                /* Strip '-cvs', '-git', and H3|H4 (ver) from version string. */
-                $appver = str_replace(array('-cvs', '-git'), array('', ''), $apps[$key]->version);
-                $appver = preg_replace('/(H3|H4) \((.*)\)/', '$2', $appver);
+                /* Strip '-git', and H# (ver) from version string. */
+                $origver = $GLOBALS['registry']->getVersion($key);
+                $appver = preg_replace('/(H\d) \((.*)\)/', '$2', str_replace('-git', '', $origver));
                 if (version_compare($val['version'], $appver) === 1) {
-                    $entry[] = $this->_status(false, false) . ' (Have version: ' . $apps[$key]->version . '; Need version: ' . $val['version'] . ')';
+                    $entry[] = $this->_status(false, false) . ' (Have version: ' . $origver . '; Need version: ' . $val['version'] . ')';
                     $entry[] = $val['error'];
                     $entry[] = 1;
                 } else {
-                    $entry[] = $this->_status(true) . ' (Version: ' . $apps[$key]->version . ')';
+                    $entry[] = $this->_status(true) . ' (Version: ' . $origver . ')';
                 }
             }
             $output .= $this->_outputLine($entry);
@@ -554,9 +682,8 @@ FOOTER;
      *
      * @param boolean  True if a recent version of PEAR.
      */
-    function isRecentPEAR()
+    protected function _isRecentPear()
     {
-        @include_once 'PEAR.php';
         $pear_methods = get_class_methods('PEAR');
         return (is_array($pear_methods) &&
                 (in_array('registershutdownfunc', $pear_methods) ||
@@ -568,7 +695,7 @@ FOOTER;
      *
      * @return object stdClass  TODO
      */
-    function getPhpVersionInformation()
+    public function getPhpVersionInformation()
     {
         $output = new stdClass;
         $url = urlencode($_SERVER['PHP_SELF']);
@@ -588,7 +715,7 @@ FOOTER;
         $output->class = $this->_phpver['class'];
 
         $output->status_color = 'red';
-        if ($output->major < '4.3') {
+        if ($output->major < '5.2') {
             $output->status = 'This version of PHP is not supported. You need to upgrade to a more recent version.';
             $vers_check = false;
         } elseif (in_array($output->major, $this->_supported)) {
@@ -600,71 +727,33 @@ FOOTER;
         }
 
         if (!$vers_check) {
-            $output->version_check = 'Horde requires PHP 4.3.0 or greater.';
+            $output->version_check = 'Horde requires PHP 5.2.0 or greater.';
         }
 
         return $output;
     }
 
     /**
-     * Get the application list.
-     *
-     * @return array  List of stdClass objects.
-     *                KEY: application name
-     *                ELEMENT 'version': Version of application
-     *                ELEMENT 'test': The location of the test script (if any)
-     */
-    function applicationList()
-    {
-        if (!empty($this->_appoutput)) {
-            return $this->_appoutput;
-        }
-
-        foreach ($this->applications as $mod => $det) {
-            if (($det['status'] != 'heading') &&
-                ($det['status'] != 'block')) {
-                $classname = $mod . '_Application';
-                if ((@include_once $det['fileroot'] . '/lib/Application.php') &&
-                    class_exists($classname)) {
-                    $api = new $classname;
-                    $this->_appoutput[$mod] = new stdClass;
-                    $this->_appoutput[$mod]->version = $api->version;
-                    if (($mod != 'horde') &&
-                        is_readable($det['fileroot'] . '/test.php')) {
-                        $this->_appoutput[$mod]->test = $det['webroot'] . '/test.php';
-                    }
-                }
-            }
-        }
-
-        return $this->_appoutput;
-    }
-
-    /**
      * Output the results of a status check.
-     *
-     * @access private
      *
      * @param boolean $bool      The result of the status check.
      * @param boolean $required  Whether the checked item is required.
      *
      * @return string  The HTML of the result of the status check.
      */
-    function _status($bool, $required = true)
+    protected function _status($bool, $required = true)
     {
         if ($bool) {
             return '<strong style="color:green">Yes</strong>';
         } elseif ($required) {
             return '<strong style="color:red">No</strong>';
-        } else {
-            return '<strong style="color:orange">No</strong>';
         }
+
+        return '<strong style="color:orange">No</strong>';
     }
 
     /**
      * Internal output function.
-     *
-     * @access private
      *
      * @param array $entry  Array with the following values:
      * <pre>
@@ -676,16 +765,50 @@ FOOTER;
      *
      * @return string  HTML output.
      */
-    function _outputLine($entry)
+    protected function _outputLine($entry)
     {
         $output = '<li>' . array_shift($entry) . ': ' . array_shift($entry);
         if (!empty($entry)) {
             $msg = array_shift($entry);
             $output .= '<br /><strong style="color:' . (empty($entry) || !array_shift($entry) ? 'red' : 'orange') . '">' . $msg . "</strong>\n";
         }
-        $output .= '</li>' . "\n";
 
-        return $output;
+        return $output . "</li>\n";
+    }
+
+    /**
+     * Any application specific tests that need to be done.
+     *
+     * @return string  HTML output.
+     */
+    public function appTests()
+    {
+        /* File upload information. */
+        $upload_check = $this->phpSettingCheck(array(
+            'file_uploads' => array(
+                'error' => 'file_uploads must be enabled for some features like sending emails with IMP.',
+                'setting' => true
+            )
+        ));
+        $upload_tmp_dir = ($dir = ini_get('upload_tmp_dir'))
+            ? '<li>upload_tmp_dir: <strong style="color:"' . (is_writable($dir) ? 'green' : 'red') . '">' . $dir . '</strong></li>'
+            : '';
+
+        $ret = '<h1>File Uploads</h1><ul>' .
+            $upload_check .
+            $upload_tmp_dir .
+            '<li>upload_max_filesize: ' . ini_get('upload_max_filesize') . '</li>'.
+            '<li>post_max_size: ' . ini_get('post_max_size') . '<br />' .
+            'This value should be several times the expect largest upload size (notwithstanding any upload limits present in an application). Any upload that exceeds this size will cause any state information sent along with the uploaded data to be lost. This is a PHP limitation and can not be worked around.'.
+            '</li></ul>';
+
+        /* Determine if 'static' is writable by the web user. */
+        $ret .= '<h1>Local File Permissions</h1><ul>' .
+            '<li>Is <tt>' . htmlspecialchars(HORDE_BASE) . '/static</tt> writable by the web server user? ';
+        $ret .= is_writable(HORDE_BASE . '/static')
+            ? 'Yes'
+            : "<strong style=\"color:red\">No</strong><br /><strong style=\"color:orange\">If caching javascript and CSS files by storing them in static files (HIGHLY RECOMMENDED), this directory must be writable as the user the web server runs as.</strong>";
+        return $ret . '</li></ul>';
     }
 
 }
