@@ -354,7 +354,7 @@ ksort($full_headers);
 /* For the self URL link, we can't trust the index in the query string as it
  * may have changed if we deleted/copied/moved messages. We may need other
  * stuff in the query string, so we need to do an add/remove of 'uid'. */
-$selfURL = new Horde_Url(true);
+$selfURL = Horde::selfUrl(true);
 IMP::$newUrl = $selfURL = IMP::generateIMPUrl($selfURL->remove(array('actionID', 'mailbox', 'thismailbox', 'uid')), $imp_mbox['mailbox'], $uid, $mailbox_name)->add('message_token', $message_token);
 $headersURL = $selfURL->copy()->remove(array('show_all_headers', 'show_list_headers'));
 
