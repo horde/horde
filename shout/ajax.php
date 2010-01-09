@@ -16,7 +16,8 @@
 
 // Need to load Horde_Util:: to give us access to Horde_Util::getPathInfo().
 require_once dirname(__FILE__) . '/lib/Application.php';
-$action = basename(Horde_Util::getPathInfo());
+$action = Horde_Util::getFormData('action');
+
 if (empty($action)) {
     // This is the only case where we really don't return anything, since
     // the frontend can be presumed not to make this request on purpose.
@@ -25,7 +26,7 @@ if (empty($action)) {
 }
 
 try {
-    new Shout_Application();
+    $shout = new Shout_Application(array('init' => true));
 } catch (Horde_Exception $e) {
     /* Handle session timeouts when they come from an AJAX request. */
     if (($e->getCode() == Horde_Registry::AUTH_FAILURE) &&
@@ -42,3 +43,49 @@ try {
     Horde_Auth::authenticateFailure('shout', $e);
 }
 
+$context = $_SESSION['shout']['context'];
+
+switch($action) {
+case 'addDestination':
+    try {
+        // FIXME: Use Form?
+        $exten = Horde_Util::getFormData('extension');
+        $type = Horde_Util::getFormData('type');
+        $dest = Horde_Util::getFormData('destination');
+        $shout->extensions->addDestination($context, $exten, $type, $dest);
+
+        $extensions = $shout->extensions->getExtensions($context);
+        Horde::sendHTTPResponse(Horde::prepareResponse($extensions), 'json');
+    } catch (Exception $e) {
+        Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+        //FIXME: Create a way to notify the user of the failure.
+    }
+    
+    break;
+
+case 'deleteDestination':
+    try {
+        // FIXME: Use Form?
+        $exten = Horde_Util::getFormData('extension');
+        $type = Horde_Util::getFormData('type');
+        $dest = Horde_Util::getFormData('destination');
+        $shout->extensions->deleteDestination($context, $exten, $type, $dest);
+
+        $extensions = $shout->extensions->getExtensions($context);
+        Horde::sendHTTPResponse(Horde::prepareResponse($extensions), 'json');
+    } catch (Exception $e) {
+        Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+        //FIXME: Create a way to notify the user of the failure.
+    }
+    break;
+
+case 'getDestinations':
+    try {
+        $extensions = $shout->extensions->getExtensions($context);
+        Horde::sendHTTPResponse(Horde::prepareResponse($extensions), 'json');
+    } catch (Exception $e) {
+        Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+        //FIXME: Create a way to notify the user of the failure.
+    }
+    break;
+}

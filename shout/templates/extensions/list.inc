@@ -72,8 +72,20 @@
 
 var destinations = new Array();
 
-function resetDestInfo(exten)
+function resetDestInfo(collapse)
 {
+    destinations.each(function(item) {
+        exten = item.key;
+        _resetExtenDest(exten);
+        if (collapse) {
+            contract(exten);
+        }
+    });
+}
+
+function _resetExtenDest(exten)
+{
+
     while ((e = $('destX'+exten+'info').childNodes[0]) != null) {
         $('destX'+exten+'info').removeChild(e);
     }
@@ -89,24 +101,34 @@ function resetDestInfo(exten)
     }
 
     dest['devices'].each(function(s) {
-        e = document.createElement('img');
-        e.src = "<?php echo $registry->getImageDir() . '/shout.png'; ?>";
-        t = document.createTextNode(" "+s);
-        b = document.createElement('br');
-        $('destX'+exten+'info').appendChild(e);
-        $('destX'+exten+'info').appendChild(t);
-        $('destX'+exten+'info').appendChild(b);
+        img = document.createElement('img');
+        img.src = "<?php echo $registry->getImageDir() . '/shout.png'; ?>";
+        text = document.createTextNode(" "+s+" ");
+        del = document.createElement('img');
+        del.src = "<?php echo $registry->getImageDir('horde') . '/delete-small.png'; ?>"
+        del.style.cursor = 'pointer';
+        del.setAttribute('onclick', 'delDest("'+exten+'", "device", "'+s+'")');
+        br = document.createElement('br');
+        $('destX'+exten+'info').appendChild(img);
+        $('destX'+exten+'info').appendChild(text);
+        $('destX'+exten+'info').appendChild(del);
+        $('destX'+exten+'info').appendChild(br);
     });
 
 
     dest['numbers'].each(function(s) {
-        e = document.createElement('img');
-        e.src = "<?php echo $registry->getImageDir() . '/telephone-pole.png'; ?>";
-        t = document.createTextNode(" "+s);
-        b = document.createElement('br');
-        $('destX'+exten+'info').appendChild(e);
-        $('destX'+exten+'info').appendChild(t);
-        $('destX'+exten+'info').appendChild(b);
+        img = document.createElement('img');
+        img.src = "<?php echo $registry->getImageDir() . '/telephone-pole.png'; ?>";
+        text = document.createTextNode(" "+s+" ");
+        del = document.createElement('img');
+        del.src = "<?php echo $registry->getImageDir('horde') . '/delete-small.png'; ?>"
+        del.style.cursor = 'pointer';
+        del.setAttribute('onclick', 'delDest("'+exten+'", "number", "'+s+'")');
+        br = document.createElement('br');
+        $('destX'+exten+'info').appendChild(img);
+        $('destX'+exten+'info').appendChild(text);
+        $('destX'+exten+'info').appendChild(del);
+        $('destX'+exten+'info').appendChild(br);
     });
 
     form = document.createElement('form');
@@ -158,51 +180,72 @@ function contract(exten)
 function processForm(event)
 {
     Event.stop(event);
-    spinner = document.createElement('img');
-    spinner.src = "<?php echo $registry->getImageDir('horde') . '/loading.gif'; ?>"
     form = event.target;
     Element.extend(form);
 
     exten = form.getInputs('hidden', 'extension').first().value;
 
-    resetDestInfo(exten);
+    spinner = document.createElement('img');
+    spinner.src = "<?php echo $registry->getImageDir('horde') . '/loading.gif'; ?>"
 
-    $('destX'+exten+'addDest').show();
+    $('destX'+exten+'submit').hide();
+    form.insertBefore(spinner, $('destX'+exten+'submit'))
 
+    // FIXME: Better error handling
+    new Ajax.Request('<?php echo Horde::applicationUrl('ajax.php'); ?>',
+    {
+        method: 'post',
+        parameters: form.serialize(true),
+        onSuccess: function(r) {
+            //alert(json ? Object.inspect(json) : "no JSON object")
+            destinations = $H(r.responseJSON.response);
+            resetDestInfo();
+        },
+        onFailure: function(){ alert('Something went wrong...') }
+    });
 }
 
 function addDest(exten)
 {
+    // Hide the link to create the form below.
+    // We only want one active at a time.
     $('destX'+exten+'addDest').hide();
+
+    hidden = document.createElement('input');
+    hidden.type = 'hidden';
+    hidden.name = 'action';
+    hidden.value = 'addDestination';
+
     select = document.createElement('select');
     select.name = 'type';
 
     option = document.createElement('option');
-    option.name = 'number';
+    option.value = 'number';
     text = document.createTextNode("<?php echo _("Number"); ?>");
     option.appendChild(text);
     select.appendChild(option);
 
     option = document.createElement('option');
-    option.name = 'device';
+    option.value = 'device';
     text = document.createTextNode("<?php echo _("Device"); ?>");
     option.appendChild(text);
     select.appendChild(option);
 
     input = document.createElement('input');
     input.name = 'destination';
-    input.id = 'destination';
     input.type = "text";
     input.size = 12;
     input.maxlength = 15;
 
     save = document.createElement("input");
-    save.name = "action";
+    save.name = "submit";
     save.value = "Save";
     save.type = "submit";
+    save.id = 'destX'+exten+'submit';
 
     br = document.createElement('br');
 
+    $('destX'+exten+'form').appendChild(hidden);
     $('destX'+exten+'form').appendChild(select);
     $('destX'+exten+'form').appendChild(input);
     $('destX'+exten+'form').appendChild(save);
@@ -211,28 +254,40 @@ function addDest(exten)
     Event.observe($('destX'+exten+'form'), 'submit', function(event) {processForm(event);});
 }
 
-destinations = $H({
-<?php
-foreach ($extensions as $extension => $info)
+function delDest(exten, type, dest)
 {
-    echo "'${extension}': {\n";
-    if (count($info['devices'])) {
-        echo '  \'devices\': ["' . implode('","', $info['devices']) . '"],';
-    }
-    if (count($info['numbers'])) {
-        echo '  \'numbers\': ["' . implode('","', $info['numbers']) . '"],';
-    }
-    echo "},\n";
-}
-?>
-});
+    params = $H({
+        'extension': exten,
+        'type': type,
+        'destination': dest,
+        'action': 'deleteDestination'
+    });
 
-// Initialize the data.
-destinations.each(function(item) {
-    exten = item.key;
-    resetDestInfo(exten);
-    contract(exten);
-})
+    // FIXME: Better error handling
+    new Ajax.Request('<?php echo Horde::applicationUrl('ajax.php'); ?>',
+    {
+        method: 'post',
+        parameters: params,
+        onSuccess: function(r) {
+            //alert(json ? Object.inspect(json) : "no JSON object")
+            destinations = $H(r.responseJSON.response);
+            resetDestInfo();
+        },
+        onFailure: function(){ alert('Something went wrong...') }
+    });
+}
+
+destinations = $H();
+
+new Ajax.Request('<?php echo Horde::applicationUrl('ajax.php'); ?>',
+{
+    method: 'post',
+    parameters: $H({'action': 'getDestinations'}),
+    onSuccess: function(r) {
+        destinations = $H(r.responseJSON.response);
+        resetDestInfo(true);
+    }
+});
 
 // -->
 </script>

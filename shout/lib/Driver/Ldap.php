@@ -153,9 +153,36 @@ class Shout_Driver_Ldap extends Shout_Driver
     }
 
     /**
+     * Add a new destination valid for this extension.
+     * A destination is either a telephone number or a VoIP device.
+     *
+     * @param string $context      Context for the extension
+     * @param string $extension    Extension for which to return destinations
+     * @param string $type         Destination type ("device" or "number")
+     * @param string $destination  The destination itself
+     *
+     * @return boolean  True on success.
+     */
+    function addDestination($context, $extension, $type, $destination)
+    {
+        // FIXME: Permissions check
+        $dn = $this->_getExtensionDn($context, $extension);
+        $attr = $this->_getDestAttr($type, $destination);
+
+        $res = ldap_mod_add($this->_LDAP, $dn, $attr);
+        if ($res === false) {
+            $msg = sprintf('Error while modifying the LDAP entry.  Code %s; Message "%s"',
+                           ldap_errno($this->_LDAP), ldap_error($this->_LDAP));
+            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Shout_Exception(_("Internal error modifing the directory.  Details have been logged for the administrator."));
+        }
+
+        return true;
+    }
+
+    /**
      * Get a list of destinations valid for this extension.
-     * A destination is either a telephone number, a VoIP device or an
-     * Instant Messaging address (a special case of VoIP).
+     * A destination is either a telephone number or a VoIP device.
      *
      * @param string $context    Context for the extension
      * @param string $extension  Extension for which to return destinations
@@ -196,6 +223,45 @@ class Shout_Driver_Ldap extends Shout_Driver
 
         return array('numbers' => $res['telephonenumbers'],
                      'devices' => $res['astextensions']);
+    }
+
+    function deleteDestination($context, $extension, $type, $destination)
+    {
+        $dn = $this->_getExtensionDn($context, $extension);
+        $attr = $this->_getDestAttr($type, $destination);
+        
+        $res = ldap_mod_del($this->_LDAP, $dn, $attr);
+        if ($res === false) {
+            $msg = sprintf('Error while modifying the LDAP entry.  Code %s; Message "%s"',
+                           ldap_errno($this->_LDAP), ldap_error($this->_LDAP));
+            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Shout_Exception(_("Internal error modifing the directory.  Details have been logged for the administrator."));
+        }
+
+        return true;
+    }
+
+    protected function _getDestAttr($type, $destination)
+    {
+        switch ($type) {
+        case 'number':
+            // FIXME: Strip this number down to just digits
+            // FIXME: Add check for non-international numbers?
+            $attr = array('telephoneNumber' => $destination);
+            break;
+
+        case 'device':
+            // FIXME: Check that the device is valid and associated with this
+            // context.
+            $attr = array('AstExtension' => $destination);
+            break;
+
+        default:
+            throw new Shout_Exception(_("Invalid destination type specified."));
+            break;
+        }
+
+        return $attr;
     }
 
     /**
