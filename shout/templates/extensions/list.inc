@@ -65,21 +65,21 @@ function resetExtenDest(exten)
 {
     var e;
     
-    while ((e = $('destX' + exten + 'info').childNodes[0]) !== null) {
+    while ((e = $('destX' + exten + 'info').childNodes[0]) != null) {
         $('destX' + exten + 'info').removeChild(e);
     }
 
-    while ((e = $('destX' + exten + 'summary').childNodes[0]) !== null) {
+    while ((e = $('destX' + exten + 'summary').childNodes[0]) != null) {
         $('destX' + exten + 'summary').removeChild(e);
     }
 
     var dest = destinations.get(exten);
 
-    if (dest.devices === null) {
+    if (dest.devices == null) {
         dest.devices = [];
     }
 
-    if (dest.numbers === null) {
+    if (dest.numbers == null) {
         dest.numbers = [];
     }
 
@@ -91,7 +91,7 @@ function resetExtenDest(exten)
         var span = document.createElement('span');
         span.className = 'device';
         var text = document.createTextNode(" " + s + " ");
-        text.setAttribute('onClick', 'editDest("' + exten + '", "device", "' + s + '")');
+        span.setAttribute('onClick', 'editDest("' + exten + '", "device", "' + s + '")');
         span.appendChild(text);
 
         var del = document.createElement('img');
@@ -124,7 +124,7 @@ function resetExtenDest(exten)
         var span = document.createElement('span');
         span.className = 'device';
         var text = document.createTextNode(" " + s + " ");
-        text.setAttribute('onClick', 'editDest("' + exten + '", "number", "' + s + '")');
+        span.setAttribute('onClick', 'editDest("' + exten + '", "number", "' + s + '")');
         span.appendChild(text);
 
         var del = document.createElement('img');
@@ -183,7 +183,7 @@ function resetDestInfo(collapse)
 function destinfo(exten)
 {
     // Use the summary icons span as our state key
-    if ($('destX' + exten + 'summary').style.display === 'none') {
+    if ($('destX' + exten + 'summary').style.display == 'none') {
         // Icons hidden, we are expanded
         contract(exten);
     } else {
@@ -245,6 +245,7 @@ function addDest(exten)
     hidden.value = 'addDestination';
 
     var select = document.createElement('select');
+    select.id = 'destX' + exten + 'type';
     select.name = 'type';
 
     var option = document.createElement('option');
@@ -260,6 +261,7 @@ function addDest(exten)
     select.appendChild(option);
 
     var input = document.createElement('input');
+    input.id = 'destX' + exten + 'destination';
     input.name = 'destination';
     input.type = "text";
     input.size = 12;
@@ -284,14 +286,17 @@ function addDest(exten)
 
 function editDest(exten, type, dest)
 {
+    var key = (type == "number") ? 'numbers' : 'devices';
+
     // Remove the current destination from the list
     var xd = destinations.get(exten);
-    xd.set(type, xd.get(type).without(dest));
+    xd[key] = xd[key].without(dest);
     destinations.set(exten, xd);
+    resetExtenDest(exten);
 
     addDest(exten);
-    $('destX' + exten + 'form').getInputs('select', 'type').first().value = type
-    $('destX' + exten + 'form').getInputs('input', 'destination').first().value = exten;
+    $('destX' + exten + 'type').value = type
+    $('destX' + exten + 'destination').value = dest;
 }
 
 function delDest(exten, type, dest)
