@@ -105,6 +105,7 @@ function _resetExtenDest(exten)
         img.src = "<?php echo $registry->getImageDir() . '/shout.png'; ?>";
         text = document.createTextNode(" "+s+" ");
         del = document.createElement('img');
+        del.id = "dest"+s+"X"+exten+"del";
         del.src = "<?php echo $registry->getImageDir('horde') . '/delete-small.png'; ?>"
         del.style.cursor = 'pointer';
         del.setAttribute('onclick', 'delDest("'+exten+'", "device", "'+s+'")');
@@ -121,6 +122,7 @@ function _resetExtenDest(exten)
         img.src = "<?php echo $registry->getImageDir() . '/telephone-pole.png'; ?>";
         text = document.createTextNode(" "+s+" ");
         del = document.createElement('img');
+        del.id = "dest"+s+"X"+exten+"del";
         del.src = "<?php echo $registry->getImageDir('horde') . '/delete-small.png'; ?>"
         del.style.cursor = 'pointer';
         del.setAttribute('onclick', 'delDest("'+exten+'", "number", "'+s+'")');
@@ -262,6 +264,13 @@ function delDest(exten, type, dest)
         'destination': dest,
         'action': 'deleteDestination'
     });
+
+    // Hide the delete button and replace it with a spinner
+    $("dest"+dest+"X"+exten+"del").hide();
+    spinner = document.createElement('img');
+    spinner.src = "<?php echo $registry->getImageDir('horde') . '/loading.gif'; ?>"
+    parent = $("dest"+dest+"X"+exten+"del").parentNode;
+    parent.insertBefore(spinner, $("dest"+dest+"X"+exten+"del"));
 
     // FIXME: Better error handling
     new Ajax.Request('<?php echo Horde::applicationUrl('ajax.php'); ?>',
