@@ -37,6 +37,7 @@
             </td>
             <td style="width: 35%;">
                 <?php
+                // FIXME: Convert to <a href=javascript>
                 $attrs = array('onclick' => 'javascript:destinfo("' . $extension . '");',
                                'id' => 'destX' . $extension . 'toggle');
                 echo Horde::img('tree/plusonly.png', _("Destinations"), $attrs,
@@ -44,16 +45,7 @@
                 echo Horde::link($editurl);
                     echo $info['name']; ?>
                 </a>
-                <span id="destX<?php echo $extension; ?>summary">
-                <?php
-                foreach ($info['devices'] as $device) {
-                    echo Horde::img('shout.png');
-                }
-                foreach ($info['numbers'] as $number) {
-                    echo Horde::img('telephone-pole.png');
-                }
-                ?>
-                </span>
+                <span id="destX<?php echo $extension; ?>summary"></span>
                 <div class="extensionDestinations" id="destX<?php echo $extension; ?>info">
                 </div>
             </td>
@@ -90,6 +82,10 @@ function _resetExtenDest(exten)
         $('destX'+exten+'info').removeChild(e);
     }
 
+    while ((e = $('destX'+exten+'summary').childNodes[0]) != null) {
+        $('destX'+exten+'summary').removeChild(e);
+    }
+
     dest = destinations.get(exten);
 
     if (dest['devices'] == null) {
@@ -101,6 +97,7 @@ function _resetExtenDest(exten)
     }
 
     dest['devices'].each(function(s) {
+        // Fill in detail block
         img = document.createElement('img');
         img.src = "<?php echo $registry->getImageDir() . '/shout.png'; ?>";
         text = document.createTextNode(" "+s+" ");
@@ -114,10 +111,17 @@ function _resetExtenDest(exten)
         $('destX'+exten+'info').appendChild(text);
         $('destX'+exten+'info').appendChild(del);
         $('destX'+exten+'info').appendChild(br);
+
+        // Create summary icons
+        img = document.createElement('img');
+        img.src = "<?php echo $registry->getImageDir() . '/shout.png'; ?>";
+        $('destX'+exten+'summary').appendChild(img);
+
     });
 
 
     dest['numbers'].each(function(s) {
+        // Fill in detail block
         img = document.createElement('img');
         img.src = "<?php echo $registry->getImageDir() . '/telephone-pole.png'; ?>";
         text = document.createTextNode(" "+s+" ");
@@ -131,6 +135,11 @@ function _resetExtenDest(exten)
         $('destX'+exten+'info').appendChild(text);
         $('destX'+exten+'info').appendChild(del);
         $('destX'+exten+'info').appendChild(br);
+
+        // Create summary icons
+        img = document.createElement('img');
+        img.src = "<?php echo $registry->getImageDir() . '/telephone-pole.png'; ?>";
+        $('destX'+exten+'summary').appendChild(img);
     });
 
     form = document.createElement('form');
