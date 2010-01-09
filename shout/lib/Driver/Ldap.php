@@ -253,7 +253,8 @@ class Shout_Driver_Ldap extends Shout_Driver
         case 'device':
             // FIXME: Check that the device is valid and associated with this
             // context.
-            $attr = array('AstExtension' => $destination);
+            // FIXME: Allow for different device types
+            $attr = array('AstExtension' => "SIP/" . $destination);
             break;
 
         default:
