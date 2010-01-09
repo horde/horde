@@ -81,7 +81,7 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
      *   Requests a maximum column length (<tt>:string</tt>, <tt>:text</tt>,
      *   <tt>:binary</tt> or <tt>:integer</tt> columns only)
      * * <tt>:default</tt>:
-     *   The column's default value.  You cannot explicitely set the default
+     *   The column's default value.  You cannot explicitly set the default
      *   value to +NULL+.  Simply leave off this option if you want a +NULL+
      *   default value.
      * * <tt>:null</tt>:
@@ -115,7 +115,7 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
         $natives = $this->_native();
         $opt = $options;
 
-        if (isset($opt['limit']) || isset($natives[$type])) {
+        if (isset($opt['limit']) || (isset($natives[$type]) && is_array($natives[$type]))) {
             $nativeLimit = isset($natives[$type]['limit']) ? $natives[$type]['limit'] : null;
             $column->setLimit(isset($opt['limit']) ? $opt['limit'] : $nativeLimit);
         }
