@@ -51,9 +51,11 @@ class Horde_Ajax_Imple_Geocoder_Geonames extends Horde_Ajax_Imple_Base
     public function handle($args, $post)
     {
         if ($args['location']) {
-            $url = Horde_Util::addParameter('http://ws.geonames.org/searchJSON', 'q', $args['location']);
+            $url = new Horde_Url('http://ws.geonames.org/searchJSON');
+            $url = $url->add('q', $args['location']);
         } elseif (!empty($args['lat']) && !empty($args['lon'])) {
-            $url = Horde_Util::addParameter('http:/ws.geonames.org/findNearestJSON', array('lat' => $args['lat'], 'lng' => $args['lon']));
+            $url = new Horde_Url('http:/ws.geonames.org/findNearestJSON');
+            $url = $url->add(array('lat' => $args['lat'], 'lng' => $args['lon']));
         }
         $client = new Horde_Http_Client();
         try {
