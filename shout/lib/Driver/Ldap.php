@@ -229,7 +229,7 @@ class Shout_Driver_Ldap extends Shout_Driver
     {
         $dn = $this->_getExtensionDn($context, $extension);
         $attr = $this->_getDestAttr($type, $destination);
-        
+
         $res = ldap_mod_del($this->_LDAP, $dn, $attr);
         if ($res === false) {
             $msg = sprintf('Error while modifying the LDAP entry.  Code %s; Message "%s"',
@@ -381,14 +381,14 @@ class Shout_Driver_Ldap extends Shout_Driver
             Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
             throw new Horde_Exception(_("Error while deleting from the directory.  Details have been logged for the administrator."));
         }
-        
+
         return true;
     }
 
     /**
      *
      * @param <type> $context
-     * @param <type> $extension 
+     * @param <type> $extension
      */
     protected function _getExtensionDn($context, $extension)
     {

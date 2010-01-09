@@ -60,7 +60,7 @@ case 'addDestination':
         Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
         //FIXME: Create a way to notify the user of the failure.
     }
-    
+
     break;
 
 case 'deleteDestination':
