@@ -1,0 +1,54 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Copyright 2010 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ *
+ * @author Chuck Hagenbuch <chuck@horde.org>
+ */
+
+// Do CLI checks and environment setup first.
+require_once dirname(__FILE__) . '/../lib/core.php';
+
+// Make sure no one runs this from the web.
+if (!Horde_Cli::runningFromCLI()) {
+    exit("Must be run from the command line\n");
+}
+
+// Load the CLI environment - make sure there's no time limit, init some
+// variables, etc.
+Horde_Cli::init();
+
+// Include needed libraries.
+new Horde_Application(array('authentication' => 'none'));
+
+// Get a database connection
+$GLOBALS['conf']['sql']['adapter'] = $GLOBALS['conf']['sql']['phptype'] == 'mysqli' ? 'mysqli' : 'pdo_' . $GLOBALS['conf']['sql']['phptype'];
+$db = Horde_Db_Adapter::factory($GLOBALS['conf']['sql']);
+
+// Parse command line arguments
+$parser = new Horde_Argv_Parser();
+$parser->addOption('-a', '--app', array('type' => 'string'));
+$parser->addOption('-v', '--version', array('type' => 'int'));
+
+list($options, $positionalArgs) = $parser->parseArgs();
+
+if (empty($options->app)) {
+    $parser->parserError("The -a/--app argument is required");
+}
+$app = $options->app;
+if (!in_array($app, $GLOBALS['registry']->listApps())) {
+    $parser->parserError("$app is not a configured Horde application");
+}
+
+// Run
+$dir = $GLOBALS['registry']->get('fileroot', $app) . '/migrations/';
+$migrator = new Horde_Db_Migration_Migrator($db, $dir);
+try {
+    $migrator->up();
+} catch (Exception $e) {
+    echo $e->getMessage();
+    exit(1);
+}
