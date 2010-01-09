@@ -52,6 +52,12 @@ a.addDest
     font-style: italic;
 }
 
+span.device:hover
+{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 ul {
     list-style: none;
     display: inline;

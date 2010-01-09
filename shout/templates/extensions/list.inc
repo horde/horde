@@ -16,7 +16,7 @@
     <table width="100%" cellspacing="0" class="striped">
         <tr>
             <td class="uheader">Extension</td>
-            <td class="uheader">Name</td>
+            <td class="uheader">Destinations</td>
             <td class="uheader">E-Mail Address</td>
         </tr>
         <?php
@@ -33,18 +33,15 @@
         ?>
         <tr class="item" style="vertical-align: top">
             <td style="width: 20%">
-                <?php echo Horde::link($editurl); echo $extension; ?></a>
+                <?php echo Horde::link($editurl); echo $info['name'] . ' (' . $extension . ')'; ?></a>
             </td>
             <td style="width: 35%;">
                 <?php
-                // FIXME: Convert to <a href=javascript>
-                $attrs = array('onclick' => 'javascript:destinfo("' . $extension . '");',
+                $attrs = array('onClick' => 'destinfo("' . $extension . '");',
                                'id' => 'destX' . $extension . 'toggle');
                 echo Horde::img('tree/plusonly.png', _("Destinations"), $attrs,
                                 $registry->getImageDir('horde'));
-                echo Horde::link($editurl);
-                    echo $info['name']; ?>
-                </a>
+                ?>
                 <span id="destX<?php echo $extension; ?>summary"></span>
                 <div class="extensionDestinations" id="destX<?php echo $extension; ?>info">
                 </div>
@@ -62,111 +59,131 @@
 <script type="text/javascript">
 <!--
 
-var destinations = new Array();
+var destinations = [];
+
+function resetExtenDest(exten)
+{
+    var e;
+    
+    while ((e = $('destX' + exten + 'info').childNodes[0]) !== null) {
+        $('destX' + exten + 'info').removeChild(e);
+    }
+
+    while ((e = $('destX' + exten + 'summary').childNodes[0]) !== null) {
+        $('destX' + exten + 'summary').removeChild(e);
+    }
+
+    var dest = destinations.get(exten);
+
+    if (dest.devices === null) {
+        dest.devices = [];
+    }
+
+    if (dest.numbers === null) {
+        dest.numbers = [];
+    }
+
+    dest.devices.each(function (s) {
+        // Fill in detail block
+        var img = document.createElement('img');
+        img.src = "<?php echo $registry->getImageDir() . '/shout.png'; ?>";
+
+        var span = document.createElement('span');
+        span.className = 'device';
+        var text = document.createTextNode(" " + s + " ");
+        text.setAttribute('onClick', 'editDest("' + exten + '", "device", "' + s + '")');
+        span.appendChild(text);
+
+        var del = document.createElement('img');
+        del.id = "dest" + s + "X" + exten + "del";
+        del.src = "<?php echo $registry->getImageDir('horde') . '/delete-small.png'; ?>"
+        del.style.cursor = 'pointer';
+        del.setAttribute('onClick', 'delDest("' + exten + '", "device", "' + s + '")');
+
+        var br = document.createElement('br');
+
+        var info = $('destX' + exten + 'info');
+        info.appendChild(img);
+        info.appendChild(span);
+        info.appendChild(del);
+        info.appendChild(br);
+
+        // Create summary icons
+        img = document.createElement('img');
+        img.src = "<?php echo $registry->getImageDir() . '/shout.png'; ?>";
+        $('destX' + exten + 'summary').appendChild(img);
+
+    });
+
+
+    dest.numbers.each(function (s) {
+        // Fill in detail block
+        var img = document.createElement('img');
+        img.src = "<?php echo $registry->getImageDir() . '/telephone-pole.png'; ?>";
+
+        var span = document.createElement('span');
+        span.className = 'device';
+        var text = document.createTextNode(" " + s + " ");
+        text.setAttribute('onClick', 'editDest("' + exten + '", "number", "' + s + '")');
+        span.appendChild(text);
+
+        var del = document.createElement('img');
+        del.id = "dest" + s + "X" + exten + "del";
+        del.src = "<?php echo $registry->getImageDir('horde') . '/delete-small.png'; ?>";
+        del.style.cursor = 'pointer';
+        del.setAttribute('onclick', 'delDest("' + exten + '", "number", "' + s + '")');
+
+        var br = document.createElement('br');
+
+        var info = $('destX' + exten + 'info');
+        info.appendChild(img);
+        info.appendChild(span);
+        info.appendChild(del);
+        info.appendChild(br);
+
+        // Create summary icons
+        img = document.createElement('img');
+        img.src = "<?php echo $registry->getImageDir() . '/telephone-pole.png'; ?>";
+        $('destX' + exten + 'summary').appendChild(img);
+    });
+
+    var form = document.createElement('form');
+    form.method = 'post';
+    form.action = '#';
+    form.id = 'destX' + exten + 'form';
+    var hidden = document.createElement('input');
+    hidden.type = 'hidden';
+    hidden.name = 'extension';
+    hidden.value = exten;
+    form.appendChild(hidden);
+    $('destX' + exten + 'info').appendChild(form);
+
+    var a = document.createElement('a');
+    a.id = 'destX' + exten + 'addDest';
+    a.className = 'addDest';
+    a.href = '#';
+    a.setAttribute('onClick', 'addDest(' + exten + ')');
+    var t = document.createTextNode('Add destination...');
+    a.appendChild(t);
+    $('destX' + exten + 'info').appendChild(a);
+}
 
 function resetDestInfo(collapse)
 {
-    destinations.each(function(item) {
+    destinations.each(function (item) {
+        var exten;
         exten = item.key;
-        _resetExtenDest(exten);
+        resetExtenDest(exten);
         if (collapse) {
             contract(exten);
         }
     });
 }
 
-function _resetExtenDest(exten)
-{
-
-    while ((e = $('destX'+exten+'info').childNodes[0]) != null) {
-        $('destX'+exten+'info').removeChild(e);
-    }
-
-    while ((e = $('destX'+exten+'summary').childNodes[0]) != null) {
-        $('destX'+exten+'summary').removeChild(e);
-    }
-
-    dest = destinations.get(exten);
-
-    if (dest['devices'] == null) {
-        dest['devices'] = new Array();
-    }
-
-    if (dest['numbers'] == null) {
-        dest['numbers'] = new Array();
-    }
-
-    dest['devices'].each(function(s) {
-        // Fill in detail block
-        img = document.createElement('img');
-        img.src = "<?php echo $registry->getImageDir() . '/shout.png'; ?>";
-        text = document.createTextNode(" "+s+" ");
-        del = document.createElement('img');
-        del.id = "dest"+s+"X"+exten+"del";
-        del.src = "<?php echo $registry->getImageDir('horde') . '/delete-small.png'; ?>"
-        del.style.cursor = 'pointer';
-        del.setAttribute('onclick', 'delDest("'+exten+'", "device", "'+s+'")');
-        br = document.createElement('br');
-        $('destX'+exten+'info').appendChild(img);
-        $('destX'+exten+'info').appendChild(text);
-        $('destX'+exten+'info').appendChild(del);
-        $('destX'+exten+'info').appendChild(br);
-
-        // Create summary icons
-        img = document.createElement('img');
-        img.src = "<?php echo $registry->getImageDir() . '/shout.png'; ?>";
-        $('destX'+exten+'summary').appendChild(img);
-
-    });
-
-
-    dest['numbers'].each(function(s) {
-        // Fill in detail block
-        img = document.createElement('img');
-        img.src = "<?php echo $registry->getImageDir() . '/telephone-pole.png'; ?>";
-        text = document.createTextNode(" "+s+" ");
-        del = document.createElement('img');
-        del.id = "dest"+s+"X"+exten+"del";
-        del.src = "<?php echo $registry->getImageDir('horde') . '/delete-small.png'; ?>"
-        del.style.cursor = 'pointer';
-        del.setAttribute('onclick', 'delDest("'+exten+'", "number", "'+s+'")');
-        br = document.createElement('br');
-        $('destX'+exten+'info').appendChild(img);
-        $('destX'+exten+'info').appendChild(text);
-        $('destX'+exten+'info').appendChild(del);
-        $('destX'+exten+'info').appendChild(br);
-
-        // Create summary icons
-        img = document.createElement('img');
-        img.src = "<?php echo $registry->getImageDir() . '/telephone-pole.png'; ?>";
-        $('destX'+exten+'summary').appendChild(img);
-    });
-
-    form = document.createElement('form');
-    form.method = 'post';
-    form.action = '#';
-    form.id = 'destX'+exten+'form';
-    hidden = document.createElement('input');
-    hidden.type = 'hidden';
-    hidden.name = 'extension';
-    hidden.value = exten;
-    form.appendChild(hidden);
-    $('destX'+exten+'info').appendChild(form);
-
-    a = document.createElement('a');
-    a.id = 'destX'+exten+'addDest';
-    a['className'] = 'addDest';
-    a.href='javascript:addDest('+exten+')';
-    //a.setAttribute('onclick', 'addDest('+exten+')');
-    t = document.createTextNode('Add destination...');
-    a.appendChild(t);
-    $('destX'+exten+'info').appendChild(a);
-}
-
 function destinfo(exten)
 {
     // Use the summary icons span as our state key
-    if ($('destX' + exten + 'summary').style.display == 'none') {
+    if ($('destX' + exten + 'summary').style.display === 'none') {
         // Icons hidden, we are expanded
         contract(exten);
     } else {
@@ -176,31 +193,31 @@ function destinfo(exten)
 
 function expand(exten)
 {
-    $('destX'+exten+'summary').hide();
-    $('destX'+exten+'info').show();
+    $('destX' + exten + 'summary').hide();
+    $('destX' + exten + 'info').show();
     $('destX' + exten + 'toggle').src = '<?php echo $registry->getImageDir('horde') . '/tree/minusonly.png'; ?>';
 }
 
 function contract(exten)
 {
-    $('destX'+exten+'summary').show();
-    $('destX'+exten+'info').hide();
+    $('destX' + exten + 'summary').show();
+    $('destX' + exten + 'info').hide();
     $('destX' + exten + 'toggle').src = '<?php echo $registry->getImageDir('horde') . '/tree/plusonly.png'; ?>';
 }
 
 function processForm(event)
 {
     Event.stop(event);
-    form = event.target;
+    var form = event.target;
     Element.extend(form);
 
-    exten = form.getInputs('hidden', 'extension').first().value;
+    var exten = form.getInputs('hidden', 'extension').first().value;
 
-    spinner = document.createElement('img');
+    var spinner = document.createElement('img');
     spinner.src = "<?php echo $registry->getImageDir('horde') . '/loading.gif'; ?>"
 
-    $('destX'+exten+'submit').hide();
-    form.insertBefore(spinner, $('destX'+exten+'submit'))
+    $('destX' + exten + 'submit').hide();
+    form.insertBefore(spinner, $('destX' + exten + 'submit'))
 
     // FIXME: Better error handling
     new Ajax.Request('<?php echo Horde::applicationUrl('ajax.php'); ?>',
@@ -220,19 +237,19 @@ function addDest(exten)
 {
     // Hide the link to create the form below.
     // We only want one active at a time.
-    $('destX'+exten+'addDest').hide();
+    $('destX' + exten + 'addDest').hide();
 
-    hidden = document.createElement('input');
+    var hidden = document.createElement('input');
     hidden.type = 'hidden';
     hidden.name = 'action';
     hidden.value = 'addDestination';
 
-    select = document.createElement('select');
+    var select = document.createElement('select');
     select.name = 'type';
 
-    option = document.createElement('option');
+    var option = document.createElement('option');
     option.value = 'number';
-    text = document.createTextNode("<?php echo _("Number"); ?>");
+    var text = document.createTextNode("<?php echo _("Number"); ?>");
     option.appendChild(text);
     select.appendChild(option);
 
@@ -242,32 +259,44 @@ function addDest(exten)
     option.appendChild(text);
     select.appendChild(option);
 
-    input = document.createElement('input');
+    var input = document.createElement('input');
     input.name = 'destination';
     input.type = "text";
     input.size = 12;
     input.maxlength = 15;
 
-    save = document.createElement("input");
+    var save = document.createElement("input");
     save.name = "submit";
     save.value = "Save";
     save.type = "submit";
-    save.id = 'destX'+exten+'submit';
+    save.id = 'destX' + exten + 'submit';
 
-    br = document.createElement('br');
+    var br = document.createElement('br');
 
-    $('destX'+exten+'form').appendChild(hidden);
-    $('destX'+exten+'form').appendChild(select);
-    $('destX'+exten+'form').appendChild(input);
-    $('destX'+exten+'form').appendChild(save);
-    $('destX'+exten+'form').appendChild(br);
+    $('destX' + exten + 'form').appendChild(hidden);
+    $('destX' + exten + 'form').appendChild(select);
+    $('destX' + exten + 'form').appendChild(input);
+    $('destX' + exten + 'form').appendChild(save);
+    $('destX' + exten + 'form').appendChild(br);
     input.focus();
-    Event.observe($('destX'+exten+'form'), 'submit', function(event) {processForm(event);});
+    Event.observe($('destX' + exten + 'form'), 'submit', function(event) {processForm(event);});
+}
+
+function editDest(exten, type, dest)
+{
+    // Remove the current destination from the list
+    var xd = destinations.get(exten);
+    xd.set(type, xd.get(type).without(dest));
+    destinations.set(exten, xd);
+
+    addDest(exten);
+    $('destX' + exten + 'form').getInputs('select', 'type').first().value = type
+    $('destX' + exten + 'form').getInputs('input', 'destination').first().value = exten;
 }
 
 function delDest(exten, type, dest)
 {
-    params = $H({
+    var params = $H({
         'extension': exten,
         'type': type,
         'destination': dest,
@@ -275,11 +304,11 @@ function delDest(exten, type, dest)
     });
 
     // Hide the delete button and replace it with a spinner
-    $("dest"+dest+"X"+exten+"del").hide();
-    spinner = document.createElement('img');
+    $("dest" + dest + "X" + exten + "del").hide();
+    var spinner = document.createElement('img');
     spinner.src = "<?php echo $registry->getImageDir('horde') . '/loading.gif'; ?>"
-    parent = $("dest"+dest+"X"+exten+"del").parentNode;
-    parent.insertBefore(spinner, $("dest"+dest+"X"+exten+"del"));
+    var parent = $("dest" + dest + "X" + exten + "del").parentNode;
+    parent.insertBefore(spinner, $("dest" + dest + "X" + exten + "del"));
 
     // FIXME: Better error handling
     new Ajax.Request('<?php echo Horde::applicationUrl('ajax.php'); ?>',
