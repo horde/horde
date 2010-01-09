@@ -64,7 +64,7 @@ var destinations = [];
 function resetExtenDest(exten)
 {
     var e;
-    
+
     while ((e = $('destX' + exten + 'info').childNodes[0]) != null) {
         $('destX' + exten + 'info').removeChild(e);
     }
@@ -211,6 +211,11 @@ function processForm(event)
     var form = event.target;
     Element.extend(form);
 
+    var editflag = form.getInputs('hidden', 'edit').first();
+    if (editflag) {
+        editflag = editflag.value;
+    }
+
     var exten = form.getInputs('hidden', 'extension').first().value;
 
     var spinner = document.createElement('img');
@@ -218,6 +223,27 @@ function processForm(event)
 
     $('destX' + exten + 'submit').hide();
     form.insertBefore(spinner, $('destX' + exten + 'submit'))
+
+    if (editflag) {
+        var origtype = form.getInputs('hidden', 'origtype').first().value;
+        var origdest = form.getInputs('hidden', 'origdest').first().value;
+        var newtype = $('destX' + exten + 'type').value;
+        var newdest = $('destX' + exten + 'destination').value;
+
+        if ((origtype == newtype) && (origdest == newdest)) {
+            // The user hit "save" without making any changes.
+            // Do not contact AJAX, just make sure destinations is updated.
+                var key = (origtype == "number") ? 'numbers' : 'devices';
+                var xd = destinations.get(exten);
+                xd[key].push(origdest);
+                destinations.set(exten, xd);
+                resetExtenDest(exten);
+                return true;
+        } else {
+            // A change was made.  Remove the old destination first.
+            delDest(exten, origtype, origdest);
+        }
+    }
 
     // FIXME: Better error handling
     new Ajax.Request('<?php echo Horde::applicationUrl('ajax.php'); ?>',
@@ -295,6 +321,25 @@ function editDest(exten, type, dest)
     resetExtenDest(exten);
 
     addDest(exten);
+
+    // Tell processForm() this is an edit
+    var editflag = document.createElement('input');
+    editflag.type = 'hidden';
+    editflag.name = 'edit';
+    editflag.value = 'true';
+    var origtype = document.createElement('input');
+    origtype.type = 'hidden';
+    origtype.name = 'origtype';
+    origtype.value = type;
+    var origdest = document.createElement('input');
+    origdest.type = 'hidden';
+    origdest.name = 'origdest';
+    origdest.value = dest;
+    $('destX' + exten + 'form').appendChild(editflag);
+    $('destX' + exten + 'form').appendChild(origtype);
+    $('destX' + exten + 'form').appendChild(origdest);
+
+    // Preserve the original values for the user.
     $('destX' + exten + 'type').value = type
     $('destX' + exten + 'destination').value = dest;
 }
@@ -308,12 +353,17 @@ function delDest(exten, type, dest)
         'action': 'deleteDestination'
     });
 
-    // Hide the delete button and replace it with a spinner
-    $("dest" + dest + "X" + exten + "del").hide();
-    var spinner = document.createElement('img');
-    spinner.src = "<?php echo $registry->getImageDir('horde') . '/loading.gif'; ?>"
-    var parent = $("dest" + dest + "X" + exten + "del").parentNode;
-    parent.insertBefore(spinner, $("dest" + dest + "X" + exten + "del"));
+    
+    var deleteIcon = $("dest" + dest + "X" + exten + "del")
+    // If null we came from an edit so the spinner is already going
+    if (deleteIcon !== null) {
+        // Hide the delete button and replace it with a spinner
+        deleteIcon.hide();
+        var spinner = document.createElement('img');
+        spinner.src = "<?php echo $registry->getImageDir('horde') . '/loading.gif'; ?>"
+        var parent = deleteIcon.parentNode;
+        parent.insertBefore(spinner, deleteIcon);
+    }
 
     // FIXME: Better error handling
     new Ajax.Request('<?php echo Horde::applicationUrl('ajax.php'); ?>',
