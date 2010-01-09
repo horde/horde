@@ -82,6 +82,11 @@ class Shout_Application extends Horde_Registry_Application
             }
 
             $_SESSION['shout']['context'] = $context;
+            
+            /* Start compression. */
+            if (!Horde_Util::nonInputVar('no_compress')) {
+                Horde::compressOutput();
+            }
         }
     }
 
