@@ -53,7 +53,7 @@ class Shout
     static public function getTabs($context, &$vars)
     {
         global $shout;
-        $perms = Horde_Perms::singleton();
+        $perms = &Horde_Perms::singleton();
 
         $permprefix = 'shout:contexts:' . $context;
 
@@ -100,7 +100,7 @@ class Shout
     {
         if (Horde_Auth::isAdmin()) { return true; }
 
-        $perms = Horde_Perms::singleton();
+        $perms = &Horde_Perms::singleton();
         if ($permmask === null) {
             $permmask = PERMS_SHOW|PERMS_READ;
         }

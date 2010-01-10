@@ -33,7 +33,7 @@ try {
         ($action != 'LogOut')) {
         //FIXME: The below is certain to break since it relies on classes I did
         //       not yet copy from IMP.
-        $notification = Horde_Notification::singleton();
+        $notification = &Horde_Notification::singleton();
         $shout_notify = $notification->attach('status', array('viewmode' => 'dimp'), 'Shout_Notification_Listener_Status');
         $notification->push(str_replace('&amp;', '&', Horde_Auth::getLogoutUrl(array('reason' => Horde_Auth::REASON_SESSION))), 'shout.timeout', array('content.raw'));
         Horde::sendHTTPResponse(Horde::prepareResponse(null, $shout_notify), 'json');

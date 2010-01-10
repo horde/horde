@@ -63,7 +63,7 @@ class Shout_Application extends Horde_Registry_Application
                 $contexts = false;
             }
 
-            $notification = Horde_Notification::singleton();
+            $notification = &Horde_Notification::singleton();
             $GLOBALS['notification'] = $notification;
             $notification->attach('status');
 
