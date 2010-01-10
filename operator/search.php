@@ -27,6 +27,10 @@ if (!$vars->exists('rowstart')) {
     $rowstart = 0;
 }
 
+if (isset($_SESSION['operator']['lastdata'])) {
+    $data = $_SESSION['operator']['lastdata'];
+}
+
 $form = new SearchCDRForm(_("Search Call Detail Records"), $vars);
 if ($form->isSubmitted() && $form->validate($vars, true)) {
     $accountcode = $vars->get('accountcode');
@@ -52,6 +56,7 @@ if ($form->isSubmitted() && $form->validate($vars, true)) {
             'dcontext' => $vars->get('dcontext'),
             'startdate' => $vars->get('startdate'),
             'enddate' => $vars->get('enddate'));
+        $_SESSION['operator']['lastdata'] = $data;
     }
 } else {
     if (isset($_SESSION['operator']['lastsearch']['params'])) {
@@ -60,6 +65,20 @@ if ($form->isSubmitted() && $form->validate($vars, true)) {
         }
     }
 }
+
+// Create the Pager UI
+$page = Horde_Util::getGet('page', 1);
+$pager_vars = Horde_Variables::getDefaultVariables();
+$pager_vars->set('page', $page);
+$perpage = $prefs->getValue('rowsperpage');
+$pager = new Horde_Ui_Pager('page', $pager_vars,
+                            array('num' => count($data),
+                                  'url' => 'search.php',
+                                  'page_count' => 10,
+                                  'perpage' => $perpage));
+
+// Limit the domain list to the current page
+$data = array_slice($data, $page*$perpage, $perpage);
 
 $title = _("Search Call Detail Records");
 Horde::addScriptFile('stripe.js', 'horde', true);
@@ -71,12 +90,7 @@ $form->renderActive($renderer, $vars);
 
 $columns = unserialize($prefs->getValue('columns'));
 if (!empty($data)) {
-    require OPERATOR_TEMPLATES . '/search/header.inc';
-    unset($data['count'], $data['minutes'], $data['failed']);
-    foreach ($data as $record) {
-        require OPERATOR_TEMPLATES . '/search/row.inc';
-    }
-    require OPERATOR_TEMPLATES . '/search/footer.inc';
+    require OPERATOR_TEMPLATES . '/search.inc';
 }
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';

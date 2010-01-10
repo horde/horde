@@ -13,3 +13,23 @@ foreach ($columns as $column) {
 }
 ?>
 </tr>
+
+<tr>
+<?php
+foreach ($data as $record) {
+    echo "<tr>\n";
+    foreach ($columns as $column) {
+        echo "<td>";
+        if ($column == 'amaflags') {
+            $record[$column] = Operator::getAMAFlagName($record[$column]);
+        }
+        echo $record[$column];
+        echo "</td>\n";
+    }
+    echo "</tr>\n";
+}
+?>
+</tr>
+
+</table>
+<?php echo $pager->render(); ?>
