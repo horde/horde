@@ -27,12 +27,6 @@ if (!$vars->exists('rowstart')) {
     $rowstart = 0;
 }
 
-$numrows = $prefs->getValue('resultlimit');
-if (!is_numeric($numrows)) {
-    $notification->push(_("Invalid number for rows for search limit.  Using 100."));
-    $numrows = 100;
-}
-
 $form = new SearchCDRForm(_("Search Call Detail Records"), $vars);
 if ($form->isSubmitted() && $form->validate($vars, true)) {
     $accountcode = $vars->get('accountcode');
@@ -47,7 +41,8 @@ if ($form->isSubmitted() && $form->validate($vars, true)) {
         $notification->push(_("Invalid date requested."));
     } else {
         $data = $operator->driver->getRecords($start, $end, $accountcode,
-                                             $dcontext, $rowstart, $numrows);
+                                              $dcontext, $rowstart,
+                                              $GLOBALS['conf']['storage']['searchlimit']);
         if (is_a($data, 'PEAR_Error')) {
             $notification->push($data);
             $data = array();

@@ -12,6 +12,8 @@
     </configsection>
    </case>
   </configswitch>
+  <configinteger name="searchlimit" desc="Maximum number of records to include in CDR searches.  Does not apply to graphs.">5000
+  </configinteger>
  </configsection>
 
  <configstring name="ttf_font" desc="Full path to a True-Type font to use when rendering the graph" required="false" />

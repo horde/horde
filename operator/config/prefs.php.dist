@@ -17,15 +17,7 @@ $_prefs['rowsperpage'] = array(
     'locked' => false,
     'shared' => false,
     'type' => 'number',
-    'desc' => _("The columns to be displayed on the Call Detail Review screen")
-);
-
-$_prefs['resultlimit'] = array(
-    'value' => 100,
-    'locked' => false,
-    'shared' => false,
-    'type' => 'number',
-    'desc' => _("Limit the number of CDR results when searching to this number")
+    'desc' => _("Maximum number of call records to show per search result page.")
 );
 
 $_prefs['columns'] = array(
