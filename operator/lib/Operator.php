@@ -90,9 +90,10 @@ class Operator {
     {
         global $operator;
 
-        $accountcodes = $operator->driver->getAccountCodes();
+        // Set up arrays for filtering
+        $keys = $values = $operator->driver->getAccountCodes();
 
-        if (Horde_Auth::isAdmin() || 
+        if (Horde_Auth::isAdmin() ||
             $GLOBALS['perms']->hasPermission('operator:accountcodes',
                                              Horde_Auth::getAuth(),
                                              Horde_Perms::READ)) {
@@ -101,26 +102,24 @@ class Operator {
 
         if (!$permfilter ||
             $GLOBALS['perms']->hasPermission('operator:accountcodes:%',
-                                             Horde_Auth::geAuth(), 
+                                             Horde_Auth::getAuth(),
                                              Horde_Perms::READ)) {
 
             // Add an option to select all accounts
-            $keys = $accountcodes;
             array_unshift($keys, '%');
-            $values = $accountcodes;
             array_unshift($values, _("-- All Accounts Combined --"));
         }
-    
+
         // Only add the Empty value if it is exists in the backend
         if ($index = array_search('', $values)) {
            $values[$index] = _("-- Empty Accountcode --");
         }
 
-        // Filter the returned list of account codes through Permissions
-        // if requested.
-        $accountcodes = array();
-        foreach ($keys as $index => $accountcode) {
-            if ($permfilter) {
+        if ($permfilter) {
+            // Filter the returned list of account codes through Permissions
+            // if requested.
+            $accountcodes = array();
+            foreach ($keys as $index => $accountcode) {
                 if (empty($accountcode)) {
                     $permitem = 'operator:accountcodes';
                 } else {
@@ -133,10 +132,15 @@ class Operator {
                                                      Horde_Perms::SHOW)) {
                     $accountcodes[$accountcode] = $values[$index];
                 }
-            } else {
-                $accountcodes[$accountcode] = $values[$index];
             }
+
+            if (empty($accountcodes)) {
+                throw new Operator_Exception(_("You do not have permission to view any accounts."));
+            }
+        } else {
+            $accountcodes = array_merge($keys, $values);
         }
+
         return $accountcodes;
     }
 
