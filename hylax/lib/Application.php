@@ -40,7 +40,7 @@ class Hylax_Application extends Horde_Registry_Application
         if (!empty($args['init'])) {
             
             // Registry.
-            $registry = Horde_Registry::singleton();
+            $registry = &Horde_Registry::singleton();
             $GLOBALS['registry'] = &$registry;
             
             try {
@@ -56,7 +56,7 @@ class Hylax_Application extends Horde_Registry_Application
             define('HYLAX_TEMPLATES', $registry->get('templates'));
 
             /* Notification system. */
-            $notification = Horde_Notification::singleton();
+            $notification = &Horde_Notification::singleton();
             $notification->attach('status');
             $GLOBALS['notification'] = &$notification;
 
@@ -64,11 +64,11 @@ class Hylax_Application extends Horde_Registry_Application
             define('HYLAX_BASE', dirname(__FILE__) . '/..');
 
             /* Hylax Driver */
-            $this->gateway = Hylax_Driver::singleton($conf['fax']['driver'],
+            $this->gateway = &Hylax_Driver::singleton($conf['fax']['driver'],
                                                      $conf['fax']['params']);
 
             /* Hylax storage driver. */
-            $this->storage = Hylax_Storage::singleton('sql', $conf['sql']);
+            $this->storage = &Hylax_Storage::singleton('sql', $conf['sql']);
 
             /* Start compression, if requested. */
             Horde::compressOutput();
