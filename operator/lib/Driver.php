@@ -19,7 +19,8 @@ class Operator_Driver {
      * Search the database for call detail records, taking permissions into
      * consideration.
      *
-     * @return boolean|PEAR_Error  True on success, PEAR_Error on failure.
+     * @return boolean  True on success
+     * @throws Operator_Exception
      */
     function getRecords($start, $end, $accountcode = null, $dcontext = null,
                          $rowstart = 0, $rowlimit = 100)
@@ -38,7 +39,7 @@ class Operator_Driver {
             return $this->_getRecords($start, $end, $accountcode, $dcontext,
                                       $rowstart, $rowlimit);
         }
-        return PEAR::raiseError(_("You do not have permission to view call detail records for that account code."));
+        throw new Operator_Exception(_("You do not have permission to view call detail records for that account code."));
     }
 
     /**
@@ -52,12 +53,11 @@ class Operator_Driver {
      * @param string dcontext       Destination of calls.  Defaults to null.
      *
      *
-     * @return array|PEAR_Error     Array of call statistics.  The key of each
+     * @return array                Array of call statistics.  The key of each
      *                              element is the month name in date('Y-m')
      *                              format and the value being an array of
-     *                              statistics for calls placed that month. This
-     *                              method will additionall return PEAR_Error
-     *                              on failure.
+     *                              statistics for calls placed that month.
+     * @throws Operator_Exception|Horde_Date_Exception
      */
     function getMonthlyCallStats($start, $end, $accountcode = null,
                                  $dcontext = null){
@@ -76,7 +76,7 @@ class Operator_Driver {
                                                $dcontext);
         }
 
-        return PEAR::raiseError(_("You do not have permission to view call detail records for that account code."));
+        throw new Operator_Exception(_("You do not have permission to view call detail records for that account code."));
     }
 
     /**

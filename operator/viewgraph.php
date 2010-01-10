@@ -27,46 +27,50 @@ if ($form->isSubmitted() && $form->validate($vars, true)) {
     if (empty($dcontext)) {
         $dcontext = '%';
     }
-    $start = new Horde_Date($vars->get('startdate'));
-    $end = new Horde_Date($vars->get('enddate'));
 
-    if (is_a($start, 'PEAR_Error') || is_a($end, 'PEAR_Error')) {
-        $notification->push(_("Invalid date requested."));
-    } elseif (($end->month - $start->month) == 0 &&
-        ($end->year - $start->year) == 0) {
-        $notification->push(_("You must select a range that includes more than one month to view these graphs."));
-    } else {
-        // See if we have cached data
-        $cachekey = md5(serialize(array('getMonthlyCallStats', $start, $end,
-                                        $accountcode, $dcontext)));
-        // Use 0 lifetime to allow cache lifetime to be set when storing
-        // the object.
-        $stats = $cache->get($cachekey, 0);
-        if ($stats === false) {
-            $stats = $operator->driver->getMonthlyCallStats($start,
-                                                           $end,
-                                                           $accountcode,
-                                                           $dcontext);
-            if (is_a($stats, 'PEAR_Error')) {
-                $notification->push($stats);
-                $stats = array();
-            } else {
+    try {
+        $start = new Horde_Date($vars->get('startdate'));
+        $end = new Horde_Date($vars->get('enddate'));
+    
+        if (($end->month - $start->month) == 0 &&
+            ($end->year - $start->year) == 0) {
+            // FIXME: This should not cause an error but is due to a bug in
+            // Image_Graph.
+            $notification->push(_("You must select a range that includes more than one month to view these graphs."));
+        } else {
+            // See if we have cached data
+            $cachekey = md5(serialize(array('getMonthlyCallStats', $start, $end,
+                                            $accountcode, $dcontext)));
+            // Use 0 lifetime to allow cache lifetime to be set when storing
+            // the object.
+            $stats = $cache->get($cachekey, 0);
+            if ($stats === false) {
+                $stats = $operator->driver->getMonthlyCallStats($start,
+                                                               $end,
+                                                               $accountcode,
+                                                               $dcontext);
+
                 $res = $cache->set($cachekey, serialize($stats), 600);
                 if ($res === false) {
                     Horde::logMessage('The cache system has experienced an error.  Unable to continue.', __FILE__, __LINE__, PEAR_LOG_ERR);
                     $notification->push(_("Internal error.  Details have been logged for the administrator."));
-                    unset($stats);
+                    $stats = array();
                 }
+
+            } else {
+                // Cached data is stored serialized
+                $stats = unserialize($stats);
             }
-        } else {
-            // Cached data is stored serialized
-            $stats = unserialize($stats);
+            $_SESSION['operator']['lastsearch']['params'] = array(
+                'accountcode' => $vars->get('accountcode'),
+                'dcontext' => $vars->get('dcontext'),
+                'startdate' => $vars->get('startdate'),
+                'enddate' => $vars->get('enddate'));
         }
-        $_SESSION['operator']['lastsearch']['params'] = array(
-            'accountcode' => $vars->get('accountcode'),
-            'dcontext' => $vars->get('dcontext'),
-            'startdate' => $vars->get('startdate'),
-            'enddate' => $vars->get('enddate'));
+    } catch (Horde_Exception $e) {
+        //$notification->push(_("Invalid dates requested."));
+        $notification->push($e);
+        $stats = array();
     }
 } else {
     if (isset($_SESSION['operator']['lastsearch']['params'])) {

@@ -74,7 +74,8 @@ class Operator_Driver_asterisksql extends Operator_Driver {
     /**
      * Get call detail records from the database
      *
-     * @return boolean|PEAR_Error  True on success, PEAR_Error on failure.
+     * @return boolean
+     * @throws Operator_Exception|Horde_Date_Exception
      */
     function _getRecords($start, $end, $accountcode = null, $dcontext = null,
                          $rowstart = 0, $rowlimit = 100)
@@ -91,20 +92,17 @@ class Operator_Driver_asterisksql extends Operator_Driver {
 
         if (!is_numeric($rowstart)) {
             Horde::logMessage('Invalid start row requested.', __FILE__, __LINE__, PEAR_LOG_ERR);
-            return PEAR::raiseError(_("Internal error.  Details have been logged for the administrator."));
+            throw new Operator_Exception(_("Internal error.  Details have been logged for the administrator."));
         }
         if (!is_numeric($rowlimit)) {
             Horde::logMessage('Invalid row limit requested.', __FILE__, __LINE__, PEAR_LOG_ERR);
-            return PEAR::raiseError(_("Internal error.  Details have been logged for the administrator."));
+            throw new Operator_Exception(_("Internal error.  Details have been logged for the administrator."));
         }
 
 
         // Start Date
         if (!is_a($start, 'Horde_Date')) {
             $start = new Horde_Date($start);
-            if (is_a($start, 'PEAR_Error')) {
-                return $start;
-            }
         }
         $filter[] = 'calldate >= ?';
         $values[] = $start->strftime('%Y-%m-%d %T');
@@ -112,9 +110,6 @@ class Operator_Driver_asterisksql extends Operator_Driver {
         // End Date
         if (!is_a($end, 'Horde_Date')) {
             $end = new Horde_Date($end);
-            if (is_a($end, 'PEAR_Error')) {
-                return $end;
-            }
         }
         $filter[] = 'calldate < ?';
         $values[] =  $end->strftime('%Y-%m-%d %T');
@@ -147,7 +142,7 @@ class Operator_Driver_asterisksql extends Operator_Driver {
         $res = $this->_db->limitQuery($sql, $rowstart, $rowlimit, $values);
         if (is_a($res, 'PEAR_Error')) {
             Horde::logMessage($res, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return PEAR::raiseError(_("Internal error.  Details have been logged for the administrator."));
+            throw new Operator_Exception(_("Internal error.  Details have been logged for the administrator."));
         }
         
         $data = array();
@@ -166,7 +161,7 @@ class Operator_Driver_asterisksql extends Operator_Driver {
         $res = $this->_db->getRow($sql, $values, DB_FETCHMODE_ASSOC);
         if (is_a($res, 'PEAR_Error')) {
             Horde::logMessage($res, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return PEAR::raiseError(_("Internal error.  Details have been logged for the administrator."));
+            throw new Operator_Exception(_("Internal error.  Details have been logged for the administrator."));
         }
 
         return array_merge($data, $res);
@@ -183,19 +178,18 @@ class Operator_Driver_asterisksql extends Operator_Driver {
      * @param string dcontext       Destination of calls.  Defaults to null.
      *
      *
-     * @return array|PEAR_Error     Array of call statistics.  The key of each
+     * @return array                Array of call statistics.  The key of each
      *                              element is the month name in date('Y-m')
      *                              format and the value being an array of
-     *                              statistics for calls placed that month. This
-     *                              method will additionall return PEAR_Error
-     *                              on failure.
+     *                              statistics for calls placed that month.
+     * @throws Operator_Exception|Horde_Date_Exception
      */
     function _getMonthlyCallStats($start, $end, $accountcode = null,
                                  $dcontext = null)
     {
         if (!is_a($start, 'Horde_Date') || !is_a($end, 'Horde_Date')) {
             Horde::logMessage('Start ane end date must be Horde_Date objects.', __FILE__, __LINE__, PEAR_LOG_ERR);
-            return PEAR::raiseError(_("Internal error.  Details have been logged for the administrator."));
+            throw new Operator_Exception(_("Internal error.  Details have been logged for the administrator."));
         }
 
         /* Make sure we have a valid database connection. */
@@ -259,7 +253,7 @@ class Operator_Driver_asterisksql extends Operator_Driver {
         $numcalls_res = $this->_db->getAll($sql, $values, DB_FETCHMODE_ASSOC);
         if (is_a($numcalls_res, 'PEAR_Error')) {
             Horde::logMessage($numcalls_res, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return PEAR::raiseError(_("Internal error.  Details have been logged for the administrator."));
+            throw new Operator_Exception(_("Internal error.  Details have been logged for the administrator."));
         }
 
         $sql = sprintf($minutes_query, $filterstring);
@@ -267,7 +261,7 @@ class Operator_Driver_asterisksql extends Operator_Driver {
         $minutes_res = $this->_db->getAll($sql, $values, DB_FETCHMODE_ASSOC);
         if (is_a($minutes_res, 'PEAR_Error')) {
             Horde::logMessage($minutes_res, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return PEAR::raiseError(_("Internal error.  Details have been logged for the administrator."));
+            throw new Operator_Exception(_("Internal error.  Details have been logged for the administrator."));
         }
 
         $sql = sprintf($failed_query, $filterstring);
@@ -275,7 +269,7 @@ class Operator_Driver_asterisksql extends Operator_Driver {
         $failed_res = $this->_db->getAll($sql, $values, DB_FETCHMODE_ASSOC);
         if (is_a($failed_res, 'PEAR_Error')) {
             Horde::logMessage($failed_res, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return PEAR::raiseError(_("Internal error.  Details have been logged for the administrator."));
+            throw new Operator_Exception(_("Internal error.  Details have been logged for the administrator."));
         }
 
         // Normalize the results from the database.  This is done because
@@ -349,7 +343,7 @@ class Operator_Driver_asterisksql extends Operator_Driver {
         $res = $this->_db->getCol($sql, 'accountcode');
         if (is_a($res, 'PEAR_Error')) {
             Horde::logMessage($res, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return PEAR::raiseError(_("Internal error.  Details have been logged for the administrator."));
+            throw new Operator_Exception(_("Internal error.  Details have been logged for the administrator."));
         }
 
         return $res;

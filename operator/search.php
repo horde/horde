@@ -38,25 +38,24 @@ if ($form->isSubmitted() && $form->validate($vars, true)) {
     if (empty($dcontext)) {
         $dcontext = '%';
     }
-    $start = new Horde_Date($vars->get('startdate'));
 
-    $end = new Horde_Date($vars->get('enddate'));
-    if (is_a($start, 'PEAR_Error') || is_a($end, 'PEAR_Error')) {
-        $notification->push(_("Invalid date requested."));
-    } else {
+    try {
+        $start = new Horde_Date($vars->get('startdate'));
+        $end = new Horde_Date($vars->get('enddate'));
         $data = $operator->driver->getRecords($start, $end, $accountcode,
                                               $dcontext, $rowstart,
                                               $GLOBALS['conf']['storage']['searchlimit']);
-        if (is_a($data, 'PEAR_Error')) {
-            $notification->push($data);
-            $data = array();
-        }
+
         $_SESSION['operator']['lastsearch']['params'] = array(
             'accountcode' => $vars->get('accountcode'),
             'dcontext' => $vars->get('dcontext'),
             'startdate' => $vars->get('startdate'),
             'enddate' => $vars->get('enddate'));
         $_SESSION['operator']['lastdata'] = $data;
+    } catch (Exception $e) {
+        //$notification->push(_("Invalid date requested."));
+        $notification->push($e);
+        $data = array();
     }
 } else {
     if (isset($_SESSION['operator']['lastsearch']['params'])) {

@@ -14,8 +14,9 @@ $operator = new Operator_Application(array('init' => true));
 $cache = &$GLOBALS['cache'];
 
 // Work around warnings in Image_Graph
-error_reporting(E_NONE);
-ini_set("display_errors", 0);
+// Needed for Image_Graph <= 0.7.2 and Image_Canvas <= 0.3.2
+//error_reporting(E_NONE);
+//ini_set("display_errors", 0);
 
 #setlocale(LC_ALL, Horde_Nls::select());
 #setlocale(LC_ALL, 'en_US');
@@ -58,7 +59,7 @@ if (isset($graphinfo['orientation']) &&
 if (!empty($conf['ttf_font'])) {
     // add a TrueType font
     $Font =& $graph->addNew('ttf_font', $conf['ttf_font']);
-    // set the font size to 11 pixels
+    // Set the font size to 11 pixels.  Yes, 8 really does mean 11
     $Font->setSize(8);
     $graph->setFont($Font);
 }
@@ -180,6 +181,7 @@ exit;
 
 function _format($number)
 {
+    // Only show the decimal if the value has digits after the decimal
     if (($number - (int)$number) == 0) {
         return money_format('%!.0n', $number);
     } else {
@@ -192,6 +194,7 @@ function number2human($number, $showCurrency = true)
     $currency = '';
     $suffix = '';
     if ($showCurrency) {
+        // FIXME: Make currency configurable
         //$currency = 'ISK ';
         $currency = '';
     }
