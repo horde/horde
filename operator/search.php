@@ -46,7 +46,7 @@ if ($form->isSubmitted() && $form->validate($vars, true)) {
     if (is_a($start, 'PEAR_Error') || is_a($end, 'PEAR_Error')) {
         $notification->push(_("Invalid date requested."));
     } else {
-        $data = $operator_driver->getRecords($start, $end, $accountcode,
+        $data = $operator->driver->getRecords($start, $end, $accountcode,
                                              $dcontext, $rowstart, $numrows);
         if (is_a($data, 'PEAR_Error')) {
             $notification->push($data);

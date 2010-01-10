@@ -43,7 +43,7 @@ if ($form->isSubmitted() && $form->validate($vars, true)) {
         // the object.
         $stats = $cache->get($cachekey, 0);
         if ($stats === false) {
-            $stats = $operator_driver->getMonthlyCallStats($start,
+            $stats = $operator->driver->getMonthlyCallStats($start,
                                                            $end,
                                                            $accountcode,
                                                            $dcontext);

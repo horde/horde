@@ -88,9 +88,9 @@ class Operator {
      */
     function getAccountCodes($permfilter = false)
     {
-        global $operator_driver;
+        global $operator;
 
-        $accountcodes = $operator_driver->getAccountCodes();
+        $accountcodes = $operator->driver->getAccountCodes();
 
         if (Horde_Auth::isAdmin() || 
             $GLOBALS['perms']->hasPermission('operator:accountcodes',

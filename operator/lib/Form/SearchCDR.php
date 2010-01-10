@@ -17,8 +17,6 @@ class SearchCDRForm extends Horde_Form {
 
     function SearchCDRForm($title, &$vars)
     {
-        global $operator_driver;
-
         parent::Horde_Form($vars, $title);
 
         // FIXME: Generate a list of clients from Turba?
