@@ -1,0 +1,57 @@
+<?php
+/**
+ * $Horde: incubator/operator/config/prefs.php.dist,v 1.2 2008/07/03 14:29:15 bklang Exp $
+ *
+ * See horde/config/prefs.php for documentation on the structure of this file.
+ */
+
+$prefGroups['display'] = array(
+    'column' => _("Options"),
+    'label' => _("Display Preferences"),
+    'desc' => _("Set default display parameters."),
+    'members' => array('rowsperpage', 'resultlimit', 'columns')
+);
+
+$_prefs['rowsperpage'] = array(
+    'value' => 100,
+    'locked' => false,
+    'shared' => false,
+    'type' => 'number',
+    'desc' => _("The columns to be displayed on the Call Detail Review screen")
+);
+
+$_prefs['resultlimit'] = array(
+    'value' => 100,
+    'locked' => false,
+    'shared' => false,
+    'type' => 'number',
+    'desc' => _("Limit the number of CDR results when searching to this number")
+);
+
+$_prefs['columns'] = array(
+    'value' => 'a:18:{i:0;s:11:"accountcode";i:1;s:3:"src";i:2;s:3:"dst";i:3;s:8:"dcontext";i:4;s:4:"clid";i:5;s:7:"channel";i:6;s:10:"dstchannel";i:7;s:7:"lastapp";i:8;s:8:"lastdata";i:9;s:5:"start";i:10;s:6:"answer";i:11;s:3:"end";i:12;s:8:"duration";i:13;s:7:"billsec";i:14;s:11:"disposition";i:15;s:8:"amaflags";i:16;s:9:"userfield";i:17;s:8:"uniqueid";}',
+    'locked' => false,
+    'shared' => false,
+    'type' => 'multienum',
+    'enum' => array(
+        'accountcode' => _("Account Code"),
+        'src' => _("Source"),
+        'dst' => _("Destination"),
+        'dcontext' => _("Destination Context"),
+        'clid' => _("Caller ID"),
+        'channel' => _("Channel"),
+        'dstchannel' => _("Destination Channel"),
+        'lastapp' => _("Last Application"),
+        'lastdata' => _("Last Application Data"),
+        'start' => _("Call Start Time"),
+        'answer' => _("Call Answer Time"),
+        'end' => _("Call End Time"),
+        'duration' => _("Call Duration"),
+        'billsec' => _("Billing Time (seconds)"),
+        'disposition' => _("Call Disposition"),
+        'amaflags' => _("AMA Flags"),
+        'userfield' => _("User Defined Field"),
+        'uniqueid' => _("Call Unique ID")),
+    'desc' => _("The columns to be displayed on the Call Detail Review screen")
+);
+
