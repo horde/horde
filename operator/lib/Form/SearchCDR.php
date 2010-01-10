@@ -26,7 +26,7 @@ class SearchCDRForm extends Horde_Form {
         if (!$vars->exists('startdate')) {
             // Default to the beginning of the previous calendar month
             $startdate = array('day' => 1,
-                               'month' => date('n', $now) - 1,
+                               'month' => date('n', $now),
                                'year' => date('Y', $now),
                                'hour' => 0,
                                'minute' => 0,
@@ -36,7 +36,7 @@ class SearchCDRForm extends Horde_Form {
 
         if (!$vars->exists('enddate')) {
             // Default to the end of the previous calendar month
-            $month = date('n', $now) - 1;
+            $month = date('n', $now);
             $year = date('Y', $now);
             $lastday = Horde_Date_Utils::daysInMonth($month, $year);
             $enddate = array('day' => $lastday,
@@ -57,7 +57,7 @@ class SearchCDRForm extends Horde_Form {
 
 
         // Parameters for Horde_Form_datetime
-        $start_year = date('Y', $now) - 3;
+        $start_year = date('Y', $now) - 5;
         $end_year = '';
         $picker = true;
         $format_in = null;
