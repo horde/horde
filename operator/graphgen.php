@@ -13,6 +13,10 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 $operator = new Operator_Application(array('init' => true));
 $cache = &$GLOBALS['cache'];
 
+// Work around warnings in Image_Graph
+error_reporting(E_NONE);
+ini_set("display_errors", 0);
+
 #setlocale(LC_ALL, Horde_Nls::select());
 #setlocale(LC_ALL, 'en_US');
 
