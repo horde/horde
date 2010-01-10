@@ -326,7 +326,6 @@ class Operator_Driver_asterisksql extends Operator_Driver {
 
             // Find the first day of the next month
             $start->month++;
-            $start->correct();
         }
 
         $info = Operator::getGraphInfo('numcalls');

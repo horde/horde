@@ -1,8 +1,6 @@
 <?php
 /**
- * $Horde: incubator/operator/graphgen.php,v 1.11 2009/07/09 08:18:18 slusarz Exp $
- *
- * Copyright 2008 The Horde Project <http://www.horde.org>
+ * Copyright 2008-2010 The Horde Project <http://www.horde.org>
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
@@ -10,14 +8,13 @@
  * @author Ben Klang <ben@alkaloid.net>
  */
 
-@define('OPERATOR_BASE', dirname(__FILE__));
-require_once OPERATOR_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
 
-// Load PEAR's Image_Graph library
-require_once 'Image/Graph.php';
+$operator = new Operator_Application(array('init' => true));
+$cache = &$GLOBALS['cache'];
 
 #setlocale(LC_ALL, Horde_Nls::select());
-setlocale(LC_ALL, 'en_US');
+#setlocale(LC_ALL, 'en_US');
 
 $graphtype = Horde_Util::getFormData('graph');
 $graphinfo = Operator::getGraphInfo($graphtype);
@@ -42,7 +39,9 @@ if (!isset($graphinfo['legendsplit'])) {
     $graphinfo['legendsplit'] = 90;
 }
 
-$canvas =& Image_Canvas::factory('png', array('width' => $graphinfo['imageX'], 'height' => $graphinfo['imageY'], 'antialias' => true)); 
+$canvas =& Image_Canvas::factory('png', array('width' => $graphinfo['imageX'],
+                                              'height' => $graphinfo['imageY'],
+                                              'antialias' => true));
 $graph =& Image_Graph::factory('graph', $canvas);
 
 if (isset($graphinfo['orientation']) &&
@@ -59,13 +58,17 @@ if (!empty($conf['ttf_font'])) {
     $Font->setSize(8);
     $graph->setFont($Font);
 }
- 
- 
+
 // create the plotarea layout
 if ($graph->horizontal) {
-    $plotarea =& Image_Graph::factory('plotarea', array('Image_Graph_Axis_Category', 'Image_Graph_Axis', 'horizontal'));
+    $plotarea = Image_Graph::factory('plotarea',
+                                      array('Image_Graph_Axis_Category',
+                                            'Image_Graph_Axis', 'horizontal'));
 } else {
-    $plotarea =& Image_Graph::factory('plotarea', array('Image_Graph_Axis_Category', 'Image_Graph_Axis', 'vertical'));
+    $plotarea = Image_Graph::factory('plotarea',
+                                      array('Image_Graph_Axis_Category',
+                                            'Image_Graph_Axis',
+                                            'vertical'));
 }
 
 $graph->add(
@@ -78,22 +81,22 @@ $graph->add(
         ),
         5
     )
-);         
+);
 
 $plotarea->setAxisPadding(array('top' => 20));
- 
+
 // make the legend use the plotarea (or implicitly its plots)
-$legend->setPlotarea($plotarea);   
- 
+$legend->setPlotarea($plotarea);
+
 // create a grid and assign it to the secondary Y axis
-$gridY2 =& $plotarea->addNew('line_grid', IMAGE_GRAPH_AXIS_Y_SECONDARY);  
+$gridY2 =& $plotarea->addNew('line_grid', IMAGE_GRAPH_AXIS_Y_SECONDARY);
 #$gridY2->setLineColor('black');
 #$gridY2->setFillStyle(
 #    Image_Graph::factory(
-#        'gradient', 
+#        'gradient',
 #        array(IMAGE_GRAPH_GRAD_HORIZONTAL, 'white', 'lightgrey')
 #    )
-#);    
+#);
 
 $linecolor = 0x000042;
 $increment = 0x173147;
@@ -132,8 +135,8 @@ foreach ($stats[$graphtype] as $title => $data) {
         $marker->setBorderColor(false);
         $marker->setFillColor(false);
         // and use the marker on the 1st plot
-        $plot->setMarker($PointingMarker); 
-        
+        $plot->setMarker($PointingMarker);
+
         #if (!empty($graphinfo['numberformat'])) {
         #    $marker->setDataPreprocessor(Image_Graph::factory('Image_Graph_DataPreprocessor_Formatted', $graphinfo['numberformat']));
         #}
@@ -143,30 +146,30 @@ foreach ($stats[$graphtype] as $title => $data) {
 }
 
 // create an area plot using a random dataset
-#$dataset2 =& Image_Graph::factory('random', array(8, 1, 10, true)); 
+#$dataset2 =& Image_Graph::factory('random', array(8, 1, 10, true));
 #$plot2 =& $plotarea->addNew(
-#    'Image_Graph_Plot_Area', 
-#    $dataset2, 
+#    'Image_Graph_Plot_Area',
+#    $dataset2,
 #    IMAGE_GRAPH_AXIS_Y_SECONDARY
 #);
- 
+
 #$plot2->setLineColor('gray');
 #$plot2->setFillColor('blue@0.2');
 #$plot2->setTitle('Secondary Axis');
- 
+
 $axisX =& $plotarea->getAxis(IMAGE_GRAPH_AXIS_X);
 $axisY =& $plotarea->getAxis(IMAGE_GRAPH_AXIS_Y);
 if ($graph->horizontal) {
     $axisX->setTitle($graphinfo['axisX'], 'vertical');
-    $axisY->setTitle($graphinfo['axisY'], 'horizontal'); 
+    $axisY->setTitle($graphinfo['axisY'], 'horizontal');
 } else {
     $axisX->setTitle($graphinfo['axisX'], 'horizontal');
-    $axisY->setTitle($graphinfo['axisY'], 'vertical'); 
+    $axisY->setTitle($graphinfo['axisY'], 'vertical');
 }
 $axisY->setDataPreprocessor(Image_Graph::factory('Image_Graph_DataPreprocessor_Function', 'axis2human'));
 #$axisYsecondary =& $plotarea->getAxis(IMAGE_GRAPH_AXIS_Y_SECONDARY);
-#$axisYsecondary->setTitle('Pears', 'vertical2'); 
- 
+#$axisYsecondary->setTitle('Pears', 'vertical2');
+
 // output the Graph
 $graph->done();
 exit;

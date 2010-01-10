@@ -10,12 +10,11 @@
  * @author Ben Klang <ben@alkaloid.net>
  */
 
-@define('OPERATOR_BASE', dirname(__FILE__));
-require_once OPERATOR_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
 
-// Form libraries.
-require_once 'Horde/Form.php';
-require_once 'Horde/Form/Renderer.php';
+$operator = new Operator_Application(array('init' => true));
+$cache = &$GLOBALS['cache'];
+
 require_once OPERATOR_BASE . '/lib/Form/SearchCDR.php';
 
 $renderer = new Horde_Form_Renderer();
