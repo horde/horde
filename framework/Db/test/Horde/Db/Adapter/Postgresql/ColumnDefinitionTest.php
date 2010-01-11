@@ -77,10 +77,25 @@ class Horde_Db_Adapter_Postgresql_ColumnDefinitionTest extends PHPUnit_Framework
         $this->assertEquals('"col_name" decimal(5, 2)', $col->toSql());
     }
 
+    public function testToSqlUnsigned()
+    {
+        $col = new Horde_Db_Adapter_Base_ColumnDefinition(
+            $this->_conn, 'col_name', 'integer', null, null, null, true
+        );
+        $this->assertEquals('"col_name" integer UNSIGNED', $col->toSql());
+
+        // set attribute instead
+        $col = new Horde_Db_Adapter_Base_ColumnDefinition(
+            $this->_conn, 'col_name', 'integer'
+        );
+        $col->setUnsigned(true);
+        $this->assertEquals('"col_name" integer UNSIGNED', $col->toSql());
+    }
+
     public function testToSqlNotNull()
     {
         $col = new Horde_Db_Adapter_Base_ColumnDefinition(
-            $this->_conn, 'col_name', 'string', null, null, null, null, false
+            $this->_conn, 'col_name', 'string', null, null, null, null, null, false
         );
         $this->assertEquals('"col_name" character varying(255) NOT NULL', $col->toSql());
 
@@ -95,7 +110,7 @@ class Horde_Db_Adapter_Postgresql_ColumnDefinitionTest extends PHPUnit_Framework
     public function testToSqlDefault()
     {
         $col = new Horde_Db_Adapter_Base_ColumnDefinition(
-            $this->_conn, 'col_name', 'string', null, null, null, 'test', null
+            $this->_conn, 'col_name', 'string', null, null, null, null, 'test'
         );
         $this->assertEquals('"col_name" character varying(255) DEFAULT \'test\'', $col->toSql());
 
@@ -106,5 +121,4 @@ class Horde_Db_Adapter_Postgresql_ColumnDefinitionTest extends PHPUnit_Framework
         $col->setDefault('test');
         $this->assertEquals('"col_name" character varying(255) DEFAULT \'test\'', $col->toSql());
     }
-
 }

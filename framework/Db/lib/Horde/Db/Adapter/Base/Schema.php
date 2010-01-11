@@ -433,10 +433,11 @@ abstract class Horde_Db_Adapter_Base_Schema
         $limit     = isset($options['limit'])     ? $options['limit']     : null;
         $precision = isset($options['precision']) ? $options['precision'] : null;
         $scale     = isset($options['scale'])     ? $options['scale']     : null;
+        $unsigned  = isset($options['unsigned'])  ? $options['unsigned']  : null;
 
         $sql = 'ALTER TABLE ' . $this->quoteTableName($tableName) .
             ' ADD '.$this->quoteColumnName($columnName) .
-            ' '.$this->typeToSql($type, $limit, $precision, $scale);
+            ' '.$this->typeToSql($type, $limit, $precision, $scale, $unsigned);
         $sql = $this->addColumnOptions($sql, $options);
         return $this->execute($sql);
     }
@@ -660,7 +661,7 @@ abstract class Horde_Db_Adapter_Base_Schema
      * @param   string  $type
      * @param   string  $limit
      */
-    public function typeToSql($type, $limit=null, $precision=null, $scale=null)
+    public function typeToSql($type, $limit = null, $precision = null, $scale = null, $unsigned = null)
     {
         $natives = $this->nativeDatabaseTypes();
         $native = isset($natives[$type]) ? $natives[$type] : null;
@@ -678,10 +679,22 @@ abstract class Horde_Db_Adapter_Base_Schema
             }
         } else {
             $nativeLimit = is_array($native) ? $native['limit'] : null;
+
+            // If there is no explicit limit, adjust $nativeLimit for unsigned
+            // integers.
+            if (!empty($unsigned) && empty($limit) && is_integer($nativeLimit)) {
+                $nativeLimit--;
+            }
+
             if ($limit = !empty($limit) ? $limit : $nativeLimit) {
                 $sql .= "($limit)";
             }
         }
+
+        if (!empty($unsigned)) {
+            $sql .= ' UNSIGNED';
+        }
+
         return $sql;
     }
 

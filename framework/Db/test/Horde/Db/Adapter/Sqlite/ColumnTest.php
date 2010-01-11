@@ -87,6 +87,13 @@ class Horde_Db_Adapter_Sqlite_ColumnTest extends PHPUnit_Framework_TestCase
     {
         $col = new Horde_Db_Adapter_Sqlite_Column('age', 'NULL', 'int(11)');
         $this->assertEquals('integer', $col->getType());
+        $this->assertFalse($col->isUnsigned());
+    }
+
+    public function testTypeIntegerUnsigned()
+    {
+        $col = new Horde_Db_Adapter_Sqlite_Column('age', 'NULL', 'int UNSIGNED');
+        $this->assertTrue($col->isUnsigned());
     }
 
     public function testTypeFloat()

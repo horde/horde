@@ -337,8 +337,9 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
         $limit     = !empty($options['limit'])     ? $options['limit']     : null;
         $precision = !empty($options['precision']) ? $options['precision'] : null;
         $scale     = !empty($options['scale'])     ? $options['scale']     : null;
+        $unsigned  = !empty($options['unsigned'])  ? $options['unsigned']  : null;
 
-        $typeSql = $this->typeToSql($type, $limit, $precision, $scale);
+        $typeSql = $this->typeToSql($type, $limit, $precision, $scale, $unsigned);
 
         $sql = "ALTER TABLE $quotedTableName CHANGE $quotedColumnName $quotedColumnName $typeSql";
         $sql = $this->addColumnOptions($sql, $options);

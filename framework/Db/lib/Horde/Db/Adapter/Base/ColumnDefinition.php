@@ -29,14 +29,16 @@ class Horde_Db_Adapter_Base_ColumnDefinition
     protected $_limit     = null;
     protected $_precision = null;
     protected $_scale     = null;
+    protected $_unsigned  = null;
     protected $_default   = null;
     protected $_null      = null;
 
     /**
      * Construct
      */
-    public function __construct($base, $name, $type, $limit=null,
-         $precision=null, $scale=null, $default=null, $null=null)
+    public function __construct($base, $name, $type, $limit = null,
+        $precision = null, $scale = null, $unsigned = null,
+        $default = null, $null = null)
     {
         // protected
         $this->_base      = $base;
@@ -47,9 +49,11 @@ class Horde_Db_Adapter_Base_ColumnDefinition
         $this->_limit     = $limit;
         $this->_precision = $precision;
         $this->_scale     = $scale;
+        $this->_unsigned  = $unsigned;
         $this->_default   = $default;
         $this->_null      = $null;
     }
+
 
     /*##########################################################################
     # Public
@@ -60,15 +64,9 @@ class Horde_Db_Adapter_Base_ColumnDefinition
      */
     public function toSql()
     {
-        $sql = $this->_base->quoteColumnName($this->_name).' ';
-        try {
-            $sql .= $this->_base->typeToSql($this->_type,      $this->_limit,
-                                            $this->_precision, $this->_scale);
-        } catch (Exception $e) {
-            $sql .= $this->_type;
-        }
-        return $this->_addColumnOptions($sql, array('null'    => $this->_null,
-                                                    'default' => $this->_default));
+        $sql = $this->_base->quoteColumnName($this->_name) . ' ' . $this->getSqlType();
+        return $this->_addColumnOptions($sql, array('null'     => $this->_null,
+                                                    'default'  => $this->_default));
     }
 
     /**
@@ -114,7 +112,7 @@ class Horde_Db_Adapter_Base_ColumnDefinition
     public function getSqlType()
     {
         try {
-            return $this->_base->typeToSql($this->_type, $this->_limit, $this->_precision, $this->_scale);
+            return $this->_base->typeToSql($this->_type, $this->_limit, $this->_precision, $this->_scale, $this->_unsigned);
         } catch (Exception $e) {
             return $this->_type;
         }
@@ -142,6 +140,14 @@ class Horde_Db_Adapter_Base_ColumnDefinition
     public function scale()
     {
         return $this->_scale;
+    }
+
+    /**
+     * @return  boolean
+     */
+    public function isUnsigned()
+    {
+        return $this->_unsigned;
     }
 
     /**
@@ -198,6 +204,14 @@ class Horde_Db_Adapter_Base_ColumnDefinition
     public function setScale($scale)
     {
         $this->_scale = $scale;
+    }
+
+    /**
+     * @param  boolean
+     */
+    public function setUnsigned($unsigned)
+    {
+        $this->_unsigned = $unsigned;
     }
 
     /**

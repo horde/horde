@@ -29,6 +29,7 @@ class Horde_Db_Adapter_Base_Column
     protected $_limit;
     protected $_precision;
     protected $_scale;
+    protected $_unsigned;
     protected $_default;
     protected $_sqlType;
     protected $_isText;
@@ -44,7 +45,7 @@ class Horde_Db_Adapter_Base_Column
      *
      * @param   string  $name     The column's name, such as <tt>supplier_id</tt> in <tt>supplier_id int(11)</tt>.
      * @param   string  $default  The type-casted default value, such as +new+ in <tt>sales_stage varchar(20) default 'new'</tt>.
-     * @param   string  $sqlType  Only used to extract the column's length, if necessary. For example +60+ in <tt>company_name varchar(60)</tt>.
+     * @param   string  $sqlType  Used to extract the column's length and signed status, if necessary. For example +60+ in <tt>company_name varchar(60)</tt>, or +unsigned => true+ in <tt>int(10) UNSIGNED</tt>.
      * @param   boolean $null     Determines if this column allows +NULL+ values.
      */
     public function __construct($name, $default, $sqlType = null, $null = true)
@@ -56,6 +57,7 @@ class Horde_Db_Adapter_Base_Column
         $this->_limit     = $this->_extractLimit($sqlType);
         $this->_precision = $this->_extractPrecision($sqlType);
         $this->_scale     = $this->_extractScale($sqlType);
+        $this->_unsigned  = $this->_extractUnsigned($sqlType);
 
         $this->_type      = $this->_simplifiedType($sqlType);
         $this->_isText    = $this->_type == 'text'  || $this->_type == 'string';
@@ -169,6 +171,14 @@ class Horde_Db_Adapter_Base_Column
     public function scale()
     {
         return $this->_scale;
+    }
+
+    /**
+     * @return  boolean
+     */
+    public function isUnsigned()
+    {
+        return $this->_unsigned;
     }
 
     /**
@@ -327,6 +337,15 @@ class Horde_Db_Adapter_Base_Column
     }
 
     /**
+     * @param   string  $sqlType
+     * @return  int
+     */
+    protected function _extractUnsigned($sqlType)
+    {
+        return (boolean)preg_match('/^int.*unsigned/i', $sqlType);
+    }
+
+    /**
      * @param   string  $fieldType
      * @return  string
      */
@@ -357,5 +376,4 @@ class Horde_Db_Adapter_Base_Column
                 return 'boolean';
         }
     }
-
 }

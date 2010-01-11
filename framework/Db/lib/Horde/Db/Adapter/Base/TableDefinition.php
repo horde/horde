@@ -122,6 +122,7 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
 
         $column->setPrecision(isset($opt['precision']) ? $opt['precision'] : null);
         $column->setScale(isset($opt['scale'])         ? $opt['scale']     : null);
+        $column->setUnsigned(isset($opt['unsigned'])   ? $opt['unsigned']  : null);
         $column->setDefault(isset($opt['default'])     ? $opt['default']   : null);
         $column->setNull(isset($opt['null'])           ? $opt['null']      : null);
 
