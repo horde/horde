@@ -89,7 +89,7 @@ class Operator {
     function getAccountCodes($permfilter = false)
     {
         global $operator;
-        if (empty($operator)) {
+        if (empty($operator) || empty($operator->driver)) {
             $operator = new Operator_Application(array('init' => true));
         }
         
@@ -141,9 +141,8 @@ class Operator {
                 throw new Operator_Exception(_("You do not have permission to view any accounts."));
             }
         } else {
-            $accountcodes = array_merge($keys, $values);
+            $accountcodes = array_combine($keys, $values);
         }
-
         return $accountcodes;
     }
 
