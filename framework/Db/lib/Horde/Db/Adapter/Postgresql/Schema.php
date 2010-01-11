@@ -182,7 +182,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
             try {
                 return $this->execute('DROP DATABASE ' . $this->quoteTableName($name));
             } catch (Horde_Db_Exception $e) {
-                /*@TODO logger.warn "#{name} database doesn't exist." if logger */
+                if ($this->_logger) { $this->_logger->warn("$name database doesn't exist"); }
             }
         }
     }
@@ -373,7 +373,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
                 $sql = "SELECT setval($quotedSequence, (SELECT COALESCE(MAX($quotedPk)+(SELECT increment_by FROM $quotedSequence), (SELECT min_value FROM $quotedSequence)) FROM $quotedTable), false)";
                 $this->selectValue($sql, 'Reset sequence');
             } else {
-                /*@TODO logger.warn "$table has primary key $pk with no default sequence" if logger*/
+                if ($this->_logger) { $this->_logger->warn("$table has primary key $pk with no default sequence"); }
             }
         }
     }
