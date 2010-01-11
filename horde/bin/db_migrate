@@ -20,6 +20,7 @@ if (!Horde_Cli::runningFromCLI()) {
 // Load the CLI environment - make sure there's no time limit, init some
 // variables, etc.
 Horde_Cli::init();
+$cli = Horde_Cli::singleton();
 
 // Include needed libraries.
 new Horde_Application(array('authentication' => 'none'));
@@ -29,25 +30,46 @@ $GLOBALS['conf']['sql']['adapter'] = $GLOBALS['conf']['sql']['phptype'] == 'mysq
 $db = Horde_Db_Adapter::factory($GLOBALS['conf']['sql']);
 
 // Parse command line arguments
-$parser = new Horde_Argv_Parser();
-$parser->addOption('-a', '--app', array('type' => 'string'));
-$parser->addOption('-v', '--version', array('type' => 'int'));
-
-list($options, $positionalArgs) = $parser->parseArgs();
-
-if (empty($options->app)) {
-    $parser->parserError("The -a/--app argument is required");
+array_shift($_SERVER['argv']);
+$args = $_SERVER['argv'];
+if (empty($args[0])) {
+    $cli->fatal("An application argument is required");
 }
-$app = $options->app;
+$app = $args[0];
 if (!in_array($app, $GLOBALS['registry']->listApps())) {
-    $parser->parserError("$app is not a configured Horde application");
+    $cli->fatal("$app is not a configured Horde application");
+}
+$action = 'up';
+if (!empty($args[1])) {
+    switch ($args[1]) {
+    case 'up':
+    case 'down':
+        $action = $args[1];
+        break;
+
+    default:
+        $action = 'migrate';
+        $targetVersion = $args[1];
+    }
 }
 
 // Run
 $dir = $GLOBALS['registry']->get('fileroot', $app) . '/migrations/';
 $migrator = new Horde_Db_Migration_Migrator($db, $dir);
 try {
-    $migrator->up();
+    switch ($action) {
+    case 'up':
+        $migrator->up();
+        break;
+
+    case 'down':
+        $migrator->down();
+        break;
+
+    case 'migrate':
+        $migrator->migrate($targetVersion);
+        break;
+    }
 } catch (Exception $e) {
     echo $e->getMessage();
     exit(1);
