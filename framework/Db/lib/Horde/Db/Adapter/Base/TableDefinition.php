@@ -103,7 +103,7 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
      *
      * @return  TableDefinition
      */
-    public function column($name, $type, $options=array())
+    public function column($name, $type, $options = array())
     {
         if ($this[$name]) {
             $column = $this[$name];
@@ -112,19 +112,12 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
                 $this->_base, $name, $type));
         }
 
-        $natives = $this->_native();
-        $opt = $options;
-
-        if (isset($opt['limit']) || (isset($natives[$type]) && is_array($natives[$type]))) {
-            $nativeLimit = isset($natives[$type]['limit']) ? $natives[$type]['limit'] : null;
-            $column->setLimit(isset($opt['limit']) ? $opt['limit'] : $nativeLimit);
-        }
-
-        $column->setPrecision(isset($opt['precision']) ? $opt['precision'] : null);
-        $column->setScale(isset($opt['scale'])         ? $opt['scale']     : null);
-        $column->setUnsigned(isset($opt['unsigned'])   ? $opt['unsigned']  : null);
-        $column->setDefault(isset($opt['default'])     ? $opt['default']   : null);
-        $column->setNull(isset($opt['null'])           ? $opt['null']      : null);
+        $column->setLimit(isset($options['limit'])         ? $options['limit']     : null);
+        $column->setPrecision(isset($options['precision']) ? $options['precision'] : null);
+        $column->setScale(isset($options['scale'])         ? $options['scale']     : null);
+        $column->setUnsigned(isset($options['unsigned'])   ? $options['unsigned']  : null);
+        $column->setDefault(isset($options['default'])     ? $options['default']   : null);
+        $column->setNull(isset($options['null'])           ? $options['null']      : null);
 
         $this[$name] ? $this[$name] = $column : $this->_columns[] = $column;
         return $this;
