@@ -11,7 +11,7 @@
  * @author Michael Slusarz <slusarz@horde.org>
  */
 
-require_once './install_dev.conf';
+require_once dirname(__FILE__) . '/install_dev.conf';
 
 $horde_git = rtrim(ltrim($horde_git), '/ ');
 $horde_hatchery = rtrim(ltrim($horde_hatchery), '/ ');
@@ -86,8 +86,8 @@ if ($debug) {
 
 mkdir($web_dir . '/libs');
 file_put_contents($horde_git . '/horde/config/horde.local.php', "<?php ini_set('include_path', '{$web_dir}/libs' . PATH_SEPARATOR . ini_get('include_path'));");
-system('./install_framework --src ' . $horde_git . '/framework --dest ' . $web_dir . '/libs');
-system('./install_framework --src ' . $horde_hatchery . '/framework --dest ' . $web_dir . '/libs');
+system(dirname(__FILE__) . '/install_framework --src ' . $horde_git . '/framework --dest ' . $web_dir . '/libs');
+system(dirname(__FILE__) . '/install_framework --src ' . $horde_hatchery . '/framework --dest ' . $web_dir . '/libs');
 
 if ($debug) {
     print "\nLINKING applications to web directory " . $web_dir . "\n";
