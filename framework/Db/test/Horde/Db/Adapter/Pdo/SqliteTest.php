@@ -406,6 +406,15 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
         $this->fail("Expected exception for no pk");
     }
 
+    public function testCreateTableWithExplicitPk()
+    {
+        $table = $this->_conn->createTable('testings');
+          $table->column('foo', 'primaryKey');
+
+        $pkColumn = $table['foo'];
+        $this->assertEquals('"foo" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL', $pkColumn->toSql());
+    }
+
     public function testCreateTableForce()
     {
         $this->_createTestTable('sports');
@@ -426,7 +435,7 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
     public function testCreateTableAddsId()
     {
         $table = $this->_conn->createTable('testings');
-            $table->column('foo', 'string');
+          $table->column('foo', 'string');
         $table->end();
 
         $columns = array();
@@ -440,7 +449,7 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
     public function testCreateTableWithNotNullColumn()
     {
         $table = $this->_conn->createTable('testings');
-            $table->column('foo', 'string', array('null' => false));
+          $table->column('foo', 'string', array('null' => false));
         $table->end();
 
         try {
@@ -452,10 +461,10 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
     public function testCreateTableWithDefaults()
     {
         $table = $this->_conn->createTable('testings');
-            $table->column('one',   'string',  array('default' => 'hello'));
-            $table->column('two',   'boolean', array('default' => true));
-            $table->column('three', 'boolean', array('default' => false));
-            $table->column('four',  'integer', array('default' => 1));
+          $table->column('one',   'string',  array('default' => 'hello'));
+          $table->column('two',   'boolean', array('default' => true));
+          $table->column('three', 'boolean', array('default' => false));
+          $table->column('four',  'integer', array('default' => 1));
         $table->end();
 
         $columns = array();
@@ -472,7 +481,7 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
     public function testCreateTableWithLimits()
     {
         $table = $this->_conn->createTable('testings');
-            $table->column('foo', 'string', array('limit' => 80));
+          $table->column('foo', 'string', array('limit' => 80));
         $table->end();
 
         $columns = array();
@@ -486,7 +495,7 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
     {
         try {
             $table = $this->_conn->createTable('binary_testings');
-                $table->column('data', 'binary', array('null' => false));
+              $table->column('data', 'binary', array('null' => false));
             $table->end();
         } catch (Exception $e) { $this->fail('Unexepected exception raised'); }
 
@@ -1020,7 +1029,7 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
     public function testAddColumnNotNullWithoutDefault()
     {
         $table = $this->_conn->createTable('testings');
-            $table->column('foo', 'string');
+          $table->column('foo', 'string');
         $table->end();
         $this->_conn->addColumn('testings', 'bar', 'string', array('null' => false, 'default' => ''));
 
@@ -1028,13 +1037,12 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
             $this->_conn->execute("INSERT INTO testings (foo, bar) VALUES ('hello', NULL)");
         } catch (Exception $e) { return; }
         $this->fail('Expected exception wasn\'t raised');
-
     }
 
     public function testAddColumnNotNullWithDefault()
     {
         $table = $this->_conn->createTable('testings');
-            $table->column('foo', 'string');
+          $table->column('foo', 'string');
         $table->end();
 
         $this->_conn->execute("INSERT INTO testings (id, foo) VALUES ('1', 'hello')");

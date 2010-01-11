@@ -254,13 +254,13 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
     public function testTransactionRollback()
     {
         $this->_conn->beginDbTransaction();
-         $sql = "INSERT INTO unit_tests (id, integer_value) VALUES (7, 999)";
-         $this->_conn->insert($sql);
-         $this->_conn->rollbackDbTransaction();
+        $sql = "INSERT INTO unit_tests (id, integer_value) VALUES (7, 999)";
+        $this->_conn->insert($sql);
+        $this->_conn->rollbackDbTransaction();
 
-         // make sure it inserted
-         $sql = "SELECT integer_value FROM unit_tests WHERE id='7'";
-         $this->assertEquals(null, $this->_conn->selectValue($sql));
+        // make sure it inserted
+        $sql = "SELECT integer_value FROM unit_tests WHERE id='7'";
+        $this->assertEquals(null, $this->_conn->selectValue($sql));
     }
 
 
@@ -408,6 +408,15 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
             return;
         }
         $this->fail("Expected exception for no pk");
+    }
+
+    public function testCreateTableWithExplicitPk()
+    {
+        $table = $this->_conn->createTable('testings');
+          $table->column('foo', 'primaryKey');
+
+        $pkColumn = $table['foo'];
+        $this->assertEquals('"foo" serial primary key', $pkColumn->toSql());
     }
 
     public function testCreateTableForce()

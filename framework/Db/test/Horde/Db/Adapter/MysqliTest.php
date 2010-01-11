@@ -489,6 +489,15 @@ class Horde_Db_Adapter_MysqliTest extends PHPUnit_Framework_TestCase
         $this->fail("Expected exception for no pk");
     }
 
+    public function testCreateTableWithExplicitPk()
+    {
+        $table = $this->_conn->createTable('testings');
+          $table->column('foo', 'primaryKey');
+
+        $pkColumn = $table['foo'];
+        $this->assertEquals('`foo` int(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY', $pkColumn->toSql());
+    }
+
     public function testCreateTableForce()
     {
         $this->_createTestTable('sports');

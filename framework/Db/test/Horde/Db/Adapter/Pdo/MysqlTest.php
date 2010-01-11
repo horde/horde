@@ -509,6 +509,15 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
         $this->fail("Expected exception for no pk");
     }
 
+    public function testCreateTableWithExplicitPk()
+    {
+        $table = $this->_conn->createTable('testings');
+          $table->column('foo', 'primaryKey');
+
+        $pkColumn = $table['foo'];
+        $this->assertEquals('`foo` int(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY', $pkColumn->toSql());
+    }
+
     public function testCreateTableForce()
     {
         $this->_createTestTable('sports');
@@ -1132,7 +1141,7 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
     public function testAddColumnNotNullWithoutDefault()
     {
         $table = $this->_conn->createTable('testings');
-            $table->column('foo', 'string');
+          $table->column('foo', 'string');
         $table->end();
         $this->_conn->addColumn('testings', 'bar', 'string', array('null' => false, 'default' => ''));
 
@@ -1140,13 +1149,12 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
             $this->_conn->execute("INSERT INTO testings (foo, bar) VALUES ('hello', NULL)");
         } catch (Exception $e) { return; }
         $this->fail('Expected exception wasn\'t raised');
-
     }
 
     public function testAddColumnNotNullWithDefault()
     {
         $table = $this->_conn->createTable('testings');
-            $table->column('foo', 'string');
+          $table->column('foo', 'string');
         $table->end();
 
         $this->_conn->execute("INSERT INTO testings (id, foo) VALUES ('1', 'hello')");
