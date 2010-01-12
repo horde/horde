@@ -6,7 +6,7 @@ $block_name = _("Gallery");
  * This file provides a selected Ansel gallery through the Horde_Blocks, by
  * extending the Horde_Blocks class.
  *
- * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

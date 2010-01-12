@@ -4,7 +4,7 @@
  *
  * $Id: delete_file.php 1186 2009-01-21 10:24:00Z duck $
  *
- * Copyright 2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

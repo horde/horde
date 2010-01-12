@@ -5,7 +5,7 @@ require_once 'Horde/Kolab.php';
 /**
  * Horde Turba driver for the Kolab IMAP Server.
  *
- * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
@@ -186,7 +186,7 @@ class Turba_Driver_Kolab extends Turba_Driver
 /**
  * Horde Turba wrapper to distinguish between both Kolab driver implementations.
  *
- * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
@@ -260,7 +260,7 @@ class Turba_Driver_Kolab_wrapper {
 
 /**
  * Horde Turba driver for the Kolab IMAP Server.
- * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
@@ -702,7 +702,7 @@ class Turba_Driver_Kolab_Wrapper_Old extends Turba_Driver_Kolab_Wrapper {
 
 /**
  * New Horde Turba driver for the Kolab IMAP Server.
- * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.

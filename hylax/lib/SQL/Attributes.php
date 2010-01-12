@@ -4,7 +4,7 @@
  *
  * $Horde: incubator/hylax/lib/SQL/Attributes.php,v 1.5 2009/01/06 17:50:49 jan Exp $
  *
- * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

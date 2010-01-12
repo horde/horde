@@ -1,6 +1,6 @@
 # Spanish translations for jeta package
 # Traducciones al español para el paquete jeta.
-# Copyright 2008-2009 The Horde Project
+# Copyright 2008-2010 The Horde Project
 # This file is distributed under the same license as the jeta package.
 # Automatically generated, 2008.
 #

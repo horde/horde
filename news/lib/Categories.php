@@ -4,7 +4,7 @@
  *
  * $Id: Categories.php 1261 2009-02-01 23:20:07Z duck $
  *
- * Copyright 2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

@@ -4,7 +4,7 @@
  * methods take care of any site-specific restrictions configured in in the
  * application's prefs.php and conf.php files.
  *
- * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  * Copyright 2002-2007 Infoteck Internet <webmaster@infoteck.qc.ca>
  *
  * See the enclosed file COPYING for license information (LGPL). If you

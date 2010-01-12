@@ -2,7 +2,7 @@
 /**
  * Babel application API.
  *
- * Copyright 2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
  *
  * @author  Joel Vandal <joel@scopserv.com>
  * @package Babel

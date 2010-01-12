@@ -7,7 +7,7 @@
  *
  * $Horde: incubator/operator/lib/api.php,v 1.3 2009/01/06 17:51:06 jan Exp $
  *
- * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

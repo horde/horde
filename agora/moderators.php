@@ -2,7 +2,7 @@
 /**
  * The Agora script to display a list of forums.
  *
- * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * $Horde: agora/moderators.php,v 1.17 2009/07/08 18:28:38 slusarz Exp $
  *

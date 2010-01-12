@@ -22,7 +22,7 @@
  *
  * $Horde: incubator/operator/lib/Driver/asterisksql.php,v 1.12 2009/05/31 17:14:08 bklang Exp $
  *
- * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

@@ -2,7 +2,7 @@
 /**
  * The Agora script to display a list of threads in a forum.
  *
- * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * $Horde: agora/threads.php,v 1.65 2009-12-10 17:42:30 jan Exp $
  *

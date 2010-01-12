@@ -4,7 +4,7 @@
  *
  * $Id: edit.php 1188 2009-01-21 10:33:56Z duck $
  *
- * Copyright 2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

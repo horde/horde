@@ -4,7 +4,7 @@
  * Vodafone Italy SMS gateway. Use of this gateway requires an email account
  * with Vodafone Italy (www.190.it).
  *
- * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  * Copyright 2003-2007 Matteo Zambelli <mmzambe@hotmail.com>
  *
  * See the enclosed file COPYING for license information (LGPL). If you

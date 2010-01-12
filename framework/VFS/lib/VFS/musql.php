@@ -55,7 +55,7 @@ define('VFS_FLAG_WRITE', 2);
  *    mssql.textsize = 0 ; zero to pass through
  * </code>
  *
- * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

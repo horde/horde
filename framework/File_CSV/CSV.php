@@ -19,7 +19,7 @@ define('HORDE_FILE_CSV_MODE_APPEND', 'ab');
  * The File_CSV package allows reading and creating of CSV data and files.
  *
  * Copyright 2002-2003 Tomas Von Veschler Cox <cox@idecnet.com>
- * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
  *
  * This source file is subject to version 2.0 of the PHP license, that is
  * bundled with this package in the file LICENSE, and is available at through

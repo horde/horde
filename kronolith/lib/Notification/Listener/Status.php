@@ -4,7 +4,7 @@
  * Horde_Notification_Listener_Status:: class to return all kronolith messages
  * instead of printing them.
  *
- * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

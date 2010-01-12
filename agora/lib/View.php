@@ -4,7 +4,7 @@
  *
  * $Horde: agora/lib/View.php,v 1.15 2009/07/09 08:17:47 slusarz Exp $
  *
- * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

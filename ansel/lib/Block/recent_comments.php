@@ -8,7 +8,7 @@ if ($GLOBALS['registry']->call('images/hasComments') &&
 /**
  * Display most recent image comments for galleries.
  *
- * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

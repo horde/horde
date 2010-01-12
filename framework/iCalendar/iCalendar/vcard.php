@@ -25,7 +25,7 @@ define('VCARD_GEO_LON',      1);
  *
  * $Horde: framework/iCalendar/iCalendar/vcard.php,v 1.22 2009/06/07 18:13:46 mrubinsk Exp $
  *
- * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

@@ -2,7 +2,7 @@
 /**
  * The Agora search page.
  *
- * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
  *
  * $Horde: agora/search.php,v 1.27 2009-12-10 17:42:30 jan Exp $
  *

@@ -2,7 +2,7 @@
 /**
  * Crumb base application file.
  *
- * Copyright 2008-2009 The Horde Project <http://www.horde.org>
+ * Copyright 2008-2010 The Horde Project <http://www.horde.org>
  *
  * This file brings in all of the dependencies that every Crumb script will
  * need, and sets up objects that all scripts use.

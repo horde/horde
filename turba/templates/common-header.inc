@@ -6,7 +6,7 @@ if (isset($language)) {
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
-<!-- Turba: Copyright 2000-2009 The Horde Project.  Turba is under an ASL license. -->
+<!-- Turba: Copyright 2000-2010 The Horde Project.  Turba is under an ASL license. -->
 <!--   Horde Project: http://www.horde.org/ | Turba: http://www.horde.org/turba/   -->
 <!--          Horde ASL License: http://www.horde.org/licenses/asl.php             -->
 <?php echo !empty($language) ? '<html lang="' . strtr($language, '_', '-') . '">' : '<html>' ?>

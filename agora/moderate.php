@@ -2,7 +2,7 @@
 /**
  * The Agora script to moderate any outstanding messages requiring moderation.
  *
- * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * $Horde: agora/moderate.php,v 1.32 2009-12-10 17:42:30 jan Exp $
  *

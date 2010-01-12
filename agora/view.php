@@ -4,7 +4,7 @@
  *
  * $Horde: agora/view.php,v 1.14 2009/07/21 06:58:38 duck Exp $
  *
- * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

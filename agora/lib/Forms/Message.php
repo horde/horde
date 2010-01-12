@@ -4,7 +4,7 @@
  *
  * $Horde: agora/lib/Forms/Message.php,v 1.11 2009/07/08 18:28:40 slusarz Exp $
  *
- * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

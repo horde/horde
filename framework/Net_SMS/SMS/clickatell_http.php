@@ -12,7 +12,7 @@ include_once 'HTTP/Request.php';
  * Net_SMS_clickatell_http Class implements the HTTP API for accessing the
  * Clickatell (www.clickatell.com) SMS gateway.
  *
- * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

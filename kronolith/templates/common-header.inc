@@ -10,7 +10,7 @@ if (isset($language)) {
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
-<!--   Kronolith: Copyright 2000-2009 The Horde Project.  Kronolith is under the GPL.  -->
+<!--   Kronolith: Copyright 2000-2010 The Horde Project.  Kronolith is under the GPL.  -->
 <!-- Horde Project: http://www.horde.org/ | Kronolith: http://www.horde.org/kronolith/ -->
 <!--              GNU Public License: http://www.fsf.org/copyleft/gpl.html             -->
 <?php echo !empty($language) ? '<html lang="' . strtr($language, '_', '-') . '">' : '<html>' ?>

@@ -5,7 +5,7 @@
  *
  * $Horde: agora/lib/Messages.php,v 1.322 2009-12-10 19:24:08 mrubinsk Exp $
  *
- * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

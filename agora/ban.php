@@ -2,7 +2,7 @@
 /**
  * The Agora script ban users from a specific forum.
  *
- * Copyright 2006-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2006-2010 The Horde Project (http://www.horde.org/)
  *
  * $Horde: agora/ban.php,v 1.15 2009-12-01 12:52:38 jan Exp $
  *

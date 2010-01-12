@@ -5,7 +5,7 @@
  *
  * $Horde: agora/lib/Messages/sql.php,v 1.17 2009/01/06 17:48:46 jan Exp $
  *
- * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
