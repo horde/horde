@@ -57,7 +57,7 @@ abstract class Horde_Http_Request_Base
      * Authentication scheme
      * @var const Horde_Http::AUTH_*
      */
-    protected $_authenticationScheme = Horde_Http::AUTH_BASIC;
+    protected $_authenticationScheme = Horde_Http::AUTH_ANY;
 
     /**
      * Proxy server
