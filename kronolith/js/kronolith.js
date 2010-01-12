@@ -1339,8 +1339,11 @@ KronolithCore = {
                 //        variables.
                 this.dragvars = {
                     divHeight: divHeight,
-                    event: event.value,
+                    startTop: div.offsetTop,
+                    event: event,
                     innerDiv: innerDiv,
+                    dragTop: dragTop,
+                    dragBottom: dragBottom,
                     midnight: midnight,
                     step: step,
                     stepX: stepX,
@@ -3048,7 +3051,8 @@ KronolithCore = {
     onDrag: function(e)
     {
         var elt = e.element(),
-            d = DragDrop.Drags.getDrag(elt);
+            d = DragDrop.Drags.getDrag(elt),
+            event = this.dragvars.event.value;
 
         if (elt.hasClassName('kronolithDragger')) {
             var div = elt.up(),
@@ -3056,39 +3060,40 @@ KronolithCore = {
                 offset, height, dates;
 
             if (elt.hasClassName('kronolithDraggerTop')) {
-                offset = top - dragTop;
+                offset = top - this.dragvars.dragTop;
                 height = div.offsetHeight - offset;
                 div.setStyle({
                     'top': (div.offsetTop + offset) + 'px'
                 });
                 offset = d.ghost.offsetTop;
-                dragTop = top;
+                this.dragvars.dragTop = top;
             } else {
-                offset = top - dragBottom;
+                offset = top - this.dragvars.dragBottom;
                 height = div.offsetHeight + offset;
                 offset = div.offsetTop;
-                dragBottom = top;
+                this.dragvars.dragBottom = top;
             }
             div.setStyle({
                 'height': height + 'px'
             });
 
-            this._calculateEventDates(this.dragvars.event.value, this.dragvars.storage, this.dragvars.step, offset, height);
-            innerDiv.update('(' + this.dragvars.event.value.start.toString(Kronolith.conf.time_format) + ' - ' + this.dragvars.event.value.end.toString(Kronolith.conf.time_format) + ') ' + this.dragvars.event.value.t.escapeHTML());
+            this._calculateEventDates(event, this.dragvars.storage, this.dragvars.step, offset, height);
+            this.dragvars.innerDiv.update('(' + event.start.toString(Kronolith.conf.time_format) + ' - ' + event.end.toString(Kronolith.conf.time_format) + ') ' + event.t.escapeHTML());
         } else if (elt.hasClassName('kronolithEditable')) {
             if (Object.isUndefined(d.innerDiv)) {
                 d.innerDiv = d.ghost.select('.kronolithEventInfo')[0];
             }
-            if (view == 'week') {
+            if (this.view == 'week') {
                 var offsetX = Math.round(d.ghost.offsetLeft / this.dragvars.stepX);
-                this.dragvars.event.value.offsetDays = offsetX;
-                this._calculateEventDates(this.dragvars.event.value, this.dragvars.storage, this.dragvars.step, d.ghost.offsetTop, this.dragvars.divHeight, this.dragvars.event.value.start.clone().addDays(offsetX), this.dragvars.event.value.end.clone().addDays(offsetX));
+                event.offsetDays = offsetX;
+                this._calculateEventDates(event, this.dragvars.storage, this.dragvars.step, d.ghost.offsetTop, this.dragvars.divHeight, event.start.clone().addDays(offsetX), event.end.clone().addDays(offsetX));
             } else {
-                this.dragvars.event.value.offsetDays = 0;
-                this._calculateEventDates(this.dragvars.event.value, this.dragvars.storage, this.dragvars.step, d.ghost.offsetTop, this.dragvars.divHeight);
+                event.offsetDays = 0;
+                this._calculateEventDates(event, this.dragvars.storage, this.dragvars.step, d.ghost.offsetTop, this.dragvars.divHeight);
             }
-            this.dragvars.event.value.offsetTop = d.ghost.offsetTop - div.offsetTop;
-            d.innerDiv.update('(' + this.dragvars.event.value.start.toString(Kronolith.conf.time_format) + ' - ' + this.dragvars.event.value.end.toString(Kronolith.conf.time_format) + ') ' + this.dragvars.event.value.t.escapeHTML());
+            event.offsetTop = d.ghost.offsetTop - this.dragvars.startTop;
+console.log(d, d.ghost.offsetTop, this.dragvars.startTop, event.offsetTop);
+            d.innerDiv.update('(' + event.start.toString(Kronolith.conf.time_format) + ' - ' + event.end.toString(Kronolith.conf.time_format) + ') ' + event.t.escapeHTML());
             elt.clonePosition(d.ghost);
         }
     },
@@ -3105,9 +3110,8 @@ KronolithCore = {
             innerDiv = this.dragvars.innerDiv,
             event = this.dragvars.event,
             date = this.dragvars.midnight,
-            view = this.dragvars.view,
             step = this.dragvars.step,
-            dates = this.viewDates(date, view),
+            dates = this.viewDates(date, this.view),
             start = dates[0].toString('yyyyMMdd'),
             end = dates[1].toString('yyyyMMdd'),
             attributes;
@@ -3131,7 +3135,7 @@ KronolithCore = {
             'UpdateEvent',
             { 'cal': event.value.calendar,
               'id': event.key,
-              'view': view,
+              'view': this.view,
               'view_start': start,
               'view_end': end,
               'att': attributes.toJSON()
