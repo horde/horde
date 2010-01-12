@@ -5,7 +5,7 @@
  * MANDATORY: type (css, js, or app)
  * OPTIONAL: cid (required for type == [css, js]), nocache
  *
- * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -40,9 +40,8 @@ if (empty($args['nocache'])) {
 } else {
     $session_cache_limiter = 'nocache';
 }
-$horde_no_logintasks = true;
-$horde_session_control = 'readonly';
-require_once HORDE_BASE . '/lib/base.php';
+
+new Horde_Application(array('authentication' => 'none', 'session_control' => 'readonly'));
 
 switch ($type) {
 case 'app':

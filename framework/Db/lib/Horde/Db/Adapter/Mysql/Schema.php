@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -337,8 +337,9 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
         $limit     = !empty($options['limit'])     ? $options['limit']     : null;
         $precision = !empty($options['precision']) ? $options['precision'] : null;
         $scale     = !empty($options['scale'])     ? $options['scale']     : null;
+        $unsigned  = !empty($options['unsigned'])  ? $options['unsigned']  : null;
 
-        $typeSql = $this->typeToSql($type, $limit, $precision, $scale);
+        $typeSql = $this->typeToSql($type, $limit, $precision, $scale, $unsigned);
 
         $sql = "ALTER TABLE $quotedTableName CHANGE $quotedColumnName $quotedColumnName $typeSql";
         $sql = $this->addColumnOptions($sql, $options);
@@ -396,6 +397,36 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
     public function limitedUpdateConditions($whereSql, $quotedTableName, $quotedPrimaryKey)
     {
         return $whereSql;
+    }
+
+    /**
+     * The sql for this column type
+     *
+     * @param   string  $type
+     * @param   string  $limit
+     */
+    public function typeToSql($type, $limit = null, $precision = null, $scale = null, $unsigned = null)
+    {
+        // If there is no explicit limit, adjust $nativeLimit for unsigned
+        // integers.
+        if ($type == 'integer' && !empty($unsigned) && empty($limit)) {
+            $natives = $this->nativeDatabaseTypes();
+            $native = isset($natives[$type]) ? $natives[$type] : null;
+            if (empty($native)) { return $type; }
+
+            $nativeLimit = is_array($native) ? $native['limit'] : null;
+            if (is_integer($nativeLimit)) {
+                $limit = $nativeLimit - 1;
+            }
+        }
+
+        $sql = parent::typeToSql($type, $limit, $precision, $scale, $unsigned);
+
+        if (!empty($unsigned)) {
+            $sql .= ' UNSIGNED';
+        }
+
+        return $sql;
     }
 
     /**

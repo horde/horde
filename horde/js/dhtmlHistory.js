@@ -30,7 +30,7 @@
  *
  * This file requires the Prototype Javscript Library v1.6.0+
  *
- * Additions Copyright 2005-2009 The Horde Project (http://www.horde.org/)
+ * Additions Copyright 2005-2010 The Horde Project (http://www.horde.org/)
  */
 
 window.Horde = window.Horde || {};

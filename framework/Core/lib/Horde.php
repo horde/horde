@@ -3,7 +3,7 @@
  * The Horde:: class provides the functionality shared by all Horde
  * applications.
  *
- * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -1359,7 +1359,7 @@ HTML;
      * @param boolean $force_ssl     Ignore $conf['use_ssl'] and force creation
      *                               of a SSL URL?
      *
-     * @return string  The requested URI.
+     * @return Horde_Url  The requested URL.
      */
     static public function selfUrl($script_params = false, $nocache = true,
                                    $full = false, $force_ssl = false)
@@ -2257,7 +2257,7 @@ HTML;
             $params->width = $options['width'];
         }
         if (!empty($options['params'])) {
-            $params->params = http_build_query($options['params']);
+            $params->params = http_build_query(array_map('rawurlencode', $options['params']));
         }
         if (!empty($options['menu'])) {
             $params->menu = 1;

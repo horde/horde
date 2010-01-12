@@ -8,7 +8,7 @@
  *
  * @TODO http://ajaxian.com/archives/parse-user-agent
  *
- * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

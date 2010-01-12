@@ -3,7 +3,7 @@
  * The Horde_Mime_Viewer_Driver:: class provides the API for specific viewer
  * drivers to extend.
  *
- * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -35,17 +35,29 @@ class Horde_Mime_Viewer_Driver
     protected $_params = array();
 
     /**
-     * This driver's capabilities.
+     * This driver's display capabilities.
      *
-     * @var boolean
+     * @var array
      */
     protected $_capability = array(
-        'embedded' => false,
-        'forceinline' => false,
         'full' => false,
         'info' => false,
         'inline' => false,
         'raw' => false
+    );
+
+    /**
+     * Metadata for the current viewer/data.
+     *
+     * @var array
+     */
+    protected $_metadata = array(
+        // Is the part *data* compressed (not the rendered data)?
+        'compressed' => false,
+        // Does this part contain emebedded MIME data?
+        'embedded' => false,
+        // Force inline display of this part?
+        'forceinline' => false
     );
 
     /**
@@ -238,7 +250,7 @@ class Horde_Mime_Viewer_Driver
 
         case 'inline':
             return $this->getConfigParam('inline') &&
-                ($this->_capability['forceinline'] ||
+                ($this->_metadata['forceinline'] ||
                  ($this->_capability['inline'] &&
                   ($this->_mimepart->getDisposition() == 'inline')));
 
@@ -258,7 +270,7 @@ class Horde_Mime_Viewer_Driver
         $viewer = $this->_getViewer();
         return $viewer
             ? $viewer->embeddedMimeParts()
-            : $this->_capability['embedded'];
+            : $this->_metadata['embedded'];
     }
 
     /**
@@ -309,6 +321,21 @@ class Horde_Mime_Viewer_Driver
     public function getDriver()
     {
         return $this->_conf['_driver'];
+    }
+
+    /**
+     * Returns metadata information on the viewer/data.
+     *
+     * @param string $data  The metadata key.
+     *
+     * @return mixed  The requested information, or null if the key doesn't
+     *                exist.
+     */
+    public function getMetadata($data)
+    {
+        return isset($this->_metadata[$data])
+            ? $this->_metadata[$data]
+            : null;
     }
 
     /**

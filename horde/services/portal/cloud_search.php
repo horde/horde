@@ -2,7 +2,7 @@
 /**
  * Perform search request for the horde-wide tag cloud block.
  *
- * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -14,8 +14,8 @@
  * @author Michael J. Rubinksy <mrubinsk@horde.org>
  */
 
-$horde_no_logintasks = true;
-require_once dirname(__FILE__) . '/../../lib/base.php';
+require_once dirname(__FILE__) . '/../../lib/Application.php';
+new Horde_Application(array('nologintaks' => true));
 
 // If/when more apps support the searchTags api calls, we should probably
 // find a better solution to putting the apps hardcoded like this.

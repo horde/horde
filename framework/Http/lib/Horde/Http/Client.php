@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
@@ -46,17 +46,22 @@ class Horde_Http_Client
      * Horde_Http_Client constructor.
      *
      * @param array $args Any Http_Client settings to initialize in the
-     * constructor. Available settings are:
-     *     client.httpMethodOverride
-     *     client.proxyServer
-     *     client.proxyUser
-     *     client.proxyPass
-     *     client.timeout
-     *     request
-     *     request.uri
-     *     request.headers
-     *     request.method
-     *     request.data
+     *                    constructor. Available settings are:
+     *                    - client.httpMethodOverride
+     *                    - request
+     *                    - request.uri
+     *                    - request.headers
+     *                    - request.method
+     *                    - request.data
+     *                    - request.username
+     *                    - request.password
+     *                    - request.authenticationScheme
+     *                    - request.proxyServer
+     *                    - request.proxyPort
+     *                    - request.proxyUser
+     *                    - request.proxyPass
+     *                    - request.proxyAuthenticationScheme
+     *                    - request.timeout
      */
     public function __construct($args = array())
     {
@@ -83,6 +88,7 @@ class Horde_Http_Client
     /**
      * Send a GET request
      *
+     * @throws Horde_Http_Exception
      * @return Horde_Http_Response_Base
      */
     public function get($uri = null, $headers = array())
@@ -93,6 +99,7 @@ class Horde_Http_Client
     /**
      * Send a POST request
      *
+     * @throws Horde_Http_Exception
      * @return Horde_Http_Response_Base
      */
     public function post($uri = null, $data = null, $headers = array())
@@ -103,6 +110,7 @@ class Horde_Http_Client
     /**
      * Send a PUT request
      *
+     * @throws Horde_Http_Exception
      * @return Horde_Http_Response_Base
      */
     public function put($uri = null, $data = null, $headers = array())
@@ -118,6 +126,7 @@ class Horde_Http_Client
     /**
      * Send a DELETE request
      *
+     * @throws Horde_Http_Exception
      * @return Horde_Http_Response_Base
      */
     public function delete($uri = null, $headers = array())
@@ -134,6 +143,7 @@ class Horde_Http_Client
      * Send a HEAD request
      * @TODO
      *
+     * @throws Horde_Http_Exception
      * @return  ? Probably just the status
      */
     public function head($uri = null, $headers = array())
@@ -144,14 +154,15 @@ class Horde_Http_Client
     /**
      * Send an HTTP request
      *
-     * @param string $method HTTP request method (GET, PUT, etc.)
-     * @param string $uri URI to request, if different from $this->uri
-     * @param mixed $data Request data. Can be an array of form data that will be
-     *                    encoded automatically, or a raw string.
-     * @param array $headers Any headers specific to this request. They will
-     *                       be combined with $this->_headers, and override
-     *                       headers of the same name for this request only.
+     * @param string $method  HTTP request method (GET, PUT, etc.)
+     * @param string $uri     URI to request, if different from $this->uri
+     * @param mixed $data     Request data. Can be an array of form data that
+     *                        will be encoded automatically, or a raw string.
+     * @param array $headers  Any headers specific to this request. They will
+     *                        be combined with $this->_headers, and override
+     *                        headers of the same name for this request only.
      *
+     * @throws Horde_Http_Exception
      * @return Horde_Http_Response_Base
      */
     public function request($method, $uri = null, $data = null, $headers = array())

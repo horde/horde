@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
@@ -16,6 +16,11 @@
  */
 class Horde_Http_Request_Fopen extends Horde_Http_Request_Base
 {
+    /**
+     * Constructor
+     *
+     * @throws Horde_Http_Exception
+     */
     public function __construct($args = array())
     {
         if (!ini_get('allow_url_fopen')) {
@@ -28,6 +33,7 @@ class Horde_Http_Request_Fopen extends Horde_Http_Request_Base
     /**
      * Send this HTTP request
      *
+     * @throws Horde_Http_Exception
      * @return Horde_Http_Response_Base
      */
     public function send()
@@ -45,6 +51,9 @@ class Horde_Http_Request_Fopen extends Horde_Http_Request_Base
         // Proxy settings
         if ($this->proxyServer) {
             $opts['http']['proxy'] = 'tcp://' . $this->proxyServer;
+            if ($this->proxyPort) {
+                $opts['http']['proxy'] .= ':' . $this->proxyPort;
+            }
             $opts['http']['request_fulluri'] = true;
             if ($this->proxyUsername && $this->proxyPassword) {
                 // @TODO check $this->proxyAuthenticationScheme

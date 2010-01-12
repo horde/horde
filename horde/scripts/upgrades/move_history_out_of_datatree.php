@@ -21,13 +21,12 @@ $cli = Horde_Cli::singleton();
 $cli->writeln($cli->yellow("Beginning migration. This may take a very long time to complete."));
 $cli->writeln();
 
-$horde_authentication = 'none';
-require_once HORDE_BASE . '/lib/base.php';
-require_once 'Horde/DataTree.php';
+new Horde_Application(array('authentication' => 'none'));
 
+require_once 'Horde/DataTree.php';
 $datatree = DataTree::factory('sql', array_merge(Horde::getDriverConfig('datatree', 'sql'),
                                                  array('group' => 'horde.history')));
-$db = &$datatree->_db;
+$db = $datatree->_db;
 
 $cli->writeln('Fetching all history objects from the data tree.'); ob_flush();
 $objects = $db->getAll("SELECT c.datatree_id, c.datatree_name, c.datatree_parents, c.datatree_order FROM horde_datatree c WHERE c.group_uid = 'horde.history' order by datatree_id",DB_FETCHMODE_ASSOC);

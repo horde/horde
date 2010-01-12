@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2006-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2006-2010 The Horde Project (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -24,16 +24,16 @@
 class Horde_Db_Migration_Base
 {
     /**
-     * Print messages as migrations happen
-     * @var boolean
-     */
-    public static $verbose = true;
-
-    /**
      * The migration version
      * @var integer
      */
     public $version = null;
+
+    /**
+     * The logger
+     * @var Horde_Log_Logger
+     */
+    protected $_logger;
 
     /**
      * Database connection adapter
@@ -122,11 +122,11 @@ class Horde_Db_Migration_Base
 
         if ($direction == 'up') {
             $this->announce("migrated (" . sprintf("%.4fs", $time) . ")");
-            $this->write();
+            $this->log();
         }
         if ($direction == 'down') {
             $this->announce("reverted (" . sprintf("%.4fs", $time) . ")");
-            $this->write();
+            $this->log();
         }
         return $result;
     }
@@ -134,11 +134,19 @@ class Horde_Db_Migration_Base
     /**
      * @param   string  $text
      */
-    public function write($text = '')
+    public function log($text = '')
     {
-        if (self::$verbose) {
-            echo "$text\n";
+        if ($this->_logger) {
+            $this->_logger->info($text);
         }
+    }
+
+    /**
+     * @param Horde_Log_Logger $logger
+     */
+    public function setLogger($logger)
+    {
+        $this->_logger = $logger;
     }
 
     /**
@@ -150,7 +158,7 @@ class Horde_Db_Migration_Base
         $text = "$this->version " . get_class($this) . ": $message";
         $length = 75 - strlen($text) > 0 ? 75 - strlen($text) : 0;
 
-        $this->write(sprintf("== %s %s", $text, str_repeat('=', $length)));
+        $this->log(sprintf("== %s %s", $text, str_repeat('=', $length)));
     }
 
     /**
@@ -159,7 +167,6 @@ class Horde_Db_Migration_Base
      */
     public function say($message, $subitem = false)
     {
-        $this->write(($subitem ? "   ->" : "--") . " $message");
+        $this->log(($subitem ? "   ->" : "--") . " $message");
     }
-
 }

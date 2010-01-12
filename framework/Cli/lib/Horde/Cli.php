@@ -2,7 +2,7 @@
 /**
  * Horde_Cli:: API for basic command-line functionality/checks.
  *
- * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -449,7 +449,7 @@ class Horde_Cli
     {
         /* Run constructor now because it requires $_SERVER['SERVER_NAME'] to
          * be empty if called with a CGI SAPI. */
-        $cli = &self::singleton();
+        $cli = self::singleton();
 
         @set_time_limit(0);
         ob_implicit_flush(true);

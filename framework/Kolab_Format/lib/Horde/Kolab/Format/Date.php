@@ -15,7 +15,7 @@
 /**
  * Kolab date handling functions. Based upon Kolab.php from Stuart Binge.
  *
- * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see

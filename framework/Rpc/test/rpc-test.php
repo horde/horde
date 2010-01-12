@@ -4,7 +4,8 @@
  * @package Horde_RPC
  */
 
-@define('HORDE_BASE', dirname(dirname(dirname(dirname(__FILE__)))));
+define('HORDE_BASE', dirname(dirname(dirname(dirname(__FILE__)))));
+define('AUTH_HANDLER', true);
 $_SERVER['SERVER_NAME'] = 'localhost';
 $_SERVER['SERVER_PORT'] = 80;
 require_once HORDE_BASE . '/lib/base.php';
@@ -14,9 +15,10 @@ if (!isset($argv) || count($argv) < 2) {
     die("Can't read arguments.\n");
 }
 
-$testno = $argv[1];
-$user   = @$argv[2];
-$pass   = @$argv[3];
+array_shift($argv);
+$testno = array_shift($argv);
+$user   = @array_shift($argv);
+$pass   = @array_shift($argv);
 
 switch ($testno) {
 case 0:
@@ -33,7 +35,7 @@ case 1:
 
 case 2:
     $response = Horde_RPC::request('xmlrpc', Horde::url('rpc.php', true, -1),
-                                   'tasks.list', array(),
+                                   'tasks.list', array(0),
                                    array('user' => $user, 'pass' => $pass));
     break;
 
@@ -70,6 +72,26 @@ case 6:
                                    array('namespace' => 'urn:horde',
                                          'user' => $user,
                                          'pass' => $pass));
+    break;
+
+case 7:
+    $response = Horde_RPC::request('soap', Horde::url('rpc.php', true, -1),
+                                   array_shift($argv), $argv,
+                                   array('namespace' => 'urn:horde',
+                                         'user' => $user,
+                                         'pass' => $pass));
+    break;
+
+case 8:
+    $response = Horde_RPC::request('xmlrpc', Horde::url('rpc.php', true, -1),
+                                   array_shift($argv), $argv,
+                                   array('user' => $user, 'pass' => $pass));
+    break;
+
+case 9:
+    $response = Horde_RPC::request('jsonrpc', Horde::url('rpc.php', true, -1),
+                                   array_shift($argv), $argv,
+                                   array('user' => $user, 'pass' => $pass));
     break;
 
 }

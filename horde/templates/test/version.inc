@@ -1,4 +1,4 @@
-<h1><?php echo $module ?> Version</h1>
+<h1><?php echo $app_name ?> Version</h1>
 <ul>
-    <li><?php echo $module ?>: <?php echo $module_version ?></li>
+ <li><?php echo $app_name ?>: <?php echo $app_version ?></li>
 </ul>

@@ -2,7 +2,7 @@
 /**
  * The Horde_Ui_VarRenderer_html:: class renders variables to HTML.
  *
- * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -478,7 +478,7 @@ class Horde_Ui_VarRenderer_Html extends Horde_Ui_VarRenderer
 
         // TODO: use NLS to get the order right for the Rest Of The
         // World.
-        $html = $js_code = '';
+        $html = '';
         $date_parts = array('month', 'day', 'year');
         foreach ($date_parts as $part) {
             $varname = @htmlspecialchars($var->getVarName() . '[' . $part . ']', ENT_QUOTES, $this->_charset);
@@ -487,14 +487,13 @@ class Horde_Ui_VarRenderer_Html extends Horde_Ui_VarRenderer
                              $varname,
                              $this->_getActionScripts($form, $var),
                              $this->selectOptions($dates[$part], $date[$part]));
-            $js_code .= '$(\'' . $varname . '\').setValue(data.' . ($part == 'month' ? 'getMonth() + 1' : ($part == 'day' ? 'getDate()' : 'getYear()')) . ');';
         }
 
         if ($var->type->getProperty('picker') &&
             $GLOBALS['browser']->hasFeature('javascript')) {
             Horde_Ui_JsCalendar::init();
             $imgId = $this->_genID($var->getVarName(), false) . 'goto';
-            $html .= Horde::link('#', _("Select a date"), '', '', 'Horde_Calendar.open(\'' . $imgId . '\', null, function(data) { ' . $js_code . ' })') . Horde::img('calendar.png', _("Calendar"), 'id="' . $imgId . '"', $GLOBALS['registry']->getImageDir('horde')) . "</a>\n";
+            $html .= Horde::link('#', _("Select a date"), '', '', 'Horde_Calendar.open(\'' . $imgId . '\', null)') . Horde::img('calendar.png', _("Calendar"), 'id="' . $imgId . '"', $GLOBALS['registry']->getImageDir('horde')) . "</a>\n";
         }
 
         return $html;
@@ -502,6 +501,14 @@ class Horde_Ui_VarRenderer_Html extends Horde_Ui_VarRenderer
 
     protected function _renderVarInput_datetime(&$form, &$var, &$vars)
     {
+        $js = "document.observe('Horde_Calendar:select', " .
+              "function(e) {" .
+                  "var elt = e.element();" .
+                  "elt.up().previous('SELECT[name$=\"[month]\"]').setValue(e.memo.getMonth() + 1);" .
+                  "elt.up().previous('SELECT[name$=\"[day]\"]').setValue(e.memo.getDate());" .
+                  "elt.up().previous('SELECT[name$=\"[year]\"]').setValue(e.memo.getFullYear());" .
+              "});\n";
+        Horde::addInlineScript($js, 'dom');
         return $this->_renderVarInput_monthdayyear($form, $var, $vars) .
             $this->_renderVarInput_hourminutesecond($form, $var, $vars);
     }

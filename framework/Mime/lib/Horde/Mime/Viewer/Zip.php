@@ -3,7 +3,7 @@
  * The Horde_Mime_Viewer_Zip class renders out the contents of ZIP files in
  * HTML format.
  *
- * Copyright 2000-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2000-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -15,17 +15,26 @@
 class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Driver
 {
     /**
-     * Can this driver render various views?
+     * This driver's display capabilities.
      *
-     * @var boolean
+     * @var array
      */
     protected $_capability = array(
-        'embedded' => false,
-        'forceinline' => true,
         'full' => true,
-        'info' => false,
-        'inline' => true,
+        'info' => true,
+        'inline' => false,
         'raw' => false
+    );
+
+    /**
+     * Metadata for the current viewer/data.
+     *
+     * @var array
+     */
+    protected $_metadata = array(
+        'compressed' => true,
+        'embedded' => false,
+        'forceinline' => false
     );
 
     /**
@@ -52,12 +61,12 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Driver
     }
 
     /**
-     * Return the rendered inline version of the Horde_Mime_Part object.
+     * Return the rendered information about the Horde_Mime_Part object.
      *
      * @return array  See Horde_Mime_Viewer_Driver::render().
      * @throws Horde_Exception
      */
-    protected function _renderInline()
+    protected function _renderInfo()
     {
         return $this->_toHTML();
     }

@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -27,12 +27,6 @@ class Horde_Db_Adapter_Postgresql_TableDefinitionTest extends PHPUnit_Framework_
     protected function setUp()
     {
         list($this->_conn,) = $this->sharedFixture->getConnection();
-    }
-
-    protected function tearDown()
-    {
-        // close connection
-        $this->_conn->disconnect();
     }
 
 

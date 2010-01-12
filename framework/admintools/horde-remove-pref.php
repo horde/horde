@@ -1,7 +1,7 @@
 #!@php_bin@
 <?php
 /**
- * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
  *
  * This script removes a pref from users' settings. Helps when a setting is
  * to be moved from locked = false, to locked = true and there have already

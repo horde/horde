@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -94,8 +94,6 @@ client:
   updated_at: '2008-01-01 12:20:00'
   updated_on: '2008-01-01'
         */
-
-        Horde_Db_Migration_Base::$verbose = false;
     }
 
     public function testMigrator()

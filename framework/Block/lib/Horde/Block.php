@@ -3,7 +3,7 @@
  * The abstract Horde_Block:: class represents a single block within
  * the Blocks framework.
  *
- * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -141,6 +141,16 @@ class Horde_Block
         }
 
         return $title;
+    }
+
+    /**
+     * Returns a hash of block parameters and their configured values.
+     *
+     * @return array  Parameter values.
+     */
+    public function getParamValues()
+    {
+        return $this->_params;
     }
 
     /**

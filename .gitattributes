@@ -1,8 +1,9 @@
 # Add tracking hash to config files
-/*/config/conf.xml  ident
-/*/config/*.dist    ident
+*/config/conf.xml  ident
+*/config/*.dist    ident
 
 # Ignore CRLF
 framework/iCalendar/docs/examples/*             -crlf
 framework/iCalendar/tests/fixtures/*            -crlf
 framework/iCalendar/tests/fixtures/vTimezone/*  -crlf
+turba/lib/tests/importCRLF.ldif                 -crlf

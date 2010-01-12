@@ -4,7 +4,7 @@
  * Dump the requested tables (or all) from the Horde database to XML schema
  * format.
  *
- * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde

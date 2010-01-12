@@ -4,7 +4,7 @@
  * referrer data being passed to the remote server and potentially exposing
  * any session IDs.
  *
- * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -12,9 +12,8 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-$horde_authentication = 'none';
-$horde_session_control = 'none';
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+new Horde_Application(array('authentication' => 'none', 'session_control' => 'none'));
 
 if (empty($_GET['url'])) {
     exit;

@@ -3,7 +3,7 @@
  * The Horde_Mime_Viewer_Rar class renders out the contents of .rar archives
  * in HTML format.
  *
- * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -15,17 +15,26 @@
 class Horde_Mime_Viewer_Rar extends Horde_Mime_Viewer_Driver
 {
     /**
-     * Can this driver render various views?
+     * This driver's display capabilities.
      *
-     * @var boolean
+     * @var array
      */
     protected $_capability = array(
-        'embedded' => false,
-        'forceinline' => true,
         'full' => true,
-        'info' => false,
-        'inline' => true,
+        'info' => true,
+        'inline' => false,
         'raw' => false
+    );
+
+    /**
+     * Metadata for the current viewer/data.
+     *
+     * @var array
+     */
+    protected $_metadata = array(
+        'compressed' => true,
+        'embedded' => false,
+        'forceinline' => false
     );
 
     /**
@@ -35,7 +44,7 @@ class Horde_Mime_Viewer_Rar extends Horde_Mime_Viewer_Driver
      */
     protected function _render()
     {
-        $ret = $this->_renderInline();
+        $ret = $this->_renderInfo();
         if (!empty($ret)) {
             reset($ret);
             $ret[key($ret)]['data'] = '<html><body>' . $ret[key($ret)]['data'] . '</body></html>';
@@ -44,12 +53,12 @@ class Horde_Mime_Viewer_Rar extends Horde_Mime_Viewer_Driver
     }
 
     /**
-     * Return the rendered inline version of the Horde_Mime_Part object.
+     * Return the rendered information about the Horde_Mime_Part object.
      *
      * @return array  See Horde_Mime_Viewer_Driver::render().
      * @throws Horde_Exception
      */
-    protected function _renderInline()
+    protected function _renderInfo()
     {
         $contents = $this->_mimepart->getContents();
 
@@ -65,7 +74,7 @@ class Horde_Mime_Viewer_Rar extends Horde_Mime_Viewer_Driver
         }
 
         $text = '<strong>' . htmlspecialchars(sprintf(_("Contents of \"%s\""), $name)) . ":</strong>\n" .
-            '<table><tr><td align="left"><span class="fixed">' .
+            '<table><tr><td align="left"><pre>' .
             Horde_Text_Filter::filter(_("Archive Name") . ':  ' . $name, 'space2html', array('charset' => $charset, 'encode' => true, 'encode_all' => true)) . "\n" .
             Horde_Text_Filter::filter(_("Archive File Size") . ': ' . strlen($contents) . ' bytes', 'space2html', array('charset' => $charset, 'encode' => true, 'encode_all' => true)) . "\n" .
             Horde_Text_Filter::filter(sprintf(ngettext("File Count: %d file", "File Count: %d files", $fileCount), $fileCount), 'space2html', array('charset' => $charset, 'encode' => true, 'encode_all' => true)) .
@@ -100,10 +109,11 @@ class Horde_Mime_Viewer_Rar extends Horde_Mime_Viewer_Driver
 
         return array(
             $this->_mimepart->getMimeId() => array(
-                'data' => nl2br($text . str_repeat('-', 106) . "\n</span></td></tr></table>"),
+                'data' => nl2br($text . str_repeat('-', 106) . "\n</pre></td></tr></table>"),
                 'status' => array(),
                 'type' => 'text/html; charset=' . $charset
             )
         );
     }
+
 }

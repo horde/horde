@@ -13,16 +13,14 @@
 class Horde_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Driver
 {
     /**
-     * Can this driver render various views?
+     * This driver's display capabilities.
      *
-     * @var boolean
+     * @var array
      */
     protected $_capability = array(
-        'embedded' => false,
-        'forceinline' => true,
-        'full' => false,
+        'full' => true,
         'info' => true,
-        'inline' => true,
+        'inline' => false,
         'raw' => false
     );
 
@@ -37,12 +35,44 @@ class Horde_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Driver
     );
 
     /**
-     * Return the rendered inline version of the Horde_Mime_Part object.
+     * Constructor.
+     *
+     * @param Horde_Mime_Part $mime_part  Reference to an object with the
+     *                                    information to be rendered.
+     * @param array $conf                 Configuration specific to the
+     *                                    driver.
+     */
+    public function __construct($mime_part, $conf = array())
+    {
+        parent::__construct($mime_part, $conf);
+
+        $this->_metadata['compressed'] = in_array($mime_part->getSubType(), $this->_gzipSubtypes);
+    }
+
+    /**
+     * Return the full rendered version of the Horde_Mime_Part object.
      *
      * @return array  See Horde_Mime_Viewer_Driver::render().
      * @throws Horde_Exception
      */
-    protected function _renderInline()
+    protected function _render()
+    {
+        $ret = $this->_renderInfo();
+        if (!empty($ret)) {
+            reset($ret);
+            $ret[key($ret)]['data'] = '<html><body>' . $ret[key($ret)]['data'] .
+ '</body></html>';
+        }
+        return $ret;
+    }
+
+    /**
+     * Return the rendered information about the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @throws Horde_Exception
+     */
+    protected function _renderInfo()
     {
         /* Currently, can't do anything without tar file. */
         $subtype = $this->_mimepart->getSubType();
@@ -71,7 +101,7 @@ class Horde_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Driver
         }
 
         $text = '<strong>' . htmlspecialchars(sprintf(_("Contents of \"%s\""), $name)) . ":</strong>\n" .
-            '<table><tr><td align="left"><span class="fixed">' .
+            '<table><tr><td align="left"><pre>' .
             Horde_Text_Filter::filter(_("Archive Name") . ':  ' . $name, 'space2html', array('charset' => $charset, 'encode' => true, 'encode_all' => true)) . "\n" .
             Horde_Text_Filter::filter(_("Archive File Size") . ': ' . strlen($contents) . ' bytes', 'space2html', array('charset' => $charset, 'encode' => true, 'encode_all' => true)) . "\n" .
             Horde_Text_Filter::filter(sprintf(ngettext("File Count: %d file", "File Count: %d files", $fileCount), $fileCount), 'space2html', array('charset' => $charset, 'encode' => true, 'encode_all' => true)) .
@@ -99,20 +129,11 @@ class Horde_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Driver
 
         return array(
             $this->_mimepart->getMimeId() => array(
-                'data' => nl2br($text . str_repeat('-', 106) . "\n</span></td></tr></table>"),
+                'data' => nl2br($text . str_repeat('-', 106) . "\n</pre></td></tr></table>"),
                 'status' => array(),
                 'type' => 'text/html; charset=' . $charset
             )
         );
     }
 
-    /**
-     * Return the rendered information about the Horde_Mime_Part object.
-     *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
-     */
-    protected function _renderInfo()
-    {
-        return $this->_renderInline();
-    }
 }

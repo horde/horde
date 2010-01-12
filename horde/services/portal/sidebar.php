@@ -2,7 +2,7 @@
 /**
  * Horde sidebar generation.
  *
- * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -202,8 +202,8 @@ function buildMenu()
     return $menu;
 }
 
-$horde_authentication = 'none';
-require_once dirname(__FILE__) . '/../../lib/base.php';
+require_once dirname(__FILE__) . '/../../lib/Application.php';
+new Horde_Application(array('authentication' => 'none'));
 
 if (!Horde_Auth::getAuth() && !$conf['menu']['always']) {
     Horde_Auth::authenticateFailure();

@@ -5,7 +5,7 @@
  *
  * Web C Plus plus: http://webcpp.sourceforge.net/
  *
- * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -16,13 +16,11 @@
 class Horde_Mime_Viewer_Webcpp extends Horde_Mime_Viewer_Driver
 {
     /**
-     * Can this driver render various views?
+     * This driver's display capabilities.
      *
-     * @var boolean
+     * @var array
      */
     protected $_capability = array(
-        'embedded' => false,
-        'forceinline' => false,
         'full' => true,
         'info' => false,
         'inline' => true,

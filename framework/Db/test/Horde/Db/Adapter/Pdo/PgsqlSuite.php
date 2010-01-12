@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -24,6 +24,8 @@
  */
 class Horde_Db_Adapter_Pdo_PgsqlSuite extends PHPUnit_Framework_TestSuite
 {
+    public static $conn = null;
+
     public static function suite()
     {
         $suite = new self('Horde Framework - Horde_Db - PDO-PostgreSQL Adapter');
@@ -31,9 +33,8 @@ class Horde_Db_Adapter_Pdo_PgsqlSuite extends PHPUnit_Framework_TestSuite
         $skip = true;
         if (extension_loaded('pdo') && in_array('pgsql', PDO::getAvailableDrivers())) {
             try {
-                list($conn,) = $suite->getConnection();
+                self::$conn = $suite->getConnection();
                 $skip = false;
-                $conn->disconnect();
             } catch (Exception $e) {}
         }
 
@@ -59,6 +60,8 @@ class Horde_Db_Adapter_Pdo_PgsqlSuite extends PHPUnit_Framework_TestSuite
 
     public function getConnection()
     {
+        if (!is_null(self::$conn)) { return self::$conn; }
+
         if (!class_exists('CacheMock', false)) eval('class CacheMock { function get($key) { return $this->$key; } function set($key, $val) { $this->$key = $val; } } ?>');
         $cache = new CacheMock;
 

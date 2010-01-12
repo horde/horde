@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2006-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2006-2010 The Horde Project (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -199,7 +199,10 @@ class Horde_Db_Migration_Migrator
     protected function _getMigrationClass($migrationName, $version)
     {
         $className = $this->_inflector->camelize($migrationName);
-        return new $className($this->_connection, $version);
+        $class = new $className($this->_connection, $version);
+        $class->setLogger($this->_logger);
+
+        return $class;
     }
 
     /**

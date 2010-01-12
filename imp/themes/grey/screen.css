@@ -1,0 +1,9 @@
+.important, .flagged {
+    background-color: #a56363;
+}
+.unseen {
+    background-color: #d3d3d3;
+}
+.answered {
+    background-color: #b7ccb7;
+}

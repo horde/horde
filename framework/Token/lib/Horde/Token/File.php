@@ -7,7 +7,7 @@
  *   'timeout'    The period (in seconds) after which an id is purged.
  *                Defaults to 86400 (i.e. 24 hours).</pre>
  *
- * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

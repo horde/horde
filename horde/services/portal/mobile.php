@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -8,12 +8,8 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../../lib/base.php';
-
-if (!Horde_Auth::getAuth()) {
-    header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('login.php', true), 'url', Horde::selfUrl(), false));
-    exit;
-}
+require_once dirname(__FILE__) . '/../../lib/Application.php';
+new Horde_Application();
 
 $identity = Horde_Prefs_Identity::singleton();
 $fullname = $identity->getValue('fullname');

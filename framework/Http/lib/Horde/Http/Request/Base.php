@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
@@ -35,13 +35,6 @@ abstract class Horde_Http_Request_Base
     protected $_headers = array();
 
     /**
-     * Authentication data
-     * @var array
-     * @see getAuth()
-     */
-    protected $_auth;
-
-    /**
      * Request data. Can be an array of form data that will be encoded
      * automatically, or a raw string
      * @var mixed
@@ -64,13 +57,19 @@ abstract class Horde_Http_Request_Base
      * Authentication scheme
      * @var const Horde_Http::AUTH_*
      */
-    protected $_authenticationScheme = Horde_Http::AUTH_BASIC;
+    protected $_authenticationScheme = Horde_Http::AUTH_ANY;
 
     /**
      * Proxy server
      * @var string
      */
     protected $_proxyServer = null;
+
+    /**
+     * Proxy port
+     * @var string
+     */
+    protected $_proxyPort = null;
 
     /**
      * Proxy username

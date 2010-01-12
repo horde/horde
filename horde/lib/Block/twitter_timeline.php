@@ -10,7 +10,7 @@
  *  - keep track of call limits and either dynamically alter update time or
  *    at least provide feedback to user.
  *
- * Copyright 2009 The Horde Project (http://www.horde.org)
+ * Copyright 2009-2010 The Horde Project (http://www.horde.org)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -274,9 +274,9 @@ EOF;
             // Using OAuth but make sure the user has gotten a token
             $token = unserialize($GLOBALS['prefs']->getValue('twitter'));
             if (empty($token['key']) && empty($token['secret'])) {
-                // No token - should we allow the user to use http basic if
-                // horde is configured to use oauth?
-                throw new Horde_Exception(_("You must give Horde access to your Twitter account."));
+                // No token - try HTTP Basic Auth
+                $pref_link = Horde::link(Horde::url('services/twitter.php', true));
+                throw new Horde_Exception(sprintf(_("You have not properly connected your Twitter account with Horde. You should check your Twitter settings in your %s."), $pref_link . _("preferences") . '</a>'));
             }
 
             $consumer_key = $GLOBALS['conf']['twitter']['key'];

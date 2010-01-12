@@ -11,7 +11,7 @@
  * 'post' - name of POST variable that contains any values required to be sent
  *          by POST. Format is the same as imple (/var1=value/var2=value)
  *
- * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
@@ -58,21 +58,16 @@ if (!empty($args['post'])) {
     }
 }
 
-/* Determine if we can get away with a readonly session */
-if (empty($args['sessionWrite'])) {
-    $horde_session_control = 'readonly';
-}
-$horde_no_logintasks = true;
-require_once dirname(__FILE__) . '/../lib/base.php';
+new Horde_Application(array('nologintasks' => true, 'session_control' => empty($args['sessionWrite']) ? 'readonly' : null));
 
+$impleargs = $impleName;
 if (isset($args['impleApp'])) {
     $registry = Horde_Registry::singleton();
     $registry->pushApp($args['impleApp']);
-    $imple = Horde_Ajax_Imple::factory(array($args['impleApp'], $impleName));
-} else {
-    $imple = Horde_Ajax_Imple::factory($impleName);
+    $impleargs = array($args['impleApp'], $impleName);
 }
 
+$imple = Horde_Ajax_Imple::factory($impleargs);
 $result = $imple->handle($args, $post);
 
 $ct = empty($_SERVER['Content-Type'])

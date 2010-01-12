@@ -3,7 +3,7 @@
  * The Horde_Mime_Viewer_Html class renders out HTML text with an effort to
  * remove potentially malicious code.
  *
- * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
@@ -16,13 +16,11 @@
 class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Driver
 {
     /**
-     * Can this driver render various views?
+     * This driver's display capabilities.
      *
-     * @var boolean
+     * @var array
      */
     protected $_capability = array(
-        'embedded' => false,
-        'forceinline' => false,
         'full' => true,
         'info' => false,
         'inline' => true,

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -8,8 +8,8 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-$horde_authentication = 'none';
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+new Horde_Application(array('authentication' => 'none'));
 
 $auth = Horde_Auth::singleton($conf['auth']['driver']);
 

@@ -3,7 +3,7 @@
  * The Horde_Notification_Event:: class provides a container for passing
  * messages to Horde_Notification_Listener classes.
  *
- * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

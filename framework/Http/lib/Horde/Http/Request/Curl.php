@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
@@ -17,7 +17,9 @@
 class Horde_Http_Request_Curl extends Horde_Http_Request_Base
 {
     /**
-     * Map of HTTP authentication schemes from Horde_Http constants to HTTP_AUTH constants.
+     * Map of HTTP authentication schemes from Horde_Http constants to
+     * HTTP_AUTH constants.
+     *
      * @var array
      */
     protected $_httpAuthSchemes = array(
@@ -30,6 +32,8 @@ class Horde_Http_Request_Curl extends Horde_Http_Request_Base
 
     /**
      * Constructor
+     *
+     * @throws Horde_Http_Exception
      */
     public function __construct($args = array())
     {
@@ -43,6 +47,7 @@ class Horde_Http_Request_Curl extends Horde_Http_Request_Base
     /**
      * Send this HTTP request
      *
+     * @throws Horde_Http_Exception
      * @return Horde_Http_Response_Base
      */
     public function send()
@@ -60,11 +65,16 @@ class Horde_Http_Request_Curl extends Horde_Http_Request_Base
             // POST data isn't passed.
             $data = http_build_query($data);
         }
-        if ($data) { curl_setopt($curl, CURLOPT_POSTFIELDS, $data); }
+        if ($data) {
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        }
 
         // Proxy settings
         if ($this->proxyServer) {
             curl_setopt($curl, CURLOPT_PROXY, $this->proxyServer);
+            if ($this->proxyPort) {
+                curl_setopt($curl, CURLOPT_PROXYPORT, $this->proxyPort);
+            }
             if ($this->proxyUsername && $this->proxyPassword) {
                 curl_setopt($curl, CURLOPT_PROXYUSERPWD, $this->proxyUsername . ':' . $this->proxyPassword);
                 curl_setopt($curl, CURLOPT_PROXYAUTH, $this->_httpAuthScheme($this->proxyAuthenticationScheme));
@@ -96,6 +106,7 @@ class Horde_Http_Request_Curl extends Horde_Http_Request_Base
      * Translate a Horde_Http::AUTH_* constant to CURLAUTH_*
      *
      * @param const
+     * @throws Horde_Http_Exception
      * @return const
      */
     protected function _httpAuthScheme($httpAuthScheme)

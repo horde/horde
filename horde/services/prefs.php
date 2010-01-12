@@ -2,7 +2,7 @@
 /**
  * Preferences UI page.
  *
- * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -62,9 +62,8 @@ try {
 /* See if this group has a custom URL. */
 if ($group && !empty($prefGroups[$group]['url'])) {
     $pref_url = $prefGroups[$group]['url'];
-    $filename = realpath($appbase . '/' . $pref_url);
-    if (file_exists($filename) &&
-        (strpos($filename, $appbase) === 0)) {
+    $filename = $appbase . '/' . $pref_url;
+    if (file_exists($filename)) {
         require $filename;
         return;
     }

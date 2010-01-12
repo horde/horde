@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
@@ -57,6 +57,7 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
     /**
      * Send this HTTP request
      *
+     * @throws Horde_Http_Exception
      * @return Horde_Http_Response_Base
      */
     public function send()
@@ -75,6 +76,9 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
         // Proxy settings
         if ($this->proxyServer) {
             $httpOptions['proxyhost'] = $this->proxyServer;
+            if ($this->proxyPort) {
+                $httpOptions['proxyport'] = $this->proxyPort;
+            }
             if ($this->proxyUsername && $this->proxyPassword) {
                 $httpOptions['proxyauth'] = $this->proxyUsername . ':' . $this->proxyPassword;
                 $httpOptions['proxyauthtype'] = $this->_httpAuthScheme($this->proxyAuthenticationScheme);
@@ -106,6 +110,7 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
      * Translate a Horde_Http::AUTH_* constant to HTTP_AUTH_*
      *
      * @param const
+     * @throws Horde_Http_Exception
      * @return const
      */
     protected function _httpAuthScheme($httpAuthScheme)

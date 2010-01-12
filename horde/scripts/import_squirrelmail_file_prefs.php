@@ -8,7 +8,7 @@
  * Input can be either a single squirrelmail .pref file, or a directory
  * containing multiple .pref files.
  *
- * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -38,8 +38,9 @@ if ($argc != 2) {
 $data = $argv[1];
 
 // Make sure we load Horde base to get the auth config
-$horde_authentication = 'none';
-require_once HORDE_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+new Horde_Application(array('authentication' => 'none'));
+
 require_once dirname(__FILE__) . '/import_squirrelmail_prefs.php';
 
 // Get list of SquirrelMail pref files

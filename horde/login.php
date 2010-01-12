@@ -6,7 +6,7 @@
  * 'app' - The app to login to.
  * 'url' - The url to redirect to after auth.
  *
- * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -73,11 +73,12 @@ function _getLogoutReasonString($code)
 
 /* Try to login - if we are doing auth to an app, we need to auth to
  * Horde first or else we will lose the session. Ignore any auth errors.
- * Transparent authentication is handled by the Horde_Registry::pushApp() call
- * in base.php. */
-$horde_authentication = 'ignore';
-$horde_no_logintasks = true;
-require_once dirname(__FILE__) . '/lib/base.php';
+ * Transparent authentication is handled by the Horde_Application::
+ * constructor. */
+require_once dirname(__FILE__) . '/lib/Application.php';
+try {
+    new Horde_Application(array('authentication' => 'throw', 'nologintasks' => true));
+} catch (Horde_Exception $e) {}
 
 $app = Horde_Util::getFormData('app');
 $is_auth = Horde_Auth::getAuth();

@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -81,7 +81,7 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
      *   Requests a maximum column length (<tt>:string</tt>, <tt>:text</tt>,
      *   <tt>:binary</tt> or <tt>:integer</tt> columns only)
      * * <tt>:default</tt>:
-     *   The column's default value.  You cannot explicitely set the default
+     *   The column's default value.  You cannot explicitly set the default
      *   value to +NULL+.  Simply leave off this option if you want a +NULL+
      *   default value.
      * * <tt>:null</tt>:
@@ -103,7 +103,7 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
      *
      * @return  TableDefinition
      */
-    public function column($name, $type, $options=array())
+    public function column($name, $type, $options = array())
     {
         if ($this[$name]) {
             $column = $this[$name];
@@ -112,18 +112,12 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
                 $this->_base, $name, $type));
         }
 
-        $natives = $this->_native();
-        $opt = $options;
-
-        if (isset($opt['limit']) || isset($natives[$type])) {
-            $nativeLimit = isset($natives[$type]['limit']) ? $natives[$type]['limit'] : null;
-            $column->setLimit(isset($opt['limit']) ? $opt['limit'] : $nativeLimit);
-        }
-
-        $column->setPrecision(isset($opt['precision']) ? $opt['precision'] : null);
-        $column->setScale(isset($opt['scale'])         ? $opt['scale']     : null);
-        $column->setDefault(isset($opt['default'])     ? $opt['default']   : null);
-        $column->setNull(isset($opt['null'])           ? $opt['null']      : null);
+        $column->setLimit(isset($options['limit'])         ? $options['limit']     : null);
+        $column->setPrecision(isset($options['precision']) ? $options['precision'] : null);
+        $column->setScale(isset($options['scale'])         ? $options['scale']     : null);
+        $column->setUnsigned(isset($options['unsigned'])   ? $options['unsigned']  : null);
+        $column->setDefault(isset($options['default'])     ? $options['default']   : null);
+        $column->setNull(isset($options['null'])           ? $options['null']      : null);
 
         $this[$name] ? $this[$name] = $column : $this->_columns[] = $column;
         return $this;

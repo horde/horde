@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -8,7 +8,8 @@
  * @author Mike Cochrane <mike@graftonhall.co.nz>
  */
 
-require_once dirname(__FILE__) . '/../../lib/base.php';
+require_once dirname(__FILE__) . '/../../lib/Application.php';
+new Horde_Application();
 
 // Get full name.
 $identity = Horde_Prefs_Identity::singleton();

@@ -1,0 +1,672 @@
+/* Mailbox header styling. */
+.mboxheader {
+    font-size: 110%;
+    text-align: left;
+}
+
+/* Message list table styles. */
+.searchfolder a.smallheader {
+    display: block;
+}
+.messageList {
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+}
+.messageList tr {
+    height: 20px;
+}
+.messageList th {
+    border: 1px solid #eee;
+    cursor: pointer;
+    overflow: hidden;
+    padding: 0 0 1px 1px;
+    text-align: left;
+    white-space: nowrap;
+}
+.messageList th .subjectToggle {
+    font-size: 90%;
+}
+.messageList td {
+    padding-top: 0;
+    padding-bottom: 0;
+    text-indent: 1px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    vertical-align: middle;
+}
+.messageList td label {
+    padding-right: 2px;
+}
+.messageList td label input {
+    vertical-align: middle;
+}
+.messageList td span.flagUser {
+    font-size: 80%;
+    margin-right: 3px;
+}
+
+#messages h1.header {
+    font-size: 110%;
+    vertical-align: bottom;
+}
+#messages h1.header span.flagUser {
+    font-size: 80%;
+    margin-left: 3px;
+}
+
+/* Message view styling. */
+#msgheaders tr.printedby {
+    display: none;
+}
+
+/* Newmail alerts. */
+#newmail {
+    padding: 1em;
+    background: #ffc;
+    border: 2px solid #ccc;
+}
+#newmail ul {
+    list-style: none;
+    margin-bottom: 1em;
+}
+
+/* Navbar action styling. */
+ul.msgactions, ul.msgactions ul {
+    list-style: none;
+}
+.msgactions li {
+    float: left;
+    padding: 1px 3px;
+    border-right: 1px solid #888;
+    position: relative;
+}
+.msgactions li.lastnavbar {
+    border-right: 0;
+}
+.msgactions a.hasmenu {
+    padding-right: 15px;
+    margin-right: -3px;
+    background: url("graphics/popdown.png") no-repeat center right;
+}
+.msgactions li a {
+    font-size: 90%;
+    white-space: nowrap;
+}
+.folders .msgactions li a {
+    font-size: 100%;
+}
+.msgactions li ul {
+    background: #f4f4f4;
+    border: 1px solid #d4d4d4;
+    display: none;
+    left: -1px;
+    padding: 2px;
+    position: absolute;
+    z-index: 99;
+}
+.bottomborder .msgactions li ul {
+    top: 1.25em;
+}
+.topborder .msgactions li ul {
+    bottom: 1.25em;
+}
+.msgactions li ul a:hover, .msgactions li ul a:active {
+    background: gray;
+    color: #fff;
+}
+.msgactions li:hover ul, .msgactions li.hover ul {
+    display: block;
+}
+.msgactions li ul li {
+    float: none;
+    padding: 0;
+    border: none;
+    display: inline;
+}
+.msgactions li ul li a {
+    display: block;
+    padding: 2px;
+}
+.mboxcontrol {
+    color: #000;
+    background: #ccc;
+}
+.bottomborder {
+    border-bottom: 1px solid #999;
+    padding-bottom: 0;
+    padding-top: 0;
+}
+.bottombordercollapse {
+    border-bottom: 2px solid #999;
+}
+.topborder {
+    border-top: 1px solid #999;
+}
+
+table.msgActionTable, #fmanager table {
+    width: 100%;
+    border-collapse: collapse;
+}
+div.msgActions, #fmanager div.folderActions {
+    padding-left: 15px;
+}
+
+/* Message body styling. */
+.messageBody {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    background: #fff;
+    padding: 8px;
+}
+.messageBody div.mimePartData {
+    margin-bottom: 8px;
+}
+
+/* Search page styling. */
+#search_form div.item {
+    padding: 1px 0 1px 0;
+}
+#search_form .checkbox {
+    vertical-align: middle;
+    margin-right: 2px;
+}
+#search_form .foldersImg {
+    vertical-align: middle;
+}
+#search_form em.join {
+    font-style: normal;
+    font-weight: bold;
+}
+
+.searchuiCalendar {
+    background-image: url("graphics/calendar.png");
+}
+.searchuiFoldersActions {
+    margin-left: 20px;
+    font-size: 90%;
+}
+.searchuiButtons {
+    padding-top: 5px;
+}
+.signedinvalid td .signature {
+    color: #999;
+}
+
+/* Folder view. */
+#checkAll0, #checkAll1, #fmanager input.checkbox, #fmanager span.folderImg {
+    vertical-align: middle;
+}
+#fmanager div.folderChoose {
+    padding-left: 5px;
+}
+span.folderImg {
+    background-image: url("graphics/folders/folder.png");
+}
+span.folderopenImg {
+    background-image: url("graphics/folders/open.png");
+}
+span.draftsImg {
+    background-image: url("graphics/folders/drafts.png");
+}
+span.inboxImg {
+    background-image: url("graphics/folders/inbox.png");
+}
+span.sentImg {
+    background-image: url("graphics/folders/sent.png");
+}
+span.spamImg {
+    background-image: url("graphics/folders/spam.png");
+}
+span.trashImg {
+    background-image: url("graphics/folders/trash.png");
+}
+
+/* Style for div that fixes KHTML browsers. */
+.ohide {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+}
+
+/* Style for HTML data iframe. */
+.htmlMsgData {
+    margin: 2px 0;
+    width: 100%;
+}
+
+/* Compose view */
+.composebody {
+    padding: 2px;
+}
+#text_identity, #to, #cc, #bcc, #subject {
+    width: 550px;
+}
+.spellcheck {
+    white-space: pre;
+    white-space: -moz-pre-wrap;
+    white-space: -hp-pre-wrap;
+    white-space: -o-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: pre-wrap;
+    white-space: pre-line;
+    word-wrap: break-word;
+}
+
+.folders {
+    font-size: 100%;
+}
+.folderselect {
+    padding-top: 5px;
+}
+.seen {
+    background: #fff;
+}
+
+.addressTr {
+    width: 580px;
+}
+.addressTr span {
+    vertical-align: top;
+}
+
+.attachList {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Message flags definitions.
+ * For background color, see config/prefs.php [msgflags preference]. */
+div.msgflags {
+    display: -moz-inline-stack;
+    display: inline-block;
+    padding-right: 2px;
+    width: 16px;
+    height: 16px;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+}
+.mboxheader div.msgflags {
+    vertical-align: sub;
+}
+
+div.msgflags.flagPersonal {
+    background-image: url("graphics/mail_personal.png");
+}
+div.msgflags.flagHighpriority {
+    background-image: url("graphics/mail_priority_high.png");
+}
+tr.flagLowpriority {
+    font-weight: normal !important;
+}
+div.msgflags.flagLowpriority {
+    background-image: url("graphics/mail_priority_low.png");
+}
+div.msgflags.flagSignedmsg {
+    background-image: url("graphics/signed.png");
+}
+div.msgflags.flagEncryptmsg {
+    background-image: url("graphics/encrypted.png");
+}
+div.msgflags.flagAttachmsg {
+    background-image: url("graphics/attachment.png");
+}
+tr.flagUnseen {
+    font-weight: bold;
+}
+div.msgflags.flagUnseen, span.contextImg.flagUnseen {
+    background-image: url("graphics/mail_unseen.png");
+}
+div.msgflags.flagAnswered, span.contextImg.flagAnswered {
+    background-image: url("graphics/mail_answered.png");
+}
+div.msgflags.flagDraft, span.contextImg.flagDraft {
+    background-image: url("graphics/mail_draft.png");
+}
+div.msgflags.flagForwarded, span.contextImg.flagForwarded {
+    background-image: url("graphics/mail_forwarded.png");
+}
+div.msgflags.flagFlagged, span.contextImg.flagFlagged {
+    background-image: url("graphics/mail_flagged.png");
+}
+tr.flagDeleted * {
+    text-decoration: line-through;
+}
+div.msgflags.flagDeleted, span.contextImg.flagDeleted {
+    background-image: url("graphics/mail_deleted.png");
+}
+
+/* Accounts/flag management (prefs) styles. */
+table.accountsmanagement, table.flagmanagement {
+    padding-bottom: 10px;
+}
+table.accountsmanagement td, table.flagmanagement td {
+    padding-right: 12px;
+}
+table.accountsmanagement thead td, table.flagmanagement thead td {
+    font-weight: bold;
+    text-decoration: underline;
+}
+table.accountsmanagement td.required, .accountsNotSecure {
+    color: red;
+}
+.accountsSecure {
+    color: green;
+}
+table.flagmanagement tbody td.flagicon {
+    text-align: center;
+}
+table.accountsmanagement td.noneconfigured {
+    font-style: italic;
+}
+
+/* PGP & S/MIME prefs styles. */
+.redText {
+    color: red;
+}
+
+.folderunsub {
+    background: #bbb;
+    font-style: italic;
+}
+.quotawarn {
+    color: #000;
+    background: yellow;
+}
+.quotaalert {
+    color: #fff;
+    background: #f00;
+}
+
+td.msgheader {
+    width: 100%;
+}
+table.multipleMsgs td.msgheader {
+    width: auto;
+}
+
+/* Pad the addressbook icon in header compose links. */
+.msgheader img {
+    vertical-align: middle;
+    padding: 1px 1px 1px 2px;
+}
+
+/* Contacts styles. */
+#contactstable #search {
+    width: 150px;
+}
+#contactstable #search_results, #contactstable #selected_addresses {
+    width: 200px;
+}
+.contactsButtons {
+    text-align: center;
+}
+.contactsButtons input {
+    width: 60px;
+}
+
+/* Popdown styles. */
+span.spellcheckPopdownImg {
+    cursor: pointer;
+    background: url("graphics/popdown.png") no-repeat center center;
+    display: -moz-inline-stack;
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    vertical-align: top;
+    margin-left: 3px;
+}
+span.spellcheckPopdownImg:hover {
+    border-left: 1px solid #fff;
+    border-top: 1px solid #fff;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+    margin: -1px -1px -1px 2px;
+}
+
+/* Large addresslist display. */
+.largeaddrlist {
+    cursor: pointer;
+    background: #aaa;
+    margin-right: 5px;
+}
+.largeaddrlist:hover {
+    text-decoration: underline;
+}
+
+/* Thread/folder images */
+span.treeImg {
+    height: 20px;
+    width: 20px;
+    display: -moz-inline-stack;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+span.treeImg1 {
+    background-image: url("graphics/tree/line.png");
+}
+span.treeImg2 {
+    background-image: url("graphics/tree/join.png");
+}
+span.treeImg3 {
+    background-image: url("graphics/tree/joinbottom-down.png");
+}
+span.treeImg4 {
+    background-image: url("graphics/tree/joinbottom.png");
+}
+span.treeImg5 {
+    background-image: url("graphics/tree/rev-line.png");
+}
+span.treeImg6 {
+    background-image: url("graphics/tree/rev-join.png");
+}
+span.treeImg7 {
+    background-image: url("graphics/tree/rev-joinbottom-down.png");
+}
+span.treeImg8 {
+    background-image: url("graphics/tree/rev-joinbottom.png");
+}
+span.treeImg9 {
+    background-image: url("graphics/tree/minustop.png");
+}
+span.treeImg10 {
+    background-image: url("graphics/tree/minus.png");
+}
+span.treeImg11 {
+    background-image: url("graphics/tree/minusbottom.png");
+}
+span.treeImg12 {
+    background-image: url("graphics/tree/rev-minustop.png");
+}
+span.treeImg13 {
+    background-image: url("graphics/tree/rev-minus.png");
+}
+span.treeImg14 {
+    background-image: url("graphics/tree/rev-minusbottom.png");
+}
+span.treeImg15 {
+    background-image: url("graphics/tree/plustop.png");
+}
+span.treeImg16 {
+    background-image: url("graphics/tree/plus.png");
+}
+span.treeImg17 {
+    background-image: url("graphics/tree/plusbottom.png");
+}
+span.treeImg18 {
+    background-image: url("graphics/tree/rev-plustop.png");
+}
+span.treeImg19 {
+    background-image: url("graphics/tree/rev-plus.png");
+}
+span.treeImg20 {
+    background-image: url("graphics/tree/rev-plusbottom.png");
+}
+
+/* Expand/Collapse graphic. */
+span.arrowCollapsed {
+    background-image: url("graphics/arrow_collapsed.png");
+}
+span.arrowExpanded {
+    background-image: url("graphics/arrow_expanded.png");
+}
+
+/* Loading graphic */
+span.loadingImg {
+    z-index: 1000;
+    border: 1px #e0e0e0 solid;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    background: #fff url("graphics/loading.gif") no-repeat center;
+    padding: 3px;
+    width: 16px;
+    height: 16px;
+}
+td.addressTr span.loadingImg {
+    padding: 0 0 0 16px;
+}
+
+/* MIME styles. */
+.mimeStatusMessageTable, .mimeHeaders {
+    margin-bottom: 3px;
+    font-size: 90%;
+}
+.mimeStatusMessageTable {
+    background: #ffc;
+    border: 1px solid #fff760;
+    color: #000;
+    display: -moz-inline-stack;
+    display: inline-block;
+    margin-bottom: 3px;
+    padding: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+.mimeStatusIcon {
+    width: 22px;
+}
+.mimeHeaders {
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+    display: -moz-inline-stack;
+    display: inline-block;
+    padding: 5px;
+}
+div.mimeStatusMessage, div.mimePartInfo {
+    margin-bottom: 5px;
+}
+.mimePartInfo div {
+    background: #efefef;
+    border: 1px solid #ccc;
+    font-size: 90%;
+    margin: 0;
+    padding: 5px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    /* For FF2 */
+    display: table-cell;
+    display: inline-block;
+}
+.mimePartInfo div img {
+    vertical-align: bottom;
+}
+.mimePartInfoAtc div {
+    border: 1px dashed;
+    background-image: url("graphics/attachment.png");
+    background-position: 2px 50%;
+    background-repeat: no-repeat;
+    padding-left: 25px;
+}
+
+.mimeStatusMessageTable td {
+    padding: 0;
+}
+.mimeStatusMessageTable td table td {
+    padding-right: 2px;
+    white-space: nowrap;
+}
+
+.mimePartWrap, .mimePartWrapValid, .mimePartWrapInvalid {
+    border: 2px solid #666;
+    margin: 2px 0;
+    padding: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+.mimePartWrapValid {
+    border-color: #cfc;
+}
+.mimePartWrapInvalid {
+    border-color: #ffd0af;
+}
+
+.downloadAtc, .downloadZipAtc, .saveImgAtc, .closeImg, .deleteImg, .foldersImg, .searchuiImg, .reloadImg {
+    display: -moz-inline-stack;
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    background-color: transparent;
+    background-position: center right;
+    background-repeat: no-repeat;
+    vertical-align: bottom;
+}
+.downloadAtc, .downloadZipAtc, .saveImgAtc {
+    margin-left: 1px;
+}
+.downloadAtc, .saveAsImg {
+    background-image: url("graphics/download.png");
+}
+.downloadZipAtc {
+    background-image: url("graphics/mime/compressed.png");
+}
+.saveImgAtc {
+    background-image: url("graphics/gallery.png");
+}
+.deleteImg {
+    background-image: url("graphics/delete.png");
+}
+.closeImg, .searchuiDelete {
+    background-image: url("graphics/close.png");
+}
+.reloadImg {
+    background-image: url("graphics/reload.png");
+}
+
+#itipconflicts tr.itipcollision {
+    background-color: #f00;
+    color: #fff;
+}
+
+#itipconflicts tr.itipnearcollision {
+    background-color: #ee0;
+}
+
+
+/* Print CSS rules. */
+@media print {
+    body {
+        background: #fff;
+    }
+
+    a, a:visited {
+        color: #000;
+    }
+
+    #msgheaders tr.printedby {
+        display: table-row !important;
+    }
+
+    .label {
+        min-width: 60px;
+        text-align: right;
+        font-weight: bold;
+    }
+
+    #msgHeadersColl, .context, .address img, .mimeStatusMessage, .largeaddrlist, #msgAtc, table.msgActionTable, #messages h1.header, table.navbaractions, td.msgheader img, tr.msgheaderParts, .downloadAtc, .downloadZipAtc {
+        display: none !important;
+    }
+}

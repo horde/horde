@@ -1,0 +1,88 @@
+<?php
+
+$imp_view = Horde_Util::nonInputVar('imp_view');
+
+/* Do this include here so that the generated script can be added with any
+ * other scripts already added. */
+switch ($imp_view) {
+case 'dimp':
+    include IMP_TEMPLATES . '/javascript_defs_dimp.php';
+    break;
+
+default:
+    include IMP_TEMPLATES . '/javascript_defs.php';
+    break;
+}
+
+if (isset($GLOBALS['language'])) {
+    header('Content-type: text/html; charset=' . Horde_Nls::getCharset());
+    header('Vary: Accept-Language');
+}
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+<?php
+echo (!empty($GLOBALS['language']) ? '<html lang="' . strtr($GLOBALS['language'], '_', '-') . '">' : '<html>') . '<head>';
+
+$page_title = $GLOBALS['registry']->get('name');
+
+if (!empty($title)) {
+    $page_title .= ' :: ' . $title;
+}
+
+if (!empty($refresh_time) && !empty($refresh_url)) {
+    echo "<meta http-equiv=\"refresh\" content=\"$refresh_time;url=$refresh_url\" />\n";
+}
+
+switch ($imp_view) {
+case 'dimp':
+    $css = array();
+    if (!empty($GLOBALS['conf']['dimp']['css_files'])) {
+        foreach ($GLOBALS['conf']['css_files'] as $css_file) {
+            $css[] = array(
+                'u' => $GLOBALS['registry']->get('themesuri') . '/' . $css_file,
+                'f' => $GLOBALS['registry']->get('themesfs') .  '/' . $css_file
+            );
+        }
+    }
+    Horde::includeStylesheetFiles(array('additional' => $css, 'sub' => 'dimp'));
+    break;
+
+default:
+    Horde::includeStylesheetFiles();
+    Horde::includeScriptFiles();
+    break;
+}
+?>
+<title><?php echo htmlspecialchars($page_title) ?></title>
+<link href="<?php echo $GLOBALS['registry']->getImageDir() ?>/favicon.ico" rel="SHORTCUT ICON" />
+<?php if ($imp_view == 'dimp'): ?>
+</head>
+<?php else: ?>
+<?php if ($mailbox_url = Horde_Util::nonInputVar('mailbox_url')): ?>
+<link href="<?php echo $mailbox_url ?>" rel="Up" />
+<?php elseif (!Horde_Util::nonInputVar('login_page')): ?>
+<link href="<?php echo Horde::applicationUrl('mailbox.php')->add('mailbox', 'INBOX') ?>" rel="Top" />
+<?php endif; ?>
+<?php if ($first_url = Horde_Util::nonInputVar('first_url')): ?>
+<link href="<?php echo $first_url ?>" rel="First" />
+<?php endif; ?>
+<?php if ($prev_url = Horde_Util::nonInputVar('prev_url')): ?>
+<link href="<?php echo $prev_url ?>" rel="Previous" id="prev" />
+<?php endif; ?>
+<?php if ($next_url = Horde_Util::nonInputVar('next_url')): ?>
+<link href="<?php echo $next_url ?>" rel="Next" id="next" />
+<?php endif; ?>
+<?php if ($last_url = Horde_Util::nonInputVar('last_url')): ?>
+<link href="<?php echo $last_url ?>" rel="Last" />
+<?php endif; ?>
+<?php if ($rss_url = Horde_Util::nonInputVar('rss_url')): ?>
+<link rel="alternate" type="application/rss+xml" href="<?php echo $rss_url ?>" />
+<?php endif; ?>
+<?php if (!Horde_Util::nonInputVar('login_page')): ?>
+<link href="<?php echo Horde::applicationUrl('search.php') ?>" rel="search" />
+<?php endif ?>
+<?php Horde::outputInlineScript(); ?>
+</head>
+
+<body<?php if ($bc = Horde_Util::nonInputVar('bodyClass')) echo ' class="' . $bc . '"' ?><?php if ($bi = Horde_Util::nonInputVar('bodyId')) echo ' id="' . $bi . '"'; ?>>
+<?php endif; ?>

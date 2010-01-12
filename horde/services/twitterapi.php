@@ -2,7 +2,7 @@
 /**
  * Callback page for Twitter integration.
  *
- * Copyright 2009 The Horde Project (http://www.horde.org)
+ * Copyright 2009-2010 The Horde Project (http://www.horde.org)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -13,8 +13,8 @@
  * @author Ben Klang <ben@alkaloid.net>
  */
 
-$horde_no_logintasks = true;
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+new Horde_Application(array('nologintasks' => true));
 
 $twitter = new Services_Twitter($_SESSION['horde']['twitterblock']['username'],
                                 $_SESSION['horde']['twitterblock']['password']);

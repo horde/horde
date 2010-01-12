@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -8,9 +8,8 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-$horde_authentication = 'none';
-require_once dirname(__FILE__) . '/lib/base.php';
-require_once 'Horde/Auth/Signup.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+new Horde_Application(array('authentication' => 'none'));
 
 $auth = Horde_Auth::singleton($conf['auth']['driver']);
 
@@ -31,6 +30,7 @@ if (is_a($signup, 'PEAR_Error')) {
 }
 
 $vars = Horde_Variables::getDefaultVariables();
+require_once 'Horde/Auth/Signup.php';
 $formsignup = new HordeSignupForm($vars);
 if ($formsignup->validate()) {
     $formsignup->getInfo($vars, $info);

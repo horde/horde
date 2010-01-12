@@ -3,7 +3,7 @@
  * The Horde_Mime_Viewer_Ooo class renders out OpenOffice.org documents in
  * HTML format.
  *
- * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -15,17 +15,28 @@
 class Horde_Mime_Viewer_Ooo extends Horde_Mime_Viewer_Driver
 {
     /**
-     * Can this driver render various views?
+     * This driver's display capabilities.
      *
-     * @var boolean
+     * @var array
      */
     protected $_capability = array(
-        'embedded' => false,
-        'forceinline' => false,
         'full' => true,
         'info' => false,
         'inline' => false,
         'raw' => false
+    );
+
+    /**
+     * Metadata for the current viewer/data.
+     *
+     * @var array
+     */
+    protected $_metadata = array(
+        /* At this point assume that the document takes advantage of ZIP
+         * compression. */
+        'compressed' => true,
+        'embedded' => false,
+        'forceinline' => false
     );
 
     /**

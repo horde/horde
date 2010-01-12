@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -357,8 +357,6 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
 
         // If these asserts fail, that means the INSERT (create function, or cast to SQL) is broken!
         $this->assertEquals($correctValue, $user->wealth);
-
-        $this->_conn->dropTable('users');
     }
 
     public function testNativeTypes()
@@ -397,7 +395,7 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
         // Test for 30 significent digits (beyond the 16 of float), 10 of them
         // after the decimal place.
         $this->assertEquals('12345678901234567890.0123456789', $bob->wealth);
-        $this->assertEquals(true,                              $bob->male);
+        $this->assertEquals(1,                                 $bob->male);
 
         // @todo - type casting
     }
@@ -410,8 +408,9 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
 
     public function testUnabstractedDatabaseDependentTypes()
     {
-        $this->_conn->delete('DELETE FROM users');
+        $this->_createTestUsersTable();
 
+        $this->_conn->delete('DELETE FROM users');
         $this->_conn->addColumn('users', 'intelligence_quotient', 'tinyint');
         $this->_conn->insert('INSERT INTO users (intelligence_quotient) VALUES (300)');
 
@@ -483,6 +482,7 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('integer', $col->getType());
         $this->assertEquals(false,     $col->isNull());
         $this->assertEquals(10,        $col->getLimit());
+        $this->assertEquals(true,      $col->isUnsigned());
         $this->assertEquals('',        $col->getDefault());
         $this->assertEquals('int(10) unsigned', $col->getSqlType());
         $this->assertEquals(false,     $col->isText());
@@ -510,6 +510,15 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
         $this->fail("Expected exception for no pk");
     }
 
+    public function testCreateTableWithExplicitPk()
+    {
+        $table = $this->_conn->createTable('testings');
+          $table->column('foo', 'primaryKey');
+
+        $pkColumn = $table['foo'];
+        $this->assertEquals('`foo` int(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY', $pkColumn->toSql());
+    }
+
     public function testCreateTableForce()
     {
         $this->_createTestTable('sports');
@@ -527,13 +536,138 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1, $this->_conn->selectValue($sql));
     }
 
+    public function testCreateTableAddsId()
+    {
+        $table = $this->_conn->createTable('testings');
+            $table->column('foo', 'string');
+        $table->end();
+
+        $columns = array();
+        foreach ($this->_conn->columns('testings') as $col) {
+            $columns[] = $col->getName();
+        }
+        sort($columns);
+        $this->assertEquals(array('foo', 'id'), $columns);
+    }
+
+    public function testCreateTableWithNotNullColumn()
+    {
+        $table = $this->_conn->createTable('testings');
+            $table->column('foo', 'string', array('null' => false));
+        $table->end();
+
+        try {
+            $this->_conn->execute("INSERT INTO testings (foo) VALUES (NULL)");
+        } catch (Exception $e) { return; }
+        $this->fail('Expected exception wasn\'t raised');
+    }
+
+    public function testCreateTableWithDefaults()
+    {
+        $table = $this->_conn->createTable('testings');
+            $table->column('one',   'string',  array('default' => 'hello'));
+            $table->column('two',   'boolean', array('default' => true));
+            $table->column('three', 'boolean', array('default' => false));
+            $table->column('four',  'integer', array('default' => 1));
+        $table->end();
+
+        $columns = array();
+        foreach ($this->_conn->columns('testings') as $col) {
+            $columns[$col->getName()] = $col;
+        }
+
+        $this->assertEquals('hello', $columns['one']->getDefault());
+        $this->assertTrue($columns['two']->getDefault());
+        $this->assertFalse($columns['three']->getDefault());
+        $this->assertEquals(1, $columns['four']->getDefault());
+    }
+
+    public function testCreateTableWithLimits()
+    {
+        $table = $this->_conn->createTable('testings');
+            $table->column('foo', 'string', array('limit' => 80));
+        $table->end();
+
+        $columns = array();
+        foreach ($this->_conn->columns('testings') as $col) {
+            $columns[$col->getName()] = $col;
+        }
+        $this->assertEquals(80, $columns['foo']->getLimit());
+    }
+
+    public function testCreateTableWithBinaryColumn()
+    {
+        try {
+            $table = $this->_conn->createTable('binary_testings');
+                $table->column('data', 'binary', array('null' => false));
+            $table->end();
+        } catch (Exception $e) { $this->fail('Unexepected exception raised'); }
+
+        $columns = $this->_conn->columns('binary_testings');
+
+        foreach ($columns as $c) {
+            if ($c->getName() == 'data') { $dataColumn = $c; }
+        }
+        $this->assertEquals('', $dataColumn->getDefault());
+    }
+
     public function testRenameTable()
     {
+        // Simple rename then select test
         $this->_createTestTable('sports');
         $this->_conn->renameTable('sports', 'my_sports');
 
         $sql = "SELECT id FROM my_sports WHERE id = 1";
         $this->assertEquals("1", $this->_conn->selectValue($sql));
+
+        // Make sure the old table name isn't still there
+        try {
+            $sql = "SELECT id FROM sports WHERE id = 1";
+            $this->_conn->execute($sql);
+        } catch (Exception $e) {
+            return;
+        }
+        $this->fail("Table exists where it shouldn't have");
+
+        // Rename then insert test
+        $table = $this->_conn->createTable('octopuses');
+            $table->column('url', 'string');
+        $table->end();
+
+        $this->_conn->renameTable('octopuses', 'octopi');
+
+        $sql = "INSERT INTO octopi (id, url) VALUES (1, 'http://www.foreverflying.com/octopus-black7.jpg')";
+        $this->_conn->execute($sql);
+
+        $this->assertEquals('http://www.foreverflying.com/octopus-black7.jpg',
+                $this->_conn->selectValue("SELECT url FROM octopi WHERE id=1"));
+
+        // Make sure the old table name isn't still there
+        try {
+            $sql = "SELECT id FROM octopuses WHERE id = 1";
+            $this->_conn->execute($sql);
+        } catch (Exception $e) {
+            return;
+        }
+        $this->fail("Table exists where it shouldn't have");
+    }
+
+    public function testRenameTableWithAnIndex()
+    {
+        $table = $this->_conn->createTable('octopuses');
+            $table->column('url', 'string');
+        $table->end();
+        $this->_conn->addIndex('octopuses', 'url');
+        $this->_conn->renameTable('octopuses', 'octopi');
+
+        $sql = "INSERT INTO octopi (id, url) VALUES (1, 'http://www.foreverflying.com/octopus-black7.jpg')";
+        $this->_conn->execute($sql);
+
+        $this->assertEquals('http://www.foreverflying.com/octopus-black7.jpg',
+                $this->_conn->selectValue("SELECT url FROM octopi WHERE id=1"));
+
+        $indexes = $this->_conn->indexes('octopi');
+        $this->assertEquals('url', $indexes[0]->columns[0]);
     }
 
     public function testDropTable()
@@ -575,6 +709,64 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
             return;
         }
         $this->fail("Column exists where it shouldn't have");
+    }
+
+    public function testChangeColumn()
+    {
+        $this->_createTestUsersTable();
+
+        $this->_conn->addColumn('users', 'age', 'integer');
+        $oldColumns = $this->_conn->columns('users', "User Columns");
+
+        $found = false;
+        foreach ($oldColumns as $c) {
+            if ($c->getName() == 'age' && $c->getType() == 'integer') { $found = true; }
+        }
+        $this->assertTrue($found);
+
+        $this->_conn->changeColumn('users', 'age', 'string');
+
+        $newColumns = $this->_conn->columns('users', "User Columns");
+
+        $found = false;
+        foreach ($newColumns as $c) {
+            if ($c->getName() == 'age' && $c->getType() == 'integer') { $found = true; }
+        }
+        $this->assertFalse($found);
+        $found = false;
+        foreach ($newColumns as $c) {
+            if ($c->getName() == 'age' && $c->getType() == 'string') { $found = true; }
+        }
+        $this->assertTrue($found);
+
+        $found = false;
+        foreach ($oldColumns as $c) {
+            if ($c->getName() == 'approved' && $c->getType() == 'boolean' &&
+                $c->getDefault() == true) { $found = true; }
+        }
+        $this->assertTrue($found);
+
+        // changeColumn() throws exception on error
+        $this->_conn->changeColumn('users', 'approved', 'boolean', array('default' => false));
+
+        $newColumns = $this->_conn->columns('users', "User Columns");
+
+        $found = false;
+        foreach ($newColumns as $c) {
+            if ($c->getName() == 'approved' && $c->getType() == 'boolean' &&
+                $c->getDefault() == true) { $found = true; }
+        }
+        $this->assertFalse($found);
+
+        $found = false;
+        foreach ($newColumns as $c) {
+            if ($c->getName() == 'approved' && $c->getType() == 'boolean' &&
+                $c->getDefault() == false) { $found = true; }
+        }
+        $this->assertTrue($found);
+
+        // changeColumn() throws exception on error
+        $this->_conn->changeColumn('users', 'approved', 'boolean', array('default' => true));
     }
 
     public function testChangeColumnDefault()
@@ -627,8 +819,33 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('decimal(5,2)', $afterChange->getSqlType());
     }
 
+    public function testChangeColumnUnsigned()
+    {
+        $table = $this->_conn->createTable('testings');
+          $table->column('foo', 'integer');
+        $table->end();
+
+        $beforeChange = $this->_getColumn('testings', 'foo');
+        $this->assertFalse($beforeChange->isUnsigned());
+
+        $this->_conn->execute("INSERT INTO testings (id, foo) VALUES (1, -1)");
+
+        $this->_conn->changeColumn('testings', 'foo', 'integer', array('unsigned' => true));
+
+        $afterChange = $this->_getColumn('testings', 'foo');
+        $this->assertTrue($afterChange->isUnsigned());
+
+        $row = (object)$this->_conn->selectOne('SELECT * FROM testings');
+        $this->assertEquals(0, $row->foo);
+    }
+
     public function testRenameColumn()
     {
+        $this->_createTestUsersTable();
+
+        $this->_conn->renameColumn('users', 'first_name', 'nick_name');
+        $this->assertTrue(in_array('nick_name', $this->_columnNames('users')));
+
         $this->_createTestTable('sports');
 
         $beforeChange = $this->_getColumn('sports', 'is_college');
@@ -638,6 +855,45 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
 
         $afterChange = $this->_getColumn('sports', 'is_renamed');
         $this->assertEquals('tinyint(1)', $afterChange->getSqlType());
+    }
+
+    public function testRenameColumnWithSqlReservedWord()
+    {
+        $this->_createTestUsersTable();
+
+        $this->_conn->renameColumn('users', 'first_name', 'group');
+        $this->assertTrue(in_array('group', $this->_columnNames('users')));
+    }
+
+    public function testAddIndex()
+    {
+        $this->_createTestUsersTable();
+
+        // Limit size of last_name and key columns to support Firebird index limitations
+        $this->_conn->addColumn('users', 'last_name',     'string',  array('limit' => 100));
+        $this->_conn->addColumn('users', 'key',           'string',  array('limit' => 100));
+        $this->_conn->addColumn('users', 'administrator', 'boolean');
+
+        $this->_conn->addIndex('users', 'last_name');
+        $this->_conn->removeIndex('users', 'last_name');
+
+        $this->_conn->addIndex('users', array('last_name', 'first_name'));
+        $this->_conn->removeIndex('users', array('column' => array('last_name', 'first_name')));
+
+        $this->_conn->addIndex('users', array('last_name', 'first_name'));
+        $this->_conn->removeIndex('users', array('name' => 'index_users_on_last_name_and_first_name'));
+
+        $this->_conn->addIndex('users', array('last_name', 'first_name'));
+        $this->_conn->removeIndex('users', 'last_name_and_first_name');
+
+        // quoting
+        $this->_conn->addIndex('users', array('key'), array('name' => 'key_idx', 'unique' => true));
+        $this->_conn->removeIndex('users', array('name' => 'key_idx', 'unique' => true));
+
+        $this->_conn->addIndex('users', array('last_name', 'first_name', 'administrator'),
+                                        array('name' => "named_admin"));
+
+        $this->_conn->removeIndex('users', array('name' => 'named_admin'));
     }
 
     public function testAddIndexDefault()
@@ -848,8 +1104,14 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
 
     public function testTypeToSqlInt()
     {
-        $result = $this->_conn->typeToSql('integer', '11');
+        $result = $this->_conn->typeToSql('integer');
         $this->assertEquals('int(11)', $result);
+    }
+
+    public function testTypeToSqlIntUnsigned()
+    {
+        $result = $this->_conn->typeToSql('integer', null, null, null, true);
+        $this->assertEquals('int(10) UNSIGNED', $result);
     }
 
     public function testTypeToSqlIntLimit()
@@ -901,6 +1163,63 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
         $options = array('null' => false);
         $result = $this->_conn->addColumnOptions("test", $options);
         $this->assertEquals("test NOT NULL", $result);
+    }
+
+    public function testAddColumnNotNullWithoutDefault()
+    {
+        $table = $this->_conn->createTable('testings');
+          $table->column('foo', 'string');
+        $table->end();
+        $this->_conn->addColumn('testings', 'bar', 'string', array('null' => false, 'default' => ''));
+
+        try {
+            $this->_conn->execute("INSERT INTO testings (foo, bar) VALUES ('hello', NULL)");
+        } catch (Exception $e) { return; }
+        $this->fail('Expected exception wasn\'t raised');
+    }
+
+    public function testAddColumnNotNullWithDefault()
+    {
+        $table = $this->_conn->createTable('testings');
+          $table->column('foo', 'string');
+        $table->end();
+
+        $this->_conn->execute("INSERT INTO testings (id, foo) VALUES ('1', 'hello')");
+
+        $this->_conn->addColumn('testings', 'bar', 'string', array('null' => false, 'default' => 'default'));
+
+        try {
+            $this->_conn->execute("INSERT INTO testings (id, foo, bar) VALUES (2, 'hello', NULL)");
+        } catch (Exception $e) { return; }
+        $this->fail('Expected exception wasn\'t raised');
+    }
+
+    public function testAddRemoveSingleField()
+    {
+        $this->_createTestUsersTable();
+
+        $this->assertFalse(in_array('last_name', $this->_columnNames('users')));
+
+        $this->_conn->addColumn('users', 'last_name', 'string');
+        $this->assertTrue(in_array('last_name', $this->_columnNames('users')));
+
+        $this->_conn->removeColumn('users', 'last_name');
+        $this->assertFalse(in_array('last_name', $this->_columnNames('users')));
+    }
+
+    public function testAddRename()
+    {
+        $this->_createTestUsersTable();
+
+        $this->_conn->delete('DELETE FROM users');
+
+        $this->_conn->addColumn('users', 'girlfriend', 'string');
+        $this->_conn->insert("INSERT INTO users (girlfriend) VALUES ('bobette')");
+
+        $this->_conn->renameColumn('users', 'girlfriend', 'exgirlfriend');
+
+        $bob = (object)$this->_conn->selectOne('SELECT * FROM users');
+        $this->assertEquals('bobette', $bob->exgirlfriend);
     }
 
     public function testDistinct()
@@ -968,26 +1287,52 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
         } catch (Exception $e) {}
     }
 
+    protected function _createTestUsersTable()
+    {
+        $table = $this->_conn->createTable('users');
+          $table->column('company_id',  'integer',  array('limit' => 11));
+          $table->column('name',        'string',   array('limit' => 255, 'default' => ''));
+          $table->column('first_name',  'string',   array('limit' => 40, 'default' => ''));
+          $table->column('approved',    'boolean',  array('default' => true));
+          $table->column('type',        'string',   array('limit' => 255, 'default' => ''));
+          $table->column('created_at',  'datetime', array('default' => '0000-00-00 00:00:00'));
+          $table->column('created_on',  'date',     array('default' => '0000-00-00'));
+          $table->column('updated_at',  'datetime', array('default' => '0000-00-00 00:00:00'));
+          $table->column('updated_on',  'date',     array('default' => '0000-00-00'));
+        $table->end();
+    }
+
     /**
      * drop test tables
      */
     protected function _dropTestTables()
     {
-        try {
-            $this->_conn->dropTable('unit_tests');
-        } catch (Exception $e) {}
-        try {
-            $this->_conn->dropTable('sports');
-        } catch (Exception $e) {}
-        try {
-            $this->_conn->dropTable('my_sports');
-        } catch (Exception $e) {}
-        try {
-            $this->_conn->dropTable('schema_info');
-        } catch (Exception $e) {}
-        try {
-            $this->_conn->dropTable('cache_table');
-        } catch (Exception $e) {}
+        $tables = array(
+            'binary_testings',
+            'cache_table',
+            'my_sports',
+            'octopi',
+            'schema_info',
+            'sports',
+            'testings',
+            'unit_tests',
+            'users',
+        );
+
+        foreach ($tables as $table) {
+            try {
+                $this->_conn->dropTable($table);
+            } catch (Exception $e) {}
+        }
+    }
+
+    protected function _columnNames($tableName)
+    {
+        $columns = array();
+        foreach ($this->_conn->columns($tableName) as $c) {
+            $columns[] = $c->getName();
+        }
+        return $columns;
     }
 
     /**

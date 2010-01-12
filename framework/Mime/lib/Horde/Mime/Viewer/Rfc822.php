@@ -3,7 +3,7 @@
  * The Horde_Mime_Viewer_Rfc822 class renders out messages from the
  * message/rfc822 content type.
  *
- * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
@@ -14,13 +14,11 @@
 class Horde_Mime_Viewer_Rfc822 extends Horde_Mime_Viewer_Driver
 {
     /**
-     * Can this driver render various views?
+     * This driver's display capabilities.
      *
-     * @var boolean
+     * @var array
      */
     protected $_capability = array(
-        'embedded' => false,
-        'forceinline' => false,
         'full' => true,
         'info' => true,
         'inline' => false,

@@ -10,7 +10,7 @@
  * Kerberos must be correctly configured on your system (e.g. /etc/krb5.conf)
  * for this class to work correctly.
  *
- * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php

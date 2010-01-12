@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -87,7 +87,7 @@ class Horde_Db_Adapter_Sqlite_ColumnDefinitionTest extends PHPUnit_Framework_Tes
     public function testToSqlNotNull()
     {
         $col = new Horde_Db_Adapter_Base_ColumnDefinition(
-            $this->_conn, 'col_name', 'string', null, null, null, null, false
+            $this->_conn, 'col_name', 'string', null, null, null, null, null, false
         );
         $this->assertEquals('"col_name" varchar(255) NOT NULL', $col->toSql());
 
@@ -97,12 +97,19 @@ class Horde_Db_Adapter_Sqlite_ColumnDefinitionTest extends PHPUnit_Framework_Tes
         );
         $col->setNull(false);
         $this->assertEquals('"col_name" varchar(255) NOT NULL', $col->toSql());
+
+        // set attribute to the default (true)
+        $col = new Horde_Db_Adapter_Base_ColumnDefinition(
+            $this->_conn, 'col_name', 'string'
+        );
+        $col->setNull(true);
+        $this->assertEquals('"col_name" varchar(255)', $col->toSql());
     }
 
     public function testToSqlDefault()
     {
         $col = new Horde_Db_Adapter_Base_ColumnDefinition(
-            $this->_conn, 'col_name', 'string', null, null, null, 'test', null
+            $this->_conn, 'col_name', 'string', null, null, null, null, 'test', null
         );
         $this->assertEquals('"col_name" varchar(255) DEFAULT \'test\'', $col->toSql());
 

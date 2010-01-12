@@ -2,7 +2,7 @@
 /**
  * Horde redirection script.
  *
- * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -10,9 +10,8 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-$horde_authentication = 'none';
-$horde_no_logintasks = true;
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+new Horde_Application(array('authentication' => 'none', 'nologintasks' => true));
 
 $main_page = Horde_Util::nonInputVar('horde_login_url', Horde_Util::getFormData('url'));
 

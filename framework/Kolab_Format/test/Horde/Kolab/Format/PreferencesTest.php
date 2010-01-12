@@ -20,7 +20,7 @@ require_once 'Horde/Autoloader.php';
 /**
  * Test the preferences XML format.
  *
- * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -82,7 +82,7 @@ class Horde_Kolab_Format_PreferencesTest extends PHPUnit_Framework_TestCase
  * A modification to the original preferences handler. This prevents
  * unpredictable date entries.
  *
- * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

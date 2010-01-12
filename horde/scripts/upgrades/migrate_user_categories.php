@@ -20,8 +20,8 @@ if (!Horde_Cli::runningFromCLI()) {
 // some variables, etc.
 Horde_Cli::init();
 
-$horde_authentication = 'none';
-require_once HORDE_BASE . '/lib/base.php';
+new Horde_Application(array('authentication' => 'none'));
+
 $cli = Horde_Cli::singleton();
 $cManager = new Horde_Prefs_CategoryManager();
 $apps = $registry->listApps(array('hidden', 'notoolbar', 'active', 'admin'));

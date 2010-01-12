@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -28,13 +28,6 @@ class Horde_Db_Adapter_Postgresql_ColumnDefinitionTest extends PHPUnit_Framework
     {
         list($this->_conn,) = $this->sharedFixture->getConnection();
     }
-
-    protected function tearDown()
-    {
-        // close connection
-        $this->_conn->disconnect();
-    }
-
 
     public function testConstruct()
     {
@@ -87,7 +80,7 @@ class Horde_Db_Adapter_Postgresql_ColumnDefinitionTest extends PHPUnit_Framework
     public function testToSqlNotNull()
     {
         $col = new Horde_Db_Adapter_Base_ColumnDefinition(
-            $this->_conn, 'col_name', 'string', null, null, null, null, false
+            $this->_conn, 'col_name', 'string', null, null, null, null, null, false
         );
         $this->assertEquals('"col_name" character varying(255) NOT NULL', $col->toSql());
 
@@ -102,7 +95,7 @@ class Horde_Db_Adapter_Postgresql_ColumnDefinitionTest extends PHPUnit_Framework
     public function testToSqlDefault()
     {
         $col = new Horde_Db_Adapter_Base_ColumnDefinition(
-            $this->_conn, 'col_name', 'string', null, null, null, 'test', null
+            $this->_conn, 'col_name', 'string', null, null, null, null, 'test'
         );
         $this->assertEquals('"col_name" character varying(255) DEFAULT \'test\'', $col->toSql());
 
@@ -113,5 +106,4 @@ class Horde_Db_Adapter_Postgresql_ColumnDefinitionTest extends PHPUnit_Framework
         $col->setDefault('test');
         $this->assertEquals('"col_name" character varying(255) DEFAULT \'test\'', $col->toSql());
     }
-
 }

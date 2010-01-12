@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -42,7 +42,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
     {
         return '"' . str_replace('"', '""', $name) . '"';
     }
-    
+
     /**
      * Quotes sequence names for use in SQL queries.
      *
@@ -182,7 +182,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
             try {
                 return $this->execute('DROP DATABASE ' . $this->quoteTableName($name));
             } catch (Horde_Db_Exception $e) {
-                /*@TODO logger.warn "#{name} database doesn't exist." if logger */
+                if ($this->_logger) { $this->_logger->warn("$name database doesn't exist"); }
             }
         }
     }
@@ -373,7 +373,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
                 $sql = "SELECT setval($quotedSequence, (SELECT COALESCE(MAX($quotedPk)+(SELECT increment_by FROM $quotedSequence), (SELECT min_value FROM $quotedSequence)) FROM $quotedTable), false)";
                 $this->selectValue($sql, 'Reset sequence');
             } else {
-                /*@TODO logger.warn "$table has primary key $pk with no default sequence" if logger*/
+                if ($this->_logger) { $this->_logger->warn("$table has primary key $pk with no default sequence"); }
             }
         }
     }
@@ -457,7 +457,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
         $default = isset($options['default']) ? $options['default'] : null;
         $notnull = isset($options['null']) && $options['null'] === false;
         if (array_key_exists('default', $options))
-            $this->changeColumnDefault($tableName, $columnName, $fault);
+            $this->changeColumnDefault($tableName, $columnName, $default);
         if ($notnull)
             $this->changeColumnNull($tableName, $columnName, false, $default);
     }
@@ -491,8 +491,9 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
                         break;
                     }
                 }
-                if ($oldType === null)
+                if ($oldType === null) {
                     throw new Horde_Db_Exception("$tableName does not have a column '$columnName'");
+                }
 
                 $this->beginDbTransaction();
 
@@ -535,7 +536,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
     {
         $this->_clearTableCache($tableName);
         if (!($null || is_null($default))) {
-            $this->execute('UPDATE '.$this->quoteTableName($tableName).' SET '.$this->quoteColumnName($columName).' = '.$this->quote($default).' WHERE '.$this->quoteColumnName($columnName).' IS NULL');
+            $this->execute('UPDATE '.$this->quoteTableName($tableName).' SET '.$this->quoteColumnName($columnName).' = '.$this->quote($default).' WHERE '.$this->quoteColumnName($columnName).' IS NULL');
         }
         return $this->execute('ALTER TABLE '.$this->quoteTableName($tableName).' ALTER '.$this->quoteColumnName($columnName).' '.($null ? 'DROP' : 'SET').' NOT NULL');
     }
@@ -561,7 +562,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
     /**
      * Maps logical Rails types to PostgreSQL-specific data types.
      */
-    public function typeToSql($type, $limit = null, $precision = null, $scale = null)
+    public function typeToSql($type, $limit = null, $precision = null, $scale = null, $unsigned = null)
     {
         if ($type != 'integer') return parent::typeToSql($type, $limit, $precision, $scale);
 

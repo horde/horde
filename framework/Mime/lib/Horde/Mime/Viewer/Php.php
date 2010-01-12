@@ -3,7 +3,7 @@
  * The Horde_Mime_Viewer_Php class renders out syntax-highlighted PHP code in
  * HTML format.
  *
- * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -14,13 +14,11 @@
 class Horde_Mime_Viewer_Php extends Horde_Mime_Viewer_Source
 {
     /**
-     * Can this driver render various views?
+     * This driver's display capabilities.
      *
-     * @var boolean
+     * @var array
      */
     protected $_capability = array(
-        'embedded' => false,
-        'forceinline' => false,
         'full' => true,
         'info' => false,
         'inline' => true,

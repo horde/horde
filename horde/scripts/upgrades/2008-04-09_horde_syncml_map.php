@@ -18,10 +18,9 @@ if (!Horde_Cli::runningFromCLI()) {
 Horde_Cli::init();
 $cli = Horde_Cli::singleton();
 
-$horde_authentication = 'none';
-require_once HORDE_BASE . '/lib/base.php';
-require_once 'Horde/DataTree.php';
+new Horde_Application(array('authentication' => 'none'));
 
+require_once 'Horde/DataTree.php';
 $datatree = DataTree::factory('sql',
                               array_merge(
                                   Horde::getDriverConfig('datatree', 'sql'),

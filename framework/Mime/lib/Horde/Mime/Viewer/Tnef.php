@@ -3,7 +3,7 @@
  * The Horde_Mime_Viewer_Tnef class allows MS-TNEF attachments to be
  * displayed.
  *
- * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -15,27 +15,37 @@
 class Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Driver
 {
     /**
-     * Can this driver render various views?
+     * This driver's display capabilities.
      *
-     * @var boolean
+     * @var array
      */
     protected $_capability = array(
-        'embedded' => false,
-        'forceinline' => true,
         'full' => true,
-        'info' => false,
-        'inline' => true,
+        'info' => true,
+        'inline' => false,
         'raw' => false
+    );
+
+    /**
+     * Metadata for the current viewer/data.
+     *
+     * @var array
+     */
+    protected $_metadata = array(
+        'compressed' => true,
+        'embedded' => false,
+        'forceinline' => false
     );
 
     /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
      * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @throws Horde_Exception
      */
     protected function _render()
     {
-        $ret = $this->_renderInline();
+        $ret = $this->_renderInfo();
         if (!empty($ret)) {
             reset($ret);
             $ret[key($ret)]['data'] = '<html><body>' . $ret[key($ret)]['data'] . '</body></html>';
@@ -44,11 +54,12 @@ class Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Driver
     }
 
     /**
-     * Return the rendered inline version of the Horde_Mime_Part object.
+     * Return the rendered information about the Horde_Mime_Part object.
      *
      * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @throws Horde_Exception
      */
-    protected function _renderInline()
+    protected function _renderInfo()
     {
         $tnef = Horde_Compress::factory('tnef');
         $info = $tnef->decompress($this->_mimepart->getContents());
@@ -72,4 +83,5 @@ class Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Driver
             )
         );
     }
+
 }
