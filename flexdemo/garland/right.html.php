@@ -1,0 +1,1 @@
+<?= $this->blockContent('flexdemo', 'menu') ?>

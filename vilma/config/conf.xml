@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+<configuration>
+ <configtab name="storage" desc="Domains and Accounts Driver">
+  <configsection name="storage">
+   <configdescription>
+    These are the settings for storing all the Vilma data, such as domains,
+    users within those domains, virtual addresses for users, etc.
+   </configdescription>
+   <configsection name="limits" desc="Default Limits">
+    <configstring name="defaultmaxusers" desc="Default Max Users (0 is unlimited)">0</configstring>
+    <configstring name="defaultquota" desc="Default Per-User Quota (in bytes, 0 is unlimited)">0</configstring>
+   </configsection>
+   <configswitch name="driver" desc="What storage driver should we use?">sql
+    <case name="sql" desc="SQL">
+     <configsection name="params">
+      <configsql switchname="driverconfig"/>
+      <configsection name="tables">
+
+       <configswitch name="domainsconfig" desc="Domains table specification">default
+        <case name="default" desc="Use Vilma Defaults"/>
+        <case name="custom" desc="Custom parameters">
+         <configstring name="domains" required="true" desc="Domain table name"/>
+         <configsection name="domains_fields">
+          <configstring name="domain_id" required="true" desc="Domain Id field."/>
+          <configstring name="domain_name" required="true" desc="Domain name field."/>
+          <configstring name="domain_transport" required="true" desc="Domain transport field."/>
+          <configstring name="domain_admin" required="true" desc="Domain admin field."/>
+          <configstring name="domain_max_users" required="true" desc="Domain max users field."/>
+          <configstring name="domain_quota" required="true" desc="Domain quota field."/>
+          <configstring name="domain_key" required="true" desc="Domain key field."/>
+         </configsection>
+        </case>
+       </configswitch>
+
+       <configswitch name="usersconfig" desc="Users table specification">default
+        <case name="default" desc="Use Vilma Defaults"/>
+        <case name="custom" desc="Custom parameters">
+         <configstring name="users" required="true" desc="Users table name"/>
+         <configsection name="users_fields">
+          <configstring name="user_id" required="true" desc="User Id field"/>
+          <configstring name="user_name" required="true" desc="User name field"/>
+          <configstring name="user_full_name" required="true" desc="User full name field"/>
+          <configstring name="user_home_dir" required="true" desc="User home dir field"/>
+          <configstring name="user_mail_dir" required="true" desc="User mail dir field"/>
+          <configstring name="user_mail_quota" required="true" desc="User quota field"/>
+          <configstring name="user_clear" required="true" desc="User clear password field"/>
+          <configstring name="user_crypt" required="true" desc="User crypted password field"/>
+          <configstring name="user_uid" required="true" desc="User uid field"/>
+          <configstring name="user_gid" required="true" desc="User gid field"/>
+          <configstring name="user_enabled" required="true" desc="User enabled field"/>
+         </configsection>
+        </case>
+       </configswitch>
+
+       <configswitch name="virtualsconfig" desc="Virtual addresses table specification">default
+        <case name="default" desc="Use Vilma Defaults"/>
+        <case name="custom" desc="Custom parameters">
+         <configstring name="virtuals" required="true" desc="Virtuals table name"/>
+         <configsection name="virtuals_fields">
+          <configstring name="virtual_id" required="true" desc="Virtual Id field."/>
+          <configstring name="virtual_email" required="true" desc="Virtual email field."/>
+          <configstring name="virtual_destination" required="true" desc="Virtual
+          destination field."/>
+         </configsection>
+        </case>
+       </configswitch>
+
+      </configsection>
+     </configsection>
+    </case>
+    <case name="qmailldap" desc="Qmail-LDAP">
+     <configsection name="params">
+      <configsection name="ldap">
+       <configstring name="ldaphost" desc="The hostname of the LDAP
+       server">localhost</configstring>
+       <configstring name="basedn" desc="The base DN for the LDAP server"/>
+       <configstring name="binddn" required="false" desc="The DN used to bind to
+       the LDAP server"/>
+       <configstring name="bindpw" required="false" desc="The password used to
+       bind to the LDAP server"/>
+       <configenum name="version" desc="LDAP Protocol Version">3 
+        <values>3 
+         <value desc="LDAPv2 (Deprecated)">2</value>
+         <value desc="LDAPv3">3</value>
+        </values>
+       </configenum>
+       <configstring name="dn" desc="The object search key"/>
+       <configswitch name="filter_type" desc="How to specify a filter for the
+       user lists">objectclass 
+        <case name="objectclass" desc="One or more objectclass filters">
+         <configlist name="objectclass" desc="The objectclass filter used to
+         search for users. Can be a single objectclass or a list."/>
+        </case>
+        <case name="free" desc="A complete LDAP filter expression">
+         <configstring name="filter" desc="The LDAP RFC formatted filter used to
+         search for users."/>
+        </case>
+       </configswitch>
+      </configsection>
+      <configsection name="sql">
+       <configsql switchname="driverconfig" />
+      </configsection>
+     </configsection>
+    </case>
+   </configswitch>
+  </configsection>
+ </configtab>
+
+ <configtab name="mta" desc="Mailbox Driver">
+  <configsection name="mailboxes">
+   <configheader>Mailbox settings</configheader>
+   <configswitch name="driver" desc="Driver used to create, delete, and check
+   the status of mailboxes">maildrop
+    <case name="maildrop" desc="Maildrop driver">
+     <configsection name="params" desc="Maildrop Parameters">
+      <configinteger name="uid" required="false" desc="The system UID for the
+      virtual user">1003</configinteger>
+      <configinteger name="gid" required="false" desc="The system GID for the
+      virtual user">1000</configinteger>
+      <configstring name="mail_dir_base" desc="The base directory for the
+      mailboxes">/home/vmail</configstring>
+      <configstring name="system_user" desc="User to run script to create mail
+      dir">vmail</configstring>
+      <configboolean name="usedomain" desc="Use virtual domain directory
+      (exploded) directory structure.">true</configboolean>
+     </configsection>
+    </case>
+    <case name="imap" desc="IMAP Admin driver">
+     <configsection name="params" desc="IMAP Admin Parameters">
+      <configstring name="admin_user" desc="The name of a user with admin
+      privileges"/>
+      <configstring name="admin_password" desc="The password of the
+      administrator"/>
+      <configstring name="hostspec" desc="The hostname or IP address of the
+      server">localhost</configstring>
+      <configstring name="port" desc="The server port to which we will
+      connect">143</configstring>
+      <configstring name="protocol" desc="The connection protocol
+      (e.g. 'imap', 'pop3', 'nntp').  Protocol is one of 'imap/notls' (or only
+      'imap' if you have a c-client version 2000c or older), 'imap/ssl', or
+      'imap/ssl/novalidate-cert' (for a self-signed
+      certificate)">imap</configstring>
+      <configstring name="userhierarchy" desc="The hierarchy where user
+      mailboxes are stored.  If you are using Cyrus, make sure that you are
+      using the same hierarchy separator as in imap.conf">user.</configstring>
+     </configsection>
+    </case>
+    <case name="hooks" desc="Hooks (See Documentation)">
+      <configsection name="params" desc="Hooks Parameters">
+        <configplaceholder/>
+      </configsection>
+    </case>
+    <case name="null" desc="Null driver">
+      <configsection name="params" desc="Null Parameters">
+        <configplaceholder/>
+      </configsection>
+    </case>
+   </configswitch>
+  </configsection>
+
+  <configsection name="mta">
+   <configheader>MTA Settings</configheader>
+   <configlist name="transports" desc="List of available transports (according
+   to MTA)">maildrop</configlist>
+  </configsection>
+ </configtab>
+
+ <configtab name="menu" desc="Menu Settings">
+  <configsection name="menu">
+   <configmultienum name="apps" desc="Select any applications that should be
+   linked in Vilma's menu">
+    <values>
+     <configspecial name="list-horde-apps"/>
+    </values>
+   </configmultienum>
+  </configsection>
+ </configtab>
+</configuration>

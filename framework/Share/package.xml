@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Horde_Share</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde Shared Permissions System</summary>
+ <description>Horde_Share:: This class provides an interface to all shared
+resources a user owns or has access to.
+ </description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2006-05-08</date>
+ <time>23:21:27</time>
+ <version>
+  <release>0.0.3</release>
+  <api>0.0.3</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>* Converted to package.xml 2.0 for pear.horde.org.
+* Split into a driver pattern.
+* Simplified the API greatly, removing unused functions.
+* Add a method for counting the number of shares at a certain access level.
+* Add native SQL driver (duck@obala.net, Request #6109).
+* Implemented extended free/busy access concept in the Kolab driver.
+ </notes>
+ <contents>
+  <dir name="/">
+   <file baseinstalldir="/Horde" name="Share.php" role="php"/>
+   <dir name="Share">
+     <file baseinstalldir="/Horde" name="datatree.php" role="php"/>
+     <file baseinstalldir="/Horde" name="kolab.php" role="php"/>
+     <file baseinstalldir="/Horde" name="sql.php" role="php"/>
+     <file baseinstalldir="/Horde" name="sql_hierarchical.php" role="php"/>
+   </dir>
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.0.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+   <package>
+    <name>Perms</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Horde_Prefs</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.0.2</release>
+    <api>0.0.2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-10-29</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>- Added countShares().
+- listShares() and countShares() now treat the $owner argument
+  as an optional username restricting the returned shares, not
+  a modifier to the initial $userid. Now $userid is the user
+  who must have permission to see the shares that are returned
+  or counted, and $owner, if non-null, limits the shares
+  returned to those owned by $owner.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2003-07-05</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Initial release as a PEAR package
+   </notes>
+  </release>
+ </changelog>
+</package>

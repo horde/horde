@@ -1,0 +1,115 @@
+*PPD-Adobe: "4.3"
+*FormatVersion:	"4.3"
+*FileVersion:	"1.0"
+*LanguageVersion: English 
+*LanguageEncoding: ISOLatin1
+*PCFileName:	"HYLAFAX.PPD"
+*Manufacturer:	"HylaFAX"
+*Product:	"HylaFAX"
+*cupsFax:	True
+*cupsFilter:	"application/vnd.cups-postscript 0 -"
+*cupsVersion:	1.1
+*cupsManualCopies: True
+*ModelName:     "HylaFAX"
+*ShortNickName: "HylaFAX"
+*NickName:      "HylaFAX"
+*PSVersion:	"(3010.000) 550"
+*LanguageLevel:	"3"
+*ColorDevice:	False
+*FaxSupport:    Base
+*FileSystem:	False
+*Throughput:	"1"
+*TTRasterizer:	Type42
+*LandscapeOrientation: Plus90
+*VariablePaperSize: False
+
+*OpenUI *Resolution/Fax Resolution: PickOne
+*OrderDependency: 10 AnySetup *Resolution
+*DefaultResolution: 204x196dpi
+*Resolution 204x196dpi/204×196 dpi (high resolution):	""
+*Resolution 204x98dpi/204×98 dpi (low resolution):	""
+*CloseUI: *Resolution
+
+*OpenUI *PageSize/Media Size: PickOne
+*OrderDependency: 0 AnySetup *PageSize
+*DefaultPageSize: A4
+*PageSize A4/A4: "<</PageSize[595 842]/ImagingBBox null>>setpagedevice"
+*PageSize Letter/US Letter: "<</PageSize[612 792]/ImagingBBox null>>setpagedevice"
+*PageSize Legal/US Legal: "<</PageSize[612 1008]/ImagingBBox null>>setpagedevice"
+*CloseUI: *PageSize
+
+*DefaultPageRegion: A4
+*PageRegion A4/A4:		"<</PageSize[595 842]/ImagingBBox null>>setpagedevice"
+*PageRegion Letter/US Letter:	"<</PageSize[612 792]/ImagingBBox null>>setpagedevice"
+*PageRegion Legal/US Legal:	"<</PageSize[612 1008]/ImagingBBox null>>setpagedevice"
+
+*DefaultImageableArea: A4
+
+*DefaultPaperDimension: A4
+*PaperDimension A4: "595 842"
+*PaperDimension Letter: "612 792"
+*PaperDimension Legal: "612 1008"
+
+*OpenUI *Dial/Dial Method: PickOne
+*OrderDependency: 30 AnySetup *Dial
+*DefaultDial: JobName
+*Dial JobName/Job Name:	""
+*Dial Manually/Manually:	""
+*Dial Option/Option (obsolete):	""
+*CloseUI: *Dial
+
+*DefaultFont: Courier
+*Font AvantGarde-Book: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-BookOblique: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-Demi: Standard "(001.007S)" Standard ROM
+*Font AvantGarde-DemiOblique: Standard "(001.007S)" Standard ROM
+*Font Bookman-Demi: Standard "(001.004S)" Standard ROM
+*Font Bookman-DemiItalic: Standard "(001.004S)" Standard ROM
+*Font Bookman-Light: Standard "(001.004S)" Standard ROM
+*Font Bookman-LightItalic: Standard "(001.004S)" Standard ROM
+*Font Courier: Standard "(002.004S)" Standard ROM
+*Font Courier-Bold: Standard "(002.004S)" Standard ROM
+*Font Courier-BoldOblique: Standard "(002.004S)" Standard ROM
+*Font Courier-Oblique: Standard "(002.004S)" Standard ROM
+*Font Helvetica: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Narrow-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-Oblique: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Oblique: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Bold: Standard "(001.009S)" Standard ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(001.007S)" Standard ROM
+*Font NewCenturySchlbk-Italic: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Roman: Standard "(001.007S)" Standard ROM
+*Font Palatino-Bold: Standard "(001.005S)" Standard ROM
+*Font Palatino-BoldItalic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Italic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Roman: Standard "(001.005S)" Standard ROM
+*Font Symbol: Special "(001.007S)" Special ROM
+*Font Times-Bold: Standard "(001.007S)" Standard ROM
+*Font Times-BoldItalic: Standard "(001.009S)" Standard ROM
+*Font Times-Italic: Standard "(001.007S)" Standard ROM
+*Font Times-Roman: Standard "(001.007S)" Standard ROM
+*Font ZapfChancery-MediumItalic: Standard "(001.007S)" Standard ROM
+
+*% What follows is a pseudo-Foomatic driver to enable graphical
+*% specification of the phone number. Only the phone number is listed
+*% as option. It won't be used by Foomatic anyway.
+*%
+*% COMDATA #$VAR1 = {
+*% COMDATA #  'args_byname' => {
+*% COMDATA #    'phone' => {
+*% COMDATA #      'name' => 'phone',
+*% COMDATA #      'type' => 'string',
+*% COMDATA #      'comment' => 'Target Fax Number',
+*% COMDATA #      'default' => ''
+*% COMDATA #    }
+*% COMDATA #  },
+*% COMDATA #  'model' => 'HylaFaxmodem',
+*% COMDATA #  'comment' => 'HylaFaxmodem driver',
+*% COMDATA #  'make' => 'HylaFaxmodem',
+*% COMDATA #  'color' => '0'
+*% COMDATA #};
+

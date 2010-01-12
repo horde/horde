@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<help>
+  <entry id="file-actions" md5="b0de5fc9b7cc30fea350fc3900737896" state="uptodate">
+    <title>Tiedostohallinta: Toiminnot</title>
+    <heading>Hakemistojen luonti</heading>
+    <para>
+    Luodaksesi alihakemiston nykyiseen hakemistoon, valitse "Luo hakemisto" toimto alasvetovalikosta.
+    </para>
+    <heading>Tiedostojen poisto, leikkaus, kopiointi ja liit&#xE4;minen</heading>
+    <para>
+    Jotta voisit poistaa, leikata, kopioida tiedoston tai tiedostoja, niin sinun pit&#xE4;&#xE4; valita ainakin yksi tiedosto.
+    Kun olet valinnut yhden tai useamman tiedoston rastittamalla valintalaatikot objektin vasemmalla puolella, voit alasvetovalikosta valita yhden seuraavista  toiminnoista "Leikkaa objekteja", "Kopioi objekteja" tai "Poista objektit". Jos valitset "Leikkaa objekti" tai "Kopioi objekti", niin t&#xE4;m&#xE4;n j&#xE4;lkeen voit liitt&#xE4;&#xE4; objektin muuhun paikkaan tiedostonhallinnassa. Kun haluat liitt&#xE4;&#xE4; objektin, niin siirry valitsemaasi kohteeseen ja valitse t&#xE4;m&#xE4;n j&#xE4;lkeen toiminnot alasvetovalikosta "Liit&#xE4; objekti". T&#xE4;m&#xE4;n j&#xE4;lkeen objektit ovat joko siirtyneet (Leikkaa objekti) tai kopioituneet (Kopioi objekti) valitsemaasi kohteeseen.
+    </para>
+    <heading>Hakemistojen poisto, leikkaus, kopiointi ja liit&#xE4;minen</heading>
+    <heading>Delete, cut, copy and paste directories</heading>
+    <para>
+    Oletuksena voit poistaa hakemiston vain jos se on tyhj&#xE4;. On kuitenkin mahdollista poistaa ei-tyhj&#xE4; hakemisto jos valitset asetuksen "Poista hakemistot rekursiivisesti". Jos yrit&#xE4;t poistaa ei-tyhj&#xE4;&#xE4; hakemistoa ilman ett&#xE4; sinulla on p&#xE4;&#xE4;ll&#xE4; em. asetus, niin poistaminen ep&#xE4;onnistuu virheilmoituksen kera. Jos haluat poistaa ei-tyhji&#xE4; hakemistoja, niin valitse laita asetuksista p&#xE4;&#xE4;lle asetus "Poista hakemistot rekursiivisesti.".
+    Poistaaksesi, leikataksesi tai kopioidaksesi hakemistoja, sinun pit&#xE4;&#xE4; valita ainakin yksi hakemisto.
+    Kun olet valinnut yhden tai useamman hakemiston rastittamalla valintalaatikon hakemiston vasemmalla puolella, voit alasvetovalikosta valita yhden seuraavista  toiminnoista "Leikkaa objekteja", "Kopioi objekteja" tai "Poista objektit". Jos valitset "Leikkaa objekti" tai "Kopioi objekti", niin t&#xE4;m&#xE4;n j&#xE4;lkeen voit liitt&#xE4;&#xE4; objektin muuhun paikkaan tiedostonhallinnassa. Kun haluat liitt&#xE4;&#xE4; objektin, niin siirry valitsemaasi kohteeseen ja valitse t&#xE4;m&#xE4;n j&#xE4;lkeen toiminnot alasvetovalikosta "Liit&#xE4; objekti". T&#xE4;m&#xE4;n j&#xE4;lkeen objektit ovat joko siirtyneet (Leikkaa objekti) tai kopioituneet (Kopioi objekti) valitsemaasi kohteeseen.
+    </para>
+
+    <heading>Ty&#xF6;skentely leikep&#xF6;yd&#xE4;ll&#xE4;</heading>
+    <para>
+    Kun olet kopioinut tai leikannut tiedoston tai hakemiston, niin se laitetaan leikep&#xF6;yd&#xE4;lle. Voit tarkastella leikep&#xF6;yd&#xE4;n sis&#xE4;lt&#xF6;&#xE4; napsauttamalla leikep&#xF6;yd&#xE4;n kuvaketta, joka sijaitsee hakemistolistauksen yl&#xE4;puolella oikealla p&#xE4;ivit&#xE4; ikonista. T&#xE4;m&#xE4; ikoni on n&#xE4;kyviss&#xE4; vain jos leikep&#xF6;yd&#xE4;ll&#xE4; on objekteja. Jos objektin vieress&#xE4; ei ole valintalaatikkoa, niin se tarkoittaa, ett&#xE4; n&#xE4;m&#xE4; objektit on jo leikep&#xF6;yd&#xE4;ll&#xE4;. Kun napsautat auki leikep&#xF6;yd&#xE4;n, niin n&#xE4;et listan objekteista, jotka on sinne kopioitu. Voit t&#xE4;st&#xE4; listasta valita haluamasi objektit ja liitt&#xE4;&#xE4; ne nykyiseen hakemistoon. Palaat automaattisesti takaisin nykyiseen hakistoon kun liitt&#xE4;minen on onnistunut. Jos haluat poistaa jonkun objektin leikep&#xF6;yd&#xE4;lt&#xE4;, niin valitse objekti ja napsauta poista. Kun poistaminen on onnistunut, niin palaat takaisin nykyiseen hakemistoon.
+    </para>
+</entry>
+  <entry id="file-upload" md5="f07834ebb15641cdc4e349ed8d304d75" state="uptodate">
+    <title>Tiedostohallinta: Tuonti</title>
+    <heading>Tiedostojen tuonti</heading>
+    <para>
+    Tuodaksesi tiedoston tai tiedostoja, niin mene ensin siihen hakemistoon johon haluat tuoda tiedostot. T&#xE4;m&#xE4; valitsemasi hakemisto on nykyinen hakemistosi. Kun tiedostonhallinnassa oikeassa hakemistossa, niin napsauta "Browse" -painiketta ja tiedoston tuonti -ikkunan pit&#xE4;isi aueta. Kun ikkuna on auki ja n&#xE4;kyviss&#xE4; valitse tuotava tiedosto ja napsauta OK-painiketta. Voit my&#xF6;s tuoda useampia tiedostoja kerrallaan, joka kerta kun olet valinnut yhden tiedoston, niin ilmestyy uusi "Browse" -painike. Kun olet valinnut kaikki tuotavat tiedostot, niin napsauta "Tuo tiedostot" -painiketta ja valitsemasi tiedostot tuodaan tiedostohallinnan nykyiseen hakemistoon.
+</para>
+</entry>
+  <entry id="sorting" md5="0ce2080b01acce2e9affc2191fc0386c" state="uptodate">
+    <title>Objektien j&#xE4;rjest&#xE4;minen</title>
+    <heading>Objektien j&#xE4;rjest&#xE4;minen</heading>
+    <para>
+    Kun katsot tiedostolistausta tai hakemistoja, niin voit j&#xE4;rjest&#xE4;&#xE4; ne mik&#xE4; sarakkeen mukaan tahansa. Valitse vain haluttu sarake napsauttamalla sarakkeen otsikkoa ja lista j&#xE4;rjestet&#xE4;&#xE4;n sen mukaan. Voit valita nousevan ja laskevan j&#xE4;rjestyksen napsauttamalla nuoli ikonia sarakkeen otsikossa.
+    </para>
+</entry>
+</help>

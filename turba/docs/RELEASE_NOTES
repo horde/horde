@@ -1,0 +1,49 @@
+<?php
+/**
+ * Release focus. Possible values:
+ * 0 - N/A
+ * 1 - Initial freshmeat announcement
+ * 2 - Documentation
+ * 3 - Code cleanup
+ * 4 - Minor feature enhancements
+ * 5 - Major feature enhancements
+ * 6 - Minor bugfixes
+ * 7 - Major bugfixes
+ * 8 - Minor security fixes
+ * 9 - Major security fixes
+ */
+$this->notes['fm']['focus'] = 4;
+
+/* Mailing list release notes. */
+$this->notes['ml']['changes'] = <<<ML
+The Horde Team is pleased to announce the first release candidate of the Turba
+Contact Manager version H3 (2.2).
+
+Turba is the Horde contact management application. It is a production level
+address book, and makes heavy use of the Horde framework to provide
+integration with IMP and other Horde applications. It supports SQL, LDAP,
+Kolab, and IMSP address books.
+
+This is a preview version that should not be used on production systems. This
+version is considered feature complete but a few bugs may still exist in the
+code.
+
+We encourage widespread testing and feedback via the mailing lists or our bug
+tracking system.  Updated translations are very welcome, though some strings
+might still change before the final release.
+
+The major changes compared to the Turba version H3 (2.2-ALPHA) are:
+    * Improved default address book scheme.
+    * Improved vCard support.
+    * Improved birthday support.
+    * Further bugfixes and improvements.
+ML;
+
+/* Freshmeat release notes, not more than 600 characters. */
+$this->notes['fm']['changes'] = <<<FM
+The default address book scheme, the vCard support, and the birthday support have been improved. Further bugfixes and improvements have been made.
+FM;
+
+$this->notes['name'] = 'Turba';
+$this->notes['fm']['project'] = 'turba';
+$this->notes['fm']['branch'] = 'Horde 3';

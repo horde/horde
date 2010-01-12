@@ -1,0 +1,26 @@
+# The following php_* instruction only work, if you're running
+# php as apache-module, not as cgi.
+# they are not really needed...
+#php_value error_reporting 2039
+#php_flag display_errors on
+#php_value magic_quotes_gpc off
+
+RewriteEngine On
+
+RewriteCond     %{REQUEST_URI}  !^/*themes/planet-horde/.*
+RewriteRule ^/*themes/(.+)$  ./themes/planet-horde/$1 [L]
+
+RewriteCond     %{REQUEST_URI}  !^/*themes/planet-horde/.*
+RewriteCond     %{REQUEST_URI}  !^/*index.php
+RewriteCond     %{REQUEST_URI}  !^.*info.php
+RewriteCond     %{REQUEST_URI}  !^.*test.php
+RewriteCond     %{REQUEST_URI}  !^.*js/
+RewriteCond     %{REQUEST_URI}  !^.*images/
+RewriteCond     %{REQUEST_URI}  !^.*robots.txt
+RewriteCond     %{REQUEST_URI}  !^/*s9y/
+RewriteCond     %{REQUEST_URI}  !^.*admin/
+RewriteCond     %{REQUEST_URI}  !^.*_vti_.*
+RewriteCond     %{REQUEST_URI}  !favicon.ico
+RewriteCond     %{REQUEST_URI}  !search.html
+RewriteRule ^(.+)$ ./index.php?path=$1 [QSA]
+

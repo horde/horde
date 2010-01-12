@@ -1,0 +1,10 @@
+.zoneData {
+    border: 1px solid #000;
+    padding: 2px;
+}
+
+.soa {
+    border: 1px solid #111;
+    padding: 2px;
+    font-size: 120%
+}

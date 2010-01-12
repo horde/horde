@@ -1,0 +1,387 @@
+<?php
+/**
+ * Folks Hooks configuration file.
+ *
+ * THE HOOKS PROVIDED IN THIS FILE ARE EXAMPLES ONLY.  DO NOT ENABLE THEM
+ * BLINDLY IF YOU DO NOT KNOW WHAT YOU ARE DOING.  YOU HAVE TO CUSTOMIZE THEM
+ * TO MATCH YOUR SPECIFIC NEEDS AND SYSTEM ENVIRONMENT.
+ *
+ * For more information please see the horde/config/hooks.php.dist file.
+ *
+ * $Id$
+ */
+
+class Folks_Hooks
+{
+// Example count used data hook function. Thera are two examples. One as
+// registry calls and one much faster with direct DB access but requres your
+// monitorig for application structure changes.
+
+    public function countService($service, $user)
+    {
+        switch ($service) {
+
+        case 'videos':
+            return $GLOBALS['registry']->callByPackage('oscar', 'countVideos', array(array('author' => $user)));
+
+        case 'attendances':
+            return $GLOBALS['registry']->callByPackage('schedul', 'countUserAttendances', array(array('user' => $user)));
+
+        case 'news':
+            return $GLOBALS['registry']->callByPackage('news', 'countNews', array(array('user' => $user)));
+
+        case 'wishes':
+            $result = $GLOBALS['registry']->callByPackage('genie', 'listUserItems', array($user));
+            return count($result);
+
+        case 'galleries':
+            return $GLOBALS['registry']->callByPackage('ansel', 'countGalleries', array('ansel', Horde_Perms::SHOW, $user));
+
+        case 'blogs':
+            return $GLOBALS['registry']->callByPackage('thomas', 'countPosts', array(array('user' => $user)));
+
+        case 'classifieds':
+            return $GLOBALS['registry']->callByPackage('classified', 'countAds', array(array('user_uid' => $user)));
+
+        default:
+            return 0;
+        }
+
+    }
+
+// DB optimized version
+//
+//     public function countService($service, $user)
+//     {
+//         switch ($service) {
+//
+//         case 'videos':
+//             $query = 'SELECT COUNT(*) AS count FROM oscar_videos WHERE video_user = "' . $user . '" AND video_status = 6 ORDER BY video_user DESC LIMIT 1';
+//             $result = mysql_query($query);
+//             $count = mysql_fetch_row($result);
+//             return $count[0];
+//
+//         case 'attendances':
+//             $query = 'SELECT COUNT(*) FROM schedul s, schedul_attendance a WHERE s.ondate >= NOW() AND a.user_id = "' . $user . '" AND s.id = a.schedul_id';
+//             $result = mysql_query($query);
+//             $count = mysql_fetch_row($result);
+//             return $count[0];
+//
+//         case 'news':
+//             $query = 'SELECT COUNT(*) AS count FROM news WHERE user = "' . $user . '" AND status = 1';
+//             $result = mysql_query($query);
+//             $count = mysql_fetch_row($result);
+//             return $count[0];;
+//
+//         case 'wishes':
+//             $query = 'SELECT COUNT(*) AS count FROM genie_wishes WHERE wish_owner = "' . $user . '" AND wish_purchased = 0';
+//             $result = mysql_query($query);
+//             $count = mysql_fetch_row($result);
+//             return $count[0];
+//
+//         case 'galleries':
+//             $query = 'SELECT COUNT(*) AS count FROM ansel_shares WHERE share_owner = "' . $user . '" AND attribute_passwd IS NULL AND perm_default = 6';
+//             $result = mysql_query($query);
+//             $count = mysql_fetch_row($result);
+//             return $count[0];
+//
+//         case 'blogs':
+//             $query = 'SELECT COUNT(*) AS count FROM thomas_blogs WHERE user_uid = "' . $user . '" AND status = 1 AND created <= NOW() ORDER BY user_uid DESC LIMIT 1';
+//             $result = mysql_query($query);
+//             $count = mysql_fetch_row($result);
+//             return $count[0];
+//
+//         case 'classifieds':
+//             $query = 'SELECT COUNT(*) AS count FROM classified_ads WHERE user_uid = "' . $user . '"'
+//                     . ' AND ad_active = 4 AND ad_validto > UNIX_TIMESTAMP() ORDER BY user_uid DESC LIMIT 1';
+//             $result = mysql_query($query);
+//             $count = mysql_fetch_row($result);
+//             return $count[0];
+//
+//         default:
+//             return 0;
+//         }
+//
+//     }
+
+// Example get data hook function. Thera are two examples. One as
+// registry calls and one much faster with direct DB access but requres your
+// monitorig for application structure changes.
+
+    public function getService($service, $user)
+    {
+        switch ($service) {
+
+        case 'videos':
+            return $GLOBALS['registry']->callByPackage('oscar', 'listVideos', array(array('author' => $user, 0, 3)));
+
+        case 'attendances':
+            return $GLOBALS['registry']->callByPackage('schedul', 'getUserAttendances', array($user));
+
+        case 'news':
+            return $GLOBALS['registry']->callByPackage('news', 'listNews', array(array('user' => $user), 0, 3));
+
+        case 'wishes':
+            return $GLOBALS['registry']->callByPackage('genie', 'listUserItems', array($user));
+
+        case 'galleries':
+            return $GLOBALS['registry']->callByPackage('ansel', 'listGalleries', array('ansel', Horde_Perms::SHOW, null, true, 0, 3, $user));
+
+        case 'blogs':
+            return $GLOBALS['registry']->callByPackage('thomas', 'getRecentPosts', array($user, Horde_Auth::getAuth(), '', 3));
+
+        case 'classifieds':
+            return $GLOBALS['registry']->callByPackage('classified', 'listAds', array(array('user_uid' => $user), 0, 3));
+
+        default:
+            return array();
+        }
+    }
+
+// DB optimized version
+//
+//     public function getService($service, $user)
+//     {
+//         switch ($service) {
+//
+//         case 'videos':
+//             $query = 'SELECT video_id, video_title, video_comments, video_description FROM oscar_videos WHERE video_user = "' . $user . '"'
+//                     . ' AND video_status = 6 AND video_created <= ' . $_SERVER["REQUEST_TIME"]
+//                     . ' ORDER BY video_id DESC LIMIT 6';
+//             break;
+//
+//         case 'attendances':
+//             $query = 'SELECT s.id, UNIX_TIMESTAMP(s.ondate) AS ondate, b.place, b.city, b.short '
+//                 . ' FROM schedul s, schedul_attendance a, schedul_body b '
+//                 . ' WHERE s.ondate >= NOW() AND a.user_id = "' . $user . '" AND s.id = a.schedul_id AND b.lang = "sl_SI" AND s.id=b.id LIMIT 3';
+//             break;
+//
+//         case 'news':
+//             $query = 'SELECT n.id, n.publish, n.user, n.category1, n.category2, n.comments,  n.picture,'
+//                 . ' n.chars, l.title, l.abbreviation FROM news AS n, news_body AS l '
+//                 . ' WHERE n.id = l.id AND l.lang = "sl_SI" AND n.publish <= NOW() AND n.status = 1  '
+//                 . ' AND n.user = "' . $user . '"  ORDER BY n.publish DESC LIMIT 3';
+//             break;
+//
+//         case 'wishes':
+//             $query = 'SELECT wish_id as id, wish_name as `name`, wish_desc as `desc` FROM genie_wishes WHERE wish_owner = "' . $user . '" AND wish_purchased = 0 ORDER BY wish_id DESC LIMIT 3';
+//             break;
+//
+//         case 'galleries':
+//             $query = 'SELECT * FROM ansel_shares WHERE share_owner = "' . $user . '" AND attribute_passwd IS NULL AND perm_default = 6 ORDER BY share_id DESC LIMIT 6';
+//             break;
+//
+//         case 'blogs':
+//             $query = 'SELECT id, title, created, trackbacks, summary, tags, comments, view_count, chars, '
+//             . ' category, rating_sum, rating_count FROM thomas_blogs WHERE user_uid = "' . $user . '" ORDER BY created DESC LIMIT 3';
+//             break;
+//
+//         case 'classifieds':
+//             $query = 'SELECT ad_id, ad_title, ad_type, ad_price, ad_active, ad_image, ad_category,'
+//                     . ' ad_validto, created, updated, sponsored FROM classified_ads WHERE user_uid = "' . $user . '"'
+//                     . ' AND ad_active = 4  AND ad_validto > UNIX_TIMESTAMP()  ORDER BY updated DESC LIMIT 3';
+//             break;
+//
+//         default:
+//             return array();
+//         }
+//
+//         global $conf;
+//         $conn = mysql_connect($conf['sql']['hostspec'], $conf['sql']['username']);
+//         mysql_select_db('horde', $conn);
+//
+//         $result = mysql_query($query);
+//         $data = array();
+//         while ($r = mysql_fetch_assoc($result)) {
+//             $data[] = $r;
+//         }
+//
+//         return $data;
+//     }
+
+// This hook is called when a user tries to login
+// Perorm some actions before redirecting to various services
+// In the example checks if users is in a group that allows this
+// paid service and perform autologin or redirect to a wikipage with
+// additional information
+
+    public function prelogin($app)
+    {
+        require_once 'Horde/Group.php';
+        $group = Group::singleton();
+        $user_uid = Horde_Auth::getAuth();
+
+        switch ($app) {
+
+        case 'gollem':
+
+            if (Horde_Auth::isAdmin() || $group->userIsInGroup($user_uid, 1, false)) {
+                $_GET['backend_key'] = 'kjbnzi78';
+                require $GLOBALS['registry']->get('fileroot', 'gollem') .  '/redirect.php';
+                exit;
+            } else {
+                header('Location: ' .  $GLOBALS['registry']->link('wiki/show',  array('page' => 'PaidFiles')));
+                exit;
+            }
+            break;
+
+        case 'imp':
+
+            if (Horde_Auth::isAdmin()
+                || $group->userIsInGroup($user_uid, 1, false)
+                || $group->userIsInGroup($user_uid, 2, false)) {
+
+                $db = DB::connect($GLOBALS['conf']['sql']);
+                $password = $db->getOne('SELECT password FROM mails.accountuser WHERE username = ?', array($user_uid . '@' . $_SERVER['SERVER_NAME']));
+
+                $try = $GLOBALS['registry']->callByPackage('imp', 'authenticate', array($user_uid, array('password' => $password)));
+                if ($try) {
+                    header('Location: ' . $GLOBALS['registry']->get('webroot', 'imp') . '/redirect.php');
+                    exit;
+                } else {
+                    $GLOBALS['notification']->push(_("There was an error login into your mail account."), 'horde.error');
+                    header('Location: ' . $GLOBALS['registry']->get('webroot', 'folks') . '/login.php');
+                    exit;
+                }
+            } else {
+                header('Location: ' .  $GLOBALS['registry']->link('wiki/show',  array('page' => 'ImapOpis')));
+            }
+
+            exit;
+
+            break;
+        }
+    }
+
+// This hook is called when a user submits a signup request.  It allows
+// a chance to alter or validate the data submitted by a user before any
+// attempts are made to add them to the system. Here we lowecase the useranme
+// and check if username or email is already taken
+
+    public function signup_preprocess($info)
+    {
+        if (isset($info['extra']['username'])) {
+            $info['extra']['username'] = Horde_String::lower($info['extra']['username']);
+            $username = $info['extra']['username'];
+        } else {
+            $info['user_name'] = Horde_String::lower($info['user_name']);
+            $username = $info['user_name'];
+        }
+
+        if (!eregi("^[_a-z0-9-]*$", $username)) {
+            throw new Horde_Exception(_("Username can contain only alphanumeric characters, underscore and minus."));
+        }
+
+        $_db = DB::connect($GLOBALS['conf']['sql'], true);
+
+        $query  = 'SELECT user_uid, user_email FROM folks_users WHERE user_uid = ? OR user_email = ?';
+        $result = $_db->getRow($query, array($username, $info['extra']['email']), DB_FETCHMODE_ASSOC);
+
+        if ($result instanceof PEAR_Error) {
+            throw new Horde_Exception($result);
+        } elseif (empty($result)) {
+            return $info;
+        } elseif ($result['user_uid'] == $username) {
+            throw new Horde_Exception(_("There is already an user registered with this username"));
+        } elseif ($result['user_email'] == $info['extra']['email']) {
+            throw new Horde_Exception(_("There is already an user registered with this email"));
+        }
+
+        return $info;
+    }
+
+// Following on from the example in the above function, this is how a sample
+// _horde_hook_signup_addextra function would look like.
+// Here we connect to the database and update folks user table
+// with additional user data and send confirmation code to check his email
+
+     public function signup_addextra($userID, $extra)
+     {
+        global $conf;
+
+        $_db = DB::connect($conf['sql']);
+        $fields = array();
+        $values = array();
+        foreach ($extra as $field => $value) {
+            if ($field == 'user_name') {
+                continue;
+            }
+            if ($field == 'password') {
+                $value = hash('md5', $value);
+            }
+            $fields[] = 'user_' . Horde_String::lower($field);
+            $values[] = Horde_String::convertCharset($value, Horde_Nls::getCharset(), $conf['sql']['charset']);
+        }
+
+        $values[] = $userID;
+        $query  = 'UPDATE folks_users SET ' . implode(' = ?, ', $fields) . ' = ? '
+                    . '  WHERE user_uid = ?';
+
+        $result = $_db->query($query, $values);
+        if ($result instanceof PEAR_Error) {
+            throw new Horde_Exception($result);
+        }
+
+        require_once $GLOBALS['registry']->get('fileroot', 'folks') . '/lib/Folks.php';
+        $code = Folks::encodeString($userID, 'activate' . hash('md5', $extra['password']));
+        $link = Horde_Util::addParameter(Horde::applicationUrl('account/approve.php', true, -1),
+                                    array('user' => $userID, 'code' => $code),
+                                    null, false);
+
+        $body = sprintf(_("Your username on %s %s is: %s. \n\n Please confirm the registration by going to this link \n %s"),
+                            $GLOBALS['registry']->get('name', 'horde'),
+                            Horde::url($GLOBALS['registry']->get('webroot', 'horde'), true),
+                            $userID,
+                            $link);
+
+        $result = Folks::sendMail($extra['email'], _("Confirmation code"), $body);
+        if ($result instanceof PEAR_Error) {
+            $_db->query('DELETE FROM folks_users WHERE user_uid = ?', array($userID));
+        }
+
+        return $result;
+     }
+
+// This is an example of a post-push hook; it is called right after an
+// application is pushed successfully onto the app stack. Here we check
+// If the user has a authentication cookie code. Compara it with one in DB
+// and autologin the user.
+
+    public function pushapp()
+    {
+        if ($app != 'horde' ||
+            !isset($_COOKIE['folks_login_code']) ||
+            !isset($_COOKIE['folks_login_user'])) {
+            return;
+        }
+
+        $user = Horde_Auth::getAuth();
+        if ($user) {
+            return;
+        }
+
+        $conn = mysql_connect($GLOBALS['conf']['sql']['hostspec'],
+                                $GLOBALS['conf']['sql']['username'],
+                                $GLOBALS['conf']['sql']['password']);
+
+        $query = 'SELECT user_password FROM '
+                    . $GLOBALS['conf']['sql']['database']
+                    . '.folks_users WHERE user_uid = "'
+                    . $_COOKIE['folks_login_user'] . '"';
+
+        $result = mysql_query($query);
+        $r = mysql_fetch_assoc($result);
+
+        if (mysql_num_rows($result) == 0) {
+            return;
+        }
+
+        $key = date('m') . $r['user_password'];
+        require_once $GLOBALS['registry']->get('fileroot', 'folks') . '/lib/Folks.php';
+        if ($_COOKIE['folks_login_code'] != Folks::encodeString($_COOKIE['folks_login_user'], $key)) {
+            return;
+        }
+
+        return Horde_Auth::setAuth($_COOKIE['folks_login_user'], array('transparent' => 1, 'password' => null));
+    }
+}

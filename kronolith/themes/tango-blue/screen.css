@@ -1,0 +1,21 @@
+.weekend {
+    background: #b2cae4 none repeat scroll 0% 50%;
+}
+
+#view_title {
+    margin: 0 .3em;
+}
+
+.monthgrid .today {
+    background-color: #dde8c1;
+    border: 2px solid #446;
+}
+
+.block-eventbox {
+    -moz-border-radius: 0 !important;
+    -webkit-border-radius: 0 !important;
+    border: 0;
+}
+.day-eventbox {
+    padding: 6px;
+}

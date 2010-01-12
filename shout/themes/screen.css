@@ -1,0 +1,70 @@
+/**
+ * screen.css defines the styles needed by Shout.
+ *
+ * Copyright 2005-2010 Alkaloid Networks LLC (http://projects.alkaloid.net)
+ *
+ * See the enclosed file COPYING for license information (BSD). If you
+ * did not receive this file, see
+ * http://www.opensource.org/licenses/bsd-license.php.
+ *
+ * @author  Ben Klang <ben@alkaloid.net>
+ * @since   Shout 0.1
+ * @package Shout
+ */
+
+
+
+table {
+    width: 100%;
+}
+
+.header {
+    color: #fff;
+    background: #66a;
+    text-align: right;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#extensionList{
+    border: 1px solid #000;
+}
+
+.uheader{
+    background: #fff;
+    color: #a22;
+    text-align: left;
+    font-weight: bold;
+    font-size: 130%;
+    border-bottom: 1px dashed #000;
+}
+
+.extensionDestinations
+{
+    /*display: none;*/
+    position: relative;
+    left: 20px;
+}
+
+a.addDest
+{
+    font-style: italic;
+}
+
+span.device:hover
+{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+ul {
+    list-style: none;
+    display: inline;
+}
+
+#controls {
+    float: left;
+}
+
+

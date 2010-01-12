@@ -1,0 +1,86 @@
+<?php
+/**
+ * Turba hooks configuration file.
+ *
+ * THE HOOKS PROVIDED IN THIS FILE ARE EXAMPLES ONLY.  DO NOT ENABLE THEM
+ * BLINDLY IF YOU DO NOT KNOW WHAT YOU ARE DOING.  YOU HAVE TO CUSTOMIZE THEM
+ * TO MATCH YOUR SPECIFIC NEEDS AND SYSTEM ENVIRONMENT.
+ *
+ * For more information please see the horde/config/hooks.php.dist file.
+ *
+ * $Id$
+ */
+
+class Turba_Hooks
+{
+    /**
+     * Sets the user's personal address book as the default address book.
+     *
+     * While this is not necessary for most features, some might rely on a
+     * default to be set.
+     *
+     * @param string $username  The username.
+     *
+     * @return string  The share id of the default address book.
+     */
+//     public function default_dir($username = null)
+//     {
+//         if (!$username || empty($_SESSION['turba']['has_share'])) {
+//             return;
+//         }
+// 
+//         require TURBA_BASE . '/config/sources.php';
+//         $shares = Turba::listShares(true);
+//         if (is_a($shares, 'PEAR_Error')) {
+//             return;
+//         }
+// 
+//         foreach ($shares as $uid => $share) {
+//             $params = @unserialize($share->get('params'));
+//             if (empty($params['source'])) {
+//                 continue;
+//             }
+//             $driver = &Turba_Driver::factory($params['source'], $cfgSources[$params['source']]);
+//             if (is_a($driver, 'PEAR_Error')) {
+//                 continue;
+//             }
+//             if ($driver->checkDefaultShare($share, $cfgSources[$params['source']])) {
+//                 return $uid;
+//             }
+//         }
+//     }
+// }
+
+    /**
+     * Called when we store a value.
+     *
+     * Passwords should be MD5 encoded, but not displayed.
+     *
+     * @todo Make this a generic encode() method.
+     */
+//     public function encode_password($new_password, $old_password, &$contact)
+//     {
+//         if (is_null($new_password) || $new_password == '' ||
+//             $new_password == '[Not Displayed]') {
+//             return $old_password;
+//         } else {
+//             return md5($new_password);
+//         }
+//     }
+
+    /**
+     * Called when we display a value.
+     *
+     * Passwords should be MD5 encoded, but not displayed.
+     *
+     * @todo Make this a generic decode() method.
+     */
+//     public function decode_password($password, &$contact)
+//     {
+//         if (strstr($_SERVER['PHP_SELF'], 'editobject')) {
+//             return null;
+//         } else {
+//             return '[Not Displayed]';
+//         }
+//     }
+}

@@ -1,0 +1,71 @@
+/* File list table. */
+#filelist {
+    width: 99%;
+    margin: 0 0 8px 5px;
+    border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+}
+#filelist caption {
+    margin: 0 0 0 5px;
+    font-weight: bold;
+    text-align: left;
+    padding: 3px;
+    caption-side: bottom;
+}
+#filelist th, #filelist td {
+    padding: 3px;
+    white-space: nowrap;
+}
+#filelist th {
+    background: #e9e9e9;
+    border-right: 1px solid #ccc;
+    text-align: left;
+}
+#filelist td {
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+#filelist th.sortup {
+    background: #bbcbff url("graphics/za.png") center left no-repeat;
+    padding-left: 10px;
+}
+#filelist th.sortdown {
+    background: #bbcbff url("graphics/az.png") center left no-repeat;
+    padding-left: 10px;
+}
+
+#filelist_upload, #filelist_actions {
+    margin: 0 0 8px 5px;
+    border: 1px solid #ddd;
+}
+#filelist_actions {
+    width: 99%;
+}
+
+.managerpopup {
+    background-color: #000;
+    position: absolute;
+    left: 200px;
+    top: 20px;
+    padding: 1px;
+}
+
+table.clipboard {
+    padding: .2em;
+}
+table.clipboard td {
+    padding: 2px;
+}
+
+#filter {
+    margin-left: 4px;
+    margin-right: 2px;
+}
+
+.header a:hover {
+    text-decoration: underline;
+}
+
+#refreshimg {
+    margin-left: 7px;
+}

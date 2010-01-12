@@ -1,0 +1,311 @@
+--------
+v3.0-git
+--------
+
+[mms] Patchset page supports viewing a single patchset.
+[mms] Add configuration option to disable caching.
+[mms] Move log entries in annotate screen to an AJAX request.
+[mms] Add support for git repositories.
+
+
+----------
+v2.1.1-cvs
+----------
+
+[mms] Upgrade prototype.js to v1.6.1.
+
+
+----
+v2.1
+----
+
+[jan] Add Italian translation (Fabio Pedretti <fabio.pedretti@ing.unibs.it>).
+[cjh] Allow configuring which views the file name and latest revision number
+      link to (jon@spriggs.org.uk, Request #6690).
+[mms] Add log entries to diff screen (Request #6193).
+[cjh] Apply fix for http://dev.rubyonrails.org/ticket/11473 to prototype.js
+      (Request #6590).
+[cjh] With Horde 3.2+, a username and password can be supplied for
+      authenticating to Subversion repositories (duck@obala.net,
+      Request #5958).
+[cjh] Use a dropdown list to show alternate code repositories
+      (greg_swift@aotx.uscourts.gov, Request #5600).
+[cjh] Add the ability to walk backwards to the next oldest revision when
+      diffing on a VC system where the revision numbers of a single file
+      are not always consecutive (helly@php.net, Request #5350).
+[jan] Add configuration to specify temporary directory for SVN (requires Horde
+      3.2, meyer@mesw.de, Request #5051).
+[cjh] Include a link to the previous revision in annotation views
+      (Request #197).
+[cjh] Make the revision log searchable and sortable.
+[cjh] Only show the 100 latest revisions by default (Bug #2584).
+[cjh] Show commit logs when hovering on the revision number in the
+      annotate view (robzilla@siklos.ca, Bug #3076).
+[cjh] Simplify codepaths by supporting only GET or mod_rewrite URLs.
+[jan] Add permissions per repository (ben@alkaloid.net, Request #3186).
+[cjh] Add support for dynamic re-sorting of file lists.
+[mas] Change any output of <b> and <i> tags to <strong> and <em> for better
+      accessibility support.
+
+
+------
+v2.0.2
+------
+
+[jan] Add Danish translation (Brian Truelsen <horde+i18n@briantruelsen.dk>).
+[cjh] Sort patchsets in reverse order to match commit logs (Bug #2778).
+
+
+------
+v2.0.1
+------
+
+[jan] Add Russian translation (Illya Belov <belov@iop.irkps.ru>).
+[jan] Add shortcut icon (favicon.ico).
+[cjh] Use strpos() for Content-Type checks to avoid problems matching due to
+      the charset being included (Bug #1273).
+
+
+----
+v2.0
+----
+
+[jan] Add Slovak translation (Ivan Noris <vix@vazka.sk>).
+
+
+--------
+v2.0-RC3
+--------
+
+[jan] Updated installation instructions.
+
+
+--------
+v2.0-RC2
+--------
+
+[cjh] Fix links back to the original (default) repository.
+
+
+--------
+v2.0-RC1
+--------
+
+[cjh] Remove unecessary dependency on PEAR.php.
+
+
+---------
+v2.0-BETA
+---------
+
+[cjh] Close a potential hole in diffs that would allow malicious input.
+[cjh] We now support mod_rewrite style URLs in addition to GET and PATH_INFO.
+[jan] Add access keys.
+
+
+----------
+v2.0-ALPHA
+----------
+
+[cjh] CVSLib and SVNLib are no longer part of Chora; they are part of the
+      new Horde VC:: package.
+[cjh] Subversion repositories can now be specified as URLs, meaning non-local
+      repositories should work transparently
+      ("Jay Freeman (saurik)" <saurik@saurik.com>).
+[cjh] Chora isn't just CVS now. Initial commit of Subversion support
+      ("Jay Freeman (saurik)" <saurik@saurik.com>).
+[jan] Line numbers in the annotate view are linked now. Example:
+      http://cvs.example.com/annotate.php/module/file.txt?rev=1.10#42
+[cjh] Add admin-defined regular expression/replacement patterns for linking
+      to bug-tracking or other systems.
+[cjh] Add support for cvsgraph - generates graphical representations of
+      file histories with links to each revision and diffs between
+      adjacent revisions.
+[cjh] Add support for cvsps - viewing of changes as whole commits,
+      instead of discrete changes to files.
+[cjh] Finally get most setup code into functions in the Chora:: class.
+[avsm] Add in a basic statistics graph for a single RCS file.
+[cjh] Moved the text MIME_Viewer to Horde, since it doesn't provide anything
+      local to Chora. Remove related settings from mime_drivers.php.dist.
+[cjh] Use Horde::compressOutput() for output compression.
+[jon] Adapt to the new Horde::img() syntax.
+[cjh] Use $registry->get() for all Registry information.
+
+
+------
+v1.2.3
+------
+
+[jan] Close XSS when setting the parent frame's page title by javascript (cjh).
+[jan] Fix wrong escaped slashes when creating diffs on Windows systems
+      (mike001@giga.net.tw>).
+
+
+------
+v1.2.2
+------
+
+[cjh] Close a potential hole in diffs that would allow malicious input.
+[jan] Fix annotating on systems that allow whitespace in user names (Gordon
+      P. Hemsley <gphemsley@users.sourceforge.net>).
+
+
+------
+v1.2.1
+------
+
+[jan] Fix sorting by date on systems that allow whitespace in user names
+      (Gordon P. Hemsley <gphemsley@users.sourceforge.net>).
+
+
+----------
+v1.2.1-RC1
+----------
+
+[jan] Add Simplified Chinese translation (liaobin <liaobin@jite.net>).
+[jan] Add Romanian translation (Eugen Hoanca <eugenh@urban-grafx.ro>,
+      Marius Dragulescu <mariusd@urban-grafx.ro>).
+[jan] Add Traditional Chinese translation (Lin Zhemin <ljm@ljm.idv.tw>).
+
+
+----
+v1.2
+----
+
+[jan] Add Finnish translation (Tero Matinlassi <tero.matinlassi@edu.vantaa.fi>).
+[cjh] Add an option to hide restricted files (John Morrissey <jwm@horde.net>).
+[cjh] Close several small XSS vulnerabilities
+      (Mitja Kolsek <mitja.kolsek@acros.si>).
+[jan] Several speedup optimizations (ilia@prohost.org).
+[jan] Have a prettier error page using the Notification class (avsm).
+[jan] Don't store bad filenames and CVSROOTs in the user preferences (avsm).
+[jan] More flexible date parsing from <cholland@lucent.com> (avsm).
+[jan] Fix annotation parsing with recent versions of CVS (avsm).
+[jon] Lots more, and smarter, caching - should help speed (cjh).
+[jan] Add routine to display images side-by-side in a more or less human
+      readable fashion (ejr).
+[jan] Display the author and commit date as part of the checkout header (jon).
+[jan] Add Chora::toHTML().
+[jan] Add menu system and prefs file as per other horde apps, add help file (ejr).
+[jan] Replace <?= with <?php echo to remove the short_open_tags requirement (cjh).
+[jan] Show links to view, annotate and download files in the annotate and view
+      pages.
+[jan] Show line numbers in the annotate view.
+[jan] Fix double-login bug (cjh).
+[jan] Fix file listing bug (Ahmed <ashihab@alcahest.com>).
+[jan] Use 'rb' with filesystem calls in case of windows.
+
+
+----
+v1.0
+----
+
+[cjh] Add preference for remembering the last cvsroot and last file
+      visited (Mathieu CLABAUT <mathieu.clabaut@free.fr>).
+[cjh] Fix GMT date issues.
+[jon] Closed some cross-site scripting vulnerabilities (shh@thathost.com).
+[cjh] Switch output compression to ob_gzhandler().
+[cjh] Use CHORA_TEMPLATES constant for all template paths.
+[cjh] Use $registry->get() for all Registry information.
+[max] Add support to not display restricted files.
+[cjh] Close a potential problem with register_globals On and $js_onLoad.
+[avsm] Avoid a cross-site scripting vulnerability.
+[jan] Add Polish translation (Piotr Roszatycki <Piotr_Roszatycki@netia.net.pl>).
+[jan] Add Norwegian Bookmal translation (Oystein Steimler <oystein@rexta.net>).
+[avsm] Add .htaccess files to deny access to data directories.
+[jan] Add Brazilian Portugues translation (Antonio Dias <accdias@sst.com.br>).
+[jan] Add Swedish translation (Andreas Dahlén <andreas@dahlen.ws>).
+
+
+----------
+v0.6.5-dev
+----------
+
+[avsm] Diff selection from the log view.
+       (Mathieu Arnold <mat@mat.cc>)
+[avsm] Improve cvsusers parsing for varied email addresses.
+[avsm] Use the Horde Cache in the file log view to speed
+       things up.
+
+
+----------
+v0.6.2-dev
+----------
+
+[avsm] Fold the global url() function into Chora::url().
+[avsm] Move lots of global functions into the Chora class.
+[avsm] New 'use_path_info' option to toggle PATH_INFO use.
+[avsm] New URL syntax that sends the path via a GET var.
+[avsm] No longer depend on having PATH_INFO available.
+[cjh] Add Czech translation (pchytil@asp.ogi.edu).
+[avsm] Increase speed by making CVSLib use references.
+[avsm] Add a Vary header to indicate language negotiation.
+[avsm] Replace Chora::img() with Horde::img().
+[avsm] Colour-code blocks of changes in the annotate view.
+[cjh]  Default to the HEAD revision in co.php (Cynic <cynic@mail.cz>).
+[avsm] Complete i8nl support by using the Horde framework.
+[avsm] Add Cache-Control headers for diff/checkout output.
+[avsm] Begin internationalising Chora using gettext wrappers.
+[avsm] Show the log message in checkouts and human-readable diffs.
+[avsm] XHTML fixes (remote repeated border attributes)
+[avsm] Replace $conf['paths'] with the $registry equivalents.
+[avsm] Remove the global graphic() function and use Chora::img()
+[avsm] Convert to the new MIME_Viewer API which allows Chora to
+       have a local MIME driver for text/plain.  Currently, it
+       does URL syntax-highlighting.
+
+
+----------
+v0.4-dev
+----------
+
+[avsm] Cache the checkout of a file for a month.
+[avsm] Rename checkout.php to co.php for shorter URLs.
+[avsm] Fix the branch code up significantly, and show in the log view.
+[avsm] Log view UI tweaks, and allow downloading as well as viewing.
+[avsm] Support multiple branchpoints in CVSLib, and rearrange a
+       function from CVSLib_Log to CVSLib_Rev.
+[avsm] Get rid of config/mime.php in favour of the Horde MIME stuff.
+[avsm] Use the Horde MIME_Viewer icon support.
+[avsm] Add a getExtension() utility function to CVSLib_File.
+[avsm] Fix directory sorting when deleted files are displayed.
+[avsm] Work better with register_globals = off now.
+[avsm] Output compression option, using PEAR's HTTP_Compress.
+[avsm] Use the MIME_Viewer framework to pretty-print files.
+[avsm] Move template files into their own sub-directories.
+[cjh]  Start using the Horde framework and complying more with
+       CODING_STANDARDS.
+[cjh]  A number of fixes for files and directories with spaces in their
+       names (Mathieu Arnold <mat@mat.cc>).
+[cjh]  Add long unified diff option (Mathieu Arnold
+       <mat@mat.cc>).
+[cjh]  Add default sort direction configuration option (Mathieu Arnold
+       <mat@mat.cc>).
+[cjh]  Fix bug with Chora in the webroot (http://cvs.example.com/).
+[avsm] Overhaul CVSLib_Checkout interface to be in line with
+       the rest of the CVSLib_* API (and much simpler).
+
+
+----------
+v0.2-dev
+----------
+
+[avsm] No longer depend on having Apache icons in /icons.
+[avsm] Switch over diff logic to the new CVSLib_Diff API.
+[avsm] Start to comply with Horde standards,and add lib/Chora.php.
+[avsm] Start the human-readable API change in CVSLib_Diff.
+[cjh]  Capitalize classes according to standards.
+[avsm] CVS Annotate support, to view which authors modified
+       which sections of a file.
+[avsm] Added queryModulePath() to CVSLib_file.
+
+
+----------
+v0.1-dev
+----------
+
+[avsm] Multiple repository support, in the form of cvsroots.php.
+[avsm] New config variable $conf['paths']['cvsusers'] to control
+       the location of the cvsusers file if it isnt in CVSROOT.
+[avsm] Add support for parsing the cvsusers file if present.
+[avsm] Add a CHANGES and a GOALS file with the new version.

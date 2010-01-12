@@ -1,0 +1,24 @@
+/**
+ * $Horde: agora/themes/bluewhite/screen.css,v 1.2 2006/10/29 18:18:46 chuck Exp $
+ */
+
+.messageContainer {
+    background: #fff;
+    width: auto;
+}
+.messageAuthor {
+    float: left;
+    width: 10em;
+    border: 1px solid #ccc;
+    padding: 1em;
+    margin: 1em;
+}
+.messageBody {
+    float: left;
+    width: 410px;
+    min-height: 50px;
+    border: none;
+    margin: 1em;
+    padding: 0 0 30px 0;
+    background: #ffc url("graphics/comment_box.png") no-repeat bottom center;
+}

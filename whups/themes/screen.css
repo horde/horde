@@ -1,0 +1,124 @@
+del {
+    background: transparent;
+}
+
+#searchnav {
+    border: 1px solid #ccc;
+    padding: 2px;
+    margin: 8px;
+}
+#searchnav p {
+    margin: 0;
+    background: #e9e9e9;
+}
+
+.query {
+    background: #cdcdcd;
+}
+
+div#comments {
+    margin: .5em;
+}
+div#comments div {
+    margin-top: .4em;
+}
+.comment-body {
+    background: #fff;
+    color: #000;
+    padding: 1em;
+    font-size: 100%;
+    font-family: "Lucida Console",Courier,"Courier New";
+}
+.pc_l {
+    background: #eee;
+    border-left: 8px solid #900;
+    border-top: 2px solid #900;
+}
+.pc_r {
+    background: #eee;
+    border-right: 8px solid #900;
+    border-top: 2px solid #900;
+}
+.pc_m {
+    background: #eee;
+    border-top: 2px solid #900;
+}
+.pc_b {
+    background: #eee;
+    border-left: 8px solid #900;
+    border-right: 8px solid #900;
+    border-bottom: 2px solid #900;
+}
+.c_l {
+    background: #eee;
+    border-left: 8px solid #ccc;
+    border-top: 2px solid #ccc;
+}
+.c_r {
+    background: #eee;
+    border-right: 8px solid #ccc;
+    border-top: 2px solid #ccc;
+}
+.c_m {
+    background: #eee;
+    border-top: 2px solid #ccc;
+}
+.c_b {
+    background: #eee;
+    border-left: 8px solid #ccc;
+    border-right: 8px solid #ccc;
+    border-bottom: 2px solid #ccc;
+}
+
+/* Search result tables */
+table.tickets {
+    width: 100%;
+    /* width: 99%;
+       margin: 0 0 8px 5px; */
+    border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+}
+table.tickets th {
+    padding: 3px;
+    background: #e9e9e9;
+    border-right: 1px solid #ccc;
+    text-align: left;
+}
+table.tickets td {
+    padding: 3px;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+table.tickets th.sortup {
+    background: #bbcbff url("graphics/za.png") center left no-repeat;
+    padding-left: 10px;
+}
+table.tickets th.sortdown {
+    background: #bbcbff url("graphics/az.png") center left no-repeat;
+    padding-left: 10px;
+}
+
+/* Autocomplete styles. */
+.autocomplete {
+    background: #f4f4f4;
+    border: 1px solid #d4d4d4;
+    position: absolute;
+    padding: 2px 2px 2px 2px;
+}
+.autocomplete ul {
+    margin: 1px;
+    padding: 1px;
+    list-style-type: none;
+}
+.autocomplete ul li {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 90%;
+    color: #000;
+}
+.autocomplete ul .selected {
+    background: gray;
+    color: #fff;
+}

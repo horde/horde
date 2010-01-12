@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Service_Scribd</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde Scribd client</summary>
+ <description>This package provides client libraries for the Scribd API
+ </description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2008-08-01</date>
+ <version>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+ <notes>
+* Initial release
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Service">
+      <dir name="Scribd">
+       <file name="Exception.php" role="php" />
+       <file name="Request.php" role="php" />
+       <file name="Response.php" role="php" />
+       <file name="Result.php" role="php" />
+       <file name="ResultSet.php" role="php" />
+      </dir> <!-- /lib/Horde/Service/Scribd -->
+      <file name="Scribd.php" role="php" />
+     </dir> <!-- /lib/Horde/Service -->
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.5.0</min>
+   </pearinstaller>
+   <package>
+    <name>Http_Client</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Xml_Element</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install name="lib/Horde/Service/Scribd/Exception.php" as="Horde/Service/Scribd/Exception.php" />
+   <install name="lib/Horde/Service/Scribd/Request.php" as="Horde/Service/Scribd/Request.php" />
+   <install name="lib/Horde/Service/Scribd/Response.php" as="Horde/Service/Scribd/Response.php" />
+   <install name="lib/Horde/Service/Scribd/Result.php" as="Horde/Service/Scribd/Result.php" />
+   <install name="lib/Horde/Service/Scribd/ResultSet.php" as="Horde/Service/Scribd/ResultSet.php" />
+   <install name="lib/Horde/Service/Scribd.php" as="Horde/Service/Scribd.php" />
+  </filelist>
+ </phprelease>
+</package>

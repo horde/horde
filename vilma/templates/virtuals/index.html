@@ -1,0 +1,38 @@
+<div id="menu">
+ <tag:menu />
+</div>
+
+<tag:notify />
+
+<p class="item">
+ &nbsp;<a href="<tag:actions.new_url />"><tag:actions.new_text /></a> |
+ &nbsp;<a href="<tag:actions.users_url />"><tag:actions.users_text /></a>
+</p>
+
+<if:virtuals>
+<table width="100%" cellspacing="1" class="linedRow">
+ <tr class="item">
+  <th>&nbsp;</th>
+  <th>
+   <gettext>Virtual Email Address</gettext>
+  </th>
+  <th>
+   <gettext>Destination</gettext>
+  </th>
+ </tr>
+ <loop:virtuals>
+ <tr>
+  <td>
+   <a href="<tag:virtuals.edit_url />"><tag:images.edit /></a>
+   <a href="<tag:virtuals.del_url />"><tag:images.delete /></a>
+  </td>
+  <td>
+   <tag:virtuals.virtual_email />
+  </td>
+  <td align="center">
+   <tag:virtuals.virtual_destination />
+  </td>
+ </tr>
+ </loop:virtuals>
+</table>
+</if:virtuals>

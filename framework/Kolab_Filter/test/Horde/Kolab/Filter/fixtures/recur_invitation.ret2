@@ -1,0 +1,41 @@
+Mail from sender: wrobel@example.org
+Mail to recipient: test@example.org
+Received: from localhost (localhost [127.0.0.1]) by localhost (Horde MIME library) with HTTP; Sat, 18 Apr 2009 21:55:07 +0200
+Message-ID: <20090418215507.2sldgjil1c0kk00g@localhost>
+Date: Sat, 18 Apr 2009 21:55:07 +0200
+From: cn=Gunnar Wrobel <wrobel@example.org>
+To: test@example.org
+Subject: Accepted: trg
+MIME-Version: 1.0
+Content-Type: text/calendar;
+	charset=UTF-8;
+	method="REPLY"
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+\r\n\r\nBEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//kolab.org//NONSGML Kolab Server 2//EN
+METHOD:REPLY
+BEGIN:VEVENT
+UID:mk6mn3hanp46i908eeon2ggnuk@google.com
+SUMMARY:trg
+DESCRIPTION:Zeigen Sie Ihren Termin unter
+  http://www.google.com/calendar/event?action=3DVIEW&eid=3DbWs2bW4zaGFucDQ2a=
+TkwO
+ GVlb24yZ2dudWsgcmVzQGRldi5wYXJkdXMuZGU&tok=3DMjIjZ3dyb2JlbEBnb29nbGVtYWlsLm=
+Nv
+ bTA3ZTg5NmZhZjdlYTA4Zjc3Zjc0M2MzOGRjNDMyZTg4ZDEyM2UzMWQ&ctz=3DEurope%2FRome=
+&h
+ l=3Dde an.
+LOCATION:
+DTSTART;TZID=3DEurope/Rome:20080926T090000Z
+DTEND;TZID=3DEurope/Rome:20080926T100000Z
+SEQUENCE:0
+ORGANIZER;CN=3DGunnar Wrobel:mailto:test@example.org
+ATTENDEE;CN=3Dcn=3DGunnar Wrobel;PARTSTAT=3DACCEPTED:MAILTO:wrobel@example.o=
+rg
+DTSTAMP:20090418T195507Z
+END:VEVENT
+END:VCALENDAR
+.

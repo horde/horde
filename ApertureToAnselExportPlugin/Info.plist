@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>ApertureToAnselExportPlugin</string>
+	<key>CFBundleIdentifier</key>
+	<string>org.horde.export.ApertureToAnselExportPlugin</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>ApertureToAnselExportPlugin</string>
+	<key>CFBundlePackageType</key>
+	<string>BNDL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>LSHasLocalizedDisplayName</key>
+	<true/>
+	<key>NSPrincipalClass</key>
+	<string>ApertureToAnselExportPlugin</string>
+	<key>ProPlugDictionaryVersion</key>
+	<string>1.0</string>
+	<key>ProPlugDynamicRegistration</key>
+	<false/>
+	<key>ProPlugPlugInGroupList</key>
+	<array>
+		<dict>
+			<key>groupName</key>
+			<string>Export</string>
+			<key>uuid</key>
+			<string>616BA321-B4C2-49DF-8FD8-2E3392D2D240</string>
+		</dict>
+	</array>
+	<key>ProPlugPlugInList</key>
+	<array>
+		<dict>
+			<key>className</key>
+			<string>ApertureToAnselExportPlugin</string>
+			<key>displayName</key>
+			<string>ApertureToAnselExportPlugin</string>
+			<key>group</key>
+			<string>616BA321-B4C2-49DF-8FD8-2E3392D2D240</string>
+			<key>helpURL</key>
+			<string></string>
+			<key>protocolNames</key>
+			<array>
+				<string>ApertureExportPlugIn</string>
+			</array>
+			<key>infoString</key>
+			<string>infoString</string>
+			<key>uuid</key>
+			<string>C4369CA3-A511-4D33-8417-61D15CE507C4</string>
+		</dict>
+	</array>
+	<key>ProPlugProtocolList</key>
+	<array>
+		<dict>
+			<key>protocolName</key>
+			<string>ApertureExportManager</string>
+			<key>versions</key>
+			<array>
+				<integer>1</integer>
+			</array>
+		</dict>
+	</array>
+	<key>NSHumanReadableCopyright</key>
+	<string>2008-2009 The Horde Project (http://www.horde.org)</string>
+</dict>
+</plist>

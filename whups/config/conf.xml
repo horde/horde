@@ -1,0 +1,313 @@
+<?xml version="1.0"?>
+<configuration>
+ <configtab name="tickets" desc="Tickets Driver Settings">
+  <configsection name="tickets">
+   <configswitch name="driver" desc="What storage driver should we use?">sql
+    <case name="sql" desc="SQL">
+     <configsection name="params">
+      <configsql switchname="driverconfig"/>
+     </configsection>
+    </case>
+   </configswitch>
+  </configsection>
+ </configtab>
+
+ <configtab name="guests" desc="Guest Settings">
+  <configsection name="guests">
+   <configswitch name="captcha" quote="false" desc="Require guests to enter a
+   verification string with each transaction to protect against spam? (Requires
+   Horde 3.1)">false
+    <case name="false" desc="No"/>
+    <case name="true" desc="Yes">
+     <configstring name="figlet_font" desc="The path to a Figlet
+     (http://www.figlet.org/) font
+     file">/usr/share/games/figlet/fonts/big.flf</configstring>
+    </case>
+   </configswitch>
+  </configsection>
+ </configtab>
+
+ <configtab name="mail" desc="Email Settings">
+  <configsection name="mail">
+   <configstring name="from_addr" required="false" desc="What email address
+   should be used to send ticket email? If this is left empty, email will come
+   from the user who updated the ticket, as long as we can find an email
+   address for them. You can specify individual email addresses in the queue
+   administration that will override this setting."/>
+   <configstring name="always_copy" required="false" desc="Should we always
+   send ticket email to one or more addresses? Listeners for the ticket will
+   always get email as configured below; this is for archiving purposes or for
+   a tracking list, etc. Seperate multiple email addresses with commas. It is
+   possible to send to queue specific mail addresses by using the placeholder
+   '&lt;@&gt;' which will be replaced by the queue name."/>
+   <configboolean name="reply" desc="Can users reply to ticket emails? If you
+   entered an email address above, and have configured it to accept ticket
+   email, enable this. Otherwise, or if you're not sure, leave it
+   disabled." required="false">false</configboolean>
+   <configboolean name="include_headers" desc="When generating new tickets or
+   adding ticket comments from email messages, should we include the basic
+   email headers into the ticket comment?"
+   required="false">false</configboolean>
+   <configenum name="commenthistory" desc="When someone adds a comment to a
+   ticket, how should we send the comments?">new
+    <values>
+     <value desc="Only the new comment">new</value>
+     <value desc="All comments, oldest comments first">chronological</value>
+     <value desc="All comments, most recent comments
+     first">revchronological</value>
+    </values>
+   </configenum>
+   <configboolean name="incl_resp" desc="Should all users responsible for a
+   queue continue to receive email once a ticket is
+   assigned?" required="false">true</configboolean>
+   <configstring name="server_name" desc="What server name should be used to
+   create ticket links if using
+   scripts/mail-filter.php?">127.0.0.1</configstring>
+   <configinteger name="server_port" desc="What server port should be used to
+   create ticket links if using
+   scripts/mail-filter.php?">80</configinteger>
+   <configstring name="username" desc="What user should be used to create
+   tickets if using scripts/mail-filter.php?" required="false" />
+  </configsection>
+ </configtab>
+
+ <configtab name="prefs" desc="User Preference Attributes and Menu">
+  <configsection name="prefs">
+   <configheader>User Preference Attributes</configheader>
+   <configstring name="autolink_terms" desc="Users can opt to automatically
+   link to other tickets referenced in comments. The regex option allows you
+   to specify one or more phrases to match against along with a number
+   (i.e. Ticket 101). Note the search is NOT case sensitive. Separate more
+   than one term with '|'.">bug|ticket|issue</configstring>
+   <configboolean name="assign_all_groups" desc="Allow assignment to any
+   group? Assignment of bugs to groups can be limited to groups that users are
+   members of by disabling this option" required="false">false</configboolean>
+  </configsection>
+  <configsection name="menu">
+   <configheader>Menu Settings</configheader>
+   <configmultienum name="apps" desc="Select any applications that should be
+   linked in Whups' menu">
+    <values>
+     <configspecial name="list-horde-apps" />
+    </values>
+   </configmultienum>
+  </configsection>
+ </configtab>
+
+ <configtab name="defaults" desc="Default States">
+  <configsection name="states">
+   <configsection name="1">
+    <configswitch name="active" desc="1st state">active
+     <configcase name="inactive" desc="Inactive" />
+     <configcase name="active" desc="Active">
+      <configstring name="name" desc="1. State
+      name">Unconfirmed</configstring>
+      <configstring name="desc" desc="Description for this state">A ticket has been reported but not yet analyzed</configstring>
+      <configenum name="category" desc="Category for this new
+      state">unconfirmed
+       <values>
+        <value desc="--"/>
+        <value desc="Unconfirmed">unconfirmed</value>
+        <value desc="New">new</value>
+        <value desc="Assigned">assigned</value>
+        <value desc="Resolved">resolved</value>
+       </values>
+      </configenum>
+     </configcase>
+    </configswitch>
+   </configsection>
+   <configsection name="2">
+    <configswitch name="active" desc="2nd state">active
+     <configcase name="inactive" desc="Inactive" />
+     <configcase name="active" desc="Active">
+      <configstring name="name" desc="2. State name">Accepted</configstring>
+      <configstring name="desc" desc="Description for this state">The ticket has been analyzed and accepted as valid.</configstring>
+      <configenum name="category" desc="Category for this new state">new
+       <values>
+        <value desc="--"/>
+        <value desc="Unconfirmed">unconfirmed</value>
+        <value desc="New">new</value>
+        <value desc="Assigned">assigned</value>
+        <value desc="Resolved">resolved</value>
+       </values>
+      </configenum>
+     </configcase>
+    </configswitch>
+   </configsection>
+   <configsection name="3">
+    <configswitch name="active" desc="3rd state">active
+     <configcase name="inactive" desc="Inactive" />
+     <configcase name="active" desc="Active">
+      <configstring name="name" desc="3. State name">Assigned</configstring>
+      <configstring name="desc" desc="Description for this state">Someone has accepted responsibility for the ticket.</configstring>
+      <configenum name="category" desc="Category for this new state">assigned
+       <values>
+        <value desc="--"/>
+        <value desc="Unconfirmed">unconfirmed</value>
+        <value desc="New">new</value>
+        <value desc="Assigned">assigned</value>
+        <value desc="Resolved">resolved</value>
+       </values>
+      </configenum>
+     </configcase>
+    </configswitch>
+   </configsection>
+   <configsection name="4">
+    <configswitch name="active" desc="4th state">active
+     <configcase name="inactive" desc="Inactive" />
+     <configcase name="active" desc="Active">
+      <configstring name="name" desc="4. State name">Resolved</configstring>
+      <configstring name="desc" desc="Description for this state">The ticket has been resolved.</configstring>
+      <configenum name="category" desc="Category for this new state">resolved
+       <values>
+        <value desc="--"/>
+        <value desc="Unconfirmed">unconfirmed</value>
+        <value desc="New">new</value>
+        <value desc="Assigned">assigned</value>
+        <value desc="Resolved">resolved</value>
+       </values>
+      </configenum>
+     </configcase>
+    </configswitch>
+   </configsection>
+   <configsection name="5">
+    <configswitch name="active" desc="5th state">active
+     <configcase name="inactive" desc="Inactive" />
+     <configcase name="active" desc="Active">
+      <configstring name="name" desc="5. State name">Canceled</configstring>
+      <configstring name="desc" desc="Description for this state">The ticket is no longer valid for one reason or another.</configstring>
+      <configenum name="category" desc="Category for this new state">resolved
+       <values>
+        <value desc="--"/>
+        <value desc="Unconfirmed">unconfirmed</value>
+        <value desc="New">new</value>
+        <value desc="Assigned">assigned</value>
+        <value desc="Resolved">resolved</value>
+       </values>
+      </configenum>
+     </configcase>
+    </configswitch>
+   </configsection>
+   <configsection name="6">
+    <configswitch name="active" desc="6th state">inactive
+     <configcase name="inactive" desc="Inactive" />
+     <configcase name="active" desc="Active">
+      <configstring name="name" desc="6. state name"/>
+      <configstring name="desc" desc="Description for this
+      state"/>
+      <configenum name="category" desc="Category for this new state">
+       <values>
+        <value desc="--"/>
+        <value desc="Unconfirmed">unconfirmed</value>
+        <value desc="New">new</value>
+        <value desc="Assigned">assigned</value>
+        <value desc="Resolved">resolved</value>
+       </values>
+      </configenum>
+     </configcase>
+    </configswitch>
+   </configsection>
+   <configsection name="7">
+    <configswitch name="active" desc="7th state">inactive
+     <configcase name="inactive" desc="Inactive" />
+     <configcase name="active" desc="Active">
+      <configstring name="name" desc="7. state name"/>
+      <configstring name="desc" desc="Description for this
+      state"/>
+      <configenum name="category" desc="Category for this new state">
+       <values>
+        <value desc="--"/>
+        <value desc="Unconfirmed">unconfirmed</value>
+        <value desc="New">new</value>
+        <value desc="Assigned">assigned</value>
+        <value desc="Resolved">resolved</value>
+       </values>
+      </configenum>
+     </configcase>
+    </configswitch>
+   </configsection>
+   <configsection name="8">
+    <configswitch name="active" desc="8th state">inactive
+     <configcase name="inactive" desc="Inactive" />
+     <configcase name="active" desc="Active">
+      <configstring name="name" desc="8. state name"/>
+      <configstring name="desc" desc="Description for this
+      state"/>
+      <configenum name="category" desc="Category for this new state">
+       <values>
+        <value desc="--"/>
+        <value desc="Unconfirmed">unconfirmed</value>
+        <value desc="New">new</value>
+        <value desc="Assigned">assigned</value>
+        <value desc="Resolved">resolved</value>
+       </values>
+      </configenum>
+     </configcase>
+    </configswitch>
+   </configsection>
+  </configsection>
+ </configtab>
+
+ <configtab name="priorities" desc="Default Priorities">
+  <configsection name="priorities">
+   <configsection name="1">
+    <configswitch name="active" desc="1st priority">active
+     <configcase name="inactive" desc="Inactive" />
+     <configcase name="active" desc="Active">
+      <configstring name="name" desc="1. Priority name">1. Low</configstring>
+      <configstring name="desc" desc="Description for this priority">This is a very low priority ticket</configstring>
+     </configcase>
+    </configswitch>
+   </configsection>
+   <configsection name="2">
+    <configswitch name="active" desc="2nd priority">active
+     <configcase name="inactive" desc="Inactive" />
+     <configcase name="active" desc="Active">
+      <configstring name="name" desc="2. Priority
+      name">2. Medium</configstring>
+      <configstring name="desc" desc="Description for this priority">This is an important task, but not urgent.</configstring>
+     </configcase>
+    </configswitch>
+   </configsection>
+   <configsection name="3">
+    <configswitch name="active" desc="3rd priority">active
+     <configcase name="inactive" desc="Inactive" />
+     <configcase name="active" desc="Active">
+      <configstring name="name" desc="3. Priority name">3. High</configstring>
+      <configstring name="desc" desc="Description for this priority">This ticket is very urgent</configstring>
+     </configcase>
+    </configswitch>
+   </configsection>
+   <configsection name="4">
+    <configswitch name="active" desc="4th priority">inactive
+     <configcase name="inactive" desc="Inactive" />
+     <configcase name="active" desc="Active">
+      <configstring name="name" desc="4. Priority name"/>
+      <configstring name="desc" desc="Description for this
+      priority"/>
+     </configcase>
+    </configswitch>
+   </configsection>
+   <configsection name="5">
+    <configswitch name="active" desc="5th priority">inactive
+     <configcase name="inactive" desc="Inactive" />
+     <configcase name="active" desc="Active">
+      <configstring name="name" desc="5. Priority name"/>
+      <configstring name="desc" desc="Description for this
+      priority"/>
+     </configcase>
+    </configswitch>
+   </configsection>
+   <configsection name="6">
+    <configswitch name="active" desc="6th priority">inactive
+     <configcase name="inactive" desc="Inactive" />
+     <configcase name="active" desc="Active">
+      <configstring name="name" desc="6. Priority name"/>
+      <configstring name="desc" desc="Description for this
+      priority"/>
+     </configcase>
+    </configswitch>
+   </configsection>
+  </configsection>
+ </configtab>
+</configuration>

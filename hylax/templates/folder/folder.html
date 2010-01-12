@@ -1,0 +1,60 @@
+<div id="menu">
+ <tag:menu />
+</div>
+<br />
+
+<tag:notify />
+
+<table width="100%" border="0" cellpadding="2" cellspacing="0">
+  <tr class="header">
+    <td class="header">
+      <gettext>Folder:</gettext> <tag:folder_name />
+    </td><td align="right">
+      <loop:actions><divider:actions> | </divider:actions><tag:actions /></loop:actions>
+    </td>
+  </tr>
+</table>
+<br />
+<table width="100%" border="0" cellpadding="2" cellspacing="1">
+  <tr class="smallheader" align="center">
+    <td width="%1">
+      &nbsp;
+    </td><td>
+      <gettext>Date</gettext>
+    </td><td>
+      <gettext>Number</gettext>
+    </td><td>
+      <gettext>Owner</gettext>
+    </td><td>
+      <gettext>Pages</gettext>
+    </td><td>
+      <gettext>Status</gettext>
+    </td>
+  </tr>
+  <if:folder>
+  <loop:folder>
+  <tr class="item<tag:folder.alt_count />" onmouseover="className='selected-hi';" onmouseout="className='item<tag:folder.alt_count />';">
+    <td nowrap="nowrap">
+      <loop:folder.actions><tag:folder.actions />&nbsp;</loop:folder.actions>
+    </td><td>
+      <tag:folder.fax_created />
+    </td><td>
+      <tag:folder.fax_number />
+    </td><td>
+      <tag:folder.fax_user />
+    </td><td align="center">
+      <tag:folder.fax_pages />
+    </td><td>
+      <tag:folder.fax_status />
+    </td>
+  </tr>
+  </loop:folder>
+  <else:folder>
+  <tr>
+    <td colspan="9" align="center" class="item">
+      <gettext>No entries</gettext>
+    </td>
+  </tr>
+  </else:folder>
+  </if:folder>
+</table>

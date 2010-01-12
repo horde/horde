@@ -1,0 +1,313 @@
+th {
+    border-bottom: 1px solid #999;
+}
+
+.QuickFinderNoMatch {
+    display: none;
+}
+
+form#repository-picker {
+    display: inline;
+}
+
+/* Options boxes. */
+div.options, div.browsefileoptions {
+    margin: 0 0 8px 5px;
+}
+div.options span, div.browsefileoptions span {
+    display: -moz-inline-stack;
+    display: inline-block;
+    border: 1px solid #ccc;
+    padding: 6px;
+    background: #e9e9e9;
+    vertical-align: top;
+}
+div.browsefileoptions span {
+    width: 31.3%;
+}
+div.options em, div.browsefileoptions em {
+    margin-top: 4px;
+}
+div.browsefileoptions form {
+    margin-bottom: 4px;
+}
+
+/* Tables. */
+table.revlog, table.headerbar, table.browse, table.stats {
+    width: 99%;
+    font-size: 100%;
+    margin: 0 0 8px 5px;
+    border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+}
+table.headerbar {
+    border-right: 1px solid #ddd;
+}
+table.revlog th, table.browse th, table.stats th, table.annotate th {
+    padding: 3px;
+    background: #e9e9e9;
+    border-right: 1px solid #ccc;
+    text-align: left;
+}
+table.stats th.rightAlign {
+    text-align: right;
+}
+table.revlog td, table.headerbar td, table.browse td, table.stats td {
+    padding: 3px;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+table.headerbar tr {
+    background: #e9e9e9;
+}
+table.headerbar td {
+    border-right: none;
+}
+
+/* History View. */
+table.history, p.history {
+    margin: 0 0 8px 5px;
+    border: 1px solid #ddd;
+}
+table.history a {
+    font-weight: bold;
+    font-size: 120%;
+}
+
+/* Individual revision information. */
+div.revision_log {
+    margin: 2px 5px 8px 5px;
+    border: 1px solid #ddd;
+    padding: 3px;
+}
+ul.revision {
+    padding: 2px;
+    float: right;
+    width: 50%;
+    list-style: none;
+}
+ul.revision li.tags {
+    font-style: italic;
+}
+
+/* Labels. */
+h3.revision_log, h3.checkout {
+    background: #e9e9e9;
+    display: inline;
+    font-weight: bold;
+    margin: 0 0 0 5px;
+    font-size: 90%;
+    padding: 2px;
+    border: 1px solid #ddd;
+}
+
+/* Revision logs. */
+#revlog tr.hover, #revlog tr:hover {
+    cursor: pointer;
+    background: #bbcbff;
+}
+.revlog tr.selected *, .revlog tr.selected td.ago a  {
+    background: #ffc;
+}
+.revlog td {
+    vertical-align: top;
+}
+.revlog td.log {
+    width: 60%;
+}
+.revlog td.ago a {
+    color: #000;
+    text-decoration: none;
+}
+.revlog .branchpoint {
+    margin-bottom: 4px;
+}
+.revlog .branch {
+    display: block;
+    font-style: italic;
+}
+.revlog .message {
+    margin-bottom: 0;
+}
+.revlog .tags {
+    font-style: italic;
+    margin-top: 4px;
+    margin-bottom: 0;
+}
+.revlog .sdiff, .revlog .selection .selected .sdiff, .revlog .selection .pdiff {
+    display: none;
+}
+.revlog .selection .sdiff, .revlog .selection .selected .pdiff {
+    display: inline;
+}
+.revlog .difflines {
+    display: block;
+}
+
+/* Patchset logs. */
+#patchsets ul {
+    list-style: none;
+}
+#patchsets td.pset {
+    width: 1%;
+}
+#patchsets td.files, #patchsets td.log {
+    width: 35%;
+}
+
+.singleps span.headerLabel {
+    font-size: 110%;
+    font-weight: bold;
+    padding-right: 5px;
+}
+.singleps span.ago a:hover {
+    text-decoration: none;
+}
+.singlepslog {
+    padding: 10px 0 20px 20px;
+}
+ul.singlepsfiles {
+    list-style: none;
+    padding: 10px 0 0 20px;
+}
+ul.singlepsfiles li {
+    padding-bottom: 4px;
+}
+
+/* Diff stat information. */
+.diffadd {
+    color: blue;
+}
+.diffdel {
+    color: red;
+}
+
+/* Checkout. */
+div.checkout {
+    padding: 3px;
+    margin: 2px 5px 8px 5px;
+    border: 1px solid #ddd;
+}
+
+.attic {
+    background: #edd;
+    font-style: italic;
+}
+
+/* Annotate styles. */
+table.annotate {
+    width: 99%;
+    margin: 0 0 8px 5px;
+    border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+table.annotate th.rightAlign {
+    text-align: right;
+}
+table.annotate td {
+    border-right: 1px solid #ddd;
+}
+table.annotate .author {
+    background: #eef;
+}
+table.annotate .rev {
+    background: #fee;
+    padding-right: 2px;
+    white-space: nowrap;
+}
+table.annotate .logentry {
+    background: #cde;
+}
+
+/* Diff styles. */
+table.hrdiff {
+    width: 99%;
+    font-size: 100%;
+    margin: 0 0 8px 5px;
+}
+table.hrdiff th {
+    text-align: left;
+    width: 50%;
+}
+table.hrdiff thead th {
+    font-weight: bold;
+    font-size: 110%;
+    padding: 2px;
+}
+table.hrdiff tbody th {
+    padding: 2em 1px 1px 1px;
+    font-size: 80%;
+}
+table.hrdiff .unmodified {
+    background: #fff;
+}
+table.hrdiff .added {
+    background: #9f9;
+}
+table.hrdiff .added_empty {
+    background: #cfc;
+}
+table.hrdiff .modified {
+    background: #fd9;
+}
+table.hrdiff .removed {
+    background: #f99;
+}
+table.hrdiff .removed_empty {
+    background: #fcc;
+}
+table.hrdiff caption {
+    caption-side: top;
+    text-align: left;
+    margin: 0 0 8px 5px;
+    font-size: 90%;
+    font-weight: bold;
+    padding: 5px;
+}
+table.hrdiff caption img, .statsImg {
+    border: 1px solid #000;
+}
+table.hrdiff caption img {
+    height: 10px;
+    width: 10px;
+    margin-left: 0.5em;
+    vertical-align: baseline;
+}
+
+div.difflog {
+    padding: 2px;
+    margin: 5px;
+    border: 1px solid #ddd;
+}
+div.diffclear {
+    clear: both;
+}
+
+/* Browsefile definitions. */
+td.browseLocation em {
+    display: block;
+}
+
+.historybg {
+    background: #e9e9e9;
+    text-align: center;
+}
+.historybg1 {
+    background: #ccdeff;
+}
+.historybg2 {
+    background: #ecf;
+}
+.historybg3 {
+    background: #fec;
+}
+.historybg4 {
+    background: #efc;
+}
+.historybg5 {
+    background: #cfd;
+}
+.historybg6 {
+    background: #dcdba0;
+}

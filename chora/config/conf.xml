@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<!-- $Id$ -->
+<configuration>
+
+ <configtab name="paths" desc="Paths and Locations">
+  <configsection name="paths">
+   <configheader>Paths for use with CVS</configheader>
+   <configstring name="ci" desc="ci">/usr/bin/ci</configstring>
+   <configstring name="co" desc="co">/usr/bin/co</configstring>
+   <configstring name="rcs" desc="rcs">/usr/bin/rcs</configstring>
+   <configstring name="rcsdiff" desc="rcsdiff">/usr/bin/rcsdiff</configstring>
+   <configstring name="rlog" desc="rlog">/usr/bin/rlog</configstring>
+   <configstring name="cvs" desc="cvs">/usr/bin/cvs</configstring>
+   <configstring name="cvsps" required="false" desc="If you have cvsps
+   installed, we can generate patchset information. You need at least version
+   2.0b6 of cvsps. Path to the cvsps executable, e.g. /usr/local/bin/cvsps"/>
+   <configstring name="cvsps_home" desc="Directory where the .cvsps cache
+   files can be created - it must be writeable by the
+   webserver.">/tmp</configstring>
+   <configstring name="cvsgraph" required="false" desc="If you have CvsGraph
+   installed, we can generate repository graphs. Path to the cvsgraph
+   executable, e.g. /usr/bin/cvsgraph"/>
+   <configphp name="cvsgraph_conf" desc="CvsGraph configuration
+   file">dirname(__FILE__) . '/cvsgraph.conf'</configphp>
+
+   <configheader>Paths for use with Subversion</configheader>
+   <configstring name="svn" desc="svn">/usr/bin/svn</configstring>
+   <configstring name="diff" desc="diff">/usr/bin/diff</configstring>
+   <configstring name="svn_home" required="false" desc="Home directory for
+   execution of svn binary (specified via --config-dir to svn). This directory
+   must at least be readable to the webserver, otherwise svn will not work.
+   If you leave this empty, the system's temporary directory will be used.">
+   </configstring>
+
+   <configheader>Paths for use with Git</configheader>
+   <configstring name="git" desc="git">/usr/bin/git</configstring>
+  </configsection>
+ </configtab>
+
+ <configtab name="tickets" desc="Interaction with other systems">
+  <configsection name="tickets">
+   <configheader>Interaction with other systems</configheader>
+   <configstring name="regexp" required="false" desc="You can define a regular
+   expression, or an array of regexps, which if matched, will link a string to
+   a ticket-tracking/bug-tracking system. The replacement is the second
+   argument to preg_replace(), so you can backreference anything you match in
+   the matching regexp. Example: &lt;code class=&quot;nowrap&quot;&gt;'|bug:?
+   #?(\d+)|i'&lt;/code&gt;"/>
+   <configstring name="replacement" required="false" desc="Replacement
+   string. Example: &lt;code class=&quot;nowrap&quot;&gt;'&amp;lt;a
+   href=&quot;http://bugs.example.com/show_bug.cgi?id=\1&quot;&amp;gt;\0&amp;lt;/a&amp;gt;'&lt;/code&gt;"/>
+  </configsection>
+ </configtab>
+
+ <configtab name="options" desc="Look And Feel Configuration">
+  <configsection name="options">
+   <configheader>Look And Feel Configuration</configheader>
+   <configstring name="adminName" desc="The name displayed in the page footer.
+   This is generally the name of the repository
+   administrator.">Webmaster</configstring>
+   <configstring name="adminEmail" desc="The email address displayed in the
+   page footer.">root@example.com</configstring>
+   <configinteger name="shortLogLength" desc="In the directory view, a short
+   summary of the last logentry is shown.  The value here determines how many
+   characters of this to show before truncating it, and appending '...' to
+   indicate there is more to show.">75</configinteger>
+   <configenum name="defaultsort" desc="In the directory view, set a default
+   sort order.">Horde_Vcs::SORT_NAME
+    <values>
+     <value desc="no sort">Horde_Vcs::SORT_NONE</value>
+     <value desc="sort by age">Horde_Vcs::SORT_AGE</value>
+     <value desc="sort by filename">Horde_Vcs::SORT_NAME</value>
+     <value desc="sort by revision number">Horde_Vcs::SORT_REV</value>
+     <value desc="sort by author name">Horde_Vcs::SORT_AUTHOR</value>
+    </values>
+   </configenum>
+   <configenum name="urls" desc="Does your web server support
+   mod_rewrite?  If so, we can generate &quot;pretty&quot; URLs. If
+   not, pathnames will be propagated using a GET variable instead.">get
+    <values>
+     <value desc="GET (will always work)">get</value>
+     <value desc="mod_rewrite (pretty, shorter URLs)">rewrite</value>
+    </values>
+   </configenum>
+  </configsection>
+
+  <configlist name="restrictions" required="false" desc="If you wish to protect
+  a file pattern on a global basis (i.e. across all sourceroots defined in
+  sourceroots.php) list the perl-style regex file patterns in this array. For
+  example: &lt;code class=&quot;nowrap&quot;&gt;'^/?CVSROOT'&lt;/code&gt;"/>
+
+  <configboolean name="hide_restricted" desc="If you wish to hide restricted
+  files from listings as well as protect their contents, check this option, and
+  restricted files will not be displayed in directory
+  lists.">true</configboolean>
+
+  <configenum name="filename_linkto" desc="When clicking on a file name in the
+  browse view, should we show the revision log, or display the most recent
+  revision? The opposite action will be available when clicking on the
+  revision number.">revlog
+   <values>
+    <value desc="Revision Log">revlog</value>
+    <value desc="Most recent version">checkout</value>
+   </values>
+  </configenum>
+ </configtab>
+
+ <configtab name="cache" desc="Caching">
+  <configboolean name="caching" desc="Allow caching of views? This requires
+  that a caching backend be configured in Horde.">false</configboolean>
+ </configtab>
+
+ <configtab name="menu" desc="Menu Settings">
+  <configsection name="menu">
+   <configheader>Menu Settings</configheader>
+   <configmultienum name="apps" desc="Select any applications that should be
+   linked in Chora's menu">
+    <values>
+     <configspecial name="list-horde-apps" />
+    </values>
+   </configmultienum>
+  </configsection>
+ </configtab>
+</configuration>

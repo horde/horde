@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+<!-- $Id$ -->
+<configuration>
+ <configsection name="calendar">
+  <configheader>Calendar Driver Settings</configheader>
+
+  <configswitch name="driver" desc="What storage driver should we use?">sql
+   <case name="sql" desc="SQL">
+    <configsection name="params">
+     <configsql switchname="driverconfig">
+      <configstring name="table" desc="Database
+       table">kronolith_events</configstring>
+     </configsql>
+     <configboolean name="utc" desc="Store the dates in UTC
+     format?">true</configboolean>
+    </configsection>
+   </case>
+
+   <case name="kolab" desc="Kolab" />
+  </configswitch>
+ </configsection>
+
+ <configsection name="storage">
+  <configheader>Free/Busy Driver Settings</configheader>
+
+  <configstring name="default_domain" desc="Default domain to add to attendee email addresses if none is specified." required="false" />
+
+  <configswitch name="driver" desc="What free/busy driver should we use?">sql
+   <case name="sql" desc="SQL">
+    <configsection name="params">
+     <configsql switchname="driverconfig">
+      <configstring name="table" desc="Database
+       table">kronolith_storage</configstring>
+     </configsql>
+    </configsection>
+   </case>
+
+   <case name="kolab" desc="Kolab">
+    <configsection name="freebusy">
+     <configenum name="protocol" desc="Protocol to use for accessing the
+     Kolab server's free/busy information">
+      <values>
+       <value>https</value>
+       <value>http</value>
+      </values>
+     </configenum>
+     <configinteger name="port" desc="Port to use for accessing the
+     Kolab server's free/busy information">443</configinteger>
+    </configsection>
+   </case>
+  </configswitch>
+ </configsection>
+
+ <configsection name="reminder">
+  <configheader>Reminder Settings</configheader>
+  <configstring name="server_name" desc="Server name from which reminder
+   emails should be sent"/>
+  <configstring name="from_addr" desc="Email address from which reminder
+   emails should be sent"/>
+ </configsection>
+
+ <configsection name="autoshare">
+   <configheader>Calendar Auto-Sharing</configheader>
+     <configenum name="shareperms" desc="When a new user is created, his
+     default calendar can be automatically shared with his group(s). Which
+     permissions should the group have?">
+       <values>
+         <value desc="None (no sharing)">none</value>
+         <value desc="Read-only">read</value>
+         <value desc="Read and write">edit</value>
+         <value desc="Read, write and delete">full</value>
+       </values>
+     </configenum>
+ </configsection>
+
+ <configsection name="holidays">
+   <configheader>Displaying Holidays</configheader>
+   <configboolean name="enable" desc="Should support for holidays be enabled?"
+   required="false">true</configboolean>
+ </configsection>
+
+ <configsection name="menu">
+  <configheader>Menu Settings</configheader>
+  <configboolean name="import_export" desc="Should we display an Import/Export
+   link in the Horde application menus?">true</configboolean>
+  <configmultienum name="apps" desc="Select any applications that should be
+   linked in Kronolith's menu">
+   <values>
+    <configspecial name="list-horde-apps"/>
+   </values>
+  </configmultienum>
+ </configsection>
+
+ <configsection name="maps">
+  <configheader>Maps</configheader>
+  <configswitch name="driver" desc="Which driver should we use for inline maps?">
+   <case name="false" desc="No inline map support" />
+   <case name="Horde" desc="Horde driver (support for various map providers)">
+    <configmultienum name="providers" desc="Which layers should we add to the map?">
+     <values>
+      <value desc="Google">Google</value>
+      <value desc="Yahoo">Yahoo</value>
+      <value desc="Virtual Earth/Bing">Ve</value>
+      <value desc="CloudMade">Cloudmade</value>
+      <value desc="Various Open Sources">Public</value>
+     </values>
+    </configmultienum>
+    
+    <configenum default="false" name="geocoder" desc="Which Geocoder service
+    should we use?">
+     <values>
+      <value desc="None" default="true">false</value>
+      <value desc="Google">Google</value>
+      <value desc="Virtual Earth/Bing">Ve</value>
+      <value desc="Yahoo">Yahoo</value>
+     </values> 
+    </configenum>
+    
+    <configenum default="false" name="geodriver" desc="Which driver should we  use
+    for storing geolocation information?">
+     <values>
+      <value desc="None" default="true">false</value>
+      <value desc="MySql spatial extensions">Mysql</value>
+      <value desc="General SQL (no spatial index support)">Sql</value>
+     </values>
+    </configenum> 
+   </case>
+   
+   <case name="SAPO" desc="Driver for SAPO Mapas API">
+    <configenum default="false" name="geocoder" desc="Which Geocoder service
+    should we use?">
+     <values>
+      <value desc="None">false</value>
+      <value desc="SAPO" default="true">SAPO</value>
+      <value desc="Google">Google</value>
+      <value desc="Virtual Earth/Bing">Ve</value>
+      <value desc="Yahoo">Yahoo</value>
+     </values> 
+    </configenum>
+
+    <configenum default="false" name="geodriver" desc="Which driver should we
+    use for storing geolocation information?">
+     <values>
+      <value desc="None" default="true">false</value>
+      <value desc="MySql spatial extensions">Mysql</value>
+      <value desc="General SQL (no spatial index support)">Sql</value>
+     </values>
+    </configenum>
+   </case>
+  </configswitch>
+ </configsection>
+</configuration>

@@ -1,0 +1,326 @@
+--------
+v2.0-git
+--------
+
+
+
+
+----------
+v1.1.2-cvs
+----------
+
+
+
+
+------
+v1.1.1
+------
+
+[jan] Add Croatian translation (Valentin Vidic <valentin.vidic@carnet.hr>).
+[mms] Upgrade prototype.js to v1.6.1.
+[jan] Don't redirect to browse view if viewing a file fails.
+
+
+----
+v1.1
+----
+
+[jan] Fix attachment dialog with only a single autologin backend (Bug #7096).
+[jan] Start with first page again when filter string is changed (Bug #7935).
+[mms] Navigation link now uses description from backends.php (Request #8037,
+      Thomas Reifferscheid <thomas@reifferscheid.org>).
+[mjr] Fix issue that was causing the wrong backend to be selected when being
+      redirected to login.php.
+[mms] Fix autologin when switching backends on login page (Bug #7892,
+      horde@smartsector.hu).
+
+
+--------
+v1.1-RC1
+--------
+
+[mms] Add folder caching.
+[mms] Add pager navigation and filtering (Request #7160, joel@scopserv.com).
+[jan] Add Estonian translation (Alar Sing <alar.sing@err.ee>).
+[jan] Add Basque translation (Euskal Herriko Unibertsitatea EHU/UPV
+      <xabier.arrieta@ehu.es>).
+[cjh] Use the Horde date_format preference (Bug #6683).
+[cjh] Apply fix for http://dev.rubyonrails.org/ticket/11473 to prototype.js
+      (Request #6590).
+[jan] Add Turkish translation (METU <horde-tr@metu.edu.tr>).
+[cjh] If the VFS backend supports streams, use them to avoid reading entire
+      files into memory when downloading (Request #5913).
+[mms] Compress download data.
+[jan] Add Ukrainian translation (Andriy Kopystyansky <anri@polynet.lviv.ua>).
+[bak] Add browse API to allow browsing backends through WebDAV (Request #5337).
+[cjh] Inline PHP-generated javascript to avoid cross-domain leaking
+      (Bug #5307).
+[mms] Preserve URL anchor information when performing login.
+[mms] All javascript now contained in static, cacheable files.
+[cjh] Add javascript sortable tables to Gollem.
+[cjh] Use optimized Horde_Template code as Gollem_Template.
+[cjh] Fix javascript errors when filenames contain quotes (Bug #3824),
+      and make several links work without JavaScript.
+[jan] Add editing of text files.
+[mms] Add examples/checks for SSH2 VFS driver.
+
+
+------
+v1.0.4
+------
+
+[jan] Add Estonian translation (Alar Sing <alar.sing@err.ee>).
+[jan] Add Basque translation (Euskal Herriko Unibertsitatea EHU/UPV
+      <xabier.arrieta@ehu.es>).
+[jan] Add Slovak translation (Martin Matuška <martin@matuska.org>).
+[cjh] Fix uploading files to non-empty directories when deletion is disabled
+      (Bug #5349).
+
+
+------
+v1.0.3
+------
+
+[jan] Add Catalan translation (Jordi Giralt <projecte.k2@upcnet.es>).
+[jan] Add Slovenian translation (Duck <duck@obala.net>).
+[jan] Add Brazilian Portuguese translation (Fábio Gomes <flgoms@uol.com.br>).
+[mms] Don't show quota link in menu if quota support for current backend is
+      disabled.
+
+
+------
+v1.0.2
+------
+
+[jan] Add Danish translation (Brian Truelsen <horde+i18n@briantruelsen.dk>).
+[mms] Allow admin to disable clipboard support in backends.php.
+[mms] Allow direct autologin from login page if there are no additional login
+      parameters available (Bug #3299, jpolansky@lsit.ucsb.edu).
+[mms] Fix displaying/loading wrong backend when changing backends via the
+      dropdown on login page (Bug #3298, jpolansky@lsit.ucsb.edu).
+
+
+----------
+v1.0.2-RC1
+----------
+
+[mms] Convert all page templates to Horde_Template.
+[mms] Add row highlighting to manager page (Bug #2977).
+[mms] Fix configtabs in configuration file (Bug #3119).
+
+
+------
+v1.0.1
+------
+
+[mms] Don't try to login using Horde auth credentials if hordeauth is off
+      (Bug #3078).
+[mms] Can select default permissions for newly created files and directories
+      per backend.
+
+
+----------
+v1.0.1-RC1
+----------
+
+[mms] Indicate if no backends are available to a user.
+[mms] Add quota status page (Bug #2685).
+[mms] Add interface to facilitate admins in editing permissions on a
+      per-backend basis (Bug #2255, vijay.mahrra@es.easynet.net).
+[mms] Add support for VFS quota checking (Bug #162).
+[mms] Fix autocreation of home directories when home is also the root
+      directory (Bug #2603).
+[mms] Add language selection to login screen if using gollem as the
+      authentication driver.
+[mms] Add 'redirect_on_logout' and 'alternate_login' config parameters.
+[mms] Work around bug in VFS's autocreatePath() occuring in Horde <= 3.0.4.
+[jan] Add Polish translation (Krzysztof Kozlowski <kozik1@o2.pl>).
+
+
+----
+v1.0
+----
+
+[mms] Move filter parameter in backends.php from the VFS 'params' array to
+      the driver's base level.
+[mms] Home should default to root, not the base directory, if it is undefined.
+[mms] Pass configuration error messages to the login screen on aborted login.
+
+
+--------
+v1.0-RC2
+--------
+
+[mms] Allow home directory to be autocreated on login if it doesn't exist.
+[mms] Added ability to copy/cut between VFS backends.
+[mms] Added clipboard screen.
+[jan] Add Hungarian translation (Laszlo L. Tornoci <torlasz@xenia.sote.hu>).
+
+
+--------
+v1.0-RC1
+--------
+
+[mms] Exit back to login screen if autologin attempt fails.
+[mms] Fix logins when either 'home' or 'root' is a relative path.
+[mms] Skip login screen if there are no loginparams required.
+[mms] Add 'driver' and 'dir' parameters to download/view links so that these
+      links are not tied to the current session.
+[jan] Add Finnish translation (Leena Heino <leena.heino@uta.fi>).
+
+
+---------
+v1.0-BETA
+---------
+
+[mms] Consolidated template code to reduce the number of included files needed
+      per page load.
+[mms] Added realPath() function to Gollem:: to lower minimum Horde requirement
+      from 3.0.5 to 3.0.
+
+
+----------
+v1.0-ALPHA
+----------
+
+[mas] Change any output of <b> and <i> tags to <strong> and <em> for better
+      accessibility support.
+[mms] Remove 'change_server' and 'change_port' configuration parameters and
+      instead allow admin to choose which VFS parameters can be overriden
+      by the user at login time via the backend configuration.
+[mms] Honor the Horde-wide 'redirect_on_logout' and 'alternate_login'
+      configuration parameters.
+[jan] Add Latvian translation (Janis Eisaks <jancs@dv.lv>).
+[mms] Tweaks to make sure 'root' isn't a required parameter (Bug #1663).
+[mms] Allow changing folders using relative paths (Bug #1585).
+[mms] Automatically generate new upload fields on demand.
+[mms] Allow user to switch between multiple backends during a single session.
+[mms] Add backend selection to the left tree sidebar.
+[jan] Allow to switch backends in select file popup window.
+[cjh] Consistently use Folder, not Directory
+      (Benoit St-Andre <ben@benoitst-andre.net>).
+[cjh] Fix loading of an extra frameset on login screen reloads.
+[mms] Add API for other Horde applications to show a file dialog to select
+      and return files.
+[jan] Add regular expression filters for directory listings (Peter Arien
+      <Peter.Arien@cc.kuleuven.ac.be>).
+[cjh] Add recursive deletion of directories (Jeff Graves <jeff@image-src.com>).
+[mms] Only support viewing one backend at a time now.
+[mms] Encrypt passwords in session.
+[mms] Moved all session creation code to Gollem_Session::.
+[cjh] Enforce all permissions for backends if they are set
+      (Amith Varghese <amith@xalan.com>).
+[mms] Added test script.
+[mms] Allow up to three files to be uploaded at once.
+[cjh] View files in a new window, allowing viewing of types that we don't
+      allow inline display of.
+[cjh] Copy/Paste files functionality (Michael Varghese
+      <mike.varghese@ascellatech.com>).
+[max] Fix 'hordeauth' is set to true, but the realm not getting
+      stripped from the username.
+[cjh] Add preferences for which columns to display
+      (Liam Hoekenga <liamr@umich.edu>).
+[jan] Add Romanian translation (Eugen Hoanca <eugenh@urban-grafx.ro>).
+[cjh] Display the total size of files in a directory
+      (Tero Matinlassi <tero.matinlassi@edu.vantaa.fi>).
+[cjh] Add move/copy between different backends (j.huinink@wanadoo.nl).
+[cjh] Add ability to view different backends side-by-side
+      (j.huinink@wanadoo.nl).
+[cjh] Add Move/Copy functionality
+      (Michael Varghese <mike.varghese@ascellatech.com>).
+[cjh] Preference for showing/hiding .dotfiles
+      (Liam Hoekenga <liamr@umich.edu>).
+[cjh] Put download links in a separate column. Having the filename sometimes
+      mean view and sometimes mean download was very confusing.
+[cjh] Add support for 'home' parameter in backend configuration
+      (Liam Hoekenga <liamr@umich.edu>).
+[cjh] Add Change Directory menu item (Liam Hoekenga <liamr@umich.edu>).
+[jan] Add Bulgarian translation (Miroslav Pendev <pendev@hotmail.com>).
+[cjh] If 'hordeauth' is set to 'full', usernames will not be stripped
+      of anything after the first @ when doing Horde authentication.
+[mac] Use MIME_Viewers to display filetypes we recognize.
+[cjh] Make the server list more dynamic; automatically log users in when
+      they select a server that doesn't require any more credentials, and
+      reload the form when they change servers to make sure the fields are
+      accurate.
+[mac] Allow users to select an FTP server (if the admin allows) and add a
+      server list again.
+[mac] Add conf.xml.
+[cjh] Gollem is now completely based on the VFS backend system. Thanks
+      to Michael Varghese <mike.varghese@ascellatech.com>.
+[jan] Add Norwegian Nynorsk translation (Per-Stian Vatne <psv@orsta.org>).
+[cjh] Close a potential problem with register_globals On and $js_onLoad.
+[cjh] Respect show_dotfiles settings in servers.php
+      (Marcus I. Ryan <marcus@riboflavin.net>).
+[cjh] Use the new PrefsUI class.
+[jon] Adapt to the new Horde::img() syntax.
+[cjh] Use passive mode.
+[cjh] Switch output compression to ob_gzhandler().
+[cjh] Prefix all application constants with GOLLEM_.
+[cjh] Use the new Notification system.
+[cjh] Use GOLLEM_TEMPLATES constant for all template paths.
+[cjh] Use $registry->get() for all Registry information.
+[jan] Add Swedish translation (Andreas Dahlén <andreas@dahlen.ws>).
+[jan] Remove the standard value for the language preference. The language to
+      fall back to should be set Horde wide in lang.php instead.
+[jan] Add Korean translation (J.I Kim <aporie@netian.com>).
+[cjh] Nuke forwards/vacation/password stuff; Gollem is a file manager.
+[cjh] Remove server/port preferences.
+[bjn] Change 'en' and 'en_EN' locales to 'en_US' (default).
+[cjh] Add French translation (Remi@Cohen-Scali.com).
+[cjh] Take framework updates into account.
+[jan] Add Russian translation (Anton Nekhoroshih <anton@valuehost.ru>).
+[jan] Add German translation.
+[jan] Add Italian translation (Giovanni Meneghetti <gmeneghetti@infvic.it>).
+[cjh] Chmod now works (Anton Nekhoroshih <anton@valuehost.ru>).
+[cjh] Add Traditional Chinese translation (David Chang <david@thbuo.gov.tw>).
+[cjh] Add Czech translation (pchytil@asp.ogi.edu).
+[avsm] Replace $conf['paths'] with the $registry equivalents.
+[cjh] Add $conf['menu']['apps'] support.
+[cjh] Add translation framework.
+[cjh] Start to handle symlinks correctly.
+[cjh] Fix problem going up to home directory.
+[cjh] Use prefs.gif and generic prefs templates from Horde.
+[jon] Merge doctype.inc into common-header.inc.
+[jon] Allow the registry to handle Gollem's configuration values.
+[jon] HORDE_BASE is now defined in lib/base.php instead of config/conf.php.
+[max] Rename MOTD.html to motd.php, and move to a .dist file.
+[max] Add the realm field to make logins unique on multi-server configurations
+      for preferences and authentication.
+[max] Allow Gollem to be an authentication handler for Horde.
+[cjh] Define the HORDE_BASE constant in config/conf.php, and use it when
+      referring to any of Horde's files.
+[max] Remove connection tracking, made obsolete by redirect.php.
+[jon] Retired config/menu.txt in favor of config/menu.php.  This file follows
+      a new format based on native PHP data structures.
+[jon] Use the Horde temporary file routines.
+[cjh] Added a few new icons and tweaked some minor layout stuff.
+[cjh] Moved IMP's poppassd script into lib/Password/poppassd.php. Doesn't work
+      yet, but this is where it belongs.
+[max] Moved the status.php require from the menu to the individual pages.
+[max] Finished updating preferences to the current Horde API.
+[jon] Updated preferences functions to match the new Horde preferences API.
+[max] Update to new Horde prefs system.
+[max] Update to new Horde registry system.
+[max] Fix file renaming.
+[max] Make forwards, vacation, and password options server settings.
+[max] Fix 1-off year error in file dates.
+[max] Add file date format config entry.
+[max] Move authentication and session creation from manager to redirect.
+[max] Add Gollem::setLabel() to set the label for printing current directory.
+[max] Dump the Gollem_util class in favor of Gollem.
+[max] Add directory icons.
+[max] Add file downloading by clicking on the file name.
+[max] Allow creation of folders in empty directories.
+[max] Add a GOLLEM_BASE constant to make Gollem location-independant.
+[max] Login now submits to redirect.php.
+[cjh] Add Gollem::subdirectory() for making subdirectory links correctly.
+[cjh] In Gollem::getFileList(), default the dir to '' instead of '.'.
+[max] Add Gollem::getFileList() to parse the ftp raw directory list
+[max] Added preferences tracking (modified from IMP).
+[max] Move directory tracking to Gollem:: and use session vars if not set in
+      POST or GET.
+[max] Create folder, delete items, rename items, upload file on file manager.
+[max] Added file manager actions.
+[max] Added ftp file manager.
+[max] Planning, beginning, modernizing.

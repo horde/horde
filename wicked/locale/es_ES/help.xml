@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<help>
+
+<entry id="Overview">
+ <title>Introducción</title>
+ <heading>Introducción</heading>
+ <para>Wiki es una aplicación WikiWikiWeb integrada en Horde.</para>
+</entry>
+
+<entry id="Templates">
+ <title>Plantillas de página</title>
+ <heading></heading>
+ <para>Las plantillas son páginas que empiezan o terminan por &quot;Template&quot; (Las mayúsculas se tienen en cuenta). Se pueden utilizar para proporcional contenido o estructura de forma inicial al crear páginas.</para>
+</entry>
+
+</help>

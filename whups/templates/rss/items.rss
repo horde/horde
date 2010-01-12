@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="<tag:charset />"?>
+<?xml-stylesheet href="<tag:xsl />" type="text/xsl"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+ <channel>
+  <title><tag:title /></title>
+  <pubDate><tag:pubDate /></pubDate>
+  <link><tag:url /></link>
+  <atom:link rel="self" type="application/rss+xml" title="<tag:title />" href="<tag:rss_url />" />
+  <description><tag:description /></description>
+
+  <if:items>
+  <loop:items>
+  <item>
+   <title><tag:items.title /></title>
+   <description><tag:items.description /></description>
+   <pubDate><tag:items.pubDate /></pubDate>
+   <link><tag:items.url /></link>
+  </item>
+  </loop:items>
+  </if:items>
+
+ </channel>
+</rss>

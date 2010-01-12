@@ -1,0 +1,18 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule   ^user/?$ group.php?groupby=owner [QSA,L]
+    RewriteRule   ^category/?$ group.php?groupby=category [QSA,L]
+    RewriteRule   ^all/?$ view.php?view=List&groupby=none [QSA,L]
+    RewriteRule   ^user/([@a-zA-Z0-9%_+.!*',()~-]*)/rss/?$ rss.php?stream_type=user&id=$1 [L]
+    RewriteRule   ^user/([@a-zA-Z0-9%_+.!*',()~-]*)/?$ view.php?view=List&groupby=owner&owner=$1 [QSA,L]
+    RewriteRule   ^gallery/id/([0-9]+)/rss/?$ rss.php?stream_type=gallery&id=$1 [QSA,L]
+    RewriteRule   ^gallery/id/([0-9]+)/([0-9]+)/? view.php?view=Image&gallery=$1&image=$2 [QSA,L]
+    RewriteRule   ^gallery/id/([0-9]+)/?$ view.php?view=Gallery&gallery=$1 [QSA,L]
+    RewriteRule   ^gallery/([a-zA-Z0-9_@]+)/rss/?$ rss.php?stream_type=gallery&slug=$1 [L]
+    RewriteRule   ^gallery/([a-zA-Z0-9_@]+)/([0-9]+)/? view.php?view=Image&slug=$1&image=$2 [QSA,L]
+    RewriteRule   ^gallery/([a-zA-Z0-9_@]+)/?$ view.php?view=Gallery&slug=$1 [QSA,L]
+    RewriteRule   ^category/([@a-zA-Z0-9%_+.!*',()~-]*)/?$ view.php?view=List&groupby=category&category=$1 [QSA,L]
+    RewriteRule   ^tag/?$ view.php?view=Results [QSA,L]
+    RewriteRule   ^tag/([a-zA-Z0-9%_+.!*',()~-]*)/rss/?$ rss.php?stream_type=tag&id=$1 [QSA,L]
+    RewriteRule   ^tag/([a-zA-Z0-9%_+.!*',()~-]*)/?$ view.php?view=Results&tag=$1 [QSA,L]
+</IfModule>

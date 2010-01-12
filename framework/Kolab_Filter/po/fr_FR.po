@@ -1,0 +1,61 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Kolab_Filter\n"
+"Report-Msgid-Bugs-To: p@rdus.de\n"
+"POT-Creation-Date: 2008-12-14 17:09+0100\n"
+"PO-Revision-Date: 2009-03-17 11:44+0100\n"
+"Last-Translator: Mathieu Parent <math.parent@gmail.com>\n"
+"Language-Team: French\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);"
+
+msgid "%s has accepted the invitation to the following event:"
+msgstr "%s a accepté l'invitation pour l'évenement suivant :"
+
+msgid "%s has accepted the update to the following event:"
+msgstr "%s a accepté la mise à jour de l'évenement suivant :"
+
+msgid "%s has been cancelled"
+msgstr "%s a été annulé."
+
+msgid "%s has declined the invitation to the following event:"
+msgstr "%s a refusé l'invitation pour l'évenement suivant :"
+
+msgid "%s has declined the update to the following event:"
+msgstr "%s a refusé la mise à jour de l'évenement suivant :"
+
+msgid "%s has tentatively accepted the invitation to the following event:"
+msgstr "%s a provisoirement accepté l'invitation pour l'évenement suivant :"
+
+msgid "%s has tentatively accepted the update to the following event:"
+msgstr "%s a provisoirement accepté la mise à jour pour l'évenement suivant :"
+
+msgid "(UNTRUSTED, sender <%s> is not authenticated)"
+msgstr "(SUSPECT, l'expéditeur <%s> n'est pas authentifié)"
+
+msgid "(UNTRUSTED, sender is <%s>)"
+msgstr "(SUSPECT, l'expéditeur est <%s>)"
+
+msgid "Accepted: "
+msgstr "Accepté : "
+
+msgid "Declined: "
+msgstr "Refusé : "
+
+msgid "Error processing \"%s\""
+msgstr "Erreur lors du traitement de \"%s\""
+
+msgid "No summary available"
+msgstr "Résumé non disponible"
+
+msgid "Tentative: "
+msgstr "Tentative : "
+
+msgid "The following event has been successfully removed:"
+msgstr "L'évenement suivant a été enlevé avec succès :"
+
+msgid "The following event that was canceled is not present in %s's calendar:"
+msgstr ""
+"L'évenement suivant qui a été annulé n'est pas présent dans l'agenda de %s :"

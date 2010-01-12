@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!-- $Horde: incubator/hylax/config/conf.xml,v 1.5 2005/06/18 01:38:51 jvandal Exp $ -->
+<configuration>
+ <configtab name="fax" desc="Fax Driver Settings">
+  <configsection name="fax">
+   <configheader>Fax Driver Settings</configheader>
+   <configswitch name="driver" desc="What Fax driver should we use?">hylafax
+    <case name="hylafax" desc="Hylafax">
+     <configsection name="params">
+     <configstring name="base_path" desc="Where are located Hylafax binaries?">/usr/sbin</configstring>
+     </configsection>
+     <configstring name="faxrcvd" desc="Where is located the 'faxrcvd' binary?">/var/spool/hylafax/bin</configstring>
+     <configstring name="print" required="false" desc="What is the 'print' command?"></configstring>
+    </case>
+    <case name="spandsp" desc="Asterisk w/ SpanDSP">
+     <configsection name="params">
+      <configstring name="channel" desc="What outbound channel to use for sending faxes?">Zap/g1</configstring>
+      <configinteger name="maxretries" desc="Number of times to retry if the channel is busy or unavailable">0</configinteger>
+      <configinteger name="retrytime" desc="Time between retries?">60</configinteger>
+      <configinteger name="waittime" desc="How long to wait for an answer (seconds) ?">20</configinteger>
+      <configstring name="outgoing" desc="Where is located the Asterisk Outgoing spool directory?">/var/spool/asterisk/outgoing</configstring>
+     </configsection>
+    </case>
+   </configswitch>
+  </configsection>
+ </configtab>
+ <configtab name="storage" desc="Storage Driver Settings">
+  <configsection name="storage">
+   <configheader>Storage Driver Settings</configheader>
+   <configswitch name="driver" desc="What storage driver should we use?">sql
+    <case name="sql" desc="SQL">
+     <configsection name="params">
+      <configsql switchname="driverconfig"/>
+     </configsection>
+    </case>
+   </configswitch>
+  </configsection>
+ </configtab>
+
+ <configtab name="cups" desc="CUPS Settings">
+  <configsection name="cups">
+   <configheader>CUPS Settings</configheader>
+   <configstring name="www_user" desc="What is the name of the user?">faxuser</configstring>
+   <configstring name="backend_dir" desc="Where is the CUPS backend directory?">/usr/lib/cups/backend</configstring>
+   <configstring name="ppd_dir" desc="Where is the CUPS PPD (Model) directory?">/usr/share/cups/model</configstring>
+  </configsection>
+ </configtab>
+</configuration>

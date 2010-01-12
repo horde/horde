@@ -1,0 +1,212 @@
+/*
+  Local variables:
+  buffer-file-coding-system: utf-8
+  End:
+*/
+body {
+  color: black;
+  background-color: #F8FCF8;
+  font-family: verdana,arial,helvetica,sans-serif;
+  font-size: 95%;
+  border: 0;
+  margin: 0;
+}
+a, a:visited {
+  font-family: verdana,arial,helvetica,sans-serif;
+}
+
+a { color: #001155; }
+a:hover { color: #113399; }
+
+#page {
+  background-repeat: no-repeat;
+  background-position: top right;
+}
+
+#topbar {
+  display:block;
+  background-color: #B0BCD0;
+  height: 70px;
+  clear: both;
+}
+#toplogo {
+  display:block;
+  background-image: url(pics/kolab_logo.png);
+  background-color: #B0BCD0;
+  width: 245px;
+  height: 70px;
+  margin-left: 1em;
+  margin-top: 0.4em;
+  float: left;
+}
+#toptitle {
+  display:block;
+  text-align: right;
+  font-size: 200%;
+  padding-right: 1em;
+  padding-top: 0.5em;
+}
+#topuserinfo {
+  display:block;
+  background-color: #B0BCD0;
+  font-size: 80%;
+  padding: 0.1em;
+  border-bottom: solid 1px black;
+  text-align: right;
+}
+#topmenu {
+  background-color: #B0BCD0;
+  font-size: 90%;
+  border-bottom: solid 1px black;
+}
+#submenu {
+  background-color: #EEEEEE;
+  border-bottom: solid 1px black;
+  font-size: 90%;
+}
+
+.topmenuitem {
+  background-color: #B0BCD0;
+  border-right: solid 1px black;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  margin: 0px;
+}
+.topmenuitemselected {
+  background-color: #EEEEEE;
+  border-right: solid 1px black;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  margin: 0px;
+  border-bottom: solid 1px #EEEEEE;
+}
+.submenuitem {
+}
+.submenuitemselected {
+}
+.alphagroupitem {
+}
+.alphagroupitemselected {
+  font-weight:bold
+}
+#logout {
+  color: red;
+}
+#maintitle {
+  font-size: 200%;
+}
+#maincontent {
+  display:block;
+  padding: 1em;
+  margin: 1em;
+}
+#errorcontent {
+  display:block;
+  padding: 0.2em;
+  margin: 1em;
+  text-align: left;
+  color: red;
+  background-color: #EEEEEE;
+  border: solid 1px black;
+}
+#errorheader {
+  display:block;
+  text-align: left;
+  color: black;
+  background-color: #EEEEEE;
+  font-size: 150%;
+}
+#messagecontent {
+  display:block;
+  padding: 0.2em;
+  margin: 1em;
+  text-align: left;
+  color: green;
+  background-color: #EEEEEE;
+  border: solid 1px black;
+}
+#messageheader {
+  display:block;
+  text-align: left;
+  color: black;
+  background-color: #EEEEEE;
+  font-size: 150%;
+}
+.contenttext {
+  margin: 10px;
+}
+.contenttable {
+  width: 100%;
+  background-color: black;
+  border: 0px;
+}
+.contentroweven {
+  background-color: #C0CDE0;
+  margin: 0px;
+}
+.contentrowodd {
+  background-color: #D0DDF0;
+  margin: 0px;
+}
+.contentcell {
+  font-size: 90%;
+  padding: .1em .5em .1em .5em;
+  margin: 0px;
+/*  text-align: center; */
+}
+.actioncell {
+  font-size: 90%;
+  padding: .1em .5em .1em .5em;
+  width: 10%;
+  margin: 0px;
+  text-align: center;
+}
+.contentform {
+  /*float: left;*/
+  padding: .1em .5em .1em .5em;
+  background-color: #EEEEEE;
+  border: solid 1px black;
+}
+.contentformtable {
+  font-size: 90%;
+}
+.langcombo {
+  font-size: 80%;
+}
+
+#validators {
+  text-align: right;
+}
+
+th {
+  background-color: #EEEEEE;
+  border: 0px;
+}
+
+.ctrl {
+  background-color: #E0E3E0;
+  border: solid 1px black;
+  padding: .2em .5em .2em .5em;
+}
+
+.required_asterisk {
+  color: red;
+  font-size: 80%;
+  text-align: right;
+}
+
+label {
+  cursor: pointer;
+}
+
+.align_center {
+  text-align: center;
+}
+
+.align_right {
+  text-align: right;
+}
+
+.align_left {
+  text-align: left;
+}

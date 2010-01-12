@@ -1,0 +1,1 @@
+class Vilma_Exception extends Horde_Exception {}

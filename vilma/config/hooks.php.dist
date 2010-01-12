@@ -1,0 +1,101 @@
+<?php
+/**
+ * Vilma Hooks configuration file.
+ *
+ * THE HOOKS PROVIDED IN THIS FILE ARE EXAMPLES ONLY.  DO NOT ENABLE THEM
+ * BLINDLY IF YOU DO NOT KNOW WHAT YOU ARE DOING.  YOU HAVE TO CUSTOMIZE THEM
+ * TO MATCH YOUR SPECIFIC NEEDS AND SYSTEM ENVIRONMENT.
+ *
+ * For more information please see the horde/config/hooks.php.dist file.
+ */
+
+// Example hook for handling a new domain within Vilma.  This can be used, for
+// example, to add the new domain to qmail's "control/locals" file, which will
+// tell qmail to begin receiving mail for this new domain.
+//
+// Note: for this example function to work, the "control/locals" and the
+// "control/" directory must be writeable by the webserver process user ID.
+// An alternative to this direct method would be to repopulate the
+// "control/locals" file on an interval from cron(8) using some kind of script
+// to pull a list of domains from Horde using (for example) XML-RPC.
+
+// if (!function_exists('_vilma_hook_savedomain')) {
+//     function _vilma_hook_savedomain($info = null)
+//     {
+//         if ($info === null || !isset($info['domain_name'])) {
+//             return false;
+//         }
+//         $domain = $info['domain_name'];
+//
+//         $qmail_locals = '/tmp/locals';
+//         $domainlist = file_get_contents($qmail_locals);
+//         $domains = split("\n", $domainlist);
+//
+//         if (!in_array($domain, $domains)) {
+//            $domains[] = $domain;
+//         } else {
+//             return true;
+//         }
+//
+//         // Write to a temp file for safety and atomicity.
+//         $tmp = tempnam(dirname($qmail_locals), "locals-");
+//         $tmpfh = fopen($tmp, "w");
+//         fwrite($tmpfh, implode("\n", $domains));
+//         fclose($tmpfh);
+//
+//         // Backup the previous version and move the new one into place.
+//         unlink($qmail_locals . ".previous");
+//         rename($qmail_locals, $qmail_locals . ".previous");
+//         rename($tmp, $qmail_locals);
+//
+//         return true;
+//     }
+// }
+
+// This hook does the opposite of the above:  Remove a domain from the
+// "control/locals" file.
+
+// if (!function_exists('_vilma_hook_deletedomain')) {
+//     function _vilma_hook_deletedomain($domain = null)
+//     {
+//         if ($domain === null) {
+//             return false;
+//         }
+//
+//         $qmail_locals = '/tmp/locals';
+//         $domainlist = file_get_contents($qmail_locals);
+//         $domains = split("\n", $domainlist);
+//
+//         if ($key = array_search($domain, $domains)) {
+//            unset($domains[$key]);
+//         } else {
+//             return false;
+//         }
+//
+//         // Write to a temp file for safety and atomicity.
+//         $tmp = tempnam(dirname($qmail_locals), "locals-");
+//         $tmpfh = fopen($tmp, "w");
+//         fwrite($tmpfh, implode("\n", $domains));
+//         fclose($tmpfh);
+//
+//         // Backup the previous version and move the new one into place.
+//         unlink($qmail_locals . ".previous");
+//         rename($qmail_locals, $qmail_locals . ".previous");
+//         rename($tmp, $qmail_locals);
+//
+//         return true;
+//     }
+// }
+
+// This function will turn an array of additional LDAP attributes that will be
+// added to the attributes created by the LDAP driver.
+//if (!function_exists('_vilma_hook_getldapattrs')) {
+//    function _vilma_hook_getldapattrs($attrs)
+//    {
+//        $attrs['deliverymode'] = 'nolocal';
+//        $attrs['qmailprogrampath'] = '/opt/maildrop/bin/maildrop /opt/maildrop/etc/maildroprc.dspam';
+//        $attrs['qmaildotmode'] = 'ldapwithprog';
+//
+//        return $attrs;
+//    }
+//}

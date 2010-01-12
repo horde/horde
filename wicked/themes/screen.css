@@ -1,0 +1,176 @@
+.pagelink {
+    color: #6060ff;
+    text-decoration: underline;
+}
+.pagelink:hover {
+    color: #00f;
+}
+.attributes {
+    border: 1px dashed #999;
+    background: #eee;
+    margin-bottom: 10px;
+}
+
+/* Styles inside the wiki page body. */
+.pagebody {
+    color: #000;
+    background: #fff;
+    padding: 20px;
+}
+.pagebody * {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+.pagebody a[href^="http://"],
+.pagebody a[href^="https://"],
+.pagebody a[href^="ftp://"],
+.pagebody a.external {
+    background: url("graphics/external.png") center right no-repeat;
+    padding-right: 13px;
+}
+.pagebody pre {
+    border: 1px dashed #999;
+    background: #eee;
+    padding: 2px;
+}
+.pagebody tt {
+    background: #eee;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+.pagebody .table {
+    border-collapse: collapse;
+}
+.pagebody .table-cell {
+    border: 1px solid #ccc;
+    background: #f6f6f6;
+    padding: 3px;
+}
+.pagebody th.table-cell {
+    background: #e0e0e0;
+    text-align: left;
+}
+.pagebody h1 {
+    border-bottom: 2px solid black;
+}
+.pagebody h2 {
+    border-bottom: 1px solid black;
+}
+.pagebody h1, .pagebody h2, .pagebody h3, .pagebody h4, .pagebody h5, .pagebody h6 {
+    margin: .4em 0 .4em 0;
+}
+.pagebody p {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.pagebody hr {
+    margin: .5em 0;
+}
+.pagebody div {
+    margin-left: 1em;
+}
+.pagebody div strong {
+    margin-left: -1em;
+}
+.pagebody ol, .pagebody ul, .pagebody li {
+    margin-left: 20px;
+}
+.pagebody dd {
+    margin-left: 40px;
+}
+.pagebody blockquote {
+    margin-left: 40px;
+}
+
+/* Page footer */
+#pagefooter {
+    border-top: thin solid #ccc;
+    margin: 20px 20px 0 20px;
+    padding: .5em 0;
+    font-size: 90%;
+}
+
+/* Page list tables */
+table.pagelist {
+    width: 100%;
+    border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+}
+table.pagelist th {
+    padding: 3px;
+    background: #e9e9e9;
+    border-right: 1px solid #ccc;
+    text-align: left;
+}
+table.pagelist td {
+    padding: 3px;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+table.pagelist th.sortup {
+    background: #bbcbff url("graphics/za.png") center left no-repeat;
+    padding-left: 10px;
+}
+table.pagelist th.sortdown {
+    background: #bbcbff url("graphics/az.png") center left no-repeat;
+    padding-left: 10px;
+}
+
+/* Attachment list block. */
+.filelist {
+    float: right;
+    clear: right;
+    margin: 0 0 10px 10px;
+    padding: 5px;
+    width: 200px;
+    font-size: 90%;
+    background: #f6f6f6;
+    border: 1px solid #ccc;
+}
+.filelist h2 {
+    font-size: 100%;
+    font-weight: bold;
+    margin: 0 0 4px 0;
+    border-bottom: 1px dashed #000;
+}
+
+/* Table of Contents block. */
+#toc {
+    float: right;
+    clear: right;
+    margin: 0 0 10px 10px;
+    padding: 5px;
+    width: 200px;
+    font-size: 90%;
+    background: #f6f6f6;
+    border: 1px solid #ccc;
+}
+#toc h2 {
+    font-size: 100%;
+    font-weight: bold;
+    margin: 0 0 4px 0;
+    border-bottom: 1px dashed #000;
+}
+#toc li {
+    margin: 0;
+}
+#toc li ol {
+    margin-left: 10px;
+}
+
+/* Recent Changes */
+table.RecentChanges {
+    width: 100%;
+}
+table.RecentChanges th {
+    text-align: left;
+}
+
+a.newpage {
+    color: red;
+}
+
+span.match {
+    font-weight: bold;
+    color: red;
+}

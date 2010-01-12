@@ -1,0 +1,14 @@
+Return-Path: <me@example.org>
+Received: from localhost (fqdn.example.org [127.0.0.1])
+	 by demo.example.org (Cyrus v2.3.9-openpkg) with LMTPA;
+	 Sat, 10 Nov 2007 20:44:52 +0100
+Message-ID: <1d2101c823d2$3555aa10$ac112c15@Meredith>
+From: me@example.org
+To: "You" <you@example.org>
+Subject: Me to You
+Date: Sat, 10 Nov 2007 22:45:12 +0300
+User-Agent: Gnus/5.1008 (Gnus v5.10.8) Emacs/22.1.50 (x86_64-pc-linux-gnu)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+
+test

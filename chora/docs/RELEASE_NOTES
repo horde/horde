@@ -1,0 +1,47 @@
+<?php
+/**
+ * Release focus. Possible values:
+ * 0 - N/A
+ * 1 - Initial freshmeat announcement
+ * 2 - Documentation
+ * 3 - Code cleanup
+ * 4 - Minor feature enhancements
+ * 5 - Major feature enhancements
+ * 6 - Minor bugfixes
+ * 7 - Major bugfixes
+ * 8 - Minor security fixes
+ * 9 - Major security fixes
+ */
+$this->notes['fm']['focus'] = 5;
+
+/* Mailing list release notes. */
+$this->notes['ml']['changes'] = <<<ML
+The Horde Team is pleased to announce the final release of the Chora
+Repository Viewer version H3 (2.0).
+
+Chora is built upon the Horde Application Framework and provides a read-only
+browser interface to any number of version control repositories.  Advanced
+features include a visual branch view of the repository's history,
+pretty-printed output, annotation, patchsets and basic statistics.
+
+The major changes compared to the Chora 1.x versions are:
+    * Subversion support
+    * Patchset information
+    * Cvsgraph integration
+    * Simple commit statistics
+    * Access keys.
+    * mod_rewrite support for prettier URLs.
+ML;
+
+/* Freshmeat release notes. */
+$this->notes['fm']['changes'] = <<<FM
+Subversion support and patchset information have been added.
+Cvsgraph has been integrated for grahpical tree views.
+Simple commit statistics have been added.
+Access keys have been added.
+mod_rewrite support has been added for prettier URLs.
+FM;
+
+$this->notes['name'] = 'Chora';
+$this->notes['fm']['project'] = 'chora';
+$this->notes['fm']['branch'] = 'Horde 3';

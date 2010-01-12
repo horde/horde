@@ -1,0 +1,109 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Horde Project
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2008-12-14 17:09+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:887
+#: lib/Horde/Kolab/Resource.php:887
+#, php-format
+msgid "%s has accepted the invitation to the following event:"
+msgstr ""
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:886
+#: lib/Horde/Kolab/Resource.php:886
+#, php-format
+msgid "%s has accepted the update to the following event:"
+msgstr ""
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:621
+#: lib/Horde/Kolab/Resource.php:621
+#, php-format
+msgid "%s has been cancelled"
+msgstr ""
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:877
+#: lib/Horde/Kolab/Resource.php:877
+#, php-format
+msgid "%s has declined the invitation to the following event:"
+msgstr ""
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:876
+#: lib/Horde/Kolab/Resource.php:876
+#, php-format
+msgid "%s has declined the update to the following event:"
+msgstr ""
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:897
+#: lib/Horde/Kolab/Resource.php:897
+#, php-format
+msgid "%s has tentatively accepted the invitation to the following event:"
+msgstr ""
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:896
+#: lib/Horde/Kolab/Resource.php:896
+#, php-format
+msgid "%s has tentatively accepted the update to the following event:"
+msgstr ""
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Filter/Content.php:403
+#: lib/Horde/Kolab/Filter/Content.php:403
+#, php-format
+msgid "(UNTRUSTED, sender <%s> is not authenticated)"
+msgstr ""
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Filter/Content.php:397
+#: lib/Horde/Kolab/Filter/Content.php:397
+#, php-format
+msgid "(UNTRUSTED, sender is <%s>)"
+msgstr ""
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:888
+#: lib/Horde/Kolab/Resource.php:888
+msgid "Accepted: "
+msgstr ""
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:878
+#: lib/Horde/Kolab/Resource.php:878
+msgid "Declined: "
+msgstr ""
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:603
+#: lib/Horde/Kolab/Resource.php:603
+#, php-format
+msgid "Error processing \"%s\""
+msgstr ""
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:825
+#: lib/Horde/Kolab/Resource.php:825
+msgid "No summary available"
+msgstr ""
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:898
+#: lib/Horde/Kolab/Resource.php:898
+msgid "Tentative: "
+msgstr ""
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:620
+#: lib/Horde/Kolab/Resource.php:620
+msgid "The following event has been successfully removed:"
+msgstr ""
+
+#: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:602
+#: lib/Horde/Kolab/Resource.php:602
+#, php-format
+msgid "The following event that was canceled is not present in %s's calendar:"
+msgstr ""

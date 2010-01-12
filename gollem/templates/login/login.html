@@ -1,0 +1,88 @@
+<div id="menu">
+<if:menu>
+ <span style="float:right"><tag:menu /></span>
+</if:menu>
+ <h1 align="center"><tag:title /></h1>
+</div>
+
+<tag:notification_output />
+
+<if:allowlogin>
+<form action="<tag:action />" method="post" name="gollem_login" <if:gollem_auth>target="_parent" </if:gollem_auth>>
+<tag:form_input />
+<input type="hidden" name="gollem_loginform" value="1" />
+<input type="hidden" name="actionID" value="<tag:actionid />" />
+<input type="hidden" name="load_frameset" value="<tag:load_frameset />" />
+<input type="hidden" name="url" value="<tag:url />" />
+<input type="hidden" name="autologin" value="<tag:autologin />" />
+<input type="hidden" name="anchor_string" id="anchor_string" value="<tag:anchor_string />" />
+<if:clientcaps>
+<input type="hidden" name="ie_version" value="" />
+</if:clientcaps>
+<if:backend_key>
+<input type="hidden" name="backend_key" value="<tag:backend_key />" />
+</if:backend_key>
+
+<table width="100%">
+ <tr>
+  <td align="center">
+   <table width="300" align="center">
+<if:backend_shown>
+    <tr>
+     <td align="right" class="light"><strong><label for="backend_key"><gettext>Server</gettext></label></strong></td>
+     <td class="light" align="left">
+      <select tabindex="<tag:shown_tabindex />" id="backend_key" name="backend_key" onchange="gollem_reload()">
+<loop:shown_array>
+       <option value="<tag:shown_array.val />" <if:shown_array.sel>selected="selected"</if:shown_array.sel>><tag:shown_array.name /></option>
+</loop:shown_array>
+      </select>
+     </td>
+    </tr>
+</if:backend_shown>
+<if:backend_hidden>
+    <tr>
+     <td colspan="2" align="center" class="light">
+      <tag:hidden_text />
+     </td>
+    </tr>
+</if:backend_hidden>
+
+<loop:loginparams>
+    <tr>
+     <td align="right" class="light"><strong><label for="<tag:loginparams.name />"><tag:loginparams.label /></label></strong></td>
+     <td align="left" class="light">
+      <input type="text" tabindex="<tag:loginparams.tabindex />" id="<tag:loginparams.name />" name="<tag:loginparams.name />" value="<tag:loginparams.val />" />
+     </td>
+    </tr>
+</loop:loginparams>
+
+<loop:log_creds>
+    <tr>
+     <td align="right" class="light"><strong><label for="<tag:log_creds.name />"><tag:log_creds.label /></label></strong></td>
+     <td align="left"><input tabindex="<tag:log_creds.tabindex />" type="<tag:log_creds.type />" id="<tag:log_creds.name />" name="<tag:log_creds.name />" value="<tag:log_creds.val />" /></td>
+    </tr>
+</loop:log_creds>
+
+<if:choose_language>
+    <tr>
+     <td align="right" class="light"><strong><label for="new_lang"><gettext>Language</gettext></label></strong></td>
+     <td align="left" class="light">
+      <select tabindex="<tag:langs_tabindex />" id="new_lang" name="new_lang" onchange="selectLang()">
+<loop:langs>
+       <option value="<tag:langs.val />" <if:langs.sel>selected="selected"</if:langs.sel>><tag:langs.name /></option>
+</loop:langs>
+      </select>
+     </td>
+    </tr>
+</if:choose_language>
+
+    <tr>
+     <td>&nbsp;</td>
+     <td class="light"><input class="button" type="submit" name="loginButton" tabindex="<tag:login_tabindex />" value="<tag:login />" onclick="return submit_login();" /></td>
+    </tr>
+   </table>
+  </td>
+ </tr>
+</table>
+</form>
+</if:allowlogin>

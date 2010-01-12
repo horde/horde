@@ -1,0 +1,68 @@
+<div id="menu">
+ <tag:menu />
+</div>
+
+<tag:notify />
+
+<tag:tabs />
+<if:addresses>
+<table width="100%" cellspacing="1" class="linedRow">
+ <tr class="item">
+  <th>&nbsp;</th>
+  <th>
+   <gettext>Address</gettext>
+  </th>
+  <th>
+   <gettext>Full Name</gettext>
+  </th>
+  <th>
+   <gettext>Type</gettext>
+  </th>
+  <th>
+   <gettext>Status</gettext>
+  </th>
+ </tr>
+ <loop:addresses>
+ <tr>
+  <td>
+   <if:addresses.edit_url>
+     <a href="<tag:addresses.edit_url />"><tag:images.edit /></a>
+   </if:addresses.edit_url>
+   <a href="<tag:addresses.del_url />"><tag:images.delete /></a>
+   <if:addresses.add_alias_url>
+     <a href="<tag:addresses.add_alias_url />">+Alias</a>
+   </if:addresses.add_alias_url>
+   <if:addresses.add_forward_url>
+     <a href="<tag:addresses.add_forward_url />">+Forward</a>
+   </if:addresses.add_forward_url>
+  </td>
+  <td>
+   <if:addresses.view_url>
+     <a href="<tag:addresses.view_url />">
+   </if:addresses.view_url>
+   <if:addresses.user_name>
+     <tag:addresses.user_name />&nbsp;
+   </if:addresses.user_name>
+   <if:addresses.address>
+     &lt;<tag:addresses.address />&gt;
+   </if:addresses.address>
+   <if:addresses.view_url>
+     </a>
+   </if:addresses.view_url>
+  </td>
+  <td align="center">
+   <tag:addresses.user_full_name />
+  </td>
+  <td class="rightAlign">
+   <tag:addresses.type />
+  </td>
+  <td>
+   <loop:addresses.status>
+    <tag:addresses.status /><br />
+   </loop:addresses.status>
+  </td>
+ </tr>
+ </loop:addresses>
+</table>
+</if:addresses>
+<tag:pager />

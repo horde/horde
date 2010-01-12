@@ -1,0 +1,52 @@
+=head1 NAME
+
+kolabfilter, kolabmailboxfilter - Kolab filters
+
+=head1 SYNOPSIS
+
+B<kolabfilter> B<--sender>=I<sender> B<--recipient>=I<recipient> B<--host>=I<host> B<--client>=I<client> B<--user>=I<user> B<--config>=I<config>
+
+B<kolabmailboxfilter> B<--sender>=I<sender> B<--recipient>=I<recipient> B<--host>=I<host> B<--client>=I<client> B<--user>=I<user> B<--config>=I<config>
+
+=head1 DESCRIPTION
+
+B<kolabfilter> is a filter for outgoing mail on a Kolab Server. It rewrites headers and handles
+Outlook issues.
+
+B<kolabmailboxfilter> is a filter for incoming mail on a Kolab Server. It checks the messages for iCal
+data and handles automatic invitations.
+
+=head1 OPTIONS
+
+=over 8
+
+=item B<-s> I<sender>|B<--sender>=I<sender>
+
+The message sender.
+
+=item B<-r> I<recipient>|B<--recipient>=I<recipient>
+
+A message recipient (can be repeated).
+
+=item B<-H> I<host>|B<--host>=I<host>
+
+The host running this script.
+
+=item B<-c> I<client>|B<--client>=I<client>
+
+The client sending the message.
+
+=item B<-u> I<user>|B<--user>=I<user>
+
+ID of the currently authenticated user.
+
+=item B<-C> I<config>|B<--config>=I<config>
+
+Path to the configuration file for this filter.
+
+=back
+
+=head1 COPYRIGHT AND AUTHORS
+
+Copyright 2004-2009 Klarälvdalens Datakonsult AB
+

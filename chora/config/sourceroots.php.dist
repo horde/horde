@@ -1,0 +1,70 @@
+<?php
+/**
+ * $Id$
+ *
+ * This file contains all the configuration information for the
+ * various CVS repositories that you wish to display. You should have
+ * a minimum of one entry here!  Each entry requires a unique key name.
+ *
+ * The following fields can be defined for each repository.
+ *
+ * 'name' - (string) [REQUIRED] Short name for the repository.
+ *
+ * 'location' - (string) [REQUIRED] Location on the filesystem of the
+ *              repository. The value can be any PHP supported wrapper that
+ *              can be opened via fopen().
+ *
+ * 'title' - (string) [REQUIRED] Long title for the repository.
+ *
+ * 'type' - (string) [REQUIRED] The driver type.  Either 'cvs', 'rcs', 'svn',
+            or 'git'.
+ *
+ * 'default' - (boolean) If true, makes repository the default one to show.
+ *
+ * 'intro' - (string) File which contains some introductory text to show on
+ *           the front page of this repository.  This file MUST be located
+ *           in the config/ directory.
+ *
+ * 'cvsusers' - (string) A list of all committers with real names and email
+ *              addresses, that normally sits in the CVSROOT/cvsusers file.
+ *              If it is found, then more useful information will be shown.
+ *
+ * 'restrictions' - (array) List of perl-style regular expressions for those
+ *                  files whose contents should be protected and not
+ *                  displayed.
+ *
+ * 'username' - (string) Username to use for the repository (only for
+ *              Subversion repositories that require authentication).
+ *
+ * 'password' - (string) Password to use for the repository (only for
+ *              Subversion repositories that require authentication).
+ */
+
+$sourceroots['localcvs'] = array(
+    'name' => 'CVS',
+    'location' => '/path/to/cvs/repo',
+    'title' => 'CVS Repository',
+    'cvsusers' => 'CVSROOT/cvsusers',
+    'type' => 'cvs',
+);
+
+$sourceroots['subversion'] = array(
+    'name' => 'Subversion',
+    'location' => 'http://svn.example.com/repos/svn',
+    'title' => 'A Compelling Replacement for CVS',
+    'type' => 'svn'
+);
+
+$sourceroots['localsvn'] = array(
+    'name' => 'MySVNProj',
+    'location' => '/path/to/svn/repo',
+    'title' => 'Main Subversion Repos',
+    'type' => 'svn',
+);
+
+$sourceroots['git'] = array(
+    'name' => 'Git',
+    'location' => '/path/to/git/repo',
+    'title' => 'Git repository',
+    'type' => 'git',
+);

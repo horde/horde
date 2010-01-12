@@ -1,0 +1,1 @@
+<?php echo $form->renderActive(null, null, null, 'post')?>

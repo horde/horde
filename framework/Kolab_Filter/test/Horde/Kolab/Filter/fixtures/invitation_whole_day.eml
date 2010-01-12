@@ -1,0 +1,31 @@
+To: wrobel@example.org
+From: test@example.org
+Subject: Invitation kolab/issue3558
+Date: Fri, 21 Nov 2008 19:25:35 +0100
+MIME-Version: 1.0
+Content-Type: text/calendar;
+  method=request;
+  charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+BEGIN:VCALENDAR
+PRODID:-//K Desktop Environment//NONSGML libkcal 3.5//EN
+VERSION:2.0 
+METHOD:REQUEST
+BEGIN:VEVENT
+DTSTAMP:20090416T100820Z
+ORGANIZER;CN="Test":MAILTO:test@example.com
+ATTENDEE;CN="Test";RSVP=FALSE;PARTSTAT=ACCEPTED;ROLE=REQ-PARTICIPANT:
+ mailto:test@example.com 
+ATTENDEE;RSVP=TRUE;PARTSTAT=ACCEPTED;ROLE=REQ-PARTICIPANT:mailto:
+ wrobel@example.com
+CREATED:20090416T100818Z
+UID:libkcal-865928855.207
+LAST-MODIFIED:20090416T100818Z
+SUMMARY:issue3558
+DTSTART;VALUE=DATE:20090417
+DTEND;VALUE=DATE:20090418
+TRANSP:OPAQUE
+END:VEVENT 
+
+END:VCALENDAR

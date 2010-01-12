@@ -1,0 +1,205 @@
+#tasks {
+    width: 100%;
+}
+
+.QuickFinderNoMatch {
+    display: none;
+}
+#tasks_empty {
+    padding: 4px;
+    font-style: italic;
+}
+
+#quicksearch {
+    display: inline;
+}
+#quicksearch input {
+    background-image: url("graphics/search.png");
+    background-repeat: no-repeat;
+    background-position: 2px center;
+    padding: 1px 0 1px 20px;
+}
+#quicksearch a {
+    display: inline-block;
+    padding: 2px 4px;
+}
+
+#quickAddInfoPanel textarea {
+    width: 100%;
+    height: 10em;
+    margin-top: .5em;
+}
+#quickAddInfoPanel p {
+    margin-top: .5em;
+    margin-bottom: .5em;
+}
+
+.overdue, .overdue td {
+    color: #f00;
+}
+.overdue a, .overdue td a {
+    color: #f00;
+}
+.closed, .closed td {
+    color: #aaa;
+}
+.closed a, .closed td a {
+    text-decoration: line-through;
+    color: #aaa;
+}
+
+.pri-1 {
+    color: #f00;
+}
+.pri-2 {
+    color: #f30;
+}
+.pri-3 {
+    color: #000;
+}
+.pri-4 {
+    color: #03f;
+}
+.pri-5 {
+    color: #00f;
+}
+
+.task td {
+    padding-right: .5em;
+}
+
+.taskBody {
+    padding: 10px;
+    background: #fff;
+    font-family: "Lucida Console",Courier,"Courier New";
+    font-size: 125%;
+    white-space: normal;
+    overflow: auto;
+}
+
+.task-desc {
+    padding: .5em;
+}
+.task-desc label {
+    font-weight: bold;
+    display: block;
+}
+.task-desc textarea {
+    width: 100%;
+}
+
+#tasks-body tr {
+    line-height: 20px;
+}
+
+body.rightPanel #page {
+    margin-right: 10em;
+}
+body #pageControlsInner {
+    display: none;
+}
+body #sbarShow, body #sbarHide {
+    padding-left: 18px;
+    white-space: nowrap;
+}
+body #sbarShow {
+    display: block;
+    background: transparent url("graphics/plus.png") center left no-repeat;
+}
+body #sbarHide {
+    display: none;
+    background: transparent url("graphics/minus.png") center left no-repeat;
+}
+body.rightPanel #pageControlsInner {
+    display: block;
+}
+body.rightPanel #sbarShow {
+    display: none;
+}
+body.rightPanel #sbarHide {
+    display: block;
+}
+body.rightPanel ul {
+    list-style-type: none;
+}
+
+#pageControls {
+    position: absolute;
+    top: 52px;
+    right: 0;
+    background: #eee;
+    border: 1px solid #ccc;
+    padding: 4px;
+    -moz-border-radius-bottomleft: 10px;
+    -webkit-border-bottom-left-radius: 10px;
+}
+#pageControls #tasklistSearch {
+    background-image: url("graphics/search.png");
+    background-repeat: no-repeat;
+    background-position: 2px center;
+    border: 1px solid #ccc;
+    padding: 2px 0 2px 20px;
+}
+#pageControls h3 {
+    font-size: 100%;
+    margin-top: 1em;
+}
+#pageControls h4 {
+    font-size: 90%;
+    margin-top: .5em;
+}
+
+/* Tables. */
+table#tasklist-list {
+    width: 99%;
+    margin: 0 0 8px 5px;
+    border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+}
+table#tasklist-list th {
+    padding: 3px;
+    background: #e9e9e9;
+    border-right: 1px solid #ccc;
+    text-align: left;
+}
+table#tasklist-list td {
+    padding: 3px;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+table#tasklist-list th.sortup {
+    background: #bbcbff url("graphics/za.png") center left no-repeat;
+    padding-left: 10px;
+}
+table#tasklist-list th.sortdown {
+    background: #bbcbff url("graphics/az.png") center left no-repeat;
+    padding-left: 10px;
+}
+
+#tasklist-list-buttons {
+    padding: 1em;
+}
+#tasklist-list-buttons form {
+    display: inline;
+}
+.tasklist-list-icon {
+    width: 1%;
+}
+
+.tasklist-info {
+    cursor: pointer;
+}
+.tasklist-info-url {
+    background-color: #fff;
+    color: #000;
+    overflow: auto;
+    padding: 2px;
+    font-size: 90%;
+    word-wrap: break-word;
+}
+
+@media print {
+    .header .smallheader, .tabset, .notices, #pageControls, #quicksearchL, #quicksearch {
+        display: none;
+    }
+}

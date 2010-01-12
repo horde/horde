@@ -1,0 +1,36 @@
+Mail from sender: wrobel@example.org
+Mail to recipient: test@example.org
+Received: from localhost (localhost [127.0.0.1]) by localhost (Horde MIME library) with HTTP; Sat, 18 Apr 2009 21:52:43 +0200
+Message-ID: <20090418215243.r10xkblym88oowss@localhost>
+Date: Sat, 18 Apr 2009 21:52:43 +0200
+From: cn=Gunnar Wrobel <wrobel@example.org>
+To: test@example.org
+Subject: Accepted: invitationtest2
+MIME-Version: 1.0
+Content-Type: text/calendar;
+	charset=UTF-8;
+	method="REPLY"
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+\r\n\r\nBEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//kolab.org//NONSGML Kolab Server 2//EN
+METHOD:REPLY
+BEGIN:VEVENT
+UID:040000008200E00074C5B7101A82E0080000000020D533ED0E4CC901000000000000000
+ 010000000094C5C0A65E8CC4DB1AEC47FD1255FCD
+SUMMARY:invitationtest2
+DESCRIPTION:Zeit:
+  Samstag\, 22. November 2008 20:00-20:30 (GMT+01:00) Amsterdam\, Berlin\,
+  Bern\, Rom\, Stockholm\, Wien.\\\n\\\n*~*~*~*~*~*~*~*~*~*\\\n\\\n\\
+DTSTART:20081122T190000Z
+DTEND:20081122T193000Z
+SEQUENCE:0
+ORGANIZER:MAILTO:test@example.org
+ATTENDEE;CN=3Dcn=3DGunnar Wrobel;PARTSTAT=3DACCEPTED:MAILTO:wrobel@example.o=
+rg
+DTSTAMP:20090418T195243Z
+END:VEVENT
+END:VCALENDAR
+.

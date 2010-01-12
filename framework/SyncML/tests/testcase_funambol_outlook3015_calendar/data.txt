@@ -1,0 +1,202 @@
+
+input received from client (text/x-s4j-sife)
+<appointment><AllDayEvent>1</AllDayEvent><Start>2007-01-01</Start><End>2007-01-01</End><BillingInformation></BillingInformation><Body>Test Aumlaut: Ä</Body><BusyStatus>0</BusyStatus><Categories></Categories><Companies></Companies><Importance>1</Importance><IsRecurring>0</IsRecurring><Location>everywhere</Location><MeetingStatus>0</MeetingStatus><Mileage></Mileage><ReminderMinutesBeforeStart>1080</ReminderMinutesBeforeStart><ReminderSet>0</ReminderSet><ReplyTime></ReplyTime><Sensitivity>0</Sensitivity><Subject>new year all day client1</Subject><RecurrenceType>1</RecurrenceType><Interval>1</Interval><MonthOfYear>0</MonthOfYear><DayOfMonth>0</DayOfMonth><DayOfWeekMask>2</DayOfWeekMask><Instance>0</Instance><PatternStartDate>20061231T230000Z</PatternStartDate><NoEndDate>1</NoEndDate><PatternEndDate></PatternEndDate><Occurrences></Occurrences></appointment>
+
+input converted for server (text/x-vevent):
+BEGIN:VEVENT
+DTSTAMP:20070105T213440Z
+SUMMARY:new year all day client1
+DESCRIPTION;ENCODING=QUOTED-PRINTABLE;CHARSET=UTF-8:=
+Test Aumlaut: =C3=84
+LOCATION:everywhere
+DTSTART:20070101T000000
+DTEND:20070101T235959
+STATUS:FREE
+CLASS:PUBLIC
+UID:20070105T213440Z2u5w9rfe2lq8@voltaire.local
+END:VEVENT
+
+
+input received from client (text/x-s4j-sife)
+<appointment><AllDayEvent>0</AllDayEvent><Start>20070107T220000Z</Start><End>20070107T223000Z</End><BillingInformation></BillingInformation><Body>Alarm 30minutes before</Body><BusyStatus>2</BusyStatus><Categories></Categories><Companies></Companies><Importance>1</Importance><IsRecurring>0</IsRecurring><Location></Location><MeetingStatus>0</MeetingStatus><Mileage></Mileage><ReminderMinutesBeforeStart>30</ReminderMinutesBeforeStart><ReminderSet>1</ReminderSet><ReplyTime></ReplyTime><Sensitivity>0</Sensitivity><Subject>Client2 23:00-23:30</Subject><RecurrenceType>1</RecurrenceType><Interval>1</Interval><MonthOfYear>0</MonthOfYear><DayOfMonth>0</DayOfMonth><DayOfWeekMask>1</DayOfWeekMask><Instance>0</Instance><PatternStartDate>20070106T230000Z</PatternStartDate><NoEndDate>1</NoEndDate><PatternEndDate></PatternEndDate><Occurrences></Occurrences></appointment>
+
+input converted for server (text/x-vevent):
+BEGIN:VEVENT
+DTSTAMP:20070105T213442Z
+SUMMARY:Client2 23:00-23:30
+DESCRIPTION:Alarm 30minutes before
+DTSTART:20070107T220000Z
+DTEND:20070107T223000Z
+AALARM:20070107T213000Z
+STATUS:CONFIRMED
+CLASS:PUBLIC
+UID:20070105T213442Z7ecv8peqmr48@voltaire.local
+END:VEVENT
+
+
+output received from horde backend (text/calendar):
+BEGIN:VCALENDAR
+VERSION:2.0
+X-WR-CALNAME:syncmltest's Calendar
+PRODID:-//The Horde Project//Horde_iCalendar Library//EN
+METHOD:PUBLISH
+BEGIN:VEVENT
+DTSTART:20070102T050000Z
+DTEND:20070102T060000Z
+DTSTAMP:20070105T213445Z
+UID:20070105223422.1ymx6b99mycg@voltaire.local
+SUMMARY:server2 6-7
+TRANSP:OPAQUE
+ORGANIZER;CN=syncmltest:MAILTO:syncmltest
+CLASS:PUBLIC
+END:VEVENT
+END:VCALENDAR
+
+
+output converted for client (text/x-s4j-sife):
+<?xml version="1.0"?><appointment><AllDayEvent>0</AllDayEvent><BusyStatus>2</BusyStatus><Duration>60</Duration><End>20070102T060000Z</End><IsRecurring>0</IsRecurring><ReminderSet>0</ReminderSet><Sensitivity>0</Sensitivity><Start>20070102T050000Z</Start><Subject>server2 6-7</Subject></appointment>
+
+output received from horde backend (text/calendar):
+BEGIN:VCALENDAR
+VERSION:2.0
+X-WR-CALNAME:syncmltest's Calendar
+PRODID:-//The Horde Project//Horde_iCalendar Library//EN
+METHOD:PUBLISH
+BEGIN:VEVENT
+DTSTART:20070106T050000Z
+DTEND:20070106T060000Z
+DTSTAMP:20070105T213445Z
+UID:20070105223408.6wew7kh5jag4@voltaire.local
+SUMMARY:all day three kings server1
+TRANSP:OPAQUE
+ORGANIZER;CN=syncmltest:MAILTO:syncmltest
+DESCRIPTION:test uumlaut\: ü
+CATEGORIES:holiday
+LOCATION:almost everywhere
+CLASS:PUBLIC
+END:VEVENT
+END:VCALENDAR
+
+
+output converted for client (text/x-s4j-sife):
+<?xml version="1.0"?><appointment><AllDayEvent>0</AllDayEvent><Body>test uumlaut: ü</Body><BusyStatus>2</BusyStatus><Categories>holiday</Categories><Duration>60</Duration><End>20070106T060000Z</End><IsRecurring>0</IsRecurring><Location>almost everywhere</Location><ReminderSet>0</ReminderSet><Sensitivity>0</Sensitivity><Start>20070106T050000Z</Start><Subject>all day three kings server1</Subject></appointment>
+
+input received from client (text/x-s4j-sife)
+<appointment><AllDayEvent>0</AllDayEvent><Start>20070105T220000Z</Start><End>20070105T223000Z</End><BillingInformation></BillingInformation><Body></Body><BusyStatus>2</BusyStatus><Categories></Categories><Companies></Companies><Importance>1</Importance><IsRecurring>0</IsRecurring><Location></Location><MeetingStatus>0</MeetingStatus><Mileage></Mileage><ReminderMinutesBeforeStart>15</ReminderMinutesBeforeStart><ReminderSet>1</ReminderSet><ReplyTime></ReplyTime><Sensitivity>0</Sensitivity><Subject>client99</Subject><RecurrenceType>1</RecurrenceType><Interval>1</Interval><MonthOfYear>0</MonthOfYear><DayOfMonth>0</DayOfMonth><DayOfWeekMask>32</DayOfWeekMask><Instance>0</Instance><PatternStartDate>20070104T230000Z</PatternStartDate><NoEndDate>1</NoEndDate><PatternEndDate></PatternEndDate><Occurrences></Occurrences></appointment>
+
+input converted for server (text/x-vevent):
+BEGIN:VEVENT
+DTSTAMP:20070105T213608Z
+SUMMARY:client99
+DTSTART:20070105T220000Z
+DTEND:20070105T223000Z
+AALARM:20070105T214500Z
+STATUS:CONFIRMED
+CLASS:PUBLIC
+UID:20070105T213608Z97fh32byy88@voltaire.local
+END:VEVENT
+
+
+input received from client (text/x-s4j-sife)
+<appointment><AllDayEvent>0</AllDayEvent><Start>20070102T050000Z</Start><End>20070102T060000Z</End><BillingInformation></BillingInformation><Body></Body><BusyStatus>2</BusyStatus><Categories></Categories><Companies></Companies><Importance>0</Importance><IsRecurring>0</IsRecurring><Location></Location><MeetingStatus>0</MeetingStatus><Mileage></Mileage><ReminderMinutesBeforeStart>0</ReminderMinutesBeforeStart><ReminderSet>0</ReminderSet><ReplyTime></ReplyTime><Sensitivity>0</Sensitivity><Subject>server2c2 6-7</Subject><RecurrenceType>1</RecurrenceType><Interval>1</Interval><MonthOfYear>0</MonthOfYear><DayOfMonth>0</DayOfMonth><DayOfWeekMask>4</DayOfWeekMask><Instance>0</Instance><PatternStartDate>20070101T230000Z</PatternStartDate><NoEndDate>1</NoEndDate><PatternEndDate></PatternEndDate><Occurrences></Occurrences></appointment>
+
+input converted for server (text/x-vevent):
+BEGIN:VEVENT
+DTSTAMP:20070105T213608Z
+SUMMARY:server2c2 6-7
+DTSTART:20070102T050000Z
+DTEND:20070102T060000Z
+STATUS:CONFIRMED
+CLASS:PUBLIC
+UID:20070105T213608Z5ojuhybwlds0@voltaire.local
+END:VEVENT
+
+
+input received from client (text/x-s4j-sife)
+<appointment><AllDayEvent>0</AllDayEvent><Start>20070106T050000Z</Start><End>20070106T060000Z</End><BillingInformation></BillingInformation><Body>test uumlaut: ü</Body><BusyStatus>2</BusyStatus><Categories>holiday</Categories><Companies></Companies><Importance>0</Importance><IsRecurring>0</IsRecurring><Location>almost everywhere</Location><MeetingStatus>0</MeetingStatus><Mileage></Mileage><ReminderMinutesBeforeStart>0</ReminderMinutesBeforeStart><ReminderSet>0</ReminderSet><ReplyTime></ReplyTime><Sensitivity>0</Sensitivity><Subject>all day three kings server1c1</Subject><RecurrenceType>1</RecurrenceType><Interval>1</Interval><MonthOfYear>0</MonthOfYear><DayOfMonth>0</DayOfMonth><DayOfWeekMask>64</DayOfWeekMask><Instance>0</Instance><PatternStartDate>20070105T230000Z</PatternStartDate><NoEndDate>1</NoEndDate><PatternEndDate></PatternEndDate><Occurrences></Occurrences></appointment>
+
+input converted for server (text/x-vevent):
+BEGIN:VEVENT
+DTSTAMP:20070105T213609Z
+SUMMARY:all day three kings server1c1
+DESCRIPTION;ENCODING=QUOTED-PRINTABLE;CHARSET=UTF-8:=
+test uumlaut: =C3=BC
+CATEGORIES:holiday
+LOCATION:almost everywhere
+DTSTART:20070106T050000Z
+DTEND:20070106T060000Z
+STATUS:CONFIRMED
+CLASS:PUBLIC
+UID:20070105T213609Zg9gt7fvplnw@voltaire.local
+END:VEVENT
+
+
+output received from horde backend (text/calendar):
+BEGIN:VCALENDAR
+VERSION:2.0
+X-WR-CALNAME:syncmltest's Calendar
+PRODID:-//The Horde Project//Horde_iCalendar Library//EN
+METHOD:PUBLISH
+BEGIN:VEVENT
+DTSTART:20070103T050000Z
+DTEND:20070103T060000Z
+DTSTAMP:20070105T213610Z
+UID:20070105223456.5x0i61i3nbgo@voltaire.local
+SUMMARY:server99
+TRANSP:OPAQUE
+ORGANIZER;CN=syncmltest:MAILTO:syncmltest
+CLASS:PUBLIC
+END:VEVENT
+END:VCALENDAR
+
+
+output converted for client (text/x-s4j-sife):
+<?xml version="1.0"?><appointment><AllDayEvent>0</AllDayEvent><BusyStatus>2</BusyStatus><Duration>60</Duration><End>20070103T060000Z</End><IsRecurring>0</IsRecurring><ReminderSet>0</ReminderSet><Sensitivity>0</Sensitivity><Start>20070103T050000Z</Start><Subject>server99</Subject></appointment>
+
+output received from horde backend (text/calendar):
+BEGIN:VCALENDAR
+VERSION:2.0
+X-WR-CALNAME:syncmltest's Calendar
+PRODID:-//The Horde Project//Horde_iCalendar Library//EN
+METHOD:PUBLISH
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20070101
+DTEND;VALUE=DATE:20070101
+DTSTAMP:20070105T213610Z
+UID:20070105T213440Z2u5w9rfe2lq8@voltaire.local
+SUMMARY:new year all day client1s1
+TRANSP:OPAQUE
+ORGANIZER;CN=syncmltest:MAILTO:syncmltest
+DESCRIPTION:Test Aumlaut\: Ä
+LOCATION:everywhere
+CLASS:PUBLIC
+END:VEVENT
+END:VCALENDAR
+
+
+output converted for client (text/x-s4j-sife):
+<?xml version="1.0"?><appointment><AllDayEvent>1</AllDayEvent><Body>Test Aumlaut: Ä</Body><BusyStatus>2</BusyStatus><End>2007-01-01</End><IsRecurring>0</IsRecurring><Location>everywhere</Location><ReminderSet>0</ReminderSet><Sensitivity>0</Sensitivity><Start>2007-01-01</Start><Subject>new year all day client1s1</Subject></appointment>
+
+output received from horde backend (text/calendar):
+BEGIN:VCALENDAR
+VERSION:2.0
+X-WR-CALNAME:syncmltest's Calendar
+PRODID:-//The Horde Project//Horde_iCalendar Library//EN
+METHOD:PUBLISH
+BEGIN:VEVENT
+DTSTART:20070107T220000Z
+DTEND:20070107T223000Z
+DTSTAMP:20070105T213610Z
+UID:20070105T213442Z7ecv8peqmr48@voltaire.local
+SUMMARY:Client2s2 23\:00-23\:30
+TRANSP:OPAQUE
+ORGANIZER;CN=syncmltest:MAILTO:syncmltest
+DESCRIPTION:Alarm 30minutes before
+CLASS:PUBLIC
+AALARM:20070107T213000Z
+END:VEVENT
+END:VCALENDAR
+
+
+output converted for client (text/x-s4j-sife):
+<?xml version="1.0"?><appointment><AllDayEvent>0</AllDayEvent><Body>Alarm 30minutes before</Body><BusyStatus>2</BusyStatus><Duration>30</Duration><End>20070107T223000Z</End><IsRecurring>0</IsRecurring><ReminderMinutesBeforeStart>30</ReminderMinutesBeforeStart><ReminderSet>1</ReminderSet><Sensitivity>0</Sensitivity><Start>20070107T220000Z</Start><Subject>Client2s2 23:00-23:30</Subject></appointment>

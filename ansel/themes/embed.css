@@ -1,0 +1,14 @@
+/* CSS rules for js embedded gallery views */
+.anselGalleryWidget {
+    margin: 5px;
+    text-align: center;
+}
+.anselGaleryWidget a {
+    text-decoration: none;
+    color: blue;
+}
+.anselGalleryWidget img {
+    border: 2px solid #ccc;
+    margin: 2px;
+    padding: 2px;
+}

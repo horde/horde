@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><SyncML xmlns='SYNCML:SYNCML1.0'><SyncHdr><VerDTD>1.0</VerDTD><VerProto>SyncML/1.0</VerProto><SessionID>1613468436</SessionID><MsgID>2</MsgID><Target><LocURI>http://example.com/rpc.php</LocURI></Target><Source><LocURI>351965-00-340413-3</LocURI></Source><Meta><MaxMsgSize xmlns='syncml:metinf'>200000</MaxMsgSize></Meta></SyncHdr><SyncBody><Status><CmdID>1</CmdID><MsgRef>1</MsgRef><CmdRef>0</CmdRef><Cmd>SyncHdr</Cmd><TargetRef>351965-00-340413-3</TargetRef><SourceRef>http://example.com/rpc.php</SourceRef><Data>200</Data></Status><Status><CmdID>2</CmdID><MsgRef>1</MsgRef><CmdRef>4</CmdRef><Cmd>Results</Cmd><Data>200</Data></Status><Status><CmdID>3</CmdID><MsgRef>1</MsgRef><CmdRef>6</CmdRef><Cmd>Alert</Cmd><TargetRef>c:\Documents\agenda\agenda</TargetRef><SourceRef>calendar</SourceRef><Data>200</Data><Item><Data><Anchor xmlns='syncml:metinf'><Next>1167761196</Next></Anchor></Data></Item></Status><Sync><CmdID>4</CmdID><Target><LocURI>calendar</LocURI></Target><Source><LocURI>c:\Documents\agenda\agenda</LocURI></Source><Replace><CmdID>5</CmdID><Meta><Type xmlns='syncml:metinf'>text/calendar</Type></Meta><Item><Source><LocURI>667</LocURI></Source><Data><![CDATA[BEGIN:VCALENDAR
+VERSION:1.0
+BEGIN:VEVENT
+UID:667
+SUMMARY:client1 12-1
+DTSTART:20061222T110000Z
+DTEND:20061222T120000Z
+X-EPOCAGENDAENTRYTYPE:APPOINTMENT
+AALARM;TYPE=X-EPOCSOUND:20061222T105000Z;;0;c:\system\data\themes\sound\Reminder\Classical.mp3
+CLASS:PUBLIC
+DCREATED:20061221T230000Z
+LAST-MODIFIED:20061222T205000Z
+PRIORITY:0
+STATUS:NEEDS ACTION
+END:VEVENT
+END:VCALENDAR
+]]></Data></Item></Replace><Replace><CmdID>6</CmdID><Meta><Type xmlns='syncml:metinf'>text/calendar</Type></Meta><Item><Source><LocURI>678</LocURI></Source><Data><![CDATA[BEGIN:VCALENDAR
+VERSION:1.0
+BEGIN:VEVENT
+UID:678
+SUMMARY:cIient1 christmas all day
+DESCRIPTION;ENCODING=QUOTED-PRINTABLE;CHARSET=UTF-8:uumlaut:=20=C3=BC
+DTSTART:20061225T000000Z
+DTEND:20061225T240000Z
+X-EPOCAGENDAENTRYTYPE:EVENT
+CLASS:PUBLIC
+DCREATED:20061221T230000Z
+LAST-MODIFIED:20061222T205200Z
+PRIORITY:0
+STATUS:NEEDS ACTION
+END:VEVENT
+END:VCALENDAR
+]]></Data></Item></Replace><Replace><CmdID>7</CmdID><Meta><Type xmlns='syncml:metinf'>text/calendar</Type></Meta><Item><Source><LocURI>679</LocURI></Source><Data><![CDATA[BEGIN:VCALENDAR
+VERSION:1.0
+BEGIN:VTODO
+UID:679
+SUMMARY:clienttask1
+DESCRIPTION;ENCODING=QUOTED-PRINTABLE;CHARSET=UTF-8:Aumlaut:=20=C3=84
+X-EPOCTODOLIST:To-do list
+STATUS:NEEDS ACTION
+X-EPOCAGENDAENTRYTYPE:TODO
+CLASS:PUBLIC
+DCREATED:20061221T230000Z
+LAST-MODIFIED:20061222T205200Z
+CATEGORIES:X-65536
+PRIORITY:1
+END:VTODO
+END:VCALENDAR
+]]></Data></Item></Replace></Sync><Final/></SyncBody></SyncML>

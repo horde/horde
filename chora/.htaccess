@@ -1,0 +1,7 @@
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteRule   ^([a-z]+).php/(.*)$ $1.php?f=$2 [QSA,L]
+	RewriteCond   %{REQUEST_FILENAME}  !-d
+	RewriteCond   %{REQUEST_FILENAME}  !-f
+	RewriteRule   ^(.*)$ browsedir.php?f=$1 [QSA]
+</IfModule>

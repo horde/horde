@@ -1,6 +1,5 @@
-*/config/*.php
 .DS_Store
-/lib/
+.buildpath
 .cache
 .project
 .settings
@@ -9,9 +8,40 @@
 *.orig
 *.rej
 
-!horde/config/nls.php
-horde/config/registry.d/*.php
+# Ignore testing files
+run-tests.log
+framework/*/tests/*.diff
+framework/*/tests/*.exp
+framework/*/tests/*.log
+framework/*/tests/*.out
+framework/*/tests/*.php
+
+# Dynamically generated content that may live in the repo directories
+lib/
+libs/
 horde/libs/
 horde/static/*.*
 
+# Ignore locally defined config
+*/config/*.php
+*/config/*.txt
 framework/bin/*.conf
+!horde/config/nls.php
+horde/config/registry.d/*.php
+
+# Application specific excludes
+ApertureToAnselExportPlugin/build/
+ApertureToAnselExportPlugin/ApertureToAnselExportPlugin.xcodeproj/*.pbxuser
+!ApertureToAnselExportPlugin/ApertureToAnselExportPlugin.xcodeproj/default.pbxuser
+ApertureToAnselExportPlugin/ApertureToAnselExportPlugin.xcodeproj/*.perspectivev3
+ApertureToAnselExportPlugin/*.pbxproject
+ApertureToAnselExportPlugin/Installer/*.pkg
+
+framework/Rdo/examples/Horde/Rdo/conf.php
+
+iPhoto2Ansel/build/
+iPhoto2Ansel/iPhoto2Ansel.xcodeproj/*.pbxuser
+!iPhoto2Ansel/iPhoto2Ansel.xcodeproj/default.pbxuser
+iPhoto2Ansel/iPhoto2Ansel.xcodeproj/*.perspectivev3
+iPhoto2Ansel/*.pbxproject
+iPhoto2Ansel/Installer/*.pkg

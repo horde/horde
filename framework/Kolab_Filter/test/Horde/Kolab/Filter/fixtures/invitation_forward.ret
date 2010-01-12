@@ -1,0 +1,70 @@
+Mail from sender: me@example.org
+Mail to recipient: you@example.org
+Message-ID: <20090305182508.176740qk2m2y26uc@localhost>
+Date: Mon, 23 Feb 2009 15:16:14 +0100
+Subject: kolab/issue3192
+From: me@example.org
+To: you@example.org
+X-Kolab-Forwarded: TRUE
+MIME-Version: 1.0
+Content-Type: multipart/mixed;
+ boundary="=_4onv0mx6b56o"
+Content-Transfer-Encoding: 7bit
+
+This message is in MIME format.
+
+--=_5mtbys0ziy04
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+This is an invitation forwarded by outlook and
+was rectified by the Kolab server.
+The invitation was originally sent by
+User1 <somebody@example.org>.
+
+Diese Einladung wurde von Outlook weitergeleitet
+und vom Kolab-Server in gute Form gebracht.
+Die Einladung wurde urspr=C3=BCnglich von
+User1 <somebody@example.org> geschickt.
+--=_5mtbys0ziy04
+Content-Type: text/calendar;
+ charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 7bit
+
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Microsoft Corporation//Outlook 11.0 MIMEDIR//EN
+METHOD:REQUEST
+BEGIN:VEVENT
+ATTENDEE;ROLE=REQ-PARTICIPANT;RSVP=TRUE:MAILTO:user3)s
+DTSTART:20090223T140000Z
+DTEND:20090223T150000Z
+TRANSP:OPAQUE
+SEQUENCE:0
+UID:libkcal-910600374.601
+DTSTAMP:20090223T131221Z
+DESCRIPTION:Zeit:
+  Montag\, 23. Februar 2009 15:00-16:00 (GMT+01:00) Amsterdam\, Berlin\,
+  Bern\, Rom\, Stockholm\,
+  Wien.\n\n*~*~*~*~*~*~*~*~*~*\n\n\n\n>_____________________________________
+ ________\n>Von:
+  	User1  \n>Gesendet:
+ 	Montag\, 23. Februar 2009 14:12\n>An:
+ 	User1\;
+  user2)s\n>Betreff:
+ 	kolab/issue3192\n>Zeit:
+ 	Montag\, 23. Februar 2009 15:00-16:00 (GMT+01:00) Amsterdam\, Berlin\,
+  Bern\, Rom\, Stockholm\, Wien.\n>Ort:	\n>\n>\n
+SUMMARY:WG: kolab/issue3192
+PRIORITY:5
+X-MICROSOFT-CDO-IMPORTANCE:1
+CLASS:PUBLIC
+ORGANIZER;CN=User1:mailto:somebody@example.org
+END:VEVENT
+END:VCALENDAR
+
+--=_5mtbys0ziy04--
+.

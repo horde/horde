@@ -1,0 +1,472 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 44;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
+		B06C1E030EB1644600BFAFCB /* AnselExportPluginBox.m in Sources */ = {isa = PBXBuildFile; fileRef = B06C1E020EB1644600BFAFCB /* AnselExportPluginBox.m */; };
+		B06C1E060EB164D900BFAFCB /* AnselExportController.m in Sources */ = {isa = PBXBuildFile; fileRef = B06C1E050EB164D900BFAFCB /* AnselExportController.m */; };
+		B08394CD106D1078001B5E29 /* AnselGalleryPanel.nib in Resources */ = {isa = PBXBuildFile; fileRef = B08394C0106D1077001B5E29 /* AnselGalleryPanel.nib */; };
+		B08394CE106D1078001B5E29 /* AnselServers.nib in Resources */ = {isa = PBXBuildFile; fileRef = B08394C2106D1077001B5E29 /* AnselServers.nib */; };
+		B08394CF106D1078001B5E29 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B08394C4106D1077001B5E29 /* InfoPlist.strings */; };
+		B08394D0106D1078001B5E29 /* Panel.nib in Resources */ = {isa = PBXBuildFile; fileRef = B08394C6106D1077001B5E29 /* Panel.nib */; };
+		B08394D1106D1078001B5E29 /* ProgressSheet.nib in Resources */ = {isa = PBXBuildFile; fileRef = B08394C8106D1077001B5E29 /* ProgressSheet.nib */; };
+		B08394D2106D1078001B5E29 /* iPhoto2Ansel.icns in Resources */ = {isa = PBXBuildFile; fileRef = B08394CA106D1077001B5E29 /* iPhoto2Ansel.icns */; };
+		B0B666750FB34604009459D5 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B666730FB34604009459D5 /* Quartz.framework */; };
+		B0B666760FB34604009459D5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B666740FB34604009459D5 /* QuartzCore.framework */; };
+		B0C8884E0ED85E02000E19FB /* FBProgressController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C8884D0ED85E02000E19FB /* FBProgressController.m */; };
+		B0FF4D4A106B283D00A8C14B /* AnselGalleryViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FF4D3E106B283D00A8C14B /* AnselGalleryViewItem.m */; };
+		B0FF4D4B106B283D00A8C14B /* AnselGalleryPanel.nib in Resources */ = {isa = PBXBuildFile; fileRef = B0FF4D40106B283D00A8C14B /* AnselGalleryPanel.nib */; };
+		B0FF4D4C106B283D00A8C14B /* TURAnsel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FF4D42106B283D00A8C14B /* TURAnsel.m */; };
+		B0FF4D4D106B283D00A8C14B /* TURAnselConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FF4D44106B283D00A8C14B /* TURAnselConstants.m */; };
+		B0FF4D4E106B283D00A8C14B /* TURAnselGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FF4D46106B283D00A8C14B /* TURAnselGallery.m */; };
+		B0FF4D4F106B283D00A8C14B /* TURAnselGalleryPanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FF4D48106B283D00A8C14B /* TURAnselGalleryPanelController.m */; };
+		B0FF4D54106B284C00A8C14B /* NSDataAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FF4D51106B284C00A8C14B /* NSDataAdditions.m */; };
+		B0FF4D55106B284C00A8C14B /* NSStringAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FF4D53106B284C00A8C14B /* NSStringAdditions.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B0BFBC7E0ED5B2D3006581A5 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		32DBCF630370AF2F00C91783 /* iPhoto2Ansel_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPhoto2Ansel_Prefix.pch; sourceTree = "<group>"; };
+		8D5B49B6048680CD000E48DA /* iPhoto2Ansel.iPhotoExporter */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iPhoto2Ansel.iPhotoExporter; sourceTree = BUILT_PRODUCTS_DIR; };
+		B06C1E010EB1644600BFAFCB /* AnselExportPluginBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnselExportPluginBox.h; sourceTree = "<group>"; };
+		B06C1E020EB1644600BFAFCB /* AnselExportPluginBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnselExportPluginBox.m; sourceTree = "<group>"; };
+		B06C1E040EB164D900BFAFCB /* AnselExportController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnselExportController.h; sourceTree = "<group>"; };
+		B06C1E050EB164D900BFAFCB /* AnselExportController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnselExportController.m; sourceTree = "<group>"; };
+		B06C1E070EB1652100BFAFCB /* ExportPluginProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExportPluginProtocol.h; sourceTree = "<group>"; };
+		B06C1E080EB1652100BFAFCB /* ExportPluginBoxProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExportPluginBoxProtocol.h; sourceTree = "<group>"; };
+		B06C1E090EB1652100BFAFCB /* ExportImageProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExportImageProtocol.h; sourceTree = "<group>"; };
+		B08394C1106D1077001B5E29 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/AnselGalleryPanel.nib; sourceTree = "<group>"; };
+		B08394C3106D1077001B5E29 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/AnselServers.nib; sourceTree = "<group>"; };
+		B08394C5106D1077001B5E29 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		B08394C7106D1077001B5E29 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/Panel.nib; sourceTree = "<group>"; };
+		B08394C9106D1077001B5E29 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/ProgressSheet.nib; sourceTree = "<group>"; };
+		B08394CA106D1077001B5E29 /* iPhoto2Ansel.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = iPhoto2Ansel.icns; sourceTree = "<group>"; };
+		B08394E4106D1196001B5E29 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B0B666730FB34604009459D5 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
+		B0B666740FB34604009459D5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
+		B0C8884C0ED85E02000E19FB /* FBProgressController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBProgressController.h; sourceTree = "<group>"; };
+		B0C8884D0ED85E02000E19FB /* FBProgressController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBProgressController.m; sourceTree = "<group>"; };
+		B0FF4D3D106B283D00A8C14B /* AnselGalleryViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnselGalleryViewItem.h; sourceTree = "<group>"; };
+		B0FF4D3E106B283D00A8C14B /* AnselGalleryViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnselGalleryViewItem.m; sourceTree = "<group>"; };
+		B0FF4D40106B283D00A8C14B /* AnselGalleryPanel.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = AnselGalleryPanel.nib; sourceTree = "<group>"; };
+		B0FF4D41106B283D00A8C14B /* TURAnsel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TURAnsel.h; sourceTree = "<group>"; };
+		B0FF4D42106B283D00A8C14B /* TURAnsel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TURAnsel.m; sourceTree = "<group>"; };
+		B0FF4D43106B283D00A8C14B /* TURAnselConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TURAnselConstants.h; sourceTree = "<group>"; };
+		B0FF4D44106B283D00A8C14B /* TURAnselConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TURAnselConstants.m; sourceTree = "<group>"; };
+		B0FF4D45106B283D00A8C14B /* TURAnselGallery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TURAnselGallery.h; sourceTree = "<group>"; };
+		B0FF4D46106B283D00A8C14B /* TURAnselGallery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TURAnselGallery.m; sourceTree = "<group>"; };
+		B0FF4D47106B283D00A8C14B /* TURAnselGalleryPanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TURAnselGalleryPanelController.h; sourceTree = "<group>"; };
+		B0FF4D48106B283D00A8C14B /* TURAnselGalleryPanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TURAnselGalleryPanelController.m; sourceTree = "<group>"; };
+		B0FF4D49106B283D00A8C14B /* TURAnselKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TURAnselKit.h; sourceTree = "<group>"; };
+		B0FF4D50106B284C00A8C14B /* NSDataAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDataAdditions.h; sourceTree = "<group>"; };
+		B0FF4D51106B284C00A8C14B /* NSDataAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDataAdditions.m; sourceTree = "<group>"; };
+		B0FF4D52106B284C00A8C14B /* NSStringAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStringAdditions.h; sourceTree = "<group>"; };
+		B0FF4D53106B284C00A8C14B /* NSStringAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSStringAdditions.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D5B49B3048680CD000E48DA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */,
+				B0B666750FB34604009459D5 /* Quartz.framework in Frameworks */,
+				B0B666760FB34604009459D5 /* QuartzCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		089C166AFE841209C02AAC07 /* iPhoto2Ansel */ = {
+			isa = PBXGroup;
+			children = (
+				B08394E4106D1196001B5E29 /* Info.plist */,
+				B08394BF106D1077001B5E29 /* Resources */,
+				B0FF4D5A106B288300A8C14B /* Additions */,
+				B0FF4D3C106B283D00A8C14B /* TURAnselKit */,
+				B00076D20EBA568800A95FC0 /* SDK Headers */,
+				08FB77AFFE84173DC02AAC07 /* ExportPlugin */,
+				32C88E010371C26100C91783 /* Other Sources */,
+				089C1671FE841209C02AAC07 /* Frameworks and Libraries */,
+				19C28FB8FE9D52D311CA2CBB /* Products */,
+			);
+			name = iPhoto2Ansel;
+			sourceTree = "<group>";
+		};
+		089C1671FE841209C02AAC07 /* Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */,
+				1058C7AEFEA557BF11CA2CBB /* Other Frameworks */,
+			);
+			name = "Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		08FB77AFFE84173DC02AAC07 /* ExportPlugin */ = {
+			isa = PBXGroup;
+			children = (
+				B06C1E020EB1644600BFAFCB /* AnselExportPluginBox.m */,
+				B06C1E010EB1644600BFAFCB /* AnselExportPluginBox.h */,
+				B06C1E040EB164D900BFAFCB /* AnselExportController.h */,
+				B06C1E050EB164D900BFAFCB /* AnselExportController.m */,
+			);
+			name = ExportPlugin;
+			sourceTree = "<group>";
+		};
+		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B0B666730FB34604009459D5 /* Quartz.framework */,
+				B0B666740FB34604009459D5 /* QuartzCore.framework */,
+				089C1672FE841209C02AAC07 /* Foundation.framework */,
+				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7AEFEA557BF11CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FB8FE9D52D311CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D5B49B6048680CD000E48DA /* iPhoto2Ansel.iPhotoExporter */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		32C88E010371C26100C91783 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				B0C8884D0ED85E02000E19FB /* FBProgressController.m */,
+				B0C8884C0ED85E02000E19FB /* FBProgressController.h */,
+				32DBCF630370AF2F00C91783 /* iPhoto2Ansel_Prefix.pch */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		B00076D20EBA568800A95FC0 /* SDK Headers */ = {
+			isa = PBXGroup;
+			children = (
+				B06C1E070EB1652100BFAFCB /* ExportPluginProtocol.h */,
+				B06C1E080EB1652100BFAFCB /* ExportPluginBoxProtocol.h */,
+				B06C1E090EB1652100BFAFCB /* ExportImageProtocol.h */,
+			);
+			name = "SDK Headers";
+			sourceTree = "<group>";
+		};
+		B08394BF106D1077001B5E29 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B08394C0106D1077001B5E29 /* AnselGalleryPanel.nib */,
+				B08394C2106D1077001B5E29 /* AnselServers.nib */,
+				B08394C4106D1077001B5E29 /* InfoPlist.strings */,
+				B08394C6106D1077001B5E29 /* Panel.nib */,
+				B08394C8106D1077001B5E29 /* ProgressSheet.nib */,
+				B08394CA106D1077001B5E29 /* iPhoto2Ansel.icns */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		B0FF4D3C106B283D00A8C14B /* TURAnselKit */ = {
+			isa = PBXGroup;
+			children = (
+				B0FF4D3D106B283D00A8C14B /* AnselGalleryViewItem.h */,
+				B0FF4D3E106B283D00A8C14B /* AnselGalleryViewItem.m */,
+				B0FF4D3F106B283D00A8C14B /* English.lProj */,
+				B0FF4D41106B283D00A8C14B /* TURAnsel.h */,
+				B0FF4D42106B283D00A8C14B /* TURAnsel.m */,
+				B0FF4D43106B283D00A8C14B /* TURAnselConstants.h */,
+				B0FF4D44106B283D00A8C14B /* TURAnselConstants.m */,
+				B0FF4D45106B283D00A8C14B /* TURAnselGallery.h */,
+				B0FF4D46106B283D00A8C14B /* TURAnselGallery.m */,
+				B0FF4D47106B283D00A8C14B /* TURAnselGalleryPanelController.h */,
+				B0FF4D48106B283D00A8C14B /* TURAnselGalleryPanelController.m */,
+				B0FF4D49106B283D00A8C14B /* TURAnselKit.h */,
+			);
+			path = TURAnselKit;
+			sourceTree = "<group>";
+		};
+		B0FF4D3F106B283D00A8C14B /* English.lProj */ = {
+			isa = PBXGroup;
+			children = (
+				B0FF4D40106B283D00A8C14B /* AnselGalleryPanel.nib */,
+			);
+			path = English.lProj;
+			sourceTree = "<group>";
+		};
+		B0FF4D5A106B288300A8C14B /* Additions */ = {
+			isa = PBXGroup;
+			children = (
+				B0FF4D52106B284C00A8C14B /* NSStringAdditions.h */,
+				B0FF4D51106B284C00A8C14B /* NSDataAdditions.m */,
+				B0FF4D50106B284C00A8C14B /* NSDataAdditions.h */,
+				B0FF4D53106B284C00A8C14B /* NSStringAdditions.m */,
+			);
+			name = Additions;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D5B49AC048680CD000E48DA /* iPhoto2Ansel */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "iPhoto2Ansel" */;
+			buildPhases = (
+				8D5B49AF048680CD000E48DA /* Resources */,
+				8D5B49B1048680CD000E48DA /* Sources */,
+				8D5B49B3048680CD000E48DA /* Frameworks */,
+				B0BFBC7E0ED5B2D3006581A5 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iPhoto2Ansel;
+			productInstallPath = "$(HOME)/Library/Bundles";
+			productName = iPhoto2Ansel;
+			productReference = 8D5B49B6048680CD000E48DA /* iPhoto2Ansel.iPhotoExporter */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		089C1669FE841209C02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "The Horde Project (http://www.horde.org)";
+			};
+			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "iPhoto2Ansel" */;
+			compatibilityVersion = "Xcode 3.0";
+			hasScannedForEncodings = 1;
+			mainGroup = 089C166AFE841209C02AAC07 /* iPhoto2Ansel */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D5B49AC048680CD000E48DA /* iPhoto2Ansel */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D5B49AF048680CD000E48DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0FF4D4B106B283D00A8C14B /* AnselGalleryPanel.nib in Resources */,
+				B08394CD106D1078001B5E29 /* AnselGalleryPanel.nib in Resources */,
+				B08394CE106D1078001B5E29 /* AnselServers.nib in Resources */,
+				B08394CF106D1078001B5E29 /* InfoPlist.strings in Resources */,
+				B08394D0106D1078001B5E29 /* Panel.nib in Resources */,
+				B08394D1106D1078001B5E29 /* ProgressSheet.nib in Resources */,
+				B08394D2106D1078001B5E29 /* iPhoto2Ansel.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D5B49B1048680CD000E48DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B06C1E030EB1644600BFAFCB /* AnselExportPluginBox.m in Sources */,
+				B06C1E060EB164D900BFAFCB /* AnselExportController.m in Sources */,
+				B0C8884E0ED85E02000E19FB /* FBProgressController.m in Sources */,
+				B0FF4D4A106B283D00A8C14B /* AnselGalleryViewItem.m in Sources */,
+				B0FF4D4C106B283D00A8C14B /* TURAnsel.m in Sources */,
+				B0FF4D4D106B283D00A8C14B /* TURAnselConstants.m in Sources */,
+				B0FF4D4E106B283D00A8C14B /* TURAnselGallery.m in Sources */,
+				B0FF4D4F106B283D00A8C14B /* TURAnselGalleryPanelController.m in Sources */,
+				B0FF4D54106B284C00A8C14B /* NSDataAdditions.m in Sources */,
+				B0FF4D55106B284C00A8C14B /* NSStringAdditions.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		B08394C0106D1077001B5E29 /* AnselGalleryPanel.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B08394C1106D1077001B5E29 /* English */,
+			);
+			name = AnselGalleryPanel.nib;
+			sourceTree = "<group>";
+		};
+		B08394C2106D1077001B5E29 /* AnselServers.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B08394C3106D1077001B5E29 /* English */,
+			);
+			name = AnselServers.nib;
+			sourceTree = "<group>";
+		};
+		B08394C4106D1077001B5E29 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B08394C5106D1077001B5E29 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		B08394C6106D1077001B5E29 /* Panel.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B08394C7106D1077001B5E29 /* English */,
+			);
+			name = Panel.nib;
+			sourceTree = "<group>";
+		};
+		B08394C8106D1077001B5E29 /* ProgressSheet.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B08394C9106D1077001B5E29 /* English */,
+			);
+			name = ProgressSheet.nib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB913B08733D840010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				COPY_PHASE_STRIP = NO;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"$(INSTALL_PATH)/$(PRODUCT_NAME).iPhotoExporter",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_ENABLE_OBJC_GC = supported;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = iPhoto2Ansel_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Application Support/iPhoto/Plugins";
+				PRODUCT_NAME = iPhoto2Ansel;
+				WRAPPER_EXTENSION = iPhotoExporter;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		1DEB913C08733D840010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/iPhoto2Ansel-1.0/Library/Application Support/iPhoto/Plugins";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEPLOYMENT_LOCATION = NO;
+				DSTROOT = /;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SRCROOT)/XMLRPC\"",
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				GCC_ENABLE_OBJC_GC = supported;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = iPhoto2Ansel_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "Library/Application Support/iPhoto/Plugins";
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				PRODUCT_NAME = iPhoto2Ansel;
+				SKIP_INSTALL = NO;
+				VALID_ARCHS = "i386 x86_64 ppc64 ppc";
+				WRAPPER_EXTENSION = iPhotoExporter;
+			};
+			name = Release;
+		};
+		1DEB913F08733D840010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ONLY_ACTIVE_ARCH_PRE_XCODE_3_1)";
+				COPY_PHASE_STRIP = NO;
+				DEPLOYMENT_LOCATION = NO;
+				DSTROOT = "/tmp/$(PROJECT_NAME).dst";
+				GCC_ENABLE_OBJC_GC = supported;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INSTALL_PATH = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				ONLY_ACTIVE_ARCH_PRE_XCODE_3_1 = "$(NATIVE_ARCH_ACTUAL)";
+				PREBINDING = NO;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
+				VALID_ARCHS = "ppc64 ppc i386 x86_64";
+			};
+			name = Debug;
+		};
+		1DEB914008733D840010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "x86_64 i386 ppc";
+				DEPLOYMENT_LOCATION = NO;
+				DSTROOT = /;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INSTALL_PATH = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				PREBINDING = NO;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
+				VALID_ARCHS = "ppc64 ppc i386 x86_64";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "iPhoto2Ansel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB913B08733D840010E9CD /* Debug */,
+				1DEB913C08733D840010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "iPhoto2Ansel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB913F08733D840010E9CD /* Debug */,
+				1DEB914008733D840010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 089C1669FE841209C02AAC07 /* Project object */;
+}

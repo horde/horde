@@ -1,0 +1,16 @@
+--------
+v0.1-cvs
+--------
+
+[bkl] Restructure application to have Users, Aliases, Groups and Forwards.
+[bkl] Add qmailldap backend support.
+[ben] Better support for MS-SQL.
+[jan] Allow to use custom table and column names (guilleva@gmail.com,
+      Request #3244).
+[cjh] Use bind variables in SQL driver (selsky@columbia.edu, Request #1795).
+[jmf] Downcase user and virtuals.
+[jmf] Support for virtuals with external (non-local) e-mail destinations.
+[jan] Add Spanish translation (Manuel Perez Ayala <mperaya@alcazaba.unex.es>).
+[jmf] Add support for creating mailboxes via IMAP protocol.
+[jan] Add Lithuanian translation (Vilius ¦umskas <vilius@lnk.lt>).
+[jan] Add German translation.

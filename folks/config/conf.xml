@@ -1,0 +1,189 @@
+<?xml version="1.0"?>
+<!-- $Id$ -->
+<configuration>
+  <configtab name="storage" desc="Storage">
+ <configsection name="storage">
+  <configswitch name="driver" desc="What storage driver should we use?">sql
+   <case name="sql" desc="SQL">
+    <configsection name="params">
+     <configsql switchname="driverconfig">
+      <configstring name="table" desc="Database
+      table">folks_users</configstring>
+      <configstring name="online" desc="Database
+        online table">folks_online</configstring>
+      <configstring name="search" desc="Database
+        search table">folks_search</configstring>
+      <configstring name="search" desc="Database
+        search table">folks_search</configstring>
+      <configstring name="activity" desc="Database
+        activity table">folks_activity</configstring>
+     </configsql>
+    </configsection>
+   </case>
+  </configswitch>
+ </configsection>
+</configtab>
+
+<configtab name="general" desc="General">
+   <configstring name="support" desc="Email from which support messages will be sent">support@example.com</configstring>
+
+   <configsection name="friends">
+   <configswitch name="driver" desc="Driver for friends storage">sql
+       <case name="prefs" desc="Prefs - friends and blacklist only sored"></case>
+       <case name="sql" desc="SQL - friends and blacklist only">
+        <configsection name="params">
+            <configstring name="friends" desc="Friends table"></configstring>
+            <configstring name="blacklist" desc="Blacklist table"></configstring>
+        </configsection>
+       </case>
+       <case name="shared" desc="Shared - custom shared groups lists">
+       <configsection name="params">
+            <configstring name="friends" desc="Friends table"></configstring>
+            <configstring name="blacklist" desc="Blacklist table"></configstring>
+        </configsection>
+       </case>
+      <case name="facebook" desc="FaceBook"></case>
+       <case name="application" desc="Application">
+            <configsection name="params">
+                <configenum name="app" desc="The application which is providing friends">letter
+                <values>
+                    <configspecial name="list-horde-apps"/>
+                </values>
+                </configenum>
+            </configsection>
+       </case>
+   </configswitch>
+   </configsection>
+
+ <configsection name="images">
+   <configheader>Images</configheader>
+   <configvfs switchname="type">horde
+   </configvfs>
+   <configstring name="direct" desc="If should images be viewed directly out of
+                 the VFS, specify the alias pointing to the right place on your filesystem
+                 defined in your webserver. Example: /folks-images">/folks-images</configstring>
+   <configenum name="image_type" desc="What format should images be generated in? Make
+               sure that your server supports whichever format you choose!">png
+     <values>
+       <value desc="JPEG">jpeg</value>
+       <value desc="PNG">png</value>
+     </values>
+   </configenum>
+   <configinteger name="thumbnail_width" desc="Thumbnail width">80</configinteger>
+   <configinteger name="thumbnail_height" desc="Thumbnail height">80</configinteger>
+   <configinteger name="screen_width" desc="Screen width">300</configinteger>
+   <configinteger name="screen_height" desc="Screen height">300</configinteger>
+   </configsection>
+ </configtab>
+
+ <configsection name="online">
+   <configheader>Online users</configheader>
+   <configinteger name="ttl" desc="How long (in seconds) should we cache the user list?">300</configinteger>
+   <configboolean name="autoupdate" desc="Auto update users' last-click time?">false</configboolean>
+   <configboolean name="autodelete" desc="Use the application internally (rather than Cron) to delete users?">true</configboolean>
+ </configsection>
+
+   <configsection name="services">
+     <configheader>Services</configheader>
+     <configboolean name="countcron" desc="Is Cron set to update user counts?
+       Content will not be counted during page loads.">false</configboolean>
+     <configmultienum name="ignore" desc="Select applications that should be
+                      ignored in services">
+       <values>
+         <configspecial name="list-horde-apps" />
+       </values>
+     </configmultienum>
+ </configsection>
+
+ <configtab name="comments" desc="Comments">
+ <configsection name="comments">
+   <configenum name="allow" desc="Can users comment on news stories?">authenticated
+     <values>
+       <value desc="Authenticated users">authenticated</value>
+       <value desc="No one">never</value>
+       <value desc="All">all</value>
+     </values>
+   </configenum>
+   <configstring name="comment_template" desc="Template file to use for rendering comments." required="false"></configstring>
+    </configsection>
+  </configtab>
+
+ <configtab name="login" desc="Login">
+ <configsection name="login">
+   <configheader>Login System</configheader>
+     <configinteger name="tries" desc="Login tries after which show CAPTCHA?" required="false">3</configinteger>
+     <configinteger name="diff" desc="Minumum number of seconds between logins attempts?" required="false">2</configinteger>
+     <configboolean name="prelogin" desc="Pass the app submitted information
+     through the prelogin function in hooks.php before
+     processing the login?">false</configboolean>
+   </configsection>
+ </configtab>
+
+ <configtab name="notifications" desc="Notifications">
+   <configsection name="notification">
+    <configheader>Notifications</configheader>
+    <configsection name="mail">
+     <configswitch name="enabled" desc="Email">true
+       <case name="false" desc="No">
+       </case>
+       <case name="true" desc="Yes">
+         <configboolean name="users" desc="Use to send users notifications" required="false">true</configboolean>
+         <configboolean name="friends" desc="Use to send friends notifications" required="false">false</configboolean>
+         <configboolean name="admins" desc="Use to send admin notifications" required="false">false</configboolean>
+         <configstring name="from_addr" desc="Email form where send mails">info@example.com</configstring>
+       </case>
+     </configswitch>
+    </configsection>
+    <configsection name="letter">
+     <configswitch name="enabled" desc="Letter">false
+       <case name="false" desc="No">
+       </case>
+       <case name="true" desc="Yes">
+         <configboolean name="users" desc="Use to send users notifications" required="false">true</configboolean>
+         <configboolean name="friends" desc="Use to send friends notifications" required="false">true</configboolean>
+         <configboolean name="admins" desc="Use to send admin notifications" required="false">true</configboolean>
+       </case>
+     </configswitch>
+    </configsection>
+    <configsection name="facebook">
+     <configswitch name="enabled" desc="Facebook">false
+       <case name="false" desc="No">
+       </case>
+       <case name="true" desc="Yes">
+         <configboolean name="users" desc="Use to send users notifications" required="false">true</configboolean>
+         <configboolean name="friends" desc="Use to send friends notifications" required="false">true</configboolean>
+         <configboolean name="admins" desc="Use to send admin notifications" required="false">false</configboolean>
+       </case>
+     </configswitch>
+    </configsection>
+    <configsection name="tickets">
+     <configswitch name="enabled" desc="Tickets (whups)">false
+       <case name="false" desc="No">
+       </case>
+       <case name="true" desc="Yes">
+         <configboolean name="users" desc="Use to send users notifications" required="false">false</configboolean>
+         <configboolean name="friends" desc="Use to send friends notifications" required="false">false</configboolean>
+         <configboolean name="admins" desc="Use to send admin notifications" required="false">false</configboolean>
+          <configphp name="ticket_params" desc="Enter as a PHP array any
+            additional arguments for the created ticket (queue, state, priority,
+            etc). Example for Whups: array('queue' => 2, 'state' => 1, 'priority' => 1,
+            'type' => 1). You will need to look up the appropriate IDs in Whups's
+            database, or whatever is appropriate for the ticket system you are
+            using.">array()</configphp>
+       </case>
+     </configswitch>
+    </configsection>
+   </configsection>
+</configtab>
+
+ <configtab name="menu" desc="Menu">
+   <configsection name="menu">
+     <configmultienum name="apps" desc="Select any applications that should be linked in Folks's menu">
+       <values>
+         <configspecial name="list-horde-apps" />
+       </values>
+     </configmultienum>
+   </configsection>
+ </configtab>
+
+</configuration>

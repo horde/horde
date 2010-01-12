@@ -1,0 +1,31 @@
+#kronolithBody {
+    overflow-x: hidden;
+}
+#kronolithViewMonth {
+    width: 100%;
+    height: expression(document.body.clientHeight-53+'px');
+}
+#kronolithViewMonthContainer {
+    top: 45px;
+    width: 100%;
+    height: expression(kronolithViewMonth.offsetHeight-66+'px');
+}
+#kronolithLoadingmonth {
+    top: 23px;
+}
+table.kronolithView td.kronolithFirstCol {
+    width: 22px;
+}
+#kronolithViewMonthHead .kronolithFirstCol {
+    width: 20px;
+}
+.kronolithFirstCol span {
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+#kronolithViewWeek .kronolithViewHead,
+#kronolithViewDay .kronolithViewHead {
+    margin: 0;
+}
+.kronolithViewBody {
+    top: 133px;
+}

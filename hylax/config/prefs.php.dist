@@ -1,0 +1,25 @@
+<?php
+/**
+ * $Horde: incubator/hylax/config/prefs.php.dist,v 1.1 2005/07/09 20:56:18 jvandal Exp $
+ *
+ * See horde/config/prefs.php for documentation on the structure of this file.
+ */
+
+$prefGroups['display'] = array(
+    'column' => _("Other Options"),
+    'label' => _("Display Options"),
+    'desc' => _("Change display options such as how search results are sorted."),
+    'members' => array('hylax_default_view')
+);
+
+// default view
+$_prefs['hylax_default_view'] = array(
+    'value' => 'summary',
+    'locked' => false,
+    'shared' => false,
+    'type' => 'enum',
+    'enum' => array('summmary' => _("Summary"),
+                    'folder' => _("Folders"),
+                    'compose' => _("Compose")),
+    'desc' => _("Select the view to display after login:")
+);

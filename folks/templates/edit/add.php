@@ -1,0 +1,1 @@
+<?php echo $friend_form->renderActive(null, null, null, 'post')?>

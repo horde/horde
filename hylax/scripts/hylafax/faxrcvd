@@ -1,0 +1,41 @@
+#! /bin/sh
+
+#
+# faxrcvd file devID commID error-msg
+#
+if [ $# -lt 4 ]; then
+    echo "Usage: $0 file devID commID error-msg CIDNumber CIDName "
+    exit 1
+fi
+
+#test -f etc/setup.cache || {
+#    SPOOL=`pwd`
+#    cat<<EOF
+#
+#FATAL ERROR: $SPOOL/etc/setup.cache is missing!
+#
+#The file $SPOOL/etc/setup.cache is not present.  This
+#probably means the machine has not been setup using the faxsetup(8C)
+#command.  Read the documentation on setting up HylaFAX before you
+#startup a server system.
+#
+#EOF
+#    exit 1
+#}
+#. etc/setup.cache
+
+
+SCRIPT_DIR="__SCRIPT_DIR__"
+
+# Nothing to see below.
+DATA_SCRIPT="fax_save_recv_data.php"
+FAX_SCRIPT="fax_create_recv.php"
+FAX_USER=$2
+
+
+FILE="/var/spool/fax/$1"
+
+if [ -f $FILE ]; then
+    FAX_ID=`tiff2ps -a2 $FILE | sudo -u __WWW_USER__ $SCRIPT_DIR/$DATA_SCRIPT $1`
+    /usr/sbin/faxinfo $FILE | sudo -u __WWW_USER__ $SCRIPT_DIR/$FAX_SCRIPT $FAX_ID $1
+fi
