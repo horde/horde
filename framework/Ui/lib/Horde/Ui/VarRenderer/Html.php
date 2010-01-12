@@ -502,6 +502,22 @@ class Horde_Ui_VarRenderer_Html extends Horde_Ui_VarRenderer
 
     protected function _renderVarInput_datetime(&$form, &$var, &$vars)
     {
+        // FIXME?  This next part is a little bit of a hack.  We assume that
+        // the form ID is the same as the image used for the calendar selector.
+        // A little substring magic to locate the actual form elements we need.
+        // The calendar selector id is {varname}goto, "goto" being the magic.
+        // Example: img#startdategoto leaves us with startdate as the form
+        // id prefix.  Thus startdate[mon] is the month variable.
+        $js = "document.observe('Horde_Calendar:select', " .
+              "function(e) {" .
+                  "var formPrefix = e.element().id;" .
+                  "var length = formPrefix.length - 4;" .
+                  "formPrefix = formPrefix.substr(0, length);" .
+                  "$(formPrefix + '[month]').value = e.memo.getMonth() + 1;" .
+                  "$(formPrefix + '[day]').value = e.memo.getDate();" .
+                  "$(formPrefix + '[year]').value = e.memo.getFullYear();" .
+              "});\n";
+        Horde::addInlineScript($js, 'dom');
         return $this->_renderVarInput_monthdayyear($form, $var, $vars) .
             $this->_renderVarInput_hourminutesecond($form, $var, $vars);
     }
