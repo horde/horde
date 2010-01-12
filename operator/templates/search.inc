@@ -14,7 +14,6 @@ foreach ($columns as $column) {
 ?>
 </tr>
 
-<tr>
 <?php
 foreach ($data as $record) {
     echo "<tr>\n";
@@ -29,7 +28,6 @@ foreach ($data as $record) {
     echo "</tr>\n";
 }
 ?>
-</tr>
 
 </table>
 <?php echo $pager->render(); ?>
