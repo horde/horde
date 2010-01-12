@@ -53,10 +53,14 @@ class Horde_Http_Client
      *                    - request.headers
      *                    - request.method
      *                    - request.data
+     *                    - request.username
+     *                    - request.password
+     *                    - request.authenticationScheme
      *                    - request.proxyServer
      *                    - request.proxyPort
      *                    - request.proxyUser
      *                    - request.proxyPass
+     *                    - request.proxyAuthenticationScheme
      *                    - request.timeout
      */
     public function __construct($args = array())
