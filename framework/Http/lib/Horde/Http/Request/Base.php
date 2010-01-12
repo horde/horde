@@ -35,13 +35,6 @@ abstract class Horde_Http_Request_Base
     protected $_headers = array();
 
     /**
-     * Authentication data
-     * @var array
-     * @see getAuth()
-     */
-    protected $_auth;
-
-    /**
      * Request data. Can be an array of form data that will be encoded
      * automatically, or a raw string
      * @var mixed
