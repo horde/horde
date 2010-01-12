@@ -478,7 +478,7 @@ class Horde_Ui_VarRenderer_Html extends Horde_Ui_VarRenderer
 
         // TODO: use NLS to get the order right for the Rest Of The
         // World.
-        $html = $js_code = '';
+        $html = '';
         $date_parts = array('month', 'day', 'year');
         foreach ($date_parts as $part) {
             $varname = @htmlspecialchars($var->getVarName() . '[' . $part . ']', ENT_QUOTES, $this->_charset);
@@ -487,14 +487,13 @@ class Horde_Ui_VarRenderer_Html extends Horde_Ui_VarRenderer
                              $varname,
                              $this->_getActionScripts($form, $var),
                              $this->selectOptions($dates[$part], $date[$part]));
-            $js_code .= '$(\'' . $varname . '\').setValue(data.' . ($part == 'month' ? 'getMonth() + 1' : ($part == 'day' ? 'getDate()' : 'getYear()')) . ');';
         }
 
         if ($var->type->getProperty('picker') &&
             $GLOBALS['browser']->hasFeature('javascript')) {
             Horde_Ui_JsCalendar::init();
             $imgId = $this->_genID($var->getVarName(), false) . 'goto';
-            $html .= Horde::link('#', _("Select a date"), '', '', 'Horde_Calendar.open(\'' . $imgId . '\', null, function(data) { ' . $js_code . ' })') . Horde::img('calendar.png', _("Calendar"), 'id="' . $imgId . '"', $GLOBALS['registry']->getImageDir('horde')) . "</a>\n";
+            $html .= Horde::link('#', _("Select a date"), '', '', 'Horde_Calendar.open(\'' . $imgId . '\', null)') . Horde::img('calendar.png', _("Calendar"), 'id="' . $imgId . '"', $GLOBALS['registry']->getImageDir('horde')) . "</a>\n";
         }
 
         return $html;
@@ -502,20 +501,12 @@ class Horde_Ui_VarRenderer_Html extends Horde_Ui_VarRenderer
 
     protected function _renderVarInput_datetime(&$form, &$var, &$vars)
     {
-        // FIXME?  This next part is a little bit of a hack.  We assume that
-        // the form ID is the same as the image used for the calendar selector.
-        // A little substring magic to locate the actual form elements we need.
-        // The calendar selector id is {varname}goto, "goto" being the magic.
-        // Example: img#startdategoto leaves us with startdate as the form
-        // id prefix.  Thus startdate[mon] is the month variable.
         $js = "document.observe('Horde_Calendar:select', " .
               "function(e) {" .
-                  "var formPrefix = e.element().id;" .
-                  "var length = formPrefix.length - 4;" .
-                  "formPrefix = formPrefix.substr(0, length);" .
-                  "$(formPrefix + '[month]').value = e.memo.getMonth() + 1;" .
-                  "$(formPrefix + '[day]').value = e.memo.getDate();" .
-                  "$(formPrefix + '[year]').value = e.memo.getFullYear();" .
+                  "var elt = e.element();" .
+                  "elt.previous('SELECT[name$=\"[month]\"]').setValue(e.memo.getMonth() + 1);" .
+                  "elt.previous('SELECT[name$=\"[day]\"').setValue(e.memo.getDate());" .
+                  "elt.previous('SELECT[name$=\"[year]\"').setValue(e.memo.getFullYear());" .
               "});\n";
         Horde::addInlineScript($js, 'dom');
         return $this->_renderVarInput_monthdayyear($form, $var, $vars) .
