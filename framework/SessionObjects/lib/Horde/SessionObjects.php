@@ -4,7 +4,7 @@
  * (usually, but not necessarily, objects) in the current user's
  * session.
  *
- * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If youq
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

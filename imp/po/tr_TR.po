@@ -1,6 +1,6 @@
 # Turkish translations for Ýmp package
 # Posta paketi için Türkçe çeviriler.
-# Copyright 2008-2009 The Horde Project
+# Copyright 2008-2010 The Horde Project
 # This file is distributed under the same license as the Ýmp package.
 # horde-tr at metu.edu.tr, 2005-2008.
 #

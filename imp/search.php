@@ -18,7 +18,7 @@
  * 'show_unsub' - (integer) If set, return a JSON object with folder
  *                information used to create the folder list.
  *
- * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

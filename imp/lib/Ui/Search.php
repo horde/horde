@@ -3,7 +3,7 @@
  * The IMP_Ui_Search:: class is designed to provide a place to store common
  * code shared among IMP's various UI views for the search page.
  *
- * Copyright 2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

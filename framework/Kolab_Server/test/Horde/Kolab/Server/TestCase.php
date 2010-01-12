@@ -23,7 +23,7 @@ require_once dirname(__FILE__) . '/Constraints/Searchuid.php';
 /**
  * Skip LDAP based tests if we don't have ldap or Net_LDAP2.
  *
- * Copyright 2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

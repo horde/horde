@@ -1,6 +1,6 @@
 # translation of pt_BR.po to Português brasileiro
 # Portuguese translations for Horde package.
-# Copyright 2008-2009 The Horde Project
+# Copyright 2008-2010 The Horde Project
 # This file is distributed under the same license as the Horde package.
 #
 # Automatically generated, 2008.

@@ -20,7 +20,7 @@ require_once 'Horde/Autoloader.php';
  * A test suite for the Horde_History:: interface. DOX format is suggested for
  * the PHPUnit test report.
  *
- * Copyright 2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -537,7 +537,7 @@ EOL;
 /**
  * A dummy database connection producing nothing bot errors.
  *
- * Copyright 2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

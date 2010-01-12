@@ -2,7 +2,7 @@
 /**
  * Horde_Imap_Client_Utils provides utility functions for the Horde IMAP client.
  *
- * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
  * getBaseSubject() code adapted from imap-base-subject.c (Dovecot 1.2)
  *   Original code released under the LGPL v2.1

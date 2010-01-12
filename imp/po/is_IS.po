@@ -1,5 +1,5 @@
 # Íslenska fyrir IMP 4.0.4
-# Copyright 2002-2009 The Horde Project.
+# Copyright 2002-2010 The Horde Project.
 #
 msgid ""
 msgstr ""

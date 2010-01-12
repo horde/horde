@@ -3,7 +3,7 @@
  * The Horde_Cipher_BlockMode_Ecb:: class implements Horde_Cipher_BlockMode
  * using the Electronic Code Book method of encrypting blocks of data.
  *
- * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.

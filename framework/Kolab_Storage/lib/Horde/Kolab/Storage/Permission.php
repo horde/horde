@@ -25,7 +25,7 @@ require_once 'Horde/Group.php';
  * The Horde_Kolab_Storage_Permission provides a bridge between Horde Permission
  * handling and the IMAP permission system used on the Kolab server.
  *
- * Copyright 2006-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2006-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
