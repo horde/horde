@@ -73,6 +73,12 @@ abstract class Horde_Http_Request_Base
     protected $_proxyServer = null;
 
     /**
+     * Proxy port
+     * @var string
+     */
+    protected $_proxyPort = null;
+
+    /**
      * Proxy username
      * @var string
      */

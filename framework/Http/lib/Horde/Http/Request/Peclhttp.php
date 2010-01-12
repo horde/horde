@@ -75,6 +75,9 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
         // Proxy settings
         if ($this->proxyServer) {
             $httpOptions['proxyhost'] = $this->proxyServer;
+            if ($this->proxyPort) {
+                $httpOptions['proxyport'] = $this->proxyPort;
+            }
             if ($this->proxyUsername && $this->proxyPassword) {
                 $httpOptions['proxyauth'] = $this->proxyUsername . ':' . $this->proxyPassword;
                 $httpOptions['proxyauthtype'] = $this->_httpAuthScheme($this->proxyAuthenticationScheme);

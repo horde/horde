@@ -65,6 +65,9 @@ class Horde_Http_Request_Curl extends Horde_Http_Request_Base
         // Proxy settings
         if ($this->proxyServer) {
             curl_setopt($curl, CURLOPT_PROXY, $this->proxyServer);
+            if ($this->proxyPort) {
+                curl_setopt($curl, CURLOPT_PROXYPORT, $this->proxyPort);
+            }
             if ($this->proxyUsername && $this->proxyPassword) {
                 curl_setopt($curl, CURLOPT_PROXYUSERPWD, $this->proxyUsername . ':' . $this->proxyPassword);
                 curl_setopt($curl, CURLOPT_PROXYAUTH, $this->_httpAuthScheme($this->proxyAuthenticationScheme));

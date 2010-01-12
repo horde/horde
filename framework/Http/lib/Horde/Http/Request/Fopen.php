@@ -45,6 +45,9 @@ class Horde_Http_Request_Fopen extends Horde_Http_Request_Base
         // Proxy settings
         if ($this->proxyServer) {
             $opts['http']['proxy'] = 'tcp://' . $this->proxyServer;
+            if ($this->proxyPort) {
+                $opts['http']['proxy'] .= ':' . $this->proxyPort;
+            }
             $opts['http']['request_fulluri'] = true;
             if ($this->proxyUsername && $this->proxyPassword) {
                 // @TODO check $this->proxyAuthenticationScheme

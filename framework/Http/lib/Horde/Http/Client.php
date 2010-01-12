@@ -54,6 +54,7 @@ class Horde_Http_Client
      *                    - request.method
      *                    - request.data
      *                    - request.proxyServer
+     *                    - request.proxyPort
      *                    - request.proxyUser
      *                    - request.proxyPass
      *                    - request.timeout
