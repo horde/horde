@@ -46,17 +46,17 @@ class Horde_Http_Client
      * Horde_Http_Client constructor.
      *
      * @param array $args Any Http_Client settings to initialize in the
-     * constructor. Available settings are:
-     *     client.httpMethodOverride
-     *     client.proxyServer
-     *     client.proxyUser
-     *     client.proxyPass
-     *     client.timeout
-     *     request
-     *     request.uri
-     *     request.headers
-     *     request.method
-     *     request.data
+     *                    constructor. Available settings are:
+     *                    - client.httpMethodOverride
+     *                    - request
+     *                    - request.uri
+     *                    - request.headers
+     *                    - request.method
+     *                    - request.data
+     *                    - request.proxyServer
+     *                    - request.proxyUser
+     *                    - request.proxyPass
+     *                    - request.timeout
      */
     public function __construct($args = array())
     {
