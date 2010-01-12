@@ -37,14 +37,14 @@ class Operator_Driver_asterisksql extends Operator_Driver {
      *
      * @var array
      */
-    var $_params = array();
+    protected $_params = array();
 
     /**
      * Handle for the current database connection.
      *
      * @var DB
      */
-    var $_db;
+    protected $_db;
 
     /**
      * Handle for the current database connection, used for writing. Defaults
@@ -52,21 +52,21 @@ class Operator_Driver_asterisksql extends Operator_Driver {
      *
      * @var DB
      */
-    var $_write_db;
+    protected $_write_db;
 
     /**
      * Boolean indicating whether or not we're connected to the SQL server.
      *
      * @var boolean
      */
-    var $_connected = false;
+    protected $_connected = false;
 
     /**
      * Constructs a new SQL storage object.
      *
      * @param array $params  A hash containing connection parameters.
      */
-    function Operator_Driver_asterisksql($params = array())
+    public function __construct($params = array())
     {
         $this->_params = $params;
     }
@@ -78,7 +78,7 @@ class Operator_Driver_asterisksql extends Operator_Driver {
      *                actual call records.
      * @throws Operator_Exception|Horde_Date_Exception
      */
-    function _getRecords($start, $end, $accountcode = null, $dcontext = null,
+    protected function _getRecords($start, $end, $accountcode = null, $dcontext = null,
                          $rowstart = 0, $rowlimit = 100)
     {
 
@@ -175,7 +175,7 @@ class Operator_Driver_asterisksql extends Operator_Driver {
      *                              statistics for calls placed that month.
      * @throws Operator_Exception|Horde_Date_Exception
      */
-    function _getMonthlyCallStats($start, $end, $accountcode = null,
+    protected function _getMonthlyCallStats($start, $end, $accountcode = null,
                                  $dcontext = null)
     {
         if (!is_a($start, 'Horde_Date') || !is_a($end, 'Horde_Date')) {
@@ -323,7 +323,7 @@ class Operator_Driver_asterisksql extends Operator_Driver {
         return $stats;
     }
 
-    function getAccountCodes()
+    public function getAccountCodes()
     {
         /* Make sure we have a valid database connection. */
         $this->_connect();
@@ -345,7 +345,7 @@ class Operator_Driver_asterisksql extends Operator_Driver {
      *
      * @return boolean  True on success; exits (Horde::fatal()) on error.
      */
-    function _connect()
+    protected function _connect()
     {
         if ($this->_connected) {
             return true;
@@ -414,7 +414,7 @@ class Operator_Driver_asterisksql extends Operator_Driver {
      *
      * @return boolean  True on success, false on failure.
      */
-    function _disconnect()
+    protected function _disconnect()
     {
         if ($this->_connected) {
             $this->_connected = false;

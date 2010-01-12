@@ -15,7 +15,7 @@
 
 class SearchCDRForm extends Horde_Form {
 
-    function SearchCDRForm($title, &$vars)
+    public function __construct($title, &$vars)
     {
         parent::Horde_Form($vars, $title);
 

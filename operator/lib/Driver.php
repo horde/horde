@@ -23,7 +23,7 @@ class Operator_Driver {
      *                actual call records.
      * @throws Operator_Exception
      */
-    function getRecords($start, $end, $accountcode = null, $dcontext = null,
+    public function getRecords($start, $end, $accountcode = null, $dcontext = null,
                          $rowstart = 0, $rowlimit = 100)
     {
         // Start Date
@@ -74,7 +74,7 @@ class Operator_Driver {
      *                              statistics for calls placed that month.
      * @throws Operator_Exception|Horde_Date_Exception
      */
-    function getMonthlyCallStats($start, $end, $accountcode = null,
+    public function getMonthlyCallStats($start, $end, $accountcode = null,
                                  $dcontext = null){
         if (empty($accountcode) || $accountcode == '%') {
             $permentry = 'operator:accountcodes';
@@ -108,7 +108,7 @@ class Operator_Driver {
      * @return Operator_Driver  The newly created concrete Operator_Driver
      *                          instance, or false on an error.
      */
-    function factory($driver = null, $params = null)
+    public function factory($driver = null, $params = null)
     {
         if ($driver === null) {
             $driver = $GLOBALS['conf']['storage']['driver'];
