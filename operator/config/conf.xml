@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-<!-- $Horde: incubator/operator/config/conf.xml,v 1.2 2008/07/05 14:38:23 bklang Exp $ -->
 <configuration>
  <configsection name="storage">
   <configheader>Storage System Settings</configheader>
@@ -20,10 +19,12 @@
 
  <configsection name="menu">
   <configheader>Menu Settings</configheader>
+  <configboolean name="export" desc="Should we display an Export
+  link in Operator's menu?">true</configboolean>
   <configmultienum name="apps" desc="Select any applications that should be
   linked in Operator's menu">
    <values>
-    <configspecial name="list-horde-apps" />
+    <configspecial name="list-horde-apps"/>
    </values>
   </configmultienum>
  </configsection>

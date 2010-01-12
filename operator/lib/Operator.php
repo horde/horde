@@ -2,8 +2,6 @@
 /**
  * Operator Base Class.
  *
- * $Horde: incubator/operator/lib/Operator.php,v 1.18 2009/12/01 12:52:49 jan Exp $
- *
  * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -17,13 +15,18 @@ class Operator {
     /**
      * Build Operator's list of menu items.
      */
-    function getMenu($returnType = 'object')
+    public static function getMenu($returnType = 'object')
     {
         global $conf, $registry, $browser, $print_link;
 
         $menu = new Horde_Menu(Horde_Menu::MASK_ALL);
-        $menu->add(Horde::applicationUrl('viewgraph.php'), _("View Graphs"), 'graphs.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
-        $menu->add(Horde::applicationUrl('search.php'), _("Search"), 'search.png', $registry->getImageDir('horde'));
+        $menu->add(Horde::applicationUrl('viewgraph.php'), _("_View Graphs"), 'graphs.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
+        $menu->add(Horde::applicationUrl('search.php'), _("_Search"), 'search.png', $registry->getImageDir('horde'));
+
+        /* Export */
+        if ($GLOBALS['conf']['menu']['export']) {
+            $menu->add(Horde::applicationUrl('export.php'), _("_Export"), 'data.png', $GLOBALS['registry']->getImageDir('horde'));
+        }
 
         if ($returnType == 'object') {
             return $menu;
@@ -32,7 +35,7 @@ class Operator {
         }
     }
 
-    function getColumns()
+    public static function getColumns()
     {
         #static $columns = array(
         $columns = array(
@@ -59,13 +62,13 @@ class Operator {
     }
 
 
-    function getColumnName($column)
+    public static function getColumnName($column)
     {
         $columns = Operator::getColumns();
         return $columns[$column];
     }
 
-    function getAMAFlagName($flagid)
+    public static function getAMAFlagName($flagid)
     {
         // See <asterisk/cdr.h> for definitions
         switch($flagid) {
@@ -86,13 +89,13 @@ class Operator {
      *
      * @return array  List of valid account codes.
      */
-    function getAccountCodes($permfilter = false)
+    public static function getAccountCodes($permfilter = false)
     {
         global $operator;
         if (empty($operator) || empty($operator->driver)) {
             $operator = new Operator_Application(array('init' => true));
         }
-        
+
         // Set up arrays for filtering
         $keys = $values = $operator->driver->getAccountCodes();
 
@@ -146,32 +149,41 @@ class Operator {
         return $accountcodes;
     }
 
-    function getGraphInfo($graphid)
+    public static function getGraphInfo($graphid = null)
     {
-        switch($graphid) {
-        case 'numcalls':
-            return array(
-                'title' => _("Number of Calls by Month"),
-                'axisX' => _("Month"),
-                'axisY' => _("Number of Calls"),
-            );
-            break;
-         case 'minutes':
-            return array(
-                'title' => _("Total Minutes Used by Month"),
-                'axisX' => _("Month"),
-                'axisY' => _("Minute"),
-                'numberformat' => '%0.1f',
-            );
-            break;
-         case 'failed':
-            return array(
-                'title' => _("Number of Failed Calls by Month"),
-                'axisX' => _("Month"),
-                'axisY' => _("Failed Calls"),
-            );
-            break;
-         }
+        static $graphs;
+
+        if (empty($graphs)) {
+            $graphs = array(
+                'numcalls' => array(
+                    'title' => _("Number of Calls by Month"),
+                    'axisX' => _("Month"),
+                    'axisY' => _("Number of Calls"),
+                ),
+                'minutes' => array(
+                    'title' => _("Total Minutes Used by Month"),
+                    'axisX' => _("Month"),
+                    'axisY' => _("Minute"),
+                    'numberformat' => '%0.1f',
+                ),
+
+                'failed' => array(
+                    'title' => _("Number of Failed Calls by Month"),
+                    'axisX' => _("Month"),
+                    'axisY' => _("Failed Calls"),
+                ),
+             );
+        }
+
+        if ($graphid === null) {
+            return $graphs;
+        }
+
+        if (isset($graphs[$graphid])) {
+            return $graphs[$graphid];
+        } else {
+            throw new Operator_Exception(_("Invalid graph type."));
+        }
     }
 
 }

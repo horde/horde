@@ -79,7 +79,7 @@ class Operator_Driver_asterisksql extends Operator_Driver {
      * @throws Operator_Exception|Horde_Date_Exception
      */
     protected function _getRecords($start, $end, $accountcode = null, $dcontext = null,
-                         $rowstart = 0, $rowlimit = 100)
+                         $rowstart = 0, $rowlimit = null)
     {
 
         // Use the query to make the MySQL driver look like the CDR-CSV driver
@@ -95,7 +95,7 @@ class Operator_Driver_asterisksql extends Operator_Driver {
             Horde::logMessage('Invalid start row requested.', __FILE__, __LINE__, PEAR_LOG_ERR);
             throw new Operator_Exception(_("Internal error.  Details have been logged for the administrator."));
         }
-        if (!is_numeric($rowlimit)) {
+        if (!is_null($rowlimit) && !is_numeric($rowlimit)) {
             Horde::logMessage('Invalid row limit requested.', __FILE__, __LINE__, PEAR_LOG_ERR);
             throw new Operator_Exception(_("Internal error.  Details have been logged for the administrator."));
         }
@@ -130,7 +130,11 @@ class Operator_Driver_asterisksql extends Operator_Driver {
         Horde::logMessage(sprintf('Operator_Driver_asterisksql::getData(): %s', $sql), __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         /* Execute the query. */
-        $res = $this->_db->limitQuery($sql, $rowstart, $rowlimit, $values);
+        if (is_null($rowlimit)) {
+            $res = $this->_db->query($sql, $values);
+        } else {
+            $res = $this->_db->limitQuery($sql, $rowstart, $rowlimit, $values);
+        }
         if (is_a($res, 'PEAR_Error')) {
             Horde::logMessage($res, __FILE__, __LINE__, PEAR_LOG_ERR);
             throw new Operator_Exception(_("Internal error.  Details have been logged for the administrator."));

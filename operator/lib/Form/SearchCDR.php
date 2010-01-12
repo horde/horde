@@ -17,7 +17,7 @@ class SearchCDRForm extends Horde_Form {
 
     public function __construct($title, &$vars)
     {
-        parent::Horde_Form($vars, $title);
+        parent::__construct($vars, $title);
 
         // FIXME: Generate a list of clients from Turba?
         //$clients =
@@ -66,9 +66,68 @@ class SearchCDRForm extends Horde_Form {
         $params = array($start_year, $end_year, $picker, $format_in,
                         $format_out, $show_seconds);
 
-        $this->addVariable(_("Account Code"), 'accountcode', 'enum', false, false, null, array($accountcodes));
-        $this->addVariable(_("Destination Context"), 'dcontext', 'text', false, false, _("An empty destination context will match all destination contexts."));
-        $this->addVariable(_("Start Date & Time"), 'startdate', 'datetime', true, false, null, $params);
-        $this->addVariable(_("End Date & Time"), 'enddate', 'datetime', true, false, null, $params);
+        $this->addVariable(_("Account Code"), 'accountcode', 'enum', false,
+                           false, null, array($accountcodes));
+        $this->addVariable(_("Destination Context"), 'dcontext', 'text', false,
+                           false, _("An empty destination context will match all destination contexts."));
+        $this->addVariable(_("Start Date & Time"), 'startdate', 'datetime',
+                           true, false, null, $params);
+        $this->addVariable(_("End Date & Time"), 'enddate', 'datetime', true,
+                           false, null, $params);
+    }
+}
+
+class ExportCDRForm extends SearchCDRForm
+{
+    public function __construct($title, &$vars)
+    {
+        parent::__construct($title, $vars);
+
+        $formats = array(
+            Horde_Data::EXPORT_CSV => 'Comma-Delimited (CSV)',
+            Horde_Data::EXPORT_TSV => 'Tab-Delimited',
+        );
+
+        $this->addVariable(_("Data Format"), 'format', 'enum', true, false,
+                           null, array($formats));
+    }
+
+    public function execute()
+    {
+        global $operator;
+        if (empty($operator) || empty($operator->driver)) {
+            $operator = new Operator_Application(array('init' => true));
+        }
+
+        $start = new Horde_Date($this->_vars->get('startdate'));
+        $end = new Horde_Date($this->_vars->get('enddate'));
+        $accountcode = $this->_vars->get('accountcode');
+        $dcontects = $this->_vars->get('dcontext');
+        if (empty($dcontext)) {
+            $dcontext = '%';
+        }
+        list($stats, $data) = $operator->driver->getRecords($start, $end,
+                                                            $accountcode,
+                                                            $dcontext, 0,
+                                                            null);
+        switch($this->_vars->get('format')) {
+        case Horde_Data::EXPORT_CSV:
+            $ext = 'csv';
+            $fmt = Horde_Data::singleton('csv');
+            break;
+
+        case Horde_Data::EXPORT_TSV:
+            $ext = 'tsv';
+            $fmt = Horde_Data::singleton('tsv');
+            break;
+
+        default:
+            throw new Operator_Exception(_("Invalid data format requested."));
+            break;
+        }
+
+        $filename = 'export-' . uniqid() . '.' . $ext;
+        $fmt->exportFile($filename, $data, true);
+        exit;
     }
 }
