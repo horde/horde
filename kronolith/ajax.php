@@ -624,15 +624,15 @@ try {
         }
         $driver = Kronolith_Driver::factory('Ical', $params);
         $driver->open(Horde_Util::getFormData('url'));
-        $ical = $driver->getRemoteCalendar(false);
-        if ($ical instanceof PEAR_Error) {
-            if ($ical->getCode() == 401) {
+        try {
+            $ical = $driver->getRemoteCalendar(false);
+        } catch (Kronolith_Exception $e) {
+            if ($e->getCode() == 401) {
                 $result = new stdClass;
                 $result->auth = true;
                 break;
             }
-            $notification->push($ical, 'horde.error');
-            break;
+            throw $e;
         }
         $result = new stdClass;
         $result->success = true;
