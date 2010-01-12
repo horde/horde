@@ -971,8 +971,8 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
 
     public function testTypeToSqlInt()
     {
-        $result = $this->_conn->typeToSql('integer', '11');
-        $this->assertEquals('int(11)', $result);
+        $result = $this->_conn->typeToSql('integer');
+        $this->assertEquals('int', $result);
     }
 
     public function testTypeToSqlIntLimit()

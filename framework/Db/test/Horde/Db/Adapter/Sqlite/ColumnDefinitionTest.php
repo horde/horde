@@ -84,21 +84,6 @@ class Horde_Db_Adapter_Sqlite_ColumnDefinitionTest extends PHPUnit_Framework_Tes
         $this->assertEquals('"col_name" decimal(5, 2)', $col->toSql());
     }
 
-    public function testToSqlUnsigned()
-    {
-        $col = new Horde_Db_Adapter_Base_ColumnDefinition(
-            $this->_conn, 'col_name', 'integer', null, null, null, true
-        );
-        $this->assertEquals('"col_name" int UNSIGNED', $col->toSql());
-
-        // set attribute instead
-        $col = new Horde_Db_Adapter_Base_ColumnDefinition(
-            $this->_conn, 'col_name', 'integer'
-        );
-        $col->setUnsigned(true);
-        $this->assertEquals('"col_name" int UNSIGNED', $col->toSql());
-    }
-
     public function testToSqlNotNull()
     {
         $col = new Horde_Db_Adapter_Base_ColumnDefinition(

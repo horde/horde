@@ -462,6 +462,7 @@ class Horde_Db_Adapter_MysqliTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('integer', $col->getType());
         $this->assertEquals(false,     $col->isNull());
         $this->assertEquals(10,        $col->getLimit());
+        $this->assertEquals(true,      $col->isUnsigned());
         $this->assertEquals('',        $col->getDefault());
         $this->assertEquals('int(10) unsigned', $col->getSqlType());
         $this->assertEquals(false,     $col->isText());
@@ -798,6 +799,26 @@ class Horde_Db_Adapter_MysqliTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('decimal(5,2)', $afterChange->getSqlType());
     }
 
+    public function testChangeColumnUnsigned()
+    {
+        $table = $this->_conn->createTable('testings');
+          $table->column('foo', 'integer');
+        $table->end();
+
+        $beforeChange = $this->_getColumn('testings', 'foo');
+        $this->assertFalse($beforeChange->isUnsigned());
+
+        $this->_conn->execute("INSERT INTO testings (id, foo) VALUES (1, -1)");
+
+        $this->_conn->changeColumn('testings', 'foo', 'integer', array('unsigned' => true));
+
+        $afterChange = $this->_getColumn('testings', 'foo');
+        $this->assertTrue($afterChange->isUnsigned());
+
+        $row = (object)$this->_conn->selectOne('SELECT * FROM testings');
+        $this->assertEquals(0, $row->foo);
+    }
+
     public function testRenameColumn()
     {
         $this->_createTestUsersTable();
@@ -1063,8 +1084,14 @@ class Horde_Db_Adapter_MysqliTest extends PHPUnit_Framework_TestCase
 
     public function testTypeToSqlInt()
     {
-        $result = $this->_conn->typeToSql('integer', '11');
+        $result = $this->_conn->typeToSql('integer');
         $this->assertEquals('int(11)', $result);
+    }
+
+    public function testTypeToSqlIntUnsigned()
+    {
+        $result = $this->_conn->typeToSql('integer', null, null, null, true);
+        $this->assertEquals('int(10) UNSIGNED', $result);
     }
 
     public function testTypeToSqlIntLimit()

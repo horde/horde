@@ -691,10 +691,6 @@ abstract class Horde_Db_Adapter_Base_Schema
             }
         }
 
-        if (!empty($unsigned)) {
-            $sql .= ' UNSIGNED';
-        }
-
         return $sql;
     }
 

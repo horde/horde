@@ -450,10 +450,9 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
         $limit     = isset($options['limit'])     ? $options['limit']     : null;
         $precision = isset($options['precision']) ? $options['precision'] : null;
         $scale     = isset($options['scale'])     ? $options['scale']     : null;
-        $unsigned  = isset($options['unsigned'])  ? $options['unsigned']  : null;
 
         // Add the column.
-        $this->execute('ALTER TABLE '.$this->quoteTableName($tableName).' ADD COLUMN '.$this->quoteColumnName($columnName).' '.$this->typeToSql($type, $limit, $precision, $scale, $unsigned));
+        $this->execute('ALTER TABLE '.$this->quoteTableName($tableName).' ADD COLUMN '.$this->quoteColumnName($columnName).' '.$this->typeToSql($type, $limit, $precision, $scale));
 
         $default = isset($options['default']) ? $options['default'] : null;
         $notnull = isset($options['null']) && $options['null'] === false;
@@ -473,12 +472,11 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
         $limit     = isset($options['limit'])     ? $options['limit']     : null;
         $precision = isset($options['precision']) ? $options['precision'] : null;
         $scale     = isset($options['scale'])     ? $options['scale']     : null;
-        $unsigned  = isset($options['unsigned'])  ? $options['unsigned']  : null;
 
         $quotedTableName = $this->quoteTableName($tableName);
 
         try {
-            $this->execute('ALTER TABLE '.$quotedTableName.' ALTER COLUMN '.$this->quoteColumnName($columnName).' TYPE '.$this->typeToSql($type, $limit, $precision, $scale, $unsigned));
+            $this->execute('ALTER TABLE '.$quotedTableName.' ALTER COLUMN '.$this->quoteColumnName($columnName).' TYPE '.$this->typeToSql($type, $limit, $precision, $scale));
         } catch (Horde_Db_Exception $e) {
             // This is PostgreSQL 7.x, or the old type could not be coerced to
             // the new type, so we have to use a more arcane way of doing it.
@@ -503,9 +501,9 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
                 $this->addColumn($tableName, $tmpColumnName, $type, $options);
 
                 if ($oldType == 'boolean') {
-                    $this->execute('UPDATE '.$quotedTableName.' SET '.$this->quoteColumnName($tmpColumnName).' = CAST(CASE WHEN '.$this->quoteColumnName($columnName).' IS TRUE THEN 1 ELSE 0 END AS '.$this->typeToSql($type, $limit, $precision, $scale, $unsigned).')');
+                    $this->execute('UPDATE '.$quotedTableName.' SET '.$this->quoteColumnName($tmpColumnName).' = CAST(CASE WHEN '.$this->quoteColumnName($columnName).' IS TRUE THEN 1 ELSE 0 END AS '.$this->typeToSql($type, $limit, $precision, $scale).')');
                 } else {
-                    $this->execute('UPDATE '.$quotedTableName.' SET '.$this->quoteColumnName($tmpColumnName).' = CAST('.$this->quoteColumnName($columnName).' AS '.$this->typeToSql($type, $limit, $precision, $scale, $unsigned).')');
+                    $this->execute('UPDATE '.$quotedTableName.' SET '.$this->quoteColumnName($tmpColumnName).' = CAST('.$this->quoteColumnName($columnName).' AS '.$this->typeToSql($type, $limit, $precision, $scale).')');
                 }
 
                 $this->removeColumn($tableName, $columnName);
@@ -566,23 +564,21 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function typeToSql($type, $limit = null, $precision = null, $scale = null, $unsigned = null)
     {
-        if ($type != 'integer') return parent::typeToSql($type, $limit, $precision, $scale, $unsigned);
-
-        $unsigned = !empty($unsigned) ? ' UNSIGNED' : '';
+        if ($type != 'integer') return parent::typeToSql($type, $limit, $precision, $scale);
 
         switch ($limit) {
         case 1:
         case 2:
-            return 'smallint' . $unsigned;
+            return 'smallint';
         case 3:
         case 4:
         case null:
-            return 'integer' . $unsigned;
+            return 'integer';
         case 5:
         case 6:
         case 7:
         case 8:
-            return 'bigint' . $unsigned;
+            return 'bigint';
         default:
             throw new Horde_Db_Exception("No integer type has byte size $limit. Use a numeric with precision 0 instead.");
         }

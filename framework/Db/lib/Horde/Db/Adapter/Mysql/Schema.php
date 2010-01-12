@@ -400,6 +400,36 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
     }
 
     /**
+     * The sql for this column type
+     *
+     * @param   string  $type
+     * @param   string  $limit
+     */
+    public function typeToSql($type, $limit = null, $precision = null, $scale = null, $unsigned = null)
+    {
+        // If there is no explicit limit, adjust $nativeLimit for unsigned
+        // integers.
+        if ($type == 'integer' && !empty($unsigned) && empty($limit)) {
+            $natives = $this->nativeDatabaseTypes();
+            $native = isset($natives[$type]) ? $natives[$type] : null;
+            if (empty($native)) { return $type; }
+
+            $nativeLimit = is_array($native) ? $native['limit'] : null;
+            if (is_integer($nativeLimit)) {
+                $limit = $nativeLimit - 1;
+            }
+        }
+
+        $sql = parent::typeToSql($type, $limit, $precision, $scale, $unsigned);
+
+        if (!empty($unsigned)) {
+            $sql .= ' UNSIGNED';
+        }
+
+        return $sql;
+    }
+
+    /**
      * Add AFTER option
      *
      * @param   string  $sql
