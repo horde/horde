@@ -57,6 +57,7 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
     /**
      * Send this HTTP request
      *
+     * @throws Horde_Http_Exception
      * @return Horde_Http_Response_Base
      */
     public function send()
@@ -109,6 +110,7 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
      * Translate a Horde_Http::AUTH_* constant to HTTP_AUTH_*
      *
      * @param const
+     * @throws Horde_Http_Exception
      * @return const
      */
     protected function _httpAuthScheme($httpAuthScheme)

@@ -17,13 +17,14 @@
 class Horde_Http_Response_Peclhttp extends Horde_Http_Response_Base
 {
     /**
-     * HttpMessage object
+     * HttpMessage object.
+     *
      * @var HttpMessage
      */
     protected $_message;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param string $uri
      * @param HttpMessage $message
@@ -33,9 +34,7 @@ class Horde_Http_Response_Peclhttp extends Horde_Http_Response_Base
         $this->uri = $uri;
         $this->httpVersion = $message->getHttpVersion();
         $this->code = $message->getResponseCode();
-
         $this->_message = $message;
-
         foreach ($message->getHeaders() as $k => $v) {
             $this->headers[strtolower($k)] = $v;
         }

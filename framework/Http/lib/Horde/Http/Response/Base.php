@@ -17,34 +17,38 @@
 abstract class Horde_Http_Response_Base
 {
     /**
-     * Fetched URI
+     * Fetched URI.
+     *
      * @var string
      */
     public $uri;
 
     /**
-     * HTTP protocol version that was used
+     * HTTP protocol version that was used.
+     *
      * @var float
      */
     public $httpVersion;
 
     /**
-     * HTTP response code
+     * HTTP response code.
+     *
      * @var integer
      */
     public $code;
 
     /**
-     * Response headers
+     * Response headers.
+     *
      * @var array
      */
     public $headers;
 
     /**
-     * Parse an array of response headers, mindful of line
-     * continuations, etc.
+     * Parses an array of response headers, mindful of line continuations, etc.
      *
      * @param array $headers
+     *
      * @return array
      */
     protected function _parseHeaders($headers)
@@ -57,10 +61,11 @@ abstract class Horde_Http_Response_Base
 
         $lastHeader = null;
         foreach ($headers as $headerLine) {
-            // stream_get_meta returns all headers generated while processing a
-            // request, including ones for redirects before an eventually successful
-            // request. We just want the last one, so whenever we hit a new HTTP
-            // header, throw out anything parsed previously and start over.
+            // stream_get_meta returns all headers generated while processing
+            // a request, including ones for redirects before an eventually
+            // successful request. We just want the last one, so whenever we
+            // hit a new HTTP header, throw out anything parsed previously and
+            // start over.
             if (preg_match('/^HTTP\/(\d.\d) (\d{3})/', $headerLine, $httpMatches)) {
                 $this->httpVersion = $httpMatches[1];
                 $this->code = (int)$httpMatches[2];
@@ -99,15 +104,16 @@ abstract class Horde_Http_Response_Base
     }
 
     /**
-     * Return the body of the HTTP response.
+     * Returns the body of the HTTP response.
      *
+     * @throws Horde_Http_Exception
      * @return string HTTP response body.
      */
     abstract public function getBody();
 
     /**
-     * Return a stream pointing to the response body that can be used
-     * with all standard PHP stream functions.
+     * Returns a stream pointing to the response body that can be used with all
+     * standard PHP stream functions.
      */
     public function getStream()
     {
@@ -116,9 +122,10 @@ abstract class Horde_Http_Response_Base
     }
 
     /**
-     * Get the value of a single response header.
+     * Returns the value of a single response header.
      *
-     * @param string $header Header name to get ('Content-Type', 'Content-Length', etc.). This is case sensitive.
+     * @param string $header  Header name to get ('Content-Type',
+     *                        'Content-Length', etc.). This is case sensitive.
      *
      * @return string HTTP header value.
      */

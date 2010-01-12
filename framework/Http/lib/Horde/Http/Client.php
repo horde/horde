@@ -88,6 +88,7 @@ class Horde_Http_Client
     /**
      * Send a GET request
      *
+     * @throws Horde_Http_Exception
      * @return Horde_Http_Response_Base
      */
     public function get($uri = null, $headers = array())
@@ -98,6 +99,7 @@ class Horde_Http_Client
     /**
      * Send a POST request
      *
+     * @throws Horde_Http_Exception
      * @return Horde_Http_Response_Base
      */
     public function post($uri = null, $data = null, $headers = array())
@@ -108,6 +110,7 @@ class Horde_Http_Client
     /**
      * Send a PUT request
      *
+     * @throws Horde_Http_Exception
      * @return Horde_Http_Response_Base
      */
     public function put($uri = null, $data = null, $headers = array())
@@ -123,6 +126,7 @@ class Horde_Http_Client
     /**
      * Send a DELETE request
      *
+     * @throws Horde_Http_Exception
      * @return Horde_Http_Response_Base
      */
     public function delete($uri = null, $headers = array())
@@ -139,6 +143,7 @@ class Horde_Http_Client
      * Send a HEAD request
      * @TODO
      *
+     * @throws Horde_Http_Exception
      * @return  ? Probably just the status
      */
     public function head($uri = null, $headers = array())
@@ -149,14 +154,15 @@ class Horde_Http_Client
     /**
      * Send an HTTP request
      *
-     * @param string $method HTTP request method (GET, PUT, etc.)
-     * @param string $uri URI to request, if different from $this->uri
-     * @param mixed $data Request data. Can be an array of form data that will be
-     *                    encoded automatically, or a raw string.
-     * @param array $headers Any headers specific to this request. They will
-     *                       be combined with $this->_headers, and override
-     *                       headers of the same name for this request only.
+     * @param string $method  HTTP request method (GET, PUT, etc.)
+     * @param string $uri     URI to request, if different from $this->uri
+     * @param mixed $data     Request data. Can be an array of form data that
+     *                        will be encoded automatically, or a raw string.
+     * @param array $headers  Any headers specific to this request. They will
+     *                        be combined with $this->_headers, and override
+     *                        headers of the same name for this request only.
      *
+     * @throws Horde_Http_Exception
      * @return Horde_Http_Response_Base
      */
     public function request($method, $uri = null, $data = null, $headers = array())

@@ -16,6 +16,11 @@
  */
 class Horde_Http_Request_Fopen extends Horde_Http_Request_Base
 {
+    /**
+     * Constructor
+     *
+     * @throws Horde_Http_Exception
+     */
     public function __construct($args = array())
     {
         if (!ini_get('allow_url_fopen')) {
@@ -28,6 +33,7 @@ class Horde_Http_Request_Fopen extends Horde_Http_Request_Base
     /**
      * Send this HTTP request
      *
+     * @throws Horde_Http_Exception
      * @return Horde_Http_Response_Base
      */
     public function send()
