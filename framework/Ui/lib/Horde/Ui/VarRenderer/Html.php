@@ -505,8 +505,8 @@ class Horde_Ui_VarRenderer_Html extends Horde_Ui_VarRenderer
               "function(e) {" .
                   "var elt = e.element();" .
                   "elt.up().previous('SELECT[name$=\"[month]\"]').setValue(e.memo.getMonth() + 1);" .
-                  "elt.up().previous('SELECT[name$=\"[day]\"').setValue(e.memo.getDate());" .
-                  "elt.up().previous('SELECT[name$=\"[year]\"').setValue(e.memo.getFullYear());" .
+                  "elt.up().previous('SELECT[name$=\"[day]\"]').setValue(e.memo.getDate());" .
+                  "elt.up().previous('SELECT[name$=\"[year]\"]').setValue(e.memo.getFullYear());" .
               "});\n";
         Horde::addInlineScript($js, 'dom');
         return $this->_renderVarInput_monthdayyear($form, $var, $vars) .
