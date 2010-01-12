@@ -40,8 +40,8 @@ class Horde_Http_Response_Curl extends Horde_Http_Response_Base
     public function __construct($uri, $curlresult, $curlinfo)
     {
         $this->uri = $uri;
-        $this->_parseInfo($curlinfo);
         $this->_parseResult($curlresult);
+        $this->_parseInfo($curlinfo);
     }
 
     /**
@@ -61,8 +61,13 @@ class Horde_Http_Response_Curl extends Horde_Http_Response_Base
      */
     protected function _parseResult($curlresult)
     {
-        $endOfHeaders = strpos($curlresult, "\r\n\r\n");
-        $headers = substr($curlresult, 0, $endOfHeaders);
+        /* Curl returns multiple headers, if the last action required multiple
+         * requests, e.g. when doing Digest authentication. Only parse the
+         * headers of the latest response. */
+        preg_match_all('/(^|\r\n\r\n)(HTTP\/)/', $curlresult, $matches, PREG_OFFSET_CAPTURE);
+        $startOfHeaders = $matches[2][count($matches[2]) - 1][1];
+        $endOfHeaders = strpos($curlresult, "\r\n\r\n", $startOfHeaders);
+        $headers = substr($curlresult, $startOfHeaders, $endOfHeaders - $startOfHeaders);
         $this->_parseHeaders($headers);
         $this->_body = substr($curlresult, $endOfHeaders + 4);
     }
@@ -75,6 +80,7 @@ class Horde_Http_Response_Curl extends Horde_Http_Response_Base
     protected function _parseInfo($curlinfo)
     {
         $this->uri = $curlinfo['url'];
+        $this->code = $curlinfo['http_code'];
         $this->_info = $curlinfo;
     }
 }
