@@ -77,6 +77,23 @@ class SearchCDRForm extends Horde_Form {
     }
 }
 
+class GraphCDRForm extends SearchCDRForm
+{
+    public function __construct($title, &$vars)
+    {
+        parent::__construct($title, $vars);
+
+        $graphtypes = Operator::getGraphInfo();
+        $graphs = array();
+        foreach ($graphtypes as $type => $info) {
+            $graphs[$type] = $info['title'];
+        }
+
+        $this->addVariable(_("Graph"), 'graph', 'enum', true, false,
+                           null, array($graphs));
+    }
+}
+
 class ExportCDRForm extends SearchCDRForm
 {
     public function __construct($title, &$vars)

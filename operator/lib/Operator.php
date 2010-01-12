@@ -167,11 +167,11 @@ class Operator {
                     'numberformat' => '%0.1f',
                 ),
 
-                'failed' => array(
-                    'title' => _("Number of Failed Calls by Month"),
-                    'axisX' => _("Month"),
-                    'axisY' => _("Failed Calls"),
-                ),
+//                'failed' => array(
+//                    'title' => _("Number of Failed Calls by Month"),
+//                    'axisX' => _("Month"),
+//                    'axisY' => _("Failed Calls"),
+//                ),
              );
         }
 

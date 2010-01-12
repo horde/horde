@@ -20,7 +20,7 @@ require_once OPERATOR_BASE . '/lib/Form/SearchCDR.php';
 $renderer = new Horde_Form_Renderer();
 $vars = Horde_Variables::getDefaultVariables();
 
-$form = new SearchCDRForm(_("Graph CDR Data"), $vars);
+$form = new GraphCDRForm(_("Graph CDR Data"), $vars);
 if ($form->isSubmitted() && $form->validate($vars, true)) {
     $accountcode = $vars->get('accountcode');
     $dcontext = $vars->get('dcontext');
@@ -83,17 +83,17 @@ if ($form->isSubmitted() && $form->validate($vars, true)) {
     }
 }
 
+$graphs = array();
 if (!empty($stats)) {
-    $numcalls_graph = $minutes_graph = $failed_graph =
-                      Horde::applicationUrl('graphgen.php');
-    
-    $numcalls_graph = Horde_Util::addParameter($numcalls_graph, array(
-        'graph' => 'numcalls', 'key' => $cachekey));
-    $minutes_graph = Horde_Util::addParameter($minutes_graph, array(
-        'graph' => 'minutes', 'key' => $cachekey));
-    $failed_graph = Horde_Util::addParameter($failed_graph, array(
-        'graph' => 'failed', 'key' => $cachekey));
+    $url = Horde::applicationUrl('graphgen.php');
+    $graphtypes = Operator::getGraphInfo();
+
+    foreach($graphtypes as $type => $info) {
+        $graphs[$type] = Horde_Util::addParameter($url, array(
+                            'graph' => $type, 'key' => $cachekey));
+    }
 }
+$curgraph = $vars->get('graph');
 
 $title = _("Call Detail Records Graph");
 
@@ -102,11 +102,9 @@ require OPERATOR_TEMPLATES . '/menu.inc';
 
 $form->renderActive($renderer, $vars);
 
-if (!empty($stats)) {
+if (!empty($stats) && !empty($graphs[$curgraph])) {
     echo '<br />';
-    echo '<img src="' . $numcalls_graph . '"/><br />';
-    echo '<img src="' . $minutes_graph . '"/><br />';
-    echo '<img src="' . $failed_graph . '"/><br />';
+    echo '<img src="' . $graphs[$curgraph] . '"/><br />';
 }
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';
