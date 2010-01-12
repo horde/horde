@@ -193,6 +193,9 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         }
 
         if ($cache && !empty($_SESSION['kronolith']['remote'][$url])) {
+            if (!is_object($_SESSION['kronolith']['remote'][$url])) {
+                return PEAR::raiseError($_SESSION['kronolith']['remote'][$url]);
+            }
             return $_SESSION['kronolith']['remote'][$url];
         }
 
@@ -216,15 +219,15 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             Horde::logMessage(sprintf('Timed out retrieving remote calendar: url = "%s"',
                                       $url),
                               __FILE__, __LINE__, PEAR_LOG_INFO);
-            $_SESSION['kronolith']['remote'][$url] = PEAR::raiseError(sprintf(_("Could not open %s."), $url));
-            return $_SESSION['kronolith']['remote'][$url];
+            $_SESSION['kronolith']['remote'][$url] = sprintf(_("Could not open %s."), $url);
+            return PEAR::raiseError($_SESSION['kronolith']['remote'][$url]);
         }
         if ($http->getResponseCode() != 200) {
             Horde::logMessage(sprintf('Failed to retrieve remote calendar: url = "%s", status = %s',
                                       $url, $http->getResponseCode()),
                               __FILE__, __LINE__, PEAR_LOG_INFO);
-            $_SESSION['kronolith']['remote'][$url] = PEAR::raiseError(sprintf(_("Could not open %s."), $url), $http->getResponseCode());
-            return $_SESSION['kronolith']['remote'][$url];
+            $_SESSION['kronolith']['remote'][$url] = sprintf(_("Could not open %s."), $url);
+            return PEAR::raiseError($_SESSION['kronolith']['remote'][$url], $http->getResponseCode());
         }
 
         /* Log fetch at DEBUG level. */
