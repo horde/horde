@@ -19,12 +19,27 @@ class Operator_Driver {
      * Search the database for call detail records, taking permissions into
      * consideration.
      *
-     * @return boolean  True on success
+     * @return array  [0] contains summary statistics; [1] is an array of the
+     *                actual call records.
      * @throws Operator_Exception
      */
     function getRecords($start, $end, $accountcode = null, $dcontext = null,
                          $rowstart = 0, $rowlimit = 100)
     {
+        // Start Date
+        if (!is_a($start, 'Horde_Date')) {
+            $start = new Horde_Date($start);
+        }
+
+        // End Date
+        if (!is_a($end, 'Horde_Date')) {
+            $end = new Horde_Date($end);
+        }
+
+        if ($start->compareDate($end) > 0) {
+            throw new Operator_Exception(_("\"Start\" date must be on or before \"End\" date."));
+        }
+
         if (empty($accountcode) || $accountcode == '%') {
             $permentry = 'operator:accountcodes';
         } else {
@@ -70,7 +85,7 @@ class Operator_Driver {
             $GLOBALS['perms']->hasPermission('operator:accountcodes',
                                               Horde_Auth::getAuth(),
                                               Horde_Perms::READ) ||
-            $GLOBALS['perms']->hasPermission($permentry, Horde_Auth::getAuth(), 
+            $GLOBALS['perms']->hasPermission($permentry, Horde_Auth::getAuth(),
                                               Horde_Perms::READ)) {
             return $this->_getMonthlyCallStats($start, $end, $accountcode,
                                                $dcontext);

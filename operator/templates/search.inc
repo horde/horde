@@ -1,8 +1,8 @@
 Call Statistics Summary:<br />
 <ul>
-<li>Total Calls: <?php echo $data['numcalls']; ?></li>
-<li>Total Minutes: <?php echo round($data['minutes'], 1); ?></li>
-<li>Failed Calls: <?php echo $data['failed']; ?></li>
+<li>Total Calls: <?php echo $stats['numcalls']; ?></li>
+<li>Total Minutes: <?php echo round($stats['minutes'], 1); ?></li>
+<li>Failed Calls: <?php echo $stats['failed']; ?></li>
 </ul>
 <br />
 <table class="striped">

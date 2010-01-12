@@ -68,7 +68,7 @@ class SearchCDRForm extends Horde_Form {
 
         $this->addVariable(_("Account Code"), 'accountcode', 'enum', false, false, null, array($accountcodes));
         $this->addVariable(_("Destination Context"), 'dcontext', 'text', false, false, _("An empty destination context will match all destination contexts."));
-        $this->addVariable(_("Start Date/Time"), 'startdate', 'datetime', true, false, null, $params);
-        $this->addVariable(_("End Date/Time"), 'enddate', 'datetime', true, false, null, $params);
+        $this->addVariable(_("Start Date & Time"), 'startdate', 'datetime', true, false, null, $params);
+        $this->addVariable(_("End Date & Time"), 'enddate', 'datetime', true, false, null, $params);
     }
 }

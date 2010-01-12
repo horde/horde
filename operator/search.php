@@ -19,6 +19,7 @@ require_once OPERATOR_BASE . '/lib/Form/SearchCDR.php';
 
 $renderer = new Horde_Form_Renderer();
 $vars = Horde_Variables::getDefaultVariables();
+$data = array();
 
 if (!$vars->exists('rowstart')) {
     $rowstart = 0;
@@ -42,9 +43,10 @@ if ($form->isSubmitted() && $form->validate($vars, true)) {
     try {
         $start = new Horde_Date($vars->get('startdate'));
         $end = new Horde_Date($vars->get('enddate'));
-        $data = $operator->driver->getRecords($start, $end, $accountcode,
-                                              $dcontext, $rowstart,
-                                              $GLOBALS['conf']['storage']['searchlimit']);
+        list($stats, $data) = $operator->driver->getRecords($start, $end,
+                                                            $accountcode,
+                                                            $dcontext, $rowstart,
+                                                            $GLOBALS['conf']['storage']['searchlimit']);
 
         $_SESSION['operator']['lastsearch']['params'] = array(
             'accountcode' => $vars->get('accountcode'),
@@ -52,6 +54,7 @@ if ($form->isSubmitted() && $form->validate($vars, true)) {
             'startdate' => $vars->get('startdate'),
             'enddate' => $vars->get('enddate'));
         $_SESSION['operator']['lastdata'] = $data;
+
     } catch (Exception $e) {
         //$notification->push(_("Invalid date requested."));
         $notification->push($e);
@@ -79,12 +82,18 @@ $pager = new Horde_Ui_Pager('page', $pager_vars,
 // Limit the domain list to the current page
 $data = array_slice($data, $page*$perpage, $perpage);
 
+// See if we got the complete set of records
+if ($stats['numcalls'] > $GLOBALS['conf']['storage']['searchlimit']) {
+    $msg = _("Number of calls exceeded search limit (%s).  Try narrowing your search dates or exporting the data.");
+    $notification->push(sprintf($msg, $GLOBALS['conf']['storage']['searchlimit']), 'horde.warning');
+}
+
 $title = _("Search Call Detail Records");
 Horde::addScriptFile('stripe.js', 'horde', true);
 
 require OPERATOR_TEMPLATES . '/common-header.inc';
 require OPERATOR_TEMPLATES . '/menu.inc';
-
+$notification->notify();
 $form->renderActive($renderer, $vars);
 
 $columns = unserialize($prefs->getValue('columns'));

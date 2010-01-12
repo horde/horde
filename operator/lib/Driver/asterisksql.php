@@ -74,7 +74,8 @@ class Operator_Driver_asterisksql extends Operator_Driver {
     /**
      * Get call detail records from the database
      *
-     * @return boolean
+     * @return array  [0] contains summary statistics; [1] is an array of the
+     *                actual call records.
      * @throws Operator_Exception|Horde_Date_Exception
      */
     function _getRecords($start, $end, $accountcode = null, $dcontext = null,
@@ -99,18 +100,8 @@ class Operator_Driver_asterisksql extends Operator_Driver {
             throw new Operator_Exception(_("Internal error.  Details have been logged for the administrator."));
         }
 
-
-        // Start Date
-        if (!is_a($start, 'Horde_Date')) {
-            $start = new Horde_Date($start);
-        }
         $filter[] = 'calldate >= ?';
         $values[] = $start->strftime('%Y-%m-%d %T');
-
-        // End Date
-        if (!is_a($end, 'Horde_Date')) {
-            $end = new Horde_Date($end);
-        }
         $filter[] = 'calldate < ?';
         $values[] =  $end->strftime('%Y-%m-%d %T');
 
@@ -144,7 +135,7 @@ class Operator_Driver_asterisksql extends Operator_Driver {
             Horde::logMessage($res, __FILE__, __LINE__, PEAR_LOG_ERR);
             throw new Operator_Exception(_("Internal error.  Details have been logged for the administrator."));
         }
-        
+
         $data = array();
         while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
             $data[] = $row;
@@ -164,7 +155,7 @@ class Operator_Driver_asterisksql extends Operator_Driver {
             throw new Operator_Exception(_("Internal error.  Details have been logged for the administrator."));
         }
 
-        return array_merge($data, $res);
+        return array($res, $data);
     }
 
     /**
