@@ -12,14 +12,12 @@ class RampageTagTables extends Horde_Db_Migration_Base
 
 
         // rampage_tagged
-        $t = $this->createTable('rampage_tagged', array('primaryKey' => false));
+        $t = $this->createTable('rampage_tagged', array('primaryKey' => array('user_id', 'object_id', 'tag_id')));
           $t->column('user_id',   'integer', array('null' => false, 'unsigned' => true));
           $t->column('object_id', 'integer', array('null' => false, 'unsigned' => true));
           $t->column('tag_id',    'integer', array('null' => false, 'unsigned' => true));
           $t->column('created',   'datetime');
         $t->end();
-
-        $this->addIndex('rampage_tagged', array('user_id', 'object_id', 'tag_id'), array('rampage_tagged_pkey', 'primary' => true));
 
 
         // rampage_tag_stats
@@ -29,13 +27,12 @@ class RampageTagTables extends Horde_Db_Migration_Base
 
 
         // rampage_user_tag_stats
-        $t = $this->createTable('rampage_user_tag_stats', array('primaryKey' => false));
+        $t = $this->createTable('rampage_user_tag_stats', array('primaryKey' => array('user_id', 'tag_id')));
           $t->column('user_id', 'integer', array('null' => false, 'unsigned' => true));
           $t->column('tag_id',  'integer', array('null' => false, 'unsigned' => true));
           $t->column('count',   'integer', array('unsigned' => true));
         $t->end();
 
-        $this->addIndex('rampage_user_tag_stats', array('user_id', 'tag_id'), array('rampage_user_tag_stats_pkey', 'primary' => true));
         $this->addIndex('rampage_user_tag_stats', array('tag_id'), array('name' => 'rampage_user_tag_stats_tag_id'));
     }
 
