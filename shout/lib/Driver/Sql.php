@@ -51,7 +51,7 @@ class Shout_Driver_Sql extends Shout_Driver
     {
         $this->_connect();
 
-        $sql = 'SELECT context FROM %s';
+        $sql = 'SELECT context_name FROM %s';
         $sql = sprintf($sql, $this->_params['table']);
         $vars = array();
 
@@ -70,7 +70,7 @@ class Shout_Driver_Sql extends Shout_Driver
         $contexts = array();
         while ($row && !($row instanceof PEAR_Error)) {
             /* Add this new foo to the $_foo list. */
-            $contexts[] = $row['context'];
+            $contexts[] = $row['context_name'];
 
             /* Advance to the new row in the result set. */
             $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
