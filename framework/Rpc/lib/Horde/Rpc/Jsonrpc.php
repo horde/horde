@@ -22,7 +22,6 @@
  *
  * @link     http://json-rpc.org
  * @category Horde
- * @package  Horde_RPC
  */
 class Horde_Rpc_Jsonrpc extends Horde_Rpc
 {
