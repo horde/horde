@@ -3196,7 +3196,7 @@ console.log(d, d.ghost.offsetTop, this.dragvars.startTop, event.offsetTop);
      */
     saveEvent: function()
     {
-        var cal = $F('kronolithEventCalendar'),
+        var cal = $F('kronolithEventTarget'),
             eventid = $F('kronolithEventId'),
             viewDates = this.viewDates(this.date, this.view),
             start = viewDates[0].dateString(),
