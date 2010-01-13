@@ -5,7 +5,7 @@ Call Statistics Summary:<br />
 <li>Failed Calls: <?php echo $stats['failed']; ?></li>
 </ul>
 <br />
-<table class="striped">
+<table id="callDetails" class="striped">
 <tr>
 <?php
 foreach ($columns as $column) {
