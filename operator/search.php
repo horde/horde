@@ -33,7 +33,6 @@ if (isset($_SESSION['operator']['lastdata'])) {
 }
 
 $form = new SearchCDRForm(_("Search Call Detail Records"), $vars);
-$form->open($renderer, $vars, Horde::applicationUrl('search.php'), 'post');
 if ($form->isSubmitted() && $form->validate($vars, true)) {
     $accountcode = $vars->get('accountcode');
     $dcontext = $vars->get('dcontext');
@@ -95,6 +94,7 @@ Horde::addScriptFile('stripe.js', 'horde', true);
 require OPERATOR_TEMPLATES . '/common-header.inc';
 require OPERATOR_TEMPLATES . '/menu.inc';
 $notification->notify();
+$form->open($renderer, $vars, Horde::applicationUrl('search.php'), 'post');
 $form->renderActive($renderer, $vars);
 
 $columns = unserialize($prefs->getValue('columns'));

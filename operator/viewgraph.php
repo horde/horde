@@ -21,7 +21,6 @@ $renderer = new Horde_Form_Renderer();
 $vars = Horde_Variables::getDefaultVariables();
 
 $form = new GraphCDRForm(_("Graph CDR Data"), $vars);
-$form->open($renderer, $vars, Horde::applicationUrl('viewgraph.php'), 'post');
 if ($form->isSubmitted() && $form->validate($vars, true)) {
     $accountcode = $vars->get('accountcode');
     $dcontext = $vars->get('dcontext');
@@ -101,6 +100,7 @@ $title = _("Call Detail Records Graph");
 require OPERATOR_TEMPLATES . '/common-header.inc';
 require OPERATOR_TEMPLATES . '/menu.inc';
 
+$form->open($renderer, $vars, Horde::applicationUrl('viewgraph.php'), 'post');
 $form->renderActive($renderer, $vars);
 
 if (!empty($stats) && !empty($graphs[$curgraph])) {

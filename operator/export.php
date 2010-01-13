@@ -31,7 +31,6 @@ if (isset($_SESSION['operator']['lastdata'])) {
 }
 
 $form = new ExportCDRForm(_("Export Call Detail Records"), $vars);
-$form->open($renderer, $vars, Horde::applicationUrl('export.php'), 'post');
 if ($form->isSubmitted() && $form->validate($vars, true)) {
     try {
         $_SESSION['operator']['lastsearch']['params'] = array(
@@ -61,6 +60,7 @@ $title = _("Export Call Detail Records");
 require OPERATOR_TEMPLATES . '/common-header.inc';
 require OPERATOR_TEMPLATES . '/menu.inc';
 $notification->notify();
+$form->open($renderer, $vars, Horde::applicationUrl('export.php'), 'post');
 $form->renderActive($renderer, $vars);
 
 $columns = unserialize($prefs->getValue('columns'));
