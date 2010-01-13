@@ -21,7 +21,7 @@ $_prefs['rowsperpage'] = array(
 );
 
 $_prefs['columns'] = array(
-    'value' => 'a:18:{i:0;s:11:"accountcode";i:1;s:3:"src";i:2;s:3:"dst";i:3;s:8:"dcontext";i:4;s:4:"clid";i:5;s:7:"channel";i:6;s:10:"dstchannel";i:7;s:7:"lastapp";i:8;s:8:"lastdata";i:9;s:5:"start";i:10;s:6:"answer";i:11;s:3:"end";i:12;s:8:"duration";i:13;s:7:"billsec";i:14;s:11:"disposition";i:15;s:8:"amaflags";i:16;s:9:"userfield";i:17;s:8:"uniqueid";}',
+    'value' => 'a:6:{i:0;s:11:"accountcode";i:1;s:4:"clid";i:2;s:3:"dst";i:3;s:5:"start";i:4;s:8:"duration";i:5;s:11:"disposition";}',
     'locked' => false,
     'shared' => false,
     'type' => 'multienum',
