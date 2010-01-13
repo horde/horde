@@ -94,8 +94,7 @@ Horde::addScriptFile('stripe.js', 'horde', true);
 require OPERATOR_TEMPLATES . '/common-header.inc';
 require OPERATOR_TEMPLATES . '/menu.inc';
 $notification->notify();
-$form->open($renderer, $vars, Horde::applicationUrl('search.php'), 'post');
-$form->renderActive($renderer, $vars);
+$form->renderActive($renderer, $vars, Horde::applicationUrl('search.php'), 'post');
 
 $columns = unserialize($prefs->getValue('columns'));
 if (!empty($data)) {

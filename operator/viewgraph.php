@@ -100,8 +100,7 @@ $title = _("Call Detail Records Graph");
 require OPERATOR_TEMPLATES . '/common-header.inc';
 require OPERATOR_TEMPLATES . '/menu.inc';
 
-$form->open($renderer, $vars, Horde::applicationUrl('viewgraph.php'), 'post');
-$form->renderActive($renderer, $vars);
+$form->renderActive($renderer, $vars, Horde::applicationUrl('viewgraph.php'), 'post');
 
 if (!empty($stats) && !empty($graphs[$curgraph])) {
     echo '<br />';

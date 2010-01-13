@@ -4,7 +4,7 @@ if (isset($language)) {
     header('Vary: Accept-Language');
 }
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <!-- Operator: Copyright 2008 Alkaloid Networks LLC.  Operator is under a Horde license. -->
 <!--     Horde Project: http://www.horde.org/ | Operator: http://projects.alkaloid.net/     -->
 <!--                 Horde Licenses: http://www.horde.org/licenses/                       -->
@@ -22,7 +22,7 @@ Horde::includeScriptFiles();
 
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
-<link href="<?php echo $GLOBALS['registry']->getImageDir()?>/favicon.ico" rel="SHORTCUT ICON" />
+<link href="<?php echo $GLOBALS['registry']->getImageDir()?>/favicon.ico" rel="SHORTCUT ICON">
 <?php Horde::includeStylesheetFiles() ?>
 </head>
 

@@ -1,3 +1,4 @@
+<div>
 Call Statistics Summary:<br />
 <ul>
 <li>Total Calls: <?php echo $stats['numcalls']; ?></li>
@@ -31,3 +32,4 @@ foreach ($data as $record) {
 
 </table>
 <?php echo $pager->render(); ?>
+</div>

@@ -60,8 +60,7 @@ $title = _("Export Call Detail Records");
 require OPERATOR_TEMPLATES . '/common-header.inc';
 require OPERATOR_TEMPLATES . '/menu.inc';
 $notification->notify();
-$form->open($renderer, $vars, Horde::applicationUrl('export.php'), 'post');
-$form->renderActive($renderer, $vars);
+$form->renderActive($renderer, $vars, Horde::applicationUrl('export.php'), 'post');;
 
 $columns = unserialize($prefs->getValue('columns'));
 if (!empty($data)) {
