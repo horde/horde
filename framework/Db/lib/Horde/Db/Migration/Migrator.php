@@ -38,6 +38,11 @@ class Horde_Db_Migration_Migrator
      */
     protected $_targetVersion = null;
 
+    /**
+     * @var string
+     */
+    protected $_schemaTableName = 'schema_info';
+
 
     /*##########################################################################
     # Constructor
@@ -63,7 +68,7 @@ class Horde_Db_Migration_Migrator
         $this->_logger         = new Horde_Support_Stub();
         $this->_inflector      = new Horde_Support_Inflector();
 
-        $this->_connection->initializeSchemaInformation();
+        $this->_initializeSchemaInformation();
     }
 
 
@@ -111,13 +116,26 @@ class Horde_Db_Migration_Migrator
         $this->_doMigrate();
     }
 
+
+    /*##########################################################################
+    # Accessor
+    ##########################################################################*/
+
     /**
-     * @return  int
+     * @return  integer
      */
     public function getCurrentVersion()
     {
-        $sql = 'SELECT version FROM schema_info';
+        $sql = 'SELECT version FROM ' . $this->_schemaTableName;
         return $this->_connection->selectValue($sql);
+    }
+
+    /**
+     * @param  string  $schemaTableName
+     */
+    public function setSchemaTableName($schemaTableName)
+    {
+        $this->_schemaTableName = $schemaTableName;
     }
 
 
@@ -216,12 +234,25 @@ class Horde_Db_Migration_Migrator
     }
 
     /**
+     * @TODO
+     */
+    protected function _initializeSchemaInformation()
+    {
+        try {
+            $schemaTable = $this->_connection->createTable($this->_schemaTableName, array('primaryKey' => false));
+              $schemaTable->column('version', 'integer');
+            $schemaTable->end();
+            return $this->_connection->insert('INSERT INTO ' . $this->_schemaTableName . ' (version) VALUES (0)');
+        } catch (Exception $e) {}
+    }
+
+    /**
      * @param   integer $version
      */
     protected function _setSchemaVersion($version)
     {
         $version = $this->_isDown() ? $version - 1 : $version;
-        $sql = "UPDATE schema_info SET version = " . (int)$version;
+        $sql = 'UPDATE ' . $this->_schemaTableName . ' SET version = ' . (int)$version;
         $this->_connection->update($sql);
     }
 

@@ -927,14 +927,6 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('test', $name);
     }
 
-    public function testInitializeSchemaInformation()
-    {
-        $this->_conn->initializeSchemaInformation();
-
-        $sql = "SELECT version FROM schema_info";
-        $this->assertEquals(0, $this->_conn->selectValue($sql));
-    }
-
     public function testTypeToSqlTypePrimaryKey()
     {
         $result = $this->_conn->typeToSql('primaryKey');

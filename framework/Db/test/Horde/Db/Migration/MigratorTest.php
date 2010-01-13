@@ -96,6 +96,15 @@ client:
         */
     }
 
+    public function testInitializeSchemaInformation()
+    {
+        $dir = dirname(dirname(__FILE__)).'/fixtures/migrations/';
+        $migrator = new Horde_Db_Migration_Migrator($this->_conn, $dir);
+
+        $sql = "SELECT version FROM schema_info";
+        $this->assertEquals(0, $this->_conn->selectValue($sql));
+    }
+
     public function testMigrator()
     {
         $columns = $this->_columnNames('users');

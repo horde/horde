@@ -946,14 +946,6 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
         $this->assertNotEquals($expected, $structure);
     }
 
-    public function testInitializeSchemaInformation()
-    {
-        $this->_conn->initializeSchemaInformation();
-
-        $sql = "SELECT version FROM schema_info";
-        $this->assertEquals(0, $this->_conn->selectValue($sql));
-    }
-
     public function testTypeToSqlTypePrimaryKey()
     {
         $result = $this->_conn->typeToSql('primaryKey');

@@ -669,20 +669,6 @@ abstract class Horde_Db_Adapter_Base_Schema
     abstract public function currentDatabase();
 
     /**
-     * Should not be called normally, but this operation is non-destructive.
-     * The migrations module handles this automatically.
-     */
-    public function initializeSchemaInformation()
-    {
-        try {
-            $this->execute("CREATE TABLE schema_info (".
-                           "  version ".$this->typeToSql('integer').
-                           ")");
-            return $this->execute("INSERT INTO schema_info (version) VALUES (0)");
-        } catch (Exception $e) {}
-    }
-
-    /**
      * The sql for this column type
      *
      * @param   string  $type
