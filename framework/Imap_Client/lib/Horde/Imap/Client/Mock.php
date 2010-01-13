@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Horde
- * @package  Imap_Client
+ * @package  Horde_Imap_Client
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Imap_Client
@@ -20,7 +20,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @category Horde
- * @package  Imap_Client
+ * @package  Horde_Imap_Client
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Imap_Client
