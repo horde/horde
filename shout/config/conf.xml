@@ -20,7 +20,7 @@
     <case name="Sql" desc="SQL">
      <configsection name="params">
       <configsql switchname="driverconfig" />
-      <configstring name="table" desc="Table to hold the list of contexts/customers" required="true">contexts</configstring>
+      <configstring name="table" desc="Table to hold the list of contexts/customers" required="true">shout_contexts</configstring>
      </configsection>
     </case>
    </configswitch>
