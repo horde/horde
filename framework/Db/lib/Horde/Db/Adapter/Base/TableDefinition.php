@@ -27,6 +27,7 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
     protected $_base    = null;
     protected $_options = null;
     protected $_columns = null;
+    protected $_primaryKey = null;
 
     /**
      * Class Constructor
@@ -64,8 +65,12 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
      */
     public function primaryKey($name)
     {
-        $natives = $this->_native();
-        $this->column($name, $natives['primaryKey']);
+        if (is_scalar($name)) {
+            $natives = $this->_native();
+            $this->column($name, $natives['primaryKey']);
+        }
+
+        $this->_primaryKey = $name;
     }
 
     /**
@@ -142,8 +147,21 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
     {
         $cols = array();
         foreach ($this->_columns as $col) { $cols[] = $col->toSql(); }
+        $sql = '  ' . implode(", \n  ", $cols);
 
-        return "  ".implode(", \n  ", $cols);
+        // Specify composite primary keys as well
+        if (is_array($this->_primaryKey)) {
+            $pk = array();
+            foreach ($this->_primaryKey as $pkColumn) { $pk[] = $this->_base->quoteColumnName($pkColumn); }
+            $sql .= ", \n  PRIMARY KEY(" . implode(', ', $pk) . ')';
+        }
+
+        return $sql;
+    }
+
+    public function __toString()
+    {
+        return $this->toSql();
     }
 
 
