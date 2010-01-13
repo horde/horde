@@ -490,7 +490,23 @@ class Horde_Db_Adapter_MysqliTest extends PHPUnit_Framework_TestCase
         $this->fail("Expected exception for no pk");
     }
 
-    public function testCreateTableWithExplicitPk()
+    public function testCreateTableWithNamedPk()
+    {
+        $this->_createTestTable('sports', array('primaryKey' => 'sports_id'));
+
+        $sql = "SELECT sports_id FROM sports WHERE sports_id = 1";
+        $this->assertEquals(1, $this->_conn->selectValue($sql));
+
+        try {
+            $sql = "SELECT id FROM sports WHERE id = 1";
+            $this->assertNull($this->_conn->selectValue($sql));
+        } catch (Exception $e) {
+            return;
+        }
+        $this->fail("Expected exception for wrong pk name");
+    }
+
+    public function testCreateTableWithSeparatePk()
     {
         $table = $this->_conn->createTable('testings');
           $table->column('foo', 'primaryKey');

@@ -358,12 +358,39 @@ abstract class Horde_Db_Adapter_Base_Schema
      */
     public function createTable($name, $options=array())
     {
-        $pk = isset($options['primaryKey']) && $options['primaryKey'] === false ? false : 'id';
         $tableDefinition =
             $this->componentFactory('TableDefinition', array($name, $this, $options));
+
+        if (isset($options['primaryKey'])) {
+            if ($options['primaryKey'] === false) {
+                $pk = false;
+            } else {
+                switch ($options['primaryKey']) {
+                case 'true':
+                case 't':
+                case 1:
+                case '1':
+                    $pk = 'id';
+                    break;
+
+                case 'false':
+                case 'f':
+                case 0:
+                case '0':
+                    $pk = false;
+
+                default:
+                    $pk = $options['primaryKey'];
+                }
+            }
+        } else {
+            $pk = 'id';
+        }
+
         if ($pk != false) {
             $tableDefinition->primaryKey($pk);
         }
+
         return $tableDefinition;
     }
 
