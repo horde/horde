@@ -33,6 +33,7 @@ if (isset($_SESSION['operator']['lastdata'])) {
 }
 
 $form = new SearchCDRForm(_("Search Call Detail Records"), $vars);
+$form->open($renderer, $vars, Horde::applicationUrl('search.php'), 'post');
 if ($form->isSubmitted() && $form->validate($vars, true)) {
     $accountcode = $vars->get('accountcode');
     $dcontext = $vars->get('dcontext');
@@ -69,7 +70,7 @@ if ($form->isSubmitted() && $form->validate($vars, true)) {
 }
 
 // Create the Pager UI
-$page = Horde_Util::getGet('page', 1);
+$page = Horde_Util::getGet('page', 0);
 $pager_vars = Horde_Variables::getDefaultVariables();
 $pager_vars->set('page', $page);
 $perpage = $prefs->getValue('rowsperpage');

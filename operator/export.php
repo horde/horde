@@ -31,6 +31,7 @@ if (isset($_SESSION['operator']['lastdata'])) {
 }
 
 $form = new ExportCDRForm(_("Export Call Detail Records"), $vars);
+$form->open($renderer, $vars, Horde::applicationUrl('export.php'), 'post');
 if ($form->isSubmitted() && $form->validate($vars, true)) {
     try {
         $_SESSION['operator']['lastsearch']['params'] = array(
