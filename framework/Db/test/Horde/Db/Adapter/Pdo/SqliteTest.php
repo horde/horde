@@ -1142,7 +1142,7 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
 
         try {
             // make sure table was created
-            $sql = "INSERT INTO $name (id, name, is_college)
+            $sql = "INSERT INTO $name
                     VALUES (1, 'mlb', 0)";
             $this->_conn->insert($sql);
         } catch (Exception $e) {}
