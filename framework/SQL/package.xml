@@ -31,7 +31,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <dir name="/">
    <dir name="SQL">
     <file baseinstalldir="/Horde" name="Keywords.php" role="php" />
-    <file baseinstalldir="/Horde" name="Manager.php" role="php" />
    </dir> <!-- //SQL -->
    <file baseinstalldir="/Horde" name="SQL.php" role="php" />
   </dir> <!-- / -->
