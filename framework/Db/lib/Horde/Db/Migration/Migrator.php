@@ -138,6 +138,22 @@ class Horde_Db_Migration_Migrator
         $this->_schemaTableName = $schemaTableName;
     }
 
+    /**
+     * @param  Horde_Log_Logger $logger
+     */
+    public function setLogger(Horde_Log_Logger $logger)
+    {
+        $this->_logger = $logger;
+    }
+
+    /**
+     * @param  Horde_Support_Inflector $inflector
+     */
+    public function setInflector(Horde_Support_Inflector $inflector)
+    {
+        $this->_inflector = $inflector;
+    }
+
 
     /*##########################################################################
     # Protected
