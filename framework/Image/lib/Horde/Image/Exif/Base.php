@@ -8,6 +8,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category Horde
  * @package Horde_Image
  */
 abstract class Horde_Image_Exif_Base

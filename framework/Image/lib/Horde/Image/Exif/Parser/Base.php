@@ -1,6 +1,8 @@
 <?php
 /**
  *
+ * @category Horde
+ * @package Horde_Image
  */
 class Horde_Image_Exif_Parser_Base
 {

@@ -1,6 +1,8 @@
 <?php
 /**
- *
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @package Horde_Image
  */
 
 /*
