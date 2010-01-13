@@ -114,8 +114,6 @@ require SHOUT_TEMPLATES . '/menu.inc';
 
 $notification->notify();
 
-echo "<br>\n";
-
 require SHOUT_TEMPLATES . '/extensions/' . $action . '.inc';
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';
