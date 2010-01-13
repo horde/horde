@@ -42,7 +42,7 @@ function _popupSuccess()
 
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-new IMP_Application(array('init' => array('session_control' => 'netscape'), 'tz' => true));
+Horde_Registry::appInit('imp', array('session_control' => 'netscape', 'tz' => true));
 
 /* The message headers and text. */
 $header = array();

@@ -40,11 +40,8 @@ class Turba_Api extends Horde_Registry_Api
             return false;
         }
 
-        require_once dirname(__FILE__) . '/base.php';
-        global $cfgSources;
-
         @list($source, $key) = explode('.', $id, 2);
-        if (isset($cfgSources[$source]) && $key) {
+        if (isset($GLOBALS['cfgSources'][$source]) && $key) {
             $driver = Turba_Driver::singleton($source);
             if (!is_a($driver, 'PEAR_Error')) {
                 $object = $driver->getObject($key);
@@ -76,8 +73,6 @@ class Turba_Api extends Horde_Registry_Api
      */
     public function sources($writeable = false)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         $addressbooks = Turba::getAddressBooks($writeable ? Horde_Perms::EDIT : Horde_Perms::READ);
         foreach ($addressbooks as $addressbook => $config) {
             $addressbooks[$addressbook] = $config['title'];
@@ -95,7 +90,6 @@ class Turba_Api extends Horde_Registry_Api
      */
     public function fields($source = null)
     {
-        require_once dirname(__FILE__) . '/base.php';
         global $cfgSources, $attributes;
 
         if (empty($source) || !isset($cfgSources[$source])) {
@@ -122,8 +116,7 @@ class Turba_Api extends Horde_Registry_Api
     {
         global $prefs;
 
-        // Bring in turba's base and a clean copy of sources.
-        require_once dirname(__FILE__) . '/base.php';
+        // Bring in a clean copy of sources.
         require TURBA_BASE . '/config/sources.php';
 
         if (!empty($_SESSION['turba']['has_share'])) {
@@ -170,7 +163,6 @@ class Turba_Api extends Horde_Registry_Api
      */
     public function browse($path = '', $properties = array())
     {
-        require_once dirname(__FILE__) . '/base.php';
         global $registry, $cfgSources;
 
         // Default properties.
@@ -395,7 +387,6 @@ class Turba_Api extends Horde_Registry_Api
      */
     public function path_delete($path)
     {
-        require_once dirname(__FILE__) . '/base.php';
         global $registry, $cfgSources;
 
         // Strip off the application name if present
@@ -442,8 +433,6 @@ class Turba_Api extends Horde_Registry_Api
      */
     public function listContacts($sources = null)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         global $cfgSources, $prefs;
 
         /* Get default address book from user preferences. */
@@ -499,7 +488,6 @@ class Turba_Api extends Horde_Registry_Api
     public function listBy($action, $timestamp, $sources = null)
     {
         global $prefs, $cfgSources;
-        require_once dirname(__FILE__) . '/base.php';
 
         /* Get default address book from user preferences. */
         if (empty($sources)) {
@@ -559,7 +547,6 @@ class Turba_Api extends Horde_Registry_Api
     public function getActionTimestamp($uid, $action, $sources = null)
     {
         global $prefs, $cfgSources;
-        require_once dirname(__FILE__) . '/base.php';
 
         /* Get default address book from user preferences. */
         if (empty($sources)) {
@@ -612,7 +599,6 @@ class Turba_Api extends Horde_Registry_Api
     public function import($content, $contentType = 'array',
                            $import_source = null)
     {
-        require_once dirname(__FILE__) . '/base.php';
         global $cfgSources, $prefs;
 
         /* Get default address book from user preferences. */
@@ -743,7 +729,6 @@ class Turba_Api extends Horde_Registry_Api
      */
     public function export($uid, $contentType, $sources = null, $fields = null)
     {
-        require_once dirname(__FILE__) . '/base.php';
         global $cfgSources, $prefs;
 
         /* Get default address book from user preferences. */
@@ -855,7 +840,6 @@ class Turba_Api extends Horde_Registry_Api
      */
     public function getOwnContactObject()
     {
-        require_once dirname(__FILE__) . '/base.php';
         global $cfgSources;
 
         $own_contact = $GLOBALS['prefs']->getValue('own_contact');
@@ -913,7 +897,6 @@ class Turba_Api extends Horde_Registry_Api
             return true;
         }
 
-        require_once dirname(__FILE__) . '/base.php';
         global $cfgSources, $prefs;
 
         /* Get default address book from user preferences. */
@@ -979,7 +962,6 @@ class Turba_Api extends Horde_Registry_Api
      */
     public function replace($uid, $content, $contentType, $sources = null)
     {
-        require_once dirname(__FILE__) . '/base.php';
         global $cfgSources, $prefs;
 
         /* Get default address book from user preferences. */
@@ -1082,7 +1064,6 @@ class Turba_Api extends Horde_Registry_Api
                            $fields = array(), $matchBegin = false,
                            $forceSource = false)
     {
-        require_once dirname(__FILE__) . '/base.php';
         global $cfgSources, $attributes, $prefs;
 
         if (!isset($cfgSources) || !is_array($cfgSources) || !count($cfgSources)) {
@@ -1273,7 +1254,6 @@ class Turba_Api extends Horde_Registry_Api
      */
     public function getContact($source = null, $objectId = '')
     {
-        require_once dirname(__FILE__) . '/base.php';
         global $cfgSources;
 
         if (!isset($cfgSources) || !is_array($cfgSources) || !count($cfgSources)) {
@@ -1311,7 +1291,6 @@ class Turba_Api extends Horde_Registry_Api
      */
     public function getContacts($source = '', $objectIds = array())
     {
-        require_once dirname(__FILE__) . '/base.php';
         global $cfgSources;
         $results = array();
         if (!is_array($objectIds)) {
@@ -1355,7 +1334,6 @@ class Turba_Api extends Horde_Registry_Api
      */
     public function getAllAttributeValues($field = '', $sources = array())
     {
-        require_once dirname(__FILE__) . '/base.php';
         global $cfgSources;
 
         if (!isset($cfgSources) || !is_array($cfgSources) || !count($cfgSources)) {
@@ -1400,8 +1378,6 @@ class Turba_Api extends Horde_Registry_Api
      */
     public function listTimeObjectCategories()
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         $categories = array();
         foreach ($GLOBALS['attributes'] as $key => $attribute) {
             if ($attribute['type'] == 'monthdayyear' &&
@@ -1429,7 +1405,6 @@ class Turba_Api extends Horde_Registry_Api
      */
     public function listTimeObjects($time_categories, $start, $end)
     {
-        require_once dirname(__FILE__) . '/base.php';
         global $cfgSources;
 
         $start = new Horde_Date($start);
@@ -1571,7 +1546,6 @@ class Turba_Api extends Horde_Registry_Api
                              $value = '',
         $source = '')
     {
-        require_once dirname(__FILE__) . '/base.php';
         global $cfgSources;
 
         if (empty($source) || !isset($cfgSources[$source])) {
@@ -1661,7 +1635,6 @@ class Turba_Api extends Horde_Registry_Api
     public function getField($address = '', $field = '', $sources = array(),
                              $strict = false, $multiple = false)
     {
-        require_once dirname(__FILE__) . '/base.php';
         global $cfgSources;
 
         if (empty($address)) {
@@ -1722,7 +1695,6 @@ class Turba_Api extends Horde_Registry_Api
      */
     public function deleteField($address = '', $field = '', $sources = array())
     {
-        require_once dirname(__FILE__) . '/base.php';
         global $cfgSources;
 
         if (empty($address)) {

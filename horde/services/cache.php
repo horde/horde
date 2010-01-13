@@ -41,7 +41,7 @@ if (empty($args['nocache'])) {
     $session_cache_limiter = 'nocache';
 }
 
-new Horde_Application(array('authentication' => 'none', 'session_control' => 'readonly'));
+Horde_Registry::appInit('horde', array('authentication' => 'none', 'session_control' => 'readonly'));
 
 switch ($type) {
 case 'app':

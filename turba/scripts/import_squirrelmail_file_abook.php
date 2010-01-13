@@ -17,8 +17,7 @@
  */
 
 // Do CLI checks and environment setup first.
-require_once dirname(__FILE__) . '/../lib/base.load.php';
-require_once HORDE_BASE . '/lib/core.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
 
 // Makre sure no one runs this from the web.
 if (!Horde_Cli::runningFromCli()) {
@@ -39,16 +38,8 @@ if ($argc != 2) {
 $data = $argv[1];
 
 // Make sure we load Horde base to get the auth config
-$horde_authentication = 'none';
-require_once HORDE_BASE . '/lib/base.php';
-if ($conf['auth']['admins']) {
-    Horde_Auth::setAuth($conf['auth']['admins'][0], array());
-}
+Horde_Registry::appInit('turba', array('authentication' => 'none', 'user' => $conf['auth']['admins'] ? $conf['auth']['admins'][0] : null));
 
-// Now that we are authenticated, we can load Turba's base. Otherwise, the
-// share code breaks, causing a new, completely empty share to be created on
-// the DataTree with no owner.
-require_once TURBA_BASE . '/lib/base.php';
 require_once TURBA_BASE . '/lib/Object/Group.php';
 
 // Get list of SquirrelMail address book files

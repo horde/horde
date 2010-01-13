@@ -9,7 +9,7 @@
  */
 
 require_once dirname(__FILE__) . '/../../lib/Application.php';
-new Horde_Application();
+Horde_Registry::appInit('horde');
 
 // Get full name.
 $identity = Horde_Prefs_Identity::singleton();

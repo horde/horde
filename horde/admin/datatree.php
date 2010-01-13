@@ -27,7 +27,7 @@ function addTree($parent, $parent_id, $indent = 1)
 }
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-new Horde_Application(array('admin' => true));
+Horde_Registry::appInit('horde', array('admin' => true));
 
 require_once 'Horde/DataTree.php';
 $tree = Horde_Tree::factory('datatree', 'Html');

@@ -67,7 +67,8 @@ function updateSortOrderFromVars()
     }
 }
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('turba');
 
 /* Verify if the search mode variable is passed in form or is
  * registered in the session. Always use basic search by default. */

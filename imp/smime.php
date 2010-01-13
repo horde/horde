@@ -88,7 +88,7 @@ function _printKeyInfo($cert)
 
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-new IMP_Application(array('init' => true));
+Horde_Registry::appInit('imp');
 
 $imp_smime = Horde_Crypt::singleton(array('IMP', 'Smime'));
 $secure_check = Horde::isConnectionSecure();

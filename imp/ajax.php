@@ -159,7 +159,7 @@ if (in_array($action, array('chunkContent', 'Html2Text', 'Text2Html', 'GetReplyD
 }
 
 try {
-    new IMP_Application(array('init' => array('authentication' => 'throw', 'session_control' => $session_control)));
+    Horde_Registry::appInit('imp', array('authentication' => 'throw', 'session_control' => $session_control));
 } catch (Horde_Exception $e) {
     /* Handle session timeouts when they come from an AJAX request. */
     if (($e->getCode() == Horde_Registry::AUTH_FAILURE) &&

@@ -8,7 +8,9 @@
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
  */
 
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('turba');
+
 require_once TURBA_BASE . '/lib/Forms/DeleteAddressBook.php';
 
 // Exit if this isn't an authenticated user, or if there's no source

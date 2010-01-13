@@ -9,7 +9,7 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-new Horde_Application(array('authentication' => 'none'));
+Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 // Make sure auth backend allows passwords to be reset.
 $auth = Horde_Auth::singleton($conf['auth']['driver']);

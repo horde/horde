@@ -39,7 +39,7 @@ $data = $argv[1];
 
 // Make sure we load Horde base to get the auth config
 require_once dirname(__FILE__) . '/../lib/Application.php';
-new Horde_Application(array('authentication' => 'none'));
+Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 require_once dirname(__FILE__) . '/import_squirrelmail_prefs.php';
 

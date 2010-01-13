@@ -10,8 +10,7 @@
  */
 
 // Do CLI checks and environment setup first.
-require_once dirname(__FILE__) . '/../lib/base.load.php';
-require_once HORDE_BASE . '/lib/core.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
 
 // Make sure no one runs this from the web.
 if (!Horde_Cli::runningFromCLI()) {
@@ -22,15 +21,14 @@ if (!Horde_Cli::runningFromCLI()) {
 // variables, etc.
 Horde_Cli::init();
 
-$turba_authentication = 'none';
-require_once TURBA_BASE . '/lib/base.php';
+Horde_Registry::appInit('turba', array('authentication' => 'none'));
 
 // Instantiate DataTree.
 require_once 'Horde/DataTree.php';
 $driver = $conf['datatree']['driver'];
 $params = array_merge(Horde::getDriverConfig('datatree', $driver),
                       array('group' => 'agora.forums.turba'));
-$datatree = &DataTree::singleton($driver, $params);
+$datatree = DataTree::singleton($driver, $params);
 
 // Load comments.
 $forums = $datatree->get(DATATREE_FORMAT_TREE, DATATREE_ROOT);

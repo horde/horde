@@ -11,7 +11,7 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-new Horde_Application();
+Horde_Registry::appInit('horde');
 
 /* Set the language. */
 $_SESSION['horde_language'] = Horde_Nls::select();

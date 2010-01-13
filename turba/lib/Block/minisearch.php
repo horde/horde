@@ -31,8 +31,6 @@ class Horde_Block_turba_minisearch extends Horde_Block {
      */
     function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         if ($GLOBALS['browser']->hasFeature('iframes')) {
             Horde::addScriptFile('prototype.js', 'horde');
             return Horde_Util::bufferOutput(

@@ -47,20 +47,6 @@ class IMP_Application extends Horde_Registry_Application
     public $version = 'H4 (5.0-git)';
 
     /**
-     * Disable compression of pages?
-     *
-     * @var boolean
-     */
-    protected $_noCompress = false;
-
-    /**
-     * The auth type to use.
-     *
-     * @var string
-     */
-    static public $authType = null;
-
-    /**
      * Cached data for prefs pages.
      *
      * @var array
@@ -68,41 +54,33 @@ class IMP_Application extends Horde_Registry_Application
     static public $prefsCache = array();
 
     /**
-     * Has init previously been called?
-     *
-     * @var boolean
-     */
-    static protected $_init = false;
-
-    /**
      * Constructor.
-     *
-     * @param array $args  The following entries:
-     * <pre>
-     * 'init' - (boolean|array) If true, perform application init. If an
-     *          array, perform application init and pass the array to
-     *          self::_impInit().
-     * 'tz' - (boolean) If true, sets the current time zone on the server.
-     * </pre>
      */
-    public function __construct($args = array())
+    public function __construct()
     {
-        if (!empty($args['init'])) {
-            $this->_impInit(is_array($args['init']) ? $args['init'] : array());
-        }
-
-        if (!empty($args['tz'])) {
-            Horde_Nls::setTimeZone();
-        }
-
-        /* Only available if admin config is set for this server/login. */
+        /* Methods only available if admin config is set for this
+         * server/login. */
         if (empty($_SESSION['imp']['admin'])) {
             $this->disabled = array_merge($this->disabled, array('authAddUser', 'authRemoveUser', 'authUserList'));
         }
     }
 
     /**
-     * IMP base initialization.
+     * Application-specific code to run if application auth fails.
+     *
+     * @param Horde_Exception $e  The exception object.
+     */
+    public function appInitFailure($e)
+    {
+        if (($e->getCode() == Horde_Registry::AUTH_FAILURE) &&
+            Horde_Util::getFormData('composeCache')) {
+            $imp_compose = IMP_Compose::singleton();
+            $imp_compose->sessionExpireDraft();
+        }
+    }
+
+    /**
+     * Initialization function.
      *
      * Global variables defined:
      *   $imp_imap     - An IMP_Imap object
@@ -110,96 +88,25 @@ class IMP_Application extends Horde_Registry_Application
      *   $imp_notify   - A Horde_Notification_Listener object
      *   $imp_search   - An IMP_Search object
      *   $notification - Notification object
-     *   $registry     - Registry object
      *
      * Global constants defined:
      *   IMP_TEMPLATES - (string) Location of template files.
      *
-     * @param array $args  Optional arguments:
+     * When calling Horde_Registry::appInit(), the following parameters are
+     * also supported:
      * <pre>
-     * 'authentication' - (string) The type of authentication to use:
-     *   'horde' - Only use horde authentication
-     *   'none'  - Do not authenticate
-     *   'throw' - Authenticate to IMAP/POP server; on no auth, throw a
-     *             Horde_Exception
-     *   [DEFAULT] - Authenticate to IMAP/POP server; on no auth redirect to
-     *               login screen
-     * 'nocompress' - (boolean) Controls whether the page should be
-     *                 compressed.
-     * 'session_control' - (string) Sets special session control limitations:
-     *   'netscape' - TODO; start read/write session
-     *   'none' - Do not start a session
-     *   'readonly' - Start session readonly
-     *   [DEFAULT] - Start read/write session
+     * 'tz' - (boolean) If true, sets the current time zone on the server.
      * </pre>
      */
-    protected function _impInit($args = array())
+    protected function _init()
     {
-        $args = array_merge(array(
-            'authentication' => null,
-            'nocompress' => false,
-            'session_control' => null
-        ), $args);
-
-        self::$authType = $args['authentication'];
-        $this->_noCompress = $args['nocompress'];
-
-        // Registry.
-        $s_ctrl = 0;
-        switch ($args['session_control']) {
-        case 'netscape':
-            if ($GLOBALS['browser']->isBrowser('mozilla')) {
-                session_cache_limiter('private, must-revalidate');
-            }
-            break;
-
-        case 'none':
-            $s_ctrl = Horde_Registry::SESSION_NONE;
-            break;
-
-        case 'readonly':
-            $s_ctrl = Horde_Registry::SESSION_READONLY;
-            break;
-        }
-        $GLOBALS['registry'] = Horde_Registry::singleton($s_ctrl);
-
-        try {
-            $GLOBALS['registry']->pushApp('imp', array('check_perms' => ($args['authentication'] != 'none'), 'logintasks' => true));
-        } catch (Horde_Exception $e) {
-            if ($e->getCode() == Horde_Registry::AUTH_FAILURE) {
-                if (Horde_Util::getFormData('composeCache')) {
-                    $imp_compose = IMP_Compose::singleton();
-                    $imp_compose->sessionExpireDraft();
-                }
-
-                if ($args['authentication'] == 'throw') {
-                    throw $e;
-                }
-            }
-
-            Horde_Auth::authenticateFailure('imp', $e);
-        }
-
-        $this->init();
-    }
-
-    /**
-     * Initialization function.
-     */
-    public function init()
-    {
-        if (self::$_init) {
-            return;
+        if (!empty($this->initParams['tz'])) {
+            Horde_Nls::setTimeZone();
         }
 
         if (!defined('IMP_TEMPLATES')) {
             $registry = Horde_Registry::singleton();
             define('IMP_TEMPLATES', $registry->get('templates'));
-        }
-
-        // Start compression.
-        if (!$this->_noCompress) {
-            Horde::compressOutput();
         }
 
         // Initialize global $imp_imap object.
@@ -231,8 +138,6 @@ class IMP_Application extends Horde_Registry_Application
         // Initialize global $imp_mbox array. This call also initializes the
         // IMP_Search object.
         IMP::setCurrentMailboxInfo();
-
-        self::$_init = true;
     }
 
     /* Horde permissions. */
@@ -390,7 +295,7 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function authAuthenticate($userId, $credentials)
     {
-        $this->_impInit(array('authentication' => 'none'));
+        $this->init();
 
         $new_session = IMP_Auth::authenticate(array(
             'password' => $credentials['password'],
@@ -416,7 +321,7 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function authTransparent($auth_ob)
     {
-        $this->_impInit(array('authentication' => 'none'));
+        $this->init();
         return IMP_Auth::transparent($auth_ob);
     }
 
@@ -428,7 +333,7 @@ class IMP_Application extends Horde_Registry_Application
     public function authAuthenticateCallback()
     {
         if (Horde_Auth::getAuth()) {
-            $this->_impInit();
+            $this->init();
             IMP_Auth::authenticateCallback();
         }
     }
@@ -742,9 +647,6 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function prefsStatus()
     {
-        require_once dirname(__FILE__) . '/Application.php';
-        new IMP_Application(array('init' => array('authentication' => 'none')));
-
         $notification = Horde_Notification::singleton();
         $notification->replace('status', array('prefs' => true, 'viewmode' => 'dimp'), 'IMP_Notification_Listener_Status');
     }
@@ -1075,12 +977,7 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function changeLanguage()
     {
-        try {
-            $this->_impInit(array('authentication' => 'throw'));
-        } catch (Horde_Exception $e) {
-            return;
-        }
-
+        $this->init();
         $this->_mailboxesChanged();
         $GLOBALS['imp_search']->initialize(true);
     }

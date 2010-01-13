@@ -14,7 +14,7 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-new Horde_Application(array('nologintasks' => true));
+Horde_Registry::appInit('horde', array('nologintasks' => true));
 
 $twitter = new Services_Twitter($_SESSION['horde']['twitterblock']['username'],
                                 $_SESSION['horde']['twitterblock']['password']);

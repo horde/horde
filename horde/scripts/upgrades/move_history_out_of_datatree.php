@@ -21,7 +21,7 @@ $cli = Horde_Cli::singleton();
 $cli->writeln($cli->yellow("Beginning migration. This may take a very long time to complete."));
 $cli->writeln();
 
-new Horde_Application(array('authentication' => 'none'));
+Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 require_once 'Horde/DataTree.php';
 $datatree = DataTree::factory('sql', array_merge(Horde::getDriverConfig('datatree', 'sql'),

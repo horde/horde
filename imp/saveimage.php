@@ -12,7 +12,7 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-new IMP_Application(array('init' => true));
+Horde_Registry::appInit('imp');
 
 $id = Horde_Util::getFormData('id');
 $muid = Horde_Util::getFormData('muid');

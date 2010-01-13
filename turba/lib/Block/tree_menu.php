@@ -14,8 +14,6 @@ class Horde_Block_turba_tree_menu extends Horde_Block {
     {
         global $registry;
 
-        require_once dirname(__FILE__) . '/../base.php';
-
         $browse = Horde::applicationUrl('browse.php');
         $add = Horde::applicationUrl('add.php');
         $icondir = $registry->getImageDir() . '/menu';

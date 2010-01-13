@@ -20,7 +20,7 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-$api = new Horde_Application(array('authentication' => 'none'));
+Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 if (!empty($conf['testdisable'])) {
     echo '<h2 style="color:red">Horde test scripts have been disabled in the local configuration.</h2>';
@@ -49,8 +49,7 @@ $app_version = $registry->getVersion($app);
 /* If we've gotten this far, we should have found enough of Horde to run
  * tests. Create the testing object. */
 if ($app != 'horde') {
-    $registry->pushApp($app, array('check_perms' => false));
-    print "C";
+    $registry->pushApp($app, array('check_perms' => false, 'init' => true));
 }
 $classname = ucfirst($app) . '_Test';
 if (!class_exists($classname)) {

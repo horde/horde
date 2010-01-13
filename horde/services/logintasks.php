@@ -12,7 +12,7 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-new Horde_Application(array('nologintasks' => true));
+Horde_Registry::appInit('horde', array('nologintasks' => true));
 
 /* If no 'module' parameter passed in, die with an error. */
 if (!($app = basename(Horde_Util::getFormData('app')))) {

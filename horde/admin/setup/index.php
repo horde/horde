@@ -11,7 +11,7 @@
  */
 
 require_once dirname(__FILE__) . '/../../lib/Application.php';
-new Horde_Application(array('admin' => true));
+Horde_Registry::appInit('horde', array('admin' => true));
 
 /**
  * Does an FTP upload to save the configuration.

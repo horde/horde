@@ -6,8 +6,7 @@
  */
 
 // Do CLI checks and environment setup first.
-require_once dirname(__FILE__) . '/../lib/base.load.php';
-require_once HORDE_BASE . '/lib/core.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
 
 // Make sure no one runs this from the web.
 if (!Horde_Cli::runningFromCLI()) {
@@ -18,8 +17,7 @@ if (!Horde_Cli::runningFromCLI()) {
 // some variables, etc.
 Horde_Cli::init();
 
-$turba_authentication = 'none';
-require_once TURBA_BASE . '/lib/base.php';
+Horde_Registry::appInit('turba', array('authentication' => 'none'));
 
 // Re-load source config.
 // require TURBA_BASE . '/config/sources.php';

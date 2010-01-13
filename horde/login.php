@@ -77,7 +77,7 @@ function _getLogoutReasonString($code)
  * constructor. */
 require_once dirname(__FILE__) . '/lib/Application.php';
 try {
-    new Horde_Application(array('authentication' => 'throw', 'nologintasks' => true));
+    Horde_Registry::appInit('horde', array('authentication' => 'throw', 'nologintasks' => true));
 } catch (Horde_Exception $e) {}
 
 $app = Horde_Util::getFormData('app');

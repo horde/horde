@@ -19,8 +19,7 @@
  */
 
 // Load Horde and Turba enviroments
-require_once dirname(__FILE__) . '/../lib/base.load.php';
-require_once HORDE_BASE . '/lib/core.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
 
 // Set up the CLI enviroment.
 if (!Horde_Cli::runningFromCLI()) {
@@ -30,16 +29,7 @@ Horde_Cli::init();
 $CLI = Horde_Cli::singleton();
 
 // Make sure we load Horde base to get the auth config
-$horde_authentication = 'none';
-require_once HORDE_BASE . '/lib/base.php';
-if ($conf['auth']['admins']) {
-    Horde_Auth::setAuth($conf['auth']['admins'][0], array());
-}
-
-// Now that we are authenticated, we can load Turba's base. Otherwise,
-// the share code breaks, causing a new, completely empty share to be
-// created on the DataTree with no owner.
-require_once TURBA_BASE . '/lib/base.php';
+Horde_Registry::appInit('turba', array('authentication' => 'none', 'user' => $conf['auth']['admins'] ? $conf['auth']['admins'][0] : null));
 
 $CLI->writeln('This script will turn all entries in the SQL address book into a globally shared address book.');
 $CLI->writeln('Make sure you read the script comments and be sure you know what you are doing.');

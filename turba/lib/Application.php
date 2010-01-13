@@ -2,8 +2,34 @@
 /**
  * Turba application API.
  *
+ * This file defines Horde's core API interface. Other core Horde libraries
+ * can interact with Horde through this API.
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
  * @package Turba
  */
+
+/* Determine the base directories. */
+if (!defined('TURBA_BASE')) {
+    define('TURBA_BASE', dirname(__FILE__) . '/..');
+}
+
+if (!defined('HORDE_BASE')) {
+    /* If Horde does not live directly under the app directory, the HORDE_BASE
+     * constant should be defined in config/horde.local.php. */
+    if (file_exists(TURBA_BASE . '/config/horde.local.php')) {
+        include TURBA_BASE . '/config/horde.local.php';
+    } else {
+        define('HORDE_BASE', TURBA_BASE . '/..');
+    }
+}
+
+/* Load the Horde Framework core (needed to autoload
+ * Horde_Registry_Application::). */
+require_once HORDE_BASE . '/lib/core.php';
+
 class Turba_Application extends Horde_Registry_Application
 {
     /**
@@ -12,6 +38,114 @@ class Turba_Application extends Horde_Registry_Application
      * @var string
      */
     public $version = 'H4 (3.0-git)';
+
+    /**
+     * Initialization.
+     *
+     * Global variables defined:
+     *   $addSources   - TODO
+     *   $attributes   - TODO
+     *   $browse_source_count - TODO
+     *   $browse_source_options - TODO
+     *   $cfgSources   - TODO
+     *   $copymove_source_options - TODO
+     *   $copymoveSources - TODO
+     *   $notification - Notification object
+     *   $turba_shares - TODO
+     *
+     * Global constants defined:
+     *   TURBA_TEMPLATES - (string) Location of template files.
+     *
+     * When calling Horde_Registry::appInit(), the following parameters are
+     * also supported:
+     * <pre>
+     * 'user' - (string) Set authentication to this user.
+     * </pre>
+     */
+    protected function _init()
+    {
+        if (isset($this->initParams['user'])) {
+            Horde_Auth::setAuth($this->initParams['user'], array());
+        }
+
+        if (!defined('TURBA_TEMPLATES')) {
+            define('TURBA_TEMPLATES', $GLOBALS['registry']->get('templates'));
+        }
+
+        $GLOBALS['notification'] = Horde_Notification::singleton();
+        $GLOBALS['notification']->attach('status');
+
+        // Turba source and attribute configuration.
+        include TURBA_BASE . '/config/attributes.php';
+        include TURBA_BASE . '/config/sources.php';
+
+        /* UGLY UGLY UGLY - we should NOT be using this as a global
+         * variable all over the place. */
+        $GLOBALS['cfgSources'] = &$cfgSources;
+
+        // See if any of our sources are configured to use Horde_Share.
+        foreach ($cfgSources as $key => $cfg) {
+            if (!empty($cfg['use_shares'])) {
+                // Create a share instance.
+                $_SESSION['turba']['has_share'] = true;
+                $GLOBALS['turba_shares'] = Horde_Share::singleton('turba');
+                $cfgSources = Turba::getConfigFromShares($cfgSources);
+                break;
+            }
+        }
+
+        $GLOBALS['attributes'] = $attributes;
+        $cfgSources = Turba::permissionsFilter($cfgSources);
+
+        // Build the directory sources select widget.
+        $default_source = Horde_Util::nonInputVar('source');
+        if (empty($default_source)) {
+            $default_source = empty($_SESSION['turba']['source'])
+                ? Turba::getDefaultAddressBook()
+                : $_SESSION['turba']['source'];
+            $default_source = Horde_Util::getFormData('source', $default_source);
+        }
+
+        $GLOBALS['browse_source_count'] = 0;
+        $GLOBALS['browse_source_options'] = '';
+
+        foreach (Turba::getAddressBooks() as $key => $curSource) {
+            if (!empty($curSource['browse'])) {
+                $selected = ($key == $default_source) ? ' selected="selected"' : '';
+                $GLOBALS['browse_source_options'] .= '<option value="' . htmlspecialchars($key) . '" ' . $selected . '>' .
+                    htmlspecialchars($curSource['title']) . '</option>';
+
+                ++$GLOBALS['browse_source_count'];
+
+                if (empty($default_source)) {
+                    $default_source = $key;
+                }
+            }
+        }
+
+        if (empty($cfgSources[$default_source]['browse'])) {
+            $default_source = Turba::getDefaultAddressBook();
+        }
+        $_SESSION['turba']['source'] = $default_source;
+        $GLOBALS['default_source'] = $default_source;
+
+        /* Only set $add_source_options if there is at least one editable
+         * address book that is not the current address book. */
+        $addSources = Turba::getAddressBooks(Horde_Perms::EDIT, array('require_add' => true));
+        $copymove_source_options = '';
+        $copymoveSources = $addSources;
+        unset($copymoveSources[$default_source]);
+        foreach ($copymoveSources as $key => $curSource) {
+            if ($key != $default_source) {
+                $copymove_source_options .= '<option value="' . htmlspecialchars($key) . '">' .
+                    htmlspecialchars($curSource['title']) . '</option>';
+            }
+        }
+
+        $GLOBALS['addSources'] = $addSources;
+        $GLOBALS['copymove_source_options'] = $copymove_source_options;
+        $GLOBALS['copymoveSources'] = $copymoveSources;
+    }
 
     /**
      * Returns a list of available permissions.
@@ -25,7 +159,6 @@ class Turba_Application extends Horde_Registry_Application
             return $perms;
         }
 
-        require_once dirname(__FILE__) . '/base.php';
         require TURBA_BASE . '/config/sources.php';
 
         $perms['tree']['turba']['sources'] = false;
@@ -126,8 +259,6 @@ class Turba_Application extends Horde_Registry_Application
      */
     public function removeUserData($user)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         if (!Horde_Auth::isAdmin() && $user != Horde_Auth::getAuth()) {
             return PEAR::raiseError(_("You are not allowed to remove user data."));
         }

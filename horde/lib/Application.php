@@ -25,84 +25,28 @@ class Horde_Application extends Horde_Registry_Application
     public $version = '4.0-git';
 
     /**
-     * Constructor.
+     * Application initialization.
      *
      * Global variables defined:
      *   $notification - Notification object
-     *   $registry     - Registry object
      *
      * Global constants defined:
      *   HORDE_TEMPLATES - (string) Location of template files.
-     *
-     * @param array $args  Optional arguments:
-     * <pre>
-     * 'admin' - (boolean) Require authenticated user to be and admin?
-     * 'authentication' - (string) The type of authentication to use:
-     *   'none'  - Do not authenticate
-     *   'throw' - Authenticate; on no auth, throw a Horde_Exception
-     *   [DEFAULT] - Authenticate; on no auth redirect to login screen
-     * 'nocompress' - (boolean) Controls whether the page should be
-     *                compressed.
-     * 'nologintasks' - (boolean) If set, don't perform logintasks (never
-     *                  performed if authentication is 'none').
-     * 'session_control' - (string) Sets special session control limitations:
-     *   'none' - Do not start a session
-     *   'readonly' - Start session readonly
-     *   [DEFAULT] - Start read/write session
-     * </pre>
      */
-    public function __construct($args = array())
+    protected function _init()
     {
-        $args = array_merge(array(
-            'admin' => false,
-            'authentication' => null,
-            'nocompress' => false,
-            'nologintasks' => false,
-            'session_control' => null
-        ), $args);
-
-        // Registry.
-        $s_ctrl = 0;
-        switch ($args['session_control']) {
-        case 'none':
-            $s_ctrl = Horde_Registry::SESSION_NONE;
-            break;
-
-        case 'readonly':
-            $s_ctrl = Horde_Registry::SESSION_READONLY;
-            break;
-        }
-        $GLOBALS['registry'] = Horde_Registry::singleton($s_ctrl);
-
-        try {
-            $GLOBALS['registry']->pushApp('horde', array('check_perms' => ($args['authentication'] != 'none'), 'logintasks' => !$args['nologintasks']));
-
-            if ($args['admin'] && !Horde_Auth::isAdmin()) {
-                throw new Horde_Exception('Not an admin');
-            }
-        } catch (Horde_Exception $e) {
-            if ($args['authentication'] == 'throw') {
-                throw $e;
-            }
-
-            Horde_Auth::authenticateFailure('horde', $e);
-        }
-
         if (!defined('HORDE_TEMPLATES')) {
             define('HORDE_TEMPLATES', $GLOBALS['registry']->get('templates'));
         }
 
         $GLOBALS['notification'] = Horde_Notification::singleton();
         $GLOBALS['notification']->attach('status');
-
-        // Start compression.
-        if (!$args['nocompress']) {
-            Horde::compressOutput();
-        }
     }
 
     /**
      * Returns a list of available permissions.
+     *
+     * @return array  TODO
      */
     public function perms()
     {

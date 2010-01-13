@@ -14,12 +14,6 @@ class IMP_Block_Newmail extends Horde_Block
 
     protected function _content()
     {
-        try {
-            new IMP_Application(array('init' => array('authentication' => 'throw')));
-        } catch (Horde_Exception $e) {
-            return;
-        }
-
         /* Filter on INBOX display, if requested. */
         if ($GLOBALS['prefs']->getValue('filter_on_display')) {
             $imp_filter = new IMP_Filter();

@@ -10,7 +10,7 @@
  */
 
 require_once dirname(__FILE__) . '/../../lib/Application.php';
-new Horde_Application(array('admin' => true));
+Horde_Registry::appInit('horde', array('admin' => true));
 
 $perm_id = Horde_Util::getFormData('perm_id');
 

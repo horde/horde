@@ -17,7 +17,7 @@ function _returnToPage()
 }
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-new Horde_Application(array('authentication' => 'none'));
+Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 if (!Horde::showService('problem')) {
     _returnToPage();

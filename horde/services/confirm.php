@@ -9,7 +9,7 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-new Horde_Application(array('nologintasks' => true));
+Horde_Registry::appInit('horde', array('nologintasks' => true));
 
 $identity = Horde_Prefs_Identity::singleton();
 list($message, $type) = $identity->confirmIdentity(Horde_Util::getFormData('h'));

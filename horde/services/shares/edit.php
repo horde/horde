@@ -9,7 +9,7 @@
  */
 
 require_once dirname(__FILE__) . '/../../lib/Application.php';
-new Horde_Application();
+Horde_Registry::appInit('horde');
 
 // Exit if the user shouldn't be able to change share permissions.
 if (!empty($conf['share']['no_sharing'])) {

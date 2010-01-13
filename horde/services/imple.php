@@ -58,7 +58,7 @@ if (!empty($args['post'])) {
     }
 }
 
-new Horde_Application(array('nologintasks' => true, 'session_control' => empty($args['sessionWrite']) ? 'readonly' : null));
+Horde_Registry::appInit('horde', array('nologintasks' => true, 'session_control' => empty($args['sessionWrite']) ? 'readonly' : null));
 
 $impleargs = $impleName;
 if (isset($args['impleApp'])) {

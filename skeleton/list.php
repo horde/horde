@@ -10,7 +10,8 @@
  * @author Your Name <you@example.com>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('skeleton');
 
 $title = _("List");
 

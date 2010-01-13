@@ -11,7 +11,7 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-new IMP_Application(array('init' => array('authentication' => 'horde')));
+Horde_Registry::appInit('imp', array('authentication' => 'horde'));
 
 /* Get the lists of address books through the API. */
 $source_list = $registry->call('contacts/sources');

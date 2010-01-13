@@ -17,12 +17,6 @@ class Horde_Block_imp_tree_folders extends Horde_Block
 
     protected function _buildTree(&$tree, $indent = 0, $parent = null)
     {
-        try {
-            new IMP_Application(array('init' => array('authentication' => 'throw')));
-        } catch (Horde_Exception $e) {
-            return;
-        }
-
         /* Run filters now */
         if ($GLOBALS['prefs']->getValue('filter_on_sidebar')) {
             $imp_filter = new IMP_Filter();

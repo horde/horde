@@ -35,12 +35,6 @@ class Horde_Block_imp_summary extends Horde_Block
     {
         global $notification, $prefs, $registry;
 
-        try {
-            new IMP_Application(array('init' => array('authentication' => 'throw')));
-        } catch (Horde_Exception $e) {
-            return;
-        }
-
         $html = '<table cellspacing="0" width="100%">';
 
         /* Filter on INBOX display, if requested. */

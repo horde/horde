@@ -21,7 +21,7 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-new IMP_Application(array('init' => true, 'tz' => true));
+Horde_Registry::appInit('imp', array('tz' => true));
 
 /* Determine if mailbox is readonly. */
 $readonly = $imp_imap->isReadOnly($imp_mbox['mailbox']);

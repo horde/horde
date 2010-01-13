@@ -13,7 +13,7 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-new IMP_Application(array('init' => true, 'tz' => true));
+Horde_Registry::appInit('imp', array('tz' => true));
 
 /* The message text and headers. */
 $expand = array();

@@ -13,7 +13,7 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-new Horde_Application(array('authentication' => 'none', 'session_control' => 'none'));
+Horde_Registry::appInit('horde', array('authentication' => 'none', 'session_control' => 'none'));
 
 if (empty($_GET['url'])) {
     exit;

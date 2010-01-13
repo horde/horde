@@ -39,7 +39,7 @@ function _outputSummaries($msgs)
 
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-new IMP_Application(array('init' => true, 'tz' => true));
+Horde_Registry::appInit('imp', array('tz' => true));
 
 /* Call the mailbox redirection hook, if requested. */
 try {

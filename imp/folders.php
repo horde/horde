@@ -14,7 +14,8 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-new IMP_Application(array('init' => true));
+Horde_Registry::appInit('imp');
+
 Horde::addScriptFile('folders.js', 'imp');
 
 /* Redirect back to the mailbox if folder use is not allowed. */

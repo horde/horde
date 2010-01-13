@@ -9,7 +9,7 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-new Horde_Application(array('nologintasks' => true));
+Horde_Registry::appInit('horde', array('nologintasks' => true));
 
 $title = _("Special Character Input");
 require HORDE_TEMPLATES . '/common-header.inc';

@@ -10,7 +10,7 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-new Horde_Application();
+Horde_Registry::appInit('horde');
 
 if (empty($GLOBALS['conf']['twitter']['enabled'])) {
     $horde_url = Horde::url($registry->get('webroot', 'horde') . '/index.php');

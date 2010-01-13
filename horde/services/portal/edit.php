@@ -11,7 +11,7 @@
  */
 
 require_once dirname(__FILE__) . '/../../lib/Application.php';
-new Horde_Application();
+Horde_Registry::appInit('horde');
 
 // Instantiate the blocks objects.
 $blocks = Horde_Block_Collection::singleton('portal');

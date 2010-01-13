@@ -10,7 +10,7 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-new IMP_Application(array('init' => true));
+Horde_Registry::appInit('imp');
 
 /* Are preferences locked? */
 $login_locked = $prefs->isLocked('filter_on_login') || empty($_SESSION['imp']['filteravail']);

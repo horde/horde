@@ -11,7 +11,7 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-new Horde_Application(array('authentication' => 'none', 'nologintasks' => true));
+Horde_Registry::appInit('horde', array('authentication' => 'none', 'nologintasks' => true));
 
 $main_page = Horde_Util::nonInputVar('horde_login_url', Horde_Util::getFormData('url'));
 

@@ -78,7 +78,8 @@ function _getBareEmail($address, $allow_multi = false)
     return implode(', ', $result);
 }
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('turba');
 
 if (!$conf['menu']['import_export']) {
     require TURBA_BASE . '/index.php';

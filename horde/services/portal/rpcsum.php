@@ -9,7 +9,7 @@
  */
 
 require_once dirname(__FILE__) . '/../../lib/Application.php';
-new Horde_Application();
+Horde_Registry::appInit('horde');
 
 $rpc_servers = @unserialize($prefs->getValue('remote_summaries'));
 if (!is_array($rpc_servers)) {

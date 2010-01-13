@@ -7,7 +7,7 @@
  */
 
 require_once dirname(__FILE__) . '/../../lib/Application.php';
-new Horde_Application(array('authentication' => 'none'));
+Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 $rtl = isset(Horde_Nls::$config['rtl'][$language]);
 $title = _("Help");

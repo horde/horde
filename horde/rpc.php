@@ -78,7 +78,7 @@ if (($ra = Horde_Util::getGet('requestMissingAuthorization')) !== null) {
 }
 
 /* Load base libraries. */
-new Horde_Application(array('authentication' => 'none', 'nocompress' => $nocompress, 'session_control' => $session_control));
+Horde_Registry::appInit('horde', array('authentication' => 'none', 'nocompress' => $nocompress, 'session_control' => $session_control));
 
 /* Load the RPC backend based on $serverType. */
 $server = Horde_Rpc::factory($serverType, $params);

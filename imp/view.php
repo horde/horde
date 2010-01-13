@@ -43,10 +43,10 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 
 /* Don't compress if we are already sending in compressed format. */
 $actionID = Horde_Util::getFormData('actionID');
-new IMP_Application(array('init' => array(
+Horde_Registry::appInit('imp', array(
     'nocompress' => (($actionID == 'download_all') || Horde_Util::getFormData('zip')),
     'session_control' => 'readonly'
-)));
+));
 
 $ctype = Horde_Util::getFormData('ctype');
 $id = Horde_Util::getFormData('id');

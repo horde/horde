@@ -10,7 +10,9 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('turba');
+
 require_once TURBA_BASE . '/lib/Forms/AddContact.php';
 
 /* Setup some variables. */

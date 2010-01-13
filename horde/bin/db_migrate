@@ -23,7 +23,7 @@ Horde_Cli::init();
 $cli = Horde_Cli::singleton();
 
 // Include needed libraries.
-new Horde_Application(array('authentication' => 'none'));
+Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 // Get a database connection
 $db = $GLOBALS['injector']->getInstance('db-manager');

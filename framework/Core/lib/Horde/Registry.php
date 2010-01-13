@@ -84,6 +84,95 @@ class Horde_Registry
     public $applications = array();
 
     /**
+     * Application initialization (called from within an application).
+     * Solves chicken-and-egg problem - need a way to init Horde environment
+     * from application without an active Horde_Registry object.
+     *
+     * Page compression will be started (if configured) via this function.
+     *
+     * Global variables defined:
+     *   $registry - Registry object
+     *
+     * @param string $app  The application to initialize.
+     * @param array $args  Optional arguments:
+     * <pre>
+     * 'admin' - (boolean) Require authenticated user to be an admin?
+     * 'authentication' - (string) The type of authentication to use:
+     *   'none'  - Do not authenticate
+     *   'throw' - Authenticate; on no auth, throw a Horde_Exception
+     *   [DEFAULT] - Authenticate; on no auth redirect to login screen
+     * 'nocompress' - (boolean) Controls whether the page should be
+     *                compressed.
+     * 'nologintasks' - (boolean) If set, don't perform logintasks (never
+     *                  performed if authentication is 'none').
+     * 'session_control' - (string) Sets special session control limitations:
+     *   'netscape' - TODO; start read/write session
+     *   'none' - Do not start a session
+     *   'readonly' - Start session readonly
+     *   [DEFAULT] - Start read/write session
+     * </pre>
+     *
+     * @return Horde_Registry_Application  The application object.
+     * @throws Horde_Exception
+     */
+    static public function appInit($app, $args = array())
+    {
+        $args = array_merge(array(
+            'admin' => false,
+            'authentication' => null,
+            'nocompress' => false,
+            'nologintasks' => false,
+            'session_control' => null
+        ), $args);
+
+        // Registry.
+        $s_ctrl = 0;
+        switch ($args['session_control']) {
+        case 'netscape':
+            if ($GLOBALS['browser']->isBrowser('mozilla')) {
+                session_cache_limiter('private, must-revalidate');
+            }
+            break;
+
+        case 'none':
+            $s_ctrl = self::SESSION_NONE;
+            break;
+
+        case 'readonly':
+            $s_ctrl = self::SESSION_READONLY;
+            break;
+        }
+
+        $GLOBALS['registry'] = self::singleton($s_ctrl);
+        $appob = $GLOBALS['registry']->getApiInstance($app, 'application');
+        $appob->initParams = $args;
+
+        try {
+            $GLOBALS['registry']->pushApp($app, array('check_perms' => ($args['authentication'] != 'none'), 'logintasks' => !$args['nologintasks']));
+
+            if ($args['admin'] && !Horde_Auth::isAdmin()) {
+                throw new Horde_Exception('Not an admin');
+            }
+        } catch (Horde_Exception $e) {
+            $appob->appInitFailure($e);
+
+            if ($args['authentication'] == 'throw') {
+                throw $e;
+            }
+
+            Horde_Auth::authenticateFailure($app, $e);
+        }
+
+        if (!$args['nocompress']) {
+            Horde::compressOutput();
+        }
+
+        $appob->init();
+
+        return $appob;
+    }
+
+    /**
      * Returns a reference to the global Horde_Registry object, only creating
      * it if it doesn't already exist.
      *
@@ -357,7 +446,7 @@ class Horde_Registry
         foreach (array_keys($this->applications) as $app) {
             if (in_array($this->applications[$app]['status'], $status)) {
                 try {
-                    $api = $this->_getApiInstance($app, 'api');
+                    $api = $this->getApiInstance($app, 'api');
                     $this->_cache['api'][$app] = array(
                         'api' => array_diff(get_class_methods($api), array('__construct'), $api->disabled),
                         'links' => $api->links,
@@ -381,7 +470,7 @@ class Horde_Registry
      * @return Horde_Registry_Api|Horde_Registry_Application  The API object.
      * @throws Horde_Exception
      */
-    protected function _getApiInstance($app, $type)
+    public function getApiInstance($app, $type)
     {
         if (isset($this->_cache['ob'][$app][$type])) {
             return $this->_cache['ob'][$app][$type];
@@ -403,7 +492,7 @@ class Horde_Registry
             throw new Horde_Exception("$app does not have an API");
         }
 
-        $this->_cache['ob'][$app][$type] = new $classname;
+        $this->_cache['ob'][$app][$type] = new $classname();
         return $this->_cache['ob'][$app][$type];
     }
 
@@ -551,7 +640,7 @@ class Horde_Registry
     public function hasAppMethod($app, $method)
     {
         try {
-            $appob = $this->_getApiInstance($app, 'application');
+            $appob = $this->getApiInstance($app, 'application');
         } catch (Horde_Exception $e) {
             return false;
         }
@@ -605,7 +694,7 @@ class Horde_Registry
         }
 
         /* Load the API now. */
-        $api = $this->_getApiInstance($app, 'api');
+        $api = $this->getApiInstance($app, 'api');
 
         /* Make sure that the function actually exists. */
         if (!method_exists($api, $call)) {
@@ -662,7 +751,7 @@ class Horde_Registry
         }
 
         /* Load the API now. */
-        $api = $this->_getApiInstance($app, 'application');
+        $api = $this->getApiInstance($app, 'application');
 
         /* Switch application contexts now, if necessary, before
          * including any files which might do it for us. Return an
@@ -1122,7 +1211,7 @@ class Horde_Registry
         }
 
         try {
-            $api = $this->_getApiInstance($app, 'application');
+            $api = $this->getApiInstance($app, 'application');
             return $api->version;
         } catch (Horde_Exception $e) {
             return 'unknown';
@@ -1143,7 +1232,7 @@ class Horde_Registry
         }
 
         try {
-            $api = $this->_getApiInstance($app, 'application');
+            $api = $this->getApiInstance($app, 'application');
             return $api->mobileView;
         } catch (Horde_Exception $e) {
             return false;

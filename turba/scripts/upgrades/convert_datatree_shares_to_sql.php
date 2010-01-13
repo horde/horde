@@ -8,8 +8,7 @@
  */
 
 /* Set up the CLI environment */
-require_once dirname(__FILE__) . '/../lib/base.load.php';
-require_once HORDE_BASE . '/lib/core.php';
+require_once dirname(__FILE__) . '/../../lib/Application.php';
 if (!Horde_Cli::runningFromCli()) {
     exit("Must be run from the command line\n");
 }

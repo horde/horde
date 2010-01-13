@@ -10,7 +10,7 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-new IMP_Application(array('init' => array('authentication' => 'horde')));
+Horde_Registry::appInit('imp', array('authentication' => 'horde'));
 
 $compose_url = Horde::getServiceLink('options', 'imp');
 

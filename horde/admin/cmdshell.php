@@ -9,7 +9,7 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-new Horde_Application(array('admin' => true));
+Horde_Registry::appInit('horde', array('admin' => true));
 
 $title = _("Command Shell");
 require HORDE_TEMPLATES . '/common-header.inc';

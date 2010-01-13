@@ -13,7 +13,7 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-new IMP_Application(array('init' => true));
+Horde_Registry::appInit('imp');
 
 /* Redirect back to the options screen if ACL is not enabled. */
 $prefs_url = Horde::getServiceLink('options', 'imp');

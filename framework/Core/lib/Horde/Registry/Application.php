@@ -34,10 +34,46 @@ class Horde_Registry_Application
     public $disabled = array();
 
     /**
+     * The init params used.
+     *
+     * @var array
+     */
+    public $initParams = array();
+
+    /**
+     * Has init() previously been called?
+     *
+     * @var boolean
+     */
+    protected $_initDone = false;
+
+    /**
+     * Application-specific code to run if application auth fails.
+     * Called from Horde_Registry::appInit().
+     *
+     * @param Horde_Exception $e  The exception object.
+     */
+    public function appInitFailure($e)
+    {
+    }
+
+    /**
      * Initialization. Does any necessary init needed to setup the full
      * environment for the application.
      */
     public function init()
+    {
+        if (!$this->_initDone) {
+            $this->_initDone = true;
+            $this->_init();
+        }
+    }
+
+    /**
+     * Initialization code for an application should be defined in this
+     * function.
+     */
+    protected function _init()
     {
     }
 

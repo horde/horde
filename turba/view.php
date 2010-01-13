@@ -10,7 +10,8 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('turba');
 
 if ($conf['documents']['type'] == 'none') {
     throw new Turba_Exception(_("The VFS backend needs to be configured to enable attachment uploads."));

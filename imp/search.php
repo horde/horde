@@ -29,7 +29,7 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-new IMP_Application(array('init' => true));
+Horde_Registry::appInit('imp');
 
 /* Load basic search if javascript is not enabled or searching is not
  * allowed (basic page will do the required redirection in the latter case). */

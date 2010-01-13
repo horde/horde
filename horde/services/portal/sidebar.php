@@ -203,7 +203,7 @@ function buildMenu()
 }
 
 require_once dirname(__FILE__) . '/../../lib/Application.php';
-new Horde_Application(array('authentication' => 'none'));
+Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 if (!Horde_Auth::getAuth() && !$conf['menu']['always']) {
     Horde_Auth::authenticateFailure();

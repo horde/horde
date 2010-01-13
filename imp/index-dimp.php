@@ -13,7 +13,7 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-new IMP_Application(array('init' => true));
+Horde_Registry::appInit('imp');
 
 $scripts = array(
     array('ContextSensitive.js', 'imp'),

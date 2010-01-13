@@ -78,7 +78,7 @@ function _reloadWindow()
 }
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-new IMP_Application(array('init' => true));
+Horde_Registry::appInit('imp');
 
 $imp_pgp = Horde_Crypt::singleton(array('IMP', 'Pgp'));
 $secure_check = Horde::isConnectionSecure();
