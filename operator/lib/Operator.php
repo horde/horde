@@ -37,7 +37,11 @@ class Operator {
 
     public static function getColumns()
     {
-        #static $columns = array(
+        static $columns = array();
+        if (!empty($columns)) {
+            return $columns;
+        }
+
         $columns = array(
             'accountcode' => _("Account Code"),
             'src' => _("Source"),
@@ -48,15 +52,15 @@ class Operator {
             'dstchannel' => _("Destination Channel"),
             'lastapp' => _("Last Application"),
             'lastdata' => _("Last Application Data"),
-            'start' => _("Call Start Time"),
-            'answer' => _("Call Answer Time"),
-            'end' => _("Call End Time"),
-            'duration' => _("Call Duration (seconds)"),
-            'billsec' => _("Billable Call Duration (seconds)"),
-            'disposition' => _("Call Disposition"),
+            'start' => _("Start Time"),
+            'answer' => _("Answer Time"),
+            'end' => _("End Time"),
+            'duration' => _("Duration (sec)"),
+            'billsec' => _("Billable Duration (sec)"),
+            'disposition' => _("Disposition"),
             'amaflags' => _("AMA Flag"),
             'userfield' => _("User Defined Field"),
-            'uniqueid' => _("Call Unique ID"));
+            'uniqueid' => _("Unique ID"));
 
         return $columns;
     }

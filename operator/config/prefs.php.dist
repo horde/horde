@@ -25,25 +25,7 @@ $_prefs['columns'] = array(
     'locked' => false,
     'shared' => false,
     'type' => 'multienum',
-    'enum' => array(
-        'accountcode' => _("Account Code"),
-        'src' => _("Source"),
-        'dst' => _("Destination"),
-        'dcontext' => _("Destination Context"),
-        'clid' => _("Caller ID"),
-        'channel' => _("Channel"),
-        'dstchannel' => _("Destination Channel"),
-        'lastapp' => _("Last Application"),
-        'lastdata' => _("Last Application Data"),
-        'start' => _("Call Start Time"),
-        'answer' => _("Call Answer Time"),
-        'end' => _("Call End Time"),
-        'duration' => _("Call Duration"),
-        'billsec' => _("Billing Time (seconds)"),
-        'disposition' => _("Call Disposition"),
-        'amaflags' => _("AMA Flags"),
-        'userfield' => _("User Defined Field"),
-        'uniqueid' => _("Call Unique ID")),
+    'enum' => Operator::getColumns(),
     'desc' => _("The columns to be displayed on the Call Detail Review screen")
 );
 
