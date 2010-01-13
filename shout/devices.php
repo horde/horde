@@ -98,7 +98,12 @@ default:
 }
 
 // Fetch the (possibly updated) list of extensions
-$devices = $shout->devices->getDevices($context);
+try {
+    $devices = $shout->devices->getDevices($context);
+} catch (Exception $e) {
+    $notification->push($e);
+    $devices = array();
+}
 
 Horde::addScriptFile('stripe.js', 'horde');
 require SHOUT_TEMPLATES . '/common-header.inc';

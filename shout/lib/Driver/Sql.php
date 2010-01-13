@@ -59,12 +59,12 @@ class Shout_Driver_Sql extends Shout_Driver
         Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
         $result = $this->_db->query($sql, $vars);
         if ($result instanceof PEAR_Error) {
-            throw Shout_Exception($result);
+            throw new Shout_Exception($result);
         }
 
         $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
         if ($row instanceof PEAR_Error) {
-            throw Shout_Exception($row);
+            throw new Shout_Exception($row);
         }
 
         $contexts = array();

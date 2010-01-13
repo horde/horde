@@ -97,8 +97,14 @@ default:
     $title .= _("List Users");
 }
 
+
 // Fetch the (possibly updated) list of extensions
-$extensions = $shout->extensions->getExtensions($context);
+try {
+    $extensions = $shout->extensions->getExtensions($context);
+} catch (Exception $e) {
+    $notification->push($e);
+    $extensions = array();
+}
 
 Horde::addScriptFile('stripe.js', 'horde');
 Horde::addScriptFile('prototype.js', 'horde');

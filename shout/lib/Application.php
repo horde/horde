@@ -44,11 +44,16 @@ class Shout_Application extends Horde_Registry_Application
             $GLOBALS['registry'] = &Horde_Registry::singleton();
             $registry = &$GLOBALS['registry'];
             try {
-                $registry->pushApp('shout', array('check_perms' => true,
-                                                             'logintasks' => true));
+                $registry->pushApp('shout');
             } catch (Horde_Exception $e) {
                 Horde_Auth::authenticateFailure('shout', $e);
             }
+            $conf = &$GLOBALS['conf'];
+
+            // Notification system.
+            $GLOBALS['notification'] = &Horde_Notification::singleton();
+            $notification = &$GLOBALS['notification'];
+            $notification->attach('status');
 
             define('SHOUT_TEMPLATES', $registry->get('templates'));
 
@@ -62,10 +67,6 @@ class Shout_Application extends Horde_Registry_Application
                 $notification->push($e);
                 $contexts = false;
             }
-
-            $notification = &Horde_Notification::singleton();
-            $GLOBALS['notification'] = $notification;
-            $notification->attach('status');
 
             if (count($contexts) == 1) {
                 // Default to the user's only context
