@@ -2,3 +2,9 @@
 {
     font-size: 0.9em;
 }
+
+#callDetails td
+{
+    padding: 0px 3px 0px 3px;
+    text-align: center;
+}
