@@ -14,7 +14,6 @@
 require_once dirname(__FILE__) . '/install_dev.conf';
 
 $horde_git = rtrim(ltrim($horde_git), '/ ');
-$horde_hatchery = rtrim(ltrim($horde_hatchery), '/ ');
 $web_dir = rtrim(ltrim($web_dir), '/ ');
 
 print "EMPTYING old web directory " . $web_dir . "\n";
@@ -42,9 +41,8 @@ while ($it->valid()) {
 }
 
 if (!empty($git)) {
-    print "\nUPDATING repositories\n";
+    print "\nUPDATING repository\n";
     system('cd ' . $horde_git . ';' . $git);
-    system('cd ' . $horde_hatchery . ';' . $git);
 }
 
 print "\nLINKING horde\n";
@@ -78,17 +76,12 @@ print "\nLINKING framework\n";
 mkdir($web_dir . '/libs');
 file_put_contents($horde_git . '/horde/config/horde.local.php', "<?php ini_set('include_path', '{$web_dir}/libs' . PATH_SEPARATOR . ini_get('include_path'));");
 system(dirname(__FILE__) . '/install_framework --src ' . $horde_git . '/framework --dest ' . $web_dir . '/libs');
-system(dirname(__FILE__) . '/install_framework --src ' . $horde_hatchery . '/framework --dest ' . $web_dir . '/libs');
 
 print "\nLINKING applications to web directory " . $web_dir . "\n";
 foreach ($apps as $app) {
     if (file_exists($horde_git . '/' . $app)) {
-        print "LINKING " . $app . " (horde-git)\n";
+        print "LINKING " . $app . "\n";
         symlink($horde_git . '/' . $app, $web_dir . '/' . $app);
         file_put_contents($horde_git . '/' . $app . '/config/horde.local.php', '<?php define(\'HORDE_BASE\', \'' . $web_dir . '\');');
-    } elseif (file_exists($horde_hatchery . '/' . $app)) {
-        print "LINKING " . $app . " (horde-hatchery)\n";
-        symlink($horde_hatchery . '/' . $app, $web_dir . '/' . $app);
-        file_put_contents($horde_hatchery . '/' . $app . '/config/horde.local.php', '<?php define(\'HORDE_BASE\', \'' . $web_dir . '\');');
     }
 }

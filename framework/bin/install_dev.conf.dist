@@ -14,9 +14,6 @@ $apps = array();
 // The location of the horde-git repository
 $horde_git = '';
 
-// The location of the horde-hatchery repository
-$horde_hatchery = '';
-
 // The web-accessible base directory for horde
 $web_dir = '';
 
