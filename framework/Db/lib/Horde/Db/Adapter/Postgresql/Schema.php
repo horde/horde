@@ -213,8 +213,13 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function primaryKey($tableName, $name = null)
     {
-        list($defaultPk, ) = $this->pkAndSequenceFor($tableName);
-        return $this->componentFactory('Index', array($tableName, 'PRIMARY', true, true, array($defaultPk)));
+        $sql = 'SELECT column_name
+                  FROM information_schema.constraint_column_usage
+                  WHERE table_name = ' . $this->quoteString($tableName) .
+                  ' AND constraint_name = ' . $this->quoteString($tableName . '_pkey');
+        $pk = $this->selectValues($sql, $name);
+
+        return $this->componentFactory('Index', array($tableName, 'PRIMARY', true, true, $pk));
     }
 
     /**
@@ -652,6 +657,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function columnDefinitions($tableName, $name = null)
     {
+        /*@TODO See if we can get this from information_schema instead */
         return $this->selectAll('
             SELECT a.attname, format_type(a.atttypid, a.atttypmod), d.adsrc, a.attnotnull
               FROM pg_attribute a LEFT JOIN pg_attrdef d
