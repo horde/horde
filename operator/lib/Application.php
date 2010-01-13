@@ -39,12 +39,13 @@ class Operator_Application extends Horde_Registry_Application
     public function __construct($args = array())
     {
         if (!empty($args['init'])) {
+
             // Registry.
             $GLOBALS['registry'] = Horde_Registry::singleton();
             $registry = &$GLOBALS['registry'];
 
             try {
-                $registry->pushApp('operator', !defined('AUTH_HANDLER'));
+                $registry->pushApp('operator');
             } catch (Horde_Exception $e) {
                 if ($e->getCode() == 'permission_denied') {
                     Horde::authenticationFailureRedirect();
