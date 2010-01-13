@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Horde
- * @package  Notification
+ * @package  Horde_Notification
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Notification
