@@ -45,10 +45,11 @@ $app_version = $registry->getVersion($app);
  * tests. Create the testing object. */
 if ($app != 'horde') {
     $registry->pushApp($app, array('check_perms' => false));
+    print "C";
 }
 $classname = ucfirst($app) . '_Test';
 if (!class_exists($classname)) {
-    echo '<h2 style="color:red">No tests found for ' . $app . ' [' . $app_name . '].</h2>';
+    echo '<h2 style="color:red">No tests found for ' . ucfirst($app) . ' [' . $app_name . '].</h2>';
     exit;
 }
 $test_ob = new $classname();
@@ -93,10 +94,7 @@ case 'unregister':
 }
 
 /* Get the status output now. */
-$module_output = $test_ob->phpModuleCheck();
-$setting_output = $test_ob->phpSettingCheck();
 $pear_output = $test_ob->pearModuleCheck();
-$config_output = $test_ob->requiredFileCheck();
 
 require $test_templates . '/header.inc';
 require $test_templates . '/version.inc';
@@ -119,11 +117,11 @@ if ($app == 'horde') {
 ?>
 </ul>
 <?php
-} else {
+} elseif ($output = $test_ob->requiredAppCheck()) {
 ?>
 <h1>Other Horde Applications</h1>
 <ul>
- <?php echo $test_ob->requiredAppCheck(); ?>
+ <?php echo $output ?>
 </ul>
 <?php
 }
@@ -132,22 +130,33 @@ if ($app == 'horde') {
 $php_info = $test_ob->getPhpVersionInformation();
 require $test_templates . '/php_version.inc';
 
+if ($module_output = $test_ob->phpModuleCheck()) {
 ?>
-
 <h1>PHP Module Capabilities</h1>
 <ul>
  <?php echo $module_output ?>
 </ul>
+<?php
+}
 
+if ($setting_output = $test_ob->phpSettingCheck()) {
+?>
 <h1>Miscellaneous PHP Settings</h1>
 <ul>
  <?php echo $setting_output ?>
 </ul>
+<?php
+}
 
-<h1>Required Horde Configuration Files</h1>
+if ($config_output = $test_ob->requiredFileCheck()) {
+?>
+<h1>Required Configuration Files</h1>
 <ul>
     <?php echo $config_output ?>
 </ul>
+<?php
+}
+?>
 
 <h1>PHP Sessions</h1>
 <?php $_SESSION['horde_test_count']++; ?>
