@@ -46,7 +46,10 @@ class Shout_Application extends Horde_Registry_Application
             try {
                 $registry->pushApp('shout');
             } catch (Horde_Exception $e) {
-                Horde_Auth::authenticateFailure('shout', $e);
+                if ($e->getCode() == 'permission_denied') {
+                    Horde::authenticationFailureRedirect();
+                }
+                Horde::fatal($e, __FILE__, __LINE__, false);
             }
             $conf = &$GLOBALS['conf'];
 
