@@ -1,9 +1,5 @@
 <?php
-$RENDERER->beginActive($Form->getTitle());
-$RENDERER->renderFormActive($Form, $vars);
-$RENDERER->submit();
-$RENDERER->end();
-$Form->close($RENDERER);
+$Form->open($RENDERER, $vars, Horde::applicationUrl('extensions.php'), 'post');
 $deleteUrl = Horde::applicationUrl('extensions.php');
 $params = array ('action' => 'delete',
                  'extension' => $extension);

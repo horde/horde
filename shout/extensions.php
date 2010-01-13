@@ -57,7 +57,6 @@ case 'edit':
     }
     $vars->set('action', $action);
     $Form = new ExtensionDetailsForm($vars);
-    $Form->open($RENDERER, $vars, Horde::applicationUrl('extensions.php'), 'post');
     // Make sure we get the right template below.
     $action = 'edit';
 
@@ -89,7 +88,6 @@ case 'delete':
     $vars = Horde_Variables::getDefaultVariables(array());
     $vars->set('context', $context);
     $Form = new ExtensionDeleteForm($vars);
-    $Form->open($RENDERER, $vars, Horde::applicationUrl('extensions.php'), 'post');
 
     break;
 

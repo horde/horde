@@ -58,7 +58,7 @@ case 'edit':
 
     $vars->set('action', $action);
     $Form = new DeviceDetailsForm($vars);
-    $Form->open($RENDERER, $vars, Horde::applicationUrl('devices.php'), 'post');
+
     // Make sure we get the right template below.
     $action = 'edit';
 
@@ -88,7 +88,6 @@ case 'delete':
     $vars = Horde_Variables::getDefaultVariables(array());
     $vars->set('context', $context);
     $Form = new DeviceDeleteForm($vars);
-    $Form->open($RENDERER, $vars, Horde::applicationUrl('devices.php'), 'post');
 
     break;
 
