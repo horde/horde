@@ -19,6 +19,10 @@ class RampageTagTables extends Horde_Db_Migration_Base
           $t->column('created',   'datetime');
         $t->end();
 
+        $this->addIndex('rampage_tagged', array('object_id'), array('name' => 'rampage_tagged_object_id'));
+        $this->addIndex('rampage_tagged', array('tag_id'), array('name' => 'rampage_tagged_tag_id'));
+        $this->addIndex('rampage_tagged', array('created'), array('name' => 'rampage_tagged_created'));
+
 
         // rampage_tag_stats
         $t = $this->createTable('rampage_tag_stats', array('primaryKey' => 'tag_id'));
