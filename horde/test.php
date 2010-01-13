@@ -22,17 +22,22 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 $api = new Horde_Application(array('authentication' => 'none'));
 
+if (!empty($conf['testdisable'])) {
+    echo '<h2 style="color:red">Horde test scripts have been disabled in the local configuration.</h2>';
+    exit;
+}
+
 /* We should have loaded the String class, from the Horde_Util package. If it
  * isn't defined, then we're not finding some critical libraries. */
 if (!class_exists('Horde_String')) {
-    echo '<br /><h2 style="color:red">Required Horde libraries were not found. If PHP\'s error_reporting setting is high enough and display_errors is on, there should be error messages printed above that may help you in debugging the problem. If you are simply missing these files, then you need to install the framework module.</h2>';
+    echo '<h2 style="color:red">Required Horde libraries were not found. If PHP\'s error_reporting setting is high enough and display_errors is on, there should be error messages printed above that may help you in debugging the problem. If you are simply missing these files, then you need to install the framework module.</h2>';
     exit;
 }
 
 /* Initialize the Horde_Test:: class. */
 if (!class_exists('Horde_Test')) {
     /* Try and provide enough information to debug the missing file. */
-    echo '<br /><h2 style="color:red">Unable to find the Horde_Test library. Your Horde installation may be missing critical files, or PHP may not have sufficient permissions to include files. There may be error messages printed above this message that will help you in debugging the problem.</h2>';
+    echo '<h2 style="color:red">Unable to find the Horde_Test library. Your Horde installation may be missing critical files, or PHP may not have sufficient permissions to include files. There may be error messages printed above this message that will help you in debugging the problem.</h2>';
     exit;
 }
 
