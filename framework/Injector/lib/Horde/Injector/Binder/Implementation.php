@@ -1,4 +1,11 @@
 <?php
+/**
+ *
+ * @author Bob Mckee <bmckee@bywires.com>
+ * @author James Pepin <james@jamespepin.com>
+ * @category Horde
+ * @package Horde_Injector
+ */
 class Horde_Injector_Binder_Implementation implements Horde_Injector_Binder
 {
     private $_implementation;
