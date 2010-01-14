@@ -196,6 +196,14 @@ class Horde_Registry
             throw new Horde_Exception(_("This system is currently deactivated."));
         }
 
+        /* Set default bindings. */
+        $GLOBALS['injector'] = new Horde_Injector(new Horde_Injector_TopLevel());
+        $GLOBALS['injector']->addBinder('Horde_Cache', new Horde_Core_Binder_Cache());
+        $GLOBALS['injector']->addBinder('Horde_Log_Logger', new Horde_Core_Binder_Logger());
+        $GLOBALS['injector']->addBinder('db-reader', new Horde_Core_Binder_Db('reader'));
+        $GLOBALS['injector']->addBinder('db-writer', new Horde_Core_Binder_Db('writer'));
+        $GLOBALS['injector']->addBinder('db-manager', new Horde_Core_Binder_Db('manager'));
+
         /* Create the global permissions object. */
         // TODO: Remove(?)
         $GLOBALS['perms'] = Horde_Perms::singleton();
