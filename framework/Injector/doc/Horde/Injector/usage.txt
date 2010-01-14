@@ -172,9 +172,9 @@ and associated it with the interface name "Person".
 The Horde_Injector_Binder_Factory binder can be registered with the
 injector using the "bindFactory()" shortcut. It takes the interface
 name (here it is "Greet") and requires a class and a method name. This
-is assume to be the factory creating the concrete instance.
+is assumed to be the factory creating the concrete instance.
 
-Once getInstance('Greet') gets called the injector refers to the
+Once getInstance('Greet') is called the injector refers to the
 binder (as no concrete instance has been created yet). The binder
 delegates to the factory to actually create the object.
 
