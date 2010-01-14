@@ -20,12 +20,8 @@ class Horde_Block_gollem_tree_menu extends Horde_Block {
 
     function _buildTree(&$tree, $indent = 0, $parent = null)
     {
-        require_once dirname(__FILE__) . '/../Application.php';
-        new Gollem_Application(array('init' => true));
-
-        return;
-
         // TODO
+        return;
 
         $icondir = $GLOBALS['registry']->getImageDir();
         $login_url = Horde::applicationUrl('login.php');

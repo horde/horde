@@ -9,7 +9,7 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-new Gollem_Application(array('init' => true));
+Horde_Registry::appInit('gollem');
 
 if (!Horde_Auth::isAdmin()) {
     Horde_Auth::authenticateFailure('gollem', $e);

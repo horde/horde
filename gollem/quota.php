@@ -11,7 +11,7 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-new Gollem_Application(array('init' => true));
+Horde_Registry::appInit('gollem');
 
 /* Is this a popup window? */
 $isPopup = $browser->hasFeature('javascript');

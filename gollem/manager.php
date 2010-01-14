@@ -14,7 +14,7 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-new Gollem_Application(array('init' => true));
+Horde_Registry::appInit('gollem');
 
 $actionID = Horde_Util::getFormData('actionID');
 $backkey = $_SESSION['gollem']['backend_key'];
