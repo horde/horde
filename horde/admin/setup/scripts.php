@@ -42,7 +42,7 @@ $data = '';
 if ($setup == 'conf' && $type == 'php') {
     /* A bit ugly here, save PHP code into a string for creating the script
      * to be run at the command prompt. */
-    $data = '#!/usr/bin/php' . "\n";
+    $data = '#!/usr/bin/env php' . "\n";
     $data .= '<?php' . "\n";
     foreach ($_SESSION['_config'] as $app => $php) {
         $path = $registry->get('fileroot', $app) . '/config';
