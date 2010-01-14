@@ -88,22 +88,6 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
     }
 
     /**
-     * Dump entire schema structure or specific table
-     *
-     * @param   string  $table
-     * @return  string
-     */
-    public function structureDump($table=null)
-    {
-        foreach ($this->selectAll('SHOW TABLES') as $row) {
-            if ($table && $table != current($row)) { continue; }
-            $dump = $this->selectOne('SHOW CREATE TABLE ' . $this->quoteTableName(current($row)));
-            $creates[] = $dump['Create Table'] . ';';
-        }
-        return isset($creates) ? implode("\n\n", $creates) : null;
-    }
-
-    /**
      * Create the given db
      *
      * @param   string  $name

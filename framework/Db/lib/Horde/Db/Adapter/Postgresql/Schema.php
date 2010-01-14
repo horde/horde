@@ -123,17 +123,6 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
     }
 
     /**
-     * Returns a string of <tt>CREATE TABLE</tt> SQL statement(s) for recreating the
-     * entire structure of the database.
-     *
-     * @param   string  $table
-     * @return  string
-     */
-    public function structureDump($table=null)
-    {
-    }
-
-    /**
      * Create a new PostgreSQL database.  Options include <tt>:owner</tt>, <tt>:template</tt>,
      * <tt>:encoding</tt>, <tt>:tablespace</tt>, and <tt>:connection_limit</tt> (note that MySQL uses
      * <tt>:charset</tt> while PostgreSQL uses <tt>:encoding</tt>).

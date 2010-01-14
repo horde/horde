@@ -64,26 +64,6 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     }
 
     /**
-     * Dump entire schema structure or specific table
-     *
-     * @param   string  $table
-     * @return  string
-     */
-    public function structureDump($table=null)
-    {
-        if ($table) {
-            return $this->selectValue('SELECT sql FROM (
-                SELECT * FROM sqlite_master UNION ALL
-                SELECT * FROM sqlite_temp_master) WHERE type != \'meta\' AND name = ' . $this->quote($table));
-        } else {
-            $dump = $this->selectValues('SELECT sql FROM (
-                SELECT * FROM sqlite_master UNION ALL
-                SELECT * FROM sqlite_temp_master) WHERE type != \'meta\' AND name != \'sqlite_sequence\'');
-            return implode("\n\n", $dump);
-        }
-    }
-
-    /**
      * Create the given db
      *
      * @param   string  $name

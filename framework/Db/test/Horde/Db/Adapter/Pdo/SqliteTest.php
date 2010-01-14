@@ -923,29 +923,6 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('test', $name);
     }
 
-    public function testStructureDump()
-    {
-        $this->_createTestTable('sports');
-
-        // single table
-        $structure = $this->_conn->structureDump('sports');
-
-        $expected = "CREATE TABLE \"sports\" (\n".
-        "  \"id\" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, \n".
-        "  \"name\" varchar(255), \n".
-        "  \"is_college\" boolean\n".
-        ")";
-
-        $this->assertContains($expected, $structure);
-
-        // entire structure
-        $structure = $this->_conn->structureDump();
-
-        // contains, but doesn't match only sports table
-        $this->assertContains($expected, $structure);
-        $this->assertNotEquals($expected, $structure);
-    }
-
     public function testTypeToSqlTypePrimaryKey()
     {
         $result = $this->_conn->typeToSql('primaryKey');

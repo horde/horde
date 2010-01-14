@@ -628,15 +628,6 @@ abstract class Horde_Db_Adapter_Base_Schema
     }
 
     /**
-     * Returns a string of <tt>CREATE TABLE</tt> SQL statement(s) for recreating the
-     * entire structure of the database.
-     *
-     * @param   string  $table
-     * @return  string
-     */
-    abstract public function structureDump($table = null);
-
-    /**
      * Recreate the given db
      *
      * @param   string  $name

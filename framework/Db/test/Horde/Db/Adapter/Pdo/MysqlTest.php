@@ -1047,38 +1047,6 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('test', $name);
     }
 
-    public function testStructureDump()
-    {
-        $this->_createTestTable('sports');
-        // Avoid AUTO_INCREMENT being a part of the dump
-        $this->_conn->execute('TRUNCATE TABLE sports');
-
-        // single table
-        $structure = $this->_conn->structureDump('sports');
-
-        $expected = "CREATE TABLE `sports` (\n".
-        "  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,\n".
-        "  `name` varchar(255) DEFAULT NULL,\n".
-        "  `is_college` tinyint(1) DEFAULT NULL,\n".
-        "  PRIMARY KEY (`id`)\n".
-        ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
-
-        // MySQL differs in how it dumps table structure between versions, so do
-        // some normalization.
-        $expected = strtolower(preg_replace('/\s+/', ' ', $expected));
-        $structure = strtolower(preg_replace('/\s+/', ' ', $structure));
-
-        $this->assertContains($expected, $structure);
-
-        // entire structure
-        $structure = $this->_conn->structureDump();
-        $structure = strtolower(preg_replace('/\s+/', ' ', $structure));
-
-        // contains, but doesn't match only sports table
-        $this->assertContains($expected, $structure);
-        $this->assertNotEquals($expected, $structure);
-    }
-
     public function testTypeToSqlTypePrimaryKey()
     {
         $result = $this->_conn->typeToSql('primaryKey');
