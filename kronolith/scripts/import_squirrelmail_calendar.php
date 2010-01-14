@@ -15,7 +15,7 @@
  */
 
 // Do CLI checks and environment setup first.
-require_once dirname(__FILE__) . '/../../lib/core.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
 
 // Makre sure no one runs this from the web.
 if (!Horde_Cli::runningFromCli()) {
@@ -37,16 +37,7 @@ $dsn = $argv[1];
 $default_tz = date_default_timezone_get();
 
 // Make sure we load Horde base to get the auth config
-$horde_authentication = 'none';
-require_once HORDE_BASE . '/lib/base.php';
-if ($conf['auth']['admins']) {
-    Horde_Auth::setAuth($conf['auth']['admins'][0], array());
-}
-
-// Now that we are authenticated, we can load Kronolith's base. Otherwise, the
-// share code breaks, causing a new, completely empty share to be created with
-// no owner.
-require_once dirname(__FILE__) . '/../lib/base.php';
+Horde_Registry::appInit('kronolith', array('authentication' => 'none', 'user' => $conf['auth']['admins'] ? $conf['auth']['admins'][0] : array()));
 
 // Connect to database.
 $db = DB::connect($dsn);

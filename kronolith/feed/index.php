@@ -21,9 +21,8 @@ function _no_access($status, $reason, $body)
     exit;
 }
 
-$kronolith_authentication = 'none';
-$kronolith_session_control = 'readonly';
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('kronolith', array('authentication' => 'none', 'session_control' => 'readonly'));
 
 $calendar = Horde_Util::getFormData('c');
 $share = $kronolith_shares->getShare($calendar);

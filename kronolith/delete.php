@@ -9,7 +9,8 @@
  * @package Kronolith
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('kronolith');
 
 if (Kronolith_Resource::isResourceCalendar($c = Horde_Util::getFormData('calendar'))) {
     $driver = 'Resource';

@@ -14,8 +14,6 @@ class Horde_Block_Kronolith_prevmonthlist extends Horde_Block {
 
     function _params()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         $params = array('calendar' => array('name' => _("Calendar"),
                                             'type' => 'enum',
                                             'default' => '__all'),
@@ -55,10 +53,6 @@ class Horde_Block_Kronolith_prevmonthlist extends Horde_Block {
      */
     function _content()
     {
-        // @TODO Remove this hack when maintenance is refactored.
-        $no_maint = true;
-        require_once dirname(__FILE__) . '/../base.php';
-
         global $registry, $prefs;
 
         $GLOBALS['from_block'] = true;

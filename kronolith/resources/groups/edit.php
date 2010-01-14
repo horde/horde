@@ -8,7 +8,9 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../../lib/base.php';
+require_once dirname(__FILE__) . '/../../lib/Application.php';
+Horde_Registry::appInit('kronolith');
+
 require_once KRONOLITH_BASE . '/lib/Forms/EditResourceGroup.php';
 
 // Exit if this isn't an authenticated administrative user.

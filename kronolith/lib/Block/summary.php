@@ -22,10 +22,6 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
 
     function _params()
     {
-        @define('KRONOLITH_BASE', dirname(__FILE__) . '/../..');
-
-        require_once KRONOLITH_BASE . '/lib/base.php';
-
         $params = array('calendar' => array('name' => _("Calendar"),
                                             'type' => 'enum',
                                             'default' => '__all'),
@@ -79,8 +75,6 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
      */
     function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         Horde::addScriptFile('tooltips.js', 'horde');
 
         $now = new Horde_Date($_SERVER['REQUEST_TIME']);

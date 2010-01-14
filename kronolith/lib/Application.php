@@ -2,11 +2,90 @@
 /**
  * Kronolith application API.
  *
+ * This file defines Horde's core API interface. Other core Horde libraries
+ * can interact with Horde through this API.
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
  * @package Kronolith
  */
+
+/* Determine the base directories. */
+if (!defined('KRONOLITH_BASE')) {
+    define('KRONOLITH_BASE', dirname(__FILE__) . '/..');
+}
+
+if (!defined('HORDE_BASE')) {
+    /* If Horde does not live directly under the app directory, the HORDE_BASE
+     * constant should be defined in config/horde.local.php. */
+    if (file_exists(KRONOLITH_BASE . '/config/horde.local.php')) {
+        include KRONOLITH_BASE . '/config/horde.local.php';
+    } else {
+        define('HORDE_BASE', KRONOLITH_BASE . '/..');
+    }
+}
+
+/* Load the Horde Framework core (needed to autoload
+ * Horde_Registry_Application::). */
+require_once HORDE_BASE . '/lib/core.php';
+
 class Kronolith_Application extends Horde_Registry_Application
 {
+    /**
+     * The application's version.
+     *
+     * @var string
+     */
     public $version = 'H4 (3.0-git)';
+
+    /**
+     * Initialization function.
+     *
+     * Global variables defined:
+     *   $kronolith_notify - A Horde_Notification_Listener object
+     *   $kronolith_shares - TODO
+     *   $notification - Notification object
+     *
+     * Global constants defined:
+     *   KRONOLITH_TEMPLATES - (string) Location of template files.
+     *
+     * When calling Horde_Registry::appInit(), the following parameters are
+     * also supported:
+     * <pre>
+     * 'user' - (string) Set authentication to this user.
+     * </pre>
+     */
+    protected function _init()
+    {
+        if (isset($this->initParams['user'])) {
+            Horde_Auth::setAuth($this->initParams['user'], array());
+        }
+
+        if (!defined('KRONOLITH_TEMPLATES')) {
+            define('KRONOLITH_TEMPLATES', $GLOBALS['registry']->get('templates'));
+        }
+
+        /* For now, autoloading the Content_* classes depend on there being a
+         * registry entry for the 'content' application that contains at least
+         * the fileroot entry. */
+        Horde_Autoloader::addClassPattern('/^Content_/', $GLOBALS['registry']->get('fileroot', 'content') . '/lib/');
+        if (!class_exists('Content_Tagger')) {
+            throw new Horde_Exception('The Content_Tagger class could not be found. Make sure the registry entry for the Content system is present.');
+        }
+
+        /* Notification system. */
+        $GLOBALS['notification'] = Horde_Notification::singleton();
+        $GLOBALS['kronolith_notify'] = $GLOBALS['notification']->attach('status', null, 'Kronolith_Notification_Listener_Status');
+
+        /* Set the timezone variable, if available. */
+        Horde_Nls::setTimeZone();
+
+        /* Create a share instance. */
+        $GLOBALS['kronolith_shares'] = Horde_Share::singleton($GLOBALS['registry']->getApp());
+
+        Kronolith::initialize();
+    }
 
     /**
      * Returns a list of available permissions.
@@ -249,9 +328,6 @@ class Kronolith_Application extends Horde_Registry_Application
         if (!Horde_Auth::isAdmin() && $user != Horde_Auth::getAuth()) {
             return PEAR::raiseError(_("You are not allowed to remove user data."));
         }
-
-        $no_maint = true;
-        require_once dirname(__FILE__) . '/base.php';
 
         /* Remove all events owned by the user in all calendars. */
         $result = Kronolith::getDriver()->removeUserData($user);

@@ -37,7 +37,8 @@ function _check_max()
     return true;
 }
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('kronolith');
 
 $kronolith_driver = Kronolith::getDriver();
 

@@ -8,7 +8,8 @@
  * @author Meilof Veeningen <meilof@gmail.com>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('kronolith');
 
 /* Get search parameters. */
 $search_mode = Horde_Util::getFormData('search_mode', 'basic');

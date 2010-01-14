@@ -3,11 +3,9 @@ Kronolith_Event::toiCalendar() test.
 --FILE--
 <?php
 
-require 'Horde/Cli.php';
+require dirname(__FILE__) . '/../Application.php';
 Horde_Cli::init();
-$kronolith_authentication = 'none';
-require dirname(__FILE__) . '/../base.php';
-require 'Horde/iCalendar.php';
+Horde_Registry::appInit('kronolith', array('authentication' => 'none'));
 
 $driver = new Kronolith_Driver();
 $object = new Kronolith_Event_Sql($driver);

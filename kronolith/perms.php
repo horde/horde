@@ -9,7 +9,9 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('kronolith');
+
 require_once 'Horde/Group.php';
 
 $shares = Horde_Share::singleton('kronolith');

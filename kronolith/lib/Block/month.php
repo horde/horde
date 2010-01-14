@@ -15,8 +15,6 @@ class Horde_Block_Kronolith_month extends Horde_Block {
 
     function _params()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         $params = array('calendar' => array('name' => _("Calendar"),
                                             'type' => 'enum',
                                             'default' => '__all'));
@@ -35,8 +33,6 @@ class Horde_Block_Kronolith_month extends Horde_Block {
      */
     function _title()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         $title = _("All Calendars");
         $url = Horde::url($GLOBALS['registry']->getInitialPage(), true);
         if (isset($this->_params['calendar']) &&
@@ -60,10 +56,6 @@ class Horde_Block_Kronolith_month extends Horde_Block {
     function _content()
     {
         global $prefs;
-
-        // @TODO Remove this hack when maintenance is refactored.
-        $no_maint = true;
-        require_once dirname(__FILE__) . '/../base.php';
 
         if (isset($this->_params['calendar']) && $this->_params['calendar'] != '__all') {
             if (empty($this->_share)) {

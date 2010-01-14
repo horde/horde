@@ -12,8 +12,6 @@ class Horde_Block_kronolith_tree_alarms extends Horde_Block {
 
     function _buildTree(&$tree, $indent = 0, $parent = null)
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         $horde_alarm = null;
         if (!empty($GLOBALS['conf']['alarms']['driver'])) {
             $horde_alarm = Horde_Alarm::factory();

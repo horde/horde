@@ -8,8 +8,9 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-@define('KRONOLITH_BASE', dirname(dirname(__FILE__)));
-require_once KRONOLITH_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('kronolith');
+
 require_once KRONOLITH_BASE . '/lib/Forms/CreateCalendar.php';
 
 // Exit if this isn't an authenticated user or if the user can't

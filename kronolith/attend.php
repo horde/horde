@@ -9,8 +9,8 @@
  * @package Kronolith
  */
 
-$kronolith_authentication = 'none';
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('kronolith', array('authentication' => 'none'));
 
 $cal = Horde_Util::getFormData('c');
 $id = Horde_Util::getFormData('e');

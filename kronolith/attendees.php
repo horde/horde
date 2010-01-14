@@ -7,7 +7,8 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('kronolith');
 
 // Get the current attendees array from the session cache.
 $attendees = (isset($_SESSION['kronolith']['attendees']) &&

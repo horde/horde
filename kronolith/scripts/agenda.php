@@ -9,8 +9,8 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-$kronolith_authentication = 'none';
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('kronolith', array('authentication' => 'none'));
 
 // Make sure no one runs this from the web.
 if (!Horde_Cli::runningFromCLI()) {

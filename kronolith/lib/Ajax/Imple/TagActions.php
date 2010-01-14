@@ -40,7 +40,6 @@ class Kronolith_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
      */
     public function handle($args, $post)
     {
-        require_once dirname(__FILE__) . '/../../base.php';
         global $ansel_storage;
 
         $request = $args['action'];

@@ -55,9 +55,7 @@ function saveEvent($event)
     return $result;
 }
 
-// Need to load Horde_Util:: to give us access to Horde_Util::getPathInfo().
-require_once dirname(__FILE__) . '/lib/base.load.php';
-require_once HORDE_BASE . '/lib/core.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
 $action = basename(Horde_Util::getPathInfo());
 if (empty($action)) {
     // This is the only case where we really don't return anything, since
@@ -68,12 +66,26 @@ if (empty($action)) {
 
 // The following actions do not need write access to the session and
 // should be opened read-only for performance reasons.
+$session_control = null;
 if (in_array($action, array())) {
-    $kronolith_session_control = 'readonly';
+    $session_control = 'readonly';
 }
 
-$kronolith_session_timeout = 'json';
-require_once KRONOLITH_BASE . '/lib/base.php';
+try {
+    Horde_Registry::appInit('kronolith', array('authentication' => 'throw', 'session_control' => $session_control));
+} catch (Horde_Exception $e) {
+    /* Handle session timeouts when they come from an AJAX request. */
+    if (($e->getCode() == Horde_Registry::AUTH_FAILURE) &&
+        ($action != 'LogOut')) {
+        $notification = Horde_Notification::singleton();
+        $k_notify = $notification->attach('status', array(), 'Kronolith_Notification_Listener_Status');
+        $notification->push(str_replace('&amp;', '&', Horde_Auth::getLogoutUrl(array('reason' => Horde_Auth::REASON_SESSION))), 'kronolith.timeout', array('content.raw'));
+        Horde::sendHTTPResponse(Horde::prepareResponse(null, $k_notify), 'json');
+        exit;
+    }
+
+    Horde_Auth::authenticateFailure('kronolith', $e);
+}
 
 // Process common request variables.
 $cacheid = Horde_Util::getPost('cacheid');

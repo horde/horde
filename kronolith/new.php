@@ -8,7 +8,8 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('kronolith');
 
 /* Check permissions. */
 $url = Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true)

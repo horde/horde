@@ -9,9 +9,8 @@
  * @package Kronolith
  */
 
-$kronolith_authentication = 'none';
-$kronolith_session_control = 'none';
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('kronolith', array('authentication' => 'none', 'session_control' => 'none'));
 
 // We want to always generate UTF-8 iCalendar data.
 Horde_Nls::setCharset('UTF-8');

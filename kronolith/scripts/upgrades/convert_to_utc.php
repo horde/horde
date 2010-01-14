@@ -5,8 +5,7 @@
  */
 
 /* Set up the CLI environment. */
-require_once dirname(__FILE__) . '/../../lib/base.load.php';
-require_once HORDE_BASE . '/lib/core.php';
+require_once dirname(__FILE__) . '/../../lib/Application.php';
 if (!Horde_Cli::runningFromCLI()) {
     exit("Must be run from the command line\n");
 }
@@ -14,8 +13,7 @@ $cli = Horde_Cli::singleton();
 $cli->init();
 
 /* Load required libraries. */
-$kronolith_authentication = 'none';
-require_once KRONOLITH_BASE . '/../../lib/base.php';
+Horde_Registry::appInit('kronolith', array('authentication' => 'none'));
 
 /* Prepare DB stuff. */
 PEAR::staticPushErrorHandling(PEAR_ERROR_DIE);

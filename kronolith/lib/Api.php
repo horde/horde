@@ -55,8 +55,6 @@ class Kronolith_Api extends Horde_Registry_Api
      */
     public function browse($path = '', $properties = array())
     {
-        $no_maint = true;
-        require_once dirname(__FILE__) . '/base.php';
         global $registry;
 
         // Default properties.
@@ -266,9 +264,6 @@ class Kronolith_Api extends Horde_Registry_Api
      */
     public function put($path, $content, $content_type)
     {
-        $no_maint = true;
-        require_once dirname(__FILE__) . '/base.php';
-
         if (substr($path, 0, 9) == 'kronolith') {
             $path = substr($path, 9);
         }
@@ -395,9 +390,6 @@ class Kronolith_Api extends Horde_Registry_Api
      */
     public function path_delete($path)
     {
-        $no_maint = true;
-        require_once dirname(__FILE__) . '/base.php';
-
         if (substr($path, 0, 9) == 'kronolith') {
             $path = substr($path, 9);
         }
@@ -446,8 +438,6 @@ class Kronolith_Api extends Horde_Registry_Api
      */
     public function listCalendars($owneronly = false, $permission = null)
     {
-        $no_maint = true;
-        require_once dirname(__FILE__) . '/base.php';
         if (is_null($permission)) {
             $permission = Horde_Perms::SHOW;
         }
@@ -465,9 +455,6 @@ class Kronolith_Api extends Horde_Registry_Api
      */
     public function listUids($calendar = null, $startstamp = 0, $endstamp = 0)
     {
-        $no_maint = true;
-        require_once dirname(__FILE__) . '/base.php';
-
         if (empty($calendar)) {
             $calendar = Kronolith::getDefaultCalendar();
         }
@@ -508,9 +495,6 @@ class Kronolith_Api extends Horde_Registry_Api
      */
     public function listBy($action, $timestamp, $calendar = null)
     {
-        $no_maint = true;
-        require_once dirname(__FILE__) . '/base.php';
-
         if (empty($calendar)) {
             $calendar = Kronolith::getDefaultCalendar();
         }
@@ -541,9 +525,6 @@ class Kronolith_Api extends Horde_Registry_Api
      */
     public function getActionTimestamp($uid, $action, $calendar = null)
     {
-        $no_maint = true;
-        require_once dirname(__FILE__) . '/base.php';
-
         if (empty($calendar)) {
             $calendar = Kronolith::getDefaultCalendar();
         }
@@ -573,9 +554,6 @@ class Kronolith_Api extends Horde_Registry_Api
      */
     public function import($content, $contentType, $calendar = null)
     {
-        $no_maint = true;
-        require_once dirname(__FILE__) . '/base.php';
-
         if (!isset($calendar)) {
             $calendar = Kronolith::getDefaultCalendar(Horde_Perms::EDIT);
         }
@@ -659,8 +637,6 @@ class Kronolith_Api extends Horde_Registry_Api
      */
     public function quickAdd($text, $calendar = null)
     {
-        $no_maint = true;
-        require_once dirname(__FILE__) . '/base.php';
         global $kronolith_shares;
 
         if (!isset($calendar)) {
@@ -696,8 +672,6 @@ class Kronolith_Api extends Horde_Registry_Api
      */
     public function export($uid, $contentType)
     {
-        $no_maint = true;
-        require_once dirname(__FILE__) . '/base.php';
         global $kronolith_shares;
 
         $event = Kronolith::getDriver()->getByUID($uid);
@@ -746,8 +720,6 @@ class Kronolith_Api extends Horde_Registry_Api
      */
     public function exportCalendar($calendar, $contentType)
     {
-        $no_maint = true;
-        require_once dirname(__FILE__) . '/base.php';
         global $kronolith_shares;
 
         if (!array_key_exists($calendar,
@@ -807,9 +779,6 @@ class Kronolith_Api extends Horde_Registry_Api
             return true;
         }
 
-        $no_maint = true;
-        require_once dirname(__FILE__) . '/base.php';
-
         $kronolith_driver = Kronolith::getDriver();
         $events = $kronolith_driver->getByUID($uid, null, true);
         if (is_a($events, 'PEAR_Error')) {
@@ -867,9 +836,6 @@ class Kronolith_Api extends Horde_Registry_Api
      */
     public function replace($uid, $content, $contentType)
     {
-        $no_maint = true;
-        require_once dirname(__FILE__) . '/base.php';
-
         $event = Kronolith::getDriver()->getByUID($uid);
         if (is_a($event, 'PEAR_Error')) {
             return $event;
@@ -937,9 +903,6 @@ class Kronolith_Api extends Horde_Registry_Api
     public function getFreeBusy($startstamp = null, $endstamp = null,
                                 $calendar = null)
     {
-        $no_maint = true;
-        require_once dirname(__FILE__) . '/base.php';
-
         if (is_null($calendar)) {
             $calendar = Kronolith::getDefaultCalendar();
         }
@@ -959,9 +922,6 @@ class Kronolith_Api extends Horde_Registry_Api
      */
     public function eventFromUID($uid)
     {
-        $no_maint = true;
-        require_once dirname(__FILE__) . '/base.php';
-
         $event = Kronolith::getDriver()->getByUID($uid);
         if (is_a($event, 'PEAR_Error')) {
             return $event;
@@ -992,9 +952,6 @@ class Kronolith_Api extends Horde_Registry_Api
      */
     public function updateAttendee($response, $sender = null)
     {
-        $no_maint = true;
-        require_once dirname(__FILE__) . '/base.php';
-
         $uid = $response->getAttribute('UID');
         if (is_a($uid, 'PEAR_Error')) {
             return $uid;
@@ -1084,9 +1041,6 @@ class Kronolith_Api extends Horde_Registry_Api
         $calendars = null, $showRecurrence = true,
         $alarmsOnly = false)
     {
-        $no_maint = true;
-        require_once dirname(__FILE__) . '/base.php';
-
         if (!isset($calendars)) {
             $calendars = array($GLOBALS['prefs']->getValue('default_share'));
         } elseif (!is_array($calendars)) {
@@ -1114,8 +1068,6 @@ class Kronolith_Api extends Horde_Registry_Api
      */
     public function listAlarms($time, $user = null)
     {
-        $no_maint = true;
-        require_once dirname(__FILE__) . '/base.php';
         require_once 'Horde/Group.php';
 
         $current_user = Horde_Auth::getAuth();
@@ -1284,9 +1236,6 @@ class Kronolith_Api extends Horde_Registry_Api
      */
     public function lock($calendar, $event = null)
     {
-        $no_maint = true;
-        require_once dirname(__FILE__) . '/base.php';
-
         if (!array_key_exists($calendar,
             Kronolith::listCalendars(false, Horde_Perms::EDIT))) {
             return PEAR::raiseError(_("Permission Denied"));
@@ -1304,9 +1253,6 @@ class Kronolith_Api extends Horde_Registry_Api
      */
     public function unlock($calendar, $lockid)
     {
-        $no_maint = true;
-        require_once dirname(__FILE__) . '/base.php';
-
         if (!array_key_exists($calendar,
             Kronolith::listCalendars(false, Horde_Perms::EDIT))) {
             return PEAR::raiseError(_("Permission Denied"));
@@ -1324,9 +1270,6 @@ class Kronolith_Api extends Horde_Registry_Api
      */
     public function checkLocks($calendar, $event = null)
     {
-        $no_maint = true;
-        require_once dirname(__FILE__) . '/base.php';
-
         if (!array_key_exists($calendar,
             Kronolith::listCalendars(false, Horde_Perms::READ))) {
             return PEAR::raiseError(_("Permission Denied"));
