@@ -38,14 +38,7 @@ class Kronolith_Tagger
         }
 
         // Set up the context for the tagger and related content classes
-        $GLOBALS['conf']['sql']['adapter'] = $GLOBALS['conf']['sql']['phptype'] == 'mysqli'
-            ? 'mysqli'
-            : 'pdo_' . $GLOBALS['conf']['sql']['phptype'];
-        if (!empty($GLOBALS['conf']['sql']['params']['hostspec'])) {
-            $GLOBALS['conf']['sql']['params']['host'] = $GLOBALS['conf']['sql']['params']['hostspec'];
-        }
-
-        $context = array('dbAdapter' => Horde_Db_Adapter::factory($GLOBALS['conf']['sql']));
+        $context = array('dbAdapter' => $GLOBALS['injector']->getInstance('db-writer'));
         $user_mgr = new Content_Users_Manager($context);
         $type_mgr = new Content_Types_Manager($context);
 

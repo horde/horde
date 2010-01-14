@@ -10,8 +10,7 @@
 define('HORDE_BASE', '/var/www/html/horde');
 $horde_authentication = 'none';
 require_once HORDE_BASE . '/lib/base.php';
-$GLOBALS['conf']['sql']['adapter'] = $GLOBALS['conf']['sql']['phptype'] == 'mysqli' ? 'mysqli' : 'pdo_' . $GLOBALS['conf']['sql']['phptype'];
-$db = Horde_Db_Adapter::factory($GLOBALS['conf']['sql']);
+$db = $GLOBALS['injector']->getInstance('db-writer');
 
 // Putting these here so they don't interfere with timing/memory data when
 // profiling.

@@ -31,7 +31,7 @@ class Clotho_Mapper extends Horde_Rdo_Mapper {
 
     public function getAdapter()
     {
-        return Horde_Db_Adapter::factory($GLOBALS['conf']['sql']);
+        return $GLOBALS['injector']->getInstance('db-writer');
     }
 
 }
