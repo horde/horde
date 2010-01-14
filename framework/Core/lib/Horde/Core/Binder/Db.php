@@ -25,6 +25,9 @@ class Horde_Core_Binder_Db implements Horde_Injector_Binder
         if (!isset($config['adapter'])) {
             $config['adapter'] = $config['phptype'] == 'mysqli' ? 'mysqli' : 'pdo_' . $config['phptype'];
         }
+        if (!empty($config['hostspec'])) {
+            $config['host'] = $config['hostspec'];
+        }
 
         if (!isset($config['logger'])) {
             $config['logger'] = $injector->getInstance('Horde_Log_Logger');
