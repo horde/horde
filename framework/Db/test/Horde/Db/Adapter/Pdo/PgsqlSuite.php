@@ -66,7 +66,6 @@ class Horde_Db_Adapter_Pdo_PgsqlSuite extends PHPUnit_Framework_TestSuite
         $cache = new CacheMock;
 
         $config = array(
-            'adapter' => 'pdo_pgsql',
             'username' => '',
             'password' => '',
             'dbname' => 'test',
@@ -75,7 +74,7 @@ class Horde_Db_Adapter_Pdo_PgsqlSuite extends PHPUnit_Framework_TestSuite
         if (isset($_ENV['HORDE_DB_TEST_DSN_PDO_PGSQL']))
             $config = array_merge($config, @json_decode($_ENV['HORDE_DB_TEST_DSN_PDO_PGSQL'], true));
 
-        $conn = Horde_Db_Adapter::factory($config);
+        $conn = new Horde_Db_Adapter_Pdo_Pgsql($config);
         return array($conn, $cache);
     }
 

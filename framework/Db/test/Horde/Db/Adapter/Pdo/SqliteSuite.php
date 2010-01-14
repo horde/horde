@@ -62,8 +62,7 @@ class Horde_Db_Adapter_Pdo_SqliteSuite extends PHPUnit_Framework_TestSuite
         if (!class_exists('CacheMock', false)) eval('class CacheMock { function get($key) { return $this->$key; } function set($key, $val) { $this->$key = $val; } } ?>');
         $cache = new CacheMock;
 
-        $conn = Horde_Db_Adapter::factory(array(
-            'adapter' => 'pdo_sqlite',
+        $conn = new Horde_Db_Adapter_Pdo_Sqlite(array(
             'dbname' => ':memory:',
             'cache' => $cache,
         ));

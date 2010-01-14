@@ -63,7 +63,6 @@ class Horde_Db_Adapter_Pdo_MysqlSuite extends PHPUnit_Framework_TestSuite
         $cache = new CacheMock;
 
         $config = array(
-            'adapter' => 'pdo_mysql',
             'host' => 'localhost',
             'username' => '',
             'password' => '',
@@ -73,7 +72,7 @@ class Horde_Db_Adapter_Pdo_MysqlSuite extends PHPUnit_Framework_TestSuite
         if (isset($_ENV['HORDE_DB_TEST_DSN_PDO_MYSQL']))
             $config = array_merge($config, @json_decode($_ENV['HORDE_DB_TEST_DSN_PDO_MYSQL'], true));
 
-        $conn = Horde_Db_Adapter::factory($config);
+        $conn = new Horde_Db_Adapter_Pdo_Mysql($config);
         return array($conn, $cache);
     }
 
