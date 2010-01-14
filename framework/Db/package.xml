@@ -83,7 +83,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Exception.php" role="php" />
        <file name="Migrator.php" role="php" />
       </dir> <!-- /lib/Horde/Db/Migration -->
-      <file name="Adapter.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="StatementParser.php" role="php" />
      </dir> <!-- /lib/Horde/Db -->
@@ -139,7 +138,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Db/Migration/Exception.php" as="Horde/Db/Migration/Exception.php" />
    <install name="lib/Horde/Db/Migration/Migrator.php" as="Horde/Db/Migration/Migrator.php" />
 
-   <install name="lib/Horde/Db/Adapter.php" as="Horde/Db/Adapter.php" />
    <install name="lib/Horde/Db/Exception.php" as="Horde/Db/Exception.php" />
    <install name="lib/Horde/Db/StatementParser.php" as="Horde/Db/StatementParser.php" />
   </filelist>
