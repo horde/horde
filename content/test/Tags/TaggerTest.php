@@ -18,8 +18,7 @@ class Content_Tags_TaggerTest extends PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {
-        $this->db = Horde_Db_Adapter::factory(array(
-            'adapter' => 'pdo_sqlite',
+        $this->db = new Horde_Db_Adapter_Pdo_Sqlite(array(
             'dbname' => ':memory:',
         ));
 
