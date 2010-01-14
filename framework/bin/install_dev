@@ -46,6 +46,7 @@ if (!empty($git)) {
 }
 
 print "\nLINKING horde\n";
+file_put_contents($horde_git . '/horde/config/horde.local.php', "<?php ini_set('include_path', '{$web_dir}/libs' . PATH_SEPARATOR . ini_get('include_path'));");
 $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($horde_git . '/horde'), RecursiveIteratorIterator::SELF_FIRST);
 while ($it->valid()) {
     if (!$it->isDot()) {
@@ -74,7 +75,6 @@ if (!empty($static_group)) {
 
 print "\nLINKING framework\n";
 mkdir($web_dir . '/libs');
-file_put_contents($horde_git . '/horde/config/horde.local.php', "<?php ini_set('include_path', '{$web_dir}/libs' . PATH_SEPARATOR . ini_get('include_path'));");
 system(dirname(__FILE__) . '/install_framework --src ' . $horde_git . '/framework --dest ' . $web_dir . '/libs');
 
 print "\nLINKING applications to web directory " . $web_dir . "\n";
