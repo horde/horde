@@ -97,7 +97,7 @@ class Horde_Block
         /* Switch application contexts, if necessary. Return an error
          * immediately if pushApp() fails. */
         try {
-            $app_pushed = $GLOBALS['registry']->pushApp($this->_app);
+            $app_pushed = $GLOBALS['registry']->pushApp($this->_app, array('check_perms' => true, 'logintasks' => false));
         } catch (Horde_Exception $e) {
             return $e->getMessage();
         }
@@ -127,7 +127,7 @@ class Horde_Block
         /* Switch application contexts, if necessary. Return an error
          * immediately if pushApp() fails. */
         try {
-            $app_pushed = $GLOBALS['registry']->pushApp($this->_app);
+            $app_pushed = $GLOBALS['registry']->pushApp($this->_app, array('check_perms' => true, 'logintasks' => false));
         } catch (Horde_Exception $e) {
             return $e->getMessage();
         }
@@ -167,7 +167,7 @@ class Horde_Block
         /* Switch application contexts, if necessary. Return an error
          * immediately if pushApp() fails. */
         try {
-            $app_pushed = $GLOBALS['registry']->pushApp($this->_app);
+            $app_pushed = $GLOBALS['registry']->pushApp($this->_app, array('check_perms' => true, 'logintasks' => false));
         } catch (Horde_Exception $e) {
             return $e->getMessage();
         }
@@ -191,7 +191,7 @@ class Horde_Block
         /* Switch application contexts, if necessary. Return an error
          * immediately if pushApp() fails. */
         try {
-            $app_pushed = $GLOBALS['registry']->pushApp($this->_app, array('logintasks' => false));
+            $app_pushed = $GLOBALS['registry']->pushApp($this->_app, array('check_perms' => true, 'logintasks' => false));
         } catch (Horde_Exception $e) {
             return $e->getMessage();
         }
