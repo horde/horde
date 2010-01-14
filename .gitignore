@@ -16,6 +16,15 @@ framework/*/tests/*.exp
 framework/*/tests/*.log
 framework/*/tests/*.out
 framework/*/tests/*.php
+!framework/File_CSV/tests/common.php
+!framework/Image/tests/swf.php
+!framework/Image/tests/gd.php
+!framework/SyncML/tests/testpacket.php
+!framework/Image/tests/im.php
+!framework/SyncML/tests/testsync.php
+!framework/Image/tests/runtest.php
+!framework/XML_WBXML/tests/decode.php
+!framework/Image/tests/svg.php
 
 # Dynamically generated content that may live in the repo directories
 lib/
