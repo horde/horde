@@ -26,6 +26,8 @@ class Horde_Db_Migration_MigratorTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
+        $this->_logger = new Horde_Log_Logger(new Horde_Log_Handler_Null());
+
         $this->_conn = Horde_Db_Adapter::factory(array(
             'adapter' => 'pdo_sqlite',
             'dbname' => ':memory:',
@@ -99,7 +101,7 @@ client:
     public function testInitializeSchemaInformation()
     {
         $dir = dirname(dirname(__FILE__)).'/fixtures/migrations/';
-        $migrator = new Horde_Db_Migration_Migrator($this->_conn, $dir);
+        $migrator = new Horde_Db_Migration_Migrator($this->_conn, $this->_logger, array('migrationsPath' => $dir));
 
         $sql = "SELECT version FROM schema_info";
         $this->assertEquals(0, $this->_conn->selectValue($sql));
@@ -117,7 +119,7 @@ client:
         $this->assertType('Horde_Db_Exception', $e);
 
         $dir = dirname(dirname(__FILE__)).'/fixtures/migrations/';
-        $migrator = new Horde_Db_Migration_Migrator($this->_conn, $dir);
+        $migrator = new Horde_Db_Migration_Migrator($this->_conn, $this->_logger, array('migrationsPath' => $dir));
         $migrator->up();
         $this->assertEquals(3, $migrator->getCurrentVersion());
 
@@ -129,7 +131,7 @@ client:
         $this->assertEquals('hello world', $reminder->content);
 
         $dir = dirname(dirname(__FILE__)).'/fixtures/migrations/';
-        $migrator = new Horde_Db_Migration_Migrator($this->_conn, $dir);
+        $migrator = new Horde_Db_Migration_Migrator($this->_conn, $this->_logger, array('migrationsPath' => $dir));
         $migrator->down();
         $this->assertEquals(0, $migrator->getCurrentVersion());
 
@@ -152,7 +154,7 @@ client:
         $this->assertType('Horde_Db_Exception', $e);
 
         $dir = dirname(dirname(__FILE__)).'/fixtures/migrations/';
-        $migrator = new Horde_Db_Migration_Migrator($this->_conn, $dir);
+        $migrator = new Horde_Db_Migration_Migrator($this->_conn, $this->_logger, array('migrationsPath' => $dir));
         $migrator->up(1);
         $this->assertEquals(1, $migrator->getCurrentVersion());
 
@@ -176,7 +178,7 @@ client:
     public function testOneDown()
     {
         $dir = dirname(dirname(__FILE__)).'/fixtures/migrations/';
-        $migrator = new Horde_Db_Migration_Migrator($this->_conn, $dir);
+        $migrator = new Horde_Db_Migration_Migrator($this->_conn, $this->_logger, array('migrationsPath' => $dir));
 
         $migrator->up();
         $migrator->down(1);
@@ -188,7 +190,7 @@ client:
     public function testOneUpOneDown()
     {
         $dir = dirname(dirname(__FILE__)).'/fixtures/migrations/';
-        $migrator = new Horde_Db_Migration_Migrator($this->_conn, $dir);
+        $migrator = new Horde_Db_Migration_Migrator($this->_conn, $this->_logger, array('migrationsPath' => $dir));
 
         $migrator->up(1);
         $migrator->down(0);
@@ -200,7 +202,7 @@ client:
     public function testMigratorGoingDownDueToVersionTarget()
     {
         $dir = dirname(dirname(__FILE__)).'/fixtures/migrations/';
-        $migrator = new Horde_Db_Migration_Migrator($this->_conn, $dir);
+        $migrator = new Horde_Db_Migration_Migrator($this->_conn, $this->_logger, array('migrationsPath' => $dir));
 
         $migrator->up(1);
         $migrator->down(0);
@@ -228,7 +230,7 @@ client:
     {
         try {
             $dir = dirname(dirname(__FILE__)).'/fixtures/migrations_with_duplicate/';
-            $migrator = new Horde_Db_Migration_Migrator($this->_conn, $dir);
+            $migrator = new Horde_Db_Migration_Migrator($this->_conn, $this->_logger, array('migrationsPath' => $dir));
             $migrator->up();
         } catch (Exception $e) { return; }
         $this->fail('Expected exception wasn\'t raised');
@@ -237,7 +239,7 @@ client:
     public function testWithMissingVersionNumbers()
     {
         $dir = dirname(dirname(__FILE__)).'/fixtures/migrations_with_missing_versions/';
-        $migrator = new Horde_Db_Migration_Migrator($this->_conn, $dir);
+        $migrator = new Horde_Db_Migration_Migrator($this->_conn, $this->_logger, array('migrationsPath' => $dir));
         $migrator->migrate(500);
         $this->assertEquals(4, $migrator->getCurrentVersion());
 

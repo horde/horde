@@ -34,7 +34,7 @@ class Horde_Db_Migration_Migrator
     protected $_migrationsPath = null;
 
     /**
-     * @var int
+     * @var integer
      */
     protected $_targetVersion = null;
 
@@ -51,9 +51,9 @@ class Horde_Db_Migration_Migrator
     /**
      * @param   string  $direction
      * @param   string  $migrationsPath
-     * @param   int     $targetVersion
+     * @param   integer $targetVersion
      */
-    public function __construct($connection, $migrationsPath)
+    public function __construct(Horde_Db_Adapter_Base $connection, Horde_Log_Logger $logger, $options = array())
     {
         if (!$connection->supportsMigrations()) {
             $msg = 'This database does not yet support migrations';
@@ -61,12 +61,11 @@ class Horde_Db_Migration_Migrator
         }
 
         $this->_connection     = $connection;
-        $this->_migrationsPath = $migrationsPath;
-        /* @TODO */
-        //$this->_logger         = $logger;
-        //$this->_inflector      = $inflector;
-        $this->_logger         = new Horde_Support_Stub();
+        $this->_logger         = $logger;
         $this->_inflector      = new Horde_Support_Inflector();
+
+        if (isset($options['migrationsPath'])) { $this->_migrationsPath = $options['migrationsPath']; }
+        if (isset($options['schemaTableName'])) { $this->_schemaTableName = $options['schemaTableName']; }
 
         $this->_initializeSchemaInformation();
     }
@@ -131,11 +130,11 @@ class Horde_Db_Migration_Migrator
     }
 
     /**
-     * @param  string  $schemaTableName
+     * @param  string  $migrationsPath  Path to migration files
      */
-    public function setSchemaTableName($schemaTableName)
+    public function setMigrationsPath($migrationsPath)
     {
-        $this->_schemaTableName = $schemaTableName;
+        $this->_migrationsPath = $migrationsPath;
     }
 
     /**
@@ -227,7 +226,7 @@ class Horde_Db_Migration_Migrator
      * Actually return object, and not class
      *
      * @param   string  $migrationName
-     * @param   int     $version
+     * @param   integer $version
      * @return  Horde_Db_Migration_Base
      */
     protected function _getMigrationClass($migrationName, $version)
