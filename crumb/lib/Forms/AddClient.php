@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde$
- *
  * Copyright 2008-2010 The Horde Project <http://www.horde.org/>
  *
  * See the enclosed file LICENSE for license information (GPL). If you

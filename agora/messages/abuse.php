@@ -6,8 +6,6 @@
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
- *
- * $Horde: agora/messages/abuse.php,v 1.24 2009/09/07 07:38:36 duck Exp $
  */
 
 define('AGORA_BASE', dirname(__FILE__) . '/..');

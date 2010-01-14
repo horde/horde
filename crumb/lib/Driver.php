@@ -3,8 +3,6 @@
  * Crumb_Driver:: defines an API for implementing storage backends for
  * Crumb.
  *
- * $Horde$
- *
  * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

@@ -2,8 +2,6 @@
 /**
  * Thread display script
  *
- * $Horde: agora/messages/index.php,v 1.67 2009-12-10 17:42:30 jan Exp $
- *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

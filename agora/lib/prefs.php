@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: agora/lib/prefs.php,v 1.5 2009/06/10 00:33:11 mrubinsk Exp $
- *
  * Copyright 2005-2007 Andrew Hosie <ahosie@gmail.com>
  *
  * See the enclosed file COPYING for license information (GPL). If you

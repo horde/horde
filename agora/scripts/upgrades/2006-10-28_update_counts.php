@@ -4,9 +4,6 @@
  * Upgrades counters
  *
  * TODO Get rid of moderation
- *
- * $Horde: agora/scripts/upgrades/2006-10-28_update_counts.php,v 1.10 2009/06/10 19:57:52 slusarz Exp $
- *
  */
 
 // No need for auth.

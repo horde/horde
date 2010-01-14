@@ -2,8 +2,6 @@
 /**
  * This class provides attributes methods for any existing SQL class.
  *
- * $Horde: incubator/hylax/lib/SQL/Attributes.php,v 1.5 2009/01/06 17:50:49 jan Exp $
- *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

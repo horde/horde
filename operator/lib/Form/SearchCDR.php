@@ -2,8 +2,6 @@
 /**
  * SearchCDRForm Class
  *
- * $Horde: incubator/operator/lib/Form/SearchCDR.php,v 1.7 2009/06/02 14:53:20 chuck Exp $
- *
  * Copyright 2008 Alkaloid Networks LLC <http://projects.alkaloid.net>
  *
  * See the enclosed file LICENSE for license information (BSD). If you

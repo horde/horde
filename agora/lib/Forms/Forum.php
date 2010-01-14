@@ -2,8 +2,6 @@
 /**
  * Forum management class.
  *
- * $Horde: agora/lib/Forms/Forum.php,v 1.8 2009/01/06 17:48:46 jan Exp $
- *
  * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

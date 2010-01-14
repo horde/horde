@@ -1,9 +1,6 @@
 <?php
 /**
- * $Horde: incubator/hylax/config/covers.php.dist,v 1.1 2005/07/09 20:56:18 jvandal Exp $
- *
  * This file defines the templates used to generate Cover Page.
- *
  */
 
 $_covers['default'] = array(

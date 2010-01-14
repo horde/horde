@@ -1,8 +1,6 @@
 #!/usr/bin/php
 <?php
 /**
- * $Horde: agora/scripts/upgrades/2006-10-26_forums_table.php,v 1.6 2009/06/10 19:57:52 slusarz Exp $
- *
  * Script to migrate forums from datatree agora_forms table
  */
 

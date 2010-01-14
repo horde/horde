@@ -4,8 +4,6 @@
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
- *
- * $Horde: incubator/hylax/view.php,v 1.7 2009/06/10 05:24:18 slusarz Exp $
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';

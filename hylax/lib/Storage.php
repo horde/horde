@@ -7,8 +7,6 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * $Horde: incubator/hylax/lib/Storage.php,v 1.16 2009/01/06 17:50:48 jan Exp $
- *
  * @author  Marko Djukic <marko@oblo.com>
  * @package Hylax
  */

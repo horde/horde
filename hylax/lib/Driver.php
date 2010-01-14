@@ -2,8 +2,6 @@
 /**
  * Hylax_Driver Class
  *
- * $Horde: incubator/hylax/lib/Driver.php,v 1.13 2009/01/06 17:50:48 jan Exp $
- *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

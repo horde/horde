@@ -1,8 +1,8 @@
 <?php
 /**
- * $Horde: incubator/hylax/config/prefs.php.dist,v 1.1 2005/07/09 20:56:18 jvandal Exp $
- *
  * See horde/config/prefs.php for documentation on the structure of this file.
+ *
+ * $Id$
  */
 
 $prefGroups['display'] = array(

@@ -2,8 +2,6 @@
 /**
  * Hylax_Driver_spandsp Class
  *
- * $Horde: incubator/hylax/lib/Driver/spandsp.php,v 1.14 2009/01/06 17:50:48 jan Exp $
- *
  * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

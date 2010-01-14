@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- $Horde: incubator/hylax/config/conf.xml,v 1.5 2005/06/18 01:38:51 jvandal Exp $ -->
+<!-- $Id$ -->
 <configuration>
  <configtab name="fax" desc="Fax Driver Settings">
   <configsection name="fax">

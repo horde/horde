@@ -2,8 +2,6 @@
 /**
  * The Agora script to create or edit a forum.
  *
- * $Horde: agora/editforum.php,v 1.58 2009/07/08 18:28:38 slusarz Exp $
- *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

@@ -2,8 +2,6 @@
 /**
  * Class representing vNotes.
  *
- * $Horde: framework/iCalendar/iCalendar/vnote.php,v 1.14 2009/06/07 18:13:46 mrubinsk Exp $
- *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

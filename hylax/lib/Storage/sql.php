@@ -10,8 +10,6 @@ require_once HYLAX_BASE . '/lib/SQL/Attributes.php';
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * $Horde: incubator/hylax/lib/Storage/sql.php,v 1.21 2009/07/08 18:29:13 slusarz Exp $
- *
  * @author Marko Djukic <marko@oblo.com>
  * @package Hylax
  */

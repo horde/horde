@@ -2,8 +2,6 @@
 /**
  * Agora_Search:: class provides the functions & forms for search.
  *
- * $Horde: agora/lib/Forms/Search.php,v 1.15 2009/01/06 17:48:46 jan Exp $
- *
  * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

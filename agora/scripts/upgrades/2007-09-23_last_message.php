@@ -2,9 +2,6 @@
 <?php
 /**
  * Upgrades last messages
- *
- * $Horde: agora/scripts/upgrades/2007-09-23_last_message.php,v 1.6 2009/06/10 19:57:52 slusarz Exp $
- *
  */
 
 // No need for auth.

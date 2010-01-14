@@ -1,8 +1,5 @@
 #!/usr/bin/php
 <?php
-/**
- * $Horde: incubator/hylax/scripts/fax_create.php,v 1.4 2009/06/10 19:57:57 slusarz Exp $
- */
 
 // No need for auth.
 @define('AUTH_HANDLER', true);

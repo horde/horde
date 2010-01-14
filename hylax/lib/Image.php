@@ -7,8 +7,6 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * $Horde: incubator/hylax/lib/Image.php,v 1.14 2009/06/10 05:24:18 slusarz Exp $
- *
  * @author  Marko Djukic <marko@oblo.com>
  * @package Hylax
  */

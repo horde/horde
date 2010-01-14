@@ -1,8 +1,8 @@
 <?php
 /**
- * $Horde: incubator/operator/config/prefs.php.dist,v 1.2 2008/07/03 14:29:15 bklang Exp $
- *
  * See horde/config/prefs.php for documentation on the structure of this file.
+ *
+ * $Id$
  */
 
 $prefGroups['display'] = array(

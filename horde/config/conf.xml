@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- $Horde: horde/config/conf.xml,v 1.286 2009-12-10 16:28:48 jan Exp $ -->
+<!-- $Id$ -->
 <configuration>
  <configtab name="general" desc="General">
   <configheader>General Horde Settings</configheader>

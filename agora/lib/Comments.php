@@ -2,8 +2,6 @@
 /**
  * Comments display script
  *
- * $Horde: agora/lib/Comments.php,v 1.16 2009-12-10 17:42:30 jan Exp $
- *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

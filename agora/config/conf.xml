@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- $Horde: agora/config/conf.xml,v 1.21 2006/12/28 18:03:57 duck Exp $ -->
+<!-- $Id$ -->
 <configuration>
 
  <configsection name="forums">
@@ -31,7 +31,7 @@
   a thread (settable in preferences) has been reached the thread will be marked
   as HOT.">true</configboolean>
   <configheader>Thread Settings</configheader>
-  <configboolean name="split" desc="Store messages in scope dedicated tables. 
+  <configboolean name="split" desc="Store messages in scope dedicated tables.
   NOTE that for this you must create a table named agora_messages_SCOPE,
   for every scope you would use.">false</configboolean>
  </configsection>

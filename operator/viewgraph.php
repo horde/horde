@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: incubator/operator/viewgraph.php,v 1.11 2009/06/10 17:33:30 slusarz Exp $
- *
  * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -31,7 +29,7 @@ if ($form->isSubmitted() && $form->validate($vars, true)) {
     try {
         $start = new Horde_Date($vars->get('startdate'));
         $end = new Horde_Date($vars->get('enddate'));
-    
+
         if (($end->month - $start->month) == 0 &&
             ($end->year - $start->year) == 0) {
             // FIXME: This should not cause an error but is due to a bug in

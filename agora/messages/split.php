@@ -6,8 +6,6 @@
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
- *
- * $Horde: agora/messages/split.php,v 1.20 2009-12-01 12:52:38 jan Exp $
  */
 
 define('AGORA_BASE', dirname(__FILE__) . '/..');

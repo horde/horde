@@ -5,8 +5,6 @@
  * This file defines Agora's external API interface. Other
  * applications can interact with Agora through this API.
  *
- * $Horde: agora/lib/Application.php,v 1.2 2009/09/29 13:53:27 duck Exp $
- *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

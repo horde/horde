@@ -1,8 +1,5 @@
 #!/usr/bin/php
 <?php
-/**
- * $Horde: incubator/hylax/scripts/install_cups_drivers.php,v 1.3 2009/06/10 19:57:57 slusarz Exp $
- */
 
 // No need for auth.
 @define('AUTH_HANDLER', true);

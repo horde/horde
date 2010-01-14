@@ -7,8 +7,6 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * $Horde: agora/lib/Agora.php,v 1.121 2009-12-01 12:52:38 jan Exp $
- *
  * @author Marko Djukic <marko@oblo.com>
  * @package Agora
  */

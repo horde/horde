@@ -2,8 +2,6 @@
 /**
  * The Agora script to lock a message and prevent further posts to this thread.
  *
- * $Horde: agora/messages/lock.php,v 1.30 2009-12-01 12:52:38 jan Exp $
- *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

@@ -1,8 +1,8 @@
 <?php
 /**
- * $Horde: agora/config/prefs.php.dist,v 1.33 2008/02/14 16:25:40 jan Exp $
- *
  * See horde/config/prefs.php for documentation on the structure of this file.
+ *
+ * $Id$
  */
 
 if ($GLOBALS['conf']['avatar']['allow_avatars']) {

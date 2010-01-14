@@ -8,8 +8,6 @@ $block_name = _("Single Thread");
  * This file provides an api to include an Agora forum's thread into any other
  * Horde app through the Horde_Blocks, by extending the Horde_Blocks class.
  *
- * $Horde: agora/lib/Block/thread.php,v 1.37 2009/01/06 17:48:46 jan Exp $
- *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

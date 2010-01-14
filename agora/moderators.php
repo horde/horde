@@ -4,8 +4,6 @@
  *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
- * $Horde: agora/moderators.php,v 1.17 2009/07/08 18:28:38 slusarz Exp $
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *

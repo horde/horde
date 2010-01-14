@@ -13,9 +13,6 @@
  *  done
  *
  * TODO: Moderation, attachments, ID swaping
- *
- * $Horde: agora/scripts/phorum2agora.php,v 1.10 2009/06/10 19:57:51 slusarz Exp $
- *
  */
 
 // No need for auth.

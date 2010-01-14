@@ -2,8 +2,6 @@
 /**
  * The Agora base inclusion library.
  *
- * $Horde: agora/lib/base.php,v 1.64 2009/10/20 09:17:26 jan Exp $
- *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

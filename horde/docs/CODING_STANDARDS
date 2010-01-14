@@ -270,8 +270,6 @@ Example for `GPL`_'ed application code::
      * The App_Bar class contains all functions related to handling
      * bars in App.
      *
-     * $Horde
-     *
      * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
      *
      * See the enclosed file COPYING for license information (GPL). If you

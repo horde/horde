@@ -3,8 +3,6 @@
  * The Agora script to post a new message, edit an existing message, or reply
  * to a message.
  *
- * $Horde: agora/messages/edit.php,v 1.90 2009-12-01 12:52:38 jan Exp $
- *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

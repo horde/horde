@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: agora/rss/threads.php,v 1.14 2009/07/09 08:17:48 slusarz Exp $
- *
  * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

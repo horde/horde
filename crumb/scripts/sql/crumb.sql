@@ -1,6 +1,3 @@
---
--- $Horde$
---
 CREATE TABLE crumb_clients (
     client_id         INT NOT NULL,
     turba_uid         VARCHAR(255),

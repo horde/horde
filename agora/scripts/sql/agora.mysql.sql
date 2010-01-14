@@ -1,5 +1,3 @@
--- $Horde: agora/scripts/sql/agora.mysql.sql,v 1.16 2009/10/20 21:28:30 jan Exp $
-
 CREATE TABLE agora_files (
     file_id INT(11) UNSIGNED NOT NULL,
     file_name VARCHAR(255) NOT NULL,

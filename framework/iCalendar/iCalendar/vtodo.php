@@ -2,8 +2,6 @@
 /**
  * Class representing vTodos.
  *
- * $Horde: framework/iCalendar/iCalendar/vtodo.php,v 1.22 2009/01/06 17:50:03 jan Exp $
- *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

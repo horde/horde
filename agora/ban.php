@@ -4,8 +4,6 @@
  *
  * Copyright 2006-2010 The Horde Project (http://www.horde.org/)
  *
- * $Horde: agora/ban.php,v 1.15 2009-12-01 12:52:38 jan Exp $
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */

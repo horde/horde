@@ -3,8 +3,6 @@
  * Agora_Messages_sql:: provides the functions to access both threads and
  * individual messages in one table for all scopes
  *
- * $Horde: agora/lib/Messages/sql.php,v 1.17 2009/01/06 17:48:46 jan Exp $
- *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

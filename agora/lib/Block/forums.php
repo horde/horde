@@ -8,8 +8,6 @@ $block_name = _("Forums");
  * This file provides a list of Agora forums through the Horde_Blocks, by
  * extending the Horde_Blocks class.
  *
- * $Horde: agora/lib/Block/forums.php,v 1.47 2009/07/08 18:28:39 slusarz Exp $
- *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

@@ -2,8 +2,6 @@
 /**
  * The Agora script to display a list of forums.
  *
- * $Horde: agora/owner.php,v 1.7 2009/09/29 13:43:15 duck Exp $
- *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

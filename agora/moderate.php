@@ -4,8 +4,6 @@
  *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
- * $Horde: agora/moderate.php,v 1.32 2009-12-10 17:42:30 jan Exp $
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
