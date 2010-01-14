@@ -370,7 +370,7 @@ Configuring IMP
 
 5. Testing IMP
 
-   Once you have configured IMP, bring up the included test page in your Web
+   Once you have configured IMP, bring up the Horde test page in your Web
    browser to ensure that all necessary prerequisites have been met.  See the
    `horde/docs/INSTALL`_ document for further details on the Horde test
    script.
