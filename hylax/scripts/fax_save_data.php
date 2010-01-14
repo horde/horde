@@ -1,11 +1,8 @@
 #!/usr/bin/php
 <?php
 
-// No need for auth.
-@define('AUTH_HANDLER', true);
-
 require_once dirname(__FILE__) . '/../lib/Application.php';
-$hylax = new Hylax_Application(array('init' => true));
+$hylax = Horde_Registry::appInit('hylax', array('authentication' => 'none'));
 
 // Make sure no one runs this from the web.
 if (!Horde_Cli::runningFromCLI()) {
@@ -14,7 +11,7 @@ if (!Horde_Cli::runningFromCLI()) {
 
 /* Load the CLI environment - make sure there's no time limit, init some
  * variables, etc. */
-$cli = &new Horde_Cli();
+$cli = new Horde_Cli();
 $cli->init();
 
 /* Store the raw fax postscript data. */

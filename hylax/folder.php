@@ -7,7 +7,7 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-$hylax = new Hylax_Application(array('init' => true));
+$hylax = Horde_Registry::appInit('hylax');
 
 $folder = strtolower(Horde_Util::getFormData('folder', 'inbox'));
 $path = Horde_Util::getFormData('path');

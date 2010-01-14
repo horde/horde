@@ -168,7 +168,6 @@ class Hylax_Storage_sql extends Hylax_Storage {
         }
 
         /* Unserialize the gateway params. */
-        require_once 'Horde/Serialize.php';
         $gateway['gateway_params'] = Horde_Serialize::unserialize($gateway['gateway_params'], Horde_Serialize::UTF7_BASIC);
 
         /* Unserialize the gateway send params. */
@@ -203,7 +202,6 @@ class Hylax_Storage_sql extends Hylax_Storage {
         }
 
         /* Serialize the gateway params. */
-        require_once 'Horde/Serialize.php';
         if (!empty($info['gateway_params'])) {
             $info['gateway_params'] = Horde_Serialize::serialize($info['gateway_params'], Horde_Serialize::UTF7_BASIC);
         } else {
@@ -275,7 +273,6 @@ class Hylax_Storage_sql extends Hylax_Storage {
         }
 
         /* Serialize the message params. */
-        require_once 'Horde/Serialize.php';
         $message_params = Horde_Serialize::serialize($message_params, Horde_Serialize::UTF7_BASIC);
 
         $sql = 'INSERT INTO swoosh_messages (message_id, user_uid, gateway_id, message_batch_id, message_text, message_params, message_submitted) VALUES (?, ?, ?, ?, ?, ?, ?)';
