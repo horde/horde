@@ -472,15 +472,37 @@ KronolithCore = {
             var div = $('kronolithEventsWeek').down('div'),
                 th = $('kronolithViewWeekHead').down('.kronolithWeekDay'),
                 td = $('kronolithViewWeekHead').down('tbody').down('td').next('td'),
+                hourRow = $('kronolithViewWeekBody').down('tr'),
                 dates = this.viewDates(date, view),
-                day = dates[0].clone();
+                today = Date.today(),
+                day, i, hourCol;
 
             $('kronolithViewWeek').down('caption span').innerHTML = this.setTitle(Kronolith.text.week.interpolate({ 'week': date.getRealWeek() }));
 
-            for (var i = 0; i < 7; i++) {
+            for (i = 0; i < 24; i++) {
+                day = dates[0].clone();
+                hourCol = hourRow.down('td').next('td');
+                while (hourCol) {
+                    hourCol.removeClassName('kronolithToday');
+                    if (day.equals(today)) {
+                        hourCol.addClassName('kronolithToday');
+                    }
+                    hourCol = hourCol.next('td');
+                    day.next().day();
+                }
+                hourRow = hourRow.next('tr');
+            }
+            day = dates[0].clone();
+            for (i = 0; i < 7; i++) {
                 div.writeAttribute('id', 'kronolithEventsWeek' + day.dateString());
-                th.store('date', day.dateString()).down('span').innerHTML = day.toString('dddd, d');
-                td.down('div').writeAttribute('id', 'kronolithAllDay' + day.dateString());
+                th.store('date', day.dateString())
+                    .down('span').innerHTML = day.toString('dddd, d');
+                td.removeClassName('kronolithToday')
+                    .down('div')
+                    .writeAttribute('id', 'kronolithAllDay' + day.dateString());
+                if (day.equals(today)) {
+                    td.addClassName('kronolithToday');
+                }
                 div = div.next('div');
                 th = th.next('td');
                 td = td.next('td');
