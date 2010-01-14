@@ -3,25 +3,8 @@
  * @package Kolab_Filter
  */
 
-/** Load the required PEAR libraries */
-require_once 'PEAR.php';
-
-/** Console_Getopt */
-require_once 'Console/Getopt.php';
-
-/** Load the required Horde libraries */
-require_once 'Horde.php';
-
 /** Load the Filter libraries */
 require_once dirname(__FILE__) . '/Response.php';
-
-/** Load the argument parsing library */
-require_once 'Horde/Argv/Option.php';
-require_once 'Horde/Argv/OptionContainer.php';
-require_once 'Horde/Argv/HelpFormatter.php';
-require_once 'Horde/Argv/IndentedHelpFormatter.php';
-require_once 'Horde/Argv/Values.php';
-require_once 'Horde/Argv/Parser.php';
 
 /**
  * A basic definition for a PHP based postfix filter.

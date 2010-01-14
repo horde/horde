@@ -16,7 +16,6 @@ require_once 'Horde/LDAP.php';
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Gunnar Wrobel <wrobel@pardus.de>
- * @since   Horde 3.2
  * @package Horde_Group
  */
 class Group_kolab extends Group_ldap {
@@ -347,7 +346,6 @@ class Group_kolab extends Group_ldap {
  *
  *
  * @author  Ben Chavet <ben@horde.org>
- * @since   Horde 3.1
  * @package Horde_Group
  */
 class Kolab_Group extends LDAP_Group {

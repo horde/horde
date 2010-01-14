@@ -17,7 +17,6 @@ require_once 'Horde/DataTree.php';
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Jan Schneider <jan@horde.org>
  * @author  Gunnar Wrobel <wrobel@pardus.de>
- * @since   Horde 3.2
  * @package Horde_Share
  */
 class Horde_Share_datatree extends Horde_Share {
@@ -179,8 +178,6 @@ class Horde_Share_datatree extends Horde_Share {
 
     /**
      * Returns the number of shares that $userid has access to.
-     *
-     * @since Horde 3.2
      *
      * @param string $userid     The userid of the user to check access for.
      * @param integer $perm      The level of permissions required.
@@ -346,7 +343,6 @@ class Horde_Share_datatree extends Horde_Share {
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @author  Jan Schneider <jan@horde.org>
  * @author  Gunnar Wrobel <wrobel@pardus.de>
- * @since   Horde 3.2
  * @package Horde_Share
  */
 class Horde_Share_Object_datatree extends Horde_Share_Object {
@@ -489,7 +485,6 @@ class Horde_Share_Object_datatree extends Horde_Share_Object {
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @author  Jan Schneider <jan@horde.org>
- * @since   Horde 3.0
  * @package Horde_Share
  */
 class DataTreeObject_Share extends DataTreeObject {

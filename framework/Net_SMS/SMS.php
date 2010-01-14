@@ -1,7 +1,4 @@
 <?php
-
-require_once 'PEAR.php';
-
 /**
  * Net_SMS Class
  *

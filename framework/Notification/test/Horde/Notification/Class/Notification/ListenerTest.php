@@ -34,7 +34,6 @@ class Horde_Notification_Class_Notification_ListenerTest extends PHPUnit_Framewo
 {
     public function setUp()
     {
-        @include_once 'PEAR.php';
         if (!class_exists('PEAR_Error')) {
             $this->markTestSkipped('The PEAR_Error class is not available!');
         }

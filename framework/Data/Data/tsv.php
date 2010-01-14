@@ -9,7 +9,6 @@
  *
  * @author  Jan Schneider <jan@horde.org>
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @since   Horde 1.3
  * @package Horde_Data
  */
 class Horde_Data_tsv extends Horde_Data {

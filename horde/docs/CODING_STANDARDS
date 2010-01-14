@@ -201,7 +201,7 @@ Quick example function definition for Horde::
      * [Once again, insert 2 spaces after the datatype, and line up all
      *  subsequent lines, if any, with this character.]
      *
-     * @since Horde x.x [Only if necessary - use if function is added to the
+     * @since Horde x.x.x [Only if necessary - use if function is added to the
      * current release versions to indicate that the function has not been
      * available in previous versions. @since is only needed if the function
      * has been added after the last major point release - e.g. x.0.]
@@ -257,7 +257,7 @@ Example for `LGPL`_'ed Horde code::
      *
      * @author   Original Author <author@example.com>
      * @author   Your Name <you@example.com>
-     * @since    Horde 3.0 [only if needed]
+     * @since    Horde 4.0.1 [only if needed]
      * @category Horde
      * @package  Horde_Package
      */
@@ -277,7 +277,7 @@ Example for `GPL`_'ed application code::
      *
      * @author   Original Author <author@example.com>
      * @author   Your Name <you@example.com>
-     * @since    App 1.0 [only if needed]
+     * @since    App 1.0.1 [only if needed]
      * @category Horde
      * @package  app
      */

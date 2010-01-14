@@ -4,7 +4,6 @@ require_once 'Horde/Form.php';
 
 /**
  * @package Horde_Form
- * @since   Horde 3.1
  */
 class Horde_Form_Type_tableset extends Horde_Form_Type {
 

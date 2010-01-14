@@ -13,12 +13,8 @@
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @since   Horde 3.2
  * @package Horde_DOM
  */
-
-/** PEAR */
-require_once 'PEAR.php';
 
 /** Validate against the DTD */
 define('HORDE_DOM_LOAD_VALIDATE', 1);

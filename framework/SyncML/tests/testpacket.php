@@ -15,11 +15,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Jan Schneider <jan@horde.org>
- * @since   Horde 3.3.4
  * @package SyncML
  */
 
-require_once 'PEAR.php';
 require_once 'SyncML.php';
 
 class Backend extends SyncML_Backend {

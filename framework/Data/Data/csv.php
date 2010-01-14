@@ -4,11 +4,6 @@
  */
 
 /**
- * Horde's File_CSV class.
- */
-include_once 'File/CSV.php';
-
-/**
  * Horde_Data implementation for comma-separated data (CSV).
  *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
@@ -18,7 +13,6 @@ include_once 'File/CSV.php';
  *
  * @author  Jan Schneider <jan@horde.org>
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @since   Horde 1.3
  * @package Horde_Data
  */
 class Horde_Data_csv extends Horde_Data {

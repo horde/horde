@@ -40,7 +40,6 @@
  * @author  Stephane Huther <shuther1@free.fr>
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Jan Schneider <jan@horde.org>
- * @since   Horde 2.1
  * @package Horde_DataTree
  */
 class DataTree_sql extends DataTree {
@@ -466,8 +465,6 @@ class DataTree_sql extends DataTree {
 
     /**
      * Returns a tree sorted by the specified attribute name and/or key.
-     *
-     * @since Horde 3.1
      *
      * @param string $root         Which portion of the tree to sort.
      *                             Defaults to all of it.
@@ -1310,8 +1307,6 @@ class DataTree_sql extends DataTree {
      * given criteria. Either attribute_name or attribute_key MUST be
      * supplied, and both MAY be supplied.
      *
-     * @since Horde 3.2
-     *
      * @see buildAttributeQuery()
      *
      * @param array   $criteria     The array of criteria.
@@ -1356,8 +1351,6 @@ class DataTree_sql extends DataTree {
      * Returns a list of all of the available values of the given criteria
      * Either attribute_name or attribute_key MUST be
      * supplied, and both MAY be supplied.
-     *
-     * @since Horde 3.2
      *
      * @see buildAttributeQuery()
      *

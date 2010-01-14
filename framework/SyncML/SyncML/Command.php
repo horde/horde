@@ -19,7 +19,6 @@
  *
  * @author  Anthony Mills <amills@pyramid6.com>
  * @author  Jan Schneider <jan@horde.org>
- * @since   Horde 3.0
  * @package SyncML
  */
 class SyncML_Command {
@@ -163,7 +162,6 @@ class SyncML_Command {
             $msg = 'Class definition of ' . $class . ' not found.';
             $GLOBALS['backend']->logMessage($msg, __FILE__, __LINE__,
                                             PEAR_LOG_ERR);
-            require_once 'PEAR.php';
             $cmd = PEAR::raiseError($msg);
         }
 

@@ -133,7 +133,6 @@ class Horde_Block_Horde_account extends Horde_Block {
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Eric Jon Rostetter <eric.rostetter@physics.utexas.edu>
- * @since   Horde 3.1
  * @package Horde_Block
  */
 class Accounts_Driver {
@@ -243,7 +242,6 @@ class Accounts_Driver {
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Eric Jon Rostetter <eric.rostetter@physics.utexas.edu>
- * @since   Horde 3.1
  * @package Horde_Block
  */
 class Accounts_Driver_localhost extends Accounts_Driver {
@@ -411,7 +409,6 @@ class Accounts_Driver_localhost extends Accounts_Driver {
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Eric Jon Rostetter <eric.rostetter@physics.utexas.edu>
- * @since   Horde 3.1
  * @package Horde_Block
  */
 class Accounts_Driver_ldap extends Accounts_Driver {

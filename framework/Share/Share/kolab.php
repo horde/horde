@@ -13,7 +13,6 @@
  *
  * @author  Stuart Binge <omicron@mighty.co.za>
  * @author  Gunnar Wrobel <wrobel@pardus.de>
- * @since   Horde 3.2
  * @package Horde_Share
  */
 class Horde_Share_kolab extends Horde_Share {
@@ -267,8 +266,6 @@ class Horde_Share_kolab extends Horde_Share {
     /**
      * Returns the number of shares that $userid has access to.
      *
-     * @since Horde 3.2
-     *
      * @param string $userid     The userid of the user to check access for.
      * @param integer $perm      The level of permissions required.
      * @param mixed $attributes  Restrict the shares counted to those
@@ -389,7 +386,6 @@ class Horde_Share_kolab extends Horde_Share {
  *
  * @author  Stuart Binge <omicron@mighty.co.za>
  * @author  Gunnar Wrobel <wrobel@pardus.de>
- * @since   Horde 3.2
  * @package Horde_Share
  */
 class Horde_Share_Object_kolab extends Horde_Share_Object {

@@ -8,7 +8,6 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Duck <duck@obala.net>
- * @since   Horde 3.2
  * @package Horde_Group
  */
 class Group_sql extends Group {
@@ -768,7 +767,6 @@ class Group_sql extends Group {
  * SQLObject directly.
  *
  * @author  Duck <duck@obala.net>
- * @since   Horde 3.2
  * @package Horde_Group
  */
 class SQLObject_Group extends DataTreeObject_Group {

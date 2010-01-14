@@ -1,6 +1,5 @@
 <?php
 
-require_once 'PEAR.php';
 require_once 'Log.php';
 
 define('VFS_QUOTA_METRIC_BYTE', 1);
@@ -18,7 +17,6 @@ define('VFS_QUOTA_METRIC_GB', 4);
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package VFS
- * @since   Horde 2.2
  */
 class VFS {
 
@@ -193,8 +191,6 @@ class VFS {
 
     /**
      * Returns the size of a folder
-     *
-     * @since Horde 3.1
      *
      * @param string $path  The path to the folder.
      * @param string $name  The name of the folder.
@@ -822,8 +818,6 @@ class VFS {
     /**
      * Returns the size of the VFS item.
      *
-     * @since Horde 3.1
-     *
      * @return integer  The size, in bytes, of the VFS item.
      */
     function getVFSSize()
@@ -836,8 +830,6 @@ class VFS {
 
     /**
      * Sets the VFS quota limit.
-     *
-     * @since Horde 3.1
      *
      * @param integer $quota   The limit to apply.
      * @param integer $metric  The metric to multiply the quota into.
@@ -864,8 +856,6 @@ class VFS {
     /**
      * Sets the VFS quota root.
      *
-     * @since Horde 3.1
-     *
      * @param string $dir  The root directory for the quota determination.
      */
     function setQuotaRoot($dir)
@@ -875,8 +865,6 @@ class VFS {
 
     /**
      * Get quota information (used/allocated), in bytes.
-     *
-     * @since Horde 3.1
      *
      * @return mixed  An associative array.
      *                'limit' = Maximum quota allowed

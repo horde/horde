@@ -18,7 +18,6 @@ include_once 'Net/SMPP/Client.php';
  * @author     Ian Eure <ieure@php.net>
  * @link       http://pear.php.net/package/Net_SMS
  * @since      Net_SMS 0.2.0
- * @since      Horde 3.2
  */
 class Net_SMS_generic_smpp extends Net_SMS {
 

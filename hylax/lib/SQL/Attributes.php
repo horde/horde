@@ -8,7 +8,6 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @since   Horde 2.2
  * @package Hylax
  */
 class Hylax_SQL_Attributes {

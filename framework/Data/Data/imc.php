@@ -1,7 +1,4 @@
 <?php
-
-require_once 'Horde/iCalendar.php';
-
 /**
  * Abstract implementation of the Horde_Data:: API for IMC data -
  * vCards and iCalendar data, etc. Provides a number of utility
@@ -15,7 +12,6 @@ require_once 'Horde/iCalendar.php';
  *
  * @author  Jan Schneider <jan@horde.org>
  * @package Horde_Data
- * @since   Horde 3.0
  */
 class Horde_Data_imc extends Horde_Data {
 

@@ -19,7 +19,6 @@ require_once 'SyncML/Command/Put.php';
  *
  * @author  Nathan P Sharp
  * @author  Jan Schneider <jan@horde.org>
- * @since   Horde 3.0
  * @package SyncML
  */
 class SyncML_Command_Results extends SyncML_Command_Put {

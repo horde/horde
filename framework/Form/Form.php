@@ -17,7 +17,6 @@ require_once 'Horde/Form/Variable.php';
  *
  * @author  Robert E. Coyle <robertecoyle@hotmail.com>
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @since   Horde 3.0
  * @package Horde_Form
  */
 class Horde_Form {

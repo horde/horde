@@ -141,7 +141,6 @@ class Net_IMSP_Utils {
      *                                the current user.
      *
      * @return mixed  Array describing any shares added or removed  | PEAR_Error.
-     * @since Horde 3.2
      */
     function synchShares(&$share_obj, $serverInfo)
     {
@@ -243,7 +242,6 @@ class Net_IMSP_Utils {
      * @param array        Parameters for the share
      *
      * @return mixed  True | PEAR_Error
-     * @since Horde 3.2
      */
     function _createShare(&$share_obj, $params, $shareparams)
     {
@@ -266,7 +264,6 @@ class Net_IMSP_Utils {
      * @param array $params  Parameters to check for ownership.
      *
      * @return boolean  True if $user is owner, otherwise false.
-     * @since Horde 3.2
      */
     function _isOwner($bookName, $username, $acl)
     {
@@ -283,7 +280,6 @@ class Net_IMSP_Utils {
      *
      * @param Datatree_Object_Share $share  The share to assign perms to
      * @param string $acl                   The IMSP acl string.
-     * @since Horde 3.2
      */
     function _setPerms(&$share, $acl)
     {
@@ -309,7 +305,6 @@ class Net_IMSP_Utils {
      * @param integer $perms   Horde_Perms style permission bitmask.
      *
      * @return string   An IMSP acl string
-     * @since Horde 3.2
      */
     function permsToACL($perms)
     {
@@ -338,7 +333,6 @@ class Net_IMSP_Utils {
      * @param string $acl   The acl string to set.
      *
      * @return mixed  True | Pear_Error
-     * @since Horde 3.2
      */
     function setACL($params, $book, $name, $acl)
     {

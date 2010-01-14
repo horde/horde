@@ -9,7 +9,6 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Duck <duck@obala.net>
- * @since   Horde 3.2
  * @package Horde_Share
  */
 
@@ -916,7 +915,6 @@ class Horde_Share_sql extends Horde_Share {
  * the sql driver.
  *
  * @author  Duck <duck@obala.net>
- * @since   Horde 3.2
  * @package Horde_Share
  */
 class Horde_Share_Object_sql extends Horde_Share_Object {

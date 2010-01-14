@@ -619,7 +619,6 @@ class Group_contactlists extends Group {
  * Extension of the DataTreeObject_Group class for storing Group information.
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @since   Horde 4.0
  * @package Horde_Group
  */
 class ContactListObject_Group extends DataTreeObject_Group {

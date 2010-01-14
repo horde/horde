@@ -1,7 +1,4 @@
 <?php
-
-require_once 'PEAR.php';
-
 /**
  * Abstract class to handle different kinds of Data formats and to
  * help data exchange between Horde applications and external sources.
@@ -13,7 +10,6 @@ require_once 'PEAR.php';
  *
  * @author  Jan Schneider <jan@horde.org>
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @since   Horde 1.3
  * @package Horde_Data
  */
 class Horde_Data extends PEAR {
@@ -56,7 +52,6 @@ class Horde_Data extends PEAR {
      * A list of warnings raised during the last operation.
      *
      * @var array
-     * @since Horde 3.1
      */
     var $_warnings = array();
 
@@ -140,8 +135,6 @@ class Horde_Data extends PEAR {
     /**
      * Returns a list of warnings that have been raised during the last
      * operation.
-     *
-     * @since Horde 3.1
      *
      * @return array  A (possibly empty) list of warnings.
      */

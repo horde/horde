@@ -405,9 +405,6 @@ class Horde_Form_Type_stringlist extends Horde_Form_Type_text {
 
 }
 
-/**
- * @since Horde 3.3
- */
 class Horde_Form_Type_stringarray extends Horde_Form_Type_stringlist {
 
     function getInfo(&$vars, &$var, &$info)
@@ -434,9 +431,6 @@ class Horde_Form_Type_stringarray extends Horde_Form_Type_stringlist {
 
 }
 
-/**
- * @since Horde 3.2
- */
 class Horde_Form_Type_phone extends Horde_Form_Type {
 
     function isValid(&$var, &$vars, $value, &$message)
@@ -754,9 +748,6 @@ class Horde_Form_Type_addresslink extends Horde_Form_Type_address {
 
 }
 
-/**
- * @since Horde 3.3
- */
 class Horde_Form_Type_pgp extends Horde_Form_Type_longtext {
 
     /**
@@ -810,9 +801,6 @@ class Horde_Form_Type_pgp extends Horde_Form_Type_longtext {
 
 }
 
-/**
- * @since Horde 3.3
- */
 class Horde_Form_Type_smime extends Horde_Form_Type_longtext {
 
     /**
@@ -856,9 +844,6 @@ class Horde_Form_Type_smime extends Horde_Form_Type_longtext {
 
 }
 
-/**
- * @since Horde 3.2
- */
 class Horde_Form_Type_country extends Horde_Form_Type_enum {
 
     function init($prompt = null)
@@ -1982,9 +1967,6 @@ class Horde_Form_Type_enum extends Horde_Form_Type {
         return $this->_values;
     }
 
-    /**
-     * @since Horde 3.2
-     */
     function setValues($values)
     {
         $this->_values = $values;
@@ -2742,9 +2724,6 @@ class Horde_Form_Type_monthdayyear extends Horde_Form_Type {
 
 }
 
-/**
- * @since Horde 3.2
- */
 class Horde_Form_Type_datetime extends Horde_Form_Type {
 
     var $_mdy;
@@ -3499,9 +3478,6 @@ class Horde_Form_Type_captcha extends Horde_Form_Type_figlet {
 
 }
 
-/**
- * @since Horde 3.2
- */
 class Horde_Form_Type_category extends Horde_Form_Type {
 
     function getInfo(&$vars, &$var, &$info)

@@ -1,7 +1,4 @@
 <?php
-
-require_once 'PEAR.php';
-
 /**
  * VFS API for abstracted creation of ISO (CD-ROM) filesystems.
  *
@@ -12,7 +9,6 @@ require_once 'PEAR.php';
  *
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
  * @package VFS_ISO
- * @since   Horde 3.0
  */
 class VFS_ISOWriter {
 

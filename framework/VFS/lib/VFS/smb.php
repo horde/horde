@@ -31,7 +31,6 @@
  *
  * @author  Paul Gareau <paul@xhawk.net>
  * @author  Patrice Levesque <wayne@ptaff.ca>
- * @since   Horde 3.1
  * @package VFS
  */
 class VFS_smb extends VFS {

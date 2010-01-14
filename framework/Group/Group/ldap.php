@@ -9,7 +9,6 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Ben Chavet <ben@horde.org>
- * @since   Horde 3.1
  * @package Horde_Group
  */
 class Group_ldap extends Group {
@@ -738,7 +737,6 @@ class Group_ldap extends Group {
  * in an LDAP directory.
  *
  * @author  Ben Chavet <ben@horde.org>
- * @since   Horde 3.1
  * @package Horde_Group
  */
 class LDAP_Group extends DataTreeObject_Group {

@@ -1,8 +1,4 @@
 <?php
-
-require_once dirname(__FILE__) . '/imc.php';
-require_once 'Horde/iCalendar.php';
-
 /**
  * Implement the Horde_Data:: API for vCard data.
  *
@@ -12,7 +8,6 @@ require_once 'Horde/iCalendar.php';
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Jan Schneider <jan@horde.org>
- * @since   Horde 3.0
  * @package Horde_Data
  */
 class Horde_Data_vcard extends Horde_Data_imc {

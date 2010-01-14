@@ -17,7 +17,6 @@ require_once 'SyncML/Command.php';
  *
  * @author  Karsten Fourmont <karsten@horde.org>
  * @author  Jan Schneider <jan@horde.org>
- * @since   Horde 3.0
  * @package SyncML
  */
 class SyncML_Command_Final extends SyncML_Command {

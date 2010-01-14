@@ -15,7 +15,6 @@ define('GROUP_ROOT', -1);
  *
  * @author  Stephane Huther <shuther1@free.fr>
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @since   Horde 2.1
  * @package Horde_Group
  */
 class Group {
@@ -715,7 +714,6 @@ class Group {
  * DataTreeObject directly.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @since   Horde 2.1
  * @package Horde_Group
  */
 class DataTreeObject_Group extends DataTreeObject {

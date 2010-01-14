@@ -5,7 +5,6 @@
  *
  * @author  Duck <duck@obala.net>
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @since   Horde 3.2
  * @package Horde_Share
  */
 class Horde_Share_sql_hierarchical extends Horde_Share_sql {

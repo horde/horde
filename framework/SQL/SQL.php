@@ -9,7 +9,6 @@
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Jan Schneider <jan@horde.org>
- * @since   Horde 2.2
  * @package Horde_SQL
  */
 class Horde_SQL {
@@ -24,8 +23,7 @@ class Horde_SQL {
      * @param string $rhs    The comparison value.
      * @param boolean $bind  If true, the method returns the query and a list
      *                       of values suitable for binding as an array.
-     * @param array $params  Any additional parameters for the operator. @since
-     *                       Horde 3.2
+     * @param array $params  Any additional parameters for the operator.
      *
      * @return mixed  The SQL test fragment, or an array containing the query
      *                and a list of values if $bind is true.

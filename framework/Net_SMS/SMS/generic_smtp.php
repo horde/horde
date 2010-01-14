@@ -13,7 +13,6 @@
  * @category   Networking
  * @package    Net_SMS
  * @author     Ian Eure <ieure@php.net>
- * @since      Horde 3.1
  * @since      Net_SMS 0.0.2
  */
 class Net_SMS_generic_smtp extends Net_SMS {

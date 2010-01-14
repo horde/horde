@@ -8,7 +8,6 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @since   Horde 3.0
  * @package Horde_Mobile
  */
 class Horde_Mobile_Renderer_wml extends Horde_Mobile_Renderer {

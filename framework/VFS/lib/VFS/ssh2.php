@@ -18,7 +18,6 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @editor  Cliff Green <green@umdnj.edu>
- * @since   Horde 3.2
  * @package VFS
  */
 class VFS_ssh2 extends VFS {

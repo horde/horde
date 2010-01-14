@@ -6,7 +6,6 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Anthony Mills <amills@pyramid6.com>
- * @since   Horde 3.0
  * @package SyncML
  */
 

@@ -1,8 +1,4 @@
 <?php
-
-/** We rely on the Horde_Data_imc:: abstract class. */
-require_once dirname(__FILE__) . '/imc.php';
-
 /**
  * Implement the Horde_Data:: API for vTodo data.
  *
@@ -14,7 +10,6 @@ require_once dirname(__FILE__) . '/imc.php';
  * @author  Jan Schneider <jan@horde.org>
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Horde_Data
- * @since   Horde 3.0
  */
 class Horde_Data_vtodo extends Horde_Data_imc {
 

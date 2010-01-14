@@ -109,7 +109,6 @@ class Horde_Mobile_card extends Horde_Mobile_element {
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @since   Horde 3.0
  * @package Horde_Mobile
  */
 class Horde_Mobile extends Horde_Mobile_card {

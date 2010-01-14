@@ -33,7 +33,6 @@
  * script.
  *
  * @author  Jan Schneider <jan@horde.org>
- * @since   Horde 3.2
  * @package Horde_Alarm
  */
 class Horde_Alarm_sql extends Horde_Alarm {

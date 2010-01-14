@@ -20,7 +20,6 @@ require_once 'SyncML/Command.php';
  * @author  Anthony Mills <amills@pyramid6.com>
  * @author  Karsten Fourmont <karsten@horde.org>
  * @author  Jan Schneider <jan@horde.org>
- * @since   Horde 3.0
  * @package SyncML
  */
 class SyncML_Command_Alert extends SyncML_Command {

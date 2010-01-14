@@ -8,7 +8,6 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @since   Horde 2.2
  * @package Horde_LDAP
  */
 class Horde_LDAP
@@ -19,8 +18,7 @@ class Horde_LDAP
      * @param string $lhs    The attribute to test.
      * @param string $op     The operator.
      * @param string $rhs    The comparison value.
-     * @param array $params  Any additional parameters for the operator. @since
-     *                       Horde 3.2
+     * @param array $params  Any additional parameters for the operator.
      *
      * @return string  The LDAP search fragment.
      */

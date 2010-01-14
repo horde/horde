@@ -26,7 +26,6 @@
  *
  * @author  Karsten Fourmont <karsten@horde.org>
  * @author  Anthony Mills <amills@pyramid6.com>
- * @since   Horde 3.0
  * @package SyncML
  */
 

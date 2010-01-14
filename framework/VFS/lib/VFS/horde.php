@@ -15,7 +15,6 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Jan Schneider <jan@horde.org>
- * @since   Horde 3.2
  * @package VFS
  */
 class VFS_horde extends VFS {

@@ -10,7 +10,6 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Jason Rust <jrust@rustyparts.com>
- * @since   Horde 3.0
  * @package Horde_Group
  */
 class Group_hooks extends Group {

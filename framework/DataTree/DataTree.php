@@ -561,8 +561,6 @@ class DataTree {
     /**
      * Create attribute sort hash
      *
-     * @since Horde 3.1
-     *
      * @param string  $root         The name of the leaf from which we start
      *                              the export tree.
      * @param string  $sortby_name  Attribute name to use for sorting.
@@ -1092,8 +1090,6 @@ class DataTree {
      *
      * @abstract
      *
-     * @since Horde 3.1
-     *
      * @param string $root         Which portion of the tree to sort.
      *                             Defaults to all of it.
      * @param boolean $loadTree    Sort the tree starting at $root, or just the
@@ -1298,8 +1294,6 @@ class DataTree {
      * You never call this function; it's used in uasort() calls. Do NOT use
      * usort(); you'll lose key => value associations.
      *
-     * @since Horde 3.1
-     *
      * @private
      *
      * @param array $a  The first object
@@ -1404,7 +1398,6 @@ class DataTree {
  *
  * @author  Stephane Huther <shuther1@free.fr>
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @since   Horde 2.1
  * @package Horde_DataTree
  */
 class DataTreeObject {

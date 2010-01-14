@@ -3,9 +3,6 @@
  * @package File_CSV
  */
 
-/** PEAR */
-require_once 'PEAR.php';
-
 /** Mode to use for reading from files */
 define('HORDE_FILE_CSV_MODE_READ', 'rb');
 
@@ -30,7 +27,6 @@ define('HORDE_FILE_CSV_MODE_APPEND', 'ab');
  *
  * @author  Tomas Von Veschler Cox <cox@idecnet.com>
  * @author  Jan Schneider <jan@horde.org>
- * @since   Horde 3.1
  * @package File_CSV
  */
 class File_CSV {

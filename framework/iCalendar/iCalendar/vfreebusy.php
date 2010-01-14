@@ -10,7 +10,6 @@
  * @todo Don't use timestamps
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @since   Horde 3.0
  * @package Horde_iCalendar
  */
 class Horde_iCalendar_vfreebusy extends Horde_iCalendar {

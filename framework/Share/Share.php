@@ -15,7 +15,6 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Jan Schneider <jan@horde.org>
  * @author  Gunnar Wrobel <wrobel@pardus.de>
- * @since   Horde 3.0
  * @package Horde_Share
  */
 class Horde_Share {
@@ -343,8 +342,6 @@ class Horde_Share {
     /**
      * Returns the number of shares that $userid has access to.
      *
-     * @since Horde 3.2
-     *
      * @param string $userid     The userid of the user to check access for.
      * @param integer $perm      The level of permissions required.
      * @param mixed $attributes  Restrict the shares counted to those
@@ -560,7 +557,6 @@ class Horde_Share {
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @author  Jan Schneider <jan@horde.org>
  * @author  Gunnar Wrobel <wrobel@pardus.de>
- * @since   Horde 3.2
  * @package Horde_Share
  */
 class Horde_Share_Object {

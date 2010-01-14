@@ -3,12 +3,9 @@
  * @package Kolab_Filter
  */
 
-/* Require the PEAR library for PEAR errors */
-require_once 'PEAR.php';
-
 /* Some output constants */
-define( 'OUT_STDOUT', 128 );
-define( 'OUT_LOG', 256 );
+define('OUT_STDOUT', 128);
+define('OUT_LOG', 256);
 
 /* Failure constants from postfix src/global/sys_exits.h */
 define('EX_USAGE', 64);       /* command line usage error */

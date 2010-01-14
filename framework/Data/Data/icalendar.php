@@ -14,7 +14,6 @@ require_once dirname(__FILE__) . '/imc.php';
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Karsten Fourmont <fourmont@horde.org>
  * @package Horde_Data
- * @since   Horde 3.0
  */
 class Horde_Data_icalendar extends Horde_Data_imc {
 

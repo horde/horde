@@ -606,7 +606,6 @@ class File_PDF {
      */
     function raiseError($error)
     {
-        require_once 'PEAR.php';
         return PEAR::raiseError($error);
     }
 
@@ -685,7 +684,6 @@ class File_PDF {
      * Returns the actual page width.
      *
      * @since File_PDF 0.2.0
-     * @since Horde 3.2
      *
      * @return float  The page width.
      */
@@ -698,7 +696,6 @@ class File_PDF {
      * Returns the actual page height.
      *
      * @since File_PDF 0.2.0
-     * @since Horde 3.2
      *
      * @return float  The page height.
      */
@@ -1132,7 +1129,6 @@ class File_PDF {
      *                    between 0 and 1. Required for cmyk.
      *
      * @since File_PDF 0.2.0
-     * @since Horde 3.2
      * @see setFillColor()
      * @see setDrawColor()
      * @see rect()
@@ -1630,7 +1626,6 @@ class File_PDF {
      * @param string $style  The font style.
      *
      * @since File_PDF 0.2.0
-     * @since Horde 3.2
      * @see setFont()
      */
     function setFontStyle($style)
@@ -2501,7 +2496,6 @@ class File_PDF {
      * memory usage during the call.
      *
      * @since File_PDF 0.2.0
-     * @since Horde 3.2
      * @see getOutput()
      */
     function flush()
