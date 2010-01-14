@@ -28,8 +28,7 @@ class Horde_Db_Migration_MigratorTest extends PHPUnit_Framework_TestCase
     {
         $this->_logger = new Horde_Log_Logger(new Horde_Log_Handler_Null());
 
-        $this->_conn = Horde_Db_Adapter::factory(array(
-            'adapter' => 'pdo_sqlite',
+        $this->_conn = new Horde_Db_Adapter_Pdo_Sqlite(array(
             'dbname' => ':memory:',
         ));
 
