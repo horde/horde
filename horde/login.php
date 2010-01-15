@@ -81,7 +81,7 @@ try {
 } catch (Horde_Exception $e) {}
 
 $app = Horde_Util::getFormData('app');
-$is_auth = Horde_Auth::getAuth();
+$is_auth = Horde_Auth::isAuthenticated();
 
 /* This ensures index.php doesn't pick up the 'url' parameter. */
 $horde_login_url = '';
@@ -98,7 +98,7 @@ $auth = ($app && $is_auth)
     : Horde_Auth::singleton($conf['auth']['driver']);
 
 /* Check to see if any authentication is available. */
-if (!$auth->hasCapability('authenticate')) {
+if (!$is_auth && !$auth->hasCapability('authenticate')) {
     throw new Horde_Exception(_("No authentication available."));
 }
 
