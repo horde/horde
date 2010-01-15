@@ -30,6 +30,7 @@ lib/
 libs/
 horde/libs/
 horde/static/*.*
+horde/static/gc_*
 
 # Ignore locally defined config
 */config/*.php
