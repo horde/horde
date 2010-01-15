@@ -479,6 +479,11 @@ $this->applications['nic'] = array(
     'menu_parent' => 'administration'
 );
 
+$this->applications['content'] = array(
+        'fileroot' => $this->applications['horde']['fileroot'] . '/../content',
+        'status' => 'hidden'
+);
+
 function _detect_webroot()
 {
     // Note for Windows users: the below assumes that your PHP_SELF variable
