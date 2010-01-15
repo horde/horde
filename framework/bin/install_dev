@@ -65,13 +65,13 @@ while ($it->valid()) {
     $it->next();
 }
 
-if (!empty($static_group)) {
-    if ($debug) {
-        print "\nCHGRP/CHMOD static directory\n";
-    }
-    chgrp($web_dir . '/static', $static_group);
-    chmod($web_dir . '/static', $static_mode);
+if ($debug) {
+    print "\nCHGRP/CHMOD static directory\n";
 }
+if (!empty($static_group)) {
+    chgrp($web_dir . '/static', $static_group);
+}
+chmod($web_dir . '/static', $static_mode);
 
 print "\nLINKING framework\n";
 mkdir($web_dir . '/libs');
