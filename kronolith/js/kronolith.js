@@ -2497,7 +2497,7 @@ KronolithCore = {
 
             switch (id) {
             case 'kronolithLogo':
-                this.go('portal');
+                this.go(Kronolith.conf.login_view);
                 e.stop();
                 return;
 
