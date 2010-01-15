@@ -215,6 +215,37 @@ function get_languages($dir)
     return $langs;
 }
 
+function search_applications()
+{
+    $dirs = array();
+    $horde = false;
+    if (is_dir(BASE . DS . 'po')) {
+        $dirs[] = BASE;
+        $horde = true;
+    }
+    $dh = opendir(BASE);
+    if ($dh) {
+        while ($entry = readdir($dh)) {
+            $dir = BASE . DS . $entry;
+            if (is_dir($dir) &&
+                substr($entry, 0, 1) != '.' &&
+                fileinode(HORDE_BASE) != fileinode($dir)) {
+                $sub = opendir($dir);
+                if ($sub) {
+                    while ($subentry = readdir($sub)) {
+                        if ($subentry == 'po' && is_dir($dir . DS . $subentry)) {
+                            $dirs[] = $dir;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return $dirs;
+}
+
 function strip_horde($file)
 {
     if (is_array($file)) {
@@ -1092,8 +1123,6 @@ function update_help()
 {
     global $cmd_options, $dirs, $apps, $debug, $test, $last_error_msg, $c;
 
-    require_once 'Horde/DOM.php';
-
     foreach ($cmd_options[0] as $option) {
         switch ($option[0]) {
         case 'h':
@@ -1257,8 +1286,6 @@ function update_help()
 function make_help()
 {
     global $cmd_options, $dirs, $apps, $debug, $test, $c;
-
-    require_once 'Horde/DOM.php';
 
     foreach ($cmd_options[0] as $option) {
         switch ($option[0]) {
@@ -1499,22 +1526,15 @@ if (array_key_exists($cmd, $options_list)) {
 check_binaries();
 
 $c->writeln(sprintf('Searching Horde applications in %s', BASE));
-
-$apps = $dirs = array();
-$registry = Horde_Registry::singleton(Horde_Registry::SESSION_NONE);
-foreach ($registry->listApps() as $val) {
-    $fileroot = rtrim($registry->get('fileroot', $val), DS);
-    if (is_dir($fileroot . DS . 'po')) {
-        $apps[] = strip_horde($val);
-        $dirs[] = $fileroot;
-    }
-}
+$dirs = search_applications();
 
 if ($debug) {
     $c->writeln('Found directories:');
     $c->writeln(implode("\n", $dirs));
 }
 
+$apps = strip_horde($dirs);
+$apps[0] = 'horde';
 $c->writeln(wordwrap(sprintf('Found applications: %s', implode(', ', $apps))));
 $c->writeln();
 
