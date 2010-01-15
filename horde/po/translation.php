@@ -788,7 +788,7 @@ function make()
                     $c->message(sprintf('The Horde PO file for the locale %s does not exist:', $locale), 'cli.warning');
                     $c->writeln($horde_po);
                     $c->writeln();
-                    $sh .= $dirs[$i] . DS . 'po' . DS . $locale . '.po';
+                    $sh .= '"' . $dirs[$i] . DS . 'po' . DS . $locale . '.po"';
                 } else {
                     $comm = $GLOBALS['msgcomm'] . " --more-than=0 --sort-output \"$pofile\"";
                     $sh = $comm . " \"$horde_po\" | $sh -";
@@ -932,7 +932,7 @@ function cleanup($keep_untranslated = false)
         foreach ($langs as $locale) {
             $c->writeln(sprintf('Cleaning up locale %s... ', $c->bold($locale)));
             $pofile = $dirs[$i] . DS . 'po' . DS . $locale . '.po';
-            $sh = $GLOBALS['msgattrib'] . ($keep_untranslated ? '' : ' --translated') . " --no-obsolete --force-po $pofile > $pofile.tmp";
+            $sh = $GLOBALS['msgattrib'] . ($keep_untranslated ? '' : ' --translated') . " --no-obsolete --force-po \"$pofile\" > \"$pofile.tmp\"";
             if (!$debug) {
                 $sh .= $silence;
             }
