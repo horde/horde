@@ -218,10 +218,8 @@ function get_languages($dir)
 function search_applications()
 {
     $dirs = array();
-    $horde = false;
-    if (is_dir(BASE . DS . 'po')) {
-        $dirs[] = BASE;
-        $horde = true;
+    if (is_dir(HORDE_BASE . DS . 'po')) {
+        $dirs[] = HORDE_BASE;
     }
     $dh = opendir(BASE);
     if ($dh) {
@@ -1488,7 +1486,11 @@ if (!$debug) {
     ini_set('error_reporting', false);
 }
 if (!defined('BASE')) {
-    define('BASE', HORDE_BASE);
+    if (is_dir(HORDE_BASE . '/../.git')) {
+        define('BASE', HORDE_BASE . '/..');
+    } else {
+        define('BASE', HORDE_BASE);
+    }
 }
 if ($options[1][0] == 'help') {
     usage();
