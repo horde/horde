@@ -181,12 +181,8 @@ class Horde_Perms_Sql extends Horde_Perms
      * @return TODO
      * @throws Horde_Perms_Exception
      */
-    public function addPermission($perm)
+    public function addPermission(Horde_Perms_Permission_SqlObject $perm)
     {
-        if (!($perm instanceof Horde_Perms_Permission_SqlObject)) {
-            throw new Horde_Perms_Exception('Permissions must be a Horde_Perms_Permission_SqlObject object.');
-        }
-
         $name = $perm->getName();
         if (empty($name)) {
             throw new Horde_Perms_Exception('Permission name must be non-empty.');
@@ -199,8 +195,9 @@ class Horde_Perms_Sql extends Horde_Perms
         $id = $this->_write_db->nextId('horde_perms');
 
         // remove root from the name
-        if (substr($name, 0, 3) == (Horde_Perms::ROOT . ':')) {
-            $name = substr($name, 3);
+        $root = Horde_Perms::ROOT . ':';
+        if (substr($name, 0, strlen($root)) == ($root)) {
+            $name = substr($name, strlen($root));
         }
 
         // build parents
@@ -239,12 +236,8 @@ class Horde_Perms_Sql extends Horde_Perms
      * @return TODO
      * @throws Horde_Perms_Exception
      */
-    public function removePermission($perm, $force = false)
+    public function removePermission(Horde_Perms_Permission_SqlObject $perm, $force = false)
     {
-        if (!($perm instanceof Horde_Perms_Permissions_SqlObject)) {
-            throw new Horde_Perms_Exception('Permissions must be Horde_Perms_Permission_SqlObject objects.');
-        }
-
         $name = $perm->getName();
         $this->_cache->expire('perm_sql' . $this->_cacheVersion . $name);
         $this->_cache->expire('perm_sql_exists_' . $this->_cacheVersion . $name);

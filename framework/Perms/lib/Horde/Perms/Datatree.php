@@ -146,12 +146,8 @@ class Horde_Perms_Datatree extends Horde_Perms
      *                                                     object.
      * @throws Horde_Perms_Exception
      */
-    public function addPermission($perm)
+    public function addPermission(Horde_Perms_Permission_DataTreeObject $perm)
     {
-        if (!($perm instanceof Horde_Perms_Permission_DataTreeObject)) {
-            throw Horde_Perms_Exception('Permissions must be Horde_Perms_Permission_DataTreeObject objects.');
-        }
-
         $name = $perm->getName();
         if (empty($name)) {
             throw Horde_Perms_Exception('Permission names must be non-empty.');
@@ -170,12 +166,8 @@ class Horde_Perms_Datatree extends Horde_Perms
      * @param boolean $force                               Force to remove
      *                                                     every child.
      */
-    public function removePermission($perm, $force = false)
+    public function removePermission(Horde_Perms_Permission_DataTreeObject $perm, $force = false)
     {
-        if (!($perm instanceof Horde_Perms_Permission_DataTreeObject)) {
-            throw Horde_Perms_Exception('Permissions must be Horde_Perms_Permission_DataTreeObject objects.');
-        }
-
         $keys = $this->_datatree->get(DATATREE_FORMAT_FLAT, $perm->name, true);
         foreach ($keys as $key) {
             $this->_cache->expire('perm_' . $this->_cacheVersion . $key);
