@@ -33,26 +33,14 @@ class Kronolith_Tagger
             return;
         }
 
-        // Set up the context for the tagger and related content classes
-        $context = array('dbAdapter' => $GLOBALS['injector']->getInstance('db-writer'));
-        $user_mgr = new Content_Users_Manager($context);
-        $type_mgr = new Content_Types_Manager($context);
-
-        // Objects_Manager requires a Types_Manager
-        $context['typeManager'] = $type_mgr;
-        $object_mgr = new Content_Objects_Manager($context);
-
-        // Create the Content_Tagger
-        $context['userManager'] = $user_mgr;
-        $context['objectManager'] = $object_mgr;
-
-        // Cache the object statically
-        self::$_tagger = new Content_Tagger($context);
-        $types = $type_mgr->ensureTypes(array('calendar', 'event'));
-
         // Remember the types to avoid having Content query them again.
+        $type_mgr = $GLOBALS['injector']->getInstance('Content_Types_Manager');
+        $types = $type_mgr->ensureTypes(array('calendar', 'event'));
         self::$_type_ids = array('calendar' => (int)$types[0],
                                  'event' => (int)$types[1]);
+
+        // Cache the tagger statically
+        self::$_tagger = $GLOBALS['injector']->getInstance('Content_Tagger');
     }
 
     /**
