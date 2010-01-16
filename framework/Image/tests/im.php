@@ -10,7 +10,7 @@
 define('HORDE_BASE', '/var/www/html/horde');
 $horde_authentication = 'none';
 require_once HORDE_BASE . '/lib/base.php';
-$db = $GLOBALS['injector']->getInstance('db-writer');
+$db = $GLOBALS['injector']->getInstance('Horde_Db_Adapter_Base');
 
 // Putting these here so they don't interfere with timing/memory data when
 // profiling.

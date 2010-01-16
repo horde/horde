@@ -26,7 +26,7 @@ $cli = Horde_Cli::singleton();
 Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 // Get a database connection
-$db = $GLOBALS['injector']->getInstance('db-manager');
+$db = $GLOBALS['injector']->getInstance('Horde_Db_Adapter_Base');
 
 // Parse command line arguments
 array_shift($_SERVER['argv']);
