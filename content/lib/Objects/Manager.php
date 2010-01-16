@@ -43,19 +43,10 @@ class Content_Objects_Manager
     /**
      * Constructor
      */
-    public function __construct($context = array())
+    public function __construct(Horde_Db_Adapter_Base $db, Content_Types_Manager $typeManager)
     {
-        if (!empty($context['dbAdapter'])) {
-            $this->_db = $context['dbAdapter'];
-        }
-
-        if (!empty($context['typeManager'])) {
-            $this->_typeManager = $context['typeManager'];
-        }
-
-        if (!empty($context['tables'])) {
-            $this->_tables = array_merge($this->_tables, $context['tables']);
-        }
+        $this->_db = $db;
+        $this->_typeManager = $typeManager;
     }
 
     /**

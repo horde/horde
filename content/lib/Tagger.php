@@ -74,30 +74,17 @@ class Content_Tagger
     protected $_defaultRadius = 10;
 
     /**
-     * Constructor - can take an array of arguments that set the managers
-     * and DbAdapter
+     * Constructor
      */
-    public function __construct($context = array())
+    public function __construct(Horde_Db_Adapter_Base $db,
+                                Content_Users_Manager $userManager,
+                                Content_Types_Manager $typeManager,
+                                Content_Objects_Manager $objectManager)
     {
-        if (!empty($context['dbAdapter'])) {
-            $this->_db = $context['dbAdapter'];
-        }
-
-        if (!empty($context['userManager'])) {
-            $this->_userManager = $context['userManager'];
-        }
-
-        if (!empty($context['typeManager'])) {
-            $this->_typeManager = $context['typeManager'];
-        }
-
-        if (!empty($context['objectManager'])) {
-            $this->_objectManager = $context['objectManager'];
-        }
-
-        if (!empty($context['tables'])) {
-            $this->_tables = array_merge($this->_tables, $context['tables']);
-        }
+        $this->_db = $db;
+        $this->_userManager = $userManager;
+        $this->_typeManager = $typeManager;
+        $this->_objectManager = $objectManager;
     }
 
     /**

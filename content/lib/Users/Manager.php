@@ -32,15 +32,9 @@ class Content_Users_Manager
         'users' => 'rampage_users',
     );
 
-    public function __construct($context = array())
+    public function __construct(Horde_Db_Adapter_Base $db)
     {
-        if (!empty($context['dbAdapter'])) {
-            $this->_db = $context['dbAdapter'];
-        }
-
-        if (!empty($context['tables'])) {
-            $this->_tables = array_merge($this->_tables, $context['tables']);
-        }
+        $this->_db = $db;
     }
 
     /**
