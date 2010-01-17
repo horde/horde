@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Horde
- * @package  Injector
+ * @package  Horde_Injector
  * @author   Bob Mckee <bmckee@bywires.com>
  * @author   James Pepin <james@jamespepin.com>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
@@ -16,7 +16,7 @@
  * Describes a binding class that is able to create concrete object instances.
  *
  * @category Horde
- * @package  Injector
+ * @package  Horde_Injector
  * @author   Bob Mckee <bmckee@bywires.com>
  * @author   James Pepin <james@jamespepin.com>
  * @license  http://opensource.org/licenses/bsd-license.php BSD

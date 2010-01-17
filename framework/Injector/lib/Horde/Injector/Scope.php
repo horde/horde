@@ -4,6 +4,9 @@
  *
  * Injectors implement a Chain of Responsibility pattern.  This is the required
  * interface for injectors to pass on responsibility to parent objects in the chain.
+ *
+ * @category Horde
+ * @package Horde_Injector
  */
 interface Horde_Injector_Scope
 {

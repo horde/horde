@@ -6,6 +6,8 @@
  * by the bucket_Container's concept of child scopes, but written to support many different
  * types of bindings as well as allowing for setter injection bindings.
  *
+ * @category Horde
+ * @package Horde_Injector
  * @author Bob Mckee <bmckee@bywires.com>
  * @author James Pepin <james@jamespepin.com>
  */
