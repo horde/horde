@@ -6,6 +6,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author Chuck Hagenbuch <chuck@horde.org>
+ * @package Ansel
  */
 class Ansel_Form_Image extends Horde_Form
 {

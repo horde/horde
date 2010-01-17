@@ -9,6 +9,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @package Ansel
  */
 class Ansel_GalleryMode_Date {
 
@@ -660,6 +661,8 @@ class Ansel_GalleryMode_Date {
  *
  * TODO: For PHP5, this should be rewritten to get rid of all these gosh-darn
  * pass through functions.
+ *
+ * @package Ansel
  */
 class Ansel_Gallery_Date {
 

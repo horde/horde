@@ -9,6 +9,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @package Ansel
  */
 
 class Ansel_GalleryMode_Normal {
