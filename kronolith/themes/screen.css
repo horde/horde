@@ -663,7 +663,7 @@ div.kronolithFormActions {
     margin: 5px 0;
 }
 
-#kronolithEventStartTime, #kronolithEventEndTime, #kronolithTaskDueTime, .kronolithEventValue {
+#kronolithEventStartDate, #kronolithEventStartTime, #kronolithEventEndDate, #kronolithEventEndTime, #kronolithTaskDueDate, #kronolithTaskDueTime, .kronolithEventValue {
     text-align: center;
 }
 #kronolithEventLocation {
