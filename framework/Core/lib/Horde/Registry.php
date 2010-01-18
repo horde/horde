@@ -379,7 +379,10 @@ class Horde_Registry
                 continue;
             }
 
-            if (isset($app['fileroot']) && !file_exists($app['fileroot'])) {
+            if (isset($app['fileroot']) &&
+                (!file_exists($app['fileroot']) ||
+                 (file_exists($app['fileroot'] . '/config/conf.xml') &&
+                  !file_exists($app['fileroot'] . '/config/conf.php')))) {
                 $app['status'] = 'inactive';
             }
 
