@@ -480,8 +480,8 @@ $this->applications['nic'] = array(
 );
 
 $this->applications['content'] = array(
-        'fileroot' => $this->applications['horde']['fileroot'] . '/../content',
-        'status' => 'hidden'
+    'fileroot' => $this->applications['horde']['fileroot'] . '/../content',
+    'status' => 'hidden'
 );
 
 function _detect_webroot()
