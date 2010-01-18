@@ -32,6 +32,7 @@ class IMP_Auth
     static public function authenticate($credentials = array())
     {
         // Do 'horde' authentication.
+        Horde_Registry::appInit('imp', array('tz' => true, 'authentication' => false));
         $imp_app = $GLOBALS['registry']->getApiInstance('imp', 'application');
         if ($imp_app->initParams['authentication'] == 'horde') {
             if (Horde_Auth::getAuth()) {
