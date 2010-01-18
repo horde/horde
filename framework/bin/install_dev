@@ -17,7 +17,13 @@ $horde_git = rtrim(ltrim($horde_git), '/ ');
 $web_dir = rtrim(ltrim($web_dir), '/ ');
 
 print "EMPTYING old web directory " . $web_dir . "\n";
-$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($web_dir), RecursiveIteratorIterator::CHILD_FIRST);
+try {
+    $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($web_dir), RecursiveIteratorIterator::CHILD_FIRST);
+} catch (UnexpectedValueException $e) {
+    print "Old web directory not found. Creating it.";
+    mkdir($web_dir);
+    $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($web_dir), RecursiveIteratorIterator::CHILD_FIRST);
+}
 while ($it->valid()) {
     if (!$it->isDot()) {
         if ($it->isLink()) {
