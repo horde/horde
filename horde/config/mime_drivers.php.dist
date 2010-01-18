@@ -401,7 +401,7 @@ $mime_drivers['horde']['msexcel'] = array(
  * xlhtml homepage: http://chicago.sourceforge.net/xlhtml/
  */
 $mime_drivers['horde']['mspowerpoint'] = array(
-    'location' => '/usr/local/bin/ppthtml',
+    'location' => '/usr/bin/ppthtml',
     'inline' => false,
     'handles' => array(
         'application/vnd.ms-powerpoint', 'application/mspowerpoint'
