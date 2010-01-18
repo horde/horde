@@ -33,7 +33,8 @@
   <td>
     <div>
       <label><?php echo _("Due date") ?>:</label><br />
-      <input type="text" name="task[due_date]" id="kronolithTaskDueDate" size="10" class="kronolithDatePicker" />
+      <input type="text" name="task[due_date]" id="kronolithTaskDueDate" size="10" />
+      <?php echo Horde::img('picker.png', _("Set due date"), 'id="kronolithTaskDuePicker"') ?>
       <?php echo _("at") ?>
       <input type="text" name="task[due_time]" id="kronolithTaskDueTime" size="8" />
     </div>

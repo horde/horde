@@ -37,12 +37,12 @@
   <tr>
     <td>
       <input type="text" name="start_date" id="kronolithEventStartDate" size="10" />
-      <?php echo Horde::url('#')->link(array('title' => _("Select a date"), 'onclick' => 'Horde_Calendar.open(\'kronolithEventStartPicker\', Date.parseExact($F(\'kronolithEventStartDate\'), Kronolith.conf.date_format));return false;')) . Horde::img('picker.png', _("Set start date"), 'id="kronolithEventStartPicker"') . '</a>' ?>
+      <?php echo Horde::img('picker.png', _("Set start date"), 'id="kronolithEventStartPicker"') ?>
       <label id="kronolithEventStartTimeLabel"><?php echo _("at") ?> <input type="text" name="start_time" id="kronolithEventStartTime" size="8" /></label>
     </td>
     <td>
       <input type="text" name="end_date" id="kronolithEventEndDate" size="10" />
-      <?php echo Horde::url('#')->link(array('title' => _("Select a date"), 'onclick' => 'Horde_Calendar.open(\'kronolithEventEndPicker\', Date.parseExact($F(\'kronolithEventEndDate\'), Kronolith.conf.date_format));return false;')) . Horde::img('picker.png', _("Set end date"), 'id="kronolithEventEndPicker"') . '</a>' ?>
+      <?php echo Horde::img('picker.png', _("Set end date"), 'id="kronolithEventEndPicker"') ?>
       <label id="kronolithEventEndTimeLabel"><?php echo _("at") ?> <input type="text" name="end_time" id="kronolithEventEndTime" size="8" /></label>
     </td>
     <td><label><input type="checkbox" name="whole_day" id="kronolithEventAllday"  /> <?php echo _("all-day event") ?></label></td>

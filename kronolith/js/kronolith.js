@@ -2532,6 +2532,12 @@ KronolithCore = {
                 this.toggleAllDay();
                 return;
 
+            case 'kronolithEventStartPicker':
+            case 'kronolithEventEndPicker':
+            case 'kronolithTaskDuePicker':
+                Horde_Calendar.open(id, Date.parseExact($F(id.replace(/Picker$/, 'Date')), Kronolith.conf.date_format));
+                return;
+
             case 'kronolithEventLinkNone':
             case 'kronolithEventLinkDaily':
             case 'kronolithEventLinkWeekly':
