@@ -26,11 +26,11 @@ framework/*/tests/*.php
 !framework/Image/tests/svg.php
 
 # Dynamically generated content that may live in the repo directories
-lib/
-libs/
-horde/libs/
-horde/static/*.*
-horde/static/gc_*
+/lib/
+/libs/
+/horde/libs/
+/horde/static/*.*
+/horde/static/gc_*
 
 # Ignore locally defined config
 */config/*.php
