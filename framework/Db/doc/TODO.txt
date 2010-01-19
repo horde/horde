@@ -32,6 +32,8 @@ Dates
 
 
 
+- integer sizing for mysql like the postgres backend does it?
+
 - port updates in schema_definitions.rb and schema_statements.rb
 
 - allow adding multiple indexes (and columns) at once, in an aggregate
