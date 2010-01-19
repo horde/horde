@@ -794,7 +794,7 @@ function make()
                     $sh = $comm . " \"$horde_po\" | $sh -";
                 }
             } else {
-                $sh .= $pofile;
+                $sh .= '"' . $pofile . '"';
             }
             $sh .= $redir_err;
             if ($debug || $test) {
