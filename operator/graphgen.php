@@ -56,9 +56,9 @@ if (isset($graphinfo['orientation']) &&
     $graph->horizontal = false;
 }
 
-if (!empty($conf['ttf_font'])) {
+if (!empty($conf['graph']['ttf_font'])) {
     // add a TrueType font
-    $Font =& $graph->addNew('ttf_font', $conf['ttf_font']);
+    $Font =& $graph->addNew('ttf_font', $conf['graph']['ttf_font']);
     // Set the font size to 11 pixels.  Yes, 8 really does mean 11
     $Font->setSize(8);
     $graph->setFont($Font);
