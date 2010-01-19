@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <configuration>
- <configtab name="General">
+ <configtab name="general" desc="General">
   <configsection name="graph">
    <configstring name="ttf_font" desc="Full path to a True-Type font to use when rendering the graph" required="false" />
   </configsection>
@@ -16,7 +16,7 @@
    </configmultienum>
   </configsection>
  </configtab>
- <configtab name="Storage">
+ <configtab name="storage" desc="Storage">
   <configsection name="storage">
    <configheader>Storage System Settings</configheader>
    <configswitch name="driver" desc="What storage driver should we use?">asterisksql
