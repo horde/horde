@@ -53,9 +53,6 @@ class Turba_Application extends Horde_Registry_Application
      *   $notification - Notification object
      *   $turba_shares - TODO
      *
-     * Global constants defined:
-     *   TURBA_TEMPLATES - (string) Location of template files.
-     *
      * When calling Horde_Registry::appInit(), the following parameters are
      * also supported:
      * <pre>
@@ -66,10 +63,6 @@ class Turba_Application extends Horde_Registry_Application
     {
         if (isset($this->initParams['user'])) {
             Horde_Auth::setAuth($this->initParams['user'], array());
-        }
-
-        if (!defined('TURBA_TEMPLATES')) {
-            define('TURBA_TEMPLATES', $GLOBALS['registry']->get('templates'));
         }
 
         $GLOBALS['notification'] = Horde_Notification::singleton();

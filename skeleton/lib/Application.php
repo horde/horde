@@ -44,16 +44,9 @@ class Skeleton_Application extends Horde_Registry_Application
      *
      * Global variables defined:
      *   $notification - Notification object
-     *
-     * Global constants defined:
-     *   SKELETON_TEMPLATES - (string) Location of template files.
      */
     protected function _init()
     {
-        if (!defined('SKELETON_TEMPLATES')) {
-            define('SKELETON_TEMPLATES', $GLOBALS['registry']->get('templates'));
-        }
-
         // Notification system.
         $notification = Horde_Notification::singleton();
         $notification->attach('status');

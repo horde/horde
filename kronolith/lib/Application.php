@@ -47,9 +47,6 @@ class Kronolith_Application extends Horde_Registry_Application
      *   $kronolith_shares - TODO
      *   $notification - Notification object
      *
-     * Global constants defined:
-     *   KRONOLITH_TEMPLATES - (string) Location of template files.
-     *
      * When calling Horde_Registry::appInit(), the following parameters are
      * also supported:
      * <pre>
@@ -60,10 +57,6 @@ class Kronolith_Application extends Horde_Registry_Application
     {
         if (isset($this->initParams['user'])) {
             Horde_Auth::setAuth($this->initParams['user'], array());
-        }
-
-        if (!defined('KRONOLITH_TEMPLATES')) {
-            define('KRONOLITH_TEMPLATES', $GLOBALS['registry']->get('templates'));
         }
 
         /* For now, autoloading the Content_* classes depend on there being a

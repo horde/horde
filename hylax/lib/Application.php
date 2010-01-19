@@ -38,10 +38,6 @@ class Hylax_Application extends Horde_Registry_Application
 
     protected function _init()
     {
-        if (!defined('HYLAX_TEMPLATES')) {
-            define('HYLAX_TEMPLATES', $GLOBALS['registry']->get('templates'));
-        }
-
         /* Notification system. */
         $notification = Horde_Notification::singleton();
         $notification->attach('status');

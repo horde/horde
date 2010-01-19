@@ -89,9 +89,6 @@ class IMP_Application extends Horde_Registry_Application
      *   $imp_search   - An IMP_Search object
      *   $notification - Notification object
      *
-     * Global constants defined:
-     *   IMP_TEMPLATES - (string) Location of template files.
-     *
      * When calling Horde_Registry::appInit(), the following parameters are
      * also supported:
      * <pre>
@@ -102,11 +99,6 @@ class IMP_Application extends Horde_Registry_Application
     {
         if (!empty($this->initParams['tz'])) {
             Horde_Nls::setTimeZone();
-        }
-
-        if (!defined('IMP_TEMPLATES')) {
-            $registry = Horde_Registry::singleton();
-            define('IMP_TEMPLATES', $registry->get('templates'));
         }
 
         // Initialize global $imp_imap object.

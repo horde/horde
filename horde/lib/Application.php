@@ -29,16 +29,9 @@ class Horde_Application extends Horde_Registry_Application
      *
      * Global variables defined:
      *   $notification - Notification object
-     *
-     * Global constants defined:
-     *   HORDE_TEMPLATES - (string) Location of template files.
      */
     protected function _init()
     {
-        if (!defined('HORDE_TEMPLATES')) {
-            define('HORDE_TEMPLATES', $GLOBALS['registry']->get('templates'));
-        }
-
         $GLOBALS['notification'] = Horde_Notification::singleton();
         $GLOBALS['notification']->attach('status');
     }

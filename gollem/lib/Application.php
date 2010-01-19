@@ -50,16 +50,9 @@ class Gollem_Application extends Horde_Registry_Application
      *   $gollem_be - A link to the current backend parameters in the session
      *   $gollem_vfs - A link to the current VFS object for the active backend
      *   $notification - Notification object
-     *
-     * Global constants defined:
-     *   GOLLEM_TEMPLATES - (string) Location of template files.
      */
     protected function _init()
     {
-        if (!defined('GOLLEM_TEMPLATES')) {
-            define('GOLLEM_TEMPLATES', $GLOBALS['registry']->get('templates'));
-        }
-
         // Notification system.
         $GLOBALS['notification'] = Horde_Notification::singleton();
         $GLOBALS['notification']->attach('status');

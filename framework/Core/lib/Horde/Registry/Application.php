@@ -60,11 +60,20 @@ class Horde_Registry_Application
     /**
      * Initialization. Does any necessary init needed to setup the full
      * environment for the application.
+     *
+     * Global constants defined:
+     *   [APPNAME]_TEMPLATES - (string) Location of template files.
      */
     public function init()
     {
         if (!$this->_initDone) {
             $this->_initDone = true;
+
+            $appname = Horde_String::upper($GLOBALS['registry']->getApp());
+            if (!defined($appname . '_TEMPLATES')) {
+                define($appname . '_TEMPLATES', $GLOBALS['registry']->get('templates'));
+            }
+
             $this->_init();
         }
     }
