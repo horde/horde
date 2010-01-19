@@ -150,7 +150,7 @@ class Kronolith_Event_Sql extends Kronolith_Event
         $this->_properties['event_title'] = $driver->convertToDriver($this->title);
         $this->_properties['event_description'] = $driver->convertToDriver($this->description);
         $this->_properties['event_location'] = $driver->convertToDriver($this->location);
-        $this->_properties['event_url'] = $this->url;
+        $this->_properties['event_url'] = (string)$this->url;
         $this->_properties['event_private'] = (int)$this->private;
         $this->_properties['event_status'] = $this->status;
         $this->_properties['event_attendees'] = serialize($driver->convertToDriver($this->attendees));
