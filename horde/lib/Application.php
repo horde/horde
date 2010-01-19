@@ -25,18 +25,6 @@ class Horde_Application extends Horde_Registry_Application
     public $version = '4.0-git';
 
     /**
-     * Application initialization.
-     *
-     * Global variables defined:
-     *   $notification - Notification object
-     */
-    protected function _init()
-    {
-        $GLOBALS['notification'] = Horde_Notification::singleton();
-        $GLOBALS['notification']->attach('status');
-    }
-
-    /**
      * Returns a list of available permissions.
      *
      * @return array  TODO

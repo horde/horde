@@ -50,7 +50,6 @@ class Turba_Application extends Horde_Registry_Application
      *   $cfgSources   - TODO
      *   $copymove_source_options - TODO
      *   $copymoveSources - TODO
-     *   $notification - Notification object
      *   $turba_shares - TODO
      *
      * When calling Horde_Registry::appInit(), the following parameters are
@@ -64,9 +63,6 @@ class Turba_Application extends Horde_Registry_Application
         if (isset($this->initParams['user'])) {
             Horde_Auth::setAuth($this->initParams['user'], array());
         }
-
-        $GLOBALS['notification'] = Horde_Notification::singleton();
-        $GLOBALS['notification']->attach('status');
 
         // Turba source and attribute configuration.
         include TURBA_BASE . '/config/attributes.php';

@@ -49,14 +49,9 @@ class Gollem_Application extends Horde_Registry_Application
      *   $gollem_backends - A link to the current list of available backends
      *   $gollem_be - A link to the current backend parameters in the session
      *   $gollem_vfs - A link to the current VFS object for the active backend
-     *   $notification - Notification object
      */
     protected function _init()
     {
-        // Notification system.
-        $GLOBALS['notification'] = Horde_Notification::singleton();
-        $GLOBALS['notification']->attach('status');
-
         // Set the global $gollem_be variable to the current backend's
         // parameters.
         $GLOBALS['gollem_be'] = empty($_SESSION['gollem']['backend_key'])

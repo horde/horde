@@ -85,9 +85,7 @@ class IMP_Application extends Horde_Registry_Application
      * Global variables defined:
      *   $imp_imap     - An IMP_Imap object
      *   $imp_mbox     - Current mailbox information
-     *   $imp_notify   - A Horde_Notification_Listener object
      *   $imp_search   - An IMP_Search object
-     *   $notification - Notification object
      *
      * When calling Horde_Registry::appInit(), the following parameters are
      * also supported:
@@ -115,21 +113,32 @@ class IMP_Application extends Horde_Registry_Application
             Horde_Mime_Headers::$defaultCharset = $def_charset;
         }
 
-        $GLOBALS['notification'] = Horde_Notification::singleton();
-        $viewmode = IMP::getViewMode();
-
-        if ($viewmode == 'mimp') {
-            $GLOBALS['imp_notify'] = $GLOBALS['notification']->attach('status', null, 'IMP_Notification_Listener_StatusMobile');
-        } else {
-            $GLOBALS['imp_notify'] = $GLOBALS['notification']->attach('status', array('viewmode' => $viewmode), 'IMP_Notification_Listener_Status');
-            if ($viewmode == 'imp') {
-                $GLOBALS['notification']->attach('audio');
-            }
-        }
-
         // Initialize global $imp_mbox array. This call also initializes the
         // IMP_Search object.
         IMP::setCurrentMailboxInfo();
+    }
+
+    /**
+     * Initialization for Notification system.
+     *
+     * Global variables defined:
+     *   $imp_notify   - A Horde_Notification_Listener object
+     *
+     * @param Horde_Notification_Handler_Base $notify  The notification
+     *                                                 object.
+     */
+    protected function _initNotification($notify)
+    {
+        $viewmode = IMP::getViewMode();
+
+        if ($viewmode == 'mimp') {
+            $GLOBALS['imp_notify'] = $notify->attach('status', null, 'IMP_Notification_Listener_StatusMobile');
+        } else {
+            $GLOBALS['imp_notify'] = $notify->attach('status', array('viewmode' => $viewmode), 'IMP_Notification_Listener_Status');
+            if ($viewmode == 'imp') {
+                $notify->attach('audio');
+            }
+        }
     }
 
     /* Horde permissions. */

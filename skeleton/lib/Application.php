@@ -40,19 +40,6 @@ class Skeleton_Application extends Horde_Registry_Application
     public $version = 'H4 (0.1-git)';
 
     /**
-     * Initialization function.
-     *
-     * Global variables defined:
-     *   $notification - Notification object
-     */
-    protected function _init()
-    {
-        // Notification system.
-        $notification = Horde_Notification::singleton();
-        $notification->attach('status');
-    }
-
-    /**
      * Generate the menu to use on the prefs page.
      *
      * @return Horde_Menu  A Horde_Menu object.

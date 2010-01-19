@@ -43,9 +43,7 @@ class Kronolith_Application extends Horde_Registry_Application
      * Initialization function.
      *
      * Global variables defined:
-     *   $kronolith_notify - A Horde_Notification_Listener object
      *   $kronolith_shares - TODO
-     *   $notification - Notification object
      *
      * When calling Horde_Registry::appInit(), the following parameters are
      * also supported:
@@ -67,10 +65,6 @@ class Kronolith_Application extends Horde_Registry_Application
             throw new Horde_Exception('The Content_Tagger class could not be found. Make sure the registry entry for the Content system is present.');
         }
 
-        /* Notification system. */
-        $GLOBALS['notification'] = Horde_Notification::singleton();
-        $GLOBALS['kronolith_notify'] = $GLOBALS['notification']->attach('status', null, 'Kronolith_Notification_Listener_Status');
-
         /* Set the timezone variable, if available. */
         Horde_Nls::setTimeZone();
 
@@ -78,6 +72,20 @@ class Kronolith_Application extends Horde_Registry_Application
         $GLOBALS['kronolith_shares'] = Horde_Share::singleton($GLOBALS['registry']->getApp());
 
         Kronolith::initialize();
+    }
+
+    /**
+     * Initialization for Notification system.
+     *
+     * Global variables defined:
+     *   $kronolith_notify - A Horde_Notification_Listener object.
+     *
+     * @param Horde_Notification_Handler_Base $notify  The notification
+     *                                                 object.
+     */
+    protected function _initNotification($notify)
+    {
+        $GLOBALS['kronolith_notify'] = $notify->attach('status', null, 'Kronolith_Notification_Listener_Status');
     }
 
     /**

@@ -38,11 +38,6 @@ class Hylax_Application extends Horde_Registry_Application
 
     protected function _init()
     {
-        /* Notification system. */
-        $notification = Horde_Notification::singleton();
-        $notification->attach('status');
-        $GLOBALS['notification'] = &$notification;
-
         /* Hylax Driver */
         $this->gateway = Hylax_Driver::singleton($conf['fax']['driver'],
                                                  $conf['fax']['params']);
