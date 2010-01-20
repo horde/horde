@@ -9,7 +9,8 @@
  * @package Chora
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('chora');
 
 // TODO - This currently doesn't work.
 Chora::fatal('History display is currently broken', '500 Internal Server Error');

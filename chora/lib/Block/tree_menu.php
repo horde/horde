@@ -10,7 +10,6 @@ class Horde_Block_chora_tree_menu extends Horde_Block
     function _buildTree(&$tree, $indent = 0, $parent = null)
     {
         define('CHORA_ERROR_HANDLER', true);
-        require_once dirname(__FILE__) . '/../base.php';
 
         $arr = array();
         asort($GLOBALS['sourceroots']);

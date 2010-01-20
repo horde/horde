@@ -12,7 +12,8 @@
  * @package Chora
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('chora');
 
 // Exit if cvsgraph isn't active or it's not supported.
 if (empty($conf['paths']['cvsgraph']) || !$VC->hasFeature('branches')) {
