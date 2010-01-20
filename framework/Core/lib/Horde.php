@@ -1502,17 +1502,24 @@ HTML;
     /**
      * Generate RFC 2397-compliant image data strings.
      *
-     * @param string $file  Filename containing image data.
+     * @param string $file    Filename containing image data.
+     * @param integer $limit  Sets a hard size limit for image data; if
+     *                        exceeded, will not string encode.
      *
      * @return string  The string to use in the image 'src' attribute; either
      *                 the image data if the browser supports, or the filepath
      *                 if not.
      */
-    public function base64ImgData($file)
+    public function base64ImgData($file, $limit = null)
     {
         $dataurl = $GLOBALS['browser']->hasFeature('dataurl');
         if (!$dataurl) {
             return $file;
+        }
+
+        if (!is_null($limit) &&
+            (is_bool($dataurl) || ($limit < $dataurl))) {
+            $dataurl = $limit;
         }
 
         /* Only encode image files if they are below the dataurl limit. */
@@ -1755,7 +1762,8 @@ HTML;
      */
     public function stylesheetCallback($matches)
     {
-        return $matches[1] . self::base64ImgData($matches[2]) . $matches[3];
+        /* Limit data to 16 KB in stylesheets. */
+        return $matches[1] . self::base64ImgData($matches[2], 16384) . $matches[3];
     }
 
     /**
