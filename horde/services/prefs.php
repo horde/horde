@@ -12,9 +12,8 @@
  * @category Horde
  */
 
-require_once dirname(__FILE__) . '/../lib/core.php';
-
-$registry = Horde_Registry::singleton();
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('horde');
 
 /* Figure out which application we're setting preferences for. */
 $app = Horde_Util::getFormData('app', Horde_Prefs_Ui::getDefaultApp());
@@ -27,7 +26,7 @@ $group = Horde_Util::getFormData('group');
 $chunk = Horde_Util::nonInputVar('chunk');
 
 /* Load $app's base environment. */
-$registry->pushApp($app, array('init' => true));
+$registry->pushApp($app);
 
 /* If a prefs notification status handler is set, activate it now. */
 if (!empty($_SESSION['horde_prefs']['status'])) {

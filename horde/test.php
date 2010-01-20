@@ -49,7 +49,7 @@ $app_version = $registry->getVersion($app);
 /* If we've gotten this far, we should have found enough of Horde to run
  * tests. Create the testing object. */
 if ($app != 'horde') {
-    $registry->pushApp($app, array('check_perms' => false, 'init' => true));
+    $registry->pushApp($app, array('check_perms' => false));
 }
 $classname = ucfirst($app) . '_Test';
 if (!class_exists($classname)) {

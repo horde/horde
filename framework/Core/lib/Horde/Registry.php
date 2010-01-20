@@ -948,10 +948,8 @@ class Horde_Registry
      *                 ONLY be disabled by system scripts (cron jobs, etc.)
      *                 and scripts that handle login.
      *                 DEFAULT: true
-     * 'init' - (boolean) Init the application (by either loading the
-     *          application's base.php file (deprecated) or calling init()
-     *          on the Application object)?
-     *          DEFAULT: false
+     * 'noinit' - (boolean) Do not init the application.
+     *            DEFAULT: false
      * 'logintasks' - (boolean) Perform login tasks? Only performed if
      *                'check_perms' is also true. System tasks are always
      *                peformed if the user is authorized.
@@ -1041,7 +1039,7 @@ class Horde_Registry
         } catch (Horde_Exception_HookNotSet $e) {}
 
         /* Initialize application. */
-        if ($checkPerms || !empty($options['init'])) {
+        if ($checkPerms || empty($options['noinit'])) {
             try {
                 if (file_exists($app_lib . '/base.php')) {
                     // TODO: Remove once there is no more base.php files
