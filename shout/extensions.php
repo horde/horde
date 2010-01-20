@@ -8,14 +8,14 @@
  *
  * @author  Ben Klang <ben@alkaloid.net>
  */
-require_once dirname(__FILE__) . '/lib/Application.php';
 
-$shout = new Shout_Application(array('init' => true));
-$context = $_SESSION['shout']['context'];
+require_once dirname(__FILE__) . '/lib/Application.php';
+$shout = Horde_Registry::appInit('shout');
 
 require_once SHOUT_BASE . '/lib/Forms/ExtensionForm.php';
 
 $action = Horde_Util::getFormData('action');
+$context = $_SESSION['shout']['context'];
 
 //$tabs = Shout::getTabs($context, $vars);
 

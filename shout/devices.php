@@ -8,13 +8,13 @@
  *
  * @author  Ben Klang <ben@alkaloid.net>
  */
-require_once dirname(__FILE__) . '/lib/Application.php';
 
-$shout = new Shout_Application(array('init' => true));
-$context = $_SESSION['shout']['context'];
+require_once dirname(__FILE__) . '/lib/Application.php';
+$shout = Horde_Registry::appInit('shout');
 
 require_once SHOUT_BASE . '/lib/Forms/DeviceForm.php';
 
+$context = $_SESSION['shout']['context'];
 $action = Horde_Util::getFormData('action');
 $vars = Horde_Variables::getDefaultVariables();
 

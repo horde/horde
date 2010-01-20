@@ -13,10 +13,9 @@
  * @package Shout
  */
 
-// Need to load Horde_Util:: to give us access to Horde_Util::getPathInfo().
 require_once dirname(__FILE__) . '/lib/Application.php';
-$action = Horde_Util::getFormData('action');
 
+$action = Horde_Util::getFormData('action');
 if (empty($action)) {
     // This is the only case where we really don't return anything, since
     // the frontend can be presumed not to make this request on purpose.
@@ -25,7 +24,7 @@ if (empty($action)) {
 }
 
 try {
-    $shout = new Shout_Application(array('init' => true));
+    $shout = Horde_Registry::appInit('shout', array('authentication' => 'throw'));
 } catch (Horde_Exception $e) {
     /* Handle session timeouts when they come from an AJAX request. */
     if (($e->getCode() == Horde_Registry::AUTH_FAILURE) &&

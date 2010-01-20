@@ -8,9 +8,5 @@
  *
  * @author  Ben Klang <ben@alkaloid.net>
  */
-// Will redirect to login page if not authenticated.
-require_once dirname(__FILE__) . '/lib/Application.php';
-new Shout_Application();
 
-// Load initial page as defined by view mode & preferences.
-require 'extensions.php';
+require dirname(__FILE__) . '/extensions.php';

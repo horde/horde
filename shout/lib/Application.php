@@ -2,17 +2,19 @@
 /**
  * Shout application interface.
  *
- * This file defines Shout's application interface.
+ * This file defines Horde's core API interface. Other core Horde libraries
+ * can interact with Shout through this API.
  *
  * Copyright 2006-2010 Alkaloid Networks (http://projects.alkaloid.net/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
  * did not receive this file, see
  * http://www.opensource.org/licenses/bsd-license.html.
- * 
+ *
  * @author  Ben Klang <ben@alkaloid.net>
  * @package Shout
  */
+
 if (!defined('SHOUT_BASE')) {
     define('SHOUT_BASE', dirname(__FILE__). '/..');
 }
@@ -33,76 +35,79 @@ require_once HORDE_BASE . '/lib/core.php';
 
 class Shout_Application extends Horde_Registry_Application
 {
+    /**
+     * The application's version.
+     *
+     * @var string
+     */
     public $version = 'H4 (1.0-git)';
+
+    /**
+     * TODO
+     */
     public $contexts = null;
+
+    /**
+     * TODO
+     */
     public $extensions = null;
+
+    /**
+     * TODO
+     */
     public $devices = null;
 
-    public function __construct($args = array())
+    /**
+     * TODO
+     */
+    static protected $_perms = array();
+
+    /**
+     * Initialization function.
+     *
+     * Global variables defined:
+     */
+    protected function _init()
     {
-        if (!empty($args['init'])) {
-            $GLOBALS['registry'] = &Horde_Registry::singleton();
-            $registry = &$GLOBALS['registry'];
-            try {
-                $registry->pushApp('shout');
-            } catch (Horde_Exception $e) {
-                if ($e->getCode() == 'permission_denied') {
-                    Horde::authenticationFailureRedirect();
-                }
-                Horde::fatal($e, __FILE__, __LINE__, false);
-            }
-            $conf = &$GLOBALS['conf'];
+        $this->contexts = Shout_Driver::factory('storage');
+        $this->extensions = Shout_Driver::factory('extensions');
+        $this->devices = Shout_Driver::factory('devices');
 
-            // Notification system.
-            $GLOBALS['notification'] = &Horde_Notification::singleton();
-            $notification = &$GLOBALS['notification'];
-            $notification->attach('status');
-
-            define('SHOUT_TEMPLATES', $registry->get('templates'));
-
-            $this->contexts = Shout_Driver::factory('storage');
-            $this->extensions = Shout_Driver::factory('extensions');
-            $this->devices = Shout_Driver::factory('devices');
-
-            try {
-                $contexts = $this->contexts->getContexts();
-            } catch (Shout_Exception $e) {
-                $notification->push($e);
-                $contexts = false;
-            }
-
-            if (count($contexts) == 1) {
-                // Default to the user's only context
-                if (!empty($context) && $context != $contexts[0]) {
-                    $notification->push(_("You do not have permission to access that context."), 'horde.error');
-                }
-                $context = $contexts[0];
-            } elseif (!empty($context) && !in_array($context, $contexts)) {
-                $notification->push(_("You do not have permission to access that context."), 'horde.error');
-                $context = false;
-            } elseif (!empty($context)) {
-                $notification->push("Please select a context to continue.", 'horde.info');
-                $context = false;
-            }
-
-            $_SESSION['shout']['context'] = $context;
-            
-            /* Start compression. */
-            if (!Horde_Util::nonInputVar('no_compress')) {
-                Horde::compressOutput();
-            }
+        try {
+            $contexts = $this->contexts->getContexts();
+        } catch (Shout_Exception $e) {
+            $GLOBALS['notification']->push($e);
+            $contexts = false;
         }
+
+        if (count($contexts) == 1) {
+            // Default to the user's only context
+            if (!empty($context) && $context != $contexts[0]) {
+                $GLOBALS['notification']->push(_("You do not have permission to access that context."), 'horde.error');
+            }
+            $context = $contexts[0];
+        } elseif (!empty($context) && !in_array($context, $contexts)) {
+            $GLOBALS['notification']->push(_("You do not have permission to access that context."), 'horde.error');
+            $context = false;
+        } elseif (!empty($context)) {
+            $GLOBALS['notification']->push("Please select a context to continue.", 'horde.info');
+            $context = false;
+        }
+
+        $_SESSION['shout']['context'] = $context;
     }
 
+    /**
+     * TODO
+     */
     public function perms()
     {
-        static $perms = array();
-        if (!empty($perms)) {
-            return $perms;
+        if (!empty(self::$_perms)) {
+            return self::$_perms;
         }
 
-        $perms['tree']['shout']['superadmin'] = false;
-        $perms['title']['shout:superadmin'] = _("Super Administrator");
+        self::$_perms['tree']['shout']['superadmin'] = false;
+        self::$_perms['title']['shout:superadmin'] = _("Super Administrator");
 
         if (empty($this->contexts)) {
             $this->__construct(array('init' => true));
@@ -110,13 +115,13 @@ class Shout_Application extends Horde_Registry_Application
 
         $contexts = $this->contexts->getContexts();
 
-        $perms['tree']['shout']['contexts'] = false;
-        $perms['title']['shout:contexts'] = _("Contexts");
+        self::$_perms['tree']['shout']['contexts'] = false;
+        self::$_perms['title']['shout:contexts'] = _("Contexts");
 
         // Run through every contact source.
         foreach ($contexts as $context) {
-            $perms['tree']['shout']['contexts'][$context] = false;
-            $perms['title']['shout:contexts:' . $context] = $context;
+            self::$_perms['tree']['shout']['contexts'][$context] = false;
+            self::$_perms['title']['shout:contexts:' . $context] = $context;
 
             foreach(
                 array(
@@ -125,11 +130,12 @@ class Shout_Application extends Horde_Registry_Application
                     'conferences' => 'Conference Rooms',
                 )
                 as $module => $modname) {
-                $perms['tree']['shout']['contexts'][$context][$module] = false;
-                $perms['title']["shout:contexts:$context:$module"] = $modname;
+                self::$_perms['tree']['shout']['contexts'][$context][$module] = false;
+                self::$_perms['title']["shout:contexts:$context:$module"] = $modname;
             }
         }
 
-        return $perms;
+        return self::$_perms;
     }
+
 }
