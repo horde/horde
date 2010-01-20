@@ -23,6 +23,9 @@ class Horde_Core_Binder_Db implements Horde_Injector_Binder
     {
         $config = $GLOBALS['conf']['sql'];
         if (!isset($config['adapter'])) {
+            if ($config['phptype'] == 'oci8') {
+                $config['phptype'] = 'oci';
+            }
             $config['adapter'] = $config['phptype'] == 'mysqli' ? 'mysqli' : 'pdo_' . $config['phptype'];
         }
         if (!empty($config['hostspec'])) {
