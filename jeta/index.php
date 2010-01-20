@@ -8,4 +8,16 @@
  * @author Eric Rostetter <eric.rostetter@physics.utexas.edu>
  */
 
-require dirname(__FILE__) . '/main.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('jeta');
+
+$applet = Jeta_Applet::factory($prefs->getValue('sshdriver'));
+
+$template = new Horde_Template();
+$template->set('menu', Jeta::getMenu()->render());
+$template->set('notification', $notification->notify(array('listeners' => 'status')));
+$template->set('applet', $applet->generateAppletCode());
+
+require JETA_TEMPLATES . '/common-header.inc';
+echo $template->fetch(JETA_TEMPLATES . '/main.html');
+require $registry->get('templates', 'horde') . '/common-footer.inc';

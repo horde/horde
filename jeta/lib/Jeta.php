@@ -8,19 +8,17 @@
  * @author  Michael Slusarz <slusarz@curecanti.org>
  * @package Jeta
  */
-class Jeta {
-
+class Jeta
+{
     /**
      * Build Jeta's list of menu items.
      */
-    function getMenu()
+    public function getMenu()
     {
-        global $registry, $conf;
-
         $menu = new Horde_Menu();
 
         /* Jeta Home. */
-        $menu->addArray(array('url' => Horde::applicationUrl('main.php'), 'text' => _("_Shell"), 'icon' => 'jeta.png', 'class' => (basename($_SERVER['PHP_SELF']) == 'main.php' || basename($_SERVER['PHP_SELF']) == 'index.php') ? 'current' : ''));
+        $menu->addArray(array('url' => Horde::applicationUrl('index.php'), 'text' => _("_Shell"), 'icon' => 'jeta.png', 'class' => (basename($_SERVER['PHP_SELF']) == 'index.php') ? 'current' : ''));
 
         return $menu;
     }
