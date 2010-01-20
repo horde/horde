@@ -3,7 +3,7 @@ class Horde_Date_Repeater_Year extends Horde_Date_Repeater
 {
     public $currentYearStart;
 
-    public function next($pointer)
+    public function next($pointer = 'future')
     {
         parent::next($pointer);
 

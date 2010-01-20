@@ -8,7 +8,7 @@ class Horde_Date_Repeater_Weekend extends Horde_Date_Repeater
 
     public $currentWeekStart;
 
-    public function next($pointer)
+    public function next($pointer = 'future')
     {
         parent::next($pointer);
 

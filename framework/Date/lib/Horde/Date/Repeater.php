@@ -16,7 +16,7 @@ abstract class Horde_Date_Repeater
     /**
      * returns the next occurance of this repeatable.
      */
-    public function next($pointer)
+    public function next($pointer = 'future')
     {
         if (is_null($this->now)) {
             throw new Horde_Date_Repeater_Exception('Start point must be set before calling next()');

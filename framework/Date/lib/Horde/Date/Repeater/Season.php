@@ -6,7 +6,7 @@ class Horde_Date_Repeater_Season extends Horde_Date_Repeater
      */
     const SEASON_SECONDS = 7862400;
 
-    public function next($pointer)
+    public function next($pointer = 'future')
     {
         parent::next($pointer);
         throw new Horde_Date_Repeater_Exception('Not implemented');

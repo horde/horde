@@ -17,7 +17,7 @@ class Horde_Date_Repeater_SeasonName extends Horde_Date_Repeater_Season
         $this->type = $type;
     }
 
-    public function next($pointer)
+    public function next($pointer = 'future')
     {
         parent::next($pointer);
         throw new Horde_Date_Repeater_Exception('Not implemented');

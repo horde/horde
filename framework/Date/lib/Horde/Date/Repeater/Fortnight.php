@@ -6,7 +6,7 @@ class Horde_Date_Repeater_Fortnight extends Horde_Date_Repeater
 
     public $currentFortnightStart;
 
-    public function next($pointer)
+    public function next($pointer = 'future')
     {
         parent::next($pointer);
 

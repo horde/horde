@@ -53,7 +53,7 @@ class Horde_Date_Repeater_Time extends Horde_Date_Repeater
      *   pointer - Symbol representing which temporal direction to fetch the next day
      *             must be either :past or :future
      */
-    public function next($pointer)
+    public function next($pointer = 'future')
     {
         parent::next($pointer);
 

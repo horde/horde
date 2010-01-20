@@ -6,7 +6,7 @@ class Horde_Date_Repeater_Day extends Horde_Date_Repeater
 
     public $currentDayStart;
 
-    public function next($pointer)
+    public function next($pointer = 'future')
     {
         parent::next($pointer);
 
