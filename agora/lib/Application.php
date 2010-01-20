@@ -2,8 +2,8 @@
 /**
  * Agora external API interface.
  *
- * This file defines Agora's external API interface. Other
- * applications can interact with Agora through this API.
+ * This file defines Horde's core API interface. Other core Horde libraries
+ * can interact with Agora through this API.
  *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
@@ -15,9 +15,38 @@
  * @package Agora
  */
 
+/* Determine the base directories. */
+if (!defined('AGORA_BASE')) {
+    define('AGORA_BASE', dirname(__FILE__) . '/..');
+}
+
+if (!defined('HORDE_BASE')) {
+    /* If Horde does not live directly under the app directory, the HORDE_BASE
+     * constant should be defined in config/horde.local.php. */
+    if (file_exists(AGORA_BASE . '/config/horde.local.php')) {
+        include AGORA_BASE . '/config/horde.local.php';
+    } else {
+        define('HORDE_BASE', AGORA_BASE . '/..');
+    }
+}
+
+/* Load the Horde Framework core (needed to autoload
+ * Horde_Registry_Application::). */
+require_once HORDE_BASE . '/lib/core.php';
+
 class Agora_Application extends Horde_Registry_Application
 {
+    /**
+     * The application's version.
+     *
+     * @var string
+     */
     public $version = 'H4 (1.0-git)';
+
+    /**
+     * TODO
+     */
+    static protected $_perms = array();
 
     /**
      * Returns a list of available permissions.
@@ -26,20 +55,17 @@ class Agora_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-        static $perms = array();
-        if (!empty($perms)) {
-            return $perms;
+        if (!empty(self::$_perms)) {
+            return self::$_perms;
         }
 
-        require_once dirname(__FILE__) . '/base.php';
-
-        $perms['tree']['agora']['admin'] = true;
-        $perms['title']['agora:admin'] = _("Admin");
-        $perms['title']['agora:forums'] = _("Forums");
+        self::$_perms['tree']['agora']['admin'] = true;
+        self::$_perms['title']['agora:admin'] = _("Admin");
+        self::$_perms['title']['agora:forums'] = _("Forums");
 
         foreach ($GLOBALS['registry']->listApps() as $scope) {
-            $perms['title']['agora:forums:' . $scope] = $GLOBALS['registry']->get('name', $scope);
-            $perms['tree']['agora']['forums'][$scope] = false;
+            self::$_perms['title']['agora:forums:' . $scope] = $GLOBALS['registry']->get('name', $scope);
+            self::$_perms['tree']['agora']['forums'][$scope] = false;
 
             $forums = &Agora_Messages::singleton($scope);
             $forums_list = $forums->getBareForums();
@@ -48,13 +74,13 @@ class Agora_Application extends Horde_Registry_Application
             }
 
             foreach ($forums_list as $id => $title) {
-                $perms['tree']['agora']['forums'][$scope][$id] = false;
-                $perms['title']['agora:forums:' . $scope . ':' . $id] = $title;
+                self::$_perms['tree']['agora']['forums'][$scope][$id] = false;
+                self::$_perms['title']['agora:forums:' . $scope . ':' . $id] = $title;
             }
 
         }
 
-        return $perms;
+        return self::$_perms;
     }
 
     /**
@@ -66,4 +92,5 @@ class Agora_Application extends Horde_Registry_Application
     {
         return Agora::getMenu();
     }
+
 }

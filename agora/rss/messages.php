@@ -8,9 +8,8 @@
  * @author Duck <duck@obala.net>
  */
 
-define('AUTH_HANDLER', true);
-define('AGORA_BASE', dirname(__FILE__) . '/../');
-require_once AGORA_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('agora', array('authentication' => 'none'));
 
 // Show a specific scope?
 list($forum_id, $message_id, $scope) = Agora::getAgoraId();

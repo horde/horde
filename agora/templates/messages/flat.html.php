@@ -6,7 +6,7 @@
  <?php echo $v1['link']; ?><strong><?php echo $v1['message_subject']; ?></strong></a>
   <span style="font-size: 0.9em;">
   <?php
-  echo sprintf(_("Posted by %s on %s"), $v1['message_author'], $v1['message_date']); 
+  echo sprintf(_("Posted by %s on %s"), $v1['message_author'], $v1['message_date']);
   if (!empty($v1['message_author_moderator'])): ?>
    <?php echo _('Moderator'); ?>
   <?php endif; ?>

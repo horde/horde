@@ -10,10 +10,8 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-define('AGORA_BASE', dirname(__FILE__));
-require_once AGORA_BASE . '/lib/base.php';
-require_once AGORA_BASE . '/lib/Forms/Forum.php';
-
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('agora');
 
 /* Set up the forums object. */
 $forums = &Agora_Messages::singleton();

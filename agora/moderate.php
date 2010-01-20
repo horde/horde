@@ -8,9 +8,8 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-define('AGORA_BASE', dirname(__FILE__));
-require_once AGORA_BASE . '/lib/base.php';
-require_once AGORA_BASE . '/lib/Messages.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('agora');
 
 /* Set up the messages object. */
 $scope = Horde_Util::getGet('scope', 'agora');
@@ -79,7 +78,7 @@ if (isset($api_call)) {
     $title = _("Messages Awaiting Moderation");
     $view->menu = Agora::getMenu('string');
     Horde::addScriptFile('stripe.js', 'horde', true);
-    require_once AGORA_TEMPLATES . '/common-header.inc';
+    require AGORA_TEMPLATES . '/common-header.inc';
     echo $view->render('moderate.html.php');
-    require_once $registry->get('templates', 'horde') . '/common-footer.inc';
+    require $registry->get('templates', 'horde') . '/common-footer.inc';
 }

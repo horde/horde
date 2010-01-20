@@ -10,7 +10,7 @@
 <h1 class="header"><?php echo _('Banned'); ?></h1>
 <ul>
 <?php foreach ($this->banned as $k1 => $v1): ?>
-    <li><?php if (isset($v1)) { echo is_array($v1) ? $k1 : $v1; } elseif (isset($this->banned)) { echo $this->banned; } ?></li> 
+    <li><?php if (isset($v1)) { echo is_array($v1) ? $k1 : $v1; } elseif (isset($this->banned)) { echo $this->banned; } ?></li>
 <?php endforeach; ?>
 </ul>
 <br class="spacer">

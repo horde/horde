@@ -10,8 +10,8 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-define('AGORA_BASE', dirname(__FILE__));
-require_once AGORA_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('agora', array('authentication' => 'none', 'cli' => true));
 
 $action_id = Horde_Util::getFormData('action_id', 'download');
 $file_id = Horde_Util::getFormData('file_id');

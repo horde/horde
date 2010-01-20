@@ -226,7 +226,6 @@ class Agora {
             return PEAR::raiseError(_("The VFS backend needs to be configured to enable attachment uploads."));
         }
 
-        require_once 'VFS.php';
         return VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs'));
     }
 
@@ -377,7 +376,7 @@ class Agora {
      *
      * @param int $message_id  Identifier of message to be distributed
      *
-     * @return mixed           Boolean true on success; PEAR_Error on failure
+     * @throws Horde_Mime_Exception
      */
     function distribute($message_id)
     {
@@ -388,15 +387,10 @@ class Agora {
         $forum = $storage->getForum($message['forum_id']);
 
         if (empty($forum['forum_distribution_address'])) {
-            return false;
+            return;
         }
 
-        require_once 'Mail.php';
-        require_once 'Horde/MIME.php';
-        require_once 'Horde/MIME/Headers.php';
-        require_once 'Horde/MIME/Message.php';
-
-        $msg_headers = new MIME_Headers();
+        $msg_headers = new Horde_Mime_Headers();
         $msg_headers->addMessageIdHeader();
         $msg_headers->addAgentHeader();
         $msg_headers->addHeader('Date', date('r'));
@@ -406,14 +400,11 @@ class Agora {
         $msg_headers->addHeader('From', $message['message_author']);
         $msg_headers->addHeader('Subject', '[' . $forum['forum_name'] . '] ' . $message['message_subject']);
 
-        $mime = new MIME_Message();
-        $body = new MIME_Part('text/plain', $message['body'],
-                              Horde_Nls::getCharset());
-        $mime->addPart($body);
-        $msg_headers->addMIMEHeaders($mime);
-        $result = $mime->send($forum['forum_distribution_address'], $msg_headers, $conf['mailer']['type'], $conf['mailer']['params']);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-        }
+        $body = new Horde_Mime_Part();
+        $body->setType('text/plain');
+        $body->setCharset(Horde_Nls::getCharset());
+        $body->setContents($message['body']);
+
+        $body->send($forum['forum_distribution_address'], $msg_headers, $conf['mailer']['type'], $conf['mailer']['params']);
     }
 }

@@ -15,28 +15,9 @@
  * TODO: Moderation, attachments, ID swaping
  */
 
-// No need for auth.
-define('AUTH_HANDLER', true);
-
-// Find the base file paths.
-define('AGORA_BASE', dirname(dirname(__FILE__)));
-define('HORDE_BASE', dirname(AGORA_BASE));
-
-// Do CLI checks and environment setup first.
-require_once HORDE_BASE . '/lib/core.php';
-require_once 'Horde/CLI.php';
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment.
-Horde_Cli::init();
-$cli = &Horde_Cli::singleton();
-
-require_once 'DB.php';
-require_once HORDE_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('agora', array('authentication' => 'none', 'cli' => true));
+$cli = Horde_Cli::singleton();
 
 /* Open Agora database. */
 $db_agora = &DB::connect($conf['sql']);
@@ -53,7 +34,6 @@ if ($db_phorum instanceof PEAR_Error) {
 }
 
 // We accept the user name on the command-line.
-require_once 'Console/Getopt.php';
 $ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'h:p:a:t:f:c:',
                               array('help', 'phorum_id=', 'agora_id=', 'phorum_table=', 'from=', 'count='));
 

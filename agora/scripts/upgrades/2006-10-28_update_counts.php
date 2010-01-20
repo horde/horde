@@ -6,28 +6,8 @@
  * TODO Get rid of moderation
  */
 
-// No need for auth.
-define('AUTH_HANDLER', true);
-
-// Find the base file paths.
-define('AGORA_BASE', dirname(dirname(dirname(__FILE__))));
-define('HORDE_BASE', dirname(AGORA_BASE));
-
-// Do CLI checks and environment setup first.
-require_once HORDE_BASE . '/lib/core.php';
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment - make sure there's no time limit, init
-// some variables, etc.
-Horde_Cli::init();
-
-require_once 'DB.php';
-require_once HORDE_BASE . '/lib/base.php';
-require_once AGORA_BASE . '/lib/Messages.php';
+require_once dirname(__FILE__) . '/../../lib/Application.php';
+Horde_Registry::appInit('agora', array('authentication' => 'none', 'cli' => true));
 
 /* Open the database. */
 $db = &DB::connect($conf['sql']);

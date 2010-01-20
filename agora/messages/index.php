@@ -10,10 +10,8 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-define('AGORA_BASE', dirname(__FILE__) . '/..');
-require_once AGORA_BASE . '/lib/base.php';
-require_once AGORA_BASE . '/lib/Messages.php';
-require_once 'Horde/Identity.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('agora');
 
 /* Set up the messages object. */
 list($forum_id, $message_id, $scope) = Agora::getAgoraId();
@@ -79,7 +77,7 @@ $view = new Agora_View();
 if (!$view_bodies) {
     /* Get the author's avatar. */
     if ($conf['avatar']['allow_avatars']) {
-        $identity = &Identity::singleton('none', $message['message_author']);
+        $identity = Horde_Prefs_Identity::singleton('none', $message['message_author']);
         $avatar_path = $identity->getValue('avatar_path');
         $message_author_avatar = Agora::validateAvatar($avatar_path) ? Agora::getAvatarUrl($avatar_path) : false;
         $view->message_author_avatar = $message_author_avatar;

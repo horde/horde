@@ -42,8 +42,6 @@ class Horde_Block_agora_forums extends Horde_Block {
     {
         global $registry;
 
-        require_once dirname(__FILE__) . '/../base.php';
-
         /* Set up the forums object. */
         $forums = array(Agora_Messages::singleton());
         if (Horde_Auth::isAdmin()) {

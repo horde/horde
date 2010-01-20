@@ -11,8 +11,8 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-define('AGORA_BASE', dirname(__FILE__));
-require_once AGORA_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('agora');
 
 if (!Horde_Auth::isAdmin()) {
     header('Location: ' . Horde::applicationUrl('forums.php'));

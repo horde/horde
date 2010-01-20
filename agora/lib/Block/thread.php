@@ -22,8 +22,6 @@ class Horde_Block_agora_thread extends Horde_Block {
 
     function _params()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         $forumOb = &Agora_Messages::singleton();
         $forums_list = $forumOb->getForums(0, true, 'forum_name', 0, true);
 
@@ -56,8 +54,6 @@ class Horde_Block_agora_thread extends Horde_Block {
         if (empty($this->_params['thread_id'])) {
             return '';
         }
-
-        require_once dirname(__FILE__) . '/../base.php';
 
         /* Set up the message object. */
         list($forum_id, $message_id) = explode('.', $this->_params['thread_id']);

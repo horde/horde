@@ -28,8 +28,6 @@ class Agora_Api extends Horde_Registry_Api
      */
     public function listForums($forum_id = 0, $scope = null)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         $forums = &Agora_Messages::singleton($scope);
         return $forums->getForums($forum_id, true, 'forum_name', 0, isset($scope));
     }
@@ -44,8 +42,6 @@ class Agora_Api extends Horde_Registry_Api
      */
     public function getForumName($scope, $forum_id)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         $forums = &Agora_Messages::singleton($scope);
         $forum = $forums->getForum($forum_id);
         if ($forum instanceof PEAR_Error) {
@@ -67,8 +63,6 @@ class Agora_Api extends Horde_Registry_Api
      */
     public function saveForum($scope, $parent, $info)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         $forums = &Agora_Messages::singleton($scope);
         $forum_info = $this->prepareFormData($scope, $parent, $info);
         if ($forum_info instanceof PEAR_Error) {
@@ -89,8 +83,6 @@ class Agora_Api extends Horde_Registry_Api
      */
     public function deleteForum($scope, $forum_name)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         $forums = &Agora_Messages::singleton($scope);
         $id = $forums->getForumId($forum_name);
         if ($id instanceof PEAR_Error) {
@@ -128,8 +120,6 @@ class Agora_Api extends Horde_Registry_Api
     public function getThreads($forum_name, $sort_by = 'message_timestamp', $sort_dir = 0, $bodies = false,
                             $scope = 'agora', $base_url = null, $from = 0, $count = 0)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         $forums = &Agora_Messages::singleton($scope);
         if (empty($forum_name)) {
             return $forums->getThreads(0, false, $sort_by, $sort_dir, true, '', $base_url, $from, $count);
@@ -168,8 +158,6 @@ class Agora_Api extends Horde_Registry_Api
     public function getThreadsBatch($forum_names, $sort_by = 'message_timestamp', $sort_dir = 0, $bodies = false,
                             $scope = 'agora', $base_url = null, $from = 0, $count = 0)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         $results = array();
         $forums = &Agora_Messages::singleton($scope);
         $results = array();
@@ -207,8 +195,6 @@ class Agora_Api extends Horde_Registry_Api
     public function getThreadsByForumOwner($owner, $sort_by = 'message_timestamp', $sort_dir = 0, $bodies = false,
                             $scope = 'agora', $from = 0, $count = 0)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         $forums = &Agora_Messages::singleton($scope);
 
         return $forums->getThreadsByForumOwner($owner, 0, true, $sort_by, $sort_dir, true, $from, $count);
@@ -227,8 +213,6 @@ class Agora_Api extends Horde_Registry_Api
      */
     public function numMessages($forum_name, $scope = 'agora', $thread_id = null)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         $forums = &Agora_Messages::singleton($scope);
 
         if (($forum_id = $forums->getForumId($forum_name)) instanceof PEAR_Error) {
@@ -259,8 +243,6 @@ class Agora_Api extends Horde_Registry_Api
      */
     public function numMessagesBatch($forum_name, $scope = 'agora', $thread_id = null)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         $forums = &Agora_Messages::singleton($scope);
         if ($forums instanceof PEAR_Error) {
             return $forums;
@@ -367,8 +349,6 @@ class Agora_Api extends Horde_Registry_Api
             return '';
         }
 
-        require_once dirname(__FILE__) . '/base.php';
-
         /* Check if the forum exists and fetch the ID, or create a new one. */
         $forums = &Agora_Messages::singleton($scope);
         if (($params['forum_id'] = $forums->getForumId($forum_name)) instanceof PEAR_Error) {
@@ -434,8 +414,6 @@ class Agora_Api extends Horde_Registry_Api
         if ($check instanceof PEAR_Error || !$check) {
             return '';
         }
-
-        require_once dirname(__FILE__) . '/base.php';
 
         /* Create a separate notification queue. */
         $queue = Horde_Notification::singleton('agoraPostMessage');
@@ -582,8 +560,6 @@ class Agora_Api extends Horde_Registry_Api
             return '';
         }
 
-        require_once dirname(__FILE__) . '/base.php';
-
         /* Create a separate notification queue. */
         $queue = Horde_Notification::singleton('agoraRemoveMessage');
         $queue->attach('status');
@@ -673,8 +649,6 @@ class Agora_Api extends Horde_Registry_Api
                             $base_url = null, $url = null, $variables = null,
                             $template_file = false)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         if (is_null($base_url)) {
             $base_url = Horde::selfUrl(true);
         }
@@ -738,8 +712,6 @@ class Agora_Api extends Horde_Registry_Api
      */
     public function prepareFormData($scope, $parent = false, $info = array(), $callback = null)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         $forums = &Agora_Messages::singleton($scope);
 
         if ($parent) {
@@ -809,8 +781,6 @@ class Agora_Api extends Horde_Registry_Api
     public function moderateForm($scope)
     {
         global $notification, $prefs, $registry;
-
-        require_once dirname(__FILE__) . '/base.php';
 
         $api_call = true;
 

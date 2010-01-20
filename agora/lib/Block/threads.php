@@ -34,8 +34,6 @@ class Horde_Block_agora_threads extends Horde_Block {
      */
     function _params()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         $forums = Agora_Messages::singleton();
 
         /* Get the list of forums to display. */
@@ -62,8 +60,6 @@ class Horde_Block_agora_threads extends Horde_Block {
      */
     function _title()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         if (!isset($this->_params['forum_id'])) {
             return _("Threads");
         }
@@ -89,8 +85,6 @@ class Horde_Block_agora_threads extends Horde_Block {
      */
     function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         if (!isset($this->_params['forum_id'])) {
             return _("No forum selected");
         }

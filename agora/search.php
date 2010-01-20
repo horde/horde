@@ -10,8 +10,9 @@
  * @author  Jason Felice <jason.m.felice@gmail.com>
  */
 
-define('AGORA_BASE', dirname(__FILE__));
-require_once AGORA_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('agora');
+
 require_once AGORA_BASE . '/lib/Forms/Search.php';
 
 /* Set up the forums object. */

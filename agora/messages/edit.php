@@ -11,9 +11,8 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-define('AGORA_BASE', dirname(__FILE__) . '/..');
-require_once AGORA_BASE . '/lib/base.php';
-require_once AGORA_BASE . '/lib/Messages.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('agora');
 
 list($forum_id, $message_id, $scope) = Agora::getAgoraId();
 $message_parent_id = Horde_Util::getFormData('message_parent_id');

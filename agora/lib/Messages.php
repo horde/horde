@@ -1644,14 +1644,6 @@ class Agora_Messages {
             return $files;
         }
 
-        global $mime_drivers, $mime_drivers_map;
-        $result = Horde::loadConfiguration('mime_drivers.php', array('mime_drivers', 'mime_drivers_map'), 'horde');
-        extract($result);
-        require_once 'Horde/MIME/Part.php';
-        require_once 'Horde/MIME/Viewer.php';
-        require_once 'Horde/MIME/Magic.php';
-        require_once 'Horde/MIME/Contents.php';
-
         /* Make sure we have the tooltips javascript. */
         Horde::addScriptFile('tooltips.js', 'horde', true);
 
@@ -1659,7 +1651,7 @@ class Agora_Messages {
         $html = '<br />';
         $view_url = Horde::applicationUrl('view.php');
         foreach ($files as $file_id => $file) {
-            $mime_icon = MIME_Viewer::getIcon($file['file_type']);
+            $mime_icon = Horde_Mime_Viewer::getIcon($file['file_type']);
             $title = _("download") . ': ' . $file['file_name'];
             $tooltip = $title . "\n" . sprintf(_("size: %s"), $this->formatSize($file['file_size'])) . "\n" . sprintf(_("type: %s"), $file['file_type']);
             $url = Horde_Util::addParameter($view_url, array('forum_id' => $this->_forum_id,
@@ -2236,8 +2228,6 @@ class Agora_Messages {
      */
     private function _connect()
     {
-        require_once 'MDB2.php';
-
         $this->_params = Horde::getDriverConfig('storage', 'sql');
         Horde::assertDriverConfig($this->_params, 'storage',
                                   array('phptype', 'charset'));

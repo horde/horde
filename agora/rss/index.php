@@ -8,17 +8,16 @@
  * @author Duck <duck@obala.net>
  */
 
-define('AUTH_HANDLER', true);
-define('AGORA_BASE', dirname(__FILE__) . '/../');
-require_once AGORA_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('agora', array('authentication' => 'none'));
 
 // Show a specific scope?
 $scope = Horde_Util::getGet('scope', 'agora');
 $cache_key = 'agora_rss_' . $scope;
 
 /* Initialize the Cache object. */
-$cache = &Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'],
-                                    Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+$cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'],
+                                Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
 
 $rss = $cache->get($cache_key, $conf['cache']['default_lifetime']);
 if (!$rss) {

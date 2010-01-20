@@ -8,9 +8,8 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-define('AGORA_BASE', dirname(__FILE__) . '/..');
-require_once AGORA_BASE . '/lib/base.php';
-require_once AGORA_BASE . '/lib/Messages.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('agora');
 
 /* Set up the messages object. */
 list($forum_id, $message_id, $scope) = Agora::getAgoraId();
@@ -56,10 +55,9 @@ if ($form->validate()) {
     }
 
     /* Collect moderators emails, and send them the notify */
-    require_once 'Horde/Identity.php';
     $emails = array();
     foreach ($forum['moderators'] as $moderator) {
-        $identity = &Identity::singleton('none', $moderator);
+        $identity = Horde_Prefs_Identity::singleton('none', $moderator);
         $address = $identity->getValue('from_addr');
         if (!empty($address)) {
             $emails[] = $address;
