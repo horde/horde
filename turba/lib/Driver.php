@@ -958,7 +958,6 @@ class Turba_Driver
         $vcard = new Horde_iCalendar_vcard($version);
         $formattedname = false;
         $charset = $version == '2.1' ? array('CHARSET' => Horde_Nls::getCharset()) : array();
-        $geo = null;
 
         foreach ($hash as $key => $val) {
             if ($skipEmpty && !strlen($val)) {
