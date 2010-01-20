@@ -30,6 +30,7 @@ KronolithCore = {
     tasktype: 'incomplete',
     growls: 0,
     alarms: [],
+    wrongFormat: $H(),
     mapMarker: null,
     map: null,
     mapInitialized: false,
@@ -1945,6 +1946,11 @@ KronolithCore = {
      */
     saveTask: function()
     {
+        if (this.wrongFormat.size()) {
+            this.showNotifications([{ type: 'horde.warning', message: Kronolith.text.fix_form_values }]);
+            return;
+        }
+
         var tasklist = $F('kronolithTaskList'),
             taskid = $F('kronolithTaskId');
         this.startLoading('tasks:' + ($F('kronolithTaskCompleted') ? 'complete' : 'incomplete') + tasklist, this.tasktype);
@@ -3229,6 +3235,11 @@ KronolithCore = {
      */
     saveEvent: function()
     {
+        if (this.wrongFormat.size()) {
+            this.showNotifications([{ type: 'horde.warning', message: Kronolith.text.fix_form_values }]);
+            return;
+        }
+
         var cal = $F('kronolithEventTarget'),
             eventid = $F('kronolithEventId'),
             viewDates = this.viewDates(this.date, this.view),
@@ -3529,6 +3540,34 @@ KronolithCore = {
         }
     },
 
+    checkDate: function(e) {
+        var elm = e.element();
+        if ($F(elm)) {
+            var date = Date.parseExact($F(elm), Kronolith.conf.date_format) || Date.parse($F(elm));
+            if (date) {
+                elm.setValue(date.toString(Kronolith.conf.date_format));
+                this.wrongFormat.unset(elm.id);
+            } else {
+                this.showNotifications([{ type: 'horde.warning', message: Kronolith.text.wrong_date_format.interpolate({ wrong: $F(elm), right: new Date().toString(Kronolith.conf.date_format) }) }]);
+                this.wrongFormat.set(elm.id, true);
+            }
+        }
+    },
+
+    checkTime: function(e) {
+        var elm = e.element();
+        if ($F(elm)) {
+            var time = Date.parseExact(new Date().toString(Kronolith.conf.date_format) + ' ' + $F(elm), Kronolith.conf.date_format + ' ' + Kronolith.conf.time_format) || Date.parse(new Date().toString('yyyy-MM-dd ') + $F(elm));
+            if (time) {
+                elm.setValue(time.toString(Kronolith.conf.time_format));
+                this.wrongFormat.unset(elm.id);
+            } else {
+                this.showNotifications([{ type: 'horde.warning', message: Kronolith.text.wrong_time_format.interpolate({ wrong: $F(elm), right: new Date().toString(Kronolith.conf.time_format) }) }]);
+                this.wrongFormat.set(elm.id, true);
+            }
+        }
+    },
+
     _closeRedBox: function()
     {
         var content = RedBox.getWindowContents();
@@ -3723,6 +3762,13 @@ KronolithCore = {
                 this.setValue(this.readAttribute('default'));
             }
         });
+
+        $('kronolithEventStartDate').observe('blur', this.checkDate.bind(this));
+        $('kronolithEventEndDate').observe('blur', this.checkDate.bind(this));
+        $('kronolithTaskDueDate').observe('blur', this.checkDate.bind(this));
+        $('kronolithEventStartTime').observe('blur', this.checkTime.bind(this));
+        $('kronolithEventEndTime').observe('blur', this.checkTime.bind(this));
+        $('kronolithTaskDueTime').observe('blur', this.checkTime.bind(this));
 
         // Mouse wheel handler.
         [ 'kronolithEventStartDate', 'kronolithEventEndDate' ].each(function(field) {

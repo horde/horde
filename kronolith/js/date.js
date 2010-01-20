@@ -2081,7 +2081,7 @@
     var _ = $D.Parsing.Operators, g = $D.Grammar, t = $D.Translator, _fn;
 
     g.datePartDelimiter = _.rtoken(/^([\s\-\.\,\/\x27]+)/);
-    g.timePartDelimiter = _.stoken(":");
+    g.timePartDelimiter = _.rtoken(/^([\.:])/);
     g.whiteSpace = _.rtoken(/^\s*/);
     g.generalDelimiter = _.rtoken(/^(([\s\,]|at|@|on)+)/);
 
