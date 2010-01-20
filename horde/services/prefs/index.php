@@ -8,9 +8,8 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../../lib/core.php';
-
-$registry = Horde_Registry::singleton();
+require_once dirname(__FILE__) . '/../../lib/Application.php';
+Horde_Registry::appInit('horde');
 
 /* Which application. */
 $app = Horde_Util::getFormData('app');

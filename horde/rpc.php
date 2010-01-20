@@ -17,7 +17,7 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/core.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
 
 $input = $session_control = null;
 $nocompress = false;

@@ -86,17 +86,8 @@ require_once 'SyncML/Backend.php';
 
 /* Do Horde includes if test for horde backend: */
 if ($syncml_backend_driver == 'Horde') {
-    /* Syncml does its own session handling. */
-    $horde_authentication = 'none';
-    $horde_session_control = 'none';
-    require_once dirname(__FILE__) . '/../../../lib/core.php';
-
-    // Load the CLI environment - make sure there's no time limit, init
-    // some variables, etc.
-    $cli = Horde_Cli::singleton();
-    $cli->init();
-
-    require_once HORDE_BASE . '/lib/base.php';
+    require_once dirname(__FILE__) . '/../../../lib/Application.php';
+    Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true, 'session_control' => 'none'));
     Horde_String::setDefaultCharset('UTF-8');
     Horde_Nls::setCharset('UTF-8');
 }

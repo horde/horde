@@ -16,25 +16,12 @@
  * @package Horde_Memcache
  */
 
-// Find the base file path of Horde.
-@define('HORDE_BASE', dirname(__FILE__) . '/..');
+// The base file path of horde.
+$horde_base = '/path/to/horde';
 
-// Do CLI checks and environment setup first.
-require_once HORDE_BASE . '/lib/core.php';
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment - make sure there's no time limit, init some
-// variables, etc.
-$cli = &Horde_Cli::singleton();
-$cli->init();
-
-// No auth.
-$horde_authentication = 'none';
-require_once HORDE_BASE . '/lib/base.php';
+require_once $horde_base . '/lib/Application.php';
+Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true));
+$cli = Horde_Cli::singleton();
 
 /* Make sure there's no compression. */
 @ob_end_clean();

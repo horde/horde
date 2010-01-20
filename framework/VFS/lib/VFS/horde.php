@@ -39,11 +39,8 @@ class VFS_horde extends VFS {
             return;
         }
 
-        // Define path to Horde.
-        @define('HORDE_BASE', $this->_params['horde_base']);
-
-        // Load the Horde Framework core, and set up inclusion paths.
-        require_once HORDE_BASE . '/lib/core.php';
+        require_once $this->_params['horde_base'] . '/lib/Application.php';
+        Horde_Registry::appInit('horde');
 
         // Create the Registry object.
         $this->_registry = Horde_Registry::singleton();

@@ -10,26 +10,13 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-// Do CLI checks and environment setup first.
 require_once dirname(__FILE__) . '/horde-base.php';
-require_once $horde_base . '/lib/core.php';
+Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true));
 
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment - make sure there's no time limit, init
-// some variables, etc.
 $cli = Horde_Cli::singleton();
-$cli->init();
-
-// Include needed libraries.
-$horde_authentication = 'none';
-require_once HORDE_BASE . '/lib/base.php';
-
 $db_lib = 'DB';
 $sequence = null;
+
 if (isset($_SERVER['argv']) && count($_SERVER['argv']) >= 2) {
     array_shift($_SERVER['argv']);
     while ($arg = array_shift($_SERVER['argv'])) {

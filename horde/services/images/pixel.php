@@ -8,7 +8,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../../lib/core.php';
+require_once dirname(__FILE__) . '/../../lib/Application.php';
 
 header('Content-type: image/gif');
 header('Expires: Wed, 21 Aug 1969 11:11:11 GMT');

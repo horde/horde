@@ -8,7 +8,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/core.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
 
 // Get text, uppercase, add start/stop characters.
 $text = '*' . Horde_String::upper(Horde_Util::getFormData('barcode', 'test'), true) . '*';

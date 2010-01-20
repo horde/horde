@@ -15,9 +15,8 @@
 
 @define('ZOMBIE_BASE', dirname(__FILE__) . '/..');
 
-/* We need horde only to get the sql driver config from conf.php. */
-require_once dirname(__FILE__) . '/lib/core.php';
-require_once HORDE_BASE . '/config/conf.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 /* List of files that are parsed, converted and copied to output
  * directory.  for all these files default zitem->parameter string

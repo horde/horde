@@ -3,10 +3,9 @@ Test for Bug #2838, overwriting of preferences when multiple scopes are retrieve
 --FILE--
 <?php
 
-define('HORDE_BASE', dirname(dirname(dirname(dirname(__FILE__)))));
-require_once HORDE_BASE . '/lib/core.php';
-
-$registry = Horde_Registry::singleton();
+$horde_base = '/path/to/horde';
+require_once HORDE_BASE . '/lib/Application.php';
+Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 $prefs = Horde_Prefs::factory('session', 'horde', 'testuser', 'testpw');
 $prefs->retrieve('imp');

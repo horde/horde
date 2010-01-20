@@ -10,28 +10,12 @@
  * @package admintools
  */
 
-/**
- ** Set this to true if you want DB modifications done.
- **/
+/* Set this to true if you want DB modifications done.*/
 $live = false;
 
-// Do CLI checks and environment setup first.
 require_once dirname(__FILE__) . '/horde-base.php';
-require_once $horde_base . '/lib/core.php';
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment - make sure there's no time limit, init
-// some variables, etc.
+Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true, 'nocompress' => true));
 $cli = Horde_Cli::singleton();
-$cli->init();
-
-$horde_authentication = 'none';
-$horde_no_compress = true;
-require_once HORDE_BASE . '/lib/base.php';
 
 $scope = $cli->prompt(_("Enter value for pref_scope:"));
 $name = $cli->prompt(_("Enter value for pref_name:"));

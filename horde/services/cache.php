@@ -18,8 +18,7 @@
  * DEFAULT: 525600 = 1 year */
 $expire_time = 525600;
 
-/* Load core first because we need access to Horde_Util::. */
-require_once dirname(__FILE__) . '/../lib/core.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
 
 if (!($path = Horde_Util::getFormData('cache'))) {
     exit;

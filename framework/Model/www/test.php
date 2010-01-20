@@ -6,12 +6,12 @@
  * 2005.
  */
 
-@define('HORDE_BASE', dirname(__FILE__) . '/../..');
-@define('INCUBATOR_BASE', dirname(__FILE__));
+$horde_base = '/path/to/horde';
 
-require_once HORDE_BASE . '/lib/core.php';
+require_once $horde_base . '/lib/Application.php';
+Horde_Registry::appInit('horde', array('authentication' => 'none'));
 Horde_Autoloader::addClassPath(dirname(__FILE__));
-$registry = Horde_Registry::singleton();
+
 $vars = Horde_Variables::getDefaultVariables();
 
 $vars->set('example_bar', 'text with a beginning and an end');

@@ -2,8 +2,9 @@
 /**
  * Test harness for generating the test images for Horde_Image tests
  */
+
 define('HORDE_BASE', '/var/www/html/horde');
-require_once HORDE_BASE . '/lib/core.php';
+require_once HORDE_BASE . '/lib/Application.php';
 
 $allTests = array(
     'testInitialState' => 'Test initial state. Solid blue square',

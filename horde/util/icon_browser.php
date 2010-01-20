@@ -8,10 +8,9 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-$horde_authentication = 'none';
-require_once dirname(__FILE__) . '/../lib/core.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
-$registry = Horde_Registry::singleton();
 $apps = $registry->listApps(array('notoolbar', 'active', 'admin', 'inactive', 'hidden'), true);
 ksort($apps);
 
