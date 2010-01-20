@@ -74,6 +74,7 @@ $self_url = $url->copy()->add('app', $app);
 switch (Horde_Util::getGet('mode')) {
 case 'extensions':
     echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">';
+    $ext_get = Horde_Util::getGet('ext');
     require $test_templates . '/extensions.inc';
     exit;
 

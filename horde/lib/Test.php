@@ -698,12 +698,11 @@ class Horde_Test
     public function getPhpVersionInformation()
     {
         $output = new stdClass;
-        $url = urlencode($_SERVER['PHP_SELF']);
         $vers_check = true;
 
-        $testscript = 'test.php';
-        $output->phpinfo = $testscript . '?mode=phpinfo&amp;url=' . $url;
-        $output->extensions = $testscript . '?mode=extensions&amp;url=' . $url;
+        $testscript = Horde::selfUrl(true);
+        $output->phpinfo = $testscript->copy()->add('mode', 'phpinfo');
+        $output->extensions = $testscript->copy()->add('mode', 'extensions');
         $output->version = PHP_VERSION;
         $output->major = $this->_phpver['major'];
         if (isset($this->_phpver['minor'])) {
