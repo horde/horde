@@ -45,7 +45,7 @@ class DeviceDetailsForm extends Horde_Form {
 
     public function execute()
     {
-        global $shout_devices;
+        global $shout;
 
         $action = $this->_vars->get('action');
         $context = $this->_vars->get('context');
@@ -58,7 +58,7 @@ class DeviceDetailsForm extends Horde_Form {
             $devid = null;
             $password = null;
         } else { // $action must be 'edit'
-            $devices = $shout_devices->getDevices($context);
+            $devices = $shout->devices->getDevices($context);
             if (!isset($devices[$devid])) {
                 // The device requested doesn't already exist.  This can't
                 // be a valid edit.
@@ -78,7 +78,7 @@ class DeviceDetailsForm extends Horde_Form {
             'password' => $password,
         );
 
-        $shout_devices->saveDevice($context, $devid, $details);
+        $shout->devices->saveDevice($context, $devid, $details);
     }
 
 }
@@ -102,9 +102,9 @@ class DeviceDeleteForm extends Horde_Form
 
     function execute()
     {
-        global $shout_devices;
+        global $shout;
         $context = $this->_vars->get('context');
         $devid = $this->_vars->get('devid');
-        $shout_devices->deleteDevice($context, $devid);
+        $shout->devices->deleteDevice($context, $devid);
     }
 }
