@@ -46,7 +46,7 @@ $actionID = Horde_Util::getFormData('actionID');
 
 /* Run prefs_ui init code, if available. */
 if ($registry->hasAppMethod($app, 'prefsInit')) {
-    $result = $registry->callAppMethod($app, 'prefsInit', array('args' => array(($actionID == 'update_prefs') ? '' : $group)));
+    $result = $registry->callAppMethod($app, 'prefsInit', array('args' => array($group)));
     if (!empty($result)) {
         extract($result);
     }
