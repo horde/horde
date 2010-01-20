@@ -119,7 +119,7 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
             "[^ \\/\"\'{$this->wiki->delim}]*\\/" . // no spaces, backslashes, slashes, double-quotes, single quotes, or delimiters;
             ")*" . // end pattern
             "[^ \\t\\n\\/\"\'{$this->wiki->delim}]*" .
-            "[A-Za-z0-9\\/?=&~_]";
+            "[A-Za-z0-9\\/?=&~_#]";
     }
     
     
