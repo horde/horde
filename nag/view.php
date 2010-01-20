@@ -6,7 +6,8 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('nag');
 
 /* We can either have a UID or a taskId and a tasklist. Check for
  * UID first. */

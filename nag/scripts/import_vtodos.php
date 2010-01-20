@@ -14,8 +14,7 @@
  */
 
 // Do CLI checks and environment setup first.
-require_once dirname(__FILE__) . '/../lib/base.load.php';
-require_once HORDE_BASE . '/lib/core.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
 
 // Make sure no one runs this from the web.
 if (!Horde_Cli::runningFromCLI()) {

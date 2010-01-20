@@ -13,8 +13,7 @@
  */
 
 // Do CLI checks and environment setup first.
-require_once dirname(__FILE__) . '/../../lib/base.load.php';
-require_once HORDE_BASE . '/lib/core.php';
+require_once dirname(__FILE__) . '/../../lib/Application.php';
 
 // Make sure no one runs this from the web.
 if (!Horde_Cli::runningFromCLI()) {
@@ -25,8 +24,7 @@ if (!Horde_Cli::runningFromCLI()) {
 // variables, etc.
 Horde_Cli::init();
 
-$nag_authentication = 'none';
-require_once NAG_BASE . '/lib/base.php';
+Horde_Registry::appInit('nag', array('authentication' => 'none'));
 
 if ($conf['storage']['driver'] != 'sql') {
     exit('No conversion for drivers other than SQL currently.');

@@ -25,7 +25,6 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function ajaxDefaults()
     {
-        require_once dirname(__FILE__) . '/base.php';
         return array(
             'default_tasklist' => Nag::getDefaultTasklist(Horde_Perms::EDIT),
         );
@@ -55,8 +54,6 @@ class Nag_Api extends Horde_Registry_Api
                               $altsortby = null, $tasklists = null,
                               $completed = null, $json = false)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         $completedArray = array('incomplete' => Nag::VIEW_INCOMPLETE,
                                 'all' => Nag::VIEW_ALL,
                                 'complete' => Nag::VIEW_COMPLETE,
@@ -102,7 +99,6 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function listTasklists($owneronly, $permission)
     {
-        require_once dirname(__FILE__) . '/base.php';
         return Nag::listTasklists($owneronly, $permission);
     }
 
@@ -117,7 +113,6 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function addTasklist($name, $description = '', $color = '')
     {
-        require_once dirname(__FILE__) . '/base.php';
         $tasklist = Nag::addTasklist(array('name' => $name, 'description' => $description, 'color' => $color));
         if (is_a($tasklist, 'PEAR_Error')) {
             return $tasklist;
@@ -133,7 +128,6 @@ class Nag_Api extends Horde_Registry_Api
      */
     public static function updateTasklist($id, $info)
     {
-        require_once dirname(__FILE__) . '/base.php';
         $tasklist = $GLOBALS['nag_shares']->getShare($id);
         if (is_a($tasklist, 'PEAR_Error')) {
             return $tasklist;
@@ -148,7 +142,6 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function deleteTasklist($id)
     {
-        require_once dirname(__FILE__) . '/base.php';
         $tasklist = $GLOBALS['nag_shares']->getShare($id);
         if (is_a($tasklist, 'PEAR_Error')) {
             return $tasklist;
@@ -184,7 +177,6 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function browse($path = '', $properties = array())
     {
-        require_once dirname(__FILE__) . '/base.php';
         global $registry;
 
         // Default properties.
@@ -406,8 +398,6 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function put($path, $content, $content_type)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         if (substr($path, 0, 3) == 'nag') {
             $path = substr($path, 3);
         }
@@ -578,8 +568,6 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function path_delete($path)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         if (substr($path, 0, 3) == 'nag') {
             $path = substr($path, 3);
         }
@@ -648,8 +636,6 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function listTaskUids($tasklist = null)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         if (!isset($GLOBALS['conf']['storage']['driver'])) {
             return PEAR::raiseError(_("Not configured"));
         }
@@ -690,8 +676,6 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function listBy($action, $timestamp, $tasklist = null)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         if ($tasklist === null) {
             $tasklist = Nag::getDefaultTasklist(Horde_Perms::READ);
         }
@@ -723,8 +707,6 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function getActionTimestamp($uid, $action, $tasklist = null)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         if ($tasklist === null) {
             $tasklist = Nag::getDefaultTasklist(Horde_Perms::READ);
         }
@@ -757,8 +739,6 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function import($content, $contentType, $tasklist = null)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         if ($tasklist === null) {
             $tasklist = Nag::getDefaultTasklist(Horde_Perms::EDIT);
         }
@@ -859,8 +839,6 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function addTask($task)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         if (!Horde_Auth::isAdmin() &&
             !array_key_exists($task['tasklist'],
                               Nag::listTasklists(false, Horde_Perms::EDIT))) {
@@ -899,8 +877,6 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function quickAdd($text, $tasklist = null)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         if ($tasklist === null) {
             $tasklist = Nag::getDefaultTasklist(Horde_Perms::EDIT);
         }
@@ -919,8 +895,6 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function toggleCompletion($task_id, $tasklist_id)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         if (!array_key_exists($tasklist_id,
             Nag::listTasklists(false, Horde_Perms::EDIT))) {
                 return PEAR::raiseError(_("Permission Denied"));
@@ -962,8 +936,6 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function export($uid, $contentType)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         $storage = Nag_Driver::singleton();
         $task = $storage->getByUID($uid);
         if (is_a($task, 'PEAR_Error')) {
@@ -1008,8 +980,6 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function getTask($tasklist, $id)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         if (!array_key_exists($tasklist,
                               Nag::listTasklists(false, Horde_Perms::READ))) {
             return PEAR::raiseError(_("Permission Denied"));
@@ -1036,8 +1006,6 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function exportTasklist($tasklist, $contentType)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         if (!array_key_exists($tasklist,
             Nag::listTasklists(false, Horde_Perms::READ))) {
                 return PEAR::raiseError(_("Permission Denied"));
@@ -1090,8 +1058,6 @@ class Nag_Api extends Horde_Registry_Api
             return true;
         }
 
-        require_once dirname(__FILE__) . '/base.php';
-
         $storage = Nag_Driver::singleton();
         $task = $storage->getByUID($uid);
         if (is_a($task, 'PEAR_Error')) {
@@ -1115,8 +1081,6 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function deleteTask($tasklist, $id)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         if (!Horde_Auth::isAdmin() &&
             !array_key_exists($tasklist,
                               Nag::listTasklists(false, Horde_Perms::DELETE))) {
@@ -1146,8 +1110,6 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function replace($uid, $content, $contentType)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         $storage = Nag_Driver::singleton();
         $existing = $storage->getByUID($uid);
         if (is_a($existing, 'PEAR_Error')) {
@@ -1220,8 +1182,6 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function updateTask($tasklist, $id, $task)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         if (!Horde_Auth::isAdmin() &&
             !array_key_exists($tasklist,
                               Nag::listTasklists(false, Horde_Perms::EDIT))) {
@@ -1262,8 +1222,6 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function listCostObjects($criteria)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         $tasks = Nag::listTasks(null, null, null, null, 1);
         $result = array();
         $tasks->reset();
@@ -1286,8 +1244,6 @@ class Nag_Api extends Horde_Registry_Api
 
     public function listTimeObjectCategories()
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         $categories = array();
         $tasklists = Nag::listTasklists(false, Horde_Perms::SHOW | Horde_Perms::READ);
         foreach ($tasklists as $tasklistId => $tasklist) {
@@ -1306,8 +1262,6 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function listTimeObjects($categories, $start, $end)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         $allowed_tasklists = Nag::listTasklists(false, Horde_Perms::READ);
         foreach ($categories as $tasklist) {
             if (!array_key_exists($tasklist, $allowed_tasklists)) {
@@ -1357,7 +1311,6 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function listAlarms($time, $user = null)
     {
-        require_once dirname(__FILE__) . '/base.php';
         require_once 'Horde/Group.php';
 
         if ((empty($user) || $user != Horde_Auth::getAuth()) && !Horde_Auth::isAdmin()) {

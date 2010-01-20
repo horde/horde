@@ -2,8 +2,34 @@
 /**
  * Nag application API.
  *
+ * This file defines Horde's core API interface. Other core Horde libraries
+ * can interact with Horde through this API.
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
  * @package Nag
  */
+
+/* Determine the base directories. */
+if (!defined('NAG_BASE')) {
+    define('NAG_BASE', dirname(__FILE__) . '/..');
+}
+
+if (!defined('HORDE_BASE')) {
+    /* If Horde does not live directly under the app directory, the HORDE_BASE
+     * constant should be defined in config/horde.local.php. */
+    if (file_exists(NAG_BASE . '/config/horde.local.php')) {
+        include NAG_BASE . '/config/horde.local.php';
+    } else {
+        define('HORDE_BASE', NAG_BASE . '/..');
+    }
+}
+
+/* Load the Horde Framework core (needed to autoload
+ * Horde_Registry_Application::). */
+require_once HORDE_BASE . '/lib/core.php';
+
 class Nag_Application extends Horde_Registry_Application
 {
     /**
@@ -12,6 +38,37 @@ class Nag_Application extends Horde_Registry_Application
      * @var string
      */
     public $version = 'H4 (3.0-git)';
+
+    /**
+     * Initialization function.
+     *
+     * Global variables defined:
+     *   $nag_shares - TODO
+     */
+    protected function _init()
+    {
+       // Set the timezone variable.
+       Horde_Nls::setTimeZone();
+
+       // Create a share instance.
+       $GLOBALS['nag_shares'] = Horde_Share::singleton($GLOBALS['registry']->getApp());
+
+       Nag::initialize();
+    }
+
+    /**
+     * Initialization for Notification system.
+     *
+     * Global variables defined:
+     *   $kronolith_notify - A Horde_Notification_Listener object.
+     *
+     * @param Horde_Notification_Handler_Base $notify  The notification
+     *                                                 object.
+     */
+    protected function _initNotification($notify)
+    {
+        $notify->attach('status', null, 'Nag_Notification_Listener_Status');
+    }
 
     /**
      * Returns a list of available permissions.
@@ -102,8 +159,6 @@ class Nag_Application extends Horde_Registry_Application
      */
     public function removeUserData($user)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         if (!Horde_Auth::isAdmin() && $user != Horde_Auth::getAuth()) {
             return PEAR::raiseError(_("You are not allowed to remove user data."));
         }

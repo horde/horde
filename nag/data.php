@@ -17,7 +17,8 @@ function _cleanup()
     return Horde_Data::IMPORT_FILE;
 }
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('nag');
 
 if (!$conf['menu']['import_export']) {
     require NAG_BASE . '/index.php';

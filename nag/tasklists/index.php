@@ -21,7 +21,8 @@ function shorten_url($url, $separator = '...', $first_chunk_length = 35, $last_c
     return $url;
 }
 
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('nag');
 
 /* Exit if this isn't an authenticated user. */
 if (!Horde_Auth::getAuth()) {

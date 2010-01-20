@@ -23,7 +23,6 @@ class Horde_Block_nag_summary extends Horde_Block {
 
     function _params()
     {
-        require_once dirname(__FILE__) . '/../base.php';
         $cManager = new Horde_Prefs_CategoryManager();
         $categories = array();
         foreach ($cManager->get() as $c) {
@@ -87,7 +86,6 @@ class Horde_Block_nag_summary extends Horde_Block {
     function _content()
     {
         global $registry, $prefs;
-        require_once dirname(__FILE__) . '/../base.php';
 
         $now = time();
         $html = '';

@@ -45,7 +45,9 @@ function _delete($task_id, $tasklist_id)
     exit;
 }
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('nag');
+
 require_once NAG_BASE . '/lib/Forms/task.php';
 $vars = Horde_Variables::getDefaultVariables();
 

@@ -14,8 +14,6 @@ class Horde_Block_nag_tree_menu extends Horde_Block {
     {
         global $registry;
 
-        require_once dirname(__FILE__) . '/../base.php';
-
         $add = Horde::applicationUrl('task.php?actionID=add_task');
         $icondir = $registry->getImageDir();
 

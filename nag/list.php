@@ -8,7 +8,8 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('nag');
 
 $vars = Horde_Variables::getDefaultVariables();
 
