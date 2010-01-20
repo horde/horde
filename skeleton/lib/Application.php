@@ -3,12 +3,14 @@
  * Skeleton application API.
  *
  * This file defines Horde's core API interface. Other core Horde libraries
- * can interact with Horde through this API.
+ * can interact with Skeleton through this API.
+ *
+ * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @package IMP
+ * @package Skeleton
  */
 
 /* Determine the base directories. */
