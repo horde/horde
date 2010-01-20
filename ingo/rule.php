@@ -11,7 +11,8 @@
  * @author Michael Slusarz <slusarz@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('ingo');
 
 /* Check rule permissions. */
 if (!$GLOBALS['perms']->hasAppPermission('allow_rules')) {

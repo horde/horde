@@ -33,8 +33,6 @@ class Horde_Block_ingo_overview extends Horde_Block {
      */
     function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         /* Get list of filters */
         $filters = &$GLOBALS['ingo_storage']->retrieve(Ingo_Storage::ACTION_FILTERS);
         $html = '<table width="100%" height="100%">';

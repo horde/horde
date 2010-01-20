@@ -8,7 +8,8 @@
  * @author Mike Cochrane <mike@graftonhall.co.nz>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('ingo');
 
 /* Redirect if script updating is not available. */
 if (!$_SESSION['ingo']['script_generate']) {

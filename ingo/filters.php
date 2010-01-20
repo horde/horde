@@ -10,7 +10,8 @@
  * @author Mike Cochrane <mike@graftonhall.co.nz>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('ingo');
 
 /* Get the list of filter rules. */
 $filters = &$ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);

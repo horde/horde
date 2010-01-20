@@ -10,7 +10,8 @@
  * @author Mike Cochrane <mike@graftonhall.co.nz>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('ingo');
 
 /* Redirect if vacation is not available. */
 if (!in_array(Ingo_Storage::ACTION_VACATION, $_SESSION['ingo']['script_categories'])) {

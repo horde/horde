@@ -10,7 +10,8 @@
  * @author Todd Merritt <tmerritt@email.arizona.edu>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('ingo');
 
 /* Redirect if forward is not available. */
 if (!in_array(Ingo_Storage::ACTION_FORWARD, $_SESSION['ingo']['script_categories'])) {

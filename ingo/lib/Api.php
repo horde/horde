@@ -29,7 +29,6 @@ class Ingo_Api extends Horde_Registry_Api
      */
     public function blacklistFrom($addresses)
     {
-        require_once dirname(__FILE__) . '/../lib/base.php';
         if (!empty($GLOBALS['ingo_shares'])) {
             $_SESSION['ingo']['current_share'] = $signature;
         }
@@ -64,7 +63,6 @@ class Ingo_Api extends Horde_Registry_Api
      */
     public function whitelistFrom($addresses)
     {
-        require_once dirname(__FILE__) . '/../lib/base.php';
         if (!empty($GLOBALS['ingo_shares'])) {
             $_SESSION['ingo']['current_share'] = $signature;
         }
@@ -89,8 +87,6 @@ class Ingo_Api extends Horde_Registry_Api
      */
     public function canApplyFilters()
     {
-        require_once dirname(__FILE__) . '/../lib/base.php';
-
         $ingo_script = Ingo::loadIngoScript();
         return $ingo_script
             ? $ingo_script->performAvailable()
@@ -106,7 +102,6 @@ class Ingo_Api extends Horde_Registry_Api
      */
     public function applyFilters($params = array())
     {
-        require_once dirname(__FILE__) . '/../lib/base.php';
         if (!empty($GLOBALS['ingo_shares'])) {
             $_SESSION['ingo']['current_share'] = $signature;
         }
@@ -132,7 +127,6 @@ class Ingo_Api extends Horde_Registry_Api
      */
     public function setVacation($info)
     {
-        require_once dirname(__FILE__) . '/../lib/base.php';
         if (!empty($GLOBALS['ingo_shares'])) {
             $_SESSION['ingo']['current_share'] = $signature;
         }
@@ -204,7 +198,6 @@ class Ingo_Api extends Horde_Registry_Api
      */
     public function disableVacation()
     {
-        require_once dirname(__FILE__) . '/../lib/base.php';
         if (!empty($GLOBALS['ingo_shares'])) {
             $_SESSION['ingo']['current_share'] = $signature;
         }
