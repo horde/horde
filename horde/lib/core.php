@@ -48,5 +48,10 @@ include_once 'Log.php';
  * output this unless an admin. */
 set_exception_handler(array('Horde', 'fatal'));
 
+/* Catch and log E_DEPRECATED errors. */
+if (defined('E_DEPRECATED')) {
+    set_error_handler(array('Horde', 'logDeprecated'), E_DEPRECATED);
+}
+
 /* Browser detection object. */
 $browser = Horde_Browser::singleton();

@@ -264,6 +264,21 @@ HTML;
     }
 
     /**
+     * Log deprecated errors.
+     *
+     * @param integer $errno     See set_error_handler().
+     * @param string $errstr     See set_error_handler().
+     * @param string $errfile    See set_error_handler().
+     * @param integer $errline   See set_error_handler().
+     * @param array $errcontext  See set_error_handler().
+     */
+    static public function logDeprecated($errno, $errstr, $errfile, $errline,
+                                         $errcontext)
+    {
+        self::logMessage($errstr, $errfile, $errline, PEAR_LOG_DEBUG);
+    }
+
+    /**
      * Adds the javascript code to the output (if output has already started)
      * or to the list of script files to include via includeScriptFiles().
      *
