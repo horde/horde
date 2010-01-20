@@ -801,6 +801,7 @@ class IMP_Application extends Horde_Registry_Application
         $data = Horde_Util::getFormData('flag_data');
 
         if ($action == 'add') {
+            $GLOBALS['notification']->push(sprintf(_("Added flag \"%s\"."), $data), 'horde.success');
             $imp_flags->addFlag($data);
             return;
         }
@@ -815,6 +816,7 @@ class IMP_Application extends Horde_Registry_Application
             case 'delete':
                 if ($data == ('bg_' . $md5)) {
                     $imp_flags->deleteFlag($key);
+                    $GLOBALS['notification']->push(sprintf(_("Deleted flag \"%s\"."), $val['l']), 'horde.success');
                 }
                 break;
 
