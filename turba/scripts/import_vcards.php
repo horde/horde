@@ -14,8 +14,7 @@
  */
 
 // Do CLI checks and environment setup first.
-require_once dirname(__FILE__) . '/../lib/base.local.php';
-require_once HORDE_BASE . '/lib/core.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
 
 // Make sure no one runs this from the web.
 if (!Horde_Cli::runningFromCLI()) {
@@ -43,10 +42,7 @@ if (empty($vcard)) {
 }
 
 // Registry.
-$registry = Horde_Registry::singleton();
-
-// Set user.
-Horde_Auth::setAuth($user, array());
+Horde_Registry::appInit('turba', array('authentication' => 'none', 'user' => $user));
 
 // Import data.
 $result = $registry->call('contacts/import',

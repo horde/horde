@@ -51,19 +51,9 @@ class Turba_Application extends Horde_Registry_Application
      *   $copymove_source_options - TODO
      *   $copymoveSources - TODO
      *   $turba_shares - TODO
-     *
-     * When calling Horde_Registry::appInit(), the following parameters are
-     * also supported:
-     * <pre>
-     * 'user' - (string) Set authentication to this user.
-     * </pre>
      */
     protected function _init()
     {
-        if (isset($this->initParams['user'])) {
-            Horde_Auth::setAuth($this->initParams['user'], array());
-        }
-
         // Turba source and attribute configuration.
         include TURBA_BASE . '/config/attributes.php';
         include TURBA_BASE . '/config/sources.php';

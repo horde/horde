@@ -110,6 +110,7 @@ class Horde_Registry
      *   'none' - Do not start a session
      *   'readonly' - Start session readonly
      *   [DEFAULT] - Start read/write session
+     * 'user' - (string) Set authentication to this user.
      * </pre>
      *
      * @return Horde_Registry_Application  The application object.
@@ -122,7 +123,8 @@ class Horde_Registry
             'authentication' => null,
             'nocompress' => false,
             'nologintasks' => false,
-            'session_control' => null
+            'session_control' => null,
+            'user' => null
         ), $args);
 
         // Registry.
@@ -165,6 +167,10 @@ class Horde_Registry
 
         if (!$args['nocompress']) {
             Horde::compressOutput();
+        }
+
+        if ($args['user']) {
+            Horde_Auth::setAuth($args['user'], array());
         }
 
         $appob->init();

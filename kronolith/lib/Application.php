@@ -44,19 +44,9 @@ class Kronolith_Application extends Horde_Registry_Application
      *
      * Global variables defined:
      *   $kronolith_shares - TODO
-     *
-     * When calling Horde_Registry::appInit(), the following parameters are
-     * also supported:
-     * <pre>
-     * 'user' - (string) Set authentication to this user.
-     * </pre>
      */
     protected function _init()
     {
-        if (isset($this->initParams['user'])) {
-            Horde_Auth::setAuth($this->initParams['user'], array());
-        }
-
         /* For now, autoloading the Content_* classes depend on there being a
          * registry entry for the 'content' application that contains at least
          * the fileroot entry. */
