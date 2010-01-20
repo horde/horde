@@ -33,8 +33,6 @@ class Horde_Block_ansel_cloud extends Horde_Block {
 
     function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         global $registry;
 
         /* Get the tags */

@@ -9,7 +9,8 @@
  * @author Ben Chavet <ben@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('ansel');
 
 // check for grouping
 $groupby = basename(Horde_Util::getFormData('groupby', $prefs->getValue('groupby')));

@@ -11,7 +11,8 @@
  * @package Ansel
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('ansel');
 
 $title = _("Do you really want to report this gallery?");
 $gallery_id = (int)Horde_Util::getFormData('gallery');

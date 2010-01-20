@@ -8,7 +8,8 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('ansel');
 
 /* Script includes */
 Horde::addScriptFile('http://maps.google.com/maps?file=api&v=2&sensor=false&key=' . $GLOBALS['conf']['api']['googlemaps'], 'ansel', array('external' => true));

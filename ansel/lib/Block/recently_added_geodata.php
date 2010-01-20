@@ -20,8 +20,6 @@ class Horde_Block_ansel_recently_added_geodata extends Horde_Block {
 
     function _params()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         $params = array('gallery' => array(
                             'name' => _("Gallery"),
                             'type' => 'enum',
@@ -50,8 +48,6 @@ class Horde_Block_ansel_recently_added_geodata extends Horde_Block {
 
     function _title()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         Horde::addScriptFile('http://maps.google.com/maps?file=api&v=2&sensor=false&key=' . $GLOBALS['conf']['api']['googlemaps'], 'ansel', array('external' => true));
         Horde::addScriptFile('http://gmaps-utility-library.googlecode.com/svn/trunk/markermanager/1.1/src/markermanager.js', 'ansel', array('external' => true));
         Horde::addScriptFile('googlemap.js');
@@ -85,8 +81,6 @@ class Horde_Block_ansel_recently_added_geodata extends Horde_Block {
 
     function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         if ($this->_params['gallery'] == 'all') {
             $galleries = array();
         } elseif (!is_array($this->_params['gallery'])) {

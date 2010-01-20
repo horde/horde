@@ -34,7 +34,6 @@ class Horde_Block_ansel_recent_faces extends Horde_Block
 
     function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
         $faces = Ansel_Faces::factory();
         $results = $faces->allFaces(0, $this->_params['limit']);
         $html = '';

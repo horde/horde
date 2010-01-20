@@ -50,8 +50,6 @@ class Ansel_Ajax_Imple_EditCaption extends Horde_Ajax_Imple_Base
 
     public function handle($args, $post)
     {
-        include_once dirname(__FILE__) . '/../../base.php';
-
         if (Horde_Auth::getAuth()) {
             /* Are we requesting the unformatted text? */
             if (!empty($args['action']) && $args['action'] == 'load') {

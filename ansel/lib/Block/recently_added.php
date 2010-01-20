@@ -20,8 +20,6 @@ class Horde_Block_ansel_recently_added extends Horde_Block {
 
     function _params()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         $params = array('gallery' => array(
                             'name' => _("Gallery"),
                             'type' => 'enum',
@@ -46,8 +44,6 @@ class Horde_Block_ansel_recently_added extends Horde_Block {
 
     function _title()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         if ($this->_params['gallery'] != 'all') {
             $gallery = $this->_getGallery();
             if (is_a($gallery, 'PEAR_Error')) {
@@ -78,8 +74,6 @@ class Horde_Block_ansel_recently_added extends Horde_Block {
 
     function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         if ($this->_params['gallery'] == 'all') {
             $galleries = array();
         } elseif (!is_array($this->_params['gallery'])) {

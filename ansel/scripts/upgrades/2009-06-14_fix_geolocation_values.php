@@ -10,8 +10,7 @@
  */
 
 // Do CLI checks and environment setup first.
-require_once dirname(__FILE__) . '/../../base.load.php';
-require_once HORDE_BASE . '/lib/core.php';
+require_once dirname(__FILE__) . '/../../Application.php';
 
 // Make sure no one runs this from the web.
 if (!Horde_Cli::runningFromCLI()) {
@@ -22,8 +21,7 @@ if (!Horde_Cli::runningFromCLI()) {
 Horde_Cli::init();
 $cli = Horde_Cli::singleton();
 
-$ansel_authentication = 'none';
-require_once ANSEL_BASE . '/lib/base.php';
+Horde_Registry::appInit('ansel', array('authentication' => 'none'));
 
 $sql = 'SELECT image_id, image_latitude, image_longitude FROM ansel_images_geolocation;';
 $results = $ansel_db->queryAll($sql, null, MDB2_FETCHMODE_ASSOC);

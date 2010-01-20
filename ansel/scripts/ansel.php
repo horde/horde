@@ -10,8 +10,7 @@
 */
 
 // Do CLI checks and environment setup first.
-require_once dirname(__FILE__) . '/../../lib/base.load.php';
-require_once HORDE_BASE . '/lib/core.php';
+require_once dirname(__FILE__) . '/../../lib/Application.php';
 
 // Make sure no one runs this from the web.
 if (!Horde_Cli::runningFromCLI()) {
@@ -23,8 +22,7 @@ Horde_Cli::init();
 $cli = Horde_Cli::singleton();
 
 // Load Ansel.
-$ansel_authentication = 'none';
-require_once ANSEL_BASE . '/lib/base.php';
+Horde_Registry::appInit('ansel', array('authentication' => 'none'));
 
 // We accept the user name on the command-line.
 $ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(),

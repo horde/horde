@@ -10,8 +10,7 @@
 */
 
 // Do CLI checks and environment setup first.
-require_once dirname(__FILE__) . '/../../lib/base.load.php';
-require_once HORDE_BASE . '/lib/core.php';
+require_once dirname(__FILE__) . '/../../lib/Application.php';
 
 // Make sure no one runs this from the web.
 if (!Horde_Cli::runningFromCLI()) {
@@ -62,8 +61,7 @@ foreach ($opts as $opt) {
     }
 }
 
-$ansel_authentication = 'none';
-require_once ANSEL_BASE . '/lib/base.php';
+Horde_Registry::appInit('ansel', array('authentication' => 'none'));
 
 // Login to horde if username & password are set.
 if (!empty($username) && !empty($password)) {

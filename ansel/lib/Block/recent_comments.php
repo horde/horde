@@ -23,8 +23,6 @@ class Horde_Block_ansel_recent_comments extends Horde_Block {
 
     function _params()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         $params = array('gallery' => array(
                             'name' => _("Gallery"),
                             'type' => 'enum',
@@ -42,8 +40,6 @@ class Horde_Block_ansel_recent_comments extends Horde_Block {
 
     function _title()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         if ($this->_params['gallery'] != 'all') {
             $gallery = $this->_getGallery();
             if (is_a($gallery, 'PEAR_Error')) {

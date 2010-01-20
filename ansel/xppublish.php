@@ -8,8 +8,8 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-$ansel_authentication = 'none';
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('ansel', array('authentication' => 'none'));
 
 $cmd = Horde_Util::getFormData('cmd');
 if (empty($cmd)) {

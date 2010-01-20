@@ -9,12 +9,9 @@
  *
  * @author Duck <duck@obala.net>
  */
-require_once dirname(__FILE__) . '/../../lib/base.php';
 
-/* Face search is allowd only to  */
-if (!Horde_Auth::isauthenticated()) {
-    exit;
-}
+require_once dirname(__FILE__) . '/../../lib/Application.php';
+Horde_Registry::appInit('ansel');
 
 $thumb = Horde_Util::getGet('thumb');
 $tmp = Horde::getTempDir();

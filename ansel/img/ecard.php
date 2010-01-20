@@ -8,7 +8,8 @@
  * @author Michael Slusarz <slusarz@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('ansel');
 
 /* Abort if ecard sending is disabled. */
 if (empty($conf['ecard']['enable'])) {

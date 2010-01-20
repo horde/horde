@@ -9,13 +9,11 @@
  *
  * @author Duck <duck@obala.net>
  */
-require_once dirname(__FILE__) . '/../../lib/base.php';
+
+require_once dirname(__FILE__) . '/../../lib/Application.php';
+Horde_Registry::appInit('ansel');
 
 $faces = Ansel_Faces::factory();
-/* Face search is allowed only to authenticated users */
-if (!Horde_Auth::isauthenticated()) {
-    Horde_Auth::authenticateFailure();
-}
 
 /* Show tabs */
 $vars = Horde_Variables::getDefaultVariables();

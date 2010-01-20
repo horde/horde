@@ -28,8 +28,6 @@ class Horde_Block_ansel_random_photo extends Horde_Block {
 
     function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         $gallery = $GLOBALS['ansel_storage']->getRandomGallery();
         if (!$gallery) {
             return _("There are no photo galleries available.");

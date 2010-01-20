@@ -30,8 +30,6 @@ class Ansel_Ajax_Imple_EditFaces extends Horde_Ajax_Imple_Base
 
     function handle($args, $post)
     {
-        include_once dirname(__FILE__) . '/../../base.php';
-
         if (Horde_Auth::getAuth()) {
             $action = $args['action'];
             $image_id = (int)$post['image'];

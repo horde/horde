@@ -50,8 +50,6 @@ class Ansel_Ajax_Imple_LocationAutoCompleter extends Horde_Ajax_Imple_AutoComple
 
     public function handle($args, $post)
     {
-        include_once dirname(__FILE__) . '/../../base.php';
-
         // Avoid errors if 'input' isn't set and short-circuit empty searches.
         if (empty($args['input']) ||
             !($input = Horde_Util::getFormData($args['input']))) {

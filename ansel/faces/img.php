@@ -9,7 +9,9 @@
  *
  * @author Duck <duck@obala.net>
  */
-require_once dirname(__FILE__) . '/../lib/base.php';
+
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('ansel');
 
 $face_id = Horde_Util::getFormData('face');
 $faces = Ansel_Faces::factory();

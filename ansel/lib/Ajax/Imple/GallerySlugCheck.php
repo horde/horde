@@ -26,7 +26,6 @@ class Ansel_Ajax_Imple_GallerySlugCheck extends Horde_Ajax_Imple_Base
 
     public function handle($args, $post)
     {
-        include_once dirname(__FILE__) . '/../../base.php';
         if (empty($args['input'])) {
             return array('response' => '1');
          }

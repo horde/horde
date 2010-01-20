@@ -11,7 +11,9 @@
  *
  * @author Duck <duck@obala.net>
  */
-require_once dirname(__FILE__) . '/../lib/base.php';
+
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('ansel');
 
 $gallery_id = (int)Horde_Util::getFormData('gallery');
 if (empty($gallery_id)) {

@@ -7,7 +7,9 @@
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  */
-require_once dirname(__FILE__) . '/lib/base.php';
+
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('ansel');
 
 $images = Horde_Util::getFormData('image', array());
 $actionID = Horde_Util::getFormData('actionID');

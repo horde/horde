@@ -30,8 +30,6 @@ class Ansel_Ajax_Imple_Embed extends Horde_Ajax_Imple_Base
      */
     public function handle($args, $post)
     {
-        include_once dirname(__FILE__) . '/../../base.php';
-
         /* First, determine the type of view we are asking for */
         $view = empty($args['gallery_view']) ? 'Mini' : $args['gallery_view'];
         $class = 'Ansel_View_EmbeddedRenderer_' . basename($view);

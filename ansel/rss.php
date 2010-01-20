@@ -10,8 +10,8 @@
  * @package Ansel
  */
 
-$ansel_session_control = 'readonly';
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('ansel', array('session_control' => 'readonly'));
 
 // Get form data
 $stream_type = Horde_Util::getFormData('stream_type', 'all');

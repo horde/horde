@@ -8,7 +8,8 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('ansel');
 
 // Delete/empty the gallery if we're provided with a valid galleryId.
 $actionID = Horde_Util::getPost('action');

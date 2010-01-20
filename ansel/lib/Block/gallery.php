@@ -22,8 +22,6 @@ class Horde_Block_ansel_gallery extends Horde_Block {
 
     function _params()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         $params = array('gallery' => array(
                             'name' => _("Gallery"),
                             'type' => 'enum',
@@ -112,8 +110,6 @@ class Horde_Block_ansel_gallery extends Horde_Block {
 
     function _getGallery($retry = false)
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         // Make sure we haven't already selected a gallery.
         if (is_a($this->_gallery, 'Ansel_Gallery')) {
             return $this->_gallery;

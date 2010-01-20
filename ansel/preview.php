@@ -8,7 +8,9 @@
  * @author Michael Rubinsky <mrubinsk@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('ansel');
+
 $imageId = Horde_Util::getFormData('image');
 $image = &$ansel_storage->getImage($imageId);
 if (is_a($image, 'PEAR_Error')) {

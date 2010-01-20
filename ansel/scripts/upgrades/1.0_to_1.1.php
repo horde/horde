@@ -10,8 +10,7 @@
  */
 
 // Do CLI checks and environment setup first.
-require_once dirname(__FILE__) . '/../../lib/base.load.php';
-require_once HORDE_BASE . '/lib/core.php';
+require_once dirname(__FILE__) . '/../../lib/Application.php';
 
 // Make sure no one runs this from the web.
 if (!Horde_CLI::runningFromCLI()) {
@@ -22,8 +21,7 @@ if (!Horde_CLI::runningFromCLI()) {
 Horde_CLI::init();
 $cli = Horde_CLI::singleton();
 
-$ansel_authentication = 'none';
-require_once ANSEL_BASE . '/lib/base.php';
+Horde_Registry::appInit('ansel', array('authentication' => 'none'));
 
 // First update the tables
 $alter = array("ALTER TABLE ansel_images ADD COLUMN image_latitude VARCHAR(32) NOT NULL DEFAULT ''",

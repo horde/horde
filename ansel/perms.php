@@ -15,7 +15,9 @@ $fieldsList = array(
     'delete' => 3
 );
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('ansel');
+
 require_once 'Horde/Group.php';
 
 $groups = Group::singleton();

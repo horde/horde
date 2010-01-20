@@ -25,8 +25,6 @@ class Ansel_Api extends Horde_Registry_Api
      */
     public function browse($path = '', $properties = array())
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         // Default properties.
         if (!$properties) {
             $properties = array('name', 'icon', 'browseable');
@@ -181,8 +179,6 @@ class Ansel_Api extends Horde_Registry_Api
      */
     public function put($path, $content, $content_type)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         if (substr($path, 0, 5) == 'ansel') {
             $path = substr($path, 9);
         }
@@ -217,8 +213,6 @@ class Ansel_Api extends Horde_Registry_Api
      */
     public function commentCallback($image_id)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         if (!$GLOBALS['conf']['comments']['allow']) {
             return false;
         }
@@ -238,8 +232,6 @@ class Ansel_Api extends Horde_Registry_Api
      */
     public function hasComments()
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         if (($GLOBALS['conf']['comments']['allow'] == 'all' ||
             ($GLOBALS['conf']['comments']['allow'] == 'authenticated' &&
             Horde_Auth::getAuth()))) {
@@ -314,8 +306,6 @@ class Ansel_Api extends Horde_Registry_Api
         $gallery_data = null, $encoding = null, $slug = null,
         $compression = 'none', $skiphook = false)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         $image_data = null;
 
         /* If no app is given use Ansel's own gallery which is initialized
@@ -405,7 +395,6 @@ class Ansel_Api extends Horde_Registry_Api
      */
     public function postBatchUpload($image_ids)
     {
-        require_once dirname(__FILE__) . '/base.php';
         if (!empty($conf['hooks']['postupload'])) {
             return Horde::callHook('_ansel_hook_postupload', array($image_ids), 'ansel');
         }
@@ -420,8 +409,6 @@ class Ansel_Api extends Horde_Registry_Api
      */
     public function removeImage($app = null, $gallery_id, $image_id)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         /* Check global Ansel permissions */
         if (!($GLOBALS['perms']->getPermissions('ansel'))) {
             return PEAR::raiseError(_("Access denied deleting galleries."));
@@ -462,8 +449,6 @@ class Ansel_Api extends Horde_Registry_Api
      */
     public function createGallery($app = null, $attributes = array(), $perm = null, $parent = null)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         if (!(Horde_Auth::isAdmin() ||
             (!$GLOBALS['perms']->exists('ansel') && Horde_Auth::getAuth()) ||
             $GLOBALS['perms']->hasPermission('ansel', Horde_Auth::getAuth(), Horde_Perms::EDIT))) {
@@ -500,8 +485,6 @@ class Ansel_Api extends Horde_Registry_Api
      */
     public function removeGallery($app = null, $gallery_id)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         /* Check global Ansel permissions */
         if (!($GLOBALS['perms']->getPermissions('ansel'))) {
             return PEAR::raiseError(_("Access denied deleting galleries."));
@@ -549,8 +532,6 @@ class Ansel_Api extends Horde_Registry_Api
      */
     public function count($app = null, $gallery_id = null, $slug = '')
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         /* If no app is given use Ansel's own gallery which is initialized in
         base.php */
         if (!is_null($app)) {
@@ -583,8 +564,6 @@ class Ansel_Api extends Horde_Registry_Api
     public function getDefaultImage($app = null, $gallery_id = null,
         $style = 'ansel_default', $slug = '')
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         /* If no app is given use Ansel's own gallery which is initialized in
         base.php */
         if (!is_null($app)) {
@@ -618,8 +597,6 @@ class Ansel_Api extends Horde_Registry_Api
     public function getImageUrl($app = null, $image_id, $view = 'screen',
         $full = false, $style = null)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         /* If no app is given use Ansel's own gallery which is initialized in
         base.php */
         if (!is_null($app)) {
@@ -646,8 +623,6 @@ class Ansel_Api extends Horde_Registry_Api
     public function getImageContent($image_id, $view = 'screen', $style = null,
         $app = null, $encoding = null, $compression = 'none')
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         /* If no app is given use Ansel's own gallery which is initialized in
         base.php */
         if (!is_null($app)) {
@@ -716,8 +691,6 @@ class Ansel_Api extends Horde_Registry_Api
         $allLevels = true, $from = 0, $count = 0,
         $attributes = null, $sort_by = null, $direction = 0)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         /* If no app is given use Ansel's own gallery which is initialized in
         base.php */
         if (!is_null($app)) {
@@ -751,8 +724,6 @@ class Ansel_Api extends Horde_Registry_Api
      */
     public function getGalleries($ids = array(), $app = null, $slugs = array())
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         if (!is_null($app)) {
             $GLOBALS['ansel_storage'] = new Ansel_Storage($app);
         }
@@ -798,8 +769,6 @@ class Ansel_Api extends Horde_Registry_Api
         $allLevels = true, $from = 0, $count = 0,
         $default = null)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         /* If no app is given use Ansel's own gallery which is initialized in
         base.php */
         if (!is_null($app)) {
@@ -834,8 +803,6 @@ class Ansel_Api extends Horde_Registry_Api
         $view = 'screen', $full = false, $from = 0,
         $count = 0, $style = null, $slug = '')
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         /* If no app is given use Ansel's own gallery which is initialized in
         base.php */
         if (!is_null($app)) {
@@ -908,7 +875,6 @@ class Ansel_Api extends Horde_Registry_Api
         $full = false, $limit = 10, $style = null,
         $slugs = array())
     {
-        require_once dirname(__FILE__) . '/base.php';
         if (!is_null($app)) {
             $GLOBALS['ansel_storage'] = new Ansel_Storage($app);
         }
@@ -952,8 +918,6 @@ class Ansel_Api extends Horde_Registry_Api
     public function countGalleries($app = null, $perm = Horde_Perms::SHOW, $attributes = null,
         $parent = null, $allLevels = true)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         /* If no app is given use Ansel's own gallery which is initialized
          * in base.php */
         if (!is_null($app)) {
@@ -976,8 +940,6 @@ class Ansel_Api extends Horde_Registry_Api
      */
     public function listTagInfo($tags = null)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         return Ansel_Tags::listTagInfo($tags);
     }
 
@@ -1008,8 +970,6 @@ class Ansel_Api extends Horde_Registry_Api
         $resource_type = 'all', $user = null, $raw = false,
         $app = null)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         if (!is_null($app)) {
             $GLOBALS['ansel_storage'] = new Ansel_Storage($app);
         } else {
@@ -1071,8 +1031,6 @@ class Ansel_Api extends Horde_Registry_Api
      */
     public function galleryExists($app, $gallery_id = null, $slug = '')
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         if (!is_null($app)) {
             $GLOBALS['ansel_storage'] = new Ansel_Storage($app);
         }
@@ -1087,8 +1045,6 @@ class Ansel_Api extends Horde_Registry_Api
      */
     public function getGalleryStyles()
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         return Ansel::getAvailableStyles();
     }
 
@@ -1107,8 +1063,6 @@ class Ansel_Api extends Horde_Registry_Api
     public function renderView($params = array(), $app = null,
         $view = 'Gallery')
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         if (!is_null($app)) {
             $GLOBALS['ansel_storage'] = new Ansel_Storage($app);
         }

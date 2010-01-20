@@ -8,7 +8,8 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('ansel');
 
 /* If we aren't provided with a gallery, redirect to the gallery
  * list. */

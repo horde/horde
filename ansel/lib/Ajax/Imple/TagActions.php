@@ -31,8 +31,6 @@ class Ansel_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
 
     public function handle($args, $post)
     {
-        include_once dirname(__FILE__) . '/../../base.php';
-
         $action = $args['action'];
         $tags = $post['tags'];
         if (empty($action) || empty($tags)) {
