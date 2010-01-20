@@ -15,8 +15,8 @@ Date.CultureInfo = {
     abbreviatedMonthNames: ["јан", "фев", "мар", "апр", "мај", "јун", "јул", "авг", "сеп", "окт", "ное", "дек"],
 
 	/* AM/PM Designators */
-    amDesignator: "",
-    pmDesignator: "",
+    amDesignator: "AM",
+    pmDesignator: "PM",
 
     firstDayOfWeek: 1,
     twoDigitYearMax: 2029,
