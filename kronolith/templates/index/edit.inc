@@ -92,12 +92,12 @@
 </div>
 
 <div id="kronolithEventTabRecur" class="kronolithTabsOption" style="display:none">
-  <?php printf(_("%s Don't repeat %s or repeat %s Daily, %s Weekly, %s Monthly or %s Yearly %s"),
+  <?php printf(_("%s Don't repeat %s or repeat %s daily, %s weekly, %s monthly %s or %s yearly %s"),
   '<label><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_NONE . '" checked="checked" id="kronolithEventLinkNone" />', '</label>',
   '<label><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_DAILY . '" id="kronolithEventLinkDaily" />', '</label>
   <label><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_WEEKLY . '" id="kronolithEventLinkWeekly" />', '</label>
-  <label><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_MONTHLY_DATE . '" id="kronolithEventLinkMonthly" />', '</label>
-  <label><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_YEARLY_DATE . '" id="kronolithEventLinkYearly" />', '</label><br />') ?>
+  <label><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_MONTHLY_DATE . '" id="kronolithEventLinkMonthly" />', '</label>',
+  '<label><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_YEARLY_DATE . '" id="kronolithEventLinkYearly" />', '</label><br />') ?>
 
   <div id="kronolithEventRepeatDaily" style="display:none">
     <?php printf(_("Repeat %s every day %s or %s every %s days %s"),
@@ -119,12 +119,12 @@
     <label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_SUNDAY . '" /> ' . substr(_("Sunday"), 0, 3) . '</label>') ?>
   </div>
   <div id="kronolithEventRepeatMonthly" style="display:none">
-    <?php printf(_("Repeat %s every month %s or %s every %s months, %s on the same %s date %s weekday %s"),
+    <?php printf(_("Repeat %s every month %s or %s every %s months, %s on the same %s date %s or %s weekday %s"),
     '<label><input type="radio" name="recur_monthly" value="1" checked="checked" />', '</label>',
     '<label><input type="radio" name="recur_monthly" value="0" />', '</label>
     <label><input type="text" size="3" name="recur_monthly_interval" value="" class="kronolithEventValue" />', '</label>',
-    '<label><input type="radio" name="recur_monthly_scheme" value="' . Horde_Date_Recurrence::RECUR_MONTHLY_DATE . '" />', '</label>
-    <label><input type="radio" name="recur_monthly_scheme" value="' . Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY . '" />', '</label>') ?>
+    '<label><input type="radio" name="recur_monthly_scheme" value="' . Horde_Date_Recurrence::RECUR_MONTHLY_DATE . '" />', '</label>',
+    '<label><input type="radio" name="recur_monthly_scheme" value="' . Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY . '" />', '</label>') ?>
   </div>
   <div id="kronolithEventRepeatYearly" style="display:none">
     <?php printf(_("Repeat %s every year %s or %s every %s years %s on the same %s date of the year %s day of the year %s month and weekday %s"),
