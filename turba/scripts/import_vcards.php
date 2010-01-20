@@ -15,7 +15,7 @@
 
 // Do CLI checks and environment setup first.
 require_once dirname(__FILE__) . '/../lib/Application.php';
-Horde_Registry::appInit('turba', array('authentication' => 'none', 'cli' => true, 'user' => $user));
+Horde_Registry::appInit('turba', array('authentication' => 'none', 'cli' => true));
 
 // Read command line parameters.
 $cli = Horde_Cli::singleton();
@@ -25,6 +25,8 @@ if (count($argv) != 3) {
 }
 $source = $argv[1];
 $user = $argv[2];
+
+Horde_Auth::setAuth($user, array());
 
 // Read standard input.
 $vcard = $cli->readStdin();

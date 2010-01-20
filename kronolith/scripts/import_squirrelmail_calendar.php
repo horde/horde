@@ -16,7 +16,7 @@
 
 // Do CLI checks and environment setup first.
 require_once dirname(__FILE__) . '/../lib/Application.php';
-Horde_Registry::appInit('kronolith', array('authentication' => 'none', 'cli' => true, 'user' => $conf['auth']['admins'] ? $conf['auth']['admins'][0] : array()));
+Horde_Registry::appInit('kronolith', array('authentication' => 'none', 'cli' => true, 'user_admin' => true));
 
 // Read command line parameters.
 $cli = Horde_Cli::singleton();
