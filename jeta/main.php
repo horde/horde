@@ -8,7 +8,8 @@
  * @author Eric Rostetter <eric.rostetter@physics.utexas.edu>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('jeta');
 
 $applet = Jeta_Applet::factory($prefs->getValue('sshdriver'));
 
