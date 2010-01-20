@@ -33,7 +33,7 @@ class Gollem
      */
     static public function setDir($dir)
     {
-        $dir = self::realPath($dir);
+        $dir = Horde_Util::realPath($dir);
 
         if (!self::verifyDir($dir)) {
             return PEAR::raiseError(sprintf(_("Access denied to folder \"%s\"."), $dir));
@@ -335,7 +335,7 @@ class Gollem
      */
     static public function createFolder($dir, $name)
     {
-        $totalpath = Gollem::realPath($dir . '/' . $name);
+        $totalpath = Horde_Util::realPath($dir . '/' . $name);
         if (!Gollem::verifyDir($totalpath)) {
             return PEAR::raiseError(sprintf(_("Access denied to folder \"%s\"."), $totalpath));
         }
@@ -600,7 +600,7 @@ class Gollem
     static public function verifyDir($dir)
     {
         $rootdir = Gollem::getRoot();
-        return (Horde_String::substr(Gollem::realPath($dir), 0, Horde_String::length($rootdir)) == $rootdir);
+        return (Horde_String::substr(Horde_Util::realPath($dir), 0, Horde_String::length($rootdir)) == $rootdir);
     }
 
 
@@ -876,7 +876,7 @@ class Gollem
      */
     static public function getDisplayPath($path)
     {
-        $path = Gollem::realPath($path);
+        $path = Horde_Util::realPath($path);
         $rootdir = Gollem::getRoot();
         if (($rootdir != '/') && (strpos($path, $rootdir) === 0)) {
             $path = substr($path, Horde_String::length($rootdir));
