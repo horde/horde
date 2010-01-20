@@ -11,10 +11,15 @@ This directory contains various utility scripts for Horde administrators.
 Script Index
 ------------
 
-horde-remove-prefs.php
+horde-base.php
+    Stores common code used in other administrator scripts.
+
+horde-create-sequence.php
+    TODO
+
+horde-remove-pref.php
     Remove all entries of a preference name/scope combination from an
     SQL prefs backend.
 
-horde-update.sh
-    Facilitates the updating and/or installation of horde and its
-    applications.
+horde-sql-shell.php
+    TODO
