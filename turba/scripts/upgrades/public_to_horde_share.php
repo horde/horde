@@ -20,16 +20,8 @@
 
 // Load Horde and Turba enviroments
 require_once dirname(__FILE__) . '/../lib/Application.php';
-
-// Set up the CLI enviroment.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-Horde_Cli::init();
+Horde_Registry::appInit('turba', array('authentication' => 'none', 'cli' => true, 'user' => $conf['auth']['admins'] ? $conf['auth']['admins'][0] : null));
 $CLI = Horde_Cli::singleton();
-
-// Make sure we load Horde base to get the auth config
-Horde_Registry::appInit('turba', array('authentication' => 'none', 'user' => $conf['auth']['admins'] ? $conf['auth']['admins'][0] : null));
 
 $CLI->writeln('This script will turn all entries in the SQL address book into a globally shared address book.');
 $CLI->writeln('Make sure you read the script comments and be sure you know what you are doing.');

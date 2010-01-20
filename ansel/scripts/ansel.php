@@ -9,20 +9,9 @@
 * @author Vijay Mahrra <webmaster@stain.net>
 */
 
-// Do CLI checks and environment setup first.
 require_once dirname(__FILE__) . '/../../lib/Application.php';
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment.
-Horde_Cli::init();
+Horde_Registry::appInit('ansel', array('authentication' => 'none', 'cli' => true));
 $cli = Horde_Cli::singleton();
-
-// Load Ansel.
-Horde_Registry::appInit('ansel', array('authentication' => 'none'));
 
 // We accept the user name on the command-line.
 $ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(),
@@ -32,7 +21,6 @@ $ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(),
                                     'caption='));
 
 if (is_a($ret, 'PEAR_Error')) {
-    var_dump($ret);
     $error = _("Couldn't read command-line options.");
     Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_DEBUG);
     $cli->fatal($error);

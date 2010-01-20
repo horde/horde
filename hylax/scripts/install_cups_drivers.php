@@ -2,14 +2,7 @@
 <?php
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-$hylax = Horde_Registry::appInit('hylax', array('authentication' => 'none'));
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-Horde_Cli::init();
+$hylax = Horde_Registry::appInit('hylax', array('authentication' => 'none', 'cli' => true));
 
 /* The CUPS backend file. */
 $hylafax_backend = file_get_contents(HYLAX_BASE . '/scripts/cups/hylafax');

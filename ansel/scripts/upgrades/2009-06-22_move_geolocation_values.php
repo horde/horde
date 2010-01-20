@@ -9,19 +9,9 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  */
 
-// Do CLI checks and environment setup first.
 require_once dirname(__FILE__) . '/lib/Application.php';
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment.
-Horde_Cli::init();
+Horde_Registry::appInit('ansel', array('authentication' => 'none', 'cli' => true));
 $cli = Horde_Cli::singleton();
-
-Horde_Registry::appInit('ansel', array('authentication' => 'none'));
 
 $sql = 'SELECT image_id, image_latitude, image_longitude FROM ansel_images_geolocation;';
 $results = $ansel_db->queryAll($sql, null, MDB2_FETCHMODE_ASSOC);

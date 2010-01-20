@@ -7,20 +7,7 @@
 
 // Do CLI checks and environment setup first.
 require_once dirname(__FILE__) . '/../lib/Application.php';
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment - make sure there's no time limit, init
-// some variables, etc.
-Horde_Cli::init();
-
-Horde_Registry::appInit('turba', array('authentication' => 'none'));
-
-// Re-load source config.
-// require TURBA_BASE . '/config/sources.php';
+Horde_Registry::appInit('turba', array('authentication' => 'none', 'cli' => true));
 
 // See if any of our sources are configured to use Horde_Share.
 if (empty($_SESSION['turba']['has_share'])) {

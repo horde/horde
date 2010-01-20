@@ -11,25 +11,15 @@
 
 // Do CLI checks and environment setup first.
 require_once dirname(__FILE__) . '/../../lib/Application.php';
+Horde_Registry::appInit('nag', array('authentication' => 'none', 'cli' => true));
 
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment - make sure there's no time limit, init some
-// variables, etc.
 $cli = Horde_Cli::singleton();
-$cli->init();
-
-Horde_Registry::appInit('nag', array('authentication' => 'none'));
-
 $history = Horde_History::singleton();
 
 // Run through every tasklist.
 $tasklists = $nag_shares->listAllShares();
 foreach ($tasklists as $tasklist => $share) {
-    echo "Creating default histories for $tasklist ...\n";
+    $cli->writeln("Creating default histories for $tasklist ...");
 
     // List all tasks.
     $storage = Nag_Driver::singleton($tasklist);
@@ -51,4 +41,4 @@ foreach ($tasklists as $tasklist => $share) {
     }
 }
 
-echo "\n** Default histories successfully created ***\n";
+$cli->writeln("** Default histories successfully created ***");

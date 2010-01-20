@@ -9,23 +9,11 @@
  * directory.
  */
 
-// Do CLI checks and environment setup first.
 require_once dirname(__FILE__) . '/../../lib/Application.php';
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment - make sure there's no time limit, init
-// some variables, etc.
-Horde_Cli::init();
-
-Horde_Registry::appInit('ansel', array('authentication' => 'none'));
+Horde_Registry::appInit('ansel', array('authentication' => 'none', 'cli' => true));
 
 // Default arguments.
-$move = false;
-$verbose = false;
+$move = $verbose = false;
 
 // Parse command-line arguments.
 $ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'mv',

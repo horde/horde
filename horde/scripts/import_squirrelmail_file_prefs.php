@@ -16,30 +16,17 @@
  * @author Ben Chavet <ben@horde.org>
  */
 
-// Do CLI checks and environment setup first.
-require_once dirname(__FILE__) . '/../lib/core.php';
-
-// Makre sure no one runs this from the web.
-if (!Horde_Cli::runningFromCli()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment - make sure there's no time limit, init some
-// variables, etc.
-$cli = Horde_Cli::singleton();
-$cli->init();
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true));
 
 // Read command line parameters.
+$cli = Horde_Cli::singleton();
 if ($argc != 2) {
     $cli->message('Too many or too few parameters.', 'cli.error');
     $cli->writeln('Usage: import_squirrelmail_prefs.php path-to-squirrelmail-data');
     exit;
 }
 $data = $argv[1];
-
-// Make sure we load Horde base to get the auth config
-require_once dirname(__FILE__) . '/../lib/Application.php';
-Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 require_once dirname(__FILE__) . '/import_squirrelmail_prefs.php';
 

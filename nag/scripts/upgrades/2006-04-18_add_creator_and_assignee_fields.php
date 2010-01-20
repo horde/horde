@@ -14,17 +14,7 @@
 
 // Do CLI checks and environment setup first.
 require_once dirname(__FILE__) . '/../../lib/Application.php';
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment - make sure there's no time limit, init some
-// variables, etc.
-Horde_Cli::init();
-
-Horde_Registry::appInit('nag', array('authentication' => 'none'));
+Horde_Registry::appInit('nag', array('authentication' => 'none', 'cli' => true));
 
 if ($conf['storage']['driver'] != 'sql') {
     exit('No conversion for drivers other than SQL currently.');
@@ -32,7 +22,7 @@ if ($conf['storage']['driver'] != 'sql') {
 
 $storage = Nag_Driver::singleton('');
 $storage->initialize();
-$db = &$storage->_db;
+$db = $storage->_db;
 
 // Add db fields. We don't check for success/failure here in case someone did
 // this manually.
@@ -66,6 +56,5 @@ foreach ($tasklists as $tasklist => $share) {
     }
 }
 
-echo "\n** Creators successfully stored. ***\n";
-
-echo "\n** Please manually apply NOT NULL constraint to 'task_creator' column. ***\n";
+echo "\n** Creators successfully stored. ***\n\n".
+    "** Please manually apply NOT NULL constraint to 'task_creator' column. ***\n";

@@ -90,7 +90,7 @@ function convert($sm_pref_name, $sm_pref_value)
     case 'hour_format':
         return array(array('name' => 'twentyFour', 'scope' => 'horde', 'value' => ($sm_pref_value == 1)));
         break;
-                     
+
     case 'internal_date_sort':
         if ($sm_pref_value == 1) {
             return array(array('name' => 'sortby', 'scope' => 'imp', 'value' => '1'));

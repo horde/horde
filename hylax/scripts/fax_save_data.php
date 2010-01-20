@@ -2,19 +2,10 @@
 <?php
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-$hylax = Horde_Registry::appInit('hylax', array('authentication' => 'none'));
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-/* Load the CLI environment - make sure there's no time limit, init some
- * variables, etc. */
-$cli = new Horde_Cli();
-$cli->init();
+$hylax = Horde_Registry::appInit('hylax', array('authentication' => 'none', 'cli' => true));
 
 /* Store the raw fax postscript data. */
+$cli = Horde_Cli::singleton();
 $data = $cli->readStdin();
 if (empty($data)) {
     Horde::logMessage('No print data received from standard input. Exiting fax submission.', __FILE__, __LINE__, PEAR_LOG_ERR);

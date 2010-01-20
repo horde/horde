@@ -12,14 +12,8 @@
 * @author Michael J. Rubinsky <mrubinsk@horde.org>
 */
 
-require_once dirname(__FILE__) . '/../lib/base.load.php';
-require_once HORDE_BASE . '/lib/core.php';
-
-/* Horde_CLI */
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-Horde_Cli::init();
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('ansel', array('authentication' => 'none', 'cli' => true));
 $cli = Horde_Cli::singleton();
 
 /* Command line options */

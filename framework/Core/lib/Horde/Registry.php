@@ -97,20 +97,25 @@ class Horde_Registry
      * @param array $args  Optional arguments:
      * <pre>
      * 'admin' - (boolean) Require authenticated user to be an admin?
+     *           DEFAULT: false
      * 'authentication' - (string) The type of authentication to use:
      *   'none'  - Do not authenticate
      *   'throw' - Authenticate; on no auth, throw a Horde_Exception
      *   [DEFAULT] - Authenticate; on no auth redirect to login screen
-     * 'nocompress' - (boolean) Controls whether the page should be
-     *                compressed.
+     * 'cli' - (boolean) Initialize a CLI interface.
+     *         DEFAULT: false
+     * 'nocompress' - (boolean) If set, the page will not be compressed.
+     *                DEFAULT: false
      * 'nologintasks' - (boolean) If set, don't perform logintasks (never
      *                  performed if authentication is 'none').
+     *                  DEFAULT: false
      * 'session_control' - (string) Sets special session control limitations:
      *   'netscape' - TODO; start read/write session
      *   'none' - Do not start a session
      *   'readonly' - Start session readonly
      *   [DEFAULT] - Start read/write session
      * 'user' - (string) Set authentication to this user.
+     *          DEFAULT: null
      * </pre>
      *
      * @return Horde_Registry_Application  The application object.
@@ -121,6 +126,7 @@ class Horde_Registry
         $args = array_merge(array(
             'admin' => false,
             'authentication' => null,
+            'cli' => null,
             'nocompress' => false,
             'nologintasks' => false,
             'session_control' => null,
@@ -163,6 +169,21 @@ class Horde_Registry
             }
 
             Horde_Auth::authenticateFailure($app, $e);
+        }
+
+        /* CLI initialization. */
+        if ($args['cli']) {
+            /* Make sure no one runs from the web. */
+            if (!Horde_Cli::runningFromCLI()) {
+                fwrite(STDERR, "Must be run from the command line\n");
+                exit(1);
+            }
+
+            /* Load the CLI environment - make sure there's no time limit,
+             * init some variables, etc. */
+            Horde_Cli::init();
+
+            $args['nocompress'] = true;
         }
 
         if (!$args['nocompress']) {

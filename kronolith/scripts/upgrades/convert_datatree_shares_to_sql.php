@@ -7,16 +7,10 @@
  */
 
 /* Set up the CLI environment */
-require_once dirname(__FILE__) . '/../../lib/base.load.php';
-require_once HORDE_BASE . '/lib/core.php';
-if (!Horde_Cli::runningFromCli()) {
-    exit("Must be run from the command line\n");
-}
-$cli = Horde_Cli::singleton();
-$cli->init();
+require_once dirname(__FILE__) . '/../../Application.php';
+Horde_Registry::appInit('kronolith', array('authentication' => 'none', 'cli' => true));
 
-/* Grab what we need to steal the DB config */
-require_once HORDE_BASE . '/config/conf.php';
+$cli = Horde_Cli::singleton();
 
 $config = $GLOBALS['conf']['sql'];
 unset($config['charset']);

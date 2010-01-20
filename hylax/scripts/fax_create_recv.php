@@ -2,17 +2,7 @@
 <?php
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-$hylax = Horde_Registry::appInit('hylax', array('authentication' => 'none'));
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-/* Load the CLI environment - make sure there's no time limit, init some
- * variables, etc. */
-$cli = &new Horde_Cli();
-$cli->init();
+$hylax = Horde_Registry::appInit('hylax', array('authentication' => 'none', 'cli' => true));
 
 /* Create the fax information array. Set fax_type to 0 for incoming. */
 $info = array('fax_type' => 0,
@@ -29,6 +19,7 @@ if (isset($args[2])) {
     $info['job_id'] = (int)substr($file, 9, -4);
 }
 
+$cli = Horde_Cli::singleton();
 $fax_info = $cli->readStdin();
 $fax_info = explode("\n", $fax_info);
 foreach ($fax_info as $line) {

@@ -32,13 +32,11 @@ $do_work = true;
 $do_email = true;
 
 /* YOU SHOULD NOT HAVE TO TOUCH ANYTHING BELOW THIS LINE */
+
 /* Set up the CLI environment */
 require_once dirname(__FILE__) . '/../../lib/Application.php';
-if (!Horde_Cli::runningFromCli()) {
-    exit("Must be run from the command line\n");
-}
+Horde_Registry::appInit('turba', array('authentication' => 'none', 'cli' => true));
 $cli = Horde_Cli::singleton();
-$cli->init();
 
 /* Grab what we need to steal the DB config */
 require_once HORDE_BASE . '/config/conf.php';

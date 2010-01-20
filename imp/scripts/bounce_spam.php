@@ -16,23 +16,15 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-define('IMP_CONFIG', dirname(__FILE__) . '/../config');
-require_once 'Horde/Cli.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('imp', array('authentication' => true, 'cli' => true));
 
-/* Make sure no one runs this from the web. */
-if (!Horde_Cli::runningFromCLI()) {
-    fwrite(STDERR, "Must be run from the command line\n");
-    exit(1);
-}
+$bounce_template = IMP_BASE . '/config/bounce.txt';
 
 /* If there's no bounce template file then abort */
-if (!file_exists(IMP_CONFIG . '/bounce.txt')) {
+if (!file_exists($bounce_template)) {
     exit(0);
 }
-
-/* Load the CLI environment - make sure there's no time limit, init some
- * variables, etc. */
-Horde_Cli::init();
 
 /* Read the message content. */
 $data = Horde_Cli::readStdin();
@@ -46,7 +38,7 @@ preg_match_all('/delivered-to: (.*?)\r?\n/is', $data, $matches);
 $delivered_to = $matches[1][count($matches[1])-1];
 
 /* Read the bounce template and construct the mail */
-$bounce = file_get_contents(IMP_CONFIG . '/bounce.txt');
+$bounce = file_get_contents($bounce_template);
 $bounce = str_replace(array('%TO%', '%TARGET%'),
                       array($return_path, $delivered_to),
                       $bounce);

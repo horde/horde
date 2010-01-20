@@ -16,18 +16,10 @@
 
 // Do CLI checks and environment setup first.
 require_once dirname(__FILE__) . '/../lib/Application.php';
-
-// Makre sure no one runs this from the web.
-if (!Horde_Cli::runningFromCli()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment - make sure there's no time limit, init some
-// variables, etc.
-$cli = Horde_Cli::singleton();
-$cli->init();
+Horde_Registry::appInit('kronolith', array('authentication' => 'none', 'cli' => true, 'user' => $conf['auth']['admins'] ? $conf['auth']['admins'][0] : array()));
 
 // Read command line parameters.
+$cli = Horde_Cli::singleton();
 if ($argc != 2) {
     $cli->message('Too many or too few parameters.', 'cli.error');
     $cli->writeln('Usage: import_squirrelmail_file_abook.php DSN');
@@ -35,9 +27,6 @@ if ($argc != 2) {
 }
 $dsn = $argv[1];
 $default_tz = date_default_timezone_get();
-
-// Make sure we load Horde base to get the auth config
-Horde_Registry::appInit('kronolith', array('authentication' => 'none', 'user' => $conf['auth']['admins'] ? $conf['auth']['admins'][0] : array()));
 
 // Connect to database.
 $db = DB::connect($dsn);

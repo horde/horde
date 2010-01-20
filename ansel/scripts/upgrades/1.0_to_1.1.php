@@ -9,19 +9,9 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  */
 
-// Do CLI checks and environment setup first.
 require_once dirname(__FILE__) . '/../../lib/Application.php';
-
-// Make sure no one runs this from the web.
-if (!Horde_CLI::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment.
-Horde_CLI::init();
+Horde_Registry::appInit('ansel', array('authentication' => 'none', 'cli' => true));
 $cli = Horde_CLI::singleton();
-
-Horde_Registry::appInit('ansel', array('authentication' => 'none'));
 
 // First update the tables
 $alter = array("ALTER TABLE ansel_images ADD COLUMN image_latitude VARCHAR(32) NOT NULL DEFAULT ''",

@@ -17,28 +17,18 @@
 
 // Do CLI checks and environment setup first.
 require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('turba', array('authentication' => 'none', 'cli' => true, 'user' => $conf['auth']['admins'] ? $conf['auth']['admins'][0] : null));
 
-// Makre sure no one runs this from the web.
-if (!Horde_Cli::runningFromCli()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment - make sure there's no time limit, init some
-// variables, etc.
-$cli = Horde_Cli::singleton();
-$cli->init();
+require_once TURBA_BASE . '/lib/Object/Group.php';
 
 // Read command line parameters.
+$cli = Horde_Cli::singleton();
 if ($argc != 2) {
     $cli->message('Too many or too few parameters.', 'cli.error');
     $cli->writeln('Usage: import_squirrelmail_file_abook.php DSN');
     exit;
 }
 $dsn = $argv[1];
-
-Horde_Registry::appInit('turba', array('authentication' => 'none', 'user' => $conf['auth']['admins'] ? $conf['auth']['admins'][0] : null));
-
-require_once TURBA_BASE . '/lib/Object/Group.php';
 
 // Connect to database.
 $db = DB::connect($dsn);

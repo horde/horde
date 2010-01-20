@@ -10,20 +10,9 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('kronolith', array('authentication' => 'none'));
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment - make sure there's no time limit, init
-// some variables, etc.
-Horde_Cli::init();
+Horde_Registry::appInit('kronolith', array('authentication' => 'none', 'cli' => true));
 
 send_agendas();
-exit(0);
-
 
 /**
  */
