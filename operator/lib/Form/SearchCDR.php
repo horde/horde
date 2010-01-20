@@ -110,9 +110,6 @@ class ExportCDRForm extends SearchCDRForm
     public function execute()
     {
         global $operator;
-        if (empty($operator) || empty($operator->driver)) {
-            $operator = new Operator_Application(array('init' => true));
-        }
 
         $start = new Horde_Date($this->_vars->get('startdate'));
         $end = new Horde_Date($this->_vars->get('enddate'));

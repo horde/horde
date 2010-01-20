@@ -96,9 +96,6 @@ class Operator {
     public static function getAccountCodes($permfilter = false)
     {
         global $operator;
-        if (empty($operator) || empty($operator->driver)) {
-            $operator = new Operator_Application(array('init' => true));
-        }
 
         // Set up arrays for filtering
         $keys = $values = $operator->driver->getAccountCodes();

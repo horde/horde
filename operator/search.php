@@ -9,12 +9,11 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-
-$operator = new Operator_Application(array('init' => true));
-$cache = &$GLOBALS['cache'];
+Horde_Registry::appInit('operator');
 
 require_once OPERATOR_BASE . '/lib/Form/SearchCDR.php';
 
+$cache = $GLOBALS['cache'];
 $renderer = new Horde_Form_Renderer();
 $vars = Horde_Variables::getDefaultVariables();
 $data = array();

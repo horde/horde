@@ -9,8 +9,8 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('operator');
 
-$operator = new Operator_Application(array('init' => true));
 $cache = &$GLOBALS['cache'];
 
 // Work around warnings in Image_Graph
