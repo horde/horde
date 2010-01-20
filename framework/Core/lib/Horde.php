@@ -554,7 +554,7 @@ HTML;
      *
      * The following are service links only and do not need to be defined
      * in Horde's menu config.
-     * 'cache', 'download', 'go', 'prefsapi'
+     * 'ajax', 'cache', 'download', 'go', 'prefsapi'
      * </pre>
      * @param string $app        The name of the current Horde application.
      * @param boolean $override  Override Horde settings?
@@ -563,7 +563,7 @@ HTML;
      */
     static public function getServiceLink($type, $app, $override = false)
     {
-        if (!in_array($type, array('cache', 'download', 'go', 'prefsapi')) &&
+        if (!in_array($type, array('ajax', 'cache', 'download', 'go', 'prefsapi')) &&
             !self::showService($type, $override)) {
             return false;
         }
@@ -601,6 +601,9 @@ HTML;
 
         case 'go':
             return self::url($webroot . '/services/go.php');
+
+        case 'ajax':
+            return self::url($webroot . '/services/ajax.php/' . $app . '/');
         }
 
         return false;

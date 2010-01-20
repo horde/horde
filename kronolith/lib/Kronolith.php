@@ -180,7 +180,7 @@ class Kronolith
 
         /* Variables used in core javascript files. */
         $code['conf'] = array(
-            'URI_AJAX' => (string)Horde::url($kronolith_webroot . '/ajax.php', true, -1),
+            'URI_AJAX' => Horde::getServiceLink('ajax', 'kronolith'),
             'URI_IMG' => $registry->getImageDir() . '/',
             'URI_SNOOZE' => (string)Horde::url($registry->get('webroot', 'horde') . '/services/snooze.php', true, -1),
             'SESSION_ID' => defined('SID') ? SID : '',

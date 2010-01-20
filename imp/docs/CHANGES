@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Move AJAX processing framework to Horde (Request #4561).
 [mms] If selected message(s) disappear from mailbox, gracefully handle in the
       user interface (DIMP).
 [mms] Only update search mailbox on explicit user action (Request #7297)

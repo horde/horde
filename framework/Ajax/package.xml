@@ -24,7 +24,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Add AutoCompleter driver.
+ <notes>* Add Application framework.
+ * Add AutoCompleter driver.
  * Initial release.
  </notes>
  <contents>
@@ -32,6 +33,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Ajax">
+      <dir name="Application">
+       <file name="Base.php" role="php" />
+      </dir> <!-- /lib/Horde/Ajax/Application -->
       <dir name="Imple">
        <file name="AutoCompleter.php" role="php" />
        <file name="Base.php" role="php" />
@@ -40,8 +44,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
         <file name="Geonames.php" role="php" />
        </dir>
       </dir> <!-- /lib/Horde/Ajax/Imple -->
+      <file name="Exception.php" role="php" />
       <file name="Imple.php" role="php" />
      </dir> <!-- /lib/Horde/Ajax -->
+     <file name="Ajax.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
   </dir> <!-- / -->
@@ -58,6 +64,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <name>Core</name>
     <channel>pear.horde.org</channel>
    </package>
+   <package>
+    <name>Util</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </required>
   <optional>
    <package>
@@ -72,11 +82,14 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
+   <install name="lib/Horde/Ajax/Application/Base.php" as="Horde/Ajax/Application/Base.php" />
+   <install name="lib/Horde/Ajax/Exception.php" as="Horde/Ajax/Exception.php" />
    <install name="lib/Horde/Ajax/Imple/AutoCompleter.php" as="Horde/Ajax/Imple/AutoCompleter.php" />
    <install name="lib/Horde/Ajax/Imple/Base.php" as="Horde/Ajax/Imple/Base.php" />
    <install name="lib/Horde/Ajax/Imple/SpellChecker.php" as="Horde/Ajax/Imple/SpellChecker.php" />
    <install name="lib/Horde/Ajax/Imple.php" as="Horde/Ajax/Imple.php" />
    <install name="lib/Horde/Ajax/Imple/Geocoder/Geonames.php" as="Horde/Ajax/Imple/Geocoder/Geonames.php" />
+   <install name="lib/Horde/Ajax.php" as="Horde/Ajax.php" />
   </filelist>
  </phprelease>
  <changelog/>

@@ -132,7 +132,7 @@ KronolithCore = {
 
         msgs.find(function(m) {
             switch (m.type) {
-            case 'kronolith.timeout':
+            case 'horde.ajaxtimeout':
                 this.logout(Kronolith.conf.timeout_url);
                 return true;
 

@@ -43,7 +43,7 @@ foreach ($imp_flags->getList(array('fgcolor' => true)) as $val) {
 /* Variables used in core javascript files. */
 $code['conf'] = array_filter(array(
     // URL variables
-    'URI_AJAX' => (string) Horde::applicationUrl('ajax.php'),
+    'URI_AJAX' => (string) Horde::getServiceLink('ajax', 'imp'),
     'URI_COMPOSE' => (string) Horde::applicationUrl('compose-dimp.php'),
     'URI_DIMP' => (string) Horde::applicationUrl('index-dimp.php'),
     'URI_MESSAGE' => (string) Horde::applicationUrl('message-dimp.php'),

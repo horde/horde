@@ -246,7 +246,7 @@ function processForm(event)
     }
 
     // FIXME: Better error handling
-    new Ajax.Request('<?php echo Horde::applicationUrl('ajax.php'); ?>',
+    new Ajax.Request('<?php echo Horde::serviceLink('ajax', 'shout') ?>',
     {
         method: 'post',
         parameters: form.serialize(true),
@@ -366,7 +366,7 @@ function delDest(exten, type, dest)
     }
 
     // FIXME: Better error handling
-    new Ajax.Request('<?php echo Horde::applicationUrl('ajax.php'); ?>',
+    new Ajax.Request('<?php echo Horde::serviceLink('ajax', 'shout') ?>',
     {
         method: 'post',
         parameters: params,
@@ -381,7 +381,7 @@ function delDest(exten, type, dest)
 
 destinations = $H();
 
-new Ajax.Request('<?php echo Horde::applicationUrl('ajax.php'); ?>',
+new Ajax.Request('<?php echo Horde::serviceLink('ajax', 'shout') ?>',
 {
     method: 'post',
     parameters: $H({'action': 'getDestinations'}),

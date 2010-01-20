@@ -369,7 +369,7 @@ var DimpBase = {
 
         this.viewport = new ViewPort({
             // Mandatory config
-            ajax_url: DIMP.conf.URI_AJAX + '/ViewPort',
+            ajax_url: DIMP.conf.URI_AJAX + 'ViewPort',
             container: container,
             onContent: function(r, mode) {
                 var bg, re, u,
@@ -717,7 +717,7 @@ var DimpBase = {
         case 'ctx_folder_empty':
             tmp = baseelt.up('LI');
             if (window.confirm(DIMP.text.empty_folder.replace(/%s/, tmp.readAttribute('title')))) {
-                DimpCore.doAction('EmptyFolder', { view: tmp.retrieve('mbox') }, { callback: this._emptyFolderCallback.bind(this) });
+                DimpCore.doAction('EmptyFolder', { mbox: tmp.retrieve('mbox') }, { callback: this._emptyFolderCallback.bind(this) });
             }
             break;
 
@@ -725,7 +725,7 @@ var DimpBase = {
         case 'ctx_vfolder_delete':
             tmp = baseelt.up('LI');
             if (window.confirm(DIMP.text.delete_folder.replace(/%s/, tmp.readAttribute('title')))) {
-                DimpCore.doAction('DeleteFolder', { view: tmp.retrieve('mbox') }, { callback: this._folderCallback.bind(this) });
+                DimpCore.doAction('DeleteMailbox', { mbox: tmp.retrieve('mbox') }, { callback: this._folderCallback.bind(this) });
             }
             break;
 
@@ -1569,7 +1569,7 @@ var DimpBase = {
             dropbase = (drop == $('dropbase'));
             if (dropbase ||
                 (ftype != 'special' && !this.isSubfolder(drag, drop))) {
-                DimpCore.doAction('RenameFolder', { old_name: drag.retrieve('mbox'), new_parent: dropbase ? '' : foldername, new_name: drag.retrieve('l') }, { callback: this._folderCallback.bind(this) });
+                DimpCore.doAction('RenameMailbox', { old_name: drag.retrieve('mbox'), new_parent: dropbase ? '' : foldername, new_name: drag.retrieve('l') }, { callback: this._folderCallback.bind(this) });
             }
         } else if (ftype != 'container') {
             sel = this.viewport.getSelected();
@@ -1584,11 +1584,11 @@ var DimpBase = {
 
             if (uids.size()) {
                 if (e.memo.dragevent.ctrlKey) {
-                    DimpCore.doAction('CopyMessage', this.viewport.addRequestParams({ tofld: foldername }), { uids: uids });
+                    DimpCore.doAction('CopyMessages', this.viewport.addRequestParams({ mboxto: foldername }), { uids: uids });
                 } else if (this.folder != foldername) {
                     // Don't allow drag/drop to the current folder.
                     this.updateFlag(uids, '\\deleted', true);
-                    DimpCore.doAction('MoveMessage', this.viewport.addRequestParams({ tofld: foldername }), { uids: uids });
+                    DimpCore.doAction('MoveMessages', this.viewport.addRequestParams({ mboxto: foldername }), { uids: uids });
                 }
             }
         }
@@ -2171,17 +2171,19 @@ var DimpBase = {
             case 'rename':
                 folder = folder.up('LI');
                 if (folder.retrieve('l') != val) {
-                    action = 'RenameFolder';
-                    params = { old_name: folder.retrieve('mbox'),
-                               new_parent: folder.up().hasClassName('folderlist') ? '' : folder.up(1).previous().retrieve('mbox'),
-                               new_name: val };
+                    action = 'RenameMailbox';
+                    params = {
+                        old_name: folder.retrieve('mbox'),
+                        new_parent: folder.up().hasClassName('folderlist') ? '' : folder.up(1).previous().retrieve('mbox'),
+                        new_name: val
+                    };
                 }
                 break;
 
             case 'create':
             case 'createsub':
-                action = 'CreateFolder';
-                params = { view: val };
+                action = 'CreateMailbox';
+                params = { mbox: val };
                 if (mode == 'createsub') {
                     params.parent = folder.up('LI').retrieve('mbox');
                 }
@@ -2271,12 +2273,11 @@ var DimpBase = {
 
     _flagAllCallback: function(r)
     {
-        if (r.response) {
-            if (r.response.mbox == this.folder) {
-                r.response.flags.each(function(f) {
-                    this.updateFlag(this.viewport.createSelection('rownum', $A($R(1, this.viewport.getMetaData('total_rows')))), f, r.response.set);
-                }, this);
-            }
+        if (r.response &&
+            r.response.mbox == this.folder) {
+            r.response.flags.each(function(f) {
+                this.updateFlag(this.viewport.createSelection('rownum', $A($R(1, this.viewport.getMetaData('total_rows')))), f, r.response.set);
+            }, this);
         }
     },
 
@@ -2377,7 +2378,7 @@ var DimpBase = {
                 this._listFolders({
                     all: Number(mode == 'expall'),
                     callback: this._toggleSubFolder.bind(this, base, mode, noeffect),
-                    view: need
+                    mboxes: need
                 });
                 return;
             } else if (mode == 'tog') {
@@ -2414,10 +2415,10 @@ var DimpBase = {
 
         params = params || {};
         params.unsub = Number(this.showunsub);
-        if (!Object.isArray(params.view)) {
-            params.view = [ params.view ];
+        if (!Object.isArray(params.mboxes)) {
+            params.mboxes = [ params.mboxes ];
         }
-        params.view = params.view.toJSON();
+        params.mboxes = params.mboxes.toJSON();
 
         if (params.callback) {
             cback = function(func, r) { this._folderLoadCallback(r, func); }.bind(this, params.callback);
@@ -2426,7 +2427,7 @@ var DimpBase = {
             cback = this._folderLoadCallback.bind(this);
         }
 
-        DimpCore.doAction('ListFolders', params, { callback: cback });
+        DimpCore.doAction('ListMailboxes', params, { callback: cback });
     },
 
     // Folder actions.
@@ -2643,13 +2644,13 @@ var DimpBase = {
             this.deleteFolderElt(elt.readAttribute('id'), true);
         }, this);
 
-        this._listFolders({ reload: 1, view: this.folder });
+        this._listFolders({ reload: 1, mboxes: this.folder });
     },
 
     subscribeFolder: function(f, sub)
     {
         var fid = this.getFolderId(f);
-        DimpCore.doAction('Subscribe', { view: f, sub: Number(sub) });
+        DimpCore.doAction('Subscribe', { mbox: f, sub: Number(sub) });
 
         if (this.showunsub) {
             [ $(fid) ].invoke(sub ? 'removeClassName' : 'addClassName', 'unsubFolder');
@@ -2733,7 +2734,7 @@ var DimpBase = {
 
         opts.vs = vs;
 
-        this._doMsgAction('DeleteMessage', opts, {});
+        this._doMsgAction('DeleteMessages', opts, {});
         this.updateFlag(vs, '\\deleted', true);
     },
 
@@ -2771,7 +2772,7 @@ var DimpBase = {
 
         this.updateFlag(vs, flag, set);
         if (!opts.noserver) {
-            DimpCore.doAction('FlagMessage', { flags: flags.toJSON(), view: this.folder }, { uids: vs });
+            DimpCore.doAction('FlagMessages', { flags: flags.toJSON(), view: this.folder }, { uids: vs });
         }
     },
 
@@ -2779,7 +2780,7 @@ var DimpBase = {
     // mbox = (string) The mailbox to flag
     flagAll: function(type, set, mbox)
     {
-        DimpCore.doAction('FlagAll', { flags: [ type ].toJSON(), set: Number(set), view: mbox }, { callback: this._flagAllCallback.bind(this) });
+        DimpCore.doAction('FlagAll', { flags: [ type ].toJSON(), set: Number(set), mbox: mbox }, { callback: this._flagAllCallback.bind(this) });
     },
 
     hasFlag: function(f, r)
@@ -2835,13 +2836,13 @@ var DimpBase = {
 
     modifyPoll: function(folder, add)
     {
-        DimpCore.doAction('ModifyPoll', { view: folder, add: Number(add) }, { callback: this._modifyPollCallback.bind(this) });
+        DimpCore.doAction('ModifyPoll', { add: Number(add), mbox: folder }, { callback: this._modifyPollCallback.bind(this) });
     },
 
     _modifyPollCallback: function(r)
     {
         r = r.response;
-        var f = r.folder, fid, p = { response: { poll: {} } };
+        var f = r.mbox, fid, p = { response: { poll: {} } };
         fid = $(this.getFolderId(f));
 
         if (r.add) {
@@ -2853,7 +2854,7 @@ var DimpBase = {
 
         if (!r.add) {
             fid.store('u', null);
-            this.updateUnseenStatus(r.folder, 0);
+            this.updateUnseenStatus(f, 0);
         }
     },
 
@@ -2941,7 +2942,7 @@ var DimpBase = {
 
         /* Create the folder list. Any pending notifications will be caught
          * via the return from this call. */
-        this._listFolders({ initial: 1, view: this.folder} );
+        this._listFolders({ initial: 1, mboxes: this.folder} );
 
         this._setQsearchText(true);
 

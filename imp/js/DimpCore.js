@@ -109,7 +109,7 @@ var DimpCore = {
     {
         action = action.startsWith('*')
             ? action.substring(1)
-            : DIMP.conf.URI_AJAX + '/' + action;
+            : DIMP.conf.URI_AJAX + action;
         params = $H(params);
         opts = opts || {};
 
@@ -208,7 +208,7 @@ var DimpCore = {
             var log = 0;
 
             switch (m.type) {
-            case 'dimp.timeout':
+            case 'horde.ajaxtimeout':
                 this.logout(m.message);
                 return true;
 
@@ -267,7 +267,7 @@ var DimpCore = {
     logout: function(url)
     {
         this.is_logout = true;
-        this.redirect(url || (DIMP.conf.URI_AJAX + '/LogOut'));
+        this.redirect(url || (DIMP.conf.URI_AJAX + 'LogOut'));
     },
 
     redirect: function(url, force)

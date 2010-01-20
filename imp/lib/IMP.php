@@ -1104,7 +1104,7 @@ class IMP
             'password' => true,
             'text' => $text,
             'type' => $type,
-            'uri' => Horde::applicationUrl('ajax.php', true, -1) . '/' . $type
+            'uri' => Horde::getServiceLink('ajax', 'imp') . '/' . $type
         );
 
         return 'IMPDialog.display(' . Horde::escapeJson($js_params, array('urlencode' => true)) . ')';

@@ -84,11 +84,12 @@ class Horde_Registry
     public $applications = array();
 
     /**
-     * Application initialization (called from within an application).
+     * Application bootstrap initialization.
      * Solves chicken-and-egg problem - need a way to init Horde environment
      * from application without an active Horde_Registry object.
      *
-     * Page compression will be started (if configured) via this function.
+     * Page compression will be started (if configured).
+     * init() will be called after the initialization is completed.
      *
      * Global variables defined:
      *   $registry - Registry object

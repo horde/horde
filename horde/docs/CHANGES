@@ -2,6 +2,7 @@
 v4.0-cvs
 --------
 
+[mms] Add abstracted AJAX interface (Requesst #4561).
 [cjh] Cast Horde_Url objects to strings in Horde_Tree.
 [mms] Update scriptaculous to v1.8.3.
 [mjr] Add Horde_Image_Exif (ported from Ansel) and add a exiftool driver.
