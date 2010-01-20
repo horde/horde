@@ -302,10 +302,11 @@ case 'low':
     break;
 }
 
-/* Build Reply-To address links. */
-$reply_to = $imp_ui->buildAddressLinks($envelope['reply-to'], $self_link);
-if (!empty($reply_to) &&
-    (!($from = $display_headers['from']) || ($from != $reply_to))) {
+/* Build Reply-To address link. */
+if (!empty($envelope['reply-to']) &&
+    (Horde_Mime_Address::bareAddress(Horde_Mime_Address::addrObject2String(reset($envelope['from']))) !=
+     Horde_Mime_Address::bareAddress(Horde_Mime_Address::addrObject2String(reset($envelope['reply-to'])))) &&
+    ($reply_to = $imp_ui->buildAddressLinks($envelope['reply-to'], $self_link))) {
     $display_headers['reply-to'] = $reply_to;
 }
 
