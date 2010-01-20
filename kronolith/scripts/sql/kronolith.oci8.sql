@@ -95,4 +95,4 @@ CREATE TABLE kronolith_resources (
 );
 
 CREATE INDEX kronolith_resources_type_idx ON kronolith_resources (resource_type);
-CREATE INDEX kronolith_resources_calendar_idx ON kronolith_resources (resource_calendar);
+CREATE INDEX kronolith_resources_cal_idx ON kronolith_resources (resource_calendar);
