@@ -6,5 +6,5 @@ if ($vars->get('action') == 'edit') {
     $params = array ('action' => 'delete',
                      'extension' => $extension);
     $deleteUrl = Horde_Util::addParameter($deleteUrl, $params);
-    echo '<a href="<?php echo $deleteUrl; ?>">Delete Extension</a>';
+    echo '<a href="' . $deleteUrl . '">Delete Extension</a>';
 }
