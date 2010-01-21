@@ -1089,9 +1089,10 @@ class Horde_Form_Type_file extends Horde_Form_Type {
     function isValid($var, $vars, $value, &$message)
     {
         if ($var->isRequired()) {
-            $uploaded = Horde_Browser::wasFileUploaded($var->getVarName());
-            if (is_a($uploaded, 'PEAR_Error')) {
-                $message = $uploaded->getMessage();
+            try {
+                Horde_Browser::wasFileUploaded($var->getVarName());
+            } catch (Horde_Browser_Exception $e) {
+                $message = $e->getMessage();
                 return false;
             }
         }
@@ -1102,15 +1103,15 @@ class Horde_Form_Type_file extends Horde_Form_Type {
     function getInfo($vars, $var, &$info)
     {
         $name = $var->getVarName();
-        $uploaded = Horde_Browser::wasFileUploaded($name);
-        if ($uploaded === true) {
+        try {
+            Horde_Browser::wasFileUploaded($name);
             $info['name'] = $_FILES[$name]['name'];
             $info['type'] = $_FILES[$name]['type'];
             $info['tmp_name'] = $_FILES[$name]['tmp_name'];
             $info['file'] = $_FILES[$name]['tmp_name'];
             $info['error'] = $_FILES[$name]['error'];
             $info['size'] = $_FILES[$name]['size'];
-        }
+        } catch (Horde_Browser_Exception $e) {}
     }
 
     /**

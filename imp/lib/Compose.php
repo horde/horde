@@ -1671,9 +1671,10 @@ class IMP_Compose
     {
         global $conf;
 
-        $res = $GLOBALS['browser']->wasFileUploaded($name, _("attachment"));
-        if ($res instanceof PEAR_Error) {
-            throw new IMP_Compose_Exception($res);
+        try {
+            $GLOBALS['browser']->wasFileUploaded($name, _("attachment"));
+        } catch (Horde_Browser_Exception $e) {
+            throw new IMP_Compose_Exception($e);
         }
 
         $filename = Horde_Util::dispelMagicQuotes($_FILES[$name]['name']);

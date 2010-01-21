@@ -25,12 +25,14 @@ about the current user&apos;s browser and its capabilities.
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Initial Horde 4 package.</notes>
+ <notes>* Add Horde_Browser_Exception::.
+ * Initial Horde 4 package.</notes>
  <contents>
   <dir name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Browser">
+      <file name="Exception.php" role="php" />
       <file name="Imode.php" role="php" />
      </dir> <!-- /lib/Horde/Browser -->
      <file name="Browser.php" role="php" />
@@ -60,6 +62,7 @@ about the current user&apos;s browser and its capabilities.
  </dependencies>
  <phprelease>
   <filelist>
+   <install name="lib/Horde/Browser/Exception.php" as="Horde/Browser/Exception.php" />
    <install name="lib/Horde/Browser/Imode.php" as="Horde/Browser/Imode.php" />
    <install name="lib/Horde/Browser.php" as="Horde/Browser.php" />
   </filelist>

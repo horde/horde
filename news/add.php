@@ -473,12 +473,8 @@ if ($form->validate()) {
         foreach ($conf['attributes']['languages'] as $key) {
             for ($i = 1; $i < 6; $i++) {
                 $input = 'file_' . $key . '_' . $i;
-                $uploaded = Horde_Browser::wasFileUploaded($input);
-                if ($uploaded instanceof PEAR_Error) {
-                    if ($uploaded->getCode() != UPLOAD_ERR_NO_FILE) {
-                        $notification->push($uploaded->getMessage(), 'horde.warning');
-                    }
-                } elseif ($uploaded) {
+                try {
+                    Horde_Browser::wasFileUploaded($input);
                     $file_id = $news->write_db->nextID($news->prefix . '_files');
                     if ($file_id instanceof PEAR_Error) {
                         $notification->push($file_id);
@@ -493,6 +489,10 @@ if ($form->validate()) {
                                 $notification->push($result->getMessage(), 'horde.warning');
                             }
                         }
+                    }
+                } catch (Horde_Browser_Exception $e) {
+                    if ($e->getCode() != UPLOAD_ERR_NO_FILE) {
+                        $notification->push($e->getMessage(), 'horde.warning');
                     }
                 }
             }

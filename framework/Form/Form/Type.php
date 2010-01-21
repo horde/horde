@@ -870,9 +870,10 @@ class Horde_Form_Type_file extends Horde_Form_Type {
     function isValid(&$var, &$vars, $value, &$message)
     {
         if ($var->isRequired()) {
-            $uploaded = Horde_Browser::wasFileUploaded($var->getVarName());
-            if (is_a($uploaded, 'PEAR_Error')) {
-                $message = $uploaded->getMessage();
+            try {
+                Horde_Browser::wasFileUploaded($var->getVarName());
+            } catch (Horde_Browser_Exception $e) {
+                $message = $e->getMessage();
                 return false;
             }
         }
@@ -883,15 +884,15 @@ class Horde_Form_Type_file extends Horde_Form_Type {
     function getInfo(&$vars, &$var, &$info)
     {
         $name = $var->getVarName();
-        $uploaded = Horde_Browser::wasFileUploaded($name);
-        if ($uploaded === true) {
+        try {
+            Horde_Browser::wasFileUploaded($name);
             $info['name'] = Horde_Util::dispelMagicQuotes($_FILES[$name]['name']);
             $info['type'] = $_FILES[$name]['type'];
             $info['tmp_name'] = $_FILES[$name]['tmp_name'];
             $info['file'] = $_FILES[$name]['tmp_name'];
             $info['error'] = $_FILES[$name]['error'];
             $info['size'] = $_FILES[$name]['size'];
-        }
+        } catch (Horde_Browser_Exception $e) {}
     }
 
     /**
@@ -964,7 +965,7 @@ class Horde_Form_Type_image extends Horde_Form_Type {
          * value of the form. */
         if ($vars->get('_do_' . $var->getVarName())) {
             $var->form->setSubmitted(false);
-            if (is_a($this->_uploaded, 'PEAR_Error')) {
+            if ($this->_uploaded instanceof Horde_Browser_Exception) {
                 $this->_img = array('hash' => $this->getRandomId(),
                                     'error' => $this->_uploaded->getMessage());
             }
@@ -978,7 +979,7 @@ class Horde_Form_Type_image extends Horde_Form_Type {
         $field = $vars->get($var->getVarName());
 
         /* The upload generated a PEAR Error. */
-        if (is_a($this->_uploaded, 'PEAR_Error')) {
+        if ($this->_uploaded instanceof Horde_Browser_Exception) {
             /* Not required and no image upload attempted. */
             if (!$var->isRequired() && empty($field['hash']) &&
                 $this->_uploaded->getCode() == UPLOAD_ERR_NO_FILE) {
@@ -1030,7 +1031,7 @@ class Horde_Form_Type_image extends Horde_Form_Type {
             $info['keep_orig'] = !empty($value['keep_orig']);
         }
 
-        /* Set the uploaded value (either true or PEAR_Error). */
+        /* Set the uploaded value (either true or Horde_Browser_Exception). */
         $info['uploaded'] = &$this->_uploaded;
 
         /* If a modified file exists move it over the original. */
@@ -1071,9 +1072,11 @@ class Horde_Form_Type_image extends Horde_Form_Type {
 
         /* Check if file has been uploaded. */
         $varname = $var->getVarName();
-        $this->_uploaded = Horde_Browser::wasFileUploaded($varname . '[new]');
 
-        if ($this->_uploaded === true) {
+        try {
+            Horde_Browser::wasFileUploaded($varname . '[new]');
+            $this->_uploaded = true;
+
             /* A file has been uploaded on this submit. Save to temp dir for
              * preview work. */
             $this->_img['img']['type'] = $this->getUploadedFileType($varname . '[new]');
@@ -1112,7 +1115,9 @@ class Horde_Form_Type_image extends Horde_Form_Type {
             /* Move the browser created temp file to the new temp file. */
             move_uploaded_file($this->_img['img']['file'], $tmp_file);
             $this->_img['img']['file'] = basename($tmp_file);
-        } elseif ($this->_uploaded) {
+        } catch (Horde_Browser_Exception $e) {
+            $this->_uploaded = $e;
+
             /* File has not been uploaded. */
             $upload = $vars->get($var->getVarName());
             if ($this->_uploaded->getCode() == 4 &&

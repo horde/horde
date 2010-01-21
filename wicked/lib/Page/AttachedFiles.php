@@ -212,9 +212,11 @@ class AttachedFiles extends Page {
         if (empty($filename)) {
             $filename = Horde_Util::dispelMagicQuotes($_FILES['attachment_file']['name']);
         }
-        $result = Horde_Browser::wasFileUploaded('attachment_file', _("attachment"));
-        if (is_a($result, 'PEAR_Error')) {
-            $notification->push($result, 'horde.error');
+
+        try {
+            Horde_Browser::wasFileUploaded('attachment_file', _("attachment"));
+        } catch (Horde_Browser_Exception $e) {
+            $notification->push($e, 'horde.error');
             return;
         }
 

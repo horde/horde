@@ -108,16 +108,18 @@ case 'upload_file':
         for ($i = 1, $l = count($_FILES); $i <= $l; ++$i) {
             $val = 'file_upload_' . $i;
             if (isset($_FILES[$val]) && ($_FILES[$val]['error'] != 4)) {
-                $res = Browser::wasFileUploaded($val);
-                if (!is_a($res, 'PEAR_Error')) {
+                try {
+                    Horde_Browser::wasFileUploaded($val);
                     $filename = Horde_Util::dispelMagicQuotes($_FILES[$val]['name']);
                     $res = Gollem::writeFile($old_dir, $filename, $_FILES[$val]['tmp_name']);
-                }
-                if (is_a($res, 'PEAR_Error')) {
-                    $notification->push($res, 'horde.error');
-                } else {
-                    Gollem::expireCache($old_dir);
-                    $notification->push(sprintf(_("File received: %s"), $filename), 'horde.success');
+                    if (is_a($res, 'PEAR_Error')) {
+                        $notification->push($res, 'horde.error');
+                    } else {
+                        Gollem::expireCache($old_dir);
+                        $notification->push(sprintf(_("File received: %s"), $filename), 'horde.success');
+                    }
+                } catch (Horde_Browser_Exception $e) {
+                    $notification->push($e, 'horde.error');
                 }
             }
         }

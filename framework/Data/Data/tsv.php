@@ -183,9 +183,10 @@ class Horde_Data_tsv extends Horde_Data {
 
             /* Move uploaded file so that we can read it again in the next step
                after the user gave some format details. */
-            $uploaded = Horde_Browser::wasFileUploaded('import_file', _("TSV file"));
-            if (is_a($uploaded, 'PEAR_Error')) {
-                return PEAR::raiseError($uploaded->getMessage());
+            try {
+                Horde_Browser::wasFileUploaded('import_file', _("TSV file"));
+            } catch (Horde_Browser_Exception $e) {
+                return PEAR::raiseError($e->getMessage());
             }
             $file_name = Horde::getTempFile('import', false);
             if (!move_uploaded_file($_FILES['import_file']['tmp_name'], $file_name)) {

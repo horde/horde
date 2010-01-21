@@ -312,9 +312,10 @@ class Horde_Data extends PEAR {
         case self::IMPORT_FILE:
             /* Sanitize uploaded file. */
             $import_format = Horde_Util::getFormData('import_format');
-            $check_upload = Horde_Browser::wasFileUploaded('import_file', $param['file_types'][$import_format]);
-            if (is_a($check_upload, 'PEAR_Error')) {
-                return $check_upload;
+            try {
+                Horde_Browser::wasFileUploaded('import_file', $param['file_types'][$import_format]);
+            } catch (Horde_Exception ($e) {
+                PEAR::raiseError($e->getMessage());
             }
             if ($_FILES['import_file']['size'] <= 0) {
                 return PEAR::raiseError(_("The file contained no data."));

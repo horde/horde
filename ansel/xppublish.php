@@ -178,23 +178,26 @@ if ($cmd == 'add') {
     }
     if (!$name || $error) {
         $error = _("No file specified");
-    } elseif (is_a($result = Horde_Browser::wasFileUploaded('imagefile', _("photo")), 'PEAR_Error')) {
-        $error = $result->getMessage();
     } else {
-        $image = &Ansel::getImageFromFile($file, array('image_filename' => $name));
-        if (is_a($image, 'PEAR_Error')) {
-            $error = $image->getMessage();
-        }  else {
-            $gallery = $ansel_storage->getGallery($galleryId);
-            $image_id = $gallery->addImage($image);
-            if (is_a($image_id, 'PEAR_Error')) {
-                $error = _("There was a problem uploading the photo.");
+        try {
+            Horde_Browser::wasFileUploaded('imagefile', _("photo"));
+            $image = &Ansel::getImageFromFile($file, array('image_filename' => $name));
+            if (is_a($image, 'PEAR_Error')) {
+                $error = $image->getMessage();
             } else {
-                $error = false;
+                $gallery = $ansel_storage->getGallery($galleryId);
+                $image_id = $gallery->addImage($image);
+                if (is_a($image_id, 'PEAR_Error')) {
+                    $error = _("There was a problem uploading the photo.");
+                } else {
+                    $error = false;
+                }
+                if (is_a($image_id, 'PEAR_Error')) {
+                    $image_id = $image_id->getMessage();
+                }
             }
-            if (is_a($image_id, 'PEAR_Error')) {
-                $image_id = $image_id->getMessage();
-            }
+        } catch (Horde_Browser_Exception $e) {
+            $error = $e->getMessage();
         }
     }
 

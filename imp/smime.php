@@ -42,13 +42,12 @@ function _getImportKey()
         return $key;
     }
 
-    $res = $GLOBALS['browser']->wasFileUploaded('upload_key', _("key"));
-    if ($res instanceof PEAR_Error) {
-        $GLOBALS['notification']->push($res, 'horde.error');
-        return;
+    try {
+        $GLOBALS['browser']->wasFileUploaded('upload_key', _("key"));
+        return file_get_contents($_FILES['upload_key']['tmp_name']);
+    } catch (Horde_Browser_Exception $e) {
+        $GLOBALS['notification']->push($e, 'horde.error');
     }
-
-    return file_get_contents($_FILES['upload_key']['tmp_name']);
 }
 
 function _actionWindow()

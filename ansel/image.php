@@ -188,19 +188,21 @@ case 'save':
     if ($form->validate($vars)) {
          $form->getInfo($vars, $info);
         /* See if we were replacing photo */
-        if (!empty($info['file0']['file']) &&
-            !is_a(Horde_Browser::wasFileUploaded('file0'), 'PEAR_Error') &&
-            filesize($info['file0']['file'])) {
+        if (!empty($info['file0']['file'])) {
+            try {
+                Horde_Browser::wasFileUploaded('file0');
+                if (filesize($info['file0']['file'])) {
+                    /* Read in the uploaded data. */
+                    $data = file_get_contents($info['file0']['file']);
 
-            /* Read in the uploaded data. */
-            $data = file_get_contents($info['file0']['file']);
-
-            /* Try and make sure the image is in a recognizeable
-             * format. */
-            if (getimagesize($info['file0']['file']) === false) {
-                $notification->push(_("The file you uploaded does not appear to be a valid photo."), 'horde.error');
-                unset($data);
-            }
+                    /* Try and make sure the image is in a recognizeable
+                     * format. */
+                    if (getimagesize($info['file0']['file']) === false) {
+                        $notification->push(_("The file you uploaded does not appear to be a valid photo."), 'horde.error');
+                        unset($data);
+                    }
+                }
+            } catch (Horde_Browser_Exception $e) {}
         }
 
         $image = &$ansel_storage->getImage($image_id);

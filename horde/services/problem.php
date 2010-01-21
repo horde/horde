@@ -53,14 +53,14 @@ case 'send_problem_report':
         /* Check for attachments. */
         $attachment = null;
         if (!empty($conf['problems']['attachments'])) {
-            $result = Horde_Browser::wasFileUploaded('attachment', _("attachment"));
-            if (is_a($result, 'PEAR_Error')) {
-                if ($result->getCode() != UPLOAD_ERR_NO_FILE) {
-                    $notification->push($result, 'horde.error');
+            try {
+                Horde_Browser::wasFileUploaded('attachment', _("attachment"));
+                $attachment = $_FILES['attachment'];
+            } catch (Horde_Browser_Exception $e) {
+                if ($e->getCode() != UPLOAD_ERR_NO_FILE) {
+                    $notification->push($e, 'horde.error');
                     break;
                 }
-            } else {
-                $attachment = $_FILES['attachment'];
             }
         }
 
