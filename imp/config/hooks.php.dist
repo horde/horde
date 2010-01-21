@@ -106,6 +106,25 @@ class IMP_Hooks
 //    }
 
     /**
+     * AJAX HOOK: Add user-defined AJAX action handlers.
+     *
+     * @param string $action         The AJAX action.
+     * @param Horde_Variables $vars  The URL parameters.
+     *
+     * @return mixed  The data to send to the browser (will be JSON encoded).
+     * @throws Horde_Ajax_Exception
+     */
+//     function ajaxaction($action, $vars)
+//     {
+//        switch ($action) {
+//        case 'Foo':
+//            return 'bar';
+//        }
+//
+//        throw new Horde_Ajax_Exception('Unknown action');
+//     }
+
+    /**
      * Perform an action after a message has been sent successfully.
      *
      * @param Horde_Mime_Part $message  The message content object.

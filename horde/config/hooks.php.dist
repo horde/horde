@@ -115,6 +115,26 @@
  * This hook is used to do any local processing necessary to initialize an
  * application. It is passed no parameters and expects no return value.
  *
+ *
+ * AJAX Hooks
+ * ==========
+ * These are hookos that are available in any application that has an AJAX
+ * interface configured.
+ *
+ * ajaxaction
+ * ----------
+ * This hook is used to add user-defined AJAX action handlers to an
+ * application.
+ *
+ * Parameters in:
+ *   $action (string): The AJAX action.
+ *   $vars (Horde_Variables): The URL parameters.
+ *
+ * The return value from this hook is as follows:
+ *   [throw Horde_Ajax_Exception] - Fatal error.
+ *   [mixed] - The data to send to the browser (will be JSON encoded).
+ *
+ *
  * TODO: groupldap, share_add, share_modify, share_remove
  *
  * $Id$

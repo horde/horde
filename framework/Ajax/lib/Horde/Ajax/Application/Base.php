@@ -65,9 +65,17 @@ abstract class Horde_Ajax_Application_Base
             return false;
         }
 
+        $vars = Horde_Variables::getDefaultVariables();
+
         if (method_exists($this, $this->_action)) {
-            return call_user_func(array($this, $this->_action), Horde_Variables::getDefaultVariables());
+            return call_user_func(array($this, $this->_action), $vars);
         }
+
+        /* Look for hook in application. */
+        try {
+            return Horde::callHook('ajaxaction', array($this->_action, $vars), $this->_app);
+        } catch (Horde_Exception_HookNotSet $e) {
+        } catch (Horde_Ajax_Exception $e) {}
 
         throw new Horde_Ajax_Exception('Handler for action "' . $this->_action . '" does not exist.');
     }
