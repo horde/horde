@@ -161,6 +161,7 @@ class Shout_Driver_Sql extends Shout_Driver
             $details['callerid'],
             $details['mailbox'],
             $details['password'],
+            $context,
             $details['alias'],
         );
         if (!empty($devid)) {
@@ -168,13 +169,15 @@ class Shout_Driver_Sql extends Shout_Driver
             $details['name'] = $details['devid'];
             $sql = 'UPDATE %s SET name = ?, accountcode = ?, callerid = ?, ' .
                    'mailbox = ?, secret = ?, alias = ?, canreinvite = "no", ' .
-                   'nat = "yes", type = "peer" WHERE name = ?';
+                   'nat = "yes", type = "peer", host = "dynamic", ' .
+                   'context = ? WHERE name = ?';
             $args[] = $devid;
         } else {
             // This is an add.  Generate a new unique ID and secret
             $sql = 'INSERT INTO %s (name, accountcode, callerid, mailbox, ' .
-                   'secret, alias, canreinvite, nat, type) ' .
-                   'VALUES (?, ?, ?, ?, ?, ?, "no", "yes", "peer")';
+                   'secret, context, alias, canreinvite, nat, type, host) ' .
+                   'VALUES (?, ?, ?, ?, ?, ?, ?, "no", "yes", "peer", ' .
+                   '"dynamic")';
 
         }
         $sql = sprintf($sql, $this->_params['table']);
