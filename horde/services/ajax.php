@@ -48,13 +48,6 @@ try {
     Horde_Auth::authenticateFailure($app, $e);
 }
 
-// Handle logout requests. This needs to be done here, rather than on the
-// browser, because the logout tokens might otherwise expire.
-if ($action == 'LogOut') {
-    Horde::redirect(str_replace('&amp;', '&', Horde::getServiceLink('logout', $app)));
-    exit;
-}
-
 // Open an output buffer to ensure that we catch errors that might break JSON
 // encoding.
 ob_start();

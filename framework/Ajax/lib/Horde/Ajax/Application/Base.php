@@ -13,6 +13,13 @@
 abstract class Horde_Ajax_Application_Base
 {
     /**
+     * The Horde application.
+     *
+     * @var string
+     */
+    protected $_app;
+
+    /**
      * The action to perform.
      *
      * @var string
@@ -29,10 +36,13 @@ abstract class Horde_Ajax_Application_Base
     /**
      * Constructor.
      *
+     * @param string $app     The application name.
      * @param string $action  The AJAX action to perform.
      */
-    public function __construct($action = null)
+    public function __construct($app, $action = null)
     {
+        $this->_app = $app;
+
         if (!is_null($action)) {
             /* Close session if action is labeled as read-only. */
             if (in_array($action, $this->_readOnly)) {
@@ -56,7 +66,7 @@ abstract class Horde_Ajax_Application_Base
         }
 
         if (method_exists($this, $this->_action)) {
-        return call_user_func(array($this, $this->_action), Horde_Variables::getDefaultVariables());
+            return call_user_func(array($this, $this->_action), Horde_Variables::getDefaultVariables());
         }
 
         throw new Horde_Ajax_Exception('Handler for action "' . $this->_action . '" does not exist.');
@@ -71,6 +81,20 @@ abstract class Horde_Ajax_Application_Base
     public function notificationHandler()
     {
         return null;
+    }
+
+    /**
+     * AJAX action: Logout.
+     *
+     * This needs to be done here (server), rather than on the browser,
+     * because the logout tokens might otherwise expire.
+     *
+     * @param Horde_Variables $vars  None used.
+     */
+    public function LogOut($vars)
+    {
+        Horde::redirect(str_replace('&amp;', '&', Horde::getServiceLink('logout', $this->_app)));
+        exit;
     }
 
 }

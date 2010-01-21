@@ -27,7 +27,7 @@ class Horde_Ajax
         $class = $app . '_Ajax_Application';
 
         if (class_exists($class)) {
-            return new $class($action);
+            return new $class($app, $action);
         }
 
         throw new Horde_Ajax_Exception('Ajax configuration for ' . $app . ' not found.');
