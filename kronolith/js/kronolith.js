@@ -578,7 +578,10 @@ KronolithCore = {
     closeView: function(loc)
     {
         [ 'Day', 'Week', 'Month', 'Year', 'Tasks', 'Agenda' ].each(function(a) {
-            $('kronolithNav' + a).removeClassName('on');
+            a = $('kronolithNav' + a);
+            if (a) {
+                a.removeClassName('on');
+            }
         });
         if (this.view && this.view != loc) {
             $('kronolithView' + this.view.capitalize()).fade({ 'queue': 'end' });
@@ -3763,12 +3766,8 @@ KronolithCore = {
             }
         });
 
-        $('kronolithEventStartDate').observe('blur', this.checkDate.bind(this));
-        $('kronolithEventEndDate').observe('blur', this.checkDate.bind(this));
-        $('kronolithTaskDueDate').observe('blur', this.checkDate.bind(this));
-        $('kronolithEventStartTime').observe('blur', this.checkTime.bind(this));
-        $('kronolithEventEndTime').observe('blur', this.checkTime.bind(this));
-        $('kronolithTaskDueTime').observe('blur', this.checkTime.bind(this));
+        $('kronolithEventStartDate', 'kronolithEventEndDate', 'kronolithTaskDueDate').compact().invoke('observe', 'blur', this.checkDate.bind(this));
+        $('kronolithEventStartTime', 'kronolithEventEndTime', 'kronolithTaskDueTime').compact().invoke('observe', 'blur', this.checkTime.bind(this));
 
         // Mouse wheel handler.
         [ 'kronolithEventStartDate', 'kronolithEventEndDate' ].each(function(field) {
