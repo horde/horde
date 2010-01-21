@@ -398,10 +398,6 @@ var DimpCore = {
             id = elt.readAttribute('id');
 
             switch (id) {
-            case 'msg_print':
-                window.print();
-                break;
-
             case 'largeaddrspan_active':
                 tmp = elt.down();
                 if (!tmp.next().visible() ||

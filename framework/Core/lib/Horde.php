@@ -2247,9 +2247,12 @@ HTML;
      *            DEFAULT: 650 px
      * 'menu' - (boolean) Show the browser menu in the popup window?
      *          DEFAULT: false
+     * 'onload' - (string) A JS function to call after the popup window is
+     *            fully loaded.
+     *            DEFAULT: None
      * 'params' - (array) Additional parameters to pass to the URL.
      *            DEFAULT: None
-     * 'urlencode' - (boolean) URL encode the json string
+     * 'urlencode' - (boolean) URL encode the json string?
      *               DEFAULT: No
      * 'width' - (integer) The width of the popup window.
      *           DEFAULT: 700 px
@@ -2278,14 +2281,17 @@ HTML;
         if (!empty($options['height'])) {
             $params->height = $options['height'];
         }
-        if (!empty($options['width'])) {
-            $params->width = $options['width'];
+        if (!empty($options['menu'])) {
+            $params->menu = 1;
+        }
+        if (!empty($options['onload'])) {
+            $params->onload = $options['onload'];
         }
         if (!empty($options['params'])) {
             $params->params = http_build_query(array_map('rawurlencode', $options['params']));
         }
-        if (!empty($options['menu'])) {
-            $params->menu = 1;
+        if (!empty($options['width'])) {
+            $params->width = $options['width'];
         }
 
         return 'Horde.popup(' . self::escapeJson($params, array('urlencode' => !empty($options['urlencode']))) . ');';

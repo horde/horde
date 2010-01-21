@@ -15,6 +15,7 @@ window.Horde = window.Horde || {};
  * @param object $opts   The following params:
  * 'height' - The height of the popup window. (Default: 650 px)
  * 'menu' - Show the browser menu in the popup? (Default: no)
+ * 'onload' - A function to call when the window is loaded. (Default: none)
  * 'params' - Any additional params to pass to the script. (Default: no args)
  * 'width' - The width of the popup window. (Default: 700 px)
  * 'url' - The URL to open in the popup window.
@@ -47,9 +48,14 @@ Horde.popup = function(opts)
     params.set('uniq', name);
 
     win = window.open(url + '?' + params.toQueryString(), name, 'menubar=' + menu + ',toolbar=no,location=no,status=yes,scrollbars=yes,resizable=yes,width=' + width + ',height=' + height + ',left=0,top=0');
+
     if (!win) {
         alert(Horde.popup_block_text);
     } else {
+        if (opts.onload) {
+            opts.onload = eval(opts.onload);
+            win.onload = opts.onload.curry(win);
+        }
         if (Object.isUndefined(win.name)) {
             win.name = name;
         }

@@ -110,6 +110,12 @@ document.observe('dom:loaded', function() {
          }
     };
 
+    IMP.printWindow = function(win)
+    {
+        win.print();
+        win.close();
+    };
+
     // If menu is present, attach event handlers to folder switcher.
     var tmp = $('openfoldericon');
     if (tmp) {

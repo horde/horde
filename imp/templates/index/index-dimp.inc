@@ -236,12 +236,6 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
            <a><?php echo _("Open in new window") ?></a>
           </span>
          </div>
-         <div>
-          <span id="msg_print">
-           <span class="iconImg"></span>
-           <a><?php echo _("Print") ?></a>
-          </span>
-         </div>
 <?php if (!empty($conf['user']['allow_view_source'])): ?>
          <div>
           <span id="msg_view_source">

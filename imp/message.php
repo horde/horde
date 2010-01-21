@@ -528,8 +528,6 @@ if (!$disable_compose &&
 $imp_params = IMP::getIMPMboxParameters($imp_mbox['mailbox'], $uid, $mailbox_name);
 $a_template->set('save_as', Horde::widget(Horde::downloadUrl($subject, array_merge(array('actionID' => 'save_message'), $imp_params)), _("Save as"), 'widget', '', '', _("Sa_ve as"), 2));
 
-$a_template->set('print', Horde::widget('#', _("Print"), 'widget printAction', '', '', _("_Print"), true));
-
 if ($conf['spam']['reporting'] &&
     ($conf['spam']['spamfolder'] ||
      ($mailbox_name != IMP::folderPref($prefs->getValue('spam_folder'), true)))) {
@@ -576,7 +574,7 @@ foreach ($all_list_headers as $head => $val) {
 
 /* Determine the fields that will appear in the MIME info entries. */
 $part_info = $part_info_display = array('icon', 'description', 'size');
-$part_info_action = array('download', 'download_zip', 'img_save', 'strip');
+$part_info_action = array('download', 'download_zip', 'img_save', 'strip', 'print');
 
 $show_parts = Horde_Util::getFormData('show_parts', $prefs->getValue('parts_display'));
 $strip_atc = $prefs->getValue('strip_attachments');
@@ -588,7 +586,8 @@ $contents_mask = IMP_Contents::SUMMARY_BYTES |
     IMP_Contents::SUMMARY_DESCRIP_LINK |
     IMP_Contents::SUMMARY_DOWNLOAD |
     IMP_Contents::SUMMARY_DOWNLOAD_ZIP |
-    IMP_Contents::SUMMARY_IMAGE_SAVE;
+    IMP_Contents::SUMMARY_IMAGE_SAVE |
+    IMP_Contents::SUMMARY_PRINT;
 if (!$readonly && $strip_atc) {
     $contents_mask |= IMP_Contents::SUMMARY_STRIP_LINK;
 }
@@ -643,15 +642,6 @@ if (!empty($inlineout['atc_parts'])) {
         'class' => 'msgheaderParts',
         'name' => ($show_parts == 'all') ? _("Parts") : _("Attachments"),
         'val' => '<table>' . implode('', $tmp) . '</table>',
-        'i' => (++$i % 2)
-    );
-}
-
-if (!empty($conf['print']['add_printedby'])) {
-    $hdrs[] = array(
-        'class' => 'printedby',
-        'name' => _("Printed By"),
-        'val' => $user_identity->getFullname() ? $user_identity->getFullname() : Horde_Auth::getAuth(),
         'i' => (++$i % 2)
     );
 }

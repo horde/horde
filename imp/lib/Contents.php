@@ -24,7 +24,8 @@ class IMP_Contents
     const SUMMARY_DOWNLOAD_NOJS = 128;
     const SUMMARY_DOWNLOAD_ZIP = 256;
     const SUMMARY_IMAGE_SAVE = 512;
-    const SUMMARY_STRIP_LINK = 1024;
+    const SUMMARY_PRINT = 1024;
+    const SUMMARY_STRIP_LINK = 2048;
 
     /* Rendering mask entries. */
     const RENDER_FULL = 1;
@@ -601,6 +602,9 @@ class IMP_Contents
      * IMP_Contents::SUMMARY_IMAGE_SAVE
      *   Output: parts = 'img_save'
      *
+     * IMP_Contents::SUMMARY_PRINT
+     *   Output: parts = 'print'
+     *
      * IMP_Contents::SUMMARY_STRIP_LINK
      *   Output: parts = 'strip'
      * </pre>
@@ -694,6 +698,11 @@ class IMP_Contents
             $GLOBALS['registry']->hasMethod('images/selectGalleries') &&
             ($mime_part->getPrimaryType() == 'image')) {
             $part['img_save'] = Horde::link('#', _("Save Image in Gallery"), 'saveImgAtc', null, Horde::popupJs(Horde::applicationUrl('saveimage.php'), array('params' => array('uid' => ($this->_uid . IMP::IDX_SEP . $this->_mailbox), 'id' => $id), 'height' => 200, 'width' => 450)) . 'return false;') . '</a>';
+        }
+
+        /* Add print link? */
+        if ($mask && self::SUMMARY_PRINT) {
+            $part['print'] = $this->linkViewJS($mime_part, 'view_attach', '', array('css' => 'printAtc', 'onload' => 'IMP.printWindow', 'jstext' => _("Print"), 'params' => $param_array));
         }
 
         /* Strip Attachment? Allow stripping of base parts other than the
@@ -795,6 +804,8 @@ class IMP_Contents
      * <pre>
      * 'css' - (string) The CSS class to use.
      * 'jstext' - (string) The javascript link text.
+     * 'onload' - (string) A JS function to run when popup window is
+     *            fully loaded.
      * 'params' - (array) A list of any additional parameters that need to be
      *            passed to view.php. (key = name)
      * 'widget' - (boolean) If true use Horde::widget() to generate,
@@ -814,7 +825,7 @@ class IMP_Contents
             $options['jstext'] = sprintf(_("View %s"), $mime_part->getDescription(true));
         }
 
-        $url = Horde::popupJs(Horde::applicationUrl('view.php'), array('menu' => true, 'params' => $this->_urlViewParams($mime_part, $actionID, isset($options['params']) ? $options['params'] : array()), 'urlencode' => true)) . 'return false;';
+        $url = Horde::popupJs(Horde::applicationUrl('view.php'), array('menu' => true, 'onload' => empty($options['onload']) ? '' : $options['onload'], 'params' => $this->_urlViewParams($mime_part, $actionID, isset($options['params']) ? $options['params'] : array()), 'urlencode' => true)) . 'return false;';
 
         return empty($options['widget'])
             ? Horde::link('#', $options['jstext'], empty($options['css']) ? null : $options['css'], null, $url) . $text . '</a>'

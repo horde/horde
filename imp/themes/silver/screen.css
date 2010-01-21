@@ -88,3 +88,7 @@ span.trashImg {
 .reloadImg {
     background-image: url("graphics/reload.png");
 }
+
+.printAtc {
+    background-image: url("graphics/print.png");
+}

@@ -30,12 +30,6 @@
    <div class="msgHeaders">
     <div id="msgHeaders">
      <div class="dimpOptions">
-      <div>
-       <span id="msg_print">
-        <span class="iconImg"></span>
-        <a><?php echo _("Print") ?></a>
-       </span>
-      </div>
 <?php if (!empty($conf['user']['allow_view_source'])): ?>
       <div>
        <span id="msg_view_source">

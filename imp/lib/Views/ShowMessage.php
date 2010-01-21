@@ -251,9 +251,10 @@ class IMP_Views_ShowMessage
             IMP_Contents::SUMMARY_ICON |
             IMP_Contents::SUMMARY_DESCRIP_LINK |
             IMP_Contents::SUMMARY_DOWNLOAD |
-            IMP_Contents::SUMMARY_DOWNLOAD_ZIP;
+            IMP_Contents::SUMMARY_DOWNLOAD_ZIP |
+            IMP_Contents::SUMMARY_PRINT;
 
-        $part_info = $part_info_display = array('icon', 'description', 'size', 'download', 'download_zip');
+        $part_info = $part_info_display = array('icon', 'description', 'size', 'download', 'download_zip', 'print');
 
         /* Do MDN processing now. */
         if ($imp_ui->MDNCheck($mailbox, $uid, $mime_headers)) {

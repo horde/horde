@@ -58,11 +58,6 @@
     margin-left: 3px;
 }
 
-/* Message view styling. */
-#msgheaders tr.printedby {
-    display: none;
-}
-
 /* Newmail alerts. */
 #newmail {
     padding: 1em;
@@ -597,7 +592,7 @@ div.mimeStatusMessage, div.mimePartInfo {
     border-color: #ffd0af;
 }
 
-.downloadAtc, .downloadZipAtc, .saveImgAtc, .closeImg, .deleteImg, .foldersImg, .searchuiImg, .reloadImg {
+.downloadAtc, .downloadZipAtc, .saveImgAtc, .printAtc, .closeImg, .deleteImg, .foldersImg, .searchuiImg, .reloadImg {
     display: -moz-inline-stack;
     display: inline-block;
     height: 16px;
@@ -615,6 +610,9 @@ div.mimeStatusMessage, div.mimePartInfo {
 }
 .downloadZipAtc {
     background-image: url("graphics/mime/compressed.png");
+}
+.printAtc {
+    background-image: url("graphics/print.png");
 }
 .saveImgAtc {
     background-image: url("graphics/gallery.png");
@@ -636,30 +634,4 @@ div.mimeStatusMessage, div.mimePartInfo {
 
 #itipconflicts tr.itipnearcollision {
     background-color: #ee0;
-}
-
-
-/* Print CSS rules. */
-@media print {
-    body {
-        background: #fff;
-    }
-
-    a, a:visited {
-        color: #000;
-    }
-
-    #msgheaders tr.printedby {
-        display: table-row !important;
-    }
-
-    .label {
-        min-width: 60px;
-        text-align: right;
-        font-weight: bold;
-    }
-
-    #msgHeadersColl, .context, .address img, .mimeStatusMessage, .largeaddrlist, #msgAtc, table.msgActionTable, #messages h1.header, table.navbaractions, td.msgheader img, tr.msgheaderParts, .downloadAtc, .downloadZipAtc {
-        display: none !important;
-    }
 }

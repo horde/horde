@@ -160,9 +160,6 @@ span.dimpactionDrafts {
 #msg_newwin span.iconImg, #msg_newwin_options span.iconImg {
     background-image: url("graphics/newwin.png");
 }
-#msg_print span.iconImg {
-    background-image: url("graphics/print.png");
-}
 
 #qsearch_icon {
     background-image: url("graphics/search.png");

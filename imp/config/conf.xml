@@ -137,12 +137,6 @@
     <case name="false" desc="No" />
    </configswitch>
   </configsection>
-
-  <configsection name="print">
-   <configheader>Print Options</configheader>
-   <configboolean name="add_printedby" desc="Should we add a &quot;Printed
-   By&quot; header to the top of all printed messages?">false</configboolean>
-  </configsection>
  </configtab>
 
  <configtab name="compose" desc="Compose">

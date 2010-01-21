@@ -169,8 +169,6 @@ var ImpMessage = {
                     this.submit('spam_report');
                 } else if (elt.hasClassName('notspamAction')) {
                     this.submit('notspam_report');
-                } else if (elt.hasClassName('printAction')) {
-                    window.print();
                 }
             } else if (elt.hasClassName('unblockImageLink')) {
                 IMP.unblockImages(e);
