@@ -61,6 +61,7 @@ class Shout_Driver_Ldap extends Shout_Driver
 
         $filter  = '(&';
         $filter .= '(objectClass=AsteriskVoiceMail)';
+        $filter .= '(objectClass=AsteriskUser)';
         $filter .= '(AstContext='.$context.')';
         $filter .= ')';
 
@@ -72,7 +73,7 @@ class Shout_Driver_Ldap extends Shout_Driver
             'AstVoicemailOptions',
             'AstVoicemailPager',
             'telephoneNumber',
-            'AstExtension'
+            'AstUserChannel'
         );
 
         $search = ldap_search($this->_LDAP, $this->_params['basedn'], $filter, $attributes);
@@ -131,12 +132,12 @@ class Shout_Driver_Ldap extends Shout_Driver
 
             $j = 0;
             $entries[$context][$extension]['devices'] = array();
-            if (empty($res[$i]['astextension']['count'])) {
-                $res[$i]['astextension']['count'] = -1;
+            if (empty($res[$i]['astuserchannel']['count'])) {
+                $res[$i]['astuserchannel']['count'] = -1;
             }
-            while ($j < $res[$i]['astextension']['count']) {
+            while ($j < $res[$i]['astuserchannel']['count']) {
                 // Trim off the Asterisk channel type from the device string
-                $device = explode('/', $res[$i]['astextension'][$j], 2);
+                $device = explode('/', $res[$i]['astuserchannel'][$j], 2);
                 $entries[$context][$extension]['devices'][] = $device[1];
                 $j++;
             }
@@ -192,7 +193,7 @@ class Shout_Driver_Ldap extends Shout_Driver
         $filter = '(&(AstContext=%s)(AstVoicemailMailbox=%s))';
         $filter = sprintf($filter, $context, $extension);
 
-        $attrs = array('telephoneNumber', 'AstExtensions');
+        $attrs = array('telephoneNumber', 'AstUserChannel');
 
         $res = ldap_search($this->_LDAP, $this->_params['basedn'],
                            $filter, $attrs);
@@ -221,7 +222,7 @@ class Shout_Driver_Ldap extends Shout_Driver
         }
 
         return array('numbers' => $res['telephonenumbers'],
-                     'devices' => $res['astextensions']);
+                     'devices' => $res['astuserchannel']);
     }
 
     function deleteDestination($context, $extension, $type, $destination)
@@ -253,7 +254,7 @@ class Shout_Driver_Ldap extends Shout_Driver
             // FIXME: Check that the device is valid and associated with this
             // context.
             // FIXME: Allow for different device types
-            $attr = array('AstExtension' => "SIP/" . $destination);
+            $attr = array('AstUserChannel' => "SIP/" . $destination);
             break;
 
         default:
@@ -301,7 +302,8 @@ class Shout_Driver_Ldap extends Shout_Driver
         // FIXME: Quote these strings
         $uid = $extension . '@' . $context;
         $entry = array(
-            'objectClass' => array('top', 'account', 'AsteriskVoicemail'),
+            'objectClass' => array('top', 'account',
+                                   'AsteriskVoicemail', 'AsteriskUser'),
             'uid' => $uid,
             'cn' => $details['name'],
             'AstVoicemailEmail' => $details['email'],
