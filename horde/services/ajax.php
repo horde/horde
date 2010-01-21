@@ -41,7 +41,7 @@ try {
         $notification = Horde_Notification::singleton();
 
         $notification->push(str_replace('&amp;', '&', Horde_Auth::getLogoutUrl(array('reason' => Horde_Auth::REASON_SESSION))), 'horde.ajaxtimeout', array('content.raw'));
-        Horde::sendHTTPResponse(Horde::prepareResponse(null, $ajax->notificationHandler()), 'json');
+        Horde::sendHTTPResponse(Horde::prepareResponse(null, $ajax->notificationHandler()), $ajax->responseType());
         exit;
     }
 
@@ -62,4 +62,4 @@ if (ob_get_length()) {
 }
 
 // Send the final result.
-Horde::sendHTTPResponse(Horde::prepareResponse($result, $ajax->notificationHandler()), 'json');
+Horde::sendHTTPResponse(Horde::prepareResponse($result, $ajax->notificationHandler()), $ajax->responseType());

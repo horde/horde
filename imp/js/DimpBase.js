@@ -725,7 +725,7 @@ var DimpBase = {
         case 'ctx_vfolder_delete':
             tmp = baseelt.up('LI');
             if (window.confirm(DIMP.text.delete_folder.replace(/%s/, tmp.readAttribute('title')))) {
-                DimpCore.doAction('DeleteMailbox', { mbox: tmp.retrieve('mbox') }, { callback: this._mailboxCallback.bind(this) });
+                DimpCore.doAction('DeleteMailbox', { mbox: tmp.retrieve('mbox') }, { callback: this.mailboxCallback.bind(this) });
             }
             break;
 
@@ -1582,7 +1582,7 @@ var DimpBase = {
             dropbase = (drop == $('dropbase'));
             if (dropbase ||
                 (ftype != 'special' && !this.isSubfolder(drag, drop))) {
-                DimpCore.doAction('RenameMailbox', { old_name: drag.retrieve('mbox'), new_parent: dropbase ? '' : foldername, new_name: drag.retrieve('l') }, { callback: this._mailboxCallback.bind(this) });
+                DimpCore.doAction('RenameMailbox', { old_name: drag.retrieve('mbox'), new_parent: dropbase ? '' : foldername, new_name: drag.retrieve('l') }, { callback: this.mailboxCallback.bind(this) });
             }
         } else if (ftype != 'container') {
             sel = this.viewport.getSelected();
@@ -2204,13 +2204,13 @@ var DimpBase = {
             }
 
             if (action) {
-                DimpCore.doAction(action, params, { callback: this._mailboxCallback.bind(this) });
+                DimpCore.doAction(action, params, { callback: this.mailboxCallback.bind(this) });
             }
         }
     },
 
     /* Mailbox action callback functions. */
-    _mailboxCallback: function(r)
+    mailboxCallback: function(r)
     {
         r = r.response.mailbox;
 
@@ -2297,7 +2297,7 @@ var DimpBase = {
 
     _folderLoadCallback: function(r, callback)
     {
-        this._mailboxCallback(r);
+        this.mailboxCallback(r);
 
         if (callback) {
             callback();

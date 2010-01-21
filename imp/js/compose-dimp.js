@@ -194,9 +194,9 @@ var DimpCompose = {
             this.skip_spellcheck = true;
         }
 
-        if (action == 'send_message' || action == 'save_draft') {
+        if (action == 'SendMessage' || action == 'SaveDraft') {
             switch (action) {
-            case 'send_message':
+            case 'SendMessage':
                 if (($F('subject') == '') &&
                     !window.confirm(DIMP.text_compose.nosubject)) {
                     return;
@@ -222,9 +222,8 @@ var DimpCompose = {
 
         c.setStyle({ cursor: 'wait' });
         this.skip_spellcheck = false;
-        $('action').setValue(action);
 
-        if (action == 'add_attachment') {
+        if (action == 'AddAttachment') {
             // We need a submit action here because browser security models
             // won't let us access files on user's filesystem otherwise.
             this.uploading = true;
@@ -237,11 +236,11 @@ var DimpCompose = {
 
             // Use an AJAX submit here so that we can do javascript-y stuff
             // before having to close the window on success.
-            DimpCore.doAction('*' + DIMP.conf.URI_COMPOSE, c.serialize(true), { callback: this.uniqueSubmitCallback.bind(this) });
+            DimpCore.doAction(action, c.serialize(true), { callback: this.uniqueSubmitCallback.bind(this) });
 
             // Can't disable until we send the message - or else nothing
             // will get POST'ed.
-            if (action == 'send_message' || action == 'save_draft') {
+            if (action == 'SendMessage' || action == 'SaveDraft') {
                 this.setDisabled(true);
             }
         }
@@ -260,15 +259,15 @@ var DimpCompose = {
             $('composeCache').setValue(d.imp_compose);
         }
 
-        if (d.success || d.action == 'add_attachment') {
+        if (d.success || d.action == 'AddAttachment') {
             switch (d.action) {
-            case 'auto_save_draft':
-            case 'save_draft':
+            case 'AutoSaveDraft':
+            case 'SaveDraft':
                 this.setDisabled(false);
 
                 this.updateDraftsMailbox();
 
-                if (d.action == 'save_draft') {
+                if (d.action == 'SaveDraft') {
                     if (this.is_popup && !DIMP.conf_compose.qreply) {
                         DIMP.baseWindow.DimpCore.showNotifications(r.msgs);
                         r.msgs = [];
@@ -279,15 +278,14 @@ var DimpCompose = {
                 }
                 break;
 
-            case 'send_message':
+            case 'SendMessage':
                 if (this.is_popup && DIMP.baseWindow.DimpBase) {
                     if (d.reply_type) {
                         DIMP.baseWindow.DimpBase.flag(d.reply_type == 'reply' ? '\\answered' : '$forwarded', true, { uid: d.uid, mailbox: d.reply_folder, noserver: true });
                     }
 
-                    // @TODO: Needed?
-                    if (d.folder) {
-                        DIMP.baseWindow.DimpBase.createFolder(d.folder);
+                    if (d.mailbox) {
+                        DIMP.baseWindow.DimpBase.mailboxCallback(d.mailbox);
                     }
 
                     if (d.draft_delete) {
@@ -305,7 +303,7 @@ var DimpCompose = {
                 }
                 return this.closeCompose();
 
-            case 'add_attachment':
+            case 'AddAttachment':
                 this.uploading = false;
                 if (d.success) {
                     this.addAttach(d.info.number, d.info.name, d.info.type, d.info.size);
@@ -499,7 +497,7 @@ var DimpCompose = {
                     : $F(msgval);
                 cur_msg = cur_msg.replace(/\r/g, '');
                 if (!cur_msg.empty() && this.last_msg != cur_msg) {
-                    this.uniqueSubmit('auto_save_draft');
+                    this.uniqueSubmit('AutoSaveDraft');
                     this.last_msg = cur_msg;
                 }
             }.bind(this), DIMP.conf_compose.auto_save_interval_val * 60);
@@ -637,7 +635,7 @@ var DimpCompose = {
     uploadAttachment: function()
     {
         var u = $('upload');
-        this.uniqueSubmit('add_attachment');
+        this.uniqueSubmit('AddAttachment');
         u.next().hide();
         u.replace(new Element('SPAN', { id: 'upload_wait' }).insert(DIMP.text_compose.uploading + ' (' + $F(u) + ')'));
     },
@@ -735,7 +733,7 @@ var DimpCompose = {
             case 'draft_button':
             case 'send_button':
                 if (!this.disabled) {
-                    this.uniqueSubmit(id == 'send_button' ? 'send_message' : 'save_draft');
+                    this.uniqueSubmit(id == 'send_button' ? 'SendMessage' : 'SaveDraft');
                 }
                 break;
 

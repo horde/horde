@@ -102,14 +102,9 @@ var DimpCore = {
         return mlist;
     },
 
-    /* 'action' -> if action begins with a '*', the exact string will be used
-     *  instead of sending the action to the IMP handler.
-     *  'opts' -> ajaxopts, callback, uids */
+    // 'opts' -> ajaxopts, callback, uids
     doAction: function(action, params, opts)
     {
-        action = action.startsWith('*')
-            ? action.substring(1)
-            : DIMP.conf.URI_AJAX + action;
         params = $H(params);
         opts = opts || {};
 
@@ -138,7 +133,7 @@ var DimpCore = {
         ajaxopts.parameters = this.addRequestParams(params);
         ajaxopts.onComplete = function(t, o) { this.doActionComplete(t, opts.callback); }.bind(this);
 
-        new Ajax.Request(action, ajaxopts);
+        new Ajax.Request(DIMP.conf.URI_AJAX + action, ajaxopts);
     },
 
     // params - (Hash)

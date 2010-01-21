@@ -92,6 +92,18 @@ abstract class Horde_Ajax_Application_Base
     }
 
     /**
+     * Determines the HTTP response output type.
+     *
+     * @see Horde::sendHTTPResponse().
+     *
+     * @return string  The output type.
+     */
+    public function responseType()
+    {
+        return 'json';
+    }
+
+    /**
      * AJAX action: Logout.
      *
      * This needs to be done here (server), rather than on the browser,

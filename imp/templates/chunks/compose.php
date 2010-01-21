@@ -19,9 +19,8 @@ $save_attach = $GLOBALS['prefs']->getValue('save_attachments');
 $compose_disable = !IMP::canCompose();
 
 ?>
-<form id="compose" name="compose" enctype="multipart/form-data" action="compose-dimp.php" method="post" target="submit_frame">
+<form id="compose" name="compose" enctype="multipart/form-data" action="<?php echo Horde::getServiceLink('ajax', 'imp') ?>AddAttachment" method="post" target="submit_frame">
 <?php echo Horde_Util::formInput() ?>
-<input type="hidden" id="action" name="action" />
 <input type="hidden" id="last_identity" name="last_identity" value="<?php echo (int)$selected_identity ?>" />
 <input type="hidden" id="html" name="html" value="<?php echo intval($rte && $compose_html) ?>" />
 <input type="hidden" id="composeCache" name="composeCache" value="<?php echo $composeCache ?>" />

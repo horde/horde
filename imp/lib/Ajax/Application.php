@@ -33,6 +33,20 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
     }
 
     /**
+     * Determines the HTTP response output type.
+     *
+     * @see Horde::sendHTTPResponse().
+     *
+     * @return string  The output type.
+     */
+    public function responseType()
+    {
+        return ($this->_action == 'AddAttachment')
+            ? 'js-json'
+            : parent::responseType();
+    }
+
+    /**
      * AJAX action: Create a mailbox.
      *
      * @param Horde_Variables $vars  Variables used:
@@ -67,7 +81,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             $new = $imptree->createMailboxName($vars->parent, $new);
             if ($result = $imp_folder->create($new, $GLOBALS['prefs']->getValue('subscribe'))) {
                 $result = new stdClass;
-                $result->mailbox = IMP_Dimp::getFolderResponse($imptree);
+                $result->mailbox = $this->_getMailboxResponse($imptree);
             }
         } catch (Horde_Exception $e) {
             $GLOBALS['notification']->push($e, 'horde.error');
@@ -115,7 +129,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
 
         if ($result) {
             $result = new stdClass;
-            $result->mailbox = IMP_Dimp::getFolderResponse($imptree);
+            $result->mailbox = $this->_getMailboxResponse($imptree);
         }
 
         return $result;
@@ -160,7 +174,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
                 $imp_folder->rename($vars->old_name, $new)) {
 
                 $result = new stdClass;
-                $result->mailbox = IMP_Dimp::getFolderResponse($imptree);
+                $result->mailbox = $this->_getMailboxResponse($imptree);
             }
         } catch (Horde_Exception $e) {
             $GLOBALS['notification']->push($e, 'horde.error');
@@ -309,7 +323,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         }
 
         $result = new stdClass;
-        $result->mailbox = IMP_Dimp::getFolderResponse($imptree, array(
+        $result->mailbox = $this->_getMailboxResponse($imptree, array(
             'a' => array_values($folder_list),
             'c' => array(),
             'd' => array()
@@ -1327,6 +1341,258 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
     }
 
     /**
+     * AJAX action: Add an attachment to a compose message.
+     *
+     * @param Horde_Variables $vars  Variables used:
+     * <pre>
+     * 'composeCache' - (string) The IMP_Compose cache identifier.
+     * </pre>
+     *
+     * @return object  An object with the following entries:
+     * <pre>
+     * 'error' - (string) An error message.
+     * 'success' - (integer) 1 on success, 0 on failure.
+     * </pre>
+     */
+    public function AddAttachment($vars)
+    {
+        $imp_compose = IMP_Compose::singleton($vars->composeCache);
+
+        $result = new stdClass;
+        $result->action = 'AddAttachment';
+        $result->success = 0;
+
+        if ($_SESSION['imp']['file_upload'] &&
+            $imp_compose->addFilesFromUpload('file_')) {
+            $info = IMP_Dimp::getAttachmentInfo($imp_compose);
+            $result->success = 1;
+            $result->info = end($info);
+            $result->imp_compose = $imp_compose->getCacheId();
+        }
+
+        return $result;
+    }
+
+    /**
+     * AJAX action: Auto save a draft message.
+     *
+     * @param Horde_Variables $vars  See self::_dimpComposeSetup().
+     *
+     * @return object  See self::_dimpDraftAction().
+     */
+    public function AutoSaveDraft($vars)
+    {
+        return $this->_dimpDraftAction($vars);
+    }
+
+    /**
+     * AJAX action: Save a draft message.
+     *
+     * @param Horde_Variables $vars  See self::_dimpComposeSetup().
+     *
+     * @return object  See self::_dimpDraftAction().
+     */
+    public function SaveDraft($vars)
+    {
+        return $this->_dimpDraftAction($vars);
+    }
+
+    /**
+     * AJAX action: Send a message.
+     *
+     * @param Horde_Variables $vars  See the list of variables needed for
+     *                               _dimpComposeSetup(). Additional
+     *                               variables used:
+     * <pre>
+     * 'html' - (integer) In HTML compose mode?
+     * 'message' - (string) The message text.
+     * 'priority' - TODO
+     * 'request_read_receipt' - TODO
+     * 'save_attachments_select' - TODO
+     * 'save_sent_mail' - TODO
+     * 'save_sent_mail_folder' - (string) TODO
+     * </pre>
+     *
+     * @return object  An object with the following entries:
+     * <pre>
+     * 'action' - (string) The AJAX action string
+     * 'draft_delete' - (integer) TODO
+     * 'log' - (array) TODO
+     * 'mailbox' - (array) TODO
+     * 'reply_folder' - (string) TODO
+     * 'reply_type' - (string) TODO
+     * 'success' - (integer) 1 on success, 0 on failure.
+     * 'uid' - (integer) TODO
+     * </pre>
+     */
+    public function SendMessage($vars)
+    {
+        list($result, $imp_compose, $headers, $identity) = $this->_dimpComposeSetup($vars);
+        if (!IMP::canCompose()) {
+            $result->success = 0;
+        }
+        if (!$result->success) {
+            return $result;
+        }
+
+        $headers['replyto'] = $identity->getValue('replyto_addr');
+
+        $result->uid = $imp_compose->getMetadata('uid');
+
+        if ($reply_type = $imp_compose->getMetadata('reply_type')) {
+            $result->reply_folder = $imp_compose->getMetadata('mailbox');
+            $result->reply_type = $reply_type;
+        }
+
+        /* Use IMP_Tree to determine whether the sent mail folder was
+         * created. */
+        $imptree = IMP_Imap_Tree::singleton();
+        $imptree->eltDiffStart();
+
+        $options = array(
+            'priority' => $vars->priority,
+            'readreceipt' => $vars->request_read_receipt,
+            'save_attachments' => $vars->save_attachments_select,
+            'save_sent' => (($GLOBALS['prefs']->isLocked('save_sent_mail'))
+                            ? $identity->getValue('save_sent_mail')
+                            : (bool)$vars->save_sent_mail),
+            'sent_folder' => (($GLOBALS['prefs']->isLocked('save_sent_mail'))
+                              ? $identity->getValue('sent_mail_folder')
+                              : (isset($vars->save_sent_mail_folder) ? $vars->save_sent_mail_folder : $identity->getValue('sent_mail_folder')))
+        );
+
+        try {
+            // TODO: Use 'sending_charset'
+            $sent = $imp_compose->buildAndSendMessage($vars->message, $headers, Horde_Nls::getEmailCharset(), $vars->html, $options);
+        } catch (IMP_Compose_Exception $e) {
+            $result->success = 0;
+            $GLOBALS['notification']->push($e, 'horde.error');
+            return $result;
+        }
+
+        /* Remove any auto-saved drafts. */
+        if ($GLOBALS['prefs']->getValue('auto_save_drafts') ||
+            $GLOBALS['prefs']->getValue('auto_delete_drafts')) {
+            $result->draft_delete = 1;
+        }
+
+        if ($sent && $GLOBALS['prefs']->getValue('compose_confirm')) {
+            $GLOBALS['notification']->push(empty($headers['subject']) ? _("Message sent successfully.") : sprintf(_("Message \"%s\" sent successfully."), Horde_String::truncate($headers['subject'])), 'horde.success');
+        }
+
+        /* Update maillog information. */
+        if (!empty($GLOBALS['conf']['maillog']['use_maillog'])) {
+            $in_reply_to = $imp_compose->getMetadata('in_reply_to');
+            if (!empty($in_reply_to) &&
+                ($tmp = IMP_Dimp::getMsgLogInfo($in_reply_to))) {
+                $result->log = $tmp;
+            }
+        }
+
+        $imp_compose->destroy();
+
+        $result->mailbox = $this->_getMailboxResponse($imptree);
+
+        return $result;
+    }
+
+    /**
+     * Setup environment for dimp compose actions.
+     *
+     * <pre>
+     * 'composeCache' - (string) The IMP_Compose cache identifier.
+     * </pre>
+     * from, identity, composeCache
+     *
+     * @return array  An array with the following values:
+     * <pre>
+     * [0] (object) AJAX base return object (with action and success
+     *     parameters defined).
+     * [1] (IMP_Compose) The IMP_Compose object for the message.
+     * [2] (array) The list of headers for the object.
+     * [3] (Horde_Prefs_Identity) The identity used for the composition.
+     * </pre>
+     */
+    protected function _dimpComposeSetup($vars)
+    {
+        $result = new stdClass;
+        $result->action = $this->_action;
+        $result->success = 1;
+
+        /* Set up identity. */
+        $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+        if (isset($vars->identity) &&
+            !$GLOBALS['prefs']->isLocked('default_identity')) {
+            $identity->setDefault($vars->identity);
+        }
+
+        /* Set up the From address based on the identity. */
+        $headers = array();
+        try {
+            $headers['from'] = $identity->getFromLine(null, $vars->from);
+        } catch (Horde_Exception $e) {
+            $GLOBALS['notification']->push($e);
+            $result->success = 1;
+            return array($result);
+        }
+
+        $imp_ui = new IMP_Ui_Compose();
+        $headers['to'] = $imp_ui->getAddressList($vars->to);
+        if ($GLOBALS['prefs']->getValue('compose_cc')) {
+            $headers['cc'] = $imp_ui->getAddressList($vars->cc);
+        }
+        if ($GLOBALS['prefs']->getValue('compose_bcc')) {
+            $headers['bcc'] = $imp_ui->getAddressList($vars->bcc);
+        }
+
+        $imp_compose = IMP_Compose::singleton($vars->composeCache);
+
+        return array($result, $imp_compose, $headers, $identity);
+    }
+
+    /**
+     * Save a draft composed message.
+     *
+     * @param Horde_Variables $vars  See the list of variables needed for
+     *                               _dimpComposeSetup(). Additional
+     *                               variables used:
+     * <pre>
+     * 'html' - (integer) In HTML compose mode?
+     * 'message' - (string) The message text.
+     * </pre>
+     *
+     * @return object  An object with the following entries:
+     * <pre>
+     * 'action' - (string) The AJAX action string
+     * 'success' - (integer) 1 on success, 0 on failure.
+     * </pre>
+     */
+    protected function _dimpDraftAction($vars)
+    {
+        list($result, $imp_compose, $headers, $identity) = $this->_dimpComposeSetup($vars);
+        if (!$result->success) {
+            return $result;
+        }
+
+        try {
+            $res = $imp_compose->saveDraft($headers, $vars->message, Horde_Nls::getCharset(), $vars->html);
+            if ($this->_action == 'AutoSaveDraft') {
+                $GLOBALS['notification']->push(_("Draft automatically saved."), 'horde.message');
+            } else {
+                $GLOBALS['notification']->push($res);
+                if ($GLOBALS['prefs']->getValue('close_draft')) {
+                    $imp_compose->destroy();
+                }
+            }
+        } catch (IMP_Compose_Exception $e) {
+            $result->success = 0;
+            $GLOBALS['notification']->push($e, 'horde.error');
+        }
+
+        return $result;
+    }
+
+    /**
      * Check the UID validity of the mailbox.
      *
      * @param Horde_Variables $vars  See the list of variables needed for
@@ -1534,6 +1800,146 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         }
 
         return null;
+    }
+
+    /**
+     * Formats the response to send to javascript code when dealing with
+     * mailbox operations.
+     *
+     * @param IMP_Tree $imptree  An IMP_Tree object.
+     * @param array $changes     An array with three sub arrays - to be used
+     *                           instead of the return from
+     *                           $imptree->eltDiff():
+     *                           'a' - a list of mailboxes/objects to add
+     *                           'c' - a list of changed mailboxes
+     *                           'd' - a list of mailboxes to delete
+     *
+     * @return array  The object used by the JS code to update the folder
+     *                tree.
+     */
+    protected function _getMailboxResponse($imptree, $changes = null)
+    {
+        if (is_null($changes)) {
+            $changes = $imptree->eltDiff();
+        }
+        if (empty($changes)) {
+            return false;
+        }
+
+        $result = array();
+
+        if (!empty($changes['a'])) {
+            $result['a'] = array();
+            foreach ($changes['a'] as $val) {
+                $result['a'][] = $this->_createMailboxElt(is_array($val) ? $val : $imptree->element($val));
+            }
+        }
+
+        if (!empty($changes['c'])) {
+            $result['c'] = array();
+            foreach ($changes['c'] as $val) {
+                // Skip the base element, since any change there won't ever be
+                // updated on-screen.
+                if ($val != IMP_Imap_Tree::BASE_ELT) {
+                    $result['c'][] = $this->_createMailboxElt($imptree->element($val));
+                }
+            }
+        }
+
+        if (!empty($changes['d'])) {
+            $result['d'] = array_reverse($changes['d']);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Create an object used by DimpCore to generate the folder tree.
+     *
+     * @param array $elt  The output from IMP_Tree::element().
+     *
+     * @return stdClass  The element object. Contains the following items:
+     * <pre>
+     * 'ch' (children) = Does the mailbox contain children? [boolean]
+     *                   [DEFAULT: no]
+     * 'cl' (class) = The CSS class. [string] [DEFAULT: 'base']
+     * 'co' (container) = Is this mailbox a container element? [boolean]
+     *                    [DEFAULT: no]
+     * 'i' (icon) = A user defined icon to use. [string] [DEFAULT: none]
+     * 'l' (label) = The mailbox display label. [string] [DEFAULT: 'm' val]
+     * 'm' (mbox) = The mailbox value. [string]
+     * 'n' (non-imap) = A non-IMAP element? [boolean] [DEFAULT: no]
+     * 'pa' (parent) = The parent element. [string] [DEFAULT:
+     *                 DIMP.conf.base_mbox]
+     * 'po' (polled) = Is the element polled? [boolean] [DEFAULT: no]
+     * 's' (special) = Is this a "special" element? [boolean] [DEFAULT: no]
+     * 't' (title) = The title value. [string] [DEFAULT: 'm' val]
+     * 'u' (unseen) = The number of unseen messages. [integer]
+     * 'un' (unsubscribed) = Is this mailbox unsubscribed? [boolean]
+     *                       [DEFAULT: no]
+     * 'v' (virtual) = Virtual folder? 0 = not vfolder, 1 = system vfolder,
+     *                 2 = user vfolder [integer] [DEFAULT: 0]
+     * </pre>
+     */
+    protected function _createMailboxElt($elt)
+    {
+        $ob = new stdClass;
+
+        if ($elt['children']) {
+            $ob->ch = 1;
+        }
+        $ob->cl = $elt['class'];
+        $ob->m = $elt['value'];
+        if ($ob->m != $elt['name']) {
+            $ob->l = $elt['name'];
+        }
+        if ($elt['parent'] != IMP_Imap_Tree::BASE_ELT) {
+            $ob->pa = $elt['parent'];
+        }
+        if ($elt['polled']) {
+            $ob->po = 1;
+        }
+        if ($elt['vfolder']) {
+            $ob->v = $GLOBALS['imp_search']->isEditableVFolder($elt['value']) ? 2 : 1;
+        }
+        if (!$elt['sub']) {
+            $ob->un = 1;
+        }
+
+        $tmp = IMP::getLabel($ob->m);
+        if ($tmp != $ob->m) {
+            $ob->t = $tmp;
+        }
+
+        if ($elt['container']) {
+            $ob->cl = 'exp';
+            $ob->co = 1;
+            if ($elt['nonimap']) {
+                $ob->n = 1;
+            }
+        } else {
+            if ($elt['polled']) {
+                $ob->u = intval($elt['unseen']);
+            }
+
+            if ($elt['special']) {
+                $ob->s = 1;
+            } elseif (!$elt['vfolder'] && $elt['children']) {
+                $ob->cl = 'exp';
+            }
+        }
+
+        if ($elt['user_icon']) {
+            $ob->cl = 'customimg';
+            $dir = empty($elt['icondir'])
+                ? $GLOBALS['registry']->getImageDir()
+                : $elt['icondir'];
+            $ob->i = empty($dir)
+                ? $elt['icon']
+                : $dir . '/' . $elt['icon'];
+        }
+
+        return $ob;
     }
 
 }
