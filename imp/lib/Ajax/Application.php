@@ -499,7 +499,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
     public function MoveMessages($vars)
     {
         $indices = $GLOBALS['imp_imap']->ob()->utils->fromSequenceString($vars->uid);
-        if (!$vars->tofld || empty($indices)) {
+        if (!$vars->mboxto || empty($indices)) {
             return false;
         }
 
@@ -510,7 +510,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         }
 
         $imp_message = IMP_Message::singleton();
-        $result = $imp_message->copy($vars->tofld, 'move', $indices);
+        $result = $imp_message->copy($vars->mboxto, 'move', $indices);
 
         if ($result) {
             $result = $this->_generateDeleteResult($vars, $indices, $change);
@@ -522,7 +522,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             /* Update poll information for destination folder if necessary.
              * Poll information for current folder will be added by
              * _generateDeleteResult() call above. */
-            if ($poll = $this->_getPollInformation($vars->tofld)) {
+            if ($poll = $this->_getPollInformation($vars->mboxto)) {
                 $result->poll = array_merge(isset($result->poll) ? $result->poll : array(), $poll);
             }
         } else {
