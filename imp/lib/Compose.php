@@ -1686,21 +1686,16 @@ class IMP_Compose
             throw new IMP_Compose_Exception(sprintf(_("Attached file \"%s\" exceeds the attachment size limits. File NOT attached."), $filename), 'horde.error');
         }
 
-        /* Store the data in a Horde_Mime_Part. Some browsers do not send the
-         * MIME type so try an educated guess. */
-        if (!empty($_FILES[$name]['type']) &&
-            ($_FILES[$name]['type'] != 'application/octet-stream')) {
-            $type = $_FILES[$name]['type'];
-        } else {
-            /* Try to determine the MIME type from 1) analysis of the file
-             * (if available) and, if that fails, 2) from the extension. We
-             * do it in this order here because, most likely, if a browser
-             * can't identify the type of a file, it is because the file
-             * extension isn't available and/or recognized. */
-            if (!($type = Horde_Mime_Magic::analyzeFile($tempfile, !empty($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null))) {
-                $type = Horde_Mime_Magic::filenameToMIME($filename, false);
-            }
-        }
+        /* Determine the MIME type of the data. */
+        $type = empty($_FILES[$name]['type'])
+            ? 'application/octet-stream'
+            : $_FILES[$name]['type'];
+
+        /* User hook to do MIME magic determinations. */
+        try {
+            $type = Horde::callHook('attachmimetype', array($filename, $tempfile, $type), 'imp');
+        } catch (Horde_Exception_HookNotSet $e) {}
+
         $part = new Horde_Mime_Part();
         $part->setType($type);
         $part->setCharset(Horde_Nls::getCharset());
