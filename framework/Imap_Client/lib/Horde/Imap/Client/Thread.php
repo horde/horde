@@ -117,7 +117,7 @@ class Horde_Imap_Client_Thread
     public function getThread($index)
     {
         /* Find the beginning of the thread. */
-        if (($begin = $this->getThreadBase($index)) === false) {
+        if (!($begin = $this->getThreadBase($index))) {
             return array($index);
         }
 
