@@ -63,13 +63,11 @@ KronolithCore = {
      *  instead of sending the action to the ajax handler. */
     doAction: function(action, params, callback, opts)
     {
-        var b, tmp = {};
-
         opts = Object.extend(this.doActionOpts, opts || {});
         params = $H(params);
         action = action.startsWith('*')
             ? action.substring(1)
-            : Kronolith.conf.URI_AJAX + '/' + action;
+            : Kronolith.conf.URI_AJAX + action;
         if (Kronolith.conf.SESSION_ID) {
             params.update(Kronolith.conf.SESSION_ID.toQueryParams());
         }
