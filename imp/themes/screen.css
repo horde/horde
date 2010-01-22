@@ -530,8 +530,8 @@ td.addressTr span.loadingImg {
     padding: 0 0 0 16px;
 }
 
-/* MIME styles. */
-.mimeStatusMessageTable, .mimeHeaders {
+/* Inline display (Horde_Mime_Viewer) styles. */
+.mimeStatusMessageTable {
     margin-bottom: 3px;
     font-size: 90%;
 }
@@ -548,13 +548,6 @@ td.addressTr span.loadingImg {
 }
 .mimeStatusIcon {
     width: 22px;
-}
-.mimeHeaders {
-    border: 1px solid #ccc;
-    background: #f9f9f9;
-    display: -moz-inline-stack;
-    display: inline-block;
-    padding: 5px;
 }
 div.mimeStatusMessage, div.mimePartInfo {
     margin-bottom: 5px;

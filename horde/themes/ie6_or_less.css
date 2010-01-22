@@ -19,3 +19,9 @@
 .clear {
     clear: none;
 }
+
+/* Fixes broken inline-block. */
+.mimeHeaders {
+    zoom: 1;
+    *display: inline;
+}

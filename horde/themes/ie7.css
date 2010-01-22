@@ -1,0 +1,9 @@
+/**
+ * CSS corrections for IE 7.
+ */
+
+/* Fixes broken inline-block. */
+.mimeHeaders {
+    zoom: 1;
+    *display: inline;
+}

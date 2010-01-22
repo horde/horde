@@ -1095,6 +1095,16 @@ table.calendarPopup {
     cursor:pointer;
 }
 
+/* Horde_Mime_Viewer styles. */
+.mimeHeaders {
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+    display: -moz-inline-stack;
+    display: inline-block;
+    margin-bottom: 3px;
+    padding: 5px;
+}
+
 /* Print CSS. */
 @media print {
     body, .header, .smallheader {
