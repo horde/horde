@@ -296,7 +296,7 @@ if ($browser->isMobile()) {
         }
     }
 
-    require HORDE_TEMPLATES . '/login/mobile.inc';
+    require $registry->get('templates', 'horde') . '/login/mobile.inc';
     exit;
 }
 
@@ -310,11 +310,11 @@ if (!empty($js_files)) {
     }
 }
 
-require HORDE_TEMPLATES . '/common-header.inc';
-require HORDE_TEMPLATES . '/login/login.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/login/login.inc';
 
 if (!empty($js_code)) {
     print '<script type="text/javascript">//<![CDATA[' . "\n" . implode(';', $js_code) . "\n//]]></script>\n";
 }
 
-require HORDE_TEMPLATES . '/common-footer.inc';
+require $registry->get('templates', 'horde') . '/common-footer.inc';
