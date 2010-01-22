@@ -599,8 +599,7 @@ $inlineout = $imp_ui->getInlineOutput($imp_contents, $contents_mask, $part_info_
 $a_template->set('atc', Horde::widget('#', _("Attachments"), 'widget hasmenu', '', '', _("Attachments"), true));
 if ($show_parts == 'atc') {
     $a_template->set('show_parts_all', Horde::widget($headersURL->copy()->add(array('show_parts' => 'all')), _("Show All Message Parts"), 'widget', '', '', _("Show All Message Parts"), true));
-}
-if ($show_parts == 'all') {
+} elseif ($show_parts == 'all') {
     $a_template->set('show_parts_atc', Horde::widget($headersURL->copy()->add(array('show_parts' => 'atc')), _("Show Attachments Only"), 'widget', '', '', _("Show Attachments Only"), true));
 }
 if (count($inlineout['display_ids']) > 2) {
@@ -610,7 +609,8 @@ if (count($inlineout['display_ids']) > 2) {
     }
 }
 
-/* Show attachment information in headers? */
+/* Show attachment information in headers? 'atc_parts' will be empty if
+ * 'parts_display' pref is 'none'. */
 if (!empty($inlineout['atc_parts'])) {
     $tmp = array();
 

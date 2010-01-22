@@ -460,7 +460,7 @@ class IMP_Ui_Message
      * @param integer $contents_mask    The mask needed for a
      *                                  IMP_Contents::getSummary() call.
      * @param array $part_info_display  The list of summary fields to display.
-     * @param string $show_parts        The value of the 'show_parts' pref.
+     * @param string $show_parts        The value of the 'parts_display' pref.
      *
      * @return array  An array with the following keys:
      * <pre>
@@ -486,7 +486,13 @@ class IMP_Ui_Message
                 continue;
             }
 
-            if (!($render_mode = $imp_contents->canDisplay($mime_id, IMP_Contents::RENDER_INLINE | IMP_Contents::RENDER_INFO))) {
+            if ($render_mode = $imp_contents->canDisplay($mime_id, IMP_Contents::RENDER_INLINE | IMP_Contents::RENDER_INFO)) {
+                if (($show_parts == 'atc') &&
+                    !($render_mode & IMP_Contents::RENDER_INLINE) &&
+                    $imp_contents->isAttachment($mime_type)) {
+                    $atc_parts[] = $mime_id;
+                }
+            } else {
                 if ($imp_contents->isAttachment($mime_type)) {
                     if ($show_parts == 'atc') {
                         $atc_parts[] = $mime_id;

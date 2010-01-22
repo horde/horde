@@ -939,7 +939,8 @@ $_prefs['parts_display'] = array(
     'type' => 'enum',
     'enum' => array(
         'all' => _("Show all parts"),
-        'atc' => _("Show attachments")
+        'atc' => _("Show all attachments"),
+        'none' => _("Do not show parts")
     ),
     'desc' => _("Which message parts do you want to display in the summary?"));
 
