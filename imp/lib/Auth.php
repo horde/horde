@@ -33,7 +33,8 @@ class IMP_Auth
     {
         // Do 'horde' authentication.
         $imp_app = $GLOBALS['registry']->getApiInstance('imp', 'application');
-        if ($imp_app->initParams['authentication'] == 'horde') {
+        if (!empty($imp_app->initParams['authentication']) &&
+            ($imp_app->initParams['authentication'] == 'horde')) {
             if (Horde_Auth::getAuth()) {
                 return false;
             }
