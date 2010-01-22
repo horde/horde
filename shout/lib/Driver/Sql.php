@@ -152,6 +152,11 @@ class Shout_Driver_Sql extends Shout_Driver
         $details['alias'] = $details['name'];
         $details['name'] = $details['devid'];
         unset($details['devid']);
+        // Default the caller id to something sane.
+        if (empty($details['callerid'])) {
+            $details['callerid'] = sprintf('"%s" <%s>', $details['alias'],
+                                                        $details['mailbox']);
+        }
         $details['mailbox'] .= '@' . $context;
 
         // Prepare the SQL query and arguments
@@ -164,13 +169,14 @@ class Shout_Driver_Sql extends Shout_Driver
             $context,
             $details['alias'],
         );
+
         if (!empty($devid)) {
             // This is an edit
             $details['name'] = $details['devid'];
             $sql = 'UPDATE %s SET name = ?, accountcode = ?, callerid = ?, ' .
-                   'mailbox = ?, secret = ?, alias = ?, canreinvite = "no", ' .
-                   'nat = "yes", type = "peer", host = "dynamic", ' .
-                   'context = ? WHERE name = ?';
+                   'mailbox = ?, secret = ?, context = ?, alias = ?, ' .
+                   'canreinvite = "no", nat = "yes", type = "peer", ' .
+                   'host = "dynamic", WHERE name = ?';
             $args[] = $devid;
         } else {
             // This is an add.  Generate a new unique ID and secret
