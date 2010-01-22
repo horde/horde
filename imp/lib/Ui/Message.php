@@ -492,9 +492,7 @@ class IMP_Ui_Message
                         $atc_parts[] = $mime_id;
                     }
 
-                    if ($GLOBALS['prefs']->getValue('atc_display')) {
-                        $msgtext .= $this->formatSummary($imp_contents->getSummary($mime_id, $contents_mask), $part_info_display, true);
-                    }
+                    $msgtext .= $this->formatSummary($imp_contents->getSummary($mime_id, $contents_mask), $part_info_display, true);
                 }
                 continue;
             }
@@ -538,9 +536,7 @@ class IMP_Ui_Message
                         $atc_parts[] = $id;
                     }
 
-                    if ($GLOBALS['prefs']->getValue('atc_display')) {
-                        $msgtext .= $this->formatSummary($imp_contents->getSummary($id, $contents_mask), $part_info_display, true);
-                    }
+                    $msgtext .= $this->formatSummary($imp_contents->getSummary($id, $contents_mask), $part_info_display, true);
                 }
 
                 if (isset($info['js'])) {

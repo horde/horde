@@ -103,8 +103,7 @@ $prefGroups['viewing'] = array(
                        'html_image_replacement', 'html_image_addrbook',
                        'highlight_text', 'highlight_simple_markup',
                        'show_quoteblocks', 'dim_signature', 'emoticons',
-                       'parts_display', 'atc_display', 'mail_hdr',
-                       'default_msg_charset')
+                       'parts_display', 'mail_hdr', 'default_msg_charset')
 );
 if (!empty($GLOBALS['conf']['maillog']['use_maillog'])) {
     $prefGroups['viewing']['members'] = array_merge($prefGroups['viewing']['members'], array('disposition_send_mdn'));
@@ -940,17 +939,9 @@ $_prefs['parts_display'] = array(
     'type' => 'enum',
     'enum' => array(
         'all' => _("Show all parts"),
-        'atc' => _("Show attachments only")
+        'atc' => _("Show attachments")
     ),
     'desc' => _("Which message parts do you want to display in the summary?"));
-
-// Should attachment summaries be displayed inline?
-$_prefs['atc_display'] = array(
-    'value' => 1,
-    'locked' => false,
-    'shared' => false,
-    'type' => 'checkbox',
-    'desc' => _("Display attachment summary information within the message text?"));
 
 // Display custom headers (configured via the identity screen) when viewing
 // messages?
