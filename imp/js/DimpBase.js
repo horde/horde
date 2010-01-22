@@ -1501,10 +1501,16 @@ var DimpBase = {
 
     quicksearchRun: function()
     {
+        var q = $F('qsearch_input');
+
         if (this.isSearch()) {
+            /* Search text has changed. */
+            if (this.search.query != q) {
+                this.folderswitch = true;
+            }
             this.viewport.reload();
         } else {
-            this.search = { mbox: this.folder };
+            this.search = { mbox: this.folder, query: q };
             this.loadMailbox(DIMP.conf.qsearchid);
         }
     },
