@@ -693,7 +693,7 @@ class IMP_Contents
         if (($mask && self::SUMMARY_IMAGE_SAVE) &&
             $GLOBALS['registry']->hasMethod('images/selectGalleries') &&
             ($mime_part->getPrimaryType() == 'image')) {
-            $part['img_save'] = Horde::link('#', _("Save Image in Gallery"), 'saveImgAtc', null, Horde::popupJs(Horde::applicationUrl('saveimage.php'), array('params' => array('muid' => ($this->_uid . IMP::IDX_SEP . $this->_mailbox), 'id' => $id), 'height' => 200, 'width' => 450)) . 'return false;') . '</a>';
+            $part['img_save'] = Horde::link('#', _("Save Image in Gallery"), 'saveImgAtc', null, Horde::popupJs(Horde::applicationUrl('saveimage.php'), array('params' => array('uid' => ($this->_uid . IMP::IDX_SEP . $this->_mailbox), 'id' => $id), 'height' => 200, 'width' => 450)) . 'return false;') . '</a>';
         }
 
         /* Strip Attachment? Allow stripping of base parts other than the
