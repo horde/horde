@@ -94,7 +94,7 @@ $warning = Horde::img('alerts/warning.png');
 $error = Horde::img('alerts/error.png');
 
 $conf_url = Horde::applicationUrl('admin/setup/config.php');
-$a = $registry->listApps(array('inactive', 'hidden', 'notoolbar', 'active', 'admin'));
+$a = $registry->listAllApps();
 $apps = array();
 $i = -1;
 if (file_exists(HORDE_BASE . '/lib/bundle.php')) {

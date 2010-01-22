@@ -555,6 +555,27 @@ class Horde_Registry
     }
 
     /**
+     * Return a list of all applications, ignoring permissions.
+     *
+     * @return array
+     */
+    public function listAllApps($filter = null)
+    {
+        // Default to all installed (but possibly not configured) applications)
+        if (is_null($filter)) {
+            $filter = array('inactive', 'hidden', 'notoolbar', 'active', 'admin');
+        }
+        $apps = array();
+        foreach ($this->applications as $app => $params) {
+            if (in_array($params['status'], $filter)) {
+                $apps[] = $app;
+            }
+        }
+
+        return $apps;
+    }
+
+    /**
      * Returns all available registry APIs.
      *
      * @return array  The API list.
@@ -1121,8 +1142,7 @@ class Horde_Registry
         }
 
         /* Otherwise, allow access for admins, for apps that do not have any
-         * have any explicit permissions, or for apps that allow the given
-         * permission. */
+         * explicit permissions, or for apps that allow the given permission. */
         return Horde_Auth::isAdmin() ||
             !$GLOBALS['perms']->exists($app) ||
             $GLOBALS['perms']->hasPermission($app, Horde_Auth::getAuth(), $perms);
