@@ -176,7 +176,7 @@ class Shout_Driver_Sql extends Shout_Driver
             $sql = 'UPDATE %s SET name = ?, accountcode = ?, callerid = ?, ' .
                    'mailbox = ?, secret = ?, context = ?, alias = ?, ' .
                    'canreinvite = "no", nat = "yes", type = "peer", ' .
-                   'host = "dynamic", WHERE name = ?';
+                   'host = "dynamic" WHERE name = ?';
             $args[] = $devid;
         } else {
             // This is an add.  Generate a new unique ID and secret
