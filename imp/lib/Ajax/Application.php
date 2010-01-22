@@ -44,9 +44,11 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      * @return mixed  False on failure, or an object with the following
      *                entries:
      * <pre>
-     * 'a' - (array) Mailboxes that were added.
-     * 'c' - (array) Mailboxes that were changed.
-     * 'd' - (array) Mailboxes that were deleted.
+     * 'mailbox' - (object) Mailboxes that were altered. Contains the
+     *             following properties:
+     *   'a' - (array) Mailboxes that were added.
+     *   'c' - (array) Mailboxes that were changed.
+     *   'd' - (array) Mailboxes that were deleted.
      * </pre>
      */
     public function CreateMailbox($vars)
@@ -63,9 +65,9 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         $new = Horde_String::convertCharset($vars->mbox, Horde_Nls::getCharset(), 'UTF7-IMAP');
         try {
             $new = $imptree->createMailboxName($vars->parent, $new);
-            $result = $imp_folder->create($new, $GLOBALS['prefs']->getValue('subscribe'));
-            if ($result) {
-                $result = IMP_Dimp::getFolderResponse($imptree);
+            if ($result = $imp_folder->create($new, $GLOBALS['prefs']->getValue('subscribe'))) {
+                $result = new stdClass;
+                $result->mailbox = IMP_Dimp::getFolderResponse($imptree);
             }
         } catch (Horde_Exception $e) {
             $GLOBALS['notification']->push($e, 'horde.error');
@@ -86,9 +88,11 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      * @return mixed  False on failure, or an object with the following
      *                entries:
      * <pre>
-     * 'a' - (array) Mailboxes that were added.
-     * 'c' - (array) Mailboxes that were changed.
-     * 'd' - (array) Mailboxes that were deleted.
+     * 'mailbox' - (object) Mailboxes that were altered. Contains the
+     *             following properties:
+     *   'a' - (array) Mailboxes that were added.
+     *   'c' - (array) Mailboxes that were changed.
+     *   'd' - (array) Mailboxes that were deleted.
      * </pre>
      */
     public function DeleteMailbox($vars)
@@ -109,9 +113,12 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             $result = $imp_folder->delete(array($vars->mbox));
         }
 
-        return $result
-            ? IMP_Dimp::getFolderResponse($imptree)
-            : $result;
+        if ($result) {
+            $result = new stdClass;
+            $result->mailbox = IMP_Dimp::getFolderResponse($imptree);
+        }
+
+        return $result;
     }
 
     /**
@@ -127,9 +134,11 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      * @return mixed  False on failure, or an object with the following
      *                entries:
      * <pre>
-     * 'a' - (array) Mailboxes that were added.
-     * 'c' - (array) Mailboxes that were changed.
-     * 'd' - (array) Mailboxes that were deleted.
+     * 'mailbox' - (object) Mailboxes that were altered. Contains the
+     *             following properties:
+     *   'a' - (array) Mailboxes that were added.
+     *   'c' - (array) Mailboxes that were changed.
+     *   'd' - (array) Mailboxes that were deleted.
      * </pre>
      */
     public function RenameMailbox($vars)
@@ -149,7 +158,9 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
 
             if (($vars->old_name != $new) &&
                 $imp_folder->rename($vars->old_name, $new)) {
-                $result = IMP_Dimp::getFolderResponse($imptree);
+
+                $result = new stdClass;
+                $result->mailbox = IMP_Dimp::getFolderResponse($imptree);
             }
         } catch (Horde_Exception $e) {
             $GLOBALS['notification']->push($e, 'horde.error');
@@ -251,9 +262,11 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      * @return mixed  False on failure, or an object with the following
      *                entries:
      * <pre>
-     * 'a' - (array) Mailboxes that were added.
-     * 'c' - (array) Mailboxes that were changed.
-     * 'd' - (array) Mailboxes that were deleted.
+     * 'mailbox' - (object) Mailboxes that were altered. Contains the
+     *             following properties:
+     *   'a' - (array) Mailboxes that were added.
+     *   'c' - (array) Mailboxes that were changed.
+     *   'd' - (array) Mailboxes that were deleted.
      * 'quota' - (array) See _getQuota().
      * </pre>
      */
@@ -295,7 +308,8 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             }
         }
 
-        $result = IMP_Dimp::getFolderResponse($imptree, array(
+        $result = new stdClass;
+        $result->mailbox = IMP_Dimp::getFolderResponse($imptree, array(
             'a' => array_values($folder_list),
             'c' => array(),
             'd' => array()
@@ -778,8 +792,9 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      *         string) - must be single index.
      * </pre>
      *
-     * @return mixed  False on failure, or an object with the keys defined
-     *                in IMP_View_ShowMessage::showMessage().
+     * @return mixed  False on failure, or an object with the 'preview'
+     *                property containing the return value from
+     *                IMP_View_ShowMessage::showMessage().
      */
     public function ShowPreview($vars)
     {
@@ -794,6 +809,8 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             'preview' => true,
             'uid' => intval(reset($ptr['value']))
         );
+        $result = new stdClass;
+        $result->preview = new stdClass;
 
         try {
             /* We know we are going to be exclusively dealing with this
@@ -801,16 +818,15 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
              * calls). Open R/W to clear the RECENT flag. */
             $GLOBALS['imp_imap']->ob()->openMailbox($ptr['key'], Horde_Imap_Client::OPEN_READWRITE);
             $show_msg = new IMP_Views_ShowMessage();
-            $result = (object)$show_msg->showMessage($args);
-            if (isset($result->error)) {
+            $result->preview = (object)$show_msg->showMessage($args);
+            if (isset($result->preview->error)) {
                 $result = $this->_checkUidvalidity($vars, $result);
             }
         } catch (Horde_Imap_Client_Exception $e) {
-            $result = new stdClass;
-            $result->error = $e->getMessage();
-            $result->errortype = 'horde.error';
-            $result->mailbox = $args['mailbox'];
-            $result->uid = $args['uid'];
+            $result->preview->error = $e->getMessage();
+            $result->preview->errortype = 'horde.error';
+            $result->preview->mailbox = $args['mailbox'];
+            $result->preview->uid = $args['uid'];
         }
 
         return $result;
