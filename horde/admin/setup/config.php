@@ -20,7 +20,7 @@ $app = Horde_Util::getFormData('app');
 $appname = $registry->get('name', $app);
 $title = sprintf(_("%s Setup"), $appname);
 
-if (empty($app) || !in_array($app, $registry->listApps(array('inactive', 'hidden', 'notoolbar', 'active', 'admin')))) {
+if (empty($app) || !in_array($app, $registry->listAllApps())) {
     $notification->push(_("Invalid application."), 'horde.error');
     $url = Horde::applicationUrl('admin/setup/index.php', true);
     header('Location: ' . $url);
