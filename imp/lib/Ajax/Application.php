@@ -104,9 +104,9 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         $imptree = IMP_Imap_Tree::singleton();
         $imptree->eltDiffStart();
 
-        if ($imp_search->isEditableVFolder($vars->mbox)) {
-            $GLOBALS['notification']->push(sprintf(_("Deleted Virtual Folder \"%s\"."), $imp_search->getLabel($vars->mbox)), 'horde.success');
-            $imp_search->deleteSearchQuery($vars->mbox);
+        if ($GLOBALS['imp_search']->isEditableVFolder($vars->mbox)) {
+            $GLOBALS['notification']->push(sprintf(_("Deleted Virtual Folder \"%s\"."), $GLOBALS['imp_search']->getLabel($vars->mbox)), 'horde.success');
+            $GLOBALS['imp_search']->deleteSearchQuery($vars->mbox);
             $result = true;
         } else {
             $imp_folder = IMP_Folder::singleton();
@@ -1447,7 +1447,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      * </pre>
      * @param boolean $change        True if cache information has changed.
      *
-     * @return TODO
+     * @return array  See IMP_Views_ListMessages::listMessages().
      */
     protected function _viewPortData($vars, $change)
     {
