@@ -136,7 +136,7 @@ class IMP_Hooks
      * @param string $type      The MIME type as reported by the browser.
      *
      * @return string  The MIME type of the file.
-     /
+     */
      function attachmimetype($filename, $tempfile, $type)
      {
         /* By default, we trust the MIME type reported by the browser if it is
