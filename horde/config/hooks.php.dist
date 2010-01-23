@@ -118,7 +118,7 @@
  *
  * AJAX Hooks
  * ==========
- * These are hookos that are available in any application that has an AJAX
+ * These are hooks that are available in any application that has an AJAX
  * interface configured.
  *
  * ajaxaction
