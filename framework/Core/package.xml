@@ -125,6 +125,12 @@ Application Framework.</description>
        <file name="Twitter.php" role="php" />
        <file name="Vfs.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Binder -->
+      <dir name="Controller">
+       <file name="NotFound.php" role="php" />
+       <file name="RequestConfiguration.php" role="php" />
+       <file name="RequestMapper.php" role="php" />
+       <file name="SettingsFinder.php" role="php" />
+      </dir> <!-- /lib/Horde/Core/Controller -->
       <dir name="Factory">
        <file name="Ajax.php" role="php" />
        <file name="Auth.php" role="php" />
@@ -141,6 +147,7 @@ Application Framework.</description>
        <file name="KolabStorage.php" role="php" />
        <file name="Ldap.php" role="php" />
        <file name="LoginTasks.php" role="php" />
+       <file name="Request.php" role="php" />
        <file name="Share.php" role="php" />
        <file name="Tree.php" role="php" />
        <file name="Vfs.php" role="php" />
@@ -342,6 +349,7 @@ Application Framework.</description>
    <install as="Horde/Core/Auth/Signup/Null.php" name="lib/Horde/Core/Auth/Signup/Null.php" />
    <install as="Horde/Core/Auth/Signup/Sql.php" name="lib/Horde/Core/Auth/Signup/Sql.php" />
    <install as="Horde/Core/Auth/Signup/SqlObject.php" name="lib/Horde/Core/Auth/Signup/SqlObject.php" />
+   <install as="Horde/Core/Autoloader.php" name="lib/Horde/Core/Autoloader.php" />
    <install as="Horde/Core/Autoloader/Callback/Mime.php" name="lib/Horde/Core/Autoloader/Callback/Mime.php" />
    <install as="Horde/Core/Autoloader/Callback/Nls.php" name="lib/Horde/Core/Autoloader/Callback/Nls.php" />
    <install as="Horde/Core/Binder/Ajax.php" name="lib/Horde/Core/Binder/Ajax.php" />
@@ -377,6 +385,10 @@ Application Framework.</description>
    <install as="Horde/Core/Binder/Token.php" name="lib/Horde/Core/Binder/Token.php" />
    <install as="Horde/Core/Binder/Twitter.php" name="lib/Horde/Core/Binder/Twitter.php" />
    <install as="Horde/Core/Binder/Vfs.php" name="lib/Horde/Core/Binder/Vfs.php" />
+   <install as="Horde/Core/Controller/NotFound.php" name="lib/Horde/Core/Controller/NotFound.php" />
+   <install as="Horde/Core/Controller/RequestConfiguration.php" name="lib/Horde/Core/Controller/RequestConfiguration.php" />
+   <install as="Horde/Core/Controller/RequestMapper.php" name="lib/Horde/Core/Controller/RequestMapper.php" />
+   <install as="Horde/Core/Controller/SettingsFinder.php" name="lib/Horde/Core/Controller/SettingsFinder.php" />
    <install as="Horde/Core/Factory/Ajax.php" name="lib/Horde/Core/Factory/Ajax.php" />
    <install as="Horde/Core/Factory/Auth.php" name="lib/Horde/Core/Factory/Auth.php" />
    <install as="Horde/Core/Factory/Crypt.php" name="lib/Horde/Core/Factory/Crypt.php" />
@@ -392,6 +404,7 @@ Application Framework.</description>
    <install as="Horde/Core/Factory/KolabStorage.php" name="lib/Horde/Core/Factory/KolabStorage.php" />
    <install as="Horde/Core/Factory/Ldap.php" name="lib/Horde/Core/Factory/Ldap.php" />
    <install as="Horde/Core/Factory/LoginTasks.php" name="lib/Horde/Core/Factory/LoginTasks.php" />
+   <install as="Horde/Core/Factory/Request.php" name="lib/Horde/Core/Factory/Request.php" />
    <install as="Horde/Core/Factory/Share.php" name="lib/Horde/Core/Factory/Share.php" />
    <install as="Horde/Core/Factory/Tree.php" name="lib/Horde/Core/Factory/Tree.php" />
    <install as="Horde/Core/Factory/Vfs.php" name="lib/Horde/Core/Factory/Vfs.php" />
@@ -414,13 +427,6 @@ Application Framework.</description>
    <install as="Horde/Themes/Element.php" name="lib/Horde/Themes/Element.php" />
    <install as="Horde/Themes/Image.php" name="lib/Horde/Themes/Image.php" />
    <install as="Horde/Themes/Sound.php" name="lib/Horde/Themes/Sound.php" />
-   <install as="Horde/Core/AllTests.php" name="test/Horde/Core/AllTests.php" />
-   <install as="Horde/Core/Autoload.php" name="test/Horde/Core/Autoload.php" />
-   <install as="Horde/Core/phpunit.xml" name="test/Horde/Core/phpunit.xml" />
-   <install as="Horde/Core/url.phpt" name="test/Horde/Core/url.phpt" />
-   <install as="Horde/Core/Binder/CacheTest.php" name="test/Horde/Core/Binder/CacheTest.php" />
-   <install as="Horde/Core/Factory/KolabServerTest.php" name="test/Horde/Core/Factory/KolabServerTest.php" />
-   <install as="Horde/Core/Factory/KolabSessionTest.php" name="test/Horde/Core/Factory/KolabSessionTest.php" />
   </filelist>
  </phprelease>
  <changelog>

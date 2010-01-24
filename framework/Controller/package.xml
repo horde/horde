@@ -36,29 +36,35 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Controller">
-      <dir name="Mime">
-       <file name="Type.php" role="php" />
-      </dir> <!-- /lib/Horde/Controller/Mime -->
+      <dir name="Filter">
+       <file name="Gzip.php" role="php" />
+      </dir> <!-- /lib/Horde/Controller/Filter -->
       <dir name="Request">
-       <file name="Base.php" role="php" />
-       <file name="Cli.php" role="php" />
        <file name="Http.php" role="php" />
-       <file name="Mock.php" role="php" />
+       <file name="Null.php" role="php" />
       </dir> <!-- /lib/Horde/Controller/Request -->
-      <dir name="Response">
-       <file name="Base.php" role="php" />
-       <file name="Cli.php" role="php" />
-       <file name="Http.php" role="php" />
-       <file name="Mock.php" role="php" />
-      </dir> <!-- /lib/Horde/Controller/Response -->
+      <dir name="ResponseWriter">
+       <file name="Web.php" role="php" />
+       <file name="WebDebug.php" role="php" />
+      </dir> <!-- /lib/Horde/Controller/ResponseWriter -->
+      <dir name="SettingsExporter">
+       <file name="Default.php" role="php" />
+      </dir> <!-- /lib/Horde/Controller/SettingsExporter -->
       <file name="Base.php" role="php" />
-      <file name="Dispatcher.php" role="php" />
       <file name="Exception.php" role="php" />
-      <file name="FileUpload.php" role="php" />
-      <file name="Scanner.php" role="php" />
-      <file name="StatusCodes.php" role="php" />
-      <file name="UrlWriter.php" role="php" />
+      <file name="FilterCollection.php" role="php" />
+      <file name="FilterRunner.php" role="php" />
+      <file name="Null.php" role="php" />
+      <file name="PostFilter.php" role="php" />
+      <file name="PreFilter.php" role="php" />
+      <file name="Request.php" role="php" />
+      <file name="RequestConfiguration.php" role="php" />
+      <file name="Response.php" role="php" />
+      <file name="ResponseWriter.php" role="php" />
+      <file name="Runner.php" role="php" />
+      <file name="SettingsExporter.php" role="php" />
      </dir> <!-- /lib/Horde/Controller -->
+     <file name="Controller.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
   </dir> <!-- / -->
@@ -80,21 +86,25 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <phprelease>
   <filelist>
    <install name="lib/Horde/Controller/Base.php" as="Horde/Controller/Base.php" />
-   <install name="lib/Horde/Controller/Dispatcher.php" as="Horde/Controller/Dispatcher.php" />
    <install name="lib/Horde/Controller/Exception.php" as="Horde/Controller/Exception.php" />
-   <install name="lib/Horde/Controller/FileUpload.php" as="Horde/Controller/FileUpload.php" />
-   <install name="lib/Horde/Controller/Scanner.php" as="Horde/Controller/Scanner.php" />
-   <install name="lib/Horde/Controller/StatusCodes.php" as="Horde/Controller/StatusCodes.php" />
-   <install name="lib/Horde/Controller/UrlWriter.php" as="Horde/Controller/UrlWriter.php" />
-   <install name="lib/Horde/Controller/Mime/Type.php" as="Horde/Controller/Mime/Type.php" />
-   <install name="lib/Horde/Controller/Request/Base.php" as="Horde/Controller/Request/Base.php" />
-   <install name="lib/Horde/Controller/Request/Cli.php" as="Horde/Controller/Request/Cli.php" />
+   <install name="lib/Horde/Controller/Filter/Gzip.php" as="Horde/Controller/Filter/Gzip.php" />
+   <install name="lib/Horde/Controller/FilterCollection.php" as="Horde/Controller/FilterCollection.php" />
+   <install name="lib/Horde/Controller/FilterRunner.php" as="Horde/Controller/FilterRunner.php" />
+   <install name="lib/Horde/Controller/Null.php" as="Horde/Controller/Null.php" />
+   <install name="lib/Horde/Controller/PostFilter.php" as="Horde/Controller/PostFilter.php" />
+   <install name="lib/Horde/Controller/PreFilter.php" as="Horde/Controller/PreFilter.php" />
    <install name="lib/Horde/Controller/Request/Http.php" as="Horde/Controller/Request/Http.php" />
-   <install name="lib/Horde/Controller/Request/Mock.php" as="Horde/Controller/Request/Mock.php" />
-   <install name="lib/Horde/Controller/Response/Base.php" as="Horde/Controller/Response/Base.php" />
-   <install name="lib/Horde/Controller/Response/Cli.php" as="Horde/Controller/Response/Cli.php" />
-   <install name="lib/Horde/Controller/Response/Http.php" as="Horde/Controller/Response/Http.php" />
-   <install name="lib/Horde/Controller/Response/Mock.php" as="Horde/Controller/Response/Mock.php" />
+   <install name="lib/Horde/Controller/Request/Null.php" as="Horde/Controller/Request/Null.php" />
+   <install name="lib/Horde/Controller/Request.php" as="Horde/Controller/Request.php" />
+   <install name="lib/Horde/Controller/RequestConfiguration.php" as="Horde/Controller/RequestConfiguration.php" />
+   <install name="lib/Horde/Controller/Response.php" as="Horde/Controller/Response.php" />
+   <install name="lib/Horde/Controller/ResponseWriter/Web.php" as="Horde/Controller/ResponseWriter/Web.php" />
+   <install name="lib/Horde/Controller/ResponseWriter/WebDebug.php" as="Horde/Controller/ResponseWriter/WebDebug.php" />
+   <install name="lib/Horde/Controller/ResponseWriter.php" as="Horde/Controller/ResponseWriter.php" />
+   <install name="lib/Horde/Controller/Runner.php" as="Horde/Controller/Runner.php" />
+   <install name="lib/Horde/Controller/SettingsExporter/Default.php" as="Horde/Controller/SettingsExporter/Default.php" />
+   <install name="lib/Horde/Controller/SettingsExporter.php" as="Horde/Controller/SettingsExporter.php" />
+   <install name="lib/Horde/Controller.php" as="Horde/Controller.php" />
   </filelist>
  </phprelease>
 </package>

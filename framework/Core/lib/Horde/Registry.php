@@ -293,23 +293,37 @@ class Horde_Registry
             'Horde_Tree' => new Horde_Core_Binder_Tree(),
             'Horde_Token' => new Horde_Core_Binder_Token(),
             'Horde_Vfs' => new Horde_Core_Binder_Vfs(),
-            'Net_DNS_Resolver' => new Horde_Core_Binder_Dns()
+            'Net_DNS_Resolver' => new Horde_Core_Binder_Dns(),
         );
 
         /* Define factories. */
         $factories = array(
+            'Horde_Controller_Request' => array(
+                'Horde_Core_Factory_Request',
+                'create',
+            ),
+            'Horde_Controller_RequestConfiguration' => array(
+                'Horde_Core_Controller_RequestMapper',
+                'getRequestConfiguration',
+            ),
             'Horde_Kolab_Server_Composite' => array(
                 'Horde_Core_Factory_KolabServer',
-                'getComposite'
+                'getComposite',
             ),
             'Horde_Kolab_Session' => array(
                 'Horde_Core_Factory_KolabSession',
-                'getSession'
+                'getSession',
             ),
             'Horde_Kolab_Storage' => array(
                 'Horde_Core_Factory_KolabStorage',
-                'getStorage'
+                'getStorage',
             )
+        );
+
+        /* Define implementations. */
+        $implementations = array(
+            'Horde_Controller_ResponseWriter' => 'Horde_Controller_ResponseWriter_Web',
+            'Horde_View_Base' => 'Horde_View',
         );
 
         /* Setup injector. */
@@ -320,6 +334,9 @@ class Horde_Registry
         }
         foreach ($factories as $key => $val) {
             $injector->bindFactory($key, $val[0], $val[1]);
+        }
+        foreach ($implementations as $key => $val) {
+            $injector->bindImplementation($key, $val);
         }
 
         $GLOBALS['registry'] = $this;
@@ -1117,7 +1134,12 @@ class Horde_Registry
          * be done here because it is possible to try to load app-specific
          * libraries from other applications. */
         $app_lib = $this->get('fileroot', $app) . '/lib';
-        $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^' . $app . '(?:$|_)/i', $app_lib));
+        $autoloader = $GLOBALS['injector']->getInstance('Horde_Autoloader');
+        $autoloader->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^' . $app . '(?:$|_)/i', $app_lib));
+        $applicationMapper = new Horde_Autoloader_ClassPathMapper_Application($this->get('fileroot', $app) . '/app');
+        $applicationMapper->addMapping('Controller', 'controllers');
+        $applicationMapper->addMapping('SettingsExporter', 'settings');
+        $autoloader->addClassPathMapper($applicationMapper);
 
         $checkPerms = !isset($options['check_perms']) || !empty($options['check_perms']);
 

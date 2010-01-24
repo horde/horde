@@ -21,57 +21,39 @@
  *   Controllers/
  *     FooController.php -> class App_FooController
  * no nested components?
+
+request processing steps:
+
+- bootstrap
+- injector bindings
+* customization point
+- create request
+- create request mapper
+- $config = $mapper->getRquestConfiguration($request)
+- create runner
+- execute runner
+  - get settings exporter
+  - export bindings
+  - get controller name
+  - create response
+  - create controller builder
+  - create filter runner
+  - export filters
+  - handle internal redirects
+  - return response
+- write response
+
+add filtered requests/blue_filter port to Horde?
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('horde');
 
-// Set up our request and routing objects
-$request = new Horde_Controller_Request_Http();
-$mapper = new Horde_Routes_Mapper();
+$request = $injector->getInstance('Horde_Controller_Request');
 
-$uri = substr($request->getUri(), strlen($registry->get('webroot', 'horde')));
-if (strpos($uri, '/') === false) {
-    $app = $uri;
-    $path = '';
-} else {
-    list($app, $path) = explode('/', $uri, 2);
-}
+$runner = $injector->getInstance('Horde_Controller_Runner');
+$config = $injector->getInstance('Horde_Controller_RequestConfiguration');
+$response = $runner->execute($injector, $request, $config);
 
-// Check for route definitions.
-$fileroot = $registry->get('fileroot', $app);
-$routeFile = $fileroot . '/config/routes.php';
-if (!file_exists($routeFile)) {
-    throw new Horde_Controller_Exception('Not routable: ' . $uri);
-}
-
-// @TODO Use the registry to check app permissions, etc.
-// $registry->pushApp($app);
-
-// Application routes are relative only to the application. Let the mapper know
-// where they start.
-$mapper->prefix = $registry->get('webroot', 'horde') . '/' . $app;
-
-// @TODO ? $mapper->createRegs(array('blogs', 'comments', 'posts')) would avoid
-// the directory scan entirely. The argument is the name of every controller in
-// the system. Should also cache the controller scan.
-
-// Load application routes.
-include $routeFile;
-
-// Set up application class and controller loading
-// @TODO separate $app from class names so that there can be multiple instances
-// of an app in the registry?
-$injector->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^' . $app . '(?:$|_)/i', $fileroot . '/lib/'));
-
-// Create our controller context.
-$context = array(
-    'mapper' => $mapper,
-    'controllerDir' => $fileroot . '/app/controllers',
-    'viewsDir' => $fileroot . '/app/views',
-    // 'logger' => '',
-);
-
-// Dispatch.
-$dispatcher = Horde_Controller_Dispatcher::singleton($context);
-$dispatcher->dispatch($request);
+$responseWriter = $injector->getInstance('Horde_Controller_ResponseWriter');
+$responseWriter->writeResponse($response);
