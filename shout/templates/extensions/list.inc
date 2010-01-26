@@ -84,6 +84,14 @@ function resetExtenDest(exten)
         dest.numbers = [];
     }
 
+    if (dest.devices.size() == 0 && dest.numbers.size() == 0) {
+        var span = document.createElement('span');
+        span.className = 'informational';
+        var text = document.createTextNode("No destinations configured");
+        span.appendChild(text);
+        $('destX' + exten + 'summary').appendChild(span);
+    }
+
     dest.devices.each(function (s) {
         // Fill in detail block
         var img = document.createElement('img');

@@ -21,7 +21,9 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function notificationHandler()
     {
-        return $GLOBALS['kronolith_notify'];
+        // FIXME: Create Shout notification handler
+        //return $GLOBALS['kronolith_notify'];
+        return null;
     }
 
     /**
@@ -29,6 +31,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function addDestination($vars)
     {
+        $shout = Horde_Registry::appInit('shout');
         $context = $_SESSION['shout']['context'];
         try {
             // FIXME: Use Form?
@@ -48,6 +51,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function deleteDestination($vars)
     {
+        $shout = Horde_Registry::appInit('shout');
         $context = $_SESSION['shout']['context'];
         try {
             // FIXME: Use Form?
@@ -67,6 +71,8 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function getDestinations($vars)
     {
+        $shout = Horde_Registry::appInit('shout');
+        Horde::logMessage(print_r($vars, true), __FILE__, __LINE__, PEAR_LOG_ERR);
         $context = $_SESSION['shout']['context'];
         try {
             return $shout->extensions->getExtensions($context);
