@@ -275,11 +275,11 @@ class IMP_Views_ListMessages
 
         /* Get unseen/thread information. */
         if (!$is_search) {
-            $imptree = IMP_Imap_Tree::singleton();
-            $info = $imptree->getElementInfo($mbox);
-            if (!empty($info)) {
-                $md->unseen = intval($info['unseen']);
-            }
+            try {
+                if ($info = $GLOBALS['imp_imap']->ob()->status($mbox, Horde_Imap_Client::STATUS_UNSEEN)) {
+                    $md->unseen = intval($info['unseen']);
+                }
+            } catch (Horde_Imap_Client_Exception $e) {}
 
             if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
                 $threadob = $imp_mailbox->getThreadOb();

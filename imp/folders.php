@@ -253,7 +253,13 @@ case 'folders_empty_mailbox_confirm':
                 $notification->push(sprintf(_("The folder \"%s\" may not be deleted."), IMP::displayFolder($val)), 'horde.error');
                 continue;
             }
-            $elt_info = $imaptree->getElementInfo($val);
+
+            try {
+                $elt_info = $imp_imap->ob()->status($val, Horde_Imap_Client::STATUS_MESSAGES);
+            } catch (Horde_Imap_Client_Exception $e) {
+                $elt_info = null;
+            }
+
             $data = array(
                 'class' => (++$rowct % 2) ? 'item0' : 'item1',
                 'name' => htmlspecialchars(IMP::displayFolder($val)),

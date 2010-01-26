@@ -403,9 +403,11 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
 
         if ($vars->add) {
             $imptree->addPollList($vars->view);
-            if ($info = $imptree->getElementInfo($vars->view)) {
-                $result->poll = array($vars->view => intval($info['unseen']));
-            }
+            try {
+                if ($info = $GLOBALS['imp_imap']->ob()->status($vars->view, Horde_Imap_Client::STATUS_UNSEEN)) {
+                    $result->poll = array($vars->view => intval($info['unseen']));
+                }
+            } catch (Horde_Imap_Client_Exception $e) {}
             $GLOBALS['notification']->push(sprintf(_("\"%s\" mailbox now polled for new mail."), $display_folder), 'horde.success');
         } else {
             $imptree->removePollList($vars->view);
@@ -1507,8 +1509,15 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             return array();
         }
 
-        $info = $imptree->getElementInfo($mbox);
-        return array($mbox => isset($info['unseen']) ? intval($info['unseen']) : 0);
+        try {
+            $count = ($info = $GLOBALS['imp_imap']->ob()->status($mbox, Horde_Imap_Client::STATUS_UNSEEN))
+                ? intval($info['unseen'])
+                : 0;
+        } catch (Horde_Imap_Client_Exception $e) {
+            $count = 0;
+        }
+
+        return array($mbox => $count);
     }
 
     /**

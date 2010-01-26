@@ -1398,27 +1398,6 @@ class IMP_Imap_Tree
     }
 
     /**
-     * Get information about new/unseen/total messages for the given element.
-     *
-     * @param string $name  The element name (UTF7-IMAP).
-     *
-     * @return array  Array with the following fields:
-     * <pre>
-     * 'messages' - (integer) Number of total messages.
-     * 'recent' - (integer) Number of new messages.
-     * 'unseen' - (integer) Number of unseen messages.
-     * </pre>
-     */
-    public function getElementInfo($name)
-    {
-        try {
-            return $GLOBALS['imp_imap']->ob()->status($name, Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_RECENT | Horde_Imap_Client::STATUS_UNSEEN);
-        } catch (Horde_Imap_Client_Exception $e) {
-            return array();
-        }
-    }
-
-    /**
      * Sorts a list of mailboxes.
      *
      * @param array &$mbox   The list of mailboxes to sort.
@@ -1933,15 +1912,16 @@ class IMP_Imap_Tree
             if ($this->isPolled($mailbox)) {
                 /* If we need message information for this folder, update
                  * it now. */
-                $msgs_info = $this->getElementInfo($mailbox['v']);
-                if (!empty($msgs_info)) {
-                    $row['polled'] = true;
-                    if (!empty($msgs_info['recent'])) {
-                        $row['recent'] = $msgs_info['recent'];
+                try {
+                    if ($msgs_info = $GLOBALS['imp_imap']->ob()->status($mailbox['v'], Horde_Imap_Client::STATUS_RECENT | Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_MESSAGES)) {
+                        $row['polled'] = true;
+                        if (!empty($msgs_info['recent'])) {
+                            $row['recent'] = $msgs_info['recent'];
+                        }
+                        $row['msgs'] = $msgs_info['messages'];
+                        $row['unseen'] = $msgs_info['unseen'];
                     }
-                    $row['msgs'] = $msgs_info['messages'];
-                    $row['unseen'] = $msgs_info['unseen'];
-                }
+                } catch (Horde_Imap_Client_Exception $e) {}
             }
 
             switch ($mailbox['v']) {
