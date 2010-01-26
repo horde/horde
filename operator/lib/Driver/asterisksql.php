@@ -319,8 +319,8 @@ class Operator_Driver_asterisksql extends Operator_Driver {
         $stats['numcalls'] = array($info['title'] => $s_numcalls);
         $info = Operator::getGraphInfo('minutes');
         $stats['minutes'] = array($info['title'] => $s_minutes);
-        $info = Operator::getGraphInfo('failed');
-        $stats['failed'] = array($info['title'] => $s_failed);
+//        $info = Operator::getGraphInfo('failed');
+//        $stats['failed'] = array($info['title'] => $s_failed);
 
         return $stats;
     }
