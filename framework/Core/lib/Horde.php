@@ -1296,8 +1296,9 @@ HTML;
                 $old_error = error_reporting(0);
                 $title = str_replace(
                     array("\r", "\n"), '',
-                    nl2br(htmlspecialchars($title, ENT_QUOTES, $charset))
-                );
+                    htmlspecialchars(
+                        nl2br(htmlspecialchars($title, ENT_QUOTES, $charset)),
+                        ENT_QUOTES, $charset));
                 error_reporting($old_error);
             }
             $attributes['title.raw'] = $title;
