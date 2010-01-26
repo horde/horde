@@ -314,7 +314,7 @@ class Horde_Data extends PEAR {
             $import_format = Horde_Util::getFormData('import_format');
             try {
                 Horde_Browser::wasFileUploaded('import_file', $param['file_types'][$import_format]);
-            } catch (Horde_Exception ($e) {
+            } catch (Horde_Exception $e) {
                 PEAR::raiseError($e->getMessage());
             }
             if ($_FILES['import_file']['size'] <= 0) {
