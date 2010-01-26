@@ -849,6 +849,16 @@ abstract class Horde_Imap_Client_Base
      * 'remote' - (boolean) Tell server to return mailboxes that reside on
      *            another server. Requires the LIST-EXTENDED extension.
      *            DEFAULT: false
+     * 'status' - (integer) Tell server to return status information. The
+     *            value is a bitmask that may contain the following:
+     *            Horde_Imap_Client::STATUS_MESSAGES,
+     *            Horde_Imap_Client::STATUS_RECENT,
+     *            Horde_Imap_Client::STATUS_UIDNEXT,
+     *            Horde_Imap_Client::STATUS_UIDVALIDITY,
+     *            Horde_Imap_Client::STATUS_UNSEEN, and
+     *            Horde_Imap_Client::STATUS_HIGHESTMODSEQ.
+     *            Requires the LIST-STATUS extension.
+     *            DEFAULT: 0
      * 'sort' - (boolean) If true, return a sorted list of mailboxes?
      *          DEFAULT: Do not sort the list.
      * 'sort_delimiter' - (string) If 'sort' is true, this is the delimiter
@@ -862,8 +872,10 @@ abstract class Horde_Imap_Client_Base
      *                of mailboxes.  Otherwise, the array values are arrays
      *                with the following keys: 'mailbox', 'attributes' (only
      *                if 'attributes' option is true), 'delimiter' (only
-     *                if 'delimiter' option is true), and 'extended' (only
+     *                if 'delimiter' option is true), 'extended' (only
      *                if 'recursivematch' option is true and LIST-EXTENDED
+     *                extension is supported on the server), and 'status'
+     *                (only if 'status' option is true and LIST-STATUS
      *                extension is supported on the server).
      * @throws Horde_Imap_Client_Exception
      */
@@ -1047,6 +1059,44 @@ abstract class Horde_Imap_Client_Base
      * @throws Horde_Imap_Client_Exception
      */
     abstract protected function _status($mailbox, $flags);
+
+    /**
+     * Perform a STATUS call on multiple mailboxes at the same time.
+     *
+     * This method leverages the LIST-EXTENDED and LIST-STATUS extensions on
+     * the IMAP server to improve the efficiency of this operation.
+     *
+     * @param array $mailboxes  The mailboxes to query. Either in UTF7-IMAP
+     *                          or UTF-8.
+     * @param integer $flags    See self::status().
+     *
+     * @return array  An array with the keys as the mailbox names and the
+     *                values as arrays with the requested keys (from the
+     *                mask given in $flags).
+     */
+    public function statusMultiple($mailboxes,
+                                   $flags = Horde_Imap_Client::STATUS_ALL)
+    {
+        $ret = array();
+
+        if ($this->queryCapability('LIST-STATUS')) {
+            try {
+                foreach ($this->listMailboxes($mailboxes, Horde_Imap_Client::MBOX_ALL, array('status' => $flags)) as $val) {
+                    if (isset($val['status'])) {
+                        $ret[$val['mailbox']] = $val['status'];
+                    }
+                }
+            } catch (Horde_Imap_Client_Exception $e) {}
+        } else {
+            foreach ($mailboxes as $val) {
+                try {
+                    $ret[$val] = $this->status($val, $flags);
+                } catch (Horde_Imap_Client_Exception $e) {}
+            }
+        }
+
+        return $ret;
+    }
 
     /**
      * Append message(s) to a mailbox.

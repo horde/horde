@@ -36,8 +36,9 @@
  *   RFC 5464 - METADATA
  *   RFC 5530 - IMAP Response Codes
  *
- *   draft-ietf-morg-sortdisplay-02 - SORT=DISPLAY
- *   draft-ietf-morg-inthread-00 - THREAD=REFS
+ *   draft-ietf-morg-status-in-list-01  LIST-STATUS
+ *   draft-ietf-morg-sortdisplay-02     SORT=DISPLAY
+ *   draft-ietf-morg-inthread-00        THREAD=REFS
  *
  *   [NO RFC] - XIMAPPROXY
  *       + Requires imapproxy v1.2.7-rc1 or later
@@ -1035,6 +1036,29 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $return_opts[] = 'CHILDREN';
             }
 
+            if (!empty($options['status']) &&
+                $this->queryCapability('LIST-STATUS')) {
+                $status_mask = array(
+                    Horde_Imap_Client::STATUS_MESSAGES => 'MESSAGES',
+                    Horde_Imap_Client::STATUS_RECENT => 'RECENT',
+                    Horde_Imap_Client::STATUS_UIDNEXT => 'UIDNEXT',
+                    Horde_Imap_Client::STATUS_UIDVALIDITY => 'UIDVALIDITY',
+                    Horde_Imap_Client::STATUS_UNSEEN => 'UNSEEN',
+                    Horde_Imap_Client::STATUS_HIGHESTMODSEQ => 'HIGHESTMODSEQ'
+                );
+
+                $status_opts = array();
+                foreach ($status_mask as $key => $val) {
+                    if ($options['status'] & $key) {
+                        $status_opts[] = $val;
+                    }
+                }
+
+                if (!empty($status_opts)) {
+                    $return_opts[] = 'STATUS (' . implode(' ', $status_opts) . ')';
+                }
+            }
+
             if (!empty($return_opts)) {
                 $cmd .= ' RETURN (' . implode(' ', $return_opts) . ')';
             }
@@ -1052,9 +1076,24 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         $this->_sendLine($cmd);
 
-        return empty($options['flat'])
-            ? $t['listresponse']
-            : array_values($t['listresponse']);
+        if (!empty($options['flat'])) {
+            return array_values($t['listresponse']);
+        }
+
+        /* Add in STATUS return, if needed. */
+        if (!empty($options['status'])) {
+            if (!is_array($pattern)) {
+                $pattern = array($pattern);
+            }
+
+            foreach ($pattern as $val) {
+                if (!empty($t['status'][$val])) {
+                    $t['listresponse'][$val]['status'] = $t['status'][$val];
+                }
+            }
+        }
+
+        return $t['listresponse'];
     }
 
     /**
@@ -1201,22 +1240,24 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             return $data;
         }
 
-        $this->_temp['status'] = array();
         $this->_sendLine('STATUS ' . $this->utils->escape($mailbox) . ' (' . implode(' ', array_map('strtoupper', $query)) . ')');
 
-        return $this->_temp['status'];
+        return $this->_temp['status'][$mailbox];
     }
 
     /**
      * Parse a STATUS response (RFC 3501 [7.2.4], RFC 4551 [3.6])
      *
-     * @param array $data  The server response.
+     * @param string $mailbox  The mailbox name (UTF7-IMAP).
+     * @param array $data      The server response.
      */
-    protected function _parseStatus($data)
+    protected function _parseStatus($mailbox, $data)
     {
+        $this->_temp['status'][$mailbox] = array();
+
         for ($i = 0, $len = count($data); $i < $len; $i += 2) {
             $item = strtolower($data[$i]);
-            $this->_temp['status'][$item] = $data[$i + 1];
+            $this->_temp['status'][$mailbox][$item] = $data[$i + 1];
         }
     }
 
@@ -3744,7 +3785,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             case 'STATUS':
                 // Parse a STATUS response (RFC 3501 [7.2.4]).
-                $this->_parseStatus($ob['token'][2]);
+                $this->_parseStatus($ob['token'][1], $ob['token'][2]);
                 break;
 
             case 'SEARCH':

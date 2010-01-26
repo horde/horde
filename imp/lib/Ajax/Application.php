@@ -350,10 +350,8 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         $result = new stdClass;
         $result->poll = array();
 
-        foreach ($imptree->getPollList() as $val) {
-            if ($info = $imptree->getElementInfo($val)) {
-                $result->poll[$val] = intval($info['unseen']);
-            }
+        foreach ($GLOBALS['imp_imap']->ob()->statusMultiple($imptree->getPollList(), Horde_Imap_Client::STATUS_UNSEEN) as $key => $val) {
+            $result->poll[$key] = intval($val['unseen']);
         }
 
         if ($vars->view &&
