@@ -60,6 +60,7 @@
 <!--
 
 var destinations = [];
+var ajax_url = '<?php echo Horde::getServiceLink('ajax', 'shout') ?>';
 
 function resetExtenDest(exten)
 {
@@ -149,7 +150,7 @@ function resetExtenDest(exten)
 
     var form = document.createElement('form');
     form.method = 'post';
-    form.action = '#';
+    form.action = ajax_url + 'addDestination';
     form.id = 'destX' + exten + 'form';
     var hidden = document.createElement('input');
     hidden.type = 'hidden';
@@ -246,7 +247,7 @@ function processForm(event)
     }
 
     // FIXME: Better error handling
-    new Ajax.Request('<?php echo Horde::serviceLink('ajax', 'shout') ?>',
+    new Ajax.Request(form.readAttribute('action'),
     {
         method: 'post',
         parameters: form.serialize(true),
@@ -349,8 +350,7 @@ function delDest(exten, type, dest)
     var params = $H({
         'extension': exten,
         'type': type,
-        'destination': dest,
-        'action': 'deleteDestination'
+        'destination': dest
     });
 
     
@@ -366,7 +366,7 @@ function delDest(exten, type, dest)
     }
 
     // FIXME: Better error handling
-    new Ajax.Request('<?php echo Horde::serviceLink('ajax', 'shout') ?>',
+    new Ajax.Request(ajax_url + 'deleteDestination',
     {
         method: 'post',
         parameters: params,
@@ -381,10 +381,9 @@ function delDest(exten, type, dest)
 
 destinations = $H();
 
-new Ajax.Request('<?php echo Horde::serviceLink('ajax', 'shout') ?>',
+new Ajax.Request(ajax_url + 'getDestinations',
 {
     method: 'post',
-    parameters: $H({'action': 'getDestinations'}),
     onSuccess: function(r) {
         destinations = $H(r.responseJSON.response);
         resetDestInfo(true);
