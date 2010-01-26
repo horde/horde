@@ -41,7 +41,7 @@ class IMP_Ui_Block
         $newmsgs = array();
 
         if ($mode == 'imp') {
-            $mbox_url = Horde::applicationUrl('mailbox.php', true);
+            $mbox_url = Horde::applicationUrl('mailbox.php');
         }
 
         foreach ($poll as $folder) {
@@ -67,7 +67,7 @@ class IMP_Ui_Block
                     $anyUnseen = true;
                 }
 
-                $html .= (($mode == 'imp') ? Horde::link($url) : '<a>') . IMP::displayFolder($folder) . '</a>';
+                $html .= (($mode == 'imp') ? Horde::link($mbox_url) : '<a>') . IMP::displayFolder($folder) . '</a>';
 
                 if (!empty($status[$folder]['unseen'])) {
                     $html .= '</strong>';
@@ -78,8 +78,6 @@ class IMP_Ui_Block
                     '</td></tr>';
             }
         }
-
-        $html .= '</table>';
 
         if (!empty($newmsgs)) {
             /* Open the mailbox R/W to ensure the 'recent' flags are cleared
