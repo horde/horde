@@ -141,6 +141,8 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Driver
             ),
             array(
                 'body_only' => !empty($options['inline']),
+                // See Ticket #8836
+                'noprefetch' => (!empty($options['inline']) && $browser->isBrowser('mozilla') && !$browser->usingSSLConnection()),
                 'strip_styles' => $strip_styles,
                 'strip_style_attributes' => $strip_style_attributes
             )

@@ -11,6 +11,9 @@
  * <pre>
  * 'body_only' - (boolean) Only scan within the HTML body tags?
  *               DEFAULT: true
+ * 'noprefetch' - (boolean) Disable DNS pre-fetching? See:
+ *                https://developer.mozilla.org/En/Controlling_DNS_prefetching
+ *                DEFAULT: false
  * 'replace' - (string) The string to replace filtered tags with.
  *             DEFAULT: 'XSSCleaned'
  * 'strip_styles' - (boolean) Strip style tags?
@@ -37,6 +40,7 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter
      */
     protected $_params = array(
         'body_only' => true,
+        'noprefetch' => false,
         'replace' => 'XSSCleaned',
         'strip_styles' => true,
         'strip_style_attributes' => true
@@ -293,6 +297,22 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter
             $text = preg_replace_callback('/<HORDE_CDATA(\d+) \/>/', array($this, '_postProcessCallback'), $text);
             $this->_cdata = array();
             $this->_cdatacount = 0;
+        }
+
+        if ($this->_params['noprefetch']) {
+            if (preg_match('/<html[^>]*>/si', $text, $matches, PREG_OFFSET_CAPTURE)) {
+                preg_match('/<\/html>/si', $text, $matches2, PREG_OFFSET_CAPTURE);
+                $end = $matches[0][1] + strlen($matches[0][0]);
+                $text = substr($text, 0, $end) .
+                    '<meta http-equiv="x-dns-prefetch-control" value="off" />' .
+                    substr($text, $end, $matches2[0][1] - $end) .
+                    '<meta http-equiv="x-dns-prefetch-control" value="on" />' .
+                    substr($text, $matches2[0][1]);
+            } else {
+                $text = '<meta http-equiv="x-dns-prefetch-control" value="off" />' .
+                    $text .
+                    '<meta http-equiv="x-dns-prefetch-control" value="on" />';
+            }
         }
 
         return $text;
