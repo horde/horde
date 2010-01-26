@@ -61,9 +61,5 @@ require OPERATOR_TEMPLATES . '/menu.inc';
 $notification->notify();
 $form->renderActive($renderer, $vars, Horde::applicationUrl('export.php'), 'post');;
 
-$columns = unserialize($prefs->getValue('columns'));
-if (!empty($data)) {
-    require OPERATOR_TEMPLATES . '/search.inc';
-}
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';
