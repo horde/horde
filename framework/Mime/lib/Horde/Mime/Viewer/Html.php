@@ -48,7 +48,7 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Driver
      */
     protected function _render()
     {
-        $html = $this->_cleanHTML($this->_mimepart->getContents(), false);
+        $html = $this->_cleanHTML($this->_mimepart->getContents(), array('inline' => false));
 
         return array(
             $this->_mimepart->getMimeId() => array(
@@ -66,7 +66,7 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Driver
      */
     protected function _renderInline()
     {
-        $html = $this->_cleanHTML($this->_mimepart->getContents(), true);
+        $html = $this->_cleanHTML($this->_mimepart->getContents(), array('inline' => true));
 
         return array(
             $this->_mimepart->getMimeId() => array(
