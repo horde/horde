@@ -152,11 +152,6 @@ class Shout_Driver_Sql extends Shout_Driver
         $details['alias'] = $details['name'];
         $details['name'] = $details['devid'];
         unset($details['devid']);
-        // Default the caller id to something sane.
-        if (empty($details['callerid'])) {
-            $details['callerid'] = sprintf('"%s" <%s>', $details['alias'],
-                                                        $details['mailbox']);
-        }
         $details['mailbox'] .= '@' . $context;
 
         // Prepare the SQL query and arguments

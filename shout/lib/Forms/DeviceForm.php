@@ -69,11 +69,20 @@ class DeviceDetailsForm extends Horde_Form {
             }
         }
 
+        $callerid = $this->_vars->get('callerid');
+        $name = $this->_vars->get('name');
+        $mailbox = $this->_vars->get('mailbox');
+
+        // Default the caller id to something sane.
+        if ($callerid) {
+            $callerid = sprintf('"%s" <%s>', $name, $mailbox);
+        }
+
         $details = array(
             'devid' => $devid,
             'name' => $this->_vars->get('name'),
-            'mailbox' => $this->_vars->get('mailbox'),
-            'callerid' => $this->_vars->get('callerid'),
+            'mailbox' => $mailbox,
+            'callerid' => $callerid,
             'genauthtok' => $this->_vars->get('genauthtok'),
             'password' => $password,
         );
