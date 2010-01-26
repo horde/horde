@@ -870,7 +870,11 @@ abstract class Horde_Imap_Client_Base
     public function listMailboxes($pattern, $mode = Horde_Imap_Client::MBOX_ALL,
                                   $options = array())
     {
-        $ret = $this->_listMailboxes(Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($pattern), $mode, $options);
+        $pattern = is_array($pattern)
+            ? array_map(array('Horde_Imap_Client_Utf7imap', 'Utf8ToUtf7Imap'), $pattern)
+            : Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($pattern);
+
+        $ret = $this->_listMailboxes($pattern, $mode, $options);
 
         if (!empty($options['sort'])) {
             Horde_Imap_Client_Sort::sortMailboxes($ret, array('delimiter' => empty($options['sort_delimiter']) ? '.' : $options['sort_delimiter'], 'index' => false, 'keysort' => empty($options['flat'])));

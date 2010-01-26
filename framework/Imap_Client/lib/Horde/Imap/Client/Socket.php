@@ -1024,7 +1024,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (is_array($pattern)) {
                 $cmd .= '(';
                 foreach ($pattern as $val) {
-                    $cmd .= $this->utils->escape($pattern) . ' ';
+                    $cmd .= $this->utils->escape($val) . ' ';
                 }
                 $cmd = rtrim($cmd) . ')';
             } else {
@@ -1039,6 +1039,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $cmd .= ' RETURN (' . implode(' ', $return_opts) . ')';
             }
         } else {
+            if (is_array($pattern)) {
+                $return_array = array();
+                foreach ($pattern as $val) {
+                    $return_array = array_merge($return_array, $this->_getMailboxList($val, $mode, $options, $subscribed));
+                }
+                return $return_array;
+            }
+
            $cmd = (($mode == Horde_Imap_Client::MBOX_SUBSCRIBED) ? 'LSUB' : 'LIST') . ' "" ' . $this->utils->escape($pattern);
         }
 
