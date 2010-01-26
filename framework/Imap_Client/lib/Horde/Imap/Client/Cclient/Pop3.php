@@ -200,7 +200,7 @@ class Horde_Imap_Client_Cclient_Pop3 extends Horde_Imap_Client_Cclient
      * Obtain status information for a mailbox.
      *
      * @param string $mailbox  The mailbox to query (UTF7-IMAP).
-     * @param string $flags    A bitmask of information requested from the
+     * @param integer $flags   A bitmask of information requested from the
      *                         server.
      *
      * @return array  See Horde_Imap_Client_Base::status().

@@ -528,7 +528,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      * Obtain status information for a mailbox.
      *
      * @param string $mailbox  The mailbox to query (UTF7-IMAP).
-     * @param string $flags    A bitmask of information requested from the
+     * @param integer $flags   A bitmask of information requested from the
      *                         server. This driver only supports the options
      *                         listed under Horde_Imap_Client::STATUS_ALL.
      *

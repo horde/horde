@@ -900,7 +900,7 @@ abstract class Horde_Imap_Client_Base
      *
      * @param string $mailbox  The mailbox to query. Either in UTF7-IMAP or
      *                         or UTF-8.
-     * @param string $flags    A bitmask of information requested from the
+     * @param integer $flags   A bitmask of information requested from the
      *                         server. Allowed flags:
      * <pre>
      * Flag: Horde_Imap_Client::STATUS_MESSAGES
@@ -1040,7 +1040,7 @@ abstract class Horde_Imap_Client_Base
      * Obtain status information for a mailbox.
      *
      * @param string $mailbox  The mailbox to query (UTF7-IMAP).
-     * @param string $flags    A bitmask of information requested from the
+     * @param integer $flags   A bitmask of information requested from the
      *                         server.
      *
      * @return array  See self::status().
