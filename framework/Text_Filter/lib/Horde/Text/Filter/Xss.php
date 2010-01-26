@@ -6,6 +6,20 @@
  * people *KNOW* HTML is a security hole, clean up what we can, and leave it
  * at that.
  *
+ * Filter parameters:
+ * ------------------
+ * <pre>
+ * 'body_only' - (boolean) Only scan within the HTML body tags?
+ *               DEFAULT: true
+ * 'replace' - (string) The string to replace filtered tags with.
+ *             DEFAULT: 'XSSCleaned'
+ * 'strip_styles' - (boolean) Strip style tags?
+ *                  DEFAULT: true
+ * 'strip_style_attributes' - (boolean) Strip style attributes in all HTML
+ *                            tags?
+ *                            DEFAULT: true
+ * </pre>
+ *
  * Copyright 2004-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
