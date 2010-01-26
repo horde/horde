@@ -9,7 +9,7 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('operator');
+$operator = Horde_Registry::appInit('operator');
 
 require_once OPERATOR_BASE . '/lib/Form/SearchCDR.php';
 
@@ -33,7 +33,7 @@ if ($form->isSubmitted() && $form->validate($vars, true)) {
             ($end->year - $start->year) == 0) {
             // FIXME: This should not cause an error but is due to a bug in
             // Image_Graph.
-            $notification->push(_("You must select a range that includes more than one month to view these graphs."));
+            $notification->push(_("You must select a range that includes more than one month to view these graphs."), 'horde.warning');
         } else {
             // See if we have cached data
             $cachekey = md5(serialize(array('getMonthlyCallStats', $start, $end,
