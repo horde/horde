@@ -9,7 +9,7 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('operator');
+$operator = Horde_Registry::appInit('operator');
 
 $cache = &$GLOBALS['cache'];
 
