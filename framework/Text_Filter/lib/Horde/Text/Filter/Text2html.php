@@ -5,14 +5,12 @@
  *
  * Parameters:
  * <pre>
- * parselevel -- The parselevel of the output. See the list of constants below.
- * charset    -- The charset to use for htmlspecialchars() calls.
- * class      -- The CSS class name for the links.
- * nofollow   -- Whether to set the 'rel="nofollow"' attribute on links.
- * callback   -- An optional callback function that the URL is passed through
- *               before being set as the href attribute.  Must be a string with
- *               the function name, the function must take the original as the
- *               first and only parameter.
+ * callback - (string) See Horde_Text_Filter_Linkurls::.
+ * charset - (string) The charset to use for htmlspecialchars() calls.
+ * class - (string) See Horde_Text_Filter_Linkurls::.
+ * nofollow - (boolean) See Horde_Text_Filter_Linkurls::.
+ * noprefetch - (boolean) See Horde_Text_Filter_Linkurls::.
+ * parselevel - (integer) The parselevel of the output (see below).
  * </pre>
  *
  * <pre>
@@ -40,7 +38,6 @@
  */
 class Horde_Text_Filter_Text2html extends Horde_Text_Filter
 {
-    /* TODO */
     const PASSTHRU = 0;
     const SYNTAX = 1;
     const MICRO = 2;
@@ -57,7 +54,9 @@ class Horde_Text_Filter_Text2html extends Horde_Text_Filter
         'callback' => 'Horde::externalUrl',
         'charset' => null,
         'class' => 'fixed',
-        'nofollow' => false
+        'nofollow' => false,
+        'noprefetch' => false,
+        'parselevel' => 0
     );
 
     /**
@@ -100,7 +99,12 @@ class Horde_Text_Filter_Text2html extends Horde_Text_Filter
         }
 
         if ($this->_params['parselevel'] < self::NOHTML) {
-            $filters = array('linkurls' => array('callback' => $this->_params['callback'], 'nofollow' => $this->_params['nofollow'], 'encode' => true));
+            $filters = array('linkurls' => array(
+                'callback' => $this->_params['callback'],
+                'nofollow' => $this->_params['nofollow'],
+                'noprefetch' => $this->_params['noprefetch'],
+                'encode' => true
+            ));
             if ($this->_params['parselevel'] < self::MICRO_LINKURL) {
                 $filters['emails'] = array('encode' => true);
             }

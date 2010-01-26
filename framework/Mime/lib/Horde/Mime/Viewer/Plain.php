@@ -43,7 +43,10 @@ class Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Driver
 
         return array(
             $this->_mimepart->getMimeId() => array(
-                'data' => '<html><body><tt>' . Horde_Text_Filter::filter($text, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'charset' => $charset, 'class' => null)) . '</tt></body></html>',
+                'data' => '<html><body><tt>' . Horde_Text_Filter::filter($text, 'text2html', array(
+                    'charset' => $charset,
+                    'parselevel' => Horde_Text_Filter_Text2html::MICRO
+                )) . '</tt></body></html>',
                 'status' => array(),
                 'type' => 'text/html; charset=' . $charset
             )

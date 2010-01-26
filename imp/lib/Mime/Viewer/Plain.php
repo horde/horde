@@ -81,8 +81,10 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         // Build filter stack. Starts with HTML markup and tab expansion.
         $filters = array(
             'text2html' => array(
-                'parselevel' => Horde_Text_Filter_Text2html::MICRO,
-                'charset' => Horde_Nls::getCharset()
+                'charset' => Horde_Nls::getCharset(),
+                // See Ticket #8836
+                'noprefetch' => ($GLOBALS['browser']->isBrowser('mozilla') && !$GLOBALS['browser']->usingSSLConnection()),
+                'parselevel' => Horde_Text_Filter_Text2html::MICRO
             ),
             'tabs2spaces' => array(),
         );
@@ -317,8 +319,10 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         // Escape text
         $filters = array(
             'text2html' => array(
-                'parselevel' => Horde_Text_Filter_Text2html::MICRO,
-                'charset' => Horde_Nls::getCharset()
+                'charset' => Horde_Nls::getCharset(),
+                // See Ticket #8836
+                'noprefetch' => ($inline && $GLOBALS['browser']->isBrowser('mozilla') && !$GLOBALS['browser']->usingSSLConnection()),
+                'parselevel' => Horde_Text_Filter_Text2html::MICRO
             ),
             'tabs2spaces' => array(),
         );

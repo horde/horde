@@ -46,7 +46,7 @@ class Horde_Mime_Viewer_Enriched extends Horde_Mime_Viewer_Driver
     {
         return array(
             $this->_mimepart->getMimeId() => array(
-                'data' => '<html><body>' . $this->_toHTML() . '</body></html>',
+                'data' => '<html><body>' . $this->_toHTML(false) . '</body></html>',
                 'status' => array(),
                 'type' => 'text/html; charset=' . $this->_mimepart->getCharset()
             )
@@ -62,7 +62,7 @@ class Horde_Mime_Viewer_Enriched extends Horde_Mime_Viewer_Driver
     {
         return array(
             $this->_mimepart->getMimeId() => array(
-                'data' => Horde_String::convertCharset($this->_toHTML(), $this->_mimepart->getCharset()),
+                'data' => Horde_String::convertCharset($this->_toHTML(true), $this->_mimepart->getCharset()),
                 'status' => array(),
                 'type' => 'text/html; charset=' . Horde_Nls::getCharset()
             )
@@ -72,9 +72,11 @@ class Horde_Mime_Viewer_Enriched extends Horde_Mime_Viewer_Driver
     /**
      * Convert the enriched text to HTML.
      *
+     * @param string $inline  Rendered inline?
+     *
      * @return string  The HTML-ified version of the MIME part contents.
      */
-    protected function _toHTML()
+    protected function _toHTML($inline)
     {
         $text = trim($this->_mimepart->getContents());
         if (!strlen($text)) {
@@ -170,7 +172,11 @@ class Horde_Mime_Viewer_Enriched extends Horde_Mime_Viewer_Driver
         $text = preg_replace('/^ (.*) $/s', '\1', $text);
 
         // Make URLs clickable.
-        $text = Horde_Text_Filter::filter($text, 'linkurls', array('callback' => 'Horde::externalUrl'));
+        $text = Horde_Text_Filter::filter($text, 'linkurls', array(
+            'callback' => 'Horde::externalUrl',
+            // See Ticket #8836
+            'noprefetch' => ($inline && $GLOBALS['browser']->isBrowser('mozilla') && !$GLOBALS['browser']->usingSSLConnection())
+        ));
 
         /* Wordwrap -- note this could impact on our above RFC compliance *IF*
          * we honored nofill tags (which we don't yet). */

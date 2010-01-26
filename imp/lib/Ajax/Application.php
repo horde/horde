@@ -871,7 +871,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
     public function Text2Html($vars)
     {
         $result = new stdClass;
-        $result->text = Horde_Text_Filter::filter($vars->text, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL, 'class' => null, 'callback' => null));
+        $result->text = Horde_Text_Filter::filter($vars->text, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL));
 
         return $result;
     }
