@@ -41,7 +41,7 @@ Reading, writing and listing of files are all supported, and there are both obje
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes></notes>
+ <notes>* TODO</notes>
  <contents>
   <dir name="/">
    <dir name="data">
