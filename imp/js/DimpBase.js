@@ -789,7 +789,8 @@ var DimpBase = {
             break;
 
         case 'ctx_message_forward':
-            this.composeMailbox('forward');
+        case 'ctx_message_reply':
+            this.composeMailbox(id == 'ctx_message_forward' ? 'forward_auto' : 'reply_auto');
             break;
 
         case 'ctx_message_source':
@@ -806,6 +807,12 @@ var DimpBase = {
         case 'ctx_reply_reply_all':
         case 'ctx_reply_reply_list':
             this.composeMailbox(id.substring(10));
+            break;
+
+        case 'ctx_forward_attach':
+        case 'ctx_forward_body':
+        case 'ctx_forward_both':
+            this.composeMailbox(id.substring(4));
             break;
 
         case 'oa_preview_hide':
@@ -1985,7 +1992,7 @@ var DimpBase = {
 
             case 'button_forward':
             case 'button_reply':
-                this.composeMailbox(id == 'button_reply' ? 'reply_auto' : 'forward');
+                this.composeMailbox(id == 'button_reply' ? 'reply_auto' : 'forward_auto');
                 break;
 
             case 'button_ham':
@@ -2958,6 +2965,9 @@ var DimpBase = {
         this._addMouseEvents({ id: 'folderopts', type: 'folderopts' }, $('folderopts').down(1));
 
         DM.addSubMenu('ctx_message_reply', 'ctx_reply');
+        if ($('ctx_forward')) {
+            DM.addSubMenu('ctx_message_forward', 'ctx_forward');
+        }
         [ 'ctx_message_', 'oa_', 'ctx_draft_' ].each(function(i) {
             if ($(i + 'setflag')) {
                 DM.addSubMenu(i + 'setflag', 'ctx_flag');
@@ -2970,6 +2980,9 @@ var DimpBase = {
         } else {
             this._addMouseEvents({ id: 'button_reply', type: 'reply' }, $('button_reply'));
             DM.disable('button_reply_img', true, true);
+
+            this._addMouseEvents({ id: 'button_forward', type: 'forward' }, $('button_forward'));
+            DM.disable('button_forward_img', true, true);
         }
 
         new Drop('dropbase', this._folderDropConfig);

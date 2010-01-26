@@ -19,11 +19,15 @@ var DimpFullmessage = {
         switch (type) {
         case 'reply':
         case 'reply_all':
+        case 'reply_auto':
         case 'reply_list':
             func = 'GetReplyData';
             break;
 
-        case 'forward':
+        case 'forward_auto':
+        case 'forward_attach':
+        case 'forward_body':
+        case 'forward_both':
             func = 'GetForwardData';
             break;
         }
@@ -85,7 +89,7 @@ var DimpFullmessage = {
 
             case 'forward_link':
             case 'reply_link':
-                this.quickreply(id == 'reply_link' ? 'reply' : 'forward');
+                this.quickreply(id == 'reply_link' ? 'reply_auto' : 'forward_auto');
                 e.stop();
                 return;
 
@@ -153,6 +157,12 @@ var DimpFullmessage = {
             this.quickreply(id.substring(10));
             break;
 
+        case 'ctx_forward_attach':
+        case 'ctx_forward_body':
+        case 'ctx_forward_both':
+            this.quickreply(id.substring(4));
+            break;
+
         default:
             parentfunc(e);
             break;
@@ -183,6 +193,9 @@ var DimpFullmessage = {
             tmp = $('reply_link', 'forward_link').compact().invoke('up', 'SPAN').concat([ $('ctx_contacts_new') ]).compact().invoke('remove');
         } else {
             this.addPopdown('reply_link', 'replypopdown');
+            if ($('ctx_forwardpopdown')) {
+                this.addPopdown('forward_link', 'forwardpopdown');
+            }
         }
 
         /* Set up address linking. */

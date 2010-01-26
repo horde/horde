@@ -57,7 +57,7 @@ your ``config/prefs.php`` file and your preferences backend::
 
    'alternative_display'
    'attachment_display'
-   'forward_default'
+   'forward_bodytext'
 
 
 Hooks

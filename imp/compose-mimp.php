@@ -139,7 +139,7 @@ case 'f':
     if (!($imp_contents = $imp_ui->getIMPContents($uid, $thismailbox))) {
         break;
     }
-    $fwd_msg = $imp_compose->forwardMessage($imp_contents);
+    $fwd_msg = $imp_compose->forwardMessage('forward_attach', $imp_contents, false);
     $header = $fwd_msg['headers'];
 
     $notification->push(_("Forwarded message will be automatically added to your outgoing message."), 'horde.message');
@@ -203,10 +203,9 @@ case _("Send"):
             break;
 
         case 'forward':
-            $fwd_msg = $imp_compose->forwardMessage($imp_contents);
+            $fwd_msg = $imp_compose->forwardMessage('forward_attach', $imp_contents);
             $msg = $fwd_msg['body'];
             $message .= "\n" . $msg;
-            $imp_compose->attachIMAPMessage(array($uid . IMP::IDX_SEP . $thismailbox), $header);
             break;
         }
     }

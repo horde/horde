@@ -80,7 +80,10 @@ if ($actionID) {
     case 'reply_all':
     case 'reply_auto':
     case 'reply_list':
-    case 'forward':
+    case 'forward_attach':
+    case 'forward_auto':
+    case 'forward_body':
+    case 'forward_both':
     case 'redirect_compose':
     case 'fwd_digest':
         // These are all safe actions that might be invoked without a token.
@@ -304,12 +307,15 @@ case 'reply_list':
     $encoding = empty($charset) ? $reply_msg['encoding'] : $charset;
     break;
 
-case 'forward':
+case 'forward_attach':
+case 'forward_auto':
+case 'forward_body':
+case 'forward_both':
     if (!($imp_contents = $imp_ui->getIMPContents($uid, $thismailbox))) {
         break;
     }
 
-    $fwd_msg = $imp_ui->getForwardData($imp_compose, $imp_contents, $uid . IMP::IDX_SEP . $thismailbox);
+    $fwd_msg = $imp_compose->forwardMessage($actionID, $imp_contents);
     $msg = $fwd_msg['body'];
     $header = $fwd_msg['headers'];
     $format = $fwd_msg['format'];
@@ -486,8 +492,7 @@ case 'fwd_digest':
     $indices = Horde_Util::getFormData('fwddigest');
     if (!empty($indices)) {
         $msglist = unserialize(urldecode($indices));
-        $subject_header = $imp_compose->attachIMAPMessage($msglist);
-        if ($subject_header !== false) {
+        if (($subject_header = $imp_compose->attachIMAPMessage($msglist)) !== false) {
             $header['subject'] = $subject_header;
         }
     }

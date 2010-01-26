@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Improved forwarding options.
 [mms] Add support for LIST-STATUS IMAP extension.
 [mms] Add hook to allow determination of compose attachments MIME type.
 [mms] Move AJAX processing framework to Horde (Request #4561).
@@ -78,7 +79,6 @@ v5.0-git
 [mms] Implement spellcheck on send in DIMP.
 [mms] Sanity check - don't do message operations reliant on UID list if
       UIDVALIDITY of mailbox has changed.
-[mms] Simplify forwarding - always attach entire message.
 [mms] Remember splitbar position on login/refresh (DIMP).
 [mms] Disable advanced functions if using POP3 driver (caching, on-demand
       filtering, searching, sorting) because it is too resource intensive.

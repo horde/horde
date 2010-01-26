@@ -111,19 +111,6 @@ class IMP_Ui_Compose
 
     /**
      */
-    public function getForwardData(&$imp_compose, &$imp_contents, $index)
-    {
-        $fwd_msg = $imp_compose->forwardMessage($imp_contents);
-        $subject_header = $imp_compose->attachIMAPMessage(array($index), $fwd_msg['headers']);
-        if ($subject_header !== false) {
-            $fwd_msg['headers']['subject'] = $subject_header;
-        }
-
-        return $fwd_msg;
-    }
-
-    /**
-     */
     public function attachAutoCompleter($fields)
     {
         /* Attach autocompleters to the compose form elements. */

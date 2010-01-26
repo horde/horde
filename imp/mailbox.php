@@ -382,7 +382,9 @@ if ($open_compose_window === false) {
     if (!isset($options)) {
         $options = array();
     }
-    Horde::addInlineScript(Horde::popupJs(Horde::applicationUrl('compose.php'), array('params' => array_merge(array('popup' => 1), $options, IMP::getComposeArgs()))), 'dom');
+    Horde::addInlineScript(array(
+        Horde::popupJs(Horde::applicationUrl('compose.php'), array('params' => array_merge(array('popup' => 1), $options, IMP::getComposeArgs())))
+    ), 'dom');
 }
 
 if (!empty($newmsgs)) {

@@ -49,6 +49,31 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
         if ($update) {
             $GLOBALS['prefs']->setValue('sortpref', serialize($sortpref));
         }
+
+        switch ($GLOBALS['prefs']->getValue('forward_default')) {
+        case 'forward_attachments':
+            $GLOBALS['prefs']->setValue('forward_default', 'both');
+            break;
+
+        case 'forward_all':
+            $GLOBALS['prefs']->setValue('forward_default', 'attach');
+            break;
+
+        case 'forward_body':
+            $GLOBALS['prefs']->setValue('forward_default', 'body');
+            break;
+
+        case 'attach':
+        case 'body':
+        case 'both':
+            // Ignore - already converted.
+            break;
+
+        default:
+            $GLOBALS['prefs']->setValue('forward_default', 'attach');
+            $GLOBALS['prefs']->setDefault('forward_default', true);
+            break;
+        }
     }
 
     /**

@@ -195,7 +195,7 @@ $folder = Horde_Util::getFormData('folder');
 $show_editor = false;
 $title = _("New Message");
 
-if (in_array($type, array('reply', 'reply_all', 'reply_auto', 'reply_list', 'forward', 'resume'))) {
+if (in_array($type, array('reply', 'reply_all', 'reply_auto', 'reply_list', 'forward_attach', 'forward_auto', 'forward_body', 'forward_both', 'resume'))) {
     if (!$uid || !$folder) {
         $type = 'new';
     }
@@ -238,8 +238,11 @@ case 'reply_list':
     }
     break;
 
-case 'forward':
-    $fwd_msg = $imp_ui->getForwardData($imp_compose, $imp_contents, $uid . IMP::IDX_SEP . $folder);
+case 'forward_attach':
+case 'forward_auto':
+case 'forward_body':
+case 'forward_both':
+    $fwd_msg = $imp_compose->forwardMessage($type, $imp_contents);
     $msg = $fwd_msg['body'];
     $header = $fwd_msg['headers'];
     $header['replytype'] = 'forward';

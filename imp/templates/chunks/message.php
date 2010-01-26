@@ -14,7 +14,7 @@
   <div class="dimpActions dimpActionsMsg">
    <div class="headercloseimg closeImg" id="windowclose" title="X"></div>
    <div><?php echo IMP_Dimp::actionButton(array('class' => 'hasmenu', 'icon' => 'Reply', 'id' => 'reply_link', 'title' => _("Reply"))) ?></div>
-   <div><?php echo IMP_Dimp::actionButton(array('icon' => 'Forward', 'id' => 'forward_link', 'title' => _("Forward"))) ?></div>
+   <div><?php echo IMP_Dimp::actionButton(array('class' => 'hasmenu', 'icon' => 'Forward', 'id' => 'forward_link', 'title' => _("Forward"))) ?></div>
 <?php if (!empty($conf['spam']['reporting']) && (!$conf['spam']['spamfolder'] || ($folder != IMP::folderPref($prefs->getValue('spam_folder'), true)))): ?>
    <div><?php echo IMP_Dimp::actionButton(array('icon' => 'Spam', 'id' => 'button_spam', 'title' => _("Spam"))) ?></div>
 <?php endif; ?>
@@ -129,6 +129,14 @@
  <a id="ctx_reply_reply_list"><span class="contextImg"></span><?php echo _("To List") ?></a>
 <?php endif; ?>
 </div>
+
+<?php if (!$prefs->isLocked('forward_default')): ?>
+<div class="context" id="ctx_forwardpopdown" style="display:none;">
+ <a id="ctx_forward_attach"><span class="contextImg"></span><?php echo _("As Attachment") ?></a>
+ <a id="ctx_forward_body"><span class="contextImg"></span><?php echo _("In Body Text") ?></a>
+ <a id="ctx_forward_both"><span class="contextImg"></span><?php echo _("Attachment and Body Text") ?></a>
+</div>
+<?php endif; ?>
 <?php endif; ?>
 
 <div class="context" id="ctx_contacts" style="display:none">

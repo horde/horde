@@ -884,6 +884,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      *                               used:
      * <pre>
      * 'imp_compose' - (string) The IMP_Compose cache identifier.
+     * 'type' - (string) See IMP_Compose::forwardMessage().
      * 'uid' - (string) Indices of the messages to forward (IMAP sequence
      *         string).
      * </pre>
@@ -907,13 +908,11 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         $indices = $GLOBALS['imp_imap']->ob()->utils->fromSequenceString($vars->uid);
 
         $i = each($indices);
-        $idx_string = reset($i['value']) . IMP::IDX_SEP . $i['key'];
 
         try {
-            $imp_contents = IMP_Contents::singleton($idx_string);
+            $imp_contents = IMP_Contents::singleton(reset($i['value']) . IMP::IDX_SEP . $i['key']);
             $imp_compose = IMP_Compose::singleton($vars->imp_compose);
-            $imp_ui = new IMP_Ui_Compose();
-            $fwd_msg = $imp_ui->getForwardData($imp_compose, $imp_contents, $idx_string);
+            $fwd_msg = $imp_compose->forwardMessage($vars->type, $imp_contents);
             $header = $fwd_msg['headers'];
             $header['replytype'] = 'forward';
 
@@ -962,10 +961,9 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
     {
         $indices = $GLOBALS['imp_imap']->ob()->utils->fromSequenceString($vars->uid);
         $i = each($indices);
-        $idx_string = reset($i['value']) . IMP::IDX_SEP . $i['key'];
 
         try {
-            $imp_contents = IMP_Contents::singleton($idx_string);
+            $imp_contents = IMP_Contents::singleton(reset($i['value']) . IMP::IDX_SEP . $i['key']);
             $imp_compose = IMP_Compose::singleton($vars->imp_compose);
             $reply_msg = $imp_compose->replyMessage($vars->type, $imp_contents);
             $header = $reply_msg['headers'];

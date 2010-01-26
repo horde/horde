@@ -79,12 +79,19 @@ if (!empty($GLOBALS['conf']['compose']['allow_receipts'])) {
     $prefGroups['compose']['members'] = array_merge($prefGroups['compose']['members'], array('disposition_request_read'));
 }
 
-$prefGroups['reply_forward'] = array(
+$prefGroups['reply'] = array(
     'column' => _("Message Options"),
-    'label' => _("Message Replies/Forwards"),
-    'desc' => _("Configure how you reply to or forward mail."),
-    'members' => array('reply_quote', 'reply_format', 'forward_bodytext',
-                       'reply_headers', 'attrib_text')
+    'label' => _("Message Replies"),
+    'desc' => _("Configure how you reply to mail."),
+    'members' => array('reply_quote', 'reply_format', 'reply_headers',
+                       'attrib_text')
+);
+
+$prefGroups['forward'] = array(
+    'column' => _("Message Options"),
+    'label' => _("Message Forwards"),
+    'desc' => _("Configure how you forward mail."),
+    'members' => array('forward_bodytext')
 );
 
 $prefGroups['drafts'] = array(
@@ -713,7 +720,7 @@ $_prefs['disposition_request_read'] = array(
 // End Message Composition preferences
 
 
-// Message Replies/Forwards preferences
+// Message Replies preferences
 
 // Should the original message be included?
 $_prefs['reply_quote'] = array(
@@ -724,22 +731,14 @@ $_prefs['reply_quote'] = array(
     'type' => 'checkbox',
     'desc' => _("Include original message in a reply?"));
 
-// When replying/forwarding to a message, should we use the same format as the
+// When replying to a message, should we use the same format as the
 // original message?
 $_prefs['reply_format'] = array(
     'value' => 0,
     'locked' => false,
     'shared' => false,
     'type' => 'checkbox',
-    'desc' => _("When replying/forwarding to a message, should we use the same format as the original message?"));
-
-// Should the original message be included?
-$_prefs['forward_bodytext'] = array(
-    'value' => 0,
-    'locked' => false,
-    'shared' => false,
-    'type' => 'checkbox',
-    'desc' => _("Include body text in forward message by default?"));
+    'desc' => _("When replying to a message, should we use the same format as the original message?"));
 
 // Reply to header summary - leave a brief summary of the header inside
 // the message.
@@ -759,7 +758,38 @@ $_prefs['attrib_text'] = array(
     'desc' => _("How to attribute quoted lines in a reply"),
     'help' => 'prefs-attrib_text');
 
-// End Message Replies/Forwards preferences
+// End Message Replies preferences
+
+
+// Message Forwards preferences
+
+// Should the body text of the original message be included?
+// If this preference is locked, the user will not be able to select the
+// forward method.
+$_prefs['forward_default'] = array(
+    'value' => 'attach',
+    // Locked by default
+    'locked' => true,
+    'shared' => false,
+    'type' => 'enum',
+    'enum' => array(
+        'attach' => _("As attachment"),
+        'body' => _("In the body text"),
+        'both' => _("As both body text and an attachment")
+    ),
+    'desc' => _("How should messages be forwarded by default?"));
+
+// When forwarding a message, should we use the same format as the
+// original message (for the body text)?
+$_prefs['forward_format'] = array(
+    'value' => 0,
+    // Locked by default
+    'locked' => true,
+    'shared' => false,
+    'type' => 'checkbox',
+    'desc' => _("When forwarding a message in the body text, should we use the same format as the original message?"));
+
+// End Message Forwards preferences
 
 
 // Message Drafts preferences

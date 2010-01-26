@@ -1465,7 +1465,11 @@ class IMP_Compose
     /**
      * Determine the text and headers for a forwarded message.
      *
+     * @param string $type            The forward type (forward_attach,
+     *                                forward_body, forward_both,
+     *                                forward_auto).
      * @param IMP_Contents $contents  An IMP_Contents object.
+     * @param boolean $attach         Attach the forwarded message?
      *
      * @return array  An array with the following keys:
      * <pre>
@@ -1477,7 +1481,7 @@ class IMP_Compose
      *              message's addresses.
      * </pre>
      */
-    public function forwardMessage($contents)
+    public function forwardMessage($type, $contents, $attach = true)
     {
         /* The headers of the message. */
         $header = array(
@@ -1486,6 +1490,14 @@ class IMP_Compose
             'bcc' => '',
             'subject' => ''
         );
+
+        if ($GLOBALS['prefs']->isLocked('forward_default') ||
+            ($type == 'forward_auto')) {
+            if (!($type = $GLOBALS['prefs']->getValue('forward_default'))) {
+                $type = 'attach';
+            }
+            $type = 'forward_' . $type;
+        }
 
         $h = $contents->getHeaderOb();
         $format = 'text';
@@ -1510,7 +1522,7 @@ class IMP_Compose
             $header['subject'] = 'Fwd:';
         }
 
-        if ($GLOBALS['prefs']->getValue('forward_bodytext')) {
+        if (in_array($type, array('forward_body', 'forward_both'))) {
             $from = Horde_Mime_Address::addrArray2String($h->getOb('from'));
 
             $msg_pre = "\n----- " .
@@ -1521,7 +1533,7 @@ class IMP_Compose
             $compose_html = (($_SESSION['imp']['view'] != 'mimp') && $GLOBALS['prefs']->getValue('compose_html'));
 
             $msg_text = $this->_getMessageText($contents, array(
-                'html' => ($GLOBALS['prefs']->getValue('reply_format') || $compose_html),
+                'html' => ($GLOBALS['prefs']->getValue('forward_format') || $compose_html),
                 'type' => 'forward'
             ));
 
@@ -1534,6 +1546,11 @@ class IMP_Compose
             } else {
                 $msg = $msg_pre . $msg_text['text'] . $msg_post;
             }
+        }
+
+        if ($attach &&
+            in_array($type, array('forward_attach', 'forward_both'))) {
+            $this->attachIMAPMessage(array($contents->getUid() . IMP::IDX_SEP . $contents->getMailbox()));
         }
 
         return array(

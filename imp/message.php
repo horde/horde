@@ -488,7 +488,13 @@ if (!$disable_compose) {
         $a_template->set('show_reply_all', Horde::widget(IMP::composeLink(array(), array('actionID' => 'reply_all') + $compose_params), _("To All"), 'widget', '', '', _("To _All"), true));
     }
 
-    $a_template->set('forward', Horde::widget(IMP::composeLink(array(), array('actionID' => 'forward') + $compose_params), _("Forward"), 'widget', '', '', _("Fo_rward"), true));
+    $fwd_locked = $prefs->isLocked('forward_default');
+    $a_template->set('forward', Horde::widget(IMP::composeLink(array(), array('actionID' => 'forward_auto') + $compose_params), _("Forward"), 'widget' . ($fwd_locked ? '' : ' hasmenu'), '', '', _("Fo_rward"), true));
+    if (!$fwd_locked) {
+        $a_template->set('forward_attach', Horde::widget(IMP::composeLink(array(), array('actionID' => 'forward_attach') + $compose_params), _("As Attachment"), 'widget', '', '', _("As Attachment"), true));
+        $a_template->set('forward_body', Horde::widget(IMP::composeLink(array(), array('actionID' => 'forward_body') + $compose_params), _("In Body Text"), 'widget', '', '', _("In Body Text"), true));
+        $a_template->set('forward_both', Horde::widget(IMP::composeLink(array(), array('actionID' => 'forward_both') + $compose_params), _("Attachment and Body Text"), 'widget', '', '', _("Attachment and Body Text"), true));
+    }
 
     $a_template->set('redirect', Horde::widget(IMP::composeLink(array(), array('actionID' => 'redirect_compose') + $compose_params), _("Redirect"), 'widget', '', '', _("Redirec_t"), true));
 }
