@@ -11,71 +11,6 @@
  * @package IMP
  */
 
-function _printKeyInfo($key = '')
-{
-    try {
-        $key_info = $GLOBALS['imp_pgp']->pgpPrettyKey($key);
-    } catch (Horde_Exception $e) {
-        Horde::logMessage($e, __FILE__, __LINE__);
-        $key_info = $e->getMessage();
-    }
-    _textWindowOutput('PGP Key Information', $key_info);
-}
-
-function _importKeyDialog($target)
-{
-    /* Need to handle notifications inline, and need to set explicitly since
-     * the popup window is not part of the preferences framework. */
-    $notification = Horde_Notification::singleton();
-    $notification->replace('status', array('prefs' => true, 'viewmode' => 'imp'), 'IMP_Notification_Listener_Status');
-
-    $title = _("Import PGP Key");
-    require IMP_TEMPLATES . '/common-header.inc';
-    IMP::status();
-
-    $t = new Horde_Template();
-    $t->setOption('gettext', true);
-    $t->set('selfurl', Horde::applicationUrl('pgp.php'));
-    $t->set('broken_mp_form', $GLOBALS['browser']->hasQuirk('broken_multipart_form'));
-    $t->set('reload', htmlspecialchars(Horde_Util::getFormData('reload')));
-    $t->set('target', $target);
-    $t->set('forminput', Horde_Util::formInput());
-    $t->set('import_public_key', $target == 'process_import_public_key');
-    $t->set('import_personal_public_key', $target == 'process_import_personal_public_key');
-    $t->set('import_personal_private_key', $target == 'process_import_personal_private_key');
-    echo $t->fetch(IMP_TEMPLATES . '/pgp/import_key.html');
-}
-
-function _getImportKey()
-{
-    $key = Horde_Util::getFormData('import_key');
-    if (!empty($key)) {
-        return $key;
-    }
-
-    try {
-        $GLOBALS['browser']->wasFileUploaded('upload_key', _("key"));
-        return file_get_contents($_FILES['upload_key']['tmp_name']);
-    } catch (Horde_Browser_Exception $e) {
-        $GLOBALS['notification']->push($e, 'horde.error');
-    }
-}
-
-function _textWindowOutput($filename, $msg)
-{
-    $GLOBALS['browser']->downloadHeaders($filename, 'text/plain; charset=' . Horde_Nls::getCharset(), true, strlen($msg));
-    echo $msg;
-}
-
-function _reloadWindow()
-{
-    $reload = Horde_Util::getFormData('reload');
-    $cacheSess = Horde_SessionObjects::singleton();
-    $href = $cacheSess->query($reload);
-    $cacheSess->prune($reload);
-    Horde_Util::closeWindowJS('opener.focus();opener.location.href="' . $href . '";');
-}
-
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('imp');
 
@@ -117,98 +52,91 @@ case 'delete_key':
     break;
 
 case 'import_public_key':
-    _importKeyDialog('process_import_public_key');
+    $imp_pgp->importKeyDialog('process_import_public_key', Horde_Util::getFormData('reload'));
     exit;
 
 case 'process_import_public_key':
-    $publicKey = _getImportKey();
-    if (empty($publicKey)) {
-        $notification->push(_("No PGP public key imported."), 'horde.error');
-        $actionID = 'import_public_key';
-        _importKeyDialog('process_import_public_key');
-    } else {
+    try {
+        $publicKey = $imp_pgp->getImportKey(Horde_Util::getFormData('import_key'));
         /* Add the public key to the storage system. */
-        try {
-            $key_info = $imp_pgp->addPublicKey($publicKey);
-            foreach ($key_info['signature'] as $sig) {
-                $notification->push(sprintf(_("PGP Public Key for \"%s (%s)\" was successfully added."), $sig['name'], $sig['email']), 'horde.success');
-            }
-            _reloadWindow();
-        } catch (Horde_Exception $e) {
-            $notification->push($e, 'horde.error');
-            $actionID = 'import_public_key';
-            _importKeyDialog('process_import_public_key');
+        $key_info = $imp_pgp->addPublicKey($publicKey);
+        foreach ($key_info['signature'] as $sig) {
+            $notification->push(sprintf(_("PGP Public Key for \"%s (%s)\" was successfully added."), $sig['name'], $sig['email']), 'horde.success');
         }
+        $imp_pgp->reloadWindow(Horde_Util::getFormData('reload'));
+    } catch (Horde_Browser_Exception $e) {
+        $notification->push(_("No PGP public key imported."), 'horde.error');
+        throw new Horde_Exception($e);
+    } catch (Horde_Exception $e) {
+        $notification->push($e, 'horde.error');
+        $actionID = 'import_public_key';
+        $imp_pgp->importKeyDialog('process_import_public_key', Horde_Util::getFormData('reload'));
     }
     exit;
 
 case 'import_personal_public_key':
-    _importKeyDialog('process_import_personal_public_key');
+    $imp_pgp->importKeyDialog('process_import_personal_public_key', Horde_Util::getFormData('reload'));
     exit;
 
 case 'process_import_personal_public_key':
     $actionID = 'import_personal_public_key';
     /* Check the public key. */
-    if ($publicKey = _getImportKey()) {
-        try {
-            if (($key_info = $imp_pgp->pgpPacketInformation($publicKey)) &&
-                isset($key_info['public_key'])) {
-                if (isset($key_info['secret_key'])) {
-                    /* Key contains private key too, don't allow to add this
-                     * as public key. */
-                    $notification->push(_("Imported key contains your PGP private key. Only add your public key in the first step!"), 'horde.error');
-                    _importKeyDialog('process_import_personal_public_key');
-                } else {
-                    /* Success in importing public key - Move on to private
-                     * key now. */
-                    $imp_pgp->addPersonalPublicKey($publicKey);
-                    $notification->push(_("PGP public key successfully added."), 'horde.success');
-                    $actionID = 'import_personal_private_key';
-                    _importKeyDialog('process_import_personal_private_key');
-                }
+    try {
+        $publicKey = $imp_pgp->getImportKey(Horde_Util::getFormData('import_key'));
+        if (($key_info = $imp_pgp->pgpPacketInformation($publicKey)) &&
+            isset($key_info['public_key'])) {
+            if (isset($key_info['secret_key'])) {
+                /* Key contains private key too, don't allow to add this
+                 * as public key. */
+                $notification->push(_("Imported key contains your PGP private key. Only add your public key in the first step!"), 'horde.error');
+                $imp_pgp->importKeyDialog('process_import_personal_public_key', Horde_Util::getFormData('reload'));
             } else {
-                /* Invalid public key imported - Redo public key import
-                 * screen. */
-                $notification->push(_("Invalid personal PGP public key."), 'horde.error');
-                _importKeyDialog('process_import_personal_public_key');
+                /* Success in importing public key - Move on to private
+                 * key now. */
+                $imp_pgp->addPersonalPublicKey($publicKey);
+                $notification->push(_("PGP public key successfully added."), 'horde.success');
+                $actionID = 'import_personal_private_key';
+                $imp_pgp->importKeyDialog('process_import_personal_private_key', Horde_Util::getFormData('reload'));
             }
-        } catch (Horde_Exception $e) {
-            $notification->push($e->getMessage(), 'horde.error');
-            _importKeyDialog('process_import_personal_public_key');
+        } else {
+            /* Invalid public key imported - Redo public key import
+             * screen. */
+            $notification->push(_("Invalid personal PGP public key."), 'horde.error');
+            $imp_pgp->importKeyDialog('process_import_personal_public_key', Horde_Util::getFormData('reload'));
         }
-    } else {
-        /* No public key imported - Redo public key import screen. */
+    } catch (Horde_Browser_Exception $e) {
         $notification->push(_("No personal PGP public key imported."), 'horde.error');
-        _importKeyDialog('process_import_personal_public_key');
+        throw new Horde_Exception($e);
+    } catch (Horde_Exception $e) {
+        $notification->push($e->getMessage(), 'horde.error');
+        $imp_pgp->importKeyDialog('process_import_personal_public_key', Horde_Util::getFormData('reload'));
     }
     exit;
 
 case 'process_import_personal_private_key':
     $actionID = 'import_personal_private_key';
     /* Check the private key. */
-    if ($privateKey = _getImportKey()) {
-        try {
-            if (($key_info = $imp_pgp->pgpPacketInformation($privateKey)) &&
-                isset($key_info['secret_key'])) {
-                /* Personal public and private keys have been imported
-                 * successfully - close the import popup window. */
-                $imp_pgp->addPersonalPrivateKey($privateKey);
-                $notification->push(_("PGP private key successfully added."), 'horde.success');
-                _reloadWindow();
-            } else {
-                /* Invalid private key imported - Redo private key import
-                 * screen. */
-                $notification->push(_("Invalid personal PGP private key."), 'horde.error');
-                _importKeyDialog('process_import_personal_private_key');
-            }
-        } catch (Horde_Exception $e) {
-            $notification->push($e->getMessage(), 'horde.error');
-            _importKeyDialog('process_import_personal_private_key');
+    try {
+        $privateKey = $imp_pgp->getImportKey(Horde_Util::getFormData('import_key'));
+        if (($key_info = $imp_pgp->pgpPacketInformation($privateKey)) &&
+            isset($key_info['secret_key'])) {
+            /* Personal public and private keys have been imported
+             * successfully - close the import popup window. */
+            $imp_pgp->addPersonalPrivateKey($privateKey);
+            $notification->push(_("PGP private key successfully added."), 'horde.success');
+            $imp_pgp->reloadWindow(Horde_Util::getFormData('reload'));
+        } else {
+            /* Invalid private key imported - Redo private key import
+             * screen. */
+            $notification->push(_("Invalid personal PGP private key."), 'horde.error');
+            $imp_pgp->importKeyDialog('process_import_personal_private_key', Horde_Util::getFormData('reload'));
         }
-    } else {
-        /* No private key imported - Redo private key import screen. */
+    } catch (Horde_Browser_Exception $e) {
         $notification->push(_("No personal PGP private key imported."), 'horde.error');
-        _importKeyDialog('process_import_personal_private_key');
+        throw new Horde_Exception($e);
+    } catch (Horde_Exception $e) {
+        $notification->push($e->getMessage(), 'horde.error');
+        $imp_pgp->importKeyDialog('process_import_personal_private_key', Horde_Util::getFormData('reload'));
     }
     exit;
 
@@ -220,26 +148,26 @@ case 'info_public_key':
         $key = $e->getMessage();
     }
     if ($actionID == 'view_public_key') {
-        _textWindowOutput('PGP Public Key', $key);
+        $imp_pgp->textWindowOutput('PGP Public Key', $key);
     } else {
-        _printKeyInfo($key);
+        $imp_pgp->printKeyInfo($key);
     }
     exit;
 
 case 'view_personal_public_key':
-    _textWindowOutput('PGP Personal Public Key', $imp_pgp->getPersonalPublicKey());
+    $imp_pgp->textWindowOutput('PGP Personal Public Key', $imp_pgp->getPersonalPublicKey());
     exit;
 
 case 'info_personal_public_key':
-    _printKeyInfo($imp_pgp->getPersonalPublicKey());
+    $imp_pgp->printKeyInfo($imp_pgp->getPersonalPublicKey());
     exit;
 
 case 'view_personal_private_key':
-    _textWindowOutput('PGP Personal Private Key', $imp_pgp->getPersonalPrivateKey());
+    $imp_pgp->textWindowOutput('PGP Personal Private Key', $imp_pgp->getPersonalPrivateKey());
     exit;
 
 case 'info_personal_private_key':
-    _printKeyInfo($imp_pgp->getPersonalPrivateKey());
+    $imp_pgp->printKeyInfo($imp_pgp->getPersonalPrivateKey());
     exit;
 
 case 'delete_public_key':

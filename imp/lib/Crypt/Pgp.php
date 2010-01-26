@@ -591,4 +591,96 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         return parent::publicKeyMimePart($this->getPersonalPublicKey());
     }
 
+    /* UI related functions. */
+
+    /**
+     * Print PGP Key information.
+     *
+     * @param string $key  The PGP key.
+     */
+    public function printKeyInfo($key = '')
+    {
+        try {
+            $key_info = $this->pgpPrettyKey($key);
+        } catch (Horde_Exception $e) {
+            Horde::logMessage($e, __FILE__, __LINE__);
+            $key_info = $e->getMessage();
+        }
+
+        $this->textWindowOutput('PGP Key Information', $key_info);
+    }
+
+    /**
+     * Output text in a window.
+     *
+     * @param string $name  The window name.
+     * @param string $msg   The text contents.
+     */
+    public function textWindowOutput($name, $msg)
+    {
+        $GLOBALS['browser']->downloadHeaders($name, 'text/plain; charset=' . Horde_Nls::getCharset(), true, strlen($msg));
+        echo $msg;
+    }
+
+    /**
+     * Generate import key dialog.
+     *
+     * @param string $target  Action ID for the UI screen.
+     * @param string $reload  The reload cache value.
+     */
+    public function importKeyDialog($target, $reload)
+    {
+        /* Need to handle notifications inline, and need to set explicitly
+         * since the popup window is not part of the preferences framework. */
+        $notification = Horde_Notification::singleton();
+        $notification->replace('status', array('prefs' => true, 'viewmode' => 'imp'), 'IMP_Notification_Listener_Status');
+
+        $title = _("Import PGP Key");
+        require IMP_TEMPLATES . '/common-header.inc';
+        IMP::status();
+
+        $t = new Horde_Template();
+        $t->setOption('gettext', true);
+        $t->set('selfurl', Horde::applicationUrl('pgp.php'));
+        $t->set('broken_mp_form', $GLOBALS['browser']->hasQuirk('broken_multipart_form'));
+        $t->set('reload', htmlspecialchars($reload));
+        $t->set('target', $target);
+        $t->set('forminput', Horde_Util::formInput());
+        $t->set('import_public_key', $target == 'process_import_public_key');
+        $t->set('import_personal_public_key', $target == 'process_import_personal_public_key');
+        $t->set('import_personal_private_key', $target == 'process_import_personal_private_key');
+        echo $t->fetch(IMP_TEMPLATES . '/pgp/import_key.html');
+    }
+
+    /**
+     * Attempt to import a key from form/uploaded data.
+     *
+     * @param string $key  Key string.
+     *
+     * @return string  The key contents.
+     * @throws Horde_Browser_Exception
+     */
+    public function getImportKey($key)
+    {
+        if (!empty($key)) {
+            return $key;
+        }
+
+        $GLOBALS['browser']->wasFileUploaded('upload_key', _("key"));
+        return file_get_contents($_FILES['upload_key']['tmp_name']);
+    }
+
+    /**
+     * Reload the window.
+     *
+     * @param string $reload  The reload cache value.
+     */
+    public function reloadWindow($reload)
+    {
+        $cacheSess = Horde_SessionObjects::singleton();
+        $href = $cacheSess->query($reload);
+        $cacheSess->prune($reload);
+        Horde_Util::closeWindowJS('opener.focus();opener.location.href="' . $href . '";');
+    }
+
 }
