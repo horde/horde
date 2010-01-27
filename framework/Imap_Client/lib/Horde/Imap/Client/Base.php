@@ -2162,7 +2162,16 @@ abstract class Horde_Imap_Client_Base
 
         /* If given sequence numbers, we need to switch to UIDs for caching
          * purposes. Also, we need UID #'s now if searching the entire
-         * mailbox. */
+         * mailbox. However, if we are doing a changedsince since we need to
+         * do that component of the search first to determine exactly what
+         * UIDs we need to fetch. */
+        if (!empty($options['changedsince'])) {
+            if (!($res = $this->_fetch(array(Horde_Imap_Client::FETCH_UID => 1), $options))) {
+                return array();
+            }
+            $options['ids'] = array_keys($res);
+        }
+
         if ($seq || empty($options['ids'])) {
             $res_seq = $this->_getSeqUIDLookup(empty($options['ids']) ? null : $options['ids'], $seq);
             $uids = $res_seq['uids'];
