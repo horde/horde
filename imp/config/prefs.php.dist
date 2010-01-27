@@ -1224,7 +1224,7 @@ $_prefs['msgflags'] = array(
         // Forwarded flag (RFC 5550 [5.9])
         '$forwarded' => array(
             'a' => 'F',
-            'b' => '#aadddd',
+            'b' => '#bfdfdf',
             'c' => 'flagForwarded',
             'l' => _("Forwarded"),
             // Pursuant to RFC, this flag SHOULD NOT be changed by the user
