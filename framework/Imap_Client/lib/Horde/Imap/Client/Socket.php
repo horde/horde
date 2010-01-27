@@ -1175,7 +1175,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             Horde_Imap_Client::STATUS_UIDNOTSTICKY => 'uidnotsticky',
         );
 
-        /* Don't include 'highestmodseq' return if server does not support it.
+        /* Don't include modseq returns if server does not support it.
          * OK to use queryCapability('CONDSTORE') here because we may not have
          * yet sent an enabling command. */
         if ($this->queryCapability('CONDSTORE')) {
