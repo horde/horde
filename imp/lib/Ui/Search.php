@@ -69,7 +69,7 @@ class IMP_Ui_Search
             case 'body':
             case 'text':
                 if (!empty($rule->v)) {
-                    $ob->text($rule->c, $search_fields[$rule->t]['type'] == 'body', !empty($rule->n));
+                    $ob->text($rule->v, $search_fields[$rule->t]['type'] == 'body', !empty($rule->n));
                     $search_array[] = $ob;
                 }
                 break;
