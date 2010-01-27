@@ -48,6 +48,8 @@ class IMP_Hooks
     /**
      * PREFERENCE HOOK: Dynamically set the signature preference.
      *
+     * See horde/config/hooks.php.dist for more information.
+     *
      * @param string $username  The username.
      *
      * @return string  The signature text to use.
@@ -70,6 +72,8 @@ class IMP_Hooks
     /**
      * PREFERENCE HOOK: Dynamically set the add_source preference.
      *
+     * See horde/config/hooks.php.dist for more information.
+     *
      * @param string $username  The username.
      *
      * @return string  The add_source value.
@@ -88,6 +92,8 @@ class IMP_Hooks
 
     /**
      * PREFERENCE HOOK: Dynamically set the search_sources preference.
+     *
+     * See horde/config/hooks.php.dist for more information.
      *
      * @param string $username  The username.
      *
@@ -109,6 +115,8 @@ class IMP_Hooks
     /**
      * AJAX HOOK: Add user-defined AJAX action handlers.
      *
+     * See horde/config/hooks.php.dist for more information.
+     *
      * @param string $action         The AJAX action.
      * @param Horde_Variables $vars  The URL parameters.
      *
@@ -128,6 +136,8 @@ class IMP_Hooks
 
     /**
      * Do MIME type determination for compose attachments.
+     *
+     * This hook is enabled by default.
      *
      * @param string $filename  The filename.
      * @param string $tempfile  The location on the local server of the
