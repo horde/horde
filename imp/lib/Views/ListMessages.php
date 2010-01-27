@@ -171,16 +171,24 @@ class IMP_Views_ListMessages
         }
 
         /* Get the cached list. */
-        if (empty($args['cache'])) {
-            $cached = array();
-        } else {
+        $cached = $changed = array();
+        if (!empty($args['cache'])) {
             if ($is_search) {
-                $cached = Horde_Serialize::unserialize($args['cache'], Horde_Serialize::JSON);
+                $cached = array_flip(Horde_Serialize::unserialize($args['cache'], Horde_Serialize::JSON));
             } else {
                 $cached = $GLOBALS['imp_imap']->ob()->utils->fromSequenceString($args['cache']);
-                $cached = reset($cached);
+                $cached = array_flip(reset($cached));
+
+                /* Check for cached entires marked as changed via CONDSTORE
+                 * IMAP extension. If changed, resend the entire entry to
+                 * update the browser cache (done below). */
+                if ($args['change']) {
+                    $status = $GLOBALS['imp_imap']->ob()->status($mbox, Horde_Imap_Client::STATUS_LASTMODSEQUIDS);
+                    if (!empty($status['lastmodsequids'])) {
+                        $changed = array_flip($status['lastmodsequids']);
+                    }
+                }
             }
-            $cached = array_flip($cached);
         }
 
         if (!empty($args['search_unseen'])) {
@@ -234,8 +242,10 @@ class IMP_Views_ListMessages
         foreach ($uidlist as $uid => $seq) {
             $msglist[$seq] = $sorted_list['s'][$seq];
             $rowlist[$uid] = $seq;
-            if (!isset($cached[$uid])) {
-                $data[] = $seq;
+            /* Send browser message data if not already cached or if CONDSTORE
+             * has indiciated that data has changed. */
+            if (!isset($cached[$uid]) || isset($changed[$uid])) {
+                $data[$seq] = 1;
             }
         }
         $result->rowlist = $rowlist;
@@ -271,7 +281,7 @@ class IMP_Views_ListMessages
         }
 
         /* Build the overview list. */
-        $result->data = $this->_getOverviewData($imp_mailbox, $mbox, $data, $is_search);
+        $result->data = $this->_getOverviewData($imp_mailbox, $mbox, array_keys($data), $is_search);
 
         /* Get unseen/thread information. */
         if (!$is_search) {

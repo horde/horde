@@ -821,6 +821,10 @@ class IMP_Mailbox
     /**
      * Returns a unique identifier for the current mailbox status.
      *
+     * This cache ID is guaranteed to change if messages are added/deleted from
+     * the mailbox. Additionally, if CONDSTORE is available on the remote
+     * IMAP server, this ID will change if flag information changes.
+     *
      * @return string  The cache ID string, which will change when the
      *                 composition of the mailbox changes.
      */
