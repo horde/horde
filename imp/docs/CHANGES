@@ -5,7 +5,8 @@ v5.0-git
 [mms] Catch flag changes from other IMAP clients when refreshing if CONDSTORE
       is available on the IMAP server (DIMP).
 [mms] Improved forwarding options.
-[mms] Add support for LIST-STATUS IMAP extension.
+[mms] Add support for LIST-STATUS IMAP extension; provides more efficient
+      mailbox polling.
 [mms] Add hook to allow determination of compose attachments MIME type.
 [mms] Move AJAX processing framework to Horde (Request #4561).
 [mms] If selected message(s) disappear from mailbox, gracefully handle in the
