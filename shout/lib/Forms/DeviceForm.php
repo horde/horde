@@ -74,7 +74,7 @@ class DeviceDetailsForm extends Horde_Form {
         $mailbox = $this->_vars->get('mailbox');
 
         // Default the caller id to something sane.
-        if ($callerid) {
+        if (empty($callerid)) {
             $callerid = sprintf('"%s" <%s>', $name, $mailbox);
         }
 
