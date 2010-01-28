@@ -952,11 +952,12 @@ class Horde_Auth
             return false;
         }
 
-        $endpos = $pos + 7;
+        $pos += 11;
+        $endpos = $pos + 1;
 
         while ($endpos !== false) {
             $endpos = strpos($session_data, '|', $endpos);
-            $data = @unserialize(substr($session_data, $pos + 7, $endpos));
+            $data = @unserialize(substr($session_data, $pos, $endpos));
             if (is_array($data)) {
                 return empty($data)
                     ? false
