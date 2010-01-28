@@ -11,26 +11,22 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('admin' => true));
 
-$type = !empty($conf['sessionhandler']['type']) ? $conf['sessionhandler']['type'] : 'none';
-if ($type == 'external') {
-    $notification->push(_("Cannot administer external session handlers."), 'horde.error');
-} else {
-    $sh = Horde_SessionHandler::singleton($type);
-}
-
 $title = _("Session Admin");
 Horde::addScriptFile('prototype.js', 'horde');
+Horde::addInlineScript(array(
+    '$$("DIV.sesstoggle").invoke("observe", "click", function() { [ this.nextSiblings(), this.immediateDescendants() ].flatten().compact().invoke("toggle"); })'
+), 'dom');
+
 require HORDE_TEMPLATES . '/common-header.inc';
 require HORDE_TEMPLATES . '/admin/menu.inc';
 
-if (empty($sh)) {
-    require HORDE_TEMPLATES . '/common-footer.inc';
-    exit;
-}
-
 echo '<h1 class="header">' . _("Current Sessions");
 try {
-    $session_info = $sh->getSessionsInfo();
+    if (!isset($registry->sessionHandler)) {
+        throw new Horde_Exception(_("Session handler does not support listing active sessions."));
+    }
+
+    $session_info = $registry->sessionHandler->getSessionsInfo();
 
     echo ' (' . count($session_info) . ')</h1>' .
          '<ul class="headerbox linedRow">';
@@ -48,20 +44,21 @@ try {
         $entry = array(
             _("Session Timestamp:") => date('r', $data['timestamp']),
             _("Browser:") => $data['browser'],
-            _("Remote Host:") => _("[Unknown]")
+            _("Remote Host:") => _("[Unknown]"),
+            _("Authenticated to:") => implode(', ', $data['apps'])
         );
 
-        if (!empty($data['remote_addr'])) {
+        if (!empty($data['remoteAddr'])) {
             if (class_exists('Net_DNS')) {
-                $response = $resolver->query($data['remote_addr'], 'PTR');
-                $host = $response ? $response->answer[0]->ptrdname : $data['remote_addr'];
+                $response = $resolver->query($data['remoteAddr'], 'PTR');
+                $host = $response ? $response->answer[0]->ptrdname : $data['remoteAddr'];
             } else {
-                $host = @gethostbyaddr($data['remote_addr']);
+                $host = @gethostbyaddr($data['remoteAddr']);
             }
-            $entry[_("Remote Host:")] = $host . ' [' . $data['remote_addr'] . '] ' . Horde_Nls::generateFlagImageByHost($host);
+            $entry[_("Remote Host:")] = $host . ' [' . $data['remoteAddr'] . '] ' . Horde_Nls::generateFlagImageByHost($host);
         }
 
-        echo '<li><div onclick="$(this).nextSiblings().invoke(\'toggle\'); $(this).immediateDescendants().invoke(\'toggle\');">' . $plus . $minus . htmlspecialchars($data['userid']) . ' [' . htmlspecialchars($id) . ']'
+        echo '<li><div class="sesstoggle">' . $plus . $minus . htmlspecialchars($data['userid']) . ' [' . htmlspecialchars($id) . ']'
             . '</div><div style="padding-left:20px;display:none">';
         foreach ($entry as $key => $val) {
             echo '<div><strong>' . $key . '</strong> ' . $val . '</div>';
