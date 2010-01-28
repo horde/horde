@@ -355,42 +355,32 @@ var DimpCompose = {
         var config, text;
 
         if (this.editor_on) {
-            this.editor_on = false;
-
             text = this.rte.getData();
-            $('composeMessageParent').childElements().invoke('hide');
-            $('composeMessage').show().setStyle({ visibility: null }).focus();
+            this.rte.destroy();
+
             this.RTELoading('show');
-
             DimpCore.doAction('Html2Text', { text: text }, { callback: this.setMessageText.bind(this), ajaxopts: { asynchronous: false } });
-
             this.RTELoading('hide');
         } else {
-            this.editor_on = true;
             if (!noupdate) {
                 DimpCore.doAction('Text2Html', { text: $F('composeMessage') }, { callback: this.setMessageText.bind(this), ajaxopts: { asynchronous: false } });
             }
 
-            // Try to reuse the old fckeditor instance.
-            try {
-                this.rte.setData($F('composeMessage'));
-                $('composeMessageParent').childElements().invoke('show');
-                $('composeMessage').hide();
-                this.resizeMsgArea();
-            } catch (e) {
-                config = Object.clone(IMP.ckeditor_config);
-                if (!config.on) {
-                    config.on = {};
-                }
-                config.on.instanceReady = function(evt) {
-                    this.resizeMsgArea();
-                    this.RTELoading('hide');
-                    this.rte.focus();
-                }.bind(this);
-                this.RTELoading('show');
-                this.rte = CKEDITOR.replace('composeMessage', config);
+            config = Object.clone(IMP.ckeditor_config);
+            if (!config.on) {
+                config.on = {};
             }
+            config.on.instanceReady = function(evt) {
+                this.resizeMsgArea();
+                this.RTELoading('hide');
+                this.rte.focus();
+            }.bind(this);
+            this.RTELoading('show');
+            this.rte = CKEDITOR.replace('composeMessage', config);
         }
+
+        this.editor_on = !this.editor_on;
+
         $('htmlcheckbox').setValue(this.editor_on);
         $('html').setValue(this.editor_on ? 1 : 0);
     },
