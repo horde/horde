@@ -590,7 +590,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         $imp_message = IMP_Message::singleton();
 
         if ($result = $imp_message->copy($vars->mboxto, 'copy', $indices)) {
-            if ($poll = _getPollInformation($vars->mboxto)) {
+            if ($poll = $this->_getPollInformation($vars->mboxto)) {
                 $result->poll = array_merge(isset($result->poll) ? $result->poll : array(), $poll);
             }
         } else {
