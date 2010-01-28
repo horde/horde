@@ -8,7 +8,8 @@
  * @author Jason Felice <jason.m.felice@gmail.com>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('wicked');
 
 $page = Horde_Util::getFormData('page', 'WikiHome');
 $file = Horde_Util::getFormData('file');

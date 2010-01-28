@@ -8,8 +8,8 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-@define('WICKED_BASE', dirname(__FILE__));
-require_once WICKED_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('wicked');
 
 $v1 = Horde_Util::getFormData('v1');
 $v2 = Horde_Util::getFormData('v2');

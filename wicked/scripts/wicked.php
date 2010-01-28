@@ -9,24 +9,10 @@
 * @author Vijay Mahrra <vijay.mahrra@es.easynet.net>
 */
 
-@define('AUTH_HANDLER', true);
-@define('HORDE_BASE', dirname(__FILE__) . '/../..');
-@define('WICKED_BASE', HORDE_BASE . '/wicked');
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('wicked', array('authentication' => 'none', 'cli' => true));
 
-// Do CLI checks and environment setup first.
-require_once WICKED_BASE . '/lib/base.php';
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment.
-require_once 'Console/Getopt.php';
-Horde_Cli::init();
-$cli = &Horde_Cli::singleton();
-$registry = Horde_Registry::singleton();
-$registry->pushApp('wicked', false);
+$cli = Horde_Cli::singleton();
 $debug = false;
 $out = 'screen';
 

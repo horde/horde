@@ -6,27 +6,12 @@
  * page.
  */
 
-@define('AUTH_HANDLER', true);
-@define('HORDE_BASE', dirname(__FILE__) . '/../..');
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('wicked', array('authentication' => 'none', 'cli' => true));
 
-// Do CLI checks and environment setup first.
-require_once HORDE_BASE . '/lib/core.php';
-
-$keepHeaders = array('From', 'To', 'Subject', 'Cc', 'Date');
-$dateFormat = "F j, Y";
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment - make sure there's no time limit, init
-// some variables, etc.
-Horde_Cli::init();
 $cli = Horde_Cli::singleton();
-
-@define('WICKED_BASE', HORDE_BASE . '/wicked');
-require_once WICKED_BASE . '/lib/base.php';
+$dateFormat = "F j, Y";
+$keepHeaders = array('From', 'To', 'Subject', 'Cc', 'Date');
 
 $text = '';
 while (!feof(STDIN)) {

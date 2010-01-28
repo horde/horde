@@ -19,16 +19,12 @@ class Horde_Block_Wicked_page extends Horde_Block {
 
     function _title()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         $page = Page::getPage($this->_params['page']);
         return htmlspecialchars($page->pageName());
     }
 
     function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         $page = Page::getPage($this->_params['page']);
         return $page->render(WICKED_MODE_BLOCK);
     }

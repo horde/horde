@@ -8,8 +8,8 @@
  * @author Tyler Colbert <tyler@colberts.us>
  */
 
-@define('WICKED_BASE', dirname(__FILE__));
-require_once WICKED_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('wicked');
 
 $page = Page::getCurrentPage();
 if (is_a($page, 'PEAR_Error')) {

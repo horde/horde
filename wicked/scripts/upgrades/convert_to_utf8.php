@@ -12,29 +12,16 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-@define('AUTH_HANDLER', true);
-@define('HORDE_BASE', dirname(__FILE__) . '/../../..');
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('wicked', array('authentication' => 'none', 'cli' => true));
 
-// Do CLI checks and environment setup first.
-require_once HORDE_BASE . '/lib/core.php';
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment - make sure there's no time limit, init some
-// variables, etc.
-$cli = &Horde_Cli::singleton();
-$cli->init();
+$cli = Horde_Cli::singleton();
 
 // Create driver instance.
-@define('WICKED_BASE', dirname(__FILE__) . '/../..');
-require_once WICKED_BASE . '/lib/base.php';
 if ($conf['storage']['driver'] != 'sql') {
     exit("You must have an SQL backend configured.\n");
 }
-$db = &$wicked->_db;
+$db = $wicked->_db;
 
 // Get current charset.
 $charset = $cli->prompt('Please specify the current charset of the data',
