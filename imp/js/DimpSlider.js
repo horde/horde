@@ -80,7 +80,7 @@ var DimpSlider = Class.create({
             [ this.track, this.sbup ].invoke('makePositioned');
         }
 
-        this.sbdownsize = this.sbupsize = this.value = 0;
+        this.value = 0;
         this.active = this.dragging = false;
 
         if (this.needScroll()) {
@@ -100,10 +100,6 @@ var DimpSlider = Class.create({
         }
         this.init = true;
         this.track.show();
-        if (this.sbup) {
-            this.sbupsize = this.sbup.offsetHeight;
-            this.sbdownsize = this.sbdown.offsetHeight;
-        }
         this._updateHandleLength();
     },
 
@@ -121,7 +117,7 @@ var DimpSlider = Class.create({
             this.setScrollPosition(this.getValue() - dir + (this.options.pagesize * dir));
         } else {
             this.curroffsets = this.track.cumulativeOffset();
-            this.offsetY = e.pointerY() - hoffsets[1] + this.sbupsize;
+            this.offsetY = e.pointerY() - hoffsets[1] + this.sbup.offsetHeight;
             this.active = true;
 
             document.observe('mouseup', this.eventMU);
@@ -185,7 +181,7 @@ var DimpSlider = Class.create({
 
     _updateHandleLength: function()
     {
-        var t = this.track.offsetHeight - this.sbupsize - this.sbdownsize;
+        var t = this.track.offsetHeight - this.sbup.offsetHeight - this.sbdown.offsetHeight;
 
         // Minimum handle size = 10px
         this.handle.setStyle({ height: Math.max(10, Math.round((this.options.pagesize / this.options.totalsize) * t)) + 'px' });
