@@ -943,7 +943,7 @@ class Horde_Auth
      *
      * @return array  An array of the user's sesion information if
      *                authenticated or false.  The following information is
-     *                returned: userid, timestamp, remoteAddr, browser.
+     *                returned: userid, timestamp, remoteAddr, browser, apps.
      */
     static public function readSessionData($session_data)
     {
@@ -962,6 +962,7 @@ class Horde_Auth
                 return empty($data)
                     ? false
                     : array(
+                        'apps' => empty($data['app']) ? array('horde') : array_keys($data['app']),
                         'browser' => $data['browser'],
                         'remoteAddr' => $data['remoteAddr'],
                         'timestamp' => $data['timestamp'],
