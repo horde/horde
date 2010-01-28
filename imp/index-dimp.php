@@ -18,14 +18,14 @@ Horde_Registry::appInit('imp');
 $scripts = array(
     array('ContextSensitive.js', 'imp'),
     array('DimpBase.js', 'imp'),
-    array('DimpSlider.js', 'imp'),
     array('ViewPort.js', 'imp'),
     array('dialog.js', 'imp'),
-    array('dragdrop2.js', 'horde'),
-    array('imp.js', 'imp'),
     array('mailbox-dimp.js', 'imp'),
+    array('imp.js', 'imp'),
+    array('dragdrop2.js', 'horde'),
     array('popup.js', 'horde'),
-    array('redbox.js', 'horde')
+    array('redbox.js', 'horde'),
+    array('slider2.js', 'horde')
 );
 
 /* Get site specific menu items. */

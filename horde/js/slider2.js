@@ -1,5 +1,5 @@
 /**
- * DimpSlider.js - A minimalist library to create a slider that acts like a
+ * Slider2.js - A minimalist library to create a slider that acts like a
  * browser's native scrollbar.
  *
  * Requires prototype.js 1.6.0.2+
@@ -7,7 +7,7 @@
  *
  * Usage:
  * ------
- * slider = new DimpSlider(track, opts);
+ * slider = new Slider2(track, opts);
  *
  *   track - (element|string) TODO
  *   opts - (object) TODO
@@ -17,12 +17,12 @@
  * Custom events are triggered on the track element. The parameters given
  * below are available through the 'memo' property of the Event object.
  *
- * DimpSlider:change
- *   Fired on TODO
+ * Slider2:change
+ *   Fired when slidebar is released.
  *   params: NONE
  *
- * DimpSlider:slide
- *   Fired on TODO
+ * Slider2:slide
+ *   Fired when slidebar is moved.
  *   params: NONE
  *
  *
@@ -53,7 +53,7 @@
  * @author Michael Slusarz <slusarz@curecanti.org>
  */
 
-var DimpSlider = Class.create({
+var Slider2 = Class.create({
     value: 0,
 
     initialize: function(track, options)
@@ -132,7 +132,7 @@ var DimpSlider = Class.create({
         if (this.active) {
             this.dragging = true;
             this._setScrollPosition('px', Math.min(Math.max(0, e.pointerY() - this.offsetY - this.curroffsets[1]), this.handletop));
-            this.track.fire('DimpSlider:slide');
+            this.track.fire('Slider2:slide');
             if (Prototype.Browser.WebKit) {
                 window.scrollBy(0,0);
             }
@@ -159,7 +159,7 @@ var DimpSlider = Class.create({
 
     _updateFinished: function()
     {
-        this.track.fire('DimpSlider:change');
+        this.track.fire('Slider2:change');
     },
 
     setHandleLength: function(pagesize, totalsize)

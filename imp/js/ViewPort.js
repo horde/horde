@@ -210,8 +210,8 @@
  * vpScrollDown - The DOWN arrow.
  *
  *
- * Requires prototypejs 1.6+, DimpSlider.js, scriptaculous 1.8+ (effects.js
- * only), and Horde's dragdrop2.js.
+ * Requires prototypejs 1.6+, scriptaculous 1.8+ (effects.js only), and
+ * Horde's dragdrop2.js and slider2.js.
  *
  * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
  *
@@ -1301,13 +1301,13 @@ ViewPort_Scroller = Class.create({
         this.scrollDiv = new Element('DIV', { className: 'vpScroll' }).setStyle({ overflow: 'hidden' }).hide();
         c.insert({ after: this.scrollDiv });
 
-        this.scrollDiv.observe('DimpSlider:change', this._onScroll.bind(this));
+        this.scrollDiv.observe('Slider2:change', this._onScroll.bind(this));
         if (this.vp.opts.onSlide) {
-            this.scrollDiv.observe('DimpSlider:slide', this.vp.opts.onSlide);
+            this.scrollDiv.observe('Slider2:slide', this.vp.opts.onSlide);
         }
 
         // Create scrollbar object.
-        this.scrollbar = new DimpSlider(this.scrollDiv, {
+        this.scrollbar = new Slider2(this.scrollDiv, {
             buttonclass: { up: 'vpScrollUp', down: 'vpScrollDown' },
             cursorclass: 'vpScrollCursor',
             pagesize: this.vp.getPageSize(),
