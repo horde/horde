@@ -633,7 +633,7 @@ $_prefs['compose_html'] = array(
     'locked' => false,
     'shared' => false,
     'type' => 'checkbox',
-    'desc' => _("Compose messages with an HTML GUI by default (if browser supports the feature)?")
+    'desc' => _("Compose messages with an HTML editor by default?")
 );
 
 // The list of buttons to show in CKeditor
