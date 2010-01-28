@@ -25,7 +25,8 @@ if (!empty($refresh_time) && !empty($refresh_url)) {
 <?php
 echo Horde::includeStylesheetFiles(array('additional' => Horde_Util::nonInputVar('horde_css_stylesheets', array())));
 echo Horde::includeScriptFiles();
-echo implode("\n", Horde_Util::nonInputVar('linkTags', array()))
+echo implode("\n", Horde_Util::nonInputVar('linkTags', array()));
+Horde::outputInlineScript();
 ?>
 </head>
 
