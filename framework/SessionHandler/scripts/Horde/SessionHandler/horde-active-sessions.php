@@ -17,21 +17,21 @@ require_once $horde_base . '/lib/Application.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true));
 $cli = Horde_Cli::singleton();
 
-/* Make sure there's no compression. */
-@ob_end_clean();
-
 /* Check for sessionhandler object. */
-if (empty($GLOBALS['horde_sessionhandler'])) {
+$registry->setupSessionHandler();
+if (!$registry->sessionHandler) {
     throw new Horde_Exception('Horde is unable to load the session handler');
 }
 
-$type = !empty($conf['sessionhandler']['type']) ?
-    $conf['sessionhandler']['type'] : 'builtin';
+$type = !empty($conf['sessionhandler']['type'])
+    ? $conf['sessionhandler']['type']
+    : 'builtin';
+
 if ($type == 'external') {
-    throw new Horde_Exception('Session counting is not supported in the \'external\' SessionHandler at this time.');
+    throw new Horde_Exception('Session counting is not supported in the \'external\' SessionHandler.');
 }
 
-$sessions = $GLOBALS['horde_sessionhandler']->getSessionsInfo();
+$sessions = $registry->sessionHandler->getSessionsInfo();
 
 if (($argc < 2) || (($argv[1] != '-l') && ($argv[1] != '-ll'))) {
     $cli->writeln(count($sessions));
