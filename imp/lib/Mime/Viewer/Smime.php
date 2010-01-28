@@ -88,7 +88,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
         $this->_initSmime();
 
         if (Horde_Util::getFormData('view_smime_key')) {
-            return $this->_outputSmime();
+            return $this->_outputSmimeKey();
         }
 
         if (is_null($this->_impsmime)) {
@@ -269,35 +269,29 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
                 self::$_cache[$base_id]['status'][0]['icon'] = Horde::img('alerts/success.png', _("Success"), null, $graphicsdir);
                 self::$_cache[$base_id]['wrap'] = 'mimePartWrapValid';
 
-                /* This data has been verified but there was no output from
-                 * the S/MIME program. */
                 if (empty($sig_result->result) ||
                     ($sig_result->result === true)) {
                     $email = is_array($sig_result->email)
                         ? implode(', ', $sig_result->email)
                         : $sig_result->email;
-                    $status[] = sprintf(_("The data has been verified. Sender: %s."), htmlspecialchars($email));
+
+                    $status[] = _("The data has been verified.");
+
+                    if (!empty($sig_result->cert)) {
+                        $cert = $this->_impsmime->parseCert($sig_result->cert);
+                        if (isset($cert['certificate']['subject']['CommonName'])) {
+                            $email = $cert['certificate']['subject']['CommonName'] . ' (' . $email . ' )';
+                        }
+                    }
+
+                    $status[] = sprintf(_("Sender: %s"), htmlspecialchars($email));
                 }
 
-                if (!empty($sig_result->cert)) {
-                    $cert = $this->_impsmime->parseCert($sig_result->cert);
-                    if (isset($cert['certificate']['subject']['CommonName'])) {
-                        $subject = $cert['certificate']['subject']['CommonName'];
-                    } elseif (isset($cert['certificate']['subject']['Email'])) {
-                        $subject = $cert['certificate']['subject']['Email'];
-                    } elseif (isset($sig_result->email)) {
-                        $subject = $sig_result->email;
-                    } elseif (isset($smime_from)) {
-                        $subject = $smime_from;
-                    } else {
-                        $subject = null;
-                    }
-
-                    if (!empty($subject) &&
-                        $GLOBALS['registry']->hasMethod('contacts/addField') &&
-                        $GLOBALS['prefs']->getValue('add_source')) {
-                        $status[] = sprintf(_("The S/MIME certificate of %s: "), @htmlspecialchars($subject, ENT_COMPAT, Horde_Nls::getCharset())) . $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', _("View"), array('params' => array('mode' => IMP_Contents::RENDER_INLINE, 'view_smime_key' => 1))) . '/' . Horde::link('#', '', null, null, $this->_impsmime->savePublicKeyURL($sig_result->cert, $this->_params['contents']->getUid(), $sig_id) . ' return false;') . _("Save in your Address Book") . '</a>';
-                    }
+                if (!empty($sig_result->cert) &&
+                    isset($sig_result->email) &&
+                    $GLOBALS['registry']->hasMethod('contacts/addField') &&
+                    $GLOBALS['prefs']->getValue('add_source')) {
+                    $status[] = '[' . $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', _("View Certificate"), array('params' => array('mode' => IMP_Contents::RENDER_INLINE, 'view_smime_key' => 1))) . '] [' . Horde::link('#', '', null, null, $this->_impsmime->savePublicKeyURL($sig_result->cert, $this->_params['contents']->getUid(), $sig_id) . ' return false;') . _("Save Certificate in your Address Book") . '</a>]';
                 }
             } catch (Horde_Exception $e) {
                 self::$_cache[$base_id]['status'][0]['icon'] = ($e->getCode() == 'horde.warning')
