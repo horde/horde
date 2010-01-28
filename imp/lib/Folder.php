@@ -135,11 +135,8 @@ class IMP_Folder
                 continue;
             }
 
-            $abbrev = $label = str_repeat(' ', 2 * $ob['c']) . $ob['l'];
-            if (strlen($abbrev) > 26) {
-                $abbrev = Horde_String::substr($abbrev, 0, 10) . '...' . Horde_String::substr($abbrev, -13, 13);
-            }
-            $list[$ob['v']] = array('val' => $imaptree->isContainer($ob) ? '' : $ob['v'], 'label' => $label, 'abbrev' => $abbrev);
+            $label = str_repeat(' ', 2 * $ob['c']) . $ob['l'];
+            $list[$ob['v']] = array('val' => $imaptree->isContainer($ob) ? '' : $ob['v'], 'label' => $label, 'abbrev' => Horde_String::abbreviate($label, 30));
         }
 
         /* Add the INBOX on top of list if not in the filter list. */
