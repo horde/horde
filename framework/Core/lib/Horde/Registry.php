@@ -84,6 +84,13 @@ class Horde_Registry
     public $applications = array();
 
     /**
+     * The session handler object.
+     *
+     * @var Horde_SessionHandler
+     */
+    public $sessionHandler = null;
+
+    /**
      * Application bootstrap initialization.
      * Solves chicken-and-egg problem - need a way to init Horde environment
      * from application without an active Horde_Registry object.
@@ -1435,8 +1442,8 @@ class Horde_Registry
      * will override the cache limiter setting found in the configuration
      * file.
      *
-     * The custom session handler object will be contained in the global
-     * 'horde_sessionhandler' variable.
+     * The custom session handler object will be contained in the
+     * $sessionHandler public member variable.
      *
      * @throws Horde_Exception
      */
@@ -1473,13 +1480,13 @@ class Horde_Registry
         } elseif ($type != 'none') {
             $sh = Horde_SessionHandler::singleton($conf['sessionhandler']['type'], array_merge(Horde::getDriverConfig('sessionhandler', $conf['sessionhandler']['type']), array('memcache' => !empty($conf['sessionhandler']['memcache']))));
             ini_set('session.save_handler', 'user');
-            session_set_save_handler(array(&$sh, 'open'),
-                                     array(&$sh, 'close'),
-                                     array(&$sh, 'read'),
-                                     array(&$sh, 'write'),
-                                     array(&$sh, 'destroy'),
-                                     array(&$sh, 'gc'));
-            $GLOBALS['horde_sessionhandler'] = $sh;
+            session_set_save_handler(array($sh, 'open'),
+                                     array($sh, 'close'),
+                                     array($sh, 'read'),
+                                     array($sh, 'write'),
+                                     array($sh, 'destroy'),
+                                     array($sh, 'gc'));
+            $this->sessionHandler = $sh;
         }
     }
 
