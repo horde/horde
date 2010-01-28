@@ -99,14 +99,15 @@ document.observe('dom:loaded', function() {
 
     IMP.iframeResize = function(id, delay)
     {
-        id = $(id);
-        id.setStyle({ height: Math.max(id.contentWindow.document.body.scrollHeight, id.contentWindow.document.lastChild.scrollHeight) + 'px' });
-        if (!delay) {
-            // For whatever reason, browsers will report different heights
-            // after the initial height setting. Delaying a second height
-            // setting seems to work most of the time to fix this.
-            this.iframeResize.bind(this, id, true).delay(0.5);
-        }
+        if (id = $(id)) {
+            id.setStyle({ height: Math.max(id.contentWindow.document.body.scrollHeight, id.contentWindow.document.lastChild.scrollHeight) + 'px' });
+            if (!delay) {
+                // For whatever reason, browsers will report different heights
+                // after the initial height setting. Delaying a second height
+                // setting seems to work most of the time to fix this.
+                this.iframeResize.bind(this, id, true).delay(0.5);
+            }
+         }
     };
 
     // If menu is present, attach event handlers to folder switcher.
