@@ -9,9 +9,9 @@
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  */
-@define('WHUPS_BASE', dirname(__FILE__) . '/..');
-require_once WHUPS_BASE . '/lib/base.php';
-require_once 'Horde/Template.php';
+
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('whups');
 
 // See if we were passed a slug or id. Slug is tried first.
 $slug = Horde_Util::getFormData('slug');
@@ -31,7 +31,6 @@ if ($slug) {
 // open tickets.
 $state_category = Horde_Util::getFormData('state');
 if ($state_category) {
-    require_once 'Horde/String.php';
     $state_display = Horde_String::ucFirst($state_category);
     // When specifying an explicit state, limit the feed to 10.
     $limit = 10;

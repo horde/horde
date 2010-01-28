@@ -29,9 +29,7 @@ class Horde_Block_Whups_myqueries extends Horde_Block {
      */
     function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
         require_once WHUPS_BASE . '/lib/Query.php';
-        require_once WHUPS_BASE . '/lib/View.php';
 
         $qManager = new Whups_QueryManager();
         $queries = $qManager->listQueries(Horde_Auth::getAuth(), true);

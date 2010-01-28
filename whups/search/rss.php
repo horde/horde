@@ -8,9 +8,10 @@
  * @author Duck <duck@obala.net>
  */
 
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('whups');
+
 require_once WHUPS_BASE . '/lib/Forms/Search.php';
-require_once 'Horde/Template.php';
 
 $vars = Horde_Variables::getDefaultVariables();
 $limit = (int)$vars->get('limit');

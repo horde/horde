@@ -14,7 +14,6 @@ class Horde_Block_Whups_query extends Horde_Block {
 
     function _params()
     {
-        require_once dirname(__FILE__) . '/../base.php';
         require_once WHUPS_BASE . '/lib/Query.php';
 
         $qManager = new Whups_QueryManager();
@@ -93,7 +92,6 @@ class Horde_Block_Whups_query extends Horde_Block {
             return false;
         }
 
-        require_once dirname(__FILE__) . '/../base.php';
         require_once WHUPS_BASE . '/lib/Query.php';
 
         $qManager = new Whups_QueryManager();

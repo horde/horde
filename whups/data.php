@@ -8,9 +8,9 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-define('WHUPS_BASE', dirname(__FILE__));
-require_once WHUPS_BASE . '/lib/base.php';
-require_once 'Horde/Template.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('whups');
+
 require WHUPS_BASE . '/config/templates.php';
 
 if (!Horde_Auth::getAuth()) {

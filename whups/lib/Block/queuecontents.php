@@ -14,7 +14,6 @@ class Horde_Block_Whups_queuecontents extends Horde_Block {
     function _params()
     {
         global $whups_driver;
-        require_once dirname(__FILE__) . '/../base.php';
 
         $qParams = array();
         $qDefault = null;
@@ -95,7 +94,6 @@ class Horde_Block_Whups_queuecontents extends Horde_Block {
     function _getQueue()
     {
         global $whups_driver;
-        require_once dirname(__FILE__) . '/../base.php';
 
         if (empty($this->_params['queue'])) {
             return false;

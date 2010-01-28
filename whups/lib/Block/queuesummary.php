@@ -29,7 +29,6 @@ class Horde_Block_Whups_queuesummary extends Horde_Block {
      */
     function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
         global $whups_driver;
 
         $queues = Whups::permissionsFilter($whups_driver->getQueues(), 'queue', Horde_Perms::READ);

@@ -18,7 +18,6 @@ class Whups_Api extends Horde_Registry_Api
      */
     public function browse($path = '')
     {
-        require_once dirname(__FILE__) . '/base.php';
         global $whups_driver, $registry;
 
         if (substr($path, 0, 5) == 'whups') {
@@ -79,7 +78,6 @@ class Whups_Api extends Horde_Registry_Api
      */
     public function addQueue($name)
     {
-        require_once dirname(__FILE__) . '/base.php';
         if (Horde_Auth::isAdmin('whups:admin')) {
             return $GLOBALS['whups_driver']->addQueue($name, '');
         } else {
@@ -94,7 +92,6 @@ class Whups_Api extends Horde_Registry_Api
      */
     public function getAssignedTicketIds()
     {
-        require_once dirname(__FILE__) . '/base.php';
         global $whups_driver;
 
         $info = array('owner' => 'user:' . Horde_Auth::getAuth(), 'nores' => true);
@@ -116,7 +113,6 @@ class Whups_Api extends Horde_Registry_Api
      */
     public function getRequestedTicketIds()
     {
-        require_once dirname(__FILE__) . '/base.php';
         global $whups_driver;
 
         $info = array('requester' => Horde_Auth::getAuth(), 'nores' => true);
@@ -142,7 +138,6 @@ class Whups_Api extends Horde_Registry_Api
      */
     public function addTicket($ticket_info)
     {
-        require_once dirname(__FILE__) . '/base.php';
         require_once dirname(__FILE__) . '/Forms/CreateTicket.php';
         require_once dirname(__FILE__) . '/Ticket.php';
         global $whups_driver;
@@ -213,7 +208,6 @@ class Whups_Api extends Horde_Registry_Api
      */
     public function updateTicket($ticket_id, $ticket_info)
     {
-        require_once dirname(__FILE__) . '/base.php';
         require_once dirname(__FILE__) . '/Ticket.php';
         require_once dirname(__FILE__) . '/Forms/EditTicket.php';
         global $whups_driver;
@@ -299,9 +293,6 @@ class Whups_Api extends Horde_Registry_Api
      */
     public function addComment($ticket_id, $comment, $group = null)
     {
-        require_once dirname(__FILE__) . '/base.php';
-        require_once WHUPS_BASE . '/lib/Ticket.php';
-
         $ticket_id = (int)$ticket_id;
         if (empty($ticket_id)) {
             return PEAR::raiseError('Invalid ticket id');
@@ -344,9 +335,6 @@ class Whups_Api extends Horde_Registry_Api
      */
     public function addAttachment($ticket_id, $name, $data)
     {
-        require_once dirname(__FILE__) . '/base.php';
-        require_once WHUPS_BASE . '/lib/Ticket.php';
-
         $ticket_id = (int)$ticket_id;
         if (empty($ticket_id)) {
             return PEAR::raiseError(_("Invalid Ticket Id"));
@@ -383,7 +371,6 @@ class Whups_Api extends Horde_Registry_Api
      */
     public function setTicketAttributes($info)
     {
-        require_once dirname(__FILE__) . '/base.php';
         global $whups_driver;
 
         if (!isset($info['ticket_id']) || !isset($info['attributes'])) {
@@ -434,7 +421,6 @@ class Whups_Api extends Horde_Registry_Api
     {
         switch ($type) {
         case 'taskHash':
-            require_once dirname(__FILE__) . '/base.php';
             global $whups_driver;
             $info = array('owner' => 'user:' . Horde_Auth::getAuth(),
                           'nores' => true);
@@ -480,7 +466,6 @@ class Whups_Api extends Horde_Registry_Api
      */
     public function listQueues()
     {
-        require_once dirname(__FILE__) . '/base.php';
         return Whups::permissionsFilter($GLOBALS['whups_driver']->getQueuesInternal(), 'queue', Horde_Perms::SHOW);
     }
 
@@ -493,7 +478,6 @@ class Whups_Api extends Horde_Registry_Api
      */
     public function getQueueDetails($queue)
     {
-        require_once dirname(__FILE__) . '/base.php';
         if (is_array($queue)) {
             $queues = Whups::permissionsFilter($queue, 'queue_id');
             $details = array();
@@ -520,8 +504,6 @@ class Whups_Api extends Horde_Registry_Api
      */
     public function listVersions($queue)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         $queues = Whups::permissionsFilter(array($queue), 'queue_id');
         if (!$queues) {
             return array();
@@ -566,7 +548,6 @@ class Whups_Api extends Horde_Registry_Api
      */
     public function addVersion($queue, $name, $description, $active = true)
     {
-        require_once dirname(__FILE__) . '/base.php';
         return $GLOBALS['whups_driver']->addVersion($queue, $name, $description, $active);
     }
 
@@ -579,7 +560,6 @@ class Whups_Api extends Horde_Registry_Api
      */
     public function getVersionDetails($version_id)
     {
-        require_once dirname(__FILE__) . '/base.php';
         return $GLOBALS['whups_driver']->getVersionInternal($version_id);
     }
 
@@ -593,7 +573,6 @@ class Whups_Api extends Horde_Registry_Api
      */
     public function getTicketDetails($queue_id, $state = null)
     {
-        require_once dirname(__FILE__) . '/base.php';
         global $whups_driver;
 
         $info['queue_id'] = $queue_id;
@@ -647,7 +626,6 @@ class Whups_Api extends Horde_Registry_Api
      */
     public function listCostObjects($criteria)
     {
-        require_once dirname(__FILE__) . '/base.php';
         global $whups_driver;
 
         $info = array();
@@ -717,8 +695,6 @@ class Whups_Api extends Horde_Registry_Api
      */
     public function listTimeObjects($categories, $start, $end)
     {
-        require_once dirname(__FILE__) . '/base.php';
-        require_once WHUPS_BASE . '/lib/Ticket.php';
         global $whups_driver;
 
         $start = new Horde_Date($start);

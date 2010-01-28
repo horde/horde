@@ -40,10 +40,11 @@ function _getSearchUrl($vars)
     return substr($qUrl, 1);
 }
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('whups');
+
 require_once WHUPS_BASE . '/lib/Query.php';
 require_once WHUPS_BASE . '/lib/Forms/Search.php';
-require_once WHUPS_BASE . '/lib/View.php';
 
 $renderer = new Horde_Form_Renderer();
 $beendone = false;

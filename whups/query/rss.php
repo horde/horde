@@ -10,10 +10,11 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @author Jan Schneider <jan@horde.org>
  */
-@define('WHUPS_BASE', dirname(__FILE__) . '/..');
-require_once WHUPS_BASE . '/lib/base.php';
+
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('whups');
+
 require_once WHUPS_BASE . '/lib/Query.php';
-require_once 'Horde/Template.php';
 
 $qManager = new Whups_QueryManager();
 $vars = new Horde_Variables();

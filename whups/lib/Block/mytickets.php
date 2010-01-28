@@ -29,7 +29,6 @@ class Horde_Block_Whups_mytickets extends Horde_Block {
      */
     function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
         global $whups_driver, $prefs;
 
         $queue_ids = array_keys(Whups::permissionsFilter($whups_driver->getQueues(), 'queue', Horde_Perms::READ));

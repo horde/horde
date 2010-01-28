@@ -9,7 +9,9 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('whups');
+
 require_once WHUPS_BASE . '/lib/Query.php';
 require_once WHUPS_BASE . '/lib/Forms/QueryParameterForm.php';
 require WHUPS_BASE . '/lib/Renderer/Query.php';

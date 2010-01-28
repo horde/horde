@@ -8,8 +8,8 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-@define('WHUPS_BASE', dirname(dirname(__FILE__)));
-require_once WHUPS_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('whups');
 
 if (!Horde_Auth::isAdmin('whups:admin')) {
     Horde_Auth::authenticateFailure('whups', $e);
