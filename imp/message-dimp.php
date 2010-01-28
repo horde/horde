@@ -40,7 +40,7 @@ if (isset($show_msg_result['error'])) {
 }
 
 $scripts = array(
-    array('ContextSensitive.js', 'imp'),
+    array('ContextSensitive.js', 'horde'),
     array('fullmessage-dimp.js', 'imp')
 );
 
