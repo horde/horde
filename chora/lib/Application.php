@@ -41,9 +41,11 @@ class Chora_Application extends Horde_Registry_Application
     public $version = 'H4 (3.0-git)';
 
     /**
-     * TODO
+     * Perms cache.
+     *
+     * @var array
      */
-    static protected $perms = array();
+    static protected $_permsCache = array();
 
     /**
      * Initialization function.
@@ -181,22 +183,24 @@ class Chora_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-        if (!empty(self::$_perms)) {
-            return self::$_perms;
+        if (!empty(self::$_permsCache)) {
+            return self::$_permsCache;
         }
 
         require_once dirname(__FILE__) . '/../config/sourceroots.php';
 
-        self::$_perms['tree']['chora']['sourceroots'] = false;
-        self::$_perms['title']['chora:sourceroots'] = _("Repositories");
+        $perms['tree']['chora']['sourceroots'] = false;
+        $perms['title']['chora:sourceroots'] = _("Repositories");
 
         // Run through every source repository
         foreach ($sourceroots as $sourceroot => $srconfig) {
-            self::$_perms['tree']['chora']['sourceroots'][$sourceroot] = false;
-            self::$_perms['title']['chora:sourceroots:' . $sourceroot] = $srconfig['name'];
+            $perms['tree']['chora']['sourceroots'][$sourceroot] = false;
+            $perms['title']['chora:sourceroots:' . $sourceroot] = $srconfig['name'];
         }
 
-        return self::$_perms;
+        self::$_permsCache = $perms;
+
+        return $perms;
     }
 
     /**
