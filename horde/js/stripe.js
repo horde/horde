@@ -13,23 +13,23 @@ window.Horde = window.Horde || {};
 
 Horde.stripeAllElements = function()
 {
-    $$('.striped').each(this.stripeElement);
+    $$('.striped').each(this.stripeElement.bind(this));
 };
 
 Horde.stripeElement = function(elt)
 {
     var classes = [ 'rowEven', 'rowOdd' ],
-        e = $(elt).childElements();
+        e = $(elt).childElements(),
+        i = 0;
 
     if (elt.tagName == 'TABLE') {
         // Tables can have more than one tbody element; get all child
         // tbody tags and interate through them.
-        e.each(Horde.stripeElement.bind(Horde));
+        e.each(this.stripeElement.bind(this));
     } else {
         // Toggle the classname of any child node that is an element.
         e.each(function(c) {
-            c.removeClassName(classes[1]).addClassName(classes[0]);
-            classes.reverse(true);
+            c.removeClassName(classes[i]).addClassName(classes[++i % 2]);
         });
     }
 };
