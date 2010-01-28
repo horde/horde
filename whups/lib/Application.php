@@ -46,7 +46,7 @@ class Whups_Application extends Horde_Registry_Application
      *
      * @var array
      */
-    static protected $_permsCache = array();
+    protected $_permsCache = array();
 
     /**
      * Whups initialization.
@@ -72,8 +72,8 @@ class Whups_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-        if (!empty(self::$_permsCache)) {
-            return self::$_permsCache;
+        if (!empty($this->_permsCache)) {
+            return $this->_permsCache;
         }
 
         /* Available Whups permissions. */
@@ -92,20 +92,18 @@ class Whups_Application extends Horde_Registry_Application
             $perms['tree']['whups']['queues'][$id] = false;
             $perms['title']['whups:queues:' . $id] = $name;
 
-            $perms['tree']['whups']['queues'][$id]['update'] = false;
-            $perms['title']['whups:queues:' . $id . ':update'] = _("Update");
-            $perms['type']['whups:queues:' . $id . ':update'] = 'boolean';
-            $perms['params']['whups:queues:' . $id . ':update'] = array();
+            $entries = array(
+                'assign' => _("Assign"),
+                'requester' => _("Set Requester"),
+                'update' => _("Update")
+            );
 
-            $perms['tree']['whups']['queues'][$id]['assign'] = false;
-            $perms['title']['whups:queues:' . $id . ':assign'] = _("Assign");
-            $perms['type']['whups:queues:' . $id . ':assign'] = 'boolean';
-            $perms['params']['whups:queues:' . $id . ':assign'] = array();
-
-            $perms['tree']['whups']['queues'][$id]['requester'] = false;
-            $perms['title']['whups:queues:' . $id . ':requester'] = _("Set Requester");
-            $perms['type']['whups:queues:' . $id . ':requester'] = 'boolean';
-            $perms['params']['whups:queues:' . $id . ':requester'] = array();
+            foreach ($entries as $key => $val) {
+                $perms['tree']['whups']['queues'][$id][$key] = false;
+                $perms['title']['whups:queues:' . $id . ':' . $key] = $val;
+                $perms['type']['whups:queues:' . $id . ':' . $key] = 'boolean';
+                $perms['params']['whups:queues:' . $id . ':' . $key] = array();
+            }
         }
 
         $perms['tree']['whups']['replies'] = array();
@@ -119,7 +117,7 @@ class Whups_Application extends Horde_Registry_Application
             }
         }
 
-        self::$_permsCache = $perms;
+        $this->_permsCache = $perms;
 
         return $perms;
     }

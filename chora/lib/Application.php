@@ -45,7 +45,7 @@ class Chora_Application extends Horde_Registry_Application
      *
      * @var array
      */
-    static protected $_permsCache = array();
+    protected $_permsCache = array();
 
     /**
      * Initialization function.
@@ -183,8 +183,8 @@ class Chora_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-        if (!empty(self::$_permsCache)) {
-            return self::$_permsCache;
+        if (!empty($this->_permsCache)) {
+            return $this->_permsCache;
         }
 
         require_once dirname(__FILE__) . '/../config/sourceroots.php';
@@ -198,7 +198,7 @@ class Chora_Application extends Horde_Registry_Application
             $perms['title']['chora:sourceroots:' . $sourceroot] = $srconfig['name'];
         }
 
-        self::$_permsCache = $perms;
+        $this->_permsCache = $perms;
 
         return $perms;
     }
