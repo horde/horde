@@ -30,7 +30,7 @@ require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('admin' => true));
 
 require_once 'Horde/DataTree.php';
-$tree = Horde_Tree::factory('datatree', 'Html');
+$tree = Horde_Tree::factory('datatree', 'Javascript');
 $tree->setOption('alternate', true);
 
 $driver = $conf['datatree']['driver'];
