@@ -181,7 +181,7 @@ class IMP
 
             $val = isset($filter[$mbox['val']]) ? '' : htmlspecialchars($mbox['val']);
             $sel = ($mbox['val'] && !empty($options['selected']) && ($mbox['val'] === $options['selected'])) ? ' selected="selected"' : '';
-            $label = empty($options['abbrev']) ? $mbox['label'] : $mbox['abbrev'];
+            $label = (isset($options['abbrev']) && !$options['abbrev']) ? $mbox['label'] : $mbox['abbrev'];
             $text .= sprintf('<option value="%s"%s>%s</option>%s', $val, $sel, Horde_Text_Filter::filter($label, 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)), "\n");
         }
 
