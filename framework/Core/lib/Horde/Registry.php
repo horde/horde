@@ -141,6 +141,21 @@ class Horde_Registry
             'user_admin' => null
         ), $args);
 
+        /* CLI initialization. */
+        if ($args['cli']) {
+            /* Make sure no one runs from the web. */
+            if (!Horde_Cli::runningFromCLI()) {
+                fwrite(STDERR, "Must be run from the command line\n");
+                exit(1);
+            }
+
+            /* Load the CLI environment - make sure there's no time limit,
+             * init some variables, etc. */
+            Horde_Cli::init();
+
+            $args['nocompress'] = true;
+        }
+
         // Registry.
         $s_ctrl = 0;
         switch ($args['session_control']) {
@@ -177,21 +192,6 @@ class Horde_Registry
             }
 
             Horde_Auth::authenticateFailure($app, $e);
-        }
-
-        /* CLI initialization. */
-        if ($args['cli']) {
-            /* Make sure no one runs from the web. */
-            if (!Horde_Cli::runningFromCLI()) {
-                fwrite(STDERR, "Must be run from the command line\n");
-                exit(1);
-            }
-
-            /* Load the CLI environment - make sure there's no time limit,
-             * init some variables, etc. */
-            Horde_Cli::init();
-
-            $args['nocompress'] = true;
         }
 
         if (!$args['nocompress']) {
