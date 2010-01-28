@@ -42,9 +42,6 @@ class Horde_Tree_Javascript extends Horde_Tree
 
         Horde::addScriptFile('prototype.js', 'horde');
         Horde::addScriptFile('hordetree.js', 'horde');
-        if (!empty($this->_options['alternate'])) {
-            Horde::addScriptFile('stripe.js', 'horde');
-        }
     }
 
     /**

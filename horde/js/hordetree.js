@@ -497,8 +497,15 @@ var Horde_Tree = Class.create({
 
     stripe: function()
     {
-        // TODO
-        // $().select('DIV.treeRow').each(Horde.stripeElement.bind(Horde));
+        var classes = [ 'rowEven', 'rowOdd' ],
+            i = 0;
+
+        $(this.opts.target).select('DIV.treeRow').each(function(r) {
+            classes.each(r.removeClassName.bind(r));
+            if (r.clientHeight) {
+                r.addClassName(classes[++i % 2]);
+            }
+        });
     },
 
     saveState: function(nodeId, expanded)
