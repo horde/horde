@@ -32,6 +32,7 @@ v4.0-cvs
 v3.3.7-cvs
 ----------
 
+[mms] Fix display of S/MIME certificate data (Bug #8826).
 [mjr] Fix bug in Horde_Image that caused polaroid effect to fail on really old
       ImageMagick versions (earlier then 6.3.2).
 [jan] Work around Funambol clients requiring a "configuration" database
