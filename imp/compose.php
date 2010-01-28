@@ -12,35 +12,6 @@
  * @package IMP
  */
 
-function _mailboxReturnURL($url)
-{
-    if (!$url) {
-        $url = Horde::applicationUrl('mailbox.php')->setRaw(true);
-    }
-
-    foreach (array('start', 'page', 'mailbox', 'thismailbox') as $key) {
-        if (($param = Horde_Util::getFormData($key))) {
-            $url->add($key, $param);
-        }
-    }
-
-    return $url;
-}
-
-function _popupSuccess()
-{
-    $menu = new Horde_Menu(Horde_Menu::MASK_NONE);
-    $menu->add(Horde::applicationUrl('compose.php'), _("New Message"), 'compose.png');
-    $menu->add('', _("Close this window"), 'close.png', null, null, 'window.close();');
-    require IMP_TEMPLATES . '/common-header.inc';
-    $success_template = new Horde_Template();
-    $success_template->set('menu', $menu->render());
-    echo $success_template->fetch(IMP_TEMPLATES . '/compose/success.html');
-    IMP::status();
-    require $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc';
-}
-
-
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('imp', array('session_control' => 'netscape', 'tz' => true));
 
@@ -341,7 +312,7 @@ case 'redirect_send':
         if ($isPopup) {
             if ($prefs->getValue('compose_confirm')) {
                 $notification->push(_("Message redirected successfully."), 'horde.success');
-                _popupSuccess();
+                $imp_ui->popupSuccess();
             } else {
                 Horde_Util::closeWindowJS();
             }
@@ -349,7 +320,7 @@ case 'redirect_send':
             if ($prefs->getValue('compose_confirm')) {
                 $notification->push(_("Message redirected successfully."), 'horde.success');
             }
-            header('Location: ' . _mailboxReturnURL(false));
+            header('Location: ' . $imp_ui->mailboxReturnUrl(false));
         }
         exit;
     } catch (Horde_Exception $e) {
@@ -407,7 +378,7 @@ case 'send_message':
                         $notification->push($result, 'horde.success');
                         if ($prefs->getValue('close_draft')) {
                             $imp_compose->destroy();
-                            header('Location: ' . _mailboxReturnURL(false));
+                            header('Location: ' . $imp_ui->mailboxReturnUrl(false));
                             exit;
                         }
                     }
@@ -476,7 +447,7 @@ case 'send_message':
             if ($sent) {
                 $notification->push(_("Message sent successfully."), 'horde.success');
             }
-            _popupSuccess();
+            $imp_ui->popupSuccess();
         } else {
             Horde_Util::closeWindowJS();
         }
@@ -484,7 +455,7 @@ case 'send_message':
         if ($prefs->getValue('compose_confirm') && $sent) {
             $notification->push(_("Message sent successfully."), 'horde.success');
         }
-        header('Location: ' . _mailboxReturnURL(false));
+        header('Location: ' . $imp_ui->mailboxReturnUrl(false));
     }
     exit;
 
@@ -503,7 +474,7 @@ case 'cancel_compose':
     if ($isPopup) {
         Horde_Util::closeWindowJS();
     } else {
-        header('Location: ' . _mailboxReturnURL(false));
+        header('Location: ' . $imp_ui->mailboxReturnUrl(false));
     }
     exit;
 
@@ -617,12 +588,12 @@ if ($isPopup) {
     /* If the attachments cache is not empty, we must reload this page and
        delete the attachments. */
     if ($imp_compose->numberOfAttachments()) {
-        $cancel_url = _mailboxReturnURL(Horde::selfUrl()->setRaw(true))->add(array(
+        $cancel_url = $imp_ui->mailboxReturnUrl(Horde::selfUrl()->setRaw(true))->add(array(
             'actionID' => 'cancel_compose',
             'composeCache' => $composeCacheID
         ));
     } else {
-        $cancel_url = _mailboxReturnURL(true)->setRaw(false);
+        $cancel_url = $imp_ui->mailboxReturnUrl(true)->setRaw(false);
     }
     $showmenu = true;
 }

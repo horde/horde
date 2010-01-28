@@ -234,4 +234,38 @@ class IMP_Ui_Compose
         return false;
     }
 
+    /**
+     * TODO
+     */
+    public function mailboxReturnUrl($url)
+    {
+        if (!$url) {
+            $url = Horde::applicationUrl('mailbox.php')->setRaw(true);
+        }
+
+        foreach (array('start', 'page', 'mailbox', 'thismailbox') as $key) {
+            if (($param = Horde_Util::getFormData($key))) {
+                $url->add($key, $param);
+            }
+        }
+
+        return $url;
+    }
+
+    /**
+     * TODO
+     */
+    public function popupSuccess()
+    {
+        $menu = new Horde_Menu(Horde_Menu::MASK_NONE);
+        $menu->add(Horde::applicationUrl('compose.php'), _("New Message"), 'compose.png');
+        $menu->add('', _("Close this window"), 'close.png', null, null, 'window.close();');
+        require IMP_TEMPLATES . '/common-header.inc';
+        $success_template = new Horde_Template();
+        $success_template->set('menu', $menu->render());
+        echo $success_template->fetch(IMP_TEMPLATES . '/compose/success.html');
+        IMP::status();
+        require $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc';
+    }
+
 }
