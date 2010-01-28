@@ -1544,6 +1544,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         if ($GLOBALS['prefs']->getValue('compose_bcc')) {
             $headers['bcc'] = $imp_ui->getAddressList($vars->bcc);
         }
+        $headers['subject'] = $vars->subject;
 
         $imp_compose = IMP_Compose::singleton($vars->composeCache);
 
