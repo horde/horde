@@ -69,7 +69,7 @@ class Horde_Text_Filter_Linkurls extends Horde_Text_Filter
             ' target="_blank"' . $class .
             '>\' . htmlspecialchars(\'$0\') . \'</a>';
 
-        if ($this->_params['noprefetch']) {
+        if (!empty($this->_params['noprefetch'])) {
             $replacement = '<meta http-equiv="x-dns-prefetch-control" value="off" />' .
                 $replacement .
                 '<meta http-equiv="x-dns-prefetch-control" value="on" />';
