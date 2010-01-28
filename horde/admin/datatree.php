@@ -43,14 +43,14 @@ if (is_a($roots, 'PEAR_Error')) {
 } else {
     foreach ($roots as $root) {
         $tree->addNode($root, null, $root, 0, false);
-        $datatree = &DataTree::singleton($driver, array_merge($config, array('group' => $root)));
+        $datatree = DataTree::singleton($driver, array_merge($config, array('group' => $root)));
         addTree($root, DATATREE_ROOT);
     }
 }
 
 if ($show = Horde_Util::getFormData('show')) {
     list($root, $id) = explode(':', $show);
-    $datatree = &DataTree::singleton($driver, array_merge($config, array('group' => $root)));
+    $datatree = DataTree::singleton($driver, array_merge($config, array('group' => $root)));
     $data = $datatree->getData($id);
     $attributes = $datatree->getAttributes($id);
 }
@@ -62,8 +62,12 @@ echo '<h1 class="header">' . Horde::img('datatree.png') . ' ' . _("DataTree") . 
 $tree->renderTree();
 if ($show) {
     echo '<br /><div class="text" style="white-space:pre"><a id="show"></a>';
+    echo "<strong>Data:</strong>\n";
     ob_start('htmlspecialchars');
     print_r($data);
+    ob_end_flush();
+    echo "\n<strong>Attributes:</strong>\n";
+    ob_start('htmlspecialchars');
     print_r($attributes);
     ob_end_flush();
     echo '</div>';
