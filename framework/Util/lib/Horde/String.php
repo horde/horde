@@ -606,6 +606,22 @@ class Horde_String
     }
 
     /**
+     * Return an abbreviated string, with characters in the middle of the
+     * excesively long string replaced by '...'.
+     *
+     * @param string $text     The original string.
+     * @param integer $length  The length at which to abbreviate.
+     *
+     * @return string  The abbreviated string, if longer than $length.
+     */
+    static public function abbreviate($text, $length = 20)
+    {
+        return (self::length($text) > $length)
+            ? self::substr($text, 0, round(($length - 3) / 2)) . '...' . self::substr($text, (($length - 3) / 2) * -1)
+            : $text;
+    }
+
+    /**
      * Returns true if the every character in the parameter is an alphabetic
      * character.
      *
