@@ -43,6 +43,13 @@ class Gollem_Application extends Horde_Registry_Application
     public $version = 'H4 (2.0-git)';
 
     /**
+     * Perms cache.
+     *
+     * @var array
+     */
+    protected $_permsCache = array();
+
+    /**
      * Gollem initialization.
      *
      * Global variables defined:
@@ -69,22 +76,21 @@ class Gollem_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-        static $perms = array();
-        if (!empty($perms)) {
-            return $perms;
+        if (!empty($this->_permsCache)) {
+            return $this->_permsCache;
         }
-
-        require_once dirname(__FILE__) . '/base.load.php';
-        require GOLLEM_BASE . '/config/backends.php';
 
         $perms['tree']['gollem']['backends'] = false;
         $perms['title']['gollem:backends'] = _("Backends");
 
         // Run through every backend.
-        foreach ($backends as $backend => $curBackend) {
-            $perms['tree']['gollem']['backends'][$backend] = false;
-            $perms['title']['gollem:backends:' . $backend] = $curBackend['name'];
+        require GOLLEM_BASE . '/config/backends.php';
+        foreach ($backends as $key => $val) {
+            $perms['tree']['gollem']['backends'][$key] = false;
+            $perms['title']['gollem:backends:' . $key] = $val['name'];
         }
+
+        $this->_permsCache = $perms;
 
         return $perms;
     }
