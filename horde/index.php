@@ -58,7 +58,7 @@ if (!$main_page) {
         if (!empty($initial_app) &&
             ($initial_app != 'horde') &&
             $registry->hasPermission($initial_app)) {
-            $main_page = Horde::url($initial_app, true);
+            $main_page = Horde::url($initial_app, true) . '/';
         } else {
             /* Next, try the initial horde page if it is something other than
              * index.php or login.php, since that would lead to inifinite
