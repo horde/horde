@@ -531,8 +531,10 @@ class Horde_Mime_Part
 
         $ptype = $this->getPrimaryType();
         $type = $ptype . '/' . $this->getSubType();
-        if ($charset && ($ptype == 'text')) {
-            $type .= '; charset=' . $this->getCharset();
+        if ($charset &&
+            ($ptype == 'text') &&
+            ($charset = $this->getCharset())) {
+            $type .= '; charset=' . $charset;
         }
 
         return $type;
@@ -594,9 +596,7 @@ class Horde_Mime_Part
     }
 
     /**
-     * Get the character set to use for of this part. Returns a charset for
-     * all types (not just 'text/*') since we use this charset to determine
-     * how to encode text in MIME headers.
+     * Get the character set to use for this part.
      *
      * @return string  The character set of this part. Returns null if there
      *                 is no character set.
