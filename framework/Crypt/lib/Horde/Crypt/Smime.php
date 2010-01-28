@@ -666,7 +666,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
              * openssl_x509_parse() works, but doesn't have a stable API.
              * Since v1 is such an old standard anyway, best just to abort
              * here. */
-            (count($cert_data[1][0][1]) != 7)) {
+            !isset($cert_data[1][0][1][6])) {
             return false;
         }
 
