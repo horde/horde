@@ -1399,7 +1399,7 @@ if (empty($language)) {
     $language = getenv('LANGUAGE');
 }
 
-require_once dirname(__FILE__) . '/../lib/core.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
 
 $c = new Horde_Cli();
 if (!$c->runningFromCLI()) {
