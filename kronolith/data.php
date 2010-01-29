@@ -152,21 +152,23 @@ case 'export':
     case Horde_Data::EXPORT_ICALENDAR:
         $iCal = new Horde_iCalendar();
 
-        $calNames = array();
+        $calIds = array();
         foreach ($events as $cal => $calevents) {
-            if ($kronolith_driver->calendar != $cal) {
-                $kronolith_driver->open($cal);
-            }
-
-            $share = &$kronolith_shares->getShare($cal);
-            $calNames[] = $share->get('name');
-            foreach ($calevents as $id) {
-                $event = &$kronolith_driver->getEvent($id);
-                if (is_a($event, 'PEAR_Error')) {
-                    continue;
+            foreach ($calevents as $dayevents) {
+                foreach ($dayevents as $event) {
+                    $calIds[$event->calendar] = true;
+                    if (is_a($event, 'PEAR_Error')) {
+                        continue;
+                    }
+                    $iCal->addComponent($event->toiCalendar($iCal));
                 }
-                $iCal->addComponent($event->toiCalendar($iCal));
             }
+        }
+
+        $calNames = array();
+        foreach (array_keys($calIds) as $calId) {
+            $share = $kronolith_shares->getShare($calId);
+            $calNames[] = $share->get('name');
         }
 
         $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset(implode(', ', $calNames), Horde_Nls::getCharset(), 'utf-8'));
