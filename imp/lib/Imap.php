@@ -102,6 +102,12 @@ class IMP_Imap
         }
 
         if (is_null($server)) {
+            /* Remove any prompt entires (underscores in front of key). */
+            foreach (array_keys($servers) as $key) {
+                if ($key[0] == '_') {
+                    unset($servers[$key]);
+                }
+            }
             return $servers;
         }
 
