@@ -155,7 +155,7 @@ class IMP_Imap
      * @param string $username  The username to authenticate with.
      * @param string $password  The password to authenticate with.
      * @param string $key       Create a new object using this server key.
-     * @param boolean $global   If true, treate the created object as the IMP
+     * @param boolean $global   If true, treat the created object as the IMP
      *                          global IMAP object.
      *
      * @return boolean  The object on success, false on error.
