@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_Variables:: class.
+ * Horde_Variables:: class. Provides OO-way to access form variables.
  *
  * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
  *
@@ -19,12 +19,24 @@ class Horde_Variables
     protected $_vars;
 
     /**
-     * TODO
+     * The list of expected variables.
+     *
+     * @var array
      */
     protected $_expectedVariables = array();
 
     /**
      * TODO
+     */
+    static public function getDefaultVariables()
+    {
+        return new Horde_Variables(null);
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param array $vars  TODO
      */
     public function __construct($vars = array())
     {
@@ -41,16 +53,9 @@ class Horde_Variables
     }
 
     /**
-     * TODO
-     */
-    public function getDefaultVariables()
-    {
-        $vars = new Horde_Variables(null);
-        return $vars;
-    }
-
-    /**
-     * TODO
+     * Return the number of form variables.
+     *
+     * @return integer  The count of variables.
      */
     public function count()
     {
@@ -58,7 +63,11 @@ class Horde_Variables
     }
 
     /**
-     * TODO
+     * Alias of isset().
+     *
+     * @param string $varname  TODO
+     *
+     * @return boolean  See isset().
      */
     public function exists($varname)
     {
@@ -66,16 +75,17 @@ class Horde_Variables
     }
 
     /**
-     * TODO
+     * isset() implementation.
+     *
+     * @param string $varname  TODO
+     *
+     * @return boolean  See isset().
      */
     public function __isset($varname)
     {
-        if (count($this->_expectedVariables) &&
-            $this->_exists($this->_expectedVariables, $varname, false)) {
-            return true;
-        }
-
-        return $this->_exists($this->_vars, $varname, false);
+        return (count($this->_expectedVariables) &&
+                $this->_exists($this->_expectedVariables, $varname, false)) ||
+               $this->_exists($this->_vars, $varname, false);
     }
 
     /**
@@ -181,6 +191,8 @@ class Horde_Variables
 
     /**
      * Set $varname to $value ONLY if it's not already present.
+     *
+     * @
      */
     public function add($varname, $value)
     {
@@ -214,14 +226,10 @@ class Horde_Variables
      * Fetch the requested variable ($varname) into $value, and return
      * whether or not the variable was set in $array.
      *
-     * @param array $array     The array to search in (usually either
-     *                         $this->_vars or $this->_expectedVariables).
-     * @param string $varname  The name of the variable to look for.
+     * @param array $array     See _exists().
+     * @param string $varname  See _exists().
      * @param mixed &$value    $varname's value gets assigned to this variable.
-     * @param boolean $check   If we don't find $varname, should we check
-     *                         $this->_expectedVariables to see if should
-     *                         have existed (like a checkbox or select
-     *                         multiple).
+     * @param boolean $check   See _exists().
      *
      * @return boolean  Whether or not the variable was set (or, if we've
      *                  checked $this->_expectedVariables, should have been
@@ -266,9 +274,9 @@ class Horde_Variables
                 // $this->_expectedVariables, do so, but make sure not
                 // to check it again.
                 return $this->_exists($this->_expectedVariables, $varname, false);
-            } else {
-                return false;
             }
+
+            return false;
         }
     }
 
