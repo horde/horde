@@ -38,6 +38,8 @@ The following hooks have changed:
     * username_tobackend, username_frombackend (combined and renamed to
       authusername).
 
+Horde_Alarm is using UTC dates now.
+
 
 Upgrading Horde from 3.3.x to 3.3.5
 ===================================

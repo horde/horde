@@ -500,6 +500,8 @@ class Horde_Date
      * Converts this object to a different timezone.
      *
      * @param string $timezone  The new timezone.
+     *
+     * @return Horde_Date  This object.
      */
     public function setTimezone($timezone)
     {
@@ -513,6 +515,7 @@ class Horde_Date
         $this->_min      = (int)$date->format('i');
         $this->_sec      = (int)$date->format('s');
         $this->_formatCache = array();
+        return $this;
     }
 
     /**
