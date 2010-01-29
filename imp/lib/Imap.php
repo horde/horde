@@ -176,8 +176,11 @@ class IMP_Imap
             : 'imap';
 
         $imap_config = array(
+            'comparator' => empty($server['comparator']) ? false : $server['comparator'],
             'debug' => isset($server['debug']) ? $server['debug'] : null,
             'hostspec' => isset($server['hostspec']) ? $server['hostspec'] : null,
+            'id' => empty($server['id']) ? false : $server['id'],
+            'lang' => empty($server['lang']) ? false : $server['lang'],
             'password' => $password,
             'port' => isset($server['port']) ? $server['port'] : null,
             'secure' => isset($server['secure']) ? $server['secure'] : false,
@@ -192,12 +195,9 @@ class IMP_Imap
             $driver = $GLOBALS['conf']['cache']['driver'];
             if ($driver != 'none') {
                 $imap_config['cache'] = array(
-                    'comparator' => empty($c['comparator']) ? false : $c['comparator'],
                     'compress' => empty($c['compress']) ? false : $c['compress'],
                     'driver' => $driver,
                     'driver_params' => Horde::getDriverConfig('cache', $driver),
-                    'id' => empty($c['id']) ? false : $c['id'],
-                    'lang' => empty($c['lang']) ? false : $c['lang'],
                     'lifetime' => empty($c['lifetime']) ? false : $c['lifetime'],
                     'slicesize' => empty($c['slicesize']) ? false : $c['slicesize'],
                 );
