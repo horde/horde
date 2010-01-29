@@ -798,10 +798,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         /* If QRESYNC is available, synchronize the mailbox. */
         if ($qresync) {
             $this->_initCache();
-            $metadata = $this->_cache->getMetaData($mailbox, null, array('HICmodseq', 'uidvalid'));
+            $metadata = $this->cache->getMetaData($mailbox, null, array('HICmodseq', 'uidvalid'));
 
             if (isset($metadata['HICmodseq'])) {
-                $uids = $this->_cache->get($mailbox);
+                $uids = $this->cache->get($mailbox);
                 if (!empty($uids)) {
                     /* This command may cause several things to happen.
                      * 1. UIDVALIDITY may have changed.  If so, we need
@@ -1528,7 +1528,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             if (!empty($expunged)) {
                 if ($use_cache) {
-                    $this->_cache->deleteMsgs($mailbox, $expunged);
+                    $this->cache->deleteMsgs($mailbox, $expunged);
                 }
                 $tmp['mailbox']['messages'] -= $i;
 
@@ -1582,7 +1582,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (strtoupper(reset($data[0])) == 'EARLIER') {
                 /* Caching is guaranteed to be active if we are using
                  * QRESYNC. */
-                $this->_cache->deleteMsgs($this->_temp['mailbox']['name'], $this->utils->fromSequenceString($data[1]));
+                $this->cache->deleteMsgs($this->_temp['mailbox']['name'], $this->utils->fromSequenceString($data[1]));
             }
         } else {
             /* The second form is just VANISHED. This is returned from an
@@ -2874,7 +2874,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (empty($options['replace'])) {
                 /* Caching is guaranteed to be active if CONDSTORE is
                  * active. */
-                $data = $this->_cache->get($this->_selected, array_keys($uids), array('HICflags'), $this->_temp['mailbox']['uidvalidity']);
+                $data = $this->cache->get($this->_selected, array_keys($uids), array('HICflags'), $this->_temp['mailbox']['uidvalidity']);
 
                 foreach ($uids as $uid => $modseq) {
                     $flags = isset($data[$uid]['HICflags']) ? $data[$uid]['HICflags'] : array();
@@ -4024,7 +4024,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             // Delete cache for mailbox, if it exists.
             if ($this->_initCache()) {
-                $this->_cache->deleteMailbox($this->_selected);
+                $this->cache->deleteMailbox($this->_selected);
             }
             break;
 

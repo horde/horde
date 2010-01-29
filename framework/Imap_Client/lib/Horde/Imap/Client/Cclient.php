@@ -761,7 +761,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 }
 
                 if (!empty($expunged)) {
-                    $this->_cache->deleteMsgs($this->_selected, $expunged);
+                    $this->cache->deleteMsgs($this->_selected, $expunged);
                 }
             }
         }
