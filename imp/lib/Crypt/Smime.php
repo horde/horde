@@ -194,7 +194,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
     /**
      * Retrieves all public keys from a user's address book(s).
      *
-     * @return array  All PGP public keys available.
+     * @return array  All S/MIME public keys available.
      * @throws Horde_Exception
      */
     public function listPublicKeys()
@@ -425,6 +425,97 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
             : $GLOBALS['conf']['openssl']['path'];
 
         return parent::extractSignedContents($data, $sslpath);
+    }
+
+    /* UI related functions. */
+
+    /**
+     * Print certificate information.
+     *
+     * @param string $cert  The S/MIME certificate.
+     */
+    public function printCertInfo($key = '')
+    {
+        $cert_info = $this->certToHTML($cert);
+
+        if (empty($cert_info)) {
+            $this->textWindowOutput('S/MIME Key Information', _("Invalid key"));
+        } else {
+            $this->textWindowOutput('S/MIME Key Information', $cert_info, true);
+        }
+    }
+
+    /**
+     * Output text in a window.
+     *
+     * @param string $name  The window name.
+     * @param string $msg   The text contents.
+     * @param string $html  $msg is HTML format?
+     */
+    public function textWindowOutput($name, $msg, $html = false)
+    {
+        $GLOBALS['browser']->downloadHeaders($name, $html ? 'text/html' : 'text/plain; charset=' . Horde_Nls::getCharset(), true, strlen($msg));
+        echo $msg;
+    }
+
+    /**
+     * Generate import key dialog.
+     *
+     * @param string $target  Action ID for the UI screen.
+     * @param string $reload  The reload cache value.
+     */
+    public function importKeyDialog($target, $reload)
+    {
+        /* Need to handle notifications inline, and need to set explicitly
+         * since the popup window is not part of the preferences framework. */
+        $notification = Horde_Notification::singleton();
+        $notification->replace('status', array('prefs' => true, 'viewmode' => 'imp'), 'IMP_Notification_Listener_Status');
+
+        $title = _("Import S/MIME Key");
+        require IMP_TEMPLATES . '/common-header.inc';
+        IMP::status();
+
+        $t = new Horde_Template();
+        $t->setOption('gettext', true);
+        $t->set('selfurl', Horde::applicationUrl('smime.php'));
+        $t->set('broken_mp_form', $GLOBALS['browser']->hasQuirk('broken_multipart_form'));
+        $t->set('reload', htmlspecialchars($reload));
+        $t->set('target', $target);
+        $t->set('forminput', Horde_Util::formInput());
+        $t->set('import_public_key', $target == 'process_import_public_key');
+        $t->set('import_personal_certs', $target == 'process_import_personal_certs');
+        echo $t->fetch(IMP_TEMPLATES . '/smime/import_key.html');
+    }
+
+    /**
+     * Attempt to import a key from form/uploaded data.
+     *
+     * @param string $key  Key string.
+     *
+     * @return string  The key contents.
+     * @throws Horde_Browser_Exception
+     */
+    public function getImportKey($key)
+    {
+        if (!empty($key)) {
+            return $key;
+        }
+
+        $GLOBALS['browser']->wasFileUploaded('upload_key', _("key"));
+        return file_get_contents($_FILES['upload_key']['tmp_name']);
+    }
+
+    /**
+     * Reload the window.
+     *
+     * @param string $reload  The reload cache value.
+     */
+    public function reloadWindow($reload)
+    {
+        $cacheSess = Horde_SessionObjects::singleton();
+        $href = $cacheSess->query($reload);
+        $cacheSess->prune($reload);
+        Horde_Util::closeWindowJS('opener.focus();opener.location.href="' . $href . '";');
     }
 
 }

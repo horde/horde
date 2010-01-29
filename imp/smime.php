@@ -12,80 +12,6 @@
  * @package IMP
  */
 
-function _importKeyDialog($target)
-{
-    /* Need to handle notifications inline, and need to set explicitly since
-     * the popup window is not part of the preferences framework. */
-    $notification = Horde_Notification::singleton();
-    $notification->replace('status', array('prefs' => true, 'viewmode' => 'imp'), 'IMP_Notification_Listener_Status');
-
-    $title = _("Import S/MIME Key");
-    require IMP_TEMPLATES . '/common-header.inc';
-    IMP::status();
-
-    $t = new Horde_Template();
-    $t->setOption('gettext', true);
-    $t->set('selfurl', Horde::applicationUrl('smime.php'));
-    $t->set('broken_mp_form', $GLOBALS['browser']->hasQuirk('broken_multipart_form'));
-    $t->set('reload', htmlspecialchars(Horde_Util::getFormData('reload')));
-    $t->set('target', $target);
-    $t->set('forminput', Horde_Util::formInput());
-    $t->set('import_public_key', $target == 'process_import_public_key');
-    $t->set('import_personal_certs', $target == 'process_import_personal_certs');
-    echo $t->fetch(IMP_TEMPLATES . '/smime/import_key.html');
-}
-
-function _getImportKey()
-{
-    $key = Horde_Util::getFormData('import_key');
-    if (!empty($key)) {
-        return $key;
-    }
-
-    try {
-        $GLOBALS['browser']->wasFileUploaded('upload_key', _("key"));
-        return file_get_contents($_FILES['upload_key']['tmp_name']);
-    } catch (Horde_Browser_Exception $e) {
-        $GLOBALS['notification']->push($e, 'horde.error');
-    }
-}
-
-function _actionWindow()
-{
-    $oid = Horde_Util::getFormData('passphrase_action');
-    $cacheSess = Horde_SessionObjects::singleton();
-    $code = $cacheSess->query($oid);
-    $cacheSess->prune($oid);
-    Horde_Util::closeWindowJS($code);
-}
-
-function _reloadWindow()
-{
-    $reload = Horde_Util::getFormData('reload');
-    $cacheSess = Horde_SessionObjects::singleton();
-    $href = $cacheSess->query($reload);
-    $cacheSess->prune($reload);
-    Horde_Util::closeWindowJS('opener.focus();opener.location.href="' . $href . '";');
-}
-
-function _textWindowOutput($filename, $msg, $html = false)
-{
-    $type = ($html ? 'text/html' : 'text/plain') . '; charset=' . Horde_Nls::getCharset();
-    $GLOBALS['browser']->downloadHeaders($filename, $type, true, strlen($msg));
-    echo $msg;
-}
-
-function _printKeyInfo($cert)
-{
-    $key_info = $GLOBALS['imp_smime']->certToHTML($cert);
-    if (empty($key_info)) {
-        _textWindowOutput('S/MIME Key Information', _("Invalid key"));
-    } else {
-        _textWindowOutput('S/MIME Key Information', $key_info, true);
-    }
-}
-
-
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('imp');
 
@@ -110,26 +36,24 @@ case 'delete_public_key':
     break;
 
 case 'import_public_key':
-    _importKeyDialog('process_import_public_key');
+    $imp_smime->importKeyDialog('process_import_public_key', Horde_Util::getFormData('reload'));
     exit;
 
 case 'process_import_public_key':
-    $publicKey = _getImportKey();
-    if (empty($publicKey)) {
-        $notification->push(_("No S/MIME public key imported."), 'horde.error');
-        $actionID = 'import_public_key';
-        _importKeyDialog('process_import_public_key');
-    } else {
+    try {
+        $publicKey = $imp_smime->getImportKey(Horde_Util::getFormData('import_key'));
+
         /* Add the public key to the storage system. */
-        try {
-            $imp_smime->addPublicKey($publicKey);
-            $notification->push(_("S/MIME Public Key successfully added."), 'horde.success');
-            _reloadWindow();
-        } catch (Horde_Exception $e) {
-            $notification->push($e, 'horde.error');
-            $actionID = 'import_public_key';
-            _importKeyDialog('process_import_public_key');
-        }
+        $imp_smime->addPublicKey($publicKey);
+        $notification->push(_("S/MIME Public Key successfully added."), 'horde.success');
+        $imp_smime->reloadWindow(Horde_Util::getFormData('reload'));
+    } catch (Horde_Browser_Exception $e) {
+        $notification->push(_("No S/MIME public key imported."), 'horde.error');
+        throw new Horde_Exception($e);
+    } catch (Horde_Exception $e) {
+        $notification->push($e, 'horde.error');
+        $actionID = 'import_public_key';
+        $imp_smime->importKeyDialog('process_import_public_key', Horde_Util::getFormData('reload'));
     }
     exit;
 
@@ -141,43 +65,40 @@ case 'info_public_key':
         $key = $e->getMessage();
     }
     if ($actionID == 'view_public_key') {
-        _textWindowOutput('S/MIME Public Key', $key);
+        $imp_smime->textWindowOutput('S/MIME Public Key', $key);
     } else {
-        _printKeyInfo($key);
+        $imp_smime->printCertInfo($key);
     }
     exit;
 
 case 'view_personal_public_key':
-    _textWindowOutput('S/MIME Personal Public Key', $imp_smime->getPersonalPublicKey());
+    $imp_smime->textWindowOutput('S/MIME Personal Public Key', $imp_smime->getPersonalPublicKey());
     exit;
 
 case 'info_personal_public_key':
-    _printKeyInfo($imp_smime->getPersonalPublicKey());
+    $imp_smime->printCertInfo($imp_smime->getPersonalPublicKey());
     exit;
 
 case 'view_personal_private_key':
-    _textWindowOutput('S/MIME Personal Private Key', $imp_smime->getPersonalPrivateKey());
+    $imp_smime->textWindowOutput('S/MIME Personal Private Key', $imp_smime->getPersonalPrivateKey());
     exit;
 
 case 'import_personal_certs':
-    _importKeyDialog('process_import_personal_certs');
+    $imp_smime->importKeyDialog('process_import_personal_certs', Horde_Util::getFormData('reload'));
     exit;
 
 case 'process_import_personal_certs':
-    if (!($pkcs12 = _getImportKey())) {
-        $notification->push(_("No personal S/MIME certificates imported."), 'horde.error');
+    try {
+        $pkcs12 = $imp_smime->getImportKey(Horde_Util::getFormData('import_key'));
+        $imp_smime->addFromPKCS12($pkcs12, Horde_Util::getFormData('upload_key_pass'), Horde_Util::getFormData('upload_key_pk_pass'));
+        $notification->push(_("S/MIME Public/Private Keypair successfully added."), 'horde.success');
+        $imp_smime->reloadWindow(Horde_Util::getFormData('reload'));
+    } catch (Horde_Browser_Exception $e) {
+        throw new Horde_Exception($e);
+    } catch (Horde_Exception $e) {
+        $notification->push(_("Personal S/MIME certificates NOT imported: ") . $e->getMessage(), 'horde.error');
         $actionID = 'import_personal_certs';
-        _importKeyDialog('process_import_personal_certs');
-    } else {
-        try {
-            $imp_smime->addFromPKCS12($pkcs12, Horde_Util::getFormData('upload_key_pass'), Horde_Util::getFormData('upload_key_pk_pass'));
-            $notification->push(_("S/MIME Public/Private Keypair successfully added."), 'horde.success');
-            _reloadWindow();
-        } catch (Horde_Exception $e) {
-            $notification->push(_("Personal S/MIME certificates NOT imported: ") . $e->getMessage(), 'horde.error');
-            $actionID = 'import_personal_certs';
-            _importKeyDialog('process_import_personal_certs');
-        }
+        $imp_smime->importKeyDialog('process_import_personal_certs', Horde_Util::getFormData('reload'));
     }
     exit;
 
