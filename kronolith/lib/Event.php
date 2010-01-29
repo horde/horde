@@ -1154,8 +1154,8 @@ abstract class Kronolith_Event
         return array(
             'id' => $this->uid,
             'user' => $user,
-            'start' => $start->timestamp(),
-            'end' => $this->end->timestamp(),
+            'start' => $start,
+            'end' => $this->end,
             'methods' => array_keys($methods),
             'params' => $methods,
             'title' => $this->getTitle($user),

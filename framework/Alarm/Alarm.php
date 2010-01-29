@@ -235,10 +235,6 @@ class Horde_Alarm {
                 }
 
                 foreach ($alarms as $alarm) {
-                    $alarm['start'] = new Horde_Date($alarm['start']);
-                    if (!empty($alarm['end'])) {
-                        $alarm['end'] = new Horde_Date($alarm['end']);
-                    }
                     $this->set($alarm);
                 }
             }

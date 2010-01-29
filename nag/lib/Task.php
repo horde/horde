@@ -776,7 +776,7 @@ class Nag_Task {
         return array(
             'id' => $this->uid,
             'user' => $user,
-            'start' => $this->due - $this->alarm * 60,
+            'start' => new Horde_Date($this->due - $this->alarm * 60),
             'methods' => array_keys($methods),
             'params' => $methods,
             'title' => $this->name,
