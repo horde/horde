@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Provide command line script to obtain IMAP caching statistics.
 [mms] Catch flag changes from other IMAP clients when refreshing if CONDSTORE
       is available on the IMAP server (DIMP).
 [mms] Improved forwarding options.
