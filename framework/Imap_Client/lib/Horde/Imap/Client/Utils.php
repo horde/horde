@@ -44,9 +44,10 @@ class Horde_Imap_Client_Utils
 
         if (!empty($options['mailbox'])) {
             $str = '';
+            unset($options['mailbox']);
 
             foreach ($in as $mbox => $ids) {
-                $str .= '{' . strlen($mbox) . '}' . $mbox . $this->toSequenceString($ids, array('nosort' => !empty($options['nosort'])));
+                $str .= '{' . strlen($mbox) . '}' . $mbox . $this->toSequenceString($ids, $options);
             }
 
             return $str;
@@ -59,38 +60,32 @@ class Horde_Imap_Client_Utils
             sort($in, SORT_NUMERIC);
         }
 
-        $i = count($in);
         $first = $last = array_shift($in);
+        $i = count($in) - 1;
         $out = array();
 
-        if ($i == 1) {
-            return $first;
-        }
-
-        $i -= 2;
         reset($in);
         while (list($key, $val) = each($in)) {
-            if ((($last + 1) == $val) && ($i != $key)) {
+            if (($last + 1) == $val) {
                 $last = $val;
-            } else {
+            }
+
+            if (($i == $key) || ($last != $val)) {
                 if ($last == $first) {
                     $out[] = $first;
-                } elseif ($last == ($first + 1)) {
-                    $out[] = $first;
-                    $out[] = $last;
+                    if ($i == $key) {
+                        $out[] = $val;
+                    }
                 } else {
                     $out[] = $first . ':' . $last;
                 }
-
-                if ($i == $key) {
-                    $out[] = $val;
-                } else {
-                    $first = $last = $val;
-                }
+                $first = $last = $val;
             }
         }
 
-        return implode(',', $out);
+        return empty($out)
+            ? $first
+            : implode(',', $out);
     }
 
     /**
@@ -114,53 +109,33 @@ class Horde_Imap_Client_Utils
         }
 
         if ($str[0] == '{') {
-            while ($str) {
-                if ($str[0] != '{') {
-                    break;
-                }
+            $i = strpos($str, '}');
+            $count = intval(substr($str, 1, $i - 1));
+            $mbox = substr($str, $i + 1, $count);
+            $i += $count + 1;
+            $end = strpos($str, '{', $i);
 
-                $i = strpos($str, '}');
-                $count = intval(substr($str, 1, $i - 1));
-                $mbox = substr($str, $i + 1, $count);
-                $i += $count + 1;
-                $end = strpos($str, '{', $i);
-
-                if ($end === false) {
-                    $uidstr = substr($str, $i);
-                    $str = '';
-                } else {
-                    $uidstr = substr($str, $i, $end - $i);
-                    $str = substr($str, $end);
-                }
-
-                $ids[$mbox] = $this->fromSequenceString($uidstr);
+            if ($end === false) {
+                $uidstr = substr($str, $i);
+            } else {
+                $uidstr = substr($str, $i, $end - $i);
+                $ids = $this->fromSequenceString(substr($str, $end));
             }
+
+            $ids[$mbox] = $this->fromSequenceString($uidstr);
 
             return $ids;
         }
 
         $idarray = explode(',', $str);
-        if (empty($idarray)) {
-            $idarray = array($str);
-        }
 
         reset($idarray);
         while (list(,$val) = each($idarray)) {
-            $pos = strpos($val, ':');
-            if ($pos === false) {
-                $ids[] = $val;
+            $range = explode(':', $val);
+            if (isset($range[1])) {
+                $ids = array_merge($ids, range(min($range), max($range)));
             } else {
-                $low = substr($val, 0, $pos);
-                $high = substr($val, $pos + 1);
-                if ($low > $high) {
-                    $tmp = $low;
-                    $low = $high;
-                    $high = $tmp;
-                }
-
-                for (; $low <= $high; ++$low) {
-                    $ids[] = $low;
-                }
+                $ids[] = $val;
             }
         }
 
