@@ -83,12 +83,12 @@ case 'export':
         $start = null;
         $end = null;
     } else {
-        $start->mday = Horde_Util::getFormData('start_day');
-        $start->month = Horde_Util::getFormData('start_month');
-        $start->year = Horde_Util::getFormData('start_year');
-        $end->mday = Horde_Util::getFormData('end_day');
-        $end->month = Horde_Util::getFormData('end_month');
-        $end->year = Horde_Util::getFormData('end_year');
+        $start = new Horde_Date(Horde_Util::getFormData('start_year'),
+                                Horde_Util::getFormData('start_month'),
+                                Horde_Util::getFormData('start_day'));
+        $end = new Horde_Date(Horde_Util::getFormData('end_year'),
+                              Horde_Util::getFormData('end_month'),
+                              Horde_Util::getFormData('end_day'));
     }
 
     $events = array();
