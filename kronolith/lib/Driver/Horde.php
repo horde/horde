@@ -46,13 +46,15 @@ class Kronolith_Driver_Horde extends Kronolith_Driver
      * @param boolean $hasAlarm          Only return events with alarms?
      * @param boolean $json              Store the results of the events'
      *                                   toJson() method?
+     * @param boolean $coverDates        Whether to add the events to all days
+     *                                   that they cover.
      *
      * @return array  Events in the given time range.
      * @throws Horde_Exception
      */
     public function listEvents($startDate = null, $endDate = null,
                                $showRecurrence = false, $hasAlarm = false,
-                               $json = false)
+                               $json = false, $coverDates = true)
     {
         list($this->api, $category) = explode('/', $this->calendar, 2);
         if (!$this->_params['registry']->hasMethod($this->api . '/listTimeObjects')) {
@@ -98,7 +100,7 @@ class Kronolith_Driver_Horde extends Kronolith_Driver
             }
 
             Kronolith::addEvents($results, $event, $startDate,
-                                 $endDate, $showRecurrence, $json);
+                                 $endDate, $showRecurrence, $json, $coverDates);
         }
 
         return $results;

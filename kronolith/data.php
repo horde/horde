@@ -100,7 +100,7 @@ case 'export':
         if ($kronolith_driver->calendar != $cal) {
             $kronolith_driver->open($cal);
         }
-        $events[$cal] = $kronolith_driver->listEvents($start, $end);
+        $events[$cal] = $kronolith_driver->listEvents($start, $end, false, false, false, false);
     }
 
     if (!$events) {

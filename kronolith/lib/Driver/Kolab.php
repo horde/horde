@@ -214,12 +214,14 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
      * @param boolean $hasAlarm          Only return events with alarms?
      * @param boolean $json              Store the results of the events'
      *                                   toJson() method?
+     * @param boolean $coverDates        Whether to add the events to all days
+     *                                   that they cover.
      *
      * @return array  Events in the given time range.
      */
     public function listEvents($startDate = null, $endDate = null,
                                $showRecurrence = false, $hasAlarm = false,
-                               $json = false)
+                               $json = false, $coverDates = true)
     {
         $result = $this->synchronize();
         if (is_a($result, 'PEAR_Error')) {
@@ -265,7 +267,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
             }
 
             Kronolith::addEvents($events, $event, $startDate, $endDate,
-                                 $showRecurrence, $json);
+                                 $showRecurrence, $json, $coverDates);
         }
 
         return $events;

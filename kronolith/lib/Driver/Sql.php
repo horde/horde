@@ -263,12 +263,14 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      * @param boolean $hasAlarm          Only return events with alarms?
      * @param boolean $json              Store the results of the events'
      *                                   toJson() method?
+     * @param boolean $coverDates        Whether to add the events to all days
+     *                                   that they cover.
      *
      * @return array  Events in the given time range.
      */
     public function listEvents($startDate = null, $endDate = null,
                                $showRecurrence = false, $hasAlarm = false,
-                               $json = false)
+                               $json = false, $coverDates = true)
     {
         if (!is_null($startDate)) {
             $startDate = clone $startDate;
@@ -289,7 +291,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         $results = array();
         foreach ($events as $id) {
             Kronolith::addEvents($results, $this->getEvent($id), $startDate,
-                                 $endDate, $showRecurrence, $json);
+                                 $endDate, $showRecurrence, $json, $coverDates);
         }
 
         return $results;
