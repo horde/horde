@@ -517,15 +517,18 @@ class Nag_Driver_Sql extends Nag_Driver {
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         /* Run the query. */
-        $qr = $this->_db->getAll($q, $values, DB_FETCHMODE_ASSOC);
-        if (is_a($qr, 'PEAR_Error')) {
-            return $qr;
+        $result = $this->_db->query($q, $values);
+        if (is_a($result, 'PEAR_Error')) {
+            return $result;
         }
-
         $tasks = array();
-        foreach ($qr as $row) {
+        while ($row = $result->fetchRow(DB_FETCHMODE_ASSOC)) {
+            if (is_a($row, 'PEAR_Error')) {
+                return $row;
+            }
             $tasks[$row['task_id']] = new Nag_Task($this->_buildTask($row));
         }
+
         return $tasks;
     }
 
