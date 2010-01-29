@@ -221,7 +221,8 @@ class Horde_Imap_Client_Cache
      * @param array $uids        The list of message UIDs to retrieve
      *                           information for. If empty, returns the list
      *                           of cached UIDs.
-     * @param array $fields      An array of fields to retrieve.
+     * @param array $fields      An array of fields to retrieve. If null,
+     *                           returns all cached fields.
      * @param integer $uidvalid  The IMAP uidvalidity value of the mailbox.
      *
      * @return array  An array of arrays with the UID of the message as the
@@ -242,12 +243,16 @@ class Horde_Imap_Client_Cache
 
         $this->_loadUIDs($mailbox, $uids, $uidvalid);
         if (!empty($this->_data[$mailbox])) {
-            $fields = array_flip($fields);
+            if (!is_null($fields)) {
+                $fields = array_flip($fields);
+            }
             $ptr = &$this->_data[$mailbox];
 
             foreach ($uids as $val) {
                 if (isset($ptr[$val])) {
-                    $ret_array[$val] = array_intersect_key($ptr[$val], $fields);
+                    $ret_array[$val] = is_null($fields)
+                        ? $ptr[$val]
+                        : array_intersect_key($ptr[$val], $fields);
                 }
             }
 
