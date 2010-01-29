@@ -191,17 +191,7 @@ class IMP_Imap
 
         /* Initialize caching. */
         if (!empty($server['cache'])) {
-            $c = $server['cache'];
-            $driver = $GLOBALS['conf']['cache']['driver'];
-            if ($driver != 'none') {
-                $imap_config['cache'] = array(
-                    'compress' => empty($c['compress']) ? false : $c['compress'],
-                    'driver' => $driver,
-                    'driver_params' => Horde::getDriverConfig('cache', $driver),
-                    'lifetime' => empty($c['lifetime']) ? false : $c['lifetime'],
-                    'slicesize' => empty($c['slicesize']) ? false : $c['slicesize'],
-                );
-            }
+            $imap_config['cache'] = $this->loadCacheConfig(is_array($server['cache']) ? $server['cache'] : array());
         }
 
         try {
@@ -216,6 +206,39 @@ class IMP_Imap
         }
 
         return $ob;
+    }
+
+    /**
+     * Prepare the config parameters necessary to use IMAP caching.
+     *
+     * @param mixed $config  Either a list of cache config parameters, or a
+     *                       string containing the name of the driver with
+     *                       which to load the cache config from.
+     *
+     * @return array  The configuration array.
+     */
+    public function loadCacheConfig($config)
+    {
+        $driver = $GLOBALS['conf']['cache']['driver'];
+        if ($driver == 'none') {
+            return array();
+        }
+
+        if (is_string($config)) {
+            if ((($server = $this->loadServerConfig($config)) === false) ||
+                empty($server['cache'])) {
+                return array();
+            }
+            $config = $server['cache'];
+        }
+
+        return array(
+            'compress' => empty($config['compress']) ? false : $config['compress'],
+            'driver' => $driver,
+            'driver_params' => Horde::getDriverConfig('cache', $driver),
+            'lifetime' => empty($config['lifetime']) ? false : $config['lifetime'],
+            'slicesize' => empty($config['slicesize']) ? false : $config['slicesize'],
+        );
     }
 
     /**
