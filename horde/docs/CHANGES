@@ -2,7 +2,7 @@
 v4.0-cvs
 --------
 
-[jan] Store alarm dates in UTC.
+[jan] Store alarm dates in UTC (Bug #8381).
 [mms] Add abstracted AJAX interface (Request #4561).
 [mms] Update scriptaculous to v1.8.3.
 [mjr] Add Horde_Image_Exif (ported from Ansel) and add a exiftool driver.
