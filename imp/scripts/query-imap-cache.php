@@ -53,16 +53,20 @@ if (is_null($server)) {
         $server = $cli->prompt('Server:', $keys);
     }
     $server = $keys[$server];
-    $cli->message('Using server "' . $server . '"', 'cli.message');
+} else {
+    $cli->message('Server: ' . $server);
 }
 
-while (is_null($user)) {
-    $user = $cli->prompt('Username:');
-    if (!strlen($user)) {
-        $user = null;
+if (is_null($user)) {
+    while (is_null($user)) {
+        $user = $cli->prompt('Username:');
+        if (!strlen($user)) {
+            $user = null;
+        }
     }
+} else {
+    $cli->message('Username: ' . $user);
 }
-$cli->message('Using username "' . $user . '"', 'cli.message');
 
 while (is_null($pass)) {
     $pass = $cli->passwordPrompt('Password:');
@@ -78,6 +82,13 @@ if (!$ob) {
     $cli->fatal('Could not create Imap Client object.');
 }
 
+if ($ob->cache) {
+    $cli->fatal('Caching not setup for this server.');
+} else {
+    $driver = $ob->getParam('cache');
+    $cli->message('Cache driver used: ' . $driver['driver']);
+}
+
 try {
     $ob->login();
     $cli->message('Successfully logged in to IMAP server.');
@@ -89,13 +100,15 @@ try {
 }
 
 $opts = array(
-    1 => 'Full Statistics',
-    2 => 'Summary',
+    1 => 'Summary Statistics (All Mailboxes)',
+    2 => 'Detailed Statistics (All Mailboxes)',
     3 => 'Detailed Statistics (Single Mailbox)',
-    4 => 'Expire Mailbox',
-    5 => 'Expire All Mailboxes',
-    6 => 'Expire specific UIDs',
-    7 => 'Exit'
+    4 => 'Summary Statistics (Single UID)',
+    5 => 'Detailed Statistics (Single UID)',
+    6 => 'Expire All Mailboxes',
+    7 => 'Expire Mailbox',
+    8 => 'Expire specific UIDs',
+    9 => 'Exit'
 );
 
 while (true) {
@@ -104,7 +117,6 @@ while (true) {
     $action = $cli->prompt('Action:', $opts);
     switch ($action) {
     case 1:
-    case 2:
         $mbox_list = array();
         $msg_cnt = $search_cnt = 0;
 
@@ -123,58 +135,106 @@ while (true) {
         }
 
         $cli->writeln();
-        $cli->message($cli->bold('Cached mailboxes:') . ' ' . count($mbox_list), 'cli.message');
-        $cli->message($cli->bold('Cached messages:') . ' ' . $msg_cnt, 'cli.message');
-        $cli->message($cli->bold('Cached searches:') . ' ' . $search_cnt, 'cli.message');
-
-        if ($action == 1) {
-            $cli->writeln();
-            foreach ($mbox_list as $key => $val) {
-                $cli->writeln($cli->indent($cli->green($key) . sprintf(" (%d msgs, %d searches)", $val['msgs'], $val['search'])));
-            }
-        }
+        $cli->message($cli->bold('Cached mailboxes:') . ' ' . count($mbox_list));
+        $cli->message($cli->bold('Cached messages:') . ' ' . $msg_cnt);
+        $cli->message($cli->bold('Cached searches:') . ' ' . $search_cnt);
         break;
 
+    case 2:
     case 3:
-        $mbox_prompt = $cli->prompt('Mailbox:');
-        if (strlen($mbox_prompt) &&
-            ($res = $ob->cache->get($mbox_prompt))) {
-            $cli->message('Cached messages: ' . count($res) . ' [' . $ob->utils->toSequenceString($res) . ']');
-            if ($res = $ob->cache->getMetaData($mbox_prompt)) {
-                $status = $ob->status($mbox_prompt, Horde_Imap_Client::STATUS_UIDVALIDITY | Horde_Imap_Client::STATUS_HIGHESTMODSEQ);
-                $cli->message('UIDVALIDITY: ' . $res['uidvalid'] . ' [Server value: ' . (($status['uidvalidity'] != $res['uidvalid']) ? $cli->red($status['uidvalidity']) : $status['uidvalidity']) . ']');
-                if (isset($res['HICmodseq'])) {
-                    $cli->message('Highest MODSEQ seen: ' . $res['HICmodseq'] . ' [Server value: ' . (($status['highestmodseq'] != $res['HICmodseq']) ? $cli->red($status['highestmodseq']) : $status['highestmodseq']) . ']');
-                }
-                if (isset($res['HICsearch'])) {
-                    $cli->message('Cached searches: ' . (count($res['HICsearch']) - 1));
-                }
-            }
-        }
-        break;
-
-    case 4:
-    case 5:
-        if ($action == 4) {
+        if ($action == 3) {
             $prompt = $cli->prompt('Mailbox:');
             if (!strlen($prompt)) {
                 break;
             }
             $mbox_list = array($prompt);
         } else {
-            $mbox_list = array($mboxes);
+            $mbox_list = $mboxes;
+        }
+
+        foreach ($mbox_list as $mbox) {
+            if ($res = $ob->cache->get($mbox)) {
+                $cli->writeln();
+
+                $cli->message('Mailbox: ' . $cli->green($mbox));
+                $cli->message('Cached messages: ' . count($res) . ' [' . $ob->utils->toSequenceString($res) . ']');
+
+                $total_size = 0;
+                foreach ($ob->cache->get($mbox, $res, null) as $val) {
+                    $total_size += strlen(serialize($val));
+                }
+                $cli->message('Approximate size (bytes): ' . $total_size);
+
+                if ($res = $ob->cache->getMetaData($mbox)) {
+                    try {
+                        $status = $ob->status($mbox, Horde_Imap_Client::STATUS_UIDVALIDITY | Horde_Imap_Client::STATUS_HIGHESTMODSEQ);
+                    } catch (Horde_Imap_Client_Exception $e) {
+                        $cli->writeln();
+                        $cli->message('IMAP error: ' . $e->getMessage(), 'cli.error');
+                    }
+                    $cli->message('UIDVALIDITY: ' . $res['uidvalid'] . ' [Server value: ' . (($status['uidvalidity'] != $res['uidvalid']) ? $cli->red($status['uidvalidity']) : $status['uidvalidity']) . ']');
+                    if (isset($res['HICmodseq'])) {
+                        $cli->message('Highest MODSEQ seen: ' . $res['HICmodseq'] . ' [Server value: ' . (($status['highestmodseq'] != $res['HICmodseq']) ? $cli->red($status['highestmodseq']) : $status['highestmodseq']) . ']');
+                    }
+                    if (isset($res['HICsearch'])) {
+                        $cli->message('Cached searches: ' . (count($res['HICsearch']) - 1));
+                    }
+                }
+            } elseif ($action == 3) {
+                $cli->writeln();
+                $cli->message(sprintf('No cache information found for "%s".', $mbox), 'cli.error');
+            }
+        }
+        break;
+
+    case 4:
+    case 5:
+        $mbox = $cli->prompt('Mailbox:');
+        if (!strlen($mbox)) {
+            break;
+        }
+        $uid = $cli->prompt('UID:');
+        if (!strlen($uid)) {
+            break;
+        }
+        if ($res = $ob->cache->get($mbox, array($uid), null)) {
+            $cli->writeln();
+            $cli->message(sprintf('Message information [%s:%d]', $mbox, $uid));
+            $cli->message('Cached fields: ' . implode(', ', array_keys($res[$uid])));
+            $cli->message('Approximate size (bytes): ' . strlen(serialize($res[$uid])));
+
+            if ($action == 5) {
+                $cli->writeln();
+                $cli->writeln(print_r($res[$uid], true));
+            }
+        } else {
+            $cli->writeln();
+            $cli->message(sprintf('No cache information found for "%s:%d".', $mbox, $uid), 'cli.error');
+        }
+        break;
+
+    case 6:
+    case 7:
+        if ($action == 7) {
+            $prompt = $cli->prompt('Mailbox:');
+            if (!strlen($prompt)) {
+                break;
+            }
+            $mbox_list = array($prompt);
+        } else {
+            $mbox_list = $mboxes;
         }
 
         if ($cli->prompt('Delete mailbox cache(s)?', array('1' => 'No', '2' => 'Yes'), 1) == 2) {
             $cli->writeln();
             foreach ($mbox_list as $val) {
                 $ob->cache->deleteMailbox($val);
-                $cli->message(sprintf('Deleted cache for "%s".', $val), 'cli.success');
+                $cli->message('Deleted cache: ' . $val), 'cli.success');
             }
         }
         break;
 
-    case 6:
+    case 8:
         $mbox = $cli->prompt('Mailbox:');
         if (!strlen($mbox)) {
             break;
@@ -185,6 +245,7 @@ while (true) {
         }
         $uids = $ob->utils->fromSequenceString($uids);
         if (empty($uids)) {
+            $cli->writeln();
             $cli->message('No UIDs found', 'cli.error');
             break;
         }
@@ -195,11 +256,12 @@ while (true) {
             $ob->cache->deleteMsgs($mbox, $uids);
             $cli->message(sprintf('Deleted %d UIDs from cache.', count($uids)), 'cli.success');
         } catch (Horde_Imap_Client_Exception $e) {
-            $cli->message('Failed deleting UIDS. Error: ' . $e->getMessage(), 'cli.error');
+            $cli->writeln();
+            $cli->message('Failed deleting UIDs. Error: ' . $e->getMessage(), 'cli.error');
         }
         break;
 
-    case 7:
+    case 9:
         exit;
     }
 }
