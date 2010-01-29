@@ -134,13 +134,13 @@ foreach ($a as $app) {
     $apps[$i]['name'] = $conf_link . $apps[$i]['sort'] . '</a>';
     $apps[$i]['icon'] = Horde::img($registry->get('icon', $app), $registry->get('name', $app), '', '');
     $apps[$i]['version'] = '';
-    if ($version = $registry->getVersion($app)) {
+    if ($version = $registry->getVersion($app, true)) {
         $apps[$i]['version'] = $version;
         if (!empty($versions)) {
             if (!isset($versions[$app])) {
                 $apps[$i]['load'] = $warning;
                 $apps[$i]['vstatus'] = _("No stable version exists yet.");
-            } elseif (version_compare(preg_replace('/H\d \((.*)\)/', '$1', $versions[$app]['version']), preg_replace('/H\d \((.*)\)/', '$1', $apps[$i]['version']), '>')) {
+            } elseif (version_compare(preg_replace('/H\d \((.*)\)/', '$1', $versions[$app]['version']), $apps[$i]['version'], '>')) {
                 $apps[$i]['load'] = $error;
                 $apps[$i]['vstatus'] = Horde::link($versions[$app]['url'], sprintf(_("Download %s"), $app)) . sprintf(_("A newer version (%s) exists."), $versions[$app]['version']) . '</a> ';
             } else {

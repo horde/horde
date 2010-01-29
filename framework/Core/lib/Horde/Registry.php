@@ -1254,11 +1254,13 @@ class Horde_Registry
     /**
      * Return the version string for a given application.
      *
-     * @param string $app  The application to get the value for.
+     * @param string $app      The application to get the value for.
+     * @param boolean $number  Return the raw version number, suitable for
+     *                         comparison purposes.
      *
      * @return string  The version string for the application.
      */
-    public function getVersion($app = null)
+    public function getVersion($app = null, $number = false)
     {
         if (empty($app)) {
             $app = $this->getApp();
@@ -1266,10 +1268,13 @@ class Horde_Registry
 
         try {
             $api = $this->getApiInstance($app, 'application');
-            return $api->version;
         } catch (Horde_Exception $e) {
             return 'unknown';
         }
+
+        return $number
+            ? $api->version
+            : preg_replace('/H\d \((.*)\)/', '$1', $api->version);
     }
 
     /**
