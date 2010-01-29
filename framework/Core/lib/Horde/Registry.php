@@ -145,8 +145,7 @@ class Horde_Registry
         if ($args['cli']) {
             /* Make sure no one runs from the web. */
             if (!Horde_Cli::runningFromCLI()) {
-                fwrite(STDERR, "Must be run from the command line\n");
-                exit(1);
+                throw new Horde_Exception('Script must be run from the command line');
             }
 
             /* Load the CLI environment - make sure there's no time limit,
