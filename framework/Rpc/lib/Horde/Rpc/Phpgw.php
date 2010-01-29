@@ -84,18 +84,9 @@ class Horde_Rpc_Phpgw extends Horde_Rpc
         // Try to resume a session
         if (isset($params[0]['kp3']) && $params[0]["kp3"] == session_name() && session_id() != $params[0]["sessionid"]) {
             Horde::logMessage("manually reload session ".$params[0]["sessionid"], __FILE__, __LINE__, PEAR_LOG_NOTICE);
-            // Make sure to force a completely new session ID and clear
-            // all session data.
-            if (version_compare(PHP_VERSION, '4.3.3') !== -1) {
-                session_regenerate_id();
-                session_unset();
-                session_id($params[0]["sessionid"]);
-            } else {
-                @session_destroy();
-                session_id($params[0]["sessionid"]);
-                Horde_Registry::setupSessionHandler();
-                session_start();
-            }
+            session_regenerate_id();
+            session_unset();
+            session_id($params[0]["sessionid"]);
         }
 
         // Be authenticated or call system.login.

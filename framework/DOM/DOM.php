@@ -44,7 +44,7 @@ class Horde_DOM_Document extends Horde_DOM_Node {
      * @param array $params  Array containing either 'filename' | 'xml' keys.
      *                       You can specify an optional 'options' key.
      *
-     * @return mixed   PHP 4 domxml document | Horde_DOM_Document | PEAR_Error
+     * @return mixed   Horde_DOM_Document | PEAR_Error
      */
     function factory($params = array())
     {
@@ -52,54 +52,10 @@ class Horde_DOM_Document extends Horde_DOM_Node {
             $params['options'] = 0;
         }
 
-        if (version_compare(PHP_VERSION, '5', '>=')) {
-            // PHP 5 with Horde_DOM. Let Horde_DOM determine
-            // if we are a file or string.
-            $doc = new Horde_DOM_Document($params);
-            if (isset($doc->error)) {
-                return $doc->error;
-            }
-            return $doc;
+        $doc = new Horde_DOM_Document($params);
+        if (isset($doc->error)) {
+            return $doc->error;
         }
-
-        // Load mode
-        if ($params['options'] & HORDE_DOM_LOAD_VALIDATE) {
-            $options = DOMXML_LOAD_VALIDATING;
-        } elseif ($params['options'] & HORDE_DOM_LOAD_RECOVER) {
-            $options = DOMXML_LOAD_RECOVERING;
-        } else {
-            $options = DOMXML_LOAD_PARSING;
-        }
-
-        // Load options
-        if ($params['options'] & HORDE_DOM_LOAD_REMOVE_BLANKS) {
-            $options |= DOMXML_LOAD_DONT_KEEP_BLANKS;
-        }
-        if ($params['options'] & HORDE_DOM_LOAD_SUBSTITUTE_ENTITIES) {
-            $options |= DOMXML_LOAD_SUBSTITUTE_ENTITIES;
-        }
-
-        if (isset($params['filename'])) {
-            if (function_exists('domxml_open_file')) {
-                // PHP 4 with domxml and XML file
-                return domxml_open_file($params['filename'], $options);
-            }
-        } elseif (isset($params['xml'])) {
-            if (function_exists('domxml_open_mem')) {
-                // PHP 4 with domxml and XML string.
-                $result = @domxml_open_mem($params['xml'], $options);
-                if (!$result) {
-                    return PEAR::raiseError('Failed loading XML document.');
-                }
-                return $result;
-            }
-        } elseif (function_exists('domxml_new_doc')) {
-            // PHP 4 creating a blank doc.
-            return domxml_new_doc('1.0');
-        }
-
-        // No DOM support - raise error.
-        return PEAR::raiseError('DOM support not present.');
     }
 
     /**
@@ -598,12 +554,7 @@ class Horde_DOM_XPath {
 
     function factory($dom)
     {
-        if (version_compare(PHP_VERSION, '5', '>=')) {
-            // PHP 5 with Horde_DOM.
-            return new Horde_DOM_XPath($dom);
-        }
-
-        return $dom->xpath_new_context();
+        return new Horde_DOM_XPath($dom);
     }
 
     function Horde_DOM_XPath($dom)

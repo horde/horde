@@ -1,11 +1,5 @@
 --TEST--
 Iterator Test
---SKIPIF--
-<?php
-if (version_compare(PHP_VERSION, '5.0.0', '<')) {
-    echo 'skip Iterator test is not relevant for PHP 4';
-}
-?>
 --FILE--
 <?php
 

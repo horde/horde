@@ -55,11 +55,7 @@ class Ingo_Driver_Sivtest extends Ingo_Driver
 
         $this->sivtestSocket($this->_params['username'],
         $this->_params['password'], $this->_params['hostspec']);
-        if (substr(PHP_VERSION, 0, 1) == '5') {
-            $domain_socket = 'unix://' . $this->_params['socket'];
-        } else {
-            $domain_socket = $this->_params['socket'];
-        }
+        $domain_socket = 'unix://' . $this->_params['socket'];
 
         $this->_sieve = new Net_Sieve($this->_params['username'],
                                       $this->_params['password'],
@@ -137,11 +133,7 @@ class Ingo_Driver_Sivtest extends Ingo_Driver
             $command .= 'KRB5CCNAME=' . $_SERVER['KRB5CCNAME'];
         }
 
-        if (substr(PHP_VERSION, 0, 1) == '5') {
-            $domain_socket = 'unix://' . $this->_params['socket'];
-        } else {
-            $domain_socket = $this->_params['socket'];
-        }
+        $domain_socket = 'unix://' . $this->_params['socket'];
 
         $command .= ' ' . $this->_params['command']
             . ' -m ' . $this->_params['logintype']

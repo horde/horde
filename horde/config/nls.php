@@ -228,8 +228,7 @@ if (strpos(PHP_OS, 'BSD') !== false) {
 }
 
 /* Turkish locales. */
-if (version_compare(PHP_VERSION, '5', 'lt') ||
-    version_compare(PHP_VERSION, '6', 'ge')) {
+if (version_compare(PHP_VERSION, '6', 'ge')) {
     Horde_Nls::$config['aliases']['tr'] = 'tr_TR';
     Horde_Nls::$config['charsets']['tr_TR'] = (strpos(PHP_OS, 'BSD') === false) ? 'ISO-8859-9' : 'ISO8859-9';
     Horde_Nls::$config['languages']['tr_TR'] = 'T&#xfc;rk&#xe7;e';

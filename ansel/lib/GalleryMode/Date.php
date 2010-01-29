@@ -575,27 +575,11 @@ class Ansel_GalleryMode_Date {
      */
     function _getArraySlice($array, $from, $count, $preserve = false)
     {
-
         if ($from == 0 && $count == 0) {
             return $array;
         }
 
-        if ($preserve && version_compare(PHP_VERSION, '5.0.2', '>=')) {
-            return array_slice($array, $from, $count, true);
-        } elseif ($preserve) {
-            // Can't use array_slice since it won't preserve keys in PHP4
-            $return = array();
-            $i = 0;
-            foreach ($array as $key => $child) {
-                if ($i >= $from && $i < ($from + $count)) {
-                    $return[$key] = $child;
-                }
-                $i++;
-            }
-            return $return;
-        } else {
-            return array_slice($array, $from, $count);
-        }
+        return array_slice($array, $from, $count, $preserve);
     }
 
     /**
