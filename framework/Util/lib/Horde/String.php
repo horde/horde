@@ -607,7 +607,7 @@ class Horde_String
 
     /**
      * Return an abbreviated string, with characters in the middle of the
-     * excesively long string replaced by '...'.
+     * excessively long string replaced by '...'.
      *
      * @param string $text     The original string.
      * @param integer $length  The length at which to abbreviate.
