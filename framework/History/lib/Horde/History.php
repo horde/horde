@@ -313,6 +313,23 @@ class Horde_History
     }
 
     /**
+     * Remove one or more history entries by parent.
+     *
+     * @param string $parent  The parent name to remove.
+     *
+     * @throws Horde_Exception
+     */
+    public function removeByParent($parent)
+    {
+        /* Remove entries 100 at a time. */
+        $all = array_keys($this->getByTimestamp('>', 0, array(), $parent));
+
+        while (count($d = array_splice($all, 0, 100)) > 0) {
+            $this->removebyNames($d);
+        }
+    }
+
+    /**
      * Remove one or more history entries by name.
      *
      * @param array $names The history entries to remove.

@@ -193,20 +193,7 @@ class Nag_Application extends Horde_Registry_Application
 
         /* Now delete history as well. */
         $history = Horde_History::singleton();
-        if (method_exists($history, 'removeByParent')) {
-            $histories = $history->removeByParent('nag:' . $user);
-        } else {
-            /* Remove entries 100 at a time. */
-            $all = $history->getByTimestamp('>', 0, array(), 'nag:' . $user);
-            if (is_a($all, 'PEAR_Error')) {
-                Horde::logMessage($all, __FILE__, __LINE__, PEAR_LOG_ERR);
-            } else {
-                $all = array_keys($all);
-                while (count($d = array_splice($all, 0, 100)) > 0) {
-                    $history->removebyNames($d);
-                }
-            }
-        }
+        $histories = $history->removeByParent('nag:' . $user);
 
         /* ...and finally, delete the actual share */
         if (!empty($share)) {

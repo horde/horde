@@ -327,20 +327,7 @@ class Kronolith_Application extends Horde_Registry_Application
 
         /* Now delete history as well. */
         $history = Horde_History::singleton();
-        if (method_exists($history, 'removeByParent')) {
-            $histories = $history->removeByParent('kronolith:' . $user);
-        } else {
-            /* Remove entries 100 at a time. */
-            $all = $history->getByTimestamp('>', 0, array(), 'kronolith:' . $user);
-            if (is_a($all, 'PEAR_Error')) {
-                Horde::logMessage($all, __FILE__, __LINE__, PEAR_LOG_ERR);
-            } else {
-                $all = array_keys($all);
-                while (count($d = array_splice($all, 0, 100)) > 0) {
-                    $history->removebyNames($d);
-                }
-            }
-        }
+        $histories = $history->removeByParent('kronolith:' . $user);
 
         if (is_a($result, 'PEAR_Error')) {
             return $result;
