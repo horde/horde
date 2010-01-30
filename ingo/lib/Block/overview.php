@@ -34,11 +34,11 @@ class Horde_Block_ingo_overview extends Horde_Block {
     function _content()
     {
         /* Get list of filters */
-        $filters = &$GLOBALS['ingo_storage']->retrieve(Ingo_Storage::ACTION_FILTERS);
+        $filters = $GLOBALS['ingo_storage']->retrieve(Ingo_Storage::ACTION_FILTERS);
         $html = '<table width="100%" height="100%">';
         $html_pre = '<tr><td valign="top">';
         $html_post = '</td></tr>';
-        foreach ($filters->_filters as $filter) {
+        foreach ($filters->getFilterList() as $filter) {
             if (!empty($filter['disable'])) {
                 $active = _("inactive");
             } else {
