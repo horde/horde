@@ -33,7 +33,7 @@ class DeviceDetailsForm extends Horde_Form {
             $this->addHidden('', 'devid', 'text', true);
 
         }
-        $this->addVariable(_("Device Name"), 'name', 'text', false);
+        $this->addVariable(_("Device Name"), 'name', 'text', true);
         $this->addVariable(_("Mailbox"), 'mailbox', 'int', false);
         $this->addVariable(_("CallerID"), 'callerid', 'text', false);
         $this->addVariable(_("Reset authentication token?"), 'genauthtok',

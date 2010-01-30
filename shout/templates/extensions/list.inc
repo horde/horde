@@ -17,7 +17,6 @@
         <tr>
             <td class="uheader">Extension</td>
             <td class="uheader">Destinations</td>
-            <td class="uheader">E-Mail Address</td>
         </tr>
         <?php
             foreach ($extensions as $extension => $info) {
@@ -45,9 +44,6 @@
                 <span id="destX<?php echo $extension; ?>summary"></span>
                 <div class="extensionDestinations" id="destX<?php echo $extension; ?>info">
                 </div>
-            </td>
-            <td>
-                <?php echo $info['email']; ?>
             </td>
         </tr>
         <?php

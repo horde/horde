@@ -15,9 +15,9 @@
 <div id="extensionList">
     <table width="100%" cellspacing="0" class="striped">
         <tr>
-            <td class="uheader">Device ID</td>
+            <td class="uheader">Name</td>
             <td class="uheader">Mailbox</td>
-            <td class="uheader">CallerID</td>
+            <td class="uheader">Device ID</td>
         </tr>
         <?php
             $line = 0;
@@ -34,13 +34,13 @@
         ?>
         <tr class="item">
             <td>
-                <?php echo Horde::link($editurl); echo $devid; ?></a>
+                <?php echo Horde::link($editurl); echo $info['name']; ?></a>
             </td>
             <td>
                 <?php echo $info['mailbox']; ?>
             </td>
             <td>
-                <?php echo $info['callerid']; ?>
+                <?php echo Horde::link($editurl); echo $devid; ?></a>
             </td>
         </tr>
         <?php
