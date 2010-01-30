@@ -81,7 +81,6 @@ class IMP_Ui_Compose
         $headers->addResentHeaders($from_addr, $recip['header']['to']);
 
         $mime_message = $contents->getMIMEMessage();
-        $charset = $mime_message->getCharset();
 
         /* We need to set the Return-Path header to the current user - see
            RFC 2821 [4.4]. */
@@ -94,7 +93,7 @@ class IMP_Ui_Compose
         }
 
         try {
-            $imp_compose->sendMessage($recipients, $headers, $mime_message, $charset);
+            $imp_compose->sendMessage($recipients, $headers, $mime_message);
         } catch (IMP_Compose_Exception $e) {
             throw new Horde_Exception($e);
         }

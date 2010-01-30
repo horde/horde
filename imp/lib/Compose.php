@@ -568,7 +568,7 @@ class IMP_Compose
         /* Send the messages out now. */
         foreach ($send_msgs as $val) {
             try {
-                $this->sendMessage($val['to'], $headers, $val['msg'], $charset);
+                $this->sendMessage($val['to'], $headers, $val['msg']);
             } catch (IMP_Compose_Exception $e) {
                 /* Unsuccessful send. */
                 Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
@@ -713,13 +713,11 @@ class IMP_Compose
      *                                     headers.
      * @param Horde_Mime_Part $message     The Horde_Mime_Part object that
      *                                     contains the text to send.
-     * @param string $charset              The charset that was used for the
-     *                                     headers.
      *
      * @throws Horde_Exception
      * @throws IMP_Compose_Exception
      */
-    public function sendMessage($email, $headers, $message, $charset)
+    public function sendMessage($email, $headers, $message)
     {
         global $conf;
 
