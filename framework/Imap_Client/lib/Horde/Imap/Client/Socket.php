@@ -6,6 +6,7 @@
  * Optional Parameters: NONE
  *
  * This driver implements the following IMAP-related RFCs:
+ * <pre>
  *   RFC 2086/4314 - ACL
  *   RFC 2087 - QUOTA
  *   RFC 2088 - LITERAL+
@@ -60,6 +61,7 @@
  *   RFC 5466 - FILTERS
  *
  *   draft-ietf-morg-inthread-00 - SEARCH=INTHREAD
+ * </pre>
  *
  * Originally based on code from:
  *   + auth.php (1.49)

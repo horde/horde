@@ -6,18 +6,21 @@
  * PHP IMAP module: http://www.php.net/imap
  *
  * Optional Parameters:
- *   retries - (integer) Connection retries.
- *             DEFAULT: 3
- *   timeout - (array) Timeout value (in seconds) for various actions. Unlinke
- *             the base Horde_Imap_Client class, this driver supports an
- *             array of timeout entries as follows:
- *               'open', 'read', 'write', 'close'
- *             If timeout is a string, the same timeout will be used for all
- *             values.
- *             DEFAULT: C-client default values
- *   validate_cert - (boolean)  If using tls or ssl connections, validate the
- *                   certificate?
- *                   DEFAULT: Don't validate
+ * --------------------
+ * <pre>
+ * retries - (integer) Connection retries.
+ *           DEFAULT: 3
+ * timeout - (array) Timeout value (in seconds) for various actions. Unlinke
+ *           the base Horde_Imap_Client class, this driver supports an
+ *           array of timeout entries as follows:
+ *             'open', 'read', 'write', 'close'
+ *           If timeout is a string, the same timeout will be used for all
+ *           values.
+ *           DEFAULT: C-client default values
+ * validate_cert - (boolean)  If using tls or ssl connections, validate the
+ *                 certificate?
+ *                 DEFAULT: Don't validate
+ * </pre>
  *
  * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *

@@ -31,7 +31,6 @@
  *            + Horde_Imap_Client::FETCH_STRUCTURE
  * 'lifetime' - [OPTIONAL] (integer) The lifetime of the cache data (in secs).
  * 'slicesize' - [OPTIONAL] (integer) The slicesize to use.
- * </pre>
  *   comparator - (string) The search comparator to use instead of the default
  *                IMAP server comparator. See setComparator() for the format.
  *                DEFAULT: Use the server default
@@ -58,6 +57,7 @@
  *                 DEFAULT: False
  *   timeout - (integer)  Connection timeout, in seconds.
  *             DEFAULT: 30 seconds
+ * </pre>
  *
  * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *

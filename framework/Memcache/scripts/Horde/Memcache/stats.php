@@ -3,7 +3,7 @@
 /**
  * This script outputs statistics on the current memcache pool.
  *
- * Usage: memcache-stats.php [--all] [--raw] [--summary] [--lookup=key]
+ * Usage: stats.php [--all] [--flush] [--lookup=key] [--raw] [--summary]
  *
  * By default, shows statistics for all servers.
  *
@@ -98,7 +98,7 @@ if ($all || $summary) {
 
         if ($all) {
             $cli->writeln($cli->green('Server: ' . $key . ' (Version: ' . $val['version'] . ' - ' . $val['threads'] . ' thread(s))'));
-            _outputInfo($val);
+            _outputInfo($val, $cli);
             if (--$i || $summary) {
                 $cli->writeln();
             }
@@ -107,14 +107,12 @@ if ($all || $summary) {
 
     if ($summary) {
         $cli->writeln($cli->green('Memcache pool (' . $s_count . ' server(s))'));
-        _outputInfo($total);
+        _outputInfo($total, $cli);
     }
 }
 
-function _outputInfo($val)
+function _outputInfo($val, $cli)
 {
-    global $cli;
-
     $cli->writeln($cli->indent('Size:          ' . sprintf("%0.2f", $val['bytes'] / 1048576) . ' MB (Max: ' . sprintf("%0.2f", ($val['limit_maxbytes']) / 1048576) . ' MB - ' . ((!empty($val['limit_maxbytes']) ? round(($val['bytes'] / $val['limit_maxbytes']) * 100, 1) : 'N/A')) . '% used)'));
     $cli->writeln($cli->indent('Items:         ' . $val['curr_items'] . ' (Total: ' . $val['total_items'] . ')'));
     $cli->writeln($cli->indent('Cache Ratio:   ' . $val['get_hits'] . ' hits, ' . $val['get_misses'] . ' misses'));

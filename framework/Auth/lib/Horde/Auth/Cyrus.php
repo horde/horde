@@ -64,13 +64,6 @@
  *         'password_field' => 'password'
  *     )
  * );
- *
- * if (!function_exists('_horde_select_loginscreen')) {
- *     function _horde_select_loginscreen()
- *     {
- *         return 'imp';
- *     }
- * }
  * </pre>
  *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
