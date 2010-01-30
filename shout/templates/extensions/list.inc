@@ -32,10 +32,10 @@
                 $deleteurl = Horde_Util::addParameter($url, 'action', 'delete');
         ?>
         <tr class="item" style="vertical-align: top">
-            <td style="width: 20%">
+            <td>
                 <?php echo Horde::link($editurl); echo $info['name'] . ' (' . $extension . ')'; ?></a>
             </td>
-            <td style="width: 35%;">
+            <td>
                 <?php
                 $attrs = array('onClick' => 'destinfo("' . $extension . '");',
                                'id' => 'destX' . $extension . 'toggle');
@@ -46,7 +46,7 @@
                 <div class="extensionDestinations" id="destX<?php echo $extension; ?>info">
                 </div>
             </td>
-            <td style="width: 45%">
+            <td>
                 <?php echo $info['email']; ?>
             </td>
         </tr>

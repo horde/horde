@@ -33,13 +33,13 @@
                 $deleteurl = Horde_Util::addParameter($url, 'action', 'delete');
         ?>
         <tr class="item">
-            <td style="width: 20%">
+            <td>
                 <?php echo Horde::link($editurl); echo $devid; ?></a>
             </td>
-            <td style="width: 35%;">
+            <td>
                 <?php echo $info['mailbox']; ?>
             </td>
-            <td style="width: 45%">
+            <td>
                 <?php echo $info['callerid']; ?>
             </td>
         </tr>
