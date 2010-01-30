@@ -107,6 +107,8 @@ class Horde_Memcache
 
     /**
      * Constructor.
+     *
+     * @throws Horde_Exception
      */
     protected function __construct()
     {
@@ -114,6 +116,16 @@ class Horde_Memcache
         $this->_params['prefix'] = (empty($this->_params['prefix'])) ? 'horde' : $this->_params['prefix'];
         $this->_large = !empty($this->_params['large_items']);
 
+        $this->__wakeup();
+    }
+
+    /**
+     * Do re-initialization on unserialize().
+     *
+     * @throws Horde_Exception
+     */
+    public function __wakeup()
+    {
         $servers = array();
         $this->_memcache = new Memcache;
         for ($i = 0, $n = count($this->_params['hostspec']); $i < $n; ++$i) {
