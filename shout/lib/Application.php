@@ -81,6 +81,10 @@ class Shout_Application extends Horde_Registry_Application
         }
 
         $context = Horde_Util::getFormData('context');
+        if (empty($context) && !empty($_SESSION['shout']['context'])) {
+            $context = $_SESSION['shout']['context'];
+        }
+
         if (!empty($context) && !in_array($context, $contexts)) {
             // Requested context not available
             $GLOBALS['notification']->push(_("You do not have permission to access that context."), 'horde.error');
