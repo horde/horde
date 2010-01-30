@@ -1450,10 +1450,9 @@ class Horde_Mime_Part
          * BINARYMIME (RFC 3030) extensions? Requires PEAR's Mail package
          * version 1.2+ and Net_SMTP version 1.3+. */
         $encode = self::ENCODE_7BIT;
-        if (($driver == 'smtp') && method_exists($mailer, 'getSMTPObject')) {
+        if ($driver == 'smtp') {
             $net_smtp = $mailer->getSMTPObject();
-            if (!($net_smtp instanceof PEAR_Error) &&
-                method_exists($net_smtp, 'getServiceExtensions')) {
+            if (!($net_smtp instanceof PEAR_Error)) {
                 $smtp_ext = $net_smtp->getServiceExtensions();
                 if (isset($smtp_ext['8BITMIME'])) {
                     $encode |= self::ENCODE_8BIT;
