@@ -179,7 +179,7 @@ class IMP_Views_ListMessages
                 $cached = $GLOBALS['imp_imap']->ob()->utils->fromSequenceString($args['cache']);
                 $cached = array_flip(reset($cached));
 
-                /* Check for cached entires marked as changed via CONDSTORE
+                /* Check for cached entries marked as changed via CONDSTORE
                  * IMAP extension. If changed, resend the entire entry to
                  * update the browser cache (done below). */
                 if ($args['change']) {
