@@ -80,18 +80,22 @@ class Shout_Application extends Horde_Registry_Application
             $contexts = false;
         }
 
-        if (count($contexts) == 1) {
-            // Default to the user's only context
-            if (!empty($context) && $context != $contexts[0]) {
-                $GLOBALS['notification']->push(_("You do not have permission to access that context."), 'horde.error');
-            }
-            $context = $contexts[0];
-        } elseif (!empty($context) && !in_array($context, $contexts)) {
+        $context = Horde_Util::getFormData('context');
+        if (!empty($context) && !in_array($context, $contexts)) {
+            // Requested context not available
             $GLOBALS['notification']->push(_("You do not have permission to access that context."), 'horde.error');
             $context = false;
-        } elseif (!empty($context)) {
-            $GLOBALS['notification']->push("Please select a context to continue.", 'horde.info');
-            $context = false;
+        }
+
+        if (empty($context)) {
+            if (count($contexts)) {
+                // Default to the user's first context
+                $context = reset($contexts);
+            } else {
+                // No context requested and/or no contexts available anyway
+                $GLOBALS['notification']->push("Please select a context to continue.", 'horde.info');
+                $context = false;
+            }
         }
 
         $_SESSION['shout']['context'] = $context;

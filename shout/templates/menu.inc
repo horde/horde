@@ -9,6 +9,11 @@ $menu_view = $prefs->getValue('menu_view');
 
 <?php
 // Only show the context selector if there is more than one available context
+try {
+    $contexts = $shout->contexts->getContexts();
+} catch (Exception $e) {
+    $contexts = array();
+}
 if (count($contexts) > 1) { ?>
 <script language="JavaScript" type="text/javascript">
 <!--
