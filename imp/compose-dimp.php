@@ -154,7 +154,7 @@ if ($get_sig && !empty($sig)) {
         : $msg . "\n" . $sig;
 }
 
-$t = new Horde_Template(IMP_TEMPLATES . '/imp/');
+$t = $injector->createInstance('Horde_Template');
 $t->setOption('gettext', true);
 $t->set('title', $title);
 
@@ -189,7 +189,7 @@ $scripts = array(
 );
 
 IMP_Dimp::header(_("Message Composition"), $scripts);
-echo $t->fetch('compose.html');
+echo $t->fetch(IMP_TEMPLATES . '/imp/compose.html');
 Horde::includeScriptFiles();
 Horde::outputInlineScript();
 echo $compose_result['jsappend'];

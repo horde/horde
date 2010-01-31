@@ -761,7 +761,7 @@ if (!$redirect) {
 
 
 /* Set up the base template now. */
-$t = new Horde_Template();
+$t = $injector->createInstance('Horde_Template');
 $t->setOption('gettext', true);
 $t->set('post_action', Horde::applicationUrl('compose.php')->add('uniq', uniqid(mt_rand())));
 $t->set('allow_compose', !$compose_disable);

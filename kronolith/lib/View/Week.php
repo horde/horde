@@ -307,7 +307,7 @@ class Kronolith_View_Week {
             $rows[] = array('row' => $row, 'slot' => '<span class="' . $hourclass . '">' . $time . '</span>');
         }
 
-        $template = new Horde_Template();
+        $template = $GLOBALS['injector']->createInstance('Horde_Template');
         $template->set('row_height', round(20 / $this->_slotsPerHour));
         $template->set('rows', $rows);
         $template->set('show_slots', !$more_timeslots, true);

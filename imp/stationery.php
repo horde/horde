@@ -104,7 +104,7 @@ if ($stationery['t'] == 'html') {
 $chunk = Horde_Util::nonInputVar('chunk');
 Horde_Prefs_Ui::generateHeader('imp', null, null, $chunk);
 
-$t = new Horde_Template();
+$t = $injector->createInstance('Horde_Template');
 $t->setOption('gettext', true);
 $t->set('action', Horde::selfUrl());
 $t->set('forminput', Horde_Util::formInput());

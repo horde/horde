@@ -639,7 +639,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         require IMP_TEMPLATES . '/common-header.inc';
         IMP::status();
 
-        $t = new Horde_Template();
+        $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
         $t->set('selfurl', Horde::applicationUrl('pgp.php'));
         $t->set('broken_mp_form', $GLOBALS['browser']->hasQuirk('broken_multipart_form'));

@@ -53,7 +53,7 @@ require_once 'Horde/Form/Renderer.php';
 require_once 'Horde/Form/Action.php';
 
 /* Templates */
-$template = new Horde_Template();
+$template = $injector->createInstance('Horde_Template');
 
 /* Module selection */
 $app = Horde_Util::getFormData('module');

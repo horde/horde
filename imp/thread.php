@@ -139,7 +139,7 @@ foreach ($loop_array as $mbox => $idxlist) {
 $imp_message = IMP_Message::singleton();
 $imp_message->flag(array('\\seen'), $loop_array);
 
-$template = new Horde_Template();
+$template = $injector->createInstance('Horde_Template');
 $template->setOption('gettext', true);
 $template->set(
     'subject',

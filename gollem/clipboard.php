@@ -33,7 +33,7 @@ foreach ($_SESSION['gollem']['clipboard'] as $key => $val) {
 }
 
 /* Set up the template object. */
-$template = new Horde_Template();
+$template = $injector->createInstance('Horde_Template');
 $template->setOption('gettext', true);
 $template->set('cancelbutton', _("Cancel"));
 $template->set('clearbutton', _("Clear"));

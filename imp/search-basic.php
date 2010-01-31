@@ -55,7 +55,7 @@ foreach ($imp_search->flagFields() as $key => $val) {
 }
 
 /* Prepare the search template. */
-$t = new Horde_Template();
+$t = $injector->createInstance('Horde_Template');
 $t->setOption('gettext', true);
 
 $t->set('action', Horde::applicationUrl('search-basic.php'));

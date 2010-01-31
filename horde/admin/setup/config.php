@@ -81,7 +81,7 @@ $form = Horde_Util::bufferOutput(array($form, 'renderActive'), $renderer, $vars,
 
 
 /* Set up the template. */
-$template = new Horde_Template();
+$template = $injector->createInstance('Horde_Template');
 $template->set('php', htmlspecialchars($php), true);
 /* Create the link for the diff popup only if stored in session. */
 $diff_link = '';

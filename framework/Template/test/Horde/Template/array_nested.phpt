@@ -8,7 +8,7 @@ if (defined('E_DEPRECATED')) {
 }
 
 require dirname(__FILE__) . '/../../../lib/Horde/Template.php';
-$template = new Horde_Template(dirname(__FILE__));
+$template = new Horde_Template(array('basepath' => dirname(__FILE__)));
 $categories = array('fruit', 'veggie', 'thing');
 $subcats = array('fruit' => array('apple', 'pear'),
                  'veggie' => array('tomato', 'potato', 'carrot', 'onion'),

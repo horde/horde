@@ -78,7 +78,7 @@ $description = ($total_num == 0)
     ? _("No Messages")
     : sprintf(_("%u of %u messages in %s unread."), $unseen_num, $total_num, IMP::getLabel($mailbox));
 
-$t = new Horde_Template();
+$t = $injector->createInstance('Horde_Template');
 $t->set('charset', Horde_Nls::getCharset());
 $t->set('xsl', $registry->get('themesuri') . '/feed-rss.xsl');
 $t->set('pubDate', htmlspecialchars(date('r')));

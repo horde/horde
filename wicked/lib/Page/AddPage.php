@@ -70,8 +70,7 @@ class AddPage extends Page {
 
         $search_results = null;
         if ($this->_results) {
-            require_once 'Horde/Template.php';
-            $template = new Horde_Template();
+            $template = $GLOBALS['injector']->createInstance('Horde_Template');
             $pages = array();
             foreach ($this->_results as $page) {
                 if (!empty($page['page_history'])) {

@@ -112,8 +112,7 @@ class AttachedFiles extends Page {
             return $attachments;
         }
 
-        require_once 'Horde/Template.php';
-        $template = new Horde_Template();
+        $template = $GLOBALS['injector']->createInstance('Horde_Template');
 
         $template->setOption('gettext', true);
         $template->set('pageName', $this->pageName());

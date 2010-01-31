@@ -46,7 +46,7 @@ $chunk = Horde_Util::nonInputVar('chunk');
 $group = 'filters';
 Horde_Prefs_Ui::generateHeader('imp', null, null, $chunk);
 
-$t = new Horde_Template();
+$t = $injector->createInstance('Horde_Template');
 $t->setOption('gettext', true);
 $t->set('navcell', Horde_Util::bufferOutput(array('Horde_Prefs_Ui', 'generateNavigationCell'), 'imp', 'filters'));
 $t->set('prefsurl', Horde::getServiceLink('options', 'imp'));

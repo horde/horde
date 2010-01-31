@@ -55,7 +55,7 @@ Whups::sortTickets($tickets,
                    isset($_templates[$tpl]['sortby']) ? $_templates[$tpl]['sortby'] : null,
                    isset($_templates[$tpl]['sortdir']) ? $_templates[$tpl]['sortdir'] : null);
 
-$template = new Horde_Template();
+$template = $injector->createInstance('Horde_Template');
 $template->set('tickets', $tickets);
 $template->set('now', strftime('%x'));
 $template->set('values', Whups::getSearchResultColumns(null, true));

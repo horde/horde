@@ -74,7 +74,7 @@ if (!empty($_SESSION['_config'])) {
 }
 
 /* Set up the template. */
-$template = new Horde_Template();
+$template = $injector->createInstance('Horde_Template');
 $template->setOption('gettext', true);
 $template->set('diffs', $diffs, true);
 

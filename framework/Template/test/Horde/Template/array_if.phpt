@@ -8,7 +8,7 @@ if (defined('E_DEPRECATED')) {
 }
 
 require dirname(__FILE__) . '/../../../lib/Horde/Template.php';
-$template = new Horde_Template(dirname(__FILE__));
+$template = new Horde_Template(array('basepath' => dirname(__FILE__)));
 $template->set('foo', array('one', 'two', 'three'), true);
 $template->set('bar', array(), true);
 echo $template->fetch('/array_if.html');

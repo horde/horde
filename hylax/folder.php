@@ -85,7 +85,7 @@ foreach ($base_folders as $key => $value) {
 }
 
 /* Set up template. */
-$template = new Horde_Template();
+$template = $injector->createInstance('Horde_Template');
 if ($folder == 'archive') {
     $template->set('folder_name', $path);
 } else {

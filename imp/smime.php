@@ -156,7 +156,7 @@ try {
 }
 
 /* If S/MIME preference not active, do NOT show S/MIME Admin screen. */
-$t = new Horde_Template();
+$t = $injector->createInstance('Horde_Template');
 $t->setOption('gettext', true);
 $t->set('use_smime_help', Horde_Help::link('imp', 'smime-overview'));
 if ($openssl_check && $prefs->getValue('use_smime')) {

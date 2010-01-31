@@ -233,7 +233,7 @@ $chunk = Horde_Util::nonInputVar('chunk');
 Horde_Prefs_Ui::generateHeader('imp', null, 'pgp', $chunk);
 
 /* If PGP preference not active, do NOT show PGP Admin screen. */
-$t = new Horde_Template();
+$t = $injector->createInstance('Horde_Template');
 $t->setOption('gettext', true);
 if ($prefs->getValue('use_pgp')) {
     Horde::addScriptFile('imp.js', 'imp');

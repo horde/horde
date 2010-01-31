@@ -44,7 +44,7 @@ if (!$registry->hasMethod('images/selectGalleries') ||
 }
 
 /* Build the template. */
-$t = new Horde_Template();
+$t = $injector->createInstance('Horde_Template');
 $t->setOption('gettext', true);
 $t->set('action', Horde::applicationUrl('saveimage.php'));
 $t->set('id', htmlspecialchars($id));

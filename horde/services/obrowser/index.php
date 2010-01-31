@@ -95,7 +95,7 @@ foreach ($list as $path => $values) {
     $rows[] = $row;
 }
 
-$template = new Horde_Template();
+$template = $injector->createInstance('Horde_Template');
 $template->setOption('gettext', true);
 $template->set('rows', $rows);
 $template->set('close', '<a href="#" onclick="window.close(); return false;">' . Horde::img('close.png') . '</a>');

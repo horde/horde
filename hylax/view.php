@@ -38,7 +38,7 @@ $title = _("View Fax");
 $pages = Hylax::getPages($fax_id, $fax['fax_pages']);
 
 /* Set up template. */
-$template = new Horde_Template();
+$template = $injector->createInstance('Horde_Template');
 $template->set('form', '');
 $template->set('pages', $pages);
 $template->set('menu', Hylax::getMenu('string'));

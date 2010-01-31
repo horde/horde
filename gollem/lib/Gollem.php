@@ -729,7 +729,7 @@ class Gollem
      */
     static public function menu()
     {
-        $t = new Horde_Template();
+        $t = $GLOBALS['injector']->createInstance('Horde_Template');
 
         $t->set('forminput', Horde_Util::formInput());
         $t->set('be_select', Gollem::backendSelect(), true);

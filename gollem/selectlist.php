@@ -91,7 +91,7 @@ Horde::addInlineScript(implode(';', $js_code));
 Gollem::status();
 
 /* Set up the template object. */
-$t = new Horde_Template();
+$t = $injector->createInstance('Horde_Template');
 $t->set('addbutton', _("Add"));
 $t->set('donebutton', _("Done"));
 $t->set('cancelbutton', _("Cancel"));

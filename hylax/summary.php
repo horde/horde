@@ -24,7 +24,7 @@ foreach ($outbox as $item) {
 }
 
 /* Set up actions. */
-$template = new Horde_Template();
+$template = $injector->createInstance('Horde_Template');
 $template->set('in_faxes', $hylax->gateway->numFaxesIn());
 $template->set('out_faxes', $hylax->gateway->numFaxesOut());
 $template->set('inbox', $fmt_inbox, true);

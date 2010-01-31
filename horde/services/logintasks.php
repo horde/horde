@@ -29,7 +29,7 @@ if (!($tasks = Horde_LoginTasks::singleton($app))) {
 $tasks->runTasks(Horde_Util::getPost('logintasks_page'));
 
 /* Create the Horde_Template item. */
-$template = new Horde_Template();
+$template = $injector->createInstance('Horde_Template');
 $template->set('javascript', $browser->hasFeature('javascript'), true);
 
 /* Have the maintenance module do all necessary processing. */

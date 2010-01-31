@@ -24,7 +24,7 @@ if (!$isPopup) {
 }
 
 /* Set up the template object. */
-$template = new Horde_Template();
+$template = $injector->createInstance('Horde_Template');
 $template->setOption('gettext', true);
 $template->set('hasjs', false, true);
 if ($isPopup) {

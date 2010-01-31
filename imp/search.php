@@ -133,7 +133,7 @@ if (!empty($recent_searches)) {
 $js_load[] = 'ImpSearch.updateSelectedFolders(' . Horde_Serialize::serialize(array($search_mailbox), Horde_Serialize::JSON, $charset) . ')';
 
 /* Prepare the search template. */
-$t = new Horde_Template();
+$t = $injector->createInstance('Horde_Template');
 $t->setOption('gettext', true);
 $t->set('action', Horde::applicationUrl('search.php'));
 $t->set('subscribe', $subscribe);

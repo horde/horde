@@ -50,8 +50,7 @@ class AllPages extends Page {
             return $summaries;
         }
 
-        require_once 'Horde/Template.php';
-        $template = new Horde_Template();
+        $template = $GLOBALS['injector']->createInstance('Horde_Template');
         $pages = array();
         foreach ($summaries as $page) {
             $page = new StandardPage($page);

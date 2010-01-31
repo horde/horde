@@ -1130,9 +1130,9 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         $result = new stdClass;
         $result->portal = '';
         if (!empty($blocks)) {
-            $t = new Horde_Template(IMP_TEMPLATES . '/imp/');
+            $t = $GLOBALS['injector']->createInstance('Horde_Template');
             $t->set('block', $blocks);
-            $result->portal = $t->fetch('portal.html');
+            $result->portal = $t->fetch(IMP_TEMPLATES . '/imp/portal.html');
         }
         $result->linkTags = $linkTags;
 

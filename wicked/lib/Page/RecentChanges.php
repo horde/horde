@@ -95,8 +95,7 @@ class RecentChanges extends Page {
             return $changes;
         }
 
-        require_once 'Horde/Template.php';
-        $template = new Horde_Template();
+        $template = $GLOBALS['injector']->createInstance('Horde_Template');
         $template->set('changes', $changes);
 
         return $template->fetch(WICKED_TEMPLATES . '/display/RecentChanges.html');

@@ -521,7 +521,7 @@ class IMP
             return;
         }
 
-        $t = new Horde_Template();
+        $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->set('forminput', Horde_Util::formInput());
         $t->set('use_folders', ($_SESSION['imp']['protocol'] != 'pop') && $GLOBALS['conf']['user']['allow_folders'], true);
         if ($t->get('use_folders')) {
@@ -565,7 +565,7 @@ class IMP
     {
         $quotadata = self::quotaData(true);
         if (!empty($quotadata)) {
-            $t = new Horde_Template();
+            $t = $GLOBALS['injector']->createInstance('Horde_Template');
             $t->set('class', $quotadata['class']);
             $t->set('message', $quotadata['message']);
             echo $t->fetch(IMP_TEMPLATES . '/quota/quota.html');
@@ -1157,7 +1157,7 @@ class IMP
      */
     static protected function _getNewMessagePopup($var)
     {
-        $t = new Horde_Template();
+        $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
         if (is_array($var)) {
             if (empty($var)) {

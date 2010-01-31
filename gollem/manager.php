@@ -274,7 +274,7 @@ $sources = Gollem::displayColumns();
 $columns = isset($sources[$backkey]) ? $sources[$backkey] : $GLOBALS['gollem_be']['attributes'];
 
 /* Prepare the template. */
-$template = new Horde_Template();
+$template = $injector->createInstance('Horde_Template');
 $template->setOption('gettext', true);
 
 $attrib = $GLOBALS['gollem_vfs']->getModifiablePermissions();

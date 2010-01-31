@@ -235,7 +235,7 @@ if (file_exists(Horde::getTempDir() . '/horde_setup_upgrade.php')) {
 }
 
 /* Set up the template. */
-$template = new Horde_Template();
+$template = $injector->createInstance('Horde_Template');
 $template->setOption('gettext', true);
 $template->set('versions', !empty($versions), true);
 $template->set('version_action', Horde::applicationUrl('admin/setup/index.php'));

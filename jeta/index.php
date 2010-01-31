@@ -13,7 +13,7 @@ Horde_Registry::appInit('jeta');
 
 $applet = Jeta_Applet::factory($prefs->getValue('sshdriver'));
 
-$template = new Horde_Template();
+$template = $injector->createInstance('Horde_Template');
 $template->set('menu', Jeta::getMenu()->render());
 $template->set('notification', $notification->notify(array('listeners' => 'status')));
 $template->set('applet', $applet->generateAppletCode());

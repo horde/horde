@@ -407,7 +407,7 @@ if ($imp_search->isSearchMbox($imp_mbox['mailbox'])) {
 }
 
 /* Prepare the navbar top template. */
-$t_template = new Horde_Template();
+$t_template = $injector->createInstance('Horde_Template');
 $t_template->set('message_url', $message_url);
 $t_template->set('form_input', Horde_Util::formInput());
 $t_template->set('mailbox', htmlspecialchars($imp_mbox['mailbox']));
@@ -420,7 +420,7 @@ $t_template->set('status', $status);
 $t_template->set('message_token', $message_token);
 
 /* Prepare the navbar navigate template. */
-$n_template = new Horde_Template();
+$n_template = $injector->createInstance('Horde_Template');
 $n_template->setOption('gettext', true);
 $n_template->set('readonly', $readonly);
 $n_template->set('usepop', $use_pop);
@@ -458,7 +458,7 @@ if (Horde_Util::nonInputVar('next_url')) {
 }
 
 /* Prepare the navbar actions template. */
-$a_template = new Horde_Template();
+$a_template = $injector->createInstance('Horde_Template');
 $a_template->setOption('gettext', true);
 $a_template->set('readonly', $readonly);
 $compose_params = array('identity' => $identity, 'thismailbox' => $mailbox_name, 'uid' => $uid);
@@ -557,7 +557,7 @@ $hdrs = array();
 $i = 1;
 
 /* Prepare the main message template. */
-$m_template = new Horde_Template();
+$m_template = $injector->createInstance('Horde_Template');
 foreach ($display_headers as $head => $val) {
     $hdrs[] = array('name' => $basic_headers[$head], 'val' => $val, 'i' => (++$i % 2));
 }

@@ -62,8 +62,7 @@ class MergeOrRename extends Page {
     {
         global $wicked, $registry, $notification;
 
-        require_once 'Horde/Template.php';
-        $template = new Horde_Template();
+        $template = $GLOBALS['injector']->createInstance('Horde_Template');
         $template->setOption('gettext', true);
 
         $referrer = $this->referrer();

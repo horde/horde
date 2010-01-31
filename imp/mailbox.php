@@ -22,7 +22,7 @@ function _outputSummaries($msgs)
     } catch (Horde_Exception_HookNotSet $e) {}
 
     if (!isset($template)) {
-        $template = new Horde_Template();
+        $template = $GLOBALS['injector']->createInstance('Horde_Template');
         $template->setOption('gettext', true);
 
         // Some browsers have trouble with hidden overflow in table cells
@@ -405,7 +405,7 @@ IMP::status();
 IMP::quota();
 
 /* Prepare the header template. */
-$hdr_template = new Horde_Template();
+$hdr_template = $injector->createInstance('Horde_Template');
 $hdr_template->set('title', $title);
 $hdr_template->set('pagetitle', $pagetitle);
 if ($readonly) {
@@ -452,7 +452,7 @@ if (empty($pageOb['end'])) {
     if ($pageOb['anymsg'] && isset($deleted_prompt)) {
         /* Show 'Show Deleted' prompt if mailbox has no viewable message but
            has hidden, deleted messages. */
-        $del_template = new Horde_Template();
+        $del_template = $injector->createInstance('Horde_Template');
         $del_template->set('hide', Horde::widget($refresh_url->copy()->add(array('actionID' => 'hide_deleted', 'mailbox_token' => $mailbox_token)), $deleted_prompt, 'widget hideAction', '', '', $deleted_prompt));
         if (!$readonly) {
             $del_template->set('purge', Horde::widget($refresh_url->copy()->add(array('actionID' => 'expunge_mailbox', 'mailbox_token' => $mailbox_token)), _("Purge Deleted"), 'widget purgeAction', '', '', _("Pur_ge Deleted")));
@@ -460,7 +460,7 @@ if (empty($pageOb['end'])) {
         echo $del_template->fetch(IMP_TEMPLATES . '/mailbox/actions_deleted.html');
     }
 
-    $empty_template = new Horde_Template();
+    $empty_template = $injector->createInstance('Horde_Template');
     $empty_template->setOption('gettext', true);
     $empty_template->set('search_mbox', $search_mbox);
     echo $empty_template->fetch(IMP_TEMPLATES . '/mailbox/empty_mailbox.html');
@@ -473,7 +473,7 @@ if ($pageOb['msgcount']) {
     $use_trash = $prefs->getValue('use_trash');
 
     /* Prepare the navbar template. */
-    $n_template = new Horde_Template();
+    $n_template = $injector->createInstance('Horde_Template');
     $n_template->setOption('gettext', true);
     $n_template->set('id', 1);
     $n_template->set('sessiontag', Horde_Util::formInput());
@@ -508,7 +508,7 @@ if ($pageOb['msgcount']) {
     echo $n_template->fetch(IMP_TEMPLATES . '/mailbox/navbar.html');
 
     /* Prepare the actions template. */
-    $a_template = new Horde_Template();
+    $a_template = $injector->createInstance('Horde_Template');
     if (!$readonly) {
         $del_class = ($use_trash && (($imp_mbox['mailbox'] == (IMP::folderPref($prefs->getValue('trash_folder'), true))) || !is_null($vtrash)))
             ? 'permdeleteAction'
@@ -655,7 +655,7 @@ if ($pageOb['msgcount']) {
     }
 
     /* Prepare the message headers template. */
-    $mh_template = new Horde_Template();
+    $mh_template = $injector->createInstance('Horde_Template');
     $mh_template->setOption('gettext', true);
     $mh_template->set('check_all', Horde::getAccessKeyAndTitle(_("Check _All/None")));
     $mh_template->set('form_tag', true);
@@ -689,7 +689,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
             $folder_link = Horde::applicationUrl('mailbox.php')->add('mailbox', $ob['mailbox']);
             $folder_link = Horde::link($folder_link, sprintf(_("View messages in %s"), IMP::displayFolder($ob['mailbox'])), 'smallheader') . IMP::displayFolder($ob['mailbox']) . '</a>';
             if (is_null($search_template)) {
-                $search_template = new Horde_Template();
+                $search_template = $injector->createInstance('Horde_Template');
             }
             $search_template->set('lastMbox', $lastMbox);
             $search_template->set('folder_link', $folder_link);
@@ -828,7 +828,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
 _outputSummaries($msgs);
 
 /* Prepare the message footers template. */
-$mf_template = new Horde_Template();
+$mf_template = $injector->createInstance('Horde_Template');
 $mf_template->set('page', $pageOb['page']);
 echo $mf_template->fetch(IMP_TEMPLATES . '/mailbox/message_footers.html');
 

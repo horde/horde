@@ -46,7 +46,7 @@ $form->addVariable(_("Subject"), 'subject', 'text', false, false, null, array(fa
 $form->addVariable(_("Comment"), 'comment', 'longtext', false, false, null, array(4, 80));
 
 /* Set up template. */
-$template = new Horde_Template();
+$template = $injector->createInstance('Horde_Template');
 $template->set('form', '');
 $template->set('menu', Hylax::getMenu('string'));
 $template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));

@@ -277,7 +277,7 @@ case 'folders_empty_mailbox_confirm':
         require IMP_TEMPLATES . '/common-header.inc';
         IMP::menu();
 
-        $template = new Horde_Template();
+        $template = $injector->createInstance('Horde_Template');
         $template->setOption('gettext', true);
         $template->set('delete', ($actionID == 'delete_folder_confirm'));
         $template->set('empty', ($actionID == 'folders_empty_mailbox_confirm'));
@@ -319,7 +319,7 @@ case 'mbox_size':
             $loop[] = $data;
         }
 
-        $template = new Horde_Template();
+        $template = $injector->createInstance('Horde_Template');
         $template->setOption('gettext', true);
         $template->set('folders', $loop);
         $template->set('folders_url', $folders_url);
@@ -347,7 +347,7 @@ if ($_SESSION['imp']['file_upload'] && ($actionID == 'import_mbox')) {
     IMP::quota();
 
     /* Prepare import template. */
-    $i_template = new Horde_Template();
+    $i_template = $injector->createInstance('Horde_Template');
     $i_template->setOption('gettext', true);
     $i_template->set('folders_url', $folders_url_ob);
     $i_template->set('import_folder', $folder_list[0]);
@@ -380,7 +380,7 @@ Horde::addInlineScript(array(
 
 /* Prepare the header template. */
 $refresh_title = _("Reload View");
-$head_template = new Horde_Template();
+$head_template = $injector->createInstance('Horde_Template');
 $head_template->setOption('gettext', true);
 $head_template->set('title', $refresh_title);
 $head_template->set('folders_url', $folders_url_ob);
@@ -393,7 +393,7 @@ $head_template->set('refresh', Horde::link($folders_url_ob, $refresh_title, '', 
 $head_template->set('folders_token', $folders_token);
 
 /* Prepare the actions template. */
-$a_template = new Horde_Template();
+$a_template = $injector->createInstance('Horde_Template');
 $a_template->setOption('gettext', true);
 $a_template->set('id', 0);
 $a_template->set('javascript', $browser->hasFeature('javascript'));
@@ -467,7 +467,7 @@ foreach ($raw_rows as $key => $val) {
 }
 
 /* Render the rows now. */
-$template = new Horde_Template();
+$template = $injector->createInstance('Horde_Template');
 $template->setOption('gettext', true);
 $template->set('rows', $rows);
 

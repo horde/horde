@@ -26,7 +26,7 @@ if (!$prefs->isLocked('columns')) {
     Horde::addScriptFile('columnselect.js', 'gollem');
     Horde::addInlineScript($js_columns);
 
-    $t = new Horde_Template();
+    $t = $injector->createInstance('Horde_Template');
     $t->setOption('gettext', true);
 
     $be = array();

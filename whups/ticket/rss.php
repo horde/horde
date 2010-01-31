@@ -41,7 +41,7 @@ foreach (array_keys($history) as $i) {
     $items[$i]['url'] = $self . '#t' . $i;
 }
 
-$template = new Horde_Template();
+$template = $injector->createInstance('Horde_Template');
 $template->set('charset', Horde_Nls::getCharset());
 $template->set('xsl', $registry->get('themesuri') . '/feed-rss.xsl');
 $template->set('pubDate', htmlspecialchars(date('r')));

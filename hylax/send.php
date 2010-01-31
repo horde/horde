@@ -62,7 +62,7 @@ $renderer = new Horde_Form_Renderer();
 $send_form = Horde_Util::bufferOutput(array($form, 'renderActive'), $renderer, $vars, 'send.php', 'post');
 
 /* Set up template. */
-$template = new Horde_Template();
+$template = $injector->createInstance('Horde_Template');
 $template->set('form', $send_form);
 $template->set('pages', $pages);
 $template->set('menu', $menu->getMenu());

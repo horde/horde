@@ -100,17 +100,21 @@ class Horde_Template
     /**
      * Constructor.
      *
-     * @param string $basepath  The directory where templates are read from.
+     * @param array $params  The following configuration options:
+     * <pre>
+     * 'basepath' - (string) The directory where templates are read from.
+     * 'cacheob' - (Horde_Cache) A caching object used to cache the output.
+     * </pre>
      */
     public function __construct($basepath = null)
     {
-        if (!is_null($basepath)) {
-            $this->_basepath = $basepath;
+        if (isset($params['basepath'])) {
+            $this->_basepath = $params['basepath'];
         }
 
-        try {
-            $this->_cache = $GLOBALS['injector']->getInstance('Horde_Cache');
-        } catch (Horde_Exception $e) {}
+        if (isset($params['cacheob'])) {
+            $this->_cache = $params['cacheob'];
+        }
     }
 
     /**

@@ -311,6 +311,7 @@ class Horde_Registry
         /* Set the rest of the default bindings. */
         $GLOBALS['injector']->addBinder('Horde_Db_Adapter_Base', new Horde_Core_Binder_Db('reader'));
         $GLOBALS['injector']->addBinder('Horde_Log_Logger', new Horde_Core_Binder_Logger());
+        $GLOBALS['injector']->addBinder('Horde_Template', new Horde_Core_Binder_Template());
 
         /* Create the global permissions object. */
         // TODO: Remove(?)

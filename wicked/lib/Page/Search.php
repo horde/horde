@@ -89,8 +89,7 @@ class Search extends Page {
 
         Horde::addScriptFile('tables.js', 'horde', true);
 
-        require_once 'Horde/Template.php';
-        $template = new Horde_Template();
+        $template = $GLOBALS['injector']->createInstance('Horde_Template');
 
         /* Prepare exact match section */
         $exact = array();

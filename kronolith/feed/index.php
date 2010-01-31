@@ -88,7 +88,7 @@ $identity = Horde_Prefs_Identity::factory('none', $owner);
 $history = Horde_History::singleton();
 $now = new Horde_Date(time());
 
-$template = new Horde_Template();
+$template = $injector->createInstance('Horde_Template');
 $template->set('charset', Horde_Nls::getCharset());
 $template->set('updated', $now->format(DATE_ATOM));
 $template->set('kronolith_name', 'Kronolith');

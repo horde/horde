@@ -85,7 +85,7 @@ foreach (array_keys($tickets) as $i) {
     $items[$i]['pubDate'] = htmlspecialchars(date('r', $tickets[$i]['timestamp']));
 }
 
-$template = new Horde_Template();
+$template = $injector->createInstance('Horde_Template');
 $template->set('charset', Horde_Nls::getCharset());
 $template->set('xsl', $registry->get('themesuri') . '/feed-rss.xsl');
 $template->set('pubDate', htmlspecialchars(date('r')));
