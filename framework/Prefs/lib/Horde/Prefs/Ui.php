@@ -78,8 +78,7 @@ class Horde_Prefs_Ui
      *
      * @return boolean  Whether preferences have been updated.
      */
-    static public function handleForm($group, $save, $app, $prefGroups,
-                                      $_prefs)
+    static public function handleForm($group, $save, $app, $prefGroups, $_prefs)
     {
         global $notification, $prefs, $registry;
 

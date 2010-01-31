@@ -57,7 +57,7 @@
  *                       number; syntaxcheck is performed after data entry.
  *            password:  Provides a textbox for password entry.
  *              select:  Provides a selection list in the UI that is built in
- *                       lib/prefs.php.
+ *                       lib/Application.php
  *             special:  Provides an UI widget.
  *                text:  Provides a single-line textbox.
  *            textarea:  Provides a multi-line textbox.
