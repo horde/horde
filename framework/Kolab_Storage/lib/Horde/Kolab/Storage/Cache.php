@@ -152,7 +152,7 @@ class Horde_Kolab_Storage_Cache
                 $params = $GLOBALS['conf']['kolab']['storage']['cache']['data']['params'];
             }
         }
-        $this->horde_cache = Horde_Cache::singleton($driver, $params);
+        $this->horde_cache = $GLOBALS['injector']->getInstance('Horde_Cache');
     }
 
     /**

@@ -225,8 +225,7 @@ class IMP_Imap
      */
     public function loadCacheConfig($config)
     {
-        $driver = $GLOBALS['conf']['cache']['driver'];
-        if ($driver == 'none') {
+        if (!($ob = $GLOBALS['injector']->getInstance('Horde_Cache'))) {
             return array();
         }
 
@@ -239,9 +238,8 @@ class IMP_Imap
         }
 
         return array(
+            'cacheob' => $ob,
             'compress' => empty($config['compress']) ? false : $config['compress'],
-            'driver' => $driver,
-            'driver_params' => Horde::getDriverConfig('cache', $driver),
             'lifetime' => empty($config['lifetime']) ? false : $config['lifetime'],
             'slicesize' => empty($config['slicesize']) ? false : $config['slicesize'],
         );

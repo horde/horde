@@ -16,13 +16,10 @@ list($forum_id, $message_id, $scope) = Agora::getAgoraId();
 $cache_key = 'agora_rss_' . $scope . '_' . $forum_id . '_' . $message_id;
 
 /* Initialize the Cache object. */
-$cache = &Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'],
-                                    Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
-
+$cache = $injector->getInstance('Horde_Cache');
 $rss = $cache->get($cache_key, $conf['cache']['default_lifetime']);
 
 if (!$rss) {
-
     $messages = Agora_Messages::singleton($scope, $forum_id);
     $message = $messages->getMessage($message_id);
     if ($message instanceof PEAR_Error) {

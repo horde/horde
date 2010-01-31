@@ -1049,21 +1049,6 @@ class IMP
     }
 
     /**
-     * Returns a Horde_Cache object (if configured) and handles any errors
-     * associated with creating the object.
-     *
-     * @return mixed  A Horde_Cache object or null.
-     * @throws Horde_Exception
-     */
-    public static function getCache()
-    {
-        $cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
-        return ($cache instanceof Horde_Cache_Null)
-            ? null
-            : $cache;
-    }
-
-    /**
      * Generate the JS code necessary to open a passphrase dialog. Adds the
      * necessary JS files to open the dialog.
      *

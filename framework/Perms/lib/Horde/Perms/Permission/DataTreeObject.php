@@ -554,7 +554,7 @@ class Horde_Perms_Permission_DataTreeObject extends DataTreeObject
 
         parent::save();
 
-        $cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+        $cache = $GLOBALS['injector']->getInstance('Horde_Cache');
         $cache->expire('perm_' . $name);
         $cache->expire('perm_exists_' . $name);
     }

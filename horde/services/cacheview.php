@@ -16,7 +16,7 @@ if (empty($cid)) {
     exit;
 }
 
-$cache = Horde_Cache::singleton($conf['cache']['driver'], Horde::getDriverConfig('cache', $conf['cache']['driver']));
+$cache = $injector->getInstance('Horde_Cache');
 $cdata = @unserialize($cache->get($cid, $conf['cache']['default_lifetime']));
 if (!$cdata) {
     exit;

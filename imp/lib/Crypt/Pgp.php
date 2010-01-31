@@ -171,7 +171,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
 
         /* If there is a cache driver configured, try to get the public key
          * from the cache. */
-        if (empty($options['nocache']) && ($cache = IMP::getCache())) {
+        if (empty($options['nocache']) && ($cache = $GLOBALS['injector']->getInstance('Horde_Cache'))) {
             $result = $cache->get("PGPpublicKey_" . $address . $keyid, 3600);
             if ($result) {
                 Horde::logMessage('PGPpublicKey: ' . serialize($result), __FILE__, __LINE__, PEAR_LOG_DEBUG);

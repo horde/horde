@@ -42,8 +42,7 @@ if (!defined('NEWS_BASE')) {
 }
 
 // Cache
-$GLOBALS['cache'] = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'],
-                                           Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+$GLOBALS['cache'] = $injector->getInstance('Horde_Cache');
 
 // Set up News drivers.
 $GLOBALS['news'] = News_Driver::factory();

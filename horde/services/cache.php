@@ -64,7 +64,7 @@ case 'js':
     }
 
     try {
-        $cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+        $cache = $injector->getInstance('Horde_Cache');
     } catch (Horde_Exception $e) {
         exit;
     }

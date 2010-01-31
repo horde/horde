@@ -16,13 +16,6 @@
 class Horde_Cache
 {
     /**
-     * Singleton instances.
-     *
-     * @var array
-     */
-    static protected $_instances = array();
-
-    /**
      * Attempts to return a concrete Horde_Cache instance based on $driver.
      *
      * @param mixed $driver  The type of concrete Horde_Cache subclass to
@@ -48,49 +41,12 @@ class Horde_Cache
             return new Horde_Cache_Null($params);
         }
 
-        if ($driver == 'memcache') {
-            $params['memcache'] = $GLOBALS['injector']->getInstance('Horde_Memcache');
-        }
-
         $class = (empty($app) ? 'Horde' : $app) . '_Cache_' . ucfirst($driver);
         if (class_exists($class)) {
             return new $class($params);
         }
 
         throw new Horde_Exception('Class definition of ' . $class . ' not found.');
-    }
-
-    /**
-     * Attempts to return a reference to a concrete Horde_Cache instance
-     * based on $driver. It will only create a new instance if no
-     * Horde_Cache instance with the same parameters currently exists.
-     *
-     * This should be used if multiple cache backends (and, thus,
-     * multiple Horde_Cache instances) are required.
-     *
-     * This method must be invoked as:
-     *   $var = Horde_Cache::singleton()
-     *
-     * @param mixed $driver  The type of concrete Horde_Cache subclass to
-     *                       return. If $driver is an array, then we will look
-     *                       in $driver[0]/lib/Cache/ for the subclass
-     *                       implementation named $driver[1].php.
-     * @param array $params  A hash containing any additional configuration or
-     *                       connection parameters a subclass might need.
-     *
-     * @return Horde_Cache  The concrete Horde_Cache reference.
-     * @throws Horde_Exception
-     */
-    static public function singleton($driver, $params = array())
-    {
-        ksort($params);
-        $signature = hash('md5', serialize(array($driver, $params)));
-
-        if (!isset(self::$_instances[$signature])) {
-            self::$_instances[$signature] = self::factory($driver, $params);
-        }
-
-        return self::$_instances[$signature];
     }
 
 }

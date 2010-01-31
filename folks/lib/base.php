@@ -38,8 +38,7 @@ if (!defined('FOLKS_BASE')) {
 $GLOBALS['folks_driver'] = Folks_Driver::factory();
 
 // Cache
-$GLOBALS['cache'] = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'],
-                                            Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+$GLOBALS['cache'] = $injector->getInstance('Horde_Cache');
 
 // Update user online status
 $GLOBALS['folks_driver']->updateOnlineStatus();

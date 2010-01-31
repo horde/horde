@@ -149,13 +149,12 @@ class Horde_Kolab_Storage
         if (!empty($GLOBALS['conf']['kolab']['storage']['cache']['folders'])) {
             $signature = hash('md5', serialize(array($driver, $params))) . '|list';
 
-            $this->_cache = &Horde_Cache::singleton($GLOBALS['conf']['kolab']['storage']['cache']['folders']['driver'],
-                                                    $GLOBALS['conf']['kolab']['storage']['cache']['folders']['params']);
+            $this->_cache = $GLOBALS['injector']->getInstance('Horde_Cache');
 
             $data = $this->_cache->get($signature,
                                        $GLOBALS['conf']['kolab']['storage']['cache']['folders']['lifetime']);
             if ($data) {
-                $list = @unserialize($data);
+                $list = @unserialize($data);;
                 if ($list instanceOf Horde_Kolab_Storage) {
                     register_shutdown_function(array($list, 'shutdown'));
                     return $list;

@@ -1428,8 +1428,8 @@ EOT;
         }
 
         $cid = md5($var->type->getText());
-        $cache = &Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'],
-                                         Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+        $cache = $GLOBALS['injector']->getInstance('Horde_Cache');
+
         $cache->set($cid, serialize(array('data' => $captcha->getCAPTCHAAsJPEG(),
                                           'ctype' => 'image/jpeg')));
 

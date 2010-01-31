@@ -338,7 +338,7 @@ HTML;
         }
 
         if ($driver == 'horde_cache') {
-            $cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], self::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+            $cache = $GLOBALS['injector']->getInstance('Horde_Cache');
             $cache_lifetime = empty($conf['cachejsparams']['lifetime'])
                 ? 0
                 : $conf['cachejsparams']['lifetime'];
@@ -1716,7 +1716,7 @@ HTML;
                 break;
 
             case 'horde_cache':
-                $cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], self::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+                $cache = $GLOBALS['injector']->getInstance('Horde_Cache');
 
                 // Do lifetime checking here, not on cache display page.
                 $exists = $cache->exists($sig, empty($GLOBALS['conf']['cachecssparams']['lifetime']) ? 0 : $GLOBALS['conf']['cachecssparams']['lifetime']);

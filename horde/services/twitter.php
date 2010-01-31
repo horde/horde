@@ -18,9 +18,8 @@ if (empty($GLOBALS['conf']['twitter']['enabled'])) {
     exit;
 }
 
-/* Create a cahce object for the twitter client */
-$cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'],
-                                Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+/* Create a cache object for the twitter client */
+$cache = $injector->getInstance('Horde_Cache');
 
 /* Using OAuth or Http Basic? */
 if (!empty($GLOBALS['conf']['twitter']['key']) && !empty($GLOBALS['conf']['twitter']['secret'])) {

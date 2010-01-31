@@ -59,7 +59,7 @@ class Ansel_Application extends Horde_Registry_Application
     {
         // Create a cache object if we need it.
         if ($GLOBALS['conf']['ansel_cache']['usecache']) {
-            $GLOBALS['cache'] = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+            $GLOBALS['cache'] = $GLOBALS['injector']->getInstance('Horde_Cache');
         }
 
         // Create db, share, and vfs instances.

@@ -216,8 +216,7 @@ class IMP_Imap_Tree
     {
         if (!isset(self::$_instance)) {
             if (!empty($_SESSION['imp']['cache']['tree'])) {
-                $imp_cache = IMP::getCache();
-                self::$_instance = @unserialize($imp_cache->get($_SESSION['imp']['cache']['tree'], 86400));
+                self::$_instance = @unserialize($GLOBALS['injector']->getInstance('Horde_Cache')->get($_SESSION['imp']['cache']['tree'], 86400));
             }
 
             if (empty(self::$_instance)) {
@@ -242,7 +241,7 @@ class IMP_Imap_Tree
                 : $ns;
         }
 
-        if ($imp_cache = IMP::getCache()) {
+        if ($imp_cache = $GLOBALS['injector']->getInstance('Horde_Cache')) {
             $_SESSION['imp']['cache']['tree'] = uniqid(mt_rand() . Horde_Auth::getAuth());
         }
 
@@ -276,8 +275,7 @@ class IMP_Imap_Tree
          * has changed. */
         if (!empty($this->_changed) &&
             isset($_SESSION['imp']['cache']['tree'])) {
-            $imp_cache = IMP::getCache();
-            $imp_cache->set($_SESSION['imp']['cache']['tree'], serialize($this), 86400);
+            $GLOBALS['injector']->getInstance('Horde_Cache')->set($_SESSION['imp']['cache']['tree'], serialize($this), 86400);
         }
     }
 

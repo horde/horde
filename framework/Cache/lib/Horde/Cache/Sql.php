@@ -16,12 +16,10 @@
  *   'port'         The port on which to connect to the database.</pre>
  *
  * Optional parameters:<pre>
- *   'table'               The name of the cache table in 'database'.
- *                         Defaults to 'horde_cache'.
- *   'use_memorycache'     Use a Horde_Cache:: memory caching driver to cache
- *                         the data (to avoid DB accesses).  Either empty or
- *                         'none' if not needed, or else the name of a valid
- *                         Horde_Cache:: driver.</pre>
+ *   'table'             The name of the cache table in 'database'.
+ *                       Defaults to 'horde_cache'.
+ *   'use_memorycache'   Use this Horde_Cache:: memory caching object to cache
+ *                       the data (to avoid DB accesses).</pre>
  *
  * Optional values when using separate reading and writing servers, for example
  * in replication settings:<pre>
@@ -104,9 +102,8 @@ class Horde_Cache_Sql extends Horde_Cache_Base
             $this->_params['table'] = 'horde_cache';
         }
 
-        /* Create the memory cache object, if configured. */
         if (!empty($this->_params['use_memorycache'])) {
-            $this->_mc = Horde_Cache::singleton($params['use_memorycache'], !empty($conf['cache'][$params['use_memorycache']]) ? $conf['cache'][$params['use_memorycache']] : array());
+            $this->_mc = $this->_params['use_memorycache'];
         }
 
         parent::__construct($this->_params);

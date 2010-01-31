@@ -447,7 +447,7 @@ class Turba_Driver_Imsp extends Turba_Driver
         $searchop = $criteria['op'];
         $hasName = false;
         $this->_noGroups = false;
-        $cache = &Horde_Cache::singleton($conf['cache']['driver'], Horde::getDriverConfig('cache', $conf['cache']['driver']));
+        $cache = $GLOBALS['injector']->getInstance('Horde_Cache');
         $key = implode(".", array_merge($criteria, array($this->_bookName)));
 
         /* Now make sure we aren't searching on a dynamically created

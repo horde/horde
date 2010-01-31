@@ -105,7 +105,7 @@ class IMP_Folder
            obtain it. */
         $cache = null;
         if (is_null($this->_listCache)) {
-            if (!is_null($this->_cacheid) && ($cache = IMP::getCache())) {
+            if (!is_null($this->_cacheid) && ($cache = $GLOBALS['injector']->getInstance('Horde_Cache'))) {
                 $ret = $cache->get($this->_cacheid, 3600);
                 if (!empty($ret)) {
                     $this->_listCache = unserialize($ret);
@@ -159,7 +159,7 @@ class IMP_Folder
      */
     public function clearFlistCache()
     {
-        if (!is_null($this->_cacheid) && ($cache = IMP::getCache())) {
+        if (!is_null($this->_cacheid) && ($cache = $GLOBALS['injector']->getInstance('Horde_Cache'))) {
             $cache->expire($this->_cacheid);
         }
         $this->_listCache = array();

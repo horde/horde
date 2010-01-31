@@ -77,7 +77,7 @@ class Horde_Perms_Permission_SqlObject extends Horde_Perms_Permission
             throw new Horde_Perms_Exception($result);
         }
 
-        $cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+        $cache = $GLOBALS['injector']->getInstance('Horde_Cache');
         $cache->expire('perm_sql_' . $name);
         $cache->expire('perm_sql_exists_' . $name);
     }

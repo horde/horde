@@ -5,10 +5,10 @@
  *
  * Requires Horde_Cache and Horde_Serialize packages.
  *
+ * <pre>
  * REQUIRED Parameters:
  * ====================
- * 'driver' - (string) The Horde_Cache driver to use.
- * 'driver_params' - (string) The params to pass to the Horde_Cache driver.
+ * 'cacheob' - (Horde_Cache) The cache object to use.
  * 'hostspec' - (string) The IMAP hostspec.
  * 'port' - (string) The IMAP port.
  * 'username' - (string) The IMAP username.
@@ -25,6 +25,7 @@
  *              DEFAULT: 1 week (604800 secs)
  * 'slicesize' - (integer) The slicesize to use.
  *               DEFAULT: 50
+ * </pre>
  *
  * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
  *
@@ -111,21 +112,15 @@ class Horde_Imap_Client_Cache
      * @param array $params  The configuration parameters.
      *
      * @throws Horde_Imap_Client_Exception
+     * @throws InvalidArgumentException
      */
     public function __construct($params = array())
     {
-        if (empty($params['driver']) ||
-            empty($params['driver_params']) ||
+        if (empty($params['cacheob']) ||
             empty($params['hostspec']) ||
             empty($params['port']) ||
             empty($params['username'])) {
-            throw new Horde_Imap_Client_Exception('Missing required parameters to Horde_Imap_Client_Cache.');
-        }
-
-        /* Initialize the Cache object. */
-        $this->_cache = Horde_Cache::singleton($params['driver'], $params['driver_params']);
-        if (is_a($this->_cache, 'PEAR_Error')) {
-            throw new Horde_Imap_Client_Exception($this->_cache->getMessage());
+            throw new InvalidArgumentException('Missing required parameters to Horde_Imap_Client_Cache.');
         }
 
         $compress = null;
@@ -148,6 +143,8 @@ class Horde_Imap_Client_Cache
                 throw new Horde_Imap_Client_Exception('Horde_Cache does not support the compression type given.');
             }
         }
+
+        $this->_cache = $params['cacheob'];
 
         $this->_params = array(
             'compress' => $compress,

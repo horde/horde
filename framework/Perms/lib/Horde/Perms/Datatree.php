@@ -61,8 +61,7 @@ class Horde_Perms_Datatree extends Horde_Perms
                                                array_merge(Horde::getDriverConfig('datatree', $driver),
                                                            array('group' => 'horde.perms')));
 
-        $this->_cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'],
-                                               Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+        $this->_cache = $GLOBALS['injector']->getInstance('Horde_Cache');
 
         parent::__construct();
     }

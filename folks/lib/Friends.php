@@ -114,8 +114,7 @@ class Folks_Friends {
     {
         $this->_user = empty($params['user']) ? Horde_Auth::getAuth() : $params['user'];
 
-        $this->_cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'],
-                                            Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+        $this->_cache = $GLOBALS['injector']->getInstance('Horde_Cache');
     }
 
     /**

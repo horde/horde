@@ -217,7 +217,7 @@ class Gollem
             ($conf['cache']['driver'] != 'none')) {
             $key = self::_getCacheID($dir);
 
-            $cache = Horde_Cache::singleton($conf['cache']['driver'], Horde::getDriverConfig('cache', $conf['cache']['driver']));
+            $cache = $GLOBALS['injector']->getInstance('Horde_Cache');
             $res = $cache->get($key, $conf['foldercache']['lifetime']);
             if ($res !== false) {
                 $res = Horde_Serialize::unserialize($res, Horde_Serialize::BASIC);
@@ -268,7 +268,7 @@ class Gollem
         if (!empty($conf['foldercache']['use_cache']) &&
             !empty($conf['cache']['driver']) &&
             ($conf['cache']['driver'] != 'none')) {
-            $cache = Horde_Cache::singleton($conf['cache']['driver'], Horde::getDriverConfig('cache', $conf['cache']['driver']));
+            $cache = $GLOBALS['injector']->getInstance('Horde_Cache');
             $cache->expire(self::_getCacheID($dir));
         }
     }

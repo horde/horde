@@ -62,7 +62,7 @@ class Horde_Perms_Sql extends Horde_Perms
      */
     public function __construct()
     {
-        $this->_cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+        $this->_cache = $GLOBALS['injector']->getInstance('Horde_Cache');
     }
 
     /**

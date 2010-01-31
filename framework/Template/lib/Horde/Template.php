@@ -109,7 +109,7 @@ class Horde_Template
         }
 
         try {
-            $this->_cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+            $this->_cache = $GLOBALS['injector']->getInstance('Horde_Cache');
         } catch (Horde_Exception $e) {}
     }
 

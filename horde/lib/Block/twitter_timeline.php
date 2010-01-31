@@ -265,8 +265,7 @@ EOF;
             return $this->_twitter;
         }
 
-        $cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'],
-                                        Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+        $cache = $GLOBALS['injector']->getInstance('Horde_Cache');
 
         if (!empty($GLOBALS['conf']['twitter']['key']) &&
             !empty($GLOBALS['conf']['twitter']['secret'])) {

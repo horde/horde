@@ -34,13 +34,10 @@ if ($scope != 'agora') {
 $cache_key = 'agora_rss_' . $scope . '_' . $forum_id;
 
 /* Initialize the Cache object. */
-$cache = &Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'],
-                                    Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
-
+$cache = $injector->getInstance('Horde_Cache');
 $rss = $cache->get($cache_key, $conf['cache']['default_lifetime']);
 
 if (!$rss) {
-
     // Get forum title
     $threads = Agora_Messages::singleton($scope, $forum_id);
     if ($threads instanceof PEAR_Error) {

@@ -40,8 +40,7 @@ class Horde_Block_news_my_comments extends Horde_Block {
             return '';
         }
 
-        $GLOBALS['cache'] = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'],
-                                           Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+        $GLOBALS['cache'] = $GLOBALS['injector']->getInstance('Horde_Cache');
 
         $cache_key = 'news_myscommetns_' . $this->_params['limit'];
         $threads = $GLOBALS['cache']->get($cache_key, $GLOBALS['conf']['cache']['default_lifetime']);

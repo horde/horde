@@ -13,8 +13,7 @@ class Horde_Block_Horde_feed_reader {
 
         $key = md5($uri);
 
-        $GLOBALS['cache'] = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'],
-                                                   Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+        $GLOBALS['cache'] = $GLOBALS['injector']->getInstance('Horde_Cache');
 
         $feed = $GLOBALS['cache']->get($key, $interval);
         if (!empty($feed)) {

@@ -123,11 +123,9 @@ class Chora_Application extends Horde_Registry_Application
         $sourceroot = $acts['rt'];
 
         // Cache.
-        if (empty($conf['caching'])) {
-            $cache = null;
-        } else {
-            $cache = Horde_Cache::singleton($conf['cache']['driver'], Horde::getDriverConfig('cache', $conf['cache']['driver']));
-        }
+        $cache = empty($conf['caching'])
+            ? null
+            : $GLOBALS['injector']->getInstance('Horde_Cache');
 
         $conf['paths']['temp'] = Horde::getTempDir();
 

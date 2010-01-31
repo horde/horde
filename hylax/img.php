@@ -14,7 +14,7 @@ $page = Horde_Util::getFormData('page');
 $preview = Horde_Util::getFormData('preview');
 
 /* Set up the cache object. */
-$cache = Horde_Cache::singleton($conf['cache']['driver'], Horde::getDriverConfig('cache', $conf['cache']['driver']));
+$cache = $injector->getInstance('Horde_Cache');
 
 /* Call the get the image data using cache. */
 $id = $fax_id . '_' . $page . ($preview ? '_p' : '');

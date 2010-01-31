@@ -3,30 +3,35 @@ class Horde_Core_Binder_Cache implements Horde_Injector_Binder
 {
     public function create(Horde_Injector $injector)
     {
-        $driver = $GLOBALS['conf']['cache']['driver'];
+        return $this->_getCacheInstance($GLOBALS['conf']['cache']['driver'], $injector);
+    }
+
+    protected function _getCacheInstance($driver, $injector)
+    {
         $params = Horde::getDriverConfig('cache', $driver);
 
         if (is_array($driver)) {
             list($app, $driver_name) = $driver;
-            $driver = basename($driver_name);
         } else {
-            $driver = basename($driver);
+            $app = 'Horde';
+            $driver_name = basename($driver);
         }
 
-        if (empty($driver) || ($driver == 'none')) {
-            return new Horde_Cache_Null($params);
+        if (strtolower($app) == 'horde') {
+            switch (strtolower($driver)) {
+            case 'memcache':
+                $params['memcache'] = $injector->getInstance('Horde_Memcache');
+                break;
+
+            case 'sql':
+                if (!empty($params['use_memorycache'])) {
+                    $params['use_memorycache'] = $this->_getCacheInstance($params['use_memorycache'], $injector);
+                }
+                break;
+            }
         }
 
-        if ($driver == 'memcache') {
-            $params['memcache'] = $injector->getInstance('Horde_Memcache');
-        }
-
-        $class = (empty($app) ? 'Horde' : $app) . '_Cache_' . ucfirst($driver);
-        if (class_exists($class)) {
-            return new $class($params);
-        }
-
-        throw new Horde_Exception('Class definition of ' . $class . ' not found.');
+        return Horde_Cache::factory($driver, $params);
     }
 
     public function equals(Horde_Injector_Binder $binder)

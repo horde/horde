@@ -58,8 +58,7 @@ class Group_contactlists extends Group {
             }
         }
 
-        $this->_cache = &Horde_Cache::singleton(
-            $GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+        $this->_cache = $GLOBALS['injector']->getInstance('Horde_Cache');
     }
 
     /**
