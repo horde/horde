@@ -38,7 +38,7 @@ if (!$imp_mailbox->isValidIndex(false)) {
 }
 
 /* Initialize IMP_Message object. */
-$imp_message = IMP_Message::singleton();
+$imp_message = $injector->getInstance('IMP_Message');
 
 /* Initialize the user's identities. */
 $user_identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
@@ -67,7 +67,7 @@ $mailbox_name = $index_array['mailbox'];
 $uid = $index_array['uid'];
 $indices_array = array($mailbox_name => array($uid));
 
-$imp_flags = IMP_Imap_Flags::singleton();
+$imp_flags = $injector->getInstance('IMP_Imap_Flags');
 $imp_hdr_ui = new IMP_Ui_Headers();
 $imp_ui = new IMP_Ui_Message();
 

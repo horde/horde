@@ -964,7 +964,7 @@ if ($redirect) {
 
             /* Check to make sure the sent-mail folder is created - it needs
              * to exist to show up in drop-down list. */
-            $imp_folder = IMP_Folder::singleton();
+            $imp_folder = $injector->getInstance('IMP_Folder');
             if (!$imp_folder->exists($sent_mail_folder)) {
                 $imp_folder->create($sent_mail_folder, true);
             }

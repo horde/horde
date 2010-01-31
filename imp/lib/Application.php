@@ -101,6 +101,8 @@ class IMP_Application extends Horde_Registry_Application
             Horde_Nls::setTimeZone();
         }
 
+        $GLOBALS['injector']->addBinder('IMP_Imap_Tree', new IMP_Injector_Binder_Imaptree());
+
         // Initialize global $imp_imap object.
         $GLOBALS['imp_imap'] = new IMP_Imap();
 
@@ -195,12 +197,9 @@ class IMP_Application extends Horde_Registry_Application
             }
         }
 
-        if (($permission == 'max_folders') && empty($opts['value'])) {
-            $folder = IMP_Folder::singleton();
-            $allowed = $allowed > count($folder->flist_IMP(array(), false));
-        }
-
-        return $allowed;
+        return (($permission == 'max_folders') && empty($opts['value']))
+            ? $allowed > count($GLOBALS['injector']->getInstance('IMP_Folder')->flist_IMP(array(), false))
+            : $allowed;
     }
 
     /* Horde_Auth_Application methods. */
@@ -667,7 +666,7 @@ class IMP_Application extends Horde_Registry_Application
         }
 
         if (!empty($sent_mail_folder)) {
-            $imp_folder = IMP_Folder::singleton();
+            $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
             if (!$imp_folder->exists($sent_mail_folder)) {
                 $imp_folder->create($sent_mail_folder, $GLOBALS['prefs']->getValue('subscribe'));
             }
@@ -694,8 +693,7 @@ class IMP_Application extends Horde_Registry_Application
             } else {
                 if (empty($folder) && !empty($new)) {
                     $folder = $GLOBALS['imp_imap']->appendNamespace($new);
-                    $imp_folder = IMP_Folder::singleton();
-                    if (!$imp_folder->create($folder, $GLOBALS['prefs']->getValue('subscribe'))) {
+                    if (!$GLOBALS['injector']->getInstance('IMP_Folder')->create($folder, $GLOBALS['prefs']->getValue('subscribe'))) {
                         $folder = null;
                     }
                 }
@@ -788,7 +786,7 @@ class IMP_Application extends Horde_Registry_Application
      */
     protected function _prefsFlagManagement()
     {
-        $imp_flags = IMP_Imap_Flags::singleton();
+        $imp_flags = $GLOBALS['injector']->getInstance('IMP_Imap_Flags');
         $action = Horde_Util::getFormData('flag_action');
         $data = Horde_Util::getFormData('flag_data');
 
@@ -858,7 +856,7 @@ class IMP_Application extends Horde_Registry_Application
                         $label = $vars->accounts_server . ':' . $port . ' [' . $vars->accounts_type . ']';
                     }
 
-                    $imp_accounts = IMP_Accounts::singleton();
+                    $imp_accounts = $GLOBALS['injector']->getInstance('IMP_Accounts');
                     $imp_accounts->addAccount(array(
                         'label' => $label,
                         'port' => $port,
@@ -874,7 +872,7 @@ class IMP_Application extends Horde_Registry_Application
             break;
 
         case 'delete':
-            $imp_accounts = IMP_Accounts::singleton();
+            $imp_accounts = $GLOBALS['injector']->getInstance('IMP_Accounts');
             $tmp = $imp_accounts->getAccount($vars->accounts_data);
             if ($imp_accounts->deleteAccount($vars->accounts_data)) {
                 $GLOBALS['notification']->push(sprintf(_("Account \"%s\" deleted."), $tmp['server']), 'horde.success');
@@ -1026,10 +1024,8 @@ class IMP_Application extends Horde_Registry_Application
      */
     protected function _mailboxesChanged()
     {
-        $imp_folder = IMP_Folder::singleton();
-        $imp_folder->clearFlistCache();
-        $imaptree = IMP_Imap_Tree::singleton();
-        $imaptree->init();
+        $GLOBALS['injector']->getInstance('IMP_Folder')->clearFlistCache();
+        $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->init();
     }
 
 }

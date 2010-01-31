@@ -1,7 +1,6 @@
 <?php
 /* Get the list of flags. */
-$imp_flags = IMP_Imap_Flags::singleton();
-$flaglist = $imp_flags->getList(array('div' => true, 'fgcolor' => true));
+$flaglist = $GLOBALS['injector']->getInstance('IMP_Imap_Flags')->getList(array('div' => true, 'fgcolor' => true));
 
 /* Get the graphics. */
 $picker_img = Horde::img('colorpicker.png', _("Color Picker"), '', $registry->getImageDir('horde'));

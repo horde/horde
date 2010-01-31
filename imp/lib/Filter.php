@@ -57,20 +57,18 @@ class IMP_Filter
      */
     public function blacklistMessage($indices, $show_link = true)
     {
-        if ($this->_processBWlist($indices, _("your blacklist"), 'blacklistFrom', 'showBlacklist', $show_link)) {
-            $imp_message = IMP_Message::singleton();
-
-            if (($msg_count = $imp_message->delete($indices))) {
-                if ($msg_count == 1) {
-                    $GLOBALS['notification']->push(_("The message has been deleted."), 'horde.message');
-                } else {
-                    $GLOBALS['notification']->push(_("The messages have been deleted."), 'horde.message');
-                }
-                return true;
-            }
+        if (!$this->_processBWlist($indices, _("your blacklist"), 'blacklistFrom', 'showBlacklist', $show_link) ||
+            !($msg_count = $GLOBALS['injector']->getInstance('IMP_Message')->delete($indices))) {
+            return false;
         }
 
-        return false;
+        if ($msg_count == 1) {
+            $GLOBALS['notification']->push(_("The message has been deleted."), 'horde.message');
+        } else {
+            $GLOBALS['notification']->push(_("The messages have been deleted."), 'horde.message');
+        }
+
+        return true;
     }
 
     /**

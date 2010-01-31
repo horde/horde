@@ -64,11 +64,11 @@ class IMP_Imap_Tree
     const OTHER_KEY = 'other\0';
 
     /**
-     * Singleton instance
+     * The cache ID value.
      *
-     * @var IMP_Imap_Tree
+     * @var string
      */
-    static protected $_instance;
+    public $cacheId;
 
     /**
      * Array containing the mailbox tree.
@@ -204,33 +204,9 @@ class IMP_Imap_Tree
     protected $_eltCache;
 
     /**
-     * Attempts to return a reference to a concrete IMP_Imap_Tree instance.
-     *
-     * If an IMP_Imap_Tree object is currently stored in the cache, re-create
-     * that object.  Else, create a new instance.  Ensures that only one
-     * instance is available at any time.
-     *
-     * @return IMP_Imap_Tree  The object or null.
-     */
-    static public function singleton()
-    {
-        if (!isset(self::$_instance)) {
-            if (!empty($_SESSION['imp']['cache']['tree'])) {
-                self::$_instance = @unserialize($GLOBALS['injector']->getInstance('Horde_Cache')->get($_SESSION['imp']['cache']['tree'], 86400));
-            }
-
-            if (empty(self::$_instance)) {
-                self::$_instance = new self();
-            }
-        }
-
-        return self::$_instance;
-    }
-
-    /**
      * Constructor.
      */
-    protected function __construct()
+    public function __construct()
     {
         if ($_SESSION['imp']['protocol'] == 'imap') {
             $ns = $GLOBALS['imp_imap']->getNamespaceList();
@@ -239,10 +215,6 @@ class IMP_Imap_Tree
             $this->_namespaces = empty($GLOBALS['conf']['user']['allow_folders'])
                 ? array()
                 : $ns;
-        }
-
-        if ($imp_cache = $GLOBALS['injector']->getInstance('Horde_Cache')) {
-            $_SESSION['imp']['cache']['tree'] = uniqid(mt_rand() . Horde_Auth::getAuth());
         }
 
         $this->init();
@@ -273,9 +245,8 @@ class IMP_Imap_Tree
     {
         /* We only need to store the object if using Horde_Cache and the tree
          * has changed. */
-        if (!empty($this->_changed) &&
-            isset($_SESSION['imp']['cache']['tree'])) {
-            $GLOBALS['injector']->getInstance('Horde_Cache')->set($_SESSION['imp']['cache']['tree'], serialize($this), 86400);
+        if (!empty($this->_changed) && $this->cacheId) {
+            $GLOBALS['injector']->getInstance('Horde_Cache')->set($this->cacheId, serialize($this), 86400);
         }
     }
 
@@ -1206,8 +1177,8 @@ class IMP_Imap_Tree
         }
 
         $changed = false;
+        $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
 
-        $imp_folder = IMP_Folder::singleton();
         $this->getPollList();
         foreach ($id as $val) {
             if (!$this->isSubscribed($this->_tree[$val])) {

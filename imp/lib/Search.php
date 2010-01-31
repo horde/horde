@@ -118,7 +118,7 @@ class IMP_Search
     public function initialize($no_vf = false)
     {
         if (!$no_vf) {
-            $imaptree = IMP_Imap_Tree::singleton();
+            $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
             foreach ($this->_getVFolderList() as $key => $val) {
                 if (!empty($val['v']) &&
                     !$this->isEditableVFolder($key)) {
@@ -227,10 +227,8 @@ class IMP_Search
      */
     public function flagFields()
     {
-        $imp_flags = IMP_Imap_Flags::singleton();
-        $flist = $imp_flags->getFlagList(null);
-
         $flags = array();
+        $flist = $GLOBALS['injector']->getInstance('IMP_Imap_Flags')->getFlagList(null);
 
         for ($i = 0, $cnt = count($flist['set']); $i < $cnt; ++$i) {
             $flags[$flist['set'][$i]['f']] = $flist['set'][$i]['l'];
@@ -396,8 +394,7 @@ class IMP_Search
             $this->_saveVFolderList($vfolders);
 
             if (!$no_delete) {
-                $imaptree = IMP_Imap_Tree::singleton();
-                $imaptree->delete($id);
+                $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->delete($id);
             }
         }
     }
@@ -497,8 +494,7 @@ class IMP_Search
             $this->_saveVFolderList($vfolders);
         }
 
-        $imaptree = IMP_Imap_Tree::singleton();
-        $imaptree->insertVFolders(array($id => $label));
+        $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->insertVFolders(array($id => $label));
 
         return $id;
     }
@@ -519,8 +515,7 @@ class IMP_Search
         }
 
         /* Create Virtual Trash with new folder list. */
-        $imp_folder = IMP_Folder::singleton();
-        $fl = $imp_folder->flist();
+        $fl = $GLOBALS['injector']->getInstance('IMP_Folder')->flist();
         $flist = array('INBOX');
         foreach ($fl as $mbox) {
             if (!empty($mbox['val'])) {
@@ -574,8 +569,7 @@ class IMP_Search
         }
 
         /* Create Virtual INBOX with nav_poll list. */
-        $imaptree = IMP_Imap_Tree::singleton();
-        $flist = $imaptree->getPollList();
+        $flist = $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->getPollList();
 
         $query = new Horde_Imap_Client_Search_Query();
         $query->flag('\\seen', false);

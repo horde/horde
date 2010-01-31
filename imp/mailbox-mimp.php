@@ -44,8 +44,7 @@ case 'm':
 // 'e' = expunge mailbox
 case 'e':
     if (!$readonly) {
-        $imp_message = IMP_Message::singleton();
-        $imp_message->expungeMailbox(array($imp_mbox['mailbox'] => 1));
+        $injector->getInstance('IMP_Message')->expungeMailbox(array($imp_mbox['mailbox'] => 1));
     }
     break;
 
@@ -138,8 +137,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     }
 
     /* Get flag information. */
-    $imp_flags = IMP_Imap_Flags::singleton();
-    $flag_parse = $imp_flags->parse(array(
+    $flag_parse = $injector->getInstance('IMP_Imap_Flags')->parse(array(
         'flags' => $ob['flags'],
         'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']['to']),
         'priority' => $ob['headers']

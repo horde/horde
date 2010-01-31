@@ -35,8 +35,7 @@ if (!empty($request)) {
         $mailbox = $imp_imap->appendNamespace(preg_replace('/\//', $ns_info['delimiter'], trim($request_parts[0], '/')));
 
         /* Make sure mailbox exists or else exit immediately. */
-        $imp_folder = IMP_Folder::singleton();
-        if (!$imp_folder->exists($mailbox)) {
+        if (!$injector->getInstance('IMP_Folder')->exists($mailbox)) {
             exit;
         }
     }

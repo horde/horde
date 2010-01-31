@@ -19,13 +19,6 @@
 class IMP_Message
 {
     /**
-     * The singleton IMP_Message instance
-     *
-     * @var IMP_Message
-     */
-    protected static $_instance = null;
-
-    /**
      * Using POP to access mailboxes?
      *
      * @var boolean
@@ -33,25 +26,9 @@ class IMP_Message
     protected $_usepop = false;
 
     /**
-     * Returns a reference to the global IMP_Message object, only creating it
-     * if it doesn't already exist. This ensures that only one IMP_Message
-     * instance is instantiated for any given session.
-     *
-     * @return IMP_Message  The IMP_Message instance.
-     */
-    public static function singleton()
-    {
-        if (!self::$_instance) {
-            self::$_instance = new self();
-        }
-
-        return self::$_instance;
-    }
-
-    /**
      * Constructor.
      */
-    protected function __construct()
+    public function __construct()
     {
         if ($_SESSION['imp']['protocol'] == 'pop') {
             $this->_usepop = true;
@@ -92,7 +69,7 @@ class IMP_Message
         }
 
         if ($new) {
-            $imp_folder = IMP_Folder::singleton();
+            $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
             if (!$imp_folder->exists($targetMbox) &&
                 !$imp_folder->create($targetMbox, $prefs->getValue('subscribe'))) {
                 return false;
@@ -197,7 +174,7 @@ class IMP_Message
         /* Check for Trash folder. */
         $use_trash_folder = !$this->_usepop && empty($options['nuke']) && !$use_vtrash && $use_trash;
         if ($use_trash_folder) {
-            $imp_folder = IMP_Folder::singleton();
+            $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
 
             if (!$imp_folder->exists($trash) &&
                 !$imp_folder->create($trash, $prefs->getValue('subscribe'))) {

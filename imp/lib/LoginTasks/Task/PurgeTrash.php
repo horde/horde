@@ -41,8 +41,7 @@ class IMP_LoginTasks_Task_PurgeTrash extends Horde_LoginTasks_Task
         }
 
         /* Make sure the Trash folder exists. */
-        $imp_folder = IMP_Folder::singleton();
-        if (!$imp_folder->exists($trash_folder)) {
+        if (!$GLOBALS['injector']->getInstance('IMP_Folder')->exists($trash_folder)) {
             return false;
         }
 
@@ -60,8 +59,7 @@ class IMP_LoginTasks_Task_PurgeTrash extends Horde_LoginTasks_Task
         }
 
         /* Go through the message list and delete the messages. */
-        $imp_message = IMP_Message::singleton();
-        if ($imp_message->delete(array($trash_folder => $msg_ids), array('nuke' => true))) {
+        if ($GLOBALS['injector']->getInstance('IMP_Message')->delete(array($trash_folder => $msg_ids), array('nuke' => true))) {
             $msgcount = count($msg_ids);
             $GLOBALS['notification']->push(sprintf(ngettext("Purging %d message from Trash folder.", "Purging %d messages from Trash folder.", $msgcount), $msgcount), 'horde.message');
         }

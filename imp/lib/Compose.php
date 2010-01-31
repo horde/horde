@@ -158,8 +158,7 @@ class IMP_Compose
               !$this->getMetadata('resume')) ||
              ($success && $GLOBALS['prefs']->getValue('auto_delete_drafts'))) &&
             ($uid = $this->getMetadata('draft_uid'))) {
-            $imp_message = IMP_Message::singleton();
-            $imp_message->delete(array($uid . IMP::IDX_SEP . IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true)), array('nuke' => true));
+            $GLOBALS['injector']->getInstance('IMP_Message')->delete(array($uid . IMP::IDX_SEP . IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true)), array('nuke' => true));
         }
 
         $this->deleteAllAttachments();
@@ -291,7 +290,7 @@ class IMP_Compose
             throw new IMP_Compose_Exception(_("Saving the draft failed. No draft folder specified."));
         }
 
-        $imp_folder = IMP_Folder::singleton();
+        $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
 
         /* Check for access to drafts folder. */
         if (!$imp_folder->exists($drafts_mbox) &&
@@ -594,7 +593,7 @@ class IMP_Compose
                 IMP_Maillog::log($this->_metadata['reply_type'], $this->_metadata['in_reply_to'], $recipients);
             }
 
-            $imp_message = IMP_Message::singleton();
+            $imp_message = $GLOBALS['injector']->getInstance('IMP_Message');
             $reply_uid = array($this->_metadata['uid'] . IMP::IDX_SEP . $this->_metadata['mailbox']);
 
             switch ($this->_metadata['reply_type']) {
@@ -651,7 +650,7 @@ class IMP_Compose
             /* Generate the message string. */
             $fcc = $mime_message->toString(array('defserver' => $_SESSION['imp']['maildomain'], 'headers' => $headers, 'stream' => true));
 
-            $imp_folder = IMP_Folder::singleton();
+            $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
 
             if (!$imp_folder->exists($opts['sent_folder'])) {
                 $imp_folder->create($opts['sent_folder'], $prefs->getValue('subscribe'));

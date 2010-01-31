@@ -14,33 +14,11 @@
 class IMP_Accounts
 {
     /**
-     * Singleton instance.
-     *
-     * @var IMP_Accounts
-     */
-    static protected $_instance;
-
-    /**
      * The cached list of accounts.
      *
      * @var array
      */
     protected $_accounts = null;
-
-    /**
-     * Attempts to return a reference to a concrete object instance.
-     * It will only create a new instance if no instance currently exists.
-     *
-     * @return IMP_Accounts  The created concrete instance.
-     */
-    static public function singleton()
-    {
-        if (!isset(self::$_instance)) {
-            self::$_instance = new self();
-        }
-
-        return self::$_instance;
-    }
 
     /**
      * Save the accounts list to the prefs backend.

@@ -13,13 +13,6 @@
 class IMP_Imap_Acl
 {
     /**
-     * Singleton instance.
-     *
-     * @var IMP_Imap_Acl
-     */
-    static protected $_instance = null;
-
-    /**
      * Hash containing the list of possible rights and a human readable
      * description of each.
      *
@@ -36,27 +29,11 @@ class IMP_Imap_Acl
     protected $_protected;
 
     /**
-     * Attempts to return a reference to a concrete object instance.
-     * It will only create a new instance if no instance currently exists.
-     *
-     * @return IMP_Imap_Acl  The created concrete instance.
-     * @throws Horde_Exception
-     */
-    static public function singleton()
-    {
-        if (!self::$_instance) {
-            self::$_instance = new self();
-        }
-
-        return self::$_instance;
-    }
-
-    /**
      * Constructor.
      *
      * @throws Horde_Exception
      */
-    protected function __construct()
+    public function __construct()
     {
         if ($_SESSION['imp']['protocol'] != 'imap') {
             throw new Horde_Exception(_("ACL requires an IMAP server."));

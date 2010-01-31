@@ -17,33 +17,11 @@ class IMP_Imap_Flags
     const PREFIX = 'impflag';
 
     /**
-     * Singleton instance.
-     *
-     * @var IMP_Imap_Flags
-     */
-    static protected $_instance;
-
-    /**
      * The cached list of flags.
      *
      * @var array
      */
     protected $_flags = null;
-
-    /**
-     * Attempts to return a reference to a concrete object instance.
-     * It will only create a new instance if no instance currently exists.
-     *
-     * @return IMP_Imap_Flags  The created concrete instance.
-     */
-    static public function singleton()
-    {
-        if (!isset(self::$_instance)) {
-            self::$_instance = new self();
-        }
-
-        return self::$_instance;
-    }
 
     /**
      * Save the flag list to the prefs backend.

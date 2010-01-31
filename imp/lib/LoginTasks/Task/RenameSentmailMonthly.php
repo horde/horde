@@ -34,7 +34,7 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
         $success = true;
 
         $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
-        $imp_folder = IMP_Folder::singleton();
+        $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
 
         foreach ($identity->getAllSentmailfolders() as $sent_folder) {
             /* Display a message to the user and rename the folder.

@@ -50,8 +50,7 @@
 <input id="cancel_button" type="button" class="button" value="<?php echo _("Cancel") ?>" />
 <?php else: ?>
 <?php
-$imp_accounts = IMP_Accounts::singleton();
-$accounts_list = $imp_accounts->getList();
+$accounts_list = $GLOBALS['injector']->getInstance('IMP_Accounts')->getList();
 $delete_img = Horde::img('delete.png');
 ?>
 

@@ -136,8 +136,7 @@ foreach ($loop_array as $mbox => $idxlist) {
 }
 
 /* Flag messages as seen. */
-$imp_message = IMP_Message::singleton();
-$imp_message->flag(array('\\seen'), $loop_array);
+$injector->getInstance('IMP_Message')->flag(array('\\seen'), $loop_array);
 
 $template = $injector->createInstance('Horde_Template');
 $template->setOption('gettext', true);

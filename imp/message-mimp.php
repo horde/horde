@@ -28,7 +28,7 @@ if (!$imp_mailbox->isValidIndex(false)) {
     exit;
 }
 
-$imp_message = IMP_Message::singleton();
+$imp_message = $injector->getInstance('IMP_Message');
 $imp_hdr_ui = new IMP_Ui_Headers();
 $imp_ui = new IMP_Ui_Message();
 
@@ -220,8 +220,7 @@ if (!empty($msgAddresses)) {
     }
 }
 
-$imp_flags = IMP_Imap_Flags::singleton();
-$flag_parse = $imp_flags->parse(array(
+$flag_parse = $injector->getInstance('IMP_Imap_Flags')->parse(array(
     'flags' => $flags,
     'personal' => $match_identity
 ));

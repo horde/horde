@@ -32,8 +32,7 @@ class IMP_Ui_Block
         }
 
         /* Get list of mailboxes to poll. */
-        $imptree = IMP_Imap_Tree::singleton();
-        $poll = $imptree->getPollList(true);
+        $poll = $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->getPollList(true);
         $status = $GLOBALS['imp_imap']->ob()->statusMultiple($poll, Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_RECENT);
 
         $anyUnseen = false;

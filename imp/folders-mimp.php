@@ -31,7 +31,7 @@ $subscribe = $prefs->getValue('subscribe');
 $showAll = (!$subscribe || $_SESSION['imp']['showunsub']);
 
 /* Initialize the IMP_Imap_Tree object. */
-$imptree = IMP_Imap_Tree::singleton();
+$imptree = $injector->getInstance('IMP_Imap_Tree');
 $mask = IMP_Imap_Tree::NEXT_SHOWCLOSED;
 
 /* Toggle subscribed view, if necessary. */

@@ -58,12 +58,11 @@ class IMP_Ui_Folder
         $dir2 = $elt['user_icon']
             ? Horde::img($elt['icon'], $elt['alt'], null, $elt['icondir'])
             : '<span class="foldersImg ' . $elt['class'] . '"></span>';
-        $imaptree = IMP_Imap_Tree::singleton();
 
         if ($elt['children'] && isset($options['expand_url'])) {
             $dir = $options['expand_url']->copy()->add('folder', $elt['value']);
 
-            if ($imaptree->isOpen($elt['base_elt'])) {
+            if ($GLOBALS['injector']->getInstance('IMP_Imap_Tree')->isOpen($elt['base_elt'])) {
                 if (!is_null($dir)) {
                     $dir->add('actionID', 'collapse_folder');
                     $alt = _("Collapse Folder");

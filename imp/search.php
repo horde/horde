@@ -86,7 +86,7 @@ if (!empty($criteria)) {
 }
 
 /* Generate master folder list. */
-$imp_imap_tree = IMP_Imap_Tree::singleton();
+$imp_imap_tree = $injector->getInstance('IMP_Imap_Tree');
 $mask = IMP_Imap_Tree::NEXT_SHOWCLOSED;
 $subscribe = $prefs->getValue('subscribe');
 if ($subscribe || !Horde_Util::getFormData('show_unsub')) {

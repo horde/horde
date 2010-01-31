@@ -148,14 +148,12 @@ class IMP
      */
     static public function flistSelect($options = array())
     {
-        $imp_folder = IMP_Folder::singleton();
-
         /* Don't filter here - since we are going to parse through every
          * member of the folder list below anyway, we can filter at that time.
          * This allows us the have a single cached value for the folder list
          * rather than a cached value for each different mailbox we may
          * visit. */
-        $mailboxes = $imp_folder->flist();
+        $mailboxes = $GLOBALS['injector']->getInstance('IMP_Folder')->flist();
         $text = '';
 
         if (!empty($options['heading']) &&

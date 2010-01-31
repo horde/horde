@@ -71,15 +71,14 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             return false;
         }
 
-        $imptree = IMP_Imap_Tree::singleton();
+        $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
         $imptree->eltDiffStart();
-
-        $imp_folder = IMP_Folder::singleton();
 
         $new = Horde_String::convertCharset($vars->mbox, Horde_Nls::getCharset(), 'UTF7-IMAP');
         try {
             $new = $imptree->createMailboxName($vars->parent, $new);
-            if ($result = $imp_folder->create($new, $GLOBALS['prefs']->getValue('subscribe'))) {
+
+            if ($result =$GLOBALS['injector']->getInstance('IMP_Folder')->create($new, $GLOBALS['prefs']->getValue('subscribe'))) {
                 $result = new stdClass;
                 $result->mailbox = $this->_getMailboxResponse($imptree);
             }
@@ -115,7 +114,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             return false;
         }
 
-        $imptree = IMP_Imap_Tree::singleton();
+        $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
         $imptree->eltDiffStart();
 
         if ($GLOBALS['imp_search']->isEditableVFolder($vars->mbox)) {
@@ -123,8 +122,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             $GLOBALS['imp_search']->deleteSearchQuery($vars->mbox);
             $result = true;
         } else {
-            $imp_folder = IMP_Folder::singleton();
-            $result = $imp_folder->delete(array($vars->mbox));
+            $result = $GLOBALS['injector']->getInstance('IMP_Folder')->delete(array($vars->mbox));
         }
 
         if ($result) {
@@ -161,18 +159,16 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             return false;
         }
 
-        $imptree = IMP_Imap_Tree::singleton();
+        $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
         $imptree->eltDiffStart();
 
-        $imp_folder = IMP_Folder::singleton();
         $result = false;
 
         try {
             $new = Horde_String::convertCharset($imptree->createMailboxName($vars->new_parent, $vars->new_name), Horde_Nls::getCharset(), 'UTF7-IMAP');
 
             if (($vars->old_name != $new) &&
-                $imp_folder->rename($vars->old_name, $new)) {
-
+                $GLOBALS['injector']->getInstance('IMP_Folder')->rename($vars->old_name, $new)) {
                 $result = new stdClass;
                 $result->mailbox = $this->_getMailboxResponse($imptree);
             }
@@ -203,8 +199,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             return false;
         }
 
-        $imp_message = IMP_Message::singleton();
-        $imp_message->emptyMailbox(array($vars->mbox));
+        $GLOBALS['injector']->getInstance('IMP_Message')->emptyMailbox(array($vars->mbox));
 
         $result = new stdClass;
         $result->mbox = $vars->mbox;
@@ -239,8 +234,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             return false;
         }
 
-        $imp_message = IMP_Message::singleton();
-        $result = $imp_message->flagAllInMailbox($flags, array($vars->mbox), $vars->set);
+        $result = $GLOBALS['injector']->getInstance('IMP_Message')->flagAllInMailbox($flags, array($vars->mbox), $vars->set);
 
         if ($result) {
             $result = new stdClass;
@@ -286,7 +280,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function ListMailboxes($vars)
     {
-        $imptree = IMP_Imap_Tree::singleton();
+        $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
         $mask = IMP_Imap_Tree::FLIST_CONTAINER | IMP_Imap_Tree::FLIST_VFOLDER | IMP_Imap_Tree::FLIST_ELT;
         if ($vars->unsub) {
             $mask |= IMP_Imap_Tree::FLIST_UNSUB;
@@ -359,12 +353,11 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
     public function Poll($vars)
     {
         $changed = false;
-        $imptree = IMP_Imap_Tree::singleton();
 
         $result = new stdClass;
         $result->poll = array();
 
-        foreach ($GLOBALS['imp_imap']->ob()->statusMultiple($imptree->getPollList(), Horde_Imap_Client::STATUS_UNSEEN) as $key => $val) {
+        foreach ($GLOBALS['imp_imap']->ob()->statusMultiple($GLOBALS['injector']->getInstance('IMP_Imap_Tree')->getPollList(), Horde_Imap_Client::STATUS_UNSEEN) as $key => $val) {
             $result->poll[$key] = intval($val['unseen']);
         }
 
@@ -409,7 +402,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
 
         $display_folder = IMP::displayFolder($vars->mbox);
 
-        $imptree = IMP_Imap_Tree::singleton();
+        $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
 
         $result = new stdClass;
         $result->add = intval($vars->add);
@@ -448,7 +441,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             return false;
         }
 
-        $imp_folder = IMP_Folder::singleton();
+        $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
         return $vars->sub
             ? $imp_folder->subscribe(array($vars->mbox))
             : $imp_folder->unsubscribe(array($vars->mbox));
@@ -537,8 +530,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             return false;
         }
 
-        $imp_message = IMP_Message::singleton();
-        $result = $imp_message->copy($vars->mboxto, 'move', $indices);
+        $result = $GLOBALS['injector']->getInstance('IMP_Message')->copy($vars->mboxto, 'move', $indices);
 
         if ($result) {
             $result = $this->_generateDeleteResult($vars, $indices, $change);
@@ -587,9 +579,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             return false;
         }
 
-        $imp_message = IMP_Message::singleton();
-
-        if ($result = $imp_message->copy($vars->mboxto, 'copy', $indices)) {
+        if ($result = $GLOBALS['injector']->getInstance('IMP_Message')->copy($vars->mboxto, 'copy', $indices)) {
             if ($poll = $this->_getPollInformation($vars->mboxto)) {
                 $result->poll = array_merge(isset($result->poll) ? $result->poll : array(), $poll);
             }
@@ -626,7 +616,6 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         }
 
         $flags = Horde_Serialize::unserialize($vars->flags, Horde_Serialize::JSON);
-        $imp_message = IMP_Message::singleton();
         $result = false;
         $set = $notset = array();
 
@@ -639,11 +628,11 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         }
 
         if (!empty($set)) {
-            $result = $imp_message->flag($set, $indices, true);
+            $result = $GLOBALS['injector']->getInstance('IMP_Message')->flag($set, $indices, true);
         }
 
         if (!empty($notset)) {
-            $result = $imp_message->flag($notset, $indices, false);
+            $result = $GLOBALS['injector']->getInstance('IMP_Message')->flag($notset, $indices, false);
         }
 
         return $result
@@ -673,10 +662,9 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             return false;
         }
 
-        $imp_message = IMP_Message::singleton();
         $change = $this->_changed($vars, true);
 
-        if ($imp_message->delete($indices)) {
+        if ($GLOBALS['injector']->getInstance('IMP_Message')->delete($indices)) {
             return $this->_generateDeleteResult($vars, $indices, $change, !$GLOBALS['prefs']->getValue('hide_deleted') && !$GLOBALS['prefs']->getValue('use_trash'));
         }
 
@@ -1031,9 +1019,8 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         $imp_compose->destroy(false);
 
         if ($draft_uid = $imp_compose->getMetadata('draft_uid')) {
-            $imp_message = IMP_Message::singleton();
             $idx_array = array($draft_uid . IMP::IDX_SEP . IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true));
-            $imp_message->delete($idx_array, array('nuke' => true));
+            $GLOBALS['injector']->getInstance('IMP_Message')->delete($idx_array, array('nuke' => true));
         }
 
         return true;
@@ -1168,8 +1155,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             $change = ($sort['by'] == Horde_Imap_Client::SORT_THREAD);
         }
 
-        $imp_message = IMP_Message::singleton();
-        $expunged = $imp_message->expungeMailbox(array($vars->view => 1), array('list' => true));
+        $expunged = $GLOBALS['injector']->getInstance('IMP_Message')->expungeMailbox(array($vars->view => 1), array('list' => true));
 
         if (empty($expunged[$mbox])) {
             return false;
@@ -1446,7 +1432,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
 
         /* Use IMP_Tree to determine whether the sent mail folder was
          * created. */
-        $imptree = IMP_Imap_Tree::singleton();
+        $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
         $imptree->eltDiffStart();
 
         $options = array(
@@ -1768,7 +1754,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      */
     protected function _getPollInformation($mbox)
     {
-        $imptree = IMP_Imap_Tree::singleton();
+        $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
         $elt = $imptree->get($mbox);
         if (!$imptree->isPolled($elt)) {
             return array();

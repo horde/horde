@@ -180,7 +180,7 @@ class IMP_Spam
         switch ($action) {
         case 'spam':
             if ($result = $GLOBALS['prefs']->getValue('delete_spam_after_report')) {
-                $imp_message = IMP_Message::singleton();
+                $imp_message = $GLOBALS['injector']->getInstance('IMP_Message');
                 switch ($result) {
                 case 1:
                     $msg_count = $imp_message->delete($indices);
@@ -212,7 +212,7 @@ class IMP_Spam
 
         case 'notspam':
             if ($result = $GLOBALS['prefs']->getValue('move_ham_after_report')) {
-                $imp_message = IMP_Message::singleton();
+                $imp_message = $GLOBALS['injector']->getInstance('IMP_Message');
                 if (!$imp_message->copy('INBOX', 'move', $indices)) {
                     $result = 0;
                 }

@@ -119,8 +119,7 @@ class IMP_Ui_Message
             $success = true;
 
             if ($mdn_flag) {
-                $imp_message = IMP_Message::singleton();
-                $imp_message->flag(array('$MDNSent'), $uid . IMP::IDX_SEP . $mailbox, true);
+                $GLOBALS['injector']->getInstance('IMP_Message')->flag(array('$MDNSent'), $uid . IMP::IDX_SEP . $mailbox, true);
             }
         } catch (Horde_Mime_Exception $e) {
             $success = false;

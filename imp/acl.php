@@ -24,7 +24,7 @@ if ($prefs->isLocked('acl') || empty($_SESSION['imp']['acl'])) {
 }
 
 try {
-    $ACLDriver = IMP_Imap_Acl::singleton();
+    $ACLDriver = $injector->getInstance('IMP_Imap_Acl');
 } catch (Horde_Exception $e) {
     $notification->push(_("This server does not support sharing folders."), 'horde.error');
     header('Location: ' . $prefs_url);
@@ -116,7 +116,7 @@ case 'imp_acl_set':
     break;
 }
 
-$imp_folder = IMP_Folder::singleton();
+$imp_folder = $injector->getInstance('IMP_Folder');
 $rights = $ACLDriver->getRights();
 
 if (empty($folder)) {

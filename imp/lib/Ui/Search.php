@@ -27,7 +27,7 @@ class IMP_Ui_Search
         $search_array = array();
         $search_fields = $GLOBALS['imp_search']->searchFields();
         $flag_fields = $GLOBALS['imp_search']->flagFields();
-        $imp_flags = IMP_Imap_Flags::singleton();
+        $imp_flags = $GLOBALS['injector']->getInstance('IMP_Imap_Flags');
         $or_search = false;
 
         foreach ($search as $rule) {

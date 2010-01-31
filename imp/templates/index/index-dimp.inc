@@ -18,8 +18,7 @@ $has_whitelist = $registry->hasMethod('mail/whitelistFrom');
 $show_quota = (isset($_SESSION['imp']['quota']) && is_array($_SESSION['imp']['quota']));
 
 // Get the list of available IMAP flags
-$imp_flags = IMP_Imap_Flags::singleton();
-$flag_list = $imp_flags->getList(array('imap' => true));
+$flag_list = $injector->getInstance('IMP_Imap_Flags')->getList(array('imap' => true));
 
 function _simpleButton($id, $text, $image, $nodisplay = false)
 {

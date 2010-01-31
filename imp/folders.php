@@ -40,10 +40,10 @@ Horde::addInlineScript(array(
 ));
 
 /* Initialize the IMP_Folder object. */
-$imp_folder = IMP_Folder::singleton();
+$imp_folder = $injector->getInstance('IMP_Folder');
 
 /* Initialize the IMP_Imap_Tree object. */
-$imaptree = IMP_Imap_Tree::singleton();
+$imaptree = $injector->getInstance('IMP_Imap_Tree');
 
 /* $folder_list is already encoded in UTF7-IMAP. */
 $folder_list = Horde_Util::getFormData('folder_list', array());
@@ -87,8 +87,7 @@ case 'rebuild_tree':
 
 case 'expunge_folder':
     if (!empty($folder_list)) {
-        $imp_message = IMP_Message::singleton();
-        $imp_message->expungeMailbox(array_flip($folder_list));
+        $injector->getInstance('IMP_Message')->expungeMailbox(array_flip($folder_list));
     }
     break;
 
@@ -228,16 +227,14 @@ case 'nopoll_folder':
 
 case 'folders_empty_mailbox':
     if (!empty($folder_list)) {
-        $imp_message = IMP_Message::singleton();
-        $imp_message->emptyMailbox($folder_list);
+        $injector->getInstance('IMP_Message')->emptyMailbox($folder_list);
     }
     break;
 
 case 'mark_folder_seen':
 case 'mark_folder_unseen':
     if (!empty($folder_list)) {
-        $imp_message = IMP_Message::singleton();
-        $imp_message->flagAllInMailbox(array('seen'), $folder_list, ($actionID == 'mark_folder_seen'));
+        $injector->getInstance('IMP_Message')->flagAllInMailbox(array('seen'), $folder_list, ($actionID == 'mark_folder_seen'));
     }
     break;
 
@@ -305,7 +302,7 @@ case 'mbox_size':
         $loop = array();
         $rowct = $sum = 0;
 
-        $imp_message = IMP_Message::singleton();
+        $imp_message = $injector->getInstance('IMP_Message');
 
         foreach ($folder_list as $val) {
             $size = $imp_message->sizeMailbox($val, false);

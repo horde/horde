@@ -94,7 +94,7 @@ class IMP_Views_Compose
         /* Create list for sent-mail selection. */
         if (!empty($GLOBALS['conf']['user']['select_sentmail_folder']) &&
             !$GLOBALS['prefs']->isLocked('sent_mail_folder')) {
-            $imp_folder = IMP_Folder::singleton();
+            $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
 
             /* Check to make sure the sent-mail folders are created - they
              * need to exist to show up in drop-down list. */

@@ -35,8 +35,8 @@ class IMP_LoginTasks_Task_PurgeSentmail extends Horde_LoginTasks_Task
      */
     public function execute()
     {
-        $imp_folder = IMP_Folder::singleton();
-        $imp_message = IMP_Message::singleton();
+        $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
+        $imp_message = $GLOBALS['injector']->getInstance('IMP_Message');
 
         $mbox_list = $this->_getFolders();
 

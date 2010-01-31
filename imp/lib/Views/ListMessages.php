@@ -133,8 +133,7 @@ class IMP_Views_ListMessages
          * is a chance that the mailbox doesn't exist. If there is at least
          * 1 message, we don't need this check. */
         if (empty($msgcount) && !$is_search) {
-            $imp_folder = IMP_Folder::singleton();
-            if (!$imp_folder->exists($mbox)) {
+            if (!$GLOBALS['injector']->getInstance('IMP_Folder')->exists($mbox)) {
                 $GLOBALS['notification']->push(sprintf(_("Mailbox %s does not exist."), IMP::getLabel($mbox)), 'horde.error');
             }
 
@@ -374,8 +373,7 @@ class IMP_Views_ListMessages
                 }
             }
 
-            $imp_flags = IMP_Imap_Flags::singleton();
-            $flag_parse = $imp_flags->parse(array(
+            $flag_parse = $GLOBALS['injector']->getInstance('IMP_Imap_Flags')->parse(array(
                 'atc' => isset($ob['structure']) ? $ob['structure'] : null,
                 'flags' => $ob['flags'],
                 'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']['to']),

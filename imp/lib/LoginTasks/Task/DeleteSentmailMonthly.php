@@ -35,7 +35,7 @@ class IMP_LoginTasks_Task_DeleteSentmailMonthly extends Horde_LoginTasks_Task
            old sent-mail folders. Then sort this array according to
            the date. */
         $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
-        $imp_folder = IMP_Folder::singleton();
+        $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
         $sent_mail_folders = $identity->getAllSentmailFolders();
 
         $folder_array = array();

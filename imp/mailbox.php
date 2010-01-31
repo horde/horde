@@ -73,7 +73,7 @@ if (!is_array(($indices = Horde_Util::getFormData('indices')))) {
 }
 
 $do_filter = false;
-$imp_flags = IMP_Imap_Flags::singleton();
+$imp_flags = $injector->getInstance('IMP_Imap_Flags');
 $open_compose_window = null;
 
 /* Run through the action handlers */
@@ -140,29 +140,26 @@ case 'fwd_digest':
 
 case 'delete_messages':
     if (!empty($indices)) {
-        $imp_message = IMP_Message::singleton();
-        $imp_message->delete($indices);
+        $injector->getInstance('IMP_Message')->delete($indices);
     }
     break;
 
 case 'undelete_messages':
     if (!empty($indices)) {
-        $imp_message = IMP_Message::singleton();
-        $imp_message->undelete($indices);
+        $injector->getInstance('IMP_Message')->undelete($indices);
     }
     break;
 
 case 'move_messages':
 case 'copy_messages':
     if (!empty($indices) && !empty($targetMbox)) {
-        $imp_message = IMP_Message::singleton();
         if (!empty($newMbox) && ($newMbox == 1)) {
             $targetMbox = IMP::folderPref($targetMbox, true);
             $newMbox = true;
         } else {
             $newMbox = false;
         }
-        $imp_message->copy($targetMbox, ($actionID == 'move_messages') ? 'move' : 'copy', $indices, $newMbox);
+        $injector->getInstance('IMP_Message')->copy($targetMbox, ($actionID == 'move_messages') ? 'move' : 'copy', $indices, $newMbox);
     }
     break;
 
@@ -170,8 +167,7 @@ case 'flag_messages':
     $flag = Horde_Util::getPost('flag');
     if ($flag && !empty($indices)) {
         $flag = $imp_flags->parseFormId($flag);
-        $imp_message = IMP_Message::singleton();
-        $imp_message->flag(array($flag['flag']), $indices, $flag['set']);
+        $injector->getInstance('IMP_Message')->flag(array($flag['flag']), $indices, $flag['set']);
     }
     break;
 
@@ -181,8 +177,7 @@ case 'hide_deleted':
     break;
 
 case 'expunge_mailbox':
-    $imp_message = IMP_Message::singleton();
-    $imp_message->expungeMailbox(array($imp_mbox['mailbox'] => 1));
+    $injector->getInstance('IMP_Message')->expungeMailbox(array($imp_mbox['mailbox'] => 1));
     break;
 
 case 'filter':
@@ -190,8 +185,7 @@ case 'filter':
     break;
 
 case 'empty_mailbox':
-    $imp_message = IMP_Message::singleton();
-    $imp_message->emptyMailbox(array($imp_mbox['mailbox']));
+    $injector->getInstance('IMP_Message')->emptyMailbox(array($imp_mbox['mailbox']));
     break;
 
 case 'view_messages':
