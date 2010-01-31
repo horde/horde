@@ -79,10 +79,6 @@ class Operator_Application extends Horde_Registry_Application
         self::$_perms['tree']['operator']['accountcodes'] = false;
         self::$_perms['title']['operator:accountcodes'] = _("Account Codes");
 
-        $GLOBALS['operator'] = $this;
-        if (empty($this->driver)) {
-            $this->_init();
-        }
         $accountcodes = Operator::getAccountCodes();
         foreach ($accountcodes as $accountcode) {
             self::$_perms['tree']['operator']['accountcodes'][$accountcode] = false;
