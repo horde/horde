@@ -94,8 +94,8 @@ Application Framework.
     <min>1.5.4</min>
    </pearinstaller>
    <package>
-    <name>Log</name>
-    <channel>pear.php.net</channel>
+    <name>Autoloader</name>
+    <channel>pear.horde.org</channel>
    </package>
    <package>
     <name>Cli</name>
@@ -108,6 +108,14 @@ Application Framework.
    <package>
     <name>Exception</name>
     <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Injector</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Log</name>
+    <channel>pear.php.net</channel>
    </package>
    <package>
     <name>Prefs</name>
