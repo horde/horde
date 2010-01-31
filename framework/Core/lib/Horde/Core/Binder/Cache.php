@@ -13,8 +13,12 @@ class Horde_Core_Binder_Cache implements Horde_Injector_Binder
             $driver = basename($driver);
         }
 
-        if (empty($driver) || $driver == 'none') {
+        if (empty($driver) || ($driver == 'none')) {
             return new Horde_Cache_Null($params);
+        }
+
+        if ($driver == 'memcache') {
+            $params['memcache'] = $injector->getInstance('Horde_Memcache');
         }
 
         $class = (empty($app) ? 'Horde' : $app) . '_Cache_' . ucfirst($driver);

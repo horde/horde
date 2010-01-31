@@ -54,6 +54,7 @@ Application Framework.
        <file name="Cache.php" role="php" />
        <file name="Db.php" role="php" />
        <file name="Logger.php" role="php" />
+       <file name="Memcache.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Binder -->
      </dir> <!-- /lib/Horde/Core -->
      <file name="ErrorHandler.php" role="php" />
@@ -133,6 +134,7 @@ Application Framework.
    <install name="lib/Horde/Core/Binder/Cache.php" as="Horde/Core/Binder/Cache.php" />
    <install name="lib/Horde/Core/Binder/Db.php" as="Horde/Core/Binder/Db.php" />
    <install name="lib/Horde/Core/Binder/Logger.php" as="Horde/Core/Binder/Logger.php" />
+   <install name="lib/Horde/Core/Binder/Memcache.php" as="Horde/Core/Binder/Memcache.php" />
    <install name="lib/Horde/ErrorHandler.php" as="Horde/ErrorHandler.php" />
    <install name="lib/Horde/Exception/HookNotSet.php" as="Horde/Exception/HookNotSet.php" />
    <install name="lib/Horde/Help.php" as="Horde/Help.php" />

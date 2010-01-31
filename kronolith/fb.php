@@ -26,7 +26,7 @@ if (!empty($cal)) {
     $user = basename($pathInfo);
 }
 
-$cache = Horde_Cache::factory($conf['cache']['driver'], Horde::getDriverConfig('cache', $conf['cache']['driver']));
+$cache = $injector->getInstance('Horde_Cache');
 $key = 'kronolith.fb.' . ($user ? 'u.' . $user : 'c.' . $cal);
 $fb = $cache->get($key, 360);
 if (!$fb) {

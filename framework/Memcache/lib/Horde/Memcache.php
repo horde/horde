@@ -53,13 +53,6 @@ class Horde_Memcache
     const MAX_SIZE = 1000000;
 
     /**
-     * The singleton instance.
-     *
-     * @var Horde_Memcache
-     */
-    static protected $_instance = null;
-
-    /**
      * Memcache object.
      *
      * @var Memcache
@@ -94,25 +87,15 @@ class Horde_Memcache
     protected $_noexist = array();
 
     /**
-     * Singleton.
-     */
-    public static function singleton()
-    {
-        if (!self::$_instance) {
-            self::$_instance = new self();
-        }
-
-        return self::$_instance;
-    }
-
-    /**
      * Constructor.
+     *
+     * @param array $params  TODO
      *
      * @throws Horde_Exception
      */
-    protected function __construct()
+    public function __construct($params = array())
     {
-        $this->_params = array_merge($this->_params, $GLOBALS['conf']['memcache']);
+        $this->_params = array_merge($this->_params, $params);
         $this->_params['prefix'] = (empty($this->_params['prefix'])) ? 'horde' : $this->_params['prefix'];
         $this->_large = !empty($this->_params['large_items']);
 

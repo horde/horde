@@ -36,7 +36,7 @@ if (PEAR::isError($options)) {
 }
 
 $all = $raw = $summary = false;
-$memcache = &Horde_Memcache::singleton();
+$memcache = $injector->getInstance('Horde_Memcache');
 
 foreach ($options[0] as $val) {
     switch ($val[0]) {

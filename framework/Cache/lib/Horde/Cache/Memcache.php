@@ -3,6 +3,12 @@
  * The Horde_Cache_Memcache:: class provides a memcached implementation of the
  * Horde caching system.
  *
+ * Addtional parameters:
+ * ---------------------
+ * <pre>
+ * 'memcache' - (Horde_Memcache) A Horde_Memcache object.
+ * </pre>
+ *
  * Copyright 2006-2007 Duck <duck@obala.net>
  * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
  *
@@ -17,7 +23,7 @@
 class Horde_Cache_Memcache extends Horde_Cache_Base
 {
     /**
-     * Horde_memcache object.
+     * Memcache object.
      *
      * @var Horde_Memcache
      */
@@ -33,10 +39,16 @@ class Horde_Cache_Memcache extends Horde_Cache_Base
      * Construct a new Horde_Cache_Memcache object.
      *
      * @param array $params  Parameter array.
+     *
+     * @throws InvalidArgumentException
      */
     public function __construct($params = array())
     {
-        $this->_memcache = Horde_Memcache::singleton();
+        if (!isset($params['memcache'])) {
+            throw new InvalidArgumentException('Missing memcache object');
+        }
+
+        $this->_memcache = $params['memcache'];
 
         parent::__construct($params);
     }

@@ -1,19 +1,19 @@
 <?php
 /**
- * Horde_SessionHandler:: implementation for memcache.
+ * Horde_SessionHandler implementation for memcache.
  *
- * NOTE FOR WINDOWS USERS w/PHP 4: Due to limitations in PHP 4, you should not
- * use the memcache driver.  Either upgrade to PHP 5 or use a different
- * session handler.
+ * Required parameters:<pre>
+ * 'memcache' - (Horde_Memcache) A memcache object.
+ * </pre>
  *
  * Optional parameters:<pre>
- *   'persistent_driver' - (string) If set, uses this backend to store session
- *                         data persistently.
- *   'persistent_params' - (array) If using a persistent backend, the params
- *                         to use for the persistent backend.
- *   'track' - (boolean) Track active sessions?
- *   'track_lifetime' - (integer) The number of seconds after which tracked
- *                      sessions will be treated as expired.
+ * 'persistent_driver' - (string) If set, uses this backend to store session
+ *                       data persistently.
+ * 'persistent_params' - (array) If using a persistent backend, the params
+ *                       to use for the persistent backend.
+ * 'track' - (boolean) Track active sessions?
+ * 'track_lifetime' - (integer) The number of seconds after which tracked
+ *                    sessions will be treated as expired.
  * </pre>
  *
  * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
@@ -28,7 +28,7 @@
 class Horde_SessionHandler_Memcache extends Horde_SessionHandler
 {
     /**
-     * Horde_Memcache object.
+     * Memcache object.
      *
      * @var Horde_Memcache
      */
@@ -68,9 +68,16 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
      * @param array $params  A hash containing connection parameters.
      *
      * @throws Horde_Exception
+     * @throws InvalidArgumentException
      */
     protected function __construct($params = array())
     {
+        if (empty($params['memcache'])) {
+            throw InvalidArgumentException('Missing memcache object.');
+        }
+
+        $this->_memcache = $params['memcache'];
+
         if (!empty($params['persistent_driver'])) {
             try {
                 $this->_persistent = self::singleton($params['persistent_driver'], empty($params['persistent_params']) ? null : $params['persistent_params']);
@@ -105,8 +112,6 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
      */
     protected function _open($save_path = null, $session_name = null)
     {
-        $this->_memcache = Horde_Memcache::singleton();
-
         if (isset($this->_persistent)) {
             if (!$this->_persistent->open($save_path, $session_name)) {
                 throw new Horde_Exception('Could not open persistent backend.');

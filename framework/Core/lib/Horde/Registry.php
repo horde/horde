@@ -42,13 +42,6 @@ class Horde_Registry
     protected $_cache = array();
 
     /**
-     * The Horde_Cache object.
-     *
-     * @var Horde_Cache
-     */
-    protected $_cacheob;
-
-    /**
      * The last modified time of the newest modified registry file.
      *
      * @var integer
@@ -261,6 +254,11 @@ class Horde_Registry
             umask($conf['umask']);
         }
 
+        /* Setup injector. Need to init Horde_Memcache here because it may
+         * be called in setupSessionHandler(). */
+        $GLOBALS['injector'] = new Horde_Injector(new Horde_Injector_TopLevel());
+        $GLOBALS['injector']->addBinder('Horde_Memcache', new Horde_Core_Binder_Memcache());
+
         /* Start a session. */
         if ($session_flags & self::SESSION_NONE ||
             (PHP_SAPI == 'cli') ||
@@ -286,17 +284,8 @@ class Horde_Registry
         Horde_Nls::setTextdomain('horde', HORDE_BASE . '/locale', Horde_Nls::getCharset());
         Horde_String::setDefaultCharset(Horde_Nls::getCharset());
 
-        /* Check for caching availability. Using cache while not authenticated
-         * isn't possible because, although storage is possible, retrieval
-         * isn't since there is no MD5 sum in the session to use to build
-         * the cache IDs. */
-        if (Horde_Auth::getAuth()) {
-            try {
-                $this->_cacheob = Horde_Cache::singleton($conf['cache']['driver'], Horde::getDriverConfig('cache', $conf['cache']['driver']));
-            } catch (Horde_Exception $e) {
-                // @TODO Log error
-            }
-        }
+        /* Initialize caching. */
+        $GLOBALS['injector']->addBinder('Horde_Cache', new Horde_Core_Binder_Cache());
 
         $this->_regmtime = max(filemtime(HORDE_BASE . '/config/registry.php'),
                                filemtime(HORDE_BASE . '/config/registry.d'));
@@ -319,9 +308,7 @@ class Horde_Registry
             throw new Horde_Exception(_("This system is currently deactivated."));
         }
 
-        /* Set default bindings. */
-        $GLOBALS['injector'] = new Horde_Injector(new Horde_Injector_TopLevel());
-        $GLOBALS['injector']->addBinder('Horde_Cache', new Horde_Core_Binder_Cache());
+        /* Set the rest of the default bindings. */
         $GLOBALS['injector']->addBinder('Horde_Db_Adapter_Base', new Horde_Core_Binder_Db('reader'));
         $GLOBALS['injector']->addBinder('Horde_Log_Logger', new Horde_Core_Binder_Logger());
 
@@ -1376,18 +1363,25 @@ class Horde_Registry
      */
     protected function _saveCacheVar($name, $expire = false)
     {
-        if ($this->_cacheob) {
-            if ($expire) {
-                if ($id = $this->_getCacheId($name)) {
-                    $this->_cacheob->expire($id);
-                }
-            } else {
-                $data = serialize($this->_cache[$name]);
-                $_SESSION['_registry']['md5'][$name] = $md5sum = hash('md5', $data);
-                $id = $this->_getCacheId($name, false) . '|' . $md5sum;
-                if ($this->_cacheob->set($id, $data, 86400)) {
-                    Horde::logMessage('Horde_Registry: stored ' . $name . ' with cache ID ' . $id, __FILE__, __LINE__, PEAR_LOG_DEBUG);
-                }
+        /* Using cache while not authenticated isn't possible because,
+         * although storage is possible, retrieval isn't since there is no
+         * MD5 sum in the session to use to build the cache IDs. */
+        if (!Horde_Auth::getAuth()) {
+            return;
+        }
+
+        $ob = $GLOBALS['injector']->getInstance('Horde_Cache');
+
+        if ($expire) {
+            if ($id = $this->_getCacheId($name)) {
+                $ob->expire($id);
+            }
+        } else {
+            $data = serialize($this->_cache[$name]);
+            $_SESSION['_registry']['md5'][$name] = $md5sum = hash('md5', $data);
+            $id = $this->_getCacheId($name, false) . '|' . $md5sum;
+            if ($ob->set($id, $data, 86400)) {
+                Horde::logMessage('Horde_Registry: stored ' . $name . ' with cache ID ' . $id, __FILE__, __LINE__, PEAR_LOG_DEBUG);
             }
         }
     }
@@ -1405,9 +1399,12 @@ class Horde_Registry
             return true;
         }
 
-        if ($this->_cacheob &&
+        /* Using cache while not authenticated isn't possible because,
+         * although storage is possible, retrieval isn't since there is no
+         * MD5 sum in the session to use to build the cache IDs. */
+        if (Horde_Auth::getAuth() &&
             ($id = $this->_getCacheId($name))) {
-            $result = $this->_cacheob->get($id, 86400);
+            $result = $GLOBALS['injector']->getInstance('Horde_Cache')->get($id, 86400);
             if ($result !== false) {
                 $this->_cache[$name] = unserialize($result);
                 Horde::logMessage('Horde_Registry: retrieved ' . $name . ' with cache ID ' . $id, __FILE__, __LINE__, PEAR_LOG_DEBUG);
@@ -1482,15 +1479,11 @@ class Horde_Registry
                                      $calls['destroy'],
                                      $calls['gc']);
         } elseif ($type != 'none') {
-            $sh = Horde_SessionHandler::singleton($conf['sessionhandler']['type'], array_merge(Horde::getDriverConfig('sessionhandler', $conf['sessionhandler']['type']), array('memcache' => !empty($conf['sessionhandler']['memcache']))));
-            ini_set('session.save_handler', 'user');
-            session_set_save_handler(array($sh, 'open'),
-                                     array($sh, 'close'),
-                                     array($sh, 'read'),
-                                     array($sh, 'write'),
-                                     array($sh, 'destroy'),
-                                     array($sh, 'gc'));
-            $this->sessionHandler = $sh;
+            $sh_config = Horde::getDriverConfig('sessionhandler', $conf['sessionhandler']['type']);
+            if (!empty($conf['sessionhandler']['memcache'])) {
+                $sh_config['memcache'] = $GLOBALS['injector']->getInstance('Horde_Memcache');
+            }
+            $this->sessionHandler = Horde_SessionHandler::factory($conf['sessionhandler']['type'], $sh_config);
         }
     }
 

@@ -4,7 +4,8 @@
  * handlers.
  *
  * Optional parameters:<pre>
- *   'memcache' - (boolean) Use memcache to cache session data?
+ * 'memcache' - (Horde_Memcache) If set, uses memcache to cache session
+ *              data.
  * </pre>
  *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
@@ -18,13 +19,6 @@
  */
 class Horde_SessionHandler
 {
-    /**
-     * Singleton instances.
-     *
-     * @var array
-     */
-    static protected $_instances = array();
-
     /**
      * Hash containing connection parameters.
      *
@@ -74,10 +68,15 @@ class Horde_SessionHandler
             // Trap for old driver name.
             $driver = 'memcache';
         } elseif (($driver != 'memcache') && !empty($params['memcache'])) {
-            unset($params['memcache']);
-            $persistent_params = array('persistent_driver' => $driver, 'persistent_params' => $params);
+            $p_params = $params;
+            unset($p_params['memcache']);
+
+            $persistent_params = array(
+                'persistent_driver' => $driver,
+                'persistent_params' => $p_params
+            );
+
             $driver = 'memcache';
-            $params = array();
         }
 
         $class = __CLASS__ . '_' . ucfirst($driver);
@@ -93,32 +92,6 @@ class Horde_SessionHandler
     }
 
     /**
-     * Attempts to return a reference to a concrete Horde_SessionHandler
-     * instance based on $driver. It will only create a new instance
-     * if no Horde_SessionHandler instance with the same parameters
-     * currently exists.
-     *
-     * This method must be invoked as:
-     *   $var = Horde_SessionHandler::singleton()
-     *
-     * @param string $driver  See Horde_SessionHandler::factory().
-     * @param array $params   See Horde_SessionHandler::factory().
-     *
-     * @return Horde_SessionHandler  The singleton instance.
-     * @throws Horde_Exception
-     */
-    static public function singleton($driver, $params = array())
-    {
-        ksort($params);
-        $signature = hash('md5', serialize(array($driver, $params)));
-        if (empty(self::$_instances[$signature])) {
-            self::$_instances[$signature] = self::factory($driver, $params);
-        }
-
-        return self::$_instances[$signature];
-    }
-
-    /**
      * Constructor.
      *
      * @param array $params  A hash containing connection parameters.
@@ -128,7 +101,18 @@ class Horde_SessionHandler
     protected function __construct($params = array())
     {
         $this->_params = $params;
+
         register_shutdown_function(array($this, 'shutdown'));
+
+        ini_set('session.save_handler', 'user');
+        session_set_save_handler(
+            array($this, 'open'),
+            array($this, 'close'),
+            array($this, 'read'),
+            array($this, 'write'),
+            array($this, 'destroy'),
+            array($this, 'gc')
+        );
     }
 
     /**

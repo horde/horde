@@ -48,8 +48,11 @@ class Horde_Cache
             return new Horde_Cache_Null($params);
         }
 
-        $class = (empty($app) ? 'Horde' : $app) . '_Cache_' . ucfirst($driver);
+        if ($driver == 'memcache') {
+            $params['memcache'] = $GLOBALS['injector']->getInstance('Horde_Memcache');
+        }
 
+        $class = (empty($app) ? 'Horde' : $app) . '_Cache_' . ucfirst($driver);
         if (class_exists($class)) {
             return new $class($params);
         }
