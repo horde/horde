@@ -176,12 +176,13 @@ class Turba_Application extends Horde_Registry_Application
             }
         }
 
+        $out['sync_books_options'] = array();
         foreach (Turba::getAddressBooks() as $key => $curSource) {
             if (empty($curSource['map']['__uid'])) {
                 continue;
             }
             if (!empty($curSource['browse'])) {
-                $GLOBALS['_prefs']['sync_books']['enum'][$key] = $curSource['title'];
+                $out['sync_books_options'][$key] = $curSource['title'];
             }
             $sync_books = @unserialize($GLOBALS['prefs']->getValue('sync_books'));
             if (empty($sync_books)) {
