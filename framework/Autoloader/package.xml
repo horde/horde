@@ -31,7 +31,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Bug #7856: Allow underscores in pathname.
+ <notes>* Add ability to define callback to run when class is loaded.
+ * Bug #7856: Allow underscores in pathname.
  * Rename to Horde_Autoloader.
  </notes>
  <contents>

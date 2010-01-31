@@ -23,6 +23,13 @@ class Horde_Autoloader
     protected static $_includeCache = null;
 
     /**
+     * Callbacks.
+     *
+     * @var array
+     */
+    protected static $_callbacks = array();
+
+    /**
      * Autoload implementation automatically registered with
      * spl_autoload_register.
      *
@@ -50,7 +57,7 @@ class Horde_Autoloader
                         str_replace(array('\\', '_'), '/', substr($class, $matches[0][1] + strlen($matches[0][0])));
                 }
 
-                if (self::_loadClass($relativePath)) {
+                if (self::_loadClass($class, $relativePath)) {
                     return true;
                 }
             }
@@ -58,38 +65,51 @@ class Horde_Autoloader
 
         /* Do a final search in the include path. */
         $relativePath = str_replace(array('\\', '_'), '/', $class);
-        return self::_loadClass($relativePath);
+        return self::_loadClass($class, $relativePath);
     }
 
     /**
      * Try to load the class from each path in the include_path.
      *
-     * @param string $relativePath
+     * @param string $class         The loaded classname.
+     * @param string $relativePath  TODO
      */
-    protected static function _loadClass($relativePath)
+    protected static function _loadClass($class, $relativePath)
     {
+        $result = false;
+
         if (substr($relativePath, 0, 1) == '/') {
-            return self::_loadClassUsingAbsolutePath($relativePath);
-        }
+            $result = self::_loadClassUsingAbsolutePath($relativePath);
+        } else {
+            if (is_null(self::$_includeCache)) {
+                self::_cacheIncludePath();
+            }
 
-        if (is_null(self::$_includeCache)) {
-            self::_cacheIncludePath();
-        }
-
-        foreach (self::$_includeCache as $includePath) {
-            if (self::_loadClassUsingAbsolutePath($includePath . DIRECTORY_SEPARATOR . $relativePath)) {
-                return true;
+            foreach (self::$_includeCache as $includePath) {
+                if (self::_loadClassUsingAbsolutePath($includePath . DIRECTORY_SEPARATOR . $relativePath)) {
+                    $result = true;
+                    break;
+                }
             }
         }
 
-        return false;
+        if (!$result) {
+            return false;
+        }
+
+        $class = strtolower($class);
+        if (isset(self::$_callbacks[$class])) {
+            call_user_func(self::$_callbacks[$class]);
+        }
+
+        return true;
     }
 
     /**
      * Include a PHP file using an absolute path, suppressing E_WARNING and
      * E_DEPRECATED errors, but letting fatal/parse errors come through.
      *
-     * @param string $absolutePath
+     * @param string $absolutePath  TODO
      *
      * @TODO Remove E_DEPRECATED masking
      */
@@ -161,7 +181,21 @@ class Horde_Autoloader
         self::$_classPatterns[] = array($pattern, $replace);
     }
 
-    static function _cacheIncludePath()
+    /**
+     * Add a callback to run when a class is loaded through loadClass().
+     *
+     * @param string $class    The classname.
+     * @param mixed $callback  The callback to run when the class is loaded.
+     */
+    public static function addCallback($class, $callback)
+    {
+        self::$_callbacks[strtolower($class)] = $callback;
+    }
+
+    /**
+     * TODO
+     */
+    protected static function _cacheIncludePath()
     {
         self::$_includeCache = array();
         foreach (explode(PATH_SEPARATOR, get_include_path()) as $path) {
@@ -172,6 +206,7 @@ class Horde_Autoloader
             }
         }
     }
+
 }
 
 /* Register the autoloader in a way to play well with as many configurations
