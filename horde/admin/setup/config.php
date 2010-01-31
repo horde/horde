@@ -29,8 +29,7 @@ if (empty($app) || !in_array($app, $registry->listAllApps())) {
 
 $vars = Horde_Variables::getDefaultVariables();
 
-require_once 'Horde/Config.php';
-$form = new ConfigForm($vars, $app);
+$form = new Horde_Config_Form($vars, $app);
 $form->setButtons(sprintf(_("Generate %s Configuration"), $appname));
 if (file_exists($registry->get('fileroot', $app) . '/config/conf.bak.php')) {
     $form->appendButtons(_("Revert Configuration"));
