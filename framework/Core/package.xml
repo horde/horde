@@ -50,6 +50,11 @@ Application Framework.
     <dir name="Horde">
      <file name="Config.php" role="php" />
      <dir name="Core">
+      <dir name="Autoloader">
+       <dir name="Callback">
+        <dir name="Mime.php" role="php" />
+       </dir>
+      </dir>
       <dir name="Binder">
        <file name="Cache.php" role="php" />
        <file name="Db.php" role="php" />
@@ -140,6 +145,7 @@ Application Framework.
  <phprelease>
   <filelist>
    <install name="lib/Horde/Config.php" as="Horde/Config.php" />
+   <install name="lib/Horde/Core/Autoloader/Callback/Mime.php" as="Horde/Core/Autoloader/Callback/Mime.php" />
    <install name="lib/Horde/Core/Binder/Cache.php" as="Horde/Core/Binder/Cache.php" />
    <install name="lib/Horde/Core/Binder/Db.php" as="Horde/Core/Binder/Db.php" />
    <install name="lib/Horde/Core/Binder/Logger.php" as="Horde/Core/Binder/Logger.php" />

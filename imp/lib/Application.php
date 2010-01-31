@@ -106,10 +106,7 @@ class IMP_Application extends Horde_Registry_Application
             $GLOBALS['imp_imap'] = new IMP_Imap();
         }
 
-        // Initialize some message parsing variables.
-        Horde_Mime::$brokenRFC2231 = !empty($GLOBALS['conf']['mailformat']['brokenrfc2231']);
-
-        // Set default message character set, if necessary
+        // Set default message character set.
         if ($def_charset = $GLOBALS['prefs']->getValue('default_msg_charset')) {
             Horde_Mime_Part::$defaultCharset = $def_charset;
             Horde_Mime_Headers::$defaultCharset = $def_charset;

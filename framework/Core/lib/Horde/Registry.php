@@ -229,6 +229,9 @@ class Horde_Registry
      */
     protected function __construct($session_flags = 0)
     {
+        /* Set autoloader callbacks. */
+        Horde_Autoloader::addCallback('Horde_Mime', array('Horde_Core_Autoloader_Callback_Mime', 'callback'));
+
         /* Import and global Horde's configuration values. Almost a chicken
          * and egg issue - since loadConfiguration() uses registry in certain
          * instances. However, if HORDE_BASE is defined, and app is
