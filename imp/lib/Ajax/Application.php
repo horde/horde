@@ -1157,12 +1157,12 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
 
         $expunged = $GLOBALS['injector']->getInstance('IMP_Message')->expungeMailbox(array($vars->view => 1), array('list' => true));
 
-        if (empty($expunged[$mbox])) {
+        if (empty($expunged[$vars->view])) {
             return false;
         }
 
-        $expunge_count = count($expunged[$mbox]);
-        $display_folder = IMP::displayFolder($mbox);
+        $expunge_count = count($expunged[$vars->view]);
+        $display_folder = IMP::displayFolder($vars->view);
         if ($expunge_count == 1) {
             $GLOBALS['notification']->push(sprintf(_("1 message was purged from \"%s\"."), $display_folder), 'horde.success');
         } else {
