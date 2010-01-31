@@ -170,9 +170,8 @@ class Turba_Application extends Horde_Registry_Application
 
         /* Assign variables for select lists. */
         if (!$GLOBALS['prefs']->isLocked('default_dir')) {
-            require TURBA_BASE . '/config/sources.php';
             $out['default_dir_options'] = array();
-            foreach ($cfgSources as $key => $info) {
+            foreach ($GLOBALS['cfgSources'] as $key => $info) {
                 $out['default_dir_options'][$key] = $info['title'];
             }
         }
