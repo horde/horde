@@ -10,7 +10,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Notification
+ * @package IMP
  */
 class IMP_Notification_Listener_StatusMobile extends Horde_Notification_Listener_Mobile
 {

@@ -9,7 +9,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Eric Rostetter <eric.rostetter@physics.utexas.edu>
- * @package Horde_Mime
+ * @package IMP
  */
 class IMP_Horde_Mime_Viewer_Enriched extends Horde_Mime_Viewer_Enriched
 {

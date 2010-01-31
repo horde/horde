@@ -40,7 +40,7 @@
  *
  * @author  Tomas Simonaitis <haden@homelan.lt>
  * @author  Jan Schneider <jan@horde.org>
- * @package IMP_Quota
+ * @package IMP
  */
 class IMP_Quota_Sql extends IMP_Quota
 {

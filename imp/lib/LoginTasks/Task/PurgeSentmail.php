@@ -9,7 +9,7 @@
  *
  * @author  Michael Slusarz <slusarz@horde.org>
  * @author  Jan Schneider <jan@horde.org>
- * @package Horde_LoginTasks
+ * @package IMP
  */
 class IMP_LoginTasks_Task_PurgeSentmail extends Horde_LoginTasks_Task
 {

@@ -16,7 +16,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Michael Redinger <Michael.Redinger@uibk.ac.at>
- * @package IMP_Quota
+ * @package IMP
  */
 class IMP_Quota_Hook extends IMP_Quota
 {

@@ -10,7 +10,7 @@
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Mime
+ * @package IMP
  */
 class IMP_Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Zip
 {

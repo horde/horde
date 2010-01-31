@@ -9,7 +9,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Mime
+ * @package IMP
  */
 class IMP_Horde_Mime_Viewer_Rfc822 extends Horde_Mime_Viewer_Rfc822
 {

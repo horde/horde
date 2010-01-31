@@ -38,7 +38,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Frank Lupo <frank_lupo@email.it>
- * @package IMP_Quota
+ * @package IMP
  */
 class IMP_Quota_Mercury32 extends IMP_Quota
 {

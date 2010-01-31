@@ -21,7 +21,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Eric Rostetter <eric.rostetter@physics.utexas.edu>
- * @package IMP_Quota
+ * @package IMP
  */
 class IMP_Quota_Command extends IMP_Quota
 {

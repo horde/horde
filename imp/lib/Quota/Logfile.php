@@ -34,7 +34,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Tim Gorter <email@teletechnics.co.nz>
- * @package IMP_Quota
+ * @package IMP
  */
 class IMP_Quota_Logfile extends IMP_Quota
 {

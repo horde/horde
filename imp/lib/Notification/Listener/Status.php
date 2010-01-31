@@ -7,7 +7,7 @@
  * @author  Jan Schneider <jan@horde.org>
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Notification
+ * @package IMP
  */
 class IMP_Notification_Listener_Status extends Horde_Notification_Listener_Status
 {

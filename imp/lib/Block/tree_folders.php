@@ -5,7 +5,7 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @package Horde_Block
+ * @package IMP
  */
 
 $block_name = _("Menu Folder List");

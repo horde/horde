@@ -5,8 +5,8 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @package Horde_Block
  * @author  Michael Slusarz <slusarz@curecanti.org>
+ * @package IMP
  */
 class IMP_Block_Newmail extends Horde_Block
 {

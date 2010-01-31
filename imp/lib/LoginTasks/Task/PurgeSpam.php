@@ -9,7 +9,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Matt Selsky <selsky@columbia.edu>
- * @package Horde_LoginTasks
+ * @package IMP
  */
 class IMP_LoginTasks_Task_PurgeSpam extends Horde_LoginTasks_Task
 {

@@ -10,7 +10,7 @@
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Mime_Viewer
+ * @package IMP
  */
 class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
 {

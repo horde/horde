@@ -20,7 +20,7 @@
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Mime_Viewer
+ * @package IMP
  */
 class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
 {

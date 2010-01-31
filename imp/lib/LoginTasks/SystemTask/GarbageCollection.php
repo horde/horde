@@ -8,7 +8,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_LoginTasks
+ * @package IMP
  */
 class IMP_LoginTasks_SystemTask_GarbageCollection extends Horde_LoginTasks_SystemTask
 {

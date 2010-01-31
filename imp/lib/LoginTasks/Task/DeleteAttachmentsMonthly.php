@@ -6,7 +6,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Andrew Coleman <mercury@appisolutions.net>
- * @package Horde_LoginTasks
+ * @package IMP
  */
 class IMP_LoginTasks_Task_DeleteAttachmentsMonthly extends Horde_LoginTasks_Task
 {

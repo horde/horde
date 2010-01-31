@@ -11,7 +11,7 @@
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @package Horde_Mime
+ * @package IMP
  */
 class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
 {

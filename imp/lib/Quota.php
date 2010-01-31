@@ -9,7 +9,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @package IMP_Quota
+ * @package IMP
  */
 class IMP_Quota
 {

@@ -11,7 +11,7 @@
  * @author  Anil Madhavapeddy <anil@recoil.org>
  * @author  Jon Parise <jon@horde.org>
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Mime
+ * @package IMP
  */
 class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 {
