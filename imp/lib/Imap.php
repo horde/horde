@@ -72,9 +72,8 @@ class IMP_Imap
              * any login alerts received should be displayed to the user at
              * some point. We need to do an explicit grab of the alarms
              * right now. */
-            $notification = Horde_Notification::singleton();
             foreach ($this->_ob->alerts() as $alert) {
-                $notification->push($alert, 'horde.warning');
+                $GLOBALS['notification']->push($alert, 'horde.warning');
             }
 
             $_SESSION['imp']['imap_ob'][$_SESSION['imp']['server_key']] = serialize($this->_ob);

@@ -554,8 +554,7 @@ class IMP
      */
     static public function status()
     {
-        $notification = Horde_Notification::singleton();
-        $notification->notify(array('listeners' => array('status', 'audio')));
+        $GLOBALS['notification']->notify(array('listeners' => array('status', 'audio')));
     }
 
     /**

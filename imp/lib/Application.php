@@ -102,9 +102,7 @@ class IMP_Application extends Horde_Registry_Application
         }
 
         // Initialize global $imp_imap object.
-        if (!isset($GLOBALS['imp_imap'])) {
-            $GLOBALS['imp_imap'] = new IMP_Imap();
-        }
+        $GLOBALS['imp_imap'] = new IMP_Imap();
 
         // Set default message character set.
         if ($def_charset = $GLOBALS['prefs']->getValue('default_msg_charset')) {
@@ -607,8 +605,7 @@ class IMP_Application extends Horde_Registry_Application
 
         case 'delmove':
             if ($prefs->isDirty('use_vtrash')) {
-                $imp_search = new IMP_Search();
-                $imp_search->initialize(true);
+                $GLOBALS['imp_search']->initialize(true);
             }
             break;
 
@@ -620,8 +617,7 @@ class IMP_Application extends Horde_Registry_Application
 
         case 'server':
             if ($prefs->isDirty('use_vinbox')) {
-                $imp_search = new IMP_Search();
-                $imp_search->initialize(true);
+                $GLOBALS['imp_search']->initialize(true);
             }
 
             if ($prefs->isDirty('subscribe')) {
@@ -647,8 +643,7 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function prefsStatus()
     {
-        $notification = Horde_Notification::singleton();
-        $notification->replace('status', array('prefs' => true, 'viewmode' => 'dimp'), 'IMP_Notification_Listener_Status');
+        $GLOBALS['notification']->replace('status', array('prefs' => true, 'viewmode' => 'dimp'), 'IMP_Notification_Listener_Status');
     }
 
     /**

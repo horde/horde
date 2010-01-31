@@ -81,10 +81,7 @@ class Horde_Prefs_Ui
     static public function handleForm($group, $save, $app, $prefGroups,
                                       $_prefs)
     {
-        global $prefs;
-
-        $notification = Horde_Notification::singleton();
-        $registry = Horde_Registry::singleton();
+        global $notification, $prefs, $registry;
 
         $updated = false;
 
@@ -218,11 +215,7 @@ class Horde_Prefs_Ui
     static public function generateUI($app, $prefGroups, $_prefs,
                                       $group = null, $chunk = false)
     {
-        global $conf, $prefs;
-
-        $browser = Horde_Browser::singleton();
-        $notification = Horde_Notification::singleton();
-        $registry = Horde_Registry::singleton();
+        global $browser, $conf, $notification, $prefs, $registry;
 
         /* Check if any options are actually available. */
         if (is_null($prefGroups)) {
@@ -300,10 +293,7 @@ class Horde_Prefs_Ui
     static public function generateHeader($app, $prefGroups = null,
                                           $group = null, $chunk = false)
     {
-        global $perms, $prefs;
-
-        $notification = Horde_Notification::singleton();
-        $registry = Horde_Registry::singleton();
+        global $notification, $perms, $prefs, $registry;
 
         $title = _("User Options");
         if ($group == 'identities' && !$prefs->isLocked('default_identity')) {

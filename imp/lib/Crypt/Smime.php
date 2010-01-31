@@ -468,8 +468,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
     {
         /* Need to handle notifications inline, and need to set explicitly
          * since the popup window is not part of the preferences framework. */
-        $notification = Horde_Notification::singleton();
-        $notification->replace('status', array('prefs' => true, 'viewmode' => 'imp'), 'IMP_Notification_Listener_Status');
+        $GLOBALS['notification']->replace('status', array('prefs' => true, 'viewmode' => 'imp'), 'IMP_Notification_Listener_Status');
 
         $title = _("Import S/MIME Key");
         require IMP_TEMPLATES . '/common-header.inc';

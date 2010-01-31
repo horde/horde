@@ -337,13 +337,11 @@ class IMP_Auth
                 ? 'INBOX'
                 : $GLOBALS['prefs']->getValue('initial_page');
 
-            $imp_search = new IMP_Search();
-
             if (!$GLOBALS['prefs']->getValue('use_vinbox') &&
-                $imp_search->isVINBOXFolder($init_url)) {
+                $GLOBALS['imp_search']->isVINBOXFolder($init_url)) {
                 $init_url = 'folders.php';
-            } elseif (($imp_search->createSearchID($init_url) == $init_url) &&
-                      !$imp_search->isVFolder($init_url)) {
+            } elseif (($GLOBALS['imp_search']->createSearchID($init_url) == $init_url) &&
+                      !$GLOBALS['imp_search']->isVFolder($init_url)) {
                 $init_url = 'INBOX';
                 if (!$GLOBALS['prefs']->isLocked('initial_page')) {
                     $GLOBALS['prefs']->setValue('initial_page', $init_url);

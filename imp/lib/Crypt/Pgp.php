@@ -632,8 +632,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
     {
         /* Need to handle notifications inline, and need to set explicitly
          * since the popup window is not part of the preferences framework. */
-        $notification = Horde_Notification::singleton();
-        $notification->replace('status', array('prefs' => true, 'viewmode' => 'imp'), 'IMP_Notification_Listener_Status');
+        $GLOBALS['notification']->replace('status', array('prefs' => true, 'viewmode' => 'imp'), 'IMP_Notification_Listener_Status');
 
         $title = _("Import PGP Key");
         require IMP_TEMPLATES . '/common-header.inc';
