@@ -31,7 +31,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Added STATUS_LASTMODSEQ and STATUS_LASTMODSEQUIDS status() entries.
+ <notes>* Add Horde_Imap_Client_Base::parseCacheId().
+ * Added STATUS_LASTMODSEQ and STATUS_LASTMODSEQUIDS status() entries.
  * Add support for LIST-STATUS (draft-ietf-morg-status-in-list-01).
  * Add support for THREAD=REFS (draft-ietf-morg-inthread-00).
  * Add support for RFC 5258 (LIST-EXTENDED).

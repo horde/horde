@@ -833,8 +833,7 @@ class IMP_Mailbox
         if (!$this->_searchmbox) {
             $sortpref = IMP::getSort($this->_mailbox);
             try {
-                $id = $GLOBALS['imp_imap']->ob()->getCacheId($this->_mailbox);
-                return $id . '|' . $sortpref['by'] . '|' . $sortpref['dir'];
+                return $GLOBALS['imp_imap']->ob()->getCacheId($this->_mailbox, array($sortpref['by'], $sortpref['dir']));
             } catch (Horde_Imap_Client_Exception $e) {}
         }
 

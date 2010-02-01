@@ -2701,6 +2701,8 @@ abstract class Horde_Imap_Client_Base
      * Returns a unique identifier for the current mailbox status.
      *
      * @param string $mailbox  A mailbox. Either in UTF7-IMAP or UTF-8.
+     * @param array $addl      Additional cache info to add to the cache ID
+     *                         string.
      *
      * @return string  The cache ID string, which will change when the
      *                 composition of the mailbox changes. The uidvalidity
@@ -2708,35 +2710,74 @@ abstract class Horde_Imap_Client_Base
      *                 by the '|' character.
      * @throws Horde_Imap_Client_Exception
      */
-    public function getCacheId($mailbox)
+    public function getCacheId($mailbox, $addl = array())
     {
         $query = Horde_Imap_Client::STATUS_UIDVALIDITY;
 
         /* Use MODSEQ as cache ID if CONDSTORE extension is available. */
         if (isset($this->_init['enabled']['CONDSTORE'])) {
-            $condstore = true;
             $query |= Horde_Imap_Client::STATUS_HIGHESTMODSEQ;
         } else {
-            $condstore = false;
             $query |= Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_UIDNEXT;
         }
 
         $status = $this->status($mailbox, $query);
 
-        if ($condstore) {
-            return implode('|', array($status['uidvalidity'], $status['highestmodseq']));
+        if ($query & Horde_Imap_Client::STATUS_HIGHESTMODSEQ) {
+            $parts = array(
+                'V' . $status['uidvalidity'],
+                'H' . $status['highestmodseq']
+            );
+        } else {
+            if (empty($status['uidnext'])) {
+                /* UIDNEXT is not strictly required on mailbox open. If it is
+                 * not available, use the last UID in the mailbox instead. */
+                $this->_temp['nocache'] = true;
+                $search_res = $this->_getSeqUIDLookup(array($status['messages']), true);
+                unset($this->_temp['nocache']);
+                $status['uidnext'] = reset($search_res['uids']);
+            }
+
+            $parts = array(
+                'V' . $status['uidvalidity'],
+                'U' . $status['uidnext'],
+                'M' . $status['messages']
+            );
         }
 
-        if (empty($status['uidnext'])) {
-            /* UIDNEXT is not strictly required on mailbox open. If it is
-             * not available, use the last UID in the mailbox instead. */
-            $this->_temp['nocache'] = true;
-            $search_res = $this->_getSeqUIDLookup(array($status['messages']), true);
-            unset($this->_temp['nocache']);
-            $status['uidnext'] = reset($search_res['uids']);
+        return implode('|', array_merge($parts, $addl));
+    }
+
+    /**
+     * Parses a cacheID created by getCacheId().
+     *
+     * @param string $id  The cache ID.
+     *
+     * @return array  An array with the following information:
+     * <pre>
+     * 'highestmodseq' - (integer)
+     * 'messages' - (integer)
+     * 'uidnext' - (integer)
+     * 'uidvalidity' - (integer) Always present
+     * </pre>
+     */
+    public function parseCacheId($id)
+    {
+        $data = array(
+            'H' => 'highestmodseq',
+            'M' => 'messages',
+            'U' => 'uidnext',
+            'V' => 'uidvalidity'
+        );
+        $info = array();
+
+        foreach (explode('|', $id) as $part) {
+            if (isset($data[$part[0]])) {
+                $info[$data[$part[0]]] = intval(substr($part, 1));
+            }
         }
 
-        return implode('|', array($status['uidvalidity'], $status['uidnext'], $status['messages']));
+        return $info;
     }
 
     /**

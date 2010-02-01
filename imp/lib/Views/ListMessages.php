@@ -150,8 +150,8 @@ class IMP_Views_ListMessages
             $uid_expire = false;
             try {
                 $status = $GLOBALS['imp_imap']->ob()->status($mbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
-                list($old_uidvalid,) = explode('|', $args['cacheid']);
-                $uid_expire = ($old_uidvalid != $status['uidvalidity']);
+                $parsed = $GLOBALS['imp_imap']->ob()->parseCacheId($args['cacheid']);
+                $uid_expire = ($parsed['uidvalidity'] != $status['uidvalidity']);
             } catch (Horde_Imap_Cache_Exception $e) {
                 $uid_expire = true;
             }
@@ -181,10 +181,17 @@ class IMP_Views_ListMessages
                 /* Check for cached entries marked as changed via CONDSTORE
                  * IMAP extension. If changed, resend the entire entry to
                  * update the browser cache (done below). */
-                if ($args['change']) {
-                    $status = $GLOBALS['imp_imap']->ob()->status($mbox, Horde_Imap_Client::STATUS_LASTMODSEQUIDS);
-                    if (!empty($status['lastmodsequids'])) {
-                        $changed = array_flip($status['lastmodsequids']);
+                if ($args['change'] && $args['cacheid']) {
+                    if (!isset($parsed)) {
+                        $parsed = $GLOBALS['imp_imap']->ob()->parseCacheId($args['cacheid']);
+                    }
+                    if (!empty($parsed['highestmodseq'])) {
+                        try {
+                            $res = $GLOBALS['imp_imap']->ob()->fetch($mbox, array(Horde_Imap_Client::FETCH_UID => 1), array('changedsince' => $parsed['highestmodseq']));
+                            if (!empty($res)) {
+                                $changed = array_flip(array_keys($res));
+                            }
+                        } catch (Horde_Imap_Client_Exception $e) {}
                     }
                 }
             }
