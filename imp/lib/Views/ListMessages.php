@@ -262,7 +262,7 @@ class IMP_Views_ListMessages
         if (isset($result->update)) {
             if (($slice_start != 0) &&
                 ($slice_end != count($sorted_list['s']))) {
-                $uidlist = $this->_getUidList(0, count($sorted_list['s']), $sorted_list);
+                $uidlist = $this->_getUidList(1, count($sorted_list['s']), $sorted_list);
             }
 
             $disappear = array();
