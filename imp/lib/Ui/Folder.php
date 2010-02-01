@@ -23,8 +23,8 @@ class IMP_Ui_Folder
     /**
      * Create the tree images for a list of folder elements.
      *
-     * @params array $rows     Folder rows returned from IMP_Imap_Tree::build().
-     * @params array $options  Additional options:
+     * @param array $rows     Folder rows returned from IMP_Imap_Tree::build().
+     * @param array $options  Additional options:
      * <pre>
      * 'expand_url' - (Horde_Url) The URL to use for expand/collapse links.
      * </pre>
@@ -47,8 +47,8 @@ class IMP_Ui_Folder
     /**
      * Create a tree image from a folder element entry.
      *
-     * @params array $elt      An entry returned from IMP_Imap_Tree::element().
-     * @params array $options  See self::getTreeImages().
+     * @param array $elt      An entry returned from IMP_Imap_Tree::element().
+     * @param array $options  See self::getTreeImages().
      *
      * @return string  The image string.
      */
