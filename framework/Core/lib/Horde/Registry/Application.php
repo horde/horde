@@ -62,10 +62,14 @@ class Horde_Registry_Application
      * environment for the application.
      *
      * Global variables defined:
-     *   $notification - Notification object.
+     * <pre>
+     * $notification - Horde_Notification object.
+     * </pre>
      *
      * Global constants defined:
-     *   [APPNAME]_TEMPLATES - (string) Location of template files.
+     * <pre>
+     * [APPNAME]_TEMPLATES - (string) Location of template files.
+     * </pre>
      */
     public function init()
     {

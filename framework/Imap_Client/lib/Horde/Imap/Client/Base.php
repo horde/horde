@@ -1344,14 +1344,12 @@ abstract class Horde_Imap_Client_Base
      *             DEFAULT: false (results cached, if possible)
      * 'results' - (array) The data to return. Consists of zero or more of the
      *                     following flags:
-     * <pre>
      * Horde_Imap_Client::SORT_RESULTS_COUNT
      * Horde_Imap_Client::SORT_RESULTS_MATCH (DEFAULT)
      * Horde_Imap_Client::SORT_RESULTS_MAX
      * Horde_Imap_Client::SORT_RESULTS_MIN
      * Horde_Imap_Client::SORT_RESULTS_SAVE - (This option is currently meant
      *   for internal use only)
-     * </pre>
      * 'reverse' - (boolean) Sort the entire returned list of messages in
      *             reverse (i.e. descending) order.
      *             DEFAULT: Sorted in ascending order.
@@ -1360,7 +1358,6 @@ abstract class Horde_Imap_Client_Base
      * 'sort' - (array) Sort the returned list of messages. Multiple sort
      *          criteria can be specified. The following sort criteria
      *          are available:
-     * <pre>
      * Horde_Imap_Client::SORT_ARRIVAL
      * Horde_Imap_Client::SORT_CC
      * Horde_Imap_Client::SORT_DATE
@@ -1372,7 +1369,6 @@ abstract class Horde_Imap_Client_Base
      *  available:]
      * Horde_Imap_Client::SORT_DISPLAYFROM
      * Horde_Imap_Client::SORT_DISPLAYTO
-     * </pre>
      *          Additionally, any sort criteria can be sorted in reverse order
      *          (instead of the default ascending order) by adding a
      *          Horde_Imap_Client::SORT_REVERSE element to the array directly
