@@ -80,6 +80,13 @@ class Horde_Auth
     const NUMBERS = '0123456789';
 
     /**
+     * A Net_DNS_Resolver object to use to determine hostnames.
+     *
+     * @var Net_DNS_Resolver
+     */
+    static public $dnsResolver;
+
+    /**
      * Singleton instances.
      *
      * @var array
@@ -772,12 +779,9 @@ class Horde_Auth
             ? $_SERVER['REMOTE_ADDR']
             : $_SERVER['HTTP_X_FORWARDED_FOR'];
 
-        if (class_exists('Net_DNS')) {
-            $resolver = new Net_DNS_Resolver();
-            $resolver->retry = isset($GLOBALS['conf']['dns']['retry']) ? $GLOBALS['conf']['dns']['retry'] : 1;
-            $resolver->retrans = isset($GLOBALS['conf']['dns']['retrans']) ? $GLOBALS['conf']['dns']['retrans'] : 1;
+        if (!empty(self::$dnsResolver)) {
             $ptrdname = $host;
-            if ($response = $resolver->query($host, 'PTR')) {
+            if ($response = self::$dnsResolver->query($host, 'PTR')) {
                 foreach ($response->answer as $val) {
                     if (isset($val->ptrdname)) {
                         $ptrdname = $val->ptrdname;

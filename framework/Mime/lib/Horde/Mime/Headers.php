@@ -147,24 +147,26 @@ class Horde_Mime_Headers
     /**
      * Generate the 'Received' header for the Web browser->Horde hop
      * (attempts to conform to guidelines in RFC 5321 [4.4]).
+     *
+     * @param array $options  Additional options:
+     * <pre>
+     * 'dns' - (Net_DNS_Resolver) Use the DNS resolver object to lookup
+     *         hostnames.
+     *         DEFAULT: Use gethostbyaddr() function.
+     * 'server' - (string) Use this server name.
+     *            DEFAULT: Auto-detect using current PHP values.
+     * </pre>
      */
-    public function addReceivedHeader()
+    public function addReceivedHeader($options = array())
     {
-        $have_netdns = @include_once 'Net/DNS.php';
-        if ($have_netdns) {
-            $resolver = new Net_DNS_Resolver();
-            $resolver->retry = isset($GLOBALS['conf']['dns']['retry']) ? $GLOBALS['conf']['dns']['retry'] : 1;
-            $resolver->retrans = isset($GLOBALS['conf']['dns']['retrans']) ? $GLOBALS['conf']['dns']['retrans'] : 1;
-        }
-
         $old_error = error_reporting(0);
         if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
             /* This indicates the user is connecting through a proxy. */
             $remote_path = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
             $remote_addr = $remote_path[0];
-            if ($have_netdns) {
+            if (!empty($options['dns'])) {
                 $remote = $remote_addr;
-                if ($response = $resolver->query($remote_addr, 'PTR')) {
+                if ($response = $options['dns']->query($remote_addr, 'PTR')) {
                     foreach ($response->answer as $val) {
                         if (isset($val->ptrdname)) {
                             $remote = $val->ptrdname;
@@ -178,9 +180,9 @@ class Horde_Mime_Headers
         } else {
             $remote_addr = $_SERVER['REMOTE_ADDR'];
             if (empty($_SERVER['REMOTE_HOST'])) {
-                if ($have_netdns) {
+                if (!empty($options['dns'])) {
                     $remote = $remote_addr;
-                    if ($response = $resolver->query($remote_addr, 'PTR')) {
+                    if ($response = $options['dns']->query($remote_addr, 'PTR')) {
                         foreach ($response->answer as $val) {
                             if (isset($val->ptrdname)) {
                                 $remote = $val->ptrdname;
@@ -205,8 +207,8 @@ class Horde_Mime_Headers
             $remote_ident = '';
         }
 
-        if (!empty($GLOBALS['conf']['server']['name'])) {
-            $server_name = $GLOBALS['conf']['server']['name'];
+        if (!empty($options['server'])) {
+            $server_name = $options['server'];
         } elseif (!empty($_SERVER['SERVER_NAME'])) {
             $server_name = $_SERVER['SERVER_NAME'];
         } elseif (!empty($_SERVER['HTTP_HOST'])) {

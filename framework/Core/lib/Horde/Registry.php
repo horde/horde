@@ -230,7 +230,17 @@ class Horde_Registry
     protected function __construct($session_flags = 0)
     {
         /* Set autoloader callbacks. */
+        Horde_Autoloader::addCallback('Horde_Auth', array('Horde_Core_Autoloader_Callback_Auth', 'callback'));
         Horde_Autoloader::addCallback('Horde_Mime', array('Horde_Core_Autoloader_Callback_Mime', 'callback'));
+
+        /* Setup injector. */
+        $GLOBALS['injector'] = $injector = new Horde_Injector(new Horde_Injector_TopLevel());
+        $injector->addBinder('Horde_Cache', new Horde_Core_Binder_Cache());
+        $injector->addBinder('Horde_Db_Adapter_Base', new Horde_Core_Binder_Db('reader'));
+        $injector->addBinder('Horde_Log_Logger', new Horde_Core_Binder_Logger());
+        $injector->addBinder('Horde_Memcache', new Horde_Core_Binder_Memcache());
+        $injector->addBinder('Horde_Template', new Horde_Core_Binder_Template());
+        $injector->addBinder('Net_DNS_Resolver', new Horde_Core_Binder_Dns());
 
         /* Import and global Horde's configuration values. Almost a chicken
          * and egg issue - since loadConfiguration() uses registry in certain
@@ -257,11 +267,6 @@ class Horde_Registry
             umask($conf['umask']);
         }
 
-        /* Setup injector. Need to init Horde_Memcache here because it may
-         * be called in setupSessionHandler(). */
-        $GLOBALS['injector'] = new Horde_Injector(new Horde_Injector_TopLevel());
-        $GLOBALS['injector']->addBinder('Horde_Memcache', new Horde_Core_Binder_Memcache());
-
         /* Start a session. */
         if ($session_flags & self::SESSION_NONE ||
             (PHP_SAPI == 'cli') ||
@@ -287,9 +292,6 @@ class Horde_Registry
         Horde_Nls::setTextdomain('horde', HORDE_BASE . '/locale', Horde_Nls::getCharset());
         Horde_String::setDefaultCharset(Horde_Nls::getCharset());
 
-        /* Initialize caching. */
-        $GLOBALS['injector']->addBinder('Horde_Cache', new Horde_Core_Binder_Cache());
-
         $this->_regmtime = max(filemtime(HORDE_BASE . '/config/registry.php'),
                                filemtime(HORDE_BASE . '/config/registry.d'));
 
@@ -310,11 +312,6 @@ class Horde_Registry
         if ($this->applications['horde']['status'] == 'inactive') {
             throw new Horde_Exception(_("This system is currently deactivated."));
         }
-
-        /* Set the rest of the default bindings. */
-        $GLOBALS['injector']->addBinder('Horde_Db_Adapter_Base', new Horde_Core_Binder_Db('reader'));
-        $GLOBALS['injector']->addBinder('Horde_Log_Logger', new Horde_Core_Binder_Logger());
-        $GLOBALS['injector']->addBinder('Horde_Template', new Horde_Core_Binder_Template());
 
         /* Create the global permissions object. */
         // TODO: Remove(?)

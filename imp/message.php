@@ -245,14 +245,14 @@ if ($origin_host) {
         $origin_host = array($origin_host);
     }
     foreach ($origin_host as $host) {
-        $from_img .= Horde_Nls::generateFlagImageByHost($host) . ' ';
+        $from_img .= Horde_Nls::generateFlagImageByHost($host, $injector->getInstance('Net_DNS_Resolver')) . ' ';
     }
     trim($from_img);
 }
 
 if (empty($from_img) && !empty($envelope['from'])) {
     $from_ob = reset($envelope['from']);
-    $from_img = Horde_Nls::generateFlagImageByHost($from_ob['host']);
+    $from_img .= Horde_Nls::generateFlagImageByHost($from_ob['host'], $injector->getInstance('Net_DNS_Resolver')) . ' ';
 }
 
 if (!empty($from_img)) {

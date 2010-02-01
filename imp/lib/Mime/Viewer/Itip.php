@@ -322,7 +322,10 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                     $mime->addPart($ics);
 
                     // Build the reply headers.
-                    $msg_headers->addReceivedHeader();
+                    $msg_headers->addReceivedHeader(array(
+                        'dns' => $GLOBALS['injector']->getInstance('Net_DNS_Resolver'),
+                        'server' => $GLOBALS['conf']['server']['name']
+                    ));
                     $msg_headers->addMessageIdHeader();
                     $msg_headers->addHeader('Date', date('r'));
                     $msg_headers->addHeader('From', $email);
@@ -422,7 +425,10 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                     $mime->addPart($ics);
 
                     // Build the reply headers.
-                    $msg_headers->addReceivedHeader();
+                    $msg_headers->addReceivedHeader(array(
+                        'dns' => $GLOBALS['injector']->getInstance('Net_DNS_Resolver'),
+                        'server' => $GLOBALS['conf']['server']['name']
+                    ));
                     $msg_headers->addMessageIdHeader();
                     $msg_headers->addHeader('Date', date('r'));
                     $msg_headers->addHeader('From', $email);

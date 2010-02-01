@@ -474,14 +474,16 @@ class Horde_Nls
     /**
      * Get country information from a hostname or IP address.
      *
-     * @param string $host  The hostname or IP address.
+     * @param string $host           The hostname or IP address.
+     * @param Net_DNS_Resolver $dns  A DNS resolver object used to look up the
+     *                               hostname.
      *
      * @return mixed  On success, return an array with the following entries:
      *                'code'  =>  Country Code
      *                'name'  =>  Country Name
      *                On failure, return false.
      */
-    static public function getCountryByHost($host)
+    static public function getCountryByHost($host, $dns = null)
     {
         /* List of generic domains that we know is not in the country TLD
            list. See: http://www.iana.org/gtld/gtld.htm */
@@ -492,20 +494,15 @@ class Horde_Nls
 
         $checkHost = $host;
         if (preg_match('/^\d+\.\d+\.\d+\.\d+$/', $host)) {
-            if (class_exists('Net_DNS')) {
-                $resolver = new Net_DNS_Resolver();
-                $resolver->retry = isset($GLOBALS['conf']['dns']['retry']) ? $GLOBALS['conf']['dns']['retry'] : 1;
-                $resolver->retrans = isset($GLOBALS['conf']['dns']['retrans']) ? $GLOBALS['conf']['dns']['retrans'] : 1;
-                if ($response = $resolver->query($host, 'PTR')) {
-                    foreach ($response->answer as $val) {
-                        if (isset($val->ptrdname)) {
-                            $checkHost = $val->ptrdname;
-                            break;
-                        }
+            if (is_null($dns)) {
+                $checkHost = @gethostbyaddr($host);
+            } elseif ($response = $dns->query($host, 'PTR')) {
+                foreach ($response->answer as $val) {
+                    if (isset($val->ptrdname)) {
+                        $checkHost = $val->ptrdname;
+                        break;
                     }
                 }
-            } else {
-                $checkHost = @gethostbyaddr($host);
             }
         }
 
@@ -557,13 +554,15 @@ class Horde_Nls
     /**
      * Returns a Horde image link to the country flag.
      *
-     * @param string $host  The hostname or IP address.
+     * @param string $host           The hostname or IP address.
+     * @param Net_DNS_Resolver $dns  A DNS resolver object used to look up the
+     *                               hostname.
      *
      * @return string  The image URL, or the empty string on error.
      */
-    static public function generateFlagImageByHost($host)
+    static public function generateFlagImageByHost($host, $dns = null)
     {
-        $data = self::getCountryByHost($host);
+        $data = self::getCountryByHost($host, $dns);
         if ($data === false) {
             return '';
         }

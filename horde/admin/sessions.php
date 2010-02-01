@@ -55,7 +55,7 @@ try {
             } else {
                 $host = @gethostbyaddr($data['remoteAddr']);
             }
-            $entry[_("Remote Host:")] = $host . ' [' . $data['remoteAddr'] . '] ' . Horde_Nls::generateFlagImageByHost($host);
+            $entry[_("Remote Host:")] = $host . ' [' . $data['remoteAddr'] . '] ' . Horde_Nls::generateFlagImageByHost($host, $injector->getInstance('Net_DNS_Resolver'));
         }
 
         echo '<li><div class="sesstoggle">' . $plus . $minus . htmlspecialchars($data['userid']) . ' [' . htmlspecialchars($id) . ']'

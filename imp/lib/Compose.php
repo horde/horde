@@ -493,7 +493,10 @@ class IMP_Compose
         $headers = new Horde_Mime_Headers();
 
         /* Add a Received header for the hop from browser to server. */
-        $headers->addReceivedHeader();
+        $headers->addReceivedHeader(array(
+            'dns' => $GLOBALS['injector']->getInstance('Net_DNS_Resolver'),
+            'server' => $GLOBALS['conf']['server']['name']
+        ));
         $headers->addMessageIdHeader();
 
         /* Add priority header, if requested. */
