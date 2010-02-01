@@ -802,21 +802,30 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      * AJAX action: Generate data necessary to display preview message.
      *
      * @param Horde_Variables $vars  See the list of variables needed for
-     *                               _checkUidvalidity(). Additional variables
-     *                               used:
+     *                               _changed() and _checkUidvalidity().
+     *                               Additional variables used:
      * <pre>
      * 'uid' - (string) Index of the messages to preview (IMAP sequence
      *         string) - must be single index.
      * </pre>
      *
-     * @return mixed  False on failure, or an object with the 'preview'
-     *                property containing the return value from
-     *                IMP_View_ShowMessage::showMessage().
+     * @return mixed  False on failure, or an object with the following
+     *                entries:
+     * <pre>
+     * 'preview' - (object) Return from IMP_View_ShowMessage::showMessage().
+     * 'ViewPort' - (object) See _viewPortData(). (Only returns updatecacheid
+     *                       entry - don't do mailbox poll here).
+     * </pre>
      */
     public function ShowPreview($vars)
     {
         $indices = $GLOBALS['imp_imap']->ob()->utils->fromSequenceString($vars->uid);
         if (count($indices) != 1) {
+            return false;
+        }
+
+        $change = $this->_changed($vars, $indices);
+        if (is_null($change)) {
             return false;
         }
 
@@ -838,6 +847,14 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             $result->preview = (object)$show_msg->showMessage($args);
             if (isset($result->preview->error)) {
                 $result = $this->_checkUidvalidity($vars, $result);
+            } elseif (!$change) {
+                /* Only update cacheid info if it changed. */
+                $cacheid = IMP_Mailbox::singleton($vars->view)->getCacheID($vars->view);
+                if ($cacheid != $vars->cacheid) {
+                    $result->ViewPort = new stdClass;
+                    $result->ViewPort->updatecacheid = $cacheid;
+                    $result->ViewPort->view = $vars->view;
+                }
             }
         } catch (Horde_Imap_Client_Exception $e) {
             $result->preview->error = $e->getMessage();

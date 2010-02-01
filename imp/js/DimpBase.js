@@ -1134,7 +1134,7 @@ var DimpBase = {
             if (this.ppfifo.indexOf(pp_uid) != -1) {
                   // There is a chance that the message may have been marked
                   // as unseen since first being viewed. If so, we need to
-                  // explicitly flag as seen here.
+                  // explicitly flag as seen here. TODO?
                 if (!this.hasFlag('\\seen', data)) {
                     this.flag('\\seen', true);
                 }
@@ -1144,7 +1144,7 @@ var DimpBase = {
 
         this.loadingImg('msg', true);
 
-        DimpCore.doAction('ShowPreview', params || {}, { uids: this.viewport.createSelection('dataob', this.pp), callback: this._loadPreviewCallback.bind(this) });
+        DimpCore.doAction('ShowPreview', this.viewport.addRequestParams(params || {}), { uids: this.viewport.createSelection('dataob', this.pp), callback: this._loadPreviewCallback.bind(this) });
     },
 
     _loadPreviewCallback: function(resp)
