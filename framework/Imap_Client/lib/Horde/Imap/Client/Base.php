@@ -290,6 +290,10 @@ abstract class Horde_Imap_Client_Base
     {
         if (!isset($this->_init['capability'])) {
             $this->_init['capability'] = $this->_capability();
+
+            if (!empty($this->_params['capability_ignore'])) {
+                $this->_init['capability'] = array_diff_key($this->_init['capability'], array_flip($this->_params['capability_ignore']));
+            }
         }
 
         return $this->_init['capability'];

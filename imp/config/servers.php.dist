@@ -169,6 +169,14 @@
  * *** you are doing! FOR MOST PEOPLE, AUTO-DETECTION OF THESE PARAMETERS  ***
  * *** (the default if the parameters are not set) SHOULD BE USED!         ***
  *
+ * capability_ignore: (array) A list of IMAP capabilites to ignore, even if
+ *                    they are supported on the server. This capability names
+ *                    should be in all capitals. This option may be useful,
+ *                    for example, if it is known that a certain capability is
+ *                    buggy on the given server.  Otherwise, all available
+ *                    and supported IMAP capabilities will be (and should be)
+ *                    used. (IMAP only)
+ *
  * comparator: (string) The search comparator to use instead of the default
  *             IMAP server comparator. See RFC 4790 [3.1] - "collation-id" -
  *             for the format. Your IMAP server must support the I18NLEVEL

@@ -31,6 +31,9 @@
  *                + Horde_Imap_Client::FETCH_STRUCTURE
  *   lifetime - [OPTIONAL] (integer) The lifetime of the cache data (in secs).
  *   slicesize - [OPTIONAL] (integer) The slicesize to use.
+ * capability_ignore - (array) A list of IMAP capabilites to ignore, even if
+ *                     they are supported on the server.
+ *                     DEFAULT: No supported capabilities are ignored
  * comparator - (string) The search comparator to use instead of the default
  *              IMAP server comparator. See
  *              Horde_Imap_Client_Base::setComparator() for the format.

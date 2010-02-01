@@ -181,6 +181,7 @@ class IMP_Imap
             : 'imap';
 
         $imap_config = array(
+            'capability_ignore' => empty($server['capability_ignore']) ? array() : $server['capability_ignore'],
             'comparator' => empty($server['comparator']) ? false : $server['comparator'],
             'debug' => isset($server['debug']) ? $server['debug'] : null,
             'hostspec' => isset($server['hostspec']) ? $server['hostspec'] : null,
