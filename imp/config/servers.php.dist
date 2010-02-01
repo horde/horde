@@ -131,6 +131,14 @@
  *        of a Horde_Cache driver in Horde. Will be disabled on any empty
  *        value and enabled on any non-false value.
  *
+ *        Caching is HIGHLY RECOMMENDED. There is no reason not to cache if
+ *        the IMAP server supports the CONDSTORE and/or QRESYNC IMAP
+ *        extensions. If the server does not support these extensions, any
+ *        flags changed by another mail agent while the IMP sesssion is active
+ *        will not be updated. If IMP will be the exclusive method of
+ *        accessing the IMAP server, or you do not care about this behvaior,
+ *        caching should be enabled on these servers.
+ *
  *        The following optional configuration items are available:
  *          'compress' - (string) Should the contents of the cache files be
  *                       compressed before they are stored? This results in
@@ -142,7 +150,7 @@
  *                       installation of a separate PECL module and provides
  *                       less compression but is extremely fast (within 5% of
  *                       regular string operations).  If available, 'lzf' is
- *                       highly RECOMMENDED.
+ *                       HIGHLY RECOMMENDED.
  *          'lifetime' - (integer) The lifetime, in seconds, of the cached
  *                       data.
  *          'slicesize' - (integer) The number of messages stored in each
