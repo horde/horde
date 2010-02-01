@@ -139,6 +139,12 @@
   </configsection>
  </configtab>
 
+ <configsection name="print">
+  <configheader>Print Options</configheader>
+  <configboolean name="add_printedby" desc="Should we add a &quot;Printed
+  By&quot; header to the top of all printed messages?">false</configboolean>
+ </configsection>
+
  <configtab name="compose" desc="Compose">
   <configsection name="msg">
    <configboolean name="prepend_header" desc="Should we include the contents of

@@ -701,8 +701,9 @@ class IMP_Contents
         }
 
         /* Add print link? */
-        if ($mask && self::SUMMARY_PRINT) {
-            $part['print'] = $this->linkViewJS($mime_part, 'view_attach', '', array('css' => 'printAtc', 'onload' => 'IMP.printWindow', 'jstext' => _("Print"), 'params' => $param_array));
+        if (($mask && self::SUMMARY_PRINT) &&
+            $this->canDisplay($id, self::RENDER_FULL)) {
+            $part['print'] = $this->linkViewJS($mime_part, 'print_attach', '', array('css' => 'printAtc', 'jstext' => _("Print"), 'onload' => 'IMP.printWindow', 'params' => $param_array, 'print' => true));
         }
 
         /* Strip Attachment? Allow stripping of base parts other than the
@@ -808,6 +809,8 @@ class IMP_Contents
      *            fully loaded.
      * 'params' - (array) A list of any additional parameters that need to be
      *            passed to view.php. (key = name)
+     * 'print' - (boolean) Generate link to print page?
+     *           DEFAULT: Link to view page.
      * 'widget' - (boolean) If true use Horde::widget() to generate,
      *            Horde::link() otherwise.
      * </pre>
@@ -825,7 +828,7 @@ class IMP_Contents
             $options['jstext'] = sprintf(_("View %s"), $mime_part->getDescription(true));
         }
 
-        $url = Horde::popupJs(Horde::applicationUrl('view.php'), array('menu' => true, 'onload' => empty($options['onload']) ? '' : $options['onload'], 'params' => $this->_urlViewParams($mime_part, $actionID, isset($options['params']) ? $options['params'] : array()), 'urlencode' => true)) . 'return false;';
+        $url = Horde::popupJs(Horde::applicationUrl(empty($options['print']) ? 'view.php' : 'print.php'), array('menu' => true, 'onload' => empty($options['onload']) ? '' : $options['onload'], 'params' => $this->_urlViewParams($mime_part, $actionID, isset($options['params']) ? $options['params'] : array()), 'urlencode' => true)) . 'return false;';
 
         return empty($options['widget'])
             ? Horde::link('#', $options['jstext'], empty($options['css']) ? null : $options['css'], null, $url) . $text . '</a>'
