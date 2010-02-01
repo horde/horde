@@ -1645,10 +1645,11 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      *
      * @return object  An object with the following entries:
      * <pre>
-     * 'deleted' - (object) TODO:
-     *   folder
-     *   remove
-     *   uids
+     * 'deleted' - (object) Contains the following properties:
+     *   mbox - (string) The current mailbox.
+     *   remove - (integer) True if messages should be removed from the
+     *            viewport.
+     *   uids - (string) The list of messages to delete.
      * 'ViewPort' - (object) See _viewPortData().
      * 'poll' - (array) Mailbox names as the keys, number of unseen messages
      *          as the values.
@@ -1658,7 +1659,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
                                              $nothread = false)
     {
         $del = new stdClass;
-        $del->folder = $vars->view;
+        $del->mbox = $vars->view;
         $del->uids = $GLOBALS['imp_imap']->ob()->utils->toSequenceString($indices, array('mailbox' => true));
         $del->remove = intval($GLOBALS['prefs']->getValue('hide_deleted') ||
                               $GLOBALS['prefs']->getValue('use_trash'));

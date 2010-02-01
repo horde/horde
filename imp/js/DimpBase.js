@@ -2236,7 +2236,7 @@ var DimpBase = {
         this.loadingImg('viewport', false);
 
         r = r.deleted;
-        if (!r.uids || r.folder != this.folder) {
+        if (!r.uids || r.mbox != this.folder) {
             return;
         }
         r.uids = DimpCore.parseRangeString(r.uids);
