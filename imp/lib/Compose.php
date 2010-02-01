@@ -1074,6 +1074,7 @@ class IMP_Compose
             $textpart = new Horde_Mime_Part();
             $textpart->setType('multipart/alternative');
             $textpart->addPart($textBody);
+            $textpart->setHeaderCharset($charset);
 
             if (empty($options['nofinal'])) {
                 /* Any image links will be downloaded and appended to the
