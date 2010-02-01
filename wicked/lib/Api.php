@@ -31,7 +31,7 @@ class Wicked_Api extends Horde_Registry_Api
      *
      * @return array  An array of all available pages.
      */
-    public function list($special = true, $no_cache = false)
+    public function listPages($special = true, $no_cache = false)
     {
         return $GLOBALS['wicked']->getPages($special, $no_cache);
     }
