@@ -56,6 +56,8 @@ class Horde_DOM_Document extends Horde_DOM_Node {
         if (isset($doc->error)) {
             return $doc->error;
         }
+
+        return $doc;
     }
 
     /**
