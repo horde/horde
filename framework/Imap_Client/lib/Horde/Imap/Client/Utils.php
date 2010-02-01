@@ -78,6 +78,9 @@ class Horde_Imap_Client_Utils
                     }
                 } else {
                     $out[] = $first . ':' . $last;
+                    if ($last != $val) {
+                        $out[] = $val;
+                    }
                 }
                 $first = $last = $val;
             }
