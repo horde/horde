@@ -1663,7 +1663,8 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      * </pre>
      * @param boolean $rw            Open mailbox as READ+WRITE?
      *
-     * @return boolean  True if the cache information has changed.
+     * @return boolean  True if the server state differs from the browser
+     *                  state.
      */
     protected function _changed($vars, $rw = null)
     {
@@ -1674,8 +1675,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
 
         /* We know we are going to be dealing with this mailbox, so select it
          * on the IMAP server (saves some STATUS calls). */
-        if (!is_null($rw) &&
-            !$GLOBALS['imp_search']->isSearchMbox($vars->view)) {
+        if (!is_null($rw)) {
             try {
                 $GLOBALS['imp_imap']->ob()->openMailbox($vars->view, $rw ? Horde_Imap_Client::OPEN_READWRITE : Horde_Imap_Client::OPEN_AUTO);
             } catch (Horde_Imap_Client_Exception $e) {
@@ -1684,8 +1684,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             }
         }
 
-        $imp_mailbox = IMP_Mailbox::singleton($vars->view);
-        return ($imp_mailbox->getCacheID($vars->view) != $vars->cacheid);
+        return (IMP_Mailbox::singleton($vars->view)->getCacheID($vars->view) != $vars->cacheid);
     }
 
     /**
