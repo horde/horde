@@ -2084,7 +2084,7 @@ abstract class Horde_Imap_Client_Base
                             if (!empty($uids)) {
                                 $this->_fetch(array(Horde_Imap_Client::FETCH_FLAGS => true), array('changedsince' => $metadata['HICmodseq'], 'ids' => $uids));
                             }
-                            $this->_updateMetaData($this->_selected, $status_res['highestmodseq'], $status_res['uidvalidity']);
+                            $this->_updateMetaData($this->_selected, array('HICmodseq' => $status_res['highestmodseq']), $status_res['uidvalidity']);
                         }
                     }
 

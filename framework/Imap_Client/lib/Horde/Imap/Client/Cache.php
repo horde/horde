@@ -338,7 +338,7 @@ class Horde_Imap_Client_Cache
      *                           data. The following labels are reserved:
      *                           'uidvalid'.
      */
-    public function setMetaData($mailbox, $uidvalid, $data = array())
+    public function setMetaData($mailbox, $uidvalid, array $data = array())
     {
         if (!empty($data)) {
             unset($data['uidvalid']);
