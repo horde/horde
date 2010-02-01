@@ -594,15 +594,15 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      * AJAX action: Flag messages.
      *
      * @param Horde_Variables $vars  See the list of variables needed for
-     *                               _checkUidvalidity(). Additional variables
-     *                               used:
+     *                               _changed() and _checkUidvalidity().
+     *                               Additional variables used:
      * <pre>
      * 'flags' - (string) The flags to set (JSON serialized array).
      * 'uid' - (string) Indices of the messages to flag (IMAP sequence
      *         string).
      * </pre>
      *
-     * @return mixed  True on success, on failure an object with these
+     * @return mixed  False on failure, or an object with the following
      *                entries:
      * <pre>
      * 'ViewPort' - (object) See _viewPortData().
@@ -615,8 +615,13 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             return false;
         }
 
+        $change = $this->_changed($vars, true);
+
+        if (is_null($change)) {
+            return false;
+        }
+
         $flags = Horde_Serialize::unserialize($vars->flags, Horde_Serialize::JSON);
-        $result = false;
         $set = $notset = array();
 
         foreach ($flags as $val) {
@@ -635,9 +640,19 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             $result = $GLOBALS['injector']->getInstance('IMP_Message')->flag($notset, $indices, false);
         }
 
-        return $result
-            ? true
-            : $this->_checkUidvalidity($vars);
+        if ($result) {
+            $result = new stdClass;
+            if ($change) {
+                $result->ViewPort = $this->_viewPortData($vars, true);
+            } else {
+                $result->ViewPort = new stdClass;
+                $result->ViewPort->updatecacheid = IMP_Mailbox::singleton($vars->view)->getCacheID($vars->view);
+                $result->ViewPort->view = $vars->view;
+            }
+            return $result;
+        }
+
+        return $this->_checkUidvalidity($vars);
     }
 
     /**
@@ -1625,8 +1640,6 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
     protected function _generateDeleteResult($vars, $indices, $change,
                                              $nothread = false)
     {
-        $imp_mailbox = IMP_Mailbox::singleton($vars->view);
-
         $del = new stdClass;
         $del->folder = $vars->view;
         $del->uids = $GLOBALS['imp_imap']->ob()->utils->toSequenceString($indices, array('mailbox' => true));
@@ -1646,7 +1659,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             $result->ViewPort = $this->_viewPortData($vars, true);
         } else {
             $result->ViewPort = new stdClass;
-            $result->ViewPort->updatecacheid = $imp_mailbox->getCacheID($vars->view);
+            $result->ViewPort->updatecacheid = IMP_Mailbox::singleton($vars->view)->getCacheID($vars->view);
             $result->ViewPort->view = $vars->view;
         }
 

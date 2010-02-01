@@ -2785,7 +2785,7 @@ var DimpBase = {
 
         this.updateFlag(vs, flag, set);
         if (!opts.noserver) {
-            DimpCore.doAction('FlagMessages', { flags: flags.toJSON(), view: this.folder }, { uids: vs });
+            DimpCore.doAction('FlagMessages', this.viewport.addRequestParams({ flags: flags.toJSON(), view: this.folder }), { uids: vs });
         }
     },
 
