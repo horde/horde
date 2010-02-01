@@ -159,11 +159,24 @@ while (true) {
                 $cli->message('Mailbox: ' . $cli->green($mbox));
                 $cli->message('Cached messages: ' . count($res) . ' [' . $ob->utils->toSequenceString($res) . ']');
 
-                $total_size = 0;
+                $gzip_size = $lzf_size = $total_size = 0;
                 foreach ($ob->cache->get($mbox, $res, null) as $val) {
-                    $total_size += strlen(serialize($val));
+                    $data = serialize($val);
+                    $total_size += strlen($data);
+                    if (Horde_Serialize::hasCapability(Horde_Serialize::GZ_COMPRESS)) {
+                        $gzip_size += strlen(Horde_Serialize::serialize($data, Horde_Serialize::GZ_COMPRESS));
+                    }
+                    if (Horde_Serialize::hasCapability(Horde_Serialize::LZF)) {
+                        $lzf_size += strlen(Horde_Serialize::serialize($data, Horde_Serialize::LZF));
+                    }
                 }
                 $cli->message('Approximate size (bytes): ' . $total_size);
+                if (!empty($gzip_size)) {
+                    $cli->message('Approximate size - GZIP (bytes): ' . $gzip_size . ' [' . $cli->red(100 - round($gzip_size / $total_size * 100, 1) . '% savings') . ']');
+                }
+                if (!empty($lzf_size)) {
+                    $cli->message('Approximate size - LZF (bytes): ' . $lzf_size . ' [' . $cli->red(100 - round($lzf_size / $total_size * 100, 1) . '% savings') . ']');
+                }
 
                 if ($res = $ob->cache->getMetaData($mbox)) {
                     try {
@@ -201,7 +214,17 @@ while (true) {
             $cli->writeln();
             $cli->message(sprintf('Message information [%s:%d]', $mbox, $uid));
             $cli->message('Cached fields: ' . implode(', ', array_keys($res[$uid])));
-            $cli->message('Approximate size (bytes): ' . strlen(serialize($res[$uid])));
+
+            $data = serialize($res[$uid]);
+            $cli->message('Approximate size (bytes): ' . strlen($data));
+            if (Horde_Serialize::hasCapability(Horde_Serialize::GZ_COMPRESS)) {
+                $gzip_size = strlen(Horde_Serialize::serialize($data, Horde_Serialize::GZ_COMPRESS));
+                $cli->message('Approximate size - GZIP (bytes): ' . $gzip_size . ' [' . $cli->red(100 - round($gzip_size / $total_size * 100, 1) . '% savings]') . '');
+            }
+            if (Horde_Serialize::hasCapability(Horde_Serialize::LZF)) {
+                $lzf_size += strlen(Horde_Serialize::serialize($data, Horde_Serialize::LZF));
+                $cli->message('Approximate size - LZF (bytes): ' . $lzf_size . ' [' . $cli->red(100 -round($lzf_size / $total_size * 100, 1) . '% savings') . ']');
+            }
 
             if ($action == 5) {
                 $cli->writeln();
@@ -229,7 +252,7 @@ while (true) {
             $cli->writeln();
             foreach ($mbox_list as $val) {
                 $ob->cache->deleteMailbox($val);
-                $cli->message('Deleted cache: ' . $val), 'cli.success');
+                $cli->message('Deleted cache: ' . $val, 'cli.success');
             }
         }
         break;
