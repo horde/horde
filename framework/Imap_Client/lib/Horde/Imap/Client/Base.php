@@ -2951,7 +2951,7 @@ abstract class Horde_Imap_Client_Base
             $metadata = $this->cache->getMetaData($mailbox, $uidvalid, array('HICmodseq'));
             if (!isset($metadata['HICmodseq']) ||
                 ($metadata['HICmodseq'] != $modseq)) {
-                $this->_temp['lastmodseq'][$mailbox] = $metadata['HICmodseq'];
+                $this->_temp['lastmodseq'][$mailbox] = isset($metadata['HICmodseq']) ? $metadata['HICmodseq'] : 0;
                 if (count($tocache)) {
                     $this->_temp['lastmodsequids'][$mailbox] = $this->utils->toSequenceString(array_keys($tocache), array('nosort' => true));
                 }
