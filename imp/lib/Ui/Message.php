@@ -114,7 +114,7 @@ class IMP_Ui_Message
         /* Send out the MDN now. */
         try {
             $mail_driver = IMP_Compose::getMailDriver();
-            $mdn->generate(false, $confirmed, 'displayed', $mail_driver['driver'], $mail_driver['params']);
+            $mdn->generate(false, $confirmed, 'displayed', $GLOBALS['conf']['server']['name'], $mail_driver['driver'], $mail_driver['params']);
             IMP_Maillog::log('mdn', $msg_id, 'displayed');
             $success = true;
 

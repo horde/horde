@@ -125,6 +125,7 @@ class Horde_Mime_Mdn
      * 'displayed'
      * 'deleted'
      * </pre>
+     * @param string $name        The name of the local server.
      * @param string $maildriver  The mail driver used to send the message.
      * @param array $mailparams   Any parameters the mail driver may need.
      * @param array $mod          The list of modifications.
@@ -139,7 +140,7 @@ class Horde_Mime_Mdn
      *
      * @throws Horde_Mime_Exception
      */
-    public function generate($action, $sending, $type, $maildriver,
+    public function generate($action, $sending, $type, $name, $maildriver,
                              $mailparams = array(), $mod = array(),
                              $err = array())
     {
@@ -200,7 +201,7 @@ class Horde_Mime_Mdn
 
         /* The second part is a machine-parseable description. */
         $part_two = new Horde_Mime_Part('message/disposition-notification');
-        $part_two_text = array('Reporting-UA: ' . $GLOBALS['conf']['server']['name'] . '; ' . $ua . "\n");
+        $part_two_text = array('Reporting-UA: ' . $name . '; ' . $ua . "\n");
         if (!empty($orig_recip)) {
             $part_two_text[] = 'Original-Recipient: rfc822;' . $orig_recip . "\n";
         }
