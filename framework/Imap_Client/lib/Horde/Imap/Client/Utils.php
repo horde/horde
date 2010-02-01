@@ -136,7 +136,9 @@ class Horde_Imap_Client_Utils
         while (list(,$val) = each($idarray)) {
             $range = explode(':', $val);
             if (isset($range[1])) {
-                $ids = array_merge($ids, range(min($range), max($range)));
+                for ($i = min($range), $j = max($range); $i <= $j; ++$i) {
+                    $ids[] = $i;
+                }
             } else {
                 $ids[] = $val;
             }
