@@ -1613,7 +1613,10 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      *
      * @return object  An object with the following entries:
      * <pre>
-     * 'deleted' - (object) See _generateDeleteResult().
+     * 'deleted' - (object) TODO:
+     *   folder
+     *   remove
+     *   uids
      * 'ViewPort' - (object) See _viewPortData().
      * 'poll' - (array) Mailbox names as the keys, number of unseen messages
      *          as the values.
@@ -1629,7 +1632,6 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         $del->uids = $GLOBALS['imp_imap']->ob()->utils->toSequenceString($indices, array('mailbox' => true));
         $del->remove = intval($GLOBALS['prefs']->getValue('hide_deleted') ||
                               $GLOBALS['prefs']->getValue('use_trash'));
-        $del->cacheid = $imp_mailbox->getCacheID($vars->view);
 
         $result = new stdClass;
         $result->deleted = $del;
@@ -1642,6 +1644,10 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
 
         if ($change) {
             $result->ViewPort = $this->_viewPortData($vars, true);
+        } else {
+            $result->ViewPort = new stdClass;
+            $result->ViewPort->updatecacheid = $imp_mailbox->getCacheID($vars->view);
+            $result->ViewPort->view = $vars->view;
         }
 
         $poll = $this->_getPollInformation($vars->view);

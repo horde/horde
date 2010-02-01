@@ -190,6 +190,9 @@
  * totalrows: (integer) Total number of rows in the view.
  * update [optional]: (integer) If set, update the rowlist instead of
  *                    overwriting it.
+ * updatecacheid [optional]: (string) If set, simply update the cacheid with
+ *                           the new value. Indicates that the browser
+ *                           contains the up-to-date version of the cache.
  * view: (string) The view ID of the request.
  *
  *
@@ -391,7 +394,7 @@ var ViewPort = Class.create({
     },
 
     // vs = (Viewport_Selection) A Viewport_Selection object.
-    // opts = (object) TODO [cacheid, noupdate, view]
+    // opts = (object) TODO [noupdate, view]
     remove: function(vs, opts)
     {
         if (!vs.size()) {
@@ -412,10 +415,6 @@ var ViewPort = Class.create({
             vsize = visible.size();
 
         this.deselect(vs);
-
-        if (opts.cacheid) {
-            this._getBuffer(opts.view).setMetaData({ cacheid: opts.cacheid }, true);
-        }
 
         // If we have visible elements to remove, only call refresh after
         // the last effect has finished.
@@ -807,7 +806,9 @@ var ViewPort = Class.create({
             this.opts.container.fire('ViewPort:endFetch', r.view);
         }
 
-        if (!Object.isUndefined(r.cacheid)) {
+        if (!Object.isUndefined(r.updatecacheid)) {
+            this._getBuffer(r.view).setMetaData({ cacheid: r.updatecacheid }, true);
+        } else if (!Object.isUndefined(r.cacheid)) {
             this._ajaxResponse(r);
         }
     },
