@@ -312,8 +312,19 @@ class IMP_Compose
 
         /* Add the message to the mailbox. */
         try {
+            if ($this->getMetadata('autodraft')) {
+                $old_uid = $this->getMetadata('draft_uid');
+            }
+
             $ids = $GLOBALS['imp_imap']->ob()->append($drafts_mbox, array(array('data' => $data, 'flags' => $append_flags, 'messageid' => $headers->getValue('message-id'))));
+
+            if ($old_uid) {
+                $idx_array = array($old_uid . IMP::IDX_SEP . IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true));
+                $GLOBALS['injector']->getInstance('IMP_Message')->delete($idx_array, array('nuke' => true));
+            }
+
             $this->_metadata['draft_uid'] = reset($ids);
+            $this->_metadata['autodraft'] = true;
             $this->_modified = true;
             return sprintf(_("The draft has been saved to the \"%s\" folder."), IMP::displayFolder($drafts_mbox));
         } catch (Horde_Imap_Client_Exception $e) {
