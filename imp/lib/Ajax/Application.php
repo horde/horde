@@ -294,8 +294,14 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         }
 
         $folder_list = array();
-        foreach (Horde_Serialize::unserialize($vars->mboxes, Horde_Serialize::JSON) as $val) {
-            $folder_list += $imptree->folderList($mask, $val);
+        if (!empty($vars->mboxes)) {
+            foreach (Horde_Serialize::unserialize($vars->mboxes, Horde_Serialize::JSON) as $val) {
+                $folder_list += $imptree->folderList($mask, $val);
+            }
+
+            if ($vars->initial && empty($folder_list)) {
+                $folder_list = $imptree->folderList($mask, 'INBOX');
+            }
         }
 
         /* Add special folders explicitly to the initial folder list, since
