@@ -1844,7 +1844,7 @@ class Turba_Driver
     {
         static $countries;
         if (!isset($countries)) {
-            include 'Horde/NLS/countries.php';
+            include 'Horde/Nls/Countries.php';
         }
 
         return isset($countries[$country]) ? $countries[$country] : $country;
