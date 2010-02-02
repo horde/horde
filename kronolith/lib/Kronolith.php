@@ -611,14 +611,15 @@ class Kronolith
                           'sec' => $next->sec));
             }
         } else {
+            /* Event only occurs once. */
             if (!$coverDates) {
                 $results[$event->start->dateString()][$event->id] = $json ? $event->toJson() : $event;
             } else {
-                /* Event only occurs once. */
                 $allDay = $event->isAllDay();
 
                 /* Work out what day it starts on. */
-                if ($event->start->compareDateTime($startDate) < 0) {
+                if ($startDate &&
+                    $event->start->compareDateTime($startDate) < 0) {
                     /* It started before the beginning of the period. */
                     $eventStart = clone $startDate;
                 } else {
@@ -626,7 +627,8 @@ class Kronolith
                 }
 
                 /* Work out what day it ends on. */
-                if ($event->end->compareDateTime($endDate) > 0) {
+                if ($endDate &&
+                    $event->end->compareDateTime($endDate) > 0) {
                     /* Ends after the end of the period. */
                     if (is_object($endDate)) {
                         $eventEnd = clone $endDate;
