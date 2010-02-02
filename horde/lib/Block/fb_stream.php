@@ -241,7 +241,7 @@ EOF;
             // Parse any attachments
             if (!empty($post['attachment'])) {
                 $html .= '<div class="fbattachment">';
-                if (count($post['attachment']['media'])) {
+                if (!empty($post['attachment']['media']) && count($post['attachment']['media'])) {
                     $html .= '<div class="fbmedia' . (count($post['attachment']['media']) > 1 ? ' fbmediawide' : '') . '">';
                     // Decide what mediaitem css class to use for padding and
                     // display the media items.
