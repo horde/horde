@@ -1471,8 +1471,9 @@ var DimpBase = {
             if (this.pollPE) {
                 this.pollPE.stop();
             }
-            // Don't cache - this code is only run once.
-            this.pollPE = new PeriodicalExecuter(this.poll.bind(this), DIMP.conf.refresh_time);
+            // Run in anonymous function, or else PeriodicalExecuter passes
+            // in itself as first ('force') parameter to poll().
+            this.pollPE = new PeriodicalExecuter(function() { this.poll(); }.bind(this), DIMP.conf.refresh_time);
         }
     },
 
