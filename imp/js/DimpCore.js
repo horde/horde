@@ -219,9 +219,8 @@ var DimpCore = {
             case 'imp.redirect':
                 this.Growler.growl(m.message, {
                     className: m.type.replace('.', '-'),
-                    life: 8,
-                    log: log,
-                    sticky: m.type == 'horde.error'
+                    life: (m.type == 'horde.error' ? 12 : 8),
+                    log: log
                 });
             }
         }, this);

@@ -1682,13 +1682,6 @@ var DimpBase = {
         }
     },
 
-    /* Growler handler */
-    alertsloglinkUpdate: function()
-    {
-        var lsize = DimpCore.Growler.logSize();
-        $('alertsloglink').down('A').update((DimpCore.Growler.logVisible() ? DIMP.text.hidealog : DIMP.text.showalog) + (lsize ? (' (' + DimpCore.Growler.logSize() + ')') : ''));
-    },
-
     /* Keydown event handler */
     keydownHandler: function(e)
     {
@@ -1973,7 +1966,7 @@ var DimpBase = {
 
             case 'alertsloglink':
                 DimpCore.Growler.toggleLog();
-                this.alertsloglinkUpdate();
+                $('alertsloglink').down('A').update(DimpCore.Growler.logVisible() ? DIMP.text.hidealog : DIMP.text.showalog);
                 break;
 
             case 'applyfilterlink':
@@ -3158,9 +3151,6 @@ DimpCore.clickHandler = DimpCore.clickHandler.wrap(DimpBase.clickHandler.bind(Di
 /* ContextSensitive handlers. */
 DimpCore.contextOnClick = DimpCore.contextOnClick.wrap(DimpBase.contextOnClick.bind(DimpBase));
 DimpCore.contextOnShow = DimpCore.contextOnShow.wrap(DimpBase.contextOnShow.bind(DimpBase));
-
-/* Growler listener. */
-document.observe('Growler:created', DimpBase.alertsloglinkUpdate.bind(DimpBase));
 
 /* Extend AJAX exception handling. */
 DimpCore.doActionOpts.onException = DimpCore.doActionOpts.onException.wrap(DimpBase.onAjaxException.bind(DimpBase));
