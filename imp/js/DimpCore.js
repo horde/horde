@@ -108,24 +108,11 @@ var DimpCore = {
         params = $H(params);
         opts = opts || {};
 
-        var b,
-            ajaxopts = Object.extend(this.doActionOpts, opts.ajaxopts || {}),
-            tmp = {};
+        var ajaxopts = Object.extend(this.doActionOpts, opts.ajaxopts || {});
 
         if (opts.uids) {
             if (opts.uids.viewport_selection) {
-                b = opts.uids.getBuffer();
-                if (b.getMetaData('search')) {
-                    opts.uids.get('dataob').each(function(r) {
-                        if (!tmp[r.view]) {
-                            tmp[r.view] = [];
-                        }
-                        tmp[r.view].push(r.imapuid);
-                    });
-                } else {
-                    tmp[b.getView()] = opts.uids.get('uid');
-                }
-                opts.uids = tmp;
+                opts.uids = this.selectionToRange(opts.uids);
             }
             params.set('uid', this.toRangeString(opts.uids));
         }
@@ -134,6 +121,25 @@ var DimpCore = {
         ajaxopts.onComplete = function(t, o) { this.doActionComplete(t, opts.callback); }.bind(this);
 
         new Ajax.Request(DIMP.conf.URI_AJAX + action, ajaxopts);
+    },
+
+    selectionToRange: function(s)
+    {
+        var b = s.getBuffer(),
+            tmp = {};
+
+        if (b.getMetaData('search')) {
+            s.get('dataob').each(function(r) {
+                if (!tmp[r.view]) {
+                    tmp[r.view] = [];
+                }
+                tmp[r.view].push(r.imapuid);
+            });
+        } else {
+            tmp[b.getView()] = s.get('uid');
+        }
+
+        return tmp;
     },
 
     // params - (Hash)

@@ -172,10 +172,10 @@ class IMP_Views_ListMessages
         /* Get the cached list. */
         $cached = $changed = array();
         if (!empty($args['cache'])) {
+            $cached = $GLOBALS['imp_imap']->ob()->utils->fromSequenceString($args['cache']);
             if ($is_search) {
-                $cached = array_flip(Horde_Serialize::unserialize($args['cache'], Horde_Serialize::JSON));
+                $cached = array_flip($cached);
             } else {
-                $cached = $GLOBALS['imp_imap']->ob()->utils->fromSequenceString($args['cache']);
                 $cached = array_flip(reset($cached));
 
                 /* Check for cached entries marked as changed via CONDSTORE

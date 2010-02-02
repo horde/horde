@@ -491,20 +491,13 @@ var DimpBase = {
                 DimpCore.doActionComplete(o);
             },
             onCachedList: function(id) {
-                var tmp, vs;
                 if (!this.cacheids[id]) {
-                    vs = this.viewport.getSelection(id);
+                    var vs = this.viewport.getSelection(id);
                     if (!vs.size()) {
                         return '';
                     }
 
-                    if (vs.getBuffer().getMetaData('search')) {
-                        this.cacheids[id] = vs.get('uid').toJSON();
-                    } else {
-                        tmp = {};
-                        tmp[id] = vs.get('uid').clone();
-                        this.cacheids[id] = DimpCore.toRangeString(tmp);
-                    }
+                    this.cacheids[id] = DimpCore.toRangeString(DimpCore.selectionToRange(vs));
                 }
                 return this.cacheids[id];
             }.bind(this),
