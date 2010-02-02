@@ -2,10 +2,20 @@
 /**
  * Dynamic (dimp) compose display page.
  *
+ * <pre>
  * List of URL parameters:
- *   'popup' - Explicitly mark window as popup. Needed if compose page is
- *             opened from a page other than the base DIMP page.
- *   TODO
+ * -----------------------
+ * 'bcc' - TODO
+ * 'cc' - TODO
+ * 'folder'
+ * 'identity' - TODO
+ * 'popup' - Explicitly mark window as popup. Needed if compose page is
+ *           opened from a page other than the base DIMP page.
+ * 'subject' - TODO
+ * 'type' - TODO
+ * 'to' - TODO
+ * 'uid' - TODO
+ * </pre>
  *
  * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
  *
@@ -41,7 +51,7 @@ if (!$prefs->isLocked('default_identity')) {
 }
 
 /* Initialize the IMP_Compose:: object. */
-$imp_compose = IMP_Compose::singleton(Horde_Util::getFormData('composeCache'));
+$imp_compose = IMP_Compose::singleton();
 
 /* Init IMP_Ui_Compose:: object. */
 $imp_ui = new IMP_Ui_Compose();
@@ -75,7 +85,7 @@ case 'reply':
 case 'reply_all':
 case 'reply_auto':
 case 'reply_list':
-    $reply_msg = $imp_compose->replyMessage($type, $imp_contents, Horde_Util::getFormData('to'));
+    $reply_msg = $imp_compose->replyMessage($type, $imp_contents, $header['to']);
     $msg = $reply_msg['body'];
     $header = $reply_msg['headers'];
     $header['replytype'] = 'reply';
