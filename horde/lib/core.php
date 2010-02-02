@@ -52,6 +52,3 @@ set_exception_handler(array('Horde', 'fatal'));
 if (defined('E_DEPRECATED')) {
     set_error_handler(array('Horde', 'logDeprecated'), E_DEPRECATED);
 }
-
-/* Browser detection object. */
-$browser = Horde_Browser::singleton();

@@ -152,7 +152,7 @@ class Horde_Registry
         $s_ctrl = 0;
         switch ($args['session_control']) {
         case 'netscape':
-            if ($GLOBALS['browser']->isBrowser('mozilla')) {
+            if (Horde_Browser::singleton()->isBrowser('mozilla')) {
                 session_cache_limiter('private, must-revalidate');
             }
             break;
@@ -241,6 +241,9 @@ class Horde_Registry
         $injector->addBinder('Horde_Memcache', new Horde_Core_Binder_Memcache());
         $injector->addBinder('Horde_Template', new Horde_Core_Binder_Template());
         $injector->addBinder('Net_DNS_Resolver', new Horde_Core_Binder_Dns());
+
+        /* Initialize browser object. */
+        $GLOBALS['browser'] = Horde_Browser::singleton();
 
         /* Import and global Horde's configuration values. Almost a chicken
          * and egg issue - since loadConfiguration() uses registry in certain
