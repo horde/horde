@@ -225,10 +225,7 @@
                 return;
             }
 
-            var tmp = this.growlerlog.down('DIV'),
-                v = !tmp.visible();
-
-            Effect.toggle(tmp, 'blind', {
+            Effect.toggle(this.growlerlog.down('DIV'), 'blind', {
                 duration: 0.5,
                 queue: {
                     position: 'end',
@@ -237,7 +234,19 @@
                 }
             });
 
-            return v;
+            this.logvisible = !this.logvisible;
+        },
+
+        logVisible: function()
+        {
+            return this.growlerlog && this.logvisible;
+        },
+
+        logSize: function()
+        {
+            return (this.growlerlog && this.growlerlog.down('.NoAlerts'))
+                ? 0
+                : this.growlerlog.down('UL').childElements().size();
         }
 
     });
