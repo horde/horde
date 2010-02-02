@@ -317,7 +317,7 @@ class Horde_Registry
         }
 
         /* Create the global permissions object. */
-        // TODO: Remove(?)
+        // TODO: Convert to using Horde_Injector
         $GLOBALS['perms'] = Horde_Perms::singleton();
     }
 

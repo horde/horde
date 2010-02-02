@@ -5,35 +5,53 @@
  * This configuration file is used by Horde to determine which Horde
  * applications are installed and where, as well as how they interact.
  *
+ * General Configuration Information
+ * ---------------------------------
+ * The __FILE__ constant used below is the filsystem path to the current file.
+ * dirname() strips off the filename and turns it into just a directory.
+ * By default, locations are relative to this configuration file - which is
+ * almost always what is desired.
+ *
+ * _() is an alias for gettext(), which translates the string into other
+ * languages.
+ *
  * Application registry
  * --------------------
  * The following settings register installed Horde applications.
  * By default, Horde assumes that the application directories live
  * inside the horde directory.
  *
- * Attribute     Type     Description
- * ---------     ----     -----------
- * fileroot      string   The base filesystem path for the module's files.
- * webroot       string   The base URI for the module.
- * jsuri         string   The base URI for static javascript files.
- * jsfs          string   The base filesystem path for static javascript files.
- * themesuri     string   The base URI for the themes. This can be used to
- *                        serve all icons and style sheets from a separate
- *                        server.
- * themesfs      string   The base file system directory for the themes.
- * icon          string   The URI for an icon to show in menus for the module.
- *                        Setting this will override the default theme-based
- *                        logic in the code.
- * name          string   The name used in menus and descriptions for a module
- * status        string   'inactive', 'hidden', 'notoolbar', 'heading',
- *                        'block', 'admin', or 'active'.
- * provides      string   Service types the module provides.
- * initial_page  string   The initial (default) page (filename) for the module.
- * templates     string   The filesystem path to the templates directory.
- * menu_parent   string   The name of the 'heading' group that this app should
- *                        show up under.
- * target        string   The (optional) target frame for the link.
- * url           string   The (optional) URL of 'heading' entries.
+ * fileroot: (string) The base filesystem path for the module's files.
+ * name: (string) The human-readable name used in menus and descriptions for
+ *       a module.
+ * initial_page: (string) The initial (default) page (filename) for the
+ *               module.
+ * menu_parent: (string) The name of the 'heading' group that this app should
+ *              show up under. This can be left out or set to null for
+ *              top-level items.
+ * status: (string) 'inactive', 'hidden', 'notoolbar', 'heading',
+ *         'block', 'admin', or 'active'.
+ * webroot: (string) The base URI path for the module.
+ *          Usually the default should be fine (applications will occur one
+ *          level below the horde directory). However, this setting is useful
+ *          if you want to give an application its own domain.
+ *
+ * Settings that probably should not be changed from the defaults unless you
+ * REALLY know what you are doing:
+ *
+ * icon: (string) The URI for an icon to show in menus for the module.
+ *                Setting this will override the default theme-based logic in
+ *                the code.
+ * jsfs: (string) The base filesystem path for static javascript files.
+ * jsuri: (string) The base URI for static javascript files.
+ * provides: (mixed) Service types the module provides.
+ * target: (string) The target frame for the link.
+ * templates: (string) The filesystem path to the templates directory.
+ * themesfs: (string) The base file system directory for the themes.
+ * themesuri: (string) The base URI for the themes. This can be used to serve
+ *                     all icons and style sheets from a separate server.
+ * url: (string) The URL of 'heading' entries.
+ *
  *
  * $Id$
  */
