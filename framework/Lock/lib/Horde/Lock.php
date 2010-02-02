@@ -29,7 +29,7 @@ class Horde_Lock
      *
      * @return Horde_Lock    Instance of Horde_Lock
      */
-    public function __construct($params)
+    public function __construct($params = array())
     {
         $this->_params = $params;
         return $this;
