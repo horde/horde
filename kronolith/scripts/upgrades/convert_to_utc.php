@@ -9,7 +9,7 @@ require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('kronolith', array('authentication' => 'none', 'cli' => true));
 
 /* Prepare DB stuff. */
-PEAR::staticPushErrorHandling(PEAR_ERROR_DIE);
+PEAR::pushErrorHandling(PEAR_ERROR_CALLBACK, create_function('$e', 'echo $e->toString()."\n";exit;'));
 $db = DB::connect($conf['sql']);
 $result = $db->query('SELECT event_title, event_id, event_creator_id, event_start, event_end, event_allday, event_recurenddate FROM ' . $conf['calendar']['params']['table'] . ' ORDER BY event_creator_id');
 $stmt = $db->prepare('UPDATE kronolith_events SET event_start = ?, event_end = ?, event_recurenddate = ? WHERE event_id = ?');
