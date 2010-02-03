@@ -306,7 +306,6 @@ a.button {
 }
 
 pre, code, .fixed, table.lineNumbered * {
-    font-size: 100%;
     font-family: Menlo,Consolas,"Lucida Console","DejaVu Sans Mono",monospace;
 }
 

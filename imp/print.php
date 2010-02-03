@@ -27,9 +27,9 @@ Horde_Registry::appInit('imp', array('session_control' => 'readonly'));
 $vars = Horde_Variables::getDefaultVariables();
 
 /* Bug #8708 - Mozilla can't print multipage data in frames. No choice but
- * to output just the data with no header information. */
+ * to output headers and data on same page. */
 if ($browser->isBrowser('mozilla')) {
-    $vars->mode = 'content';
+    $vars->mode = 'headers';
 }
 
 switch ($vars->mode) {
@@ -42,16 +42,6 @@ case 'headers':
     $contents = IMP_Contents::singleton($vars->uid . IMP::IDX_SEP . $vars->mailbox);
 
     switch ($vars->mode) {
-    case 'content':
-        $render = $contents->renderMIMEPart($vars->id, IMP_Contents::RENDER_FULL);
-        if (!empty($render)) {
-            reset($render);
-            $key = key($render);
-            $browser->downloadHeaders($render[$key]['name'], $render[$key]['type'], true, strlen($render[$key]['data']));
-            echo $render[$key]['data'];
-        }
-        break;
-
     case 'headers':
         $imp_ui = new IMP_Ui_Message();
         $basic_headers = $imp_ui->basicHeaders();
@@ -77,12 +67,56 @@ case 'headers':
         }
 
         $t = $injector->createInstance('Horde_Template');
-        $t->set('css', Horde_Util::bufferOutput(array('Horde', 'includeStylesheetFiles')));
-
         $t->set('headers', $headers);
 
-        echo $t->fetch(IMP_TEMPLATES . '/print/headers.html');
+        if (!$browser->isBrowser('mozilla')) {
+            $t->set('css', Horde_Util::bufferOutput(array('Horde', 'includeStylesheetFiles')));
+            echo $t->fetch(IMP_TEMPLATES . '/print/headers.html');
+            break;
+        }
+
+        $elt = DOMDocument::loadHTML($t->fetch(IMP_TEMPLATES . '/print/headers.html'))->getElementById('headerblock');
+        $elt->removeAttribute('id');
+
+        if ($elt->hasAttribute('class')) {
+            $selectors = array('body');
+            foreach (explode(' ', $elt->getAttribute('class')) as $val) {
+                if (strlen($val = trim($val))) {
+                    $selectors[] = '.' . $val;
+                }
+            }
+
+            $css = '';
+            foreach (Horde::getStylesheets() as $val) {
+                $css .= file_get_contents($val['f']);
+            }
+
+            if ($style = Horde_Text_Filter::filter($css, 'csstidy', array('ob' => true))->filterBySelector($selectors)) {
+                $elt->setAttribute('style', ($elt->hasAttribute('style') ? rtrim($elt->getAttribute('style'), ' ;') . ';' : '') . $style);
+            }
+        }
+
+        $elt->removeAttribute('class');
+
+        // Fall-through
+
+    case 'content':
+        $render = $contents->renderMIMEPart($vars->id, IMP_Contents::RENDER_FULL);
+        if (!empty($render)) {
+            reset($render);
+            $key = key($render);
+            $browser->downloadHeaders($render[$key]['name'], $render[$key]['type'], true, strlen($render[$key]['data']));
+            if ($browser->isBrowser('mozilla')) {
+                $doc = DOMDocument::loadHTML($render[$key]['data']);
+                $bodyelt = $doc->getElementsByTagName('body')->item(0);
+                $bodyelt->insertBefore($doc->importNode($elt, true), $bodyelt->firstChild);
+                echo $doc->saveHTML();
+            } else {
+                echo $render[$key]['data'];
+            }
+        }
         break;
+
     }
     break;
 
