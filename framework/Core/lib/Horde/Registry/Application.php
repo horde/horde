@@ -82,9 +82,8 @@ class Horde_Registry_Application
             }
 
             $GLOBALS['notification'] = Horde_Notification::singleton();
-            $this->_initNotification($GLOBALS['notification']);
-
             $this->_init();
+            $this->_initNotification($GLOBALS['notification']);
         }
     }
 
