@@ -29,7 +29,7 @@ $action = strtolower(Horde_Util::getFormData('a'));
 switch ($source) {
 case 'vfs':
     /* Change app if needed to get the right VFS config. */
-    $changed_conf = $registry->pushApp($app_conf);
+    $pushed = $registry->pushApp($app_conf);
 
     /* Getting a file from Horde's VFS. */
     $vfs = VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs', $conf['vfs']['type']));
@@ -41,7 +41,7 @@ case 'vfs':
     }
 
     /* Return the original app if changed previously. */
-    if ($changed_conf) {
+    if ($pushed) {
         $registry->popApp($app_conf);
     }
     break;

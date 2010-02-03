@@ -86,37 +86,38 @@ class Horde_Block_Collection
                 continue;
             }
 
-            try {
-                $pushed = $GLOBALS['registry']->pushApp($app);
-            } catch (Horde_Exception $e) {
-                continue;
-            }
-
             $blockdir = $GLOBALS['registry']->get('fileroot', $app) . '/lib/Block';
-            $dh = @opendir($blockdir);
-            if (is_resource($dh)) {
-                while (($file = readdir($dh)) !== false) {
-                    if (substr($file, -4) == '.php') {
-                        $block_name = null;
-                        $block_type = null;
-                        if (is_readable($blockdir . '/' . $file)) {
-                            include_once $blockdir . '/' . $file;
-                        }
-                        if (!is_null($block_type) && !is_null($this->_type) &&
-                            $block_type != $this->_type) {
-                            continue;
-                        }
-                        if (!empty($block_name)) {
-                            $this->_blocks[$app][substr($file, 0, -4)]['name'] = $block_name;
-                        }
+            if (file_exists($blockdir)) {
+                try {
+                    $pushed = $GLOBALS['registry']->pushApp($app);
+                } catch (Horde_Exception $e) {
+                    continue;
+                }
+
+                $d = dir($blockdir);
+                while (($file = $d->read()) !== false) {
+                    if (substr($file, -4) != '.php') {
+                        continue;
+                    }
+
+                    $block_name = $block_type = null;
+
+                    if (is_readable($blockdir . '/' . $file)) {
+                        include_once $blockdir . '/' . $file;
+                    }
+
+                    if (!empty($block_name) &&
+                        (is_null($block_type) ||
+                         is_null($this->_type) ||
+                         ($block_type == $this->_type))) {
+                        $this->_blocks[$app][substr($file, 0, -4)]['name'] = $block_name;
                     }
                 }
-                closedir($dh);
-            }
+                $d->close();
 
-            // Don't pop an application if we didn't have to push one.
-            if ($pushed) {
-                $GLOBALS['registry']->popApp($app);
+                if ($pushed) {
+                    $GLOBALS['registry']->popApp($app);
+                }
             }
         }
 
@@ -134,28 +135,35 @@ class Horde_Block_Collection
 
     /**
      * TODO
+     *
+     * @throws Horde_Exception
      */
     public function getBlock($app, $name, $params = null, $row = null,
                              $col = null)
     {
-        if ($GLOBALS['registry']->get('status', $app) == 'inactive' ||
-            ($GLOBALS['registry']->get('status', $app) == 'admin' &&
+        if (($GLOBALS['registry']->get('status', $app) == 'inactive') ||
+            (($GLOBALS['registry']->get('status', $app) == 'admin') &&
              !Horde_Auth::isAdmin())) {
-            $error = PEAR::raiseError(sprintf(_("%s is not activated."), $GLOBALS['registry']->get('name', $app)));
-            return $error;
+            throw new Horde_Exception(sprintf('%s is not activated.', $GLOBALS['registry']->get('name', $app)));
         }
 
         $path = $GLOBALS['registry']->get('fileroot', $app) . '/lib/Block/' . $name . '.php';
         if (is_readable($path)) {
             include_once $path;
         }
+
         $class = 'Horde_Block_' . $app . '_' . $name;
         if (!class_exists($class)) {
-            $error = PEAR::raiseError(sprintf(_("%s not found."), $class));
-            return $error;
+            throw new Horde_Exception(sprintf('%s not found.', $class));
         }
 
-        return new $class($params, $row, $col);
+        $pushed = $GLOBALS['registry']->pushApp($app);
+        $ob = new $class($params, $row, $col);
+        if ($pushed) {
+            $GLOBALS['registry']->popApp($app);
+        }
+
+        return $ob;
     }
 
     /**

@@ -95,27 +95,6 @@ class Horde_Api extends Horde_Registry_Api
     /* Blocks. */
 
     /**
-     * Helper method to return an instance of the Horde_Block class. This
-     * should not be exposed directly in the API; it is used by
-     * blockTitle() and BlockContent().
-     *
-     * @param string $app    Block application.
-     * @param string $name   Block name.
-     * @param array $params  Block parameters.
-     *
-     * @return Horde_Block  The Horde_Block instance.
-     * @throws Horde_Exception
-     */
-    protected function _block($app, $name, $params = array())
-    {
-        $GLOBALS['registry']->pushApp($app);
-        $result = Horde_Block_Collection::getBlock($app, $name, $params);
-        $GLOBALS['registry']->popApp($app);
-
-        return $result;
-    }
-
-    /**
      * Returns a Horde_Block's title.
      *
      * @param string $app    Block application.
@@ -126,11 +105,12 @@ class Horde_Api extends Horde_Registry_Api
      */
     public function blockTitle($app, $name, $params = array())
     {
-        $block = $this->_block($app, $name, $params);
-        if (is_a($block, 'PEAR_Error')) {
-            return $block->getMessage();
+        try {
+            $block = Horde_Block_Collection::getBlock($app, $name, $params);
+            return $block->getTitle();
+        } catch (Horde_Exception $e) {
+            return $e->getMessage();
         }
-        return $block->getTitle();
     }
 
     /**
@@ -144,11 +124,12 @@ class Horde_Api extends Horde_Registry_Api
      */
     public function blockContent($app, $name, $params = array())
     {
-        $block = $this->_block($app, $name, $params);
-        if (is_a($block, 'PEAR_Error')) {
-            return $block->getMessage();
+        try {
+            $block = Horde_Block_Collection::getBlock($app, $name, $params);
+            return $block->getContent();
+        } catch (Horde_Exception $e) {
+            return $e->getMessage();
         }
-        return $block->getContent();
     }
 
     /**
@@ -159,12 +140,7 @@ class Horde_Api extends Horde_Registry_Api
      */
     public function blocks()
     {
-        $collection = Horde_Block_Collection::singleton();
-        if (is_a($collection, 'PEAR_Error')) {
-            return $collection;
-        } else {
-            return $collection->getBlocksList();
-        }
+        return Horde_Block_Collection::singleton()->getBlocksList();
     }
 
     /* User data. */
