@@ -193,10 +193,10 @@ class Horde_Ui_TagCloud
         $rtn = array();
         foreach ($this->_elements as $tag){
             $count_lv = $this->_getCountLevel($tag['count']);
-            if(! isset($tag['timestamp']) || empty($tag['timestamp'])){
+            if (!isset($tag['timestamp']) || empty($tag['timestamp'])) {
                 $epoc_lv = count($this->epoc_level) - 1;
-            }else{
-                $epoc_lv  = $this->_getEpocLevel($tag['timestamp']);
+            } else {
+                $epoc_lv = $this->_getEpocLevel($tag['timestamp']);
             }
             $color_type = $this->epoc_level[$epoc_lv];
             $font_size  = $this->minfontsize + $count_lv;
@@ -283,7 +283,7 @@ class Horde_Ui_TagCloud
      */
     protected function _getCountLevel($count = 0)
     {
-        return (int)(sqrt($count) - sqrt($this->_min)) * $this->factor;
+        return (int)((sqrt($count) - sqrt($this->_min)) * $this->factor);
     }
 
     /**
@@ -295,7 +295,7 @@ class Horde_Ui_TagCloud
      */
     protected function _getEpocLevel($timestamp = 0)
     {
-        return (int)(sqrt($timestamp) - sqrt($this->_min_epoc)) * $this->epoc_factor;
+        return (int)((sqrt($timestamp) - sqrt($this->_min_epoc)) * $this->epoc_factor);
     }
 
     /**
