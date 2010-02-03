@@ -214,7 +214,7 @@ class Horde_Registry
      *
      * @throws Horde_Exception
      */
-    protected function __construct($session_flags = 0)
+    public function __construct($session_flags = 0)
     {
         /* Set autoloader callbacks. */
         Horde_Autoloader::addCallback('Horde_Auth', array('Horde_Core_Autoloader_Callback_Auth', 'callback'));
