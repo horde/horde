@@ -11,6 +11,8 @@
 require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('horde');
 
+require_once 'Horde/Group.php';
+
 // Exit if the user shouldn't be able to change share permissions.
 if (!empty($conf['share']['no_sharing'])) {
     throw new Horde_Exception('Permission denied.');
