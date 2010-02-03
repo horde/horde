@@ -22,11 +22,36 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
     static protected $_cache = array();
 
     /**
+     * Return the full rendered version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _render()
+    {
+        $data = $this->_impRender(false);
+        $item = reset($data);
+        $item['data'] = '<html><head>' . Horde::includeStylesheetFiles() . '</head><body><tt>' . $item['data'] . '</tt></body></html>';
+        return $data;
+    }
+
+    /**
      * Return the rendered inline version of the Horde_Mime_Part object.
      *
      * @return array  See Horde_Mime_Viewer_Driver::render().
      */
     protected function _renderInline()
+    {
+        return $this->_impRender(true);
+    }
+
+    /**
+     * Render the object.
+     *
+     * @param boolean $inline  Viewing inline?
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _impRender($inline)
     {
         global $conf, $prefs;
 
@@ -35,8 +60,6 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         if (isset(self::$_cache[$mime_id])) {
             return null;
         }
-
-        $type = 'text/html; charset=' . Horde_Nls::getCharset();
 
         // Trim extra whitespace in the text.
         $text = trim($this->_mimepart->getContents());
@@ -51,7 +74,12 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         }
 
         // Convert to the local charset.
-        $text = Horde_String::convertCharset($text, $this->_mimepart->getCharset());
+        $charset = $this->_mimepart->getCharset();
+        if ($inline) {
+            $text = Horde_String::convertCharset($text, $charset);
+            $charset = Horde_Nls::getCharset();
+        }
+        $type = 'text/html; charset=' . $charset;
 
         // Check for 'flowed' text data.
         if ($this->_mimepart->getContentTypeParameter('format') == 'flowed') {
@@ -81,10 +109,10 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         // Build filter stack. Starts with HTML markup and tab expansion.
         $filters = array(
             'text2html' => array(
-                'charset' => Horde_Nls::getCharset(),
+                'charset' => $charset,
                 // See Ticket #8836
                 'noprefetch' => ($GLOBALS['browser']->isBrowser('mozilla') && !$GLOBALS['browser']->usingSSLConnection()),
-                'parselevel' => Horde_Text_Filter_Text2html::MICRO
+                'parselevel' => $inline ? Horde_Text_Filter_Text2html::MICRO : Horde_Text_Filter_Text2html::MICRO_LINKURL
             ),
             'tabs2spaces' => array(),
         );
@@ -92,15 +120,16 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         // Highlight quoted parts of an email.
         if ($prefs->getValue('highlight_text')) {
             $show = $prefs->getValue('show_quoteblocks');
-            $hideBlocks = ($show == 'hidden') ||
-                (($show == 'thread') && (basename(Horde::selfUrl()) == 'thread.php'));
+            $hideBlocks = $inline &&
+                (($show == 'hidden') ||
+                 (($show == 'thread') && (basename(Horde::selfUrl()) == 'thread.php')));
             if (!$hideBlocks && in_array($show, array('list', 'listthread'))) {
                 $header = $this->_params['contents']->getHeaderOb();
                 $imp_ui = new IMP_Ui_Message();
                 $list_info = $imp_ui->getListInformation($header);
                 $hideBlocks = $list_info['exists'];
             }
-            $filters['highlightquotes'] = array('hideBlocks' => $hideBlocks, 'outputJS' => false);
+            $filters['highlightquotes'] = array('hideBlocks' => $hideBlocks, 'noJS' => !$inline, 'outputJS' => false);
         }
 
         // Highlight simple markup of an email.
