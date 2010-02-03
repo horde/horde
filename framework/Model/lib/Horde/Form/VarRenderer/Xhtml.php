@@ -1016,7 +1016,7 @@ EOT;
 
         } elseif (preg_match('/(.*?)\r?\n([A-Z]{1,3})-(\d{5})\s+(.*)/i', $address, $addressParts)) {
             /* European address style. */
-            include 'Horde/NLS/carsigns.php';
+            include 'Horde/Nls/Carsigns.php';
             $country = array_search(Horde_String::upper($addressParts[2]), $carsigns);
 
             /* Map24 generated map. */

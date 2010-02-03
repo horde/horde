@@ -1974,7 +1974,7 @@ class Turba_Driver
                         $hash[$prefix . 'Address'] .= ' ' . $hash[$prefix . 'PostalCode'];
                     }
                     if (!empty($address[VCARD_ADR_COUNTRY])) {
-                        include 'Horde/NLS/countries.php';
+                        include 'Horde/Nls/Countries.php';
                         $country = array_search($address[VCARD_ADR_COUNTRY], $countries);
                         if ($country === false) {
                             $country = $address[VCARD_ADR_COUNTRY];

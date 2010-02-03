@@ -22,7 +22,7 @@ class Horde_Block_Horde_sunrise extends Horde_Block {
 
         global $coordinates;
         if (!is_array($coordinates)) {
-            include 'Horde/NLS/coordinates.php';
+            include 'Horde/Nls/Coordinates.php';
             if (!is_array($coordinates)) {
                 $coordinates = array();
             }
@@ -48,7 +48,7 @@ class Horde_Block_Horde_sunrise extends Horde_Block {
         $location = '';
         global $coordinates;
         if (!is_array($coordinates)) {
-            require 'Horde/NLS/coordinates.php';
+            require 'Horde/Nls/Coordinates.php';
         }
         foreach ($coordinates as $country) {
             if (array_key_exists($this->_params['location'], $country)) {
