@@ -724,14 +724,19 @@ class Horde_Registry
     /**
      * Output the hook corresponding to the specific package named.
      *
-     * @param string $app   The application being called.
-     * @param string $call  The method to call.
-     * @param array $args   Arguments to the method.
+     * @param string $app     The application being called.
+     * @param string $call    The method to call.
+     * @param array $args     Arguments to the method.
+     * @param array $options  Additional options:
+     * <pre>
+     * 'noperms' - (boolean) If true, don't check the perms.
+     * </pre>
      *
      * @return mixed  TODO
      * @throws Horde_Exception
      */
-    public function callByPackage($app, $call, $args = array())
+    public function callByPackage($app, $call, $args = array(),
+                                  $options = array())
     {
         /* Note: calling hasMethod() makes sure that we've cached
          * $app's services and included the API file, so we don't try
@@ -751,10 +756,13 @@ class Horde_Registry
         /* Switch application contexts now, if necessary, before
          * including any files which might do it for us. Return an
          * error immediately if pushApp() fails. */
-        $pushed = $this->pushApp($app, array('check_perms' => !in_array($call, $this->_cache['api'][$app]['noperms'])));
+        $pushed = $this->pushApp($app, array('check_perms' => !in_array($call, $this->_cache['api'][$app]['noperms']) && empty($options['noperms'])));
 
         try {
             $result = call_user_func_array(array($api, $call), $args);
+            if ($result instanceof PEAR_Error) {
+                throw new Horde_Exception($result);
+            }
         } catch (Horde_Exception $e) {
             $result = $e;
         }
@@ -765,11 +773,8 @@ class Horde_Registry
             $this->popApp();
         }
 
-        if ($result instanceof Exception) {
+        if ($result instanceof Horde_Exception) {
             throw $e;
-        }
-        if (is_a($result, 'PEAR_Error')) {
-            throw new Horde_Exception($result);
         }
 
         return $result;

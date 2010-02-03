@@ -188,55 +188,37 @@ class Horde_Alarm {
             return;
         }
 
-        $apps = $GLOBALS['registry']->listApps(null, false, Horde_Perms::READ);
-        if (is_a($apps, 'PEAR_Error')) {
-            return false;
-        }
-        foreach ($apps as $app) {
-            if ($GLOBALS['registry']->hasMethod('listAlarms', $app)) {
+        foreach ($GLOBALS['registry']->listApps(null, false, Horde_Perms::READ) as $app) {
+            if (!$GLOBALS['registry']->hasMethod('listAlarms', $app)) {
+                continue;
+            }
+
+            /* Preload alarms that happen in the next ttl seconds. */
+            if ($preload) {
                 try {
-                    $pushed = $GLOBALS['registry']->pushApp($app, array('check_perms' => false));
+                    $alarms = $GLOBALS['registry']->callByPackage($app, 'listAlarms', array(time() + $this->_params['ttl'], $user), array('noperms' => true));
+                } catch (Horde_Exception $e) {
+                    continue;
+                }
+            } else {
+                $alarms = array();
+            }
+
+            /* Load current alarms if no preloading requested or if this
+             * is the first call in this session. */
+            if (!$preload ||
+                !isset($_SESSION['horde']['alarm']['loaded'])) {
+                try {
+                    $app_alarms = $GLOBALS['registry']->callByPackage($app, 'listAlarms', array(time(), $user), array('noperms' => true));
                 } catch (Horde_Exception $e) {
                     Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
-                    continue;
+                    $app_alarms = array();
                 }
-                /* Preload alarms that happen in the next ttl seconds. */
-                if ($preload) {
-                    try {
-                        $alarms = $GLOBALS['registry']->callByPackage($app, 'listAlarms', array(time() + $this->_params['ttl'], $user));
-                    } catch (Horde_Exception $e) {
-                        if ($pushed) {
-                            $GLOBALS['registry']->popApp();
-                        }
-                        continue;
-                    }
-                } else {
-                    $alarms = array();
-                }
+                $alarms = array_merge($alarms, $app_alarms);
+            }
 
-                /* Load current alarms if no preloading requested or if this
-                 * is the first call in this session. */
-                if (!$preload || !isset($_SESSION['horde']['alarm']['loaded'])) {
-                    try {
-                        $app_alarms = $GLOBALS['registry']->callByPackage($app, 'listAlarms', array(time(), $user));
-                    } catch (Horde_Exception $e) {
-                        Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
-                        $app_alarms = array();
-                    }
-                    $alarms = array_merge($alarms, $app_alarms);
-                }
-
-                if ($pushed) {
-                    $GLOBALS['registry']->popApp();
-                }
-
-                if (empty($alarms)) {
-                    continue;
-                }
-
-                foreach ($alarms as $alarm) {
-                    $this->set($alarm);
-                }
+            foreach ($alarms as $alarm) {
+                $this->set($alarm);
             }
         }
 
