@@ -1,35 +1,35 @@
 --TEST--
-Horde_LDAP::quoteDN() tests
+Horde_Ldap::quoteDN() tests
 --FILE--
 <?php
 
-require_once dirname(__FILE__) . '/../LDAP.php';
+require_once dirname(__FILE__) . '/../../../lib/Horde/Ldap.php';
 
-echo Horde_LDAP::quoteDN(array(array('cn', 'John Smith'),
+echo Horde_Ldap::quoteDN(array(array('cn', 'John Smith'),
                                array('dc', 'example'),
                                array('dc', 'com'))) . "\n";
 
-echo Horde_LDAP::quoteDN(array(array('cn', 'Smith, John'),
+echo Horde_Ldap::quoteDN(array(array('cn', 'Smith, John'),
                                array('dc', 'example'),
                                array('dc', 'com'))) . "\n";
 
-echo Horde_LDAP::quoteDN(array(array('cn', ' John Smith'),
+echo Horde_Ldap::quoteDN(array(array('cn', ' John Smith'),
                                array('dc', 'example'),
                                array('dc', 'com'))) . "\n";
 
-echo Horde_LDAP::quoteDN(array(array('cn', 'John Smith '),
+echo Horde_Ldap::quoteDN(array(array('cn', 'John Smith '),
                                array('dc', 'example'),
                                array('dc', 'com'))) . "\n";
 
-echo Horde_LDAP::quoteDN(array(array('cn', 'John  Smith'),
+echo Horde_Ldap::quoteDN(array(array('cn', 'John  Smith'),
                                array('dc', 'example'),
                                array('dc', 'com'))) . "\n";
 
-echo Horde_LDAP::quoteDN(array(array('cn', 'John+Smith'),
+echo Horde_Ldap::quoteDN(array(array('cn', 'John+Smith'),
                                array('dc', 'example'),
                                array('dc', 'com'))) . "\n";
 
-echo Horde_LDAP::quoteDN(array(array('cn', 'John "Bugsy" Smith'),
+echo Horde_Ldap::quoteDN(array(array('cn', 'John "Bugsy" Smith'),
                                array('dc', 'example'),
                                array('dc', 'com'))) . "\n";
 

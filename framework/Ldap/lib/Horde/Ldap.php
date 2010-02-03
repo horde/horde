@@ -7,10 +7,11 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_LDAP
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @package  Horde_Ldap
  */
-class Horde_LDAP
+class Horde_Ldap
 {
     /**
      * Return a boolean expression using the specified operator.
@@ -22,21 +23,21 @@ class Horde_LDAP
      *
      * @return string  The LDAP search fragment.
      */
-    public static function buildClause($lhs, $op, $rhs, $params = array())
+    static public function buildClause($lhs, $op, $rhs, $params = array())
     {
         switch ($op) {
         case 'LIKE':
             if (empty($rhs)) {
                 return '(' . $lhs . '=*)';
             } elseif (!empty($params['begin'])) {
-                return sprintf('(|(%s=%s*)(%s=* %s*))', $lhs, Horde_LDAP::quote($rhs), $lhs, Horde_LDAP::quote($rhs));
+                return sprintf('(|(%s=%s*)(%s=* %s*))', $lhs, self::quote($rhs), $lhs, self::quote($rhs));
             } elseif (!empty($params['approximate'])) {
-                return sprintf('(%s=~%s)', $lhs, Horde_LDAP::quote($rhs));
+                return sprintf('(%s=~%s)', $lhs, self::quote($rhs));
             }
-            return sprintf('(%s=*%s*)', $lhs, Horde_LDAP::quote($rhs));
+            return sprintf('(%s=*%s*)', $lhs, self::quote($rhs));
 
         default:
-            return sprintf('(%s%s%s)', $lhs, $op, Horde_LDAP::quote($rhs));
+            return sprintf('(%s%s%s)', $lhs, $op, self::quote($rhs));
         }
     }
 
@@ -47,7 +48,7 @@ class Horde_LDAP
      *
      * @return string  The escaped string.
      */
-    public static function quote($clause)
+    static public function quote($clause)
     {
         return str_replace(array('\\',   '(',  ')',  '*',  "\0"),
                            array('\\5c', '\(', '\)', '\*', "\\00"),
@@ -61,18 +62,21 @@ class Horde_LDAP
      * @param array $parts  An array of tuples containing the attribute
      *                      name and that attribute's value which make
      *                      up the DN. Example:
-     *
-     *    $parts = array(0 => array('cn', 'John Smith'),
-     *                   1 => array('dc', 'example'),
-     *                   2 => array('dc', 'com'));
+     * <pre>
+     * $parts = array(
+     *     0 => array('cn', 'John Smith'),
+     *     1 => array('dc', 'example'),
+     *     2 => array('dc', 'com')
+     * );
+     * </pre>
      *
      * @return string  The properly quoted string DN.
      */
-    public static function quoteDN($parts)
+    static public function quoteDN($parts)
     {
         $dn = '';
-        $count = count($parts);
-        for ($i = 0; $i < $count; $i++) {
+
+        for ($i = 0, $cnt = count($parts); $i < $cnt; ++$i) {
             if ($i > 0) {
                 $dn .= ',';
             }
@@ -88,4 +92,5 @@ class Horde_LDAP
 
         return $dn;
     }
+
 }

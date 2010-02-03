@@ -1,7 +1,6 @@
 <?php
 
 require_once 'Horde/Group/ldap.php';
-require_once 'Horde/LDAP.php';
 
 /**
  * The Group_kolab class provides a Kolab backend for the Horde groups
@@ -270,7 +269,7 @@ class Group_kolab extends Group_ldap {
      */
     function dnForMail($mail)
     {
-        $filter = '(&(objectclass=kolabInetOrgPerson)(mail=' . Horde_LDAP::quote($mail) . '))';
+        $filter = '(&(objectclass=kolabInetOrgPerson)(mail=' . Horde_Ldap::quote($mail) . '))';
         $search = @ldap_search($this->_ds, $this->_params['basedn'], $filter);
         if (!$search) {
             return PEAR::raiseError(_("Could not reach the LDAP server"));

@@ -427,7 +427,7 @@ class Turba_Driver_Ldap extends Turba_Driver
                 $pairs[] = array($param, $attributes[$param]);
             }
         }
-        return $this->_quoteDN($pairs);
+        return Horde_Ldap::quoteDN($pairs);
     }
 
     /**
@@ -462,7 +462,7 @@ class Turba_Driver_Ldap extends Turba_Driver
             } else {
                 if (isset($vals['field'])) {
                     $rhs = Horde_String::convertCharset($vals['test'], Horde_Nls::getCharset(), $this->_params['charset']);
-                    $clause .= Horde_LDAP::buildClause($vals['field'], $vals['op'], $rhs, array('begin' => !empty($vals['begin'])));
+                    $clause .= Horde_Ldap::buildClause($vals['field'], $vals['op'], $rhs, array('begin' => !empty($vals['begin'])));
                 } else {
                     foreach ($vals as $test) {
                         if (!empty($test['OR'])) {
@@ -471,7 +471,7 @@ class Turba_Driver_Ldap extends Turba_Driver
                             $clause .= '(&' . $this->_buildSearchQuery($test) . ')';
                         } else {
                             $rhs = Horde_String::convertCharset($test['test'], Horde_Nls::getCharset(), $this->_params['charset']);
-                            $clause .= Horde_LDAP::buildClause($test['field'], $test['op'], $rhs, array('begin' => !empty($vals['begin'])));
+                            $clause .= Horde_Ldap::buildClause($test['field'], $test['op'], $rhs, array('begin' => !empty($vals['begin'])));
                         }
                     }
                 }
@@ -757,43 +757,6 @@ class Turba_Driver_Ldap extends Turba_Driver
         $_schema = $ldap->schema();
 
         return $_schema;
-    }
-
-    /**
-     * Take an array of DN elements and properly quote it according to
-     * RFC 1485.
-     *
-     * @see Horde_LDAP::quoteDN()
-     *
-     * @param array $parts  An array of tuples containing the attribute
-     *                      name and that attribute's value which make
-     *                      up the DN. Example:
-     *
-     *    $parts = array(0 => array('cn', 'John Smith'),
-     *                   1 => array('dc', 'example'),
-     *                   2 => array('dc', 'com'));
-     *
-     * @return string  The properly quoted string DN.
-     */
-    function _quoteDN($parts)
-    {
-        $dn = '';
-        $count = count($parts);
-        for ($i = 0; $i < $count; $i++) {
-            if ($i > 0) {
-                $dn .= ',';
-            }
-            $dn .= $parts[$i][0] . '=';
-
-            /* See if we need to quote the value. */
-            if (preg_match('/^\s|\s$|\s\s|[,+="\r\n<>#;]/', $parts[$i][1])) {
-                $dn .= '"' . str_replace('"', '\\"', $parts[$i][1]) . '"';
-            } else {
-                $dn .= $parts[$i][1];
-            }
-        }
-
-        return $dn;
     }
 
 }
