@@ -1358,13 +1358,13 @@ var DimpBase = {
     // f = (string|Element)
     setFolderLabel: function(f, unseen)
     {
-        var elt, fid;
+        var elt, mbox;
 
         if (Object.isElement(f)) {
-            fid = f.identify();
+            mbox = f.retrieve('mbox');
             elt = f;
         } else {
-            fid = f;
+            mbox = f;
             elt = $(this.getFolderId(f));
         }
 
@@ -1373,7 +1373,7 @@ var DimpBase = {
         }
 
         if (Object.isUndefined(unseen)) {
-            unseen = this.getUnseenCount(fid);
+            unseen = this.getUnseenCount(mbox);
         } else {
             if (Object.isUndefined(elt.retrieve('u')) ||
                 elt.retrieve('u') == unseen) {
@@ -1384,7 +1384,7 @@ var DimpBase = {
             elt.store('u', unseen);
         }
 
-        if (fid == 'INBOX' && window.fluid) {
+        if (mbox == 'INBOX' && window.fluid) {
             window.fluid.setDockBadge(unseen ? unseen : '');
         }
 
