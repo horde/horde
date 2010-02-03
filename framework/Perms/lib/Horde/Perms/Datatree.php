@@ -62,8 +62,6 @@ class Horde_Perms_Datatree extends Horde_Perms
                                                            array('group' => 'horde.perms')));
 
         $this->_cache = $GLOBALS['injector']->getInstance('Horde_Cache');
-
-        parent::__construct();
     }
 
     /**
