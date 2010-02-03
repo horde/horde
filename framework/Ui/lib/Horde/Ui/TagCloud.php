@@ -216,12 +216,12 @@ class Horde_Ui_TagCloud
      */
     protected function _createHTMLTag($tag, $type, $fontsize)
     {
-        return sprintf("<a style=\"font-size: %d%s\" class=\"%s\" href=\"%s\" %s >%s</a>\n",
+        return sprintf('<a style="font-size:%d%s" class="%s" href="%s"%s>%s</a>' . "\n",
                        $fontsize,
                        $this->size_suffix,
                        $type,
                        $tag['url'],
-                       (empty($tag['onclick']) ? '' : 'onClick="' . $tag['onclick'] . '"'),
+                       (empty($tag['onclick']) ? '' : ' onclick="' . $tag['onclick'] . '"'),
                        htmlspecialchars($tag['name']));
     }
 
