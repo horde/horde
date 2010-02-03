@@ -431,22 +431,21 @@ class IMP_Auth
         $sess['file_upload'] = $GLOBALS['browser']->allowFileUploads();
 
         /* Is the 'mail/canApplyFilters' API call available? */
-        $registry = Horde_Registry::singleton();
         try {
-            if ($registry->call('mail/canApplyFilters')) {
+            if ($GLOBALS['registry']->call('mail/canApplyFilters')) {
                 $sess['filteravail'] = true;
             }
         } catch (Horde_Exception $e) {}
 
         /* Is the 'tasks/listTasklists' call available? */
         if ($conf['tasklist']['use_tasklist'] &&
-            $registry->hasMethod('tasks/listTasklists')) {
+            $GLOBALS['registry']->hasMethod('tasks/listTasklists')) {
             $sess['tasklistavail'] = true;
         }
 
         /* Is the 'notes/listNotepads' call available? */
         if ($conf['notepad']['use_notepad'] &&
-            $registry->hasMethod('notes/listNotepads')) {
+            $GLOBALS['registry']->hasMethod('notes/listNotepads')) {
             $sess['notepadavail'] = true;
         }
 

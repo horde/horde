@@ -363,8 +363,6 @@ class Horde_Prefs_Ui
      */
     static public function generateNavigationCell($app, $group)
     {
-        $registry = Horde_Registry::singleton();
-
         // Search for previous and next groups.
         $first = $last = $next = $previous = null;
         $finish = $found = false;
@@ -403,10 +401,10 @@ class Horde_Prefs_Ui
         }
 
         echo '<ul><li>' .
-             Horde::link(Horde_Util::addParameter(Horde::url($registry->get('webroot', 'horde') . '/services/prefs.php'), array('app' => $app, 'group' => $previous), _("Previous options"))) .
+             Horde::link(Horde_Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/prefs.php'), array('app' => $app, 'group' => $previous), _("Previous options"))) .
              '&lt;&lt; ' . $prefGroups[$previous]['label'] .
              '</a>&nbsp;|&nbsp;' .
-             Horde::link(Horde_Util::addParameter(Horde::url($registry->get('webroot', 'horde') . '/services/prefs.php'), array('app' => $app, 'group' => $next), _("Next options"))) .
+             Horde::link(Horde_Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/prefs.php'), array('app' => $app, 'group' => $next), _("Next options"))) .
              $prefGroups[$next]['label'] . ' &gt;&gt;' .
              '</a></li></ul>';
     }

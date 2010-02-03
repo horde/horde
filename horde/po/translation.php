@@ -630,7 +630,7 @@ function init()
         $lang = getenv('LANG');
     }
 
-    $registry = Horde_Registry::singleton(Horde_Registry::SESSION_NONE);
+    $registry = new Horde_Registry(Horde_Registry::SESSION_NONE);
 
     for ($i = 0; $i < count($dirs); $i++) {
         if (!empty($module) && $module != $apps[$i]) {

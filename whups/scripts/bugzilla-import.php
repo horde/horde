@@ -36,7 +36,7 @@ $cli =& Horde_Cli::singleton();
 /* Load the Whups libraries. */
 require_once HORDE_BASE . '/lib/core.php';
 
-$registry = Horde_Registry::singleton();
+$registry = new Horde_Registry();
 $registry->pushApp('whups', false);
 $conf = &$GLOBALS['conf'];
 

@@ -39,7 +39,9 @@ function _outputSummaries($msgs)
 
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('imp', array('tz' => true));
+Horde_Registry::appInit('imp');
+
+Horde_Nls::setTimeZone();
 
 /* Call the mailbox redirection hook, if requested. */
 try {

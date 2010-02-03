@@ -18,7 +18,7 @@ if (!defined('HORDE_BASE')) {
 require_once HORDE_BASE . '/lib/core.php';
 
 // Registry.
-$registry = Horde_Registry::singleton();
+$registry = new Horde_Registry();
 $registry->pushApp('whups');
 
 // Url.

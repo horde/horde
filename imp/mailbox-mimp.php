@@ -21,7 +21,9 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('imp', array('tz' => true));
+Horde_Registry::appInit('imp');
+
+Horde_Nls::setTimeZone();
 
 /* Determine if mailbox is readonly. */
 $readonly = $imp_imap->isReadOnly($imp_mbox['mailbox']);

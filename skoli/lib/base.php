@@ -16,7 +16,7 @@ if (!defined('HORDE_BASE')) {
 require_once HORDE_BASE . '/lib/core.php';
 
 // Registry.
-$registry = Horde_Registry::singleton();
+$registry = new Horde_Registry();
 try {
     $registry->pushApp('skoli', array('check_perms' => (Horde_Util::nonInputVar('skoli_authentication') != 'none'), 'logintasks' => true));
 } catch (Horde_Exception $e) {

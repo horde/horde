@@ -352,11 +352,10 @@ class Horde_Auth
     static public function removeUserData($userId)
     {
         $errApps = array();
-        $registry = Horde_Registry::singleton();
 
-        foreach ($registry->listApps(array('notoolbar', 'hidden', 'active', 'admin')) as $app) {
+        foreach ($GLOBALS['registry']->listApps(array('notoolbar', 'hidden', 'active', 'admin')) as $app) {
             try {
-                $registry->callByPackage($app, 'removeUserData', array($userId));
+                $GLOBALS['registry']->callByPackage($app, 'removeUserData', array($userId));
             } catch (Horde_Auth_Exception $e) {
                 Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
                 $errApps[] = $app;
@@ -543,8 +542,6 @@ class Horde_Auth
      */
     static public function getLogoutUrl($options = array())
     {
-        $registry = Horde_Registry::singleton();
-
         if (!isset($options['reason'])) {
             $options['reason'] = self::getAuthError();
         }
@@ -575,7 +572,7 @@ class Horde_Auth
             }
         }
 
-        return Horde_Util::addParameter(Horde::url($registry->get('webroot', 'horde') . '/login.php', true), $params, null, false);
+        return Horde::getServiceLink('login', 'horde')->add($params)->setRaw(true);
     }
 
     /**
@@ -748,8 +745,7 @@ class Horde_Auth
         );
 
         /* Reload preferences for the new user. */
-        $registry = Horde_Registry::singleton();
-        $registry->loadPrefs();
+        $GLOBALS['registry']->loadPrefs();
         Horde_Nls::setLang($GLOBALS['prefs']->getValue('language'));
 
         if (!empty($options['nologin'])) {
@@ -807,8 +803,7 @@ class Horde_Auth
         unset($_SESSION['horde_auth']);
 
         /* Remove the user's cached preferences if they are present. */
-        $registry = Horde_Registry::singleton();
-        $registry->unloadPrefs();
+        $GLOBALS['registry']->unloadPrefs();
     }
 
     /**

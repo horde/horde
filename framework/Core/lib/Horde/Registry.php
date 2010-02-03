@@ -124,6 +124,11 @@ class Horde_Registry
      */
     static public function appInit($app, $args = array())
     {
+        if (isset($GLOBALS['registry'])) {
+            $this->init();
+            return $GLOBALS['registry']->getApiInstance($app, 'application');
+        }
+
         $args = array_merge(array(
             'admin' => false,
             'authentication' => null,
@@ -166,7 +171,9 @@ class Horde_Registry
             break;
         }
 
-        $GLOBALS['registry'] = self::singleton($s_ctrl);
+        $classname = __CLASS__;
+        $GLOBALS['registry'] = new $classname($s_ctrl);
+
         $appob = $GLOBALS['registry']->getApiInstance($app, 'application');
         $appob->initParams = $args;
 
@@ -200,27 +207,6 @@ class Horde_Registry
     }
 
     /**
-     * Returns a reference to the global Horde_Registry object, only creating
-     * it if it doesn't already exist.
-     *
-     * This method must be invoked as:
-     *   $registry = Horde_Registry::singleton()
-     *
-     * @param integer $session_flags  Any session flags.
-     *
-     * @return Horde_Registry  The Horde_Registry instance.
-     * @throws Horde_Exception
-     */
-    static public function singleton($session_flags = 0)
-    {
-        if (!isset(self::$_instance)) {
-            self::$_instance = new self($session_flags);
-        }
-
-        return self::$_instance;
-    }
-
-    /**
      * Create a new Horde_Registry instance.
      *
      * @param integer $session_flags  Any session flags.
@@ -242,8 +228,11 @@ class Horde_Registry
         $injector->addBinder('Horde_Template', new Horde_Core_Binder_Template());
         $injector->addBinder('Net_DNS_Resolver', new Horde_Core_Binder_Dns());
 
+        $injector->setInstance('Horde_Registry', $this);
+
         /* Initialize browser object. */
         $GLOBALS['browser'] = Horde_Browser::singleton();
+        $injector->setInstance('Horde_Browser', $GLOBALS['browser']);
 
         /* Import and global Horde's configuration values. Almost a chicken
          * and egg issue - since loadConfiguration() uses registry in certain

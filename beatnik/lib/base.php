@@ -20,7 +20,7 @@ if (!defined('HORDE_BASE')) {
 require_once HORDE_BASE . '/lib/core.php';
 
 // Registry.
-$registry = Horde_Registry::singleton();
+$registry = new Horde_Registry();
 
 try {
     $registry->pushApp('beatnik', array('check_perms' => (Horde_Util::nonInputVar('beatnik_authentication') != 'none')));

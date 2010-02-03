@@ -52,8 +52,6 @@ class Koward {
     {
         global $registry, $notification, $browser;
 
-        $registry = Horde_Registry::singleton();
-
         $notification = Horde_Notification::singleton();
         $notification->attach('status');
 

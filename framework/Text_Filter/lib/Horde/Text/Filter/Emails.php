@@ -73,12 +73,8 @@ class Horde_Text_Filter_Emails extends Horde_Text_Filter
             /eix
 EOR;
 
-        if (class_exists('Horde_Registry')) {
-            $registry = Horde_Registry::singleton();
-        }
-
-        if (isset($registry) &&
-            $registry->hasMethod('mail/compose') &&
+        if (isset($GLOBALS['registry']) &&
+            $GLOBALS['registry']->hasMethod('mail/compose') &&
             !$this->_params['always_mailto']) {
             /* If we have a mail/compose registry method, use it. */
             $replacement = 'Horde_Text_Filter_Emails::callback(\'registry\', \''
@@ -136,10 +132,7 @@ EOP;
 
         parse_str($args, $extra);
         try {
-            $registry = Horde_Registry::singleton();
-            $url = $registry->call('mail/compose',
-                                   array(array('to' => $email),
-                                   $extra));
+            $url = $GLOBALS['registry']->call('mail/compose', array(array('to' => $email), $extra));
         } catch (Horde_Exception $e) {
             $url = 'mailto:' . urlencode($email);
         }

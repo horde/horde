@@ -17,7 +17,7 @@ if (!defined('HORDE_BASE')) {
 require_once HORDE_BASE . '/lib/core.php';
 
 // Registry.
-$registry = Horde_Registry::singleton();
+$registry = new Horde_Registry();
 try {
     $registry->pushApp('folks', array('check_perms' => (Horde_Util::nonInputVar('folks_authentication') != 'none')));
 } catch (Horde_Exception $e) {

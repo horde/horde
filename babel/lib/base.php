@@ -27,7 +27,7 @@ $notification = Horde_Notification::singleton();
 $notification->attach('status');
 
 /* Registry. */
-$registry = Horde_Registry::singleton();
+$registry = new Horde_Registry();
 
 try {
     $registry->pushApp('babel', array('logintasks' => true));

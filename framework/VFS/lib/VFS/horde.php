@@ -43,7 +43,7 @@ class VFS_horde extends VFS {
         Horde_Registry::appInit('horde');
 
         // Create the Registry object.
-        $this->_registry = Horde_Registry::singleton();
+        $this->_registry = $GLOBALS['registry'];
     }
 
     function _connect()
@@ -67,9 +67,6 @@ class VFS_horde extends VFS {
      */
     function size($path, $name)
     {
-        if (is_a($this->_registry, 'PEAR_Error')) {
-            return $this->_registry;
-        }
         return PEAR::raiseError(_("Not supported."));
     }
 
@@ -85,10 +82,6 @@ class VFS_horde extends VFS {
      */
     function read($path, $name)
     {
-        if (is_a($this->_registry, 'PEAR_Error')) {
-            return $this->_registry;
-        }
-
         if (substr($path, 0, 1) == '/') {
             $path = substr($path, 1);
         }
@@ -118,9 +111,6 @@ class VFS_horde extends VFS {
      */
     function write($path, $name, $tmpFile, $autocreate = false)
     {
-        if (is_a($this->_registry, 'PEAR_Error')) {
-            return $this->_registry;
-        }
         return PEAR::raiseError(_("Not supported."));
     }
 
@@ -138,9 +128,6 @@ class VFS_horde extends VFS {
      */
     function writeData($path, $name, $data, $autocreate = false)
     {
-        if (is_a($this->_registry, 'PEAR_Error')) {
-            return $this->_registry;
-        }
         return PEAR::raiseError(_("Not supported."));
     }
 
@@ -157,9 +144,6 @@ class VFS_horde extends VFS {
      */
     function move($path, $name, $dest)
     {
-        if (is_a($this->_registry, 'PEAR_Error')) {
-            return $this->_registry;
-        }
         return PEAR::raiseError(_("Not supported."));
     }
 
@@ -176,9 +160,6 @@ class VFS_horde extends VFS {
      */
     function copy($path, $name, $dest)
     {
-        if (is_a($this->_registry, 'PEAR_Error')) {
-            return $this->_registry;
-        }
         return PEAR::raiseError(_("Not supported."));
     }
 
@@ -194,9 +175,6 @@ class VFS_horde extends VFS {
      */
     function deleteFile($path, $name)
     {
-        if (is_a($this->_registry, 'PEAR_Error')) {
-            return $this->_registry;
-        }
         return PEAR::raiseError(_("Not supported."));
     }
 
@@ -214,9 +192,6 @@ class VFS_horde extends VFS {
      */
     function rename($oldpath, $oldname, $newpath, $newname)
     {
-        if (is_a($this->_registry, 'PEAR_Error')) {
-            return $this->_registry;
-        }
         return PEAR::raiseError(_("Not supported."));
     }
 
@@ -235,9 +210,6 @@ class VFS_horde extends VFS {
     function _listFolder($path, $filter = null, $dotfiles = true,
                          $dironly = false)
     {
-        if (is_a($this->_registry, 'PEAR_Error')) {
-            return $this->_registry;
-        }
         $list = array();
         if ($path == '/') {
             $apps = $this->_registry->listApps(null, false, Horde_Perms::READ);
@@ -320,9 +292,6 @@ class VFS_horde extends VFS {
      */
     function listFolders($path = '', $filter = null, $dotfolders = true)
     {
-        if (is_a($this->_registry, 'PEAR_Error')) {
-            return $this->_registry;
-        }
         return PEAR::raiseError(_("Not supported."));
     }
 

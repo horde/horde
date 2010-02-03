@@ -18,11 +18,11 @@ require_once HORDE_BASE . '/lib/core.php';
 // Registry.
 $session_control = Horde_Util::nonInputVar('session_control');
 if ($session_control == 'none') {
-    $registry = Horde_Registry::singleton(HORDE_SESSION_NONE);
+    $registry = new Horde_Registry(HORDE_SESSION_NONE);
 } elseif ($session_control == 'readonly') {
-    $registry = Horde_Registry::singleton(HORDE_SESSION_READONLY);
+    $registry = new Horde_Registry(HORDE_SESSION_READONLY);
 } else {
-    $registry = Horde_Registry::singleton();
+    $registry = new Horde_Registry();
 }
 
 try {

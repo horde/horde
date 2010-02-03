@@ -19,7 +19,9 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('imp', array('tz' => true));
+Horde_Registry::appInit('imp');
+
+Horde_Nls::setTimeZone();
 
 /* Make sure we have a valid index. */
 $imp_mailbox = IMP_Mailbox::singleton($imp_mbox['mailbox'], $imp_mbox['uid'] . IMP::IDX_SEP . $imp_mbox['thismailbox']);

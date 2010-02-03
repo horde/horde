@@ -1710,8 +1710,8 @@ HTML;
             switch ($cache_type) {
             case 'filesystem':
                 $css_filename = '/static/' . $sig . '.css';
-                $css_path = $GLOBALS['registry']->get('fileroot', 'horde') . $css_filename;
-                $css_url = $GLOBALS['registry']->get('webroot', 'horde') . $css_filename;
+                $css_path = $registry->get('fileroot', 'horde') . $css_filename;
+                $css_url = $registry->get('webroot', 'horde') . $css_filename;
                 $exists = file_exists($css_path);
                 break;
 
@@ -2229,8 +2229,7 @@ HTML;
      */
     static public function getCacheUrl($type, $params = array())
     {
-        $registry = Horde_Registry::singleton();
-        $url = Horde_Util::addParameter(self::getserviceLink('cache', 'horde'), array('cache' => $type));
+        $url = self::getserviceLink('cache', 'horde')->add('cache', $type);
         foreach ($params as $key => $val) {
             $url .= '/' . $key . '=' . rawurlencode(strval($val));
         }

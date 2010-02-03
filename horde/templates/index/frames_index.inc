@@ -1,13 +1,12 @@
 <?php
-$registry = Horde_Registry::singleton();
 $rtl = isset(Horde_Nls::$config['rtl'][$GLOBALS['language']]);
 $sidebar_width = isset($GLOBALS['prefs']) ? $GLOBALS['prefs']->getValue('sidebar_width') : 150;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "DTD/xhtml1-frameset.dtd">
 <html>
 <head>
- <link rel="SHORTCUT ICON" href="<?php echo $registry->getImageDir() ?>/favicon.ico" />
- <title><?php echo htmlspecialchars($registry->get('name')) ?></title>
+ <link rel="SHORTCUT ICON" href="<?php echo $GLOBALS['registry']->getImageDir() ?>/favicon.ico" />
+ <title><?php echo htmlspecialchars($GLOBALS['registry']->get('name')) ?></title>
 </head>
 
 <frameset id="hf" cols="<?php echo ($rtl ? '*,' : '') . $sidebar_width . ($rtl ? '' : ',*') ?>" framespacing="0" frameborder="0">

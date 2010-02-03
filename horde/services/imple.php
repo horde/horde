@@ -61,7 +61,6 @@ Horde_Registry::appInit('horde', array('nologintasks' => true, 'session_control'
 
 $impleargs = $impleName;
 if (isset($args['impleApp'])) {
-    $registry = Horde_Registry::singleton();
     $registry->pushApp($args['impleApp']);
     $impleargs = array($args['impleApp'], $impleName);
 }

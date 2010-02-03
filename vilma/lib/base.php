@@ -20,7 +20,7 @@ if (!defined('HORDE_BASE')) {
 require_once HORDE_BASE . '/lib/core.php';
 
 /* Registry. */
-$registry = Horde_Registry::singleton();
+$registry = new Horde_Registry();
 try {
     $registry->pushApp('vilma', !defined('AUTH_HANDLER'));
 } catch (Horde_Exception $e) {

@@ -97,10 +97,6 @@ class IMP_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
-        if (!empty($this->initParams['tz'])) {
-            Horde_Nls::setTimeZone();
-        }
-
         $GLOBALS['injector']->addBinder('IMP_Imap_Tree', new IMP_Injector_Binder_Imaptree());
 
         // Initialize global $imp_imap object.
@@ -893,8 +889,7 @@ class IMP_Application extends Horde_Registry_Application
     {
         self::$prefsCache['sourceselect'] = array();
 
-        $registry = Horde_Registry::singleton();
-        if (!$registry->hasMethod('contacts/sources') ||
+        if (!$GLOBALS['registry']->hasMethod('contacts/sources') ||
             $GLOBALS['prefs']->isLocked('search_sources')) {
             return;
         }
@@ -902,11 +897,11 @@ class IMP_Application extends Horde_Registry_Application
         $readable = $search_fields = $prefSelect = $writeable = $writeSelect = array();
 
         try {
-            $readable = $registry->call('contacts/sources');
+            $readable = $GLOBALS['registry']->call('contacts/sources');
         } catch (Horde_Exception $e) {}
 
         try {
-            $writeable = $registry->call('contacts/sources', array(true));
+            $writeable = $GLOBALS['registry']->call('contacts/sources', array(true));
         } catch (Horde_Exception $e) {}
 
         $search = IMP_Compose::getAddressSearchParams();
@@ -940,7 +935,7 @@ class IMP_Application extends Horde_Registry_Application
             $search_fields[$source_count][] = $source;
 
             try {
-                foreach ($registry->call('contacts/fields', array($source)) as $field) {
+                foreach ($GLOBALS['registry']->call('contacts/fields', array($source)) as $field) {
                     if ($field['search']) {
                         $search_fields[$source_count][] = array($field['name'], $field['label'], isset($search['fields'][$source]) && in_array($field['name'], $search['fields'][$source]));
                     }

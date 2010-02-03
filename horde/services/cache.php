@@ -47,7 +47,6 @@ case 'app':
     if (empty($args['app'])) {
         exit;
     }
-    $registry = Horde_Registry::singleton();
     try {
         $result = $registry->callAppMethod($args['app'], 'cacheOutput', array('args' => array($args)));
         $data = $result['data'];

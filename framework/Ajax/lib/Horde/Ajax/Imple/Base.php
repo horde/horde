@@ -62,8 +62,7 @@ abstract class Horde_Ajax_Imple_Base
             $qstring .= '/' . $key . '=' . rawurlencode($val);
         }
 
-        $registry = Horde_Registry::singleton();
-        return Horde::url($registry->get('webroot', 'horde') . '/services/imple.php?' . $qstring, $full);
+        return Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/imple.php?' . $qstring, $full);
     }
 
     /**

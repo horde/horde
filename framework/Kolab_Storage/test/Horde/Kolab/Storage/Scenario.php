@@ -317,7 +317,7 @@ EOD;
         }
 
         /** Provide the horde registry */
-        $GLOBALS['registry'] = Horde_Registry::singleton();
+        $GLOBALS['registry'] = new Horde_Registry();
         $GLOBALS['notification'] = Horde_Notification::singleton();
 
         $this->prepareFixedConfiguration();
