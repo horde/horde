@@ -393,11 +393,17 @@ class Horde_Registry
                 continue;
             }
 
-            if (isset($app['fileroot']) &&
-                (!file_exists($app['fileroot']) ||
-                 (file_exists($app['fileroot'] . '/config/conf.xml') &&
-                  !file_exists($app['fileroot'] . '/config/conf.php')))) {
-                $app['status'] = 'inactive';
+            if (isset($app['fileroot'])) {
+                $app['fileroot'] = rtrim($app['fileroot'], ' /');
+                if (!file_exists($app['fileroot']) ||
+                    (file_exists($app['fileroot'] . '/config/conf.xml') &&
+                    !file_exists($app['fileroot'] . '/config/conf.php'))) {
+                    $app['status'] = 'inactive';
+                }
+            }
+
+            if (isset($app['webroot'])) {
+                $app['webroot'] = rtrim($app['webroot'], ' /');
             }
 
             if (($app['status'] != 'inactive') &&
