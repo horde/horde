@@ -309,6 +309,14 @@ class Horde_Registry
         /* Create the global permissions object. */
         // TODO: Convert to using Horde_Injector
         $GLOBALS['perms'] = Horde_Perms::singleton();
+        $injector->setInstance('Horde_Perms', $GLOBALS['perms']);
+
+        /**
+         * Initialize notification object.
+         * No listeners are attached at this point.
+         */
+        $GLOBALS['notification'] = Horde_Notification::singleton();
+        $injector->setInstance('Horde_Notification', $GLOBALS['notification']);
     }
 
     /**

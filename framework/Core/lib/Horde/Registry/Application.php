@@ -61,11 +61,6 @@ class Horde_Registry_Application
      * Initialization. Does any necessary init needed to setup the full
      * environment for the application.
      *
-     * Global variables defined:
-     * <pre>
-     * $notification - Horde_Notification object.
-     * </pre>
-     *
      * Global constants defined:
      * <pre>
      * [APPNAME]_TEMPLATES - (string) Location of template files.
@@ -81,7 +76,6 @@ class Horde_Registry_Application
                 define($appname . '_TEMPLATES', $GLOBALS['registry']->get('templates'));
             }
 
-            $GLOBALS['notification'] = Horde_Notification::singleton();
             $this->_init();
             $this->_initNotification($GLOBALS['notification']);
         }
@@ -97,6 +91,8 @@ class Horde_Registry_Application
 
     /**
      * Initialization for Notification system.
+     * This is run after _init() is called so app-specific code can appear
+     * inside.
      *
      * @param Horde_Notification_Handler_Base $notify  The notification
      *                                                 object.
