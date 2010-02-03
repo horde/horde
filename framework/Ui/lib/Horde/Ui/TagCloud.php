@@ -89,6 +89,7 @@ class Horde_Ui_TagCloud
     {
         $this->basefontsize = $basefontsize;
         $this->minfontsize = max($this->basefontsize - $this->fontsizerange, 0);
+        $this->maxfontsize = $this->basefontsize + $this->fontsizerange;
     }
 
     /**
