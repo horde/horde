@@ -14,6 +14,11 @@ Horde_Registry::appInit('kronolith');
 
 require_once 'Horde/Group.php';
 
+// Exit if the user shouldn't be able to change share permissions.
+if (!empty($conf['share']['no_sharing'])) {
+    throw new Horde_Exception('Permission denied.');
+}
+
 $shares = Horde_Share::singleton('kronolith');
 $groups = Group::singleton();
 $auth = Horde_Auth::singleton($conf['auth']['driver']);
@@ -34,7 +39,9 @@ case 'edit':
     if (is_a($share, 'PEAR_Error')) {
         $notification->push($share, 'horde.error');
     } elseif (!Horde_Auth::getAuth() ||
-              (isset($share) && Horde_Auth::getAuth() != $share->get('owner'))) {
+              (isset($share) &&
+               !Horde_Auth::isAdmin() &&
+               Horde_Auth::getAuth() != $share->get('owner'))) {
         exit('permission denied');
     }
     break;
@@ -45,7 +52,8 @@ case 'editform':
         $notification->push(_("Attempt to edit a non-existent share."), 'horde.error');
     } else {
         if (!Horde_Auth::getAuth() ||
-            Horde_Auth::getAuth() != $share->get('owner')) {
+            (!Horde_Auth::isAdmin() &&
+             Horde_Auth::getAuth() != $share->get('owner'))) {
             exit('permission denied');
         }
         $perm = &$share->getPermission();
