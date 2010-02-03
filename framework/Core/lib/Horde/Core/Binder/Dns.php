@@ -3,7 +3,9 @@ class Horde_Core_Binder_Dns implements Horde_Injector_Binder
 {
     public function create(Horde_Injector $injector)
     {
-        if (!class_exists('Net_DNS_Resolver')) {
+        /* Need check for Net_DNS since it defines global variables used
+         * in Net_DNS_Resolver::. */
+        if (!class_exists('Net_DNS')) {
             return null;
         }
 
