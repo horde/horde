@@ -458,7 +458,7 @@ class Horde_Share {
     /**
      * Finds out what rights the given user has to this object.
      *
-     * @see Perms::getPermissions
+     * @see Horde_Perms::getPermissions
      *
      * @param mixed $share  The share that should be checked for the users
      *                      permissions.

@@ -73,7 +73,7 @@ class EditReplyStep2Form extends Horde_Form {
                                      'longtext', true);
         $ptext->setDefault($info['reply_text']);
 
-        /* Perms link. */
+        /* Permissions link. */
         if (Horde_Auth::isAdmin('whups:admin', Horde_Perms::EDIT)) {
             $permslink = array(
                 'text' => _("Edit the permissions on this form reply"),

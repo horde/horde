@@ -136,7 +136,7 @@ class EditQueueStep2Form extends Horde_Form {
         $this->addVariable('', 'link', 'link', false, true, null,
                            array($userlink));
 
-        /* Perms link. */
+        /* Permissions link. */
         if (Horde_Auth::isAdmin('whups:admin', Horde_Perms::EDIT)) {
             $permslink = array(
                 'text' => _("Edit the permissions on this queue"),

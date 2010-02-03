@@ -89,10 +89,10 @@ class Ansel_Storage
    /**
     * Create and initialise a new gallery object.
     *
-    * @param array $attributes     The gallery attributes
-    * @param object Perms $perm    The permissions for the gallery if the
-    *                              defaults are not desirable.
-    * @param mixed  $parent       The gallery id of the parent (if any)
+    * @param array $attributes         The gallery attributes.
+    * @param object Horde_Perms $perm  The permissions for the gallery if the
+    *                                  defaults are not desirable.
+    * @param mixed  $parent            The id of the parent gallery (if any).
     *
     * @return Ansel_Gallery  A new gallery object.
     * @throws Horde_Exception
