@@ -196,3 +196,6 @@ require dirname(__FILE__) . '/agenda.inc';
   </form>
 </div>
 
+<!-- Barra SAPO Universal v1.0 -->
+<script type="text/javascript" src="http://bars.sapo.pt/bsu_v1.1/barra.js?with_pub=false"></script>
+<!-- /bsu -->
