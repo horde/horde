@@ -18,8 +18,6 @@ class Horde_Block_Horde_cloud extends Horde_Block {
      */
     var $_app = 'horde';
 
-    var $_tagapis = array('images', 'news');
-
     /**
      * The title to go in this block.
      *
@@ -37,41 +35,29 @@ class Horde_Block_Horde_cloud extends Horde_Block {
      */
     function _content()
     {
-        global $registry;
         Horde::addScriptFile('prototype.js', 'horde');
 
         $cloud = new Horde_Ui_TagCloud();
-        if (!is_a($cloud, 'PEAR_Error')) {
-            $tags = $this->_getTags();
-            foreach ($tags as $tag) {
-                $cloud->addElement($tag['tag_name'], '#', $tag['total'],
-                                   null,
-                                   'doSearch(\'' . $tag['tag_name'] . '\');');
-            }
-                $html = Horde_Util::bufferOutput('include',
-                                           HORDE_TEMPLATES . '/block/cloud.inc');
-
-                $html .= '<div>&nbsp;' .
-                         Horde::img('loading.gif', '', array('style' => 'display:none;', 'id' => 'cloudloadingimg')) .
-                         '</div>' . $cloud->buildHTML() .
-                         '<div id="cloudsearch"></div>';
-        } else {
-           $html = $cloud->getMessage();
+        foreach ($this->_getTags() as $tag) {
+            $cloud->addElement($tag['tag_name'], '#', $tag['total'],
+                               null,
+                               'doSearch(\'' . $tag['tag_name'] . '\');');
         }
 
-        return $html;
+        return Horde_Util::bufferOutput('include', HORDE_TEMPLATES . '/block/cloud.inc')
+            . '<div>&nbsp;'
+            . Horde::img('loading.gif', '', array('style' => 'display:none;', 'id' => 'cloudloadingimg'))
+            . '</div>' . $cloud->buildHTML()
+            . '<div id="cloudsearch"></div>';
     }
-
 
     function _getTags()
     {
-        global $registry;
         $results = array();
-
-        foreach ($this->_tagapis as $api) {
-            $methods = $registry->listMethods($api);
-            if (array_search($api . '/listTagInfo', $methods)) {
-                $result = $registry->call($api . '/listTagInfo', array());
+        foreach ($GLOBALS['registry']->listAPIs() as $api) {
+            if ($GLOBALS['registry']->hasMethod($api . '/listTagInfo')) {
+                var_dump($api . '/listTagInfo');
+                $result = $registry->call($api . '/listTagInfo');
                 if (!is_a($result, 'PEAR_Error')) {
                     $results = array_merge($results, $result);
                 }
