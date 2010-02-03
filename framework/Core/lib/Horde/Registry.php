@@ -125,8 +125,9 @@ class Horde_Registry
     static public function appInit($app, $args = array())
     {
         if (isset($GLOBALS['registry'])) {
-            $this->init();
-            return $GLOBALS['registry']->getApiInstance($app, 'application');
+            $appOb = $GLOBALS['registry']->getApiInstance($app, 'application');
+            $appOb->init();
+            return $appOb;
         }
 
         $args = array_merge(array(
