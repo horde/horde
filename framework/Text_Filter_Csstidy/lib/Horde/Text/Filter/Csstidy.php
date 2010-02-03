@@ -9,6 +9,8 @@
  * <pre>
  * level - (string) Level of compression.
  *         DEFAULT: 'highest_compression'
+ * ob - (boolean) If true, return Csstidy object instead of string.
+ *      DEFAULT: false
  * </pre>
  *
  * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
@@ -35,7 +37,8 @@ class Horde_Text_Filter_Csstidy extends Horde_Text_Filter
      *
      * @param string $text  The text after the filtering.
      *
-     * @return string  The modified text.
+     * @return mixed  The modified text, or the Csstidy object if
+     *                the 'ob' parameter is true.
      */
     public function postProcess($text)
     {
@@ -47,7 +50,9 @@ class Horde_Text_Filter_Csstidy extends Horde_Text_Filter
         $css_tidy->load_template($this->_params['level']);
         $css_tidy->parse($text);
 
-        return $css_tidy->print->plain();
+        return empty($this->_params['ob'])
+            ? $css_tidy->print->plain()
+            : $css_tidy;
     }
 
 }
