@@ -164,7 +164,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    </package>
    <package>
     <name>Mail</name>
-    <channel>pear.horde.org</channel>
+    <channel>pear.php.net</channel>
     <min>1.2.0</min>
    </package>
    <package>
