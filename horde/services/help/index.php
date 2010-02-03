@@ -160,8 +160,7 @@ case 'sidebar':
 
 case 'entry':
     if ($topic) {
-        $help->lookup($topic);
-        $help->display();
+        echo $help->lookup($topic);
     }
     break;
 }
