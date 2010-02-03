@@ -98,6 +98,11 @@ case 'headers':
 
         $elt->removeAttribute('class');
 
+        /* Need to wrap headers in another DIV. */
+        $newdiv = new DOMDocument();
+        $div = $newdiv->createElement('div');
+        $div->appendChild($newdiv->importNode($elt, true));
+
         // Fall-through
 
     case 'content':
@@ -111,7 +116,7 @@ case 'headers':
                 libxml_use_internal_errors(true);
                 $doc = DOMDocument::loadHTML($render[$key]['data']);
                 $bodyelt = $doc->getElementsByTagName('body')->item(0);
-                $bodyelt->insertBefore($doc->importNode($elt, true), $bodyelt->firstChild);
+                $bodyelt->insertBefore($doc->importNode($div, true), $bodyelt->firstChild);
                 echo $doc->saveHTML();
             } else {
                 echo $render[$key]['data'];

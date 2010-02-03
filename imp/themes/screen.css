@@ -592,6 +592,12 @@ div.mimeStatusMessage, div.mimePartInfo {
     border-color: #ffd0af;
 }
 
+.mimeHeadersPrint {
+    /* Must be pixel size to properly work with Mozilla on print page. */
+    font-size: 12px;
+}
+
+/* Other images. */
 .downloadAtc, .downloadZipAtc, .saveImgAtc, .printAtc, .closeImg, .deleteImg, .foldersImg, .searchuiImg, .reloadImg {
     display: -moz-inline-stack;
     display: inline-block;
@@ -627,6 +633,7 @@ div.mimeStatusMessage, div.mimePartInfo {
     background-image: url("graphics/reload.png");
 }
 
+/* ITIP styles. */
 #itipconflicts tr.itipcollision {
     background-color: #f00;
     color: #fff;
