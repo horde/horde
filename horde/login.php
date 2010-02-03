@@ -173,7 +173,7 @@ if ($error_reason) {
     $registry->setupSessionHandler();
     @session_start();
 
-    Horde_Nls::setLang($language);
+    Horde_Nls::setLanguageEnvironment($language);
 
     /* Hook to preselect the correct language in the widget. */
     $_GET['new_lang'] = $language;

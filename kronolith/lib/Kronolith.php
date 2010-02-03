@@ -1907,7 +1907,7 @@ class Kronolith
         }
 
         foreach ($addresses as $lang => $twentyFour) {
-            Horde_Nls::setLang($lang);
+            Horde_Nls::setLanguageEnvironment($lang);
 
             switch ($action) {
             case 'add':

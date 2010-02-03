@@ -746,7 +746,7 @@ class Horde_Auth
 
         /* Reload preferences for the new user. */
         $GLOBALS['registry']->loadPrefs();
-        Horde_Nls::setLang($GLOBALS['prefs']->getValue('language'));
+        Horde_Nls::setLanguageEnvironment($GLOBALS['prefs']->getValue('language'));
 
         if (!empty($options['nologin'])) {
             return true;

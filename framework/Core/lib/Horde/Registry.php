@@ -281,7 +281,7 @@ class Horde_Registry
         /* Initialize the localization routines and variables. We can't use
          * Horde_Nls::setLanguageEnvironment() here because that depends on the
          * registry to be already initialized. */
-        Horde_Nls::setLang();
+        Horde_Nls::setLanguage();
         Horde_Nls::setTextdomain('horde', HORDE_BASE . '/locale', Horde_Nls::getCharset());
         Horde_String::setDefaultCharset(Horde_Nls::getCharset());
 

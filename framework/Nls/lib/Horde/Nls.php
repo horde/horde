@@ -102,7 +102,7 @@ class Horde_Nls
      *
      * @throws Horde_Exception
      */
-    static public function setLang($lang = null)
+    static public function setLanguage($lang = null)
     {
         Horde::loadConfiguration('nls.php', null, 'horde');
 
@@ -181,7 +181,7 @@ class Horde_Nls
         if (empty($app)) {
             $app = $GLOBALS['registry']->getApp();
         }
-        self::setLang($language);
+        self::setLanguage($language);
         self::setTextdomain(
             $app,
             $GLOBALS['registry']->get('fileroot', $app) . '/locale',
