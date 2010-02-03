@@ -66,23 +66,22 @@ if (Horde_Util::getFormData('check_versions')) {
     } elseif ($http->getResponseCode() != 200) {
         $notification->push(_("Unexpected response from server, try again later."), 'horde.error');
     } else {
-        $dom = Horde_DOM_Document::factory(array('xml' => $http->getResponseBody()));
-        $stable = $dom->get_elements_by_tagname('stable');
-        if (!count($stable) || !$stable[0]->has_child_nodes()) {
+        $dom = DOMDocument::loadXML($http->getResponseBody());
+        $stable = $dom->getElementsByTagName('stable');
+        if (!count($stable) || !$stable[0]->hasChildNodes()) {
             $notification->push(_("Invalid response from server."), 'horde.error');
         } else {
-            for ($app = $stable[0]->first_child();
+            for ($app = $stable[0]->firstChild;
                  !empty($app);
-                 $app = $app->next_sibling()) {
-                if (!is_a($app, 'domelement') &&
-                    !is_a($app, 'Horde_DOM_Element')) {
+                 $app = $app->nextSibling) {
+                if (!($app instanceof DOMElement)) {
                     continue;
                 }
-                $version = $app->get_elements_by_tagname('version');
-                $url = $app->get_elements_by_tagname('url');
-                $versions[$app->get_attribute('name')] = array(
-                    'version' => $version[0]->get_content(),
-                    'url' => $url[0]->get_content());
+                $version = $app->getElementsByTagName('version');
+                $url = $app->getElementsByTagName('url');
+                $versions[$app->getAttribute('name')] = array(
+                    'version' => $version[0]->textContent,
+                    'url' => $url[0]->textContent);
             }
         }
     }

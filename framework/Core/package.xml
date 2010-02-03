@@ -37,7 +37,8 @@ Application Framework.
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Added Horde_Registry_Api:: and Horde_Registry_Application:: classes.
+ <notes>* Remove dependency on Horde_DOM package.
+ * Added Horde_Registry_Api:: and Horde_Registry_Application:: classes.
  * Moved Horde_Exception to Exception package.
  * Renamed Menu:: as Horde_Menu::.
  * Renamed Help:: as Horde_Help::.
@@ -109,10 +110,6 @@ Application Framework.
    </package>
    <package>
     <name>Cli</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>DOM</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>

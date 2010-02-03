@@ -125,25 +125,25 @@ class Horde_Config
         }
 
         /* Load the DOM object. */
-        include_once 'Horde/DOM.php';
-        $doc = Horde_DOM_Document::factory(array('filename' => $path . '/conf.xml'));
+        $dom = new DOMDocument();
+        $dom->load($path . '/conf.xml');
 
         /* Check if there is a CVS/Git version tag and store it. */
-        $node = $doc->first_child();
+        $node = $dom->firstChild;
         while (!empty($node)) {
-            if (($node->type == XML_COMMENT_NODE) &&
-                ($vers_tag = $this->getVersion($node->node_value()))) {
+            if (($node->nodeType == XML_COMMENT_NODE) &&
+                ($vers_tag = $this->getVersion($node->nodeValue))) {
                 $this->_versionTag = $vers_tag . "\n";
                 break;
             }
-            $node = $node->next_sibling();
+            $node = $node->nextSibling;
         }
 
         /* Parse the config file. */
         $this->_xmlConfigTree = array();
-        $root = $doc->root();
-        if ($root->has_child_nodes()) {
-            $this->_parseLevel($this->_xmlConfigTree, $root->child_nodes(), '');
+        $root = $dom->documentElement;
+        if ($root->hasChildNodes()) {
+            $this->_parseLevel($this->_xmlConfigTree, $root->childNodes, '');
         }
 
         return $this->_xmlConfigTree;
@@ -353,31 +353,31 @@ class Horde_Config
      * Parses one level of the configuration XML tree into the associative
      * array containing the traversed configuration tree.
      *
-     * @param array &$conf     The already existing array where the processed
-     *                         XML tree portion should be appended to.
-     * @param array $children  An array containing the XML nodes of the level
-     *                         that should be parsed.
-     * @param string $ctx      A string representing the current position
-     *                         (context prefix) inside the configuration XML
-     *                         file.
+     * @param array &$conf           The already existing array where the
+     *                               processed XML tree portion should be
+     *                               appended to.
+     * @param DOMNodeList $children  The XML nodes of the level that should
+     *                               be parsed.
+     * @param string $ctx            A string representing the current
+     *                               position (context prefix) inside the
+     *                               configuration XML file.
      */
     protected function _parseLevel(&$conf, $children, $ctx)
     {
-        reset($children);
-        while (list(,$node) = each($children)) {
-            if ($node->type != XML_ELEMENT_NODE) {
+        foreach ($children as $node) {
+            if ($node->nodeType != XML_ELEMENT_NODE) {
                 continue;
             }
-            $name = $node->get_attribute('name');
-            $desc = Horde_Text_Filter::filter($node->get_attribute('desc'), 'linkurls', array('callback' => 'Horde::externalUrl'));
-            $required = !($node->get_attribute('required') == 'false');
-            $quote = !($node->get_attribute('quote') == 'false');
+            $name = $node->getAttribute('name');
+            $desc = Horde_Text_Filter::filter($node->getAttribute('desc'), 'linkurls', array('callback' => 'Horde::externalUrl'));
+            $required = !($node->getAttribute('required') == 'false');
+            $quote = !($node->getAttribute('quote') == 'false');
 
             $curctx = empty($ctx)
                 ? $name
                 : $ctx . '|' . $name;
 
-            switch ($node->tagname) {
+            switch ($node->tagName) {
             case 'configdescription':
                 if (empty($name)) {
                     $name = hash('md5', uniqid(mt_rand(), true));
@@ -530,7 +530,7 @@ class Horde_Config
                     'is_default' => $this->_isDefault($curctx, $this->_getNodeOnlyText($node))
                 );
 
-                if ($node->get_attribute('octal') == 'true' &&
+                if ($node->getAttribute('octal') == 'true' &&
                     $conf[$name]['default'] != '') {
                     $conf[$name]['_type'] = 'octal';
                     $conf[$name]['default'] = sprintf('0%o', $this->_default($curctx, octdec($this->_getNodeOnlyText($node))));
@@ -538,7 +538,7 @@ class Horde_Config
                 break;
 
             case 'configldap':
-                $conf[$node->get_attribute('switchname')] = $this->_configLDAP($ctx, $node);
+                $conf[$node->getAttribute('switchname')] = $this->_configLDAP($ctx, $node);
                 break;
 
             case 'configphp':
@@ -563,18 +563,18 @@ class Horde_Config
                 break;
 
             case 'configsql':
-                $conf[$node->get_attribute('switchname')] = $this->_configSQL($ctx, $node);
+                $conf[$node->getAttribute('switchname')] = $this->_configSQL($ctx, $node);
                 break;
 
             case 'configvfs':
-                $conf[$node->get_attribute('switchname')] = $this->_configVFS($ctx, $node);
+                $conf[$node->getAttribute('switchname')] = $this->_configVFS($ctx, $node);
                 break;
 
             case 'configsection':
                 $conf[$name] = array();
                 $cur = &$conf[$name];
-                if ($node->has_child_nodes()) {
-                    $this->_parseLevel($cur, $node->child_nodes(), $curctx);
+                if ($node->hasChildNodes()) {
+                    $this->_parseLevel($cur, $node->childNodes, $curctx);
                 }
                 break;
 
@@ -586,8 +586,8 @@ class Horde_Config
                     'desc' => $desc
                 );
 
-                if ($node->has_child_nodes()) {
-                    $this->_parseLevel($conf, $node->child_nodes(), $ctx);
+                if ($node->hasChildNodes()) {
+                    $this->_parseLevel($conf, $node->childNodes, $ctx);
                 }
                 break;
 
@@ -598,8 +598,8 @@ class Horde_Config
             default:
                 $conf[$name] = array();
                 $cur = &$conf[$name];
-                if ($node->has_child_nodes()) {
-                    $this->_parseLevel($cur, $node->child_nodes(), $curctx);
+                if ($node->hasChildNodes()) {
+                    $this->_parseLevel($cur, $node->childNodes, $curctx);
                 }
                 break;
             }
@@ -721,12 +721,12 @@ class Horde_Config
             'writedn' => $writedn,
             'ca' => $ca
         );
-    
-        if (isset($node) && $node->get_attribute('baseconfig') == 'true') {
+
+        if (isset($node) && $node->getAttribute('baseconfig') == 'true') {
             return $custom_fields;
         }
 
-        list($default, $isDefault) = $this->__default($ctx . '|' . (isset($node) ? $node->get_attribute('switchname') : $switchname), 'horde');
+        list($default, $isDefault) = $this->__default($ctx . '|' . (isset($node) ? $node->getAttribute('switchname') : $switchname), 'horde');
         $config = array(
             'desc' => 'Driver configuration',
             'default' => $default,
@@ -743,9 +743,9 @@ class Horde_Config
             )
         );
 
-        if (isset($node) && $node->has_child_nodes()) {
+        if (isset($node) && $node->hasChildNodes()) {
             $cur = array();
-            $this->_parseLevel($cur, $node->child_nodes(), $ctx);
+            $this->_parseLevel($cur, $node->childNodes, $ctx);
             $config['switch']['horde']['fields'] = array_merge($config['switch']['horde']['fields'], $cur);
             $config['switch']['custom']['fields'] = array_merge($config['switch']['custom']['fields'], $cur);
         }
@@ -1160,11 +1160,11 @@ class Horde_Config
             )
         );
 
-        if (isset($node) && $node->get_attribute('baseconfig') == 'true') {
+        if (isset($node) && $node->getAttribute('baseconfig') == 'true') {
             return $custom_fields;
         }
 
-        list($default, $isDefault) = $this->__default($ctx . '|' . (isset($node) ? $node->get_attribute('switchname') : $switchname), 'horde');
+        list($default, $isDefault) = $this->__default($ctx . '|' . (isset($node) ? $node->getAttribute('switchname') : $switchname), 'horde');
         $config = array(
             'desc' => 'Driver configuration',
             'default' => $default,
@@ -1183,9 +1183,9 @@ class Horde_Config
             )
         );
 
-        if (isset($node) && $node->has_child_nodes()) {
+        if (isset($node) && $node->hasChildNodes()) {
             $cur = array();
-            $this->_parseLevel($cur, $node->child_nodes(), $ctx);
+            $this->_parseLevel($cur, $node->childNodes, $ctx);
             $config['switch']['horde']['fields'] = array_merge($config['switch']['horde']['fields'], $cur);
             $config['switch']['custom']['fields'] = array_merge($config['switch']['custom']['fields'], $cur);
         }
@@ -1208,9 +1208,9 @@ class Horde_Config
     protected function _configVFS($ctx, $node)
     {
         $sql = $this->_configSQL($ctx . '|params');
-        $default = $node->get_attribute('default');
+        $default = $node->getAttribute('default');
         $default = empty($default) ? 'horde' : $default;
-        list($default, $isDefault) = $this->__default($ctx . '|' . $node->get_attribute('switchname'), $default);
+        list($default, $isDefault) = $this->__default($ctx . '|' . $node->getAttribute('switchname'), $default);
 
         $config = array(
             'desc' => 'What VFS driver should we use?',
@@ -1244,7 +1244,7 @@ class Horde_Config
             )
         );
 
-        if (isset($node) && $node->get_attribute('baseconfig') != 'true') {
+        if (isset($node) && $node->getAttribute('baseconfig') != 'true') {
             $config['switch']['horde'] = array(
                 'desc' => 'Horde defaults',
                 'fields' => array()
@@ -1409,13 +1409,13 @@ class Horde_Config
     {
         $text = '';
 
-        if (!$node->has_child_nodes()) {
-            return $node->get_content();
+        if (!$node->hasChildNodes()) {
+            return $node->textContent;
         }
 
-        foreach ($node->child_nodes() as $tnode) {
-            if ($tnode->type == XML_TEXT_NODE) {
-                $text .= $tnode->content;
+        foreach ($node->childNodes as $tnode) {
+            if ($tnode->nodeType == XML_TEXT_NODE) {
+                $text .= $tnode->textContent;
             }
         }
 
@@ -1438,24 +1438,24 @@ class Horde_Config
     {
         $values = array();
 
-        if (!$node->has_child_nodes()) {
+        if (!$node->hasChildNodes()) {
             return $values;
         }
 
-        foreach ($node->child_nodes() as $vnode) {
-            if ($vnode->type == XML_ELEMENT_NODE &&
-                $vnode->tagname == 'values') {
-                if (!$vnode->has_child_nodes()) {
+        foreach ($node->childNodes as $vnode) {
+            if ($vnode->nodeType == XML_ELEMENT_NODE &&
+                $vnode->tagName == 'values') {
+                if (!$vnode->hasChildNodes()) {
                     return array();
                 }
 
-                foreach ($vnode->child_nodes() as $value) {
-                    if ($value->type == XML_ELEMENT_NODE) {
-                        if ($value->tagname == 'configspecial') {
+                foreach ($vnode->childNodes as $value) {
+                    if ($value->nodeType == XML_ELEMENT_NODE) {
+                        if ($value->tagName == 'configspecial') {
                             return $this->_handleSpecials($value);
-                        } elseif ($value->tagname == 'value') {
-                            $text = $value->get_content();
-                            $desc = $value->get_attribute('desc');
+                        } elseif ($value->tagName == 'value') {
+                            $text = $value->textContent;
+                            $desc = $value->getAttribute('desc');
                             $values[$text] = empty($desc) ? $text : $desc;
                         }
                     }
@@ -1479,19 +1479,19 @@ class Horde_Config
     {
         $values = array();
 
-        if (!$node->has_child_nodes()) {
+        if (!$node->hasChildNodes()) {
             return $values;
         }
 
-        foreach ($node->child_nodes() as $case) {
-            if ($case->type == XML_ELEMENT_NODE) {
-                $name = $case->get_attribute('name');
+        foreach ($node->childNodes as $case) {
+            if ($case->nodeType == XML_ELEMENT_NODE) {
+                $name = $case->getAttribute('name');
                 $values[$name] = array(
-                    'desc' => $case->get_attribute('desc'),
+                    'desc' => $case->getAttribute('desc'),
                     'fields' => array()
                 );
-                if ($case->has_child_nodes()) {
-                    $this->_parseLevel($values[$name]['fields'], $case->child_nodes(), $curctx);
+                if ($case->hasChildNodes()) {
+                    $this->_parseLevel($values[$name]['fields'], $case->childNodes, $curctx);
                 }
             }
         }
@@ -1510,7 +1510,7 @@ class Horde_Config
      */
     protected function _handleSpecials($node)
     {
-        switch ($node->get_attribute('name')) {
+        switch ($node->getAttribute('name')) {
         case 'list-horde-apps':
             $apps = Horde_Array::valuesToKeys($GLOBALS['registry']->listApps(array('hidden', 'notoolbar', 'active')));
             asort($apps);

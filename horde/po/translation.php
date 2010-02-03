@@ -1204,69 +1204,75 @@ function update_help()
             if (preg_match('/encoding=(["\'])([^\\1]+)\\1/', $line, $match)) {
                 $encoding = $match[2];
             }
-            $doc_en = Horde_DOM_Document::factory(array('filename' => $file_en));
-            if (!is_object($doc_en)) {
+
+            if (!($doc_en = DOMDocument::load($file_en))) {
                 $c->message(sprintf('There was an error opening the file %s. Try running translation.php with the flag -d to see any error messages from the xml parser.', $file_en), 'cli.warning');
                 $c->writeln();
                 continue 2;
             }
-            $doc_loc = Horde_DOM_Document::factory(array('filename' => $file_loc));
-            if (!is_object($doc_loc)) {
+
+            if (!($doc_loc = DOMDocument::load($file_loc))) {
                 $c->message(sprintf('There was an error opening the file %s. Try running translation.php with the flag -d to see any error messages from the xml parser.', $file_loc), 'cli.warning');
                 $c->writeln();
                 continue;
             }
-            $doc_new  = Horde_DOM_Document::factory();
-            $help_en  = $doc_en->document_element();
-            $help_loc = $doc_loc->document_element();
-            $help_new = $help_loc->clone_node();
+            $doc_new  = new DOMDocument();
+            $help_en  = $doc_en->documentElement;
+            $help_loc = $doc_loc->documentElement;
+            $help_new = $help_loc->cloneNode();
             $entries_loc = array();
             $entries_new = array();
             $count_uptodate = 0;
             $count_new      = 0;
             $count_changed  = 0;
             $count_unknown  = 0;
-            foreach ($doc_loc->get_elements_by_tagname('entry') as $entry) {
-                $entries_loc[$entry->get_attribute('id')] = $entry;
+            foreach ($doc_loc->getElementsByTagName('entry') as $entry) {
+                $entries_loc[$entry->getAttribute('id')] = $entry;
             }
-            foreach ($doc_en->get_elements_by_tagname('entry') as $entry) {
-                $id = $entry->get_attribute('id');
+            foreach ($doc_en->getElementsByTagName('entry') as $entry) {
+                $id = $entry->getAttribute('id');
                 if (array_key_exists($id, $entries_loc)) {
-                    if ($entries_loc[$id]->has_attribute('md5') &&
-                        md5($entry->get_content()) != $entries_loc[$id]->get_attribute('md5')) {
+                    if ($entries_loc[$id]->hasAttribute('md5') &&
+                        md5($entry->textContent) != $entries_loc[$id]->getAttribute('md5')) {
                         $comment = $doc_loc->create_comment(" English entry:\n" . str_replace('--', '&#45;&#45;', $doc_loc->dump_node($entry)));
-                        $entries_loc[$id]->append_child($comment);
-                        $entry_new = $entries_loc[$id]->clone_node(true);
-                        $entry_new->set_attribute('state', 'changed');
+                        $entries_loc[$id]->appendChild($comment);
+                        $entry_new = $entries_loc[$id]->cloneNode(true);
+                        $entry_new->setAttribute('state', 'changed');
                         $count_changed++;
                     } else {
-                        if (!$entries_loc[$id]->has_attribute('state')) {
+                        if (!$entries_loc[$id]->hasAttribute('state')) {
                             $comment = $doc_loc->create_comment(" English entry:\n" . str_replace('--', '&#45;&#45;', $doc_loc->dump_node($entry)));
-                            $entries_loc[$id]->append_child($comment);
-                            $entry_new = $entries_loc[$id]->clone_node(true);
-                            $entry_new->set_attribute('state', 'unknown');
+                            $entries_loc[$id]->appendChild($comment);
+                            $entry_new = $entries_loc[$id]->cloneNode(true);
+                            $entry_new->setAttribute('state', 'unknown');
                             $count_unknown++;
                         } else {
-                            $entry_new = $entries_loc[$id]->clone_node(true);
+                            $entry_new = $entries_loc[$id]->cloneNode(true);
                             $count_uptodate++;
                         }
                     }
                 } else {
-                    $entry_new = $entry->clone_node(true);
-                    $entry_new->set_attribute('state', 'new');
+                    $entry_new = $entry->cloneNode(true);
+                    $entry_new->setAttribute('state', 'new');
                     $count_new++;
                 }
                 $entries_new[] = $entry_new;
             }
-            $doc_new->append_child($doc_new->create_comment(' $' . 'Horde$ '));
+            $doc_new->appendChild($doc_new->create_comment(' $' . 'Horde$ '));
             foreach ($entries_new as $entry) {
-                $help_new->append_child($entry);
+                $help_new->appendChild($entry);
             }
             $c->writeln(wordwrap(sprintf('Entries: %d total, %d up-to-date, %d new, %d changed, %d unknown',
                                      $count_uptodate + $count_new + $count_changed + $count_unknown,
                                      $count_uptodate, $count_new, $count_changed, $count_unknown)));
-            $doc_new->append_child($help_new);
-            $output = $doc_new->dump_mem(true, $encoding);
+            $doc_new->appendChild($help_new);
+
+            $doc_new->formatoutput = true;
+            if ($encoding) {
+                $doc_new->encoding = $encoding;
+            }
+            $output = $doc_new->savexml();
+
             if ($debug || $test) {
                 $c->writeln(wordwrap(sprintf('Writing updated help file to %s.', $file_loc)));
             }
@@ -1344,46 +1350,51 @@ function make_help()
             if (preg_match('/encoding=(["\'])([^\\1]+)\\1/', $line, $match)) {
                 $encoding = $match[2];
             }
-            $doc_en = Horde_DOM_Document::factory(array('filename' => $file_en));
-            if (!is_object($doc_en)) {
+
+            if (!($doc_en = DOMDocument::load($file_en))) {
                 $c->message(sprintf('There was an error opening the file %s. Try running translation.php with the flag -d to see any error messages from the xml parser.', $file_en), 'cli.warning');
                 $c->writeln();
                 continue 2;
             }
-            $doc_loc = Horde_DOM_Document::factory(array('filename' => $file_loc));
-            if (!is_object($doc_loc)) {
+
+            if (!($doc_loc = DOMDocument::load($file_loc))) {
                 $c->message(sprintf('There was an error opening the file %s. Try running translation.php with the flag -d to see any error messages from the xml parser.', $file_loc), 'cli.warning');
                 $c->writeln();
                 continue;
             }
-            $help_loc  = $doc_loc->document_element();
+            $help_loc  = $doc_loc->documentElement;
             $md5_en    = array();
             $count_all = 0;
             $count     = 0;
-            foreach ($doc_en->get_elements_by_tagname('entry') as $entry) {
-                $md5_en[$entry->get_attribute('id')] = md5($entry->get_content());
+            foreach ($doc_en->getElementsByTagName('entry') as $entry) {
+                $md5_en[$entry->getAttribute('id')] = md5($entry->textContent);
             }
-            foreach ($doc_loc->get_elements_by_tagname('entry') as $entry) {
-                foreach ($entry->child_nodes() as $child) {
-                    if ($child->node_type() == XML_COMMENT_NODE && strstr($child->node_value(), 'English entry')) {
-                        $entry->remove_child($child);
+            foreach ($doc_loc->getElementsByTagName('entry') as $entry) {
+                foreach ($entry->childNodes as $child) {
+                    if ($child->nodeType == XML_COMMENT_NODE &&
+                        strstr($child->nodeValue, 'English entry')) {
+                        $entry->removeChild($child);
                     }
                 }
                 $count_all++;
-                $id = $entry->get_attribute('id');
+                $id = $entry->getAttribute('id');
                 if (!array_key_exists($id, $md5_en)) {
                     $c->message(sprintf('No entry with the id "%s" exists in the original help file.', $id), 'cli.warning');
                 } else {
-                    $entry->set_attribute('md5', $md5_en[$id]);
-                    $entry->set_attribute('state', 'uptodate');
+                    $entry->setAttribute('md5', $md5_en[$id]);
+                    $entry->setAttribute('state', 'uptodate');
                     $count++;
                 }
             }
-            $output = $doc_loc->dump_mem(true, $encoding);
+
+            $doc_loc->formatoutput = true;
+            if ($encoding) {
+                $doc_loc->encoding = $encoding;
+            }
+            $output = $doc_loc->savexml();
+
             if (!$test) {
-                $fp = fopen($file_loc, 'w');
-                $line = fwrite($fp, $output);
-                fclose($fp);
+                file_put_contents($file_loc, $output);
             }
             $c->writeln(sprintf('%d of %d entries marked as up-to-date', $count, $count_all));
             $c->writeln();
