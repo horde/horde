@@ -1034,12 +1034,14 @@ class Kronolith_Api extends Horde_Registry_Api
      *                                 once inside the $startDate - $endDate range.
      * @param boolean $alarmsOnly      Filter results for events with alarms.
      *                                 Defaults to false.
+     * @param boolean $showRemote      Return events from remote calendars and
+     *                                 listTimeObject API as well?
      *
      * @return array  A list of event hashes.
      */
     public function listEvents($startstamp = null, $endstamp = null,
         $calendars = null, $showRecurrence = true,
-        $alarmsOnly = false)
+        $alarmsOnly = false, $showRemote = true)
     {
         if (!isset($calendars)) {
             $calendars = array($GLOBALS['prefs']->getValue('default_share'));
@@ -1055,7 +1057,7 @@ class Kronolith_Api extends Horde_Registry_Api
 
         return Kronolith::listEvents(new Horde_Date($startstamp),
             new Horde_Date($endstamp),
-            $calendars, $showRecurrence, $alarmsOnly);
+            $calendars, $showRecurrence, $alarmsOnly, $showRemote);
     }
 
     /**
