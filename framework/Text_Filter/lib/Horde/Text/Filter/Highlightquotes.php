@@ -15,6 +15,7 @@
  * 'citeblock'  -- Display cite blocks? (DEFAULT: true)
  * 'cssLevels'  -- Number of defined CSS class names. (DEFAULT: 5)
  * 'hideBlocks' -- Hide quoted text blocks by default? (DEFAULT: false)
+ * 'noJS' -     -- Don't add javscript toggle code (DEFAULT: false)
  * 'outputJS'   -- Add necessary JS files? (DEFAULT: true)
  * </pre>
  *
@@ -38,6 +39,7 @@ class Horde_Text_Filter_Highlightquotes extends Horde_Text_Filter
         'citeblock' => true,
         'cssLevels' => 5,
         'hideBlocks' => false,
+        'noJS' => true,
         'outputJS' => true
     );
 
@@ -154,7 +156,7 @@ class Horde_Text_Filter_Highlightquotes extends Horde_Text_Filter
         $curr = reset($lines);
         $out = implode("\n", $this->_removeBr($curr['lines']));
 
-        if ($qcount > 8) {
+        if (!$this->_params['noJS'] && ($qcount > 8)) {
             if ($this->_params['outputJS']) {
                 Horde::addScriptFile('prototype.js', 'horde');
             }
@@ -193,7 +195,7 @@ class Horde_Text_Filter_Highlightquotes extends Horde_Text_Filter
             $out .= $this->_params['citeblock'] ? '</div>' : '</font>';
         }
 
-        return ($qcount > 8)
+        return (!$this->_params['noJS'] && ($qcount > 8))
             ? $out . '</div>'
             : $out;
     }
