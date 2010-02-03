@@ -28,7 +28,7 @@ CREATE INDEX nag_start_idx ON nag_tasks (task_start);
 CREATE TABLE nag_shares (
     share_id INT NOT NULL,
     share_name VARCHAR(255) NOT NULL,
-    share_owner VARCHAR(255) NOT NULL,
+    share_owner VARCHAR(255),
     share_flags SMALLINT DEFAULT 0 NOT NULL,
     perm_creator SMALLINT DEFAULT 0 NOT NULL,
     perm_default SMALLINT DEFAULT 0 NOT NULL,

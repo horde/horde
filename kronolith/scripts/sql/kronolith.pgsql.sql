@@ -44,7 +44,7 @@ CREATE INDEX kronolith_vfb_email_idx ON kronolith_storage (vfb_email);
 CREATE TABLE kronolith_shares (
     share_id INT NOT NULL,
     share_name VARCHAR(255) NOT NULL,
-    share_owner VARCHAR(255) NOT NULL,
+    share_owner VARCHAR(255),
     share_flags SMALLINT DEFAULT 0 NOT NULL,
     perm_creator SMALLINT DEFAULT 0 NOT NULL,
     perm_default SMALLINT DEFAULT 0 NOT NULL,
