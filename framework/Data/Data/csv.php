@@ -34,7 +34,7 @@ class Horde_Data_csv extends Horde_Data {
      */
     function discoverFormat($filename)
     {
-        return File_CSV::discoverFormat($filename);
+        return Horde_File_Csv::discoverFormat($filename);
     }
 
     /**
@@ -52,12 +52,13 @@ class Horde_Data_csv extends Horde_Data {
      * @return array  A two-dimensional array of all imported data rows.  If
      *                $header was true the rows are associative arrays with the
      *                field/column names as the keys.
+     *@throws Horde_File_Csv_Exception
      */
     function importFile($filename, $header = false, $sep = '', $quote = '',
                         $fields = null, $import_mapping = array(),
                         $charset = null, $crlf = null)
     {
-        /* File_CSV is a bit picky at what parameters it expects. */
+        /* Horde_File_Csv is a bit picky at what parameters it expects. */
         $conf = array();
         if ($fields) {
             $conf['fields'] = $fields;
@@ -79,20 +80,14 @@ class Horde_Data_csv extends Horde_Data {
         /* Strip and keep the first line if it contains the field
          * names. */
         if ($header) {
-            $head = File_CSV::read($filename, $conf);
-            if (is_a($head, 'PEAR_Error')) {
-                return $head;
-            }
+            $head = Horde_File_Csv::read($filename, $conf);
             if (!empty($charset)) {
                 $head = Horde_String::convertCharset($head, $charset, Horde_Nls::getCharset());
             }
         }
 
         $data = array();
-        while ($line = File_CSV::read($filename, $conf)) {
-            if (is_a($line, 'PEAR_Error')) {
-                return $line;
-            }
+        while ($line = Horde_File_Csv::read($filename, $conf)) {
             if (!empty($charset)) {
                 $line = Horde_String::convertCharset($line, $charset, Horde_Nls::getCharset());
             }
@@ -112,12 +107,12 @@ class Horde_Data_csv extends Horde_Data {
             }
         }
 
-        $fp = File_CSV::getPointer($filename, $conf);
-        if ($fp && !is_a($fp, 'PEAR_Error')) {
+        $fp = Horde_File_Csv::getPointer($filename, $conf);
+        if ($fp) {
             rewind($fp);
         }
 
-        $this->_warnings = File_CSV::warning();
+        $this->_warnings = Horde_File_Csv::warning();
         return $data;
     }
 

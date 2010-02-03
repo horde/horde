@@ -1,19 +1,6 @@
 <?php
 /**
- * @package File_CSV
- */
-
-/** Mode to use for reading from files */
-define('HORDE_FILE_CSV_MODE_READ', 'rb');
-
-/** Mode to use for truncating files, then writing */
-define('HORDE_FILE_CSV_MODE_WRITE', 'wb');
-
-/** Mode to use for appending to files */
-define('HORDE_FILE_CSV_MODE_APPEND', 'ab');
-
-/**
- * The File_CSV package allows reading and creating of CSV data and files.
+ * Provide reading and creating of CSV data and files.
  *
  * Copyright 2002-2003 Tomas Von Veschler Cox <cox@idecnet.com>
  * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
@@ -25,37 +12,45 @@ define('HORDE_FILE_CSV_MODE_APPEND', 'ab');
  * world-wide-web, please send a note to license@php.net so we can mail you a
  * copy immediately.
  *
- * @author  Tomas Von Veschler Cox <cox@idecnet.com>
- * @author  Jan Schneider <jan@horde.org>
- * @package File_CSV
+ * @author   Tomas Von Veschler Cox <cox@idecnet.com>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @package  Horde_File_Csv
  */
-class File_CSV {
+class Horde_File_Csv
+{
+    /** Mode to use for reading from files */
+    const MODE_READ = 'rb';
+
+    /** Mode to use for truncating files, then writing */
+    const MODE_WRITE = 'wb';
+
+    /** Mode to use for appending to files */
+    const MODE_APPEND = 'ab';
 
     /**
-     * Discovers the format of a CSV file (the number of fields, the separator,
-     * the quote string, and the line break).
+     * Discovers the format of a CSV file (the number of fields, the
+     * separator, the quote string, and the line break).
      *
      * We can't use the auto_detect_line_endings PHP setting, because it's not
      * supported by fgets() contrary to what the manual says.
      *
-     * @static
-     *
-     * @param string  The CSV file name
-     * @param array   Extra separators that should be checked for.
+     * @param string $file      The CSV file name
+     * @param array $extraSeps  Extra separators that should be checked for.
      *
      * @return array  The format hash.
+     * @throws Horde_File_Csv_Exception
      */
-    function discoverFormat($file, $extraSeps = array())
+    static public function discoverFormat($file, $extraSeps = array())
     {
         if (!$fp = @fopen($file, 'r')) {
-            return PEAR::raiseError('Could not open file: ' . $file);
+            throw new Horde_File_Csv_Exception('Could not open file: ' . $file);
         }
 
         $seps = array("\t", ';', ':', ',', '~');
         $seps = array_merge($seps, $extraSeps);
-        $matches = array();
+        $conf = $matches = array();
         $crlf = null;
-        $conf = array();
 
         /* Take the first 10 lines and store the number of ocurrences for each
          * separator in each line. */
@@ -77,23 +72,22 @@ class File_CSV {
                         }
                     }
                 }
-                $i++;
-                $j++;
+                ++$i;
+                ++$j;
                 foreach ($seps as $sep) {
                     $matches[$sep][$i] = substr_count($line, $sep);
                 }
             }
         }
+
         if (isset($crlf)) {
             $conf['crlf'] = $crlf;
         }
 
         /* Group the results by amount of equal occurrences. */
-        $fields = array();
-        $amount = array();
+        $amount = $fields = array();
         foreach ($matches as $sep => $lines) {
-            $times = array();
-            $times[0] = 0;
+            $times = array(0 => 0);
             foreach ($lines as $num) {
                 if ($num > 0) {
                     $times[$num] = (isset($times[$num])) ? $times[$num] + 1 : 1;
@@ -114,7 +108,7 @@ class File_CSV {
         $quotes = '"\'';
         $quote  = '';
         rewind($fp);
-        for ($i = 0; ($i < 10) && ($line = fgets($fp)); $i++) {
+        for ($i = 0; ($i < 10) && ($line = fgets($fp)); ++$i) {
             if (preg_match("|$sep([$quotes]).*([$quotes])$sep|U", $line, $match)) {
                 if ($match[1] == $match[2]) {
                     $quote = $match[1];
@@ -146,13 +140,11 @@ class File_CSV {
      * @param array $conf   The configuration for the CSV file.
      *
      * @return array|boolean  The CSV data or false if no more data available.
+     * @throws Horde_File_Csv_Exception
      */
-    function read($file, &$conf)
+    static public function read($file, &$conf)
     {
-        $fp = File_CSV::getPointer($file, $conf, HORDE_FILE_CSV_MODE_READ);
-        if (is_a($fp, 'PEAR_Error')) {
-            return $fp;
-        }
+        $fp = self::getPointer($file, $conf, self::MODE_READ);
 
         $line = fgets($fp);
         $line_length = strlen($line);
@@ -160,7 +152,7 @@ class File_CSV {
         /* Use readQuoted() if we have Mac line endings. */
         if (preg_match('/\r(?!\n)/', $line)) {
             fseek($fp, -$line_length, SEEK_CUR);
-            return File_CSV::readQuoted($file, $conf);
+            return self::readQuoted($file, $conf);
         }
 
         /* Normalize line endings. */
@@ -169,7 +161,7 @@ class File_CSV {
             return false;
         }
 
-        File_CSV::_line(File_CSV::_line() + 1);
+        self::_line(self::_line() + 1);
 
         if ($conf['fields'] == 1) {
             return array($line);
@@ -190,10 +182,10 @@ class File_CSV {
                 // preg_match("|{$conf['quote']}.*{$conf['sep']}.*{$conf['quote']}|U", $line)
                 ) {
                 fseek($fp, -$line_length, SEEK_CUR);
-                return File_CSV::readQuoted($file, $conf);
+                return self::readQuoted($file, $conf);
             } else {
                 foreach ($fields as $k => $v) {
-                    $fields[$k] = File_CSV::unquote(trim($v), $conf['quote']);
+                    $fields[$k] = self::unquote(trim($v), $conf['quote']);
                 }
             }
         } else {
@@ -203,10 +195,10 @@ class File_CSV {
         }
 
         if (count($fields) < $conf['fields']) {
-            File_CSV::warning(sprintf(_("Wrong number of fields in line %d. Expected %d, found %d."), File_CSV::_line(), $conf['fields'], count($fields)));
+            self::warning(sprintf(_("Wrong number of fields in line %d. Expected %d, found %d."), self::_line(), $conf['fields'], count($fields)));
             $fields = array_merge($fields, array_fill(0, $conf['fields'] - count($fields), ''));
         } elseif (count($fields) > $conf['fields']) {
-            File_CSV::warning(sprintf(_("More fields found in line %d than the expected %d."), File_CSV::_line(), $conf['fields']));
+            self::warning(sprintf(_("More fields found in line %d than the expected %d."), self::_line(), $conf['fields']));
             array_splice($fields, $conf['fields']);
         }
 
@@ -223,13 +215,11 @@ class File_CSV {
      * @param array $conf   The configuration for the CSV file.
      *
      * @return array|boolean  The CSV data or false if no more data available.
+     * @throws Horde_File_Csv_Exception
      */
-    function readQuoted($file, &$conf)
+    static public function readQuoted($file, &$conf)
     {
-        $fp = File_CSV::getPointer($file, $conf, HORDE_FILE_CSV_MODE_READ);
-        if (is_a($fp, 'PEAR_Error')) {
-            return $fp;
-        }
+        $fp = self::getPointer($file, $conf, self::MODE_READ);
 
         /* A buffer with all characters of the current field read so far. */
         $buff = '';
@@ -273,8 +263,7 @@ class File_CSV {
                 if (!$i) {
                     $i = 1;
                 }
-                $quote_escaped = false;
-                $first_quote = false;
+                $first_quote = $quote_escaped = false;
                 continue;
             }
 
@@ -291,15 +280,13 @@ class File_CSV {
                 if ($c == $conf['quote'] && $prev == $conf['quote'] &&
                     !$quote_escaped) {
                     /* Escaped (double) quotes. */
-                    $quote_escaped = true;
-                    $first_quote = true;
+                    $first_quote = $quote_escaped = true;
                     $prev = null;
                     /* Simply skip the second quote. */
                     continue;
                 } elseif ($c == $conf['sep'] && $prev == $conf['quote']) {
                     /* Quoted field ends with a delimiter. */
-                    $in_quote = false;
-                    $quote_escaped = false;
+                    $in_quote = $quote_escaped = false;
                     $first_quote = true;
                 } elseif ($c == "\n") {
                     /* We have a linebreak inside the quotes. */
@@ -321,7 +308,7 @@ class File_CSV {
                     } else {
                         /* Only increment the line number. Line breaks inside
                          * quoted fields are part of the field content. */
-                        File_CSV::_line(File_CSV::_line() + 1);
+                        self::_line(self::_line() + 1);
                     }
                     $quote_escaped = false;
                     $first_quote = true;
@@ -338,7 +325,7 @@ class File_CSV {
                     while ($c !== false && $c != "\n") {
                         $c = fgetc($fp);
                     }
-                    File_CSV::warning(sprintf(_("More fields found in line %d than the expected %d."), File_CSV::_line(), $conf['fields']));
+                    self::warning(sprintf('More fields found in line %d than the expected %d.', self::_line(), $conf['fields']));
                 }
 
                 if ($c == "\n" &&
@@ -348,25 +335,22 @@ class File_CSV {
                         /* Skip empty lines. */
                         return $ret;
                     }
-                    File_CSV::warning(sprintf(_("Wrong number of fields in line %d. Expected %d, found %d."), File_CSV::_line(), $conf['fields'], $i));
+                    self::warning(sprintf('Wrong number of fields in line %d. Expected %d, found %d.', self::_line(), $conf['fields'], $i));
 
-                    $ret[] = File_CSV::unquote($buff, $conf['quote']);
-                    $ret = array_merge($ret, array_fill(0, $conf['fields'] - $i, ''));
-                    return $ret;
+                    $ret[] = self::unquote($buff, $conf['quote']);
+                    return array_merge($ret, array_fill(0, $conf['fields'] - $i, ''));
                 }
 
                 /* Remove surrounding quotes from quoted fields. */
-                if ($buff == '"') {
-                    $ret[] = '';
-                } else {
-                    $ret[] = File_CSV::unquote($buff, $conf['quote']);
-                }
+                $ret[] = ($buff == '"')
+                    ? ''
+                    : self::unquote($buff, $conf['quote']);
                 if (count($ret) == $conf['fields']) {
                     return $ret;
                 }
 
                 $buff = '';
-                $i++;
+                ++$i;
                 continue;
             }
             $buff .= $c;
@@ -382,37 +366,31 @@ class File_CSV {
      * @param array $fields  The CSV data.
      * @param array $conf    The configuration for the CSV file.
      *
-     * @return boolean  True on success, PEAR_Error on failure.
+     * @throws Horde_File_Csv_Exception
      */
-    function write($file, $fields, &$conf)
+    static public function write($file, $fields, &$conf)
     {
-        if (is_a($fp = File_CSV::getPointer($file, $conf, HORDE_FILE_CSV_MODE_WRITE), 'PEAR_Error')) {
-            return $fp;
-        }
+        $fp = self::getPointer($file, $conf, self::MODE_WRITE);
 
         if (count($fields) != $conf['fields']) {
-            return PEAR::raiseError(sprintf(_("Wrong number of fields. Expected %d, found %d."), $conf['fields'], count($fields)));
+            throw new Horde_File_Csv_Exception(sprintf('Wrong number of fields. Expected %d, found %d.', $conf['fields'], count($fields)));
         }
 
         $write = '';
-        for ($i = 0; $i < count($fields); $i++) {
-            if (!is_numeric($fields[$i]) && $conf['quote']) {
-                $write .= $conf['quote'] . $fields[$i] . $conf['quote'];
-            } else {
-                $write .= $fields[$i];
-            }
-            if ($i < (count($fields) - 1)) {
-                $write .= $conf['sep'];
-            } else {
-                $write .= $conf['crlf'];
-            }
+        for ($i = 0; $i < count($fields); ++$i) {
+            $write .= (!is_numeric($fields[$i]) && $conf['quote'])
+               ? $conf['quote'] . $fields[$i] . $conf['quote']
+               : $fields[$i];
+            $write .= ($i < (count($fields) - 1))
+                ? $conf['sep']
+                : $conf['crlf'];
         }
 
         if (!fwrite($fp, $write)) {
-            return PEAR::raiseError(sprintf(_("Cannot write to file \"%s\""), $file));
+            throw new Horde_File_Csv_Exception(sprintf('Cannot write to file "%s"', $file));
         }
 
-        return true;
+        fclose($fp);
     }
 
     /**
@@ -424,12 +402,13 @@ class File_CSV {
      *
      * @return string  The unquoted data.
      */
-    function unquote($field, $quote, $crlf = null)
+    static public function unquote($field, $quote, $crlf = null)
     {
         /* Skip empty fields (form: ;;) */
         if (!strlen($field)) {
             return $field;
         }
+
         if ($quote && $field[0] == $quote &&
             $field[strlen($field) - 1] == $quote) {
             /* Normalize only for BC. */
@@ -438,6 +417,7 @@ class File_CSV {
             }
             return substr($field, 1, -1);
         }
+
         return $field;
     }
 
@@ -448,7 +428,7 @@ class File_CSV {
      *
      * @return integer  The current line.
      */
-    function _line($line = null)
+    static protected function _line($line = null)
     {
         static $current_line = 0;
 
@@ -469,7 +449,7 @@ class File_CSV {
      * @return array  If no parameter has been specified, the list of existing
      *                warnings.
      */
-    function warning($warning = null)
+    static public function warning($warning = null)
     {
         static $warnings = array();
 
@@ -485,16 +465,16 @@ class File_CSV {
     /**
      * Returns or creates the file descriptor associated with a file.
      *
-     * @static
-     *
      * @param string $file  The name of the file
      * @param array $conf   The configuration
-     * @param string $mode  The open mode. HORDE_FILE_CSV_MODE_READ or
-     *                      HORDE_FILE_CSV_MODE_WRITE.
+     * @param string $mode  The open mode. self::MODE_READ or
+     *                      self::MODE_WRITE.
      *
-     * @return resource  The file resource or PEAR_Error on error.
+     * @return resource  The file resource.
+     *
+     * @throws Horde_File_Csv_Exception
      */
-    function getPointer($file, &$conf, $mode = HORDE_FILE_CSV_MODE_READ)
+    static public function getPointer($file, &$conf, $mode = self::MODE_READ)
     {
         static $resources = array();
         static $config = array();
@@ -503,55 +483,26 @@ class File_CSV {
             $conf = $config[$file];
             return $resources[$file];
         }
-        if (is_a($error = File_CSV::_checkConfig($conf), 'PEAR_Error')) {
-            return $error;
-        }
-        $config[$file] = $conf;
 
-        $fp = @fopen($file, $mode);
-        if (!is_resource($fp)) {
-            return PEAR::raiseError(sprintf(_("Cannot open file \"%s\"."), $file));
-        }
-        $resources[$file] = $fp;
-        File_CSV::_line(0);
-
-        if ($mode == HORDE_FILE_CSV_MODE_READ && !empty($conf['header'])) {
-            if (is_a($header = File_CSV::read($file, $conf), 'PEAR_Error')) {
-                return $header;
-            }
-        }
-
-        return $fp;
-    }
-
-    /**
-     * Checks the configuration given by the user.
-     *
-     * @param array $conf    The configuration assoc array
-     * @param string $error  The error will be written here if any
-     */
-    function _checkConfig(&$conf)
-    {
-        // check conf
         if (!is_array($conf)) {
-            return PEAR::raiseError('Invalid configuration.');
+            throw new Horde_File_Csv_Exception('Invalid configuration.');
         }
 
         if (!isset($conf['fields']) || !is_numeric($conf['fields'])) {
-            return PEAR::raiseError(_("The number of fields must be numeric."));
+            throw new Horde_File_Csv_Exception('The number of fields must be numeric.');
         }
 
         if (isset($conf['sep'])) {
             if (strlen($conf['sep']) != 1) {
-                return PEAR::raiseError(_("The separator must be one single character."));
+                throw new Horde_File_Csv_Exception('The separator must be one single character.');
             }
         } elseif ($conf['fields'] > 1) {
-            return PEAR::raiseError(_("No separator specified."));
+            throw new Horde_File_Csv_Exception('No separator specified.');
         }
 
         if (!empty($conf['quote'])) {
             if (strlen($conf['quote']) != 1) {
-                return PEAR::raiseError(_("The quote character must be one single character."));
+                throw new Horde_File_Csv_Exception('The quote character must be one single character.');
             }
         } else {
             $conf['quote'] = '';
@@ -560,6 +511,21 @@ class File_CSV {
         if (!isset($conf['crlf'])) {
             $conf['crlf'] = "\n";
         }
+
+        $config[$file] = $conf;
+
+        $fp = @fopen($file, $mode);
+        if (!is_resource($fp)) {
+            throw new Horde_File_Csv_Exception(sprintf('Cannot open file "%s".', $file));
+        }
+        $resources[$file] = $fp;
+        self::_line(0);
+
+        if (($mode == self::MODE_READ) && !empty($conf['header'])) {
+            self::read($file, $conf);
+        }
+
+        return $fp;
     }
 
 }

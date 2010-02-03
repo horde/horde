@@ -1,5 +1,5 @@
 --TEST--
-File_CSV: column count tests
+Horde_File_Csv: column count tests
 --FILE--
 <?php
 

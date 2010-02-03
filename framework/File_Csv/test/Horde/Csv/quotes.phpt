@@ -1,5 +1,5 @@
 --TEST--
-File_CSV: quote tests
+Horde_File_Csv: quote tests
 --FILE--
 <?php
 

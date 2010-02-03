@@ -1,23 +1,23 @@
 --TEST--
-File_CSV: test for Bug #3839
+Horde_File_Csv: test for Bug #3839
 --FILE--
 <?php
 
-require_once dirname(__FILE__) . '/../CSV.php';
+require_once dirname(__FILE__) . '/../../../lib/Horde/Csv.php';
 
 $file = dirname(__FILE__) . '/bug_3839.csv';
 
 // Explicit conf since we can't detect these settings. Might be able
 // to improve auto-detection, but it definitely should work with the
 // settings specified explicitly.
-// var_dump(File_CSV::discoverFormat($file));
+// var_dump(Horde_File_Csv::discoverFormat($file));
 $conf['crlf'] = "\r\n";
 $conf['sep'] = '~';
 $conf['fields'] = 12;
 $conf['quote'] = '"';
 
 $csv = array();
-while ($row = File_CSV::read($file, $conf)) {
+while ($row = Horde_File_Csv::read($file, $conf)) {
     if (is_a($row, 'PEAR_Error')) {
         var_dump($row);
         return;
@@ -25,7 +25,7 @@ while ($row = File_CSV::read($file, $conf)) {
     $csv[] = $row;
 }
 var_dump($csv);
-$warnings = File_CSV::warning();
+$warnings = Horde_File_Csv::warning();
 if (count($warnings)) {
     var_dump($warnings);
 }

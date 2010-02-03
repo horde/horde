@@ -1,5 +1,5 @@
 --TEST--
-File_CSV: linebreak tests
+Horde_File_Csv: linebreak tests
 --FILE--
 <?php
 

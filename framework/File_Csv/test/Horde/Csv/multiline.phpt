@@ -1,5 +1,5 @@
 --TEST--
-File_CSV: multiline tests
+Horde_File_Csv: multiline tests
 --FILE--
 <?php
 

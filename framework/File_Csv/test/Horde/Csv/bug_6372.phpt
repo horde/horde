@@ -1,23 +1,23 @@
 --TEST--
-File_CSV: test for Bug #6311
+Horde_File_Csv: test for Bug #6372
 --FILE--
 <?php
 
-require_once dirname(__FILE__) . '/../CSV.php';
+require_once dirname(__FILE__) . '/../../../lib/Horde/Csv.php';
 
-$file = dirname(__FILE__) . '/bug_6311.csv';
+$file = dirname(__FILE__) . '/bug_6372.csv';
 
 // Explicit conf since we can't detect these settings. Might be able
 // to improve auto-detection, but it definitely should work with the
 // settings specified explicitly.
-// var_dump(File_CSV::discoverFormat($file));
+// var_dump(Horde_File_Csv::discoverFormat($file));
 $conf['crlf'] = "\n";
 $conf['sep'] = ',';
 $conf['fields'] = 92;
 $conf['quote'] = '"';
 
 $csv = array();
-while ($row = File_CSV::read($file, $conf)) {
+while ($row = Horde_File_Csv::read($file, $conf)) {
     if (is_a($row, 'PEAR_Error')) {
         var_dump($row);
         exit;
@@ -25,7 +25,7 @@ while ($row = File_CSV::read($file, $conf)) {
     $csv[] = $row;
 }
 var_dump($csv);
-$warnings = File_CSV::warning();
+$warnings = Horde_File_Csv::warning();
 if (count($warnings)) {
     var_dump($warnings);
 }
@@ -225,21 +225,22 @@ array(2) {
     [0]=>
     string(0) ""
     [1]=>
-    string(4) "John"
+    string(0) ""
     [2]=>
     string(0) ""
     [3]=>
-    string(5) "Smith"
+    string(0) ""
     [4]=>
     string(0) ""
     [5]=>
-    string(17) "International Inc"
+    string(0) ""
     [6]=>
     string(0) ""
     [7]=>
     string(0) ""
     [8]=>
-    string(0) ""
+    string(28) "123, 12th Floor,
+Main Street"
     [9]=>
     string(0) ""
     [10]=>
@@ -283,9 +284,9 @@ array(2) {
     [29]=>
     string(0) ""
     [30]=>
-    string(14) "(123) 555-1111"
+    string(0) ""
     [31]=>
-    string(14) "(123) 555-2222"
+    string(0) ""
     [32]=>
     string(0) ""
     [33]=>
@@ -303,7 +304,7 @@ array(2) {
     [39]=>
     string(0) ""
     [40]=>
-    string(14) "(123) 555-3333"
+    string(0) ""
     [41]=>
     string(0) ""
     [42]=>
@@ -331,17 +332,17 @@ array(2) {
     [53]=>
     string(0) ""
     [54]=>
-    string(11) "Programming"
+    string(0) ""
     [55]=>
     string(0) ""
     [56]=>
     string(0) ""
     [57]=>
-    string(16) "john@example.com"
+    string(0) ""
     [58]=>
-    string(4) "SMTP"
+    string(0) ""
     [59]=>
-    string(29) "John Smith (john@example.com)"
+    string(0) ""
     [60]=>
     string(0) ""
     [61]=>
@@ -363,7 +364,7 @@ array(2) {
     [69]=>
     string(0) ""
     [70]=>
-    string(4) "J.S."
+    string(0) ""
     [71]=>
     string(0) ""
     [72]=>
@@ -377,9 +378,7 @@ array(2) {
     [76]=>
     string(0) ""
     [77]=>
-    string(16) "PHP
-Perl
-Python
+    string(1) "
 "
     [78]=>
     string(0) ""

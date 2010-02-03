@@ -1,24 +1,24 @@
 --TEST--
-File_CSV Test Case 004: Unix EOL
+Horde_File_Csv Test Case 003: Windows EOL
 --FILE--
 <?php
 /**
  * Test for:
- * - File_CSV::discoverFormat()
- * - File_CSV::readQuoted()
+ * - Horde_File_Csv::discoverFormat()
+ * - Horde_File_Csv::readQuoted()
  */
 
 require_once dirname(__FILE__) . '/../CSV.php';
 
-$file = dirname(__FILE__) . '/004.csv';
-$conf = File_CSV::discoverFormat($file);
+$file = dirname(__FILE__) . '/003.csv';
+$conf = Horde_File_Csv::discoverFormat($file);
 
 print "Format:\n";
 print_r($conf);
 print "\n";
 
 $data = array();
-while ($res = File_CSV::readQuoted($file, $conf)) {
+while ($res = Horde_File_Csv::readQuoted($file, $conf)) {
     $data[] = $res;
 }
 

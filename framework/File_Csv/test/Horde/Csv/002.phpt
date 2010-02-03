@@ -1,23 +1,23 @@
 --TEST--
-File_CSV Test Case 002: Fields count more than expected
+Horde_File_Csv Test Case 002: Fields count more than expected
 --FILE--
 <?php
 /**
  * Test for:
- * - File_CSV::discoverFormat()
- * - File_CSV::readQuoted()
+ * - Horde_File_Csv::discoverFormat()
+ * - Horde_File_Csv::readQuoted()
  */
 
-require_once dirname(__FILE__) . '/../CSV.php';
+require_once dirname(__FILE__) . '/../../../lib/Horde/Csv.php';
 
 $file = dirname(__FILE__) . '/002.csv';
-$conf = File_CSV::discoverFormat($file);
+$conf = Horde_File_Csv::discoverFormat($file);
 $conf['fields'] = 4;
 
 var_dump($conf);
 
 $data = array();
-while ($res = File_CSV::readQuoted($file, $conf)) {
+while ($res = Horde_File_Csv::readQuoted($file, $conf)) {
     $data[] = $res;
 }
 

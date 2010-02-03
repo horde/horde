@@ -1,23 +1,23 @@
 --TEST--
-File_CSV: test for Bug #6372
+Horde_File_Csv: test for Bug #6370
 --FILE--
 <?php
 
-require_once dirname(__FILE__) . '/../CSV.php';
+require_once dirname(__FILE__) . '/../../../lib/Horde/Csv.php';
 
-$file = dirname(__FILE__) . '/bug_6372.csv';
+$file = dirname(__FILE__) . '/bug_6370.csv';
 
 // Explicit conf since we can't detect these settings. Might be able
 // to improve auto-detection, but it definitely should work with the
 // settings specified explicitly.
-// var_dump(File_CSV::discoverFormat($file));
+// var_dump(Horde_File_Csv::discoverFormat($file));
 $conf['crlf'] = "\n";
 $conf['sep'] = ',';
 $conf['fields'] = 92;
 $conf['quote'] = '"';
 
 $csv = array();
-while ($row = File_CSV::read($file, $conf)) {
+while ($row = Horde_File_Csv::read($file, $conf)) {
     if (is_a($row, 'PEAR_Error')) {
         var_dump($row);
         exit;
@@ -25,7 +25,7 @@ while ($row = File_CSV::read($file, $conf)) {
     $csv[] = $row;
 }
 var_dump($csv);
-$warnings = File_CSV::warning();
+$warnings = Horde_File_Csv::warning();
 if (count($warnings)) {
     var_dump($warnings);
 }
@@ -239,8 +239,8 @@ array(2) {
     [7]=>
     string(0) ""
     [8]=>
-    string(28) "123, 12th Floor,
-Main Street"
+    string(37) "Big Tower'", 1" Floor
+123 Main Street"
     [9]=>
     string(0) ""
     [10]=>
@@ -378,8 +378,7 @@ Main Street"
     [76]=>
     string(0) ""
     [77]=>
-    string(1) "
-"
+    string(1) ""
     [78]=>
     string(0) ""
     [79]=>
