@@ -158,7 +158,7 @@ class Horde_Config
      */
     static public function getVersion($text)
     {
-        // @TODO: Old CVS tag
+        // Old CVS tag
         if (preg_match('/\$.*?conf\.xml,v .*? .*\$/', $text, $match) ||
             // New Git tag
             preg_match('/\$Id:\s*[0-9a-f]+\s*\$/', $text, $match)) {
