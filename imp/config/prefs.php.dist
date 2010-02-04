@@ -91,7 +91,7 @@ $prefGroups['forward'] = array(
     'column' => _("Message Options"),
     'label' => _("Message Forwards"),
     'desc' => _("Configure how you forward mail."),
-    'members' => array('forward_bodytext')
+    'members' => array('forward_default', 'forward_format')
 );
 
 $prefGroups['drafts'] = array(
