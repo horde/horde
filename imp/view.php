@@ -10,16 +10,19 @@
  *   'download_all'
  *   'download_attach'
  *   'download_render'
+ *   'print_attach'
  *   'save_message'
  *   'view_attach'
  *   'view_face'
  *   'view_source'
+ * 'composeCache' - (string) Cache ID for compose object.
  * 'ctype' - (string) The content-type to use instead of the content-type
  *           found in the original Horde_Mime_Part object.
  * 'id' - (string) The MIME part ID to display.
  * 'mailbox' - (string) The mailbox of the message.
  * 'mode' - (integer) The view mode to use.
  *          DEFAULT: IMP_Contents::RENDER_FULL
+ * 'pmode' - (string) The print mode of this request ('content', 'headers').
  * 'uid - (string) The UID of the message.
  * 'zip' - (boolean) Download in .zip format?
  * </pre>
@@ -42,38 +45,32 @@ function _sanitizeName($name)
 require_once dirname(__FILE__) . '/lib/Application.php';
 
 /* Don't compress if we are already sending in compressed format. */
-$actionID = Horde_Util::getFormData('actionID');
+$vars = Horde_Variables::getDefaultVariables();
 Horde_Registry::appInit('imp', array(
-    'nocompress' => (($actionID == 'download_all') || Horde_Util::getFormData('zip')),
+    'nocompress' => (($vars->actionID == 'download_all') || $vars->zip),
     'session_control' => 'readonly'
 ));
-
-$ctype = Horde_Util::getFormData('ctype');
-$id = Horde_Util::getFormData('id');
 
 /* 'compose_attach_preview' doesn't use IMP_Contents since there is no mail
  * message data. Rather, we must use the IMP_Compose object to get the
  * necessary data for Horde_Mime_Part. */
-if ($actionID == 'compose_attach_preview') {
-    $imp_compose = IMP_Compose::singleton(Horde_Util::getFormData('composeCache'));
-    $mime = $imp_compose->buildAttachment($id);
-    $mime->setMimeId($id);
+if ($vars->actionID == 'compose_attach_preview') {
+    $imp_compose = IMP_Compose::singleton($vars->composeCache);
+    $mime = $imp_compose->buildAttachment($vars->id);
+    $mime->setMimeId($vars->id);
 
     /* Create a dummy IMP_Contents() object so we can use the view code below.
      * Then use the 'view_attach' handler to output. */
     $contents = IMP_Contents::singleton($mime);
 } else {
-    $uid = Horde_Util::getFormData('uid');
-    $mailbox = Horde_Util::getFormData('mailbox');
-    if (!$uid || !$mailbox) {
+    if (!$vars->uid || !$vars->mailbox) {
         exit;
     }
-
-    $contents = IMP_Contents::singleton($uid . IMP::IDX_SEP . $mailbox);
+    $contents = IMP_Contents::singleton($vars->uid . IMP::IDX_SEP . $vars->mailbox);
 }
 
 /* Run through action handlers */
-switch ($actionID) {
+switch ($vars->actionID) {
 case 'download_all':
     $headers = $contents->getHeaderOb();
     $zipfile = _sanitizeName($headers->getValue('subject'));
@@ -105,11 +102,11 @@ case 'download_all':
 
 case 'download_attach':
 case 'download_render':
-    switch ($actionID) {
+    switch ($vars->actionID) {
     case 'download_attach':
-        $mime = $contents->getMIMEPart($id);
-        if ($contents->canDisplay($id, IMP_Contents::RENDER_RAW)) {
-            $render = $contents->renderMIMEPart($id, IMP_Contents::RENDER_RAW);
+        $mime = $contents->getMIMEPart($vars->id);
+        if ($contents->canDisplay($vars->id, IMP_Contents::RENDER_RAW)) {
+            $render = $contents->renderMIMEPart($vars->id, IMP_Contents::RENDER_RAW);
             reset($render);
             $mime->setContents($render[key($render)]['data']);
         }
@@ -119,7 +116,7 @@ case 'download_render':
         }
 
         /* Compress output? */
-        if (Horde_Util::getFormData('zip')) {
+        if ($vars->zip) {
             $horde_compress = Horde_Compress::factory('zip');
             $body = $horde_compress->compress(array(array('data' => $mime->getContents(), 'name' => $name)), array('stream' => true));
             $name .= '.zip';
@@ -131,7 +128,7 @@ case 'download_render':
         break;
 
     case 'download_render':
-        $render = $contents->renderMIMEPart($id, Horde_Util::getFormData('mode', IMP_Contents::RENDER_FULL), array('type' => $ctype));
+        $render = $contents->renderMIMEPart($vars->id, $vars->mode || IMP_Contents::RENDER_FULL, array('type' => $vars->ctype));
         reset($render);
         $key = key($render);
         $body = $render[$key]['data'];
@@ -155,7 +152,7 @@ case 'download_render':
 
 case 'compose_attach_preview':
 case 'view_attach':
-    $render = $contents->renderMIMEPart($id, Horde_Util::getFormData('mode', IMP_Contents::RENDER_FULL), array('params' => array('raw' => ($actionID == 'compose_attach_preview'), 'type' => $ctype)));
+    $render = $contents->renderMIMEPart($vars->id, $vars->mode || IMP_Contents::RENDER_FULL, array('params' => array('raw' => ($vars->actionID == 'compose_attach_preview'), 'type' => $vars->ctype)));
     if (!empty($render)) {
         reset($render);
         $key = key($render);
@@ -204,4 +201,112 @@ case 'view_face':
         echo $face;
     }
     break;
+
+case 'print_attach':
+    /* Bug #8708 - Mozilla can't print multipage data in frames. No choice but
+     * to output headers and data on same page. */
+    if ($browser->isBrowser('mozilla')) {
+        $vars->pmode = 'headers';
+    }
+
+    switch ($vars->pmode) {
+    case 'content':
+    case 'headers':
+        if (!$vars->id) {
+            exit;
+        }
+
+        switch ($vars->pmode) {
+        case 'headers':
+            $imp_ui = new IMP_Ui_Message();
+            $basic_headers = $imp_ui->basicHeaders();
+            unset($basic_headers['bcc'], $basic_headers['reply-to']);
+            $headerob = $contents->getHeaderOb();
+
+            $headers = array();
+            foreach ($basic_headers as $key => $val) {
+                if ($hdr_val = $headerob->getValue($key)) {
+                    $headers[] = array(
+                        'header' => htmlspecialchars($val),
+                        'value' => htmlspecialchars($hdr_val)
+                    );
+                }
+            }
+
+            if (!empty($conf['print']['add_printedby'])) {
+                $user_identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+                $headers[] = array(
+                    'header' => htmlspecialchars(_("Printed By")),
+                    'value' => htmlspecialchars($user_identity->getFullname() ? $user_identity->getFullname() : Horde_Auth::getAuth())
+                );
+            }
+
+            $t = $injector->createInstance('Horde_Template');
+            $t->set('headers', $headers);
+
+            if (!$browser->isBrowser('mozilla')) {
+                $t->set('css', Horde_Util::bufferOutput(array('Horde', 'includeStylesheetFiles')));
+                echo $t->fetch(IMP_TEMPLATES . '/print/headers.html');
+                break;
+            }
+
+            $elt = DOMDocument::loadHTML($t->fetch(IMP_TEMPLATES . '/print/headers.html'))->getElementById('headerblock');
+            $elt->removeAttribute('id');
+
+            if ($elt->hasAttribute('class')) {
+                $selectors = array('body');
+                foreach (explode(' ', $elt->getAttribute('class')) as $val) {
+                    if (strlen($val = trim($val))) {
+                        $selectors[] = '.' . $val;
+                    }
+                }
+
+                $css = '';
+                foreach (Horde::getStylesheets() as $val) {
+                    $css .= file_get_contents($val['f']);
+                }
+
+                if ($style = Horde_Text_Filter::filter($css, 'csstidy', array('ob' => true))->filterBySelector($selectors)) {
+                    $elt->setAttribute('style', ($elt->hasAttribute('style') ? rtrim($elt->getAttribute('style'), ' ;') . ';' : '') . $style);
+                }
+            }
+
+            $elt->removeAttribute('class');
+
+            /* Need to wrap headers in another DIV. */
+            $newdiv = new DOMDocument();
+            $div = $newdiv->createElement('div');
+            $div->appendChild($newdiv->importNode($elt, true));
+
+            // Fall-through
+
+        case 'content':
+            $render = $contents->renderMIMEPart($vars->id, IMP_Contents::RENDER_FULL);
+            if (!empty($render)) {
+                reset($render);
+                $key = key($render);
+                $browser->downloadHeaders($render[$key]['name'], $render[$key]['type'], true, strlen($render[$key]['data']));
+                if ($browser->isBrowser('mozilla')) {
+                    /* Silence errors from parsing HTML. */
+                    libxml_use_internal_errors(true);
+                    $doc = DOMDocument::loadHTML($render[$key]['data']);
+                    $bodyelt = $doc->getElementsByTagName('body')->item(0);
+                    $bodyelt->insertBefore($doc->importNode($div, true), $bodyelt->firstChild);
+                    echo $doc->saveHTML();
+                } else {
+                    echo $render[$key]['data'];
+                }
+            }
+            break;
+        }
+        break;
+
+    default:
+        $self_url = Horde::selfUrl(true, true);
+        $t = $injector->createInstance('Horde_Template');
+        $t->set('headers', $self_url->copy()->add('pmode', 'headers'));
+        $t->set('content', $self_url->copy()->add('pmode', 'content'));
+        echo $t->fetch(IMP_TEMPLATES . '/print/print.html');
+        break;
+    }
 }
