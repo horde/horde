@@ -2,6 +2,8 @@
 v5.0-git
 --------
 
+[mms] Add chance to switch reply type to single recipient on compose page when
+      using auto-reply (DIMP).
 [mms] Fix printing multipage HTML messages in Mozilla browsers (Bug #8708).
 [mms] Provide command line script to obtain IMAP caching statistics.
 [mms] Catch flag changes from other IMAP clients when refreshing if CONDSTORE

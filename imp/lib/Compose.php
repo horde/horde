@@ -98,13 +98,13 @@ class IMP_Compose
      */
     static public function singleton($cacheid = null)
     {
-        if (!is_null($cacheid) && !isset(self::$_instances[$cacheid])) {
+        if (!empty($cacheid) && !isset(self::$_instances[$cacheid])) {
             $obs = Horde_SessionObjects::singleton();
             self::$_instances[$cacheid] = $obs->query($cacheid);
         }
 
-        if (is_null($cacheid) || empty(self::$_instances[$cacheid])) {
-            $cacheid = is_null($cacheid) ? uniqid(mt_rand()) : $cacheid;
+        if (empty($cacheid) || empty(self::$_instances[$cacheid])) {
+            $cacheid = empty($cacheid) ? uniqid(mt_rand()) : $cacheid;
             self::$_instances[$cacheid] = new self($cacheid);
         }
 
@@ -1261,10 +1261,12 @@ class IMP_Compose
      * <pre>
      * 'body'     - The text of the body part
      * 'encoding' - The guessed charset to use for the reply
-     * 'headers'  - The headers of the message to use for the reply
      * 'format'   - The format of the body message
+     * 'headers'  - The headers of the message to use for the reply
      * 'identity' - The identity to use for the reply based on the original
      *              message's addresses.
+     * 'type'     - The reply type used (either 'reply', 'reply_all', or
+     *              'reply_list').
      * </pre>
      */
     public function replyMessage($type, $contents, $to = null)
@@ -1283,21 +1285,23 @@ class IMP_Compose
         $match_identity = $this->_getMatchingIdentity($h);
         $reply_type = 'reply';
 
-        $this->_metadata['mailbox'] = $contents->getMailbox();
-        $this->_metadata['reply_type'] = 'reply';
-        $this->_metadata['uid'] = $contents->getUid();
-        $this->_modified = true;
+        if (!isset($this->_metadata['reply_type'])) {
+            $this->_metadata['mailbox'] = $contents->getMailbox();
+            $this->_metadata['reply_type'] = 'reply';
+            $this->_metadata['uid'] = $contents->getUid();
+            $this->_modified = true;
 
-        /* Set the message-id related headers. */
-        if (($msg_id = $h->getValue('message-id'))) {
-            $this->_metadata['in_reply_to'] = chop($msg_id);
+            /* Set the message-id related headers. */
+            if (($msg_id = $h->getValue('message-id'))) {
+                $this->_metadata['in_reply_to'] = chop($msg_id);
 
-            if (($refs = $h->getValue('references'))) {
-                $refs .= ' ' . $this->_metadata['in_reply_to'];
-            } else {
-                $refs = $this->_metadata['in_reply_to'];
+                if (($refs = $h->getValue('references'))) {
+                    $refs .= ' ' . $this->_metadata['in_reply_to'];
+                } else {
+                    $refs = $this->_metadata['in_reply_to'];
+                }
+                $this->_metadata['references'] = $refs;
             }
-            $this->_metadata['references'] = $refs;
         }
 
         $subject = $h->getValue('subject');
@@ -1399,6 +1403,9 @@ class IMP_Compose
                 }
             }
 
+            if (!empty($header['to']) || (count($hdr_cc) > 1)) {
+                $reply_type = 'reply_all';
+            }
             $header[empty($header['to']) ? 'to' : 'cc'] = rtrim(implode('', $hdr_cc), ' ,');
 
             /* Build the Bcc: header. */
@@ -1406,8 +1413,6 @@ class IMP_Compose
             if ($type == '*') {
                 $all_headers['reply_all'] = $header;
             }
-
-            $reply_type = 'reply_all';
         }
 
         if ($type == '*') {

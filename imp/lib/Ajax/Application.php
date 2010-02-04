@@ -18,7 +18,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      * @var array
      */
     protected $_readOnly = array(
-        'GetReplyData', 'Html2Text', 'Text2Html'
+        'Html2Text', 'Text2Html'
     );
 
     /**
@@ -986,6 +986,8 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      *                               _checkUidvalidity(). Additional variables
      *                               used:
      * <pre>
+     * 'headeronly' - (boolean) Only return header information (DEFAULT:
+     *                false).
      * 'imp_compose' - (string) The IMP_Compose cache identifier.
      * 'type' - (string) See IMP_Compose::replyMessage().
      * 'uid' - (string) Indices of the messages to reply to (IMAP sequence
@@ -1000,27 +1002,39 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      * 'header' - (array) The headers of the message.
      * 'identity' - (integer) The identity ID to use for this message.
      * 'imp_compose'- (string) The IMP_Compose cache identifier.
+     * 'opts' - (array) Additional options needed for DimpCompose.fillForm().
      * 'ViewPort' - (object) See _viewPortData().
      * </pre>
      */
     public function GetReplyData($vars)
     {
-        $indices = $GLOBALS['imp_imap']->ob()->utils->fromSequenceString($vars->uid);
-        $i = each($indices);
 
         try {
-            $imp_contents = IMP_Contents::singleton(reset($i['value']) . IMP::IDX_SEP . $i['key']);
             $imp_compose = IMP_Compose::singleton($vars->imp_compose);
+            if ($imp_compose->getMetadata('reply_type')) {
+                $idx_string = $imp_compose->getMetadata('uid') . IMP::IDX_SEP . $imp_compose->getMetadata('mailbox');
+            } else {
+                $indices = $GLOBALS['imp_imap']->ob()->utils->fromSequenceString($vars->uid);
+                $i = each($indices);
+                $idx_string = reset($i['value']) . IMP::IDX_SEP . $i['key'];
+            }
+            $imp_contents = IMP_Contents::singleton($idx_string);
             $reply_msg = $imp_compose->replyMessage($vars->type, $imp_contents);
             $header = $reply_msg['headers'];
             $header['replytype'] = 'reply';
 
             $result = new stdClass;
-            $result->imp_compose = $imp_compose->getCacheId();
-            $result->format = $reply_msg['format'];
-            $result->body = $reply_msg['body'];
             $result->header = $header;
-            $result->identity = $reply_msg['identity'];
+            if (!$vars->headeronly) {
+                $result->body = $reply_msg['body'];
+                $result->format = $reply_msg['format'];
+                $result->identity = $reply_msg['identity'];
+                $result->imp_compose = $imp_compose->getCacheId();
+                if (($vars->type == 'reply_auto') &&
+                    ($reply_msg['type'] == 'reply_all')) {
+                    $result->opts = array('reply_auto_all' => 1);
+                }
+            }
         } catch (Horde_Exception $e) {
             $GLOBALS['notification']->push($e, 'horde.error');
             $result = $this->_checkUidvalidity($vars);

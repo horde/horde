@@ -31,6 +31,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('imp');
 
 Horde_Nls::setTimeZone();
+$vars = Horde_Variables::getDefaultVariables();
 
 /* Determine if compose mode is disabled. */
 $compose_disable = !IMP::canCompose();
@@ -38,18 +39,17 @@ $compose_disable = !IMP::canCompose();
 /* The headers of the message. */
 $header = array();
 foreach (array('to', 'cc', 'bcc', 'subject') as $v) {
-    $header[$v] = rawurldecode(Horde_Util::getFormData($v, ''));
+    $header[$v] = rawurldecode($vars->$v);
 }
 
+$fillform_opts = array('noupdate' => 1);
 $get_sig = true;
+$js = array();
 $msg = '';
 
 $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
-if (!$prefs->isLocked('default_identity')) {
-    $identity_id = Horde_Util::getFormData('identity');
-    if (!is_null($identity_id)) {
-        $identity->setDefault($identity_id);
-    }
+if (!$prefs->isLocked('default_identity') && isset($vars->identity)) {
+    $identity->setDefault($vars->identity);
 }
 
 /* Initialize the IMP_Compose:: object. */
@@ -62,42 +62,44 @@ $imp_ui = new IMP_Ui_Compose();
 $imp_ui->attachAutoCompleter(array('to', 'cc', 'bcc'));
 $imp_ui->attachSpellChecker('dimp');
 
-$type = Horde_Util::getFormData('type');
-$uid = Horde_Util::getFormData('uid');
-$folder = Horde_Util::getFormData('folder');
 $show_editor = false;
 $title = _("New Message");
 
-if (in_array($type, array('reply', 'reply_all', 'reply_auto', 'reply_list', 'forward_attach', 'forward_auto', 'forward_body', 'forward_both', 'resume'))) {
-    if (!$uid || !$folder) {
-        $type = 'new';
+if (in_array($vars->type, array('reply', 'reply_all', 'reply_auto', 'reply_list', 'forward_attach', 'forward_auto', 'forward_body', 'forward_both', 'resume'))) {
+    if (!$vars->uid || !$vars->folder) {
+        $vars->type = 'new';
     }
 
     try {
-        $imp_contents = IMP_Contents::singleton($uid . IMP::IDX_SEP . $folder);
+        $imp_contents = IMP_Contents::singleton($vars->uid . IMP::IDX_SEP . $vars->folder);
     } catch (Horde_Exception $e) {
         $notification->push(_("Requested message not found."), 'horde.error');
-        $uid = $folder = null;
-        $type = 'new';
+        $vars->uid = $vars->folder = null;
+        $vars->type = 'new';
     }
 }
 
-switch ($type) {
+switch ($vars->type) {
 case 'reply':
 case 'reply_all':
 case 'reply_auto':
 case 'reply_list':
-    $reply_msg = $imp_compose->replyMessage($type, $imp_contents, $header['to']);
+    $reply_msg = $imp_compose->replyMessage($vars->type, $imp_contents, $header['to']);
     $msg = $reply_msg['body'];
     $header = $reply_msg['headers'];
     $header['replytype'] = 'reply';
-    $type = $reply_msg['type'];
 
-    if ($type == 'reply') {
+    if (($vars->type == 'reply_auto') && ($reply_msg['type'] == 'reply_all')) {
+        $fillform_opts['reply_auto_all'] = 1;
+    }
+
+    $vars->type = $reply_msg['type'];
+
+    if ($vars->type == 'reply') {
         $title = _("Reply:");
-    } elseif ($type == 'reply_all') {
+    } elseif ($vars->type == 'reply_all') {
         $title = _("Reply to All:");
-    } elseif ($type == 'reply_list') {
+    } elseif ($vars->type == 'reply_list') {
         $title = _("Reply to List:");
     }
     $title .= ' ' . $header['subject'];
@@ -115,7 +117,7 @@ case 'forward_attach':
 case 'forward_auto':
 case 'forward_body':
 case 'forward_both':
-    $fwd_msg = $imp_compose->forwardMessage($type, $imp_contents);
+    $fwd_msg = $imp_compose->forwardMessage($vars->type, $imp_contents);
     $msg = $fwd_msg['body'];
     $header = $fwd_msg['headers'];
     $header['replytype'] = 'forward';
@@ -123,7 +125,7 @@ case 'forward_both':
     if ($fwd_msg['format'] == 'html') {
         $show_editor = true;
     }
-    $type = 'forward';
+    $vars->type = 'forward';
 
     if (!$prefs->isLocked('default_identity') &&
         !is_null($fwd_msg['identity'])) {
@@ -133,7 +135,7 @@ case 'forward_both':
 
 case 'resume':
     try {
-        $result = $imp_compose->resumeDraft($uid . IMP::IDX_SEP . $folder);
+        $result = $imp_compose->resumeDraft($vars->uid . IMP::IDX_SEP . $vars->folder);
 
         if ($result['mode'] == 'html') {
             $show_editor = true;
@@ -172,28 +174,29 @@ $t->set('title', $title);
 
 $compose_result = IMP_Views_Compose::showCompose(array(
     'composeCache' => $imp_compose->getCacheId(),
-    'folder' => $folder,
+    'folder' => $vars->folder,
     'qreply' => false,
-    'uid' => $uid
+    'uid' => $vars->uid
 ));
 
 $t->set('compose_html', $compose_result['html']);
 
 /* Javscript variables to be set immediately. */
 if ($show_editor) {
-    $compose_result['js'][] = 'DIMP.conf_compose.show_editor = 1';
+    $js[] = 'DIMP.conf_compose.show_editor = 1';
 }
-if (Horde_Util::getFormData('popup')) {
-    $compose_result['js'][] = 'DIMP.conf_compose.popup = 1';
+if ($vars->popup) {
+    $js[] = 'DIMP.conf_compose.popup = 1';
 }
-Horde::addInlineScript($compose_result['js']);
+Horde::addInlineScript(array_merge($compose_result['js'], $js));
 
 /* Some actions, like adding forwards, may return error messages so explicitly
  * display those messages now. */
 Horde::addInlineScript(array(IMP_Dimp::notify()), 'dom');
 
 /* Javascript to be run on window load. */
-$compose_result['js_onload'][] = 'DimpCompose.fillForm(' . Horde_Serialize::serialize($msg, Horde_Serialize::JSON) . ', ' . Horde_Serialize::serialize($header, Horde_Serialize::JSON) . ', "' . (($type == 'new' || $type == 'forward') ? 'to' : 'composeMessage') . '", true)';
+$fillform_opts['focus'] = ($vars->type == 'new' || $vars->type == 'forward') ? 'to' : 'composeMessage';
+$compose_result['js_onload'][] = 'DimpCompose.fillForm(' . Horde_Serialize::serialize($msg, Horde_Serialize::JSON) . ',' . Horde_Serialize::serialize($header, Horde_Serialize::JSON) . ',' . Horde_Serialize::serialize($fillform_opts, Horde_Serialize::JSON) . ')';
 Horde::addInlineScript($compose_result['js_onload'], 'load');
 
 $scripts = array(

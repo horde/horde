@@ -459,18 +459,20 @@ var DimpCompose = {
         }
     },
 
-    fillForm: function(msg, header, focus, noupdate)
+    // opts = focus, noupdate, reply_auto_all
+    fillForm: function(msg, header, opts)
     {
         // On IE, this can get loaded before DOM:loaded. Check for an init
         // value and don't load until it is available.
         if (!this.resizeto) {
-            this.fillForm.bind(this, msg, header, focus, noupdate).defer();
+            this.fillForm.bind(this, msg, header, opts).defer();
             return;
         }
 
         var bcc_add,
             identity = this.getIdentity($F('last_identity')),
             msgval = $('composeMessage');
+        opts = opts || {};
 
         // Set auto-save-drafts now if not already active.
         if (DIMP.conf_compose.auto_save_interval_val &&
@@ -520,16 +522,28 @@ var DimpCompose = {
         }
         $('subject').setValue(header.subject);
 
-        Field.focus(focus || 'to');
+        Field.focus(opts.focus || 'to');
         this.resizeMsgArea();
+
+        if (opts.reply_auto_all) {
+            $('noticerow').show().down('.replyallnotice').show();
+        }
 
         if (DIMP.conf_compose.show_editor) {
             if (!this.editor_on) {
-                this.toggleHtmlEditor(noupdate || false);
+                this.toggleHtmlEditor(opts.noupdate);
             }
-            if (focus == 'composeMessage') {
+            if (opts.focus && (opts.focus == 'composeMessage')) {
                 this.focusEditor();
             }
+        }
+    },
+
+    replyAutoAllCallback: function(r)
+    {
+        if (r.response.header) {
+            $('to').setValue(r.response.header.to);
+            this.resizeto.resizeNeeded();
         }
     },
 
@@ -746,6 +760,18 @@ var DimpCompose = {
             case 'save_sent_mail':
                 this.setSaveSentMail($F(elt));
                 break;
+
+            case 'replyallclick':
+                elt.up('LI').fade({
+                    afterFinish: function() {
+                        elt.up('TR').hide();
+                        this.resizeMsgArea();
+                    }.bind(this),
+                    duration: 0.4
+                });
+                DimpCore.doAction('GetReplyData', { headeronly: 1, imp_compose: $F('composeCache'), type: 'reply' }, { callback: this.replyAutoAllCallback.bind(this) });
+                e.stop();
+                return;
             }
 
             elt = elt.up();
