@@ -1104,6 +1104,7 @@ if ($showmenu) {
     IMP::prepareMenu();
 }
 Horde::addScriptFile('compose.js', 'imp');
+Horde::addScriptFile('md5.js', 'horde');
 require IMP_TEMPLATES . '/common-header.inc';
 Horde::addInlineScript($js_code);
 if ($showmenu) {

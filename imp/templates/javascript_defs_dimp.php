@@ -169,7 +169,6 @@ if ($compose_mode) {
     $code['text_compose'] = array(
         'atc_limit' => _("The attachment limit has been reached."),
         'cancel' => _("Cancelling this message will permanently discard its contents and will delete auto-saved drafts.\nAre you sure you want to do this?"),
-        'fillform' => _("You have already changed the message body, are you sure you want to drop the changes?"),
         'nosubject' => _("The message does not have a Subject entered.") . "\n" . _("Send message without a Subject?"),
         'remove' => _("Remove"),
         'spell_noerror' => _("No spelling errors found."),

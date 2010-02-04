@@ -10,9 +10,9 @@
 var DimpCompose = {
     // Variables defaulting to empty/false:
     //   auto_save_interval, compose_cursor, disabled, drafts_mbox, editor_on,
-    //   is_popup, knl_p, knl_sm, mp_padding, resizebcc, resizecc, resizeto,
-    //   row_height, rte, skip_spellcheck, spellcheck, sc_submit, uploading
-    last_msg: '',
+    //   is_popup, knl_p, knl_sm, last_msg, mp_padding, resizebcc, resizecc,
+    //   resizeto, row_height, rte, skip_spellcheck, spellcheck, sc_submit,
+    //   uploading
 
     confirmCancel: function()
     {
@@ -472,34 +472,25 @@ var DimpCompose = {
             identity = this.getIdentity($F('last_identity')),
             msgval = $('composeMessage');
 
-        if (!this.last_msg.empty() &&
-            this.last_msg != $F(msgval).replace(/\r/g, '') &&
-            !window.confirm(DIMP.text_compose.fillform)) {
-            return;
-        }
-
         // Set auto-save-drafts now if not already active.
         if (DIMP.conf_compose.auto_save_interval_val &&
             !this.auto_save_interval) {
             this.auto_save_interval = new PeriodicalExecuter(function() {
-                var cur_msg = this.editor_on
-                    ? this.rte.getData()
-                    : $F(msgval);
-                cur_msg = cur_msg.replace(/\r/g, '');
-                if (!cur_msg.empty() && this.last_msg != cur_msg) {
+                var curr_hash = MD5.hash($('to', 'cc', 'bcc', 'subject').invoke('getValue').join('\0') + (this.editor_on ? this.rte.getData() : $F(msgval)));
+                if (this.last_msg && curr_hash != this.last_msg) {
                     this.uniqueSubmit('AutoSaveDraft');
-                    this.last_msg = cur_msg;
                 }
+                this.last_msg = curr_hash;
             }.bind(this), DIMP.conf_compose.auto_save_interval_val * 60);
+            /* Immediately execute to get MD5 hash of empty message. */
+            this.auto_save_interval.execute();
         }
 
         if (this.editor_on) {
             this.rte.setData(msg);
-            this.last_msg = this.rte.getData().replace(/\r/g, '');
         } else {
             msgval.setValue(msg);
             this.setCursorPosition(msgval);
-            this.last_msg = $F(msgval).replace(/\r/g, '');
         }
 
         $('to').setValue(header.to);

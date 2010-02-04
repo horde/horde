@@ -202,14 +202,13 @@ var ImpCompose = {
                 CKEDITOR.instances.composeMessage.updateElement();
             }
 
-            cur_msg = $F('composeMessage').replace(/\r/g, '');
-            if (!cur_msg.empty() && this.last_msg != cur_msg) {
+            cur_msg = MD5.hash($('to', 'cc', 'bcc', 'subject').compact().invoke('getValue').join('\0') + $F('composeMessage'));
+            if (this.last_msg && curr_hash != this.last_msg) {
                 // Use an AJAX submit here so that the page doesn't reload.
                 $('actionID').setValue(actionID);
                 $('compose').request({ onComplete: this._autoSaveDraft.bind(this) });
-
-                this.last_msg = cur_msg;
             }
+            this.last_msg = cur_msg;
             return;
 
         case 'toggle_editor':
@@ -385,7 +384,8 @@ var ImpCompose = {
         document.observe('SpellChecker:noerror', this._onNoErrorSpellCheck.bind(this));
 
         if (this.auto_save) {
-            new PeriodicalExecuter(this.uniqSubmit.bind(this, 'auto_save_draft'), this.auto_save * 60);
+            /* Immediately execute to get MD5 hash of empty message. */
+            new PeriodicalExecuter(this.uniqSubmit.bind(this, 'auto_save_draft'), this.auto_save * 60).execute();
         }
 
         this.resize.bind(this).delay(0.25);
