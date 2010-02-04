@@ -15,4 +15,6 @@ if (!($module = Horde_Util::getFormData('module')) ||
     !file_exists($registry->get('fileroot', $module))) {
     throw new Horde_Exception('Do not call this script directly.');
 }
+
+$registry->pushApp($module);
 include $registry->get('fileroot', $module) . '/view.php';
