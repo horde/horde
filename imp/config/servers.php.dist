@@ -134,22 +134,21 @@
  *        The entry is configured as follows:
  *
  *          'quota' => array(
- *              /* Driver name: see below */
+ *              // Driver name: see below
  *              'driver' => [string] (REQUIRED),
-
  *              'params' => array(
- *                  /* True if you want to hide quota output when the server
- *                  * reports an unlimited quota. */
+ *                  // True if you want to hide quota output when the server
+ *                  // reports an unlimited quota.
  *                  'hide_when_unlimited' => true | false,
  *
- *                  /* What storage unit the quota messages should be
- *                   * displayed in. */
+ *                  // What storage unit the quota messages should be
+ *                  // displayed in.
  *                  'unit' => 'GB' | 'MB' (DEFAULT) | 'KB',
  *
- *                  /* Output format: see below. */
+ *                  // Output format: see below.
  *                  'format' => array(),
  *
- *                  /* Additional driver parameters: see below. */
+ *                  // Additional driver parameters: see below.
  *              )
  *          )
  *
