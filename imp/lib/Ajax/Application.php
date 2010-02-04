@@ -281,6 +281,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
     public function ListMailboxes($vars)
     {
         $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
+
         $mask = IMP_Imap_Tree::FLIST_CONTAINER | IMP_Imap_Tree::FLIST_VFOLDER | IMP_Imap_Tree::FLIST_ELT;
         if ($vars->unsub) {
             $mask |= IMP_Imap_Tree::FLIST_UNSUB;
@@ -293,13 +294,18 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             }
         }
 
+        if ($vars->reload) {
+            $GLOBALS['injector']->getInstance('IMP_Folder')->clearFlistCache();
+            $imptree->init();
+        }
+
         $folder_list = array();
         if (!empty($vars->mboxes)) {
             foreach (Horde_Serialize::unserialize($vars->mboxes, Horde_Serialize::JSON) as $val) {
                 $folder_list += $imptree->folderList($mask, $val);
             }
 
-            if ($vars->initial && empty($folder_list)) {
+            if (($vars->initial || $vars->reload) && empty($folder_list)) {
                 $folder_list = $imptree->folderList($mask, 'INBOX');
             }
         }
