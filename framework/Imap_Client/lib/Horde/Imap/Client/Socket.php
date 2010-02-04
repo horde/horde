@@ -3094,7 +3094,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      * Get ACL rights for a given mailbox/identifier.
      *
      * @param string $mailbox     A mailbox (UTF7-IMAP).
-     * @param string $identifier  The identifier (US-ASCII).
+     * @param string $identifier  The identifier to query (UTF7-IMAP)
      *
      * @return array  An array of rights (keys: 'required' and 'optional').
      * @throws Horde_Imap_Client_Exception
@@ -3116,7 +3116,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected function _parseListRights($data)
     {
         // Ignore mailbox and identifier arguments
-        $this->_temp['myrights'] = array(
+        $this->_temp['listaclrights'] = array(
             'required' => str_split($data[2]),
             'optional' => array_slice($data, 3)
         );

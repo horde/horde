@@ -449,7 +449,7 @@ class Horde_Imap_Client_Cclient_Pop3 extends Horde_Imap_Client_Cclient
      * Get ACL rights for a given mailbox/identifier.
      *
      * @param string $mailbox     A mailbox (UTF7-IMAP).
-     * @param string $identifier  The identifier (UTF7-IMAP).
+     * @param string $identifier  The identifier to query (UTF7-IMAP).
      *
      * @throws Horde_Imap_Client_Exception
      */

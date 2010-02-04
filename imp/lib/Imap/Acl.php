@@ -39,12 +39,9 @@ class IMP_Imap_Acl
             throw new Horde_Exception(_("ACL requires an IMAP server."));
         }
 
-        $capability = $GLOBALS['imp_imap']->ob()->queryCapability('ACL');
-        if (!$capability) {
+        if (!$GLOBALS['imp_imap']->ob()->queryCapability('ACL')) {
             throw new Horde_Exception(_("IMAP server does not support ACLs."));
         }
-
-        $rfc4314 = $GLOBALS['imp_imap']->ob()->queryCapability('RIGHTS');
 
         $this->_protected = array($GLOBALS['imp_imap']->ob()->getParam('username'));
 
@@ -79,7 +76,7 @@ class IMP_Imap_Acl
             )
         );
 
-        if ($rfc4314) {
+        if ($GLOBALS['imp_imap']->ob()->queryCapability('RIGHTS')) {
             // RFC 4314 compliant rights
             $this->_rightsList = array_merge($this->_rightsList, array(
                 'k' => array(
@@ -119,7 +116,7 @@ class IMP_Imap_Acl
      *
      * @param string $mbox  The mailbox to get the ACL for.
      *
-     * @return array  A hash containing information on the ACL.
+     * @return array  See Horde_Imap_Client_Base::getACL().
      * @throws Horde_Exception
      */
     public function getACL($mbox)
@@ -136,15 +133,14 @@ class IMP_Imap_Acl
      *
      * @param string $mbox  The mailbox on which to edit the ACL.
      * @param string $user  The user to grant rights to.
-     * @param array $acl    The keys of which are the rights to be granted
-     *                      (see RFC 2086).
+     * @param array $acl    The rights to be granted.
      *
      * @throws Horde_Exception
      */
     public function editACL($mbox, $user, $acl)
     {
         try {
-            $GLOBALS['imp_imap']->ob()->setACL($mbox, $user, array('rights' => $acl));
+            $GLOBALS['imp_imap']->ob()->setACL($mbox, $user, array('remove' => empty($acl), 'rights' => implode('', $acl)));
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_Exception(sprintf(_("Couldn't give user \"%s\" the following rights for the folder \"%s\": %s"), $user, $mbox, implode('', $acl)));
         }
@@ -156,25 +152,27 @@ class IMP_Imap_Acl
      * @param string $mbox  The mailbox name.
      * @param string $user  A user name.
      *
-     * @return boolean  True if $user has 'a' right
+     * @return boolean  True if $user has 'a' right.
      */
     public function canEdit($mbox, $user)
     {
         try {
             $rights = $GLOBALS['imp_imap']->ob()->listACLRights($mbox, $user);
+            $rights = array_merge($rights['required'], $rights['optional']);
             foreach ($rights as $val) {
                 if (strpos($val, 'a') !== false) {
                     return true;
                 }
             }
-            return false;
-        } catch (Horde_Imap_Client_Exception $e) {
-            return false;
-        }
+        } catch (Horde_Imap_Client_Exception $e) {}
+
+        return false;
     }
 
     /**
-     * TODO
+     * Return list of rights available on the server.
+     *
+     * @return array  Rights list.
      */
     public function getRights()
     {
@@ -182,7 +180,9 @@ class IMP_Imap_Acl
     }
 
     /**
-     * TODO
+     * Returns list of protected users.
+     *
+     * @return array  List of protected users.
      */
     public function getProtected()
     {

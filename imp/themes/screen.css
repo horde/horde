@@ -598,7 +598,7 @@ div.mimeStatusMessage, div.mimePartInfo {
 }
 
 /* Other images. */
-.downloadAtc, .downloadZipAtc, .saveImgAtc, .printAtc, .closeImg, .deleteImg, .foldersImg, .searchuiImg, .reloadImg {
+.downloadAtc, .downloadZipAtc, .saveImgAtc, .printAtc, .closeImg, .deleteImg, .folderImg, .foldersImg, .searchuiImg, .reloadImg {
     display: -moz-inline-stack;
     display: inline-block;
     height: 16px;

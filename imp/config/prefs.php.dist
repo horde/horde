@@ -27,7 +27,7 @@ if (!$is_pop3) {
         );
 }
 
-if (!empty($_SESSION['imp']['acl'])) {
+if (!empty($_SESSION['imp']['imap']['acl'])) {
     $prefGroups['acl'] = array(
         'column' => _("General Options"),
         'label' => _("Share Folders"),

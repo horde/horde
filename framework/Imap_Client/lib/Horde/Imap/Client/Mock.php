@@ -799,7 +799,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
      * Get ACL rights for a given mailbox/identifier.
      *
      * @param string $mailbox    A mailbox (UTF7-IMAP).
-     * @param string $identifier The identifier to alter (UTF7-IMAP).
+     * @param string $identifier The identifier to query (UTF7-IMAP).
      *
      * @return array  An array of rights (keys: 'required' and 'optional').
      * @throws Horde_Imap_Client_Exception

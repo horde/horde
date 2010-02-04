@@ -1627,9 +1627,12 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
      */
     protected function _listACLRights($mailbox, $identifier)
     {
+        $retval = array('optional' => array(), 'required' => array());
         $acl = $this->getACL($mailbox);
-        // @todo - Does this return 'optional' information?
-        return isset($acl[$identifier]) ? $acl[$identifier] : array();
+        if (isset($acl[$identifier])) {
+            $retval['optional'] = $acl[$identifier];
+        }
+        return $retval;
     }
 
     /**

@@ -17,114 +17,107 @@ Horde_Registry::appInit('imp');
 
 /* Redirect back to the options screen if ACL is not enabled. */
 $prefs_url = Horde::getServiceLink('options', 'imp');
-if ($prefs->isLocked('acl') || empty($_SESSION['imp']['acl'])) {
+if ($prefs->isLocked('acl') || empty($_SESSION['imp']['imap']['acl'])) {
     $notification->push('Folder sharing is not enabled.', 'horde.error');
     header('Location: ' . $prefs_url);
     exit;
 }
 
 try {
-    $ACLDriver = $injector->getInstance('IMP_Imap_Acl');
+    $ACL = $injector->getInstance('IMP_Imap_Acl');
 } catch (Horde_Exception $e) {
     $notification->push(_("This server does not support sharing folders."), 'horde.error');
     header('Location: ' . $prefs_url);
     exit;
 }
 
-$acls = Horde_Util::getFormData('acl');
-$folder = Horde_Util::getFormData('folder');
-$new_user = Horde_Util::getFormData('new_user');
-if ($new_user) {
-    $new_acl = Horde_Util::getFormData('new_acl');
-    /* Check to see if $new_user already has an acl on the folder. */
-    if (isset($acls[$new_user])) {
-        $acls[$new_user] = $new_acl;
-        $new_user = '';
-    }
+$vars = Horde_Variables::getDefaultVariables();
+
+/* Check to see if $vars->new_user already has an acl on the folder. */
+if ($vars->new_user && isset($vars->acl[$vars->new_user])) {
+    $vars->acl[$vars->new_user] = $vars->new_acl;
+    $vars->new_user = '';
 }
 
-$protected = $ACLDriver->getProtected();
+$protected = $ACL->getProtected();
 
 /* Run through the action handlers. */
-$ok_form = true;
-switch (Horde_Util::getFormData('actionID')) {
+switch ($vars->actionID) {
 case 'imp_acl_set':
-    if (!$folder) {
+    if (!$vars->folder) {
         $notification->push(_("No folder selected."), 'horde.error');
-        $ok_form = false;
+        break;
     }
 
-    if ($new_user) {
-        /* Each ACL is submitted with the acl as the value. Reverse the hash
-           mapping for editACL(). */
-        $new_acl = array_flip($new_acl);
+    if ($vars->new_user) {
         try {
-            $ACLDriver->editACL($folder, $new_user, $new_acl);
-            if (!count($new_acl)) {
-                $notification->push(sprintf(_("All rights on folder \"%s\" successfully removed for user \"%s\"."), $folder, $new_user), 'horde.success');
+            $ACL->editACL($vars->folder, $vars->new_user, $vars->new_acl);
+            if (count($vars->new_acl)) {
+                $notification->push(sprintf(_("User \"%s\" successfully given the specified rights for the folder \"%s\"."), $vars->new_user, $vars->folder), 'horde.success');
             } else {
-                $notification->push(sprintf(_("User \"%s\" successfully given the specified rights for the folder \"%s\"."), $new_user, $folder), 'horde.success');
+                $notification->push(sprintf(_("All rights on folder \"%s\" successfully removed for user \"%s\"."), $vars->folder, $vars->new_user), 'horde.success');
             }
         } catch (Horde_Exception $e) {
             $notification->push($e);
         }
     }
 
-    if ($ok_form) {
-        $current_acl = $ACLDriver->getACL($folder);
-        foreach ($acls as $user => $acl) {
+    $curr_acl = $ACL->getACL($vars->folder);
+    foreach ($vars->acl as $user => $acl) {
+        if ($acl) {
+            $acl = array_flip($acl);
+            /* We had to have an empty value submitted to make sure all
+               users with acls were sent back, so we can remove those
+               without checkmarks. */
+            unset($acl['']);
+        } else {
+            $acl = array();
+        }
+
+        if (!$user) {
+            $notification->push(_("No user specified."), 'horde.error');
+            continue;
+        }
+
+        if (in_array($user, $protected)) {
             if ($acl) {
-                $acl = array_flip($acl);
-                /* We had to have an empty value submitted to make sure all
-                   users with acls were sent back, so we can remove those
-                   without checkmarks. */
-                unset($acl['']);
+                $notification->push(sprintf(_("Rights for user \"%s\" cannot be modified."), $user), 'horde.error');
+            }
+            continue;
+        }
+
+        /* Check to see if ACL didn't change */
+        if ((isset($curr_acl[$user])) &&
+            (array_keys($curr_acl[$user]) == array_keys($acl))) {
+            continue;
+        }
+
+        try {
+            unset($curr_acl);
+            $ACL->editACL($vars->folder, $user, $acl);
+            if (!count($acl)) {
+                $notification->push(sprintf(_("All rights on folder \"%s\" successfully removed for user \"%s\"."), $vars->folder, $user), 'horde.success');
             } else {
-                $acl = array();
+                $notification->push(sprintf(_("User \"%s\" successfully given the specified rights for the folder \"%s\"."), $user, $vars->folder), 'horde.success');
             }
-
-            if (!$user) {
-                $notification->push(_("No user specified."), 'horde.error');
-                continue;
-            }
-
-            if (in_array($user, $protected)) {
-                if ($acl) {
-                    $notification->push(sprintf(_("Rights for user \"%s\" cannot be modified."), $user), 'horde.error');
-                }
-                continue;
-            }
-
-            /* Check to see if ACL didn't change */
-            if ((isset($current_acl[$user])) &&
-                (array_keys($current_acl[$user]) == array_keys($acl))) {
-                continue;
-            }
-
-            try {
-                $ACLDriver->editACL($folder, $user, $acl);
-                if (!count($acl)) {
-                    $notification->push(sprintf(_("All rights on folder \"%s\" successfully removed for user \"%s\"."), $folder, $user), 'horde.success');
-                } else {
-                    $notification->push(sprintf(_("User \"%s\" successfully given the specified rights for the folder \"%s\"."), $user, $folder), 'horde.success');
-                }
-            } catch (Horde_Exception $e) {
-                $notification->push($e);
-            }
+        } catch (Horde_Exception $e) {
+            $notification->push($e);
         }
     }
     break;
 }
 
 $imp_folder = $injector->getInstance('IMP_Folder');
-$rights = $ACLDriver->getRights();
+$rights = $ACL->getRights();
 
-if (empty($folder)) {
-    $folder = 'INBOX';
+if (empty($vars->folder)) {
+    $vars->folder = 'INBOX';
 }
 
-$curr_acl = $ACLDriver->getACL($folder);
-$canEdit = $ACLDriver->canEdit($folder, Horde_Auth::getAuth());
+if (!isset($curr_acl)) {
+    $curr_acl = $ACL->getACL($vars->folder);
+}
+$canEdit = $ACL->canEdit($vars->folder, Horde_Auth::getAuth());
 
 $chunk = Horde_Util::nonInputVar('chunk');
 Horde_Prefs_Ui::generateHeader('imp', null, null, $chunk);
@@ -136,10 +129,9 @@ $t->set('aclurl', Horde::applicationUrl('acl.php'));
 $t->set('forminput', Horde_Util::formInput());
 $t->set('aclnavcell', Horde_Util::bufferOutput(array('Horde_Prefs_Ui', 'generateNavigationCell'), 'imp', 'acl'));
 $t->set('changefolder', Horde::link('#', _("Change Folder"), 'smallheader', '', '', '', '', array('id' => 'changefolder')));
-$t->set('sharedimg', Horde::img('shared.png', _("Change Folder")));
-$t->set('options', IMP::flistSelect(array('selected' => $folder)));
-$t->set('current', sprintf(_("Current access to %s"), IMP::displayFolder($folder)));
-$t->set('folder', $folder);
+$t->set('options', IMP::flistSelect(array('selected' => $vars->folder)));
+$t->set('current', sprintf(_("Current access to %s"), IMP::displayFolder($vars->folder)));
+$t->set('folder', $vars->folder);
 $t->set('noacl', !count($curr_acl));
 $t->set('maxrule', 1);
 if (!$t->get('noacl')) {
@@ -155,7 +147,7 @@ if (!$t->get('noacl')) {
         /* Create table of each ACL option for each user granted permissions,
          * enabled indicates the right has been given to the user */
         foreach (array_keys($rights) as $val) {
-            $entry['rule'][] = array('val' => $val, 'enabled' => isset($rule[$val]));
+            $entry['rule'][] = array('val' => $val, 'enabled' => in_array($val, $rule));
         }
         $cval[] = $entry;
     }
@@ -184,7 +176,8 @@ $rightsTitlesval = array();
 foreach ($rights as $right => $val) {
     $rightsval[] = array(
         'right' => $right,
-        'desc' => $val['desc']
+        'desc' => $val['desc'],
+        'title' => $val['title']
     );
 }
 

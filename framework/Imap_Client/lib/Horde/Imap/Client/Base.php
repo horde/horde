@@ -2565,7 +2565,7 @@ abstract class Horde_Imap_Client_Base
      * support the IMAP ACL extension (RFC 2086/4314).
      *
      * @param string $mailbox     A mailbox. Either in UTF7-IMAP or UTF-8.
-     * @param string $identifier  The identifier to alter. Either in UTF7-IMAP
+     * @param string $identifier  The identifier to query. Either in UTF7-IMAP
      *                            or UTF-8.
      *
      * @return array  An array with two elements: 'required' (a list of
@@ -2588,7 +2588,7 @@ abstract class Horde_Imap_Client_Base
      * Get ACL rights for a given mailbox/identifier.
      *
      * @param string $mailbox     A mailbox (UTF7-IMAP).
-     * @param string $identifier  The identifier to alter (UTF7-IMAP).
+     * @param string $identifier  The identifier to query (UTF7-IMAP).
      *
      * @return array  An array of rights (keys: 'required' and 'optional').
      * @throws Horde_Imap_Client_Exception

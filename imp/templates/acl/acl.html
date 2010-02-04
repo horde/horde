@@ -11,7 +11,7 @@
  <ul>
   <li>
    <label for="aclfolder" class="hidden"><gettext>Change Folder</gettext></label>
-   <tag:changefolder /><tag:sharedimg /></a> <select id="aclfolder" name="folder"><tag:options /></select>
+   <tag:changefolder /><span class="folderImg"></span></a> <select id="aclfolder" name="folder"><tag:options /></select>
   </li>
  </ul>
  <span class="smallheader"><tag:current /></span>
@@ -41,22 +41,22 @@
  <th class="item" width="<tag:width />">
   <h3><strong><gettext>User</gettext></strong></h3>
  </th>
- <loop:rights>
+<loop:rights>
  <th class="item" width="<tag:width />">
-  <h3><strong><tag:rights.desc /></strong></h3>
+  <h4><strong><span title="<tag:rights.desc />"><tag:rights.title /></span></strong></h4>
  </th>
- </loop:rights>
+</loop:rights>
 </tr>
 <loop:curr_acl>
 <tr>
  <td class="item"><tag:curr_acl.index /><input id="<tag:curr_acl.index />" type="hidden" name="acl[<tag:curr_acl.index />][]" value="" /></td>
- <loop:curr_acl.rule>
+<loop:curr_acl.rule>
  <td class="item" align="center">
   <label class="hidden" for="<tag:curr_acl.index />:<tag:curr_acl.rule.val />">Rule <tag:curr_acl.rule.val /> for user <tag:curr_acl.index /></label>
   <input type="checkbox" class="checkbox" id="<tag:curr_acl.index />:<tag:curr_acl.rule.val />"
   <if:curr_acl.disabled> disabled="disabled"<else:curr_acl.disabled><if:canedit> name="acl[<tag:curr_acl.index />][]" value="<tag:curr_acl.rule.val />"<else:canedit> disabled="disabled"</else:canedit></if:canedit></else:curr_acl.disabled></if:curr_acl.disabled><if:curr_acl.rule.enabled> checked="checked"</if:curr_acl.rule.enabled> />
  </td>
- </loop:curr_acl.rule>
+</loop:curr_acl.rule>
 </tr>
 </loop:curr_acl>
 
@@ -65,11 +65,11 @@
  <td class="item">
   <label for="new_user" class="hidden">New User</label><tag:new_user />
  </td>
- <loop:rights>
+<loop:rights>
  <td class="item" align="center">
   <label class="hidden" for="new_user:<tag:rights.right />">Rule <tag:rights.right /> for the new user</label><input id="new_user:<tag:rights.right />" type="checkbox" name="new_acl[]" value="<tag:rights.right />" class="checkbox" />
  </td>
- </loop:rights>
+</loop:rights>
 </tr>
 <tr>
  <td>&nbsp;</td>
