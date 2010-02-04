@@ -19,17 +19,35 @@ class IMP_Injector_Binder_Imaptree implements Horde_Injector_Binder
     public function create(Horde_Injector $injector)
     {
         $cache = $injector->getInstance('Horde_Cache');
+        $instance = null;
 
         if (empty($_SESSION['imp']['cache']['tree'])) {
-            $_SESSION['imp']['cache']['tree'] = uniqid(mt_rand() . Horde_Auth::getAuth());
-        } elseif ($instance = @unserialize($cache->get($_SESSION['imp']['cache']['tree'], 86400))) {
-            return $instance;
+            if (!($cache instanceof Horde_Cache_Null)) {
+                $_SESSION['imp']['cache']['tree'] = uniqid(mt_rand() . Horde_Auth::getAuth());
+            }
+        } else {
+            $instance = @unserialize($cache->get($_SESSION['imp']['cache']['tree'], 86400));
         }
 
-        $instance = new IMP_Imap_Tree();
-        $instance->cacheId = $_SESSION['imp']['cache']['tree'];
+        if (empty($instance)) {
+            $instance = new IMP_Imap_Tree();
+        }
+
+        register_shutdown_function(array($this, 'shutdown'), $instance);
 
         return $instance;
+    }
+
+    /**
+     * Store serialized version of object in the current session.
+     */
+    public function shutdown($instance)
+    {
+        /* Only need to store the object if using Horde_Cache and the tree
+         * has changed. */
+        if ($instance->changed && isset($_SESSION['imp']['cache']['tree'])) {
+            $GLOBALS['injector']->getInstance('Horde_Cache')->set($_SESSION['imp']['cache']['tree'], serialize($instance), 86400);
+        }
     }
 
     public function equals(Horde_Injector_Binder $binder)

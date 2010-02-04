@@ -64,11 +64,11 @@ class IMP_Imap_Tree
     const OTHER_KEY = 'other\0';
 
     /**
-     * The cache ID value.
+     * Tree changed flag.  Set when something in the tree has been altered.
      *
-     * @var string
+     * @var boolean
      */
-    public $cacheId;
+    public $changed = false;
 
     /**
      * Array containing the mailbox tree.
@@ -141,13 +141,6 @@ class IMP_Imap_Tree
     protected $_fulllist = null;
 
     /**
-     * Tree changed flag.  Set when something in the tree has been altered.
-     *
-     * @var boolean
-     */
-    protected $_changed = false;
-
-    /**
      * Have we shown unsubscribed folders previously?
      *
      * @var boolean
@@ -218,7 +211,6 @@ class IMP_Imap_Tree
         }
 
         $this->init();
-        $this->__wakeup();
     }
 
     /**
@@ -228,26 +220,6 @@ class IMP_Imap_Tree
     public function __sleep()
     {
         return array('_tree', '_showunsub', '_parent', '_unsubview', '_delimiter', '_namespaces');
-    }
-
-    /**
-     * Tasks to do on wakeup.
-     */
-    public function __wakeup()
-    {
-        register_shutdown_function(array($this, 'shutdown'));
-    }
-
-    /**
-     * Store a serialized version of ourself in the current session.
-     */
-    public function shutdown()
-    {
-        /* We only need to store the object if using Horde_Cache and the tree
-         * has changed. */
-        if (!empty($this->_changed) && $this->cacheId) {
-            $GLOBALS['injector']->getInstance('Horde_Cache')->set($this->cacheId, serialize($this), 86400);
-        }
     }
 
     /**
@@ -413,7 +385,7 @@ class IMP_Imap_Tree
                       $_SESSION['imp']['showunsub']);
 
         /* Reset class variables to the defaults. */
-        $this->_changed = true;
+        $this->changed = true;
         $this->_currkey = $this->_currparent = $this->_subscribed = null;
         $this->_currstack = $this->_tree = $this->_parent = array();
         $this->_showunsub = $this->_unsubview = $unsubmode;
@@ -481,7 +453,7 @@ class IMP_Imap_Tree
 
         if ($this->hasChildren($elt)) {
             if (!$this->isOpen($elt)) {
-                $this->_changed = true;
+                $this->changed = true;
                 $this->_setOpen($elt, true);
             }
 
@@ -505,7 +477,7 @@ class IMP_Imap_Tree
 
         if (isset($this->_tree[$folder]) &&
             $this->isOpen($this->_tree[$folder])) {
-            $this->_changed = true;
+            $this->changed = true;
             $this->_setOpen($this->_tree[$folder], false);
         }
     }
@@ -721,7 +693,7 @@ class IMP_Imap_Tree
             return;
         }
 
-        $this->_changed = true;
+        $this->changed = true;
 
         /* Set the parent array to the value in $elt['p']. */
         if (empty($this->_parent[$elt['p']])) {
@@ -801,7 +773,7 @@ class IMP_Imap_Tree
             } else {
                 $this->_parent[$parent] = array_values($this->_parent[$parent]);
             }
-            $this->_changed = true;
+            $this->changed = true;
 
             return true;
         }
@@ -814,7 +786,7 @@ class IMP_Imap_Tree
             return false;
         }
 
-        $this->_changed = true;
+        $this->changed = true;
 
         $elt = &$this->_tree[$id];
 
@@ -894,7 +866,7 @@ class IMP_Imap_Tree
         foreach ($id as $val) {
             $val = $this->_convertName($val);
             if (isset($this->_tree[$val])) {
-                $this->_changed = true;
+                $this->changed = true;
                 $this->_setSubscribed($this->_tree[$val], true);
                 $this->_setContainer($this->_tree[$val], false);
             }
@@ -922,7 +894,7 @@ class IMP_Imap_Tree
 
             /* INBOX can never be unsubscribed to. */
             if (isset($this->_tree[$val]) && ($val != 'INBOX')) {
-                $this->_changed = $this->_unsubview = true;
+                $this->changed = $this->_unsubview = true;
 
                 $elt = &$this->_tree[$val];
 
@@ -1194,7 +1166,7 @@ class IMP_Imap_Tree
         if ($changed) {
             $GLOBALS['prefs']->setValue('nav_poll', serialize($this->_poll));
             $GLOBALS['imp_search']->createVINBOXFolder();
-            $this->_changed = true;
+            $this->changed = true;
         }
     }
 
@@ -1230,7 +1202,7 @@ class IMP_Imap_Tree
         if ($removed) {
             $GLOBALS['prefs']->setValue('nav_poll', serialize($this->_poll));
             $GLOBALS['imp_search']->createVINBOXFolder();
-            $this->_changed = true;
+            $this->changed = true;
         }
     }
 
@@ -1349,7 +1321,7 @@ class IMP_Imap_Tree
         }
 
         $this->_showunsub = $unsub;
-        $this->_changed = true;
+        $this->changed = true;
 
         /* If we are switching from unsubscribed to subscribed, no need
          * to do anything (we just ignore unsubscribed stuff). */
@@ -1476,7 +1448,7 @@ class IMP_Imap_Tree
      */
     public function eltDiff()
     {
-        if (is_null($this->_eltdiff) || !$this->_changed) {
+        if (is_null($this->_eltdiff) || !$this->changed) {
             return false;
         }
 
@@ -1539,7 +1511,7 @@ class IMP_Imap_Tree
         natcasesort($vsort);
         $this->_parent[self::VFOLDER_KEY] = array_keys($vsort);
         $this->_setNeedSort($this->_tree[self::VFOLDER_KEY], false);
-        $this->_changed = true;
+        $this->changed = true;
     }
 
     /**
@@ -2006,7 +1978,7 @@ class IMP_Imap_Tree
         if ($this->_needSort($this->_tree[$id])) {
             $this->_sortList($this->_parent[$id], ($id === self::BASE_ELT));
             $this->_setNeedSort($this->_tree[$id], false);
-            $this->_changed = true;
+            $this->changed = true;
         }
     }
 
