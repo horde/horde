@@ -331,7 +331,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
 
         $quota = $this->_getQuota();
         if (!is_null($quota)) {
-            $result['quota'] = $quota;
+            $result->quota = $quota;
         }
 
         return $result;
@@ -1820,11 +1820,14 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      */
     protected function _getQuota()
     {
-        if (isset($_SESSION['imp']['quota']) &&
-            is_array($_SESSION['imp']['quota'])) {
+        if (isset($_SESSION['imp']['imap']['quota']) &&
+            is_array($_SESSION['imp']['imap']['quota'])) {
             $quotadata = IMP::quotaData(false);
             if (!empty($quotadata)) {
-                return array('p' => round($quotadata['percent']), 'm' => $quotadata['message']);
+                return array(
+                    'm' => $quotadata['message'],
+                    'p' => round($quotadata['percent'])
+                );
             }
         }
 

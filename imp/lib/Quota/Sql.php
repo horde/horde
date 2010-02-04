@@ -3,34 +3,21 @@
  * Implementation of the Quota API for servers keeping quota information in a
  * custom SQL database.
  *
- * Driver must be configured in imp/config/servers.php. Parameters supported:
+ * You must configure this driver in imp/config/servers.php.  The driver
+ * supports the following parameters:
  * <pre>
- * phptype     -- Database type to connect to
- * hostspec    -- Database host
- * username    -- User name for DB connection
- * password    -- Password for DB connection
- * database    -- Database name
- * query_quota -- SQL query which returns single row/column with user quota
- *                (in bytes). %u is replaced with current user name, %U with
- *                the user name without the domain part, %d with the domain.
- * query_used  -- SQL query which returns single row/column with user used
- *                space (in bytes). Placeholders are the same like in
- *                query_quota.
+ * query_quota - (string) SQL query which returns single row/column with user
+ *               quota (in bytes). %u is replaced with current user name, %U
+ *               with the user name without the domain part, %d with the
+ *               domain.
+ * query_used - (string) SQL query which returns single row/column with user
+ *              used space (in bytes). Placeholders are the same like in
+ *              query_quota.
  * </pre>
  *
- * Example how to reuse Horde's global SQL configuration:
- * <code>
- * 'quota' => array(
- *     'driver' => 'sql',
- *     'params' => array_merge(
- *         $GLOBALS['conf']['sql'],
- *         array(
- *             'query_quota' => 'SELECT quota FROM quotas WHERE user = ?',
- *             'query_used' => 'SELECT used FROM quotas WHERE user = ?'
- *         )
- *     )
- * ),
- * </code>
+ * Additionally, the driver takes SQL connection parameters 'phptype',
+ * 'hostspec',' 'username', 'password', and 'database'. See
+ * horde/config/conf.php for further information on these parameters
  *
  * Copyright 2006-2007 Tomas Simonaitis <haden@homelan.lt>
  * Copyright 2006-2010 The Horde Project (http://www.horde.org/)

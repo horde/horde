@@ -5,21 +5,16 @@
  * expanded to be configurable to support storage or message limits in the
  * configuration array.
  *
- * Requires the following parameter settings in imp/servers.php:
+ * You must configure this driver in imp/config/servers.php.  The driver
+ * supports the following parameters:
  * <pre>
- * 'quota' => array(
- *     'driver' => 'maildir',
- *     'params' => array(
- *         'path' => '/path/to/users/Maildir'
- *         // TODO: Add config param for storage vs message quota
- *     )
- * );
- *
- * path - The path to the user's Maildir directory. You may use the
+ * path - (string) The path to the user's Maildir directory. You may use the
  *        two-character sequence "~U" to represent the user's account name,
  *        and the actual username will be substituted in that location.
  *        E.g., '/home/~U/Maildir/' or '/var/mail/~U/Maildir/'
  * </pre>
+ *
+ * TODO: Add config param for storage vs message quota
  *
  * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
  *
@@ -57,8 +52,7 @@ class IMP_Quota_Maildir extends IMP_Quota
         $full = $this->_params['path'] . '/maildirsize';
 
         // Substitute the username in the string if needed.
-        $uname = $_SESSION['imp']['user'];
-        $full = str_replace('~U', $uname, $full);
+        $full = str_replace('~U', $GLOBALS['imp_imap']->ob()->getParam('username'), $full);
 
         // Read in the quota file and parse it, if possible.
         if (!is_file($full)) {

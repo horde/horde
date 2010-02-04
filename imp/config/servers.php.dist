@@ -66,51 +66,6 @@
  *           This value overrides any existing
  *           $conf['mailer']['params']['port'] value at runtime.
  *
- * quota: (array) Use this if you want to display a user's quota status on
- *        various IMP pages. Set 'driver' equal to the mailserver and 'params'
- *        equal to any extra parameters needed by the driver (see the
- *        comments located at the top of imp/lib/Quota/[quotadriver].php
- *        for the parameters needed for each driver). Set
- *        'hide_when_unlimited' to true if you want to hide quota output
- *        when the server reports an unlimited quota.
- *
- *        Set this to an empty value to disable quota (the DEFAULT).
- *
- *        The optional 'unit' parameter indicates what storage unit the quota
- *        messages hould be displayed in. It can be one of three possible
- *        values: 'GB', 'MB' (DEFAULT), or 'KB'.
- *
- *        The optional 'format' parameter is supported by all drivers and
- *        specifies the formats of the quota messages in the user
- *        interface. The parameter must be specified as a hash with the four
- *        possible elements 'long', 'short', 'nolimit_long', and
- *        'nolimit_short' with according versions of the quota message. The
- *        strings will be passed through sprintf().
- *        These are the built-in default values, though they may appear
- *        differently in some translations ([UNIT] will be replaced with the
- *        value of the 'unit' parameter):
- *          'long'          - Quota status: %.2f [UNIT] / %.2f [UNIT] (%.2f%%)
- *          'nolimit_long'  - Quota status: %.2f [UNIT] / NO LIMIT
- *          'short'         - %.0f%% of %.0f [UNIT]
- *          'nolimit_short' - %.0f [UNIT]
- *
- *        Currently available drivers:
- *          'command' - Use the UNIX quota command to handle quotas.
- *          'hook' - Use the quota hook to handle quotas (see
- *                   imp/config/hooks.php).
- *          'imap' - Use the IMAP QUOTA extension to handle quotas.
- *                   You must be connecting to a IMAP server capable of the
- *                   QUOTAROOT command to use this driver. This is the
- *                   RECOMMENDED way of handling quotas if the IMAP server
- *                   supports it.
- *          'logfile' - Allow quotas on servers where IMAP Quota commands are
- *                      not supported, but quota info appears in the servers
- *                      messages log for the IMAP server.
- *          'maildir' - Use Maildir++ quota files to handle quotas.
- *          'mdaemon' - Use Mdaemon servers to handle quotas.
- *          'mercury32' - Use Mercury/32 servers to handle quotas.
- *          'sql' - Use arbitrary SQL queries to handle quotas.
- *
  * admin: (array) Use this if you want to enable mailbox management for
  *        administrators via Horde's user administration interface.  The
  *        mailbox management gets enabled if you let IMP handle the Horde
@@ -171,6 +126,116 @@
  *           output to the file '/tmp/imaplog', the following can be used:
  *
  *             ((Horde_Auth::getAuth() == 'foo') ? '/tmp/imaplog' : false)
+ *
+ * quota: (array) Use this if you want to display a user's quota status on
+ *        various IMP pages. Set to an empty value to disable quota status
+ *        (DEFAULT).
+ *
+ *        The entry is configured as follows:
+ *
+ *          'quota' => array(
+ *              /* Driver name: see below */
+ *              'driver' => [string] (REQUIRED),
+
+ *              'params' => array(
+ *                  /* True if you want to hide quota output when the server
+ *                  * reports an unlimited quota. */
+ *                  'hide_when_unlimited' => true | false,
+ *
+ *                  /* What storage unit the quota messages should be
+ *                   * displayed in. */
+ *                  'unit' => 'GB' | 'MB' (DEFAULT) | 'KB',
+ *
+ *                  /* Output format: see below. */
+ *                  'format' => array(),
+ *
+ *                  /* Additional driver parameters: see below. */
+ *              )
+ *          )
+ *
+ *        'driver'/'params' can be the following:
+ *
+ *           DRIVER: 'command'
+ *                   Use the UNIX quota command to handle quotas.
+ *           PARAMS: 'quota_path' - [string] Path to the quota binary
+ *                                  (REQUIRED)
+ *                   'grep_path' - [string] Path to the grep binary (REQUIRED)
+ *                   'partition' - [string] If all user mailboxes are on a
+ *                                 single partition, the partition label. By
+ *                                 default, quota will determine quota
+ *                                 information using the user's home directory
+ *                                 value.
+ *
+ *           DRIVER: 'hook'
+ *                   Use the quota hook to handle quotas (see
+ *                   imp/config/hooks.php).
+ *           PARAMS: 'params' - [array] Parameters to pass to the quota
+ *                              hook function.
+ *
+ *           DRIVER: 'imap'
+ *                   Use the IMAP QUOTA extension to handle quotas.
+ *                   You must be connecting to a IMAP server capable of the
+ *                   QUOTAROOT command to use this driver. This is the
+ *                   RECOMMENDED way of handling quotas if the IMAP server
+ *                   supports it.
+ *           PARAMS: NONE
+ *
+ *           DRIVER: 'maildir'
+ *                   Use Maildir++ quota files to handle quotas.
+ *           PARAMS: 'path' - [string] The path to the user's Maildir
+ *                            directory. You may use the two-character
+ *                            sequence "~U" to represent the user's account
+ *                            name, and the actual username will be
+ *                            substituted in that location. E.g.,
+ *                            '/home/~U/Maildir/' or '/var/mail/~U/Maildir/'.
+ *
+ *           DRIVER: 'mdaemon'
+ *                    Use Mdaemon servers to handle quotas.
+ *           PARAMS: 'app_location' - [string] Location of the application.
+ *
+ *           DRIVER: 'mercury32'
+ *                   Use Mercury/32 servers to handle quotas.
+ *           PARAMS: 'mail_user_folder' - [string] The path to folder mail
+ *                   mercury.
+ *
+ *           DRIVER: 'sql'
+ *                   Use arbitrary SQL queries to handle quotas.
+ *           PARAMS: 'query_quota' - (string) SQL query which returns single
+ *                   row/column with user quota (in bytes). %u is replaced
+ *                   with current user name, %U with the user name without the
+ *                   domain part, %d with the domain.
+ *                   'query_used' - (string) SQL query which returns single
+ *                   row/column with user used space (in bytes). Placeholders
+ *                   are the same like in query_quota.
+ *
+ *                   Additionally, the driver takes SQL connection parameters
+ *                   'phptype', 'hostspec',' 'username', 'password', and
+ *                   'database'. See horde/config/conf.php for further
+ *                   information on these parameters. If using the Horde DB,
+ *                   these parameters can be found in the
+ *                   $GLOBALS['conf']['sql'] variable and may be merged into
+ *                   the parameter configuration like this:
+ *
+ *                     'params' => array_merge(
+ *                         $GLOBALS['conf']['sql'],
+ *                         array(
+ *                             'query_quota' => [...],
+ *                             'query_used' => [...],
+ *                         )
+ *                     )
+ *
+ *        The optional 'format' parameter is supported by all drivers and
+ *        specifies the formats of the quota messages in the user
+ *        interface. The parameter must be specified as a hash with the four
+ *        possible elements 'long', 'short', 'nolimit_long', and
+ *        'nolimit_short'. The strings will be passed through sprintf().
+ *        These are the built-in default values, though they may appear
+ *        differently in some translations ([UNIT] will be replaced with the
+ *        value of the 'unit' parameter):
+ *          'long'          - Quota status: %.2f [UNIT] / %.2f [UNIT] (%.2f%%)
+ *          'nolimit_long'  - Quota status: %.2f [UNIT] / NO LIMIT
+ *          'short'         - %.0f%% of %.0f [UNIT]
+ *          'nolimit_short' - %.0f [UNIT]
  *
  *
  * *** The following options should NOT be set unless you REALLY know what ***

@@ -7,13 +7,15 @@
  * authentication and file servers (e.g. via NIS/NFS).  And last, it (as
  * written) requires the POSIX PHP extensions.
  *
- * You must configure this driver in horde/imp/config/servers.php.  The
- * driver supports the following parameters:
- *   'quota_path' => Path to the quota binary - REQUIRED
- *   'grep_path'  => Path to the grep binary - REQUIRED
- *   'partition'  => If all user mailboxes are on a single partition, the
- *                   partition label.  By default, quota will determine
- *                   quota information using the user's home directory value.
+ * You must configure this driver in imp/config/servers.php.  The driver
+ * supports the following parameters:
+ * <pre>
+ * 'grep_path' - (string) [REQUIRD] Path to the grep binary.
+ * 'partition' - (string) If all user mailboxes are on a single partition, the
+ *               partition label.  By default, quota will determine quota
+ *               information using the user's home directory value.
+ * 'quota_path' - (string) [REQUIRED] Path to the quota binary.
+ * </pre>
  *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *

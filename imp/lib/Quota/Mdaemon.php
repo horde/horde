@@ -2,9 +2,10 @@
 /**
  * Implementation of the Quota API for MDaemon servers.
  *
- * Parameters required:
+ * You must configure this driver in imp/config/servers.php.  The driver
+ * supports the following parameters:
  * <pre>
- * 'app_location'  --  TODO
+ * 'app_location' - (string) Location of the application.
  * </pre>
  *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)

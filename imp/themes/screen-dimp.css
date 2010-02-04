@@ -47,13 +47,15 @@ input {
     border: 1px #000 solid;
     margin-right: 2px;
 }
-/* TODO? */
 #quota .used img {
     display: inline;
     float: none;
     padding: 0;
     border-left: 1px #000 solid;
     height: 14px;
+}
+.tabset li#quota {
+    border-top: 0;
 }
 
 #logo {
@@ -341,11 +343,12 @@ div.vpRowVert.flagUnseen {
     padding-left: 10px;
 }
 #sidebar span.iconSpan {
+    background-position: left center;
+    background-repeat: no-repeat;
     display: inline;
     float: left;
-    width: 20px;
     height: 100%;
-    background-repeat: no-repeat;
+    width: 20px;
 }
 #ctx_folder_sub span.contextImg, #ctx_folder_unsub span.contextImg, #ctx_folderopts_sub span.contextImg, #ctx_folderopts_unsub span.contextImg {
     background-image: url("graphics/folders/folder.png");
@@ -1019,11 +1022,6 @@ div.msgSubject span.treeImg {
     cursor: pointer;
     float: right;
     margin-left: 4px;
-    margin-right: 0;
-}
-#quota span.iconImg {
-    background-image: url("graphics/quotauncover.gif");
-    width: 0;
     margin-right: 0;
 }
 #th_expand span.iconImg, #partlist_col, #msgloglist_col {

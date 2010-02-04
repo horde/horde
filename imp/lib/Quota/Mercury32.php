@@ -3,16 +3,10 @@
  * Implementation of the Quota API for Mercury/32 IMAP servers.
  * For reading Quota, read size folder user.
  *
- * Requires the following parameter settings in imp/servers.php:
+ * You must configure this driver in imp/config/servers.php.  The driver
+ * supports the following parameters:
  * <pre>
- * 'quota' => array(
- *     'driver' => 'mercury32',
- *     'params' => array(
- *         'mail_user_folder' => 'c:/mercry/mail'
- *     )
- * );
- *
- * 'mail_user_folder' --  The path to folder mail mercury
+ * 'mail_user_folder' - (string) The path to folder mail mercury.
  * </pre>
  *
  *****************************************************************************

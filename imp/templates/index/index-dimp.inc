@@ -15,7 +15,7 @@ $has_blacklist = $registry->hasMethod('mail/blacklistFrom');
 $has_whitelist = $registry->hasMethod('mail/whitelistFrom');
 
 // Quota information
-$show_quota = (isset($_SESSION['imp']['quota']) && is_array($_SESSION['imp']['quota']));
+$show_quota = (isset($_SESSION['imp']['imap']['quota']) && is_array($_SESSION['imp']['imap']['quota']));
 
 // Get the list of available IMAP flags
 $flag_list = $injector->getInstance('IMP_Imap_Flags')->getList(array('imap' => true));
@@ -137,14 +137,14 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 <?php endforeach; ?>
 <?php if ($show_quota): ?>
         <li id="quota">
-         <span class="used"><span class="iconImg"></span></span>
+         <span class="used"><?php echo Horde::img('quotauncover.gif', '', '', $registry->get('webroot', 'imp') . '/themes/graphics') ?></span>
         </li>
 <?php endif; ?>
        </ul>
       </div>
 <?php elseif ($show_quota): ?>
       <div id="quota">
-       <span class="used"><span class="iconImg"></span></span>
+        <span class="used"><?php echo Horde::img('quotauncover.gif', '', '', $registry->get('webroot', 'imp') . '/themes/graphics') ?></span>
       </div>
 <?php endif; ?>
      </div>

@@ -578,16 +578,20 @@ class IMP
      */
     static public function quotaData($long = true)
     {
-        if (!isset($_SESSION['imp']['quota']) ||
-            !is_array($_SESSION['imp']['quota'])) {
+        if (!isset($_SESSION['imp']['imap']['quota']) ||
+            !is_array($_SESSION['imp']['imap']['quota'])) {
             return false;
         }
 
         try {
-            $quotaDriver = IMP_Quota::singleton($_SESSION['imp']['quota']['driver'], $_SESSION['imp']['quota']['params']);
+            $quotaDriver = IMP_Quota::singleton($_SESSION['imp']['imap']['quota']['driver'], isset($_SESSION['imp']['imap']['quota']['params']) ? $_SESSION['imp']['imap']['quota']['params'] : array());
             $quota = $quotaDriver->getQuota();
         } catch (Horde_Exception $e) {
             Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            return false;
+        }
+
+        if (empty($quota)) {
             return false;
         }
 

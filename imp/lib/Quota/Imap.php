@@ -2,6 +2,9 @@
 /**
  * Implementation of the IMP_Quota API for IMAP servers.
  *
+ * You must configure this driver in imp/config/servers.php.  The driver does
+ * not require any parameters.
+ *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -28,8 +31,15 @@ class IMP_Quota_Imap extends IMP_Quota
             throw new Horde_Exception(_("Unable to retrieve quota"), 'horde.error');
         }
 
+        if (empty($quota)) {
+            return array();
+        }
+
         $quota_val = reset($quota);
-        return array('usage' => $quota['storage']['usage'] * 1024, 'limit' => $quota['storage']['limit'] * 1024);
+        return array(
+            'usage' => $quota_val['storage']['usage'] * 1024,
+            'limit' => $quota_val['storage']['limit'] * 1024
+        );
     }
 
 }
