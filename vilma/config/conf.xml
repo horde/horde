@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+<!-- $Id$ -->
 <configuration>
  <configtab name="storage" desc="Domains and Accounts Driver">
   <configsection name="storage">
