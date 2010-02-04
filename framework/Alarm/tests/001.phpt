@@ -122,7 +122,7 @@ array(10) {
 int(0)
 int(1)
 array(2) {
-  ["publicalarm"]=>
+  [0]=>
   array(10) {
     ["id"]=>
     string(11) "publicalarm"
@@ -177,7 +177,7 @@ array(2) {
     ["internal"]=>
     NULL
   }
-  ["personalalarm"]=>
+  [1]=>
   array(10) {
     ["id"]=>
     string(13) "personalalarm"
@@ -235,7 +235,7 @@ array(2) {
 }
 int(1)
 array(1) {
-  ["personalalarm"]=>
+  [0]=>
   array(10) {
     ["id"]=>
     string(13) "personalalarm"
@@ -297,7 +297,7 @@ bool(true)
 array(0) {
 }
 array(1) {
-  ["personalalarm"]=>
+  [0]=>
   array(10) {
     ["id"]=>
     string(13) "personalalarm"
@@ -370,7 +370,7 @@ array(1) {
 }
 int(1)
 array(2) {
-  ["noend"]=>
+  [0]=>
   array(10) {
     ["id"]=>
     string(5) "noend"
@@ -412,7 +412,7 @@ array(2) {
     ["internal"]=>
     NULL
   }
-  ["personalalarm"]=>
+  [1]=>
   array(10) {
     ["id"]=>
     string(13) "personalalarm"

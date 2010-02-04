@@ -157,7 +157,7 @@ class Horde_Alarm_sql extends Horde_Alarm {
                 Horde::logMessage($alarm, __FILE__, __LINE__);
                 return $alarm;
             }
-            $alarms[$alarm['alarm_id']] = array(
+            $alarms[] = array(
                 'id' => $alarm['alarm_id'],
                 'user' => $alarm['alarm_uid'],
                 'start' => new Horde_Date($alarm['alarm_start'], 'UTC'),
