@@ -132,7 +132,7 @@ class Horde_Config
         $node = $dom->firstChild;
         while (!empty($node)) {
             if (($node->nodeType == XML_COMMENT_NODE) &&
-                ($vers_tag = $this->getVersion($node->nodeValue))) {
+                ($vers_tag = self::getVersion($node->nodeValue))) {
                 $this->_versionTag = $vers_tag . "\n";
                 break;
             }
