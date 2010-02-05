@@ -1389,7 +1389,17 @@ class IMP_Compose
                              * doesn't have a post address but does have a
                              * reply-to address. */
                             if ($val == 'reply-to') {
-                                $header['to'] = $addr_obs[0]['address'];
+                                /* If reply-to doesn't have personal
+                                 * information, check from address. */
+                                if (!$addr_obs[0]['personal'] &&
+                                    ($to_ob = $h->getOb('from')) &&
+                                    $to_ob[0]['personal'] &&
+                                    ($to_addr = Horde_Mime_Address::addrArray2String($to_ob)) &&
+                                    Horde_Mime_Address::bareAddress($to_addr) == $addr_obs[0]['address']) {
+                                    $header['to'] = $to_addr;
+                                } else {
+                                    $header['to'] = $addr_obs[0]['address'];
+                                }
                             } else {
                                 $cc_addrs = array_merge($cc_addrs, $addr_obs);
                             }
