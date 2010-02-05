@@ -166,6 +166,14 @@ class IMP_Maillog
                 case 'reply':
                     $msg = _("You replied to this message on %s.");
                     break;
+
+                case 'reply_all':
+                    $msg = _("You replied to all recipients of this message on %s.");
+                    break;
+
+                case 'reply_list':
+                    $msg = _("You replied to this message via the mailing list on %s.");
+                    break;
                 }
             }
 

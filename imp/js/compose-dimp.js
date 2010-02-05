@@ -281,7 +281,7 @@ var DimpCompose = {
             case 'SendMessage':
                 if (this.is_popup && DIMP.baseWindow.DimpBase) {
                     if (d.reply_type) {
-                        DIMP.baseWindow.DimpBase.flag(d.reply_type == 'reply' ? '\\answered' : '$forwarded', true, { uid: d.uid, mailbox: d.reply_folder, noserver: true });
+                        DIMP.baseWindow.DimpBase.flag(d.reply_type == 'forward' ? '$forwarded' : '\\answered', true, { uid: d.uid, mailbox: d.reply_folder, noserver: true });
                     }
 
                     if (d.mailbox) {

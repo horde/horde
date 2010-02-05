@@ -265,7 +265,17 @@ class IMP_Compose
                     'uidvalidity' => $GLOBALS['imp_imap']->checkUidvalidity($this->_metadata['mailbox'])
                 ));
 
-                $draft_headers->addHeader($this->_metadata['reply_type'] == 'reply' ? 'X-IMP-Draft-Reply' : 'X-IMP-Draft-Forward', '<' . $imap_url . '>');
+                switch ($this->getMetadata('reply_type')) {
+                case 'forward':
+                    $draft_headers->addHeader('X-IMP-Draft-Forward', '<' . $imap_url . '>');
+                    break;
+
+                // 'reply', 'reply_all', 'reply_list'
+                default:
+                    $draft_headers->addHeader('X-IMP-Draft-Reply', '<' . $imap_url . '>');
+                    $draft_headers->addHeader('X-IMP-Draft-Reply-Type', $this->getMetadata('reply_type'));
+                    break;
+                }
             } catch (Horde_Exception $e) {}
         }
 
@@ -400,7 +410,9 @@ class IMP_Compose
         }
 
         if ($val = $headers->getValue('x-imp-draft-reply')) {
-            $reply_type = 'reply';
+            if (!($reply_type = $headers->getValue('x-imp-draft-reply-type'))) {
+                $reply_type = 'reply';
+            }
         } elseif ($val = $headers->getValue('x-imp-draft-forward')) {
             $reply_type = 'forward';
         }
@@ -586,7 +598,7 @@ class IMP_Compose
                 /* Unsuccessful send. */
                 Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
                 if (isset($sentmail)) {
-                    $sentmail->log(empty($this->_metadata['reply_type']) ? 'new' : $this->_metadata['reply_type'], $headers->getValue('message-id'), $val['recipients'], false);
+                    $sentmail->log($this->getMetadata('reply_type') || 'new', $headers->getValue('message-id'), $val['recipients'], false);
                 }
 
                 throw new IMP_Compose_Exception(sprintf(_("There was an error sending your message: %s"), $e->getMessage()));
@@ -610,19 +622,21 @@ class IMP_Compose
             $imp_message = $GLOBALS['injector']->getInstance('IMP_Message');
             $reply_uid = array($this->_metadata['uid'] . IMP::IDX_SEP . $this->_metadata['mailbox']);
 
-            switch ($this->_metadata['reply_type']) {
-            case 'reply':
+            switch ($this->getMetadata('reply_type')) {
+            case 'forward':
+                /* Set the '$Forwarded' flag, if possible, in the mailbox.
+                 * See RFC 5550 [5.9] */
+                $imp_message->flag(array('$Forwarded'), $reply_uid);
+                break;
+
+            // 'reply', 'reply_all', 'reply_list'
+            default:
                 /* Make sure to set the IMAP reply flag and unset any
                  * 'flagged' flag. */
                 $imp_message->flag(array('\\answered'), $reply_uid);
                 $imp_message->flag(array('\\flagged'), $reply_uid, false);
                 break;
 
-            case 'forward':
-                /* Set the '$Forwarded' flag, if possible, in the mailbox.
-                 * See RFC 5550 [5.9] */
-                $imp_message->flag(array('$Forwarded'), $reply_uid);
-                break;
             }
         }
 
@@ -707,10 +721,9 @@ class IMP_Compose
      */
     protected function _addReferences($headers)
     {
-        if (!empty($this->_metadata['reply_type']) &&
-            ($this->_metadata['reply_type'] == 'reply')) {
             if (!empty($this->_metadata['references'])) {
                 $headers->addHeader('References', implode(' ', preg_split('|\s+|', trim($this->_metadata['references']))));
+        if (strpos($this->getMetadata('reply_type'), 'reply') === 0) {
             }
             if (!empty($this->_metadata['in_reply_to'])) {
                 $headers->addHeader('In-Reply-To', $this->_metadata['in_reply_to']);
@@ -1287,7 +1300,6 @@ class IMP_Compose
 
         if (!$this->getMetadata('reply_type')) {
             $this->_metadata['mailbox'] = $contents->getMailbox();
-            $this->_metadata['reply_type'] = 'reply';
             $this->_metadata['uid'] = $contents->getUid();
             $this->_modified = true;
 
@@ -1418,6 +1430,8 @@ class IMP_Compose
         if ($type == '*') {
             $header = $all_headers;
         }
+
+        $this->_metadata['reply_type'] = $reply_type;
 
         if (!$prefs->getValue('reply_quote')) {
             return array(
