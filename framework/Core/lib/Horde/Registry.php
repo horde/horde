@@ -198,8 +198,11 @@ class Horde_Registry
             Horde::compressOutput();
         }
 
-        if ($args['user_admin'] && !empty($conf['auth']['admins'])) {
-            Horde_Auth::setAuth(reset($conf['auth']['admins']), array());
+        if ($args['user_admin']) {
+            if (empty($GLOBALS['conf']['auth']['admins'])) {
+                throw new Horde_Exception('No admin users defined in configuration.');
+            }
+            Horde_Auth::setAuth(reset($GLOBALS['conf']['auth']['admins']), array());
         }
 
         $appob->init();
