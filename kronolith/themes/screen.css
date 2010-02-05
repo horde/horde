@@ -537,13 +537,12 @@ span#kronolithQuickEvent {
     top: 10px;
     width: 350px;
     height: auto;
-    margin: 0;
-    padding: 0;
     background: transparent url("graphics/back_quick.png") no-repeat left top;
 }
 #kronolithQuickinsert form {
-    padding:  5px;
-    margin: 5px 5px 5px 15px;
+    padding: 10px;
+    margin-left: 10px;
+    background-color: #c0c0c0;
 }
 #kronolithQuickinsert label {
     font-weight: bold;
