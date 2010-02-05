@@ -47,7 +47,9 @@ class IMP_Maillog
                 break;
 
             case 'reply':
-                $params = array('action' => 'reply');
+            case 'reply_all':
+            case 'reply_list':
+                $params = array('action' => $type);
                 break;
             }
 
