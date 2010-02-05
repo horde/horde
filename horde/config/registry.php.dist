@@ -502,6 +502,11 @@ $this->applications['content'] = array(
     'status' => 'hidden'
 );
 
+$this->applications['timeobjects'] = array(
+    'fileroot' => $this->applications['horde']['fileroot'] . '/timeobjects',
+    'status' => 'hidden'
+);
+
 function _detect_webroot()
 {
     // Note for Windows users: the below assumes that your PHP_SELF variable
