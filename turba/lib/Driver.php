@@ -2193,7 +2193,9 @@ class Turba_Driver
                 break;
 
             case 'BDAY':
-                $hash['birthday'] = $item['value']['year'] . '-' . $item['value']['month'] . '-' .  $item['value']['mday'];
+                if (!empty($item['value'])) {
+                    $hash['birthday'] = $item['value']['year'] . '-' . $item['value']['month'] . '-' .  $item['value']['mday'];
+                }
                 break;
 
             case 'PHOTO':
