@@ -254,15 +254,15 @@ class IMP_Compose
 
         /* Add information necessary to log replies/forwards when finally
          * sent. */
-        if (!empty($this->_metadata['reply_type'])) {
+        if ($this->getMetadata('reply_type')) {
             try {
                 $imap_url = $GLOBALS['imp_imap']->ob()->utils->createUrl(array(
                     'type' => $_SESSION['imp']['protocol'],
                     'username' => $GLOBALS['imp_imap']->ob()->getParam('username'),
                     'hostspec' => $GLOBALS['imp_imap']->ob()->getParam('hostspec'),
-                    'mailbox' => $this->_metadata['mailbox'],
-                    'uid' => $this->_metadata['uid'],
-                    'uidvalidity' => $GLOBALS['imp_imap']->checkUidvalidity($this->_metadata['mailbox'])
+                    'mailbox' => $this->getMetadata('mailbox'),
+                    'uid' => $this->getMetadata('uid'),
+                    'uidvalidity' => $GLOBALS['imp_imap']->checkUidvalidity($this->getMetadata('mailbox'))
                 ));
 
                 switch ($this->getMetadata('reply_type')) {
@@ -606,21 +606,21 @@ class IMP_Compose
 
             /* Store history information. */
             if (isset($sentmail)) {
-                $sentmail->log(empty($this->_metadata['reply_type']) ? 'new' : $this->_metadata['reply_type'], $headers->getValue('message-id'), $val['recipients'], true);
+                $sentmail->log($this->getMetadata('reply_type') || 'new', $headers->getValue('message-id'), $val['recipients'], true);
             }
         }
 
         $sent_saved = true;
 
-        if (!empty($this->_metadata['reply_type'])) {
+        if ($this->getMetadata('reply_type')) {
             /* Log the reply. */
-            if (!empty($this->_metadata['in_reply_to']) &&
+            if ($this->getMetadata('in_reply_to') &&
                 !empty($conf['maillog']['use_maillog'])) {
-                IMP_Maillog::log($this->_metadata['reply_type'], $this->_metadata['in_reply_to'], $recipients);
+                IMP_Maillog::log($this->getMetadata('reply_type'), $this->getMetadata('in_reply_to'), $recipients);
             }
 
             $imp_message = $GLOBALS['injector']->getInstance('IMP_Message');
-            $reply_uid = array($this->_metadata['uid'] . IMP::IDX_SEP . $this->_metadata['mailbox']);
+            $reply_uid = array($this->getMetadata('uid') . IMP::IDX_SEP . $this->getMetadata('mailbox'));
 
             switch ($this->getMetadata('reply_type')) {
             case 'forward':
@@ -721,12 +721,12 @@ class IMP_Compose
      */
     protected function _addReferences($headers)
     {
-            if (!empty($this->_metadata['references'])) {
-                $headers->addHeader('References', implode(' ', preg_split('|\s+|', trim($this->_metadata['references']))));
         if (strpos($this->getMetadata('reply_type'), 'reply') === 0) {
+            if ($this->getMetadata('references')) {
+                $headers->addHeader('References', implode(' ', preg_split('|\s+|', trim($this->getMetadata('references')))));
             }
-            if (!empty($this->_metadata['in_reply_to'])) {
-                $headers->addHeader('In-Reply-To', $this->_metadata['in_reply_to']);
+            if ($this->getMetadata('in_reply_to')) {
+                $headers->addHeader('In-Reply-To', $this->getMetadata('in_reply_to'));
             }
         }
     }
