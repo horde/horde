@@ -31,10 +31,12 @@ is a fork of the File_CSV class of PEAR&apos;s File package.
   <dir name="/">
    <dir name="lib">
     <dir name="Horde">
-     <dir name="Csv">
-      <file name="Exception.php" role="php" />
-     </dir> <!-- /lib/Horde/Csv -->
-     <file name="Csv.php" role="php" />
+     <dir name="File">
+      <dir name="Csv">
+       <file name="Exception.php" role="php" />
+      </dir> <!-- /lib/Horde/File/Csv -->
+      <file name="Csv.php" role="php" />
+     </dir> <!-- /lib/Horde/File -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
    <dir name="test">
@@ -82,8 +84,8 @@ is a fork of the File_CSV class of PEAR&apos;s File package.
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Csv/Exception.php" as="Horde/Csv/Exception.php" />
-   <install name="lib/Horde/Csv.php" as="Horde/Csv.php" />
+   <install name="lib/Horde/File/Csv/Exception.php" as="Horde/File/Csv/Exception.php" />
+   <install name="lib/Horde/File/Csv.php" as="Horde/File/Csv.php" />
   </filelist>
  </phprelease>
  <changelog>
