@@ -306,7 +306,7 @@ var DimpCompose = {
             case 'AddAttachment':
                 this.uploading = false;
                 if (d.success) {
-                    this.addAttach(d.info.number, d.info.name, d.info.type, d.info.size);
+                    this.addAttach(d.atc.num, d.atc.name, d.atc.type, d.atc.size);
                 } else {
                     this.setDisabled(false);
                 }
@@ -459,7 +459,7 @@ var DimpCompose = {
         }
     },
 
-    // opts = focus, noupdate, reply_auto
+    // opts = auto, focus, fwd_list, noupdate
     fillForm: function(msg, header, opts)
     {
         // On IE, this can get loaded before DOM:loaded. Check for an init
@@ -470,15 +470,14 @@ var DimpCompose = {
         }
 
         var bcc_add,
-            identity = this.getIdentity($F('last_identity')),
-            msgval = $('composeMessage');
+            identity = this.getIdentity($F('last_identity'));
         opts = opts || {};
 
         // Set auto-save-drafts now if not already active.
         if (DIMP.conf_compose.auto_save_interval_val &&
             !this.auto_save_interval) {
             this.auto_save_interval = new PeriodicalExecuter(function() {
-                var curr_hash = MD5.hash($('to', 'cc', 'bcc', 'subject').invoke('getValue').join('\0') + (this.editor_on ? this.rte.getData() : $F(msgval)));
+                var curr_hash = MD5.hash($('to', 'cc', 'bcc', 'subject').invoke('getValue').join('\0') + (this.editor_on ? this.rte.getData() : $F('composeMessage')));
                 if (this.last_msg && curr_hash != this.last_msg) {
                     this.uniqueSubmit('AutoSaveDraft');
                 }
@@ -488,12 +487,7 @@ var DimpCompose = {
             this.auto_save_interval.execute();
         }
 
-        if (this.editor_on) {
-            this.rte.setData(msg);
-        } else {
-            msgval.setValue(msg);
-            this.setCursorPosition(msgval);
-        }
+        this.setBodyText(msg, true);
 
         $('to').setValue(header.to);
         this.resizeto.resizeNeeded();
@@ -522,15 +516,25 @@ var DimpCompose = {
         }
         $('subject').setValue(header.subject);
 
+        this.processFwdList(opts.fwd_list);
+
         Field.focus(opts.focus || 'to');
         this.resizeMsgArea();
 
-        switch (opts.reply_auto) {
-        case 'all':
+        switch (opts.auto) {
+        case 'forward_attach':
+            $('noticerow', 'fwdattachnotice').invoke('show');
+            break
+
+        case 'forward_body':
+            $('noticerow', 'fwdbodynotice').invoke('show');
+            break
+
+        case 'reply_all':
             $('noticerow', 'replyallnotice').invoke('show');
             break
 
-        case 'list':
+        case 'reply_list':
             $('noticerow', 'replylistnotice').invoke('show');
             break;
         }
@@ -545,6 +549,28 @@ var DimpCompose = {
         }
     },
 
+    setBodyText: function(msg)
+    {
+        var msgval;
+
+        if (this.editor_on) {
+            this.rte.setData(msg);
+        } else {
+            msgval = $('composeMessage');
+            msgval.setValue(msg);
+            this.setCursorPosition(msgval);
+        }
+    },
+
+    processFwdList: function(f)
+    {
+        if (f && f.size()) {
+            f.each(function(ptr) {
+                this.addAttach(ptr.num, ptr.name, ptr.type, ptr.size);
+            }, this);
+        }
+    },
+
     swapToAddressCallback: function(r)
     {
         if (r.response.header) {
@@ -552,6 +578,21 @@ var DimpCompose = {
             this.resizeto.resizeNeeded();
         }
         $('to_loading_img').hide();
+    },
+
+    forwardAddCallback: function(r)
+    {
+        if (r.response.type) {
+            switch (r.response.type) {
+            case 'forward_attach':
+                this.processFwdList(r.response.opts.fwd_list);
+                break;
+
+            case 'forward_body':
+                this.setBodyText(r.response.body);
+                break;
+            }
+        }
     },
 
     focusEditor: function()
@@ -770,6 +811,8 @@ var DimpCompose = {
 
             case 'replyallnotice':
             case 'replylistnotice':
+            case 'fwdattachnotice':
+            case 'fwdbodynotice':
                 elt.fade({
                     afterFinish: function() {
                         elt.up('TR').hide();
@@ -777,8 +820,12 @@ var DimpCompose = {
                     }.bind(this),
                     duration: 0.4
                 });
-                $('to_loading_img').show();
-                DimpCore.doAction('GetReplyData', { headeronly: 1, imp_compose: $F('composeCache'), type: 'reply' }, { callback: this.swapToAddressCallback.bind(this) });
+                if (id.startsWith('reply')) {
+                    $('to_loading_img').show();
+                    DimpCore.doAction('GetReplyData', { headeronly: 1, imp_compose: $F('composeCache'), type: 'reply' }, { callback: this.swapToAddressCallback.bind(this) });
+                } else {
+                    DimpCore.doAction('GetForwardData', { dataonly: 1, imp_compose: $F('composeCache'), type: (id == 'fwdattachnotice' ? 'forward_body' : 'forward_attach') }, { callback: this.forwardAddCallback.bind(this) });
+                }
                 e.stop();
                 return;
             }

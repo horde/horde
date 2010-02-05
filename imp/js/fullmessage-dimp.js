@@ -54,12 +54,6 @@ var DimpFullmessage = {
 
         DimpCompose.fillForm((i.id[2]) ? ("\n" + i.sig + r.body) : (r.body + "\n" + i.sig), r.header, r.opts);
 
-        if (r.fwd_list && r.fwd_list.length) {
-            r.fwd_list.each(function(ptr) {
-                DimpCompose.addAttach(ptr.number, ptr.name, ptr.type, ptr.size);
-            });
-        }
-
         if (editor_on) {
             DimpCompose.toggleHtmlEditor(true);
         }

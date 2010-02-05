@@ -929,6 +929,8 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      *                               _checkUidvalidity(). Additional variables
      *                               used:
      * <pre>
+     * 'dataonly' - (boolean) Only return data information (DEFAULT:
+     *              false).
      * 'imp_compose' - (string) The IMP_Compose cache identifier.
      * 'type' - (string) See IMP_Compose::forwardMessage().
      * 'uid' - (string) Indices of the messages to forward (IMAP sequence
@@ -944,33 +946,40 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      * 'header' - (array) The headers of the message.
      * 'identity' - (integer) The identity ID to use for this message.
      * 'imp_compose'- (string) The IMP_Compose cache identifier.
+     * 'opts' - (array) Additional options needed for DimpCompose.fillForm().
+     * 'type' - (string) The input 'type' value.
      * 'ViewPort' - (object) See _viewPortData().
      * </pre>
      */
     public function GetForwardData($vars)
     {
-        $header = array();
-        $msg = $header = null;
-        $indices = $GLOBALS['imp_imap']->ob()->utils->fromSequenceString($vars->uid);
-
-        $i = each($indices);
-
         try {
-            $imp_contents = IMP_Contents::singleton(reset($i['value']) . IMP::IDX_SEP . $i['key']);
             $imp_compose = IMP_Compose::singleton($vars->imp_compose);
-            $fwd_msg = $imp_compose->forwardMessage($vars->type, $imp_contents);
-            $header = $fwd_msg['headers'];
-            $header['replytype'] = 'forward';
+            if (!($imp_contents = $imp_compose->getContentsOb())) {
+                $indices = $GLOBALS['imp_imap']->ob()->utils->fromSequenceString($vars->uid);
+                $i = each($indices);
+                $imp_contents = IMP_Contents::singleton(reset($i['value']) . IMP::IDX_SEP . $i['key']);
+            }
 
-            $result = new stdClass;
+            $fwd_msg = $imp_compose->forwardMessage($vars->type, $imp_contents);
+
             /* Can't open session read-only since we need to store the message
              * cache id. */
-            $result->imp_compose = $imp_compose->getCacheId();
-            $result->fwd_list = IMP_Dimp::getAttachmentInfo($imp_compose);
+            $result = new stdClass;
+            $result->opts = new stdClass;
+            $result->opts->fwd_list = IMP_Dimp::getAttachmentInfo($imp_compose);
             $result->body = $fwd_msg['body'];
-            $result->header = $header;
-            $result->format = $fwd_msg['format'];
-            $result->identity = $fwd_msg['identity'];
+            $result->type = $vars->type;
+            if (!$vars->dataonly) {
+                $result->format = $fwd_msg['format'];
+                $fwd_msg['headers']['replytype'] = 'forward';
+                $result->header = $fwd_msg['headers'];
+                $result->identity = $fwd_msg['identity'];
+                $result->imp_compose = $imp_compose->getCacheId();
+                if ($vars->type == 'forward_auto') {
+                    $result->opts->auto = $fwd_msg['type'];
+                }
+            }
         } catch (Horde_Exception $e) {
             $GLOBALS['notification']->push($e, 'horde.error');
             $result = $this->_checkUidvalidity($vars);
@@ -1015,27 +1024,21 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
                 $i = each($indices);
                 $imp_contents = IMP_Contents::singleton(reset($i['value']) . IMP::IDX_SEP . $i['key']);
             }
-            $reply_msg = $imp_compose->replyMessage($vars->type, $imp_contents);
-            $header = $reply_msg['headers'];
-            $header['replytype'] = 'reply';
 
+            $reply_msg = $imp_compose->replyMessage($vars->type, $imp_contents);
+            $reply_msg['headers']['replytype'] = 'reply';
+
+            /* Can't open session read-only since we need to store the message
+             * cache id. */
             $result = new stdClass;
-            $result->header = $header;
+            $result->header = $reply_msg['headers'];
             if (!$vars->headeronly) {
                 $result->body = $reply_msg['body'];
                 $result->format = $reply_msg['format'];
                 $result->identity = $reply_msg['identity'];
                 $result->imp_compose = $imp_compose->getCacheId();
                 if ($vars->type == 'reply_auto') {
-                    switch ($reply_msg['type']) {
-                    case 'reply_all':
-                        $result->opts = array('reply_auto' => 'all');
-                        break;
-
-                    case 'reply_list':
-                        $result->opts = array('reply_auto' => 'list');
-                        break;
-                    }
+                    $result->opts = array('auto' => $reply_msg['type']);
                 }
             }
         } catch (Horde_Exception $e) {
@@ -1397,7 +1400,9 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      *
      * @return object  An object with the following entries:
      * <pre>
+     * 'atc' - TODO
      * 'error' - (string) An error message.
+     * 'imp_compose' - TODO
      * 'success' - (integer) 1 on success, 0 on failure.
      * </pre>
      */
@@ -1411,9 +1416,8 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
 
         if ($_SESSION['imp']['file_upload'] &&
             $imp_compose->addFilesFromUpload('file_')) {
-            $info = IMP_Dimp::getAttachmentInfo($imp_compose);
+            $result->atc = end(IMP_Dimp::getAttachmentInfo($imp_compose));
             $result->success = 1;
-            $result->info = end($info);
             $result->imp_compose = $imp_compose->getCacheId();
         }
 

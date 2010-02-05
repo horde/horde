@@ -104,7 +104,7 @@ class IMP_Dimp
      *
      * @return array  An array of arrays with the following keys:
      * <pre>
-     * 'number' - The current attachment number
+     * 'num' - The current attachment number
      * 'name' - The HTML encoded attachment name
      * 'type' - The MIME type of the attachment
      * 'size' - The size of the attachment in KB (string)
@@ -119,8 +119,8 @@ class IMP_Dimp
                 $mime = $data['part'];
 
                 $fwd_list[] = array(
-                    'number' => $atc_num,
                     'name' => htmlspecialchars($mime->getName(true)),
+                    'num' => $atc_num,
                     'type' => $mime->getType(),
                     'size' => $mime->getSize()
                 );

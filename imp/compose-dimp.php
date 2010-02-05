@@ -88,19 +88,9 @@ case 'reply_list':
     $msg = $reply_msg['body'];
     $header = $reply_msg['headers'];
     $header['replytype'] = 'reply';
-
     if ($vars->type == 'reply_auto') {
-        switch ($reply_msg['type']) {
-        case 'reply_all':
-            $fillform_opts['reply_auto'] = 'all';
-            break;
-
-        case 'reply_list':
-            $fillform_opts['reply_auto'] = 'list';
-            break;
-        }
+        $fillform_opts['auto'] = $reply_msg['type'];
     }
-
     $vars->type = $reply_msg['type'];
 
     if ($vars->type == 'reply') {
@@ -132,6 +122,9 @@ case 'forward_both':
     $title = $header['title'];
     if ($fwd_msg['format'] == 'html') {
         $show_editor = true;
+    }
+    if ($vars->type == 'forward_auto') {
+        $fillform_opts['auto'] = $fwd_msg['type'];
     }
     $vars->type = 'forward';
 

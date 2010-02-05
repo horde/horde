@@ -1506,10 +1506,12 @@ class IMP_Compose
      * <pre>
      * 'body'     - The text of the body part
      * 'encoding' - The guessed charset to use for the reply
-     * 'headers'  - The headers of the message to use for the reply
      * 'format'   - The format of the body message
+     * 'headers'  - The headers of the message to use for the reply
      * 'identity' - The identity to use for the reply based on the original
      *              message's addresses.
+     * 'type'     - The forward type used (either 'forward_attach',
+     *              'forward_body', or 'forward_both').
      * </pre>
      */
     public function forwardMessage($type, $contents, $attach = true)
@@ -1589,7 +1591,8 @@ class IMP_Compose
             'encoding' => isset($msg_text) ? $msg_text['encoding'] : Horde_Nls::getCharset(),
             'format' => $format,
             'headers' => $header,
-            'identity' => $this->_getMatchingIdentity($h)
+            'identity' => $this->_getMatchingIdentity($h),
+            'type' => $type
         );
     }
 

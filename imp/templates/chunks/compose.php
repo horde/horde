@@ -127,6 +127,8 @@ $compose_disable = !IMP::canCompose();
      <ul class="notices">
       <li id="replyallnotice" style="display:none"><?php echo _("You are currently replying to ALL recipients. Click here to reply to the original sender instead.") ?></li>
       <li id="replylistnotice" style="display:none"><?php echo _("You are currently replying to the mailing list. Click here to reply to the original sender instead.") ?></li>
+      <li id="fwdattachnotice" style="display:none"><?php echo _("Click here to add the original message text to the body.") ?></li>
+      <li id="fwdbodynotice" style="display:none"><?php echo _("Click here to add the original message as an attachment.") ?></li>
      </ul>
     </td>
    </tr>

@@ -637,6 +637,11 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     padding: 1px;
 }
 
+#noticerow .notices li {
+    display: -moz-inline-stack;
+    display: inline-block;
+}
+
 #composeMessageParent {
     background: #fff url("graphics/backhead_shadow.png") top repeat-x;
     border-left: 1px silver solid;

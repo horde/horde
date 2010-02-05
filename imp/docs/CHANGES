@@ -2,6 +2,8 @@
 v5.0-git
 --------
 
+[mms] Add chance to switch between forward options on compose page when using
+      auto-forward (DIMP).
 [mms] Add chance to switch reply type to single recipient on compose page when
       using auto-reply (DIMP).
 [mms] Fix printing multipage HTML messages in Mozilla browsers (Bug #8708).
