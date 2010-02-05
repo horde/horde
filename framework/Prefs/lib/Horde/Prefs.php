@@ -316,6 +316,9 @@ class Horde_Prefs
         }
 
         $result = $this->_setValue($pref, $val, true, $convert);
+
+        Horde::logMessage(__CLASS__ . ': Storing preference value (' . $pref . ')', __FILE__, __LINE__, PEAR_LOG_DEBUG);
+
         if ($result && $this->isDirty($pref)) {
             $scope = $this->_getPreferenceScope($pref);
             $this->_cacheUpdate($scope, array($pref));
