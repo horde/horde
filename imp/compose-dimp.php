@@ -89,8 +89,16 @@ case 'reply_list':
     $header = $reply_msg['headers'];
     $header['replytype'] = 'reply';
 
-    if (($vars->type == 'reply_auto') && ($reply_msg['type'] == 'reply_all')) {
-        $fillform_opts['reply_auto_all'] = 1;
+    if ($vars->type == 'reply_auto') {
+        switch ($reply_msg['type']) {
+        case 'reply_all':
+            $fillform_opts['reply_auto'] = 'all';
+            break;
+
+        case 'reply_list':
+            $fillform_opts['reply_auto'] = 'list';
+            break;
+        }
     }
 
     $vars->type = $reply_msg['type'];

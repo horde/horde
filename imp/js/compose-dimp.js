@@ -459,7 +459,7 @@ var DimpCompose = {
         }
     },
 
-    // opts = focus, noupdate, reply_auto_all
+    // opts = focus, noupdate, reply_auto
     fillForm: function(msg, header, opts)
     {
         // On IE, this can get loaded before DOM:loaded. Check for an init
@@ -525,8 +525,14 @@ var DimpCompose = {
         Field.focus(opts.focus || 'to');
         this.resizeMsgArea();
 
-        if (opts.reply_auto_all) {
-            $('noticerow').show().down('.replyallnotice').show();
+        switch (opts.reply_auto) {
+        case 'all':
+            $('noticerow', 'replyallnotice').invoke('show');
+            break
+
+        case 'list':
+            $('noticerow', 'replylistnotice').invoke('show');
+            break;
         }
 
         if (DIMP.conf_compose.show_editor) {
@@ -539,12 +545,13 @@ var DimpCompose = {
         }
     },
 
-    replyAutoAllCallback: function(r)
+    swapToAddressCallback: function(r)
     {
         if (r.response.header) {
             $('to').setValue(r.response.header.to);
             this.resizeto.resizeNeeded();
         }
+        $('to_loading_img').hide();
     },
 
     focusEditor: function()
@@ -761,15 +768,17 @@ var DimpCompose = {
                 this.setSaveSentMail($F(elt));
                 break;
 
-            case 'replyallclick':
-                elt.up('LI').fade({
+            case 'replyallnotice':
+            case 'replylistnotice':
+                elt.fade({
                     afterFinish: function() {
                         elt.up('TR').hide();
                         this.resizeMsgArea();
                     }.bind(this),
                     duration: 0.4
                 });
-                DimpCore.doAction('GetReplyData', { headeronly: 1, imp_compose: $F('composeCache'), type: 'reply' }, { callback: this.replyAutoAllCallback.bind(this) });
+                $('to_loading_img').show();
+                DimpCore.doAction('GetReplyData', { headeronly: 1, imp_compose: $F('composeCache'), type: 'reply' }, { callback: this.swapToAddressCallback.bind(this) });
                 e.stop();
                 return;
             }

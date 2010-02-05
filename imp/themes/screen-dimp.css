@@ -617,7 +617,7 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 .msgwrite .dimpOptions div {
     padding-bottom: 0;
 }
-.msgwrite .dimpOptions label {
+.msgwrite .dimpOptions label, #replyallnotice, #replylistnotice {
     cursor: pointer;
 }
 .msgwrite tr {
@@ -633,7 +633,8 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 }
 .msgwrite span.loadingImg {
     float: right;
-    padding: 0;
+    margin-left: 3px;
+    padding: 1px;
 }
 
 #composeMessageParent {

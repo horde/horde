@@ -1008,17 +1008,13 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function GetReplyData($vars)
     {
-
         try {
             $imp_compose = IMP_Compose::singleton($vars->imp_compose);
-            if ($imp_compose->getMetadata('reply_type')) {
-                $idx_string = $imp_compose->getMetadata('uid') . IMP::IDX_SEP . $imp_compose->getMetadata('mailbox');
-            } else {
+            if (!($imp_contents = $imp_compose->getContentsOb())) {
                 $indices = $GLOBALS['imp_imap']->ob()->utils->fromSequenceString($vars->uid);
                 $i = each($indices);
-                $idx_string = reset($i['value']) . IMP::IDX_SEP . $i['key'];
+                $imp_contents = IMP_Contents::singleton(reset($i['value']) . IMP::IDX_SEP . $i['key']);
             }
-            $imp_contents = IMP_Contents::singleton($idx_string);
             $reply_msg = $imp_compose->replyMessage($vars->type, $imp_contents);
             $header = $reply_msg['headers'];
             $header['replytype'] = 'reply';
@@ -1030,9 +1026,16 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
                 $result->format = $reply_msg['format'];
                 $result->identity = $reply_msg['identity'];
                 $result->imp_compose = $imp_compose->getCacheId();
-                if (($vars->type == 'reply_auto') &&
-                    ($reply_msg['type'] == 'reply_all')) {
-                    $result->opts = array('reply_auto_all' => 1);
+                if ($vars->type == 'reply_auto') {
+                    switch ($reply_msg['type']) {
+                    case 'reply_all':
+                        $result->opts = array('reply_auto' => 'all');
+                        break;
+
+                    case 'reply_list':
+                        $result->opts = array('reply_auto' => 'list');
+                        break;
+                    }
                 }
             }
         } catch (Horde_Exception $e) {

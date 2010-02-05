@@ -356,7 +356,7 @@ pre, code, .fixed, table.lineNumbered * {
     color: #000;
     background: #ffc;
     border: 1px solid #aaa;
-    padding: 1px 1px 1px 5px;
+    padding: 1px 3px;
 }
 .notices img, .notice img {
     margin-right: .5em;

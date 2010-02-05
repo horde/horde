@@ -125,7 +125,8 @@ $compose_disable = !IMP::canCompose();
    <tr id="noticerow" style="display:none">
     <td colspan="2">
      <ul class="notices">
-      <li class="replyallnotice" style="display:none"><?php echo Horde::img('alerts/message.png', _("Message"), null, $GLOBALS['registry']->getImageDir('horde')) ?> <?php echo sprintf(_("You are currently replying to ALL recipients. To reply only to the original sender, click %s."), '<a href="#" id="replyallclick">' . _("HERE") . '</a>') ?></li>
+      <li id="replyallnotice" style="display:none"><?php echo _("You are currently replying to ALL recipients. Click here to reply to the original sender instead.") ?></li>
+      <li id="replylistnotice" style="display:none"><?php echo _("You are currently replying to the mailing list. Click here to reply to the original sender instead.") ?></li>
      </ul>
     </td>
    </tr>

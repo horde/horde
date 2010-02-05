@@ -1285,7 +1285,7 @@ class IMP_Compose
         $match_identity = $this->_getMatchingIdentity($h);
         $reply_type = 'reply';
 
-        if (!isset($this->_metadata['reply_type'])) {
+        if (!$this->getMetadata('reply_type')) {
             $this->_metadata['mailbox'] = $contents->getMailbox();
             $this->_metadata['reply_type'] = 'reply';
             $this->_metadata['uid'] = $contents->getUid();
@@ -2713,4 +2713,18 @@ class IMP_Compose
 
         return array('sources' => $src, 'fields' => $fields);
     }
+
+    /**
+     * If this object contains sufficient metadata, return an IMP_Contents
+     * object reflecting that metadata.
+     *
+     * @return mixed  Either an IMP_Contents object or null.
+     */
+    public function getContentsOb()
+    {
+        return $this->getMetadata('reply_type')
+            ? IMP_Contents::singleton($this->getMetadata('uid') . IMP::IDX_SEP . $this->getMetadata('mailbox'))
+            : null;
+    }
+
 }
