@@ -1079,12 +1079,18 @@ class IMP_Imap_Tree
     protected function _modifyExpandedList($id, $action)
     {
         $this->_initExpandedList();
+
         if ($action == 'add') {
+            $change = empty($this->_expanded[$id]);
             $this->_expanded[$id] = true;
         } else {
+            $change = !empty($this->_expanded[$id]);
             unset($this->_expanded[$id]);
         }
-        $GLOBALS['prefs']->setValue('expanded_folders', serialize($this->_expanded));
+
+        if ($change) {
+            $GLOBALS['prefs']->setValue('expanded_folders', serialize($this->_expanded));
+        }
     }
 
     /**

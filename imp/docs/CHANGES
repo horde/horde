@@ -144,6 +144,7 @@ v5.0-git
 v4.3.7-cvs
 ----------
 
+[mms] Optimize folder tree initialization (Ticket #8805).
 [mms] Add command line fetchmail script (tjacyno@galasoft.net, Ticket #8812).
 [jan] Workaround broken PHP number formatting with some locales (Bug #8780).
 
