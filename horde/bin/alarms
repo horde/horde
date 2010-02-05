@@ -10,14 +10,6 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true));
+Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true, 'user_admin' => true));
 
-// Authenticate as administrator.
-if (!count($conf['auth']['admins'])) {
-    exit("You must have at least one administrator configured to run the alarms.php script.\n");
-}
-Horde_Auth::setAuth($conf['auth']['admins'][0], array());
-
-// Run
-$horde_alarm = Horde_Alarm::factory();
-$horde_alarm->notify(null, true, false, array('notify'));
+Horde_Alarm::factory()->notify(null, true, false, array('notify'));
