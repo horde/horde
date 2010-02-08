@@ -22,15 +22,15 @@ class Horde_Notification
     static protected $_instances = array();
 
     /**
-     * Returns a reference to the global Notification handler, only
+     * Returns a reference to the global notification handler, only
      * creating it if it doesn't already exist.
      *
      * This method must be invoked as:
-     *   $notification = Horde_Notification::singleton()
+     *   $notification = Horde_Notification::singleton([$stack]);
      *
      * @param string $stack  The name of the message stack to use.
      *
-     * return Horde_Notification_Handler The Horde Notification handler.
+     * return Horde_Notification_Handler  The Horde Notification handler.
      */
     static public function singleton($stack = 'horde_notification_stacks')
     {
@@ -49,4 +49,5 @@ class Horde_Notification
 
         return self::$_instances[$stack];
     }
+
 }

@@ -1,7 +1,6 @@
 <?php
 /**
- * The Horde_Notification_Event:: class provides a container for passing
- * messages to Horde_Notification_Listener classes.
+ * The Horde_Notification_Event:: class defines a single notification event.
  *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *

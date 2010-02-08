@@ -18,7 +18,9 @@ class Horde_Notification_Listener_Audio extends Horde_Notification_Listener
      */
     public function __construct()
     {
-        $this->_handles = array('audio' => '');
+        $this->_handles = array(
+            'audio' => ''
+        );
         $this->_name = 'audio';
     }
 
@@ -27,7 +29,7 @@ class Horde_Notification_Listener_Audio extends Horde_Notification_Listener
      * 'audio' message stack.
      *
      * @param array &$messageStack  The stack of messages.
-     * @param array $options        An array of options.
+     * @param array $options        An array of options (not used).
      */
     public function notify(&$messageStack, $options = array())
     {

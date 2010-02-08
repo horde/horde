@@ -28,9 +28,8 @@ implements Horde_Notification_Handler_Interface
      * @param Horde_Notification_Handler $handler The handler this instance
      *                                            provides with logging.
      */
-    public function __construct(
-        Horde_Notification_Handler_Interface $handler
-    ) {
+    public function __construct(Horde_Notification_Handler_Interface $handler)
+    {
         $this->_handler = $handler;
     }
 

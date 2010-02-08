@@ -39,9 +39,9 @@ class Horde_Notification_Listener_Mobile extends Horde_Notification_Listener_Sta
      *
      * @param Horde_Mobile  The Horde_Mobile:: object to send status lines to.
      */
-    public function setMobileObject(&$mobile)
+    public function setMobileObject($mobile)
     {
-        $this->_mobile = &$mobile;
+        $this->_mobile = $mobile;
     }
 
     /**
@@ -49,7 +49,7 @@ class Horde_Notification_Listener_Mobile extends Horde_Notification_Listener_Sta
      * message stack.
      *
      * @param array &$messageStack  The stack of messages.
-     * @param array $options        An array of options. Options: 'nospace'
+     * @param array $options        An array of options.
      */
     public function notify(&$messageStack, $options = array())
     {

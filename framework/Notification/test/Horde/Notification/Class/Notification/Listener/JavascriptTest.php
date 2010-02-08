@@ -2,8 +2,6 @@
 /**
  * Test the javascript listener class.
  *
- * PHP version 5
- *
  * @category Horde
  * @package  Notification
  * @author   Gunnar Wrobel <wrobel@pardus.de>

@@ -32,20 +32,21 @@ implements Horde_Notification_Handler_Interface
      * Initialize the notification system, set up any needed session
      * variables, etc.
      *
-     * @param Horde_Notification_Handler $handler The handler this instance
-     *                                            provides with logging.
+     * @param Horde_Notification_Handler $handler  The handler this instance
+     *                                             provides with logging.
      *
-     * @param mixed                      $logger  The log handler. The provided
-     *                                            instance is required to
-     *                                            implement the debug() function.
-     *                                            You should be able to use a
-     *                                            common Logger here (PEAR Log,
-     *                                            Horde_Log_Logger, or Zend_Log).
+     * @param mixed $logger                        The log handler. The
+     *                                             provided instance is
+     *                                             required to implement the
+     *                                             debug() function. You
+     *                                             should be able to use a
+     *                                             common Logger here (PEAR
+     *                                             Log, Horde_Log_Logger, or
+     *                                             Zend_Log).
      */
-    public function __construct(
-        Horde_Notification_Handler_Interface $handler,
-        $logger
-    ) {
+    public function __construct(Horde_Notification_Handler_Interface $handler,
+                                $logger)
+    {
         $this->_handler = $handler;
         $this->_logger  = $logger;
     }
@@ -122,11 +123,9 @@ implements Horde_Notification_Handler_Interface
     public function push($event, $type = null, array $flags = array())
     {
         if ($event instanceof PEAR_Error || $event instanceof Exception) {
-            /**
-             * Some loggers only accept string messages. As both PEAR_Error and
-             * Exception accept being casted into a string we can ensure that
-             * the logger receives a string here.
-             */
+            /* Some loggers only accept string messages. As both PEAR_Error
+             * and Exception accept being casted into a string we can ensure
+             * that the logger receives a string here. */
             $this->_logger->debug((string) $event);
         }
         $this->_handler->push($event, $type, $flags);
@@ -183,4 +182,5 @@ implements Horde_Notification_Handler_Interface
     {
         return $this->_handler->count($my_listener);
     }
+
 }

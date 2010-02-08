@@ -37,14 +37,13 @@ implements Horde_Notification_Handler_Interface
     protected $_alarm;
 
     /**
-     * Initialize the notification system, set up any needed session
-     * variables, etc.
+     * Initialize the notification system.
      *
-     * @param Horde_Notification_Storage $storage The storage location to use.
+     * @param Horde_Notification_Storage $storage  The storage location to
+     *                                             use.
      */
-    public function __construct(
-        Horde_Notification_Storage_Interface $storage
-    ) {
+    public function __construct(Horde_Notification_Storage_Interface $storage)
+    {
         $this->_storage = $storage;
     }
 
@@ -105,9 +104,9 @@ implements Horde_Notification_Handler_Interface
             throw new Horde_Exception(sprintf('Notification listener %s not found.', $listener));
         }
 
-        $listener_instance = $this->_listeners[$listener];
+        $instance = $this->_listeners[$listener];
         unset($this->_listeners[$listener]);
-        $this->_storage->clear($listener_instance->getName());
+        $this->_storage->clear($instance->getName());
     }
 
     /**
@@ -182,6 +181,9 @@ implements Horde_Notification_Handler_Interface
      *
      * @param array $options  An array containing display options for the
      *                        listeners.
+     * <pre>
+     * 'listeners' - The list of listeners to notify.
+     * </pre>
      */
     public function notify(array $options = array())
     {
@@ -195,21 +197,24 @@ implements Horde_Notification_Handler_Interface
      *
      * @param array $options  An array containing display options for the
      *                        listeners.
+     *
+     * @return array  The list of listeners to notify.
      */
     public function setNotificationListeners(array $options)
     {
         if (!isset($options['listeners'])) {
-            $options['listeners'] =  $this->getListeners();
+            $options['listeners'] = array_keys($this->_listeners);
         } elseif (!is_array($options['listeners'])) {
             $options['listeners'] = array($options['listeners']);
         }
         $options['listeners'] = array_map(array('Horde_String', 'lower'), $options['listeners']);
+
         return $options;
     }
 
     /**
-     * Passes the message stack to all listeners and asks them to
-     * handle their messages.
+     * Passes the message stack to all listeners and asks them to handle
+     * their messages.
      *
      * @param array $options An array containing display options for the
      *                       listeners. This array is required to contain the
@@ -220,12 +225,7 @@ implements Horde_Notification_Handler_Interface
     {
         foreach ($options['listeners'] as $listener) {
             if (isset($this->_listeners[$listener])) {
-                $this->_listeners[$listener]->notify(
-                    $this->_storage->get(
-                        $this->_listeners[$listener]->getName()
-                    ),
-                    $options
-                );
+                $this->_listeners[$listener]->notify($this->_storage->get($this->_listeners[$listener]->getName()), $options);
             }
         }
     }
@@ -249,13 +249,9 @@ implements Horde_Notification_Handler_Interface
                 }
             }
             return $count;
-        } else {
-            return @count($this->_storage->get($this->_listeners[Horde_String::lower($my_listener)]->getName()));
         }
+
+        return @count($this->_storage->get($this->_listeners[Horde_String::lower($my_listener)]->getName()));
     }
 
-    protected function getListeners()
-    {
-        return array_keys($this->_listeners);
-    }
 }

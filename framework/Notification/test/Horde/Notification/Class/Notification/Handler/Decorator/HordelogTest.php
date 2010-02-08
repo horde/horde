@@ -2,8 +2,6 @@
 /**
  * Test the notification handler class that logs to the horde log.
  *
- * PHP version 5
- *
  * @category Horde
  * @package  Notification
  * @author   Gunnar Wrobel <wrobel@pardus.de>

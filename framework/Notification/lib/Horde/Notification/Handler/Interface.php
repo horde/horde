@@ -114,4 +114,5 @@ interface Horde_Notification_Handler_Interface
      * @return integer  The number of messages in the stack.
      */
     public function count($my_listener = null);
+
 }

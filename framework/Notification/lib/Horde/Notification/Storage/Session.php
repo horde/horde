@@ -2,8 +2,6 @@
 /**
  * A class that stores notifications in the session.
  *
- * PHP version 5
- *
  * @category Horde
  * @package  Horde_Notification
  * @author   Gunnar Wrobel <wrobel@pardus.de>
@@ -38,7 +36,7 @@ implements Horde_Notification_Storage_Interface
     /**
      * Constructor.
      *
-     * @param string $stack The name of the notification stack.
+     * @param string $stack  The name of the notification stack.
      */
     public function __construct($stack)
     {
@@ -53,9 +51,9 @@ implements Horde_Notification_Storage_Interface
     /**
      * Return the given stack by reference from the notification store.
      *
-     * @param string $key The key for the data.
+     * @param string $key  The key for the data.
      *
-     * @return mixed The notification data stored for the given key.
+     * @return mixed  The notification data stored for the given key.
      */
     public function &get($key)
     {
@@ -66,9 +64,7 @@ implements Horde_Notification_Storage_Interface
      * Set the given stack in the notification store.
      *
      * @param string $key   The key for the data.
-     * @param mixed  $value The data.
-     *
-     * @return NULL
+     * @param mixed $value  The data.
      */
     public function set($key, $value)
     {
@@ -78,9 +74,9 @@ implements Horde_Notification_Storage_Interface
     /**
      * Is the given stack present in the notification store?
      *
-     * @param string $key The key of the data.
+     * @param string $key  The key of the data.
      *
-     * @return boolean True if the element is set, false otherwise.
+     * @return boolean  True if the element is set, false otherwise.
      */
     public function exists($key)
     {
@@ -90,9 +86,7 @@ implements Horde_Notification_Storage_Interface
     /**
      * Unset the given stack in the notification store.
      *
-     * @param string $key The key of the data.
-     *
-     * @return NULL
+     * @param string $key  The key of the data.
      */
     public function clear($key)
     {

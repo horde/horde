@@ -2,8 +2,6 @@
 /**
  * All tests for the Horde_Notification package.
  *
- * PHP version 5
- *
  * @category Horde
  * @package  Notification
  * @author   Gunnar Wrobel <wrobel@pardus.de>

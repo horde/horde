@@ -2,8 +2,6 @@
 /**
  * Test the notification class.
  *
- * PHP version 5
- *
  * @category Horde
  * @package  Notification
  * @author   Gunnar Wrobel <wrobel@pardus.de>
@@ -46,8 +44,7 @@ class Horde_Notification_Class_NotificationTest extends PHPUnit_Framework_TestCa
             $this->markTestSkipped('The Horde_Alarm package is not installed!');
         }
 
-        global $conf;
-        $conf['alarms']['driver'] = 'Mock';
+        $GLOBALS['conf']['alarms']['driver'] = 'Mock';
 
         $this->assertType(
             'Horde_Notification_Handler_Decorator_Alarm',
@@ -67,7 +64,6 @@ class Horde_Notification_Instance extends Horde_Notification
     static public function newInstance($stack)
     {
         $storage = new Horde_Notification_Storage_Session($stack);
-        $instance = new Horde_Notification_Handler_Base($storage);
-        return $instance;
+        return new Horde_Notification_Handler_Base($storage);
     }
 }

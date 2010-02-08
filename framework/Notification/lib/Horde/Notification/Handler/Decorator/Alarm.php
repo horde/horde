@@ -31,14 +31,13 @@ implements Horde_Notification_Handler_Interface
      * Initialize the notification system, set up any needed session
      * variables, etc.
      *
-     * @param Horde_Notification_Handler $handler The handler this instance
-     *                                            provides with logging.
-     * @param Horde_Alarm                $alarm   The alarm system to notify.
+     * @param Horde_Notification_Handler $handler  The handler this instance
+     *                                             provides with logging.
+     * @param Horde_Alarm $alarm                   The alarm system to notify.
      */
-    public function __construct(
-        Horde_Notification_Handler_Interface $handler,
-        Horde_Alarm $alarm
-    ) {
+    public function __construct(Horde_Notification_Handler_Interface $handler,
+                                Horde_Alarm $alarm)
+    {
         $this->_handler = $handler;
         $this->_alarm   = $alarm;
     }
