@@ -139,6 +139,10 @@ KronolithCore = {
                 if (this.alarms.indexOf(m.alarm.id) != -1) {
                     break;
                 }
+                if (m.type == 'horde.alarm') {
+                    this.alarms.push(m.alarm.id);
+                }
+
                 message = m.alarm.title.escapeHTML();
                 if (!Object.isUndefined(m.alarm.ajax)) {
                     message = new Element('a')
@@ -164,15 +168,8 @@ KronolithCore = {
                     sticky: true
                 });
 
-                document.observe('Growler:created', function() {
-                    if (m.type == 'horde.alarm') {
-                        this.alarms.push(m.alarm.id);
-                    }
-                }.bind(this));
                 document.observe('Growler:destroyed', function() {
-                    if (m.type == 'horde.alarm') {
-                        this.alarms = this.alarms.without(m.alarm.id);
-                    }
+                    this.alarms = this.alarms.without(m.alarm.id);
                 }.bind(this));
 
                 if (m.alarm.user) {
