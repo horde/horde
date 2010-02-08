@@ -71,7 +71,7 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
             $httpRequest->setRawPostData($data);
         }
 
-        $httpOptions = array();
+        $httpOptions = array('timeout' => $this->timeout);
 
         // Proxy settings
         if ($this->proxyServer) {

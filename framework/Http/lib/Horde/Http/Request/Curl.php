@@ -57,6 +57,7 @@ class Horde_Http_Request_Curl extends Horde_Http_Request_Base
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_HEADER, true);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $this->method);
+        curl_setopt($curl, CURLOPT_TIMEOUT, $this->timeout);
 
         $data = $this->data;
         if (is_array($data)) {
