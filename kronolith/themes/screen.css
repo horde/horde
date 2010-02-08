@@ -186,9 +186,11 @@ a.newEvent img {
     color: #fff;
 }
 .kronolithAjax .kronolithFBFree {
+    /*position: static;*/
     position: relative;
 }
 .kronolithAjax .kronolithFBBusy {
+    /*position: static;*/
     position: absolute;
 }
 div.fbgrid {
@@ -394,6 +396,9 @@ body.kronolithAjax {
 }
 
 /* User data and options */
+#kronolithApplications {
+    display: none;
+}
 #kronolithServices {
     float: right;
     margin-top: 10px;
@@ -401,14 +406,18 @@ body.kronolithAjax {
     text-align: right;
 }
 #kronolithNotifications {
-    padding: 3px 5px;
+    float: left;
+    padding: 0 10px;
     height: 25px;
     line-height: 25px;
+    -moz-border-radius: 0 5px 5px 0;
+    -webkit-border-radius: 0 5px 5px 0;
 }
 .kronolithNotifications {
     background-color: #d9d9d9;
-    opacity: .3;
-    filter: alpha(opacity=30);
+}
+#kronolithNotifications.kronolithNotifications {
+    background-color: #f0f0f0;
 }
 
 /* Main area */
@@ -570,8 +579,8 @@ a.kronolithFormCancel {
     float: left;
     margin: 0 2px 0 0;
     background: #d6d6d6;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px 0 0 5px;
+    -webkit-border-radius: 5px 0 0 5px;
     font-weight: bold;
     cursor: pointer;
 }
@@ -714,7 +723,7 @@ div.kronolithFormActions {
     line-height: 140%;
 }
 #kronolithEventTabAttendees td:first-child, #kronolithEventTabAttendees th:first-child {
-    width: 100px;
+    width: 170px;
     overflow: hidden;
 }
 #kronolithEventTabAttendees th {
@@ -727,6 +736,10 @@ div.kronolithFormActions {
     background-color: #ccc;
 }
 
+#kronolithEventAttendeesList {
+    max-height: 150px;
+    overflow-y: auto;
+}
 #kronolithEventTabAttendees td div {
     margin: 0;
     height: 100%;
@@ -734,6 +747,7 @@ div.kronolithFormActions {
 #kronolithEventACBox {
     line-height: 100%;
 }
+
 /* Map */
 #kronolithEventMap {
 	height: 300px;

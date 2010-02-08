@@ -4,7 +4,14 @@
 
   <!-- begin services -->
   <div id="kronolithServices">
-    <span><a href="#" id="kronolithNotifications" class="kronolithNotifications"><?php echo _("0 notifications") ?></a> <span class="kronolithSeparator">&middot;</span></span>
+    <div id="kronolithApplications">
+       <ul>
+          <li><a href="#" id="appMail" title="<?php echo _("Mail") ?>"><?php echo _("Mail") ?></a></li>
+          <li class="selected"><a href="#" id="appKronolith" title="<?php echo _("Kronolith") ?>"><?php echo _("Kronolith") ?></a></li>
+          <li><a href="#" id="appTurba" title="<?php echo _("Turba") ?>"><?php echo _("Turba") ?></a></li>
+       </ul>
+       <span class="kronolithSeparator">|</span>
+    </div>
     <a href="#" id="kronolithOptions"><?php echo _("Options") ?></a><?php if ($help_link) echo ' <span class="kronolithSeparator">&middot;</span> ' . $help_link; if ($logout_link) echo ' <span class="kronolithSeparator">|</span> ' . $logout_link ?>
   </div>
   <!-- end services -->
@@ -14,16 +21,16 @@
   <div class="kronolithDateChoice" <?php $todayAccessKey = Horde::getAccessKey(_("_Today")); echo Horde::getAccessKeyAndTitle(_("_Today"), true) ?>>
     <div><?php echo $today->strftime('%a, %e %b %Y') ?></div>
   </div>
-
+  <a href="#" id="kronolithNotifications" class="kronolithNotifications"><?php echo _("no notifications") ?></a>
   <div id="kronolithNav">
-    <a id="kronolithNavDay" accesskey="1"><?php echo _("Day") ?></a>
-    <a id="kronolithNavWeek" accesskey="2"><?php echo _("Week") ?></a>
-    <a id="kronolithNavMonth" accesskey="3"><?php echo _("Month") ?></a>
-    <a id="kronolithNavYear" accesskey="4"><?php echo _("Year") ?></a>
+    <a id="kronolithNavDay" accesskey="1"><span><?php echo _("Day") ?></span></a>
+    <a id="kronolithNavWeek" accesskey="2"><span><?php echo _("Week") ?></span></a>
+    <a id="kronolithNavMonth" accesskey="3"><span><?php echo _("Month") ?></span></a>
+    <a id="kronolithNavYear" accesskey="4"><span><?php echo _("Year") ?></span></a>
     <?php if ($GLOBALS['registry']->hasInterface('tasks')): ?>
-    <a id="kronolithNavTasks" accesskey="5"><?php echo _("Tasks") ?></a>
+    <a id="kronolithNavTasks" accesskey="5"><span><?php echo _("Tasks") ?></span></a>
     <?php endif; ?>
-    <a id="kronolithNavAgenda" accesskey="<?php echo $GLOBALS['registry']->hasInterface('tasks') ? 6 : 5 ?>"><?php echo _("Agenda") ?></a>
+    <a id="kronolithNavAgenda" accesskey="<?php echo $GLOBALS['registry']->hasInterface('tasks') ? 6 : 5 ?>"><span><?php echo _("Agenda") ?></span></a>
   </div>
 </div>
 <!-- end top bar -->
@@ -64,7 +71,7 @@
 
   <form id="kronolithSearchForm" action="">
     <input type="text" id="kronolithSearchTerm" value="<?php echo _("Search") ?>" default="<?php echo _("Search") ?>" />
-    <input id="kronolithSearchButton" type="image" src="<?php echo $GLOBALS['registry']->getImageDir() ?>/search-button.png" />
+    <input id="kronolithSearchButton" type="image" src="<?php echo $GLOBALS['registry']->getImageDir() ?>/search.png" />
   </form>
 
   <div id="kronolithMenuCalendars">

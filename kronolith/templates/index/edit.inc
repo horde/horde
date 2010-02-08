@@ -6,19 +6,19 @@
 <input id="kronolithEventLocationLat" type="hidden" name="lat" />
 
 <div>
-  <label for="kronolithEventTitle"><?php echo _("Event title") ?>:</label><br />
+  <label for="kronolithEventTitle"><?php echo _("Event title") ?>:</label>
   <input type="text" name="title" id="kronolithEventTitle" class="kronolithLongField" />
 </div>
 
 <div>
 <table cellspacing="0" cellpadding="0" border="0"><tbody><tr>
   <td>
-    <label for="kronolithEventCalendar"><?php echo _("Calendar") ?>:</label><br />
+    <label for="kronolithEventCalendar"><?php echo _("Calendar") ?>:</label>
     <select name="targetcalendar" id="kronolithEventTarget">
     </select>
   </td>
   <td>
-    <label for="kronolithEventLocation"><?php echo _("Location") ?>:</label><br />
+    <label for="kronolithEventLocation"><?php echo _("Location") ?>:</label>
     <input type="text" name="location" id="kronolithEventLocation" size="40" />
     <?php if ($GLOBALS['conf']['maps']['driver']):?>
     &middot; <span><a class="kronolithEventGeo" href="#"><?php echo _("Find in Maps") ?></a></span>
@@ -28,24 +28,36 @@
 </div>
 
 <div>
-<table cellspacing="0" cellpadding="0" border="0"><tbody>
-  <tr>
-    <td><label for="kronolithEventStartDate"><?php echo _("From") ?>:</label></td>
-    <td><label for="kronolithEventEndDate"><?php echo _("To") ?>:</label></td>
-    <td>&nbsp;</td>
-  </tr>
+<table id="kronolithEventDates" cellspacing="0" cellpadding="0" border="0"><tbody>
   <tr>
     <td>
-      <input type="text" name="start_date" id="kronolithEventStartDate" size="10" />
-      <?php echo Horde::img('picker.png', _("Set start date"), 'id="kronolithEventStartPicker"') ?>
-      <label id="kronolithEventStartTimeLabel"><?php echo _("at") ?> <input type="text" name="start_time" id="kronolithEventStartTime" size="8" /></label>
+      <label for="kronolithEventStartDate">
+        <?php echo _("From") ?>:<br />
+        <input type="text" name="start_date" id="kronolithEventStartDate" size="10" />
+        <?php echo Horde::img('picker.png', _("Set start date"), 'id="kronolithEventStartPicker"') ?>
+      </label>
+      <label id="kronolithEventStartTimeLabel">
+        <?php echo _("at") ?>
+        <input type="text" name="start_time" id="kronolithEventStartTime" size="8" />
+      </label>
     </td>
     <td>
-      <input type="text" name="end_date" id="kronolithEventEndDate" size="10" />
-      <?php echo Horde::img('picker.png', _("Set end date"), 'id="kronolithEventEndPicker"') ?>
-      <label id="kronolithEventEndTimeLabel"><?php echo _("at") ?> <input type="text" name="end_time" id="kronolithEventEndTime" size="8" /></label>
+      <label for="kronolithEventEndDate"><?php echo _("To") ?>:<br />
+        <input type="text" name="end_date" id="kronolithEventEndDate" size="10" />
+        <?php echo Horde::img('picker.png', _("Set end date"), 'id="kronolithEventEndPicker"') ?>
+      </label>
+      <label id="kronolithEventEndTimeLabel">
+        <?php echo _("at") ?>
+        <input type="text" name="end_time" id="kronolithEventEndTime" size="8" />
+      </label>
     </td>
-    <td><label><input type="checkbox" name="whole_day" id="kronolithEventAllday"  /> <?php echo _("all-day event") ?></label></td>
+    <td>
+      <br />
+      <label>
+        <input type="checkbox" name="whole_day" id="kronolithEventAllday" />
+        <?php echo _("all-day event") ?>
+      </label>
+    </td>
   </tr>
 </tbody></table>
 </div>
@@ -151,10 +163,10 @@
 </div>
 
 <div id="kronolithEventTabAttendees" class="kronolithTabsOption" style="display:none">
-  <input type="text" name="attendees" id="kronolithEventAttendees" class="kronolithLongField" value="" /><br />
+  <textarea name="attendees" id="kronolithEventAttendees" rows="2" cols="100" class="kronolithLongField"></textarea><br />
   <label><input type="checkbox" name="sendupdates" value="1" /> <?php printf(_("send invites %s to all attendees"), '</label>') ?><br />
   <div id="kronolithFBLoading" style="display:none"></div>
-  <table width="100%" cellspacing="0" cellpadding="0" border="0">
+  <table cellspacing="0" cellpadding="0" border="0">
     <thead>
       <tr>
         <th><?php echo _("Availability") ?></th>
@@ -163,9 +175,13 @@
         <?php endfor; ?>
       </tr>
     </thead>
-    <tbody>
-    </tbody>
   </table>
+  <div id="kronolithEventAttendeesList">
+    <table cellspacing="0" cellpadding="0" border="0">
+      <tbody>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <div id="kronolithEventTabTags" class="kronolithTabsOption" style="display:none">
