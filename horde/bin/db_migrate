@@ -23,7 +23,7 @@ if (empty($args[0])) {
     $cli->fatal("An application argument is required");
 }
 $app = $args[0];
-if (!in_array($app, $GLOBALS['registry']->listApps('inactive', 'hidden', 'notoolbar', 'admin', 'active'))) {
+if (!in_array($app, $GLOBALS['registry']->listApps(array('inactive', 'hidden', 'notoolbar', 'admin', 'active')))) {
     $cli->fatal("$app is not a configured Horde application");
 }
 $action = 'up';
