@@ -53,7 +53,12 @@ try {
 ob_start();
 
 $ajax = Horde_Ajax::getInstance($app, $action);
-$result = $ajax->doAction();
+try {
+    $result = $ajax->doAction();
+} catch (Exception $e) {
+    $notification->push($e->getMessage(), 'horde.error');
+    $result = null;
+}
 
 // Clear the output buffer that we started above, and log any unexpected
 // output at a DEBUG level.
