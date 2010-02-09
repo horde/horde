@@ -670,12 +670,14 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
     }
 
     /**
-     * Move an event to a new calendar.
+     * Moves an event to a new calendar.
      *
      * @param string $eventId      The event to move.
      * @param string $newCalendar  The new calendar.
+     *
+     * @return Kronolith_Event  The old event.
      */
-    public function move($eventId, $newCalendar)
+    protected function _move($eventId, $newCalendar)
     {
         /* Fetch the event for later use. */
         $event = $this->getEvent($eventId);
@@ -698,15 +700,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             return $result;
         }
 
-        /* Log the moving of this item in the history log. */
-        $uid = $event->uid;
-        if ($uid) {
-            $history = Horde_History::singleton();
-            $history->log('kronolith:' . $this->calendar . ':' . $uid, array('action' => 'delete'), true);
-            $history->log('kronolith:' . $newCalendar . ':' . $uid, array('action' => 'add'), true);
-        }
-
-        return true;
+        return $event;
     }
 
     /**

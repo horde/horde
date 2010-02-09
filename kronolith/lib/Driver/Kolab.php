@@ -396,12 +396,14 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
     }
 
     /**
-     * Move an event to a new calendar.
+     * Moves an event to a new calendar.
      *
      * @param string $eventId      The event to move.
      * @param string $newCalendar  The new calendar.
+     *
+     * @return Kronolith_Event  The old event.
      */
-    public function move($eventId, $newCalendar)
+    protected function _move($eventId, $newCalendar)
     {
         $event = $this->getEvent($eventId);
 
@@ -424,13 +426,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
             Kolab::triggerFreeBusyUpdate($this->_store->parseFolder($newCalendar));
         }
 
-        /* Log the moving of this item in the history log. */
-        $uid = $event->uid;
-        $history = Horde_History::singleton();
-        $history->log('kronolith:' . $event->calendar . ':' . $uid, array('action' => 'delete'), true);
-        $history->log('kronolith:' . $newCalendar . ':' . $uid, array('action' => 'add'), true);
-
-        return $result;
+        return $event;
     }
 
     /**

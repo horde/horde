@@ -303,9 +303,28 @@ class Kronolith_Driver
     }
 
     /**
-     * Stub to be overridden in the child class.
+     * Moves an event to a new calendar.
+     *
+     * @param string $eventId      The event to move.
+     * @param string $newCalendar  The new calendar.
      */
     public function move($eventId, $newCalendar)
+    {
+        $event = $this->_move($eventId, $newCalendar);
+
+        /* Log the moving of this item in the history log. */
+        $uid = $event->uid;
+        if ($uid) {
+            $history = Horde_History::singleton();
+            $history->log('kronolith:' . $event->calendar . ':' . $uid, array('action' => 'delete'), true);
+            $history->log('kronolith:' . $newCalendar . ':' . $uid, array('action' => 'add'), true);
+        }
+    }
+
+    /**
+     * Stub to be overridden in the child class.
+     */
+    protected function _move($eventId, $newCalendar)
     {
         return PEAR::raiseError('Not supported');
     }
