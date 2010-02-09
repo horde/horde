@@ -63,15 +63,11 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
      *
      * @param integer $identity  The identity to verify.
      *
-     * @return boolean|object  True if the properties are valid or a PEAR_Error
-     *                         with an error description otherwise.
+     * @throws Horde_Exception
      */
     public function verify($identity = null)
     {
-        $result = parent::verify($identity);
-        if ($result instanceof PEAR_Error) {
-            return $result;
-        }
+        parent::verify($identity);
 
         if (!isset($identity)) {
             $identity = $this->_default;
@@ -83,14 +79,9 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
         $vars = new Horde_Variables();
         $var = new Horde_Form_Variable('', 'replyto_addr', $email, false);
 
-        /* Verify From address. */
-        if (!$email->isValid($var, $vars, $this->getValue('from_addr', $identity), $error_message)) {
-            return PEAR::raiseError($error_message);
-        }
-
         /* Verify Reply-to address. */
         if (!$email->isValid($var, $vars, $this->getValue('replyto_addr', $identity), $error_message)) {
-            return PEAR::raiseError($error_message);
+            throw new Horde_Exception($error_message);
         }
 
         /* Clean up Alias, Tie-to, and BCC addresses. */
@@ -105,14 +96,12 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
             /* Validate addresses */
             foreach ($data as $address) {
                 if (!$email->isValid($var, $vars, $address, $error_message)) {
-                    return PEAR::raiseError($error_message);
+                    throw new Horde_Exception($error_message);
                 }
             }
 
             $this->setValue($val, $data, $identity);
         }
-
-        return true;
     }
 
     /**

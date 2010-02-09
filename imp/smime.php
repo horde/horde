@@ -16,7 +16,6 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('imp');
 
 $imp_smime = Horde_Crypt::singleton(array('IMP', 'Smime'));
-$secure_check = Horde::isConnectionSecure();
 
 /* Run through the action handlers */
 $actionID = Horde_Util::getFormData('actionID');
@@ -197,7 +196,7 @@ if ($openssl_check && $prefs->getValue('use_smime')) {
     }
     $t->set('personalkey-help', Horde_Help::link('imp', 'smime-overview-personalkey'));
 
-    $t->set('secure_check', $secure_check instanceof PEAR_Error);
+    $t->set('secure_check', Horde::isConnectionSecure());
     if (!$t->get('secure_check')) {
         $t->set('has_key', $prefs->getValue('smime_public_key') && $prefs->getValue('smime_private_key'));
         if ($t->get('has_key')) {

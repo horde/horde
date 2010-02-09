@@ -53,14 +53,14 @@ class IMP_Maillog
                 break;
             }
 
-            $r = $history->log(self::_getUniqueHistoryId($val), $params);
-
-            /* On error, log the error message only since informing the user
-             * is just a waste of time and a potential point of confusion,
-             * especially since they most likely don't even know the message
-             * is being logged. */
-            if ($r instanceof PEAR_Error) {
-                $entry = sprintf('Could not log message details to Horde_History. Error returned: %s', $r->getMessage());
+            try {
+                $history->log(self::_getUniqueHistoryId($val), $params);
+            } catch (Horde_Exception $e) {
+                /* On error, log the error message only since informing the
+                 * user is just a waste of time and a potential point of
+                 * confusion, especially since they most likely don't even
+                 * know the message is being logged. */
+                $entry = sprintf('Could not log message details to Horde_History. Error returned: %s', $e->getMessage());
                 Horde::logMessage($entry, __FILE__, __LINE__, PEAR_LOG_ERR);
             }
         }
@@ -77,14 +77,7 @@ class IMP_Maillog
      */
     static public function getLog($msg_id)
     {
-        $history = Horde_History::singleton();
-
-        $res = $history->getHistory(self::_getUniqueHistoryId($msg_id));
-        if ($res instanceof PEAR_Error) {
-            throw new Horde_Exception($res);
-        }
-
-        return $res;
+        return Horde_History::singleton()->getHistory(self::_getUniqueHistoryId($msg_id));
     }
 
     /**

@@ -321,7 +321,6 @@ class Horde_Prefs_Identity
      *
      * @param integer $identity  The identity to verify.
      *
-     * @return bool|object  True if the properties are valid.
      * @throws Horde_Exception
      */
     public function verify($identity = null)
@@ -347,11 +346,9 @@ class Horde_Prefs_Identity
         $var = new Horde_Form_Variable('', 'replyto_addr', $email, false);
 
         /* Verify From address. */
-        if ($email->isValid($var, $vars, $this->getValue('from_addr', $identity), $error_message)) {
-            return true;
+        if (!$email->isValid($var, $vars, $this->getValue('from_addr', $identity), $error_message)) {
+            throw new Horde_Exception($error_message);
         }
-
-        throw new Horde_Exception($error_message);
     }
 
     /**

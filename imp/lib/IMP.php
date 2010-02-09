@@ -104,15 +104,15 @@ class IMP
 
         $result = $registry->call('contacts/import', array(array('name' => $newName, 'email' => $newAddress), 'array', $prefs->getValue('add_source')));
 
-        $contact_link = $registry->link('contacts/show', array('uid' => $result, 'source' => $prefs->getValue('add_source')));
+        $escapeName = @htmlspecialchars($newName, ENT_COMPAT, Horde_Nls::getCharset());
 
-        $old_error = error_reporting(0);
-        $escapeName = htmlspecialchars($newName, ENT_COMPAT, Horde_Nls::getCharset());
-        error_reporting($old_error);
+        try {
+            if ($contact_link = $registry->link('contacts/show', array('uid' => $result, 'source' => $prefs->getValue('add_source')))) {
+                return Horde::link(Horde::url($contact_link), sprintf(_("Go to address book entry of \"%s\""), $newName)) . $escapeName . '</a>';
+            }
+        } catch (Horde_Exception $e) {}
 
-        return (!empty($contact_link) && !($contact_link instanceof PEAR_Error))
-            ? Horde::link(Horde::url($contact_link), sprintf(_("Go to address book entry of \"%s\""), $newName)) . $escapeName . '</a>'
-            : $escapeName;
+        return $escapeName;
     }
 
     /**
