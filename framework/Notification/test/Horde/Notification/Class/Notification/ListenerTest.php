@@ -171,26 +171,6 @@ class Horde_Notification_Class_Notification_ListenerTest extends PHPUnit_Framewo
         $this->assertEquals('message : a, b', $result->_message);
     }
 
-    public function testMethodGetflagsHasResultArrayEmptyIfTheGivenMessageHasNoFlags()
-    {
-        $listener = new Horde_Notification_Listener_Mock();
-        $message = array();
-        $this->assertEquals(array(), $listener->getFlags($message));
-    }
-
-    public function testMethodGetflagsHasResultArrayEmptyIfTheFlagsCouldNotBeUnserialized()
-    {
-        $listener = new Horde_Notification_Listener_Mock();
-        $message = array('flags' => 'unserializable');
-        $this->assertEquals(array(), $listener->getFlags($message));
-    }
-
-    public function testMethodGetflagsHasResultArrayMessageFlags()
-    {
-        $listener = new Horde_Notification_Listener_Mock();
-        $message = array('flags' => serialize(array('a' => 'a')));
-        $this->assertEquals(array('a' => 'a'), $listener->getFlags($message));
-    }
 }
 
 class Horde_Notification_Listener_Mock extends Horde_Notification_Listener
