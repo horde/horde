@@ -232,6 +232,7 @@ class Horde_Registry
         $injector->addBinder('Horde_Template', new Horde_Core_Binder_Template());
         $injector->addBinder('Net_DNS_Resolver', new Horde_Core_Binder_Dns());
 
+        $GLOBALS['registry'] = $this;
         $injector->setInstance('Horde_Registry', $this);
 
         /* Initialize browser object. */
@@ -314,11 +315,10 @@ class Horde_Registry
         $GLOBALS['perms'] = Horde_Perms::singleton();
         $injector->setInstance('Horde_Perms', $GLOBALS['perms']);
 
-        /**
-         * Initialize notification object.
-         * No listeners are attached at this point.
-         */
+        /* Initialize notification object. Always attach status listener by
+         * default. */
         $GLOBALS['notification'] = Horde_Notification::singleton();
+        $GLOBALS['notification']->attach('status');
         $injector->setInstance('Horde_Notification', $GLOBALS['notification']);
     }
 

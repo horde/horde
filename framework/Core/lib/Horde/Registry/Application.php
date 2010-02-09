@@ -77,7 +77,6 @@ class Horde_Registry_Application
             }
 
             $this->_init();
-            $this->_initNotification($GLOBALS['notification']);
         }
     }
 
@@ -87,19 +86,6 @@ class Horde_Registry_Application
      */
     protected function _init()
     {
-    }
-
-    /**
-     * Initialization for Notification system.
-     * This is run after _init() is called so app-specific code can appear
-     * inside.
-     *
-     * @param Horde_Notification_Handler_Base $notify  The notification
-     *                                                 object.
-     */
-    protected function _initNotification($notify)
-    {
-        $notify->attach('status');
     }
 
 }

@@ -90,8 +90,7 @@ implements Horde_Notification_Handler_Interface
     }
 
     /**
-     * Remove a listener from the notification list. This will discard any
-     * notifications in this listeners stack.
+     * Remove a listener from the notification list.
      *
      * @param string $listner  The name of the listener to detach.
      *
@@ -100,32 +99,48 @@ implements Horde_Notification_Handler_Interface
     public function detach($listener)
     {
         $listener = Horde_String::lower(basename($listener));
-        if (!isset($this->_listeners[$listener])) {
+        if (isset($this->_listeners[$listener])) {
+            unset($this->_listeners[$listener]);
+        } else {
             throw new Horde_Exception(sprintf('Notification listener %s not found.', $listener));
         }
-
-        $instance = $this->_listeners[$listener];
-        unset($this->_listeners[$listener]);
-        $this->_storage->clear($instance->getName());
     }
 
     /**
-     * Replaces a listener in the notification list. This preserves all
-     * notifications in this listeners stack. If the listener does not exist,
-     * the new listener will be added automatically.
+     * Replaces a listener in the notification list. If the listener does not
+     * exist, the new listener will be added automatically.
      *
      * @param string $listener  See attach().
      * @param array $params     See attach().
      * @param string $class     See attach().
      *
-     * @return Horde_Notification_Listener  See attach()
-     * @throws Horde_Exception
+     * @return Horde_Notification_Listener  See attach().
      */
     public function replace($listener, array $params = array(), $class = null)
     {
-        $listener = Horde_String::lower(basename($listener));
-        unset($this->_listeners[$listener]);
+        try {
+            $this->detach($listener);
+        } catch (Horde_Exception $e) {}
+
         return $this->attach($listener, $params, $class);
+    }
+
+    /**
+     * Clear any notification events that may exist in a listener.
+     *
+     * @param string $listener  The name of the listener to flush. If null,
+     *                          clears all unattached events.
+     */
+    public function clear($listener = null)
+    {
+        if (is_null($listener)) {
+            $this->_storage->clear('_unattached');
+        } else {
+            $listener = Horde_String::lower(basename($listener));
+            if (isset($this->_listeners[$listener])) {
+                $this->_storage->clear($this->_listeners[$listener]->getName());
+            }
+        }
     }
 
     /**
@@ -135,14 +150,22 @@ implements Horde_Notification_Handler_Interface
      * application defines its own Horde_Notification_Listener subclass that
      * handles additional codes.
      *
-     * @param mixed $event   Horde_Notification_Event object or message string.
-     * @param integer $type  The type of message: 'horde.error',
-     *                       'horde.warning', 'horde.success', or
-     *                       'horde.message'.
-     * @param array $flags   Array of optional flags that will be passed to the
-     *                       registered listeners.
+     * @param mixed $event    Horde_Notification_Event object or message
+     *                        string.
+     * @param integer $type   The type of message.
+     * @param array $flags    Array of optional flags that will be passed to
+     *                        the registered listeners.
+     * @param array $options  Additional options:
+     * <pre>
+     * 'immediate' - (boolean) If true, immediately tries to attach to a
+     *               listener. If no listener exists for this type, the
+     *               message will be dropped.
+     *               DEFAULT: false (message will be attached to available
+     *               handler at the time notify() is called).
+     * </pre>
      */
-    public function push($event, $type = null, array $flags = array())
+    public function push($event, $type = null, array $flags = array(),
+                         $options = array())
     {
         if ($event instanceof Horde_Notification_Event) {
             $event->flags = $flags;
@@ -152,9 +175,13 @@ implements Horde_Notification_Handler_Interface
             $event = new Horde_Notification_Event($event, $type, $flags);
         }
 
-        foreach ($this->_listeners as $listener) {
-            if ($listener->handles($event->type)) {
-                $this->_storage->push($listener->getName(), $event);
+        if (empty($options['immediate'])) {
+            $this->_storage->push('_unattached', $event);
+        } else {
+            foreach ($this->_listeners as $listener) {
+                if ($listener->handles($event->type)) {
+                    $this->_storage->push($listener->getName(), $event);
+                }
             }
         }
     }
@@ -207,10 +234,29 @@ implements Horde_Notification_Handler_Interface
      */
     public function notifyListeners(array $options)
     {
+        $unattached = $this->_storage->exists('_unattached')
+            ? $this->_storage->get('_unattached')
+            : array();
+
         foreach ($options['listeners'] as $listener) {
             if (isset($this->_listeners[$listener])) {
-                $this->_listeners[$listener]->notify($this->_storage->get($this->_listeners[$listener]->getName()), $options);
+                $instance = $this->_listeners[$listener];
+
+                foreach (array_keys($unattached) as $val) {
+                    if ($instance->handles($unattached[$val]->type)) {
+                        $this->_storage->push($instance->getName(), $unattached[$val]);
+                        unset($unattached[$val]);
+                    }
+                }
+
+                $instance->notify($this->_storage->get($instance->getName()), $options);
             }
+        }
+
+        if (empty($unattached)) {
+            $this->_storage->clear('_unattached');
+        } else {
+            $this->_storage->set('_unattached', $unattached);
         }
     }
 
@@ -225,17 +271,18 @@ implements Horde_Notification_Handler_Interface
      */
     public function count($my_listener = null)
     {
-        if (is_null($my_listener)) {
-            $count = 0;
-            foreach ($this->_listeners as $listener) {
-                if ($this->_storage->exists($listener->getName())) {
-                    $count += count($this->_storage->get($listener->getName()));
-                }
-            }
-            return $count;
+        if (!is_null($my_listener)) {
+            return @count($this->_storage->get($this->_listeners[Horde_String::lower($my_listener)]->getName()));
         }
 
-        return @count($this->_storage->get($this->_listeners[Horde_String::lower($my_listener)]->getName()));
+        $count = 0;
+        foreach (array_merge($this->_listeners, array('_unattached')) as $val) {
+            if ($this->_storage->exists($val->getName())) {
+                $count += count($this->_storage->get($val->getName()));
+            }
+        }
+
+        return $count;
     }
 
 }

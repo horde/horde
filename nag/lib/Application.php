@@ -47,27 +47,15 @@ class Nag_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
-       // Set the timezone variable.
-       Horde_Nls::setTimeZone();
+        // Set the timezone variable.
+        Horde_Nls::setTimeZone();
 
-       // Create a share instance.
-       $GLOBALS['nag_shares'] = Horde_Share::singleton($GLOBALS['registry']->getApp());
+        // Create a share instance.
+        $GLOBALS['nag_shares'] = Horde_Share::singleton($GLOBALS['registry']->getApp());
 
-       Nag::initialize();
-    }
+        Nag::initialize();
 
-    /**
-     * Initialization for Notification system.
-     *
-     * Global variables defined:
-     *   $kronolith_notify - A Horde_Notification_Listener object.
-     *
-     * @param Horde_Notification_Handler_Base $notify  The notification
-     *                                                 object.
-     */
-    protected function _initNotification($notify)
-    {
-        $notify->attach('status', null, 'Nag_Notification_Listener_Status');
+        $GLOBALS['notification']->replace('status', array(), 'Nag_Notification_Listener_Status');
     }
 
     /**
