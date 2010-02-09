@@ -38,23 +38,32 @@ class Horde_Notification_Listener_Javascript extends Horde_Notification_Listener
             return;
         }
 
-        if (empty($options['noscript'])) {
-            echo '<script type="text/javascript">//<![CDATA[' . "\n";
-        }
-
-        $files = array();
+        $files = $js_text = array();
 
         while ($message = array_shift($messageStack)) {
-            $msg_text = $this->getMessage($message);
-            if ($message['type'] == 'javascript') {
-                echo $msg_text . "\n";
-            } elseif ($message['type'] == 'javascript-file') {
-                $files[] = $msg_text;
+            $event = $this->getMessage($message);
+            switch ($event->type) {
+            case 'javascript':
+                $js_text[] = $event->message . "\n";
+                break;
+
+            case 'javascript-file':
+                $files[] = $event->message;
+                break;
             }
         }
 
+        if (empty($options['noscript']) && !empty($js_text)) {
+            echo '<script type="text/javascript">//<![CDATA[' . "\n";
+        }
+
+        echo implode('', $js_text);
+
         if (empty($options['noscript'])) {
-            echo "//]]></script>\n";
+            if (!empty($js_text)) {
+                echo "//]]></script>\n";
+            }
+
             if (count($files)) {
                 foreach ($files as $file) {
                     echo '<script type="text/javascript" src="' . $file . '"></script>' . "\n";
@@ -64,17 +73,16 @@ class Horde_Notification_Listener_Javascript extends Horde_Notification_Listener
     }
 
     /**
-     * Outputs one message.
+     * Processes one message from the message stack.
      *
-     * @param array $message  One message hash from the stack.
-     * @param array $options  An array of options (not used).
+     * @param Horde_Notification_Event $event  An event object.
+     * @param array $options                   An array of options (not used).
      *
-     * @return string  The message text.
+     * @return mixed  The formatted message.
      */
-    public function getMessage($message, $options = array())
+    public function getMessage($event, $options = array())
     {
-        $event = $this->getEvent($message);
-        return $event->getMessage();
+        return $event->message;
     }
 
 }

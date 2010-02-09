@@ -76,10 +76,10 @@ class Horde_Notification_Listener_Status extends Horde_Notification_Listener
     }
 
     /**
-     * Returns one message.
+     * Processes one message from the message stack.
      *
-     * @param array $message  One message hash from the stack.
-     * @param array $options  An array of options.
+     * @param Horde_Notification_Event $event  An event object.
+     * @param array $options                   An array of options:
      * <pre>
      * 'data' - (boolean) If false, returns HTML code. If true, returns an
      *                    array of message information. DEFAULT: false
@@ -87,18 +87,15 @@ class Horde_Notification_Listener_Status extends Horde_Notification_Listener
      *
      * @return mixed  TODO
      */
-    public function getMessage($message, $options = array())
+    public function getMessage($event, $options = array())
     {
-        $event = $this->getEvent($message);
-        $flags = $this->getFlags($message);
-        $result = array('type' => $message['type']);
+        $result = array('type' => $event->type);
 
-        if ($event instanceof Horde_Notification_Event &&
-            $message['type'] == 'horde.alarm') {
+        if ($event->type == 'horde.alarm') {
             if (empty($options['data'])) {
-                $text = $this->_getAlarm($flags['alarm']);
+                $text = $this->_getAlarm($event->flags['alarm']);
             } else {
-                $result['alarm'] = $flags['alarm'];
+                $result['alarm'] = $event->flags['alarm'];
                 if (!empty($result['alarm']['params']['notify']['ajax'])) {
                     $result['alarm']['ajax'] = $result['alarm']['params']['notify']['ajax'];
                 } elseif (!empty($result['alarm']['params']['notify']['show'])) {
@@ -108,17 +105,17 @@ class Horde_Notification_Listener_Status extends Horde_Notification_Listener
                       $result['alarm']['methods']);
             }
         } else {
-            $text = $event->getMessage();
+            $text = $event->message;
             if (!empty($options['data'])) {
                 $result['message'] = $text;
             }
-            if (!in_array('content.raw', $this->getFlags($message))) {
+            if (!in_array('content.raw', $event->flags)) {
                 $text = htmlspecialchars($text, ENT_COMPAT, Horde_Nls::getCharset());
             }
         }
 
         return empty($options['data'])
-            ? '<li>' . Horde::img($this->_handles[$message['type']][0], $this->_handles[$message['type']][1], '', '') . $text . '</li>'
+            ? '<li>' . Horde::img($this->_handles[$event->type][0], $this->_handles[$event->type][1], '', '') . $text . '</li>'
             : $result;
     }
 

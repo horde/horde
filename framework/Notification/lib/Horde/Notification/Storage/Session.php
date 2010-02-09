@@ -96,13 +96,15 @@ implements Horde_Notification_Storage_Interface
     /**
      * Store a new event for the given listener stack.
      *
-     * @param string $listener The event will be stored for this listener.
-     * @param array  $event    The event to store.
-     *
-     * @return NULL
+     * @param string $listener                    The event will be stored for
+     *                                            this listener.
+     * @param Notification_Event_Listener $event  The event to store.
      */
-    public function push($listener, array $event)
+    public function push($listener, $event)
     {
+        /* No need to serialize() ourselves - PHP's session handling does
+         * this automatically. */
         $_SESSION[$this->_stack][$listener][] = $event;
     }
+
 }

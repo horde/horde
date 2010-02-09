@@ -144,33 +144,17 @@ implements Horde_Notification_Handler_Interface
      */
     public function push($event, $type = null, array $flags = array())
     {
-        if (!($event instanceof Horde_Notification_Event) &&
-            !($event instanceof PEAR_Error) &&
-            !($event instanceof Exception)) {
-            /* Transparently create a Horde_Notification_Event object and
-             * set the message attribute. */
-            $event = new Horde_Notification_Event($event);
-        }
-
-        if (is_null($type)) {
-            if ($event instanceof PEAR_Error || $event instanceof Exception) {
-                $type = 'horde.error';
-            } else {
-                $type = 'horde.message';
-            }
+        if ($event instanceof Horde_Notification_Event) {
+            $event->flags = $flags;
+            $event->type = $type;
+        } else {
+            /* Transparently create a Horde_Notification_Event object. */
+            $event = new Horde_Notification_Event($event, $type, $flags);
         }
 
         foreach ($this->_listeners as $listener) {
-            if ($listener->handles($type)) {
-                $this->_storage->push(
-                    $listener->getName(),
-                    array(
-                        'class' => get_class($event),
-                        'event' => serialize($event),
-                        'flags' => serialize($flags),
-                        'type' => $type
-                    )
-                );
+            if ($listener->handles($event->type)) {
+                $this->_storage->push($listener->getName(), $event);
             }
         }
     }

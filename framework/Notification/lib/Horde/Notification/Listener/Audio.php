@@ -41,18 +41,16 @@ class Horde_Notification_Listener_Audio extends Horde_Notification_Listener
     }
 
     /**
-     * Outputs one message.
+     * Processes one message from the message stack.
      *
-     * @param array $message  One message hash from the stack.
-     * @param array $options  An array of options (not used).
+     * @param Horde_Notification_Event $event  An event object.
+     * @param array $options                   An array of options (not used).
      *
-     * @return text  The message representation.
+     * @return mixed  The formatted message.
      */
-    public function getMessage($message, $options = array())
+    public function getMessage($event, $options = array())
     {
-        $event = $this->getEvent($message);
-        return '<embed src="' . htmlspecialchars($event->getMessage()) .
-               '" width="0" height="0" autostart="true" />';
+        return '<embed src="' . htmlspecialchars($event->message) . '" width="0" height="0" autostart="true" />';
     }
 
 }

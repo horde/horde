@@ -66,20 +66,21 @@ class Horde_Notification_Listener_Mobile extends Horde_Notification_Listener_Sta
     }
 
     /**
-     * Outputs one message.
+     * Processes one message from the message stack.
      *
-     * @param array $message  One message hash from the stack.
-     * @param array $options  An array of options (not used).
+     * @param Horde_Notification_Event $event  An event object.
+     * @param array $options                   An array of options (not used).
+     *
+     * @return mixed  The formatted message.
      */
-    public function getMessage($message, $options = array())
+    public function getMessage($event, $options = array())
     {
         if (!$this->_mobile) {
             $p = new Horde_Notification_Listener_Status();
-            return $p->getMessage($message, $options);
+            return $p->getMessage($event, $options);
         }
 
-        $event = $this->getEvent($message);
-        $this->_mobile->add(new Horde_Mobile_text($this->_handles[$message['type']] . ': ' . strip_tags($event->getMessage())));
+        $this->_mobile->add(new Horde_Mobile_text($this->_handles[$event->type] . ': ' . strip_tags($event->message)));
     }
 
 }

@@ -69,13 +69,7 @@ class Horde_Notification_Class_Notification_Listener_StatusTest extends PHPUnit_
         $this->markTestIncomplete('This is untestable without mocking half of the Horde framework.');
         $listener = new Horde_Notification_Listener_Status();
         $event = new Horde_Notification_Event('test');
-        $messages = array(
-            array(
-                'class' => 'Horde_Notification_Event',
-                'event' => serialize($event),
-                'type'  => 'horde.message'
-            )
-        );
+        $messages = array($event);
         $this->expectOutputString(
             '<ul class="notices"><li>test</li></ul>'
         );
@@ -86,15 +80,8 @@ class Horde_Notification_Class_Notification_Listener_StatusTest extends PHPUnit_
     {
         $listener = new Horde_Notification_Listener_Status();
         $event = new Horde_Notification_Event('test');
-        $flags = array('content.raw' => true);
-        $messages = array(
-            array(
-                'class' => 'Horde_Notification_Event',
-                'event' => serialize($event),
-                'type'  => 'horde.message',
-                'flags' => serialize($flags)
-            )
-        );
+        $event->flags = array('content.raw' => true);
+        $messages = array($event);
         $listener->notify($messages, array('store' => true));
         $this->expectOutputString('');
     }
@@ -103,23 +90,11 @@ class Horde_Notification_Class_Notification_Listener_StatusTest extends PHPUnit_
     {
         $listener = new Horde_Notification_Listener_Status();
         $event = new Horde_Notification_Event('test');
-        $flags = array('content.raw' => true);
-        $messages = array(
-            array(
-                'class' => 'Horde_Notification_Event',
-                'event' => serialize($event),
-                'type'  => 'horde.message',
-                'flags' => serialize($flags)
-            )
-        );
+        $event->flags = array('content.raw' => true);
+        $messages = array($event);
         $listener->notify($messages, array('store' => true));
         $this->assertEquals(
-            array(
-                array(
-                    'message' => 'test',
-                    'type' => 'horde.message'
-                )
-            ),
+            $event,
             $listener->getStack()
         );
     }

@@ -17,38 +17,78 @@ class Horde_Notification_Event
      *
      * @var string
      */
-    protected $_message = '';
+    public $message = '';
 
     /**
-     * If passed, sets the message for this event.
+     * The flags for this message.
      *
-     * @param string $message  The text message for this event.
+     * @var array
      */
-    public function __construct($message = null)
+    public $flags = array();
+
+    /**
+     * The message type.
+     *
+     * @var string
+     */
+    public $type;
+
+    /**
+     * Constructor.
+     *
+     * @param mixed $data   Message: either a string or an Exception or
+     *                      PEAR_Error object.
+     * @param string $type  The event type.
+     * @param array $flags  The flag array.
+     */
+    public function __construct($data, $type = null, array $flags = array())
     {
-        if (!is_null($message)) {
-            $this->setMessage($message);
+        $this->flags = $flags;
+
+        if ($data instanceof PEAR_Error) {
+            // DEPRECATED
+            if (($userinfo = $ob->getUserInfo()) &&
+                  is_array($userinfo)) {
+                $userinfo_elts = array();
+                foreach ($userinfo as $userinfo_elt) {
+                    if (is_scalar($userinfo_elt)) {
+                        $userinfo_elts[] = $userinfo_elt;
+                    } elseif (is_object($userinfo_elt)) {
+                        if (is_callable(array($userinfo_elt, '__toString'))) {
+                            $userinfo_elts[] = $userinfo_elt->__toString();
+                        } elseif (is_callable(array($userinfo_elt, 'getMessage'))) {
+                            $userinfo_elts[] = $userinfo_elt->getMessage();
+                        }
+                    }
+                }
+
+                $this->message = $data->getMessage() . ' : ' . implode(', ', $userinfo_elts);
+            } else {
+                $this->message = $data->getMessage();
+            }
+
+            if (is_null($type)) {
+                $type = 'horde.error';
+            }
+        } else {
+            // String or Exception
+            $this->message = strval($data);
+            if (is_null($type)) {
+                $type = is_string($data) ? 'horde.message' : 'horde.error';
+            }
         }
+
+        $this->type = $type;
     }
 
     /**
-     * Sets the text message for this event.
+     * String representation of this object.
      *
-     * @param string $message  The text message to display.
+     * @return string  String representation.
      */
-    public function setMessage($message)
+    public function __toString()
     {
-        $this->_message = $message;
-    }
-
-    /**
-     * Gets the text message for this event.
-     *
-     * @return string  The text message to display.
-     */
-    public function getMessage()
-    {
-        return $this->_message;
+        return $this->message;
     }
 
 }

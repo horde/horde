@@ -53,13 +53,7 @@ class Horde_Notification_Class_Notification_Listener_JavascriptTest extends PHPU
     {
         $listener = new Horde_Notification_Listener_Javascript();
         $event = new Horde_Notification_Event('test');
-        $messages = array(
-            array(
-                'class' => 'Horde_Notification_Event',
-                'event' => serialize($event),
-                'type'  => 'javascript'
-            )
-        );
+        $messages = array($event);
         $this->expectOutputString(
             '<script type="text/javascript">//<![CDATA['
             . "\n" . 'test' . "\n" . '//]]></script>' . "\n"
@@ -71,13 +65,7 @@ class Horde_Notification_Class_Notification_Listener_JavascriptTest extends PHPU
     {
         $listener = new Horde_Notification_Listener_Javascript();
         $event = new Horde_Notification_Event('test');
-        $messages = array(
-            array(
-                'class' => 'Horde_Notification_Event',
-                'event' => serialize($event),
-                'type'  => 'javascript'
-            )
-        );
+        $messages = array($event);
         $this->expectOutputString('test' . "\n");
         $listener->notify($messages, array('noscript' => true));
     }
@@ -86,18 +74,12 @@ class Horde_Notification_Class_Notification_Listener_JavascriptTest extends PHPU
     {
         $listener = new Horde_Notification_Listener_Javascript();
         $event = new Horde_Notification_Event('test');
-        $messages = array(
-            array(
-                'class' => 'Horde_Notification_Event',
-                'event' => serialize($event),
-                'type'  => 'javascript-file'
-            )
-        );
+        $event->type = 'javascript-file';
+        $messages = array($event);
         $this->expectOutputString(
-            '<script type="text/javascript">//<![CDATA['
-            . "\n" . '//]]></script>' . "\n" .
             '<script type="text/javascript" src="test"></script>' . "\n"
         );
         $listener->notify($messages);
     }
+
 }

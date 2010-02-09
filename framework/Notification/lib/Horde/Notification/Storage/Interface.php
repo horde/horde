@@ -61,10 +61,10 @@ interface Horde_Notification_Storage_Interface
     /**
      * Store a new event.
      *
-     * @param string $listener The event will be stored for this listener.
-     * @param array  $event    The event to store.
-     *
-     * @return NULL
+     * @param string $listener                 The event will be stored for
+     *                                         this listener.
+     * @param Horde_Notification_Event $event  The event to store.
      */
-    public function push($listener, array $event);
+    public function push($listener, $event);
+
 }

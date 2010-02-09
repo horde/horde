@@ -78,13 +78,7 @@ class Horde_Notification_Class_Notification_Listener_MobileTest extends PHPUnit_
         $this->markTestIncomplete('This is untestable without mocking half of the Horde framework.');
         $listener = new Horde_Notification_Listener_Mobile();
         $event = new Horde_Notification_Event('test');
-        $messages = array(
-            array(
-                'class' => 'Horde_Notification_Event',
-                'event' => serialize($event),
-                'type'  => 'horde.message'
-            )
-        );
+        $messages = array($event);
         $this->expectOutputString(
             '<ul class="notices"><li>test</li></ul>'
         );
@@ -112,13 +106,7 @@ class Horde_Notification_Class_Notification_Listener_MobileTest extends PHPUnit_
         $listener = new Horde_Notification_Listener_Mobile();
         $listener->setMobileObject($this->mobile);
         $event = new Horde_Notification_Event('test');
-        $messages = array(
-            array(
-                'class' => 'Horde_Notification_Event',
-                'event' => serialize($event),
-                'type'  => 'horde.message',
-            )
-        );
+        $messages = array($event);
         $listener->notify($messages);
     }
 
@@ -126,14 +114,9 @@ class Horde_Notification_Class_Notification_Listener_MobileTest extends PHPUnit_
     {
         $listener = new Horde_Notification_Listener_Mobile();
         $event = new Horde_Notification_Event('test');
-        $flags = array('content.raw' => true);
-        $message = array(
-            'class' => 'Horde_Notification_Event',
-            'event' => serialize($event),
-            'type'  => 'horde.message',
-            'flags' => serialize($flags)
-        );
-        $listener->getMessage($message, array('data' => true));
+        $event->flags = array('content.raw' => true);
+        $messages = array($event);
+        $listener->getMessage($messages, array('data' => true));
     }
 
 }

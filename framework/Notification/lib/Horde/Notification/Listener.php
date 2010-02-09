@@ -61,86 +61,12 @@ abstract class Horde_Notification_Listener
     /**
      * Processes one message from the message stack.
      *
-     * @param array $message  One message hash from the stack.
-     * @param array $options  An array of options.
+     * @param Horde_Notification_Event $event  One event object from the
+     *                                         stack.
+     * @param array $options                   An array of options.
      *
-     * @return mixed  TODO
+     * @return mixed  The formatted message.
      */
-    abstract public function getMessage($message, $options = array());
-
-    /**
-     * Unserialize an event from the message stack, checking to see if the
-     * appropriate class exists and kludging it into a base Notification_Event
-     * object if not.
-     */
-    public function getEvent($message)
-    {
-        $ob = @unserialize($message['event']);
-        if (!is_callable(array($ob, 'getMessage'))) {
-            if (isset($ob->_message)) {
-                $ob = new Horde_Notification_Event($ob->_message);
-            }
-        }
-
-        /* If we've failed to create a valid Notification_Event object
-         * (or subclass object) so far, return a PEAR_Error. */
-        if (!is_callable(array($ob, 'getMessage'))) {
-            $ob = PEAR::raiseError('Unable to decode message event: ' . $message['event']);
-        }
-
-        /* Specially handle PEAR_Error objects and add userinfo if
-         * it's there. */
-        if (is_callable(array($ob, 'getUserInfo'))) {
-            $userinfo = $ob->getUserInfo();
-            if ($userinfo) {
-                if (is_array($userinfo)) {
-                    $userinfo_elts = array();
-                    foreach ($userinfo as $userinfo_elt) {
-                        if (is_scalar($userinfo_elt)) {
-                            $userinfo_elts[] = $userinfo_elt;
-                        } elseif (is_object($userinfo_elt)) {
-                            if (is_callable(array($userinfo_elt, '__toString'))) {
-                                $userinfo_elts[] = $userinfo_elt->__toString();
-                            } elseif (is_callable(array($userinfo_elt, 'getMessage'))) {
-                                $userinfo_elts[] = $userinfo_elt->getMessage();
-                            }
-                        }
-                    }
-                    $userinfo = implode(', ', $userinfo_elts);
-                }
-
-                $ob->_message = $ob->getMessage() . ' : ' . $userinfo;
-            }
-        }
-
-        return $ob;
-    }
-
-    /**
-     * Unserialize an array of event flags from the message stack.  If this
-     * event has no flags, or the flags array could not be unserialized, an
-     * empty array is returned.
-     *
-     * @return array  An array of flags.
-     */
-    public function getFlags($message)
-    {
-        /* If this message doesn't have any flags, return an empty
-         * array. */
-        if (empty($message['flags'])) {
-            return array();
-        }
-
-        /* Unserialize the flags array from the message. */
-        $flags = @unserialize($message['flags']);
-
-        /* If we couldn't unserialize the flags array, return an empty
-         * array. */
-        if (!is_array($flags)) {
-            return array();
-        }
-
-        return $flags;
-    }
+    abstract public function getMessage($event, $options = array());
 
 }
