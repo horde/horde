@@ -198,7 +198,13 @@ class IMP_Ui_Compose
             'resize_enabled: false',
 
             /* Use the old skin for now. */
-            'skin: "v2"'
+            'skin: "v2"',
+
+            /* Default display font. This is NOT the font used to send
+             * the message, however. */
+            'contentsCss: "body { font-family: Arial; font-size: 12px; }"',
+            'font_defaultLabel: "Arial"',
+            'fontSize_defaultLabel: "12px"'
         );
 
         $buttons = $GLOBALS['prefs']->getValue('ckeditor_buttons');
