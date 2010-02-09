@@ -161,7 +161,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
       <div id="qsearch">
        <span id="qsearch_icon"></span>
        <form action="#" method="post">
-        <input autocomplete="off" id="qsearch_input" type="text" size="25" />
+        <input autocomplete="off" id="qsearch_input" type="text" />
        </form>
        <span class="closeImg" id="qsearch_close" style="display:none" title="<?php echo _("Clear Search") ?>"></span>
        <span id="qsearch_close_filter" style="display:none">Clear Filter</span>

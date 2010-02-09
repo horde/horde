@@ -814,6 +814,7 @@ a.address:hover img {
     color: #a0a0a0;
     margin-bottom: 1px;
     padding: 0;
+    width: 150px;
 }
 #qsearch_close_filter {
     cursor: pointer;
