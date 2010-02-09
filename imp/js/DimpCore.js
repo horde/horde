@@ -13,7 +13,6 @@ var DimpCore = {
     //   DMenu, Growler, inAjaxCallback, is_init, is_logout
     //   onDoActionComplete
     growler_log: true,
-    is_ie6: Prototype.Browser.IE && !window.XMLHttpRequest,
     server_error: 0,
 
     doActionOpts: {

@@ -286,7 +286,6 @@ var DimpBase = {
         }
 
         iframe = new Element('IFRAME', { id: 'iframe' + (name === null ? loc : name), className: 'iframe', frameBorder: 0, src: loc }).setStyle({ height: document.viewport.getHeight() + 'px' });
-        this._resizeIE6Iframe(iframe);
         container.insert(iframe);
     },
 
@@ -2297,9 +2296,6 @@ var DimpBase = {
             callback();
         }
 
-        var nf = $('normalfolders'),
-            nfheight = nf.getStyle('max-height');
-
         if (this.folder) {
             this.highlightSidebar(this.getFolderId(this.folder));
         }
@@ -2307,13 +2303,7 @@ var DimpBase = {
         $('foldersLoading').hide();
         $('foldersSidebar').show();
 
-        // Fix for IE6 - which doesn't support max-height.  We need to search
-        // for height: 0px instead (comment in IE 6 CSS explains this is
-        // needed for auto sizing).
-        if (nfheight !== null ||
-            (Prototype.Browser.IE &&
-             Object.isUndefined(nfheight) &&
-             (nf.getStyle('height') == '0px'))) {
+        if ($('normalfolders').getStyle('max-height') !== null) {
             this._sizeFolderlist();
         }
 
@@ -2985,8 +2975,6 @@ var DimpBase = {
             this._toggleHeaders($('th_expand'));
         }
 
-        this._resizeIE6();
-
         /* Remove unavailable menu items. */
         if (!$('GrowlerLog')) {
             $('alertsloglink').remove();
@@ -2994,47 +2982,6 @@ var DimpBase = {
 
         /* Check for new mail. */
         this.setPoll();
-
-        if (DimpCore.is_ie6) {
-            /* Disable text selection in preview pane for IE 6. */
-            document.observe('selectstart', Event.stop);
-
-            /* Since IE 6 doesn't support hover over non-links, use javascript
-             * events to replicate mouseover CSS behavior. */
-            $('dimpbarActions', 'serviceActions', 'applicationfolders', 'specialfolders', 'normalfolders').compact().invoke('select', 'LI').flatten().compact().each(function(e) {
-                e.observe('mouseover', e.addClassName.curry('over')).observe('mouseout', e.removeClassName.curry('over'));
-            });
-
-            /* These are links, but they have no href attribute. Hovering
-             * requires something in href on IE6. */
-            $$('.context A').each(function(e) {
-                e.writeAttribute('href', '');
-            });
-        }
-    },
-
-    // IE 6 width fixes (See Bug #6793)
-    _resizeIE6: function()
-    {
-        if (DimpCore.is_ie6) {
-            var tmp = parseInt($('sidebar').getStyle('width'), 10),
-                tmp1 = document.viewport.getWidth() - tmp - 30;
-            $('normalfolders').setStyle({ width: tmp + 'px' });
-            $('dimpmain').setStyle({ width: tmp1 + 'px' });
-            $('msglist').setStyle({ width: (tmp1 - 5) + 'px' });
-            $('messageBody').setStyle({ width: (tmp1 - 25) + 'px' });
-            tmp = $('dimpmain_portal').down('IFRAME');
-            if (tmp) {
-                this._resizeIE6Iframe(tmp);
-            }
-        }
-    },
-
-    _resizeIE6Iframe: function(iframe)
-    {
-        if (DimpCore.is_ie6) {
-            iframe.setStyle({ width: $('dimpmain').getStyle('width'), height: (document.viewport.getHeight() - 20) + 'px' });
-        }
     },
 
     /* Resize function. */
@@ -3051,9 +2998,6 @@ var DimpBase = {
     {
         this._sizeFolderlist();
         this.splitbar.setStyle({ height: document.viewport.getHeight() + 'px' });
-        if (DimpCore.is_ie6) {
-            this._resizeIE6();
-        }
     },
 
     /* Extend AJAX exception handling. */
