@@ -1301,6 +1301,34 @@ class Horde_Registry
     }
 
     /**
+     * Returns a list of available drivers for a library that are available
+     * in an application.
+     *
+     * @param string $app     The application name.
+     * @param string $prefix  The library prefix.
+     *
+     * @return array  The list of available class names.
+     */
+    public function getAppDrivers($app, $prefix)
+    {
+        $classes = array();
+        $fileprefix = strtr($prefix, '_', '/');
+        $fileroot = $this->get('fileroot', $app);
+
+        if (!is_null($fileroot) &&
+            is_dir($fileroot . '/lib/' . $fileprefix)) {
+            foreach (scandir($fileroot . '/lib/' . $fileprefix) as $file) {
+                $classname = $app . '_' . $prefix . '_' . basename($file, '.php');
+                if (class_exists($classname)) {
+                    $classes[] = $classname;
+                }
+            }
+        }
+
+        return $classes;
+    }
+
+    /**
      * Function to work out an application's graphics URI, optionally taking
      * into account any themes directories that may be set up.
      *

@@ -137,18 +137,8 @@ class Horde_LoginTasks
         $tasks = array();
 
         foreach ($app_list as $app) {
-            $fileroot = $GLOBALS['registry']->get('fileroot', $app);
-            if (!is_null($fileroot)) {
-                foreach (array('SystemTask', 'Task') as $val) {
-                    if (is_dir($fileroot . '/lib/LoginTasks/' . $val)) {
-                        foreach (scandir($fileroot . '/lib/LoginTasks/' . $val) as $file) {
-                            $classname = $app . '_LoginTasks_' . $val . '_' . basename($file, '.php');
-                            if (class_exists($classname)) {
-                                $tasks[$classname] = $app;
-                            }
-                        }
-                    }
-                }
+            foreach (array_merge($GLOBALS['registry']->getAppDrivers($app, 'LoginTasks_SystemTask'), $GLOBALS['registry']->getAppDrivers($app, 'LoginTasks_Task')) as $val) {
+                $tasks[$val] = $app;
             }
         }
 
