@@ -46,13 +46,13 @@ class Horde_Imap_Client_Sort
      *             DEFAULT: Sort by $mbox values.
      * </pre>
      */
-    public static final function sortMailboxes(&$mbox, $options)
+    public static final function sortMailboxes(&$mbox, $options = array())
     {
         if (isset($options['delimiter'])) {
             self::$_delimiter = $options['delimiter'];
         }
 
-        if (empty($options['inbox'])) {
+        if (isset($options['inbox']) && empty($options['inbox'])) {
             self::$_sortinbox = false;
         }
 
