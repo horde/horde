@@ -34,12 +34,13 @@ class IMP_Folder
 
     /**
      * Constructor.
+     *
+     * @param string $cacheid  The cache ID to use, if folder list caching is
+     *                         enabled.
      */
-    public function __construct()
+    public function __construct($cacheid = null)
     {
-        if (!empty($GLOBALS['conf']['server']['cache_folders'])) {
-            $this->_cacheid = 'imp_folder_cache|' . Horde_Auth::getAuth();
-        }
+        $this->_cacheid = $cacheid;
     }
 
     /**
@@ -136,7 +137,8 @@ class IMP_Folder
      */
     public function clearFlistCache()
     {
-        if (!is_null($this->_cacheid) && ($cache = $GLOBALS['injector']->getInstance('Horde_Cache'))) {
+        if (!is_null($this->_cacheid) &&
+            ($cache = $GLOBALS['injector']->getInstance('Horde_Cache'))) {
             $cache->expire($this->_cacheid);
         }
         $this->_listCache = array();
