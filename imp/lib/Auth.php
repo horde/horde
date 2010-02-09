@@ -459,12 +459,15 @@ class IMP_Auth
             ? (empty($conf['user']['force_view']) ? 'imp' : $conf['user']['force_view'])
             : (empty($sess['cache']['select_view']) ? 'imp' : $sess['cache']['select_view']);
 
-        /* Enforce minimum browser standards for DIMP. */
+        /* Enforce minimum browser standards for DIMP.
+         * No IE < 7; Safari < 3 */
         if (($sess['view'] == 'dimp') &&
-            $GLOBALS['browser']->isBrowser('msie') &&
-            ($GLOBALS['browser']->getMajor() < 7)) {
+            (($GLOBALS['browser']->isBrowser('msie') &&
+              ($GLOBALS['browser']->getMajor() < 7)) ||
+             ($GLOBALS['browser']->hasFeature('issafari') &&
+              ($GLOBALS['browser']->getMajor() < 2)))) {
             $sess['view'] = 'imp';
-            $GLOBALS['notification']->push(_("Dynamic mode requires Internet Explorer 7+. Using traditional mode instead."), 'horde.error');
+            $GLOBALS['notification']->push(_("Your browser is too old to display the dynamic mode. Using traditional mode instead."), 'horde.error');
         }
 
         setcookie('default_imp_view', $sess['view'], time() + 30 * 86400,
