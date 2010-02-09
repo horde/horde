@@ -223,6 +223,68 @@ class IMP_Imap_Tree
     }
 
     /**
+     * Initalize the tree.
+     */
+    public function init()
+    {
+        $unsubmode = (($_SESSION['imp']['protocol'] == 'pop') ||
+                      !$GLOBALS['prefs']->getValue('subscribe') ||
+                      $_SESSION['imp']['showunsub']);
+
+        /* Reset class variables to the defaults. */
+        $this->changed = true;
+        $this->_currkey = $this->_currparent = $this->_subscribed = null;
+        $this->_currstack = $this->_tree = $this->_parent = array();
+        $this->_showunsub = $this->_unsubview = $unsubmode;
+
+        /* Create a placeholder element to the base of the tree list so we can
+         * keep track of whether the base level needs to be sorted. */
+        $this->_tree[self::BASE_ELT] = array(
+            'a' => self::ELT_NEED_SORT,
+            'v' => self::BASE_ELT
+        );
+
+        /* Add INBOX and exit if folders aren't allowed or if we are using
+         * POP3. */
+        if (empty($GLOBALS['conf']['user']['allow_folders']) ||
+            ($_SESSION['imp']['protocol'] == 'pop')) {
+            $this->_insertElt($this->_makeElt('INBOX', self::ELT_IS_SUBSCRIBED));
+            return;
+        }
+
+        /* Add namespace elements. */
+        foreach ($this->_namespaces as $key => $val) {
+            if ($val['type'] != 'personal' &&
+                $GLOBALS['prefs']->getValue('tree_view')) {
+                $elt = $this->_makeElt(
+                    ($val['type'] == 'other') ? self::OTHER_KEY : self::SHARED_KEY,
+                    self::ELT_NOSELECT | self::ELT_NAMESPACE | self::ELT_NONIMAP | self::ELT_NOSHOW
+                );
+                $elt['l'] = ($val['type'] == 'other')
+                    ? _("Other Users' Folders")
+                    : _("Shared Folders");
+
+                foreach ($this->_namespaces as $val2) {
+                    if (($val2['type'] == $val['type']) &&
+                        ($val2['name'] != $val['name'])) {
+                        $elt['a'] &= ~self::ELT_NOSHOW;
+                        break;
+                    }
+                }
+
+                $this->_insertElt($elt);
+            }
+        }
+
+        /* Create the list (INBOX and all other hierarchies). */
+        $this->insert($this->_getList($this->_showunsub));
+
+        /* Add virtual folders to the tree. */
+        $this->insertVFolders($GLOBALS['imp_search']->listQueries(IMP_Search::LIST_VFOLDER));
+    }
+
+
+    /**
      * Returns the list of mailboxes on the server.
      *
      * @param boolean $showunsub  Show unsubscribed mailboxes?
@@ -373,67 +435,6 @@ class IMP_Imap_Tree
         }
 
         return $elt;
-    }
-
-    /**
-     * Initalize the tree.
-     */
-    public function init()
-    {
-        $unsubmode = (($_SESSION['imp']['protocol'] == 'pop') ||
-                      !$GLOBALS['prefs']->getValue('subscribe') ||
-                      $_SESSION['imp']['showunsub']);
-
-        /* Reset class variables to the defaults. */
-        $this->changed = true;
-        $this->_currkey = $this->_currparent = $this->_subscribed = null;
-        $this->_currstack = $this->_tree = $this->_parent = array();
-        $this->_showunsub = $this->_unsubview = $unsubmode;
-
-        /* Create a placeholder element to the base of the tree list so we can
-         * keep track of whether the base level needs to be sorted. */
-        $this->_tree[self::BASE_ELT] = array(
-            'a' => self::ELT_NEED_SORT,
-            'v' => self::BASE_ELT
-        );
-
-        /* Add INBOX and exit if folders aren't allowed or if we are using
-         * POP3. */
-        if (empty($GLOBALS['conf']['user']['allow_folders']) ||
-            ($_SESSION['imp']['protocol'] == 'pop')) {
-            $this->_insertElt($this->_makeElt('INBOX', self::ELT_IS_SUBSCRIBED));
-            return;
-        }
-
-        /* Add namespace elements. */
-        foreach ($this->_namespaces as $key => $val) {
-            if ($val['type'] != 'personal' &&
-                $GLOBALS['prefs']->getValue('tree_view')) {
-                $elt = $this->_makeElt(
-                    ($val['type'] == 'other') ? self::OTHER_KEY : self::SHARED_KEY,
-                    self::ELT_NOSELECT | self::ELT_NAMESPACE | self::ELT_NONIMAP | self::ELT_NOSHOW
-                );
-                $elt['l'] = ($val['type'] == 'other')
-                    ? _("Other Users' Folders")
-                    : _("Shared Folders");
-
-                foreach ($this->_namespaces as $val2) {
-                    if (($val2['type'] == $val['type']) &&
-                        ($val2['name'] != $val['name'])) {
-                        $elt['a'] &= ~self::ELT_NOSHOW;
-                        break;
-                    }
-                }
-
-                $this->_insertElt($elt);
-            }
-        }
-
-        /* Create the list (INBOX and all other hierarchies). */
-        $this->insert($this->_getList($this->_showunsub));
-
-        /* Add virtual folders to the tree. */
-        $this->insertVFolders($GLOBALS['imp_search']->listQueries(IMP_Search::LIST_VFOLDER));
     }
 
     /**
