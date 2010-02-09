@@ -1425,7 +1425,7 @@ class IMP_Compose
                 }
             }
 
-            if (empty($header['to']) || (count($hdr_cc) > 1)) {
+            if (empty($header['to']) && (count($hdr_cc) > 1)) {
                 $reply_type = 'reply_all';
             }
             $header[empty($header['to']) ? 'to' : 'cc'] = rtrim(implode('', $hdr_cc), ' ,');
