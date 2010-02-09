@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Auto-determine charset for text attachments (Bug #8858).
 [mms] Remove IE 6 (and below) and Safari 2 (and below) support for DIMP.
 [mms] Add chance to switch between forward options on compose page when using
       auto-forward (DIMP).

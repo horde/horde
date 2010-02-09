@@ -1759,7 +1759,16 @@ class IMP_Compose
 
         $part = new Horde_Mime_Part();
         $part->setType($type);
-        $part->setCharset(Horde_Nls::getCharset());
+        if ($part->getPrimaryType() == 'text') {
+            if ($analyzetype = Horde_Mime_Magic::analyzeFile($tempfile, empty($conf['mime']['magic_db']) ? null : $conf['mime']['magic_db'], array('nostrip' => true))) {
+                $analyzetype = Horde_Mime::decodeParam('Content-Type', $analyzetype);
+                $part->setCharset(isset($analyzetype['params']['charset']) ? $analyzetype['params']['charset'] : Horde_Nls::getCharset());
+            } else {
+                $part->setCharset(Horde_Nls::getCharset());
+            }
+        } else {
+            $part->setHeaderCharset(Horde_Nls::getCharset());
+        }
         $part->setName($filename);
         $part->setBytes($_FILES[$name]['size']);
         $part->setDisposition('attachment');
