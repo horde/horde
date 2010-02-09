@@ -11,20 +11,34 @@
  */
 class Ingo_Storage_Forward extends Ingo_Storage_Rule
 {
+    /**
+     */
     protected $_addr = array();
+
+    /**
+     */
     protected $_keep = true;
+
+    /**
+     */
     protected $_obtype = Ingo_Storage::ACTION_FORWARD;
 
+    /**
+     */
     public function setForwardAddresses($data, $sort = true)
     {
         $this->_addr = $this->_addressList($data, $sort);
     }
 
+    /**
+     */
     public function setForwardKeep($data)
     {
         $this->_keep = $data;
     }
 
+    /**
+     */
     public function getForwardAddresses()
     {
         if (is_array($this->_addr)) {
@@ -37,6 +51,8 @@ class Ingo_Storage_Forward extends Ingo_Storage_Rule
         return $this->_addr;
     }
 
+    /**
+     */
     public function getForwardKeep()
     {
         return $this->_keep;

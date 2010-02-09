@@ -66,45 +66,45 @@ $_prefs['rules'] = array(
 );
 
 // Blacklist.
-// Lock this preference to disable blacklists.
 $_prefs['blacklist'] = array(
     'value' => 'a:2:{s:1:"a";a:0:{}s:1:"f";s:0:"";}',
+    // Lock this preference to disable blacklists.
     'locked' => false,
     'shared' => false,
     'type' => 'implicit'
 );
 
 // Whitelist.
-// Lock this preference to disable whitelists.
 $_prefs['whitelist'] = array(
     'value' => 'a:0:{}',
+    // Lock this preference to disable whitelists.
     'locked' => false,
     'shared' => false,
     'type' => 'implicit'
 );
 
 // Vacation notices.
-// Lock this preference to disable vacation notices.
 $_prefs['vacation'] = array(
     'value' => 'a:8:{s:9:"addresses";a:0:{}s:4:"days";i:7;s:8:"excludes";a:0:{}s:10:"ignorelist";b:1;s:6:"reason";s:0:"";s:7:"subject";s:0:"";s:5:"start";i:0;s:3:"end";i:0;}',
+    // Lock this preference to disable vacation notices.
     'locked' => false,
     'shared' => false,
     'type' => 'implicit'
 );
 
 // Forwarding.
-// Lock this preference to disable forwarding.
 $_prefs['forward'] = array(
     'value' => 'a:2:{s:1:"a";a:0:{}s:1:"k";i:0;}',
+    // Lock this preference to disable forwarding.
     'locked' => false,
     'shared' => false,
     'type' => 'implicit'
 );
 
 // Spam rule.
-// Lock this preference to disable the spam rule.
 $_prefs['spam'] = array(
     'value' => 'a:2:{s:6:"folder";N;s:5:"level";i:5;}',
+    // Lock this preference to disable the spam rule.
     'locked' => false,
     'shared' => false,
     'type' => 'implicit'

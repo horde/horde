@@ -42,6 +42,8 @@ class Ingo_Driver_Timsieved extends Ingo_Driver
 
     /**
      * Connects to the sieve server.
+     *
+     * @throws Ingo_Exception
      */
     protected function _connect()
     {
@@ -49,11 +51,10 @@ class Ingo_Driver_Timsieved extends Ingo_Driver
             return;
         }
 
-        if (empty($this->_params['admin'])) {
-            $auth = $this->_params['username'];
-        } else {
-            $auth = $this->_params['admin'];
-        }
+        $auth = empty($this->_params['admin'])
+            ? $this->_params['username']
+            : $this->_params['admin'];
+
         $this->_sieve = new Net_Sieve($auth,
                                       $this->_params['password'],
                                       $this->_params['hostspec'],
@@ -65,9 +66,9 @@ class Ingo_Driver_Timsieved extends Ingo_Driver
                                       $this->_params['usetls']);
 
         $res = $this->_sieve->getError();
-        if (is_a($res, 'PEAR_Error')) {
+        if ($res instanceof PEAR_Error) {
             unset($this->_sieve);
-            return $res;
+            throw new Ingo_Exception($res);
         }
 
         if (!empty($this->_params['debug'])) {
@@ -91,23 +92,20 @@ class Ingo_Driver_Timsieved extends Ingo_Driver
      *
      * @param string $script  The sieve script.
      *
-     * @return mixed  True on success, PEAR_Error on error.
+     * @return mixed  True on success.
+     * @throws Ingo_Exception
      */
     public function setScriptActive($script)
     {
         $res = $this->_connect();
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
 
         if (!strlen($script)) {
             return $this->_sieve->setActive('');
         }
 
-        $res = $this->_sieve->haveSpace($this->_params['scriptname'],
-                                        strlen($script));
-        if (is_a($res, 'PEAR_ERROR')) {
-            return $res;
+        $res = $this->_sieve->haveSpace($this->_params['scriptname'], strlen($script));
+        if ($res instanceof PEAR_Error) {
+            throw new Ingo_Exception($res);
         }
 
         return $this->_sieve->installScript($this->_params['scriptname'],
@@ -118,18 +116,16 @@ class Ingo_Driver_Timsieved extends Ingo_Driver
      * Returns the content of the currently active script.
      *
      * @return string  The complete ruleset of the specified user.
+     * @throws Ingo_Exception
      */
     public function getScript()
     {
         $res = $this->_connect();
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
         $active = $this->_sieve->getActive();
-        if (empty($active)) {
-            return '';
-        }
-        return $this->_sieve->getScript($active);
+
+        return empty($active)
+            ? ''
+            : $this->_sieve->getScript($active);
     }
 
 }

@@ -116,7 +116,7 @@ class Ingo_Script_Imap extends Ingo_Script
         }
 
         /* Grab the rules list. */
-        $filters = &$GLOBALS['ingo_storage']->retrieve(Ingo_Storage::ACTION_FILTERS);
+        $filters = $GLOBALS['ingo_storage']->retrieve(Ingo_Storage::ACTION_FILTERS);
 
         /* Parse through the rules, one-by-one. */
         foreach ($filters->getFilterList() as $rule) {

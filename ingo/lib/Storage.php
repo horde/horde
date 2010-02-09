@@ -131,6 +131,7 @@ class Ingo_Storage
      * @param boolean $readonly  Whether to disable any write operations.
      *
      * @return Ingo_Storage_Rule|Ingo_Storage_Filters  The specified object.
+     * @throws Ingo_Exception
      */
     public function retrieve($field, $cache = true, $readonly = false)
     {
@@ -156,8 +157,6 @@ class Ingo_Storage
     /**
      * Retrieves the specified data from the storage backend.
      *
-     * @abstract
-     *
      * @param integer $field     The field name of the desired data.
      *                           See lib/Storage.php for the available fields.
      * @param boolean $readonly  Whether to disable any write operations.
@@ -176,6 +175,7 @@ class Ingo_Storage
      * @param boolean $cache                              Cache the object?
      *
      * @return boolean  True on success.
+     * @throws Ingo_Exception
      */
     public function store(&$ob, $cache = true)
     {
@@ -209,10 +209,7 @@ class Ingo_Storage
                     break;
                 }
                 $filters->addRule(array('action' => $type, 'name' => $name));
-                $result = $this->store($filters, $cache);
-                if (is_a($result, 'PEAR_Error')) {
-                    return $result;
-                }
+                $this->store($filters, $cache);
             }
         }
 
@@ -226,8 +223,6 @@ class Ingo_Storage
 
     /**
      * Stores the specified data in the storage backend.
-     *
-     * @abstract
      *
      * @param Ingo_Storage_Rule|Ingo_Storage_Filters $ob  The object to store.
      *
@@ -376,13 +371,13 @@ class Ingo_Storage
      * Removes the user data from the storage backend.
      * Stub for child class to override if it can implement.
      *
-     * @param string $user The user name to delete filters for.
+     * @param string $user  The user name to delete filters for.
      *
-     * @return mixed  True | PEAR_Error
+     * @throws Ingo_Exception
      */
-    function removeUserData($user)
+    public function removeUserData($user)
     {
-	return PEAR::raiseError(_("Removing user data is not supported with the current filter storage backend."));
+	    throw new Ingo_Exception(_("Removing user data is not supported with the current filter storage backend."));
     }
 
 }

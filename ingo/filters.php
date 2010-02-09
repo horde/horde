@@ -14,10 +14,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('ingo');
 
 /* Get the list of filter rules. */
-$filters = &$ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
-if (is_a($filters, 'PEAR_Error')) {
-    throw new Horde_Exception($filters);
-}
+$filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
 
 /* Load the Ingo_Script:: driver. */
 $ingo_script = Ingo::loadIngoScript();
@@ -26,15 +23,14 @@ $ingo_script = Ingo::loadIngoScript();
 $on_demand = $ingo_script->performAvailable();
 
 /* Get web parameter data. */
-$actionID = Horde_Util::getFormData('actionID');
-$id = Horde_Util::getFormData('rulenumber');
+$vars = Horde_Variables::getDefaultVariables();
 
 /* Get permissions. */
 $edit_allowed = Ingo::hasSharePermission(Horde_Perms::EDIT);
 $delete_allowed = Ingo::hasSharePermission(Horde_Perms::DELETE);
 
 /* Perform requested actions. */
-switch ($actionID) {
+switch ($vars->actionID) {
 case 'rule_down':
 case 'rule_up':
 case 'rule_copy':
@@ -46,7 +42,7 @@ case 'rule_enable':
         header('Location: ' . Horde::applicationUrl('filters.php', true));
         exit;
     }
-    switch ($actionID) {
+    switch ($vars->actionID) {
     case 'rule_delete':
         if (!$delete_allowed) {
             $notification->push(_("You do not have permission to delete filter rules."), 'horde.error');
@@ -54,8 +50,8 @@ case 'rule_enable':
             exit;
         }
 
-        $tmp = $filters->getFilter($id);
-        if ($filters->deleteRule($id)) {
+        $tmp = $filters->getFilter($vars->rulenumber);
+        if ($filters->deleteRule($vars->rulenumber)) {
             $notification->push(sprintf(_("Rule \"%s\" deleted."), $tmp['name']), 'horde.success');
         }
         break;
@@ -79,32 +75,30 @@ case 'rule_enable':
             $notification->push($message, 'horde.error', array('content.raw'));
             break 2;
         } else {
-            $tmp = $filters->getFilter($id);
-            if ($filters->copyRule($id)) {
+            $tmp = $filters->getFilter($vars->rulenumber);
+            if ($filters->copyRule($vars->rulenumber)) {
                 $notification->push(sprintf(_("Rule \"%s\" copied."), $tmp['name']), 'horde.success');
             }
         }
         break;
 
     case 'rule_up':
-        $steps = Horde_Util::getFormData('steps', 1);
-        $filters->ruleUp($id, $steps);
+        $filters->ruleUp($vars->rulenumber, $vars->steps || 1);
         break;
 
     case 'rule_down':
-        $steps = Horde_Util::getFormData('steps', 1);
-        $filters->ruleDown($id, $steps);
+        $filters->ruleDown($vars->rulenumber, $vars->steps || 1);
         break;
 
     case 'rule_disable':
-        $tmp = $filters->getFilter($id);
-        $filters->ruleDisable($id);
+        $tmp = $filters->getFilter($vars->rulenumber);
+        $filters->ruleDisable($vars->rulenumber);
         $notification->push(sprintf(_("Rule \"%s\" disabled."), $tmp['name']), 'horde.success');
         break;
 
     case 'rule_enable':
-        $tmp = $filters->getFilter($id);
-        $filters->ruleEnable($id);
+        $tmp = $filters->getFilter($vars->rulenumber);
+        $filters->ruleEnable($vars->rulenumber);
         $notification->push(sprintf(_("Rule \"%s\" enabled."), $tmp['name']), 'horde.success');
         break;
     }
@@ -122,8 +116,8 @@ case 'settings_save':
         header('Location: ' . Horde::applicationUrl('filters.php', true));
         exit;
     }
-    $prefs->setValue('show_filter_msg', Horde_Util::getFormData('show_filter_msg'));
-    $prefs->setValue('filter_seen', Horde_Util::getFormData('filter_seen'));
+    $prefs->setValue('show_filter_msg', $vars->show_filter_msg);
+    $prefs->setValue('filter_seen', $vars->filter_seen);
     $notification->push(_("Settings successfully updated."), 'horde.success');
     break;
 
@@ -172,7 +166,7 @@ if (count($filter_list) == 0) {
 
         $entry = array();
         $entry['number'] = ++$i;
-        $url = Horde_Util::addParameter($filters_url, 'rulenumber', $rule_number);
+        $url = $filters_url->copy()->add('rulenumber', $rule_number);
         $copyurl = $delurl = $editurl = $name = null;
 
         switch ($filter['action']) {
@@ -207,9 +201,9 @@ if (count($filter_list) == 0) {
             break;
 
         default:
-            $editurl = Horde_Util::addParameter($rule_url, array('edit' => $rule_number, 'actionID' => 'rule_edit'));
-            $delurl  = Horde_Util::addParameter($url, 'actionID', 'rule_delete');
-            $copyurl = Horde_Util::addParameter($url, 'actionID', 'rule_copy');
+            $editurl = $rule_url->copy()->add(array('edit' => $rule_number, 'actionID' => 'rule_edit'));
+            $delurl = $url->copy()->add('actionID', 'rule_delete');
+            $copyurl = $url->copy()->add('actionID', 'rule_copy');
             $entry['filterimg'] = false;
             $name = $filter['name'];
             break;
@@ -274,14 +268,18 @@ if (count($filter_list) == 0) {
         }
 
         /* Create up/down arrow links. */
-        $entry['upurl'] = Horde_Util::addParameter($url, 'actionID', 'rule_up');
-        $entry['downurl'] = Horde_Util::addParameter($url, 'actionID', 'rule_down');
-        $entry['uplink'] = ($i > 1) ? Horde::link($entry['upurl'], _("Move Rule Up")) : false;
-        $entry['downlink'] = ($i < $rule_count) ? Horde::link($entry['downurl'], _("Move Rule Down")) : false;
+        $entry['upurl'] = $url->copy()->add('actionID', 'rule_up');
+        $entry['downurl'] = $url->copy()->add('actionID', 'rule_down');
+        $entry['uplink'] = ($i > 1)
+            ? Horde::link($entry['upurl'], _("Move Rule Up"))
+            : false;
+        $entry['downlink'] = ($i < $rule_count)
+            ? Horde::link($entry['downurl'], _("Move Rule Down"))
+            : false;
 
         if (empty($filter['disable'])) {
             if ($edit_allowed) {
-                $entry['disablelink'] = Horde::link(Horde_Util::addParameter($url, 'actionID', 'rule_disable'), sprintf(_("Disable %s"), $name));
+                $entry['disablelink'] = Horde::link($url->copy()->add('actionID', 'rule_disable'), sprintf(_("Disable %s"), $name));
                 $entry['disableimg'] = Horde::img('enable.png', sprintf(_("Disable %s"), $name));
             } else {
                 $entry['disableimg'] = Horde::img('enable.png');
@@ -291,7 +289,7 @@ if (count($filter_list) == 0) {
             $entry['enableimg'] = false;
         } else {
             if ($edit_allowed) {
-                $entry['enablelink'] = Horde::link(Horde_Util::addParameter($url, 'actionID', 'rule_enable'), sprintf(_("Enable %s"), $name));
+                $entry['enablelink'] = Horde::link($url->copy()->add('actionID', 'rule_enable'), sprintf(_("Enable %s"), $name));
                 $entry['enableimg'] = Horde::img('disable.png', sprintf(_("Enable %s"), $name));
             } else {
                 $entry['enableimg'] = Horde::img('disable.png');

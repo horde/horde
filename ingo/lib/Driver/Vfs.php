@@ -37,50 +37,46 @@ class Ingo_Driver_Vfs extends Ingo_Driver
     /**
      * Sets a script running on the backend.
      *
-     * @param string $script  The filter script
+     * @param string $script  The filter script.
      *
-     * @return mixed  True on success, or PEAR_Error on failure.
+     * @return mixed  True on success.
+     * @throws Ingo_Exception
      */
     public function setScriptActive($script)
     {
-        $result = $this->_connect();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_connect();
 
-        if (empty($script)) {
-            $result = $this->_vfs->deleteFile($this->_params['vfs_path'], $this->_params['filename']);
-        } else {
-            $result = $this->_vfs->writeData($this->_params['vfs_path'], $this->_params['filename'], $script, true);
-        }
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+        $result = empty($script)
+            ? $this->_vfs->deleteFile($this->_params['vfs_path'], $this->_params['filename'])
+            : $this->_vfs->writeData($this->_params['vfs_path'], $this->_params['filename'], $script, true);
+        if ($result instanceof PEAR_Error) {
+            throw new Ingo_Exception($result);
         }
 
         if (isset($this->_params['file_perms']) && !empty($script)) {
             $result = $this->_vfs->changePermissions($this->_params['vfs_path'], $this->_params['filename'], $this->_params['file_perms']);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
+            if ($result instanceof PEAR_Error) {
+                throw new Ingo_Exception($result);
             }
         }
 
         // Get the backend; necessary if a .forward is needed for
         // procmail.
         $backend = Ingo::getBackend();
-        if ($backend['script'] == 'procmail' && isset($backend['params']['forward_file']) && isset($backend['params']['forward_string'])) {
-            if (empty($script)) {
-                $result = $this->_vfs->deleteFile($this->_params['vfs_forward_path'], $backend['params']['forward_file']);
-            } else {
-                $result = $this->_vfs->writeData($this->_params['vfs_forward_path'], $backend['params']['forward_file'], $backend['params']['forward_string'], true);
-            }
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
+        if (($backend['script'] == 'procmail') &&
+            isset($backend['params']['forward_file']) &&
+            isset($backend['params']['forward_string'])) {
+            $result = empty($script)
+                ? $this->_vfs->deleteFile($this->_params['vfs_forward_path'], $backend['params']['forward_file'])
+                : $this->_vfs->writeData($this->_params['vfs_forward_path'], $backend['params']['forward_file'], $backend['params']['forward_string'], true);
+            if ($result instanceof PEAR_Error) {
+                throw new Ingo_Exception($result);
             }
 
             if (isset($this->_params['file_perms']) && !empty($script)) {
                 $result = $this->_vfs->changePermissions($this->_params['vfs_forward_path'], $backend['params']['forward_file'], $this->_params['file_perms']);
-                if (is_a($result, 'PEAR_Error')) {
-                    return $result;
+                if ($result instanceof PEAR_Error) {
+                    throw new Ingo_Exception($result);
                 }
             }
         }
@@ -92,20 +88,18 @@ class Ingo_Driver_Vfs extends Ingo_Driver
      * Returns the content of the currently active script.
      *
      * @return string  The complete ruleset of the specified user.
+     * @throws Ingo_Exception
      */
     public function getScript()
     {
-        $result = $this->_connect();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_connect();
         return $this->_vfs->read($this->_params['vfs_path'], $this->_params['filename']);
     }
 
     /**
      * Connect to the VFS server.
      *
-     * @return boolean  True on success, PEAR_Error on false.
+     * @throws Ingo_Exception
      */
     protected function _connect()
     {
@@ -130,13 +124,11 @@ class Ingo_Driver_Vfs extends Ingo_Driver
             return true;
         }
 
-        $this->_vfs = &VFS::singleton($this->_params['vfstype'], $this->_params);
-        if (is_a($this->_vfs, 'PEAR_Error')) {
-            $error = $this->_vfs;
-            $this->_vfs = null;
-            return $error;
-        } else {
-            return true;
+        $this->_vfs = VFS::singleton($this->_params['vfstype'], $this->_params);
+        if ($this->_vfs instanceof PEAR_Error) {
+            $error = new Ingo_Exception($this->_vfs);
+            unset($this->_vfs);
+            throw new Ingo_Exception($error);
         }
     }
 

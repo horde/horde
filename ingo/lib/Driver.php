@@ -28,24 +28,24 @@ class Ingo_Driver
     protected $_support_shares = false;
 
     /**
-     * Attempts to return a concrete Ingo_Driver instance based on $driver.
+     * Attempts to return a concrete instance based on $driver.
      *
-     * @param string $driver  The type of concrete Ingo_Driver subclass to
-     *                        return.
-     * @param array $params   A hash containing any additional configuration or
-     *                        connection parameters a subclass might need.
+     * @param string $driver  The type of concrete subclass to return.
+     * @param array $params   A hash containing any additional configuration
+     *                        or connection parameters a subclass might need.
      *
-     * @return mixed  The newly created concrete Ingo_Driver instance, or
-     *                false on error.
+     * @return Ingo_Driver  The newly created concrete instance.
+     * @throws Ingo_Exception
      */
     static public function factory($driver, $params = array())
     {
-        $driver = basename($driver);
-        $class = 'Ingo_Driver_' . ucfirst($driver);
+        $class = __CLASS__ . '_' . ucfirst(basename($driver));
 
-        return class_exists($class)
-            ? new $class($params)
-            : false;
+        if (class_exists($class)) {
+            return new $class($params);
+        }
+
+        throw new Ingo_Exception('Could not load driver.');
     }
 
     /**
@@ -61,8 +61,8 @@ class Ingo_Driver
      *
      * @param string $script  The filter script.
      *
-     * @return mixed  True on success, false if script can't be activated.
-     *                Returns PEAR_Error on error.
+     * @return boolean  True on success, false if script can't be activated.
+     * @throws Ingo_Exception
      */
     public function setScriptActive($script)
     {
@@ -76,7 +76,8 @@ class Ingo_Driver
      */
     public function supportShares()
     {
-        return $this->_support_shares && !empty($_SESSION['ingo']['backend']['shares']);
+        return ($this->_support_shares &&
+                !empty($_SESSION['ingo']['backend']['shares']));
     }
 
 }

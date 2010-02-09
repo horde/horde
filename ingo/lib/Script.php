@@ -103,19 +103,19 @@ class Ingo_Script
     protected $_scriptfile = false;
 
     /**
-     * Attempts to return a concrete Ingo_Script instance based on $script.
+     * Attempts to return a concrete instance based on $script.
      *
-     * @param string $script  The type of Ingo_Script subclass to return.
-     * @param array $params   Hash containing additional paramters to be passed
-     *                        to the subclass' constructor.
+     * @param string $script  The type of subclass to return.
+     * @param array $params   Hash containing additional paramters to be
+     *                        passed to the subclass' constructor.
      *
-     * @return Ingo_Script  The newly created concrete Ingo_Script instance, or
-     *                      false on error.
+     * @return Ingo_Script  The newly created concrete instance.
+     * @throws Ingo_Exception
      */
     static public function factory($script, $params = array())
     {
         $script = Horde_String::ucfirst(basename($script));
-        $class = 'Ingo_Script_' . $script;
+        $class = __CLASS__ . '_' . $script;
 
         if (!isset($params['spam_compare'])) {
             $params['spam_compare'] = $GLOBALS['conf']['spam']['compare'];
@@ -140,9 +140,11 @@ class Ingo_Script
             }
         }
 
-        return class_exists($class)
-            ? new $class($params)
-            : PEAR::raiseError(sprintf(_("Unable to load the definition of %s."), $class));
+        if (class_exists($class)) {
+            return new $class($params);
+        }
+
+        throw new Ingo_Exception(sprintf(_("Unable to load the definition of %s."), $class));
     }
 
     /**
@@ -153,10 +155,6 @@ class Ingo_Script
     public function __construct($params = array())
     {
         $this->_params = $params;
-
-        if (!isset($GLOBALS['registry'])) {
-            return;
-        }
 
         /* Determine if ingo should handle the blacklist. */
         $key = array_search(Ingo_Storage::ACTION_BLACKLIST, $this->_categories);
@@ -268,8 +266,6 @@ class Ingo_Script
     /**
      * Returns a script previously generated with generate().
      *
-     * @abstract
-     *
      * @return string  The script.
      */
     public function toCode()
@@ -291,8 +287,6 @@ class Ingo_Script
      * Generates the script to do the filtering specified in
      * the rules.
      *
-     * @abstract
-     *
      * @return string  The script.
      */
     public function generate()
@@ -312,8 +306,6 @@ class Ingo_Script
 
     /**
      * Perform the filtering specified in the rules.
-     *
-     * @abstract
      *
      * @param array $params  The parameter array.
      *
@@ -339,8 +331,6 @@ class Ingo_Script
      * This is essentially a wrapper around perform() that allows that
      * function to be called from within Ingo ensuring that all necessary
      * parameters are set.
-     *
-     * @abstract
      *
      * @return boolean  See perform().
      */

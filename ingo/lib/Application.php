@@ -58,10 +58,8 @@ class Ingo_Application extends Horde_Registry_Application
         // Load the Ingo_Storage driver.
         $GLOBALS['ingo_storage'] = Ingo_Storage::factory();
 
-        // Create the ingo session (if needed).
-        if (!isset($_SESSION['ingo']) || !is_array($_SESSION['ingo'])) {
-            Ingo_Session::createSession();
-        }
+        // Create the ingo session.
+        Ingo::createSession();
 
         // Create shares if necessary.
         $driver = Ingo::getDriver();
@@ -159,59 +157,61 @@ class Ingo_Application extends Horde_Registry_Application
      *
      * @param string $user  Name of user to remove data for.
      *
-     * @return mixed  true on success | PEAR_Error on failure
+     * @throws Horde_Auth_Exception.
      */
     public function removeUserData($user)
     {
-        if (!Horde_Auth::isAdmin() && $user != Horde_Auth::getAuth()) {
-            return PEAR::raiseError(_("You are not allowed to remove user data."));
+        if (!Horde_Auth::isAdmin() &&
+            ($user != Horde_Auth::getAuth())) {
+            throw new Horde_Auth_Exception(_("You are not allowed to remove user data."));
         }
 
         /* Remove all filters/rules owned by the user. */
-        $result = $GLOBALS['ingo_storage']->removeUserData($user);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $result;
+        try {
+            $GLOBALS['ingo_storage']->removeUserData($user);
+        } catch (Ingo_Exception $e) {
+            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Horde_Auth_Exception($e);
         }
 
         /* Now remove all shares owned by the user. */
         if (!empty($GLOBALS['ingo_shares'])) {
             /* Get the user's default share. */
             $share = $GLOBALS['ingo_shares']->getShare($user);
-            if (is_a($share, 'PEAR_Error')) {
+            if ($share instanceof PEAR_Error) {
                 Horde::logMessage($share, __FILE__, __LINE__, PEAR_LOG_ERR);
-                return $share;
-            } else {
-                $result = $GLOBALS['ingo_shares']->removeShare($share);
-                if (is_a($result, 'PEAR_Error')) {
-                    Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-                    return $result;
-                }
+                throw new Horde_Auth_Exception($share);
+            }
+
+            $result = $GLOBALS['ingo_shares']->removeShare($share);
+            if ($result instanceof PEAR_Error) {
+                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                throw new Horde_Auth_Exception($share);
             }
 
             /* Get a list of all shares this user has perms to and remove the
              * perms. */
             $shares = $GLOBALS['ingo_shares']->listShares($user);
-            if (is_a($shares, 'PEAR_Error')) {
+            if ($shares instanceof PEAR_Error) {
                 Horde::logMessage($shares, __FILE__, __LINE__, PEAR_LOG_ERR);
-            }
-            foreach ($shares as $share) {
-                $share->removeUser($user);
+            } else {
+                foreach ($shares as $share) {
+                    $share->removeUser($user);
+                }
             }
 
             /* Get a list of all shares this user owns and has perms to delete
              * and remove them. */
             $shares = $GLOBALS['ingo_shares']->listShares($user, Horde_Perms::DELETE, $user);
-            if (is_a($shares, 'PEAR_Error')) {
+            if ($shares instanceof PEAR_Error) {
                 Horde::logMessage($shares, __FILE__, __LINE__, PEAR_LOG_ERR);
-                return $shares;
+                throw new Horde_Auth_Exception($share);
             }
+
             foreach ($shares as $share) {
                 $GLOBALS['ingo_shares']->removeShare($share);
             }
         }
-
-        return true;
     }
 
 }

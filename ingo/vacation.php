@@ -21,14 +21,14 @@ if (!in_array(Ingo_Storage::ACTION_VACATION, $_SESSION['ingo']['script_categorie
 }
 
 /* Get vacation object and rules. */
-$vacation = &$ingo_storage->retrieve(Ingo_Storage::ACTION_VACATION);
-$filters = &$ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
+$vacation = $ingo_storage->retrieve(Ingo_Storage::ACTION_VACATION);
+$filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
 $vac_id = $filters->findRuleId(Ingo_Storage::ACTION_VACATION);
 $vac_rule = $filters->getRule($vac_id);
 
 /* Load libraries. */
 $vars = Horde_Variables::getDefaultVariables();
-if ($vars->get('submitbutton') == _("Return to Rules List")) {
+if ($vars->submitbutton == _("Return to Rules List")) {
     header('Location: ' . Horde::applicationUrl('filters.php', true));
     exit;
 }
@@ -37,21 +37,21 @@ if ($vars->get('submitbutton') == _("Return to Rules List")) {
 $form = new Horde_Form($vars);
 $form->setSection('basic', _("Basic Settings"));
 
-$v = &$form->addVariable(_("Start of vacation:"), 'start', 'monthdayyear', '');
+$v = $form->addVariable(_("Start of vacation:"), 'start', 'monthdayyear', '');
 $v->setHelp('vacation-period');
 $form->addVariable(_("End of vacation:"), 'end', 'monthdayyear', '');
-$v = &$form->addVariable(_("Subject of vacation message:"), 'subject', 'text', false);
+$v = $form->addVariable(_("Subject of vacation message:"), 'subject', 'text', false);
 $v->setHelp('vacation-subject');
-$v = &$form->addVariable(_("Reason:"), 'reason', 'longtext', false, false, null, array(10, 40));
+$v = $form->addVariable(_("Reason:"), 'reason', 'longtext', false, false, null, array(10, 40));
 $v->setHelp('vacation-reason');
 $form->setSection('advanced', _("Advanced Settings"));
-$v = &$form->addVariable(_("My email addresses:"), 'addresses', 'longtext', true, false, null, array(5, 40));
+$v = $form->addVariable(_("My email addresses:"), 'addresses', 'longtext', true, false, null, array(5, 40));
 $v->setHelp('vacation-myemail');
-$v = &$form->addVariable(_("Addresses to not send responses to:"), 'excludes', 'longtext', false, false, null, array(10, 40));
+$v = $form->addVariable(_("Addresses to not send responses to:"), 'excludes', 'longtext', false, false, null, array(10, 40));
 $v->setHelp('vacation-noresponse');
-$v = &$form->addVariable(_("Do not send responses to bulk or list messages?"), 'ignorelist', 'boolean', false);
+$v = $form->addVariable(_("Do not send responses to bulk or list messages?"), 'ignorelist', 'boolean', false);
 $v->setHelp('vacation-bulk');
-$v = &$form->addVariable(_("Number of days between vacation replies:"), 'days', 'int', false);
+$v = $form->addVariable(_("Number of days between vacation replies:"), 'days', 'int', false);
 $v->setHelp('vacation-days');
 $form->setButtons(_("Save"));
 
@@ -68,30 +68,23 @@ if ($form->validate($vars)) {
     $vacation->setVacationEnd($info['end']);
 
     $success = true;
-    if (is_a($result = $ingo_storage->store($vacation), 'PEAR_Error')) {
-        $notification->push($result);
-        $success = false;
-    } else {
+    try {
+        $ingo_storage->store($vacation);
         $notification->push(_("Changes saved."), 'horde.success');
-        if ($vars->get('submitbutton') == _("Save and Enable")) {
+        if ($vars->submitbutton == _("Save and Enable")) {
             $filters->ruleEnable($vac_id);
-            if (is_a($result = $ingo_storage->store($filters), 'PEAR_Error')) {
-                $notification->push($result);
-                $success = false;
-            } else {
-                $notification->push(_("Rule Enabled"), 'horde.success');
-                $vac_rule['disable'] = false;
-            }
+            $ingo_storage->store($filters);
+            $notification->push(_("Rule Enabled"), 'horde.success');
+            $vac_rule['disable'] = false;
         } elseif ($vars->get('submitbutton') == _("Save and Disable")) {
             $filters->ruleDisable($vac_id);
-            if (is_a($result = $ingo_storage->store($filters), 'PEAR_Error')) {
-                $notification->push($result);
-                $success = false;
-            } else {
-                $notification->push(_("Rule Disabled"), 'horde.success');
-                $vac_rule['disable'] = true;
-            }
+            $ingo_storage->store($filters);
+            $notification->push(_("Rule Disabled"), 'horde.success');
+            $vac_rule['disable'] = true;
         }
+    } catch (Ingo_Exception $e) {
+        $notification->push($result);
+        $success = false;
     }
 
     if ($success && $prefs->getValue('auto_update')) {

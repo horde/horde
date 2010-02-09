@@ -45,12 +45,12 @@ class Ingo_Driver_Sivtest extends Ingo_Driver
     /**
      * Connect to the sieve server.
      *
-     * @return mixed  True on success, PEAR_Error on false.
+     * @throws Ingo_Exception;
      */
     protected function _connect()
     {
         if (!empty($this->_sieve)) {
-            return true;
+            return;
         }
 
         $this->sivtestSocket($this->_params['username'],
@@ -68,11 +68,9 @@ class Ingo_Driver_Sivtest extends Ingo_Driver
                                       $this->_params['usetls']);
 
         $res = $this->_sieve->getError();
-        if (is_a($res, 'PEAR_Error')) {
+        if ($res instanceof PEAR_Error) {
             unset($this->_sieve);
-            return $res;
-        } else {
-            return true;
+            throw new Ingo_Exception($res);
         }
     }
 
@@ -81,19 +79,15 @@ class Ingo_Driver_Sivtest extends Ingo_Driver
      *
      * @param string $script  The sieve script.
      *
-     * @return mixed  True on success.
-     *                Returns PEAR_Error on error.
+     * @throws Ingo_Exception
      */
     public function setScriptActive($script)
     {
-        $res = $this->_connect();
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
+        $this->_connect();
 
         $res = $this->_sieve->haveSpace($this->_params['scriptname'], strlen($script));
-        if (is_a($res, 'PEAR_ERROR')) {
-            return $res;
+        if ($res instanceof PEAR_Error) {
+            throw new Ingo_Exception($res);
         }
 
         return $this->_sieve->installScript($this->_params['scriptname'], $script, true);
@@ -103,13 +97,11 @@ class Ingo_Driver_Sivtest extends Ingo_Driver
      * Returns the content of the currently active script.
      *
      * @return string  The complete ruleset of the specified user.
+     * @throws Ingo Exception
      */
     public function getScript()
     {
-        $res = $this->_connect();
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
+        $this->_connect();
         return $this->_sieve->getScript($this->_sieve->getActive());
     }
 
@@ -122,6 +114,7 @@ class Ingo_Driver_Sivtest extends Ingo_Driver
      * @param string $hostspec  The hostspec.
      *
      * @return TODO
+     * @throws Ingo_Exception
      */
     public function sivtestSocket($username, $password, $hostspec)
     {
@@ -160,7 +153,7 @@ class Ingo_Driver_Sivtest extends Ingo_Driver
             }
             $socket = new Net_Socket();
             $error = $socket->connect($domain_socket, 0, true, 30);
-            if (!is_a($error, 'PEAR_Error')) {
+            if (!($error instanceof PEAR_Error)) {
                 break;
             }
 
@@ -169,22 +162,22 @@ class Ingo_Driver_Sivtest extends Ingo_Driver
         }
 
         if (!empty($error_return)) {
-            return PEAR::raiseError(_($error_return));
+            throw new Ingo_Exception($error_return);
         }
 
         $status = $socket->getStatus();
-        if (is_a($status, 'PEAR_Error') || $status['eof']) {
-            return PEAR::raiseError(_('Failed to write to socket: (connection lost!)'));
+        if ($status instanceof PEAR_Error || $status['eof']) {
+            throw new Ingo_Exception(_("Failed to write to socket: (connection lost!)"));
         }
 
         $error = $socket->writeLine("CAPABILITY");
-        if (is_a($error, 'PEAR_Error')) {
-            return PEAR::raiseError(_('Failed to write to socket: ' . $error->getMessage()));
+        if ($error instanceof PEAR_Error) {
+            throw new Ingo_Exception(_("Failed to write to socket: " . $error->getMessage()));
         }
 
         $result = $socket->readLine();
-        if (is_a($result, 'PEAR_Error')) {
-            return PEAR::raiseError(_('Failed to read from socket: ' . $error->getMessage()));
+        if ($result instanceof PEAR_Error) {
+            throw new Ingo_Exception(_("Failed to read from socket: " . $error->getMessage()));
         }
 
         if (preg_match('|^bye \(referral "(sieve://)?([^"]+)|i',

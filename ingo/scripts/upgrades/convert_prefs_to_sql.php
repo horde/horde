@@ -57,7 +57,7 @@ while (!feof(STDIN)) {
     foreach ($rules as $rule) {
         $filter = $prefs_storage->retrieve($rule, false);
         if ($rule == Ingo_Storage::ACTION_FILTERS) {
-            $new_filter = &$sql_storage->retrieve(Ingo_Storage::ACTION_FILTERS, true, true);
+            $new_filter = $sql_storage->retrieve(Ingo_Storage::ACTION_FILTERS, true, true);
             foreach ($filter->getFilterList() as $rule) {
                 $new_filter->addRule($rule);
                 echo '.';

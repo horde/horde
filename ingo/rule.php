@@ -41,12 +41,11 @@ if (empty($availActions)) {
 require INGO_BASE . '/config/fields.php';
 
 /* Get the current rules. */
-$filters = &$ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
+$filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
 
 /* Run through action handlers. */
-$actionID = Horde_Util::getFormData('actionID');
-$edit_number = Horde_Util::getFormData('edit');
-switch ($actionID) {
+$vars = Horde_Variables::getDefaultVariables();
+switch ($vars->actionID) {
 case 'create_folder':
 case 'rule_save':
 case 'rule_update':
@@ -58,26 +57,24 @@ case 'rule_delete':
     }
 
     $rule = array(
-        'id' => Horde_Util::getFormData('id'),
-        'name' => Horde_Util::getFormData('name'),
-        'combine' => Horde_Util::getFormData('combine'),
+        'id' => $vars->id,
+        'name' => $vars->name,
+        'combine' => $vars->combine,
         'conditions' => array()
     );
 
-    $field = Horde_Util::getFormData('field');
-    $match = Horde_Util::getFormData('match');
-    $userheader = Horde_Util::getFormData('userheader');
-    $value = Horde_Util::getFormData('value');
     if ($ingo_script->caseSensitive()) {
-        $casesensitive = Horde_Util::getFormData('case');
+        $casesensitive = $vars->case;
     }
 
     $valid = true;
-    foreach ($field as $key => $val) {
+    foreach ($vars->field as $key => $val) {
         if (!empty($val)) {
             $condition = array();
             if ($val == Ingo::USER_HEADER) {
-                $condition['field'] = (empty($userheader[$key])) ? '' : $userheader[$key];
+                $condition['field'] = empty($vars->userheader[$key])
+                    ? ''
+                    : $vars->userheader[$key];
                 $condition['type'] = Ingo_Storage::TYPE_HEADER;
             } elseif (!isset($ingo_fields[$val])) {
                 $condition['field'] = $val;
@@ -86,35 +83,38 @@ case 'rule_delete':
                 $condition['field'] = $val;
                 $condition['type'] = $ingo_fields[$val]['type'];
             }
-            $condition['match'] = isset($match[$key]) ? $match[$key] : '';
+            $condition['match'] = isset($vars->match[$key])
+                ? $vars->match[$key]
+                : '';
 
-            if ($actionID == 'rule_save'
-                && empty($value[$key])
-                && $condition['match'] != 'exists'
-                && $condition['match'] != 'not exist') {
+            if (($vars->actionID == 'rule_save') &&
+                empty($vars->value[$key]) &&
+                !in_array($condition['match'], array('exists', 'not exist'))) {
                 $notification->push(sprintf(_("You cannot create empty conditions. Please fill in a value for \"%s\"."), $condition['field']), 'horde.error');
                 $valid = false;
             }
-            $condition['value'] = isset($value[$key]) ? $value[$key] : '';
+            $condition['value'] = isset($vars->value[$key])
+                ? $vars->value[$key]
+                : '';
 
             if (isset($casesensitive)) {
-                $condition['case'] = isset($casesensitive[$key]) ? $casesensitive[$key] : '';
+                $condition['case'] = isset($casesensitive[$key])
+                    ? $casesensitive[$key]
+                    : '';
             }
             $rule['conditions'][] = $condition;
         }
     }
 
-    if ($actionID == 'create_folder') {
-        $rule['action-value'] = Ingo::createFolder(Horde_Util::getFormData('new_folder_name'));
-    } else {
-        $rule['action-value'] = Horde_Util::getFormData('actionvalue');
-    }
+    $rule['action-value'] = ($vars->actionID == 'create_folder')
+        ? Ingo::createFolder($vars->new_folder_name)
+        : $vars->actionvalue;
 
-    $rule['action'] = Horde_Util::getFormData('action');
-    $rule['stop'] = Horde_Util::getFormData('stop');
+    $rule['action'] = $vars->action;
+    $rule['stop'] = $vars->stop;
 
     $rule['flags'] = 0;
-    $flags = Horde_Util::getFormData('flags', array());
+    $flags = $vars->flags || array();
     if (!empty($flags)) {
         foreach ($flags as $val) {
             $rule['flags'] |= $val;
@@ -125,8 +125,8 @@ case 'rule_delete':
     $_SESSION['ingo']['change'] = time();
 
     /* Save the rule. */
-    if ($actionID == 'rule_save' && $valid) {
-        if (is_null($edit_number)) {
+    if ($vars->actionID == 'rule_save' && $valid) {
+        if (!isset($vars->edit)) {
             if ($GLOBALS['perms']->hasAppPermission('max_rules') !== true &&
                 $GLOBALS['perms']->hasAppPermission('max_rules') <= count($filters->getFilterList())) {
                 header('Location: ' . Horde::applicationUrl('filters.php', true));
@@ -134,7 +134,7 @@ case 'rule_delete':
             }
             $filters->addRule($rule);
         } else {
-            $filters->updateRule($rule, $edit_number);
+            $filters->updateRule($rule, $vars->edit);
         }
         $ingo_storage->store($filters);
         $notification->push(_("Changes saved."), 'horde.success');
@@ -145,15 +145,16 @@ case 'rule_delete':
 
         header('Location: ' . Horde::applicationUrl('filters.php'));
         exit;
-    } elseif ($actionID == 'rule_delete') {
+    }
+
+    if ($vars->actionID == 'rule_delete') {
         if (!Ingo::hasSharePermission(Horde_Perms::DELETE)) {
             $notification->push(_("You do not have permission to delete filter rules."), 'horde.error');
             header('Location: ' . Horde::applicationUrl('filters.php', true));
             exit;
         }
-        $cond_num = Horde_Util::getFormData('conditionnumber');
-        if (!is_null($cond_num)) {
-            unset($rule['conditions'][$cond_num]);
+        if (isset($vars->conditionnumber)) {
+            unset($rule['conditions'][$vars->conditionnumner]);
             $rule['conditions'] = array_values($rule['conditions']);
         }
     }
@@ -165,7 +166,7 @@ default:
         header('Location: ' . Horde::applicationUrl('filters.php', true));
         exit;
     }
-    if (is_null($edit_number)) {
+    if (!isset($vars->edit)) {
         if ($GLOBALS['perms']->hasAppPermission('max_rules') !== true &&
             $GLOBALS['perms']->hasAppPermission('max_rules') <= count($filters->getFilterList())) {
             try {
@@ -179,7 +180,7 @@ default:
         }
         $rule = $filters->getDefaultRule();
     } else {
-        $rule = $filters->getRule($edit_number);
+        $rule = $filters->getRule($vars->edit);
     }
     break;
 }
@@ -254,11 +255,10 @@ foreach ($rule['conditions'] as $cond_num => $condition) {
             '<option value="' . Ingo::USER_HEADER . '"' . ((!$option_selected) ? ' selected="selected"' : '') . '>' . _("Self-Defined Header") . (($lastfield) ? '' : ':') . "</option>\n";
         if (!$option_selected) {
             $header_entry = true;
-            $userheader = Horde_Util::getFormData('userheader');
-            if (empty($userheader)) {
-                $userheader = isset($condition['field']) ? $condition['field'] : '';
+            if (empty($vars->userheader)) {
+                $vars->userheader = isset($condition['field']) ? $condition['field'] : '';
             } else {
-                $userheader = $userheader[$cond_num];
+                $vars->userheader = $vars->userheader[$cond_num];
             }
         }
     }

@@ -139,10 +139,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
         case self::ACTION_WHITELIST:
             if ($field == self::ACTION_BLACKLIST) {
                 $ob = new Ingo_Storage_Blacklist();
-                $filters = &$this->retrieve(self::ACTION_FILTERS);
-                if (is_a($filters, 'PEAR_Error')) {
-                    return $filters;
-                }
+                $filters = $this->retrieve(self::ACTION_FILTERS);
                 $rule = $filters->findRule($field);
                 if (isset($rule['action-value'])) {
                     $ob->setBlacklistFolder($rule['action-value']);
@@ -271,10 +268,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
         case self::ACTION_WHITELIST:
             $is_blacklist = (int)($ob->obType() == self::ACTION_BLACKLIST);
             if ($is_blacklist) {
-                $filters = &$this->retrieve(self::ACTION_FILTERS);
-                if (is_a($filters, 'PEAR_Error')) {
-                    return $filters;
-                }
+                $filters = $this->retrieve(self::ACTION_FILTERS);
                 $id = $filters->findRuleId(self::ACTION_BLACKLIST);
                 if ($id !== null) {
                     $rule = $filters->getRule($id);
@@ -402,12 +396,12 @@ class Ingo_Storage_Sql extends Ingo_Storage
      *
      * @param string $user  The user name to delete filters for.
      *
-     * @return mixed  True | PEAR_Error
+     * @throws Ingo_Exception
      */
-    function removeUserData($user)
+    public function removeUserData($user)
     {
         if (!Horde_Auth::isAdmin() && $user != Horde_Auth::getAuth()) {
-            return PEAR::raiseError(_("Permission Denied"));
+            throw new Ingo_Exception(_("Permission Denied"));
         }
 
         $queries = array(sprintf('DELETE FROM %s WHERE rule_owner = ?',
@@ -425,8 +419,8 @@ class Ingo_Storage_Sql extends Ingo_Storage
         foreach ($queries as $query) {
             Horde::logMessage('Ingo_Storage_sql::removeUserData(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
             $result = $this->_write_db->query($query, $values);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
+            if ($result instanceof PEAR_Error) {
+                throw new Ingo_Exception($result);
             }
         }
 

@@ -11,8 +11,11 @@
  */
 class Ingo_Storage_VacationTest extends Ingo_Storage_Vacation
 {
+    /**
+     */
     public function getVacationAddresses()
     {
         return $this->_addr;
     }
+
 }

@@ -21,10 +21,9 @@ $script = '';
 
 /* Get the Ingo_Script:: backend. */
 $scriptor = Ingo::loadIngoScript();
-if ($scriptor) {
-    /* Generate the script. */
-    $script = $scriptor->generate();
-}
+
+/* Generate the script. */
+$script = $scriptor->generate();
 
 /* Activate/deactivate script if requested.
    activateScript() does its own $notification->push() on error. */
@@ -41,9 +40,10 @@ case 'action_deactivate':
     break;
 
 case 'show_active':
-    $script = Ingo::getScript();
-    if (is_a($script, 'PEAR_Error')) {
-        $notification->push($script, 'horde.error');
+    try {
+        $script = Ingo::getScript();
+    } catch (Ingo_Exception $e) {
+        $notification->push($e);
         $script = '';
     }
     break;

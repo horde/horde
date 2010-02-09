@@ -3,8 +3,8 @@
 <input type="hidden" name="actionID" value="rule_update" />
 <input type="hidden" name="conditionnumber" value="-1" />
 <input type="hidden" name="new_folder_name" value="" />
-<?php if (!is_null($edit_number)): ?>
-<input type="hidden" name="edit" value="<?php echo $edit_number ?>" />
+<?php if (isset($vars->edit)): ?>
+<input type="hidden" name="edit" value="<?php echo $vars->edit ?>" />
 <?php endif; if (isset($rule['id'])): ?>
 <input type="hidden" name="id" value="<?php echo $rule['id'] ?>" />
 <?php endif; ?>

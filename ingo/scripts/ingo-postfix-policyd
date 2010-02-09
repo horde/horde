@@ -134,19 +134,20 @@ function smtpd_access_policy($query)
         // Retrieve the data.
         $GLOBALS['auth']->setAuth($user, array());
         $_SESSION['ingo']['current_share'] = ':' . $user;
-        $wl = $GLOBALS['rules_storage']->retrieve(Ingo_Storage::ACTION_WHITELIST, false);
-        $bl = $GLOBALS['rules_storage']->retrieve(Ingo_Storage::ACTION_BLACKLIST, false);
 
-        // Fill in data from saved rules.
-        if (!is_a($wl, 'PEAR_Error')) {
-            $whitelists[$user] = $wl->getWhitelist();
-        }
-        if (!is_a($bl, 'PEAR_Error') && !$bl->getBlacklistFolder()) {
-            // We will only reject email at delivery time if the user
-            // wants blacklisted mail deleted completely, not filed
-            // into a separate folder.
-            $blacklists[$user] = $bl->getBlacklist();
-        }
+        try {
+            $whitelists[$user] = $GLOBALS['rules_storage']->retrieve(Ingo_Storage::ACTION_WHITELIST, false)->getWhitelist();
+        } catch (Ingo_Exception $e) {}
+
+        try {
+            $bl = $GLOBALS['rules_storage']->retrieve(Ingo_Storage::ACTION_BLACKLIST, false);
+            if (!$bl->getBlacklistFolder()) {
+                // We will only reject email at delivery time if the user
+                // wants blacklisted mail deleted completely, not filed
+                // into a separate folder.
+                $blacklists[$user] = $bl->getBlacklist();
+            }
+        } catch (Ingo_Exception $e) {}
     }
 
     // Check whitelist rules first so that mistaken overlap doesn't
