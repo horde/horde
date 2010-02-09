@@ -107,14 +107,26 @@ class IMP_Application extends Horde_Registry_Application
         // IMP_Search object.
         IMP::setCurrentMailboxInfo();
 
+        $impmode = empty($this->initParams['impmode'])
+            ? 'imp'
+            : $this->initParams['impmode'];
         $viewmode = IMP::getViewMode();
+
         if ($viewmode == 'mimp') {
+            if ($impmode != 'mimp') {
+                header('Location: ' . IMP_Auth::getInitialPage(true)->setRaw(true));
+                exit;
+            }
             $GLOBALS['imp_notify'] = $GLOBALS['notification']->replace('status', array(), 'IMP_Notification_Listener_StatusMobile');
         } else {
-            $GLOBALS['imp_notify'] = $GLOBALS['notification']->replace('status', array('viewmode' => $viewmode), 'IMP_Notification_Listener_Status');
             if ($viewmode == 'imp') {
                 $GLOBALS['notification']->attach('audio');
+                if ($impmode == 'dimp') {
+                    header('Location: ' . IMP_Auth::getInitialPage(true)->setRaw(true));
+                    exit;
+                }
             }
+            $GLOBALS['imp_notify'] = $GLOBALS['notification']->replace('status', array('viewmode' => $viewmode), 'IMP_Notification_Listener_Status');
         }
     }
 

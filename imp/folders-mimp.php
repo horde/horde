@@ -17,7 +17,7 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('imp');
+Horde_Registry::appInit('imp', array('impmode' => 'mimp'));
 
 /* Redirect back to the mailbox if folder use is not allowed. */
 if (empty($conf['user']['allow_folders'])) {

@@ -11,7 +11,7 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('imp');
+Horde_Registry::appInit('imp', array('impmode' => 'dimp'));
 
 $folder = Horde_Util::getFormData('folder');
 $uid = Horde_Util::getFormData('uid');
