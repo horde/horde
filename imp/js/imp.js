@@ -63,7 +63,12 @@ document.observe('dom:loaded', function() {
             } else if (img.getAttribute('background')) {
                 img.setAttribute('background', src);
             } else if (img.style.backgroundImage) {
-                img.style.setProperty('background-image', 'url(' + src + ')', '');
+                if (img.style.setProperty) {
+                    img.style.setProperty('background-image', 'url(' + src + ')', '');
+                } else {
+                    // IE workaround
+                    img.style.backgroundImage = 'url(' + src + ')';
+                }
             }
         });
 
