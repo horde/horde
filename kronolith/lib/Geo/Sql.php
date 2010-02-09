@@ -157,10 +157,15 @@ class Kronolith_Geo_Sql extends Kronolith_Geo
     }
 
     /**
+     * Deletes an entry from storage
      *
      * @see kronolith/lib/Driver/Kronolith_Driver_Geo#removeLocation($event_id)
+     *
+     * @param string $event_id
+     *
+     * @throws Kronolith_Exception
      */
-    public function removeLocation($event_id)
+    public function deleteLocation($event_id)
     {
         $sql = 'DELETE FROM kronolith_events_geo WHERE event_id = ?';
         $this->_write_db->query($sql, array($event_id));
