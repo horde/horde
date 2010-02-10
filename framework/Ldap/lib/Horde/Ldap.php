@@ -210,7 +210,6 @@ class Horde_Ldap
      */
     public function __construct($config = array())
     {
-        $this->PEAR('Horde_Ldap_Error');
         $this->setConfig($config);
     }
 
