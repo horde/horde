@@ -705,47 +705,9 @@ span.attachmentImg {
 }
 
 /* Context Menus */
-.context {
-    min-width: 180px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 10000;
-    border: 1px #d4d4d4 solid;
-    padding: 1px;
-    background: #f4f4f4;
-    color: #000;
-    font-size: 90%;
-}
-.context a, .context a:visited {
-    white-space: nowrap;
-    display: block;
-    padding: 4px 4px 3px 2px;
-    text-decoration: none;
-    color: #000;
-}
-.context a:hover, .context a.contextSubmenu.contextHover {
-    background: gray;
-    color: #fff;
-    cursor: pointer;
-    text-decoration: none;
-}
-.context div.sep {
-    background: silver;
-    height: 1px !important;
-    margin: 1px 0;
-    padding: 0;
-}
 .context div.contactAddr {
     font-style: italic;
     text-align: center;
-}
-.contextSubmenu {
-    background: url("graphics/popright.png") 100% 50% no-repeat;
-    padding-left: 16px;
-}
-.contextSelected {
-    background: #ffa;
 }
 
 /* Email Addresses. */

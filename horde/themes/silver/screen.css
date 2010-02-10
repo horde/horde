@@ -253,3 +253,8 @@ table.lineNumbered {
 #Growler div.horde-warning, #GrowlerLog li.horde-warning {
     background-image: url("graphics/alerts/warning.png");
 }
+
+/* Context Menus */
+.contextSubmenu {
+    background-image: url("graphics/popright.png");
+}

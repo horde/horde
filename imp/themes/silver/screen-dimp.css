@@ -25,10 +25,6 @@
     border-top: none;
 }
 
-.context a span.contextExpand {
-    background-image: url("graphics/popright.png");
-}
-
 span.infoIcon {
     background-image: url("graphics/info_icon.png");
 }
