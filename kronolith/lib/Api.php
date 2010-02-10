@@ -586,7 +586,7 @@ class Kronolith_Api extends Horde_Registry_Api
                         $existing_event = $kronolith_driver->getByUID($uid, array($calendar));
                         throw new Kronolith_Exception(_("Already Exists"),
                                                       'horde.message', null, null, $uid);
-                    } catch (Kronolith_Exception $e) {
+                    } catch (Horde_Exception $e) {
                     }
                     $result = $kronolith_driver->search($event);
                     // Check if the match really is an exact match:
