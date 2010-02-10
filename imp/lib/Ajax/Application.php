@@ -313,7 +313,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         /* Add special folders explicitly to the initial folder list, since
          * they are ALWAYS displayed and may appear outside of the folder
          * slice requested. */
-        if ($vars->initial) {
+        if ($vars->initial || $vars->reload) {
             foreach ($imptree->getSpecialMailboxes() as $val) {
                 if (!is_array($val)) {
                     $val = array($val);
