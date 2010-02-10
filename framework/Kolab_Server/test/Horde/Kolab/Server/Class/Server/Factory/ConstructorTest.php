@@ -97,7 +97,7 @@ extends Horde_Kolab_Server_LdapTestCase
             ->method('getConnection')
             ->will(
                 $this->returnValue(
-                    $this->getMock('Horde_Kolab_Server_Connection')
+                    $this->getMock('Horde_Kolab_Server_Connection_Interface')
                 )
             );
         $factory = new Horde_Kolab_Server_Factory_Constructor(
@@ -105,7 +105,7 @@ extends Horde_Kolab_Server_LdapTestCase
             $this->search, $this->schema, array('basedn' => 'test')
         );
         $this->assertType(
-            'Horde_Kolab_Server_Connection',
+            'Horde_Kolab_Server_Connection_Interface',
             $factory->getConnection()
         );
     }

@@ -91,7 +91,7 @@ class Horde_Kolab_Server_Class_Server_Decorator_LogTest extends PHPUnit_Framewor
     {
         $result = $this->getMock('Horde_Kolab_Server_Result_Interface');
         $query = $this->getMock(
-            'Horde_Kolab_Server_Query_Element', array(), array(), '', false
+            'Horde_Kolab_Server_Query_Element_Interface', array(), array(), '', false
         );
         $this->server->expects($this->exactly(1))
             ->method('find')
@@ -107,14 +107,14 @@ class Horde_Kolab_Server_Class_Server_Decorator_LogTest extends PHPUnit_Framewor
     {
         $result = $this->getMock('Horde_Kolab_Server_Result_Interface');
         $query = $this->getMock(
-            'Horde_Kolab_Server_Query_Element', array(), array(), '', false
+            'Horde_Kolab_Server_Query_Element_Interface', array(), array(), '', false
         );
         $this->server->expects($this->exactly(1))
             ->method('findBelow')
             ->with($query, 'none')
             ->will($this->returnValue($result));
         $this->assertType(
-            'Horde_Kolab_Server_Result',
+            'Horde_Kolab_Server_Result_Interface',
             $this->logged->findBelow($query, 'none')
         );
     }
