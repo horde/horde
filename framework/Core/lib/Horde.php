@@ -561,7 +561,8 @@ HTML;
      *
      * @return Horde_Url|boolean  The HTML to create the link.
      */
-    static public function getServiceLink($type, $app, $override = false)
+    static public function getServiceLink($type, $app = null,
+                                          $override = false)
     {
         if (!in_array($type, array('ajax', 'cache', 'download', 'go', 'prefsapi')) &&
             !self::showService($type, $override)) {
@@ -587,8 +588,11 @@ HTML;
         case 'options':
         case 'prefsapi':
             if (!in_array($GLOBALS['conf']['prefs']['driver'], array('', 'none'))) {
-                return self::url($webroot . ($type == 'options' ? '/services/prefs.php' : '/services/prefs/'))
-                    ->add('app', $app);
+                $url = self::url($webroot . ($type == 'options' ? '/services/prefs.php' : '/services/prefs/'));
+                if (!is_null($app)) {
+                    $url->add('app', $app);
+                }
+                return $url;
             }
             break;
 
