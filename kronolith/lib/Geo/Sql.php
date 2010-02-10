@@ -86,7 +86,7 @@ class Kronolith_Geo_Sql extends Kronolith_Geo
     public function setLocation($event_id, $point)
     {
         /* First make sure it doesn't already exist */
-        $sql = 'SELECT COUNT(*) FORM kronolith_events_geo WHERE event_id = ?';
+        $sql = 'SELECT COUNT(*) FROM kronolith_events_geo WHERE event_id = ?';
         $count = $this->_db->getOne($sql, array($event_id));
         if ($count instanceof PEAR_Error) {
             Horde::logMessage($count, __FILE__, __LINE__, PEAR_LOG_ERR);
@@ -105,11 +105,11 @@ class Kronolith_Geo_Sql extends Kronolith_Geo
         }
 
         /* INSERT or UPDATE */
-        $params = array($point['lat'], $point['lng'], $event_id);
+        $params = array($point['lat'], $point['lon'], $event_id);
         if ($count) {
-            $sql = 'UPDATE kronolith_events_geo SET event_lat = ?, event_lng = ? WHERE event_id = ?';
+            $sql = 'UPDATE kronolith_events_geo SET event_lat = ?, event_lon = ? WHERE event_id = ?';
         } else {
-            $sql = 'INSERT into kronolith_events_geo (event_lat, event_lng, event_id) VALUES(?, ?, ?)';
+            $sql = 'INSERT into kronolith_events_geo (event_lat, event_lon, event_id) VALUES(?, ?, ?)';
         }
         $result = $this->_write_db->query($sql, $params);
         if ($result instanceof PEAR_Error) {
@@ -128,7 +128,7 @@ class Kronolith_Geo_Sql extends Kronolith_Geo
      */
     public function getLocation($event_id)
     {
-        $sql = 'SELECT event_lat as lat, event_lng as lng FROM kronolith_events_geo WHERE event_id = ?';
+        $sql = 'SELECT event_lat as lat, event_lon as lon FROM kronolith_events_geo WHERE event_id = ?';
         $result = $this->_db->getRow($sql, array($event_id), DB_FETCHMODE_ASSOC);
         if ($result instanceof PEAR_Error) {
             Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
