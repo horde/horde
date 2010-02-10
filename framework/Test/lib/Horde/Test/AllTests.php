@@ -41,6 +41,20 @@ class Horde_Test_AllTests
     }
 
    /**
+    * Initialize the test suite class.
+    *
+    * @param string $package The name of the package tested by this suite.
+    * @param string $file    The path of the AllTests class.
+    *
+    * @return NULL
+    */
+    public static function init($package, $file)
+    {
+        self::$_package = $package;
+        self::$_file = $file;
+    }
+
+   /**
     * Collect the unit tests of this directory into a new suite.
     *
     * @return PHPUnit_Framework_TestSuite The test suite.
