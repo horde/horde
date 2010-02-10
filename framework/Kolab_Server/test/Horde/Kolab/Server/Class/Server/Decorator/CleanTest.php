@@ -86,16 +86,16 @@ class Horde_Kolab_Server_Class_Server_Decorator_CleanTest extends PHPUnit_Framew
 
     public function testMethodFindHasPostconditionThatTheCallWasDelegatedToTheServer()
     {
-        $result = $this->getMock('Horde_Kolab_Server_Result');
+        $result = $this->getMock('Horde_Kolab_Server_Result_Interface');
         $query = $this->getMock(
-            'Horde_Kolab_Server_Query_Element', array(), array(), '', false
+            'Horde_Kolab_Server_Query_Element_Interface', array(), array(), '', false
         );
         $this->server->expects($this->exactly(1))
             ->method('find')
             ->with($query)
             ->will($this->returnValue($result));
         $this->assertType(
-            'Horde_Kolab_Server_Result',
+            'Horde_Kolab_Server_Result_Interface',
             $this->cleaner->find($query)
         );
     }
@@ -104,7 +104,7 @@ class Horde_Kolab_Server_Class_Server_Decorator_CleanTest extends PHPUnit_Framew
     {
         $result = $this->getMock('Horde_Kolab_Server_Result_Interface');
         $query = $this->getMock(
-            'Horde_Kolab_Server_Query_Element', array(), array(), '', false
+            'Horde_Kolab_Server_Query_Element_Interface', array(), array(), '', false
         );
         $this->server->expects($this->exactly(1))
             ->method('findBelow')
