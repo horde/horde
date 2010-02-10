@@ -187,7 +187,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
             return false;
         }
 
-        $event = $kronolith_driver->getEvent($id);
+        $event = $kronolith_driver->getEvent($vars->id);
         if (!$event) {
             $GLOBALS['notification']->push(_("The requested event was not found."), 'horde.error');
             return false;
