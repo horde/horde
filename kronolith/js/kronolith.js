@@ -3050,7 +3050,10 @@ KronolithCore = {
         var drop = e.element(),
             el = e.memo.element,
             eventid = el.retrieve('eventid'),
-            cal = el.retrieve('calendar');
+            cal = el.retrieve('calendar'),
+            viewDates = this.viewDates(this.date, 'month'),
+            start = viewDates[0].toString('yyyyMMdd'),
+            end = viewDates[1].toString('yyyyMMdd');
 
         if (drop == el.parentNode) {
             return;
@@ -3075,6 +3078,10 @@ KronolithCore = {
 
     onDragStart: function(e)
     {
+        if (this.view == 'month') {
+            return;
+        }
+
         var elt = e.element();
 
         if (elt.hasClassName('kronolithDragger')) {
@@ -3086,6 +3093,10 @@ KronolithCore = {
 
     onDrag: function(e)
     {
+        if (this.view == 'month') {
+            return;
+        }
+
         var elt = e.element(),
             drag = DragDrop.Drags.getDrag(elt),
             event = drag.event.value,
@@ -3137,6 +3148,10 @@ KronolithCore = {
 
     onDragEnd: function(e)
     {
+        if (this.view == 'month') {
+            return;
+        }
+
         if (!e.element().hasClassName('kronolithDragger') &&
             !e.element().hasClassName('kronolithEditable')) {
             return;
@@ -3149,8 +3164,8 @@ KronolithCore = {
             storage = this.view + 'Sizes',
             step = this[storage].height / 6,
             dates = this.viewDates(date, this.view),
-            start = dates[0].toString('yyyyMMdd'),
-            end = dates[1].toString('yyyyMMdd'),
+            start = dates[0].dateString(),
+            end = dates[1].dateString(),
             attributes;
 
         div.removeClassName('kronolithSelected');
