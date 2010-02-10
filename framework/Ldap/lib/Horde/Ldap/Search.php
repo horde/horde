@@ -1,17 +1,17 @@
 <?php
 /**
- * File containing the Net_LDAP2_Search interface class.
+ * File containing the Horde_Ldap_Search interface class.
  *
  * PHP version 5
  *
  * @category  Net
- * @package   Net_LDAP2
+ * @package   Horde_Ldap
  * @author    Tarjej Huse <tarjei@bergfald.no>
  * @author    Benedikt Hallinger <beni@php.net>
  * @copyright 2009 Tarjej Huse, Benedikt Hallinger
  * @license   http://www.gnu.org/licenses/lgpl-3.0.txt LGPLv3
  * @version   SVN: $Id: Search.php 286718 2009-08-03 07:30:49Z beni $
- * @link      http://pear.php.net/package/Net_LDAP2/
+ * @link      http://pear.php.net/package/Horde_Ldap/
  */
 
 /**
@@ -23,13 +23,13 @@
  * Result set of an LDAP search
  *
  * @category Net
- * @package  Net_LDAP2
+ * @package  Horde_Ldap
  * @author   Tarjej Huse <tarjei@bergfald.no>
  * @author   Benedikt Hallinger <beni@php.net>
  * @license  http://www.gnu.org/copyleft/lesser.html LGPL
- * @link     http://pear.php.net/package/Net_LDAP22/
+ * @link     http://pear.php.net/package/Horde_Ldap2/
  */
-class Net_LDAP2_Search extends PEAR implements Iterator
+class Horde_Ldap_Search implements Iterator
 {
     /**
      * Search result identifier
@@ -48,12 +48,12 @@ class Net_LDAP2_Search extends PEAR implements Iterator
     protected $_link;
 
     /**
-     * Net_LDAP2 object
+     * Horde_Ldap object
      *
-     * A reference of the Net_LDAP2 object for passing to Net_LDAP2_Entry
+     * A reference of the Horde_Ldap object for passing to Horde_Ldap_Entry
      *
      * @access protected
-     * @var object Net_LDAP2
+     * @var object Horde_Ldap
      */
     protected $_ldap;
 
@@ -91,7 +91,7 @@ class Net_LDAP2_Search extends PEAR implements Iterator
      * What attributes we searched for
      *
      * The $attributes array contains the names of the searched attributes and gets
-     * passed from $Net_LDAP2->search() so the Net_LDAP2_Search object can tell
+     * passed from $Horde_Ldap->search() so the Horde_Ldap_Search object can tell
      * what attributes was searched for ({@link searchedAttrs())
      *
      * This variable gets set from the constructor and returned
@@ -116,18 +116,16 @@ class Net_LDAP2_Search extends PEAR implements Iterator
      * Constructor
      *
      * @param resource           &$search    Search result identifier
-     * @param Net_LDAP2|resource &$ldap      Net_LDAP2 object or just a LDAP-Link resource
+     * @param Horde_Ldap|resource &$ldap      Horde_Ldap object or just a LDAP-Link resource
      * @param array              $attributes (optional) Array with searched attribute names. (see {@link $_searchedAttrs})
      *
      * @access public
      */
     public function __construct(&$search, &$ldap, $attributes = array())
     {
-        $this->PEAR('Net_LDAP2_Error');
-
         $this->setSearch($search);
 
-        if ($ldap instanceof Net_LDAP2) {
+        if ($ldap instanceof Horde_Ldap) {
             $this->_ldap =& $ldap;
             $this->setLink($this->_ldap->getLink());
         } else {
@@ -160,11 +158,11 @@ class Net_LDAP2_Search extends PEAR implements Iterator
     /**
      * Get the next entry in the searchresult.
      *
-     * This will return a valid Net_LDAP2_Entry object or false, so
+     * This will return a valid Horde_Ldap_Entry object or false, so
      * you can use this method to easily iterate over the entries inside
      * a while loop.
      *
-     * @return Net_LDAP2_Entry|false  Reference to Net_LDAP2_Entry object or false
+     * @return Horde_Ldap_Entry|false  Reference to Horde_Ldap_Entry object or false
      */
     public function &shiftEntry()
     {
@@ -175,15 +173,15 @@ class Net_LDAP2_Search extends PEAR implements Iterator
 
         if (is_null($this->_entry)) {
             $this->_entry = @ldap_first_entry($this->_link, $this->_search);
-            $entry = Net_LDAP2_Entry::createConnected($this->_ldap, $this->_entry);
-            if ($entry instanceof Net_LDAP2_Error) $entry = false;
+            $entry = Horde_Ldap_Entry::createConnected($this->_ldap, $this->_entry);
+            if ($entry instanceof Horde_Ldap_Error) $entry = false;
         } else {
             if (!$this->_entry = @ldap_next_entry($this->_link, $this->_entry)) {
                 $false = false;
                 return $false;
             }
-            $entry = Net_LDAP2_Entry::createConnected($this->_ldap, $this->_entry);
-            if ($entry instanceof Net_LDAP2_Error) $entry = false;
+            $entry = Horde_Ldap_Entry::createConnected($this->_ldap, $this->_entry);
+            if ($entry instanceof Horde_Ldap_Error) $entry = false;
         }
         return $entry;
     }
@@ -192,7 +190,7 @@ class Net_LDAP2_Search extends PEAR implements Iterator
      * Alias function of shiftEntry() for perl-ldap interface
      *
      * @see shiftEntry()
-     * @return Net_LDAP2_Entry|false
+     * @return Horde_Ldap_Entry|false
      */
     public function shift_entry()
     {
@@ -206,7 +204,7 @@ class Net_LDAP2_Search extends PEAR implements Iterator
      * This is the opposite to {@link shiftEntry()} and is also very useful
      * to be used inside a while loop.
      *
-     * @return Net_LDAP2_Entry|false
+     * @return Horde_Ldap_Entry|false
      */
     public function popEntry()
     {
@@ -223,7 +221,7 @@ class Net_LDAP2_Search extends PEAR implements Iterator
      * Alias function of popEntry() for perl-ldap interface
      *
      * @see popEntry()
-     * @return Net_LDAP2_Entry|false
+     * @return Horde_Ldap_Entry|false
      */
     public function pop_entry()
     {
@@ -249,7 +247,7 @@ class Net_LDAP2_Search extends PEAR implements Iterator
      * @param array $attrs Array of attribute names to sort; order from left to right.
      * @param int   $order Ordering direction, either constant SORT_ASC or SORT_DESC
      *
-     * @return array|Net_LDAP2_Error   Array with sorted entries or error
+     * @return array|Horde_Ldap_Error   Array with sorted entries or error
      * @todo what about server side sorting as specified in http://www.ietf.org/rfc/rfc2891.txt?
      */
     public function sorted_as_struct($attrs = array('cn'), $order = SORT_ASC)
@@ -339,7 +337,7 @@ class Net_LDAP2_Search extends PEAR implements Iterator
     /**
      * Return entries sorted as objects
      *
-     * This returns a array with sorted Net_LDAP2_Entry objects.
+     * This returns a array with sorted Horde_Ldap_Entry objects.
      * The sorting is actually done with {@link sorted_as_struct()}.
      *
      * Please note that attribute names are case sensitive!
@@ -356,7 +354,7 @@ class Net_LDAP2_Search extends PEAR implements Iterator
      * @param array $attrs Array of sort attributes to sort; order from left to right.
      * @param int   $order Ordering direction, either constant SORT_ASC or SORT_DESC
      *
-     * @return array|Net_LDAP2_Error   Array with sorted Net_LDAP2_Entries or error
+     * @return array|Horde_Ldap_Error   Array with sorted Horde_Ldap_Entries or error
      * @todo Entry object construction could be faster. Maybe we could use one of the factorys instead of fetching the entry again
      */
     public function sorted($attrs = array('cn'), $order = SORT_ASC)
@@ -478,7 +476,7 @@ class Net_LDAP2_Search extends PEAR implements Iterator
      *
      * @access protected
      */
-    public function _Net_LDAP2_Search()
+    public function _Horde_Ldap_Search()
     {
         @ldap_free_result($this->_search);
     }
@@ -490,7 +488,7 @@ class Net_LDAP2_Search extends PEAR implements Iterator
      */
     public function done()
     {
-        $this->_Net_LDAP2_Search();
+        $this->_Horde_Ldap_Search();
     }
 
     /**
@@ -518,7 +516,7 @@ class Net_LDAP2_Search extends PEAR implements Iterator
 
     /*
      * SPL Iterator interface methods.
-     * This interface allows to use Net_LDAP2_Search
+     * This interface allows to use Horde_Ldap_Search
      * objects directly inside a foreach loop!
      */
     /**
@@ -535,7 +533,7 @@ class Net_LDAP2_Search extends PEAR implements Iterator
      * In case no call to next() was made, we will issue one,
      * thus returning the first entry.
      *
-     * @return Net_LDAP2_Entry|false
+     * @return Horde_Ldap_Entry|false
      */
     public function current()
     {
@@ -544,7 +542,7 @@ class Net_LDAP2_Search extends PEAR implements Iterator
             reset($this->_iteratorCache);
         }
         $entry = current($this->_iteratorCache);
-        return ($entry instanceof Net_LDAP2_Entry)? $entry : false;
+        return ($entry instanceof Horde_Ldap_Entry)? $entry : false;
     }
 
     /**
@@ -556,7 +554,7 @@ class Net_LDAP2_Search extends PEAR implements Iterator
     public function key()
     {
         $entry = $this->current();
-        return ($entry instanceof Net_LDAP2_Entry)? $entry->dn() :false;
+        return ($entry instanceof Horde_Ldap_Entry)? $entry->dn() :false;
     }
 
     /**
@@ -593,7 +591,7 @@ class Net_LDAP2_Search extends PEAR implements Iterator
      */
     public function valid()
     {
-        return ($this->current() instanceof Net_LDAP2_Entry);
+        return ($this->current() instanceof Horde_Ldap_Entry);
     }
 
     /**
