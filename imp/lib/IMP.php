@@ -410,14 +410,15 @@ class IMP
             $out = substr($folder, strlen($ns_info['name']));
         } else {
             $out = $folder;
-        };
+        }
 
         if ($notranslate) {
             return $out;
         }
 
         foreach ($sub_array as $key => $val) {
-            if (stripos($out, $key) === 0) {
+            if ((($key != 'INBOX') || ($folder == $out)) &&
+                stripos($out, $key) === 0) {
                 $len = strlen($key);
                 if ((strlen($out) == $len) || ($out[$len] == $delimiter)) {
                     $out = substr_replace($out, Horde_String::convertCharset($val, Horde_Nls::getCharset(), 'UTF7-IMAP'), 0, $len);
