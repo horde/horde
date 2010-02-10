@@ -83,9 +83,13 @@ class Horde_Db_Migration_BaseTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->_conn = new Horde_Db_Adapter_Pdo_Sqlite(array(
-            'dbname' => ':memory:',
-        ));
+        try {
+            $this->_conn = new Horde_Db_Adapter_Pdo_Sqlite(array(
+                'dbname' => ':memory:',
+            ));
+        } catch (Horde_Db_Exception $e) {
+            $this->markTestSkipped('The sqlite adapter is not available');
+        }
     }
 
     public function testAddTable()

@@ -28,9 +28,13 @@ class Horde_Db_Migration_MigratorTest extends PHPUnit_Framework_TestCase
     {
         $this->_logger = new Horde_Log_Logger(new Horde_Log_Handler_Null());
 
-        $this->_conn = new Horde_Db_Adapter_Pdo_Sqlite(array(
-            'dbname' => ':memory:',
-        ));
+        try {
+            $this->_conn = new Horde_Db_Adapter_Pdo_Sqlite(array(
+                'dbname' => ':memory:',
+            ));
+        } catch (Horde_Db_Exception $e) {
+            $this->markTestSkipped('The sqlite adapter is not available');
+        }
 
         /*
 CREATE TABLE users (
