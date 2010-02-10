@@ -3,8 +3,7 @@
 <!--
 function deleteIdentity()
 {
-    var index = document.prefs.identity.selectedIndex;
-    var id = document.prefs.identity.options[index].value;
+    var id = document.prefs.identity.options[document.prefs.identity.selectedIndex].value;
     if (id >= 0) {
         document.location.href = "<?php echo str_replace('&amp;', '&', Horde_Util::addParameter(Horde::selfUrl(true), array('actionID' => 'delete_identity', 'id' => ''))) ?>" + id;
     }
