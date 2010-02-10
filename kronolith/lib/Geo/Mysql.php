@@ -14,7 +14,7 @@
  */
 class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
 {
-    // Rouughly 69 miles per distance unit
+    // Roughly 69 miles per distance unit
     private $_conversionFactor = 69;
 
     /**
