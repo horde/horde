@@ -322,9 +322,9 @@ class IMP_Compose
 
         /* Add the message to the mailbox. */
         try {
-            if ($this->getMetadata('autodraft')) {
-                $old_uid = $this->getMetadata('draft_uid');
-            }
+            $old_uid = $this->getMetadata('autodraft')
+                ? $this->getMetadata('draft_uid')
+                : null;
 
             $ids = $GLOBALS['imp_imap']->ob()->append($drafts_mbox, array(array('data' => $data, 'flags' => $append_flags, 'messageid' => $headers->getValue('message-id'))));
 
