@@ -678,8 +678,12 @@ class Horde_Mime
      */
     static public function isChild($base, $id)
     {
+        if (substr($base, -2) == '.0') {
+            $base = substr($base, 0, -1);
+        }
+
         return ((($base == 0) && ($id != 0)) ||
-                strpos(strval($id), strval($base)) === 0);
+                (strpos(strval($id), strval($base)) === 0));
     }
 
     /**
