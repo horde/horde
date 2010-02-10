@@ -14,13 +14,6 @@
 class Horde_Text_Filter
 {
     /**
-     * Filter parameters.
-     *
-     * @var array
-     */
-    protected $_params = array();
-
-    /**
      * Attempts to return a concrete instance based on $driver.
      *
      * @param mixed $driver  The type of concrete subclass to return.
@@ -52,16 +45,6 @@ class Horde_Text_Filter
     }
 
     /**
-     * Constructor.
-     *
-     * @param array $params  Any parameters that the filter instance needs.
-     */
-    public function __construct($params = array())
-    {
-        $this->_params = array_merge($this->_params, $params);
-    }
-
-    /**
      * Applies a set of patterns to a block of text.
      *
      * @param string $text     The text to filter.
@@ -69,7 +52,7 @@ class Horde_Text_Filter
      *
      * @return string  The transformed text.
      */
-    public function filter($text, $filters = array(), $params = array())
+    static public function filter($text, $filters = array(), $params = array())
     {
         if (!is_array($filters)) {
             $filters = array($filters);
@@ -108,40 +91,6 @@ class Horde_Text_Filter
             $text = $filterOb->postProcess($text);
         }
 
-        return $text;
-    }
-
-    /**
-     * Executes any code necessaray before applying the filter patterns.
-     *
-     * @param string $text  The text before the filtering.
-     *
-     * @return string  The modified text.
-     */
-    public function preProcess($text)
-    {
-        return $text;
-    }
-
-    /**
-     * Returns a hash with replace patterns.
-     *
-     * @return array  Patterns hash.
-     */
-    public function getPatterns()
-    {
-        return array();
-    }
-
-    /**
-     * Executes any code necessaray after applying the filter patterns.
-     *
-     * @param string $text  The text after the filtering.
-     *
-     * @return string  The modified text.
-     */
-    public function postProcess($text)
-    {
         return $text;
     }
 

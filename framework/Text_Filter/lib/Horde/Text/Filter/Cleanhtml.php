@@ -20,7 +20,7 @@
  * @author  Michael Slusarz <jan@horde.org>
  * @package Horde_Text
  */
-class Horde_Text_Filter_Cleanhtml extends Horde_Text_Filter
+class Horde_Text_Filter_Cleanhtml extends Horde_Text_Filter_Base
 {
     /**
      * Filter parameters.

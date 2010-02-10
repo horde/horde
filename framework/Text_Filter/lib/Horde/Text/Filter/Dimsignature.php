@@ -11,7 +11,7 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Horde_Text
  */
-class Horde_Text_Filter_Dimsignature extends Horde_Text_Filter
+class Horde_Text_Filter_Dimsignature extends Horde_Text_Filter_Base
 {
     /**
      * Executes any code necessary after applying the filter patterns.

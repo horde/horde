@@ -16,7 +16,7 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Horde_Text
  */
-class Horde_Text_Filter_Cleanascii extends Horde_Text_Filter
+class Horde_Text_Filter_Cleanascii extends Horde_Text_Filter_Base
 {
     /**
      * Executes any code necessary before applying the filter patterns.

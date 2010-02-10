@@ -12,7 +12,7 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Horde_Text
  */
-class Horde_Text_Filter_Tabs2spaces extends Horde_Text_Filter
+class Horde_Text_Filter_Tabs2spaces extends Horde_Text_Filter_Base
 {
     /**
      * Filter parameters.

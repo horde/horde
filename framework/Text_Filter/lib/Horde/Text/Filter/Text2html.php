@@ -36,7 +36,7 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Horde_Text
  */
-class Horde_Text_Filter_Text2html extends Horde_Text_Filter
+class Horde_Text_Filter_Text2html extends Horde_Text_Filter_Base
 {
     const PASSTHRU = 0;
     const SYNTAX = 1;
@@ -108,7 +108,7 @@ class Horde_Text_Filter_Text2html extends Horde_Text_Filter
             if ($this->_params['parselevel'] < self::MICRO_LINKURL) {
                 $filters['emails'] = array('encode' => true);
             }
-            $text = parent::filter($text, array_keys($filters), array_values($filters));
+            $text = Horde_Text_Filter::filter($text, array_keys($filters), array_values($filters));
         }
 
         /* For level MICRO or NOHTML, start with htmlspecialchars(). */
@@ -130,7 +130,7 @@ class Horde_Text_Filter_Text2html extends Horde_Text_Filter
                 $text = Horde_Text_Filter_Emails::decode($text);
             }
 
-            $text = parent::filter($text, 'space2html');
+            $text = Horde_Text_Filter::filter($text, 'space2html');
         }
 
         /* Do the newline ---> <br /> substitution. Everybody gets this; if

@@ -52,6 +52,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <dir name="Horde">
      <dir name="Text">
       <dir name="Filter">
+       <file name="Base.php" role="php" />
        <file name="Bbcode.php" role="php" />
        <file name="Cleanascii.php" role="php" />
        <file name="Cleanhtml.php" role="php" />
@@ -197,6 +198,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.5.4</min>
    </pearinstaller>
    <package>
+    <name>Core</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Util</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -213,6 +218,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
+   <install name="lib/Horde/Text/Filter/Base.php" as="Horde/Text/Filter/Base.php" />
    <install name="lib/Horde/Text/Filter/Bbcode.php" as="Horde/Text/Filter/Bbcode.php" />
    <install name="lib/Horde/Text/Filter/Cleanascii.php" as="Horde/Text/Filter/Cleanascii.php" />
    <install name="lib/Horde/Text/Filter/Cleanhtml.php" as="Horde/Text/Filter/Cleanhtml.php" />

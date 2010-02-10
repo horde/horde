@@ -57,7 +57,7 @@
  * @author  Carlos Pedrinaci <cpedrinaci@yahoo.es>
  * @package Horde_Text_Filter
  */
-class Horde_Text_Filter_Bbcode extends Horde_Text_Filter
+class Horde_Text_Filter_Bbcode extends Horde_Text_Filter_Base
 {
     /**
      * Filter parameters.

@@ -21,7 +21,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Text
  */
-class Horde_Text_Filter_Html2text extends Horde_Text_Filter
+class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
 {
     /**
      * The list of links contained in the message.

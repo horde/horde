@@ -16,7 +16,7 @@
  * @author  Marko Djukic <marko@oblo.com>
  * @package Horde_Text
  */
-class Horde_Text_Filter_Emoticons extends Horde_Text_Filter
+class Horde_Text_Filter_Emoticons extends Horde_Text_Filter_Base
 {
     /**
      * Filter parameters.

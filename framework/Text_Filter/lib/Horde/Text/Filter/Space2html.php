@@ -18,7 +18,7 @@
  * @author  Mathieu Arnold <mat@mat.cc>
  * @package Horde_Text
  */
-class Horde_Text_Filter_Space2html extends Horde_Text_Filter
+class Horde_Text_Filter_Space2html extends Horde_Text_Filter_Base
 {
     /**
      * Filter parameters.

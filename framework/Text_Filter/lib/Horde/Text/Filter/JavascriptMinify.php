@@ -11,7 +11,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Text_Filter
  */
-class Horde_Text_Filter_JavascriptMinify extends Horde_Text_Filter
+class Horde_Text_Filter_JavascriptMinify extends Horde_Text_Filter_Base
 {
     /**
      * Filter parameters.

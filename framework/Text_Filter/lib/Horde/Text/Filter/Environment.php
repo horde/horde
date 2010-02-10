@@ -12,7 +12,7 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Horde_Text
  */
-class Horde_Text_Filter_Environment extends Horde_Text_Filter
+class Horde_Text_Filter_Environment extends Horde_Text_Filter_Base
 {
     /**
      * Returns a hash with replace patterns.

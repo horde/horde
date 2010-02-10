@@ -21,7 +21,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Text
  */
-class Horde_Text_Filter_Csstidy extends Horde_Text_Filter
+class Horde_Text_Filter_Csstidy extends Horde_Text_Filter_Base
 {
     /**
      * Filter parameters.
