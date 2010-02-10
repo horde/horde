@@ -218,7 +218,7 @@ class Horde_Prefs_File extends Horde_Prefs
         }
 
         if ($this->_writeCache() == false) {
-            throw new Horde_Exception('Write of preferences to %s failed', $this->_filename);
+            throw new Horde_Exception(sprintf('Write of preferences to %s failed', $this->_filename));
         }
 
         return true;
