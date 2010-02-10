@@ -97,6 +97,13 @@ class Horde_Text_Filter
                 $text = preg_replace(array_keys($patterns['regexp']), array_values($patterns['regexp']), $text);
             }
 
+            /* preg_replace_callback complex patterns. */
+            if (isset($patterns['regexp_callback'])) {
+                foreach ($patterns['regexp_callback'] as $key => $val) {
+                    $text = preg_replace_callback($key, $val, $text);
+                }
+            }
+
             /* Post-processing. */
             $text = $filterOb->postProcess($text);
         }

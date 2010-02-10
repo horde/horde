@@ -37,7 +37,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Add 'noprefetch' parameter to XSS filter (Ticket #8836).
+ <notes>* Add ability to define filters to use with preg_replace_callback().
+ * Add 'noprefetch' parameter to XSS filter (Ticket #8836).
  * Add XSS filtering for data URLs in A HREF parameters (Bug #8715).
  * Add support for Google Closure Compiler in javascript minfiy filter.
  * Fix dimming signatures when mixed with quoted text (Bug #4299).
