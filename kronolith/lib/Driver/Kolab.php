@@ -448,24 +448,6 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         if (is_callable('Kolab', 'triggerFreeBusyUpdate')) {
             Kolab::triggerFreeBusyUpdate($this->_store->parseFolder($calendar));
         }
-        return true;
-    }
-
-    /**
-     * Rename a calendar.
-     *
-     * @param string $from  The current name of the calendar.
-     * @param string $to    The new name of the calendar.
-     *
-     * @return mixed  True or a PEAR_Error on failure.
-     */
-    public function rename($from, $to)
-    {
-        // FIXME: We can't do much here. We'd need to be called after
-        // renaming the share here. This needs to be checked again.
-        // kolab/issue2249 ([horde/kronolith] Kronolith is unable to
-        // trigger a free/busy update on a folder rename)
-        return true;
     }
 
     /**

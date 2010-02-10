@@ -53,12 +53,6 @@ class Kronolith_EditResourceGroupForm extends Horde_Form {
         $this->_resource->set('name', $new_name);
         $this->_resource->set('description', $this->_vars->get('description'));
         $this->_resource->set('members', $this->_vars->get('members'));
-        if ($original_name != $new_name) {
-            $result = Kronolith::getDriver()->rename($original_name, $new_name);
-            if (is_a($result, 'PEAR_Error')) {
-                return PEAR::raiseError(sprintf(_("Unable to rename \"%s\": %s"), $original_name, $result->getMessage()));
-            }
-        }
 
         $result = $this->_resource->save();
         if (is_a($result, 'PEAR_Error')) {

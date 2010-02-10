@@ -122,19 +122,6 @@ class Kronolith_Driver
     }
 
     /**
-     * Renames a calendar.
-     *
-     * @param string $from  The current name of the calendar.
-     * @param string $to    The new name of the calendar.
-     *
-     * @return mixed  True or a PEAR_Error on failure.
-     */
-    public function rename($from, $to)
-    {
-        return true;
-    }
-
-    /**
      * Searches a calendar.
      *
      * @param object $query  An object with the criteria to search for.
