@@ -44,9 +44,9 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
 
         /* INSERT or UPDATE */
         if ($count) {
-            $sql = "UPDATE kronolith_events_geo SET event_coordinates = GeomFromText('POINT(" . $point['lat'] . " " . $point['lon'] . ")') WHERE event_id = ?";
+            $sql = "UPDATE kronolith_events_geo SET event_coordinates = GeomFromText('POINT(" . (float)$point['lat'] . " " . (float)$point['lon'] . ")') WHERE event_id = ?";
         } else {
-            $sql = "INSERT into kronolith_events_geo (event_id, event_coordinates) VALUES(?, GeomFromText('POINT(" . $point['lat'] . " " . $point['lon'] . ")'))";
+            $sql = "INSERT into kronolith_events_geo (event_id, event_coordinates) VALUES(?, GeomFromText('POINT(" . (float)$point['lat'] . " " . (float)$point['lon'] . ")'))";
         }
         $result = $this->_write_db->query($sql, array($event_id));
         if ($result instanceof PEAR_Error) {
@@ -96,9 +96,9 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
         /* Allow overriding the default conversion factor */
         $factor = empty($criteria['factor']) ? $this->_conversionFactor : $criteria['factor'];
 
-        $params = array($point['lat'] . ' ' . $point['lon'], $factor, $radius, $limit);
+        $params = array($factor, $radius, $limit);
         $sql = "SELECT event_id, "
-               . "GLength(LINESTRINGFromWKB(LineString(event_coordinates, GeomFromText('POINT(?)')))) * ? as distance, "
+               . "GLength(LINESTRINGFromWKB(LineString(event_coordinates, GeomFromText('POINT(" . (float)$point['lat'] . " " . (float)$point['lon'] . ")')))) * ? as distance, "
                . "x(event_coordinates) as lat, y(event_coordinates) as lon FROM kronolith_events_geo HAVING distance < ?  ORDER BY distance ASC LIMIT ?";
 
         $results = $this->_db->getAssoc($sql, false, $params, DB_FETCHMODE_ASSOC);
