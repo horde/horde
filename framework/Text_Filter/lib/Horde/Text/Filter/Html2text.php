@@ -170,9 +170,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter
         $text = strip_tags($text);
 
         /* Convert HTML entities. */
-        $trans = array_flip(get_html_translation_table(HTML_ENTITIES));
-        $trans = Horde_String::convertCharset($trans, 'ISO-8859-1', $this->_params['charset']);
-        $text = strtr($text, $trans);
+        $text = html_entity_decode($text, ENT_QUOTES, $this->_params['charset']);
 
         /* Bring down number of empty lines to 2 max. */
         $text = preg_replace("/\n[[:space:]]+\n/", "\n\n", $text);
