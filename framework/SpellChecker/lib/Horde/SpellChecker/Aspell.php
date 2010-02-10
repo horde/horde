@@ -43,7 +43,7 @@ class Horde_SpellChecker_Aspell extends Horde_SpellChecker
 
         $process = proc_open($this->_cmd(), $descspec, $pipes);
         if (!is_resource($process)) {
-            throw new Horde_Exception('Spellcheck failed. Command line: ', $this->_cmd());
+            throw new Horde_Exception('Spellcheck failed. Command line: ' . $this->_cmd());
         }
 
         $charset = Horde_Nls::getCharset();
@@ -79,7 +79,7 @@ class Horde_SpellChecker_Aspell extends Horde_SpellChecker
             if ($this->_encoding) {
                 $err = Horde_String::convertCharset($err, $this->_encoding, $charset);
             }
-            throw new Horde_Exception('Spellcheck failed. Command line: ', $this->_cmd());
+            throw new Horde_Exception('Spellcheck failed. Command line: ' . $this->_cmd());
         }
 
         if ($this->_encoding) {
