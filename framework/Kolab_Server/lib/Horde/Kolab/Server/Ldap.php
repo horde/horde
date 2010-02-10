@@ -66,7 +66,7 @@ implements Horde_Kolab_Server_Interface
         $this->_base_dn = $base_dn;
 
         $this->_handleError(
-            Net_LDAP2::checkLDAPExtension(),
+            Horde_Ldap::checkLDAPExtension(),
             Horde_Kolab_Server_Exception::MISSING_LDAP_EXTENSION
         );
     }
@@ -221,7 +221,7 @@ implements Horde_Kolab_Server_Interface
         Horde_Kolab_Server_Object_Interface $object,
         array $data
     ) {
-        $entry  = Net_LDAP2_Entry::createFresh($object->getGuid(), $data);
+        $entry  = Horde_Ldap_Entry::createFresh($object->getGuid(), $data);
         $this->_handleError($entry, Horde_Kolab_Server_Exception::SYSTEM);
         $this->_handleError(
             $this->_conn->getWrite()->add($entry),
@@ -267,7 +267,7 @@ implements Horde_Kolab_Server_Interface
     /**
      * Return the ldap schema.
      *
-     * @return Net_LDAP2_Schema The LDAP schema.
+     * @return Horde_Ldap_Schema The LDAP schema.
      *
      * @throws Horde_Kolab_Server_Exception If retrieval of the schema failed.
      */
@@ -287,7 +287,7 @@ implements Horde_Kolab_Server_Interface
      */
     public function getParentGuid($guid)
     {
-        $base = Net_LDAP2_Util::ldap_explode_dn(
+        $base = Horde_Ldap_Util::ldap_explode_dn(
             $guid,
             array(
                 'casefold' => 'none',
@@ -297,7 +297,7 @@ implements Horde_Kolab_Server_Interface
         );
         $this->_handleError($base);
         $id = array_shift($base);
-        $parent = Net_LDAP2_Util::canonical_dn(
+        $parent = Horde_Ldap_Util::canonical_dn(
             $base, array('casefold' => 'none')
         );
         $this->_handleError($parent);

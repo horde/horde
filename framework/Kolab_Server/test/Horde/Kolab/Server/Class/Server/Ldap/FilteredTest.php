@@ -36,8 +36,8 @@ class Horde_Kolab_Server_Class_Server_Ldap_FilteredTest extends Horde_Kolab_Serv
     {
         $this->skipIfNoLdap();
 
-        $this->ldap_read  = $this->getMock('Net_LDAP2');
-        $this->ldap_write = $this->getMock('Net_LDAP2');
+        $this->ldap_read  = $this->getMock('Horde_Ldap');
+        $this->ldap_write = $this->getMock('Horde_Ldap');
         $connection = new Horde_Kolab_Server_Connection_Splittedldap(
             $this->ldap_read,
             $this->ldap_write
@@ -53,7 +53,7 @@ class Horde_Kolab_Server_Class_Server_Ldap_FilteredTest extends Horde_Kolab_Serv
     private function getSearchResultMock()
     {
         $result = $this->getMock(
-            'Net_LDAP2_Search', array('as_struct', 'count'), array(), '', false
+            'Horde_Ldap_Search', array('as_struct', 'count'), array(), '', false
         );
         $result->expects($this->any())
             ->method('as_struct')

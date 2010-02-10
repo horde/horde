@@ -36,8 +36,8 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
     {
         $this->skipIfNoLdap();
 
-        $this->ldap_read  = $this->getMock('Net_LDAP2');
-        $this->ldap_write = $this->getMock('Net_LDAP2');
+        $this->ldap_read  = $this->getMock('Horde_Ldap');
+        $this->ldap_write = $this->getMock('Horde_Ldap');
         $connection = new Horde_Kolab_Server_Connection_Splittedldap(
             $this->ldap_read,
             $this->ldap_write
@@ -52,7 +52,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
     private function getSearchResultMock()
     {
         $result = $this->getMock(
-            'Net_LDAP2_Search', array('as_struct', 'count'), array(), '', false
+            'Horde_Ldap_Search', array('as_struct', 'count'), array(), '', false
         );
         $result->expects($this->any())
             ->method('as_struct')
@@ -164,7 +164,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
     public function testMethodReadThrowsExceptionIfTheObjectWasNotFound()
     {
         $result = $this->getMock(
-            'Net_LDAP2_Search', array('as_struct', 'count'), array(), '', false
+            'Horde_Ldap_Search', array('as_struct', 'count'), array(), '', false
         );
         $result->expects($this->exactly(1))
             ->method('count')
@@ -211,7 +211,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
     public function testMethodReadAttributesThrowsExceptionIfTheObjectWasNotFound()
     {
         $result = $this->getMock(
-            'Net_LDAP2_Search', array('as_struct', 'count'), array(), '', false
+            'Horde_Ldap_Search', array('as_struct', 'count'), array(), '', false
         );
         $result->expects($this->exactly(1))
             ->method('count')
@@ -276,7 +276,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
     public function testMethodSaveHasParameterObjectTheObjectToModifyOnTheServer()
     {
         $entry = $this->getMock(
-            'Net_LDAP2_Entry', array(), array(), '', false
+            'Horde_Ldap_Entry', array(), array(), '', false
         );
         $object = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $this->ldap_write->expects($this->exactly(1))
@@ -284,7 +284,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
             ->will($this->returnValue($entry));
         $this->ldap_write->expects($this->exactly(1))
             ->method('modify')
-            ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Net_LDAP2_Entry'));
+            ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Horde_Ldap_Entry'));
         $object->expects($this->exactly(1))
             ->method('readInternal')
             ->will($this->returnValue(array()));
@@ -294,7 +294,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
     public function testMethodSaveHasParameterArrayData()
     {
         $entry = $this->getMock(
-            'Net_LDAP2_Entry', array(), array(), '', false
+            'Horde_Ldap_Entry', array(), array(), '', false
         );
         $object = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $this->ldap_write->expects($this->exactly(1))
@@ -302,7 +302,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
             ->will($this->returnValue($entry));
         $this->ldap_write->expects($this->exactly(1))
             ->method('modify')
-            ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Net_LDAP2_Entry'));
+            ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Horde_Ldap_Entry'));
         $object->expects($this->exactly(1))
             ->method('readInternal')
             ->will($this->returnValue(array()));
@@ -312,7 +312,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
     public function testMethodSaveHasPostconditionThatTheEntryWasModified()
     {
         $entry = $this->getMock(
-            'Net_LDAP2_Entry', array(), array(), '', false
+            'Horde_Ldap_Entry', array(), array(), '', false
         );
         $object = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $this->ldap_write->expects($this->exactly(1))
@@ -320,7 +320,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
             ->will($this->returnValue($entry));
         $this->ldap_write->expects($this->exactly(1))
             ->method('modify')
-            ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Net_LDAP2_Entry'));
+            ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Horde_Ldap_Entry'));
         $object->expects($this->exactly(1))
             ->method('readInternal')
             ->will($this->returnValue(array()));
@@ -350,7 +350,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
         $object = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $this->ldap_write->expects($this->exactly(1))
             ->method('add')
-            ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Net_LDAP2_Entry'));
+            ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Horde_Ldap_Entry'));
         $this->server->add($object, array('attributes' => array('dn')));
     }
 
@@ -359,7 +359,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
         $object = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $this->ldap_write->expects($this->exactly(1))
             ->method('add')
-            ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Net_LDAP2_Entry'));
+            ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Horde_Ldap_Entry'));
         $this->server->add($object, array('dn' => 'test'));
     }
 
@@ -368,7 +368,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
         $object = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $this->ldap_write->expects($this->exactly(1))
             ->method('add')
-            ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Net_LDAP2_Entry'));
+            ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Horde_Ldap_Entry'));
         $this->server->add($object, array('dn' => 'test'));
     }
 
@@ -489,7 +489,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
 
 /*     public function testMethodSearchReturnsArrayMappedSearchResultIfMappingIsActivated() */
 /*     { */
-/*         $ldap = $this->getMock('Net_LDAP2', array('search')); */
+/*         $ldap = $this->getMock('Horde_Ldap', array('search')); */
 /*         $ldap->expects($this->exactly(1)) */
 /*             ->method('search') */
 /*             ->will($this->returnValue(new Search_Mock(array(array('dn2' => 'test'))))); */

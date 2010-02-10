@@ -35,7 +35,7 @@ class Horde_Kolab_Server_Class_Server_Result_LdapTest extends Horde_Kolab_Server
     public function testMethodConstructHasParameterNetldap2searchSearchResult()
     {
         $search = $this->getMock(
-            'Net_LDAP2_Search', array(), array(), '', false
+            'Horde_Ldap_Search', array(), array(), '', false
         );
         $result = new Horde_Kolab_Server_Result_Ldap($search);
     }
@@ -44,7 +44,7 @@ class Horde_Kolab_Server_Class_Server_Result_LdapTest extends Horde_Kolab_Server
     public function testMethodCountHasResultIntTheNumberOfElementsFound()
     {
         $search = $this->getMock(
-            'Net_LDAP2_Search', array('count'), array(), '', false
+            'Horde_Ldap_Search', array('count'), array(), '', false
         );
         $search->expects($this->exactly(1))
             ->method('count')
@@ -56,7 +56,7 @@ class Horde_Kolab_Server_Class_Server_Result_LdapTest extends Horde_Kolab_Server
     public function testMethodSizelimitexceededHasResultBooleanIndicatingIfTheSearchSizeLimitWasHit()
     {
         $search = $this->getMock(
-            'Net_LDAP2_Search', array('sizeLimitExceeded'), array(), '', false
+            'Horde_Ldap_Search', array('sizeLimitExceeded'), array(), '', false
         );
         $search->expects($this->exactly(1))
             ->method('sizeLimitExceeded')
@@ -68,7 +68,7 @@ class Horde_Kolab_Server_Class_Server_Result_LdapTest extends Horde_Kolab_Server
     public function testMethodAsarrayHasResultArrayWithTheSearchResults()
     {
         $search = $this->getMock(
-            'Net_LDAP2_Search', array('as_struct'), array(), '', false
+            'Horde_Ldap_Search', array('as_struct'), array(), '', false
         );
         $search->expects($this->exactly(1))
             ->method('as_struct')

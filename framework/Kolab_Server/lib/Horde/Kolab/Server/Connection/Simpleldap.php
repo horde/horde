@@ -31,16 +31,16 @@ implements Horde_Kolab_Server_Connection_Interface
     /**
      * The LDAP connection handle.
      *
-     * @var Net_LDAP2
+     * @var Horde_Ldap
      */
     private $_ldap;
 
     /**
      * Constructor
      *
-     * @param Net_LDAP2 $ldap The ldap connection.
+     * @param Horde_Ldap $ldap The ldap connection.
      */
-    public function __construct(Net_LDAP2 $ldap)
+    public function __construct(Horde_Ldap $ldap)
     {
         $this->_ldap = $ldap;
     }

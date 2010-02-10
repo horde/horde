@@ -67,10 +67,10 @@ extends Horde_Kolab_Server_Factory_Connection_Base
     public function getConnection()
     {
         $configuration = $this->getConfiguration();
-        $ldap_read = new Net_LDAP2($configuration);
+        $ldap_read = new Horde_Ldap($configuration);
         if (isset($configuration['host_master'])) {
             $configuration['host'] = $configuration['host_master'];
-            $ldap_write = new Net_LDAP2($configuration);
+            $ldap_write = new Horde_Ldap($configuration);
             $connection = new Horde_Kolab_Server_Connection_Splittedldap(
                 $ldap_read, $ldap_write
             );

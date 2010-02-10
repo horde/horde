@@ -185,7 +185,7 @@ implements Horde_Kolab_Server_Query_Interface
         Horde_Kolab_Server_Query_Element_Single $single,
         $operator
     ) {
-        $result = Net_LDAP2_Filter::create(
+        $result = Horde_Ldap_Filter::create(
             $this->_structure->mapExternalToInternalAttribute(
                 $single->getName()
             ),
@@ -208,7 +208,7 @@ implements Horde_Kolab_Server_Query_Interface
     public function convertNot(Horde_Kolab_Server_Query_Element_Not $not)
     {
         $elements = $not->getElements();
-        $result = Net_LDAP2_Filter::combine('!', $elements[0]->convert($this));
+        $result = Horde_Ldap_Filter::combine('!', $elements[0]->convert($this));
         $this->_handleError($result);
         return $result;
     }
@@ -259,7 +259,7 @@ implements Horde_Kolab_Server_Query_Interface
         foreach ($group->getElements() as $element) {
             $filters[] = $element->convert($this);
         }
-        $result = Net_LDAP2_Filter::combine($operator, $filters);
+        $result = Horde_Ldap_Filter::combine($operator, $filters);
         $this->_handleError($result);
         return $result;
     }

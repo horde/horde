@@ -24,7 +24,7 @@ require_once dirname(__FILE__) . '/Constraints/Searchcn.php';
 require_once dirname(__FILE__) . '/Constraints/Searchalias.php';
 
 /**
- * Skip LDAP based tests if we don't have ldap or Net_LDAP2.
+ * Provides functions required by several Kolab_Server tests.
  *
  * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
  *

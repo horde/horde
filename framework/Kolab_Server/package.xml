@@ -345,8 +345,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Net_LDAP2</name>
-    <channel>pear.php.net</channel>
+    <name>Horde_Ldap</name>
+    <channel>pear.horde.org</channel>
    </package>
    <extension>
     <name>ldap</name>
