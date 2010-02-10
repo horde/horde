@@ -2467,7 +2467,7 @@ var DimpBase = {
             ftype = ob.s ? 'special' : 'folder';
         }
 
-        if (ob.un) {
+        if (ob.un && this.showunsub) {
             cname += ' unsubFolder';
         }
 
