@@ -47,7 +47,7 @@ class Horde_Notification_Event
 
         if ($data instanceof PEAR_Error) {
             // DEPRECATED
-            if (($userinfo = $ob->getUserInfo()) &&
+            if (($userinfo = $data->getUserInfo()) &&
                   is_array($userinfo)) {
                 $userinfo_elts = array();
                 foreach ($userinfo as $userinfo_elt) {
