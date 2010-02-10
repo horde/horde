@@ -1,16 +1,16 @@
 <?php
 /**
- * File containing the Net_LDAP2_Util interface class.
+ * File containing the Horde_Ldap_Util interface class.
  *
  * PHP version 5
  *
  * @category  Net
- * @package   Net_LDAP2
+ * @package   Horde_Ldap
  * @author    Benedikt Hallinger <beni@php.net>
  * @copyright 2009 Benedikt Hallinger
  * @license   http://www.gnu.org/licenses/lgpl-3.0.txt LGPLv3
  * @version   SVN: $Id: Util.php 286718 2009-08-03 07:30:49Z beni $
- * @link      http://pear.php.net/package/Net_LDAP2/
+ * @link      http://pear.php.net/package/Horde_Ldap/
  */
 
 /**
@@ -19,18 +19,18 @@
 #require_once 'PEAR.php';
 
 /**
- * Utility Class for Net_LDAP2
+ * Utility Class for Horde_Ldap
  *
- * This class servers some functionality to the other classes of Net_LDAP2 but most of
+ * This class servers some functionality to the other classes of Horde_Ldap but most of
  * the methods can be used separately as well.
  *
  * @category Net
- * @package  Net_LDAP2
+ * @package  Horde_Ldap
  * @author   Benedikt Hallinger <beni@php.net>
  * @license  http://www.gnu.org/copyleft/lesser.html LGPL
- * @link     http://pear.php.net/package/Net_LDAP22/
+ * @link     http://pear.php.net/package/Horde_Ldap2/
  */
-class Net_LDAP2_Util extends PEAR
+class Horde_Ldap_Util
 {
     /**
       * Constructor
