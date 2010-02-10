@@ -111,16 +111,19 @@ class Kronolith_Geo_Sql extends Kronolith_Geo
     public function setLocation($event_id, $point)
     {
         /* First make sure it doesn't already exist */
-        $sql = "SELECT COUNT(*) FROM kronolith_events_geo WHERE event_id = ('" . $event_id . "')";
-        $count = $this->_db->getOne($sql);
+        $sql = 'SELECT COUNT(*) FORM kronolith_events_geo WHERE event_id = ?';
+        $count = $this->_db->getOne($sql, array($event_id));
         if ($count instanceof PEAR_Error) {
             throw new Horde_Exception($count->getMessage());
         }
 
-            /* Do we actually have data? */
+        /* Do we actually have data? If not, see if we are deleting an
+         * existing entry.
+         */
         if ((empty($point['lat']) || empty($point['lon'])) && $count) {
             // Delete the record.
-            $sql = "DELETE FROM kronolith_events_geo WHERE event_id = '" . $event_id . "'";
+            $this->removeLocation($event_id);
+            return;
         } elseif (empty($point['lat']) || empty($point['lon'])) {
             return;
         }
