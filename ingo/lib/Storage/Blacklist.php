@@ -30,7 +30,7 @@ class Ingo_Storage_Blacklist extends Ingo_Storage_Rule
         if (!empty($GLOBALS['conf']['storage']['maxblacklist'])) {
             $addr_count = count($addr);
             if ($addr_count > $GLOBALS['conf']['storage']['maxblacklist']) {
-                throw new Ingo_Exception(sprintf(_("Maximum number of blacklisted addresses exceeded (Total addresses: %s, Maximum addresses: %s).  Could not add new addresses to blacklist."), $addr_count, $GLOBALS['conf']['storage']['maxblacklist']), 'horde.error');
+                throw new Ingo_Exception(sprintf(_("Maximum number of blacklisted addresses exceeded (Total addresses: %s, Maximum addresses: %s).  Could not add new addresses to blacklist."), $addr_count, $GLOBALS['conf']['storage']['maxblacklist']));
             }
         }
 

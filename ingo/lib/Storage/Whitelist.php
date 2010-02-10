@@ -35,7 +35,7 @@ class Ingo_Storage_Whitelist extends Ingo_Storage_Rule
         if (!empty($GLOBALS['conf']['storage']['maxwhitelist'])) {
             $addr_count = count($addr);
             if ($addr_count > $GLOBALS['conf']['storage']['maxwhitelist']) {
-                throw new Ingo_Exception(sprintf(_("Maximum number of whitelisted addresses exceeded (Total addresses: %s, Maximum addresses: %s).  Could not add new addresses to whitelist."), $addr_count, $GLOBALS['conf']['storage']['maxwhitelist']), 'horde.error');
+                throw new Ingo_Exception(sprintf(_("Maximum number of whitelisted addresses exceeded (Total addresses: %s, Maximum addresses: %s).  Could not add new addresses to whitelist."), $addr_count, $GLOBALS['conf']['storage']['maxwhitelist']));
             }
         }
 

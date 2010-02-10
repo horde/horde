@@ -74,7 +74,7 @@ class IMP_Quota
             return new $class($params);
         }
 
-        throw new Horde_Exception('Could not create IMP_Quota instance: ' . $driver, 'horde.error');
+        throw new Horde_Exception('Could not create IMP_Quota instance: ' . $driver);
     }
 
     /**

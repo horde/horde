@@ -393,7 +393,7 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
         if (!isset($this->_layout[$row][$col]) ||
             $this->isEmpty($row, $col) ||
             $this->isCovered($row, $col)) {
-            throw new Horde_Exception('No block exists at the requested position', 'horde.error');
+            throw new Horde_Exception('No block exists at the requested position');
         }
 
         return array(
@@ -419,7 +419,7 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
     public function setBlockInfo($row, $col, $info = array())
     {
         if (!isset($this->_layout[$row][$col])) {
-            throw new Horde_Exception('No block exists at the requested position', 'horde.error');
+            throw new Horde_Exception('No block exists at the requested position');
         }
 
         if (isset($info['app'])) {
@@ -484,7 +484,7 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
             return count($this->_layout[$row]);
         }
 
-        throw new Horde_Exception(sprintf('The specified row (%d) does not exist.', $row), 'horde.error');
+        throw new Horde_Exception(sprintf('The specified row (%d) does not exist.', $row));
     }
 
     /**

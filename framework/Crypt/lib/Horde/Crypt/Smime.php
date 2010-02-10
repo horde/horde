@@ -196,9 +196,9 @@ class Horde_Crypt_Smime extends Horde_Crypt
         if ($result === true) {
             throw new Horde_Exception(_("Message Verified Successfully but the signer's certificate could not be verified."), 'horde.warning');
         } elseif ($result == -1) {
-            throw new Horde_Exception(_("Verification failed - an unknown error has occurred."), 'horde.error');
+            throw new Horde_Exception(_("Verification failed - an unknown error has occurred."));
         } else {
-            throw new Horde_Exception(_("Verification failed - this message may have been tampered with."), 'horde.error');
+            throw new Horde_Exception(_("Verification failed - this message may have been tampered with."));
         }
 
         $ob->cert = file_get_contents($output);
@@ -236,7 +236,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
             return $ret;
         }
 
-        throw new Horde_Exception(_("OpenSSL error: Could not extract data from signed S/MIME part."), 'horde.error');
+        throw new Horde_Exception(_("OpenSSL error: Could not extract data from signed S/MIME part."));
     }
 
     /**
@@ -319,7 +319,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
     {
         /* Check for required parameters. */
         if (!isset($params['pubkey'])) {
-            throw new Horde_Exception(_("A public S/MIME key is required to encrypt a message."), 'horde.error');
+            throw new Horde_Exception(_("A public S/MIME key is required to encrypt a message."));
         }
 
         /* Create temp files for input/output. */
@@ -338,7 +338,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
             }
         }
 
-        throw new Horde_Exception(_("Could not S/MIME encrypt message."), 'horde.error');
+        throw new Horde_Exception(_("Could not S/MIME encrypt message."));
     }
 
     /**
@@ -368,7 +368,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
         if (!isset($params['pubkey']) ||
             !isset($params['privkey']) ||
             !array_key_exists('passphrase', $params)) {
-            throw new Horde_Exception(_("A public S/MIME key, private S/MIME key, and passphrase are required to sign a message."), 'horde.error');
+            throw new Horde_Exception(_("A public S/MIME key, private S/MIME key, and passphrase are required to sign a message."));
         }
 
         /* Create temp files for input/output/certificates. */
@@ -399,7 +399,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
         }
 
         if (!$res) {
-            throw new Horde_Exception(_("Could not S/MIME sign message."), 'horde.error');
+            throw new Horde_Exception(_("Could not S/MIME sign message."));
         }
 
         $data = file_get_contents($output);
@@ -430,7 +430,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
         if (!isset($params['pubkey']) ||
             !isset($params['privkey']) ||
             !array_key_exists('passphrase', $params)) {
-            throw new Horde_Exception(_("A public S/MIME key, private S/MIME key, and passphrase are required to decrypt a message."), 'horde.error');
+            throw new Horde_Exception(_("A public S/MIME key, private S/MIME key, and passphrase are required to decrypt a message."));
         }
 
         /* Create temp files for input/output. */
@@ -448,7 +448,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
             return file_get_contents($output);
         }
 
-        throw new Horde_Exception(_("Could not decrypt S/MIME data."), 'horde.error');
+        throw new Horde_Exception(_("Could not decrypt S/MIME data."));
     }
 
     /**
@@ -1225,7 +1225,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
         $this->checkForOpenSSL();
 
         if (!isset($params['sslpath'])) {
-            throw new Horde_Exception(_("No path to the OpenSSL binary provided. The OpenSSL binary is necessary to work with PKCS 12 data."), 'horde.error');
+            throw new Horde_Exception(_("No path to the OpenSSL binary provided. The OpenSSL binary is necessary to work with PKCS 12 data."));
         }
         $sslpath = escapeshellcmd($params['sslpath']);
 
@@ -1264,7 +1264,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
 
         $ob->private = trim(file_get_contents($output));
         if (empty($ob->private)) {
-            throw new Horde_Exception(_("Password incorrect"), 'horde.error');
+            throw new Horde_Exception(_("Password incorrect"));
         }
 
         /* Extract the client public key next. */
