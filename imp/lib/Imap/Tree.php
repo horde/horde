@@ -277,7 +277,7 @@ class IMP_Imap_Tree
         }
 
         /* Create the list (INBOX and all other hierarchies). */
-        $this->insert($this->_getList($this->_showunsub));
+        $this->_insert($this->_getList($this->_showunsub), $this->_showunsub ? null : true);
 
         /* Add virtual folders to the tree. */
         $this->insertVFolders($GLOBALS['imp_search']->listQueries(IMP_Search::LIST_VFOLDER));
@@ -289,32 +289,37 @@ class IMP_Imap_Tree
      *
      * @param boolean $showunsub  Show unsubscribed mailboxes?
      *
-     * @return array  A list of mailbox names.
+     * @return array  See Horde_Imap_Client_Base::listMailboxes().
      */
     protected function _getList($showunsub)
     {
         if ($showunsub && !is_null($this->_fulllist)) {
-            return array_keys($this->_fulllist);
+            return $this->_fulllist;
         } elseif (!$showunsub && !is_null($this->_subscribed)) {
-            return array_keys($this->_subscribed);
+            return $this->_subscribed;
         }
 
-        /* INBOX must always appear. */
-        $names = array('INBOX');
-
-        foreach ($this->_namespaces as $key => $val) {
-            try {
-                $names = array_merge($names, $GLOBALS['imp_imap']->ob()->listMailboxes($key . '*', $showunsub ? Horde_Imap_Client::MBOX_ALL : Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS, array('flat' => true)));
-            } catch (Horde_Imap_Client_Exception $e) {}
+        $searches = array();
+        foreach (array_keys($this->_namespaces) as $val) {
+            $searches[] = $val . '*';
         }
+
+        try {
+            $result = $GLOBALS['imp_imap']->ob()->listMailboxes($searches, $showunsub ? Horde_Imap_Client::MBOX_ALL : Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS, array('attributes' => true, 'delimiter' => true, 'sort' => true));
+
+            /* INBOX must always appear. */
+            if (empty($result['INBOX'])) {
+                $result = array_merge($GLOBALS['imp_imap']->ob()->listMailboxes('INBOX', Horde_Imap_Client::MBOX_ALL, array('attributes' => true, 'delimiter' => true)), $result);
+            }
+        } catch (Horde_Imap_Client_Exception $e) {}
 
         if ($showunsub) {
-            $this->_fulllist = array_flip($names);
+            $this->_fulllist = $result;
         } else {
-            $this->_subscribed = array_flip($names);
+            $this->_subscribed = $result;
         }
 
-        return $names;
+        return $result;
     }
 
     /**
@@ -342,25 +347,9 @@ class IMP_Imap_Tree
             'v' => $name
         );
 
-        /* Set subscribed values. We know the folder is subscribed, without
-         * query of the IMAP server, in the following situations:
-         * + Folder is INBOX.
-         * + We are adding while in subscribe-only mode.
-         * + Subscriptions are turned off. */
-        if (!$this->isSubscribed($elt)) {
-            if (!$this->_showunsub ||
-                ($elt['v'] == 'INBOX') ||
-                !$GLOBALS['prefs']->getValue('subscribe')) {
-                $this->_setSubscribed($elt, true);
-            } else {
-                $this->_initSubscribed();
-                $this->_setSubscribed($elt, isset($this->_subscribed[$elt['v']]));
-            }
-        }
-
         /* Check for polled status. */
         $this->_initPollList();
-        $this->_setPolled($elt, isset($this->_poll[$elt['v']]));
+        $this->_setPolled($elt, isset($this->_poll[$name]));
 
         /* Check for open status. */
         switch ($GLOBALS['prefs']->getValue('nav_expanded')) {
@@ -374,18 +363,21 @@ class IMP_Imap_Tree
 
         case self::OPEN_USER:
             $this->_initExpandedList();
-            $open = !empty($this->_expanded[$elt['v']]);
+            $open = !empty($this->_expanded[$name]);
             break;
         }
         $this->_setOpen($elt, $open);
 
-        /* Computed values. */
-        $ns_info = $this->_getNamespace($elt['v']);
-        $tmp = explode(is_null($ns_info) ? $this->_delimiter : $ns_info['delimiter'], $elt['v']);
+        $ns_info = $this->_getNamespace($name);
+        $delimiter = is_null($ns_info) ? $this->_delimiter : $ns_info['delimiter'];
+        $tmp = explode($delimiter, $name);
         $elt['c'] = count($tmp) - 1;
 
         /* Get the mailbox label. */
-        $elt['l'] = IMP::getLabel($tmp[$elt['c']]);
+        $label = IMP::getLabel($name);
+        $elt['l'] = (($pos = strrpos($label, $delimiter)) === false)
+            ? $label
+            : substr($label, $pos + 1);
 
         if ($_SESSION['imp']['protocol'] != 'pop') {
             try {
@@ -634,41 +626,88 @@ class IMP_Imap_Tree
             $id = array($id);
         }
 
-        foreach ($id as $val) {
-            if (isset($this->_tree[$val]) &&
-                !$this->isContainer($this->_tree[$val])) {
-                continue;
-            }
+        /* Process Virtual Folders here. */
+        reset($id);
+        while (list($key, $val) = each($id)) {
+            if (strpos($val, self::VFOLDER_KEY) === 0) {
+                if (!isset($this->_tree[$val])) {
+                    if (!isset($this->_tree[self::VFOLDER_KEY])) {
+                        $elt = $this->_makeElt(self::VFOLDER_KEY, self::ELT_VFOLDER | self::ELT_NOSELECT | self::ELT_NONIMAP);
+                        $elt['l'] = _("Virtual Folders");
+                        $this->_insertElt($elt);
+                    }
 
-            $ns_info = $this->_getNamespace($val);
-            if (is_null($ns_info)) {
-                if (strpos($val, self::VFOLDER_KEY . $this->_delimiter) === 0) {
-                    $elt = $this->_makeElt(self::VFOLDER_KEY, self::ELT_VFOLDER | self::ELT_NOSELECT | self::ELT_NONIMAP);
-                    $elt['l'] = _("Virtual Folders");
+                    $elt = $this->_makeElt($val, self::ELT_VFOLDER | self::ELT_IS_SUBSCRIBED);
+                    $elt['l'] = $elt['v'] = Horde_String::substr($val, Horde_String::length(self::VFOLDER_KEY) + Horde_String::length($this->_delimiter));
                     $this->_insertElt($elt);
                 }
 
-                $elt = $this->_makeElt($val, self::ELT_VFOLDER | self::ELT_IS_SUBSCRIBED);
-                $elt['l'] = $elt['v'] = Horde_String::substr($val, Horde_String::length(self::VFOLDER_KEY) + Horde_String::length($this->_delimiter));
-                $this->_insertElt($elt);
-            } else {
-                /* Break apart the name via the delimiter and go step by
-                 * step through the name to make sure all subfolders exist
-                 * in the tree. */
-                $parts = explode($ns_info['delimiter'], $val);
-                $parts[0] = $this->_convertName($parts[0]);
-                $parts_count = count($parts);
-                for ($i = 0; $i < $parts_count; ++$i) {
-                    $part = implode($ns_info['delimiter'], array_slice($parts, 0, $i + 1));
+                unset($id[$key]);
+            }
+        }
 
-                    if (isset($this->_tree[$part])) {
-                        if (($part == $val) &&
-                            $this->isContainer($this->_tree[$part])) {
-                            $this->_setContainer($this->_tree[$part], false);
+        if (!empty($id)) {
+            try {
+                $this->_insert($GLOBALS['imp_imap']->ob()->listMailboxes($id, Horde_Imap_Client::MBOX_ALL, array('attributes' => true, 'delimiter' => true, 'sort' => true)));
+            } catch (Horde_Imap_Client_Exception $e) {}
+        }
+    }
+
+    /**
+     * Insert mailbox elements into the tree.
+     *
+     * @param array $elts   See Horde_Imap_Client_Base::listMailboxes().
+     * @param boolean $sub  If set, the list of $elts are known to be either
+     *                      all subscribed (true) or unsubscribed (false). If
+     *                      null, subscribed status must be looked up on the
+     *                      server.
+     */
+    protected function _insert($elts, $sub = null)
+    {
+        $sub_pref = $GLOBALS['prefs']->getValue('subscribe');
+
+        foreach ($elts as $key => $val) {
+            if (isset($this->_tree[$key]) ||
+                in_array('\nonexistent', $val['attributes'])) {
+                continue;
+            }
+
+            /* Break apart the name via the delimiter and go step by
+             * step through the name to make sure all subfolders exist
+             * in the tree. */
+            $parts = explode($val['delimiter'], $key);
+            $parts[0] = $this->_convertName($parts[0]);
+            for ($i = 1, $p_count = count($parts); $i <= $p_count; ++$i) {
+                $part = implode($val['delimiter'], array_slice($parts, 0, $i));
+
+                if (!isset($this->_tree[$part])) {
+                    $attributes = 0;
+
+                    /* Set subscribed values. We know the folder is
+                     * subscribed, without query of the IMAP server, in the
+                     * following situations:
+                     * + Subscriptions are turned off.
+                     * + $sub is true.
+                     * + Folder is INBOX.
+                     * + Folder has the \subscribed attribute set. */
+                    if (!$sub_pref ||
+                        (($i == $p_count) &&
+                         (($sub === true) ||
+                          ($key == 'INBOX') ||
+                          in_array('\subscribed', $val['attributes'])))) {
+                        $attributes |= self::ELT_IS_SUBSCRIBED;
+                    } elseif (is_null($sub) && ($i == $p_count)) {
+                        $this->_getList(false);
+                        if (isset($this->_subscribed[$part])) {
+                            $attributes |= self::ELT_IS_SUBSCRIBED;
                         }
-                    } else {
-                        $this->_insertElt(($part == $val) ? $this->_makeElt($part) : $this->_makeElt($part, self::ELT_NOSELECT));
                     }
+
+                    if (in_array('\noselect', $val['attributes'])) {
+                        $attributes |= self::ELT_NOSELECT;
+                    }
+
+                    $this->_insertElt($this->_makeElt($part, $attributes));
                 }
             }
         }
@@ -1129,7 +1168,7 @@ class IMP_Imap_Tree
 
             /* Add the list of polled mailboxes from the prefs. */
             if ($GLOBALS['prefs']->getValue('nav_poll_all')) {
-                $navPollList = $this->_getList(true);
+                $navPollList = array_flip(array_keys($this->_getList(true)));
             } else {
                 $navPollList = @unserialize($GLOBALS['prefs']->getValue('nav_poll'));
             }
@@ -1285,16 +1324,6 @@ class IMP_Imap_Tree
     }
 
     /**
-     * Initialize the list of subscribed mailboxes.
-     */
-    protected function _initSubscribed()
-    {
-        if (is_null($this->_subscribed)) {
-            $this->_getList(false);
-        }
-    }
-
-    /**
      * Should we expand all elements?
      */
     public function expandAll()
@@ -1341,7 +1370,7 @@ class IMP_Imap_Tree
          * discovered items. */
         $this->_unsubview = true;
         $this->_trackdiff = false;
-        $this->insert($this->_getList(true));
+        $this->_insert($this->_getList(true), false);
         $this->_trackdiff = true;
     }
 
@@ -1354,33 +1383,31 @@ class IMP_Imap_Tree
      */
     protected function _sortList(&$mbox, $base = false)
     {
-        $config_array = array(
-            'delimiter' => $this->_delimiter,
-            'inbox' => true
-        );
-
         if (!$base) {
-            Horde_Imap_Client_Sort::sortMailboxes($mbox, $config_array);
+            Horde_Imap_Client_Sort::sortMailboxes($mbox, array('delimiter' => $this->_delimiter));
             return;
         }
 
-        $basesort = array();
-        foreach ($mbox as $val) {
-            $basesort[$val] = ($val == 'INBOX') ? 'INBOX' : $this->_tree[$val]['l'];
-        }
-        $config_array['index'] = true;
-        Horde_Imap_Client_Sort::sortMailboxes($basesort, $config_array);
-        $mbox = array_keys($basesort);
+        $basesort = $othersort = array();
 
-        for ($i = 0, $count = count($mbox); $i < $count; ++$i) {
-            if ($this->_isNonIMAPElt($this->_tree[$mbox[$i]])) {
-                /* Already sorted by name - simply move to the end of
-                 * the array. */
-                $mbox[] = $mbox[$i];
-                unset($mbox[$i]);
+        foreach ($mbox as $val) {
+            if ($this->_isNonIMAPElt($this->_tree[$val])) {
+                $othersort[$val] = $this->_tree[$val]['l'];
+            } else {
+                $basesort[$val] = $this->_tree[$val]['l'];
             }
         }
-        $mbox = array_values($mbox);
+
+        /* Sort IMAP mailboxes. INBOX always occurs first. */
+        natcasesort($basesort);
+        unset($basesort['INBOX']);
+        $mbox = array('INBOX') + array_keys($basesort);
+
+        /* Sort non-IMAP elements. */
+        if (!empty($othersort)) {
+            natcasesort($othersort);
+            $mbox = array_merge($mbox, array_keys($othersort));
+        }
     }
 
     /**
