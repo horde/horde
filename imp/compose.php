@@ -626,7 +626,7 @@ if (!is_null($oldrtemode) && ($oldrtemode != $rtemode)) {
                            array('<p>&nbsp;</p>', '<p class="imp-signature"><!--begin_signature-->' . $imp_compose->text2html($sig) . '<!--end_signature--></p>'),
                            $msg);
     } else {
-        $msg = Horde_Text_Filter::filter($msg, 'html2text', array('charset' => $charset));
+        $msg = Horde_Text_Filter::filter($msg, 'html2text', array('charset' => $charset, 'wrap' => false));
     }
 }
 

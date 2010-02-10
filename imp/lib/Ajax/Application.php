@@ -896,7 +896,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         $result = new stdClass;
         // Need to replace line endings or else IE won't display line endings
         // properly.
-        $result->text = str_replace("\n", "\r\n", Horde_Text_Filter::filter($vars->text, 'html2text', array('charset' => Horde_Nls::getCharset())));
+        $result->text = str_replace("\n", "\r\n", Horde_Text_Filter::filter($vars->text, 'html2text', array('charset' => Horde_Nls::getCharset(), 'wrap' => false)));
 
         return $result;
     }
