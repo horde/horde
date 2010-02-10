@@ -40,7 +40,7 @@ class horde_test_runner
 
         // Find all AllTests.php files.
         foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($basedir)) as $file) {
-            if ($file->isFile() && $file->getFilename() == 'AllTests.php' && $file->getPathname() != __FILE__) {
+            if ($file->isFile() && $file->getFilename() == 'AllTests.php' && $file->getPathname() != __FILE__ && $file->getPathname() != $basedir . '/Test/lib/Horde/Test/AllTests.php') {
                 $pathname = $file->getPathname();
 
                 // Include the test suite.
