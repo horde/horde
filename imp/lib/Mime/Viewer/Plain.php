@@ -58,7 +58,7 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         $mime_id = $this->_mimepart->getMimeId();
 
         if (isset(self::$_cache[$mime_id])) {
-            return null;
+            return array($mime_id => null);
         }
 
         // Trim extra whitespace in the text.
