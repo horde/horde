@@ -30,6 +30,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <dir name="Horde">
      <dir name="Ldap">
       <file name="Entry.php" role="php" />
+      <file name="Exception.php" role="php" />
       <file name="Filter.php" role="php" />
       <file name="LDIF.php" role="php" />
       <file name="RootDSE.php" role="php" />
@@ -59,6 +60,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <phprelease>
   <filelist>
    <install name="lib/Horde/Ldap/Entry.php" as="Horde/Ldap/Entry.php" />
+   <install name="lib/Horde/Ldap/Exception.php" as="Horde/Ldap/Exception.php" />
    <install name="lib/Horde/Ldap/Filter.php" as="Horde/Ldap/Filter.php" />
    <install name="lib/Horde/Ldap/LDIF.php" as="Horde/Ldap/LDIF.php" />
    <install name="lib/Horde/Ldap/RootDSE.php" as="Horde/Ldap/RootDSE.php" />
