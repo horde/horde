@@ -491,13 +491,7 @@ class IMP_Ui_Message
                 continue;
             }
 
-            if ($render_mode = $imp_contents->canDisplay($mime_id, IMP_Contents::RENDER_INLINE | IMP_Contents::RENDER_INFO)) {
-                if (($show_parts == 'atc') &&
-                    !($render_mode & IMP_Contents::RENDER_INLINE) &&
-                    $imp_contents->isAttachment($mime_type)) {
-                    $atc_parts[] = $mime_id;
-                }
-            } else {
+            if (!($render_mode = $imp_contents->canDisplay($mime_id, IMP_Contents::RENDER_INLINE | IMP_Contents::RENDER_INFO))) {
                 if ($imp_contents->isAttachment($mime_type)) {
                     if ($show_parts == 'atc') {
                         $atc_parts[] = $mime_id;
@@ -509,14 +503,17 @@ class IMP_Ui_Message
             }
 
             $render_part = $imp_contents->renderMIMEPart($mime_id, $render_mode);
-            if (empty($render_part)) {
-                /* This meant that nothing was rendered - allow this part to
-                 * appear in the attachment list instead. */
-                if ($show_parts == 'atc') {
-                    $atc_parts[] = $mime_id;
-                }
+            if (($show_parts == 'atc') &&
+                $imp_contents->isAttachment($mime_type) &&
+                (empty($render_part) ||
+                 !($render_mode & IMP_Contents::RENDER_INLINE))) {
+                $atc_parts[] = $mime_id;
+            }
 
-                $msgtext .= $this->formatSummary($imp_contents->getSummary($mime_id, $contents_mask), $part_info_display, true);
+            if (empty($render_part)) {
+                if ($imp_contents->isAttachment($mime_type)) {
+                    $msgtext .= $this->formatSummary($imp_contents->getSummary($mime_id, $contents_mask), $part_info_display, true);
+                }
                 continue;
             }
 
