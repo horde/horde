@@ -40,8 +40,9 @@ function send_agendas()
     // potentially have an agenda preference set.
     $users = array();
     foreach (array_keys($calendars) as $calendarId) {
-        $calendar = $GLOBALS['shares']->getShare($calendarId);
-        if (is_a($calendar, 'PEAR_Error')) {
+        try {
+            $calendar = $GLOBALS['shares']->getShare($calendarId);
+        } catch (Exception $e) {
             continue;
         }
         $users = array_merge($users, $calendar->listUsers(Horde_Perms::READ));

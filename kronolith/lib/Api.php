@@ -52,6 +52,7 @@ class Kronolith_Api extends Horde_Registry_Api
      *                           'icon', and 'browseable'.
      *
      * @return array  The contents of $path
+     * @throws Kronolith_Exception
      */
     public function browse($path = '', $properties = array())
     {
@@ -176,10 +177,6 @@ class Kronolith_Api extends Horde_Registry_Api
             // directory.
             $kronolith_driver = Kronolith::getDriver(null, $parts[1]);
             $events = $kronolith_driver->listEvents();
-            if (is_a($events, 'PEAR_Error')) {
-                return $events;
-            }
-
             $icon = $registry->getImageDir('horde') . '/mime/icalendar.png';
             $results = array();
             foreach ($events as $dayevents) {
@@ -223,9 +220,6 @@ class Kronolith_Api extends Horde_Registry_Api
                 array_key_exists($parts[1], Kronolith::listCalendars(false, Horde_Perms::READ))) {
                 // This request is for a specific item within a given calendar.
                 $event = Kronolith::getDriver(null, $parts[1])->getEvent($parts[2]);
-                if (is_a($event, 'PEAR_Error')) {
-                    return $event;
-                }
 
                 $result = array(
                     'data' => $this->export($event->uid, 'text/calendar'),
@@ -260,7 +254,8 @@ class Kronolith_Api extends Horde_Registry_Api
      * @param string $content       The file content.
      * @param string $content_type  The file's content type.
      *
-     * @return array  The event UIDs, or a PEAR_Error on failure.
+     * @return array  The event UIDs.
+     * @throws Kronolith_Exception
      */
     public function put($path, $content, $content_type)
     {
@@ -285,14 +280,14 @@ class Kronolith_Api extends Horde_Registry_Api
                 $content_type = 'text/calendar';
             }
         } else {
-            return PEAR::raiseError("Invalid calendar data supplied.");
+            throw new Kronolith_Exception("Invalid calendar data supplied.");
         }
 
         if (!array_key_exists($calendar, Kronolith::listCalendars(false, Horde_Perms::EDIT))) {
             // FIXME: Should we attempt to create a calendar based on the
             // filename in the case that the requested calendar does not
             // exist?
-            return PEAR::raiseError("Calendar does not exist or no permission to edit");
+            throw new Kronolith_Exception("Calendar does not exist or no permission to edit");
         }
 
         // Store all currently existings UIDs. Use this info to delete UIDs not
@@ -306,7 +301,7 @@ class Kronolith_Api extends Horde_Registry_Api
             $iCal = new Horde_iCalendar();
             if (!is_a($content, 'Horde_iCalendar_vevent')) {
                 if (!$iCal->parsevCalendar($content)) {
-                    return PEAR::raiseError(_("There was an error importing the iCalendar data."));
+                    throw new Kronolith_Exception(_("There was an error importing the iCalendar data."));
                 }
             } else {
                 $iCal->addComponent($content);
@@ -323,8 +318,8 @@ class Kronolith_Api extends Horde_Registry_Api
                     if (isset($uids_remove[$uid])) {
                         unset($uids_remove[$uid]);
                     }
-                    $existing_event = $kronolith_driver->getByUID($uid, array($calendar));
-                    if (!is_a($existing_event, 'PEAR_Error')) {
+                    try {
+                        $existing_event = $kronolith_driver->getByUID($uid, array($calendar));
                         // Check if our event is newer then the existing - get
                         // the event's history.
                         $history = Horde_History::singleton();
@@ -356,20 +351,18 @@ class Kronolith_Api extends Horde_Registry_Api
 
                         // Don't change creator/owner.
                         $event->creator = $existing_event->creator;
+                    } catch (Kronolith_Exception $e) {
                     }
 
                     // Save entry.
                     $saved = $event->save();
-                    if (is_a($saved, 'PEAR_Error')) {
-                        return $saved;
-                    }
                     $ids[] = $event->uid;
                 }
             }
             break;
 
         default:
-            return PEAR::raiseError(sprintf(_("Unsupported Content-Type: %s"), $content_type));
+            throw new Kronolith_Exception(sprintf(_("Unsupported Content-Type: %s"), $content_type));
         }
 
         if (array_key_exists($calendar, Kronolith::listCalendars(false, Horde_Perms::DELETE))) {
@@ -386,7 +379,7 @@ class Kronolith_Api extends Horde_Registry_Api
      *
      * @param string $path  The path to the file.
      *
-     * @return mixed  The event's UID, or a PEAR_Error on failure.
+     * @throws Kronolith_Exception
      */
     public function path_delete($path)
     {
@@ -404,7 +397,7 @@ class Kronolith_Api extends Horde_Registry_Api
 
         if (!(count($parts) == 2 || count($parts) == 3) ||
             !array_key_exists($calendarId, Kronolith::listCalendars(false, Horde_Perms::DELETE))) {
-                return PEAR::raiseError("Calendar does not exist or no permission to delete");
+                throw new Kronolith_Exception("Calendar does not exist or no permission to delete");
             }
 
         if (count($parts) == 3) {
@@ -412,16 +405,16 @@ class Kronolith_Api extends Horde_Registry_Api
             return Kronolith::getDriver(null, $calendarId)->deleteEvent($parts[2]);
         } else {
             // Delete the entire calendar
-            $result = Kronolith::getDriver()->delete($calendarId);
-            if (is_a($result, 'PEAR_Error')) {
-                return PEAR::raiseError(sprintf(_("Unable to delete calendar \"%s\": %s"), $calendarId, $result->getMessage()));
-            } else {
+            try {
+                Kronolith::getDriver()->delete($calendarId);
                 // Remove share and all groups/permissions.
                 $share = $GLOBALS['kronolith_shares']->getShare($calendarId);
                 $result = $GLOBALS['kronolith_shares']->removeShare($share);
                 if (is_a($result, 'PEAR_Error')) {
                     return $result;
                 }
+            } catch (Exception $e) {
+                throw new Kronolith_Exception(sprintf(_("Unable to delete calendar \"%s\": %s"), $calendarId, $e->getMessage()));
             }
         }
     }
@@ -452,6 +445,7 @@ class Kronolith_Api extends Horde_Registry_Api
      * @param object $endstamp      The end of the time range.
      *
      * @return array  The event ids happening in this time period.
+     * @throws Kronolith_Exception
      */
     public function listUids($calendar = null, $startstamp = 0, $endstamp = 0)
     {
@@ -460,19 +454,16 @@ class Kronolith_Api extends Horde_Registry_Api
         }
         if (!array_key_exists($calendar,
             Kronolith::listCalendars(false, Horde_Perms::READ))) {
-            return PEAR::raiseError(_("Permission Denied"));
+            throw new Kronolith_Exception(_("Permission Denied"));
         }
 
         $driver = Kronolith::getDriver(null, $calendar);
         if (is_a($driver, 'PEAR_Error')) {
             return $driver;
         }
+
         $events = $driver->listEvents(new Horde_Date($startstamp),
             new Horde_Date($endstamp));
-        if (is_a($events, 'PEAR_Error')) {
-            return $events;
-        }
-
         $uids = array();
         foreach ($events as $dayevents) {
             foreach ($dayevents as $event) {
@@ -492,6 +483,7 @@ class Kronolith_Api extends Horde_Registry_Api
      * @param string  $calendar   The calendar to search in.
      *
      * @return array  An array of UIDs matching the action and time criteria.
+     * @throws Kronolith_Exception
      */
     public function listBy($action, $timestamp, $calendar = null)
     {
@@ -501,7 +493,7 @@ class Kronolith_Api extends Horde_Registry_Api
 
         if (!array_key_exists($calendar,
             Kronolith::listCalendars(false, Horde_Perms::READ))) {
-            return PEAR::raiseError(_("Permission Denied"));
+            throw new Kronolith_Exception(_("Permission Denied"));
         }
 
         $history = Horde_History::singleton();
@@ -522,6 +514,7 @@ class Kronolith_Api extends Horde_Registry_Api
      * @param string $calendar The calendar to search in.
      *
      * @return integer  The timestamp for this action.
+     * @throws Kronolith_Exception
      */
     public function getActionTimestamp($uid, $action, $calendar = null)
     {
@@ -531,7 +524,7 @@ class Kronolith_Api extends Horde_Registry_Api
 
         if (!array_key_exists($calendar,
             Kronolith::listCalendars(false, Horde_Perms::READ))) {
-            return PEAR::raiseError(_("Permission Denied"));
+            throw new Kronolith_Exception(_("Permission Denied"));
         }
 
         $history = Horde_History::singleton();
@@ -550,7 +543,8 @@ class Kronolith_Api extends Horde_Registry_Api
      *                             </pre>
      * @param string $calendar     What calendar should the event be added to?
      *
-     * @return mixed  The event's UID, or a PEAR_Error on failure.
+     * @return array  The event's UID.
+     * @throws Kronolith_Exception
      */
     public function import($content, $contentType, $calendar = null)
     {
@@ -559,7 +553,7 @@ class Kronolith_Api extends Horde_Registry_Api
         }
         if (!array_key_exists($calendar,
             Kronolith::listCalendars(false, Horde_Perms::EDIT))) {
-            return PEAR::raiseError(_("Permission Denied"));
+            throw new Kronolith_Exception(_("Permission Denied"));
         }
 
         switch ($contentType) {
@@ -568,7 +562,7 @@ class Kronolith_Api extends Horde_Registry_Api
             $iCal = new Horde_iCalendar();
             if (!is_a($content, 'Horde_iCalendar_vevent')) {
                 if (!$iCal->parsevCalendar($content)) {
-                    return PEAR::raiseError(_("There was an error importing the iCalendar data."));
+                    throw new Kronolith_Exception(_("There was an error importing the iCalendar data."));
                 }
             } else {
                 $iCal->addComponent($content);
@@ -576,7 +570,7 @@ class Kronolith_Api extends Horde_Registry_Api
 
             $components = $iCal->getComponents();
             if (count($components) == 0) {
-                return PEAR::raiseError(_("No iCalendar data was found."));
+                throw new Kronolith_Exception(_("No iCalendar data was found."));
             }
 
             $kronolith_driver = Kronolith::getDriver(null, $calendar);
@@ -588,10 +582,11 @@ class Kronolith_Api extends Horde_Registry_Api
                     // Check if the entry already exists in the data source,
                     // first by UID.
                     $uid = $event->uid;
-                    $existing_event = $kronolith_driver->getByUID($uid, array($calendar));
-                    if (!is_a($existing_event, 'PEAR_Error')) {
-                        return PEAR::raiseError(_("Already Exists"),
-                            'horde.message', null, null, $uid);
+                    try {
+                        $existing_event = $kronolith_driver->getByUID($uid, array($calendar));
+                        throw new Kronolith_Exception(_("Already Exists"),
+                                                      'horde.message', null, null, $uid);
+                    } catch (Kronolith_Exception $e) {
                     }
                     $result = $kronolith_driver->search($event);
                     // Check if the match really is an exact match:
@@ -602,27 +597,24 @@ class Kronolith_Api extends Horde_Registry_Api
                                 $match->title == $event->title &&
                                 $match->location == $event->location &&
                                 $match->hasPermission(Horde_Perms::EDIT)) {
-                                    return PEAR::raiseError(_("Already Exists"), 'horde.message', null, null, $match->uid);
+                                    throw new Kronolith_Exception(_("Already Exists"), 'horde.message', null, null, $match->uid);
                                 }
                         }
                     }
 
                     $eventId = $event->save();
-                    if (is_a($eventId, 'PEAR_Error')) {
-                        return $eventId;
-                    }
                     $ids[] = $event->uid;
                 }
             }
             if (count($ids) == 0) {
-                return PEAR::raiseError(_("No iCalendar data was found."));
+                throw new Kronolith_Exception(_("No iCalendar data was found."));
             } else if (count($ids) == 1) {
                 return $ids[0];
             }
             return $ids;
         }
 
-        return PEAR::raiseError(sprintf(_("Unsupported Content-Type: %s"), $contentType));
+        throw new Kronolith_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
     }
 
     /**
@@ -634,24 +626,18 @@ class Kronolith_Api extends Horde_Registry_Api
      *                          calendar will be used.
      *
      * @return array  The UID of all events that were added.
+     * @throws Kronolith_Exception
      */
     public function quickAdd($text, $calendar = null)
     {
-        global $kronolith_shares;
-
         if (!isset($calendar)) {
             $calendar = Kronolith::getDefaultCalendar(Horde_Perms::EDIT);
         }
         if (!array_key_exists($calendar,
             Kronolith::listCalendars(false, Horde_Perms::EDIT))) {
-            return PEAR::raiseError(_("Permission Denied"));
+            throw new Kronolith_Exception(_("Permission Denied"));
         }
-
         $event = Kronolith::quickAdd($text, $calendar);
-        if (is_a($event, 'PEAR_Error')) {
-            return $event;
-        }
-
         return $event->uid;
     }
 
@@ -669,17 +655,16 @@ class Kronolith_Api extends Horde_Registry_Api
      *                            </pre>
      *
      * @return string  The requested data.
+     * @throws Kronolith_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function export($uid, $contentType)
     {
         global $kronolith_shares;
 
         $event = Kronolith::getDriver()->getByUID($uid);
-        if (is_a($event, 'PEAR_Error')) {
-            return $event;
-        }
         if (!$event->hasPermission(Horde_Perms::READ)) {
-            return PEAR::raiseError(_("Permission Denied"));
+            throw new Kronolith_Exception(_("Permission Denied"));
         }
 
         $version = '2.0';
@@ -700,7 +685,7 @@ class Kronolith_Api extends Horde_Registry_Api
 
         }
 
-        return PEAR::raiseError(sprintf(_("Unsupported Content-Type: %s"), $contentType));
+        throw new Kronolith_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
     }
 
     /**
@@ -717,6 +702,7 @@ class Kronolith_Api extends Horde_Registry_Api
      *                             </pre>
      *
      * @return string  The iCalendar representation of the calendar.
+     * @throws Kronolith_Exception
      */
     public function exportCalendar($calendar, $contentType)
     {
@@ -724,7 +710,7 @@ class Kronolith_Api extends Horde_Registry_Api
 
         if (!array_key_exists($calendar,
             Kronolith::listCalendars(false, Horde_Perms::READ))) {
-            return PEAR::raiseError(_("Permission Denied"));
+            throw new Kronolith_Exception(_("Permission Denied"));
         }
 
         $kronolith_driver = Kronolith::getDriver(null, $calendar);
@@ -753,21 +739,21 @@ class Kronolith_Api extends Horde_Registry_Api
             return $iCal->exportvCalendar();
         }
 
-        return PEAR::raiseError(sprintf(_("Unsupported Content-Type: %s"), $contentType));
+        throw new Kronolith_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
     }
 
     /**
      * Deletes an event identified by UID.
      *
-     * @param string|array $uid  A single UID or an array identifying the event(s)
-     *                           to delete.
+     * @param string|array $uid  A single UID or an array identifying the
+     *                           event(s) to delete.
      *
-     * @return boolean  Success or failure.
+     * @throws Kronolith_Exception
      */
     public function delete($uid)
     {
-        // Handle an array of UIDs for convenience of deleting multiple events at
-        // once.
+        // Handle an array of UIDs for convenience of deleting multiple events
+        // at once.
         if (is_array($uid)) {
             foreach ($uid as $g) {
                 $result = $this->delete($g);
@@ -775,15 +761,11 @@ class Kronolith_Api extends Horde_Registry_Api
                     return $result;
                 }
             }
-
-            return true;
+            return;
         }
 
         $kronolith_driver = Kronolith::getDriver();
         $events = $kronolith_driver->getByUID($uid, null, true);
-        if (is_a($events, 'PEAR_Error')) {
-            return $events;
-        }
 
         $event = null;
         if (Horde_Auth::isAdmin()) {
@@ -814,10 +796,10 @@ class Kronolith_Api extends Horde_Registry_Api
         }
 
         if (empty($event)) {
-            return PEAR::raiseError(_("Permission Denied"));
+            throw new Kronolith_Exception(_("Permission Denied"));
         }
 
-        return $kronolith_driver->deleteEvent($event->id);
+        $kronolith_driver->deleteEvent($event->id);
     }
 
     /**
@@ -832,18 +814,15 @@ class Kronolith_Api extends Horde_Registry_Api
      *                             text/x-vcalendar
      *                             (Ignored if content is Horde_iCalendar_vevent)
      *
-     * @return mixed  True on success, PEAR_Error otherwise.
+     * @throws Kronolith_Exception
      */
     public function replace($uid, $content, $contentType)
     {
         $event = Kronolith::getDriver()->getByUID($uid);
-        if (is_a($event, 'PEAR_Error')) {
-            return $event;
-        }
 
         if (!$event->hasPermission(Horde_Perms::EDIT) ||
             ($event->private && $event->creator != Horde_Auth::getAuth())) {
-            return PEAR::raiseError(_("Permission Denied"));
+            throw new Kronolith_Exception(_("Permission Denied"));
         }
 
         if (is_a($content, 'Horde_iCalendar_vevent')) {
@@ -855,7 +834,7 @@ class Kronolith_Api extends Horde_Registry_Api
                 if (!is_a($content, 'Horde_iCalendar_vevent')) {
                     $iCal = new Horde_iCalendar();
                     if (!$iCal->parsevCalendar($content)) {
-                        return PEAR::raiseError(_("There was an error importing the iCalendar data."));
+                        throw new Kronolith_Exception(_("There was an error importing the iCalendar data."));
                     }
 
                     $components = $iCal->getComponents();
@@ -863,20 +842,20 @@ class Kronolith_Api extends Horde_Registry_Api
                     foreach ($components as $content) {
                         if (is_a($content, 'Horde_iCalendar_vevent')) {
                             if ($component !== null) {
-                                return PEAR::raiseError(_("Multiple iCalendar components found; only one vEvent is supported."));
+                                throw new Kronolith_Exception(_("Multiple iCalendar components found; only one vEvent is supported."));
                             }
                             $component = $content;
                         }
 
                     }
                     if ($component === null) {
-                        return PEAR::raiseError(_("No iCalendar data was found."));
+                        throw new Kronolith_Exception(_("No iCalendar data was found."));
                     }
                 }
                 break;
 
             default:
-                return PEAR::raiseError(sprintf(_("Unsupported Content-Type: %s"), $contentType));
+                throw new Kronolith_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
             }
         }
 
@@ -884,9 +863,7 @@ class Kronolith_Api extends Horde_Registry_Api
         // Ensure we keep the original UID, even when content does not
         // contain one and fromiCalendar creates a new one.
         $event->uid = $uid;
-        $eventId = $event->save();
-
-        return is_a($eventId, 'PEAR_Error') ? $eventId : true;
+        $event->save();
     }
 
     /**
@@ -899,6 +876,7 @@ class Kronolith_Api extends Horde_Registry_Api
      *
      * @return Horde_iCalendar_vfreebusy  A freebusy object that covers the
      *                                    specified time period.
+     * @throws Kronolith_Exception
      */
     public function getFreeBusy($startstamp = null, $endstamp = null,
                                 $calendar = null)
@@ -908,7 +886,6 @@ class Kronolith_Api extends Horde_Registry_Api
         }
         // Free/Busy information is globally available; no permission
         // check is needed.
-
         return Kronolith_FreeBusy::generate($calendar, $startstamp, $endstamp, true);
     }
 
@@ -917,17 +894,14 @@ class Kronolith_Api extends Horde_Registry_Api
      *
      * @param string $uid  The event's UID.
      *
-     * @return Kronolith_Event  A valid Kronolith_Event on success, or a PEAR_Error
-     *                          on failure.
+     * @return Kronolith_Event  A valid Kronolith_Event.
+     * @throws Kronolith_Exception
      */
     public function eventFromUID($uid)
     {
         $event = Kronolith::getDriver()->getByUID($uid);
-        if (is_a($event, 'PEAR_Error')) {
-            return $event;
-        }
         if (!$event->hasPermission(Horde_Perms::SHOW)) {
-            return PEAR::raiseError(_("Permission Denied"));
+            throw new Kronolith_Exception(_("Permission Denied"));
         }
 
         return $event;
@@ -936,19 +910,22 @@ class Kronolith_Api extends Horde_Registry_Api
     /**
      * Updates an attendee's response status for a specified event.
      *
-     * @param Horde_iCalender_vevent $response  A Horde_iCalender_vevent object,
-     *                                          with a valid UID attribute that
-     *                                          points to an existing event.
-     *                                          This is typically the vEvent
-     *                                          portion of an iTip meeting-request
+     * @param Horde_iCalender_vevent $response  A Horde_iCalender_vevent
+     *                                          object, with a valid UID
+     *                                          attribute that points to an
+     *                                          existing event.  This is
+     *                                          typically the vEvent portion
+     *                                          of an iTip meeting-request
      *                                          response, with the attendee's
-     *                                          response in an ATTENDEE parameter.
-     * @param string $sender                    The email address of the person
-     *                                          initiating the update. Attendees
-     *                                          are only updated if this address
+     *                                          response in an ATTENDEE
+     *                                          parameter.
+     * @param string $sender                    The email address of the
+     *                                          person initiating the
+     *                                          update. Attendees are only
+     *                                          updated if this address
      *                                          matches.
      *
-     * @return mixed  True on success, PEAR_Error on failure.
+     * @throws Kronolith_Exception
      */
     public function updateAttendee($response, $sender = null)
     {
@@ -958,9 +935,6 @@ class Kronolith_Api extends Horde_Registry_Api
         }
 
         $events = Kronolith::getDriver()->getByUID($uid, null, true);
-        if (is_a($events, 'PEAR_Error')) {
-            return $events;
-        }
 
         /* First try the user's own calendars. */
         $ownerCalendars = Kronolith::listCalendars(true, Horde_Perms::EDIT);
@@ -985,7 +959,7 @@ class Kronolith_Api extends Horde_Registry_Api
 
         if (empty($event) ||
             ($event->private && $event->creator != Horde_Auth::getAuth())) {
-            return PEAR::raiseError(_("Permission Denied"));
+            throw new Kronolith_Exception(_("Permission Denied"));
         }
 
         $atnames = $response->getAttribute('ATTENDEE');
@@ -1009,35 +983,32 @@ class Kronolith_Api extends Horde_Registry_Api
                 }
             }
         }
-
-        $result = $event->save();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $event->save();
 
         if (!$found) {
-            return PEAR::raiseError($error);
+            throw new Kronolith_Exception($error);
         }
-
-        return true;
     }
 
     /**
      * Lists events for a given time period.
      *
-     * @param integer $startstamp      The start of the time period to retrieve.
+     * @param integer $startstamp      The start of the time period to
+     *                                 retrieve.
      * @param integer $endstamp        The end of the time period to retrieve.
      * @param array   $calendars       The calendars to view events from.
      *                                 Defaults to the user's default calendar.
-     * @param boolean $showRecurrence  Return every instance of a recurring event?
-     *                                 If false, will only return recurring events
-     *                                 once inside the $startDate - $endDate range.
+     * @param boolean $showRecurrence  Return every instance of a recurring
+     *                                 event?  If false, will only return
+     *                                 recurring events once inside the
+     *                                 $startDate - $endDate range.
      * @param boolean $alarmsOnly      Filter results for events with alarms.
      *                                 Defaults to false.
      * @param boolean $showRemote      Return events from remote calendars and
      *                                 listTimeObject API as well?
      *
      * @return array  A list of event hashes.
+     * @throws Kronolith_Exception
      */
     public function listEvents($startstamp = null, $endstamp = null,
         $calendars = null, $showRecurrence = true,
@@ -1051,7 +1022,7 @@ class Kronolith_Api extends Horde_Registry_Api
         $allowed_calendars = Kronolith::listCalendars(false, Horde_Perms::READ);
         foreach ($calendars as $calendar) {
             if (!array_key_exists($calendar, $allowed_calendars)) {
-                return PEAR::raiseError(_("Permission Denied"));
+                throw new Kronolith_Exception(_("Permission Denied"));
             }
         }
 
@@ -1067,6 +1038,7 @@ class Kronolith_Api extends Horde_Registry_Api
      * @param string $user   The user to retrieve alarms for. All users if null.
      *
      * @return array  An array of UIDs
+     * @throws Kronolith_Exception
      */
     public function listAlarms($time, $user = null)
     {
@@ -1074,7 +1046,7 @@ class Kronolith_Api extends Horde_Registry_Api
 
         $current_user = Horde_Auth::getAuth();
         if ((empty($user) || $user != $current_user) && !Horde_Auth::isAdmin()) {
-            return PEAR::raiseError(_("Permission Denied"));
+            throw new Kronolith_Exception(_("Permission Denied"));
         }
 
         $group = Group::singleton();
@@ -1082,15 +1054,13 @@ class Kronolith_Api extends Horde_Registry_Api
         $time = new Horde_Date($time);
         $calendars = is_null($user) ? array_keys($GLOBALS['kronolith_shares']->listAllShares()) : $GLOBALS['display_calendars'];
         $alarms = Kronolith::listAlarms($time, $calendars, true);
-        if (is_a($alarms, 'PEAR_Error')) {
-            return $alarms;
-        }
         foreach ($alarms as $calendar => $cal_alarms) {
             if (!$cal_alarms) {
                 continue;
             }
-            $share = $GLOBALS['kronolith_shares']->getShare($calendar);
-            if (is_a($share, 'PEAR_Error')) {
+            try {
+                $share = $GLOBALS['kronolith_shares']->getShare($calendar);
+            } catch (Exception $e) {
                 continue;
             }
             if (empty($user)) {
@@ -1138,13 +1108,14 @@ class Kronolith_Api extends Horde_Registry_Api
      * Subscribe to a calendar.
      *
      * @param array $calendar  Calendar description hash, with required 'type'
-     *                         parameter. Currently supports 'http' and 'webcal'
-     *                         for remote calendars.
+     *                         parameter. Currently supports 'http' and
+     *                         'webcal' for remote calendars.  @throws
+     *                         Kronolith_Exception
      */
     public function subscribe($calendar)
     {
         if (!isset($calendar['type'])) {
-            return PEAR::raiseError(_("Unknown calendar protocol"));
+            throw new Kronolith_Exception(_("Unknown calendar protocol"));
         }
 
         switch ($calendar['type']) {
@@ -1180,7 +1151,7 @@ class Kronolith_Api extends Horde_Registry_Api
             }
 
         default:
-            return PEAR::raiseError(_("Unknown calendar protocol"));
+            throw new Kronolith_Exception(_("Unknown calendar protocol"));
         }
     }
 
@@ -1188,13 +1159,14 @@ class Kronolith_Api extends Horde_Registry_Api
      * Unsubscribe from a calendar.
      *
      * @param array $calendar  Calendar description array, with required 'type'
-     *                         parameter. Currently supports 'http' and 'webcal'
-     *                         for remote calendars.
+     *                         parameter. Currently supports 'http' and
+     *                         'webcal' for remote calendars.  @throws
+     *                         Kronolith_Exception
      */
     public function unsubscribe($calendar)
     {
         if (!isset($calendar['type'])) {
-            return PEAR::raiseError('Unknown calendar specification');
+            throw new Kronolith_Exception('Unknown calendar specification');
         }
 
         switch ($calendar['type']) {
@@ -1219,7 +1191,7 @@ class Kronolith_Api extends Horde_Registry_Api
             }
 
         default:
-            return PEAR::raiseError('Unknown calendar specification');
+            throw new Kronolith_Exception('Unknown calendar specification');
         }
     }
 
@@ -1230,21 +1202,20 @@ class Kronolith_Api extends Horde_Registry_Api
      * @param array $calendar  The calendar to lock
      * @param array $event     The event to lock
      *
-     * @return mixed   A lock ID on success, PEAR_Error on failure, false if:
+     * @return mixed   A lock ID on success, false if:
      *                   - The calendar is already locked
      *                   - The event is already locked
-     *                   - A calendar lock was requested and an event is already
-     *                     locked in the calendar
+     *                   - A calendar lock was requested and an event is
+     *                     already locked in the calendar
+     * @throws Kronolith_Exception
      */
     public function lock($calendar, $event = null)
     {
         if (!array_key_exists($calendar,
             Kronolith::listCalendars(false, Horde_Perms::EDIT))) {
-            return PEAR::raiseError(_("Permission Denied"));
+            throw new Kronolith_Exception(_("Permission Denied"));
         }
-
-        $share = $GLOBALS['kronolith_shares']->getShare($calendar);
-        return $share->lock($calendar, $event);
+        return $GLOBALS['kronolith_shares']->getShare($calendar)->lock($calendar, $event);
     }
 
     /**
@@ -1252,16 +1223,16 @@ class Kronolith_Api extends Horde_Registry_Api
      *
      * @param array $calendar  The event to lock.
      * @param array $lockid    The lock id to unlock.
+     *
+     * @throws Kronolith_Exception
      */
     public function unlock($calendar, $lockid)
     {
         if (!array_key_exists($calendar,
             Kronolith::listCalendars(false, Horde_Perms::EDIT))) {
-            return PEAR::raiseError(_("Permission Denied"));
+            throw new Kronolith_Exception(_("Permission Denied"));
         }
-
-        $share = $GLOBALS['kronolith_shares']->getShare($calendar);
-        return $share->unlock($lockid);
+        return $GLOBALS['kronolith_shares']->getShare($calendar)->unlock($lockid);
     }
 
     /**
@@ -1269,16 +1240,16 @@ class Kronolith_Api extends Horde_Registry_Api
      *
      * @param array $calendar  The calendar to check locks for.
      * @param array $event     The event to check locks for.
+     *
+     * @throws Kronolith_Exception
      */
     public function checkLocks($calendar, $event = null)
     {
         if (!array_key_exists($calendar,
             Kronolith::listCalendars(false, Horde_Perms::READ))) {
-            return PEAR::raiseError(_("Permission Denied"));
+            throw new Kronolith_Exception(_("Permission Denied"));
         }
-
-        $share = $GLOBALS['kronolith_shares']->getShare($calendar);
-        return $share->checkLocks($event);
+        return $GLOBALS['kronolith_shares']->getShare($calendar)->checkLocks($event);
     }
 
     /**

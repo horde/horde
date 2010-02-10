@@ -18,11 +18,12 @@ class Horde_Block_kronolith_tree_alarms extends Horde_Block {
         }
 
         $alarmCount = 0;
-        $alarms = Kronolith::listAlarms(new Horde_Date($_SERVER['REQUEST_TIME']),
-                                        $GLOBALS['display_calendars'],
-                                        true);
-        if (is_a($alarms, 'PEAR_Error')) {
-            return $alarms;
+        try {
+            $alarms = Kronolith::listAlarms(new Horde_Date($_SERVER['REQUEST_TIME']),
+                                            $GLOBALS['display_calendars'],
+                                            true);
+        } catch (Exception $e) {
+            return;
         }
         foreach ($alarms as $calId => $calAlarms) {
             foreach ($calAlarms as $event) {

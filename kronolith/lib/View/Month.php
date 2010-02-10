@@ -101,9 +101,10 @@ class Kronolith_View_Month {
             $this->_currentCalendars = array(true);
         }
 
-        $this->_events = Kronolith::listEvents($startDate, $endDate);
-        if (is_a($this->_events, 'PEAR_Error')) {
-            $GLOBALS['notification']->push($this->_events, 'horde.error');
+        try {
+            $this->_events = Kronolith::listEvents($startDate, $endDate);
+        } catch (Exception $e) {
+            $GLOBALS['notification']->push($e, 'horde.error');
             $this->_events = array();
         }
         if (!is_array($this->_events)) {

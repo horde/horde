@@ -67,17 +67,22 @@ class Horde_Block_Kronolith_monthlist extends Horde_Block {
         $startDate = new Horde_Date(array('year' => date('Y'), 'month' => date('n'), 'mday' => date('j')));
         $endDate = new Horde_Date(array('year' => date('Y'), 'month' => date('n') + $this->_params['months'], 'mday' => date('j') - 1));
 
-        if (isset($this->_params['calendar']) && $this->_params['calendar'] != '__all') {
-            $calendar = $GLOBALS['kronolith_shares']->getShare($this->_params['calendar']);
-            if (!is_a($calendar, 'PEAR_Error') && !$calendar->hasPermission(Horde_Auth::getAuth(), Horde_Perms::SHOW)) {
-                return _("Permission Denied");
+        try {
+            if (isset($this->_params['calendar']) &&
+                $this->_params['calendar'] != '__all') {
+                try {
+                    $calendar = $GLOBALS['kronolith_shares']->getShare($this->_params['calendar']);
+                    if (!$calendar->hasPermission(Horde_Auth::getAuth(), Horde_Perms::SHOW)) {
+                        return _("Permission Denied");
+                    }
+                } catch (Exception $e) {
+                }
+                $all_events = Kronolith::listEvents($startDate, $endDate, array($this->_params['calendar']), true, false, false);
+            } else {
+                $all_events = Kronolith::listEvents($startDate, $endDate, $GLOBALS['display_calendars']);
             }
-            $all_events = Kronolith::listEvents($startDate, $endDate, array($this->_params['calendar']), true, false, false);
-        } else {
-            $all_events = Kronolith::listEvents($startDate, $endDate, $GLOBALS['display_calendars']);
-        }
-        if (is_a($all_events, 'PEAR_Error')) {
-            return '<em>' . $all_events->getMessage() . '</em>';
+        } catch (Exception $e) {
+            return '<em>' . $e->getMessage() . '</em>';
         }
 
         /* How many days do we need to check. */

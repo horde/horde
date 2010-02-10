@@ -34,9 +34,12 @@ class Kronolith_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
      * Handle the tag related action.
      *
      * If removing a tag, needs a 'resource' which is the local identifier of
-     * the kronolith object, a 'type' which should be the string reprentation of
-     * the type of object (event/calendar) and 'tags' should be the integer
+     * the kronolith object, a 'type' which should be the string reprentation
+     * of the type of object (event/calendar) and 'tags' should be the integer
      * tag_id of the tag to remove.
+     *
+     * @throws Kronolith_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function handle($args, $post)
     {
@@ -81,6 +84,9 @@ class Kronolith_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
      * @param string $type              The type of resource (calendar/event)
      *
      * @return string  The HTML
+     *
+     * @throws Kronolith_Exception
+     * @throws Horde_Exception_NotFound
      */
     private function _getTagHtml($tagger, $id, $type)
     {

@@ -37,10 +37,11 @@ class Horde_Block_Kronolith_month extends Horde_Block {
         $url = Horde::url($GLOBALS['registry']->getInitialPage(), true);
         if (isset($this->_params['calendar']) &&
             $this->_params['calendar'] != '__all') {
-            $this->_share = $GLOBALS['kronolith_shares']->getShare($this->_params['calendar']);
-            if (!is_a($this->_share, 'PEAR_Error')) {
+            try {
+                $this->_share = $GLOBALS['kronolith_shares']->getShare($this->_params['calendar']);
                 $url->add('display_cal', $this->_params['calendar']);
                 $title = htmlspecialchars($this->_share->get('name'));
+            } catch (Exception $e) {
             }
         }
         $date = new Horde_Date(time());
@@ -59,13 +60,11 @@ class Horde_Block_Kronolith_month extends Horde_Block {
 
         if (isset($this->_params['calendar']) && $this->_params['calendar'] != '__all') {
             if (empty($this->_share)) {
-                $this->_share = $GLOBALS['kronolith_shares']->getShare($this->_params['calendar']);
-            }
-            if (is_a($this->_share, 'PEAR_Error')) {
-                return _(sprintf("There was an error accessing the calendar: %s", $this->_share->getMessage()));
-            }
-            if (is_a($this->_share, 'PEAR_Error')) {
-                return $this->_share;
+                try {
+                    $this->_share = $GLOBALS['kronolith_shares']->getShare($this->_params['calendar']);
+                } catch (Exception $e) {
+                    return _(sprintf("There was an error accessing the calendar: %s", $e->getMessage()));
+                }
             }
             if (!$this->_share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::SHOW)) {
                 return _("Permission Denied");
@@ -122,18 +121,15 @@ class Horde_Block_Kronolith_month extends Horde_Block {
             $html .= '<th class="item">' . $weekday . '</th>';
         }
 
-        if (isset($this->_params['calendar']) && $this->_params['calendar'] != '__all') {
-            $all_events = Kronolith::listEvents(
-                $startDate,
-                $endDate,
-                array($this->_params['calendar']), true, false, false);
-        } else {
-            $all_events = Kronolith::listEvents($startDate,
-                                                $endDate,
-                                                $GLOBALS['display_calendars']);
-        }
-        if (is_a($all_events, 'PEAR_Error')) {
-            return '<em>' . $all_events->getMessage() . '</em>';
+        try {
+            if (isset($this->_params['calendar']) &&
+                $this->_params['calendar'] != '__all') {
+                $all_events = Kronolith::listEvents($startDate,$endDate, array($this->_params['calendar']), true, false, false);
+            } else {
+                $all_events = Kronolith::listEvents($startDate, $endDate, $GLOBALS['display_calendars']);
+            }
+        } catch (Exception $e) {
+            return '<em>' . $e->getMessage() . '</em>';
         }
 
         $weeks = array();

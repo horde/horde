@@ -25,13 +25,12 @@ $form = new Kronolith_CreateCalendarForm($vars);
 
 // Execute if the form is valid.
 if ($form->validate($vars)) {
-    $result = $form->execute();
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push($result, 'horde.error');
-    } else {
+    try {
+        $form->execute();
         $notification->push(sprintf(_("The calendar \"%s\" has been created."), $vars->get('name')), 'horde.success');
+    } catch (Exception $e) {
+        $notification->push($e, 'horde.error');
     }
-
     header('Location: ' . Horde::applicationUrl('calendars/', true));
     exit;
 }

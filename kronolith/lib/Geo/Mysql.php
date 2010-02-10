@@ -21,6 +21,7 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
      * Set the location of the specified event _id
      *
      * @see kronolith/lib/Driver/Kronolith_Driver_Geo#setLocation($event_id, $point)
+     * @throws Kronolith_Exception
      */
     public function setLocation($event_id, $point)
     {
@@ -28,7 +29,8 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
         $sql = "SELECT COUNT(*) FROM kronolith_events_geo WHERE event_id = ('" . $event_id . "')";
         $count = $this->_db->getOne($sql);
         if ($count instanceof PEAR_Error) {
-            throw new Horde_Exception($count->getMessage());
+            Horde::logMessage($count, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Horde_Exception($count);
         }
 
         /* Do we actually have data? */
@@ -47,7 +49,8 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
         }
         $result = $this->_write_db->query($sql);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result->getMessage());
+            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Horde_Exception($result);
         }
 
         return $result;
@@ -57,13 +60,15 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
      * Get the location of the provided event_id.
      *
      * @see kronolith/lib/Driver/Kronolith_Driver_Geo#getLocation($event_id)
+     * @throws Kronolith_Exception
      */
     public function getLocation($event_id)
     {
         $sql = "SELECT x(event_coordinates) as lat, y(event_coordinates) as lon FROM kronolith_events_geo WHERE event_id = '" . $event_id . "'";
         $result = $this->_db->getRow($sql, null, DB_FETCHMODE_ASSOC);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result->getMessage());
+            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Horde_Exception($result);
         }
         return $result;
     }
@@ -79,6 +84,7 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
      *       MBRs
      *
      * @see kronolith/lib/Driver/Kronolith_Driver_Geo#search($criteria)
+     * @throws Kronolith_Exception
      */
     public function search($criteria)
     {
@@ -96,10 +102,10 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
 
         $results = $this->_db->getAssoc($sql, false, null, DB_FETCHMODE_ASSOC);
         if ($results instanceof PEAR_Error) {
-            throw new Horde_Exception($results->getMessage());
+            Horde::logMessage($results, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Horde_Exception($results);
         }
 
         return $results;
-
     }
 }

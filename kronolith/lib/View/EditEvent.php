@@ -11,17 +11,20 @@ class Kronolith_View_EditEvent {
     var $event;
 
     /**
-     * @param Kronolith_Event &$event
+     * @param Kronolith_Event $event
      */
-    function Kronolith_View_EditEvent(&$event)
+    function Kronolith_View_EditEvent($event)
     {
-        $this->event = &$event;
+        $this->event = $event;
     }
 
     function getTitle()
     {
-        if (!$this->event || is_a($this->event, 'PEAR_Error')) {
+        if (!$this->event) {
             return _("Not Found");
+        }
+        if (is_string($this->event)) {
+            return $this->event;
         }
         return sprintf(_("Edit %s"), $this->event->getTitle());
     }
@@ -33,21 +36,27 @@ class Kronolith_View_EditEvent {
 
     function html($active = true)
     {
-        $identity = Horde_Prefs_Identity::singleton();
-
-        if (!$this->event || is_a($this->event, 'PEAR_Error')) {
-            echo '<h3>' . _("The requested event was not found.") . '</h3>';
-            return;
+        if (!$this->event) {
+            echo '<h3>' . _("Event not found") . '</h3>';
+            exit;
         }
+        if (is_string($this->event)) {
+            echo '<h3>' . $this->event . '</h3>';
+            exit;
+        }
+
+        $identity = Horde_Prefs_Identity::singleton();
 
         if ($this->event->hasPermission(Horde_Perms::EDIT)) {
             $calendar_id = $this->event->calendar;
         } else {
             $calendar_id = Kronolith::getDefaultCalendar(Horde_Perms::EDIT);
         }
-        if (!$this->event->hasPermission(Horde_Perms::EDIT) &&
-            !is_a($share = &$this->event->getShare(), 'PEAR_Error')) {
-            $calendar_id .= ':' . $share->get('owner');
+        if (!$this->event->hasPermission(Horde_Perms::EDIT)) {
+            try {
+                $calendar_id .= ':' . $this->event->getShare()->get('owner');
+            } catch (Exception $e) {
+            }
         }
         $_SESSION['kronolith']['attendees'] = $this->event->attendees;
         $_SESSION['kronolith']['resources'] = $this->event->getResources();

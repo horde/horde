@@ -11,14 +11,16 @@
 
 function _save(&$event)
 {
-    $res = $event->save();
+    try {
+        $event->save();
+        if (Horde_Util::getFormData('sendupdates', false)) {
+            Kronolith::sendITipNotifications($event, $GLOBALS['notification'], Kronolith::ITIP_REQUEST);
+        }
+    } catch (Exception $e) {
+        $GLOBALS['notification']->push(sprintf(_("There was an error editing the event: %s"), $e->getMessage()), 'horde.error');
+    }
     $tagger = Kronolith::getTagger();
     $tagger->replaceTags($event->uid, Horde_Util::getFormData('tags'));
-    if (is_a($res, 'PEAR_Error')) {
-        $GLOBALS['notification']->push(sprintf(_("There was an error editing the event: %s"), $res->getMessage()), 'horde.error');
-    } elseif (Horde_Util::getFormData('sendupdates', false)) {
-        Kronolith::sendITipNotifications($event, $GLOBALS['notification'], Kronolith::ITIP_REQUEST);
-    }
     Kronolith::notifyOfResourceRejection($event);
 }
 
@@ -44,17 +46,17 @@ $kronolith_driver = Kronolith::getDriver();
 
 if ($exception = Horde_Util::getFormData('del_exception')) {
     $calendar = Horde_Util::getFormData('calendar');
-    $share = Kronolith::getInternalCalendar($calendar);
-    if (is_a($share, 'PEAR_Error')) {
-        $notification->push(sprintf(_("There was an error accessing the calendar: %s"), $share->getMessage()), 'horde.error');
-    } else {
+    try {
+        $share = Kronolith::getInternalCalendar($calendar);
         $kronolith_driver->open($calendar);
-        $event = &$kronolith_driver->getEvent(Horde_Util::getFormData('eventID'));
+        $event = $kronolith_driver->getEvent(Horde_Util::getFormData('eventID'));
         $result = sscanf($exception, '%04d%02d%02d', $year, $month, $day);
         if ($result == 3 && !is_a($event, 'PEAR_Error') && $event->recurs()) {
             $event->recurrence->deleteException($year, $month, $day);
             _save($event);
         }
+    } catch (Exception $e) {
+        $notification->push(sprintf(_("There was an error accessing the calendar: %s"), $e->getMessage()), 'horde.error');
     }
 } elseif (!Horde_Util::getFormData('cancel')) {
     $source = Horde_Util::getFormData('existingcalendar');
@@ -65,19 +67,16 @@ if ($exception = Horde_Util::getFormData('del_exception')) {
         $target = $targetcalendar;
         $user = Horde_Auth::getAuth();
     }
-    $share = Kronolith::getInternalCalendar($target);
-    if (is_a($share, 'PEAR_Error')) {
-        $notification->push(sprintf(_("There was an error accessing the calendar: %s"), $share->getMessage()), 'horde.error');
-    } else {
+    try {
+        $share = Kronolith::getInternalCalendar($target);
         $event = false;
-
         if (($edit_recur = Horde_Util::getFormData('edit_recur')) &&
             $edit_recur != 'all' && $edit_recur != 'copy' &&
             _check_max()) {
 
             /* Get event details. */
             $kronolith_driver->open($source);
-            $event = &$kronolith_driver->getEvent(Horde_Util::getFormData('eventID'));
+            $event = $kronolith_driver->getEvent(Horde_Util::getFormData('eventID'));
             $recur_ex = Horde_Util::getFormData('recur_ex');
             $exception = new Horde_Date($recur_ex);
 
@@ -91,7 +90,7 @@ if ($exception = Horde_Util::getFormData('del_exception')) {
 
                 /* Create one-time event. */
                 $kronolith_driver->open($target);
-                $event = &$kronolith_driver->getEvent();
+                $event = $kronolith_driver->getEvent();
                 $event->readForm();
                 $event->recurrence->setRecurType(Horde_Date_Recurrence::RECUR_NONE);
 
@@ -101,9 +100,10 @@ if ($exception = Horde_Util::getFormData('del_exception')) {
                 /* Set recurrence end. */
                 $exception->mday--;
                 if ($event->end->compareDate($exception) > 0) {
-                    $result = $kronolith_driver->deleteEvent($event->id);
-                    if (is_a($result, 'PEAR_Error')) {
-                        $notification->push($result, 'horde.error');
+                    try {
+                        $kronolith_driver->deleteEvent($event->id);
+                    } catch (Exception $e) {
+                        $notification->push($e, 'horde.error');
                     }
                 } else {
                     $event->recurrence->setRecurEnd($exception);
@@ -112,7 +112,7 @@ if ($exception = Horde_Util::getFormData('del_exception')) {
 
                 /* Create new event. */
                 $kronolith_driver->open($target);
-                $event = &$kronolith_driver->getEvent();
+                $event = $kronolith_driver->getEvent();
                 $event->readForm();
 
                 break;
@@ -125,7 +125,7 @@ if ($exception = Horde_Util::getFormData('del_exception')) {
                   $edit_recur == 'copy') {
             if (_check_max()) {
                 $kronolith_driver->open($target);
-                $event = &$kronolith_driver->getEvent();
+                $event = $kronolith_driver->getEvent();
             }
         } else {
             $event_load_from = $source;
@@ -133,29 +133,31 @@ if ($exception = Horde_Util::getFormData('del_exception')) {
             if ($target != $source) {
                 // Only delete the event from the source calendar if this user
                 // has permissions to do so.
-                $sourceShare = Kronolith::getInternalCalendar($source);
-                if (!is_a($share, 'PEAR_Error') &&
-                    !is_a($sourceShare, 'PEAR_Error') &&
-                    $sourceShare->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE) &&
-                    (($user == Horde_Auth::getAuth() &&
-                      $share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) ||
-                     ($user != Horde_Auth::getAuth() &&
-                      $share->hasPermission(Horde_Auth::getAuth(), Kronolith::PERMS_DELEGATE)))) {
-                    $kronolith_driver->open($source);
-                    $res = $kronolith_driver->move(Horde_Util::getFormData('eventID'), $target);
-                    if (is_a($res, 'PEAR_Error')) {
-                        $notification->push(sprintf(_("There was an error moving the event: %s"), $res->getMessage()), 'horde.error');
-                    } else {
-                        $event_load_from = $target;
+                try {
+                    $sourceShare = Kronolith::getInternalCalendar($source);
+                    if (!is_a($share, 'PEAR_Error') &&
+                        $sourceShare->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE) &&
+                        (($user == Horde_Auth::getAuth() &&
+                          $share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) ||
+                         ($user != Horde_Auth::getAuth() &&
+                          $share->hasPermission(Horde_Auth::getAuth(), Kronolith::PERMS_DELEGATE)))) {
+                        $kronolith_driver->open($source);
+                        try {
+                            $res = $kronolith_driver->move(Horde_Util::getFormData('eventID'), $target);
+                            $event_load_from = $target;
+                        } catch (Exception $e) {
+                            $notification->push(sprintf(_("There was an error moving the event: %s"), $e->getMessage()), 'horde.error');
+                        }
                     }
+                } catch (Exception $e) {
                 }
             }
 
             $kronolith_driver->open($event_load_from);
-            $event = &$kronolith_driver->getEvent(Horde_Util::getFormData('eventID'));
+            $event = $kronolith_driver->getEvent(Horde_Util::getFormData('eventID'));
         }
 
-        if ($event && !is_a($event, 'PEAR_Error')) {
+        if ($event) {
             if (isset($sourceShare) && !is_a($sourceShare, 'PEAR_Error')
                 && !$sourceShare->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
                 $notification->push(_("You do not have permission to move this event."), 'horde.warning');
@@ -170,6 +172,8 @@ if ($exception = Horde_Util::getFormData('del_exception')) {
                 _save($event);
             }
         }
+    } catch (Exception $e) {
+        $notification->push(sprintf(_("There was an error accessing the calendar: %s"), $e->getMessage()), 'horde.error');
     }
 }
 

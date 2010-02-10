@@ -119,11 +119,13 @@ abstract class Kronolith_Resource_Base
 
     /**
      * Save resource to storage.
+     *
+     * @return Kronolith_Resource object
+     * @throws Kronolith_Exception
      */
     public function save()
     {
-        $d = $this->getDriver();
-        return $d->save($this);
+        return $this->getDriver()->save($this);
     }
 
     /**

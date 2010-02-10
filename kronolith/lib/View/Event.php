@@ -10,17 +10,20 @@ class Kronolith_View_Event {
     var $event;
 
     /**
-     * @param Kronolith_Event &$event
+     * @param Kronolith_Event $event
      */
-    function Kronolith_View_Event(&$event)
+    function Kronolith_View_Event($event)
     {
-        $this->event = &$event;
+        $this->event = $event;
     }
 
     function getTitle()
     {
-        if (!$this->event || is_a($this->event, 'PEAR_Error')) {
+        if (!$this->event) {
             return _("Not Found");
+        }
+        if (is_string($this->event)) {
+            return $this->event;
         }
         return $this->event->getTitle();
     }
@@ -32,12 +35,16 @@ class Kronolith_View_Event {
 
     function html($active = true)
     {
-        global $conf, $prefs;
-
-        if (!$this->event || is_a($this->event, 'PEAR_Error')) {
-            echo '<h3>' . _("The requested event was not found.") . '</h3>';
-            return;
+        if (!$this->event) {
+            echo '<h3>' . _("Event not found") . '</h3>';
+            exit;
         }
+        if (is_string($this->event)) {
+            echo '<h3>' . $this->event . '</h3>';
+            exit;
+        }
+
+        global $conf, $prefs;
 
         $createdby = '';
         $modifiedby = '';

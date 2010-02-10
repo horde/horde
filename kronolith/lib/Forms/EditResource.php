@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_Form for editing resource calendars.
+ * Horde_Form for editing resources.
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
@@ -8,30 +8,31 @@
  * @package Kronolith
  */
 
-/** Horde_Form */
-require_once 'Horde/Form.php';
-
-/** Horde_Form_Renderer */
-require_once 'Horde/Form/Renderer.php';
-
 /**
- * The Kronolith_EditResourceForm class provides the form for
- * editing a calendar.
+ * The Kronolith_EditResourceForm class provides the form for editing a
+ * resource.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Kronolith
  */
-class Kronolith_EditResourceForm extends Horde_Form {
+class Kronolith_EditResourceForm extends Horde_Form
+{
+    /**
+     * Resource being edited.
+     *
+     * @var Kronolith_Resource_Single
+     */
+    protected $_resource;
 
     /**
-     * Calendar being edited
+     * @throws Kronolith_Exception
      */
-    var $_resource;
-
-    function Kronolith_EditResourceForm(&$vars, &$resource)
+    public function __construct($vars, $resource)
     {
-        $this->_resource = &$resource;
+        $this->_resource = $resource;
         parent::Horde_Form($vars, sprintf(_("Edit %s"), $resource->get('name')));
+
         $responses =  array(Kronolith_Resource::RESPONSETYPE_ALWAYS_ACCEPT => _("Always Accept"),
                             Kronolith_Resource::RESPONSETYPE_ALWAYS_DECLINE => _("Always Decline"),
                             Kronolith_Resource::RESPONSETYPE_AUTO => _("Automatically"),
@@ -39,8 +40,9 @@ class Kronolith_EditResourceForm extends Horde_Form {
                             Kronolith_Resource::RESPONSETYPE_NONE => _("None"));
 
         /* Get a list of available resource groups */
-        $driver = Kronolith::getDriver('Resource');
-        $groups = $driver->listResources(Horde_Perms::READ, array('type' => Kronolith_Resource::TYPE_GROUP));
+        $groups = Kronolith::getDriver('Resource')
+            ->listResources(Horde_Perms::READ,
+                            array('type' => Kronolith_Resource::TYPE_GROUP));
         $enum = array();
         foreach ($groups as $id => $group) {
             $enum[$id] = $group->get('name');
@@ -54,7 +56,10 @@ class Kronolith_EditResourceForm extends Horde_Form {
         $this->setButtons(array(_("Save")));
     }
 
-    function execute()
+    /**
+     * @throws Kronolith_Exception
+     */
+    public function execute()
     {
         $original_name = $this->_resource->get('name');
         $new_name = $this->_vars->get('name');
@@ -96,14 +101,13 @@ class Kronolith_EditResourceForm extends Horde_Form {
             $group->save();
         }
 
-
-        $result = $this->_resource->save();
-        if (is_a($result, 'PEAR_Error')) {
-            return PEAR::raiseError(sprintf(_("Unable to save resource \"%s\": %s"), $new_name, $result->getMessage()));
+        try {
+            $result = $this->_resource->save();
+        } catch (Exception $e) {
+            throw new Kronolith_Exception(sprintf(_("Unable to save resource \"%s\": %s"), $new_name, $e->getMessage()));
         }
 
         return $this->_resource;
-
     }
 
 }

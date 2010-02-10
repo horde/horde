@@ -26,13 +26,15 @@ if ($calendar_id == Horde_Auth::getAuth()) {
     header('Location: ' . Horde::applicationUrl('calendars/', true));
     exit;
 }
-$calendar = $kronolith_shares->getShare($calendar_id);
-if (is_a($calendar, 'PEAR_Error')) {
-    $notification->push($calendar, 'horde.error');
+try {
+    $calendar = $kronolith_shares->getShare($calendar_id);
+} catch (Exception $e) {
+    $notification->push($e, 'horde.error');
     header('Location: ' . Horde::applicationUrl('calendars/', true));
     exit;
-} elseif ($calendar->get('owner') != Horde_Auth::getAuth() &&
-          (!is_null($calendar->get('owner')) || !Horde_Auth::isAdmin())) {
+}
+if ($calendar->get('owner') != Horde_Auth::getAuth() &&
+    (!is_null($calendar->get('owner')) || !Horde_Auth::isAdmin())) {
     $notification->push(_("You are not allowed to delete this calendar."), 'horde.error');
     header('Location: ' . Horde::applicationUrl('calendars/', true));
     exit;
@@ -41,13 +43,12 @@ $form = new Kronolith_DeleteCalendarForm($vars, $calendar);
 
 // Execute if the form is valid (must pass with POST variables only).
 if ($form->validate(new Horde_Variables($_POST))) {
-    $result = $form->execute();
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push($result, 'horde.error');
-    } elseif ($result) {
+    try {
+        $form->execute();
         $notification->push(sprintf(_("The calendar \"%s\" has been deleted."), $calendar->get('name')), 'horde.success');
+    } catch (Exception $e) {
+        $notification->push($e, 'horde.error');
     }
-
     header('Location: ' . Horde::applicationUrl('calendars/', true));
     exit;
 }

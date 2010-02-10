@@ -349,6 +349,7 @@ class Kronolith
      *
      * @return array  The alarms active on the date. A hash with calendar names
      *                as keys and arrays of events or event ids as values.
+     * @throws Kronolith_Exception
      */
     public static function listAlarms($date, $calendars, $fullevent = false)
     {
@@ -358,9 +359,6 @@ class Kronolith
         foreach ($calendars as $cal) {
             $kronolith_driver->open($cal);
             $alarms[$cal] = $kronolith_driver->listAlarms($date, $fullevent);
-            if (is_a($alarms[$cal], 'PEAR_Error')) {
-                return $alarms[$cal];
-            }
         }
 
         return $alarms;
@@ -374,6 +372,7 @@ class Kronolith
      *                          "Driver|calendar_id".
      *
      * @return array  The events.
+     * @throws Kronolith_Exception
      */
     public static function search($query, $calendar = null)
     {
@@ -418,6 +417,7 @@ class Kronolith
      *                                 listTimeObjects as well?
      *
      * @return array  The events happening in this time period.
+     * @throws Kronolith_Exception
      */
     public static function listEvents($startDate, $endDate, $calendars = null,
                                       $showRecurrence = true,
@@ -433,9 +433,7 @@ class Kronolith
         foreach ($calendars as $calendar) {
             $driver->open($calendar);
             $events = $driver->listEvents($startDate, $endDate, true);
-            if (!is_a($events, 'PEAR_Error')) {
-                self::mergeEvents($results, $events);
-            }
+            self::mergeEvents($results, $events);
         }
 
         /* Resource calendars (this would only be populated if explicitly
@@ -450,9 +448,7 @@ class Kronolith
             foreach ($GLOBALS['display_resource_calendars'] as $calendar) {
                 $driver->open($calendar);
                 $events = $driver->listEvents($startDate, $endDate, true);
-                if (!is_a($events, 'PEAR_Error')) {
-                    self::mergeEvents($results, $events);
-                }
+                self::mergeEvents($results, $events);
             }
         }
 
@@ -462,9 +458,7 @@ class Kronolith
             foreach ($GLOBALS['display_external_calendars'] as $external_cal) {
                 $driver->open($external_cal);
                 $events = $driver->listEvents($startDate, $endDate, true);
-                if (!is_a($events, 'PEAR_Error')) {
-                    self::mergeEvents($results, $events);
-                }
+                self::mergeEvents($results, $events);
             }
 
             /* Remote Calendars. */
@@ -475,9 +469,7 @@ class Kronolith
                     $driver->setParam($param, $value);
                 }
                 $events = $driver->listEvents($startDate, $endDate, true);
-                if (!is_a($events, 'PEAR_Error')) {
-                    self::mergeEvents($results, $events);
-                }
+                self::mergeEvents($results, $events);
             }
 
             /* Holidays. */
@@ -485,9 +477,7 @@ class Kronolith
             foreach ($GLOBALS['display_holidays'] as $holiday) {
                 $driver->open($holiday);
                 $events = $driver->listEvents($startDate, $endDate, true);
-                if (!is_a($events, 'PEAR_Error')) {
-                    self::mergeEvents($results, $events);
-                }
+                self::mergeEvents($results, $events);
             }
         }
 
@@ -522,8 +512,6 @@ class Kronolith
 
     /**
      * Calculates recurrences of an event during a certain period.
-     *
-     * @access private
      */
     public static function addEvents(&$results, &$event, $startDate, $endDate,
                                      $showRecurrence, $json, $coverDates = true)
@@ -761,7 +749,10 @@ class Kronolith
         $count = 0;
         foreach (array_keys($calendars) as $calendar) {
             $kronolith_driver->open($calendar);
-            $count += $kronolith_driver->countEvents();
+            try {
+                $count += $kronolith_driver->countEvents();
+            } catch (Exception $e) {
+            }
         }
 
         /* Reopen last calendar. */
@@ -779,6 +770,7 @@ class Kronolith
      *                          calendar will be used.
      *
      * @return array  The UID of all events that were added.
+     * @throws Kronolith_Exception
      */
     public function quickAdd($text, $calendar = null)
     {
@@ -808,11 +800,8 @@ class Kronolith
         $event->description = $description;
         $event->start = $d;
         $event->end = $d->add(array('hour' => 1));
+        $event->save();
 
-        $eventId = $event->save();
-        if (is_a($eventId, 'PEAR_Error')) {
-            return $eventId;
-        }
         return $event;
     }
 
@@ -1376,12 +1365,13 @@ class Kronolith
      * @param array $info  Hash with calendar information.
      *
      * @return Horde_Share  The new share.
+     * @throws Kronolith_Exception
      */
     public static function addShare($info)
     {
         $calendar = $GLOBALS['kronolith_shares']->newShare(hash('md5', microtime()));
-        if (is_a($calendar, 'PEAR_Error')) {
-            return $calendar;
+        if ($calendar instanceof PEAR_Error) {
+            throw new Kronolith_Exception($calendar);
         }
 
         $calendar->set('name', $info['name']);
@@ -1394,8 +1384,8 @@ class Kronolith
         $tagger->tag($calendar->getName(), $info['tags'], 'calendar');
 
         $result = $GLOBALS['kronolith_shares']->addShare($calendar);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+        if ($result instanceof PEAR_Error) {
+            throw new Kronolith_Exception($result);
         }
 
         $GLOBALS['display_calendars'][] = $calendar->getName();
@@ -1409,13 +1399,15 @@ class Kronolith
      *
      * @param Horde_Share $share  The share to update.
      * @param array $info         Hash with calendar information.
+     *
+     * @throws Kronolith_Exception
      */
     public static function updateShare(&$calendar, $info)
     {
         if (!Horde_Auth::getAuth() ||
             ($calendar->get('owner') != Horde_Auth::getAuth() &&
              (!is_null($calendar->get('owner')) || !Horde_Auth::isAdmin()))) {
-            return PEAR::raiseError(_("You are not allowed to change this calendar."));
+            throw new Kronolith_Exception(_("You are not allowed to change this calendar."));
         }
 
         $original_name = $calendar->get('name');
@@ -1423,16 +1415,10 @@ class Kronolith
         $calendar->set('color', $info['color']);
         $calendar->set('desc', $info['description']);
         $calendar->set('owner', empty($info['system']) ? Horde_Auth::getAuth() : null);
-        if ($original_name != $info['name']) {
-            $result = Kronolith::getDriver()->rename($original_name, $info['name']);
-            if (is_a($result, 'PEAR_Error')) {
-                return PEAR::raiseError(sprintf(_("Unable to rename \"%s\": %s"), $original_name, $result->getMessage()));
-            }
-        }
 
         $result = $calendar->save();
-        if (is_a($result, 'PEAR_Error')) {
-            return PEAR::raiseError(sprintf(_("Unable to save calendar \"%s\": %s"), $info['name'], $result->getMessage()));
+        if ($result instanceof PEAR_Error) {
+            throw new Kronolith_Exception(sprintf(_("Unable to save calendar \"%s\": %s"), $info['name'], $result->getMessage()));
         }
 
         $tagger = self::getTagger();
@@ -1443,38 +1429,46 @@ class Kronolith
      * Deletes a share.
      *
      * @param Horde_Share $calendar  The share to delete.
+     *
+     * @throws Kronolith_Exception
      */
     public static function deleteShare($calendar)
     {
         if ($calendar->getName() == Horde_Auth::getAuth()) {
-            return PEAR::raiseError(_("This calendar cannot be deleted."));
+            throw new Kronolith_Exception(_("This calendar cannot be deleted."));
         }
 
         if (!Horde_Auth::getAuth() ||
             ($calendar->get('owner') != Horde_Auth::getAuth() &&
              (!is_null($calendar->get('owner')) || !Horde_Auth::isAdmin()))) {
-            return PEAR::raiseError(_("You are not allowed to delete this calendar."));
+            throw new Kronolith_Exception(_("You are not allowed to delete this calendar."));
         }
 
         // Delete the calendar.
-        $result = Kronolith::getDriver()->delete($calendar->getName());
-        if (is_a($result, 'PEAR_Error')) {
-            return PEAR::raiseError(sprintf(_("Unable to delete \"%s\": %s"), $calendar->get('name'), $result->getMessage()));
+        try {
+            Kronolith::getDriver()->delete($calendar->getName());
+        } catch (Exception $e) {
+            throw new Kronolith_Exception(sprintf(_("Unable to delete \"%s\": %s"), $calendar->get('name'), $ed->getMessage()));
         }
 
         // Remove share and all groups/permissions.
-        return $GLOBALS['kronolith_shares']->removeShare($calendar);
+        $result = $GLOBALS['kronolith_shares']->removeShare($calendar);
+        if ($result instanceof PEAR_Error) {
+            throw new Kronolith_Exception($result);
+        }
     }
 
     /**
      * Subscribes to a remote calendar.
      *
      * @param array $info  Hash with calendar information.
+     *
+     * @throws Kronolith_Exception
      */
     public static function subscribeRemoteCalendar($info)
     {
         if (!(strlen($info['name']) && strlen($info['url']))) {
-            return PEAR::raiseError(_("You must specify a name and a URL."));
+            throw new Kronolith_Exception(_("You must specify a name and a URL."));
         }
 
         if (strlen($info['username']) || strlen($info['password'])) {
@@ -1504,6 +1498,7 @@ class Kronolith
      * @param string $url  The calendar URL.
      *
      * @return array  Hash with the deleted calendar's information.
+     * @throws Kronolith_Exception
      */
     public static function unsubscribeRemoteCalendar($url)
     {
@@ -1522,7 +1517,7 @@ class Kronolith
             }
         }
         if (!$remote_calendar) {
-            return PEAR::raiseError(_("The remote calendar was not found."));
+            throw new Kronolith_Exception(_("The remote calendar was not found."));
         }
 
         $GLOBALS['prefs']->setValue('remote_cals', serialize($remote_calendars));
@@ -1583,6 +1578,8 @@ class Kronolith
      */
     public static function parseAttendees($newAttendees)
     {
+        global $notification;
+
         if (empty($newAttendees)) {
             return;
         }
@@ -1714,7 +1711,7 @@ class Kronolith
         $myemail = explode('@', $myemail);
         $from = Horde_Mime_Address::writeAddress($myemail[0], isset($myemail[1]) ? $myemail[1] : '', $ident->getValue('fullname'));
 
-        $share = &$GLOBALS['kronolith_shares']->getShare($event->calendar);
+        $share = $GLOBALS['kronolith_shares']->getShare($event->calendar);
 
         foreach ($event->attendees as $email => $status) {
             /* Don't bother sending an invitation/update if the recipient does
@@ -1835,23 +1832,26 @@ class Kronolith
      * @param Kronolith_Event $event  An event.
      * @param string $action          The event action. One of "add", "edit",
      *                                or "delete".
+     *
+     * @throws Horde_Mime_Exception
+     * @throws Kronolith_Exception
      */
-    public static function sendNotification(&$event, $action)
+    public static function sendNotification($event, $action)
     {
         global $conf;
 
         if (!in_array($action, array('add', 'edit', 'delete'))) {
-            return PEAR::raiseError('Unknown event action: ' . $action);
+            throw new Kronolith_Exception('Unknown event action: ' . $action);
         }
 
         require_once 'Horde/Group.php';
 
-        $groups = &Group::singleton();
+        $groups = Group::singleton();
         $calendar = $event->calendar;
         $recipients = array();
-        $share = &$GLOBALS['kronolith_shares']->getShare($calendar);
-        if (is_a($share, 'PEAR_Error')) {
-            return $share;
+        $share = $GLOBALS['kronolith_shares']->getShare($calendar);
+        if ($share instanceof PEAR_Error) {
+            throw new Kronolith_Exception($share);
         }
 
         $identity = Horde_Prefs_Identity::singleton();
@@ -1870,11 +1870,11 @@ class Kronolith
 
         foreach ($share->listGroups(Horde_Perms::READ) as $group) {
             $group = $groups->getGroupById($group);
-            if (is_a($group, 'PEAR_Error')) {
+            if ($group instanceof PEAR_Error) {
                 continue;
             }
             $group_users = $group->listAllUsers();
-            if (is_a($group_users, 'PEAR_Error')) {
+            if ($group_users instanceof PEAR_Error) {
                 Horde::logMessage($group_users, __FILE__, __LINE__, PEAR_LOG_ERR);
                 continue;
             }
@@ -1943,20 +1943,18 @@ class Kronolith
                     $mail->addHeader('User-Agent', 'Kronolith ' . $GLOBALS['registry']->getVersion());
                     $mime_mail->setBody($message, Horde_Nls::getCharset(), true);
                     Horde::logMessage(sprintf('Sending event notifications for %s to %s', $event->title, implode(', ', $df_recipients)), __FILE__, __LINE__, PEAR_LOG_DEBUG);
-                    try {
-                        $mime_mail->send(Horde::getMailerConfig(), false, false);
-                    } catch (Horde_Mime_Exception $e) {}
+                    $mime_mail->send(Horde::getMailerConfig(), false, false);
                 }
             }
         }
-
-        return true;
     }
 
     /**
      * Check for resource declines and push notice to stack if found.
      *
-     * @param Kronolith_Event #
+     * @param Kronolith_Event $event
+     *
+     * @throws Kronolith_Exception
      */
     public static function notifyOfResourceRejection($event)
     {
@@ -2149,6 +2147,7 @@ class Kronolith
      *
      * @return Kronolith_Driver  The newly created concrete Kronolith_Driver
      *                           instance, or a PEAR_Error on error.
+     * @throws Kronolith_Exception
      */
     public static function getDriver($driver = null, $calendar = null)
     {
@@ -2201,13 +2200,13 @@ class Kronolith
 
             case 'Holidays':
                 if (empty($GLOBALS['conf']['holidays']['enable'])) {
-                    return PEAR::raiseError(_("Holidays are disabled"));
+                    throw new Kronolith_Exception(_("Holidays are disabled"));
                 }
                 $params['language'] = $GLOBALS['language'];
                 break;
 
             default:
-                return PEAR::raiseError('No calendar driver specified');
+                throw new Kronolith_Exception('No calendar driver specified');
                 break;
             }
 
@@ -2271,39 +2270,43 @@ class Kronolith
         case 'EditEvent':
         case 'DeleteEvent':
         case 'ExportEvent':
-            if ($uid = Horde_Util::getFormData('uid')) {
-                $event = self::getDriver()->getByUID($uid);
-            } else {
-                $event = self::getDriver(Horde_Util::getFormData('type'),
-                                         Horde_Util::getFormData('calendar'))
-                    ->getEvent(Horde_Util::getFormData('eventID'),
-                               Horde_Util::getFormData('datetime'));
+            try {
+                if ($uid = Horde_Util::getFormData('uid')) {
+                    $event = self::getDriver()->getByUID($uid);
+                } else {
+                    $event = self::getDriver(Horde_Util::getFormData('type'),
+                                             Horde_Util::getFormData('calendar'))
+                        ->getEvent(Horde_Util::getFormData('eventID'),
+                                   Horde_Util::getFormData('datetime'));
+                }
+            } catch (Horde_Exception $e) {
+                $event = $e->getMessage();
             }
             switch ($view) {
             case 'Event':
-                if (!is_a($event, 'PEAR_Error') &&
+                if (!is_string($event) &&
                     !$event->hasPermission(Horde_Perms::READ)) {
-                    $event = PEAR::raiseError(_("Permission Denied"));
+                    $event = _("Permission Denied");
                 }
                 return new Kronolith_View_Event($event);
             case 'EditEvent':
                 /* We check for read permissions, because we can always save a
                  * copy if we can read the event. */
-                if (!is_a($event, 'PEAR_Error') &&
+                if (!is_string($event) &&
                     !$event->hasPermission(Horde_Perms::READ)) {
-                    $event = PEAR::raiseError(_("Permission Denied"));
+                    $event = _("Permission Denied");
                 }
                 return new Kronolith_View_EditEvent($event);
             case 'DeleteEvent':
-                if (!is_a($event, 'PEAR_Error') &&
+                if (!is_string($event) &&
                     !$event->hasPermission(Horde_Perms::DELETE)) {
-                    $event = PEAR::raiseError(_("Permission Denied"));
+                    $event = _("Permission Denied");
                 }
                 return new Kronolith_View_DeleteEvent($event);
             case 'ExportEvent':
-                if (!is_a($event, 'PEAR_Error') &&
+                if (!is_string($event) &&
                     !$event->hasPermission(Horde_Perms::READ)) {
-                    $event = PEAR::raiseError(_("Permission Denied"));
+                    $event = _("Permission Denied");
                 }
                 return new Kronolith_View_ExportEvent($event);
             }
@@ -2432,18 +2435,19 @@ class Kronolith
         if (empty(self::$_tagger)) {
             self::$_tagger = new Kronolith_Tagger();
         }
-
         return self::$_tagger;
     }
 
     public static function getGeoDriver()
     {
-        /* Get geolocation data */
         if (!empty($GLOBALS['conf']['maps']['geodriver'])) {
-            return Kronolith_Geo::factory($GLOBALS['conf']['maps']['geodriver']);
-        } else {
-            return false;
+            try {
+                return Kronolith_Geo::factory($GLOBALS['conf']['maps']['geodriver']);
+            } catch (Exception $e) {
+                Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            }
         }
+        return false;
     }
 
     /**
@@ -2452,7 +2456,8 @@ class Kronolith
      *
      * @param string $target  The calendar id to retrieve.
      *
-     * @return mixed  Kronolith_Resource or Horde_Share_Object
+     * @return Kronolith_Resource|Horde_Share_Object
+     * @throws Kronolith_Exception
      */
     static public function getInternalCalendar($target)
     {

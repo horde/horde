@@ -8,22 +8,16 @@
  * @package Kronolith
  */
 
-/** Horde_Form */
-require_once 'Horde/Form.php';
-
-/** Horde_Form_Renderer */
-require_once 'Horde/Form/Renderer.php';
-
 /**
- * The Kronolith_SubscribeRemoteCalendarForm class provides the form
- * for subscribing to remote calendars
+ * The Kronolith_SubscribeRemoteCalendarForm class provides the form for
+ * subscribing to remote calendars.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Kronolith
  */
-class Kronolith_SubscribeRemoteCalendarForm extends Horde_Form {
-
-    function Kronolith_SubscribeRemoteCalendarForm(&$vars)
+class Kronolith_SubscribeRemoteCalendarForm extends Horde_Form
+{
+    public function __construct($vars)
     {
         parent::Horde_Form($vars, _("Subscribe to a Remote Calendar"));
 
@@ -37,13 +31,16 @@ class Kronolith_SubscribeRemoteCalendarForm extends Horde_Form {
         $this->setButtons(array(_("Subscribe")));
     }
 
-    function execute()
+    /**
+     * @throws Kronolith_Exception
+     */
+    public function execute()
     {
         $info = array();
         foreach (array('name', 'url', 'color', 'username', 'password') as $key) {
             $info[$key] = $this->_vars->get($key);
         }
-        return Kronolith::subscribeRemoteCalendar($info);
+        Kronolith::subscribeRemoteCalendar($info);
     }
 
 }

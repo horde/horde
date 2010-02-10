@@ -32,7 +32,6 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     {
         $start = new Horde_Date($vars->start);
         $end   = new Horde_Date($vars->end);
-
         $result = new stdClass;
         $result->cal = $vars->cal;
         $result->view = $vars->view;
@@ -41,16 +40,9 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
             return $result;
         }
         $events = $kronolith_driver->listEvents($start, $end, true, false, true);
-        if ($events instanceof PEAR_Error) {
-            $GLOBALS['notification']->push($events, 'horde.error');
-            return $result;
-            break;
-        }
-
         if (count($events)) {
             $result->events = $events;
         }
-
         return $result;
     }
 
@@ -114,13 +106,8 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function QuickSaveEvent($vars)
     {
-        $kronolith_driver = Kronolith::getDriver();
         try {
             $event = Kronolith::quickAdd($vars->text, Kronolith::getDefaultCalendar(Horde_Perms::EDIT));
-            if ($event instanceof PEAR_Error) {
-                $GLOBALS['notification']->push($event, 'horde.error');
-                return false;
-            }
             return $this->_saveEvent($event);
         } catch (Horde_Exception $e) {
             $GLOBALS['notification']->push($e);
@@ -213,10 +200,6 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
         }
 
         $deleted = $kronolith_driver->deleteEvent($event->id);
-        if ($deleted instanceof PEAR_Error) {
-            $GLOBALS['notification']->push($deleted, 'horde.error');
-            return false;
-        }
 
         if ($vars->sendupdates) {
             Kronolith::sendITipNotifications($event, $GLOBALS['notification'], Kronolith::ITIP_CANCEL);
@@ -245,15 +228,15 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
         $events = array();
         foreach ($cals as $cal) {
             if (!($kronolith_driver = $this->_getDriver($cal))) {
-                break;
+                continue;
             }
-            $result = $kronolith_driver->search($query, true);
-            if ($result instanceof PEAR_Error) {
-                $GLOBALS['notification']->push($result, 'horde.error');
-                break;
-            }
-            if ($result) {
-                $events[$cal] = $result;
+            try {
+                $result = $kronolith_driver->search($query, true);
+                if ($result) {
+                    $events[$cal] = $result;
+                }
+            } catch (Exception $e) {
+                $GLOBALS['notification']->push($e, 'horde.error');
             }
         }
 
@@ -444,7 +427,6 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
         foreach ($tags as $tag) {
             $result->tags[] = $tag['tag_name'];
         }
-
         return $result;
     }
 
@@ -453,14 +435,14 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function GetFreeBusy($vars)
     {
-        $fb = Kronolith_FreeBusy::get($vars->email, true);
-        if ($fb instanceof PEAR_Error) {
-            $GLOBALS['notification']->push($fb->getMessage(), 'horde.warning');
+        try {
+            $fb = Kronolith_FreeBusy::get($vars->email, true);
+        } catch (Exception $e) {
+            $GLOBALS['notification']->push($e->getMessage(), 'horde.warning');
             return false;
         }
         $result = new stdClass;
         $result->fb = $fb;
-
         return $result;
     }
 
@@ -495,9 +477,10 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
                     $GLOBALS['prefs']->isLocked('default_share')) {
                     return false;
                 }
-                $calendar = Kronolith::addShare($info);
-                if ($calendar instanceof PEAR_Error) {
-                    $GLOBALS['notification']->push($calendar, 'horde.error');
+                try {
+                    $calendar = Kronolith::addShare($info);
+                } catch (Exception $e) {
+                    $GLOBALS['notification']->push($e, 'horde.error');
                     return false;
                 }
                 $GLOBALS['notification']->push(sprintf(_("The calendar \"%s\" has been created."), $info['name']), 'horde.success');
@@ -506,15 +489,17 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
             }
 
             // Update a calendar.
-            $calendar = $GLOBALS['kronolith_shares']->getShare($calendar_id);
-            if ($calendar instanceof PEAR_Error) {
-                $GLOBALS['notification']->push($calendar, 'horde.error');
+            try {
+                $calendar = $GLOBALS['kronolith_shares']->getShare($calendar_id);
+            } catch (Exception $e) {
+                $GLOBALS['notification']->push($e, 'horde.error');
                 return false;
             }
             $original_name = $calendar->get('name');
-            $updated = Kronolith::updateShare($calendar, $info);
-            if ($updated instanceof PEAR_Error) {
-                $GLOBALS['notification']->push($updated, 'horde.error');
+            try {
+                Kronolith::updateShare($calendar, $info);
+            } catch (Exception $e) {
+                $GLOBALS['notification']->push($e, 'horde.error');
                 return false;
 
             }
@@ -571,9 +556,10 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
             foreach (array('name', 'description', 'url', 'color', 'username', 'password') as $key) {
                 $calendar[$key] = $vars->$key;
             }
-            $subscribed = Kronolith::subscribeRemoteCalendar($calendar);
-            if ($subscribed instanceof PEAR_Error) {
-                $GLOBALS['notification']->push($subscribed, 'horde.error');
+            try {
+                Kronolith::subscribeRemoteCalendar($calendar);
+            } catch (Exception $e) {
+                $GLOBALS['notification']->push($e, 'horde.error');
                 return false;
             }
             if ($calendar_id) {
@@ -599,14 +585,16 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
 
         switch ($vars->type) {
         case 'internal':
-            $calendar = $GLOBALS['kronolith_shares']->getShare($calendar_id);
-            if ($calendar instanceof PEAR_Error) {
-                $GLOBALS['notification']->push($calendar, 'horde.error');
+            try {
+                $calendar = $GLOBALS['kronolith_shares']->getShare($calendar_id);
+            } catch (Exception $e) {
+                $GLOBALS['notification']->push($e, 'horde.error');
                 return false;
             }
-            $deleted = Kronolith::deleteShare($calendar);
-            if ($deleted instanceof PEAR_Error) {
-                $GLOBALS['notification']->push(sprintf(_("Unable to delete \"%s\": %s"), $calendar->get('name'), $deleted->getMessage()), 'horde.error');
+            try {
+                Kronolith::deleteShare($calendar);
+            } catch (Exception $e) {
+                $GLOBALS['notification']->push(sprintf(_("Unable to delete \"%s\": %s"), $calendar->get('name'), $e->getMessage()), 'horde.error');
                 return false;
             }
             $GLOBALS['notification']->push(sprintf(_("The calendar \"%s\" has been deleted."), $calendar->get('name')), 'horde.success');
@@ -628,9 +616,10 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
             break;
 
         case 'remote':
-            $deleted = Kronolith::unsubscribeRemoteCalendar($calendar_id);
-            if ($deleted instanceof PEAR_Error) {
-                $GLOBALS['notification']->push($deleted, 'horde.error');
+            try {
+                $deleted = Kronolith::unsubscribeRemoteCalendar($calendar_id);
+            } catch (Exception $e) {
+                $GLOBALS['notification']->push($e, 'horde.error');
                 return false;
             }
             $GLOBALS['notification']->push(sprintf(_("You have been unsubscribed from \"%s\" (%s)."), $deleted['name'], $deleted['url']), 'horde.success');
@@ -730,9 +719,10 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
      */
     protected function _saveEvent($event)
     {
-        $result = $event->save();
-        if ($result instanceof PEAR_Error) {
-            $GLOBALS['notification']->push($result, 'horde.error');
+        try {
+            $result = $event->save();
+        } catch (Exception $e) {
+            $GLOBALS['notification']->push($e, 'horde.error');
             return true;
         }
         $start = new Horde_Date(Horde_Util::getFormData('view_start'));

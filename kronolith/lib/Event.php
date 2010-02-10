@@ -290,7 +290,10 @@ abstract class Kronolith_Event
 
             /* Get geolocation data */
             if ($gDriver = Kronolith::getGeoDriver()) {
-                $this->geoLocation = $gDriver->getLocation($this->id);
+                try {
+                    $this->geoLocation = $gDriver->getLocation($this->id);
+                } catch (Exception $e) {
+                }
             }
         }
     }
@@ -373,15 +376,14 @@ abstract class Kronolith_Event
      * Returns the share this event belongs to.
      *
      * @return Horde_Share  This event's share.
+     * @throws Kronolith_Exception
      */
     public function getShare()
     {
         if (isset($GLOBALS['all_calendars'][$this->calendar])) {
-            $share = $GLOBALS['all_calendars'][$this->calendar];
-        } else {
-            $share = PEAR::raiseError('Share not found');
+            return $GLOBALS['all_calendars'][$this->calendar];
         }
-        return $share;
+        throw new Kronolith_Exception('Share not found');
     }
 
     /**
@@ -397,30 +399,32 @@ abstract class Kronolith_Event
         if ($user === null) {
             $user = Horde_Auth::getAuth();
         }
-
-        return (!is_a($share = &$this->getShare(), 'PEAR_Error') &&
-                $share->hasPermission($user, $permission, $this->creator));
+        try {
+            $share = $this->getShare();
+        } catch (Exception $e) {
+            return false;
+        }
+        return $share->hasPermission($user, $permission, $this->creator);
     }
 
     /**
      * Saves changes to this event.
      *
-     * @return mixed  True or a PEAR_Error on failure.
+     * @return integer  The event id.
+     * @throws Kronolith_Exception
      */
     public function save()
     {
         if (!$this->initialized) {
-            return PEAR::raiseError('Event not yet initialized');
+            throw new Kronolith_Exception('Event not yet initialized');
         }
 
-        /* Check for acceptance/denial of this event's resources.
-         */
+        /* Check for acceptance/denial of this event's resources. */
         $add_events = array();
         $locks = Horde_Lock::singleton($GLOBALS['conf']['lock']['driver']);
         $lock = array();
         $failed_resources = array();
         foreach ($this->getResources() as $id => $resourceData) {
-
             /* Get the resource and protect against infinite recursion in case
              * someone is silly enough to add a resource to it's own event.*/
             $resource = Kronolith::getDriver('Resource')->getResource($id);
@@ -441,7 +445,7 @@ abstract class Kronolith_Event
                 // Already locked
                 // For now, just fail. Not sure how else to capture the locked
                 // resources and notify the user.
-                return PEAR::raiseError(sprintf(_("The resource \"%s\" was locked. Please try again."), $resource->get('name')));
+                throw new Kronolith_Exception(sprintf(_("The resource \"%s\" was locked. Please try again."), $resource->get('name')));
             } else {
                 $response = $resource->getResponse($this);
             }
@@ -461,17 +465,13 @@ abstract class Kronolith_Event
         /* Save */
         $this->toDriver();
         $result = $this->getDriver()->saveEvent($this);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
 
-        /* Now that the event is definitely commited to storage, we can add the
-         * event to each resource that has accepted. Not very efficient, but
-         * this also solves the problem of not having a GUID for the event until
-         * after it's saved. If we add the event to the resources calendar
-         * before it is saved, they will have different GUIDs, and hence no
-         * longer refer to the same event.
-         */
+        /* Now that the event is definitely commited to storage, we can add
+         * the event to each resource that has accepted. Not very efficient,
+         * but this also solves the problem of not having a GUID for the event
+         * until after it's saved. If we add the event to the resources
+         * calendar before it is saved, they will have different GUIDs, and
+         * hence no longer refer to the same event. */
         foreach ($add_events as $resource) {
             $resource->addEvent($this);
             if ($resource->get('response_type') == Kronolith_Resource::RESPONSETYPE_AUTO) {
@@ -974,6 +974,8 @@ abstract class Kronolith_Event
      * Imports the values for this event from an array of values.
      *
      * @param array $hash  Array containing all the values.
+     *
+     * @throws Kronolith_Exception
      */
     public function fromHash($hash)
     {
@@ -984,7 +986,7 @@ abstract class Kronolith_Event
         if (!empty($hash['title'])) {
             $this->title = $hash['title'];
         } else {
-            return PEAR::raiseError(_("Events must have a title."));
+            throw new Kronolith_Exception(_("Events must have a title."));
         }
         if (!empty($hash['description'])) {
             $this->description = $hash['description'];
@@ -1011,7 +1013,7 @@ abstract class Kronolith_Event
                                                     'sec' => $time[2]));
             }
         } else {
-            return PEAR::raiseError(_("Events must have a start date."));
+            throw new Kronolith_Exception(_("Events must have a start date."));
         }
         if (empty($hash['duration'])) {
             if (empty($hash['end_date'])) {
@@ -1282,14 +1284,16 @@ abstract class Kronolith_Event
         if (!isset($this->uid) || !isset($this->calendar)) {
             return false;
         }
-
-        $eventID = $this->getDriver()->exists($this->uid, $this->calendar);
-        if (is_a($eventID, 'PEAR_Error') || !$eventID) {
-            return false;
-        } else {
-            $this->id = $eventID;
-            return true;
+        try {
+            $eventID = $this->getDriver()->exists($this->uid, $this->calendar);
+            if (!$eventID) {
+                return false;
+            }
+        } catch (Exception $e) {
+            return $false;
         }
+        $this->id = $eventID;
+        return true;
     }
 
     public function getDuration()
@@ -1446,8 +1450,7 @@ abstract class Kronolith_Event
      */
     public function hasAttendee($email)
     {
-        $email = Horde_String::lower($email);
-        return isset($this->attendees[$email]);
+        return isset($this->attendees[Horde_String::lower($email)]);
     }
 
     /**
@@ -1484,13 +1487,12 @@ abstract class Kronolith_Event
     }
 
     /**
-     * Adds a single Kronolith_Resource to this event.
+     * Adds a single resource to this event.
+     *
      * No validation or acceptence/denial is done here...it should be done
-     * when saving the Event.
+     * when saving the event.
      *
-     * @param Kronolith_Resource $resource  The resource to add
-     *
-     * @return void
+     * @param Kronolith_Resource $resource  The resource to add.
      */
     public function addResource($resource, $response)
     {
@@ -1502,11 +1504,9 @@ abstract class Kronolith_Event
     }
 
     /**
-     * Remove a Kronolith_Resource from this event
+     * Removes a resource from this event.
      *
-     * @param Kronolith_Resource $resource  The resource to remove
-     *
-     * @return void
+     * @param Kronolith_Resource $resource  The resource to remove.
      */
     public function removeResource($resource)
     {
@@ -1516,9 +1516,9 @@ abstract class Kronolith_Event
     }
 
     /**
-     * Returns the entire resources array.
+     * Returns all resources.
      *
-     * @return array  A copy of the attendees array.
+     * @return array  A copy of the resources array.
      */
     public function getResources()
     {

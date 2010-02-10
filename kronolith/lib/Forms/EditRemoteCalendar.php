@@ -8,22 +8,16 @@
  * @package Kronolith
  */
 
-/** Horde_Form */
-require_once 'Horde/Form.php';
-
-/** Horde_Form_Renderer */
-require_once 'Horde/Form/Renderer.php';
-
 /**
- * The Kronolith_EditRemoteCalendarForm class provides the form for
- * editing a remote calendar.
+ * The Kronolith_EditRemoteCalendarForm class provides the form for editing a
+ * remote calendar.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Kronolith
  */
-class Kronolith_EditRemoteCalendarForm extends Horde_Form {
-
-    function Kronolith_EditRemoteCalendarForm(&$vars, $remote_calendar)
+class Kronolith_EditRemoteCalendarForm extends Horde_Form
+{
+    public function __construct($vars, $remote_calendar)
     {
         parent::Horde_Form($vars, sprintf(_("Edit %s"), $remote_calendar['name']));
 
@@ -39,7 +33,10 @@ class Kronolith_EditRemoteCalendarForm extends Horde_Form {
         $this->setButtons(array(_("Save")));
     }
 
-    function execute()
+    /**
+     * @throws Kronolith_Exception
+     */
+    public function execute()
     {
         $info = array();
         foreach (array('name', 'new_url', 'user', 'password', 'color', 'desc') as $key) {

@@ -50,9 +50,10 @@ if (!$fb) {
         }
     }
 
-    $fb = Kronolith_FreeBusy::generate(explode('|', $cal), null, null, false, $user);
-    if (is_a($fb, 'PEAR_Error')) {
-        Horde::logMessage($fb, __FILE__, __LINE__, PEAR_LOG_ERR);
+    try {
+        $fb = Kronolith_FreeBusy::generate(explode('|', $cal), null, null, false, $user);
+    } catch (Exception $e) {
+        Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
         exit;
     }
     $cache->set($key, $fb);

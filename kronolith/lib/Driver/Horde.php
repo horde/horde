@@ -50,7 +50,7 @@ class Kronolith_Driver_Horde extends Kronolith_Driver
      *                                   that they cover.
      *
      * @return array  Events in the given time range.
-     * @throws Horde_Exception
+     * @throws Kronolith_Exception
      */
     public function listEvents($startDate = null, $endDate = null,
                                $showRecurrence = false, $hasAlarm = false,
@@ -108,6 +108,8 @@ class Kronolith_Driver_Horde extends Kronolith_Driver
 
     /**
      * @todo: implement getTimeObject in timeobjects API.
+     * @throws Kronolith_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function getEvent($eventId = null, $start = null)
     {
@@ -125,7 +127,7 @@ class Kronolith_Driver_Horde extends Kronolith_Driver
             }
         }
 
-        return PEAR::raiseError(_("Event not found"));
+        throw new Horde_Exception_NotFound(_("Event not found"));
     }
 
 }

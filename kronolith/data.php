@@ -192,19 +192,21 @@ if (!$error) {
         $next_step = Horde_Data::IMPORT_FILE;
     } else {
         if ($actionID == Horde_Data::IMPORT_FILE) {
-            $share = &$kronolith_shares->getShare($_SESSION['import_data']['import_cal']);
-            if (is_a($share, 'PEAR_Error')) {
+            try {
+                $share = $kronolith_shares->getShare($_SESSION['import_data']['import_cal']);
+                if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+                    $notification->push(_("You do not have permission to add events to the selected calendar."), 'horde.error');
+                    $next_step = $data->cleanup();
+                } else {
+                    $next_step = $data->nextStep($actionID, $param);
+                    if (is_a($next_step, 'PEAR_Error')) {
+                        $notification->push($next_step->getMessage(), 'horde.error');
+                        $next_step = $data->cleanup();
+                    }
+                }
+            } catch (Exception $e) {
                 $notification->push(_("You have specified an invalid calendar."), 'horde.error');
                 $next_step = $data->cleanup();
-            } elseif (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
-                $notification->push(_("You do not have permission to add events to the selected calendar."), 'horde.error');
-                $next_step = $data->cleanup();
-            } else {
-                $next_step = $data->nextStep($actionID, $param);
-                if (is_a($next_step, 'PEAR_Error')) {
-                    $notification->push($next_step->getMessage(), 'horde.error');
-                    $next_step = $data->cleanup();
-                }
             }
         } else {
             $next_step = $data->nextStep($actionID, $param);
@@ -233,11 +235,11 @@ if (is_array($next_step)) {
     } else {
         /* Purge old calendar if requested. */
         if ($_SESSION['import_data']['purge']) {
-            $result = $kronolith_driver->delete($_SESSION['import_data']['import_cal']);
-            if (is_a($result, 'PEAR_Error')) {
-                $notification->push(sprintf(_("The calendar could not be purged: %s"), $result->getMessage()), 'horde.error');
-            } else {
+            try {
+                $kronolith_driver->delete($_SESSION['import_data']['import_cal']);
                 $notification->push(_("Calendar successfully purged."), 'horde.success');
+            } catch (Exception $e) {
+                $notification->push(sprintf(_("The calendar could not be purged: %s"), $e->getMessage()), 'horde.error');
             }
         }
     }
@@ -252,12 +254,11 @@ if (is_array($next_step)) {
             $notification->push($message, 'horde.error', array('content.raw'));
             break;
         }
-        $event = &$kronolith_driver->getEvent();
-        if (!$event || is_a($event, 'PEAR_Error')) {
-            $msg = _("Can't create a new event.");
-            if (is_a($event, 'PEAR_Error')) {
-                $msg .= ' ' . sprintf(_("This is what the server said: %s"), $event->getMessage());
-            }
+        try {
+            $event = $kronolith_driver->getEvent();
+        } catch (Exception $e) {
+            $msg = _("Can't create a new event.")
+                . ' ' . sprintf(_("This is what the server said: %s"), $e->getMessage());
             $notification->push($msg, 'horde.error');
             $error = true;
             break;
@@ -268,17 +269,19 @@ if (is_array($next_step)) {
             // Skip other iCalendar components for now.
             continue;
         } else {
-            $valid = $event->fromHash($row);
-            if (is_a($valid, 'PEAR_Error')) {
-                $notification->push($valid, 'horde.error');
+            try {
+                $event->fromHash($row);
+            } catch (Exception $e) {
+                $notification->push($e, 'horde.error');
                 $error = true;
                 break;
             }
         }
 
-        $success = $event->save();
-        if (is_a($success, 'PEAR_Error')) {
-            $notification->push($success, 'horde.error');
+        try {
+            $event->save();
+        } catch (Exception $e) {
+            $notification->push($e, 'horde.error');
             $error = true;
             break;
         }

@@ -20,13 +20,15 @@ if (!Horde_Auth::getAuth()) {
 }
 
 $vars = Horde_Variables::getDefaultVariables();
-$calendar = $kronolith_shares->getShare($vars->get('c'));
-if (is_a($calendar, 'PEAR_Error')) {
-    $notification->push($calendar, 'horde.error');
+try {
+    $calendar = $kronolith_shares->getShare($vars->get('c'));
+} catch (Exception $e) {
+    $notification->push($e, 'horde.error');
     header('Location: ' . Horde::applicationUrl('calendars/', true));
     exit;
-} elseif ($calendar->get('owner') != Horde_Auth::getAuth() &&
-          (!is_null($calendar->get('owner')) || !Horde_Auth::isAdmin())) {
+}
+if ($calendar->get('owner') != Horde_Auth::getAuth() &&
+    (!is_null($calendar->get('owner')) || !Horde_Auth::isAdmin())) {
     $notification->push(_("You are not allowed to change this calendar."), 'horde.error');
     header('Location: ' . Horde::applicationUrl('calendars/', true));
     exit;
@@ -36,17 +38,16 @@ $form = new Kronolith_EditCalendarForm($vars, $calendar);
 // Execute if the form is valid.
 if ($form->validate($vars)) {
     $original_name = $calendar->get('name');
-    $result = $form->execute();
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push($result, 'horde.error');
-    } else {
+    try {
+        $form->execute();
         if ($calendar->get('name') != $original_name) {
             $notification->push(sprintf(_("The calendar \"%s\" has been renamed to \"%s\"."), $original_name, $calendar->get('name')), 'horde.success');
         } else {
             $notification->push(sprintf(_("The calendar \"%s\" has been saved."), $original_name), 'horde.success');
         }
+    } catch (Exception $e) {
+        $notification->push($e, 'horde.error');
     }
-
     header('Location: ' . Horde::applicationUrl('calendars/', true));
     exit;
 }

@@ -25,13 +25,12 @@ $form = new Kronolith_UnsubscribeRemoteCalendarForm($vars, $remote_calendar);
 
 // Execute if the form is valid (must pass with POST variables only).
 if ($form->validate(new Horde_Variables($_POST))) {
-    $result = $form->execute();
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push($result, 'horde.error');
-    } elseif ($result) {
+    try {
+        $calendar = $form->execute();
         $notification->push(sprintf(_("You have been unsubscribed from \"%s\" (%s)."), $calendar['name'], $calendar['url']), 'horde.success');
+    } catch (Exception $e) {
+        $notification->push($e, 'horde.error');
     }
-
     header('Location: ' . Horde::applicationUrl('calendars/', true));
     exit;
 }

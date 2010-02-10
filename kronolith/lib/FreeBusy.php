@@ -5,7 +5,8 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Kronolith
  */
-class Kronolith_FreeBusy {
+class Kronolith_FreeBusy
+{
     /**
      * Generates the free/busy text for $calendar. Cache it for at least an
      * hour, as well.
@@ -18,9 +19,11 @@ class Kronolith_FreeBusy {
      * @param string $user            Set organizer to this user.
      *
      * @return string  The free/busy text.
+     * @throws Kronolith_Exception
      */
-    function generate($calendar, $startstamp = null, $endstamp = null,
-                      $returnObj = false, $user = null)
+    public static function generate($calendar, $startstamp = null,
+                                    $endstamp = null, $returnObj = false,
+                                    $user = null)
     {
         global $kronolith_shares;
 
@@ -29,8 +32,10 @@ class Kronolith_FreeBusy {
         }
 
         /* Fetch the appropriate share and check permissions. */
-        $share = &$kronolith_shares->getShare($calendar[0]);
-        if (is_a($share, 'PEAR_Error')) {
+        try {
+            $share = $kronolith_shares->getShare($calendar[0]);
+            $owner = $share->get('owner');
+        } catch (Exception $e) {
             // Might be a Kronolith_Resource
             try {
                 $resource = Kronolith_Resource::isResourceCalendar($calendar[0]);
@@ -38,8 +43,6 @@ class Kronolith_FreeBusy {
             } catch (Horde_Exception $e) {
                 return $returnObj ? $share : '';
             }
-        } else {
-            $owner = $share->get('owner');
         }
 
         /* Default the start date to today. */
@@ -63,9 +66,6 @@ class Kronolith_FreeBusy {
 
         /* Fetch events. */
         $busy = Kronolith::listEvents(new Horde_Date($startstamp), $enddate, $calendar);
-        if (is_a($busy, 'PEAR_Error')) {
-            return $busy;
-        }
 
         /* Create the new iCalendar. */
         $vCal = new Horde_iCalendar();
@@ -73,7 +73,7 @@ class Kronolith_FreeBusy {
         $vCal->setAttribute('METHOD', 'PUBLISH');
 
         /* Create new vFreebusy. */
-        $vFb = &Horde_iCalendar::newComponent('vfreebusy', $vCal);
+        $vFb = Horde_iCalendar::newComponent('vfreebusy', $vCal);
         $params = array();
         if (!empty($cn)) {
             $params['CN'] = $cn;
@@ -129,8 +129,9 @@ class Kronolith_FreeBusy {
      *
      * @return Horde_iCalendar_vfreebusy  Free/busy component on success,
      *                                    PEAR_Error on failure.
+     * @throws Kronolith_Exception
      */
-    function get($email, $json = false)
+    public static function get($email, $json = false)
     {
         /* Properly handle RFC822-compliant email addresses. */
         static $rfc822;
@@ -144,14 +145,14 @@ class Kronolith_FreeBusy {
             return $res;
         }
         if (!count($res)) {
-            return PEAR::raiseError(_("No valid email address found"));
+            throw new Kronolith_Exception(_("No valid email address found"));
         }
 
         $email = Horde_Mime_Address::writeAddress($res[0]->mailbox, $res[0]->host);
 
         /* Check if we can retrieve a VFB from the Free/Busy URL, if one is
          * set. */
-        $url = Kronolith_FreeBusy::getUrl($email);
+        $url = self::getUrl($email);
         if ($url) {
             $url = trim($url);
             $options['method'] = 'GET';
@@ -164,7 +165,7 @@ class Kronolith_FreeBusy {
 
             $http = new HTTP_Request($url, $options);
             if (is_a($response = @$http->sendRequest(), 'PEAR_Error')) {
-                return PEAR::raiseError(sprintf(_("The free/busy url for %s cannot be retrieved."), $email));
+                throw new Kronolith_Exception(sprintf(_("The free/busy url for %s cannot be retrieved."), $email));
             }
             if ($http->getResponseCode() == 200 &&
                 $data = $http->getResponseBody()) {
@@ -193,21 +194,28 @@ class Kronolith_FreeBusy {
                 }
 
                 if ($found) {
-                    return $json ? Kronolith_FreeBusy::toJson($vFb) : $vFb;
+                    // @todo: actually store the results in the storage, so
+                    // that they can be retrieved later. We should store the
+                    // plain iCalendar data though, to avoid versioning
+                    // problems with serialize iCalendar objects.
+                    return $json ? self::toJson($vFb) : $vFb;
                 }
             }
         }
 
         /* Check storage driver. */
-        $storage = Kronolith_Storage::singleton();
+        $storage = Kronolith_Storage::factory();
 
-        $fb = $storage->search($email);
-        if (!is_a($fb, 'PEAR_Error')) {
-            return $json ? Kronolith_FreeBusy::toJson($fb) : $fb;
-        } elseif ($fb->getCode() == Kronolith::ERROR_FB_NOT_FOUND) {
-            return $url ?
-                PEAR::raiseError(sprintf(_("No free/busy information found at the free/busy url of %s."), $email)) :
-                PEAR::raiseError(sprintf(_("No free/busy url found for %s."), $email));
+        try {
+            $fb = $storage->search($email);
+            return $json ? self::toJson($fb) : $fb;
+        } catch (Kronolith_Exception $e) {
+            if ($e->getCode() == Kronolith::ERROR_FB_NOT_FOUND) {
+                if ($url) {
+                    throw new Kronolith_Exception(sprintf(_("No free/busy information found at the free/busy url of %s."), $email));
+                }
+                throw new Kronolith_Exception(sprintf(_("No free/busy url found for %s."), $email));
+            }
         }
 
         /* Or else return an empty VFB object. */
@@ -215,7 +223,7 @@ class Kronolith_FreeBusy {
         $vFb = Horde_iCalendar::newComponent('vfreebusy', $vCal);
         $vFb->setAttribute('ORGANIZER', $email);
 
-        return $json ? Kronolith_FreeBusy::toJson($vFb) : $vFb;
+        return $json ? self::toJson($vFb) : $vFb;
     }
 
     /**
@@ -225,7 +233,7 @@ class Kronolith_FreeBusy {
      *
      * @return mixed  The url on success or false on failure.
      */
-    function getUrl($email)
+    public static function getUrl($email)
     {
         $sources = $GLOBALS['prefs']->getValue('search_sources');
         $sources = empty($sources) ? array() : explode("\t", $sources);

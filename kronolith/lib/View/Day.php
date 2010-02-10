@@ -37,25 +37,22 @@ class Kronolith_View_Day extends Kronolith_Day {
         }
 
         if ($events === null) {
-            $events = Kronolith::listEvents(
-                $this,
-                new Horde_Date(array('year' => $this->year,
-                                     'month' => $this->month,
-                                     'mday' => $this->mday)),
-                $GLOBALS['display_calendars']);
-            if (is_a($events, 'PEAR_Error')) {
-                $this->_events = $events;
-            } else {
-                $this->_events = array_shift($events);
+            try {
+                $events = Kronolith::listEvents(
+                    $this,
+                    new Horde_Date(array('year' => $this->year,
+                                         'month' => $this->month,
+                                         'mday' => $this->mday)),
+                    $GLOBALS['display_calendars']);
+                    $this->_events = array_shift($events);
+            } catch (Exception $e) {
+                $GLOBALS['notification']->push($e, 'horde.error');
+                $this->_events = array();
             }
         } else {
             $this->_events = $events;
         }
 
-        if (is_a($this->_events, 'PEAR_Error')) {
-            $GLOBALS['notification']->push($this->_events, 'horde.error');
-            $this->_events = array();
-        }
         if (!is_array($this->_events)) {
             $this->_events = array();
         }

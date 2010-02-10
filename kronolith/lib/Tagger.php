@@ -197,7 +197,7 @@ class Kronolith_Tagger
 
             //TODO: Are there any cases where we can shortcut the postFilter?
             $results = array('calendar' => array(),
-                             'event' => $this->_postFilter($results, $filter['calendar']));
+                             'event' => Kronolith::getDriver()->filterEventsByCalendar($results, $filter['calendar']));
         } else {
             $args = array('tagId' => self::$_tagger->ensureTags($tags));
             if (!empty($filter['userId'])) {
@@ -221,20 +221,6 @@ class Kronolith_Tagger
         }
 
         return $results;
-    }
-
-    /**
-     * Filter events in the $results array to return only those that are
-     * in $calendar.
-     *
-     * @param $results
-     * @param $calendar
-     * @return unknown_type
-     */
-    protected function _postFilter($results, $calendar)
-    {
-        $driver = Kronolith::getDriver();
-        return $driver->filterEventsByCalendar($results, $calendar);
     }
 
     /**

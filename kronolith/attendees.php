@@ -206,13 +206,11 @@ if (!$cal) {
     }
     $cal = array($cal);
 }
-$vfb = Kronolith_FreeBusy::generate($cal, null, null, true, Horde_Auth::getAuth());
-if (!is_a($vfb, 'PEAR_Error')) {
+try {
+    $vfb = Kronolith_FreeBusy::generate($cal, null, null, true, Horde_Auth::getAuth());
     $attendee_view->addRequiredMember($vfb);
-} else {
-    $notification->push(
-        sprintf(_("Error retrieving your free/busy information: %s"),
-                $vfb->getMessage()));
+} catch (Exception $e) {
+    $notification->push(sprintf(_("Error retrieving your free/busy information: %s"), $e->getMessage()));
 }
 
 // Add the Free/Busy information for each attendee.
@@ -220,8 +218,8 @@ foreach ($attendees as $email => $status) {
     if (strpos($email, '@') !== false &&
         ($status['attendance'] == Kronolith::PART_REQUIRED ||
          $status['attendance'] == Kronolith::PART_OPTIONAL)) {
-        $vfb = Kronolith_Freebusy::get($email);
-        if (!is_a($vfb, 'PEAR_Error')) {
+        try {
+            $vfb = Kronolith_Freebusy::get($email);
             $organizer = $vfb->getAttribute('ORGANIZER');
             if (empty($organizer)) {
                 $vfb->setAttribute('ORGANIZER', 'mailto:' . $email, array(),
@@ -232,10 +230,10 @@ foreach ($attendees as $email => $status) {
             } else {
                 $attendee_view->addOptionalMember($vfb);
             }
-        } else {
+        } catch (Exception $e) {
             $notification->push(
                 sprintf(_("Error retrieving free/busy information for %s: %s"),
-                        $email, $vfb->getMessage()));
+                        $email, $e->getMessage()));
         }
     }
 }
@@ -244,8 +242,8 @@ foreach ($attendees as $email => $status) {
 if (count($resources)) {
     $driver = Kronolith::getDriver('Resource');
     foreach ($resources as $r_id => $resource) {
+        $r = $driver->getResource($r_id);
         try {
-            $r = $driver->getResource($r_id);
             $vfb = $r->getFreeBusy(null, null, true);
             if ($resource['attendance'] == Kronolith::PART_REQUIRED) {
                 $attendee_view->addRequiredResourceMember($vfb);

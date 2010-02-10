@@ -25,8 +25,9 @@ require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('kronolith', array('authentication' => 'none', 'session_control' => 'readonly'));
 
 $calendar = Horde_Util::getFormData('c');
-$share = $kronolith_shares->getShare($calendar);
-if (is_a($share, 'PEAR_Error')) {
+try {
+    $share = $kronolith_shares->getShare($calendar);
+} catch (Exception $e) {
     _no_access(404, 'Not Found',
                sprintf(_("The requested feed (%s) was not found on this server."),
                        htmlspecialchars($calendar)));
@@ -68,11 +69,12 @@ if (empty($feed_type)) {
 $startDate = new Horde_Date(array('year' => date('Y'),
                                   'month' => date('n'),
                                   'mday' => date('j')));
-$events = Kronolith::listEvents($startDate,
-                                new Horde_Date($startDate),
-                                array($calendar));
-if (is_a($events, 'PEAR_Error')) {
-    Horde::logMessage($events, __FILE__, __LINE__, PEAR_LOG_ERR);
+try {
+    $events = Kronolith::listEvents($startDate,
+                                    new Horde_Date($startDate),
+                                    array($calendar));
+} catch (Exception $e) {
+    Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
     $events = array();
 }
 

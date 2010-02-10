@@ -120,11 +120,12 @@ while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
     }
 
     // Save event.
-    $event = &$kronolith_driver->getEvent();
+    $event = $kronolith_driver->getEvent();
     $event->fromiCalendar($components[0]);
-    $result = $event->save();
-    if (is_a($result, 'PEAR_Error')) {
-        $cli->message('  ' . $result->getMessage(), 'cli.error');
+    try {
+        $event->save();
+    } catch (Exception $e) {
+        $cli->message('  ' . $e->getMessage(), 'cli.error');
         continue;
     }
     $count++;

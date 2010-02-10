@@ -25,13 +25,12 @@ $form = new Kronolith_SubscribeRemoteCalendarForm($vars);
 
 // Execute if the form is valid.
 if ($form->validate($vars)) {
-    $result = $form->execute();
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push($result, 'horde.error');
-    } else {
+    try {
+        $form->execute();
         $notification->push(sprintf(_("You have been subscribed to \"%s\" (%s)."), $vars->get('name'), $vars->get('url')), 'horde.success');
+    } catch (Exception $e) {
+        $notification->push($e, 'horde.error');
     }
-
     header('Location: ' . Horde::applicationUrl('calendars/', true));
     exit;
 }

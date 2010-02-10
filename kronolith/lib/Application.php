@@ -164,14 +164,17 @@ class Kronolith_Application extends Horde_Registry_Application
     public function prefsCallback()
     {
         if ($GLOBALS['prefs']->isDirty('event_alarms')) {
-            $alarms = $GLOBALS['registry']->callByPackage('kronolith', 'listAlarms', array($_SERVER['REQUEST_TIME']));
-            if (!is_a($alarms, 'PEAR_Error') && !empty($alarms)) {
-                $horde_alarm = Horde_Alarm::factory();
-                foreach ($alarms as $alarm) {
-                    $alarm['start'] = new Horde_Date($alarm['start']);
-                    $alarm['end'] = new Horde_Date($alarm['end']);
-                    $horde_alarm->set($alarm);
+            try {
+                $alarms = $GLOBALS['registry']->callByPackage('kronolith', 'listAlarms', array($_SERVER['REQUEST_TIME']));
+                if (!empty($alarms)) {
+                    $horde_alarm = Horde_Alarm::factory();
+                    foreach ($alarms as $alarm) {
+                        $alarm['start'] = new Horde_Date($alarm['start']);
+                        $alarm['end'] = new Horde_Date($alarm['end']);
+                        $horde_alarm->set($alarm);
+                    }
                 }
+            } catch (Exception $e) {
             }
         }
     }
@@ -303,12 +306,12 @@ class Kronolith_Application extends Horde_Registry_Application
      *
      * @param string $user  Name of user to remove data for.
      *
-     * @return mixed  true on success | PEAR_Error on failure
+     * @throws Kronolith_Exception
      */
     public function removeUserData($user)
     {
         if (!Horde_Auth::isAdmin() && $user != Horde_Auth::getAuth()) {
-            return PEAR::raiseError(_("You are not allowed to remove user data."));
+            throw new Kronolith_Exception(_("You are not allowed to remove user data."));
         }
 
         /* Remove all events owned by the user in all calendars. */
@@ -323,18 +326,19 @@ class Kronolith_Application extends Horde_Registry_Application
         }
 
         /* Get the user's default share */
-        $share = $GLOBALS['kronolith_shares']->getShare($user);
-        if (is_a($share, 'PEAR_Error')) {
-            Horde::logMessage($share, __FILE__, __LINE__, PEAR_LOG_ERR);
-        } else {
+        try {
+            $share = $GLOBALS['kronolith_shares']->getShare($user);
             $result = $GLOBALS['kronolith_shares']->removeShare($share);
             if (is_a($result, 'PEAR_Error')) {
                 $hasError = true;
                 Horde::logMessage($result->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
             }
+        } catch (Exception $e) {
+            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
         }
 
-        /* Get a list of all shares this user has perms to and remove the perms */
+        /* Get a list of all shares this user has perms to and remove the
+         * perms */
         $shares = $GLOBALS['kronolith_shares']->listShares($user);
         if (is_a($shares, 'PEAR_Error')) {
             Horde::logMessage($shares, __FILE__, __LINE__, PEAR_LOG_ERR);
@@ -342,8 +346,6 @@ class Kronolith_Application extends Horde_Registry_Application
         foreach ($shares as $share) {
             $share->removeUser($user);
         }
-
-        return true;
     }
 
 }

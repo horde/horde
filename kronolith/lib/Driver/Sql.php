@@ -64,13 +64,12 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         return '#dddddd';
     }
 
+    /**
+     * @throws Kronolith_Exception
+     */
     public function listAlarms($date, $fullevent = false)
     {
         $allevents = $this->listEvents($date, null, false, true);
-        if (is_a($allevents, 'PEAR_Error')) {
-            return $allevents;
-        }
-
         $events = array();
         foreach ($allevents as $dayevents) {
             foreach ($dayevents as $event) {
@@ -127,7 +126,8 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      * @param object $query  An object with the criteria to search for.
      * @param boolean $json  Store the results of the events' toJson() method?
      *
-     * @return mixed  An array of Kronolith_Events or a PEAR_Error.
+     * @return mixed  An array of Kronolith_Events.
+     * @throws Kronolith_Exception
      */
     public function search($query, $json = false)
     {
@@ -175,17 +175,10 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                                                   $query->end,
                                                   $cond,
                                                   $values);
-        if (is_a($eventIds, 'PEAR_Error')) {
-            return $eventIds;
-        }
-
         $now = new Horde_Date($_SERVER['REQUEST_TIME']);
         $events = array();
         foreach ($eventIds as $eventId) {
             $event = $this->getEvent($eventId);
-            if (is_a($event, 'PEAR_Error')) {
-                return $event;
-            }
             $showRecurrence = true;
             if ($event->recurs()) {
                 if (empty($query->end)) {
@@ -221,6 +214,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      *
      * @return string|boolean  Returns a string with event_id or false if
      *                         not found.
+     * @throws Kronolith_Exception
      */
     public function exists($uid, $calendar_id = null)
     {
@@ -240,7 +234,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         $event = $this->_db->getRow($query, $values, DB_FETCHMODE_ASSOC);
         if (is_a($event, 'PEAR_Error')) {
             Horde::logMessage($event, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $event;
+            throw new Kronolith_Exception($event);
         }
 
         if ($event) {
@@ -267,6 +261,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      *                                   that they cover.
      *
      * @return array  Events in the given time range.
+     * @throws Kronolith_Exception
      */
     public function listEvents($startDate = null, $endDate = null,
                                $showRecurrence = false, $hasAlarm = false,
@@ -285,9 +280,6 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         $events = $this->_listEventsConditional($startDate, $endDate,
                                                 $hasAlarm ? 'event_alarm > ?' : '',
                                                 $hasAlarm ? array(0) : array());
-        if (is_a($events, 'PEAR_Error')) {
-            return $events;
-        }
         $results = array();
         foreach ($events as $id) {
             Kronolith::addEvents($results, $this->getEvent($id), $startDate,
@@ -350,9 +342,9 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         /* Run the query. */
         $qr = $this->_db->query($q, $values);
-        if (is_a($qr, 'PEAR_Error')) {
+        if ($qr instanceof PEAR_Error) {
             Horde::logMessage($qr, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $qr;
+            throw new Kronolith_Exception($qr);
         }
 
         $events = array();
@@ -402,6 +394,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      * Returns the number of events in the current calendar.
      *
      * @return integer  The number of events.
+     * @throws Kronolith_Exception
      */
     public function countEvents()
     {
@@ -413,9 +406,18 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         /* Run the query. */
-        return $this->_db->getOne($query, array($this->calendar));
+        $result = $this->_db->getOne($query, array($this->calendar));
+        if ($result instanceof PEAR_Error) {
+            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Kronolith_Exception($result);
+        }
+        return $result;
     }
 
+    /**
+     * @throws Kronolith_Exception
+     * @throws Horde_Exception_NotFound
+     */
     public function getEvent($eventId = null)
     {
         if (!strlen($eventId)) {
@@ -444,15 +446,15 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         $event = $this->_db->getRow($query, $values, DB_FETCHMODE_ASSOC);
         if (is_a($event, 'PEAR_Error')) {
             Horde::logMessage($event, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $event;
+            throw new Kronolith_Exception($event);
         }
 
         if ($event) {
             $this->_cache[$this->calendar][$eventId] = new $this->_eventClass($this, $event);
             return $this->_cache[$this->calendar][$eventId];
-        } else {
-            return PEAR::raiseError(_("Event not found"));
         }
+
+        throw new Horde_Exception_NotFound(_("Event not found"));
     }
 
     /**
@@ -464,6 +466,8 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      * an error will be returned if more than one event is found.
      *
      * @return Kronolith_Event
+     * @throws Kronolith_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function getByUID($uid, $calendars = null, $getAll = false)
     {
@@ -480,7 +484,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         /* Optionally filter by calendar */
         if (!is_null($calendars)) {
             if (!count($calendars)) {
-                return PEAR::raiseError(_("No calendars to search"));
+                throw new Kronolith_Exception(_("No calendars to search"));
             }
             $query .= ' AND calendar_id IN (?' . str_repeat(', ?', count($calendars) - 1) . ')';
             $values = array_merge($values, $calendars);
@@ -494,10 +498,10 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         $events = $this->_db->getAll($query, $values, DB_FETCHMODE_ASSOC);
         if (is_a($events, 'PEAR_Error')) {
             Horde::logMessage($events, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $events;
+            throw new Kronolith_Exception($events);
         }
         if (!count($events)) {
-            return PEAR::raiseError($uid . ' not found');
+            throw new Horde_Exception_NotFound($uid . ' not found');
         }
 
         $eventArray = array();
@@ -541,9 +545,14 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
     /**
      * Saves an event in the backend.
+     *
      * If it is a new event, it is added, otherwise the event is updated.
      *
      * @param Kronolith_Event $event  The event to save.
+     *
+     * @return integer  The event id.
+     * @throws Horde_Mime_Exception
+     * @throws Kronolith_Exception
      */
     public function saveEvent($event)
     {
@@ -568,7 +577,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             $result = $this->_write_db->query($query, $values);
             if (is_a($result, 'PEAR_Error')) {
                 Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-                return $result;
+                throw new Kronolith_Exception($result);
             }
 
             /* Log the modification of this item in the history log. */
@@ -583,90 +592,74 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
             /* Update Geolocation */
             if ($gDriver = Kronolith::getGeoDriver()) {
-                try {
-                    $gDriver->setLocation($event->id, $event->geoLocation);
-                } catch (Horde_Exception $e) {
-                    Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
-                    return new PEAR_Error($e->getMessage());
-                }
+                $gDriver->setLocation($event->id, $event->geoLocation);
             }
 
             /* Notify users about the changed event. */
-            $result = Kronolith::sendNotification($event, 'edit');
-            if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            }
+            Kronolith::sendNotification($event, 'edit');
 
             return $event->id;
-        } else {
-            if ($event->id) {
-                $id = $event->id;
-            } else {
-                $id = hash('md5', uniqid(mt_rand(), true));
-                $event->id = $id;
-            }
-
-            if ($event->uid) {
-                $uid = $event->uid;
-            } else {
-                $uid = (string)new Horde_Support_Guid;
-                $event->uid = $uid;
-            }
-
-            $query = 'INSERT INTO ' . $this->_params['table'];
-            $cols_name = ' (event_id, event_uid,';
-            $cols_values = ' VALUES (?, ?,';
-            $values = array($id, $uid);
-
-            foreach ($event->getProperties() as $key => $val) {
-                $cols_name .= " $key,";
-                $cols_values .= ' ?,';
-                $values[] = $val;
-            }
-
-            $cols_name .= ' calendar_id)';
-            $cols_values .= ' ?)';
-            $values[] = $this->calendar;
-
-            $query .= $cols_name . $cols_values;
-
-            /* Log the query at a DEBUG log level. */
-            Horde::logMessage(sprintf('Kronolith_Driver_Sql::saveEvent(): user = "%s"; query = "%s"; values = "%s"',
-                                Horde_Auth::getAuth(), $query, implode(',', $values)),
-                                __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-            $result = $this->_write_db->query($query, $values);
-            if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-                return $result;
-            }
-
-            /* Log the creation of this item in the history log. */
-            $history = Horde_History::singleton();
-            $history->log('kronolith:' . $this->calendar . ':' . $uid, array('action' => 'add'), true);
-
-            /* Deal with any tags */
-            $tagger = Kronolith::getTagger();
-            $tagger->tag($event->uid, $event->tags, 'event');
-
-            /* Update Geolocation */
-            if ($event->geoLocation && $gDriver = Kronolith::getGeoDriver()) {
-                try {
-                    $gDriver->setLocation($event->id, $event->geoLocation);
-                } catch (Horde_Exception $e) {
-                    Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
-                    return new PEAR_Error($e->getMessage());
-                }
-            }
-
-            /* Notify users about the new event. */
-            $result = Kronolith::sendNotification($event, 'add');
-            if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            }
-
-            return $id;
         }
+
+        if ($event->id) {
+            $id = $event->id;
+        } else {
+            $id = hash('md5', uniqid(mt_rand(), true));
+            $event->id = $id;
+        }
+
+        if ($event->uid) {
+            $uid = $event->uid;
+        } else {
+            $uid = (string)new Horde_Support_Guid;
+            $event->uid = $uid;
+        }
+
+        $query = 'INSERT INTO ' . $this->_params['table'];
+        $cols_name = ' (event_id, event_uid,';
+        $cols_values = ' VALUES (?, ?,';
+        $values = array($id, $uid);
+
+        foreach ($event->getProperties() as $key => $val) {
+            $cols_name .= " $key,";
+            $cols_values .= ' ?,';
+            $values[] = $val;
+        }
+
+        $cols_name .= ' calendar_id)';
+        $cols_values .= ' ?)';
+        $values[] = $this->calendar;
+
+        $query .= $cols_name . $cols_values;
+
+        /* Log the query at a DEBUG log level. */
+        Horde::logMessage(sprintf('Kronolith_Driver_Sql::saveEvent(): user = "%s"; query = "%s"; values = "%s"',
+                            Horde_Auth::getAuth(), $query, implode(',', $values)),
+                            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+
+        $result = $this->_write_db->query($query, $values);
+        if (is_a($result, 'PEAR_Error')) {
+            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Kronolith_Exception($result);
+        }
+
+        /* Log the creation of this item in the history log. */
+        $history = Horde_History::singleton();
+        $history->log('kronolith:' . $this->calendar . ':' . $uid, array('action' => 'add'), true);
+
+        /* Deal with any tags */
+        $tagger = Kronolith::getTagger();
+        $tagger->tag($event->uid, $event->tags, 'event');
+
+        /* Update Geolocation */
+        if ($event->geoLocation && $gDriver = Kronolith::getGeoDriver()) {
+            $gDriver->setLocation($event->id, $event->geoLocation);
+        }
+
+        /* Notify users about the new event. */
+        Kronolith::sendNotification($event, 'add');
+
+        return $id;
     }
 
     /**
@@ -676,14 +669,13 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      * @param string $newCalendar  The new calendar.
      *
      * @return Kronolith_Event  The old event.
+     * @throws Kronolith_Exception
+     * @throws Horde_Exception_NotFound
      */
     protected function _move($eventId, $newCalendar)
     {
         /* Fetch the event for later use. */
         $event = $this->getEvent($eventId);
-        if (is_a($event, 'PEAR_Error')) {
-            return $event;
-        }
 
         $query = 'UPDATE ' . $this->_params['table'] . ' SET calendar_id = ? WHERE calendar_id = ? AND event_id = ?';
         $values = array($newCalendar, $this->calendar, $eventId);
@@ -697,7 +689,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
             Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $result;
+            throw new Kronolith_Exception($result);
         }
 
         return $event;
@@ -708,7 +700,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      *
      * @param string $calendar  The name of the calendar to delete.
      *
-     * @return mixed  True or a PEAR_Error on failure.
+     * @throws Kronolith_Exception
      */
     public function delete($calendar)
     {
@@ -720,7 +712,11 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                                   Horde_Auth::getAuth(), $query, implode(',', $values)),
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
-        return $this->_write_db->query($query, $values);
+        $result = $this->_write_db->query($query, $values);
+        if ($result instanceof PEAR_Error) {
+            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Kronolith_Exception($result);
+        }
     }
 
     /**
@@ -730,15 +726,14 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      * @param boolean $silent  Don't send notifications, used when deleting
      *                         events in bulk from maintenance tasks.
      *
-     * @return mixed  True or a PEAR_Error on failure.
+     * @throws Kronolith_Exception
+     * @throws Horde_Exception_NotFound
+     * @throws Horde_Mime_Exception
      */
     public function deleteEvent($eventId, $silent = false)
     {
         /* Fetch the event for later use. */
         $event = $this->getEvent($eventId);
-        if (is_a($event, 'PEAR_Error')) {
-            return $event;
-        }
 
         $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE event_id = ? AND calendar_id = ?';
         $values = array($eventId, $this->calendar);
@@ -751,7 +746,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
             Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $result;
+            throw new Kronolith_Exception($result);
         }
 
         /* Log the deletion of this item in the history log. */
@@ -791,18 +786,40 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         /* Notify about the deleted event. */
         if (!$silent) {
-            $result = Kronolith::sendNotification($event, 'delete');
-            if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            }
+            Kronolith::sendNotification($event, 'delete');
         }
-        return true;
+    }
+
+    /**
+     * Filters a list of events to return only those that belong to certain
+     * calendars.
+     *
+     * @param array $uids      A list of event UIDs.
+     * @param array $calendar  A list of calendar IDs.
+     *
+     * @return array  Event UIDs filtered by calendar IDs.
+     * @throws Kronolith_Exception
+     */
+    public function filterEventsByCalendar($uids, $calendar)
+    {
+        $sql = 'SELECT event_uid FROM kronolith_events WHERE calendar_id IN (' . str_repeat('?, ', count($calendar) - 1) . '?) '
+            . 'AND event_uid IN (' . str_repeat('?,', count($uids) - 1) . '?)';
+
+        /* Log the query at a DEBUG log level. */
+        Horde::logMessage(sprintf('Kronolith_Driver_Sql::filterEventsByCalendar(): %s', $sql),
+                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+
+        $result = $this->_db->getCol($sql, 0, array_merge($calendar, $uids));
+        if ($result instanceof PEAR_Error) {
+            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Kronolith_Exception($result);
+        }
     }
 
     /**
      * Attempts to open a connection to the SQL server.
      *
-     * @return boolean True.
+     * @throws Kronolith_Exception
      */
     public function initialize()
     {
@@ -826,8 +843,8 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         $this->_write_db = DB::connect($this->_params,
                                        array('persistent' => !empty($this->_params['persistent']),
                                              'ssl' => !empty($this->_params['ssl'])));
-        if (is_a($this->_write_db, 'PEAR_Error')) {
-            return $this->_write_db;
+        if ($this->_write_db instanceof PEAR_Error) {
+            throw new Kronolith_Exception($this->_write_db);
         }
         $this->_initConn($this->_write_db);
 
@@ -838,16 +855,14 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             $this->_db = DB::connect($params,
                                      array('persistent' => !empty($params['persistent']),
                                            'ssl' => !empty($params['ssl'])));
-            if (is_a($this->_db, 'PEAR_Error')) {
-                return $this->_db;
+            if ($this->_db instanceof PEAR_Error) {
+                throw new Kronolith_Exception($this->_db);
             }
             $this->_initConn($this->_db);
         } else {
             /* Default to the same DB handle for the writer too. */
             $this->_db = $this->_write_db;
         }
-
-        return true;
     }
 
     /**
@@ -918,18 +933,20 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
     /**
      * Remove all events owned by the specified user in all calendars.
      *
-     * @todo Refactor: move to Kronolith::
+     * @todo Refactor: move to Kronolith:: and catch exceptions instead of relying on boolean return value.
      *
      * @param string $user  The user name to delete events for.
      *
-     * @param mixed  True | PEAR_Error
+     * @return boolean
+     * @throws Kronolith_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function removeUserData($user)
     {
-        return PEAR::raiseError('to be refactored');
+        throw new Kronolith_Exception('to be refactored');
 
         if (!Horde_Auth::isAdmin()) {
-            return PEAR::raiseError(_("Permission Denied"));
+            throw new Kronolith_Exception(_("Permission Denied"));
         }
 
         $shares = $GLOBALS['kronolith_shares']->listShares($user, Horde_Perms::EDIT);
@@ -949,36 +966,11 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
             foreach ($uids as $uid) {
                 $event = $this->getByUID($uid);
-                if (is_a($event, 'PEAR_Error')) {
-                    return $event;
-                }
-
                 $this->deleteEvent($event->id);
             }
         }
 
         return true;
-    }
-
-    /**
-     * Filter an array of event_uids to return only the events that belong to
-     * one of the $calendars.
-     *
-     * @param array $uids      An array of event_uid values.
-     * @param array $calendar  An array of calendar_ids.
-     *
-     * @return An array of event_uid values filtered by calendar_ids || PEAR_Error
-     */
-    public function filterEventsByCalendar($uids, $calendar)
-    {
-        $sql = 'SELECT event_uid FROM kronolith_events WHERE calendar_id IN (' . str_repeat('?, ', count($calendar) - 1) . '?) '
-            . 'AND event_uid IN (' . str_repeat('?,', count($uids) - 1) . '?)';
-
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Kronolith_Driver_Sql::filterEventsByCalendar(): %s', $sql),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        return $this->_db->getCol($sql, 0, array_merge($calendar, $uids));
     }
 
 }

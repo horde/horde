@@ -14,7 +14,6 @@
  */
 class Kronolith_Driver_Holidays extends Kronolith_Driver
 {
-
     public function listAlarms($date, $fullevent = false)
     {
         return array();
@@ -89,6 +88,10 @@ class Kronolith_Driver_Holidays extends Kronolith_Driver
         return $results;
     }
 
+    /**
+     * @throws Kronolith_Exception
+     * @throws Horde_Exception_NotFound
+     */
     public function getEvent($eventId = null)
     {
         if (!$eventId) {
@@ -110,7 +113,7 @@ class Kronolith_Driver_Holidays extends Kronolith_Driver
 
         $event = $dh->getHoliday($id);
         if (is_a($event, 'PEAR_Error')) {
-            return $event;
+            throw new Horde_Exception_NotFound($event);
         }
 
         return new Kronolith_Event_Holidays($this, $event);

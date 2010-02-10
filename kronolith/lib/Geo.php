@@ -28,16 +28,13 @@ abstract class Kronolith_Geo
      * @param unknown_type $params  Any driver specific parameters
      *
      * @return Kronolith_Geo
+     * @throws Kronolith_Exception
      */
     static public function factory($driver = null, $params = array())
     {
         $driver = basename($driver);
         $class = 'Kronolith_Geo_' . $driver;
-
-        if (class_exists($class)) {
-            $driver = new $class(Horde::getDriverConfig('calendar', 'sql'));
-        }
-
+        $driver = new $class(Horde::getDriverConfig('calendar', 'sql'));
         $driver->initialize();
         return $driver;
     }

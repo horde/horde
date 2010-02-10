@@ -21,9 +21,10 @@ class Kronolith_View_Year {
                                         'month' => 12,
                                         'mday' => 31));
 
-        $this->_events = Kronolith::listEvents($startDate, $endDate, $GLOBALS['display_calendars']);
-        if (is_a($this->_events, 'PEAR_Error')) {
-            $GLOBALS['notification']->push($this->_events, 'horde.error');
+        try {
+            $this->_events = Kronolith::listEvents($startDate, $endDate, $GLOBALS['display_calendars']);
+        } catch (Exception $e) {
+            $GLOBALS['notification']->push($e, 'horde.error');
             $this->_events = array();
         }
         if (!is_array($this->_events)) {

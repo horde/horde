@@ -8,29 +8,23 @@
  * @package Kronolith
  */
 
-/** Horde_Form */
-require_once 'Horde/Form.php';
-
-/** Horde_Form_Renderer */
-require_once 'Horde/Form/Renderer.php';
-
 /**
- * The Kronolith_DeleteCalendarForm class provides the form for
- * deleting a calendar.
+ * The Kronolith_DeleteCalendarForm class provides the form for deleting a
+ * calendar.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Kronolith
  */
-class Kronolith_DeleteCalendarForm extends Horde_Form {
-
+class Kronolith_DeleteCalendarForm extends Horde_Form
+{
     /**
-     * Calendar being deleted
+     * Calendar being deleted.
      */
-    var $_calendar;
+    protected $_calendar;
 
-    function Kronolith_DeleteCalendarForm(&$vars, &$calendar)
+    public function __construct($vars, $calendar)
     {
-        $this->_calendar = &$calendar;
+        $this->_calendar = $calendar;
         parent::Horde_Form($vars, sprintf(_("Delete %s"), $calendar->get('name')));
 
         $this->addHidden('', 'c', 'text', true);
@@ -39,7 +33,10 @@ class Kronolith_DeleteCalendarForm extends Horde_Form {
         $this->setButtons(array(_("Delete"), _("Cancel")));
     }
 
-    function execute()
+    /**
+     * @throws Kronolith_Exception
+     */
+    public function execute()
     {
         // If cancel was clicked, return false.
         if ($this->_vars->get('submitbutton') == _("Cancel")) {

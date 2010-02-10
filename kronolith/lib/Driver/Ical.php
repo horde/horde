@@ -69,15 +69,13 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
      *                                   that they cover.
      *
      * @return array  Events in the given time range.
+     * @throws Kronolith_Exception
      */
     public function listEvents($startDate = null, $endDate = null,
                                $showRecurrence = false, $hasAlarm = false,
                                $json = false, $coverDates = true)
     {
         $iCal = $this->getRemoteCalendar();
-        if (is_a($iCal, 'PEAR_Error')) {
-            return $iCal;
-        }
 
         if (is_null($startDate)) {
             $startDate = new Horde_Date(array('mday' => 1,
@@ -153,6 +151,10 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         return $results;
     }
 
+    /**
+     * @throws Kronolith_Exception
+     * @throws Horde_Exception_NotFound
+     */
     public function getEvent($eventId = null)
     {
         if (!$eventId) {
@@ -160,9 +162,6 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         }
         $eventId = str_replace('ical', '', $eventId);
         $iCal = $this->getRemoteCalendar();
-        if (is_a($iCal, 'PEAR_Error')) {
-            return $iCal;
-        }
 
         $components = $iCal->getComponents();
         if (isset($components[$eventId]) &&
@@ -171,11 +170,10 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             $event->status = Kronolith::STATUS_FREE;
             $event->fromiCalendar($components[$eventId]);
             $event->id = 'ical' . $eventId;
-
             return $event;
         }
 
-        return false;
+        throw new Horde_Exception_NotFound(_("Event not found"));
     }
 
     /**
@@ -183,8 +181,8 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
      *
      * @param boolean $cache  Whether to return data from the session cache.
      *
-     * @throws Kronolith_Exception
      * @return Horde_iCalendar  The calendar data, or an error on failure.
+     * @throws Kronolith_Exception
      */
     public function getRemoteCalendar($cache = true)
     {
@@ -242,7 +240,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         $_SESSION['kronolith']['remote'][$signature] = new Horde_iCalendar();
         $result = $_SESSION['kronolith']['remote'][$signature]->parsevCalendar($data);
         if (is_a($result, 'PEAR_Error')) {
-            $_SESSION['kronolith']['remote'][$signature] = $result;
+            throw new Kronolith_Exception($result);
         }
 
         return $_SESSION['kronolith']['remote'][$signature];
