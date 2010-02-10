@@ -309,6 +309,7 @@ class Horde_Mime_Part
      */
     public function setName($name)
     {
+        $this->setDispositionParameter('filename', $name);
         $this->setContentTypeParameter('name', $name);
     }
 
@@ -323,9 +324,9 @@ class Horde_Mime_Part
      */
     public function getName($default = false)
     {
-        $name = $this->getContentTypeParameter('name');
-
-        if ($default && empty($name)) {
+        if (!($name = $this->getDispositionParameter('filename')) &&
+            !($name = $this->getContentTypeParameter('name')) &&
+            $default) {
             $name = preg_replace('|\W|', '_', $this->getDescription(false));
         }
 
@@ -642,9 +643,8 @@ class Horde_Mime_Part
     /**
      * Get the description of this part.
      *
-     * @param boolean $default  If the name parameter doesn't exist, should we
-     *                          use the default name from the description
-     *                          parameter?
+     * @param boolean $default  If the description parameter doesn't exist,
+     *                          should we use the name of the part?
      *
      * @return string  The description of this part.
      */
