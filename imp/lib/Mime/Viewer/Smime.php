@@ -112,7 +112,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
         case 'application/pkcs7-mime':
         case 'application/x-pkcs7-mime':
             if (isset(self::$_cache[$id])) {
-                return array(
+                $ret = array(
                     $id => array(
                         'data' => null,
                         'status' => self::$_cache[$id]['status'],
@@ -120,6 +120,10 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
                         'wrap' => self::$_cache[$id]['wrap']
                     )
                 );
+                if (self::$_cache[$id]['sig']) {
+                    $ret[self::$_cache[$id]['sig']] = null;
+                }
+                return $ret;
             }
             // Fall-through
 
@@ -232,6 +236,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
 
         /* Initialize inline data. */
         self::$_cache[$base_id] = array(
+            'sig' => $sig_id,
             'status' => array(
                 array(
                     'icon' => Horde::img('mime/encryption.png', 'S/MIME'),
