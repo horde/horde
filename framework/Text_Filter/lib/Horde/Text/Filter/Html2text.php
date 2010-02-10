@@ -18,13 +18,17 @@
  *
  * @author  Jon Abernathy <jon@chuggnutt.com>
  * @author  Jan Schneider <jan@horde.org>
+ * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Text
  */
 class Horde_Text_Filter_Html2text extends Horde_Text_Filter
 {
-    /* TODO */
-    static public $linkList;
-    static public $linkCount;
+    /**
+     * The list of links contained in the message.
+     *
+     * @var array
+     */
+    protected $_linkList = array();
 
     /**
      * Filter parameters.
@@ -38,7 +42,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter
     );
 
     /**
-     * Executes any code necessaray before applying the filter patterns.
+     * Executes any code necessary before applying the filter patterns.
      *
      * @param string $text  The text before the filtering.
      *
@@ -50,8 +54,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter
             $this->_params['charset'] = isset($GLOBALS['_HORDE_STRING_CHARSET']) ? $GLOBALS['_HORDE_STRING_CHARSET'] : 'ISO-8859-1';
         }
 
-        self::$linkList = '';
-        self::$linkCount = 0;
+        $this->_linkList = array();
 
         return trim($text);
     }
@@ -63,93 +66,92 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter
      */
     public function getPatterns()
     {
-        $regexp = array(
+        $replace = array(
             // Non-legal carriage return.
-            '/\r/' => '',
+            '/\r/' => ''
+        );
 
-            // Leading and trailing whitespace.
-            '/^\s*(.*?)\s*$/m' => '\1',
-
-            // Normalize <br>.
-            '/<br[^>]*>([^\n]*)\n/i' => "<br>\\1",
-
+        $regexp = array(
             // Newlines and tabs.
             '/[\n\t]+/' => ' ',
 
             // <script>s -- which strip_tags() supposedly has problems with.
-            '/<script[^>]*>.*?<\/script>/i' => '',
+            '/<script(?:>|\s[^>]*>).*?<\/script\s*>/i' => '',
 
             // <style>s -- which strip_tags() supposedly has problems with.
-            '/<style[^>]*>.*?<\/style>/i' => '',
-
-            // Comments -- which strip_tags() might have a problem with.
-            // //'/<!-- .* -->/' => '',
+            '/<style(?:>|\s[^>]*>).*?<\/style\s*>/i' => '',
 
             // h1 - h3
-            '/<h[123][^>]*>(.+?)<\/h[123]> ?/ie' => 'strtoupper("\n\n" . \'\1\' . "\n\n")',
+            '/<h[123](?:>|\s[^>]*>)(.+?)<\/h[123]\s*>/ie' => '"<br><br>" . strtoupper("\\1") . "<br><br>"',
 
             // h4 - h6
-            '/<h[456][^>]*>(.+?)<\/h[456]> ?/ie' => 'ucwords("\n\n" . \'\1\' . "\n\n")',
+            '/<h[456](?:>|\s[^>]*>)(.+?)<\/h[456]\s*> ?/ie' => '"<br><br>" . ucwords("\\1") . "<br><br>"',
 
             // <p>
-            '/<p[^>]*> ?/i' => "\n\n",
+            '/\s*<p(?:>|\s[^>]*>)\s*/i' => '<br><br>',
 
-            // <br>/<div>
-            '/<(br|div)[^>]*> ?/i' => "\n",
+            // <div>
+            '/\s*<div(?:>|\s[^>]*>)\s*/i' => '<br>',
 
             // <b>
-            '/<b[^>]*>(.+?)<\/b>/ie' => 'strtoupper(\'\1\')',
+            '/<b(?:>|\s[^>]*>)(.+?)<\/b>/ie' => 'strtoupper("\\1")',
 
             // <strong>
-            '/<strong[^>]*>(.+?)<\/strong>/ie' => 'strtoupper(\'\1\')',
-            '/<span\\s+style="font-weight:\\s*bold.*">(.+?)<\/span>/ie' => 'strtoupper(\'\1\')',
+            '/<strong(?:>|\s[^>]*>)(.+?)<\/strong>/ie' => 'strtoupper("\\1")',
+            '/<span\\s+style="font-weight:\\s*bold.*">(.+?)<\/span>/ie' => 'strtoupper("\\1")',
 
             // <i>
-            '/<i[^>]*>(.+?)<\/i>/i' => '/\\1/',
+            '/<i(?:>|\s[^>]*>)(.+?)<\/i>/i' => '/\\1/',
 
             // <em>
-            '/<em[^>]*>(.+?)<\/em>/i' => '/\\1/',
+            '/<em(?:>|\s[^>]*>)(.+?)<\/em>/i' => '_\\1_',
 
             // <u>
-            '/<u[^>]*>(.+?)<\/u>/i' => '_\\1_',
+            '/<u(?:>|\s[^>]*>)(.+?)<\/u>/i' => '_\\1_',
 
             // <ul>/<ol> and </ul>/</ol>
-            '/(<(u|o)l[^>]*>| ?<\/(u|o)l>) ?/i' => "\n\n",
+            '/\s*(<(u|o)l(?:>|\s[^>]*>)| ?<\/(u|o)l\s*>)\s*/i' => '<br><br>',
 
             // <li>
-            '/ ?<li[^>]*>/i' => "\n  * ",
-
-            // <a href="">
-            '/<a href="([^"]+)"[^>]*>(.+?)<\/a>/ie' => 'Horde_Text_Filter_Html2text::buildLinkList(Horde_Text_Filter_Html2text::$linkCount, \'\1\', \'\2\')',
+            '/\s*<li(?:>|\s[^>]*>)\s*/i' => '<br>  * ',
 
             // <hr>
-            '/<hr[^>]*> ?/i' => "\n-------------------------\n",
+            '/\s*<hr(?:>|\s[^>]*>)\s*/i' => '<br>-------------------------<br>',
 
             // <table> and </table>
-            '/(<table[^>]*>| ?<\/table>) ?/i' => "\n\n",
+            '/\s*(<table(?:>|\s[^>]*>)| ?<\/table\s*>)\s*/i' => '<br><br>',
 
             // <tr>
-            '/ ?<tr[^>]*> ?/i' => "\n\t",
+            '/\s*<tr(?:>|\s[^>]*>)\s*/i' => '<br>',
 
             // <td> and </td>
-            '/ ?<td[^>]*>(.+?)<\/td> ?/i' => '\1' . "\t\t",
-            '/\t\t<\/tr>/i' => '',
+            '/\s*<td(?:>|\s[^>]*>)(.+?)<\/td>\s*/i' => '\\1<br>',
 
-            // entities
-            '/&nbsp;/i' => ' ',
-            '/&trade;/i' => '(tm)',
-            '/&#(\d+);/e' => 'Horde_String::convertCharset(Horde_Text_Filter_Html2text::int2Utf8(\'\1\'), "UTF-8", "' . $this->_params['charset'] . '")',
+            // <th> and </th>
+            '/\s*<th(?:>|\s[^>]*>)(.+?)<\/th>\s*/ie' => 'strtoupper("\\1") . "<br>"',
 
             // Some mailers (e.g. Hotmail) use the following div tag as a way
             // to define a block of text.
-            '/<div class=rte>(.+?)<\/div> ?/i' => '\1' . "\n"
+            '/<div class=rte>(.+?)<\/div> ?/i' => '\\1<br>',
+
+            // <br>
+            '/\s*<br[^>]*>\s*/i' => "\n"
         );
 
-        return array('regexp' => $regexp);
+        $regexp_callback = array(
+            // <a href="">
+            '/<a href="([^"]+)"[^>]*>(.+?)<\/a>/i' => array($this, 'buildLinkList')
+        );
+
+        return array(
+            'regexp' => $regexp,
+            'regexp_callback' => $regexp_callback,
+            'replace' => $replace
+        );
     }
 
     /**
-     * Executes any code necessaray after applying the filter patterns.
+     * Executes any code necessary after applying the filter patterns.
      *
      * @param string $text  The text after the filtering.
      *
@@ -173,8 +175,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter
         $text = html_entity_decode($text, ENT_QUOTES, $this->_params['charset']);
 
         /* Bring down number of empty lines to 2 max. */
-        $text = preg_replace("/\n[[:space:]]+\n/", "\n\n", $text);
-        $text = preg_replace("/[\n]{3,}/", "\n\n", $text);
+        $text = preg_replace(array("/\n[[:space:]]+\n/", "/[\n]{3,}/"), "\n\n", $text);
 
         /* Wrap the text to a readable format. */
         if ($this->_params['wrap']) {
@@ -182,10 +183,12 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter
         }
 
         /* Add link list. */
-        if (!empty(self::$linkList)) {
+        if (!empty($this->_linkList)) {
             $text .= "\n\n" . _("Links") . ":\n" .
-                str_repeat('-', Horde_String::length(_("Links")) + 1) . "\n" .
-                self::$linkList;
+                str_repeat('-', Horde_String::length(_("Links")) + 1) . "\n";
+            foreach ($this->_linkList as $key => $val) {
+                $text .= '[' . ($key + 1) . '] ' . $val . "\n";
+            }
         }
 
         return trim($text);
@@ -231,50 +234,25 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter
     }
 
     /**
-     * Returns the UTF-8 character sequence of a Unicode value.
-     *
-     * @param integer $num  A Unicode value.
-     *
-     * @return string  The UTF-8 string.
-     */
-    static public function int2Utf8($num)
-    {
-        if ($num < 128) {
-            return chr($num);
-        }
-
-        if ($num < 2048) {
-            return chr(($num >> 6) + 192) . chr(($num & 63) + 128);
-        }
-
-        if ($num < 65536) {
-            return chr(($num >> 12) + 224) . chr((($num >> 6) & 63) + 128) .
-                chr(($num & 63) + 128);
-        }
-
-        if ($num < 2097152) {
-            return chr(($num >> 18) + 240) . chr((($num >> 12) & 63) + 128) .
-                chr((($num >> 6) & 63) + 128) . chr(($num & 63) + 128);
-        }
-
-        return '';
-    }
-
-    /**
      * Helper function called by preg_replace() on link replacement.
      *
      * Maintains an internal list of links to be displayed at the end
      * of the text, with numeric indices to the original point in the
      * text they appeared.
      *
-     * @param integer $link_count  Counter tracking current link number.
-     * @param string $link         URL of the link.
-     * @param string $display      Part of the text to associate number with.
+     * @param array $matches  Match information:
+     * <pre>
+     * [1] URL of the link.
+     * [2] Part of the text to associate number with.
+     * </pre>
      *
      * @return string  The link replacement.
      */
-    static public function buildLinkList($link_count, $link, $display)
+    public function buildLinkList($matches)
     {
+        $link = $matches[1];
+        $display = $matches[2];
+
         if ($link == strip_tags($display)) {
             return $display;
         }
@@ -309,10 +287,9 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter
             return $display;
         }
 
-        self::$linkCount++;
-        self::$linkList .= '[' . self::$linkCount . "] $link\n";
+        $this->_linkList[] = $link;
 
-        return $display . '[' . self::$linkCount . ']';
+        return $display . '[' . count($this->_linkList) . ']';
     }
 
 }
