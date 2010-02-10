@@ -188,12 +188,12 @@ var ContextSensitive = Class.create({
                 if (elt.hasClassName('contextSubmenu') &&
                     elt_up.readAttribute('id') != this.currentmenu()) {
                     this._closeMenu(this.current.indexOf(elt.readAttribute('id')));
-                } else {
-                    base = this.baseelt;
-                    trigger = this.triggers.last();
-                    this.close();
-                    base.fire('ContextSensitive:click', { elt: elt, trigger: trigger });
                 }
+
+                base = this.baseelt;
+                trigger = this.triggers.last();
+                this.close();
+                base.fire('ContextSensitive:click', { elt: elt, trigger: trigger });
                 return;
             }
         }
