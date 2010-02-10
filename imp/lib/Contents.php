@@ -467,7 +467,7 @@ class IMP_Contents
 
         if (empty($ret)) {
             return ($mode == self::RENDER_INLINE_AUTO)
-                ? $this->renderMIMEPart($mime_id, self::RENDER_INLINE_INFO, $options)
+                ? $this->renderMIMEPart($mime_id, self::RENDER_INFO, $options)
                 : array();
         }
 
