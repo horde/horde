@@ -410,7 +410,9 @@ class IMP_Ui_Message
     {
         $tmp_summary = array();
         foreach ($display as $val) {
-            $tmp_summary[] = $summary[$val];
+            if (isset($summary[$val])) {
+                $tmp_summary[] = $summary[$val];
+            }
         }
         return '<div class="mimePartInfo' . ($atc ? ' mimePartInfoAtc' : '') . '"><div>' . implode(' ', $tmp_summary) . '</div></div>';
     }
