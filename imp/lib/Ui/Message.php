@@ -509,13 +509,14 @@ class IMP_Ui_Message
             }
 
             $render_part = $imp_contents->renderMIMEPart($mime_id, $render_mode);
-            if (($render_mode & IMP_Contents::RENDER_INLINE) &&
-                empty($render_part)) {
+            if (empty($render_part)) {
                 /* This meant that nothing was rendered - allow this part to
                  * appear in the attachment list instead. */
                 if ($show_parts == 'atc') {
                     $atc_parts[] = $mime_id;
                 }
+
+                $msgtext .= $this->formatSummary($imp_contents->getSummary($mime_id, $contents_mask), $part_info_display, true);
                 continue;
             }
 
