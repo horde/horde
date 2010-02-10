@@ -993,6 +993,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $t = &$this->_temp;
         $t['mailboxlist'] = array(
             'check' => $check,
+            'ext' => false,
             'options' => $options,
             'subexist' => ($mode == Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS),
             'subscribed' => ($check ? array_flip($subscribed) : null)
@@ -1001,6 +1002,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         if ($this->queryCapability('LIST-EXTENDED')) {
             $cmd = 'LIST';
+            $t['mailboxlist']['ext'] = true;
 
             $return_opts = $select_opts = array();
 
@@ -1121,10 +1123,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             return;
         } else if ((!$ml['check'] && $ml['subexist']) ||
                    (empty($mlo['flat']) && !empty($mlo['attributes']))) {
-            $attr = array_map('strtolower', $data[1]);
+            $attr = array_flip(array_map('strtolower', $data[1]));
             if ($ml['subexist'] &&
                 !$ml['check'] &&
-                in_array('\\nonexistent', $attr)) {
+                isset($attr['\\nonexistent'])) {
                 return;
             }
         }
@@ -1136,7 +1138,16 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         if (empty($mlo['flat'])) {
             $tmp = array('mailbox' => $mbox);
             if (!empty($mlo['attributes'])) {
-                $tmp['attributes'] = $attr;
+                /* RFC 5258 [3.4]: inferred attributes. */
+                if ($ml['ext']) {
+                    if (isset($attr['\\noinferiors'])) {
+                        $attr['\\hasnochildren'] = 1;
+                    }
+                    if (isset($attr['\\nonexistent'])) {
+                        $attr['\\noselect'] = 1;
+                    }
+                }
+                $tmp['attributes'] = array_keys($attr);
             }
             if (!empty($mlo['delimiter'])) {
                 $tmp['delimiter'] = $data[2];
