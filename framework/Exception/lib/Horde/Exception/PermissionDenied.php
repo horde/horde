@@ -17,16 +17,15 @@ class Horde_Exception_PermissionDenied extends Horde_Exception
      *
      * @see Horde_Exception::__construct()
      *
-     * @param mixed $message            The exception message, a PEAR_Error
-     *                                  object, or an Exception object.
-     * @param mixed $code_or_lasterror  Either a numeric error code, or
-     *                                  an array from error_get_last().
+     * @param mixed $message The exception message, a PEAR_Error
+     *                       object, or an Exception object.
+     * @param mixed $code    A numeric error code.
      */
-    public function __construct($message = null, $code_or_lasterror = null)
+    public function __construct($message = null, $code = null)
     {
         if (is_null($message)) {
             $message = _("Permission Denied");
         }
-        parent::__construct($message, $code_or_lasterror);
+        parent::__construct($message, $code);
     }
 }

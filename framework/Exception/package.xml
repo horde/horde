@@ -43,6 +43,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Exception">
+      <file name="LastError.php" role="php" />
       <file name="NotFound.php" role="php" />
       <file name="PermissionDenied.php" role="php" />
      </dir> <!-- /lib/Exception -->
@@ -64,6 +65,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <phprelease>
   <filelist>
    <install name="lib/Horde/Exception.php" as="Horde/Exception.php" />
+   <install name="lib/Horde/Exception/LastError.php" as="Horde/Exception/LastError.php" />
    <install name="lib/Horde/Exception/NotFound.php" as="Horde/Exception/NotFound.php" />
    <install name="lib/Horde/Exception/PermissionDenied.php" as="Horde/Exception/PermissionDenied.php" />
   </filelist>

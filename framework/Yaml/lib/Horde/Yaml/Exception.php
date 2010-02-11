@@ -20,26 +20,6 @@
  * @category Horde
  * @package  Horde_Yaml
  */
-class Horde_Yaml_Exception extends Exception
+class Horde_Yaml_Exception extends Horde_Exception_LastError
 {
-
-    public function __construct($message = null, $code_or_lasterror = 0)
-    {
-        if (is_array($code_or_lasterror)) {
-            if ($message) {
-                $message .= $code_or_lasterror['message'];
-            } else {
-                $message = $code_or_lasterror['message'];
-            }
-
-            $this->file = $code_or_lasterror['file'];
-            $this->line = $code_or_lasterror['line'];
-            $code = $code_or_lasterror['type'];
-        } else {
-            $code = $code_or_lasterror;
-        }
-
-        parent::__construct($message, $code);
-    }
-
 }

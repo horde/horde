@@ -12,9 +12,10 @@
  */
 
 /**
- * Require the tested class.
+ * Require the tested classes.
  */
 require_once 'Horde/Exception.php';
+require_once 'Horde/Exception/LastError.php';
 
 /**
  * Test for the Horde_Exception:: class.
@@ -63,31 +64,31 @@ class Horde_Exception_ExceptionTest extends  PHPUnit_Framework_TestCase
 
     public function testConstructionWithGetlasterrorarrayYieldsMessageFromArray()
     {
-        $e = new Horde_Exception(null, $this->_getLastError());
+        $e = new Horde_Exception_LastError(null, $this->_getLastError());
         $this->assertSame('get_last_error', $e->getMessage());
     }
 
     public function testConstructionWithGetlasterrorarrayYieldsCodeFromArray()
     {
-        $e = new Horde_Exception(null, $this->_getLastError());
+        $e = new Horde_Exception_LastError(null, $this->_getLastError());
         $this->assertSame(666, $e->getCode());
     }
 
     public function testConstructionWithGetlasterrorarrayYieldsFileFromArray()
     {
-        $e = new Horde_Exception(null, $this->_getLastError());
+        $e = new Horde_Exception_LastError(null, $this->_getLastError());
         $this->assertSame('/some/file.php', $e->getFile());
     }
 
     public function testConstructionWithGetlasterrorarrayYieldsLineFromArray()
     {
-        $e = new Horde_Exception(null, $this->_getLastError());
+        $e = new Horde_Exception_LastError(null, $this->_getLastError());
         $this->assertSame(99, $e->getLine());
     }
 
     public function testConstructionWithGetlasterrorarrayConcatenatesMessagesFromConstructorAndErrorarray()
     {
-        $e = new Horde_Exception('An error occurred: ', $this->_getLastError());
+        $e = new Horde_Exception_LastError('An error occurred: ', $this->_getLastError());
         $this->assertSame('An error occurred: get_last_error', $e->getMessage());
     }
 
