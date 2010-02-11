@@ -449,19 +449,18 @@ class Beatnik {
             return true;
         }
 
-        $perms = Horde_Perms::singleton();
         if ($permmask === null) {
-            $permmask = Horde_Perms::SHOW|Horde_Perms::READ;
+            $permmask = Horde_Perms::SHOW | Horde_Perms::READ;
         }
 
         # Default deny all permissions
         $user = 0;
         $superadmin = 0;
 
-        $superadmin = $perms->hasPermission('beatnik:domains', Horde_Auth::getAuth(), $permmask);
+        $superadmin = $GLOBALS['perms']->hasPermission('beatnik:domains', Horde_Auth::getAuth(), $permmask);
 
         while ($numparents >= 0) {
-            $tmpuser = $perms->hasPermission($permname, Horde_Auth::getAuth(), $permmask);
+            $tmpuser = $GLOBALS['perms']->hasPermission($permname, Horde_Auth::getAuth(), $permmask);
 
             $user = $user | $tmpuser;
             if ($numparents > 0) {

@@ -66,6 +66,7 @@ Application Framework.
        <file name="Dns.php" role="php" />
        <file name="Logger.php" role="php" />
        <file name="Memcache.php" role="php" />
+       <file name="Perms.php" role="php" />
        <file name="Template.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Binder -->
      </dir> <!-- /lib/Horde/Core -->
@@ -155,6 +156,7 @@ Application Framework.
    <install name="lib/Horde/Core/Binder/Dns.php" as="Horde/Core/Binder/Dns.php" />
    <install name="lib/Horde/Core/Binder/Logger.php" as="Horde/Core/Binder/Logger.php" />
    <install name="lib/Horde/Core/Binder/Memcache.php" as="Horde/Core/Binder/Memcache.php" />
+   <install name="lib/Horde/Core/Binder/Perms.php" as="Horde/Core/Binder/Perms.php" />
    <install name="lib/Horde/Core/Binder/Template.php" as="Horde/Core/Binder/Template.php" />
    <install name="lib/Horde/ErrorHandler.php" as="Horde/ErrorHandler.php" />
    <install name="lib/Horde/Exception/HookNotSet.php" as="Horde/Exception/HookNotSet.php" />

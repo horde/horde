@@ -39,13 +39,6 @@ class Horde_Perms
     protected $_appPerms;
 
     /**
-     * Singleton instance.
-     *
-     * @var array
-     */
-    static protected $_instance = null;
-
-    /**
      * Cache for integerToArray().
      *
      * @var array
@@ -80,34 +73,6 @@ class Horde_Perms
         }
 
         return new $class($params);
-    }
-
-    /**
-     * Attempts to return a reference to a concrete instance.
-     * It will only create a new instance if no instance currently exists.
-     *
-     * This method must be invoked as: $var = Horde_Perms::singleton()
-     *
-     * @return Horde_Perms  The concrete reference.
-     * @throws Horde_Perms_Exception
-     */
-    static public function singleton()
-    {
-        if (is_null(self::$_instance)) {
-            $perm_driver = $perm_params = null;
-            if (empty($GLOBALS['conf']['perms']['driver'])) {
-                $perm_driver = empty($GLOBALS['conf']['datatree']['driver'])
-                    ? null
-                    : 'datatree';
-            } else {
-                $perm_driver = $GLOBALS['conf']['perms']['driver'];
-                $perm_params = Horde::getDriverConfig('perms', $perm_driver);
-            }
-
-            self::$_instance = self::factory($perm_driver, $perm_params);
-        }
-
-        return self::$_instance;
     }
 
     /**

@@ -312,10 +312,6 @@ EOD;
         $this->prepareRegistry();
         $this->prepareNotification();
 
-        if (!isset($GLOBALS['perms'])) {
-            $GLOBALS['perms'] = Horde_Perms::singleton();
-        }
-
         /** Provide the horde registry */
         $GLOBALS['registry'] = new Horde_Registry();
 

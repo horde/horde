@@ -232,6 +232,7 @@ class Horde_Registry
         $injector->addBinder('Horde_Db_Adapter_Base', new Horde_Core_Binder_Db('reader'));
         $injector->addBinder('Horde_Log_Logger', new Horde_Core_Binder_Logger());
         $injector->addBinder('Horde_Memcache', new Horde_Core_Binder_Memcache());
+        $injector->addBinder('Horde_Perms', new Horde_Core_Binder_Perms());
         $injector->addBinder('Horde_Template', new Horde_Core_Binder_Template());
         $injector->addBinder('Net_DNS_Resolver', new Horde_Core_Binder_Dns());
 
@@ -314,9 +315,7 @@ class Horde_Registry
         }
 
         /* Create the global permissions object. */
-        // TODO: Convert to using Horde_Injector
-        $GLOBALS['perms'] = Horde_Perms::singleton();
-        $injector->setInstance('Horde_Perms', $GLOBALS['perms']);
+        $GLOBALS['perms'] = $injector->getInstance('Horde_Perms');
 
         /* Initialize notification object. Always attach status listener by
          * default. */
