@@ -15,8 +15,10 @@
  * Require the tested classes.
  */
 require_once 'Horde/Exception.php';
-require_once 'Horde/Exception/Prior.php';
 require_once 'Horde/Exception/LastError.php';
+require_once 'Horde/Exception/NotFound.php';
+require_once 'Horde/Exception/PermissionDenied.php';
+require_once 'Horde/Exception/Prior.php';
 
 /**
  * Test for the Horde_Exception:: class.
@@ -35,17 +37,55 @@ require_once 'Horde/Exception/LastError.php';
 class Horde_Exception_ExceptionTest extends  PHPUnit_Framework_TestCase
 {
 
+    // Basic Exception Testing
+
     public function testEmptyConstructionYieldsEmptyMessage()
     {
-        $e = new Horde_Exception_Prior();
+        $e = new Horde_Exception();
         $this->assertSame('', $e->getMessage());
     }
 
     public function testEmptyConstructionYieldsCodeZero()
     {
-        $e = new Horde_Exception_Prior();
+        $e = new Horde_Exception();
         $this->assertSame(0, $e->getCode());
     }
+
+    public function testMethodGetpreviousYieldsPreviousException()
+    {
+        $e = new Horde_Exception(null, null, new Exception('previous'));
+        $this->assertEquals('previous', $e->getPrevious()->getMessage());
+    }
+
+    public function testMethodTostringYieldsExceptionDescription()
+    {
+        $e = new Horde_Exception();
+        $this->assertContains('exception \'Horde_Exception\'', (string) $e);
+    }
+
+    public function testMethodTostringContainsDescriptionOfPreviousException()
+    {
+        $e = new Horde_Exception(null, null, new Exception('previous'));
+        $this->assertContains('Next exception \'Horde_Exception\'', (string) $e);
+    }
+
+    // NotFound Exception Testing
+
+    public function testEmptyConstructionYieldsNotFoundMessage()
+    {
+        $e = new Horde_Exception_NotFound();
+        $this->assertSame('Not Found', $e->getMessage());
+    }
+
+    // Basic Exception Testing
+
+    public function testEmptyConstructionYieldsPermissionDeniedMessage()
+    {
+        $e = new Horde_Exception_PermissionDenied();
+        $this->assertSame('Permission Denied', $e->getMessage());
+    }
+
+    // Prior Exception Testing
 
     public function testConstructionWithPearErrorYieldsMessageFromPearError()
     {
@@ -62,6 +102,8 @@ class Horde_Exception_ExceptionTest extends  PHPUnit_Framework_TestCase
         $e = new Horde_Exception_Prior($p);
         $this->assertSame(666, $e->getCode());
     }
+
+    // LastError Exception Testing
 
     public function testConstructionWithGetlasterrorarrayYieldsMessageFromArray()
     {
