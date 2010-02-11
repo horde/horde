@@ -371,7 +371,7 @@ HTML;
         );
         unset($s_list['horde'][0]);
 
-        foreach ($s_list as $app => $files) {
+        foreach ($s_list as $files) {
             foreach ($files as $file) {
                 if ($file['d'] && ($file['f'][0] != '/') && empty($file['e'])) {
                     $js_tocache[] = $file['p'] . $file['f'];
@@ -443,6 +443,8 @@ HTML;
 
             $hsf->outputTag($js_url);
         }
+
+        $hsf->clear();
 
         foreach ($js_external as $val) {
             $hsf->outputTag($val);

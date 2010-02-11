@@ -62,13 +62,13 @@ class Horde_Script_Files
     {
         $res = $this->_add($file, $app, $direct, $full);
 
-        if (empty($res) || (!ob_get_length() && !headers_sent())) {
+        if (($res === false) || (!ob_get_length() && !headers_sent())) {
             return;
         }
 
         // If headers have already been sent, we need to output a <script>
         // tag directly.
-        $this->outputTag($res['u']);
+        $this->includeFiles();
     }
 
     /**
@@ -82,7 +82,7 @@ class Horde_Script_Files
         // Force external scripts under Horde scope to better avoid duplicates,
         // and to ensure they are loaded before other application specific files
         $app = 'horde';
-        
+
         // Don't include scripts multiple times.
         if (!empty($this->_included[$app][$url])) {
             return false;
@@ -91,7 +91,7 @@ class Horde_Script_Files
         $this->_included[$app][$url] = true;
 
         // Always add prototype.js.
-        if (empty($this->_files)) {
+        if (!isset($this->_included[$app]['prototype.js'])) {
             $this->add('prototype.js', 'horde', true);
         }
 
@@ -105,6 +105,8 @@ class Horde_Script_Files
 
     /**
      * Helper function to determine if given file needs to be output.
+     *
+     * @return boolean  True if the file needs to be output.
      */
     public function _add($file, $app, $direct, $full)
     {
@@ -121,12 +123,13 @@ class Horde_Script_Files
         $this->_included[$app][$file] = true;
 
         // Always add prototype.js.
-        if (empty($this->_files) && ($file != 'prototype.js')) {
+        if (!isset($this->_included[$app]['prototype.js']) &&
+            ($file != 'prototype.js')) {
             $this->add('prototype.js', 'horde', true);
         }
 
         // Add localized string for popup.js
-        if ($file == 'popup.js' && $app == 'horde') {
+        if (($file == 'popup.js') && ($app == 'horde')) {
             Horde::addInlineScript('Horde.popup_block_text=' . Horde_Serialize::serialize(_("A popup window could not be opened. Your browser may be blocking popups."), Horde_Serialize::JSON), 'dom');
         }
 
@@ -157,32 +160,42 @@ class Horde_Script_Files
                     array('file' => $file, 'app' => $app)));
         }
 
-        $out = $this->_files[$app][] = array(
+        $this->_files[$app][] = array(
             'f' => $file,
             'd' => $direct,
             'u' => $url,
             'p' => $path
         );
 
-        return $out;
+        return true;
     }
 
     /**
-     * Includes javascript files that are needed before any headers are sent.
+     * Output the list of javascript files needed.
      */
     public function includeFiles()
     {
-        foreach ($this->listFiles() as $app => $files) {
+        foreach ($this->listFiles() as $files) {
             foreach ($files as $file) {
                 $this->outputTag($file['u']);
             }
         }
+
+        $this->clear();
+    }
+
+    /**
+     * Clears the cached list of files to output.
+     */
+    public function clear()
+    {
+        $this->_files = array();
     }
 
     /**
      * Prepares the list of javascript files to include.
      *
-     * @return array
+     * @return array  The list of javascript files.
      */
     public function listFiles()
     {
