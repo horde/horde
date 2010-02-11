@@ -287,7 +287,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
             return false;
         }
 
-        $task = $registry->tasks->getTask($vars->list, $vars->id);
+        $task = $GLOBALS['registry']->tasks->getTask($vars->list, $vars->id);
         if (!$task) {
             $GLOBALS['notification']->push(_("The requested task was not found."), 'horde.error');
             return false;
