@@ -17,13 +17,9 @@ if (!empty($refresh_time) && ($refresh_time > 0) && !empty($refresh_url)) {
 
 Horde::includeScriptFiles();
 
-$bc = Horde_Util::nonInputVar('bodyClass');
-if ($prefs->getValue('show_panel')) {
-    if ($bc) {
-        $bc .= ' ';
-    }
-    $bc .= 'rightPanel';
-}
+$bc = $prefs->getValue('show_panel')
+    ? 'rightPanel'
+    : '';
 
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>

@@ -26,13 +26,9 @@ if (!empty($refresh_time) && ($refresh_time > 0) && !empty($refresh_url)) {
 Horde::includeScriptFiles();
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 
-$bc = Horde_Util::nonInputVar('bodyClass');
-if (isset($view) && is_object($view) && $prefs->getValue('show_panel')) {
-    if ($bc) {
-        $bc .= ' ';
-    }
-    $bc .= 'rightPanel';
-}
+$bc = (isset($view) && is_object($view) && $prefs->getValue('show_panel'))
+    ? 'rightPanel'
+    : '';
 
 $currentDate = Kronolith::currentDate();
 
