@@ -17,7 +17,7 @@ class Horde_Exception extends Exception
      *
      * @param mixed $message The exception message, a PEAR_Error
      *                       object, or an Exception object.
-     * @param mixed $code    A numeric error code.
+     * @param int   $code    A numeric error code.
      */
     public function __construct($message = null, $code = null)
     {
@@ -28,12 +28,6 @@ class Horde_Exception extends Exception
                 $code = $message->getCode();
             }
             $message = $message->getMessage();
-        }
-
-        if (is_null($code)) {
-            $code = 0;
-        } else if (is_string($code)) {
-            $code = null;
         }
 
         parent::__construct($message, $code);

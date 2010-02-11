@@ -19,7 +19,7 @@ class Horde_Exception_NotFound extends Horde_Exception
      *
      * @param mixed $message The exception message, a PEAR_Error
      *                       object, or an Exception object.
-     * @param mixed $code    A numeric error code.
+     * @param int   $code    A numeric error code.
      */
     public function __construct($message = null, $code = null)
     {

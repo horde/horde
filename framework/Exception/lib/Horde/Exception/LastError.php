@@ -23,7 +23,7 @@ class Horde_Exception_LastError extends Horde_Exception
      *
      * @param mixed $message             The exception message, a PEAR_Error
      *                                   object, or an Exception object.
-     * @param mixed  $code_or_lasterror  Either a numeric error code, or
+     * @param mixed $code_or_lasterror   Either a numeric error code, or
      *                                   an array from error_get_last().
      */
     public function __construct($message = null, $code_or_lasterror = null)
