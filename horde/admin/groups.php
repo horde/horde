@@ -191,7 +191,7 @@ if (!empty($form)) {
 /* Get the perms tree. */
 $nodes = $groups->listGroups(true);
 if (is_a($nodes, 'PEAR_Error')) {
-    throw new Horde_Exception($nodes);
+    throw new Horde_Exception_Prior($nodes);
 }
 $nodes[GROUP_ROOT] = GROUP_ROOT;
 
@@ -216,7 +216,7 @@ $tree->setHeader(array(array('width' => '50%')));
 if ($cid > 0) {
     $cid_parents = $groups->getGroupParentList($cid);
     if (is_a($cid_parents, 'PEAR_Error')) {
-        throw new Horde_Exception($cid_parents);
+        throw new Horde_Exception_Prior($cid_parents);
     }
 }
 

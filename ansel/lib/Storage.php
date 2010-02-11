@@ -171,7 +171,7 @@ class Ansel_Storage
             $error = sprintf(_("The gallery \"%s\" could not be created: %s"),
                              $attributes['name'], $result->getMessage());
             Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Horde_Exception($error);
+            throw new Horde_Exception_Prior($error);
         }
 
         /* Convenience */

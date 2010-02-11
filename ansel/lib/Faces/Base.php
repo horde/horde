@@ -93,7 +93,7 @@ class Ansel_Faces_Base
                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
        $result = $GLOBALS['ansel_db']->query($sql);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
+            throw new Horde_Exception_Prior($result);
         } elseif ($result->numRows() == 0) {
             return array();
         }
@@ -133,7 +133,7 @@ class Ansel_Faces_Base
 
         $result = $GLOBALS['ansel_db']->query($sql);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
+            throw new Horde_Exception_Prior($result);
         } elseif ($result->numRows() == 0) {
             return array();
         }
@@ -177,7 +177,7 @@ class Ansel_Faces_Base
         $GLOBALS['ansel_db']->setLimit($count, $from);
         $result = $GLOBALS['ansel_db']->query($sql);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
+            throw new Horde_Exception_Prior($result);
         } elseif ($result->numRows() == 0) {
             return array();
         }
@@ -378,7 +378,7 @@ class Ansel_Faces_Base
         $img = Ansel::getImageObject();
         $data = $GLOBALS['ansel_vfs']->read($vfspath, $vfsname);
         if ($data instanceof PEAR_Error) {
-            throw new Horde_Exception($data);
+            throw new Horde_Exception_Prior($data);
         }
         $img->loadString($face_id, $data);
 
@@ -444,7 +444,7 @@ class Ansel_Faces_Base
             $new = true;
             $face_id = $GLOBALS['ansel_db']->nextId('ansel_faces');
             if ($face_id instanceof PEAR_Error) {
-                throw new Horde_Exception($face_id);
+                throw new Horde_Exception_Prior($face_id);
             }
         }
 
@@ -490,12 +490,12 @@ class Ansel_Faces_Base
 
         $q = $GLOBALS['ansel_db']->prepare($sql, null, MDB2_PREPARE_MANIP);
         if ($q instanceof PEAR_Error) {
-            throw new Horde_Exception($q);
+            throw new Horde_Exception_Prior($q);
         }
         $result = $q->execute($params);
         $q->free();
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
+            throw new Horde_Exception_Prior($result);
         }
 
         // Update gallery and image counts
@@ -544,7 +544,7 @@ class Ansel_Faces_Base
             // Create Face id
             $face_id = $GLOBALS['ansel_db']->nextId('ansel_faces');
             if ($face_id instanceof PEAR_Error) {
-                throw new Horde_Exception($face_id);
+                throw new Horde_Exception_Prior($face_id);
             }
 
             // Store face id db
@@ -556,12 +556,12 @@ class Ansel_Faces_Base
 
             $q = $GLOBALS['ansel_db']->prepare($sql, null, MDB2_PREPARE_MANIP);
             if ($q instanceof PEAR_Error) {
-                throw new Horde_Exception($q);
+                throw new Horde_Exception_Prior($q);
             }
             $result = $q->execute($params);
             $q->free();
             if ($result instanceof PEAR_Error) {
-                throw new Horde_Exception($result);
+                throw new Horde_Exception_Prior($result);
             }
             if ($create) {
                 // Process image
@@ -615,7 +615,7 @@ class Ansel_Faces_Base
         $result = $GLOBALS['ansel_vfs']->writeData($path . 'faces', $face_id . $ext,
                                                    $image->_image->raw(), true);
         if (is_a($result, 'PEAR_Error')) {
-            throw new Horde_Exception($result);
+            throw new Horde_Exception_Prior($result);
         }
 
         return $face_id;
@@ -651,12 +651,12 @@ class Ansel_Faces_Base
         $params = array(puzzle_compress_cvec($signature), $face_id);
         $q = $GLOBALS['ansel_db']->prepare($sql, null, MDB2_PREPARE_MANIP);
         if ($q instanceof PEAR_Error) {
-            throw new Horde_Exception($q);
+            throw new Horde_Exception_Prior($q);
         }
         $result = $q->execute($params);
         $q->free();
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
+            throw new Horde_Exception_Prior($result);
         }
 
         // create index
@@ -673,7 +673,7 @@ class Ansel_Faces_Base
         $GLOBALS['ansel_db']->exec('DELETE FROM ansel_faces_index WHERE face_id = ' . $face_id);
         $q = &$GLOBALS['ansel_db']->prepare('INSERT INTO ansel_faces_index (face_id, index_position, index_part) VALUES (?, ?, ?)');
         if ($q instanceof PEAR_Error) {
-            throw new Horde_Exception($q);
+            throw new Horde_Exception_Prior($q);
         }
 
         $GLOBALS['ansel_db']->loadModule('Extended');
@@ -748,7 +748,7 @@ class Ansel_Faces_Base
 
         $q = $GLOBALS['ansel_db']->prepare($sql, null, MDB2_PREPARE_MANIP);
         if ($q instanceof PEAR_Error) {
-            throw new Horde_Exception($q);
+            throw new Horde_Exception_Prior($q);
         }
 
         return $q->execute($params);
@@ -769,19 +769,19 @@ class Ansel_Faces_Base
         $sql .= ' FROM ansel_faces WHERE face_id = ?';
         $q = $GLOBALS['ansel_db']->prepare($sql);
         if ($q instanceof PEAR_Error) {
-            throw new Horde_Exception($q);
+            throw new Horde_Exception_Prior($q);
         }
 
         $result = $q->execute((int)$face_id);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
+            throw new Horde_Exception_Prior($result);
         } elseif ($result->numRows() == 0) {
            throw new Horde_Exception('Face does not exist');
         }
 
         $face = $result->fetchRow(MDB2_FETCHMODE_ASSOC);
         if (is_a($face, 'PEAR_Error')) {
-            throw new Horde_Exception($face);
+            throw new Horde_Exception_Prior($face);
         }
 
         // Always return the face_id
@@ -800,7 +800,7 @@ class Ansel_Faces_Base
         $sql = 'SELECT gallery_id, image_id FROM ansel_faces WHERE face_name = ' . $GLOBALS['ansel_db']->quote($face['face_name']);
         $result = $GLOBALS['ansel_db']->query($sql);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
+            throw new Horde_Exception_Prior($result);
         } elseif ($result->numRows() == 0) {
             throw new Horde_Exception('Face does not exist');
         }
@@ -854,7 +854,7 @@ class Ansel_Faces_Base
 
         $result = $GLOBALS['ansel_db']->query($sql);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
+            throw new Horde_Exception_Prior($result);
         } elseif ($result->numRows() == 0) {
             return array();
         }

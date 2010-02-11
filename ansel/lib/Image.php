@@ -328,7 +328,7 @@ class Ansel_Image
         try {
             $this->_data[$view] = $this->_image->raw();
         } catch (Horde_Image_Exception $e) {
-            throw new Horde_Exception($e);
+            throw new Horde_Exception_Prior($e);
         }
         $this->_image->loadString($vfspath . '/' . $this->id,
                                   $this->_data[$view]);

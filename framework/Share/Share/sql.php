@@ -783,7 +783,7 @@ class Horde_Share_sql extends Horde_Share {
         unset($params['charset']);
         $this->_write_db = MDB2::factory($params);
         if (is_a($this->_write_db, 'PEAR_Error')) {
-            throw new Horde_Exception($this->_write_db);
+            throw new Horde_Exception_Prior($this->_write_db);
         }
 
         /* Attach debug handler. */
@@ -817,7 +817,7 @@ class Horde_Share_sql extends Horde_Share {
             unset($params['charset']);
             $this->_db = MDB2::singleton($params);
             if (is_a($this->_db, 'PEAR_Error')) {
-                throw new Horde_Exception($this->_db);
+                throw new Horde_Exception_Prior($this->_db);
             }
 
             $this->_db->setOption('seqcol_name', 'id');

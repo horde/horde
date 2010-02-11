@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Exception extends Horde_Exception
+class Horde_Kolab_Server_Exception extends Horde_Exception_Prior
 {
     /**
      * Constants to define the error type.

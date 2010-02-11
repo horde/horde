@@ -15,7 +15,7 @@ Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true
 
 $dbh = DB::connect($conf['sql']);
 if (is_a($dbh, 'PEAR_Error')) {
-    throw new Horde_Exception($dbh);
+    throw new Horde_Exception_Prior($dbh);
 }
 $dbh->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
 

@@ -106,7 +106,7 @@ class Horde_Token_Sql extends Horde_Token
         $result = $this->_write_db->query($query, $values);
         if ($result instanceof PEAR_Error) {
             Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Horde_Exception($result);
+            throw new Horde_Exception_Prior($result);
         }
     }
 
@@ -157,7 +157,7 @@ class Horde_Token_Sql extends Horde_Token
         $result = $this->_write_db->query($query, $values);
         if ($result instanceof PEAR_Error) {
             Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Horde_Exception($result);
+            throw new Horde_Exception_Prior($result);
         }
     }
 
@@ -195,7 +195,7 @@ class Horde_Token_Sql extends Horde_Token
                                  array('persistent' => !empty($this->_params['persistent']),
                                        'ssl' => !empty($this->_params['ssl'])));
         if ($this->_write_db instanceof PEAR_Error) {
-            throw new Horde_Exception($this->_write_db);
+            throw new Horde_Exception_Prior($this->_write_db);
         }
 
         // Set DB portability options.
@@ -217,7 +217,7 @@ class Horde_Token_Sql extends Horde_Token
                                      array('persistent' => !empty($params['persistent']),
                                            'ssl' => !empty($params['ssl'])));
             if ($this->_db instanceof PEAR_Error) {
-                throw new Horde_Exception($this->_db);
+                throw new Horde_Exception_Prior($this->_db);
             }
 
             // Set DB portability options.

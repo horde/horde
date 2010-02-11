@@ -147,7 +147,7 @@ class Horde_Prefs_Imsp extends Horde_Prefs
         $result = $this->_imsp->init();
         if ($result instanceof PEAR_Error) {
             Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Horde_Exception($result);
+            throw new Horde_Exception_Prior($result);
         }
 
         $this->_imsp->setLogger($GLOBALS['conf']['log']);

@@ -278,7 +278,7 @@ class Folks_Hooks
         $result = $_db->getRow($query, array($username, $info['extra']['email']), DB_FETCHMODE_ASSOC);
 
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
+            throw new Horde_Exception_Prior($result);
         } elseif (empty($result)) {
             return $info;
         } elseif ($result['user_uid'] == $username) {
@@ -319,7 +319,7 @@ class Folks_Hooks
 
         $result = $_db->query($query, $values);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
+            throw new Horde_Exception_Prior($result);
         }
 
         require_once $GLOBALS['registry']->get('fileroot', 'folks') . '/lib/Folks.php';

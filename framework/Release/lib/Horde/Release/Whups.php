@@ -59,7 +59,7 @@ class Horde_Release_Whups
 
         $res = Horde_Rpc::request('jsonrpc', $this->_params['url'], $method, $params, $options);
         if ($res instanceof PEAR_Error) {
-            throw new Horde_Exception($res);
+            throw new Horde_Exception_Prior($res);
         }
     }
 
@@ -100,7 +100,7 @@ class Horde_Release_Whups
                                      null, array('user' => $this->_params['user'],
                                                  'pass' => $this->_params['pass']));
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
+            throw new Horde_Exception_Prior($result);
         }
 
         return $result->result;

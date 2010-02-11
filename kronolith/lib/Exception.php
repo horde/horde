@@ -10,6 +10,6 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Kronolith
  */
-class Kronolith_Exception extends Horde_Exception
+class Kronolith_Exception extends Horde_Exception_Prior
 {
 }

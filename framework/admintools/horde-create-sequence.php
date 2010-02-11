@@ -48,7 +48,7 @@ default:
     throw new Horde_Exception('Unknown database abstraction library');
 }
 if (is_a($dbh, 'PEAR_Error')) {
-    throw new Horde_Exception($dbh);
+    throw new Horde_Exception_Prior($dbh);
 }
 
 if (!preg_match('/^\w+$/', $sequence)) {

@@ -63,7 +63,7 @@ class IMP_Sentmail_Sql extends IMP_Sentmail
                                  array('persistent' => !empty($this->_params['persistent']),
                                        'ssl' => !empty($this->_params['ssl'])));
         if ($this->_db instanceof PEAR_Error) {
-            throw new Horde_Exception($this->_db);
+            throw new Horde_Exception_Prior($this->_db);
         }
 
         /* Set DB portability options. */
@@ -146,7 +146,7 @@ class IMP_Sentmail_Sql extends IMP_Sentmail
         $recipients = $this->_db->getAll($query);
         if ($recipients instanceof PEAR_Error) {
             Horde::logMessage($recipients, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Horde_Exception($recipients);
+            throw new Horde_Exception_Prior($recipients);
         }
 
         /* Extract email addresses. */
@@ -185,7 +185,7 @@ class IMP_Sentmail_Sql extends IMP_Sentmail
         $recipients = $this->_db->getOne($query, array(time() - $hours * 3600));
         if ($recipients instanceof PEAR_Error) {
             Horde::logMessage($recipients, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Horde_Exception($recipients);
+            throw new Horde_Exception_Prior($recipients);
         }
 
         return $recipients;

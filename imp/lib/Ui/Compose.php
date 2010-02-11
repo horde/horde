@@ -70,7 +70,7 @@ class IMP_Ui_Compose
         try {
             $recip = $imp_compose->recipientList(array('to' => $to));
         } catch (IMP_Compose_Exception $e) {
-            throw new Horde_Exception($recip);
+            throw new Horde_Exception_Prior($recip);
         }
         $recipients = implode(', ', $recip['list']);
 
@@ -95,7 +95,7 @@ class IMP_Ui_Compose
         try {
             $imp_compose->sendMessage($recipients, $headers, $mime_message);
         } catch (IMP_Compose_Exception $e) {
-            throw new Horde_Exception($e);
+            throw new Horde_Exception_Prior($e);
         }
 
         $entry = sprintf("%s Redirected message sent to %s from %s",

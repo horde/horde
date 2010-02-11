@@ -11,6 +11,6 @@
  * @category Horde
  * @package  Horde_Perms
  */
-class Horde_Perms_Exception extends Horde_Exception
+class Horde_Perms_Exception extends Horde_Exception_Prior
 {
 }

@@ -35,7 +35,7 @@ if (hash_hmac('sha1', $user, $conf['secret_key']) != $hash) {
 if ($action == 'deny') {
     $result = $signup->removeQueuedSignup($user);
     if (is_a($result, 'PEAR_Error')) {
-        throw new Horde_Exception($result);
+        throw new Horde_Exception_Prior($result);
     }
     printf(_("The signup request for user \"%s\" has been removed."), $user);
     exit;

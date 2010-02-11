@@ -11,6 +11,6 @@
  * @category Horde
  * @package  Horde_Mime
  */
-class Horde_Mime_Exception extends Horde_Exception
+class Horde_Mime_Exception extends Horde_Exception_Prior
 {
 }

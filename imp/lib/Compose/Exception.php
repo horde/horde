@@ -11,7 +11,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package IMP
  */
-class IMP_Compose_Exception extends Horde_Exception
+class IMP_Compose_Exception extends Horde_Exception_Prior
 {
     /**
      * Stores information on whether an encryption dialog window needs

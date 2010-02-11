@@ -48,7 +48,7 @@ case 'process_import_public_key':
         $imp_smime->reloadWindow(Horde_Util::getFormData('reload'));
     } catch (Horde_Browser_Exception $e) {
         $notification->push(_("No S/MIME public key imported."), 'horde.error');
-        throw new Horde_Exception($e);
+        throw new Horde_Exception_Prior($e);
     } catch (Horde_Exception $e) {
         $notification->push($e, 'horde.error');
         $actionID = 'import_public_key';
@@ -93,7 +93,7 @@ case 'process_import_personal_certs':
         $notification->push(_("S/MIME Public/Private Keypair successfully added."), 'horde.success');
         $imp_smime->reloadWindow(Horde_Util::getFormData('reload'));
     } catch (Horde_Browser_Exception $e) {
-        throw new Horde_Exception($e);
+        throw new Horde_Exception_Prior($e);
     } catch (Horde_Exception $e) {
         $notification->push(_("Personal S/MIME certificates NOT imported: ") . $e->getMessage(), 'horde.error');
         $actionID = 'import_personal_certs';

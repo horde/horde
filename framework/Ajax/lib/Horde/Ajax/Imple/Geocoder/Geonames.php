@@ -61,7 +61,7 @@ class Horde_Ajax_Imple_Geocoder_Geonames extends Horde_Ajax_Imple_Base
         try {
             $response = $client->get($url);
         } catch (Horde_Http_Exception $e) {
-            throw new Horde_Exception($e);
+            throw new Horde_Exception_Prior($e);
         }
         return array('status' => 200,
                      'results' => $response->getBody());

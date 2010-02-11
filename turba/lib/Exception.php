@@ -10,6 +10,6 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Turba
  */
-class Turba_Exception extends Horde_Exception
+class Turba_Exception extends Horde_Exception_Prior
 {
 }

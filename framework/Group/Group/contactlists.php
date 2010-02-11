@@ -595,7 +595,7 @@ class Group_contactlists extends Group {
                 $this->_db[$source] = &DB::connect($this->_sources[$source]['params'],
                     array('persistent' => !empty($this->_sources[$source]['params']['persistent'])));
                 if (is_a($this->_db[$source], 'PEAR_Error')) {
-                    throw new Horde_Exception($this->_db[$source]);
+                    throw new Horde_Exception_Prior($this->_db[$source]);
                 }
 
                 /* Set DB portability options. */

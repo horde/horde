@@ -120,7 +120,7 @@ class Crumb_Driver_sql extends Crumb_Driver {
         $this->_write_db = &DB::connect($this->_params,
                                         array('persistent' => !empty($this->_params['persistent'])));
         if (is_a($this->_write_db, 'PEAR_Error')) {
-            throw new Horde_Exception($this->_write_db);
+            throw new Horde_Exception_Prior($this->_write_db);
         }
 
         // Set DB portability options.
@@ -138,7 +138,7 @@ class Crumb_Driver_sql extends Crumb_Driver {
             $this->_db = &DB::connect($params,
                                       array('persistent' => !empty($params['persistent'])));
             if (is_a($this->_db, 'PEAR_Error')) {
-                throw new Horde_Exception($this->_write_db);
+                throw new Horde_Exception_Prior($this->_write_db);
             }
 
             // Set DB portability options.

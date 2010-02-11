@@ -342,7 +342,7 @@ class Horde_Prefs_Sql extends Horde_Prefs
                                              'ssl' => !empty($this->_params['ssl'])));
         if ($this->_write_db instanceof PEAR_Error) {
             Horde::logMessage($this->_write_db, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Horde_Exception($this->_write_db);
+            throw new Horde_Exception_Prior($this->_write_db);
         }
 
         // Set DB portability options.
@@ -365,7 +365,7 @@ class Horde_Prefs_Sql extends Horde_Prefs
                                            'ssl' => !empty($params['ssl'])));
             if ($this->_db instanceof PEAR_Error) {
                 Horde::logMessage($this->_db, __FILE__, __LINE__, PEAR_LOG_ERR);
-                throw new Horde_Exception($this->_db);
+                throw new Horde_Exception_Prior($this->_db);
             }
 
             // Set DB portability options.

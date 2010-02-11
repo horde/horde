@@ -397,7 +397,7 @@ class News_Driver_sql extends News_Driver {
         $this->write_db = &DB::connect($this->_params,
                                         array('persistent' => !empty($this->_params['persistent'])));
         if ($this->write_db instanceof PEAR_Error) {
-            throw new Horde_Exception($this->write_db);
+            throw new Horde_Exception_Prior($this->write_db);
         }
 
         // Set DB portability options.
@@ -415,7 +415,7 @@ class News_Driver_sql extends News_Driver {
             $this->db = &DB::connect($params,
                                       array('persistent' => !empty($params['persistent'])));
             if ($this->db instanceof PEAR_Error) {
-                throw new Horde_Exception($this->db);
+                throw new Horde_Exception_Prior($this->db);
             }
 
             // Set DB portability options.

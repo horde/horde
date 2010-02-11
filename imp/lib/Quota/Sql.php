@@ -82,7 +82,7 @@ class IMP_Quota_Sql extends IMP_Quota
                                  $this->_params['query_quota']);
             $result = $this->_db->query($query);
             if ($result instanceof PEAR_Error) {
-                throw new Horde_Exception($result);
+                throw new Horde_Exception_Prior($result);
             }
 
             $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
@@ -103,7 +103,7 @@ class IMP_Quota_Sql extends IMP_Quota
                                  $this->_params['query_used']);
             $result = $this->_db->query($query);
             if ($result instanceof PEAR_Error) {
-                throw new Horde_Exception($result);
+                throw new Horde_Exception_Prior($result);
             }
 
             $row = $result->fetchRow(DB_FETCHMODE_ASSOC);

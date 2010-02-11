@@ -50,7 +50,7 @@ class Ansel_Faces
             $sql = 'SELECT face_id FROM ansel_faces WHERE image_id = ' . $image->id;
             $face = $GLOBALS['ansel_db']->queryCol($sql);
             if ($face instanceof PEAR_Error) {
-                throw new Horde_Exception($face);
+                throw new Horde_Exception_Prior($face);
             }
 
             foreach ($face as $id) {

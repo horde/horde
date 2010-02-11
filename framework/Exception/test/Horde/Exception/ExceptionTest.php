@@ -15,6 +15,7 @@
  * Require the tested classes.
  */
 require_once 'Horde/Exception.php';
+require_once 'Horde/Exception/Prior.php';
 require_once 'Horde/Exception/LastError.php';
 
 /**
@@ -36,13 +37,13 @@ class Horde_Exception_ExceptionTest extends  PHPUnit_Framework_TestCase
 
     public function testEmptyConstructionYieldsEmptyMessage()
     {
-        $e = new Horde_Exception();
+        $e = new Horde_Exception_Prior();
         $this->assertSame('', $e->getMessage());
     }
 
     public function testEmptyConstructionYieldsCodeZero()
     {
-        $e = new Horde_Exception();
+        $e = new Horde_Exception_Prior();
         $this->assertSame(0, $e->getCode());
     }
 
@@ -50,7 +51,7 @@ class Horde_Exception_ExceptionTest extends  PHPUnit_Framework_TestCase
     {
         require_once dirname(__FILE__) . '/Stub/PearError.php';
         $p = new Horde_Exception_Stub_PearError('pear');
-        $e = new Horde_Exception($p);
+        $e = new Horde_Exception_Prior($p);
         $this->assertSame('pear', $e->getMessage());
     }
 
@@ -58,7 +59,7 @@ class Horde_Exception_ExceptionTest extends  PHPUnit_Framework_TestCase
     {
         require_once dirname(__FILE__) . '/Stub/PearError.php';
         $p = new Horde_Exception_Stub_PearError('pear', 666);
-        $e = new Horde_Exception($p);
+        $e = new Horde_Exception_Prior($p);
         $this->assertSame(666, $e->getCode());
     }
 
@@ -90,12 +91,6 @@ class Horde_Exception_ExceptionTest extends  PHPUnit_Framework_TestCase
     {
         $e = new Horde_Exception_LastError('An error occurred: ', $this->_getLastError());
         $this->assertSame('An error occurred: get_last_error', $e->getMessage());
-    }
-
-    public function testStringCodesAreSetToNull()
-    {
-        $e = new Horde_Exception('test', 'some code');
-        $this->assertSame(0, $e->getCode());
     }
 
     private function _getLastError()

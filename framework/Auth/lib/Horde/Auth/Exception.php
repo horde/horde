@@ -11,6 +11,6 @@
  * @author  Michael Slusarz <slusarz@curecanti.org>
  * @package Horde_Auth
  */
-class Horde_Auth_Exception extends Horde_Exception
+class Horde_Auth_Exception extends Horde_Exception_Prior
 {
 }

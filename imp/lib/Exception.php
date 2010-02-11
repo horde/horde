@@ -10,6 +10,6 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package IMP
  */
-class IMP_Exception extends Horde_Exception
+class IMP_Exception extends Horde_Exception_Prior
 {
 }

@@ -66,7 +66,7 @@ case 'process_import_public_key':
         $imp_pgp->reloadWindow(Horde_Util::getFormData('reload'));
     } catch (Horde_Browser_Exception $e) {
         $notification->push(_("No PGP public key imported."), 'horde.error');
-        throw new Horde_Exception($e);
+        throw new Horde_Exception_Prior($e);
     } catch (Horde_Exception $e) {
         $notification->push($e, 'horde.error');
         $actionID = 'import_public_key';
@@ -106,7 +106,7 @@ case 'process_import_personal_public_key':
         }
     } catch (Horde_Browser_Exception $e) {
         $notification->push(_("No personal PGP public key imported."), 'horde.error');
-        throw new Horde_Exception($e);
+        throw new Horde_Exception_Prior($e);
     } catch (Horde_Exception $e) {
         $notification->push($e->getMessage(), 'horde.error');
         $imp_pgp->importKeyDialog('process_import_personal_public_key', Horde_Util::getFormData('reload'));
@@ -133,7 +133,7 @@ case 'process_import_personal_private_key':
         }
     } catch (Horde_Browser_Exception $e) {
         $notification->push(_("No personal PGP private key imported."), 'horde.error');
-        throw new Horde_Exception($e);
+        throw new Horde_Exception_Prior($e);
     } catch (Horde_Exception $e) {
         $notification->push($e->getMessage(), 'horde.error');
         $imp_pgp->importKeyDialog('process_import_personal_private_key', Horde_Util::getFormData('reload'));

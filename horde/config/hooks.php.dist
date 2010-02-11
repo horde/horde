@@ -566,7 +566,7 @@ class Horde_Hooks
 //        $result = $db->query($query);
 //
 //        if ($result instanceof PEAR_Error) {
-//            throw new Horde_Exception($result);
+//            throw new Horde_Exception_Prior($result);
 //        }
 //    }
 

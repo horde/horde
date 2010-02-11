@@ -10,6 +10,6 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Ingo
  */
-class Ingo_Exception extends Horde_Exception
+class Ingo_Exception extends Horde_Exception_Prior
 {
 }

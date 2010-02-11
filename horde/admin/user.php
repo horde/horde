@@ -242,7 +242,7 @@ if ($auth->hasCapability('list')) {
 
     $users = $auth->listUsers();
     if (is_a($users, 'PEAR_Error')) {
-        throw new Horde_Exception($users);
+        throw new Horde_Exception_Prior($users);
     }
 
     /* Returns only users that match the specified pattern. */

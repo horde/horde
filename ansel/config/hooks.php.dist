@@ -19,7 +19,7 @@ class Ansel_Hooks
 //         $query  = 'SELECT age FROM user WHERE user_uid = ' . $GLOBALS['ansel_db']->quote(Horde_Auth::getAuth());
 //         $result = $GLOBALS['ansel_db']->queryOne($query);
 //         if (is_a($result, 'PEAR_Error')) {
-//               throw new Horde_Exception($result);
+//               throw new Horde_Exception_Prior($result);
 //         }
 //
 //         return (int)$result;
@@ -84,7 +84,7 @@ class Ansel_Hooks
 //         } catch (Horde_Service_Facebook_Exception $e) {
 //             // For now, just pass back as a pear error...needs to be cleaned up
 //             $GLOBALS['notification']->push('Horde_Service_Facebook: ' . $e->getMessage(), 'horde.err');
-//             throw new Horde_Exception($e);
+//             throw new Horde_Exception_Prior($e);
 //         }
 //         if (!empty($GLOBALS['notification'])) {
 //             $GLOBALS['notification']->push('Notification published to Facebook.', 'horde.success');

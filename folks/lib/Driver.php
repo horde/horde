@@ -101,7 +101,7 @@ class Folks_Driver {
         try {
             $result = $img->loadFile($file);
         } catch (Horde_Image_Exception $e) {
-            throw new Horde_Exception($e);
+            throw new Horde_Exception_Prior($e);
         }
         $dimensions = $img->getDimensions();
         if ($dimensions instanceof PEAR_Error) {

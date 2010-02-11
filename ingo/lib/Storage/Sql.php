@@ -86,7 +86,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
                                         array('persistent' => !empty($this->_params['persistent']),
                                               'ssl' => !empty($this->_params['ssl'])));
         if (is_a($this->_write_db, 'PEAR_Error')) {
-            throw new Horde_Exception($this->_write_db);
+            throw new Horde_Exception_Prior($this->_write_db);
         }
         /* Set DB portability options. */
         switch ($this->_write_db->phptype) {
@@ -105,7 +105,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
                                       array('persistent' => !empty($params['persistent']),
                                             'ssl' => !empty($params['ssl'])));
             if (is_a($this->_db, 'PEAR_Error')) {
-                throw new Horde_Exception($this->_db);
+                throw new Horde_Exception_Prior($this->_db);
             }
 
             switch ($this->_db->phptype) {
