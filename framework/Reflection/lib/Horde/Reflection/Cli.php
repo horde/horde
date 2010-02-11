@@ -29,8 +29,7 @@ class Horde_Reflection_CLI extends Horde_Reflection {
      */
     public function __construct(ReflectionFunction $method)
     {
-        Horde_Cli::init();
-        $this->_cli = Horde_Cli::singleton();
+        $this->_cli = Horde_Cli::init();
 
         parent::__construct($method);
     }

@@ -20,8 +20,7 @@ if (!Horde_Cli::runningFromCLI()) {
 }
 
 // Load the CLI environment.
-Horde_Cli::init();
-$cli = Horde_Cli::singleton();
+$cli = Horde_Cli::init();
 
 // Load Folks.
 $folks_authentication = 'none';

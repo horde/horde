@@ -17,7 +17,6 @@
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('agora', array('authentication' => 'none', 'cli' => true));
-$cli = Horde_Cli::singleton();
 
 /* Open Agora database. */
 $db_agora = &DB::connect($conf['sql']);

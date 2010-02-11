@@ -23,7 +23,6 @@ Horde_Registry::appInit('turba', array('authentication' => 'none', 'cli' => true
 require_once TURBA_BASE . '/lib/Object/Group.php';
 
 // Read command line parameters.
-$cli = Horde_Cli::singleton();
 if ($argc != 2) {
     $cli->message('Too many or too few parameters.', 'cli.error');
     $cli->writeln('Usage: import_squirrelmail_file_abook.php path-to-squirrelmail-data');

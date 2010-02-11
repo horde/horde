@@ -24,8 +24,7 @@ if (!Horde_Cli::runningFromCLI()) {
 }
 
 // Load the CLI environment.
-Horde_Cli::init();
-$cli = Horde_Cli::singleton();
+$cli = Horde_Cli::init();
 
 $db = DB::connect($conf['sql']);
 if ($db instanceof PEAR_Error) {

@@ -9,7 +9,6 @@
 /* Set up the CLI environment */
 require_once dirname(__FILE__) . '/../../../lib/Application.php';
 Horde_Registry::appInit('ingo', array('authentication' => 'none', 'cli' => true));
-$cli = Horde_Cli::singleton();
 
 $config = $GLOBALS['conf']['sql'];
 unset($config['charset']);

@@ -15,7 +15,6 @@ $live = false;
 
 require_once dirname(__FILE__) . '/horde-base.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true, 'nocompress' => true));
-$cli = Horde_Cli::singleton();
 
 $scope = $cli->prompt(_("Enter value for pref_scope:"));
 $name = $cli->prompt(_("Enter value for pref_name:"));

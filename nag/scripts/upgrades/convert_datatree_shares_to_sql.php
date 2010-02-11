@@ -9,8 +9,6 @@
 /* Set up the CLI environment */
 require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('nag', array('authentication' => 'none', 'cli' => true));
-$cli = Horde_Cli::singleton();
-
 /* Grab what we need to steal the DB config */
 require_once HORDE_BASE . '/config/conf.php';
 

@@ -19,7 +19,6 @@ if (isset($args[2])) {
     $info['job_id'] = (int)substr($file, 9, -4);
 }
 
-$cli = Horde_Cli::singleton();
 $fax_info = $cli->readStdin();
 $fax_info = explode("\n", $fax_info);
 foreach ($fax_info as $line) {

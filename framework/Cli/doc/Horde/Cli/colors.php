@@ -5,7 +5,7 @@
  */
 
 require 'Horde/Cli.php';
-$cli = Horde_Cli::singleton();
+$cli = new Horde_Cli();
 
 /* Explicit colors */
 $cli->writeln($cli->red('Red'));

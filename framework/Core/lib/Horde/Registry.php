@@ -92,7 +92,8 @@ class Horde_Registry
      * init() will be called after the initialization is completed.
      *
      * Global variables defined:
-     *   $registry - Registry object
+     *   $cli - Horde_Cli object (if 'cli' is true)
+     *   $registry - Horde_Registry object
      *
      * @param string $app  The application to initialize.
      * @param array $args  Optional arguments:
@@ -149,7 +150,7 @@ class Horde_Registry
 
             /* Load the CLI environment - make sure there's no time limit,
              * init some variables, etc. */
-            Horde_Cli::init();
+            $GLOBALS['cli'] = Horde_Cli::init();
 
             $args['nocompress'] = true;
         }

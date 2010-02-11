@@ -15,8 +15,6 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('imp', array('authentication' => 'none', 'cli' => true));
 
-$cli = Horde_Cli::singleton();
-
 $c = new Console_Getopt();
 $argv = $c->readPHPArgv();
 array_shift($argv);

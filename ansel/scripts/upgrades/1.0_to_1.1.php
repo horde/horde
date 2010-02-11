@@ -11,7 +11,6 @@
 
 require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('ansel', array('authentication' => 'none', 'cli' => true));
-$cli = Horde_CLI::singleton();
 
 // First update the tables
 $alter = array("ALTER TABLE ansel_images ADD COLUMN image_latitude VARCHAR(32) NOT NULL DEFAULT ''",

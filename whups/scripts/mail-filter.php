@@ -59,8 +59,6 @@ function _dump($hash)
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('whups', array('authentication' => 'none', 'cli' => true));
 
-$cli = Horde_Cli::singleton();
-
 // Set server name.
 $conf['server']['name'] = $conf['mail']['server_name'];
 $conf['server']['port'] = $conf['mail']['server_port'];

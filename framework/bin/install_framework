@@ -125,7 +125,7 @@ if (!Horde_Cli::runningFromCLI()) {
 
 // Load the CLI environment - make sure there's no time limit, init
 // some variables, etc.
-Horde_Cli::init();
+$GLOBALS['cli'] = Horde_Cli::init();
 
 if (!class_exists('SimpleXMLElement', false)) {
     include_once 'Tree/Tree.php';
@@ -195,7 +195,7 @@ class Linker {
     {
         $this->_srcDir = $srcDir;
         $packageFile = $this->_srcDir . '/package.xml';
-        $cli = &Horde_Cli::singleton();
+        $cli = $GLOBALS['cli'];
 
         if (!is_file($packageFile)) {
             $cli->message('No package.xml in ' . $this->_srcDir, 'cli.warning');
@@ -251,8 +251,7 @@ class Linker {
                     break;
 
                 default:
-                    $cli = &Horde_Cli::singleton();
-                    $cli->message('No handler for tag: ' . $child['name'], 'cli-warning');
+                    $GLOBALS['cli']->message('No handler for tag: ' . $child['name'], 'cli-warning');
                     break;
                 }
             }
@@ -273,8 +272,7 @@ class Linker {
                     break;
 
                 default:
-                    $cli = &Horde_Cli::singleton();
-                    $cli->message('No handler for tag: ' . $child['name'], 'cli-warning');
+                    $GLOBALS['cli']->message('No handler for tag: ' . $child['name'], 'cli-warning');
                     break;
                 }
             }

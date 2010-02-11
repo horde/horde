@@ -15,7 +15,6 @@ $result = $db->query('SELECT event_title, event_id, event_creator_id, event_star
 $stmt = $db->prepare('UPDATE kronolith_events SET event_start = ?, event_end = ?, event_recurenddate = ? WHERE event_id = ?');
 
 /* Confirm changes. */
-$cli = Horde_Cli::singleton();
 if (!isset($argv[1]) || $argv[1] != '--yes') {
     $answer = $cli->prompt('Running this script will convert all existing events to UTC. This conversion is not reversible. Is this what you want?', array('y' => 'Yes', 'n' => 'No'));
     if ($answer != 'y') {

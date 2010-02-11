@@ -11,7 +11,6 @@
 
 require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('ansel', array('authentication' => 'none', 'cli' => true));
-$cli = Horde_Cli::singleton();
 
 // We accept the user name on the command-line.
 $ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'hu:p:lc:g:a:d:k',

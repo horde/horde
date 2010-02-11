@@ -49,8 +49,7 @@ if ($horde_base === null) {
 }
 
 /* Set up CLI. */
-$cli = Horde_Cli::singleton();
-$cli->init();
+$cli = Horde_Cli::init();
 
 $horde_authentication = 'none';
 require_once $horde_base . '/lib/base.php';

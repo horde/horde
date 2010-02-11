@@ -13,7 +13,6 @@
 require_once dirname(__FILE__) . '/horde-base.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true));
 
-$cli = Horde_Cli::singleton();
 $db_lib = 'DB';
 $sequence = null;
 

@@ -30,8 +30,7 @@ if (!Horde_CLI::runningFromCLI()) {
 }
 
 // Load the CLI environment.
-Horde_CLI::init();
-$cli = &Horde_CLI::singleton();
+$cli = Horde_Cli::init();
 
 // We accept the user name on the command-line.
 require_once 'Console/Getopt.php';

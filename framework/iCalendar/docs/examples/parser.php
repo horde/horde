@@ -18,8 +18,7 @@ if (!Horde_Cli::runningFromCLI()) {
 
 // Load the CLI environment - make sure there's no time limit, init
 // some variables, etc.
-Horde_Cli::init();
-$cli = &Horde_Cli::singleton();
+$cli = Horde_Cli::init();
 
 if (empty($argv[1])) {
     $cli->fatal('No file specified on the command line.');

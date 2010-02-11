@@ -13,7 +13,6 @@
 
 require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('ansel', array('authentication' => 'none', 'cli' => true));
-$cli = Horde_Cli::singleton();
 
 $sql = 'SELECT image_id, image_original_date, image_uploaded_date FROM ansel_images';
 $results = $ansel_db->queryAll($sql, null, MDB2_FETCHMODE_ASSOC);

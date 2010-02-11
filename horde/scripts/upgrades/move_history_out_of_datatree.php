@@ -8,7 +8,6 @@
 require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true));
 
-$cli = Horde_Cli::singleton();
 $cli->writeln($cli->yellow("Beginning migration. This may take a very long time to complete."));
 $cli->writeln();
 

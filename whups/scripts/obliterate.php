@@ -22,8 +22,7 @@ if (!Horde_Cli::runningFromCLI()) {
 }
 
 /* Load the command line environment. */
-Horde_Cli::init();
-$cli = &Horde_Cli::singleton();
+$cli = Horde_Cli::init();
 
 $confirm = $cli->prompt('Are you sure you want to obliterate all Whups data?',
                         array('n' => 'No', 'y' => 'Yes'));

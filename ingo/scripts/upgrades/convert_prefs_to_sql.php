@@ -20,7 +20,6 @@
 
 require_once dirname(__FILE__) . '/../../../lib/Application.php';
 Horde_Registry::appInit('ingo', array('authentication' => 'none', 'cli' => true));
-$cli = Horde_Cli::singleton();
 
 /* Initialize storage backends. */
 if ($conf['storage']['driver'] != 'sql') {

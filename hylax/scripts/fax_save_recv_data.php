@@ -13,7 +13,6 @@ if (isset($args[1])) {
 }
 
 /* Store the raw fax postscript data. */
-$cli = Horde_Cli::singleton();
 $data = $cli->readStdin();
 if (empty($data)) {
     Horde::logMessage('No print data received from standard input. Exiting fax submission.', __FILE__, __LINE__, PEAR_LOG_ERR);

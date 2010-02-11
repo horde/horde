@@ -10,8 +10,6 @@
 require_once dirname(__FILE__) . '/../../Application.php';
 Horde_Registry::appInit('kronolith', array('authentication' => 'none', 'cli' => true));
 
-$cli = Horde_Cli::singleton();
-
 $config = $GLOBALS['conf']['sql'];
 unset($config['charset']);
 $db = MDB2::factory($config);

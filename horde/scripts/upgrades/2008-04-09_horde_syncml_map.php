@@ -7,7 +7,6 @@
 
 require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true));
-$cli = Horde_Cli::singleton();
 
 require_once 'Horde/DataTree.php';
 $datatree = DataTree::factory('sql',

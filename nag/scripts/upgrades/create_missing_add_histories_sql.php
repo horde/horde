@@ -13,7 +13,6 @@
 require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('nag', array('authentication' => 'none', 'cli' => true));
 
-$cli = Horde_Cli::singleton();
 $history = Horde_History::singleton();
 
 // Run through every tasklist.

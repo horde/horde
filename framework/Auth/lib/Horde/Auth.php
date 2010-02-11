@@ -492,7 +492,7 @@ class Horde_Auth
     static public function authenticateFailure($app = 'horde', $e = null)
     {
         if (Horde_Cli::runningFromCLI()) {
-            $cli = Horde_Cli::singleton();
+            $cli = new Horde_Cli();
             $cli->fatal(_("You are not authenticated."));
         }
 

@@ -17,7 +17,6 @@ require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('nag', array('authentication' => 'none', 'cli' => true));
 
 // Read command line parameters.
-$cli = Horde_Cli::singleton();
 if (count($argv) != 3) {
     $cli->message('Too many or too few parameters.', 'cli.error');
     usage();

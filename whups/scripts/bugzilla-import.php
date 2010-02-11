@@ -30,8 +30,7 @@ if (!Horde_Cli::runningFromCLI()) {
 }
 
 /* Load the command line environment. */
-Horde_Cli::init();
-$cli =& Horde_Cli::singleton();
+$cli = Horde_Cli::init();
 
 /* Load the Whups libraries. */
 require_once HORDE_BASE . '/lib/core.php';

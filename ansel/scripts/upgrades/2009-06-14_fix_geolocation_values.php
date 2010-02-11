@@ -11,7 +11,6 @@
 
 require_once dirname(__FILE__) . '/../../Application.php';
 Horde_Registry::appInit('ansel', array('authentication' => 'none', 'cli' => true));
-$cli = Horde_Cli::singleton();
 
 $sql = 'SELECT image_id, image_latitude, image_longitude FROM ansel_images_geolocation;';
 $results = $ansel_db->queryAll($sql, null, MDB2_FETCHMODE_ASSOC);

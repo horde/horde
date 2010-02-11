@@ -47,8 +47,7 @@ if (!Horde_Cli::runningFromCLI()) {
 
 // Load the CLI environment - make sure there's no time limit, init some
 // variables, etc.
-Horde_Cli::init();
-$cli = Horde_Cli::singleton();
+$cli = Horde_Cli::init();
 
 $horde_authentication = 'none';
 require_once dirname(__FILE__) . '/../lib/base.php';

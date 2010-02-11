@@ -9,7 +9,6 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('wicked', array('authentication' => 'none', 'cli' => true));
 
-$cli = Horde_Cli::singleton();
 $dateFormat = "F j, Y";
 $keepHeaders = array('From', 'To', 'Subject', 'Cc', 'Date');
 

@@ -21,7 +21,6 @@ $horde_base = '/path/to/horde';
 
 require_once $horde_base . '/lib/Application.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true));
-$cli = Horde_Cli::singleton();
 
 /* Make sure there's no compression. */
 @ob_end_clean();

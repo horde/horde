@@ -16,7 +16,6 @@ Horde_Registry::appInit('ansel', array('authentication' => 'none', 'cli' => true
 $ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'hu:p:f:',
                               array('help', 'username=', 'password=', 'fields='));
 
-$cli = Horde_Cli::singleton();
 if (is_a($ret, 'PEAR_Error')) {
     $cli->fatal($ret->getMessage());
 }
