@@ -42,10 +42,6 @@ require_once VILMA_BASE . '/lib/Driver.php';
 /* Templates */
 $template = $injector->createInstance('Horde_Template');
 
-/* Notification system. */
-$notification = &Horde_Notification::singleton();
-$notification->attach('status');
-
 /* Vilma driver. */
 $GLOBALS['vilma_driver'] = &Vilma_Driver::singleton();
 

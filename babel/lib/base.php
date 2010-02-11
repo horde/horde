@@ -22,10 +22,6 @@ if (!defined('BABEL_BASE')) {
 /* Load the Horde Framework core, and set up inclusion paths. */
 require_once HORDE_BASE . '/lib/core.php';
 
-/* Notification system. */
-$notification = Horde_Notification::singleton();
-$notification->attach('status');
-
 /* Registry. */
 $registry = new Horde_Registry();
 

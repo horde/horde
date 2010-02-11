@@ -38,9 +38,7 @@ try {
     if (($e->getCode() == Horde_Registry::AUTH_FAILURE) &&
         ($action != 'LogOut')) {
         $ajax = Horde_Ajax::getInstance($app);
-        $notification = Horde_Notification::singleton();
-
-        $notification->push(str_replace('&amp;', '&', Horde_Auth::getLogoutUrl(array('reason' => Horde_Auth::REASON_SESSION))), 'horde.ajaxtimeout', array('content.raw'));
+        $GLOBALS['notification']->push(str_replace('&amp;', '&', Horde_Auth::getLogoutUrl(array('reason' => Horde_Auth::REASON_SESSION))), 'horde.ajaxtimeout', array('content.raw'));
         Horde::sendHTTPResponse(Horde::prepareResponse(null, $ajax->notificationHandler()), $ajax->responseType());
         exit;
     }

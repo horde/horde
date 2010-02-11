@@ -38,10 +38,6 @@ if (!defined('FIMA_BASE')) {
     @define('FIMA_BASE', dirname(__FILE__) . '/..');
 }
 
-// Notification system.
-$notification = Horde_Notification::singleton();
-$notification->attach('status');
-
 // Fima base library
 require_once FIMA_BASE . '/lib/Driver.php';
 

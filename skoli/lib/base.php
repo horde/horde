@@ -25,10 +25,6 @@ try {
 $conf = &$GLOBALS['conf'];
 @define('SKOLI_TEMPLATES', $registry->get('templates'));
 
-// Notification system.
-$notification = Horde_Notification::singleton();
-$notification->attach('status');
-
 // Define the base file path of Skoli.
 @define('SKOLI_BASE', dirname(__FILE__) . '/..');
 

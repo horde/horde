@@ -32,10 +32,6 @@ try {
 $conf = &$GLOBALS['conf'];
 define('NEWS_TEMPLATES', $registry->get('templates'));
 
-// Notification system.
-$notification = Horde_Notification::singleton();
-$notification->attach('status');
-
 // Define the base file path of News.
 if (!defined('NEWS_BASE')) {
     define('NEWS_BASE', dirname(__FILE__) . '/..');

@@ -26,10 +26,6 @@ try {
 $conf = &$GLOBALS['conf'];
 define('FOLKS_TEMPLATES', $registry->get('templates'));
 
-// Notification system.
-$notification = Horde_Notification::singleton();
-$notification->attach('status');
-
 // Define the base file path of Folks.
 if (!defined('FOLKS_BASE')) {
     define('FOLKS_BASE', dirname(__FILE__) . '/..');

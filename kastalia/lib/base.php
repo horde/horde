@@ -29,10 +29,6 @@ try {
 $conf = &$GLOBALS['conf'];
 @define('KASTALIA_TEMPLATES', $registry->get('templates'));
 
-// Notification system.
-$notification = Horde_Notification::singleton();
-$notification->attach('status');
-
 // Define the base file path of Kastalia.
 @define('KASTALIA_BASE', dirname(__FILE__) . '/..');
 

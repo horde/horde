@@ -52,9 +52,6 @@ class Koward {
     {
         global $registry, $notification, $browser;
 
-        $notification = Horde_Notification::singleton();
-        $notification->attach('status');
-
         if ($webroot === null) {
             $webroot = $registry->get('webroot', 'koward');
         }

@@ -39,10 +39,6 @@ if (!defined('BEATNIK_BASE')) {
     define('BEATNIK_BASE', dirname(__FILE__) . '/..');
 }
 
-// Notification system.
-$notification = Horde_Notification::singleton();
-$notification->attach('status');
-
 // Beatnik base libraries.
 require_once BEATNIK_BASE . '/lib/Beatnik.php';
 require_once BEATNIK_BASE . '/lib/Driver.php';
