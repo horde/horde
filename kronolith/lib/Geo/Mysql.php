@@ -44,9 +44,9 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
 
         /* INSERT or UPDATE */
         if ($count) {
-            $sql = "UPDATE kronolith_events_geo SET event_coordinates = GeomFromText('POINT(" . (float)$point['lat'] . " " . (float)$point['lon'] . ")') WHERE event_id = ?";
+            $sql = sprintf('UPDATE kronolith_events_geo SET event_coordinates = GeomFromText(\'POINT(%F %F)\') WHERE event_id = ?', $point['lat'], $point['lon']);
         } else {
-            $sql = "INSERT into kronolith_events_geo (event_id, event_coordinates) VALUES(?, GeomFromText('POINT(" . (float)$point['lat'] . " " . (float)$point['lon'] . ")'))";
+            $sql = sprintf('INSERT into kronolith_events_geo (event_id, event_coordinates) VALUES(?, GeomFromText(\'POINT(%F %F)\'))', $point['lat'], $point['lon']);
         }
         $result = $this->_write_db->query($sql, array($event_id));
         if ($result instanceof PEAR_Error) {
