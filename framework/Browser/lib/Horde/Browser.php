@@ -1072,7 +1072,10 @@ class Horde_Browser
         if (!isset($_FILES) || ($error == UPLOAD_ERR_NO_FILE)) {
             throw new Horde_Browser_Exception(sprintf('There was a problem with the file upload: No %s was uploaded.', $name), UPLOAD_ERR_NO_FILE);
         } elseif (($error == UPLOAD_ERR_OK) && is_uploaded_file($tmp_name)) {
-            return;
+            if (!filesize($tmp_name)) {
+                throw new Horde_Browser_Exception('The uploaded file appears to be empty. It may not exist on your computer.', UPLOAD_ERR_NO_FILE);
+            }
+            // SUCCESS
         } elseif (($error == UPLOAD_ERR_INI_SIZE) ||
                   ($error == UPLOAD_ERR_FORM_SIZE)) {
             throw new Horde_Browser_Exception(sprintf('There was a problem with the file upload: The %s was larger than the maximum allowed size (%d bytes).', $name, min($uploadSize, Horde_Util::getFormData('MAX_FILE_SIZE'))), $error);
