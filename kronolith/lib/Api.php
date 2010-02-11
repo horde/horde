@@ -454,7 +454,7 @@ class Kronolith_Api extends Horde_Registry_Api
         }
         if (!array_key_exists($calendar,
             Kronolith::listCalendars(false, Horde_Perms::READ))) {
-            throw new Kronolith_Exception(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied();
         }
 
         $driver = Kronolith::getDriver(null, $calendar);
@@ -493,7 +493,7 @@ class Kronolith_Api extends Horde_Registry_Api
 
         if (!array_key_exists($calendar,
             Kronolith::listCalendars(false, Horde_Perms::READ))) {
-            throw new Kronolith_Exception(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied();
         }
 
         $history = Horde_History::singleton();
@@ -524,7 +524,7 @@ class Kronolith_Api extends Horde_Registry_Api
 
         if (!array_key_exists($calendar,
             Kronolith::listCalendars(false, Horde_Perms::READ))) {
-            throw new Kronolith_Exception(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied();
         }
 
         $history = Horde_History::singleton();
@@ -553,7 +553,7 @@ class Kronolith_Api extends Horde_Registry_Api
         }
         if (!array_key_exists($calendar,
             Kronolith::listCalendars(false, Horde_Perms::EDIT))) {
-            throw new Kronolith_Exception(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied();
         }
 
         switch ($contentType) {
@@ -635,7 +635,7 @@ class Kronolith_Api extends Horde_Registry_Api
         }
         if (!array_key_exists($calendar,
             Kronolith::listCalendars(false, Horde_Perms::EDIT))) {
-            throw new Kronolith_Exception(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied();
         }
         $event = Kronolith::quickAdd($text, $calendar);
         return $event->uid;
@@ -664,7 +664,7 @@ class Kronolith_Api extends Horde_Registry_Api
 
         $event = Kronolith::getDriver()->getByUID($uid);
         if (!$event->hasPermission(Horde_Perms::READ)) {
-            throw new Kronolith_Exception(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied();
         }
 
         $version = '2.0';
@@ -710,7 +710,7 @@ class Kronolith_Api extends Horde_Registry_Api
 
         if (!array_key_exists($calendar,
             Kronolith::listCalendars(false, Horde_Perms::READ))) {
-            throw new Kronolith_Exception(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied();
         }
 
         $kronolith_driver = Kronolith::getDriver(null, $calendar);
@@ -796,7 +796,7 @@ class Kronolith_Api extends Horde_Registry_Api
         }
 
         if (empty($event)) {
-            throw new Kronolith_Exception(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied();
         }
 
         $kronolith_driver->deleteEvent($event->id);
@@ -822,7 +822,7 @@ class Kronolith_Api extends Horde_Registry_Api
 
         if (!$event->hasPermission(Horde_Perms::EDIT) ||
             ($event->private && $event->creator != Horde_Auth::getAuth())) {
-            throw new Kronolith_Exception(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied();
         }
 
         if (is_a($content, 'Horde_iCalendar_vevent')) {
@@ -901,7 +901,7 @@ class Kronolith_Api extends Horde_Registry_Api
     {
         $event = Kronolith::getDriver()->getByUID($uid);
         if (!$event->hasPermission(Horde_Perms::SHOW)) {
-            throw new Kronolith_Exception(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied();
         }
 
         return $event;
@@ -959,7 +959,7 @@ class Kronolith_Api extends Horde_Registry_Api
 
         if (empty($event) ||
             ($event->private && $event->creator != Horde_Auth::getAuth())) {
-            throw new Kronolith_Exception(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied();
         }
 
         $atnames = $response->getAttribute('ATTENDEE');
@@ -1022,7 +1022,7 @@ class Kronolith_Api extends Horde_Registry_Api
         $allowed_calendars = Kronolith::listCalendars(false, Horde_Perms::READ);
         foreach ($calendars as $calendar) {
             if (!array_key_exists($calendar, $allowed_calendars)) {
-                throw new Kronolith_Exception(_("Permission Denied"));
+                throw new Horde_Exception_PermissionDenied();
             }
         }
 
@@ -1046,7 +1046,7 @@ class Kronolith_Api extends Horde_Registry_Api
 
         $current_user = Horde_Auth::getAuth();
         if ((empty($user) || $user != $current_user) && !Horde_Auth::isAdmin()) {
-            throw new Kronolith_Exception(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied();
         }
 
         $group = Group::singleton();
@@ -1213,7 +1213,7 @@ class Kronolith_Api extends Horde_Registry_Api
     {
         if (!array_key_exists($calendar,
             Kronolith::listCalendars(false, Horde_Perms::EDIT))) {
-            throw new Kronolith_Exception(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied();
         }
         return $GLOBALS['kronolith_shares']->getShare($calendar)->lock($calendar, $event);
     }
@@ -1230,7 +1230,7 @@ class Kronolith_Api extends Horde_Registry_Api
     {
         if (!array_key_exists($calendar,
             Kronolith::listCalendars(false, Horde_Perms::EDIT))) {
-            throw new Kronolith_Exception(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied();
         }
         return $GLOBALS['kronolith_shares']->getShare($calendar)->unlock($lockid);
     }
@@ -1247,7 +1247,7 @@ class Kronolith_Api extends Horde_Registry_Api
     {
         if (!array_key_exists($calendar,
             Kronolith::listCalendars(false, Horde_Perms::READ))) {
-            throw new Kronolith_Exception(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied();
         }
         return $GLOBALS['kronolith_shares']->getShare($calendar)->checkLocks($event);
     }

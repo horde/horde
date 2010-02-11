@@ -940,13 +940,14 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      * @return boolean
      * @throws Kronolith_Exception
      * @throws Horde_Exception_NotFound
+     * @throws Horde_Exception_PermissionDenied
      */
     public function removeUserData($user)
     {
         throw new Kronolith_Exception('to be refactored');
 
         if (!Horde_Auth::isAdmin()) {
-            throw new Kronolith_Exception(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied();
         }
 
         $shares = $GLOBALS['kronolith_shares']->listShares($user, Horde_Perms::EDIT);
