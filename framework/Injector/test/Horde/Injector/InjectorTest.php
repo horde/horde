@@ -51,6 +51,15 @@ class Horde_Injector_InjectorTest extends PHPUnit_Framework_TestCase
         $injector->bindMock();
     }
 
+    /**
+     * @expectedException BadMethodCallException
+     */
+    public function testShouldThrowExceptionIfMethodNameIsInvalid()
+    {
+        $injector = new Horde_Injector($this->_getTopLevelNeverCalledMock());
+        $injector->invalid();
+    }
+
     public function testShouldReturnItselfWhenInjectorRequested()
     {
         $injector = new Horde_Injector($this->_getTopLevelNeverCalledMock());
