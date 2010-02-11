@@ -177,7 +177,7 @@ class Horde_Help
      */
     static public function link($module, $topic)
     {
-        if (!Horde::showService('help')) {
+        if (!Horde_Menu::showService('help')) {
             return '&nbsp;';
         }
 

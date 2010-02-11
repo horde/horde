@@ -546,31 +546,20 @@ HTML;
     }
 
     /**
-     * Checks if services link should be shown and returns the necessary code.
+     * Returns the URL to various Horde services.
      *
-     * @param string $type       Type of link to display
+     * @param string $type       The service to display.
      * <pre>
-     * The following must be defined in Horde's menu config, or else $override
-     * must be true:
-     * 'help', 'problem', 'logout', 'login', 'options'
-     *
-     * The following are service links only and do not need to be defined
-     * in Horde's menu config.
+     * TODO
      * 'ajax', 'cache', 'download', 'go', 'prefsapi'
+     * 'help', 'problem', 'logout', 'login', 'options'
      * </pre>
      * @param string $app        The name of the current Horde application.
-     * @param boolean $override  Override Horde settings?
      *
      * @return Horde_Url|boolean  The HTML to create the link.
      */
-    static public function getServiceLink($type, $app = null,
-                                          $override = false)
+    static public function getServiceLink($type, $app = null)
     {
-        if (!in_array($type, array('ajax', 'cache', 'download', 'go', 'prefsapi')) &&
-            !self::showService($type, $override)) {
-            return false;
-        }
-
         $webroot = $GLOBALS['registry']->get('webroot', 'horde');
 
         switch ($type) {
@@ -757,37 +746,6 @@ HTML;
     {
         if (!self::isConnectionSecure()) {
             throw new Horde_Exception(_("The encryption features require a secure web connection."));
-        }
-    }
-
-    /**
-     * TODO
-     *
-     * @param string $type       The type of link.
-     * @param boolean $override  Override Horde settings?
-     *
-     * @return boolean  True if the link is to be shown.
-     */
-    static public function showService($type, $override = false)
-    {
-        global $conf;
-
-        if (empty($conf['menu']['links'][$type])) {
-            return false;
-        }
-
-        switch ($conf['menu']['links'][$type]) {
-        case 'all':
-            return true;
-
-        case 'never':
-            return $override;
-
-        case 'authenticated':
-            return $override || (bool)Horde_Auth::getAuth();
-
-        default:
-            return $override;
         }
     }
 

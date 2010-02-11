@@ -160,17 +160,23 @@ class Horde_Menu
         }
 
         /* Add settings link. */
-        if ($this->_mask & self::MASK_PREFS && $url = Horde::getServiceLink('options', $app)) {
+        if (($this->_mask & self::MASK_PREFS) &&
+            $this->showService('options') &&
+            ($url = Horde::getServiceLink('options', $app))) {
             $this->add($url, _("_Options"), 'prefs.png', $graphics);
         }
 
         /* Add problem link. */
-        if ($this->_mask & self::MASK_PROBLEM && $problem_link = Horde::getServiceLink('problem', $app)) {
+        if (($this->_mask & self::MASK_PROBLEM) &&
+            $this->showService('problem') &&
+            ($problem_link = Horde::getServiceLink('problem', $app))) {
             $this->add($problem_link, _("Problem"), 'problem.png', $graphics);
         }
 
         /* Add help link. */
-        if ($this->_mask & self::MASK_HELP && $help_link = Horde::getServiceLink('help', $app)) {
+        if (($this->_mask & self::MASK_HELP) &&
+            $this->showService('help') &&
+            ($help_link = Horde::getServiceLink('help', $app))) {
             Horde::
             $this->add($help_link, _("Help"), 'help_index.png', $graphics, 'help', Horde::popupJs($help_link, array('urlencode' => true)) . 'return false;', 'helplink');
         }
@@ -186,11 +192,13 @@ class Horde_Menu
             }
 
             if (Horde_Auth::getAuth()) {
-                if ($logout_link = Horde::getServiceLink('logout', $app, !$prefs->getValue('show_sidebar'))) {
+                if ((!$prefs->getValue('show_sidebar') || $this->showService('logout')) &&
+                    ($logout_link = Horde::getServiceLink('logout', $app))) {
                     $this->add($logout_link, _("_Log out"), 'logout.png', $graphics, $auth_target, null, '__noselection');
                 }
             } else {
-                if ($login_link = Horde::getServiceLink('login', $app)) {
+                if ($this->showService('login') &&
+                    ($login_link = Horde::getServiceLink('login', $app))) {
                     $this->add(Horde_Util::addParameter($login_link, array('url' => Horde::selfUrl(true, true, true))), _("_Log in"), 'login.png', $graphics, $auth_target, null, '__noselection');
                 }
             }
@@ -320,6 +328,44 @@ class Horde_Menu
         }
 
         return false;
+    }
+
+    /**
+     * TODO
+     *
+     * @param string $type       The type of link.
+     * <pre>
+     * The following must be defined in Horde's menu config, or else they
+     * won't be displayed in the menu:
+     * 'help', 'problem', 'logout', 'login', 'options'
+     * </pre>
+     * @param boolean $override  Override Horde settings?
+     *
+     * @return boolean  True if the link is to be shown.
+     */
+    static public function showService($type)
+    {
+        global $conf;
+
+        if (!in_array($type, array('help', 'problem', 'logout', 'login', 'options'))) {
+            return true;
+        }
+
+        if (empty($conf['menu']['links'][$type])) {
+            return false;
+        }
+
+        switch ($conf['menu']['links'][$type]) {
+        case 'all':
+            return true;
+
+        case 'authenticated':
+            return (bool)Horde_Auth::getAuth();
+
+        default:
+        case 'never':
+            return false;
+        }
     }
 
 }

@@ -136,7 +136,7 @@ function buildMenu()
         } catch (Horde_Exception $e) {}
     }
 
-    if (Horde::showService('options') &&
+    if (Horde_Menu::showService('options') &&
         $conf['prefs']['driver'] != '' && $conf['prefs']['driver'] != 'none') {
         $menu['options'] = array('name' => _("Options"),
                                  'status' => 'active',
@@ -190,13 +190,13 @@ function buildMenu()
         $menu['logout'] = array('name' => _("Log out"),
                                 'status' => 'active',
                                 'icon' => $registry->getImageDir() . '/logout.png',
-                                'url' => Horde::getServiceLink('logout', 'horde', true),
+                                'url' => Horde::getServiceLink('logout', 'horde'),
                                 'target' => '_parent');
     } else {
         $menu['login'] = array('name' => _("Log in"),
                                'status' => 'active',
                                'icon' => $registry->getImageDir() . '/login.png',
-                               'url' => Horde::getServiceLink('login', 'horde', true, false));
+                               'url' => Horde::getServiceLink('login', 'horde'));
     }
 
     return $menu;
