@@ -122,8 +122,8 @@ case 'modify':
 case 'save':
     // Check general permissions.
     if (!Horde_Auth::isAdmin() &&
-        ($GLOBALS['perms']->exists('ansel') &&
-         !$GLOBALS['perms']->hasPermission('ansel', Horde_Auth::getAuth(), Horde_Perms::EDIT))) {
+        ($GLOBALS['injector']->getInstance('Horde_Perms')->exists('ansel') &&
+         !$GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('ansel', Horde_Auth::getAuth(), Horde_Perms::EDIT))) {
         $notification->push(_("Access denied editing galleries."), 'horde.error');
         header('Location: ' . Horde::applicationUrl('view.php?view=List', true));
         exit;

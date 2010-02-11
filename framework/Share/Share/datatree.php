@@ -438,8 +438,7 @@ class Horde_Share_Object_datatree extends Horde_Share_Object {
             return true;
         }
 
-        return $GLOBALS['perms']->hasPermission($this->getPermission(),
-                                                $userid, $permission, $creator);
+        return $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission($this->getPermission(), $userid, $permission, $creator);
     }
 
     /**

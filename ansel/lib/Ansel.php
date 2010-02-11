@@ -639,8 +639,8 @@ class Ansel
 
         /* Let authenticated users create new galleries. */
         if (Horde_Auth::isAdmin() ||
-            (!$GLOBALS['perms']->exists('ansel') && Horde_Auth::getAuth()) ||
-            $GLOBALS['perms']->hasPermission('ansel', Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+            (!$GLOBALS['injector']->getInstance('Horde_Perms')->exists('ansel') && Horde_Auth::getAuth()) ||
+            $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('ansel', Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
             $menu->add(Horde::applicationUrl(Horde_Util::addParameter('gallery.php', 'actionID', 'add')),
                        _("_New Gallery"), 'add.png', null, null, null,
                        (basename($_SERVER['PHP_SELF']) == 'gallery.php' &&

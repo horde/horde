@@ -410,7 +410,7 @@ class Ansel_Api extends Horde_Registry_Api
     public function removeImage($app = null, $gallery_id, $image_id)
     {
         /* Check global Ansel permissions */
-        if (!($GLOBALS['perms']->getPermissions('ansel'))) {
+        if (!$GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions('ansel')) {
             return PEAR::raiseError(_("Access denied deleting galleries."));
         }
 
@@ -450,8 +450,8 @@ class Ansel_Api extends Horde_Registry_Api
     public function createGallery($app = null, $attributes = array(), $perm = null, $parent = null)
     {
         if (!(Horde_Auth::isAdmin() ||
-            (!$GLOBALS['perms']->exists('ansel') && Horde_Auth::getAuth()) ||
-            $GLOBALS['perms']->hasPermission('ansel', Horde_Auth::getAuth(), Horde_Perms::EDIT))) {
+            (!$GLOBALS['injector']->getInstance('Horde_Perms')->exists('ansel') && Horde_Auth::getAuth()) ||
+            $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('ansel', Horde_Auth::getAuth(), Horde_Perms::EDIT))) {
                 return PEAR::raiseError(_("Access denied creating new galleries."));
             }
 
@@ -486,7 +486,7 @@ class Ansel_Api extends Horde_Registry_Api
     public function removeGallery($app = null, $gallery_id)
     {
         /* Check global Ansel permissions */
-        if (!($GLOBALS['perms']->getPermissions('ansel'))) {
+        if (!$GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions('ansel')) {
             return PEAR::raiseError(_("Access denied deleting galleries."));
         }
 

@@ -35,12 +35,14 @@ $templates = array(
     Horde_Data::IMPORT_MAPPED => array($registry->get('templates', 'horde') . '/data/csvmap.inc'),
     Horde_Data::IMPORT_DATETIME => array($registry->get('templates', 'horde') . '/data/datemap.inc')
 );
-if ($GLOBALS['perms']->hasAppPermission('max_tasks') !== true &&
-    $GLOBALS['perms']->hasAppPermission('max_tasks') <= Nag::countTasks()) {
+
+$perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+if ($perms->hasAppPermission('max_tasks') !== true &&
+    $perms->hasAppPermission('max_tasks') <= Nag::countTasks()) {
     try {
         $message = Horde::callHook('perms_denied', array('nag:max_tasks'));
     } catch (Horde_Exception_HookNotSet $e) {
-        $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d tasks."), $GLOBALS['perms']->hasAppPermission('max_tasks')), ENT_COMPAT, Horde_Nls::getCharset());
+        $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d tasks."), $perms->hasAppPermission('max_tasks')), ENT_COMPAT, Horde_Nls::getCharset());
     }
     $notification->push($message, 'horde.warning', array('content.raw'));
     $templates[Horde_Data::IMPORT_FILE] = array(NAG_TEMPLATES . '/data/export.inc');
@@ -159,7 +161,7 @@ if (is_array($next_step)) {
 
     /* Create a Nag storage instance. */
     $storage = Nag_Driver::singleton($_SESSION['import_data']['target']);
-    $max_tasks = $GLOBALS['perms']->hasAppPermission('max_tasks');
+    $max_tasks = $perms->hasAppPermission('max_tasks');
     $num_tasks = Nag::countTasks();
     $result = null;
     foreach ($next_step as $row) {
@@ -167,7 +169,7 @@ if (is_array($next_step)) {
             try {
                 $message = Horde::callHook('perms_denied', array('nag:max_tasks'));
             } catch (Horde_Exception_HookNotSet $e) {
-                $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d tasks."), $GLOBALS['perms']->hasAppPermission('max_tasks')), ENT_COMPAT, Horde_Nls::getCharset());
+                $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d tasks."), $perms->hasAppPermission('max_tasks')), ENT_COMPAT, Horde_Nls::getCharset());
             }
             $notification->push($message, 'horde.error', array('content.raw'));
             break;

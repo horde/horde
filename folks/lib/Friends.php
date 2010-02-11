@@ -519,11 +519,11 @@ class Folks_Friends {
      */
     private function _getAdmins()
     {
-        if (!$GLOBALS['perms']->exists('folks:admin')) {
+        if (!$GLOBALS['injector']->getInstance('Horde_Perms')->exists('folks:admin')) {
             return array();
         }
 
-        $permission = $GLOBALS['perms']->getPermission('folks:admin');
+        $permission = $GLOBALS['injector']->getInstance('Horde_Perms')->getPermission('folks:admin');
 
         return array_merge($permission->getUserPermissions(PERM_DELETE),
                             $GLOBALS['conf']['auth']['admins']);

@@ -50,13 +50,14 @@ class StandardPage extends Page {
             return;
         }
 
-        global $wicked, $notification, $perms;
+        global $wicked, $notification;
         $page = $wicked->retrieveByName($pagename);
 
         // Make sure 'wicked' permission exists. Set reasonable defaults if
         // necessary.
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
         if (!$perms->exists('wicked')) {
-            $perm = &$perms->newPermission('wicked');
+            $perm = $perms->newPermission('wicked');
             $perm->addGuestPermission(Horde_Perms::SHOW | Horde_Perms::READ, false);
             $perm->addDefaultPermission(Horde_Perms::SHOW | Horde_Perms::READ | Horde_Perms::EDIT | Horde_Perms::DELETE, false);
             $perms->addPermission($perm);
@@ -65,8 +66,8 @@ class StandardPage extends Page {
         // Make sure 'wicked:pages' exists. Copy from 'wicked' if it does not
         // exist.
         if (!$perms->exists('wicked:pages')) {
-            $perm = &$perms->newPermission('wicked:pages');
-            $copyFrom = &$perms->getPermission('wicked');
+            $perm = $perms->newPermission('wicked:pages');
+            $copyFrom = $perms->getPermission('wicked');
             $perm->addGuestPermission($copyFrom->getGuestPermissions(), false);
             $perm->addDefaultPermission($copyFrom->getDefaultPermissions(), false);
             $perm->addCreatorPermission($copyFrom->getCreatorPermissions(), false);

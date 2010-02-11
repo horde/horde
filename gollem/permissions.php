@@ -30,11 +30,13 @@ if (!Gollem::getBackends('all')) {
 $key = Horde_Util::getFormData('backend', Gollem::getPreferredBackend());
 $app = $registry->getApp();
 $backendTag = $app . ':backends:' . $key;
+$perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+
 if ($perms->exists($backendTag)) {
     $permission = $perms->getPermission($backendTag);
     $perm_id = $perms->getPermissionId($permission);
 } else {
-    $permission =& $perms->newPermission($backendTag);
+    $permission = $perms->newPermission($backendTag);
     $result = $perms->addPermission($permission, $app);
     if ($result instanceof PEAR_Error) {
         $notification->push(sprintf(_("Unable to create backend permission: %s"), $result->getMessage()), 'horde.error');

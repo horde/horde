@@ -37,11 +37,11 @@ class Vilma {
         $user = 0;
         $superadmin = 0;
 
-        $superadmin = $GLOBALS['perms']->hasPermission('vilma:domains',
-                                                    Horde_Auth::getAuth(), $permmask);
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+        $superadmin = $perms->hasPermission('vilma:domains',
+                                            Horde_Auth::getAuth(), $permmask);
 
-        $user = $GLOBALS['perms']->hasPermission($permname, Horde_Auth::getAuth(),
-                                                     $permmask);
+        $user = $perms->hasPermission($permname, Horde_Auth::getAuth(), $permmask);
 
         return ($superadmin | $user);
     }

@@ -65,11 +65,11 @@ class Ansel_Report {
     {
         $name = $GLOBALS['registry']->getApp() . ':admin';
 
-        if ($GLOBALS['perms']->exists($name)) {
+        if ($GLOBALS['injector']->getInstance('Horde_Perms')->exists($name)) {
             return array();
         }
 
-        $permission = $GLOBALS['perms']->getPermission($name);
+        $permission = $GLOBALS['injector']->getInstance('Horde_Perms')->getPermission($name);
 
         return $permission->getUserPermissions(PERM_DELETE);
     }

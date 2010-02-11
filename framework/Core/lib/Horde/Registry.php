@@ -314,9 +314,6 @@ class Horde_Registry
             throw new Horde_Exception(_("This system is currently deactivated."));
         }
 
-        /* Create the global permissions object. */
-        $GLOBALS['perms'] = $injector->getInstance('Horde_Perms');
-
         /* Initialize notification object. Always attach status listener by
          * default. */
         $GLOBALS['notification'] = Horde_Notification::singleton();
@@ -1155,8 +1152,8 @@ class Horde_Registry
         /* Otherwise, allow access for admins, for apps that do not have any
          * explicit permissions, or for apps that allow the given permission. */
         return Horde_Auth::isAdmin() ||
-            !$GLOBALS['perms']->exists($app) ||
-            $GLOBALS['perms']->hasPermission($app, Horde_Auth::getAuth(), $perms);
+            !$GLOBALS['injector']->getInstance('Horde_Perms')->exists($app) ||
+            $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission($app, Horde_Auth::getAuth(), $perms);
     }
 
     /**

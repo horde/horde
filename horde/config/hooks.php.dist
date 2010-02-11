@@ -726,8 +726,8 @@ class Horde_Hooks
 //            }
 
 //            // Update the ACLS
-//            $perms = $share->getPermission();
-//            $users = $perms->getUserPermissions();
+//            $perms = $GLOBALS['share']->getPermission();
+//            $users = $GLOBALS['injector']->getInstance('Horde_Perms')->getUserPermissions();
 //            foreach ($users as $user => $perm) {
 //                $acl = Net_IMSP_Utils::permsToACL($perm);
 //                $result = Net_IMSP_Utils::setACL($_SESSION['imsp_config'], $bookName, $user, $acl);

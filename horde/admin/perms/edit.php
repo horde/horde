@@ -13,13 +13,14 @@ require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('horde', array('admin' => true));
 
 /* Set up the form variables. */
-$vars = &Horde_Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
+$perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 $perm_id = $vars->get('perm_id');
 $category = $vars->get('category');
 
 /* See if we need to (and are supposed to) autocreate the permission. */
 if ($category !== null) {
-    $permission = &$perms->getPermission($category);
+    $permission = $perms->getPermission($category);
     if (is_a($permission, 'PEAR_Error') && Horde_Util::getFormData('autocreate')) {
 
         /* Check to see if the permission we are copying from exists before we
@@ -30,7 +31,7 @@ if ($category !== null) {
         }
 
         $parent = $vars->get('parent');
-        $permission = &$perms->newPermission($category);
+        $permission = $perms->newPermission($category);
         $result = $perms->addPermission($permission, $parent);
         if (!is_a($result, 'PEAR_Error')) {
             $form = 'edit.inc';
@@ -40,7 +41,7 @@ if ($category !== null) {
         if ($copyFrom) {
             /* We have autocreated the permission and we have been told to
              * copy an existing permission for the defaults. */
-            $copyFromObj = &$perms->getPermission($copyFrom);
+            $copyFromObj = $perms->getPermission($copyFrom);
             $permission->addGuestPermission($copyFromObj->getGuestPermissions(), false);
             $permission->addDefaultPermission($copyFromObj->getDefaultPermissions(), false);
             $permission->addCreatorPermission($copyFromObj->getCreatorPermissions(), false);
@@ -73,7 +74,7 @@ if ($category !== null) {
     }
     $vars->set('perm_id', $perm_id);
 } else {
-    $permission = &$perms->getPermissionById($perm_id);
+    $permission = $perms->getPermissionById($perm_id);
 }
 
 /* If the permission fetched is an error return to the permissions list. */

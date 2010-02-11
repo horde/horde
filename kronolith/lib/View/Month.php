@@ -120,8 +120,8 @@ class Kronolith_View_Month {
         $twentyFour = $prefs->getValue('twentyFour');
         $addLinks = Kronolith::getDefaultCalendar(Horde_Perms::EDIT) &&
             (!empty($GLOBALS['conf']['hooks']['permsdenied']) ||
-             $GLOBALS['perms']->hasAppPermission('max_events') === true ||
-             $GLOBALS['perms']->hasAppPermission('max_events') > Kronolith::countEvents());
+             $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') === true ||
+             $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') > Kronolith::countEvents());
 
         if ($sidebyside) {
             require KRONOLITH_TEMPLATES . '/month/head_side_by_side.inc';

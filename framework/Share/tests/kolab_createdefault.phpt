@@ -14,10 +14,10 @@ $test->assertTrue($world['auth']->authenticate('wrobel@example.org',
 $test->prepareNewFolder($world['storage'], 'Contacts', 'contact', true);
 
 require_once dirname(__FILE__) . '/../Share.php';
-                               
+
 $shares = Horde_Share::singleton('kronolith', 'kolab');
 
-class Perms_mock 
+class Perms_mock
 {
     function &newPermission($name) {
         $perms = array(

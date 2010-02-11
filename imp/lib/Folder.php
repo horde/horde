@@ -218,7 +218,7 @@ class IMP_Folder
         global $conf, $notification;
 
         /* Check permissions. */
-        if (!$GLOBALS['perms']->hasAppPermission('create_folders')) {
+        if (!$GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('create_folders')) {
             try {
                 $message = Horde::callHook('perms_denied', array('imp:create_folders'));
             } catch (Horde_Exception_HookNotSet $e) {
@@ -226,11 +226,11 @@ class IMP_Folder
             }
             $notification->push($message, 'horde.error', array('content.raw'));
             return false;
-        } elseif (!$GLOBALS['perms']->hasAppPermission('max_folders')) {
+        } elseif (!$GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_folders')) {
             try {
                 $message = Horde::callHook('perms_denied', array('imp:max_folders'));
             } catch (Horde_Exception_HookNotSet $e) {
-                $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d folders."), $GLOBALS['perms']->hasAppPermission('max_folders', array('opts' => array('value' => true)))), ENT_COMPAT, Horde_Nls::getCharset());
+                $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d folders."), $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_folders', array('opts' => array('value' => true)))), ENT_COMPAT, Horde_Nls::getCharset());
             }
             $notification->push($message, 'horde.error', array('content.raw'));
             return false;

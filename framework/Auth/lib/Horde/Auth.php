@@ -854,7 +854,7 @@ class Horde_Auth
             if (is_null($permlevel)) {
                 $permlevel = Horde_Perms::EDIT;
             }
-            return $GLOBALS['perms']->hasPermission($permission, $user, $permlevel);
+            return $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission($permission, $user, $permlevel);
         }
 
         return false;

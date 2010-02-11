@@ -62,7 +62,7 @@ class Page {
      */
     function getPermissions($pageName = null)
     {
-        global $perms, $wicked;
+        global $wicked;
 
         if (is_null($pageName)) {
             $pageName = $this->pageName();
@@ -70,6 +70,8 @@ class Page {
 
         $pageId = $wicked->getPageId($pageName);
         $permName = 'wicked:pages:' . $pageId;
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+
         if ($pageId !== false && $perms->exists($permName)) {
             return $perms->getPermissions($permName);
         } elseif ($perms->exists('wicked:pages')) {
@@ -111,8 +113,9 @@ class Page {
                 return true;
             }
 
-            global $perms;
             $permName = 'wicked:pages';
+            $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+
             if ($perms->exists($permName)) {
                 return $perms->getPermissions($permName) & Horde_Perms::EDIT;
             } else {

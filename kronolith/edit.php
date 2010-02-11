@@ -26,12 +26,13 @@ function _save(&$event)
 
 function _check_max()
 {
-    if ($GLOBALS['perms']->hasAppPermission('max_events') !== true &&
-        $GLOBALS['perms']->hasAppPermission('max_events') <= Kronolith::countEvents()) {
+    $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+    if ($perms->hasAppPermission('max_events') !== true &&
+        $perms->hasAppPermission('max_events') <= Kronolith::countEvents()) {
         try {
             $message = Horde::callHook('perms_denied', array('kronolith:max_events'));
         } catch (Horde_Exception_HookNotSet $e) {
-            $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d events."), $GLOBALS['perms']->hasAppPermission('max_events')), ENT_COMPAT, Horde_Nls::getCharset());
+            $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d events."), $perms->hasAppPermission('max_events')), ENT_COMPAT, Horde_Nls::getCharset());
         }
         $GLOBALS['notification']->push($message, 'horde.error', array('content.raw'));
         return false;

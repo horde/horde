@@ -485,7 +485,7 @@ class Horde_Share {
         }
 
         $perm = $share->getPermission();
-        return $GLOBALS['perms']->getPermissions($perm, $user);
+        return $GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions($perm, $user);
     }
 
     /**

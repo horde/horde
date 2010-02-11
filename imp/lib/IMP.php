@@ -163,8 +163,8 @@ class IMP
 
         if (!empty($options['new_folder']) &&
             (!empty($GLOBALS['conf']['hooks']['permsdenied']) ||
-             ($GLOBALS['perms']->hasAppPermission('create_folders') &&
-              $GLOBALS['perms']->hasAppPermission('max_folders')))) {
+             ($GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('create_folders') &&
+              $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_folders')))) {
             $text .= "<option value=\"\" disabled=\"disabled\">- - - - - - - -</option>\n" .
                 '<option value="*new*">' . _("New Folder") . "</option>\n" .
                 "<option value=\"\" disabled=\"disabled\">- - - - - - - -</option>\n";

@@ -748,8 +748,8 @@ class Nag
         $menu->add(Horde::applicationUrl('list.php'), _("_List Tasks"), 'nag.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
         if (Nag::getDefaultTasklist(Horde_Perms::EDIT) &&
             (!empty($conf['hooks']['permsdenied']) ||
-             $GLOBALS['perms']->hasAppPermission('max_tasks') === true ||
-             $GLOBALS['perms']->hasAppPermission('max_tasks') > Nag::countTasks())) {
+             $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_tasks') === true ||
+             $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_tasks') > Nag::countTasks())) {
             $menu->add(Horde::applicationUrl(Horde_Util::addParameter('task.php', 'actionID', 'add_task')), _("_New Task"), 'add.png', null, null, null, Horde_Util::getFormData('task') ? '__noselection' : null);
             if ($GLOBALS['browser']->hasFeature('dom')) {
                 $menu->add('', _("_Quick Add"), 'add.png', null, null, 'Nag.quickAddPanel.show(); $(\'quickText\').focus(); return false;', Horde_Util::getFormData('task') ? 'quickAdd __noselection' : 'quickAdd');

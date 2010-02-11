@@ -14,9 +14,10 @@ Horde_Registry::appInit('horde', array('admin' => true));
 
 /* Set up the form variables. */
 $vars = Horde_Variables::getDefaultVariables();
+$perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 $perm_id = $vars->get('perm_id');
 $category = $vars->get('category');
-$permission = &$perms->getPermissionById($perm_id);
+$permission = $perms->getPermissionById($perm_id);
 
 /* If the permission fetched is an error return to permissions list. */
 if (is_a($permission, 'PEAR_Error')) {

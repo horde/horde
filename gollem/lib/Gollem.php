@@ -649,8 +649,8 @@ class Gollem
         switch ($filter) {
         case 'backend':
             $backendTag = 'gollem:backends:' . $backend;
-            return (!$GLOBALS['perms']->exists($backendTag) ||
-                    $GLOBALS['perms']->hasPermission($backendTag, $userID, $permission));
+            return (!$GLOBALS['injector']->getInstance('Horde_Perms')->exists($backendTag) ||
+                    $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission($backendTag, $userID, $permission));
         }
 
         return false;
@@ -902,7 +902,7 @@ class Gollem
 
         if ($perms != 'all') {
             foreach (array_keys($backends) as $key) {
-                $exists = $GLOBALS['perms']->exists('gollem:backends:' . $key);
+                $exists = $GLOBALS['injector']->getInstance('Horde_Perms')->exists('gollem:backends:' . $key);
                 /* Don't list if the perms don't exist for this backend and we
                  * want backends with perms only OR if the perms exist for
                  * this backend and we only want backends which have none. */

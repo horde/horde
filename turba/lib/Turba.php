@@ -295,17 +295,16 @@ class Turba {
      */
     function getExtendedPermission($addressBook, $permission)
     {
-        global $perms;
-
         // We want to check the base source as extended permissions
         // are enforced per backend, not per share.
         $key = $addressBook->name . ':' . $permission;
 
-        if (!$GLOBALS['perms']->exists('turba:sources:' . $key)) {
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+        if (!$perms->exists('turba:sources:' . $key)) {
             return true;
         }
 
-        $allowed = $GLOBALS['perms']->getPermissions('turba:sources:' . $key);
+        $allowed = $perms->getPermissions('turba:sources:' . $key);
         if (is_array($allowed)) {
             switch ($permission) {
             case 'max_contacts':

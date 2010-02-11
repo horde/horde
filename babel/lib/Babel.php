@@ -162,10 +162,9 @@ class Babel {
      */
     function hasPermission($permission, $filter = null, $perm = null)
     {
-	global $perms;
-
 	$userId = Horde_Auth::getAuth();
 	$admin = ($userId == 'admin') ? true : false;
+    $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 
 	if ($admin || !$perms->exists('babel:' . $permission)) {
 	    return true;

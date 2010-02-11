@@ -43,11 +43,13 @@ class Operator_Driver {
         } else {
             $permentry = 'operator:accountcodes:' . $accountcode;
         }
+
         if (Horde_Auth::isAdmin() ||
-            $GLOBALS['perms']->hasPermission('operator:accountcodes',
+            $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+            $perms->hasPermission('operator:accountcodes',
                                               Horde_Auth::getAuth(),
                                               Horde_Perms::READ) ||
-            $GLOBALS['perms']->hasPermission($permentry, Horde_Auth::getAuth(),
+            $perms->hasPermission($permentry, Horde_Auth::getAuth(),
                                               Horde_Perms::READ)) {
             return $this->_getRecords($start, $end, $accountcode, $dcontext,
                                       $rowstart, $rowlimit);
@@ -80,10 +82,11 @@ class Operator_Driver {
             $permentry = 'operator:accountcodes:' . $accountcode;
         }
         if (Horde_Auth::isAdmin() ||
-            $GLOBALS['perms']->hasPermission('operator:accountcodes',
+            $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+            $perms->hasPermission('operator:accountcodes',
                                               Horde_Auth::getAuth(),
                                               Horde_Perms::READ) ||
-            $GLOBALS['perms']->hasPermission($permentry, Horde_Auth::getAuth(),
+            $perms->hasPermission($permentry, Horde_Auth::getAuth(),
                                               Horde_Perms::READ)) {
             return $this->_getMonthlyCallStats($start, $end, $accountcode,
                                                $dcontext);

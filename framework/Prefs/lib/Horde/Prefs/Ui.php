@@ -292,7 +292,7 @@ class Horde_Prefs_Ui
     static public function generateHeader($app, $prefGroups = null,
                                           $group = null, $chunk = false)
     {
-        global $notification, $perms, $prefs, $registry;
+        global $notification, $prefs, $registry;
 
         $title = _("User Options");
         if ($group == 'identities' && !$prefs->isLocked('default_identity')) {

@@ -27,8 +27,8 @@
 <table class="striped" cellspacing="0">
 <?php if ($event->recurs() &&
           (!empty($conf['hooks']['permsdenied']) ||
-           $GLOBALS['perms']->hasAppPermission('max_events') === true ||
-           $GLOBALS['perms']->hasAppPermission('max_events') > Kronolith::countEvents())): ?>
+           $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') === true ||
+           $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') > Kronolith::countEvents())): ?>
 <!-- recurrence editing -->
 <tr>
  <td></td>

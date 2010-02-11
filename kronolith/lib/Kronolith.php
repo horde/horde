@@ -2399,8 +2399,8 @@ class Kronolith
         $menu->add(Horde::applicationUrl($prefs->getValue('defaultview') . '.php'), _("_Today"), 'today.png', null, null, null, '__noselection');
         if (self::getDefaultCalendar(Horde_Perms::EDIT) &&
             (!empty($conf['hooks']['permsdenied']) ||
-             $GLOBALS['perms']->hasAppPermission('max_events') === true ||
-             $GLOBALS['perms']->hasAppPermission('max_events') > self::countEvents())) {
+             $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') === true ||
+             $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') > self::countEvents())) {
             $menu->add(Horde::applicationUrl('new.php')->add('url', Horde::selfUrl(true, false, true)), _("_New Event"), 'new.png');
         }
         if ($browser->hasFeature('dom')) {

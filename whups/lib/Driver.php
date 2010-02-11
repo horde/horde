@@ -285,12 +285,13 @@ class Whups_Driver {
      */
     function deleteQueue($queueId)
     {
-        $perm = &$GLOBALS['perms']->getPermission("whups:queues:$queueId");
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+        $perm = $perms->getPermission("whups:queues:$queueId");
         if (is_a($perm, 'PEAR_Error')) {
             return;
         }
 
-        return $GLOBALS['perms']->removePermission($perm, true);
+        return $perms->removePermission($perm, true);
     }
 
     /**
@@ -303,12 +304,13 @@ class Whups_Driver {
      */
     function deleteReply($reply)
     {
-        $perm = &$GLOBALS['perms']->getPermission("whups:replies:$reply");
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+        $perm = $perms->getPermission("whups:replies:$reply");
         if (is_a($perm, 'PEAR_Error')) {
             return;
         }
 
-        return $GLOBALS['perms']->removePermission($perm, true);
+        return $perms->removePermission($perm, true);
     }
 
     /**

@@ -2089,7 +2089,7 @@ HTML;
      */
     static public function hasPermission($permission)
     {
-        global $perms;
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 
         if (!$perms->exists('horde:' . $permission)) {
             return true;

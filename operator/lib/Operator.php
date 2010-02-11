@@ -99,16 +99,17 @@ class Operator {
 
         // Set up arrays for filtering
         $keys = $values = $operator->driver->getAccountCodes();
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 
         if (Horde_Auth::isAdmin() ||
-            $GLOBALS['perms']->hasPermission('operator:accountcodes',
+            $perms->hasPermission('operator:accountcodes',
                                              Horde_Auth::getAuth(),
                                              Horde_Perms::READ)) {
             $permfilter = false;
         }
 
         if (!$permfilter ||
-            $GLOBALS['perms']->hasPermission('operator:accountcodes:%',
+            $perms->hasPermission('operator:accountcodes:%',
                                              Horde_Auth::getAuth(),
                                              Horde_Perms::READ)) {
 
@@ -134,9 +135,7 @@ class Operator {
                 }
 
                 if (Horde_Auth::isAdmin() ||
-                    $GLOBALS['perms']->hasPermission($permitem,
-                                                     Horde_Auth::getAuth(),
-                                                     Horde_Perms::SHOW)) {
+                    $perms->hasPermission($permitem, Horde_Auth::getAuth(), Horde_Perms::SHOW)) {
                     $accountcodes[$accountcode] = $values[$index];
                 }
             }

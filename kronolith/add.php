@@ -25,8 +25,8 @@ if (!Horde_Util::getFormData('cancel')) {
         } elseif ($user == Horde_Auth::getAuth() &&
                   !$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT, Horde_Auth::getAuth())) {
             $notification->push(sprintf(_("You do not have permission to add events to %s."), $share->get('name')), 'horde.warning');
-        } elseif ($GLOBALS['perms']->hasAppPermission('max_events') === true ||
-                  $GLOBALS['perms']->hasAppPermission('max_events') > Kronolith::countEvents()) {
+        } elseif ($GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') === true ||
+                  $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') > Kronolith::countEvents()) {
             $event = Kronolith::getDriver(null, $calendar_id)->getEvent();
             $event->readForm();
             try {

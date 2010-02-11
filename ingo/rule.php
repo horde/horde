@@ -15,7 +15,8 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('ingo');
 
 /* Check rule permissions. */
-if (!$GLOBALS['perms']->hasAppPermission('allow_rules')) {
+$perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+if (!$perms->hasAppPermission('allow_rules')) {
     try {
         $message = Horde::callHook('perms_denied', array('ingo:allow_rules'));
     } catch (Horde_Exception_HookNotSet $e) {
@@ -127,8 +128,8 @@ case 'rule_delete':
     /* Save the rule. */
     if ($vars->actionID == 'rule_save' && $valid) {
         if (!isset($vars->edit)) {
-            if ($GLOBALS['perms']->hasAppPermission('max_rules') !== true &&
-                $GLOBALS['perms']->hasAppPermission('max_rules') <= count($filters->getFilterList())) {
+            if ($perms->hasAppPermission('max_rules') !== true &&
+                $perms->hasAppPermission('max_rules') <= count($filters->getFilterList())) {
                 header('Location: ' . Horde::applicationUrl('filters.php', true));
                 exit;
             }
@@ -167,12 +168,12 @@ default:
         exit;
     }
     if (!isset($vars->edit)) {
-        if ($GLOBALS['perms']->hasAppPermission('max_rules') !== true &&
-            $GLOBALS['perms']->hasAppPermission('max_rules') <= count($filters->getFilterList())) {
+        if ($perms->hasAppPermission('max_rules') !== true &&
+            $perms->hasAppPermission('max_rules') <= count($filters->getFilterList())) {
             try {
                 $message = Horde::callHook('perms_denied', array('ingo:max_rules'));
             } catch (Horde_Exception_HookNotSet $e) {
-                $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d rules."), $GLOBALS['perms']->hasAppPermission('max_rules')), ENT_COMPAT, Horde_Nls::getCharset());
+                $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d rules."), $perms->hasAppPermission('max_rules')), ENT_COMPAT, Horde_Nls::getCharset());
             }
             $notification->push($message, 'horde.error', array('content.raw'));
             header('Location: ' . Horde::applicationUrl('filters.php', true));

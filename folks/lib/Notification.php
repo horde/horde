@@ -164,8 +164,8 @@ class Folks_Notification {
     {
         $name = $GLOBALS['registry']->getApp() . ':admin';
 
-        if ($GLOBALS['perms']->exists($name)) {
-            $permission = $GLOBALS['perms']->getPermission($name);
+        if ($GLOBALS['injector']->getInstance('Horde_Perms')->exists($name)) {
+            $permission = $GLOBALS['injector']->getInstance('Horde_Perms')->getPermission($name);
             if ($permission instanceof PEAR_Error) {
                 return $permission;
             } else {

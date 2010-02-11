@@ -14,6 +14,7 @@ Horde_Registry::appInit('horde', array('admin' => true));
 
 /* Set up the form variables. */
 $vars = Horde_Variables::getDefaultVariables();
+$perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 $perm_id = $vars->get('perm_id');
 
 try {
@@ -32,12 +33,12 @@ $ui->setupAddForm($permission);
 
 if ($ui->validateAddForm($info)) {
     if ($info['perm_id'] == Horde_Perms::ROOT) {
-        $child = &$perms->newPermission($info['child']);
+        $child = $perms->newPermission($info['child']);
         $result = $perms->addPermission($child);
     } else {
-        $pOb = &$perms->getPermissionById($info['perm_id']);
+        $pOb = $perms->getPermissionById($info['perm_id']);
         $name = $pOb->getName() . ':' . str_replace(':', '.', $info['child']);
-        $child = &$perms->newPermission($name);
+        $child = $perms->newPermission($name);
         $result = $perms->addPermission($child);
     }
     if (is_a($result, 'PEAR_Error')) {

@@ -184,7 +184,7 @@ class Horde_Api extends Horde_Registry_Api
             return PEAR::raiseError(_("You are not allowed to remove user data."));
         }
 
-        global $conf, $perms;
+        global $conf;
 
         /* Error flag */
         $haveError = false;
@@ -211,6 +211,7 @@ class Horde_Api extends Horde_Registry_Api
         }
 
         /* Remove the user from all application permissions */
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
         $tree = $perms->getTree();
         if (is_a($tree, 'PEAR_Error')) {
             Horde::logMessage($tree, __FILE__, __LINE__, PEAR_LOG_ERR);

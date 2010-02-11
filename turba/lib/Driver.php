@@ -2287,15 +2287,11 @@ class Turba_Driver
      */
     function hasPermission($perm)
     {
-        if (!$GLOBALS['perms']->exists('turba:sources:' . $this->name)) {
-            // Assume we have permissions if they're not
-            // explicitly set.
-            return true;
-        } else {
-            return $GLOBALS['perms']->hasPermission('turba:sources:' . $this->name,
-                                                    Horde_Auth::getAuth(),
-                                                    $perm);
-        }
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+        return $perms->exists('turba:sources:' . $this->name)
+            ? $perms->hasPermission('turba:sources:' . $this->name, Horde_Auth::getAuth(), $perm)
+            // Assume we have permissions if they're not explicitly set.
+            : true;
     }
 
     /**

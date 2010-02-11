@@ -1111,8 +1111,8 @@ class Agora_Messages {
 
         /* Check permissions */
         if (Horde_Auth::isAdmin('agora:admin') ||
-            ($GLOBALS['perms']->exists('agora:forums:' . $this->_scope) &&
-             $GLOBALS['perms']->hasPermission('agora:forums:' . $this->_scope, Horde_Auth::getAuth(), Horde_Perms::DELETE))) {
+            ($GLOBALS['injector']->getInstance('Horde_Perms')->exists('agora:forums:' . $this->_scope) &&
+             $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('agora:forums:' . $this->_scope, Horde_Auth::getAuth(), Horde_Perms::DELETE))) {
                 $sql .= ' AND scope = ? ';
                 $params[] = $this->_scope;
         } else {
@@ -1164,11 +1164,11 @@ class Agora_Messages {
     public function getBanned()
     {
         $perm_name = 'agora:forums:' . $this->_scope . ':' . $this->_forum_id;
-        if (!$GLOBALS['perms']->exists($perm_name)) {
+        if (!$GLOBALS['injector']->getInstance('Horde_Perms')->exists($perm_name)) {
             return array();
         }
 
-        $forum_perm = $GLOBALS['perms']->getPermission($perm_name);
+        $forum_perm = $GLOBALS['injector']->getInstance('Horde_Perms')->getPermission($perm_name);
         if (!($forum_perm instanceof Horde_Perms_Permission)) {
             return $forum_perm;
         }
@@ -1198,15 +1198,14 @@ class Agora_Messages {
      */
     public function updateBan($user, $forum_id = null, $action = 'add')
     {
-        global $perms;
-
         if ($forum_id == null) {
             $forum_id = $this->_forum_id;
         }
 
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
         $perm_name = 'agora:forums:' . $this->_scope . ':' . $forum_id;
         if (!$perms->exists($perm_name)) {
-            $forum_perm = &$perms->newPermission($perm_name);
+            $forum_perm = $perms->newPermission($perm_name);
             $perms->addPermission($forum_perm);
         } else {
             $forum_perm = $perms->getPermission($perm_name);
@@ -1236,8 +1235,6 @@ class Agora_Messages {
      */
     public function updateModerator($moderator, $forum_id = null, $action = 'add')
     {
-        global $perms;
-
         if ($forum_id == null) {
             $forum_id = $this->_forum_id;
         }
@@ -1265,8 +1262,9 @@ class Agora_Messages {
 
         /* Update permissions*/
         $perm_name = 'agora:forums:' . $this->_scope . ':' . $forum_id;
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
         if (!$perms->exists($perm_name)) {
-            $forum_perm = &$perms->newPermission($perm_name);
+            $forum_perm = $perms->newPermission($perm_name);
             $perms->addPermission($forum_perm);
         } else {
             $forum_perm = $perms->getPermission($perm_name);
@@ -2170,8 +2168,6 @@ class Agora_Messages {
      */
     public function hasPermission($perm = Horde_Perms::READ, $forum_id = null, $scope = null)
     {
-        global $perms;
-
         // Allow all admins
         if (($forum_id === null && isset($this->_forum['author']) && $this->_forum['author'] == Horde_Auth::getAuth()) ||
             Horde_Auth::isAdmin('agora:admin')) {
@@ -2187,6 +2183,7 @@ class Agora_Messages {
             $scope = $this->_scope;
         }
 
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
         if (!$perms->exists('agora:forums:' . $scope) &&
             !$perms->exists('agora:forums:' . $scope . ':' . $forum_id)) {
             return ($perm & Horde_Perms::DELETE) ? false : true;

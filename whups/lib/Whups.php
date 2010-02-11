@@ -338,8 +338,6 @@ class Whups {
      */
     function hasPermission($in, $filter, $permission, $user = null)
     {
-        global $perms;
-
         if (is_null($user)) {
             $user = Horde_Auth::getAuth();
         }
@@ -351,6 +349,8 @@ class Whups {
         } else {
             $admin = Horde_Auth::isAdmin('whups:admin', $permission, $user);
         }
+
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 
         switch ($filter) {
         case 'queue':
@@ -413,13 +413,12 @@ class Whups {
     function permissionsFilter($in, $filter, $permission = Horde_Perms::READ,
                                $user = null, $creator = null)
     {
-        global $perms;
-
         if (is_null($user)) {
             $user = Horde_Auth::getAuth();
         }
 
         $admin = Horde_Auth::isAdmin('whups:admin', $permission, $user);
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
         $out = array();
 
         switch ($filter) {

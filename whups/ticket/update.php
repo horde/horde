@@ -34,7 +34,7 @@ if ($tid = $vars->get('transaction')) {
         // the reply.
         foreach ($history[$tid]['changes'] as $change) {
             if (!empty($change['private'])) {
-                $permission = $GLOBALS['perms']->getPermission('whups:comments:' . $change['value']);
+                $permission = $GLOBALS['injector']->getInstance('Horde_Perms')->getPermission('whups:comments:' . $change['value']);
                 if (!is_a($permission, 'PEAR_Error')) {
                     $group_id = array_shift(array_keys($permission->getGroupPermissions()));
                     $vars->set('group', $group_id);

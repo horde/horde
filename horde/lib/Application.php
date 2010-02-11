@@ -61,9 +61,10 @@ class Horde_Application extends Horde_Registry_Application
             $out['initial_application_options'] = array();
             $apps = $GLOBALS['registry']->listApps(array('active'));
             foreach ($apps as $a) {
+                $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
                 if (file_exists($GLOBALS['registry']->get('fileroot', $a)) &&
-                    (($GLOBALS['perms']->exists($a) && ($GLOBALS['perms']->hasPermission($a, Horde_Auth::getAuth(), Horde_Perms::READ) || Horde_Auth::isAdmin())) ||
-                     !$GLOBALS['perms']->exists($a))) {
+                    (($perms->exists($a) && ($perms->hasPermission($a, Horde_Auth::getAuth(), Horde_Perms::READ) || Horde_Auth::isAdmin())) ||
+                     !$perms->exists($a))) {
                     $out['initial_application_options'][$a] = $GLOBALS['registry']->get('name', $a);
                 }
             }

@@ -238,16 +238,18 @@ class News_Categories {
     public function getAllowed($perm = Horde_Perms::SHOW)
     {
         $cats = $this->getCategories();
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+
         if (Horde_Auth::isAdmin('news:admin') ||
-            $GLOBALS['perms']->hasPermission('news', Horde_Auth::getAuth(), $perm)) {
+            $perms->hasPermission('news', Horde_Auth::getAuth(), $perm)) {
             return $cats;
         }
 
         foreach ($cats as $key => $value) {
             // user has access?
-            if (!$GLOBALS['perms']->hasPermission('news:categories', Horde_Auth::getAuth(), $perm)  && // master
-                !$GLOBALS['perms']->hasPermission('news:categories:' . $key, Horde_Auth::getAuth(), $perm) && // child
-                !$GLOBALS['perms']->hasPermission('news:categories:' . $this->_nodes[$key]['category_parentid'], Horde_Auth::getAuth(), $perm) // father
+            if (!$perms->hasPermission('news:categories', Horde_Auth::getAuth(), $perm)  && // master
+                !$perms->hasPermission('news:categories:' . $key, Horde_Auth::getAuth(), $perm) && // child
+                !$perms->hasPermission('news:categories:' . $this->_nodes[$key]['category_parentid'], Horde_Auth::getAuth(), $perm) // father
                 ) {
                 unset($cats[$key]);
             }
