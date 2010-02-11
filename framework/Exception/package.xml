@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Exception</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Exception Handler</summary>
- <description>This class provides the default exception handler for the Horde Application Framework.
- </description>
+ <description>This class provides the default exception handler for the Horde Application Framework.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -26,7 +22,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2009-07-12</date>
+ <date>2010-02-11</date>
+ <time>12:39:16</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -36,10 +33,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Initial package.
+ <notes>
+* Initial package.
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Exception">
@@ -47,10 +45,22 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="NotFound.php" role="php" />
       <file name="PermissionDenied.php" role="php" />
       <file name="Prior.php" role="php" />
-     </dir> <!-- /lib/Exception -->
+     </dir> <!-- /lib/Horde/Exception -->
      <file name="Exception.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Exception">
+      <dir name="Stub">
+       <file name="PearError.php" role="test" />
+      </dir> <!-- /test/Horde/Exception/Stub -->
+      <file name="AllTests.php" role="test" />
+      <file name="ExceptionTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
+     </dir> <!-- /test/Horde/Exception -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -65,12 +75,32 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Exception.php" as="Horde/Exception.php" />
-   <install name="lib/Horde/Exception/LastError.php" as="Horde/Exception/LastError.php" />
-   <install name="lib/Horde/Exception/NotFound.php" as="Horde/Exception/NotFound.php" />
-   <install name="lib/Horde/Exception/PermissionDenied.php" as="Horde/Exception/PermissionDenied.php"/>
-   <install name="lib/Horde/Exception/Prior.php" as="Horde/Exception/Prior.php" />
+   <install as="Horde/Exception.php" name="lib/Horde/Exception.php" />
+   <install as="Horde/Exception/LastError.php" name="lib/Horde/Exception/LastError.php" />
+   <install as="Horde/Exception/NotFound.php" name="lib/Horde/Exception/NotFound.php" />
+   <install as="Horde/Exception/PermissionDenied.php" name="lib/Horde/Exception/PermissionDenied.php" />
+   <install as="Horde/Exception/Prior.php" name="lib/Horde/Exception/Prior.php" />
+   <install as="Horde/Exception/AllTests.php" name="test/Horde/Exception/AllTests.php" />
+   <install as="Horde/Exception/ExceptionTest.php" name="test/Horde/Exception/ExceptionTest.php" />
+   <install as="Horde/Exception/phpunit.xml" name="test/Horde/Exception/phpunit.xml" />
+   <install as="Horde/Exception/Stub/PearError.php" name="test/Horde/Exception/Stub/PearError.php" />
   </filelist>
  </phprelease>
- <changelog/>
+ <changelog>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2010-02-11</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Initial package.
+   </notes>
+  </release>
+ </changelog>
 </package>
