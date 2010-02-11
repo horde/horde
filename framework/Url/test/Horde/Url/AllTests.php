@@ -29,6 +29,8 @@ class Horde_Url_AllTests extends Horde_Test_AllTests
 {
 }
 
+Horde_Url_AllTests::init('Horde_Url', __FILE__);
+
 if (PHPUnit_MAIN_METHOD == 'Horde_Url_AllTests::main') {
-    Horde_Url_AllTests::main('Horde_Url', __FILE__);
+    Horde_Url_AllTests::main();
 }

@@ -29,6 +29,8 @@ class Horde_Mime_AllTests extends Horde_Test_AllTests
 {
 }
 
+Horde_Mime_AllTests::init('Horde_Mime', __FILE__);
+
 if (PHPUnit_MAIN_METHOD == 'Horde_Mime_AllTests::main') {
-    Horde_Mime_AllTests::main('Horde_Mime', __FILE__);
+    Horde_Mime_AllTests::main();
 }

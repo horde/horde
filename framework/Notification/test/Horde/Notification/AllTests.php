@@ -29,6 +29,8 @@ class Horde_Notification_AllTests extends Horde_Test_AllTests
 {
 }
 
+Horde_Notification_AllTests::init('Horde_Notification', __FILE__);
+
 if (PHPUnit_MAIN_METHOD == 'Horde_Notification_AllTests::main') {
-    Horde_Notification_AllTests::main('Horde_Notification', __FILE__);
+    Horde_Notification_AllTests::main();
 }

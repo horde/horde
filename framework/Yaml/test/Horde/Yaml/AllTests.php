@@ -30,6 +30,8 @@ class Horde_Yaml_AllTests extends Horde_Test_AllTests
 {
 }
 
+Horde_Yaml_AllTests::init('Horde_Yaml', __FILE__);
+
 if (PHPUnit_MAIN_METHOD == 'Horde_Yaml_AllTests::main') {
-    Horde_Yaml_AllTests::main('Horde_Yaml', __FILE__);
+    Horde_Yaml_AllTests::main();
 }

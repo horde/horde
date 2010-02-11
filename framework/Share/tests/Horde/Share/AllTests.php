@@ -32,7 +32,7 @@ class Horde_Share_AllTests extends Horde_Test_AllTests
 {
 }
 
-//Horde_Share_AllTests::init('Horde_Share', __FILE__);
+Horde_Share_AllTests::init('Horde_Share', __FILE__);
 
 if (PHPUnit_MAIN_METHOD == 'Horde_Share_AllTests::main') {
     Horde_Share_AllTests::main();

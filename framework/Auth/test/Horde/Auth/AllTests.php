@@ -32,6 +32,8 @@ class Horde_Auth_AllTests extends Horde_Test_AllTests
 {
 }
 
+Horde_Auth_AllTests::init('Horde_Auth', __FILE__);
+
 if (PHPUnit_MAIN_METHOD == 'Horde_Auth_AllTests::main') {
-    Horde_Auth_AllTests::main('Horde_Auth', __FILE__);
+    Horde_Auth_AllTests::main();
 }

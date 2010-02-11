@@ -27,6 +27,8 @@ class Horde_Date_AllTests extends Horde_Test_AllTests
 {
 }
 
+Horde_Date_AllTests::init('Horde_Date', __FILE__);
+
 if (PHPUnit_MAIN_METHOD == 'Horde_Date_AllTests::main') {
-    Horde_Date_AllTests::main('Horde_Date', __FILE__);
+    Horde_Date_AllTests::main();
 }

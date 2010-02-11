@@ -32,7 +32,7 @@ class VFS_AllTests extends Horde_Test_AllTests
 {
 }
 
-//VFS_AllTests::init('VFS', __FILE__);
+VFS_AllTests::init('VFS', __FILE__);
 
 if (PHPUnit_MAIN_METHOD == 'VFS_AllTests::main') {
     VFS_AllTests::main();

@@ -25,6 +25,8 @@ class Horde_Text_Textile_AllTests extends Horde_Test_AllTests
 {
 }
 
+Horde_Text_Textile_AllTests::init('Horde_Text_Textile', __FILE__);
+
 if (PHPUnit_MAIN_METHOD == 'Horde_Text_Textile_AllTests::main') {
-    Horde_Text_Textile_AllTests::main('Horde_Text_Textile', __FILE__);
+    Horde_Text_Textile_AllTests::main();
 }

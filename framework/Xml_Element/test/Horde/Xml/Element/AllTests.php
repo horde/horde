@@ -21,6 +21,8 @@ class Horde_Xml_Element_AllTests extends Horde_Test_AllTests
 {
 }
 
+Horde_Xml_Element_AllTests::init('Horde_Xml_Element', __FILE__);
+
 if (PHPUnit_MAIN_METHOD == 'Horde_Xml_Element_AllTests::main') {
-    Horde_Xml_Element_AllTests::main('Horde_Xml_Element', __FILE__);
+    Horde_Xml_Element_AllTests::main();
 }

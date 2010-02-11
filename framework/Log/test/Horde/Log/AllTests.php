@@ -34,6 +34,8 @@ class Horde_Log_AllTests extends Horde_Test_AllTests
 {
 }
 
+Horde_Log_AllTests::init('Horde_Log', __FILE__);
+
 if (PHPUnit_MAIN_METHOD == 'Horde_Log_AllTests::main') {
-    Horde_Log_AllTests::main('Horde_Log', __FILE__);
+    Horde_Log_AllTests::main();
 }

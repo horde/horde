@@ -28,6 +28,8 @@ class Horde_Pdf_AllTests extends Horde_Test_AllTests
 {
 }
 
+Horde_Pdf_AllTests::init('Horde_Pdf', __FILE__);
+
 if (PHPUnit_MAIN_METHOD == 'Horde_Pdf_AllTests::main') {
-    Horde_Pdf_AllTests::main('Horde_Pdf', __FILE__);
+    Horde_Pdf_AllTests::main();
 }

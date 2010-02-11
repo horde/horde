@@ -24,6 +24,8 @@ class Horde_Injector_AllTests extends Horde_Test_AllTests
 {
 }
 
+Horde_Injector_AllTests::init('Horde_Injector', __FILE__);
+
 if (PHPUnit_MAIN_METHOD == 'Horde_Injector_AllTests::main') {
-    Horde_Injector_AllTests::main('Horde_Injector', __FILE__);
+    Horde_Injector_AllTests::main();
 }

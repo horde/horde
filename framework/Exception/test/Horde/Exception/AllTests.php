@@ -31,7 +31,7 @@ class Horde_Exception_AllTests extends Horde_Test_AllTests
 {
 }
 
-//Horde_Exception_AllTests::init('Horde_Exception', __FILE__);
+Horde_Exception_AllTests::init('Horde_Exception', __FILE__);
 
 if (PHPUnit_MAIN_METHOD == 'Horde_Exception_AllTests::main') {
     Horde_Exception_AllTests::main();

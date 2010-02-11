@@ -31,6 +31,8 @@ class Horde_Kolab_Server_AllTests extends Horde_Test_AllTests
 {
 }
 
+Horde_Kolab_Server_AllTests::init('Horde_Kolab_Server', __FILE__);
+
 if (PHPUnit_MAIN_METHOD == 'Horde_Kolab_Server_AllTests::main') {
-    Horde_Kolab_Server_AllTests::main('Horde_Kolab_Server', __FILE__);
+    Horde_Kolab_Server_AllTests::main();
 }

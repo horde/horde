@@ -30,8 +30,15 @@ require_once 'Horde/Test/AllTests.php';
  */
 class Horde_Kolab_FreeBusy_AllTests extends Horde_Test_AllTests
 {
+    public static function suite()
+    {
+        // Return empty for now
+        return new PHPUnit_Framework_TestSuite();
+    }
 }
 
+Horde_Kolab_FreeBusy_AllTests::init('Horde_Kolab_FreeBusy', __FILE__);
+
 if (PHPUnit_MAIN_METHOD == 'Horde_Kolab_FreeBusy_AllTests::main') {
-    Horde_Kolab_FreeBusy_AllTests::main('Horde_Kolab_FreeBusy', __FILE__);
+    Horde_Kolab_FreeBusy_AllTests::main();
 }
