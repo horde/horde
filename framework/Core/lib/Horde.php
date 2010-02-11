@@ -301,7 +301,7 @@ HTML;
     static public function addScriptFile($file, $app = null,
                                          $options = array())
     {
-        $hsf = Horde_Script_Files::singleton();
+        $hsf = $GLOBALS['injector']->getInstance('Horde_Script_Files');
         if (empty($options['external'])) {
             $hsf->add($file, $app, isset($options['direct']) ? $options['direct'] : true, !empty($options['full']));
         } else {
@@ -322,7 +322,7 @@ HTML;
         $driver = empty($conf['cachejs'])
             ? 'none'
             : $conf['cachejsparams']['driver'];
-        $hsf = Horde_Script_Files::singleton();
+        $hsf = $GLOBALS['injector']->getInstance('Horde_Script_Files');
 
         if ($driver == 'none') {
             $hsf->includeFiles();

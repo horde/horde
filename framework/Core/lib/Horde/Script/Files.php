@@ -15,13 +15,6 @@
 class Horde_Script_Files
 {
     /**
-     * The singleton instance.
-     *
-     * @var Horde_Script_Files
-     */
-    static protected $_instance;
-
-    /**
      * The list of script files to add.
      *
      * @var array
@@ -34,18 +27,6 @@ class Horde_Script_Files
      * @var array
      */
     protected $_included = array();
-
-    /**
-     * Singleton.
-     */
-    static public function singleton()
-    {
-        if (!self::$_instance) {
-            self::$_instance = new self();
-        }
-
-        return self::$_instance;
-    }
 
     /**
      * Adds the javascript code to the output (if output has already started)
