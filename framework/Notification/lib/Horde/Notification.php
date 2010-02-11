@@ -39,11 +39,8 @@ class Horde_Notification
 
             $handler = new Horde_Notification_Handler_Base($storage);
             $handler = new Horde_Notification_Handler_Decorator_Hordelog($handler);
-            if (!empty($GLOBALS['conf']['alarms']['driver'])) {
-                $handler = new Horde_Notification_Handler_Decorator_Alarm(
-                    $handler, Horde_Alarm::factory()
-                );
-            }
+            $handler = new Horde_Notification_Handler_Decorator_Alarm($handler, Horde_Alarm::factory());
+
             self::$_instances[$stack] = $handler;
         }
 
