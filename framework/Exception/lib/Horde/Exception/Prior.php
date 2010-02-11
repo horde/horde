@@ -20,7 +20,7 @@ class Horde_Exception_Prior extends Horde_Exception
      *                       object, or an Exception object.
      * @param int   $code    A numeric error code.
      */
-    public function __construct($message = null, $code = null)
+    public function __construct($message = null, $code = 0)
     {
         if (is_object($message) &&
             method_exists($message, 'getMessage')) {
