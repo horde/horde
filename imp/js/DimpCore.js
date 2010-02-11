@@ -12,6 +12,7 @@ var DimpCore = {
     // Vars used and defaulting to null/false:
     //   DMenu, Growler, inAjaxCallback, is_init, is_logout
     //   onDoActionComplete
+    alarms: {},
     growler_log: true,
     server_error: 0,
 
@@ -205,28 +206,41 @@ var DimpCore = {
         }
 
         msgs.find(function(m) {
-            var log = 0;
-
             switch (m.type) {
             case 'horde.ajaxtimeout':
                 this.logout(m.message);
                 return true;
 
+            case 'horde.alarm':
+                if (!this.alarms[m.alarm.id]) {
+                    this.Growler.growl(m.alarm.title + ': ' + m.alarm.text, {
+                        className: 'horde-alarm',
+                        sticky: 1,
+                        log: 1
+                    });
+                    this.alarms[m.alarm.id] = 1;
+                }
+                break;
+
             case 'horde.error':
             case 'horde.message':
             case 'horde.success':
             case 'horde.warning':
-                log = 1;
-                // Fall through to below case.
+                this.Growler.growl(m.message, {
+                    className: m.type.replace('.', '-'),
+                    life: (m.type == 'horde.error' ? 12 : 8),
+                    log: 1
+                });
+                break;
 
             case 'imp.reply':
             case 'imp.forward':
             case 'imp.redirect':
                 this.Growler.growl(m.message, {
                     className: m.type.replace('.', '-'),
-                    life: (m.type == 'horde.error' ? 12 : 8),
-                    log: log
+                    life: 8
                 });
+                break;
             }
         }, this);
     },
