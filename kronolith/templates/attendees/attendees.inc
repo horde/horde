@@ -36,7 +36,7 @@ function switchDateView(view, date)
 <input type="hidden" name="actionValue" value="" />
 <input type="hidden" name="view" value="<?php echo htmlspecialchars($view) ?>" />
 <input type="hidden" name="date" value="<?php echo $date->dateString() . sprintf("%02d%02d00", $date->hour, $date->min) ?>" />
-<input type="hidden" name="enddate" value=<?php echo $end->dateString() . sprintf("%02d%02d00", $end->hour, $end->min) ?>" />
+<input type="hidden" name="enddate" value="<?php echo $end->dateString() . sprintf("%02d%02d00", $end->hour, $end->min) ?>" />
 
 <h1 class="header"><?php echo htmlspecialchars($title) ?></h1>
 
@@ -82,7 +82,7 @@ function switchDateView(view, date)
 <tr class="item nowrap leftAlign">
  <th width="2%">&nbsp;</th>
  <th width="48%"><?php echo htmlspecialchars(_("Resource")) ?></th>
- <th wiidth="25%"><?php echo _("Attendance") ?></th>
+ <th width="25%"><?php echo _("Attendance") ?></th>
  <th width="25%"><?php echo _("Response") ?></th>
 </tr>
 
