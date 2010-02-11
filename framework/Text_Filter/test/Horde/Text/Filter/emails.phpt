@@ -4,6 +4,7 @@ Horde_Text_Filter_Email tests
 <?php
 
 require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter.php';
+require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter/Base.php';
 require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter/Emails.php';
 
 $emails = <<<EOT

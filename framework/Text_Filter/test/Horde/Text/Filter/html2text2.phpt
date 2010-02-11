@@ -6,6 +6,7 @@ Horde_Text_Filter_Html2text lists test
 require_once 'Horde/String.php';
 require_once 'Horde/Util.php';
 require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter.php';
+require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter/Base.php';
 require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter/Html2text.php';
 
 $html = <<<EOT

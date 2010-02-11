@@ -6,6 +6,7 @@ Horde_Text_Filter_Html2text tests
 require_once 'Horde/String.php';
 require_once 'Horde/Util.php';
 require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter.php';
+require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter/Base.php';
 require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter/Html2text.php';
 $html = file_get_contents(dirname(__FILE__) . '/fixtures/html2text.html');
 echo Horde_Text_Filter::filter($html, 'html2text', array('charset' => 'UTF-8'));
@@ -106,7 +107,7 @@ Line inbetween.
 
 SPECIAL CHARACTERS
 
-ä é © (tm)
+ä é © ™ Đ
 
 Zitat von John Doe <john.doe@example.com>: 
 

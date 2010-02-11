@@ -6,6 +6,7 @@ Horde_Text_Filter_Xss tests
 /* Test cases from http://ha.ckers.org/xss.html */
 
 require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter.php';
+require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter/Base.php';
 require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter/Xss.php';
 
 foreach (glob(dirname(__FILE__) . '/fixtures/xss*.html') as $file) {

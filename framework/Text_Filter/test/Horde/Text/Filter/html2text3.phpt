@@ -6,6 +6,7 @@ Horde_Text_Filter_Html2text quoting test
 require_once 'Horde/String.php';
 require_once 'Horde/Util.php';
 require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter.php';
+require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter/Base.php';
 require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter/Html2text.php';
 $html = <<<EOT
 <p>Zitat von Roberto Maurizzi &lt;roberto.maurizzi@gmail.com&gt;:</p>

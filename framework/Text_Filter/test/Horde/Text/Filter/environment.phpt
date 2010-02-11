@@ -4,6 +4,7 @@ Horde_Text_Filter_Environment tests
 <?php
 
 require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter.php';
+require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter/Base.php';
 require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter/Environment.php';
 
 $env = <<<EOT

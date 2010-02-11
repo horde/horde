@@ -8,6 +8,7 @@ require_once 'Horde/Exception.php';
 require_once 'Horde/String.php';
 require_once 'Horde/Util.php';
 require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter.php';
+require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter/Base.php';
 require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter/Emails.php';
 require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter/Linkurls.php';
 require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter/Space2html.php';
