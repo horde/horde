@@ -266,7 +266,9 @@ class Horde_Injector_Binder_MockWithDependencies implements Horde_Injector_Binde
 {
     private $_interface;
 
-    public function __construct($parameter1) {}
+    public function __construct($parameter1)
+    {
+    }
 
     public function create(Horde_Injector $injector)
     {

@@ -161,7 +161,8 @@ class Horde_Injector_Binder_ImplementationTest extends Horde_Test_Case
  */
 
 class Horde_Injector_Binder_ImplementationTest__NoDependencies
-{}
+{
+}
 
 class Horde_Injector_Binder_ImplementationTest__TypedDependency
 {
@@ -175,7 +176,9 @@ class Horde_Injector_Binder_ImplementationTest__TypedDependency
 
 class Horde_Injector_Binder_ImplementationTest__UntypedDependency
 {
-    public function __construct($dep) {}
+    public function __construct($dep)
+    {
+    }
 }
 
 class Horde_Injector_Binder_ImplementationTest__UntypedOptionalDependency
@@ -189,10 +192,12 @@ class Horde_Injector_Binder_ImplementationTest__UntypedOptionalDependency
 }
 
 interface Horde_Injector_Binder_ImplementationTest__Interface
-{}
+{
+}
 
 abstract class Horde_Injector_Binder_ImplementationTest__AbstractClass
-{}
+{
+}
 
 class Horde_Injector_Binder_ImplementationTest__SetterNoDependencies
 {

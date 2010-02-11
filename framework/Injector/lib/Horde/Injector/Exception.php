@@ -6,4 +6,5 @@
  * @package Horde_Injector
  */
 class Horde_Injector_Exception extends Exception
-{}
+{
+}
