@@ -105,6 +105,12 @@ class Horde_Exception_ExceptionTest extends  PHPUnit_Framework_TestCase
 
     // LastError Exception Testing
 
+    public function testConstructionOfLastErrorYieldsStandardException()
+    {
+        $e = new Horde_Exception_LastError();
+        $this->assertSame('', $e->getMessage());
+    }
+
     public function testConstructionWithGetlasterrorarrayYieldsMessageFromArray()
     {
         $e = new Horde_Exception_LastError(null, $this->_getLastError());
