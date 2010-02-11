@@ -1181,7 +1181,7 @@ KronolithCore = {
 
             case 'year':
                 td = $('kronolithYear' + date);
-                td.className = '';
+                td.removeClassName('kronolithHasEvents').removeClassName('kronolithIsBusy');
                 if (title) {
                     td.writeAttribute('title', title).addClassName('kronolithHasEvents');
                     if (td.readAttribute('nicetitle')) {
