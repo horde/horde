@@ -1749,7 +1749,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             try {
                 $GLOBALS['imp_imap']->ob()->openMailbox($vars->view, $rw ? Horde_Imap_Client::OPEN_READWRITE : Horde_Imap_Client::OPEN_AUTO);
             } catch (Horde_Imap_Client_Exception $e) {
-                $GLOBALS['notification']->push($e, 'horde.error');
+                $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
                 return null;
             }
         }
