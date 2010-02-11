@@ -94,10 +94,7 @@ class Horde_Data extends PEAR {
      */
     function getNewline()
     {
-        require_once 'Horde/Browser.php';
-        $browser = &Horde_Browser::singleton();
-
-        switch ($browser->getPlatform()) {
+        switch ($GLOBALS['browser']->getPlatform()) {
         case 'win':
             return "\r\n";
 
@@ -313,7 +310,7 @@ class Horde_Data extends PEAR {
             /* Sanitize uploaded file. */
             $import_format = Horde_Util::getFormData('import_format');
             try {
-                Horde_Browser::wasFileUploaded('import_file', $param['file_types'][$import_format]);
+                $GLOBALS['browser']->wasFileUploaded('import_file', $param['file_types'][$import_format]);
             } catch (Horde_Exception $e) {
                 PEAR::raiseError($e->getMessage());
             }

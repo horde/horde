@@ -103,8 +103,7 @@ class Horde_Tree_Javascript extends Horde_Tree
      */
     public function isSupported()
     {
-        $browser = Horde_Browser::singleton();
-        return $browser->hasFeature('dom');
+        return $GLOBALS['browser']->hasFeature('dom');
     }
 
     /**

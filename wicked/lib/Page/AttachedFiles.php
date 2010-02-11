@@ -213,7 +213,7 @@ class AttachedFiles extends Page {
         }
 
         try {
-            Horde_Browser::wasFileUploaded('attachment_file', _("attachment"));
+            $GLOBALS['browser']->wasFileUploaded('attachment_file', _("attachment"));
         } catch (Horde_Browser_Exception $e) {
             $notification->push($e, 'horde.error');
             return;

@@ -53,7 +53,6 @@ class Horde_Block_Layout_View extends Horde_Block_Layout
      */
     public function toHtml()
     {
-        $browser = Horde_Browser::singleton();
         $tplDir = $GLOBALS['registry']->get('templates', 'horde');
         $interval = $GLOBALS['prefs']->getValue('summary_refresh_time');
 
@@ -87,7 +86,7 @@ class Horde_Block_Layout_View extends Horde_Block_Layout
                             if ($content instanceof PEAR_Error) {
                                 $content = $content->getMessage();
                             }
-                            if ($browser->hasFeature('xmlhttpreq')) {
+                            if ($GLOBALS['browser']->hasFeature('xmlhttpreq')) {
                                 $refresh_time = isset($item['params']['params']['_refresh_time']) ? $item['params']['params']['_refresh_time'] : $interval;
                             }
                             ob_start();

@@ -37,10 +37,7 @@ if ($form->validate($vars)) {
 
         /* Save new image. */
         try {
-            Horde_Browser::wasFileUploaded('file' . $i);
-            if (!filesize($info['file' . $i]['file'])) {
-                throw new Horde_Browser_Exception();
-            }
+            $GLOBALS['browser']->wasFileUploaded('file' . $i);
         } catch (Horde_Browser_Exception $e) {
             if (!empty($info['file' . $i]['error'])) {
                 $notification->push(sprintf(_("There was a problem uploading the photo: %s"), $info['file' . $i]['error']), 'horde.error');

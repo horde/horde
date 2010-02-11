@@ -55,13 +55,6 @@ class Koward {
         $notification = Horde_Notification::singleton();
         $notification->attach('status');
 
-        /* Browser detection object. */
-        if (class_exists('Horde_Browser')) {
-            $browser = Horde_Browser::singleton();
-        } else if (class_exists('Browser')) {
-            $browser = Browser::singleton();
-        }
-
         if ($webroot === null) {
             $webroot = $registry->get('webroot', 'koward');
         }

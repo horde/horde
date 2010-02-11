@@ -158,7 +158,9 @@ class Horde_Registry
         $s_ctrl = 0;
         switch ($args['session_control']) {
         case 'netscape':
-            if (Horde_Browser::singleton()->isBrowser('mozilla')) {
+            // Chicken/egg: Browser object doesn't exist yet.
+            $browser = new Horde_Browser();
+            if ($browser->isBrowser('mozilla')) {
                 session_cache_limiter('private, must-revalidate');
             }
             break;
@@ -236,7 +238,7 @@ class Horde_Registry
         $injector->setInstance('Horde_Registry', $this);
 
         /* Initialize browser object. */
-        $GLOBALS['browser'] = Horde_Browser::singleton();
+        $GLOBALS['browser'] = new Horde_Browser();
         $injector->setInstance('Horde_Browser', $GLOBALS['browser']);
 
         /* Import and global Horde's configuration values. Almost a chicken

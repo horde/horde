@@ -134,8 +134,7 @@ class Horde_Notification_Listener_Status extends Horde_Notification_Listener
             $message = Horde::link(Horde::url($GLOBALS['registry']->linkByPackage($alarm['params']['notify']['show']['__app'], 'show', $alarm['params']['notify']['show'])), $alarm['text']) . $message . '</a>';
         }
 
-        $browser = Horde_Browser::singleton();
-        if (!empty($alarm['user']) && $browser->hasFeature('xmlhttpreq')) {
+        if (!empty($alarm['user']) && $GLOBALS['browser']->hasFeature('xmlhttpreq')) {
             Horde::addScriptFile('prototype.js', 'horde');
             $url = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/snooze.php', true);
             $opts = array('-1' => _("Dismiss"),

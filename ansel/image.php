@@ -190,7 +190,7 @@ case 'save':
         /* See if we were replacing photo */
         if (!empty($info['file0']['file'])) {
             try {
-                Horde_Browser::wasFileUploaded('file0');
+                $GLOBALS['browser']->wasFileUploaded('file0');
                 if (filesize($info['file0']['file'])) {
                     /* Read in the uploaded data. */
                     $data = file_get_contents($info['file0']['file']);

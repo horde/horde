@@ -1644,8 +1644,7 @@ HTML;
      */
     static public function allowOutputCompression()
     {
-        $browser = Horde_Browser::singleton();
-        return !$browser->hasQuirk('buggy_compression') &&
+        return !$GLOBALS['browser']->hasQuirk('buggy_compression') &&
                (ini_get('zlib.output_compression') == '') &&
                (ini_get('zend_accelerator.compress_all') == '') &&
                (ini_get('output_handler') != 'ob_gzhandler');

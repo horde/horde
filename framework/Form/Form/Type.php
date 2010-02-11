@@ -871,7 +871,7 @@ class Horde_Form_Type_file extends Horde_Form_Type {
     {
         if ($var->isRequired()) {
             try {
-                Horde_Browser::wasFileUploaded($var->getVarName());
+                $GLOBALS['browser']->wasFileUploaded($var->getVarName());
             } catch (Horde_Browser_Exception $e) {
                 $message = $e->getMessage();
                 return false;
@@ -885,7 +885,7 @@ class Horde_Form_Type_file extends Horde_Form_Type {
     {
         $name = $var->getVarName();
         try {
-            Horde_Browser::wasFileUploaded($name);
+            $GLOBALS['browser']->wasFileUploaded($name);
             $info['name'] = Horde_Util::dispelMagicQuotes($_FILES[$name]['name']);
             $info['type'] = $_FILES[$name]['type'];
             $info['tmp_name'] = $_FILES[$name]['tmp_name'];
@@ -1074,7 +1074,7 @@ class Horde_Form_Type_image extends Horde_Form_Type {
         $varname = $var->getVarName();
 
         try {
-            Horde_Browser::wasFileUploaded($varname . '[new]');
+            $GLOBALS['browser']->wasFileUploaded($varname . '[new]');
             $this->_uploaded = true;
 
             /* A file has been uploaded on this submit. Save to temp dir for

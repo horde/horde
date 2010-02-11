@@ -54,7 +54,7 @@ case 'send_problem_report':
         $attachment = null;
         if (!empty($conf['problems']['attachments'])) {
             try {
-                Horde_Browser::wasFileUploaded('attachment', _("attachment"));
+                $GLOBALS['browser']->wasFileUploaded('attachment', _("attachment"));
                 $attachment = $_FILES['attachment'];
             } catch (Horde_Browser_Exception $e) {
                 if ($e->getCode() != UPLOAD_ERR_NO_FILE) {

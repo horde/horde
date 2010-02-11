@@ -139,12 +139,9 @@ class Horde_Mobile extends Horde_Mobile_card {
             $this->_title = $title;
         }
 
-        require_once 'Horde/Browser.php';
-        $browser = &Horde_Browser::singleton($agent);
-
-        if ($browser->hasFeature('html')) {
+        if ($GLOBALS['browser']->hasFeature('html')) {
             $ml = 'html';
-        } elseif ($browser->hasFeature('wml')) {
+        } elseif ($GLOBALS['browser']->hasFeature('wml')) {
             $ml = 'wml';
         } else {
             $ml = 'html';

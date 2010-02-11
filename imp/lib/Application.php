@@ -229,12 +229,9 @@ class IMP_Application extends Horde_Registry_Application
         } else {
             $views = array();
             if (!($view_cookie = Horde_Util::getFormData('imp_select_view'))) {
-                if (isset($_COOKIE['default_imp_view'])) {
-                    $view_cookie = $_COOKIE['default_imp_view'];
-                } else {
-                    $browser = Horde_Browser::singleton();
-                    $view_cookie = $browser->isMobile() ? 'mimp' : 'imp';
-                }
+                $view_cookie = isset($_COOKIE['default_imp_view'])
+                    ? $_COOKIE['default_imp_view']
+                    : ($GLOBALS['browser']->isMobile() ? 'mimp' : 'imp');
             }
 
             $params['imp_select_view'] = array(

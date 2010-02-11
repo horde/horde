@@ -281,8 +281,7 @@ class Horde_Util
     {
         /* We may need to set a dummy parameter 'nocache' since some
          * browsers do not always honor the 'no-cache' header. */
-        $browser = Horde_Browser::singleton();
-        if ($browser->hasQuirk('cache_same_url')) {
+        if ($GLOBALS['browser']->hasQuirk('cache_same_url')) {
             if (is_null(self::$_randnum)) {
                 self::$_randnum = base_convert(microtime(), 10, 36);
             }

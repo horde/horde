@@ -109,7 +109,7 @@ case 'upload_file':
             $val = 'file_upload_' . $i;
             if (isset($_FILES[$val]) && ($_FILES[$val]['error'] != 4)) {
                 try {
-                    Horde_Browser::wasFileUploaded($val);
+                    $GLOBALS['browser']->wasFileUploaded($val);
                     $filename = Horde_Util::dispelMagicQuotes($_FILES[$val]['name']);
                     $res = Gollem::writeFile($old_dir, $filename, $_FILES[$val]['tmp_name']);
                     if (is_a($res, 'PEAR_Error')) {

@@ -180,7 +180,7 @@ if ($cmd == 'add') {
         $error = _("No file specified");
     } else {
         try {
-            Horde_Browser::wasFileUploaded('imagefile', _("photo"));
+            $GLOBALS['browser']->wasFileUploaded('imagefile', _("photo"));
             $image = &Ansel::getImageFromFile($file, array('image_filename' => $name));
             if (is_a($image, 'PEAR_Error')) {
                 $error = $image->getMessage();

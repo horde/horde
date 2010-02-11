@@ -6,7 +6,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <name>Browser</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Browser API</summary>
- <description>The Horde_Browser:: class provides an API for getting information
+ <description>The Horde_Browser class provides an API for getting information
 about the current user&apos;s browser and its capabilities.
  </description>
  <lead>

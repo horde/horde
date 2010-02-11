@@ -32,8 +32,7 @@ class Ansel_XPPublisher
      */
     public function sendRegFile($appKey, $displayName, $description, $href, $icon)
     {
-        $browser = Horde_Browser::singleton();
-        $browser->downloadHeaders('install_registry.reg', 'application/octet-stream');
+        $GLOBALS['browser']->downloadHeaders('install_registry.reg', 'application/octet-stream');
 
         $lines = array(
             'Windows Registry Editor Version 5.00',

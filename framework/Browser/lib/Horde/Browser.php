@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_Browser:: class provides capability information for the current
+ * The Horde_Browser class provides capability information for the current
  * web client.
  *
  * Browser identification is performed by examining the HTTP_USER_AGENT
@@ -260,15 +260,6 @@ class Horde_Browser
      * @var array
      */
     protected $_images = array('jpeg', 'gif', 'png', 'pjpeg', 'x-png', 'bmp');
-
-    /**
-     * @deprecated
-     */
-    public static function singleton($userAgent = null, $accept = null)
-    {
-        // trigger_error - warning?
-        return new self($userAgent, $accept);
-    }
 
     /**
      * Creates a browser instance (Constructor).
