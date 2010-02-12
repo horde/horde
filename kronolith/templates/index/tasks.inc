@@ -11,10 +11,10 @@
     </ul>
   </caption>
   <tbody id="kronolithViewTasksBody">
-     <tr class="kronolithTaskRow">
-       <td class="kronolithTaskCol kronolithAddTask button">
-         <div class="kronolithAddTaskIcon"></div><?php echo _("Add Task") ?>
-       </td>
+    <tr id="kronolithNewTask" class="kronolithTaskRow">
+      <td class="kronolithTaskCol kronolithAddTask button">
+        <div class="kronolithAddTaskIcon"></div><?php echo _("Add Task") ?>
+      </td>
     </tr>
     <tr id="kronolithTasksTemplate" class="kronolithTaskRow" style="display:none">
       <td class="kronolithTaskCol">

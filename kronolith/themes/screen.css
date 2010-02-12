@@ -1072,6 +1072,9 @@ table.kronolithView td.kronolithFirstCol {
     padding: 4px 4px 4px 4px;
     cursor: pointer;
 }
+#kronolithViewTasksBody #kronolithTasksNoItems td {
+    cursor: default;
+}
 #kronolithViewTasksBody div.kronolithTaskCheckbox {
     background: url("graphics/checkbox_off.png") no-repeat;
     margin-right: 5px;

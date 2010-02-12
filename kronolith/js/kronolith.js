@@ -2510,6 +2510,11 @@ KronolithCore = {
                 e.stop();
                 return;
 
+            case 'kronolithNewTask':
+                this.go('task');
+                e.stop();
+                return;
+
             case 'kronolithQuickEvent':
                 this.updateCalendarDropDown('kronolithQuickinsertCalendars');
                 $('kronolithQuickinsert').appear({
@@ -2808,8 +2813,6 @@ KronolithCore = {
             case 'kronolithTaskRow':
                 if (elt.retrieve('taskid')) {
                     this.go('task:' + elt.retrieve('tasklist') + ':' + elt.retrieve('taskid'));
-                } else {
-                    this.go('task');
                 }
                 e.stop();
                 return;
