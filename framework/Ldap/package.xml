@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Ldap</name>
  <channel>pear.horde.org</channel>
  <summary>Horde LDAP libraries</summary>
- <description>This package provides a set of classes for connecting to LDAP servers and working with directory objects.
- </description>
+ <description>This package provides a set of classes for connecting to LDAP servers and working with directory objects.</description>
  <lead>
   <name>Ben Klang</name>
   <user>bklang</user>
   <email>ben@alkaloid.net</email>
   <active>yes</active>
  </lead>
- <date>2009-12-17</date>
+ <date>2010-02-12</date>
+ <time>23:18:58</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -24,8 +21,15 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPLv3</license>
+ <notes>
+* Forked from PEAR-Net_LDAP2-2.0.7.
+* Converted to PHP5 strict standards.
+* Converted to use exceptions.
+* Included functions from the previous Horde_Ldap for backwards
+  compatibility.
+ </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Ldap">
@@ -40,7 +44,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
      </dir> <!-- /lib/Horde/Ldap -->
      <file name="Ldap.php" role="php" />
     </dir> <!-- /lib/Horde -->
-   </dir> <!-- /lib/ -->
+   </dir> <!-- /lib -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -59,15 +63,36 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Ldap/Entry.php" as="Horde/Ldap/Entry.php" />
-   <install name="lib/Horde/Ldap/Exception.php" as="Horde/Ldap/Exception.php" />
-   <install name="lib/Horde/Ldap/Filter.php" as="Horde/Ldap/Filter.php" />
-   <install name="lib/Horde/Ldap/LDIF.php" as="Horde/Ldap/LDIF.php" />
-   <install name="lib/Horde/Ldap/RootDSE.php" as="Horde/Ldap/RootDSE.php" />
-   <install name="lib/Horde/Ldap/Schema.php" as="Horde/Ldap/Schema.php" />
-   <install name="lib/Horde/Ldap/Search.php" as="Horde/Ldap/Search.php" />
-   <install name="lib/Horde/Ldap/Util.php" as="Horde/Ldap/Util.php" />
-   <install name="lib/Horde/Ldap.php" as="Horde/Ldap.php" />
+   <install as="Horde/Ldap.php" name="lib/Horde/Ldap.php" />
+   <install as="Horde/Ldap/Entry.php" name="lib/Horde/Ldap/Entry.php" />
+   <install as="Horde/Ldap/Exception.php" name="lib/Horde/Ldap/Exception.php" />
+   <install as="Horde/Ldap/Filter.php" name="lib/Horde/Ldap/Filter.php" />
+   <install as="Horde/Ldap/LDIF.php" name="lib/Horde/Ldap/LDIF.php" />
+   <install as="Horde/Ldap/RootDSE.php" name="lib/Horde/Ldap/RootDSE.php" />
+   <install as="Horde/Ldap/Schema.php" name="lib/Horde/Ldap/Schema.php" />
+   <install as="Horde/Ldap/Search.php" name="lib/Horde/Ldap/Search.php" />
+   <install as="Horde/Ldap/Util.php" name="lib/Horde/Ldap/Util.php" />
   </filelist>
  </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2010-02-12</date>
+   <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPLv3</license>
+   <notes>
+* Forked from PEAR-Net_LDAP2-2.0.7.
+* Converted to PHP5 strict standards.
+* Converted to use exceptions.
+* Included functions from the previous Horde_Ldap for backwards
+  compatibility.
+   </notes>
+  </release>
+ </changelog>
 </package>
