@@ -1563,9 +1563,11 @@ KronolithCore = {
         }
 
         tasktypes.each(function(type) {
+            if (Object.isUndefined(this.tcache.get(type))) {
+                this._storeTasksCache($H(), type, null, true);
+            }
             tasklists.each(function(list) {
-                if (Object.isUndefined(this.tcache.get(type)) ||
-                    Object.isUndefined(this.tcache.get(type).get(list))) {
+                if (Object.isUndefined(this.tcache.get(type).get(list))) {
                     loading = true;
                     this.startLoading('tasks:' + type + list, tasktype);
                     this._storeTasksCache($H(), type, list, true);
@@ -1840,6 +1842,8 @@ KronolithCore = {
             $('kronolithTaskPriority').setValue(3);
             $('kronolithTaskCompleted').setValue(0);
             $('kronolithTaskDelete').hide();
+            $('kronolithTaskSave').show();
+            $('kronolithTaskForm').enable();
             RedBox.showHtml($('kronolithTaskDialog').show());
         }
     },
@@ -2284,6 +2288,9 @@ KronolithCore = {
                     return;
                 }
             }
+            if (!tasklist) {
+                return;
+            }
             if (!this.tcache.get(tasktype).get(tasklist)) {
                 if (createCache) {
                     this.tcache.get(tasktype).set(tasklist, $H());
@@ -2607,10 +2614,13 @@ KronolithCore = {
                                       }).toggle();
                                   }
                               }.bind(this));
-                $('kronolithViewTasksBody').select('tr').find(function(el) {
+                var taskrow = $('kronolithViewTasksBody').select('tr').find(function(el) {
                     return el.retrieve('tasklist') == tasklist &&
                         el.retrieve('taskid') == taskid;
-                }).hide();
+                });
+                if (taskrow) {
+                    taskrow.hide();
+                }
                 this._closeRedBox();
                 window.history.back();
                 e.stop();

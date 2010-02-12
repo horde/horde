@@ -21,7 +21,7 @@
         <div class="kronolithTaskCheckbox"/>
       </td>
     </tr>
-    <tr id="kronolithTasksNoItems" class="kronolithTaskRow" style="display:none">
+    <tr id="kronolithTasksNoItems" class="kronolithTaskRow">
       <td class="kronolithTaskCol">
         <?php echo _("No items") ?>
       </td>
