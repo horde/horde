@@ -22,7 +22,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function notificationHandler()
     {
-        return $GLOBALS['kronolith_notify'];
+        return $GLOBALS['injector']->getInstance('Horde_Notification_Listener');
     }
 
     /**

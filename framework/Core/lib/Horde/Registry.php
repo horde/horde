@@ -317,8 +317,9 @@ class Horde_Registry
         /* Initialize notification object. Always attach status listener by
          * default. */
         $GLOBALS['notification'] = Horde_Notification::singleton();
-        $GLOBALS['notification']->attach('status');
+        $statusListener = $GLOBALS['notification']->attach('status');
         $injector->setInstance('Horde_Notification', $GLOBALS['notification']);
+        $injector->setInstance('Horde_Notification_Listener', $statusListener);
     }
 
     /**

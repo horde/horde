@@ -45,7 +45,6 @@ class Kronolith_Application extends Horde_Registry_Application
      * Initialization function.
      *
      * Global variables defined:
-     *   $kronolith_notify - A Horde_Notification_Listener object.
      *   $kronolith_shares - TODO
      */
     protected function _init()
@@ -65,8 +64,6 @@ class Kronolith_Application extends Horde_Registry_Application
         $GLOBALS['kronolith_shares'] = Horde_Share::singleton($GLOBALS['registry']->getApp());
 
         Kronolith::initialize();
-
-        $GLOBALS['kronolith_notify'] = $GLOBALS['notification']->replace('status', array(), 'Kronolith_Notification_Listener_Status');
     }
 
     /**
