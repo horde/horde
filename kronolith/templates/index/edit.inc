@@ -11,17 +11,20 @@
 </div>
 
 <div>
-<table cellspacing="0" cellpadding="0" border="0"><tbody><tr>
+<table id="kronolithEventBasics" cellspacing="0" cellpadding="0" border="0"><tbody><tr>
   <td>
-    <label for="kronolithEventCalendar"><?php echo _("Calendar") ?>:</label>
-    <select name="targetcalendar" id="kronolithEventTarget">
-    </select>
+    <label for="kronolithEventCalendar"><?php echo _("Calendar") ?>:<br />
+      <select name="targetcalendar" id="kronolithEventTarget"></select>
+    </label>
   </td>
   <td>
-    <label for="kronolithEventLocation"><?php echo _("Location") ?>:</label>
-    <input type="text" name="location" id="kronolithEventLocation" size="40" />
-    <?php if ($GLOBALS['conf']['maps']['driver']):?>
-    &middot; <span><a class="kronolithEventGeo" href="#"><?php echo _("Find in Maps") ?></a></span>
+    <label for="kronolithEventLocation"><?php echo _("Location") ?>:<br />
+      <input type="text" name="location" id="kronolithEventLocation" size="40" />
+    </label>
+    <?php if ($GLOBALS['conf']['maps']['driver']): ?>
+    <span id="kronolithEventMapLink" style="display:none">
+      &middot; <span><a class="kronolithEventGeo" href="#"><?php echo _("Find in Maps") ?></a></span>
+    </span>
     <?php endif; ?>
   </td>
 </tr></tbody></table>
@@ -31,7 +34,7 @@
 <table id="kronolithEventDates" cellspacing="0" cellpadding="0" border="0"><tbody>
   <tr>
     <td>
-      <label for="kronolithEventStartDate">
+      <label>
         <?php echo _("From") ?>:<br />
         <input type="text" name="start_date" id="kronolithEventStartDate" size="10" />
         <?php echo Horde::img('picker.png', _("Set start date"), 'id="kronolithEventStartPicker"') ?>
@@ -42,7 +45,7 @@
       </label>
     </td>
     <td>
-      <label for="kronolithEventEndDate"><?php echo _("To") ?>:<br />
+      <label><?php echo _("To") ?>:<br />
         <input type="text" name="end_date" id="kronolithEventEndDate" size="10" />
         <?php echo Horde::img('picker.png', _("Set end date"), 'id="kronolithEventEndPicker"') ?>
       </label>

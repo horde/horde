@@ -2483,10 +2483,16 @@ KronolithCore = {
 
     keyupHandler: function(e)
     {
-        /*
-        if (e.element().readAttribute('id') == 'foo') {
+        switch (e.element().readAttribute('id')) {
+        case 'kronolithEventLocation':
+            if ($F('kronolithEventLocation')) {
+                $('kronolithEventMapLink').show();
+            } else {
+                $('kronolithEventMapLink').hide();
+            }
+            return;
         }
-        */
+
     },
 
     clickHandler: function(e, dblclick)
@@ -3238,6 +3244,7 @@ KronolithCore = {
         this.toggleAllDay(false);
         $('kronolithEventForm').enable();
         $('kronolithEventForm').reset();
+        $('kronolithEventMapLink').hide();
         $('kronolithEventSave').show();
         $('kronolithEventDelete').show();
         $('kronolithEventForm').down('.kronolithFormActions').down('.kronolithSep').show();
@@ -3370,6 +3377,9 @@ KronolithCore = {
         $('kronolithEventTarget').setValue(ev.ty + '|' + ev.c);
         $('kronolithEventTitle').setValue(ev.t);
         $('kronolithEventLocation').setValue(ev.l);
+        if (ev.l) {
+            $('kronolithEventMapLink').show();
+        }
         $('kronolithEventUrl').setValue(ev.u);
         $('kronolithEventAllday').setValue(ev.al);
         this.toggleAllDay(ev.al);
