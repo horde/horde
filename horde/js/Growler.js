@@ -222,7 +222,6 @@
             if (!this.growlerlog) {
                 return;
             }
-
             Effect.toggle(this.growlerlog.down('DIV'), 'blind', {
                 duration: 0.5,
                 queue: {
@@ -231,8 +230,8 @@
                     limit: 2
                 }
             });
-
             this.logvisible = !this.logvisible;
+            return this.logvisible;
         },
 
         logVisible: function()
