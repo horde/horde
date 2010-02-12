@@ -1,6 +1,6 @@
 <div id="kronolithEventDialog" class="kronolithDialog" style="display:none">
 <form id="kronolithEventForm" action="">
-<input id="kronolithEventId" type="hidden" name="id" />
+<input id="kronolithEventId" type="hidden" name="event" />
 <input id="kronolithEventCalendar" type="hidden" name="cal" />
 <input id="kronolithEventLocationLon" type="hidden" name="lon" />
 <input id="kronolithEventLocationLat" type="hidden" name="lat" />
