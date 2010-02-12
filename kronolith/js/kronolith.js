@@ -1826,6 +1826,11 @@ KronolithCore = {
             RedBox.onDisplay = null;
         };
 
+        $('kronolithTaskForm').enable();
+        $('kronolithTaskForm').reset();
+        $('kronolithTaskSave').show();
+        $('kronolithTaskDelete').show();
+        $('kronolithTaskForm').down('.kronolithFormActions').down('.kronolithSep').show();
         this.updateTasklistDropDown();
         if (id) {
             RedBox.loading();
@@ -1834,16 +1839,9 @@ KronolithCore = {
             $('kronolithTaskId').clear();
             $('kronolithTaskOldList').clear();
             $('kronolithTaskList').setValue(Kronolith.conf.tasks.default_tasklist);
-            $('kronolithTaskTitle').clear();
             //$('kronolithTaskLocation').setValue('http://');
-            $('kronolithTaskDueDate').clear();
-            $('kronolithTaskDueTime').clear();
-            $('kronolithTaskDescription').clear();
             $('kronolithTaskPriority').setValue(3);
-            $('kronolithTaskCompleted').setValue(0);
             $('kronolithTaskDelete').hide();
-            $('kronolithTaskSave').show();
-            $('kronolithTaskForm').enable();
             RedBox.showHtml($('kronolithTaskDialog').show());
         }
     },
@@ -1871,13 +1869,9 @@ KronolithCore = {
         //$('kronolithTaskLocation').setValue(task.l);
         if (task.dd) {
             $('kronolithTaskDueDate').setValue(task.dd);
-        } else {
-            $('kronolithTaskDueDate').clear();
         }
         if (task.dt) {
             $('kronolithTaskDueTime').setValue(task.dt);
-        } else {
-            $('kronolithTaskDueTime').clear();
         }
         $('kronolithTaskDescription').setValue(task.de);
         $('kronolithTaskPriority').setValue(task.pr);
@@ -1897,21 +1891,14 @@ KronolithCore = {
             $('kronolithEventAlarmOff').setValue(true);
         }
 
-        if (task.pe) {
-            $('kronolithTaskSave').show();
-            $('kronolithTaskForm').enable();
-        } else {
+        if (!task.pe) {
             $('kronolithTaskSave').hide();
             $('kronolithTaskForm').disable();
         }
-        if (task.pd) {
+        if (!task.pd) {
             $('kronolithTaskDelete').show();
-        } else {
-            $('kronolithTaskDelete').hide();
         }
-        if (task.pe || task.pd) {
-            $('kronolithTaskForm').down('.kronolithFormActions').down('.kronolithSep').show();
-        } else {
+        if (!task.pe && !task.pd) {
             $('kronolithTaskForm').down('.kronolithFormActions').down('.kronolithSep').hide();
         }
 
@@ -3244,6 +3231,9 @@ KronolithCore = {
         this.updateCalendarDropDown('kronolithEventTarget');
         $('kronolithEventForm').enable();
         $('kronolithEventForm').reset();
+        $('kronolithEventSave').show();
+        $('kronolithEventDelete').show();
+        $('kronolithEventForm').down('.kronolithFormActions').down('.kronolithSep').show();
         this.doAction('ListTopTags', {}, this._topTags);
         if (id) {
             RedBox.loading();
@@ -3468,21 +3458,14 @@ KronolithCore = {
             $('kronolithEventLocationLon').value = ev.gl.lon;
         }
 
-        if (ev.pe) {
-            $('kronolithEventSave').show();
-            $('kronolithEventForm').enable();
-        } else {
+        if (!ev.pe) {
             $('kronolithEventSave').hide();
             $('kronolithEventForm').disable();
         }
-        if (ev.pd) {
-            $('kronolithEventDelete').show();
-        } else {
+        if (!ev.pd) {
             $('kronolithEventDelete').hide();
         }
-        if (ev.pe || ev.pd) {
-            $('kronolithEventForm').down('.kronolithFormActions').down('.kronolithSep').show();
-        } else {
+        if (!ev.pe && !ev.pd) {
             $('kronolithEventForm').down('.kronolithFormActions').down('.kronolithSep').hide();
         }
 
