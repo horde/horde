@@ -60,9 +60,6 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
         if (!$event) {
             $GLOBALS['notification']->push(_("The requested event was not found."), 'horde.error');
             return false;
-        } elseif ($event instanceof PEAR_Error) {
-            $GLOBALS['notification']->push($event, 'horde.error');
-            return false;
         }
 
         $result = new stdClass;
@@ -83,9 +80,6 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
         $event = $kronolith_driver->getEvent($vars->id);
         if (!$event) {
             $GLOBALS['notification']->push(_("The requested event was not found."), 'horde.error');
-            return false;
-        } elseif ($event instanceof PEAR_Error) {
-            $GLOBALS['notification']->push($event, 'horde.error');
             return false;
         } elseif (!$event->hasPermission(Horde_Perms::EDIT)) {
             $notification->push(_("You do not have permission to edit this event."), 'horde.warning');
@@ -128,9 +122,6 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
         $event = $kronolith_driver->getEvent($vars->id);
         if (!$event) {
             $GLOBALS['notification']->push(_("The requested event was not found."), 'horde.error');
-            return false;
-        } elseif ($event instanceof PEAR_Error) {
-            $GLOBALS['notification']->push($event, 'horde.error');
             return false;
         } elseif (!$event->hasPermission(Horde_Perms::EDIT)) {
             $GLOBALS['notification']->push(_("You do not have permission to edit this event."), 'horde.warning');
