@@ -961,14 +961,6 @@ table.calendarPopup {
 #Growler div.GrowlerNoticeHead {
     font-weight: bold;
 }
-#Growler div.GrowlerNoticeExit {
-    float: right;
-    font-weight: bold;
-    cursor: pointer;
-}
-#Growler div.GrowlerNoticeExit:hover {
-    color: #444;
-}
 #Growler div.horde-error, #GrowlerLog li.horde-error {
     background-image: url("graphics/alerts/error.png");
 }
@@ -1023,6 +1015,14 @@ table.calendarPopup {
     font-size: 90%;
     font-style: italic;
     padding-left: 10px;
+}
+div.GrowlerNoticeExit {
+    float: right;
+    font-weight: bold;
+    cursor: pointer;
+}
+div.GrowlerNoticeExit:hover {
+    color: #444;
 }
 .horde-message, .horde-success, .horde-warning, .horde-error {
     border-color: #316600;

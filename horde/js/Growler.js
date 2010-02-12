@@ -96,6 +96,19 @@
         });
     }
 
+    function removeLog(l)
+    {
+        try {
+            var le = l.down('DIV.GrowlerNoticeExit');
+            if (!Object.isUndefined(le)) {
+                le.stopObserving('click', removeLog);
+            }
+        } catch (e) {}
+        try {
+            l.remove();
+        } catch (e) {}
+    }
+
     window.Growler = Class.create({
 
         initialize: function(opts)
@@ -172,7 +185,7 @@
         growl: function(msg, options)
         {
             options = options || {};
-            var notice, noticeExit, tmp,
+            var notice, noticeExit, log, logExit, tmp,
                 opts = Object.clone(noticeOptions);
             Object.extend(opts, options);
 
@@ -181,7 +194,11 @@
                 if (tmp.down().hasClassName('NoAlerts')) {
                     tmp.down().remove();
                 }
-                tmp.insert(new Element('LI', { className: opts.className.empty() ? null : opts.className }).insert(msg).insert(new Element('SPAN', { className: 'alertdate'} ).insert('[' + (new Date).toLocaleString() + ']')));
+                log = new Element('LI', { className: opts.className.empty() ? null : opts.className }).insert(msg).insert(new Element('SPAN', { className: 'alertdate'} ).insert('[' + (new Date).toLocaleString() + ']'));
+                logExit = new Element('DIV', { className: 'GrowlerNoticeExit' }).update("&times;");
+                logExit.observe('click', removeLog.curry(log));
+                log.insert(logExit);
+                tmp.insert(log);
             }
 
             notice = new Element('DIV', { className: 'GrowlerNotice' }).setStyle({ display: 'block', opacity: 0 });
