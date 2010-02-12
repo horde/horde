@@ -1631,7 +1631,9 @@ abstract class Kronolith_Event
         setlocale(LC_TIME, 'C');
 
         // Event start.
+        $allDay = Horde_Util::getFormData('whole_day');
         if ($start_date = Horde_Util::getFormData('start_date')) {
+            // From ajax interface.
             $start_time = Horde_Util::getFormData('start_time');
             $start = $start_date . ' ' . $start_time;
             $format = $date_format . ' '
@@ -1642,13 +1644,14 @@ abstract class Kronolith_Event
                     array('year'  => $date_arr['tm_year'] + 1900,
                           'month' => $date_arr['tm_mon'] + 1,
                           'mday'  => $date_arr['tm_mday'],
-                          'hour'  => $date_arr['tm_hour'],
-                          'min'   => $date_arr['tm_min'],
-                          'sec'   => $date_arr['tm_sec']));
+                          'hour'  => $allDay ? 0 : $date_arr['tm_hour'],
+                          'min'   => $allDay ? 0 : $date_arr['tm_min'],
+                          'sec'   => $allDay ? 0 : $date_arr['tm_sec']));
             } else {
                 $this->start = new Horde_Date($start);
             }
         } else {
+            // From traditional interface.
             $start = Horde_Util::getFormData('start');
             $start_year = $start['year'];
             $start_month = $start['month'];
@@ -1668,7 +1671,7 @@ abstract class Kronolith_Event
             }
 
             if (Horde_Util::getFormData('end_or_dur') == 1) {
-                if (Horde_Util::getFormData('whole_day') == 1) {
+                if ($allDay) {
                     $start_hour = 0;
                     $start_min = 0;
                     $dur_day = 0;
@@ -1688,8 +1691,9 @@ abstract class Kronolith_Event
                                                 'year' => $start_year));
         }
 
+        // Event end.
         if ($end_date = Horde_Util::getFormData('end_date')) {
-            // Event end.
+            // From ajax interface.
             $end_time = Horde_Util::getFormData('end_time');
             $end = $end_date . ' ' . $end_time;
             $format = $date_format . ' '
@@ -1700,21 +1704,21 @@ abstract class Kronolith_Event
                     array('year'  => $date_arr['tm_year'] + 1900,
                           'month' => $date_arr['tm_mon'] + 1,
                           'mday'  => $date_arr['tm_mday'],
-                          'hour'  => $date_arr['tm_hour'],
-                          'min'   => $date_arr['tm_min'],
-                          'sec'   => $date_arr['tm_sec']));
+                          'hour'  => $allDay ? 23 : $date_arr['tm_hour'],
+                          'min'   => $allDay ? 59 : $date_arr['tm_min'],
+                          'sec'   => $allDay ? 59 : $date_arr['tm_sec']));
             } else {
                 $this->end = new Horde_Date($end);
             }
         } elseif (Horde_Util::getFormData('end_or_dur') == 1) {
-            // Event duration.
+            // Event duration from traditional interface.
             $this->end = new Horde_Date(array('hour' => $start_hour + $dur_hour,
                                               'min' => $start_min + $dur_min,
                                               'month' => $start_month,
                                               'mday' => $start_day + $dur_day,
                                               'year' => $start_year));
         } else {
-            // Event end.
+            // From traditional interface.
             $end = Horde_Util::getFormData('end');
             $end_year = $end['year'];
             $end_month = $end['month'];
