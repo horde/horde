@@ -249,7 +249,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
 
         try {
             $tasks = $GLOBALS['registry']->tasks->listTasks(null, null, null, $vars->list, $vars->type == 'incomplete' ? 'future_incomplete' : $vars->type, true);
-        } catch (Exception $e)
+        } catch (Exception $e) {
             $GLOBALS['notification']->push($e, 'horde.error');
             return false;
         }
@@ -282,7 +282,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
                 $GLOBALS['notification']->push(_("The requested task was not found."), 'horde.error');
                 return false;
             }
-        } catch (Exception $e)
+        } catch (Exception $e) {
             $GLOBALS['notification']->push($e, 'horde.error');
             return false;
         }
@@ -400,7 +400,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
 
         try {
             $GLOBALS['registry']->tasks->toggleCompletion($vars->id, $vars->list);
-        } catch (Exception $e)
+        } catch (Exception $e) {
             $GLOBALS['notification']->push($e, 'horde.error');
             return false;
         }
