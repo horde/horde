@@ -3835,7 +3835,7 @@ KronolithCore = {
         $('kronolithTaskDueDate', 'kronolithEventDueTime').compact().invoke('observe', 'focus', this.setDefaultDue.bind(this));
 
         // Mouse wheel handler.
-        [ 'kronolithEventStartDate', 'kronolithEventEndDate' ].each(function(field) {
+        [ 'kronolithEventStartDate', 'kronolithEventEndDate', 'kronolithTaskDueDate' ].each(function(field) {
             $(field).observe(Prototype.Browser.Gecko ? 'DOMMouseScroll' : 'mousewheel', function(e) {
                 var date = Date.parseExact($F(field), Kronolith.conf.date_format);
                 if (!date || (!e.wheelData && !e.detail)) {
@@ -3846,7 +3846,7 @@ KronolithCore = {
             });
         });
 
-        [ 'kronolithEventStartTime', 'kronolithEventEndTime' ].each(function(field) {
+        [ 'kronolithEventStartTime', 'kronolithEventEndTime', 'kronolithTaskDueTime' ].each(function(field) {
             $(field).observe(Prototype.Browser.Gecko ? 'DOMMouseScroll' : 'mousewheel', function(e) {
                 var time = $F(field).match(/(\d+)\s*:\s*(\d+)\s*((a|p)m)?/i),
                     hour, minute;
