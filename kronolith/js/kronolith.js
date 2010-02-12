@@ -1869,8 +1869,16 @@ KronolithCore = {
         $('kronolithTaskList').setValue(task.l);
         $('kronolithTaskTitle').setValue(task.n);
         //$('kronolithTaskLocation').setValue(task.l);
-        $('kronolithTaskDueDate').setValue(task.dd);
-        $('kronolithTaskDueTime').setValue(task.dt);
+        if (task.dd) {
+            $('kronolithTaskDueDate').setValue(task.dd);
+        } else {
+            $('kronolithTaskDueDate').clear();
+        }
+        if (task.dt) {
+            $('kronolithTaskDueTime').setValue(task.dt);
+        } else {
+            $('kronolithTaskDueTime').clear();
+        }
         $('kronolithTaskDescription').setValue(task.de);
         $('kronolithTaskPriority').setValue(task.pr);
         $('kronolithTaskCompleted').setValue(task.cp);
