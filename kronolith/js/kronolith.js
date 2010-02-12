@@ -459,6 +459,7 @@ KronolithCore = {
             this.dayGroups = [];
             this.allDayEvents = [];
             $('kronolithViewDay').down('caption span').innerHTML = this.setTitle(date.toString('D'));
+            $('kronolithViewDay').down('.kronolithAllDayContainer').writeAttribute('id', 'kronolithEventsDay' + date.dateString());
             break;
 
         case 'week':
@@ -2828,7 +2829,12 @@ KronolithCore = {
                 return;
 
             case 'kronolithEventsWeek':
-                this.go('event:' + elt.identify().substr(elt.identify().length - 8));
+            case 'kronolithAllDayContainer':
+                var date = elt.identify().substr(elt.identify().length - 8);
+                if (elt.className == 'kronolithAllDayContainer') {
+                    date += 'all';
+                }
+                this.go('event:' + date);
                 e.stop();
                 return;
             }
@@ -3229,6 +3235,7 @@ KronolithCore = {
         }.bind(this);
 
         this.updateCalendarDropDown('kronolithEventTarget');
+        this.toggleAllDay(false);
         $('kronolithEventForm').enable();
         $('kronolithEventForm').reset();
         $('kronolithEventSave').show();
@@ -3240,7 +3247,17 @@ KronolithCore = {
             this.doAction('GetEvent', { 'cal': calendar, 'id': id, 'date': date }, this._editEvent.bind(this));
         } else {
             $('kronolithEventTags').autocompleter.init();
-            var d = date ? this.parseDate(date) : new Date();
+            var d;
+            if (date) {
+                if (date.endsWith('all')) {
+                    date = date.substring(0, date.length - 3);
+                    $('kronolithEventAllday').setValue(true);
+                    this.toggleAllDay(true);
+                }
+                d = this.parseDate(date);
+            } else {
+                d = new Date();
+            }
             $('kronolithEventId').clear();
             $('kronolithEventCalendar').clear();
             $('kronolithEventTarget').setValue(Kronolith.conf.default_calendar);
