@@ -2507,9 +2507,9 @@ KronolithCore = {
     {
         switch (e.element().readAttribute('id')) {
         case 'kronolithEventLocation':
-            if ($F('kronolithEventLocation')) {
+            if ($F('kronolithEventLocation') && Kronolith.conf.maps.driver) {
                 $('kronolithEventMapLink').show();
-            } else {
+            } else if (Kronolith.conf.maps.driver) {
                 $('kronolithEventMapLink').hide();
             }
             return;
@@ -3266,7 +3266,9 @@ KronolithCore = {
         this.toggleAllDay(false);
         $('kronolithEventForm').enable();
         $('kronolithEventForm').reset();
-        $('kronolithEventMapLink').hide();
+        if (Kronolith.conf.maps.driver) {
+            $('kronolithEventMapLink').hide();
+        }
         $('kronolithEventSave').show();
         $('kronolithEventDelete').show();
         $('kronolithEventForm').down('.kronolithFormActions .kronolithSep').show();
@@ -3399,7 +3401,7 @@ KronolithCore = {
         $('kronolithEventTarget').setValue(ev.ty + '|' + ev.c);
         $('kronolithEventTitle').setValue(ev.t);
         $('kronolithEventLocation').setValue(ev.l);
-        if (ev.l) {
+        if (ev.l && Kronolith.conf.maps.driver) {
             $('kronolithEventMapLink').show();
         }
         $('kronolithEventUrl').setValue(ev.u);
