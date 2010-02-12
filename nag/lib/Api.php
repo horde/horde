@@ -27,6 +27,9 @@ class Nag_Api extends Horde_Registry_Api
     {
         return array(
             'default_tasklist' => Nag::getDefaultTasklist(Horde_Perms::EDIT),
+            'default_due' => (bool)$GLOBALS['prefs']->getValue('default_due'),
+            'default_due_days' => (int)$GLOBALS['prefs']->getValue('default_due_days'),
+            'default_due_time' => $GLOBALS['prefs']->getValue('default_due_time'),
         );
     }
 

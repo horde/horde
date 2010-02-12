@@ -1842,6 +1842,9 @@ KronolithCore = {
             $('kronolithTaskList').setValue(Kronolith.conf.tasks.default_tasklist);
             //$('kronolithTaskLocation').setValue('http://');
             $('kronolithTaskPriority').setValue(3);
+            if (Kronolith.conf.tasks.default_due) {
+                this.setDefaultDue();
+            }
             $('kronolithTaskDelete').hide();
             RedBox.showHtml($('kronolithTaskDialog').show());
         }
@@ -1922,6 +1925,25 @@ KronolithCore = {
                              .update(cal.value.name.escapeHTML()));
             }
         });
+    },
+
+    /**
+     * Sets the default due date and time for tasks.
+     */
+    setDefaultDue: function()
+    {
+        if ($F('kronolithTaskDueDate') || $F('kronolithTaskDueTime')) {
+            return;
+        }
+        $('kronolithTaskDueDate').setValue(new Date().add(Kronolith.conf.tasks.default_due_days).days().toString(Kronolith.conf.date_format));
+        if (Kronolith.conf.tasks.default_due_time == 'now') {
+            $('kronolithTaskDueTime').setValue(new Date().toString(Kronolith.conf.time_format));
+        } else {
+            var date = new Date();
+            date.setHours(Kronolith.conf.tasks.default_due_time.replace(/:.*$/, ''));
+            date.setMinutes(0);
+            $('kronolithTaskDueTime').setValue(date.toString(Kronolith.conf.time_format));
+        }
     },
 
     /**
@@ -3809,6 +3831,8 @@ KronolithCore = {
 
         $('kronolithEventStartDate', 'kronolithEventEndDate', 'kronolithTaskDueDate').compact().invoke('observe', 'blur', this.checkDate.bind(this));
         $('kronolithEventStartTime', 'kronolithEventEndTime', 'kronolithTaskDueTime').compact().invoke('observe', 'blur', this.checkTime.bind(this));
+
+        $('kronolithTaskDueDate', 'kronolithEventDueTime').compact().invoke('observe', 'focus', this.setDefaultDue.bind(this));
 
         // Mouse wheel handler.
         [ 'kronolithEventStartDate', 'kronolithEventEndDate' ].each(function(field) {
