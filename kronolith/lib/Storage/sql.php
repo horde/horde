@@ -145,7 +145,7 @@ class Kronolith_Storage_sql extends Kronolith_Storage
                 return $vfb;
             }
         }
-        throw new Kronolith_Exception(_("Not found"), Kronolith::ERROR_FB_NOT_FOUND);
+        throw new Horde_Exception_NotFound();
     }
 
     /**

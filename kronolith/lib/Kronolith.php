@@ -39,9 +39,6 @@ class Kronolith
     const ITIP_REQUEST = 1;
     const ITIP_CANCEL  = 2;
 
-    /** Free/Busy not found */
-    const ERROR_FB_NOT_FOUND = 1;
-
     /** The event can be delegated. */
     const PERMS_DELEGATE = 1024;
 

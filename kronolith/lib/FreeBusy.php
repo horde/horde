@@ -209,13 +209,11 @@ class Kronolith_FreeBusy
         try {
             $fb = $storage->search($email);
             return $json ? self::toJson($fb) : $fb;
-        } catch (Kronolith_Exception $e) {
-            if ($e->getCode() == Kronolith::ERROR_FB_NOT_FOUND) {
-                if ($url) {
-                    throw new Kronolith_Exception(sprintf(_("No free/busy information found at the free/busy url of %s."), $email));
-                }
-                throw new Kronolith_Exception(sprintf(_("No free/busy url found for %s."), $email));
+        } catch (Horde_Exception_NotFound $e) {
+            if ($url) {
+                throw new Kronolith_Exception(sprintf(_("No free/busy information found at the free/busy url of %s."), $email));
             }
+            throw new Kronolith_Exception(sprintf(_("No free/busy url found for %s."), $email));
         }
 
         /* Or else return an empty VFB object. */

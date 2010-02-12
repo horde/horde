@@ -50,8 +50,7 @@ class Kronolith_Storage_kolab extends Kronolith_Storage
         $http->setBasicAuth(Horde_Auth::getAuth(), Horde_Auth::getCredential('password'));
         @$http->sendRequest();
         if ($http->getResponseCode() != 200) {
-            throw new Kronolith_Exception(sprintf(_("Unable to retrieve free/busy information for %s"),
-                                            $email), Kronolith::ERROR_FB_NOT_FOUND);
+            throw new Horde_Exception_NotFound();
         }
         $vfb_text = $http->getResponseBody();
 
@@ -60,8 +59,7 @@ class Kronolith_Storage_kolab extends Kronolith_Storage
 
         $vfb = &$iCal->findComponent('VFREEBUSY');
         if ($vfb === false) {
-            throw new Kronolith_Exception(sprintf(_("No free/busy information is available for %s"),
-                                    $email), Kronolith::ERROR_FB_NOT_FOUND);
+            throw new Horde_Exception_NotFound();
         }
 
         return $vfb;
