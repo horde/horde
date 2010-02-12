@@ -3731,7 +3731,7 @@ KronolithCore = {
 
     onGeocodeError: function(r)
     {
-        KronolithCore.showNotifications([ { type: 'horde.error', message: Kronolith.text.geocode_error } ]);
+        KronolithCore.showNotifications([ { type: 'horde.error', message: Kronolith.text.geocode_error + ' ' + r} ]);
     },
 
 

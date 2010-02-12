@@ -130,7 +130,33 @@ HordeMap = {
         }
     },
 
-    Geocoder: {
-        Horde: {} // TODO
-    }
+    /**
+     * Base Geocoder implementations.
+     * The Horde Class will implement a geocoding service utilizing the various
+     * Horde_Ajax_Imple_Geocoder_* classes. Mapping providers that include
+     * geocoding services will have HordeMap.Geocoder implementations in their
+     * respective *.js files.  The Null driver provides fallback implementaions
+     * for those without geocoder support.
+     *
+     */
+    Geocoder: {}
 };
+
+HordeMap.Geocoder.Horde = Class.create({});
+HordeMap.Geocoder.Null = Class.create({
+
+    initialize: function(opts)
+    {
+    },
+
+    geocode: function(address, callback, onErrorCallback)
+    {
+        return onErrorCallback('No geocoding support');
+    },
+
+    reverseGeocode: function(lonlat, completeCallback, errorCallback)
+    {
+        var ll = { lon: lonlat.lon, lat: lonlat.lat, address: lonlat.lon + ' ' + lonlat.lat};
+        return completeCallback([ll]);
+    }
+});
