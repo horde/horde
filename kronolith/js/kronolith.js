@@ -3734,7 +3734,6 @@ KronolithCore = {
         KronolithCore.showNotifications([ { type: 'horde.error', message: Kronolith.text.geocode_error + ' ' + r} ]);
     },
 
-
     /**
      * Callback for geocoding calls.
      * @TODO: Figure out the proper zoom level based on the detail of the
