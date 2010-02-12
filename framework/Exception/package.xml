@@ -72,6 +72,12 @@
     <min>1.5.4</min>
    </pearinstaller>
   </required>
+  <optional>
+   <package>
+    <name>Test</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
