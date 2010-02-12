@@ -468,7 +468,7 @@ KronolithCore = {
             this.allDayEvents = [];
             var div = $('kronolithEventsWeek').down('div'),
                 th = $('kronolithViewWeekHead').down('.kronolithWeekDay'),
-                td = $('kronolithViewWeekHead').down('tbody').down('td').next('td'),
+                td = $('kronolithViewWeekHead').down('tbody td').next('td'),
                 hourRow = $('kronolithViewWeekBody').down('tr'),
                 dates = this.viewDates(date, view),
                 today = Date.today(),
@@ -729,7 +729,7 @@ KronolithCore = {
         }
 
         this[storage] = {};
-        var tr = $(view).down('.kronolithViewBody').down('tr'),
+        var tr = $(view).down('.kronolithViewBody tr'),
             td = tr.down('td').next('td'), tdTop, tdHeight,
             tdAlign = td.getStyle('verticalAlign'),
             tr2 = tr.next('tr'),
@@ -1831,7 +1831,7 @@ KronolithCore = {
         $('kronolithTaskForm').reset();
         $('kronolithTaskSave').show();
         $('kronolithTaskDelete').show();
-        $('kronolithTaskForm').down('.kronolithFormActions').down('.kronolithSep').show();
+        $('kronolithTaskForm').down('.kronolithFormActions .kronolithSep').show();
         this.updateTasklistDropDown();
         if (id) {
             RedBox.loading();
@@ -1900,7 +1900,7 @@ KronolithCore = {
             $('kronolithTaskDelete').show();
         }
         if (!task.pe && !task.pd) {
-            $('kronolithTaskForm').down('.kronolithFormActions').down('.kronolithSep').hide();
+            $('kronolithTaskForm').down('.kronolithFormActions .kronolithSep').hide();
         }
 
         this.setTitle(task.n);
@@ -3247,7 +3247,7 @@ KronolithCore = {
         $('kronolithEventMapLink').hide();
         $('kronolithEventSave').show();
         $('kronolithEventDelete').show();
-        $('kronolithEventForm').down('.kronolithFormActions').down('.kronolithSep').show();
+        $('kronolithEventForm').down('.kronolithFormActions .kronolithSep').show();
         this.doAction('ListTopTags', {}, this._topTags);
         if (id) {
             RedBox.loading();
@@ -3493,7 +3493,7 @@ KronolithCore = {
             $('kronolithEventDelete').hide();
         }
         if (!ev.pe && !ev.pd) {
-            $('kronolithEventForm').down('.kronolithFormActions').down('.kronolithSep').hide();
+            $('kronolithEventForm').down('.kronolithFormActions .kronolithSep').hide();
         }
 
         this.setTitle(ev.t);
