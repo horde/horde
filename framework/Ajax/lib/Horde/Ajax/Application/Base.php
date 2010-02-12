@@ -1,3 +1,4 @@
+
 <?php
 /**
  * Defines the AJAX interface for an application.
@@ -25,6 +26,13 @@ abstract class Horde_Ajax_Application_Base
      * @var string
      */
     protected $_action;
+
+    /**
+     * The request variables.
+     *
+     * @var Variables
+     */
+    protected $_vars;
 
     /**
      * The list of actions that require readonly access to the session.
@@ -65,15 +73,15 @@ abstract class Horde_Ajax_Application_Base
             return false;
         }
 
-        $vars = Horde_Variables::getDefaultVariables();
+        $this->_vars = Horde_Variables::getDefaultVariables();
 
         if (method_exists($this, $this->_action)) {
-            return call_user_func(array($this, $this->_action), $vars);
+            return call_user_func(array($this, $this->_action));
         }
 
         /* Look for hook in application. */
         try {
-            return Horde::callHook('ajaxaction', array($this->_action, $vars), $this->_app);
+            return Horde::callHook('ajaxaction', array($this->_action, $this->_vars), $this->_app);
         } catch (Horde_Exception_HookNotSet $e) {
         } catch (Horde_Ajax_Exception $e) {}
 
