@@ -70,21 +70,14 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
             $query = 'UPDATE kronolith_resources SET resource_name = ?, resource_calendar = ? , resource_description = ?, resource_response_type = ?, resource_type = ?, resource_members = ? WHERE resource_id = ?';
             $values = array($this->convertToDriver($resource->get('name')), $resource->get('calendar'), $this->convertToDriver($resource->get('description')), $resource->get('response_type'), $resource->get('type'), serialize($resource->get('members')), $resource->getId());
             $result = $this->_write_db->query($query, $values);
-            if ($result instanceof PEAR_Error) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-                throw new Kronolith_Exception($result);
-            }
+            $this->handleError($result);
         } else {
             $query = 'INSERT INTO kronolith_resources (resource_id, resource_name, resource_calendar, resource_description, resource_response_type, resource_type, resource_members)';
             $cols_values = ' VALUES (?, ?, ?, ?, ?, ?, ?)';
             $id = $this->_db->nextId('kronolith_resources');
             $values = array($id, $this->convertToDriver($resource->get('name')), $resource->get('calendar'), $this->convertToDriver($resource->get('description')), $resource->get('response_type'), $resource->get('type'), serialize($resource->get('members')));
             $result = $this->_write_db->query($query . $cols_values, $values);
-            if ($result instanceof PEAR_Error) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-                throw new Kronolith_Exception($result);
-            }
-
+            $this->handleError($result);
             $resource->setId($id);
         }
 
@@ -107,16 +100,10 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
 
         $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE calendar_id = ?';
         $result = $this->_write_db->query($query, array($resource->get('calendar')));
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Kronolith_Exception($result);
-        }
+        $this->handleError($result);
         $query = 'DELETE FROM kronolith_resources WHERE resource_id = ?';
         $result = $this->_write_db->query($query, array($resource->getId()));
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Kronolith_Exception($result);
-        }
+        $this->handleError($result);
     }
 
     /**
@@ -131,10 +118,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
     {
         $query = 'SELECT resource_id, resource_name, resource_calendar, resource_description, resource_response_type, resource_type, resource_members FROM kronolith_resources WHERE resource_id = ?';
         $results = $this->_db->getRow($query, array($id), DB_FETCHMODE_ASSOC);
-        if ($results instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Kronolith_Exception($results);
-        }
+        $this->handleError($results);
         if (empty($results)) {
             throw new Kronolith_Exception('Resource not found');
         }
@@ -159,10 +143,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
     {
         $query = 'SELECT resource_id FROM kronolith_resources WHERE resource_calendar = ?';
         $result = $this->_db->getOne($query, array($calendar));
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Kronolith_Exception($result);
-        }
+        $this->handleError($result);
         if (empty($result)) {
             throw new Kronolith_Exception('Resource not found');
         }
@@ -201,10 +182,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
         }
 
         $results = $this->_db->getAssoc($query, true, $filter, DB_FETCHMODE_ASSOC, false);
-        if ($results instanceof PEAR_Error) {
-            Horde::logMessage($results, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Kronolith_Exception($results);
-        }
+        $this->handleError($results);
 
         $return = array();
         foreach ($results as $key => $result) {

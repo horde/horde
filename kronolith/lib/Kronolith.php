@@ -1055,7 +1055,7 @@ class Kronolith
                 }
                 $groups = &Group::singleton();
                 $group_list = $groups->getGroupMemberships(Horde_Auth::getAuth());
-                if (!is_a($group_list, 'PEAR_Error') && count($group_list)) {
+                if (!($group_list instanceof PEAR_Error) && count($group_list)) {
                     $perm = $share->getPermission();
                     // Add the default perm, not added otherwise
                     $perm->addUserPermission(Horde_Auth::getAuth(), Horde_Perms::ALL, false);
@@ -1324,7 +1324,7 @@ class Kronolith
         }
 
         $calendars = $GLOBALS['kronolith_shares']->listShares(Horde_Auth::getAuth(), $permission, $owneronly ? Horde_Auth::getAuth() : null, 0, 0, 'name');
-        if (is_a($calendars, 'PEAR_Error')) {
+        if ($calendars instanceof PEAR_Error) {
             Horde::logMessage($calendars, __FILE__, __LINE__, PEAR_LOG_ERR);
             return array();
         }
@@ -1593,7 +1593,7 @@ class Kronolith
 
             // If we can't even get a mailbox out of the address, then it is
             // likely unuseable. Reject it entirely.
-            if (is_a($newAttendeeParsed, 'PEAR_Error') ||
+            if ($newAttendeeParsed instanceof PEAR_Error ||
                 !isset($newAttendeeParsed[0]) ||
                 !isset($newAttendeeParsed[0]->mailbox)) {
                 $notification->push(
@@ -2143,7 +2143,7 @@ class Kronolith
      *                          driver being used.
      *
      * @return Kronolith_Driver  The newly created concrete Kronolith_Driver
-     *                           instance, or a PEAR_Error on error.
+     *                           instance.
      * @throws Kronolith_Exception
      */
     public static function getDriver($driver = null, $calendar = null)

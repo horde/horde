@@ -127,8 +127,7 @@ class Kronolith_FreeBusy
      * @param boolean $json  Whether to return the free/busy data as a simple
      *                       object suitable to be transferred as json.
      *
-     * @return Horde_iCalendar_vfreebusy  Free/busy component on success,
-     *                                    PEAR_Error on failure.
+     * @return Horde_iCalendar_vfreebusy  Free/busy component.
      * @throws Kronolith_Exception
      */
     public static function get($email, $json = false)
@@ -141,8 +140,8 @@ class Kronolith_FreeBusy
 
         $default_domain = empty($GLOBALS['conf']['storage']['default_domain']) ? null : $GLOBALS['conf']['storage']['default_domain'];
         $res = $rfc822->parseAddressList($email, $default_domain);
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
+        if ($res instanceof PEAR_Error) {
+            throw new Kronolith_Exception($res);
         }
         if (!count($res)) {
             throw new Kronolith_Exception(_("No valid email address found"));
@@ -164,7 +163,8 @@ class Kronolith_FreeBusy
             }
 
             $http = new HTTP_Request($url, $options);
-            if (is_a($response = @$http->sendRequest(), 'PEAR_Error')) {
+            $response = @$http->sendRequest();
+            if ($response instanceof PEAR_Error) {
                 throw new Kronolith_Exception(sprintf(_("The free/busy url for %s cannot be retrieved."), $email));
             }
             if ($http->getResponseCode() == 200 &&
@@ -187,7 +187,7 @@ class Kronolith_FreeBusy
                 $vFb->setAttribute('ORGANIZER', $email);
                 $found = false;
                 foreach ($components as $component) {
-                    if (is_a($component, 'Horde_iCalendar_vfreebusy')) {
+                    if ($component instanceof Horde_iCalendar_vfreebusy) {
                         $found = true;
                         $vFb->merge($component);
                     }

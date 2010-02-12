@@ -209,7 +209,7 @@ class Kronolith_Driver
      *                        connection parameters a subclass might need.
      *
      * @return Kronolith_Driver  The newly created concrete Kronolith_Driver
-     *                           instance, or a PEAR_Error on error.
+     *                           instance.
      */
     public function factory($driver = null, $params = null)
     {

@@ -29,7 +29,7 @@ $default_tz = date_default_timezone_get();
 
 // Connect to database.
 $db = DB::connect($dsn);
-if (is_a($db, 'PEAR_Error')) {
+if ($db instanceof PEAR_Error) {
     $cli->fatal($db->toString());
 }
 
@@ -37,7 +37,7 @@ if (is_a($db, 'PEAR_Error')) {
 $read_stmt = $db->prepare('SELECT reader_name FROM calendar_readers WHERE calendar_id = ?');
 $write_stmt = $db->prepare('SELECT writer_name FROM calendar_writers WHERE calendar_id = ?');
 $handle = $db->query('SELECT id, name, owner_name FROM calendars, calendar_owners WHERE calendars.id = calendar_owners.calendar_id');
-if (is_a($handle, 'PEAR_Error')) {
+if ($handle instanceof PEAR_Error) {
     $cli->fatal($handle->toString());
 }
 while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
@@ -51,14 +51,14 @@ while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
     // Add permissions.
     $permissions = array();
     $result = $db->execute($read_stmt, array($row['id']));
-    if (is_a($result, 'PEAR_Error')) {
+    if ($result instanceof PEAR_Error) {
         $cli->fatal($result->toString());
     }
     while ($perm_row = $result->fetchRow()) {
         $permissions[$perm_row[0]] = Horde_Perms::READ | Horde_Perms::SHOW;
     }
     $result = $db->execute($write_stmt, array($row['id']));
-    if (is_a($result, 'PEAR_Error')) {
+    if ($result instanceof PEAR_Error) {
         $cli->fatal($result->toString());
     }
     while ($perm_row = $result->fetchRow()) {
@@ -80,7 +80,7 @@ while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
 }
 
 $handle = $db->query('SELECT event_id, calendar_id, ical_raw, owner_name, prefval FROM events, event_owners LEFT JOIN userprefs ON event_owners.owner_name = userprefs.user AND userprefs.prefkey = \'timezone\' WHERE events.id = event_owners.event_key ORDER BY calendar_id, userprefs.prefval, event_owners.owner_name');
-if (is_a($handle, 'PEAR_Error')) {
+if ($handle instanceof PEAR_Error) {
     $cli->fatal($handle->toString());
 }
 $ical = new Horde_iCalendar();
@@ -108,7 +108,7 @@ while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
     }
     // Parse event.
     $parsed = $ical->parsevCalendar($row['ical_raw']);
-    if (is_a($parsed, 'PEAR_Error')) {
+    if ($parsed instanceof PEAR_Error) {
         $cli->message('  ' . $parsed->getMessage(), 'cli.warning');
         continue;
     }

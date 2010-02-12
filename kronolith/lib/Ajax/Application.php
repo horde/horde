@@ -182,9 +182,6 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
         if (!$event) {
             $GLOBALS['notification']->push(_("The requested event was not found."), 'horde.error');
             return false;
-        } elseif ($event instanceof PEAR_Error) {
-            $GLOBALS['notification']->push($event, 'horde.error');
-            return false;
         } elseif (!$event->hasPermission(Horde_Perms::DELETE)) {
             $GLOBALS['notification']->push(_("You do not have permission to delete this event."), 'horde.warning');
             return false;
@@ -250,9 +247,10 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
             return false;
         }
 
-        $tasks = $GLOBALS['registry']->call('tasks/listTasks', array(null, null, null, $vars->list, $vars->type == 'incomplete' ? 'future_incomplete' : $vars->type, true));
-        if ($tasks instanceof PEAR_Error) {
-            $GLOBALS['notification']->push($tasks, 'horde.error');
+        try {
+            $tasks = $GLOBALS['registry']->tasks->listTasks(null, null, null, $vars->list, $vars->type == 'incomplete' ? 'future_incomplete' : $vars->type, true);
+        } catch (Exception $e)
+            $GLOBALS['notification']->push($e, 'horde.error');
             return false;
         }
 
@@ -278,12 +276,14 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
             return false;
         }
 
-        $task = $GLOBALS['registry']->tasks->getTask($vars->list, $vars->id);
-        if (!$task) {
-            $GLOBALS['notification']->push(_("The requested task was not found."), 'horde.error');
-            return false;
-        } elseif ($task instanceof PEAR_Error) {
-            $GLOBALS['notification']->push($task, 'horde.error');
+        try {
+            $task = $GLOBALS['registry']->tasks->getTask($vars->list, $vars->id);
+            if (!$task) {
+                $GLOBALS['notification']->push(_("The requested task was not found."), 'horde.error');
+                return false;
+            }
+        } catch (Exception $e)
+            $GLOBALS['notification']->push($e, 'horde.error');
             return false;
         }
 
@@ -337,20 +337,22 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
             ? $task['alarm']['value'] * $task['alarm']['unit']
             : 0;
 
-        $result = ($id && $list)
-            ? $GLOBALS['registry']->tasks->updateTask($list, $id, $task)
-            : $GLOBALS['registry']->tasks->addTask($task);
-        if ($result instanceof PEAR_Error) {
-            $GLOBALS['notification']->push($result, 'horde.error');
+        try {
+            $result = ($id && $list)
+                ? $GLOBALS['registry']->tasks->updateTask($list, $id, $task)
+                : $GLOBALS['registry']->tasks->addTask($task);
+        } catch (Exception $e) {
+            $GLOBALS['notification']->push($e, 'horde.error');
             return false;
         }
 
         if (!$id) {
             $id = $result[0];
         }
-        $task = $GLOBALS['registry']->tasks->getTask($task['tasklist'], $id);
-        if ($task instanceof PEAR_Error) {
-            $GLOBALS['notification']->push($task, 'horde.error');
+        try {
+            $task = $GLOBALS['registry']->tasks->getTask($task['tasklist'], $id);
+        } catch (Exception $e) {
+            $GLOBALS['notification']->push($e, 'horde.error');
             return false;
         }
 
@@ -374,9 +376,10 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
             return false;
         }
 
-        $result = $GLOBALS['registry']->tasks->deleteTask($vars->list, $vars->id);
-        if ($result instanceof PEAR_Error) {
-            $GLOBALS['notification']->push($result, 'horde.error');
+        try {
+            $GLOBALS['registry']->tasks->deleteTask($vars->list, $vars->id);
+        } catch (Exception $e) {
+            $GLOBALS['notification']->push($e, 'horde.error');
             return false;
         }
 
@@ -395,9 +398,10 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
             return false;
         }
 
-        $saved = $GLOBALS['registry']->call('tasks/toggleCompletion', array($vars->id, $vars->list));
-        if ($saved instanceof PEAR_Error) {
-            $GLOBALS['notification']->push($saved, 'horde.error');
+        try {
+            $GLOBALS['registry']->tasks->toggleCompletion($vars->id, $vars->list);
+        } catch (Exception $e)
+            $GLOBALS['notification']->push($e, 'horde.error');
             return false;
         }
 
@@ -514,9 +518,10 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
                     $GLOBALS['prefs']->isLocked('default_share')) {
                     return false;
                 }
-                $tasklist = $GLOBALS['registry']->tasks->addTasklist($calendar['name'], $calendar['description'], $calendar['color']);
-                if ($tasklist instanceof PEAR_Error) {
-                    $GLOBALS['notification']->push($tasklist, 'horde.error');
+                try {
+                    $tasklist = $GLOBALS['registry']->tasks->addTasklist($calendar['name'], $calendar['description'], $calendar['color']);
+                } catch (Exception $e) {
+                    $GLOBALS['notification']->push($e, 'horde.error');
                     return false;
                 }
                 $GLOBALS['notification']->push(sprintf(_("The task list \"%s\" has been created."), $calendar['name']), 'horde.success');
@@ -531,9 +536,10 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
                 $GLOBALS['notification']->push(_("You are not allowed to change this task list."), 'horde.error');
                 return false;
             }
-            $updated = $GLOBALS['registry']->tasks->updateTasklist($calendar_id, $calendar);
-            if ($updated instanceof PEAR_Error) {
-                $GLOBALS['notification']->push($updated, 'horde.error');
+            try {
+                $GLOBALS['registry']->tasks->updateTasklist($calendar_id, $calendar);
+            } catch (Exception $e) {
+                $GLOBALS['notification']->push($e, 'horde.error');
                 return false;
             }
             if ($tasklists[$calendar_id]->get('name') != $calendar['name']) {
@@ -599,9 +605,10 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
                 $GLOBALS['notification']->push(_("You are not allowed to delete this task list."), 'horde.error');
                 return false;
             }
-            $deleted = $GLOBALS['registry']->tasks->deleteTasklist($calendar_id);
-            if ($deleted instanceof PEAR_Error) {
-                $GLOBALS['notification']->push(sprintf(_("Unable to delete \"%s\": %s"), $tasklists[$calendar_id]->get('name'), $deleted->getMessage()), 'horde.error');
+            try {
+                $GLOBALS['registry']->tasks->deleteTasklist($calendar_id);
+            } catch (Exception $e) {
+                $GLOBALS['notification']->push(sprintf(_("Unable to delete \"%s\": %s"), $tasklists[$calendar_id]->get('name'), $e->getMessage()), 'horde.error');
                 return false;
             }
             $GLOBALS['notification']->push(sprintf(_("The task list \"%s\" has been deleted."), $tasklists[$calendar_id]->get('name')), 'horde.success');
@@ -695,9 +702,10 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
             $GLOBALS['notification']->push(_("Permission Denied"), 'horde.error');
             return false;
         }
-        $kronolith_driver = Kronolith::getDriver($driver, $calendar);
-        if ($kronolith_driver instanceof PEAR_Error) {
-            $GLOBALS['notification']->push($kronolith_driver, 'horde.error');
+        try {
+            $kronolith_driver = Kronolith::getDriver($driver, $calendar);
+        } catch (Exception $e) {
+            $GLOBALS['notification']->push($e, 'horde.error');
             return false;
         }
         if ($driver == 'remote') {

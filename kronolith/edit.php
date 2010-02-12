@@ -52,7 +52,7 @@ if ($exception = Horde_Util::getFormData('del_exception')) {
         $kronolith_driver->open($calendar);
         $event = $kronolith_driver->getEvent(Horde_Util::getFormData('eventID'));
         $result = sscanf($exception, '%04d%02d%02d', $year, $month, $day);
-        if ($result == 3 && !is_a($event, 'PEAR_Error') && $event->recurs()) {
+        if ($result == 3 && $event->recurs()) {
             $event->recurrence->deleteException($year, $month, $day);
             _save($event);
         }
@@ -136,7 +136,7 @@ if ($exception = Horde_Util::getFormData('del_exception')) {
                 // has permissions to do so.
                 try {
                     $sourceShare = Kronolith::getInternalCalendar($source);
-                    if (!is_a($share, 'PEAR_Error') &&
+                    if (!($share instanceof PEAR_Error) &&
                         $sourceShare->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE) &&
                         (($user == Horde_Auth::getAuth() &&
                           $share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) ||
@@ -159,7 +159,7 @@ if ($exception = Horde_Util::getFormData('del_exception')) {
         }
 
         if ($event) {
-            if (isset($sourceShare) && !is_a($sourceShare, 'PEAR_Error')
+            if (isset($sourceShare) && !($sourceShare instanceof PEAR_Error)
                 && !$sourceShare->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
                 $notification->push(_("You do not have permission to move this event."), 'horde.warning');
             } elseif ($user != Horde_Auth::getAuth() &&

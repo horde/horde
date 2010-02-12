@@ -232,16 +232,13 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         $event = $this->_db->getRow($query, $values, DB_FETCHMODE_ASSOC);
-        if (is_a($event, 'PEAR_Error')) {
-            Horde::logMessage($event, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Kronolith_Exception($event);
-        }
+        $this->handleError($event);
 
         if ($event) {
             return $event['event_id'];
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**
@@ -342,14 +339,11 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         /* Run the query. */
         $qr = $this->_db->query($q, $values);
-        if ($qr instanceof PEAR_Error) {
-            Horde::logMessage($qr, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Kronolith_Exception($qr);
-        }
+        $this->handleError($qr);
 
         $events = array();
         $row = $qr->fetchRow(DB_FETCHMODE_ASSOC);
-        while ($row && !is_a($row, 'PEAR_Error')) {
+        while ($row && !($row instanceof PEAR_Error)) {
             /* If the event did not have a UID before, we need to give
              * it one. */
             if (empty($row['event_uid'])) {
@@ -365,7 +359,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                                   __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
                 $result = $this->_write_db->query($query, $values);
-                if (is_a($result, 'PEAR_Error')) {
+                if ($result instanceof PEAR_Error) {
                     Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
                 }
             }
@@ -407,10 +401,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         /* Run the query. */
         $result = $this->_db->getOne($query, array($this->calendar));
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Kronolith_Exception($result);
-        }
+        $this->handleError($result);
         return $result;
     }
 
@@ -444,10 +435,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         $event = $this->_db->getRow($query, $values, DB_FETCHMODE_ASSOC);
-        if (is_a($event, 'PEAR_Error')) {
-            Horde::logMessage($event, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Kronolith_Exception($event);
-        }
+        $this->handleError($event);
 
         if ($event) {
             $this->_cache[$this->calendar][$eventId] = new $this->_eventClass($this, $event);
@@ -496,10 +484,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         $events = $this->_db->getAll($query, $values, DB_FETCHMODE_ASSOC);
-        if (is_a($events, 'PEAR_Error')) {
-            Horde::logMessage($events, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Kronolith_Exception($events);
-        }
+        $this->handleError($events);
         if (!count($events)) {
             throw new Horde_Exception_NotFound($uid . ' not found');
         }
@@ -575,10 +560,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                               __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
             $result = $this->_write_db->query($query, $values);
-            if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-                throw new Kronolith_Exception($result);
-            }
+            $this->handleError($result);
 
             /* Log the modification of this item in the history log. */
             if ($event->uid) {
@@ -638,10 +620,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                             __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Kronolith_Exception($result);
-        }
+        $this->handleError($result);
 
         /* Log the creation of this item in the history log. */
         $history = Horde_History::singleton();
@@ -687,10 +666,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         /* Attempt the move query. */
         $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Kronolith_Exception($result);
-        }
+        $this->handleError($result);
 
         return $event;
     }
@@ -713,10 +689,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         $result = $this->_write_db->query($query, $values);
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Kronolith_Exception($result);
-        }
+        $this->handleError($result);
     }
 
     /**
@@ -744,10 +717,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Kronolith_Exception($result);
-        }
+        $this->handleError($result);
 
         /* Log the deletion of this item in the history log. */
         if ($event->uid) {
@@ -810,10 +780,9 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         $result = $this->_db->getCol($sql, 0, array_merge($calendar, $uids));
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Kronolith_Exception($result);
-        }
+        $this->handleError($result);
+
+        return $result;
     }
 
     /**
@@ -843,9 +812,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         $this->_write_db = DB::connect($this->_params,
                                        array('persistent' => !empty($this->_params['persistent']),
                                              'ssl' => !empty($this->_params['ssl'])));
-        if ($this->_write_db instanceof PEAR_Error) {
-            throw new Kronolith_Exception($this->_write_db);
-        }
+        $this->handleError($this->_write_db);
         $this->_initConn($this->_write_db);
 
         /* Check if we need to set up the read DB connection
@@ -855,9 +822,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             $this->_db = DB::connect($params,
                                      array('persistent' => !empty($params['persistent']),
                                            'ssl' => !empty($params['ssl'])));
-            if ($this->_db instanceof PEAR_Error) {
-                throw new Kronolith_Exception($this->_db);
-            }
+            $this->handleError($this->_db);
             $this->_initConn($this->_db);
         } else {
             /* Default to the same DB handle for the writer too. */
@@ -951,15 +916,11 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         }
 
         $shares = $GLOBALS['kronolith_shares']->listShares($user, Horde_Perms::EDIT);
-        if (is_a($shares, 'PEAR_Error')) {
-            return $shares;
-        }
+        $this->handleError($shares);
 
         foreach (array_keys($shares) as $calendar) {
             $ids = Kronolith::listEventIds(null, null, $calendar);
-            if (is_a($ids, 'PEAR_Error')) {
-                return $ids;
-            }
+            $this->handleError($ids);
             $uids = array();
             foreach ($ids as $cal) {
                 $uids = array_merge($uids, array_keys($cal));
@@ -972,6 +933,22 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         }
 
         return true;
+    }
+
+    /**
+     * Determines if the given result is a PEAR error. If it is, logs the event
+     * and throws an exception.
+     *
+     * @param mixed $result The result to check.
+     *
+     * @throws Horde_Exception
+     */
+    protected function handleError($result)
+    {
+        if ($result instanceof PEAR_Error) {
+            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Kronolith_Exception($result);
+        }
     }
 
 }

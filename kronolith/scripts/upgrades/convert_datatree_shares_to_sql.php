@@ -28,7 +28,7 @@ if ($answer != 'y') {
 
 /* Get the share entries */
 $shares_result = $db->query('SELECT datatree_id, datatree_name FROM horde_datatree WHERE group_uid = \'horde.shares.kronolith\'');
-if (is_a($shares_result, 'PEAR_Error')) {
+if ($shares_result instanceof PEAR_Error) {
     die($shares_result->toString());
 }
 
@@ -39,7 +39,7 @@ while ($row = $shares_result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
 
     /* Build an array to hold the new row data */
     $nextId = $db->nextId('kronolith_shares');
-    if (is_a($nextId, 'PEAR_Error')) {
+    if ($nextId instanceof PEAR_Error) {
         $cli->message($nextId->toString(), 'cli.error');
         $error_cnt++;
         continue;
@@ -103,14 +103,14 @@ while ($row = $shares_result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
     $error = false;
     $db->beginTransaction();
     $result = insertData('kronolith_shares', $data);
-    if (is_a($result, 'PEAR_Error')) {
+    if ($result instanceof PEAR_Error) {
         $cli->message($result->toString(), 'cli.error');
         $error=true;
     }
     if (count($groups)) {
         foreach ($groups as $group) {
             $result = insertData('kronolith_shares_groups', $group);
-            if (is_a($result, 'PEAR_Error')) {
+            if ($result instanceof PEAR_Error) {
                 $cli->message($result->toString(), 'cli.error');
                 $error = true;
             }
@@ -119,7 +119,7 @@ while ($row = $shares_result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
     if (count($users)) {
         foreach ($users as $user) {
             $result = insertData('kronolith_shares_users', $user);
-            if (is_a($result, 'PEAR_Error')) {
+            if ($result instanceof PEAR_Error) {
                 $cli->message($result->toString(), 'cli.error');
                 $error = true;
             }
@@ -130,12 +130,12 @@ while ($row = $shares_result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
     if ($delete_dt_data && !$error) {
         $cli->message('DELETING datatree data for share_id: ' . $share_id, 'cli.message');
         $delete = $db->prepare('DELETE FROM horde_datatree_attributes WHERE datatree_id = ?', null, MDB2_PREPARE_MANIP);
-        if (is_a($delete, 'PEAR_Error')) {
+        if ($delete instanceof PEAR_Error) {
             $cli->message($delete->toString(), 'cli.error');
             $error = true;
         } else {
             $delete_result = $delete->execute(array($share_id));
-            if (is_a($delete_result, 'PEAR_Error')) {
+            if ($delete_result instanceof PEAR_Error) {
                 $cli->message($delete_result->toString(), 'cli.error');
                 $error = true;
             }
@@ -144,12 +144,12 @@ while ($row = $shares_result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
         $delete->free();
 
         $delete = $db->prepare('DELETE FROM horde_datatree WHERE datatree_id = ?', null, MDB2_PREPARE_MANIP);
-        if (is_a($delete, 'PEAR_Error')) {
+        if ($delete instanceof PEAR_Error) {
             $cli->message($delete->toString(), 'cli.error');
             $error = true;
         } else {
             $delete_result = $delete->execute(array($share_id));
-            if (is_a($delete_result, 'PEAR_Error')) {
+            if ($delete_result instanceof PEAR_Error) {
                 $cli->message($delete_result->toString(), 'cli.error');
                 $error = true;
             }
@@ -185,7 +185,7 @@ function insertData($table, $data)
 
     $insert = $GLOBALS['db']->prepare('INSERT INTO ' . $table . ' (' . implode(', ', $fields) . ') VALUES (' . str_repeat('?, ', count($values) - 1) . '?)',
                                       null, MDB2_PREPARE_MANIP);
-    if (is_a($insert,'PEAR_Error')) {
+    if ($insert instanceof PEAR_Error) {
         return $insert;
     }
     $insert_result = $insert->execute($values);

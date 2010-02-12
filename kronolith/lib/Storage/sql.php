@@ -69,9 +69,7 @@ class Kronolith_Storage_sql extends Kronolith_Storage
         $this->_write_db = &DB::connect($this->_params,
                                         array('persistent' => !empty($this->_params['persistent']),
                                               'ssl' => !empty($this->_params['ssl'])));
-        if ($this->_write_db instanceof PEAR_Error) {
-            throw new Kronolith_Exception($this->_write_db);
-        }
+        $this->handleError($this->_write_db);
         $this->_initConn($this->_write_db);
 
         /* Check if we need to set up the read DB connection seperately. */
@@ -80,9 +78,7 @@ class Kronolith_Storage_sql extends Kronolith_Storage
             $this->_db = &DB::connect($params,
                                       array('persistent' => !empty($params['persistent']),
                                             'ssl' => !empty($params['ssl'])));
-            if ($this->_db instanceof PEAR_Error) {
-                throw new Kronolith_Exception($this->_db);
-            }
+            $this->handleError($this->_db);
             $this->_initConn($this->_db);
         } else {
             /* Default to the same DB handle for the writer too. */
@@ -111,8 +107,7 @@ class Kronolith_Storage_sql extends Kronolith_Storage
      * @param boolean $private_only (optional) Only return free/busy
      *                              information owned by this used.
      *
-     * @return object               Horde_iCalendar_vFreebusy on success
-     *                              PEAR_Error on error or not found
+     * @return Horde_iCalendar_vFreebusy
      * @throws Kronolith_Exception
      */
     public function search($email, $private_only = false)
@@ -171,7 +166,21 @@ class Kronolith_Storage_sql extends Kronolith_Storage
 
         /* Execute the query. */
         $result = $this->_write_db->query($query, $values);
+        $this->handleError($result);
+    }
+
+    /**
+     * Determines if the given result is a PEAR error. If it is, logs the event
+     * and throws an exception.
+     *
+     * @param mixed $result The result to check.
+     *
+     * @throws Horde_Exception
+     */
+    protected function handleError($result)
+    {
         if ($result instanceof PEAR_Error) {
+            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
             throw new Kronolith_Exception($result);
         }
     }

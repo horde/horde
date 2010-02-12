@@ -239,7 +239,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         $data = $response->getBody();
         $_SESSION['kronolith']['remote'][$signature] = new Horde_iCalendar();
         $result = $_SESSION['kronolith']['remote'][$signature]->parsevCalendar($data);
-        if (is_a($result, 'PEAR_Error')) {
+        if ($result instanceof PEAR_Error) {
             throw new Kronolith_Exception($result);
         }
 

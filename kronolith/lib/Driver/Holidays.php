@@ -112,7 +112,7 @@ class Kronolith_Driver_Holidays extends Kronolith_Driver
         $dh->addTranslation($this->_params['language']);
 
         $event = $dh->getHoliday($id);
-        if (is_a($event, 'PEAR_Error')) {
+        if ($event instanceof PEAR_Error) {
             throw new Horde_Exception_NotFound($event);
         }
 

@@ -172,8 +172,8 @@ class Kronolith_Tagger
      *   (array)calendarId   - restrict to events contained in these calendars.
      *
      * @return A hash of 'calendars' and 'events' that each contain an array
-     *         of calendar_ids and event_uids respectively or PEAR_Error on
-     *         failure. Should this return the objects?
+     *         of calendar_ids and event_uids respectively. Should this return
+     *         the objects?
      */
     public function search($tags, $filter = array())
     {

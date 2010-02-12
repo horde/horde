@@ -14,7 +14,7 @@ Horde_Registry::appInit('kronolith');
 
 $viewName = Horde_Util::getFormData('view', 'Event');
 $view = Kronolith::getView($viewName);
-if (is_a($view->event, 'PEAR_Error')) {
+if (is_string($view->event)) {
     $notification->push($view->event, 'horde.error');
     header('Location: ' . Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true));
     exit;

@@ -72,12 +72,8 @@ $end   = new Horde_Date(345600);
 
 // List the events in three days (recurring event)
 $a = $kron->listEvents($start, $end);
-if (is_a($a, 'PEAR_Error')) {
-    var_dump($a->getMessage());
-} else {
-    $events = reset($a);
-    var_dump($events[0]->id);
-}
+$events = reset($a);
+var_dump($events[0]->id);
 --EXPECT--
 bool(true)
 array(0) {

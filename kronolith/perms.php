@@ -28,7 +28,7 @@ $actionID = Horde_Util::getFormData('actionID', 'edit');
 switch ($actionID) {
 case 'edit':
     $share = $shares->getShareById(Horde_Util::getFormData('cid'));
-    if (!is_a($share, 'PEAR_Error')) {
+    if (!($share instanceof PEAR_Error)) {
         $perm = $share->getPermission();
     } elseif (($category = Horde_Util::getFormData('share')) !== null) {
         try {
@@ -48,7 +48,7 @@ case 'edit':
 
 case 'editform':
     $share = $shares->getShareById(Horde_Util::getFormData('cid'));
-    if (is_a($share, 'PEAR_Error')) {
+    if ($share instanceof PEAR_Error) {
         $notification->push(_("Attempt to edit a non-existent share."), 'horde.error');
     } else {
         if (!Horde_Auth::getAuth() ||
@@ -243,11 +243,11 @@ case 'editform':
         }
 
         $result = $share->setPermission($perm, false);
-        if (is_a($result, 'PEAR_Error')) {
+        if ($result instanceof PEAR_Error) {
             $notification->push($result, 'horde.error');
         } else {
             $result = $share->save();
-            if (is_a($result, 'PEAR_Error')) {
+            if ($result instanceof PEAR_Error) {
                 $notification->push($result, 'horde.error');
             } else {
                 if (Horde_Util::getFormData('save_and_finish')) {
@@ -261,16 +261,17 @@ case 'editform':
     break;
 }
 
-if (is_a($share, 'PEAR_Error')) {
+if ($share instanceof PEAR_Error) {
     $title = _("Edit Permissions");
 } else {
     $title = sprintf(_("Edit Permissions for %s"), $share->get('name'));
 }
 
 if ($auth->hasCapability('list')) {
-    $userList = $auth->listUsers();
-    if (is_a($userList, 'PEAR_Error')) {
-        Horde::logMessage($userList, __FILE__, __LINE__, PEAR_LOG_ERR);
+    try {
+        $userList = $auth->listUsers();
+    } catch (Exception $e) {
+        Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
         $userList = array();
     }
     sort($userList);
@@ -283,7 +284,7 @@ if (!empty($conf['share']['any_group'])) {
 } else {
     $groupList = $groups->getGroupMemberships(Horde_Auth::getAuth(), true);
 }
-if (is_a($groupList, 'PEAR_Error')) {
+if ($groupList instanceof PEAR_Error) {
     Horde::logMessage($groupList, __FILE__, __LINE__, PEAR_LOG_NOTICE);
     $groupList = array();
 }

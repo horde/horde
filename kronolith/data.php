@@ -159,9 +159,6 @@ case 'export':
             foreach ($calevents as $dayevents) {
                 foreach ($dayevents as $event) {
                     $calIds[$event->calendar] = true;
-                    if (is_a($event, 'PEAR_Error')) {
-                        continue;
-                    }
                     $iCal->addComponent($event->toiCalendar($iCal));
                 }
             }
@@ -189,7 +186,7 @@ case Horde_Data::IMPORT_FILE:
 
 if (!$error) {
     $data = &Horde_Data::singleton($import_format);
-    if (is_a($data, 'PEAR_Error')) {
+    if ($data instanceof PEAR_Error) {
         $notification->push(_("This file format is not supported."), 'horde.error');
         $next_step = Horde_Data::IMPORT_FILE;
     } else {
@@ -201,7 +198,7 @@ if (!$error) {
                     $next_step = $data->cleanup();
                 } else {
                     $next_step = $data->nextStep($actionID, $param);
-                    if (is_a($next_step, 'PEAR_Error')) {
+                    if ($next_step instanceof PEAR_Error) {
                         $notification->push($next_step->getMessage(), 'horde.error');
                         $next_step = $data->cleanup();
                     }
@@ -212,7 +209,7 @@ if (!$error) {
             }
         } else {
             $next_step = $data->nextStep($actionID, $param);
-            if (is_a($next_step, 'PEAR_Error')) {
+            if ($next_step instanceof PEAR_Error) {
                 $notification->push($next_step->getMessage(), 'horde.error');
                 $next_step = $data->cleanup();
             }
@@ -265,9 +262,9 @@ if (is_array($next_step)) {
             $error = true;
             break;
         }
-        if (is_a($row, 'Horde_iCalendar_vevent')) {
+        if ($row instanceof Horde_iCalendar_vevent) {
             $event->fromiCalendar($row);
-        } elseif (is_a($row, 'Horde_iCalendar')) {
+        } elseif ($row instanceof Horde_iCalendar) {
             // Skip other iCalendar components for now.
             continue;
         } else {

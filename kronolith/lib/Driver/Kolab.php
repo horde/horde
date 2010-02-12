@@ -102,8 +102,8 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
 
         // Connect to the Kolab backend
         $result = $this->_kolab->open($this->calendar, 1);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+        if ($result instanceof PEAR_Error) {
+            throw new Kronolith_Exception($result);
         }
         $this->_store = $this->_kolab->_storage;
 
@@ -184,9 +184,6 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         }
 
         $result = $this->synchronize();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
 
         if ($this->_store->objectUidExists($uid)) {
             return $uid;
@@ -218,9 +215,6 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
                                $json = false, $coverDates = true)
     {
         $result = $this->synchronize();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
 
         if (is_null($startDate)) {
             $startDate = new Horde_Date(array('mday' => 1,
@@ -278,9 +272,6 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         }
 
         $result = $this->synchronize();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
 
         if (array_key_exists($eventId, $this->_events_cache)) {
             return $this->_events_cache[$eventId];
@@ -342,9 +333,6 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
     public function saveEvent($event)
     {
         $result = $this->synchronize();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
 
         $uid = $event->uid;
         if ($uid == null) {
@@ -364,9 +352,6 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         }
 
         $result = $this->_store->save($attributes, $stored_uid);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
 
         /* Deal with tags */
         $tagger = Kronolith::getTagger();
@@ -407,9 +392,6 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
     {
         $event = $this->getEvent($eventId);
         $result = $this->synchronize();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
 
         global $kronolith_shares;
         $target = $kronolith_shares->getShare($newCalendar);
@@ -439,9 +421,6 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
     {
         $this->open($calendar);
         $result = $this->synchronize();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
 
         $result = $this->_store->deleteAll($calendar);
         if (is_callable('Kolab', 'triggerFreeBusyUpdate')) {
@@ -461,9 +440,6 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
     public function deleteEvent($eventId, $silent = false)
     {
         $result = $this->synchronize();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
 
         if (!$this->_store->objectUidExists($eventId)) {
             throw new Kronolith_Exception(sprintf(_("Event not found: %s"), $eventId));

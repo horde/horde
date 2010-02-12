@@ -45,7 +45,11 @@ if ($search_fields_pref = $prefs->getValue('search_fields')) {
 }
 
 if ($search || $prefs->getValue('display_contact')) {
-    $results = $registry->call('contacts/search', $apiargs);
+    try {
+        $results = $registry->call('contacts/search', $apiargs);
+    } catch (Exception $e) {
+        $results = array();
+    }
 } else {
     $results = array();
 }
@@ -53,10 +57,8 @@ if ($search || $prefs->getValue('display_contact')) {
 /* The results list returns an array for each source searched - at least
    that's how it looks to me. Make it all one array instead. */
 $addresses = array();
-if (!is_a($results, 'PEAR_Error')) {
-    foreach ($results as $r) {
-        $addresses = array_merge($addresses, $r);
-    }
+foreach ($results as $r) {
+    $addresses = array_merge($addresses, $r);
 }
 
 /* If self-submitted, preserve the currently selected users encoded by

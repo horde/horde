@@ -519,19 +519,22 @@ abstract class Kronolith_Event
         /* Get the event's history. */
         $history = &Horde_History::singleton();
         $created = $modified = null;
-        $log = $history->getHistory('kronolith:' . $this->calendar . ':' . $this->uid);
-        if ($log && !is_a($log, 'PEAR_Error')) {
-            foreach ($log->getData() as $entry) {
-                switch ($entry['action']) {
-                case 'add':
-                    $created = $entry['ts'];
-                    break;
+        try {
+            $log = $history->getHistory('kronolith:' . $this->calendar . ':' . $this->uid);
+            if ($log) {
+                foreach ($log->getData() as $entry) {
+                    switch ($entry['action']) {
+                    case 'add':
+                        $created = $entry['ts'];
+                        break;
 
-                case 'modify':
-                    $modified = $entry['ts'];
-                    break;
+                    case 'modify':
+                        $modified = $entry['ts'];
+                        break;
+                    }
                 }
             }
+        } catch (Exception $e) {
         }
         if (!empty($created)) {
             $vEvent->setAttribute($v1 ? 'DCREATED' : 'CREATED', $created);
@@ -749,7 +752,7 @@ abstract class Kronolith_Event
     {
         // Unique ID.
         $uid = $vEvent->getAttribute('UID');
-        if (!empty($uid) && !is_a($uid, 'PEAR_Error')) {
+        if (!empty($uid) && !($uid instanceof PEAR_Error)) {
             $this->uid = $uid;
         }
 
@@ -761,44 +764,44 @@ abstract class Kronolith_Event
 
         // Title, tags and description.
         $title = $vEvent->getAttribute('SUMMARY');
-        if (!is_array($title) && !is_a($title, 'PEAR_Error')) {
+        if (!is_array($title) && !($title instanceof PEAR_Error)) {
             $this->title = $title;
         }
 
         // Tags
         $categories = $vEvent->getAttributeValues('CATEGORIES');
-        if (!is_a($categories, 'PEAR_Error')) {
+        if (!($categories instanceof PEAR_Error)) {
             $this->tags = $categories;
         }
 
         // Description
         $desc = $vEvent->getAttribute('DESCRIPTION');
-        if (!is_array($desc) && !is_a($desc, 'PEAR_Error')) {
+        if (!is_array($desc) && !($desc instanceof PEAR_Error)) {
             $this->description = $desc;
         }
 
         // Remote Url
         $url = $vEvent->getAttribute('URL');
-        if (!is_array($url) && !is_a($url, 'PEAR_Error')) {
+        if (!is_array($url) && !($url instanceof PEAR_Error)) {
             $this->url = $url;
         }
 
         // Location
         $location = $vEvent->getAttribute('LOCATION');
-        if (!is_array($location) && !is_a($location, 'PEAR_Error')) {
+        if (!is_array($location) && !($location instanceof PEAR_Error)) {
             $this->location = $location;
         }
 
         // Class
         $class = $vEvent->getAttribute('CLASS');
-        if (!is_array($class) && !is_a($class, 'PEAR_Error')) {
+        if (!is_array($class) && !($class instanceof PEAR_Error)) {
             $class = Horde_String::upper($class);
             $this->private = $class == 'PRIVATE' || $class == 'CONFIDENTIAL';
         }
 
         // Status.
         $status = $vEvent->getAttribute('STATUS');
-        if (!is_array($status) && !is_a($status, 'PEAR_Error')) {
+        if (!is_array($status) && !($status instanceof PEAR_Error)) {
             $status = Horde_String::upper($status);
             if ($status == 'DECLINED') {
                 $status = 'CANCELLED';
@@ -810,7 +813,7 @@ abstract class Kronolith_Event
 
         // Start and end date.
         $start = $vEvent->getAttribute('DTSTART');
-        if (!is_a($start, 'PEAR_Error')) {
+        if (!($start instanceof PEAR_Error)) {
             if (!is_array($start)) {
                 // Date-Time field
                 $this->start = new Horde_Date($start);
@@ -823,7 +826,7 @@ abstract class Kronolith_Event
             }
         }
         $end = $vEvent->getAttribute('DTEND');
-        if (!is_a($end, 'PEAR_Error')) {
+        if (!($end instanceof PEAR_Error)) {
             if (!is_array($end)) {
                 // Date-Time field
                 $this->end = new Horde_Date($end);
@@ -838,7 +841,7 @@ abstract class Kronolith_Event
                               'month' => (int)$this->end->month,
                               'mday'  => (int)$this->end->mday + 1));
                 }
-            } elseif (is_array($end) && !is_a($end, 'PEAR_Error')) {
+            } elseif (is_array($end) && !($end instanceof PEAR_Error)) {
                 // Date field
                 $this->end = new Horde_Date(
                     array('year'  => (int)$end['year'],
@@ -847,7 +850,7 @@ abstract class Kronolith_Event
             }
         } else {
             $duration = $vEvent->getAttribute('DURATION');
-            if (!is_array($duration) && !is_a($duration, 'PEAR_Error')) {
+            if (!is_array($duration) && !($duration instanceof PEAR_Error)) {
                 $this->end = new Horde_Date($this->start);
                 $this->end->sec += $duration;
             } else {
@@ -863,7 +866,7 @@ abstract class Kronolith_Event
         // vCalendar 1.0 alarms
         $alarm = $vEvent->getAttribute('AALARM');
         if (!is_array($alarm) &&
-            !is_a($alarm, 'PEAR_Error') &&
+            !($alarm instanceof PEAR_Error) &&
             intval($alarm)) {
             $this->alarm = intval(($this->start->timestamp() - $alarm) / 60);
         }
@@ -878,7 +881,7 @@ abstract class Kronolith_Event
         // X-ATTENDEE attribute is used which has the same syntax as
         // ATTENDEE.
         $attendee = $vEvent->getAttribute('X-ATTENDEE');
-        if (!is_a($attendee, 'PEAR_Error')) {
+        if (!($attendee instanceof PEAR_Error)) {
 
             if (!is_array($attendee)) {
                 $attendee = array($attendee);
@@ -946,7 +949,7 @@ abstract class Kronolith_Event
 
         // Recurrence.
         $rrule = $vEvent->getAttribute('RRULE');
-        if (!is_array($rrule) && !is_a($rrule, 'PEAR_Error')) {
+        if (!is_array($rrule) && !($rrule instanceof PEAR_Error)) {
             $this->recurrence = new Horde_Date_Recurrence($this->start);
             if (strpos($rrule, '=') !== false) {
                 $this->recurrence->fromRRule20($rrule);

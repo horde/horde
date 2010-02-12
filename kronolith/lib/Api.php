@@ -299,7 +299,7 @@ class Kronolith_Api extends Horde_Registry_Api
         case 'text/calendar':
         case 'text/x-vcalendar':
             $iCal = new Horde_iCalendar();
-            if (!is_a($content, 'Horde_iCalendar_vevent')) {
+            if (!($content instanceof Horde_iCalendar_vevent)) {
                 if (!$iCal->parsevCalendar($content)) {
                     throw new Kronolith_Exception(_("There was an error importing the iCalendar data."));
                 }
@@ -309,7 +309,7 @@ class Kronolith_Api extends Horde_Registry_Api
 
             $kronolith_driver = Kronolith::getDriver();
             foreach ($iCal->getComponents() as $content) {
-                if (is_a($content, 'Horde_iCalendar_vevent')) {
+                if ($content instanceof Horde_iCalendar_vevent) {
                     $event = $kronolith_driver->getEvent();
                     $event->fromiCalendar($content);
                     $uid = $event->uid;
@@ -324,20 +324,22 @@ class Kronolith_Api extends Horde_Registry_Api
                         // the event's history.
                         $history = Horde_History::singleton();
                         $created = $modified = null;
-                        $log = $history->getHistory('kronolith:' . $calendar . ':'
-                            . $uid);
-                        if ($log && !is_a($log, 'PEAR_Error')) {
-                            foreach ($log->getData() as $entry) {
-                                switch ($entry['action']) {
-                                case 'add':
-                                    $created = $entry['ts'];
-                                    break;
+                        $log = $history->getHistory('kronolith:' . $calendar . ':' . $uid);
+                        try {
+                            if ($log) {
+                                foreach ($log->getData() as $entry) {
+                                    switch ($entry['action']) {
+                                    case 'add':
+                                        $created = $entry['ts'];
+                                        break;
 
-                                case 'modify':
-                                    $modified = $entry['ts'];
-                                    break;
+                                    case 'modify':
+                                        $modified = $entry['ts'];
+                                        break;
+                                    }
                                 }
                             }
+                        } catch (Exception $e) {
                         }
                         if (empty($modified) && !empty($created)) {
                             $modified = $created;
@@ -410,8 +412,8 @@ class Kronolith_Api extends Horde_Registry_Api
                 // Remove share and all groups/permissions.
                 $share = $GLOBALS['kronolith_shares']->getShare($calendarId);
                 $result = $GLOBALS['kronolith_shares']->removeShare($share);
-                if (is_a($result, 'PEAR_Error')) {
-                    return $result;
+                if ($result instanceof PEAR_Error) {
+                    throw new Kronolith_Exception($result);
                 }
             } catch (Exception $e) {
                 throw new Kronolith_Exception(sprintf(_("Unable to delete calendar \"%s\": %s"), $calendarId, $e->getMessage()));
@@ -457,13 +459,8 @@ class Kronolith_Api extends Horde_Registry_Api
             throw new Horde_Exception_PermissionDenied();
         }
 
-        $driver = Kronolith::getDriver(null, $calendar);
-        if (is_a($driver, 'PEAR_Error')) {
-            return $driver;
-        }
-
-        $events = $driver->listEvents(new Horde_Date($startstamp),
-            new Horde_Date($endstamp));
+        $events = Kronolith::getDriver(null, $calendar)
+            ->listEvents(new Horde_Date($startstamp), new Horde_Date($endstamp));
         $uids = array();
         foreach ($events as $dayevents) {
             foreach ($dayevents as $event) {
@@ -498,9 +495,6 @@ class Kronolith_Api extends Horde_Registry_Api
 
         $history = Horde_History::singleton();
         $histories = $history->getByTimestamp('>', $timestamp, array(array('op' => '=', 'field' => 'action', 'value' => $action)), 'kronolith:' . $calendar);
-        if (is_a($histories, 'PEAR_Error')) {
-            return $histories;
-        }
 
         // Strip leading kronolith:username:.
         return preg_replace('/^([^:]*:){2}/', '', array_keys($histories));
@@ -560,7 +554,7 @@ class Kronolith_Api extends Horde_Registry_Api
         case 'text/calendar':
         case 'text/x-vcalendar':
             $iCal = new Horde_iCalendar();
-            if (!is_a($content, 'Horde_iCalendar_vevent')) {
+            if (!($content instanceof Horde_iCalendar_vevent)) {
                 if (!$iCal->parsevCalendar($content)) {
                     throw new Kronolith_Exception(_("There was an error importing the iCalendar data."));
                 }
@@ -576,7 +570,7 @@ class Kronolith_Api extends Horde_Registry_Api
             $kronolith_driver = Kronolith::getDriver(null, $calendar);
             $ids = array();
             foreach ($components as $content) {
-                if (is_a($content, 'Horde_iCalendar_vevent')) {
+                if ($content instanceof Horde_iCalendar_vevent) {
                     $event = $kronolith_driver->getEvent();
                     $event->fromiCalendar($content);
                     // Check if the entry already exists in the data source,
@@ -757,9 +751,6 @@ class Kronolith_Api extends Horde_Registry_Api
         if (is_array($uid)) {
             foreach ($uid as $g) {
                 $result = $this->delete($g);
-                if (is_a($result, 'PEAR_Error')) {
-                    return $result;
-                }
             }
             return;
         }
@@ -825,13 +816,13 @@ class Kronolith_Api extends Horde_Registry_Api
             throw new Horde_Exception_PermissionDenied();
         }
 
-        if (is_a($content, 'Horde_iCalendar_vevent')) {
+        if ($content instanceof Horde_iCalendar_vevent) {
             $component = $content;
         } else {
             switch ($contentType) {
             case 'text/calendar':
             case 'text/x-vcalendar':
-                if (!is_a($content, 'Horde_iCalendar_vevent')) {
+                if (!($content instanceof Horde_iCalendar_vevent)) {
                     $iCal = new Horde_iCalendar();
                     if (!$iCal->parsevCalendar($content)) {
                         throw new Kronolith_Exception(_("There was an error importing the iCalendar data."));
@@ -840,7 +831,7 @@ class Kronolith_Api extends Horde_Registry_Api
                     $components = $iCal->getComponents();
                     $component = null;
                     foreach ($components as $content) {
-                        if (is_a($content, 'Horde_iCalendar_vevent')) {
+                        if ($content instanceof Horde_iCalendar_vevent) {
                             if ($component !== null) {
                                 throw new Kronolith_Exception(_("Multiple iCalendar components found; only one vEvent is supported."));
                             }
@@ -930,8 +921,8 @@ class Kronolith_Api extends Horde_Registry_Api
     public function updateAttendee($response, $sender = null)
     {
         $uid = $response->getAttribute('UID');
-        if (is_a($uid, 'PEAR_Error')) {
-            return $uid;
+        if ($uid instanceof PEAR_Error) {
+            throw new Kronolith_Exception($uid);
         }
 
         $events = Kronolith::getDriver()->getByUID($uid, null, true);
@@ -1068,7 +1059,7 @@ class Kronolith_Api extends Horde_Registry_Api
                 $groups = $share->listGroups(Horde_Perms::READ);
                 foreach ($groups as $gid) {
                     $group_users = $group->listUsers($gid);
-                    if (!is_a($group_users, 'PEAR_Error')) {
+                    if (!($group_users instanceof PEAR_Error)) {
                         $users = array_merge($users, $group_users);
                     }
                 }

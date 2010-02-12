@@ -318,15 +318,11 @@ class Kronolith_Application extends Horde_Registry_Application
         $history = Horde_History::singleton();
         $histories = $history->removeByParent('kronolith:' . $user);
 
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
         /* Get the user's default share */
         try {
             $share = $GLOBALS['kronolith_shares']->getShare($user);
             $result = $GLOBALS['kronolith_shares']->removeShare($share);
-            if (is_a($result, 'PEAR_Error')) {
+            if ($result instanceof PEAR_Error) {
                 $hasError = true;
                 Horde::logMessage($result->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
             }
@@ -337,7 +333,7 @@ class Kronolith_Application extends Horde_Registry_Application
         /* Get a list of all shares this user has perms to and remove the
          * perms */
         $shares = $GLOBALS['kronolith_shares']->listShares($user);
-        if (is_a($shares, 'PEAR_Error')) {
+        if ($shares instanceof PEAR_Error) {
             Horde::logMessage($shares, __FILE__, __LINE__, PEAR_LOG_ERR);
         }
         foreach ($shares as $share) {

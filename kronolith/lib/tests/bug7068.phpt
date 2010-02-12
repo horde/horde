@@ -24,7 +24,7 @@ require KRONOLITH_BASE . '/lib/Event.php';
 require KRONOLITH_BASE . '/lib/Event/Sql.php';
 $event = new Kronolith_Event_Sql(new Driver);
 foreach ($components as $content) {
-    if (is_a($content, 'Horde_iCalendar_vevent')) {
+    if ($content instanceof Horde_iCalendar_vevent) {
         $event->fromiCalendar($content);
         var_export($event->recurrence->exceptions);
         echo "\n";
