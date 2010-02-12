@@ -70,8 +70,14 @@ class Horde_Notification_Event
             if (is_null($type)) {
                 $type = 'horde.error';
             }
+        } elseif ($data instanceof Exception) {
+            // Exception
+            $this->message = $data->getMessage();
+            if (is_null($type)) {
+                $type = 'horde.error';
+            }
         } else {
-            // String or Exception
+            // String or object
             $this->message = strval($data);
             if (is_null($type)) {
                 $type = is_string($data) ? 'horde.message' : 'horde.error';
