@@ -211,13 +211,11 @@ class Whups_Mail {
     {
         global $conf;
 
-        require_once 'Horde/Identity.php';
+        $auth = Horde_Auth::singleton($conf['auth']['driver'], Horde::getDriverConfig('auth', $conf['auth']['driver']));
 
-        $params = Horde::getDriverConfig('auth', $conf['auth']['driver']);
-        $auth = Horde_Auth::singleton($conf['auth']['driver'], $params);
         if ($auth->hasCapability('list')) {
             foreach ($auth->listUsers() as $user) {
-                $identity = &Identity::singleton('none', $user);
+                $identity = Horde_Prefs_Identity::singleton('none', $user);
                 $addrs = $identity->getAll('from_addr');
                 foreach ($addrs as $addr) {
                     if (strcasecmp($from, $addr) == 0) {
