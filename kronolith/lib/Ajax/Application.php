@@ -319,7 +319,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
 
             // Try exact format match first.
             if ($date_arr = strptime($due, $format)) {
-                $task['due'] = new Horde_Date(
+                $due = new Horde_Date(
                     array('year'  => $date_arr['tm_year'] + 1900,
                           'month' => $date_arr['tm_mon'] + 1,
                           'mday'  => $date_arr['tm_mday'],
@@ -327,9 +327,10 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
                           'min'   => $date_arr['tm_min'],
                           'sec'   => $date_arr['tm_sec']));
             } else {
-                $task['due'] = new Horde_Date($due);
+                $due = new Horde_Date($due);
             }
             setlocale(LC_TIME, $old_locale);
+            $task['due'] = $due->timestamp();
         }
 
         $task['alarm'] = $task['alarm']['on']
