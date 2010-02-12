@@ -189,11 +189,9 @@
                 notice.addClassName(opts.className);
             }
 
-            if (opts.sticky) {
-                noticeExit = new Element('DIV', { className: 'GrowlerNoticeExit' }).update("&times;");
-                noticeExit.observe('click', removeNotice.curry(notice, opts));
-                notice.insert(noticeExit);
-            }
+            noticeExit = new Element('DIV', { className: 'GrowlerNoticeExit' }).update("&times;");
+            noticeExit.observe('click', removeNotice.curry(notice, opts));
+            notice.insert(noticeExit);
 
             if (!opts.header.empty()) {
                 notice.insert(new Element('DIV', { className: 'GrowlerNoticeHead' }).update(opts.header))
