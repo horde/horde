@@ -26,9 +26,9 @@ class Horde_Test_AllTests
     private static $_file = __FILE__;
     private static $_package = 'Horde_Test';
 
-   /**
-    * Main entry point for running the suite.
-    */
+    /**
+     * Main entry point for running the suite.
+     */
     public static function main($package = null, $file = null)
     {
         if ($package) {
@@ -40,25 +40,25 @@ class Horde_Test_AllTests
         PHPUnit_TextUI_TestRunner::run(self::suite());
     }
 
-   /**
-    * Initialize the test suite class.
-    *
-    * @param string $package The name of the package tested by this suite.
-    * @param string $file    The path of the AllTests class.
-    *
-    * @return NULL
-    */
+    /**
+     * Initialize the test suite class.
+     *
+     * @param string $package The name of the package tested by this suite.
+     * @param string $file    The path of the AllTests class.
+     *
+     * @return NULL
+     */
     public static function init($package, $file)
     {
         self::$_package = $package;
         self::$_file = $file;
     }
 
-   /**
-    * Collect the unit tests of this directory into a new suite.
-    *
-    * @return PHPUnit_Framework_TestSuite The test suite.
-    */
+    /**
+     * Collect the unit tests of this directory into a new suite.
+     *
+     * @return PHPUnit_Framework_TestSuite The test suite.
+     */
     public static function suite()
     {
         // Catch strict standards
@@ -70,7 +70,7 @@ class Horde_Test_AllTests
         if (!spl_autoload_functions()) {
             spl_autoload_register(
                 create_function(
-                    '$class', 
+                    '$class',
                     '$filename = str_replace(array(\'::\', \'_\'), \'/\', $class);'
                     . '$err_mask = E_ALL ^ E_WARNING;'
                     . '$oldErrorReporting = error_reporting($err_mask);'
