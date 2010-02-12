@@ -3808,6 +3808,8 @@ KronolithCore = {
     /* Onload function. */
     onDomLoad: function()
     {
+        var dateFields, timeFields;
+
         if (typeof ContextSensitive != 'undefined') {
             this.DMenu = new ContextSensitive({ onClick: this.contextOnClick, onShow: this.contextOnShow });
         }
@@ -3832,10 +3834,18 @@ KronolithCore = {
         $('kronolithEventStartDate', 'kronolithEventEndDate', 'kronolithTaskDueDate').compact().invoke('observe', 'blur', this.checkDate.bind(this));
         $('kronolithEventStartTime', 'kronolithEventEndTime', 'kronolithTaskDueTime').compact().invoke('observe', 'blur', this.checkTime.bind(this));
 
-        $('kronolithTaskDueDate', 'kronolithEventDueTime').compact().invoke('observe', 'focus', this.setDefaultDue.bind(this));
+        if (Kronolith.conf.has_tasks) {
+            $('kronolithTaskDueDate', 'kronolithEventDueTime').compact().invoke('observe', 'focus', this.setDefaultDue.bind(this));
+        }
 
         // Mouse wheel handler.
-        [ 'kronolithEventStartDate', 'kronolithEventEndDate', 'kronolithTaskDueDate' ].each(function(field) {
+        dateFields = [ 'kronolithEventStartDate', 'kronolithEventEndDate' ];
+        timeFields = [ 'kronolithEventStartTime', 'kronolithEventEndTime' ];
+        if (Kronolith.conf.has_tasks) {
+            dateFields.push('kronolithTaskDueDate');
+            timeFields.push('kronolithTaskDueTime');
+        }
+        dateFields.each(function(field) {
             $(field).observe(Prototype.Browser.Gecko ? 'DOMMouseScroll' : 'mousewheel', function(e) {
                 var date = Date.parseExact($F(field), Kronolith.conf.date_format);
                 if (!date || (!e.wheelData && !e.detail)) {
@@ -3845,8 +3855,7 @@ KronolithCore = {
                 $(field).setValue(date.toString(Kronolith.conf.date_format));
             });
         });
-
-        [ 'kronolithEventStartTime', 'kronolithEventEndTime', 'kronolithTaskDueTime' ].each(function(field) {
+        timeFields.each(function(field) {
             $(field).observe(Prototype.Browser.Gecko ? 'DOMMouseScroll' : 'mousewheel', function(e) {
                 var time = $F(field).match(/(\d+)\s*:\s*(\d+)\s*((a|p)m)?/i),
                     hour, minute;

@@ -184,6 +184,7 @@ class Kronolith
             'user' => Horde_Auth::getAuth(),
             'prefs_url' => str_replace('&amp;', '&', Horde::getServiceLink('options', 'kronolith')),
             'name' => $registry->get('name'),
+            'has_tasks' => $has_tasks,
             'is_ie6' => ($browser->isBrowser('msie') && ($browser->getMajor() < 7)),
             'login_view' => $prefs->getValue('defaultview'),
             'default_calendar' => 'internal|' . self::getDefaultCalendar(Horde_Perms::EDIT),
