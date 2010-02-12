@@ -12,51 +12,65 @@
  * The Horde_Alarm:: class provides an interface to deal with reminders,
  * alarms and notifications through a standardized API.
  *
- * Alarm hashes have the following fields:
- * - id: Unique alarm id.
- * - user: The alarm's user. Empty if a global alarm.
- * - start: The alarm start as a Horde_Date.
- * - end: The alarm end as a Horde_Date.
- * - methods: The notification methods for this alarm.
- * - params: The paramters for the notification methods.
- * - title: The alarm title.
- * - text: An optional alarm description.
- * - snooze: The snooze time (next time) of the alarm as a Horde_Date.
- * - internal: Holds internally used data.
- *
  * @author  Jan Schneider <jan@horde.org>
  * @package Horde_Alarm
  */
-class Horde_Alarm {
-
+class Horde_Alarm
+{
     /**
      * Hash containing connection parameters.
      *
      * @var array
      */
-    var $_params = array('ttl' => 300);
+    protected $_params = array('ttl' => 300);
 
     /**
-     * An error message to throw when something is wrong.
+     * Attempts to return a concrete instance based on $driver.
      *
-     * @var string
+     * @param string $driver  The type of concrete subclass to
+     *                        return. The class name is based on the storage
+     *                        driver ($driver). The code is dynamically
+     *                        included.
+     * @param array $params   A hash containing any additional configuration
+     *                        or connection parameters a subclass might need.
+     *
+     * @return Horde_Alarm  The newly created concrete instance.
+     * @throws Horde_Alarm_Exception
      */
-    var $_errormsg;
+    static public function factory($driver = null, $params = null)
+    {
+        if (is_null($driver)) {
+            $driver = empty($GLOBALS['conf']['alarms']['driver'])
+                ? 'sql'
+                : $GLOBALS['conf']['alarms']['driver'];
+        }
+
+        $driver = ucfirst(basename($driver));
+
+        if (is_null($params)) {
+            $params = Horde::getDriverConfig('alarms', $driver);
+        }
+
+        $class = __CLASS__ . '_' . $driver;
+
+        if (class_exists($class)) {
+            $alarm = new $class($params);
+            $alarm->initialize();
+            $alarm->gc();
+            return $alarm;
+        }
+
+        throw new Horde_Alarm_Exception('Could not find driver.');
+    }
 
     /**
-     * Constructor - just store the $params in our newly-created object. All
-     * other work is done by initialize().
+     * Constructor.
      *
      * @param array $params  Any parameters needed for this driver.
      */
-    function Horde_Alarm($params = array(), $errormsg = null)
+    public function __construct($params = array())
     {
         $this->_params = array_merge($this->_params, $params);
-        if ($errormsg === null) {
-            $this->_errormsg = _("The alarm backend is not currently available.");
-        } else {
-            $this->_errormsg = $errormsg;
-        }
     }
 
     /**
@@ -65,18 +79,37 @@ class Horde_Alarm {
      * @param string $id    The alarm's unique id.
      * @param string $user  The alarm's user
      *
-     * @return array  An alarm hash.
+     * @return array  An alarm hash. Contains the following:
+     * <pre>
+     * id: Unique alarm id.
+     * user: The alarm's user. Empty if a global alarm.
+     * start: The alarm start as a Horde_Date.
+     * end: The alarm end as a Horde_Date.
+     * methods: The notification methods for this alarm.
+     * params: The paramters for the notification methods.
+     * title: The alarm title.
+     * text: An optional alarm description.
+     * snooze: The snooze time (next time) of the alarm as a Horde_Date.
+     * internal: Holds internally used data.
+     * </pre>
+     * @throws Horde_Alarm_Exception
      */
-    function get($id, $user)
+    public function get($id, $user)
     {
         $alarm = $this->_get($id, $user);
-        if (is_a($alarm, 'PEAR_Error')) {
-            return $alarm;
-        }
+
         if (isset($alarm['mail']['body'])) {
             $alarm['mail']['body'] = $this->_fromDriver($alarm['mail']['body']);
         }
+
         return $alarm;
+    }
+
+    /**
+     * @throws new Horde_Alarm_Exception
+     */
+    protected function _get()
+    {
     }
 
     /**
@@ -84,18 +117,33 @@ class Horde_Alarm {
      *
      * The alarm will be added if it doesn't exist, and updated otherwise.
      *
-     * @param array $alarm  An alarm hash.
+     * @param array $alarm  An alarm hash. See self::get() for format.
+     *
+     * @return TODO
      */
-    function set($alarm)
+    public function set($alarm)
     {
         if (isset($alarm['mail']['body'])) {
             $alarm['mail']['body'] = $this->_toDriver($alarm['mail']['body']);
         }
-        if ($this->exists($alarm['id'], isset($alarm['user']) ? $alarm['user'] : '')) {
-            return $this->_update($alarm);
-        } else {
-            return $this->_add($alarm);
-        }
+
+        return $this->exists($alarm['id'], isset($alarm['user']) ? $alarm['user'] : '')
+            ? $this->_update($alarm)
+            : $this->_add($alarm);
+    }
+
+    /**
+     * @throws new Horde_Alarm_Exception
+     */
+    protected function _update()
+    {
+    }
+
+    /**
+     * @throws new Horde_Alarm_Exception
+     */
+    protected function _add()
+    {
     }
 
     /**
@@ -106,10 +154,20 @@ class Horde_Alarm {
      *
      * @return boolean  True if the specified alarm exists.
      */
-    function exists($id, $user)
+    public function exists($id, $user)
     {
-        $exists = $this->_exists($id, $user);
-        return $exists && !is_a($exists, 'PEAR_Error');
+        try {
+            return $this->_exists($id, $user);
+        } catch (Horde_Alarm_Exception $e) {
+            return false;
+        }
+    }
+
+    /**
+     * @throws Horde_Alarm_Exception
+     */
+    protected function _exists()
+    {
     }
 
     /**
@@ -119,25 +177,41 @@ class Horde_Alarm {
      * @param string $user      The notified user.
      * @param integer $minutes  The delay in minutes. A negative value
      *                          dismisses the alarm completely.
+     *
+     * @return TODO
+     * @throws Horde_Alarm_Exception
      */
-    function snooze($id, $user, $minutes)
+    public function snooze($id, $user, $minutes)
     {
-        $alarm = $this->get($id, $user);
-        if (is_a($alarm, 'PEAR_Error')) {
-            return $alarm;
-        }
         if (empty($user)) {
-            return PEAR::raiseError(_("This alarm cannot be snoozed."));
+            throw new Horde_Alarm_Exception('This alarm cannot be snoozed.');
         }
+
+        $alarm = $this->get($id, $user);
+
         if ($alarm) {
             if ($minutes > 0) {
                 $alarm['snooze'] = new Horde_Date(time());
                 $alarm['snooze']->min += $minutes;
                 return $this->_snooze($id, $user, $alarm['snooze']);
-            } else {
-                return $this->_dismiss($id, $user);
             }
+
+            return $this->_dismiss($id, $user);
         }
+    }
+
+    /**
+     * @throws new Horde_Alarm_Exception
+     */
+    protected function _snooze()
+    {
+    }
+
+    /**
+     * @throws new Horde_Alarm_Exception
+     */
+    protected function _dismiss()
+    {
     }
 
     /**
@@ -150,12 +224,19 @@ class Horde_Alarm {
      *
      * @return boolean  True if the alarm is snoozed.
      */
-    function isSnoozed($id, $user, $time = null)
+    public function isSnoozed($id, $user, $time = null)
     {
         if (is_null($time)) {
             $time = new Horde_Date(time());
         }
         return (bool)$this->_isSnoozed($id, $user, $time);
+    }
+
+    /**
+     * @throws new Horde_Alarm_Exception
+     */
+    protected function _isSnoozed()
+    {
     }
 
     /**
@@ -170,6 +251,13 @@ class Horde_Alarm {
     }
 
     /**
+     * @throws new Horde_Alarm_Exception
+     */
+    protected function _delete()
+    {
+    }
+
+    /**
      * Retrieves active alarms from all applications and stores them in the
      * backend.
      *
@@ -181,10 +269,10 @@ class Horde_Alarm {
      * @param boolean $preload  Preload alarms that go off within the next
      *                          ttl time span?
      */
-    function load($user = null, $preload = true)
+    public function load($user = null, $preload = true)
     {
         if (isset($_SESSION['horde']['alarm']['loaded']) &&
-            time() - $_SESSION['horde']['alarm']['loaded'] < $this->_params['ttl']) {
+            (time() - $_SESSION['horde']['alarm']['loaded']) < $this->_params['ttl']) {
             return;
         }
 
@@ -237,9 +325,10 @@ class Horde_Alarm {
      *                          ttl time span?
      *
      * @return array  A list of alarm hashes.
+     * @throws Horde_Alarm_Exception
      */
-    function listAlarms($user = null, $time = null, $load = false,
-                        $preload = true)
+    public function listAlarms($user = null, $time = null, $load = false,
+                               $preload = true)
     {
         if (empty($time)) {
             $time = new Horde_Date(time());
@@ -249,9 +338,6 @@ class Horde_Alarm {
         }
 
         $alarms = $this->_list($user, $time);
-        if (is_a($alarms, 'PEAR_Error')) {
-            return $alarms;
-        }
 
         foreach (array_keys($alarms) as $alarm) {
             if (isset($alarms[$alarm]['mail']['body'])) {
@@ -259,6 +345,13 @@ class Horde_Alarm {
             }
         }
         return $alarms;
+    }
+
+    /**
+     * @throws new Horde_Alarm_Exception
+     */
+    protected function _list()
+    {
     }
 
     /**
@@ -270,15 +363,19 @@ class Horde_Alarm {
      * @param boolean $preload  Preload alarms that go off within the next
      *                          ttl time span?
      * @param array $exclude    Don't notify with these methods.
+     *
+     * @throws Horde_Alarm_Exception
      */
-    function notify($user = null, $load = true, $preload = true,
-                    $exclude = array())
+    public function notify($user = null, $load = true, $preload = true,
+                           $exclude = array())
     {
-        $alarms = $this->listAlarms($user, null, $load, $preload);
-        if (is_a($alarms, 'PEAR_Error')) {
-            Horde::logMessage($alarms, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $alarms;
+        try {
+            $alarms = $this->listAlarms($user, null, $load, $preload);
+        } catch (Horde_Alarm_Exception $e) {
+            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw $e;
         }
+
         if (empty($alarms)) {
             return;
         }
@@ -288,9 +385,10 @@ class Horde_Alarm {
             foreach ($alarm['methods'] as $alarm_method) {
                 if (in_array($alarm_method, $methods) &&
                     !in_array($alarm_method, $exclude)) {
-                    $result = $this->{'_' . $alarm_method}($alarm);
-                    if (is_a($result, 'PEAR_Error')) {
-                        Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                    try {
+                        $result = $this->{'_' . $alarm_method}($alarm);
+                    } catch (Horde_Alarm_Exception $e) {
+                        Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
                     }
                 }
             }
@@ -302,14 +400,13 @@ class Horde_Alarm {
      *
      * @param array $alarm  An alarm hash.
      */
-    function _notify($alarm)
+    protected function _notify($alarm)
     {
         static $sound_played;
 
         $GLOBALS['notification']->push($alarm['title'], 'horde.alarm', array('alarm' => $alarm));
         if (!empty($alarm['params']['notify']['sound']) &&
             !isset($sound_played[$alarm['params']['notify']['sound']])) {
-            require_once 'Horde/Notification/Listener/Audio.php';
             $GLOBALS['notification']->attach('audio');
             $GLOBALS['notification']->push($alarm['params']['notify']['sound'], 'audio');
             $sound_played[$alarm['params']['notify']['sound']] = true;
@@ -320,8 +417,10 @@ class Horde_Alarm {
      * Notifies about an alarm by email.
      *
      * @param array $alarm  An alarm hash.
+     *
+     * @throws Horde_Mime_Exception
      */
-    function _mail($alarm)
+    protected function _mail($alarm)
     {
         if (!empty($alarm['internal']['mail']['sent'])) {
             return;
@@ -342,16 +441,21 @@ class Horde_Alarm {
             'body' => empty($alarm['params']['mail']['body']) ? $alarm['text'] : $alarm['params']['mail']['body'],
             'to' => $email,
             'from' => $email,
-            'charset' => Horde_Nls::getCharset()));
+            'charset' => Horde_Nls::getCharset()
+        ));
         $mail->addHeader('Auto-Submitted', 'auto-generated');
         $mail->addHeader('X-Horde-Alarm', $alarm['title'], Horde_Nls::getCharset());
         $sent = $mail->send(Horde::getMailerConfig());
-        if (is_a($sent, 'PEAR_Error')) {
-            return $sent;
-        }
 
         $alarm['internal']['mail']['sent'] = true;
         $this->_internal($alarm['id'], $alarm['user'], $alarm['internal']);
+    }
+
+    /**
+     * @throws new Horde_Alarm_Exception
+     */
+    protected function _internal()
+    {
     }
 
     /**
@@ -359,7 +463,7 @@ class Horde_Alarm {
      *
      * @param array $alarm  An alarm hash.
      */
-    function _sms($alarm)
+    protected function _sms($alarm)
     {
     }
 
@@ -375,21 +479,29 @@ class Horde_Alarm {
      *
      * @return array  List of methods and parameters.
      */
-    function notificationMethods()
+    public function notificationMethods()
     {
         static $methods;
 
         if (!isset($methods)) {
-            $methods = array('notify' => array(
-                                 '__desc' => _("Inline Notification"),
-                                 'sound' => array('type' => 'sound',
-                                                  'desc' => _("Play a sound?"),
-                                                  'required' => false)),
-                             'mail' => array(
-                                 '__desc' => _("Email Notification"),
-                                 'email' => array('type' => 'text',
-                                                  'desc' => _("Email address (optional)"),
-                                                  'required' => false)));
+            $methods = array(
+                'notify' => array(
+                    '__desc' => _("Inline Notification"),
+                    'sound' => array(
+                        'type' => 'sound',
+                        'desc' => _("Play a sound?"),
+                        'required' => false
+                    )
+                ),
+                'mail' => array(
+                    '__desc' => _("Email Notification"),
+                    'email' => array(
+                        'type' => 'text',
+                        'desc' => _("Email address (optional)"),
+                        'required' => false
+                    )
+                )
+            );
             /*
             if ($GLOBALS['registry']->hasMethod('sms/send')) {
                 $methods['sms'] = array(
@@ -406,55 +518,12 @@ class Horde_Alarm {
     /**
      * Garbage collects old alarms in the backend.
      */
-    function gc()
+    public function gc()
     {
         /* A 1% chance we will run garbage collection during a call. */
-        if (rand(0, 99) != 0) {
-            return;
+        if (rand(0, 99) == 0) {
+            return $this->_gc();
         }
-
-        return $this->_gc();
-    }
-
-    /**
-     * Attempts to return a concrete Horde_Alarm instance based on $driver.
-     *
-     * @param string $driver  The type of concrete Horde_Alarm subclass to
-     *                        return. The class name is based on the storage
-     *                        driver ($driver). The code is dynamically
-     *                        included.
-     * @param array $params   A hash containing any additional configuration
-     *                        or connection parameters a subclass might need.
-     *
-     * @return mixed  The newly created concrete Horde_Alarm instance, or false
-     *                on an error.
-     */
-    static function factory($driver = null, $params = null)
-    {
-        if (is_null($driver)) {
-            $driver = empty($GLOBALS['conf']['alarms']['driver']) ? 'sql' : $GLOBALS['conf']['alarms']['driver'];
-        }
-
-        $driver = basename($driver);
-
-        if (is_null($params)) {
-            $params = Horde::getDriverConfig('alarms', $driver);
-        }
-
-        $class = 'Horde_Alarm_' . $driver;
-        if (class_exists($class)) {
-            $alarm = new $class($params);
-            $result = $alarm->initialize();
-            if (is_a($result, 'PEAR_Error')) {
-                $alarm = new Horde_Alarm($params, sprintf(_("The alarm backend is not currently available: %s"), $result->getMessage()));
-            } else {
-                $alarm->gc();
-            }
-        } else {
-            $alarm = new Horde_Alarm($params, sprintf(_("Unable to load the definition of %s."), $class));
-        }
-
-        return $alarm;
     }
 
     /**
@@ -464,7 +533,7 @@ class Horde_Alarm {
      *
      * @return mixed  Converted value.
      */
-    function _fromDriver($value)
+    protected function _fromDriver($value)
     {
         return $value;
     }
@@ -476,81 +545,9 @@ class Horde_Alarm {
      *
      * @return mixed  Converted value.
      */
-    function _toDriver($value)
+    protected function _toDriver($value)
     {
         return $value;
-    }
-
-    /**
-     * @abstract
-     */
-    function _get()
-    {
-        return PEAR::raiseError($this->_errormsg);
-    }
-
-    /**
-     * @abstract
-     */
-    function _list()
-    {
-        return PEAR::raiseError($this->_errormsg);
-    }
-
-    /**
-     * @abstract
-     */
-    function _add()
-    {
-        return PEAR::raiseError($this->_errormsg);
-    }
-
-    /**
-     * @abstract
-     */
-    function _update()
-    {
-        return PEAR::raiseError($this->_errormsg);
-    }
-
-    /**
-     * @abstract
-     */
-    function _internal()
-    {
-        return PEAR::raiseError($this->_errormsg);
-    }
-
-    /**
-     * @abstract
-     */
-    function _exists()
-    {
-        return PEAR::raiseError($this->_errormsg);
-    }
-
-    /**
-     * @abstract
-     */
-    function _snooze()
-    {
-        return PEAR::raiseError($this->_errormsg);
-    }
-
-    /**
-     * @abstract
-     */
-    function _isSnoozed()
-    {
-        return PEAR::raiseError($this->_errormsg);
-    }
-
-    /**
-     * @abstract
-     */
-    function _delete()
-    {
-        return PEAR::raiseError($this->_errormsg);
     }
 
 }

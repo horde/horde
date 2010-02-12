@@ -11,7 +11,7 @@ if (!$setup || empty($params)) {
 <?php
 
 include dirname(__FILE__) . '/setup.inc';
-require dirname(__FILE__) . '/../Alarm.php';
+require dirname(__FILE__) . '/../../../lib/Horde/Alarm.php';
 require 'Horde.php';
 require 'Horde/Nls.php';
 

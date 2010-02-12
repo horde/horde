@@ -3,7 +3,7 @@
 http://pear.php.net/dtd/tasks-1.0.xsd
 http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Horde_Alarm</name>
+ <name>Alarm</name>
  <channel>pear.horde.org</channel>
  <summary>Horde alarm libraries</summary>
  <description>This package provides an interface to deal with reminders,
@@ -16,35 +16,45 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2007-02-01</date>
+ <date>2009-02-11</date>
  <version>
-  <release>0.1.0</release>
-  <api>0.1.0</api>
+  <release>0.2.0</release>
+  <api>0.2.0</api>
  </version>
  <stability>
   <release>beta</release>
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Initial release.</notes>
+ <notes>* Initial Horde 4 package.</notes>
  <contents>
-  <dir name="/" baseinstalldir="/Horde">
-   <dir name="Alarm">
-    <file name="sql.php" role="php" />
-   </dir> <!-- /Alarm -->
-   <dir name="tests">
-    <file name="001.phpt" role="test" />
-   </dir> <!-- /tests -->
-   <file name="Alarm.php" role="php" />
+  <dir name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Alarm">
+      <file name="Exception.php" role="php" />
+      <file name="Sql.php" role="php" />
+     </dir> <!-- /lib/Horde/Alarm -->
+     <file name="Alarm.php" role="php" />
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Alarm">
+      <file name="001.phpt" role="test" />
+      <file name="setup.inc.dist" role="test" />
+     </dir> <!-- /test/Horde/Alarm -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
   <required>
    <php>
-    <min>4.3.0</min>
+    <min>5.2.0</min>
    </php>
    <pearinstaller>
-    <min>1.4.0b1</min>
+    <min>1.5.0</min>
    </pearinstaller>
    <package>
     <name>Date</name>
@@ -52,5 +62,26 @@ http://pear.php.net/dtd/package-2.0.xsd">
    </package>
   </required>
  </dependencies>
- <phprelease />
+ <phprelease>
+  <filelist>
+   <install name="lib/Horde/Alarm/Exception.php" as="Horde/Alarm/Exception.php" />
+   <install name="lib/Horde/Alarm/Sql.php" as="Horde/Alarm/Sql.php" />
+   <install name="lib/Horde/Alarm.php" as="Horde/Alarm.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <date>2007-02-01</date>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>* Initial release.</notes>
+  </release>
+ </changelog>
 </package>

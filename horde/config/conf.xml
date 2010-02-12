@@ -947,7 +947,7 @@
    <configswitch name="driver" desc="What alarm storage driver should we
    use?">sql
      <case name="false" desc="None"/>
-     <case name="sql" desc="SQL Database">
+     <case name="Sql" desc="SQL Database">
       <configsection name="params">
        <configsql switchname="driverconfig">
         <configstring name="table" required="false" desc="The name of the
