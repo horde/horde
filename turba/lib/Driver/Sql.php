@@ -341,19 +341,43 @@ class Turba_Driver_Sql extends Turba_Driver
             return PEAR::raiseError('permission denied');
         }
 
-        $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE owner_id = ?';
-
+        /* Get owner id */
         if (empty($sourceName)) {
             $values = array(Horde_Auth::getAuth());
         } else {
             $values = array($sourceName);
         }
 
-        /* Log the query at a DEBUG log level. */
+        /* Need a list of UIDs so we can notify History */
+        $query = 'SELECT '. $this->map['__uid'] . ' FROM ' . $this->_params['table'] . ' WHERE owner_id = ?';
+        Horde::logMessage('SQL query by Turba_Driver_sql::_deleteAll(): ' . $query,
+                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $ids = $this->_write_db->query($query, $values);
+        if (is_a($ids, 'PEAR_Error')) {
+            return $ids;
+        }
+
+        /* Do the deletion */
+        $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE owner_id = ?';
         Horde::logMessage('SQL query by Turba_Driver_sql::_deleteAll(): ' . $query,
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
-        return $this->_write_db->query($query, $values);
+        $result = $this->_write_db->query($query, $values);
+        if (is_a($result, 'PEAR_Error')) {
+            return $result;
+        }
+
+        /* Update Horde_History */
+        $history = &Horde_History::singleton();
+        while($ids->fetchInto($row)) {
+            // This is slightly hackish, but it saves us from having to create
+            // and save an array of Turba_Objects before we delete them, just to
+            // be able to calculate this using Turba_Object#getGuid
+            $guid = 'turba:' . $this->getName() . ':' . $row[0];
+            $history->log($guid, array('action' => 'delete'), true);
+        }
+
+        return true;
     }
 
     /**
