@@ -374,6 +374,7 @@ class Turba {
         }
 
         $sortedShares = $defaults = $vbooks = array();
+        $defaults = array();
         foreach (array_keys($shares) as $name) {
             if (isset($sources[$name])) {
                 continue;
@@ -395,7 +396,7 @@ class Turba {
                 // Default share?
                 if (empty($defaults[$params['source']])) {
                     $driver = Turba_Driver::singleton($params['source']);
-                    if (!is_a($driver, 'PEAR_Error')) {
+                    if (!is_a($driver, 'PEAR_Error') && $driver->hasPermission(PERMS_EDIT)) {
                         $defaults[$params['source']] =
                             $driver->checkDefaultShare(
                                 $shares[$name],
