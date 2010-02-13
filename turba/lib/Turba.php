@@ -396,7 +396,7 @@ class Turba {
                 // Default share?
                 if (empty($defaults[$params['source']])) {
                     $driver = Turba_Driver::singleton($params['source']);
-                    if (!is_a($driver, 'PEAR_Error') && $driver->hasPermission(PERMS_EDIT)) {
+                    if (!is_a($driver, 'PEAR_Error') && $driver->hasPermission(Horde_Perms::EDIT)) {
                         $defaults[$params['source']] =
                             $driver->checkDefaultShare(
                                 $shares[$name],
