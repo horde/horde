@@ -148,6 +148,7 @@ function processDirectory($dir, $parent = null, $gallery_id = null, $slug = null
 {
     global $cli, $rpc_auth, $rpc_endpoint;
 
+    $dir = Horde_Util::realPath($dir);
     if (!is_dir($dir)) {
         $cli->fatal(sprintf(_("\"%s\" is not a directory."), $dir));
     }

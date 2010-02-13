@@ -125,6 +125,7 @@ function processDirectory($dir, $parent = null)
 {
     global $cli;
 
+    $dir = Horde_Util::realPath($dir);
     if (!is_dir($dir)) {
         $cli->fatal(sprintf(_("\"%s\" is not a directory."), $dir));
     }
