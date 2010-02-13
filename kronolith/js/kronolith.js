@@ -2511,6 +2511,7 @@ KronolithCore = {
                 $('kronolithEventMapLink').show();
             } else if (Kronolith.conf.maps.driver) {
                 $('kronolithEventMapLink').hide();
+                this.removeMapMarker();
             }
             return;
         }
@@ -3778,6 +3779,19 @@ KronolithCore = {
         if (center) {
             this.map.setCenter(ll, 8);
             //this.map.zoomToFit();
+        }
+    },
+
+    /**
+     * Remove the event marker from the map. Called after clearing the location
+     * field.
+     */
+    removeMapMarker: function()
+    {
+        if (this.mapMarker) {
+            this.map.removeMarker(this.mapMarker);
+            $('kronolithEventLocationLon').value = null;
+            $('kronolithEventLocationLat').value = null;
         }
     },
 
