@@ -98,7 +98,7 @@ class Kronolith_Geo_Sql extends Kronolith_Geo
          */
         if ((empty($point['lat']) || empty($point['lon'])) && $count) {
             // Delete the record.
-            $this->removeLocation($event_id);
+            $this->deleteLocation($event_id);
             return;
         } elseif (empty($point['lat']) || empty($point['lon'])) {
             return;
