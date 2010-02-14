@@ -186,7 +186,7 @@ class Page {
      */
     function getCurrentPage()
     {
-        return Page::getPage(preg_replace('|/$|', '', Horde_Util::getFormData('page')),
+        return Page::getPage(rtrim(Horde_Util::getFormData('page'), '/'),
                              Horde_Util::getFormData('version'),
                              Horde_Util::getFormData('referrer'));
     }
