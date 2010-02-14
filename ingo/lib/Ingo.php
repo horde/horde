@@ -69,25 +69,25 @@ class Ingo
         $_SESSION['ingo']['script_generate'] = $ingo_script->generateAvailable();
 
         /* Disable categories as specified in preferences */
-        $disabled = array();
+        $categories = array_merge($ingo_script->availableActions(), $ingo_script->availableCategories());
         if ($prefs->isLocked('blacklist')) {
-            $disabled[] = Ingo_Storage::ACTION_BLACKLIST;
+            unset($categories[Ingo_Storage::ACTION_BLACKLIST]);
         }
         if ($prefs->isLocked('whitelist')) {
-            $disabled[] = Ingo_Storage::ACTION_WHITELIST;
+            unset($categories[Ingo_Storage::ACTION_WHITELIST]);
         }
         if ($prefs->isLocked('vacation')) {
-            $disabled[] = Ingo_Storage::ACTION_VACATION;
+            unset($categories[Ingo_Storage::ACTION_VACATION]);
         }
         if ($prefs->isLocked('forward')) {
-            $disabled[] = Ingo_Storage::ACTION_FORWARD;
+            unset($categories[Ingo_Storage::ACTION_FORWARD]);
         }
         if ($prefs->isLocked('spam')) {
-            $disabled[] = Ingo_Storage::ACTION_SPAM;
+            unset($categories[Ingo_Storage::ACTION_SPAM]);
         }
 
         /* Set the list of categories this driver supports. */
-        $_SESSION['ingo']['script_categories'] = array_merge($ingo_script->availableActions(), array_diff($ingo_script->availableCategories(), $disabled));
+        $_SESSION['ingo']['script_categories'] = $categories;
     }
 
     /**
@@ -126,8 +126,7 @@ class Ingo
                     }
                     $text .= '"';
                 }
-                $text .= ">\n";
-                $text .= '<option value="">' . _("Select target folder:") . "</option>\n";
+                $text .= "\n<option value=\"\">" . _("Select target folder:") . "</option>\n";
 
                 if ($registry->hasMethod('mail/createFolder')) {
                     $text .= '<option value="">' . _("Create new folder") . "</option>\n";
@@ -143,8 +142,7 @@ class Ingo
                                      Horde_Text_Filter::filter($label, 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)), "\n");
                 }
 
-                $text .= '</select>';
-                return $text;
+                return $text . '</select>';
             } catch (Horde_Exception $e) {}
         }
 
@@ -178,9 +176,9 @@ class Ingo
         if (empty($GLOBALS['ingo_shares'])) {
             $user = ($full ||
                      (isset($_SESSION['ingo']['backend']['hordeauth']) &&
-                      $_SESSION['ingo']['backend']['hordeauth'] === 'full')) ?
-                Horde_Auth::getAuth() :
-                Horde_Auth::getBareAuth();
+                      $_SESSION['ingo']['backend']['hordeauth'] === 'full'))
+                ? Horde_Auth::getAuth()
+                : Horde_Auth::getBareAuth();
         } else {
             list(, $user) = explode(':', $_SESSION['ingo']['current_share'], 2);
         }
@@ -305,7 +303,7 @@ class Ingo
         }
 
         /* Check for valid backend configuration. */
-        if (!isset($backend)) {
+        if (is_null($backend)) {
             throw new Ingo_Exception(_("No backend configured for this host"));
         }
 
