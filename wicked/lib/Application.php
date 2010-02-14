@@ -29,8 +29,13 @@ if (!defined('HORDE_BASE')) {
 }
 
 /* Load the Horde Framework core (needed to autoload
- *  Horde_Registry_Application::). */
+ * Horde_Registry_Application::). */
 require_once HORDE_BASE . '/lib/core.php';
+
+// Wicked base libraries.
+require_once WICKED_BASE . '/lib/Wicked.php';
+require_once WICKED_BASE . '/lib/Driver.php';
+require_once WICKED_BASE . '/lib/Page.php';
 
 class Wicked_Application extends Horde_Registry_Application
 {
