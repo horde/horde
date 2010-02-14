@@ -26,7 +26,7 @@ class Ingo_Storage_Blacklist extends Ingo_Storage_Rule
      */
     public function setBlacklist($data, $sort = true)
     {
-        $addr = $this->_addressList($data, $sort);
+        $addr = array_filter($this->_addressList($data, $sort), array('Ingo', 'filterEmptyAddress'));
         if (!empty($GLOBALS['conf']['storage']['maxblacklist'])) {
             $addr_count = count($addr);
             if ($addr_count > $GLOBALS['conf']['storage']['maxblacklist']) {
@@ -49,9 +49,7 @@ class Ingo_Storage_Blacklist extends Ingo_Storage_Rule
      */
     public function getBlacklist()
     {
-        return empty($this->_addr)
-            ? array()
-            : array_filter($this->_addr, array('Ingo', 'filterEmptyAddress'));
+        return $this->_addr;
     }
 
     /**

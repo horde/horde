@@ -29,18 +29,13 @@ class Ingo_Api extends Horde_Registry_Api
      */
     public function blacklistFrom($addresses)
     {
-        /* Check for '@' entries in $addresses - this would call all mail to
-         * be blacklisted which is most likely not what is desired. */
-        $addresses = array_flip($addresses);
-        unset($addresses['@']);
-
         if (!empty($addresses)) {
             try {
                 $blacklist = $GLOBALS['ingo_storage']->retrieve(Ingo_Storage::ACTION_BLACKLIST);
-                $blacklist->setBlacklist(array_merge($blacklist->getBlacklist(), array_keys($addresses)));
+                $blacklist->setBlacklist(array_merge($blacklist->getBlacklist(), $addresses));
                 $GLOBALS['ingo_storage']->store($blacklist);
                 Ingo::updateScript();
-                foreach (array_keys($addresses) as $from) {
+                foreach ($addresses as $from) {
                     $GLOBALS['notification']->push(sprintf(_("The address \"%s\" has been added to your blacklist."), $from));
                 }
             } catch (Ingo_Exception $e) {

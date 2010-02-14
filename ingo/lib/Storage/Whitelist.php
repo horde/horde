@@ -30,8 +30,7 @@ class Ingo_Storage_Whitelist extends Ingo_Storage_Rule
      */
     public function setWhitelist($data, $sort = true)
     {
-        $addr = $this->_addressList($data, $sort);
-        $addr = array_filter($addr, array('Ingo', 'filterEmptyAddress'));
+        $addr = array_filter($this->_addressList($data, $sort), array('Ingo', 'filterEmptyAddress'));
         if (!empty($GLOBALS['conf']['storage']['maxwhitelist'])) {
             $addr_count = count($addr);
             if ($addr_count > $GLOBALS['conf']['storage']['maxwhitelist']) {
@@ -47,9 +46,7 @@ class Ingo_Storage_Whitelist extends Ingo_Storage_Rule
      */
     public function getWhitelist()
     {
-        return empty($this->_addr)
-            ? array()
-            : array_filter($this->_addr, array('Ingo', 'filterEmptyAddress'));
+        return $this->_addr;
     }
 
 }
