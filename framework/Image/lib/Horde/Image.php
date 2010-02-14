@@ -235,7 +235,7 @@ class Horde_Image
     /**
      * Return point size for font
      */
-    public static function getFontSize($fontsize)
+    static public function getFontSize($fontsize)
     {
         switch ($fontsize) {
         case 'medium':
