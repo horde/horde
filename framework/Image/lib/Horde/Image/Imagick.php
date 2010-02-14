@@ -114,7 +114,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
             throw new Horde_Image_Exception($e);
         }
         $this->_imagick->setFormat($this->_type);
-        $this->_imagick->setIteratorIndex(0);
+        //$this->_imagick->setIteratorIndex(0);
         unset($this->_data);
     }
 
@@ -555,10 +555,8 @@ class Horde_Image_Imagick extends Horde_Image_Base
     {
         $this->_logDebug('Horde_Image_Imagick#current');
         $params = array('data' => $this->raw());
-        $context = array('tmpdir' => $this->_tmpdir,
-                         'logger' => $this->_logger);
-        $image = new Horde_Image_Imagick($params, $context);
-        $this->_logDebug(print_r($image, true));
+        $image = new Horde_Image_Imagick($params, $this->_context);
+        
         return $image;
     }
 
@@ -589,9 +587,45 @@ class Horde_Image_Imagick extends Horde_Image_Base
         }
     }
 
+    /**
+     * Deterimines if the current iterator item is valid.
+     *
+     * @return boolean
+     */
     public function valid()
     {
         $this->_logDebug('Horde_Image_Imagick#valid:' . print_r(!$this->moreImages, true));
         return !$this->_noMoreImages;
+    }
+
+    /**
+     * Request a specific image from the collection of images.
+     *
+     * @param integer $index  The index to return
+     *
+     * @return Horde_Image_Base
+     */
+    public function getImageAtIndex($index)
+    {
+        if ($index >= $this->_imagick->getNumberImages()) {
+            throw Horde_Image_Exception('Image index out of bounds.');
+        }
+
+        $currentIndex = $this->_imagick->getIteratorIndex();
+        $this->_imagick->setIteratorIndex($index);
+        $image = $this->current();
+        $this->_imagick->setIteratorIndex($currentIndex);
+
+        return $image;
+    }
+
+    /**
+     * Return the number of image pages available in the image object.
+     *
+     * @return integer
+     */
+    public function getImagePageCount()
+    {
+        return $this->_imagick->getNumberImages();
     }
  }

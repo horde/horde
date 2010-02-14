@@ -16,7 +16,7 @@
  * @TODO: - Can we depend on the Horde_Util:: class or some other solution needed?
  *        - Exceptions
  */
-class Horde_Image_Base Implements Iterator
+abstract class Horde_Image_Base Implements Iterator
 {
     /**
      * Background color.
@@ -91,13 +91,22 @@ class Horde_Image_Base Implements Iterator
     protected $_type = 'png';
 
     /**
+     * Cache the context
+     *
+     * @param array
+     */
+     protected $_context;
+     
+    /**
      * Constructor.
      *
      * @param string $rgb  The base color for generated pixels/images.
      */
     protected function __construct($params, $context = array())
     {
-
+        $this->_params = $params;
+        $this->_context = $context;
+        
         if (empty($context['tmpdir'])) {
             throw new InvalidArgumentException('A path to a temporary directory is required.');
         }
@@ -309,7 +318,7 @@ class Horde_Image_Base Implements Iterator
     public function display()
     {
         $this->headers();
-        echo $this->raw();
+        echo $this->raw(true);
     }
 
     /**
@@ -419,32 +428,19 @@ class Horde_Image_Base Implements Iterator
     }
 
     /**
-     * Iterator interface
+     * Request a specific image from the collection of images.
+     *
+     * @param integer $index  The index to return
+     *
+     * @return Horde_Image_Base
      */
-    public function rewind()
-    {
+    abstract function getImageAtIndex($index);
 
-    }
-
-    public function current()
-
-    {
-
-    }
-
-    public function key()
-    {
-
-    }
-
-    public function next()
-    {
-
-    }
-
-    public function valid()
-    {
-
-    }
-
+    /**
+     * Return the number of image pages available in the image object.
+     *
+     * @return integer
+     */
+    abstract function getImagePageCount();
+    
 }
