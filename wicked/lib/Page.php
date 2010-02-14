@@ -135,11 +135,6 @@ class Page {
             if (($pagePerms & Horde_Perms::EDIT) == 0) {
                 return false;
             }
-
-            /* Locked page. */
-            if ($this->isLocked()) {
-                return false;
-            }
             break;
 
         case WICKED_MODE_REMOVE:
@@ -155,27 +150,6 @@ class Page {
                 return false;
             }
             break;
-
-        case WICKED_MODE_LOCKING:
-            if ($browser->isRobot()) {
-                return false;
-            }
-
-            if (Horde_Auth::isAdmin()) {
-                return true;
-            }
-
-            if (($pagePerms & Horde_Perms::EDIT) == 0) {
-                return false;
-            }
-            break;
-
-        case WICKED_MODE_UNLOCKING:
-            if (Horde_Auth::isAdmin()) {
-                return true;
-            }
-
-            return false;
 
         // All other modes require READ permissions.
         default:

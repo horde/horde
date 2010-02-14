@@ -127,10 +127,33 @@ class StandardPage extends Page {
      */
     function allows($mode)
     {
-        if ($mode == WICKED_MODE_UNLOCKING && $this->_lock &&
-            (Horde_Auth::getAuth() && Horde_Auth::getAuth() == $this->_lock['lock_owner']) ||
-            (!Horde_Auth::getAuth() && $GLOBALS['browser']->getIPAddress() == $this->_lock['lock_owner'])) {
-            return true;
+        switch ($mode) {
+        case WICKED_MODE_EDIT:
+            if ($this->isLocked()) {
+                return Wicked::lockUser() == $this->_lock['lock_owner'];
+            }
+            break;
+
+        case WICKED_MODE_LOCKING:
+            if ($GLOBALS['browser']->isRobot()) {
+                return false;
+            }
+            if (Horde_Auth::isAdmin()) {
+                return true;
+            }
+            if (($this->getPermissions() & PERMS_EDIT) == 0) {
+                return false;
+            }
+            break;
+
+        case WICKED_MODE_UNLOCKING:
+            if (Horde_Auth::isAdmin()) {
+                return true;
+            }
+            if ($this->_lock) {
+                return Wicked::lockUser() == $this->_lock['lock_owner'];
+            }
+            return false;
         }
         return parent::allows($mode);
     }
@@ -220,8 +243,7 @@ class StandardPage extends Page {
     function lock()
     {
         if ($this->_locks) {
-            $owner = Horde_Auth::getAuth() ? Horde_Auth::getAuth() : $GLOBALS['browser']->getIPAddress();
-            $id = $this->_locks->setLock($owner, 'wicked', $this->pageName(), $GLOBALS['conf']['wicked']['lock']['time'] * 60, Horde_Lock::TYPE_EXCLUSIVE);
+            $id = $this->_locks->setLock(Wicked::lockUser(), 'wicked', $this->pageName(), $GLOBALS['conf']['wicked']['lock']['time'] * 60, Horde_Lock::TYPE_EXCLUSIVE);
             if ($id) {
                 $this->_lock = $this->_locks->getLockInfo($id);
             } else {

@@ -214,4 +214,15 @@ class Wicked {
         return $_SESSION['wickedSession']['CAPTCHA'];
     }
 
+    /**
+     * Returns the user name that is used for locking, either the current user
+     * or the current IP address.
+     *
+     * @return string  The user name used for locking.
+     */
+    function lockUser()
+    {
+        return Horde_Auth::getAuth() ? Horde_Auth::getAuth() : $GLOBALS['browser']->getIPAddress();
+    }
+
 }

@@ -59,7 +59,7 @@ class EditPage extends Page {
     {
         if ($mode == WICKED_MODE_EDIT) {
             $page = Page::getPage($this->referrer());
-            if ($page->isLocked(Horde_Auth::getAuth() ? Horde_Auth::getAuth() : $GLOBALS['browser']->getIPAddress())) {
+            if ($page->isLocked(Wicked::lockUser())) {
                 return false;
             }
         }
@@ -88,6 +88,9 @@ class EditPage extends Page {
         }
         if ($this->allows(WICKED_MODE_LOCKING)) {
             $page = Page::getPage($this->referrer());
+            if ($page->isLocked()) {
+                $page->unlock();
+            }
             $result = $page->lock();
             if (is_a($result, 'PEAR_Error')) {
                 $GLOBALS['notification']->push(sprintf(_("Page failed to lock: %s"), $result->getMessage()), 'horde.error');
@@ -179,7 +182,7 @@ class EditPage extends Page {
                 }
             }
 
-            if ($this->allows(WICKED_MODE_UNLOCKING)) {
+            if ($page->allows(WICKED_MODE_UNLOCKING)) {
                 $result = $page->unlock();
                 if (is_a($result, 'PEAR_Error')) {
                     $GLOBALS['notification']->push(sprintf(_("Page failed to unlock: %s"), $result->getMessage()), 'horde.error');
