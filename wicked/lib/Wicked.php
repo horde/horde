@@ -109,7 +109,7 @@ class Wicked {
                  * this on our own because all the buttons go to the same .php
                  * file, just with different args. */
                 if (!strstr($_SERVER['PHP_SELF'], 'prefs.php') &&
-                    $curpage === $rawname) {
+                    $curpage === $pagename) {
                     $cellclass = 'current';
                 } else {
                     $cellclass = '__noselection';
