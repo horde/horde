@@ -300,7 +300,7 @@ class Horde_Prefs_Ui
         }
         $GLOBALS['bodyId'] = 'services_prefs';
         if (!$chunk) {
-            require $registry->get('templates', $app) . '/common-header.inc';
+            require $registry->get('templates', 'horde') . '/common-header.inc';
 
             if (empty($_SESSION['horde_prefs']['nomenu'])) {
                 if ($registry->hasAppMethod($app, 'prefsMenu')) {
