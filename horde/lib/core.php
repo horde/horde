@@ -26,10 +26,7 @@ if (!defined('HORDE_BASE')) {
     define('HORDE_BASE', dirname(__FILE__) . '/..');
 }
 
-/* Define any local include_path alterations in horde/config/horde.local.php.
- * Example:
- *   ini_set('include_path', dirname(__FILE__) . PATH_SEPARATOR . ini_get('include_path'));
- */
+ini_set('include_path', dirname(__FILE__) . PATH_SEPARATOR . ini_get('include_path'));
 if (file_exists(HORDE_BASE . '/config/horde.local.php')) {
     include HORDE_BASE . '/config/horde.local.php';
 }
