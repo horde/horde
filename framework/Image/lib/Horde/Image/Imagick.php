@@ -12,7 +12,20 @@
  */
 class Horde_Image_Imagick extends Horde_Image_Base
 {
+    /**
+     * The underlaying Imagick object
+     *
+     * @var Imagick
+     */
     protected $_imagick;
+
+    /**
+     * Flag for iterator, since calling nextImage on Imagick would result in a
+     * fatal error if there are no more images.
+     *
+     * @var boolean
+     */
+    private $_noMoreImages = false;
 
     /**
      * Capabilites of this driver.
@@ -125,6 +138,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
     {
         parent::reset();
         $this->_imagick->clear();
+        $this->_noMoreImages = false;
     }
 
     /**
@@ -520,4 +534,64 @@ class Horde_Image_Imagick extends Horde_Image_Base
         $border->destroy();
     }
 
+    /**
+     * Reset the imagick iterator to the first image in the set.
+     *
+     * @return void
+     */
+    public function rewind()
+    {
+        $this->_logDebug('Horde_Image_Imagick#rewind');
+        $this->_imagick->setFirstIterator();
+        $this->_noMoreImages = false;
+    }
+
+    /**
+     * Return the current image from the internal iterator.
+     *
+     * @return Horde_Image_Imagick
+     */
+    public function current()
+    {
+        $this->_logDebug('Horde_Image_Imagick#current');
+        $params = array('data' => $this->raw());
+        $context = array('tmpdir' => $this->_tmpdir,
+                         'logger' => $this->_logger);
+        $image = new Horde_Image_Imagick($params, $context);
+        $this->_logDebug(print_r($image, true));
+        return $image;
+    }
+
+    /**
+     * Get the index of the internal iterator.
+     *
+     * @return integer
+     */
+    public function key()
+    {
+        $this->_logDebug('Horde_Image_Imagick#key: ' . $this->_imagick->getIteratorIndex());
+        return $this->_imagick->getIteratorIndex();
+    }
+
+    /**
+     * Advance the iterator
+     *
+     * @return Horde_Image_Imagick
+     */
+    public function next()
+    {
+        if ($this->_imagick->hasNextImage()) {
+            $this->_imagick->nextImage();
+            return $this->current();
+        } else {
+            $this->_noMoreImages = true;
+            return false;
+        }
+    }
+
+    public function valid()
+    {
+        $this->_logDebug('Horde_Image_Imagick#valid:' . print_r(!$this->moreImages, true));
+        return !$this->_noMoreImages;
+    }
  }

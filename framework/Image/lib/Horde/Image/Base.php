@@ -16,7 +16,7 @@
  * @TODO: - Can we depend on the Horde_Util:: class or some other solution needed?
  *        - Exceptions
  */
-class Horde_Image_Base
+class Horde_Image_Base Implements Iterator
 {
     /**
      * Background color.
@@ -416,6 +416,35 @@ class Horde_Image_Base
         if (!empty($this->_logger)) {
             $this->_logger->err($message);
         }
+    }
+
+    /**
+     * Iterator interface
+     */
+    public function rewind()
+    {
+
+    }
+
+    public function current()
+
+    {
+
+    }
+
+    public function key()
+    {
+
+    }
+
+    public function next()
+    {
+
+    }
+
+    public function valid()
+    {
+
     }
 
 }
