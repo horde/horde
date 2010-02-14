@@ -44,6 +44,27 @@ class MergeOrRename extends Page {
     }
 
     /**
+     * Returns if the page allows a mode. Access rights and user state
+     * are taken into consideration.
+     *
+     * @see $supportedModes
+     *
+     * @param integer $mode  The mode to check for.
+     *
+     * @return boolean  True if the mode is allowed.
+     */
+    function allows($mode)
+    {
+        if ($mode == WICKED_MODE_EDIT) {
+            $page = Page::getPage($this->referrer());
+            if ($page->isLocked(Wicked::lockUser())) {
+                return false;
+            }
+        }
+        return parent::allows($mode);
+    }
+
+    /**
      * Retrieve this user's permissions for the referring page.
      *
      * @return integer  The permissions bitmask.

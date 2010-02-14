@@ -17,7 +17,7 @@ if (!function_exists('separator')) {
 
 separator(true);
 
-if ($this->allows(WICKED_MODE_EDIT) && !$this->isLocked()) {
+if ($this->allows(WICKED_MODE_EDIT) && !$this->isLocked(Wicked::lockUser())) {
     separator();
     $url = Horde_Util::addParameter(Wicked::url('EditPage'),
                               'referrer', $this->pageName());
@@ -56,7 +56,7 @@ if ($this->allows(WICKED_MODE_REMOVE)) {
                        'widget', '', '', _("_Delete"));
 }
 
-if ($this->allows(WICKED_MODE_EDIT)) {
+if ($this->allows(WICKED_MODE_EDIT) && !$this->isLocked(Wicked::lockUser())) {
     separator();
     $url = Horde_Util::addParameter(Wicked::url('MergeOrRename'),
                               'referrer', $this->pageName());
