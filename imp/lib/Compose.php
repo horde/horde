@@ -1172,7 +1172,7 @@ class IMP_Compose
                 /* Check to see if we have the user's passphrase yet. */
                 $passphrase = $imp_pgp->getPassphrase('personal');
                 if (empty($passphrase)) {
-                    $e = new IMP_Compose_Exception(_("PGP: Need passphrase for personal private key."), 'horde.message');
+                    $e = new IMP_Compose_Exception(_("PGP: Need passphrase for personal private key."));
                     $e->encrypt = 'pgp_passphrase_dialog';
                     throw $e;
                 }
@@ -1184,7 +1184,7 @@ class IMP_Compose
                  * yet. */
                 $symmetric_passphrase = $imp_pgp->getPassphrase('symmetric', 'imp_compose_' . $this->_cacheid);
                 if (empty($symmetric_passphrase)) {
-                    $e = new IMP_Compose_Exception(_("PGP: Need passphrase to encrypt your message with."), 'horde.message');
+                    $e = new IMP_Compose_Exception(_("PGP: Need passphrase to encrypt your message with."));
                     $e->encrypt = 'pgp_symmetric_passphrase_dialog';
                     throw $e;
                 }
@@ -1225,7 +1225,7 @@ class IMP_Compose
             if (in_array($encrypt, array(IMP::SMIME_SIGN, IMP::SMIME_SIGNENC))) {
                 $passphrase = $imp_smime->getPassphrase();
                 if ($passphrase === false) {
-                    $e = new IMP_Compose_Exception(_("S/MIME Error: Need passphrase for personal private key."), 'horde.error');
+                    $e = new IMP_Compose_Exception(_("S/MIME Error: Need passphrase for personal private key."));
                     $e->encrypt = 'smime_passphrase_dialog';
                     throw $e;
                 }
@@ -1744,7 +1744,7 @@ class IMP_Compose
         /* Check for filesize limitations. */
         if (!empty($conf['compose']['attach_size_limit']) &&
             (($conf['compose']['attach_size_limit'] - $this->sizeOfAttachments() - $_FILES[$name]['size']) < 0)) {
-            throw new IMP_Compose_Exception(sprintf(_("Attached file \"%s\" exceeds the attachment size limits. File NOT attached."), $filename), 'horde.error');
+            throw new IMP_Compose_Exception(sprintf(_("Attached file \"%s\" exceeds the attachment size limits. File NOT attached."), $filename));
         }
 
         /* Determine the MIME type of the data. */
@@ -1778,7 +1778,7 @@ class IMP_Compose
         } else {
             $attachment = Horde::getTempFile('impatt', false);
             if (move_uploaded_file($tempfile, $attachment) === false) {
-                throw new IMP_Compose_Exception(sprintf(_("The file %s could not be attached."), $filename), 'horde.error');
+                throw new IMP_Compose_Exception(sprintf(_("The file %s could not be attached."), $filename));
             }
         }
 
@@ -1822,7 +1822,7 @@ class IMP_Compose
             $attachment = Horde::getTempFile('impatt', false);
             $res = file_put_contents($attachment, $part->getContents());
             if ($res === false) {
-                throw new IMP_Compose_Exception(sprintf(_("Could not attach %s to the message."), $part->getName()), 'horde.error');
+                throw new IMP_Compose_Exception(sprintf(_("Could not attach %s to the message."), $part->getName()));
             }
 
             if (($type == 'application/octet-stream') &&
@@ -1842,7 +1842,7 @@ class IMP_Compose
         /* Check for filesize limitations. */
         if (!empty($conf['compose']['attach_size_limit']) &&
             (($conf['compose']['attach_size_limit'] - $this->sizeOfAttachments() - $bytes) < 0)) {
-            throw new IMP_Compose_Exception(sprintf(_("Attached file \"%s\" exceeds the attachment size limits. File NOT attached."), $part->getName()), 'horde.error');
+            throw new IMP_Compose_Exception(sprintf(_("Attached file \"%s\" exceeds the attachment size limits. File NOT attached."), $part->getName()));
         }
 
         /* Store the data. */

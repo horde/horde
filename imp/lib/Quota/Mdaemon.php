@@ -43,7 +43,7 @@ class IMP_Quota_Mdaemon extends IMP_Quota
             }
         }
 
-        throw new Horde_Exception(_("Unable to retrieve quota"), 'horde.error');
+        throw new Horde_Exception(_("Unable to retrieve quota"));
     }
 
     /**

@@ -88,7 +88,7 @@ class IMP_Quota_Command extends IMP_Quota
                         'limit' => $quota[2] * $blocksize);
         }
 
-        throw new Horde_Exception(_("Unable to retrieve quota"), 'horde.error');
+        throw new Horde_Exception(_("Unable to retrieve quota"));
     }
 
 }

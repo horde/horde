@@ -767,7 +767,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         try {
             $this->getPublicKeyserver($info['keyid'], $server, $timeout);
         } catch (Horde_Exception $e) {
-            throw new Horde_Exception(_("Key already exists on the public keyserver."), 'horde.warning');
+            throw new Horde_Exception(_("Key already exists on the public keyserver."));
         }
 
         /* Connect to the public keyserver. _connectKeyserver() */

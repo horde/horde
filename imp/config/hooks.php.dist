@@ -560,11 +560,11 @@ class IMP_Hooks
 //
 //        $session = ssh2_connect($host);
 //        if (!$session) {
-//            throw new IMP_Exception(_("Connection to server failed."), 'horde.error');
+//            throw new IMP_Exception(_("Connection to server failed."));
 //        }
 //
 //        if (!ssh2_auth_password($session, $user, $pass)) {
-//            throw new IMP_Exception(_("Authentication failed."), 'horde.error');
+//            throw new IMP_Exception(_("Authentication failed."));
 //        }
 //
 //        $stream = ssh2_exec($session, $command, false);

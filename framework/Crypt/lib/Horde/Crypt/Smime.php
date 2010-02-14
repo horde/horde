@@ -194,7 +194,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
         $result = openssl_pkcs7_verify($input, PKCS7_NOVERIFY, $output);
 
         if ($result === true) {
-            throw new Horde_Exception(_("Message Verified Successfully but the signer's certificate could not be verified."), 'horde.warning');
+            throw new Horde_Exception(_("Message Verified Successfully but the signer's certificate could not be verified."));
         } elseif ($result == -1) {
             throw new Horde_Exception(_("Verification failed - an unknown error has occurred."));
         } else {
