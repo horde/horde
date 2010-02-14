@@ -7,9 +7,8 @@
  *
  * @package Horde_Image
  */
-define('HORDE_BASE', '/var/www/html/horde');
-$horde_authentication = 'none';
-require_once HORDE_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/../../../horde/lib/Application.php';
+Horde_Registry::appInit('horde', array('authentication' => 'none'));
 $db = $GLOBALS['injector']->getInstance('Horde_Db_Adapter_Base');
 
 // Putting these here so they don't interfere with timing/memory data when
@@ -21,6 +20,20 @@ $handler = new Horde_Log_Handler_Stream(fopen('/tmp/imagetest.log','a+'));
 $logger = new Horde_Log_Logger($handler);
 
 switch ($test) {
+
+case 'multipage':
+    $time = xdebug_time_index();
+    $image = getImageObject(array('filename' => 'two_page.tif.tiff'));
+    $first = true;
+    foreach ($image as $index => $imObject) {
+        if (!$first) {
+            $image->display();
+        } else {
+            $first = false;
+        }
+    }
+    logThis($test, $time, xdebug_peak_memory_usage());
+
 case 'testInitialState':
     // Solid blue background color - basically tests initial state of the
     // Horde_Image object.

@@ -3,8 +3,8 @@
  * Test harness for generating the test images for Horde_Image tests
  */
 
-define('HORDE_BASE', '/var/www/html/horde');
-require_once HORDE_BASE . '/lib/Application.php';
+require_once dirname(__FILE__) . '/../../../horde/lib/Application.php';
+Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 $allTests = array(
     'testInitialState' => 'Test initial state. Solid blue square',
@@ -29,6 +29,7 @@ $allTests = array(
     'testPolaroidstackBlueBG' => 'Polaroid stack on a blue background',
     //'testInitialStateAfterLoad' => 'Initial state after loading an existing image.',
     'testResize' => 'Test resize method.',
+    'multipage' => 'Test Multipage tiffs',
 );
 ?>
 <html>
@@ -40,8 +41,8 @@ $allTests = array(
  <thead><td>Effect</td><td>Im</td><td>Imagick</td></thead>
 <?php
 foreach ($allTests as $name => $description) {
-    echo '<tr><td text-align="top">' . $description . '</td><td>' . Horde::img('im.php?test=' . $name, '', '', '') . '</td>'
-        . '<td text-align="top">' . Horde::img('im.php?test=' . $name . '&driver=Imagick', '', '', '') . '</td>';
+    echo '<tr><td text-align="top">' . $description . '</td><td>' . Horde::img('im.php?test=' . $name, '', '', '') . '</td>' .
+      '<td text-align="top">' . Horde::img('im.php?test=' . $name . '&driver=Imagick', '', '', '') . '</td></tr>';
 }
 echo '</table>';
 ?></body></html>
