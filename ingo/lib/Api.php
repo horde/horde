@@ -29,25 +29,18 @@ class Ingo_Api extends Horde_Registry_Api
      */
     public function blacklistFrom($addresses)
     {
-        if (!empty($GLOBALS['ingo_shares'])) {
-            $_SESSION['ingo']['current_share'] = $signature;
-        }
-
         /* Check for '@' entries in $addresses - this would call all mail to
          * be blacklisted which is most likely not what is desired. */
-        $addresses = array_unique($addresses);
-        $key = array_search('@', $addresses);
-        if ($key !== false) {
-            unset($addresses[$key]);
-        }
+        $addresses = array_flip($addresses);
+        unset($addresses['@']);
 
         if (!empty($addresses)) {
             try {
                 $blacklist = $GLOBALS['ingo_storage']->retrieve(Ingo_Storage::ACTION_BLACKLIST);
-                $blacklist->setBlacklist(array_merge($blacklist->getBlacklist(), $addresses));
+                $blacklist->setBlacklist(array_merge($blacklist->getBlacklist(), array_keys($addresses)));
                 $GLOBALS['ingo_storage']->store($blacklist);
                 Ingo::updateScript();
-                foreach ($addresses as $from) {
+                foreach (array_keys($addresses) as $from) {
                     $GLOBALS['notification']->push(sprintf(_("The address \"%s\" has been added to your blacklist."), $from));
                 }
             } catch (Ingo_Exception $e) {
@@ -63,10 +56,6 @@ class Ingo_Api extends Horde_Registry_Api
      */
     public function whitelistFrom($addresses)
     {
-        if (!empty($GLOBALS['ingo_shares'])) {
-            $_SESSION['ingo']['current_share'] = $signature;
-        }
-
         try {
             $whitelist = $GLOBALS['ingo_storage']->retrieve(Ingo_Storage::ACTION_WHITELIST);
             $whitelist->setWhitelist(array_merge($whitelist->getWhitelist(), $addresses));
@@ -97,29 +86,26 @@ class Ingo_Api extends Horde_Registry_Api
     /**
      * Perform the filtering specified in the rules.
      *
-     * @param array $params  The parameter array.
+     * @param array $params  The parameter array:
+     * <pre>
+     * 'filter_seen' - TODO
+     * 'show_filter_msg' - TODO
+     * </pre>
      *
      * @return boolean  True if filtering was performed, false if not.
      */
     public function applyFilters($params = array())
     {
-        if (!empty($GLOBALS['ingo_shares'])) {
-            $_SESSION['ingo']['current_share'] = $signature;
-        }
-
         try {
             $ingo_script = Ingo::loadIngoScript();
         } catch (Ingo_Exception $e) {
             return false;
         }
 
-        if (!isset($params['filter_seen'])) {
-            $params['filter_seen'] = $GLOBALS['prefs']->getValue('filter_seen');
-        }
-
-        if (!isset($params['show_filter_msg'])) {
-            $params['show_filter_msg'] = $GLOBALS['prefs']->getValue('show_filter_msg');
-        }
+        $params = array_merge(array(
+            'filter_seen' => $GLOBALS['prefs']->getValue('filter_seen'),
+            'show_filter_msg' => $GLOBALS['prefs']->getValue('show_filter_msg')
+        ), $params);
 
         return $ingo_script->perform($params);
     }
@@ -137,10 +123,6 @@ class Ingo_Api extends Horde_Registry_Api
             return true;
         }
 
-        if (!empty($GLOBALS['ingo_shares'])) {
-            $_SESSION['ingo']['current_share'] = $signature;
-        }
-
         /* Get vacation filter. */
         $filters = $GLOBALS['ingo_storage']->retrieve(Ingo_Storage::ACTION_FILTERS);
         $vacation_rule_id = $filters->findRuleId(Ingo_Storage::ACTION_VACATION);
@@ -151,9 +133,8 @@ class Ingo_Api extends Horde_Registry_Api
         /* Make sure we have at least one address. */
         if (empty($info['addresses'])) {
             $identity = Horde_Prefs_Identity::singleton('none');
-            $info['addresses'] = implode("\n", $identity->getAll('from_addr'));
             /* Remove empty lines. */
-            $info['addresses'] = preg_replace('/\n+/', "\n", $info['addresses']);
+            $info['addresses'] = preg_replace('/\n{2,}/', "\n", implode("\n", $identity->getAll('from_addr')));
             if (empty($addresses)) {
                 $info['addresses'] = Horde_Auth::getAuth();
             }
@@ -168,7 +149,7 @@ class Ingo_Api extends Horde_Registry_Api
             $vacation->setVacationExcludes($info['excludes']);
         }
         if (isset($info['ignorelist'])) {
-            $vacation->setVacationIgnorelist(($info['ignorelist'] == 'on'));
+            $vacation->setVacationIgnorelist($info['ignorelist'] == 'on');
         }
         if (isset($info['reason'])) {
             $vacation->setVacationReason($info['reason']);
@@ -208,10 +189,6 @@ class Ingo_Api extends Horde_Registry_Api
      */
     public function disableVacation()
     {
-        if (!empty($GLOBALS['ingo_shares'])) {
-            $_SESSION['ingo']['current_share'] = $signature;
-        }
-
         /* Get vacation filter. */
         $filters = $GLOBALS['ingo_storage']->retrieve(Ingo_Storage::ACTION_FILTERS);
         $vacation_rule_id = $filters->findRuleId(Ingo_Storage::ACTION_VACATION);
