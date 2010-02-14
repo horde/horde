@@ -60,10 +60,10 @@
   <configmultienum name="pages" desc="What standard pages would you like to
   show up as links in Wicked's menu?">WikiHome
    <values>
-    <value desc="WikiHome">_WikiHome</value>
-    <value desc="HowToUseWiki">HowTo_UseWiki</value>
-    <value desc="RecentChanges">_RecentChanges</value>
-    <value desc="AllPages">_AllPages</value>
+    <value desc="Home">WikiHome</value>
+    <value desc="Usage">HowToUseWiki</value>
+    <value desc="Recent Changes">RecentChanges</value>
+    <value desc="All Pages">AllPages</value>
    </values>
   </configmultienum>
 

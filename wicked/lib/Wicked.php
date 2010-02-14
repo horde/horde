@@ -96,10 +96,11 @@ class Wicked {
         $menu = new Horde_Menu(Horde_Menu::MASK_ALL);
 
         if (@count($conf['menu']['pages'])) {
+            $pages = array('WikiHome' => _("_Home"),
+                           'HowToUseWiki' => _("_Usage"),
+                           'RecentChanges' => _("_Recent Changes"),
+                           'AllPages' => _("_All Pages"));
             foreach ($conf['menu']['pages'] as $pagename) {
-                /* Remove access keys. */
-                $rawname = Horde::stripAccessKey($pagename);
-
                 /* Determine who we should say referred us. */
                 $curpage = isset($page) ? $page->pageName() : null;
                 $referrer = Horde_Util::getFormData('referrer', $curpage);
@@ -108,14 +109,14 @@ class Wicked {
                  * this on our own because all the buttons go to the same .php
                  * file, just with different args. */
                 if (!strstr($_SERVER['PHP_SELF'], 'prefs.php') &&
-                    $curpage === _($rawname)) {
+                    $curpage === $rawname) {
                     $cellclass = 'current';
                 } else {
                     $cellclass = '__noselection';
                 }
 
-                $url = Horde_Util::addParameter(Wicked::url($rawname), 'referrer', $referrer);
-                $menu->add($url, _($pagename), $rawname . '.png', null, null, null, $cellclass);
+                $url = Horde_Util::addParameter(Wicked::url($pagename), 'referrer', $referrer);
+                $menu->add($url, $pages[$pagename], $pagename . '.png', null, null, null, $cellclass);
             }
         }
 
@@ -124,9 +125,6 @@ class Wicked {
         } else {
             return $menu->render();
         }
-
-        /* Placeholders to have translateable page names with access keys. */
-        array(_("_WikiHome"), _("HowTo_UseWiki"), _("_RecentChanges"), _("_AllPages"));
     }
 
     /**

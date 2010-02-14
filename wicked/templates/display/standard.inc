@@ -22,7 +22,7 @@ if ($this->allows(WICKED_MODE_EDIT) && !$this->isLocked(Wicked::lockUser())) {
     $url = Horde_Util::addParameter(Wicked::url('EditPage'),
                               'referrer', $this->pageName());
     echo Horde::widget($url, sprintf(_("Edit %s"), $this->pageName()),
-                       'widget', '', '', _("_EditPage"));
+                       'widget', '', '', _("_Edit"));
 }
 
 if ($this->isLocked()) {
@@ -60,25 +60,25 @@ if ($this->allows(WICKED_MODE_EDIT) && !$this->isLocked(Wicked::lockUser())) {
     separator();
     $url = Horde_Util::addParameter(Wicked::url('MergeOrRename'),
                               'referrer', $this->pageName());
-    echo Horde::widget($url, _("MergeOrRename"), 'widget', '', '',
-                       _("_MergeOrRename"));
+    echo Horde::widget($url, _("Merge/Rename"), 'widget', '', '',
+                       _("_Merge/Rename"));
 }
 
 separator();
 $url = Horde_Util::addParameter(Wicked::url('BackLinks'),
                           'referrer', $this->pageName());
-echo Horde::widget($url, _("BackLinks"), 'widget', '', '', _("_BackLinks"));
+echo Horde::widget($url, _("Backlinks"), 'widget', '', '', _("_Backlinks"));
 
 separator();
 $url = Horde_Util::addParameter(Wicked::url('LikePages'),
                           'referrer', $this->pageName());
-echo Horde::widget($url, _("LikePages"), 'widget', '', '', _("L_ikePages"));
+echo Horde::widget($url, _("Similar Pages"), 'widget', '', '', _("S_imilar Pages"));
 
 separator();
 $url = Horde_Util::addParameter(Wicked::url('AttachedFiles'),
                           'referrer', $this->pageName());
-echo Horde::widget($url, _("AttachedFiles"), 'widget', '', '',
-                   _("Attached_Files"));
+echo Horde::widget($url, _("Attachments"), 'widget', '', '',
+                   _("Attachments"));
 
 if ($this->allows(WICKED_MODE_HISTORY)) {
     separator();
