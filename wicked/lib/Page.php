@@ -413,7 +413,13 @@ class Page {
 
         global $wicked, $conf;
 
-        $view_url = Horde_Util::addParameter(Wicked::url('%s'), 'referrer', $this->pageName(), false);
+        $view_url = Horde_Util::addParameter(Wicked::url('%s', false, -1), 'referrer', $this->pageName(), false);
+        /* Attach the session parameter manually, because we don't want the
+         * parameters to be encoded, but don't want full URLs either. */
+        if (empty($GLOBALS['conf']['session']['use_only_cookies']) &&
+            !isset($_COOKIE[session_name()])) {
+            $view_url = Horde_Util::addParameter($view_url, session_name(), session_id(), false);
+        }
         $view_url = str_replace(array(urlencode('%s'), urlencode('/')), array('%s', '%' . urlencode('/')), $view_url);
 
         /* Make sure we have a valid wiki format */
