@@ -32,12 +32,6 @@ class Horde_Image_Base
      */
     protected $_observers = array();
 
-    /**
-     * Capabilites of this driver.
-     *
-     * @var array
-     */
-    protected $_capabilities = array();
 
     /**
      * The current image data.

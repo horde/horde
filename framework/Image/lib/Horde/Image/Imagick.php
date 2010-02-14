@@ -14,6 +14,26 @@ class Horde_Image_Imagick extends Horde_Image_Base
 {
     protected $_imagick;
 
+    /**
+     * Capabilites of this driver.
+     *
+     * @var array
+     */
+    protected $_capabilities = array('resize',
+                                     'crop',
+                                     'rotate',
+                                     'grayscale',
+                                     'flip',
+                                     'mirror',
+                                     'sepia',
+                                     'canvas');
+
+    /**
+     * Const'r
+     *
+     * @param array $params
+     * @param array $context
+     */
     public function __construct($params, $context = array())
     {
         parent::__construct($params, $context);

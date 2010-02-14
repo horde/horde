@@ -27,7 +27,7 @@ class Horde_Image_Im extends Horde_Image_Base
                                      'mirror',
                                      'sepia',
                                      'canvas');
-
+    
     /**
      * Operations to be performed before the source filename is specified on the
      * command line.
