@@ -22,4 +22,4 @@ Horde::includeScriptFiles();
 <?php Horde::includeStylesheetFiles() ?>
 </head>
 
-<body<?php if (Horde_Util::nonInputVar('bodyClass')) echo ' class="' . $bodyClass . '"' ?>>
+<body>

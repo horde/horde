@@ -27,4 +27,4 @@ Horde::includeScriptFiles();
 <link rel="alternate" title="<?php echo _("Forums") ?>" href="<?php echo Horde_Util::addParameter(Horde::applicationUrl('rss/index.php', true, -1), 'scope', $scope) ?>" type="application/rss+xml" />
 </head>
 
-<body<?php if ($bc = Horde_Util::nonInputVar('bodyClass')) echo ' class="' . $bc . '"' ?><?php if ($bi = Horde_Util::nonInputVar('bodyId')) echo ' id="' . $bi . '"'; ?>>
+<body>

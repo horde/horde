@@ -29,4 +29,4 @@ require GOLLEM_TEMPLATES . '/javascript_defs.php';
 <?php Horde::outputInlineScript(); ?>
 </head>
 
-<body<?php if ($bc = Horde_Util::nonInputVar('bodyClass')) echo ' class="' . $bc . '"' ?><?php if ($bi = Horde_Util::nonInputVar('bodyId')) echo ' id="' . $bi . '"'; ?>>
+<body>

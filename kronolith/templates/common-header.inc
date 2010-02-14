@@ -50,4 +50,4 @@ var kronolithDate = new Date(<?php printf('%d, %d, %d', $currentDate->year, $cur
 <?php Horde::outputInlineScript(); ?>
 </head>
 
-<body<?php if ($bc) echo ' class="' . $bc . '"'; if ($bi = Horde_Util::nonInputVar('bodyId')) echo ' id="' . $bi . '"'; ?>>
+<body<?php if ($bc) echo ' class="' . $bc . '"' ?>>

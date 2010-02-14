@@ -28,5 +28,4 @@
                 <?php echo Horde::includeStylesheetFiles() ?>
 </head>
 
-<body<?php if (Horde_Util::nonInputVar('bodyClass')) echo ' class="' . $bodyClass .
-'"' ?>>
+<body>

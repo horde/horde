@@ -29,4 +29,4 @@ Horde::includeScriptFiles();
 <?php Horde::includeStylesheetFiles() ?>
 </head>
 
-<body<?php if ($bc = Util::nonInputVar('bodyClass')) echo ' class="' . $bc . '"' ?><?php if ($bi = Util::nonInputVar('bodyId')) echo ' id="' . $bi . '"'; ?>>
+<body>

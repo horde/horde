@@ -43,7 +43,7 @@ glow.ready(function() {
 </script>
 </head>
 
-<body<?php if ($bc) echo ' class="' . $bc . '"' ?><?php if ($bi = Horde_Util::nonInputVar('bodyId')) echo ' id="' . $bi . '"'; ?>>
+<body<?php if ($bc) echo ' class="' . $bc . '"' ?>>
 
 <div id="quickAddInfoPanel" style="display:none;">
  <h2><?php echo _("Quick Task Creation") ?></h2>
