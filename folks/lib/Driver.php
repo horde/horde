@@ -90,10 +90,11 @@ class Folks_Driver {
         $p = hash('md5', $user);
         $vfspath = Folks::VFS_PATH . '/' . substr(str_pad($p, 2, 0, STR_PAD_LEFT), -2) . '/';
         $vfs_name = $p . '.' . $conf['images']['image_type'];
-        $driver = empty($conf['image']['convert']) ? 'Gd' : 'Im';
+        $driver = $conf['image']['driver'];
         $context = array('tmpdir' => Horde::getTempDir());
         if (!empty($conf['image']['convert'])) {
             $context['convert'] = $conf['image']['convert'];
+            $context['identify'] = $conf['image']['identify'];
         }
         $img = Horde_Image::factory($driver,
                                     array('type' => $conf['images']['image_type'],

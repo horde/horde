@@ -1572,14 +1572,15 @@
  <configtab name="image" desc="Image Manipulation">
   <configsection name="image">
    <configheader>Image Manipulation Settings</configheader>
-   <configstring name="convert" required="false" desc="Horde requires either
-   GD support built-in to PHP (--with-gd) or the ImageMagick software package
-   (optionally supported by the 'imagick' PHP extension) to do image
-   manipulation/creation. If using ImageMagick, specify the full path name to
-   the 'convert' program. On Windows, this path &lt;em&gt;must not&lt;/em&gt;
-   have spaces in it. Use DOS-style abbreviations if necessary: Progra~1
-   instead of Program Files, for instance. If using GD, or using neither,
-   leave this field blank."/>
+   <configswitch name="driver" description="What driver should we use for
+   manipulating images?">Im
+   <case name="Im" desc="Imagemagick">
+     <configstring name="convert" desc="Path to the 'convert' binary"></configstring>
+     <configstring name="identify" desc="Path the 'identify' binary"></configstring>
+   </case>
+   <case name="Imagick" desc="The PECL Imagick Library"></case>
+   <case name="Gd" desc="The PHP GD2 extensions (not recommended)."></case>
+   </configswitch>
   </configsection>
   <configsection name="exif" desc="Image Metadata">
    <configheader>Image Metadata Driver Settings</configheader>

@@ -22,7 +22,6 @@ if ($form->validate()) {
     $form->getInfo(null, $info);
 
     $tmp = Horde::getTempDir();
-    $driver = empty($conf['image']['convert']) ? 'gd' : 'im';
     $img = Ansel::getImageObject();
     try {
         $img->loadFile($info['image']['file']);

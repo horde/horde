@@ -523,12 +523,13 @@ class Ansel
         $context = array('tmpdir' => Horde::getTempDir());
         if (!empty($conf['image']['convert'])) {
             $context['convert'] = $conf['image']['convert'];
+            $context['identify'] = $conf['image']['identify'];
         }
         $params = array_merge(array('type' => $conf['image']['type'],
                                     'context' => $context),
                               $params);
-        //@TODO: get around to updating horde/config/conf.xml to include the imagick driver
-        $driver = empty($conf['image']['convert']) ? 'Gd' : 'Im';
+
+        $driver = $conf['image']['driver'];
         return Horde_Image::factory($driver, $params);
     }
 

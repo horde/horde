@@ -68,12 +68,12 @@ case 'tmp':
 
 /* Load the image object. */
 $context = array('tmpdir' => Horde::getTempDir());
+$driver = $conf['image']['driver'];
 if (!empty($conf['image']['convert'])) {
     $context['convert'] = $conf['image']['convert'];
-    $image = Horde_Image::factory('Im', array('context' => $context));
-} else {
-    $image = Horde_Image::factory('Gd', array('context' => $context));
+    $context['identify'] = $conf['image']['identify'];
 }
+$image = Horde_Image::factory($driver, array('context' => $context));
 $image->loadString($file, $file_data);
 
 /* Check if no editing action required and send the image to browser. */

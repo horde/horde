@@ -266,10 +266,11 @@ class News {
         $context = array('tmpdir' => Horde::getTempDir());
         if (!empty($conf['image']['convert'])) {
             $context['convert'] = $conf['image']['convert'];
+            $context['identify'] = $conf['image']['identify'];
         }
         $params = array('type' => $conf['images']['image_type'],
                         'context' => $context);
-        $driver = empty($conf['image']['convert']) ? 'Gd' : 'Im';
+        $driver = $conf['image']['driver'];
         $img = Horde_Image::factory($driver, $params);
         $result = $img->loadFile($file);
 

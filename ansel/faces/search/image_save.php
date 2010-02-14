@@ -33,7 +33,6 @@ if ($x2 - $x1 < 50 || $y2 - $y1 < 50) {
 
 /* Create Horde_Image driver. */
 $img = Ansel::getImageObject();
-$driver = empty($conf['image']['convert']) ? 'Gd' : 'Im';
 try {
     $result = $img->loadFile($path);
 } catch (Horde_Image_Exception $e) {
