@@ -50,13 +50,11 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
      */
     public function hasFeature($feature)
     {
-
         // First check for purely Ansel_Gallery features
         // Currently we have none of these.
 
         // Delegate to the modeHelper
         return $this->_modeHelper->hasFeature($feature);
-
     }
 
     /**
@@ -175,7 +173,6 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
         }
 
         return $this->_shareOb->_write_db->exec($sql);
-
     }
 
     /**
