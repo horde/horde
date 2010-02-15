@@ -609,7 +609,6 @@ class Ansel_Image
         }
         $insert->free();
 
-
         return $needUpdate;
     }
 
