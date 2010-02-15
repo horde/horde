@@ -107,16 +107,23 @@ class IMP_Horde_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
      */
     protected function _getHordeImageOb($load)
     {
-        if (empty($GLOBALS['conf']['image']['convert'])) {
+        if (!$GLOBALS['conf']['image']['driver']) {
             return false;
         }
-
+        $context = array('tmpdir' => Horde::getTempdir());
+        if (!empty($GLOBALS['conf']['image']['convert'])) {
+            $context['convert'] = $GLOBALS['conf']['image']['convert'];
+            $context['identify'] = $GLOBALS['conf']['image']['identify'];
+        }
         try {
-            $img = Horde_Image::factory('Im', array('context' => array('tmpdir' => Horde::getTempdir(),
-                                                                       'convert'=> $GLOBALS['conf']['image']['convert'])));
+            $img = Horde_Image::factory($GLOBALS['conf']['image']['driver'], array('context' => $context));
         } catch (Horde_Image_Exception $e) {
             return false;
         }
+        if (!$img->hasCapability('multipage') && !$img->hasCapability('pdf')) {
+            return false;
+        }
+        
         if ($load) {
             try {
                 $ret = $img->loadString(1, $this->_mimepart->getContents());
@@ -125,7 +132,7 @@ class IMP_Horde_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
             }
         }
 
-        return $img;
+        return $img->getImageAtIndex(0);
     }
 
     /**
