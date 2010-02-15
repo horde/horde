@@ -39,7 +39,9 @@ class Horde_Image_Imagick extends Horde_Image_Base
                                      'flip',
                                      'mirror',
                                      'sepia',
-                                     'canvas');
+                                     'canvas',
+                                     'multipage',
+                                     'pdf');
 
     /**
      * Const'r

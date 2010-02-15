@@ -26,7 +26,9 @@ class Horde_Image_Im extends Horde_Image_Base
                                      'flip',
                                      'mirror',
                                      'sepia',
-                                     'canvas');
+                                     'canvas',
+                                     'multipage',
+                                     'pdf');
     
     /**
      * Operations to be performed before the source filename is specified on the
