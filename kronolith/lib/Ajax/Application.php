@@ -28,15 +28,15 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function ListEvents($vars)
+    public function ListEvents()
     {
-        $start = new Horde_Date($vars->start);
-        $end   = new Horde_Date($vars->end);
+        $start = new Horde_Date($this->_vars->start);
+        $end   = new Horde_Date($this->_vars->end);
         $result = new stdClass;
-        $result->cal = $vars->cal;
-        $result->view = $vars->view;
+        $result->cal = $this->_vars->cal;
+        $result->view = $this->_vars->view;
         $result->sig = $start->dateString() . $end->dateString();
-        if (!($kronolith_driver = $this->_getDriver($vars->cal))) {
+        if (!($kronolith_driver = $this->_getDriver($this->_vars->cal))) {
             return $result;
         }
         $events = $kronolith_driver->listEvents($start, $end, true, false, true);
@@ -49,14 +49,14 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function GetEvent($vars)
+    public function GetEvent()
     {
-        if (!($kronolith_driver = $this->_getDriver($vars->cal)) ||
-            !isset($vars->id)) {
+        if (!($kronolith_driver = $this->_getDriver($this->_vars->cal)) ||
+            !isset($this->_vars->id)) {
             return false;
         }
 
-        $event = $kronolith_driver->getEvent($vars->id, $vars->date);
+        $event = $kronolith_driver->getEvent($this->_vars->id, $this->_vars->date);
         if (!$event) {
             $GLOBALS['notification']->push(_("The requested event was not found."), 'horde.error');
             return false;
@@ -71,13 +71,13 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function SaveEvent($vars)
+    public function SaveEvent()
     {
         if (!($kronolith_driver = $this->_getDriver($vars->targetcalendar))) {
             return false;
         }
 
-        $event = $kronolith_driver->getEvent($vars->event);
+        $event = $kronolith_driver->getEvent($this->_vars->event);
         if (!$event) {
             $GLOBALS['notification']->push(_("The requested event was not found."), 'horde.error');
             return false;
@@ -88,7 +88,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
 
         $event->readForm();
         $result = $this->_saveEvent($event);
-        if (($result !== true) && $vars->sendupdates) {
+        if (($result !== true) && $this->_vars->sendupdates) {
             Kronolith::sendITipNotifications($event, $GLOBALS['notification'], Kronolith::ITIP_REQUEST);
         }
 
@@ -98,10 +98,10 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function QuickSaveEvent($vars)
+    public function QuickSaveEvent()
     {
         try {
-            $event = Kronolith::quickAdd($vars->text, Kronolith::getDefaultCalendar(Horde_Perms::EDIT));
+            $event = Kronolith::quickAdd($this->_vars->text, Kronolith::getDefaultCalendar(Horde_Perms::EDIT));
             return $this->_saveEvent($event);
         } catch (Horde_Exception $e) {
             $GLOBALS['notification']->push($e);
@@ -112,7 +112,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function UpdateEvent($vars)
+    public function UpdateEvent()
     {
         if (!($kronolith_driver = $this->_getDriver($vars->cal)) ||
             !isset($vars->id)) {
@@ -128,7 +128,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
             return false;
         }
 
-        $attributes = Horde_Serialize::unserialize($vars->att, Horde_Serialize::JSON);
+        $attributes = Horde_Serialize::unserialize($this->_vars->att, Horde_Serialize::JSON);
         foreach ($attributes as $attribute => $value) {
             switch ($attribute) {
             case 'start_date':
@@ -171,14 +171,14 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function DeleteEvent($vars)
+    public function DeleteEvent()
     {
-        if (!($kronolith_driver = $this->_getDriver($vars->cal)) ||
-            !isset($vars->id)) {
+        if (!($kronolith_driver = $this->_getDriver($this->_vars->cal)) ||
+            !isset($this->_vars->id)) {
             return false;
         }
 
-        $event = $kronolith_driver->getEvent($vars->id);
+        $event = $kronolith_driver->getEvent($this->_vars->id);
         if (!$event) {
             $GLOBALS['notification']->push(_("The requested event was not found."), 'horde.error');
             return false;
@@ -189,7 +189,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
 
         $deleted = $kronolith_driver->deleteEvent($event->id);
 
-        if ($vars->sendupdates) {
+        if ($this->_vars->sendupdates) {
             Kronolith::sendITipNotifications($event, $GLOBALS['notification'], Kronolith::ITIP_CANCEL);
         }
 
@@ -202,9 +202,9 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function SearchEvents($vars)
+    public function SearchEvents()
     {
-        $query = Horde_Serialize::unserialize($vars->query, Horde_Serialize::JSON);
+        $query = Horde_Serialize::unserialize($this->_vars->query, Horde_Serialize::JSON);
         if (!isset($query->start)) {
             $query->start = new Horde_Date($_SERVER['REQUEST_TIME']);
         }
@@ -212,7 +212,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
             $query->end = null;
         }
 
-        $cals = Horde_Serialize::unserialize($vars->cals, Horde_Serialize::JSON);
+        $cals = Horde_Serialize::unserialize($this->_vars->cals, Horde_Serialize::JSON);
         $events = array();
         foreach ($cals as $cal) {
             if (!($kronolith_driver = $this->_getDriver($cal))) {
@@ -230,7 +230,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
 
         $result = new stdClass;
         $result->view = 'search';
-        $result->query = $vars->query;
+        $result->query = $this->_vars->query;
         if ($events) {
             $result->events = $events;
         }
@@ -241,25 +241,24 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function ListTasks($vars)
+    public function ListTasks()
     {
         if (!$GLOBALS['registry']->hasMethod('tasks/listTasks')) {
             return false;
         }
 
+        $result = new stdClass;
+        $result->list = $this->_vars->list;
+        $result->type = $this->_vars->type;
+        $result->sig = $this->_vars->sig;
+
         try {
-            $tasks = $GLOBALS['registry']->tasks->listTasks(null, null, null, $vars->list, $vars->type == 'incomplete' ? 'future_incomplete' : $vars->type, true);
+            $tasks = $GLOBALS['registry']->tasks->listTasks(null, null, null, $this->_vars->list, $this->_vars->type == 'incomplete' ? 'future_incomplete' : $this->_vars->type, true);
+            if (count($tasks)) {
+                $result->tasks = $tasks;
+            }
         } catch (Exception $e) {
             $GLOBALS['notification']->push($e, 'horde.error');
-            return false;
-        }
-
-        $result = new stdClass;
-        $result->list = $vars->list;
-        $result->type = $vars->type;
-        $result->sig = $vars->sig;
-        if (count($tasks)) {
-            $result->tasks = $tasks;
         }
 
         return $result;
@@ -268,16 +267,16 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function GetTask($vars)
+    public function GetTask()
     {
         if (!$GLOBALS['registry']->hasMethod('tasks/getTask') ||
-            !isset($vars->id) ||
-            !isset($vars->list)) {
+            !isset($this->_vars->id) ||
+            !isset($this->_vars->list)) {
             return false;
         }
 
         try {
-            $task = $GLOBALS['registry']->tasks->getTask($vars->list, $vars->id);
+            $task = $GLOBALS['registry']->tasks->getTask($this->_vars->list, $this->_vars->id);
             if (!$task) {
                 $GLOBALS['notification']->push(_("The requested task was not found."), 'horde.error');
                 return false;
@@ -296,16 +295,16 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function SaveTask($vars)
+    public function SaveTask()
     {
         if (!$GLOBALS['registry']->hasMethod('tasks/updateTask') ||
             !$GLOBALS['registry']->hasMethod('tasks/addTask')) {
             return false;
         }
 
-        $id = $vars->task_id;
-        $list = $vars->old_tasklist;
-        $task = $vars->task;
+        $id = $this->_vars->task_id;
+        $list = $this->_vars->old_tasklist;
+        $task = $this->_vars->task;
 
         $due = trim($task['due_date'] . ' ' . $task['due_time']);
         if (!empty($due)) {
@@ -368,16 +367,16 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function DeleteTask($vars)
+    public function DeleteTask()
     {
         if (!$GLOBALS['registry']->hasMethod('tasks/deleteTask') ||
-            !isset($vars->id) ||
-            !isset($vars->list)) {
+            !isset($this->_vars->id) ||
+            !isset($this->_vars->list)) {
             return false;
         }
 
         try {
-            $GLOBALS['registry']->tasks->deleteTask($vars->list, $vars->id);
+            $GLOBALS['registry']->tasks->deleteTask($this->_vars->list, $this->_vars->id);
         } catch (Exception $e) {
             $GLOBALS['notification']->push($e, 'horde.error');
             return false;
@@ -392,14 +391,14 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function ToggleCompletion($vars)
+    public function ToggleCompletion()
     {
         if (!$GLOBALS['registry']->hasMethod('tasks/toggleCompletion')) {
             return false;
         }
 
         try {
-            $GLOBALS['registry']->tasks->toggleCompletion($vars->id, $vars->list);
+            $GLOBALS['registry']->tasks->toggleCompletion($this->_vars->id, $this->_vars->list);
         } catch (Exception $e) {
             $GLOBALS['notification']->push($e, 'horde.error');
             return false;
@@ -414,7 +413,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function ListTopTags($vars)
+    public function ListTopTags()
     {
         $tagger = new Kronolith_Tagger();
         $result = new stdClass;
@@ -429,10 +428,10 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function GetFreeBusy($vars)
+    public function GetFreeBusy()
     {
         try {
-            $fb = Kronolith_FreeBusy::get($vars->email, true);
+            $fb = Kronolith_FreeBusy::get($this->_vars->email, true);
         } catch (Exception $e) {
             $GLOBALS['notification']->push($e->getMessage(), 'horde.warning');
             return false;
@@ -445,26 +444,26 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function SearchCalendars($vars)
+    public function SearchCalendars()
     {
         $result = new stdClass;
-        $result->events = 'Searched for calendars: ' . $vars->title;
+        $result->events = 'Searched for calendars: ' . $this->_vars->title;
         return $result;
     }
 
     /**
      * TODO
      */
-    public function SaveCalendar($vars)
+    public function SaveCalendar()
     {
-        $calendar_id = $vars->calendar;
+        $calendar_id = $this->_vars->calendar;
         $result = new stdClass;
 
-        switch ($vars->type) {
+        switch ($this->_vars->type) {
         case 'internal':
             $info = array();
             foreach (array('name', 'color', 'description', 'tags') as $key) {
-                $info[$key] = $vars->$key;
+                $info[$key] = $this->_vars->$key;
             }
 
             // Create a calendar.
@@ -509,7 +508,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
         case 'tasklists':
             $calendar = array();
             foreach (array('name', 'color', 'description') as $key) {
-                $calendar[$key] = $vars->$key;
+                $calendar[$key] = $this->_vars->$key;
             }
 
             // Create a task list.
@@ -552,7 +551,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
         case 'remote':
             $calendar = array();
             foreach (array('name', 'description', 'url', 'color', 'username', 'password') as $key) {
-                $calendar[$key] = $vars->$key;
+                $calendar[$key] = $this->_vars->$key;
             }
             try {
                 Kronolith::subscribeRemoteCalendar($calendar);
@@ -577,11 +576,11 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function DeleteCalendar($vars)
+    public function DeleteCalendar()
     {
-        $calendar_id = $vars->calendar;
+        $calendar_id = $this->_vars->calendar;
 
-        switch ($vars->type) {
+        switch ($this->_vars->type) {
         case 'internal':
             try {
                 $calendar = $GLOBALS['kronolith_shares']->getShare($calendar_id);
@@ -634,18 +633,18 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function GetRemoteInfo($vars)
+    public function GetRemoteInfo()
     {
         $params = array('timeout' => 15);
-        if ($user = $vars->username) {
+        if ($user = $this->_vars->username) {
             $params['user'] = $user;
-            $params['password'] = $vars->password;
+            $params['password'] = $this->_vars->password;
         }
         if (!empty($GLOBALS['conf']['http']['proxy']['proxy_host'])) {
             $params['proxy'] = $GLOBALS['conf']['http']['proxy'];
         }
         $driver = Kronolith_Driver::factory('Ical', $params);
-        $driver->open($vars->url);
+        $driver->open($this->_vars->url);
         try {
             $ical = $driver->getRemoteCalendar(false);
         } catch (Kronolith_Exception $e) {
@@ -673,7 +672,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function SaveCalPref($vars)
+    public function SaveCalPref()
     {
         return false;
     }
