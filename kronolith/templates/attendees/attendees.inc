@@ -145,7 +145,7 @@ function switchDateView(view, date)
 
 <br />
 <div>
- <input type="submit" class="button" name="addNew" value="<?php echo htmlspecialchars(_("Save")) ?>" />
+ <input type="submit" class="button" name="addNew" value="<?php echo htmlspecialchars(_("Update")) ?>" />
  <input type="submit" class="button" name="addNewClose" value="<?php echo htmlspecialchars(_("Save and Finish")) ?>" />
  <?php if (!empty($_SESSION['kronolith']['attendees'])): ?><input type="submit" class="button" name="clearAll" value="<?php echo htmlspecialchars(_("Clear all")) ?>" /><?php endif; ?>
 </div>
