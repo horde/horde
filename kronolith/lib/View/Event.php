@@ -77,8 +77,8 @@ class Kronolith_View_Event {
                             break;
                         }
                     }
-                } catch (Exception $e) {
                 }
+            } catch (Exception $e) {
             }
         }
 
