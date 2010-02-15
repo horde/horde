@@ -63,6 +63,9 @@ class Kronolith_FreeBusy
         $identity = Horde_Prefs_Identity::singleton('none', $user ? $user : $owner);
         $email = $identity->getValue('from_addr');
         $cn = $identity->getValue('fullname');
+        if (empty($mail) && empty($cn)) {
+            $cn = $user ? $user : $owner;
+        }
 
         /* Fetch events. */
         $busy = Kronolith::listEvents(new Horde_Date($startstamp), $enddate, $calendar);
