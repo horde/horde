@@ -61,37 +61,35 @@ if ($form->validate()) {
         $params['notify']['sound'] = $registry->get('themesuri', 'horde') . '/sounds/' . $params['notify']['sound'];
     }
 
-    $result = $horde_alarm->set(
-        array('id' => $info['alarm'],
-              'title' => $info['title'],
-              'text' => $info['text'],
-              'start' => new Horde_Date($info['start']),
-              'end' => empty($info['end']) ? null : new Horde_Date($info['end']),
-              'methods' => $info['methods'],
-              'params' => $params));
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push($result);
-    } else {
+    try {
+        $horde_alarm->set(array(
+            'id' => $info['alarm'],
+            'title' => $info['title'],
+            'text' => $info['text'],
+            'start' => new Horde_Date($info['start']),
+            'end' => empty($info['end']) ? null : new Horde_Date($info['end']),
+            'methods' => $info['methods'],
+            'params' => $params
+        ));
         $notification->push(_("The alarm has been saved."), 'horde.success');
+    } catch (Horde_Alarm_Exception $e) {
+        $notification->push($e);
     }
 }
 
 $id = $vars->get('alarm');
 if ($id) {
     if ($vars->get('delete')) {
-        $deleted = $horde_alarm->delete($id, '');
-        if (is_a($deleted, 'PEAR_Error')) {
-            $notification->push($deleted);
-            $id = null;
-        } else {
+        try {
+            $horde_alarm->delete($id, '');
             $notification->push(_("The alarm has been deleted."), 'horde.success');
+        } catch (Horde_Alarm_Exception $e) {
+            $notification->push($e);
+            $id = null;
         }
     } else {
-        $alarm = $horde_alarm->get($id, '');
-        if (is_a($alarm, 'PEAR_Error')) {
-            $notification->push($alarm);
-            $id = $alarm = null;
-        } else {
+        try {
+            $alarm = $horde_alarm->get($id, '');
             $form->setTitle(sprintf(_("Edit \"%s\""), $alarm['title']));
             $vars->set('title', $alarm['title']);
             $vars->set('text', $alarm['text']);
@@ -105,18 +103,25 @@ if ($id) {
                     $vars->set($method . '_' . $name, $value);
                 }
             }
+        } catch (Horde_Alarm_Exception $e) {
+            $notification->push($alarm);
+            $id = $alarm = null;
         }
     }
 }
 
-$alarms = $horde_alarm->listAlarms('');
+try {
+    $alarms = $horde_alarm->listAlarms('');
+} catch (Horde_Alarm_Exception $e) {
+    $alarms = $e;
+}
 
 $title = _("Alarms");
 require HORDE_TEMPLATES . '/common-header.inc';
 require HORDE_TEMPLATES . '/admin/menu.inc';
 
 echo '<h1 class="header">' . _("Current Alarms");
-if (is_a($alarms, 'PEAR_Error')) {
+if ($alarms instanceof Exception) {
     echo '</h1><p class="headerbox"><em>' . sprintf(_("Listing alarms failed: %s"), $alarms->getMessage()) . '</em></p>';
 } else {
     echo ' (' . count($alarms) . ')</h1>';
