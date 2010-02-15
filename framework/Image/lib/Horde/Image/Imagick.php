@@ -74,8 +74,6 @@ class Horde_Image_Imagick extends Horde_Image_Base
     /**
      * Load image data from a string.
      *
-     * @TODO: iterator???
-     *
      * @param string $id
      * @param string $image_data
      *
@@ -114,7 +112,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
             throw new Horde_Image_Exception($e);
         }
         $this->_imagick->setFormat($this->_type);
-        //$this->_imagick->setIteratorIndex(0);
+        $this->_imagick->setIteratorIndex(0);
         unset($this->_data);
     }
 
@@ -556,7 +554,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
         $this->_logDebug('Horde_Image_Imagick#current');
         $params = array('data' => $this->raw());
         $image = new Horde_Image_Imagick($params, $this->_context);
-        
+
         return $image;
     }
 
