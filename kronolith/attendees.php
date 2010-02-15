@@ -214,7 +214,7 @@ try {
 }
 
 // Add the Free/Busy information for each attendee.
-foreach ($attendees as $email => $status) {
+foreach ($_SESSION['kronolith']['attendees'] as $email => $status) {
     if (strpos($email, '@') !== false &&
         ($status['attendance'] == Kronolith::PART_REQUIRED ||
          $status['attendance'] == Kronolith::PART_OPTIONAL)) {
