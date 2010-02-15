@@ -568,7 +568,15 @@ class Ansel_Image
             return $imageFile;
         }
         $exif = Horde_Image_Exif::factory($GLOBALS['conf']['exif']['driver'], !empty($GLOBALS['conf']['exif']['params']) ? $GLOBALS['conf']['exif']['params'] : array());
-        $exif_fields = $exif->getData($imageFile);
+        
+        try {
+            $exif_fields = $exif->getData($imageFile);
+        } catch (Horde_Image_Exception $e) {
+            // Log the error, but it's not the end of the world, so just ignore
+            Horde::logMessage($e->getMessage, __FILE__, __LINE__, PEAR_LOG_ERR);
+            $exif_fields = array();
+            return false;
+        }
 
         /* Flag to determine if we need to resave the image data */
         $needUpdate = false;
