@@ -57,6 +57,10 @@ class Ansel_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
+        if (!$GLOBALS['conf']['image']['driver']) {
+            throw new Horde_Exception('You must configure a Horde_Image driver to use Ansel');
+        }
+        
         // Create a cache object if we need it.
         if ($GLOBALS['conf']['ansel_cache']['usecache']) {
             $GLOBALS['cache'] = $GLOBALS['injector']->getInstance('Horde_Cache');
