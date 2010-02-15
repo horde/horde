@@ -250,16 +250,18 @@ EOD;
      */
     protected function _getHordeImageOb($load)
     {
+        if (!$GLOBALS['conf']['image']['driver']) {
+            return false;
+        }
         $img = null;
         //@TODO: Pass in a Horde_Logger in $context if desired.
         $context = array('tmpdir' => Horde::getTempDir());
         try {
             if (!empty($GLOBALS['conf']['image']['convert'])) {
                 $context['convert'] = $GLOBALS['conf']['image']['convert'];
-                $img = Horde_Image::factory('Im', array('context' => $context));
-            } elseif (Horde_Util::extensionExists('gd')) {
-                $img = Horde_Image::factory('Gd', array('context' => $context));
+                $context['identify'] = $GLOBALS['conf']['image']['identify'];
             }
+            $img = Horde_Image::factory($GLOBALS['conf']['image']['driver']);
         } catch (Horde_Image_Exception $e) {
             return false;
         }
