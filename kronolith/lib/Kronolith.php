@@ -1938,7 +1938,7 @@ class Kronolith
                                                            'to' => implode(',', $df_recipients),
                                                            'from' => $from,
                                                            'charset' => Horde_Nls::getCharset()));
-                    $mail->addHeader('User-Agent', 'Kronolith ' . $GLOBALS['registry']->getVersion());
+                    $mime_mail->addHeader('User-Agent', 'Kronolith ' . $GLOBALS['registry']->getVersion());
                     $mime_mail->setBody($message, Horde_Nls::getCharset(), true);
                     Horde::logMessage(sprintf('Sending event notifications for %s to %s', $event->title, implode(', ', $df_recipients)), __FILE__, __LINE__, PEAR_LOG_DEBUG);
                     $mime_mail->send(Horde::getMailerConfig(), false, false);
