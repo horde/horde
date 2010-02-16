@@ -250,7 +250,7 @@ EOD;
      */
     protected function _getHordeImageOb($load)
     {
-        if (!$GLOBALS['conf']['image']['driver']) {
+        if (empty($GLOBALS['conf']['image']['driver'])) {
             return false;
         }
         $img = null;
@@ -261,7 +261,7 @@ EOD;
                 $context['convert'] = $GLOBALS['conf']['image']['convert'];
                 $context['identify'] = $GLOBALS['conf']['image']['identify'];
             }
-            $img = Horde_Image::factory($GLOBALS['conf']['image']['driver']);
+            $img = Horde_Image::factory($GLOBALS['conf']['image']['driver'], array('context' => $context));
         } catch (Horde_Image_Exception $e) {
             return false;
         }
