@@ -29,7 +29,7 @@ class Horde_Image_Im extends Horde_Image_Base
                                      'canvas',
                                      'multipage',
                                      'pdf');
-    
+
     /**
      * Operations to be performed before the source filename is specified on the
      * command line.
@@ -68,7 +68,7 @@ class Horde_Image_Im extends Horde_Image_Base
      * @string
      */
     protected $_identify;
-    
+
     /**
      * Cache the number of image pages
      *
@@ -649,7 +649,7 @@ class Horde_Image_Im extends Horde_Image_Base
         }
         $rawImage = $this->_raw(true, $index, true);
         $image = new Horde_Image_Im(array('data' => $rawImage), $this->_context);
-        
+
         return $image;
     }
 
@@ -680,7 +680,7 @@ class Horde_Image_Im extends Horde_Image_Base
             $this->_logErr(sprintf("Error running command: %s", $cmd . "\n" . implode("\n", $output)));
         }
         unlink($filename);
-        
+
         return $output;
     }
 }

@@ -96,7 +96,7 @@ abstract class Horde_Image_Base Implements Iterator
      * @param array
      */
      protected $_context;
-     
+
     /**
      * Constructor.
      *
@@ -106,7 +106,7 @@ abstract class Horde_Image_Base Implements Iterator
     {
         $this->_params = $params;
         $this->_context = $context;
-        
+
         if (empty($context['tmpdir'])) {
             throw new InvalidArgumentException('A path to a temporary directory is required.');
         }
@@ -442,5 +442,5 @@ abstract class Horde_Image_Base Implements Iterator
      * @return integer
      */
     abstract function getImagePageCount();
-    
+
 }
