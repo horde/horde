@@ -3,8 +3,7 @@
 $mimp_render = new Horde_Mobile();
 $c = $mimp_render->add(new Horde_Mobile_card('m', sprintf(_("Search %s"), $imp_mbox['mailbox'])));
 
-$imp_notify->setMobileObject($c);
-$notification->notify(array('listeners' => 'status'));
+$notification->notify(array('listeners' => 'status', 'mobile' => $c));
 
 $f = $c->add(new Horde_Mobile_form('mailbox-mimp.php'));
 

@@ -38,14 +38,14 @@ class Horde_Notification_Class_Notification_EventTest extends PHPUnit_Framework_
 
     public function testMethodGetmessageHasResultStringTheStoredMessage()
     {
-        $event = new Horde_Notification_Event();
-        $event->message = test;
+        $event = new Horde_Notification_Event('');
+        $event->message = 'test';
         $this->assertEquals('test', $event->message);
     }
 
     public function testMethodGetmessageHasResultStringEmptyIfNoMessageWasStored()
     {
-        $event = new Horde_Notification_Event();
+        $event = new Horde_Notification_Event('');
         $this->assertEquals('', $event->message);
     }
 }

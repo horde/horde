@@ -367,8 +367,7 @@ $mimp_render->set('title', $display_headers['subject']);
 $c = $mimp_render->add(new Horde_Mobile_card('m', ($status ? $status . ' | ' : '') . $display_headers['subject'] . ' ' . sprintf(_("(%d of %d)"), $msgindex, $msgcount)));
 $c->softkey('#o', _("Menu"));
 
-$imp_notify->setMobileObject($c);
-$notification->notify(array('listeners' => 'status'));
+$notification->notify(array('listeners' => 'status', 'mobile' => $c));
 
 $null = null;
 $hb = $c->add(new Horde_Mobile_block($null));

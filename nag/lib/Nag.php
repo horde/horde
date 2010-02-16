@@ -787,10 +787,10 @@ class Nag
                         $key++;
                     }
                     if ($differential >= -60 && $differential < 60) {
-                        $messages[$key] = array(sprintf(_("%s is due now."), $task->name), 'nag.alarm');
+                        $messages[$key] = array(sprintf(_("%s is due now."), $task->name), 'horde.alarm');
                     } elseif ($differential >= 60) {
                         $messages[$key] = array(sprintf(_("%s is due in %s"), $task->name,
-                                                        Nag::secondsToString($differential)), 'nag.alarm');
+                                                        Nag::secondsToString($differential)), 'horde.alarm');
                     }
                 }
 

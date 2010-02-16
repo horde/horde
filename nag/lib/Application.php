@@ -54,8 +54,6 @@ class Nag_Application extends Horde_Registry_Application
         $GLOBALS['nag_shares'] = Horde_Share::singleton($GLOBALS['registry']->getApp());
 
         Nag::initialize();
-
-        $GLOBALS['notification']->replace('status', array(), 'Nag_Notification_Listener_Status');
     }
 
     /**

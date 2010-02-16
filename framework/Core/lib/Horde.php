@@ -607,17 +607,16 @@ HTML;
     /**
      * Returns a stdClass response object with added notification information.
      *
-     * @param mixed $data                      The 'response' data.
-     * @param Notification_Listener $listener  If set, adds notification
-     *                                         information to object.
+     * @param mixed $data      The 'response' data.
+     * @param boolean $notify  If true, adds notification info to object.
      */
-    static public function prepareResponse($data = null, $listener = null)
+    static public function prepareResponse($data = null, $notify = false)
     {
         $response = new stdClass();
         $response->response = $data;
-        if ($listener) {
-            $GLOBALS['notification']->notify(array('listeners' => 'status', 'store' => true));
-            $stack = $listener->getStack();
+
+        if ($notify) {
+            $stack = $GLOBALS['notification']->notify(array('listeners' => 'status', 'raw' => true));
             if (!empty($stack)) {
                 $response->msgs = $stack;
             }

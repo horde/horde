@@ -32,8 +32,8 @@ $args = array(
 $show_msg = new IMP_Views_ShowMessage();
 $show_msg_result = $show_msg->showMessage($args);
 if (isset($show_msg_result['error'])) {
+    IMP::status();
     echo Horde::wrapInlineScript(array(
-        IMP_Dimp::notify(),
         'parent.close()'
     ));
     exit;
@@ -79,7 +79,6 @@ if (!$disable_compose) {
     $js_onload = $compose_result['jsonload'];
 }
 
-$js_onload[] = IMP_Dimp::notify();
 if (isset($show_msg_result['js'])) {
     $js_onload = array_merge($js_onload, $show_msg_result['js']);
 }
@@ -87,6 +86,7 @@ if (isset($show_msg_result['js'])) {
 Horde::addInlineScript($js_out);
 Horde::addInlineScript(array_filter($js_onload), 'load');
 
+IMP::status();
 IMP_Dimp::header($show_msg_result['title'], $scripts);
 echo "<body>\n";
 require IMP_TEMPLATES . '/chunks/message.php';

@@ -28,11 +28,6 @@ $chunk = Horde_Util::nonInputVar('chunk');
 /* Load $app's base environment. */
 $registry->pushApp($app);
 
-/* If a prefs notification status handler is set, activate it now. */
-if (!empty($_SESSION['horde_prefs']['status'])) {
-    $registry->callAppMethod($_SESSION['horde_prefs']['status'], 'prefsStatus');
-}
-
 /* Set title. */
 $title = sprintf(_("Options for %s"), $registry->get('name'));
 

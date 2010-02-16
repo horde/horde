@@ -30,25 +30,10 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
  */
 class Horde_Notification_Class_Notification_Listener_StatusTest extends PHPUnit_Extensions_OutputTestCase
 {
-    public function setUp()
-    {
-        if (!class_exists('Horde_Perms')) {
-            $this->markTestSkipped('The Horde_Perms package is not installed!');
-        }
-
-        /**
-         * The listener pulls the registry from global scope to get the image
-         * directory.
-         */
-        $GLOBALS['registry'] = $this->getMock(
-            'Horde_Registry', array(), array(), '', false, false
-        );
-    }
-
-    public function testMethodHandleHasResultBooleanTrueForHordeMessages()
+    public function testMethodHandleHasEventClassForHordeMessages()
     {
         $listener = new Horde_Notification_Listener_Status();
-        $this->assertTrue($listener->handles('horde.message'));
+        $this->assertEquals('Horde_Notification_Event_Status', $listener->handles('status'));
     }
 
     public function testMethodGetnameHasResultStringStatus()
@@ -66,7 +51,6 @@ class Horde_Notification_Class_Notification_Listener_StatusTest extends PHPUnit_
 
     public function testMethodNotifyHasOutputEventMessagesEmbeddedInUlElement()
     {
-        $this->markTestIncomplete('This is untestable without mocking half of the Horde framework.');
         $listener = new Horde_Notification_Listener_Status();
         $event = new Horde_Notification_Event('test');
         $messages = array($event);
@@ -76,26 +60,4 @@ class Horde_Notification_Class_Notification_Listener_StatusTest extends PHPUnit_
         $listener->notify($messages);
     }
 
-    public function testMethodGetstackHasNoOutputIfNotifyWasAskedToAvoidDirectOutput()
-    {
-        $listener = new Horde_Notification_Listener_Status();
-        $event = new Horde_Notification_Event('test');
-        $event->flags = array('content.raw' => true);
-        $messages = array($event);
-        $listener->notify($messages, array('store' => true));
-        $this->expectOutputString('');
-    }
-
-    public function testMethodGetstackHasOutputEventMessagesIfNotifyWasAskedToAvoidDirectOutput()
-    {
-        $listener = new Horde_Notification_Listener_Status();
-        $event = new Horde_Notification_Event('test');
-        $event->flags = array('content.raw' => true);
-        $messages = array($event);
-        $listener->notify($messages, array('store' => true));
-        $this->assertEquals(
-            $event,
-            $listener->getStack()
-        );
-    }
 }

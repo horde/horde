@@ -39,7 +39,7 @@ try {
         ($action != 'LogOut')) {
         $ajax = Horde_Ajax::getInstance($app);
         $GLOBALS['notification']->push(str_replace('&amp;', '&', Horde_Auth::getLogoutUrl(array('reason' => Horde_Auth::REASON_SESSION))), 'horde.ajaxtimeout', array('content.raw'));
-        Horde::sendHTTPResponse(Horde::prepareResponse(null, $ajax->notificationHandler()), $ajax->responseType());
+        Horde::sendHTTPResponse(Horde::prepareResponse(null, $ajax->notify), $ajax->responseType());
         exit;
     }
 
@@ -65,4 +65,4 @@ if (ob_get_length()) {
 }
 
 // Send the final result.
-Horde::sendHTTPResponse(Horde::prepareResponse($result, $ajax->notificationHandler()), $ajax->responseType());
+Horde::sendHTTPResponse(Horde::prepareResponse($result, $ajax->notify), $ajax->responseType());

@@ -66,9 +66,13 @@ Application Framework.
        <file name="Dns.php" role="php" />
        <file name="Logger.php" role="php" />
        <file name="Memcache.php" role="php" />
+       <file name="Notification.php" role="php" />
        <file name="Perms.php" role="php" />
        <file name="Template.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Binder -->
+      <dir name="Notification">
+       <file name="Status.php" role="php" />
+      </dir> <!-- /lib/Horde/Core/Notification -->
      </dir> <!-- /lib/Horde/Core -->
      <file name="ErrorHandler.php" role="php" />
      <dir name="Exception">
@@ -156,8 +160,10 @@ Application Framework.
    <install name="lib/Horde/Core/Binder/Dns.php" as="Horde/Core/Binder/Dns.php" />
    <install name="lib/Horde/Core/Binder/Logger.php" as="Horde/Core/Binder/Logger.php" />
    <install name="lib/Horde/Core/Binder/Memcache.php" as="Horde/Core/Binder/Memcache.php" />
+   <install name="lib/Horde/Core/Binder/Notification.php" as="Horde/Core/Binder/Notification.php" />
    <install name="lib/Horde/Core/Binder/Perms.php" as="Horde/Core/Binder/Perms.php" />
    <install name="lib/Horde/Core/Binder/Template.php" as="Horde/Core/Binder/Template.php" />
+   <install name="lib/Horde/Core/Notification/Status.php" as="Horde/Core/Notification/Status.php" />
    <install name="lib/Horde/ErrorHandler.php" as="Horde/ErrorHandler.php" />
    <install name="lib/Horde/Exception/HookNotSet.php" as="Horde/Exception/HookNotSet.php" />
    <install name="lib/Horde/Help.php" as="Horde/Help.php" />

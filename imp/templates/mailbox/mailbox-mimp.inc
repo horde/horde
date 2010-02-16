@@ -15,8 +15,7 @@ $mimp_render = new Horde_Mobile();
 $c = &$mimp_render->add(new Horde_Mobile_card('m', $title));
 $c->softkey('#o', _("Menu"));
 
-$imp_notify->setMobileObject($c);
-$notification->notify(array('listeners' => 'status'));
+$notification->notify(array('listeners' => 'status', 'mobile' => $c));
 
 if (!empty($pageOb['end'])) {
     $elts = null;

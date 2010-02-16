@@ -232,6 +232,7 @@ class Horde_Registry
         $injector->addBinder('Horde_Db_Adapter_Base', new Horde_Core_Binder_Db('reader'));
         $injector->addBinder('Horde_Log_Logger', new Horde_Core_Binder_Logger());
         $injector->addBinder('Horde_Memcache', new Horde_Core_Binder_Memcache());
+        $injector->addBinder('Horde_Notification', new Horde_Core_Binder_Notification());
         $injector->addBinder('Horde_Perms', new Horde_Core_Binder_Perms());
         $injector->addBinder('Horde_Template', new Horde_Core_Binder_Template());
         $injector->addBinder('Net_DNS_Resolver', new Horde_Core_Binder_Dns());
@@ -315,11 +316,15 @@ class Horde_Registry
         }
 
         /* Initialize notification object. Always attach status listener by
-         * default. */
-        $GLOBALS['notification'] = Horde_Notification::singleton();
-        $statusListener = $GLOBALS['notification']->attach('status');
-        $injector->setInstance('Horde_Notification', $GLOBALS['notification']);
-        $injector->setInstance('Horde_Notification_Listener', $statusListener);
+         * default. Default status listener can be overriden through the
+         * $_SESSION['horde_notification']['override'] variable. */
+        $GLOBALS['notification'] = $injector->getInstance('Horde_Notification');
+        if (isset($_SESSION['horde_notification']['override'])) {
+            require_once $_SESSION['horde_notification']['override'][0];
+            $GLOBALS['notification']->attach('status', null, $_SESSION['horde_notification']['override'][1]);
+        } else {
+            $GLOBALS['notification']->attach('status');
+        }
     }
 
     /**

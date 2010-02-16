@@ -30,10 +30,10 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
  */
 class Horde_Notification_Class_Notification_Listener_JavascriptTest extends PHPUnit_Extensions_OutputTestCase
 {
-    public function testMethodHandleHasResultBooleanTrueForjavascriptMessages()
+    public function testMethodHandleHasEventClassForjavascriptMessages()
     {
         $listener = new Horde_Notification_Listener_Javascript();
-        $this->assertTrue($listener->handles('javascript'));
+        $this->assertEquals('Horde_Notification_Event', $listener->handles('javascript'));
     }
 
     public function testMethodGetnameHasResultStringJavascript()
@@ -52,7 +52,7 @@ class Horde_Notification_Class_Notification_Listener_JavascriptTest extends PHPU
     public function testMethodNotifyHasOutputEventMessageEmbeddedInScriptElement()
     {
         $listener = new Horde_Notification_Listener_Javascript();
-        $event = new Horde_Notification_Event('test');
+        $event = new Horde_Notification_Event('test', 'javascript');
         $messages = array($event);
         $this->expectOutputString(
             '<script type="text/javascript">//<![CDATA['
@@ -64,9 +64,9 @@ class Horde_Notification_Class_Notification_Listener_JavascriptTest extends PHPU
     public function testMethodNotifyHasOutputEventMessageNotEmbeddedIfEmbeddingIsDeactivated()
     {
         $listener = new Horde_Notification_Listener_Javascript();
-        $event = new Horde_Notification_Event('test');
+        $event = new Horde_Notification_Event('test', 'javascript');
         $messages = array($event);
-        $this->expectOutputString('test' . "\n");
+        $this->expectOutputString('test');
         $listener->notify($messages, array('noscript' => true));
     }
 

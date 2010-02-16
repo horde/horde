@@ -5,8 +5,7 @@ $mimp_render->set('title', $title);
 $c = &$mimp_render->add(new Horde_Mobile_card('m', $title));
 $c->softkey('#o', _("Menu"));
 
-$imp_notify->setMobileObject($c);
-$notification->notify(array('listeners' => 'status'));
+$notification->notify(array('listeners' => 'status', 'mobile' => $c));
 
 $null = null;
 $fb = &$c->add(new Horde_Mobile_block($null));

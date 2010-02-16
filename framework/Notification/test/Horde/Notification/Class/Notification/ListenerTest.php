@@ -43,160 +43,26 @@ class Horde_Notification_Class_Notification_ListenerTest extends PHPUnit_Framewo
         $this->assertFalse($listener->handles('test'));
     }
 
+    public function testMethodHandleHasEventClassName()
+    {
+        $listener = new Horde_Notification_Listener_Mock();
+        $this->assertEquals('Horde_Notification_Event', $listener->handles('mock'));
+    }
+
     public function testMethodGetnameHasResultStringTheNameOfTheListener()
     {
         $listener = new Horde_Notification_Listener_Mock();
         $this->assertEquals('mock', $listener->getName());
     }
 
-    public function testMethodGeteventHasResultNotificationeventTheUnserializedMessageEvent()
-    {
-        $listener = new Horde_Notification_Listener_Mock();
-        $event = new Horde_Notification_Event('test');
-        $message = array(
-            'class' => 'Horde_Notification_Event',
-            'event' => serialize($event)
-        );
-        $this->assertType(
-            'Horde_Notification_Event',
-            $listener->getEvent($message)
-        );
-    }
-
-    public function testMethodGeteventHasResultNotificationeventTheUnserializedMessageEventIfTheClassInformationInTheMessageIsInvalid()
-    {
-        $listener = new Horde_Notification_Listener_Mock();
-        $event = new Horde_Notification_Event('test');
-        $message = array(
-            'class' => 'Does_Not_Exist',
-            'event' => serialize($event)
-        );
-        $this->assertType(
-            'Horde_Notification_Event',
-            $listener->getEvent($message)
-        );
-    }
-
-    public function testMethodGeteventHasResultNotificationeventTheUnserializedMessageIfTheUnserializedObjectHasAnAttributeMessage()
-    {
-        $listener = new Horde_Notification_Listener_Mock();
-        $event = new stdClass;
-        $event->_message = 'test';
-        $message = array(
-            'class' => '',
-            'event' => serialize($event)
-        );
-        $this->assertType(
-            'Horde_Notification_Event',
-            $listener->getEvent($message)
-        );
-    }
-
-    public function testMethodGeteventHasResultPearerrorIfTheMessageCouldNotBeUnserialized()
-    {
-        $this->markTestIncomplete('Fails because of strict standards (PEAR::raiseError()).');
-        $listener = new Horde_Notification_Listener_Mock();
-        $message = array(
-            'class' => '',
-            'event' => 'unserializable'
-        );
-        $this->assertType(
-            'PEAR_Error',
-            $listener->getEvent($message)
-        );
-    }
-
-    public function testMethodGeteventHasResultPearerrorIfTheMessageContainedAPearerror()
-    {
-        $listener = new Horde_Notification_Listener_Mock();
-        $event = new PEAR_Error();
-        $message = array(
-            'class' => '',
-            'event' => serialize($event)
-        );
-        $this->assertType(
-            'PEAR_Error',
-            $listener->getEvent($message)
-        );
-    }
-
-    public function testMethodGeteventHasResultPearerrorWithHiddenAttributeMessageIfTheMessageContainedAPearerrorWithUserInfo()
-    {
-        $listener = new Horde_Notification_Listener_Mock();
-        $event = new PEAR_Error('message', null, null, null, 'test');
-        $message = array(
-            'class' => '',
-            'event' => serialize($event)
-        );
-        $result = $listener->getEvent($message);
-        $this->assertEquals('message : test', $result->_message);
-    }
-
-    public function testMethodGeteventHasResultPearerrorWithHiddenAttributeMessageComposedOfArrayElementsIfTheMessageContainedAPearerrorWithAnArrayOfUserInfo()
-    {
-        $listener = new Horde_Notification_Listener_Mock();
-        $user_info = array('1', '2');
-        $event = new PEAR_Error('message', null, null, null, $user_info);
-        $message = array(
-            'class' => '',
-            'event' => serialize($event)
-        );
-        $result = $listener->getEvent($message);
-        $this->assertEquals('message : 1, 2', $result->_message);
-    }
-
-    public function testMethodGeteventHasResultPearerrorWithHiddenAttributeMessageComposedOfArrayElementsIfTheMessageContainedAPearerrorWithAnArrayOfUserInfoErrors()
-    {
-        $listener = new Horde_Notification_Listener_Mock();
-        $user_info = array(new PEAR_Error('a'), new PEAR_Error('b'));
-        $event = new PEAR_Error('message', null, null, null, $user_info);
-        $message = array(
-            'class' => '',
-            'event' => serialize($event)
-        );
-        $result = $listener->getEvent($message);
-        $this->assertEquals('message : a, b', $result->_message);
-    }
-
-    public function testMethodGeteventHasResultPearerrorWithHiddenAttributeMessageComposedOfArrayElementsIfTheMessageContainedAPearerrorWithAnArrayOfUserInfoObjectThatImplementGetmessageButNotTostring()
-    {
-        $listener = new Horde_Notification_Listener_Mock();
-        $user_info = array(new Message('a'), new Message('b'));
-        $event = new PEAR_Error('message', null, null, null, $user_info);
-        $message = array(
-            'class' => '',
-            'event' => serialize($event)
-        );
-        $result = $listener->getEvent($message);
-        $this->assertEquals('message : a, b', $result->_message);
-    }
-
 }
 
 class Horde_Notification_Listener_Mock extends Horde_Notification_Listener
 {
+    protected $_handles = array('mock' => 'Horde_Notification_Event');
     protected $_name = 'mock';
 
-    public function notify(&$messageStacks, $options = array())
+    public function notify($events, $options = array())
     {
-    }
-
-    public function getMessage($message, $options = array())
-    {
-    }
-}
-
-class Message
-{
-    private $_message;
-
-    public function __construct($message)
-    {
-        $this->_message = $message;
-    }
-
-    public function getMessage()
-    {
-        return $this->_message;
     }
 }

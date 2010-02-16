@@ -191,10 +191,6 @@ if ($vars->popup) {
 }
 Horde::addInlineScript(array_merge($compose_result['js'], $js));
 
-/* Some actions, like adding forwards, may return error messages so explicitly
- * display those messages now. */
-Horde::addInlineScript(array(IMP_Dimp::notify()), 'dom');
-
 /* Javascript to be run on window load. */
 $fillform_opts['focus'] = ($vars->type == 'new' || $vars->type == 'forward') ? 'to' : 'composeMessage';
 $compose_result['js_onload'][] = 'DimpCompose.fillForm(' . Horde_Serialize::serialize($msg, Horde_Serialize::JSON) . ',' . Horde_Serialize::serialize($header, Horde_Serialize::JSON) . ',' . Horde_Serialize::serialize($fillform_opts, Horde_Serialize::JSON) . ')';
@@ -205,6 +201,7 @@ $scripts = array(
     array('md5.js', 'horde')
 );
 
+IMP::status();
 IMP_Dimp::header(_("Message Composition"), $scripts);
 echo $t->fetch(IMP_TEMPLATES . '/imp/compose.html');
 Horde::includeScriptFiles();

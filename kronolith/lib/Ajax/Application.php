@@ -15,15 +15,11 @@
 class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
 {
     /**
-     * Returns a notification handler object to use to output any
-     * notification messages triggered by the action.
+     * Determines if notification information is sent in response.
      *
-     * @return Horde_Notification_Handler_Base   The notification handler.
+     * @var boolean
      */
-    public function notificationHandler()
-    {
-        return $GLOBALS['injector']->getInstance('Horde_Notification_Listener');
-    }
+    public $notify = true;
 
     /**
      * TODO

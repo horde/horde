@@ -83,21 +83,6 @@ class IMP_Dimp
     }
 
     /**
-     * Return the javascript code necessary to display notification popups.
-     *
-     * @return string  The notification JS code.
-     */
-    static public function notify()
-    {
-        $GLOBALS['notification']->notify(array('listeners' => 'status', 'store' => true));
-        $msgs = $GLOBALS['imp_notify']->getStack();
-
-        return count($msgs)
-            ? 'DimpCore.showNotifications(' . Horde_Serialize::serialize($msgs, Horde_Serialize::JSON) . ')'
-            : '';
-    }
-
-    /**
      * Return information about the current attachments for a message
      *
      * @param IMP_Compose $imp_compose  An IMP_Compose object.

@@ -1,6 +1,6 @@
 <?php
 /**
- * The Hordelog Decorator logs error events via Horde::logMessage().
+ * Define the functions needed for a Decorator instance.
  *
  * Copyright 2001-2010 The Horde Project (http://www.horde.org/)
  *
@@ -8,10 +8,10 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Jan Schneider <jan@horde.org>
+ * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Notification
  */
-class Horde_Notification_Handler_Decorator_Hordelog
-extends Horde_Notification_Handler_Decorator_Base
+class Horde_Notification_Handler_Decorator_Base
 {
     /**
      * Event is being added to the Horde message stack.
@@ -23,7 +23,17 @@ extends Horde_Notification_Handler_Decorator_Base
      */
     public function push(Horde_Notification_Event $event, $options)
     {
-        Horde::logMessage($event->message, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+    }
+
+    /**
+     * Listeners are handling their messages.
+     *
+     * @param array $options  An array containing display options for the
+     *                        listeners (see Horde_Notification_Handler for
+     *                        details).
+     */
+    public function notify($options)
+    {
     }
 
 }

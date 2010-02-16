@@ -35,13 +35,7 @@ class Horde_Notification
     static public function singleton($stack = 'horde_notification_stacks')
     {
         if (!isset(self::$_instances[$stack])) {
-            $storage = new Horde_Notification_Storage_Session($stack);
-
-            $handler = new Horde_Notification_Handler_Base($storage);
-            $handler = new Horde_Notification_Handler_Decorator_Hordelog($handler);
-            $handler = new Horde_Notification_Handler_Decorator_Alarm($handler, Horde_Alarm::factory());
-
-            self::$_instances[$stack] = $handler;
+            self::$_instances[$stack] = new Horde_Notification_Handler(new Horde_Notification_Storage_Session($stack));
         }
 
         return self::$_instances[$stack];

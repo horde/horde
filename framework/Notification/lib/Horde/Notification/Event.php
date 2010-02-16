@@ -45,6 +45,10 @@ class Horde_Notification_Event
     {
         $this->flags = $flags;
 
+        $this->type = empty($type)
+            ? 'status'
+            : $type;
+
         if ($data instanceof PEAR_Error) {
             // DEPRECATED
             if (($userinfo = $data->getUserInfo()) &&
@@ -66,25 +70,13 @@ class Horde_Notification_Event
             } else {
                 $this->message = $data->getMessage();
             }
-
-            if (is_null($type)) {
-                $type = 'horde.error';
-            }
         } elseif ($data instanceof Exception) {
             // Exception
             $this->message = $data->getMessage();
-            if (is_null($type)) {
-                $type = 'horde.error';
-            }
         } else {
             // String or object
             $this->message = strval($data);
-            if (is_null($type)) {
-                $type = is_string($data) ? 'horde.message' : 'horde.error';
-            }
         }
-
-        $this->type = $type;
     }
 
     /**

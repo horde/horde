@@ -12,7 +12,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
+require_once dirname(__FILE__) . '/../../Autoload.php';
 
 /**
  * Test the basic notification handler class.
@@ -29,12 +29,12 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
  * @link     http://pear.horde.org/index.php?package=Notification
  */
 
-class Horde_Notification_Class_Notification_Handler_BaseTest extends PHPUnit_Framework_TestCase
+class Horde_Notification_Class_Notification_HandlerTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
         $this->storage = new Horde_Notification_Storage_Session('test');
-        $this->handler = new Horde_Notification_Handler_Base($this->storage);
+        $this->handler = new Horde_Notification_Handler($this->storage);
     }
 
     public function testMethodAttachHasResultNotificationlistener()
@@ -73,7 +73,7 @@ class Horde_Notification_Class_Notification_Handler_BaseTest extends PHPUnit_Fra
         $this->assertEquals(array(), $_SESSION['test']['audio']);
     }
 
-    public function testMethodAttachThrowsExceptionIfTheListenerTypeIsUnkown()
+    public function testMethodAttachThrowsExceptionIfTheListenerTypeIsUnknown()
     {
         try {
             $this->handler->attach('MyAudio');
@@ -84,19 +84,6 @@ class Horde_Notification_Class_Notification_Handler_BaseTest extends PHPUnit_Fra
                 $e->getMessage()
             );
         }
-    }
-
-    public function testMethodReplaceHasResultNotificationlistener()
-    {
-        $this->handler->attach(
-            'test', array(), 'Horde_Notification_Listener_Audio'
-        );
-        $this->assertType(
-            'Horde_Notification_Listener_Dummy',
-            $this->handler->replace(
-                'test', array(), 'Horde_Notification_Listener_Dummy'
-            )
-        );
     }
 
     public function testMethodDetachHasPostconditionThatTheListenerStackGotUnset()
@@ -113,7 +100,7 @@ class Horde_Notification_Class_Notification_Handler_BaseTest extends PHPUnit_Fra
             $this->fail('No exception!');
         } catch (Horde_Exception $e) {
             $this->assertEquals(
-                'Notification listener myaudio not found.',
+                'Notification listener MyAudio not found.',
                 $e->getMessage()
             );
         }
@@ -122,55 +109,59 @@ class Horde_Notification_Class_Notification_Handler_BaseTest extends PHPUnit_Fra
     public function testMethodPushHasPostconditionThatTheEventGotSavedInAllAttachedListenerStacksHandlingTheEvent()
     {
         $event = new Horde_Notification_Event('test');
-        $flags= array();
         $this->handler->attach('audio');
-        $this->handler->push('test', 'audio');
+        $this->handler->push('test', 'audio', array(), array('immediate' => true));
         $result = array_shift($_SESSION['test']['audio']);
-        $this->assertEquals('Horde_Notification_Event', $result['class']);
-        $this->assertEquals(serialize($event), $result['event']);
-        $this->assertEquals(serialize($flags), $result['flags']);
-        $this->assertEquals('audio', $result['type']);
+        $this->assertNotNull($result);
+        $this->assertType('Horde_Notification_Event', $result);
+        $this->assertEquals(array(), $result->flags);
+        $this->assertEquals('audio', $result->type);
     }
 
-    public function testMethodPushHasPostconditionThatAnExceptionGetsMarkedAsTypeErrorIfTheTypeWasUnset()
+    public function testMethodPushHasPostconditionThatAnExceptionGetsMarkedAsTypeStatusIfTheTypeWasUnset()
     {
         $this->handler->attach('dummy');
-        $this->handler->push(new Exception('test'));
+        $this->handler->push(new Exception('test'), null, array(), array('immediate' => true));
         $result = array_shift($_SESSION['test']['dummy']);
-        $this->assertEquals('horde.error', $result['type']);
+        $this->assertNotNull($result);
+        $this->assertType('Horde_Notification_Event', $result);
+        $this->assertEquals(array(), $result->flags);
+        $this->assertEquals('status', $result->type);
     }
 
-    public function testMethodPushHasPostconditionThatEventsWithoutTypeGetMarkedAsTypeMessage()
+    public function testMethodPushHasPostconditionThatEventsWithoutTypeGetMarkedAsTypeStatus()
     {
         $this->handler->attach('dummy');
-        $this->handler->push('test');
+        $this->handler->push('test', null, array(), array('immediate' => true));
         $result = array_shift($_SESSION['test']['dummy']);
-        $this->assertEquals('horde.message', $result['type']);
+        $this->assertNotNull($result);
+        $this->assertType('Horde_Notification_Event', $result);
+        $this->assertEquals(array(), $result->flags);
+        $this->assertEquals('status', $result->type);
     }
 
     public function testMethodNotifyHasPostconditionThatAllListenersWereNotified()
     {
-        $event = new Horde_Notification_Event('test');
         $dummy = $this->handler->attach('dummy');
-        $flags= array();
-        $this->handler->push('test');
+        $this->handler->push('test', 'dummy');
         $this->handler->notify();
-        $result = array_shift($dummy->notifications);
-        $this->assertEquals('Horde_Notification_Event', $result['class']);
-        $this->assertEquals(serialize($event), $result['event']);
-        $this->assertEquals(serialize($flags), $result['flags']);
-        $this->assertEquals('horde.message', $result['type']);
+        $result = array_shift($dummy->events);
+        $this->assertNotNull($result);
+        $this->assertType('Horde_Notification_Event', $result);
+        $this->assertEquals(array(), $result->flags);
+        $this->assertEquals('dummy', $result->type);
     }
 
     public function testMethodNotifyHasPostconditionThatTheSpecifiedListenersWereNotified()
     {
-        $event = new Horde_Notification_Event('test');
         $dummy = $this->handler->attach('dummy');
-        $flags= array();
-        $this->handler->push('test');
+        $this->handler->push('test', 'dummy');
         $this->handler->notify(array('listeners' => 'dummy'));
-        $result = array_shift($dummy->notifications);
-        $this->assertEquals(serialize($event), $result['event']);
+        $result = array_shift($dummy->events);
+        $this->assertNotNull($result);
+        $this->assertType('Horde_Notification_Event', $result);
+        $this->assertEquals(array(), $result->flags);
+        $this->assertEquals('dummy', $result->type);
     }
 
     public function testMethodCountHasResultTheTotalNumberOfEventsInTheStack()
@@ -178,6 +169,7 @@ class Horde_Notification_Class_Notification_Handler_BaseTest extends PHPUnit_Fra
         $this->handler->attach('audio');
         $this->handler->attach('dummy');
         $this->handler->push('test', 'audio');
+        $this->handler->push('test', 'dummy');
         $this->assertEquals(2, $this->handler->count());
     }
 
@@ -193,27 +185,22 @@ class Horde_Notification_Class_Notification_Handler_BaseTest extends PHPUnit_Fra
 
 class Horde_Notification_Listener_Dummy extends Horde_Notification_Listener
 {
+    public $events;
     public $params;
-
-    public $notifications;
 
     public function __construct($params)
     {
         $this->params = $params;
         $this->_name = 'dummy';
         $this->_handles = array(
-            'audio' => '',
-            'horde.error' => '',
-            'horde.message' => '',
+            'dummy' => 'Horde_Notification_Event',
+            'status' => 'Horde_Notification_Event'
         );
     }
 
-    public function notify(&$messageStacks, $options = array())
+    public function notify($events, $options = array())
     {
-        $this->notifications = $messageStacks;
+        $this->events = $events;
     }
 
-    public function getMessage($message, $options = array())
-    {
-    }
 }

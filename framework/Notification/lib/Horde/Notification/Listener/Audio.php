@@ -18,9 +18,7 @@ class Horde_Notification_Listener_Audio extends Horde_Notification_Listener
      */
     public function __construct()
     {
-        $this->_handles = array(
-            'audio' => ''
-        );
+        $this->_handles['audio'] = 'Horde_Notification_Event';
         $this->_name = 'audio';
     }
 
@@ -28,29 +26,14 @@ class Horde_Notification_Listener_Audio extends Horde_Notification_Listener
      * Outputs the embedded audio code if there are any messages on the
      * 'audio' message stack.
      *
-     * @param array &$messageStack  The stack of messages.
-     * @param array $options        An array of options (not used).
+     * @param array $events   The list of events to handle.
+     * @param array $options  An array of options (not used).
      */
-    public function notify(&$messageStack, $options = array())
+    public function notify($events, $options = array())
     {
-        if (count($messageStack)) {
-            while ($message = array_shift($messageStack)) {
-                echo $this->getMessage($message);
-            }
+        foreach ($events as $event) {
+            echo '<embed src="' . htmlspecialchars(strval($event)) . '" width="0" height="0" autostart="true" />';
         }
-    }
-
-    /**
-     * Processes one message from the message stack.
-     *
-     * @param Horde_Notification_Event $event  An event object.
-     * @param array $options                   An array of options (not used).
-     *
-     * @return mixed  The formatted message.
-     */
-    public function getMessage($event, $options = array())
-    {
-        return '<embed src="' . htmlspecialchars($event->message) . '" width="0" height="0" autostart="true" />';
     }
 
 }

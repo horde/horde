@@ -13,6 +13,13 @@
 abstract class Horde_Ajax_Application_Base
 {
     /**
+     * Determines if notification information is sent in response.
+     *
+     * @var boolean
+     */
+    public $notify = false;
+
+    /**
      * The Horde application.
      *
      * @var string
@@ -85,17 +92,6 @@ abstract class Horde_Ajax_Application_Base
         } catch (Horde_Ajax_Exception $e) {}
 
         throw new Horde_Ajax_Exception('Handler for action "' . $this->_action . '" does not exist.');
-    }
-
-    /**
-     * Returns a notification handler object to use to output any
-     * notification messages triggered by the AJAX action.
-     *
-     * @return Horde_Notification_Handler_Base  The notification handler.
-     */
-    public function notificationHandler()
-    {
-        return null;
     }
 
     /**

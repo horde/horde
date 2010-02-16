@@ -13,6 +13,13 @@
 class IMP_Ajax_Application extends Horde_Ajax_Application_Base
 {
     /**
+     * Determines if notification information is sent in response.
+     *
+     * @var boolean
+     */
+    public $notify = true;
+
+    /**
      * The list of actions that require readonly access to the session.
      *
      * @var array
@@ -20,17 +27,6 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
     protected $_readOnly = array(
         'Html2Text', 'Text2Html'
     );
-
-    /**
-     * Returns a notification handler object to use to output any
-     * notification messages triggered by the AJAX action.
-     *
-     * @return Horde_Notification_Handler_Base  The notification handler.
-     */
-    public function notificationHandler()
-    {
-        return $GLOBALS['imp_notify'];
-    }
 
     /**
      * Determines the HTTP response output type.

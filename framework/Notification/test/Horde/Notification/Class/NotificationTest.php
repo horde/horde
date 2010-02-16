@@ -38,20 +38,6 @@ class Horde_Notification_Class_NotificationTest extends PHPUnit_Framework_TestCa
         $this->assertSame($notification1, $notification2);
     }
 
-    public function testMethodSingletonReturnsAlarmhandlerIfTheAlarmSystemisConfigured()
-    {
-        if (!class_exists('Horde_Alarm')) {
-            $this->markTestSkipped('The Horde_Alarm package is not installed!');
-        }
-
-        $GLOBALS['conf']['alarms']['driver'] = 'Mock';
-
-        $this->assertType(
-            'Horde_Notification_Handler_Decorator_Alarm',
-            Horde_Notification::singleton('alarm')
-        );
-    }
-
     public function testMethodConstructHasPostconditionThatTheSessionStackGotInitializedAsArray()
     {
         $notification = Horde_Notification_Instance::newInstance('test');
@@ -64,6 +50,6 @@ class Horde_Notification_Instance extends Horde_Notification
     static public function newInstance($stack)
     {
         $storage = new Horde_Notification_Storage_Session($stack);
-        return new Horde_Notification_Handler_Base($storage);
+        return new Horde_Notification_Handler($storage);
     }
 }

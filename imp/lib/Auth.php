@@ -474,11 +474,14 @@ class IMP_Auth
                   $conf['cookie']['path'],
                   $conf['cookie']['domain']);
 
-        /* Suppress menus in options screen, and indicate that it should
-         * use the IMP notification listener. */
+        /* Suppress menus in options screen and indicate that notifications
+         * should use the ajax mode. */
         if ($sess['view'] == 'dimp') {
             $_SESSION['horde_prefs']['nomenu'] = true;
-            $_SESSION['horde_prefs']['status'] = 'imp';
+            $_SESSION['horde_notification']['override'] = array(
+                IMP_BASE . '/lib/Notification/Listener/AjaxStatus.php',
+                'IMP_Notification_Listener_AjaxStatus'
+            );
         }
 
         /* Set up search information for the session. */

@@ -24,3 +24,6 @@ if (!spl_autoload_functions()) {
 
 /** Catch strict standards */
 error_reporting(E_ALL | E_STRICT);
+
+/** Needed for PEAR_Error. */
+@require_once 'PEAR.php';

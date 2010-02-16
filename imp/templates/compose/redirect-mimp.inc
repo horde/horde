@@ -3,8 +3,7 @@
 $c = &$mimp_render->add(new Horde_Mobile_card('m', $title));
 $c->softkey('#o', _("Menu"));
 
-$imp_notify->setMobileObject($c);
-$notification->notify(array('listeners' => 'status'));
+$notification->notify(array('listeners' => 'status', 'mobile' => $c));
 
 $f = &$c->add(new Horde_Mobile_form('compose.php'));
 

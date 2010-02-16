@@ -22,6 +22,8 @@ abstract class Horde_Notification_Listener
 
     /**
      * Array of message types that this listener handles.
+     * Key is the type, value is the default class name of the Event type to
+     * use.
      *
      * @var array
      */
@@ -32,11 +34,35 @@ abstract class Horde_Notification_Listener
      *
      * @param string $type  The message type in question.
      *
-     * @return boolean  Whether this listener handles the type.
+     * @return mixed  False if this listener does not handle, the default
+     *                event class if it does handle the type.
      */
     public function handles($type)
     {
-        return isset($this->_handles[$type]);
+        if (isset($this->_handles[$type])) {
+            return $this->_handles[$type];
+        }
+
+        /* Search for '*' entries. */
+        foreach (array_keys($this->_handles) as $key) {
+            if ((substr($key, -1) == '*') &&
+                (strpos($type, substr($key, 0, -1)) === 0)) {
+                return $this->_handles[$key];
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Adds message type handler.
+     *
+     * @param string $type   The type identifier.
+     * @param string $class  A classname.
+     */
+    public function addType($type, $class)
+    {
+        $this->_handles[$type] = $class;
     }
 
     /**
@@ -53,20 +79,9 @@ abstract class Horde_Notification_Listener
      * Outputs the status line, sends emails, pages, etc., if there
      * are any messages on this listener's message stack.
      *
-     * @param array &$messageStack  The stack of messages.
-     * @param array $options        An array of options.
+     * @param array $events   The list of events to handle.
+     * @param array $options  An array of options.
      */
-    abstract public function notify(&$messageStacks, $options = array());
-
-    /**
-     * Processes one message from the message stack.
-     *
-     * @param Horde_Notification_Event $event  One event object from the
-     *                                         stack.
-     * @param array $options                   An array of options.
-     *
-     * @return mixed  The formatted message.
-     */
-    abstract public function getMessage($event, $options = array());
+    abstract public function notify($events, $options = array());
 
 }

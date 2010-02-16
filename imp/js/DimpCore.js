@@ -212,13 +212,13 @@ var DimpCore = {
                 return true;
 
             case 'horde.alarm':
-                if (!this.alarms[m.alarm.id]) {
-                    this.Growler.growl(m.alarm.title + ': ' + m.alarm.text, {
+                if (!this.alarms[m.flags.alarm.id]) {
+                    this.Growler.growl(m.flags.alarm.title + ': ' + m.flags.alarm.text, {
                         className: 'horde-alarm',
                         sticky: 1,
                         log: 1
                     });
-                    this.alarms[m.alarm.id] = 1;
+                    this.alarms[m.flags.alarm.id] = 1;
                 }
                 break;
 

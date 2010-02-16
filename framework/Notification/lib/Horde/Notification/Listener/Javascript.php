@@ -18,10 +18,8 @@ class Horde_Notification_Listener_Javascript extends Horde_Notification_Listener
      */
     public function __construct()
     {
-        $this->_handles = array(
-            'javascript' => '',
-            'javascript-file' => ''
-        );
+        $this->_handles['javascript'] = 'Horde_Notification_Event';
+        $this->_handles['javascript-file'] = 'Horde_Notification_Event';
         $this->_name = 'javascript';
     }
 
@@ -29,26 +27,24 @@ class Horde_Notification_Listener_Javascript extends Horde_Notification_Listener
      * Outputs the javascript code if there are any messages on the
      * 'javascript' message stack and if the 'notify_javascript' option is set.
      *
-     * @param array &$messageStack  The stack of messages.
-     * @param array $options        An array of options. Options: 'noscript'
+     * @param array $events   The list of events to handle.
+     * @param array $options  An array of options:
+     * <pre>
+     * 'noscript' - TODO
+     * </pre>
      */
-    public function notify(&$messageStack, $options = array())
+    public function notify($events, $options = array())
     {
-        if (!count($messageStack)) {
-            return;
-        }
-
         $files = $js_text = array();
 
-        while ($message = array_shift($messageStack)) {
-            $event = $this->getMessage($message);
+        foreach ($events as $event) {
             switch ($event->type) {
             case 'javascript':
-                $js_text[] = $event->message . "\n";
+                $js_text[] = strval($event);
                 break;
 
             case 'javascript-file':
-                $files[] = $event->message;
+                $files[] = strval($event);
                 break;
             }
         }
@@ -61,28 +57,13 @@ class Horde_Notification_Listener_Javascript extends Horde_Notification_Listener
 
         if (empty($options['noscript'])) {
             if (!empty($js_text)) {
-                echo "//]]></script>\n";
+                echo "\n//]]></script>\n";
             }
 
-            if (count($files)) {
-                foreach ($files as $file) {
-                    echo '<script type="text/javascript" src="' . $file . '"></script>' . "\n";
-                }
+            foreach ($files as $file) {
+                echo '<script type="text/javascript" src="' . htmlspecialchars($file) . "\"></script>\n";
             }
         }
-    }
-
-    /**
-     * Processes one message from the message stack.
-     *
-     * @param Horde_Notification_Event $event  An event object.
-     * @param array $options                   An array of options (not used).
-     *
-     * @return mixed  The formatted message.
-     */
-    public function getMessage($event, $options = array())
-    {
-        return $event->message;
     }
 
 }

@@ -94,7 +94,6 @@ class IMP_Application extends Horde_Registry_Application
      * Global variables defined:
      *   $imp_imap     - An IMP_Imap object
      *   $imp_mbox     - Current mailbox information
-     *   $imp_notify   - A Horde_Notification_Listener object
      *   $imp_search   - An IMP_Search object
      */
     protected function _init()
@@ -115,26 +114,31 @@ class IMP_Application extends Horde_Registry_Application
         // IMP_Search object.
         IMP::setCurrentMailboxInfo();
 
-        $impmode = empty($this->initParams['impmode'])
-            ? 'imp'
-            : $this->initParams['impmode'];
-        $viewmode = IMP::getViewMode();
+        $GLOBALS['notification']->addDecorator(new IMP_Notification_Handler_Decorator_Imap());
+        $GLOBALS['notification']->addType('status', 'imp.*', 'IMP_Notification_Event_Status');
 
-        if ($viewmode == 'mimp') {
-            if ($impmode != 'mimp') {
+        switch (IMP::getViewMode()) {
+        case 'dimp':
+            $GLOBALS['notification']->addType('status', 'dimp.*', 'IMP_Notification_Event_Status');
+            break;
+
+        case 'mimp':
+            if (empty($this->initParams['impmode']) ||
+                ($this->initParams['impmode'] != 'mimp')) {
                 header('Location: ' . IMP_Auth::getInitialPage(true)->setRaw(true));
                 exit;
             }
-            $GLOBALS['imp_notify'] = $GLOBALS['notification']->replace('status', array(), 'IMP_Notification_Listener_StatusMobile');
-        } else {
-            if ($viewmode == 'imp') {
-                $GLOBALS['notification']->attach('audio');
-                if ($impmode == 'dimp') {
-                    header('Location: ' . IMP_Auth::getInitialPage(true)->setRaw(true));
-                    exit;
-                }
+            break;
+
+        case 'imp':
+            if (!empty($this->initParams['impmode']) &&
+                ($this->initParams['impmode'] == 'dimp')) {
+                header('Location: ' . IMP_Auth::getInitialPage(true)->setRaw(true));
+                exit;
             }
-            $GLOBALS['imp_notify'] = $GLOBALS['notification']->replace('status', array('viewmode' => $viewmode), 'IMP_Notification_Listener_Status');
+
+            $GLOBALS['notification']->attach('audio');
+            break;
         }
     }
 
@@ -629,15 +633,6 @@ class IMP_Application extends Horde_Registry_Application
     public function prefsMenu()
     {
         return IMP::getMenu();
-    }
-
-    /**
-     * Setup notifications handler for the preferences page. This will only
-     * be called if in dimp view mode.
-     */
-    public function prefsStatus()
-    {
-        $GLOBALS['notification']->replace('status', array('prefs' => true, 'viewmode' => 'dimp'), 'IMP_Notification_Listener_Status');
     }
 
     /**

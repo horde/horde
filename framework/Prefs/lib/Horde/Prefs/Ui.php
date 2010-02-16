@@ -15,7 +15,6 @@
  * prefsMenu() - TODO
  * prefsSpecial($pref, $updated) - TODO
  * prefsSpecialGenerate($pref) - TODO
- * prefsStatus() - TODO
  *
  * Copyright 2001-2010 The Horde Project (http://www.horde.org/)
  *
