@@ -98,7 +98,7 @@ class Horde_Block_Whups_queuecontents extends Horde_Block {
         if (empty($this->_params['queue'])) {
             return false;
         }
-        if (!Whups::permissionsFilter(array($this->_params['queue']), 'queue', Horde_Perms::READ)) {
+        if (!Whups::permissionsFilter(array($this->_params['queue'] => true), 'queue', Horde_Perms::READ)) {
             return false;
         }
         $queue = $whups_driver->getQueue($this->_params['queue']);
