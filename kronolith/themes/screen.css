@@ -387,7 +387,7 @@ body.kronolithAjax {
     padding: 2px;
     width: 16px;
     height: 16px;
-    border: 1px #c0c0c0 solid;
+    border: 1px #999 solid;
 }
 #kronolithFBLoading {
     position: absolute;
@@ -420,7 +420,7 @@ body.kronolithAjax {
     padding: 0 4px;
     overflow: hidden;
     background-color: #f0f0f0;
-    border: 1px solid #c0c0c0;
+    border: 1px solid #999;
     color: #202020;
     font-weight: bold;
     -moz-border-radius: 5px;
@@ -464,7 +464,7 @@ body.kronolithAjax {
     padding: 0 10px;
     height: 23px;
     line-height: 23px;
-    border: 1px solid #c0c0c0;
+    border: 1px solid #999;
     -moz-border-radius: 0 5px 5px 0;
     -webkit-border-radius: 0 5px 5px 0;
 }
@@ -509,12 +509,8 @@ body.kronolithAjax {
     margin-bottom: 10px;
     font-size: 100%;
     font-weight: bold;
-    border-bottom: 1px #000 dotted;
+    border-bottom: 1px #999 dotted;
     cursor: default;
-}
-#kronolithMenu form {
-    padding: 0;
-    margin: 15px 0 5px 0;
 }
 #kronolithSearchForm {
     position: relative;
@@ -551,6 +547,8 @@ body.kronolithAjax {
     padding: 2px 2px 2px 20px;
     background: url("graphics/checkbox_off.png") 2px center no-repeat;
     cursor: pointer;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
 }
 #kronolithMenu div.kronolithCalendars div.kronolithCalOn {
     background-image: url("graphics/checkbox_on.png");
@@ -564,13 +562,15 @@ body.kronolithAjax {
     width: 16px;
     height: 16px;
     line-height: 16px;
-    border: 1px solid #c0c0c0;
+    border: 1px solid #999;
     background-color: #fff;
     text-align: center;
     cursor: pointer;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
 }
 #kronolithAddEvents {
-    margin-bottom: 18px;
+    margin-bottom: 35px;
 }
 #kronolithAddEvents span {
     /* We need some style here. */
@@ -582,14 +582,24 @@ body.kronolithAjax {
     float: none;
 }
 span#kronolithNewEvent {
-    width: 121px;
-    margin-right: 10px;
+    background: #f0f0f0;
+    border: 1px solid #999;
+    -moz-border-radius: 5px 0 0 5px;
+    -webkit-border-radius: 5px 0 0 5px;
+    width: 125px;
+    height: 23px;
+    line-height: 23px;
+    margin-right: 1px;
     text-align: center;
 }
 span#kronolithQuickEvent {
-    width: 16px;
-    height: 16px;
-    background: transparent url("graphics/new.png") no-repeat;
+    border: 1px solid #999;
+    -moz-border-radius: 0 5px 5px 0;
+    -webkit-border-radius: 0 5px 5px 0;
+    width: 23px;
+    height: 23px;
+    line-height: 23px;
+    background: #d6d6d6 url("graphics/new.png") no-repeat center center;
     text-indent: -10000px;
 }
 
@@ -606,7 +616,7 @@ span#kronolithQuickEvent {
 #kronolithQuickinsert form {
     padding: 10px;
     margin-left: 10px;
-    background-color: #c0c0c0;
+    background-color: #999;
 }
 #kronolithQuickinsert label {
     font-weight: bold;
@@ -632,9 +642,9 @@ a.kronolithFormCancel {
 }
 #kronolithBar .kronolithDateChoice {
     float: left;
-    margin: 0 2px 0 0;
+    margin-right: 1px;
     background: #d6d6d6;
-    border: 1px solid #c0c0c0;
+    border: 1px solid #999;
     -moz-border-radius: 5px 0 0 5px;
     -webkit-border-radius: 5px 0 0 5px;
     font-weight: bold;
@@ -664,7 +674,7 @@ a.kronolithFormCancel {
     text-decoration: none;
     color: #202020;
     cursor: pointer;
-    border: 1px solid #c0c0c0;
+    border: 1px solid #999;
 }
 #kronolithNav a:first-child {
     -moz-border-radius-topleft: 5px;
@@ -709,7 +719,7 @@ a.kronolithFormCancel {
     width: 700px;
     padding: 10px 20px;
     background: #efefef;
-    border: 1px #c0c0c0 solid;
+    border: 1px #999 solid;
 }
 .kronolithDialog div {
     margin-bottom: 5px;
@@ -743,7 +753,7 @@ div.kronolithFormActions {
     padding: 2px 4px;
     margin-right: 4px;
     background-color: #fff;
-    border: 1px #c0c0c0 solid;
+    border: 1px #999 solid;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     font-size: 90%;
@@ -773,7 +783,7 @@ div.kronolithFormActions {
     table-layout: fixed;
 }
 #kronolithEventTabAttendees td, #kronolithEventTabAttendees th {
-    border: 1px solid #c0c0c0;
+    border: 1px solid #999;
     padding: 1px;
     width: 22px;
     font-size: 85%;
@@ -826,7 +836,7 @@ div.kronolithFormActions {
     position: relative;
 }
 #kronolithMinical {
-    top: 15px;
+/*    top: 15px;*/
 }
 .kronolithMinical table {
     width: 100%;
@@ -838,7 +848,7 @@ div.kronolithFormActions {
     line-height: 20px;
     font-weight: bold;
     font-size: 100%;
-    border-bottom: 1px #000 dotted;
+    border-bottom: 1px #999 dotted;
     text-align: left;
 }
 .kronolithMinical caption span {
@@ -870,13 +880,13 @@ div.kronolithFormActions {
     text-align: center;
     background-color: #d6d6d6;
     color: #202020;
-    border: 1px #c0c0c0 solid !important;
+    border: 1px #999 solid !important;
 }
 .kronolithMinical tbody td {
     width: 16px;
     height: 16px;
     line-height: 16px;
-    border: 1px #e2e2e2 solid;
+    border: 1px #999 solid;
     text-align: center;
     color: #808080;
     empty-cells: show;
@@ -884,7 +894,7 @@ div.kronolithFormActions {
 }
 .kronolithMinical .kronolithMinicalEmpty {
     background: none;
-    border: none;
+    border-color: #e2e2e2;
     color: silver;
 }
 .kronolithMinical .kronolithSelected {
@@ -909,7 +919,7 @@ table.kronolithView {
 }
 table.kronolithView td {
     padding: 0;
-    border: 1px #c0c0c0 solid;
+    border: 1px #999 solid;
     vertical-align: top;
     overflow: hidden;
 }
@@ -952,7 +962,7 @@ table.kronolithView td.kronolithFirstCol {
     margin: 2px 2px 0 26px;
     height: 20px;
     line-height: 20px;
-    border-bottom: 1px dotted #000;
+    border-bottom: 1px dotted #999;
     text-align: left;
     font-weight: bold;
 }
@@ -1196,8 +1206,8 @@ table.kronolithView td.kronolithFirstCol {
     height: 15px;
     line-height: 15px;
     background-color: #fff;
-    border-right: 1px solid #c0c0c0;
-    border-bottom: 1px solid #c0c0c0;
+    border-right: 1px solid #999;
+    border-bottom: 1px solid #999;
     text-align: center;
     vertical-align: middle;
     font-weight: bold;
