@@ -4,15 +4,18 @@
 
   <!-- begin services -->
   <div id="kronolithServices">
+    <?php if (count($GLOBALS['conf']['menu']['apps'])): ?>
     <div id="kronolithApplications">
-       <ul>
-          <li><a href="#" id="appMail" title="<?php echo _("Mail") ?>"><?php echo _("Mail") ?></a></li>
-          <li class="selected"><a href="#" id="appKronolith" title="<?php echo _("Kronolith") ?>"><?php echo _("Kronolith") ?></a></li>
-          <li><a href="#" id="appTurba" title="<?php echo _("Turba") ?>"><?php echo _("Turba") ?></a></li>
-       </ul>
-       <span class="kronolithSeparator">|</span>
+      <ul>
+        <li class="kronolithApplicationSelected"><a href="" id="kronolithApplication-kronolith" title="<?php echo $GLOBALS['registry']->get('name') ?>"><img src="<?php echo $GLOBALS['registry']->get('icon') ?>" /> <?php echo $GLOBALS['registry']->get('name') ?></a></li>
+        <?php foreach ($GLOBALS['conf']['menu']['apps'] as $app): ?>
+        <li><a href="<?php echo $GLOBALS['registry']->get('webroot', $app) ?>" id="kronolithApplication-<?php echo $app ?>" title="<?php echo $GLOBALS['registry']->get('name', $app) ?>"><img src="<?php echo $GLOBALS['registry']->get('icon', $app) ?>" /> <?php echo $GLOBALS['registry']->get('name', $app) ?></a></li>
+        <?php endforeach; ?>
+      </ul>
+      <span class="kronolithSeparator">|</span>
     </div>
-    <a href="#" id="kronolithOptions"><?php echo _("Options") ?></a><?php if ($help_link) echo ' <span class="kronolithSeparator">&middot;</span> ' . $help_link; if ($logout_link) echo ' <span class="kronolithSeparator">|</span> ' . $logout_link ?>
+    <?php endif; ?>
+    <a href="#" id="kronolithOptions"><?php echo _("Options") ?></a><?php if ($help_link) echo ' <span class="kronolithSeparator">|</span> ' . $help_link; if ($logout_link) echo ' <span class="kronolithSeparator">|</span> ' . $logout_link ?>
   </div>
   <!-- end services -->
 
