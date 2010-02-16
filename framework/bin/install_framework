@@ -79,10 +79,14 @@ for ($i = 1; $i < count($argv); $i++) {
 
 // Try to auto-detect the source and dest dirs.
 $cwd = getcwd();
-if ($srcDir === null && is_dir($cwd . DIRECTORY_SEPARATOR . 'framework')) {
-    $srcDir = $cwd . DIRECTORY_SEPARATOR . 'framework';
+if ($srcDir === null) {
+    if (is_dir($cwd . '/framework')) {
+        $srcDir = $cwd . DIRECTORY_SEPARATOR . 'framework';
+    } else {
+        $srcDir = dirname(__FILE__) . '/..';
+    }
 }
-if ($destDir === null && is_dir($cwd . DIRECTORY_SEPARATOR . 'lib')) {
+if ($destDir === null && is_dir($cwd . '/lib')) {
     $destDir = $cwd . DIRECTORY_SEPARATOR . 'lib';
 }
 
@@ -110,10 +114,12 @@ if (strpos(ini_get('include_path'), $destDir) === false) {
 }
 
 // Do CLI checks and environment setup first.
-if (!@include_once 'Horde/Cli.php') {
-    if (!@include_once $srcDir . '/Cli/lib/Horde/Cli.php') {
-        if (!@include_once $cwd . DIRECTORY_SEPARATOR . '../Cli/lib/Horde/Cli.php') {
-            print_usage('Horde_Cli library is not in the include_path or in the src directory.');
+if (!@include_once dirname(__FILE__) . '/../Cli/lib/Horde/Cli.php') {
+    if (!@include_once 'Horde/Cli.php') {
+        if (!@include_once $srcDir . '/Cli/lib/Horde/Cli.php') {
+            if (!@include_once $cwd . '/../Cli/lib/Horde/Cli.php') {
+                print_usage('Horde_Cli library is not in the include_path or in the src directory.');
+            }
         }
     }
 }
