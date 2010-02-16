@@ -11,63 +11,59 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_Image
+class Ansel_Image Implements Iterator
 {
     /**
      * @var integer  The gallery id of this image's parent gallery
      */
-    var $gallery;
+    public $gallery;
 
     /**
-     * @var Horde_Image  Horde_Image object for this image.
+     * @var Horde_Image_Base  Horde_Image object for this image.
      */
-    var $_image;
-
-    var $id = null;
-    var $filename = 'Untitled';
-    var $caption = '';
-    var $type = 'image/jpeg';
-
-    /**
-     * timestamp of uploaded date
-     *
-     * @var integer
-     */
-    var $uploaded;
-
-    var $sort;
-    var $commentCount;
-    var $facesCount;
-    var $lat;
-    var $lng;
-    var $location;
-    var $geotag_timestamp;
-
-    var $_dirty;
-
-
-    /**
-     * Timestamp of original date.
-     *
-     * @var integer
-     */
-    var $originalDate;
-
+    public $_image;
+    protected $_dirty;
+    protected $_loaded = array();
+    protected $_data = array();
     /**
      * Holds an array of tags for this image
      * @var array
      */
-    var $_tags = array();
-
-    var $_loaded = array();
-    var $_data = array();
+    protected $_tags = array();
 
     /**
      * Cache the raw EXIF data locally
      *
      * @var array
      */
-    var $_exif = array();
+    protected $_exif = array();
+
+    public $id = null;
+    public $filename = 'Untitled';
+    public $caption = '';
+    public $type = 'image/jpeg';
+
+    /**
+     * timestamp of uploaded date
+     *
+     * @var integer
+     */
+    public $uploaded;
+
+    public $sort;
+    public $commentCount;
+    public $facesCount;
+    public $lat;
+    public $lng;
+    public $location;
+    public $geotag_timestamp;
+
+    /**
+     * Timestamp of original date.
+     *
+     * @var integer
+     */
+    public $originalDate;
 
     /**
      * TODO: refactor Ansel_Image to use a ::get() method like Ansel_Gallery
@@ -76,13 +72,22 @@ class Ansel_Image
      * @param unknown_type $image
      * @return Ansel_Image
      */
-    function Ansel_Image($image = array())
+    public function __construct($image = array())
     {
         if ($image) {
             $this->filename = $image['image_filename'];
-            $this->caption = $image['image_caption'];
-            $this->sort = $image['image_sort'];
-            $this->gallery = $image['gallery_id'];
+
+            if  (!empty($image['gallery_id'])) {
+                $this->gallery = $image['gallery_id'];
+            }
+
+            if (!empty($image['image_caption'])) {
+                $this->caption = $image['image_caption'];
+            }
+
+            if (isset($image['image_sort'])) {
+                $this->sort = $image['image_sort'];
+            }
 
             // New image?
             if (!empty($image['image_id'])) {
@@ -1073,6 +1078,93 @@ class Ansel_Image
         }
 
         return $output;
+    }
+
+    /**
+     * Indicates if this image represents a multipage image.
+     *
+     * @return boolean
+     */
+    public function isMultiPage()
+    {
+        $this->load();
+        return $this->_image->getImagePageCount() > 1;
+    }
+
+    public function getPageCount()
+    {
+        return $this->_image->getImagePageCount();
+    }
+
+    /**
+     * Reset the iterator to the first image in the set.
+     *
+     * @return void
+     */
+    public function rewind()
+    {
+        $this->load();
+        $this->_image->rewind();
+    }
+
+    /**
+     * Return the current image from the internal iterator.
+     *
+     * @return Horde_Image_Imagick
+     */
+    public function current()
+    {
+        $this->load();
+        return $this->_buildImageObject($this->_image->current());
+    }
+
+    /**
+     * Get the index of the internal iterator.
+     *
+     * @return integer
+     */
+    public function key()
+    {
+        $this->load();
+        return $this->_image->key();
+    }
+
+    /**
+     * Advance the iterator
+     *
+     * @return Horde_Image_Im
+     */
+    public function next()
+    {
+        $this->load();
+        if ($next = $this->_image->next()) {
+            return $this->_buildImageObject($next);
+        }
+
+        return false;
+    }
+
+    /**
+     * Deterimines if the current iterator item is valid.
+     *
+     * @return boolean
+     */
+    public function valid()
+    {
+        $this->load();
+        return $this->_image->valid();
+    }
+
+    protected function _buildImageObject(Horde_Image_Base $image)
+    {
+        $params = array(
+            'image_filename' => $this->filename,
+            'data' => $image->raw(),
+        );
+
+        $newImage = new Ansel_Image($params);
+
+        return $newImage;
     }
 
 }

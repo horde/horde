@@ -176,6 +176,30 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
     }
 
     /**
+     * Adds an Ansel_Image object to this gallery.
+     *
+     * @param $image Ansel_Image
+     */
+    public function addImageObject(Ansel_Image $image, $default = false)
+    {
+        // Make sure it's taken as a new image
+        $image->id = null;
+        $image->gallery = $this->getId();
+        $image->sort = $this->countImages();
+        $image->save();
+        $this->updateImageCount(1);
+
+        /* Should this be the default image? */
+        $this->data['attribute_default'] = $image->id;
+        $this->clearStacks();
+
+        /* Save all changes to the gallery */
+        $this->save();
+
+        return $image->id();
+    }
+
+    /**
      * Add an image to this gallery.
      *
      * @param array $image_data  The image to add. Required keys include
@@ -206,6 +230,22 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
 
         /* Create the image object */
         $image = new Ansel_Image($image_data);
+
+        /* Check for a supported multi-page image */
+        if ($image->isMultiPage() === true) {
+            $params['name'] = $image->getPageCount() . ' page image: ' . $image->filename;
+            $mGallery = $GLOBALS['ansel_storage']->createGallery($params, $this->getPermission(), $this->getId());
+            $i = 1;
+            foreach ($image as $page) {
+                $page->caption = sprintf(_("Page %d"), $i++);
+                $mGallery->addImageObject($page);
+            }
+            $mGallery->save();
+
+            return $page->id;
+        }
+
+        /* If this was a single, normal image, continue */
         $result = $image->save();
         if (empty($image_data['image_id'])) {
             $this->updateImageCount(1);
