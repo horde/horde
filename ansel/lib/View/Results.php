@@ -22,6 +22,9 @@ class Ansel_View_Results extends Ansel_View_Base
      */
     protected $_owner;
 
+    private $_page;
+    private $_perPage;
+
     /**
      * Contructor - just set some instance variables.
      *
@@ -29,39 +32,18 @@ class Ansel_View_Results extends Ansel_View_Base
      */
     public function __construct()
     {
+        global $prefs, $conf, $ansel_storage;
+
         $this->_owner = Horde_Util::getFormData('owner', null);
         $this->_search = Ansel_Tags::getSearch(null, $this->_owner);
-    }
+        $this->_page = Horde_Util::getFormData('page', 0);
 
-    /**
-     * Return the title for this view.
-     *
-     * @return string The title for this view.
-     */
-    public function getTitle()
-    {
-        return (!empty($this->_owner))
-                ? sprintf(_("Searching %s's photos tagged: "), $this->_owner)
-                : _("Searching all photos tagged: ");
-    }
-
-    /**
-     * Get the HTML representing this view.
-     *
-     * @return string  The HTML
-     */
-    public function html()
-    {
-        global $conf, $prefs, $registry, $ansel_storage;
-
-        $page = Horde_Util::getFormData('page', 0);
         $action = Horde_Util::getFormData('actionID', '');
         $image_id = Horde_Util::getFormData('image');
-
         $vars = Horde_Variables::getDefaultVariables();
 
         // Number perpage from prefs or config.
-        $perpage = min($prefs->getValue('tilesperpage'),
+        $this->_perPage = min($prefs->getValue('tilesperpage'),
                        $conf['thumbnail']['perpage']);
 
         switch ($action) {
@@ -225,14 +207,37 @@ class Ansel_View_Results extends Ansel_View_Base
             header('Location: ' . Horde::applicationUrl('browse.php', true));
             exit;
         }
+    }
+
+    /**
+     * Return the title for this view.
+     *
+     * @return string The title for this view.
+     */
+    public function getTitle()
+    {
+        return (!empty($this->_owner))
+                ? sprintf(_("Searching %s's photos tagged: "), $this->_owner)
+                : _("Searching all photos tagged: ");
+    }
+
+    /**
+     * Get the HTML representing this view.
+     *
+     * @return string  The HTML
+     */
+    public function html()
+    {
+        global $conf, $prefs, $registry, $ansel_storage;
 
         // Get the slice of galleries/images to view on this page.
-        $results = $this->_search->getSlice($page, $perpage);
+        $results = $this->_search->getSlice($this->_page, $this->_perPage);
         $total = $this->_search->count();
         $total = $total['galleries'] + $total['images'];
 
         // The number of resources to display on this page.
         $numimages = count($results);
+        $tilesperrow = $prefs->getValue('tilesperrow');
 
         // Get any related tags to display.
         if ($conf['tags']['relatedtags']) {
@@ -263,11 +268,11 @@ class Ansel_View_Results extends Ansel_View_Base
         $option_move = $option_copy = $ansel_storage->countGalleries(Horde_Perms::EDIT);
 
 
-        $pagestart = ($page * $perpage) + 1;
-        $pageend = min($pagestart + $numimages - 1, $pagestart + $perpage - 1);
-        $pager = new Horde_Ui_Pager('page', $vars, array('num' => $total,
+        $this->_pagestart = ($this->_page * $this->_perPage) + 1;
+        $this->_pageend = min($this->_pagestart + $numimages - 1, $this->_pagestart + $this->_perPage - 1);
+        $this->_pager = new Horde_Ui_Pager('page', $vars, array('num' => $total,
                                                          'url' => $viewurl,
-                                                         'perpage' => $perpage));
+                                                         'perpage' => $this->_perPage));
         ob_start();
         include ANSEL_TEMPLATES . '/view/results.inc';
         return ob_get_clean();

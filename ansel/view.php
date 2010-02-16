@@ -46,7 +46,7 @@ try {
 
 $title = $view->getTitle();
 require ANSEL_TEMPLATES . '/common-header.inc';
-$view_html = $view->html();
 require ANSEL_TEMPLATES . '/menu.inc';
+$view_html = $view->html();
 echo $view_html;
 require $registry->get('templates', 'horde') . '/common-footer.inc';

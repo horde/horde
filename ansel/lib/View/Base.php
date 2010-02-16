@@ -35,7 +35,9 @@ abstract class Ansel_View_Base
      * Const'r
      *
      * Any javascript files needed by the (non-api) view should be included
-     * within this method.
+     * within this method. Additionally, any redirects need to be done in the
+     * cont'r since when ::html() is called, headers will have already been
+     * sent.
      *
      * @param array $params  Any parameters that the view might need.
      * <pre>

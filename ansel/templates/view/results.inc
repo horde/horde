@@ -64,7 +64,7 @@ function copySelected()
 /* Build link, if needed, for browsing all users' results */
 $allLink = (!empty($this->_owner)) ? Horde::link(Horde_Util::addParameter(Horde::selfUrl(), array('view' => 'Results')), _("View Results from All Users")) . ' (' . _("View All Results") . ')</a>' : '';
 if ($total) {
-    echo '<span class="rightFloat">' . ($total > $perpage ? sprintf(_("%d to %d of %d Items"), $pagestart, $pageend, $total) : sprintf(ngettext("%d Item", "%d Items", $total), $total)) . '<small>' . $allLink . '</small></span>';
+    echo '<span class="rightFloat">' . ($total > $this->_perPage ? sprintf(_("%d to %d of %d Items"), $this->_pagestart, $this->_pageend, $total) : sprintf(ngettext("%d Item", "%d Items", $total), $total)) . '<small>' . $allLink . '</small></span>';
 }
 echo htmlspecialchars($this->getTitle(), ENT_COMPAT, Horde_Nls::getCharset()) . $this->_search->getTagTrail();
 ?>
@@ -98,10 +98,9 @@ echo htmlspecialchars($this->getTitle(), ENT_COMPAT, Horde_Nls::getCharset()) . 
     <?php if (!$total): ?>
      <div class="text"><em><?php echo _("There are no photos in this gallery.") ?></em></div>
     <?php else: ?>
-     <?php echo $pager->render() ?>
+     <?php echo $this->_pager->render() ?>
      <table width="100%" style="background-color:<?php echo $styleDef['background'] ?>;"><tr>
       <?php
-        $tilesperrow = $prefs->getValue('tilesperrow');
         $cellwidth = round(100 / $tilesperrow);
         $count = 0;
         foreach ($results as $result) {
@@ -118,7 +117,7 @@ echo htmlspecialchars($this->getTitle(), ENT_COMPAT, Horde_Nls::getCharset()) . 
         } ?>
       </tr>
      </table>
-     <?php echo $pager->render() ?>
+     <?php echo $this->_pager->render() ?>
     <?php endif; ?>
    </td>
    <td width="20%" valign="top">
