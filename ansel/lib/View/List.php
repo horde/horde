@@ -43,9 +43,12 @@ class Ansel_View_List extends Ansel_View_Base
      */
     public function __construct($params = array())
     {
-        global $prefs, $ansel_storage, $notification;
+        global $prefs, $ansel_storage;
 
         parent::__construct($params);
+
+        /* Notifications */
+        $notification = $GLOBALS['injector']->getInstance('Horde_Notification');
 
         // We'll need this in the template.
         $this->_sortBy = !empty($this->_params['sort']) ? $this->_params['sort'] : 'name';
@@ -186,7 +189,7 @@ class Ansel_View_List extends Ansel_View_Base
      */
     public function html()
     {
-        global $conf, $prefs, $registry, $ansel_storage, $notification;
+        global $conf, $prefs, $registry, $ansel_storage;
 
         $vars = Horde_Variables::getDefaultVariables();
         if (!empty($this->_params['page'])) {

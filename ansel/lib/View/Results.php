@@ -34,6 +34,8 @@ class Ansel_View_Results extends Ansel_View_Base
     {
         global $prefs, $conf, $ansel_storage;
 
+        $notification = $GLOBALS['injector']->getInstance('Horde_Notification');
+
         $this->_owner = Horde_Util::getFormData('owner', null);
         $this->_search = Ansel_Tags::getSearch(null, $this->_owner);
         $this->_page = Horde_Util::getFormData('page', 0);
@@ -61,18 +63,16 @@ class Ansel_View_Results extends Ansel_View_Base
                  $img = $ansel_storage->getImage($image);
                  $gallery = $ansel_storage->getgallery($img->gallery);
                  if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
-                     $GLOBALS['notification']->push(
+                     $notification->push(
                         sprintf(_("Access denied deleting photos from \"%s\"."), $image),
                                 'horde.error');
                  } else {
                      $result = $gallery->removeImage($image);
                     if (is_a($result, 'PEAR_Error')) {
-                        $GLOBALS['notification']->push(
-                            sprintf(_("There was a problem deleting photos: %s"),
-                                    $result->getMessage()), 'horde.error');
+                        $notification->push(
+                            sprintf(_("There was a problem deleting photos: %s"), $result->getMessage()), 'horde.error');
                     } else {
-                        $GLOBALS['notification']->push(_("Deleted the photo."),
-                                                       'horde.success');
+                        $notification->push(_("Deleted the photo."), 'horde.success');
                         Ansel_Tags::clearCache();
                     }
                  }
@@ -97,8 +97,7 @@ class Ansel_View_Results extends Ansel_View_Base
             if ($images && $newGallery) {
                 $newGallery = $ansel_storage->getGallery($newGallery);
                 if (is_a($newGallery, 'PEAR_Error')) {
-                    $GLOBALS['notification']->push(_("Bad input."),
-                                                   'horde.error');
+                    $notification->push(_("Bad input."), 'horde.error');
                 } else {
                     // Group by gallery first, then process in bulk by gallery.
                     $galleries = array();
@@ -110,9 +109,9 @@ class Ansel_View_Results extends Ansel_View_Base
                         $gallery = $ansel_storage->getGallery($gallery_id);
                         $result = $gallery->moveImagesTo($images, $newGallery);
                         if (is_a($result, 'PEAR_Error')) {
-                            $GLOBALS['notification']->push($result, 'horde.error');
+                            $notification->push($result, 'horde.error');
                         } else {
-                            $GLOBALS['notification']->push(
+                            $notification->push(
                                 sprintf(ngettext("Moved %d photo from \"%s\" to \"%s\"",
                                                  "Moved %d photos from \"%s\" to \"%s\"",
                                                  count($images)),
@@ -145,8 +144,7 @@ class Ansel_View_Results extends Ansel_View_Base
             if ($images && $newGallery) {
                 $newGallery = $ansel_storage->getGallery($newGallery);
                 if (is_a($newGallery, 'PEAR_Error')) {
-                    $GLOBALS['notification']->push(_("Bad input."),
-                                                   'horde.error');
+                    $notification->push(_("Bad input."), 'horde.error');
                 } else {
                     // Group by gallery first, then process in bulk by gallery.
                     $galleries = array();
@@ -158,10 +156,9 @@ class Ansel_View_Results extends Ansel_View_Base
                         $gallery = $ansel_storage->getGallery($gallery_id);
                         $result = $gallery->copyImagesTo($images, $newGallery);
                         if (is_a($result, 'PEAR_Error')) {
-                            $GLOBALS['notification']->push($result,
-                                                           'horde.error');
+                            $notification->push($result, 'horde.error');
                         } else {
-                            $GLOBALS['notification']->push(
+                            $notification->push(
                                 sprintf(ngettext("Copied %d photo from %s to %s",
                                                  "Copied %d photos from %s to %s",
                                                  count($images)),

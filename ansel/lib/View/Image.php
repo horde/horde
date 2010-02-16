@@ -30,7 +30,7 @@ class Ansel_View_Image extends Ansel_View_Base
     public function __construct($params = array())
     {
         parent::__construct($params);
-
+        
         /* Get the Ansel_Image */
         $image = &$GLOBALS['ansel_storage']->getImage($params['image_id']);
 
