@@ -131,8 +131,6 @@ class Ansel_View_Image extends Ansel_View_Base
      */
     protected function _prepare()
     {
-        global $browser;
-
         /* Gallery slug and the page this image is one, if specified */
         $this->_page = isset($this->_params['page']) ? $this->_params['page'] : 0;
         $this->_slug = $this->gallery->get('slug');
