@@ -255,8 +255,7 @@ class Ansel_View_Results extends Ansel_View_Base
             }
             $rtaghtml .= '</ul>';
         }
-        $styleDef = Ansel::getStyleDefinition(
-            $GLOBALS['prefs']->getValue('default_gallerystyle'));
+        $styleDef = Ansel::getStyleDefinition($GLOBALS['prefs']->getValue('default_gallerystyle'));
         $style = $styleDef['name'];
         $viewurl = Horde_Util::addParameter('view.php', array('view' => 'Results',
                                                         'actionID' => 'add'));

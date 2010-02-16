@@ -189,8 +189,6 @@ class Ansel_View_Image extends Ansel_View_Base
                                                                      'image' => $this->resource->id));
         }
 
-
-
         /* Check for an explicit gallery view url to use */
         if (!empty($this->_params['gallery_view_url'])) {
             $this->_urls['gallery'] = Horde_Util::addParameter(
