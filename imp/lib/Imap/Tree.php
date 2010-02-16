@@ -1401,7 +1401,7 @@ class IMP_Imap_Tree
         /* Sort IMAP mailboxes. INBOX always occurs first. */
         natcasesort($basesort);
         unset($basesort['INBOX']);
-        $mbox = array('INBOX') + array_keys($basesort);
+        $mbox = array_merge(array('INBOX'), array_keys($basesort));
 
         /* Sort non-IMAP elements. */
         if (!empty($othersort)) {
