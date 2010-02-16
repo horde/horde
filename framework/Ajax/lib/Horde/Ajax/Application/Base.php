@@ -1,4 +1,3 @@
-
 <?php
 /**
  * Defines the AJAX interface for an application.
