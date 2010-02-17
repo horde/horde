@@ -506,6 +506,86 @@ class Ansel_Storage
     }
 
     /**
+     * Save image details to storage. Does NOT update the cached image files.
+     *
+     * @param Ansel_Image $image
+     *
+     * @return integer The image id
+     *
+     * @throws Ansel_Exception
+     */
+    public function saveImage(Ansel_Image $image)
+    {
+        /* If we have an id, then it's an existing image.*/
+        if ($image->id) {
+            $update = $this->_db->prepare('UPDATE ansel_images SET image_filename = ?, image_type = ?, image_caption = ?, image_sort = ?, image_original_date = ?, image_latitude = ?, image_longitude = ?, image_location = ?, image_geotag_date = ? WHERE image_id = ?');
+            if (is_a($update, 'PEAR_Error')) {
+                Horde::logMessage($update, __FILE__, __LINE__, PEAR_LOG_ERR);
+                throw new Ansel_Exception($update);
+            }
+            $result = $update->execute(array(Horde_String::convertCharset($image->filename, Horde_Nls::getCharset(), $GLOBALS['conf']['sql']['charset']),
+                                             $image->type,
+                                             Horde_String::convertCharset($image->caption, Horde_Nls::getCharset(), $GLOBALS['conf']['sql']['charset']),
+                                             $image->sort,
+                                             $image->originalDate,
+                                             $image->lat,
+                                             $image->lng,
+                                             $image->location,
+                                             $image->geotag_timestamp,
+                                             $image->id));
+            if (is_a($result, 'PEAR_Error')) {
+                Horde::logMessage($update, __FILE__, __LINE__, PEAR_LOG_ERR);
+                throw new Ansel_Exception($result);
+            }
+            $update->free();
+
+            return $result;
+        }
+
+        /* Saving a new Image */
+        if (!$image->gallery || !strlen($image->filename) || !$image->type) {
+            throw new Ansel_Exception(_("Incomplete photo"));
+        }
+
+        /* Get the next image_id */
+        $image_id = $this->_db->nextId('ansel_images');
+        if (is_a($image_id, 'PEAR_Error')) {
+            throw new Ansel_Exception($image_id);
+        }
+
+        /* Prepare the SQL statement */
+        $insert = $this->_db->prepare('INSERT INTO ansel_images (image_id, gallery_id, image_filename, image_type, image_caption, image_uploaded_date, image_sort, image_original_date, image_latitude, image_longitude, image_location, image_geotag_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        if (is_a($insert, 'PEAR_Error')) {
+            Horde::logMessage($insert, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Ansel_Exception($insert);
+        }
+
+        /* Perform the INSERT */
+        $result = $insert->execute(array($image_id,
+                                         $image->gallery,
+                                         Horde_String::convertCharset($image->filename, Horde_Nls::getCharset(), $GLOBALS['conf']['sql']['charset']),
+                                         $image->type,
+                                         Horde_String::convertCharset($image->caption, Horde_Nls::getCharset(), $GLOBALS['conf']['sql']['charset']),
+                                         $image->uploaded,
+                                         $image->sort,
+                                         $image->originalDate,
+                                         $image->lat,
+                                         $image->lng,
+                                         $image->location,
+                                         (empty($image->lat) ? 0 : $image->uploaded)));
+        $insert->free();
+        if (is_a($result, 'PEAR_Error')) {
+            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Ansel_Exception($result);
+        }
+
+        /* Keep the image_id */
+        $image->id = $image_id;
+
+        return $image->id;
+    }
+
+    /**
      * Returns the images corresponding to the given ids.
      *
      * @param array $params function parameters:

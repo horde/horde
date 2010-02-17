@@ -41,6 +41,4 @@ if ($conf['vfs']['src'] == 'sendfile') {
     exit;
 }
 
-if (is_a($result = $image->display('prettythumb', $style), 'PEAR_Error')) {
-    Horde::fatal($result, __FILE__, __LINE__);
-}
+$image->display('prettythumb', $style);

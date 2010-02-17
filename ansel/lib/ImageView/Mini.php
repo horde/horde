@@ -7,13 +7,17 @@
  */
 class Ansel_ImageView_Mini extends Ansel_ImageView
 {
+    /**
+     *
+     * @return Horde_Image
+     */
     protected function _create()
     {
         $this->_image->resize(min(50, $this->_dimensions['width']),
                                       min(50, $this->_dimensions['height']),
                                       true);
 
-        return true;
+        return $this->_image->getHordeImage();
     }
 
 }

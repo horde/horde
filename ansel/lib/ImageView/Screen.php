@@ -17,7 +17,7 @@ class Ansel_ImageView_Screen extends Ansel_ImageView
                               min($GLOBALS['conf']['screen']['height'], $this->_dimensions['height']),
                               true);
 
-        return true;
+        return $this->_image->getHordeImage();
     }
 
 }

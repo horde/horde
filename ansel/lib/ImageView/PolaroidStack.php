@@ -35,7 +35,7 @@ class Ansel_ImageView_PolaroidStack extends Ansel_ImageView
                              $GLOBALS['conf']['thumbnail']['height']);
 
         } catch (Horde_Image_Exception $e) {
-            return false;
+            throw new Ansel_Exception($e);
         }
 
         return $baseImg;

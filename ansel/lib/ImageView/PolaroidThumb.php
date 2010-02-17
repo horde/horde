@@ -11,7 +11,7 @@ class Ansel_ImageView_PolaroidThumb extends Ansel_ImageView
 
     /**
      *
-     * @return boolean
+     * @return Horde_Image
      */
     protected function _create()
     {
@@ -35,7 +35,7 @@ class Ansel_ImageView_PolaroidThumb extends Ansel_ImageView
 
                 $this->_image->applyEffects();
             } catch (Horde_Image_Exception $e) {
-                return false;
+                throw new Ansel_Exception($e);
             }
 
             return true;

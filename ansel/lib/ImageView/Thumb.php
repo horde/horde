@@ -9,14 +9,14 @@ class Ansel_ImageView_Thumb extends Ansel_ImageView
 {
     /**
      *
-     * @return boolean
+     * @return Horde_Image
      */
     protected function _create()
     {
         $this->_image->resize(min($GLOBALS['conf']['thumbnail']['width'], $this->_dimensions['width']),
                               min($GLOBALS['conf']['thumbnail']['height'], $this->_dimensions['height']),
                               true);
-        return true;
+        return $this->_image->getHordeImage();
     }
 
 }

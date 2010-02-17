@@ -11,7 +11,7 @@ class Ansel_ImageView_PrettyThumb extends Ansel_ImageView
 
     /**
      *
-     * @return boolean
+     * @return Horde_Image
      */
     protected function _create()
     {
@@ -39,11 +39,11 @@ class Ansel_ImageView_PrettyThumb extends Ansel_ImageView
                                                              'distance' => 5,
                                                              'fade' => 3));
             } catch (Horde_Image_Exception $e) {
-                return false;
+                throw new Ansel_Exception($e);
             }
             $this->_image->applyEffects();
 
-            return true;
+            return $this->_image->getHordeImage();
         }
     }
 

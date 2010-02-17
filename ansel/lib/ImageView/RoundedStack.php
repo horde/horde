@@ -37,7 +37,7 @@ class Ansel_ImageView_RoundedStack extends Ansel_ImageView
             $baseImg->resize($GLOBALS['conf']['thumbnail']['width'],
                              $GLOBALS['conf']['thumbnail']['height']);
         } catch (Horde_Image_Exception $e) {
-            return false;
+            throw new Ansel_Exception($e);
         }
 
         return $baseImg;

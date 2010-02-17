@@ -38,10 +38,10 @@ class Ansel_ImageView_ShadowSharpThumb extends Ansel_ImageView
                                                'fade' => 2));
                 $this->_image->applyEffects();
             } catch (Horde_Image_Exception $e) {
-                return false;
+                throw new Ansel_Exception($e);
             }
 
-            return true;
+            return $this->_image->getHordeImage();
         }
     }
 

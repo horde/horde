@@ -627,21 +627,19 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
             try {
                 $iview = Ansel_ImageView::factory($gal_style['default_galleryimage_type'], $params);
                 $img = $iview->create();
-                if ($img) {
-                    // Note the gallery_id is negative for generated stacks
-                    $iparams = array('image_filename' => $this->get('name'),
-                                     'image_caption' => $this->get('name'),
-                                     'data' => $img->raw(),
-                                     'image_sort' => 0,
-                                     'gallery_id' => -$this->id);
-                    $newImg = new Ansel_Image($iparams);
-                    $newImg->save();
-                    $prettyData = serialize(array_merge($thumbs, array($styleHash => $newImg->id)));
-                    $this->set('default_prettythumb', $prettyData, true);
-                    return $newImg->id;
-                } else {
-                    Horde::logMessage($img, __FILE__, __LINE__, PEAR_LOG_ERR);
-                }
+
+                // Note the gallery_id is negative for generated stacks
+                $iparams = array('image_filename' => $this->get('name'),
+                                 'image_caption' => $this->get('name'),
+                                 'data' => $img->raw(),
+                                 'image_sort' => 0,
+                                 'gallery_id' => -$this->id);
+                $newImg = new Ansel_Image($iparams);
+                $newImg->save();
+                $prettyData = serialize(array_merge($thumbs, array($styleHash => $newImg->id)));
+                $this->set('default_prettythumb', $prettyData, true);
+
+                return $newImg->id;
 
             } catch (Horde_Exception $e) {
                 // Might not support the requested style...try ansel_default
