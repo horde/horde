@@ -51,26 +51,27 @@ class Horde_Image_Imagick extends Horde_Image_Base
      */
     public function __construct($params, $context = array())
     {
-        parent::__construct($params, $context);
-        if (Horde_Util::loadExtension('imagick')) {
-            ini_set('imagick.locale_fix', 1);
-            $this->_imagick = new Imagick();
-            if (!empty($params['filename'])) {
-                $this->loadFile($params['filename']);
-            } elseif(!empty($params['data'])) {
-                $this->loadString(md5($params['data']), $params['data']);
-            } else {
-                $this->_width = max(array($this->_width, 1));
-                $this->_height = max(array($this->_height, 1));
-                try {
-                    $this->_imagick->newImage($this->_width, $this->_height, $this->_background);
-                } catch (ImagickException $e) {
-                    throw new Horde_Image_Exception($e);
-                }
-            }
-
-            $this->_imagick->setImageFormat($this->_type);
+        if (!Horde_Util::loadExtension('imagick')) {
+            throw new Horde_Image_Exception('Required PECL Imagick extension not found.');
         }
+        parent::__construct($params, $context);   
+        ini_set('imagick.locale_fix', 1);
+        $this->_imagick = new Imagick();
+        if (!empty($params['filename'])) {
+            $this->loadFile($params['filename']);
+        } elseif(!empty($params['data'])) {
+            $this->loadString(md5($params['data']), $params['data']);
+        } else {
+            $this->_width = max(array($this->_width, 1));
+            $this->_height = max(array($this->_height, 1));
+            try {
+                $this->_imagick->newImage($this->_width, $this->_height, $this->_background);
+            } catch (ImagickException $e) {
+                throw new Horde_Image_Exception($e);
+            }
+        }
+
+        $this->_imagick->setImageFormat($this->_type);
     }
 
     /**
@@ -175,7 +176,8 @@ class Horde_Image_Imagick extends Horde_Image_Base
             try {
                 $size = $this->_imagick->getImageGeometry();
             } catch (ImagickException $e) {
-                throw new Horde_Image_Exception($e);
+                return array('width' => 0, 'height' => 0);
+                //throw new Horde_Image_Exception($e);
             }
 
             $this->_height = $size['height'];
