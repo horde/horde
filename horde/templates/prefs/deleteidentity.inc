@@ -1,15 +1,12 @@
 <?php if (!$prefs->isLocked('default_identity')): ?>
-<script type="text/javascript">
-<!--
-function deleteIdentity()
-{
-    var id = document.prefs.identity.options[document.prefs.identity.selectedIndex].value;
-    if (id >= 0) {
-        document.location.href = "<?php echo str_replace('&amp;', '&', Horde_Util::addParameter(Horde::selfUrl(true), array('actionID' => 'delete_identity', 'id' => ''))) ?>" + id;
-    }
-}
-//-->
-</script>
-<br />
-<input type="button" onclick="deleteIdentity()" class="button" value="<?php echo _("Delete selected identity") ?>" /><br /><br />
+<?php
+    echo Horde::wrapInlineScript(array(
+        'IdentitySelect.deleteurl = ' . Horde_Serialize::serialize(strval(Horde::selfUrl(true)->setRaw(true)->add('actionID', 'delete_identity')), Horde_Serialize::JSON)
+    ));
+?>
+<div>
+ <p>
+  <input id="deleteidentity" type="button" class="button" value="<?php echo _("Delete selected identity") ?>" />
+ </p>
+</div>
 <?php endif; ?>

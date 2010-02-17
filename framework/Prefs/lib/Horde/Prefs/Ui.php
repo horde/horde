@@ -296,7 +296,7 @@ class Horde_Prefs_Ui
 
         $title = _("User Options");
         if ($group == 'identities' && !$prefs->isLocked('default_identity')) {
-            $notification->push('newChoice()', 'javascript');
+            Horde::addInlineScript(array('IdentitySelect.newChoice()'), 'dom');
         }
         $GLOBALS['bodyId'] = 'services_prefs';
         if (!$chunk) {
