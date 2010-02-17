@@ -440,8 +440,7 @@ class Ansel
      *
      * @return string  The image path.
      */
-    static public function getImageUrl($imageId, $view = 'screen', $full = false,
-                         $style = null)
+    static public function getImageUrl($imageId, $view = 'screen', $full = false, $style = null)
     {
         global $conf, $ansel_storage;
 
@@ -476,13 +475,13 @@ class Ansel
             // be going through img/*.php to auto-create it.
             try {
                 $image = $ansel_storage->getImage($imageId);
-            } catch (Horde_Exception $e) {
+            } catch (Ansel_Exception $e) {
                 Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
                 return Ansel::getErrorImage($view);
             }
             try {
                 $image->createView($view, $style, false);
-            } catch (Horde_Exception $e) {
+            } catch (Ansel_Exception $e) {
                 return Ansel::getErrorImage($view);
             }
             $viewHash = $image->getViewHash($view, $style) . '/'
