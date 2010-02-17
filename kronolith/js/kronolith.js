@@ -3194,7 +3194,9 @@ KronolithCore = {
             attributes;
 
         div.removeClassName('kronolithSelected');
-        this._setEventText(drag.innerDiv, event.value);
+        if (!Object.isUndefined(drag.innerDiv)) {
+            this._setEventText(drag.innerDiv, event.value);
+        }
         drag.destroy();
         this.startLoading(event.value.calendar, start + end);
         if (!Object.isUndefined(event.value.offsetTop)) {
