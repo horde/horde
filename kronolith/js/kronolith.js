@@ -434,6 +434,19 @@ KronolithCore = {
             this._addHistory(loc);
             this.view = 'iframe';
             break;
+
+        case 'app':
+            this.closeView('iframe');
+            var app = locParts.shift();
+            if (data) {
+                this.iframeContent(loc, data);
+            } else if (Kronolith.conf.app_urls[app]) {
+                this.iframeContent(loc, Kronolith.conf.app_urls[app]);
+            }
+            this.updateMinical(this.date);
+            this._addHistory(fullloc);
+            this.view = 'iframe';
+            break;
         }
     },
 

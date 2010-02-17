@@ -174,6 +174,13 @@ class Kronolith
         $kronolith_webroot = $registry->get('webroot');
         $horde_webroot = $registry->get('webroot', 'horde');
         $has_tasks = $GLOBALS['registry']->hasInterface('tasks');
+        $app_urls = array();
+        if (isset($GLOBALS['conf']['menu']['apps']) &&
+            is_array($GLOBALS['conf']['menu']['apps'])) {
+            foreach ($GLOBALS['conf']['menu']['apps'] as $app) {
+                $app_urls[$app] = (string) Horde::url($GLOBALS['registry']->getInitialPage($app), true);
+            }
+        }
 
         /* Variables used in core javascript files. */
         $code['conf'] = array(
@@ -183,6 +190,7 @@ class Kronolith
             'SESSION_ID' => defined('SID') ? SID : '',
             'user' => Horde_Auth::getAuth(),
             'prefs_url' => str_replace('&amp;', '&', Horde::getServiceLink('options', 'kronolith')),
+            'app_urls' => $app_urls,
             'name' => $registry->get('name'),
             'has_tasks' => $has_tasks,
             'is_ie6' => ($browser->isBrowser('msie') && ($browser->getMajor() < 7)),

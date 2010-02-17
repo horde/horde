@@ -1294,7 +1294,28 @@ class Horde_Registry
 
         try {
             $api = $this->getApiInstance($app, 'application');
-            return $api->mobileView;
+            return !empty($api->mobileView);
+        } catch (Horde_Exception $e) {
+            return false;
+        }
+    }
+
+    /**
+     * Does the given application have an ajax view?
+     *
+     * @param string $app  The application to check.
+     *
+     * @return boolean  Whether app has an ajax view.
+     */
+    public function hasAjaxView($app = null)
+    {
+        if (empty($app)) {
+            $app = $this->getApp();
+        }
+
+        try {
+            $api = $this->getApiInstance($app, 'application');
+            return !empty($api->ajaxView);
         } catch (Horde_Exception $e) {
             return false;
         }

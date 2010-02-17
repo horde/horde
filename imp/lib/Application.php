@@ -35,6 +35,13 @@ require_once HORDE_BASE . '/lib/core.php';
 class IMP_Application extends Horde_Registry_Application
 {
     /**
+     * Does this application support an ajax view?
+     *
+     * @var boolean
+     */
+    public $ajaxView = true;
+
+    /**
      * Does this application support a mobile view?
      *
      * @var boolean

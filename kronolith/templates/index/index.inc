@@ -7,9 +7,13 @@
     <?php if (count($GLOBALS['conf']['menu']['apps'])): ?>
     <div id="kronolithApplications">
       <ul>
-        <li class="kronolithApplicationSelected"><a href="" id="kronolithApplication-kronolith" title="<?php echo $GLOBALS['registry']->get('name') ?>"><img src="<?php echo $GLOBALS['registry']->get('icon') ?>" /> <?php echo $GLOBALS['registry']->get('name') ?></a></li>
+        <li class="kronolithApplicationSelected"><a href="#" id="kronolithApplication-kronolith" title="<?php echo $GLOBALS['registry']->get('name') ?>"><img src="<?php echo $GLOBALS['registry']->get('icon') ?>" /> <?php echo $GLOBALS['registry']->get('name') ?></a></li>
         <?php foreach ($GLOBALS['conf']['menu']['apps'] as $app): ?>
+        <?php if ($GLOBALS['registry']->hasAjaxView($app)): ?>
         <li><a href="<?php echo $GLOBALS['registry']->get('webroot', $app) ?>" id="kronolithApplication-<?php echo $app ?>" title="<?php echo $GLOBALS['registry']->get('name', $app) ?>"><img src="<?php echo $GLOBALS['registry']->get('icon', $app) ?>" /> <?php echo $GLOBALS['registry']->get('name', $app) ?></a></li>
+        <?php else: ?>
+        <li><a href="#" onclick="KronolithCore.go('app:<?php echo $app ?>')" id="kronolithApplication-<?php echo $app ?>" title="<?php echo $GLOBALS['registry']->get('name', $app) ?>"><img src="<?php echo $GLOBALS['registry']->get('icon', $app) ?>" /> <?php echo $GLOBALS['registry']->get('name', $app) ?></a></li>
+        <?php endif; ?>
         <?php endforeach; ?>
       </ul>
       <span class="kronolithSeparator">|</span>

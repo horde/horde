@@ -35,6 +35,13 @@ require_once HORDE_BASE . '/lib/core.php';
 class Kronolith_Application extends Horde_Registry_Application
 {
     /**
+     * Does this application support an ajax view?
+     *
+     * @var boolean
+     */
+    public $ajaxView = true;
+
+    /**
      * The application's version.
      *
      * @var string
