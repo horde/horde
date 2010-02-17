@@ -1,11 +1,20 @@
 <if:smimeactive>
- <input type="checkbox" id="use_smime" name="use_smime" checked="checked" /> <label for="use_smime"><gettext>Enable S/MIME functionality?</gettext></label>&nbsp;<tag:use_smime_help />
- <br />
- <em class="redText"><gettext>NOTE:</gettext></em> <gettext>S/MIME support requires popup windows to be used.  If your browser is currently set to disable popup windows, you must change this setting or else the S/MIME features will not work correctly.</gettext>
- <br />
+ <div>
+  <input type="checkbox" id="use_smime" name="use_smime" checked="checked" />
+  <label for="use_smime"><gettext>Enable S/MIME functionality?</gettext></label>
+  <tag:use_smime_help />
+ </div>
+ <div>
+  <p>
+   <em class="redText"><gettext>NOTE:</gettext></em> <gettext>S/MIME support requires popup windows to be used.  If your browser is currently set to disable popup windows, you must change this setting or else the S/MIME features will not work correctly.</gettext>
+  </p>
+ </div>
 <if:verify_notlocked>
- <input type="checkbox" id="smime_verify" name="smime_verify"<if:smime_verify> checked="checked"</if:smime_verify> /> <label for="smime_verify"><gettext>Should S/MIME signed messages automatically be verified when viewed?</gettext></label>&nbsp;<tag:smime_verify-help />
- <br />
+ <div>
+  <input type="checkbox" id="smime_verify" name="smime_verify"<if:smime_verify> checked="checked"</if:smime_verify> />
+  <label for="smime_verify"><gettext>Should S/MIME signed messages automatically be verified when viewed?</gettext></label>
+  <tag:smime_verify-help />
+ </div>
 </if:verify_notlocked>
 
  <p>
@@ -22,28 +31,34 @@
 </div>
 
 <div class="prefsContainer item">
+ <div>
 <if:empty_pubkey_list>
- <em><gettext>No Keys in Keyring</gettext></em>
+  <em><gettext>No Keys in Keyring</gettext></em>
 <else:empty_pubkey_list>
- <table>
+  <table>
 <loop:pubkey_list>
-  <tr>
-   <td><tag:pubkey_list.name /> (<tag:pubkey_list.email />)</td>
-   <td>&nbsp;&nbsp;[<tag:pubkey_list.view /><gettext>View</gettext></a>]&nbsp;[<tag:pubkey_list.info /><gettext>Details</gettext></a>]&nbsp;[<tag:pubkey_list.delete /><gettext>Delete</gettext></a>]</td>
-  </tr>
+   <tr>
+    <td><tag:pubkey_list.name /> (<tag:pubkey_list.email />)</td>
+    <td>&nbsp;&nbsp;[<tag:pubkey_list.view /><gettext>View</gettext></a>]&nbsp;[<tag:pubkey_list.info /><gettext>Details</gettext></a>]&nbsp;[<tag:pubkey_list.delete /><gettext>Delete</gettext></a>]</td>
+   </tr>
 </loop:pubkey_list>
- </table>
+  </table>
 </else:empty_pubkey_list></if:empty_pubkey_list>
+ </div>
 
+ <div>
 <if:no_file_upload>
- <em class="redText"><gettext>Key import is not available. File upload is not enabled on this server.</gettext></em>
+  <em class="redText"><gettext>Key import is not available. File upload is not enabled on this server.</gettext></em>
 <else:no_file_upload>
 <if:no_source>
- <em><gettext>Key import is not available. You have no address book defined to add your contacts.</gettext></em>
+  <em><gettext>Key import is not available. You have no address book defined to add your contacts.</gettext></em>
 <else:no_source>
- <p><input type="submit" name="save" class="button" onclick="<tag:public_import_url />return false;" value="<gettext>Import Public Key</gettext>" />
- <tag:import_pubkey-help /></p>
+  <p>
+   <input type="submit" name="save" class="button" onclick="<tag:public_import_url />return false;" value="<gettext>Import Public Key</gettext>" />
+   <tag:import_pubkey-help />
+  </p>
 </else:no_source></if:no_source></else:no_file_upload></if:no_file_upload>
+ </div>
 </div>
 
 <br class="spacer" />
@@ -55,35 +70,55 @@
 
 <div class="prefsContainer item">
 <if:secure_check>
- <em><gettext>S/MIME Personal Keypair support requires a secure web connection.</gettext></em>
-<else:secure_check>
 <if:has_key>
- <table>
-  <tr>
-   <td><gettext>Your Public Key:</gettext></td>
-   <td>&nbsp;&nbsp;[<tag:viewpublic /><gettext>View</gettext></a>]&nbsp;[<tag:infopublic /><gettext>Details</gettext></a>]</td>
-  </tr>
-  <tr>
-   <td><gettext>Your Private Key:</gettext></td>
-   <td>&nbsp;&nbsp;[<tag:passphrase /></a>]&nbsp;[<tag:viewprivate /><gettext>View</gettext></a>]</td>
-  </tr>
- </table>
+ <div>
+  <table>
+   <tr>
+    <td><gettext>Your Public Key:</gettext></td>
+    <td>&nbsp;&nbsp;[<tag:viewpublic /><gettext>View</gettext></a>]&nbsp;[<tag:infopublic /><gettext>Details</gettext></a>]</td>
+   </tr>
+   <tr>
+    <td><gettext>Your Private Key:</gettext></td>
+    <td>&nbsp;&nbsp;[<tag:passphrase /></a>]&nbsp;[<tag:viewprivate /><gettext>View</gettext></a>]</td>
+   </tr>
+  </table>
+ </div>
 
- <p><input type="submit" name="delete" class="button" onclick="if (confirm('<tag:deletekeypair />')) { document.prefs.actionID.value='delete_key'; return true; } else { return false; }" value="<gettext>Delete Current Keys</gettext>" />
- <tag:personalkey-delete-help /></p>
+ <p>
+  <input type="submit" name="delete" class="button" onclick="if (confirm('<tag:deletekeypair />')) { document.prefs.actionID.value='delete_key'; return true; } else { return false; }" value="<gettext>Delete Current Keys</gettext>" />
+  <tag:personalkey-delete-help />
+ </p>
 <else:has_key>
 <if:no_file_upload>
- <em class="redText"><gettext>Certificate import is not available. File upload is not enabled on this server.</gettext></em>
+ <div>
+  <em class="redText"><gettext>Certificate import is not available. File upload is not enabled on this server.</gettext></em>
+ </div>
 <else:no_file_upload>
- <em class="redText"><gettext>No certificate available.</gettext></em>
- <p><input type="submit" name="save" class="button" onclick="<tag:personal_import_url />return false;" value="<gettext>Import Keypair</gettext>" /> <tag:import-cert-help /></p>
+ <div>
+  <em class="redText"><gettext>No certificate available.</gettext></em>
+ </div>
+ <p>
+  <input type="submit" name="save" class="button" onclick="<tag:personal_import_url />return false;" value="<gettext>Import Keypair</gettext>" />
+  <tag:import-cert-help />
+ </p>
 </else:no_file_upload></if:no_file_upload>
-</else:has_key></if:has_key></else:secure_check></if:secure_check>
+</else:has_key></if:has_key>
+<else:secure_check>
+ <div>
+  <em><gettext>S/MIME Personal Keypair support requires a secure web connection.</gettext></em>
+ </div>
+</else:secure_check></if:secure_check>
 <else:smimeactive>
 <if:use_smime_locked>
- <em><gettext>S/MIME support is disabled on this system.</gettext></em>
+ <div>
+  <em><gettext>S/MIME support is disabled on this system.</gettext></em>
+ </div>
 <else:use_smime_locked>
- <input type="checkbox" id="use_smime" name="use_smime" /> <tag:use_smime_label /> <tag:use_smime_help /><br />
+ <div>
+  <input type="checkbox" id="use_smime" name="use_smime" />
+  <tag:use_smime_label />
+  <tag:use_smime_help />
+ </div>
 </else:use_smime_locked></if:use_smime_locked>
 
  <p>

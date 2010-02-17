@@ -197,7 +197,7 @@ if ($openssl_check && $prefs->getValue('use_smime')) {
     $t->set('personalkey-help', Horde_Help::link('imp', 'smime-overview-personalkey'));
 
     $t->set('secure_check', Horde::isConnectionSecure());
-    if (!$t->get('secure_check')) {
+    if ($t->get('secure_check')) {
         $t->set('has_key', $prefs->getValue('smime_public_key') && $prefs->getValue('smime_private_key'));
         if ($t->get('has_key')) {
             $t->set('viewpublic', Horde::link($selfURL->copy()->add('actionID', 'view_personal_public_key'), _("View Personal Public Key"), null, 'view_key'));
