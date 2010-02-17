@@ -314,7 +314,7 @@ KronolithCore = {
                     $('kronolithView' + locCap).appear({ queue: 'end', afterFinish: function() { this.viewLoading = false; }.bind(this) });
                 }
                 $('kronolithLoading' + loc).insert($('kronolithLoading').remove());
-                this.updateMinical(this.date, loc);
+                this.updateMinical(this.date);
 
                 break;
 
@@ -372,7 +372,7 @@ KronolithCore = {
             this.viewLoading = true;
             $('kronolithViewAgenda').appear({ queue: 'end', afterFinish: function() { this.viewLoading = false; }.bind(this) });
             $('kronolithLoadingagenda').insert($('kronolithLoading').remove());
-            this.updateMinical(this.date, 'search');
+            this.updateMinical(this.date);
             this._addHistory(fullloc);
             this.view = 'agenda';
             break;
@@ -401,7 +401,6 @@ KronolithCore = {
             default:
                 return;
             }
-            this.updateMinical(this.date, this.view);
             this._addHistory(fullloc);
             break;
 
@@ -431,6 +430,7 @@ KronolithCore = {
             this.closeView('iframe');
             this.iframeContent(loc, Kronolith.conf.prefs_url);
             this.setTitle(Kronolith.text.prefs);
+            this.updateMinical(this.date);
             this._addHistory(loc);
             this.view = 'iframe';
             break;
@@ -3907,6 +3907,7 @@ KronolithCore = {
         }
 
         this.updateCalendarList();
+        this.updateMinical(this.date);
 
         /* Initialize the starting page if necessary. addListener() will have
          * already fired if there is a current location so only do a go()
