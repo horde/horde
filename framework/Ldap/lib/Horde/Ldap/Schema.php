@@ -16,11 +16,6 @@
  */
 
 /**
- * Includes
- */
-#require_once 'PEAR.php';
-
-/**
  * Syntax definitions
  *
  * Please don't forget to add binary attributes to isBinary() below
@@ -50,7 +45,7 @@ define('HORDE_LDAP_SYNTAX_OCTET_STRING',       '1.3.6.1.4.1.1466.115.121.1.40');
  * @license  http://www.gnu.org/copyleft/lesser.html LGPL
  * @link     http://pear.php.net/package/Horde_Ldap2/
  */
-class Horde_Ldap_Schema extends PEAR
+class Horde_Ldap_Schema
 {
     /**
      * Map of entry types to ldap attributes of subschema entry
@@ -102,17 +97,6 @@ class Horde_Ldap_Schema extends PEAR
      */
     protected $_initialized = false;
 
-
-    /**
-     * Constructor of the class
-     *
-     * @access protected
-     */
-    protected function __construct()
-    {
-        $this->PEAR('Horde_Ldap_Error'); // default error class
-    }
-
     /**
      * Fetch the Schema from an LDAP connection
      *
@@ -120,25 +104,17 @@ class Horde_Ldap_Schema extends PEAR
      * @param string    $dn   (optional) Subschema entry dn
      *
      * @access public
-     * @return Horde_Ldap_Schema|NET_LDAP2_Error
+     * @return Horde_Ldap_Schema|Horde_Ldap_Error
      */
-    public function fetch($ldap, $dn = null)
+    public function fetch(Horde_Ldap $ldap, $dn = null)
     {
-        if (!$ldap instanceof Horde_Ldap) {
-            return PEAR::raiseError("Unable to fetch Schema: Parameter \$ldap must be a Horde_Ldap object!");
-        }
-
         $schema_o = new Horde_Ldap_Schema();
 
         if (is_null($dn)) {
             // get the subschema entry via root dse
             $dse = $ldap->rootDSE(array('subschemaSubentry'));
-            if (false == Horde_Ldap::isError($dse)) {
-                $base = $dse->getValue('subschemaSubentry', 'single');
-                if (!Horde_Ldap::isError($base)) {
-                    $dn = $base;
-                }
-            }
+	    $base = $dse->getValue('subschemaSubentry', 'single');
+	    $dn = $base;
         }
 
         // Support for buggy LDAP servers (e.g. Siemens DirX 6.x) that incorrectly
@@ -147,12 +123,8 @@ class Horde_Ldap_Schema extends PEAR
         if (is_null($dn)) {
             // get the subschema entry via root dse
             $dse = $ldap->rootDSE(array('subSchemaSubentry'));
-            if (false == Horde_Ldap::isError($dse)) {
-                $base = $dse->getValue('subSchemaSubentry', 'single');
-                if (!Horde_Ldap::isError($base)) {
-                    $dn = $base;
-                }
-            }
+	    $base = $dse->getValue('subSchemaSubentry', 'single');
+	    $dn = $base;
         }
 
         // Final fallback case where there is no subschemaSubentry attribute
@@ -166,13 +138,9 @@ class Horde_Ldap_Schema extends PEAR
         $result = $ldap->search($dn, '(objectClass=*)',
                                 array('attributes' => array_values($schema_o->types),
                                         'scope' => 'base'));
-        if (Horde_Ldap::isError($result)) {
-            return $result;
-        }
-
         $entry = $result->shiftEntry();
         if (!$entry instanceof Horde_Ldap_Entry) {
-            return PEAR::raiseError('Could not fetch Subschema entry');
+            throw new Horde_Ldap_Exception('Could not fetch Subschema entry');
         }
 
         $schema_o->parse($entry);
@@ -203,8 +171,10 @@ class Horde_Ldap_Schema extends PEAR
                      'syntaxes'          => &$this->_ldapSyntaxes );
 
         $key = strtolower($type);
-        $ret = ((key_exists($key, $map)) ? $map[$key] : PEAR::raiseError("Unknown type $type"));
-        return $ret;
+	if (!key_exists($key, $map)) {
+	  throw new Horde_Ldap_Exception("Unknown type $type");
+	}
+        return $map[$key];
     }
 
     /**
@@ -221,7 +191,7 @@ class Horde_Ldap_Schema extends PEAR
         if ($this->_initialized) {
             $type = strtolower($type);
             if (false == key_exists($type, $this->types)) {
-                return PEAR::raiseError("No such type $type");
+                throw new Horde_Ldap_Exception("No such type $type");
             }
 
             $name     = strtolower($name);
@@ -232,7 +202,7 @@ class Horde_Ldap_Schema extends PEAR
             } elseif (key_exists($name, $this->_oids) && $this->_oids[$name]['type'] == $type) {
                 return $this->_oids[$name];
             } else {
-                return PEAR::raiseError("Could not find $type $name");
+                throw new Horde_Ldap_Exception("Could not find $type $name");
             }
         } else {
             $return = null;
@@ -286,7 +256,7 @@ class Horde_Ldap_Schema extends PEAR
                 key_exists($attr, $this->_oids[$oc])) {
             return $this->_oids[$oc][$attr];
         } else {
-            return PEAR::raiseError("Could not find $attr attributes for $oc ");
+            throw new Horde_Ldap_Exception("Could not find $attr attributes for $oc ");
         }
     }
 
@@ -301,9 +271,6 @@ class Horde_Ldap_Schema extends PEAR
     public function superclass($oc)
     {
         $o = $this->get('objectclass', $oc);
-        if (Horde_Ldap::isError($o)) {
-            return $o;
-        }
         return (key_exists('sup', $o) ? $o['sup'] : array());
     }
 
@@ -484,11 +451,13 @@ class Horde_Ldap_Schema extends PEAR
                          );
 
         // Check Syntax
-        $attr_s = $this->get('attribute', $attribute);
-        if (Horde_Ldap::isError($attr_s)) {
+	try {
+	  $attr_s = $this->get('attribute', $attribute);
+	} catch (Horde_Ldap_Exception $e) {
             // Attribute not found in schema
             $return = false; // consider attr not binary
-        } elseif (isset($attr_s['syntax']) && in_array($attr_s['syntax'], $syntax_binary)) {
+	}
+        if (isset($attr_s['syntax']) && in_array($attr_s['syntax'], $syntax_binary)) {
             // Syntax is defined as binary in schema
             $return = true;
         } else {

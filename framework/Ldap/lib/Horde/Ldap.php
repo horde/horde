@@ -662,12 +662,8 @@ class Horde_Ldap
      *
      * @return true  Horde_Ldap_Error object or true
      */
-    public function add(&$entry)
+    public function add(Horde_Ldap_Entry &$entry)
     {
-        if (!$entry instanceof Horde_Ldap_Entry) {
-            throw new Horde_Ldap_Exception('Parameter to Horde_Ldap::add() must be a Horde_Ldap_Entry object.');
-        }
-
         // Continue attempting the add operation in a loop until we
         // get a success, a definitive failure, or the world ends.
         $foo = 0;

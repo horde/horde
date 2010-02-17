@@ -14,11 +14,6 @@
  */
 
 /**
- * Includes
- */
-#require_once 'PEAR.php';
-
-/**
  * Utility Class for Horde_Ldap
  *
  * This class servers some functionality to the other classes of Horde_Ldap but most of
@@ -32,20 +27,6 @@
  */
 class Horde_Ldap_Util
 {
-    /**
-      * Constructor
-      *
-      * @access public
-      */
-    public function __construct()
-    {
-         // We do nothing here, since all methods can be called statically.
-         // In Net_LDAP <= 0.7, we needed a instance of Util, because
-         // it was possible to do utf8 encoding and decoding, but this
-         // has been moved to the LDAP class. The constructor remains only
-         // here to document the downward compatibility of creating an instance.
-    }
-
     /**
      * Explodes the given DN into its elements
      *

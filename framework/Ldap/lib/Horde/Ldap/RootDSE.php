@@ -27,7 +27,7 @@
  * @license  http://www.gnu.org/copyleft/lesser.html LGPL
  * @link     http://pear.php.net/package/Horde_Ldap2/
  */
-class Horde_Ldap_RootDSE extends PEAR
+class Horde_Ldap_RootDSE
 {
     /**
      * @access protected
@@ -52,14 +52,12 @@ class Horde_Ldap_RootDSE extends PEAR
      * @param array     $attrs Array of attributes to search for
      *
      * @access static
-     * @return Horde_Ldap_RootDSE|Horde_Ldap_Error
+     * @return Horde_Ldap_RootDSE
+     *
+     * @throws Horde_Ldap_Exception
      */
-    public static function fetch($ldap, $attrs = null)
+    public static function fetch(Horde_Ldap $ldap, $attrs = null)
     {
-        if (!$ldap instanceof Horde_Ldap) {
-            return PEAR::raiseError("Unable to fetch Schema: Parameter \$ldap must be a Horde_Ldap object!");
-        }
-
         if (is_array($attrs) && count($attrs) > 0 ) {
             $attributes = $attrs;
         } else {
@@ -73,13 +71,10 @@ class Horde_Ldap_RootDSE extends PEAR
                                 'supportedLDAPVersion',
                                 'subschemaSubentry' );
         }
-        $result = $ldap->search('', '(objectClass=*)', array('attributes' => $attributes, 'scope' => 'base'));
-        if (self::isError($result)) {
-            return $result;
-        }
+        $ldap->search('', '(objectClass=*)', array('attributes' => $attributes, 'scope' => 'base'));
         $entry = $result->shiftEntry();
         if (false === $entry) {
-            return PEAR::raiseError('Could not fetch RootDSE entry');
+            throw new Horde_Ldap_Exception('Could not fetch RootDSE entry');
         }
         $ret = new Horde_Ldap_RootDSE($entry);
         return $ret;
