@@ -50,9 +50,9 @@ class Ansel_Tile_Gallery {
             if ($gallery->hasPasswd()) {
                 $gallery_image = Horde::img($GLOBALS['registry']->getImageDir() . '/gallery-locked.png', '', '', '');
             } else {
-            $gallery_image = Ansel::getImageUrl(
-                $gallery->getDefaultImage($style['name']),
-                $thumbstyle, true, $style['name']);
+                $gallery_image = Ansel::getImageUrl(
+                    $gallery->getDefaultImage($style['name']),
+                    $thumbstyle, true, $style['name']);
                 $gallery_image = '<img src="' . $gallery_image . '" alt="' . htmlspecialchars($gallery->get('name')) . '" />';
             }
         } else {
