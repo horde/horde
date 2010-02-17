@@ -1,16 +1,16 @@
 <?php
 /**
- * File containing the Net_LDAP2_RootDSE interface class.
+ * File containing the Horde_Ldap_RootDSE interface class.
  *
  * PHP version 5
  *
  * @category  Net
- * @package   Net_LDAP2
+ * @package   Horde_Ldap
  * @author    Jan Wagner <wagner@netsols.de>
  * @copyright 2009 Jan Wagner
  * @license   http://www.gnu.org/licenses/lgpl-3.0.txt LGPLv3
  * @version   SVN: $Id: RootDSE.php 286718 2009-08-03 07:30:49Z beni $
- * @link      http://pear.php.net/package/Net_LDAP2/
+ * @link      http://pear.php.net/package/Horde_Ldap/
  */
 
 /**
@@ -22,23 +22,23 @@
  * Getting the rootDSE entry of a LDAP server
  *
  * @category Net
- * @package  Net_LDAP2
+ * @package  Horde_Ldap
  * @author   Jan Wagner <wagner@netsols.de>
  * @license  http://www.gnu.org/copyleft/lesser.html LGPL
- * @link     http://pear.php.net/package/Net_LDAP22/
+ * @link     http://pear.php.net/package/Horde_Ldap2/
  */
-class Net_LDAP2_RootDSE extends PEAR
+class Horde_Ldap_RootDSE extends PEAR
 {
     /**
      * @access protected
-     * @var object Net_LDAP2_Entry
+     * @var object Horde_Ldap_Entry
      **/
     protected $_entry;
 
     /**
      * Class constructor
      *
-     * @param Net_LDAP2_Entry &$entry Net_LDAP2_Entry object of the RootDSE
+     * @param Horde_Ldap_Entry &$entry Horde_Ldap_Entry object of the RootDSE
      */
     protected function __construct(&$entry)
     {
@@ -48,16 +48,16 @@ class Net_LDAP2_RootDSE extends PEAR
     /**
      * Fetches a RootDSE object from an LDAP connection
      *
-     * @param Net_LDAP2 $ldap  Directory from which the RootDSE should be fetched
+     * @param Horde_Ldap $ldap  Directory from which the RootDSE should be fetched
      * @param array     $attrs Array of attributes to search for
      *
      * @access static
-     * @return Net_LDAP2_RootDSE|Net_LDAP2_Error
+     * @return Horde_Ldap_RootDSE|Horde_Ldap_Error
      */
     public static function fetch($ldap, $attrs = null)
     {
-        if (!$ldap instanceof Net_LDAP2) {
-            return PEAR::raiseError("Unable to fetch Schema: Parameter \$ldap must be a Net_LDAP2 object!");
+        if (!$ldap instanceof Horde_Ldap) {
+            return PEAR::raiseError("Unable to fetch Schema: Parameter \$ldap must be a Horde_Ldap object!");
         }
 
         if (is_array($attrs) && count($attrs) > 0 ) {
@@ -81,21 +81,21 @@ class Net_LDAP2_RootDSE extends PEAR
         if (false === $entry) {
             return PEAR::raiseError('Could not fetch RootDSE entry');
         }
-        $ret = new Net_LDAP2_RootDSE($entry);
+        $ret = new Horde_Ldap_RootDSE($entry);
         return $ret;
     }
 
     /**
      * Gets the requested attribute value
      *
-     * Same usuage as {@link Net_LDAP2_Entry::getValue()}
+     * Same usuage as {@link Horde_Ldap_Entry::getValue()}
      *
      * @param string $attr    Attribute name
      * @param array  $options Array of options
      *
      * @access public
-     * @return mixed Net_LDAP2_Error object or attribute values
-     * @see Net_LDAP2_Entry::get_value()
+     * @return mixed Horde_Ldap_Error object or attribute values
+     * @see Horde_Ldap_Entry::get_value()
      */
     public function getValue($attr = '', $options = '')
     {
