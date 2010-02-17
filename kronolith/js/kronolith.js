@@ -15,7 +15,7 @@ var frames = { horde_main: true },
 /* Kronolith object. */
 KronolithCore = {
     // Vars used and defaulting to null/false:
-    //   DMenu, Growler, inAjaxCallback, is_logout, onDoActionComplete,
+    //   DMenu, Growler, inAjaxCallback, is_logout,
     //   daySizes, viewLoading, freeBusy
 
     view: '',
@@ -89,7 +89,6 @@ KronolithCore = {
         }
 
         var r = request.responseJSON;
-
         if (!r.msgs) {
             r.msgs = [];
         }
@@ -108,11 +107,6 @@ KronolithCore = {
         this.server_error = 0;
 
         this.showNotifications(r.msgs);
-
-        if (this.onDoActionComplete) {
-            this.onDoActionComplete(r);
-        }
-
         this.inAjaxCallback = false;
     },
 
@@ -362,6 +356,7 @@ KronolithCore = {
                                   Object.isUndefined(r.response.events)) {
                                   return;
                               }
+                              delete this.eventsLoading['search'];
                               $H(r.response.events).each(function(calendars) {
                                   $H(calendars.value).each(function(events) {
                                       this.createAgendaDay(events.key);
@@ -1059,10 +1054,6 @@ KronolithCore = {
             $('kronolithLoading').hide();
         }
 
-        if (typeof r.response.sig == 'undefined') {
-            return;
-        }
-
         var start = this.parseDate(r.response.sig.substr(0, 8)),
             end = this.parseDate(r.response.sig.substr(8, 8)),
             dates = [start, end];
@@ -1074,6 +1065,7 @@ KronolithCore = {
             r.response.sig != this.eventsLoading[r.response.cal]) {
             return;
         }
+        delete this.eventsLoading[r.response.cal];
 
         this._insertEvents(dates, this.view, r.response.cal);
     },
@@ -1564,20 +1556,17 @@ KronolithCore = {
         }
 
         tasktypes.each(function(type) {
-            if (Object.isUndefined(this.tcache.get(type))) {
-                this._storeTasksCache($H(), type, null, true);
-            }
             tasklists.each(function(list) {
-                if (Object.isUndefined(this.tcache.get(type).get(list))) {
+                if (Object.isUndefined(this.tcache.get(type)) ||
+                    Object.isUndefined(this.tcache.get(type).get(list))) {
                     loading = true;
-                    this.startLoading('tasks:' + type + list, tasktype);
-                    this._storeTasksCache($H(), type, list, true);
+                    this.loading++;
+                    $('kronolithLoading').show();
                     this.doAction('ListTasks',
                                   { type: type,
-                                    'sig' : tasktype,
                                     list: list },
                                   function(r) {
-                                      this._loadTasksCallback(r, tasktype, true);
+                                      this._loadTasksCallback(r, true);
                                   }.bind(this));
                 }
             }, this);
@@ -1594,14 +1583,12 @@ KronolithCore = {
      * Callback method for inserting tasks in the current view.
      *
      * @param object r             The ajax response object.
-     * @param string tasktype      The (UI) task type for that the response was
-     *                             targeted.
      * @param boolean createCache  Whether to create a cache list entry for the
      *                             response, if none exists yet. Useful for
      *                             adding individual tasks to the cache without
      *                             assuming to have all tasks of the list.
      */
-    _loadTasksCallback: function(r, tasktype, createCache)
+    _loadTasksCallback: function(r, createCache)
     {
         // Hide spinner.
         this.loading--;
@@ -1610,13 +1597,22 @@ KronolithCore = {
         }
 
         this._storeTasksCache(r.response.tasks || {}, r.response.type, r.response.list, createCache);
-
-        // Check if this is the still the result of the most current request.
-        if (this.view != 'tasks' ||
-            this.eventsLoading['tasks:' + r.response.type + r.response.list] != r.response.sig) {
+        if (Object.isUndefined(r.response.tasks)) {
             return;
         }
-        this._insertTasks(tasktype, r.response.list);
+
+        // Check if result is still valid for the current view.
+        // There could be a rare race condition where two responses for the
+        // same task(s) arrive in the wrong order. Checking this too, like we
+        // do for events seems not worth it.
+        var tasktypes = this._getTaskStorage(this.tasktype),
+            tasklist = Kronolith.conf.calendars.tasklists['tasks/' + r.response.list];
+        if (this.view != 'tasks' ||
+            !tasklist || !tasklist.show ||
+            !tasktypes.include(r.response.type)) {
+            return;
+        }
+        this._insertTasks(this.tasktype, r.response.list);
     },
 
     /**
@@ -1971,9 +1967,10 @@ KronolithCore = {
             return;
         }
 
-        var tasklist = $F('kronolithTaskList'),
+        var tasklist = $F('kronolithTaskOldList'),
             taskid = $F('kronolithTaskId');
-        this.startLoading('tasks:' + ($F('kronolithTaskCompleted') ? 'complete' : 'incomplete') + tasklist, this.tasktype);
+        this.loading++;
+        $('kronolithLoading').show();
         this.doAction('SaveTask',
                       $H($('kronolithTaskForm').serialize({ hash: true }))
                           .merge({ sig: this.tasktype }),
@@ -1981,7 +1978,7 @@ KronolithCore = {
                           if (r.response.tasks && taskid) {
                               this._removeTask(taskid, tasklist);
                           }
-                          this._loadTasksCallback(r, this.tasktype, false);
+                          this._loadTasksCallback(r, false);
                           this._closeRedBox();
                           window.history.back();
                       }.bind(this));
@@ -2003,6 +2000,8 @@ KronolithCore = {
                 if (r.response.chunk) {
                     RedBox.showHtml(r.response.chunk);
                     this._editCalendar(calendar);
+                } else {
+                    this._closeRedBox();
                 }
             }.bind(this));
         }
@@ -3008,7 +3007,7 @@ KronolithCore = {
                 return;
             }
 
-            calClass = elt.retrieve('calendarclass');
+            var calClass = elt.retrieve('calendarclass');
             if (calClass) {
                 var calendar = elt.retrieve('calendar');
                 Kronolith.conf.calendars[calClass][calendar].show = !Kronolith.conf.calendars[calClass][calendar].show;
@@ -3028,32 +3027,15 @@ KronolithCore = {
                 elt.toggleClassName('kronolithCalOff');
                 switch (calClass) {
                 case 'tasklists':
-                    var tasklist = calendar.substr(6), toggle = true;
+                    var tasklist = calendar.substr(6);
                     if (this.view == 'tasks') {
-                        var tasktypes;
-                        switch (this.tasktype) {
-                        case 'all':
-                        case 'future':
-                            tasktypes = [ 'complete', 'incomplete' ];
-                            break;
-                        case 'complete':
-                        case 'incomplete':
-                            tasktypes = [ this.tasktype ];
-                            break;
+                        if (elt.hasClassName('kronolithCalOff')) {
+                            $('kronolithViewTasksBody').select('tr').findAll(function(el) {
+                                return el.retrieve('tasklist') == tasklist;
+                            }).invoke('remove');
+                        } else {
+                            this._loadTasks(this.tasktype, [ tasklist ]);
                         }
-                        tasktypes.each(function(tasktype) {
-                            if (Object.isUndefined(this.tcache.get(tasktype)) ||
-                                Object.isUndefined(this.tcache.get(tasktype).get(tasklist))) {
-                                toggle = false;
-                            }
-                        }, this);
-                    }
-                    if (toggle) {
-                        $('kronolithViewTasksBody').select('tr').findAll(function(el) {
-                            return el.retrieve('tasklist') == tasklist;
-                        }).invoke('toggle');
-                    } else {
-                        this._loadTasks(this.tasktype, [ tasklist ]);
                     }
                     // Fall through.
                 case 'remote':
