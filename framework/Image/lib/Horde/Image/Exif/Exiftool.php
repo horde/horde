@@ -70,7 +70,7 @@ class Horde_Image_Exif_Exiftool extends Horde_Image_Exif_Base
     {
         exec($this->_exiftool . ' ' . escapeshellcmd($command), $output, $retval);
         if ($retval) {
-            $this->_logErr(sprintf("Error running command: %s"), $command . "\n" . implode("\n", $output));
+            $this->_logErr(sprintf("Error running command: %s", $command . "\n" . implode("\n", $output)));
         }
         if (is_array($output)) {
             $output = implode('', $output);
