@@ -239,6 +239,10 @@ class Turba_View_Browse {
                         break;
                     }
                     $targetDriver = Turba_Driver::singleton($targetSource);
+                    if ($targetDriver instanceof PEAR_Error) {
+                        $notification->push(sprintf_("Could not load driver for %s", $targetSource), 'horde.error');
+                        break;
+                    }
                     $target = &$targetDriver->getObject($targetKey);
                     if (is_a($target, 'PEAR_Error')) {
                         $notification->push($target, 'horde.error');
@@ -247,6 +251,10 @@ class Turba_View_Browse {
                 } else {
                     $targetSource = $vars->get('targetAddressbook');
                     $targetDriver = Turba_Driver::singleton($targetSource);
+                    if ($targetDriver instanceof PEAR_Error) {
+                        $notification->push(sprintf_("Could not load driver for %s", $targetSource), 'horde.error');
+                        break;
+                    }
                 }
                 if (!empty($target) && $target->isGroup()) {
                     // Adding contact to an existing list.
