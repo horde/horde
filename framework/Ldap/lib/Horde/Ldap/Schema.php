@@ -1,17 +1,17 @@
 <?php
 /**
- * File containing the Net_LDAP2_Schema interface class.
+ * File containing the Horde_Ldap_Schema interface class.
  *
  * PHP version 5
  *
  * @category  Net
- * @package   Net_LDAP2
+ * @package   Horde_Ldap
  * @author    Jan Wagner <wagner@netsols.de>
  * @author    Benedikt Hallinger <beni@php.net>
  * @copyright 2009 Jan Wagner, Benedikt Hallinger
  * @license   http://www.gnu.org/licenses/lgpl-3.0.txt LGPLv3
  * @version   SVN: $Id: Schema.php 286718 2009-08-03 07:30:49Z beni $
- * @link      http://pear.php.net/package/Net_LDAP2/
+ * @link      http://pear.php.net/package/Horde_Ldap/
  * @todo see the comment at the end of the file
  */
 
@@ -24,16 +24,16 @@
  * Syntax definitions
  *
  * Please don't forget to add binary attributes to isBinary() below
- * to support proper value fetching from Net_LDAP2_Entry
+ * to support proper value fetching from Horde_Ldap_Entry
  */
-define('NET_LDAP2_SYNTAX_BOOLEAN',            '1.3.6.1.4.1.1466.115.121.1.7');
-define('NET_LDAP2_SYNTAX_DIRECTORY_STRING',   '1.3.6.1.4.1.1466.115.121.1.15');
-define('NET_LDAP2_SYNTAX_DISTINGUISHED_NAME', '1.3.6.1.4.1.1466.115.121.1.12');
-define('NET_LDAP2_SYNTAX_INTEGER',            '1.3.6.1.4.1.1466.115.121.1.27');
-define('NET_LDAP2_SYNTAX_JPEG',               '1.3.6.1.4.1.1466.115.121.1.28');
-define('NET_LDAP2_SYNTAX_NUMERIC_STRING',     '1.3.6.1.4.1.1466.115.121.1.36');
-define('NET_LDAP2_SYNTAX_OID',                '1.3.6.1.4.1.1466.115.121.1.38');
-define('NET_LDAP2_SYNTAX_OCTET_STRING',       '1.3.6.1.4.1.1466.115.121.1.40');
+define('HORDE_LDAP_SYNTAX_BOOLEAN',            '1.3.6.1.4.1.1466.115.121.1.7');
+define('HORDE_LDAP_SYNTAX_DIRECTORY_STRING',   '1.3.6.1.4.1.1466.115.121.1.15');
+define('HORDE_LDAP_SYNTAX_DISTINGUISHED_NAME', '1.3.6.1.4.1.1466.115.121.1.12');
+define('HORDE_LDAP_SYNTAX_INTEGER',            '1.3.6.1.4.1.1466.115.121.1.27');
+define('HORDE_LDAP_SYNTAX_JPEG',               '1.3.6.1.4.1.1466.115.121.1.28');
+define('HORDE_LDAP_SYNTAX_NUMERIC_STRING',     '1.3.6.1.4.1.1466.115.121.1.36');
+define('HORDE_LDAP_SYNTAX_OID',                '1.3.6.1.4.1.1466.115.121.1.38');
+define('HORDE_LDAP_SYNTAX_OCTET_STRING',       '1.3.6.1.4.1.1466.115.121.1.40');
 
 /**
  * Load an LDAP Schema and provide information
@@ -44,13 +44,13 @@ define('NET_LDAP2_SYNTAX_OCTET_STRING',       '1.3.6.1.4.1.1466.115.121.1.40');
  * You will find portions of their implementation in here.
  *
  * @category Net
- * @package  Net_LDAP2
+ * @package  Horde_Ldap
  * @author   Jan Wagner <wagner@netsols.de>
  * @author   Benedikt Hallinger <beni@php.net>
  * @license  http://www.gnu.org/copyleft/lesser.html LGPL
- * @link     http://pear.php.net/package/Net_LDAP22/
+ * @link     http://pear.php.net/package/Horde_Ldap2/
  */
-class Net_LDAP2_Schema extends PEAR
+class Horde_Ldap_Schema extends PEAR
 {
     /**
      * Map of entry types to ldap attributes of subschema entry
@@ -110,32 +110,32 @@ class Net_LDAP2_Schema extends PEAR
      */
     protected function __construct()
     {
-        $this->PEAR('Net_LDAP2_Error'); // default error class
+        $this->PEAR('Horde_Ldap_Error'); // default error class
     }
 
     /**
      * Fetch the Schema from an LDAP connection
      *
-     * @param Net_LDAP2 $ldap LDAP connection
+     * @param Horde_Ldap $ldap LDAP connection
      * @param string    $dn   (optional) Subschema entry dn
      *
      * @access public
-     * @return Net_LDAP2_Schema|NET_LDAP2_Error
+     * @return Horde_Ldap_Schema|NET_LDAP2_Error
      */
     public function fetch($ldap, $dn = null)
     {
-        if (!$ldap instanceof Net_LDAP2) {
-            return PEAR::raiseError("Unable to fetch Schema: Parameter \$ldap must be a Net_LDAP2 object!");
+        if (!$ldap instanceof Horde_Ldap) {
+            return PEAR::raiseError("Unable to fetch Schema: Parameter \$ldap must be a Horde_Ldap object!");
         }
 
-        $schema_o = new Net_LDAP2_Schema();
+        $schema_o = new Horde_Ldap_Schema();
 
         if (is_null($dn)) {
             // get the subschema entry via root dse
             $dse = $ldap->rootDSE(array('subschemaSubentry'));
-            if (false == Net_LDAP2::isError($dse)) {
+            if (false == Horde_Ldap::isError($dse)) {
                 $base = $dse->getValue('subschemaSubentry', 'single');
-                if (!Net_LDAP2::isError($base)) {
+                if (!Horde_Ldap::isError($base)) {
                     $dn = $base;
                 }
             }
@@ -147,9 +147,9 @@ class Net_LDAP2_Schema extends PEAR
         if (is_null($dn)) {
             // get the subschema entry via root dse
             $dse = $ldap->rootDSE(array('subSchemaSubentry'));
-            if (false == Net_LDAP2::isError($dse)) {
+            if (false == Horde_Ldap::isError($dse)) {
                 $base = $dse->getValue('subSchemaSubentry', 'single');
-                if (!Net_LDAP2::isError($base)) {
+                if (!Horde_Ldap::isError($base)) {
                     $dn = $base;
                 }
             }
@@ -166,12 +166,12 @@ class Net_LDAP2_Schema extends PEAR
         $result = $ldap->search($dn, '(objectClass=*)',
                                 array('attributes' => array_values($schema_o->types),
                                         'scope' => 'base'));
-        if (Net_LDAP2::isError($result)) {
+        if (Horde_Ldap::isError($result)) {
             return $result;
         }
 
         $entry = $result->shiftEntry();
-        if (!$entry instanceof Net_LDAP2_Entry) {
+        if (!$entry instanceof Horde_Ldap_Entry) {
             return PEAR::raiseError('Could not fetch Subschema entry');
         }
 
@@ -189,7 +189,7 @@ class Net_LDAP2_Schema extends PEAR
      * @param string $type Type to fetch
      *
      * @access public
-     * @return array|Net_LDAP2_Error Array or Net_LDAP2_Error
+     * @return array|Horde_Ldap_Error Array or Horde_Ldap_Error
      */
     public function &getAll($type)
     {
@@ -214,7 +214,7 @@ class Net_LDAP2_Schema extends PEAR
      * @param string $name Name or OID to fetch
      *
      * @access public
-     * @return mixed Entry or Net_LDAP2_Error
+     * @return mixed Entry or Horde_Ldap_Error
      */
     public function &get($type, $name)
     {
@@ -247,7 +247,7 @@ class Net_LDAP2_Schema extends PEAR
      * @param string $oc Name or OID of objectclass
      *
      * @access public
-     * @return array|Net_LDAP2_Error Array with attributes or Net_LDAP2_Error
+     * @return array|Horde_Ldap_Error Array with attributes or Horde_Ldap_Error
      */
     public function may($oc)
     {
@@ -260,7 +260,7 @@ class Net_LDAP2_Schema extends PEAR
      * @param string $oc Name or OID of objectclass
      *
      * @access public
-     * @return array|Net_LDAP2_Error Array with attributes or Net_LDAP2_Error
+     * @return array|Horde_Ldap_Error Array with attributes or Horde_Ldap_Error
      */
     public function must($oc)
     {
@@ -274,7 +274,7 @@ class Net_LDAP2_Schema extends PEAR
      * @param string $attr Name of attribute to fetch
      *
      * @access protected
-     * @return array|Net_LDAP2_Error The attribute or Net_LDAP2_Error
+     * @return array|Horde_Ldap_Error The attribute or Horde_Ldap_Error
      */
     protected function _getAttr($oc, $attr)
     {
@@ -296,12 +296,12 @@ class Net_LDAP2_Schema extends PEAR
      * @param string $oc Name or OID of objectclass
      *
      * @access public
-     * @return array|Net_LDAP2_Error  Array of names or Net_LDAP2_Error
+     * @return array|Horde_Ldap_Error  Array of names or Horde_Ldap_Error
      */
     public function superclass($oc)
     {
         $o = $this->get('objectclass', $oc);
-        if (Net_LDAP2::isError($o)) {
+        if (Horde_Ldap::isError($o)) {
             return $o;
         }
         return (key_exists('sup', $o) ? $o['sup'] : array());
@@ -310,7 +310,7 @@ class Net_LDAP2_Schema extends PEAR
     /**
      * Parses the schema of the given Subschema entry
      *
-     * @param Net_LDAP2_Entry &$entry Subschema entry
+     * @param Horde_Ldap_Entry &$entry Subschema entry
      *
      * @access public
      * @return void
@@ -462,7 +462,7 @@ class Net_LDAP2_Schema extends PEAR
     /**
      * Returns wether a attribute syntax is binary or not
      *
-     * This method gets used by Net_LDAP2_Entry to decide which
+     * This method gets used by Horde_Ldap_Entry to decide which
      * PHP function needs to be used to fetch the value in the
      * proper format (e.g. binary or string)
      *
@@ -479,13 +479,13 @@ class Net_LDAP2_Schema extends PEAR
         // containing binary values
         // The Syntax Definitons go into constants at the top of this page
         $syntax_binary = array(
-                           NET_LDAP2_SYNTAX_OCTET_STRING,
-                           NET_LDAP2_SYNTAX_JPEG
+                           HORDE_LDAP_SYNTAX_OCTET_STRING,
+                           HORDE_LDAP_SYNTAX_JPEG
                          );
 
         // Check Syntax
         $attr_s = $this->get('attribute', $attribute);
-        if (Net_LDAP2::isError($attr_s)) {
+        if (Horde_Ldap::isError($attr_s)) {
             // Attribute not found in schema
             $return = false; // consider attr not binary
         } elseif (isset($attr_s['syntax']) && in_array($attr_s['syntax'], $syntax_binary)) {
