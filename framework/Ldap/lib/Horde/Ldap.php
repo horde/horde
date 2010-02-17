@@ -321,11 +321,6 @@ class Horde_Ldap
             // reset to previous config
             $this->_config["binddn"] = $olddn;
             $this->_config["bindpw"] = $oldpw;
-
-            // see if bind worked
-            if (self::isError($msg)) {
-                return $msg;
-            }
         } else {
             // do the requested bind as we are
             // asked to bind manually
@@ -416,8 +411,10 @@ class Horde_Ldap
             // If we're supposed to use TLS, do so before we try to bind,
             // as some strict servers only allow binding via secure connections
             if ($this->_config["starttls"] === true) {
-                if (self::isError($msg = $this->startTLS())) {
-                    $current_error           = $msg;
+                try {
+                    $this->startTLS();
+                } catch (Horde_Ldap_Exception $e) {
+                    $current_error           = $e;
                     $this->_link             = false;
                     $this->_down_host_list[] = $host;
                     continue;
@@ -547,16 +544,16 @@ class Horde_Ldap
 
         // Retry all available connections.
         $this->_down_host_list = array();
-        $msg = $this->performConnect();
 
-        // Bail out if that fails.
-        if (self::isError($msg)) {
+        try {
+            $this->performConnect();
+        } catch (Horde_Ldap_Exception $e) {
             $this->_config['current_backoff'] =
                $this->_config['current_backoff'] * 2;
             if ($this->_config['current_backoff'] > $this->_config['max_backoff']) {
                 $this->_config['current_backoff'] = $this->_config['max_backoff'];
             }
-            return $msg;
+            throw $e;
         }
 
         // Now we should be able to safely (re-)bind.
@@ -834,7 +831,7 @@ class Horde_Ldap
     {
         if (is_string($entry)) {
             $entry = $this->getEntry($entry);
-                   }
+        }
         if (!$entry instanceof Horde_Ldap_Entry) {
             throw new Horde_Ldap_Exception("Parameter is not a string nor an entry object!");
         }
