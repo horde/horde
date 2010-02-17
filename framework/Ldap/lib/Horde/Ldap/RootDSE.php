@@ -71,7 +71,7 @@ class Horde_Ldap_RootDSE
                                 'supportedLDAPVersion',
                                 'subschemaSubentry' );
         }
-        $ldap->search('', '(objectClass=*)', array('attributes' => $attributes, 'scope' => 'base'));
+        $result = $ldap->search('', '(objectClass=*)', array('attributes' => $attributes, 'scope' => 'base'));
         $entry = $result->shiftEntry();
         if (false === $entry) {
             throw new Horde_Ldap_Exception('Could not fetch RootDSE entry');
