@@ -21,7 +21,7 @@ class Ansel_Image Implements Iterator
     /**
      * @var Horde_Image_Base  Horde_Image object for this image.
      */
-    public $_image;
+    protected $_image;
     protected $_dirty;
     protected $_loaded = array();
     protected $_data = array();
@@ -133,6 +133,16 @@ class Ansel_Image Implements Iterator
 
         $this->_image = Ansel::getImageObject();
         $this->_image->reset();
+    }
+
+    /**
+     * Obtain a reference to the underlying Horde_Image
+     *
+     * @return Horde_Image_Base
+     */
+    public function &getHordeImage()
+    {
+        return $this->_image;
     }
 
     /**
@@ -848,6 +858,21 @@ class Ansel_Image Implements Iterator
     }
 
     /**
+     * Resize the current image. This operation takes place immediately.
+     *
+     * @param integer $width        The new width.
+     * @param integer $height       The new height.
+     * @param boolean $ratio        Maintain original aspect ratio.
+     * @param boolean $keepProfile  Keep the image meta data.
+     *
+     * @return void
+     */
+    public function resize($width, $height, $ratio = true, $keepProfile = false)
+    {
+        $this->_image->resize($width, $height, $ratio, $keepProfile);
+    }
+
+    /**
      * Converts the image to grayscale.
      *
      * @param string $view The view (size) to work with.
@@ -927,6 +952,29 @@ class Ansel_Image Implements Iterator
         $this->load($view);
         $this->_dirty = true;
         $this->_image->mirror();
+    }
+
+    /**
+     * Add an effect to the effect stack
+     *
+     * @param string $type    The effect to add.
+     * @param array  $params  The effect parameters.
+     *
+     * @return mixed
+     */
+    function addEffect($type, $params = array())
+    {
+        return $this->_image->addEffect($type, $params);
+    }
+
+    /**
+     * Apply any pending effects to the underlaying Horde_Image
+     *
+     * @return void
+     */
+    public function applyEffects()
+    {
+        $this->_image->applyEffects();
     }
 
     /**

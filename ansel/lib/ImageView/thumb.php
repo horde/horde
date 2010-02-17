@@ -9,10 +9,9 @@ class Ansel_ImageView_thumb extends Ansel_ImageView {
 
     function _create()
     {
-        $this->_image->_image->resize(min($GLOBALS['conf']['thumbnail']['width'], $this->_dimensions['width']),
-                                      min($GLOBALS['conf']['thumbnail']['height'], $this->_dimensions['height']),
-                                      true);
-
+        $this->_image->resize(min($GLOBALS['conf']['thumbnail']['width'], $this->_dimensions['width']),
+                              min($GLOBALS['conf']['thumbnail']['height'], $this->_dimensions['height']),
+                              true);
         return true;
     }
 

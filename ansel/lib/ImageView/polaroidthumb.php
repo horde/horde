@@ -12,9 +12,9 @@ class Ansel_ImageView_polaroidthumb extends Ansel_ImageView {
 
     function _create()
     {
-        $this->_image->_image->resize(min($GLOBALS['conf']['thumbnail']['width'], $this->_dimensions['width']),
-                                      min($GLOBALS['conf']['thumbnail']['height'], $this->_dimensions['height']),
-                                      true);
+        $this->_image->resize(min($GLOBALS['conf']['thumbnail']['width'], $this->_dimensions['width']),
+                                  min($GLOBALS['conf']['thumbnail']['height'], $this->_dimensions['height']),
+                                  true);
 
         /* Don't bother with these effects for a custom gallery default image
            (which will have a negative gallery_id). */
@@ -26,11 +26,11 @@ class Ansel_ImageView_polaroidthumb extends Ansel_ImageView {
                 $styleDef = Ansel::getStyleDefinition($this->_style);
             }
             try {
-                $this->_image->_image->addEffect('PolaroidImage',
-                                                  array('background' => $styleDef['background'],
-                                                        'padding' => 5));
+                $this->_image->addEffect('PolaroidImage',
+                                         array('background' => $styleDef['background'],
+                                               'padding' => 5));
 
-                $this->_image->_image->applyEffects();
+                $this->_image->applyEffects();
             } catch (Horde_Image_Exception $e) {
                 return false;
             }

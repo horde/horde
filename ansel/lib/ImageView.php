@@ -60,7 +60,10 @@ class Ansel_ImageView {
     function create()
     {
         if (!empty($this->_image)) {
-            $this->_dimensions = $this->_image->_image->getDimensions();
+            // Use Horde_Image since we don't know at this point which
+            // view we have loaded.
+            $img = $this->_image->getHordeImage();
+            $this->_dimensions = $img->getDimensions();
         }
 
         return $this->_create();
@@ -132,6 +135,8 @@ class Ansel_ImageView {
      * Utility function to return an array of Ansel_Images to use
      * in building a polaroid stack. Returns a random set of 5 images from
      * the gallery, or the explicitly set default image plus 4 others.
+     *
+     * @return array of Horde_Images
      */
     function _getStackImages()
     {
@@ -147,8 +152,9 @@ class Ansel_ImageView {
         $default = $gallery->get('default');
         if (!empty($default) && $default > 0) {
             try {
-                $img = &$gallery->getImage($default);
-                $images[] = &$gallery->getImage($default);
+                $img = $gallery->getImage($default);
+                $img->load('screen');
+                $images[] = $img->getHordeImage();//&$gallery->getImage($default);
                 $cnt--;
             } catch (Horde_Exception $e) {}
         }
@@ -157,7 +163,9 @@ class Ansel_ImageView {
             $rnd = mt_rand(0, $cnt);
             try {
                 $temp = $gallery->getImages($rnd, 1);
-                 $images[] = array_shift($temp);
+                $aimg = array_shift($temp);
+                $aimg->load('screen');
+                $images[] = $aimg->getHordeImage();
             } catch (Horde_Exception $e) {}
         }
 

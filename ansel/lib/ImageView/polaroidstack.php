@@ -11,14 +11,8 @@ class Ansel_ImageView_polaroidstack extends Ansel_ImageView {
 
     function _create()
     {
-        $imgobjs = array();
-        $images = $this->_getStackImages();
+        $imgobjs = $this->_getStackImages();
         $style = $this->_params['style'];
-        foreach ($images as $image) {
-            $image->load('screen');
-            $imgobjs[] = $image->_image;
-        }
-
         $params = array('width' => 100,
                         'height' => 100,
                         'background' => $style['background']);

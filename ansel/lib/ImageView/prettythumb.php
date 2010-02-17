@@ -11,9 +11,9 @@ class Ansel_ImageView_prettythumb extends Ansel_ImageView {
 
     function _create()
     {
-        $this->_image->_image->resize(min($GLOBALS['conf']['thumbnail']['width'], $this->_dimensions['width']),
-                                      min($GLOBALS['conf']['thumbnail']['height'], $this->_dimensions['height']),
-                                      true);
+        $this->_image->resize(min($GLOBALS['conf']['thumbnail']['width'], $this->_dimensions['width']),
+                              min($GLOBALS['conf']['thumbnail']['height'], $this->_dimensions['height']),
+                              true);
 
         /* Don't bother with these effects for a stack image
          * (which will have a negative gallery_id). */
@@ -27,18 +27,19 @@ class Ansel_ImageView_prettythumb extends Ansel_ImageView {
 
             try {
                 /* Apply the effects - continue on error, but be sure to log */
-                $this->_image->_image->addEffect('RoundCorners', array('border' => 2,
-                                                                       'bordercolor' => '#333'));
+                $this->_image->addEffect('RoundCorners', array('border' => 2,
+                                                               'bordercolor' => '#333'));
 
-                $this->_image->_image->addEffect('DropShadow', array('background' => $styleDef['background'],
-                                                                     'padding' => 5,
-                                                                     'distance' => 5,
-                                                                     'fade' => 3));
+                $this->_image->addEffect('DropShadow', array('background' => $styleDef['background'],
+                                                             'padding' => 5,
+                                                             'distance' => 5,
+                                                             'fade' => 3));
             } catch (Horde_Image_Exception $e) {
                 return false;
             }
+            $this->_image->applyEffects();
 
-            return $this->_image->_image->applyEffects();
+            return true;
         }
     }
 
