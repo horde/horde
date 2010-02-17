@@ -47,7 +47,7 @@
 <!-- begin left menu -->
 <div id="kronolithMenu">
   <div id="kronolithAddEvents">
-    <span id="kronolithNewEvent" class="button" accesskey="<?php echo ($ak = Horde::getAccessKey(_("_New event"))) ?>"><?php echo Horde::highlightAccessKey(_("_New event"), $ak) ?></span>
+    <span id="kronolithNewEvent" accesskey="<?php echo ($ak = Horde::getAccessKey(_("_New event"))) ?>"><?php echo Horde::highlightAccessKey(_("_New event"), $ak) ?></span>
     <span id="kronolithQuickEvent" <?php echo Horde::getAccessKeyAndTitle(_("Quick _insert")) ?>>+</span>
   </div>
 
