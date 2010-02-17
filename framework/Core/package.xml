@@ -56,8 +56,8 @@ Application Framework.
      <dir name="Core">
       <dir name="Autoloader">
        <dir name="Callback">
-        <dir name="Auth.php" role="php" />
-        <dir name="Mime.php" role="php" />
+        <file name="Auth.php" role="php" />
+        <file name="Mime.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Autoloader/Callback -->
       </dir> <!-- /lib/Horde/Core/Autoloader -->
       <dir name="Binder">
