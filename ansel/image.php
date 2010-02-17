@@ -360,9 +360,6 @@ case 'watermark':
         header('Location: ' . $imageurl);
         exit;
     } else {
-        // @TODO: Writing directly to VFS here since we only watermark the
-        //        screen images, need to refactor so that Ansel_Image can
-        //        update image data for only a specific view.
         $image = &$ansel_storage->getImage($image_id);
         $image->watermark('screen', $watermark, $watermark_halign,
                                 $watermark_valign, $watermark_font);
