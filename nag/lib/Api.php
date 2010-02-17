@@ -1208,6 +1208,7 @@ class Nag_Api extends Horde_Registry_Api
             isset($task['completed']) ? (int)$task['completed'] : $existing->completed,
             isset($task['category']) ? $task['category'] : $existing->category,
             isset($task['alarm']) ? $task['alarm'] : $existing->alarm,
+            isset($task['methods']) ? $task['methods'] : $existing->methods,
             isset($task['parent_id']) ? $task['parent_id'] : $existing->parent_id,
             isset($task['private']) ? $task['private'] : $existing->private,
             isset($task['owner']) ? $task['owner'] : $existing->owner,
