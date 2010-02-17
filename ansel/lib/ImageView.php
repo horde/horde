@@ -15,37 +15,49 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_ImageView {
-
+class Ansel_ImageView
+{
     /**
      * Ansel_Image object that this view is created from.
      *
      * @var Ansel_Image
      */
-    var $_image = null;
+    protected $_image = null;
 
     /**
      * Parameters for this view
      *
      * @var array
      */
-    var $_params = array();
+    protected $_params = array();
 
     /**
      * Image dimensions
      *
      * @var array
      */
-    var $_dimensions = array();
-
-    var $_style = array();
-
-    var $need = array();
+    protected $_dimensions = array();
 
     /**
-     * Constructor
+     * Cache the style information array
+     *
+     * @var array
      */
-    function Ansel_ImageView($params)
+    protected $_style = array();
+
+    /**
+     * Array of required, supported features for this ImageView to work
+     *
+     * @var array
+     */
+    public  $need = array();
+
+    /**
+     * Const'r
+     *
+     * @return Horde_ImageView
+     */
+    public function __construct($params)
     {
         $this->_params = $params;
         if (!empty($params['image'])) {
@@ -55,9 +67,12 @@ class Ansel_ImageView {
     }
 
     /**
-     * Function to actually create and cache the view.
+     * Create and cache the view.
+     *
+     * @return mixed  Views used as gallery key images return Horde_Image,
+     *                other views return boolean
      */
-    function create()
+    public function create()
     {
         if (!empty($this->_image)) {
             // Use Horde_Image since we don't know at this point which
@@ -70,12 +85,13 @@ class Ansel_ImageView {
     }
 
     /**
+     * Horde_ImageView factory
      *
      * @param string $type   The type of concrete instance to return.
      * @param array $params  Additional parameters needed for the instance.
      *
      * @return Ansel_ImageView
-     * @throws Horde_Exception
+     * @throws Ansel_Exception
      */
     function factory($type, $params = array())
     {
@@ -91,15 +107,14 @@ class Ansel_ImageView {
             foreach ($view->need as $need) {
                 if (!Ansel::isAvailable($need)) {
                     Horde::logMessage($err, __FILE__, __LINE__, PEAR_LOG_ERR);
-                    throw new Horde_Exception(_("This install does not support the %s feature. Please contact your administrator."), $need);
+                    throw new Ansel_Exception(_("This install does not support the %s feature. Please contact your administrator."), $need);
                 }
             }
             return $view;
         } else {
             Horde::logMessage($err, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Horde_Exception(sprintf(_("Unable to load the definition of %s."), $class));
+            throw new Ansel_Exception(sprintf(_("Unable to load the definition of %s."), $class));
         }
-
     }
 
     /**
@@ -108,15 +123,12 @@ class Ansel_ImageView {
      *
      * @param Ansel_Gallery $parent  The gallery to start looking in
      *
-     * @return An Ansel_Gallery object that has images, or the original $parent
+     * @return Ansel_Gallery  Gallery that has images, or the original $parent
      */
-    function _getGalleryWithImages($parent)
+    protected function _getGalleryWithImages($parent)
     {
-       $galleries = $GLOBALS['ansel_storage']->listGalleries(
-                                                    Horde_Perms::SHOW,
-                                                    null,
-                                                    $parent,
-                                                    false);
+        $galleries = $GLOBALS['ansel_storage']->listGalleries(
+            Horde_Perms::SHOW, null, $parent, false);
 
         foreach ($galleries as $gallery) {
             if ($gallery->countImages()) {
@@ -132,13 +144,13 @@ class Ansel_ImageView {
     }
 
    /**
-     * Utility function to return an array of Ansel_Images to use
-     * in building a polaroid stack. Returns a random set of 5 images from
-     * the gallery, or the explicitly set default image plus 4 others.
+     * Utility function to return an array of Horde_Images to use in building a
+    *  polaroid stack. Returns a random set of 5 images from the gallery, or the
+    *  explicitly set default image plus 4 others.
      *
      * @return array of Horde_Images
      */
-    function _getStackImages()
+    protected function _getStackImages()
     {
         $images = array();
         $gallery = $this->_params['gallery'];
@@ -154,7 +166,7 @@ class Ansel_ImageView {
             try {
                 $img = $gallery->getImage($default);
                 $img->load('screen');
-                $images[] = $img->getHordeImage();//&$gallery->getImage($default);
+                $images[] = $img->getHordeImage();
                 $cnt--;
             } catch (Horde_Exception $e) {}
         }

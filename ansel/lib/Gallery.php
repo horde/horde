@@ -636,10 +636,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
                                      'gallery_id' => -$this->id);
                     $newImg = new Ansel_Image($iparams);
                     $newImg->save();
-                    $prettyData = serialize(
-                        array_merge($thumbs,
-                                    array($styleHash => $newImg->id)));
-
+                    $prettyData = serialize(array_merge($thumbs, array($styleHash => $newImg->id)));
                     $this->set('default_prettythumb', $prettyData, true);
                     return $newImg->id;
                 } else {
