@@ -992,6 +992,26 @@ KronolithCore = {
     },
 
     /**
+     * Opens a tab in a form.
+     *
+     * @param Element  The A element of a tab.
+     */
+    _openTab: function(elt)
+    {
+        var dialog = elt.up('form');
+        dialog.select('.kronolithTabsOption').invoke('hide');
+        dialog.select('.tabset li').invoke('removeClassName', 'activeTab');
+        $(elt.id.replace(/Link/, 'Tab')).show();
+        elt.parentNode.addClassName('activeTab');
+        if (elt.id == 'kronolithEventLinkMap') {
+                    /* Maps */
+            if (!this.mapInitialized) {
+                this.initializeMap();
+            }
+        }
+    },
+
+    /**
      * Sets the load signature and show the loading spinner.
      *
      * @param string resource   The loading resource.
@@ -1836,6 +1856,7 @@ KronolithCore = {
             RedBox.onDisplay = null;
         };
 
+        this._openTab($('kronolithTaskForm').down('.tabset a.kronolithTabLink'));
         $('kronolithTaskForm').enable();
         $('kronolithTaskForm').reset();
         $('kronolithTaskSave').show();
@@ -2825,17 +2846,7 @@ KronolithCore = {
                 return;
 
             case 'kronolithTabLink':
-                var dialog = elt.up('form');
-                dialog.select('.kronolithTabsOption').invoke('hide');
-                dialog.select('.tabset li').invoke('removeClassName', 'activeTab');
-                $(id.replace(/Link/, 'Tab')).show();
-                elt.parentNode.addClassName('activeTab');
-                if (id == 'kronolithEventLinkMap') {
-                    /* Maps */
-                    if (!this.mapInitialized) {
-                        this.initializeMap();
-                    }
-                }
+                this._openTab(elt);
                 e.stop();
                 return;
 
@@ -3277,6 +3288,7 @@ KronolithCore = {
 
         this.updateCalendarDropDown('kronolithEventTarget');
         this.toggleAllDay(false);
+        this._openTab($('kronolithEventForm').down('.tabset a.kronolithTabLink'));
         $('kronolithEventForm').enable();
         $('kronolithEventForm').reset();
         if (Kronolith.conf.maps.driver) {
