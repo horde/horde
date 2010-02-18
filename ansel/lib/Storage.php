@@ -586,6 +586,26 @@ class Ansel_Storage
     }
 
     /**
+     * Store an image attributes to storage
+     *
+     * @param integer $image_id    The image id
+     * @param string  $attributes  The attribute name
+     * @param string  $value       The attrbute value
+     *
+     * @return void
+     * @throws Ansel_Exception
+     */
+    public function saveImageAttribute($image_id, $attribute, $value)
+    {
+        $insert = $this->_db->prepare('INSERT INTO ansel_image_attributes (image_id, attr_name, attr_value) VALUES (?, ?, ?)');
+        $result = $insert->execute(array($image_id, $attribute, Horde_String::convertCharset($value, Horde_Nls::getCharset(), $GLOBALS['conf']['sql']['charset'])));
+        if ($result instanceof PEAR_Error) {
+            throw new Ansel_Exception($result);
+        }
+        $insert->free();
+    }
+
+    /**
      * Returns the images corresponding to the given ids.
      *
      * @param array $params function parameters:
