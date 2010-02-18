@@ -62,19 +62,19 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         }
 
         // Trim extra whitespace in the text.
+        $charset = $this->_mimepart->getCharset();
         $text = trim($this->_mimepart->getContents());
         if ($text == '') {
             return array(
                 $mime_id => array(
                     'data' => '',
                     'status' => array(),
-                    'type' => $type
+                    'type' => 'text/html; charset=' . $charset
                 )
             );
         }
 
         // Convert to the local charset.
-        $charset = $this->_mimepart->getCharset();
         if ($inline) {
             $text = Horde_String::convertCharset($text, $charset);
             $charset = Horde_Nls::getCharset();
