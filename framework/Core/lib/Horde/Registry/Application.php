@@ -13,6 +13,13 @@
 class Horde_Registry_Application
 {
     /**
+     * Does this application support an ajax view?
+     *
+     * @var boolean
+     */
+    public $ajaxView = false;
+
+    /**
      * Does this application support a mobile view?
      *
      * @var boolean
