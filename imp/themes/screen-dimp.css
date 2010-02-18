@@ -912,7 +912,7 @@ span.dimpactionDrafts {
 #ctx_folder_unseen span.contextImg, #ctx_folder_poll span.contextImg, #ctx_folder_nopoll span.contextImg {
     background-image: url("graphics/mail_unseen.png");
 }
-#ctx_message_setflag span.contextImg, #ctx_draft_setflag span.contextImg, #oa_setflag span.contextImg {
+#ctx_message_setflag span.contextImg, #ctx_draft_setflag span.contextImg, #oa_setflag span.contextImg, #ctx_folder_setflag span.contextImg {
     background-image: url("graphics/mail_flagged.png");
 }
 #ctx_message_unsetflag span.contextImg, #ctx_draft_unsetflag span.contextImg, #oa_unsetflag span.contextImg {

@@ -2958,6 +2958,7 @@ var DimpBase = {
                 DM.addSubMenu(i + 'unsetflag', 'ctx_flag');
             }
         });
+        DM.addSubMenu('ctx_folder_setflag', 'ctx_folder_flag');
 
         if (DIMP.conf.disable_compose) {
             $('button_reply', 'button_forward').compact().invoke('up', 'SPAN').concat($('button_compose', 'composelink', 'ctx_contacts_new')).compact().invoke('remove');

@@ -312,8 +312,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  <a id="ctx_folder_empty"><span class="contextImg"></span><?php echo _("Empty Folder") ?></a>
  <a id="ctx_folder_delete"><span class="contextImg"></span><?php echo _("Delete Folder") ?></a>
  <div class="sep"></div>
- <a id="ctx_folder_seen"><span class="contextImg"></span><?php echo _("Mark all as Read") ?></a>
- <a id="ctx_folder_unseen"><span class="contextImg"></span><?php echo _("Mark all as New") ?></a>
+ <a id="ctx_folder_setflag"><span class="contextImg"></span><?php echo _("Mark all as") ?></a>
  <div class="sep"></div>
  <a id="ctx_folder_poll"><span class="contextImg"></span><?php echo _("Check for New Mail") ?></a>
  <a id="ctx_folder_nopoll"><span class="contextImg"></span><?php echo _("Do Not Check for New Mail") ?></a>
@@ -326,6 +325,11 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
   <a id="ctx_folder_expand"><span class="contextImg"></span><?php echo _("Expand All") ?></a>
   <a id="ctx_folder_collapse"><span class="contextImg"></span><?php echo _("Collapse All") ?></a>
  </div>
+</div>
+
+<div class="context" id="ctx_folder_flag" style="display:none">
+ <a id="ctx_folder_seen"><span class="contextImg"></span><?php echo _("Read") ?></a>
+ <a id="ctx_folder_unseen"><span class="contextImg"></span><?php echo _("Unseen") ?></a>
 </div>
 
 <div class="context" id="ctx_container" style="display:none">
