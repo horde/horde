@@ -57,7 +57,7 @@ if ($form->validate()) {
     }
 
     // Full path to any sound files.
-    if (isset($params['notify']['sound'])) {
+    if (!empty($params['notify']['sound'])) {
         $params['notify']['sound'] = $registry->get('themesuri', 'horde') . '/sounds/' . $params['notify']['sound'];
     }
 
