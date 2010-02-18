@@ -1534,8 +1534,7 @@ class IMP_Compose
             'subject' => ''
         );
 
-        if ($GLOBALS['prefs']->isLocked('forward_default') ||
-            ($type == 'forward_auto')) {
+        if ($type == 'forward_auto') {
             if (!($type = $GLOBALS['prefs']->getValue('forward_default'))) {
                 $type = 'attach';
             }
