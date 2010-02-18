@@ -129,26 +129,27 @@ KronolithCore = {
                 return true;
 
             case 'horde.alarm':
+                var alarm = m.flags.alarm;
                 // Only show one instance of an alarm growl.
-                if (this.alarms.indexOf(m.alarm.id) != -1) {
+                if (this.alarms.indexOf(alarm.id) != -1) {
                     break;
                 }
                 if (m.type == 'horde.alarm') {
-                    this.alarms.push(m.alarm.id);
+                    this.alarms.push(alarm.id);
                 }
 
-                message = m.alarm.title.escapeHTML();
-                if (!Object.isUndefined(m.alarm.ajax)) {
+                message = alarm.title.escapeHTML();
+                if (!Object.isUndefined(alarm.ajax)) {
                     message = new Element('a')
                         .insert(message)
-                        .observe('click', function() { this.go(m.alarm.ajax); }.bind(this));
-                } else if (!Object.isUndefined(m.alarm.url)) {
-                    message = new Element('a', { href: m.alarm.url })
+                        .observe('click', function() { this.go(alarm.ajax); }.bind(this));
+                } else if (!Object.isUndefined(alarm.url)) {
+                    message = new Element('a', { href: alarm.url })
                         .insert(message);
                 }
                 message = new Element('div')
                     .insert(message);
-                if (m.alarm.user) {
+                if (alarm.user) {
                     var select = new Element('select');
                         $H(Kronolith.conf.snooze).each(function(snooze) {
                             select.insert(new Element('option', { value: snooze.key }).insert(snooze.value));
@@ -163,15 +164,15 @@ KronolithCore = {
                 });
 
                 document.observe('Growler:destroyed', function() {
-                    this.alarms = this.alarms.without(m.alarm.id);
+                    this.alarms = this.alarms.without(alarm.id);
                 }.bind(this));
 
-                if (m.alarm.user) {
+                if (alarm.user) {
                     select.observe('change', function() {
                         if (select.getValue()) {
                             new Ajax.Request(
                                 Kronolith.conf.URI_SNOOZE,
-                                { parameters: { alarm: m.alarm.id,
+                                { parameters: { alarm: alarm.id,
                                                 snooze: select.getValue() },
                                   onSuccess: function() {
                                       this.Growler.ungrowl(growl);
