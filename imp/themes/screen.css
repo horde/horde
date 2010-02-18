@@ -376,14 +376,10 @@ table.accountsmanagement td.noneconfigured {
     background: #f00;
 }
 
+/* Pad the addressbook icon in header compose links. */
 td.msgheader {
     width: 100%;
 }
-table.multipleMsgs td.msgheader {
-    width: auto;
-}
-
-/* Pad the addressbook icon in header compose links. */
 .msgheader img {
     vertical-align: middle;
     padding: 1px 1px 1px 2px;
@@ -430,6 +426,26 @@ span.spellcheckPopdownImg:hover {
 }
 .largeaddrlist:hover {
     text-decoration: underline;
+}
+
+/* Thread page */
+.threadSummary {
+    margin: 5px 3px;
+}
+.threadSummary div {
+    height: 16px;
+}
+.threadBox {
+    margin: 3px;
+}
+.threadBox div.item0 {
+    padding: 1px 2px;
+}
+.threadBox span.threadlink {
+    float: right;
+}
+.threadBox .messageBody {
+    border-bottom: 0;
 }
 
 /* Thread/folder images */

@@ -113,12 +113,9 @@ foreach ($loop_array as $mbox => $idxlist) {
         }
 
         $subject_header = htmlspecialchars($envelope['subject'], ENT_COMPAT, $charset);
-        if ($mode == 'thread') {
-            if (empty($subject)) {
-                $subject = preg_replace('/^re:\s*/i', '', $subject_header);
-            }
+        if (($mode == 'thread') && empty($subject)) {
+            $subject = preg_replace('/^re:\s*/i', '', $subject_header);
         }
-        $curr_msg['subject'] = $subject_header;
 
         /* Create links to current message and mailbox. */
         if ($mode == 'thread') {
@@ -129,7 +126,6 @@ foreach ($loop_array as $mbox => $idxlist) {
         $curr_msg['link'] .= ' | ' . Horde::widget(IMP::generateIMPUrl('message.php', $imp_mbox['mailbox'], $idx, $mbox), _("Go to Message"), 'widget', '', '', _("Go to Message"), true);
         $curr_msg['link'] .= ' | ' . Horde::widget(IMP::generateIMPUrl('mailbox.php', $mbox)->add(array('start' => $imp_mailbox->getArrayIndex($idx))), sprintf(_("Back to %s"), $page_label), 'widget', '', '', sprintf(_("Bac_k to %s"), $page_label));
 
-        $curr_tree['class'] = (++$rowct % 2) ? 'text' : 'item0';
         $curr_tree['subject'] = (($mode == 'thread') ? $threadtree[$idx] : null) . ' ' . Horde::link('#i' . $idx) . Horde_String::truncate($subject_header, 60) . '</a> (' . $addr . ')';
 
         $msgs[] = $curr_msg;
@@ -161,6 +157,7 @@ $template->set('tree', $tree);
 
 /* Output page. */
 $title = ($mode == 'thread') ? _("Thread View") : _("Multiple Message View");
+Horde::addScriptFile('stripe.js', 'horde');
 IMP::prepareMenu();
 require IMP_TEMPLATES . '/common-header.inc';
 IMP::menu();
