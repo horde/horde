@@ -386,7 +386,7 @@ class Horde_Alarm
                 if (in_array($alarm_method, $methods) &&
                     !in_array($alarm_method, $exclude)) {
                     try {
-                        $result = $this->{'_' . $alarm_method}($alarm);
+                        $this->{'_' . $alarm_method}($alarm);
                     } catch (Horde_Alarm_Exception $e) {
                         Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
                     }
