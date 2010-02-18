@@ -2965,8 +2965,10 @@ var DimpBase = {
             this._addMouseEvents({ id: 'button_reply', type: 'reply' }, $('button_reply'));
             DM.disable('button_reply_img', true, true);
 
-            this._addMouseEvents({ id: 'button_forward', type: 'forward' }, $('button_forward'));
-            DM.disable('button_forward_img', true, true);
+            if ($('ctx_forward')) {
+                this._addMouseEvents({ id: 'button_forward', type: 'forward' }, $('button_forward'));
+                DM.disable('button_forward_img', true, true);
+            }
         }
 
         new Drop('dropbase', this._folderDropConfig);
