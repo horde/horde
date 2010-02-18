@@ -14,7 +14,7 @@
 <div>
   <label><?php echo _("Color") ?>:<br />
     <input type="text" name="color" id="kronolithCalendarinternalColor" size="7" />
-    <?php echo Horde::url('#')->link(array('title' => _("Color Picker"), 'onclick' => 'new ColorPicker({ color: $F(\'kronolithCalendarinternalColor\'), offsetParent: Event.element(event), update: [[\'kronolithCalendarinternalColor\', \'value\'], [\'kronolithCalendarinternalColor\', \'background\']] }); return false;')) . Horde::img('colorpicker.png', _("Color Picker"), '', $GLOBALS['registry']->getImageDir('horde')) . '</a>' ?>
+    <?php echo Horde::url('#')->link(array('title' => _("Color Picker"), 'class' => 'kronolithColorPicker')) . Horde::img('colorpicker.png', _("Color Picker"), '', $GLOBALS['registry']->getImageDir('horde')) . '</a>' ?>
   </label>
 </div>
 

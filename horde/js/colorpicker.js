@@ -138,6 +138,10 @@ var ColorPicker = Class.create({
 
     removeEvents: function()
     {
+        if (!this.listeners) {
+            return;
+        }
+
         this.listeners.each(function(l) {
             $(l[0]).stopObserving(l[1], l[2]);
         });

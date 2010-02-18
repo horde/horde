@@ -16,7 +16,7 @@ var frames = { horde_main: true },
 KronolithCore = {
     // Vars used and defaulting to null/false:
     //   DMenu, Growler, inAjaxCallback, is_logout,
-    //   daySizes, viewLoading, freeBusy
+    //   daySizes, viewLoading, freeBusy, colorPicker
 
     view: '',
     ecache: $H(),
@@ -2840,6 +2840,10 @@ KronolithCore = {
                 return;
 
             case 'kronolithFormCancel':
+                Horde_Calendar.hideCal();
+                if (this.colorPicker) {
+                    this.colorPicker.hide();
+                }
                 this._closeRedBox();
                 this.resetMap();
                 window.history.back();
@@ -2876,6 +2880,17 @@ KronolithCore = {
                     date += 'all';
                 }
                 this.go('event:' + date);
+                e.stop();
+                return;
+
+            case 'kronolithColorPicker':
+                var input = elt.previous();
+                this.colorPicker = new ColorPicker({
+                    color: $F(input),
+                    offsetParent: elt,
+                    update: [[input, 'value'],
+                             [input, 'background']]
+                });
                 e.stop();
                 return;
             }
