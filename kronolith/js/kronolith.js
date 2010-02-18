@@ -2028,13 +2028,13 @@ KronolithCore = {
     {
         if ($('kronolithCalendarDialog')) {
             RedBox.showHtml($('kronolithCalendarDialog').show());
-            this.editCalendar(calendar);
+            this.editCalendarCallback(calendar);
         } else {
             RedBox.loading();
             this.doAction('ChunkContent', { chunk: 'calendar' }, function(r) {
                 if (r.response.chunk) {
                     RedBox.showHtml(r.response.chunk);
-                    this.editCalendar(calendar);
+                    this.editCalendarCallback(calendar);
                 } else {
                     this.closeRedBox();
                 }
@@ -2048,7 +2048,7 @@ KronolithCore = {
      *
      * @param string calendar  Calendar type and calendar id, separated by '|'.
      */
-    editCalendar: function(calendar)
+    editCalendarCallback: function(calendar)
     {
         calendar = calendar.split('|');
         var type = calendar[0];
