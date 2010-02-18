@@ -22,7 +22,7 @@ class Horde_Core_Notification_Status extends Horde_Notification_Event_Status
      */
     public function __construct($data, $type = null, array $flags = array())
     {
-        if (is_null($type)) {
+        if (empty($type)) {
             $type = ($data instanceof PEAR_Error || $data instanceof Exception)
                 ? 'horde.error'
                 : (is_string($data) ? 'horde.message' : 'horde.error');
@@ -81,26 +81,29 @@ class Horde_Core_Notification_Status extends Horde_Notification_Event_Status
         case 'horde.error':
             $img = 'alerts/error.png';
             $label = _("Error");
-            $text = parent::__toString($this->message);
+            $text = parent::__toString();
             break;
 
         case 'horde.message':
             $img = 'alerts/message.png';
             $label = _("Message");
-            $text = parent::__toString($this->message);
+            $text = parent::__toString();
             break;
 
         case 'horde.success':
             $img = 'alerts/success.png';
             $label = _("Success");
-            $text = parent::__toString($this->message);
+            $text = parent::__toString();
             break;
 
         case 'horde.warning':
             $img = 'alerts/warning.png';
             $label = _("Warning");
-            $text = parent::__toString($this->message);
+            $text = parent::__toString();
             break;
+
+        default:
+            return parent::__toString();
         }
 
         return Horde::img($img, $label, null, $GLOBALS['registry']->getImageDir('horde')) . $text;

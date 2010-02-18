@@ -36,10 +36,10 @@ class IMP_Notification_Event_Status extends Horde_Core_Notification_Status
             break;
 
         default:
-            return parent::toString();
+            return parent::__toString();
         }
 
-        return Horde::img($img, $label, null, $GLOBALS['registry']->getImageDir('horde')) . parent::toString();
+        return Horde::img($img, $label, null, $GLOBALS['registry']->getImageDir('imp')) . parent::__toString();
     }
 
 }
