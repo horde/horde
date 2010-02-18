@@ -1865,7 +1865,7 @@ KronolithCore = {
         this.updateTasklistDropDown();
         if (id) {
             RedBox.loading();
-            this.doAction('GetTask', { list: tasklist, id: id }, this.editTask.bind(this));
+            this.doAction('GetTask', { list: tasklist, id: id }, this.editTaskCallback.bind(this));
         } else {
             $('kronolithTaskId').clear();
             $('kronolithTaskOldList').clear();
@@ -1885,7 +1885,7 @@ KronolithCore = {
      *
      * @param object r  The ajax response object.
      */
-    editTask: function(r)
+    editTaskCallback: function(r)
     {
         if (!r.response.task) {
             RedBox.close();
