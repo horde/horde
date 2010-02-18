@@ -39,7 +39,6 @@ if (empty($rss)) {
     $author = '';
 
     // Determine what we are requesting
-    // @TODO - category
     switch ($stream_type) {
     case 'all':
         $images = $ansel_storage->getRecentImages();

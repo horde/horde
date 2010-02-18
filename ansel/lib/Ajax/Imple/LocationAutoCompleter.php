@@ -31,7 +31,6 @@ class Ansel_Ajax_Imple_LocationAutoCompleter extends Horde_Ajax_Imple_AutoComple
             if ($results instanceof PEAR_Error) {
                 Horde::logMessage($results, __FILE__, __LINE__, PEAR_LOG_ERR);
             } else {
-                // @TODO: This should be a config param?
                 $_SESSION['ansel']['ajax_locationac'] = (count($results) > 50);
             }
         }

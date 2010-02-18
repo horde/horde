@@ -65,11 +65,6 @@ class Ansel_Tile_DateGallery {
                                'day' => date('j', $full_date->timestamp()));
         }
 
-        /* Get the currently displayed gallery view type */
-        // @TODO: $view would only be needed if we are displaying this tile in a
-        //        search result view as well. (Not implemented yet)
-        //$view = Horde_Util::getFormData('view', 'Gallery');
-
         /* Check permissions on the gallery and get appropriate tile image */
         if ($dgallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
             if (is_null($style)) {

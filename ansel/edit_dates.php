@@ -24,9 +24,6 @@ if (!empty($gallery_id)) {
         Horde_Util::closeWindowJS('window.opener.location.href = window.opener.location.href; window.close();');
         exit;
     }
-} else {
-    // TODO - right now we should *always* have a gallery_id. If we get here
-    //        from a results view, we may not, but that's not implemented yet.
 }
 
 /* Make sure we have at least one image */

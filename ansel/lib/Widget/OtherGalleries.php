@@ -54,9 +54,6 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
     /**
      * Build the HTML for the other galleries widget content.
      *
-     * @TODO Allow the sort order and maybe the count of galleries returned
-     *       to be configurable via the params array.
-     *
      * @return string  The HTML
      */
     protected function _getOtherGalleries()
@@ -66,23 +63,22 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
         /* Set up the tree */
         $tree = Horde_Tree::singleton('otherAnselGalleries_' . md5($owner), 'Javascript');
         $tree->setOption(array('class' => 'anselWidgets'));
-        $gals = $GLOBALS['ansel_storage']->listGalleries(Horde_Perms::SHOW, $owner,
-                                                         null, true, 0, 0,
-                                                         'name', 0);
+
+        try {
+            $gals = $GLOBALS['ansel_storage']->listGalleries(Horde_Perms::SHOW, $owner,
+                                                             null, true, 0, 0,
+                                                            'name', 0);
+        } catch (Ansel_Exception $e) {
+            Horde::logMessage($gal, __FILE__, __LINE__, PEAR_LOG_ERR);
+            return '';
+        }
 
         $html = '<div style="display:'
             . (($GLOBALS['prefs']->getValue('show_othergalleries')) ? 'block' : 'none')
             . ';background:' . $this->_style['background']
             . ';width:100%;max-height:300px;overflow:auto;" id="othergalleries" >';
 
-        //@TODO - for now, Horde_Share will still return PEAR_Error,
-        //        this will be fixed when Ansel_Gallery is refactored.
         foreach($gals as $gal) {
-            if (is_a($gal, 'PEAR_Error')) {
-                Horde::logMessage($gal, __FILE__, __LINE__, PEAR_LOG_ERR);
-                return '';
-            }
-
             $parents = $gal->get('parents');
             if (empty($parents)) {
                 $parent = null;
@@ -117,8 +113,6 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
                  . (($GLOBALS['prefs']->getValue('show_othergalleries'))
                  ? 'hide'
                  : 'show') . '">&nbsp;</a></div>' . "\n";
-
-
 
         return $html;
     }

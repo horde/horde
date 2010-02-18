@@ -13,9 +13,9 @@
 class Ansel_Widget_ImageFaces extends Ansel_Widget_Base
 {
     /**
-     * @TODO
+     * The views this Widget may appear in
      *
-     * @var unknown_type
+     * @var array
      */
     private $_supported_views = array('Image');
 

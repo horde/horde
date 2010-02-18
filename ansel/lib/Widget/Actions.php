@@ -22,8 +22,7 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
     }
 
     /**
-     * TODO
-     *
+     * 
      * @see ansel/lib/Widget/Ansel_Widget_Base#html()
      */
     public function html()

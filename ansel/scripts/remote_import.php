@@ -272,8 +272,6 @@ function processDirectory($dir, $parent = null, $gallery_id = null, $slug = null
 /**
  * Read an image from the filesystem.
  *
- * @TODO: pass in location of magic_db?
- *
  * @param string $file     The filename of the image.
  *
  * @return array  The image data of the file as an array or PEAR_Error

@@ -911,7 +911,7 @@ class Ansel_Storage
     *                               1 - descending
     *
     * @return array of Ansel_Gallery objects
-    * @throws Horde_Exception
+    * @throws Ansel_Exception
     */
     public function listGalleries($perm = Horde_Perms::SHOW,
                            $attributes = null,

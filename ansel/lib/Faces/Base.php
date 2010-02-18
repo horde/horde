@@ -429,22 +429,21 @@ class Ansel_Faces_Base
      * @param string  $name      Face name
      *
      * @return array Faces found
-     * @throws Horde_Exception
+     * @throws Ansel_Exception, Horde_Exception_PermissionDenied
      */
     public function saveCustomFace($face_id, $image, $x1, $y1, $x2, $y2, $name = '')
     {
         $image = &$GLOBALS['ansel_storage']->getImage($image);
         $gallery = $GLOBALS['ansel_storage']->getGallery($image->gallery);
         if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
-            //TODO: Do we throw exceptions for access denied?
-            throw new Horde_Exception('Access denied editing the photo.');
+            throw new Horde_Exception_PermissionDenied('Access denied editing the photo.');
         }
 
         if (empty($face_id)) {
             $new = true;
             $face_id = $GLOBALS['ansel_db']->nextId('ansel_faces');
             if ($face_id instanceof PEAR_Error) {
-                throw new Horde_Exception_Prior($face_id);
+                throw new Ansel_Exception($face_id);
             }
         }
 

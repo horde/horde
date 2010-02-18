@@ -9,7 +9,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @TODO: Refactor the JS out to a seperate file, output needed values in the
- *        GLOBAL Ansel javascript object.
+ *        GLOBAL Ansel javascript object. Rewrite for Horde_Map js.
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel

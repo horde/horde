@@ -35,7 +35,7 @@ abstract class Ansel_View_GalleryRenderer_Base
 
     /**
      * The current page we are viewing
-     * //TODO: use __get() for these type of things...
+     * 
      * @var integer
      */
     public $page = 0;

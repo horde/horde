@@ -123,7 +123,6 @@ abstract class Ansel_Widget_Base
      * Determine if a particular view (Image, Gallery etc..) is supported
      * by this widget.
      *
-     * @TODO
      * @param string $view  The view to check
      *
      * @return boolean

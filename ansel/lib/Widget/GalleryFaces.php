@@ -13,9 +13,9 @@
 class Ansel_Widget_GalleryFaces extends Ansel_Widget_Base
 {
     /**
-     * @TODO
+     * Supported views for this widget
      *
-     * @var unknown_type
+     * @var array
      */
     protected $_supported_views = array('Gallery');
 

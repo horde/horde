@@ -112,7 +112,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
      *
      * @return mixed true || PEAR_Error on failure.
      */
-    function _save()
+    public function _save()
     {
         // Check for invalid characters in the slug.
         if (!empty($this->data['attribute_slug']) &&
