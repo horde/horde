@@ -134,9 +134,8 @@ KronolithCore = {
                 if (this.alarms.indexOf(alarm.id) != -1) {
                     break;
                 }
-                if (m.type == 'horde.alarm') {
-                    this.alarms.push(alarm.id);
-                }
+
+                this.alarms.push(alarm.id);
 
                 message = alarm.title.escapeHTML();
                 if (!Object.isUndefined(alarm.ajax)) {
