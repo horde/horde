@@ -360,6 +360,10 @@ body.kronolithAjax {
     color: #808080;
 }
 
+.kronolithDatePicker {
+    cursor: pointer;
+}
+
 /* Logo */
 #kronolithLogo {
     display: none;

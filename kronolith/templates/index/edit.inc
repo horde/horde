@@ -37,7 +37,7 @@
       <label>
         <?php echo _("From") ?>:<br />
         <input type="text" name="start_date" id="kronolithEventStartDate" size="10" />
-        <?php echo Horde::img('picker.png', _("Set start date"), 'id="kronolithEventStartPicker"') ?>
+        <?php echo Horde::img('picker.png', _("Set start date"), 'id="kronolithEventStartPicker" class="kronolithDatePicker"') ?>
       </label>
       <label id="kronolithEventStartTimeLabel">
         <?php echo _("at") ?>
@@ -47,7 +47,7 @@
     <td>
       <label><?php echo _("To") ?>:<br />
         <input type="text" name="end_date" id="kronolithEventEndDate" size="10" />
-        <?php echo Horde::img('picker.png', _("Set end date"), 'id="kronolithEventEndPicker"') ?>
+        <?php echo Horde::img('picker.png', _("Set end date"), 'id="kronolithEventEndPicker" class="kronolithDatePicker"') ?>
       </label>
       <label id="kronolithEventEndTimeLabel">
         <?php echo _("at") ?>
@@ -154,7 +154,8 @@
     <?php printf(_("Stop %s never%s, or %s at %s , or %s after %s recurrences %s"),
     '<label><input type="radio" name="recur_end_type" value="none" checked="checked" />', '</label>',
     '<label><input type="radio" name="recur_end_type" value="date" />', '</label>
-    <input type="text" name="recur_end_date" id="kronolithEventRecurDate" size="10" class="kronolithDatePicker" />',
+    <input type="text" name="recur_end_date" id="kronolithEventRecurDate" size="10" /> '
+    . Horde::img('picker.png', _("Set end date"), 'id="kronolithEventRecurPicker" class="kronolithDatePicker"'),
     '<label><input type="radio" name="recur_end_type" value="count" />', '</label>
     <label><input type="text" name="recur_count" id="kronolithEventRecurCount" value="" size="2" class="kronolithEventValue" />', '</label>') ?>
     <br />
