@@ -104,7 +104,7 @@ case 'testTransparentBGWithBorder':
     $image->rectangle(30, 30, 100, 60, 'black', 'yellow');
     $image->roundedRectangle(30, 30, 100, 60, 15, 'black', 'red');
     $image->circle(30, 30, 30, 'black', 'blue');
-    $image->addEffect('border', array('bordercolor' => 'blue',
+    $image->addEffect('Border', array('bordercolor' => 'blue',
                                       'borderwidth' => 1));
     $image->display();
     $time = xdebug_time_index() - $time;
