@@ -6,13 +6,13 @@
 
 <div class="kronolithCalendarDiv" id="kronolithCalendarinternal1">
 <div>
-  <label><?php echo _("Name") ?>:<br />
+  <label><?php echo _("Calendar title") ?>:<br />
     <input type="text" name="name" id="kronolithCalendarinternalName" class="kronolithLongField" />
   </label>
 </div>
 
 <div>
-  <label><?php echo _("Color") ?>:<br />
+  <label><?php echo _("Color") ?>:
     <input type="text" name="color" id="kronolithCalendarinternalColor" size="7" />
     <?php echo Horde::url('#')->link(array('title' => _("Color Picker"), 'class' => 'kronolithColorPicker')) . Horde::img('colorpicker.png', _("Color Picker"), '', $GLOBALS['registry']->getImageDir('horde')) . '</a>' ?>
   </label>
