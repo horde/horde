@@ -156,14 +156,14 @@ class Nag_Application extends Horde_Registry_Application
         /* Get the share for later deletion */
         $share = $GLOBALS['nag_shares']->getShare($user);
         if(is_a($share, 'PEAR_Error')) {
-            Horde::logMessage($share->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($share, 'ERR');
             unset($share);
         } else {
             /* Get the list of all tasks */
             $tasks = Nag::listTasks(null, null, null, $user, 1);
             if (is_a($tasks, 'PEAR_Error')) {
                 $hasError = true;
-                Horde::logMessage($share->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($share, 'ERR');
             } else {
                 $uids = array();
                 $tasks->reset();
@@ -187,7 +187,7 @@ class Nag_Application extends Horde_Registry_Application
             $result = $GLOBALS['nag_shares']->removeShare($share);
             if (is_a($result, 'PEAR_Error')) {
                 $hasError = true;
-                Horde::logMessage($result->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
             }
         }
 
@@ -195,7 +195,7 @@ class Nag_Application extends Horde_Registry_Application
         $shares = $GLOBALS['nag_shares']->listShares($user);
         if (is_a($shares, 'PEAR_Error')) {
             $hasError = true;
-            Horde::logMessage($shares, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($shares, 'ERR');
         }
         foreach ($shares as $share) {
             $share->removeUser($user);

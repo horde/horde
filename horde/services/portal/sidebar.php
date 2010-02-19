@@ -227,14 +227,14 @@ foreach ($menu as $app => $params) {
         try {
             $block = Horde_Block_Collection::getBlock($params['app'], $params['blockname']);
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             continue;
         }
 
         try {
             $block->buildTree($tree, 0, isset($params['menu_parent']) ? $params['menu_parent'] : null);
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             continue;
         }
     } else {

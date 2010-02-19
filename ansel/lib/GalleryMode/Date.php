@@ -557,7 +557,7 @@ class Ansel_GalleryMode_Date {
                                                  array('ansel', $image->id));
 
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __LINE__, __FILE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return false;
             }
         }

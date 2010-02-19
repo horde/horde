@@ -288,7 +288,7 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
         $query = str_replace('\L', $this->_db->quote($userId), $query);
         $pw = $this->_db->getOne($query);
         if ($pw instanceof PEAR_Error) {
-            Horde::logMessage($pw, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($pw, __FILE__, __LINE__, 'ERR');
             return '';
         }
 

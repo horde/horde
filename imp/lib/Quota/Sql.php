@@ -90,7 +90,7 @@ class IMP_Quota_Sql extends IMP_Quota
                 $quota['limit'] = current($row);
             }
         } else {
-            Horde::logMessage('IMP_Quota_Sql: query_quota SQL query not set', __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('IMP_Quota_Sql: query_quota SQL query not set', 'DEBUG');
         }
 
         if (!empty($this->_params['query_used'])) {
@@ -111,7 +111,7 @@ class IMP_Quota_Sql extends IMP_Quota
                 $quota['usage'] = current($row);
             }
         } else {
-            Horde::logMessage('IMP_Quota_Sql: query_used SQL query not set', __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('IMP_Quota_Sql: query_used SQL query not set', 'DEBUG');
         }
 
         return $quota;

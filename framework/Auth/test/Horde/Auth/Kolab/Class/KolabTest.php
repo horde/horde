@@ -34,11 +34,6 @@ class Horde_Auth_Kolab_Class_KolabTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        @include_once 'Log.php';
-        if (!defined('PEAR_LOG_DEBUG')) {
-            $this->markTestSkipped('The PEAR_LOG_DEBUG constant is not available!');
-        }
-
         $this->session = $this->getMock('Horde_Kolab_Session_Interface');
         $this->factory = $this->getMock('Horde_Kolab_Session_Factory_Interface');
 

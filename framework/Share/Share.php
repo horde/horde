@@ -472,14 +472,14 @@ class Horde_Share {
     function getPermissions($share, $user = null)
     {
         if (is_a($share, 'PEAR_Error')) {
-            Horde::logMessage($share, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($share, 'ERR');
             return false;
         }
 
         if (!is_a($share, 'Horde_Share_Object')) {
             $share = $this->getShare($share);
             if (is_a($share, 'PEAR_Error')) {
-                Horde::logMessage($share, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($share, 'ERR');
                 return false;
             }
         }
@@ -793,7 +793,7 @@ class Horde_Share_Object {
             $locks = &Horde_Lock::singleton($GLOBALS['conf']['lock']['driver']);
         } catch (Horde_Lock_Exception $e) {
             $locks = PEAR::raiseError($e->getMessage());
-            Horde::logMessage($locks, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($locks, 'ERR');
             return $locks;
         }
 
@@ -853,7 +853,7 @@ class Horde_Share_Object {
             $locks = &Horde_Lock::singleton($GLOBALS['conf']['lock']['driver']);
         } catch (Horde_Lock_Exception $e) {
             $locks = PEAR::raiseError($e->getMessage());
-            Horde::logMessage($locks, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($locks, 'ERR');
             return $locks;
         }
 
@@ -879,7 +879,7 @@ class Horde_Share_Object {
             $locks = &Horde_Lock::singleton($GLOBALS['conf']['lock']['driver']);
         } catch (Horde_Lock_Exception $e) {
             $locks = PEAR::raiseError($e->getMessage());
-            Horde::logMessage($locks, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($locks, 'ERR');
             return $locks;
         }
 
@@ -891,7 +891,7 @@ class Horde_Share_Object {
             $result = $locks->getLocks($this->_shareOb->getApp(), $shareid, $locktype);
         } catch (Horde_Lock_Exception $e) {
             $result = PEAR::raiseError($e->getMessage());
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -902,7 +902,7 @@ class Horde_Share_Object {
                 $result = $locks->getLocks($this->_shareOb->getApp() . ':' . $shareid, $item_uid, $locktype);
             } catch (Horde_Lock_Exception $e) {
                 $result = PEAR::raiseError($e->getMessage());
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
         } else {

@@ -8,7 +8,6 @@ class BackendStub {
     function logMessage() {}
 }
 $backend = new BackendStub();
-define('PEAR_LOG_DEBUG', null);
 
 // Load device handler.
 require_once dirname(__FILE__) . '/../SyncML/Device.php';

@@ -37,7 +37,7 @@ case 'vfs':
         $vfs = VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs', $conf['vfs']['type']));
         $file_data = $vfs->read($path, $file);
     } catch (VFS_Exception $e) {
-        Horde::logMessage(sprintf('Error displaying image [%s]: %s', $path . '/' . $file, $e->getMessage()), __FILE__, __LINE__, PEAR_LOG_ERR);
+        Horde::logMessage(sprintf('Error displaying image [%s]: %s', $path . '/' . $file, $e->getMessage()), 'ERR');
         exit;
     }
 
@@ -60,7 +60,7 @@ case 'tmp':
         }
     }
     if (!file_exists($file_name)) {
-        Horde::logMessage(sprintf('Image not found [%s]', $file_name), __FILE__, __LINE__, PEAR_LOG_ERR);
+        Horde::logMessage(sprintf('Image not found [%s]', $file_name), 'ERR');
         exit;
     }
     $file_data = file_get_contents($file_name);

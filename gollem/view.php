@@ -31,14 +31,14 @@ $data = '';
 if (is_callable(array($GLOBALS['gollem_vfs'], 'readStream'))) {
     $stream = $GLOBALS['gollem_vfs']->readStream($filedir, $filename);
     if (is_a($stream, 'PEAR_Error')) {
-        Horde::logMessage($stream, __FILE__, __LINE__, PEAR_LOG_NOTICE);
+        Horde::logMessage($stream, 'NOTICE');
         printf(_("Access denied to %s"), $filename);
         exit;
     }
 } else {
     $data = $GLOBALS['gollem_vfs']->read($filedir, $filename);
     if (is_a($data, 'PEAR_Error')) {
-        Horde::logMessage($data, __FILE__, __LINE__, PEAR_LOG_NOTICE);
+        Horde::logMessage($data, 'NOTICE');
         printf(_("Access denied to %s"), $filename);
         exit;
     }

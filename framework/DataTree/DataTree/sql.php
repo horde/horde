@@ -76,7 +76,7 @@ class DataTree_sql extends DataTree {
     {
         $query = 'SELECT DISTINCT group_uid FROM ' .  $this->_params['table'];
 
-        Horde::logMessage('SQL Query by DataTree_sql::getGroups(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by DataTree_sql::getGroups(): ' . $query, 'DEBUG');
 
         return $this->_db->getCol($query);
     }
@@ -123,7 +123,7 @@ class DataTree_sql extends DataTree {
             return true;
         }
 
-        Horde::logMessage('SQL Query by DataTree_sql::_load(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by DataTree_sql::_load(): ' . $query, 'DEBUG');
         $data = $this->_db->getAll($query);
         if (is_a($data, 'PEAR_Error')) {
             return $data;
@@ -148,7 +148,7 @@ class DataTree_sql extends DataTree {
         if (empty($query)) {
             return 0;
         }
-        Horde::logMessage('SQL Query by DataTree_sql::_count(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by DataTree_sql::_count(): ' . $query, 'DEBUG');
         return (int)$this->_db->getOne($query);
     }
 
@@ -253,7 +253,7 @@ class DataTree_sql extends DataTree {
         $values = array($root,
                         $this->_params['group']);
 
-        Horde::logMessage('SQL Query by DataTree_sql::_buildParentIds(): ' . $query . ', ' . var_export($values, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by DataTree_sql::_buildParentIds(): ' . $query . ', ' . var_export($values, true), 'DEBUG');
         $root = $this->_db->getAssoc($query, false, $values);
         if (is_a($root, 'PEAR_Error') || !count($root)) {
             return '';
@@ -334,7 +334,7 @@ class DataTree_sql extends DataTree {
                          $this->_params['table'],
                          $in,
                          $this->_db->quote($this->_params['group']));
-        Horde::logMessage('SQL Query by DataTree_sql::_loadById(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by DataTree_sql::_loadById(): ' . $query, 'DEBUG');
         $parents = $this->_db->getAssoc($query);
         if (is_a($parents, 'PEAR_Error')) {
             return $parents;
@@ -367,7 +367,7 @@ class DataTree_sql extends DataTree {
                  ' AND group_uid = ? ORDER BY datatree_id';
         $values = array_merge($ids, array($this->_params['group']));
 
-        Horde::logMessage('SQL Query by DataTree_sql::_loadById(): ' . $query . ', ' . var_export($values, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by DataTree_sql::_loadById(): ' . $query . ', ' . var_export($values, true), 'DEBUG');
         $data = $this->_db->getAll($query, $values);
         if (is_a($data, 'PEAR_Error')) {
             return $data;
@@ -392,7 +392,7 @@ class DataTree_sql extends DataTree {
         $object_parents = '';
         foreach ($object_names as $name) {
             $values = array($this->_params['group'], $name, $object_parents);
-            Horde::logMessage('SQL Query by DataTree_sql::_exists(): ' . $query . ', ' . var_export($values, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('SQL Query by DataTree_sql::_exists(): ' . $query . ', ' . var_export($values, true), 'DEBUG');
 
             $result = $this->_db->getOne($query, $values);
             if (is_a($result, 'PEAR_Error') || !$result) {
@@ -444,7 +444,7 @@ class DataTree_sql extends DataTree {
         $query = 'SELECT datatree_name FROM ' . $this->_params['table'] .
             ' WHERE group_uid = ? AND datatree_id = ?';
         $values = array($this->_params['group'], (int)$id);
-        Horde::logMessage('SQL Query by DataTree_sql::_getName(): ' . $query . ', ' . var_export($values, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by DataTree_sql::_getName(): ' . $query . ', ' . var_export($values, true), 'DEBUG');
 
         $name = $this->_db->getOne($query, $values);
         if (is_a($name, 'PEAR_Error')) {
@@ -536,7 +536,7 @@ class DataTree_sql extends DataTree {
         /* Get the next unique ID. */
         $id = $this->_write_db->nextId($this->_params['table']);
         if (is_a($id, 'PEAR_Error')) {
-            Horde::logMessage($id, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($id, 'ERR');
             return $id;
         }
 
@@ -606,16 +606,16 @@ class DataTree_sql extends DataTree {
                         (int)$ser,
                         $parents);
 
-        Horde::logMessage('SQL Query by DataTree_sql::add(): ' . $query . ', ' . var_export($values, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by DataTree_sql::add(): ' . $query . ', ' . var_export($values, true), 'DEBUG');
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
         $reorder = $this->reorder($parents, $order, $id);
         if (is_a($reorder, 'PEAR_Error')) {
-            Horde::logMessage($reorder, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($reorder, 'ERR');
             return $reorder;
         }
 
@@ -676,7 +676,7 @@ class DataTree_sql extends DataTree {
                              $this->_write_db->quote($parent),
                              is_null($order) ? 'NULL' : (int)$order) . $pquery;
 
-            Horde::logMessage('SQL Query by DataTree_sql::reorder(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('SQL Query by DataTree_sql::reorder(): ' . $query, 'DEBUG');
             $result = $this->_write_db->query($query);
         } elseif (is_array($order)) {
             /* Multi update. */
@@ -687,7 +687,7 @@ class DataTree_sql extends DataTree {
             $values = array($this->_params['group'],
                             $parent);
 
-            Horde::logMessage('SQL Query by DataTree_sql::reorder(): ' . $query . ', ' . var_export($values, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('SQL Query by DataTree_sql::reorder(): ' . $query . ', ' . var_export($values, true), 'DEBUG');
 
             $result = $this->_db->getOne($query, $values);
             if (is_a($result, 'PEAR_Error')) {
@@ -702,7 +702,7 @@ class DataTree_sql extends DataTree {
                          ' SET datatree_order = ? WHERE datatree_id = ?';
                 $values = array($o_key, is_null($o_cid) ? NULL : (int)$o_cid);
 
-                Horde::logMessage('SQL Query by DataTree_sql::reorder(): ' . $query . ', ' . var_export($values, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                Horde::logMessage('SQL Query by DataTree_sql::reorder(): ' . $query . ', ' . var_export($values, true), 'DEBUG');
                 $result = $this->_write_db->query($query, $values);
                 if (is_a($result, 'PEAR_Error')) {
                     return $result;
@@ -731,7 +731,7 @@ class DataTree_sql extends DataTree {
         $values = array(is_null($order) ? NULL : (int)$order,
                         (int)$id);
 
-        Horde::logMessage('SQL Query by DataTree_sql::setOrder(): ' . $query . ', ' . var_export($values, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by DataTree_sql::setOrder(): ' . $query . ', ' . var_export($values, true), 'DEBUG');
         return $this->_write_db->query($query, $values);
     }
 
@@ -755,7 +755,7 @@ class DataTree_sql extends DataTree {
         $values = array($this->_params['group'],
                         '%:' . (int)$id . '');
 
-        Horde::logMessage('SQL Query by DataTree_sql::remove(): ' . $query . ', ' . var_export($values, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by DataTree_sql::remove(): ' . $query . ', ' . var_export($values, true), 'DEBUG');
         $children = $this->_db->getAll($query, $values, DB_FETCHMODE_ASSOC);
 
         if (count($children)) {
@@ -777,7 +777,7 @@ class DataTree_sql extends DataTree {
                  ' WHERE datatree_id = ?';
         $values = array((int)$id);
 
-        Horde::logMessage('SQL Query by DataTree_sql::remove(): ' . $query . ', ' . var_export($values, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by DataTree_sql::remove(): ' . $query . ', ' . var_export($values, true), 'DEBUG');
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
             return $result;
@@ -787,7 +787,7 @@ class DataTree_sql extends DataTree {
                  ' WHERE datatree_id = ?';
         $values = array((int)$id);
 
-        Horde::logMessage('SQL Query by DataTree_sql::remove(): ' . $query . ', ' . var_export($values, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by DataTree_sql::remove(): ' . $query . ', ' . var_export($values, true), 'DEBUG');
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
             return $result;
@@ -836,7 +836,7 @@ class DataTree_sql extends DataTree {
                  ' WHERE datatree_id IN (?' . str_repeat(', ?', count($ids) - 1) . ')';
         $values = $ids;
 
-        Horde::logMessage('SQL Query by DataTree_sql::removeByIds(): ' . $query . ', ' . var_export($values, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by DataTree_sql::removeByIds(): ' . $query . ', ' . var_export($values, true), 'DEBUG');
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
             return $result;
@@ -846,7 +846,7 @@ class DataTree_sql extends DataTree {
                  ' WHERE datatree_id IN (?' . str_repeat(', ?', count($ids) - 1) . ')';
         $values = $ids;
 
-        Horde::logMessage('SQL Query by DataTree_sql::removeByIds(): ' . $query . ', ' . var_export($values, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by DataTree_sql::removeByIds(): ' . $query . ', ' . var_export($values, true), 'DEBUG');
         return $this->_write_db->query($query, $values);
     }
 
@@ -876,7 +876,7 @@ class DataTree_sql extends DataTree {
                  ' WHERE datatree_name IN (?' . str_repeat(', ?', count($names) - 1) . ')';
         $values = $names;
 
-        Horde::logMessage('SQL Query by DataTree_sql::removeByNames(): ' . $query . ', ' . var_export($values, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by DataTree_sql::removeByNames(): ' . $query . ', ' . var_export($values, true), 'DEBUG');
         $ids = $this->_db->getCol($query, 0, $values);
         if (is_a($ids, 'PEAR_Error')) {
             return $ids;
@@ -912,7 +912,7 @@ class DataTree_sql extends DataTree {
                         $old_parent_path . ':' . $id . ':%',
                         (int)$id);
 
-        Horde::logMessage('SQL Query by DataTree_sql::move(): ' . $query . ', ' . var_export($values, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by DataTree_sql::move(): ' . $query . ', ' . var_export($values, true), 'DEBUG');
         $rowset = $this->_db->query($query, $values);
         if (is_a($rowset, 'PEAR_Error')) {
             return $rowset;
@@ -942,7 +942,7 @@ class DataTree_sql extends DataTree {
                              $this->_write_db->quote($ppath),
                              (int)$row['datatree_id']);
 
-            Horde::logMessage('SQL Query by DataTree_sql::move(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('SQL Query by DataTree_sql::move(): ' . $query, 'DEBUG');
             $result = $this->_write_db->query($query);
             if (is_a($result, 'PEAR_Error')) {
                 return $result;
@@ -981,7 +981,7 @@ class DataTree_sql extends DataTree {
         $values = array(Horde_String::convertCharset($new_object_name, Horde_Nls::getCharset(), $this->_params['charset']),
                         (int)$id);
 
-        Horde::logMessage('SQL Query by DataTree_sql::rename(): ' . $query . ', ' . var_export($values, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by DataTree_sql::rename(): ' . $query . ', ' . var_export($values, true), 'DEBUG');
         $result = $this->_write_db->query($query, $values);
 
         return is_a($result, 'PEAR_Error') ? $result : true;
@@ -1005,10 +1005,10 @@ class DataTree_sql extends DataTree {
                              $this->_params['table'],
                              implode(', ', $cid));
 
-            Horde::logMessage('SQL Query by DataTree_sql::getData(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('SQL Query by DataTree_sql::getData(): ' . $query, 'DEBUG');
             $result = $this->_db->getAssoc($query);
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
 
@@ -1034,7 +1034,7 @@ class DataTree_sql extends DataTree {
                      ' WHERE datatree_id = ?';
             $values = array((int)$cid);
 
-            Horde::logMessage('SQL Query by DataTree_sql::getData(): ' . $query . ', ' . var_export($values, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('SQL Query by DataTree_sql::getData(): ' . $query . ', ' . var_export($values, true), 'DEBUG');
             $row = $this->_db->getRow($query, $values, DB_FETCHMODE_ASSOC);
 
             $data = Horde_Serialize::unserialize($row['datatree_data'],
@@ -1077,7 +1077,7 @@ class DataTree_sql extends DataTree {
                              implode(', ', $cid),
                              $filter);
 
-            Horde::logMessage('SQL Query by DataTree_sql::getAttributes(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('SQL Query by DataTree_sql::getAttributes(): ' . $query, 'DEBUG');
             $rows = $this->_db->getAll($query, DB_FETCHMODE_ASSOC);
             if (is_a($rows, 'PEAR_Error')) {
                 return $rows;
@@ -1099,7 +1099,7 @@ class DataTree_sql extends DataTree {
                              (int)$cid,
                              $filter);
 
-            Horde::logMessage('SQL Query by DataTree_sql::getAttributes(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('SQL Query by DataTree_sql::getAttributes(): ' . $query, 'DEBUG');
             $rows = $this->_db->getAll($query, DB_FETCHMODE_ASSOC);
             for ($i = 0; $i < count($rows); $i++) {
                 $rows[$i]['value'] = Horde_String::convertCharset($rows[$i]['value'],
@@ -1139,16 +1139,16 @@ class DataTree_sql extends DataTree {
         }
         list($query, $values) = $aq;
 
-        Horde::logMessage('SQL Query by DataTree_sql::countByAttributes(): ' . $query . ', ' . var_export($values, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by DataTree_sql::countByAttributes(): ' . $query . ', ' . var_export($values, true), 'DEBUG');
 
         $result = $this->_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
         $row = $result->fetchRow();
         if (is_a($row, 'PEAR_Error')) {
-            Horde::logMessage($row, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($row, 'ERR');
             return $row;
         }
 
@@ -1206,11 +1206,11 @@ class DataTree_sql extends DataTree {
                             $query = $this->_db->modifyLimitQuery($query, $from, $count);
                         }
 
-                        Horde::logMessage('SQL Query by DataTree_sql::getByAttributes(): ' . $query . ', ' . var_export($values, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                        Horde::logMessage('SQL Query by DataTree_sql::getByAttributes(): ' . $query . ', ' . var_export($values, true), 'DEBUG');
 
                         $result = $this->_db->query($query, $values);
                         if (is_a($result, 'PEAR_Error')) {
-                            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                            Horde::logMessage($result, 'ERR');
                             return $result;
                         }
                         while ($row = $result->fetchRow()) {
@@ -1241,10 +1241,10 @@ class DataTree_sql extends DataTree {
             $query = $this->_db->modifyLimitQuery($query, $from, $count);
         }
 
-        Horde::logMessage('SQL Query by DataTree_sql::getByAttributes(): ' . $query . ', ' . var_export($values, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by DataTree_sql::getByAttributes(): ' . $query . ', ' . var_export($values, true), 'DEBUG');
         $result = $this->_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -1290,7 +1290,7 @@ class DataTree_sql extends DataTree {
                          $where,
                          ($direction == 1) ? 'DESC' : 'ASC');
 
-        Horde::logMessage('SQL Query by DataTree_sql::sortByAttributes(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by DataTree_sql::sortByAttributes(): ' . $query, 'DEBUG');
         $ordered_ids = $this->_db->getCol($query);
 
         /* Make sure that some ids didn't get lost because has no such
@@ -1480,11 +1480,11 @@ class DataTree_sql extends DataTree {
                          $where,
                          $levelQuery);
 
-        Horde::logMessage('SQL Query by DataTree_sql::getAttributeValues(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by DataTree_sql::getAttributeValues(): ' . $query, 'DEBUG');
 
         $rows = $this->_db->getCol($query);
         if (is_a($rows, 'PEAR_Error')) {
-            Horde::logMessage($rows, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($rows, 'ERR');
         }
 
         return $rows;
@@ -1777,7 +1777,7 @@ class DataTree_sql extends DataTree {
                      ' SET datatree_data = ? WHERE datatree_id = ?';
             $values = array(NULL, (int)$id);
 
-            Horde::logMessage('SQL Query by DataTree_sql::updateData(): ' . $query . ', ' . var_export($values, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('SQL Query by DataTree_sql::updateData(): ' . $query . ', ' . var_export($values, true), 'DEBUG');
             $this->_write_db->query($query, $values);
 
             /* Start a transaction. */
@@ -1788,7 +1788,7 @@ class DataTree_sql extends DataTree {
                      ' WHERE datatree_id = ?';
             $values = array((int)$id);
 
-            Horde::logMessage('SQL Query by DataTree_sql::updateData(): ' . $query . ', ' . var_export($values, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('SQL Query by DataTree_sql::updateData(): ' . $query . ', ' . var_export($values, true), 'DEBUG');
             $result = $this->_write_db->query($query, $values);
             if (is_a($result, 'PEAR_Error')) {
                 $this->_write_db->rollback();
@@ -1810,7 +1810,7 @@ class DataTree_sql extends DataTree {
                                 $attr['key'],
                                 Horde_String::convertCharset($attr['value'], Horde_Nls::getCharset(), $this->_params['charset']));
 
-                Horde::logMessage('SQL Query by DataTree_sql::updateData(): ' . $query . ', ' . var_export($values, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                Horde::logMessage('SQL Query by DataTree_sql::updateData(): ' . $query . ', ' . var_export($values, true), 'DEBUG');
 
                 $result = $this->_write_db->execute($statement, $values);
                 if (is_a($result, 'PEAR_Error')) {
@@ -1838,7 +1838,7 @@ class DataTree_sql extends DataTree {
                             (int)$ser,
                             (int)$id);
 
-            Horde::logMessage('SQL Query by DataTree_sql::updateData(): ' . $query . ', ' . var_export($values, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('SQL Query by DataTree_sql::updateData(): ' . $query . ', ' . var_export($values, true), 'DEBUG');
             $result = $this->_write_db->query($query, $values);
 
             return is_a($result, 'PEAR_Error') ? $result : true;

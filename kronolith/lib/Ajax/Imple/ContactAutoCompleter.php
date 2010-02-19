@@ -98,7 +98,7 @@ class Kronolith_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_AutoCom
         try {
             $res = $GLOBALS['registry']->call('contacts/search', array($search, $src, $fields, true));
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             return array();
         }
 

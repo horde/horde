@@ -15,13 +15,6 @@
 class Horde
 {
     /**
-     * Log instance.
-     *
-     * @var Log
-     */
-    static protected $_logger;
-
-    /**
      * Has compression been started?
      *
      * @var boolean
@@ -64,119 +57,15 @@ class Horde
     static protected $_inlineScript = array();
 
     /**
-     * Logs a message to the global Horde log backend.
+     * Shortcut to logging method.
      *
-     * @param mixed $message     Either a string or an object with a
-     *                           getMessage() method (e.g. PEAR_Error,
-     *                           Exception).
-     * @param string $file       What file was the log function called from
-     *                           (e.g. __FILE__)?
-     * @param integer $line      What line was the log function called from
-     *                           (e.g. __LINE__)?
-     * @param integer $priority  The priority of the message. One of:
-     * <pre>
-     * PEAR_LOG_EMERG
-     * PEAR_LOG_ALERT
-     * PEAR_LOG_CRIT
-     * PEAR_LOG_ERR
-     * PEAR_LOG_WARNING
-     * PEAR_LOG_NOTICE
-     * PEAR_LOG_INFO
-     * PEAR_LOG_DEBUG
-     * </pre>
+     * @see Horde_Core_Log_Logger
      */
-    static public function logMessage($message, $file, $line,
-                                      $priority = PEAR_LOG_INFO)
+    static public function logMessage($event, $priority = 'INFO',
+                                      $options = array())
     {
-        $logger = self::getLogger();
-
-        if ($logger === false) {
-            return;
-        }
-
-        if ($priority > $GLOBALS['conf']['log']['priority']) {
-            return;
-        }
-
-        if ($message instanceof PEAR_Error) {
-            $userinfo = $message->getUserInfo();
-            $message = $message->getMessage();
-            if (!empty($userinfo)) {
-                if (is_array($userinfo)) {
-                    $old_error = error_reporting(0);
-                    $userinfo = implode(', ', $userinfo);
-                    error_reporting($old_error);
-                }
-                $message .= ': ' . $userinfo;
-            }
-        } elseif (is_object($message)) {
-            if (is_callable(array($message, 'toString'))) {
-                $message = $message->toString();
-            } elseif (is_callable(array($message, 'getMessage'))) {
-                $message = $message->getMessage();
-            }
-        }
-
-        $app = isset($GLOBALS['registry'])
-            ? $GLOBALS['registry']->getApp()
-            : null;
-        $message = '[' . ($app ? $app : 'horde') . '] ' . $message . ' [pid ' . getmypid() . ' on line ' . $line . ' of "' . $file . '"]';
-
-        /* Make sure to log in the system's locale and timezone. */
-        $locale = setlocale(LC_TIME, 0);
-        setlocale(LC_TIME, 'C');
-        $tz = getenv('TZ');
-        @putenv('TZ');
-
-        $logger->log($message, $priority);
-
-        /* Restore original locale and timezone. */
-        setlocale(LC_TIME, $locale);
-        if ($tz) {
-            @putenv('TZ=' . $tz);
-        }
-
-        return true;
-    }
-
-    /**
-     * Get an instantiated instance of the configured logger, if enabled.
-     * getLogger() will fatally exit if a Log object can not be
-     * instantiated.
-     *
-     * @return mixed  Log object on success, false if disabled.
-     * @throws Horde_Exception
-     */
-    static public function getLogger()
-    {
-        global $conf;
-
-        if (empty($conf['log']['enabled'])) {
-            return false;
-        }
-
-        if (isset(self::$_logger)) {
-            return self::$_logger;
-        }
-
-        // Try to make sure that we can log messages somehow.
-        if (empty($conf['log']) ||
-            empty($conf['log']['type']) ||
-            empty($conf['log']['name']) ||
-            empty($conf['log']['ident']) ||
-            !isset($conf['log']['params'])) {
-            throw new Horde_Exception('Horde is not correctly configured to log error messages. You must configure at least a text file log in horde/config/conf.php.');
-        }
-
-        self::$_logger = Log::singleton($conf['log']['type'],
-                                        $conf['log']['name'],
-                                        $conf['log']['ident'],
-                                        $conf['log']['params']);
-        if (!self::$_logger instanceof Log) {
-            throw new Horde_Exception('An error has occurred. Furthermore, Horde encountered an error attempting to log this error. Please check your Horde logging configuration in horde/config/conf.php.');
-        }
-
-        return self::$_logger;
+        $options['trace'] = 2;
+        $GLOBALS['injector']->getInstance('Horde_Log_Logger')->log($event, $priority, $options);
     }
 
     /**
@@ -247,7 +136,7 @@ class Horde
 
         // Log the error via logMessage() if requested.
         if ($log) {
-            self::logMessage($error, $file, $line, PEAR_LOG_EMERG);
+            self::logMessage($error, 'EMERG');
         }
 
         if ($cli) {
@@ -275,7 +164,7 @@ HTML;
     static public function logDeprecated($errno, $errstr, $errfile, $errline,
                                          $errcontext)
     {
-        self::logMessage($errstr, $errfile, $errline, PEAR_LOG_DEBUG);
+        self::logMessage(new ErrorException($errstr, 0, $errno, $errfile, $errline), 'DEBUG');
     }
 
     /**
@@ -861,7 +750,7 @@ HTML;
         // Return an error if neither main or vhosted versions of the config
         // file exist.
         if (!$was_included) {
-            self::logMessage(sprintf('Failed to import configuration file "%s".', $config_dir . $config_file), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            self::logMessage(sprintf('Failed to import configuration file "%s".', $config_dir . $config_file), 'DEBUG');
             return is_array($var_names) ? array() : null;
         }
 
@@ -1697,10 +1586,10 @@ HTML;
             $used = array_keys(self::$_used);
             sort($used);
             $remaining = str_replace($used, array(), 'abcdefghijklmnopqrstuvwxyz');
-            self::logMessage('Access key information for ' . $script, __FILE__, __LINE__);
-            self::logMessage('Used labels: ' . implode(',', $labels), __FILE__, __LINE__);
-            self::logMessage('Used keys: ' . implode('', $used), __FILE__, __LINE__);
-            self::logMessage('Free keys: ' . $remaining, __FILE__, __LINE__);
+            self::logMessage('Access key information for ' . $script);
+            self::logMessage('Used labels: ' . implode(',', $labels));
+            self::logMessage('Used keys: ' . implode('', $used));
+            self::logMessage('Free keys: ' . $remaining);
             return;
         }
 
@@ -1858,15 +1747,15 @@ HTML;
 
         if ($error) {
             $error = sprintf('Hook %s in application %s not called.', $hook, $app);
-            self::logMessage($error, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            self::logMessage($error, 'DEBUG');
             throw new Horde_Exception_HookNotSet($error);
         }
 
         try {
-            self::logMessage(sprintf('Hook %s in application %s called.', $hook, $app), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            self::logMessage(sprintf('Hook %s in application %s called.', $hook, $app), 'DEBUG');
             return call_user_func_array(array($hook_ob, $hook), $args);
         } catch (Horde_Exception $e) {
-            self::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            self::logMessage($e, 'ERR');
             throw $e;
         }
     }

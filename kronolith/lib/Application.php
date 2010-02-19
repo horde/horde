@@ -331,17 +331,17 @@ class Kronolith_Application extends Horde_Registry_Application
             $result = $GLOBALS['kronolith_shares']->removeShare($share);
             if ($result instanceof PEAR_Error) {
                 $hasError = true;
-                Horde::logMessage($result->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
             }
         } catch (Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
         }
 
         /* Get a list of all shares this user has perms to and remove the
          * perms */
         $shares = $GLOBALS['kronolith_shares']->listShares($user);
         if ($shares instanceof PEAR_Error) {
-            Horde::logMessage($shares, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($shares, 'ERR');
         }
         foreach ($shares as $share) {
             $share->removeUser($user);

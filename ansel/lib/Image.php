@@ -309,7 +309,7 @@ class Ansel_Image Implements Iterator
         try {
             $data = $GLOBALS['ansel_vfs']->read($vfspath, $this->getVFSName($view));
         } catch (VFS_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             throw new Ansel_Exception($e);
         }
 
@@ -386,7 +386,7 @@ class Ansel_Image Implements Iterator
         try {
             $data = $GLOBALS['ansel_vfs']->read($this->getVFSPath('full'), $this->getVFSName('full'));
         } catch (VFS_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             throw new Ansel_Exception($e);
         }
 
@@ -552,7 +552,7 @@ class Ansel_Image Implements Iterator
             if ($result instanceof PEAR_Error) {
                 // Since we got this far, the image has been added, so
                 // just log the tag failure.
-                Horde::logMessage($result, __LINE__, __FILE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
             }
         }
 
@@ -642,7 +642,7 @@ class Ansel_Image Implements Iterator
             $exif_fields = $exif->getData($imageFile);
         } catch (Horde_Image_Exception $e) {
             // Log the error, but it's not the end of the world, so just ignore
-            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             $exif_fields = array();
             return false;
         }
@@ -878,7 +878,7 @@ class Ansel_Image Implements Iterator
             $this->load($view);
             return $this->_image->toFile($this->_dirty ? false : $this->_data[$view]);
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             throw new Ansel_Exception($e);
         }
     }
@@ -1091,7 +1091,7 @@ class Ansel_Image Implements Iterator
         try {
             $this->_image->addEffect($type, $params);
         } catch (Horde_Image_Exception $e) {
-            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             throw new Ansel_Exception($e);
         }
     }

@@ -106,13 +106,13 @@ class Ansel_ImageView
             // requested effect.
             foreach ($view->need as $need) {
                 if (!Ansel::isAvailable($need)) {
-                    Horde::logMessage($err, __FILE__, __LINE__, PEAR_LOG_ERR);
+                    Horde::logMessage($err, 'ERR');
                     throw new Ansel_Exception(_("This install does not support the %s feature. Please contact your administrator."), $need);
                 }
             }
             return $view;
         } else {
-            Horde::logMessage($err, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($err, 'ERR');
             throw new Ansel_Exception(sprintf(_("Unable to load the definition of %s."), $class));
         }
     }
@@ -169,7 +169,7 @@ class Ansel_ImageView
                 $images[] = $img->getHordeImage();
                 $cnt--;
             } catch (Exception $e) {
-                Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($e, 'ERR');
             }
         }
 
@@ -181,7 +181,7 @@ class Ansel_ImageView
                 $aimg->load('screen');
                 $images[] = $aimg->getHordeImage();
             } catch (Exception $e) {
-                Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($e, 'ERR');
             }
         }
 

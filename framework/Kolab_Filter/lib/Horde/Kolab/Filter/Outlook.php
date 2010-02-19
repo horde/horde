@@ -114,8 +114,7 @@ class Kolab_Filter_Outlook
                         array(), false);
                     }
                     Horde::logMessage(sprintf("Adding missing organizer '%s <%s>' to iCal.",
-                                              $org_name, $org_email),
-                                      __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                              $org_name, $org_email), 'DEBUG');
                     $icaltxt = $iCal->exportvCalendar();
                 }
             }
@@ -167,8 +166,7 @@ class Kolab_Filter_Outlook
     function embedICal($fqhostname, $sender, $recipients, $origfrom, $subject,
                $tmpfname, $transport)
     {
-        Horde::logMessage(sprintf("Encapsulating iCal message forwarded by %s", $sender),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf("Encapsulating iCal message forwarded by %s", $sender), 'DEBUG');
 
         $forwardtext = "This is an invitation forwarded by outlook and\n".
             "was rectified by the Kolab server.\n".
@@ -195,8 +193,7 @@ class Kolab_Filter_Outlook
         list( $headers, $mime) = Kolab_Filter_Outlook::_mimeParse($requestText);
         $parts = $mime->contentTypeMap();
         if (count($parts) != 1 || $parts[1] != 'text/calendar') {
-            Horde::logMessage("Message does not contain exactly one toplevel text/calendar part, passing through.",
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage("Message does not contain exactly one toplevel text/calendar part, passing through.", 'DEBUG');
             return false;
         }
         $basepart = $mime->getBasePart();

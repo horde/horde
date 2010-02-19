@@ -111,7 +111,7 @@ class Horde_Auth_Kolab extends Horde_Auth_Base
         } catch (Horde_Kolab_Session_Exception_Badlogin $e) {
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
         } catch (Horde_Kolab_Session_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
         }
 

@@ -116,17 +116,17 @@ class Horde_Prefs_Sql extends Horde_Prefs
 
         $values = array($this->_user, $scope);
 
-        Horde::logMessage('SQL Query by Horde_Prefs_Sql::retrieve(): ' . $query . ', values: ' . implode(', ', $values), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by Horde_Prefs_Sql::retrieve(): ' . $query . ', values: ' . implode(', ', $values), 'DEBUG');
 
         $result = $this->_db->query($query, $values);
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage('No preferences were retrieved.', __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('No preferences were retrieved.', 'DEBUG');
             return;
         }
 
         $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
         if ($row instanceof PEAR_Error) {
-            Horde::logMessage($row, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($row, 'ERR');
             return;
         }
 
@@ -184,11 +184,11 @@ class Horde_Prefs_Sql extends Horde_Prefs
                 $query = 'SELECT 1 FROM ' . $this->_params['table'] .
                     ' WHERE pref_uid = ? AND pref_name = ?' .
                     ' AND pref_scope = ?';
-                Horde::logMessage('SQL Query by Horde_Prefs_Sql::store(): ' . $query . ', values: ' . implode(', ', $values), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                Horde::logMessage('SQL Query by Horde_Prefs_Sql::store(): ' . $query . ', values: ' . implode(', ', $values), 'DEBUG');
 
                 $check = $this->_write_db->getOne($query, $values);
                 if ($check instanceof PEAR_Error) {
-                    Horde::logMessage('Failed checking prefs for ' . $this->_user . ': ' . $check->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+                    Horde::logMessage('Failed checking prefs for ' . $this->_user . ': ' . $check->getMessage(), 'ERR');
                     return;
                 }
 
@@ -224,11 +224,11 @@ class Horde_Prefs_Sql extends Horde_Prefs
                                     $value);
                 }
 
-                Horde::logMessage('SQL Query by Horde_Prefs_Sql::store(): ' . $query . ', values: ' . implode(', ', $values), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                Horde::logMessage('SQL Query by Horde_Prefs_Sql::store(): ' . $query . ', values: ' . implode(', ', $values), 'DEBUG');
 
                 $result = $this->_write_db->query($query, $values);
                 if ($result instanceof PEAR_Error) {
-                    Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                    Horde::logMessage($result, 'ERR');
                     return;
                 }
 
@@ -256,7 +256,7 @@ class Horde_Prefs_Sql extends Horde_Prefs
 
         $values = array($this->_user);
 
-        Horde::logMessage('SQL Query by Horde_Prefs_Sql::clear():' . $query . ', values: ' . implode(', ', $values), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by Horde_Prefs_Sql::clear():' . $query . ', values: ' . implode(', ', $values), 'DEBUG');
 
         // Execute the query.
         $this->_write_db->query($query, $values);
@@ -341,7 +341,7 @@ class Horde_Prefs_Sql extends Horde_Prefs
                                        array('persistent' => !empty($this->_params['persistent']),
                                              'ssl' => !empty($this->_params['ssl'])));
         if ($this->_write_db instanceof PEAR_Error) {
-            Horde::logMessage($this->_write_db, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($this->_write_db, 'ERR');
             throw new Horde_Exception_Prior($this->_write_db);
         }
 
@@ -364,7 +364,7 @@ class Horde_Prefs_Sql extends Horde_Prefs
                                      array('persistent' => !empty($params['persistent']),
                                            'ssl' => !empty($params['ssl'])));
             if ($this->_db instanceof PEAR_Error) {
-                Horde::logMessage($this->_db, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($this->_db, 'ERR');
                 throw new Horde_Exception_Prior($this->_db);
             }
 

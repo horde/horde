@@ -138,7 +138,7 @@ class Skoli {
 
         $classes = $GLOBALS['skoli_shares']->listShares(Horde_Auth::getAuth(), $permission, $owneronly ? Horde_Auth::getAuth() : null, 0, 0, 'name');
         if (is_a($classes, 'PEAR_Error')) {
-            Horde::logMessage($classes, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($classes, 'ERR');
             return array();
         }
 

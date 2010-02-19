@@ -74,7 +74,7 @@ try {
                                     new Horde_Date($startDate),
                                     array($calendar));
 } catch (Exception $e) {
-    Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+    Horde::logMessage($e, 'ERR');
     $events = array();
 }
 

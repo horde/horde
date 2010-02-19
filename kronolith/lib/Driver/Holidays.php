@@ -43,8 +43,7 @@ class Kronolith_Driver_Holidays extends Kronolith_Driver
                                $json = false, $coverDates = true)
     {
         if (!class_exists('Date_Holidays')) {
-            Horde::logMessage('Support for Date_Holidays has been enabled but the package seems to be missing.',
-                              __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage('Support for Date_Holidays has been enabled but the package seems to be missing.', 'ERR');
             return array();
         }
 
@@ -73,8 +72,7 @@ class Kronolith_Driver_Holidays extends Kronolith_Driver
             $dh = Date_Holidays::factory($this->calendar, $year, $this->_params['language']);
             if (Date_Holidays::isError($dh)) {
                 Horde::logMessage(sprintf('Factory was unable to produce driver object for driver %s in year %s with locale %s',
-                                          $this->calendar, $year, $this->_params['language']),
-                                  __FILE__, __LINE__, PEAR_LOG_ERR);
+                                          $this->calendar, $year, $this->_params['language']), 'ERR');
                 continue;
             }
             $dh->addTranslation($this->_params['language']);
@@ -105,8 +103,7 @@ class Kronolith_Driver_Holidays extends Kronolith_Driver
         $dh = Date_Holidays::factory($this->calendar, $year, $this->_params['language']);
         if (Date_Holidays::isError($dh)) {
             Horde::logMessage(sprintf('Factory was unable to produce driver object for driver %s in year %s with locale %s',
-                                      $this->calendar, $year, $this->_params['language']),
-                              __FILE__, __LINE__, PEAR_LOG_ERR);
+                                      $this->calendar, $year, $this->_params['language']), 'ERR');
             return false;
         }
         $dh->addTranslation($this->_params['language']);

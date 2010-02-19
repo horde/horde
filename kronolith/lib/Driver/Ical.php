@@ -219,22 +219,20 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         try {
             $response = $http->get($url);
         } catch (Horde_Http_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_INFO);
+            Horde::logMessage($e, 'INFO');
             $_SESSION['kronolith']['remote'][$signature] = $e->getMessage();
             throw new Kronolith_Exception($e);
         }
         if ($response->code != 200) {
             Horde::logMessage(sprintf('Failed to retrieve remote calendar: url = "%s", status = %s',
-                                      $url, $response->code),
-                              __FILE__, __LINE__, PEAR_LOG_INFO);
+                                      $url, $response->code), 'INFO');
             $_SESSION['kronolith']['remote'][$signature] = sprintf(_("Could not open %s."), $url);
             throw new Kronolith_Exception($_SESSION['kronolith']['remote'][$signature], $response->code);
         }
 
         /* Log fetch at DEBUG level. */
         Horde::logMessage(sprintf('Retrieved remote calendar for %s: url = "%s"',
-                                  Horde_Auth::getAuth(), $url),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                  Horde_Auth::getAuth(), $url), 'DEBUG');
 
         $data = $response->getBody();
         $_SESSION['kronolith']['remote'][$signature] = new Horde_iCalendar();

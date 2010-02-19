@@ -102,8 +102,7 @@ class Turba_Driver_Sql extends Turba_Driver
             $values = array($test);
 
             /* Log the query at a DEBUG log level. */
-            Horde::logMessage('SQL query by Turba_Driver_sql::count(): ' . $query,
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('SQL query by Turba_Driver_sql::count(): ' . $query, 'DEBUG');
 
             /* Run query. */
             $count[$test] = $this->_db->getOne($query, $values);
@@ -161,13 +160,12 @@ class Turba_Driver_Sql extends Turba_Driver
         $query = 'SELECT ' . implode(', ', $fields) . ' FROM ' . $this->_params['table'] . $where;
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage('SQL query by Turba_Driver_sql::_search(): ' . $query,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL query by Turba_Driver_sql::_search(): ' . $query, 'DEBUG');
 
         /* Run query. */
         $result = $this->_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -175,7 +173,7 @@ class Turba_Driver_Sql extends Turba_Driver
         $iMax = count($fields);
         while ($row = $result->fetchRow()) {
             if (is_a($row, 'PEAR_Error')) {
-                Horde::logMessage($row, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($row, 'ERR');
                 return $result;
             }
 
@@ -234,12 +232,11 @@ class Turba_Driver_Sql extends Turba_Driver
             . $this->_params['table'] . ' WHERE ' . $where;
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage('SQL query by Turba_Driver_sql::_read(): ' . $query,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL query by Turba_Driver_sql::_read(): ' . $query, 'DEBUG');
 
         $result = $this->_db->getAll($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -296,7 +293,7 @@ class Turba_Driver_Sql extends Turba_Driver
 
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -318,12 +315,11 @@ class Turba_Driver_Sql extends Turba_Driver
         $values = array($object_id);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage('SQL query by Turba_Driver_sql::_delete(): ' . $query,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL query by Turba_Driver_sql::_delete(): ' . $query, 'DEBUG');
 
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -350,8 +346,7 @@ class Turba_Driver_Sql extends Turba_Driver
 
         /* Need a list of UIDs so we can notify History */
         $query = 'SELECT '. $this->map['__uid'] . ' FROM ' . $this->_params['table'] . ' WHERE owner_id = ?';
-        Horde::logMessage('SQL query by Turba_Driver_sql::_deleteAll(): ' . $query,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL query by Turba_Driver_sql::_deleteAll(): ' . $query, 'DEBUG');
         $ids = $this->_write_db->query($query, $values);
         if (is_a($ids, 'PEAR_Error')) {
             return $ids;
@@ -359,8 +354,7 @@ class Turba_Driver_Sql extends Turba_Driver
 
         /* Do the deletion */
         $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE owner_id = ?';
-        Horde::logMessage('SQL query by Turba_Driver_sql::_deleteAll(): ' . $query,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL query by Turba_Driver_sql::_deleteAll(): ' . $query, 'DEBUG');
 
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
@@ -417,12 +411,11 @@ class Turba_Driver_Sql extends Turba_Driver
         $query .= 'WHERE ' . $where;
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage('SQL query by Turba_Driver_sql::_save(): ' . $query,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL query by Turba_Driver_sql::_save(): ' . $query, 'DEBUG');
 
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 

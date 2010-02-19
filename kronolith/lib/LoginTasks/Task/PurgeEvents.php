@@ -65,7 +65,7 @@ class Kronolith_LoginTasks_Task_PurgeEvents extends Horde_LoginTasks_Task
                     $kronolith_driver->deleteEvent($event->id, true);
                     ++$count;
                 } catch (Exception $e) {
-                    Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+                    Horde::logMessage($e, 'ERR');
                     throw $e;
                 }
             }

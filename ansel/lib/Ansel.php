@@ -464,7 +464,7 @@ class Ansel
             try {
                 $image = $ansel_storage->getImage($imageId);
             } catch (Ansel_Exception $e) {
-                Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($e, 'ERR');
                 return Ansel::getErrorImage($view);
             }
             try {

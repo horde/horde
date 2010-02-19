@@ -152,15 +152,14 @@ class Skoli_Driver_sql extends Skoli_Driver {
         $values = array($this->_class);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Skoli_Driver_sql::getStudents(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Skoli_Driver_sql::getStudents(): %s', $query), 'DEBUG');
 
         /* Attempt the select query. */
         $students = $this->_db->getAll($query, $values, DB_FETCHMODE_ASSOC);
 
         /* Return an error immediately if the query failed. */
         if (is_a($students, 'PEAR_Error')) {
-            Horde::logMessage($students, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($students, 'ERR');
             return $students;
         }
 
@@ -188,15 +187,14 @@ class Skoli_Driver_sql extends Skoli_Driver {
             $values = array($this->_class, $addressid);
 
             /* Log the query at a DEBUG log level. */
-            Horde::logMessage(sprintf('Skoli_Driver_sql::addStudents(): %s', $query),
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage(sprintf('Skoli_Driver_sql::addStudents(): %s', $query), 'DEBUG');
 
             /* Attempt the insertion query. */
             $result = $this->_write_db->query($query, $values);
 
             /* Return an error immediately if the query failed. */
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
         }
@@ -218,15 +216,14 @@ class Skoli_Driver_sql extends Skoli_Driver {
         $values = array($entryid);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Skoli_Driver_sql::getEntry(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Skoli_Driver_sql::getEntry(): %s', $query), 'DEBUG');
 
         /* Attempt the select query. */
         $entry = $this->_db->getRow($query, $values, DB_FETCHMODE_ASSOC);
 
         /* Return an error immediately if the query failed. */
         if (is_a($entry, 'PEAR_Error')) {
-            Horde::logMessage($entry, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($entry, 'ERR');
             return $entry;
         } else if (!is_array($entry)) {
             return array();
@@ -237,15 +234,14 @@ class Skoli_Driver_sql extends Skoli_Driver {
         $values = array($entryid);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Skoli_Driver_sql::getEntry(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Skoli_Driver_sql::getEntry(): %s', $query), 'DEBUG');
 
         /* Attempt the select query. */
         $attributes = $this->_db->getAll($query, $values, DB_FETCHMODE_ASSOC);
 
         /* Return an error immediately if the query failed. */
         if (is_a($attributes, 'PEAR_Error')) {
-            Horde::logMessage($attributes, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($attributes, 'ERR');
             return $attributes;
         }
 
@@ -315,15 +311,14 @@ class Skoli_Driver_sql extends Skoli_Driver {
                 $values = array_merge($values, $search_values);
 
                 /* Log the query at a DEBUG log level. */
-                Horde::logMessage(sprintf('Skoli_Driver_sql::getEntries(): %s', $query),
-                                  __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                Horde::logMessage(sprintf('Skoli_Driver_sql::getEntries(): %s', $query), 'DEBUG');
 
                 /* Attempt the select query. */
                 $entries = $this->_db->getAll($query, $values, DB_FETCHMODE_ASSOC);
 
                 /* Return an error immediately if the query failed. */
                 if (is_a($entries, 'PEAR_Error')) {
-                    Horde::logMessage($entries, __FILE__, __LINE__, PEAR_LOG_ERR);
+                    Horde::logMessage($entries, 'ERR');
                     return $entries;
                 }
             } else {
@@ -336,15 +331,14 @@ class Skoli_Driver_sql extends Skoli_Driver {
                 }
 
                 /* Log the query at a DEBUG log level. */
-                Horde::logMessage(sprintf('Skoli_Driver_sql::getEntries(): %s', $query),
-                                  __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                Horde::logMessage(sprintf('Skoli_Driver_sql::getEntries(): %s', $query), 'DEBUG');
 
                 /* Attempt the select query. */
                 $entries = $this->_db->getAll($query, $values, DB_FETCHMODE_ASSOC);
 
                 /* Return an error immediately if the query failed. */
                 if (is_a($entries, 'PEAR_Error')) {
-                    Horde::logMessage($entries, __FILE__, __LINE__, PEAR_LOG_ERR);
+                    Horde::logMessage($entries, 'ERR');
                     return $entries;
                 }
             }
@@ -357,15 +351,14 @@ class Skoli_Driver_sql extends Skoli_Driver {
                 $values = array($entry['object_id']);
 
                 /* Log the query at a DEBUG log level. */
-                Horde::logMessage(sprintf('Skoli_Driver_sql::getEntries(): %s', $query),
-                                  __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                Horde::logMessage(sprintf('Skoli_Driver_sql::getEntries(): %s', $query), 'DEBUG');
 
                 /* Attempt the select query. */
                 $attributes = $this->_db->getAll($query, $values, DB_FETCHMODE_ASSOC);
 
                 /* Return an error immediately if the query failed. */
                 if (is_a($attributes, 'PEAR_Error')) {
-                    Horde::logMessage($attributes, __FILE__, __LINE__, PEAR_LOG_ERR);
+                    Horde::logMessage($attributes, 'ERR');
                     return $attributes;
                 }
 
@@ -393,15 +386,14 @@ class Skoli_Driver_sql extends Skoli_Driver {
         $values = array($this->_class, $studentid);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Skoli_Driver_sql::lastEntry(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Skoli_Driver_sql::lastEntry(): %s', $query), 'DEBUG');
 
         /* Attempt the select query. */
         $lastentry = $this->_db->getRow($query, $values, DB_FETCHMODE_ORDERED);
 
         /* Return an error immediately if the query failed. */
         if (is_a($lastentry, 'PEAR_Error')) {
-            Horde::logMessage($lastentry, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($lastentry, 'ERR');
             return $lastentry;
         }
 
@@ -439,15 +431,14 @@ class Skoli_Driver_sql extends Skoli_Driver {
         $values = array($this->_class, $vars->get('student_id'), $date->datestamp(), $vars->get('object_type'), $entryid);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Skoli_Driver_sql::updateEntry(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Skoli_Driver_sql::updateEntry(): %s', $query), 'DEBUG');
 
         /* Attempt the insertion query. */
         $result = $this->_write_db->query($query, $values);
 
         /* Return an error immediately if the query failed. */
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -456,8 +447,7 @@ class Skoli_Driver_sql extends Skoli_Driver {
         $values = array($entryid);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Skoli_Driver_sql::updateEntry(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Skoli_Driver_sql::updateEntry(): %s', $query), 'DEBUG');
 
         /* Attempt the delete query. */
         $result = $this->_write_db->query($query, $values);
@@ -473,15 +463,14 @@ class Skoli_Driver_sql extends Skoli_Driver {
             $values = array($entryid, $attribute, $value);
 
             /* Log the query at a DEBUG log level. */
-            Horde::logMessage(sprintf('Skoli_Driver_sql::addEntry(): %s', $query),
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage(sprintf('Skoli_Driver_sql::addEntry(): %s', $query), 'DEBUG');
 
             /* Attempt the insertion query. */
             $result = $this->_write_db->query($query, $values);
 
             /* Return an error immediately if the query failed. */
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
         }
@@ -519,15 +508,14 @@ class Skoli_Driver_sql extends Skoli_Driver {
             $values = array($entryId, Horde_Auth::getAuth(), $this->generateUID(), $this->_class, $studentid, $date->datestamp(), $vars->get('object_type'));
 
             /* Log the query at a DEBUG log level. */
-            Horde::logMessage(sprintf('Skoli_Driver_sql::addEntry(): %s', $query),
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage(sprintf('Skoli_Driver_sql::addEntry(): %s', $query), 'DEBUG');
 
             /* Attempt the insertion query. */
             $result = $this->_write_db->query($query, $values);
 
             /* Return an error immediately if the query failed. */
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
 
@@ -538,15 +526,14 @@ class Skoli_Driver_sql extends Skoli_Driver {
                 $values = array($entryId, $attribute, $value);
 
                 /* Log the query at a DEBUG log level. */
-                Horde::logMessage(sprintf('Skoli_Driver_sql::addEntry(): %s', $query),
-                                  __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                Horde::logMessage(sprintf('Skoli_Driver_sql::addEntry(): %s', $query), 'DEBUG');
 
                 /* Attempt the insertion query. */
                 $result = $this->_write_db->query($query, $values);
 
                 /* Return an error immediately if the query failed. */
                 if (is_a($result, 'PEAR_Error')) {
-                    Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                    Horde::logMessage($result, 'ERR');
                     return $result;
                 }
             }
@@ -577,15 +564,14 @@ class Skoli_Driver_sql extends Skoli_Driver {
         }
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Skoli_Driver_sql::getSubjects(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Skoli_Driver_sql::getSubjects(): %s', $query), 'DEBUG');
 
         /* Attempt the select query. */
         $subjects = $this->_db->getAll($query, $values, DB_FETCHMODE_ORDERED);
 
         /* Return an error immediately if the query failed. */
         if (is_a($subjects, 'PEAR_Error')) {
-            Horde::logMessage($subjects, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($subjects, 'ERR');
             return $subjects;
         }
 
@@ -609,8 +595,7 @@ class Skoli_Driver_sql extends Skoli_Driver {
         $values = array($this->_class);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Skoli_Driver_sql::deleteAll(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Skoli_Driver_sql::deleteAll(): %s', $query), 'DEBUG');
 
         /* Attempt the delete query. */
         $result = $this->_write_db->query($query, $values);
@@ -624,15 +609,14 @@ class Skoli_Driver_sql extends Skoli_Driver {
         $values = array($this->_class);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Skoli_Driver_sql::deleteAll(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Skoli_Driver_sql::deleteAll(): %s', $query), 'DEBUG');
 
         /* Attempt the select query. */
         $entries = $this->_db->getAll($query, $values, DB_FETCHMODE_ASSOC);
 
         /* Return an error immediately if the query failed. */
         if (is_a($entries, 'PEAR_Error')) {
-            Horde::logMessage($entries, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($entries, 'ERR');
             return $entries;
         }
 
@@ -662,8 +646,7 @@ class Skoli_Driver_sql extends Skoli_Driver {
         $values = array($object_id, $this->_class);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Skoli_Driver_sql::deleteEntry(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Skoli_Driver_sql::deleteEntry(): %s', $query), 'DEBUG');
 
         /* Attempt the delete query. */
         $result = $this->_write_db->query($query, $values);
@@ -677,8 +660,7 @@ class Skoli_Driver_sql extends Skoli_Driver {
         $values = array($object_id);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Skoli_Driver_sql::deleteEntry(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Skoli_Driver_sql::deleteEntry(): %s', $query), 'DEBUG');
 
         /* Attempt the delete query. */
         $result = $this->_write_db->query($query, $values);

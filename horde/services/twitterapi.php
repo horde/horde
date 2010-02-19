@@ -27,11 +27,11 @@ switch ($action) {
 case 'updateStatus':
     try {
         $result = $twitter->statuses->update(Horde_Util::getPost('statusText'));
-		Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+		Horde::logMessage($result, 'DEBUG');
 		$notification->push(_("Status successfully updated."), 'horde.success');
     } catch (Services_Twitter_Exception $e) {
     	$error = $e->getMessage();
-		Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+		Horde::logMessage($e, 'ERR');
 		$notification->push($error);
     }
 }

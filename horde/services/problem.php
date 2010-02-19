@@ -120,7 +120,7 @@ case 'send_problem_report':
                             $_SERVER['REMOTE_ADDR'],
                             preg_replace('/^.*<([^>]+)>.*$/', '$1', $conf['problems']['email']),
                             preg_replace('/^.*<([^>]+)>.*$/', '$1', $email)),
-                    __FILE__, __LINE__, PEAR_LOG_INFO);
+                    __FILE__, __LINE__, 'INFO');
 
                 /* Return to previous page and exit this script. */
                 _returnToPage();

@@ -123,7 +123,7 @@ class Turba_Driver_Facebook extends Turba_Driver
                 $results = $facebook->fql->run($fql);
             } catch (Horde_Service_Facebook_Exception $e) {
                 $error = PEAR::raiseError($e->getMessage(), $e->getCode());
-                Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($error, 'ERR');
 
                 return $error;
             }
@@ -147,7 +147,7 @@ class Turba_Driver_Facebook extends Turba_Driver
                 $results = $facebook->fql->run($fql);
             } catch (Horde_Service_Facebook_Exception $e) {
                 $error = PEAR::raiseError($e->getMessage(), $e->getCode());
-                Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($error, 'ERR');
                 return array();
             }
             $addressbook = array();

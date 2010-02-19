@@ -131,8 +131,7 @@ class Horde_Prefs_Ldap extends Horde_Prefs
         if (!$conn) {
             Horde::logMessage(
                 sprintf('Failed to open an LDAP connection to %s.',
-                        $this->_params['hostspec']),
-                __FILE__, __LINE__, PEAR_LOG_ERR);
+                        $this->_params['hostspec']), 'ERR');
             throw new Horde_Exception('Internal LDAP error. Details have been logged for the administrator.');
         }
 
@@ -145,8 +144,7 @@ class Horde_Prefs_Ldap extends Horde_Prefs
                     sprintf('Set LDAP protocol version to %d failed: [%d] %s',
                             $this->_params['version'],
                             @ldap_errno($conn),
-                            @ldap_error($conn)),
-                    __FILE__, __LINE__, PEAR_LOG_WARNING);
+                            @ldap_error($conn)), 'WARN');
                 throw new Horde_Exception('Internal LDAP error. Details have been logged for the administrator.');
             }
         }
@@ -157,8 +155,7 @@ class Horde_Prefs_Ldap extends Horde_Prefs
                 Horde::logMessage(
                     sprintf('STARTTLS failed: [%d] %s',
                             @ldap_errno($this->_ds),
-                            @ldap_error($this->_ds)),
-                    __FILE__, __LINE__, PEAR_LOG_ERR);
+                            @ldap_error($this->_ds)), 'ERR');
             }
         }
 
@@ -174,8 +171,7 @@ class Horde_Prefs_Ldap extends Horde_Prefs
                             $this->_params['port'],
                             $this->_params['searchdn'],
                             @ldap_errno($conn),
-                            @ldap_error($conn)),
-                    __FILE__, __LINE__, PEAR_LOG_ERR);
+                            @ldap_error($conn)), 'ERR');
                 throw new Horde_Exception('Internal LDAP error. Details have been logged for the administrator.', @ldap_errno($conn));
             }
         }
@@ -187,8 +183,7 @@ class Horde_Prefs_Ldap extends Horde_Prefs
                 Horde::logMessage(
                     sprintf('Setting referral callback failed: [%d] %s',
                             @ldap_errno($conn),
-                            @ldap_error($conn)),
-                    __FILE__, __LINE__, PEAR_LOG_WARNING);
+                            @ldap_error($conn)), 'WARN');
                 throw new Horde_Exception(_("Internal LDAP error.  Details have been logged for the administrator."), @ldap_errno($conn));
             }
         }
@@ -203,8 +198,7 @@ class Horde_Prefs_Ldap extends Horde_Prefs
             Horde::logMessage(
                 sprintf('Error while searching the directory for the user\'s DN: [%d]: %s',
                         @ldap_errno($this->_connection),
-                        @ldap_error($this->_connection)),
-                __FILE__, __LINE__, PEAR_LOG_ERR);
+                        @ldap_error($this->_connection)), 'ERR');
             throw new Horde_Exception('Internal LDAP error. Details have been logged for the administrator.', @ldap_errno($conn));
         }
 
@@ -213,15 +207,13 @@ class Horde_Prefs_Ldap extends Horde_Prefs
             Horde::logMessage(
                 sprintf('Error while retrieving LDAP search results for the user\'s DN: [%d]: %s',
                         @ldap_errno($this->_connection),
-                        @ldap_error($this->_connection)),
-                __FILE__, __LINE__, PEAR_LOG_ERR);
+                        @ldap_error($this->_connection)), 'ERR');
             throw new Horde_Exception('Internal LDAP error. Details have been logged for the administrator.', @ldap_errno($this->_connection));
         }
 
         if ($result['count'] != 1) {
             Horde::logMessage(
-                'Zero or more than one DN returned from search; unable to determine user\'s correct DN.',
-                __FILE__, __LINE__, PEAR_LOG_ERR);
+                'Zero or more than one DN returned from search; unable to determine user\'s correct DN.', 'ERR');
             throw new Horde_Exception('Internal LDAP error. Details have been logged for the administrator.');
         }
         $this->_dn = $result[0]['dn'];
@@ -251,8 +243,7 @@ class Horde_Prefs_Ldap extends Horde_Prefs
             Horde::logMessage(
                 sprintf('Error rebinding for prefs writing: [%d]: %s',
                         @ldap_errno($this->_connection),
-                        @ldap_error($this->_connection)),
-                __FILE__, __LINE__, PEAR_LOG_ERR);
+                        @ldap_error($this->_connection)), 'ERR');
             throw new Horde_Exception('Internal LDAP error. Details have been logged for the administrator.', @ldap_errno($this->_connection));
         }
 
@@ -276,8 +267,7 @@ class Horde_Prefs_Ldap extends Horde_Prefs
         if (strpos($this->_params['hostspec'], $who) === false) {
             Horde::logMessage(
                 sprintf('Referral target %s for DN %s is not in the authorized server list.',
-                        $who, $bind_dn),
-                __FILE__, __LINE__, PEAR_LOG_ERR);
+                        $who, $bind_dn), 'ERR');
             return 1;
         }
 
@@ -308,8 +298,7 @@ class Horde_Prefs_Ldap extends Horde_Prefs
                         $this->_params['port'],
                         $bind_dn,
                         @ldap_errno($this->_connection),
-                        @ldap_error($this->_connection)),
-                __FILE__, __LINE__, PEAR_LOG_ERR);
+                        @ldap_error($this->_connection)), 'ERR');
         }
 
         return 0;
@@ -341,8 +330,7 @@ class Horde_Prefs_Ldap extends Horde_Prefs
             Horde::logMessage(
                 sprintf('Error while searching for the user\'s prefs: [%d]: %s',
                         @ldap_errno($this->_connection),
-                        @ldap_error($this->_connection)),
-                __FILE__, __LINE__, PEAR_LOG_ERR);
+                        @ldap_error($this->_connection)), 'ERR');
             return;
         }
 
@@ -351,8 +339,7 @@ class Horde_Prefs_Ldap extends Horde_Prefs
             Horde::logMessage(
                 sprintf('Error while retrieving LDAP search results for the user\'s prefs: [%d]: %s',
                         @ldap_errno($this->_connection),
-                        @ldap_error($this->_connection)),
-                __FILE__, __LINE__, PEAR_LOG_ERR);
+                        @ldap_error($this->_connection)), 'ERR');
             return;
         }
 
@@ -429,8 +416,7 @@ class Horde_Prefs_Ldap extends Horde_Prefs
             Horde::logMessage(
                 sprintf('Error searching the directory for required objectClasses: [%d] %s',
                         @ldap_errno($this->_connection),
-                        @ldap_error($this->_connection)),
-                __FILE__, __LINE__, PEAR_LOG_ERR);
+                        @ldap_error($this->_connection)), 'ERR');
             return;
         }
 
@@ -439,8 +425,7 @@ class Horde_Prefs_Ldap extends Horde_Prefs
             Horde::logMessage(
                 sprintf('Error retrieving results while checking for required objectClasses: [%d] %s',
                         @ldap_errno($this->_connection),
-                        @ldap_error($this->_connection)),
-                __FILE__, __LINE__, PEAR_LOG_ERR);
+                        @ldap_error($this->_connection)), 'ERR');
             return;
         }
 
@@ -473,8 +458,7 @@ class Horde_Prefs_Ldap extends Horde_Prefs
             Horde::logMessage(
                 sprintf('Unable to modify user\'s objectClass for preferences: [%d] %s',
                         @ldap_errno($this->_connection),
-                        @ldap_error($this->_connection)),
-                __FILE__, __LINE__, PEAR_LOG_ERR);
+                        @ldap_error($this->_connection)), 'ERR');
             return;
         }
 
@@ -509,8 +493,7 @@ class Horde_Prefs_Ldap extends Horde_Prefs
             Horde::logMessage(
                 sprintf('Error while getting preferenes from LDAP: [%d] %s',
                         @ldap_errno($this->_connection),
-                        @ldap_error($this->_connection)),
-                __FILE__, __LINE__, PEAR_LOG_ERR);
+                        @ldap_error($this->_connection)), 'ERR');
             return;
         }
 
@@ -519,8 +502,7 @@ class Horde_Prefs_Ldap extends Horde_Prefs
             Horde::logMessage(
                 sprintf('Error while retrieving results from LDAP: [%d] %s',
                         @ldap_errno($this->_connection),
-                        @ldap_error($this->_connection)),
-                __FILE__, __LINE__, PEAR_LOG_ERR);
+                        @ldap_error($this->_connection)), 'ERR');
             return;
         }
 
@@ -533,8 +515,7 @@ class Horde_Prefs_Ldap extends Horde_Prefs
             Horde::logMessage(
                 sprintf('Unable to clear user\'s preferences: [%d] %s',
                         @ldap_errno($this->_connection),
-                        @ldap_error($this->_connection)),
-                __FILE__, __LINE__, PEAR_LOG_ERR);
+                        @ldap_error($this->_connection)), 'ERR');
         }
 
         $this->cleanup(true);

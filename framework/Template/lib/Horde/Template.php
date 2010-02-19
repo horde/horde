@@ -231,7 +231,7 @@ class Horde_Template
             if ($this->_cache &&
                 isset($cacheid) &&
                 !$this->_cache->set($cacheid, $this->_template)) {
-                Horde::logMessage(sprintf(_("Could not save the compiled template file '%s'."), $file), __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage(sprintf(_("Could not save the compiled template file '%s'."), $file), 'ERR');
             }
         }
 

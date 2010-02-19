@@ -340,8 +340,7 @@ class Horde_Kolab_Storage_Folder
             if (isset($attributes['type'])) {
                 if ($attributes['type'] != $type) {
                     Horde::logMessage(sprintf('Cannot modify the type of a folder from %s to %s!',
-                                              $type, $attributes['type']),
-                                      __FILE__, __LINE__, PEAR_LOG_ERR);
+                                              $type, $attributes['type']), 'ERR');
                 }
                 unset($attributes['type']);
             }
@@ -377,8 +376,7 @@ class Horde_Kolab_Storage_Folder
                     $this->_connection->delete($this->name);
                 } catch (Exception $e) {
                     Horde::logMessage(sprintf('Failed handling the dummy folder: %s!',
-                                              $e->getMessage()),
-                                      __FILE__, __LINE__, PEAR_LOG_ERR);
+                                              $e->getMessage()), 'ERR');
                 }
 
                 $this->name     = $this->new_name;
@@ -391,8 +389,7 @@ class Horde_Kolab_Storage_Folder
         if (isset($attributes['owner'])) {
             if ($attributes['owner'] != $this->getOwner()) {
                 Horde::logMessage(sprintf('Cannot modify the owner of a folder from %s to %s!',
-                                          $this->getOwner(), $attributes['owner']),
-                                  __FILE__, __LINE__, PEAR_LOG_ERR);
+                                          $this->getOwner(), $attributes['owner']), 'ERR');
             }
             unset($attributes['owner']);
         }
@@ -457,8 +454,7 @@ class Horde_Kolab_Storage_Folder
             $this->trigger();
         } catch (Horde_Kolab_Storage_Exception $e) {
             Horde::logMessage(sprintf('Failed triggering folder %s! Error was: %s',
-                                      $this->name, $e->getMessage()),
-                              __FILE__, __LINE__, PEAR_LOG_ERR);
+                                      $this->name, $e->getMessage()), 'ERR');
         }
 
         return true;
@@ -726,8 +722,7 @@ class Horde_Kolab_Storage_Folder
                 $result = $this->trigger();
             } catch (Horde_Kolab_Storage_Exception $e) {
                 Horde::logMessage(sprintf('Failed triggering folder %s! Error was: %s',
-                                          $this->name, $result->getMessage()),
-                                  __FILE__, __LINE__, PEAR_LOG_ERR);
+                                          $this->name, $result->getMessage()), 'ERR');
             }
         }
 
@@ -763,8 +758,7 @@ class Horde_Kolab_Storage_Folder
         $result = $this->trigger();
         if (is_a($result, 'PEAR_Error')) {
             Horde::logMessage(sprintf('Failed triggering folder %s! Error was: %s',
-                                      $this->name, $result->getMessage()),
-                              __FILE__, __LINE__, PEAR_LOG_ERR);
+                                      $this->name, $result->getMessage()), 'ERR');
         }
 
         return true;
@@ -791,8 +785,7 @@ class Horde_Kolab_Storage_Folder
         $result = $this->trigger();
         if (is_a($result, 'PEAR_Error')) {
             Horde::logMessage(sprintf('Failed triggering folder %s! Error was: %s',
-                                      $this->name, $result->getMessage()),
-                              __FILE__, __LINE__, PEAR_LOG_ERR);
+                                      $this->name, $result->getMessage()), 'ERR');
         }
         return $success;
     }
@@ -853,8 +846,7 @@ class Horde_Kolab_Storage_Folder
                     return $handlers[$type];
                 }
                 Horde::logMessage(sprintf('Loading format handler "%s" failed: %s',
-                                          $type, $handlers[$type]->getMessage()),
-                                  __FILE__, __LINE__, PEAR_LOG_ERR);
+                                          $type, $handlers[$type]->getMessage()), 'ERR');
                 continue;
             }
         }
@@ -1009,8 +1001,7 @@ class Horde_Kolab_Storage_Folder
             $this->trigger();
         } catch (Horde_Kolab_Storage_Exception $e) {
             Horde::logMessage(sprintf('Failed triggering folder %s! Error was: %s',
-                                      $this->name, $result->getMessage()),
-                              __FILE__, __LINE__, PEAR_LOG_ERR);
+                                      $this->name, $result->getMessage()), 'ERR');
         }
 
         return true;
@@ -1330,8 +1321,7 @@ class Horde_Kolab_Storage_Folder
         $result = $this->trigger();
         if (is_a($result, 'PEAR_Error')) {
             Horde::logMessage(sprintf('Failed triggering folder %s! Error was: %s',
-                                      $this->name, $result->getMessage()),
-                              __FILE__, __LINE__, PEAR_LOG_ERR);
+                                      $this->name, $result->getMessage()), 'ERR');
         }
 
         return $result;
@@ -1357,8 +1347,7 @@ class Horde_Kolab_Storage_Folder
         $result = $this->trigger();
         if (is_a($result, 'PEAR_Error')) {
             Horde::logMessage(sprintf('Failed triggering folder %s! Error was: %s',
-                                      $this->name, $result->getMessage()),
-                              __FILE__, __LINE__, PEAR_LOG_ERR);
+                                      $this->name, $result->getMessage()), 'ERR');
         }
 
         return $iresult;
@@ -1398,8 +1387,7 @@ class Horde_Kolab_Storage_Folder
         $data = $this->_annotation_data->getObject('KOLAB_FOLDER_CONFIGURATION');
         if (is_a($data, 'PEAR_Error')) {
             Horde::logMessage(sprintf('Error retrieving annotation data on folder %s: %s',
-                                      $this->name, $data->getMessage()),
-                              __FILE__, __LINE__, PEAR_LOG_ERR);
+                                      $this->name, $data->getMessage()), 'ERR');
             return '';
         }
         if (isset($data[$key])) {
@@ -1429,8 +1417,7 @@ class Horde_Kolab_Storage_Folder
         $data = $this->_annotation_data->getObject('KOLAB_FOLDER_CONFIGURATION');
         if (is_a($data, 'PEAR_Error')) {
             Horde::logMessage(sprintf('Error retrieving annotation data on folder %s: %s',
-                                      $this->name, $data->getMessage()),
-                              __FILE__, __LINE__, PEAR_LOG_ERR);
+                                      $this->name, $data->getMessage()), 'ERR');
             $data = array();
             $uid = null;
         } else {

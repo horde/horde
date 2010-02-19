@@ -61,7 +61,7 @@ class IMP_Maillog
                  * confusion, especially since they most likely don't even
                  * know the message is being logged. */
                 $entry = sprintf('Could not log message details to Horde_History. Error returned: %s', $e->getMessage());
-                Horde::logMessage($entry, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($entry, 'ERR');
             }
         }
     }

@@ -56,16 +56,15 @@ class Horde_Auth_Signup_Sql extends Horde_Auth_Signup
                         time(),
                         $_SERVER['REMOTE_ADDR'],
                         serialize($signup->data));
-        Horde::logMessage('SQL query by Auth_Signup_sql::_queueSignup(): ' . $query,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL query by Auth_Signup_sql::_queueSignup(): ' . $query, 'DEBUG');
         $stmt = $this->_write_db->prepare($query, null, MDB2_PREPARE_MANIP);
         if (is_a($stmt, 'PEAR_Error')) {
-            Horde::logMessage($stmt, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($stmt, 'ERR');
             return $stmt;
         }
         $result = $stmt->execute($values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
         $stmt->free();
@@ -88,12 +87,12 @@ class Horde_Auth_Signup_Sql extends Horde_Auth_Signup
                                     . ' WHERE user_name = ?');
 
         if (is_a($stmt, 'PEAR_Error')) {
-            Horde::logMessage($stmt, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($stmt, 'ERR');
             return $stmt;
         }
         $result = $stmt->execute(array($user));
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -116,17 +115,17 @@ class Horde_Auth_Signup_Sql extends Horde_Auth_Signup
     {
         $stmt = $this->_db->prepare('SELECT * FROM ' . $this->_params['table'] . ' WHERE user_name = ?');
         if (is_a($stmt, 'PEAR_Error')) {
-            Horde::logMessage($stmt, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($stmt, 'ERR');
             return $stmt;
         }
         $results = $stmt->execute(array($username));
         if (is_a($results, 'PEAR_Error')) {
-            Horde::logMessage($results, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($results, 'ERR');
             return $results;
         }
         $data = $results->fetchRow(MDB2_FETCHMODE_ASSOC);
         if (is_a($data, 'PEAR_Error')) {
-            Horde::logMessage($data, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($data, 'ERR');
             return $data;
         } elseif (empty($data)) {
             return PEAR::RaiseError(sprintf(_("User \"%s\" does not exist."), $name));
@@ -151,7 +150,7 @@ class Horde_Auth_Signup_Sql extends Horde_Auth_Signup
         $query = 'SELECT * FROM ' . $this->_params['table'] . '  ORDER BY signup_date';
         $result = $this->_db->query($query);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         } elseif (empty($result)) {
             return array();
@@ -178,12 +177,12 @@ class Horde_Auth_Signup_Sql extends Horde_Auth_Signup
     {
         $stmt = $this->_write_db->prepare('DELETE FROM ' . $this->_params['table'] . ' WHERE user_name = ?', null, MDB2_PREPARE_MANIP);
         if (is_a($stmt, 'PEAR_Error')) {
-            Horde::logMessage($stmt, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($stmt, 'ERR');
             return $stmt;
         }
         $result = $stmt->execute(array($username));
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
         $stmt->free();

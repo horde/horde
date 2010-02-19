@@ -168,8 +168,7 @@ class SyncML_Command_Alert extends SyncML_Command {
                 list($clientlast, $serverAnchorLast) = $r;
                 $GLOBALS['backend']->logMessage(
                     'Previous sync found for database ' . $database
-                    . '; client timestamp: ' . $clientlast,
-                    __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    . '; client timestamp: ' . $clientlast, 'DEBUG');
 
                 // Check if anchor sent from client matches our own stored
                 // data.
@@ -178,8 +177,7 @@ class SyncML_Command_Alert extends SyncML_Command {
                     $anchormatch = true;
                     $GLOBALS['backend']->logMessage(
                         'Anchor timestamps match, TwoWaySync possible. Syncing data since '
-                        . date('Y-m-d H:i:s', $serverAnchorLast),
-                        __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                        . date('Y-m-d H:i:s', $serverAnchorLast), 'DEBUG');
                 } else {
                     // Server and client have different anchors, enforce
                     // SlowSync/RefreshSync
@@ -187,8 +185,7 @@ class SyncML_Command_Alert extends SyncML_Command {
                         'Client requested sync with anchor timestamp '
                         . $this->_metaAnchorLast
                         . ' but server has recorded timestamp '
-                        . $clientlast . '. Enforcing SlowSync',
-                        __FILE__, __LINE__, PEAR_LOG_INFO);
+                        . $clientlast . '. Enforcing SlowSync', 'INFO');
                     $anchormatch = false;
                     $clientlast = 0;
                 }
@@ -196,8 +193,7 @@ class SyncML_Command_Alert extends SyncML_Command {
                 // No info about previous sync, use SlowSync or RefreshSync.
                 $GLOBALS['backend']->logMessage(
                     'No info about previous syncs found for device ' .
-                    $state->sourceURI . ' and database ' . $database,
-                    __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $state->sourceURI . ' and database ' . $database, 'DEBUG');
                 $clientlast = 0;
                 $serverAnchorLast = 0;
                 $anchormatch = false;
@@ -262,8 +258,7 @@ class SyncML_Command_Alert extends SyncML_Command {
 
         default:
             $GLOBALS['backend']->logMessage(
-                'Unknown sync type ' . $this->_alert,
-                __FILE__, __LINE__, PEAR_LOG_ERR);
+                'Unknown sync type ' . $this->_alert, 'ERR');
             break;
         }
 
@@ -289,8 +284,7 @@ class SyncML_Command_Alert extends SyncML_Command {
         if (!$sync) {
             $GLOBALS['backend']->logMessage(
                 'Creating SyncML_Sync object for database '
-                . $this->_targetLocURI .  '; sync type ' . $synctype,
-                __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                . $this->_targetLocURI .  '; sync type ' . $synctype, 'DEBUG');
             $sync = new SyncML_Sync($synctype,
                                     $this->_targetLocURI,
                                     $this->_sourceLocURI,

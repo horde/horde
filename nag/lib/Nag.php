@@ -195,7 +195,7 @@ class Nag
                     if (!empty($types['taskHash'])) {
                         $newtasks = $registry->callByPackage($app, 'listAs', array('taskHash'));
                         if (is_a($newtasks, 'PEAR_Error')) {
-                            Horde::logMessage($newtasks, __FILE__, __LINE__, PEAR_LOG_ERR);
+                            Horde::logMessage($newtasks, 'ERR');
                         } else {
                             foreach ($newtasks as $task) {
                                 $task['tasklist_id'] = '**EXTERNAL**';
@@ -370,7 +370,7 @@ class Nag
         }
         $tasklists = $GLOBALS['nag_shares']->listShares(Horde_Auth::getAuth(), $permission, $owneronly ? Horde_Auth::getAuth() : null, 0, 0, 'name');
         if (is_a($tasklists, 'PEAR_Error')) {
-            Horde::logMessage($tasklists, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($tasklists, 'ERR');
             return array();
         }
 
@@ -779,7 +779,7 @@ class Nag
             $now = time();
             $alarmList = Nag::listAlarms($now);
             if (is_a($alarmList, 'PEAR_Error')) {
-                Horde::logMessage($alarmList, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($alarmList, 'ERR');
                 $notification->push($alarmList, 'horde.error');
             } else {
                 $messages = array();
@@ -858,7 +858,7 @@ class Nag
             }
             $group_users = $group->listAllUsers();
             if (is_a($group_users, 'PEAR_Error')) {
-                Horde::logMessage($group_users, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($group_users, 'ERR');
                 continue;
             }
             foreach ($group_users as $user) {
@@ -1035,8 +1035,7 @@ class Nag
                     $mail->addRecipients($df_recipients);
 
                     Horde::logMessage(sprintf('Sending event notifications for %s to %s',
-                                              $task->name, implode(', ', $df_recipients)),
-                                      __FILE__, __LINE__, PEAR_LOG_INFO);
+                                              $task->name, implode(', ', $df_recipients)), 'INFO');
                     $sent = $mail->send(Horde::getMailerConfig());
                     if (is_a($sent, 'PEAR_Error')) {
                         return $sent;

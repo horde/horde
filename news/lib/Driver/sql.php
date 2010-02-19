@@ -337,7 +337,7 @@ class News_Driver_sql extends News_Driver {
 
         $source = $this->write_db->query($sql, $values);
         if ($source instanceof PEAR_Error) {
-            Horde::logMessage($source, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($source, 'ERR');
             return $source;
         }
 
@@ -363,7 +363,7 @@ class News_Driver_sql extends News_Driver {
 
         $source = $this->write_db->query($sql, $values);
         if ($source instanceof PEAR_Error) {
-            Horde::logMessage($source, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($source, 'ERR');
             return $source;
         }
     }

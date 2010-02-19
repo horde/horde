@@ -174,7 +174,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         if (empty($options['nocache']) && ($cache = $GLOBALS['injector']->getInstance('Horde_Cache'))) {
             $result = $cache->get("PGPpublicKey_" . $address . $keyid, 3600);
             if ($result) {
-                Horde::logMessage('PGPpublicKey: ' . serialize($result), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                Horde::logMessage('PGPpublicKey: ' . serialize($result), 'DEBUG');
                 return $result;
             }
         }
@@ -211,7 +211,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
                     }
                 } catch (Horde_Exception $e) {
                     /* Return now, if no public key found at all. */
-                    Horde::logMessage('PGPpublicKey: ' . $e->getMessage(), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    Horde::logMessage('PGPpublicKey: ' . $e->getMessage(), 'DEBUG');
                     throw new Horde_Exception(sprintf(_("Could not retrieve public key for %s."), $address));
                 }
             } else {

@@ -77,13 +77,13 @@ class Horde_Rpc_Phpgw extends Horde_Rpc
         $method = str_replace('.', '/', 'phpgw.' . $method);
 
         if (!$registry->hasMethod($method)) {
-            Horde::logMessage(sprintf(_("Method \"%s\" is not defined"), $method), __FILE__, __LINE__, PEAR_LOG_NOTICE);
+            Horde::logMessage(sprintf(_("Method \"%s\" is not defined"), $method), 'NOTICE');
             return sprintf(_("Method \"%s\" is not defined"), $method);
         }
 
         // Try to resume a session
         if (isset($params[0]['kp3']) && $params[0]["kp3"] == session_name() && session_id() != $params[0]["sessionid"]) {
-            Horde::logMessage("manually reload session ".$params[0]["sessionid"], __FILE__, __LINE__, PEAR_LOG_NOTICE);
+            Horde::logMessage("manually reload session ".$params[0]["sessionid"], 'NOTICE');
             session_regenerate_id();
             session_unset();
             session_id($params[0]["sessionid"]);
@@ -93,7 +93,7 @@ class Horde_Rpc_Phpgw extends Horde_Rpc
         $authenticated = Horde_Auth::isAuthenticated() || $method== "phpgw/system/login";
 
         if ($authenticated) {
-            Horde::logMessage("rpc call $method allowed", __FILE__, __LINE__, PEAR_LOG_NOTICE);
+            Horde::logMessage("rpc call $method allowed", 'NOTICE');
             return $registry->call($method, $params);
         } else {
             return PEAR::raiseError(_("You did not authenticate."), 'horde.error');

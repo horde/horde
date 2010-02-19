@@ -6,7 +6,7 @@ $params = array('phptype' => 'mysql',
                 'charset' => 'iso-8859-1');
 
 require_once 'Log.php';
-$conf['log'] = array('priority' => PEAR_LOG_DEBUG,
+$conf['log'] = array('priority' => 'DEBUG',
                      'ident' => 'HORDE',
                      'params' => array('append' => true),
                      'name' => '/tmp/horde.log',

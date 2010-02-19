@@ -86,7 +86,7 @@ class Skeleton_Driver_Sql extends Skeleton_Driver
         $values = array($this->_params['bar']);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Skeleton_Driver_Sql::retrieve(): %s', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Skeleton_Driver_Sql::retrieve(): %s', $query), 'DEBUG');
 
         /* Execute the query. */
         $result = $this->_db->query($query, $values);

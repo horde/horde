@@ -87,7 +87,7 @@ class Turba_EditContactForm extends Turba_ContactForm {
             }
             return true;
         } else {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             $notification->push(_("There was an error saving the contact. Contact your system administrator for further help."), 'horde.error');
             return $result;
         }

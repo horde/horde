@@ -862,7 +862,7 @@ class Whups {
             global $whups_driver;
             $owners = $whups_driver->getOwners($ticket);
             if (is_a($owners, 'PEAR_Error')) {
-                Horde::logMessage($owners, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($owners, 'ERR');
                 return $owners->getMessage();
             }
         }

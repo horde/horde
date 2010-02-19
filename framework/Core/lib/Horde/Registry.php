@@ -331,7 +331,7 @@ class Horde_Registry
     }
 
     /**
-     * Stores cacheable member variables in the session at shutdown.
+     * Events to do on shutdown.
      */
     public function __destruct()
     {
@@ -341,10 +341,8 @@ class Horde_Registry
         }
 
         /* Register memory tracker if logging in debug mode. */
-        if (!empty($GLOBALS['conf']['log']['enabled']) &&
-            ($GLOBALS['conf']['log']['priority'] == PEAR_LOG_DEBUG) &&
-            function_exists('memory_get_peak_usage')) {
-            Horde::logMessage('Max memory usage: ' . memory_get_peak_usage(true) . ' bytes', __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        if (function_exists('memory_get_peak_usage')) {
+            Horde::logMessage('Max memory usage: ' . memory_get_peak_usage(true) . ' bytes', 'DEBUG');
         }
     }
 
@@ -494,7 +492,7 @@ class Horde_Registry
                         'noperms' => $api->noPerms
                     );
                 } catch (Horde_Exception $e) {
-                    Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    Horde::logMessage($e, 'DEBUG');
                 }
             }
         }
@@ -1029,7 +1027,7 @@ class Horde_Registry
                 throw new Horde_Exception('User is not authorized', self::AUTH_FAILURE);
             }
 
-            Horde::logMessage(sprintf('%s does not have READ permission for %s', Horde_Auth::getAuth() ? 'User ' . Horde_Auth::getAuth() : 'Guest user', $app), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage(sprintf('%s does not have READ permission for %s', Horde_Auth::getAuth() ? 'User ' . Horde_Auth::getAuth() : 'Guest user', $app), 'DEBUG');
             throw new Horde_Exception(sprintf(_('%s is not authorized for %s.'), Horde_Auth::getAuth() ? 'User ' . Horde_Auth::getAuth() : 'Guest user', $this->applications[$app]['name']), self::PERMISSION_DENIED);
         }
 
@@ -1405,7 +1403,7 @@ class Horde_Registry
             $_SESSION['_registry']['md5'][$name] = $md5sum = hash('md5', $data);
             $id = $this->_getCacheId($name, false) . '|' . $md5sum;
             if ($ob->set($id, $data, 86400)) {
-                Horde::logMessage('Horde_Registry: stored ' . $name . ' with cache ID ' . $id, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                Horde::logMessage('Horde_Registry: stored ' . $name . ' with cache ID ' . $id, 'DEBUG');
             }
         }
     }
@@ -1431,7 +1429,7 @@ class Horde_Registry
             $result = $GLOBALS['injector']->getInstance('Horde_Cache')->get($id, 86400);
             if ($result !== false) {
                 $this->_cache[$name] = unserialize($result);
-                Horde::logMessage('Horde_Registry: retrieved ' . $name . ' with cache ID ' . $id, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                Horde::logMessage('Horde_Registry: retrieved ' . $name . ' with cache ID ' . $id, 'DEBUG');
                 return true;
             }
         }

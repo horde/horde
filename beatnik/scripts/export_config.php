@@ -39,7 +39,7 @@ try {
                               array('help', 'username=', 'password=', 'type=', 'rpc='));
 } catch (Exception $e) {
     $error = _("Couldn't read command-line options.");
-    Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+    Horde::logMessage($error, 'DEBUG');
     $cli->fatal($error);
 }
 
@@ -62,12 +62,12 @@ foreach ($opts as $opt) {
     case '--password':
         $password = $optValue;
         break;
-        
+
     case 't':
     case '--type':
         $type = $optValue;
         break;
-        
+
     case 'r':
     case '--rpc':
         $rpc = $optValue;
@@ -89,7 +89,7 @@ if (!empty($rpc)) {
     } catch (Exception $e) {
         $cli->fatal($e);
     }
-    
+
 // Login to horde if username & password are set and load module.
 } elseif (!empty($username) && !empty($password)) {
 
@@ -97,16 +97,16 @@ if (!empty($rpc)) {
     $auth = &Horde_Auth::singleton($conf['auth']['driver']);
     if (!$auth->authenticate($username, array('password' => $password))) {
         $error = _("Login is incorrect.");
-        Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_ERR);
+        Horde::logMessage($error, 'ERR');
         $cli->fatal($error);
     } else {
         $msg = sprintf(_("Logged in successfully as \"%s\"."), $username);
-        Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($msg, 'DEBUG');
         $cli->message($msg, 'cli.success');
     }
 
     require_once BEATNIK_BASE . '/lib/base.php';
-              
+
 } else {
     $msg = _("Have noting to do.");
     $cli->fatal($msg);
@@ -156,7 +156,7 @@ function _getRecords($domain)
             $GLOBALS['cli']->fatal($e);
         }
     }
-    
+
     return $result;
 }
 
@@ -180,7 +180,7 @@ function _hosts()
             $c .= "$pointer $hostname.$domain.$tld\n";
         }
     }
-    
+
     return $c;
 }
 
@@ -206,7 +206,7 @@ function _bash()
                 // use empty hostname as alias for www
                 $c .= "ln -s /var/www/$zonename" . "_$tld/$zonename.$tld " .
                            "/var/www/$zonename" . "_$tld/$hostname.$zonename.$tld" . "\n";
-                continue; 
+                continue;
             }
 
             $c .= "mkdir /var/www/$zonename" . "_$tld/$hostname.$zonename.$tld" . "\n";
@@ -214,7 +214,7 @@ function _bash()
             $c .= "mkdir /var/log/apache2/$hostname.$zonename.$tld" . "\n";
         }
     }
-    
+
     return $c;
 }
 
@@ -256,7 +256,7 @@ function _apache()
             $c .= "</VirtualHost>\n";
         }
     }
-    
+
     return $c;
 }
 
@@ -320,6 +320,6 @@ function _tinydns()
 
         $c .= "\n";
     }
-        
+
     return $c;
 }

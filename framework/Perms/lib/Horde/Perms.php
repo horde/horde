@@ -299,7 +299,7 @@ class Horde_Perms
             try {
                 $permission = $this->getPermission($permission);
             } catch (Horde_Perms_Exception $e) {
-                Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                Horde::logMessage($e, 'DEBUG');
                 return false;
             }
         }

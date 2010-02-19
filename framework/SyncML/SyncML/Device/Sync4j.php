@@ -920,8 +920,7 @@ class SyncML_Device_sync4j extends SyncML_Device {
                 sprintf('Sync4j for name %s, value %s',
                         $item['name'],
                         is_string($item['value'])
-                        ? $item['value'] : var_export($item['value'], true)),
-                __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                        ? $item['value'] : var_export($item['value'], true)), 'DEBUG');
 
             switch (Horde_String::upper($item['name'])) {
             case 'DTSTART':
@@ -1121,8 +1120,7 @@ class SyncML_Device_sync4j extends SyncML_Device {
             !empty($end) && $start != $end) {
             $hash['Duration'] = ($end - $start) / 60;
             $GLOBALS['backend']->logMessage(
-                'Duration set to ' . $hash['Duration'],
-                __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                'Duration set to ' . $hash['Duration'], 'DEBUG');
 
         }
 

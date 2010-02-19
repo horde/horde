@@ -574,7 +574,7 @@ if ($browser->hasFeature('javascript')) {
                 $spellcheck = true;
                 $imp_ui->attachSpellChecker();
             } catch (Exception $e) {
-                Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($e, 'ERR');
             }
         }
         Horde::addScriptFile('ieEscGuard.js', 'horde');

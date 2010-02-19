@@ -163,7 +163,7 @@ class Horde_SessionHandler
             try {
                 $this->_open($save_path, $session_name);
             } catch (Horde_Exception $e) {
-                Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($e, 'ERR');
                 return false;
             }
 
@@ -195,7 +195,7 @@ class Horde_SessionHandler
         try {
             $this->_close();
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             return false;
         }
 
@@ -253,7 +253,7 @@ class Horde_SessionHandler
     public function write($id, $session_data)
     {
         if (!$this->_force && ($this->_sig == md5($session_data))) {
-            Horde::logMessage('Session data unchanged (id = ' . $id . ')', __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('Session data unchanged (id = ' . $id . ')', 'DEBUG');
             return true;
         }
 

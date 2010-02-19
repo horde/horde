@@ -316,13 +316,13 @@ class Ansel_Api extends Horde_Registry_Api
             isset($image['description']) &&
             isset($image['data']) &&
             isset($image['type'])) {
-                Horde::logMessage(sprintf("Receiving image %s in saveImage() with a raw filesize of %i", $image['filename'], strlen($image['data'])), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                Horde::logMessage(sprintf("Receiving image %s in saveImage() with a raw filesize of %i", $image['filename'], strlen($image['data'])), 'DEBUG');
                 $image_data = array('image_filename' => $image['filename'],
                     'image_caption' => $image['description'],
                     'image_type' => $image['type'],
                     'data' => $this->_getImageData($image['data'], $encoding, $compression, true));
             } else {
-                Horde::logMessage(sprintf("Receiving image %s in saveImage() with a raw filesize of %i", $image['file'], filesize($image['file'])), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                Horde::logMessage(sprintf("Receiving image %s in saveImage() with a raw filesize of %i", $image['file'], filesize($image['file'])), 'DEBUG');
             }
 
         if (is_null($image_data) && getimagesize($image['file']) === false) {

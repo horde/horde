@@ -271,11 +271,6 @@ class Horde_Test
         'HTTP_WebDAV_Server' => array(
             'error' => 'The HTTP_WebDAV_Server is required if you want to use the WebDAV interface of Horde, e.g. to access calendars or tasklists with external clients.'
         ),
-        'Log' => array(
-            'error' => 'Make sure you are using a version of PEAR which includes the Log classes, or that you have installed the Log package seperately. See the INSTALL file for instructions on installing Log.',
-            'function' => '_checkPearLogVersion',
-            'required' => true
-        ),
         'Mail' => array(
             'path' => 'Mail/RFC822.php',
             'error' => 'You do not have the Mail package installed on your system. See the INSTALL file for instructions on how to install the package.'
@@ -646,18 +641,6 @@ class Horde_Test
     {
         return !(ini_get('session.gc_probability') &&
                  ini_get('session.gc_divisor'));
-    }
-
-    /**
-     * Additional check for PEAR Log module for its version.
-     *
-     * @return string  Returns error string on error.
-     */
-    protected function _checkPearLogVersion()
-    {
-        if (!defined('PEAR_LOG_INFO')) {
-            return 'Your version of Log is not recent enough.';
-        }
     }
 
     /**

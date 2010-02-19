@@ -57,10 +57,10 @@ class Horde_Prefs_File extends Horde_Prefs
         // Sanity check for directory
         $error = false;
         if (empty($params['directory']) || !is_dir($params['directory'])) {
-            Horde::logMessage(_("Preference storage directory is not available."), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage(_("Preference storage directory is not available."), 'ERR');
             $error = true;
         } elseif (!is_writable($params['directory'])) {
-            Horde::logMessage(sprintf(_("Directory %s is not writeable"), $params['directory']), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage(sprintf(_("Directory %s is not writeable"), $params['directory']), 'ERR');
             $error = true;
         }
 

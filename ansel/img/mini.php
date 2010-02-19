@@ -30,7 +30,7 @@ if ($conf['vfs']['src'] == 'sendfile') {
     try {
         $image->createView('mini', 'ansel_default');
     } catch (Horde_Exception $e) {
-        Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+        Horde::logMessage($e, 'ERR');
         exit;
     }
     $filename = $ansel_vfs->readFile($image->getVFSPath('mini'), $image->getVFSName('mini'));

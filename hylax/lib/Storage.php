@@ -59,7 +59,7 @@ class Hylax_Storage {
         try {
             $this->_vfs->writeData($path, $file, $data, true);
         } catch (VFS_Exception $e) {
-            Horde::logMessage('Could not save fax file to VFS: ' . $e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage('Could not save fax file to VFS: ' . $e->getMessage(), 'ERR');
             throw $e;
         }
         return $fax_id;
@@ -83,7 +83,7 @@ class Hylax_Storage {
 
         $data = $this->getFaxData($info['fax_id']);
         if (is_a($data, 'PEAR_Error')) {
-            Horde::logMessage('Could not get fax data: ' . $data->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage('Could not get fax data: ' . $data->getMessage(), 'ERR');
             return $data;
         }
 
@@ -115,7 +115,7 @@ class Hylax_Storage {
         try {
             return $this->_vfs->read($path, $file);
         } catch (VFS_Exception $e) {
-            Horde::logMessage(sprintf("%s '%s/%s'.", $e->getMessage(), $path, $file), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage(sprintf("%s '%s/%s'.", $e->getMessage(), $path, $file), 'ERR');
             throw $e;
         }
     }

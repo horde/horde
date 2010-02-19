@@ -98,7 +98,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
                             $this->_params['version'],
                             @ldap_errno($this->_ds),
                             @ldap_error($this->_ds)),
-                    __FILE__, __LINE__, PEAR_LOG_ERR);
+                    'ERR');
             }
         }
 
@@ -109,7 +109,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
                     sprintf('STARTTLS failed: [%d] %s',
                             @ldap_errno($this->_ds),
                             @ldap_error($this->_ds)),
-                    __FILE__, __LINE__, PEAR_LOG_ERR);
+                    'ERR');
             }
         }
 
@@ -120,7 +120,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
                     sprintf('Unable to disable directory referrals on this connection to Active Directory: [%d] %s',
                             @ldap_errno($this->_ds),
                             @ldap_error($this->_ds)),
-                    __FILE__, __LINE__, PEAR_LOG_ERR);
+                    'ERR');
             }
         }
 
@@ -155,7 +155,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
         $search = @$func($this->_ds, $this->_params['basedn'], $filter,
                          array($this->_params['uid']));
         if (!$search) {
-            Horde::logMessage(ldap_error($this->_ds), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage(ldap_error($this->_ds), 'ERR');
             throw new Horde_Auth_Exception(_("Could not search the LDAP server."));
         }
 
@@ -236,7 +236,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
                     $lookupshadow['shadowmin']     = $this->_params['minage'];
                     $lookupshadow['shadowmax']     = $this->_params['maxage'];
                 } else {
-                    Horde::logMessage('Wrong time format: ' . $information[0]['passwordexpirationtime'][0], __FILE__, __LINE__, PEAR_LOG_ERR);
+                    Horde::logMessage('Wrong time format: ' . $information[0]['passwordexpirationtime'][0], 'ERR');
                 }
             } else {
                 if (isset($information[0]['shadowmax'][0])) {

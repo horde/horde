@@ -113,7 +113,7 @@ class Horde_SessionHandler_Pgsql extends Horde_SessionHandler
                          $this->_quote($id));
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Pgsql::' . '_read(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Pgsql::' . '_read(): query = "%s"', $query), 'DEBUG');
 
         $result = @pg_query($this->_db, $query);
         $data = pg_fetch_result($result, 0, 'session_data');
@@ -158,7 +158,7 @@ class Horde_SessionHandler_Pgsql extends Horde_SessionHandler
         }
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Pgsql::' . '_write(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Pgsql::' . '_write(): query = "%s"', $query), 'DEBUG');
 
         $result = @pg_query($this->_db, $query);
         $rows = pg_affected_rows($result);
@@ -167,7 +167,7 @@ class Horde_SessionHandler_Pgsql extends Horde_SessionHandler
         @pg_query($this->_db, 'COMMIT;');
 
         if ($rows != 1) {
-            Horde::logMessage('Error writing session data', __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage('Error writing session data', 'ERR');
             return false;
         }
 
@@ -188,7 +188,7 @@ class Horde_SessionHandler_Pgsql extends Horde_SessionHandler
                          $this->_params['table'], $this->_quote($id));
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Pgsql::' . 'destroy(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Pgsql::' . 'destroy(): query = "%s"', $query), 'DEBUG');
 
         /* Execute the query. */
         $result = @pg_query($this->_db, $query);
@@ -197,7 +197,7 @@ class Horde_SessionHandler_Pgsql extends Horde_SessionHandler
 
         if (!$result) {
             pg_free_result($result);
-            Horde::logMessage('Failed to delete session (id = ' . $id . ')', __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage('Failed to delete session (id = ' . $id . ')', 'ERR');
             return false;
         }
 
@@ -220,12 +220,12 @@ class Horde_SessionHandler_Pgsql extends Horde_SessionHandler
                          $this->_quote(time() - $maxlifetime));
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Pgsql::' . 'gc(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Pgsql::' . 'gc(): query = "%s"', $query), 'DEBUG');
 
         /* Execute the query. */
         $result = @pg_query($this->_db, $query);
         if (!$result) {
-            Horde::logMessage('Error garbage collecting old sessions', __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage('Error garbage collecting old sessions', 'ERR');
         }
 
         pg_free_result($result);
@@ -251,7 +251,7 @@ class Horde_SessionHandler_Pgsql extends Horde_SessionHandler
                          time() - ini_get('session.gc_maxlifetime'));
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Pgsql::' . 'getSessionIDs(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Pgsql::' . 'getSessionIDs(): query = "%s"', $query), 'DEBUG');
 
         /* Execute the query. */
         $result = @pg_query($this->_db, $query);

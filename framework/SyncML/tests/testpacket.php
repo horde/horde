@@ -22,11 +22,11 @@ require_once 'SyncML.php';
 
 class Backend extends SyncML_Backend {
 
-    var $_logLevel = PEAR_LOG_DEBUG;
+    var $_logLevel = 'DEBUG';
 
-    function logMessage($message, $file, $line, $priority = PEAR_LOG_INFO)
+    function logMessage($message, $priority = 'INFO')
     {
-        parent::logMessage($message, $file, $line, $priority);
+        parent::logMessage($message, $priority);
         echo $this->_logtext;
         $this->_logtext = '';
     }

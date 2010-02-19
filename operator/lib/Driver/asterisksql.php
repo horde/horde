@@ -90,11 +90,11 @@ class Operator_Driver_asterisksql extends Operator_Driver {
         $values = array();
 
         if (!is_numeric($rowstart)) {
-            Horde::logMessage('Invalid start row requested.', __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage('Invalid start row requested.', 'ERR');
             throw new Operator_Exception(_("Internal error.  Details have been logged for the administrator."));
         }
         if (!is_null($rowlimit) && !is_numeric($rowlimit)) {
-            Horde::logMessage('Invalid row limit requested.', __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage('Invalid row limit requested.', 'ERR');
             throw new Operator_Exception(_("Internal error.  Details have been logged for the administrator."));
         }
 
@@ -125,7 +125,7 @@ class Operator_Driver_asterisksql extends Operator_Driver {
         $filterstring = implode(' AND ', $filter);
         $sql = sprintf($sql, $filterstring);
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Operator_Driver_asterisksql::getData(): %s', $sql), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Operator_Driver_asterisksql::getData(): %s', $sql), 'DEBUG');
 
         /* Execute the query. */
         if (is_null($rowlimit)) {
@@ -134,7 +134,7 @@ class Operator_Driver_asterisksql extends Operator_Driver {
             $res = $this->_db->limitQuery($sql, $rowstart, $rowlimit, $values);
         }
         if (is_a($res, 'PEAR_Error')) {
-            Horde::logMessage($res, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($res, 'ERR');
             throw new Operator_Exception(_("Internal error.  Details have been logged for the administrator."));
         }
 
@@ -148,12 +148,12 @@ class Operator_Driver_asterisksql extends Operator_Driver {
                'SUM(CASE disposition WHEN "FAILED" THEN 1 ELSE 0 END) AS ' .
                'failed FROM ' . $this->_params['table'] . ' WHERE %s';
         $sql = sprintf($sql, $filterstring);
-        Horde::logMessage(sprintf('Operator_Driver_asterisksql::getData(): %s', $sql), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Operator_Driver_asterisksql::getData(): %s', $sql), 'DEBUG');
 
         /* Execute the query. */
         $res = $this->_db->getRow($sql, $values, DB_FETCHMODE_ASSOC);
         if (is_a($res, 'PEAR_Error')) {
-            Horde::logMessage($res, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($res, 'ERR');
             throw new Operator_Exception(_("Internal error.  Details have been logged for the administrator."));
         }
 
@@ -181,7 +181,7 @@ class Operator_Driver_asterisksql extends Operator_Driver {
                                  $dcontext = null)
     {
         if (!is_a($start, 'Horde_Date') || !is_a($end, 'Horde_Date')) {
-            Horde::logMessage('Start ane end date must be Horde_Date objects.', __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage('Start ane end date must be Horde_Date objects.', 'ERR');
             throw new Operator_Exception(_("Internal error.  Details have been logged for the administrator."));
         }
 
@@ -241,27 +241,27 @@ class Operator_Driver_asterisksql extends Operator_Driver {
 
         /* Log the query at a DEBUG log level. */
         $sql = sprintf($numcalls_query, $filterstring);
-        Horde::logMessage(sprintf('Operator_Driver_asterisksql::getCallStats(): Values: %s', print_r($values, true)), __FILE__, __LINE__, PEAR_LOG_DEBUG);
-        Horde::logMessage(sprintf('Operator_Driver_asterisksql::getCallStats(): %s', $sql), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Operator_Driver_asterisksql::getCallStats(): Values: %s', print_r($values, true)), 'DEBUG');
+        Horde::logMessage(sprintf('Operator_Driver_asterisksql::getCallStats(): %s', $sql), 'DEBUG');
         $numcalls_res = $this->_db->getAll($sql, $values, DB_FETCHMODE_ASSOC);
         if (is_a($numcalls_res, 'PEAR_Error')) {
-            Horde::logMessage($numcalls_res, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($numcalls_res, 'ERR');
             throw new Operator_Exception(_("Internal error.  Details have been logged for the administrator."));
         }
 
         $sql = sprintf($minutes_query, $filterstring);
-        Horde::logMessage(sprintf('Operator_Driver_asterisksql::getCallStats(): %s', $sql), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Operator_Driver_asterisksql::getCallStats(): %s', $sql), 'DEBUG');
         $minutes_res = $this->_db->getAll($sql, $values, DB_FETCHMODE_ASSOC);
         if (is_a($minutes_res, 'PEAR_Error')) {
-            Horde::logMessage($minutes_res, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($minutes_res, 'ERR');
             throw new Operator_Exception(_("Internal error.  Details have been logged for the administrator."));
         }
 
         $sql = sprintf($failed_query, $filterstring);
-        Horde::logMessage(sprintf('Operator_Driver_asterisksql::getCallStats(): %s', $sql), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Operator_Driver_asterisksql::getCallStats(): %s', $sql), 'DEBUG');
         $failed_res = $this->_db->getAll($sql, $values, DB_FETCHMODE_ASSOC);
         if (is_a($failed_res, 'PEAR_Error')) {
-            Horde::logMessage($failed_res, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($failed_res, 'ERR');
             throw new Operator_Exception(_("Internal error.  Details have been logged for the administrator."));
         }
 
@@ -332,10 +332,10 @@ class Operator_Driver_asterisksql extends Operator_Driver {
 
         $sql = 'SELECT DISTINCT(accountcode) FROM ' . $this->_params['table'] .
                ' ORDER BY accountcode';
-        Horde::logMessage(sprintf('Operator_Driver_asterisksql::getAccountCodes(): %s', $sql), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Operator_Driver_asterisksql::getAccountCodes(): %s', $sql), 'DEBUG');
         $res = $this->_db->getCol($sql, 'accountcode');
         if (is_a($res, 'PEAR_Error')) {
-            Horde::logMessage($res, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($res, 'ERR');
             throw new Operator_Exception(_("Internal error.  Details have been logged for the administrator."));
         }
 

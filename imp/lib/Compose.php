@@ -596,7 +596,7 @@ class IMP_Compose
                 $this->sendMessage($val['to'], $headers, $val['msg']);
             } catch (IMP_Compose_Exception $e) {
                 /* Unsuccessful send. */
-                Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($e, 'ERR');
                 if (isset($sentmail)) {
                     $sentmail->log($this->getMetadata('reply_type') || 'new', $headers->getValue('message-id'), $val['recipients'], false);
                 }
@@ -641,7 +641,7 @@ class IMP_Compose
         }
 
         $entry = sprintf("%s Message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, Horde_Auth::getAuth());
-        Horde::logMessage($entry, __FILE__, __LINE__, PEAR_LOG_INFO);
+        Horde::logMessage($entry, 'INFO');
 
         /* Should we save this message in the sent mail folder? */
         if (!empty($opts['sent_folder']) &&
@@ -750,7 +750,7 @@ class IMP_Compose
         $timelimit = $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_timelimit');
         if ($timelimit !== true) {
             if ($conf['sentmail']['driver'] == 'none') {
-                Horde::logMessage('The permission for the maximum number of recipients per time period has been enabled, but no backend for the sent-mail logging has been configured for IMP.', __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage('The permission for the maximum number of recipients per time period has been enabled, but no backend for the sent-mail logging has been configured for IMP.', 'ERR');
                 throw new IMP_Compose_Exception(_("The system is not properly configured. A detailed error description has been logged for the administrator."));
             }
             $sentmail = IMP_Sentmail::factory();
@@ -868,7 +868,7 @@ class IMP_Compose
         try {
             $results = $registry->call('contacts/search', array($emails, array($abook), array($abook => array('email'))));
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             $notification->push(_("Could not save recipients."));
             return;
         }
@@ -2337,7 +2337,7 @@ class IMP_Compose
                     $vfs->writeData($fullpath, escapeshellcmd($att['part']->getName()), $data, true);
                 }
             } catch (VFS_Exception $e) {
-                Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($e, 'ERR');
                 return IMP_Compose_Exception($e);
             }
         }
@@ -2708,7 +2708,7 @@ class IMP_Compose
         try {
             $res = $GLOBALS['registry']->call('contacts/search', array($search, $sparams['sources'], $sparams['fields'], false));
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             return array();
         }
 

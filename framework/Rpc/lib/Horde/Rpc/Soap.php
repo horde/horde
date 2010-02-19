@@ -93,8 +93,7 @@ class Horde_Rpc_Soap extends Horde_Rpc
                                             $GLOBALS['__horde_rpc_PhpSoap']['lastMethodParams'])),
                     Horde_Auth::getAuth(),
                     time() - $beginTime,
-                    ob_get_length()),
-            __FILE__, __LINE__, PEAR_LOG_INFO
+                    ob_get_length()), 'INFO');
         );
         return ob_get_clean();
     }

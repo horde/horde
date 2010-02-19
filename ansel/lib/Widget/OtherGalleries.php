@@ -69,7 +69,7 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
                                                              null, true, 0, 0,
                                                             'name', 0);
         } catch (Ansel_Exception $e) {
-            Horde::logMessage($gal, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($gal, 'ERR');
             return '';
         }
 

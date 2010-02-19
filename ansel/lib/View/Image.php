@@ -30,7 +30,7 @@ class Ansel_View_Image extends Ansel_View_Base
     public function __construct($params = array())
     {
         parent::__construct($params);
-        
+
         /* Get the Ansel_Image */
         $image = &$GLOBALS['ansel_storage']->getImage($params['image_id']);
 
@@ -146,7 +146,7 @@ class Ansel_View_Image extends Ansel_View_Base
         try {
             $this->_geometry = $this->resource->getDimensions('screen');
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             $this->_geometry = $conf['screen'];
         }
 
@@ -246,7 +246,7 @@ class Ansel_View_Image extends Ansel_View_Base
                                               'commentCallback', true, null,
                                               $url));
             if (is_a($comments, 'PEAR_Error')) {
-                Horde::logMessage($comments, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                Horde::logMessage($comments, 'DEBUG');
                 $comments = array();
             }
         } else {

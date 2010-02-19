@@ -29,7 +29,7 @@ class Horde_Form_AddClient extends Horde_Form
             try {
                 $turbaform = $GLOBALS['registry']->call('contacts/getAddClientForm', array(&$vars));
             } catch (Horde_Exception $e) {
-                Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($e, 'ERR');
                 $notification->push(_("An internal error has occurred.  Details have beenlogged for the administrator."));
                 $addform = null;
             }
@@ -55,7 +55,7 @@ class Horde_Form_AddClient extends Horde_Form
             try {
                 $whupsform = $GLOBALS['registry']->call('tickets/getAddQueueForm', array(&$vars));
             } catch (Horde_Exception $e) {
-                Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($e, 'ERR');
                 $notification->push(_("An internal error has occurred.  Details have been logged for the administrator."));
                 $addform = null;
             }

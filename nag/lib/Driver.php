@@ -237,7 +237,7 @@ class Nag_Driver
         /* Notify users about the new event. */
         $result = Nag::sendNotification('add', $task);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
         }
 
         /* Add an alarm if necessary. */
@@ -373,7 +373,7 @@ class Nag_Driver
         /* Notify users about the changed event. */
         $result = Nag::sendNotification('edit', $new_task, $task);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
         }
 
         return true;
@@ -403,7 +403,7 @@ class Nag_Driver
         /* Notify users about the deleted event. */
         $result = Nag::sendNotification('delete', $task);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
         }
 
         /* Delete alarm if necessary. */

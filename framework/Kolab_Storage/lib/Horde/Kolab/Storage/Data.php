@@ -245,8 +245,7 @@ class Horde_Kolab_Storage_Data
         $result = $this->_folder->trigger();
         if (is_a($result, 'PEAR_Error')) {
             Horde::logMessage(sprintf('Failed triggering folder %s!',
-                                      $this->_folder->name),
-                              __FILE__, __LINE__, PEAR_LOG_ERR);
+                                      $this->_folder->name), 'ERR');
         }
 
         return true;
@@ -365,7 +364,7 @@ class Horde_Kolab_Storage_Data
                                                          false);
                     $text = $mime[0];
                 } catch (Horde_Kolab_Storage_Exception $e) {
-                    Horde::logMessage($mime, __FILE__, __LINE__, PEAR_LOG_WARNING);
+                    Horde::logMessage($mime, 'WARN');
                     $text = false;
                 }
 
@@ -374,8 +373,7 @@ class Horde_Kolab_Storage_Data
                     if (is_a($object, 'PEAR_Error')) {
                         $this->_cache->ignore($id);
                         $object->addUserInfo('STORAGE ID: ' . $id);
-                        Horde::logMessage($object, __FILE__, __LINE__,
-                                          PEAR_LOG_WARNING);
+                        Horde::logMessage($object, 'WARN');
                         continue;
                     }
                 } else {
@@ -400,8 +398,7 @@ class Horde_Kolab_Storage_Data
                             if (is_a($result, 'PEAR_Error')) {
                                 Horde::logMessage(sprintf('Failed storing attachment of object %s: %s',
                                                           $id,
-                                                          $result->getMessage()),
-                                                  __FILE__, __LINE__, PEAR_LOG_ERR);
+                                                          $result->getMessage()), 'ERR');
                                 $object = false;
                                 break;
                             }

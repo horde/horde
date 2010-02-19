@@ -158,7 +158,7 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
             }
 
             if ($result === false) {
-                Horde::logMessage('Error retrieving session data (id = ' . $id . ')', __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                Horde::logMessage('Error retrieving session data (id = ' . $id . ')', 'DEBUG');
                 return false;
             }
 
@@ -169,7 +169,7 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
             $this->_id = $id;
         }
 
-        Horde::logMessage('Read session data (id = ' . $id . ')', __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Read session data (id = ' . $id . ')', 'DEBUG');
         return $result;
     }
 
@@ -195,7 +195,7 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
 
         if (!$res &&
             !$this->_memcache->set($id, $session_data)) {
-            Horde::logMessage('Error writing session data (id = ' . $id . ')', __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage('Error writing session data (id = ' . $id . ')', 'ERR');
             return false;
         }
 
@@ -215,7 +215,7 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
             $this->_memcache->unlock($this->_trackID);
         }
 
-        Horde::logMessage('Wrote session data (id = ' . $id . ')', __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Wrote session data (id = ' . $id . ')', 'DEBUG');
         return true;
     }
 
@@ -232,7 +232,7 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
         $this->_memcache->unlock($id);
 
         if ($result === false) {
-            Horde::logMessage('Failed to delete session (id = ' . $id . ')', __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('Failed to delete session (id = ' . $id . ')', 'DEBUG');
             return false;
         }
 
@@ -250,7 +250,7 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
             $this->_memcache->unlock($this->_trackID);
         }
 
-        Horde::logMessage('Deleted session data (id = ' . $id . ')', __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Deleted session data (id = ' . $id . ')', 'DEBUG');
         return true;
     }
 

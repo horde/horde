@@ -262,7 +262,7 @@ if ($auth->hasCapability('list')) {
 $groupList = $groups->listGroups();
 asort($groupList);
 if (is_a($groupList, 'PEAR_Error')) {
-    Horde::logMessage($groupList, __FILE__, __LINE__, PEAR_LOG_NOTICE);
+    Horde::logMessage($groupList, 'NOTICE');
     $groupList = array();
 }
 

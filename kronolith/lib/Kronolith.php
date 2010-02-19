@@ -1025,7 +1025,7 @@ class Kronolith
                     try {
                         $categories = $GLOBALS['registry']->call($api . '/listTimeObjectCategories');
                     } catch (Horde_Exception $e) {
-                        Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                        Horde::logMessage($e, 'DEBUG');
                         continue;
                     }
 
@@ -1368,7 +1368,7 @@ class Kronolith
 
         $calendars = $GLOBALS['kronolith_shares']->listShares(Horde_Auth::getAuth(), $permission, $owneronly ? Horde_Auth::getAuth() : null, 0, 0, 'name');
         if ($calendars instanceof PEAR_Error) {
-            Horde::logMessage($calendars, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($calendars, 'ERR');
             return array();
         }
 
@@ -2111,7 +2111,7 @@ class Kronolith
             }
             $group_users = $group->listAllUsers();
             if ($group_users instanceof PEAR_Error) {
-                Horde::logMessage($group_users, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($group_users, 'ERR');
                 continue;
             }
             foreach ($group_users as $user) {
@@ -2178,7 +2178,7 @@ class Kronolith
                                                            'charset' => Horde_Nls::getCharset()));
                     $mime_mail->addHeader('User-Agent', 'Kronolith ' . $GLOBALS['registry']->getVersion());
                     $mime_mail->setBody($message, Horde_Nls::getCharset(), true);
-                    Horde::logMessage(sprintf('Sending event notifications for %s to %s', $event->title, implode(', ', $df_recipients)), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    Horde::logMessage(sprintf('Sending event notifications for %s to %s', $event->title, implode(', ', $df_recipients)), 'DEBUG');
                     $mime_mail->send(Horde::getMailerConfig(), false, false);
                 }
             }
@@ -2685,7 +2685,7 @@ class Kronolith
             try {
                 return Kronolith_Geo::factory($GLOBALS['conf']['maps']['geodriver']);
             } catch (Exception $e) {
-                Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($e, 'ERR');
             }
         }
         return false;

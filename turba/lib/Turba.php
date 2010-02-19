@@ -333,7 +333,7 @@ class Turba {
         foreach ($in as $sourceId => $source) {
             $driver = Turba_Driver::singleton($sourceId);
             if (is_a($driver, 'PEAR_Error')) {
-                Horde::logMessage(sprintf("Could not instantiate the %s source: %s", $sourceId, $driver->getMessage()), __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage(sprintf("Could not instantiate the %s source: %s", $sourceId, $driver->getMessage()), 'ERR');
                 continue;
             }
 
@@ -438,7 +438,7 @@ class Turba {
                                                 'default' => true,
                                                 'name' => Horde_Auth::getAuth())));
                     if (is_a($share, 'PEAR_Error')) {
-                        Horde::logMessage($share, __FILE__, __LINE__, PEAR_LOG_ERR);
+                        Horde::logMessage($share, 'ERR');
                         continue;
                     }
 
@@ -514,7 +514,7 @@ class Turba {
             Horde_Auth::getAuth(), $permission,
             $owneronly ? Horde_Auth::getAuth() : null);
         if (is_a($sources, 'PEAR_Error')) {
-            Horde::logMessage($sources, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($sources, 'ERR');
             return array();
         }
         return $sources;

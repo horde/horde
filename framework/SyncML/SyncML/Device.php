@@ -35,8 +35,7 @@ class SyncML_Device {
 
         if (empty($driver) || $driver == 'none' || $driver == 'default') {
             $GLOBALS['backend']->logMessage(
-                'Using default device class',
-                __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                'Using default device class', 'DEBUG');
             return new SyncML_Device();
         }
 
@@ -49,8 +48,7 @@ class SyncML_Device {
         }
 
         $device = new $class();
-        $GLOBALS['backend']->logMessage('Created device class ' . $class,
-                                        __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $GLOBALS['backend']->logMessage('Created device class ' . $class, 'DEBUG');
         return $device;
     }
 

@@ -102,22 +102,22 @@ class Horde_Kolab_Filter_Base
             return $result;
         }
 
-        Horde::logMessage(sprintf("%s starting up (sender=%s, recipients=%s, client_address=%s)", 
-                                  get_class($this), $this->_sender, 
-                                  join(', ',$this->_recipients), 
+        Horde::logMessage(sprintf("%s starting up (sender=%s, recipients=%s, client_address=%s)",
+                                  get_class($this), $this->_sender,
+                                  join(', ',$this->_recipients),
                                   $this->_client_address),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                          'DEBUG');
 
         $result = $this->_parse($inh, $transport);
         if (is_a($result, 'PEAR_Error')) {
             return $result;
         }
 
-        Horde::logMessage(sprintf("%s successfully completed (sender=%s, recipients=%s, client_address=%s, id=%s)", 
-                                  get_class($this), $this->_sender, 
-                                  join(', ',$this->_recipients), 
+        Horde::logMessage(sprintf("%s successfully completed (sender=%s, recipients=%s, client_address=%s, id=%s)",
+                                  get_class($this), $this->_sender,
+                                  join(', ',$this->_recipients),
                                   $this->_client_address, $this->_id),
-                          __FILE__, __LINE__, PEAR_LOG_INFO);
+                          'INFO');
     }
 
     /**
@@ -208,7 +208,7 @@ class Horde_Kolab_Filter_Base
         }
 
         if (empty($values['recipient'])) {
-            $msg = 'Please provide one or more recipients.' 
+            $msg = 'Please provide one or more recipients.'
                 . "\n\n" . $p->getUsage();
             return PEAR::raiseError($msg, OUT_STDOUT | EX_USAGE);
         }
@@ -219,8 +219,7 @@ class Horde_Kolab_Filter_Base
         $this->_fqhostname = strtolower($values['host']);
         $this->_sasl_username = strtolower($values['user']);
 
-        Horde::logMessage(sprintf("Arguments: %s", print_r($values, true)),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf("Arguments: %s", print_r($values, true)), 'DEBUG');
 
         Horde_Nls::setCharset('utf-8');
 
@@ -265,7 +264,7 @@ class Horde_Kolab_Filter_Base
          */
         if (!isset($conf['log'])) {
             $conf['log']['enabled']          = true;
-            $conf['log']['priority']         = PEAR_LOG_DEBUG;
+            $conf['log']['priority']         = 'DEBUG';
             $conf['log']['type']             = 'syslog';
             $conf['log']['name']             = LOG_MAIL;
             $conf['log']['ident']            = 'kolabfilter';
@@ -274,7 +273,7 @@ class Horde_Kolab_Filter_Base
     }
 }
 
-class Horde_Kolab_Filter_Argv_Parser extends Horde_Argv_Parser 
+class Horde_Kolab_Filter_Argv_Parser extends Horde_Argv_Parser
 {
     public function parserError($msg)
     {

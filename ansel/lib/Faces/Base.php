@@ -89,8 +89,7 @@ class Ansel_Faces_Base
         $sql .= ' FROM ansel_faces WHERE image_id = ' . (int)$image_id
                 . ' ORDER BY face_id DESC';
 
-       Horde::logMessage('SQL Query by Ansel_Faces::getImageFacesData: ' . $sql,
-                         __FILE__, __LINE__, PEAR_LOG_DEBUG);
+       Horde::logMessage('SQL Query by Ansel_Faces::getImageFacesData: ' . $sql, 'DEBUG');
        $result = $GLOBALS['ansel_db']->query($sql);
         if ($result instanceof PEAR_Error) {
             throw new Horde_Exception_Prior($result);

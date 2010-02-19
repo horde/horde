@@ -119,7 +119,7 @@ class Horde_Auth_Sql extends Horde_Auth_Base
         try {
             $this->_connect();
         } catch (Horde_Auth_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
         }
 
@@ -129,11 +129,11 @@ class Horde_Auth_Sql extends Horde_Auth_Base
                          $this->_params['username_field']);
         $values = array($userId);
 
-        Horde::logMessage('SQL Query by Auth_sql::_authenticate(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by Auth_sql::_authenticate(): ' . $query, 'DEBUG');
 
         $result = $this->_db->query($query, $values);
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
         }
 
@@ -186,7 +186,7 @@ class Horde_Auth_Sql extends Horde_Auth_Base
                                                   $this->_params['encryption'],
                                                   $this->_params['show_encryption']));
 
-        Horde::logMessage('SQL Query by Auth_sql::addUser(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by Auth_sql::addUser(): ' . $query, 'DEBUG');
 
         $result = $this->_write_db->query($query, $values);
         if ($result instanceof PEAR_Error) {
@@ -254,11 +254,11 @@ class Horde_Auth_Sql extends Horde_Auth_Base
                          $this->_params['username_field']);
         $values = array($oldID);
 
-        Horde::logMessage('SQL Query by Auth_sql:updateUser(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by Auth_sql:updateUser(): ' . $query, 'DEBUG');
 
         $result = $this->_write_db->query($query, $values);
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             throw new Horde_Auth_Exception($result);
         }
     }
@@ -290,7 +290,7 @@ class Horde_Auth_Sql extends Horde_Auth_Base
                                                   $this->_params['show_encryption']),
                         $userId);
 
-        Horde::logMessage('SQL Query by Auth_sql::resetPassword(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by Auth_sql::resetPassword(): ' . $query, 'DEBUG');
 
         $result = $this->_write_db->query($query, $values);
         if ($result instanceof PEAR_Error) {
@@ -317,7 +317,7 @@ class Horde_Auth_Sql extends Horde_Auth_Base
                          $this->_params['username_field']);
         $values = array($userId);
 
-        Horde::logMessage('SQL Query by Auth_sql::removeUser(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by Auth_sql::removeUser(): ' . $query, 'DEBUG');
 
         $result = $this->_write_db->query($query, $values);
         if ($result instanceof PEAR_Error) {
@@ -342,7 +342,7 @@ class Horde_Auth_Sql extends Horde_Auth_Base
                          $this->_params['username_field'],
                          $this->_params['table']);
 
-        Horde::logMessage('SQL Query by Auth_sql::listUsers(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by Auth_sql::listUsers(): ' . $query, 'DEBUG');
 
         $res = $this->_db->getCol($query);
         if ($res instanceof PEAR_Error) {
@@ -367,7 +367,7 @@ class Horde_Auth_Sql extends Horde_Auth_Base
                          $this->_params['username_field']);
         $values = array($userId);
 
-        Horde::logMessage('SQL Query by Auth_sql::exists(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by Auth_sql::exists(): ' . $query, 'DEBUG');
 
         $res = $this->_db->getOne($query, $values);
         return ($res instanceof PEAR_Error)

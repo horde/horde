@@ -160,8 +160,7 @@ class SyncML_Command {
             $cmd = new $class($outputHandler);
         } else {
             $msg = 'Class definition of ' . $class . ' not found.';
-            $GLOBALS['backend']->logMessage($msg, __FILE__, __LINE__,
-                                            PEAR_LOG_ERR);
+            $GLOBALS['backend']->logMessage($msg, __FILE__, __LINE__, 'ERR');
             $cmd = PEAR::raiseError($msg);
         }
 

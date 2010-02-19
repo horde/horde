@@ -193,7 +193,7 @@ class Koward {
                     }
                 }
             } catch (Exception $e) {
-                Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                Horde::logMessage($e, 'DEBUG');
             }
         }
         return $global;

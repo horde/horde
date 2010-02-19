@@ -45,7 +45,7 @@ if ($row['picture']) {
     try {
         $pdf->image($file, 120, 20);
     } catch (Horde_Pdf_Exception $e) {
-        Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_INFO);
+        Horde::logMessage($e, 'INFO');
     }
 }
 

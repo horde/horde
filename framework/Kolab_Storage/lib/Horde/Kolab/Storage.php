@@ -510,7 +510,7 @@ class Horde_Kolab_Storage
             $owner   = $folder->getOwner();
         } catch (Exception $e) {
             Horde::logMessage(sprintf("Error while updating the Kolab folder list cache: %s.",
-                                      $e->getMessage()), __FILE__, __LINE__, PEAR_LOG_ERR);
+                                      $e->getMessage()), 'ERR');
             return;
         }
 

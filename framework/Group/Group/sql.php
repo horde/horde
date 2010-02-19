@@ -676,7 +676,7 @@ class Group_sql extends Group {
         if ($subgroups) {
             $groups = $this->getGroupMemberships($user, true);
             if (is_a($groups, 'PEAR_Error')) {
-                Horde::logMessage($groups, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($groups, 'ERR');
                 return false;
             }
 

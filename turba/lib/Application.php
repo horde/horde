@@ -253,12 +253,12 @@ class Turba_Application extends Horde_Registry_Application
                 // Shares not enabled for this source
                 $driver = Turba_Driver::singleton($source);
                 if (is_a($driver, 'PEAR_Error')) {
-                    Horde::logMessage($driver, __FILE__, __LINE__, PEAR_LOG_ERR);
+                    Horde::logMessage($driver, 'ERR');
                     $hasError = true;
                 } else {
                     $result = $driver->removeUserData($user);
                     if (is_a($result, 'PEAR_Error')) {
-                        Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                        Horde::logMessage($result, 'ERR');
                     }
                 }
             }
@@ -278,7 +278,7 @@ class Turba_Application extends Horde_Registry_Application
                     $driver = Turba_Driver::singleton($config);
                     $result = $driver->removeUserData($user);
                     if (is_a($result, 'PEAR_Error')) {
-                        Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                        Horde::logMessage($result, 'ERR');
                         $hasError = true;
                     }
                 }
@@ -287,7 +287,7 @@ class Turba_Application extends Horde_Registry_Application
             /* Get a list of all shares this user has perms to and remove the perms */
             $shares = $GLOBALS['turba_shares']->listShares($user);
             if (is_a($shares, 'PEAR_Error')) {
-                Horde::logMessage($shares, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($shares, 'ERR');
             }
             foreach ($shares as $share) {
                 $share->removeUser($user);

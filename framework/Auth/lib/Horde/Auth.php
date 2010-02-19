@@ -357,7 +357,7 @@ class Horde_Auth
             try {
                 $GLOBALS['registry']->callByPackage($app, 'removeUserData', array($userId));
             } catch (Horde_Auth_Exception $e) {
-                Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($e, 'ERR');
                 $errApps[] = $app;
             }
         }

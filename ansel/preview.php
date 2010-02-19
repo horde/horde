@@ -14,12 +14,12 @@ Horde_Registry::appInit('ansel');
 $imageId = Horde_Util::getFormData('image');
 $image = &$ansel_storage->getImage($imageId);
 if (is_a($image, 'PEAR_Error')) {
-    Horde::logMessage($image, __LINE__, __FILE__, PEAR_LOG_ERR);
+    Horde::logMessage($image, 'ERR');
     exit;
 }
 $gal = $ansel_storage->getGallery(abs($image->gallery));
 if (is_a($gal, 'PEAR_Error')) {
-    Horde::logMessage($image, __LINE__, __FILE__, PEAR_LOG_ERR);
+    Horde::logMessage($image, 'ERR');
     exit;
 }
 $img = Ansel::getImageUrl($imageId, 'thumb', false);

@@ -486,7 +486,7 @@ class Turba_Driver_Kolab_Wrapper_Old extends Turba_Driver_Kolab_Wrapper {
         }
 
         if (!is_callable(array($this->_kolab, 'listObjectsInFolder'))) {
-            Horde::logMessage('The Framework Kolab package must be upgraded', __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage('The Framework Kolab package must be upgraded', 'ERR');
             return PEAR::raiseError(_("Unable to search."));
         }
 
@@ -620,7 +620,7 @@ class Turba_Driver_Kolab_Wrapper_Old extends Turba_Driver_Kolab_Wrapper {
         }
 
         if ($sourceName != null) {
-            Horde::logMessage('deleteAll only working for current share. Called for $sourceName', __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage('deleteAll only working for current share. Called for $sourceName', 'ERR');
             return PEAR::raiseError(sprintf(_("Cannot delete all address book entries for %s"), $sourceName));
         }
 
@@ -819,7 +819,7 @@ class Turba_Driver_Kolab_Wrapper_New extends Turba_Driver_Kolab_Wrapper {
         }
 
         Horde::logMessage(sprintf('Kolab returned %s results',
-                                  count($result)), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                  count($result)), 'DEBUG');
         return array_values($result);
     }
 
@@ -880,8 +880,7 @@ class Turba_Driver_Kolab_Wrapper_New extends Turba_Driver_Kolab_Wrapper {
         $ids = array();
 
         if (!isset($test['field'])) {
-            Horde::logMessage('Search field not set. Returning all entries.',
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('Search field not set. Returning all entries.', 'DEBUG');
             foreach ($entries as $entry) {
                 $ids[] = $entry['uid'];
             }

@@ -19,7 +19,7 @@ if ($conf['signup']['allow'] !== true ||
 }
 $signup = Horde_Auth_Signup::factory();
 if (is_a($signup, 'PEAR_Error')) {
-    Horde::logMessage($signup, __FILE__, __LINE__, PEAR_LOG_ERR);
+    Horde::logMessage($signup, 'ERR');
     throw new Horde_Exception(_("User Registration is not properly configured for this site."));
 }
 

@@ -65,8 +65,7 @@ class Ansel_Tags {
             $delete =  $GLOBALS['ansel_db']->prepare('DELETE FROM ansel_galleries_tags WHERE gallery_id = ?');
             $query = $GLOBALS['ansel_db']->prepare('INSERT INTO ansel_galleries_tags (gallery_id, tag_id) VALUES(?, ?)');
         }
-        Horde::logMessage('SQL query by Ansel_Tags::writeTags: ' . $query->query,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL query by Ansel_Tags::writeTags: ' . $query->query, 'DEBUG');
         $delete->execute(array($resource_id));
         foreach ($tagkeys as $key) {
             $query->execute(array($resource_id, $key));
@@ -98,7 +97,7 @@ class Ansel_Tags {
         if (is_a($stmt, 'PEAR_Error')) {
             return $stmt;
         }
-        Horde::logMessage('SQL query by Ansel_Tags::readTags ' . $stmt->query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL query by Ansel_Tags::readTags ' . $stmt->query, 'DEBUG');
         $result = $stmt->execute((int)$resource_id);
         $tags = $result->fetchAll(MDB2_FETCHMODE_ASSOC, true);
         foreach ($tags as $id => $tag) {
@@ -198,11 +197,11 @@ class Ansel_Tags {
                 . 'WHERE tag_id IN (' . implode(',', $ids) . ') GROUP BY '
                 . 'image_id HAVING count(tag_id) = ' . count($ids);
 
-            Horde::logMessage('SQL query by Ansel_Tags::searchTags: ' . $sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('SQL query by Ansel_Tags::searchTags: ' . $sql, 'DEBUG');
             $GLOBALS['ansel_db']->setLimit($max, $from);
             $images = $GLOBALS['ansel_db']->queryCol($sql);
             if (is_a($images, 'PEAR_Error')) {
-                Horde::logMessage($images, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($images, 'ERR');
                 $results['images'] = array();
             } else {
                 /* Check permissions and filter on $user if required */
@@ -220,7 +219,7 @@ class Ansel_Tags {
                             $imgs[] = $id;
                         }
                     } else {
-                        Horde::logMessage($gal, __FILE__, __LINE__, PEAR_LOG_ERR);
+                        Horde::logMessage($gal, 'ERR');
                     }
                 }
                     $results['images'] = $imgs;
@@ -234,18 +233,18 @@ class Ansel_Tags {
                . 'WHERE tag_id IN (' . implode(',', $ids) . ') GROUP BY '
                . 'gallery_id HAVING count(tag_id) = ' . count($ids);
 
-            Horde::logMessage('SQL query by Ansel_Tags::searchTags: ' . $sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('SQL query by Ansel_Tags::searchTags: ' . $sql, 'DEBUG');
             $GLOBALS['ansel_db']->setLimit($max, $from);
 
             $galleries = $GLOBALS['ansel_db']->queryCol($sql);
             if (is_a($galleries, 'PEAR_Error')) {
-                Horde::logMessage($galleries, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($galleries, 'ERR');
             } else {
                 /* Check perms */
                 foreach ($galleries as $id) {
                     $gallery = $GLOBALS['ansel_storage']->getGallery($id);
                     if (is_a($gallery, 'PEAR_Error')) {
-                        Horde::logMessage($gallery, __FILE__, __LINE__, PEAR_LOG_ERR);
+                        Horde::logMessage($gallery, 'ERR');
                         continue;
                     }
                     if ($gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::SHOW)  && (!isset($user) || (isset($user) && $gallery->get('owner') && $gallery->get('owner') == $user))) {

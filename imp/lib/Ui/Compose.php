@@ -106,7 +106,7 @@ class IMP_Ui_Compose
 
         $entry = sprintf("%s Redirected message sent to %s from %s",
                          $_SERVER['REMOTE_ADDR'], $recipients, Horde_Auth::getAuth());
-        Horde::logMessage($entry, __FILE__, __LINE__, PEAR_LOG_INFO);
+        Horde::logMessage($entry, 'INFO');
 
         if ($GLOBALS['conf']['sentmail']['driver'] != 'none') {
             $sentmail = IMP_Sentmail::factory();

@@ -43,8 +43,7 @@ class SyncML_Command_Final extends SyncML_Command {
             $this->_outputHandler->outputGetDevInf();
         }
 
-        $GLOBALS['backend']->logMessage('Received <Final> from client.',
-                                        __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $GLOBALS['backend']->logMessage('Received <Final> from client.', 'DEBUG');
 
         $state->handleFinal($this->_outputHandler, $debug);
     }

@@ -128,12 +128,12 @@ class Horde_Share_sql extends Horde_Share {
         if ($this->_hasUsers($share)) {
             $stmt = $this->_db->prepare('SELECT user_uid, perm FROM ' . $this->_table . '_users WHERE share_id = ?');
             if (is_a($stmt, 'PEAR_Error')) {
-                Horde::logMessage($stmt, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($stmt, 'ERR');
                 return $stmt;
             }
             $result = $stmt->execute(array($share['share_id']));
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             } elseif (!empty($result)) {
                 while ($row = $result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
@@ -156,12 +156,12 @@ class Horde_Share_sql extends Horde_Share {
             // Get groups permissions
             $stmt = $this->_db->prepare('SELECT group_uid, perm FROM ' . $this->_table . '_groups WHERE share_id = ?');
             if (is_a($stmt, 'PEAR_Error')) {
-                Horde::logMessage($stmt, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($stmt, 'ERR');
                 return $stmt;
             }
             $result = $stmt->execute(array($share['share_id']));
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             } elseif (!empty($result)) {
                 while ($row = $result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
@@ -185,17 +185,17 @@ class Horde_Share_sql extends Horde_Share {
     {
         $stmt = $this->_db->prepare('SELECT * FROM ' . $this->_table . ' WHERE share_name = ?');
         if (is_a($stmt, 'PEAR_Error')) {
-            Horde::logMessage($stmt, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($stmt, 'ERR');
             return $stmt;
         }
         $results = $stmt->execute(array($name));
         if (is_a($results, 'PEAR_Error')) {
-            Horde::logMessage($results, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($results, 'ERR');
             return $results;
         }
         $data = $results->fetchRow(MDB2_FETCHMODE_ASSOC);
         if (is_a($data, 'PEAR_Error')) {
-            Horde::logMessage($data, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($data, 'ERR');
             return $data;
         } elseif (empty($data)) {
             return PEAR::RaiseError(sprintf(_("Share \"%s\" does not exist."), $name));
@@ -246,17 +246,17 @@ class Horde_Share_sql extends Horde_Share {
         $params = array($id);
         $stmt = $this->_db->prepare('SELECT * FROM ' . $this->_table . ' WHERE share_id = ?');
         if (is_a($stmt, 'PEAR_Error')) {
-            Horde::logMessage($stmt, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($stmt, 'ERR');
             return $stmt;
         }
         $results = $stmt->execute($params);
         if (is_a($results, 'PEAR_Error')) {
-            Horde::logMessage($results, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($results, 'ERR');
             return $results;
         }
         $data = $results->fetchRow(MDB2_FETCHMODE_ASSOC);
         if (is_a($data, 'PEAR_Error')) {
-            Horde::logMessage($data, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($data, 'ERR');
             return $data;
         } elseif (empty($data)) {
             return PEAR::RaiseError(sprintf(_("Share ID %d does not exist."), $id));
@@ -289,7 +289,7 @@ class Horde_Share_sql extends Horde_Share {
         $query = 'SELECT * FROM ' . $this->_table . ' WHERE share_id IN (' . implode(', ', $ids) . ')';
         $result = $this->_db->query($query);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         } elseif (empty($result)) {
             return array();
@@ -314,7 +314,7 @@ class Horde_Share_sql extends Horde_Share {
                     . ' WHERE share_id IN (' . implode(', ', $users) . ')';
             $result = $this->_db->query($query);
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             } elseif (!empty($result)) {
                 while ($share = $result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
@@ -330,7 +330,7 @@ class Horde_Share_sql extends Horde_Share {
                    . ' WHERE share_id IN (' . implode(', ', $groups) . ')';
             $result = $this->_db->query($query);
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             } elseif (!empty($result)) {
                 while ($share = $result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
@@ -375,7 +375,7 @@ class Horde_Share_sql extends Horde_Share {
         $query = 'SELECT * FROM ' . $this->_table . ' ORDER BY share_name ASC';
         $result = $this->_db->query($query);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         } elseif (empty($result)) {
             return array();
@@ -390,7 +390,7 @@ class Horde_Share_sql extends Horde_Share {
         $query = 'SELECT share_id, user_uid, perm FROM ' . $this->_table . '_users';
         $result = $this->_db->query($query);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         } elseif (!empty($result)) {
             while ($share = $result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
@@ -403,7 +403,7 @@ class Horde_Share_sql extends Horde_Share {
         $query = 'SELECT share_id, group_uid, perm FROM ' . $this->_table . '_groups';
         $result = $this->_db->query($query);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         } elseif (!empty($result)) {
             while ($share = $result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
@@ -463,10 +463,10 @@ class Horde_Share_sql extends Horde_Share {
             @sqlite_query('PRAGMA short_column_names=1', $connection);
         }
 
-        Horde::logMessage(sprintf("SQL Query by Horde_Share_sql::listShares: %s", $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf("SQL Query by Horde_Share_sql::listShares: %s", $query), 'DEBUG');
         $result = $this->_db->query($query);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         } elseif (empty($result)) {
             return array();
@@ -492,7 +492,7 @@ class Horde_Share_sql extends Horde_Share {
                  . ')';
             $result = $this->_db->query($query);
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             } elseif (!empty($result)) {
                 while ($share = $result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
@@ -509,7 +509,7 @@ class Horde_Share_sql extends Horde_Share {
                      . ')';
             $result = $this->_db->query($query);
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             } elseif (!empty($result)) {
                 while ($share = $result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
@@ -550,10 +550,10 @@ class Horde_Share_sql extends Horde_Share {
         }
 
         $query = 'SELECT * FROM ' . $this->_table . ' WHERE share_owner IS NULL';
-        Horde::logMessage('SQL Query by Horde_Share_sql::listSystemShares: ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by Horde_Share_sql::listSystemShares: ' . $query, 'DEBUG');
         $result = $this->_db->query($query);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         } elseif (empty($result)) {
             return array();
@@ -588,7 +588,7 @@ class Horde_Share_sql extends Horde_Share {
     {
         $query = $this->_getShareCriteria($userid, $perm, $attributes);
         $query = 'SELECT COUNT(DISTINCT s.share_id) ' . $query;
-        Horde::logMessage(sprintf("SQL Query by Horde_Share_sql::_countShares: %s", $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf("SQL Query by Horde_Share_sql::_countShares: %s", $query), 'DEBUG');
         return $this->_db->queryOne($query);
     }
 
@@ -634,12 +634,12 @@ class Horde_Share_sql extends Horde_Share {
             /* Remove the share entry */
             $stmt = $this->_write_db->prepare('DELETE FROM ' . $table . ' WHERE share_id = ?', null, MDB2_PREPARE_MANIP);
             if (is_a($stmt, 'PEAR_Error')) {
-                Horde::logMessage($stmt, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($stmt, 'ERR');
                 return $stmt;
             }
             $result = $stmt->execute($params);
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
             $stmt->free();
@@ -661,12 +661,12 @@ class Horde_Share_sql extends Horde_Share {
                 . ' WHERE share_name = ?');
 
         if (is_a($stmt, 'PEAR_Error')) {
-            Horde::logMessage($stmt, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($stmt, 'ERR');
             return $stmt;
         }
         $result = $stmt->execute(array($share));
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -724,7 +724,7 @@ class Horde_Share_sql extends Horde_Share {
                 $where .= ' OR (g.group_uid IN (' . implode(',', $group_ids) . ')'
                     . ' AND (' . Horde_SQL::buildClause($this->_db, 'g.perm', '&', $perm) . '))';
             } elseif (is_a($groups, 'PEAR_Error')) {
-                Horde::logMessage($groups, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($groups, 'ERR');
             }
         } else {
             $where = '(' . Horde_SQL::buildClause($this->_db, 's.perm_guest', '&', $perm) . ')';
@@ -1046,7 +1046,7 @@ class Horde_Share_Object_sql extends Horde_Share_Object {
         if (empty($this->data['share_id'])) {
             $share_id = $db->nextId($table);
             if (is_a($share_id, 'PEAR_Error')) {
-                Horde::logMessage($share_id, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($share_id, 'ERR');
                 return $share_id;
             }
 
@@ -1061,12 +1061,12 @@ class Horde_Share_Object_sql extends Horde_Share_Object {
         }
         $stmt = $db->prepare($query, null, MDB2_PREPARE_MANIP);
         if (is_a($stmt, 'PEAR_Error')) {
-            Horde::logMessage($stmt, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($stmt, 'ERR');
             return $stmt;
         }
         $result = $stmt->execute($params);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
         $stmt->free();
@@ -1074,12 +1074,12 @@ class Horde_Share_Object_sql extends Horde_Share_Object {
         // Update the share's user permissions
         $stmt = $db->prepare('DELETE FROM ' . $table . '_users WHERE share_id = ?', null, MDB2_PREPARE_MANIP);
         if (is_a($stmt, 'PEAR_Error')) {
-            Horde::logMessage($stmt, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($stmt, 'ERR');
             return $stmt;
         }
         $result = $stmt->execute(array($this->data['share_id']));
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
         $stmt->free();
@@ -1089,12 +1089,12 @@ class Horde_Share_Object_sql extends Horde_Share_Object {
             foreach ($this->data['perm']['users'] as $user => $perm) {
                 $stmt = $db->prepare('INSERT INTO ' . $table . '_users (share_id, user_uid, perm) VALUES (?, ?, ?)', null, MDB2_PREPARE_MANIP);
                 if (is_a($stmt, 'PEAR_Error')) {
-                    Horde::logMessage($stmt, __FILE__, __LINE__, PEAR_LOG_ERR);
+                    Horde::logMessage($stmt, 'ERR');
                     return $stmt;
                 }
                 $result = $stmt->execute(array($this->data['share_id'], $user, $perm));
                 if (is_a($result, 'PEAR_Error')) {
-                    Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                    Horde::logMessage($result, 'ERR');
                     return $result;
                 }
                 $stmt->free();
@@ -1104,12 +1104,12 @@ class Horde_Share_Object_sql extends Horde_Share_Object {
         // Update the share's group permissions
         $stmt = $db->prepare('DELETE FROM ' . $table . '_groups WHERE share_id = ?', null, MDB2_PREPARE_MANIP);
         if (is_a($stmt, 'PEAR_Error')) {
-            Horde::logMessage($stmt, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($stmt, 'ERR');
             return $stmt;
         }
         $result = $stmt->execute(array($this->data['share_id']));
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
         $stmt->free();
@@ -1119,12 +1119,12 @@ class Horde_Share_Object_sql extends Horde_Share_Object {
             foreach ($this->data['perm']['groups'] as $group => $perm) {
                 $stmt = $db->prepare('INSERT INTO ' . $table . '_groups (share_id, group_uid, perm) VALUES (?, ?, ?)', null, MDB2_PREPARE_MANIP);
                 if (is_a($stmt, 'PEAR_Error')) {
-                    Horde::logMessage($stmt, __FILE__, __LINE__, PEAR_LOG_ERR);
+                    Horde::logMessage($stmt, 'ERR');
                     return $stmt;
                 }
                 $result = $stmt->execute(array($this->data['share_id'], $group, $perm));
                 if (is_a($result, 'PEAR_Error')) {
-                    Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                    Horde::logMessage($result, 'ERR');
                     return $result;
                 }
                 $stmt->free();

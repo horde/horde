@@ -75,7 +75,7 @@ class IMP_Spam
                             2 => array('pipe', 'w')
                         ), $pipes);
                     if (!is_resource($proc)) {
-                        Horde::logMessage('Cannot open process ' . $prog, __FILE__, __LINE__, PEAR_LOG_ERR);
+                        Horde::logMessage('Cannot open process ' . $prog, 'ERR');
                         return 0;
                     }
                     stream_copy_to_stream($raw_msg, $pipes[0]);
@@ -86,7 +86,7 @@ class IMP_Spam
                     }
                     fclose($pipes[2]);
                     if (!empty($stderr)) {
-                        Horde::logMessage('Error reporting spam: ' . $stderr, __FILE__, __LINE__, PEAR_LOG_ERR);
+                        Horde::logMessage('Error reporting spam: ' . $stderr, 'ERR');
                     }
                     proc_close($proc);
                     $report_flag = true;
@@ -141,7 +141,7 @@ class IMP_Spam
                         $imp_compose->sendMessage($to, $spam_headers, $mime, Horde_Nls::getCharset());
                         $report_flag = true;
                     } catch (IMP_Compose_Exception $e) {
-                        Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+                        Horde::logMessage($e, 'ERR');
                     }
                 }
 

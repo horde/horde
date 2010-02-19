@@ -75,8 +75,7 @@ class Kolab_Resource
         if (is_array($dn)) {
             if (count($dn) > 1) {
                 Horde::logMessage(sprintf("%s objects returned for %s",
-                                          $count($dn), $resource),
-                                  __FILE__, __LINE__, PEAR_LOG_WARNING);
+                                          $count($dn), $resource), 'WARN');
                 return false;
             } else {
                 $dn = $dn[0];
@@ -313,8 +312,7 @@ class Kolab_Resource
                     $object['alarm'] = -$trigger / 60;
                 }
             } else {
-                Horde::logMessage('No TRIGGER in VALARM. ' . $trigger->getMessage(),
-                                  __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage('No TRIGGER in VALARM. ' . $trigger->getMessage(), 'ERR');
             }
         }
 
@@ -328,8 +326,7 @@ class Kolab_Resource
         }
 
         Horde::logMessage(sprintf('Assembled event object: %s',
-                                  print_r($object, true)),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                  print_r($object, true)), 'DEBUG');
 
         return $object;
     }
@@ -358,13 +355,11 @@ class Kolab_Resource
             $action = RM_ACT_MANUAL;
         }
         Horde::logMessage(sprintf('Action for %s is %s',
-                                  $sender, $action),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                  $sender, $action), 'DEBUG');
 
         // Get out as early as possible if manual
         if ($action == RM_ACT_MANUAL) {
-            Horde::logMessage(sprintf('Passing through message to %s', $id),
-                              __FILE__, __LINE__, PEAR_LOG_INFO);
+            Horde::logMessage(sprintf('Passing through message to %s', $id), 'INFO');
             return true;
         }
 
@@ -372,15 +367,13 @@ class Kolab_Resource
         $iCalendar = &$this->_getICal($tmpfname);
         if ($iCalendar === false) {
             // No iCal in mail
-            Horde::logMessage(sprintf('Could not parse iCalendar data, passing through to %s', $id),
-                              __FILE__, __LINE__, PEAR_LOG_INFO);
+            Horde::logMessage(sprintf('Could not parse iCalendar data, passing through to %s', $id), 'INFO');
             return true;
         }
         // Get the event details out of the iTip request
         $itip = &$iCalendar->findComponent('VEVENT');
         if ($itip === false) {
-            Horde::logMessage(sprintf('No VEVENT found in iCalendar data, passing through to %s', $id),
-                              __FILE__, __LINE__, PEAR_LOG_INFO);
+            Horde::logMessage(sprintf('No VEVENT found in iCalendar data, passing through to %s', $id), 'INFO');
             return true;
         }
 
@@ -390,18 +383,15 @@ class Kolab_Resource
                                                              $itip->getAttributeDefault('METHOD', 'REQUEST')));
 
         // What resource are we managing?
-        Horde::logMessage(sprintf('Processing %s method for %s', $method, $id),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Processing %s method for %s', $method, $id), 'DEBUG');
 
         // This is assumed to be constant across event creation/modification/deletipn
         $uid = $itip->getAttributeDefault('UID', '');
-        Horde::logMessage(sprintf('Event has UID %s', $uid),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Event has UID %s', $uid), 'DEBUG');
 
         // Who is the organiser?
         $organiser = preg_replace('/^mailto:\s*/i', '', $itip->getAttributeDefault('ORGANIZER', ''));
-        Horde::logMessage(sprintf('Request made by %s', $organiser),
-                      __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Request made by %s', $organiser), 'DEBUG');
 
         // What is the events summary?
         $summary = $itip->getAttributeDefault('SUMMARY', '');
@@ -410,19 +400,16 @@ class Kolab_Resource
         $dtend = $this->convert2epoch($itip->getAttributeDefault('DTEND', 0));
 
         Horde::logMessage(sprintf('Event starts on <%s> %s and ends on <%s> %s.',
-                                  $dtstart, $this->iCalDate2Kolab($dtstart), $dtend, $this->iCalDate2Kolab($dtend)),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                  $dtstart, $this->iCalDate2Kolab($dtstart), $dtend, $this->iCalDate2Kolab($dtend)), 'DEBUG');
 
         if ($action == RM_ACT_ALWAYS_REJECT) {
             if ($method == 'REQUEST') {
-                Horde::logMessage(sprintf('Rejecting %s method', $method),
-                                  __FILE__, __LINE__, PEAR_LOG_INFO);
+                Horde::logMessage(sprintf('Rejecting %s method', $method), 'INFO');
                 $this->sendITipReply($cn, $resource, $itip, RM_ITIP_DECLINE,
                                      $organiser, $uid, $is_update);
                 return false;
             } else {
-                Horde::logMessage(sprintf('Passing through %s method for ACT_ALWAYS_REJECT policy', $method),
-                                  __FILE__, __LINE__, PEAR_LOG_INFO);
+                Horde::logMessage(sprintf('Passing through %s method for ACT_ALWAYS_REJECT policy', $method), 'INFO');
                 return true;
             }
         }
@@ -449,8 +436,7 @@ class Kolab_Resource
 
         if (is_a($imap_error, 'PEAR_Error')) {
             Horde::logMessage(sprintf('Failed accessing IMAP calendar: %s',
-                                      $folder->getMessage()),
-                              __FILE__, __LINE__, PEAR_LOG_ERR);
+                                      $folder->getMessage()), 'ERR');
             if ($action == RM_ACT_MANUAL_IF_CONFLICTS) {
                 return true;
             }
@@ -459,8 +445,7 @@ class Kolab_Resource
         switch ($method) {
         case 'REQUEST':
             if ($action == RM_ACT_MANUAL) {
-                Horde::logMessage(sprintf('Passing through %s method', $method),
-                                  __FILE__, __LINE__, PEAR_LOG_INFO);
+                Horde::logMessage(sprintf('Passing through %s method', $method), 'INFO');
                 break;
             }
 
@@ -493,8 +478,7 @@ class Kolab_Resource
                 $vfbstart = $vfb->getAttributeDefault('DTSTART', 0);
                 $vfbend = $vfb->getAttributeDefault('DTEND', 0);
                 Horde::logMessage(sprintf('Free/busy info starts on <%s> %s and ends on <%s> %s',
-                                          $vfbstart, $this->iCalDate2Kolab($vfbstart), $vfbend, $this->iCalDate2Kolab($vfbend)),
-                                  __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                          $vfbstart, $this->iCalDate2Kolab($vfbstart), $vfbend, $this->iCalDate2Kolab($vfbend)), 'DEBUG');
 
                 if ($vfbstart && $dtstart > $this->convert2epoch ($vfbend)) {
                     $outofperiod=1;
@@ -502,12 +486,10 @@ class Kolab_Resource
                     // Check whether we are busy or not
                     $busyperiods = $vfb->getBusyPeriods();
                     Horde::logMessage(sprintf('Busyperiods: %s',
-                                              print_r($busyperiods, true)),
-                                      __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                              print_r($busyperiods, true)), 'DEBUG');
                     $extraparams = $vfb->getExtraParams();
                     Horde::logMessage(sprintf('Extraparams: %s',
-                                              print_r($extraparams, true)),
-                                      __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                              print_r($extraparams, true)), 'DEBUG');
                     $conflict = false;
                     if (!empty($object['recurrence'])) {
                         $recurrence = new Horde_Date_Recurrence(time());
@@ -538,8 +520,7 @@ class Kolab_Resource
                             Horde::logMessage(sprintf('Busy period from %s to %s',
                                                       strftime('%a, %d %b %Y %H:%M:%S %z', $busyfrom),
                                                       strftime('%a, %d %b %Y %H:%M:%S %z', $busyto)
-                                              ),
-                                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                              ), 'DEBUG');
                             if ((isset($extraparams[$busyfrom]['X-UID'])
                                  && in_array(base64_decode($extraparams[$busyfrom]['X-UID']), $ignore))
                                 || (isset($extraparams[$busyfrom]['X-SID'])
@@ -548,8 +529,7 @@ class Kolab_Resource
                                 continue;
                             }
                             if (($busyfrom >= $dtstart && $busyfrom < $dtend) || ($dtstart >= $busyfrom && $dtstart < $busyto)) {
-                                Horde::logMessage('Request overlaps',
-                                                  __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                Horde::logMessage('Request overlaps', 'DEBUG');
                                 $conflict = true;
                                 break;
                             }
@@ -562,12 +542,10 @@ class Kolab_Resource
                     if ($conflict) {
                         if ($action == RM_ACT_MANUAL_IF_CONFLICTS) {
                             //sendITipReply(RM_ITIP_TENTATIVE);
-                            Horde::logMessage('Conflict detected; Passing mail through',
-                                              __FILE__, __LINE__, PEAR_LOG_INFO);
+                            Horde::logMessage('Conflict detected; Passing mail through', 'INFO');
                             return true;
                         } else if ($action == RM_ACT_REJECT_IF_CONFLICTS) {
-                            Horde::logMessage('Conflict detected; rejecting',
-                                              __FILE__, __LINE__, PEAR_LOG_INFO);
+                            Horde::logMessage('Conflict detected; rejecting', 'INFO');
                             $this->sendITipReply($cn, $id, $itip, RM_ITIP_DECLINE,
                                                  $organiser, $uid, $is_update);
                             return false;
@@ -577,8 +555,7 @@ class Kolab_Resource
             }
 
             if (is_a($imap_error, 'PEAR_Error')) {
-                Horde::logMessage('Could not access users calendar; rejecting',
-                                  __FILE__, __LINE__, PEAR_LOG_INFO);
+                Horde::logMessage('Could not access users calendar; rejecting', 'INFO');
                 $this->sendITipReply($cn, $id, $itip, RM_ITIP_DECLINE,
                                      $organiser, $uid, $is_update);
                 return false;
@@ -588,8 +565,7 @@ class Kolab_Resource
             // was specified; either way we add the new event & send an 'ACCEPT'
             // iTip reply
 
-            Horde::logMessage(sprintf('Adding event %s', $uid),
-                              __FILE__, __LINE__, PEAR_LOG_INFO);
+            Horde::logMessage(sprintf('Adding event %s', $uid), 'INFO');
 
             if (!empty($conf['kolab']['filter']['simple_locks'])) {
                 if (!empty($conf['kolab']['filter']['simple_locks_timeout'])) {
@@ -613,22 +589,19 @@ class Kolab_Resource
                         $counter++;
                     }
                     if ($counter == $timeout) {
-                        Horde::logMessage(sprintf('Lock timeout of %s seconds exceeded. Rejecting invitation.', $timeout),
-                                          __FILE__, __LINE__, PEAR_LOG_ERR);
+                        Horde::logMessage(sprintf('Lock timeout of %s seconds exceeded. Rejecting invitation.', $timeout), 'ERR');
                         $this->sendITipReply($cn, $id, $itip, RM_ITIP_DECLINE,
                                              $organiser, $uid, $is_update);
                         return false;
                     }
                     $result = file_put_contents($lockfile, 'LOCKED');
                     if ($result === false) {
-                        Horde::logMessage(sprintf('Failed creating lock file %s.', $lockfile),
-                                          __FILE__, __LINE__, PEAR_LOG_ERR);
+                        Horde::logMessage(sprintf('Failed creating lock file %s.', $lockfile), 'ERR');
                     } else {
                         $this->lockfile = $lockfile;
                     }
                 } else {
-                    Horde::logMessage(sprintf('The lock directory %s is missing. Disabled locking.', $lockdir),
-                                      __FILE__, __LINE__, PEAR_LOG_ERR);
+                    Horde::logMessage(sprintf('The lock directory %s is missing. Disabled locking.', $lockdir), 'ERR');
                 }
             }
 
@@ -668,8 +641,7 @@ class Kolab_Resource
             if ($outofperiod) {
                 $this->sendITipReply($cn, $resource, $itip, RM_ITIP_TENTATIVE,
                                      $organiser, $uid, $is_update);
-                Horde::logMessage('No freebusy information available',
-                                  __FILE__, __LINE__, PEAR_LOG_NOTICE);
+                Horde::logMessage('No freebusy information available', 'NOTICE');
             } else {
                 $this->sendITipReply($cn, $resource, $itip, RM_ITIP_ACCEPT,
                                      $organiser, $uid, $is_update);
@@ -677,16 +649,14 @@ class Kolab_Resource
             return false;
 
         case 'CANCEL':
-            Horde::logMessage(sprintf('Removing event %s', $uid),
-                              __FILE__, __LINE__, PEAR_LOG_INFO);
+            Horde::logMessage(sprintf('Removing event %s', $uid), 'INFO');
 
             if (is_a($imap_error, 'PEAR_Error')) {
                 $body = sprintf(_("Unable to access %s's calendar:"), $resource) . "\n\n" . $summary;
                 $subject = sprintf(_("Error processing \"%s\""), $summary);
             } else if (!$data->objectUidExists($uid)) {
                 Horde::logMessage(sprintf('Canceled event %s is not present in %s\'s calendar',
-                                          $uid, $resource),
-                                  __FILE__, __LINE__, PEAR_LOG_WARNING);
+                                          $uid, $resource), 'WARNING');
                 $body = sprintf(_("The following event that was canceled is not present in %s's calendar:"), $resource) . "\n\n" . $summary;
                 $subject = sprintf(_("Error processing \"%s\""), $summary);
             } else {
@@ -695,22 +665,19 @@ class Kolab_Resource
                  * Delete any old events that we updated
                  */
                 Horde::logMessage(sprintf('Deleting %s because of cancel',
-                                          $uid),
-                                  __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                          $uid), 'DEBUG');
 
                 $result = $data->delete($uid);
                 if (is_a($result, 'PEAR_Error')) {
                     Horde::logMessage(sprintf('Deleting %s failed with %s',
-                                              $uid, $result->getMessage()),
-                                      __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                              $uid, $result->getMessage()), 'DEBUG');
                 }
 
                 $body = _("The following event has been successfully removed:") . "\n\n" . $summary;
                 $subject = sprintf(_("%s has been cancelled"), $summary);
             }
 
-            Horde::logMessage(sprintf('Sending confirmation of cancelation to %s', $organiser),
-                              __FILE__, __LINE__, PEAR_LOG_WARNING);
+            Horde::logMessage(sprintf('Sending confirmation of cancelation to %s', $organiser), 'WARNING');
 
             $body = new MIME_Part('text/plain', Horde_String::wrap($body, 76, "\n", 'utf-8'), 'utf-8');
             $mime = &MIME_Message::convertMimePart($body);
@@ -731,8 +698,7 @@ class Kolab_Resource
                 return $result;
             }
 
-            Horde::logMessage('Successfully sent cancellation reply',
-                              __FILE__, __LINE__, PEAR_LOG_INFO);
+            Horde::logMessage('Successfully sent cancellation reply', 'INFO');
 
             return false;;
 
@@ -740,8 +706,7 @@ class Kolab_Resource
             // We either don't currently handle these iTip methods, or they do not
             // apply to what we're trying to accomplish here
             Horde::logMessage(sprintf('Ignoring %s method and passing message through to %s',
-                                      $method, $resource),
-                              __FILE__, __LINE__, PEAR_LOG_INFO);
+                                      $method, $resource), 'INFO');
             return true;
         }
     }
@@ -756,8 +721,7 @@ class Kolab_Resource
         if (!empty($this->lockfile)) {
             @unlink($this->lockfile);
             if (file_exists($this->lockfile)) {
-                Horde::logMessage(sprintf('Failed removing the lockfile %s.', $lockfile),
-                                  __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage(sprintf('Failed removing the lockfile %s.', $lockfile), 'ERR');
             }
             $this->lockfile = null;
         }
@@ -779,8 +743,7 @@ class Kolab_Resource
                            $organiser, $uid, $is_update)
     {
         Horde::logMessage(sprintf('sendITipReply(%s, %s, %s, %s)',
-                                  $cn, $resource, get_class($itip), $type),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                  $cn, $resource, get_class($itip), $type), 'DEBUG');
 
         // Build the reply.
         $vCal = new Horde_iCalendar();
@@ -835,8 +798,7 @@ class Kolab_Resource
         switch ($type) {
         case RM_ITIP_DECLINE:
             Horde::logMessage(sprintf('Sending DECLINE iTip reply to %s',
-                                      $organiser),
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                      $organiser), 'DEBUG');
             $message = $is_update
                 ? sprintf(_("%s has declined the update to the following event:"), $resource) . "\n\n" . $summary
                 : sprintf(_("%s has declined the invitation to the following event:"), $resource) . "\n\n" . $summary;
@@ -845,8 +807,7 @@ class Kolab_Resource
             break;
 
         case RM_ITIP_ACCEPT:
-            Horde::logMessage(sprintf('Sending ACCEPT iTip reply to %s', $organiser),
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage(sprintf('Sending ACCEPT iTip reply to %s', $organiser), 'DEBUG');
             $message = $is_update
                 ? sprintf(_("%s has accepted the update to the following event:"), $resource) . "\n\n" . $summary
                 : sprintf(_("%s has accepted the invitation to the following event:"), $resource) . "\n\n" . $summary;
@@ -855,8 +816,7 @@ class Kolab_Resource
             break;
 
         case RM_ITIP_TENTATIVE:
-            Horde::logMessage(sprintf('Sending TENTATIVE iTip reply to %s', $organiser),
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage(sprintf('Sending TENTATIVE iTip reply to %s', $organiser), 'DEBUG');
             $message = $is_update
                 ? sprintf(_("%s has tentatively accepted the update to the following event:"), $resource) . "\n\n" . $summary
                 : sprintf(_("%s has tentatively accepted the invitation to the following event:"), $resource) . "\n\n" . $summary;
@@ -865,8 +825,7 @@ class Kolab_Resource
             break;
 
         default:
-            Horde::logMessage(sprintf('Unknown iTip method (%s passed to sendITipReply())', $type),
-                              __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage(sprintf('Unknown iTip method (%s passed to sendITipReply())', $type), 'ERR');
         }
 
         $itip_reply->setAttribute('ATTENDEE', 'MAILTO:' . $resource, $params);
@@ -903,8 +862,7 @@ class Kolab_Resource
             return $result;
         }
 
-        Horde::logMessage('Successfully sent iTip reply',
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Successfully sent iTip reply', 'DEBUG');
     }
 
 
@@ -983,8 +941,7 @@ class Kolab_Resource
     function iCalDate2Kolab($ical_date, $type= ' ')
     {
         Horde::logMessage(sprintf('Converting to kolab format %s',
-                                  print_r($ical_date, true)),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                  print_r($ical_date, true)), 'DEBUG');
 
         // $ical_date should be a timestamp
         if (is_array($ical_date)) {
@@ -1008,8 +965,7 @@ class Kolab_Resource
         }  else {
             $date = gmstrftime('%Y-%m-%dT%H:%M:%SZ', $ical_date);
         }
-        Horde::logMessage(sprintf('To <%s>', $date),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('To <%s>', $date), 'DEBUG');
         return $date;
     }
 
@@ -1023,8 +979,7 @@ class Kolab_Resource
     function convert2epoch($values)
     {
         Horde::logMessage(sprintf('Converting to epoch %s',
-                                  print_r($values, true)),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                  print_r($values, true)), 'DEBUG');
 
         if (is_array($values)) {
             $temp = $this->cleanArray($values);
@@ -1034,8 +989,7 @@ class Kolab_Resource
             $epoch = $values;
         }
 
-        Horde::logMessage(sprintf('Converted <%s>', $epoch),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Converted <%s>', $epoch), 'DEBUG');
         return $epoch;
     }
 }

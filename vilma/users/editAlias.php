@@ -25,14 +25,14 @@ $vars = Variables::getDefaultVariables();
 
 /* If the form is submitted, $vars['mode'] will be set. Catch this and process the submission so that the displayed form accurately indicates the result of the transaction. */
 if ($vars->exists('mode')) {
-  Horde::logMessage("Submit Detected: " . print_r(serialize($vars), true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+  Horde::logMessage("Submit Detected: " . print_r(serialize($vars), true), 'DEBUG');
   $form = &new EditAliasForm($vars);
 
   if ($form->validate($vars)) {
       $form->getInfo($vars, $info);
       $alias_id = $vilma_driver->saveAlias($info);
       if (is_a($alias_id, 'PEAR_Error')) {
-          Horde::logMessage($user_id, __FILE__, __LINE__, PEAR_LOG_ERR);
+          Horde::logMessage($user_id, 'ERR');
           $notification->push(sprintf(_("Error saving alias. %s"), $alias_id->getMessage()), 'horde.error');
           // remove the mode, and rearrange the alias information to clean up the form.
           $vars->remove('mode');
@@ -54,13 +54,13 @@ if ($vars->exists('mode')) {
 
 /* Check if a form is being edited. */
 if (!$vars->exists('mode') || $vars->getExists('retry')) {
-  Horde::logMessage("No-Submit Detected: " . print_r(serialize($vars), true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+  Horde::logMessage("No-Submit Detected: " . print_r(serialize($vars), true), 'DEBUG');
     if ($vars->exists("alias")) {
         $alias = $vars->get("alias");
-        Horde::logMessage("Alias Detected: $alias", __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage("Alias Detected: $alias", 'DEBUG');
 
         $addrInfo = $vilma_driver->getAddressInfo($alias,'alias');
-        Horde::logMessage("addrInfo contains: " . print_r($addrInfo, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage("addrInfo contains: " . print_r($addrInfo, true), 'DEBUG');
         if (is_a($addrInfo, 'PEAR_Error')) {
             $notification->push(sprintf(_("Error reading address information from backend: %s"), $addrInfo->getMessage()), 'horde.error');
             $url = '/users/index.php';
@@ -68,7 +68,7 @@ if (!$vars->exists('mode') || $vars->getExists('retry')) {
             exit;
         }
         $address = $vilma_driver->getAddressInfo($addrInfo['destination']);
-        Horde::logMessage("address Info contains: " . print_r($address, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage("address Info contains: " . print_r($address, true), 'DEBUG');
         $vars = new Variables($address);
         $vars->set('mode', 'edit');
         $vars->add('alias_address', $alias);
@@ -76,10 +76,10 @@ if (!$vars->exists('mode') || $vars->getExists('retry')) {
         $vars->add('address', $address['address']);
     } elseif ($vars->exists("address")) {
         $tmp_address = $vars->get("address");
-        Horde::logMessage("Address Detected: $tmp_address", __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage("Address Detected: $tmp_address", 'DEBUG');
 
         $address = $vilma_driver->getAddressInfo($tmp_address, 'all');
-        Horde::logMessage("addrInfo contains: " . print_r($addrInfo, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage("addrInfo contains: " . print_r($addrInfo, true), 'DEBUG');
         $vars = new Variables($address);
         $vars->set('mode', 'new');
     }
@@ -90,7 +90,7 @@ if (!$vars->exists('mode') || $vars->getExists('retry')) {
         $form->getInfo($vars, $info);
         $alias_id = $vilma_driver->saveAlias($info);
         if (is_a($alias_id, 'PEAR_Error')) {
-            Horde::logMessage($user_id, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($user_id, 'ERR');
             $notification->push(sprintf(_("Error saving alias. %s"), $alias_id->getMessage()), 'horde.error');
         } else {
             $notification->push(_("Alias saved."), 'horde.success');

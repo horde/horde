@@ -167,7 +167,7 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
         try {
             $this->_connect();
         } catch (Horde_Auth_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
         }
 
@@ -187,11 +187,11 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
             $values = array($userId);
         }
 
-        Horde::logMessage('SQL Query by Horde_Auth_Cyrsql::_authenticate(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by Horde_Auth_Cyrsql::_authenticate(): ' . $query, 'DEBUG');
 
         $result = $this->_db->query($query, $values);
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
         }
 
@@ -249,13 +249,13 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
                                                       $this->_params['encryption'],
                                                       $this->_params['show_encryption']));
 
-            Horde::logMessage('SQL Query by Horde_Auth_Cyrsql::addUser(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('SQL Query by Horde_Auth_Cyrsql::addUser(): ' . $query, 'DEBUG');
 
             $dbresult = $this->_db->query($query, $values);
             $query = 'INSERT INTO virtual (alias, dest, username, status) VALUES (?, ?, ?, 1)';
             $values = array($userId, $userId, $name);
 
-            Horde::logMessage('SQL Query by Horde_Auth_Cyrsql::addUser(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('SQL Query by Horde_Auth_Cyrsql::addUser(): ' . $query, 'DEBUG');
 
             $dbresult2 = $this->_db->query($query, $values);
             if ($dbresult2 instanceof PEAR_Error) {
@@ -325,13 +325,13 @@ Horde_String::convertCharset($userName . $this->_separator . $value . '@' . $dom
                              $this->_params['domain_field']);
             $values = array($name, $domain);
 
-            Horde::logMessage('SQL Query by Horde_Auth_Cyrsql::removeUser(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('SQL Query by Horde_Auth_Cyrsql::removeUser(): ' . $query, 'DEBUG');
 
             $dbresult = $this->_db->query($query, $values);
             $query = 'DELETE FROM virtual WHERE dest = ?';
             $values = array($userId);
 
-            Horde::logMessage('SQL Query by Horde_Auth_Cyrsql::removeUser(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('SQL Query by Horde_Auth_Cyrsql::removeUser(): ' . $query, 'DEBUG');
 
             $dbresult2 = $this->_db->query($query, $values);
             if ($dbresult2 instanceof PEAR_Error) {
@@ -380,7 +380,7 @@ Horde_String::convertCharset($userName . $this->_separator . $value . '@' . $dom
                              $this->_params['username_field']);
         }
 
-        Horde::logMessage('SQL Query by Horde_Auth_Cyrsql::listUsers(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by Horde_Auth_Cyrsql::listUsers(): ' . $query, 'DEBUG');
 
         $result = $this->_db->getAll($query, null, DB_FETCHMODE_ORDERED);
         if ($result instanceof PEAR_Error) {
@@ -447,7 +447,7 @@ Horde_String::convertCharset($userName . $this->_separator . $value . '@' . $dom
                             $oldID);
         }
 
-        Horde::logMessage('SQL Query by Horde_Auth_Cyrsql::updateUser(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by Horde_Auth_Cyrsql::updateUser(): ' . $query, 'DEBUG');
 
         $res = $this->_db->query($query, $values);
         if ($res instanceof PEAR_Error) {

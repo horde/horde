@@ -34,8 +34,7 @@ class Horde_Block_Horde_metar extends Horde_Block {
     function _params()
     {
         if (!@include_once 'Services/Weather.php') {
-            Horde::logMessage('The metar block will not work without Services_Weather from PEAR. Run pear install Services_Weather.',
-                              __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage('The metar block will not work without Services_Weather from PEAR. Run pear install Services_Weather.', 'ERR');
             return array(
                 'error' => array(
                     'type' => 'error',
@@ -120,8 +119,7 @@ class Horde_Block_Horde_metar extends Horde_Block {
     function _content()
     {
         if (!@include_once 'Services/Weather.php') {
-            Horde::logMessage('The metar block will not work without Services_Weather from PEAR. Run pear install Services_Weather.',
-                              __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage('The metar block will not work without Services_Weather from PEAR. Run pear install Services_Weather.', 'ERR');
             return _("Metar block not available. Details have been logged for the administrator.");
         }
 

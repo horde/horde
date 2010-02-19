@@ -269,13 +269,13 @@ case 'save':
             $galleryId = null;
             $error = sprintf(_("The gallery \"%s\" couldn't be created: %s"),
                              $gallery_name, $gallery->getMessage());
-            Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($error, 'ERR');
             $notification->push($error, 'horde.error');
         } else {
             $galleryId = $gallery->getId();
             $msg = sprintf(_("The gallery \"%s\" was created successfully."),
                            $gallery_name);
-            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage($msg, 'DEBUG');
             $notification->push($msg, 'horde.success');
         }
     }

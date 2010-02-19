@@ -228,8 +228,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         /* Log the query at a DEBUG log level. */
         Horde::logMessage(sprintf('Kronolith_Driver_Sql::exists(): user = "%s"; query = "%s"',
-                                  Horde_Auth::getAuth(), $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                  Horde_Auth::getAuth(), $query), 'DEBUG');
 
         $event = $this->_db->getRow($query, $values, DB_FETCHMODE_ASSOC);
         $this->handleError($event);
@@ -334,8 +333,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         /* Log the query at a DEBUG log level. */
         Horde::logMessage(sprintf('Kronolith_Driver_Sql::_listEventsConditional(): user = "%s"; query = "%s"; values = "%s"',
-                                  Horde_Auth::getAuth(), $q, implode(',', $values)),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                  Horde_Auth::getAuth(), $q, implode(',', $values)), 'DEBUG');
 
         /* Run the query. */
         $qr = $this->_db->query($q, $values);
@@ -355,12 +353,11 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
                 /* Log the query at a DEBUG log level. */
                 Horde::logMessage(sprintf('Kronolith_Driver_Sql::_listEventsConditional(): user = %s; query = "%s"; values = "%s"',
-                                          Horde_Auth::getAuth(), $query, implode(',', $values)),
-                                  __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                          Horde_Auth::getAuth(), $query, implode(',', $values)), 'DEBUG');
 
                 $result = $this->_write_db->query($query, $values);
                 if ($result instanceof PEAR_Error) {
-                    Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                    Horde::logMessage($result, 'ERR');
                 }
             }
 
@@ -396,8 +393,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                          $this->_params['table']);
         /* Log the query at a DEBUG log level. */
         Horde::logMessage(sprintf('Kronolith_Driver_Sql::_countEvents(): user = "%s"; query = "%s"; values = "%s"',
-                                  Horde_Auth::getAuth(), $query, $this->calendar),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                  Horde_Auth::getAuth(), $query, $this->calendar), 'DEBUG');
 
         /* Run the query. */
         $result = $this->_db->getOne($query, array($this->calendar));
@@ -431,8 +427,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         /* Log the query at a DEBUG log level. */
         Horde::logMessage(sprintf('Kronolith_Driver_Sql::getEvent(): user = "%s"; query = "%s"; values = "%s"',
-                                  Horde_Auth::getAuth(), $query, implode(',', $values)),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                  Horde_Auth::getAuth(), $query, implode(',', $values)), 'DEBUG');
 
         $event = $this->_db->getRow($query, $values, DB_FETCHMODE_ASSOC);
         $this->handleError($event);
@@ -480,8 +475,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         /* Log the query at a DEBUG log level. */
         Horde::logMessage(sprintf('Kronolith_Driver_Sql::getByUID(): user = "%s"; query = "%s"; values = "%s"',
-                                  Horde_Auth::getAuth(), $query, implode(',', $values)),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                  Horde_Auth::getAuth(), $query, implode(',', $values)), 'DEBUG');
 
         $events = $this->_db->getAll($query, $values, DB_FETCHMODE_ASSOC);
         $this->handleError($events);
@@ -556,8 +550,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
             /* Log the query at a DEBUG log level. */
             Horde::logMessage(sprintf('Kronolith_Driver_Sql::saveEvent(): user = "%s"; query = "%s"; values = "%s"',
-                                      Horde_Auth::getAuth(), $query, implode(',', $values)),
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                      Horde_Auth::getAuth(), $query, implode(',', $values)), 'DEBUG');
 
             $result = $this->_write_db->query($query, $values);
             $this->handleError($result);
@@ -620,8 +613,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         /* Log the query at a DEBUG log level. */
         Horde::logMessage(sprintf('Kronolith_Driver_Sql::saveEvent(): user = "%s"; query = "%s"; values = "%s"',
-                            Horde_Auth::getAuth(), $query, implode(',', $values)),
-                            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                            Horde_Auth::getAuth(), $query, implode(',', $values)), 'DEBUG');
 
         $result = $this->_write_db->query($query, $values);
         $this->handleError($result);
@@ -669,8 +661,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         /* Log the query at a DEBUG log level. */
         Horde::logMessage(sprintf('Kronolith_Driver_Sql::move(): %s; values = "%s"',
-                                  $query, implode(',', $values)),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                  $query, implode(',', $values)), 'DEBUG');
 
         /* Attempt the move query. */
         $result = $this->_write_db->query($query, $values);
@@ -693,8 +684,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         /* Log the query at a DEBUG log level. */
         Horde::logMessage(sprintf('Kronolith_Driver_Sql::delete(): user = "%s"; query = "%s"; values = "%s"',
-                                  Horde_Auth::getAuth(), $query, implode(',', $values)),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                  Horde_Auth::getAuth(), $query, implode(',', $values)), 'DEBUG');
 
         $result = $this->_write_db->query($query, $values);
         $this->handleError($result);
@@ -721,8 +711,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         /* Log the query at a DEBUG log level. */
         Horde::logMessage(sprintf('Kronolith_Driver_Sql::deleteEvent(): user = "%s"; query = "%s"; values = "%s"',
-                                  Horde_Auth::getAuth(), $query, implode(',', $values)),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                  Horde_Auth::getAuth(), $query, implode(',', $values)), 'DEBUG');
 
         $result = $this->_write_db->query($query, $values);
         $this->handleError($result);
@@ -784,8 +773,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             . 'AND event_uid IN (' . str_repeat('?,', count($uids) - 1) . '?)';
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Kronolith_Driver_Sql::filterEventsByCalendar(): %s', $sql),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Kronolith_Driver_Sql::filterEventsByCalendar(): %s', $sql), 'DEBUG');
 
         $result = $this->_db->getCol($sql, 0, array_merge($calendar, $uids));
         $this->handleError($result);
@@ -858,8 +846,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
             /* Log the query at a DEBUG log level. */
             Horde::logMessage(sprintf('Kronolith_Driver_Sql::_initConn(): user = "%s"; query = "%s"',
-                                      Horde_Auth::getAuth(), $query),
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                      Horde_Auth::getAuth(), $query), 'DEBUG');
 
             $db->query($query);
             break;
@@ -869,8 +856,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
             /* Log the query at a DEBUG log level. */
             Horde::logMessage(sprintf('Kronolith_Driver_Sql::_initConn(): user = "%s"; query = "%s"',
-                                      Horde_Auth::getAuth(), $query),
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                      Horde_Auth::getAuth(), $query), 'DEBUG');
 
             $db->query($query);
             break;
@@ -954,7 +940,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
     protected function handleError($result)
     {
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             throw new Kronolith_Exception($result);
         }
     }

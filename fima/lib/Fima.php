@@ -191,7 +191,7 @@ class Fima {
     {
         $ledgers = $GLOBALS['fima_shares']->listShares(Horde_Auth::getAuth(), $permission, $owneronly ? Horde_Auth::getAuth() : null);
         if (is_a($ledgers, 'PEAR_Error')) {
-            Horde::logMessage($ledgers, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($ledgers, 'ERR');
             return array();
         }
 

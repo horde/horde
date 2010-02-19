@@ -170,7 +170,7 @@ class Ingo_Application extends Horde_Registry_Application
         try {
             $GLOBALS['ingo_storage']->removeUserData($user);
         } catch (Ingo_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             throw new Horde_Auth_Exception($e);
         }
 
@@ -179,13 +179,13 @@ class Ingo_Application extends Horde_Registry_Application
             /* Get the user's default share. */
             $share = $GLOBALS['ingo_shares']->getShare($user);
             if ($share instanceof PEAR_Error) {
-                Horde::logMessage($share, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($share, 'ERR');
                 throw new Horde_Auth_Exception($share);
             }
 
             $result = $GLOBALS['ingo_shares']->removeShare($share);
             if ($result instanceof PEAR_Error) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 throw new Horde_Auth_Exception($share);
             }
 
@@ -193,7 +193,7 @@ class Ingo_Application extends Horde_Registry_Application
              * perms. */
             $shares = $GLOBALS['ingo_shares']->listShares($user);
             if ($shares instanceof PEAR_Error) {
-                Horde::logMessage($shares, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($shares, 'ERR');
             } else {
                 foreach ($shares as $share) {
                     $share->removeUser($user);
@@ -204,7 +204,7 @@ class Ingo_Application extends Horde_Registry_Application
              * and remove them. */
             $shares = $GLOBALS['ingo_shares']->listShares($user, Horde_Perms::DELETE, $user);
             if ($shares instanceof PEAR_Error) {
-                Horde::logMessage($shares, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($shares, 'ERR');
                 throw new Horde_Auth_Exception($share);
             }
 

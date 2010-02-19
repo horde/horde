@@ -60,7 +60,7 @@ class IMP_Auth
             }
 
             if (!$GLOBALS['imp_imap']->createImapObject($credentials['userId'], $credentials['password'], $credentials['server'])) {
-                self::logMessage('failed', __FILE__, __LINE__);
+                self::_logMessage('failed');
                 throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
             }
         }
@@ -68,7 +68,7 @@ class IMP_Auth
         try {
             $GLOBALS['imp_imap']->ob()->login();
         } catch (Horde_Imap_Client_Exception $e) {
-            self::logMessage($e->getMessage(), __FILE__, __LINE__);
+            self::_logMessage($e->getMessage(), 'ERR');
             if ($e->getCode() == Horde_Imap_Client_Exception::SERVER_CONNECT) {
                 throw new Horde_Auth_Exception(_("Could not connect to the remote server."));
             }
@@ -114,14 +114,11 @@ class IMP_Auth
     /**
      * Log login related message.
      *
-     * @param string $status  Either 'login', 'logout', 'failed', or an
-     *                        error message.
-     * @param string $file    The file where the error occurred.
-     * @param integer $line   The line where the error occurred.
-     * @param integer $level  The logging level.
+     * @param Exception $status  Message should contain either 'login',
+     *                           'logout', 'failed', or an error message.
+     * @param mixed $level       The logging level. See Horde::logMessage().
      */
-    static public function logMessage($status, $file, $line,
-                                      $level = PEAR_LOG_ERR)
+    static protected function _logMessage($status, $level)
     {
         switch ($status) {
         case 'login':
@@ -154,7 +151,7 @@ class IMP_Auth
             empty($_SESSION['imp']['protocol']) ? '' : $_SESSION['imp']['protocol']
         );
 
-        Horde::logMessage($msg, $file, $line, $level);
+        Horde::logMessage($msg, $level);
     }
 
     /**
@@ -502,7 +499,7 @@ class IMP_Auth
         $imp_compose = IMP_Compose::singleton();
         $imp_compose->recoverSessionExpireDraft();
 
-        IMP_Auth::logMessage('login', __FILE__, __LINE__, PEAR_LOG_NOTICE);
+        self::_logMessage('login', 'NOTICE');
     }
 
 }

@@ -84,7 +84,7 @@ class Horde_Kolab_Filter_Content extends Horde_Kolab_Filter_Base
                 /* Done with headers */
                 $state = RM_STATE_READING_BODY;
                 if ($from && $verify_from_header) {
-                    $rc = $this->_verify_sender($this->_sasl_username, $this->_sender, 
+                    $rc = $this->_verify_sender($this->_sasl_username, $this->_sender,
                                                 $from, $this->_client_address);
                     if (is_a($rc, 'PEAR_Error')) {
                         return $rc;
@@ -97,8 +97,7 @@ class Horde_Kolab_Filter_Content extends Horde_Kolab_Filter_Base
                         /* Rewrite from */
                         if (strpos($from, $rc) === false) {
                             Horde::logMessage(sprintf("Rewriting '%s' to '%s'",
-                                                      $from, $rc), 
-                                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                                      $from, $rc), 'DEBUG');
                             $rewrittenfrom = "From: $rc\r\n";
                         }
                     }
@@ -120,8 +119,7 @@ class Horde_Kolab_Filter_Content extends Horde_Kolab_Filter_Base
                         $subject = $regs[1];
                         $state = RM_STATE_READING_SUBJECT;
                     } else if (eregi('^Content-Type: text/calendar', $line)) {
-                        Horde::logMessage("Found iCal data in message",
-                                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                        Horde::logMessage("Found iCal data in message", 'DEBUG');
                         $ical = true;
                     } else if (eregi('^Message-ID: (.*)', $line, $regs)) {
                         $this->_id = $regs[1];
@@ -211,8 +209,8 @@ class Horde_Kolab_Filter_Content extends Horde_Kolab_Filter_Base
             $port = 10025;
         }
 
-        $transport = &Horde_Kolab_Filter_Transport::factory($transport, 
-                                               array('host' => $host, 
+        $transport = &Horde_Kolab_Filter_Transport::factory($transport,
+                                               array('host' => $host,
                                                      'port' => $port));
 
         $tmpf = @fopen($this->_tmpfile, 'r');
@@ -338,7 +336,7 @@ class Horde_Kolab_Filter_Content extends Horde_Kolab_Filter_Base
         }
 
         /* Allow anything from localhost and
-         * fellow Kolab-hosts 
+         * fellow Kolab-hosts
          */
         if ($client_addr == $local_addr) {
             return true;
@@ -409,30 +407,27 @@ class Horde_Kolab_Filter_Content extends Horde_Kolab_Filter_Base
 
             if ($sasluser) {
                 if (!in_array(strtolower($from), $allowed_addrs)) {
-                    Horde::logMessage(sprintf("%s is not an allowed From address for %s", 
-                                              $from, $sasluser), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    Horde::logMessage(sprintf("%s is not an allowed From address for %s", $from, $sasluser), 'DEBUG');
                     return false;
                 }
             } else {
                 foreach ($domains as $domain) {
-                    if (strtolower($fromdom) == $domain 
+                    if (strtolower($fromdom) == $domain
                         || ($verify_subdomains
                             && substr($fromdom, -strlen($domain)-1) == ".$domain")) {
                         if ($reject_forged_from_header) {
-                            Horde::logMessage(sprintf("%s is not an allowed From address for unauthenticated users.", 
-                                                      $from), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                            Horde::logMessage(sprintf("%s is not an allowed From address for unauthenticated users.", $from), 'DEBUG');
                             return false;
                         } else {
                             require_once 'Horde/String.php';
                             require_once 'Horde/MIME.php';
 
                             /* Rewrite */
-                            Horde::logMessage(sprintf("%s is not an allowed From address for unauthenticated users, rewriting.", 
-                                                      $from), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                            Horde::logMessage(sprintf("%s is not an allowed From address for unauthenticated users, rewriting.", $from), 'DEBUG');
 
                             if (property_exists($adr, 'personal')) {
-                                $name = str_replace(array("\\", '"'), 
-                                                    array("\\\\",'\"'), 
+                                $name = str_replace(array("\\", '"'),
+                                                    array("\\\\",'\"'),
                                                     MIME::decode($adr->personal, 'utf-8'));
                             } else {
                                 $name = '';

@@ -493,9 +493,9 @@ class Whups_Driver {
                 $entry = sprintf('%s Message sent to %s from "%s"',
                                  $_SERVER['REMOTE_ADDR'], $to,
                                  Horde_Auth::getAuth());
-                Horde::logMessage($entry, __FILE__, __LINE__, PEAR_LOG_INFO);
+                Horde::logMessage($entry, 'INFO');
             } catch (Horde_Mime_Exception $e) {
-                Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($e, 'ERR');
             }
         }
     }

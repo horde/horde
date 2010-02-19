@@ -37,7 +37,8 @@ Application Framework.
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Add Horde_Themes:: class.
+ <notes>* Convert from PEAR Log to Horde_Log for logging.
+ * Add Horde_Themes:: class.
  * Add Horde::nocacheUrl().
  * Remove dependency on Horde_DOM package.
  * Added Horde_Registry_Api:: and Horde_Registry_Application:: classes.
@@ -75,6 +76,9 @@ Application Framework.
       <dir name="Factory">
        <file name="KolabServer.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Factory -->
+      <dir name="Log">
+       <file name="Logger.php" role="php" />
+      </dir> <!-- /lib/Horde/Core/Log -->
       <dir name="Notification">
        <file name="Status.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Notification -->
@@ -144,7 +148,7 @@ Application Framework.
    </package>
    <package>
     <name>Log</name>
-    <channel>pear.php.net</channel>
+    <channel>pear.horde.org</channel>
    </package>
    <package>
     <name>Prefs</name>
@@ -185,6 +189,7 @@ Application Framework.
    <install name="lib/Horde/Core/Binder/Perms.php" as="Horde/Core/Binder/Perms.php" />
    <install name="lib/Horde/Core/Binder/Template.php" as="Horde/Core/Binder/Template.php" />
    <install name="lib/Horde/Core/Factory/KolabServer.php" as="Horde/Core/Factory/KolabServer.php" />
+   <install name="lib/Horde/Core/Log/Logger.php" as="Horde/Core/Log/Logger.php" />
    <install name="lib/Horde/Core/Notification/Status.php" as="Horde/Core/Notification/Status.php" />
    <install name="lib/Horde/ErrorHandler.php" as="Horde/ErrorHandler.php" />
    <install name="lib/Horde/Exception/HookNotSet.php" as="Horde/Exception/HookNotSet.php" />

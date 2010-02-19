@@ -321,7 +321,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         try {
             $GLOBALS['registry']->callByPackage($pieces[0], 'put', array('path' => $path, 'content' => $content, 'type' => $options['content_type']));
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             if ($e->getCode()) {
                 return $this->_checkHTTPCode($e->getCode()) . ' ' . $result->getMessage();
             }
@@ -351,7 +351,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         $pieces = explode('/', trim($this->path, '/'), 2);
 
         if (count($pieces) != 2) {
-            Horde::logMessage(sprintf(_("Error deleting from path %s; must be [app]/[path]", $options['path'])), __FILE__, __LINE__, PEAR_LOG_INFO);
+            Horde::logMessage(sprintf(_("Error deleting from path %s; must be [app]/[path]", $options['path'])), 'INFO');
             return '403 Must supply a resource within the application to delete.';
         }
 
@@ -364,7 +364,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         try {
             $GLOBALS['registry']->callByPackage($app, 'path_delete', array($path));
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_INFO);
+            Horde::logMessage($e, 'INFO');
             if ($e->getCode()) {
                 return $this->_checkHTTPCode($e->getCode()) . ' ' . $e->getMessage();
             }
@@ -412,7 +412,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         // Take the module name from the path
         $pieces = explode('/', $path, 2);
         if (count($pieces) != 2) {
-            Horde::logMessage(sprintf(_("Unable to create directory %s; must be [app]/[path]"), $path), __FILE__, __LINE__, PEAR_LOG_INFO);
+            Horde::logMessage(sprintf(_("Unable to create directory %s; must be [app]/[path]"), $path), 'INFO');
             return '403 Must specify a resource within an application.  MKCOL disallowed at top level.';
         }
 
@@ -420,7 +420,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         try {
             $GLOBALS['registry']->callByPackage($pieces[0], 'mkcol', array('path' => $path));
         } catch (Horde_Exception $e) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             if ($e->getCode()) {
                 return $this->_checkHTTPCode($e->getCode()) . ' ' . $e->getMessage();
             }
@@ -447,7 +447,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         // Take the module name from the path
         $sourcePieces = explode('/', $path, 2);
         if (count($sourcePieces) != 2) {
-            Horde::logMessage(sprintf(_("Unable to rename %s; must be [app]/[path] and within the same application."), $path), __FILE__, __LINE__, PEAR_LOG_INFO);
+            Horde::logMessage(sprintf(_("Unable to rename %s; must be [app]/[path] and within the same application."), $path), 'INFO');
             return '403 Must specify a resource within an application.  MOVE disallowed at top level.';
         }
 
@@ -460,7 +460,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         try {
             $GLOBALS['registry']->callByPackage($sourcePieces[0], 'move', array('path' => $path, 'dest' => $options['dest']));
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             if ($e->getCode()) {
                 return $this->_checkHTTPCode($e->getCode()) . ' ' . $e->getMessage();
             }
@@ -511,7 +511,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
 
             $apps = $registry->listApps(null, false, Horde_Perms::READ);
             if (is_a($apps, 'PEAR_Error')) {
-                Horde::logMessage($apps, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($apps, 'ERR');
                 return $apps;
             }
             foreach ($apps as $app) {
@@ -529,7 +529,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
             try {
                 $items = $registry->callByPackage($pieces[0], 'browse', array('path' => $path, 'properties' => array('name', 'browseable', 'contenttype', 'contentlength', 'created', 'modified')));
             } catch (Horde_Exception $e) {
-                Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($e, 'ERR');
                 return $e;
             }
 
@@ -668,7 +668,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         }
 
         if (empty($params['path'])) {
-            Horde::logMessage('Empty path supplied to LOCK()', __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage('Empty path supplied to LOCK()', 'ERR');
             return 403;
         }
         if ($params['path'] == '/') {
@@ -699,7 +699,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         try {
             $locks = Horde_Lock::singleton($GLOBALS['conf']['lock']['driver']);
         } catch (Horde_Lock_Exception $e) {
-            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e->getMessage(), 'ERR');
             return 500;
         }
 
@@ -712,7 +712,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
             $lockid = $locks->setLock(Horde_Auth::getAuth(), 'webdav', $params['path'],
                                       $timeout, $locktype);
         } catch (Horde_Lock_Exception $e) {
-            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e->getMessage(), 'ERR');
             return 500;
         }
         if ($lockid === false) {
@@ -746,18 +746,18 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         try {
             $locks = Horde_Lock::singleton($GLOBALS['conf']['lock']['driver']);
         } catch (Horde_Lock_Exception $e) {
-            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e->getMessage(), 'ERR');
             return 500;
         }
 
         try {
             $res = $locks->clearLock($params['token']);
         } catch (Horde_Lock_Exception $e) {
-            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e->getMessage(), 'ERR');
             return 500;
         }
         if ($res === false) {
-            Horde::logMessage('clearLock() returned false', __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage('clearLock() returned false', 'ERR');
             // Something else has failed:  424 (Method Failure)
             return 424;
         }
@@ -771,21 +771,21 @@ class Horde_Rpc_Webdav extends Horde_Rpc
     {
         if (!isset($GLOBALS['conf']['lock']['driver']) ||
             $GLOBALS['conf']['lock']['driver'] == 'none') {
-            Horde::logMessage('WebDAV locking failed because no lock driver has been configured.', __FILE__, __LINE__, PEAR_LOG_WARNING);
+            Horde::logMessage('WebDAV locking failed because no lock driver has been configured.', 'WARN');
             return false;
         }
 
         try {
             $locks = Horde_Lock::singleton($GLOBALS['conf']['lock']['driver']);
         } catch (Horde_Lock_Exception $e) {
-            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e->getMessage(), 'ERR');
             return false;
         }
 
         try {
             $res =  $locks->getLocks('webdav', $resource);
         } catch (Horde_Lock_Exception $e) {
-            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e->getMessage(), 'ERR');
             return false;
         }
 

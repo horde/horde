@@ -79,7 +79,7 @@ class Turba_AddContactForm extends Turba_ContactForm {
         /* Create Contact. */
         $key = $driver->add($contact);
         if (is_a($key, 'PEAR_Error')) {
-            Horde::logMessage($key, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($key, 'ERR');
         } else {
             // Try 3 times to get the new entry. We retry to allow setups like
             // LDAP replication to work.
@@ -92,7 +92,7 @@ class Turba_AddContactForm extends Turba_ContactForm {
                 }
                 sleep(1);
             }
-            Horde::logMessage($ob, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($ob, 'ERR');
         }
 
         $notification->push(_("There was an error adding the new contact. Contact your system administrator for further help."), 'horde.error');

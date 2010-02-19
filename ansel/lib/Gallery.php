@@ -602,7 +602,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
                 $gal_style = $GLOBALS['ansel_styles']['ansel_default'];
             }
         }
-        Horde::logMessage(sprintf("using gallery style: %s in Ansel::getDefaultImage()", $gal_style['name']), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf("using gallery style: %s in Ansel::getDefaultImage()", $gal_style['name']), 'DEBUG');
         if (!empty($gal_style['default_galleryimage_type']) &&
             $gal_style['default_galleryimage_type'] != 'plain') {
 
@@ -644,11 +644,11 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
             } catch (Horde_Exception $e) {
                 // Might not support the requested style...try ansel_default
                 // but protect against infinite recursion.
-                Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                Horde::logMessage($e->getMessage(), 'DEBUG');
                 if ($style != 'ansel_default') {
                     return $this->getDefaultImage('ansel_default');
                 }
-                Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($e->getMessage(), 'ERR');
             }
 
         } else {
@@ -867,8 +867,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
         if (!is_null($parent) && !$parent->get('has_subgalleries')) {
             return $parent->set('has_subgalleries', '1', true);
         }
-        Horde::logMessage('Ansel_Gallery parent successfully set', __FILE__,
-                          __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Ansel_Gallery parent successfully set', 'DEBUG');
 
        /* Gallery parent changed, safe to change the parent's attributes */
        if ($reset_has_subgalleries) {

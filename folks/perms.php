@@ -226,7 +226,7 @@ if (is_a($share, 'PEAR_Error')) {
 if ($auth->hasCapability('list')) {
     $userList = $auth->listUsers();
     if (is_a($userList, 'PEAR_Error')) {
-        Horde::logMessage($userList, __FILE__, __LINE__, PEAR_LOG_ERR);
+        Horde::logMessage($userList, 'ERR');
         $userList = array();
     }
     sort($userList);
@@ -240,7 +240,7 @@ if (!empty($conf['share']['any_group'])) {
     $groupList = $groups->getGroupMemberships(Horde_Auth::getAuth(), true);
 }
 if (is_a($groupList, 'PEAR_Error')) {
-    Horde::logMessage($groupList, __FILE__, __LINE__, PEAR_LOG_NOTICE);
+    Horde::logMessage($groupList, 'NOTICE');
     $groupList = array();
 }
 asort($groupList);

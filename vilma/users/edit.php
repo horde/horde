@@ -74,7 +74,7 @@ if ($form->validate($vars)) {
     $info['user_name'] = Horde_String::lower($info['user_name']) . '@' . $domain;
     $user_id = $vilma_driver->saveUser($info);
     if (is_a($user_id, 'PEAR_Error')) {
-        Horde::logMessage($user_id, __FILE__, __LINE__, PEAR_LOG_ERR);
+        Horde::logMessage($user_id, 'ERR');
         $notification->push(sprintf(_("Error saving user. %s"), $user_id->getMessage()), 'horde.error');
     } else {
         $notification->push(_("User details saved."), 'horde.success');

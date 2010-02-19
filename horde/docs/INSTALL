@@ -86,7 +86,7 @@ below at Prerequisites_.
 
 3. Install PEAR packages::
 
-     pear install -o Log Mail DB Date File
+     pear install -o Mail DB Date File
      pear -d preferred_state=beta install -a Services_Weather
 
 4. Extract tarball::
@@ -311,12 +311,11 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
    These PEAR modules are **REQUIRED** to be installed for complete Horde
    functionality:
 
-   a. Log
-   b. Mail (>= 1.2.0)
+   a. Mail (>= 1.2.0)
 
       To install, enter the following at the command prompt::
 
-        pear install Log Mail
+        pear install Mail
 
    These PEAR modules are **RECOMMENDED** to be installed:
 

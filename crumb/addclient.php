@@ -19,7 +19,7 @@ $formname = $vars->get('formname');
 
 $addform = new Horde_Form_AddClient($vars);
 if (is_a($addform, 'PEAR_Error')) {
-    Horde::logMessage($addform, __FILE__, __LINE__, PEAR_LOG_ERR);
+    Horde::logMessage($addform, 'ERR');
     $notification->push(_("An internal error has occurred.  Details have been logged for the administrator."));
     $addform = null;
 }

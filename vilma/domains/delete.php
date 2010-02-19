@@ -26,7 +26,7 @@ if ($vars->get('submitbutton') == _("Delete")) {
         $form->getInfo($vars, $info);
         $delete = $vilma_driver->deleteDomain($info['domain_id']);
         if (is_a($delete, 'PEAR_Error')) {
-            Horde::logMessage($delete, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($delete, 'ERR');
             $notification->push(sprintf(_("Error deleting domain. %s."), $delete->getMessage()), 'horde.error');
         } else {
             $notification->push(_("Domain deleted."), 'horde.success');

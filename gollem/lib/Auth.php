@@ -45,8 +45,7 @@ class Gollem_Auth
                         $entry = sprintf('Login success for %s [%s] to {%s}',
                                          $user, $_SERVER['REMOTE_ADDR'],
                                          $backend_key);
-                        Horde::logMessage($entry, __FILE__, __LINE__,
-                                          PEAR_LOG_NOTICE);
+                        Horde::logMessage($entry, 'NOTICE');
                         return true;
                     }
                 }
@@ -210,7 +209,7 @@ class Gollem_Auth
         require GOLLEM_BASE . '/config/backends.php';
         if (empty($backends[$key])) {
             $entry = sprintf('Invalid server key from client [%s]', $_SERVER['REMOTE_ADDR']);
-            Horde::logMessage($entry, __FILE__, __LINE__, PEAR_LOG_INFO);
+            Horde::logMessage($entry, 'INFO');
             return false;
         }
 
@@ -279,7 +278,7 @@ class Gollem_Auth
         if (!Gollem::verifyDir($ptr['home'])) {
             $error_msg = 'Backend Configuration Error: Home directory not below root.';
             $auth_gollem->gollemSetAuthErrorMsg($error_msg);
-            Horde::logMessage(PEAR::raiseError($error_msg), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($error_msg, 'ERR');
             unset($_SESSION['gollem']['backends'][$key]);
             $_SESSION['gollem']['backend_key'] = null;
             return false;
@@ -295,7 +294,7 @@ class Gollem_Auth
                 if (is_a($res, 'PEAR_Error')) {
                     $error_msg = 'Backend Configuration Error: Could not create home directory ' . $ptr['home'] . '.';
                     $auth_gollem->gollemSetAuthErrorMsg($error_msg);
-                    Horde::logMessage(PEAR::raiseError($error_msg), __FILE__, __LINE__, PEAR_LOG_ERR);
+                    Horde::logMessage($error_msg, 'ERR');
                     unset($_SESSION['gollem']['backends'][$key]);
                     $_SESSION['gollem']['backend_key'] = null;
                     return false;

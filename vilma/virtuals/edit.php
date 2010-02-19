@@ -70,7 +70,7 @@ if ($form->validate($vars)) {
     }
     $virtual_id = $vilma_driver->saveVirtual($info, $domain);
     if (is_a($virtual_id, 'PEAR_Error')) {
-        Horde::logMessage($virtual_id, __FILE__, __LINE__, PEAR_LOG_ERR);
+        Horde::logMessage($virtual_id, 'ERR');
         $notification->push(sprintf(_("Error saving virtual email. %s."), $virtual_id->getMessage()), 'horde.error');
     } else {
         $notification->push(_("Virtual email saved."), 'horde.success');

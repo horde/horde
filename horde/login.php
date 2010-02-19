@@ -156,7 +156,7 @@ if ($error_reason) {
         : Horde_Nls::select();
 
     $entry = sprintf('User %s [%s] logged out of Horde', $is_auth, $_SERVER['REMOTE_ADDR']);
-    Horde::logMessage($entry, __FILE__, __LINE__, PEAR_LOG_NOTICE);
+    Horde::logMessage($entry, 'NOTICE');
     Horde_Auth::clearAuth();
     @session_destroy();
 
@@ -201,7 +201,7 @@ if ($error_reason) {
 
     if ($auth->authenticate(Horde_Util::getPost('horde_user'), $auth_params)) {
         $entry = sprintf('Login success for %s [%s] to %s.', Horde_Auth::getAuth(), $_SERVER['REMOTE_ADDR'], ($app && $is_auth) ? $app : 'horde');
-        Horde::logMessage($entry, __FILE__, __LINE__, PEAR_LOG_NOTICE);
+        Horde::logMessage($entry, 'NOTICE');
 
         if (!empty($url_in)) {
             /* $horde_login_url is used by horde/index.php to redirect to URL
@@ -232,7 +232,7 @@ if ($error_reason) {
 
     $entry = sprintf('FAILED LOGIN for %s [%s] to Horde',
                      Horde_Util::getFormData('horde_user'), $_SERVER['REMOTE_ADDR']);
-    Horde::logMessage($entry, __FILE__, __LINE__, PEAR_LOG_ERR);
+    Horde::logMessage($entry, 'ERR');
 } else {
     $new_lang = Horde_Util::getGet('new_lang');
     if ($new_lang) {

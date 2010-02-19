@@ -31,7 +31,7 @@ if ($conf['vfs']['src'] == 'sendfile') {
     try {
         $image->createView('prettythumb', $style);
     } catch (Horde_Exception $e) {
-        Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+        Horde::logMessage($e, 'ERR');
         exit;
     }
     $filename = $ansel_vfs->readFile($image->getVFSPath('prettythumb', $style), $image->getVFSName('prettythumb'));

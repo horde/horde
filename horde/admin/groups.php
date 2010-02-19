@@ -42,14 +42,14 @@ case 'addchildform':
         $child = &$groups->newGroup(Horde_Util::getFormData('child'), $parent);
     }
     if (is_a($child, 'PEAR_Error')) {
-        Horde::logMessage($child, __FILE__, __LINE__, PEAR_LOG_ERR);
+        Horde::logMessage($child, 'ERR');
         $notification->push(sprintf(_("Group was not created: %s."), $child->getMessage()), 'horde.error');
         break;
     }
 
     $result = $groups->addGroup($child);
     if (is_a($result, 'PEAR_Error')) {
-        Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+        Horde::logMessage($result, 'ERR');
         $notification->push(sprintf(_("\"%s\" was not created: %s."), $child->getShortName(), $result->getMessage()), 'horde.error');
     } else {
         $notification->push(sprintf(_("\"%s\" was added to the groups system."), $child->getShortName()), 'horde.success');

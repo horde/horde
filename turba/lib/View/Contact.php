@@ -84,7 +84,7 @@ class Turba_View_Contact {
         if (!empty($conf['comments']['allow']) && $registry->hasMethod('forums/doComments')) {
             $comments = $registry->call('forums/doComments', array('turba', $this->contact->driver->name . '.' . $this->contact->getValue('__key'), 'commentCallback'));
             if (is_a($comments, 'PEAR_Error')) {
-                Horde::logMessage($comments, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                Horde::logMessage($comments, 'DEBUG');
                 $comments = array();
             }
         }

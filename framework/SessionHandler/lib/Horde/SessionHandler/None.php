@@ -30,7 +30,7 @@ class Horde_SessionHandler_None extends Horde_SessionHandler
         $file = session_save_path() . DIRECTORY_SEPARATOR . 'sess_' . $id;
         $session_data = @file_get_contents($file);
         if ($session_data === false) {
-            Horde::logMessage('Unable to read file: ' . $file, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage('Unable to read file: ' . $file, 'ERR');
             $session_data = '';
         }
 

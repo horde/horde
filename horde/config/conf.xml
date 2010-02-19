@@ -728,63 +728,24 @@
    <configswitch name="enabled" quote="false" desc="Should Horde log errors and
    other useful information?">true
     <case name="true" desc="Yes">
-     <configenum name="priority" quote="false" desc="What level of messages
-     should we log? Each level logs itself and all those that come before it:
-     PEAR_LOG_ALERT would only log alerts and emergencies, but PEAR_LOG_DEBUG
-     would log everything.">PEAR_LOG_NOTICE
+     <configenum name="priority" desc="What level of messages should we log?
+     Each level logs itself and all those that come before it: ALERT would
+     only log alerts and emergencies, but DEBUG would log everything.">NOTICE
       <values>
-       <value desc="PEAR_LOG_EMERG">PEAR_LOG_EMERG</value>
-       <value desc="PEAR_LOG_ALERT">PEAR_LOG_ALERT</value>
-       <value desc="PEAR_LOG_CRIT">PEAR_LOG_CRIT</value>
-       <value desc="PEAR_LOG_ERR">PEAR_LOG_ERR</value>
-       <value desc="PEAR_LOG_WARNING">PEAR_LOG_WARNING</value>
-       <value desc="PEAR_LOG_NOTICE">PEAR_LOG_NOTICE</value>
-       <value desc="PEAR_LOG_INFO">PEAR_LOG_INFO</value>
-       <value desc="PEAR_LOG_DEBUG">PEAR_LOG_DEBUG</value>
+       <value desc="EMERG">EMERG</value>
+       <value desc="ALERT">ALERT</value>
+       <value desc="CRIT">CRIT</value>
+       <value desc="ERR">ERR</value>
+       <value desc="WARNING">WARNING</value>
+       <value desc="NOTICE">NOTICE</value>
+       <value desc="INFO">INFO</value>
+       <value desc="DEBUG">DEBUG</value>
       </values>
      </configenum>
      <configstring name="ident" desc="What identifier should we use in the
      logs?">HORDE</configstring>
 
-     <configsection name="params">
-      <configplaceholder/>
-     </configsection>
-
      <configswitch name="type" desc="What log driver should we use?">file
-      <case name="console" desc="Console">
-       <configsection name="params">
-        <configphp name="stream" required="false" desc="The output stream to
-        use"/>
-        <configboolean name="buffering" required="false" desc="Should the
-        output be buffered until shutdown?">false</configboolean>
-        <configstring name="lineFormat" required="false" desc="Log line format
-        specification"/>
-        <configstring name="timeFormat" required="false" desc="Time stamp
-        format"/>
-       </configsection>
-      </case>
-
-      <case name="display" desc="Display">
-       <configsection name="params">
-        <configstring name="error_prepend" required="false" desc="This string
-        will be prepended to the log output"/>
-        <configstring name="error_append" required="false" desc="This string
-        will be appended to the log output"/>
-       </configsection>
-      </case>
-
-      <case name="error_log" desc="Error Log">
-       <configsection name="params">
-        <configstring name="destination" required="false" desc="Optional
-        destination value for error_log(). See
-        http://www.csh.rit.edu/~jon/projects/pear/Log/guide.html#error-log-types
-        for more details."/>
-        <configstring name="extra_headers" required="false" desc="Additional
-        headers to pass to the mail() function when the PEAR_LOG_TYPE_MAIL type
-        is specified"/>
-       </configsection>
-      </case>
-
       <case name="file" desc="File">
        <configstring name="name" desc="Path to the log
        file">/tmp/horde.log</configstring>
@@ -792,62 +753,16 @@
         <configboolean name="append" required="false" desc="Should new log
         entries be appended to an existing log file? If this is false, new log
         files will overwrite existing ones.">true</configboolean>
-        <configinteger name="mode" octal="true" required="false" desc="Octal
-        representation of the log file's permissions mode"/>
-        <configphp name="eol" required="false" desc="The end-of-line character
-        sequence"/>
-        <configstring name="lineFormat" required="false" desc="Log line format
-        specification"/>
-        <configstring name="timeFormat" required="false" desc="Time stamp
-        format"/>
        </configsection>
       </case>
 
-      <case name="mail" desc="Mail">
-       <configstring name="name" desc="The recipient for the message"/>
-       <configsection name="params">
-        <configstring name="from" required="false" desc="Value for the
-        message's From: header"/>
-        <configstring name="subject" required="false" desc="Value for the
-        message's Subject: header"/>
-        <configstring name="preamble" required="false" desc="Preamble for the
-        message"/>
-       </configsection>
-      </case>
-
-      <case name="null" desc="Null"/>
-
-      <case name="sql" desc="SQL">
-       <configstring name="name" desc="The table to log
-       to">log_table</configstring>
-       <configsection name="params">
-        <configphp name="dsn" desc="A Data Source
-        Name">$conf['sql']</configphp>
-       </configsection>
-      </case>
-
-      <case name="sqlite" desc="SQLite">
-       <configstring name="name" desc="The table to log
-       to">log_table</configstring>
-       <configsection name="params">
-        <configstring name="filename" desc="Path to an Sqlite database"/>
-        <configinteger name="mode" octal="true" required="false" desc="Octal
-        mode used to open the database [0666]"/>
-        <configboolean name="persistent" required="false" desc="Use a
-        persistent connection">false</configboolean>
-       </configsection>
+      <case name="stream" desc="PHP Stream">
+       <configstring name="name" desc="A valid-PHP stream interface to use
+       for logging."></configstring>
       </case>
 
       <case name="syslog" desc="Syslog">
        <configphp name="name" quote="false" desc="Syslog facility to use"/>
-      </case>
-
-      <case name="win" desc="Window">
-       <configstring name="name" desc="Name of the opened window"/>
-       <configsection name="params">
-        <configstring name="title" required="false" desc="The title of the
-        output window"/>
-       </configsection>
       </case>
      </configswitch>
 
@@ -858,7 +773,7 @@
   <configboolean name="log_accesskeys" desc="Should Horde log statistics about
    used access keys? This is only useful for translators of the
    UI. You also need to set the log level to at least
-   PEAR_LOG_INFO.">false</configboolean>
+   INFO.">false</configboolean>
  </configtab>
 
  <configtab name="prefs" desc="Preference System">

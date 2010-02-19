@@ -125,8 +125,7 @@ class Kronolith_Storage_sql extends Kronolith_Storage
 
         /* Log the query at debug level. */
         Horde::logMessage(sprintf('SQL search by %s: query = "%s"',
-                                  Horde_Auth::getAuth(), $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                  Horde_Auth::getAuth(), $query), 'DEBUG');
 
         /* Execute the query. */
         $result = $this->_db->query($query, $values);
@@ -161,8 +160,7 @@ class Kronolith_Storage_sql extends Kronolith_Storage
 
         /* Log the query at debug level. */
         Horde::logMessage(sprintf('SQL insert by %s: query = "%s"',
-                                  Horde_Auth::getAuth(), $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                  Horde_Auth::getAuth(), $query), 'DEBUG');
 
         /* Execute the query. */
         $result = $this->_write_db->query($query, $values);
@@ -180,7 +178,7 @@ class Kronolith_Storage_sql extends Kronolith_Storage
     protected function handleError($result)
     {
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             throw new Kronolith_Exception($result);
         }
     }

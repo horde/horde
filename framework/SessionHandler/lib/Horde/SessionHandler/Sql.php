@@ -139,7 +139,7 @@ class Horde_SessionHandler_Sql extends Horde_SessionHandler
         /* Begin a transaction. */
         $result = $this->_write_db->autocommit(false);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return '';
         }
 
@@ -147,7 +147,7 @@ class Horde_SessionHandler_Sql extends Horde_SessionHandler
         $result = Horde_SQL::readBlob($this->_write_db, $this->_params['table'], 'session_data', array('session_id' => $id));
 
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return '';
         }
 
@@ -170,12 +170,12 @@ class Horde_SessionHandler_Sql extends Horde_SessionHandler
         $values = array($id);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Sql::write(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Sql::write(): query = "%s"', $query), 'DEBUG');
 
         /* Execute the query. */
         $result = $this->_write_db->getOne($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return false;
         }
 
@@ -192,14 +192,14 @@ class Horde_SessionHandler_Sql extends Horde_SessionHandler
         if (is_a($result, 'PEAR_Error')) {
             $this->_write_db->rollback();
             $this->_write_db->autoCommit(true);
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return false;
         }
 
         $result = $this->_write_db->commit();
         if (is_a($result, 'PEAR_Error')) {
             $this->_write_db->autoCommit(true);
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return false;
         }
 
@@ -222,18 +222,18 @@ class Horde_SessionHandler_Sql extends Horde_SessionHandler
         $values = array($id);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Sql::destroy(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Sql::destroy(): query = "%s"', $query), 'DEBUG');
 
         /* Execute the query. */
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return false;
         }
 
         $result = $this->_write_db->commit();
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return false;
         }
 
@@ -255,12 +255,12 @@ class Horde_SessionHandler_Sql extends Horde_SessionHandler
         $values = array(time() - $maxlifetime);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Sql::gc(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Sql::gc(): query = "%s"', $query), 'DEBUG');
 
         /* Execute the query. */
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return false;
         }
 
@@ -283,12 +283,12 @@ class Horde_SessionHandler_Sql extends Horde_SessionHandler
         $values = array(time() - ini_get('session.gc_maxlifetime'));
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Sql::getSessionIDs(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Sql::getSessionIDs(): query = "%s"', $query), 'DEBUG');
 
         /* Execute the query. */
         $result = $this->_db->getCol($query, 0, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return false;
         }
 

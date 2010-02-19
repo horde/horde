@@ -80,8 +80,7 @@ class Ansel_GalleryMode_Normal {
              $this->_gallery->data['attribute_images']) {
             $images = $this->getImages(max(0, $from - $num_galleries), $to - count($galleries));
             if (is_a($images, 'PEAR_Error')) {
-                Horde::logMessage($images->message, __FILE__, __LINE__,
-                                  PEAR_LOG_ERR);
+                Horde::logMessage($images, 'ERR');
                 $images = array();
             }
         } else {
@@ -264,7 +263,7 @@ class Ansel_GalleryMode_Normal {
                                                  array('ansel', $image->id));
 
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __LINE__, __FILE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return false;
             }
         }

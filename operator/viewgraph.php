@@ -49,7 +49,7 @@ if ($form->isSubmitted() && $form->validate($vars, true)) {
 
                 $res = $cache->set($cachekey, serialize($stats), 600);
                 if ($res === false) {
-                    Horde::logMessage('The cache system has experienced an error.  Unable to continue.', __FILE__, __LINE__, PEAR_LOG_ERR);
+                    Horde::logMessage('The cache system has experienced an error.  Unable to continue.', 'ERR');
                     $notification->push(_("Internal error.  Details have been logged for the administrator."));
                     $stats = array();
                 }

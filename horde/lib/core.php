@@ -37,9 +37,6 @@ if (file_exists(HORDE_BASE . '/config/horde.local.php')) {
 include_once 'Horde/Autoloader.php';
 Horde_Autoloader::addClassPattern('/^Horde(?:$|_)/i', dirname(__FILE__));
 
-/* Log (need to include because of LOG constants). */
-include_once 'Log.php';
-
 /* Default exception handler for uncaught exceptions. The default fatal
  * exception handler output may include things like passwords, etc. so don't
  * output this unless an admin. */

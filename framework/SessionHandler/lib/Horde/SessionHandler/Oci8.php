@@ -97,7 +97,7 @@ class Horde_SessionHandler_Oci8 extends Horde_SessionHandler
         $select_query = sprintf('SELECT session_data FROM %s WHERE session_id = %s FOR UPDATE',
                                 $this->_params['table'], $this->_quote($id));
 
-        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Oci8::_read(): query = "%s"', $select_query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Oci8::_read(): query = "%s"', $select_query), 'DEBUG');
 
         $select_statement = OCIParse($this->_db, $select_query);
         OCIExecute($select_statement, OCI_DEFAULT);
@@ -125,7 +125,7 @@ class Horde_SessionHandler_Oci8 extends Horde_SessionHandler
         $select_query = sprintf('SELECT session_data FROM %s WHERE session_id = %s FOR UPDATE',
                                 $this->_params['table'], $this->_quote($id));
 
-        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Oci8::_write(): query = "%s"', $select_query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Oci8::_write(): query = "%s"', $select_query), 'DEBUG');
 
         $select_statement = OCIParse($this->_db, $select_query);
         OCIExecute($select_statement, OCI_DEFAULT);
@@ -150,7 +150,7 @@ class Horde_SessionHandler_Oci8 extends Horde_SessionHandler
                                     $this->_quote($id),
                                     $this->_quote(time()));
 
-            Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Oci8::_read(): query = "%s"', $insert_query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Oci8::_read(): query = "%s"', $insert_query), 'DEBUG');
 
             $insert_statement = OCIParse($this->_db, $insert_query);
             $lob = OCINewDescriptor($this->_db);
@@ -181,14 +181,14 @@ class Horde_SessionHandler_Oci8 extends Horde_SessionHandler
                          $this->_params['table'], $this->_quote($id));
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Oci8::destroy(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Oci8::destroy(): query = "%s"', $query), 'DEBUG');
 
         /* Execute the query. */
         $statement = OCIParse($this->_db, $query);
         $result = OCIExecute($statement);
         if (!$result) {
             OCIFreeStatement($statement);
-            Horde::logMessage('Failed to delete session (id = ' . $id . ')', __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage('Failed to delete session (id = ' . $id . ')', 'ERR');
             return false;
         }
 
@@ -211,14 +211,14 @@ class Horde_SessionHandler_Oci8 extends Horde_SessionHandler
                          $this->_params['table'], $this->_quote(time() - $maxlifetime));
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Oci8::gc(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Oci8::gc(): query = "%s"', $query), 'DEBUG');
 
         /* Execute the query. */
         $statement = OCIParse($this->_db, $query);
         $result = OCIExecute($statement);
         if (!$result) {
             OCIFreeStatement($statement);
-            Horde::logMessage('Error garbage collecting old sessions', __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage('Error garbage collecting old sessions', 'ERR');
             return false;
         }
 
@@ -245,7 +245,7 @@ class Horde_SessionHandler_Oci8 extends Horde_SessionHandler
                          time() - ini_get('session.gc_maxlifetime'));
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Oci8::getSessionIDs(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Oci8::getSessionIDs(): query = "%s"', $query), 'DEBUG');
 
         /* Execute query */
         $statement = OCIParse($this->_db, $query);

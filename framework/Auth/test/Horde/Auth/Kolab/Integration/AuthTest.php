@@ -36,11 +36,6 @@ class Horde_Auth_Kolab_Integration_AuthTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        @include_once 'Log.php';
-        if (!defined('PEAR_LOG_DEBUG')) {
-            $this->markTestSkipped('The PEAR_LOG_DEBUG constant is not available!');
-        }
-
         /** Provide the mock configuration for the server */
         $config = array();
         $config['ldap']['basedn'] = 'dc=test';

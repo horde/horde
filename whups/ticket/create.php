@@ -48,7 +48,7 @@ if ($valid1 && $valid2 && $valid3 &&
 
     $ticket = Whups_Ticket::newTicket($info, Horde_Auth::getAuth());
     if (is_a($ticket, 'PEAR_Error')) {
-        Horde::logMessage($ticket, __FILE__, __LINE__, PEAR_LOG_ERR);
+        Horde::logMessage($ticket, 'ERR');
         $notification->push(sprintf(_("Adding your ticket failed: %s."),
                                     $ticket->getMessage()),
                             'horde.error');

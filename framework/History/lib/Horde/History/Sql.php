@@ -261,7 +261,7 @@ class Horde_History_Sql extends Horde_History
             if (!empty($this->_logger)) {
                 $this->_logger->error($result->getMessage());
             } else {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
             }
             throw new Horde_Exception($result->getMessage());
         }

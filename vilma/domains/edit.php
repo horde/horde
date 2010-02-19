@@ -27,7 +27,7 @@ if ($form->validate($vars)) {
     $info['name'] = Horde_String::lower($info['name']);
     $domain_id = $vilma_driver->saveDomain($info);
     if (is_a($domain_id, 'PEAR_Error')) {
-        Horde::logMessage($domain_id, __FILE__, __LINE__, PEAR_LOG_ERR);
+        Horde::logMessage($domain_id, 'ERR');
         $notification->push(sprintf(_("Error saving domain: %s."), $domain_id->getMessage()), 'horde.error');
     } else {
         $notification->push(_("Domain saved."), 'horde.success');

@@ -117,11 +117,11 @@ if ($cmd == 'new') {
                                                        'desc' => $gallery_desc));
         if (is_a($gallery, 'PEAR_Error')) {
             $error = sprintf(_("The gallery \"%s\" couldn't be created: %s"), $gallery_name, $gallery->getMessage());
-            Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($error, 'ERR');
         } else {
             $galleryId = $gallery->id;
             $msg = sprintf(_("The gallery \"%s\" was created successfully."), $gallery_name);
-            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage($msg, 'DEBUG');
         }
     } else {
         if (empty($galleryId) && $prefs->getValue('autoname')) {

@@ -414,7 +414,7 @@ class Group_contactlists extends Group {
 
         $results = $this->_db[$source]->getRow($sql,array(), DB_FETCHMODE_ASSOC);
         if (is_a($results, 'PEAR_Error')) {
-            Horde::logMessage($results, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($results, 'ERR');
         }
         $this->_listEntries[$gid] = $results;
 
@@ -467,7 +467,7 @@ class Group_contactlists extends Group {
 
             $results = $this->_db[$newSource]->getRow($sql);
             if (is_a($results, 'PEAR_Error')) {
-                Horde::logMessage($results, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($results, 'ERR');
                 return $results;
             }
 
@@ -561,7 +561,7 @@ class Group_contactlists extends Group {
 
         $users = $this->_getAllMembers($gid, $subgroups);
         if (is_a($users, 'PEAR_Error')) {
-            Horde::logMessage($users, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($users, 'ERR');
             return false;
         }
         $result = !empty($users[$user]);

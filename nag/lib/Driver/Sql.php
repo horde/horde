@@ -79,8 +79,7 @@ class Nag_Driver_Sql extends Nag_Driver {
         $values = array($this->_tasklist, $taskId);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Nag_Driver_Sql::get(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Nag_Driver_Sql::get(): %s', $query), 'DEBUG');
 
         /* Execute the query. */
         $result = $this->_db->query($query, $values);
@@ -116,8 +115,7 @@ class Nag_Driver_Sql extends Nag_Driver {
         $values = array($uid);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Nag_Driver_Sql::getByUID(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Nag_Driver_Sql::getByUID(): %s', $query), 'DEBUG');
 
         /* Execute the query. */
         $result = $this->_db->query($query, $values);
@@ -195,15 +193,14 @@ class Nag_Driver_Sql extends Nag_Driver {
                         $parent);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Nag_Driver_Sql::_add(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Nag_Driver_Sql::_add(): %s', $query), 'DEBUG');
 
         /* Attempt the insertion query. */
         $result = $this->_write_db->query($query, $values);
 
         /* Return an error immediately if the query failed. */
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -274,13 +271,12 @@ class Nag_Driver_Sql extends Nag_Driver {
                         $taskId);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Nag_Driver_Sql::modify(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Nag_Driver_Sql::modify(): %s', $query), 'DEBUG');
 
         /* Attempt the update query. */
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -300,13 +296,12 @@ class Nag_Driver_Sql extends Nag_Driver {
         $values = array($newTasklist, $this->_tasklist, $taskId);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Nag_Driver_Sql::move(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Nag_Driver_Sql::move(): %s', $query), 'DEBUG');
 
         /* Attempt the move query. */
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -328,14 +323,13 @@ class Nag_Driver_Sql extends Nag_Driver {
         $values = array($this->_tasklist, $taskId);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Nag_Driver_Sql::delete(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Nag_Driver_Sql::delete(): %s', $query), 'DEBUG');
 
         /* Attempt the delete query. */
         $result = $this->_write_db->query($query, $values);
 
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -354,8 +348,7 @@ class Nag_Driver_Sql extends Nag_Driver {
         $values = array($this->_tasklist);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Nag_Driver_Sql::deleteAll(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Nag_Driver_Sql::deleteAll(): %s', $query), 'DEBUG');
 
         /* Attempt the delete query. */
         $result = $this->_write_db->query($query, $values);
@@ -397,8 +390,7 @@ class Nag_Driver_Sql extends Nag_Driver {
         }
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Nag_Driver_Sql::retrieve(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Nag_Driver_Sql::retrieve(): %s', $query), 'DEBUG');
 
         /* Execute the query. */
         $result = $this->_db->query($query, $values);
@@ -461,8 +453,7 @@ class Nag_Driver_Sql extends Nag_Driver {
         $values = array($this->_tasklist, $parentId);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Nag_Driver_Sql::getChildren(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Nag_Driver_Sql::getChildren(): %s', $query), 'DEBUG');
 
         /* Execute the query. */
         $result = $this->_db->query($query, $values);
@@ -513,8 +504,7 @@ class Nag_Driver_Sql extends Nag_Driver {
 
         /* Log the query at a DEBUG log level. */
         Horde::logMessage(sprintf('SQL alarms list by %s: table = %s; query = "%s"',
-                                  Horde_Auth::getAuth(), $this->_params['table'], $q),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                  Horde_Auth::getAuth(), $this->_params['table'], $q), 'DEBUG');
 
         /* Run the query. */
         $result = $this->_db->query($q, $values);
@@ -546,8 +536,7 @@ class Nag_Driver_Sql extends Nag_Driver {
             $values = array($row['task_uid'], $row['task_owner'], $row['task_id']);
 
             /* Log the query at a DEBUG log level. */
-            Horde::logMessage(sprintf('Nag_Driver_Sql adding missing UID: %s', $query),
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage(sprintf('Nag_Driver_Sql adding missing UID: %s', $query), 'DEBUG');
             $this->_write_db->query($query, $values);
         }
 

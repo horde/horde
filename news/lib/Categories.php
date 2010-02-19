@@ -350,7 +350,7 @@ class News_Categories {
     {
         $new_id = $this->_write_db->nextId('news_categories');
         if ($new_id instanceof PEAR_Error) {
-            Horde::logMessage($new_id, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($new_id, 'ERR');
             return $new_id;
         }
 
@@ -360,7 +360,7 @@ class News_Categories {
 
         $category = $this->_write_db->query($sql, $values);
         if ($category instanceof PEAR_Error) {
-            Horde::logMessage($category, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($category, 'ERR');
             return $category;
         }
 
@@ -373,7 +373,7 @@ class News_Categories {
                             $data['category_description_' . $lang]);
             $result = $this->_write_db->query($sql, $values);
             if ($result instanceof PEAR_Error) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
         }
@@ -398,7 +398,7 @@ class News_Categories {
 
         $category = $this->_write_db->query($sql, $values);
         if ($category instanceof PEAR_Error) {
-            Horde::logMessage($category, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($category, 'ERR');
             return $category;
         }
 

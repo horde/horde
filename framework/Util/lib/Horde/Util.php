@@ -91,7 +91,7 @@ class Horde_Util
             }
 
             $caller .= ' on line ' . $bt[0]['line'] . ' of ' . $bt[0]['file'];
-            Horde::logMessage('Horde_Util::cloneObject called on variable of type ' . gettype($obj) . ' by ' . $caller, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('Horde_Util::cloneObject called on variable of type ' . gettype($obj) . ' by ' . $caller, 'DEBUG');
 
             $ret = $obj;
             return $ret;

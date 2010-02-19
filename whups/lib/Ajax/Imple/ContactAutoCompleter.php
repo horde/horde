@@ -100,7 +100,7 @@ class Whups_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_AutoComplet
         try {
             $res = $GLOBALS['registry']->call('contacts/search', array($search, $sparams['sources'], $sparams['fields'], false));
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             return array();
         }
 

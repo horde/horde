@@ -129,7 +129,7 @@ class Horde_Memcache
         // Force consistent hashing
         ini_set('memcache.hash_strategy', 'consistent');
 
-        Horde::logMessage('Connected to the following memcache servers:' . implode($servers, ', '), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Connected to the following memcache servers:' . implode($servers, ', '), 'DEBUG');
     }
 
     /**

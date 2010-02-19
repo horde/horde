@@ -289,8 +289,7 @@ class SyncML_Command_Sync extends SyncML_Command {
 
             if (!is_object($sync)) {
                 $GLOBALS['backend']->logMessage(
-                    'No sync object found for URI ' . $this->_targetURI,
-                    __FILE__, __LINE__, PEAR_LOG_ERR);
+                    'No sync object found for URI ' . $this->_targetURI, 'ERR');
                 // @todo: create meaningful status code here.
             }
         }

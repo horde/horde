@@ -300,7 +300,7 @@ class Horde_Alarm
                 try {
                     $app_alarms = $GLOBALS['registry']->callByPackage($app, 'listAlarms', array(time(), $user), array('noperms' => true));
                 } catch (Horde_Exception $e) {
-                    Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+                    Horde::logMessage($e, 'ERR');
                     $app_alarms = array();
                 }
                 $alarms = array_merge($alarms, $app_alarms);
@@ -374,7 +374,7 @@ class Horde_Alarm
         try {
             $alarms = $this->listAlarms($user, null, $load, $preload);
         } catch (Horde_Alarm_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             throw $e;
         }
 
@@ -390,7 +390,7 @@ class Horde_Alarm
                     try {
                         $this->{'_' . $alarm_method}($alarm);
                     } catch (Horde_Alarm_Exception $e) {
-                        Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+                        Horde::logMessage($e, 'ERR');
                     }
                 }
             }

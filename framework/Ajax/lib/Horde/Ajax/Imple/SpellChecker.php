@@ -105,14 +105,14 @@ class Horde_Ajax_Imple_SpellChecker extends Horde_Ajax_Imple_Base
         try {
             $speller = Horde_SpellChecker::factory($GLOBALS['conf']['spell']['driver'], $spellArgs);
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             return array();
         }
 
         try {
             return $speller->spellCheck(Horde_Util::getPost($args['input']));
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             return array('bad' => array(), 'suggestions' => array());
         }
     }

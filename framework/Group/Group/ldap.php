@@ -88,7 +88,7 @@ class Group_ldap extends Group {
                     sprintf('STARTTLS failed: [%d] %s',
                             @ldap_errno($this->_ds),
                             @ldap_error($this->_ds)),
-                    __FILE__, __LINE__, PEAR_LOG_ERR);
+                    'ERR');
             }
         }
 

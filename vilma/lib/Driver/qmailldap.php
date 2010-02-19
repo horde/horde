@@ -59,7 +59,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
                'domain_max_users, domain_quota FROM vilma_domains ' .
                'ORDER BY domain_name';
 
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
         return $this->_db->getAll($sql, $values, DB_FETCHMODE_ASSOC);
     }
 
@@ -73,11 +73,11 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
     function getDomain($domain_id)
     {
         $sql = 'SELECT domain_id, domain_name, domain_transport, ' .
-               'domain_max_users, domain_quota FROM vilma_domains ' . 
+               'domain_max_users, domain_quota FROM vilma_domains ' .
                'WHERE domain_id=? ORDER BY domain_name';
         $values = array($domain_id);
 
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
         return $this->_db->getRow($sql, $values, DB_FETCHMODE_ASSOC);
     }
 
@@ -95,7 +95,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
                'WHERE domain_name=?';
         $values = array($domain_name);
 
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
         return $this->_db->getRow($sql, $values, DB_FETCHMODE_ASSOC);
     }
 
@@ -114,7 +114,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
     function getAddresses($domain, $type = 'all', $key = 'user_name',
                           $direction = 0)
     {
-        Horde::logMessage("Get Addresses Called for $domain with type $type and key $key", __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage("Get Addresses Called for $domain with type $type and key $key", 'DEBUG');
         $addresses = array();
         if ($type == 'all' || $type == 'user') {
             $users = $this->_getUsers($domain);
@@ -137,7 +137,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
         Horde_Array::arraySort($addresses, $key, $direction, true);
         return $addresses;
     }
-    
+
     function getUser($user_id) {
         $user = $this->getUserStatus($user_id);
 
@@ -149,7 +149,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
         } else {
             return PEAR::raiseError(_("Unable to qualify address."));
         }
-    }    
+    }
 
     /**
      * Returns an array of all users, aliases, groups and forwards for this
@@ -190,7 +190,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
         }
         $filter .= ')';
 
-        Horde::logMessage($filter, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($filter, 'DEBUG');
         $res = ldap_search($this->_ldap, $this->_ldapparams['basedn'], $filter);
         if ($res === false) {
             return PEAR::raiseError(sprintf(_("Error in LDAP search: %s"), ldap_error($this->LDAP)));
@@ -321,7 +321,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
         }
         $filter .= ')'; // End filter
 
-        Horde::logMessage($filter, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($filter, 'DEBUG');
         $res = @ldap_search($this->_ldap, $this->_ldapparams['basedn'], $filter);
         if ($res === false) {
             return PEAR::raiseError(sprintf(_("Error searching LDAP: %s"),
@@ -365,20 +365,20 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
 
         return $aliases;
     }
- 
+
     /**
      * Returns all available groups and forwards unless otherwise specified.
      * If a domain name is passed then limit the results to groups or forwards
      * in that domain.  This method should not be called directly, but rather by
      * way of getAddresses()
-     * 
+     *
      * @access private
      *
      * @param string $acquire The default behavior is to acquire both
      *                        groups and forwards; a value of 'group'
      *                        will return only groups and a value of
      *                        'forward' will return only forwards.
-     * @param string $domain  The name of the domain from which to fetch 
+     * @param string $domain  The name of the domain from which to fetch
      *
      * @return array  The available groups and forwards with details
      */
@@ -414,7 +414,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
             $domain = '_all';
         }
         $filter .= ')'; // End filter
-        Horde::logMessage($filter, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($filter, 'DEBUG');
         $res = @ldap_search($this->_ldap, $this->_ldapparams['basedn'], $filter);
         if ($res === false) {
             return PEAR::raiseError(sprintf(_("Error searching LDAP: %s"),
@@ -430,7 +430,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
         // Can't use foreach because of the array format returned by LDAP driver
         $i = 0; // Address index
         $e = 0; // Entry counter
-        
+
         while ($entry = @$res[$e]) {
             $targets = array();
             $a = 0; // Attribute counter
@@ -452,7 +452,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
                     'targets' => $targets,
                     'user_name' => $entry[$this->_getAttrByField('user_name')][0],
                     'user_full_name' => @$entry[$this->_getAttrByField('user_name')][0],
-                );            
+                );
                 // If accountStatus is blank it's the same as active
                 if (!isset($entry[$this->_getAttrByField('user_enabled')][0]) ||
                     ($entry[$this->_getAttrByField('user_enabled')][0] == 'active')) {
@@ -484,7 +484,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
      */
     function getAddressInfo($address, $type = 'all')
     {
-        Horde::logMessage("Get Addresses Called for $address with type $type and key $key", __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage("Get Addresses Called for $address with type $type and key $key", 'DEBUG');
         if ($type != 'alias') {
             return parent::getAddressInfo($address, $type);
         } else {
@@ -497,7 +497,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
             }
             $filter .= '(mailAlternateAddress=' . $address . ')';
             $filter .= ')'; // End filter
-            Horde::logMessage($filter, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage($filter, 'DEBUG');
             $res = @ldap_search($this->_ldap, $this->_ldapparams['basedn'], $filter);
             if ($res === false) {
                 return PEAR::raiseError(sprintf(_("Error searching LDAP: %s"),
@@ -507,11 +507,11 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
             if ($res === false) {
                 return PEAR::raiseError(sprintf(_("Error returning LDAP results: %s"), @ldap_error($this->_ldap)));
             }
-    
+
             if ($res['count'] !== 1) {
                 return PEAR::raiseError(_("More than one DN returned for this alias.  Please contact an administrator to resolve this error."));
             }
-    
+
             return array(
                 'id' => $res[0]['dn'],
                 'address' => $address,
@@ -547,7 +547,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
         // that are valid for this system.
         $values = array($info['name'], $info['transport'],
                         (int)$info['max_users'], (int)$info['quota']);
-       
+
         if (empty($info['domain_id'])) {
             $nextid = $this->_db->nextId('vilma_domains');
             $sql = 'INSERT INTO vilma_domains (domain_id, domain_name, ' .
@@ -560,7 +560,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
                    'WHERE domain_id=?';
             array_push($values, $info['domain_id']);
         }
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
         return $this->_db->query($sql, $values);
     }
 
@@ -587,7 +587,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
         $sql = 'DELETE FROM vilma_domains WHERE domain_id=?';
         $values = array((int)$domain_id);
 
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
         return $this->_db->query($sql, $values);
     }
 
@@ -596,7 +596,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
      *
      * @param string $email_id The id of the account to be searched for.
      *
-     * @return Array of data for given email account on success or no 
+     * @return Array of data for given email account on success or no
      *     information found; and for an error a PEAR::Error otherwise.
      */
     function searchForAliases($email_id) {
@@ -621,9 +621,9 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
         */
         $filter .= '(mailAlternateAddress=' . $email_id . ')';
         $filter .= ')'; // End filter
- 
+
         //echo $filter;
-        Horde::logMessage($filter, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($filter, 'DEBUG');
         $res = @ldap_search($this->_ldap, $this->_ldapparams['basedn'], $filter);
         if ($res === false) {
             return PEAR::raiseError(sprintf(_("Error searching LDAP: %s"),
@@ -634,7 +634,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
             return PEAR::raiseError(sprintf(_("Error retrieving LDAP results: %s"), @ldap_error($this->_ldap)));
         }
 
-        return $res; 
+        return $res;
     }
 
     /**
@@ -642,7 +642,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
      *
      * @param string $email_id The id of the account to be searched for.
      *
-     * @return Array of data for given email account on success or no 
+     * @return Array of data for given email account on success or no
      *     information found; and for an error a PEAR::Error otherwise.
      */
     function searchForUser($email_id)
@@ -655,7 +655,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
         }
         $filter .= '(mail=' . $email_id . '))';
 
-        Horde::logMessage($filter, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($filter, 'DEBUG');
         $res = @ldap_search($this->_ldap, $this->_ldapparams['basedn'], $filter);
         if ($res === false) {
             return PEAR::raiseError(sprintf(_("Error searching LDAP: %s"),
@@ -671,7 +671,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
         } else if($res['count'] !== 1) {
             return PEAR::raiseError(_("More than one DN returned.  Aborting delete operation."));
         }
-        return $res; 
+        return $res;
     }
 
     /**
@@ -692,7 +692,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
         $filter .= '(mail=' . $email_id . ')';
         //echo $email_id . '<br>';
         $filter .= ')';
-        Horde::logMessage($filter, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($filter, 'DEBUG');
         $res = @ldap_search($this->_ldap, $this->_ldapparams['basedn'], $filter);
         if ($res === false) {
             return PEAR::raiseError(sprintf(_("Error searching LDAP: %s"),
@@ -707,7 +707,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
             return PEAR::raiseError(_("Unable to acquire handle on DN.  Aborting delete operation."));
         } else if($res['count'] !== 1) {
             return PEAR::raiseError(_("More than one DN returned.  Aborting delete operation."));
-        } 
+        }
         // We now have one unique DN to delete.
         $res = @ldap_delete($this->_ldap, $res[0]['dn']);
         if ($res === false) {
@@ -726,7 +726,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
      */
     function _saveAlias($info)
     {
-        Horde::logMessage("_saveAlias called with info: " . print_r($info, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage("_saveAlias called with info: " . print_r($info, true), 'DEBUG');
         $address = $info['address'];
         if (!empty($info['alias'])) {
           $alias = $info['alias'];
@@ -735,13 +735,13 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
           $create = true;
         } // if
         $alias_address = $info['alias_address'];
-        
+
         $user_res = $this->searchForUser($address);
         if (is_a($user_res, 'PEAR_Error') || ($res['count'] === 0) ) {
           return PEAR::raiseError(_("Error reading address information from backend."));
         } // if
         $user = $user_res[0];
-        
+
         // Retrieve the current MAA values
         if (array_key_exists('mailalternateaddress', $user_res[0])) {
           $maa = $user['mailalternateaddress'];
@@ -749,8 +749,8 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
         } else {
           $maa = array();
         } // if
-        
-        Horde::logMessage("Resource contains: " . print_r($maa, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+
+        Horde::logMessage("Resource contains: " . print_r($maa, true), 'DEBUG');
 
         $update = false;
         $oldmaa = $maa;
@@ -767,7 +767,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
             // Already exists, throw a notification
             return PEAR::raiseError(_("That alias already exists!"));
           } // if
-          
+
         } else {
           if ($alias == $alias_address) {
             /* do nothing */;
@@ -783,11 +783,11 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
             } // if
           }
         } // if
-        
-        
+
+
         if ($update) {
           $dn = $user['dn'];
-          Horde::logMessage("UPDATING: $dn \nOld MAA: " . print_r($oldmaa, true) . "\nNew MAA: " . print_r($maa, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+          Horde::logMessage("UPDATING: $dn \nOld MAA: " . print_r($oldmaa, true) . "\nNew MAA: " . print_r($maa, true), 'DEBUG');
           // return PEAR::raiseError(sprintf(_("Update Code Not Written."), $alias));
           if ($this->_ldap) {
             // bind with appropriate dn to give update access
@@ -797,7 +797,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
                 return PEAR::raiseError(_("Unable to bind to the LDAP server. Check authentication credentials."));
             }
             $entry["mailAlternateAddress"] = $maa;
-            
+
             $res = @ldap_modify($this->_ldap, $dn, $entry);
             if ($res === false) {
                 return PEAR::raiseError(sprintf(_("Error modifying account: %s"), @ldap_error($this->_ldap)));
@@ -806,22 +806,22 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
             } // if
           } // if
         } // if
-        
+
         return true;
     }
-    
+
     function _deleteAlias($info)
     {
-        Horde::logMessage("_deleteAlias called with info: " . print_r($info, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage("_deleteAlias called with info: " . print_r($info, true), 'DEBUG');
         $address = $info['address'];
         $alias = $info['alias'];
-        
+
         $user_res = $this->searchForUser($address);
         if (is_a($user_res, 'PEAR_Error') || ($res['count'] === 0) ) {
           return PEAR::raiseError(_("Error reading address information from backend."));
         } // if
         $user = $user_res[0];
-        
+
         // Retrieve the current MAA values
         if (array_key_exists('mailalternateaddress', $user_res[0])) {
           $maa = $user['mailalternateaddress'];
@@ -829,8 +829,8 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
         } else {
           $maa = array();
         } // if
-        
-        Horde::logMessage("Resource contains: " . print_r($maa, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+
+        Horde::logMessage("Resource contains: " . print_r($maa, true), 'DEBUG');
 
         $update = false;
         $oldmaa = $maa;
@@ -841,11 +841,11 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
           $update = true;
         } else {
           /* skip */;
-        } // if        
-        
+        } // if
+
         if ($update) {
           $dn = $user['dn'];
-          Horde::logMessage("UPDATING: $dn \nOld MAA: " . print_r($oldmaa, true) . "\nNew MAA: " . print_r($maa, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+          Horde::logMessage("UPDATING: $dn \nOld MAA: " . print_r($oldmaa, true) . "\nNew MAA: " . print_r($maa, true), 'DEBUG');
           // return PEAR::raiseError(sprintf(_("Update Code Not Written."), $alias));
           if ($this->_ldap) {
             // bind with appropriate dn to give update access
@@ -855,7 +855,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
                 return PEAR::raiseError(_("Unable to bind to the LDAP server. Check authentication credentials."));
             }
             $entry["mailAlternateAddress"] = $maa;
-            
+
             $res = @ldap_modify($this->_ldap, $dn, $entry);
             if ($res === false) {
                 return PEAR::raiseError(sprintf(_("Error modifying account: %s"), @ldap_error($this->_ldap)));
@@ -864,10 +864,10 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
             } // if
           } // if
         } // if
-        
+
         return true;
     }
-    
+
     /**
      * Modifies forward data on the backend.  See Driver::saveForward() for parameter info.
      *
@@ -877,7 +877,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
      */
     function _saveForward($info)
     {
-      Horde::logMessage("_saveForward called with info: " . print_r($info, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+      Horde::logMessage("_saveForward called with info: " . print_r($info, true), 'DEBUG');
         $address = $info['address'];
         if (!empty($info['forward'])) {
           $forward = $info['forward'];
@@ -886,13 +886,13 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
           $create = true;
         } // if
         $forward_address = $info['forward_address'];
-        
+
         $user_res = $this->searchForUser($address);
         if (is_a($user_res, 'PEAR_Error') || ($res['count'] === 0) ) {
           return PEAR::raiseError(_("Error reading address information from backend."));
         } // if
         $user = $user_res[0];
-        
+
         // Retrieve the current MAA values
         if (array_key_exists('mailforwardingaddress', $user_res[0])) {
           $mfa = $user['mailforwardingaddress'];
@@ -900,8 +900,8 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
         } else {
           $mfa = array();
         } // if
-        
-        Horde::logMessage("Resource contains: " . print_r($mfa, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+
+        Horde::logMessage("Resource contains: " . print_r($mfa, true), 'DEBUG');
 
         $update = false;
         $oldmfa = $mfa;
@@ -918,7 +918,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
             // Already exists, throw a notification
             return PEAR::raiseError(sprintf(_("That forward, \"%s\", already exists!"), $forward_address));
           } // if
-          
+
         } else {
           if ($forward == $forward_address) {
             /* do nothing */;
@@ -934,11 +934,11 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
             } // if
           }
         } // if
-        
-        
+
+
         if ($update) {
           $dn = $user['dn'];
-          Horde::logMessage("UPDATING: $dn \nOld MFA: " . print_r($oldmfa, true) . "\nNew MFA: " . print_r($mfa, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+          Horde::logMessage("UPDATING: $dn \nOld MFA: " . print_r($oldmfa, true) . "\nNew MFA: " . print_r($mfa, true), 'DEBUG');
           // return PEAR::raiseError(sprintf(_("Update Code Not Written."), $alias));
           if ($this->_ldap) {
             // bind with appropriate dn to give update access
@@ -948,7 +948,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
                 return PEAR::raiseError(_("Unable to bind to the LDAP server. Check authentication credentials."));
             }
             $entry["mailForwardingAddress"] = $mfa;
-            
+
             $res = @ldap_modify($this->_ldap, $dn, $entry);
             if ($res === false) {
                 return PEAR::raiseError(sprintf(_("Error modifying account: %s"), @ldap_error($this->_ldap)));
@@ -957,7 +957,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
             } // if
           } // if
         } // if
-        
+
         return true;
     }
 
@@ -970,16 +970,16 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
      */
     function _deleteForward($info)
     {
-      Horde::logMessage("_deleteForward called with info: " . print_r($info, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+      Horde::logMessage("_deleteForward called with info: " . print_r($info, true), 'DEBUG');
         $address = $info['address'];
         $forward = $info['forward'];
-        
+
         $user_res = $this->searchForUser($address);
         if (is_a($user_res, 'PEAR_Error') || ($res['count'] === 0) ) {
           return PEAR::raiseError(_("Error reading address information from backend."));
         } // if
         $user = $user_res[0];
-        
+
         // Retrieve the current MFA values
         if (array_key_exists('mailforwardingaddress', $user_res[0])) {
           $mfa = $user['mailforwardingaddress'];
@@ -987,8 +987,8 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
         } else {
           $mfa = array();
         } // if
-        
-        Horde::logMessage("Resource contains: " . print_r($mfa, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+
+        Horde::logMessage("Resource contains: " . print_r($mfa, true), 'DEBUG');
 
         $update = false;
         $oldmfa = $mfa;
@@ -1000,10 +1000,10 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
         } else {
           /* skip */;
         } // if
-        
+
         if ($update) {
           $dn = $user['dn'];
-          Horde::logMessage("UPDATING: $dn \nOld MFA: " . print_r($oldmfa, true) . "\nNew MFA: " . print_r($mfa, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+          Horde::logMessage("UPDATING: $dn \nOld MFA: " . print_r($oldmfa, true) . "\nNew MFA: " . print_r($mfa, true), 'DEBUG');
           // return PEAR::raiseError(sprintf(_("Update Code Not Written."), $alias));
           if ($this->_ldap) {
             // bind with appropriate dn to give update access
@@ -1013,7 +1013,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
                 return PEAR::raiseError(_("Unable to bind to the LDAP server. Check authentication credentials."));
             }
             $entry["mailForwardingAddress"] = $mfa;
-            
+
             $res = @ldap_modify($this->_ldap, $dn, $entry);
             if ($res === false) {
                 return PEAR::raiseError(sprintf(_("Error modifying account: %s"), @ldap_error($this->_ldap)));
@@ -1022,10 +1022,10 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
             } // if
           } // if
         } // if
-        
+
         return true;
     }
-    
+
     /* Sorting function to sort aliases, forwards, and accounts by domain name first,
      * then by user component.
      */
@@ -1033,7 +1033,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
       $a_comp = split("@", $a);
       $b_comp = split("@", $b);
       // not finished.
-    } 
+    }
 
     function _saveUser(&$info)
     {
@@ -1053,14 +1053,14 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
                 return $addrinfo;
             }
             $type = $addrinfo['type'];
-            if($type == 'user') {            
+            if($type == 'user') {
                  //continue, this is a user.
             } else {
                  //return PEAR::raiseError(_("Unable to save account of type " . $type));
             }
 
             $user_info = $this->searchForUser($address);
-            if (is_a($user_info, 'PEAR_Error') || ($res['count'] === 0) ) { 
+            if (is_a($user_info, 'PEAR_Error') || ($res['count'] === 0) ) {
                 return PEAR::raiseError(_("Error reading address information from backend."));
             }
 
@@ -1079,7 +1079,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
                 }
                 unset($info['password']);
             }
-            
+
             $tmp['dn'] = $addrinfo['id'];
             foreach ($info as $key => $val) {
                 $attr = $this->_getAttrByField($key);
@@ -1115,7 +1115,7 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
                 }
                 if(isset($objectClassData)) {
                     array_shift($objectClassData);
-                    $entry['objectclass'] = $objectClassData;                    
+                    $entry['objectclass'] = $objectClassData;
                 } else {
                     $entry['objectclass'] = array();
                     $entry['objectclass'][] = 'top';
@@ -1184,9 +1184,9 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
                 }
             } else {
                 return  PEAR::raiseError(_("Unable to connect to LDAP server"));
-            }  
+            }
         }
-        
+
         return  PEAR::raiseError(_("Unable to save user information."));
     }
 

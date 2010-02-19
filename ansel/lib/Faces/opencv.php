@@ -40,8 +40,7 @@ class Ansel_Faces_opencv extends Ansel_Faces_Base
         $haar = cv_object_load($this->_defs);
         $seq = cv_haar_classifier_cascade_detect_objects($haar, $im);
         $l = cv_seq_count($seq);
-        Horde::logMessage(sprintf("opencv extension detected %u faces.", $l),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf("opencv extension detected %u faces.", $l), 'DEBUG');
         $rects = array();
         for ($i = 0; $i < $l; $i++) {
             $r = cv_seq_get($seq, $i);

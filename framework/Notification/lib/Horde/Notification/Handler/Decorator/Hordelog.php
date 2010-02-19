@@ -23,7 +23,7 @@ extends Horde_Notification_Handler_Decorator_Base
      */
     public function push(Horde_Notification_Event $event, $options)
     {
-        Horde::logMessage($event->message, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($event->message, 'DEBUG');
     }
 
 }

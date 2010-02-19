@@ -84,11 +84,10 @@ class Horde_Share_sql_hierarchical extends Horde_Share_sql {
             $this->_db->setLimit($count, $from);
         }
 
-        Horde::logMessage('Query By Horde_Share_sql_hierarchical: ' . $query,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Query By Horde_Share_sql_hierarchical: ' . $query, 'DEBUG');
         $result = $this->_db->query($query);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         } elseif (empty($result)) {
             return array();
@@ -114,7 +113,7 @@ class Horde_Share_sql_hierarchical extends Horde_Share_sql {
                      . ')';
             $result = $this->_db->query($query);
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             } elseif (!empty($result)) {
                 while ($share = $result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
@@ -131,7 +130,7 @@ class Horde_Share_sql_hierarchical extends Horde_Share_sql {
                      . ')';
             $result = $this->_db->query($query);
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             } elseif (!empty($result)) {
                 while ($share = $result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
@@ -314,7 +313,7 @@ class Horde_Share_sql_hierarchical extends Horde_Share_sql {
 
         $allowners = $this->_db->queryCol($sql);
         if (is_a($allowners, 'PEAR_Error')) {
-             Horde::logMessage($allowners, __FILE__, __LINE__, PEAR_LOG_ERR);
+             Horde::logMessage($allowners, 'ERR');
              return $allowners;
         }
 
@@ -478,7 +477,7 @@ class Horde_Share_sql_hierarchical extends Horde_Share_sql {
         $query = 'SELECT * FROM ' . $this->_table . ' WHERE share_id IN (' . implode(', ', $ids) . ')';
         $result = $this->_db->query($query);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         } elseif (empty($result)) {
             return array();
@@ -503,7 +502,7 @@ class Horde_Share_sql_hierarchical extends Horde_Share_sql {
                     . ' WHERE share_id IN (' . implode(', ', $users) . ')';
             $result = $this->_db->query($query);
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             } elseif (!empty($result)) {
                 while ($share = $result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
@@ -519,7 +518,7 @@ class Horde_Share_sql_hierarchical extends Horde_Share_sql {
                    . ' WHERE share_id IN (' . implode(', ', $groups) . ')';
             $result = $this->_db->query($query);
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             } elseif (!empty($result)) {
                 while ($share = $result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
@@ -666,7 +665,7 @@ class Horde_Share_Object_sql_hierarchical extends Horde_Share_Object_sql {
         if (!is_null($parent) && !is_a($parent, 'Horde_Share_Object')) {
             $parent = $this->_shareOb->getShareById($parent);
             if (is_a($parent, 'PEAR_Error')) {
-                Horde::logMessage($parent, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($parent, 'ERR');
                 return $parent;
             }
         }

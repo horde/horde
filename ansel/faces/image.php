@@ -29,7 +29,7 @@ if (($reload || empty($result))) {
         $image->createView('screen');
         $result = $faces->getFromPicture($image_id, $autocreate);
     } catch (Horde_Exception $e) {
-        Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+        Horde::logMessage($e, 'ERR');
         $result = null;
     }
 }

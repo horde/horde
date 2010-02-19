@@ -692,7 +692,7 @@ class Horde_Form {
 
     function execute()
     {
-        Horde::logMessage('Warning: Horde_Form::execute() called, should be overridden', __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Warning: Horde_Form::execute() called, should be overridden', 'DEBUG');
     }
 
     /**

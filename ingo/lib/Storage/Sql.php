@@ -151,11 +151,10 @@ class Ingo_Storage_Sql extends Ingo_Storage
                              $this->_params['table_lists']);
             $values = array(Ingo::getUser(),
                             (int)($field == self::ACTION_BLACKLIST));
-            Horde::logMessage('Ingo_Storage_Sql::_retrieve(): ' . $query,
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('Ingo_Storage_Sql::_retrieve(): ' . $query, 'DEBUG');
             $addresses = $this->_db->getCol($query, 0, $values);
             if (is_a($addresses, 'PEAR_Error')) {
-                Horde::logMessage($addresses, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($addresses, 'ERR');
                 return $addresses;
             }
             if ($field == self::ACTION_BLACKLIST) {
@@ -175,8 +174,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
         case self::ACTION_FORWARD:
             $query = sprintf('SELECT * FROM %s WHERE forward_owner = ?',
                              $this->_params['table_forwards']);
-            Horde::logMessage('Ingo_Storage_Sql::_retrieve(): ' . $query,
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('Ingo_Storage_Sql::_retrieve(): ' . $query, 'DEBUG');
             $result = $this->_db->query($query, Ingo::getUser());
             $data = $result->fetchRow(DB_FETCHMODE_ASSOC);
 
@@ -194,8 +192,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
         case self::ACTION_VACATION:
             $query = sprintf('SELECT * FROM %s WHERE vacation_owner = ?',
                              $this->_params['table_vacations']);
-            Horde::logMessage('Ingo_Storage_Sql::_retrieve(): ' . $query,
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('Ingo_Storage_Sql::_retrieve(): ' . $query, 'DEBUG');
             $result = $this->_db->query($query, Ingo::getUser());
             $data = $result->fetchRow(DB_FETCHMODE_ASSOC);
 
@@ -229,8 +226,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
         case self::ACTION_SPAM:
             $query = sprintf('SELECT * FROM %s WHERE spam_owner = ?',
                              $this->_params['table_spam']);
-            Horde::logMessage('Ingo_Storage_Sql::_retrieve(): ' . $query,
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('Ingo_Storage_Sql::_retrieve(): ' . $query, 'DEBUG');
             $result = $this->_db->query($query, Ingo::getUser());
             $data = $result->fetchRow(DB_FETCHMODE_ASSOC);
 
@@ -282,17 +278,15 @@ class Ingo_Storage_Sql extends Ingo_Storage
             $query = sprintf('DELETE FROM %s WHERE list_owner = ? AND list_blacklist = ?',
                              $this->_params['table_lists']);
             $values = array(Ingo::getUser(), $is_blacklist);
-            Horde::logMessage('Ingo_Storage_Sql::_store(): ' . $query,
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('Ingo_Storage_Sql::_store(): ' . $query, 'DEBUG');
             $result = $this->_write_db->query($query, $values);
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
             $query = sprintf('INSERT INTO %s (list_owner, list_blacklist, list_address) VALUES (?, ?, ?)',
                              $this->_params['table_lists']);
-            Horde::logMessage('Ingo_Storage_Sql::_store(): ' . $query,
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('Ingo_Storage_Sql::_store(): ' . $query, 'DEBUG');
             $addresses = $is_blacklist ? $ob->getBlacklist() : $ob->getWhitelist();
             foreach ($addresses as $address) {
                 $result = $this->_write_db->query($query,
@@ -300,7 +294,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
                                                         $is_blacklist,
                                                         $address));
                 if (is_a($result, 'PEAR_Error')) {
-                    Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                    Horde::logMessage($result, 'ERR');
                     return $result;
                 }
             }
@@ -323,8 +317,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
                 implode("\n", $ob->getForwardAddresses()),
                 (int)(bool)$ob->getForwardKeep(),
                 Ingo::getUser());
-            Horde::logMessage('Ingo_Storage_Sql::_store(): ' . $query,
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('Ingo_Storage_Sql::_store(): ' . $query, 'DEBUG');
             $ret = $this->_write_db->query($query, $values);
             if (!is_a($ret, 'PEAR_Error')) {
                 $ob->setSaved(true);
@@ -352,8 +345,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
                 implode("\n", $ob->getVacationExcludes()),
                 (int)(bool)$ob->getVacationIgnorelist(),
                 Ingo::getUser());
-            Horde::logMessage('Ingo_Storage_Sql::_store(): ' . $query,
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('Ingo_Storage_Sql::_store(): ' . $query, 'DEBUG');
             $ret = $this->_write_db->query($query, $values);
             if (!is_a($ret, 'PEAR_Error')) {
                 $ob->setSaved(true);
@@ -371,8 +363,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
                 (int)$ob->getSpamLevel(),
                 $ob->getSpamFolder(),
                 Ingo::getUser());
-            Horde::logMessage('Ingo_Storage_Sql::_store(): ' . $query,
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('Ingo_Storage_Sql::_store(): ' . $query, 'DEBUG');
             $ret = $this->_write_db->query($query, $values);
             if (!is_a($ret, 'PEAR_Error')) {
                 $ob->setSaved(true);
@@ -417,7 +408,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
 
         $values = array($user);
         foreach ($queries as $query) {
-            Horde::logMessage('Ingo_Storage_sql::removeUserData(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('Ingo_Storage_sql::removeUserData(): ' . $query, 'DEBUG');
             $result = $this->_write_db->query($query, $values);
             if ($result instanceof PEAR_Error) {
                 throw new Ingo_Exception($result);

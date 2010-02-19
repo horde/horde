@@ -192,7 +192,7 @@ class Horde_Api extends Horde_Registry_Api
         /* Remove user's prefs */
         $prefs = Horde_Prefs::singleton($conf['prefs']['driver'], null, $user);
         if (is_a($result = $prefs->clear(), 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             $haveError = true;
         }
 
@@ -201,7 +201,7 @@ class Horde_Api extends Horde_Registry_Api
         $groups = Group::singleton();
         $allGroups = $groups->getGroupMemberships($user);
         if (is_a($groups, 'PEAR_Error')) {
-            Horde::logMessage($allGroups, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($allGroups, 'ERR');
             $haveError = true;
         } else {
             foreach (array_keys($allGroups) as $id) {
@@ -214,13 +214,13 @@ class Horde_Api extends Horde_Registry_Api
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
         $tree = $perms->getTree();
         if (is_a($tree, 'PEAR_Error')) {
-            Horde::logMessage($tree, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($tree, 'ERR');
             $haveError = true;
         } else {
             foreach (array_keys($tree) as $id) {
                 $perm = $perms->getPermissionById($id);
                 if (is_a($perm, 'PEAR_Error')) {
-                    Horde::logMessage($perm, __FILE__, __LINE__, PEAR_LOG_ERR);
+                    Horde::logMessage($perm, 'ERR');
                     $haveError = true;
                     continue;
                 }
@@ -257,14 +257,14 @@ class Horde_Api extends Horde_Registry_Api
         /* Get all APIs */
         $apis = $this->listAPIs();
         if (is_a($apis, 'PEAR_Error')) {
-            Horde::logMessage($apis, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($apis, 'ERR');
             return PEAR::raiseError(_("No API found."));
         }
         foreach ($apis as $api) {
             if ($GLOBALS['registry']->hasAppMethod($api, 'removeUserData')) {
                 $result = $GLOBALS['registry']->callAppMethod($api, 'removeUserData', array('args' => array($user)));
                 if (is_a($result, 'PEAR_Error')) {
-                    Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                    Horde::logMessage($result, 'ERR');
                     $haveError = true;
                 }
             }

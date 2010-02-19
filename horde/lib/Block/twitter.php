@@ -44,8 +44,7 @@ class Horde_Block_Horde_twitter extends Horde_Block {
     function _params()
     {
         if (!@include_once 'Services/Twitter.php') {
-            Horde::logMessage('The Twitter block will not work without Services_Twitter from PEAR. Run pear install Services_Twitter.',
-                              __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage('The Twitter block will not work without Services_Twitter from PEAR. Run pear install Services_Twitter.', 'ERR');
             return array(
                 'error' => array(
                     'type' => 'error',
@@ -79,8 +78,7 @@ class Horde_Block_Horde_twitter extends Horde_Block {
     function _content()
     {
         if (!@include_once 'Services/Twitter.php') {
-            Horde::logMessage('The Twitter block will not work without Services_Twitter from PEAR. Run pear install Services_Twitter.',
-                              __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage('The Twitter block will not work without Services_Twitter from PEAR. Run pear install Services_Twitter.', 'ERR');
             return _("Twitter block not available. Details have been logged for the administrator.");
         }
 
@@ -90,12 +88,12 @@ class Horde_Block_Horde_twitter extends Horde_Block {
 		    empty($this->_params['password'])) {
             return _("Must configure a Twitter username and password to use this block.");
         }
-		
+
 		// Store the username and password in the session to enable
 		// services/twitterapi.php's functionality.
 		$_SESSION['horde']['twitterblock']['username'] = $this->_params['username'];
         $_SESSION['horde']['twitterblock']['password'] = $this->_params['password'];
-		
+
         // Get a unique instance ID in case someone likes to have multiple
 		// Twitter blocks.
         $instance = md5(serialize(array($this->_params['username'],
@@ -136,7 +134,7 @@ EOF;
 		       . '<input style="width:98%;margin-top:4px;margin-bottom:4px;" type="text" id="' . $instance . '_newStatus" name="' . $instance . '_newStatus" value="What are you working on?" />'
                . '<div class="fbaction"><a class="fbbutton" onclick="updateStatus($F(\'' . $instance . '_newStatus\'));" href="#">' . _("Update") . '</a></div>'
                . Horde::img('loading.gif', '', array('id' => $instance . '_loading', 'style' => 'display:none;'));
-        
+
         return $html;
     }
 

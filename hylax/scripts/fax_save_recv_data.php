@@ -15,7 +15,7 @@ if (isset($args[1])) {
 /* Store the raw fax postscript data. */
 $data = $cli->readStdin();
 if (empty($data)) {
-    Horde::logMessage('No print data received from standard input. Exiting fax submission.', __FILE__, __LINE__, PEAR_LOG_ERR);
+    Horde::logMessage('No print data received from standard input. Exiting fax submission.', 'ERR');
     exit;
 }
 
@@ -25,5 +25,5 @@ if (is_a($fax_id, 'PEAR_Error')) {
     echo '0';
     exit;
 }
-Horde::logMessage(sprintf('Creating fax ID %s for received fax.', $fax_id), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+Horde::logMessage(sprintf('Creating fax ID %s for received fax.', $fax_id), 'DEBUG');
 echo $fax_id;

@@ -896,7 +896,7 @@ class TicketDetailsForm extends Horde_Form {
             $grouped_hook = true;
         } catch (Horde_Exception_HookNotSet $e) {
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
         }
 
         foreach ($grouped_fields as $header => $fields) {

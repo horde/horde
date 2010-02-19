@@ -34,7 +34,7 @@ if ($conf['vfs']['src'] == 'sendfile') {
             Ansel_Faces::getVFSPath($face['image_id']) . 'faces',
             $face_id . Ansel_Faces::getExtension());
     } catch (VFS_Exception $e) {
-        Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+        Horde::logMessage($e, 'ERR');
         exit;
     }
     header('Content-type: image/' . $GLOBALS['conf']['image']['type']);

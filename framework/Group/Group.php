@@ -565,7 +565,7 @@ class Group {
         } elseif ($subgroups) {
             $groups = $this->getGroupMemberships($user, true);
             if (is_a($groups, 'PEAR_Error')) {
-                Horde::logMessage($groups, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($groups, 'ERR');
                 return false;
             }
 
@@ -573,7 +573,7 @@ class Group {
         } else {
             $users = $this->listUsers($gid);
             if (is_a($users, 'PEAR_Error')) {
-                Horde::logMessage($users, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($users, 'ERR');
                 return false;
             }
             return in_array($user, $users);

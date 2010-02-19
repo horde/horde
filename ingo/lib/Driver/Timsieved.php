@@ -84,7 +84,7 @@ class Ingo_Driver_Timsieved extends Ingo_Driver
      */
     protected function _debug($sieve, $message)
     {
-        Horde::logMessage($message, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($message, 'DEBUG');
     }
 
     /**

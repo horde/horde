@@ -83,7 +83,7 @@ class Crumb_Driver_sql extends Crumb_Driver {
         $query = 'SELECT * FROM ' . $this->_params['table'];
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Crumb_Driver_sql::_listClients(): %s', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Crumb_Driver_sql::_listClients(): %s', $query), 'DEBUG');
 
         /* Execute the query. */
         $result = $this->_db->getAll($query, array(), DB_FETCHMODE_ASSOC);

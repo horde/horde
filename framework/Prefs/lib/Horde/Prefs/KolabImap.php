@@ -40,7 +40,7 @@ class Horde_Prefs_KolabImap extends Horde_Prefs
         $shares = Horde_Share::singleton('h-prefs');
         $default = $shares->getDefaultShare();
         if ($default instanceof PEAR_Error) {
-            Horde::logMessage($default, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($default, 'ERR');
             throw new Horde_Exception_Prior($default);
         }
         $this->_share = $default->getName();
@@ -48,13 +48,13 @@ class Horde_Prefs_KolabImap extends Horde_Prefs
         require_once 'Horde/Kolab.php';
         $connection = new Kolab('h-prefs');
         if ($connection instanceof PEAR_Error) {
-            Horde::logMessage($connection, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($connection, 'ERR');
             throw new Horde_Exception_Prior($connection);
         }
 
         $result = $this->_connection->open($this->_share, 1);
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             throw new Horde_Exception_Prior($result);
         }
 
@@ -127,7 +127,7 @@ class Horde_Prefs_KolabImap extends Horde_Prefs
 
         $prefs = $this->_connection->getObjects();
         if ($prefs instanceof PEAR_Error) {
-            Horde::logMessage($prefs, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($prefs, 'ERR');
             throw new Horde_Exception_Prior($prefs);
         }
 
@@ -193,7 +193,7 @@ class Horde_Prefs_KolabImap extends Horde_Prefs
 
             $result = $this->_connection->_storage->save($object, $old_uid);
             if ($result instanceof PEAR_Error) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return;
             }
         }

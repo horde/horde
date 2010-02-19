@@ -69,8 +69,7 @@ class Fima_Driver_sql extends Fima_Driver {
         $query .= ' ORDER BY account_number ASC';
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Fima_Driver_sql::retrieveAccounts(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Fima_Driver_sql::retrieveAccounts(): %s', $query), 'DEBUG');
 
         /* Execute the query. */
         $this->_accounts = array();
@@ -114,8 +113,7 @@ class Fima_Driver_sql extends Fima_Driver {
         $values = array($this->_ledger, $accountId);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Fima_Driver_sql::getAccount(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Fima_Driver_sql::getAccount(): %s', $query), 'DEBUG');
 
         /* Execute the query. */
         $result = $this->_db->query($query, $values);
@@ -150,8 +148,7 @@ class Fima_Driver_sql extends Fima_Driver {
         $values = array($this->_ledger, sprintf('%\'04s', $number));
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Fima_Driver_sql::getAccountByNumber(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Fima_Driver_sql::getAccountByNumber(): %s', $query), 'DEBUG');
 
         /* Execute the query. */
         $result = $this->_db->query($query, $values);
@@ -194,8 +191,7 @@ class Fima_Driver_sql extends Fima_Driver {
         $query .= $queryfilter;
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Fima_Driver_sql::retrievePostings(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Fima_Driver_sql::retrievePostings(): %s', $query), 'DEBUG');
 
         /* Execute the query. */
         $result = $this->_db->query($query, $values);
@@ -211,7 +207,7 @@ class Fima_Driver_sql extends Fima_Driver {
             // correct result when account is an asset account too
             if ($this->_postingsCount > 0) {
                 $query = sprintf('SELECT SUM(p.posting_amount) posting_result ' .
-                                 'FROM %s p JOIN %s a ON a.account_id = p.posting_account ' . 
+                                 'FROM %s p JOIN %s a ON a.account_id = p.posting_account ' .
                                  $queryfilter . ' AND a.account_type = ?',
                                  $this->_params['table_postings'], $this->_params['table_accounts']);
                 $values2 = $values;
@@ -249,14 +245,14 @@ class Fima_Driver_sql extends Fima_Driver {
             $sorting = array('posting_date ASC');
         }
         $query .= ' ORDER BY ' . implode(', ', $sorting);
-        
+
         /* Limit. */
         if (count($limit) > 0) {
             if ($limit[0] < 0) {
                 $limit[0] += ceil($this->_postingsCount / $limit[1]) + 1;
             }
             $limit[0] = ($limit[0] - 1) * $limit[1];
-            
+
             $query .= ' LIMIT ' . $limit[0];
             if (isset($limit[1])) {
                 $query .= ', ' . $limit[1];
@@ -264,8 +260,7 @@ class Fima_Driver_sql extends Fima_Driver {
         }
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Fima_Driver_sql::retrievePostings(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Fima_Driver_sql::retrievePostings(): %s', $query), 'DEBUG');
 
         /* Execute the query. */
         $result = $this->_db->query($query, $values);
@@ -287,7 +282,7 @@ class Fima_Driver_sql extends Fima_Driver {
         } else {
             return $result;
         }
-        
+
         return true;
     }
 
@@ -306,8 +301,7 @@ class Fima_Driver_sql extends Fima_Driver {
         $values = array($this->_ledger, $postingId);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Fima_Driver_sql::getPosting(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Fima_Driver_sql::getPosting(): %s', $query), 'DEBUG');
 
         /* Execute the query. */
         $result = $this->_db->query($query, $values);
@@ -338,7 +332,7 @@ class Fima_Driver_sql extends Fima_Driver {
      */
     function getResults($groups, $filters = array()) {
         $matrix = array();
-        
+
         /* Fix grouping. */
         if (!is_array($groups)) {
             $groups = array($groups);
@@ -359,7 +353,7 @@ class Fima_Driver_sql extends Fima_Driver {
             default:               $groups[$groupId] = 'posting_'.$group; break;
             }
         }
-        
+
         /* Build the SQL query filter. */
         $query = sprintf('SELECT %s x, %s y, sum(posting_amount) result ' .
                          'FROM %s p LEFT OUTER JOIN %s asset ON p.posting_asset = asset.account_id AND p.posting_owner = asset.account_owner LEFT OUTER JOIN %s account ON p.posting_account = account.account_id AND p.posting_owner = account.account_owner ' .
@@ -382,13 +376,12 @@ class Fima_Driver_sql extends Fima_Driver {
             }
         }
         $this->_addFilters($filters, $query, $values);
-        
+
         /* Add grouping. */
         $query .= ' GROUP BY ' . implode(', ', $groups);
-        
+
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Fima_Driver_sql::getResults(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Fima_Driver_sql::getResults(): %s', $query), 'DEBUG');
 
         /* Execute the query. */
         $result = $this->_db->query($query, $values);
@@ -411,7 +404,7 @@ class Fima_Driver_sql extends Fima_Driver {
             }
             $result->free();
         }
-        
+
         return $matrix;
     }
 
@@ -426,7 +419,7 @@ class Fima_Driver_sql extends Fima_Driver {
     function getAssetResults($postingtype, $perdate = null)
     {
         $perdate = ($perdate === null) ? mktime() : (int)$perdate;
-        
+
         /* Build the SQL query. */
         $query = sprintf('SELECT account_id, SUM(account_result) account_result FROM ( ' .
                          ' SELECT a1.account_id, SUM(p1.posting_amount) account_result ' .
@@ -446,8 +439,7 @@ class Fima_Driver_sql extends Fima_Driver {
                         $this->_ledger, $postingtype, $this->_ledger, FIMA_ACCOUNTTYPE_ASSET, $perdate);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Fima_Driver_sql::getAssetResults(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Fima_Driver_sql::getAssetResults(): %s', $query), 'DEBUG');
 
         /* Execute the query. */
         $assetresults = array();
@@ -497,7 +489,7 @@ class Fima_Driver_sql extends Fima_Driver {
                 }
             }
         }
-        
+
         /* Create a new account based on $row's values. */
         return array('account_id' => $row['account_id'],
                      'owner' => $row['account_owner'],
@@ -508,13 +500,13 @@ class Fima_Driver_sql extends Fima_Driver {
                      'desc' => Horde_String::convertCharset($row['account_desc'], $this->_params['charset']),
                      'closed' => $row['account_closed'],
                      'label' => trim($row['account_number'] . ' ' .
-                                (($parent === null) ? '' : $parent['name'] . ' - ') . 
+                                (($parent === null) ? '' : $parent['name'] . ' - ') .
                                 Horde_String::convertCharset($row['account_name'], $this->_params['charset'])),
                      'parent_id' => ($parent === null) ? null : $parent['account_id'],
                      'parent_number' => ($parent === null) ? '' : $parent['number'],
                      'parent_name' => ($parent === null) ? '' : $parent['name']);
     }
-    
+
     /**
      * Adds an account to the backend storage.
      *
@@ -546,13 +538,12 @@ class Fima_Driver_sql extends Fima_Driver {
                         (int)(bool)$closed);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Fima_Driver_sql::_addAccount(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Fima_Driver_sql::_addAccount(): %s', $query), 'DEBUG');
 
         /* Attempt the insertion query. */
         $result = $this->_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -593,19 +584,18 @@ class Fima_Driver_sql extends Fima_Driver {
                         $accountId);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Fima_Driver_sql::_modifyAccount(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Fima_Driver_sql::_modifyAccount(): %s', $query), 'DEBUG');
 
         /* Attempt the update query. */
         $result = $this->_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
         return true;
     }
-    
+
     /**
      * Deletes an account from the backend.
      *
@@ -635,7 +625,7 @@ class Fima_Driver_sql extends Fima_Driver {
                     return $delete;
                 }
             }
-        }     
+        }
 
         /* Handle postings. */
         if ($dsPostings !== false) {
@@ -644,15 +634,14 @@ class Fima_Driver_sql extends Fima_Driver {
                 $query = sprintf('DELETE FROM %s WHERE posting_owner = ? AND (posting_asset = ? OR posting_account = ?)',
                                  $this->_params['table_postings']);
                 $values = array($this->_ledger, $accountId, $accountId);
-                    
+
                 /* Log the query at a DEBUG log level. */
-                Horde::logMessage(sprintf('Fima_Driver_sql::_deleteAccount(): %s', $query),
-                                  __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                Horde::logMessage(sprintf('Fima_Driver_sql::_deleteAccount(): %s', $query), 'DEBUG');
 
                 /* Attempt the delete query. */
                 $result = $this->_db->query($query, $values);
                 if (is_a($result, 'PEAR_Error')) {
-                    Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                    Horde::logMessage($result, 'ERR');
                     return $result;
                 }
             } else {
@@ -670,13 +659,12 @@ class Fima_Driver_sql extends Fima_Driver {
         $values = array($this->_ledger, $accountId);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Fima_Driver_sql::_deleteAccount(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Fima_Driver_sql::_deleteAccount(): %s', $query), 'DEBUG');
 
         /* Attempt the delete query. */
         $result = $this->_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -703,7 +691,7 @@ class Fima_Driver_sql extends Fima_Driver {
                      'amount' => $row['posting_amount'],
                      'eo' => (int)(bool)$row['posting_eo']);
     }
-    
+
     /**
      * Adds a posting to the backend storage.
      *
@@ -737,13 +725,12 @@ class Fima_Driver_sql extends Fima_Driver {
                         Horde_String::convertCharset($desc, Horde_Nls::getCharset(), $this->_params['charset']));
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Fima_Driver_sql::_addPosting(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Fima_Driver_sql::_addPosting(): %s', $query), 'DEBUG');
 
         /* Attempt the insertion query. */
         $result = $this->_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -787,19 +774,18 @@ class Fima_Driver_sql extends Fima_Driver {
                         $postingId);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Fima_Driver_sql::_modifyPosting(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Fima_Driver_sql::_modifyPosting(): %s', $query), 'DEBUG');
 
         /* Attempt the update query. */
         $result = $this->_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
         return true;
     }
-    
+
     /**
      * Deletes a posting from the backend.
      *
@@ -817,14 +803,13 @@ class Fima_Driver_sql extends Fima_Driver {
         $values = array($this->_ledger, $postingId);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Fima_Driver_sql::_deletePosting(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Fima_Driver_sql::_deletePosting(): %s', $query), 'DEBUG');
 
         /* Attempt the delete query. */
         $result = $this->_db->query($query, $values);
 
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -862,19 +847,18 @@ class Fima_Driver_sql extends Fima_Driver {
         $values[] = $postingId;
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Fima_Driver_sql::_shiftPosting(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Fima_Driver_sql::_shiftPosting(): %s', $query), 'DEBUG');
 
         /* Attempt the update query. */
         $result = $this->_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
         return true;
     }
-    
+
     /**
      * Shift postings in the backend.
      *
@@ -888,7 +872,7 @@ class Fima_Driver_sql extends Fima_Driver {
         if (!is_array($accountIdFrom)) {
             $accountIdFrom = array($accountIdFrom);
         }
-        
+
         foreach ($accountIdFrom as $key => $value) {
             $accountIdFrom[$key] = $this->_db->quoteSmart($value);
         }
@@ -902,21 +886,20 @@ class Fima_Driver_sql extends Fima_Driver {
             $values = array($accountIdTo, $this->_ledger, implode(',', $accountIdFrom));
 
             /* Log the query at a DEBUG log level. */
-            Horde::logMessage(sprintf('Fima_Driver_sql::_shiftPostings(): %s', $query),
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage(sprintf('Fima_Driver_sql::_shiftPostings(): %s', $query), 'DEBUG');
 
             /* Attempt the update query. */
             $result = $this->_db->query($query, $values);
 
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
         }
 
         return true;
     }
-    
+
     /**
      * Deletes all postings and accounts.
      *
@@ -932,7 +915,7 @@ class Fima_Driver_sql extends Fima_Driver {
             $query = sprintf('DELETE FROM %s WHERE posting_owner = ?',
                              $this->_params['table_postings']);
             $values = array($this->_ledger);
-            
+
             /* Filter. */
             if ($postings !== true) {
                 $query .= ' AND posting_type = ?';
@@ -940,21 +923,20 @@ class Fima_Driver_sql extends Fima_Driver {
             }
 
             /* Log the query at a DEBUG log level. */
-            Horde::logMessage(sprintf('Fima_Driver_sql::_deleteAll(): %s', $query),
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage(sprintf('Fima_Driver_sql::_deleteAll(): %s', $query), 'DEBUG');
 
             /* Attempt the delete query. */
             $result = $this->_db->query($query, $values);
 
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
         } else {
             /* If postings aren't deleted, don't delete accounts. */
             return false;
         }
-        
+
         /* Delete Accounts */
         if ($accounts) {
             $query = sprintf('DELETE FROM %s WHERE account_owner = ?',
@@ -968,14 +950,13 @@ class Fima_Driver_sql extends Fima_Driver {
             }
 
             /* Log the query at a DEBUG log level. */
-            Horde::logMessage(sprintf('Fima_Driver_sql::_deleteAll(): %s', $query),
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage(sprintf('Fima_Driver_sql::_deleteAll(): %s', $query), 'DEBUG');
 
             /* Attempt the delete query. */
             $result = $this->_db->query($query, $values);
 
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
         }
@@ -987,7 +968,7 @@ class Fima_Driver_sql extends Fima_Driver {
     /**
      * Build the where clause for a query using the passed filters
      * Attention: does not include the WHERE keyword, add WHERE 1=1 manually in the query
-     * 
+     *
      * @param array $filters  Array of filters, syntax: array(field, value [, operator = '=' [, andor = 'AND']])
      * @param array $prefix   optional prefix for fields
      *
@@ -996,7 +977,7 @@ class Fima_Driver_sql extends Fima_Driver {
     function _addFilters($filters, &$query, &$values, $prefix = '')
     {
         $filtercnt = 0;
-        
+
         foreach ($filters as $filter) {
             // and/or
             if (!isset($filter[3])) {
@@ -1007,7 +988,7 @@ class Fima_Driver_sql extends Fima_Driver {
                     $filter[3] = 'AND';
                 }
             }
-            
+
             // subfilter
             if (is_array($filter[0])) {
                 $query .= ' ' . $filter[3] . ' (1=1';
@@ -1015,7 +996,7 @@ class Fima_Driver_sql extends Fima_Driver {
                 $query .= ')';
                 continue;
             }
-            
+
             // fix operator
             if (!isset($filter[2])) {
                 $filter[2] = '=';
@@ -1025,7 +1006,7 @@ class Fima_Driver_sql extends Fima_Driver {
                     $filter[2] = '=';
                 }
             }
-             
+
             // fix operator for null values
             if ($filter[1] === null) {
                 if (!in_array($filter[2], array('IS', 'IS NOT'))) {
@@ -1034,7 +1015,7 @@ class Fima_Driver_sql extends Fima_Driver {
             } elseif (in_array($filter[2], array('IS', 'IS NOT'))) {
                 $filter[2] = ($filter[2] == 'IS') ? '=' : '!=';
             }
-            
+
             // fix operator for array value + prepare values
             if (is_array($filter[1])) {
                 if (!in_array($filter[2], array('IN', 'NOT IN'))) {
@@ -1051,17 +1032,17 @@ class Fima_Driver_sql extends Fima_Driver {
                 }
                 $filterph = '?';
             }
-            
+
             // fix != operator
             if ($filter[2] == '!=') {
                 $filter[2] = '<>';
             }
-                                
+
             $query .= sprintf(' ' . $filter[3] . ' ' . $prefix . '%s %s %s', $filter[0], $filter[2], $filterph);
             $values[] = $filter[1];
             $filtercnt++;
         }
-        
+
         return $filtercnt;
     }
 

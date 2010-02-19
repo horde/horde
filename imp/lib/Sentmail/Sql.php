@@ -100,15 +100,14 @@ class IMP_Sentmail_Sql extends IMP_Sentmail
                         (int)$success);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('IMP_Sentmail_Sql::_log(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('IMP_Sentmail_Sql::_log(): %s', $query), 'DEBUG');
 
         /* Execute the query. */
         $result = $this->_db->query($query, $values);
 
         /* Log errors. */
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
         }
     }
 
@@ -139,13 +138,12 @@ class IMP_Sentmail_Sql extends IMP_Sentmail
                          $limit);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('IMP_Sentmail_Sql::favouriteRecipients(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('IMP_Sentmail_Sql::favouriteRecipients(): %s', $query), 'DEBUG');
 
         /* Execute the query. */
         $recipients = $this->_db->getAll($query);
         if ($recipients instanceof PEAR_Error) {
-            Horde::logMessage($recipients, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($recipients, 'ERR');
             throw new Horde_Exception_Prior($recipients);
         }
 
@@ -178,13 +176,12 @@ class IMP_Sentmail_Sql extends IMP_Sentmail
         }
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('IMP_Sentmail_Sql::numberOfRecipients(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('IMP_Sentmail_Sql::numberOfRecipients(): %s', $query), 'DEBUG');
 
         /* Execute the query. */
         $recipients = $this->_db->getOne($query, array(time() - $hours * 3600));
         if ($recipients instanceof PEAR_Error) {
-            Horde::logMessage($recipients, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($recipients, 'ERR');
             throw new Horde_Exception_Prior($recipients);
         }
 
@@ -204,13 +201,12 @@ class IMP_Sentmail_Sql extends IMP_Sentmail
                          $this->_params['table']);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('IMP_Sentmail_Sql::_deleteOldEntries(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('IMP_Sentmail_Sql::_deleteOldEntries(): %s', $query), 'DEBUG');
 
         /* Execute the query. */
         $result = $this->_db->query($query, array($before));
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
         }
     }
 

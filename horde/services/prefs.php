@@ -126,7 +126,7 @@ if ($group == 'identities') {
                 }
             } catch (Horde_Exception $e) {
                 $notification->push(_("The new from address can't be verified, try again later: ") . $e->getMessage(), 'horde.error');
-                Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($e, 'ERR');
             }
             break;
         }

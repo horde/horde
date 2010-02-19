@@ -52,7 +52,7 @@ class Shout_Driver_Sql extends Shout_Driver
         $vars = array();
 
         $msg = 'SQL query in Shout_Driver_Sql#getAccounts(): ' . $sql;
-        Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($msg, 'DEBUG');
         $result = $this->_db->query($sql, $vars);
         if ($result instanceof PEAR_Error) {
             throw new Shout_Exception($result);
@@ -84,7 +84,7 @@ class Shout_Driver_Sql extends Shout_Driver
         $values = array($account);
 
         $msg = 'SQL query in Shout_Driver_Sql#getMenus(): ' . $sql;
-        Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($msg, 'DEBUG');
         $result = $this->_db->query($sql, $values);
         if ($result instanceof PEAR_Error) {
             throw new Shout_Exception($result);
@@ -131,7 +131,7 @@ class Shout_Driver_Sql extends Shout_Driver
         }
 
         $msg = 'SQL query in Shout_Driver_Sql#saveMenu(): ' . $sql;
-        Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($msg, 'DEBUG');
         $result = $this->_write_db->query($sql, $values);
         if ($result instanceof PEAR_Error) {
             throw new Shout_Exception($result);
@@ -148,7 +148,7 @@ class Shout_Driver_Sql extends Shout_Driver
         }
 
         $sql = "SELECT accounts.code AS account, menus.name AS description, " .
-               "actions.name AS action, menu_entries.digit AS digit, " . 
+               "actions.name AS action, menu_entries.digit AS digit, " .
                "menu_entries.args AS args FROM menu_entries " .
                "INNER JOIN menus ON menu_entries.menu_id = menus.id " .
                "INNER JOIN actions ON menu_entries.action_id = actions.id " .
@@ -157,7 +157,7 @@ class Shout_Driver_Sql extends Shout_Driver
         $values = array($account, $menu);
 
         $msg = 'SQL query in Shout_Driver_Sql#getMenuActions(): ' . $sql;
-        Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($msg, 'DEBUG');
         $result = $this->_db->query($sql, $values);
         if ($result instanceof PEAR_Error) {
             throw new Shout_Exception($result);
@@ -188,7 +188,7 @@ class Shout_Driver_Sql extends Shout_Driver
         $sql = 'DELETE FROM menu_entries WHERE digit = ?';
         $values = array($digit);
         $msg = 'SQL query in Shout_Driver_Sql#saveMenuAction(): ' . $sql;
-        Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($msg, 'DEBUG');
         $result = $this->_write_db->query($sql, $values);
         if ($result instanceof PEAR_Error) {
             throw new Shout_Exception($result);
@@ -200,9 +200,9 @@ class Shout_Driver_Sql extends Shout_Driver
                '(SELECT id FROM actions WHERE name = ?), ?)';
         $yamlargs = Horde_Yaml::dump($args);
         $values = array($account, $menu, $digit, $action, $yamlargs);
-        Horde::logMessage("Data: ".print_r($values, true), __FILE__, __LINE__, PEAR_LOG_ERR);
+        Horde::logMessage("Data: ".print_r($values, true), 'ERR');
         $msg = 'SQL query in Shout_Driver_Sql#saveMenuAction(): ' . $sql;
-        Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($msg, 'DEBUG');
         $result = $this->_write_db->query($sql, $values);
         if ($result instanceof PEAR_Error) {
             throw new Shout_Exception($result);
@@ -228,7 +228,7 @@ class Shout_Driver_Sql extends Shout_Driver
         $sql = sprintf($sql, $this->_params['table']);
         $args = array($account);
         $msg = 'SQL query in Shout_Driver_Sql#getDevices(): ' . $sql;
-        Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($msg, 'DEBUG');
         $sth = $this->_db->prepare($sql);
         $result = $this->_db->execute($sth, $args);
         if ($result instanceof PEAR_Error) {
@@ -318,12 +318,12 @@ class Shout_Driver_Sql extends Shout_Driver
         $sql = sprintf($sql, $this->_params['table']);
 
         $msg = 'SQL query in Shout_Driver_Sql#saveDevice(): ' . $sql;
-        Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($msg, 'DEBUG');
         $sth = $this->_write_db->prepare($sql);
         $result = $this->_write_db->execute($sth, $args);
         if ($result instanceof PEAR_Error) {
             $msg = $result->getMessage() . ': ' . $result->getDebugInfo();
-            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($msg, 'ERR');
             throw new Shout_Exception(_("Internal database error.  Details have been logged for the administrator."));
         }
 
@@ -339,7 +339,7 @@ class Shout_Driver_Sql extends Shout_Driver
         $values = array($devid);
 
         $msg = 'SQL query in Shout_Driver_Sql#deleteDevice(): ' . $sql;
-        Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($msg, 'DEBUG');
         $res = $this->_write_db->query($sql);
 
         if ($res instanceof PEAR_Error) {

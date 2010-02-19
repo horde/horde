@@ -96,7 +96,7 @@ class IMP_Imap
                 $servers = false;
             }
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             return false;
         }
 
@@ -113,7 +113,7 @@ class IMP_Imap
         /* Check for the existence of the server in the config file. */
         if (empty($servers[$server]) || !is_array($servers[$server])) {
             $entry = sprintf('Invalid server key "%s" from client [%s]', $server, $_SERVER['REMOTE_ADDR']);
-            Horde::logMessage($entry, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($entry, 'ERR');
             return false;
         }
 
@@ -343,7 +343,7 @@ class IMP_Imap
      */
     public function logException($e)
     {
-        Horde::logMessage($e, $e->getFile(), $e->getLine(), PEAR_LOG_ERR);
+        Horde::logMessage($e, 'ERR');
     }
 
     /**

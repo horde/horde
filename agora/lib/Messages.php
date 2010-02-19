@@ -200,7 +200,7 @@ class Agora_Messages {
             $result = $statement->execute($params);
             $statement->free();
             if ($result instanceof PEAR_Error) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
 
@@ -237,7 +237,7 @@ class Agora_Messages {
             $result = $statement->execute($params);
             $statement->free();
             if ($result instanceof PEAR_Error) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
 
@@ -296,7 +296,7 @@ class Agora_Messages {
                 $result = $statement->execute($file_data);
                 $statement->free();
                 if ($result instanceof PEAR_Error) {
-                    Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                    Horde::logMessage($result, 'ERR');
                     return $result;
                 }
                 $attachments = 1;
@@ -306,7 +306,7 @@ class Agora_Messages {
                     . ' WHERE message_id = ' . (int)$info['message_id'];
             $result = $this->_write_db->query($sql);
             if ($result instanceof PEAR_Error) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
         }
@@ -511,7 +511,7 @@ class Agora_Messages {
             . $this->_threads_table . ' WHERE message_id = ?';
         $message = $this->_db->getRow($sql, null, array($message_id));
         if ($message instanceof PEAR_Error) {
-            Horde::logMessage($message, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($message, 'ERR');
             return $message;
         }
 
@@ -589,7 +589,7 @@ class Agora_Messages {
         $thread_id = $this->_db->getOne($sql, null, array($message_id));
 
         if ($thread_id instanceof PEAR_Error) {
-            Horde::logMessage($thread_id, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($thread_id, 'ERR');
             return $thread_id;
         }
 
@@ -600,7 +600,7 @@ class Agora_Messages {
 
         $result = $this->_write_db->query($sql);
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -745,7 +745,7 @@ class Agora_Messages {
         }
 
         $sql .= ', message_modifystamp = ' . $_SERVER['REQUEST_TIME'] . '  WHERE message_id = ' . (int)$thread_id;
-        Horde::logMessage('Query by Agora_Messages::_sequence(): ' . $sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Query by Agora_Messages::_sequence(): ' . $sql, 'DEBUG')
         return $this->_write_db->query($sql);
     }
 
@@ -767,7 +767,7 @@ class Agora_Messages {
             $sql = 'DELETE FROM ' . $this->_threads_table . ' WHERE message_thread = ' . (int)$thread_id;
             $result = $this->_write_db->query($sql);
             if ($result instanceof PEAR_Error) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
 
@@ -784,7 +784,7 @@ class Agora_Messages {
             $sql = 'DELETE FROM ' . $this->_threads_table . ' WHERE forum_id = ' . (int)$this->_forum_id;
             $result = $this->_write_db->query($sql);
             if ($result instanceof PEAR_Error) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
 
@@ -1637,7 +1637,7 @@ class Agora_Messages {
         $sql = 'SELECT file_id, file_name, file_size, file_type FROM agora_files WHERE message_id = ?';
         $files = $this->_db->getAssoc($sql, null, array($message_id));
         if ($files instanceof PEAR_Error || empty($files)) {
-            Horde::logMessage($files, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($files, 'ERR');
             return $files;
         }
 
@@ -1988,7 +1988,7 @@ class Agora_Messages {
                         isset($info['forum_distribution_address']) ? $info['forum_distribution_address'] : '',
                         $info['forum_id']);
 
-        Horde::logMessage('SQL Query by Agora_Message::saveForum(): ' . $sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by Agora_Message::saveForum(): ' . $sql, 'DEBUG');
         $statement = $this->_write_db->prepare($sql);
         if ($statement instanceof PEAR_Error) {
             return $statement;

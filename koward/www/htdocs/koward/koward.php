@@ -18,7 +18,7 @@ try {
 } catch (Exception $e) {
     global $notification, $registry;
 
-    Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+    Horde::logMessage($e, 'DEBUG');
 
     if (isset($notification)) {
         $notification->push($e->getMessage(), 'horde.error');

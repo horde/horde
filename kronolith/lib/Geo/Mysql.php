@@ -29,7 +29,7 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
         $sql = 'SELECT COUNT(*) FROM kronolith_events_geo WHERE event_id = ?';
         $count = $this->_db->getOne($sql, array($event_id));
         if ($count instanceof PEAR_Error) {
-            Horde::logMessage($count, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($count, 'ERR');
             throw new Horde_Exception($count);
         }
 
@@ -50,7 +50,7 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
         }
         $result = $this->_write_db->query($sql, array($event_id));
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             throw new Horde_Exception($result);
         }
 
@@ -68,7 +68,7 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
         $sql = 'SELECT x(event_coordinates) as lat, y(event_coordinates) as lon FROM kronolith_events_geo WHERE event_id = ?';
         $result = $this->_db->getRow($sql, array($event_id), DB_FETCHMODE_ASSOC);
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             throw new Horde_Exception($result);
         }
         return $result;
@@ -103,7 +103,7 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
 
         $results = $this->_db->getAssoc($sql, false, $params, DB_FETCHMODE_ASSOC);
         if ($results instanceof PEAR_Error) {
-            Horde::logMessage($results, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($results, 'ERR');
             throw new Horde_Exception($results);
         }
 

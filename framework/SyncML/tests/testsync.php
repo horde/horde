@@ -45,7 +45,7 @@ $syncml_backend_parms = array(
     /* log all (wb)xml packets received or sent to debug_dir: */
     'debug_files' => true,
     /* Log everything: */
-    'log_level' => PEAR_LOG_DEBUG);
+    'log_level' => 'DEBUG');
 
 /* Get any options. */
 if (!isset($argv)) {

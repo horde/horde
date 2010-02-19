@@ -62,7 +62,7 @@ class Horde_Prefs_Imsp extends Horde_Prefs
 
         $prefs = $this->_imsp->get($scope . '.*');
         if ($prefs instanceof PEAR_Error) {
-            Horde::logMessage($prefs, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($prefs, 'ERR');
             return;
         }
 
@@ -110,7 +110,7 @@ class Horde_Prefs_Imsp extends Horde_Prefs
 
                 $result = $this->_imsp->set($scope . '.' . $name, $value);
                 if ($result instanceof PEAR_Error) {
-                    Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                    Horde::logMessage($result, 'ERR');
                     return;
                 }
 
@@ -146,7 +146,7 @@ class Horde_Prefs_Imsp extends Horde_Prefs
         $this->_imsp = Net_IMSP::factory('Options', $this->_params);
         $result = $this->_imsp->init();
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             throw new Horde_Exception_Prior($result);
         }
 

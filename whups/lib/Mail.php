@@ -153,8 +153,7 @@ class Whups_Mail {
                 $fp = @fopen($tmp_name, 'wb');
                 if (!$fp) {
                     Horde::logMessage(sprintf('Cannot open file %s for writing.',
-                                              $tmp_name),
-                                      __FILE__, __LINE__, PEAR_LOG_ERR);
+                                              $tmp_name), 'ERR');
                     return $ticket;
                 }
                 fwrite($fp, $part->getContents());

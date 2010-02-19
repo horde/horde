@@ -33,7 +33,7 @@ $ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'h:u:p:dt:f:c:',
 
 if ($ret instanceof PEAR_Error) {
     $error = _("Couldn't read command-line options.");
-    Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+    Horde::logMessage($error, 'DEBUG');
     $cli->fatal($error);
 }
 
@@ -78,11 +78,11 @@ if (!empty($username) && !empty($password)) {
     $auth = Horde_Auth::singleton($conf['auth']['driver']);
     if (!$auth->authenticate($username, array('password' => $password))) {
         $error = _("Login is incorrect.");
-        Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_ERR);
+        Horde::logMessage($error, 'ERR');
         $cli->fatal($error);
     } else {
         $msg = sprintf(_("Logged in successfully as \"%s\"."), $username);
-        Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($msg, 'DEBUG');
         $cli->message($msg, 'cli.success');
     }
 }

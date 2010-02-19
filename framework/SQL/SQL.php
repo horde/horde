@@ -294,8 +294,7 @@ class Horde_SQL {
         }
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SQL::insertBlob(): query = "%s"', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('SQL Query by Horde_SQL::insertBlob(): query = "%s"', $query), 'DEBUG');
 
         /* Execute the query. */
         return $this->_db->query($query, $values);
@@ -365,8 +364,7 @@ class Horde_SQL {
         }
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SQL::updateBlob(): query = "%s"', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('SQL Query by Horde_SQL::updateBlob(): query = "%s"', $query), 'DEBUG');
 
         /* Execute the query. */
         return $dbh->query($query, $values);

@@ -427,7 +427,7 @@ case 'resize':
             list($x1, $y1, $x2, $y2) = explode('.', $params);
             $result = $image->crop($x1, $y1, $x2, $y2);
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 $notification->push($result->getMessage(), 'horde.error');
                 $error = true;
             }

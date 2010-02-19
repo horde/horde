@@ -64,7 +64,7 @@ class Wicked_Driver_sql extends Wicked_Driver {
 
         $pages = $this->_retrieve($this->_params['table'], $where);
         if (is_a($pages, 'PEAR_Error')) {
-            Horde::logMessage($pages, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($pages, 'ERR');
             return $pages;
         }
 
@@ -394,8 +394,7 @@ class Wicked_Driver_sql extends Wicked_Driver {
             $params[] = (int)$minor;
         }
 
-        Horde::logMessage('Wicked_Driver_sql::removeAttachment: ' . $sql,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Wicked_Driver_sql::removeAttachment: ' . $sql, 'DEBUG');
 
         $result = $this->_db->query($sql, $params);
         if (is_a($result, 'PEAR_Error')) {
@@ -410,8 +409,7 @@ class Wicked_Driver_sql extends Wicked_Driver {
             $sql .= ' AND attachment_majorversion = ? AND attachment_minorversion = ?';
         }
 
-        Horde::logMessage('Wicked_Driver_sql::removeAttachment: ' . $sql,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Wicked_Driver_sql::removeAttachment: ' . $sql, 'DEBUG');
 
         return $this->_db->query($sql, $params);
     }
@@ -437,8 +435,7 @@ class Wicked_Driver_sql extends Wicked_Driver {
             ' WHERE page_id = ?';
         $params = array($pageId);
 
-        Horde::logMessage('Wicked_Driver_sql::removeAllAttachments: ' . $sql,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Wicked_Driver_sql::removeAllAttachments: ' . $sql, 'DEBUG')
 
         $result = $this->_db->query($sql, $params);
         if (is_a($result, 'PEAR_Error')) {
@@ -450,8 +447,7 @@ class Wicked_Driver_sql extends Wicked_Driver {
         $sql = 'DELETE FROM ' . $this->_params['attachmenthistorytable'] .
             ' WHERE page_id = ?';
 
-        Horde::logMessage('Wicked_Driver_sql::removeAllAttachments: ' . $sql,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Wicked_Driver_sql::removeAllAttachments: ' . $sql, 'DEBUG');
 
         return $this->_db->query($sql, $params);
     }
@@ -475,7 +471,7 @@ class Wicked_Driver_sql extends Wicked_Driver {
                  ' AND attachment_name = ' . $this->_db->quote($file['attachment_name']);
         $attachments = $this->_retrieve($this->_params['attachmenttable'], $where);
         if (is_a($attachments, 'PEAR_Error')) {
-            Horde::logMessage($attachments, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($attachments, 'ERR');
             return $attachments;
         }
 
@@ -501,7 +497,7 @@ class Wicked_Driver_sql extends Wicked_Driver {
                            $this->_db->quote($file['attachment_name']));
             $result = $this->_db->query($sql);
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
 
@@ -516,7 +512,7 @@ class Wicked_Driver_sql extends Wicked_Driver {
                            $this->_db->quote($this->_convertToDriver($file['attachment_name'])));
             $result = $this->_db->query($sql);
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
         } else {
@@ -531,7 +527,7 @@ class Wicked_Driver_sql extends Wicked_Driver {
                            $this->_db->quote($this->_convertToDriver($file['attachment_name'])));
             $result = $this->_db->query($sql);
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
         }
@@ -552,8 +548,7 @@ class Wicked_Driver_sql extends Wicked_Driver {
                  ' SET page_hits = page_hits + 1 WHERE page_name = ?';
         $values = array($this->_convertToDriver($pagename));
 
-        Horde::logMessage('Wicked_Driver_sql::logPageView(' . $pagename . '): ' . $query,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Wicked_Driver_sql::logPageView(' . $pagename . '): ' . $query, 'DEBUG');
 
         return $this->_db->query($query, $values);
     }
@@ -583,7 +578,7 @@ class Wicked_Driver_sql extends Wicked_Driver {
 
         $page_id = $this->_db->nextId($this->_params['table']);
         if (is_a($page_id, 'PEAR_Error')) {
-            Horde::logMessage($page_id, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($page_id, 'ERR');
             return $page_id;
         }
 
@@ -598,15 +593,14 @@ class Wicked_Driver_sql extends Wicked_Driver {
                         time(),
                         $author);
 
-        Horde::logMessage('Wicked_Driver_sql::newPage(): ' . $query,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Wicked_Driver_sql::newPage(): ' . $query, 'DEBUG');
 
         /* Attempt the insertion/update query. */
         $result = $this->_db->query($query, $values);
 
         /* Return an error immediately if the query failed. */
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -636,12 +630,11 @@ class Wicked_Driver_sql extends Wicked_Driver {
                  ' SET page_name = ? WHERE page_name = ?';
         $values = array($this->_convertToDriver($newname), $this->_convertToDriver($pagename));
 
-        Horde::logMessage('Wicked_Driver_sql::renamePage(): ' . $query,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Wicked_Driver_sql::renamePage(): ' . $query, 'DEBUG');
 
         $result = $this->_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -649,12 +642,11 @@ class Wicked_Driver_sql extends Wicked_Driver {
                  ' SET page_name = ? WHERE page_name = ?';
         $values = array($this->_convertToDriver($newname), $this->_convertToDriver($pagename));
 
-        Horde::logMessage('Wicked_Driver_sql::renamePage(): ' . $query,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Wicked_Driver_sql::renamePage(): ' . $query, 'DEBUG');
 
         $result = $this->_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -684,16 +676,14 @@ class Wicked_Driver_sql extends Wicked_Driver {
             $this->_params['table']);
         $values = array($this->_convertToDriver($pagename));
 
-        Horde::logMessage('Page ' . $pagename . ' saved with user agent ' . $GLOBALS['browser']->getAgentString(),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
-        Horde::logMessage('Wicked_Driver_sql::updateText(): ' . $query,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Page ' . $pagename . ' saved with user agent ' . $GLOBALS['browser']->getAgentString(), 'DEBUG');
+        Horde::logMessage('Wicked_Driver_sql::updateText(): ' . $query, 'DEBUG');
 
         $result = $this->_db->query($query, $values);
 
         /* Return an error immediately if the query failed. */
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -718,15 +708,14 @@ class Wicked_Driver_sql extends Wicked_Driver {
                         time(),
                         $this->_convertToDriver($pagename));
 
-        Horde::logMessage('Wicked_Driver_sql::updateText(): ' . $query,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Wicked_Driver_sql::updateText(): ' . $query, 'DEBUG');
 
         /* Attempt the insertion/update query. */
         $result = $this->_db->query($query, $values);
 
         /* Return an error immediately if the query failed. */
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -739,8 +728,7 @@ class Wicked_Driver_sql extends Wicked_Driver {
         if (!isset($pageNames) || $no_cache) {
             $query = 'SELECT page_id, page_name FROM ' . $this->_params['table'];
 
-            Horde::logMessage('Wicked_Driver_sql::getPages(): ' . $query,
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('Wicked_Driver_sql::getPages(): ' . $query, 'DEBUG');
 
             $result = $this->_db->getAssoc($query);
             if (is_a($result, 'PEAR_Error')) {
@@ -767,8 +755,7 @@ class Wicked_Driver_sql extends Wicked_Driver {
                  ' WHERE page_name = ? AND page_majorversion = ? AND page_minorversion = ?';
         $values = array($this->_convertToDriver($pagename), $major, $minor);
 
-        Horde::logMessage('Wicked_Driver_sql::removeVersion(): ' . $query,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Wicked_Driver_sql::removeVersion(): ' . $query, 'DEBUG');
 
         $result = $this->_db->getOne($query, $values);
         if ($result && !is_a($result, 'PEAR_Error')) {
@@ -778,12 +765,11 @@ class Wicked_Driver_sql extends Wicked_Driver {
                      ' WHERE page_name = ? ORDER BY page_majorversion DESC, page_minorversion DESC';
             $query = $this->_db->modifyLimitQuery($query, 0, 1, array($this->_convertToDriver($pagename)));
 
-            Horde::logMessage('Wicked_Driver_sql::removeVersion(): ' . $query,
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('Wicked_Driver_sql::removeVersion(): ' . $query, 'DEBUG');
 
             $revision = $this->_db->getRow($query, array($this->_convertToDriver($pagename)), DB_FETCHMODE_ASSOC);
             if (is_a($revision, 'PEAR_Error')) {
-                Horde::logMessage($revision, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($revision, 'ERR');
                 return $revision;
             }
 
@@ -801,12 +787,11 @@ class Wicked_Driver_sql extends Wicked_Driver {
                             $revision['change_log'],
                             $this->_convertToDriver($pagename));
 
-            Horde::logMessage('Wicked_Driver_sql::removeVersion(): ' . $query,
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('Wicked_Driver_sql::removeVersion(): ' . $query, 'DEBUG');
 
             $result = $this->_db->query($query, $values);
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
 
@@ -816,12 +801,11 @@ class Wicked_Driver_sql extends Wicked_Driver {
                 ' WHERE page_name = ? and page_majorversion = ? and page_minorversion = ?';
             $values = array($this->_convertToDriver($pagename), $revision['page_majorversion'], $revision['page_minorversion']);
 
-            Horde::logMessage('Wicked_Driver_sql::removeVersion(): ' . $query,
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('Wicked_Driver_sql::removeVersion(): ' . $query, 'DEBUG');
 
             $result = $this->_db->query($query, $values);
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
         } else {
@@ -830,12 +814,11 @@ class Wicked_Driver_sql extends Wicked_Driver {
             $query = 'DELETE FROM ' . $this->_params['historytable'] .
                 ' WHERE page_name = ? and page_majorversion = ? and page_minorversion = ?';
 
-            Horde::logMessage('Wicked_Driver_sql::removeVersion(): ' . $query,
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('Wicked_Driver_sql::removeVersion(): ' . $query, 'DEBUG');
 
             $result = $this->_db->query($query, $values);
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
         }
@@ -853,12 +836,11 @@ class Wicked_Driver_sql extends Wicked_Driver {
                  ' WHERE page_name = ?';
         $values = array($this->_convertToDriver($pagename));
 
-        Horde::logMessage('Wicked_Driver_sql::removeAllVersions(): ' . $query,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Wicked_Driver_sql::removeAllVersions(): ' . $query, 'DEBUG');
 
         $result = $this->_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -866,12 +848,11 @@ class Wicked_Driver_sql extends Wicked_Driver {
                  ' WHERE page_name = ?';
         $values = array($this->_convertToDriver($pagename));
 
-        Horde::logMessage('Wicked_Driver_sql::removeAllVersions(): ' . $query,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Wicked_Driver_sql::removeAllVersions(): ' . $query, 'DEBUG');
 
         $result = $this->_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -903,8 +884,7 @@ class Wicked_Driver_sql extends Wicked_Driver {
             $query = $this->_db->modifyLimitQuery($query, 0, $limit);
         }
 
-        Horde::logMessage('Wicked_Driver_sql::_retrieve(): ' . $query,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Wicked_Driver_sql::_retrieve(): ' . $query, 'DEBUG');
 
         $result = $this->_db->query($query);
         if (is_a($result, 'PEAR_Error')) {

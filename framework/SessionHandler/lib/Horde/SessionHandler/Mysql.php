@@ -124,11 +124,11 @@ class Horde_SessionHandler_Mysql extends Horde_SessionHandler
         }
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Mysql::_read(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Mysql::_read(): query = "%s"', $query), 'DEBUG');
 
         $result = @mysql_query($query, $this->_db);
         if (!$result) {
-            Horde::logMessage('Error retrieving session data (id = ' . $id . '): ' . mysql_error($this->_db), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage('Error retrieving session data (id = ' . $id . '): ' . mysql_error($this->_db), 'ERR');
             return '';
         }
 
@@ -167,7 +167,7 @@ class Horde_SessionHandler_Mysql extends Horde_SessionHandler
         }
         if (!$result) {
             @mysql_query('ROLLBACK', $this->_db);
-            Horde::logMessage('Error writing session data: ' . $error, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage('Error writing session data: ' . $error, 'ERR');
             return false;
         }
 
@@ -195,7 +195,7 @@ class Horde_SessionHandler_Mysql extends Horde_SessionHandler
                          $this->_params['table'], $this->_quote($id));
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Mysql::destroy(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Mysql::destroy(): query = "%s"', $query), 'DEBUG');
 
         /* Execute the query. */
         $result = @mysql_query($query, $this->_db);
@@ -207,7 +207,7 @@ class Horde_SessionHandler_Mysql extends Horde_SessionHandler
         }
         if (!$result) {
             @mysql_query('ROLLBACK', $this->_db);
-            Horde::logMessage('Failed to delete session (id = ' . $id . '): ' . $error, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage('Failed to delete session (id = ' . $id . '): ' . $error, 'ERR');
             return false;
         }
 
@@ -235,12 +235,12 @@ class Horde_SessionHandler_Mysql extends Horde_SessionHandler
                          $this->_params['table'], (int)(time() - $maxlifetime));
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Mysql::gc(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Mysql::gc(): query = "%s"', $query), 'DEBUG');
 
         /* Execute the query. */
         $result = @mysql_query($query, $this->_db);
         if (!$result) {
-            Horde::logMessage('Error garbage collecting old sessions: ' . mysql_error($this->_db), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage('Error garbage collecting old sessions: ' . mysql_error($this->_db), 'ERR');
             return false;
         }
 
@@ -264,7 +264,7 @@ class Horde_SessionHandler_Mysql extends Horde_SessionHandler
                          time() - ini_get('session.gc_maxlifetime'));
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Mysql::getSessionIDs(): query = "%s"', $query), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Mysql::getSessionIDs(): query = "%s"', $query), 'DEBUG');
 
         $result = @mysql_query($query, $this->_db);
         if (!$result) {

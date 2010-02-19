@@ -91,7 +91,7 @@ class Turba_Driver_Imsp extends Turba_Driver
             }
         }
 
-        Horde::logMessage('IMSP Driver initialized for ' . $this->_bookName, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('IMSP Driver initialized for ' . $this->_bookName, 'DEBUG');
         $this->_authenticated = true;
         return true;
     }
@@ -131,7 +131,7 @@ class Turba_Driver_Imsp extends Turba_Driver
         }
 
         Horde::logMessage(sprintf('IMSP returned %s results',
-                                  count($results)), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                  count($results)), 'DEBUG');
         return array_values($results);
     }
 

@@ -59,8 +59,7 @@ class Horde_Kolab_Resource_Freebusy_Kolab extends Horde_Kolab_Resource_Freebusy
         $url = self::getUrl($resource);
 
         Horde::logMessage(sprintf('Freebusy URL for resource %s is %s',
-                                  $resource, $url),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                  $resource, $url), 'DEBUG');
 
         list($user, $domain) = explode('@', $resource);
         if (empty($domain)) {

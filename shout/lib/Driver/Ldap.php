@@ -173,7 +173,7 @@ class Shout_Driver_Ldap extends Shout_Driver
         if ($res === false) {
             $msg = sprintf('Error while modifying the LDAP entry.  Code %s; Message "%s"',
                            ldap_errno($this->_LDAP), ldap_error($this->_LDAP));
-            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($msg, 'ERR');
             throw new Shout_Exception(_("Internal error modifing the directory.  Details have been logged for the administrator."));
         }
 
@@ -201,7 +201,7 @@ class Shout_Driver_Ldap extends Shout_Driver
         if ($res === false) {
             $msg = sprintf('Error while searching LDAP.  Code %s; Message "%s"',
                            ldap_errno($this->_LDAP), ldap_error($this->_LDAP));
-            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($msg, 'ERR');
             throw new Shout_Exception(_("Internal error searching the directory."));
         }
 
@@ -210,14 +210,14 @@ class Shout_Driver_Ldap extends Shout_Driver
         if ($res === false) {
             $msg = sprintf('Error while searching LDAP.  Code %s; Message "%s"',
                            ldap_errno($this->_LDAP), ldap_error($this->_LDAP));
-            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($msg, 'ERR');
             throw new Shout_Exception(_("Internal error searching the directory."));
         }
 
         if ($res['count'] != 1) {
             $msg = sprintf('Error while searching LDAP.  Code %s; Message "%s"',
                            ldap_errno($this->_LDAP), ldap_error($this->_LDAP));
-            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($msg, 'ERR');
             throw new Shout_Exception(_("Wrong number of entries found for this search."));
         }
 
@@ -234,7 +234,7 @@ class Shout_Driver_Ldap extends Shout_Driver
         if ($res === false) {
             $msg = sprintf('Error while modifying the LDAP entry.  Code %s; Message "%s"',
                            ldap_errno($this->_LDAP), ldap_error($this->_LDAP));
-            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($msg, 'ERR');
             throw new Shout_Exception(_("Internal error modifing the directory.  Details have been logged for the administrator."));
         }
 
@@ -291,7 +291,7 @@ class Shout_Driver_Ldap extends Shout_Driver
 //        if ($res === false) {
 //            $msg = sprintf('LDAP Error (%s): %s', ldap_errno($this->_LDAP),
 //                                                  ldap_error($this->_LDAP));
-//            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+//            Horde::logMessage($msg, 'ERR');
 //            throw new Shout_Exception(_("Error while searching the directory.  Details have been logged for the administrator."));
 //        }
 //        if (($res['count'] != 1) ||
@@ -328,7 +328,7 @@ class Shout_Driver_Ldap extends Shout_Driver
                 if ($res === false) {
                     $msg = sprintf('LDAP Error (%s): %s', ldap_errno($this->_LDAP),
                                                       ldap_error($this->_LDAP));
-                    Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+                    Horde::logMessage($msg, 'ERR');
                     throw new Shout_Exception(_("Error while modifying the directory.  Details have been logged for the administrator."));
                 }
             }
@@ -340,7 +340,7 @@ class Shout_Driver_Ldap extends Shout_Driver
             if ($res === false) {
                 $msg = sprintf('LDAP Error (%s): %s', ldap_errno($this->_LDAP),
                                                       ldap_error($this->_LDAP));
-                Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($msg, 'ERR');
                 throw new Shout_Exception(_("Error while modifying the directory.  Details have been logged for the administrator."));
             }
 
@@ -351,7 +351,7 @@ class Shout_Driver_Ldap extends Shout_Driver
             if ($res === false) {
                 $msg = sprintf('LDAP Error (%s): %s', ldap_errno($this->_LDAP),
                                                       ldap_error($this->_LDAP));
-                Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($msg, 'ERR');
                 throw new Shout_Exception(_("Error while modifying the directory.  Details have been logged for the administrator."));
             }
             return true;
@@ -380,7 +380,7 @@ class Shout_Driver_Ldap extends Shout_Driver
         if ($res === false) {
             $msg = sprintf('LDAP Error (%s): %s', ldap_errno($this->_LDAP),
                                                   ldap_error($this->_LDAP));
-            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($msg, 'ERR');
             throw new Horde_Exception(_("Error while deleting from the directory.  Details have been logged for the administrator."));
         }
 
@@ -404,7 +404,7 @@ class Shout_Driver_Ldap extends Shout_Driver
         if ($res === false) {
             $msg = sprintf('LDAP Error (%s): %s', ldap_errno($this->_LDAP),
                                                   ldap_error($this->_LDAP));
-            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($msg, 'ERR');
             throw new Shout_Exception(_("Error while searching the directory.  Details have been logged for the administrator."));
         }
 
@@ -416,7 +416,7 @@ class Shout_Driver_Ldap extends Shout_Driver
         if ($res === false) {
             $msg = sprintf('LDAP Error (%s): %s', ldap_errno($this->_LDAP),
                                                   ldap_error($this->_LDAP));
-            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($msg, 'ERR');
             throw new Shout_Exception(_("Error while searching the directory.  Details have been logged for the administrator."));
         }
 
@@ -424,7 +424,7 @@ class Shout_Driver_Ldap extends Shout_Driver
         if ($dn === false) {
             $msg = sprintf('LDAP Error (%s): %s', ldap_errno($this->_LDAP),
                                                   ldap_error($this->_LDAP));
-            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($msg, 'ERR');
             throw new Shout_Exception(_("Internal LDAP error.  Details have been logged for the administrator."));
         }
 
@@ -456,8 +456,7 @@ class Shout_Driver_Ldap extends Shout_Driver
         if (!$conn) {
              Horde::logMessage(
                 sprintf('Failed to open an LDAP connection to %s.',
-                        $this->_params['hostspec']),
-                __FILE__, __LINE__, PEAR_LOG_ERR);
+                        $this->_params['hostspec']), 'ERR');
             throw new Shout_Exception('Internal LDAP error. Details have been logged for the administrator.');
         }
 
@@ -470,8 +469,7 @@ class Shout_Driver_Ldap extends Shout_Driver
                     sprintf('Set LDAP protocol version to %d failed: [%d] %s',
                             $this->_params['version'],
                             ldap_errno($conn),
-                            ldap_error($conn)),
-                    __FILE__, __LINE__, PEAR_LOG_WARNING);
+                            ldap_error($conn)), 'WARN');
                 throw new Shout_Exception('Internal LDAP error. Details have been logged for the administrator.', ldap_errno($conn));
             }
         }
@@ -482,8 +480,7 @@ class Shout_Driver_Ldap extends Shout_Driver
                 Horde::logMessage(
                     sprintf('STARTTLS failed: [%d] %s',
                             @ldap_errno($this->_ds),
-                            @ldap_error($this->_ds)),
-                    __FILE__, __LINE__, PEAR_LOG_ERR);
+                            @ldap_error($this->_ds)), 'ERR');
             }
         }
 
@@ -499,8 +496,7 @@ class Shout_Driver_Ldap extends Shout_Driver
                             $this->_params['port'],
                             $this->_params['searchdn'],
                             @ldap_errno($conn),
-                            @ldap_error($conn)),
-                    __FILE__, __LINE__, PEAR_LOG_ERR);
+                            @ldap_error($conn)), 'ERR');
                 throw new Shout_Exception('Internal LDAP error. Details have been logged for the administrator.', ldap_errno($conn));
             }
         }

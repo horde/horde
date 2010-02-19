@@ -288,7 +288,7 @@ class AttachedFiles extends Page {
         $result = $wicked->attachFile($file, $data);
         if (is_a($result, 'PEAR_Error')) {
             $notification->push($result, 'horde.error');
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 

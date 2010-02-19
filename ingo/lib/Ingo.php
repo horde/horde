@@ -378,7 +378,7 @@ class Ingo
     {
         $rulesets = $GLOBALS['ingo_shares']->listShares(Horde_Auth::getAuth(), $permission, $owneronly ? Horde_Auth::getAuth() : null);
         if ($rulesets instanceof PEAR_Error) {
-            Horde::logMessage($rulesets, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($rulesets, 'ERR');
             return array();
         }
 

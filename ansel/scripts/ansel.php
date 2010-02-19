@@ -21,7 +21,7 @@ $ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(),
 
 if (is_a($ret, 'PEAR_Error')) {
     $error = _("Couldn't read command-line options.");
-    Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+    Horde::logMessage($error, 'DEBUG');
     $cli->fatal($error);
 }
 
@@ -91,11 +91,11 @@ if (!empty($username) && !empty($password)) {
     $auth = Horde_Auth::singleton($conf['auth']['driver']);
     if (!$auth->authenticate($username, array('password' => $password))) {
         $error = _("Login is incorrect.");
-        Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_ERR);
+        Horde::logMessage($error, 'ERR');
         $cli->fatal($error);
     } else {
         $msg = sprintf(_("Logged in successfully as \"%s\"."), $username);
-        Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($msg, 'DEBUG');
         $cli->message($msg, 'cli.success');
     }
 }
@@ -104,7 +104,7 @@ if (!empty($username) && !empty($password)) {
 if (!empty($galleryId)) {
     if (!$ansel_storage->galleryExists($galleryId)) {
         $error = sprintf(_("Invalid gallery \"%s\" specified."), $galleryId);
-        Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_WARNING);
+        Horde::logMessage($error, 'WARN');
         $cli->fatal($error);
     } else {
         $gallery = $ansel_storage->getGallery($galleryId);
@@ -112,7 +112,7 @@ if (!empty($galleryId)) {
             !$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
             $error = sprintf(_("Access denied adding photos to \"%s\"."),
                              $galleryId);
-            Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_WARNING);
+            Horde::logMessage($error, 'WARN');
             $cli->fatal($error);
         }
     }
@@ -134,12 +134,12 @@ if (!empty($createGallery)) {
         $galleryId = null;
         $error = sprintf(_("The gallery \"%s\" couldn't be created: %s"),
                          $gallery_name, $gallery->getMessage());
-        Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_ERR);
+        Horde::logMessage($error, 'ERR');
         $cli->fatal($error);
     } else {
         $msg = sprintf(_("The gallery \"%s\" was created successfully."),
                        $gallery_name);
-        Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($msg, 'DEBUG');
         $cli->message($msg, 'cli.success');
     }
 }
@@ -164,7 +164,7 @@ if (!empty($list)) {
         $galleries = $GLOBALS['ansel_storage']->listGalleries();
         if (is_a($galleries, 'PEAR_Error')) {
             $error = _("Couldn't list galleries.");
-            Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage($error, 'DEBUG');
             $cli->fatal($error);
         }
 
@@ -175,7 +175,7 @@ if (!empty($list)) {
             $name = $gallery->get('name');
             $msg = "$id/$name";
             $cli->writeln($msg);
-            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage($msg, 'DEBUG');
         }
     }
 }
@@ -184,7 +184,7 @@ if (!empty($list)) {
 if (!empty($file) && isset($gallery) && !is_a($gallery, 'PEAR_Error')) {
     $image = &Ansel::getImageFromFile($file, array('caption' => $caption));
     if (is_a($image, 'PEAR_Error')) {
-        Horde::logMessage($image->getMessage(), __FILE__, __LINE__, PEAR_LOG_WARNING);
+        Horde::logMessage($image, 'WARN');
         $cli->fatal($image->getMessage());
     }
 
@@ -193,32 +193,32 @@ if (!empty($file) && isset($gallery) && !is_a($gallery, 'PEAR_Error')) {
     if (is_a($image_id, 'PEAR_Error')) {
         $error = sprintf(_("There was a problem adding the photo \"%s\" to gallery \"%s\": %s"),
                          basename($file), $galleryId, $image_id->getMessage());
-        Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_ERR);
+        Horde::logMessage($error, 'ERR');
         $cli->fatal($error);
     }
 
     $msg = sprintf(_("Successfully added photo \"%s\" to gallery \"%s\"."),
                    basename($file), $galleryId);
     $cli->message($msg, 'cli.success');
-    Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_NOTICE);
+    Horde::logMessage($msg, 'NOTICE');
 }
 
 // Add all images from a directory on the filesystem.
 if (!empty($dir) && isset($gallery) && !is_a($gallery, 'PEAR_Error')) {
     $msg = addDirToGallery($dir, $gallery);
     if (is_a($msg, 'PEAR_Error')) {
-        Horde::logMessage($msg->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+        Horde::logMessage($msg, 'ERR');
         $cli->fatal($msg->getMessage());
     }
     if ($msg) {
         $msg = sprintf(ngettext("Successfully added %d photo (%s) to gallery \"%s\" from \"%s\".", "Successfully added %d photos (%s) to gallery \"%s\" from \"%s\".", count($msg)),
                        count($msg), join(', ', $msg), $galleryId, $dir);
         $cli->message($msg, 'cli.success');
-        Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_NOTICE);
+        Horde::logMessage($msg, 'NOTICE');
     } else {
         $msg = sprintf(_("The directory \"%s\" had no valid photos."), $dir);
         $cli->message($msg, 'cli.warning');
-        Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_WARNING);
+        Horde::logMessage($msg, 'WARN');
     }
 }
 
@@ -239,7 +239,7 @@ function addDirToGallery($dir = '', &$gallery)
 
     if (!file_exists($dir)) {
         $error = sprintf(_("The directory \"%s\" doesn't exist."), $dir);
-        Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_ERR);
+        Horde::logMessage($error, 'ERR');
         return PEAR::raiseError($error);
     }
 
@@ -256,7 +256,7 @@ function addDirToGallery($dir = '', &$gallery)
 
     if (!$files_array) {
         $error = sprintf(_("The directory \"%s\" is empty."), $dir);
-        Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_ERR);
+        Horde::logMessage($error, 'ERR');
         return PEAR::raiseError($error);
     }
     chdir($dir);
@@ -266,7 +266,7 @@ function addDirToGallery($dir = '', &$gallery)
     foreach ($files_array as $file) {
         $image = Ansel::getImageFromFile($dir . '/' . $file);
         if (is_a($image, 'PEAR_Error')) {
-            Horde::logMessage($image->getMessage(), __FILE__, __LINE__, PEAR_LOG_WARNING);
+            Horde::logMessage($image, 'WARN');
             $cli->message($image->getMessage(), 'cli.error');
             continue;
         }
@@ -276,7 +276,7 @@ function addDirToGallery($dir = '', &$gallery)
         if (is_a($image_id, 'PEAR_Error')) {
             $error = sprintf(_("There was a problem adding the photo \"%s\" to gallery \"%s\"."),
                              $file, $galleryId);
-            Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($error, 'ERR');
             $cli->message($image_id->getMessage(), 'cli.error');
             continue;
         }

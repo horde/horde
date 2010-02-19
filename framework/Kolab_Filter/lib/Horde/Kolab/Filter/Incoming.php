@@ -70,8 +70,7 @@ class Horde_Kolab_Filter_Incoming extends Horde_Kolab_Filter_Base
                 /* Done with headers */
                 $headers_done = true;
             } else if (eregi('^Content-Type: text/calendar', $line)) {
-                Horde::logMessage("Found iCal data in message",
-                                  __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                Horde::logMessage("Found iCal data in message", 'DEBUG');
                 $ical = true;
             } else if (eregi('^Message-ID: (.*)', $line, $regs)) {
                 $this->_id = $regs[1];
@@ -137,8 +136,7 @@ class Horde_Kolab_Filter_Incoming extends Horde_Kolab_Filter_Base
                 }
                 Horde::logMessage(sprintf("Calling resmgr_filter(%s, %s, %s, %s)",
                                           $this->_fqhostname, $this->_sender,
-                                          $resource, $this->_tmpfile), __FILE__, __LINE__,
-                                  PEAR_LOG_DEBUG);
+                                          $resource, $this->_tmpfile), 'DEBUG');
                 $r = new Kolab_Resource();
                 $rc = $r->handleMessage($this->_fqhostname, $this->_sender,
                                         $resource, $this->_tmpfile);
@@ -157,8 +155,7 @@ class Horde_Kolab_Filter_Incoming extends Horde_Kolab_Filter_Base
 
         /* Check if we still have recipients */
         if (empty($this->_recipients)) {
-            Horde::logMessage("No recipients left.",
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage("No recipients left.", 'DEBUG');
             return;
         } else {
             $result = $this->_deliver($transport);
@@ -167,8 +164,7 @@ class Horde_Kolab_Filter_Incoming extends Horde_Kolab_Filter_Base
             }
         }
 
-        Horde::logMessage("Filter_Incoming successfully completed.",
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage("Filter_Incoming successfully completed.", 'DEBUG');
     }
 
     /**
@@ -216,15 +212,13 @@ class Horde_Kolab_Filter_Incoming extends Horde_Kolab_Filter_Base
                 return $dn;
             }
             if (!$dn) {
-                Horde::logMessage(sprintf('User %s does not exist!', $real_recipient),
-                                  __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                Horde::logMessage(sprintf('User %s does not exist!', $real_recipient), 'DEBUG');
             }
             try {
                 $user = $server->fetch($dn, 'Horde_Kolab_Server_Object_Kolab_User');
             } catch (Horde_Kolab_Server_Exception $e) {
                 Horde::logMessage(sprintf('Failed fetching user object %s. Error was:',
-                                          $dn, $e->getMessage()),
-                                  __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                          $dn, $e->getMessage()), 'DEBUG');
                 $user->code = OUT_LOG | EX_TEMPFAIL;
                 return $user;
             }

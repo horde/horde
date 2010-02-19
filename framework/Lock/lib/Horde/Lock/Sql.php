@@ -110,7 +110,7 @@ class Horde_Lock_Sql extends Horde_Lock
     public function getLockInfo($lockid)
     {
        if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             throw new Horde_Lock_Exception(_("Internal database error.  Details have been logged for the administrator."));
         }
 
@@ -121,8 +121,7 @@ class Horde_Lock_Sql extends Horde_Lock
                ' WHERE lock_id = ? AND lock_expiry_timestamp >= ?';
         $values = array($lockid, $now);
 
-        Horde::logMessage('SQL Query by Horde_Lock_sql::getLockInfo(): ' . $sql,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by Horde_Lock_sql::getLockInfo(): ' . $sql, 'DEBUG');
         $result = $this->_db->query($sql, $values);
         if (is_a($result, 'PEAR_Error')) {
             throw new Horde_Lock_Exception($result->getMessage());
@@ -147,7 +146,7 @@ class Horde_Lock_Sql extends Horde_Lock
     public function getLocks($scope = null, $principal = null, $type = null)
     {
         if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             throw new Horde_Lock_Exception(_("Internal database error.  Details have been logged for the administrator."));
         }
 
@@ -172,8 +171,7 @@ class Horde_Lock_Sql extends Horde_Lock
             $values[] = $type;
         }
 
-        Horde::logMessage('SQL Query by Horde_Lock_sql::getLocks(): ' . $sql,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by Horde_Lock_sql::getLocks(): ' . $sql, 'DEBUG');
         $result = $this->_db->query($sql, $values);
         if (is_a($result, 'PEAR_Error')) {
             throw new Horde_Lock_Exception($result->getMessage());
@@ -198,7 +196,7 @@ class Horde_Lock_Sql extends Horde_Lock
     public function resetLock($lockid, $extend)
     {
        if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             throw new Horde_Lock_Exception(_("Internal database error.  Details have been logged for the administrator."));
         }
 
@@ -212,13 +210,12 @@ class Horde_Lock_Sql extends Horde_Lock
                    'WHERE lock_id = ?';
             $values = array($now, $expiry, $lockid);
 
-            Horde::logMessage('SQL Query by Horde_Lock_sql::resetLock(): ' .
-                              $sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('SQL Query by Horde_Lock_sql::resetLock(): ' . $sql, 'DEBUG');
             $result = $this->_write_db->query($sql, $values);
             if (is_a($result, 'PEAR_Error')) {
                 throw new Horde_Lock_Exception($result->getMessage());
             }
-            Horde::logMessage(sprintf('Lock %s reset successfully.', $lockid), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage(sprintf('Lock %s reset successfully.', $lockid), 'DEBUG');
             return true;
         } elseif (is_a($lockinfo, 'PEAR_Error')) {
             throw new Horde_Lock_Exception($lockinfo->getMessage());
@@ -240,7 +237,7 @@ class Horde_Lock_Sql extends Horde_Lock
                      $lifetime = 1, $type = self::TYPE_SHARED)
     {
        if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             throw new Horde_Lock_Exception(_("Internal database error.  Details have been logged for the administrator."));
         }
 
@@ -251,7 +248,7 @@ class Horde_Lock_Sql extends Horde_Lock
 
         if (count($oldlocks) != 0) {
             // An exclusive lock exists.  Deny the new request.
-            Horde::logMessage(sprintf('Lock requested for %s denied due to existing exclusive lock.', $principal), __FILE__, __LINE__, PEAR_LOG_NOTICE);
+            Horde::logMessage(sprintf('Lock requested for %s denied due to existing exclusive lock.', $principal), 'NOTICE');
             return false;
         }
 
@@ -263,14 +260,13 @@ class Horde_Lock_Sql extends Horde_Lock
         $values = array($lockid, $requestor, $scope, $principal, $now, $now,
                         $expiration, $type);
 
-        Horde::logMessage('SQL Query by Horde_Lock_sql::setLock(): ' . $sql,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by Horde_Lock_sql::setLock(): ' . $sql, 'DEBUG');
         $result = $this->_write_db->query($sql, $values);
         if (is_a($result, 'PEAR_Error')) {
             throw new Horde_Lock_Exception($result->getMessage());
         }
 
-        Horde::logMessage(sprintf('Lock %s set successfully by %s in scope %s on "%s"', $lockid, $requestor, $scope, $principal), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Lock %s set successfully by %s in scope %s on "%s"', $lockid, $requestor, $scope, $principal), 'DEBUG');
         return $lockid;
     }
 
@@ -285,7 +281,7 @@ class Horde_Lock_Sql extends Horde_Lock
     public function clearLock($lockid)
     {
         if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             throw new Horde_Lock_Exception(_("Internal database error.  Details have been logged for the administrator."));
         }
 
@@ -299,14 +295,13 @@ class Horde_Lock_Sql extends Horde_Lock
         $sql = 'DELETE FROM ' . $this->_params['table'] . ' WHERE lock_id = ?';
         $values = array($lockid);
 
-        Horde::logMessage('SQL Query by Horde_Lock_sql::clearLock(): ' . $sql,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by Horde_Lock_sql::clearLock(): ' . $sql, 'DEBUG');
         $result = $this->_write_db->query($sql, $values);
         if (is_a($result, 'PEAR_Error')) {
             throw new Horde_Lock_Exception($result->getMessage());
         }
 
-        Horde::logMessage(sprintf('Lock %s cleared successfully.', $lockid), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Lock %s cleared successfully.', $lockid), 'DEBUG');
         return true;
     }
 
@@ -324,7 +319,7 @@ class Horde_Lock_Sql extends Horde_Lock
         try {
             Horde_Util::assertDriverConfig($this->_params, array('phptype'), 'Lock SQL');
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             throw new Horde_Lock_Exception($e);
         }
 
@@ -334,7 +329,7 @@ class Horde_Lock_Sql extends Horde_Lock
                   'ssl' => !empty($this->_params['ssl']))
         );
         if (is_a($this->_write_db, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             throw new Horde_Lock_Exception($this->_write_db->getMessage());
         }
 
@@ -355,7 +350,7 @@ class Horde_Lock_Sql extends Horde_Lock
                       'ssl' => !empty($params['ssl']))
             );
             if (is_a($this->_db, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 throw new Horde_Lock_Exception($this->_db->getMessage());
             }
 
@@ -382,7 +377,7 @@ class Horde_Lock_Sql extends Horde_Lock
     private function _doGC()
     {
         if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return false;
         }
 
@@ -392,15 +387,14 @@ class Horde_Lock_Sql extends Horde_Lock
                  'lock_expiry_timestamp < ? AND lock_expiry_timestamp != 0';
         $values = array($now);
 
-        Horde::logMessage('SQL Query by Horde_Lock_sql::_doGC(): ' .  $sql,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by Horde_Lock_sql::_doGC(): ' .  $sql, 'DEBUG');
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return false;
         }
 
-        Horde::logMessage(sprintf('Lock garbage collection cleared %d locks.', $this->_write_db->affectedRows()), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Lock garbage collection cleared %d locks.', $this->_write_db->affectedRows()), 'DEBUG');
         return true;
     }
 

@@ -104,7 +104,7 @@ class Horde_String
             // this line, but add a check and a log message to help the devs
             // track down and fix this issue.
             if (is_a($input, 'PEAR_Error')) {
-                Horde::logMessage('Called convertCharset() on a PEAR_Error object. ' . print_r($input, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                Horde::logMessage('Called convertCharset() on a PEAR_Error object. ' . print_r($input, true), 'DEBUG');
                 return '';
             }
             $input = Horde_Util::cloneObject($input);

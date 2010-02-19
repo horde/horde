@@ -95,7 +95,7 @@ class Vilma_Driver {
      */
     function getAddressInfo($address, $type = 'all')
     {
-        Horde::logMessage("Get Addresses Called for $domain with type $type and key $key", __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage("Get Addresses Called for $domain with type $type and key $key", 'DEBUG');
         $domain = Vilma::stripDomain($address);
         $addresses = $this->getAddresses($domain, $type);
         foreach($addresses as $addrinfo) {
@@ -168,7 +168,7 @@ class Vilma_Driver {
      */
     function saveAlias(&$info)
     {
-        Horde::logMessage("saveAlias called with info: " . print_r($info, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage("saveAlias called with info: " . print_r($info, true), 'DEBUG');
         $result = $this->_saveAlias($info);
         if (is_a($result, 'PEAR_Error')) {
           return $result;
@@ -186,7 +186,7 @@ class Vilma_Driver {
      */
     function deleteAlias(&$info)
     {
-        Horde::logMessage("deleteAlias called with info: " . print_r($info, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage("deleteAlias called with info: " . print_r($info, true), 'DEBUG');
         $result = $this->_deleteAlias($info);
         if (is_a($result, 'PEAR_Error')) {
           return $result;
@@ -205,7 +205,7 @@ class Vilma_Driver {
      */
     function saveForward(&$info)
     {
-        Horde::logMessage("saveForward called with info: " . print_r($info, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage("saveForward called with info: " . print_r($info, true), 'DEBUG');
         $result = $this->_saveForward($info);
         if (is_a($result, 'PEAR_Error')) {
           return $result;
@@ -223,7 +223,7 @@ class Vilma_Driver {
      */
     function deleteForward(&$info)
     {
-        Horde::logMessage("deleteForward called with info: " . print_r($info, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage("deleteForward called with info: " . print_r($info, true), 'DEBUG');
         $result = $this->_deleteForwrd($info);
         if (is_a($result, 'PEAR_Error')) {
           return $result;

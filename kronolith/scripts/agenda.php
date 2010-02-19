@@ -155,8 +155,7 @@ function send_agendas()
         try {
             $mime_mail->addRecipients($email);
         } catch (Horde_Mime_Exception $e) {}
-        Horde::logMessage(sprintf('Sending daily agenda to %s', $email),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Sending daily agenda to %s', $email), 'DEBUG');
         try {
             $mime_mail->send(Horde::getMailerConfig(), false, false);
         } catch (Horde_Mime_Exception $e) {}

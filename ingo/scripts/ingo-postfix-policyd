@@ -81,18 +81,18 @@ while (!feof(STDIN)) {
         $query[$key] = $value;
     } elseif ($line == "\n") {
         if (empty($query['request']) || $query['request'] != 'smtpd_access_policy') {
-            Horde::logMessage('Unrecognized request: ' . substr(var_export($query, true), 0, 200), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage('Unrecognized request: ' . substr(var_export($query, true), 0, 200), 'ERR');
             exit(1);
         }
 
-        Horde::logMessage(var_export($query, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(var_export($query, true), 'DEBUG');
         $action = smtpd_access_policy($query);
-        Horde::logMessage("Action: $action", __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage("Action: $action", 'DEBUG');
         echo "action=$action\n\n";
         @ob_flush();
         $query = array();
     } else {
-        Horde::logMessage('Ignoring garbage: ' . substr($line, 0, 100), __FILE__, __LINE__, PEAR_LOG_INFO);
+        Horde::logMessage('Ignoring garbage: ' . substr($line, 0, 100), 'INFO');
     }
 }
 

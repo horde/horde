@@ -156,7 +156,7 @@ class Vilma_Driver_sql extends Vilma_Driver {
                $binds[0] . ' ORDER BY domain_name';
         $values = $binds[1];
 
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
         return $this->_db->getAll($sql, $values, DB_FETCHMODE_ASSOC);
     }
 
@@ -174,7 +174,7 @@ class Vilma_Driver_sql extends Vilma_Driver {
                ' WHERE ' . $this->_getTableField('domains', 'domain_id') . ' = ?' . $binds[0];
         array_unshift($binds[1], (int)$domain_id);
 
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
         return $this->_db->getRow($sql, $binds[1], DB_FETCHMODE_ASSOC);
     }
 
@@ -192,7 +192,7 @@ class Vilma_Driver_sql extends Vilma_Driver {
                ' WHERE ' . $this->_getTableField('domains', 'domain_name') . ' = ?' . $binds[0];
         array_unshift($binds[1], $domain_name);
 
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
         return $this->_db->getRow($sql, $binds[1], DB_FETCHMODE_ASSOC);
     }
 
@@ -224,7 +224,7 @@ class Vilma_Driver_sql extends Vilma_Driver {
             $values = $binds[1];
         }
 
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
         return $this->_db->getAll($sql, $values, DB_FETCHMODE_ASSOC);
     }
 
@@ -243,7 +243,7 @@ class Vilma_Driver_sql extends Vilma_Driver {
                ' WHERE ' . $this->_getTableField('users', 'user_id') . ' = ?' . $binds[0];
         array_unshift($binds[1], (int)$user_id);
 
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
         return $this->_db->getRow($sql, $binds[1], DB_FETCHMODE_ASSOC);
     }
 
@@ -273,7 +273,7 @@ class Vilma_Driver_sql extends Vilma_Driver {
                ' ORDER BY virtual_destination, virtual_email';
         $values = array_merge($values, $binds[1]);
 
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
         return $this->_db->getAll($sql, $values, DB_FETCHMODE_ASSOC);
     }
 
@@ -292,7 +292,7 @@ class Vilma_Driver_sql extends Vilma_Driver {
                ' WHERE ' . $this->_getTableField('virtuals', 'virtual_id') . ' = ?' . $binds[0];
         array_unshift($binds[1], (int)$virtual_id);
 
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
         $virtual = $this->_db->getRow($sql, $binds[1], DB_FETCHMODE_ASSOC);
         $virtual['stripped_email'] = Vilma::stripUser($virtual['virtual_email']);
 
@@ -315,7 +315,7 @@ class Vilma_Driver_sql extends Vilma_Driver {
                ' WHERE ' . $this->_getTableField('users', 'user_name') . ' LIKE ?' . $binds[0];
         array_unshift($binds[1], '%@' . $domain_name);
 
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
         return $this->_db->getOne($sql, $binds[1]);
     }
 
@@ -353,7 +353,7 @@ class Vilma_Driver_sql extends Vilma_Driver {
             $values = $binds[1];
         }
 
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
         return $this->_db->query($sql, $values);
     }
 
@@ -396,7 +396,7 @@ class Vilma_Driver_sql extends Vilma_Driver {
                ' WHERE ' . $this->_getTableField('domains', 'domain_id') . ' = ?';
         $values = array((int)$domain_id);
 
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
         return $this->_db->query($sql, $values);
     }
 
@@ -474,10 +474,10 @@ class Vilma_Driver_sql extends Vilma_Driver {
                            (int)$info['user_id']);
         }
 
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
         $result = $this->_db->query($sql);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -503,7 +503,7 @@ class Vilma_Driver_sql extends Vilma_Driver {
                ' WHERE ' . $this->_getTableField('virtuals', 'virtual_destination') . ' = ?';
         $values = array($user['user_name']);
 
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
         $delete = $this->_db->query($sql, $values);
         if (is_a($delete, 'PEAR_Error')) {
             return $delete;
@@ -514,7 +514,7 @@ class Vilma_Driver_sql extends Vilma_Driver {
                ' WHERE ' . $this->_getTableField('users', 'user_id') . ' = ?';
         $values = array((int)$user_id);
 
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
         $result = $this->_db->query($sql, $values);
         if (is_a($result, 'PEAR_Error')) {
             return $result;
@@ -561,7 +561,7 @@ class Vilma_Driver_sql extends Vilma_Driver {
                         $info['virtual_destination'],
                         $info['virtual_id']);
 
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
         return $this->_db->query($sql, $values);
     }
 
@@ -577,7 +577,7 @@ class Vilma_Driver_sql extends Vilma_Driver {
                ' WHERE ' . $this->_getTableField('virtuals', 'virtual_id') . ' = ?' . $binds[0];
         array_unshift($binds[1], $virtual_id);
 
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
         return $this->_db->query($sql, $binds[1]);
     }
 

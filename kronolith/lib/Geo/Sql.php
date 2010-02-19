@@ -89,7 +89,7 @@ class Kronolith_Geo_Sql extends Kronolith_Geo
         $sql = 'SELECT COUNT(*) FROM kronolith_events_geo WHERE event_id = ?';
         $count = $this->_db->getOne($sql, array($event_id));
         if ($count instanceof PEAR_Error) {
-            Horde::logMessage($count, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($count, 'ERR');
             throw new Horde_Exception($count);
         }
 
@@ -113,7 +113,7 @@ class Kronolith_Geo_Sql extends Kronolith_Geo
         }
         $result = $this->_write_db->query($sql, $params);
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             throw new Horde_Exception($result);
         }
 
@@ -131,7 +131,7 @@ class Kronolith_Geo_Sql extends Kronolith_Geo
         $sql = 'SELECT event_lat as lat, event_lon as lon FROM kronolith_events_geo WHERE event_id = ?';
         $result = $this->_db->getRow($sql, array($event_id), DB_FETCHMODE_ASSOC);
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             throw new Horde_Exception($result);
         }
 
@@ -152,7 +152,7 @@ class Kronolith_Geo_Sql extends Kronolith_Geo
         $sql = 'DELETE FROM kronolith_events_geo WHERE event_id = ?';
         $result = $this->_write_db->query($sql, array($event_id));
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             throw new Horde_Exception($result);
         }
     }

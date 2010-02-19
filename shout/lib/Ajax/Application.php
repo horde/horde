@@ -42,7 +42,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
             return $shout->extensions->getExtensions($account);
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.
-            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             return false;
         }
     }
@@ -63,7 +63,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
             return $shout->extensions->getExtensions($account);
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.
-            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             return false;
         }
     }
@@ -80,7 +80,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
             return $shout->extensions->getExtensions($account);
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.
-            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             return false;
         }
     }
@@ -97,7 +97,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
             $menus = $shout->storage->getMenus($account);
             $menu = $vars->menu;
             if (!isset($menus[$menu])) {
-                Horde::logMessage("User requested a menu that does not exist.", __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage("User requested a menu that does not exist.", 'ERR');
                 //$GLOBALS['notification']->push(_("That menu does not exist."), 'horde.error');
                 // FIXME notifications
                 return false;
@@ -109,7 +109,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.
             die(var_dump($e));
-            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             return false;
         }
     }
@@ -127,7 +127,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
             return $actions;
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.
-            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             return false;
         }
     }
@@ -168,7 +168,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
 
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.
-            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             return false;
         }
     }
@@ -196,7 +196,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
             $shout->dialplan->saveMenuAction($account, $menu, $digit, $action, $args);
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.
-            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             return false;
         }
     }

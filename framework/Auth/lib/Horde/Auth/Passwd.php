@@ -253,7 +253,7 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
         try {
             $this->_read();
         } catch (Horde_Auth_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
         }
 

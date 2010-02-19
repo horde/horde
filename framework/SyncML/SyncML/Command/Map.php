@@ -101,8 +101,7 @@ class SyncML_Command_Map extends SyncML_Command {
             $sync = &$state->getSync($this->_targetLocURI);
             if (!$state->authenticated) {
                 $GLOBALS['backend']->logMessage(
-                    'Not authenticated while processing <Map>',
-                    __FILE__, __LINE__, PEAR_LOG_ERR);
+                    'Not authenticated while processing <Map>', 'ERR');
             } else {
                 foreach ($this->_mapSources as $key => $source) {
                     $sync->createUidMap($this->_targetLocURI,

@@ -204,8 +204,7 @@ class SyncML_Sync {
         global $backend;
 
         $backend->logMessage(
-            'Handling <' . $item->elementType . '> sent from client',
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            'Handling <' . $item->elementType . '> sent from client', 'DEBUG');
 
         /* if size of item is set: check it first */
         if ($item->size > 0) {
@@ -218,8 +217,7 @@ class SyncML_Sync {
                 $item->responseCode = RESPONSE_SIZE_MISMATCH;
                 $backend->logMessage(
                     'Item size mismatch. Size reported as ' . $item->size
-                    . ' but actual size is ' . strlen($item->content),
-                    __FILE__, __LINE__, PEAR_LOG_ERR);
+                    . ' but actual size is ' . strlen($item->content), 'ERR');
                 $this->_errors++;
                 return false;
             }
@@ -270,32 +268,30 @@ class SyncML_Sync {
             if (!is_a($suid, 'PEAR_Error')) {
                 $this->_client_add_count++;
                 $item->responseCode = RESPONSE_ITEM_ADDED;
-                $backend->logMessage('Added client entry as ' . $suid,
-                                     __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                $backend->logMessage('Added client entry as ' . $suid, 'DEBUG');
             } else {
                 $this->_errors++;
                 /* @todo: better response code. */
                 $item->responseCode = RESPONSE_NO_EXECUTED;
-                $backend->logMessage('Error in adding client entry: ' . $suid->message, __FILE__, __LINE__, PEAR_LOG_ERR);
+                $backend->logMessage('Error in adding client entry: ' . $suid->message, 'ERR');
             }
         } elseif ($item->elementType == 'Delete') {
             /* Handle client delete requests. */
             $ok = $backend->deleteEntry($database, $cuid);
             if (!$ok && $tasksincalendar) {
                 $backend->logMessage(
-                    'Task ' . $cuid . ' deletion sent with calendar request',
-                    __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    'Task ' . $cuid . ' deletion sent with calendar request', 'DEBUG');
                 $ok = $backend->deleteEntry($this->_taskToCalendar($backend->_normalize($database)), $cuid);
             }
 
             if ($ok) {
                 $this->_client_delete_count++;
                 $item->responseCode = RESPONSE_OK;
-                $backend->logMessage('Deleted entry ' . $suid . ' due to client request', __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                $backend->logMessage('Deleted entry ' . $suid . ' due to client request', 'DEBUG');
             } else {
                 $this->_errors++;
                 $item->responseCode = RESPONSE_ITEM_NO_DELETED;
-                $backend->logMessage('Failure deleting client entry, maybe already disappeared from server', __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                $backend->logMessage('Failure deleting client entry, maybe already disappeared from server', 'DEBUG');
             }
 
         } elseif ($item->elementType == 'Replace') {
@@ -306,9 +302,9 @@ class SyncML_Sync {
             if (!is_a($suid, 'PEAR_Error')) {
                 $this->_client_replace_count++;
                 $item->responseCode = RESPONSE_OK;
-                $backend->logMessage('Replaced entry ' . $suid . ' due to client request', __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                $backend->logMessage('Replaced entry ' . $suid . ' due to client request', 'DEBUG');
             } else {
-                $backend->logMessage($suid->message, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                $backend->logMessage($suid->message, 'DEBUG');
 
                 /* Entry may have been deleted; try adding it. */
                 $suid = $backend->addEntry($hordedatabase, $content,
@@ -317,22 +313,19 @@ class SyncML_Sync {
                     $this->_client_addreplaces++;
                     $item->responseCode = RESPONSE_ITEM_ADDED;
                     $backend->logMessage(
-                        'Added instead of replaced entry ' . $suid,
-                        __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                        'Added instead of replaced entry ' . $suid, 'DEBUG');
                 } else {
                     $this->_errors++;
                     /* @todo: better response code. */
                     $item->responseCode = RESPONSE_NO_EXECUTED;
                     $backend->logMessage(
                         'Error in adding client entry due to replace request: '
-                        . $suid->message,
-                        __FILE__, __LINE__, PEAR_LOG_ERR);
+                        . $suid->message, 'ERR');
                 }
             }
         } else {
             $backend->logMessage(
-                'Unexpected elementType: ' . $item->elementType,
-                __FILE__, __LINE__, PEAR_LOG_ERR);
+                'Unexpected elementType: ' . $item->elementType, 'ERR');
         }
 
         return $suid;
@@ -349,8 +342,7 @@ class SyncML_Sync {
 
         $backend->logMessage(
             'Creating <Sync> output for server changes in database '
-            . $this->_targetLocURI,
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            . $this->_targetLocURI, 'DEBUG');
 
         /* If sync data from client only, nothing to be done here. */
         if($this->_syncType == ALERT_ONE_WAY_FROM_CLIENT ||
@@ -387,8 +379,7 @@ class SyncML_Sync {
             $backend->logMessage(
                 'Compiling server changes from '
                 . date('Y-m-d H:i:s', $this->_serverAnchorLast)
-                . ' to ' . date('Y-m-d H:i:s', $this->_serverAnchorNext),
-                __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                . ' to ' . date('Y-m-d H:i:s', $this->_serverAnchorNext), 'DEBUG');
 
             $result = $this->_retrieveChanges($this->_targetLocURI,
                                               $this->_server_adds,
@@ -400,11 +391,8 @@ class SyncML_Sync {
 
             /* If tasks are handled inside calendar, do the same again for
              * tasks. Merge resulting arrays. */
-            if ($backend->_normalize($this->_targetLocURI) == 'calendar' && 
+            if ($backend->_normalize($this->_targetLocURI) == 'calendar' &&
                 $device->handleTasksInCalendar()) {
-                $backend->logMessage('Handling tasks in calendar sync',
-                                     __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
                 $this->_server_task_adds = $deletes2 = $replaces2 = array();
                 $result = $this->_retrieveChanges('tasks',
                                                   $this->_server_task_adds,
@@ -426,8 +414,7 @@ class SyncML_Sync {
                 + count($this->_server_deletes);
             $backend->logMessage(
                 'Sending ' . $numChanges . ' server changes ' . 'for client URI '
-                . $this->_targetLocURI,
-                __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                . $this->_targetLocURI, 'DEBUG');
 
             /* Now we know the number of Changes and can send them to the
              * client. */
@@ -458,16 +445,14 @@ class SyncML_Sync {
                 $backend->logMessage(
                     'Maximum message size ' . $state->maxMsgSize
                     . ' approached during delete; current size: '
-                    . $output->getOutputSize(),
-                    __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    . $output->getOutputSize(), 'DEBUG');
                 $messageFull = true;
                 $output->outputSyncEnd();
                 $this->_syncsSent += 1;
                 return;
             }
             $backend->logMessage(
-                "Sending delete from server: client id $cuid, server id $suid",
-                __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                "Sending delete from server: client id $cuid, server id $suid", 'DEBUG');
             /* Create a Delete request for client. */
             $cmdId = $output->outputSyncCommand('Delete', null, null, null, $cuid, null);
             unset($this->_server_deletes[$suid]);
@@ -478,8 +463,7 @@ class SyncML_Sync {
         /* Handle additions. */
         $adds = $this->_server_adds;
         foreach ($adds as $suid => $cuid) {
-            $backend->logMessage("Sending add from server: $suid",
-                                 __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            $backend->logMessage("Sending add from server: $suid", 'DEBUG');
 
             $syncDB = isset($this->_server_task_adds[$suid]) ? 'tasks' : $this->_targetLocURI;
             $ct = isset($this->_server_task_adds[$suid]) ? $contentTypeTasks : $contentType;
@@ -490,8 +474,7 @@ class SyncML_Sync {
             if (is_a($c, 'PEAR_Error')) {
                 $backend->logMessage(
                     'API export call for ' . $suid . ' failed: '
-                    . $c->getMessage(),
-                    __FILE__, __LINE__, PEAR_LOG_ERR);
+                    . $c->getMessage(), 'ERR');
             } else {
                 list($clientContent, $clientContentType, $clientEncodingType) =
                     $device->convertServer2Client($c, $contentType, $syncDB);
@@ -500,12 +483,10 @@ class SyncML_Sync {
                     $backend->logMessage(
                         'Maximum message size ' . $state->maxMsgSize
                         . ' approached during add; current size: '
-                        . $output->getOutputSize(),
-                        __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                        . $output->getOutputSize(), 'DEBUG');
                     if (strlen($clientContent) + MSG_DEFAULT_LEN > $state->maxMsgSize) {
                         $backend->logMessage(
-                            'Data item won\'t fit into a single message. Partial sending not implemented yet. Item will not be sent!',
-                            __FILE__, __LINE__, PEAR_LOG_WARNING);
+                            'Data item won\'t fit into a single message. Partial sending not implemented yet. Item will not be sent!', 'WARN');
                         /* @todo: implement partial sending instead of
                          * dropping item! */
                         unset($this->_server_adds[$suid]);
@@ -546,8 +527,7 @@ class SyncML_Sync {
             }
 
             $backend->logMessage(
-                "Sending replace from server: $suid",
-                __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                "Sending replace from server: $suid", 'DEBUG');
             list($clientContent, $clientContentType, $clientEncodingType) =
                 $device->convertServer2Client($c, $contentType, $syncDB);
             /* Check if we have space left in the message. */
@@ -555,12 +535,10 @@ class SyncML_Sync {
                 $backend->logMessage(
                     'Maximum message size ' . $state->maxMsgSize
                     . ' approached during replace; current size: '
-                    . $output->getOutputSize(),
-                    __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    . $output->getOutputSize(), 'DEBUG');
                 if (strlen($clientContent) + MSG_DEFAULT_LEN > $state->maxMsgSize) {
                     $backend->logMessage(
-                        'Data item won\'t fit into a single message. Partial sending not implemented yet. Item will not be sent!',
-                        __FILE__, __LINE__, PEAR_LOG_WARNING);
+                        'Data item won\'t fit into a single message. Partial sending not implemented yet. Item will not be sent!', 'WARNING');
                     /* @todo: implement partial sending instead of
                      * dropping item! */
                     unset($this->_server_replaces[$suid]);
@@ -608,7 +586,7 @@ class SyncML_Sync {
                                                         $this->_serverAnchorNext,
                                                         $adds, $replaces, $deletes);
         if (is_a($result, 'PEAR_Error')) {
-            $GLOBALS['backend']->logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            $GLOBALS['backend']->logMessage($result, 'ERR');
             return $result;
         }
     }
@@ -640,8 +618,7 @@ class SyncML_Sync {
             break;
         }
 
-        $GLOBALS['backend']->logMessage('Handle <Final> for state ' . $state,
-                                         __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $GLOBALS['backend']->logMessage('Handle <Final> for state ' . $state, 'DEBUG');
 
         switch ($this->_state) {
         case STATE_INIT:
@@ -725,7 +702,7 @@ class SyncML_Sync {
             $this->_server_add_count,
             $this->_server_replace_count,
             $this->_server_delete_count);
-        $GLOBALS['backend']->logMessage($s , __FILE__, __LINE__, PEAR_LOG_INFO);
+        $GLOBALS['backend']->logMessage($s, 'INFO');
     }
 
     function getServerLocURI()
@@ -768,8 +745,7 @@ class SyncML_Sync {
         $GLOBALS['backend']->createUidMap($db, $cuid, $suid);
         $GLOBALS['backend']->logMessage(
             'Created map for client id ' . $cuid . ' and server id ' . $suid
-            . ' in database ' . $db,
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            . ' in database ' . $db, 'DEBUG');
 
     }
 
