@@ -644,11 +644,11 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
             } catch (Horde_Exception $e) {
                 // Might not support the requested style...try ansel_default
                 // but protect against infinite recursion.
-                Horde::logMessage($iview, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_DEBUG);
                 if ($style != 'ansel_default') {
                     return $this->getDefaultImage('ansel_default');
                 }
-                Horde::logMessage($iview, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
             }
 
         } else {
