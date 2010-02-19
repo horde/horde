@@ -2077,6 +2077,7 @@ KronolithCore = {
             switch (type) {
             case 'internal':
             case 'tasklists':
+                $('kronolithCalendar' + type + 'LinkImportExport').up().hide();
                 fields.push('Description');
                 break;
             case 'remote':
@@ -2102,8 +2103,14 @@ KronolithCore = {
 
         switch (type) {
         case 'internal':
-        case 'tasklists':
             $('kronolithCalendarinternalDescription').setValue(info.desc);
+            $('kronolithCalendarinternalLinkImportExport').up().show();
+            $('kronolithCalendarinternalExport').href = Kronolith.conf.URI_CALENDAR_EXPORT + '=' + calendar;
+            break;
+        case 'tasklists':
+            $('kronolithCalendartasklistsDescription').setValue(info.desc);
+            $('kronolithCalendartasklistsLinkImportExport').up().show();
+            $('kronolithCalendartasklistsExport').href = Kronolith.conf.tasks.URI_TASKLIST_EXPORT + '=' + calendar.substring(6);
             break;
         case 'remote':
             $('kronolithCalendarremoteUrl').setValue(calendar);

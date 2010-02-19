@@ -23,6 +23,7 @@
     <li class="activeTab"><a href="#" class="kronolithTabLink" id="kronolithCalendarinternalLinkDescription"><?php echo _("Description") ?></a></li>
     <li><a href="#" class="kronolithTabLink" id="kronolithCalendarinternalLinkTags"><?php echo _("Tags") ?></a></li>
     <li><a href="#" class="kronolithTabLink" id="kronolithCalendarinternalLinkPerms"><?php echo _("Permissions") ?></a></li>
+    <li><a href="#" class="kronolithTabLink" id="kronolithCalendarinternalLinkImportExport"><?php echo _("Export") /*_("Import/Export")*/ ?></a></li>
   </ul>
 </div>
 <br class="clear" />
@@ -39,6 +40,18 @@
 
 <div id="kronolithCalendarinternalTabPerms" class="kronolithTabsOption" style="display:none">
 tbd
+</div>
+
+<div id="kronolithCalendarinternalTabImportExport" class="kronolithTabsOption" style="display:none">
+  <div class="kronolithTabInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics. Recipients of the iCalendar data file (with supporting software, such as an email client or calendar application) can respond to the sender easily or counter propose another meeting date/time.") ?></div>
+  <?php /* ?>
+  <label><?php echo _("Import ICS file") ?>:
+    <input type="file" name="import_file" />
+  </label>
+  <br />
+  <?php */ ?>
+  <label><?php echo _("Export ICS file") ?>:</label>
+  <a id="kronolithCalendarinternalExport"><?php echo _("Calendar ICS file") ?></a>
 </div>
 
 <div class="kronolithFormActions">
@@ -72,6 +85,7 @@ tbd
   <ul>
     <li class="activeTab"><a href="#" class="kronolithTabLink" id="kronolithCalendartasklistsLinkDescription"><?php echo _("Description") ?></a></li>
     <li><a href="#" class="kronolithTabLink" id="kronolithCalendartasklistsLinkPerms"><?php echo _("Permissions") ?></a></li>
+    <li><a href="#" class="kronolithTabLink" id="kronolithCalendartasklistsLinkImportExport"><?php echo _("Export") /*_("Import/Export")*/ ?></a></li>
   </ul>
 </div>
 <br class="clear" />
@@ -82,6 +96,18 @@ tbd
 
 <div id="kronolithCalendartasklistsTabPerms" class="kronolithTabsOption" style="display:none">
 tbd
+</div>
+
+<div id="kronolithCalendartasklistsTabImportExport" class="kronolithTabsOption" style="display:none">
+  <div class="kronolithTabInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics. Recipients of the iCalendar data file (with supporting software, such as an email client or calendar application) can respond to the sender easily or counter propose another meeting date/time.") ?></div>
+  <?php /* ?>
+  <label><?php echo _("Import ICS file") ?>:
+    <input type="file" name="import_file" />
+  </label>
+  <br />
+  <?php */ ?>
+  <label><?php echo _("Export ICS file") ?>:</label>
+  <a id="kronolithCalendartasklistsExport"><?php echo _("Calendar ICS file") ?></a>
 </div>
 
 <div class="kronolithFormActions">
