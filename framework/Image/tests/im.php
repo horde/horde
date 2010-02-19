@@ -16,6 +16,7 @@ $db = $GLOBALS['injector']->getInstance('Horde_Db_Adapter_Base');
 $driver = Horde_Util::getFormData('driver', 'Im');
 $test = Horde_Util::getFormData('test');
 $convert = trim(`which convert`);
+$identify = trim(`which identify`);
 $handler = new Horde_Log_Handler_Stream(fopen('/tmp/imagetest.log','a+'));
 $logger = new Horde_Log_Logger($handler);
 
@@ -24,6 +25,7 @@ switch ($test) {
 case 'multipage':
     $time = xdebug_time_index();
     $image = getImageObject(array('filename' => 'two_page.tif.tiff'));
+
     $first = true;
     foreach ($image as $index => $imObject) {
         if (!$first) {
@@ -418,7 +420,7 @@ case 'testPolaroidstackBlueBG':
  *
  * @param array $params  Any additional parameters
  *
- * @return Horde_Image object | PEAR_Error
+ * @return Horde_Image_Base object | PEAR_Error
  */
 function getImageObject($params = array())
 {
@@ -426,7 +428,9 @@ function getImageObject($params = array())
 
     // Always pass the convert parameter to be consistent when profiling.
     $context = array('tmpdir' => Horde::getTempDir(),
-                     'convert' => $GLOBALS['convert']);
+                     'convert' => $GLOBALS['convert'],
+                     'logger' => $GLOBALS['logger'],
+                     'identify' => $GLOBALS['identify']);
     $params['context'] = $context;
     return Horde_Image::factory($GLOBALS['driver'], $params);
 }
