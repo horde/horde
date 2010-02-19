@@ -1280,8 +1280,8 @@ class Horde_Registry
         }
 
         return $number
-            ? $api->version
-            : preg_replace('/H\d \((.*)\)/', '$1', $api->version);
+            ? preg_replace('/H\d \((.*)\)/', '$1', $api->version)
+            : $api->version;
     }
 
     /**
