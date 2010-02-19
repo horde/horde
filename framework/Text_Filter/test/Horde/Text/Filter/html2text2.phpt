@@ -16,7 +16,9 @@ $html = <<<EOT
   <li>And again a short line.</li>
 </ul>
 EOT;
+
 echo Horde_Text_Filter::filter($html, 'html2text', array('width' => 50));
+echo "\n\n";
 echo Horde_Text_Filter::filter($html, 'html2text', array('wrap' => false));
 
 ?>
@@ -29,8 +31,6 @@ line. This is a long line. This is a long line.
 This is a long line. This is a long line. This is
 a long line.
   * And again a short line.
-
-
 
   * This is a short line.
   * This is a long line. This is a long line. This is a long line. This is a long line. This is a long line. This is a long line. This is a long line. This is a long line. This is a long line. This is a long line. This is a long line. This is a long line.

@@ -75,6 +75,9 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
             // Newlines and tabs.
             '/[\n\t]+/' => ' ',
 
+            // Normalize <br> (remove leading/trailing whitespace)
+            '/\s*<br[^>]*>\s*/i' => '<br>',
+
             // <script>s -- which strip_tags() supposedly has problems with.
             '/<script(?:>|\s[^>]*>).*?<\/script\s*>/i' => '',
 
@@ -135,7 +138,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
             '/<div class=rte>(.+?)<\/div> ?/i' => '\\1<br>',
 
             // <br>
-            '/\s*<br[^>]*>\s*/i' => "\n"
+            '/<br[^>]*>/i' => "\n"
         );
 
         $regexp_callback = array(
@@ -191,7 +194,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
             }
         }
 
-        return trim($text);
+        return trim(rtrim($text), "\n");
     }
 
     /**
@@ -223,7 +226,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
             $text = stripslashes($this->_blockQuote($text));
         }
 
-        $text = trim(strip_tags($text));
+        $text = rtrim(strip_tags($text));
         if ($this->_params['wrap']) {
             $text = wordwrap($text, $this->_params['width'] - 2);
         }
