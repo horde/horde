@@ -378,12 +378,6 @@
      </configsection>
     </case>
 
-    <case name="mcal" desc="MCAL authentication">
-     <configsection name="params">
-      <configstring name="calendar" desc="The MCAL calendar name"/>
-     </configsection>
-    </case>
-
     <case name="pam" desc="PAM (Pluggable Authentication Modules, DEPRECATED)
     authentication">
      <configsection name="params">
@@ -818,14 +812,6 @@
         message's Subject: header"/>
         <configstring name="preamble" required="false" desc="Preamble for the
         message"/>
-       </configsection>
-      </case>
-
-      <case name="mcal" desc="Mcal">
-       <configsection name="params">
-        <configstring name="calendar" desc="The MCAL calendar name"/>
-        <configstring name="username" desc="Connect to MCAL as"/>
-        <configstring name="password" desc="Password to connect with"/>
        </configsection>
       </case>
 

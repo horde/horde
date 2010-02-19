@@ -240,8 +240,7 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
      * Find out if a set of login credentials are valid.
      *
      * @param string $userId      The userId to check.
-     * @param array $credentials  An array of login credentials. For MCAL,
-     *                            this must contain a password entry.
+     * @param array $credentials  An array of login credentials.
      *
      * @throws Horde_Auth_Exception
      */
