@@ -82,7 +82,7 @@ class Horde_Image_Effect
         if (class_exists($class)) {
             $effect = new $class($params);
         } else {
-            $effect = PEAR::raiseError(sprintf("Horde_Image_Effect %s for %s driver not found.", $type, $driver));
+            throw new Horde_Image_Exception(sprintf("Horde_Image_Effect %s for %s driver not found.", $type, $driver));
         }
 
         return $effect;
