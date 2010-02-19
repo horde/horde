@@ -58,7 +58,6 @@ function _uploadFTP($params)
 /* Check for versions if requested. */
 $versions = array();
 if (Horde_Util::getFormData('check_versions')) {
-    require_once 'Horde/DOM.php';
     $http = new HTTP_Request('http://www.horde.org/versions.php');
     $result = $http->sendRequest();
     if (is_a($result, 'PEAR_Error')) {
@@ -68,10 +67,10 @@ if (Horde_Util::getFormData('check_versions')) {
     } else {
         $dom = DOMDocument::loadXML($http->getResponseBody());
         $stable = $dom->getElementsByTagName('stable');
-        if (!count($stable) || !$stable[0]->hasChildNodes()) {
+        if (!$stable->length || !$stable->item(0)->hasChildNodes()) {
             $notification->push(_("Invalid response from server."), 'horde.error');
         } else {
-            for ($app = $stable[0]->firstChild;
+            for ($app = $stable->item(0)->firstChild;
                  !empty($app);
                  $app = $app->nextSibling) {
                 if (!($app instanceof DOMElement)) {
@@ -80,8 +79,8 @@ if (Horde_Util::getFormData('check_versions')) {
                 $version = $app->getElementsByTagName('version');
                 $url = $app->getElementsByTagName('url');
                 $versions[$app->getAttribute('name')] = array(
-                    'version' => $version[0]->textContent,
-                    'url' => $url[0]->textContent);
+                    'version' => $version->item(0)->textContent,
+                    'url' => $url->item(0)->textContent);
             }
         }
     }
