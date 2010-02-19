@@ -41,8 +41,8 @@ $allTests = array(
  <thead><td>Effect</td><td>Im</td><td>Imagick</td></thead>
 <?php
 foreach ($allTests as $name => $description) {
-    echo '<tr><td text-align="top">' . $description . '</td><td>' . Horde::img('im.php?test=' . $name, '', '', '') . '</td>' . '</tr>';
-      //'<td text-align="top">' . Horde::img('im.php?test=' . $name . '&driver=Imagick', '', '', '') . '</td></tr>';
+    echo '<tr><td text-align="top">' . $description . '</td><td>' . Horde::img('im.php?test=' . $name, '', '', '') . '</td>' .
+    '<td text-align="top">' . Horde::img('im.php?test=' . $name . '&driver=Imagick', '', '', '') . '</td></tr>';
 }
 echo '</table>';
 ?></body></html>

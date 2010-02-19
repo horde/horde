@@ -229,13 +229,13 @@ case 'testBorderedDropShadowTransparentBG':
 
     $image = getImageObject(array('filename' => 'img1.jpg',
                                   'background' => 'none'));
-    $image->resize(150,150);
+    $image->resize(150,150, true);
     $image->addEffect('Border', array('bordercolor' => '#333', 'borderwidth' => 1));
     $image->addEffect('DropShadow',
                       array('background' => 'none',
-                            'padding' => 10,
-                            'distance' => '10',
-                            'fade' => 5));
+                            'padding' => 5,
+                            'distance' => 8,
+                            'fade' => 2));
     $image->display();
     $time = xdebug_time_index() - $time;
     $memory = xdebug_peak_memory_usage();
