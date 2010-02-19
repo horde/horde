@@ -10,8 +10,8 @@
 var DimpCompose = {
     // Variables defaulting to empty/false:
     //   auto_save_interval, compose_cursor, disabled, drafts_mbox, editor_on,
-    //   is_popup, knl_p, knl_sm, last_msg, loaded, mp_padding, row_height,
-    //   rte, skip_spellcheck, spellcheck, sc_submit, uploading
+    //   is_popup, knl_p, knl_sm, last_msg, loaded, rte, skip_spellcheck,
+    //   spellcheck, sc_submit, uploading
 
     confirmCancel: function()
     {
@@ -403,15 +403,6 @@ var DimpCompose = {
         }
     },
 
-    getMsgAreaHeight: function()
-    {
-        if (!this.mp_padding) {
-            this.mp_padding = $('composeMessageParent').getHeight() - $('composeMessage').getHeight();
-        }
-
-        return document.viewport.getHeight() - $('composeMessageParent').cumulativeOffset()[1] - this.mp_padding;
-    },
-
     _onSpellCheckAfter: function()
     {
         if (this.editor_on) {
@@ -448,7 +439,7 @@ var DimpCompose = {
     {
         var ta = $('composeMessage');
         if (!ta) {
-            $('composeMessageParent').insert(new Element('TEXTAREA', { id: 'composeMessage', name: 'message', style: 'width:100%;' }).insert(r.response.text));
+            $('composeMessageParent').insert(new Element('TEXTAREA', { id: 'composeMessage', name: 'message', style: 'width:100%' }).insert(r.response.text));
         } else {
             ta.setValue(r.response.text);
         }
@@ -514,7 +505,6 @@ var DimpCompose = {
         this.processFwdList(opts.fwd_list);
 
         Field.focus(opts.focus || 'to');
-        this.resizeMsgArea();
 
         switch (opts.auto) {
         case 'forward_attach':
@@ -635,37 +625,39 @@ var DimpCompose = {
 
     resizeMsgArea: function()
     {
-        var m, rows,
+        var mah, rows,
+            cmp = $('composeMessageParent'),
             de = document.documentElement,
-            msg = $('composeMessage');
+            msg = $('composeMessage'),
+            pad = 0;
 
         if (!document.loaded) {
             this.resizeMsgArea.bind(this).defer();
             return;
         }
 
-        if (this.editor_on) {
-            this.rte.resize('100%', this.getMsgAreaHeight(), false);
-        }
+        mah = document.viewport.getHeight() - cmp.offsetTop;
 
-        if (!this.row_height) {
-            // Change the ID and name to not conflict with msg node.
-            m = $(msg.cloneNode(false)).writeAttribute({ id: null, name: null }).setStyle({ visibility: 'hidden' });
-            $(document.body).insert(m);
-            m.writeAttribute('rows', 1);
-            this.row_height = m.getHeight();
-            m.writeAttribute('rows', 2);
-            this.row_height = m.getHeight() - this.row_height;
-            m.remove();
+        if (this.editor_on) {
+            [ 'margin', 'padding', 'border' ].each(function(s) {
+                [ 'Top', 'Bottom' ].each(function(h) {
+                    var a = parseInt(cmp.getStyle(s + h), 10);
+                    if (!isNaN(a)) {
+                        pad += a;
+                    }
+                });
+            });
+
+            this.rte.resize('100%', mah - pad, false);
         }
 
         /* Logic: Determine the size of a given textarea row, divide that size
          * by the available height, round down to the lowest integer row, and
          * resize the textarea. */
-        rows = parseInt(this.getMsgAreaHeight() / this.row_height);
+        rows = parseInt(mah / (msg.clientHeight / msg.getAttribute('rows')), 10);
         msg.writeAttribute({ rows: rows, disabled: false });
         if (de.scrollHeight - de.clientHeight) {
-            msg.writeAttribute({ rows: rows - 1 });
+            msg.writeAttribute('rows', rows - 1);
         }
     },
 
@@ -691,8 +683,12 @@ var DimpCompose = {
         $('send' + type).show();
         if (immediate) {
             t.hide();
+            this.resizeMsgArea();
         } else {
-            t.fade({ duration: 0.4 });
+            t.fade({
+                afterFinish: this.resizeMsgArea.bind(this),
+                duration: 0.4
+            });
         }
     },
 
@@ -859,8 +855,6 @@ var DimpCompose = {
         $('compose').observe('submit', Event.stop);
         $('submit_frame').observe('load', this.attachmentComplete.bind(this));
 
-        this.resizeMsgArea();
-
         // Initialize spell checker
         document.observe('SpellChecker:noerror', this._onSpellCheckNoError.bind(this));
         if (DIMP.conf_compose.rte_avail) {
@@ -904,6 +898,8 @@ var DimpCompose = {
 
         $('dimpLoading').hide();
         $('pageContainer').show();
+
+        this.resizeMsgArea();
 
         // Safari requires a submit target iframe to be at least 1x1 size or
         // else it will open content in a new window.  See:
