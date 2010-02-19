@@ -43,7 +43,7 @@ class Ansel_Image Implements Iterator
 
     /**
      * The image's mime type
-     * 
+     *
      * @var string
      */
     public $type = 'image/jpeg';
@@ -635,7 +635,7 @@ class Ansel_Image Implements Iterator
             throw new Ansel_Exception($imageFile);
         }
         $exif = Horde_Image_Exif::factory($GLOBALS['conf']['exif']['driver'], !empty($GLOBALS['conf']['exif']['params']) ? $GLOBALS['conf']['exif']['params'] : array());
-        
+
         try {
             $exif_fields = $exif->getData($imageFile);
         } catch (Horde_Image_Exception $e) {
@@ -917,7 +917,7 @@ class Ansel_Image Implements Iterator
      * view present in the Horde_Image object.
      *
      * @see Horde_Image_Base::crop for explanation of parameters
-     * 
+     *
      * @param integer $x1
      * @param integer $y1
      * @param integer $x2
@@ -1109,7 +1109,7 @@ class Ansel_Image Implements Iterator
      * Returns this image's tags.
      *
      * @see Ansel_Tags::readTags()
-     * 
+     *
      * @return array An array of tags
      * @throws Horde_Exception_PermissionDenied, Ansel_Exception
      */
