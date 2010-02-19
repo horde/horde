@@ -18,9 +18,11 @@
 /* Set this variable to 'true' to activate the script. */
 $for_real = false;
 
-/* You must set these to an appropriate user/pass/table for your server. */
-$db_user = 'root';
-$db_pass = '';
+/* If not null, these values overwrite those in the Horde SQL config. */
+$db_user = null;
+$db_pass = null;
+
+/* Default table name. */
 $db_table = 'turba_objects';
 
 /* Allow skipping of parsing certain fields.
@@ -42,8 +44,12 @@ require_once HORDE_BASE . '/config/conf.php';
 require_once 'Horde/Form.php';
 
 $config = $GLOBALS['conf']['sql'];
-$config['username'] = $db_user;
-$config['password'] = $db_pass;
+if (!is_null($db_user)) {
+    $config['username'] = $db_user;
+}
+if (!is_null($db_pass)) {
+    $config['password'] = $db_pass;
+}
 unset($config['charset']);
 $db = DB::connect($config);
 if (is_a($db, 'PEAR_Error')) {
