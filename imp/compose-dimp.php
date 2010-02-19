@@ -198,7 +198,8 @@ Horde::addInlineScript($compose_result['js_onload'], 'load');
 
 $scripts = array(
     array('compose-dimp.js', 'imp'),
-    array('md5.js', 'horde')
+    array('md5.js', 'horde'),
+    array('TextareaResize.js', 'horde')
 );
 
 IMP::status();

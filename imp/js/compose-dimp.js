@@ -10,9 +10,8 @@
 var DimpCompose = {
     // Variables defaulting to empty/false:
     //   auto_save_interval, compose_cursor, disabled, drafts_mbox, editor_on,
-    //   is_popup, knl_p, knl_sm, last_msg, mp_padding, resizebcc, resizecc,
-    //   resizeto, row_height, rte, skip_spellcheck, spellcheck, sc_submit,
-    //   uploading
+    //   is_popup, knl_p, knl_sm, last_msg, loaded, mp_padding, row_height,
+    //   rte, skip_spellcheck, spellcheck, sc_submit, uploading
 
     confirmCancel: function()
     {
@@ -462,9 +461,8 @@ var DimpCompose = {
     // opts = auto, focus, fwd_list, noupdate
     fillForm: function(msg, header, opts)
     {
-        // On IE, this can get loaded before DOM:loaded. Check for an init
-        // value and don't load until it is available.
-        if (!this.resizeto) {
+        // On IE, this can get loaded before DOM:loaded.
+        if (!document.loaded) {
             this.fillForm.bind(this, msg, header, opts).defer();
             return;
         }
@@ -490,10 +488,8 @@ var DimpCompose = {
         this.setBodyText(msg, true);
 
         $('to').setValue(header.to);
-        this.resizeto.resizeNeeded();
         if (header.cc) {
             $('cc').setValue(header.cc);
-            this.resizecc.resizeNeeded();
         }
         if (DIMP.conf_compose.cc) {
             this.toggleCC('cc', true);
@@ -502,7 +498,6 @@ var DimpCompose = {
         this.setSaveSentMail(identity.id[4]);
         if (header.bcc) {
             $('bcc').setValue(header.bcc);
-            this.resizebcc.resizeNeeded();
         }
         if (identity.id[6]) {
             bcc_add = $F('bcc');
@@ -575,7 +570,6 @@ var DimpCompose = {
     {
         if (r.response.header) {
             $('to').setValue(r.response.header.to);
-            this.resizeto.resizeNeeded();
         }
         $('to_loading_img').hide();
     },
@@ -854,8 +848,6 @@ var DimpCompose = {
 
     onDomLoad: function()
     {
-        var boundResize = this.resizeMsgArea.bind(this);
-
         DimpCore.growler_log = false;
         DimpCore.init();
 
@@ -877,9 +869,9 @@ var DimpCompose = {
         }
 
         // Automatically resize address fields.
-        this.resizeto = new ResizeTextArea('to', boundResize);
-        this.resizecc = new ResizeTextArea('cc', boundResize);
-        this.resizebcc = new ResizeTextArea('bcc', boundResize);
+        new TextareaResize('to');
+        new TextareaResize('cc');
+        new TextareaResize('bcc');
 
         /* Add addressbook link formatting. */
         if (DIMP.conf_compose.URI_ABOOK) {
@@ -921,52 +913,11 @@ var DimpCompose = {
         }
     }
 
-},
-
-ResizeTextArea = Class.create({
-    // Variables defaulting to empty:
-    //   defaultRows, field, onResize
-    maxRows: 5,
-
-    initialize: function(field, onResize)
-    {
-        this.field = $(field);
-
-        this.defaultRows = Math.max(this.field.readAttribute('rows'), 1);
-        this.onResize = onResize;
-
-        var func = this.resizeNeeded.bindAsEventListener(this);
-        this.field.observe('mousedown', func).observe('keyup', func);
-
-        this.resizeNeeded();
-    },
-
-    resizeNeeded: function()
-    {
-        var lines = $F(this.field).split('\n'),
-            cols = this.field.readAttribute('cols'),
-            newRows = lines.size(),
-            oldRows = this.field.readAttribute('rows');
-
-        lines.each(function(line) {
-            if (line.length >= cols) {
-                newRows += Math.floor(line.length / cols);
-            }
-        });
-
-        if (newRows != oldRows) {
-            this.field.writeAttribute('rows', (newRows > oldRows) ? Math.min(newRows, this.maxRows) : Math.max(this.defaultRows, newRows));
-
-            if (this.onResize) {
-                this.onResize();
-            }
-        }
-    }
-
-});
+};
 
 /* Attach event handlers. */
 document.observe('dom:loaded', DimpCompose.onDomLoad.bind(DimpCompose));
+document.observe('TextareaResize:resize', DimpCompose.resizeMsgArea.bind(DimpCompose));
 
 /* Click handler. */
 DimpCore.clickHandler = DimpCore.clickHandler.wrap(DimpCompose.clickHandler.bind(DimpCompose));
