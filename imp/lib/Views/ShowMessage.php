@@ -18,7 +18,6 @@ class IMP_Views_ShowMessage
      *                         Horde_Mime_Address::parseAddressList().
      *
      * @return array  Array with the following keys: inner, personal, raw.
-     * @throws Horde_Exception
      */
     private function _buildAddressList($addrlist)
     {
@@ -31,14 +30,14 @@ class IMP_Views_ShowMessage
         foreach (Horde_Mime_Address::getAddressesFromObject($addrlist) as $ob) {
             if (!empty($ob['inner'])) {
                 try {
-                    $addr_array[] = array('raw' => Horde::callHook('dimp_addressformatting', array($ob), 'imp'));
+                    $tmp = array('raw' => Horde::callHook('dimp_addressformatting', array($ob), 'imp'));
                 } catch (Horde_Exception_HookNotSet $e) {
                     $tmp = array('inner' => $ob['inner']);
                     if (!empty($ob['personal'])) {
                         $tmp['personal'] = $ob['personal'];
                     }
-                    $addr_array[] = $tmp;
                 }
+                $addr_array[] = $tmp;
             }
         }
 
@@ -87,7 +86,6 @@ class IMP_Views_ShowMessage
      * 'save_as' - The save link
      * 'title' - The title of the page
      * </pre>
-     * @throws Horde_Exception
      */
     public function showMessage($args)
     {
