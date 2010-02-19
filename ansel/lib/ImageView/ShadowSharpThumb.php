@@ -30,11 +30,11 @@ class Ansel_ImageView_ShadowSharpThumb extends Ansel_ImageView
             }
 
             try {
-                $this->_image->addEffect('border', array('bordercolor' => '#333'));
+                $this->_image->addEffect('Border', array('bordercolor' => '#333', 'borderwidth' => 1));
                 $this->_image->addEffect('DropShadow',
                                          array('background' => $styleDef['background'],
                                                'padding' => 5,
-                                               'distance' => '8',
+                                               'distance' => 8,
                                                'fade' => 2));
                 $this->_image->applyEffects();
             } catch (Horde_Image_Exception $e) {

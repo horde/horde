@@ -409,6 +409,9 @@ class Ansel_Image Implements Iterator
             if ($view == 'prettythumb') {
                 // If we still fail, the exception gets thrown up the chain.
                 $iview = Ansel_ImageView::factory('Thumb', array('image' => $this, 'style' => 'ansel_default'));
+            } else {
+                // If it wasn't a prettythumb, then something else must be wrong
+                throw $e;
             }
         }
 
@@ -1086,6 +1089,7 @@ class Ansel_Image Implements Iterator
         try {
             $this->_image->addEffect($type, $params);
         } catch (Horde_Image_Exception $e) {
+            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_DEBUG);
             throw new Ansel_Exception($e);
         }
     }
