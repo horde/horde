@@ -2053,6 +2053,7 @@ KronolithCore = {
         var type = calendar[0];
         calendar = calendar.length == 1 ? null : calendar[1];
 
+        this.openTab($('kronolithCalendarForm' + type).down('.tabset a.kronolithTabLink'));
         $('kronolithCalendarDialog').select('.kronolithCalendarDiv').invoke('hide');
         $('kronolithCalendar' + type + '1').show();
         $('kronolithCalendarForm' + type).select('.kronolithCalendarContinue').invoke('enable');
