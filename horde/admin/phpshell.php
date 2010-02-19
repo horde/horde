@@ -32,11 +32,11 @@ $application = Horde_Util::getFormData('app', 'horde');
 $command = trim(Horde_Util::getFormData('php'))
 
 ?>
-<div style="padding:10px">
+<div>
 <form action="phpshell.php" method="post">
 <?php Horde_Util::pformInput() ?>
 
-<h1 class="header"><?php echo _("PHP Shell") ?></h1>
+<h1 class="header"><?php echo $title ?></h1>
 <br />
 <label for="app"><?php echo _("Application Context: ") ?></label>
 <select id="app" name="app">
@@ -46,7 +46,7 @@ $command = trim(Horde_Util::getFormData('php'))
 </select><br /><br />
 
 <label for="php" class="hidden"><?php echo _("PHP") ?></label>
-<textarea class="fixed" id="php" name="php" rows="10" style="width:100%; padding:0;">
+<textarea class="fixed" id="php" name="php" rows="10" cols="80">
 <?php if (!empty($command)) echo htmlspecialchars($command) ?></textarea>
 <br />
 <input type="submit" class="button" value="<?php echo _("Execute") ?>" />

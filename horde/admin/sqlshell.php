@@ -17,8 +17,8 @@ require HORDE_TEMPLATES . '/common-header.inc';
 require HORDE_TEMPLATES . '/admin/menu.inc';
 
 ?>
-<div style="padding:10px">
-<h1 class="header"><?php echo _("SQL Shell") ?></h1><br />
+<div>
+<h1 class="header"><?php echo $title ?></h1><br />
 <form name="sqlshell" action="sqlshell.php" method="post">
 <?php Horde_Util::pformInput() ?>
 
@@ -120,7 +120,7 @@ if (isset($result)) {
 <?php endif; ?>
 
 <label for="sql" class="hidden"><?php echo ("SQL Query") ?></label>
-<textarea class="fixed" id="sql" name="sql" rows="10" cols="60">
+<textarea class="fixed" id="sql" name="sql" rows="10" cols="80">
 <?php if (strlen($command)) echo htmlspecialchars($command) ?></textarea>
 <br />
 <input type="submit" class="button" value="<?php echo _("Execute") ?>" />

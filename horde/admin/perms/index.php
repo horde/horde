@@ -19,6 +19,8 @@ require HORDE_TEMPLATES . '/common-header.inc';
 require HORDE_TEMPLATES . '/admin/menu.inc';
 
 $ui = new Horde_Perms_Ui($injector->getInstance('Horde_Perms'));
+
+echo '<h1 class="header">' . Horde::img('perms.png') . ' ' . _("Permissions") . '</h1>';
 $ui->renderTree($perm_id);
 
 require HORDE_TEMPLATES . '/common-footer.inc';
