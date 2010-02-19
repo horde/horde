@@ -18,8 +18,7 @@ $title = _("Permissions Administration");
 require HORDE_TEMPLATES . '/common-header.inc';
 require HORDE_TEMPLATES . '/admin/menu.inc';
 
-$ui = new Horde_Perms_Ui($perms);
-$notification->notify();
+$ui = new Horde_Perms_Ui($injector->getInstance('Horde_Perms'));
 $ui->renderTree($perm_id);
 
 require HORDE_TEMPLATES . '/common-footer.inc';
