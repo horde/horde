@@ -196,7 +196,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
         /* Save all changes to the gallery */
         $this->save();
 
-        return $image->id();
+        return $image->id;
     }
 
     /**
