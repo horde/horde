@@ -233,7 +233,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
 
         /* Check for a supported multi-page image */
         if ($image->isMultiPage() === true) {
-            $params['name'] = $image->getPageCount() . ' page image: ' . $image->filename;
+            $params['name'] = $image->getImagePageCount() . ' page image: ' . $image->filename;
             $mGallery = $GLOBALS['ansel_storage']->createGallery($params, $this->getPermission(), $this->getId());
             $i = 1;
             foreach ($image as $page) {

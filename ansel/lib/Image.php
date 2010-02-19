@@ -1271,8 +1271,12 @@ class Ansel_Image Implements Iterator
      * @return integer  The number of pages.
      * @throws Ansel_Exception
      */
-    public function getPageCount()
+    public function getImagePageCount()
     {
+        if (empty($this->_loaded['full'])) {
+            $this->load();
+        }
+
         try {
             return $this->_image->getImagePageCount();
         } catch (Horde_Image_Exception $e) {
@@ -1288,7 +1292,9 @@ class Ansel_Image Implements Iterator
      */
     public function rewind()
     {
-        $this->load();
+        if (empty($this->_loaded['full'])) {
+            $this->load();
+        }
         try {
             $this->_image->rewind();
         } catch (Horde_Image_Exception $e) {
@@ -1303,8 +1309,14 @@ class Ansel_Image Implements Iterator
      */
     public function current()
     {
-        $this->load();
-        return $this->_buildImageObject($this->_image->current());
+        if (empty($this->_loaded['full'])) {
+            $this->load();
+        }
+        try {
+            return $this->_buildImageObject($this->_image->current());
+        } catch (Horde_Image_Exception $e) {
+            throw new Ansel_Exception($e);
+        }
     }
 
     /**
@@ -1315,7 +1327,9 @@ class Ansel_Image Implements Iterator
      */
     public function key()
     {
-        $this->load();
+        if (empty($this->_loaded['full'])) {
+            $this->load();
+        }
         try {
             return $this->_image->key();
         } catch (Horde_Image_Exception $e) {
@@ -1330,7 +1344,9 @@ class Ansel_Image Implements Iterator
      */
     public function next()
     {
-        $this->load();
+        if (empty($this->_loaded['full'])) {
+            $this->load();
+        }
         if ($next = $this->_image->next()) {
             return $this->_buildImageObject($next);
         }
@@ -1346,7 +1362,9 @@ class Ansel_Image Implements Iterator
      */
     public function valid()
     {
-        $this->load();
+        if (empty($this->_loaded['full'])) {
+            $this->load();
+        }
         try {
             return $this->_image->valid();
         } catch (Horde_Image_Exception $e) {
