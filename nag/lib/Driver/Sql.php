@@ -94,7 +94,7 @@ class Nag_Driver_Sql extends Nag_Driver {
             return $row;
         }
         if ($row === null) {
-            return PEAR::raiseError(_("Task ID not found"));
+            return PEAR::raiseError(_("Task not found"));
         }
 
         /* Decode and return the task. */
