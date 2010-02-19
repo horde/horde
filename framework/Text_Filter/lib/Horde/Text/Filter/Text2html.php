@@ -52,7 +52,7 @@ class Horde_Text_Filter_Text2html extends Horde_Text_Filter_Base
      */
     protected $_params = array(
         'callback' => 'Horde::externalUrl',
-        'charset' => null,
+        'charset' => 'ISO-8859-1',
         'class' => 'fixed',
         'nofollow' => false,
         'noprefetch' => false,
@@ -83,12 +83,6 @@ class Horde_Text_Filter_Text2html extends Horde_Text_Filter_Base
      */
     public function preProcess($text)
     {
-        if (is_null($this->_params['charset'])) {
-            $this->_params['charset'] = isset($GLOBALS['_HORDE_STRING_CHARSET'])
-                ? $GLOBALS['_HORDE_STRING_CHARSET']
-                : 'ISO-8859-1';
-        }
-
         /* Abort out on simple cases. */
         if ($this->_params['parselevel'] == self::PASSTHRU) {
             return $text;

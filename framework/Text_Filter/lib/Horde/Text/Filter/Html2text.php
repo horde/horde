@@ -36,7 +36,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
      * @var array
      */
     protected $_params = array(
-        'charset' => null,
+        'charset' => 'ISO-8859-1',
         'width' => 70,
         'wrap' => true
     );
@@ -50,12 +50,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
      */
     public function preProcess($text)
     {
-        if (is_null($this->_params['charset'])) {
-            $this->_params['charset'] = isset($GLOBALS['_HORDE_STRING_CHARSET']) ? $GLOBALS['_HORDE_STRING_CHARSET'] : 'ISO-8859-1';
-        }
-
         $this->_linkList = array();
-
         return trim($text);
     }
 
