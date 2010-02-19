@@ -596,7 +596,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
      */
     public function valid()
     {
-        $this->_logDebug('Horde_Image_Imagick#valid:' . print_r(!$this->moreImages, true));
+        $this->_logDebug('Horde_Image_Imagick#valid:' . print_r(!$this->_noMoreImages, true));
         return !$this->_noMoreImages;
     }
 
