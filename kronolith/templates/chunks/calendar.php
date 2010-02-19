@@ -44,7 +44,7 @@ tbd
 <div class="kronolithFormActions">
   <input type="button" value="<?php echo _("Save") ?>" class="kronolithCalendarSave button ok" />
   <input type="button" value="<?php echo _("Delete") ?>" class="kronolithCalendarDelete button ko" />
-  <span class="kronolithSep"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
+  <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
 </div>
 </div>
 
@@ -87,7 +87,7 @@ tbd
 <div class="kronolithFormActions">
   <input type="button" value="<?php echo _("Save") ?>" class="kronolithCalendarSave button ok" />
   <input type="button" value="<?php echo _("Delete") ?>" class="kronolithCalendarDelete button ko" />
-  <span class="kronolithSep"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
+  <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
 </div>
 </div>
 
@@ -114,7 +114,7 @@ tbd
 <div class="kronolithFormActions">
   <input type="button" value="<?php echo _("Continue") ?>" class="kronolithCalendarContinue button ok" />
   <input type="button" value="<?php echo _("Delete") ?>" class="kronolithCalendarDelete button ko" />
-  <span class="kronolithSep"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
+  <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
 </div>
 </div>
 
@@ -135,7 +135,7 @@ tbd
 
 <div class="kronolithFormActions">
   <input type="button" value="<?php echo _("Continue") ?>" class="kronolithCalendarContinue button ok" />
-  <span class="kronolithSep"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
+  <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
 </div>
 </div>
 
@@ -155,7 +155,7 @@ tbd
 <div class="kronolithFormActions">
   <input type="button" value="<?php echo _("Save") ?>" class="kronolithCalendarSave button ok" />
   <input type="button" value="<?php echo _("Delete") ?>" class="kronolithCalendarDelete button ko" />
-  <span class="kronolithSep"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
+  <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
 </div>
 </div>
 

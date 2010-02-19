@@ -172,9 +172,9 @@ require dirname(__FILE__) . '/agenda.inc';
     <label><?php echo _("Add to") ?>:</label>
     <select id="kronolithQuickinsertCalendars">
     </select>
-    <span class="kronolithSep">|</span>
+    <span class="kronolithSeparator">|</span>
     <input type="button" id="kronolithQuickinsertSave" value="<?php echo _("Save") ?>" class="button ok" />
-    <span class="kronolithSep"><?php echo _("or") ?></span>
+    <span class="kronolithSeparator"><?php echo _("or") ?></span>
     <a href="#" id="kronolithQuickinsertCancel" class="kronolithFormCancel"><?php echo _("Cancel") ?></a><br />
   </form>
 </div>

@@ -74,7 +74,7 @@
 <div class="kronolithFormActions">
   <input id="kronolithTaskSave" type="button" value="<?php echo _("Save") ?>" class="button ok" />
   <input id="kronolithTaskDelete" type="button" value="<?php echo _("Delete") ?>" class="button ko" />
-  <span class="kronolithSep"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
+  <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
 </div>
 
 </form>

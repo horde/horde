@@ -1472,7 +1472,7 @@ KronolithCore = {
             if (!event.value.al) {
                 div.update(new Element('span', { className: 'kronolithDate' }).update(event.value.start.toString('t')))
                     .insert(' ')
-                    .insert(new Element('span', { className: 'kronolithSep' }).update('&middot;'))
+                    .insert(new Element('span', { className: 'kronolithSeparator' }).update('&middot;'))
                     .insert(' ');
             }
             this.createAgendaDay(date);
@@ -1722,12 +1722,12 @@ KronolithCore = {
             if (!now.isBefore(date)) {
                 col.addClassName('kronolithTaskDue');
             }
-            col.insert(new Element('span', { className: 'kronolithSep' }).update(' &middot; '));
+            col.insert(new Element('span', { className: 'kronolithSeparator' }).update(' &middot; '));
             col.insert(new Element('span', { className: 'kronolithDate' }).update(date.toString(Kronolith.conf.date_format)));
         }
 
         if (!Object.isUndefined(task.value.sd)) {
-            col.insert(new Element('span', { className: 'kronolithSep' }).update(' &middot; '));
+            col.insert(new Element('span', { className: 'kronolithSeparator' }).update(' &middot; '));
             col.insert(new Element('span', { className: 'kronolithInfo' }).update(task.value.sd));
         }
 
@@ -1861,7 +1861,7 @@ KronolithCore = {
         $('kronolithTaskForm').reset();
         $('kronolithTaskSave').show();
         $('kronolithTaskDelete').show();
-        $('kronolithTaskForm').down('.kronolithFormActions .kronolithSep').show();
+        $('kronolithTaskForm').down('.kronolithFormActions .kronolithSeparator').show();
         this.updateTasklistDropDown();
         if (id) {
             RedBox.loading();
@@ -1933,7 +1933,7 @@ KronolithCore = {
             $('kronolithTaskDelete').show();
         }
         if (!task.pe && !task.pd) {
-            $('kronolithTaskForm').down('.kronolithFormActions .kronolithSep').hide();
+            $('kronolithTaskForm').down('.kronolithFormActions .kronolithSeparator').hide();
         }
 
         this.setTitle(task.n);
@@ -3295,7 +3295,7 @@ KronolithCore = {
         }
         $('kronolithEventSave').show();
         $('kronolithEventDelete').show();
-        $('kronolithEventForm').down('.kronolithFormActions .kronolithSep').show();
+        $('kronolithEventForm').down('.kronolithFormActions .kronolithSeparator').show();
         this.doAction('ListTopTags', {}, this.topTags);
         if (id) {
             RedBox.loading();
@@ -3541,7 +3541,7 @@ KronolithCore = {
             $('kronolithEventDelete').hide();
         }
         if (!ev.pe && !ev.pd) {
-            $('kronolithEventForm').down('.kronolithFormActions .kronolithSep').hide();
+            $('kronolithEventForm').down('.kronolithFormActions .kronolithSeparator').hide();
         }
 
         this.setTitle(ev.t);
