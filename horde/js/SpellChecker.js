@@ -105,7 +105,7 @@ var SpellChecker = Class.create({
 
     onComplete: function(request)
     {
-        var bad, content, d,
+        var bad, content,
             i = 0,
             result = request.responseJSON;
 
@@ -140,14 +140,13 @@ var SpellChecker = Class.create({
         }, this);
 
         if (!this.reviewDiv) {
-            this.reviewDiv = new Element('div', { className: this.target.readAttribute('className') }).addClassName('spellcheck').setStyle({ overflow: 'auto' });
+            this.reviewDiv = new Element('DIV', { className: this.target.readAttribute('class') }).addClassName('spellcheck').setStyle({ overflow: 'auto' });
             if (this.resumeOnDblClick) {
                 this.reviewDiv.observe('dblclick', this.resume.bind(this));
             }
         }
 
-        d = this.target.getDimensions();
-        this.reviewDiv.setStyle({ width: d.width + 'px', height: d.height + 'px'});
+        this.reviewDiv.setStyle({ width: this.target.clientWidth + 'px', height: this.target.clientHeight + 'px'});
 
         if (!this.htmlAreaParent) {
             content = content.replace(/~~~/g, '<br />');
