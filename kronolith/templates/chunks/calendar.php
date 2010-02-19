@@ -107,7 +107,7 @@ tbd
   <br />
   <?php */ ?>
   <label><?php echo _("Export ICS file") ?>:</label>
-  <a id="kronolithCalendartasklistsExport"><?php echo _("Calendar ICS file") ?></a>
+  <a id="kronolithCalendartasklistsExport"><?php echo _("Task list ICS file") ?></a>
 </div>
 
 <div class="kronolithFormActions">
