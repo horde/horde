@@ -3330,6 +3330,7 @@ KronolithCore = {
             d.add(1).hour();
             $('kronolithEventEndDate').setValue(d.toString(Kronolith.conf.date_format));
             $('kronolithEventEndTime').setValue(d.toString(Kronolith.conf.time_format));
+            $('kronolithEventLinkExport').up().hide();
             RedBox.showHtml($('kronolithEventDialog').show());
         }
     },
@@ -3444,6 +3445,8 @@ KronolithCore = {
         $('kronolithEventEndDate').setValue(ev.ed);
         $('kronolithEventEndTime').setValue(ev.et);
         $('kronolithEventDescription').setValue(ev.d);
+        $('kronolithEventLinkExport').up().show();
+        $('kronolithEventExport').href = Kronolith.conf.URI_EVENT_EXPORT.interpolate({ id: ev.id, calendar: ev.c, type: ev.ty });
 
         /* Alarm */
         if (ev.a) {

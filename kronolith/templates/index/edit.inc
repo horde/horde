@@ -76,6 +76,7 @@
 <?php if ($GLOBALS['conf']['maps']['driver']): ?>
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkMap"><?php echo _("Map") ?></a></li>
 <?php endif; ?>
+    <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkExport"><?php echo _("Export") ?></a></li>
   </ul>
 </div>
 <br class="clear" />
@@ -196,6 +197,12 @@
 
 <div id="kronolithEventTabMap" class="kronolithTabsOption" style="display:none;">
   <div id="kronolithEventMap"></div>
+</div>
+
+<div id="kronolithEventTabExport" class="kronolithTabsOption" style="display:none">
+  <div class="kronolithTabInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics. Recipients of the iCalendar data file (with supporting software, such as an email client or calendar application) can respond to the sender easily or counter propose another meeting date/time.") ?></div>
+  <label><?php echo _("Export ICS file") ?>:</label>
+  <a id="kronolithEventExport"><?php echo _("Event ICS file") ?></a>
 </div>
 
 <div class="kronolithFormActions">
