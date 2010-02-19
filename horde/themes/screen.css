@@ -1123,7 +1123,7 @@ div.GrowlerNoticeExit:hover {
 .context a, .context a:visited {
     white-space: nowrap;
     display: block;
-    padding: 4px 4px 3px 2px;
+    padding: 3px;
     text-decoration: none;
     color: #000;
 }
