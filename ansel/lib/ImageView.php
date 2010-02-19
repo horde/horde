@@ -168,7 +168,9 @@ class Ansel_ImageView
                 $img->load('screen');
                 $images[] = $img->getHordeImage();
                 $cnt--;
-            } catch (Horde_Exception $e) {}
+            } catch (Exception $e) {
+                Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            }
         }
 
         for ($i = 0; $i < $cnt; $i++) {
@@ -178,7 +180,9 @@ class Ansel_ImageView
                 $aimg = array_shift($temp);
                 $aimg->load('screen');
                 $images[] = $aimg->getHordeImage();
-            } catch (Horde_Exception $e) {}
+            } catch (Exception $e) {
+                Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            }
         }
 
         // Reverse the array to ensure the requested default image

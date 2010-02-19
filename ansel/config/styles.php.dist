@@ -68,7 +68,7 @@ $styles['ansel_prettythumbs'] = array(
     'thumbstyle' => 'PrettyThumb',
     'requires_png' => true,
     // This really only looks good with ImageMagick, not GD.
-    'default_galleryimage_type' => 'roundedstack',
+    'default_galleryimage_type' => 'RoundedStack',
     'background' => 'none',
     'widgets' => $widgets,
 );
@@ -76,7 +76,7 @@ $styles['ansel_prettythumbs'] = array(
 $styles['ansel_blackonwhite'] = array(
     'name' => 'ansel_blackonwhite',
     'title' => _("Pretty Thumbnails (White Background)"),
-    'default_galleryimage_type' => 'roundedstack',
+    'default_galleryimage_type' => 'RoundedStack',
     'thumbstyle' => 'PrettyThumb',
     'background' => 'white',
     'widgets' => $widgets,
@@ -87,7 +87,7 @@ $styles['ansel_sharpshadowed'] = array(
     'title' => _("Shadowed Thumbnails (White Background)"),
     'thumbstyle' => 'ShadowSharpThumb',
     'background' => 'white',
-    'default_galleryimage_type' => 'plainstack',
+    'default_galleryimage_type' => 'PlainStack',
     'widgets' => $widgets
 );
 
@@ -97,7 +97,7 @@ $styles['ansel_polaroid'] = array(
     'title' => _("Polaroid Style Thumbnails (White Background)"),
     'thumbstyle' => 'PolaroidThumb',
     'background' => 'white',
-    'default_galleryimage_type' => 'polaroidstack',
+    'default_galleryimage_type' => 'PolaroidStack',
     'widgets' => $widgets,
 );
 
@@ -146,7 +146,7 @@ $styles['ansel_lightbox_polaroid'] = array(
     'thumbstyle' => 'PolaroidThumb',
     'background' => 'none',
     'requires_png' => true,
-    'default_galleryimage_type' => 'polaroidstack',
+    'default_galleryimage_type' => 'PolaroidStack',
     'gallery_view' => 'GalleryLightbox',
     'widgets' => $widgets,
 );
@@ -183,7 +183,7 @@ $styles['ansel_lightbox_simple_polaroid'] = array(
     'thumbstyle' => 'PolaroidThumb',
     'background' => 'none',
     'requires_png' => true,
-    'default_galleryimage_type' => 'polaroidstack',
+    'default_galleryimage_type' => 'PolaroidStack',
     'gallery_view' => 'GalleryLightbox',
     'hide' => true,
     'fallback' => 'ansel_simple'
