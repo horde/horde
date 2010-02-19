@@ -270,27 +270,8 @@ class Horde_Notification_Handler
      */
     public function notify(array $options = array())
     {
-        $options = $this->setNotificationListeners($options);
-
-        foreach ($this->_decorators as $decorator) {
-            $decorator->notify($options);
-        }
-
-        return $this->notifyListeners($options);
-    }
-
-    /**
-     * Convert the 'listeners' option into the format expected by the
-     * notification handler.
-     *
-     * @param array $options  An array containing display options for the
-     *                        listeners. See self::notify() for the valid
-     *                        keys.
-     *
-     * @return array  The list of listeners to notify.
-     */
-    public function setNotificationListeners(array $options)
-    {
+        /* Convert the 'listeners' option into the format expected by the
+         * notification handler. */
         if (!isset($options['listeners'])) {
             $options['listeners'] = array_keys($this->_listeners);
         } elseif (!is_array($options['listeners'])) {
@@ -299,23 +280,12 @@ class Horde_Notification_Handler
 
         $options['listeners'] = array_map(array('Horde_String', 'lower'), $options['listeners']);
 
-        return $options;
-    }
+        foreach ($this->_decorators as $decorator) {
+            $decorator->notify($options);
+        }
 
-    /**
-     * Passes the message stack to all listeners and asks them to handle
-     * their messages.
-     *
-     * @param array $options An array containing display options for the
-     *                       listeners. This array is required to contain the
-     *                       correct lowercased listener names as array in the
-     *                       entry 'listeners'. See self::notify() for the
-     *                       other valid keys.
-     *
-     * @return array  The list of events that were sent to the listeners.
-     */
-    public function notifyListeners(array $options)
-    {
+        /* Pass the message stack to all listeners and asks them to handle
+         * their messages. */
         $unattached = $this->_storage->exists('_unattached')
             ? $this->_storage->get('_unattached')
             : array();
