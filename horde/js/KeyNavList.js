@@ -19,6 +19,10 @@
  *                           list container element.
  *     'onShow' - (function) Called when the list is shown. Passed the
  *                           list container element.
+ *     'domParent' - (Element) Specifies the parent element. Defaults to
+ *                              document.body
+ *     'keydownObserver - (Element) The element to register the keydown handler
+ *                                  on. Defaults to document.
  * });
  *
  * [base = (Element) The element to use for display positioning purposes]
@@ -43,7 +47,8 @@ var KeyNavList = Class.create({
             onChoose: Prototype.emptyFunction,
             onHide: Prototype.emptyFunction,
             onShow: Prototype.emptyFunction,
-            domParent: null
+            domParent: null,
+            keydownObserver: document
         }, opts || {});
 
         this.div = new Element('DIV', { className: 'KeyNavList' }).hide().insert(new Element('UL'));
@@ -59,7 +64,7 @@ var KeyNavList = Class.create({
         document.observe('click', this.onClickFunc);
 
         this.onKeyDownFunc = this.onKeyDown.bindAsEventListener(this);
-        document.observe('keydown', this.onKeyDownFunc);
+        $(this.opts.keydownObserver).observe('keydown', this.onKeyDownFunc);
 
         this.resizeFunc = this.hide.bind(this);
         Event.observe(window, 'resize', this.resizeFunc);

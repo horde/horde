@@ -39,7 +39,8 @@ Autocompleter.Base = Class.create({
             onShow: Prototype.K,
             onType: Prototype.K,
             paramName: elt.readAttribute('name'),
-            tokens: []
+            tokens: [],
+            keydownObserver: this.elt
         }, (this._setOptions ? this._setOptions(opts) : (opts || {})));
 
         // Force carriage returns as token delimiters anyway
@@ -116,7 +117,8 @@ Autocompleter.Base = Class.create({
             if (!this.knl) {
                 this.knl = new KeyNavList(this.elt, { onChoose: this.onSelect.bind(this),
                                                         onShow: this.opts.onShow.bind(this),
-                                                     domParent: this.opts.domParent });
+                                                     domParent: this.opts.domParent,
+                                               keydownObserver: this.opts.keydownObserver});
             }
 
             this.knl.show(c);
