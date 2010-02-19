@@ -475,10 +475,10 @@ class IMP_Contents
             $ret[$mime_id]['name'] = $mime_part->getName(true);
         }
 
-        if (($textmode == 'inline') &&
+        if (!is_null($ret[$mime_id]['data']) &&
+            ($textmode == 'inline') &&
             !strlen($ret[$mime_id]['data']) &&
-            $this->isAttachment($type) &&
-            !$viewer->embeddedMimeParts()) {
+            $this->isAttachment($type)) {
             if (empty($ret[$mime_id]['status'])) {
                 $ret[$mime_id]['status'] = array(
                     array(
