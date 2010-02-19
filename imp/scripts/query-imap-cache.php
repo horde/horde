@@ -84,7 +84,7 @@ if ($ob->cache) {
     $cli->fatal('Caching not setup for this server.');
 } else {
     $driver = $ob->getParam('cache');
-    $cli->message('Cache driver used: ' . $driver['driver']);
+    $cli->message('Cache driver used: ' . get_class($driver['cacheob']));
 }
 
 try {
