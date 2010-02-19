@@ -96,7 +96,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
 
             // <strong>
             '/<strong(?:>|\s[^>]*>)(.+?)<\/strong>/ie' => 'strtoupper("\\1")',
-            '/<span\\s+style="font-weight:\\s*bold.*">(.+?)<\/span>/ie' => 'strtoupper("\\1")',
+            '/<span\s+style="font-weight:\s*bold.*">(.+?)<\/span>/ie' => 'strtoupper("\\1")',
 
             // <i>
             '/<i(?:>|\s[^>]*>)(.+?)<\/i>/i' => '/\\1/',
@@ -130,7 +130,10 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
 
             // Some mailers (e.g. Hotmail) use the following div tag as a way
             // to define a block of text.
-            '/<div class=rte>(.+?)<\/div> ?/i' => '\\1<br>',
+            '/<div class="?rte"?>(.+?)<\/div> ?/i' => '\\1<br>',
+
+            // Cite blocks.
+            '/\s*<blockquote\s+[^>]*(?:type="?cite"?|class="?gmail_quote"?)[^>]*>\s*/i' => '<hordecite>',
 
             // <br>
             '/<br[^>]*>/i' => "\n"
@@ -158,13 +161,10 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
     public function postProcess($text)
     {
         /* Convert blockquote tags. */
-        $text = preg_replace(array('/<blockquote [^>]*(type="?cite"?|class="?gmail_quote"?)[^>]*>\n?/',
-                                   '/\n?<\/blockquote>\n?/is'),
-                             array(chr(0), chr(1)),
-                             $text);
-        if (strpos($text, chr(0)) !== false) {
-            $text = $this->_blockQuote($text);
-        }
+        return $text;
+     //   if (strpos($text, chr(0)) !== false) {
+        //    $text = $this->_blockQuote($text);
+//        }
 
         /* Strip any other HTML tags. */
         $text = strip_tags($text);
