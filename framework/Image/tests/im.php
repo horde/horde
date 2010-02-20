@@ -227,8 +227,7 @@ case 'testRoundCornersDropShadowYellowBG':
 case 'testBorderedDropShadowTransparentBG':
     $time = xdebug_time_index();
 
-    $image = getImageObject(array('filename' => 'img1.jpg',
-                                  'background' => 'none'));
+    $image = getImageObject(array('filename' => 'img1.jpg'));
     $image->resize(150,150, true);
     $image->addEffect('Border', array('bordercolor' => '#333', 'borderwidth' => 1));
     $image->addEffect('DropShadow',
@@ -240,6 +239,20 @@ case 'testBorderedDropShadowTransparentBG':
     $time = xdebug_time_index() - $time;
     $memory = xdebug_peak_memory_usage();
     logThis($test, $time, $memory);
+    break;
+
+case 'testBorderedDropShadowTransparentLoadString':
+    $image = getImageObject();
+    $data = file_get_contents('img1.jpg');
+    $image->loadString($data);
+    $image->resize(150,150, true);
+    $image->addEffect('Border', array('bordercolor' => '#333', 'borderwidth' => 1));
+    $image->addEffect('DropShadow',
+                      array('background' => 'none',
+                            'padding' => 5,
+                            'distance' => 8,
+                            'fade' => 2));
+    $image->display();
     break;
 
 case 'testBorderedDropShadowBlueBG':
@@ -426,7 +439,6 @@ function getImageObject($params = array())
 {
     global $conf;
 
-    // Always pass the convert parameter to be consistent when profiling.
     $context = array('tmpdir' => Horde::getTempDir(),
                      'convert' => $GLOBALS['convert'],
                      'logger' => $GLOBALS['logger'],

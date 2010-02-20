@@ -18,6 +18,7 @@ $allTests = array(
     'testRoundCornersDropShadowTransparentBG' => 'Rounded corners with a drop shadow on a transparent background.',
     'testRoundCornersDropShadowYellowBG' => 'Rounded corners, with a drop shadow on a yellow background',
     'testBorderedDropShadowTransparentBG' => 'Thumbnail with border and drop shadow over a transparent background.',
+    'testBorderedDropShadowTransparentLoadString' => 'Same as above, but using loadString after the image has been instantiated.',
     'testBorderedDropShadowBlueBG' => 'Thumbnail with border, drop shadow over a blue background.',
     'testPolaroidTransparentBG' => 'Polaroid effect with transparent background.',
     'testPolaroidBlueBG' => 'Polaroid effect with blue background.',
