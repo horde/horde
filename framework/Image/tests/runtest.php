@@ -8,6 +8,9 @@ Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 $allTests = array(
     'testInitialState' => 'Test initial state. Solid blue square',
+    'testDefaultImageFormatDuringLoad' => 'Should load as default image type of PNG even though source file is JPG',
+    'testForceImageFormatDuringLoad' => 'Forces image format to JPG during loadFile (Default is PNG)',
+    'testChangeImageFormatAfterLoad' => 'Changes image format after loaded from file (Should be JPG)',
     'testPrimitivesTransparentBG' => 'Transparent background, various primitives. Cirlce should be above the rectangles.',
     'testTransparentBGWithBorder' => 'Test transparent background with border preserving transparency.',
     'testTransparentPrimitivesReversed' => 'Test ordering of primitives. This should show the circle *below* the rectangles.',

@@ -56,6 +56,24 @@ case 'testInitialStateAfterLoad':
     $image->display();
     break;
 
+case 'testDefaultImageFormatDuringLoad':
+    // Tests image format during load
+    $image = getImageObject(array('filename' => 'img1.jpg'));
+    $image->display();
+    break;
+
+case 'testForceImageFormatDuringLoad':
+    // Tests forcing image format during load
+    $image = getImageObject(array('filename' => 'img1.jpg', 'type' => 'jpeg'));
+    $image->display();
+    break;
+case 'testChangeImageFormatAfterLoad':
+    // Tests changing image format after load
+    $image = getImageObject(array('filename' => 'img1.jpg')); // Loads as PNG
+    $image->setType('jpeg');
+    $image->display();
+    break;
+
 case 'testResize':
     $time = xdebug_time_index();
     $image = getImageObject(array('filename' => 'img2.jpg'));

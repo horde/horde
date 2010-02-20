@@ -372,14 +372,9 @@ class Ansel_Image Implements Iterator
      */
     public function createView($view, $style = null)
     {
-        // HACK: Need to replace the image object with a JPG typed image if
-        //       we are generating a screen image. Need to do the replacement
-        //       and do it *here* for BC reasons with Horde_Image...and this
-        //       needs to be done FIRST, since the view might already be cached
-        //       in the VFS.
+        /* Force screen images to ALWAYS be jpegs for performance/size */
         if ($view == 'screen' && $GLOBALS['conf']['image']['type'] != 'jpeg') {
-            $this->_image = Ansel::getImageObject(array('type' => 'jpeg'));
-            $this->_image->reset();
+            $this->_image->setType('jpeg');
         }
 
         /* Get the VFS info. */

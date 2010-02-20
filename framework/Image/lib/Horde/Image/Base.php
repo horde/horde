@@ -170,6 +170,18 @@ abstract class Horde_Image_Base Implements Iterator
     }
 
     /**
+     * Setter for the image type.
+     *
+     * @param string $type  The simple type for the imag (png, jpg, etc...)
+     *
+     * @return void
+     */
+    public function setType($type)
+    {
+        $this->_type = $type;
+    }
+
+    /**
      * Draw a shaped point at the specified (x,y) point. Useful for
      * scatter diagrams, debug points, etc. Draws squares, circles,
      * diamonds, and triangles.

@@ -54,7 +54,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
         if (!Horde_Util::loadExtension('imagick')) {
             throw new Horde_Image_Exception('Required PECL Imagick extension not found.');
         }
-        parent::__construct($params, $context);   
+        parent::__construct($params, $context);
         ini_set('imagick.locale_fix', 1);
         $this->_imagick = new Imagick();
         if (!empty($params['filename'])) {
@@ -71,7 +71,11 @@ class Horde_Image_Imagick extends Horde_Image_Base
             }
         }
 
-        $this->_imagick->setImageFormat($this->_type);
+        try {
+            $this->_imagick->setImageFormat($this->_type);
+        } catch (ImagickException $e) {
+            throw new Horde_Image_Exception($e);
+        }
     }
 
     /**
@@ -88,12 +92,12 @@ class Horde_Image_Imagick extends Horde_Image_Base
         $this->_imagick->clear();
         try {
             $this->_imagick->readImageBlob($this->_data);
+            $this->_imagick->setImageFormat($this->_type);
+            $this->_imagick->setIteratorIndex(0);
         } catch (ImagickException $e) {
             throw new Horde_Image_Exception($e);
         }
-        $this->_imagick->setImageFormat($this->_type);
         unset($this->_data);
-        $this->_imagick->setIteratorIndex(0);
     }
 
     /**
@@ -112,12 +116,27 @@ class Horde_Image_Imagick extends Horde_Image_Base
         $this->_imagick->clear();
         try {
             $this->_imagick->readImageBlob($this->_data);
+            $this->_imagick->setImageFormat($this->_type);
+            $this->_imagick->setIteratorIndex(0);
         } catch (ImagickException $e) {
             throw new Horde_Image_Exception($e);
         }
-        $this->_imagick->setImageFormat($this->_type);
-        $this->_imagick->setIteratorIndex(0);
         unset($this->_data);
+    }
+
+    /**
+     * Set the image type
+     *
+     * @see Horde_Image_Base::setType()
+     */
+    public function setType($type)
+    {
+        parent::setType($type);
+        try {
+            $this->_imagick->setImageFormat($this->_type);
+        } catch (ImagickException $e) {
+            // Don't care about an empty wand here.
+        }
     }
 
     /*
