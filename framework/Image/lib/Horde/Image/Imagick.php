@@ -87,11 +87,12 @@ class Horde_Image_Imagick extends Horde_Image_Base
         parent::loadString($image_data);
         $this->_imagick->clear();
         try {
-            $this->_imagick->readImageBlob($image_data);
+            $this->_imagick->readImageBlob($this->_data);
         } catch (ImagickException $e) {
             throw new Horde_Image_Exception($e);
         }
-        $this->_imagick->setFormat($this->_type);
+        $this->_imagick->setImageFormat($this->_type);
+        unset($this->_data);
         $this->_imagick->setIteratorIndex(0);
     }
 
@@ -114,7 +115,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
         } catch (ImagickException $e) {
             throw new Horde_Image_Exception($e);
         }
-        $this->_imagick->setFormat($this->_type);
+        $this->_imagick->setImageFormat($this->_type);
         $this->_imagick->setIteratorIndex(0);
         unset($this->_data);
     }
