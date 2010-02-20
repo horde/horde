@@ -74,7 +74,7 @@ if (!empty($conf['image']['convert'])) {
     $context['identify'] = $conf['image']['identify'];
 }
 $image = Horde_Image::factory($driver, array('context' => $context));
-$image->loadString($file, $file_data);
+$image->loadString($file_data);
 
 /* Check if no editing action required and send the image to browser. */
 if (empty($action)) {

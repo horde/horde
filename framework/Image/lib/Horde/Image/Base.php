@@ -41,16 +41,6 @@ abstract class Horde_Image_Base Implements Iterator
     protected $_data = '';
 
     /**
-     * The current image id.
-     *
-     * @TODO: Do we *really* need an image id...and if so, we can make the
-     *        parameter optional in the methods that take one?
-     *
-     * @var string
-     */
-    protected $_id = '';
-
-    /**
      * Logger
      */
     protected $_logger;
@@ -224,7 +214,6 @@ abstract class Horde_Image_Base Implements Iterator
     public function reset()
     {
         $this->_data = '';
-        $this->_id = '';
         $this->_width = null;
         $this->_height = null;
         $this->_background = 'white';
@@ -256,13 +245,10 @@ abstract class Horde_Image_Base Implements Iterator
      * @param string $id          An arbitrary id for the image.
      * @param string $image_data  The data to use for the image.
      */
-    public function loadString($id, $image_data)
+    public function loadString($image_data)
     {
-        if ($id != $this->_id) {
-            $this->reset();
-            $this->_data = $image_data;
-            $this->_id = $id;
-        }
+        $this->reset();
+        $this->_data = $image_data;
     }
 
     /**
@@ -278,16 +264,12 @@ abstract class Horde_Image_Base Implements Iterator
      */
     public function loadFile($filename)
     {
-        if ($filename != $this->_id) {
-            $this->reset();
-            if (!file_exists($filename)) {
-                throw new Horde_Image_Exception(sprintf("The image file, %s, does not exist.", $filename));
-            }
-            if ($this->_data = file_get_contents($filename)) {
-                $this->_id = $filename;
-            } else {
-                throw new Horde_Image_Exception(sprintf("Could not load the image file %s", $filename));
-            }
+        $this->reset();
+        if (!file_exists($filename)) {
+            throw new Horde_Image_Exception(sprintf("The image file, %s, does not exist.", $filename));
+        }
+        if (!$this->_data = file_get_contents($filename)) {
+            throw new Horde_Image_Exception(sprintf("Could not load the image file %s", $filename));
         }
 
         return true;

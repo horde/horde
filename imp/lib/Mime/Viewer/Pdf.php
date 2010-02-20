@@ -126,7 +126,7 @@ class IMP_Horde_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
         
         if ($load) {
             try {
-                $ret = $img->loadString(1, $this->_mimepart->getContents());
+                $ret = $img->loadString($this->_mimepart->getContents());
             } catch (Horde_Image_Exception $e) {
                 return false;
             }

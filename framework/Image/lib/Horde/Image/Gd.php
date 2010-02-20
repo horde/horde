@@ -175,12 +175,9 @@ class Horde_Image_Gd extends Horde_Image_Base
      * @param string $id          An arbitrary id for the image.
      * @param string $image_data  The data to use for the image.
      */
-    public function loadString($id, $image_data)
+    public function loadString($image_data)
     {
-        if ($id != $this->_id) {
-            $this->_im = $this->_call('imageCreateFromString', array($image_data));
-            $this->_id = $id;
-        }
+        $this->_im = $this->_call('imageCreateFromString', array($image_data));
     }
 
     /**

@@ -60,7 +60,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
         if (!empty($params['filename'])) {
             $this->loadFile($params['filename']);
         } elseif(!empty($params['data'])) {
-            $this->loadString(md5($params['data']), $params['data']);
+            $this->loadString($params['data']);
         } else {
             $this->_width = max(array($this->_width, 1));
             $this->_height = max(array($this->_height, 1));
@@ -82,9 +82,9 @@ class Horde_Image_Imagick extends Horde_Image_Base
      *
      * @return void
      */
-    public function loadString($id, $image_data)
+    public function loadString($image_data)
     {
-        parent::loadString($id, $image_data);
+        parent::loadString($image_data);
         $this->_imagick->clear();
         try {
             $this->_imagick->readImageBlob($image_data);

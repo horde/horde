@@ -284,7 +284,7 @@ class Ansel_Image Implements Iterator
         // already have the full data loaded. If we auto-rotate the image
         // then there is no need to save it just to load it again.
         if ($view == 'full' && !empty($this->_data['full'])) {
-            $this->_image->loadString('original', $this->_data['full']);
+            $this->_image->loadString($this->_data['full']);
             $this->_loaded['full'] = true;
             return true;
         }
@@ -302,9 +302,6 @@ class Ansel_Image Implements Iterator
             return;
         }
 
-        /* We've definitely successfully loaded the image now. */
-        $this->_loaded[$viewHash] = true;
-
         /* Get the VFS info. */
         $vfspath = $this->getVFSPath($view, $style);
 
@@ -315,8 +312,11 @@ class Ansel_Image Implements Iterator
             throw new Ansel_Exception($data);
         }
 
+        /* We've definitely successfully loaded the image now. */
+        $this->_loaded[$viewHash] = true;
         $this->_data[$viewHash] = $data;
-        $this->_image->loadString($vfspath . '/' . $this->id, $data);
+        $this->_image->loadString($data);
+
         return true;
     }
 
@@ -392,7 +392,9 @@ class Ansel_Image Implements Iterator
             Horde::logMessage($data, __FILE__, __LINE__, PEAR_LOG_ERR);
             throw new Ansel_Exception($data);
         }
-        $this->_image->loadString($this->getVFSPath('full') . '/' . $this->id, $data);
+
+        $vHash = $this->getViewHash($view, $style);
+        $this->_image->loadString($data);
         $styleDef = Ansel::getStyleDefinition($style);
         if ($view == 'prettythumb') {
             $viewType = $styleDef['thumbstyle'];
@@ -419,17 +421,16 @@ class Ansel_Image Implements Iterator
         $iview->create();
 
         /* Cache the data from the new imageview */
-        $view = $this->getViewHash($view, $style);
         try {
-            $this->_data[$view] = $this->_image->raw();
+            $this->_data[$vHash] = $this->_image->raw();
         } catch (Horde_Image_Exception $e) {
             throw new Ansel_Exception($e);
         }
 
         /* ...and put it in Horde_Image obejct, then save */
-        $this->_image->loadString($vfspath . '/' . $this->id, $this->_data[$view]);
-        $this->_loaded[$view] = true;
-        $GLOBALS['ansel_vfs']->writeData($vfspath, $this->getVFSName($view), $this->_data[$view], true);
+        $this->_image->loadString($this->_data[$vHash]);
+        $this->_loaded[$vHash] = true;
+        $GLOBALS['ansel_vfs']->writeData($vfspath, $this->getVFSName($vHash), $this->_data[$vHash], true);
 
         /* Autowatermark the screen view */
         if ($view == 'screen' &&
@@ -1089,7 +1090,7 @@ class Ansel_Image Implements Iterator
         try {
             $this->_image->addEffect($type, $params);
         } catch (Horde_Image_Exception $e) {
-            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
             throw new Ansel_Exception($e);
         }
     }

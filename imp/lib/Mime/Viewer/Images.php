@@ -272,7 +272,7 @@ EOD;
 
         if ($load) {
             try {
-                $ret = $img->loadString(1, $this->_mimepart->getContents());
+                $ret = $img->loadString($this->_mimepart->getContents());
             } catch (Horde_Image_Exception $e) {
                 return false;
             }

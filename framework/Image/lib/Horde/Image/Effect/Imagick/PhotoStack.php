@@ -201,7 +201,7 @@ class Horde_Image_Effect_Imagick_PhotoStack extends Horde_Image_Effect
         $context = array('tmpdir' => $this->_image->getTmpDir());
         $size = $image->getImageGeometry();
         $new = Horde_Image::factory('Imagick', array('context' => $context));
-        $new->loadString('somestring', $image->getImageBlob());
+        $new->loadString($image->getImageBlob());
         $image->destroy();
         $new->addEffect('RoundCorners', array('border' => 2, 'bordercolor' => '#111'));
         $new->applyEffects();

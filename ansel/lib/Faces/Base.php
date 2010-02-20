@@ -380,7 +380,7 @@ class Ansel_Faces_Base
         if ($data instanceof PEAR_Error) {
             throw new Horde_Exception_Prior($data);
         }
-        $img->loadString($face_id, $data);
+        $img->loadString($data);
 
         return $img;
     }

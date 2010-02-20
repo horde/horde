@@ -101,7 +101,7 @@ class Horde_Image_Im extends Horde_Image_Base
         if (!empty($params['filename'])) {
             $this->loadFile($params['filename']);
         } elseif (!empty($params['data'])) {
-            $this->loadString(md5($params['data']), $params['data']);
+            $this->loadString($params['data']);
         } else {
             $cmd = "-size {$this->_width}x{$this->_height} xc:{$this->_background} +profile \"*\" {$this->_type}:__FILEOUT__";
             $this->executeConvertCmd($cmd);
