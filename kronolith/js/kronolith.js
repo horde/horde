@@ -663,21 +663,21 @@ KronolithCore = {
         // Create a copy of the row template.
         var body = $('kronolithViewAgendaBody'),
             row = $('kronolithAgendaTemplate').cloneNode(true);
-        row.removeAttribute('id');
 
         // Fill week number and day cells.
-        row.down()
+        row.store('date', date)
+            .down()
             .setText(this.parseDate(date).toString('D'))
-            .store('date', date)
             .next()
             .writeAttribute('id', 'kronolithAgendaDay' + date);
+        row.removeAttribute('id');
 
         // Insert row.
         var nextRow;
         body.childElements().each(function(elm) {
-            if (elm.down().retrieve('date') > date) {
+            if (elm.retrieve('date') > date) {
                 nextRow = elm;
-                return;
+                throw $break;
             }
         });
         if (nextRow) {
