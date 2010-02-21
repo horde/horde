@@ -16,9 +16,10 @@
         <?php endif; ?>
         <?php endforeach; ?>
       </ul>
-      <span class="kronolithSeparator">|</span>
     </div>
     <?php endif; ?>
+    <a href="#" id="kronolithNotifications" class="kronolithNotifications" title="<?php echo ("0 notifications") ?>"></a>
+    <span class="kronolithSeparator">|</span>
     <a href="#" id="kronolithOptions"><?php echo _("Options") ?></a><?php if ($help_link) echo ' <span class="kronolithSeparator">|</span> ' . $help_link; if ($logout_link) echo ' <span class="kronolithSeparator">|</span> ' . $logout_link ?>
   </div>
   <!-- end services -->
@@ -28,7 +29,6 @@
   <div class="kronolithDateChoice" <?php $todayAccessKey = Horde::getAccessKey(_("_Today")); echo Horde::getAccessKeyAndTitle(_("_Today"), true) ?>>
     <div><?php echo $today->strftime('%a, %e %b %Y') ?></div>
   </div>
-  <a href="#" id="kronolithNotifications" class="kronolithNotifications"><?php echo _("no notifications") ?></a>
   <div id="kronolithNav">
     <a id="kronolithNavDay" accesskey="1"><span><?php echo _("Day") ?></span></a>
     <a id="kronolithNavWeek" accesskey="2"><span><?php echo _("Week") ?></span></a>

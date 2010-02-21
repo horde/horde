@@ -193,13 +193,15 @@ KronolithCore = {
                 });
                 var notify = $('kronolithNotifications'),
                     className = m.type.replace(/\./, '-'),
-                    order = 'horde-error,horde-warning,horde-message,horde-success,kronolithNotifications';
-                if (!notify.className ||
-                    order.indexOf(notify.className) > order.indexOf(className)) {
+                    order = 'horde-error,horde-warning,horde-message,horde-success,kronolithNotifications',
+                    open = notify.hasClassName('kronolithClose');
+                notify.removeClassName('kronolithClose');
+                if (order.indexOf(notify.className) > order.indexOf(className)) {
                     notify.className = className;
                 }
-                notify.update(Kronolith.text.alerts.interpolate({ count: ++this.growls }));
-                notify.up().show();
+                if (open) {
+                    notify.addClassName('kronolithClose');
+                }
                 break;
             }
         }, this);
@@ -2815,11 +2817,16 @@ KronolithCore = {
                 break;
 
             case 'kronolithNotifications':
+                var img = elt.down('img'), iconName;
                 if (this.Growler.toggleLog()) {
-                    elt.update(Kronolith.text.hidelog);
+                    elt.title = Kronolith.text.hidelog;
+                    elt.addClassName('kronolithClose');
                 } else {
-                    $('kronolithNotifications').update(Kronolith.text.alerts.interpolate({ count: this.growls }));
+                    elt.title = Kronolith.text.alerts.interpolate({ count: this.growls });
+                    elt.removeClassName('kronolithClose');
                 }
+                Horde_ToolTips.detach(elt);
+                Horde_ToolTips.attach(elt);
                 break;
             }
 

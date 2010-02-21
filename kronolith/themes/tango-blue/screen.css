@@ -19,3 +19,19 @@
 .day-eventbox {
     padding: 6px;
 }
+
+#kronolithNotifications {
+    background-image: url("graphics/alerts/message.png");
+}
+#kronolithNotifications.horde-error {
+    background-image: url("graphics/alerts/error.png")
+}
+#kronolithNotifications.horde-success {
+    background-image: url("graphics/alerts/success.png")
+}
+#kronolithNotifications.horde-warning {
+    background-image: url("graphics/alerts/warning.png")
+}
+#kronolithNotifications.kronolithClose {
+    background-image: url("graphics/close.png")
+}

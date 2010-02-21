@@ -463,20 +463,30 @@ body.kronolithAjax {
     margin-right: 10px;
     text-align: right;
 }
+.kronolithNotifications {
+    background-color: #d9d9d9
+}
 #kronolithNotifications {
     float: left;
-    padding: 0 10px;
+    width: 23px;
     height: 23px;
     line-height: 23px;
     border: 1px solid #999;
-    -moz-border-radius: 0 5px 5px 0;
-    -webkit-border-radius: 0 5px 5px 0;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    background: #d9d9d9 url("graphics/alerts/message.png") no-repeat center center;
 }
-.kronolithNotifications {
-    background-color: #d9d9d9;
+#kronolithNotifications.horde-error {
+    background-image: url("graphics/alerts/error.png")
 }
-#kronolithNotifications.kronolithNotifications {
-    background-color: #f0f0f0;
+#kronolithNotifications.horde-success {
+    background-image: url("graphics/alerts/success.png")
+}
+#kronolithNotifications.horde-warning {
+    background-image: url("graphics/alerts/warning.png")
+}
+#kronolithNotifications.kronolithClose {
+    background-image: url("graphics/close.png")
 }
 
 /* Main area */
@@ -649,8 +659,8 @@ a.kronolithFormCancel {
     margin-right: 1px;
     background: #d6d6d6;
     border: 1px solid #999;
-    -moz-border-radius: 5px 0 0 5px;
-    -webkit-border-radius: 5px 0 0 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
     font-weight: bold;
     cursor: pointer;
 }
@@ -1224,7 +1234,7 @@ table.kronolithView td.kronolithFirstCol {
     line-height: 15px;
     padding: 2px;
     text-align: center;
-    background: transparent url("graphics/new_small_fade.png") 3px 5px no-repeat;
+    background: transparent url("graphics/new_small_fade.png") no-repeat 3px 5px;
 }
 .kronolithAddEvent:hover {
     background-image: url("graphics/new_small.png");
@@ -1308,10 +1318,10 @@ table.kronolithView td.kronolithToday {
     cursor: move;
 }
 .kronolithEvent.kronolithEditable .kronolithDragger {
-    background: transparent url("graphics/drag-handle.png") center center no-repeat;
+    background: transparent url("graphics/drag-handle.png") no-repeat center center;
 }
 .kronolithDragger.drag {
-    background: transparent url("graphics/drag-handle.png") center center no-repeat;
+    background: transparent url("graphics/drag-handle.png") no-repeat center center;
     opacity: .8;
     filter: alpha(opacity=80);
  }

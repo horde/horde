@@ -19,3 +19,18 @@ table.monthgrid {
 table.kronolithView td.button {
     border-color: #999;
 }
+#kronolithNotifications {
+    background-image: url("graphics/alerts/message.png");
+}
+#kronolithNotifications.horde-error {
+    background-image: url("graphics/alerts/error.png")
+}
+#kronolithNotifications.horde-success {
+    background-image: url("graphics/alerts/success.png")
+}
+#kronolithNotifications.horde-warning {
+    background-image: url("graphics/alerts/warning.png")
+}
+#kronolithNotifications.kronolithClose {
+    background-image: url("graphics/close.png")
+}
