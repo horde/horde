@@ -15,7 +15,8 @@ var PrettyAutocompleter = Class.create({
                 minTriggerWidth: 100,
                 // Allow for a function that filters the display value
                 // This function should *always* return escaped HTML
-                displayFilter: function(t) { return t.escapeHTML() }
+                displayFilter: function(t) { return t.escapeHTML() },
+                filterCallback: this._filterChoices.bind(this)
             }, params);
 
             // Array to hold the currently selected items to ease with removing
@@ -203,5 +204,13 @@ var PrettyAutocompleter = Class.create({
                 realValues.push(this.selectedItems[x].rawValue);
             }
             $(this.p.items).value = realValues.join(',');
+        },
+
+        _filterChoices: function(c)
+        {
+            this.selectedItems.each(function(item) {
+                c = c.without(item.displayValue);
+            });
+            return c;
         }
 });

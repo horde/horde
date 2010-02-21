@@ -38,6 +38,7 @@ Autocompleter.Base = Class.create({
             onSelect: Prototype.K,
             onShow: Prototype.K,
             onType: Prototype.K,
+            filterCallback: Prototype.K,
             paramName: elt.readAttribute('name'),
             tokens: [],
             keydownObserver: this.elt
@@ -95,6 +96,7 @@ Autocompleter.Base = Class.create({
             $(this.opts.indicator).hide();
         }
 
+        choices = this.opts.filterCallback(choices);
         if (!choices.size()) {
             if (this.knl) {
                 this.knl.hide();
