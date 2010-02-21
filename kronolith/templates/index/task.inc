@@ -4,42 +4,42 @@
 <input id="kronolithTaskOldList" type="hidden" name="old_tasklist" />
 
 <div>
-  <label for="kronolithTaskTitle"><?php echo _("Name") ?>:</label><br />
+  <label for="kronolithTaskTitle"><?php echo _("Task title") ?>:</label><br />
   <input type="text" name="task[name]" id="kronolithTaskTitle" class="kronolithLongField" />
 </div>
 
 <div>
-  <label><input type="checkbox" name="task[completed]" id="kronolithTaskCompleted" value="1" /> <?php echo _("completed") ?></label>
+  <label>
+    <?php echo _("Priority") ?>:
+    <select name="task[priority]" id="kronolithTaskPriority">
+      <?php foreach (array(1 => _("Highest"), 2 => _("High"), 3 => _("Normal"), 4 => _("Low"), 5 => _("Lowest")) as $prio => $label): ?>
+      <option value="<?php echo $prio ?>"><?php echo $label ?></option>
+      <?php endforeach; ?>
+    </select>
+  </label>
+  <span class="kronolithSeparator">|</span>
+  <label>
+    <?php echo _("Due date") ?>:
+    <input type="text" name="task[due_date]" id="kronolithTaskDueDate" size="10" />
+    <?php echo Horde::img('picker.png', _("Set due date"), 'id="kronolithTaskDuePicker" class="kronolithDatePicker"') ?>
+  </label>
+  <label>
+    <?php echo _("at") ?>
+    <input type="text" name="task[due_time]" id="kronolithTaskDueTime" size="8" />
+  </label>
+  <span class="kronolithSeparator">|</span>
+  <label>
+    <?php echo _("Add to") ?>
+    <select name="task[tasklist]" id="kronolithTaskList">
+    </select>
+  </label>
 </div>
 
-<table cellspacing="0" cellpadding="0" border="0"><tbody><tr>
-  <td>
-    <div>
-      <label for="kronolithTaskPriority"><?php echo _("Priority") ?>:</label><br />
-      <select name="task[priority]" id="kronolithTaskPriority">
-        <?php foreach (array(1 => '1 ' . _("(highest)"), 2 => 2, 3 => 3, 4 => 4, 5 => '5 ' . _("(lowest)")) as $prio => $label): ?>
-        <option value="<?php echo $prio ?>"><?php echo $label ?></option>
-        <?php endforeach; ?>
-      </select>
-    </div>
-  </td>
-  <td>
-    <div>
-      <label for="kronolithTaskList"><?php echo _("Task List") ?>:</label><br />
-      <select name="task[tasklist]" id="kronolithTaskList">
-      </select>
-    </div>
-  </td>
-  <td>
-    <div>
-      <label><?php echo _("Due date") ?>:</label><br />
-      <input type="text" name="task[due_date]" id="kronolithTaskDueDate" size="10" />
-      <?php echo Horde::img('picker.png', _("Set due date"), 'id="kronolithTaskDuePicker" class="kronolithDatePicker"') ?>
-      <?php echo _("at") ?>
-      <input type="text" name="task[due_time]" id="kronolithTaskDueTime" size="8" />
-    </div>
-  </td>
-</tr></tbody></table>
+<div>
+  <?php echo _("Mark task as") ?>
+  <input type="checkbox" name="task[completed]" id="kronolithTaskCompleted" value="1" />
+  <label for="kronolithTaskCompleted"><?php echo _("completed") ?></label>
+</div>
 
 <div class="tabset">
   <ul>
