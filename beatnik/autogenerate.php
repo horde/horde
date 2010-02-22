@@ -10,8 +10,9 @@
  * @author Duck <duck@obala.net>
  */
 
-define('BEATNIK_BASE', dirname(__FILE__));
-require_once BEATNIK_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+$beatnik = Horde_Registry::appInit('beatnik');
+
 require_once BEATNIK_BASE . '/lib/Forms/Autogenerate.php';
 
 $viewurl = Horde::applicationUrl('viewzone.php');

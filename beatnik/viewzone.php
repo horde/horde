@@ -6,12 +6,11 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-define('BEATNIK_BASE', dirname(__FILE__));
-require_once BEATNIK_BASE . '/lib/base.php';
-require_once BEATNIK_BASE . '/lib/Beatnik.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+$beatnik = Horde_Registry::appInit('beatnik');
 
 try {
-    $zonedata = $beatnik_driver->getRecords($_SESSION['beatnik']['curdomain']['zonename']);
+    $zonedata = $beatnik->driver->getRecords($_SESSION['beatnik']['curdomain']['zonename']);
 } catch (Exception $e) {
     $notification->push($e, 'horde.error');
     header('Location:' . Horde::applicationUrl('listzones.php'));

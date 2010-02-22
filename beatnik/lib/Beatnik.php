@@ -66,7 +66,7 @@ class Beatnik {
             'txt' => _("TXT (Text Record)"),
         );
 
-        return array_merge($records, $GLOBALS['beatnik_driver']->getRecDriverTypes());
+        return array_merge($records, $beatnik->driver->getRecDriverTypes());
     }
 
     /**
@@ -87,6 +87,8 @@ class Beatnik {
         //      'infoset' is false then 'default' MUST be specified
         // 'default': the default value of the field.
         // 'index': Crude sort ordering.  Lower means show higher in the group
+
+        global $beatnik;
 
         // Attempt to return cached results.
         static $recset = array();
@@ -375,7 +377,7 @@ class Beatnik {
             'default' => $GLOBALS['prefs']->getValue('default_ttl')
         );
 
-        $recset[$recordtype] = array_merge($recset[$recordtype], $GLOBALS['beatnik_driver']->getRecDriverFields($recordtype));
+        //$recset[$recordtype] = array_merge($recset[$recordtype], $beatnik->driver->getRecDriverFields($recordtype));
         uasort($recset[$recordtype], array('Beatnik', 'fieldSort'));
 
         return $recset[$recordtype];
@@ -484,11 +486,12 @@ class Beatnik {
      */
     function autogenerate(&$vars)
     {
+        global $beatnik;
 
         require BEATNIK_BASE . '/config/autogenerate.php';
         $template = $templates[$vars->get('template')];
         try {
-            $zonedata = $GLOBALS['beatnik_driver']->getRecords($_SESSION['beatnik']['curdomain']['zonename']);
+            $zonedata = $beatnik->driver->getRecords($_SESSION['beatnik']['curdomain']['zonename']);
         } catch (Exception $e) {
             $GLOBALS['notification']->push($e);
         }
@@ -501,7 +504,7 @@ class Beatnik {
                 case 'all':
                     foreach ($zonedata[$rectype] as $record) {
                         try {
-                        $result = $GLOBALS['beatnik_driver']->deleteRecord($record);
+                        $result = $beatnik->driver->deleteRecord($record);
                         } catch (Exception $e) {
                             $GLOBALS['notification']->push($e);
                         }
@@ -515,7 +518,7 @@ class Beatnik {
                         foreach ($definitions['records'] as $Trecord) {
                             if ($record['hostname'] == $Trecord['hostname']) {
                                 try {
-                                    $result = $GLOBALS['beatnik_driver']->deleteRecord($record);
+                                    $result = $beatnik->driver->deleteRecord($record);
                                 } catch (Exception $e) {
                                     $GLOBALS['notification']->push($e);
                                 }
@@ -532,12 +535,12 @@ class Beatnik {
             $defaults = array('rectype' => $rectype,
                               'zonename'=> $_SESSION['beatnik']['curdomain']['zonename']);
             foreach ($definitions['records'] as $info) {
-                if ($GLOBALS['beatnik_driver']->recordExists($info, $rectype)) {
+                if ($beatnik->driver->recordExists($info, $rectype)) {
                     $GLOBALS['notification']->push(_("Skipping existing identical record"));
                     continue;
                 }
                 try {
-                    $result = $GLOBALS['beatnik_driver']->saveRecord(array_merge($defaults, $info));
+                    $result = $beatnik->driver->saveRecord(array_merge($defaults, $info));
                 } catch (Exception $e) {
                     $GLOBALS['notification']->push($result->getMessage() . ': ' . $result->getDebugInfo(), 'horde.error');
                 }

@@ -8,12 +8,13 @@
  * did not receive this file, see http://cvs.horde.org/co.php/merk/LICENSE.
  */
 
-define('BEATNIK_BASE', dirname(__FILE__));
-require_once BEATNIK_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+$beatnik = Horde_Registry::appInit('beatnik');
+
 require_once BEATNIK_BASE . '/lib/Forms/DeleteRecord.php';
 
 $vars = Horde_Variables::getDefaultVariables();
-list($type, $record) = $beatnik_driver->getRecord(Horde_Util::getFormData('id'));
+list($type, $record) = $beatnik->driver->getRecord(Horde_Util::getFormData('id'));
 
 $form = new DeleteRecord($vars);
 
@@ -21,7 +22,7 @@ if ($form->validate($vars)) {
     $form->getInfo($vars, $info);
     if (Horde_Util::getFormData('submitbutton') == _("Delete")) {
         try {
-            $result = $beatnik_driver->deleteRecord($info);
+            $result = $beatnik->driver->deleteRecord($info);
         } catch (Exception $e) {
             $notification->push($e->getMessage(), 'horde.error');
             header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('viewzone.php'), $info));

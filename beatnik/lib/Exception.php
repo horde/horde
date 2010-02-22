@@ -1,1 +1,1 @@
-class Beatnik_Exception extends Horde_Exception {}
+<?php class Beatnik_Exception extends Horde_Exception {}

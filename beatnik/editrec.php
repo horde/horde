@@ -6,13 +6,14 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-define('BEATNIK_BASE', dirname(__FILE__));
-require_once BEATNIK_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+$beatnik = Horde_Registry::appInit('beatnik');
+
 require_once BEATNIK_BASE . '/lib/Forms/EditRecord.php';
 
 $vars = Horde_Variables::getDefaultVariables();
 $url = Horde::applicationUrl('editrec.php');
-list($type, $record) = $beatnik_driver->getRecord(Horde_Util::getFormData('id'));
+list($type, $record) = $beatnik->driver->getRecord(Horde_Util::getFormData('id'));
 
 $form = new EditRecord($vars);
 
@@ -20,7 +21,7 @@ if ($form->validate($vars)) {
     $form->getInfo($vars, $info);
 
     try {
-        $result = $beatnik_driver->saveRecord($info);
+        $result = $beatnik->driver->saveRecord($info);
     } catch (Exception $e) {
         $notification->push($e->getMessage(), 'horde.error');
     }

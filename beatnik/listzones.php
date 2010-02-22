@@ -6,7 +6,8 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+$beatnik = Horde_Registry::appInit('beatnik');
 
 // Unset the current domain since we are generating a zone list
 $_SESSION['beatnik']['curdomain'] = null;
@@ -27,13 +28,13 @@ $pager_vars = Horde_Variables::getDefaultVariables();
 $pager_vars->set('page', $page);
 $perpage = $prefs->getValue('domains_perpage');
 $pager = new Horde_Ui_Pager('page', $pager_vars,
-                            array('num' => count($domains),
+                            array('num' => count($beatnik->domains),
                                   'url' => 'listzones.php',
                                   'page_count' => 10,
                                   'perpage' => $perpage));
 
 // Limit the domain list to the current page
-$domains = array_slice($domains, $page*$perpage, $perpage);
+$domains = array_slice($beatnik->domains, $page*$perpage, $perpage);
 
 $img_dir = $registry->getImageDir('horde');
 
