@@ -2070,7 +2070,10 @@ KronolithCore = {
         var type = calendar[0];
         calendar = calendar.length == 1 ? null : calendar[1];
 
-        this.openTab($('kronolithCalendarForm' + type).down('.tabset a.kronolithTabLink'));
+        var firstTab = $('kronolithCalendarForm' + type).down('.tabset a.kronolithTabLink');
+        if (firstTab) {
+            this.openTab(firstTab);
+        }
         $('kronolithCalendarDialog').select('.kronolithCalendarDiv').invoke('hide');
         $('kronolithCalendar' + type + '1').show();
         $('kronolithCalendarForm' + type).select('.kronolithCalendarContinue').invoke('enable');
