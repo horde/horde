@@ -92,7 +92,7 @@ class Group_contactlists extends Group {
      *
      * @return PEAR_Error  This functionality is not supported in this driver.
      */
-    function &newGroup($name, $parent = GROUP_ROOT)
+    function newGroup($name, $parent = GROUP_ROOT)
     {
         return PEAR::raiseError(_("Unsupported"));
     }
@@ -105,7 +105,7 @@ class Group_contactlists extends Group {
      *
      * @param string $name The name of the group to retrieve.
      */
-    function &getGroup($name)
+    function getGroup($name)
     {
         return PEAR::raiseError(_("Deprecated. Use getGroupById() instead."));
     }
@@ -116,7 +116,7 @@ class Group_contactlists extends Group {
      *
      * @param integer $cid  The unique ID of the group to retrieve.
      */
-    function &getGroupById($gid)
+    function getGroupById($gid)
     {
 
         if (!empty($this->_groupCache[$gid])) {
@@ -138,13 +138,12 @@ class Group_contactlists extends Group {
         $group = new ContactListObject_Group($entry[$this->_sources[$source]['map'][$this->_sources[$source]['list_name_field']]]);
         $group->id = $gid;
         $group->data['email'] = $entry[$this->_sources[$source]['map']['email']];
-        var_dump($users);
         if (!empty($users)) {
-            $group->data['users'] = array_values($users);
+            $group->data['users'] = array_flip($users);
         }
 
         $group->setGroupOb($this);
-        $this->_groupCache[$gid] = &$group;
+        $this->_groupCache[$gid] = $group;
 
         return $group;
     }
@@ -158,7 +157,7 @@ class Group_contactlists extends Group {
      *
      * @return PEAR_Error - unsupported
      */
-    function addGroup(&$group)
+    function addGroup($group)
     {
         return PEAR::raiseError(_("Unsupported"));
     }
@@ -297,7 +296,7 @@ class Group_contactlists extends Group {
      */
     function getGroupParent($gid)
     {
-        return PEAR::raiseError(_("Unsupported"));
+        return GROUP_ROOT;
     }
 
     /**
@@ -592,7 +591,7 @@ class Group_contactlists extends Group {
 
         foreach ($sources as $source) {
             if (empty($this->_db[$source])) {
-                $this->_db[$source] = &DB::connect($this->_sources[$source]['params'],
+                $this->_db[$source] = DB::connect($this->_sources[$source]['params'],
                     array('persistent' => !empty($this->_sources[$source]['params']['persistent'])));
                 if (is_a($this->_db[$source], 'PEAR_Error')) {
                     throw new Horde_Exception_Prior($this->_db[$source]);
