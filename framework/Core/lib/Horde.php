@@ -330,7 +330,6 @@ HTML;
         }
 
         $js_tocache = $js_force = $js_external = array();
-        $mtime = array(0);
 
         $s_list = $hsf->listFiles();
         if (empty($s_list)) {
@@ -388,6 +387,10 @@ HTML;
         }
 
         foreach (array_merge($js_force, array($js_tocache)) as $files) {
+            if (!count($files)) {
+                continue;
+            }
+
             $mtime = max($files['mtime']);
             unset($files['mtime']);
 
