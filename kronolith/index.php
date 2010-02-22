@@ -17,10 +17,6 @@ if (!$prefs->getValue('dynamic_view') || !$browser->hasFeature('xmlhttpreq') ||
 }
 
 /* Load Ajax interface. */
-$logout_link = Horde::getServiceLink('logout', 'kronolith');
-if ($logout_link) {
-    $logout_link = Horde::widget($logout_link, _("_Logout"), 'logout');
-}
 $help_link = Horde::getServiceLink('help', 'kronolith');
 if ($help_link) {
     $help_link = Horde::widget($help_link, _("Help"), 'helplink', 'help', Horde::popupJs($help_link, array('urlencode' => true)) . 'return false;');

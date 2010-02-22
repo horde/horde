@@ -20,7 +20,7 @@
     <?php endif; ?>
     <a href="#" id="kronolithNotifications" class="kronolithNotifications" title="<?php echo ("0 notifications") ?>"></a>
     <span class="kronolithSeparator">|</span>
-    <a href="#" id="kronolithOptions"><?php echo _("Options") ?></a><?php if ($help_link) echo ' <span class="kronolithSeparator">|</span> ' . $help_link; if ($logout_link) echo ' <span class="kronolithSeparator">|</span> ' . $logout_link ?>
+    <a href="#" id="kronolithOptions"><?php echo _("Options") ?></a><?php if ($help_link) echo ' <span class="kronolithSeparator">|</span> ' . $help_link; if (Horde_Menu::showService('logout')) { $ak = Horde::getAccessKey(_("_Logout")); echo ' <span class="kronolithSeparator">|</span> <a href="#" accesskey="' . $ak . '" id="kronolithLogout">' . Horde::highlightAccessKey(_("_Logout"), $ak) . '</a>'; } ?>
   </div>
   <!-- end services -->
 

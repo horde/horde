@@ -125,7 +125,7 @@ KronolithCore = {
         msgs.find(function(m) {
             switch (m.type) {
             case 'horde.ajaxtimeout':
-                this.logout(Kronolith.conf.timeout_url);
+                this.logout(m.message);
                 return true;
 
             case 'horde.alarm':
@@ -207,10 +207,10 @@ KronolithCore = {
         }, this);
     },
 
-    logout: function(url)
+    logout: function()
     {
         this.is_logout = true;
-        this.redirect(url || (Kronolith.conf.URI_IMP + '/LogOut'));
+        this.redirect(Kronolith.conf.URI_AJAX + 'LogOut');
     },
 
     redirect: function(url)
@@ -2725,6 +2725,11 @@ KronolithCore = {
 
             case 'kronolithOptions':
                 this.go('options');
+                e.stop();
+                return;
+
+            case 'kronolithLogout':
+                this.logout();
                 e.stop();
                 return;
 
