@@ -40,9 +40,10 @@ class Horde_Alarm
     static public function factory($driver = null, $params = null)
     {
         if (is_null($driver)) {
-            $driver = empty($GLOBALS['conf']['alarms']['driver'])
-                ? 'sql'
-                : $GLOBALS['conf']['alarms']['driver'];
+            $driver = $GLOBALS['conf']['alarms']['driver'];
+        }
+        if (empty($driver)) {
+            return new Horde_Alarm();
         }
 
         $driver = ucfirst(basename($driver));
