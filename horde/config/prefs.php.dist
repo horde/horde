@@ -371,7 +371,7 @@ $_prefs['first_week_day'] = array(
 
 // UI theme
 $_prefs['theme'] = array(
-    'value' => 'bluewhite',
+    'value' => 'silver',
     'locked' => false,
     'shared' => true,
     'type' => 'select',
