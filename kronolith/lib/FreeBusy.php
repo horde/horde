@@ -263,13 +263,12 @@ class Kronolith_FreeBusy
     function toJson($fb)
     {
         $json = new stdClass;
-        $json->e = $fb->getEmail();
         $start = $fb->getStart();
         if ($start) {
             $start = new Horde_Date($start);
             $json->s = $start->dateString();
         }
-        $end = $fb->getStart();
+        $end = $fb->getEnd();
         if ($end) {
             $end = new Horde_Date($end);
             $json->e = $end->dateString();

@@ -3525,21 +3525,23 @@ KronolithCore = {
             table.select('tr').invoke('remove');
             ev.at.each(function(attendee) {
                 var tr = new Element('tr'), i;
-                this.fbLoading++;
-                this.doAction('GetFreeBusy',
-                              { email: attendee.e },
-                              function(r) {
-                                  this.fbLoading--;
-                                  if (!this.fbLoading) {
-                                      $('kronolithFBLoading').hide();
-                                  }
-                                  if (Object.isUndefined(r.response.fb)) {
-                                      return;
-                                  }
-                                  this.freeBusy.set(attendee.e, [ tr, r.response.fb ]);
-                                  this.insertFreeBusy(attendee.e);
-                              }.bind(this));
-                tr.insert(new Element('td').writeAttribute('title', attendee.l).insert(attendee.e.escapeHTML()));
+                if (attendee.e) {
+                    this.fbLoading++;
+                    this.doAction('GetFreeBusy',
+                                  { email: attendee.e },
+                                  function(r) {
+                                      this.fbLoading--;
+                                      if (!this.fbLoading) {
+                                          $('kronolithFBLoading').hide();
+                                      }
+                                      if (Object.isUndefined(r.response.fb)) {
+                                          return;
+                                      }
+                                      this.freeBusy.set(attendee.e, [ tr, r.response.fb ]);
+                                      this.insertFreeBusy(attendee.e);
+                                  }.bind(this));
+                }
+                tr.insert(new Element('td').writeAttribute('title', attendee.l).insert(attendee.e ? attendee.e.escapeHTML() : attendee.l));
                 for (i = 0; i < 24; i++) {
                     tr.insert(new Element('td', { className: 'kronolithFBUnknown' }));
                 }
@@ -3582,6 +3584,9 @@ KronolithCore = {
     /**
      * Inserts rows with free/busy information into the attendee table.
      *
+     * @todo Update when changing dates; only show free time for fb times we
+     *       actually received.
+     *
      * @param string email  An email address as the free/busy identifier.
      */
     insertFreeBusy: function(email)
@@ -3593,15 +3598,17 @@ KronolithCore = {
         var fb = this.freeBusy.get(email)[1],
             tr = this.freeBusy.get(email)[0],
             td = tr.select('td')[1],
-            div = td.down('div');
+            div = td.down('div'),
+            i = 0;
         if (!td.getWidth()) {
             this.insertFreeBusy.bind(this, email).defer();
             return;
         }
         tr.select('td').each(function(td, i) {
             if (i != 0) {
-                td.addClassName('kronolithFBFree');
+                td.className = 'kronolithFBFree';
             }
+            i++;
         });
         if (div) {
             div.remove();
