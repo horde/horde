@@ -902,25 +902,27 @@ KronolithCore = {
             $('kronolithSharedCalendars').hide();
         }
 
-        my = 0;
-        shared = 0;
-        $H(Kronolith.conf.calendars.tasklists).each(function(cal) {
-            if (cal.value.owner) {
-                my++;
+        if (Kronolith.conf.tasks) {
+            my = 0;
+            shared = 0;
+            $H(Kronolith.conf.calendars.tasklists).each(function(cal) {
+                if (cal.value.owner) {
+                    my++;
+                } else {
+                    shared++;
+                }
+                this.insertCalendarInList('tasklists', cal.key, cal.value);
+            }, this);
+            if (my) {
+                $('kronolithMyTasklists').show();
             } else {
-                shared++;
+                $('kronolithMyTasklists').hide();
             }
-            this.insertCalendarInList('tasklists', cal.key, cal.value);
-        }, this);
-        if (my) {
-            $('kronolithMyTasklists').show();
-        } else {
-            $('kronolithMyTasklists').hide();
-        }
-        if (shared) {
-            $('kronolithSharedTasklists').show();
-        } else {
-            $('kronolithSharedTasklists').hide();
+            if (shared) {
+                $('kronolithSharedTasklists').show();
+            } else {
+                $('kronolithSharedTasklists').hide();
+            }
         }
 
         $H(Kronolith.conf.calendars.external).each(function(cal) {
