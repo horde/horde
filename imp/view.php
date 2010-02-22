@@ -288,8 +288,11 @@ case 'print_attach':
                 $browser->downloadHeaders($render[$key]['name'], $render[$key]['type'], true, strlen($render[$key]['data']));
                 if ($browser->isBrowser('mozilla')) {
                     /* Silence errors from parsing HTML. */
-                    libxml_use_internal_errors(true);
+                    $old_error = libxml_use_internal_errors(true);
                     $doc = DOMDocument::loadHTML($render[$key]['data']);
+                    if (!$old_error) {
+                        libxml_use_internal_errors(false);
+                    }
                     $bodyelt = $doc->getElementsByTagName('body')->item(0);
                     $bodyelt->insertBefore($doc->importNode($div, true), $bodyelt->firstChild);
                     echo $doc->saveHTML();
