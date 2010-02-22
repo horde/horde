@@ -78,6 +78,7 @@
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkExport"><?php echo _("Export") ?></a></li>
   </ul>
 </div>
+<br class="clear" />
 
 <div id="kronolithEventTabDescription" class="kronolithTabsOption">
   <textarea name="description" id="kronolithEventDescription" rows="5" cols="40" class="kronolithLongField"></textarea>
