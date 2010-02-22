@@ -202,6 +202,7 @@ class Beatnik_Driver_ldap2dns extends Beatnik_Driver
             'timestamp' => 'dnstimestamp',
             'location' => 'dnslocation',
             'ipaddr' => 'dnsipaddr',
+            'ip6addr' => 'dnsipaddr',
             'cipaddr' => 'dnscipaddr',
             'pointer' => 'dnscname',
             'pref' => 'dnspreference',

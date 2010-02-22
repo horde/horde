@@ -55,10 +55,13 @@ class Beatnik {
      */
     function getRecTypes()
     {
+        global $beatnik;
+
         $records = array(
             'soa' => _("SOA (Start of Authority)"),
             'ns' => _("NS (Name Server)"),
             'a' => _("A (Address)"),
+            'aaaa' => _("AAAA (IPv6 Address)"),
             'ptr' => _("PTR (Reverse DNS)"),
             'cname' => _("CNAME (Alias)"),
             'mx' => _("MX (Mail eXchange)"),
@@ -199,6 +202,27 @@ class Beatnik {
                 'name' => _("IP Address"),
                 'description' => _("IPv4 Network Address"),
                 'type' => 'ipaddress',
+                'maxlength' => 0,
+                'required' => true,
+                'infoset' => 'basic',
+                'index' => 2,
+            );
+            break;
+
+        case 'aaaa':
+            $recset[$recordtype]['hostname'] = array(
+                'name' => _("Hostname"),
+                'description' => _("Short hostname for this record"),
+                'type' => 'text',
+                'maxlength' => 0,
+                'required' => true,
+                'infoset' => 'basic',
+                'index' => 1,
+            );
+            $recset[$recordtype]['ip6addr'] = array(
+                'name' => _("IPv6 Address"),
+                'description' => _("IPv6 Network Address"),
+                'type' => 'ip6address',
                 'maxlength' => 0,
                 'required' => true,
                 'infoset' => 'basic',
