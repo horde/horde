@@ -92,6 +92,7 @@
   <div id="kronolithMyCalendars" class="kronolithCalendars" style="display:none">
   </div>
 
+  <?php if ($GLOBALS['registry']->hasInterface('tasks')): ?>
   <h3>
     <?php if (Horde_Auth::getAuth() && !$prefs->isLocked('default_share')): ?>
     <a href="#" id="kronolithAddtasklists" class="kronolithAdd">+</a>
@@ -101,6 +102,7 @@
 
   <div id="kronolithMyTasklists" class="kronolithCalendars" style="display:none">
   </div>
+  <?php endif; ?>
 
   <h3>
     <!-- to be added when searching for shared calendars is implemented <a href="#" id="kronolithAddinternalshared" class="kronolithAdd">+</a>-->
@@ -110,6 +112,7 @@
   <div id="kronolithSharedCalendars" class="kronolithCalendars" style="display:none">
   </div>
 
+  <?php if ($GLOBALS['registry']->hasInterface('tasks')): ?>
   <h3>
     <!-- to be added when searching for shared calendars is implemented <a href="#" id="kronolithAddtasklistsshared" class="kronolithAdd">+</a>-->
     <span><?php echo _("Shared Task Lists") ?></span>
@@ -117,6 +120,7 @@
 
   <div id="kronolithSharedTasklists" class="kronolithCalendars" style="display:none">
   </div>
+  <?php endif; ?>
 
   <div id="kronolithExternalCalendars"></div>
 
