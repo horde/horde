@@ -353,6 +353,7 @@ class Horde_Alarm
      */
     protected function _list()
     {
+        return array();
     }
 
     /**
