@@ -1053,19 +1053,18 @@
   to.</configdescription>
   <configsection name="share">
    <configheader>Allow Sharing?</configheader>
-   <configboolean name="no_sharing" required="false" desc="Prevent
-   users from editing permissions on their shares. This will keep a
-   user from granting other users (or guests) access to their address
-   book, notebook, calendar, etc.">false</configboolean>
-
-   <configheader>Allow sharing with groups that users aren't members
-   of?</configheader>
+   <configboolean name="no_sharing" required="false" desc="Prevent users from
+   editing permissions on their shares. This will keep a user from granting
+   other users (or guests) access to their address book, notebook, calendar,
+   etc.">false</configboolean>
+   <configboolean name="world" required="false" desc="If you enable this
+   option, users will be able to share their resources with all (authenticated
+   and guest) users on the system.">true</configboolean>
    <configboolean name="any_group" required="false" desc="If you enable this
    option, users will be able to share their resources with any group,
    regardless of whether or not they are a member. If you disable it, users
    will only be able to share their resources with groups they are members
    of.">false</configboolean>
-
    <configheader>Share Caching</configheader>
    <configdescription>Enabling share caching improves performance because the
    share backend will only be queried once per session. But it also increases
@@ -1073,7 +1072,6 @@
    users log in the next time.</configdescription>
    <configboolean name="cache" required="false" desc="Enable share
    caching?">false</configboolean>
-
    <configheader>Shares Driver</configheader>
    <configdescription>
      You can use different driver types for the Horde Share

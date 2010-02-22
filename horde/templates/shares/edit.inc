@@ -50,6 +50,7 @@ if (isset($userperms[$owner])) {
   </td>
 </tr>
 
+<?php if (Horde_Auth::isAdmin() || !empty($GLOBALS['conf']['shares']['world'])): ?>
 <!-- Spacer -->
 <tr><td>&nbsp;</td></tr>
 
@@ -119,6 +120,7 @@ if (isset($userperms[$owner])) {
     <label for="guest_delete" class="hidden"><?php echo _("Delete") ?></label>
   </td>
 </tr>
+<?php endif; ?>
 
 <!-- Spacer -->
 <tr><td>&nbsp;</td></tr>

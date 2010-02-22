@@ -2,6 +2,7 @@
 v4.0-cvs
 --------
 
+[jan] Add option to disallow world permissions for user shares.
 [mms] Allow Mozilla DNS prefetching to be turned off when displaying untrusted
       content (Ticket #8836).
 [jan] Store alarm dates in UTC (Bug #8381).

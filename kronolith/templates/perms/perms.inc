@@ -40,6 +40,7 @@
   </td>
 </tr>
 
+<?php if (Horde_Auth::isAdmin() || !empty($GLOBALS['conf']['shares']['world'])): ?>
 <!-- Spacer -->
 <tr><td colspan="7">&nbsp;</td></tr>
 
@@ -121,6 +122,7 @@
   </td>
   <td>&nbsp;</td>
 </tr>
+<?php endif; ?>
 
 <!-- Spacer -->
 <tr><td colspan="7">&nbsp;</td></tr>
