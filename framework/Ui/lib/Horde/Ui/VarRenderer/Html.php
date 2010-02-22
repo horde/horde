@@ -140,6 +140,18 @@ class Horde_Ui_VarRenderer_Html extends Horde_Ui_VarRenderer
                );
     }
 
+    protected function _renderVarInput_ip6address($form, &$var, &$vars)
+    {
+        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        return sprintf('<input type="text" name="%s" id="%s" size="40" value="%s" %s%s />',
+                       $varname,
+                       $varname,
+                       @htmlspecialchars($var->getValue($vars), ENT_QUOTES, $this->_charset),
+                       $var->isDisabled() ? ' disabled="disabled" ' : '',
+                       $this->_getActionScripts($form, $var)
+               );
+    }
+
     protected function _renderVarInput_file($form, &$var, &$vars)
     {
         $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);

@@ -511,6 +511,36 @@ class Horde_Form_Type_ipaddress extends Horde_Form_Type_text {
 
 }
 
+class Horde_Form_Type_ip6address extends Horde_Form_Type_text {
+
+    function isValid(&$var, &$vars, $value, &$message)
+    {
+        $valid = true;
+
+        if (strlen(trim($value)) > 0) {
+            $valid = @inet_pton($value);
+
+            if ($valid === false) {
+                $message = _("Please enter a valid IP address.");
+            }
+        } elseif ($var->isRequired()) {
+            $valid = false;
+            $message = _("This field is required.");
+        }
+
+        return true;
+    }
+
+    /**
+     * Return info about field type.
+     */
+    function about()
+    {
+        return array('name' => _("IPv6 address"));
+    }
+
+}
+
 class Horde_Form_Type_longtext extends Horde_Form_Type_text {
 
     var $_rows;
