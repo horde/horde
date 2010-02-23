@@ -195,13 +195,16 @@ class Nag_Api extends Horde_Registry_Api
         $parts = explode('/', $path);
 
         if (empty($path)) {
-            //
-            // This request is for a list of all users who have tasklists visible
-            // to the requesting user.
-            //
+            // This request is for a list of all users who have tasklists
+            // visible to the requesting user.
             $tasklists = Nag::listTasklists(false, Horde_Perms::READ);
             $owners = array();
             foreach ($tasklists as $tasklist) {
+                if ($tasklist->get('owner') != Horde_Auth::getAuth() &&
+                    !empty($GLOBALS['conf']['share']['hidden']) &&
+                    !in_array($tasklist->getName(), $GLOBALS['display_tasklists'])) {
+                    continue;
+                }
                 $owners[$tasklist->get('owner') ? $tasklist->get('owner') : '-system-'] = true;
             }
 

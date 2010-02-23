@@ -1065,6 +1065,10 @@
    regardless of whether or not they are a member. If you disable it, users
    will only be able to share their resources with groups they are members
    of.">false</configboolean>
+   <configboolean name="hidden" required="false" desc="If you enable this
+   option, the shares that a user has access to will NOT be displayed
+   automatically, but only if the user subscribed to
+   them.">false</configboolean>
    <configheader>Share Caching</configheader>
    <configdescription>Enabling share caching improves performance because the
    share backend will only be queried once per session. But it also increases

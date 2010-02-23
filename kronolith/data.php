@@ -296,6 +296,28 @@ if (is_array($next_step)) {
     $next_step = $data->cleanup();
 }
 
+$import_calendars = $export_calendars = array();
+if (Horde_Auth::getAuth()) {
+    $calendars = Kronolith::listCalendars(false, Horde_Perms::EDIT);
+    foreach ($calendars as $id => $calendar) {
+        if ($calendar->get('owner') != Horde_Auth::getAuth() &&
+            !empty($GLOBALS['conf']['share']['hidden']) &&
+            !in_array($calendar->getName(), $GLOBALS['display_calendars'])) {
+            continue;
+        }
+        $import_calendars[$id] = $calendar;
+    }
+}
+$calendars = Kronolith::listCalendars(false, Horde_Perms::READ);
+foreach ($calendars as $id => $calendar) {
+    if ($calendar->get('owner') != Horde_Auth::getAuth() &&
+        !empty($GLOBALS['conf']['share']['hidden']) &&
+        !in_array($calendar->getName(), $GLOBALS['display_calendars'])) {
+        continue;
+    }
+    $export_calendars[$id] = $calendar;
+}
+
 $title = _("Import/Export Calendar");
 require KRONOLITH_TEMPLATES . '/common-header.inc';
 require KRONOLITH_TEMPLATES . '/menu.inc';

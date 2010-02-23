@@ -106,8 +106,9 @@ class Nag_Application extends Horde_Registry_Application
             $default_tasklist = Horde_Util::getFormData('default_tasklist');
             if (!is_null($default_tasklist)) {
                 $tasklists = Nag::listTasklists();
-                if (is_array($tasklists) &&
-                    isset($tasklists[$default_tasklist])) {
+                if (isset($tasklists[$default_tasklist]) &&
+                    ($tasklists[$default_tasklist]->get('owner') == Horde_Auth::getAuth() ||
+                     in_array($default_tasklist, $GLOBALS['display_tasklists']))) {
                     $GLOBALS['prefs']->setValue('default_tasklist', $default_tasklist);
                     return true;
                 }

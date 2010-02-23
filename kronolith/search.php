@@ -71,12 +71,20 @@ if ($search_mode == 'basic') {
         if ($cal->get('owner') && $cal->get('owner') == $current_user) {
             $calendars[_("My Calendars:")]['|' . $id] = $cal->get('name');
         } else {
+            if (!empty($GLOBALS['conf']['share']['hidden']) &&
+                !in_array($cal->getName(), $GLOBALS['display_calendars'])) {
+                continue;
+            }
             $calendars[_("Shared Calendars:")]['|' . $id] = $cal->get('name');
         }
     }
     foreach ($GLOBALS['all_external_calendars'] as $api => $categories) {
         $app = $GLOBALS['registry']->get('name', $GLOBALS['registry']->hasInterface($api));
         foreach ($categories as $id => $name) {
+            if (!empty($GLOBALS['conf']['share']['hidden']) &&
+                !in_array($api . '/' . $id, $GLOBALS['display_external_calendars'])) {
+                continue;
+            }
             $calendars[$app . ':']['Horde|external_' . $api . '/' . $id] = $name;
         }
     }

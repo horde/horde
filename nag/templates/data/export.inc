@@ -15,11 +15,11 @@
   </select>
  </p>
 
- <?php if (count($tasklists = Nag::listTasklists(false, Horde_Perms::READ)) > 1): ?>
+ <?php if (count($export_tasklists) > 1): ?>
  <p>
   <?php echo Horde::label('exportList', _("Select the task list(s) to export from:")) ?><br />
   <select id="exportList" name="exportList[]" multiple="multiple">
-    <?php foreach ($tasklists as $id => $tasklist) {
+    <?php foreach ($export_tasklists as $id => $tasklist) {
         printf('<option value="%s">%s</option>', htmlspecialchars($id), htmlspecialchars($tasklist->get('name'))) . "\n";
     } ?>
   </select>

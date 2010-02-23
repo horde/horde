@@ -14,10 +14,10 @@
       <option value="icalendar"><?php echo _("vCalendar/iCalendar") ?></option>
     </select><br />
 
-    <?php if (!$prefs->isLocked('default_share') && count($calendars = Kronolith::listCalendars(false, Horde_Perms::EDIT)) > 1): ?>
+    <?php if (!$prefs->isLocked('default_share') && count($import_calendars ) > 1): ?>
     <?php echo Horde::label('importCal', _("Select the calendar to import to:")) ?><br />
     <select id="importCal" name="importCal">
-      <?php foreach ($calendars as $id => $cal) {
+      <?php foreach ($import_calendars as $id => $cal) {
           printf('<option value="%s">%s</option>', htmlspecialchars($id), htmlspecialchars($cal->get('name'))) . "\n";
       } ?>
     </select><br /><br />

@@ -1,6 +1,15 @@
 <?php
 if (!$prefs->isLocked('default_tasklist')):
-    $tasklists = Nag::listTasklists();
+    $all_tasklists = Nag::listTasklists();
+    $tasklists = array();
+    foreach ($all_tasklists as $id => $tasklist) {
+        if ($tasklist->get('owner') != Horde_Auth::getAuth() &&
+            !empty($GLOBALS['conf']['share']['hidden']) &&
+            !in_array($tasklist->getName(), $GLOBALS['display_tasklists'])) {
+            continue;
+        }
+        $tasklists[$id] = $tasklist;
+    }
     if (($default_tasklist = $prefs->getValue('default_tasklist')) == null ||
         !isset($tasklists[$default_tasklist])) {
         $default_tasklist = Horde_Auth::getAuth();

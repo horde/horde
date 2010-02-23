@@ -15,10 +15,10 @@
       <option value="<?php echo Horde_Data::EXPORT_ICALENDAR ?>">iCalendar</option>
     </select><br /><br />
 
-    <?php if (count($calendars = Kronolith::listCalendars(false, Horde_Perms::READ)) > 1): ?>
+    <?php if (count($export_calendars) > 1): ?>
     <?php echo Horde::label('exportCal', _("Select the calendar(s) to export from")) ?><br />
     <select id="exportCal" name="exportCal[]" multiple="multiple">
-      <?php foreach ($calendars as $id => $cal) {
+      <?php foreach ($export_calendars as $id => $cal) {
           printf('<option value="%s">%s</option>', htmlspecialchars($id), htmlspecialchars($cal->get('name'))) . "\n";
       } ?>
     </select><br /><br />

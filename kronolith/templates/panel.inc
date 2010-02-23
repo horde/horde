@@ -20,7 +20,26 @@ foreach (Kronolith::listCalendars() as $id => $cal) {
     if ($cal->get('owner') && $cal->get('owner') == $current_user) {
         $my_calendars[$id] = $cal;
     } else {
+        if (!empty($conf['share']['hidden']) &&
+            !in_array($cal->getName(), $display_calendars)) {
+            continue;
+        }
         $shared_calendars[$id] = $cal;
+    }
+}
+
+$externals = array();
+foreach ($all_external_calendars as $api => $categories) {
+    if (count($categories)) {
+        $app = $registry->get('name', $registry->hasInterface($api));
+        $externals[$app] = array();
+        foreach ($categories as $id => $name) {
+            if (!empty($conf['share']['hidden']) &&
+                !in_array($api . '/' . $id, $display_external_calendars)) {
+                continue;
+            }
+            $externals[$app][$api . '/' . $id] = $name;
+        }
     }
 }
 
@@ -113,33 +132,33 @@ $ta->attach();
  </ul>
 <?php endif; ?>
 
-<?php if (count($GLOBALS['all_external_calendars'])): ?>
+<?php if (count($externals)): ?>
  <h4><?php echo _("External Events:") ?></h4>
  <ul id="externalcalendars">
-<?php foreach ($GLOBALS['all_external_calendars'] as $api => $categories): ?>
+ <?php foreach ($externals as $app => $categories): ?>
  <?php if (count($categories)): ?>
-  <li class="category"><?php echo htmlspecialchars($GLOBALS['registry']->get('name', $GLOBALS['registry']->hasInterface($api))) ?></li>
-  <?php foreach ($categories as $id => $name): ?>
-   <li><label><input type="checkbox" class="checkbox" name="display_cal[]" value="external_<?php echo htmlspecialchars($api . '/' . $id) ?>"<?php echo (in_array($api . '/' . $id, $GLOBALS['display_external_calendars']) ? ' checked="checked"' : '') . ' /> ' . htmlspecialchars($name) ?></label></li>
-  <?php endforeach; ?>
+  <li class="category"><?php echo htmlspecialchars($app) ?></li>
+   <?php foreach ($categories as $id => $name): ?>
+   <li><label><input type="checkbox" class="checkbox" name="display_cal[]" value="external_<?php echo htmlspecialchars($id) ?>"<?php echo (in_array($id, $display_external_calendars) ? ' checked="checked"' : '') . ' /> ' . htmlspecialchars($name) ?></label></li>
+   <?php endforeach; ?>
  <?php endif; ?>
-<?php endforeach; ?>
+ <?php endforeach; ?>
  </ul>
 <?php endif; ?>
 
-<?php if (count($GLOBALS['all_remote_calendars'])): ?>
+<?php if (count($all_remote_calendars)): ?>
  <h4><?php echo _("Remote Calendars:") ?></h4>
  <ul id="remotecalendars">
-<?php foreach ($GLOBALS['all_remote_calendars'] as $id => $cal): ?>
+<?php foreach ($all_remote_calendars as $id => $cal): ?>
   <li<?php echo Kronolith::getCSSColors($cal) ?>><label><input type="checkbox" class="checkbox" name="display_cal[]" value="remote_<?php echo htmlspecialchars($cal['url']) ?>"<?php echo (in_array($cal['url'], $display_remote_calendars) ? ' checked="checked"' : '') . ' /> ' . htmlspecialchars($cal['name']) ?></label> <?php echo $info_img ?></li>
 <?php endforeach; ?>
  </ul>
 <?php endif; ?>
 
-<?php if (!empty($GLOBALS['conf']['holidays']['enable'])): ?>
+<?php if (!empty($conf['holidays']['enable'])): ?>
  <h4><?php echo _("Holidays:") ?></h4>
  <ul id="holidays">
-<?php foreach ($GLOBALS['all_holidays'] as $holiday): ?>
+<?php foreach ($all_holidays as $holiday): ?>
   <li<?php echo Kronolith::getCSSColors($holiday) ?>><label><input type="checkbox" class="checkbox" name="display_cal[]" value="holiday_<?php echo htmlspecialchars($holiday['id']) ?>"<?php echo (in_array($holiday['id'], $display_holidays) ? ' checked="checked"' : '') . ' /> ' . htmlspecialchars($holiday['title']) ?></label></li>
 <?php endforeach; ?>
  </ul>

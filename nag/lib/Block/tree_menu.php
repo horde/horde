@@ -27,6 +27,11 @@ class Horde_Block_nag_tree_menu extends Horde_Block {
                              'url' => $add));
 
         foreach (Nag::listTasklists() as $name => $tasklist) {
+            if ($tasklist->get('owner') != Horde_Auth::getAuth() &&
+                !empty($GLOBALS['conf']['share']['hidden']) &&
+                !in_array($tasklist->getName(), $GLOBALS['display_tasklists'])) {
+                continue;
+            }
             $tree->addNode($parent . $name . '__new',
                            $parent . '__new',
                            sprintf(_("in %s"), $tasklist->get('name')),

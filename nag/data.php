@@ -223,6 +223,28 @@ if (is_array($next_step)) {
     $next_step = $data->cleanup();
 }
 
+$import_tasklists = $export_tasklists = array();
+if (Horde_Auth::getAuth()) {
+    $tasklists = Nag::listTasklists(false, Horde_Perms::EDIT);
+    foreach ($tasklists as $id => $tasklist) {
+        if ($tasklist->get('owner') != Horde_Auth::getAuth() &&
+            !empty($GLOBALS['conf']['share']['hidden']) &&
+            !in_array($tasklist->getName(), $GLOBALS['display_tasklists'])) {
+            continue;
+        }
+        $import_tasklists[$id] = $tasklist;
+    }
+}
+$tasklists = Nag::listTasklists(false, Horde_Perms::READ);
+foreach ($tasklists as $id => $tasklist) {
+    if ($tasklist->get('owner') != Horde_Auth::getAuth() &&
+        !empty($GLOBALS['conf']['share']['hidden']) &&
+        !in_array($tasklist->getName(), $GLOBALS['display_tasklists'])) {
+        continue;
+    }
+    $export_tasklists[$id] = $tasklist;
+}
+
 $title = _("Import/Export Tasks");
 require NAG_TEMPLATES . '/common-header.inc';
 require NAG_TEMPLATES . '/menu.inc';

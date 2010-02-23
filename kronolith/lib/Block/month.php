@@ -20,6 +20,11 @@ class Horde_Block_Kronolith_month extends Horde_Block {
                                             'default' => '__all'));
         $params['calendar']['values']['__all'] = _("All Visible");
         foreach (Kronolith::listCalendars() as $id => $cal) {
+            if ($cal->get('owner') != Horde_Auth::getAuth() &&
+                !empty($GLOBALS['conf']['share']['hidden']) &&
+                !in_array($cal->getName(), $GLOBALS['display_calendars'])) {
+                continue;
+            }
             $params['calendar']['values'][$id] = $cal->get('name');
         }
 

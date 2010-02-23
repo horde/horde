@@ -32,6 +32,11 @@ class Horde_Block_nag_summary extends Horde_Block {
 
         $tasklists = array();
         foreach (Nag::listTasklists() as $id => $tasklist) {
+            if ($tasklist->get('owner') != Horde_Auth::getAuth() &&
+                !empty($GLOBALS['conf']['share']['hidden']) &&
+                !in_array($tasklist->getName(), $GLOBALS['display_tasklists'])) {
+                continue;
+            }
             $tasklists[$id] = $tasklist->get('name');
         }
 

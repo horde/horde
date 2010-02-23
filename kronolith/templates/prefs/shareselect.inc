@@ -1,6 +1,15 @@
 <?php
 if (!$prefs->isLocked('default_share')):
-    $sharelist = Kronolith::listCalendars();
+    $all_shares = Kronolith::listCalendars();
+    $sharelist = array();
+    foreach ($all_shares as $id => $share) {
+        if ($share->get('owner') != Horde_Auth::getAuth() &&
+            !empty($GLOBALS['conf']['share']['hidden']) &&
+            !in_array($share->getName(), $GLOBALS['display_calendars'])) {
+            continue;
+        }
+        $sharelist[$id] = $share;
+    }
     if (($default_share = $prefs->getValue('default_share')) == null ||
         !isset($sharelist[$default_share])) {
         $default_share = Horde_Auth::getAuth();
@@ -9,8 +18,8 @@ if (!$prefs->isLocked('default_share')):
 
     <?php echo Horde::label('default_share', _("Your default calendar")) ?><br />
     <select id="default_share" name="default_share">
-    <?php foreach ($sharelist as $id => $share): ?>
+     <?php foreach ($sharelist as $id => $share): ?>
      <option value="<?php echo htmlspecialchars($id) ?>"<?php if ($id == $default_share) echo ' selected="selected"' ?>><?php echo htmlspecialchars($share->get('name')) ?></option>
-    <?php endforeach; ?>
+     <?php endforeach; ?>
     </select>
 <?php endif; ?>

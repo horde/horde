@@ -75,6 +75,11 @@ class Kronolith_Api extends Horde_Registry_Api
             $calendars = Kronolith::listCalendars(false, Horde_Perms::READ);
             $owners = array();
             foreach ($calendars as $calendar) {
+                if ($calendar->get('owner') != Horde_Auth::getAuth() &&
+                    !empty($GLOBALS['conf']['share']['hidden']) &&
+                    !in_array($calendar->getName(), $GLOBALS['display_calendars'])) {
+                    continue;
+                }
                 $owners[$calendar->get('owner')] = true;
             }
 

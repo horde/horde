@@ -64,8 +64,18 @@ if (isset($url)) {
     $cancelurl = Horde::applicationUrl('month.php', true)->add('month', $month);
 }
 
+$all_calendars = Kronolith::listCalendars(false, Horde_Perms::EDIT | Kronolith::PERMS_DELEGATE);
+$calendars = array();
+foreach ($all_calendars as $id => $calendar) {
+    if ($calendar->get('owner') != Horde_Auth::getAuth() &&
+        !empty($GLOBALS['conf']['share']['hidden']) &&
+        !in_array($calendar->getName(), $GLOBALS['display_calendars'])) {
+        continue;
+    }
+    $calendars[$id] = $calendar;
+}
+
 $title = _("Add a new event");
-$calendars = Kronolith::listCalendars(false, Horde_Perms::EDIT | Kronolith::PERMS_DELEGATE);
 Horde::addScriptFile('new.js', 'kronolith');
 Horde::addScriptFile('popup.js', 'horde');
 require KRONOLITH_TEMPLATES . '/common-header.inc';

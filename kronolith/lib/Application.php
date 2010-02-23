@@ -257,8 +257,9 @@ class Kronolith_Application extends Horde_Registry_Application
         $default_share = Horde_Util::getFormData('default_share');
         if (!is_null($default_share)) {
             $sharelist = Kronolith::listCalendars();
-            if ((is_array($sharelist)) > 0 &&
-                isset($sharelist[$default_share])) {
+            if (isset($sharelist[$default_share]) &&
+                ($sharelist[$default_share]->get('owner') == Horde_Auth::getAuth() ||
+                 in_array($default_share, $GLOBALS['display_calendars']))) {
                 $GLOBALS['prefs']->setValue('default_share', $default_share);
                 return true;
             }
@@ -293,7 +294,6 @@ class Kronolith_Application extends Horde_Registry_Application
     protected function _prefsFbCalsSelect()
     {
         $fb_calsSelected = Horde_Util::getFormData('fb_cals');
-        $fb_cals = Kronolith::listCalendars();
         $fb_calsFiltered = array();
 
         if (isset($fb_calsSelected) && is_array($fb_calsSelected)) {

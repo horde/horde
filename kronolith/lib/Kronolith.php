@@ -169,16 +169,16 @@ class Kronolith
      */
     public static function includeJSVars()
     {
-        global $browser, $conf, $prefs, $registry;
+        global $prefs, $registry;
 
         $kronolith_webroot = $registry->get('webroot');
         $horde_webroot = $registry->get('webroot', 'horde');
-        $has_tasks = $GLOBALS['registry']->hasInterface('tasks');
+        $has_tasks = $registry->hasInterface('tasks');
         $app_urls = array();
         if (isset($GLOBALS['conf']['menu']['apps']) &&
             is_array($GLOBALS['conf']['menu']['apps'])) {
             foreach ($GLOBALS['conf']['menu']['apps'] as $app) {
-                $app_urls[$app] = (string) Horde::url($GLOBALS['registry']->getInitialPage($app), true);
+                $app_urls[$app] = (string) Horde::url($registry->getInitialPage($app), true);
             }
         }
 
@@ -195,7 +195,7 @@ class Kronolith
             'app_urls' => $app_urls,
             'name' => $registry->get('name'),
             'has_tasks' => $has_tasks,
-            'is_ie6' => ($browser->isBrowser('msie') && ($browser->getMajor() < 7)),
+            'is_ie6' => ($GLOBALS['browser']->isBrowser('msie') && ($GLOBALS['browser']->getMajor() < 7)),
             'login_view' => $prefs->getValue('defaultview'),
             'default_calendar' => 'internal|' . self::getDefaultCalendar(Horde_Perms::EDIT),
             'week_start' => (int)$prefs->getValue('week_start_monday'),
@@ -225,12 +225,17 @@ class Kronolith
         );
 
         if ($has_tasks) {
-            $code['conf']['tasks'] = $GLOBALS['registry']->tasks->ajaxDefaults();
+            $code['conf']['tasks'] = $registry->tasks->ajaxDefaults();
         }
 
         // Calendars
         foreach (array(true, false) as $my) {
             foreach ($GLOBALS['all_calendars'] as $id => $calendar) {
+                if ($calendar->get('owner') != Horde_Auth::getAuth() &&
+                    !empty($GLOBALS['conf']['share']['hidden']) &&
+                    !in_array($calendar->getName(), $GLOBALS['display_calendars'])) {
+                    continue;
+                }
                 $owner = Horde_Auth::getAuth() &&
                     $calendar->get('owner') == Horde_Auth::getAuth();
                 if (($my && $owner) || (!$my && !$owner)) {
@@ -250,7 +255,12 @@ class Kronolith
             if (!$has_tasks) {
                 continue;
             }
-            foreach ($GLOBALS['registry']->tasks->listTasklists($my, Horde_Perms::SHOW) as $id => $tasklist) {
+            foreach ($registry->tasks->listTasklists($my, Horde_Perms::SHOW) as $id => $tasklist) {
+                if ($tasklist->get('owner') != Horde_Auth::getAuth() &&
+                    !empty($GLOBALS['conf']['share']['hidden']) &&
+                    !in_array('tasks/' . $id, $GLOBALS['display_external_calendars'])) {
+                    continue;
+                }
                 $owner = Horde_Auth::getAuth() &&
                     $tasklist->get('owner') == Horde_Auth::getAuth();
                 if (($my && $owner) || (!$my && !$owner)) {
@@ -273,12 +283,16 @@ class Kronolith
                 if ($api == 'tasks') {
                     continue;
                 }
+                if (!empty($GLOBALS['conf']['share']['hidden']) &&
+                    !in_array($api . '/' . $id, $GLOBALS['display_external_calendars'])) {
+                    continue;
+                }
                 $calendar = $api . '/' . $id;
                 $code['conf']['calendars']['external'][$calendar] = array(
                     'name' => $name,
                     'fg' => '#000',
                     'bg' => '#ddd',
-                    'api' => $GLOBALS['registry']->get('name', $GLOBALS['registry']->hasInterface($api)),
+                    'api' => $registry->get('name', $registry->hasInterface($api)),
                     'show' => in_array($calendar, $GLOBALS['display_external_calendars']));
             }
         }

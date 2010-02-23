@@ -26,13 +26,18 @@ class Nag_TaskForm extends Horde_Form {
         $tasklists = Nag::listTasklists(false, Horde_Perms::EDIT);
         $tasklist_enums = array();
         foreach ($tasklists as $tl_id => $tl) {
+            if ($tl->get('owner') != Horde_Auth::getAuth() &&
+                !empty($GLOBALS['conf']['share']['hidden']) &&
+                !in_array($tl->getName(), $GLOBALS['display_tasklists'])) {
+                continue;
+            }
             $tasklist_enums[$tl_id] = $tl->get('name');
         }
 
         $tasklist = $vars->get('tasklist_id');
         if (empty($tasklist)) {
-            reset($tasklists);
-            $tasklist = key($tasklists);
+            reset($tasklist_enums);
+            $tasklist = key($tasklist_enums);
         }
         $tasks = Nag::listTasks(null, null, null, array($tasklist), Nag::VIEW_FUTURE_INCOMPLETE);
         $task_enums = array('' => _("No parent task"));
@@ -74,7 +79,7 @@ class Nag_TaskForm extends Horde_Form {
 
         $this->addVariable(_("Name"), 'name', 'text', true);
         if (!$GLOBALS['prefs']->isLocked('default_tasklist') &&
-            count($tasklists) > 1) {
+            count($tasklist_enums) > 1) {
             $v = &$this->addVariable(_("Task List"), 'tasklist_id', 'enum', true, false, false, array($tasklist_enums));
             $v->setAction(Horde_Form_Action::factory('reload'));
         }

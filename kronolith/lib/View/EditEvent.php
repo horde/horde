@@ -74,7 +74,16 @@ class Kronolith_View_EditEvent {
         if ($this->event->creator == Horde_Auth::getAuth()) {
             $perms |= Kronolith::PERMS_DELEGATE;
         }
-        $calendars = Kronolith::listCalendars(false, $perms);
+        $all_calendars = Kronolith::listCalendars(false, $perms);
+        $calendars = array();
+        foreach ($all_calendars as $id => $calendar) {
+            if ($calendar->get('owner') != Horde_Auth::getAuth() &&
+                !empty($GLOBALS['conf']['share']['hidden']) &&
+                !in_array($calendar->getName(), $GLOBALS['display_calendars'])) {
+                continue;
+            }
+            $calendars[$id] = $calendar;
+        }
 
         $buttons = array();
         if (!$this->event->hasPermission(Horde_Perms::EDIT) &&
