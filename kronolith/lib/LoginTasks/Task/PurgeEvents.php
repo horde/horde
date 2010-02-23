@@ -27,9 +27,8 @@ class Kronolith_LoginTasks_Task_PurgeEvents extends Horde_LoginTasks_Task
     }
 
     /**
-     * Purge old messages in the Trash folder.
+     * Purge old events.
      *
-     * @return boolean  Whether any messages were purged from the Trash folder.
      * @throws Kronolith_Exception
      * @throws Horde_Exception_NotFound
      */
@@ -43,7 +42,7 @@ class Kronolith_LoginTasks_Task_PurgeEvents extends Horde_LoginTasks_Task
 
         /* Need to have Horde_Perms::DELETE on a calendar to delete events
          * from it */
-        $calendars = Kronolith::listCalendars(false, Horde_Perms::DELETE);
+        $calendars = Kronolith::listCalendars(true, Horde_Perms::DELETE);
 
         /* Start building an event object to use for the search */
         $kronolith_driver = Kronolith::getDriver();
@@ -63,7 +62,7 @@ class Kronolith_LoginTasks_Task_PurgeEvents extends Horde_LoginTasks_Task
                     $kronolith_driver->open($event->calendar);
                 }
                 try {
-                    $results = $kronolith_driver->deleteEvent($event->id, true);
+                    $kronolith_driver->deleteEvent($event->id, true);
                     ++$count;
                 } catch (Exception $e) {
                     Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
@@ -73,8 +72,6 @@ class Kronolith_LoginTasks_Task_PurgeEvents extends Horde_LoginTasks_Task
         }
 
         $GLOBALS['notification']->push(sprintf(ngettext("Deleted %d event older than %d days.", "Deleted %d events older than %d days.", $count), $count, $GLOBALS['prefs']->getValue('purge_events_keep')));
-
-        return true;
     }
 
     /**
