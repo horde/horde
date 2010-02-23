@@ -649,15 +649,15 @@ var DimpCompose = {
             });
 
             this.rte.resize('100%', mah - pad, false);
-        }
-
-        /* Logic: Determine the size of a given textarea row, divide that size
-         * by the available height, round down to the lowest integer row, and
-         * resize the textarea. */
-        rows = parseInt(mah / (msg.clientHeight / msg.getAttribute('rows')), 10);
-        msg.writeAttribute({ rows: rows, disabled: false });
-        if (de.scrollHeight - de.clientHeight) {
-            msg.writeAttribute('rows', rows - 1);
+        } else {
+            /* Logic: Determine the size of a given textarea row, divide that
+             * size by the available height, round down to the lowest integer
+             * row, and resize the textarea. */
+            rows = parseInt(mah / (msg.clientHeight / msg.getAttribute('rows')), 10);
+            msg.writeAttribute({ rows: rows, disabled: false });
+            if (de.scrollHeight - de.clientHeight) {
+                msg.writeAttribute('rows', rows - 1);
+            }
         }
     },
 
