@@ -17,12 +17,17 @@ INLINE FORMATTING
 
 Some text with leading and trailing whitespace
 
-	emphasis text		/emphasis text/
-	strong text		STRONG TEXT
-	italic text		/italic text/
-	bold text		BOLD TEXT
-	emphasis and strong		/EMPHASIS AND STRONG/
-	underline text		_underline text_
+-------------------------
+
+TABLE
+
+  TYPE 	REPRESENTATION
+  emphasis text 	/emphasis text/
+  strong text 	STRONG TEXT
+  italic text 	/italic text/
+  bold text 	BOLD TEXT
+  emphasis and strong 	/EMPHASIS AND STRONG/
+  underline text 	_underline text_
 
 -------------------------
 
@@ -30,7 +35,7 @@ LINKS
 
 Horde Homepage[1]
 Test User[2]
-Some inline link[3].
+Some inline link[1].
 http://www.example.com
 
 -------------------------
@@ -57,7 +62,7 @@ asterisks.
 
   * Bullet one
 
-  * Sub-bullet
+    * Sub-bullet
 
 NUMBERED LISTS
 
@@ -67,7 +72,7 @@ one or more hashes.
   * Numero uno
   * Number two
 
-  * Sub-item
+    * Sub-item
 
 MIXING BULLET AND NUMBER LIST ITEMS
 
@@ -75,32 +80,33 @@ You can mix and match bullet and number lists:
 
   * Number one
 
-  * Bullet
-  * Bullet
+    * Bullet
+    * Bullet
 
   * Number two
 
-  * Bullet
-  * Bullet
+    * Bullet
+    * Bullet
 
-  * Sub-bullet
+      * Sub-bullet
 
-  * Sub-sub-number
-  * Sub-sub-number
+        * Sub-sub-number
+        * Sub-sub-number
 
   * Number three
 
-  * Bullet
-  * Bullet
+    * Bullet
+    * Bullet
 
 BLOCK QUOTING
 
-> Horde Homepage[4]
-> Some inline link[5].
+> Horde Homepage[1]
+>  Some inline link[1].
 
 Line inbetween.
 
 > HEADING INSIDE QUOTING
+>
 >
 > This is a paragraph inside a block quoting. The result should be
 > several lines prefixed with the > character.
@@ -109,49 +115,41 @@ SPECIAL CHARACTERS
 
 ä é © ™ Đ
 
-Zitat von John Doe <john.doe@example.com>: 
+Zitat von John Doe <john.doe@example.com>:
 
-> Hallo lieber John, 
+> Hallo lieber John,
 >
 > Blah, blah.'
 
--- 
-Some signature
+--
+ Some signature
 http://www.example.com
 
 Zitat von Jane Doe <jane.doe@example.com>:
 
-> Jan Schneider a écrit :
->
-> > Zitat von Jane Doe <jane.doe@example.com>: 
-> >
-> > > Hi, 
+> Jan Schneider a écrit :
+> > Zitat von Jane Doe <jane.doe@example.com>[3]:
+> > > Hi,
 > > >
-> > > I prepare the last "horde-webmail-1.2" for production
-> > > level but I have few questions: 
-> > > - is there a way to disable "external_display_cal" in
+> > >  I prepare the last "horde-webmail-1.2" for production level but
+> > > I have few questions:
+> > >  - is there a way to disable "external_display_cal" in
 > > > kronolith, I don't want seeing birthdays calendars (turba) and
-> > task
-> > > list (nag)
-> >
-> >
-> > They aren't displayed by default, or do you mean you don't want
-> them
-> > to appear in the top right calendar panel?
->
+> > > task list (nag)
+> >  They aren't displayed by default, or do you mean you don't want
+> > them to appear in the top right calendar panel?
 >  Yes I don't want them to appear in the top right calendar panel but
 > I want user can create their external_cal
 
 Jan.
 
--- 
-Do you need professional PHP or Horde consulting?
+ --
+ Do you need professional PHP or Horde consulting?
 http://horde.org/consulting/
+
 
 Links:
 ------
 [1] http://www.horde.org
 [2] mailto:test@example.com
-[3] http://www.horde.org
-[4] http://www.horde.org
-[5] http://www.horde.org
+[3] mailto:jane.doe@example.com

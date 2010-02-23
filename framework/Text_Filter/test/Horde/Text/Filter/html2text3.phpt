@@ -37,34 +37,30 @@ echo Horde_Text_Filter::filter($html, 'html2text');
 
 ?>
 --EXPECT--
-Zitat von Roberto Maurizzi <roberto.maurizzi@gmail.com>: 
+Zitat von Roberto Maurizzi <roberto.maurizzi@gmail.com>:
 
 > > > > 4) In Turba, I can select a VFS driver to use. Currently it is
-> > set
-> > > > to
-> > > > None and turba seems to be working fine. What does Turba use
-> the
-> > > VFS
-> > > > for?
+> > > > set to
+> > > >   None and turba seems to be working fine. What does Turba use
+> > > > the VFS
+> > > >  for?
+> >  You can attach files to contacts with that.
 > >
-> > You can attach files to contacts with that.
-> >
-> > Jan.
->
+> >  Jan.
 > Anything similar for Kronolith, maybe in the new version?
 > I've googled a little and only found a discussion in 2004 about
 > having attachment (or links) from VFS in Kronolith.
-> I'd really like to be able to attach all my taxes forms to the day I
-> have to pay them ;-) and more in general all the extra documentation
-> regarding an appointment.
+>  I'd really like to be able to attach all my taxes forms to the day
+> I have to pay them ;-) and more in general all the extra
+> documentation regarding an appointment.
 >
 > Ciao,
->   Roberto
+>   Roberto
 
-Some unquoted line with single ' quotes. 
+Some unquoted line with single ' quotes.
 
 Jan.
 
--- 
-Do you need professional PHP or Horde consulting?
+ --
+ Do you need professional PHP or Horde consulting?
 http://horde.org/consulting/
