@@ -1482,9 +1482,9 @@ class IMP_Compose
         if (!empty($msg_text) &&
             ($compose_html || ($msg_text['mode'] == 'html'))) {
             $msg = '<p>' . $this->text2html(trim($msg_pre)) . '</p>' .
-                   '<div class="impquote" style="border-left:1px solid blue;padding-left:10px;background-color:#f0f0f0">' .
+                   '<blockquote type="cite" style="border-left:1px solid blue;padding-left:10px;background-color:#f0f0f0">' .
                    (($msg_text['mode'] == 'text') ? $this->text2html($msg_text['text']) : $msg_text['text']) .
-                   '</div>' .
+                   '</blockquote>' .
                    ($msg_post ? $this->text2html($msg_post) : '') . '<br />';
             $msg_text['mode'] = 'html';
         } else {
