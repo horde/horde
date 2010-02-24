@@ -71,6 +71,9 @@ class IMP_Imap_Flags
          * from the PERMANENTFLAGS IMAP response. */
         if (!empty($options['mailbox'])) {
             try {
+                /* Make sure we are in R/W mailbox mode (SELECT). No flags are
+                 * allowed in EXAMINE mode. */
+                $GLOBALS['imp_imap']->ob()->openMailbox($options['mailbox'], Horde_Imap_Client::OPEN_READWRITE);
                 $status = $GLOBALS['imp_imap']->ob()->status($options['mailbox'], Horde_Imap_Client::STATUS_PERMFLAGS);
                 if (!in_array('\\*', $status['permflags'])) {
                     $avail_flags = array_intersect($avail_flags, $status['permflags']);
