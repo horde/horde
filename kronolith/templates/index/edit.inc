@@ -40,11 +40,11 @@
 
 <div id="kronolithEventBasics">
   <label><?php echo _("Status") ?>:
-    <select name="eventfreebusy" id="kronolithEventFreeBusy">
-      <option value="Free"><?php echo _("Free") ?></option>
-      <option value="Tentative"><?php echo _("Tentative") ?></option>
-      <option value="Busy" selected="selected"><?php echo _("Busy") ?></option>
-      <option value="Cancelled"><?php echo _("Cancelled") ?></option>
+    <select name="status" id="kronolithEventStatus">
+      <option value="<?php echo Kronolith::STATUS_FREE ?>"><?php echo _("Free") ?></option>
+      <option value="<?php echo Kronolith::STATUS_TENTATIVE ?>"><?php echo _("Tentative") ?></option>
+      <option value="<?php echo Kronolith::STATUS_CONFIRMED ?>" selected="selected"><?php echo _("Confirmed") ?></option>
+      <option value="<?php echo Kronolith::STATUS_CANCELLED ?>"><?php echo _("Cancelled") ?></option>
     </select>
   </label>
   <span class="kronolithSeparator">|</span>

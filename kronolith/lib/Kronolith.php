@@ -1300,8 +1300,9 @@ class Kronolith
      *
      * @return string  The HTML <select> widget.
      */
-    public static function buildStatusWidget($name, $current = self::STATUS_CONFIRMED,
-                               $any = false)
+    public static function buildStatusWidget($name,
+                                             $current = self::STATUS_CONFIRMED,
+                                             $any = false)
     {
         $html = "<select id=\"$name\" name=\"$name\">";
 
