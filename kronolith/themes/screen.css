@@ -33,10 +33,10 @@
     font-weight: bold;
     vertical-align: super;
 }
-.event-tentative {
+.kronolithEventTentative {
     font-style: italic;
 }
-.event-cancelled {
+.kronolithEventCancelled {
     text-decoration: line-through;
 }
 .event-time, .event-location {

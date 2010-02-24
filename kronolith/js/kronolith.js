@@ -1256,7 +1256,17 @@ KronolithCore = {
         event.value.nodeId = 'kronolithEvent' + view + event.value.calendar + date + event.key;
 
         _createElement = function(event) {
-            var el = new Element('div', { id: event.value.nodeId, className: 'kronolithEvent' })
+            var className ='kronolithEvent';
+            switch (event.value.x) {
+            case 3:
+                className += ' kronolithEventCancelled';
+                break;
+            case 1:
+            case 4:
+                className += ' kronolithEventTentative';
+                break;
+            }
+            var el = new Element('div', { id: event.value.nodeId, className: className })
                 .store('calendar', event.value.calendar)
                 .store('eventid', event.key);
             if (!Object.isUndefined(event.value.aj)) {
