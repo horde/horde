@@ -2604,7 +2604,11 @@ KronolithCore = {
 
             switch (id) {
             case 'kronolithLogo':
-                this.go(Kronolith.conf.login_view);
+                if (Kronolith.conf.URI_HOME) {
+                    this.redirect(Kronolith.conf.URI_HOME);
+                } else {
+                    this.go(Kronolith.conf.login_view);
+                }
                 e.stop();
                 return;
 
