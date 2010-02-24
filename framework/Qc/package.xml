@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Packaging</name>
+ <name>Qc</name>
  <channel>pear.horde.org</channel>
  <summary>A package for preparing Horde PEAR releases.</summary>
  <description>The package provides utility methods usually required
@@ -42,9 +42,12 @@
   <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
-     <dir name="Packaging">
-      <file name="Cli.php" role="php" />
-     </dir> <!-- /lib/Horde/Packaging -->
+     <dir name="Qc">
+      <dir name="Config">
+       <file name="Cli.php" role="php" />
+       <file name="Interface.php" role="php" />
+      </dir> <!-- /lib/Horde/Qc/Config -->
+     </dir> <!-- /lib/Horde/Qc -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
    <dir name="script">
@@ -73,8 +76,9 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="Horde/Packaging/Cli.php" name="lib/Horde/Packaging/Cli.php" />
-   <install as="horde-pear-release" name="script/horde-pear-release.php" />
+   <install as="Horde/Qc/Config/Cli.php" name="lib/Horde/Qc/Config/Cli.php" />
+   <install as="Horde/Qc/Config/Interface.php" name="lib/Horde/Qc/Config/Interface.php" />
+   <install as="hqc" name="script/horde-quality-control.php" />
   </filelist>
  </phprelease>
 </package>
