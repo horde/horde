@@ -49,6 +49,13 @@ class Horde_Notification_Class_Notification_ListenerTest extends PHPUnit_Framewo
         $this->assertEquals('Horde_Notification_Event', $listener->handles('mock'));
     }
 
+    public function testMethodHandleHasEventClassNameIfItMatchesAsteriskExpression()
+    {
+        $listener = new Horde_Notification_Listener_Mock();
+        $listener->addType('t*', 'Test_Event');
+        $this->assertEquals('Test_Event', $listener->handles('test'));
+    }
+
     public function testMethodGetnameHasResultStringTheNameOfTheListener()
     {
         $listener = new Horde_Notification_Listener_Mock();

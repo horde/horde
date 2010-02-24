@@ -106,6 +106,61 @@ class Horde_Notification_Class_Notification_HandlerTest extends PHPUnit_Framewor
         }
     }
 
+    public function testMethodClearHasPostconditionThatTheStorageOfTheSpecifiedListenerWasCleared()
+    {
+        $storage = $this->getMock('Horde_Notification_Storage_Interface');
+        $storage->expects($this->once())
+            ->method('clear')
+            ->with('dummy');
+        $handler = new Horde_Notification_Handler($storage);
+        $handler->attach('dummy');
+        $handler->clear('dummy');
+    }
+
+    public function testMethodClearHasPostconditionThatAllUnattachedEventsHaveBeenClearedFromStorageIfNoListenerWasSpecified()
+    {
+        $storage = $this->getMock('Horde_Notification_Storage_Interface');
+        $storage->expects($this->once())
+            ->method('clear')
+            ->with('_unattached');
+        $handler = new Horde_Notification_Handler($storage);
+        $handler->clear();
+    }
+
+    public function testMethodGetHasResultNullIfTheSpecifiedListenerIsNotAttached()
+    {
+        $this->assertNull($this->handler->get('not attached'));
+    }
+
+    public function testMethodAddtypeHasPostconditionThatTheSpecifiedListenerHandlesTheGivenMessageType()
+    {
+        $this->handler->attach('dummy');
+        $this->handler->addType('dummy', 'newtype', 'NewType');
+        $this->assertEquals('NewType', $this->handler->getListener('dummy')->handles('newtype'));
+    }
+
+    public function testMethodAdddecoratorHasPostconditionThatTheGivenDecoratorWasAddedToTheHandlerAndReceivesPushCalls()
+    {
+        $decorator = $this->getMock('Horde_Notification_Handler_Decorator_Base');
+        $decorator->expects($this->once())
+            ->method('push')
+            ->with($this->isInstanceOf('Horde_Notification_Event'));
+        $event = new Horde_Notification_Event('test');
+        $this->handler->attach('audio');
+        $this->handler->addDecorator($decorator);
+        $this->handler->push($event, 'audio');
+    }
+
+    public function testMethodAdddecoratorHasPostconditionThatTheGivenDecoratorWasAddedToTheHandlerAndReceivesNotifyCalls()
+    {
+        $decorator = $this->getMock('Horde_Notification_Handler_Decorator_Base');
+        $decorator->expects($this->once())
+            ->method('notify');
+        $this->handler->attach('audio');
+        $this->handler->addDecorator($decorator);
+        $this->handler->notify();
+    }
+
     public function testMethodPushHasPostconditionThatTheEventGotSavedInAllAttachedListenerStacksHandlingTheEvent()
     {
         $event = new Horde_Notification_Event('test');
