@@ -526,8 +526,8 @@ class Group_contactlists extends Group {
      */
     function getGroupMemberships($user, $parentGroups = false)
     {
-        if ($memberships = $this->_cache->get('Group_contactlists_memberships' . md5($user)) !== false) {
-            return @unserialize($memberships);
+        if (($memberships = $this->_cache->get('Group_contactlists_memberships' . md5($user))) !== false) {
+            return unserialize($memberships);
         }
         $lists = $this->_listAllLists();
         $memberships = array();
