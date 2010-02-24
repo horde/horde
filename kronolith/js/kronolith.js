@@ -2706,6 +2706,29 @@ KronolithCore = {
                 e.stop();
                 return;
 
+            case 'kronolithCalendarPermsMore':
+            case 'kronolithCalendarPermsLess':
+                $('kronolithCalendarPermsBasic').toggle();
+                $('kronolithCalendarPermsAdvanced').toggle();
+                e.stop();
+                return;
+
+            case 'kronolithCalendarPermsAll':
+                if ($F('kronolithCalendarPermsAll')) {
+                    $('kronolithCalendarPermsShow').enable();
+                } else {
+                    $('kronolithCalendarPermsShow').disable();
+                }
+                return;
+
+            case 'kronolithCalendarPermsGroup':
+                if ($F('kronolithCalendarPermsGroup')) {
+                    $('kronolithCalendarPermsGroupPerms').enable();
+                } else {
+                    $('kronolithCalendarPermsGroupPerms').disable();
+                }
+                return;
+
             case 'kronolithNavDay':
             case 'kronolithNavWeek':
             case 'kronolithNavMonth':

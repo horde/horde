@@ -831,18 +831,23 @@ div.kronolithFormActions {
 
 /* Map */
 #kronolithEventMap {
-	height: 300px;
-	width: 700px;
+    height: 300px;
+    width: 700px;
 }
 #kronolithEventMap_OpenLayers_ViewPort div {
     margin-bottom: 0;
 }
 .olMapViewPort div {
-	margin-bottom: 0;
+    margin-bottom: 0;
 }
 .olControlLayerSwitcher div {
-	line-height: 100%;
-	margin-bottom: 0px;
+    line-height: 100%;
+    margin-bottom: 0px;
+}
+
+/* Calendar dialog */
+#kronolithCalendarPermsBasic dd {
+    margin-left: 20px;
 }
 
 /* Mini calendar */
