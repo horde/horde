@@ -185,7 +185,6 @@ class IMP_Mailbox
      *              'preview' - (string) If requested in $options['preview'],
      *                          the preview text.
      *              'previewcut'- (boolean) Has the preview text been cut?
-     *              'seq' - (integer) The sequence number of the message.
      *              'size' - (integer) The size of the message in bytes.
      *              'structure'- (array) The structure of the message. Only
      *                           set if $options['structure'] is true. See
@@ -220,7 +219,6 @@ class IMP_Mailbox
             Horde_Imap_Client::FETCH_FLAGS => true,
             Horde_Imap_Client::FETCH_SIZE => true,
             Horde_Imap_Client::FETCH_UID => true,
-            Horde_Imap_Client::FETCH_SEQ => true
         );
 
         if (!empty($options['headers'])) {

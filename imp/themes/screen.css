@@ -24,7 +24,7 @@
     text-align: left;
     white-space: nowrap;
 }
-.messageList th .subjectToggle {
+.messageList th .toggleSort {
     font-size: 90%;
 }
 .messageList td {

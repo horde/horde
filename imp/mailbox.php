@@ -573,13 +573,13 @@ if ($pageOb['msgcount']) {
     $headers = array(
         Horde_Imap_Client::SORT_ARRIVAL => array(
             'stext' => _("Sort by Arrival"),
-            'text' => _("#"),
-            'width' => '4%'
+            'text' => _("Arrival"),
+            'width' => '14%'
         ),
         Horde_Imap_Client::SORT_DATE => array(
             'stext' => _("Sort by Date"),
             'text' => _("Dat_e"),
-            'width' => '10%'
+            'width' => '14%'
         ),
         Horde_Imap_Client::SORT_TO => array(
             'stext' => _("Sort by To Address"),
@@ -616,17 +616,29 @@ if ($pageOb['msgcount']) {
         unset($headers[Horde_Imap_Client::SORT_TO]);
     }
 
+    /* Determine which of Date/Arrival to emphasize. */
+    if ($sortpref['by'] == Horde_Imap_Client::SORT_ARRIVAL) {
+        $extra = Horde_Imap_Client::SORT_DATE;
+        $standard = Horde_Imap_Client::SORT_ARRIVAL;
+    } else {
+        $extra = Horde_Imap_Client::SORT_ARRIVAL;
+        $standard = Horde_Imap_Client::SORT_DATE;
+    }
+    $headers[$standard]['extra'] = '<span class="toggleSort">[' . Horde::widget($mailbox_imp_url->copy()->add(array('sortby' => $extra, 'actionID' => 'change_sort', 'mailbox_token' => $mailbox_token)), $headers[$extra]['stext'], 'widget', null, null, $headers[$extra]['text']) . ']</span>';
+    unset($headers[$extra]);
+
     /* Determine which of Subject/Thread to emphasize. */
     if (!IMP::threadSortAvailable($imp_mbox['mailbox'])) {
         unset($headers[Horde_Imap_Client::SORT_THREAD]);
     } else {
-        $extra = Horde_Imap_Client::SORT_THREAD;
-        $standard = Horde_Imap_Client::SORT_SUBJECT;
         if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
             $extra = Horde_Imap_Client::SORT_SUBJECT;
             $standard = Horde_Imap_Client::SORT_THREAD;
+        } else {
+            $extra = Horde_Imap_Client::SORT_THREAD;
+            $standard = Horde_Imap_Client::SORT_SUBJECT;
         }
-        $headers[$standard]['extra'] = '&nbsp;<span style="toggleSubject">[' . Horde::widget($mailbox_imp_url->copy()->add(array('sortby' => $extra, 'actionID' => 'change_sort', 'mailbox_token' => $mailbox_token)), $headers[$extra]['stext'], 'widget', null, 'if (window.event) window.event.cancelBubble = true; else if (event) event.stopPropagation();', $headers[$extra]['text']) . ']</span>';
+        $headers[$standard]['extra'] = '<span class="toggleSort">[' . Horde::widget($mailbox_imp_url->copy()->add(array('sortby' => $extra, 'actionID' => 'change_sort', 'mailbox_token' => $mailbox_token)), $headers[$extra]['stext'], 'widget', null, null, $headers[$extra]['text']) . ']</span>';
         unset($headers[$extra]);
     }
 
@@ -706,7 +718,6 @@ while (list(,$ob) = each($mbox_info['overview'])) {
         'bg' => '',
         'class' => '',
         'date' => htmlspecialchars($imp_ui->getDate($ob['envelope']['date'])),
-        'number' => $ob['seq'],
         'preview' => '',
         'status' => '',
         'size' => htmlspecialchars($imp_ui->getSize($ob['size'])),
