@@ -186,8 +186,8 @@ var ContextSensitive = Class.create({
                 e.stop();
 
                 if (elt.hasClassName('contextSubmenu') &&
-                    elt_up.readAttribute('id') != this.currentmenu()) {
-                    this._closeMenu(this.current.indexOf(elt.readAttribute('id')));
+                    elt_up.identify() != this.currentmenu()) {
+                    this._closeMenu(this.current.indexOf(elt.identify()));
                 }
 
                 base = this.baseelt;
@@ -225,29 +225,20 @@ var ContextSensitive = Class.create({
      */
     trigger: function(target, leftclick, x, y)
     {
-        var ctx, el, el_id, offset, offsets, voffsets;
+        var ctx, el, offset, offsets, voffsets;
 
         [ target ].concat(target.ancestors()).find(function(n) {
             ctx = this.validElement(n.id, leftclick);
             return ctx;
         }, this);
 
-        // Return if event not found or event is disabled.
-        if (!ctx || ctx.disable) {
-            this.close();
-            return false;
-        }
-
         // Try to retrieve the context-sensitive element we want to
         // display. If we can't find it we just return.
-        el = $(ctx.ctx);
-        if (!el) {
+        if (!ctx ||
+            ctx.disable ||
+            !(el = $(ctx.ctx)) ||
+            (leftclick && target == this.baseelt)) {
             this.close();
-            return false;
-        }
-
-        el_id = el.readAttribute('id');
-        if (leftclick && el_id == this.currentmenu()) {
             return false;
         }
 
@@ -258,7 +249,7 @@ var ContextSensitive = Class.create({
 
         offset = ctx.opts.offset;
         if (!offset && (Object.isUndefined(x) || Object.isUndefined(y))) {
-            offset = target.readAttribute('id');
+            offset = target.identify();
         }
         offset = $(offset);
 
@@ -270,7 +261,7 @@ var ContextSensitive = Class.create({
         }
 
         this._displayMenu(el, x, y);
-        this.triggers.push(el_id);
+        this.triggers.push(el.identify());
 
         return true;
     },
@@ -281,7 +272,7 @@ var ContextSensitive = Class.create({
     _displayMenu: function(elt, x, y)
     {
         // Get window/element dimensions
-        var id = elt.readAttribute('id'),
+        var id = elt.identify(),
             size = elt.getDimensions(),
             v = document.viewport.getDimensions();
 
@@ -336,14 +327,14 @@ var ContextSensitive = Class.create({
         var cm = this.currentmenu(),
             elt = e.element(),
             elt_up = elt.up('.contextMenu'),
-            id = elt.readAttribute('id'),
+            id = elt.identify(),
             id_div, offsets, sub, voffsets, x, y;
 
         if (!elt_up) {
             return;
         }
 
-        id_div = elt_up.readAttribute('id');
+        id_div = elt_up.identify();
 
         if (elt.hasClassName('contextSubmenu')) {
             sub = this.submenus.get(id);
