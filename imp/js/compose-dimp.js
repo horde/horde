@@ -187,9 +187,9 @@ var DimpCompose = {
     {
         var c = $('compose');
 
-        if (DIMP.SpellCheckerObject &&
-            DIMP.SpellCheckerObject.isActive()) {
-            DIMP.SpellCheckerObject.resume();
+        if (DIMP.SpellChecker &&
+            DIMP.SpellChecker.isActive()) {
+            DIMP.SpellChecker.resume();
             this.skip_spellcheck = true;
         }
 
@@ -203,10 +203,10 @@ var DimpCompose = {
 
                 if (!this.skip_spellcheck &&
                     DIMP.conf_compose.spellcheck &&
-                    DIMP.SpellCheckerObject &&
-                    !DIMP.SpellCheckerObject.isActive()) {
+                    DIMP.SpellChecker &&
+                    !DIMP.SpellChecker.isActive()) {
                     this.sc_submit = action;
-                    DIMP.SpellCheckerObject.spellCheck();
+                    DIMP.SpellChecker.spellCheck();
                     return;
                 }
                 break;
@@ -333,8 +333,8 @@ var DimpCompose = {
         DimpCore.loadingImg('sendingImg', 'composeMessageParent', disable);
         DimpCore.toggleButtons($('compose').select('DIV.dimpActions A'), disable);
         [ $('compose') ].invoke(disable ? 'disable' : 'enable');
-        if (DIMP.SpellCheckerObject) {
-            DIMP.SpellCheckerObject.disable(disable);
+        if (DIMP.SpellChecker) {
+            DIMP.SpellChecker.disable(disable);
         }
         if (this.editor_on) {
             this.RTELoading(disable ? 'show' : 'hide', true);
@@ -347,8 +347,8 @@ var DimpCompose = {
             return;
         }
         noupdate = noupdate || false;
-        if (DIMP.SpellCheckerObject) {
-            DIMP.SpellCheckerObject.resume();
+        if (DIMP.SpellChecker) {
+            DIMP.SpellChecker.resume();
         }
 
         var config, text;
@@ -414,7 +414,7 @@ var DimpCompose = {
 
     _onSpellCheckBefore: function()
     {
-        DIMP.SpellCheckerObject.htmlAreaParent = this.editor_on
+        DIMP.SpellChecker.htmlAreaParent = this.editor_on
             ? 'composeMessageParent'
             : null;
 

@@ -60,7 +60,7 @@ $imp_ui = new IMP_Ui_Compose();
 
 /* Attach spellchecker & auto completer. */
 $imp_ui->attachAutoCompleter(array('to', 'cc', 'bcc'));
-$imp_ui->attachSpellChecker('dimp');
+$imp_ui->attachSpellChecker();
 
 $show_editor = false;
 $title = _("New Message");

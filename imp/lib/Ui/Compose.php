@@ -132,19 +132,26 @@ class IMP_Ui_Compose
     /**
      * Attach the spellchecker to the current compose form.
      */
-    public function attachSpellChecker($mode, $add_br = false)
+    public function attachSpellChecker()
     {
         $menu_view = $GLOBALS['prefs']->getValue('menu_view');
-        $show_text = ($menu_view == 'text' || $menu_view == 'both');
-        $br = ($add_br) ? '<br />' : '';
         $spell_img = Horde::img('spellcheck.png');
+
+        if (IMP::getViewMode() == 'imp') {
+            $br = '<br />';
+            $id = 'DIMP.SpellChecker';
+        } else {
+            $br = '';
+            $id = 'IMP.SpellChecker';
+        }
+
         $args = array(
-            'id' => ($mode == 'dimp' ? 'DIMP.' : 'IMP.') . 'SpellCheckerObject',
+            'id' => $id,
             'targetId' => 'composeMessage',
             'triggerId' => 'spellcheck',
             'states' => array(
-                'CheckSpelling' => $spell_img . ($show_text ? $br . _("Check Spelling") : ''),
-                'Checking' => $spell_img . $br . _("Checking ..."),
+                'CheckSpelling' => $spell_img . (($menu_view == 'text' || $menu_view == 'both') ? $br . _("Check Spelling") : ''),
+                'Checking' => $spell_img . $br . _("Checking..."),
                 'ResumeEdit' => $spell_img . $br . _("Resume Editing"),
                 'Error' => $spell_img . $br . _("Spell Check Failed")
             )
@@ -224,7 +231,7 @@ class IMP_Ui_Compose
         }
 
         Horde::addInlineScript(array(
-            'if (!window.IMP) { window.IMP = {}; }',
+            'window.IMP = window.IMP || {}',
             'IMP.ckeditor_config = {' . implode(',', $config) . '}'
         ));
     }

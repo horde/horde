@@ -562,7 +562,7 @@ if ($browser->hasFeature('javascript')) {
             try {
                 Horde_SpellChecker::factory($conf['spell']['driver'], array());
                 $spellcheck = true;
-                $imp_ui->attachSpellChecker('imp', true);
+                $imp_ui->attachSpellChecker();
             } catch (Exception $e) {
                 Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
             }

@@ -175,17 +175,17 @@ var ImpCompose = {
 
             if (!this.skip_spellcheck &&
                 this.spellcheck &&
-                IMP.SpellCheckerObject &&
-                !IMP.SpellCheckerObject.isActive()) {
+                IMP.SpellChecker &&
+                !IMP.SpellChecker.isActive()) {
                 this.sc_submit = { a: actionID, e: e };
-                IMP.SpellCheckerObject.spellCheck();
+                IMP.SpellChecker.spellCheck();
                 return;
             }
 
             this.skip_spellcheck = false;
 
-            if (IMP.SpellCheckerObject) {
-                IMP.SpellCheckerObject.resume();
+            if (IMP.SpellChecker) {
+                IMP.SpellChecker.resume();
             }
 
             // fall through
@@ -400,7 +400,7 @@ var ImpCompose = {
 
     _onBeforeSpellCheck: function()
     {
-        IMP.SpellCheckerObject.htmlAreaParent = 'composeMessageParent';
+        IMP.SpellChecker.htmlAreaParent = 'composeMessageParent';
         $('composeMessage').next().hide();
         CKEDITOR.instances.composeMessage.updateElement();
     },

@@ -72,7 +72,7 @@ if (!$disable_compose) {
 
     /* Attach spellchecker & auto completer. */
     $imp_ui->attachAutoCompleter(array('to', 'cc', 'bcc'));
-    $imp_ui->attachSpellChecker('dimp');
+    $imp_ui->attachSpellChecker();
 
     $js_out = array_merge($js_out, $compose_result['js']);
     $scripts[] = array('compose-dimp.js', 'imp');
