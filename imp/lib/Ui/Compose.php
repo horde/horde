@@ -320,4 +320,34 @@ class IMP_Ui_Compose
         Horde::addInlineScript(array($js), 'dom');
     }
 
+    /**
+     */
+    public function identityJs()
+    {
+        $identities = array();
+        $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+
+        foreach ($identity->getAllSignatures() as $ident => $sig) {
+            $identities[] = array(
+                // Plain text signature
+                'sig' => $sig,
+                // HTML signature
+                'sig_html' => str_replace(' target="_blank"', '', Horde_Text_Filter::filter($sig, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL, 'class' => null, 'callback' => null))),
+                // Signature location
+                'sig_loc' => (bool)$identity->getValue('sig_first', $ident),
+                // Sent mail folder name
+                'smf_name' => $identity->getValue('sent_mail_folder', $ident),
+                // Save in sent mail folder by default?
+                'smf_save' => (bool)$identity->saveSentmail($ident),
+                // Sent mail display name
+                'smf_display' => IMP::displayFolder($identity->getValue('sent_mail_folder', $ident)),
+                // Bcc addresses to add
+                'bcc' => Horde_Mime_Address::addrArray2String($identity->getBccAddresses($ident))
+            );
+        }
+
+        return 'IMP_Compose_Base.identities = ' . Horde_Serialize::serialize($identities, Horde_Serialize::JSON);
+    }
+
+
 }

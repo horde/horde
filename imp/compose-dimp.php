@@ -197,6 +197,7 @@ $compose_result['js_onload'][] = 'DimpCompose.fillForm(' . Horde_Serialize::seri
 Horde::addInlineScript($compose_result['js_onload'], 'load');
 
 $scripts = array(
+    array('compose-base.js', 'imp'),
     array('compose-dimp.js', 'imp'),
     array('md5.js', 'horde'),
     array('TextareaResize.js', 'horde')

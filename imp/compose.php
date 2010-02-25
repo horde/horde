@@ -22,8 +22,8 @@ $header = array();
 $msg = '';
 
 $get_sig = true;
-$showmenu = false;
-$cursor_pos = $oldrtemode = $rtemode = $siglocation = null;
+$showmenu = $spellcheck = false;
+$oldrtemode = $rtemode = null;
 
 /* Set the current identity. */
 $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
@@ -546,7 +546,6 @@ $composeCacheID = $imp_compose->getCacheId();
 $redirect = ($actionID == 'redirect_compose');
 
 /* Attach autocompleters to the compose form elements. */
-$spellcheck = false;
 if ($browser->hasFeature('javascript')) {
     if ($redirect) {
         $imp_ui->attachAutoCompleter(array('to'));
@@ -558,6 +557,7 @@ if ($browser->hasFeature('javascript')) {
             }
         }
         $imp_ui->attachAutoCompleter($auto_complete);
+
         if (!empty($conf['spell']['driver'])) {
             try {
                 Horde_SpellChecker::factory($conf['spell']['driver'], array());
@@ -623,7 +623,7 @@ if (!is_null($oldrtemode) && ($oldrtemode != $rtemode)) {
         $msg = preg_replace('/\s+##IMP_SIGNATURE##/', '##IMP_SIGNATURE_WS####IMP_SIGNATURE##', $msg);
         $msg = $imp_compose->text2html($msg);
         $msg = str_replace(array('##IMP_SIGNATURE_WS##', '##IMP_SIGNATURE##'),
-                           array('<p>&nbsp;</p>', '<p class="imp-signature"><!--begin_signature-->' . $imp_compose->text2html($sig) . '<!--end_signature--></p>'),
+                           array('<p>&nbsp;</p>', '<p><!--begin_signature-->' . $imp_compose->text2html($sig) . '<!--end_signature--></p>'),
                            $msg);
     } else {
         $msg = Horde_Text_Filter::filter($msg, 'html2text', array('charset' => Horde_Nls::getCharset(), 'wrap' => false));
@@ -644,19 +644,12 @@ foreach (array('to', 'cc', 'bcc', 'subject') as $val) {
 
 if ($get_sig && isset($msg) && !empty($sig)) {
     if ($rtemode) {
-        $sig = '<p>&nbsp;</p><p class="imp-signature"><!--begin_signature-->' . $imp_compose->text2html(trim($sig)) . '<!--end_signature--></p>';
+        $sig = '<p>&nbsp;</p><p><!--begin_signature-->' . $imp_compose->text2html(trim($sig)) . '<!--end_signature--></p>';
     }
 
     if ($identity->getValue('sig_first')) {
-        $siglocation = 0;
         $msg = "\n" . $sig . $msg;
     } else {
-        $siglocation = Horde_String::length($msg);
-        /* We always add a line break at the beginning, so if length is 1,
-           ignore that line break (i.e. the message is empty). */
-        if ($siglocation == 1) {
-            $siglocation = 0;
-        }
         $msg .= "\n" . $sig;
     }
 }
@@ -686,64 +679,24 @@ if ($prefs->getValue('use_pgp') && !$prefs->isLocked('default_encrypt')) {
     }
 }
 
-/* Determine the default cursor position in the compose text area. */
-if (!$rtemode) {
-    switch ($prefs->getValue('compose_cursor')) {
-    case 'top':
-    default:
-        $cursor_pos = 0;
-        break;
-
-    case 'bottom':
-        $cursor_pos = Horde_String::length($msg);
-        break;
-
-    case 'sig':
-        if (!is_null($siglocation)) {
-            $cursor_pos = $siglocation;
-        } elseif (!empty($sig)) {
-            $next_pos = $pos = 0;
-            $sig_length = Horde_String::length($sig);
-            do {
-                $cursor_pos = $pos;
-                $pos = strpos($msg, $sig, $next_pos);
-                $next_pos = $pos + $sig_length;
-            } while ($pos !== false);
-        }
-        break;
-    };
-}
-
 /* Define some variables used in the javascript code. */
 $js_code = array(
+    'IMP_Compose_Base.editor_on = ' . intval($rtemode),
     'ImpCompose.auto_save = ' . intval($prefs->getValue('auto_save_drafts')),
     'ImpCompose.cancel_url = \'' . $cancel_url . '\'',
-    'ImpCompose.cursor_pos = ' . (is_null($cursor_pos) ? 'null' : $cursor_pos),
+    'ImpCompose.cursor_pos = ' .($rtemode ? 'null' : ('"' . $prefs->getValue('compose_cursor') . '"')),
     'ImpCompose.max_attachments = ' . (($max_attach === true) ? 'null' : $max_attach),
     'ImpCompose.popup = ' . intval($isPopup),
     'ImpCompose.redirect = ' . intval($redirect),
     'ImpCompose.reloaded = ' . intval($token),
-    'ImpCompose.rtemode = ' . intval($rtemode),
     'ImpCompose.smf_check = ' . intval($smf_check),
     'ImpCompose.spellcheck = ' . intval($spellcheck && $prefs->getValue('compose_spellcheck'))
 );
 
 /* Create javascript identities array. */
 if (!$redirect) {
-    $js_ident = array();
-    foreach ($identity->getAllSignatures() as $ident => $sig) {
-        $smf = $identity->getValue('sent_mail_folder', $ident);
-        $js_ident[] = array(
-            ($rtemode) ? str_replace(' target="_blank"', '', Horde_Text_Filter::filter($sig, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL, 'class' => null, 'callback' => null))) : $sig,
-            $identity->getValue('sig_first', $ident),
-            ($smf_check) ? $smf : IMP::displayFolder($smf),
-            $identity->saveSentmail($ident),
-            Horde_Mime_Address::addrArray2String($identity->getBccAddresses($ident))
-        );
-    }
-    $js_code[] = 'ImpCompose.identities = ' . Horde_Serialize::serialize($js_ident, Horde_Serialize::JSON, Horde_Nls::getCharset());
+    $js_code[] = $imp_ui->identityJs();
 }
-
 
 /* Set up the base template now. */
 $t = $injector->createInstance('Horde_Template');
@@ -1086,6 +1039,7 @@ if ($rtemode && !$redirect) {
 if ($showmenu) {
     IMP::prepareMenu();
 }
+Horde::addScriptFile('compose-base.js', 'imp');
 Horde::addScriptFile('compose.js', 'imp');
 Horde::addScriptFile('md5.js', 'horde');
 require IMP_TEMPLATES . '/common-header.inc';

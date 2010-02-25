@@ -67,14 +67,13 @@ if (!$disable_compose) {
     );
     $compose_result = IMP_Views_Compose::showCompose($compose_args);
 
-    /* Init IMP_Ui_Compose:: object. */
-    $imp_ui = new IMP_Ui_Compose();
-
     /* Attach spellchecker & auto completer. */
+    $imp_ui = new IMP_Ui_Compose();
     $imp_ui->attachAutoCompleter(array('to', 'cc', 'bcc'));
     $imp_ui->attachSpellChecker();
 
     $js_out = array_merge($js_out, $compose_result['js']);
+    $scripts[] = array('compose-base.js', 'imp');
     $scripts[] = array('compose-dimp.js', 'imp');
 
     $js_onload = $compose_result['jsonload'];

@@ -7,9 +7,8 @@
 
 var ImpCompose = {
     // Variables defined in compose.php:
-    //   cancel_url, spellcheck, cursor_pos, identities, last_msg,
-    //   max_attachments, popup, redirect, reloaded, rtemode, sc_submit,
-    //   smf_check, skip_spellcheck
+    //   cancel_url, spellcheck, cursor_pos, last_msg, max_attachments,
+    //   popup, redirect, reloaded, sc_submit, smf_check, skip_spellcheck
     display_unload_warning: true,
 
     confirmCancel: function(e)
@@ -30,86 +29,22 @@ var ImpCompose = {
         }
     },
 
-    /**
-     * Sets the cursor to the given position.
-     */
-    setCursorPosition: function(input, position)
-    {
-        if (input.setSelectionRange) {
-            /* This works in Mozilla */
-            Field.focus(input);
-            input.setSelectionRange(position, position);
-            if (position) {
-                (function() { input.scrollTop = input.scrollHeight - input.offsetHeight; }).defer();
-            }
-        } else if (input.createTextRange) {
-            /* This works in IE */
-            var range = input.createTextRange();
-            range.collapse(true);
-            range.moveStart('character', position);
-            range.moveEnd('character', 0);
-            Field.select(range);
-            range.scrollIntoView(true);
-        }
-    },
-
     changeIdentity: function(elt)
     {
         var id = $F(elt),
-            last = this.identities[$F('last_identity')],
-            next = this.identities[id],
+            last = IMP_Compose_Base.getIdentity($F('last_identity')),
+            next = IMP_Compose_Base.getIdentity(id),
             i = 0,
             bcc = $('bcc'),
             save = $('ssm'),
             smf = $('sent_mail_folder'),
-            lastSignature, msg, nextSignature, pos, re;
+            re;
 
-        // If the rich text editor is on, we'll use a regexp to find the
-        // signature comment and replace its contents.
-        if (this.rtemode) {
-            msg = CKEDITOR.instances.composeMessage.getData().replace(/\r\n/g, '\n');
-
-            lastSignature = '<p><!--begin_signature--><!--end_signature--></p>';
-            nextSignature = '<p><!--begin_signature-->' + next[0].replace(/^ ?<br \/>\n/, '').replace(/ +/g, ' ') + '<!--end_signature--></p>';
-
-            // Dot-all functionality achieved with [\s\S], see:
-            // http://simonwillison.net/2004/Sep/20/newlines/
-            msg = msg.replace(/<p class="imp-signature">\s*<!--begin_signature-->[\s\S]*?<!--end_signature-->\s*<\/p>/, lastSignature);
-        } else {
-            msg = $F('composeMessage').replace(/\r\n/g, '\n');
-
-            lastSignature = last[0].replace(/^\n/, '');
-            nextSignature = next[0].replace(/^\n/, '');
-        }
-
-        pos = (last[1]) ? msg.indexOf(lastSignature) : msg.lastIndexOf(lastSignature);
-        if (pos != -1) {
-            if (next[1] == last[1]) {
-                msg = msg.substring(0, pos) + nextSignature + msg.substring(pos + lastSignature.length, msg.length);
-            } else if (next[1]) {
-                msg = nextSignature + msg.substring(0, pos) + msg.substring(pos + lastSignature.length, msg.length);
-            } else {
-                msg = msg.substring(0, pos) + msg.substring(pos + lastSignature.length, msg.length) + nextSignature;
-            }
-
-            msg = msg.replace(/\r\n/g, '\n').replace(/\n/g, '\r\n');
-
-            $('last_identity').setValue(id);
-            window.status = IMP.text.compose_sigreplace;
-        } else {
-            window.status = IMP.text.compose_signotreplace;
-        }
-
-        if (this.rtemode) {
-            CKEDITOR.instances.composeMessage.setData(msg);
-        } else {
-            $('composeMessage').setValue(msg);
-        }
-
+        IMP_Compose_Base.replaceSignature(id);
 
         if (this.smf_check) {
             $A(smf.options).detect(function(f) {
-                if (f.value == next[2]) {
+                if (f.value == next.id.smf_name) {
                     smf.selectedIndex = i;
                     return true;
                 }
@@ -117,31 +52,31 @@ var ImpCompose = {
             });
         } else {
             if (smf.firstChild) {
-                smf.replaceChild(document.createTextNode(next[2]), smf.firstChild);
+                smf.replaceChild(document.createTextNode(next.id.smf_name), smf.firstChild);
             } else {
-                smf.appendChild(document.createTextNode(next[2]));
+                smf.appendChild(document.createTextNode(next.id.smf_name));
             }
         }
 
         if (save) {
-            save.checked = next[3];
+            save.checked = next.id.smf_save;
         }
         if (bcc) {
             bccval = bcc.value;
 
-            if (last[4]) {
-                re = new RegExp(last[4] + ",? ?", 'gi');
+            if (last.id.bcc) {
+                re = new RegExp(last.id.bcc + ",? ?", 'gi');
                 bccval = bccval.replace(re, "");
                 if (bccval) {
                     bccval = bccval.replace(/, ?$/, "");
                 }
             }
 
-            if (next[4]) {
+            if (next.id.bcc) {
                 if (bccval) {
                     bccval += ', ';
                 }
-                bccval += next[4];
+                bccval += next.id.bcc;
             }
 
             bcc.setValue(bccval);
@@ -198,7 +133,7 @@ var ImpCompose = {
 
         case 'auto_save_draft':
             // Move HTML text to textarea field for submission.
-            if (this.rtemode) {
+            if (IMP_Compose_Base.editor_on) {
                 CKEDITOR.instances.composeMessage.updateElement();
             }
 
@@ -347,9 +282,7 @@ var ImpCompose = {
             }
         });
 
-        if (this.cursor_pos !== null && $('composeMessage')) {
-            this.setCursorPosition($('composeMessage'), this.cursor_pos);
-        }
+        IMP_Compose_Base.setCursorPosition('composeMessage', this.cursor_pos, IMP_Compose_Base.getIdentity($F('last_identity')).sig);
 
         if (this.redirect) {
             $('to').focus();
@@ -363,7 +296,7 @@ var ImpCompose = {
                 });
             }
 
-            if (this.rtemode) {
+            if (IMP_Compose_Base.editor_on) {
                 document.observe('SpellChecker:after', this._onAfterSpellCheck.bind(this));
                 document.observe('SpellChecker:before', this._onBeforeSpellCheck.bind(this));
             }
@@ -371,7 +304,7 @@ var ImpCompose = {
             if ($('to') && !$F('to')) {
                 $('to').focus();
             } else if (!$F('subject')) {
-                if (this.rtemode) {
+                if (IMP_Compose_Base.editor_on) {
                     $('subject').focus();
                 } else {
                     $('composeMessage').focus();
@@ -410,7 +343,7 @@ var ImpCompose = {
         if (this.sc_submit) {
             this.skip_spellcheck = true;
             this.uniqSubmit(this.sc_submit.a, this.sc_submit.e);
-        } else if (this.rtemode) {
+        } else if (IMP_Compose_Base.editor_on) {
             this._onAfterSpellCheck();
         } else {
             this.sc_submit = null;

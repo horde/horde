@@ -9,7 +9,7 @@
 
 var DimpCompose = {
     // Variables defaulting to empty/false:
-    //   auto_save_interval, compose_cursor, disabled, drafts_mbox, editor_on,
+    //   auto_save_interval, compose_cursor, disabled, drafts_mbox,
     //   is_popup, knl_p, knl_sm, last_msg, loaded, rte, skip_spellcheck,
     //   spellcheck, sc_submit, uploading
 
@@ -58,7 +58,7 @@ var DimpCompose = {
         $('composeCache').clear();
         $('qreply', 'sendcc', 'sendbcc').invoke('hide');
         [ $('msgData'), $('togglecc'), $('togglebcc') ].invoke('show');
-        if (this.editor_on) {
+        if (IMP_Compose_Base.editor_on) {
             this.toggleHtmlEditor();
         }
         $('compose').reset();
@@ -71,52 +71,13 @@ var DimpCompose = {
 
     changeIdentity: function()
     {
-        var lastSignature, msg, nextSignature, pos,
-            id = $F('identity'),
-            last = this.getIdentity($F('last_identity')),
-            msgval = $('composeMessage'),
-            next = this.getIdentity(id);
+        var identity = IMP_Compose_Base.getIdentity($F('identity'));
 
-        this.setSentMailLabel(next.id[3], next.id[5], true);
-        $('bcc').setValue(next.id[6]);
-        this.setSaveSentMail(next.id[4]);
+        this.setSentMailLabel(identity.id.smf_name, identity.id.smf_display, true);
+        $('bcc').setValue(identity.id.bcc);
+        this.setSaveSentMail(identity.id.smf_save);
 
-        // Finally try and replace the signature.
-        if (this.editor_on) {
-            msg = this.rte.getData().replace(/\r\n/g, '\n');
-            lastSignature = '<p><!--begin_signature--><!--end_signature--></p>';
-            nextSignature = '<p><!--begin_signature-->' + next.sig.replace(/^ ?<br \/>\n/, '').replace(/ +/g, ' ') + '<!--end_signature--></p>';
-
-            // Dot-all functionality achieved with [\s\S], see:
-            // http://simonwillison.net/2004/Sep/20/newlines/
-            msg = msg.replace(/<p>\s*<!--begin_signature-->[\s\S]*?<!--end_signature-->\s*<\/p>/, lastSignature);
-        } else {
-            msg = $F(msgval).replace(/\r\n/g, '\n');
-            lastSignature = last.sig;
-            nextSignature = next.sig;
-        }
-
-        pos = (last.id[2])
-            ? msg.indexOf(lastSignature)
-            : msg.lastIndexOf(lastSignature);
-
-        if (pos != -1) {
-            if (next.id[2] == last.id[2]) {
-                msg = msg.substring(0, pos) + nextSignature + msg.substring(pos + lastSignature.length, msg.length);
-            } else if (next.id[2]) {
-                msg = nextSignature + msg.substring(0, pos) + msg.substring(pos + lastSignature.length, msg.length);
-            } else {
-                msg = msg.substring(0, pos) + msg.substring(pos + lastSignature.length, msg.length) + nextSignature;
-            }
-
-            msg = msg.replace(/\r\n/g, '\n').replace(/\n/g, '\r\n');
-            if (this.editor_on) {
-                this.rte.setData(msg);
-            } else {
-                msgval.setValue(msg);
-            }
-            $('last_identity').setValue(id);
-        }
+        IMP_Compose_Base.replaceSignature($F('identity'));
     },
 
     setSaveSentMail: function(set)
@@ -174,15 +135,6 @@ var DimpCompose = {
         $('priority_label').setText(l.l);
     },
 
-    getIdentity: function(id, editor_on)
-    {
-        editor_on = Object.isUndefined(editor_on) ? this.editor_on : editor_on;
-        return {
-            id: DIMP.conf_compose.identities[id],
-            sig: DIMP.conf_compose.identities[id][(editor_on ? 1 : 0)].replace(/^\n/, '')
-        };
-    },
-
     uniqueSubmit: function(action)
     {
         var c = $('compose');
@@ -229,7 +181,7 @@ var DimpCompose = {
             c.submit();
         } else {
             // Move HTML text to textarea field for submission.
-            if (this.editor_on) {
+            if (IMP_Compose_Base.editor_on) {
                 this.rte.updateElement();
             }
 
@@ -336,7 +288,7 @@ var DimpCompose = {
         if (DIMP.SpellChecker) {
             DIMP.SpellChecker.disable(disable);
         }
-        if (this.editor_on) {
+        if (IMP_Compose_Base.editor_on) {
             this.RTELoading(disable ? 'show' : 'hide', true);
         }
     },
@@ -353,7 +305,7 @@ var DimpCompose = {
 
         var config, text;
 
-        if (this.editor_on) {
+        if (IMP_Compose_Base.editor_on) {
             text = this.rte.getData();
             this.rte.destroy();
 
@@ -378,10 +330,10 @@ var DimpCompose = {
             this.rte = CKEDITOR.replace('composeMessage', config);
         }
 
-        this.editor_on = !this.editor_on;
+        IMP_Compose_Base.editor_on = !IMP_Compose_Base.editor_on;
 
-        $('htmlcheckbox').setValue(this.editor_on);
-        $('html').setValue(this.editor_on ? 1 : 0);
+        $('htmlcheckbox').setValue(IMP_Compose_Base.editor_on);
+        $('html').setValue(Number(IMP_Compose_Base.editor_on));
     },
 
     RTELoading: function(cmd, notxt)
@@ -405,7 +357,7 @@ var DimpCompose = {
 
     _onSpellCheckAfter: function()
     {
-        if (this.editor_on) {
+        if (IMP_Compose_Base.editor_on) {
             this.rte.setData($F('composeMessage'));
             $('composeMessage').next().show();
         }
@@ -414,11 +366,11 @@ var DimpCompose = {
 
     _onSpellCheckBefore: function()
     {
-        DIMP.SpellChecker.htmlAreaParent = this.editor_on
+        DIMP.SpellChecker.htmlAreaParent = IMP_Compose_Base.editor_on
             ? 'composeMessageParent'
             : null;
 
-        if (this.editor_on) {
+        if (IMP_Compose_Base.editor_on) {
             this.rte.updateElement();
             $('composeMessage').next().hide();
         }
@@ -444,7 +396,7 @@ var DimpCompose = {
             ta.setValue(r.response.text);
         }
 
-        if (!this.editor_on) {
+        if (!IMP_Compose_Base.editor_on) {
             this.resizeMsgArea();
         }
     },
@@ -459,14 +411,14 @@ var DimpCompose = {
         }
 
         var bcc_add,
-            identity = this.getIdentity($F('last_identity'));
+            identity = IMP_Compose_Base.getIdentity($F('last_identity'));
         opts = opts || {};
 
         // Set auto-save-drafts now if not already active.
         if (DIMP.conf_compose.auto_save_interval_val &&
             !this.auto_save_interval) {
             this.auto_save_interval = new PeriodicalExecuter(function() {
-                var curr_hash = MD5.hash($('to', 'cc', 'bcc', 'subject').invoke('getValue').join('\0') + (this.editor_on ? this.rte.getData() : $F('composeMessage')));
+                var curr_hash = MD5.hash($('to', 'cc', 'bcc', 'subject').invoke('getValue').join('\0') + (IMP_Compose_Base.editor_on ? this.rte.getData() : $F('composeMessage')));
                 if (this.last_msg && curr_hash != this.last_msg) {
                     this.uniqueSubmit('AutoSaveDraft');
                 }
@@ -485,17 +437,17 @@ var DimpCompose = {
         if (DIMP.conf_compose.cc) {
             this.toggleCC('cc', true);
         }
-        this.setSentMailLabel(identity.id[3], identity.id[5], true);
-        this.setSaveSentMail(identity.id[4]);
+        this.setSentMailLabel(identity.id.smf_name, identity.id.smf_display, true);
+        this.setSaveSentMail(identity.id.smf_save);
         if (header.bcc) {
             $('bcc').setValue(header.bcc);
         }
-        if (identity.id[6]) {
+        if (identity.id.bcc) {
             bcc_add = $F('bcc');
             if (bcc_add) {
                 bcc_add += ', ';
             }
-            $('bcc').setValue(bcc_add + identity.id[6]);
+            $('bcc').setValue(bcc_add + identity.id.bcc);
         }
         if (DIMP.conf_compose.bcc) {
             this.toggleCC('bcc', true);
@@ -525,7 +477,7 @@ var DimpCompose = {
         }
 
         if (DIMP.conf_compose.show_editor) {
-            if (!this.editor_on) {
+            if (!IMP_Compose_Base.editor_on) {
                 this.toggleHtmlEditor(opts.noupdate);
             }
             if (opts.focus && (opts.focus == 'composeMessage')) {
@@ -536,14 +488,11 @@ var DimpCompose = {
 
     setBodyText: function(msg)
     {
-        var msgval;
-
-        if (this.editor_on) {
+        if (IMP_Compose_Base.editor_on) {
             this.rte.setData(msg);
         } else {
-            msgval = $('composeMessage');
-            msgval.setValue(msg);
-            this.setCursorPosition(msgval);
+            $('composeMessage').setValue(msg);
+            IMP_Compose_Base.setCursorPosition('composeMessage', DIMP.conf_compose.compose_cursor, IMP_Compose_Base.getIdentity($F('last_identity')).sig);
         }
     },
 
@@ -638,7 +587,7 @@ var DimpCompose = {
 
         mah = document.viewport.getHeight() - cmp.offsetTop;
 
-        if (this.editor_on) {
+        if (IMP_Compose_Base.editor_on) {
             [ 'margin', 'padding', 'border' ].each(function(s) {
                 [ 'Top', 'Bottom' ].each(function(h) {
                     var a = parseInt(cmp.getStyle(s + h), 10);
@@ -692,47 +641,6 @@ var DimpCompose = {
         }
     },
 
-    /* Sets the cursor to the given position. */
-    setCursorPosition: function(input)
-    {
-        var pos, range;
-
-        switch (DIMP.conf_compose.compose_cursor) {
-        case 'top':
-            pos = 0;
-            $('composeMessage').setValue('\n' + $F('composeMessage'));
-            break;
-
-        case 'bottom':
-            pos = $F('composeMessage').length;
-            break;
-
-        case 'sig':
-            pos = $F('composeMessage').replace(/\r\n/g, '\n').lastIndexOf(this.getIdentity($F('last_identity')).sig) - 1;
-            break;
-
-        default:
-            return;
-        }
-
-        if (input.setSelectionRange) {
-            /* This works in Mozilla */
-            Field.focus(input);
-            input.setSelectionRange(pos, pos);
-            if (pos) {
-                (function() { input.scrollTop = input.scrollHeight - input.offsetHeight; }).defer();
-            }
-        } else if (input.createTextRange) {
-            /* This works in IE */
-            range = input.createTextRange();
-            range.collapse(true);
-            range.moveStart('character', pos);
-            range.moveEnd('character', 0);
-            Field.select(range);
-            range.scrollIntoView(true);
-        }
-    },
-
     /* Open the addressbook window. */
     openAddressbook: function()
     {
@@ -771,7 +679,8 @@ var DimpCompose = {
                 break;
 
             case 'htmlcheckbox':
-                if (!this.editor_on || window.confirm(DIMP.text_compose.toggle_html)) {
+                if (!IMP_Compose_Base.editor_on ||
+                    window.confirm(DIMP.text_compose.toggle_html)) {
                     this.toggleHtmlEditor();
                 } else {
                     $('htmlcheckbox').setValue(true);
@@ -881,7 +790,7 @@ var DimpCompose = {
                 list: DIMP.conf_compose.flist,
                 onChoose: this.setSentMailLabel.bind(this)
             });
-            this.knl_sm.setSelected(this.getIdentity($F('identity'))[3]);
+            this.knl_sm.setSelected(IMP_Compose_Base.getIdentity($F('identity')).id.smf_name);
             $('sent_mail_folder_label').insert({ after: new Element('SPAN', { className: 'popdownImg' }).observe('click', function(e) { if (!this.disabled) { this.knl_sm.show(); this.knl_sm.ignoreClick(e); e.stop(); } }.bindAsEventListener(this)) });
         }
 

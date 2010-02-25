@@ -40,26 +40,9 @@ class IMP_Views_Compose
         $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
         $selected_identity = $identity->getDefault();
 
-        /* Get user identities. */
-        $all_sigs = $identity->getAllSignatures();
-        foreach ($all_sigs as $ident => $sig) {
-            $identities[] = array(
-                // 0 = Plain text signature
-                $sig,
-                // 1 = HTML signature
-                str_replace(' target="_blank"', '', Horde_Text_Filter::filter($sig, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL, 'class' => null, 'callback' => null))),
-                // 2 = Signature location
-                (bool)$identity->getValue('sig_first', $ident),
-                // 3 = Sent mail folder name
-                $identity->getValue('sent_mail_folder', $ident),
-                // 4 = Save in sent mail folder by default?
-                (bool)$identity->saveSentmail($ident),
-                // 5 = Sent mail display name
-                IMP::displayFolder($identity->getValue('sent_mail_folder', $ident)),
-                // 6 = Bcc addresses to add
-                Horde_Mime_Address::addrArray2String($identity->getBccAddresses($ident))
-            );
-        }
+        /* Generate identities list. */
+        $imp_ui = new IMP_Ui_Compose();
+        $result['js'] = array($imp_ui->identityJs());
 
         $composeCache = null;
         if (!empty($args['composeCache'])) {
@@ -74,10 +57,6 @@ class IMP_Views_Compose
             }
         }
 
-        $result['js'] = array(
-            'DIMP.conf_compose.identities = ' . Horde_Serialize::serialize($identities, Horde_Serialize::JSON)
-        );
-
         if (!empty($args['qreply'])) {
             $result['js'][] = 'DIMP.conf_compose.qreply = 1';
         }
@@ -87,7 +66,6 @@ class IMP_Views_Compose
             $compose_html = $GLOBALS['prefs']->getValue('compose_html');
             $rte = true;
 
-            $imp_ui = new IMP_Ui_Compose();
             $imp_ui->initRTE(!$compose_html);
         }
 
@@ -98,9 +76,10 @@ class IMP_Views_Compose
 
             /* Check to make sure the sent-mail folders are created - they
              * need to exist to show up in drop-down list. */
-            foreach ($identities as $val) {
-                if (!$imp_folder->exists($val[3])) {
-                    $imp_folder->create($val[3], true);
+            foreach (array_keys($identity->getAllSignatures()) as $ident) {
+                $val = $identity->getValue('sent_mail_folder', $ident);
+                if (!$imp_folder->exists($val)) {
+                    $imp_folder->create($val, true);
                 }
             }
 
