@@ -612,9 +612,12 @@ var DimpBase = {
             /* Context menu: generate the list of settable flags for this
              * mailbox. */
             flags = this.viewport.getMetaData('flags');
-            $('ctx_flag').childElements().each(function(c) {
-                [ c ].invoke(flags.include(c.readAttribute('flag')) ? 'show' : 'hide');
-            });
+            $('ctx_draft_setflag', 'ctx_message_setflag', 'oa_setflag').invoke('up').invoke(flags.size() ? 'show' : 'hide');
+            if (flags.size()) {
+                $('ctx_flag').childElements().each(function(c) {
+                    [ c ].invoke(flags.include(c.readAttribute('flag')) ? 'show' : 'hide');
+                });
+            }
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:deselect', function(e) {
