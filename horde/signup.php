@@ -17,7 +17,7 @@ $auth = Horde_Auth::singleton($conf['auth']['driver']);
 if ($conf['signup']['allow'] !== true ||
     !$auth->hasCapability('add')) {
     $notification->push(_("User Registration has been disabled for this site."), 'horde.error');
-    header('Location: ' . Horde_Auth::getLoginScreen());
+    header('Location: ' . Horde::getServiceLink('login')->setRaw(true));
     exit;
 }
 
@@ -25,7 +25,7 @@ $signup = Horde_Auth_Signup::factory();
 if (is_a($signup, 'PEAR_Error')) {
     Horde::logMessage($signup->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
     $notification->push(_("User Registration is not properly configured for this site."), 'horde.error');
-    header('Location: ' . Horde_Auth::getLoginScreen());
+    header('Location: ' . Horde::getServiceLink('login')->setRaw(true));
     exit;
 }
 
@@ -56,8 +56,7 @@ if ($formsignup->validate()) {
         $notification->push(sprintf(_("There was a problem adding \"%s\" to the system: %s"), $info['user_name'], $success->getMessage()), 'horde.error');
     } else {
         $notification->push($success_message, 'horde.success');
-        $url = Horde_Auth::getLoginScreen('', $info['url']);
-        header('Location: ' . $url);
+        header('Location: ' . Horde::getServiceLink('login')->add('url', $info['url'])->setRaw(true));
         exit;
     }
 }
