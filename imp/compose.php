@@ -22,7 +22,7 @@ $header = array();
 $msg = '';
 
 $get_sig = true;
-$pgp_passphrase_dialog = $pgp_symmetric_passphrase_dialog = $showmenu = $smime_passphrase_dialog = false;
+$showmenu = false;
 $cursor_pos = $oldrtemode = $rtemode = $siglocation = null;
 
 /* Set the current identity. */
@@ -430,15 +430,15 @@ case 'send_message':
         // TODO
         switch ($e->encrypt) {
         case 'pgp_symmetric_passphrase_dialog':
-            $pgp_symmetric_passphrase_dialog = true;
+            $imp_ui->passphraseDialog('pgp_symm', $imp_compose->getCacheId());
             break;
 
         case 'pgp_passphrase_dialog':
-            $pgp_passphrase_dialog = true;
+            $imp_ui->passphraseDialog('pgp');
             break;
 
         case 'smime_passphrase_dialog':
-            $smime_passphrase_dialog = true;
+            $imp_ui->passphraseDialog('smime');
             break;
         }
         break;
@@ -659,23 +659,6 @@ if ($get_sig && isset($msg) && !empty($sig)) {
         }
         $msg .= "\n" . $sig;
     }
-}
-
-/* Open the passphrase window here. */
-if ($pgp_passphrase_dialog || $pgp_symmetric_passphrase_dialog) {
-    if ($pgp_passphrase_dialog) {
-        Horde::addInlineScript(array(
-           IMP::passphraseDialogJS('PGPPersonal')
-       ), 'dom');
-    } else {
-        Horde::addInlineScript(array(
-            IMP::passphraseDialogJS('PGPSymmetric', array('symmetricid' => 'imp_compose_' . $composeCacheID))
-       ), 'dom');
-    }
-} elseif ($smime_passphrase_dialog) {
-    Horde::addInlineScript(array(
-        IMP::passphraseDialogJS('SMIMEPersonal')
-    ), 'dom');
 }
 
 /* If PGP encryption is set by default, and we have a recipient list on first

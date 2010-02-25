@@ -295,4 +295,29 @@ class IMP_Ui_Compose
         require $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc';
     }
 
+    /**
+     * Outputs the script necessary to generate the passphrase dialog box.
+     *
+     * @param string $type     Either 'pgp', 'pgp_symm', or 'smime'.
+     * @param string $cacheid  Compose cache ID (only needed for 'pgp_symm').
+     */
+    public function passphraseDialog($type, $cacheid = null)
+    {
+        switch ($type) {
+        case 'pgp':
+            $js = IMP::passphraseDialogJS('PGPPersonal');
+            break;
+
+        case 'pgp_symm':
+            $js = IMP::passphraseDialogJS('PGPSymmetric', array('symmetricid' => 'imp_compose_' . $cacheid));
+            break;
+
+        case 'smime':
+            $js = IMP::passphraseDialogJS('SMIMEPersonal');
+            break;
+        }
+
+        Horde::addInlineScript(array($js), 'dom');
+    }
+
 }
