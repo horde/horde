@@ -63,6 +63,12 @@ class IMP_Ui_Compose
     }
 
     /**
+     * Redirect a message.
+     *
+     * @param string $to                  The To address.
+     * @param IMP_Compose $imp_compose    An IMP_Compose object.
+     * @param IMP_Contents $imp_contents  An IMP_Contents object.
+     *
      * @throws Horde_Exception
      */
     public function redirectMessage($to, $imp_compose, $contents)
@@ -109,6 +115,10 @@ class IMP_Ui_Compose
     }
 
     /**
+     * Attach the auto-completer to the current compose form.
+     *
+     * @param array $fields  The list of DOM IDs to attach the autocompleter
+     *                       to.
      */
     public function attachAutoCompleter($fields)
     {
@@ -120,6 +130,7 @@ class IMP_Ui_Compose
     }
 
     /**
+     * Attach the spellchecker to the current compose form.
      */
     public function attachSpellChecker($mode, $add_br = false)
     {
@@ -240,7 +251,11 @@ class IMP_Ui_Compose
     }
 
     /**
-     * TODO
+     * Generate mailbox return URL.
+     *
+     * @param string $url  The URL to use instead of the default.
+     *
+     * @return string  The mailbox return URL.
      */
     public function mailboxReturnUrl($url)
     {
@@ -258,7 +273,7 @@ class IMP_Ui_Compose
     }
 
     /**
-     * TODO
+     * Generate a compose message popup success window (compose.php).
      */
     public function popupSuccess()
     {
