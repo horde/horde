@@ -3513,6 +3513,7 @@ KronolithCore = {
         $('kronolithEventEndTime').setValue(ev.et);
         $('kronolithEventStatus').setValue(ev.x);
         $('kronolithEventDescription').setValue(ev.d);
+        $('kronolithEventPrivate').setValue(ev.pv);
         $('kronolithEventLinkExport').up('span').show();
         $('kronolithEventExport').href = Kronolith.conf.URI_EVENT_EXPORT.interpolate({ id: ev.id, calendar: ev.c, type: ev.ty });
 

@@ -1255,6 +1255,7 @@ abstract class Kronolith_Event
             $json->ed = $this->end->strftime('%x');
             $json->et = $this->end->format($time_format);
             $json->a = $this->alarm;
+            $json->pv = $this->private;
             $json->tg = array_values($this->tags);
             $json->gl = $this->geoLocation;
             if ($this->recurs()) {
