@@ -84,6 +84,7 @@
   <input id="kronolithTaskSave" type="button" value="<?php echo _("Save") ?>" class="button ok" />
   <input id="kronolithTaskDelete" type="button" value="<?php echo _("Delete") ?>" class="button ko" />
   <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
+  <span class="kronolithDialogHelp"><a href="http://ajuda.sapo.pt/" target="help"><?php echo _("Need help? See ajuda.sapo.pt") ?></a></span>
 </div>
 
 </form>
