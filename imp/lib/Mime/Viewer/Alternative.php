@@ -117,8 +117,14 @@ class IMP_Horde_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Driver
             if (isset($display_ids[$val])) {
                 $render = $this->_params['contents']->renderMIMEPart($val, $inline ? IMP_Contents::RENDER_INLINE : IMP_Contents::RENDER_FULL, array('params' => $this->_params));
                 foreach (array_keys($render) as $id) {
-                    $ret[$id] = $render[$id];
                     unset($display_ids[$id]);
+                    if (!$inline) {
+                        if (!is_null($render[$id])) {
+                            return array($base_id => $render[$id]);
+                        }
+                    } else {
+                        $ret[$id] = $render[$id];
+                    }
                 }
             } elseif (($disp_id != $val) && !array_key_exists($val, $ret)) {
                 // Need array_key_exists() here since we are checking if the
@@ -134,6 +140,6 @@ class IMP_Horde_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Driver
 
         return $inline
             ? $ret
-            : (isset($ret[$id]) ? array($base_id => $ret[$id]) : null);
+            : null;
     }
 }
