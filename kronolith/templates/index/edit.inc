@@ -101,8 +101,8 @@
       <option value="10080">' . _("weeks") . '</option>
     </select>',
   '</label>',
-  '<label>',
-    '<select name="event_alarms">
+  '<label for="kronolithEventAlarmMethod">',
+    '<select name="event_alarms" id="kronolithEventAlarmMethod">
       <option value="">' . _("E-mail") . '</option>
       <option value="">' . _("SAPO Messenger") . '</option>
       <option value="" disabled="disabled">' . _("SMS") . '</option>
