@@ -2334,6 +2334,12 @@ KronolithCore = {
 
         var cal = calendar.join('|');
         $H(events).each(function(date) {
+            // We might not have a cache for this date if the event lasts
+            // longer than the current view
+            if (!calHash.get(date.key)) {
+                return;
+            }
+
             // Store calendar string and other useful information in event
             // objects.
             $H(date.value).each(function(event) {
