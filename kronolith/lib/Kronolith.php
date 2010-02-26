@@ -190,13 +190,14 @@ class Kronolith
             'URI_CALENDAR_EXPORT' => (string)Horde::url('data.php', true)->add(array('actionID' => 'export', 'all_events' => 1, 'exportID' => Horde_Data::EXPORT_ICALENDAR, 'exportCal' => '')),
             'URI_EVENT_EXPORT' => str_replace(array('%23', '%7B', '%7D'), array('#', '{', '}'), Horde::url('event.php', true)->add(array('view' => 'ExportEvent', 'eventID' => '#{id}', 'calendar' => '#{calendar}', 'type' => '#{type}'))),
             'SESSION_ID' => defined('SID') ? SID : '',
+
             'user' => Horde_Auth::getAuth(),
             'prefs_url' => str_replace('&amp;', '&', Horde::getServiceLink('options', 'kronolith')),
             'app_urls' => $app_urls,
             'name' => $registry->get('name'),
             'has_tasks' => $has_tasks,
             'is_ie6' => ($GLOBALS['browser']->isBrowser('msie') && ($GLOBALS['browser']->getMajor() < 7)),
-            'login_view' => $prefs->getValue('defaultview'),
+            'login_view' => $prefs->getValue('defaultview') == 'workweek' ? 'week' : $prefs->getValue('defaultview'),
             'default_calendar' => 'internal|' . self::getDefaultCalendar(Horde_Perms::EDIT),
             'week_start' => (int)$prefs->getValue('week_start_monday'),
             'date_format' => str_replace(array('%e', '%d', '%a', '%A', '%m', '%h', '%b', '%B', '%y', '%Y'),
@@ -223,6 +224,9 @@ class Kronolith
                               '360' => _("6 hours"),
                               '1440' => _("1 day")),
         );
+        if (!empty($GLOBALS['conf']['logo']['link'])) {
+            $code['conf']['URI_HOME'] = $GLOBALS['conf']['logo']['link'];
+        }
 
         if ($has_tasks) {
             $code['conf']['tasks'] = $registry->tasks->ajaxDefaults();
@@ -1300,8 +1304,9 @@ class Kronolith
      *
      * @return string  The HTML <select> widget.
      */
-    public static function buildStatusWidget($name, $current = self::STATUS_CONFIRMED,
-                               $any = false)
+    public static function buildStatusWidget($name,
+                                             $current = self::STATUS_CONFIRMED,
+                                             $any = false)
     {
         $html = "<select id=\"$name\" name=\"$name\">";
 

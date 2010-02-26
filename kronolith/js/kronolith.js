@@ -1256,7 +1256,17 @@ KronolithCore = {
         event.value.nodeId = 'kronolithEvent' + view + event.value.calendar + date + event.key;
 
         _createElement = function(event) {
-            var el = new Element('div', { id: event.value.nodeId, className: 'kronolithEvent' })
+            var className ='kronolithEvent';
+            switch (event.value.x) {
+            case 3:
+                className += ' kronolithEventCancelled';
+                break;
+            case 1:
+            case 4:
+                className += ' kronolithEventTentative';
+                break;
+            }
+            var el = new Element('div', { id: event.value.nodeId, className: className })
                 .store('calendar', event.value.calendar)
                 .store('eventid', event.key);
             if (!Object.isUndefined(event.value.aj)) {
@@ -2097,7 +2107,7 @@ KronolithCore = {
             switch (type) {
             case 'internal':
             case 'tasklists':
-                $('kronolithCalendar' + type + 'LinkImportExport').up().hide();
+                $('kronolithCalendar' + type + 'LinkImportExport').up('span').hide();
                 fields.push('Description');
                 break;
             case 'remote':
@@ -2124,12 +2134,12 @@ KronolithCore = {
         switch (type) {
         case 'internal':
             $('kronolithCalendarinternalDescription').setValue(info.desc);
-            $('kronolithCalendarinternalLinkImportExport').up().show();
+            $('kronolithCalendarinternalLinkImportExport').up('span').show();
             $('kronolithCalendarinternalExport').href = Kronolith.conf.URI_CALENDAR_EXPORT + '=' + calendar;
             break;
         case 'tasklists':
             $('kronolithCalendartasklistsDescription').setValue(info.desc);
-            $('kronolithCalendartasklistsLinkImportExport').up().show();
+            $('kronolithCalendartasklistsLinkImportExport').up('span').show();
             $('kronolithCalendartasklistsExport').href = Kronolith.conf.tasks.URI_TASKLIST_EXPORT + '=' + calendar.substring(6);
             break;
         case 'remote':
@@ -2594,7 +2604,11 @@ KronolithCore = {
 
             switch (id) {
             case 'kronolithLogo':
-                this.go(Kronolith.conf.login_view);
+                if (Kronolith.conf.URI_HOME) {
+                    this.redirect(Kronolith.conf.URI_HOME);
+                } else {
+                    this.go(Kronolith.conf.login_view);
+                }
                 e.stop();
                 return;
 
@@ -2704,6 +2718,29 @@ KronolithCore = {
                 this.closeRedBox();
                 window.history.back();
                 e.stop();
+                return;
+
+            case 'kronolithCalendarPermsMore':
+            case 'kronolithCalendarPermsLess':
+                $('kronolithCalendarPermsBasic').toggle();
+                $('kronolithCalendarPermsAdvanced').toggle();
+                e.stop();
+                return;
+
+            case 'kronolithCalendarPermsAll':
+                if ($F('kronolithCalendarPermsAll')) {
+                    $('kronolithCalendarPermsShow').enable();
+                } else {
+                    $('kronolithCalendarPermsShow').disable();
+                }
+                return;
+
+            case 'kronolithCalendarPermsGroup':
+                if ($F('kronolithCalendarPermsGroup')) {
+                    $('kronolithCalendarPermsGroupPerms').enable();
+                } else {
+                    $('kronolithCalendarPermsGroupPerms').disable();
+                }
                 return;
 
             case 'kronolithNavDay':
@@ -3360,7 +3397,7 @@ KronolithCore = {
             d.add(1).hour();
             $('kronolithEventEndDate').setValue(d.toString(Kronolith.conf.date_format));
             $('kronolithEventEndTime').setValue(d.toString(Kronolith.conf.time_format));
-            $('kronolithEventLinkExport').up().hide();
+            $('kronolithEventLinkExport').up('span').hide();
             RedBox.showHtml($('kronolithEventDialog').show());
         }
     },
@@ -3474,8 +3511,10 @@ KronolithCore = {
         $('kronolithEventStartTime').setValue(ev.st);
         $('kronolithEventEndDate').setValue(ev.ed);
         $('kronolithEventEndTime').setValue(ev.et);
+        $('kronolithEventStatus').setValue(ev.x);
         $('kronolithEventDescription').setValue(ev.d);
-        $('kronolithEventLinkExport').up().show();
+        $('kronolithEventPrivate').setValue(ev.pv);
+        $('kronolithEventLinkExport').up('span').show();
         $('kronolithEventExport').href = Kronolith.conf.URI_EVENT_EXPORT.interpolate({ id: ev.id, calendar: ev.c, type: ev.ty });
 
         /* Alarm */

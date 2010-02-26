@@ -1447,7 +1447,9 @@ ViewPort_Buffer = Class.create({
             this.usermdata = $H(md);
         } else {
             $H(md).each(function(pair) {
-                if (Object.isString(pair.value) || Object.isNumber(pair.value)) {
+                if (Object.isString(pair.value) ||
+                    Object.isNumber(pair.value) ||
+                    Object.isArray(pair.value)) {
                     this.usermdata.set(pair.key, pair.value);
                 } else {
                     var val = this.usermdata.get(pair.key);

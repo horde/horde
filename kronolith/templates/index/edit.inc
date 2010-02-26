@@ -6,15 +6,15 @@
 <input id="kronolithEventLocationLat" type="hidden" name="lat" />
 
 <div>
-  <label>
-    <?php echo _("Event title") ?>:
+  <label for="kronolithEventTitle">
+    <?php echo _("Event title") ?>:<br />
     <input type="text" name="title" id="kronolithEventTitle" class="kronolithLongField" />
   </label>
 </div>
 
 <div id="kronolithEventDates">
-  <label>
-    <?php echo _("From") ?><br />
+  <label for="kronolithEventStartDate">
+    <?php echo _("From") ?>
     <input type="text" name="start_date" id="kronolithEventStartDate" size="10" />
     <?php echo Horde::img('picker.png', _("Set start date"), 'id="kronolithEventStartPicker" class="kronolithDatePicker"') ?>
   </label>
@@ -22,8 +22,8 @@
     <?php echo _("at") ?>
     <input type="text" name="start_time" id="kronolithEventStartTime" size="8" />
   </label>
-  <label>
-    <?php echo _("to") ?><br />
+  <label for="kronolithEventEndDate">
+    <?php echo _("to") ?>
     <input type="text" name="end_date" id="kronolithEventEndDate" size="10" />
     <?php echo Horde::img('picker.png', _("Set end date"), 'id="kronolithEventEndPicker" class="kronolithDatePicker"') ?>
   </label>
@@ -32,36 +32,36 @@
     <input type="text" name="end_time" id="kronolithEventEndTime" size="8" />
   </label>
   <span class="kronolithSeparator">|</span>
-  <label>  
+  <label for="kronolithEventAllday">
     <input type="checkbox" name="whole_day" id="kronolithEventAllday" />
     <?php echo _("All-day event") ?>
   </label>
 </div>
 
 <div id="kronolithEventBasics">
-  <label><?php echo _("Status") ?>:
-    <select name="eventfreebusy" id="kronolithEventFreeBusy">
-      <option value="Free"><?php echo _("Free") ?></option>
-      <option value="Tentative"><?php echo _("Tentative") ?></option>
-      <option value="Busy" selected="selected"><?php echo _("Busy") ?></option>
-      <option value="Cancelled"><?php echo _("Cancelled") ?></option>
-    </select>
-  </label>
+  <label for="kronolithEventFreeBusy"><?php echo _("Status") ?>:</label>
+  <select name="status" id="kronolithEventStatus">
+    <option value="<?php echo Kronolith::STATUS_FREE ?>"><?php echo _("Free") ?></option>
+    <option value="<?php echo Kronolith::STATUS_TENTATIVE ?>"><?php echo _("Tentative") ?></option>
+    <option value="<?php echo Kronolith::STATUS_CONFIRMED ?>" selected="selected"><?php echo _("Confirmed") ?></option>
+    <option value="<?php echo Kronolith::STATUS_CANCELLED ?>"><?php echo _("Cancelled") ?></option>
+  </select>
   <span class="kronolithSeparator">|</span>
-  <label>
-    <?php echo _("Add to") ?>
-    <select name="targetcalendar" id="kronolithEventTarget"></select>
-  </label>
-  <span class="kronolithSeparator">|</span>
-  <label>
-    <?php echo _("Location") ?>:
-    <input type="text" name="location" id="kronolithEventLocation" size="25" />
-  </label>
+  <label for="kronolithEventLocation"><?php echo _("Location") ?>:</label>
+  <input type="text" name="location" id="kronolithEventLocation" size="25" />
   <?php if ($GLOBALS['conf']['maps']['driver']): ?>
   <span id="kronolithEventMapLink" style="display:none">
     <span class="kronolithSeparator">|</span> <span><a href="#" class="kronolithEventGeo"><?php echo _("Find in Maps") ?></a></span>
   </span>
   <?php endif; ?>
+</div>
+
+<div>
+  <label for="kronolithEventTarget"><?php echo _("Add event to") ?>:</label>
+  <select name="targetcalendar" id="kronolithEventTarget"></select>
+  <span class="kronolithSeparator">|</span>
+  <label for="kronolithEventPrivate"><?php echo _("This event is private:") ?></label>
+  <input type="checkbox" name="private" id="kronolithEventPrivate" />
 </div>
 
 <div class="tabset">
@@ -72,11 +72,16 @@
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkUrl"><?php echo _("URL") ?></a></li>
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkAttendees"><?php echo _("Attendees") ?></a></li>
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkTags"><?php echo _("Tags") ?></a></li>
-<?php if ($GLOBALS['conf']['maps']['driver']): ?>
+    <?php if ($GLOBALS['conf']['maps']['driver']): ?>
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkMap"><?php echo _("Map") ?></a></li>
-<?php endif; ?>
-    <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkExport"><?php echo _("Export") ?></a></li>
+    <?php endif; ?>
   </ul>
+  <span>
+    <span class="kronolithSeparator">|</span>
+    <ul>
+      <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkExport"><?php echo _("Export") ?></a></li>
+    </ul>
+  </span>
 </div>
 <br class="clear" />
 
@@ -86,10 +91,10 @@
 
 <div id="kronolithEventTabReminder" class="kronolithTabsOption" style="display:none">
   <?php printf(_("%s Don't set %s or %s set %s before the event %s and %s alert me via %s"),
-  '<label><input type="radio" name="alarm" id="kronolithEventAlarmOff" value="0" checked="checked" />', '</label>',
-  '<label><input type="radio" name="alarm" id="kronolithEventAlarmOn" value="1" />', '</label>
+  '<label for="kronolithEventAlarmOff"><input type="radio" name="alarm" id="kronolithEventAlarmOff" value="0" checked="checked" />', '</label>',
+  '<label for="kronolithEventAlarmOn"><input type="radio" name="alarm" id="kronolithEventAlarmOn" value="1" />', '</label>
   <input type="text" name="alarm_value" id="kronolithEventAlarmValue" size="3" value="15" class="kronolithEventValue" />
-  <label>
+  <label for="kronolithEventAlarmUnit">
     <select name="alarm_unit" id="kronolithEventAlarmUnit">
       <option value="1">' . _("minutes") . '</option>
       <option value="60">' . _("hours") . '</option>
@@ -97,8 +102,8 @@
       <option value="10080">' . _("weeks") . '</option>
     </select>',
   '</label>',
-  '<label>',
-    '<select name="event_alarms">
+  '<label for="kronolithEventAlarmMethod">',
+    '<select name="event_alarms" id="kronolithEventAlarmMethod">
       <option value="">' . _("E-mail") . '</option>
       <option value="">' . _("SAPO Messenger") . '</option>
       <option value="" disabled="disabled">' . _("SMS") . '</option>
@@ -108,11 +113,11 @@
 
 <div id="kronolithEventTabRecur" class="kronolithTabsOption" style="display:none">
   <?php printf(_("%s Don't repeat %s or repeat %s daily, %s weekly, %s monthly %s or %s yearly %s"),
-  '<label><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_NONE . '" checked="checked" id="kronolithEventLinkNone" />', '</label>',
-  '<label><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_DAILY . '" id="kronolithEventLinkDaily" />', '</label>
-  <label><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_WEEKLY . '" id="kronolithEventLinkWeekly" />', '</label>
-  <label><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_MONTHLY_DATE . '" id="kronolithEventLinkMonthly" />', '</label>',
-  '<label><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_YEARLY_DATE . '" id="kronolithEventLinkYearly" />', '</label><br />') ?>
+  '<label for="kronolithEventLinkNone"><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_NONE . '" checked="checked" id="kronolithEventLinkNone" />', '</label>',
+  '<label for="kronolithEventLinkDaily"><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_DAILY . '" id="kronolithEventLinkDaily" />', '</label>
+  <label for="kronolithEventLinkWeekly"><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_WEEKLY . '" id="kronolithEventLinkWeekly" />', '</label>
+  <label for="kronolithEventLinkMonthly"><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_MONTHLY_DATE . '" id="kronolithEventLinkMonthly" />', '</label>',
+  '<label for="kronolithEventLinkYearly"><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_YEARLY_DATE . '" id="kronolithEventLinkYearly" />', '</label><br />') ?>
 
   <div id="kronolithEventRepeatDaily" style="display:none">
     <?php printf(_("Repeat %s every day %s or %s every %s days %s"),
@@ -198,7 +203,9 @@
 </div>
 
 <div id="kronolithEventTabTags" class="kronolithTabsOption" style="display:none">
+  <div class="kronolithTabInfo"><?php echo _("To make it easier to find, you can enter comma separated tags related to the event subject.") ?></div>
   <input id="kronolithEventTags" name="tags" />
+  <label for="kronolithEventTopTags"><?php echo _("Previously used tags") ?>:</label><br />
   <span id="kronolithEventTags_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
   <div class="kronolithTopTags" id="kronolithEventTopTags"></div>
 </div>

@@ -529,7 +529,7 @@ var DimpBase = {
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:contentComplete', function(e) {
-            var ssc, tmp,
+            var flags, ssc, tmp,
                 ham = spam = 'show',
                 l = this.viewport.getMetaData('label');
 
@@ -608,6 +608,16 @@ var DimpBase = {
             }
 
             this.setSortColumns(ssc);
+
+            /* Context menu: generate the list of settable flags for this
+             * mailbox. */
+            flags = this.viewport.getMetaData('flags');
+            $('ctx_draft_setflag', 'ctx_message_setflag', 'oa_setflag').invoke('up').invoke(flags.size() ? 'show' : 'hide');
+            if (flags.size()) {
+                $('ctx_flag').childElements().each(function(c) {
+                    [ c ].invoke(flags.include(c.readAttribute('flag')) ? 'show' : 'hide');
+                });
+            }
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:deselect', function(e) {

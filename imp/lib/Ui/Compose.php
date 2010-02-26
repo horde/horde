@@ -63,6 +63,12 @@ class IMP_Ui_Compose
     }
 
     /**
+     * Redirect a message.
+     *
+     * @param string $to                  The To address.
+     * @param IMP_Compose $imp_compose    An IMP_Compose object.
+     * @param IMP_Contents $imp_contents  An IMP_Contents object.
+     *
      * @throws Horde_Exception
      */
     public function redirectMessage($to, $imp_compose, $contents)
@@ -109,6 +115,10 @@ class IMP_Ui_Compose
     }
 
     /**
+     * Attach the auto-completer to the current compose form.
+     *
+     * @param array $fields  The list of DOM IDs to attach the autocompleter
+     *                       to.
      */
     public function attachAutoCompleter($fields)
     {
@@ -120,20 +130,28 @@ class IMP_Ui_Compose
     }
 
     /**
+     * Attach the spellchecker to the current compose form.
      */
-    public function attachSpellChecker($mode, $add_br = false)
+    public function attachSpellChecker()
     {
         $menu_view = $GLOBALS['prefs']->getValue('menu_view');
-        $show_text = ($menu_view == 'text' || $menu_view == 'both');
-        $br = ($add_br) ? '<br />' : '';
         $spell_img = Horde::img('spellcheck.png');
+
+        if (IMP::getViewMode() == 'imp') {
+            $br = '<br />';
+            $id = 'DIMP.SpellChecker';
+        } else {
+            $br = '';
+            $id = 'IMP.SpellChecker';
+        }
+
         $args = array(
-            'id' => ($mode == 'dimp' ? 'DIMP.' : 'IMP.') . 'SpellCheckerObject',
+            'id' => $id,
             'targetId' => 'composeMessage',
             'triggerId' => 'spellcheck',
             'states' => array(
-                'CheckSpelling' => $spell_img . ($show_text ? $br . _("Check Spelling") : ''),
-                'Checking' => $spell_img . $br . _("Checking ..."),
+                'CheckSpelling' => $spell_img . (($menu_view == 'text' || $menu_view == 'both') ? $br . _("Check Spelling") : ''),
+                'Checking' => $spell_img . $br . _("Checking..."),
                 'ResumeEdit' => $spell_img . $br . _("Resume Editing"),
                 'Error' => $spell_img . $br . _("Spell Check Failed")
             )
@@ -213,7 +231,7 @@ class IMP_Ui_Compose
         }
 
         Horde::addInlineScript(array(
-            'if (!window.IMP) { window.IMP = {}; }',
+            'window.IMP = window.IMP || {}',
             'IMP.ckeditor_config = {' . implode(',', $config) . '}'
         ));
     }
@@ -240,7 +258,11 @@ class IMP_Ui_Compose
     }
 
     /**
-     * TODO
+     * Generate mailbox return URL.
+     *
+     * @param string $url  The URL to use instead of the default.
+     *
+     * @return string  The mailbox return URL.
      */
     public function mailboxReturnUrl($url)
     {
@@ -258,7 +280,7 @@ class IMP_Ui_Compose
     }
 
     /**
-     * TODO
+     * Generate a compose message popup success window (compose.php).
      */
     public function popupSuccess()
     {
@@ -272,5 +294,60 @@ class IMP_Ui_Compose
         IMP::status();
         require $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc';
     }
+
+    /**
+     * Outputs the script necessary to generate the passphrase dialog box.
+     *
+     * @param string $type     Either 'pgp', 'pgp_symm', or 'smime'.
+     * @param string $cacheid  Compose cache ID (only needed for 'pgp_symm').
+     */
+    public function passphraseDialog($type, $cacheid = null)
+    {
+        switch ($type) {
+        case 'pgp':
+            $js = IMP::passphraseDialogJS('PGPPersonal');
+            break;
+
+        case 'pgp_symm':
+            $js = IMP::passphraseDialogJS('PGPSymmetric', array('symmetricid' => 'imp_compose_' . $cacheid));
+            break;
+
+        case 'smime':
+            $js = IMP::passphraseDialogJS('SMIMEPersonal');
+            break;
+        }
+
+        Horde::addInlineScript(array($js), 'dom');
+    }
+
+    /**
+     */
+    public function identityJs()
+    {
+        $identities = array();
+        $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+
+        foreach ($identity->getAllSignatures() as $ident => $sig) {
+            $identities[] = array(
+                // Plain text signature
+                'sig' => $sig,
+                // HTML signature
+                'sig_html' => str_replace(' target="_blank"', '', Horde_Text_Filter::filter($sig, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL, 'class' => null, 'callback' => null))),
+                // Signature location
+                'sig_loc' => (bool)$identity->getValue('sig_first', $ident),
+                // Sent mail folder name
+                'smf_name' => $identity->getValue('sent_mail_folder', $ident),
+                // Save in sent mail folder by default?
+                'smf_save' => (bool)$identity->saveSentmail($ident),
+                // Sent mail display name
+                'smf_display' => IMP::displayFolder($identity->getValue('sent_mail_folder', $ident)),
+                // Bcc addresses to add
+                'bcc' => Horde_Mime_Address::addrArray2String($identity->getBccAddresses($ident))
+            );
+        }
+
+        return 'IMP_Compose_Base.identities = ' . Horde_Serialize::serialize($identities, Horde_Serialize::JSON);
+    }
+
 
 }

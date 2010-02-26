@@ -1195,14 +1195,6 @@ $_prefs['msgflags'] = array(
         //         DEFAULT: false
 
         // System IMAP flags (RFC 3501 [2.3.2])
-        '\\seen' => array(
-            'a' => 'N',
-            'b' => '#eeeeff',
-            'c' => 'flagUnseen',
-            'l' => _("Unseen"),
-            'n' => true,
-            't' => 'imapu'
-        ),
         '\\answered' => array(
             'a' => 'r',
             'b' => '#ccffcc',
@@ -1220,6 +1212,30 @@ $_prefs['msgflags'] = array(
             // automatically set/reset when a message is drafted/finished.
             't' => 'imap'
         ),
+        '\\deleted' => array(
+            'a' => 'D',
+            'b' => '#999999',
+            'c' => 'flagDeleted',
+            'l' => _("Deleted"),
+            // By default, this flag is not settable by the user - it is
+            // handled via the Delete/Undelete links.
+            't' => 'imap'
+        ),
+        '\\seen' => array(
+            'a' => 'N',
+            'b' => '#eeeeff',
+            'c' => 'flagUnseen',
+            'l' => _("Unseen"),
+            'n' => true,
+            't' => 'imapu'
+        ),
+        '\\flagged' => array(
+            'a' => '*',
+            'b' => '#ffcccc',
+            'c' => 'flagFlagged',
+            'l' => _("Flagged for Followup"),
+            't' => 'imapu'
+        ),
 
         // Forwarded flag (RFC 5550 [5.9])
         '$forwarded' => array(
@@ -1229,22 +1245,6 @@ $_prefs['msgflags'] = array(
             'l' => _("Forwarded"),
             // Pursuant to RFC, this flag SHOULD NOT be changed by the user
             't' => 'imap'
-        ),
-
-        // Continued: System IMAP flags (RFC 3501 [2.3.2])
-        '\\flagged' => array(
-            'a' => '*',
-            'b' => '#ffcccc',
-            'c' => 'flagFlagged',
-            'l' => _("Flagged for Followup"),
-            't' => 'imapu'
-        ),
-        '\\deleted' => array(
-            'a' => 'D',
-            'b' => '#999999',
-            'c' => 'flagDeleted',
-            'l' => _("Deleted"),
-            't' => 'imapu'
         ),
     )),
     'locked' => false,

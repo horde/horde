@@ -90,6 +90,16 @@ Maintenance Tasks
 TODO
 
 
+Flags
+-----
+The list of available IMAP Flags/Keywords is now configurable via the
+'msgflags' preference.
+
+The \Answered, \Deleted, and \Draft IMAP flags are no longer user settable
+by default - these flags have special meanings and are automatically handled
+by the various message action functions instead.
+
+
 Upgrading IMP From 4.1.x To 4.2.x
 =================================
 

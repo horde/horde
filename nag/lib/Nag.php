@@ -6,6 +6,8 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Jon Parise <jon@horde.org>
+ * @author  Chuck Hagenbuch <chuck@horde.org>
+ * @author  Jan Schneider <jan@horde.org>
  * @package Nag
  */
 class Nag
@@ -136,11 +138,11 @@ class Nag
      *
      * @return Nag_Task  A list of the requested tasks.
      */
-    function listTasks($sortby = null,
-                       $sortdir = null,
-                       $altsortby = null,
-                       $tasklists = null,
-                       $completed = null)
+    public static function listTasks($sortby = null,
+                                     $sortdir = null,
+                                     $altsortby = null,
+                                     $tasklists = null,
+                                     $completed = null)
     {
         global $prefs, $registry;
 
@@ -220,7 +222,7 @@ class Nag
      *
      * @return array  The task hash.
      */
-    function getTask($tasklist, $task)
+    public static function getTask($tasklist, $task)
     {
         $storage = Nag_Driver::singleton($tasklist);
         $task = $storage->get($task);
@@ -236,7 +238,7 @@ class Nag
      *
      * @return integer  The number of tasks that the user owns.
      */
-    function countTasks()
+    public static function countTasks()
     {
         static $count;
         if (isset($count)) {
@@ -321,7 +323,7 @@ class Nag
      *
      * @return array  The alarms (taskId) active on $date.
      */
-    function listAlarms($date, $tasklists = null)
+    public static function listAlarms($date, $tasklists = null)
     {
         if (is_null($tasklists)) {
             $tasklists = $GLOBALS['display_tasklists'];
@@ -360,7 +362,8 @@ class Nag
      *
      * @return array  The task lists.
      */
-    function listTasklists($owneronly = false, $permission = Horde_Perms::SHOW)
+    public static function listTasklists($owneronly = false,
+                                         $permission = Horde_Perms::SHOW)
     {
         if ($owneronly && !Horde_Auth::getAuth()) {
             return array();
@@ -384,7 +387,7 @@ class Nag
      *
      * @return array  The filtered data.
      */
-    function permissionsFilter($in, $permission = Horde_Perms::READ)
+    public static function permissionsFilter($in, $permission = Horde_Perms::READ)
     {
         // FIXME: Must find a way to check individual tasklists for
         // permission.  Can't specify attributes as it does not check for the
@@ -407,7 +410,7 @@ class Nag
      * Returns the default tasklist for the current user at the specified
      * permissions level.
      */
-    function getDefaultTasklist($permission = Horde_Perms::SHOW)
+    public static function getDefaultTasklist($permission = Horde_Perms::SHOW)
     {
         global $prefs;
 
@@ -433,7 +436,7 @@ class Nag
      *
      * @return Horde_Share  The new share.
      */
-    function addTasklist($info)
+    public static function addTasklist($info)
     {
         $tasklist = $GLOBALS['nag_shares']->newShare(md5(microtime()));
         if (is_a($tasklist, 'PEAR_Error')) {
@@ -517,7 +520,7 @@ class Nag
      *
      * @return string  The HTML <select> widget.
      */
-    function buildPriorityWidget($name, $selected = -1)
+    public static function buildPriorityWidget($name, $selected = -1)
     {
         $descs = array(1 => _("(highest)"), 5 => _("(lowest)"));
 
@@ -540,7 +543,7 @@ class Nag
      *
      * @return string  HTML for a checkbox representing the completion state.
      */
-    function buildCheckboxWidget($name, $checked = 0)
+    public static function buildCheckboxWidget($name, $checked = 0)
     {
         $name = htmlspecialchars($name);
         return "<input type=\"checkbox\" id=\"$name\" name=\"$name\"" .
@@ -555,7 +558,7 @@ class Nag
      *
      * @return string  The formatted due date string.
      */
-    function formatDate($unixdate = '', $hours = true)
+    public static function formatDate($unixdate = '', $hours = true)
     {
         global $prefs;
 
@@ -580,7 +583,7 @@ class Nag
      *
      * @return string  The HTML representation of $completed.
      */
-    function formatCompletion($completed)
+    public static function formatCompletion($completed)
     {
         return $completed ?
             Horde::img('checked.png', _("Completed")) :
@@ -594,7 +597,7 @@ class Nag
      *
      * @return string  The HTML representation of $priority.
      */
-    function formatPriority($priority)
+    public static function formatPriority($priority)
     {
         return '<span class="pri-' . (int)$priority . '">' . (int)$priority .
             '</span>';
@@ -607,7 +610,7 @@ class Nag
      *
      * @return string  The formatted alarm string.
      */
-    function formatAlarm($value)
+    public static function formatAlarm($value)
     {
         if ($value) {
             if ($value % 10080 == 0) {
@@ -638,7 +641,7 @@ class Nag
      *
      * @return string  The formatted assignee name.
      */
-    function formatAssignee($assignee, $link = false)
+    public static function formatAssignee($assignee, $link = false)
     {
         if (!strlen($assignee)) {
             return '';
@@ -666,7 +669,7 @@ class Nag
     /**
      * Initial app setup code.
      */
-    function initialize()
+    public static function initialize()
     {
         /* Store the request timestamp if it's not already present. */
         if (!isset($_SERVER['REQUEST_TIME'])) {
@@ -740,7 +743,7 @@ class Nag
     /**
      * Build Nag's list of menu items.
      */
-    function getMenu()
+    public static function getMenu()
     {
         global $conf, $registry;
 
@@ -767,7 +770,7 @@ class Nag
         return $menu;
     }
 
-    function status()
+    public static function status()
     {
         global $notification;
 
@@ -820,7 +823,7 @@ class Nag
      * @param Nag_Task $task      The changed task.
      * @param Nag_Task $old_task  The original task if $action is "edit".
      */
-    function sendNotification($action, $task, $old_task = null)
+    public static function sendNotification($action, $task, $old_task = null)
     {
         if (!in_array($action, array('add', 'edit', 'delete'))) {
             return PEAR::raiseError('Unknown event action: ' . $action);
@@ -1046,7 +1049,7 @@ class Nag
     /**
      * Returns the real name, if available, of a user.
      */
-    function getUserName($uid)
+    public static function getUserName($uid)
     {
         static $names = array();
 
@@ -1082,7 +1085,7 @@ class Nag
      *
      * @return boolean  True if the user wants notifications for the tasklist.
      */
-    function _notificationPref($user, $mode, $tasklist = null)
+    public static function _notificationPref($user, $mode, $tasklist = null)
     {
         $prefs = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
                                         'nag', $user, '', null,
@@ -1124,7 +1127,7 @@ class Nag
      *                  0 if they are equal (though no tasks should ever be
      *                  equal in this comparison).
      */
-    function _sortByIdentity($a, $b)
+    public static function _sortByIdentity($a, $b)
     {
         return strcmp($a->id, $b->id);
     }
@@ -1138,7 +1141,7 @@ class Nag
      * @return integer  1 if task one is greater, -1 if task two is greater;
      *                  0 if they are equal.
      */
-    function _sortByPriority($a, $b)
+    public static function _sortByPriority($a, $b)
     {
         if ($a->priority == $b->priority) {
             return self::_sortByIdentity($a, $b);
@@ -1155,7 +1158,7 @@ class Nag
      * @return integer  -1 if task one is greater, 1 if task two is greater;
      *                  0 if they are equal.
      */
-    function _rsortByPriority($a, $b)
+    public static function _rsortByPriority($a, $b)
     {
         if ($a->priority == $b->priority) {
             return self::_sortByIdentity($b, $a);
@@ -1172,7 +1175,7 @@ class Nag
      * @return integer  1 if task one is greater, -1 if task two is greater;
      *                  0 if they are equal.
      */
-    function _sortByName($a, $b)
+    public static function _sortByName($a, $b)
     {
         return strcasecmp($a->name, $b->name);
     }
@@ -1186,7 +1189,7 @@ class Nag
      * @return integer  -1 if task one is greater, 1 if task two is greater;
      *                  0 if they are equal.
      */
-    function _rsortByName($a, $b)
+    public static function _rsortByName($a, $b)
     {
         return strcasecmp($b->name, $a->name);
     }
@@ -1200,7 +1203,7 @@ class Nag
      * @return integer  1 if task one is greater, -1 if task two is greater;
      *                  0 if they are equal.
      */
-    function _sortByAssignee($a, $b)
+    public static function _sortByAssignee($a, $b)
     {
         return strcasecmp($a->assignee, $b->assignee);
     }
@@ -1214,7 +1217,7 @@ class Nag
      * @return integer  -1 if task one is greater, 1 if task two is greater;
      *                  0 if they are equal.
      */
-    function _rsortByAssignee($a, $b)
+    public static function _rsortByAssignee($a, $b)
     {
         return strcasecmp($b->assignee, $a->assignee);
     }
@@ -1228,7 +1231,7 @@ class Nag
      * @return integer  1 if task one is greater, -1 if task two is greater;
      *                  0 if they are equal.
      */
-    function _sortByEstimate($a, $b)
+    public static function _sortByEstimate($a, $b)
     {
         $a_est = $a->estimation();
         $b_est = $b->estimation();
@@ -1247,7 +1250,7 @@ class Nag
      * @return integer  -1 if task one is greater, 1 if task two is greater;
      *                  0 if they are equal.
      */
-    function _rsortByEstimate($a, $b)
+    public static function _rsortByEstimate($a, $b)
     {
         $a_est = $a->estimation();
         $b_est = $b->estimation();
@@ -1266,7 +1269,7 @@ class Nag
      * @return integer  1 if task one is greater, -1 if task two is greater;
      *                  0 if they are equal.
      */
-    function _sortByCategory($a, $b)
+    public static function _sortByCategory($a, $b)
     {
         return strcasecmp($a->category ? $a->category : _("Unfiled"),
                           $b->category ? $b->category : _("Unfiled"));
@@ -1281,7 +1284,7 @@ class Nag
      * @return integer  -1 if task one is greater, 1 if task two is greater;
      *                  0 if they are equal.
      */
-    function _rsortByCategory($a, $b)
+    public static function _rsortByCategory($a, $b)
     {
         return strcasecmp($b->category ? $b->category : _("Unfiled"),
                           $a->category ? $a->category : _("Unfiled"));
@@ -1296,7 +1299,7 @@ class Nag
      * @return integer  1 if task one is greater, -1 if task two is greater;
      *                  0 if they are equal.
      */
-    function _sortByDue($a, $b)
+    public static function _sortByDue($a, $b)
     {
         if ($a->due == $b->due) {
             return self::_sortByIdentity($a, $b);
@@ -1322,7 +1325,7 @@ class Nag
      * @return integer  -1 if task one is greater, 1 if task two is greater,
      *                  0 if they are equal.
      */
-    function _rsortByDue($a, $b)
+    public static function _rsortByDue($a, $b)
     {
         if ($a->due == $b->due) {
             return self::_sortByIdentity($b, $a);
@@ -1348,7 +1351,7 @@ class Nag
      * @return integer  1 if task one is greater, -1 if task two is greater;
      *                  0 if they are equal.
      */
-    function _sortByCompletion($a, $b)
+    public static function _sortByCompletion($a, $b)
     {
         if ($a->completed == $b->completed) {
             return self::_sortByIdentity($a, $b);
@@ -1365,7 +1368,7 @@ class Nag
      * @return integer  -1 if task one is greater, 1 if task two is greater;
      *                  0 if they are equal.
      */
-    function _rsortByCompletion($a, $b)
+    public static function _rsortByCompletion($a, $b)
     {
         if ($a->completed == $b->completed) {
             return self::_sortByIdentity($b, $a);
@@ -1382,7 +1385,7 @@ class Nag
      * @return integer  1 if task one is greater, -1 if task two is greater;
      *                  0 if they are equal.
      */
-    function _sortByOwner($a, $b)
+    public static function _sortByOwner($a, $b)
     {
         $ashare = $GLOBALS['nag_shares']->getShare($a->tasklist);
         $bshare = $GLOBALS['nag_shares']->getShare($b->tasklist);
@@ -1414,7 +1417,7 @@ class Nag
      * @return integer  -1 if task one is greater, 1 if task two is greater;
      *                  0 if they are equal.
      */
-    function _rsortByOwner($a, $b)
+    public static function _rsortByOwner($a, $b)
     {
         $ashare = $GLOBALS['nag_shares']->getShare($a->tasklist);
         $bshare = $GLOBALS['nag_shares']->getShare($b->tasklist);

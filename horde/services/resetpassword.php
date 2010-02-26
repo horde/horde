@@ -15,7 +15,7 @@ Horde_Registry::appInit('horde', array('authentication' => 'none'));
 $auth = Horde_Auth::singleton($conf['auth']['driver']);
 if (!$auth->hasCapability('resetpassword')) {
     $notification->push(_("Cannot reset password automatically, contact your administrator."), 'horde.error');
-    header('Location: ' . Horde_Auth::getLoginScreen('', Horde_Util::getFormData('url')));
+    header('Location: ' . Horde::getServiceLink('login')->add('url', Horde_Util::getFormData('url'))->setRaw(true));
     exit;
 }
 
@@ -79,7 +79,7 @@ if ($can_validate && $form->validate($vars)) {
         try {
             $mail->send(Horde::getMailerConfig());
             $notification->push(_("Your password has been reset, check your email and log in with your new password."), 'horde.success');
-            header('Location: ' . Horde_Auth::getLoginScreen('', $info['url']));
+            header('Location: ' . Horde::getServiceLink('login')->add('url', $info['url'])->setRaw(true));
             exit;
         } catch (Horde_Exception $e) {
             Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);

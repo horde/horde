@@ -60,7 +60,7 @@ $imp_ui = new IMP_Ui_Compose();
 
 /* Attach spellchecker & auto completer. */
 $imp_ui->attachAutoCompleter(array('to', 'cc', 'bcc'));
-$imp_ui->attachSpellChecker('dimp');
+$imp_ui->attachSpellChecker();
 
 $show_editor = false;
 $title = _("New Message");
@@ -197,6 +197,7 @@ $compose_result['js_onload'][] = 'DimpCompose.fillForm(' . Horde_Serialize::seri
 Horde::addInlineScript($compose_result['js_onload'], 'load');
 
 $scripts = array(
+    array('compose-base.js', 'imp'),
     array('compose-dimp.js', 'imp'),
     array('md5.js', 'horde'),
     array('TextareaResize.js', 'horde')

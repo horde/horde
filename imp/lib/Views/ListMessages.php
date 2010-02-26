@@ -114,11 +114,18 @@ class IMP_Views_ListMessages
         if ($args['initial'] || !is_null($args['sortdir'])) {
             $md->sortdir = intval($sortpref['dir']);
         }
-        if ($args['initial'] && IMP::isSpecialFolder($mbox)) {
-            $md->special = 1;
-        }
-        if ($args['initial'] && $is_search) {
-            $md->search = 1;
+
+        /* Actions only done on 'initial' request. */
+        if ($args['initial']) {
+            if (IMP::isSpecialFolder($mbox)) {
+                $md->special = 1;
+            }
+            if ($is_search) {
+                $md->search = 1;
+            }
+
+            /* Generate flag array. */
+            $md->flags = array_keys($GLOBALS['injector']->getInstance('IMP_Imap_Flags')->getList(array('imap' => true, 'mailbox' => $is_search ? null : $mbox)));
         }
 
         /* These entries may change during a session, so always need to

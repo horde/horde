@@ -112,12 +112,9 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
             $text = $this->_node($doc, $doc);
         }
 
-        /* Strip HTML tags and convert HTML entities. */
-        $text = html_entity_decode($text, ENT_QUOTES, 'UTF-8');
-
         /* Bring down number of empty lines to 2 max, and remove trailing
          * ws. */
-        $text = preg_replace(array("/\n[[:space:]]+\n/", "/[\n]{3,}/", "/ +\n/"), array("\n\n", "\n\n", "\n"), $text);
+        $text = preg_replace(array("/\s*\n{3,}/", "/ +\n/"), array("\n\n", "\n"), $text);
 
         /* Wrap the text to a readable format. */
         if ($this->_params['wrap']) {
@@ -304,7 +301,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
                     if (!$child->nextSibling) {
                         $tmp = rtrim($tmp);
                     }
-                    $out .= $tmp;
+                    $out .= html_entity_decode($tmp, ENT_QUOTES, 'UTF-8');
                 }
             }
         }

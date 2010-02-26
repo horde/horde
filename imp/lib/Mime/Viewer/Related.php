@@ -103,7 +103,12 @@ class IMP_Horde_Mime_Viewer_Related extends Horde_Mime_Viewer_Driver
         $render = $this->_params['contents']->renderMIMEPart($id, $inline ? IMP_Contents::RENDER_INLINE : IMP_Contents::RENDER_FULL, array('params' => array_merge($this->_params, array('related_id' => $related_id, 'related_cids' => $cids))));
 
         if (!$inline) {
-            return $render;
+            foreach (array_keys($render) as $key) {
+                if (!is_null($render[$key])) {
+                    return array($related_id => $render[$key]);
+                }
+            }
+            return null;
         }
 
         $data_id = null;
@@ -126,4 +131,5 @@ class IMP_Horde_Mime_Viewer_Related extends Horde_Mime_Viewer_Driver
 
         return $ret;
     }
+
 }

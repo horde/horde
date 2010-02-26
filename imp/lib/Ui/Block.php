@@ -36,11 +36,13 @@ class IMP_Ui_Block
         $status = $GLOBALS['imp_imap']->ob()->statusMultiple($poll, Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_RECENT);
 
         $anyUnseen = false;
-        $html = '';
+        $html = $onclick = '';
         $newmsgs = array();
 
         if ($mode == 'imp') {
             $mbox_url = Horde::applicationUrl('mailbox.php');
+        } else {
+            $mbox_url = Horde::applicationUrl('') . '#folder';
         }
 
         foreach ($poll as $folder) {
@@ -53,20 +55,21 @@ class IMP_Ui_Block
                     $newmsgs[$folder] = $status[$folder]['recent'];
                 }
 
-                if ($mode == 'imp') {
-                    $onclick = 'self.location=\'' . $mbox_url->copy()->add(array('no_newmail_popup' => 1, 'mailbox' => $folder)) . '\'';
-                } else {
-                    $onclick = 'DimpBase.go(\'folder:' . htmlspecialchars($folder) . '\');return false;';
+                if ($mode != 'imp') {
+                    $onclick = ' onclick="try{DimpBase.go(\'folder:' . htmlspecialchars($folder) . '\');}catch(e){window.location=\'' . htmlspecialchars($mbox_url . rawurlencode(':' . $folder)) . '\';}return false;"';
                 }
 
-                $html .= '<tr style="cursor:pointer" class="text" onclick="' . $onclick . '"><td>';
+                $html .= '<tr style="cursor:pointer" class="text"' . $onclick . '><td>';
 
                 if (!empty($status[$folder]['unseen'])) {
                     $html .= '<strong>';
                     $anyUnseen = true;
                 }
 
-                $html .= (($mode == 'imp') ? Horde::link($mbox_url) : '<a>') . IMP::displayFolder($folder) . '</a>';
+                $html .= ($mode == 'imp'
+                          ? Horde::link($mbox_url->add(array('no_newmail_popup' => 1, 'mailbox' => $folder)))
+                          : '<a>')
+                    . IMP::displayFolder($folder) . '</a>';
 
                 if (!empty($status[$folder]['unseen'])) {
                     $html .= '</strong>';

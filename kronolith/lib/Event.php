@@ -1218,7 +1218,7 @@ abstract class Kronolith_Event
         $json->e = $this->end->toJson();
         $json->fi = $this->first;
         $json->la = $this->last;
-        $json->x = $this->status;
+        $json->x = (int)$this->status;
         $json->al = is_null($allDay) ? $this->isAllDay() : $allDay;
         $json->pe = $this->hasPermission(Horde_Perms::EDIT);
         $json->pd = $this->hasPermission(Horde_Perms::DELETE);
@@ -1255,6 +1255,7 @@ abstract class Kronolith_Event
             $json->ed = $this->end->strftime('%x');
             $json->et = $this->end->format($time_format);
             $json->a = $this->alarm;
+            $json->pv = $this->private;
             $json->tg = array_values($this->tags);
             $json->gl = $this->geoLocation;
             if ($this->recurs()) {
@@ -2359,14 +2360,14 @@ abstract class Kronolith_Event
     {
         switch ($this->status) {
         case Kronolith::STATUS_CANCELLED:
-            return 'event-cancelled';
+            return 'kronolithEventCancelled';
 
         case Kronolith::STATUS_TENTATIVE:
         case Kronolith::STATUS_FREE:
-            return 'event-tentative';
+            return 'kronolithEventTentative';
         }
 
-        return 'event';
+        return 'kronolithEvent';
     }
 
     private function _formIDEncode($id)

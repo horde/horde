@@ -98,7 +98,6 @@ ul.msgactions, ul.msgactions ul {
     background: #f4f4f4;
     border: 1px solid #d4d4d4;
     display: none;
-    margin-top: 2px;
     padding: 1px;
     position: absolute;
     z-index: 99;

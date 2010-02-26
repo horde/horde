@@ -15,7 +15,7 @@ Horde_Registry::appInit('horde', array('nologintasks' => true));
 $auth = Horde_Auth::singleton($conf['auth']['driver']);
 if (!$auth->hasCapability('update')) {
     $notification->push(_("Changing your password is not supported with the current configuration.  Contact your administrator."), 'horde.error');
-    header('Location: ' . Horde_Auth::getLoginScreen('', Horde_Util::getFormData('url')));
+    header('Location: ' . Horde::getServiceLink('login')->add('url', Horde_Util::getFormData('url'))->setRaw(true));
     exit;
 }
 
