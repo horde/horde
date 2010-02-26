@@ -14,7 +14,7 @@
 
 <div id="kronolithEventDates">
   <label for="kronolithEventStartDate">
-    <?php echo _("From") ?><br />
+    <?php echo _("From") ?>
     <input type="text" name="start_date" id="kronolithEventStartDate" size="10" />
     <?php echo Horde::img('picker.png', _("Set start date"), 'id="kronolithEventStartPicker" class="kronolithDatePicker"') ?>
   </label>
@@ -23,7 +23,7 @@
     <input type="text" name="start_time" id="kronolithEventStartTime" size="8" />
   </label>
   <label for="kronolithEventEndDate">
-    <?php echo _("to") ?><br />
+    <?php echo _("to") ?>
     <input type="text" name="end_date" id="kronolithEventEndDate" size="10" />
     <?php echo Horde::img('picker.png', _("Set end date"), 'id="kronolithEventEndPicker" class="kronolithDatePicker"') ?>
   </label>
@@ -47,20 +47,18 @@
     <option value="<?php echo Kronolith::STATUS_CANCELLED ?>"><?php echo _("Cancelled") ?></option>
   </select>
   <span class="kronolithSeparator">|</span>
-  <label>
-    <?php echo _("Add to") ?>
-    <select name="targetcalendar" id="kronolithEventTarget"></select>
-  </label>
-  <span class="kronolithSeparator">|</span>
-  <label>
-    <?php echo _("Location") ?>:
-    <input type="text" name="location" id="kronolithEventLocation" size="25" />
-  </label>
+  <label for="kronolithEventLocation"><?php echo _("Location") ?>:</label>
+  <input type="text" name="location" id="kronolithEventLocation" size="25" />
   <?php if ($GLOBALS['conf']['maps']['driver']): ?>
   <span id="kronolithEventMapLink" style="display:none">
     <span class="kronolithSeparator">|</span> <span><a href="#" class="kronolithEventGeo"><?php echo _("Find in Maps") ?></a></span>
   </span>
   <?php endif; ?>
+</div>
+
+<div>
+  <label for="kronolithEventTarget"><?php echo _("Add event to") ?>:</label>
+  <select name="targetcalendar" id="kronolithEventTarget"></select>
 </div>
 
 <div class="tabset">
