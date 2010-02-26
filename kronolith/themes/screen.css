@@ -784,8 +784,12 @@ div.kronolithFormActions {
     margin: 15px 0;
 }
 .kronolithDialog .tabset ul {
+    float: left;
     padding-left: 0;
     margin: 0;
+}
+.kronolithDialog .tabset .kronolithSeparator {
+    float: left;
 }
 
 .kronolithTabsOption {

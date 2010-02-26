@@ -2107,7 +2107,7 @@ KronolithCore = {
             switch (type) {
             case 'internal':
             case 'tasklists':
-                $('kronolithCalendar' + type + 'LinkImportExport').up().hide();
+                $('kronolithCalendar' + type + 'LinkImportExport').up('span').hide();
                 fields.push('Description');
                 break;
             case 'remote':
@@ -2134,12 +2134,12 @@ KronolithCore = {
         switch (type) {
         case 'internal':
             $('kronolithCalendarinternalDescription').setValue(info.desc);
-            $('kronolithCalendarinternalLinkImportExport').up().show();
+            $('kronolithCalendarinternalLinkImportExport').up('span').show();
             $('kronolithCalendarinternalExport').href = Kronolith.conf.URI_CALENDAR_EXPORT + '=' + calendar;
             break;
         case 'tasklists':
             $('kronolithCalendartasklistsDescription').setValue(info.desc);
-            $('kronolithCalendartasklistsLinkImportExport').up().show();
+            $('kronolithCalendartasklistsLinkImportExport').up('span').show();
             $('kronolithCalendartasklistsExport').href = Kronolith.conf.tasks.URI_TASKLIST_EXPORT + '=' + calendar.substring(6);
             break;
         case 'remote':
@@ -3397,7 +3397,7 @@ KronolithCore = {
             d.add(1).hour();
             $('kronolithEventEndDate').setValue(d.toString(Kronolith.conf.date_format));
             $('kronolithEventEndTime').setValue(d.toString(Kronolith.conf.time_format));
-            $('kronolithEventLinkExport').up().hide();
+            $('kronolithEventLinkExport').up('span').hide();
             RedBox.showHtml($('kronolithEventDialog').show());
         }
     },
@@ -3513,7 +3513,7 @@ KronolithCore = {
         $('kronolithEventEndTime').setValue(ev.et);
         $('kronolithEventStatus').setValue(ev.x);
         $('kronolithEventDescription').setValue(ev.d);
-        $('kronolithEventLinkExport').up().show();
+        $('kronolithEventLinkExport').up('span').show();
         $('kronolithEventExport').href = Kronolith.conf.URI_EVENT_EXPORT.interpolate({ id: ev.id, calendar: ev.c, type: ev.ty });
 
         /* Alarm */
