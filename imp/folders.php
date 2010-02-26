@@ -36,7 +36,7 @@ $folders_url = Horde::selfUrl();
 
 /* This JS define is required by all folder pages. */
 Horde::addInlineScript(array(
-    'ImpFolders.folders_url = ' . Horde_Serialize::serialize($folders_url, Horde_Serialize::JSON, $charset)
+    'ImpFolders.folders_url = ' . Horde_Serialize::serialize(strval($folders_url), Horde_Serialize::JSON, $charset)
 ));
 
 /* Initialize the IMP_Folder object. */
