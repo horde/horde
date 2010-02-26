@@ -202,7 +202,9 @@
 </div>
 
 <div id="kronolithEventTabTags" class="kronolithTabsOption" style="display:none">
+  <div class="kronolithTabInfo"><?php echo _("To make it easier to find, you can enter comma separated tags related to the event subject.") ?></div>
   <input id="kronolithEventTags" name="tags" />
+  <label for="kronolithEventTopTags"><?php echo _("Previously used tags") ?>:</label><br />
   <span id="kronolithEventTags_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
   <div class="kronolithTopTags" id="kronolithEventTopTags"></div>
 </div>
