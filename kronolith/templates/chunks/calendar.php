@@ -43,18 +43,18 @@
   <div id="kronolithCalendarPermsBasic">
     <?php echo _("Share this calendar with:") ?><br />
     <dl>
-      <dt><label>
+      <dt><label for="kronolithCalendarPermsAll">
         <input type="checkbox" id="kronolithCalendarPermsAll" name="share_with_all" />
         <?php echo _("Everyone") ?>
       </label></dt>
-      <dd><label>
+      <dd><label for="kronolithCalendarPermsShow">
         <input type="checkbox" id="kronolithCalendarPermsShow" name="share_show" disabled="disabled" />
         <?php echo _("and make it searchable for everyone too") ?>
       </label></dd>
     </dl>
     <dl id="kronolithCalendarPermsGroups">
       <dt>
-        <label>
+        <label for="kronolithCalendarPermsGroup">
           <input type="checkbox" id="kronolithCalendarPermsGroup" name="share_with_group" />
           <span id="kronolithCalendarPermsSingleGroup"></span>
         </label>
