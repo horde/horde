@@ -46,21 +46,21 @@ $imp_message = $injector->getInstance('IMP_Message');
 $user_identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
 
 /* Run through action handlers. */
-$actionID = Horde_Util::getFormData('actionID');
-if ($actionID) {
+$vars = Horde_Variables::getDefaultVariables();
+if ($vars->actionID) {
     try {
-        Horde::checkRequestToken('imp.message', Horde_Util::getFormData('message_token'));
+        Horde::checkRequestToken('imp.message', $vars->message_token);
     } catch (Horde_Exception $e) {
         $notification->push($e);
-        $actionID = null;
+        $vars->actionID = null;
     }
 }
 
 /* Determine if mailbox is readonly. */
 $peek = $readonly = $imp_imap->isReadOnly($imp_mbox['mailbox']);
 if ($readonly &&
-    in_array($actionID, array('delete_message', 'undelete_message', 'move_message', 'flag_message', 'strip_attachment', 'strip_all'))) {
-    $actionID = null;
+    in_array($vars->actionID, array('delete_message', 'undelete_message', 'move_message', 'flag_message', 'strip_attachment', 'strip_all'))) {
+    $vars->actionID = null;
 }
 
 /* Get mailbox/UID of message. */
@@ -73,11 +73,11 @@ $imp_flags = $injector->getInstance('IMP_Imap_Flags');
 $imp_hdr_ui = new IMP_Ui_Headers();
 $imp_ui = new IMP_Ui_Message();
 
-switch ($actionID) {
+switch ($vars->actionID) {
 case 'blacklist':
 case 'whitelist':
     $imp_filter = new IMP_Filter();
-    if ($actionID == 'blacklist') {
+    if ($vars->actionID == 'blacklist') {
         $imp_filter->blacklistMessage($indices_array);
     } else {
         $imp_filter->whitelistMessage($indices_array);
@@ -86,7 +86,7 @@ case 'whitelist':
 
 case 'delete_message':
 case 'undelete_message':
-    if ($actionID == 'undelete_message') {
+    if ($vars->actionID == 'undelete_message') {
         $imp_message->undelete($indices_array);
     } else {
         $imp_message->delete($indices_array);
@@ -103,14 +103,14 @@ case 'undelete_message':
 
 case 'move_message':
 case 'copy_message':
-    if (($targetMbox = Horde_Util::getFormData('targetMbox')) !== null) {
-        if (Horde_Util::getFormData('newMbox', 0) == 1) {
-            $targetMbox = IMP::folderPref($targetMbox, true);
+    if (isset($vars->targetMbox)) {
+        if ($vars->newMbox) {
+            $vars->targetMbox = IMP::folderPref($vars->targetMbox, true);
             $newMbox = true;
         } else {
             $newMbox = false;
         }
-        $imp_message->copy($targetMbox, ($actionID == 'move_message') ? 'move' : 'copy', $indices_array, $newMbox);
+        $imp_message->copy($vars->targetMbox, ($vars->actionID == 'move_message') ? 'move' : 'copy', $indices_array, $vars->newMbox);
         if ($prefs->getValue('mailbox_return')) {
             _returnToMailbox($imp_mailbox->getMessageIndex());
             require IMP_BASE . '/mailbox.php';
@@ -121,7 +121,7 @@ case 'copy_message':
 
 case 'spam_report':
 case 'notspam_report':
-    $action = str_replace('_report', '', $actionID);
+    $action = str_replace('_report', '', $vars->actionID);
     switch (IMP_Spam::reportSpam($indices_array, $action)) {
     case 1:
         if ($imp_ui->moveAfterAction()) {
@@ -137,10 +137,9 @@ case 'notspam_report':
     break;
 
 case 'flag_message':
-    $flag = Horde_Util::getFormData('flag');
-    if ($flag && !empty($indices_array)) {
+    if (isset($vars->flag) && !empty($indices_array)) {
         $peek = true;
-        $flag = $imp_flags->parseFormId($flag);
+        $flag = $imp_flags->parseFormId($vars->flag);
         $imp_message->flag(array($flag['flag']), $indices_array, $flag['set']);
         if ($prefs->getValue('mailbox_return')) {
             _returnToMailbox($imp_mailbox->getMessageIndex());
@@ -152,7 +151,7 @@ case 'flag_message':
 
 case 'add_address':
     try {
-        $contact_link = IMP::addAddress(Horde_Util::getFormData('address'), Horde_Util::getFormData('name'));
+        $contact_link = IMP::addAddress($vars->address, $vars->name);
         $notification->push(sprintf(_("Entry \"%s\" was successfully added to the address book"), $contact_link), 'horde.success', array('content.raw'));
     } catch (Horde_Exception $e) {
         $notification->push($e, 'horde.error');
@@ -162,7 +161,7 @@ case 'add_address':
 case 'strip_all':
 case 'strip_attachment':
     try {
-        $imp_message->stripPart($indices_array, ($actionID == 'strip_all') ? null : Horde_Util::getFormData('imapid'));
+        $imp_message->stripPart($indices_array, ($vars->actionID == 'strip_all') ? null : $vars->imapid);
     } catch (Horde_Exception $e) {
         $notification->push($e, 'horde.error');
     }
@@ -313,8 +312,8 @@ if (!empty($envelope['reply-to']) &&
 }
 
 /* Determine if all/list/user-requested headers needed. */
-$all_headers = Horde_Util::getFormData('show_all_headers');
-$list_headers = Horde_Util::getFormData('show_list_headers');
+$all_headers = $vars->show_all_headers;
+$list_headers = $vars->show_list_headers;
 $user_hdrs = $imp_ui->getUserHeaders();
 
 /* Check for the presence of mailing list information. */
@@ -577,7 +576,9 @@ $part_info = $part_info_display = array('icon', 'description', 'size');
 $part_info_action = array('download', 'download_zip', 'img_save', 'strip');
 $part_info_bodyonly = array('print');
 
-$show_parts = Horde_Util::getFormData('show_parts', $prefs->getValue('parts_display'));
+$show_parts = isset($vars->show_parts)
+    ? $vars->show_parts
+    : $prefs->getValue('parts_display');
 $strip_atc = $prefs->getValue('strip_attachments');
 
 $part_info_display = array_merge($part_info_display, $part_info_action, $part_info_bodyonly);
@@ -595,7 +596,7 @@ if (!$readonly && $strip_atc) {
 
 /* Do MDN processing now. */
 $mdntext = '';
-if ($imp_ui->MDNCheck($imp_mbox['mailbox'], $uid, $mime_headers, Horde_Util::getFormData('mdn_confirm'))) {
+if ($imp_ui->MDNCheck($imp_mbox['mailbox'], $uid, $mime_headers, $vars->mdn_confirm)) {
     $mdntext .= $imp_ui->formatStatusMsg(array(array('text' => array(_("The sender of this message is requesting a Message Disposition Notification from you when you have read this message."), sprintf(_("Click %s to send the notification message."), Horde::link(htmlspecialchars($selfURL->copy()->add('mdn_confirm', 1))) . _("HERE") . '</a>')))));
 }
 
