@@ -216,15 +216,21 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
     {
         $result = $this->synchronize();
 
-        if (is_null($startDate)) {
+        if (empty($startDate)) {
             $startDate = new Horde_Date(array('mday' => 1,
                                               'month' => 1,
                                               'year' => 0000));
         }
-        if (is_null($endDate)) {
+        if (empty($endDate)) {
             $endDate = new Horde_Date(array('mday' => 31,
                                             'month' => 12,
                                             'year' => 9999));
+        }
+        if (!is_a($startDate, 'Horde_Date')) {
+            $startDate = &new Horde_Date($startDate);
+        }
+        if (!is_a($endDate, 'Horde_Date')) {
+            $endDate = &new Horde_Date($endDate);
         }
 
         $startDate = clone $startDate;
