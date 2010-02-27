@@ -79,7 +79,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
                 $result->mailbox = $this->_getMailboxResponse($imptree);
             }
         } catch (Horde_Exception $e) {
-            $GLOBALS['notification']->push($e, 'horde.error');
+            $GLOBALS['notification']->push($e);
             $result = false;
         }
 
@@ -169,7 +169,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
                 $result->mailbox = $this->_getMailboxResponse($imptree);
             }
         } catch (Horde_Exception $e) {
-            $GLOBALS['notification']->push($e, 'horde.error');
+            $GLOBALS['notification']->push($e);
         }
 
         return $result;
@@ -713,7 +713,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             $GLOBALS['notification']->push(sprintf(_("%s was successfully added to your address book."), $this->_vars->name ? $this->_vars->name : $this->_vars->email), 'horde.success');
             return true;
         } catch (Horde_Exception $e) {
-            $GLOBALS['notification']->push($e, 'horde.error');
+            $GLOBALS['notification']->push($e);
             return false;
         }
     }
@@ -967,7 +967,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
                 }
             }
         } catch (Horde_Exception $e) {
-            $GLOBALS['notification']->push($e, 'horde.error');
+            $GLOBALS['notification']->push($e);
             $result = $this->_checkUidvalidity();
         }
 
@@ -1027,7 +1027,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
                 }
             }
         } catch (Horde_Exception $e) {
-            $GLOBALS['notification']->push($e, 'horde.error');
+            $GLOBALS['notification']->push($e);
             $result = $this->_checkUidvalidity();
         }
 
@@ -1494,7 +1494,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             $sent = $imp_compose->buildAndSendMessage($this->_vars->message, $headers, Horde_Nls::getEmailCharset(), $this->_vars->html, $options);
         } catch (IMP_Compose_Exception $e) {
             $result->success = 0;
-            $GLOBALS['notification']->push($e, 'horde.error');
+            $GLOBALS['notification']->push($e);
             return $result;
         }
 
@@ -1614,7 +1614,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             }
         } catch (IMP_Compose_Exception $e) {
             $result->success = 0;
-            $GLOBALS['notification']->push($e, 'horde.error');
+            $GLOBALS['notification']->push($e);
         }
 
         return $result;
@@ -1724,7 +1724,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             try {
                 $GLOBALS['imp_imap']->ob()->openMailbox($this->_vars->view, $rw ? Horde_Imap_Client::OPEN_READWRITE : Horde_Imap_Client::OPEN_AUTO);
             } catch (Horde_Imap_Client_Exception $e) {
-                $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
+                $GLOBALS['notification']->push($e);
                 return null;
             }
         }

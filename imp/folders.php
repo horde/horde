@@ -120,7 +120,7 @@ case 'download_folder_zip':
                 fclose($mbox);
             } catch (Horde_Exception $e) {
                 fclose($mbox);
-                $notification->push($e, 'horde.error');
+                $notification->push($e);
                 break;
             }
             fseek($data, 0, SEEK_END);

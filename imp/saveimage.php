@@ -31,7 +31,7 @@ case 'save_image':
     try {
         $registry->call('images/saveImage', array(null, Horde_Util::getFormData('gallery'), $image_data));
     } catch (Horde_Exception $e) {
-        $notification->push($e, 'horde.error');
+        $notification->push($e);
         break;
     }
     Horde_Util::closeWindowJS();

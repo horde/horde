@@ -148,7 +148,7 @@ case 'resume':
         }
         $header = array_merge($header, $result['header']);
     } catch (IMP_Compose_Exception $e) {
-        $notification->push($e->getMessage(), 'horde.error');
+        $notification->push($e);
     }
     $get_sig = false;
     break;

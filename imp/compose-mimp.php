@@ -96,7 +96,7 @@ case 'd':
             $sent_mail_folder = $identity->getValue('sent_mail_folder');
         }
     } catch (IMP_Compose_Exception $e) {
-        $notification->push($e, 'horde.error');
+        $notification->push($e);
     }
     break;
 
@@ -163,7 +163,7 @@ case _("Redirect"):
         exit;
     } catch (Horde_Exception $e) {
         $actionID = 'rc';
-        $notification->push($e, 'horde.error');
+        $notification->push($e);
     }
     break;
 
@@ -234,7 +234,7 @@ case _("Send"):
                 exit;
             }
         } catch (IMP_Compose_Exception $e) {
-            $notification->push($e, 'horde.error');
+            $notification->push($e);
         }
         break;
 
@@ -259,7 +259,7 @@ case _("Send"):
                 exit;
             }
         } catch (IMP_Compose_Exception $e) {
-            $notification->push($e, 'horde.error');
+            $notification->push($e);
         }
         break;
     }

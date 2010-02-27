@@ -154,7 +154,7 @@ case 'add_address':
         $contact_link = IMP::addAddress($vars->address, $vars->name);
         $notification->push(sprintf(_("Entry \"%s\" was successfully added to the address book"), $contact_link), 'horde.success', array('content.raw'));
     } catch (Horde_Exception $e) {
-        $notification->push($e, 'horde.error');
+        $notification->push($e);
     }
     break;
 
@@ -163,7 +163,7 @@ case 'strip_attachment':
     try {
         $imp_message->stripPart($indices_array, ($vars->actionID == 'strip_all') ? null : $vars->imapid);
     } catch (Horde_Exception $e) {
-        $notification->push($e, 'horde.error');
+        $notification->push($e);
     }
     break;
 }

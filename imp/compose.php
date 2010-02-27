@@ -250,7 +250,7 @@ case 'draft':
             $sent_mail_folder = $identity->getValue('sent_mail_folder');
         }
     } catch (IMP_Compose_Exception $e) {
-        $notification->push($e, 'horde.error');
+        $notification->push($e);
     }
     $get_sig = false;
     break;
@@ -337,7 +337,7 @@ case 'redirect_send':
         }
         exit;
     } catch (Horde_Exception $e) {
-        $notification->push($e, 'horde.error');
+        $notification->push($e);
         $vars->actionID = 'redirect_compose';
         $get_sig = false;
     }
@@ -398,7 +398,7 @@ case 'send_message':
                 }
             } catch (IMP_Compose_Exception $e) {
                 if ($vars->actionID == 'save_draft') {
-                    $notification->push($e, 'horde.error');
+                    $notification->push($e);
                 }
             }
         }
@@ -508,7 +508,7 @@ case 'selectlist_process':
                         try {
                             $imp_compose->addMIMEPartAttachment($part);
                         } catch (IMP_Compose_Exception $e) {
-                            $notification->push($e, 'horde.error');
+                            $notification->push($e);
                         }
                     }
                 }

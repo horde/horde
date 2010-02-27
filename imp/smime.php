@@ -50,7 +50,7 @@ case 'process_import_public_key':
         $notification->push(_("No S/MIME public key imported."), 'horde.error');
         throw new Horde_Exception_Prior($e);
     } catch (Horde_Exception $e) {
-        $notification->push($e, 'horde.error');
+        $notification->push($e);
         $actionID = 'import_public_key';
         $imp_smime->importKeyDialog('process_import_public_key', Horde_Util::getFormData('reload'));
     }
