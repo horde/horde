@@ -43,44 +43,6 @@ class Shout
     }
 
     /**
-     * Generate the tabs at the top of each Shout pages
-     *
-     * @param &$vars Reference to the passed in variables
-     *
-     * @return object Horde_UI_Tabs
-     */
-    static public function getTabs($context, &$vars)
-    {
-        global $shout;
-
-        $permprefix = 'shout:contexts:' . $context;
-
-        $tabs = new Horde_UI_Tabs('section', $vars);
-
-        if (Shout::checkRights($permprefix . ':extensions', null, 1)) {
-            $url = Horde::applicationUrl('extensions.php');
-            $tabs->addTab(_("_Extensions"), $url, 'extensions');
-        }
-
-        if (Shout::checkRights($permprefix . ':dialplan', null, 1)) {
-            $url = Horde::applicationUrl('dialplan.php');
-            $tabs->addTab(_("_Automated Attendant"), $url, 'dialplan');
-        }
-
-        if (Shout::checkRights($permprefix . ':conference', null, 1)) {
-            $url = Horde::applicationUrl('conference.php');
-            $tabs->addTab(_("_Conference Rooms"), $url, 'conference');
-        }
-
-       if (Shout::checkRights($permprefix . ':moh', null, 1)) {
-            $url = Horde::applicationUrl('moh.php');
-            $tabs->addTab(_("_Music on Hold"), $url, 'moh');
-        }
-
-        return $tabs;
-    }
-
-    /**
      * Checks for the given permissions for the current user on the given
      * permission.  Optionally check for higher-level permissions and ultimately
      * test for superadmin priveleges.
