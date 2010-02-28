@@ -38,7 +38,7 @@ class Horde_Notification_Listener_Status extends Horde_Notification_Listener
             return;
         }
 
-        if (!empty($options['mobile'])) {
+        if (!empty($options['mobile']) && class_exists('Horde_Mobile_Text')) {
             foreach ($events as $event) {
                 $options['mobile']->add(new Horde_Mobile_Text(strip_tags($event)));
             }
