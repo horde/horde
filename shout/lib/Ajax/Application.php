@@ -29,12 +29,12 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function addDestination($vars)
+    public function addDestination()
     {
+        $vars = $this->_vars;
         $shout = Horde_Registry::appInit('shout');
         $context = $_SESSION['shout']['context'];
         try {
-            // FIXME: Use Form?
             $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
             $shout->extensions->addDestination($context, $vars->extension, $vars->type, $vars->destination);
 
@@ -49,8 +49,9 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function deleteDestination($vars)
+    public function deleteDestination()
     {
+        $vars = $this->_vars;
         $shout = Horde_Registry::appInit('shout');
         $context = $_SESSION['shout']['context'];
         try {
@@ -69,10 +70,10 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function getDestinations($vars)
+    public function getDestinations()
     {
+        $vars = $this->_vars;
         $shout = Horde_Registry::appInit('shout');
-        Horde::logMessage(print_r($vars, true), __FILE__, __LINE__, PEAR_LOG_ERR);
         $context = $_SESSION['shout']['context'];
         try {
             return $shout->extensions->getExtensions($context);
