@@ -48,8 +48,7 @@ class Shout_Driver_Sql extends Shout_Driver
     {
         $this->_connect();
 
-        $sql = 'SELECT context_name FROM %s';
-        $sql = sprintf($sql, $this->_params['table']);
+        $sql = 'SELECT context_name FROM shout_contexts';
         $vars = array();
 
         $msg = 'SQL query in Shout_Driver_Sql#getContexts(): ' . $sql;
@@ -66,15 +65,56 @@ class Shout_Driver_Sql extends Shout_Driver
 
         $contexts = array();
         while ($row && !($row instanceof PEAR_Error)) {
-            /* Add this new foo to the $_foo list. */
             $contexts[] = $row['context_name'];
-
-            /* Advance to the new row in the result set. */
             $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
         }
 
          $result->free();
          return $contexts;
+    }
+
+    public function getMenus($context)
+    {
+        static $menus;
+        if (isset($menus[$context])) {
+            return $menus[$context];
+        }
+
+        $this->_connect();
+
+        $sql = 'SELECT menu_name, menu_description, menu_soundfile ' .
+               'FROM shout_menus WHERE context_name = ?';
+        $vars = array($context);
+
+        $msg = 'SQL query in Shout_Driver_Sql#getContexts(): ' . $sql;
+        Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $result = $this->_db->query($sql, $vars);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+
+        $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
+        if ($row instanceof PEAR_Error) {
+            throw new Shout_Exception($row);
+        }
+
+        $menus[$context] = array();
+        while ($row && !($row instanceof PEAR_Error)) {
+            $menu = $row['menu_name'];
+            $menus[$context][$menu] = array(
+                'name' => $menu,
+                'description' => $row['menu_description'],
+                'soundfile' => $row['menu_soundfile']
+            );
+            $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
+        }
+        $result->free();
+        return $menus[$context];
+    }
+
+    function getMenuActions($context, $menu)
+    {
+        return array();
     }
 
     /**

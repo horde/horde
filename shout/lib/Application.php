@@ -45,7 +45,7 @@ class Shout_Application extends Horde_Registry_Application
     /**
      * TODO
      */
-    public $contexts = null;
+    public $storage = null;
 
     /**
      * TODO
@@ -60,6 +60,11 @@ class Shout_Application extends Horde_Registry_Application
     /**
      * TODO
      */
+    public $dialplan = null;
+
+    /**
+     * TODO
+     */
     static protected $_perms = array();
 
     /**
@@ -69,12 +74,13 @@ class Shout_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
-        $this->contexts = Shout_Driver::factory('storage');
+        $this->storage = Shout_Driver::factory('storage');
         $this->extensions = Shout_Driver::factory('extensions');
         $this->devices = Shout_Driver::factory('devices');
+        $this->dialplan = Shout_Driver::factory('dialplan');
 
         try {
-            $contexts = $this->contexts->getContexts();
+            $contexts = $this->storage->getContexts();
         } catch (Shout_Exception $e) {
             $GLOBALS['notification']->push($e);
             $contexts = false;

@@ -84,5 +84,31 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
         }
     }
 
+    /**
+     * TODO
+     */
+    public function getMenuInfo()
+    {
+        $vars = $this->_vars;
+        $shout = Horde_Registry::appInit('shout');
+        $context = $_SESSION['shout']['context'];
+        $menus = $shout->storage->getMenus($context);
+        $menu = $vars->menu;
+        if (!isset($menus[$menu])) {
+            Horde::logMessage("User requested a menu that does not exist.", __FILE__, __LINE__, PEAR_LOG_ERR);
+            $notification->push(_("That menu does not exist."), 'horde.error');
+            $action = 'list';
+            // FIXME notifications
+            return false;
+        }
+        try {
+            $data['meta'] = $menus[$menu];
+            $data['actions'] = $shout->dialplan->getMenuActions($context, $menu);
+            return $data;
+        } catch (Exception $e) {
+            //FIXME: Create a way to notify the user of the failure.
+            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            return false;
+        }
+    }
 }
-

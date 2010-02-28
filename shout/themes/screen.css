@@ -68,6 +68,19 @@ ul {
     font-style: italic;
 }
 
+#menuInfo {
+    float: left;
+    width: 300px;
+}
+
+#menuInfo img:hover {
+    cursor: pointer;
+}
+
+.menuStatName {
+    font-weight: bold;
+}
+
 #digitpad {
     width: 300px;
     height: 400px;
@@ -87,6 +100,8 @@ ul {
     padding: 3px;
     margin: 1px;
     background-image: url('graphics/digit-bg.png');
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
 }
 
 .digitLabel {

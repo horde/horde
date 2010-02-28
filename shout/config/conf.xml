@@ -19,7 +19,6 @@
     <case name="Sql" desc="SQL">
      <configsection name="params">
       <configsql switchname="driverconfig" />
-      <configstring name="table" desc="Table to hold the list of contexts/customers" required="true">shout_contexts</configstring>
      </configsection>
     </case>
    </configswitch>
@@ -56,6 +55,24 @@
      <configsection name="params">
       <configsql switchname="driverconfig" />
       <configstring name="table" desc="Table to hold the device configuration data" required="true">sip_peers</configstring>
+     </configsection>
+    </case>
+   </configswitch>
+  </configsection>
+ </configtab>
+ <configtab name="dialplan" desc="Dialplan">
+  <configsection name="dialplan">
+   <configheader>Dialplan Storage</configheader>
+   <configswitch name="driver" desc="What backend should we use for storing Asterisk dialplan information?">Sql
+    <case name="Ldap" desc="LDAP">
+     <configsection name="params">
+      <configldap switchname="driverconfig" />
+     </configsection>
+    </case>
+    <case name="Sql" desc="SQL">
+     <configsection name="params">
+      <configsql switchname="driverconfig" />
+      <configstring name="table" desc="Table to hold the dialplan" required="true">extensions_table</configstring>
      </configsection>
     </case>
    </configswitch>

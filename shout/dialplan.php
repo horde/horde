@@ -14,10 +14,28 @@ $shout = Horde_Registry::appInit('shout');
 
 require_once SHOUT_BASE . '/lib/Forms/ExtensionForm.php';
 
-//$action = Horde_Util::getFormData('action');
-$action = 'show';
+$action = Horde_Util::getFormData('action');
+$menu = Horde_Util::getFormData('menu');
 $context = $_SESSION['shout']['context'];
 
+$menus = $shout->storage->getMenus($context);
+
+switch($action) {
+case 'edit':
+    if (!isset($menus[$menu])) {
+        $notification->push(_("That menu does not exist."), 'horde.error');
+        $action = 'list';
+        break;
+    }
+    $menu = $menus[$menu];
+    break;
+case 'list':
+default:
+    $action = 'list';
+    break;
+}
+
+Horde::addScriptFile('stripe.js', 'horde');
 Horde::addScriptFile('prototype.js', 'horde');
 
 require SHOUT_TEMPLATES . '/common-header.inc';

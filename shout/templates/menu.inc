@@ -10,7 +10,7 @@ $menu_view = $prefs->getValue('menu_view');
 <?php
 // Only show the context selector if there is more than one available context
 try {
-    $contexts = $shout->contexts->getContexts();
+    $contexts = $shout->storage->getContexts();
 } catch (Exception $e) {
     $contexts = array();
 }
