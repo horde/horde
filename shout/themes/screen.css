@@ -68,4 +68,42 @@ ul {
     font-style: italic;
 }
 
+#digitpad {
+    width: 300px;
+    height: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+}
 
+.digit {
+    width: 84px;
+    height: 84px;
+    float: left;
+    border-top: 4px solid #aaa;
+    border-left: 4px solid #aaa;
+    border-right: 4px solid #444;
+    border-bottom: 4px solid #444;
+    padding: 3px;
+    margin: 1px;
+    background-image: url('graphics/digit-bg.png');
+}
+
+.digitLabel {
+    font-style: italic;
+    font-family: Sans-serif;
+    font-weight: bold;
+    font-size: 1.5em;
+    color: #666;
+}
+
+#digitAction {
+    width: 290px;
+    height: 390px;
+    margin: 5px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: #0f0;
+    /*display: none;*/
+}
