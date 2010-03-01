@@ -83,10 +83,10 @@ class Wicked_Application extends Horde_Registry_Application
             $perms['title']['wicked:pages:' . $val] = $val;
         }
 
-        $pages = $wicked->getPages();
+        $pages = $GLOBALS['wicked']->getPages();
         if (!($pages instanceof PEAR_Error)) {
             foreach ($pages as $pagename) {
-                $pageId = $wicked->getPageId($pagename);
+                $pageId = $GLOBALS['wicked']->getPageId($pagename);
                 $perms['tree']['wicked']['pages'][$pageId] = false;
                 $perms['title']['wicked:pages:' . $pageId] = $pagename;
             }
