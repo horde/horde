@@ -463,21 +463,38 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                 break;
             }
         }
+        if (Horde_Util::getFormData('ajax')) {
+            foreach ($msgs as $msg) {
+                $GLOBALS['notification']->push($msg[1], 'horde.' . $msg[0]);
+            }
+            return array(
+                $mime_id => array(
+                    'data' => Horde_String::convertCharset(Horde::escapeJson(Horde::prepareResponse(null, true), array('charset' => Horde_Nls::getCharset())), Horde_Nls::getCharset(), 'UTF-8'),
+                    'status' => array(),
+                    'name' => null,
+                    'type' => 'application/json'
+                )
+            );
+        }
 
         // Create the HTML to display the iCal file.
-        $html = '';
-        if ($_SESSION['imp']['view'] == 'imp' || $full) {
-            $html .= '<form method="post" name="iCal" action="' . (IMP::selfUrl()) . '">';
+        if ($_SESSION['imp']['view'] != 'imp' && !$full) {
+            $url = $this->_params['contents']->urlView($this->_mimepart, 'view_attach', array('params' => array('ajax' => 1, 'mode' => IMP_Contents::RENDER_INLINE)));
+            $onsubmit = ' onsubmit="DimpCore.submitForm(\'impMimeViewerItip\');return false"';
+        } else {
+            $url = IMP::selfUrl();
+            $onsubmit = '';
         }
+        $html = '<form method="post" id="impMimeViewerItip" action="' . $url . '"' . $onsubmit . '>';
 
         foreach ($components as $key => $component) {
             switch ($component->getType()) {
             case 'vEvent':
-                $html .= $this->_vEvent($component, $key, $method, $msgs, $full);
+                $html .= $this->_vEvent($component, $key, $method, $msgs);
                 break;
 
             case 'vTodo':
-                $html .= $this->_vTodo($component, $key, $method, $msgs, $full);
+                $html .= $this->_vTodo($component, $key, $method, $msgs);
                 break;
 
             case 'vTimeZone':
@@ -485,7 +502,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                 break;
 
             case 'vFreebusy':
-                $html .= $this->_vFreebusy($component, $key, $method, $msgs, $full);
+                $html .= $this->_vFreebusy($component, $key, $method, $msgs);
                 break;
 
             // @todo: handle stray vcards here as well.
@@ -494,10 +511,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
             }
         }
 
-        // Need to work out if we are inline and actually need this.
-        if ($_SESSION['imp']['view'] == 'imp' || $full) {
-            $html .= '</form>';
-        }
+        $html .= '</form>';
 
         return array(
             $mime_id => array(
@@ -511,7 +525,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
     /**
      * Return the html for a vFreebusy.
      */
-    protected function _vFreebusy($vfb, $id, $method, $msgs, $full)
+    protected function _vFreebusy($vfb, $id, $method, $msgs)
     {
         global $registry, $prefs;
 
@@ -558,10 +572,6 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
             }
         }
 
-        if ($_SESSION['imp']['view'] != 'imp' && !$full) {
-            return $html;
-        }
-
         $html .= '<h2 class="smallheader">' . _("Actions") . '</h2>' .
             '<select name="itip_action[' . $id . ']">';
 
@@ -600,7 +610,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
     /**
      * Return the html for a vEvent.
      */
-    protected function _vEvent($vevent, $id, $method, $msgs, $full)
+    protected function _vEvent($vevent, $id, $method, $msgs)
     {
         global $registry, $prefs;
 
@@ -842,10 +852,6 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
             } catch (Horde_Exception $e) {}
         }
 
-        if ($_SESSION['imp']['view'] != 'imp' && !$full) {
-            return $html;
-        }
-
         if ($options) {
             $html .= '<h2 class="smallheader">' . _("Actions") . '</h2>' .
                 '<label for="action_' . $id . '" class="hidden">' . _("Actions") . '</label>' .
@@ -863,7 +869,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
      * @todo IMP 5: move organizerName() from Horde_iCalendar_vevent to
      *       Horde_iCalendar
      */
-    protected function _vTodo($vtodo, $id, $method, $msgs, $full)
+    protected function _vTodo($vtodo, $id, $method, $msgs)
     {
         global $registry, $prefs;
 
@@ -969,10 +975,6 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                 $html .= '<tr><td>' . htmlspecialchars($attendee) . '</td><td>' . htmlspecialchars($role) . '</td><td>' . htmlspecialchars($status) . '</td></tr>';
             }
             $html .= '</tbody></table>';
-        }
-
-        if ($_SESSION['imp']['view'] != 'imp' && !$full) {
-            return $html;
         }
 
         if ($options) {

@@ -123,6 +123,15 @@ var DimpCore = {
         new Ajax.Request(DIMP.conf.URI_AJAX + action, ajaxopts);
     },
 
+    // 'opts' -> ajaxopts, callback
+    submitForm: function(form, opts)
+    {
+        opts = opts || {};
+        var ajaxopts = Object.extend(Object.clone(this.doActionOpts), opts.ajaxopts || {});
+        ajaxopts.onComplete = function(t, o) { this.doActionComplete(t, opts.callback); }.bind(this);
+        $(form).request(ajaxopts);
+    },
+
     selectionToRange: function(s)
     {
         var b = s.getBuffer(),

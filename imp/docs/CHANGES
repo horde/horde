@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[jan] Implement iTip viewer actions in DIMP (Request #8061).
 [mms] Display alarm notifications in DIMP (Request #6232).
 [mms] Auto-determine charset for text attachments (Bug #8858).
 [mms] Remove IE 6 (and below) and Safari 2 (and below) support for DIMP.
