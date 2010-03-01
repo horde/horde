@@ -815,7 +815,7 @@ class Turba_Api extends Horde_Registry_Api
         if ($driver instanceof PEAR_Error) {
             throw new Horde_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
         }
-        $vcard = $driver->tovCard($contact['contact'], '3.0');
+        $vcard = $driver->tovCard($contact['contact'], '3.0', null, true);
         $vcard->setAttribute('VERSION', '3.0');
 
         return $vcard->exportvCalendar();

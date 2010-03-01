@@ -43,4 +43,4 @@ $filename = str_replace(' ', '_', $object->getValue('name'));
 if (!$filename) {
     $filename = _("contact");
 }
-$vcard->exportFile($filename . '.vcf', array($driver->tovCard($object)), Horde_Nls::getCharset());
+$vcard->exportFile($filename . '.vcf', array($driver->tovCard($object, '2.1', null, true)), Horde_Nls::getCharset());
