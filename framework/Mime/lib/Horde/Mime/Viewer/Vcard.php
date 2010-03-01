@@ -25,6 +25,13 @@ class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Driver
     );
 
     /**
+     * URL that can be used as a callback for displaying images.
+     *
+     * @var Horde_Url
+     */
+    protected $_imageUrl;
+
+    /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
      * @return array  See Horde_Mime_Viewer_Driver::render().
@@ -86,12 +93,10 @@ class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Driver
 
         $html .= '<table cellspacing="1" border="0" cellpadding="1">';
 
-        $i = 0;
-        foreach ($iCal->getComponents() as $vc) {
+        foreach ($iCal->getComponents() as $i => $vc) {
             if ($i > 0) {
                 $html .= '<tr><td colspan="2">&nbsp;</td></tr>';
             }
-            ++$i;
 
             $html .= '<tr><td colspan="2" class="header">';
             $fullname = $vc->getAttributeDefault('FN', false);
@@ -118,7 +123,7 @@ class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Driver
             }
 
             $photos = $vc->getAllAttributes('PHOTO');
-            foreach ($photos as $photo) {
+            foreach ($photos as $p => $photo) {
                 if (isset($photo['params']['VALUE']) &&
                     Horde_String::upper($photo['params']['VALUE']) == 'URI') {
                     $html .= $this->_row(_("Photo"),
@@ -126,12 +131,17 @@ class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Driver
                                          false);
                 } elseif (isset($photo['params']['ENCODING']) &&
                           Horde_String::upper($photo['params']['ENCODING']) == 'B' &&
-                          isset($photo['params']['TYPE']) &&
-                          ($GLOBALS['browser']->hasFeature('datauri') === true ||
-                           $GLOBALS['browser']->hasFeature('datauri') >= strlen($photo['value']))) {
-                    $html .= $this->_row(_("Photo"),
-                                         '<img src="data:' . htmlspecialchars($photo['params']['TYPE'] . ';base64,' . $photo['value']) . '" />',
-                                         false);
+                          isset($photo['params']['TYPE'])) {
+                    if ($GLOBALS['browser']->hasFeature('datauri') === true ||
+                        $GLOBALS['browser']->hasFeature('datauri') >= strlen($photo['value'])) {
+                        $html .= $this->_row(_("Photo"),
+                                             '<img src="data:' . htmlspecialchars($photo['params']['TYPE'] . ';base64,' . $photo['value']) . '" />',
+                                             false);
+                    } elseif ($this->_imageUrl) {
+                        $html .= $this->_row(_("Photo"),
+                                             '<img src="' . htmlspecialchars($this->_imageUrl->add(array('c' => $i, 'p' => $p))) . '" />',
+                                             false);
+                    }
                 }
             }
 
