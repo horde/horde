@@ -128,7 +128,7 @@ case 'download_render':
         break;
 
     case 'download_render':
-        $render = $contents->renderMIMEPart($vars->id, $vars->mode || IMP_Contents::RENDER_FULL, array('type' => $vars->ctype));
+        $render = $contents->renderMIMEPart($vars->id, isset($vars->mode) ? $vars->mode : IMP_Contents::RENDER_FULL, array('type' => $vars->ctype));
         reset($render);
         $key = key($render);
         $body = $render[$key]['data'];
@@ -152,7 +152,7 @@ case 'download_render':
 
 case 'compose_attach_preview':
 case 'view_attach':
-    $render = $contents->renderMIMEPart($vars->id, $vars->mode || IMP_Contents::RENDER_FULL, array('params' => array('raw' => ($vars->actionID == 'compose_attach_preview'), 'type' => $vars->ctype)));
+    $render = $contents->renderMIMEPart($vars->id, isset($vars->mode) ? $vars->mode : IMP_Contents::RENDER_FULL, array('params' => array('raw' => ($vars->actionID == 'compose_attach_preview'), 'type' => $vars->ctype)));
     if (!empty($render)) {
         reset($render);
         $key = key($render);
