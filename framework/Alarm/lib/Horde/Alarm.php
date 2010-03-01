@@ -488,7 +488,7 @@ class Horde_Alarm
         if (!isset($methods)) {
             $methods = array(
                 'notify' => array(
-                    '__desc' => _("Inline Notification"),
+                    '__desc' => _("Inline"),
                     'sound' => array(
                         'type' => 'sound',
                         'desc' => _("Play a sound?"),
@@ -496,7 +496,7 @@ class Horde_Alarm
                     )
                 ),
                 'mail' => array(
-                    '__desc' => _("Email Notification"),
+                    '__desc' => _("Email"),
                     'email' => array(
                         'type' => 'text',
                         'desc' => _("Email address (optional)"),

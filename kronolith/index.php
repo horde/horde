@@ -24,6 +24,49 @@ if ($help_link) {
 $today = new Horde_Date($_SERVER['REQUEST_TIME']);
 $_SESSION['horde_prefs']['nomenu'] = true;
 
+$alarm_methods = $alarm_params = '';
+foreach (Horde_Alarm::notificationMethods() as $method => $params) {
+    $alarm_methods .= ' <input type="checkbox" name="event_alarms[]" id="kronolithEventAlarm' . $method . '" value="' . $method . '" /> <label for="kronolithEventAlarm' . $method . '">' . $params['__desc'] . '</label>';
+    if (count($params) < 2) {
+        continue;
+    }
+    $alarm_params .= ' <div id="kronolithEventAlarm' . $method . 'Params" style="display:none">';
+    foreach ($params as $name => $param) {
+        if (substr($name, 0, 2) == '__') {
+            continue;
+        }
+        $alarm_params .= ' <label for="kronolithEventAlarmParam' . $name
+            . '">' . $param['desc'] . '</label> ';
+        $name_att = 'name="event_alarms_' . $name . '"';
+        $att = 'id="kronolithEventAlarmParam' . $name . '" ' . $name_att;
+        switch ($param['type']) {
+        case 'text':
+            $alarm_params .= '<input type="text" ' . $att . ' />';
+            break;
+        case 'boolean':
+            $alarm_params .= '<input type="checkbox" ' . $att . ' />';
+            break;
+        case 'sound':
+            $alarm_params .= '<ul class="sound-list"><li><input type="radio" ' . $att
+                . ' value="" checked="checked" /> ' . _("No Sound") . '</li>';
+            foreach (glob($registry->get('themesfs', 'horde') . '/sounds/*.wav') as $sound) {
+                $sound = htmlspecialchars(basename($sound));
+                $alarm_params .= '<li><input type="radio" id="kronolithEventAlarmParam'
+                    . $name . str_replace('.wav', '', $sound) . '" ' . $name_att
+                    . ' value="' .  $sound
+                    . '" /> <embed autostart="false" src="'
+                    . $registry->get('themesuri', 'horde') . '/sounds/'
+                    . $sound . '" /> ' . $sound . '</li>';
+            }
+            $alarm_params .= '</ul>';
+            break;
+        }
+        $alarm_params .= '<br />';
+    }
+    $alarm_params = substr($alarm_params, 0, - 6);
+    $alarm_params .= '</div>';
+}
+
 Kronolith::header();
 echo "<body class=\"kronolithAjax\">\n";
 require KRONOLITH_TEMPLATES . '/index/index.inc';

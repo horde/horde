@@ -2654,6 +2654,10 @@ KronolithCore = {
                 this.toggleAllDay();
                 return;
 
+            case 'kronolithEventAlarmDefaultOn':
+                this.disableAlarmMethods();
+                return;
+
             case 'kronolithEventLinkNone':
             case 'kronolithEventLinkDaily':
             case 'kronolithEventLinkWeekly':
@@ -3124,6 +3128,16 @@ KronolithCore = {
                 elt.disable();
                 e.stop();
                 return;
+            } else if (elt.tagName == 'INPUT' && elt.name == 'event_alarms[]') {
+                $('kronolithEventAlarmDefaultOff').setValue(1);
+                if ($(elt.id + 'Params')) {
+                    if (elt.getValue()) {
+                        $(elt.id + 'Params').show();
+                    } else {
+                        $(elt.id + 'Params').hide();
+                    }
+                }
+                return;
             }
 
             var calClass = elt.retrieve('calendarclass');
@@ -3370,6 +3384,7 @@ KronolithCore = {
         this.toggleAllDay(false);
         this.openTab($('kronolithEventForm').down('.tabset a.kronolithTabLink'));
         $('kronolithEventForm').enable();
+        this.disableAlarmMethods();
         $('kronolithEventForm').reset();
         if (Kronolith.conf.maps.driver) {
             $('kronolithEventMapLink').hide();
@@ -3533,6 +3548,27 @@ KronolithCore = {
                     throw $break;
                 }
             });
+            if (ev.m) {
+                $('kronolithEventAlarmDefaultOff').checked = true;
+                $H(ev.m).each(function(method) {
+                    $('kronolithEventAlarm' + method.key).setValue(1);
+                    $('kronolithEventAlarm' + method.key + 'Params').show();
+                    $H(method.value).each(function(param) {
+                        var input = $('kronolithEventAlarmParam' + param.key);
+                        if (input.type == 'radio') {
+                            input.up('form').select('input[type=radio]').each(function(radio) {
+                                if (radio.name == input.name &&
+                                    radio.value == param.value) {
+                                    radio.setValue(1);
+                                    throw $break;
+                                }
+                            });
+                        } else {
+                            input.setValue(param.value);
+                        }
+                    });
+                });
+            }
         } else {
             $('kronolithEventAlarmOff').setValue(true);
         }
@@ -3708,6 +3744,20 @@ KronolithCore = {
         }
         $('kronolithEventStartTimeLabel').setStyle({ visibility: on ? 'hidden' : 'visible' });
         $('kronolithEventEndTimeLabel').setStyle({ visibility: on ? 'hidden' : 'visible' });
+    },
+
+    /**
+     * Disables all custom alarm methods in the event form.
+     */
+    disableAlarmMethods: function() {
+        $('kronolithEventTabReminder').select('input').each(function(input) {
+            if (input.name == 'event_alarms[]') {
+                input.setValue(0);
+                if ($(input.id + 'Params')) {
+                    $(input.id + 'Params').hide();
+                }
+            }
+        });
     },
 
     /**

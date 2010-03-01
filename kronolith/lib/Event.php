@@ -1274,6 +1274,9 @@ abstract class Kronolith_Event
                 }
                 $json->at = $attendees;
             }
+            if ($this->methods) {
+                $json->m = $this->methods;
+            }
         }
 
         return $json;

@@ -90,25 +90,23 @@
 </div>
 
 <div id="kronolithEventTabReminder" class="kronolithTabsOption" style="display:none">
-  <?php printf(_("%s Don't set %s or %s set %s before the event %s and %s alert me via %s"),
+  <?php printf(_("%s Don't set %s or %s set %s before the event %s and alert me via %s the usual method(s) %s or %s the method(s) %s"),
   '<label for="kronolithEventAlarmOff"><input type="radio" name="alarm" id="kronolithEventAlarmOff" value="0" checked="checked" />', '</label>',
   '<label for="kronolithEventAlarmOn"><input type="radio" name="alarm" id="kronolithEventAlarmOn" value="1" />', '</label>
   <input type="text" name="alarm_value" id="kronolithEventAlarmValue" size="3" value="15" class="kronolithEventValue" />
-  <label for="kronolithEventAlarmUnit">
-    <select name="alarm_unit" id="kronolithEventAlarmUnit">
-      <option value="1">' . _("minutes") . '</option>
-      <option value="60">' . _("hours") . '</option>
-      <option value="1440">' . _("days") . '</option>
-      <option value="10080">' . _("weeks") . '</option>
-    </select>',
+  <select name="alarm_unit" id="kronolithEventAlarmUnit">
+    <option value="1">' . _("minutes") . '</option>
+    <option value="60">' . _("hours") . '</option>
+    <option value="1440">' . _("days") . '</option>
+    <option value="10080">' . _("weeks") . '</option>
+  </select>
+  <label for="kronolithEventAlarmValue">',
   '</label>',
-  '<label for="kronolithEventAlarmMethod">',
-    '<select name="event_alarms" id="kronolithEventAlarmMethod">
-      <option value="">' . _("E-mail") . '</option>
-      <option value="">' . _("SAPO Messenger") . '</option>
-      <option value="" disabled="disabled">' . _("SMS") . '</option>
-    </select>
-  </label>') ?>
+  '<input type="radio" name="alarm_change_method" id="kronolithEventAlarmDefaultOn" value="0" checked="checked" />
+  <label for="kronolithEventAlarmDefaultOn">', '</label>',
+  '<input type="radio" name="alarm_change_method" id="kronolithEventAlarmDefaultOff" value="1" />
+  <label for="kronolithEventAlarmDefaultOff">',
+  '</label>' . $alarm_methods . $alarm_params) ?>
 </div>
 
 <div id="kronolithEventTabRecur" class="kronolithTabsOption" style="display:none">
