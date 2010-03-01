@@ -34,7 +34,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
      */
     protected function _render()
     {
-        $ret = $this->_renderInline();
+        $ret = $this->_renderInline(true);
         if (!empty($ret)) {
             reset($ret);
             $ret[key($ret)]['data'] = Horde_Util::bufferOutput('include', $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc') .
@@ -55,7 +55,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
      *
      * @return array  See Horde_Mime_Viewer_Driver::render().
      */
-    protected function _renderInline()
+    protected function _renderInline($full = false)
     {
         global $registry;
 
@@ -466,18 +466,18 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
 
         // Create the HTML to display the iCal file.
         $html = '';
-        if ($_SESSION['imp']['view'] == 'imp') {
+        if ($_SESSION['imp']['view'] == 'imp' || $full) {
             $html .= '<form method="post" name="iCal" action="' . (IMP::selfUrl()) . '">';
         }
 
         foreach ($components as $key => $component) {
             switch ($component->getType()) {
             case 'vEvent':
-                $html .= $this->_vEvent($component, $key, $method, $msgs);
+                $html .= $this->_vEvent($component, $key, $method, $msgs, $full);
                 break;
 
             case 'vTodo':
-                $html .= $this->_vTodo($component, $key, $method, $msgs);
+                $html .= $this->_vTodo($component, $key, $method, $msgs, $full);
                 break;
 
             case 'vTimeZone':
@@ -485,7 +485,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                 break;
 
             case 'vFreebusy':
-                $html .= $this->_vFreebusy($component, $key, $method, $msgs);
+                $html .= $this->_vFreebusy($component, $key, $method, $msgs, $full);
                 break;
 
             // @todo: handle stray vcards here as well.
@@ -495,7 +495,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
         }
 
         // Need to work out if we are inline and actually need this.
-        if ($_SESSION['imp']['view'] == 'imp') {
+        if ($_SESSION['imp']['view'] == 'imp' || $full) {
             $html .= '</form>';
         }
 
@@ -511,7 +511,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
     /**
      * Return the html for a vFreebusy.
      */
-    protected function _vFreebusy($vfb, $id, $method, $msgs)
+    protected function _vFreebusy($vfb, $id, $method, $msgs, $full)
     {
         global $registry, $prefs;
 
@@ -558,7 +558,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
             }
         }
 
-        if ($_SESSION['imp']['view'] != 'imp') {
+        if ($_SESSION['imp']['view'] != 'imp' && !$full) {
             return $html;
         }
 
@@ -600,7 +600,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
     /**
      * Return the html for a vEvent.
      */
-    protected function _vEvent($vevent, $id, $method, $msgs)
+    protected function _vEvent($vevent, $id, $method, $msgs, $full)
     {
         global $registry, $prefs;
 
@@ -842,7 +842,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
             } catch (Horde_Exception $e) {}
         }
 
-        if ($_SESSION['imp']['view'] != 'imp') {
+        if ($_SESSION['imp']['view'] != 'imp' && !$full) {
             return $html;
         }
 
@@ -863,7 +863,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
      * @todo IMP 5: move organizerName() from Horde_iCalendar_vevent to
      *       Horde_iCalendar
      */
-    protected function _vTodo($vtodo, $id, $method, $msgs)
+    protected function _vTodo($vtodo, $id, $method, $msgs, $full)
     {
         global $registry, $prefs;
 
@@ -971,7 +971,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
             $html .= '</tbody></table>';
         }
 
-        if ($_SESSION['imp']['view'] != 'imp') {
+        if ($_SESSION['imp']['view'] != 'imp' && !$full) {
             return $html;
         }
 
