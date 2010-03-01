@@ -39,7 +39,7 @@
 </div>
 
 <div id="kronolithEventBasics">
-  <label for="kronolithEventFreeBusy"><?php echo _("Status") ?>:</label>
+  <label for="kronolithEventStatus"><?php echo _("Status") ?>:</label>
   <select name="status" id="kronolithEventStatus">
     <option value="<?php echo Kronolith::STATUS_FREE ?>"><?php echo _("Free") ?></option>
     <option value="<?php echo Kronolith::STATUS_TENTATIVE ?>"><?php echo _("Tentative") ?></option>
