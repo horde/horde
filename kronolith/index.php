@@ -17,6 +17,7 @@ if (!$prefs->getValue('dynamic_view') || !$browser->hasFeature('xmlhttpreq') ||
 }
 
 /* Load Ajax interface. */
+$menu = new Horde_Menu();
 $help_link = Horde::getServiceLink('help', 'kronolith');
 if ($help_link) {
     $help_link = Horde::widget($help_link, _("Help"), 'helplink', 'help', Horde::popupJs($help_link, array('urlencode' => true)) . 'return false;');

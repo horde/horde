@@ -7,7 +7,15 @@
     <?php if (count($GLOBALS['conf']['menu']['apps'])): ?>
     <div id="kronolithApplications">
       <ul>
-        <li class="kronolithApplicationSelected"><a href="#" id="kronolithApplication-kronolith" title="<?php echo $GLOBALS['registry']->get('name') ?>"><img src="<?php echo $GLOBALS['registry']->get('icon') ?>" /> <?php echo $GLOBALS['registry']->get('name') ?></a></li>
+        <?php foreach ($menu->getSiteLinks() as $key => $menu_item): ?>
+        <?php if ($menu_item == 'separator'): ?>
+      </ul>
+      <span class="kronolithSeparator">|</span>
+      <ul>
+        <?php else: ?>
+        <li><a href="<?php echo $menu_item['url'] ?>" title="<?php echo $menu_item['text'] ?>" id="kronolithMenu-<?php echo $key ?>"><img src="<?php echo $menu_item['icon_path'] . '/' . $menu_item['icon'] ?>" alt="<?php echo $menu_item['text'] ?>" /> <?php echo $menu_item['text'] ?></a></li>
+        <?php endif; ?>
+        <?php endforeach; ?>
         <?php foreach ($GLOBALS['conf']['menu']['apps'] as $app): ?>
         <?php if ($GLOBALS['registry']->hasAjaxView($app)): ?>
         <li><a href="<?php echo $GLOBALS['registry']->get('webroot', $app) ?>" id="kronolithApplication-<?php echo $app ?>" title="<?php echo $GLOBALS['registry']->get('name', $app) ?>"><img src="<?php echo $GLOBALS['registry']->get('icon', $app) ?>" /> <?php echo $GLOBALS['registry']->get('name', $app) ?></a></li>
