@@ -457,7 +457,7 @@ var DimpBase = {
             }.bind(this),
 
             // Optional config
-            ajax_opts: DimpCore.doActionOpts,
+            ajax_opts: Object.clone(DimpCore.doActionOpts),
             buffer_pages: DIMP.conf.buffer_pages,
             empty_msg: DIMP.text.vp_empty,
             list_class: 'msglist',

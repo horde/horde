@@ -108,7 +108,7 @@ var DimpCore = {
         params = $H(params);
         opts = opts || {};
 
-        var ajaxopts = Object.extend(this.doActionOpts, opts.ajaxopts || {});
+        var ajaxopts = Object.extend(Object.clone(this.doActionOpts), opts.ajaxopts || {});
 
         if (opts.uids) {
             if (opts.uids.viewport_selection) {
