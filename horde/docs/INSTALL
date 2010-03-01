@@ -312,7 +312,7 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
    functionality:
 
    a. Log
-   b. Mail
+   b. Mail (>= 1.2.0)
 
       To install, enter the following at the command prompt::
 
