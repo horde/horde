@@ -648,7 +648,10 @@ div.mimeStatusMessage, div.mimePartInfo {
     background-image: url("graphics/reload.png");
 }
 
-/* ITIP styles. */
+/* iTip styles. */
+#itipconflicts {
+    border-spacing: 0;
+}
 #itipconflicts tr.itipcollision {
     background-color: #f00;
     color: #fff;
