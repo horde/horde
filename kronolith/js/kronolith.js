@@ -131,29 +131,36 @@ KronolithCore = {
             case 'horde.alarm':
                 var alarm = m.flags.alarm;
                 // Only show one instance of an alarm growl.
-                if (this.alarms.indexOf(alarm.id) != -1) {
+                if (this.alarms.include(alarm.id)) {
                     break;
                 }
 
                 this.alarms.push(alarm.id);
 
                 message = alarm.title.escapeHTML();
-                if (!Object.isUndefined(alarm.ajax)) {
-                    message = new Element('a')
-                        .insert(message)
-                        .observe('click', function() { this.go(alarm.ajax); }.bind(this));
-                } else if (!Object.isUndefined(alarm.url)) {
-                    message = new Element('a', { href: alarm.url })
-                        .insert(message);
+                if (!Object.isUndefined(alarm.params) &&
+                    !Object.isUndefined(alarm.params.notify)) {
+                    if (!Object.isUndefined(alarm.params.notify.ajax)) {
+                        message = new Element('a')
+                            .insert(message)
+                            .observe('click', function() {
+                                this.Growler.ungrowl(growl);
+                                this.go(alarm.params.notify.ajax);
+                            }.bind(this));
+                    } else if (!Object.isUndefined(alarm.params.notify.url)) {
+                        message = new Element('a', { href: alarm.params.notify.url })
+                            .insert(message);
+                    }
                 }
                 message = new Element('div')
                     .insert(message);
                 if (alarm.user) {
-                    var select = new Element('select');
-                        $H(Kronolith.conf.snooze).each(function(snooze) {
-                            select.insert(new Element('option', { value: snooze.key }).insert(snooze.value));
-                        });
-                    message.insert(' ').insert(select);
+                    var select = '<select>';
+                    $H(Kronolith.conf.snooze).each(function(snooze) {
+                        select += '<option value="' + snooze.key + '">' + snooze.value + '</option>';
+                    });
+                    select += '</select>';
+                    message.insert('<br /><br />' + Kronolith.text.snooze.interpolate({ time: select, dismiss_start: '<input type="button" value="', dismiss_end: '" class="button ko" />' }));
                 }
                 var growl = this.Growler.growl(message, {
                     className: 'horde-alarm',
@@ -171,15 +178,22 @@ KronolithCore = {
                 }.bindAsEventListener(this));
 
                 if (alarm.user) {
-                    select.observe('change', function() {
-                        if (select.getValue()) {
+                    message.down('select').observe('change', function(e) {
+                        if (e.element().getValue()) {
                             this.Growler.ungrowl(growl);
                             new Ajax.Request(
                                 Kronolith.conf.URI_SNOOZE,
                                 { parameters: { alarm: alarm.id,
-                                                snooze: select.getValue() } });
+                                                snooze: e.element().getValue() } });
                         }
-                    }.bind(this));
+                    }.bindAsEventListener(this));
+                    message.down('input[type=button]').observe('click', function(e) {
+                        this.Growler.ungrowl(growl);
+                        new Ajax.Request(
+                            Kronolith.conf.URI_SNOOZE,
+                            { parameters: { alarm: alarm.id,
+                                            snooze: -1 } });
+                    }.bindAsEventListener(this));
                 }
                 break;
 
@@ -3680,6 +3694,25 @@ KronolithCore = {
 
         this.setTitle(ev.t);
         RedBox.showHtml($('kronolithEventDialog').show());
+
+        /* Hide alarm message for this event. */
+        if (r.msgs) {
+            r.msgs = r.msgs.reject(function(msg) {
+                if (msg.type != 'horde.alarm') {
+                    return false;
+                }
+                var alarm = msg.flags.alarm;
+                if (alarm.params && alarm.params.notify &&
+                    alarm.params.notify.show &&
+                    alarm.params.notify.show.calendar &&
+                    alarm.params.notify.show.event &&
+                    alarm.params.notify.show.calendar == ev.c &&
+                    alarm.params.notify.show.event == ev.id) {
+                    return true;
+                }
+                return false;
+            });
+        }
     },
 
     /**

@@ -1128,6 +1128,7 @@ abstract class Kronolith_Event
                 '__app' => $GLOBALS['registry']->getApp(),
                 'event' => $this->id,
                 'calendar' => $this->calendar);
+            $methods['notify']['ajax'] = 'event:' . $this->calendarType . '|' . $this->calendar . ':' . $this->id . ':' . $start->dateString();
             if (!empty($methods['notify']['sound'])) {
                 if ($methods['notify']['sound'] == 'on') {
                     // Handle boolean sound preferences.

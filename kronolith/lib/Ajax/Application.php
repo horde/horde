@@ -415,6 +415,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function ListTopTags()
     {
+        $this->notify = false;
         $tagger = new Kronolith_Tagger();
         $result = new stdClass;
         $result->tags = array();
