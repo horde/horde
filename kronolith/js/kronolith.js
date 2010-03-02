@@ -161,10 +161,14 @@ KronolithCore = {
                     log: false,
                     sticky: true
                 });
+                growl.store('alarm', alarm.id);
 
-                document.observe('Growler:destroyed', function() {
-                    this.alarms = this.alarms.without(alarm.id);
-                }.bind(this));
+                document.observe('Growler:destroyed', function(e) {
+                    var id = e.element().retrieve('alarm');
+                    if (id) {
+                        this.alarms = this.alarms.without(id);
+                    }
+                }.bindAsEventListener(this));
 
                 if (alarm.user) {
                     select.observe('change', function() {
