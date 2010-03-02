@@ -119,6 +119,11 @@ var RedBox = {
         this.setWindowPosition();
     },
 
+    getWindow: function()
+    {
+        return $('RB_window');
+    },
+
     getWindowContents: function()
     {
         var w = $('RB_window');

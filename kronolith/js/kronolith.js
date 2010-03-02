@@ -1880,6 +1880,8 @@ KronolithCore = {
 
     editTask: function(tasklist, id)
     {
+        this.closeRedBox();
+
         RedBox.onDisplay = function() {
             try {
                 $('kronolithTaskForm').focusFirstElement();
@@ -2056,6 +2058,8 @@ KronolithCore = {
      */
     editCalendar: function(calendar)
     {
+        this.closeRedBox();
+
         if ($('kronolithCalendarDialog')) {
             RedBox.showHtml($('kronolithCalendarDialog').show());
             this.editCalendarCallback(calendar);
@@ -3366,6 +3370,8 @@ KronolithCore = {
 
     editEvent: function(calendar, id, date)
     {
+        this.closeRedBox();
+
         if (Object.isUndefined($('kronolithEventTags').autocompleter)) {
             this.editEvent.bind(this, calendar, id, date).defer();
             return;
@@ -3809,6 +3815,9 @@ KronolithCore = {
 
     closeRedBox: function()
     {
+        if (!RedBox.getWindow()) {
+            return;
+        }
         var content = RedBox.getWindowContents();
         if (content) {
             document.body.insert(content.hide());
