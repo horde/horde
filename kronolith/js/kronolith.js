@@ -472,6 +472,7 @@ KronolithCore = {
             $('kronolithViewDay')
                 .down('.kronolithAllDayContainer')
                 .writeAttribute('id', 'kronolithEventsDay' + date.dateString());
+            $('kronolithEventsDay').store('date', date.dateString());
             break;
 
         case 'week':
@@ -505,7 +506,8 @@ KronolithCore = {
             }
             day = dates[0].clone();
             for (i = 0; i < 7; i++) {
-                div.writeAttribute('id', 'kronolithEventsWeek' + day.dateString());
+                div.store('date', day.dateString())
+                    .writeAttribute('id', 'kronolithEventsWeek' + day.dateString());
                 th.store('date', day.dateString())
                     .down('span').update(day.toString('dddd, d'));
                 td.removeClassName('kronolithToday')
