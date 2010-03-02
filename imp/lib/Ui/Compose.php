@@ -139,14 +139,14 @@ class IMP_Ui_Compose
 
         if (IMP::getViewMode() == 'imp') {
             $br = '<br />';
-            $id = 'DIMP.SpellChecker';
+            $id = 'IMP';
         } else {
             $br = '';
-            $id = 'IMP.SpellChecker';
+            $id = 'DIMP';
         }
 
         $args = array(
-            'id' => $id,
+            'id' => $id . '.SpellChecker',
             'targetId' => 'composeMessage',
             'triggerId' => 'spellcheck',
             'states' => array(
