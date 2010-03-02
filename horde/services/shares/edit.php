@@ -261,7 +261,9 @@ if (is_a($share, 'PEAR_Error')) {
     $title = sprintf(_("Edit permissions for \"%s\""), $share->get('name'));
 }
 
-if ($auth->hasCapability('list')) {
+if ($auth->hasCapability('list') &&
+    ($conf['auth']['list_users'] == 'list' ||
+     $conf['auth']['list_users'] == 'both')) {
     $userList = $auth->listUsers();
     if ($userList instanceof PEAR_Error) {
         Horde::logMessage($userList, __FILE__, __LINE__, PEAR_LOG_ERR);

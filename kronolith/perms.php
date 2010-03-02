@@ -270,7 +270,9 @@ if ($share instanceof PEAR_Error) {
     $title = sprintf(_("Edit Permissions for %s"), $share->get('name'));
 }
 
-if ($auth->hasCapability('list')) {
+if ($auth->hasCapability('list') &&
+    ($conf['auth']['list_users'] == 'list' ||
+     $conf['auth']['list_users'] == 'both')) {
     try {
         $userList = $auth->listUsers();
     } catch (Exception $e) {
