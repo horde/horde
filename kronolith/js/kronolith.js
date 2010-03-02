@@ -169,13 +169,11 @@ KronolithCore = {
                 if (alarm.user) {
                     select.observe('change', function() {
                         if (select.getValue()) {
+                            this.Growler.ungrowl(growl);
                             new Ajax.Request(
                                 Kronolith.conf.URI_SNOOZE,
                                 { parameters: { alarm: alarm.id,
-                                                snooze: select.getValue() },
-                                  onSuccess: function() {
-                                      this.Growler.ungrowl(growl);
-                                  }.bind(this)});
+                                                snooze: select.getValue() } });
                         }
                     }.bind(this));
                 }
