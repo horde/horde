@@ -43,7 +43,7 @@ implements Horde_Qc_Config_Interface
      *
      * @param Horde_Qc_Modules $modules A list of modules.
      */
-    public function __construct(Horde_Modules $modules)
+    public function __construct(Horde_Qc_Modules $modules)
     {
         $options = array();
 
@@ -58,25 +58,5 @@ implements Horde_Qc_Config_Interface
             )
         );
         list($this->_opts, $this->_args) = $parser->parseArgs();
-        $this->_validate();
-
-        foreach ($modules as $module) {
-            $module->validateOptions($this->_opts, $this->_args);
-        }
     }
-
-    private function _validate()
-    {
-        if (empty($this->_args[0])) {
-            print "Please specify the path to the package you want to release!\n\n";
-            $this->_parser->printUsage(STDERR);
-            exit(1);
-        }
-
-        if (!is_dir($this->_args[0])) {
-            print sprintf("%s specifies no directory!\n", $this->_args[0]);
-            exit(1);
-        }
-    }
-
 }

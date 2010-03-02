@@ -28,6 +28,13 @@
  * @link     http://pear.horde.org/index.php?package=Qc
 erver
  */
-abstract class Horde_Qc_Config
+class Horde_Qc_Config
 {
+
+    private $configs;
+
+    public function __construct(Horde_Qc_Modules $modules)
+    {
+        $this->configs[] = new Horde_Qc_Config_Cli($modules);
+    }
 }

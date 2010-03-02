@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_Qc_Module:: interface represents a single quality control module.
+ * Horde_Qc_Module:: represents a single quality control module.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * Horde_Qc_Module:: interface represents a single quality control module.
+ * Horde_Qc_Module:: represents a single quality control module.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -26,9 +26,25 @@
  * @link     http://pear.horde.org/index.php?package=Qc
 erver
  */
-interface Horde_Qc_Module
+abstract class Horde_Qc_Module
 {
-    public function getOptions();
+    /**
+     * The parent module.
+     *
+     * @var Horde_Qc_Module
+     */
+    private $_parent;
 
-    public function validateOptions(array $options, array $arguments);
+    public function __construct(Horde_Qc_Module $parent = null)
+    {
+        $this->_parent = $parent;
+    }
+
+    abstract public function getOptions();
+
+    abstract public function validateOptions();
+
+    abstract public function setup();
+
+    abstract public function run();
 }

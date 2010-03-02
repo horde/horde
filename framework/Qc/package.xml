@@ -51,7 +51,7 @@
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
    <dir name="script">
-    <file name="horde-pear-release.php" role="script" />
+    <file name="horde-quality-control.php" role="script" />
    </dir> <!-- /script -->
    <file name="COPYING" role="doc" />
   </dir> <!-- / -->
@@ -73,6 +73,12 @@
     <channel>pear.horde.org</channel>
    </package>
   </required>
+  <optional>
+   <package>
+    <name>Test</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
