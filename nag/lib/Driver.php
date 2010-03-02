@@ -300,21 +300,6 @@ class Nag_Driver
             return $modify;
         }
 
-        /* Update alarm if necessary. */
-        if (!empty($GLOBALS['conf']['alarms']['driver'])) {
-            $horde_alarm = Horde_Alarm::factory();
-            if (empty($alarm) || $completed) {
-                $horde_alarm->delete($task->uid);
-            } else {
-                $task = $this->get($taskId);
-                $alarm = $task->toAlarm();
-                if ($alarm) {
-                    $alarm['start'] = new Horde_Date($alarm['start']);
-                    $horde_alarm->set($alarm);
-                }
-            }
-        }
-
         $new_task = $this->get($task->id);
         $log_tasklist = $this->_tasklist;
         if (!is_null($tasklist) && $task->tasklist != $tasklist) {
@@ -351,6 +336,21 @@ class Nag_Driver
                 $history->log('nag:' . $task->tasklist . ':' . $task->uid, array('action' => 'delete'), true);
                 $history->log('nag:' . $tasklist . ':' . $task->uid, array('action' => 'add'), true);
                 $log_tasklist = $tasklist;
+            }
+        }
+
+        /* Update alarm if necessary. */
+        if (!empty($GLOBALS['conf']['alarms']['driver'])) {
+            $horde_alarm = Horde_Alarm::factory();
+            if (empty($alarm) || $completed) {
+                $horde_alarm->delete($task->uid);
+            } else {
+                $task = $this->get($taskId);
+                $alarm = $task->toAlarm();
+                if ($alarm) {
+                    $alarm['start'] = new Horde_Date($alarm['start']);
+                    $horde_alarm->set($alarm);
+                }
             }
         }
 
