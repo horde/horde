@@ -65,7 +65,6 @@ class IMP_Dimp
             $page_title .= ' :: ' . $title;
         }
 
-        $GLOBALS['imp_view'] = 'dimp';
         include IMP_BASE . '/templates/common-header.inc';
 
         // Send what we have currently output so the browser can start

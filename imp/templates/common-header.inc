@@ -1,6 +1,6 @@
 <?php
 
-$imp_view = Horde_Util::nonInputVar('imp_view');
+$imp_view = IMP::getViewMode();
 
 /* Do this include here so that the generated script can be added with any
  * other scripts already added. */
