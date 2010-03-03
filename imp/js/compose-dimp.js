@@ -211,15 +211,15 @@ var DimpCompose = {
             $('composeCache').setValue(d.imp_compose);
         }
 
-        if (d.success || d.action == 'AddAttachment') {
+        if (d.success || d.action == 'addAttachment') {
             switch (d.action) {
-            case 'AutoSaveDraft':
-            case 'SaveDraft':
+            case 'autoSaveDraft':
+            case 'saveDraft':
                 this.setDisabled(false);
 
                 this.updateDraftsMailbox();
 
-                if (d.action == 'SaveDraft') {
+                if (d.action == 'saveDraft') {
                     if (this.is_popup && !DIMP.conf_compose.qreply) {
                         DIMP.baseWindow.DimpCore.showNotifications(r.msgs);
                         r.msgs = [];
@@ -230,7 +230,7 @@ var DimpCompose = {
                 }
                 break;
 
-            case 'SendMessage':
+            case 'sendMessage':
                 if (this.is_popup && DIMP.baseWindow.DimpBase) {
                     if (d.reply_type) {
                         DIMP.baseWindow.DimpBase.flag(d.reply_type == 'forward' ? '$forwarded' : '\\answered', true, { uid: d.uid, mailbox: d.reply_folder, noserver: true });
@@ -255,7 +255,7 @@ var DimpCompose = {
                 }
                 return this.closeCompose();
 
-            case 'AddAttachment':
+            case 'addAttachment':
                 this.uploading = false;
                 if (d.success) {
                     this.addAttach(d.atc.num, d.atc.name, d.atc.type, d.atc.size);
