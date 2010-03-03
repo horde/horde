@@ -32,10 +32,33 @@ extends Horde_LoginTasks_Task
     }
 }
 
+class Horde_LoginTasks_Stub_TaskTwo
+extends Horde_LoginTasks_Stub_Task
+{
+}
+
 class Horde_LoginTasks_Stub_Confirm
 extends Horde_LoginTasks_Stub_Task
 {
     public $display = Horde_LoginTasks::DISPLAY_CONFIRM_YES;
+}
+
+class Horde_LoginTasks_Stub_ConfirmTwo
+extends Horde_LoginTasks_Stub_Task
+{
+    public $display = Horde_LoginTasks::DISPLAY_CONFIRM_YES;
+}
+
+class Horde_LoginTasks_Stub_ConfirmThree
+extends Horde_LoginTasks_Stub_Task
+{
+    public $display = Horde_LoginTasks::DISPLAY_CONFIRM_YES;
+}
+
+class Horde_LoginTasks_Stub_ConfirmNo
+extends Horde_LoginTasks_Stub_Task
+{
+    public $display = Horde_LoginTasks::DISPLAY_CONFIRM_NO;
 }
 
 class Horde_LoginTasks_Stub_Day

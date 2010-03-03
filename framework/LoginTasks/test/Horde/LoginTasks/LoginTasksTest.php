@@ -429,40 +429,76 @@ class Horde_LoginTasks_Class_LoginTasksTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testConfirmAfterNoticeWillBeDisplayed()
+    public function testConfirmSeriesDisplay()
     {
-        $this->markTestIncomplete('I don\'t understand the logic here.');
+        $this->markTestIncomplete();
         Horde_LoginTasks_Stub_Task::$executed = array();
         $tasks = $this->_getLoginTasks(
             array(
+                'Horde_LoginTasks_Stub_ConfirmNo',
                 'Horde_LoginTasks_Stub_Confirm',
+                'Horde_LoginTasks_Stub_Task',
+                'Horde_LoginTasks_Stub_Notice',
+                'Horde_LoginTasks_Stub_ConfirmTwo',
+                'Horde_LoginTasks_Stub_TaskTwo',
+                'Horde_LoginTasks_Stub_ConfirmThree',
                 'Horde_LoginTasks_Stub_Notice',
             ),
             true
         );
-        $tasks->runTasks(false, 'redirect', true);
-        $tasks->displayTasks();
-        $_POST['logintasks_confirm_0'] = true;
-        $tasks->runTasks(true, null, true);
+        $this->assertContains(
+            'http:///services/logintasks.php?app=test',
+            (string) $tasks->runTasks(false, 'redirect', true)
+        );
         $this->assertEquals(
             array(
-                'Horde_LoginTasks_Stub_Confirm',
-                'Horde_LoginTasks_Stub_Notice',
             ),
             Horde_LoginTasks_Stub_Task::$executed
         );
-    }
-
-    public function testNoticeBeforeConfirmationWillNotBeDisplayed()
-    {
-        $this->markTestIncomplete('I don\'t understand the logic here.');
-        Horde_LoginTasks_Stub_Task::$executed = array();
-        $tasks = $this->_getLoginTasks(
+        $tasklist = $tasks->displayTasks();
+        $classes = array();
+        foreach ($tasklist as $task) {
+            $classes[] = get_class($task);
+        }
+        asort($classes);
+        $this->assertEquals(
             array(
-                'Horde_LoginTasks_Stub_Notice',
-                'Horde_LoginTasks_Stub_Confirm',
+                'Horde_LoginTasks_Stub_ConfirmNo'
             ),
-            true
+            $classes
+        );
+        $_POST['logintasks_confirm_0'] = true;
+        $this->assertEquals(
+            'redirect',
+            $tasks->runTasks(true, null, true)
+        );
+        $this->assertEquals(
+            array(
+                'Horde_LoginTasks_Stub_ConfirmNo',
+            ),
+            Horde_LoginTasks_Stub_Task::$executed
+        );
+        $this->assertContains(
+            'http:///services/logintasks.php?app=test',
+            (string) $tasks->runTasks(false, null, true)
+        );
+        $this->assertEquals(
+            array(
+                'Horde_LoginTasks_Stub_ConfirmNo',
+            ),
+            Horde_LoginTasks_Stub_Task::$executed
+        );
+        $tasklist = $tasks->displayTasks();
+        $classes = array();
+        foreach ($tasklist as $task) {
+            $classes[] = get_class($task);
+        }
+        asort($classes);
+        $this->assertEquals(
+            array(
+                'Horde_LoginTasks_Stub_Confirm'
+            ),
+            $classes
         );
     }
 
