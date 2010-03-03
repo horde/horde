@@ -301,21 +301,24 @@ class IMP_Ui_Compose
      */
     public function passphraseDialog($type, $cacheid = null)
     {
+        $params = array('onload' => true);
+
         switch ($type) {
         case 'pgp':
-            $js = IMP::passphraseDialogJS('pgpPersonal');
+            $type = 'pgpPersonal';
             break;
 
         case 'pgp_symm':
-            $js = IMP::passphraseDialogJS('pgpSymmetric', array('symmetricid' => 'imp_compose_' . $cacheid));
+            $params = array('symmetricid' => 'imp_compose_' . $cacheid);
+            $type = 'pgpSymmetric';
             break;
 
         case 'smime':
-            $js = IMP::passphraseDialogJS('smimePersonal');
+            $type = 'smimePersonal';
             break;
         }
 
-        Horde::addInlineScript(array($js), 'dom');
+        Horde_Ajax_Imple::factory(array('imp', 'PassphraseDialog'), array('params' => $params, 'type' => $type))->attach();
     }
 
     /**

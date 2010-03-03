@@ -1051,53 +1051,6 @@ class IMP
     }
 
     /**
-     * Generate the JS code necessary to open a passphrase dialog. Adds the
-     * necessary JS files to open the dialog.
-     *
-     * @param string $type   The dialog type.
-     * @param array $params  Any additional parameters to pass.
-     *
-     * @return string  The generated JS code.
-     */
-    static public function passphraseDialogJS($type, $params = array())
-    {
-        Horde::addScriptFile('effects.js', 'horde');
-        Horde::addScriptFile('redbox.js', 'horde');
-        Horde::addScriptFile('dialog.js', 'imp');
-
-        switch ($type) {
-        case 'pgpPersonal':
-            $text = _("Enter your personal PGP passphrase.");
-            break;
-
-        case 'pgpSymmetric':
-            $text = _("Enter the passphrase used to encrypt this message.");
-            break;
-
-        case 'smimePersonal':
-            $text = _("Enter your personal S/MIME passphrase.");
-            break;
-        }
-
-        if (defined('SID')) {
-            parse_str(SID, $sid);
-            $params = array_merge($params, $sid);
-        }
-
-        $js_params = array(
-            'cancel_text' => _("Cancel"),
-            'ok_text' => _("OK"),
-            'params' => $params,
-            'password' => true,
-            'text' => $text,
-            'type' => $type,
-            'uri' => Horde::getServiceLink('ajax', 'imp') . '/' . $type
-        );
-
-        return 'IMPDialog.display(' . Horde::escapeJson($js_params, array('urlencode' => true)) . ')';
-    }
-
-    /**
      * Return a selfURL that has had index/mailbox/actionID information
      * removed/altered based on an action that has occurred on the present
      * page.
@@ -1189,6 +1142,5 @@ class IMP
         Horde::addScriptFile('redbox.js', 'horde');
         return 'RedBox.overlay = false; RedBox.showHtml(\'' . addcslashes($t_html, "'/") . '\');';
     }
-
 
 }

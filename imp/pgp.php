@@ -291,8 +291,12 @@ if ($prefs->getValue('use_pgp')) {
             $t->set('infopublic', Horde::link($selfURL->copy()->add('actionID', 'info_personal_public_key'), _("Information on Personal Public Key"), null, 'info_key'));
             $t->set('sendkey', Horde::link($selfURL->copy()->add('actionID', 'send_public_key'), _("Send Key to Public Keyserver")));
             $t->set('personalkey-public-help', Horde_Help::link('imp', 'pgp-personalkey-public'));
+
+            $imple = Horde_Ajax_Imple::factory(array('imp', 'PassphraseDialog'), array('type' => 'pgpPersonal'));
+            $imple->attach();
             $passphrase = $imp_pgp->getPassphrase('personal');
-            $t->set('passphrase', (empty($passphrase)) ? Horde::link('#', _("Enter Passphrase"), null, null, IMP::passphraseDialogJS('pgpPersonal') . ';return false;') . _("Enter Passphrase") : Horde::link($selfURL->copy()->add('actionID', 'unset_passphrase'), _("Unload Passphrase")) . _("Unload Passphrase"));
+            $t->set('passphrase', (empty($passphrase)) ? Horde::link('#', _("Enter Passphrase"), null, null, null, null, null, array('id' => $imple->getPassphraseId())) . _("Enter Passphrase") : Horde::link($selfURL->copy()->add('actionID', 'unset_passphrase'), _("Unload Passphrase")) . _("Unload Passphrase"));
+
             $t->set('viewprivate', Horde::link($selfURL->copy()->add('actionID', 'view_personal_private_key'), _("View Personal Private Key"), null, 'view_key'));
             $t->set('infoprivate', Horde::link($selfURL->copy()->add('actionID', 'info_personal_private_key'), _("Information on Personal Private Key"), null, 'info_key'));
             $t->set('personalkey-private-help', Horde_Help::link('imp', 'pgp-personalkey-private'));
