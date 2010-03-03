@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>LoginTasks</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Login Tasks System</summary>
- <description>The Horde_LoginTasks:: class provides a set of methods for dealing with tasks run upon login to Horde applications.
- </description>
+ <description>The Horde_LoginTasks:: class provides a set of methods for dealing with tasks run upon login to Horde applications.</description>
  <lead>
   <name>Michael Slusarz</name>
   <user>slusarz</user>
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2009-06-23</date>
+ <date>2010-03-03</date>
+ <time>15:40:58</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -24,19 +21,21 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Added system tasks.
+ <notes>
+* Added system tasks.
  * Added ONCE interval.
- * Renamed Maintenance:: -> Horde_LoginTasks::.
- * Initial Horde 4 package.</notes>
+ * Renamed Maintenance:: -&gt; Horde_LoginTasks::.
+ * Initial Horde 4 package.
+ </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="LoginTasks">
-      <file name="Backend.php" role="php" />
       <dir name="Backend">
        <file name="Horde.php" role="php" />
-      </dir> <!-- /lib/Horde/Backend -->
+      </dir> <!-- /lib/Horde/LoginTasks/Backend -->
+      <file name="Backend.php" role="php" />
       <file name="SystemTask.php" role="php" />
       <file name="Task.php" role="php" />
       <file name="Tasklist.php" role="php" />
@@ -44,6 +43,17 @@ http://pear.php.net/dtd/package-2.0.xsd">
      <file name="LoginTasks.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="LoginTasks">
+      <file name="AllTests.php" role="test" />
+      <file name="Autoload.php" role="test" />
+      <file name="LoginTasksTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
+      <file name="Stubs.php" role="test" />
+     </dir> <!-- /test/Horde/LoginTasks -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -55,15 +65,19 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.5.4</min>
    </pearinstaller>
    <package>
-    <name>Core</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
     <name>Util</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>
   <optional>
+   <package>
+    <name>Auth</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Core</name>
+    <channel>pear.horde.org</channel>
+   </package>
    <package>
     <name>Prefs</name>
     <channel>pear.horde.org</channel>
@@ -72,15 +86,35 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/LoginTasks/Backend.php" as="Horde/LoginTasks/Backend.php" />
-   <install name="lib/Horde/LoginTasks/Backend/Horde.php" as="Horde/LoginTasks/Backend/Horde.php" />
-   <install name="lib/Horde/LoginTasks/SystemTask.php" as="Horde/LoginTasks/SystemTask.php" />
-   <install name="lib/Horde/LoginTasks/Task.php" as="Horde/LoginTasks/Task.php" />
-   <install name="lib/Horde/LoginTasks/Tasklist.php" as="Horde/LoginTasks/Tasklist.php" />
-   <install name="lib/Horde/LoginTasks.php" as="Horde/LoginTasks.php" />
+   <install as="Horde/LoginTasks.php" name="lib/Horde/LoginTasks.php" />
+   <install as="Horde/LoginTasks/Backend.php" name="lib/Horde/LoginTasks/Backend.php" />
+   <install as="Horde/LoginTasks/SystemTask.php" name="lib/Horde/LoginTasks/SystemTask.php" />
+   <install as="Horde/LoginTasks/Task.php" name="lib/Horde/LoginTasks/Task.php" />
+   <install as="Horde/LoginTasks/Tasklist.php" name="lib/Horde/LoginTasks/Tasklist.php" />
+   <install as="Horde/LoginTasks/Backend/Horde.php" name="lib/Horde/LoginTasks/Backend/Horde.php" />
+   <install as="Horde/LoginTasks/AllTests.php" name="test/Horde/LoginTasks/AllTests.php" />
+   <install as="Horde/LoginTasks/Autoload.php" name="test/Horde/LoginTasks/Autoload.php" />
+   <install as="Horde/LoginTasks/LoginTasksTest.php" name="test/Horde/LoginTasks/LoginTasksTest.php" />
+   <install as="Horde/LoginTasks/phpunit.xml" name="test/Horde/LoginTasks/phpunit.xml" />
+   <install as="Horde/LoginTasks/Stubs.php" name="test/Horde/LoginTasks/Stubs.php" />
   </filelist>
  </phprelease>
  <changelog>
+  <release>
+   <date>2003-07-05</date>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+Initial release as a PEAR package
+   </notes>
+  </release>
   <release>
    <date>2006-05-08</date>
    <time>22:26:53</time>
@@ -93,22 +127,27 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <api>alpha</api>
    </stability>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Converted to package.xml 2.0 for pear.horde.org</notes>
+   <notes>
+Converted to package.xml 2.0 for pear.horde.org
+   </notes>
   </release>
   <release>
-   <date>2003-07-05</date>
    <version>
-    <release>0.0.1</release>
-    <api>0.0.1</api>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
    </version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api>
+    <release>beta</release>
+    <api>beta</api>
    </stability>
+   <date>2010-03-03</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Initial release as a PEAR package
+   <notes>
+* Added system tasks.
+ * Added ONCE interval.
+ * Renamed Maintenance:: -&gt; Horde_LoginTasks::.
+ * Initial Horde 4 package.
    </notes>
   </release>
  </changelog>
 </package>
-
