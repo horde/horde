@@ -1139,6 +1139,15 @@ abstract class Kronolith_Event
                     $methods['notify']['sound'] = $GLOBALS['registry']->get('themesuri', 'horde') . '/sounds/' . $methods['notify']['sound'];
                 }
             }
+            if ($this->isAllDay()) {
+                if ($this->start->compareDate($this->end) == 0) {
+                    $methods['notify']['subtitle'] = sprintf(_("On %s"), '<strong>' . $this->start->strftime($prefs->getValue('date_format')) . '</strong>');
+                } else {
+                    $methods['notify']['subtitle'] = sprintf(_("From %s to %s"), '<strong>' . $this->start->strftime($prefs->getValue('date_format')) . '</strong>', '<strong>' . $this->end->strftime($prefs->getValue('date_format')) . '</strong>');
+                }
+            } else {
+                $methods['notify']['subtitle'] = sprintf(_("From %s at %s to %s at %s"), '<strong>' . $this->start->strftime($prefs->getValue('date_format')), $this->start->format($prefs->getValue('twentyFour') ? 'H:i' : 'h:ia') . '</strong>', '<strong>' . $this->end->strftime($prefs->getValue('date_format')), $this->end->format($prefs->getValue('twentyFour') ? 'H:i' : 'h:ia') . '</strong>');
+            }
         }
         if (isset($methods['mail'])) {
             $methods['mail']['body'] = sprintf(

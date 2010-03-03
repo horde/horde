@@ -138,22 +138,25 @@ KronolithCore = {
                 this.alarms.push(alarm.id);
 
                 message = alarm.title.escapeHTML();
-                if (!Object.isUndefined(alarm.params) &&
-                    !Object.isUndefined(alarm.params.notify)) {
-                    if (!Object.isUndefined(alarm.params.notify.ajax)) {
+                if (alarm.params && alarm.params.notify) {
+                    if (alarm.params.notify.ajax) {
                         message = new Element('a')
                             .insert(message)
                             .observe('click', function() {
                                 this.Growler.ungrowl(growl);
                                 this.go(alarm.params.notify.ajax);
                             }.bind(this));
-                    } else if (!Object.isUndefined(alarm.params.notify.url)) {
+                    } else if (alarm.params.notify.url) {
                         message = new Element('a', { href: alarm.params.notify.url })
                             .insert(message);
                     }
                 }
                 message = new Element('div')
                     .insert(message);
+                if (alarm.params && alarm.params.notify &&
+                    alarm.params.notify.subtitle) {
+                    message.insert(new Element('br')).insert(alarm.params.notify.subtitle);
+                }
                 if (alarm.user) {
                     var select = '<select>';
                     $H(Kronolith.conf.snooze).each(function(snooze) {
