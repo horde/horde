@@ -27,9 +27,12 @@ extends Horde_LoginTasks_Backend
      *
      * @param string $app The Horde application that is currently active.
      */
-    public function __construct($app)
-    {
-        $this->_app = $app;
+    public function __construct(
+        Horde_Registry $registry,
+        $app
+    ) {
+        $this->_registry = $registry;
+        $this->_app      = $app;
     }
     
     /**
@@ -78,5 +81,39 @@ extends Horde_LoginTasks_Backend
     public function registerShutdown($shutdown)
     {
         register_shutdown_function($shutdown);
+    }
+
+    /**
+     * Get the class names of the task classes that need to be performed.
+     *
+     * @return array An array of class names.
+     */
+    public function getTasks()
+    {
+        /* Add Horde tasks here if not yet run. */
+        $app_list = array($this->_app);
+        if (($this->_app != 'horde') &&
+            !isset($_SESSION['horde_logintasks']['horde'])) {
+            array_unshift($app_list, 'horde');
+        }
+
+        $tasks = array();
+
+        foreach ($app_list as $app) {
+            foreach (array_merge($this->_registry->getAppDrivers($app, 'LoginTasks_SystemTask'), $this->_registry->getAppDrivers($app, 'LoginTasks_Task')) as $val) {
+                $tasks[$val] = $app;
+            }
+        }
+        return $tasks;
+    }
+
+    /**
+     * Return the URL of the login tasks view.
+     *
+     * @return string The URL of the login tasks view
+     */
+    public function getLoginTasksUrl()
+    {
+        return Horde::url(Horde_Util::addParameter($this->_registry->get('webroot', 'horde') . '/services/logintasks.php', array('app' => $this->_app)), true);
     }
 }

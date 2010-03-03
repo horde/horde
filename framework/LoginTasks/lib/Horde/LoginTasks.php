@@ -78,7 +78,11 @@ class Horde_LoginTasks
     {
         if (empty(self::$_instances[$app])) {
             self::$_instances[$app] = new self(
-                new Horde_LoginTasks_Backend_Horde($app), $app
+                new Horde_LoginTasks_Backend_Horde(
+                    $GLOBALS['registry'],
+                    $app
+                ),
+                $app
             );
         }
 
@@ -139,29 +143,10 @@ class Horde_LoginTasks
             $lasttask_pref = array();
         }
 
-        /* Add Horde tasks here if not yet run. */
-        $app_list = array($this->_app);
-        if (($this->_app != 'horde') &&
-            !isset($_SESSION['horde_logintasks']['horde'])) {
-            array_unshift($app_list, 'horde');
-        }
-
-        $tasks = array();
-
-        foreach ($app_list as $app) {
-            foreach (array_merge($GLOBALS['registry']->getAppDrivers($app, 'LoginTasks_SystemTask'), $GLOBALS['registry']->getAppDrivers($app, 'LoginTasks_Task')) as $val) {
-                $tasks[$val] = $app;
-            }
-        }
-
-        if (empty($tasks)) {
-            return;
-        }
-
         /* Create time objects for today's date and last task run date. */
         $cur_date = getdate();
 
-        foreach ($tasks as $classname => $app) {
+        foreach ($this->_backend->getTasks() as $classname => $app) {
             $ob = new $classname();
 
             /* If marked inactive, skip the task. */
@@ -298,13 +283,13 @@ class Horde_LoginTasks
     }
 
     /**
-     * Generated the login tasks URL.
+     * Generate the login tasks URL.
      *
      * @return string  The login tasks URL.
      */
     public function getLoginTasksUrl()
     {
-        return Horde::url(Horde_Util::addParameter($GLOBALS['registry']->get('webroot', 'horde') . '/services/logintasks.php', array('app' => $this->_app)), true);
+        return $this->_backend->getLoginTasksUrl();
     }
 
     /**

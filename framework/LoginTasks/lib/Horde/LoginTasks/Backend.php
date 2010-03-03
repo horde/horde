@@ -47,4 +47,18 @@ abstract class Horde_LoginTasks_Backend
      * @return NULL
      */
     abstract public function registerShutdown($shutdown);
+
+    /**
+     * Get the class names of the task classes that need to be performed.
+     *
+     * @return array An array of class names.
+     */
+    abstract public function getTasks();
+
+    /**
+     * Return the URL of the login tasks view.
+     *
+     * @return string The URL of the login tasks view
+     */
+    abstract public function getLoginTasksUrl();
 }
