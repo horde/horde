@@ -80,12 +80,12 @@ class Horde_Url
 
             /* Check if the argument separator has been already
              * htmlentities-ized in the URL. */
-            if (preg_match('/=.*?&amp;.*?=/', $query)) {
+            if (preg_match('/&amp;/', $query)) {
                 $query = html_entity_decode($query);
                 if (is_null($raw)) {
                     $raw = false;
                 }
-            } elseif (preg_match('/=.*?&.*?=/', $query)) {
+            } elseif (preg_match('/&/', $query)) {
                 if (is_null($raw)) {
                     $raw = true;
                 }
