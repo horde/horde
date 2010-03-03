@@ -62,7 +62,23 @@ abstract class Horde_LoginTasks_Backend
      *
      * @return array The information about the last time the tasks were run.
      */
-    abstract public function getLastTasks();
+    abstract public function getLastRun();
+
+    /**
+     * Store the information about the last time the tasks were run.
+     *
+     * @param array $last The information about the last time the tasks were run.
+     *
+     * @return NULL
+     */
+    abstract public function setLastRun(array $last);
+
+    /**
+     * Mark the current time as time the login tasks were run for the last time.
+     *
+     * @return NULL
+     */
+    abstract public function markLastRun();
 
     /**
      * Return the URL of the login tasks view.

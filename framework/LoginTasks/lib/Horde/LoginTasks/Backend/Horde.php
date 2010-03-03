@@ -130,13 +130,42 @@ extends Horde_LoginTasks_Backend
      *
      * @return array The information about the last time the tasks were run.
      */
-    public function getLastTasks()
+    public function getLastRun()
     {
         $lasttask_pref = @unserialize($this->_prefs->getValue('last_logintasks'));
         if (!is_array($lasttask_pref)) {
             $lasttask_pref = array();
         }
         return $lasttask_pref;
+    }
+
+    /**
+     * Store the information about the last time the tasks were run.
+     *
+     * @param array $last The information about the last time the tasks were run.
+     *
+     * @return NULL
+     */
+    public function setLastRun(array $last)
+    {
+        $this->_prefs->setValue('last_logintasks', serialize($last));
+    }
+
+    /**
+     * Mark the current time as time the login tasks were run for the last time.
+     *
+     * @return NULL
+     */
+    public function markLastRun()
+    {
+        $lasttasks = $this->getLastRun();
+        $lasttasks[$this->_app] = time();
+        if (($this->_app != 'horde') &&
+            !isset($_SESSION['horde_logintasks']['horde'])) {
+            $lasttasks['horde'] = time();
+            $_SESSION['horde_logintasks']['horde'] = true;
+        }
+        $GLOBALS['prefs']->setValue('last_logintasks', serialize($lasttasks));
     }
 
     /**
