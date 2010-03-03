@@ -2239,7 +2239,7 @@ KronolithCore = {
             if (type == 'internal') {
                 form.down('.kronolithCalendarSubscribe').hide();
                 form.down('.kronolithCalendarUnsubscribe').hide();
-                if (calendar == Kronolith.conf.user) {
+                if (newCalendar || calendar == Kronolith.conf.user) {
                     form.down('.kronolithCalendarDelete').hide();
                 } else {
                     form.down('.kronolithCalendarDelete').show();
