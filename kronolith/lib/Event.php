@@ -1140,13 +1140,6 @@ abstract class Kronolith_Event
                 }
             }
         }
-        if (isset($methods['popup'])) {
-            $methods['popup']['message'] = $this->getTitle($user);
-            $description = $this->description;
-            if (!empty($description)) {
-                $methods['popup']['message'] .= "\n\n" . $description;
-            }
-        }
         if (isset($methods['mail'])) {
             $methods['mail']['body'] = sprintf(
                 _("We would like to remind you of this upcoming event.\n\n%s\n\nLocation: %s\n\nDate: %s\nTime: %s\n\n%s"),

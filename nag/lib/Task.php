@@ -759,12 +759,6 @@ class Nag_Task {
                 }
             }
         }
-        if (isset($methods['popup'])) {
-            $methods['popup']['message'] = $this->name;
-            if (!empty($this->desc)) {
-                $methods['popup']['message'] .= "\n\n" . $this->desc;
-            }
-        }
         if (isset($methods['mail'])) {
             $methods['mail']['body'] = sprintf(
                 _("We would like to remind you of this due task.\n\n%s\n\nDate: %s\nTime: %s\n\n%s"),
