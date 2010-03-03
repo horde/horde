@@ -2690,18 +2690,21 @@ KronolithCore = {
                 return;
 
             case 'kronolithEventSave':
+                Horde_Calendar.hideCal();
                 this.saveEvent();
                 elt.disable();
                 e.stop();
                 return;
 
             case 'kronolithTaskSave':
+                Horde_Calendar.hideCal();
                 this.saveTask();
                 elt.disable();
                 e.stop();
                 return;
 
             case 'kronolithEventDelete':
+                Horde_Calendar.hideCal();
                 var cal = $F('kronolithEventCalendar'),
                     eventid = $F('kronolithEventId');
                 this.doAction('DeleteEvent',
@@ -3052,11 +3055,17 @@ KronolithCore = {
                 e.stop();
                 return;
             } else if (elt.hasClassName('kronolithCalendarSave')) {
+                if (this.colorPicker) {
+                    this.colorPicker.hide();
+                }
                 elt.disable();
                 this.saveCalendar(elt.up('form'));
                 e.stop();
                 return;
             } else if (elt.hasClassName('kronolithCalendarContinue')) {
+                if (this.colorPicker) {
+                    this.colorPicker.hide();
+                }
                 var form = elt.up('form'),
                     type = form.id.replace(/kronolithCalendarForm/, ''),
                     i = 1;
@@ -3126,6 +3135,9 @@ KronolithCore = {
                 e.stop();
                 return;
             } else if (elt.hasClassName('kronolithCalendarDelete')) {
+                if (this.colorPicker) {
+                    this.colorPicker.hide();
+                }
                 var form = elt.up('form'),
                     type = form.id.replace(/kronolithCalendarForm/, ''),
                     calendar = $F('kronolithCalendar' + type + 'Id');
