@@ -250,9 +250,6 @@
 
  <configtab name="dimp" desc="Dynamic View (dimp) Options">
   <configsection name="dimp">
-   <configlist name="css_files" required="false" desc="A list of additional CSS
-   files to load from the imp/themes/ directory."/>
-
    <configheader>ViewPort Settings</configheader>
    <configsection name="viewport">
     <configinteger name="buffer_pages" desc="The number of viewable pages to

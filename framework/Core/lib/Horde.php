@@ -1640,7 +1640,8 @@ HTML;
      * @param array $options  Additional options:
      * <pre>
      * 'additional' - (array) TODO
-     * 'sub' - (string) TODO
+     * 'sub' - (string) A subdirectory containing additional CSS files to
+     *         load as an overlay to the base CSS files.
      * </pre>
      */
     static public function includeStylesheetFiles($options = array())
@@ -1832,6 +1833,16 @@ HTML;
                     }
                 }
             }
+        }
+
+        /* Add user-defined additional stylesheets. */
+        try {
+            $css = array_merge($css, self::callHook('cssfiles', array($theme), 'horde'));
+        } catch (Horde_Exception_HookNotSet $e) {}
+        if ($curr_app != 'horde') {
+            try {
+                $css = array_merge($css, self::callHook('cssfiles', array($theme), $curr_app));
+            } catch (Horde_Exception_HookNotSet $e) {}
         }
 
         $css_out = array();

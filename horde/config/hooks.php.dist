@@ -135,6 +135,23 @@
  *   [mixed] - The data to send to the browser (will be JSON encoded).
  *
  *
+ * CSS Hooks
+ * =========
+ *
+ * cssfiles
+ * --------
+ * This hook allows additional CSS stylesheets to be added to the page
+ * output.
+ *
+ * Parameters in:
+ *   $theme (string): The current theme.
+ *
+ * The return value from this hook is as follows:
+ *   [throw Horde_Ajax_Exception] - Fatal error.
+ *   [array] - An array of CSS files to add. Keys are the filesystem location,
+ *             values are the URI location.
+ *
+ *
  * TODO: groupldap, share_add, share_modify, share_remove
  *
  * $Id$
@@ -437,6 +454,14 @@ class Horde_Hooks
 //    function pushapp()
 //    {
 //        // Code to run if the app is switched to horde
+//    }
+
+    // Add CSS files hook. See above for description of format.
+//    function cssfiles($theme)
+//    {
+//        return array(
+//            '/file/path/to/css' => 'uri/to/css'
+//        );
 //    }
 
     /**

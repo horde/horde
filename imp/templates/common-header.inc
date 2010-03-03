@@ -35,16 +35,7 @@ if (!empty($refresh_time) && !empty($refresh_url)) {
 
 switch ($imp_view) {
 case 'dimp':
-    $css = array();
-    if (!empty($GLOBALS['conf']['dimp']['css_files'])) {
-        foreach ($GLOBALS['conf']['css_files'] as $css_file) {
-            $css[] = array(
-                'u' => $GLOBALS['registry']->get('themesuri') . '/' . $css_file,
-                'f' => $GLOBALS['registry']->get('themesfs') .  '/' . $css_file
-            );
-        }
-    }
-    Horde::includeStylesheetFiles(array('additional' => $css, 'sub' => 'dimp'));
+    Horde::includeStylesheetFiles(array('sub' => 'dimp'));
     break;
 
 default:
