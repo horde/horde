@@ -1760,8 +1760,9 @@ HTML;
      *                        false for no theme.
      * @param array $options  Additional options:
      * <pre>
-     * 'app' - (string)
-     * 'sub' - (string) TODO
+     * 'app' - (string) The current application.
+     * 'sub' - (string) A subdirectory containing additional CSS files to
+     *         load as an overlay to the base CSS files.
      * </pre>
      *
      * @return array  TODO
@@ -1821,13 +1822,13 @@ HTML;
             foreach ($css_list as $css_name) {
                 $css[$themes_fs . $css_name . '.css'] = $themes_uri . $css_name . '.css';
                 if ($sub && ($app == $curr_app)) {
-                    $css[$themes_fs . $css_name . '-' . $sub . '.css'] = $themes_uri . $css_name . '-' . $sub . '.css';
+                    $css[$themes_fs . $sub . '/' . $css_name . '.css'] = $themes_uri . $sub . '/' . $css_name . '.css';
                 }
 
                 if (!empty($theme)) {
                     $css[$themes_fs . $theme . '/' . $css_name . '.css'] = $themes_uri . $theme . '/' . $css_name . '.css';
                     if ($sub && ($app == $curr_app)) {
-                        $css[$themes_fs . $theme . '/' . $css_name . '-' . $sub . '.css'] = $themes_uri . $theme . '/' . $css_name . '-' . $sub . '.css';
+                        $css[$themes_fs . $theme . '/' . $sub . '/' . $css_name . '.css'] = $themes_uri . $theme . '/' . $sub . '/' . $css_name . '.css';
                     }
                 }
             }
