@@ -78,7 +78,7 @@ class Horde_LoginTasks
     {
         if (empty(self::$_instances[$app])) {
             self::$_instances[$app] = new self(
-                new Horde_LoginTasks_Backend_Horde(), $app
+                new Horde_LoginTasks_Backend_Horde($app), $app
             );
         }
 
@@ -98,14 +98,12 @@ class Horde_LoginTasks
 
         $this->_app = $app;
 
-        if (!Horde_Auth::getAuth()) {
+        if (!$this->_backend->isAuthenticated()) {
             return;
         }
 
         /* Retrieves a cached tasklist or make sure one is created. */
-        if (isset($_SESSION['horde_logintasks'][$app])) {
-            $this->_tasklist = @unserialize($_SESSION['horde_logintasks'][$app]);
-        }
+        $this->_tasklist = $this->_backend->getTaskListFromCache();
 
         if (empty($this->_tasklist)) {
             $this->_createTaskList();

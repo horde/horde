@@ -15,4 +15,44 @@
 class Horde_LoginTasks_Backend_Horde
 extends Horde_LoginTasks_Backend
 {
+    /**
+     * The Horde application that is currently active.
+     *
+     * @var string
+     */
+    private $_app;
+
+    /**
+     * Constructor
+     *
+     * @param string $app The Horde application that is currently active.
+     */
+    public function __construct($app)
+    {
+        $this->_app = $app;
+    }
+    
+    /**
+     * Is the current session authenticated?
+     *
+     * @return boolean True if the user is authenticated, false otherwise.
+     */
+    public function isAuthenticated()
+    {
+        return (Horde_Auth::getAuth() !== false);
+    }
+
+    /**
+     * Retrieve a cached tasklist if it exists.
+     *
+     * @return Horde_LoginTasks_Tasklist|boolean The cached task list or false
+     * if no task list was cached.
+     */
+    public function getTasklistFromCache()
+    {
+        if (isset($_SESSION['horde_logintasks'][$this->_app])) {
+            return @unserialize($_SESSION['horde_logintasks'][$this->_app]);
+        }
+        return false;
+    }
 }
