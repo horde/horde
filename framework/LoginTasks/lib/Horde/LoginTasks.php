@@ -222,7 +222,7 @@ class Horde_LoginTasks
      *                            have been confirmed by the user.
      * @param string $url         The URL to redirect to when finished.
      */
-    public function runTasks($confirmed = false, $url = null)
+    public function runTasks($confirmed = false, $url = null, $no_redirect = false)
     {
         if (!isset($this->_tasklist) ||
             ($this->_tasklist === true)) {
@@ -262,9 +262,11 @@ class Horde_LoginTasks
 
         if (!$processed && $need_display) {
             $this->_tasklist->target = $url;
+            if ($no_redirect) return $this->getLoginTasksUrl();
             header('Location: ' . $this->getLoginTasksUrl());
             exit;
         } elseif ($processed && !$need_display) {
+            if ($no_redirect) return $tasklist_target;
             header('Location: ' . $tasklist_target);
             exit;
         }
