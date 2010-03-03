@@ -630,6 +630,28 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     }
 
     /**
+     * Returns the information for a shared internal calendar.
+     */
+    public function getCalendar()
+    {
+        $result = new stdClass;
+        if (!isset($GLOBALS['all_calendars'][$this->_vars->cal])) {
+            $GLOBALS['notification']->push(_("You are not allowed to view this calendar."), 'horde.error');
+            return $result;
+        }
+        $calendar = $GLOBALS['all_calendars'][$this->_vars->cal];
+        $result->calendar = array(
+            'name' => (!$calendar->get('owner') ? '' : '[' . Horde_Auth::convertUsername($calendar->get('owner'), false) . '] ') . $calendar->get('name'),
+            'desc' => $calendar->get('desc'),
+            'owner' => false,
+            'fg' => Kronolith::foregroundColor($calendar),
+            'bg' => Kronolith::backgroundColor($calendar),
+            'show' => false,
+            'edit' => $calendar->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT));
+        return $result;
+    }
+
+    /**
      * TODO
      */
     public function getRemoteInfo()

@@ -885,11 +885,9 @@ KronolithCore = {
         if (!div) {
             div = this.getCalendarList(type, cal.owner);
         }
-        if (cal.owner) {
-            div.insert(new Element('span', { className: 'kronolithCalEdit' })
-                       .insert('&rsaquo;'));
-        }
-        div.insert(new Element('div', { className: cal.show ? 'kronolithCalOn' : 'kronolithCalOff' })
+        div.insert(new Element('span', { className: 'kronolithCalEdit' })
+                   .insert('&rsaquo;'))
+            .insert(new Element('div', { className: cal.show ? 'kronolithCalOn' : 'kronolithCalOff' })
                    .store('calendar', id)
                    .store('calendarclass', type)
                    .setStyle({ backgroundColor: cal.bg, color: cal.fg })
@@ -1010,6 +1008,54 @@ KronolithCore = {
         case 'holiday':
             return $('kronolithHolidayCalendars');
         }
+    },
+
+    /**
+     * Toggles a calendars visibility.
+     *
+     * @param string type      The calendar type.
+     * @param string calendar  The calendar id.
+     */
+    toggleCalendar: function(type, calendar) {
+        Kronolith.conf.calendars[type][calendar].show = !Kronolith.conf.calendars[type][calendar].show;
+        if ([ 'day', 'week', 'month', 'year' ].include(this.view)) {
+            if (this.view == 'year' ||
+                Object.isUndefined(this.ecache.get(type)) ||
+                Object.isUndefined(this.ecache.get(type).get(calendar))) {
+                var dates = this.viewDates(this.date, this.view);
+                this.loadEvents(dates[0], dates[1], this.view, [[type, calendar]]);
+            } else {
+                $('kronolithBody').select('div').findAll(function(el) {
+                    return el.retrieve('calendar') == type + '|' + calendar;
+                }).invoke('toggle');
+            }
+        }
+        var elt = $('kronolithMenuCalendars').select('div').find(function(div) {
+            return div.retrieve('calendarclass') == type &&
+                div.retrieve('calendar') == calendar;
+        });
+        elt.toggleClassName('kronolithCalOn');
+        elt.toggleClassName('kronolithCalOff');
+        switch (type) {
+        case 'tasklists':
+            var tasklist = calendar.substr(6);
+            if (this.view == 'tasks') {
+                if (elt.hasClassName('kronolithCalOff')) {
+                    $('kronolithViewTasksBody').select('tr').findAll(function(el) {
+                        return el.retrieve('tasklist') == tasklist;
+                    }).invoke('remove');
+                } else {
+                    this.loadTasks(this.tasktype, [ tasklist ]);
+                }
+            }
+            // Fall through.
+        case 'remote':
+        case 'external':
+        case 'holiday':
+            calendar = type + '_' + calendar;
+            break;
+        }
+        this.doAction('saveCalPref', { toggle_calendar: calendar });
     },
 
     /**
@@ -2117,7 +2163,17 @@ KronolithCore = {
         if (calendar &&
             (Object.isUndefined(Kronolith.conf.calendars[type]) ||
              Object.isUndefined(Kronolith.conf.calendars[type][calendar]))) {
-            if (type == 'remote') {
+            if (type == 'internal') {
+                this.doAction('getCalendar', { cal: calendar }, function(r) {
+                    if (r.response.calendar) {
+                        Kronolith.conf.calendars.internal[calendar] = r.response.calendar;
+                        this.insertCalendarInList('internal', calendar, r.response.calendar);
+                        $('kronolithSharedCalendars').show();
+                        this.editCalendarCallback('internal|' + calendar);
+                    }
+                }.bind(this));
+                return;
+            } else if (type == 'remote') {
                 newCalendar = true;
             } else {
                 this.closeRedBox();
@@ -2147,50 +2203,67 @@ KronolithCore = {
             if (calendar && type == 'remote') {
                 $('kronolithCalendarremoteUrl').setValue(calendar);
             }
-            return;
-        }
+        } else {
+            var info = Kronolith.conf.calendars[type][calendar];
 
-        var info = Kronolith.conf.calendars[type][calendar];
+            $('kronolithCalendar' + type + 'Id').setValue(calendar);
+            $('kronolithCalendar' + type + 'Name').setValue(info.name);
+            $('kronolithCalendar' + type + 'Color').setValue(info.bg).setStyle({ backgroundColor: info.bg, color: info.fg });
 
-        $('kronolithCalendar' + type + 'Id').setValue(calendar);
-        $('kronolithCalendar' + type + 'Name').setValue(info.name);
-        $('kronolithCalendar' + type + 'Color').setValue(info.bg).setStyle({ backgroundColor: info.bg, color: info.fg });
-
-        switch (type) {
-        case 'internal':
-            $('kronolithCalendarinternalDescription').setValue(info.desc);
-            $('kronolithCalendarinternalLinkImportExport').up('span').show();
-            $('kronolithCalendarinternalExport').href = Kronolith.conf.URI_CALENDAR_EXPORT + '=' + calendar;
-            break;
-        case 'tasklists':
-            $('kronolithCalendartasklistsDescription').setValue(info.desc);
-            $('kronolithCalendartasklistsLinkImportExport').up('span').show();
-            $('kronolithCalendartasklistsExport').href = Kronolith.conf.tasks.URI_TASKLIST_EXPORT + '=' + calendar.substring(6);
-            break;
-        case 'remote':
-            $('kronolithCalendarremoteUrl').setValue(calendar);
-            $('kronolithCalendarremoteDescription').setValue(info.desc);
-            $('kronolithCalendarremoteUsername').setValue(info.user);
-            $('kronolithCalendarremotePassword').setValue(info.password);
-            break;
+            switch (type) {
+            case 'internal':
+                $('kronolithCalendarinternalDescription').setValue(info.desc);
+                $('kronolithCalendarinternalLinkImportExport').up('span').show();
+                $('kronolithCalendarinternalExport').href = Kronolith.conf.URI_CALENDAR_EXPORT + '=' + calendar;
+                break;
+            case 'tasklists':
+                $('kronolithCalendartasklistsDescription').setValue(info.desc);
+                $('kronolithCalendartasklistsLinkImportExport').up('span').show();
+                $('kronolithCalendartasklistsExport').href = Kronolith.conf.tasks.URI_TASKLIST_EXPORT + '=' + calendar.substring(6);
+                break;
+            case 'remote':
+                $('kronolithCalendarremoteUrl').setValue(calendar);
+                $('kronolithCalendarremoteDescription').setValue(info.desc);
+                $('kronolithCalendarremoteUsername').setValue(info.user);
+                $('kronolithCalendarremotePassword').setValue(info.password);
+                break;
+            }
         }
 
         /* Currently we only show the calendar form for own calendars anyway,
            but be prepared. */
         var form = $('kronolithCalendarForm' + type);
-        if (info.owner) {
+        if (newCalendar || info.owner) {
             form.enable();
-            if (type == 'internal' &&
-                calendar == Kronolith.conf.user) {
-                form.down('.kronolithCalendarDelete').hide();
-            } else {
-                form.down('.kronolithCalendarDelete').show();
+            form.down('.kronolithColorPicker').show();
+            if (type == 'internal') {
+                form.down('.kronolithCalendarSubscribe').hide();
+                form.down('.kronolithCalendarUnsubscribe').hide();
+                if (calendar == Kronolith.conf.user) {
+                    form.down('.kronolithCalendarDelete').hide();
+                } else {
+                    form.down('.kronolithCalendarDelete').show();
+                }
             }
             form.down('.kronolithCalendarSave').show();
+            form.down('.kronolithFormActions .kronolithSeparator').show();
         } else {
             form.disable();
+            form.down('.kronolithColorPicker').hide();
             form.down('.kronolithCalendarDelete').hide();
             form.down('.kronolithCalendarSave').hide();
+            if (type == 'internal') {
+                if (Kronolith.conf.calendars.internal[calendar].show) {
+                    form.down('.kronolithCalendarSubscribe').hide();
+                    form.down('.kronolithCalendarUnsubscribe').show().enable();
+                } else {
+                    form.down('.kronolithCalendarSubscribe').show().enable();
+                    form.down('.kronolithCalendarUnsubscribe').hide();
+                }
+                form.down('.kronolithFormActions .kronolithSeparator').show();
+            } else {
+                form.down('.kronolithFormActions .kronolithSeparator').hide();
+            }
         }
     },
 
@@ -3165,6 +3238,15 @@ KronolithCore = {
                 elt.disable();
                 e.stop();
                 return;
+            } else if (elt.hasClassName('kronolithCalendarSubscribe') ||
+                       elt.hasClassName('kronolithCalendarUnsubscribe')) {
+                var form = elt.up('form');
+                this.toggleCalendar($F(form.down('input[name=type]')),
+                                    $F(form.down('input[name=calendar]')));
+                this.closeRedBox();
+                window.history.back();
+                e.stop();
+                return;
             } else if (elt.tagName == 'INPUT' && elt.name == 'event_alarms[]') {
                 $('kronolithEventAlarmDefaultOff').setValue(1);
                 if ($(elt.id + 'Params')) {
@@ -3179,42 +3261,7 @@ KronolithCore = {
 
             var calClass = elt.retrieve('calendarclass');
             if (calClass) {
-                var calendar = elt.retrieve('calendar');
-                Kronolith.conf.calendars[calClass][calendar].show = !Kronolith.conf.calendars[calClass][calendar].show;
-                if ([ 'day', 'week', 'month', 'year' ].include(this.view)) {
-                    if (this.view == 'year' ||
-                        Object.isUndefined(this.ecache.get(calClass)) ||
-                        Object.isUndefined(this.ecache.get(calClass).get(calendar))) {
-                        var dates = this.viewDates(this.date, this.view);
-                        this.loadEvents(dates[0], dates[1], this.view, [[calClass, calendar]]);
-                    } else {
-                        $('kronolithBody').select('div').findAll(function(el) {
-                            return el.retrieve('calendar') == calClass + '|' + calendar;
-                        }).invoke('toggle');
-                    }
-                }
-                elt.toggleClassName('kronolithCalOn');
-                elt.toggleClassName('kronolithCalOff');
-                switch (calClass) {
-                case 'tasklists':
-                    var tasklist = calendar.substr(6);
-                    if (this.view == 'tasks') {
-                        if (elt.hasClassName('kronolithCalOff')) {
-                            $('kronolithViewTasksBody').select('tr').findAll(function(el) {
-                                return el.retrieve('tasklist') == tasklist;
-                            }).invoke('remove');
-                        } else {
-                            this.loadTasks(this.tasktype, [ tasklist ]);
-                        }
-                    }
-                    // Fall through.
-                case 'remote':
-                case 'external':
-                case 'holiday':
-                    calendar = calClass + '_' + calendar;
-                    break;
-                }
-                this.doAction('saveCalPref', { toggle_calendar: calendar });
+                this.toggleCalendar(calClass, elt.retrieve('calendar'));
                 e.stop();
                 return;
             }
@@ -3871,11 +3918,6 @@ KronolithCore = {
             document.body.insert(content.hide());
         }
         RedBox.close();
-    },
-
-    toggleCalendar: function(elm)
-    {
-        elm.toggleClassName('on');
     },
 
     // By default, no context onShow action
