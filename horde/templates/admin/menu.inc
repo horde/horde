@@ -1,15 +1,17 @@
 <div id="menu">
  <div class="leftFloat">
 <?php
-$menu = new Horde_Menu(Horde_Menu::MASK_NONE);
-$list = $registry->callByPackage('horde', 'admin_list');
-if (!is_a($list, 'PEAR_Error')) {
-    foreach ($list as $vals) {
-        $img = isset($vals['icon']) ? $registry->getImageDir() . '/' . $vals['icon'] : $registry->get('icon');
-        $menu->add((string)Horde::url($registry->applicationWebPath($vals['link'])), $vals['name'], $img, '');
-    }
-}
-echo $menu->render();
+    $menu = new Horde_Menu(Horde_Menu::MASK_NONE);
+    try {
+        foreach ($registry->callByPackage('horde', 'admin_list') as $val) {
+            $img = isset($val['icon'])
+                ? $registry->getImageDir() . '/' . $val['icon']
+                : $registry->get('icon');
+            $menu->add(strval(Horde::url($registry->applicationWebPath($val['link']))), $val['name'], $img, '');
+        }
+    } catch (Horde_Exception $e) {}
+
+    echo $menu->render();
 ?>
  </div>
 </div>
