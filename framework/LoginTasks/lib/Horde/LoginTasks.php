@@ -80,6 +80,7 @@ class Horde_LoginTasks
             self::$_instances[$app] = new self(
                 new Horde_LoginTasks_Backend_Horde(
                     $GLOBALS['registry'],
+                    $GLOBALS['prefs'],
                     $app
                 ),
                 $app
@@ -138,10 +139,7 @@ class Horde_LoginTasks
         /* Get last task run date(s). Array keys are app names, values are
          * last run timestamps. Special key '_once' contains list of
          * ONCE tasks previously run. */
-        $lasttask_pref = @unserialize($GLOBALS['prefs']->getValue('last_logintasks'));
-        if (!is_array($lasttask_pref)) {
-            $lasttask_pref = array();
-        }
+        $lasttask_pref = $this->_backend->getLastTasks();
 
         /* Create time objects for today's date and last task run date. */
         $cur_date = getdate();

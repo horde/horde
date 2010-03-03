@@ -23,15 +23,31 @@ extends Horde_LoginTasks_Backend
     private $_app;
 
     /**
+     * The Horde registry.
+     *
+     * @var Horde_Registry
+     */
+    private $_registry;
+
+    /**
+     * The Horde preferences system
+     *
+     * @var Horde_Prefs
+     */
+    private $_prefs;
+
+    /**
      * Constructor
      *
      * @param string $app The Horde application that is currently active.
      */
     public function __construct(
         Horde_Registry $registry,
+        Horde_Prefs    $prefs,
         $app
     ) {
         $this->_registry = $registry;
+        $this->_prefs    = $prefs;
         $this->_app      = $app;
     }
     
@@ -105,6 +121,22 @@ extends Horde_LoginTasks_Backend
             }
         }
         return $tasks;
+    }
+
+    /**
+     * Get the information about the last time the tasks were run. Array keys
+     * are app names, values are last run timestamps. Special key '_once'
+     * contains list of ONCE tasks previously run.
+     *
+     * @return array The information about the last time the tasks were run.
+     */
+    public function getLastTasks()
+    {
+        $lasttask_pref = @unserialize($this->_prefs->getValue('last_logintasks'));
+        if (!is_array($lasttask_pref)) {
+            $lasttask_pref = array();
+        }
+        return $lasttask_pref;
     }
 
     /**

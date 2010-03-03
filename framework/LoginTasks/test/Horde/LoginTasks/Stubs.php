@@ -1,17 +1,22 @@
 <?php
 
 class Horde_LoginTasks_Stub_Prefs
+extends Horde_Prefs
 {
     private $_storage = array();
 
-    public function setValue($key, $value)
+    public function __construct()
     {
-        $this->_storage[$key] = $value;
     }
 
-    public function getValue($key)
+    public function setValue($pref, $val, $convert = true)
     {
-        return isset($this->_storage[$key]) ? $this->_storage[$key] : null;
+        $this->_storage[$pref] = $val;
+    }
+
+    public function getValue($pref, $convert = true)
+    {
+        return isset($this->_storage[$pref]) ? $this->_storage[$pref] : null;
     }
 }
 

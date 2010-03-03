@@ -56,6 +56,15 @@ abstract class Horde_LoginTasks_Backend
     abstract public function getTasks();
 
     /**
+     * Get the information about the last time the tasks were run. Array keys
+     * are app names, values are last run timestamps. Special key '_once'
+     * contains list of ONCE tasks previously run.
+     *
+     * @return array The information about the last time the tasks were run.
+     */
+    abstract public function getLastTasks();
+
+    /**
      * Return the URL of the login tasks view.
      *
      * @return string The URL of the login tasks view
