@@ -89,7 +89,7 @@
 </div>
 
 <div id="kronolithEventTabReminder" class="kronolithTabsOption" style="display:none">
-  <?php printf(_("%s Don't set %s or %s set %s before the event %s and alert me via %s the usual method(s) %s or %s the method(s) %s"),
+  <?php printf(_("%s Don't set %s or %s set %s before the event %s"),
   '<label for="kronolithEventAlarmOff"><input type="radio" name="alarm" id="kronolithEventAlarmOff" value="0" checked="checked" />', '</label>',
   '<label for="kronolithEventAlarmOn"><input type="radio" name="alarm" id="kronolithEventAlarmOn" value="1" />', '</label>
   <input type="text" name="alarm_value" id="kronolithEventAlarmValue" size="3" value="15" class="kronolithEventValue" />
@@ -100,12 +100,13 @@
     <option value="10080">' . _("weeks") . '</option>
   </select>
   <label for="kronolithEventAlarmValue">',
-  '</label>',
+  '</label>') ?>
+  <br />
+  <?php printf(_("Alert me %s as default %s or %s using:"),
   '<input type="radio" name="alarm_change_method" id="kronolithEventAlarmDefaultOn" value="0" checked="checked" />
   <label for="kronolithEventAlarmDefaultOn">', '</label>',
-  '<input type="radio" name="alarm_change_method" id="kronolithEventAlarmDefaultOff" value="1" />
-  <label for="kronolithEventAlarmDefaultOff">',
-  '</label>' . $alarm_methods . $alarm_params) ?>
+  '<input type="radio" name="alarm_change_method" id="kronolithEventAlarmDefaultOff" value="1" style="display:none" />') ?>
+  <?php echo $alarm_methods . $alarm_params ?>
 </div>
 
 <div id="kronolithEventTabRecur" class="kronolithTabsOption" style="display:none">
