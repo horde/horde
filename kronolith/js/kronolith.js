@@ -229,7 +229,7 @@ KronolithCore = {
     logout: function()
     {
         this.is_logout = true;
-        this.redirect(Kronolith.conf.URI_AJAX + 'LogOut');
+        this.redirect(Kronolith.conf.URI_AJAX + 'logOut');
     },
 
     redirect: function(url)
@@ -364,7 +364,7 @@ KronolithCore = {
                 });
             });
             this.startLoading('search', query);
-            this.doAction('SearchEvents',
+            this.doAction('searchEvents',
                           { cals: cals.toJSON(), query: query },
                           function(r) {
                               // Hide spinner.
@@ -1103,7 +1103,7 @@ KronolithCore = {
                 calendar = cal.join('|');
             this.startLoading(calendar, start + end);
             this.storeCache($H(), calendar);
-            this.doAction('ListEvents',
+            this.doAction('listEvents',
                           { start: start,
                             end: end,
                             cal: calendar,
@@ -1643,7 +1643,7 @@ KronolithCore = {
                     loading = true;
                     this.loading++;
                     $('kronolithLoading').show();
-                    this.doAction('ListTasks',
+                    this.doAction('listTasks',
                                   { type: type,
                                     list: list },
                                   function(r) {
@@ -1915,7 +1915,7 @@ KronolithCore = {
         this.updateTasklistDropDown();
         if (id) {
             RedBox.loading();
-            this.doAction('GetTask', { list: tasklist, id: id }, this.editTaskCallback.bind(this));
+            this.doAction('getTask', { list: tasklist, id: id }, this.editTaskCallback.bind(this));
         } else {
             $('kronolithTaskId').clear();
             $('kronolithTaskOldList').clear();
@@ -2055,7 +2055,7 @@ KronolithCore = {
             taskid = $F('kronolithTaskId');
         this.loading++;
         $('kronolithLoading').show();
-        this.doAction('SaveTask',
+        this.doAction('saveTask',
                       $H($('kronolithTaskForm').serialize({ hash: true }))
                           .merge({ sig: this.tasktype }),
                       function(r) {
@@ -2082,7 +2082,7 @@ KronolithCore = {
             this.editCalendarCallback(calendar);
         } else {
             RedBox.loading();
-            this.doAction('ChunkContent', { chunk: 'calendar' }, function(r) {
+            this.doAction('chunkContent', { chunk: 'calendar' }, function(r) {
                 if (r.response.chunk) {
                     RedBox.showHtml(r.response.chunk);
                     this.editCalendarCallback(calendar);
@@ -2219,7 +2219,7 @@ KronolithCore = {
         var type = form.id.replace(/kronolithCalendarForm/, ''),
             data = form.serialize({ hash: true });
 
-        this.doAction('SaveCalendar',
+        this.doAction('saveCalendar',
                       data,
                       function(r) {
                           if (r.response.saved) {
@@ -2710,7 +2710,7 @@ KronolithCore = {
                 Horde_Calendar.hideCal();
                 var cal = $F('kronolithEventCalendar'),
                     eventid = $F('kronolithEventId');
-                this.doAction('DeleteEvent',
+                this.doAction('deleteEvent',
                               { cal: cal, id: eventid },
                               function(r) {
                                   if (r.response.deleted) {
@@ -2734,7 +2734,7 @@ KronolithCore = {
             case 'kronolithTaskDelete':
                 var tasklist = $F('kronolithTaskOldList'),
                     taskid = $F('kronolithTaskId');
-                this.doAction('DeleteTask',
+                this.doAction('deleteTask',
                               { list: tasklist, id: taskid },
                               function(r) {
                                   if (r.response.deleted) {
@@ -3046,7 +3046,7 @@ KronolithCore = {
                 var taskid = elt.up('tr.kronolithTaskRow', 0).retrieve('taskid'),
                     tasklist = elt.up('tr.kronolithTaskRow', 0).retrieve('tasklist');
                 this.toggleCompletionClass(taskid);
-                this.doAction('ToggleCompletion',
+                this.doAction('toggleCompletion',
                               { list: tasklist, id: taskid },
                               function(r) {
                                   if (r.response.toggled) {
@@ -3084,7 +3084,7 @@ KronolithCore = {
                             e.stop();
                             return;
                         }
-                        this.doAction('GetRemoteInfo',
+                        this.doAction('getRemoteInfo',
                                       params,
                                       function(r) {
                                           if (r.response.success) {
@@ -3109,7 +3109,7 @@ KronolithCore = {
                             params.username = $F('kronolithCalendarremoteUsername');
                             params.password =  $F('kronolithCalendarremotePassword');
                         }
-                        this.doAction('GetRemoteInfo',
+                        this.doAction('getRemoteInfo',
                                       params,
                                       function(r) {
                                           if (r.response.success) {
@@ -3144,7 +3144,7 @@ KronolithCore = {
                 var form = elt.up('form'),
                     type = form.id.replace(/kronolithCalendarForm/, ''),
                     calendar = $F('kronolithCalendar' + type + 'Id');
-                this.doAction('DeleteCalendar',
+                this.doAction('deleteCalendar',
                               { type: type, calendar: calendar },
                               function(r) {
                                   if (r.response.deleted) {
@@ -3214,7 +3214,7 @@ KronolithCore = {
                     calendar = calClass + '_' + calendar;
                     break;
                 }
-                this.doAction('SaveCalPref', { toggle_calendar: calendar });
+                this.doAction('saveCalPref', { toggle_calendar: calendar });
                 e.stop();
                 return;
             }
@@ -3256,7 +3256,7 @@ KronolithCore = {
 
         drop.insert(el);
         this.startLoading(cal, start + end);
-        this.doAction('UpdateEvent',
+        this.doAction('updateEvent',
                       { cal: cal,
                         id: eventid,
                         view: this.view,
@@ -3381,7 +3381,7 @@ KronolithCore = {
                               end: event.value.end });
         }
         this.doAction(
-            'UpdateEvent',
+            'updateEvent',
             { cal: event.value.calendar,
               id: event.key,
               view: this.view,
@@ -3431,10 +3431,10 @@ KronolithCore = {
         $('kronolithEventSave').show();
         $('kronolithEventDelete').show();
         $('kronolithEventForm').down('.kronolithFormActions .kronolithSeparator').show();
-        this.doAction('ListTopTags', {}, this.topTags);
+        this.doAction('listTopTags', {}, this.topTags);
         if (id) {
             RedBox.loading();
-            this.doAction('GetEvent', { cal: calendar, id: id, date: date }, this.editEventCallback.bind(this));
+            this.doAction('getEvent', { cal: calendar, id: id, date: date }, this.editEventCallback.bind(this));
         } else {
             $('kronolithEventTags').autocompleter.init();
             var d;
@@ -3479,7 +3479,7 @@ KronolithCore = {
             end = viewDates[1].dateString();
         $('kronolithEventTags').autocompleter.shutdown();
         this.startLoading(cal, start + end);
-        this.doAction('SaveEvent',
+        this.doAction('saveEvent',
                       $H($('kronolithEventForm').serialize({ hash: true }))
                           .merge({
                               view: this.view,
@@ -3506,7 +3506,7 @@ KronolithCore = {
 
         $('kronolithQuickinsert').fade();
         this.startLoading(null, start + end);
-        this.doAction('QuickSaveEvent',
+        this.doAction('quickSaveEvent',
                       $H({ text: text,
                            view: this.view,
                            view_start: start,
@@ -3657,7 +3657,7 @@ KronolithCore = {
                 var tr = new Element('tr'), i;
                 if (attendee.e) {
                     this.fbLoading++;
-                    this.doAction('GetFreeBusy',
+                    this.doAction('getFreeBusy',
                                   { email: attendee.e },
                                   function(r) {
                                       this.fbLoading--;

@@ -114,7 +114,7 @@ abstract class Horde_Ajax_Application_Base
      *
      * @param Horde_Variables $vars  None used.
      */
-    public function LogOut($vars)
+    public function logOut($vars)
     {
         Horde::redirect(str_replace('&amp;', '&', Horde::getServiceLink('logout', $this->_app)));
         exit;

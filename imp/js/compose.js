@@ -384,9 +384,9 @@ Event.observe(window, 'beforeunload', ImpCompose.onBeforeUnload.bind(ImpCompose)
 /* Catch dialog actions. */
 document.observe('IMPDialog:success', function(e) {
     switch (e.memo) {
-    case 'PGPPersonal':
-    case 'PGPSymmetric':
-    case 'SMIMEPersonal':
+    case 'pgpPersonal':
+    case 'pgpSymmetric':
+    case 'smimePersonal':
         IMPDialog.noreload = true;
         ImpCompose.uniqSubmit('send_message');
         break;

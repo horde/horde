@@ -1066,15 +1066,15 @@ class IMP
         Horde::addScriptFile('dialog.js', 'imp');
 
         switch ($type) {
-        case 'PGPPersonal':
+        case 'pgpPersonal':
             $text = _("Enter your personal PGP passphrase.");
             break;
 
-        case 'PGPSymmetric':
+        case 'pgpSymmetric':
             $text = _("Enter the passphrase used to encrypt this message.");
             break;
 
-        case 'SMIMEPersonal':
+        case 'smimePersonal':
             $text = _("Enter your personal S/MIME passphrase.");
             break;
         }

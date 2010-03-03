@@ -195,7 +195,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
         /* Make sure we have a passphrase. */
         $passphrase = $this->_impsmime->getPassphrase();
         if (is_null($passphrase)) {
-            $status[] = Horde::link('#', '', '', '', IMP::passphraseDialogJS('SMIMEPersonal') . ';return false;') . _("You must enter the passphrase for your S/MIME private key to view this data.") . '</a>';
+            $status[] = Horde::link('#', '', '', '', IMP::passphraseDialogJS('smimePersonal') . ';return false;') . _("You must enter the passphrase for your S/MIME private key to view this data.") . '</a>';
             return null;
         }
 

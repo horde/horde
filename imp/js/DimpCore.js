@@ -289,7 +289,7 @@ var DimpCore = {
     logout: function(url)
     {
         this.is_logout = true;
-        this.redirect(url || (DIMP.conf.URI_AJAX + 'LogOut'));
+        this.redirect(url || (DIMP.conf.URI_AJAX + 'logOut'));
     },
 
     redirect: function(url, force)
@@ -487,7 +487,7 @@ var DimpCore = {
             break;
 
         case 'ctx_contacts_add':
-            this.doAction('AddContact', { name: baseelt.retrieve('personal'), email: baseelt.retrieve('email') }, {}, true);
+            this.doAction('addContact', { name: baseelt.retrieve('personal'), email: baseelt.retrieve('email') }, {}, true);
             break;
         }
     },
@@ -519,9 +519,9 @@ var DimpCore = {
         /* Catch dialog actions. */
         document.observe('IMPDialog:success', function(e) {
             switch (e.memo) {
-            case 'PGPPersonal':
-            case 'PGPSymmetric':
-            case 'SMIMEPersonal':
+            case 'pgpPersonal':
+            case 'pgpSymmetric':
+            case 'smimePersonal':
                 IMPDialog.noreload = true;
                 this.reloadMessage({});
                 break;

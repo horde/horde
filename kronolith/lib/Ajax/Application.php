@@ -24,7 +24,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function ListEvents()
+    public function listEvents()
     {
         $start = new Horde_Date($this->_vars->start);
         $end   = new Horde_Date($this->_vars->end);
@@ -49,7 +49,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function GetEvent()
+    public function getEvent()
     {
         $result = new stdClass;
 
@@ -73,7 +73,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function SaveEvent()
+    public function saveEvent()
     {
         $result = $this->_signedResponse($this->_vars->cal);
 
@@ -102,7 +102,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function QuickSaveEvent()
+    public function quickSaveEvent()
     {
         try {
             $event = Kronolith::quickAdd($this->_vars->text, Kronolith::getDefaultCalendar(Horde_Perms::EDIT));
@@ -116,7 +116,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function UpdateEvent()
+    public function updateEvent()
     {
         $result = $this->_signedResponse($this->_vars->cal);
 
@@ -183,7 +183,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function DeleteEvent()
+    public function deleteEvent()
     {
         $result = new stdClass;
 
@@ -216,7 +216,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function SearchEvents()
+    public function searchEvents()
     {
         $query = Horde_Serialize::unserialize($this->_vars->query, Horde_Serialize::JSON);
         if (!isset($query->start)) {
@@ -255,7 +255,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function ListTasks()
+    public function listTasks()
     {
         if (!$GLOBALS['registry']->hasMethod('tasks/listTasks')) {
             return false;
@@ -280,7 +280,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function GetTask()
+    public function getTask()
     {
         if (!$GLOBALS['registry']->hasMethod('tasks/getTask') ||
             !isset($this->_vars->id) ||
@@ -306,7 +306,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function SaveTask()
+    public function saveTask()
     {
         if (!$GLOBALS['registry']->hasMethod('tasks/updateTask') ||
             !$GLOBALS['registry']->hasMethod('tasks/addTask')) {
@@ -369,7 +369,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function DeleteTask()
+    public function deleteTask()
     {
         $result = new stdClass;
 
@@ -392,7 +392,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function ToggleCompletion()
+    public function toggleCompletion()
     {
         $result = new stdClass;
 
@@ -413,7 +413,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function ListTopTags()
+    public function listTopTags()
     {
         $this->notify = false;
         $tagger = new Kronolith_Tagger();
@@ -429,7 +429,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function GetFreeBusy()
+    public function getFreeBusy()
     {
         $result = new stdClass;
         try {
@@ -443,7 +443,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function SearchCalendars()
+    public function searchCalendars()
     {
         $result = new stdClass;
         $result->events = 'Searched for calendars: ' . $this->_vars->title;
@@ -453,7 +453,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function SaveCalendar()
+    public function saveCalendar()
     {
         $calendar_id = $this->_vars->calendar;
         $result = new stdClass;
@@ -575,7 +575,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function DeleteCalendar()
+    public function deleteCalendar()
     {
         $calendar_id = $this->_vars->calendar;
         $result = new stdClass;
@@ -632,7 +632,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function GetRemoteInfo()
+    public function getRemoteInfo()
     {
         $params = array('timeout' => 15);
         if ($user = $this->_vars->username) {
@@ -671,12 +671,12 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function SaveCalPref()
+    public function saveCalPref()
     {
         return false;
     }
 
-    public function ChunkContent()
+    public function chunkContent()
     {
         $chunk = basename(Horde_Util::getPost('chunk'));
         $result = new stdClass;

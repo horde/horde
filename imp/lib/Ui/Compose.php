@@ -305,15 +305,15 @@ class IMP_Ui_Compose
     {
         switch ($type) {
         case 'pgp':
-            $js = IMP::passphraseDialogJS('PGPPersonal');
+            $js = IMP::passphraseDialogJS('pgpPersonal');
             break;
 
         case 'pgp_symm':
-            $js = IMP::passphraseDialogJS('PGPSymmetric', array('symmetricid' => 'imp_compose_' . $cacheid));
+            $js = IMP::passphraseDialogJS('pgpSymmetric', array('symmetricid' => 'imp_compose_' . $cacheid));
             break;
 
         case 'smime':
-            $js = IMP::passphraseDialogJS('SMIMEPersonal');
+            $js = IMP::passphraseDialogJS('smimePersonal');
             break;
         }
 

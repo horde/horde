@@ -22,7 +22,7 @@ var DimpCompose = {
                 !DIMP.conf_compose.qreply) {
                 DIMP.baseWindow.focus();
             }
-            DimpCore.doAction(DIMP.conf_compose.auto_save_interval_val ? 'DeleteDraft' : 'CancelCompose', { imp_compose: $F('composeCache') }, { ajaxopts: { asynchronous: DIMP.conf_compose.qreply } });
+            DimpCore.doAction(DIMP.conf_compose.auto_save_interval_val ? 'deleteDraft' : 'cancelCompose', { imp_compose: $F('composeCache') }, { ajaxopts: { asynchronous: DIMP.conf_compose.qreply } });
             this.updateDraftsMailbox();
             return this.closeCompose();
         }
@@ -146,9 +146,9 @@ var DimpCompose = {
             this.skip_spellcheck = true;
         }
 
-        if (action == 'SendMessage' || action == 'SaveDraft') {
+        if (action == 'sendMessage' || action == 'saveDraft') {
             switch (action) {
-            case 'SendMessage':
+            case 'sendMessage':
                 if (($F('subject') == '') &&
                     !window.confirm(DIMP.text_compose.nosubject)) {
                     return;
@@ -175,7 +175,7 @@ var DimpCompose = {
         c.setStyle({ cursor: 'wait' });
         this.skip_spellcheck = false;
 
-        if (action == 'AddAttachment') {
+        if (action == 'addAttachment') {
             // We need a submit action here because browser security models
             // won't let us access files on user's filesystem otherwise.
             this.uploading = true;
@@ -192,7 +192,7 @@ var DimpCompose = {
 
             // Can't disable until we send the message - or else nothing
             // will get POST'ed.
-            if (action == 'SendMessage' || action == 'SaveDraft') {
+            if (action == 'sendMessage' || action == 'saveDraft') {
                 this.setDisabled(true);
             }
         }
@@ -311,11 +311,11 @@ var DimpCompose = {
             this.rte.destroy();
 
             this.RTELoading('show');
-            DimpCore.doAction('Html2Text', { text: text }, { callback: this.setMessageText.bind(this), ajaxopts: { asynchronous: false } });
+            DimpCore.doAction('html2Text', { text: text }, { callback: this.setMessageText.bind(this), ajaxopts: { asynchronous: false } });
             this.RTELoading('hide');
         } else {
             if (!noupdate) {
-                DimpCore.doAction('Text2Html', { text: $F('composeMessage') }, { callback: this.setMessageText.bind(this), ajaxopts: { asynchronous: false } });
+                DimpCore.doAction('text2Html', { text: $F('composeMessage') }, { callback: this.setMessageText.bind(this), ajaxopts: { asynchronous: false } });
             }
 
             config = Object.clone(IMP.ckeditor_config);
@@ -422,7 +422,7 @@ var DimpCompose = {
             this.auto_save_interval = new PeriodicalExecuter(function() {
                 var curr_hash = MD5.hash($('to', 'cc', 'bcc', 'subject').invoke('getValue').join('\0') + (IMP_Compose_Base.editor_on ? this.rte.getData() : $F('composeMessage')));
                 if (this.last_msg && curr_hash != this.last_msg) {
-                    this.uniqueSubmit('AutoSaveDraft');
+                    this.uniqueSubmit('autoSaveDraft');
                 }
                 this.last_msg = curr_hash;
             }.bind(this), DIMP.conf_compose.auto_save_interval_val * 60);
@@ -572,7 +572,7 @@ var DimpCompose = {
         if (!$('attach_list').childElements().size()) {
             $('attach_list').hide();
         }
-        DimpCore.doAction('DeleteAttach', { atc_indices: ids, imp_compose: $F('composeCache') });
+        DimpCore.doAction('deleteAttach', { atc_indices: ids, imp_compose: $F('composeCache') });
     },
 
     resizeMsgArea: function()
@@ -618,7 +618,7 @@ var DimpCompose = {
     uploadAttachment: function()
     {
         var u = $('upload');
-        this.uniqueSubmit('AddAttachment');
+        this.uniqueSubmit('addAttachment');
         u.next().hide();
         u.replace(new Element('SPAN', { id: 'upload_wait' }).insert(DIMP.text_compose.uploading + ' (' + $F(u) + ')'));
     },
@@ -679,7 +679,7 @@ var DimpCompose = {
             case 'draft_button':
             case 'send_button':
                 if (!this.disabled) {
-                    this.uniqueSubmit(id == 'send_button' ? 'SendMessage' : 'SaveDraft');
+                    this.uniqueSubmit(id == 'send_button' ? 'sendMessage' : 'saveDraft');
                 }
                 break;
 
@@ -726,9 +726,9 @@ var DimpCompose = {
                 });
                 if (id.startsWith('reply')) {
                     $('to_loading_img').show();
-                    DimpCore.doAction('GetReplyData', { headeronly: 1, imp_compose: $F('composeCache'), type: 'reply' }, { callback: this.swapToAddressCallback.bind(this) });
+                    DimpCore.doAction('getReplyData', { headeronly: 1, imp_compose: $F('composeCache'), type: 'reply' }, { callback: this.swapToAddressCallback.bind(this) });
                 } else {
-                    DimpCore.doAction('GetForwardData', { dataonly: 1, imp_compose: $F('composeCache'), type: (id == 'fwdattachnotice' ? 'forward_body' : 'forward_attach') }, { callback: this.forwardAddCallback.bind(this) });
+                    DimpCore.doAction('getForwardData', { dataonly: 1, imp_compose: $F('composeCache'), type: (id == 'fwdattachnotice' ? 'forward_body' : 'forward_attach') }, { callback: this.forwardAddCallback.bind(this) });
                 }
                 e.stop();
                 return;

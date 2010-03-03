@@ -222,7 +222,7 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
 
                     /* Ask for the correct passphrase if this is encrypted
                      * symmetrically. */
-                    $status[] = Horde::link('#', '', '', '', IMP::passphraseDialogJS('PGPSymmetric', array('symmetricid' => $symmetric_id)) . ';return false;') . _("You must enter the passphrase used to encrypt this message to view it.") . '</a>';
+                    $status[] = Horde::link('#', '', '', '', IMP::passphraseDialogJS('pgpSymmetric', array('symmetricid' => $symmetric_id)) . ';return false;') . _("You must enter the passphrase used to encrypt this message to view it.") . '</a>';
 
                     return null;
                 }
@@ -252,7 +252,7 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
                     if (is_null($personal_pass)) {
                         /* Ask for the private key's passphrase if this is
                          * encrypted asymmetrically. */
-                        $status[] = Horde::link('#', '', '', '', IMP::passphraseDialogJS('PGPPersonal') . ';return false;') . _("You must enter the passphrase for your PGP private key to view this message.") . '</a>';
+                        $status[] = Horde::link('#', '', '', '', IMP::passphraseDialogJS('pgpPersonal') . ';return false;') . _("You must enter the passphrase for your PGP private key to view this message.") . '</a>';
                         return null;
                     }
                 } else {

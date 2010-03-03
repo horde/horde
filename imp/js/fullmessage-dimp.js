@@ -21,14 +21,14 @@ var DimpFullmessage = {
         case 'reply_all':
         case 'reply_auto':
         case 'reply_list':
-            func = 'GetReplyData';
+            func = 'getReplyData';
             break;
 
         case 'forward_auto':
         case 'forward_attach':
         case 'forward_body':
         case 'forward_both':
-            func = 'GetForwardData';
+            func = 'getForwardData';
             break;
         }
 

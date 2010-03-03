@@ -233,7 +233,7 @@ var DimpBase = {
             this.highlightSidebar('appportal');
             location.hash = encodeURIComponent(loc);
             DimpCore.setTitle(DIMP.text.portal);
-            DimpCore.doAction('ShowPortal', {}, { callback: this._portalCallback.bind(this) });
+            DimpCore.doAction('showPortal', {}, { callback: this._portalCallback.bind(this) });
             break;
 
         case 'options':
@@ -368,7 +368,7 @@ var DimpBase = {
 
         this.viewport = new ViewPort({
             // Mandatory config
-            ajax_url: DIMP.conf.URI_AJAX + 'ViewPort',
+            ajax_url: DIMP.conf.URI_AJAX + 'viewPort',
             container: container,
             onContent: function(r, mode) {
                 var bg, re, u,
@@ -719,7 +719,7 @@ var DimpBase = {
         case 'ctx_folder_empty':
             tmp = baseelt.up('LI');
             if (window.confirm(DIMP.text.empty_folder.replace(/%s/, tmp.readAttribute('title')))) {
-                DimpCore.doAction('EmptyFolder', { mbox: tmp.retrieve('mbox') }, { callback: this._emptyFolderCallback.bind(this) });
+                DimpCore.doAction('emptyFolder', { mbox: tmp.retrieve('mbox') }, { callback: this._emptyFolderCallback.bind(this) });
             }
             break;
 
@@ -727,7 +727,7 @@ var DimpBase = {
         case 'ctx_vfolder_delete':
             tmp = baseelt.up('LI');
             if (window.confirm(DIMP.text.delete_folder.replace(/%s/, tmp.readAttribute('title')))) {
-                DimpCore.doAction('DeleteMailbox', { mbox: tmp.retrieve('mbox') }, { callback: this.mailboxCallback.bind(this) });
+                DimpCore.doAction('deleteMailbox', { mbox: tmp.retrieve('mbox') }, { callback: this.mailboxCallback.bind(this) });
             }
             break;
 
@@ -1146,7 +1146,7 @@ var DimpBase = {
 
         this.loadingImg('msg', true);
 
-        DimpCore.doAction('ShowPreview', this.viewport.addRequestParams(params || {}), { uids: this.viewport.createSelection('dataob', this.pp), callback: this._loadPreviewCallback.bind(this) });
+        DimpCore.doAction('showPreview', this.viewport.addRequestParams(params || {}), { uids: this.viewport.createSelection('dataob', this.pp), callback: this._loadPreviewCallback.bind(this) });
     },
 
     _loadPreviewCallback: function(resp)
@@ -1439,7 +1439,7 @@ var DimpBase = {
         }
 
         $(check).down('A').update('[' + DIMP.text.check + ']');
-        DimpCore.doAction('Poll', args);
+        DimpCore.doAction('poll', args);
     },
 
     pollCallback: function(r)
@@ -1585,7 +1585,7 @@ var DimpBase = {
             dropbase = (drop == $('dropbase'));
             if (dropbase ||
                 (ftype != 'special' && !this.isSubfolder(drag, drop))) {
-                DimpCore.doAction('RenameMailbox', { old_name: drag.retrieve('mbox'), new_parent: dropbase ? '' : foldername, new_name: drag.retrieve('l') }, { callback: this.mailboxCallback.bind(this) });
+                DimpCore.doAction('renameMailbox', { old_name: drag.retrieve('mbox'), new_parent: dropbase ? '' : foldername, new_name: drag.retrieve('l') }, { callback: this.mailboxCallback.bind(this) });
             }
         } else if (ftype != 'container') {
             sel = this.viewport.getSelected();
@@ -1600,11 +1600,11 @@ var DimpBase = {
 
             if (uids.size()) {
                 if (e.memo.dragevent.ctrlKey) {
-                    DimpCore.doAction('CopyMessages', this.viewport.addRequestParams({ mboxto: foldername }), { uids: uids });
+                    DimpCore.doAction('copyMessages', this.viewport.addRequestParams({ mboxto: foldername }), { uids: uids });
                 } else if (this.folder != foldername) {
                     // Don't allow drag/drop to the current folder.
                     this.updateFlag(uids, '\\deleted', true);
-                    DimpCore.doAction('MoveMessages', this.viewport.addRequestParams({ mboxto: foldername }), { uids: uids });
+                    DimpCore.doAction('moveMessages', this.viewport.addRequestParams({ mboxto: foldername }), { uids: uids });
                 }
             }
         }
@@ -2188,7 +2188,7 @@ var DimpBase = {
             case 'rename':
                 folder = folder.up('LI');
                 if (folder.retrieve('l') != val) {
-                    action = 'RenameMailbox';
+                    action = 'renameMailbox';
                     params = {
                         old_name: folder.retrieve('mbox'),
                         new_parent: folder.up().hasClassName('folderlist') ? '' : folder.up(1).previous().retrieve('mbox'),
@@ -2199,7 +2199,7 @@ var DimpBase = {
 
             case 'create':
             case 'createsub':
-                action = 'CreateMailbox';
+                action = 'createMailbox';
                 params = { mbox: val };
                 if (mode == 'createsub') {
                     params.parent = folder.up('LI').retrieve('mbox');
@@ -2435,7 +2435,7 @@ var DimpBase = {
             cback = this._folderLoadCallback.bind(this);
         }
 
-        DimpCore.doAction('ListMailboxes', params, { callback: cback });
+        DimpCore.doAction('listMailboxes', params, { callback: cback });
     },
 
     // Folder actions.
@@ -2658,7 +2658,7 @@ var DimpBase = {
     subscribeFolder: function(f, sub)
     {
         var fid = this.getFolderId(f);
-        DimpCore.doAction('Subscribe', { mbox: f, sub: Number(sub) });
+        DimpCore.doAction('subscribe', { mbox: f, sub: Number(sub) });
 
         if (this.showunsub) {
             [ $(fid) ].invoke(sub ? 'removeClassName' : 'addClassName', 'unsubFolder');
@@ -2710,7 +2710,7 @@ var DimpBase = {
     reportSpam: function(spam, opts)
     {
         opts = opts || {};
-        if (this._doMsgAction('ReportSpam', opts, { spam: spam })) {
+        if (this._doMsgAction('reportSpam', opts, { spam: spam })) {
             // Indicate to the user that something is happening (since spam
             // reporting may not be instantaneous).
             this.loadingImg('viewport', true);
@@ -2722,7 +2722,7 @@ var DimpBase = {
     blacklist: function(blacklist, opts)
     {
         opts = opts || {};
-        this._doMsgAction('Blacklist', opts, { blacklist: blacklist });
+        this._doMsgAction('blacklist', opts, { blacklist: blacklist });
     },
 
     // opts = 'mailbox', 'uid'
@@ -2742,7 +2742,7 @@ var DimpBase = {
 
         opts.vs = vs;
 
-        this._doMsgAction('DeleteMessages', opts, {});
+        this._doMsgAction('deleteMessages', opts, {});
         this.updateFlag(vs, '\\deleted', true);
     },
 
@@ -2780,7 +2780,7 @@ var DimpBase = {
 
         this.updateFlag(vs, flag, set);
         if (!opts.noserver) {
-            DimpCore.doAction('FlagMessages', this.viewport.addRequestParams({ flags: flags.toJSON(), view: this.folder }), { uids: vs });
+            DimpCore.doAction('flagMessages', this.viewport.addRequestParams({ flags: flags.toJSON(), view: this.folder }), { uids: vs });
         }
     },
 
@@ -2788,7 +2788,7 @@ var DimpBase = {
     // mbox = (string) The mailbox to flag
     flagAll: function(type, set, mbox)
     {
-        DimpCore.doAction('FlagAll', { flags: [ type ].toJSON(), set: Number(set), mbox: mbox }, { callback: this._flagAllCallback.bind(this) });
+        DimpCore.doAction('flagAll', { flags: [ type ].toJSON(), set: Number(set), mbox: mbox }, { callback: this._flagAllCallback.bind(this) });
     },
 
     hasFlag: function(f, r)
@@ -2839,12 +2839,12 @@ var DimpBase = {
     /* Miscellaneous folder actions. */
     purgeDeleted: function()
     {
-        DimpCore.doAction('PurgeDeleted', this.viewport.addRequestParams({}));
+        DimpCore.doAction('purgeDeleted', this.viewport.addRequestParams({}));
     },
 
     modifyPoll: function(folder, add)
     {
-        DimpCore.doAction('ModifyPoll', { add: Number(add), mbox: folder }, { callback: this._modifyPollCallback.bind(this) });
+        DimpCore.doAction('modifyPoll', { add: Number(add), mbox: folder }, { callback: this._modifyPollCallback.bind(this) });
     },
 
     _modifyPollCallback: function(r)
