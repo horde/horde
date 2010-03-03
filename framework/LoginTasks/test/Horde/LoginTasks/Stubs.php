@@ -1,5 +1,50 @@
 <?php
 
+if (!class_exists('Horde_Prefs')) {
+    class Horde_Prefs {
+        public function setValue($pref, $val, $convert = true)
+        {
+        }
+
+        public function getValue($pref, $convert = true)
+        {
+        }
+    }
+}
+
+if (!class_exists('Horde_Registry')) {
+    class Horde_Registry {
+        public function get($parameter, $app = null)
+        {
+        }
+
+        public function getAppDrivers($app, $prefix)
+        {
+        }
+    }
+}
+
+if (!class_exists('Horde')) {
+    class Horde {
+        static public function url($url)
+        {
+            $url = new Horde_Url($url);
+            return 'http://' . (string) $url;
+        }
+    }
+}
+
+if (!class_exists('Horde_Auth')) {
+    class Horde_Auth {
+        static public function getAuth()
+        {
+            return empty($_SESSION['horde_auth']['userId'])
+                ? false
+                : $_SESSION['horde_auth']['userId'];
+        }
+    }
+}
+
 class Horde_LoginTasks_Stub_Prefs
 extends Horde_Prefs
 {
