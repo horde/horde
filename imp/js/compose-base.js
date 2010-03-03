@@ -10,11 +10,11 @@ var IMP_Compose_Base = {
 
     // Vars defaulting to null: editor_on, identities
 
-    getIdentity: function(id)
+    getIdentity: function(id, editor_on)
     {
         return {
             id: this.identities[id],
-            sig: this.identities[id][(this.editor_on ? 'sig_html' : 'sig')].replace(/^\n/, '')
+            sig: this.identities[id][((editor_on || this.editor_on) ? 'sig_html' : 'sig')].replace(/^\n/, '')
         };
     },
 

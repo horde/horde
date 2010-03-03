@@ -18,7 +18,8 @@ var DimpCompose = {
         if (window.confirm(DIMP.text_compose.cancel)) {
             if ((this.is_popup || DIMP.conf_compose.popup) &&
                 DIMP.baseWindow &&
-                DIMP.baseWindow.DimpBase) {
+                DIMP.baseWindow.DimpBase &&
+                !DIMP.conf_compose.qreply) {
                 DIMP.baseWindow.focus();
             }
             DimpCore.doAction(DIMP.conf_compose.auto_save_interval_val ? 'DeleteDraft' : 'CancelCompose', { imp_compose: $F('composeCache') }, { ajaxopts: { asynchronous: DIMP.conf_compose.qreply } });
@@ -390,6 +391,7 @@ var DimpCompose = {
     setMessageText: function(r)
     {
         var ta = $('composeMessage');
+
         if (!ta) {
             $('composeMessageParent').insert(new Element('TEXTAREA', { id: 'composeMessage', name: 'message', style: 'width:100%' }).insert(r.response.text));
         } else {
@@ -401,7 +403,7 @@ var DimpCompose = {
         }
     },
 
-    // opts = auto, focus, fwd_list, noupdate
+    // opts = auto, focus, fwd_list, noupdate, show_editor
     fillForm: function(msg, header, opts)
     {
         // On IE, this can get loaded before DOM:loaded.
@@ -427,8 +429,6 @@ var DimpCompose = {
             /* Immediately execute to get MD5 hash of empty message. */
             this.auto_save_interval.execute();
         }
-
-        this.setBodyText(msg, true);
 
         $('to').setValue(header.to);
         if (header.cc) {
@@ -476,7 +476,10 @@ var DimpCompose = {
             break;
         }
 
-        if (DIMP.conf_compose.show_editor) {
+        this.setBodyText(msg);
+        this.resizeMsgArea();
+
+        if (DIMP.conf_compose.show_editor || opts.show_editor) {
             if (!IMP_Compose_Base.editor_on) {
                 this.toggleHtmlEditor(opts.noupdate);
             }
@@ -603,9 +606,11 @@ var DimpCompose = {
              * size by the available height, round down to the lowest integer
              * row, and resize the textarea. */
             rows = parseInt(mah / (msg.clientHeight / msg.getAttribute('rows')), 10);
-            msg.writeAttribute({ rows: rows, disabled: false });
-            if (de.scrollHeight - de.clientHeight) {
-                msg.writeAttribute('rows', rows - 1);
+            if (!isNaN(rows)) {
+                msg.writeAttribute({ rows: rows, disabled: false });
+                if (de.scrollHeight - de.clientHeight) {
+                    msg.writeAttribute('rows', rows - 1);
+                }
             }
         }
     },

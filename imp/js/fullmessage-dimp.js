@@ -45,18 +45,18 @@ var DimpFullmessage = {
             return;
         }
 
-        var r = result.response,
-            editor_on = ((r.format == 'html') && !DimpCompose.editor_on),
-            id = (r.identity === null) ? $F('identity') : r.identity,
-            i = DimpCompose.getIdentity(id, editor_on);
+        var i,
+            r = result.response,
+            id = (r.identity === null) ? $F('identity') : r.identity;
+
+        r.opts.noupdate = true;
+        r.opts.show_editor = (r.format == 'html');
+
+        i = IMP_Compose_Base.getIdentity(id, r.opts.show_editor);
 
         $('identity', 'last_identity').invoke('setValue', id);
 
         DimpCompose.fillForm((i.id[2]) ? ("\n" + i.sig + r.body) : (r.body + "\n" + i.sig), r.header, r.opts);
-
-        if (editor_on) {
-            DimpCompose.toggleHtmlEditor(true);
-        }
 
         if (r.imp_compose) {
             $('composeCache').setValue(r.imp_compose);
