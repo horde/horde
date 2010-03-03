@@ -55,4 +55,28 @@ extends Horde_LoginTasks_Backend
         }
         return false;
     }
+
+    /**
+     * Store a login tasklist in the cache.
+     *
+     * @param Horde_LoginTasks_Tasklist|boolean The tasklist to be stored.
+     *
+     * @return NULL
+     */
+    public function storeTasklistInCache($tasklist)
+    {
+        $_SESSION['horde_logintasks'][$this->_app] = serialize($tasklist);
+    }
+
+    /**
+     * Register the shutdown handler.
+     *
+     * @param array The shutdown function
+     *
+     * @return NULL
+     */
+    public function registerShutdown($shutdown)
+    {
+        register_shutdown_function($shutdown);
+    }
 }

@@ -29,4 +29,22 @@ abstract class Horde_LoginTasks_Backend
      * if no task list was cached.
      */
     abstract public function getTasklistFromCache();
+
+    /**
+     * Store a login tasklist in the cache.
+     *
+     * @param Horde_LoginTasks_Tasklist|boolean The tasklist to be stored.
+     *
+     * @return NULL
+     */
+    abstract public function storeTasklistInCache($tasklist);
+
+    /**
+     * Register the shutdown handler.
+     *
+     * @param array The shutdown function
+     *
+     * @return NULL
+     */
+    abstract public function registerShutdown($shutdown);
 }

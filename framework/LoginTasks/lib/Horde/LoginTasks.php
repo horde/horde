@@ -103,13 +103,13 @@ class Horde_LoginTasks
         }
 
         /* Retrieves a cached tasklist or make sure one is created. */
-        $this->_tasklist = $this->_backend->getTaskListFromCache();
+        $this->_tasklist = $this->_backend->getTasklistFromCache();
 
         if (empty($this->_tasklist)) {
             $this->_createTaskList();
         }
 
-        register_shutdown_function(array($this, 'shutdown'));
+        $this->_backend->registerShutdown(array($this, 'shutdown'));
     }
 
     /**
@@ -118,7 +118,7 @@ class Horde_LoginTasks
     public function shutdown()
     {
         if (isset($this->_tasklist)) {
-            $_SESSION['horde_logintasks'][$this->_app] = serialize($this->_tasklist);
+            $this->_tasklist = $this->_backend->storeTasklistInCache($this->_tasklist);
         }
     }
 
