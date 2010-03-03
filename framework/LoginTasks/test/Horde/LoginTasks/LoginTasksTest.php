@@ -29,7 +29,7 @@ require_once dirname(__FILE__) . '/Autoload.php';
  * @link     http://pear.horde.org/index.php?package=LoginTasks
  */
 
-class Horde_LoginTasks_Class_LoginTasksTest extends PHPUnit_Framework_TestCase
+class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
 {
     public function testNoTasksAreRanIfNoUserIsAuthenticated()
     {
