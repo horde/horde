@@ -461,6 +461,15 @@ var DimpCompose = {
         switch (opts.auto) {
         case 'forward_attach':
             $('noticerow', 'fwdattachnotice').invoke('show');
+            $('composeMessage').stopObserving('keydown').observe('keydown', function() {
+                $('fwdattachnotice').fade({
+                    afterFinish: function() {
+                        $('fwdattachnotice').up('TR').hide();
+                        this.resizeMsgArea();
+                    }.bind(this),
+                    duration: 0.4
+                });
+            }.bind(this));
             break
 
         case 'forward_body':
@@ -728,7 +737,8 @@ var DimpCompose = {
                     $('to_loading_img').show();
                     DimpCore.doAction('getReplyData', { headeronly: 1, imp_compose: $F('composeCache'), type: 'reply' }, { callback: this.swapToAddressCallback.bind(this) });
                 } else {
-                    DimpCore.doAction('getForwardData', { dataonly: 1, imp_compose: $F('composeCache'), type: (id == 'fwdattachnotice' ? 'forward_body' : 'forward_attach') }, { callback: this.forwardAddCallback.bind(this) });
+                    DimpCore.doAction('GetForwardData', { dataonly: 1, imp_compose: $F('composeCache'), type: (id == 'fwdattachnotice' ? 'forward_body' : 'forward_attach') }, { callback: this.forwardAddCallback.bind(this) });
+                    $('composeMessage').stopObserving('keydown');
                 }
                 e.stop();
                 return;
