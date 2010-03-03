@@ -19,7 +19,6 @@ framework/*/test/*/*/*/*.diff
 framework/*/test/*/*/*/*.exp
 framework/*/test/*/*/*/*.log
 framework/*/test/*/*/*/*.out
-framework/*/test/*/*/*/*.php
 !framework/File_CSV/tests/common.php
 !framework/Image/tests/swf.php
 !framework/Image/tests/gd.php
