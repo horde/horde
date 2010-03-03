@@ -242,7 +242,7 @@ case 'draft':
             $rtemode = ($result['mode'] == 'html');
         }
         $msg = $result['msg'];
-       e$header = array_merge($header, $result['header']);
+        $header = array_merge($header, $result['header']);
         if (!is_null($result['identity']) &&
             ($result['identity'] != $identity->getDefault()) &&
             !$prefs->isLocked('default_identity')) {
