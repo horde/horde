@@ -169,6 +169,19 @@ extends Horde_LoginTasks_Backend
     }
 
     /**
+     * Redirect to the given URL.
+     *
+     * @param string $url The URL to redirect to.
+     *
+     * @return NULL
+     */
+    public function redirect($url)
+    {
+        header('Location: ' . $url);
+        exit;
+    }
+
+    /**
      * Return the URL of the login tasks view.
      *
      * @return string The URL of the login tasks view

@@ -31,8 +31,6 @@ require_once dirname(__FILE__) . '/Autoload.php';
 
 class Horde_LoginTasks_Class_LoginTasksTest extends PHPUnit_Framework_TestCase
 {
-    static private $_singleton_counter = 0;
-
     public function testNoTasksAreRanIfNoUserIsAuthenticated()
     {
         Horde_LoginTasks_Stub_Task::$executed = array();
@@ -523,7 +521,7 @@ class Horde_LoginTasks_Class_LoginTasksTest extends PHPUnit_Framework_TestCase
             );
             $last_time = serialize(
                 array(
-                    'test' . self::$_singleton_counter => $last_time
+                    'test' => $last_time
                 )
             );
         }
@@ -539,6 +537,12 @@ class Horde_LoginTasks_Class_LoginTasksTest extends PHPUnit_Framework_TestCase
         $GLOBALS['registry']->expects($this->any())
             ->method('getAppDrivers')
             ->will($this->returnValue($tasks));
-        return Horde_LoginTasks::singleton('test' . self::$_singleton_counter++);
+        return new Horde_LoginTasks(
+            new Horde_LoginTasks_Stub_Backend(
+                $GLOBALS['registry'],
+                $GLOBALS['prefs'],
+                'test'
+            )
+        );
     }
 }

@@ -82,8 +82,7 @@ class Horde_LoginTasks
                     $GLOBALS['registry'],
                     $GLOBALS['prefs'],
                     $app
-                ),
-                $app
+                )
             );
         }
 
@@ -95,13 +94,9 @@ class Horde_LoginTasks
      *
      * @param string $app  The name of the Horde application.
      */
-    protected function __construct(
-        Horde_LoginTasks_Backend $backend,
-        $app
-    ) {
+    public function __construct(Horde_LoginTasks_Backend $backend)
+    {
         $this->_backend = $backend;
-
-        $this->_app = $app;
 
         if (!$this->_backend->isAuthenticated()) {
             return;
@@ -217,7 +212,7 @@ class Horde_LoginTasks
      *                            have been confirmed by the user.
      * @param string $url         The URL to redirect to when finished.
      */
-    public function runTasks($confirmed = false, $url = null, $no_redirect = false)
+    public function runTasks($confirmed = false, $url = null)
     {
         if (!isset($this->_tasklist) ||
             ($this->_tasklist === true)) {
@@ -250,13 +245,9 @@ class Horde_LoginTasks
 
         if (!$processed && $need_display) {
             $this->_tasklist->target = $url;
-            if ($no_redirect) return $this->getLoginTasksUrl();
-            header('Location: ' . $this->getLoginTasksUrl());
-            exit;
+            return $this->_backend->redirect($this->getLoginTasksUrl());
         } elseif ($processed && !$need_display) {
-            if ($no_redirect) return $tasklist_target;
-            header('Location: ' . $tasklist_target);
-            exit;
+            return $this->_backend->redirect($tasklist_target);
         }
     }
 

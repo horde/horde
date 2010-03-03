@@ -81,6 +81,15 @@ abstract class Horde_LoginTasks_Backend
     abstract public function markLastRun();
 
     /**
+     * Redirect to the given URL.
+     *
+     * @param string $url The URL to redirect to.
+     *
+     * @return NULL
+     */
+    abstract public function redirect($url);
+
+    /**
      * Return the URL of the login tasks view.
      *
      * @return string The URL of the login tasks view

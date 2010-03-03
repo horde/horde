@@ -37,6 +37,15 @@ extends Horde_LoginTasks_Task
     }
 }
 
+class Horde_LoginTasks_Stub_Backend
+extends Horde_LoginTasks_Backend_Horde
+{
+    public function redirect($url)
+    {
+        return $url;
+    }
+}
+
 class Horde_LoginTasks_Stub_TaskTwo
 extends Horde_LoginTasks_Stub_Task
 {
