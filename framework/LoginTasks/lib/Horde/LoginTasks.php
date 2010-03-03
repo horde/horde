@@ -48,6 +48,14 @@ class Horde_LoginTasks
     static protected $_instances = array();
 
     /**
+     * The Horde_LoginTasks_Backend object provides all utilities we need for
+     * handling the login tasks.
+     *
+     * @var Horde_LoginTasks_Backend
+     */
+    private $_backend;
+
+    /**
      * The Horde_LoginTasks_Tasklist object for this login.
      *
      * @var Horde_LoginTasks_Tasklist
@@ -69,7 +77,9 @@ class Horde_LoginTasks
     static public function singleton($app)
     {
         if (empty(self::$_instances[$app])) {
-            self::$_instances[$app] = new self($app);
+            self::$_instances[$app] = new self(
+                new Horde_LoginTasks_Backend_Horde(), $app
+            );
         }
 
         return self::$_instances[$app];
@@ -80,8 +90,12 @@ class Horde_LoginTasks
      *
      * @param string $app  The name of the Horde application.
      */
-    protected function __construct($app)
-    {
+    protected function __construct(
+        Horde_LoginTasks_Backend $backend,
+        $app
+    ) {
+        $this->_backend = $backend;
+
         $this->_app = $app;
 
         if (!Horde_Auth::getAuth()) {

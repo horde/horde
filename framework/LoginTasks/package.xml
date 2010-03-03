@@ -33,9 +33,13 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="lib">
     <dir name="Horde">
      <dir name="LoginTasks">
-     <file name="SystemTask.php" role="php" />
-     <file name="Task.php" role="php" />
-     <file name="Tasklist.php" role="php" />
+      <file name="Backend.php" role="php" />
+      <dir name="Backend">
+       <file name="Horde.php" role="php" />
+      </dir> <!-- /lib/Horde/Backend -->
+      <file name="SystemTask.php" role="php" />
+      <file name="Task.php" role="php" />
+      <file name="Tasklist.php" role="php" />
      </dir> <!-- /lib/Horde/LoginTasks -->
      <file name="LoginTasks.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -62,6 +66,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
+   <install name="lib/Horde/LoginTasks/Backend.php" as="Horde/LoginTasks/Backend.php" />
+   <install name="lib/Horde/LoginTasks/Backend/Horde.php" as="Horde/LoginTasks/Backend/Horde.php" />
    <install name="lib/Horde/LoginTasks/SystemTask.php" as="Horde/LoginTasks/SystemTask.php" />
    <install name="lib/Horde/LoginTasks/Task.php" as="Horde/LoginTasks/Task.php" />
    <install name="lib/Horde/LoginTasks/Tasklist.php" as="Horde/LoginTasks/Tasklist.php" />
