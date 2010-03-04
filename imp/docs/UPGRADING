@@ -42,6 +42,10 @@ spellchecking, and login redirection have been moved to Horde.
 The 'show_preview' option has been removed; enabling previews is now handled
 by the 'show_preview' preference.
 
+The 'css_files' configuration option for the dynamic (dimp) display has been
+removed.  Equivalent behavior can now be found in the Horde-wide 'cssfiles'
+hook.
+
 The 'max_from_chars' and 'max_subj_chars' configuration options for the
 minimal (mimp) display have been removed.
 
@@ -97,6 +101,9 @@ The list of available IMAP Flags/Keywords is now configurable via the
 The \Answered, \Deleted, and \Draft IMAP flags are no longer user settable
 by default - these flags have special meanings and are automatically handled
 by the various message action functions instead.
+
+
+CSS
 
 
 Upgrading IMP From 4.1.x To 4.2.x
