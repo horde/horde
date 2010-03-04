@@ -1,13 +1,12 @@
 <?php
-global $language;
-if (isset($language)) {
+if (isset($GLOBALS['language'])) {
     header('Content-type: text/html; charset=' . Horde_Nls::getCharset());
     header('Vary: Accept-Language');
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
 <?php
-echo (!empty($language) ? '<html lang="' . strtr($language, '_', '-') . '"' : '<html')
+echo (!empty($GLOBALS['language']) ? '<html lang="' . strtr($GLOBALS['language'], '_', '-') . '"' : '<html')
     . (($hi = Horde_Util::nonInputVar('htmlId')) ? ' id="' . $hi . '"' : '')
     . '>';
 ?>
@@ -21,7 +20,7 @@ if (!empty($refresh_time) && !empty($refresh_url)) {
 }
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
-<?php if (!$browser->isMobile()): ?>
+<?php if (!$GLOBALS['browser']->isMobile()): ?>
 <link href="<?php echo $GLOBALS['registry']->getImageDir() ?>/favicon.ico" rel="SHORTCUT ICON" />
 <?php
 echo Horde::includeStylesheetFiles(array('additional' => Horde_Util::nonInputVar('horde_css_stylesheets', array())));
