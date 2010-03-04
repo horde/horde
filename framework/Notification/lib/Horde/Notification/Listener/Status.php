@@ -27,21 +27,11 @@ class Horde_Notification_Listener_Status extends Horde_Notification_Listener
      * message stack.
      *
      * @param array $events   The list of events to handle.
-     * @param array $options  An array of options:
-     * <pre>
-     * 'mobile' - (Horde_Mobile) The mobile object to send status lines to.
-     * </pre>
+     * @param array $options  An array of options. Not used.
      */
     public function notify($events, $options = array())
     {
         if (!count($events)) {
-            return;
-        }
-
-        if (!empty($options['mobile']) && class_exists('Horde_Mobile_Text')) {
-            foreach ($events as $event) {
-                $options['mobile']->add(new Horde_Mobile_Text(strip_tags($event)));
-            }
             return;
         }
 

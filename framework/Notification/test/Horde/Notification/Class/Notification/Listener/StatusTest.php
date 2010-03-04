@@ -60,19 +60,4 @@ class Horde_Notification_Class_Notification_Listener_StatusTest extends PHPUnit_
         $listener->notify($messages);
     }
 
-    public function testMethodNotifyHasMobileOutputIfTheMobileOptionWasSet()
-    {
-        if (!class_exists('Horde_Mobile')) {
-            $this->markTestSkipped('The Horde_Mobile package is not installed!');
-        }
-        $mobile = $this->getMock('Horde_Mobile', array(), array(), '', false, false);
-        $mobile->expects($this->once())
-            ->method('add')
-            ->with($this->isInstanceOf('Horde_Mobile_Text'));
-        $listener = new Horde_Notification_Listener_Status();
-        $event = new Horde_Notification_Event('<b>test</b>');
-        $messages = array($event);
-        $listener->notify($messages, array('mobile' => $mobile));
-    }
-
 }
