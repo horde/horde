@@ -5,7 +5,6 @@ JSON encode/decode tests.
 
 error_reporting(E_ALL);
 require dirname(__FILE__) . '/../../../lib/Horde/Serialize.php';
-require 'PEAR.php';
 
 function out($str)
 {

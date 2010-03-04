@@ -31,13 +31,17 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Add support for limited error handling for json encoding errors
+ <notes>* Throw exceptions rather than returning PEAR_Errors.
+ * Add support for limited error handling for json encoding errors
  (requires PHP 5.3+).
  * Initial Horde 4 package.</notes>
  <contents>
   <dir name="/">
    <dir name="lib">
     <dir name="Horde">
+     <dir name="Serialize">
+      <file name="Exception.php" role="php" />
+     </dir> <!-- /lib/Horde/Serialize -->
      <file name="Serialize.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib/ -->
@@ -69,6 +73,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.5.0</min>
    </pearinstaller>
    <package>
+    <name>Exception</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Util</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -76,6 +84,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
+   <install name="lib/Horde/Serialize/Exception.php" as="Horde/Serialize/Exception.php" />
    <install name="lib/Horde/Serialize.php" as="Horde/Serialize.php" />
   </filelist>
  </phprelease>
