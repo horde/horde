@@ -62,7 +62,7 @@ case 'add':
     }
 
     if (Horde_Util::getFormData('addNewClose')) {
-        Horde_Util::closeWindowJS();
+        echo Horde::wrapInlineScript(array('window.close();'));
         exit;
     }
     break;
@@ -144,7 +144,7 @@ case 'changeresp':
 case 'dismiss':
     // Close the attendee window.
     if ($browser->hasFeature('javascript')) {
-        Horde_Util::closeWindowJS();
+        echo Horde::wrapInlineScript(array('window.close();'));
         exit;
     }
 

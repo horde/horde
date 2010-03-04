@@ -243,7 +243,7 @@ case 'editform':
                 $notification->push($result, 'horde.error');
             } else {
                 if (Horde_Util::getFormData('save_and_finish')) {
-                    Horde_Util::closeWindowJS();
+                    echo Horde::wrapInlineScript(array('window.close();'));
                     exit;
                 }
                 $notification->push(sprintf(_("Updated \"%s\"."), $share->get('name')), 'horde.success');

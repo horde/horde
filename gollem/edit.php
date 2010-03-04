@@ -21,7 +21,7 @@ $filename = Horde_Util::getFormData('file');
 $type = Horde_Util::getFormData('type');
 
 if ($driver != $GLOBALS['gollem_be']['driver']) {
-    Horde_Util::closeWindowJS();
+    echo Horde::wrapInlineScript(array('window.close();'));
     exit;
 }
 
@@ -35,18 +35,24 @@ case 'save_file':
     } else {
         $message = sprintf(_("%s successfully saved."), $filename);
     }
-    Horde_Util::closeWindowJS('alert(\'' . addslashes($message) . '\');');
+    echo Horde::wrapInlineScript(array(
+        'alert("' . addslashes($message) . '");',
+        'window.close();'
+    ));
     exit;
 
 case 'edit_file':
     $data = $gollem_vfs->read($filedir, $filename);
     if (is_a($data, 'PEAR_Error')) {
-        Horde_Util::closeWindowJS('alert(\'' . addslashes(sprintf(_("Access denied to %s"), $filename)) . '\');');
+        echo Horde::wrapInlineScript(array(
+            'alert("' . addslashes(sprintf(_("Access denied to %s"), $filename)) . '");',
+            'window.close();'
+        ));
         exit;
     }
     $mime_type = Horde_Mime_Magic::extToMIME($type);
     if (strpos($mime_type, 'text/') !== 0) {
-        Horde_Util::closeWindowJS();
+        echo Horde::wrapInlineScript(array('window.close();'));
     }
     if ($mime_type == 'text/html') {
         $editor = Horde_Editor::singleton('ckeditor', array('id' => 'content'));
@@ -58,4 +64,4 @@ case 'edit_file':
     exit;
 }
 
-Horde_Util::closeWindowJS();
+wcho Horde::wrapInlineScript(array('window.close();'));

@@ -112,7 +112,7 @@ case 'save_attachment_public_key':
     /* Add the public key to the storage system. */
     try {
         $imp_smime->addPublicKey($mime_part);
-        Horde_Util::closeWindowJS();
+        echo Horde::wrapInlineScript(array('window.close();'));
     } catch (Horde_Exception $e) {
         $notification->push(_("No Certificate found"), 'horde.error');
     }

@@ -260,9 +260,15 @@ case 'save':
             /* Return to the image view. */
             header('Location: ' . $imageurl);
         } elseif ($actionID == 'saveclose') {
-            Horde_Util::closeWindowJS('window.opener.location.href = window.opener.location.href; window.close();');
+            echo Horde::wrapInlineScript(array(
+                'window.opener.location.href = window.opener.location.href;',
+                'window.close();'
+            ));
         } else {
-            Horde_Util::closeWindowJS('window.opener.location.href = \'' . $imageurl . '\'; window.close();');
+            echo Horde::wrapInlineScript(array(
+                'window.opener.location.href = "' . $imageurl . '";',
+                'window.close();'
+            ));
         }
         exit;
     }
@@ -478,9 +484,10 @@ case 'previewcustomwatermark':
                                          'actionID' => 'previewwatermark'),
                                    $date));
 
-    $url = Horde::applicationUrl($imageurl);
-    $url = str_replace('&amp;', '&', $url);
-    Horde_Util::closeWindowJS('window.opener.location.href = "' . $url . '";');
+    echo Horde::wrapInlineScript(array(
+        'window.opener.location.href = "' . Horde::applicationUrl($imageurl)->setRaw(true) . '";',
+        'window.close();'
+    ));
     exit;
 
 case 'previewgrayscale':

@@ -679,7 +679,11 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         $cacheSess = Horde_SessionObjects::singleton();
         $href = $cacheSess->query($reload);
         $cacheSess->prune($reload);
-        Horde_Util::closeWindowJS('opener.focus();opener.location.href="' . $href . '";');
+        echo Horde::wrapInlineScript(array(
+            'opener.focus();'.
+            'opener.location.href="' . $href . '";',
+            'window.close();'
+        ));
     }
 
 }

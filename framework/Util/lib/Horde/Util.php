@@ -706,19 +706,6 @@ class Horde_Util
     }
 
     /**
-     * Outputs javascript code to close the current window.
-     *
-     * @param string $code  Any additional javascript code to run before
-     *                      closing the window.
-     */
-    static public function closeWindowJS($code = '')
-    {
-        echo "<script type=\"text/javascript\">//<![CDATA[\n" .
-            $code .
-            "window.close();\n//]]></script>\n";
-    }
-
-    /**
      * Caches the result of extension_loaded() calls.
      *
      * @param string $ext  The extension name.

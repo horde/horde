@@ -514,7 +514,11 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
         $cacheSess = Horde_SessionObjects::singleton();
         $href = $cacheSess->query($reload);
         $cacheSess->prune($reload);
-        Horde_Util::closeWindowJS('opener.focus();opener.location.href="' . $href . '";');
+        echo Horde::wrapInlineScript(array(
+            'opener.focus();',
+            'opener.location.href="' . $href . '";',
+            'window.close();'
+        ));
     }
 
 }

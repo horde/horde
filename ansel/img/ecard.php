@@ -87,7 +87,7 @@ case 'send':
     if (is_a($result, 'PEAR_Error')) {
         $notification->push(sprintf(_("There was an error sending your message: %s"), $result->getMessage()), 'horde.error');
     } else {
-        Horde_Util::closeWindowJS();
+        echo Horde::wrapInlineScript(array('window.close();'));
         exit;
     }
 }

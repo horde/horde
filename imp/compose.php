@@ -327,7 +327,7 @@ case 'redirect_send':
                 $notification->push(_("Message redirected successfully."), 'horde.success');
                 $imp_ui->popupSuccess();
             } else {
-                Horde_Util::closeWindowJS();
+                echo Horde::wrapInlineScript(array('window.close();'));
             }
         } else {
             if ($prefs->getValue('compose_confirm')) {
@@ -382,7 +382,7 @@ case 'send_message':
                     if ($isPopup) {
                         if ($prefs->getValue('close_draft')) {
                             $imp_compose->destroy();
-                            Horde_Util::closeWindowJS();
+                            echo Horde::wrapInlineScript(array('window.close();'));
                             exit;
                         } else {
                             $notification->push($result, 'horde.success');
@@ -462,7 +462,7 @@ case 'send_message':
             }
             $imp_ui->popupSuccess();
         } else {
-            Horde_Util::closeWindowJS();
+            echo Horde::wrapInlineScript(array('window.close();'));
         }
     } else {
         if ($prefs->getValue('compose_confirm') && $sent) {
@@ -485,7 +485,7 @@ case 'fwd_digest':
 case 'cancel_compose':
     $imp_compose->destroy(false);
     if ($isPopup) {
-        Horde_Util::closeWindowJS();
+        echo Horde::wrapInlineScript(array('window.close();'));
     } else {
         header('Location: ' . $imp_ui->mailboxReturnUrl(false));
     }

@@ -21,7 +21,10 @@ if (!empty($gallery_id)) {
     $gallery = $ansel_storage->getGallery($gallery_id);
     if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
         $notification->push(_("You are not allowed to edit these photos."), 'horde.error');
-        Horde_Util::closeWindowJS('window.opener.location.href = window.opener.location.href; window.close();');
+        echo Horde::wrapInlineScript(array(
+            'window.opener.location.href = window.opener.location.href;',
+            'window.close();'
+        ));
         exit;
     }
 }
@@ -29,7 +32,10 @@ if (!empty($gallery_id)) {
 /* Make sure we have at least one image */
 if (!count($images)) {
     echo $notification->push(_("You must select at least on photo to edit."), 'horde.error');
-    Horde_Util::closeWindowJS('window.opener.location.href = window.opener.location.href; window.close();');
+    echo Horde::wrapInlineScript(array(
+        'window.opener.location.href = window.opener.location.href;',
+        'window.close();'
+    ));
     exit;
 }
 
@@ -56,14 +62,20 @@ if ($actionID == 'edit_dates') {
             ++$count;
         } else {
            $notification->push(sprintf(_("There was an error editing the dates: %s"), $image->getMessage()), 'horde.error');
-           Horde_Util::closeWindowJS('window.opener.location.href = window.opener.location.href; window.close();');
+            echo Horde::wrapInlineScript(array(
+                'window.opener.location.href = window.opener.location.href;',
+                'window.close();'
+            ));
            exit;
         }
 
     }
 
     $notification->push(sprintf(_("Successfully modified the date on %d photos."), $count), 'horde.success');
-    Horde_Util::closeWindowJS('window.opener.location.href = window.opener.location.href; window.close();');
+    echo Horde::wrapInlineScript(array(
+        'window.opener.location.href = window.opener.location.href;',
+        'window.close();'
+    ));
     exit;
 }
 

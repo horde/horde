@@ -34,7 +34,7 @@ case 'save_image':
         $notification->push($e);
         break;
     }
-    Horde_Util::closeWindowJS();
+    echo Horde::wrapInlineScript(array('window.close();'));
     exit;
 }
 
