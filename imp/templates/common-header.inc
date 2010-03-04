@@ -9,6 +9,10 @@ case 'dimp':
     include IMP_TEMPLATES . '/javascript_defs_dimp.php';
     break;
 
+case 'mimp':
+    // Nothing
+    break;
+
 default:
     include IMP_TEMPLATES . '/javascript_defs.php';
     break;
@@ -38,6 +42,10 @@ case 'dimp':
     Horde::includeStylesheetFiles(array('sub' => 'dimp'));
     break;
 
+case 'mimp':
+    // Nothing
+    break;
+
 default:
     Horde::includeStylesheetFiles();
     Horde::includeScriptFiles();
@@ -45,10 +53,14 @@ default:
 }
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
+<?php if ($imp_view == 'mimp'): ?>
+</head>
+<body>
+<?php elseif ($imp_view == 'dimp'): ?>
 <link href="<?php echo $GLOBALS['registry']->getImageDir() ?>/favicon.ico" rel="SHORTCUT ICON" />
-<?php if ($imp_view == 'dimp'): ?>
 </head>
 <?php else: ?>
+<link href="<?php echo $GLOBALS['registry']->getImageDir() ?>/favicon.ico" rel="SHORTCUT ICON" />
 <?php if ($mailbox_url = Horde_Util::nonInputVar('mailbox_url')): ?>
 <link href="<?php echo $mailbox_url ?>" rel="Up" />
 <?php elseif (!Horde_Util::nonInputVar('login_page')): ?>

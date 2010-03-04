@@ -204,8 +204,7 @@ $prefGroups['mimp'] = array(
     'column' => _("Other Options"),
     'label' => _("Minimalist View Options"),
     'desc' => _("Configure options for the minimalist view."),
-    'members' => array('mimp_preview_msg', 'mimp_max_from_chars',
-                       'mimp_max_subj_chars', 'mimp_download_confirm')
+    'members' => array('mimp_preview_msg', 'mimp_download_confirm')
 );
 
 $prefGroups['standard'] = array(
@@ -1632,22 +1631,6 @@ $_prefs['mimp_preview_msg'] = array(
     'shared' => false,
     'type' => 'checkbox',
     'desc' => _("Display only the first 250 characters of a message initially?")
-);
-
-$_prefs['mimp_max_from_chars'] = array(
-    'value' => 10,
-    'locked' => true,
-    'shared' => false,
-    'type' => 'number',
-    'desc' => _("In the mailbox view, how many characters of From: addresses should we show before truncating?")
-);
-
-$_prefs['mimp_max_subj_chars'] = array(
-    'value' => 20,
-    'locked' => true,
-    'shared' => false,
-    'type' => 'number',
-    'desc' => _("In the mailbox view, how many characters of Subject: lines should we show before truncating?")
 );
 
 $_prefs['mimp_download_confirm'] = array(

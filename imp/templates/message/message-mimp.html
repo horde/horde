@@ -1,0 +1,23 @@
+  <div><tag:title /></div>
+  <hr />
+  <p>
+<loop:hdrs>
+   <div><em><tag:hdrs.label />:</em> <tag:hdrs.val /><if:hdrs.all_to> [<a href="<tag:hdrs.all_to />"><gettext>Show All</gettext></a>]</if:hdrs.all_to></div>
+</loop:hdrs>
+<loop:atc>
+   <div><em><gettext>Attachment</gettext>:</em> <if:atc.download><a href="<tag:atc.download />"><tag:atc.descrip /></a><else:atc.download><tag:atc.descrip /></else:atc.download></if:atc.download> [<tag:atc.type />] <tag:atc.size /></div>
+</loop:atc>
+  </p>
+  <p>
+   <tag:msg />
+  </p>
+<if:fullmsg_link>
+  <p>
+   <a href="<tag:fullmsg_link />"><gettext>View Full Message</gettext></a>
+  </p>
+</if:fullmsg_link>
+  <hr />
+  <div><gettext>Menu</gettext></div>
+  <tag:menu />
+ </body>
+</html>

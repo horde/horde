@@ -1,0 +1,25 @@
+  <div><tag:title /></div>
+  <hr />
+<if:msgs>
+  <table>
+   <tr>
+    <th><tag:hdr_arrival /></th>
+    <th><tag:hdr_from /></th>
+    <th><tag:hdr_subject /><if:hdr_subject_minor> <small>[<tag:hdr_subject_minor />]</small></if:hdr_subject_minor></th>
+   </tr>
+<loop:msgs>
+   <tr>
+    <td><tag:msgs.status /></td>
+    <td><tag:msgs.from /></td>
+    <td><tag:msgs.thread /> <a href="<tag:msgs.target />"><tag:msgs.subject /></a></td>
+   </tr>
+</loop:msgs>
+  </table>
+<else:msgs>
+<div><gettext>No messages.</gettext></div>
+</else:msgs></if:msgs>
+  <hr />
+  <div><gettext>Menu</gettext></div>
+  <tag:menu />
+ </body>
+</html>

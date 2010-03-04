@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Mobile view no longer uses Horde_Mobile to generate output.
 [jan] Implement iTip viewer actions in DIMP (Request #8061).
 [mms] Display alarm notifications in DIMP (Request #6232).
 [mms] Auto-determine charset for text attachments (Bug #8858).

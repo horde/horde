@@ -1,6 +1,6 @@
 <?php
 /**
- * MIMP Base Class - provides minimalist view functions.
+ * Provides minimalist view (MIMP) helper functions.
  *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
@@ -11,21 +11,19 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package IMP
  */
-class IMP_Mimp
+class IMP_Ui_Mimp
 {
     /**
-     * Take a Horde_Mobile_card and add global menu items.
+     * Output the menu.
      *
-     * @param Horde_Mobile_linkset $menu  The menu linkset, with page-specific
-     *                                    options already filled in.
-     * @param string $page                The current page ('compose',
-     *                                    'folders', 'mailbox', 'message',
-     *                                    'search').
+     * @param string $page  The current page ('compose', 'folders', 'mailbox',
+     *                                        'message', 'search').
+     * @param array $items  TODO
+     *
+     * @return string  The menu.
      */
-    public function addMIMPMenu($menu, $page)
+    public function getMenu($page, $items = array())
     {
-        $items = array();
-
         if (!in_array($page, array('mailbox', 'message')) ||
             ($GLOBALS['imp_mbox']['mailbox'] != 'INBOX')) {
             $items[] = array(_("Inbox"), IMP::generateIMPUrl('mailbox-mimp.php', 'INBOX'));
@@ -41,16 +39,18 @@ class IMP_Mimp
 
         $items[] = array(_("Log out"), Horde::getServiceLink('logout', 'imp'));
 
-        foreach ($items as $val) {
-            $menu->add(new Horde_Mobile_link($val[0], $val[1]));
-        }
-
         $menu = new Horde_Menu();
         foreach ($menu->getSiteLinks() as $menuitem) {
             if ($menuitem != 'separator') {
-                $menu->add(new Horde_Mobile_link($menuitem['text'], $menuitem['url']));
+                $items[] = array($menuitem['text'], $menuitem['url']);
             }
         }
+
+        $out = '<ol>';
+        foreach ($items as $val) {
+            $out .= '<li><a href="' . $val[1] . '">' . htmlspecialchars($val[0]) . '</a></li>';
+        }
+        return $out . '</ol>';
     }
 
 }

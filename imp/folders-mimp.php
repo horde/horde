@@ -42,23 +42,36 @@ if ($subscribe && Horde_Util::getFormData('ts')) {
     $mask |= IMP_Imap_Tree::NEXT_SHOWSUB;
 }
 
+/* Initialize Horde_Template. */
+$t = $injector->createInstance('Horde_Template');
+
 /* Start iterating through the list of mailboxes, displaying them. */
 $rows = array();
 $tree_ob = $imptree->build($mask);
 foreach ($tree_ob[0] as $val) {
     $rows[] = array(
-        'level' => str_repeat('..', $val['level']),
-        'label' => $val['base_elt']['l'],
-        'link' => ((empty($val['container'])) ? IMP::generateIMPUrl('mailbox-mimp.php', $val['value']) : null),
-        'msgs' => ((isset($val['msgs'])) ? ($val['unseen'] . '/' . $val['msgs']) : null)
+        'level' => str_repeat('&nbsp;', $val['level'] * 2),
+        'label' => htmlspecialchars(Horde_String::abbreviate($val['base_elt']['l'], 30 - ($val['level'] * 2))),
+        'link' => (empty($val['container']) ? IMP::generateIMPUrl('mailbox-mimp.php', $val['value']) : null),
+        'msgs' => (isset($val['msgs']) ? ($val['unseen'] . '/' . $val['msgs']) : null)
+    );
+}
+$t->set('rows', $rows);
+
+$selfurl = Horde::applicationUrl('folders-mimp.php');
+$menu = array(array(_("Refresh"), $selfurl));
+if ($subscribe) {
+    $menu[] = array(
+        ($showAll ? _("Show Subscribed Folders") : _("Show All Folders")),
+        $selfurl->copy()->add('ts', 1)
     );
 }
 
-$selfurl = Horde::applicationUrl('folders-mimp.php');
-if ($subscribe) {
-    $sub_text = $showAll ? _("Show Subscribed Folders") : _("Show All Folders");
-    $sub_link = $selfurl->copy()->add('ts', 1);
-}
+$t->set('menu', $injector->getInstance('IMP_Ui_Mimp')->getMenu('folders', $menu));
 
 $title = _("Folders");
-require IMP_TEMPLATES . '/folders/folders-mimp.inc';
+$t->set('title', $title);
+
+require_once IMP_TEMPLATES . '/common-header.inc';
+IMP::status();
+echo $t->fetch(IMP_TEMPLATES . '/folders/folders-mimp.html');

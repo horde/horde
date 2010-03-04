@@ -18,16 +18,12 @@ class IMP_Notification_Listener_AjaxStatus extends Horde_Notification_Listener_S
      * message stack.
      *
      * @param array $events   The list of events to handle.
-     * @param array $options  An array of options:
-     * <pre>
-     * 'mobile' - (Horde_Mobile) The mobile object to send status lines to.
-     * </pre>
+     * @param array $options  An array of options. Not used.
      */
     public function notify($events, $options = array())
     {
         Horde::addInlineScript(array(
-            'var ajax_dc = window.DimpCore || parent.DimpCore',
-            'if (ajax_dc) { ajax_dc.showNotifications(' . Horde_Serialize::serialize($events, Horde_Serialize::JSON) . ') }'
+            'if (window.DimpCore || parent.DimpCore) { (window.DimpCore || parent.DimpCore).showNotifications(' . Horde_Serialize::serialize($events, Horde_Serialize::JSON) . ') }'
         ), 'dom');
     }
 

@@ -2,6 +2,22 @@
 /**
  * Minimalist (mimp) compose display page.
  *
+ * URL Parameters:
+ *   'a' = (string) The action ID.
+ *   'action' = (string) TODO
+ *   'bcc' => (string) TODO
+ *   'bcc_expand_[1-5]' => (string) TODO
+ *   'cc' => (string) TODO
+ *   'cc_expand_[1-5]' => (string) TODO
+ *   'composeCache' = (string) TODO
+ *   'from' => (string) TODO
+ *   'identity' = (integer) The identity to use for composing.
+ *   'message' = (string) TODO
+ *   'subject' => (string) TODO
+ *   'to' => (string) TODO
+ *   'to_expand_[1-5]' => (string) TODO
+ *   'u' => (string) Unique ID (cache buster).
+ *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -16,6 +32,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('imp', array('impmode' => 'mimp'));
 
 Horde_Nls::setTimeZone();
+$vars = Horde_Variables::getDefaultVariables();
 
 /* The message text and headers. */
 $expand = array();
@@ -33,41 +50,36 @@ if ($prefs->getValue('compose_bcc')) {
 
 /* Set the current identity. */
 $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
-if (!$prefs->isLocked('default_identity')) {
-    $identity_id = Horde_Util::getFormData('identity');
-    if (!is_null($identity_id)) {
-        $identity->setDefault($identity_id);
-    }
+if (!$prefs->isLocked('default_identity') && isset($vars->identity)) {
+    $identity->setDefault($vars->identity);
 }
 
-$save_sent_mail = $prefs->getValue('save_sent_mail');
+$draft = IMP::folderPref($prefs->getValue('drafts_folder'), true);
 $sent_mail_folder = $identity->getValue('sent_mail_folder');
-$thismailbox = Horde_Util::getFormData('thismailbox');
-$uid = Horde_Util::getFormData('uid');
 
 /* Determine if mailboxes are readonly. */
-$draft = IMP::folderPref($prefs->getValue('drafts_folder'), true);
-$readonly_drafts = empty($draft) ? false : $imp_imap->isReadOnly($draft);
-if ($imp_imap->isReadOnly($sent_mail_folder)) {
-    $save_sent_mail = false;
-}
+$readonly_drafts = empty($draft)
+    ? false
+    : $imp_imap->isReadOnly($draft);
+$save_sent_mail = $imp_imap->isReadOnly($sent_mail_folder)
+    ? false
+    : $prefs->getValue('save_sent_mail');
 
 /* Determine if compose mode is disabled. */
 $compose_disable = !IMP::canCompose();
 
 /* Initialize objects. */
-$composeCache = Horde_Util::getFormData('composeCache');
-$imp_compose = IMP_Compose::singleton($composeCache);
+$imp_compose = IMP_Compose::singleton($vars->composeCache);
 $imp_ui = new IMP_Ui_Compose();
 
 foreach (array_keys($display_hdrs) as $val) {
-    $header[$val] = Horde_Util::getFormData($val);
+    $header[$val] = $vars->$val;
 
     /* If we are reloading the screen, check for expand matches. */
-    if ($composeCache) {
+    if ($vars->composeCache) {
         $expanded = array();
         for ($i = 0; $i < 5; ++$i) {
-            if ($tmp = Horde_Util::getFormData($val . '_expand_' . $i)) {
+            if ($tmp = $vars->get($val . '_expand_' . $i)) {
                 $expanded[] = $tmp;
             }
         }
@@ -80,12 +92,11 @@ foreach (array_keys($display_hdrs) as $val) {
 }
 
 /* Run through the action handlers. */
-$actionID = Horde_Util::getFormData('a');
-switch ($actionID) {
+switch ($vars->a) {
 // 'd' = draft
 case 'd':
     try {
-        $result = $imp_compose->resumeDraft($uid . IMP::IDX_SEP . $thismailbox);
+        $result = $imp_compose->resumeDraft($imp_mbox['uid'] . IMP::IDX_SEP . $imp_mbox['thismailbox']);
 
         $msg = $result['msg'];
         $header = array_merge($header, $result['header']);
@@ -101,10 +112,8 @@ case 'd':
     break;
 
 case _("Expand Names"):
-    $action = Horde_Util::getFormData('action');
-
     foreach (array_keys($display_hdrs) as $val) {
-        if (($val == 'to') || ($action != 'rc')) {
+        if (($val == 'to') || ($vars->action != 'rc')) {
             $res = $imp_ui->expandAddresses($header[$val], $imp_compose);
             if (is_string($res)) {
                 $header[$val] = $res;
@@ -115,8 +124,8 @@ case _("Expand Names"):
         }
     }
 
-    if (!is_null($action)) {
-        $actionID = $action;
+    if (isset($vars->action)) {
+        $vars->a = $vars->action;
     }
     break;
 
@@ -126,11 +135,11 @@ case _("Expand Names"):
 case 'r':
 case 'ra':
 case 'rl':
-    if (!($imp_contents = $imp_ui->getIMPContents($uid, $thismailbox))) {
+    if (!($imp_contents = $imp_ui->getIMPContents($imp_mbox['uid'], $imp_mbox['thismailbox']))) {
         break;
     }
     $actions = array('r' => 'reply', 'ra' => 'reply_all', 'rl' => 'reply_list');
-    $reply_msg = $imp_compose->replyMessage($actions[$actionID], $imp_contents, $header['to']);
+    $reply_msg = $imp_compose->replyMessage($actions[$vars->a], $imp_contents, $header['to']);
     $header = $reply_msg['headers'];
 
     $notification->push(_("Reply text will be automatically appended to your outgoing message."), 'horde.message');
@@ -138,7 +147,7 @@ case 'rl':
 
 // 'f' = forward
 case 'f':
-    if (!($imp_contents = $imp_ui->getIMPContents($uid, $thismailbox))) {
+    if (!($imp_contents = $imp_ui->getIMPContents($imp_mbox['uid'], $imp_mbox['thismailbox']))) {
         break;
     }
     $fwd_msg = $imp_compose->forwardMessage('forward_attach', $imp_contents, false);
@@ -148,7 +157,7 @@ case 'f':
     break;
 
 case _("Redirect"):
-    if (!($imp_contents = $imp_ui->getIMPContents($uid, $thismailbox))) {
+    if (!($imp_contents = $imp_ui->getIMPContents($imp_compose->getMetadata('uid'), $imp_compose->getMetadata('mailbox')))) {
         break;
     }
 
@@ -162,14 +171,14 @@ case _("Redirect"):
         require IMP_BASE . '/mailbox-mimp.php';
         exit;
     } catch (Horde_Exception $e) {
-        $actionID = 'rc';
+        $vars->a = 'rc';
         $notification->push($e);
     }
     break;
 
 case _("Save Draft"):
 case _("Send"):
-    switch ($actionID) {
+    switch ($vars->a) {
     case _("Save Draft"):
         if ($readonly_drafts) {
             break 2;
@@ -183,17 +192,14 @@ case _("Send"):
         break;
     }
 
-    $message = Horde_Util::getFormData('message', '');
+    $message = strval($vars->message);
     $f_to = $header['to'];
     $f_cc = $f_bcc = null;
     $old_header = $header;
     $header = array();
 
-    $thismailbox = $imp_compose->getMetadata('mailbox');
-    $uid = $imp_compose->getMetadata('uid');
-
     if ($ctype = $imp_compose->getMetadata('reply_type')) {
-        if (!($imp_contents = $imp_ui->getIMPContents($uid, $thismailbox))) {
+        if (!($imp_contents = $imp_ui->getIMPContents($imp_compose->getMetadata('uid'), $imp_compose->getMetadata('mailbox')))) {
             break;
         }
 
@@ -213,18 +219,18 @@ case _("Send"):
     }
 
     try {
-        $header['from'] = $identity->getFromLine(null, Horde_Util::getFormData('from'));
+        $header['from'] = $identity->getFromLine(null, $vars->from);
     } catch (Horde_Exception $e) {
         $header['from'] = '';
     }
     $header['replyto'] = $identity->getValue('replyto_addr');
-    $header['subject'] = Horde_Util::getFormData('subject');
+    $header['subject'] = strval($vars->subject);
 
     foreach ($display_hdrs as $val) {
         $header[$val] = $imp_ui->getAddressList($old_header[$val]);
     }
 
-    switch ($actionID) {
+    switch ($vars->a) {
     case _("Save Draft"):
         try {
             $notification->push($imp_compose->saveDraft($header, $message, Horde_Nls::getCharset(), false), 'horde.success');
@@ -247,7 +253,7 @@ case _("Send"):
         $options = array(
             'save_sent' => $save_sent_mail,
             'sent_folder' => $sent_mail_folder,
-            'readreceipt' => Horde_Util::getFormData('request_read_receipt')
+            'readreceipt' => ($conf['compose']['allow_receipts'] && ($prefs->getValue('disposition_request_read') == 'always'))
         );
 
         try {
@@ -271,29 +277,75 @@ case _("Cancel"):
     exit;
 }
 
-/* Get the message cache ID. */
-$cacheID = $imp_compose->getCacheId();
-
-$title = _("Message Composition");
-$mimp_render = new Horde_Mobile();
-$mimp_render->set('title', $title);
-
-$select_list = $identity->getSelectList();
+/* Initialize Horde_Template. */
+$t = $injector->createInstance('Horde_Template');
+$t->setOption('gettext', true);
 
 /* Grab any data that we were supplied with. */
 if (empty($msg)) {
-    $msg = Horde_Util::getFormData('message', '');
+    $msg = strval($vars->message);
 }
 if (empty($header['subject'])) {
-    $header['subject'] = Horde_Util::getFormData('subject');
+    $header['subject'] = strval($vars->subject);
 }
 
-$menu = new Horde_Mobile_card('o', _("Menu"));
-$mset = $menu->add(new Horde_Mobile_linkset());
-IMP_Mimp::addMIMPMenu($mset, 'compose');
+$t->set('cacheid', htmlspecialchars($imp_compose->getCacheId()));
+$t->set('menu', $injector->getInstance('IMP_Ui_Mimp')->getMenu('compose'));
+$t->set('to', htmlspecialchars($header['to']));
+$t->set('url', Horde::applicationUrl('compose-mimp.php'));
 
-if ($actionID == 'rc') {
-    require IMP_TEMPLATES . '/compose/redirect-mimp.inc';
+if ($vars->a == 'rc') {
+    unset($display_hdrs['cc'], $display_hdrs['bcc']);
+    $title = _("Redirect");
 } else {
-    require IMP_TEMPLATES . '/compose/compose-mimp.inc';
+    $t->set('compose_enable', !$compose_disable);
+    $t->set('msg', htmlspecialchars($msg));
+    $t->set('save_draft', $conf['user']['allow_folders'] && !$readonly_drafts);
+    $t->set('subject', htmlspecialchars($header['subject']));
+
+    if (!$prefs->isLocked('default_identity')) {
+        $tmp = array();
+        foreach ($identity->getSelectList() as $key => $val) {
+            $tmp[] = array(
+                'key' => $key,
+                'sel' => ($key == $identity->getDefault()),
+                'val' => $val
+            );
+        }
+        $t->set('identities', $tmp);
+    }
+
+    $title = _("Message Composition");
 }
+
+$hdrs = array();
+foreach ($display_hdrs as $key => $val) {
+    $tmp = array(
+        'key' => $key,
+        'label' => htmlspecialchars($val),
+        'val' => $header[$key]
+    );
+
+    if (isset($expand[$key])) {
+        $tmp['matchlabel'] = (count($expand[$key][1]) > 5)
+            ? sprintf(_("Ambiguous matches for \"%s\" (first 5 matches displayed):"), $expand[$key][0])
+            : sprintf(_("Ambiguous matches for \"%s\":"), $expand[$key][0]);
+
+        $tmp['match'] = array();
+        foreach (array_slice($expand[$key][1], 0, 5) as $key2 => $val2) {
+            $tmp['match'][] = array(
+                'id' => $key . '_expand_' . $key2,
+                'val' => htmlspecialchars($val2)
+            );
+        }
+    }
+
+    $hdrs[] = $tmp;
+}
+
+$t->set('hdrs', $hdrs);
+$t->set('title', $title);
+
+require IMP_TEMPLATES . '/common-header.inc';
+IMP::status();
+echo $t->fetch(IMP_TEMPLATES . '/compose/compose-mimp.html');
