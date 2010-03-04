@@ -44,9 +44,13 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="test">
     <dir name="Horde">
      <dir name="Serialize">
+      <dir name="fixtures">
+       <file name="badutf8.txt" role="test" />
+      </dir> <!-- /test/Horde/Serialize/fixtures -->
       <file name="json_assoc_array.phpt" role="test" />
       <file name="json_empty.phpt" role="test" />
       <file name="json_encode_decode.phpt" role="test" />
+      <file name="json_encode_badutf8.phpt" role="test" />
       <file name="json_nested_array.phpt" role="test" />
       <file name="json_object.phpt" role="test" />
       <file name="json_spaces_comments.phpt" role="test" />
