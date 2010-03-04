@@ -217,6 +217,8 @@ class Horde_Util
      * there are existing parameters and whether to use ?, & or &amp; as the
      * glue.  All data will be urlencoded.
      *
+     * @deprecated
+     *
      * @param Horde_Url|string $url  The URL to modify.
      * @param mixed $parameter       Either the name value -or- an array of
      *                               name/value pairs.
@@ -251,6 +253,8 @@ class Horde_Util
 
     /**
      * Removes name=value pairs from a URL.
+     *
+     * @deprecated
      *
      * @param Horde_Url|string $url  The URL to modify.
      * @param mixed $remove          Either a single parameter to remove or an
