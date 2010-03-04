@@ -905,4 +905,30 @@ class Horde_Util
         return base64_decode($data);
     }
 
+    /**
+     * Convert a variable to UTF-8. Recursively handles inner variables.
+     *
+     * @param mixed $in  The variable to convert.
+     *
+     * @return mixed  The converted variable.
+     */
+    static public function convertToUtf8($in)
+    {
+        if (is_string($in)) {
+            $in = utf8_encode($in);
+        } elseif (is_array($in)) {
+            reset($in);
+            while (list($key, $val) = each($in)) {
+                $in[$key] = self::convertToUtf8($in[$key]);
+            }
+        } elseif (is_object($in)) {
+            $in = self::cloneObject($in);
+            foreach (get_object_vars($in) as $key => $val) {
+                $in->$key = self::convertToUtf8($in->$key);
+            }
+        }
+
+        return $in;
+    }
+
 }
