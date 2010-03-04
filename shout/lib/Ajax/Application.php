@@ -160,7 +160,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
             // Catch and return the output from $form->renderActive()
             ob_start();
             $form->renderActive(null, null, 'javascript:saveAction()');
-            $output = ob_get_clean();
+            $output = ob_get_flush();
             return $output;
             
         } catch (Exception $e) {
