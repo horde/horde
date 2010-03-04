@@ -40,7 +40,7 @@ HordeMap = {
         }
         this._addScript(path + this._opts.driver.toLowerCase() + '.js');
 
-        if (this._opts.geocoder) {
+        if (this._opts.geocoder && this._opts.geocoder != 'Null') {
             this._addScript(this._getProviderUrl(this._opts.geocoder));
             this._addScript(path + this._opts.geocoder.toLowerCase() + '.js');
         }
