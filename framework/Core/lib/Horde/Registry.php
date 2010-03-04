@@ -84,6 +84,13 @@ class Horde_Registry
     public $sessionHandler = null;
 
     /**
+     * The application that called appInit().
+     *
+     * @var string
+     */
+    public $initialApp;
+
+    /**
      * Application bootstrap initialization.
      * Solves chicken-and-egg problem - need a way to init Horde environment
      * from application without an active Horde_Registry object.
@@ -196,6 +203,8 @@ class Horde_Registry
 
             Horde_Auth::authenticateFailure($app, $e);
         }
+
+        $GLOBALS['registry']->initialApp = $app;
 
         if (!$args['nocompress']) {
             Horde::compressOutput();

@@ -117,28 +117,28 @@ class IMP_Application extends Horde_Registry_Application
         $GLOBALS['notification']->addDecorator(new IMP_Notification_Handler_Decorator_Imap());
         $GLOBALS['notification']->addType('status', 'imp.*', 'IMP_Notification_Event_Status');
 
+        $redirect = false;
+
         switch (IMP::getViewMode()) {
         case 'dimp':
             $GLOBALS['notification']->addType('status', 'dimp.*', 'IMP_Notification_Event_Status');
             break;
 
         case 'mimp':
-            if (empty($this->initParams['impmode']) ||
-                ($this->initParams['impmode'] != 'mimp')) {
-                header('Location: ' . IMP_Auth::getInitialPage(true)->setRaw(true));
-                exit;
-            }
+            $redirect = (empty($this->initParams['impmode']) ||
+                         ($this->initParams['impmode'] != 'mimp'));
             break;
 
         case 'imp':
-            if (!empty($this->initParams['impmode']) &&
-                ($this->initParams['impmode'] == 'dimp')) {
-                header('Location: ' . IMP_Auth::getInitialPage(true)->setRaw(true));
-                exit;
-            }
-
+            $redirect = (!empty($this->initParams['impmode']) &&
+                         ($this->initParams['impmode'] == 'dimp'));
             $GLOBALS['notification']->attach('audio');
             break;
+        }
+
+        if ($redirect && ($GLOBALS['registry']->initialApp == 'imp')) {
+            header('Location: ' . IMP_Auth::getInitialPage(true)->setRaw(true));
+            exit;
         }
     }
 
