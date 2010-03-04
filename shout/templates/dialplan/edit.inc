@@ -30,10 +30,12 @@ var ajax_url = '<?php echo Horde::getServiceLink('ajax', 'shout') ?>';
 var menu = '<?php echo $menu['name']; ?>';
 var menuInfo = $H();
 var menuActions = $H();
+var curDigit = null;
 
 function editAction(digit)
 {
     if ($('selectActionForm') == null) {
+        curDigit = digit;
         // Draw the selectActionForm
         $('editAction').show();
         while ((e = $('editAction').childNodes[0]) != null) {
@@ -53,6 +55,9 @@ function editAction(digit)
         });
         form.appendChild(select);
         $('editAction').appendChild(form);
+        var div = document.createElement('div');
+        div.id = 'editActionFormContainer';
+        $('editAction').appendChild(div);
     } else {
         var action = null;
         // Draw the options for this action
@@ -63,10 +68,7 @@ function editAction(digit)
         });
         var params = $H({'action': action});
         var actionForm;
-        var div = document.createElement('div');
-        div.id = 'editActionForm';
-        $('editAction').appendChild(div);
-        new Ajax.Updater('editActionForm', ajax_url + 'getActionForm',
+        new Ajax.Updater('editActionFormContainer', ajax_url + 'getActionForm',
         {
             method: 'post',
             parameters: params
@@ -76,7 +78,21 @@ function editAction(digit)
 
 function saveAction(digit)
 {
-    $('editAction').hide();
+    var params = $('editActionForm').serialize(true);
+    params.menu = menuInfo.get('meta').name;
+    params.digit = curDigit;
+    new Ajax.Request(ajax_url + 'saveAction',
+    {
+        method: 'post',
+        parameters: params,
+        onSuccess: function(r) {
+            alert('FIXME');
+            while ((e = $('editAction').childNodes[0]) != null) {
+                $('editAction').removeChild(e);
+            }
+            $('editAction').hide();
+        }
+    });
 }
 
 function changeSoundfile()

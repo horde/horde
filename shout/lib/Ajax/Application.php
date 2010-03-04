@@ -141,7 +141,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
             $context = $_SESSION['shout']['context'];
             $actions = Shout::getMenuActions();
             $action = $actions[$action];
-            $form = new Horde_Form($vars, $action['description']);
+            $form = new Horde_Form($vars, $action['description'], 'editActionForm');
             foreach($action['args'] as $name => $info) {
                 $defaults = array(
                     'required' => true,
@@ -149,13 +149,13 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
                     'description' => null,
                     'params' => array()
                 );
-                //$info = array_merge($info, $defaults);
+                $info = array_merge($defaults, $info);
                 $form->addVariable($info['name'], $name, $info['type'],
                                    $info['required'], $info['readonly'],
                                    $info['description'], $info['params']);
             }
             $this->_responseType = 'html';
-            $form->renderActive();
+            $form->renderActive(null, null, 'javascript:saveAction()');
             $output = ob_get_clean();
             return $output;
         } catch (Exception $e) {
@@ -163,6 +163,11 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
             Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
             return false;
         }
+    }
+
+    public function saveAction()
+    {
+        return null;
     }
 
     public function responseType()

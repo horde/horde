@@ -146,7 +146,7 @@ class Shout
             'menu' => array(
                 'description' => _("Jump to menu."),
                 'args' => array (
-                    'menu' => array(
+                    'menuName' => array(
                         'name' => _("Menu"),
                         'type' => 'enum',
                         'required' => true,
