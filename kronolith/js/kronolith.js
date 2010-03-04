@@ -4063,6 +4063,8 @@ KronolithCore = {
             $('kronolithEventLocationLon').value = null;
             $('kronolithEventLocationLat').value = null;
         }
+
+        this.mapMarker = false;
     },
 
     ensureMap: function()
