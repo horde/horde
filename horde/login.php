@@ -139,7 +139,7 @@ $ie_version = Horde_Util::getFormData('ie_version');
 
 /* Get URL/Anchor strings now. */
 $url_anchor = null;
-$url_in = $url_form = Horde_Util::getFormData('url');
+$url_in = Horde_Util::getFormData('url');
 if (($pos = strrpos($url_in, '#')) !== false) {
     $url_anchor = substr($url_in, $pos + 1);
     $url_in = substr($url_in, 0, $pos);
@@ -285,18 +285,25 @@ if ($reason = _getLogoutReasonString($error_reason)) {
 }
 
 if ($browser->isMobile()) {
-    require_once 'Horde/Mobile.php';
-
     /* Build the <select> widget containing the available languages. */
     if (!$is_auth && !$prefs->isLocked('language')) {
-        $lang_select = new Horde_Mobile_select('new_lang', 'popup', _("Language:"));
-        $lang_select->set('htmlchars', true);
+        $tmp = array();
         foreach ($langs as $val) {
-            $lang_select->add($val['name'], $val['val'], $val['sel']);
+            $tmp[$val['val']] = array(
+                'name' => $val['name'],
+                'selected' => $val['sel']
+            );
         }
+        $loginparams['new_lang'] = array(
+            'label' => _("Language"),
+            'type' => 'select',
+            'value' => $tmp
+        );
     }
 
+    require $registry->get('templates', 'horde') . '/common-header.inc';
     require $registry->get('templates', 'horde') . '/login/mobile.inc';
+    require $registry->get('templates', 'horde') . '/common-footer.inc';
     exit;
 }
 
@@ -314,7 +321,7 @@ require $registry->get('templates', 'horde') . '/common-header.inc';
 require $registry->get('templates', 'horde') . '/login/login.inc';
 
 if (!empty($js_code)) {
-    print '<script type="text/javascript">//<![CDATA[' . "\n" . implode(';', $js_code) . "\n//]]></script>\n";
+    echo Horde::wrapInlineScript(array(implode(';', $js_code)));
 }
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -21,6 +21,7 @@ if (!empty($refresh_time) && !empty($refresh_url)) {
 }
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
+<?php if (!$browser->isMobile()): ?>
 <link href="<?php echo $GLOBALS['registry']->getImageDir() ?>/favicon.ico" rel="SHORTCUT ICON" />
 <?php
 echo Horde::includeStylesheetFiles(array('additional' => Horde_Util::nonInputVar('horde_css_stylesheets', array())));
@@ -28,6 +29,7 @@ echo Horde::includeScriptFiles();
 echo implode("\n", Horde_Util::nonInputVar('linkTags', array()));
 Horde::outputInlineScript();
 ?>
+<?php endif ?>
 </head>
 
 <body<?php if ($bc = Horde_Util::nonInputVar('bodyClass')) echo ' class="' . $bc . '"' ?><?php if ($bi = Horde_Util::nonInputVar('bodyId')) echo ' id="' . $bi . '"'; ?>>
