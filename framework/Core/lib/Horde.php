@@ -670,8 +670,9 @@ HTML;
         case 'html':
         case 'plain':
         case 'xml':
+            $s_data = $data->response;
             header('Content-Type: text/' . $ct . '; charset=' . $charset);
-            echo $data;
+            echo $s_data;
             break;
 
         default:
