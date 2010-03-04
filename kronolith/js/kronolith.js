@@ -3949,7 +3949,9 @@ KronolithCore = {
 
          if ($('kronolithEventLocationLat').value) {
              var ll = { lat:$('kronolithEventLocationLat').value, lon: $('kronolithEventLocationLon').value };
-             this.placeMapMarker(ll, true);
+
+             // @TODO: a default/configurable default zoom level?
+             this.placeMapMarker(ll, true, 8);
          }
          //@TODO: check for Location field - and if present, but no lat/lon value, attempt to
          // geocode it.
@@ -4031,7 +4033,7 @@ KronolithCore = {
      * Place the event marker on the map, ensuring it exists.
      * See note in onGeocode about zoomlevel
      */
-    placeMapMarker: function(ll, center)
+    placeMapMarker: function(ll, center, zoom)
     {
         if (!this.mapMarker) {
             this.mapMarker = this.map.addMarker(
@@ -4047,8 +4049,7 @@ KronolithCore = {
         $('kronolithEventLocationLon').value = ll.lon;
         $('kronolithEventLocationLat').value = ll.lat;
         if (center) {
-            this.map.setCenter(ll, 8);
-            //this.map.zoomToFit();
+            this.map.setCenter(ll, zoom);
         }
     },
 
