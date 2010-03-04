@@ -2,8 +2,10 @@
 </table>
 
 <div id="digitpad">
-  <div id="editAction">
-      <div onClick="saveAction('x');">SAVE</div>
+  <div id="editActionOverlay">
+      <img id="digitGraphic" alt="Current Digit">
+      <div id="selectAction"></div>
+      <div id="editAction"></div>
   </div>
   <div class="digit" id="digit_1" onClick="editAction('1');"><span class="digitLabel">1</span></div>
   <div class="digit" id="digit_2" onClick="editAction('2');"><span class="digitLabel">2</span></div>
@@ -17,9 +19,9 @@
   <div class="digit" id="digit_8" onClick="editAction('8');"><span class="digitLabel">8</span></div>
   <div class="digit" id="digit_9" onClick="editAction('9');"><span class="digitLabel">9</span></div>
   <br style="clear:both;">
-  <div class="digit" id="digit_*" onClick="editAction('*');"><span class="digitLabel">*</span></div>
+  <div class="digit" id="digit_*" onClick="editAction('star');"><span class="digitLabel">*</span></div>
   <div class="digit" id="digit_0" onClick="editAction('0');"><span class="digitLabel">0</span></div>
-  <div class="digit" id="digit_#" onClick="editAction('#');"><span class="digitLabel">#</span></div>
+  <div class="digit" id="digit_#" onClick="editAction('octothorpe');"><span class="digitLabel">#</span></div>
   <br style="clear:both;">
   <div id="defaultAction" onclick="editAction('defaultAction');"><span class="digitLabel">Default Action</span></div>
 </div>
@@ -36,11 +38,18 @@ function editAction(digit)
 {
     if ($('selectActionForm') == null) {
         curDigit = digit;
+        $('digitGraphic').src = '<?php echo $registry->getImageDir('shout'); ?>/digit-'+digit+'.png';
+
         // Draw the selectActionForm
-        $('editAction').show();
-        while ((e = $('editAction').childNodes[0]) != null) {
-            $('editAction').removeChild(e);
+        $('editActionOverlay').show();
+        while ((e = $('selectAction').childNodes[0]) != null) {
+            $('selectAction').removeChild(e);
         }
+        var p = document.createElement('p');
+        p.id = 'actionPrompt';
+        var text = document.createTextNode('<?php echo _("Select Action:"); ?>');
+        p.appendChild(text);
+        $('selectAction').appendChild(p);
         var form = document.createElement('form');
         form.id = 'selectActionForm';
         form.setAttribute('onChange', 'editAction('+digit+')');
@@ -54,10 +63,7 @@ function editAction(digit)
             select.appendChild(option);
         });
         form.appendChild(select);
-        $('editAction').appendChild(form);
-        var div = document.createElement('div');
-        div.id = 'editActionFormContainer';
-        $('editAction').appendChild(div);
+        $('selectAction').appendChild(form);
     } else {
         var action = null;
         // Draw the options for this action
@@ -68,7 +74,7 @@ function editAction(digit)
         });
         var params = $H({'action': action});
         var actionForm;
-        new Ajax.Updater('editActionFormContainer', ajax_url + 'getActionForm',
+        new Ajax.Updater('editAction', ajax_url + 'getActionForm',
         {
             method: 'post',
             parameters: params
@@ -90,7 +96,7 @@ function saveAction(digit)
             while ((e = $('editAction').childNodes[0]) != null) {
                 $('editAction').removeChild(e);
             }
-            $('editAction').hide();
+            $('editActionOverlay').hide();
         }
     });
 }
@@ -171,7 +177,7 @@ function getMetaRow(name, value)
     return row;
 }
 
-$('editAction').hide();
+$('editActionOverlay').hide();
 new Ajax.Request(ajax_url + 'getMenuInfo',
 {
     method: 'post',

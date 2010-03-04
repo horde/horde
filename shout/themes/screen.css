@@ -83,7 +83,7 @@ ul {
 
 #digitpad {
     width: 300px;
-    height: 400px;
+    height: 456px;
     margin-left: auto;
     margin-right: auto;
     position: relative;
@@ -105,7 +105,7 @@ ul {
 }
 
 #defaultAction {
-    width: 288px;
+    width: 284px;
     height: 38px;
     border-top: 4px solid #aaa;
     border-left: 4px solid #aaa;
@@ -128,13 +128,26 @@ ul {
     color: #666;
 }
 
-#editAction {
+#editActionOverlay {
     width: 290px;
-    height: 440px;
-    margin: 5px;
+    height: 444px;
+    padding: 5px;
     position: absolute;
     top: 0px;
     left: 0px;
-    background: #0f0;
-    /*display: none;*/
+    background-image: url('graphics/transparency.png');
+}
+
+#digitGraphic {
+    float: left;
+    margin: 0px 5px 5px 5px;
+}
+
+#actionPrompt {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#editAction {
+    margin: 5px;
 }
