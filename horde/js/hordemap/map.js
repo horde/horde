@@ -40,7 +40,7 @@ HordeMap = {
         }
         this._addScript(path + this._opts.driver.toLowerCase() + '.js');
 
-        if (this._opts.geocoder && this._opts.geocoder != 'Null') {
+        if (this._opts.geocoder) {
             this._addScript(this._getProviderUrl(this._opts.geocoder));
             this._addScript(path + this._opts.geocoder.toLowerCase() + '.js');
         }
@@ -84,6 +84,9 @@ HordeMap = {
 
     _addScript: function(s)
     {
+        if (s.length == 0) {
+            return;
+        }
         var l = this._includes.length;
         for (var i = 0; i < l; i++) {
             if (this._includes[i] == s) {
@@ -127,6 +130,8 @@ HordeMap = {
             return 'http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.1';
         case 'SAPO':
             return 'http://js.sapo.pt/Bundles/SAPOMapsAPI-1.0.js';
+        default:
+            return '';
         }
     },
 
@@ -142,21 +147,3 @@ HordeMap = {
     Geocoder: {}
 };
 
-HordeMap.Geocoder.Horde = Class.create({});
-HordeMap.Geocoder.Null = Class.create({
-
-    initialize: function(opts)
-    {
-    },
-
-    geocode: function(address, callback, onErrorCallback)
-    {
-        return onErrorCallback('No geocoding support');
-    },
-
-    reverseGeocode: function(lonlat, completeCallback, errorCallback)
-    {
-        var ll = { lon: lonlat.lon, lat: lonlat.lat, address: lonlat.lon + ' ' + lonlat.lat};
-        return completeCallback([ll]);
-    }
-});

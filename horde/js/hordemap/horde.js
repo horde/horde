@@ -225,3 +225,5 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
             this, { 'click': options.onClick }, this.handlerOptions);
     }
 });
+
+HordeMap.Geocoder.Horde = Class.create({});
