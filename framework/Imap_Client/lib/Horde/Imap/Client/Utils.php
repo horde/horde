@@ -1,6 +1,7 @@
 <?php
 /**
- * Horde_Imap_Client_Utils provides utility functions for the Horde IMAP client.
+ * Horde_Imap_Client_Utils provides utility functions for the Horde IMAP
+ * client.
  *
  * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
@@ -238,8 +239,8 @@ class Horde_Imap_Client_Utils
      *
      * @param string $url  A URL string.
      *
-     * @return mixed  False if the URL is invalid.  If valid, a URL with the
-     *                following fields:
+     * @return mixed  False if the URL is invalid.  If valid, an array with
+     *                the following fields:
      * <pre>
      * 'auth' - (string) The authentication method to use.
      * 'hostspec' - (string) The remote server.
