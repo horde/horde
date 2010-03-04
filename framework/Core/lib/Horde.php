@@ -809,6 +809,29 @@ HTML;
             $was_included = true;
         }
 
+        // Load global configuration stanzas in .d directory
+        $directory = preg_replace('/\.php$/', '.d', $config_dir . $config_file);
+        if (file_exists($directory) && is_dir($directory)) {
+            $sub_files = glob("$directory/*.php");
+            if ($sub_files) {
+                foreach ($sub_files as $sub_file) {
+                    ob_start();
+                    $success = (is_null($var_names) && !$show_output)
+                        ? include_once $sub_file
+                        : include $sub_file;
+                    $output = ob_get_clean();
+
+                    if (!empty($output) && !$show_output) {
+                        return PEAR::raiseError(sprintf('Failed to import configuration file "%s": ', $sub_file) . strip_tags($output));
+                    }
+
+                    if (!$success) {
+                        return PEAR::raiseError(sprintf('Failed to import configuration file "%s".', $sub_file));
+                    }
+                }
+            }
+        }
+
         // Load vhost configuration file.
         if (!empty($conf['vhosts']) || !empty($GLOBALS['conf']['vhosts'])) {
             $server_name = isset($GLOBALS['conf'])
