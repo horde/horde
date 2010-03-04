@@ -165,7 +165,7 @@ extends Horde_LoginTasks_Backend
             $lasttasks['horde'] = time();
             $_SESSION['horde_logintasks']['horde'] = true;
         }
-        $GLOBALS['prefs']->setValue('last_logintasks', serialize($lasttasks));
+        $this->_prefs->setValue('last_logintasks', serialize($lasttasks));
     }
 
     /**
