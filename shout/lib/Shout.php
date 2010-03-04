@@ -136,4 +136,84 @@ class Shout
 
         return array($devid, $password);
     }
+
+    static public function getMenuActions()
+    {
+        global $shout;
+        $context = $_SESSION['shout']['context'];
+
+        return array(
+            'menu' => array(
+                'description' => _("Jump to menu."),
+                'args' => array (
+                    'menu' => array(
+                        'name' => _("Menu"),
+                        'type' => 'enum',
+                        'required' => true,
+                        'params' => array(self::getNames($shout->dialplan->getMenus($context)))
+                    )
+                )
+            ),
+            'ringexten' => array(
+                'description' => _("Ring an extension."),
+                'args' => array(
+                    'exten' => array(
+                        'name' => _("Extension"),
+                        'type' => 'enum',
+                        'required' => true,
+                        'params' => array(self::getNames($shout->extensions->getExtensions($context)))
+                    )
+                )
+            ),
+            'voicemail' => array(
+                'description' => _("Leave a message."),
+                'args' => array(
+                    'mailbox' => array(
+                        'name' => _("Mailbox"),
+                        'type' => 'enum',
+                        'required' => true,
+                        'params' => array(self::getNames($shout->extensions->getExtensions($context)))
+                        )
+                )
+            ),
+            'conference' => array(
+                'description' => _("Enter conference room"),
+                'args' => array(
+                    'roomno' => array(
+                        'name' => _("Room Number"),
+                        'type' => 'number',
+                        'required' => false
+                    )
+                )
+            ),
+            'directory' => array(
+                'description' => _("Enter company directory."),
+                'args' => array()
+            ),
+            'dial' => array(
+                'description' => _("Place an outgoing call."),
+                'args' => array(
+                    'number' => array(
+                        'name' => _("Phone Number"),
+                        'type' => 'phone',
+                        'required' => true
+                    )
+                )
+            ),
+            'rewind' => array(
+                'description' => _("Restart the current menu."),
+                'args' => array()
+            ),
+        );
+    }
+
+    static public function getNames($array)
+    {
+        $res = array();
+        foreach ($array as $id => $info) {
+            $res[$id] = $info['name'];
+        }
+        return $res;
+    }
+
 }

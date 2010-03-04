@@ -104,6 +104,22 @@ ul {
     -webkit-border-radius: 10px;
 }
 
+#defaultAction {
+    width: 288px;
+    height: 38px;
+    border-top: 4px solid #aaa;
+    border-left: 4px solid #aaa;
+    border-right: 4px solid #444;
+    border-bottom: 4px solid #444;
+    padding: 3px;
+    margin: 1px;
+    background-image: url('graphics/digit-bg.png');
+    background-repeat: no-repeat;
+    background-color: #999;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+
 .digitLabel {
     font-style: italic;
     font-family: Sans-serif;
@@ -112,9 +128,9 @@ ul {
     color: #666;
 }
 
-#digitAction {
+#editAction {
     width: 290px;
-    height: 390px;
+    height: 440px;
     margin: 5px;
     position: absolute;
     top: 0px;

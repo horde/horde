@@ -2,24 +2,26 @@
 </table>
 
 <div id="digitpad">
-  <div id="digitAction">
+  <div id="editAction">
       <div onClick="saveAction('x');">SAVE</div>
   </div>
-  <div class="digit" onClick="editAction('1');"><span class="digitLabel">1</span></div>
-  <div class="digit" onClick="editAction('2');"><span class="digitLabel">2</span></div>
-  <div class="digit" onClick="editAction('3');"><span class="digitLabel">3</span></div>
+  <div class="digit" id="digit_1" onClick="editAction('1');"><span class="digitLabel">1</span></div>
+  <div class="digit" id="digit_2" onClick="editAction('2');"><span class="digitLabel">2</span></div>
+  <div class="digit" id="digit_3" onClick="editAction('3');"><span class="digitLabel">3</span></div>
   <br style="clear:both;">
-  <div class="digit" onClick="editAction('4');"><span class="digitLabel">4</span></div>
-  <div class="digit" onClick="editAction('5');"><span class="digitLabel">5</span></div>
-  <div class="digit" onClick="editAction('6');"><span class="digitLabel">6</span></div>
+  <div class="digit" id="digit_4" onClick="editAction('4');"><span class="digitLabel">4</span></div>
+  <div class="digit" id="digit_5" onClick="editAction('5');"><span class="digitLabel">5</span></div>
+  <div class="digit" id="digit_6" onClick="editAction('6');"><span class="digitLabel">6</span></div>
   <br style="clear:both;">
-  <div class="digit" onClick="editAction('7');"><span class="digitLabel">7</span></div>
-  <div class="digit" onClick="editAction('8');"><span class="digitLabel">8</span></div>
-  <div class="digit" onClick="editAction('9');"><span class="digitLabel">9</span></div>
+  <div class="digit" id="digit_7" onClick="editAction('7');"><span class="digitLabel">7</span></div>
+  <div class="digit" id="digit_8" onClick="editAction('8');"><span class="digitLabel">8</span></div>
+  <div class="digit" id="digit_9" onClick="editAction('9');"><span class="digitLabel">9</span></div>
   <br style="clear:both;">
-  <div class="digit" onClick="editAction('*');"><span class="digitLabel">*</span></div>
-  <div class="digit" onClick="editAction('0');"><span class="digitLabel">0</span></div>
-  <div class="digit" onClick="editAction('#');"><span class="digitLabel">#</span></div>
+  <div class="digit" id="digit_*" onClick="editAction('*');"><span class="digitLabel">*</span></div>
+  <div class="digit" id="digit_0" onClick="editAction('0');"><span class="digitLabel">0</span></div>
+  <div class="digit" id="digit_#" onClick="editAction('#');"><span class="digitLabel">#</span></div>
+  <br style="clear:both;">
+  <div id="defaultAction" onclick="editAction('defaultAction');"><span class="digitLabel">Default Action</span></div>
 </div>
 
 <script type="text/javascript">
@@ -27,15 +29,54 @@
 var ajax_url = '<?php echo Horde::getServiceLink('ajax', 'shout') ?>';
 var menu = '<?php echo $menu['name']; ?>';
 var menuInfo = $H();
+var menuActions = $H();
 
 function editAction(digit)
 {
-    $('digitAction').show();
+    if ($('selectActionForm') == null) {
+        // Draw the selectActionForm
+        $('editAction').show();
+        while ((e = $('editAction').childNodes[0]) != null) {
+            $('editAction').removeChild(e);
+        }
+        var form = document.createElement('form');
+        form.id = 'selectActionForm';
+        form.setAttribute('onChange', 'editAction('+digit+')');
+        var select = document.createElement('select');
+        select.name = 'action';
+        menuActions.each(function (item) {
+            var option = document.createElement('option');
+            option.value = item.key;
+            var text = document.createTextNode(item.value.description);
+            option.appendChild(text);
+            select.appendChild(option);
+        });
+        form.appendChild(select);
+        $('editAction').appendChild(form);
+    } else {
+        var action = null;
+        // Draw the options for this action
+        $('selectActionForm').getElements().each(function (e){
+            if (e.name == 'action') {
+                action = e.value;
+            }
+        });
+        var params = $H({'action': action});
+        var actionForm;
+        var div = document.createElement('div');
+        div.id = 'editActionForm';
+        $('editAction').appendChild(div);
+        new Ajax.Updater('editActionForm', ajax_url + 'getActionForm',
+        {
+            method: 'post',
+            parameters: params
+        });
+    }
 }
 
 function saveAction(digit)
 {
-    $('digitAction').hide();
+    $('editAction').hide();
 }
 
 function changeSoundfile()
@@ -114,7 +155,7 @@ function getMetaRow(name, value)
     return row;
 }
 
-$('digitAction').hide();
+$('editAction').hide();
 new Ajax.Request(ajax_url + 'getMenuInfo',
 {
     method: 'post',
@@ -123,6 +164,14 @@ new Ajax.Request(ajax_url + 'getMenuInfo',
     }),
     onSuccess: function(r) {
         menuInfo = $H(r.responseJSON.response);
+        refreshMenu();
+    }
+});
+new Ajax.Request(ajax_url + 'getMenuActions',
+{
+    method: 'post',
+    onSuccess: function(r) {
+        menuActions = $H(r.responseJSON.response);
         refreshMenu();
     }
 });
