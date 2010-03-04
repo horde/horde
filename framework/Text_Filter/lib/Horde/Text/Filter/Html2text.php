@@ -291,7 +291,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
                         $out .= $this->_node($doc, $child);
                         break;
                     }
-                } elseif (($child instanceof DOMText) &&
+                } elseif ((get_class($child) == 'DOMText') &&
                           !$child->isWhitespaceInElementContent()) {
                     $tmp = $child->textContent;
                     if ($child->parentNode->tagName == 'body' ||
