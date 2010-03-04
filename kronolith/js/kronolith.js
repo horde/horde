@@ -3993,7 +3993,8 @@ KronolithCore = {
      * @param array r  An array of objects containing the results. Each object in
      *                 the array is {lat:, lon:, address}
      */
-    onReverseGeocode: function(r) {
+    onReverseGeocode: function(r)
+    {
         if (!r.length) {
             $('kronolithEventLocation').value = '';
             return;
