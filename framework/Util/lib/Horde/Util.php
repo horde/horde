@@ -332,7 +332,7 @@ class Horde_Util
             if (!is_array($var)) {
                 $var = stripslashes($var);
             } else {
-                array_walk($var, array('Horde_Util', 'dispelMagicQuotes'));
+                array_walk($var, array(__CLASS__, 'dispelMagicQuotes'));
             }
         }
 
@@ -636,7 +636,7 @@ class Horde_Util
     {
         /* Initialization of variables and shutdown functions. */
         if (!self::$_shutdownreg) {
-            register_shutdown_function(array('Horde_Util', 'shutdown'));
+            register_shutdown_function(array(__CLASS__, 'shutdown'));
             self::$_shutdownreg = true;
         }
 
