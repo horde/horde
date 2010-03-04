@@ -779,7 +779,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
 
             $maxlen = $prefs->getValue('preview_maxlen');
             if (Horde_String::length($ptext) > $maxlen) {
-                $ptext = Horde_String::substr($ptext, 0, $maxlen) . ' ...';
+                $ptext = Horde_String::truncate($ptext, $maxlen);
             } elseif (empty($ob['previewcut'])) {
                 $ptext .= '[[' . _("END") . ']]';
             }
@@ -814,10 +814,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
 
     /* Add subject flags. */
     foreach ($subject_flags as $val) {
-        $flag_label = $val['label'];
-        if (Horde_String::length($val['label']) > 12) {
-            $flag_label = Horde_String::substr($val['label'], 0, 10) . '...';
-        }
+        $flag_label = Horde_String::truncate($val['label'], 12);
 
         $msg['subject'] = '<span class="' . $val['classname'] . '" style="background:' . htmlspecialchars($val['bg']) . ';color:' . htmlspecialchars($val['fg']) . '" title="' . htmlspecialchars($val['label']) . '">' . htmlspecialchars($flag_label) . '</span>' . $msg['subject'];
     }

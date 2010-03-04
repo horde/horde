@@ -281,10 +281,7 @@ foreach (array('to', 'cc', 'bcc') as $val) {
 if ($subject = $mime_headers->getValue('subject')) {
     $display_headers['subject'] = $imp_ui->getDisplaySubject($subject);
     $title = sprintf(_("%s: %s"), $page_label, $subject);
-    $shortsub = htmlspecialchars($subject);
-    if (strlen($shortsub) > 97) {
-        $shortsub = substr($shortsub, 0, 97) . '...';
-    }
+    $shortsub = htmlspecialchars(Horde_String::truncate($subject, 100));
 } else {
     $display_headers['subject'] = $shortsub = _("[No Subject]");
     $title = sprintf(_("%s: %s"), $page_label, $shortsub);
