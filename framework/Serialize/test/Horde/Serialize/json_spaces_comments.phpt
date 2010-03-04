@@ -4,7 +4,7 @@ JSON spaces and comments tests.
 <?php
 
 error_reporting(E_ALL);
-require_once 'Horde/Serialize.php';
+require dirname(__FILE__) . '/../../../lib/Horde/Serialize.php';
 
 $obj_j = '{"a_string":"\"he\":llo}:{world","an_array":[1,2,3],"obj":{"a_number":123}}';
 

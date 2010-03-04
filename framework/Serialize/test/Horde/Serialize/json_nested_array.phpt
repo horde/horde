@@ -4,7 +4,7 @@ JSON nested arrays tests.
 <?php
 
 error_reporting(E_ALL);
-require_once 'Horde/Serialize.php';
+require dirname(__FILE__) . '/../../../lib/Horde/Serialize.php';
 
 $str1 = '[{"this":"that"}]';
 $str2 = '{"this":["that"]}';

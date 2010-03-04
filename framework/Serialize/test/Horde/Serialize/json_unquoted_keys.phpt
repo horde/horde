@@ -4,7 +4,7 @@ JSON unquoted keys tests.
 <?php
 
 error_reporting(E_ALL);
-require_once 'Horde/Serialize.php';
+require dirname(__FILE__) . '/../../../lib/Horde/Serialize.php';
 
 $ob1->{'0'} = 'tan';
 $ob1->model = 'sedan';
