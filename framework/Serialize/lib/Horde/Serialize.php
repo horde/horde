@@ -254,10 +254,20 @@ class Horde_Serialize
 
         // $params = Source character set
         case self::JSON:
-            if (!empty($params)) {
+            if (!empty($params) && is_string($data)) {
                 $data = Horde_String::convertCharset($data, $params, 'UTF-8');
             }
-            $data = json_encode($data);
+            $tmp = json_encode($data);
+
+            /* Basic error handling attempts. Requires PHP 5.3+.
+             * Error code 5, although not documented, indicates non UTF-8
+             * data. */
+            if (function_exists('json_last_error') &&
+                (json_last_error() == 5)) {
+                $data = json_encode(Horde_Util::convertToUtf8($data));
+            } else {
+                $data = $tmp;
+            }
             break;
 
         case self::LZF:
