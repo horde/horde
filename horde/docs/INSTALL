@@ -167,8 +167,8 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
    b. XML and DOM support.
 
       XML and DOM support are enabled in PHP 5 by default. You only have to
-      make sure that you do **not** use ``--disable-dom`` or
-      ``--disable-xml``.
+      make sure that you do **not** use ``--disable-dom``,
+      ``--disable-simplexml``, or ``--disable-xml``.
 
    The following PHP options are **RECOMMENDED** to enable advanced features in
    Horde:

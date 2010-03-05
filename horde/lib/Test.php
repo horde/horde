@@ -152,6 +152,11 @@ class Horde_Test
             'descrip' => 'Session Support',
             'fatal' => true
         ),
+        'SimpleXML' => array(
+            'descrip' => 'SimpleXML support',
+            'error' => 'Horde will not run without the SimpleXML extension. Don\'t compile PHP with <code>--disable-all/--disbale-simplexml</code>, or enable the SimpleXML extension individually before continuing.',
+            'fatal' => true
+        ),
         'tidy' => array(
             'descrip' => 'Tidy support',
             'error' => 'The tidy PHP extension is used to sanitize HTML data.'
