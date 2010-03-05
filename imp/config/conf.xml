@@ -15,11 +15,6 @@
      choose which folder to save their sent messages to. If this is false, then
      messages will be saved to the folder defined in their
      preferences.">false</configboolean>
-     <configboolean name="allow_resume_all_in_drafts" desc="If this is true, the
-     user will be able to resume any message in their draft mailbox (to
-     compensate for some clients that don't bother setting the draft flag).
-     Otherwise, only messages marked as 'drafts' can be
-     resumed.">false</configboolean>
     </case>
     <case name="false" desc="No" />
    </configswitch>

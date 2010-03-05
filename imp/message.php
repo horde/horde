@@ -514,10 +514,9 @@ if (!empty($conf['user']['allow_view_source'])) {
 }
 
 if (!$disable_compose &&
-    (!empty($conf['user']['allow_resume_all']) ||
-     (!empty($conf['user']['allow_resume_all_in_drafts']) &&
-      $mailbox_name == IMP::folderPref($prefs->getValue('drafts_folder'), true)) ||
-      in_array('\\draft', $flags))) {
+    (in_array('\\draft', $flags) ||
+     !empty($conf['user']['allow_resume_all']) ||
+     ($mailbox_name == IMP::folderPref($prefs->getValue('drafts_folder'), true)))) {
     $a_template->set('resume', Horde::widget(IMP::composeLink(array(), array('actionID' => 'draft') + $compose_params), _("Resume"), 'widget', '', '', _("Resume"), true));
 }
 

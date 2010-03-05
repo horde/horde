@@ -42,6 +42,10 @@ spellchecking, and login redirection have been moved to Horde.
 The 'show_preview' option has been removed; enabling previews is now handled
 by the 'show_preview' preference.
 
+The 'allow_resume_all_in_drafts' option has been removed; all messages that
+appear in the configured Drafts mailbox always are now always allowed to be
+resumed.
+
 The 'css_files' configuration option for the dynamic (dimp) display has been
 removed.  Equivalent behavior can now be found in the Horde-wide 'cssfiles'
 hook.
