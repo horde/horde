@@ -39,7 +39,7 @@ $name = Horde_Util::getFormData('name', '');
 $type = Horde_Util::getFormData('type', 'plain');
 if (!empty($last_type) && $last_type != $type) {
     $content = ($type == 'plain')
-        ? Horde_Text_Filter::filter($content, 'html2text', array('charset' => Horde_Nls::getCharset()))
+        ? Horde_Text_Filter::filter($content, 'Html2text', array('charset' => Horde_Nls::getCharset()))
         : nl2br(htmlspecialchars(htmlspecialchars($content)));
 }
 $stationery = array('n' => $name, 't' => $type, 'c' => $content);

@@ -1045,7 +1045,7 @@ class IMP_Compose
 
         if (!empty($options['html'])) {
             $body_html = $body;
-            $body = Horde_Text_Filter::filter($body, 'html2text', array('wrap' => false, 'charset' => $charset));
+            $body = Horde_Text_Filter::filter($body, 'Html2text', array('wrap' => false, 'charset' => $charset));
         }
 
         /* Get trailer message (if any). */

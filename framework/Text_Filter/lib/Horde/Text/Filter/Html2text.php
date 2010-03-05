@@ -5,8 +5,7 @@
  * Parameters:
  * <pre>
  * charset - (string) The charset to use for html_entity_decode() calls.
- * width - (integer) The wrapping width.
- * wrap - (boolean) Whether to wrap the text or not.
+ * width - (integer) The wrapping width. Set to 0 to not wrap.
  * </pre>
  *
  * Copyright 2004-2010 The Horde Project (http://www.horde.org/)
@@ -55,8 +54,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
      */
     protected $_params = array(
         'charset' => 'UTF-8',
-        'width' => 70,
-        'wrap' => true
+        'width' => 75
     );
 
     /**
@@ -117,7 +115,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
         $text = preg_replace(array("/\s*\n{3,}/", "/ +\n/"), array("\n\n", "\n"), $text);
 
         /* Wrap the text to a readable format. */
-        if ($this->_params['wrap']) {
+        if ($this->_params['width']) {
             $text = wordwrap($text, $this->_params['width']);
         }
 
@@ -244,7 +242,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
                                     continue;
                                 }
 
-                                if ($this->_params['wrap']) {
+                                if ($this->_params['width']) {
                                     $tmp = array();
                                     foreach (explode("\n", $val['text']) as $val2) {
                                         $tmp = array_merge($tmp, explode("\n", wordwrap($val2, $this->_params['width'] - (2 * $val['level']))));

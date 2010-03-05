@@ -17,9 +17,9 @@ $html = <<<EOT
 </ul>
 EOT;
 
-echo Horde_Text_Filter::filter($html, 'html2text', array('width' => 50));
+echo Horde_Text_Filter::filter($html, 'Html2text', array('wrap' => 50));
 echo "\n\n";
-echo Horde_Text_Filter::filter($html, 'html2text', array('wrap' => false));
+echo Horde_Text_Filter::filter($html, 'Html2text', array('wrap' => false));
 
 ?>
 --EXPECT--

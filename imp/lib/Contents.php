@@ -558,7 +558,7 @@ class IMP_Contents
         $ptext = $pmime->getContents();
         $ptext = Horde_String::convertCharset($ptext, $pmime->getCharset());
         if ($pmime->getType() == 'text/html') {
-            $ptext = Horde_Text_Filter::filter($ptext, 'html2text', array('charset' => Horde_Nls::getCharset()));
+            $ptext = Horde_Text_Filter::filter($ptext, 'Html2text', array('charset' => Horde_Nls::getCharset()));
         }
 
         $this->_build = $oldbuild;

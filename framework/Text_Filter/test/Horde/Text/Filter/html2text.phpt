@@ -9,7 +9,7 @@ require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter.php';
 require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter/Base.php';
 require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter/Html2text.php';
 $html = file_get_contents(dirname(__FILE__) . '/fixtures/html2text.html');
-echo Horde_Text_Filter::filter($html, 'html2text', array('charset' => 'UTF-8'));
+echo Horde_Text_Filter::filter($html, 'Html2text', array('charset' => 'UTF-8'));
 
 ?>
 --EXPECT--
