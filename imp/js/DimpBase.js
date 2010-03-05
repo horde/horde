@@ -546,7 +546,7 @@ var DimpBase = {
 
             e.memo.each(function(row) {
                 // Add context menu
-                this._addMouseEvents({ id: row.VP_domid, type: row.menutype });
+                this._addMouseEvents({ id: row.VP_domid, type: 'message' });
                 new Drag(row.VP_domid, this._msgDragConfig);
             }, this);
 
@@ -590,10 +590,7 @@ var DimpBase = {
                 }
 
                 /* Read-only changes. 'oa_setflag' is handled elsewhere. */
-                tmp = [ $('button_deleted') ].compact().invoke('up', 'SPAN');
-                [ 'ctx_message_', 'ctx_draft_' ].each(function(c) {
-                    tmp = tmp.concat($(c + 'deleted', c + 'setflag', c + 'undeleted'));
-                });
+                tmp = [ $('button_deleted') ].compact().invoke('up', 'SPAN').concat($('ctx_message_deleted', 'ctx_message_setflag', 'ctx_message_undeleted'));
 
                 if (this.viewport.getMetaData('readonly')) {
                     tmp.compact().invoke('hide');
@@ -612,7 +609,7 @@ var DimpBase = {
             /* Context menu: generate the list of settable flags for this
              * mailbox. */
             flags = this.viewport.getMetaData('flags');
-            $('ctx_draft_setflag', 'ctx_message_setflag', 'oa_setflag').invoke('up').invoke(flags.size() ? 'show' : 'hide');
+            $('ctx_message_setflag', 'oa_setflag').invoke('up').invoke(flags.size() ? 'show' : 'hide');
             if (flags.size()) {
                 $('ctx_flag').childElements().each(function(c) {
                     [ c ].invoke(flags.include(c.readAttribute('flag')) ? 'show' : 'hide');
@@ -785,7 +782,6 @@ var DimpBase = {
             this.blacklist(id == 'ctx_message_blacklist');
             break;
 
-        case 'ctx_draft_deleted':
         case 'ctx_message_deleted':
             this.deleteMsg();
             break;
@@ -801,7 +797,7 @@ var DimpBase = {
             }, this);
             break;
 
-        case 'ctx_draft_resume':
+        case 'ctx_message_resume':
             this.composeMailbox('resume');
             break;
 
@@ -836,7 +832,6 @@ var DimpBase = {
             this.blacklist(id == 'oa_blacklist');
             break;
 
-        case 'ctx_draft_undeleted':
         case 'ctx_message_undeleted':
         case 'oa_undeleted':
             this.flag('\\deleted', false);
@@ -976,6 +971,8 @@ var DimpBase = {
 
         case 'ctx_message':
             [ $('ctx_message_source').up() ].invoke(DIMP.conf.preview_pref ? 'hide' : 'show');
+            sel = this.viewport.getSelected();
+            [ $('ctx_message_resume') ].invoke(sel.size() == 1 && sel.get('dataob').first().draft ? 'show' : 'hide');
             break;
 
         default:
@@ -1917,9 +1914,11 @@ var DimpBase = {
 
         if (elt) {
             tmp = this.viewport.createSelection('domid', elt.identify()).get('dataob').first();
-            tmp.draft
-                ? DimpCore.compose('resume', { folder: tmp.view, uid: tmp.imapuid })
-                : this.msgWindow(tmp);
+            if (tmp.draft && this.viewport.getMetaData('drafts')) {
+                DimpCore.compose('resume', { folder: tmp.view, uid: tmp.imapuid })
+            } else {
+                this.msgWindow(tmp);
+            }
             e.stop();
         }
     },
@@ -2956,7 +2955,7 @@ var DimpBase = {
         if ($('ctx_forward')) {
             DM.addSubMenu('ctx_message_forward', 'ctx_forward');
         }
-        [ 'ctx_message_', 'oa_', 'ctx_draft_' ].each(function(i) {
+        [ 'ctx_message_', 'oa_' ].each(function(i) {
             if ($(i + 'setflag')) {
                 DM.addSubMenu(i + 'setflag', 'ctx_flag');
                 DM.addSubMenu(i + 'unsetflag', 'ctx_flag');

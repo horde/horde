@@ -85,10 +85,10 @@ span.dimpactionDrafts {
 #ctx_message_forward span.contextImg, #ctx_forward_attach span.contextImg, #ctx_forward_body span.contextImg, #ctx_forward_both span.contextImg {
     background-image: url("../graphics/forward.png");
 }
-#ctx_folder_empty span.contextImg, #ctx_message_deleted span.contextImg, #ctx_draft_deleted span.contextImg, #oa_purge_deleted span.contextImg {
+#ctx_folder_empty span.contextImg, #ctx_message_deleted span.contextImg, #oa_purge_deleted span.contextImg {
     background-image: url("../graphics/delete.png");
 }
-#ctx_message_undeleted span.contextImg, #ctx_draft_undeleted span.contextImg, #oa_undeleted span.contextImg {
+#ctx_message_undeleted span.contextImg, #oa_undeleted span.contextImg {
     background-image: url("../graphics/undelete.png");
 }
 #ctx_folder_seen span.contextImg {
@@ -97,13 +97,13 @@ span.dimpactionDrafts {
 #ctx_folder_unseen span.contextImg, #ctx_folder_poll span.contextImg, #ctx_folder_nopoll span.contextImg {
     background-image: url("../graphics/mail_unseen.png");
 }
-#ctx_message_setflag span.contextImg, #ctx_draft_setflag span.contextImg, #oa_setflag span.contextImg, #ctx_folder_setflag span.contextImg {
+#ctx_message_setflag span.contextImg, #oa_setflag span.contextImg, #ctx_folder_setflag span.contextImg {
     background-image: url("../graphics/mail_flagged.png");
 }
-#ctx_message_unsetflag span.contextImg, #ctx_draft_unsetflag span.contextImg, #oa_unsetflag span.contextImg {
+#ctx_message_unsetflag span.contextImg, #oa_unsetflag span.contextImg {
     background-image: url("../graphics/mail_clearflag.png");
 }
-#ctx_draft_resume span.contextImg {
+#ctx_message_resume span.contextImg {
     background-image: url("../graphics/mail_draft.png");
 }
 #oa_preview_hide span.contextImg, #oa_preview_show span.contextImg {

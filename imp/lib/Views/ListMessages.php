@@ -119,6 +119,9 @@ class IMP_Views_ListMessages
         if ($args['initial']) {
             if (IMP::isSpecialFolder($mbox)) {
                 $md->special = 1;
+                if ($mbox == IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'))) {
+                    $md->drafts = 1;
+                }
             }
             if ($is_search) {
                 $md->search = 1;
@@ -370,7 +373,6 @@ class IMP_Views_ListMessages
             /* Initialize the header fields. */
             $msg = array(
                 'imapuid' => intval($ob['uid']),
-                'menutype' => 'message',
                 'view' => $ob['mailbox'],
             );
 
@@ -397,9 +399,8 @@ class IMP_Views_ListMessages
                 }
             }
 
-            /* Specific flag checking. */
-            if (in_array('\\draft', $ob['flags'])) {
-                $msg['menutype'] = 'draft';
+            /* Drafts. */
+            if ($imp_ui->isDraft($ob['flags'])) {
                 $msg['draft'] = 1;
             }
 

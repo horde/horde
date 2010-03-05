@@ -364,6 +364,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 </div>
 
 <div class="context" id="ctx_message" style="display:none">
+ <a id="ctx_message_resume" style="display:none"><span class="contextImg"></span><?php echo _("Resume Draft") ?></a>
  <a id="ctx_message_reply"><span class="contextImg"></span><?php echo _("Reply") ?></a>
  <a id="ctx_message_forward"><span class="contextImg"></span><?php echo _("Forward") ?></a>
 <?php if (!empty($flag_list)): ?>
@@ -394,22 +395,6 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
   <div class="sep"></div>
   <a id="ctx_message_source"><span class="contextImg"></span><?php echo _("View Source") ?></a>
  </div>
-</div>
-
-<div class="context" id="ctx_draft" style="display:none">
- <a id="ctx_draft_resume"><span class="contextImg"></span><?php echo _("Resume Draft") ?></a>
-<?php if (!empty($flag_list)): ?>
- <div>
-  <div class="sep"></div>
-  <a id="ctx_draft_setflag"><span class="contextImg"></span><?php echo _("Mark as") ?></a>
-  <a id="ctx_draft_unsetflag"><span class="contextImg"></span><?php echo _("Unmark as") ?></a>
- </div>
-<?php endif; ?>
- <div class="sep"></div>
- <a id="ctx_draft_deleted"><span class="contextImg"></span><?php echo _("Delete") ?></a>
-<?php if (!$usetrash): ?>
- <a id="ctx_draft_undeleted"><span class="contextImg"></span><?php echo _("Undelete") ?></a>
-<?php endif; ?>
 </div>
 
 <div class="context" id="ctx_reply" style="display:none;">

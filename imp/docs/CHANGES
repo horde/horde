@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] DIMP now honors the 'allow_resume_all' configuration option.
 [mms] Remove 'sort_limit' configuration option.
 [mms] Mobile view no longer supports WML output.
 [jan] Implement iTip viewer actions in DIMP (Request #8061).
