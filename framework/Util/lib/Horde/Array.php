@@ -193,6 +193,9 @@ class Horde_Array
      */
     static public function valuesToKeys($array)
     {
+        if (!$array) {
+            return array();
+        }
         return array_combine($array, $array);
     }
 
