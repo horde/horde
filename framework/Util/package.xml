@@ -29,7 +29,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Removed Horde_Util::strftime2date() and Horde_Util::date2strftime().
+ <notes>* Removed Horde_Util::uriB64Encode() and Horde_Util::uriB64Decode().
+ * Removed Horde_Util::strftime2date() and Horde_Util::date2strftime().
  * Removed Horde_Util::closeWindowJs() and Horde_Util::nocacheUrl().
  * Added Horde_Util::convertToUtf8().
  * Added Horde_Util::abbreviate().

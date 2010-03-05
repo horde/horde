@@ -512,7 +512,7 @@ HTML;
 
         $queryString .= '&_t=' . $now . '&_h=';
 
-        return $queryString . Horde_Util::uriB64Encode(hash_hmac('sha1', $queryString, $GLOBALS['conf']['secret_key'], true));
+        return $queryString . Horde_Url::uriB64Encode(hash_hmac('sha1', $queryString, $GLOBALS['conf']['secret_key'], true));
     }
 
     /**
@@ -538,7 +538,7 @@ HTML;
         $queryString = substr($data, 0, $pos);
         $hmac = substr($data, $pos);
 
-        if ($hmac != Horde_Util::uriB64Encode(hash_hmac('sha1', $queryString, $GLOBALS['conf']['secret_key'], true))) {
+        if ($hmac != Horde_Url::uriB64Encode(hash_hmac('sha1', $queryString, $GLOBALS['conf']['secret_key'], true))) {
             return false;
         }
 

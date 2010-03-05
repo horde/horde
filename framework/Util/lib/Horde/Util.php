@@ -778,35 +778,6 @@ class Horde_Util
     }
 
     /**
-     * URL-safe base64 encoding, with trimmed '='.
-     *
-     * @param string $string  String to encode.
-     *
-     * @return string  URL-safe, base64 encoded data.
-     */
-    static public function uriB64Encode($string)
-    {
-        return str_replace(array('+', '/', '='), array('-', '_', ''), base64_encode($string));
-    }
-
-    /**
-     * Decode URL-safe base64 data, dealing with missing '='.
-     *
-     * @param string $string  Encoded data
-     *
-     * @return string  Decoded data.
-     */
-    static public function uriB64Decode($string)
-    {
-        $data = str_replace(array('-', '_'), array('+', '/'), $string);
-        $mod4 = strlen($data) % 4;
-        if ($mod4) {
-            $data .= substr('====', $mod4);
-        }
-        return base64_decode($data);
-    }
-
-    /**
      * Convert a variable to UTF-8. Recursively handles inner variables.
      *
      * @param mixed $in  The variable to convert.
