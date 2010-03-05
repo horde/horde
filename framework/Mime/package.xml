@@ -31,7 +31,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Default disposition should be empty by default, not inline (RFC 2183 [2]).
+ <notes>
+ * No need to generate Content-Transfer-Encoding header if part data is 7bit.
+ * Default disposition should be empty by default, not inline (RFC 2183 [2]).
  * Request #8556: Allow specifying a header charset for a part.
  * Add 'raw' render view to Horde_Mime_Viewer.
  * Horde_Mime_Part::parseMessage() correctly parses non-MIME parts.

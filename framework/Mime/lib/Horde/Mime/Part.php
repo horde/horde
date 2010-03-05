@@ -931,8 +931,14 @@ class Horde_Mime_Part
             $headers->replaceHeader('Content-Disposition', $disposition, array('params' => (!empty($name) ? array('filename' => $name) : array())));
         }
 
-        /* Add transfer encoding information. */
-        $headers->replaceHeader('Content-Transfer-Encoding', $this->_getTransferEncoding(empty($options['encode']) ? null : $options['encode']));
+        /* Add transfer encoding information. RFC 2045 [6.1] indicates that
+         * default is 7bit. No need to send the header in this case. */
+        $encoding = $this->_getTransferEncoding(empty($options['encode']) ? null : $options['encode']);
+        if ($encoding == '7bit') {
+            $headers->removeHeader('Content-Transfer-Encoding');
+        } else {
+            $headers->replaceHeader('Content-Transfer-Encoding', $encoding);
+        }
 
         /* Add content ID information. */
         if (!is_null($this->_contentid)) {
