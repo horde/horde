@@ -1395,8 +1395,31 @@ HTML;
         $url = self::url($url, $full, 0, $force_ssl);
 
         return $nocache
-            ? Horde_Util::nocacheUrl($url, !$full)
+            ? self::nocacheUrl($url)
             : $url;
+    }
+
+    /**
+     * Returns a url with the 'nocache' parameter added, if the browser is
+     * buggy and caches old URLs.
+     *
+     * @param Horde_Url|string $url  The URL to modify.
+     *
+     * @return Horde_Url  The requested URL.
+     */
+    static public function nocacheUrl($url)
+    {
+        if (!$url instanceof Horde_Url) {
+            $url = new Horde_Url($url);
+        }
+
+        /* We may need to set a dummy parameter 'nocache' since some
+         * browsers do not always honor the 'no-cache' header. */
+        if ($GLOBALS['browser']->hasQuirk('cache_same_url')) {
+            $url->add('nocache', uniqid());
+        }
+
+        return $url;
     }
 
     /**

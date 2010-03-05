@@ -67,13 +67,6 @@ class Horde_Util
     );
 
     /**
-     * Random number for nocacheUrl().
-     *
-     * @var integer.
-     */
-    static protected $_randnum = null;
-
-    /**
      * TODO
      */
     static protected $_magicquotes = null;
@@ -270,29 +263,6 @@ class Horde_Util
 
         $horde_url = new Horde_Url($url);
         return $horde_url->remove($remove);
-    }
-
-    /**
-     * Returns a url with the 'nocache' parameter added, if the browser is
-     * buggy and caches old URLs.
-     *
-     * @param Horde_Url|string $url  The URL to modify.
-     * @param boolean $encode        Encode the argument separator?
-     *
-     * @return string  The requested URL.
-     */
-    static public function nocacheUrl($url, $encode = true)
-    {
-        /* We may need to set a dummy parameter 'nocache' since some
-         * browsers do not always honor the 'no-cache' header. */
-        if ($GLOBALS['browser']->hasQuirk('cache_same_url')) {
-            if (is_null(self::$_randnum)) {
-                self::$_randnum = base_convert(microtime(), 10, 36);
-            }
-            return self::addParameter($url, 'nocache', self::$_randnum, $encode);
-        }
-
-        return $url;
     }
 
     /**
