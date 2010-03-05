@@ -60,7 +60,8 @@ class Horde_Test
         ),
         'dom' => array(
             'descrip' => 'DOM XML Support',
-            'error' => 'DOM support is required for the configuration frontend and Kolab support.'
+            'error' => 'Horde will not run without the dom extension. Don\'t compile PHP with <code>--disable-all/--disable-dom</code>, or enable the dom extension individually before continuing.',
+            'fatal' => true
         ),
         'fileinfo' => array(
             'descrip' => 'MIME Magic Support (fileinfo)',
@@ -156,8 +157,9 @@ class Horde_Test
             'error' => 'The tidy PHP extension is used to sanitize HTML data.'
         ),
         'xml' => array(
-            'descrip' => 'XML Support',
-            'error' => 'XML support is required for the help system.'
+            'descrip' => 'XML Parser support',
+            'error' => 'Horde will not run without the xml extension. Don\'t compile PHP with <code>--disable-all/--without-xml</code>, or enable the xml extension individually before continuing.',
+            'fatal' => true
         ),
         'zlib' => array(
             'descrip' => 'Zlib Support',
