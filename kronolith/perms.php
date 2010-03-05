@@ -74,7 +74,7 @@ case 'editform':
         }
 
         if (Horde_Auth::isAdmin() ||
-            !empty($GLOBALS['conf']['shares']['world'])) {
+            !empty($GLOBALS['conf']['share']['world'])) {
             // Process default permissions.
             if (Horde_Util::getFormData('default_show')) {
                 $perm->addDefaultPermission(Horde_Perms::SHOW, false);

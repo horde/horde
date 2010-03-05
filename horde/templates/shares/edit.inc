@@ -50,7 +50,7 @@ if (isset($userperms[$owner])) {
   </td>
 </tr>
 
-<?php if (Horde_Auth::isAdmin() || !empty($GLOBALS['conf']['shares']['world'])): ?>
+<?php if (Horde_Auth::isAdmin() || !empty($GLOBALS['conf']['share']['world'])): ?>
 <!-- Spacer -->
 <tr><td>&nbsp;</td></tr>
 
