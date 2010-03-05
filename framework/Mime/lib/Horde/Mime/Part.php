@@ -21,9 +21,6 @@ class Horde_Mime_Part
      * messages. */
     const RFC_EOL = "\r\n";
 
-    /* The default MIME disposition. */
-    const DEFAULT_DISPOSITION = 'inline';
-
     /* The default encoding. */
     const DEFAULT_ENCODING = 'binary';
 
@@ -108,7 +105,7 @@ class Horde_Mime_Part
      *
      * @var string
      */
-    protected $_disposition = self::DEFAULT_DISPOSITION;
+    protected $_disposition = '';
 
     /**
      * The disposition parameters of this part.
@@ -243,22 +240,26 @@ class Horde_Mime_Part
     /**
      * Set the content-disposition of this part.
      *
-     * @param string $disposition  The content-disposition to set (inline or
-     *                             attachment).
+     * @param string $disposition  The content-disposition to set ('inline',
+     *                             'attachment', or an empty value).
      */
-    public function setDisposition($disposition)
+    public function setDisposition($disposition = null)
     {
-        $disposition = Horde_String::lower($disposition);
-
-        if (in_array($disposition, array('inline', 'attachment'))) {
-            $this->_disposition = $disposition;
+        if (empty($disposition)) {
+            $this->_disposition = '';
+        } else {
+            $disposition = Horde_String::lower($disposition);
+            if (in_array($disposition, array('inline', 'attachment'))) {
+                $this->_disposition = $disposition;
+            }
         }
     }
 
     /**
      * Get the content-disposition of this part.
      *
-     * @return string  The part's content-disposition.
+     * @return string  The part's content-disposition.  An empty string means
+     * q               no desired disposition has been set for this part.
      */
     public function getDisposition()
     {
@@ -921,10 +922,13 @@ class Horde_Mime_Part
         }
 
         /* Don't show Content-Disposition for multipart messages unless
-           there is a name parameter. */
+         * there is a name parameter. RFC 2183 [2] indicates that default is
+         * no requested disposition. */
+        $disposition = $this->getDisposition();
         $name = $this->getName();
-        if (($ptype != 'multipart') || !empty($name)) {
-            $headers->replaceHeader('Content-Disposition', $this->getDisposition(), array('params' => (!empty($name) ? array('filename' => $name) : array())));
+        if (($ptype != 'multipart') ||
+            ($disposition || !empty($name))) {
+            $headers->replaceHeader('Content-Disposition', $disposition, array('params' => (!empty($name) ? array('filename' => $name) : array())));
         }
 
         /* Add transfer encoding information. */

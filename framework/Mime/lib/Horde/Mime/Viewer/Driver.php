@@ -252,7 +252,7 @@ class Horde_Mime_Viewer_Driver
             return $this->getConfigParam('inline') &&
                 ($this->_metadata['forceinline'] ||
                  ($this->_capability['inline'] &&
-                  ($this->_mimepart->getDisposition() == 'inline')));
+                  ($this->_mimepart->getDisposition() != 'attachment')));
 
         default:
             return false;
