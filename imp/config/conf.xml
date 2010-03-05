@@ -64,11 +64,6 @@
    list of folders that can't be modified (deleted, renamed, etc) by the user,
    e.g.: &quot;Drafts, Trash&quot;. (The mailbox value must be encoded in the
    UTF7-IMAP charset; see RFC 3501 [5.1.3])"/>
-   <configinteger name="sort_limit" desc="On slower mailservers, sorting by any
-   field other than the arrival of the message may result in very slow
-   performance.  This value, if greater than 0 is the number of messages
-   that must be present in a mailbox before the default sort is replaced by
-   the much faster arrival time sort.">0</configinteger>
    <configboolean name="cache_folders" desc="If using IMAP, should we cache the
    list of folders so that the list does not need to be rebuilt on every page
    load? If set to true, note that any folders created on the server during an

@@ -49,7 +49,7 @@ hook.
 The 'max_from_chars' and 'max_subj_chars' configuration options for the
 minimal (mimp) display have been removed.
 
-The 'limit_factor' configuration option has been removed.
+The 'limit_factor' and 'sort_limit' configuration options have been removed.
 
 
 Preferences

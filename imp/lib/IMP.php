@@ -867,9 +867,10 @@ class IMP
      *                      in the session).
      *
      * @return array  An array with the following keys:
-     *                'by'  - Sort type (Horde_Imap_Client constant)
-     *                'dir' - Sort direction
-     *                'limit' - Was the sort limit reached?
+     * <pre>
+     * 'by'  - (integer) Sort type (Horde_Imap_Client constant)
+     * 'dir' - (integer) Sort direction
+     * </pre>
      */
     static public function getSort($mbox = null)
     {
@@ -890,7 +891,6 @@ class IMP
         $ob = array(
             'by' => isset($entry['b']) ? $entry['b'] : $sortby,
             'dir' => isset($entry['d']) ? $entry['d'] : $GLOBALS['prefs']->getValue('sortdir'),
-            'limit' => false
         );
 
         /* Restrict POP3 sorting to arrival only.  Although possible to
@@ -898,7 +898,6 @@ class IMP
          * download of all messages, which is too much overhead.*/
         if ($_SESSION['imp']['protocol'] == 'pop') {
             $ob['by'] = Horde_Imap_Client::SORT_ARRIVAL;
-            $ob['limit'] = true;
             return $ob;
         }
 
@@ -908,28 +907,14 @@ class IMP
             $ob['by'] = Horde_Imap_Client::SORT_DATE;
         }
 
-        if (!$search_mbox &&
-            !empty($GLOBALS['conf']['server']['sort_limit'])) {
-            try {
-                $status = $GLOBALS['imp_imap']->ob()->status($mbox, Horde_Imap_Client::STATUS_MESSAGES);
-                if (isset($status['messages']) &&
-                    ($status['messages'] > $GLOBALS['conf']['server']['sort_limit'])) {
-                    $ob['limit'] = true;
-                    $ob['by'] = Horde_Imap_Client::SORT_ARRIVAL;
-                }
-            } catch (Horde_Imap_Client_Exception $e) {}
-        }
-
-        if (!$ob['limit']) {
-            if (self::isSpecialFolder($mbox)) {
-                /* If the preference is to sort by From Address, when we are
-                 * in the Drafts or Sent folders, sort by To Address. */
-                if ($ob['by'] == Horde_Imap_Client::SORT_FROM) {
-                    $ob['by'] = Horde_Imap_Client::SORT_TO;
-                }
-            } elseif ($ob['by'] == Horde_Imap_Client::SORT_TO) {
-                $ob['by'] = Horde_Imap_Client::SORT_FROM;
+        if (self::isSpecialFolder($mbox)) {
+            /* If the preference is to sort by From Address, when we are
+             * in the Drafts or Sent folders, sort by To Address. */
+            if ($ob['by'] == Horde_Imap_Client::SORT_FROM) {
+                $ob['by'] = Horde_Imap_Client::SORT_TO;
             }
+        } elseif ($ob['by'] == Horde_Imap_Client::SORT_TO) {
+            $ob['by'] = Horde_Imap_Client::SORT_FROM;
         }
 
         return $ob;

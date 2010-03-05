@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Remove 'sort_limit' configuration option.
 [mms] Mobile view no longer supports WML output.
 [jan] Implement iTip viewer actions in DIMP (Request #8061).
 [mms] Display alarm notifications in DIMP (Request #6232).

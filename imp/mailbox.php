@@ -650,15 +650,12 @@ if ($pageOb['msgcount']) {
         } else {
             $ptr['change_sort_link'] = null;
         }
-        if ($sortpref['limit']) {
-            $ptr['sortlimit_text'] = Horde::stripAccessKey($val['text']);
-        } else {
-            $tmp = ($sortpref['by'] == $key) ? $sort_url : $mailbox_imp_url;
-            $ptr['change_sort'] = addslashes($tmp->copy()->add(array('sortby' => $key, 'actionID' => 'change_sort', 'mailbox_token' => $mailbox_token)));
-            $ptr['change_sort_widget'] = Horde::widget($tmp->copy()->add(array('sortby' => $key, 'actionID' => 'change_sort', 'mailbox_token' => $mailbox_token)), $val['stext'], 'widget', null, null, $val['text']);
-            if (!isset($val['extra'])) {
-                $ptr['extra'] = null;
-            }
+
+        $tmp = ($sortpref['by'] == $key) ? $sort_url : $mailbox_imp_url;
+        $ptr['change_sort'] = addslashes($tmp->copy()->add(array('sortby' => $key, 'actionID' => 'change_sort', 'mailbox_token' => $mailbox_token)));
+        $ptr['change_sort_widget'] = Horde::widget($tmp->copy()->add(array('sortby' => $key, 'actionID' => 'change_sort', 'mailbox_token' => $mailbox_token)), $val['stext'], 'widget', null, null, $val['text']);
+        if (!isset($val['extra'])) {
+            $ptr['extra'] = null;
         }
     }
 
@@ -671,7 +668,6 @@ if ($pageOb['msgcount']) {
     $mh_template->set('mailbox', htmlspecialchars($imp_mbox['mailbox']));
     $mh_template->set('mailbox_token', $mailbox_token);
     $mh_template->set('sessiontag', Horde_Util::formInput());
-    $mh_template->set('sortlimit', $sortpref['limit']);
     $mh_template->set('headers', $headers);
 
     if (!$search_mbox) {
@@ -846,7 +842,6 @@ if (($pageOb['end'] - $pageOb['begin']) >= 20) {
 }
 
 Horde::addInlineScript(array(
-    'ImpMailbox.sortlimit = ' . intval($sortpref['limit']),
     'ImpMailbox.unread = ' . strval($unread)
 ));
 

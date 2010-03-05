@@ -806,14 +806,6 @@ class IMP_Mailbox
         /* Update the current array index to its new position in the message
          * array. */
         $this->setIndex(0, 'offset');
-
-        /* If we have a sortlimit, it is possible the sort prefs will have
-         * changed after messages are expunged. */
-        if (!empty($GLOBALS['conf']['server']['sort_limit']) &&
-            ($sortcount > $GLOBALS['conf']['server']['sort_limit']) &&
-            (($sortcount - $msgcount) <= $GLOBALS['conf']['server']['sort_limit'])) {
-            $this->_rebuild(true);
-        }
     }
 
     /**

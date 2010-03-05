@@ -7,7 +7,7 @@
 
 var ImpMailbox = {
     // The following variables are defined in mailbox.php:
-    //  sortlimit, unread
+    //  unread
 
     anySelected: function()
     {
@@ -252,8 +252,7 @@ var ImpMailbox = {
                 return;
             }
 
-            if (!this.sortlimit &&
-                elt.match('TH') &&
+            if (elt.match('TH') &&
                 elt.up('TABLE.messageList')) {
                 document.location.href = elt.down('A').href;
             }

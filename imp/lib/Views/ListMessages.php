@@ -131,10 +131,6 @@ class IMP_Views_ListMessages
         /* These entries may change during a session, so always need to
          * update them. */
         $md->readonly = intval($GLOBALS['imp_imap']->isReadOnly($mbox));
-        if (!$is_search &&
-            !empty($GLOBALS['conf']['server']['sort_limit'])) {
-            $md->sortlimit = $sortpref['limit'] ? 1 : 0;
-        }
 
         /* Check for mailbox existence now. If there are no messages, there
          * is a chance that the mailbox doesn't exist. If there is at least

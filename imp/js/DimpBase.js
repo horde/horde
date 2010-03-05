@@ -1016,11 +1016,6 @@ var DimpBase = {
 
         e.stop();
 
-        // Don't change sort if we are past the sortlimit
-        if (this.viewport.getMetaData('sortlimit')) {
-            return;
-        }
-
         sortby = Number(sortby);
         if (sortby == this.viewport.getMetaData('sortby')) {
             s = { sortdir: (this.viewport.getMetaData('sortdir') ? 0 : 1) };
@@ -1069,8 +1064,7 @@ var DimpBase = {
         /* Toggle between Subject/Thread header. */
         tmp = m.down('.msgSubject');
         if (this.isSearch() ||
-            this.viewport.getMetaData('nothread') ||
-            this.viewport.getMetaData('sortlimit')) {
+            this.viewport.getMetaData('nothread')) {
             togglesort.push({ l: 'subject', t: tmp });
         } else if (sortby == ptr.get('thread').v) {
             togglesort.push({ l: 'thread', s: 'subject', t: tmp });
