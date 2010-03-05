@@ -352,27 +352,35 @@ class Horde_Util
      */
     static public function getTempDir()
     {
-        // First, try PHP's upload_tmp_dir directive.
-        $tmp = ini_get('upload_tmp_dir');
+        $tmp = false;
 
-        // Otherwise, try to determine the TMPDIR environment
-        // variable.
-        if (empty($tmp)) {
-            $tmp = getenv('TMPDIR');
+        // Try sys_get_temp_dir() - only available in PHP 5.2.1+.
+        if (function_exists('sys_get_temp_dir')) {
+            $tmp = sys_get_temp_dir();
         }
 
-        // If we still cannot determine a value, then cycle through a
-        // list of preset possibilities.
-        if (empty($tmp)) {
-            foreach (self::$tmpLocations as $tmp_check) {
-                if (@is_dir($tmp_check)) {
-                    $tmp = $tmp_check;
-                    break;
+        // First, try PHP's upload_tmp_dir directive.
+        if (!$tmp) {
+            $tmp = ini_get('upload_tmp_dir');
+
+            // Otherwise, try to determine the TMPDIR environment
+            // variable.
+            if (!$tmp) {
+                $tmp = getenv('TMPDIR');
+
+                // If we still cannot determine a value, then cycle through a
+                // list of preset possibilities.
+                if (!$tmp) {
+                    foreach (self::$tmpLocations as $tmp_check) {
+                        if (@is_dir($tmp_check)) {
+                            return $tmp_check;
+                        }
+                    }
                 }
             }
         }
 
-        return empty($tmp) ? false : $tmp;
+        return $tmp ? $tmp : false;
     }
 
     /**
