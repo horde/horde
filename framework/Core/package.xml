@@ -135,6 +135,10 @@ Application Framework.
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Url</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Util</name>
     <channel>pear.horde.org</channel>
    </package>
