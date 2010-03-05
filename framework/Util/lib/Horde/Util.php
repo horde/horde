@@ -787,7 +787,9 @@ class Horde_Util
     static public function convertToUtf8($in)
     {
         if (is_string($in)) {
-            $in = utf8_encode($in);
+            if (self::extensionExists('xml')) {
+                $in = utf8_encode($in);
+            }
         } elseif (is_array($in)) {
             reset($in);
             while (list($key, $val) = each($in)) {

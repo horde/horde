@@ -89,6 +89,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <extension>
     <name>mbstring</name>
    </extension>
+   <extension>
+    <name>xml</name>
+   </extension>
   </optional>
  </dependencies>
  <phprelease>

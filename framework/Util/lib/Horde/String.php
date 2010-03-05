@@ -135,8 +135,10 @@ class Horde_String
         /* Use utf8_[en|de]code() if possible and if the string isn't too
          * large (less than 16 MB = 16 * 1024 * 1024 = 16777216 bytes) - these
          * functions use more memory. */
-        if ((strlen($input) < 16777216) ||
-            !(Horde_Util::extensionExists('iconv') || Horde_Util::extensionExists('mbstring'))) {
+        if (Horde_Util::extensionExists('xml') &&
+            ((strlen($input) < 16777216) ||
+             !Horde_Util::extensionExists('iconv') ||
+             !Horde_Util::extensionExists('mbstring'))) {
             if (($to == 'utf-8') &&
                 in_array($from, array('iso-8859-1', 'us-ascii'))) {
                 return utf8_encode($input);
