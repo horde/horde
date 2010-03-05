@@ -31,14 +31,13 @@ class Horde_Array
         $addr = array_keys(array_flip($addr));
 
         /* Sort the list. */
-        usort($addr, array('Horde_Array', 'sortAddressList'));
+        usort($addr, array(__CLASS__, 'sortAddressList'));
 
         return $addr;
     }
 
     /**
      * Function used by usort() to sort an address list.
-     *   e.g. usort($foo, array('Horde_Array', 'sortAddressList'));
      *
      * @param string $a  Address #1.
      * @param string $b  Address #2.
@@ -194,12 +193,7 @@ class Horde_Array
      */
     static public function valuesToKeys($array)
     {
-        if (!$array) {
-            return array();
-        }
-
-        $values = array_values($array);
-        return array_combine($values, $values);
+        return array_combine($array, $array);
     }
 
     /**
