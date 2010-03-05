@@ -383,14 +383,14 @@ class Horde_Util
      *                         recognizable.
      * @param boolean $delete  Delete the file at the end of the request?
      * @param string $dir      Directory to create the temporary file in.
-     * @param boolean $secureDelete  If deleting the file, should we securely delete the
-     *                               file by overwriting it with random data?
+     * @param boolean $secure  If deleting the file, should we securely delete
+     *                         the file by overwriting it with random data?
      *
      * @return string   Returns the full path-name to the temporary file.
      *                  Returns false if a temp file could not be created.
      */
     static public function getTempFile($prefix = '', $delete = true, $dir = '',
-                                       $secureDelete = false)
+                                       $secure = false)
     {
         $tempDir = (empty($dir) || !is_dir($dir))
             ? self::getTempDir()
@@ -408,7 +408,7 @@ class Horde_Util
         }
 
         if ($delete) {
-            self::deleteAtShutdown($tempFile, true, $secureDelete);
+            self::deleteAtShutdown($tempFile, true, $secure);
         }
         return $tempFile;
     }
@@ -418,19 +418,21 @@ class Horde_Util
      * of the script, and (optionally) registers it to be deleted at request
      * shutdown.
      *
-     * @param string $extension      The file extension to use.
-     * @param string $prefix         Prefix to make the temporary name more
-     *                               recognizable.
-     * @param boolean $delete        Delete the file at the end of the request?
-     * @param string $dir            Directory to create the temporary file in.
-     * @param boolean $secureDelete  If deleting file, should we securely delete the
-     *                               file by overwriting it with random data?
+     * @param string $extension  The file extension to use.
+     * @param string $prefix     Prefix to make the temporary name more
+     *                           recognizable.
+     * @param boolean $delete    Delete the file at the end of the request?
+     * @param string $dir        Directory to create the temporary file in.
+     * @param boolean $secure    If deleting file, should we securely delete
+     *                           the file by overwriting it with random data?
      *
      * @return string   Returns the full path-name to the temporary file.
      *                  Returns false if a temporary file could not be created.
      */
-    static public function getTempFileWithExtension($extension = '.tmp', $prefix = '', $delete = true, $dir = '',
-                                                    $secureDelete = false)
+    static public function getTempFileWithExtension($extension = '.tmp',
+                                                    $prefix = '',
+                                                    $delete = true, $dir = '',
+                                                    $secure = false)
     {
         $tempDir = (empty($dir) || !is_dir($dir))
             ? self::getTempDir()
@@ -465,15 +467,14 @@ class Horde_Util
                 }
 
                 if ($delete) {
-                    self::deleteAtShutdown($tmpFileName, true, $secureDelete);
+                    self::deleteAtShutdown($tmpFileName, true, $secure);
                 }
 
                 return $tmpFileName;
             }
 
             unlink($sysFileName);
-            $tries++;
-        } while ($tries <= 5);
+        } while (++$tries <= 5);
 
         return false;
     }
