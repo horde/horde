@@ -640,7 +640,7 @@ a.kronolithFormCancel {
     cursor: pointer;
     text-decoration: underline;
 }
-.kronolithFormInfo {
+.kronolithDialogInfo {
     font-style: italic;
 }
 

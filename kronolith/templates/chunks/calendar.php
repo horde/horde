@@ -253,7 +253,7 @@
 </div>
 
 <div id="kronolithCalendarinternalTabImportExport" class="kronolithTabsOption" style="display:none">
-  <div class="kronolithTabInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics. Recipients of the iCalendar data file (with supporting software, such as an email client or calendar application) can respond to the sender easily or counter propose another meeting date/time.") ?></div>
+  <div class="kronolithDialogInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics. Recipients of the iCalendar data file (with supporting software, such as an email client or calendar application) can respond to the sender easily or counter propose another meeting date/time.") ?></div>
   <?php /* ?>
   <label><?php echo _("Import ICS file") ?>:
     <input type="file" name="import_file" />
@@ -316,7 +316,7 @@ tbd
 </div>
 
 <div id="kronolithCalendartasklistsTabImportExport" class="kronolithTabsOption" style="display:none">
-  <div class="kronolithTabInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics. Recipients of the iCalendar data file (with supporting software, such as an email client or calendar application) can respond to the sender easily or counter propose another meeting date/time.") ?></div>
+  <div class="kronolithDialogInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics. Recipients of the iCalendar data file (with supporting software, such as an email client or calendar application) can respond to the sender easily or counter propose another meeting date/time.") ?></div>
   <?php /* ?>
   <label><?php echo _("Import ICS file") ?>:
     <input type="file" name="import_file" />
