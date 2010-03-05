@@ -37,6 +37,7 @@ v4.0-cvs
 v3.3.7-cvs
 ----------
 
+[gwr] Allow conf.d style directory configuration overriding (Ticket #8172)
 [jan] Fix sending alarms to multiple users (Bug #8821).
 [mms] Fix display of S/MIME certificate data (Bug #8826).
 [mjr] Fix bug in Horde_Image that caused polaroid effect to fail on really old
