@@ -250,7 +250,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
                                         $tmp = array_merge($tmp, explode("\n", wordwrap($val2, $this->_params['width'] - (2 * $val['level']))));
                                     }
                                 } else {
-                                    $tmp = $val['text'];
+                                    $tmp = array($val['text']);
                                 }
 
                                 /* Clean out empty entries. */
