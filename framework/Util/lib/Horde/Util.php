@@ -35,28 +35,6 @@ class Horde_Util
     );
 
     /**
-     * TODO
-     *
-     * @var array
-     */
-    static public $dateSymbols = array(
-        'a', 'A', 'd', 'D', 'F', 'g', 'G', 'h', 'H', 'i', 'j', 'l', 'm', 'M',
-        'n', 'r', 's', 'T', 'w', 'W', 'y', 'Y', 'z', 'm/d/Y', 'M', "\n",
-        'g:i a', 'G:i', "\t", 'H:i:s', '%'
-    );
-
-    /**
-     * TODO
-     *
-     * @var array
-     */
-    static public $strftimeSymbols = array(
-        '%p', '%p', '%d', '%a', '%B', '%I', '%H', '%I', '%H', '%M', '%e',
-        '%A', '%m', '%b', '%m', '%a, %e %b %Y %T %Z', '%S', '%Z', '%w', '%V',
-        '%y', '%Y', '%j', '%D', '%h', '%n', '%r', '%R', '%t', '%T', '%%'
-    );
-
-    /**
      * Temp directory locations.
      *
      * @var array
@@ -772,45 +750,6 @@ class Horde_Util
                 return PEAR::throwError(sprintf(_("Required \"%s\" not specified in configuration."), $field, $name), self::HORDE_ERROR_DRIVER_CONFIG, $info);
             }
         }
-    }
-
-    /**
-     * Returns a format string to be used by strftime().
-     *
-     * @param string $format  A format string as used by date().
-     *
-     * @return string  A format string as similar as possible to $format.
-     */
-    static public function date2strftime($format)
-    {
-        $f_len = strlen($format);
-        $result = '';
-
-        for ($pos = 0; $pos < $f_len;) {
-            for ($symbol = 0, $symcount = count(self::$dateSymbols); $symbol < $symcount; ++$symbol) {
-                if (strpos($format, self::$dateSymbols[$symbol], $pos) === $pos) {
-                    $result .= self::$strftimeSymbols[$symbol];
-                    $pos += strlen(self::$dateSymbols[$symbol]);
-                    continue 2;
-                }
-            }
-            $result .= substr($format, $pos, 1);
-            ++$pos;
-        }
-
-        return $result;
-    }
-
-    /**
-     * Returns a format string to be used by date().
-     *
-     * @param string $format  A format string as used by strftime().
-     *
-     * @return string  A format string as similar as possible to $format.
-     */
-    static public function strftime2date($format)
-    {
-        return str_replace(self::$strftimeSymbols, self::$dateSymbols, $format);
     }
 
     /**
