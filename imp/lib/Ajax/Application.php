@@ -25,7 +25,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      * @var array
      */
     protected $_readOnly = array(
-        'Html2Text', 'Text2Html'
+        'html2Text', 'text2Html'
     );
 
     /**
