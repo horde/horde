@@ -37,7 +37,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function responseType()
     {
-        return ($this->_action == 'AddAttachment')
+        return ($this->_action == 'addAttachment')
             ? 'js-json'
             : parent::responseType();
     }
@@ -1276,7 +1276,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         $imp_compose = IMP_Compose::singleton($this->_vars->composeCache);
 
         $result = new stdClass;
-        $result->action = 'AddAttachment';
+        $result->action = 'addAttachment';
         $result->success = 0;
 
         if ($_SESSION['imp']['file_upload'] &&
@@ -1487,7 +1487,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
 
         try {
             $res = $imp_compose->saveDraft($headers, $this->_vars->message, Horde_Nls::getCharset(), $this->_vars->html);
-            if ($this->_action == 'AutoSaveDraft') {
+            if ($this->_action == 'autoSaveDraft') {
                 $GLOBALS['notification']->push(_("Draft automatically saved."), 'horde.message');
             } else {
                 $GLOBALS['notification']->push($res);
@@ -1598,7 +1598,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
     {
         /* Only update search mailboxes on forced refreshes. */
         if ($GLOBALS['imp_search']->isSearchMbox($this->_vars->view)) {
-            return ($this->_action == 'ViewPort') || $this->_vars->forceUpdate;
+            return ($this->_action == 'viewPort') || $this->_vars->forceUpdate;
         }
 
         /* We know we are going to be dealing with this mailbox, so select it
