@@ -93,6 +93,11 @@ case 'sidebar':
             $node_params = $node_params_master;
             $parent = null;
 
+            $node_params['url'] = $base_url->copy()->add(array(
+                'show' => 'entry',
+                'topic' => $id
+            ));
+
             /* If the title doesn't begin with :: then replace all
              * double colons with single colons. */
             if (substr($title, 0, 2) != '::') {
@@ -111,11 +116,8 @@ case 'sidebar':
                     $idx .= '|' . $name;
                     if (empty($added_nodes[$idx])) {
                         $added_nodes[$idx] = true;
-                        if (!count($levels)) {
-                            $node_params['url'] = $base_url->copy()->add(array(
-                                'show' => 'entry',
-                                'topic' => $id
-                            ));
+                        if (count($levels)) {
+                            unset($node_params['url']);
                         }
                         $tree->addNode($idx, $parent, $name, 0, false, $node_params);
                     }
