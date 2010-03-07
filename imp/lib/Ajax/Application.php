@@ -1088,7 +1088,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function deleteAttach()
     {
-        if ($this->_vars->atc_indices) {
+        if (isset($this->_vars->atc_indices)) {
             $imp_compose = IMP_Compose::singleton($this->_vars->imp_compose);
             foreach ($imp_compose->deleteAttachment($this->_vars->atc_indices) as $val) {
                 $GLOBALS['notification']->push(sprintf(_("Deleted attachment \"%s\"."), Horde_Mime::decode($val)), 'horde.success');
