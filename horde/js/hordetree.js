@@ -239,7 +239,7 @@ var Horde_Tree = Class.create({
             node = this.nodes[nodeId];
 
         if (node.url) {
-            label.push('<a');
+            label.push('<span class="toggle"><a');
 
             if (node.urlclass) {
                 label.push(' class="' + node.urlclass + '"');
@@ -263,7 +263,7 @@ var Horde_Tree = Class.create({
                 label.push(' onclick="' + node.onclick + '"');
             }
 
-            label.push('>' + this._setNodeIcon(nodeId) + node.label + '</a>');
+            label.push('>' + this._setNodeIcon(nodeId) + node.label + '</a></span>');
         } else {
             label.push('<span class="toggle" onclick="' + this.opts.target + '.toggle(' + nodeId.toJSON().gsub('"', '&quot;') + ')">' + this._setNodeIcon(nodeId) + node.label + '</span>');
         }
