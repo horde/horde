@@ -36,11 +36,9 @@ class Text_Diff_Engine_shell {
         array_walk($from_lines, array('Text_Diff', 'trimNewlines'));
         array_walk($to_lines, array('Text_Diff', 'trimNewlines'));
 
-        $temp_dir = Text_Diff::_getTempDir();
-
         // Execute gnu diff or similar to get a standard diff file.
-        $from_file = tempnam($temp_dir, 'Text_Diff');
-        $to_file = tempnam($temp_dir, 'Text_Diff');
+        $from_file = tempnam(null, 'Text_Diff');
+        $to_file = tempnam(null, 'Text_Diff');
         $fp = fopen($from_file, 'w');
         fwrite($fp, implode("\n", $from_lines));
         fclose($fp);

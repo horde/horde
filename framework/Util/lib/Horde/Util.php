@@ -401,12 +401,8 @@ class Horde_Util
                                        $secure = false)
     {
         $tempDir = (empty($dir) || !is_dir($dir))
-            ? self::getTempDir()
+            ? null
             : $dir;
-
-        if (empty($tempDir)) {
-            return false;
-        }
 
         $tempFile = tempnam($tempDir, $prefix);
 
@@ -418,6 +414,7 @@ class Horde_Util
         if ($delete) {
             self::deleteAtShutdown($tempFile, true, $secure);
         }
+
         return $tempFile;
     }
 
