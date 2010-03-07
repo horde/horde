@@ -822,11 +822,11 @@ HTML;
                     $output = ob_get_clean();
 
                     if (!empty($output) && !$show_output) {
-                        return PEAR::raiseError(sprintf('Failed to import configuration file "%s": ', $sub_file) . strip_tags($output));
+                        throw new Horde_Exception(sprintf('Failed to import configuration file "%s": ', $sub_file) . strip_tags($output));
                     }
 
                     if (!$success) {
-                        return PEAR::raiseError(sprintf('Failed to import configuration file "%s".', $sub_file));
+                        throw new Horde_Exception(sprintf('Failed to import configuration file "%s".', $sub_file));
                     }
                 }
             }
