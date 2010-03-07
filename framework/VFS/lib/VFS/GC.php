@@ -10,17 +10,17 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package VFS
  */
-class VFS_GC {
-
+class VFS_GC
+{
     /**
      * Garbage collect files in the VFS storage system.
      *
-     * @param VFS &$vfs      The VFS object to perform garbage collection on.
+     * @param VFS $vfs       The VFS object to perform garbage collection on.
      * @param string $path   The VFS path to clean.
      * @param integer $secs  The minimum amount of time (in seconds) required
      *                       before a file is removed.
      */
-    function gc(&$vfs, $path, $secs = 345600)
+    public function gc($vfs, $path, $secs = 345600)
     {
         /* A 1% chance we will run garbage collection during a call. */
         if (rand(0, 99) != 0) {
@@ -33,15 +33,14 @@ class VFS_GC {
         }
 
         /* Make sure cleaning is done recursively. */
-        $files = $vfs->listFolder($path, null, true, false, true);
-        if (!is_a($files, 'PEAR_Error') && is_array($files)) {
+        try {
             $modtime = time() - $secs;
-            foreach ($files as $val) {
+            foreach ($vfs->listFolder($path, null, true, false, true) as $val) {
                 if ($val['date'] < $modtime) {
                     $vfs->deleteFile($path, $val['name']);
                 }
             }
-        }
+        } catch (VFS_Exception $e) {}
     }
 
 }

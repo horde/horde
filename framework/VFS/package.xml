@@ -34,14 +34,14 @@ Reading, writing and listing of files are all supported, and there are both obje
  <date>2009-12-31</date>
  <version>
   <release>0.4.0</release>
-  <api>0.3.0</api>
+  <api>0.4.0</api>
  </version>
  <stability>
   <release>beta</release>
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* TODO</notes>
+ <notes>* Now throws exceptions instead of returning PEAR_Errors. Package now requires PHP 5.</notes>
  <contents>
   <dir name="/">
    <dir name="data">
@@ -62,6 +62,7 @@ Reading, writing and listing of files are all supported, and there are both obje
    <dir name="lib">
     <dir name="VFS">
      <file name="Browser.php" role="php" />
+     <file name="Exception.php" role="php" />
      <file name="file.php" role="php" />
      <file name="ftp.php" role="php" />
      <file name="GC.php" role="php" />
@@ -82,7 +83,7 @@ Reading, writing and listing of files are all supported, and there are both obje
  <dependencies>
   <required>
    <php>
-    <min>4.3.0</min>
+    <min>5.0.0</min>
    </php>
    <pearinstaller>
     <min>1.4.0b1</min>
@@ -100,6 +101,7 @@ Reading, writing and listing of files are all supported, and there are both obje
   <filelist>
    <install name="scripts/VFS/vfs.php" as="vfs" />
    <install name="lib/VFS/Browser.php" as="VFS/Browser.php" />
+   <install name="lib/VFS/Exception.php" as="VFS/Exception.php" />
    <install name="lib/VFS/file.php" as="VFS/file.php" />
    <install name="lib/VFS/ftp.php" as="VFS/ftp.php" />
    <install name="lib/VFS/GC.php" as="VFS/GC.php" />
@@ -185,7 +187,6 @@ Reading, writing and listing of files are all supported, and there are both obje
 * Add SSH2/SFTP driver (Cliff Green &lt;green@umdnj.edu&gt;).
 * Let rename() automatically create the destination path.
 * Make sure copy/move doesn&apos;t result in infinite recursion (Horde Bug #3680).
-      
    </notes>
   </release>
   <release>
