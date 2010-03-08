@@ -35,6 +35,7 @@ v2.3.4-cvs
 v2.3.3
 ------
 
+[gwr] Fix editing the start date of recurring events (kolab/issue3885).
 [jan] Fix editing URLs of remote calendars.
 [gwr] Fix recurring weekly events with fixed number of occurences but multiple
       incidences per week (kolab/issue3846).
