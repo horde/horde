@@ -48,7 +48,7 @@ case 'edit':
 
     // Create a new add/edit form
     $extension = Horde_Util::getFormData('extension');
-    $extensions = $shout->extensions->getExtensions($curaccount['code']);
+    $extensions = $shout->extensions->getExtensions($curaccount);
     $vars = new Horde_Variables($extensions[$extension]);
     if ($action == 'edit') {
         $vars->set('oldextension', $extension);
@@ -65,7 +65,7 @@ case 'delete':
     $extension = Horde_Util::getFormData('extension');
 
     $vars = Horde_Variables::getDefaultVariables();
-    $vars->set('account', $curaccount['code']);
+    $vars->set('account', $curaccount);
     $Form = new ExtensionDeleteForm($vars);
 
     $FormValid = $Form->validate($vars, true);
@@ -84,7 +84,7 @@ case 'delete':
     }
 
     $vars = Horde_Variables::getDefaultVariables(array());
-    $vars->set('account', $curaccount['code']);
+    $vars->set('account', $curaccount);
     $Form = new ExtensionDeleteForm($vars);
 
     break;
@@ -98,7 +98,7 @@ default:
 
 // Fetch the (possibly updated) list of extensions
 try {
-    $extensions = $shout->extensions->getExtensions($curaccount['code']);
+    $extensions = $shout->extensions->getExtensions($curaccount);
 } catch (Exception $e) {
     $notification->push($e);
     $extensions = array();

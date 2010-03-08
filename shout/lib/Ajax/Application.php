@@ -75,7 +75,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
     {
         $vars = $this->_vars;
         $shout = Horde_Registry::appInit('shout');
-        $account = $_SESSION['shout']['account'];
+        $account = $_SESSION['shout']['curaccount'];
         try {
             return $shout->extensions->getExtensions($account);
         } catch (Exception $e) {
