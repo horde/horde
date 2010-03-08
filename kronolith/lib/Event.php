@@ -1799,6 +1799,8 @@ abstract class Kronolith_Event
         if ($recur !== null && $recur !== '') {
             if (!isset($this->recurrence)) {
                 $this->recurrence = new Horde_Date_Recurrence($this->start);
+            } else {
+                $this->recurrence->setRecurStart($this->start);
             }
             if (Horde_Util::getFormData('recur_end_type') == 'date') {
                 if ($end_date = Horde_Util::getFormData('recur_end_date')) {
