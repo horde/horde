@@ -69,7 +69,7 @@ class IMP_Application extends Horde_Registry_Application
     {
         /* Methods only available if admin config is set for this
          * server/login. */
-        if (empty($_SESSION['imp']['admin'])) {
+        if (empty($_SESSION['imp']['imap']['admin'])) {
             $this->disabled = array_merge($this->disabled, array('authAddUser', 'authRemoveUser', 'authUserList'));
         }
     }
@@ -350,7 +350,7 @@ class IMP_Application extends Horde_Registry_Application
             return;
         }
 
-        $params = array_merge($params, $_SESSION['imp']['admin']['params']);
+        $params = array_merge($params, $_SESSION['imp']['imap']['admin']['params']);
         if (isset($params['admin_password'])) {
             $params['admin_password'] = Horde_Secret::read(Horde_Secret::getKey('imp'), $params['admin_password']);
         }
@@ -372,7 +372,7 @@ class IMP_Application extends Horde_Registry_Application
             return;
         }
 
-        $params = array_merge($params, $_SESSION['imp']['admin']['params']);
+        $params = array_merge($params, $_SESSION['imp']['imap']['admin']['params']);
         if (isset($params['admin_password'])) {
             $params['admin_password'] = Horde_Secret::read(Horde_Secret::getKey('imp'), $params['admin_password']);
         }
@@ -393,7 +393,7 @@ class IMP_Application extends Horde_Registry_Application
             return;
         }
 
-        $params = array_merge($params, $_SESSION['imp']['admin']['params']);
+        $params = array_merge($params, $_SESSION['imp']['imap']['admin']['params']);
         if (isset($params['admin_password'])) {
             $params['admin_password'] = Horde_Secret::read(Horde_Secret::getKey('imp'), $params['admin_password']);
         }
