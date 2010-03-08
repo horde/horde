@@ -393,7 +393,7 @@ class Content_Tagger
                 $sql .= ' AND objects.type_id IN (' . implode(', ', $args['typeId']) . ')';
             }
 
-            if (!empty($args['userId'])) {
+            if (array_key_exists('userId', $args)) {
                 $args['userId'] = $this->_userManager->ensureUsers($args['userId']);
                 $sql .= ' AND tagged.user_id IN ( ' . implode(', ', $args['userId']) . ')';
             }
