@@ -570,7 +570,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
             /* Update tags */
             $tagger = Kronolith::getTagger();
-            $tagger->replaceTags($event->uid, $event->tags, 'event');
+            $tagger->replaceTags($event->uid, $event->tags, $event->creator, 'event');
 
             /* Update Geolocation */
             if ($gDriver = Kronolith::getGeoDriver()) {
@@ -628,7 +628,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         /* Deal with any tags */
         $tagger = Kronolith::getTagger();
-        $tagger->tag($event->uid, $event->tags, 'event');
+        $tagger->tag($event->uid, $event->tags, $event->creator, 'event');
 
         /* Update Geolocation */
         if ($event->geoLocation && $gDriver = Kronolith::getGeoDriver()) {
@@ -747,7 +747,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         /* Remove any tags */
         $tagger = Kronolith::getTagger();
-        $tagger->replaceTags($event->uid, array(), 'event');
+        $tagger->replaceTags($event->uid, array(), $event->creator, 'event');
 
         /* Remove any geolocation data */
         if ($gDriver = Kronolith::getGeoDriver()) {

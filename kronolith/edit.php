@@ -20,7 +20,7 @@ function _save(&$event)
         $GLOBALS['notification']->push(sprintf(_("There was an error editing the event: %s"), $e->getMessage()), 'horde.error');
     }
     $tagger = Kronolith::getTagger();
-    $tagger->replaceTags($event->uid, Horde_Util::getFormData('tags'));
+    $tagger->replaceTags($event->uid, Horde_Util::getFormData('tags'), $event->creator);
     Kronolith::notifyOfResourceRejection($event);
 }
 

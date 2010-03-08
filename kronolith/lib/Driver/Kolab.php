@@ -362,9 +362,9 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         /* Deal with tags */
         $tagger = Kronolith::getTagger();
         if (!empty($edit)) {
-            $tagger->replaceTags($event->uid, $event->tags, 'event');
+            $tagger->replaceTags($event->uid, $event->tags, $event->creator, 'event');
         } else {
-            $tagger->tag($event->uid, $event->tags, 'event');
+            $tagger->tag($event->uid, $event->tags, $event->creator, 'event');
         }
 
         /* Notify about the changed event. */

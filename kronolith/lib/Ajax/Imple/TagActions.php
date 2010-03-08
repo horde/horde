@@ -49,21 +49,25 @@ class Kronolith_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
         $content = array('id' => $post['resource'], 'type' => $post['type']);
         $tags = rawurldecode($post['tags']);
 
-        // Check perms
+        // Check perms only calendar owners may tag a calendar, only event
+        // creator can tag an event.
         if ($post['type'] == 'calendar') {
             $cal = $GLOBALS['kronolith_shares']->getShare($post['resource']);
-            $perm = $cal->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT);
+            $owner = $cal->get('owner');
         } elseif($post['type'] == 'event') {
             $event = Kronolith::getDriver()->getByUID($post['resource']);
-            $perm = $event->hasPermission(Horde_Perms::EDIT, Horde_Auth::getAuth());
+            $owner = $event->creator;
         }
 
+        // $owner is null for system-owned shares, so an admin has perms,
+        // otherwise, make sure the resource owner is the current user
+        $perm = empty($owner) ? Horde_Auth::isAdmin() : $owner == Horde_Auth::getAuth();
+
         if ($perm) {
-            /* Get the resource owner */
             $tagger = Kronolith::getTagger();
             switch ($request) {
             case 'add':
-                $tagger->tag($post['resource'], $tags, $post['type']);
+                $tagger->tag($post['resource'], $tags, $owner, $post['type']);
                 break;
             case 'remove':
                 $tagger->untag($post['resource'], (int)$tags, $post['type']);

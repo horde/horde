@@ -24,8 +24,9 @@ class Kronolith_Tagger
     protected $_tagger;
 
     /**
-     * Constructor - needs to instantiate the Content_Tagger object if it's not
-     * already present.
+     * Const'r
+     *
+     * @return Kronolith_Tagger
      */
     public function __construct()
     {
@@ -44,18 +45,19 @@ class Kronolith_Tagger
      *
      * @param string $localId       The identifier of the kronolith object.
      * @param mixed $tags           Either a single tag string or an array of tags.
+     * @param string $owner         The tag owner (should normally be the owner of the resource).
      * @param string $content_type  The type of object we are tagging (event/calendar).
      *
      * @return void
      */
-    public function tag($localId, $tags, $content_type = 'event')
+    public function tag($localId, $tags, $owner, $content_type = 'event')
     {
         // If we don't have an array - split the string.
         if (!is_array($tags)) {
             $tags = $this->_tagger->splitTags($tags);
         }
 
-        $this->_tagger->tag(Horde_Auth::getAuth(),
+        $this->_tagger->tag($owner,
                    array('object' => $localId,
                          'type' => $this->_type_ids[$content_type]),
                    $tags);
@@ -105,11 +107,12 @@ class Kronolith_Tagger
      *
      * @param string $localId  The identifier for the kronolith object.
      * @param mixed $tags      Either a tag_id, tag_name, or array of tag_ids.
+     * @param string $owner    The tag owner - should normally be the resource owner.
      * @param $content_type    The type of object that $localId represents.
      *
      * @return void
      */
-    public function replaceTags($localId, $tags, $content_type = 'event')
+    public function replaceTags($localId, $tags, $owner, $content_type = 'event')
     {
         // First get a list of existing tags.
         $existing_tags = $this->getTags($localId, $content_type);
@@ -122,7 +125,6 @@ class Kronolith_Tagger
         foreach ($existing_tags as $tag_id => $existing_tag) {
             $found = false;
             foreach ($tags as $tag_text) {
-                //if ($existing_tag == Horde_String::lower($tag_text, true)) {
                 if ($existing_tag == $tag_text) {
                     $found = true;
                     break;
@@ -149,7 +151,7 @@ class Kronolith_Tagger
             }
         }
 
-        $this->tag($localId, $add, $content_type);
+        $this->tag($localId, $add, $owner, $content_type);
     }
 
     /**
