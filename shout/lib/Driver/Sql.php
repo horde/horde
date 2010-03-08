@@ -48,7 +48,7 @@ class Shout_Driver_Sql extends Shout_Driver
     {
         $this->_connect();
 
-        $sql = 'SELECT name, accountcode FROM accounts';
+        $sql = 'SELECT name, code FROM accounts';
         $vars = array();
 
         $msg = 'SQL query in Shout_Driver_Sql#getAccounts(): ' . $sql;
@@ -65,7 +65,7 @@ class Shout_Driver_Sql extends Shout_Driver
 
         $accounts = array();
         while ($row && !($row instanceof PEAR_Error)) {
-            $accounts[$accountcode] = $row['name'];
+            $accounts[$row['code']] = $row['name'];
             $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
         }
 
@@ -82,7 +82,7 @@ class Shout_Driver_Sql extends Shout_Driver
 
         $this->_connect();
 
-        $sql = 'SELECT accounts.accountcode AS account, menus.name AS name, ' .
+        $sql = 'SELECT accounts.code AS account, menus.name AS name, ' .
                'menus.description AS description, menus.soundfile AS soundfile ' .
                'FROM menus INNER JOIN accounts ON menus.account_id = accounts.id ' .
                'WHERE accounts.accountcode = ?';
@@ -347,7 +347,7 @@ class Shout_Driver_Sql extends Shout_Driver
         }
 
         Horde::assertDriverConfig($this->_params, $this->_params['class'],
-                                  array('phptype', 'charset', 'table'));
+                                  array('phptype', 'charset'));
 
         if (!isset($this->_params['database'])) {
             $this->_params['database'] = '';
@@ -363,7 +363,7 @@ class Shout_Driver_Sql extends Shout_Driver
         $this->_write_db = DB::connect($this->_params,
                                        array('persistent' => !empty($this->_params['persistent'])));
         if ($this->_write_db instanceof PEAR_Error) {
-            throw Shout_Exception($this->_write_db);
+            throw new Shout_Exception($this->_write_db);
         }
 
         // Set DB portability options.

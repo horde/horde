@@ -36,12 +36,12 @@ function accountSubmit(clear)
    <label for="account" accesskey="<?php echo $accesskey ?>">
     <select id="account" name="account" onchange="accountSubmit()">
      <?php
-        foreach ($accounts as $c) {
-            print "<option value=\"$c\"";
-            if ($c == $account) {
+        foreach ($accounts as $account => $name) {
+            print "<option value=\"$account\"";
+            if ($account == $curaccount) {
                 print " selected";
             }
-            print ">$c</option>\n";
+            print ">$name</option>\n";
         }
      ?>
     </select>

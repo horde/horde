@@ -9,7 +9,7 @@
             </a>
         </li>
     </ul>
-    Account: <?php echo $account; ?>
+    Account: <?php echo $curaccount['name']; ?>
 </div>
 
 <div id="extensionList">

@@ -24,7 +24,7 @@ class Shout
      */
     static public function getMenu($returnType = 'object')
     {
-        global $conf, $account, $section, $action;
+        global $conf, $curaccount, $section, $action;
 
         require_once 'Horde/Menu.php';
 

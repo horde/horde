@@ -11,7 +11,7 @@
             </a>
         </li>
     </ul>
-    Account: <?php echo $account; ?>
+    Account: <?php echo $_SESSION['shout']['accounts'][$curaccount]; ?>
 </div>
 
 <div id="extensionList">

@@ -84,6 +84,7 @@ class Shout_Application extends Horde_Registry_Application
         } catch (Shout_Exception $e) {
             $GLOBALS['notification']->push($e);
             $accounts = false;
+            return false;
         }
 
         $account = Horde_Util::getFormData('account');
@@ -91,7 +92,7 @@ class Shout_Application extends Horde_Registry_Application
             $account = $_SESSION['shout']['account'];
         }
 
-        if (!empty($account) && !in_array($account, $accounts)) {
+        if (!empty($account) && !in_array($account, array_keys($accounts))) {
             // Requested account not available
             $GLOBALS['notification']->push(_("You do not have permission to access that account."), 'horde.error');
             $account = false;
@@ -100,7 +101,7 @@ class Shout_Application extends Horde_Registry_Application
         if (empty($account)) {
             if (count($accounts)) {
                 // Default to the user's first account
-                $account = reset($accounts);
+                $account = reset(array_keys($accounts));
             } else {
                 // No account requested and/or no accounts available anyway
                 $GLOBALS['notification']->push("Please select a account to continue.", 'horde.info');
@@ -108,7 +109,8 @@ class Shout_Application extends Horde_Registry_Application
             }
         }
 
-        $_SESSION['shout']['account'] = $account;
+        $_SESSION['shout']['accounts'] = $accounts;
+        $_SESSION['shout']['curaccount'] = $account;
     }
 
     /**
