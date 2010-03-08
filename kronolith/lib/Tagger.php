@@ -205,6 +205,7 @@ class Kronolith_Tagger
                     $args['userId'][] = $GLOBALS['all_calendars'][$calendar]->get('owner');
                 }
             }
+            $args['userId'] = array_unique($args['userId']);
         }
 
         /* Add the tags to the search */
