@@ -102,11 +102,11 @@ class Shout_Driver_Sql extends Shout_Driver
 
         $menus[$account] = array();
         while ($row && !($row instanceof PEAR_Error)) {
-            $menu = $row['menu_name'];
+            $menu = $row['name'];
             $menus[$account][$menu] = array(
                 'name' => $menu,
-                'description' => $row['menu_description'],
-                'soundfile' => $row['menu_soundfile']
+                'description' => $row['description'],
+                'soundfile' => $row['soundfile']
             );
             $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
         }
@@ -121,18 +121,18 @@ class Shout_Driver_Sql extends Shout_Driver
             return $menuActions[$menu];
         }
 
-        $sql = "SELECT accounts.accountcode AS account, menus.name AS description, " .
+        $sql = "SELECT accounts.code AS account, menus.name AS description, " .
                "actions.name AS action, menu_entries.digit AS digit, " . 
                "menu_entries.args AS args FROM menu_entries " .
                "INNER JOIN menus ON menu_entries.menu_id = menus.id " .
                "INNER JOIN actions ON menu_entries.action_id = actions.id " .
                "INNER JOIN accounts ON menus.account_id = accounts.id " .
-               "WHERE accounts.accountcode = ? AND menus.name = ?";
-        $values = array($account, $menuid);
+               "WHERE accounts.code = ? AND menus.name = ?";
+        $values = array($account, $menu);
 
         $msg = 'SQL query in Shout_Driver_Sql#getMenuActions(): ' . $sql;
         Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
-        $result = $this->_db->query($sql, $vars);
+        $result = $this->_db->query($sql, $values);
         if ($result instanceof PEAR_Error) {
             throw new Shout_Exception($result);
         }
@@ -152,7 +152,8 @@ class Shout_Driver_Sql extends Shout_Driver
             $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
         }
         $result->free();
-        return $menus[$menu];
+
+        return $menuActions[$menu];
     }
 
     /**

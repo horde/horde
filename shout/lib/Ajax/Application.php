@@ -34,7 +34,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
     {
         $vars = $this->_vars;
         $shout = Horde_Registry::appInit('shout');
-        $account = $_SESSION['shout']['account'];
+        $account = $_SESSION['shout']['curaccount'];
         try {
             $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
             $shout->extensions->addDestination($account, $vars->extension, $vars->type, $vars->destination);
@@ -54,7 +54,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
     {
         $vars = $this->_vars;
         $shout = Horde_Registry::appInit('shout');
-        $account = $_SESSION['shout']['account'];
+        $account = $_SESSION['shout']['curaccount'];
         try {
             // FIXME: Use Form?
             $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
@@ -93,25 +93,27 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
         try {
             $vars = $this->_vars;
             $shout = Horde_Registry::appInit('shout');
-            $account = $_SESSION['shout']['account'];
+            $account = $_SESSION['shout']['curaccount'];
             $menus = $shout->storage->getMenus($account);
             $menu = $vars->menu;
             if (!isset($menus[$menu])) {
                 Horde::logMessage("User requested a menu that does not exist.", __FILE__, __LINE__, PEAR_LOG_ERR);
-                $notification->push(_("That menu does not exist."), 'horde.error');
-                $action = 'list';
+                //$GLOBALS['notification']->push(_("That menu does not exist."), 'horde.error');
                 // FIXME notifications
                 return false;
             }
+
             $data['meta'] = $menus[$menu];
             $data['actions'] = $shout->dialplan->getMenuActions($account, $menu);
             return $data;
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.
+            die(var_dump($e));
             Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
             return false;
         }
     }
+
     /**
      * TODO
      */
@@ -120,7 +122,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
         try {
             $vars = $this->_vars;
             $GLOBALS['shout'] = Horde_Registry::appInit('shout');
-            $account = $_SESSION['shout']['account'];
+            $account = $_SESSION['shout']['curaccount'];
             $actions = Shout::getMenuActions($contex, $menu);
             return $actions;
         } catch (Exception $e) {
@@ -138,7 +140,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
                 throw new Shout_Exception("Invalid action requested.");
             }
             $GLOBALS['shout'] = Horde_Registry::appInit('shout');
-            $account = $_SESSION['shout']['account'];
+            $account = $_SESSION['shout']['curaccount'];
             $actions = Shout::getMenuActions();
             $action = $actions[$action];
             $form = new Horde_Form($vars, $action['description'], 'editActionForm');

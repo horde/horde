@@ -31,7 +31,7 @@
 var ajax_url = '<?php echo Horde::getServiceLink('ajax', 'shout') ?>';
 var menu = '<?php echo $menu['name']; ?>';
 var menuInfo = $H();
-var menuActions = $H();
+var menuActions = $H(<?php echo Horde_Serialize::serialize(Shout::getMenuActions(), Horde_Serialize::JSON, Horde_Nls::getCharset()); ?>);
 var curDigit = null;
 
 function editAction(digit)
@@ -188,14 +188,6 @@ new Ajax.Request(ajax_url + 'getMenuInfo',
     }),
     onSuccess: function(r) {
         menuInfo = $H(r.responseJSON.response);
-        refreshMenu();
-    }
-});
-new Ajax.Request(ajax_url + 'getMenuActions',
-{
-    method: 'post',
-    onSuccess: function(r) {
-        menuActions = $H(r.responseJSON.response);
         refreshMenu();
     }
 });
