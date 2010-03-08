@@ -80,35 +80,35 @@ class Shout_Application extends Horde_Registry_Application
         $this->dialplan = Shout_Driver::factory('dialplan');
 
         try {
-            $contexts = $this->storage->getContexts();
+            $accounts = $this->storage->getAccounts();
         } catch (Shout_Exception $e) {
             $GLOBALS['notification']->push($e);
-            $contexts = false;
+            $accounts = false;
         }
 
-        $context = Horde_Util::getFormData('context');
-        if (empty($context) && !empty($_SESSION['shout']['context'])) {
-            $context = $_SESSION['shout']['context'];
+        $account = Horde_Util::getFormData('account');
+        if (empty($account) && !empty($_SESSION['shout']['account'])) {
+            $account = $_SESSION['shout']['account'];
         }
 
-        if (!empty($context) && !in_array($context, $contexts)) {
-            // Requested context not available
-            $GLOBALS['notification']->push(_("You do not have permission to access that context."), 'horde.error');
-            $context = false;
+        if (!empty($account) && !in_array($account, $accounts)) {
+            // Requested account not available
+            $GLOBALS['notification']->push(_("You do not have permission to access that account."), 'horde.error');
+            $account = false;
         }
 
-        if (empty($context)) {
-            if (count($contexts)) {
-                // Default to the user's first context
-                $context = reset($contexts);
+        if (empty($account)) {
+            if (count($accounts)) {
+                // Default to the user's first account
+                $account = reset($accounts);
             } else {
-                // No context requested and/or no contexts available anyway
-                $GLOBALS['notification']->push("Please select a context to continue.", 'horde.info');
-                $context = false;
+                // No account requested and/or no accounts available anyway
+                $GLOBALS['notification']->push("Please select a account to continue.", 'horde.info');
+                $account = false;
             }
         }
 
-        $_SESSION['shout']['context'] = $context;
+        $_SESSION['shout']['account'] = $account;
     }
 
     /**
@@ -123,19 +123,19 @@ class Shout_Application extends Horde_Registry_Application
         self::$_perms['tree']['shout']['superadmin'] = false;
         self::$_perms['title']['shout:superadmin'] = _("Super Administrator");
 
-        if (empty($this->contexts)) {
+        if (empty($this->accounts)) {
             $this->__construct(array('init' => true));
         }
 
-        $contexts = $this->contexts->getContexts();
+        $accounts = $this->accounts->getAccounts();
 
-        self::$_perms['tree']['shout']['contexts'] = false;
-        self::$_perms['title']['shout:contexts'] = _("Contexts");
+        self::$_perms['tree']['shout']['accounts'] = false;
+        self::$_perms['title']['shout:accounts'] = _("Accounts");
 
         // Run through every contact source.
-        foreach ($contexts as $context) {
-            self::$_perms['tree']['shout']['contexts'][$context] = false;
-            self::$_perms['title']['shout:contexts:' . $context] = $context;
+        foreach ($accounts as $account) {
+            self::$_perms['tree']['shout']['accounts'][$account] = false;
+            self::$_perms['title']['shout:accounts:' . $account] = $account;
 
             foreach(
                 array(
@@ -144,8 +144,8 @@ class Shout_Application extends Horde_Registry_Application
                     'conferences' => 'Conference Rooms',
                 )
                 as $module => $modname) {
-                self::$_perms['tree']['shout']['contexts'][$context][$module] = false;
-                self::$_perms['title']["shout:contexts:$context:$module"] = $modname;
+                self::$_perms['tree']['shout']['accounts'][$account][$module] = false;
+                self::$_perms['title']["shout:accounts:$account:$module"] = $modname;
             }
         }
 

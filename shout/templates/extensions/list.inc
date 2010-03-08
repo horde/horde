@@ -9,7 +9,7 @@
             </a>
         </li>
     </ul>
-    Context: <?php echo $context; ?>
+    Account: <?php echo $account; ?>
 </div>
 
 <div id="extensionList">

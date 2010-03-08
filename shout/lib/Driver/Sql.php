@@ -44,14 +44,14 @@ class Shout_Driver_Sql extends Shout_Driver
         $this->_connect();
     }
 
-    public function getContexts()
+    public function getAccounts()
     {
         $this->_connect();
 
-        $sql = 'SELECT context_name FROM shout_contexts';
+        $sql = 'SELECT name, accountcode FROM accounts';
         $vars = array();
 
-        $msg = 'SQL query in Shout_Driver_Sql#getContexts(): ' . $sql;
+        $msg = 'SQL query in Shout_Driver_Sql#getAccounts(): ' . $sql;
         Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
         $result = $this->_db->query($sql, $vars);
         if ($result instanceof PEAR_Error) {
@@ -63,30 +63,32 @@ class Shout_Driver_Sql extends Shout_Driver
             throw new Shout_Exception($row);
         }
 
-        $contexts = array();
+        $accounts = array();
         while ($row && !($row instanceof PEAR_Error)) {
-            $contexts[] = $row['context_name'];
+            $accounts[$accountcode] = $row['name'];
             $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
         }
 
          $result->free();
-         return $contexts;
+         return $accounts;
     }
 
-    public function getMenus($context)
+    public function getMenus($account)
     {
         static $menus;
-        if (isset($menus[$context])) {
-            return $menus[$context];
+        if (isset($menus[$account])) {
+            return $menus[$account];
         }
 
         $this->_connect();
 
-        $sql = 'SELECT menu_name, menu_description, menu_soundfile ' .
-               'FROM shout_menus WHERE context_name = ?';
-        $vars = array($context);
+        $sql = 'SELECT accounts.accountcode AS account, menus.name AS name, ' .
+               'menus.description AS description, menus.soundfile AS soundfile ' .
+               'FROM menus INNER JOIN accounts ON menus.account_id = accounts.id ' .
+               'WHERE accounts.accountcode = ?';
+        $vars = array($account);
 
-        $msg = 'SQL query in Shout_Driver_Sql#getContexts(): ' . $sql;
+        $msg = 'SQL query in Shout_Driver_Sql#getMenus(): ' . $sql;
         Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
         $result = $this->_db->query($sql, $vars);
         if ($result instanceof PEAR_Error) {
@@ -98,10 +100,10 @@ class Shout_Driver_Sql extends Shout_Driver
             throw new Shout_Exception($row);
         }
 
-        $menus[$context] = array();
+        $menus[$account] = array();
         while ($row && !($row instanceof PEAR_Error)) {
             $menu = $row['menu_name'];
-            $menus[$context][$menu] = array(
+            $menus[$account][$menu] = array(
                 'name' => $menu,
                 'description' => $row['menu_description'],
                 'soundfile' => $row['menu_soundfile']
@@ -109,30 +111,66 @@ class Shout_Driver_Sql extends Shout_Driver
             $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
         }
         $result->free();
-        return $menus[$context];
+        return $menus[$account];
     }
 
-    function getMenuActions($context, $menu)
+    function getMenuActions($account, $menu)
     {
-        return array();
+        static $menuActions;
+        if (!empty($menuActions[$menu])) {
+            return $menuActions[$menu];
+        }
+
+        $sql = "SELECT accounts.accountcode AS account, menus.name AS description, " .
+               "actions.name AS action, menu_entries.digit AS digit, " . 
+               "menu_entries.args AS args FROM menu_entries " .
+               "INNER JOIN menus ON menu_entries.menu_id = menus.id " .
+               "INNER JOIN actions ON menu_entries.action_id = actions.id " .
+               "INNER JOIN accounts ON menus.account_id = accounts.id " .
+               "WHERE accounts.accountcode = ? AND menus.name = ?";
+        $values = array($account, $menuid);
+
+        $msg = 'SQL query in Shout_Driver_Sql#getMenuActions(): ' . $sql;
+        Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $result = $this->_db->query($sql, $vars);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+
+        $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
+        if ($row instanceof PEAR_Error) {
+            throw new Shout_Exception($row);
+        }
+
+        $menuActions[$menu] = array();
+        while ($row && !($row instanceof PEAR_Error)) {
+            $menuActions[$menu][$row['digit']] = array(
+                'digit' => $row['digit'],
+                'action' => $row['action'],
+                'args' => Horde_Yaml::load($row['args'])
+            );
+            $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
+        }
+        $result->free();
+        return $menus[$menu];
     }
 
     /**
-     * Get a list of devices for a given context
+     * Get a list of devices for a given account
      *
-     * @param string $context    Context in which to search for devicess
+     * @param string $account    Account in which to search for devicess
      *
-     * @return array  Array of devices within this context with their information
+     * @return array  Array of devices within this account with their information
      *
      * @access private
      */
-    public function getDevices($context)
+    public function getDevices($account)
     {
         $sql = 'SELECT id, name, alias, callerid, context, mailbox, host, ' .
                'permit, nat, secret, disallow, allow ' .
                'FROM %s WHERE accountcode = ?';
         $sql = sprintf($sql, $this->_params['table']);
-        $args = array($context);
+        $args = array($account);
         $msg = 'SQL query in Shout_Driver_Sql#getDevices(): ' . $sql;
         Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
         $sth = $this->_db->prepare($sql);
@@ -179,29 +217,29 @@ class Shout_Driver_Sql extends Shout_Driver
     /**
      * Save a device (add or edit) to the backend.
      *
-     * @param string $context  The context in which this device is valid
+     * @param string $account  The account in which this device is valid
      * @param string $devid    Device ID to save
      * @param array $details      Array of device details
      */
-    public function saveDevice($context, $devid, &$details)
+    public function saveDevice($account, $devid, &$details)
     {
         // Check permissions and possibly update the authentication tokens
-        parent::saveDevice($context, $devid, $details);
+        parent::saveDevice($account, $devid, $details);
 
         // See getDevices() for an explanation of these conversions
         $details['alias'] = $details['name'];
         $details['name'] = $details['devid'];
         unset($details['devid']);
-        $details['mailbox'] .= '@' . $context;
+        $details['mailbox'] .= '@' . $account;
 
         // Prepare the SQL query and arguments
         $args = array(
             $details['name'],
-            $context,
+            $account,
             $details['callerid'],
             $details['mailbox'],
             $details['password'],
-            $context,
+            $account,
             $details['alias'],
         );
 
@@ -236,9 +274,9 @@ class Shout_Driver_Sql extends Shout_Driver
         return true;
     }
 
-    public function deleteDevice($context, $devid)
+    public function deleteDevice($account, $devid)
     {
-        parent::deleteDevice($context, $devid);
+        parent::deleteDevice($account, $devid);
 
         $sql = 'DELETE FROM %s WHERE devid = ?';
         $sql = sprintf($sql, $this->_params['table']);
@@ -256,13 +294,13 @@ class Shout_Driver_Sql extends Shout_Driver
     }
 
     /**
-     * Get a list of users valid for the contexts
+     * Get a list of users valid for the accounts
      *
-     * @param string $context Context on which to search
+     * @param string $account Account on which to search
      *
      * @return array User information indexed by voice mailbox number
      */
-    public function getExtensions($context)
+    public function getExtensions($account)
     {
         throw new Shout_Exception("Not implemented yet.");
     }
@@ -270,7 +308,7 @@ class Shout_Driver_Sql extends Shout_Driver
     /**
      * Save a user to the LDAP tree
      *
-     * @param string $context Context to which the user should be added
+     * @param string $account Account to which the user should be added
      *
      * @param string $extension Extension to be saved
      *
@@ -278,21 +316,21 @@ class Shout_Driver_Sql extends Shout_Driver
      *
      * @return TRUE on success, PEAR::Error object on error
      */
-    public function saveExtension($context, $extension, $userdetails)
+    public function saveExtension($account, $extension, $userdetails)
     {
-        parent::saveExtension($context, $extension, $details);
+        parent::saveExtension($account, $extension, $details);
         throw new Shout_Exception("Not implemented.");
     }
 
     /**
      * Deletes a user from the LDAP tree
      *
-     * @param string $context Context to delete the user from
+     * @param string $account Account to delete the user from
      * @param string $extension Extension of the user to be deleted
      *
      * @return boolean True on success, PEAR::Error object on error
      */
-    public function deleteExtension($context, $extension)
+    public function deleteExtension($account, $extension)
     {
         throw new Shout_Exception("Not implemented.");
     }

@@ -14,11 +14,11 @@ $shout = Horde_Registry::appInit('shout');
 
 require_once SHOUT_BASE . '/lib/Forms/DeviceForm.php';
 
-$context = $_SESSION['shout']['context'];
+$account = $_SESSION['shout']['account'];
 $action = Horde_Util::getFormData('action');
 $vars = Horde_Variables::getDefaultVariables();
 
-//$tabs = Shout::getTabs($context, $vars);
+//$tabs = Shout::getTabs($account, $vars);
 
 $RENDERER = new Horde_Form_Renderer();
 
@@ -28,7 +28,7 @@ switch ($action) {
 case 'add':
 case 'edit':
     $vars = Horde_Variables::getDefaultVariables();
-    $vars->set('context', $context);
+    $vars->set('account', $account);
     $Form = new DeviceDetailsForm($vars);
 
     // Show the list if the save was successful, otherwise back to edit.
@@ -53,7 +53,7 @@ case 'edit':
 
     // Create a new add/edit form
     $devid = Horde_Util::getFormData('devid');
-    $devices = $shout->devices->getDevices($context);
+    $devices = $shout->devices->getDevices($account);
     $vars = new Horde_Variables($devices[$devid]);
 
     $vars->set('action', $action);
@@ -68,7 +68,7 @@ case 'delete':
     $devid = Horde_Util::getFormData('devid');
 
     $vars = Horde_Variables::getDefaultVariables();
-    $vars->set('context', $context);
+    $vars->set('account', $account);
     $Form = new DeviceDeleteForm($vars);
 
     $FormValid = $Form->validate($vars, true);
@@ -86,7 +86,7 @@ case 'delete':
     }
 
     $vars = Horde_Variables::getDefaultVariables(array());
-    $vars->set('context', $context);
+    $vars->set('account', $account);
     $Form = new DeviceDeleteForm($vars);
 
     break;
@@ -99,7 +99,7 @@ default:
 
 // Fetch the (possibly updated) list of extensions
 try {
-    $devices = $shout->devices->getDevices($context);
+    $devices = $shout->devices->getDevices($account);
 } catch (Exception $e) {
     $notification->push($e);
     $devices = array();

@@ -14,8 +14,8 @@
 <configuration>
  <configtab name="storage" desc="Storage">
   <configsection name="storage">
-   <configheader>Context Storage</configheader>
-   <configswitch name="driver" desc="What backend should we use for storing the list of valid contexts/customers?">Sql
+   <configheader>Account Storage</configheader>
+   <configswitch name="driver" desc="What backend should we use for storing the list of valid accounts/customers?">Sql
     <case name="Sql" desc="SQL">
      <configsection name="params">
       <configsql switchname="driverconfig" />

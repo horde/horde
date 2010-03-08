@@ -24,7 +24,7 @@ class Shout
      */
     static public function getMenu($returnType = 'object')
     {
-        global $conf, $context, $section, $action;
+        global $conf, $account, $section, $action;
 
         require_once 'Horde/Menu.php';
 
@@ -106,13 +106,13 @@ class Shout
      *    provisioning can be done automatically.  For these reasons, having
      *    user-friendly usernames and passswords is not terribly important.
      *
-     * @param string $context  Context for this credential pair
+     * @param string $account  Account for this credential pair
      *
      * @return array  Array of (string $deviceID, string $devicePassword)
      */
-    static public function genDeviceAuth($context)
+    static public function genDeviceAuth($account)
     {
-        $devid = $context . substr(uniqid(), 6);
+        $devid = $account . substr(uniqid(), 6);
 
         // This simple password generation algorithm inspired by Jon Haworth
         // http://www.laughing-buddha.net/jon/php/password/
@@ -140,17 +140,17 @@ class Shout
     static public function getMenuActions()
     {
         global $shout;
-        $context = $_SESSION['shout']['context'];
+        $account = $_SESSION['shout']['account'];
 
         return array(
-            'menu' => array(
+            'jump' => array(
                 'description' => _("Jump to menu."),
                 'args' => array (
                     'menuName' => array(
                         'name' => _("Menu"),
                         'type' => 'enum',
                         'required' => true,
-                        'params' => array(self::getNames($shout->dialplan->getMenus($context)))
+                        'params' => array(self::getNames($shout->dialplan->getMenus($account)))
                     )
                 )
             ),
@@ -161,18 +161,18 @@ class Shout
                         'name' => _("Extension"),
                         'type' => 'enum',
                         'required' => true,
-                        'params' => array(self::getNames($shout->extensions->getExtensions($context)))
+                        'params' => array(self::getNames($shout->extensions->getExtensions($account)))
                     )
                 )
             ),
-            'voicemail' => array(
+            'leave_message' => array(
                 'description' => _("Leave a message."),
                 'args' => array(
                     'mailbox' => array(
                         'name' => _("Mailbox"),
                         'type' => 'enum',
                         'required' => true,
-                        'params' => array(self::getNames($shout->extensions->getExtensions($context)))
+                        'params' => array(self::getNames($shout->extensions->getExtensions($account)))
                         )
                 )
             ),
@@ -204,6 +204,7 @@ class Shout
                 'description' => _("Restart the current menu."),
                 'args' => array()
             ),
+            // TODO: Actions to implement: Queue
         );
     }
 

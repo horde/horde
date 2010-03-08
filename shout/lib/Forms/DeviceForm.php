@@ -26,8 +26,8 @@ class DeviceDetailsForm extends Horde_Form {
             $edit = false;
         }
 
-        $context = $vars->get('context');
-        parent::__construct($vars, _("$formtitle - Context: $context"));
+        $account = $vars->get('account');
+        parent::__construct($vars, _("$formtitle - Account: $account"));
         $this->addHidden('', 'action', 'text', true);
         if ($edit) {
             $this->addHidden('', 'devid', 'text', true);
@@ -48,7 +48,7 @@ class DeviceDetailsForm extends Horde_Form {
         global $shout;
 
         $action = $this->_vars->get('action');
-        $context = $this->_vars->get('context');
+        $account = $this->_vars->get('account');
         $devid = $this->_vars->get('devid');
 
         // For safety, we force the device ID and password rather than rely
@@ -58,7 +58,7 @@ class DeviceDetailsForm extends Horde_Form {
             $devid = null;
             $password = null;
         } else { // $action must be 'edit'
-            $devices = $shout->devices->getDevices($context);
+            $devices = $shout->devices->getDevices($account);
             if (!isset($devices[$devid])) {
                 // The device requested doesn't already exist.  This can't
                 // be a valid edit.
@@ -87,7 +87,7 @@ class DeviceDetailsForm extends Horde_Form {
             'password' => $password,
         );
 
-        $shout->devices->saveDevice($context, $devid, $details);
+        $shout->devices->saveDevice($account, $devid, $details);
     }
 
 }
@@ -97,13 +97,13 @@ class DeviceDeleteForm extends Horde_Form
     function __construct(&$vars)
     {
         $devid = $vars->get('devid');
-        $context = $vars->get('context');
+        $account = $vars->get('account');
 
-        $title = _("Delete Device %s - Context: %s");
-        $title = sprintf($title, $devid, $context);
+        $title = _("Delete Device %s - Account: %s");
+        $title = sprintf($title, $devid, $account);
         parent::__construct($vars, $title);
 
-        $this->addHidden('', 'context', 'text', true);
+        $this->addHidden('', 'account', 'text', true);
         $this->addHidden('', 'devid', 'text', true);
         $this->addHidden('', 'action', 'text', true);
         $this->setButtons(array(_("Delete"), _("Cancel")));
@@ -112,8 +112,8 @@ class DeviceDeleteForm extends Horde_Form
     function execute()
     {
         global $shout;
-        $context = $this->_vars->get('context');
+        $account = $this->_vars->get('account');
         $devid = $this->_vars->get('devid');
-        $shout->devices->deleteDevice($context, $devid);
+        $shout->devices->deleteDevice($account, $devid);
     }
 }

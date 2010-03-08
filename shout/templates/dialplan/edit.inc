@@ -42,9 +42,7 @@ function editAction(digit)
 
         // Draw the selectActionForm
         $('editActionOverlay').show();
-        while ((e = $('selectAction').childNodes[0]) != null) {
-            $('selectAction').removeChild(e);
-        }
+        empty('selectAction');
         var p = document.createElement('p');
         p.id = 'actionPrompt';
         var text = document.createTextNode('<?php echo _("Select Action:"); ?>');
@@ -93,9 +91,8 @@ function saveAction(digit)
         parameters: params,
         onSuccess: function(r) {
             alert('FIXME');
-            while ((e = $('editAction').childNodes[0]) != null) {
-                $('editAction').removeChild(e);
-            }
+            empty('selectAction');
+            empty('editAction');
             $('editActionOverlay').hide();
         }
     });
@@ -117,9 +114,7 @@ function refreshMenu()
     var col;
     var img;
     var text;
-    while ((e = $('menuInfo').childNodes[0]) != null) {
-        $('menuInfo').removeChild(e);
-    }
+    empty('menuInfo');
 
     var meta = menuInfo.get('meta');
 
@@ -175,6 +170,13 @@ function getMetaRow(name, value)
     row.appendChild(col);
 
     return row;
+}
+
+function empty(p)
+{
+    while ((e = $(p).childNodes[0]) != null) {
+        $(p).removeChild(e);
+    }
 }
 
 $('editActionOverlay').hide();
