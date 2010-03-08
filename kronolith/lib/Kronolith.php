@@ -216,6 +216,12 @@ class Kronolith
                              Horde_Date_Recurrence::RECUR_YEARLY_DATE => 'Yearly',
                              Horde_Date_Recurrence::RECUR_YEARLY_DAY => 'Yearly',
                              Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY => 'Yearly'),
+            'perms' => array('all' => Horde_Perms::ALL,
+                             'show' => Horde_Perms::SHOW,
+                             'read' => Horde_Perms::READ,
+                             'edit' => Horde_Perms::EDIT,
+                             'delete' => Horde_Perms::DELETE,
+                             'delegate' => self::PERMS_DELEGATE),
             'snooze' => array('0' => _("select..."),
                               '5' => _("5 minutes"),
                               '15' => _("15 minutes"),
@@ -250,6 +256,7 @@ class Kronolith
                         'fg' => self::foregroundColor($calendar),
                         'bg' => self::backgroundColor($calendar),
                         'show' => in_array($id, $GLOBALS['display_calendars']),
+                        'perms' => $calendar->getPermission()->data,
                         'edit' => $calendar->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT));
                 }
             }

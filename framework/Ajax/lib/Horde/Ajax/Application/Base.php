@@ -107,17 +107,39 @@ abstract class Horde_Ajax_Application_Base
     }
 
     /**
-     * AJAX action: Logout.
+     * Logs the user off the Horde session.
      *
      * This needs to be done here (server), rather than on the browser,
      * because the logout tokens might otherwise expire.
-     *
-     * @param Horde_Variables $vars  None used.
      */
-    public function logOut($vars)
+    public function logOut()
     {
         Horde::redirect(str_replace('&amp;', '&', Horde::getServiceLink('logout', $this->_app)));
         exit;
+    }
+
+    /**
+     * Returns a hash of group IDs and group names that the user has access to.
+     *
+     * @return array  Groups hash.
+     */
+    public function listGroups()
+    {
+        $result = new stdClass;
+        $horde_groups = Group::singleton();
+        if (!empty($GLOBALS['conf']['share']['any_group'])) {
+            $groups = $horde_groups->listGroups();
+        } else {
+            $groups = $horde_groups->getGroupMemberships(Horde_Auth::getAuth(), true);
+        }
+        if ($groups) {
+            if ($groups instanceof PEAR_Error) {
+                $groups = array();
+            }
+            asort($groups);
+            $result->groups = $groups;
+        }
+        return $result;
     }
 
 }

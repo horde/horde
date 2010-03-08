@@ -647,6 +647,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
             'fg' => Kronolith::foregroundColor($calendar),
             'bg' => Kronolith::backgroundColor($calendar),
             'show' => false,
+            'perms' => $calendar->getPermission()->data,
             'edit' => $calendar->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT));
         return $result;
     }
