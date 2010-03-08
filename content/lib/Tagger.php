@@ -607,14 +607,14 @@ class Content_Tagger
     }
 
     /**
-     * Ensure that an array of tags exist, create any that don't, and
-     * return ids for all of them.
-     *
-     * @param array $tags  Array of tag names or ids.
-     *
-     * @return array  Array of tag ids.
+     * Check if tags exists, optionally create then if they don't and return
+     * ids for all that exist (including those that are optionally created).
+     * 
+     * @param <type> $tags
+     * @param <type> $create
+     * @return <type> \
      */
-    public function ensureTags($tags)
+    protected function _checkTags($tags, $create = true)
     {
         if (!is_array($tags)) {
             $tags = array($tags);
@@ -646,12 +646,35 @@ class Content_Tagger
             }
         }
 
-        // Create any tags that didn't already exist
-        foreach ($tagText as $tag => $tagIndex) {
-            $tagIds[$tagIndex] = $this->_db->insert('INSERT INTO ' . $this->_t('tags') . ' (tag_name) VALUES (' . $this->_db->quote($tag) . ')');
+        if ($create) {
+            // Create any tags that didn't already exist
+            foreach ($tagText as $tag => $tagIndex) {
+                $tagIds[$tagIndex] = $this->_db->insert('INSERT INTO ' . $this->_t('tags') . ' (tag_name) VALUES (' . $this->_db->quote($tag) . ')');
+            }
         }
 
         return $tagIds;
+    }
+
+    /**
+     * Ensure that an array of tags exist, create any that don't, and
+     * return ids for all of them.
+     *
+     * @param array $tags  Array of tag names or ids.
+     *
+     * @return array  Array of tag ids.
+     */
+    public function ensureTags($tags)
+    {
+        return $this->_checkTags($tags);
+    }
+
+    /**
+     *
+     */
+    public function getTagIds($tags)
+    {
+        return $this->_checkTags($tags, false);
     }
 
     /**
