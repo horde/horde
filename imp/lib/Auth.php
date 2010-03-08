@@ -404,8 +404,10 @@ class IMP_Auth
 
                     /* 'admin' and 'quota' have password entries - encrypt
                      * these entries in the session if they exist. */
-                    if (isset($ptr[$val]['params']['password'])) {
-                        $sess['imap'][$val]['params']['password'] = Horde_Secret::write(Horde_Secret::getKey('imp'), $ptr[$val]['params']['password']);
+                    foreach (array('password', 'admin_password') as $key) {
+                        if (isset($ptr[$val]['params'][$key])) {
+                            $sess['imap'][$val]['params'][$key] = Horde_Secret::write(Horde_Secret::getKey('imp'), $ptr[$val]['params'][$key]);
+                        }
                     }
                 }
             }
