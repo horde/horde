@@ -157,11 +157,6 @@ class Kronolith_Tagger
     /**
      * Search for resources that are tagged with all of the requested tags.
      *
-     * TODO: Change this to use something like a Content_Tagger::tagExists() or
-     *       possibly add a $create = true parameter to ensureTags()
-     *       so searching for any arbitrary text string won't cause the string
-     *       to be added to the rampage_tags table as a tag (via ensureTags)
-     *
      * @param array $tags  Either a tag_id, tag_name or an array.
      * @param array $filter  Array of filter parameters.
      *   (string)typeId      - only return either events or calendars, not both.
@@ -211,7 +206,7 @@ class Kronolith_Tagger
         }
 
         /* Add the tags to the search */
-        $args['tagId'] = $this->_tagger->ensureTags($tags);
+        $args['tagId'] = $this->_tagger->getTagIds($tags);
 
         /* Restrict to events or calendars? */
         $cal_results = $event_results = array();
