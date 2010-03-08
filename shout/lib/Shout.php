@@ -140,7 +140,7 @@ class Shout
     static public function getMenuActions()
     {
         global $shout;
-        $account = $_SESSION['shout']['account'];
+        $account = $_SESSION['shout']['curaccount'];
 
         return array(
             'jump' => array(
