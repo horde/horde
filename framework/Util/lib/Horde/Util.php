@@ -14,10 +14,10 @@
 class Horde_Util
 {
     /* Error code for a missing driver configuration. */
-    const HORDE_ERROR_DRIVER_CONFIG_MISSING = 1;
+    const DRIVER_CONFIG_MISSING = 1;
 
     /* Error code for an incomplete driver configuration. */
-    const HORDE_ERROR_DRIVER_CONFIG = 2;
+    const DRIVER_CONFIG = 2;
 
     /**
      * A list of random patterns to use for overwriting purposes.
@@ -727,19 +727,17 @@ class Horde_Util
 
     /**
      * Checks if all necessary parameters for a driver's configuration are set
-     * and returns a PEAR_Error if something is missing.
+     * and throws an exception if something is missing.
      *
      * @param array $params   The configuration array with all parameters.
      * @param array $fields   An array with mandatory parameter names for this
      *                        driver.
      * @param string $name    The clear text name of the driver. If not
      *                        specified, the application name will be used.
-     * @param array $info     A hash containing detailed information about the
-     *                        driver. Will be passed as the userInfo to the
-     *                        PEAR_Error.
+     *
+     * @throws Horde_Exception
      */
-    static public function assertDriverConfig($params, $fields, $name,
-                                              $info = array())
+    static public function assertDriverConfig($params, $fields, $name)
     {
         $info = array_merge($info, array(
             'params' => $params,
@@ -748,12 +746,12 @@ class Horde_Util
         ));
 
         if (!is_array($params) || !count($params)) {
-            return PEAR::throwError(sprintf(_("No configuration information specified for %s."), $name), self::HORDE_ERROR_DRIVER_CONFIG_MISSING, $info);
+            throw new Horde_Exception(sprintf('No configuration information specified for %s.', $name), self::DRIVER_CONFIG_MISSING);
         }
 
         foreach ($fields as $field) {
             if (!isset($params[$field])) {
-                return PEAR::throwError(sprintf(_("Required \"%s\" not specified in configuration."), $field, $name), self::HORDE_ERROR_DRIVER_CONFIG, $info);
+                throw new Horde_Exception(sprintf('Required "%s" not specified in configuration.', $field, $name), self::DRIVER_CONFIG);
             }
         }
     }

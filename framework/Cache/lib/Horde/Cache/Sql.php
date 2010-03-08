@@ -350,10 +350,7 @@ class Horde_Cache_Sql extends Horde_Cache_Base
             return true;
         }
 
-        $result = Horde_Util::assertDriverConfig($this->_params, array('phptype'), 'cache SQL', array('driver' => 'cache'));
-        if (is_a($result, 'PEAR_Error')) {
-            throw new Horde_Exception($result->getMessage());
-        }
+        Horde_Util::assertDriverConfig($this->_params, array('phptype'), 'cache SQL');
 
         $this->_write_db = DB::connect(
             $this->_params,

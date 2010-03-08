@@ -172,7 +172,7 @@ class Horde_Token_Sql extends Horde_Token
             return;
         }
 
-        Horde_Util::assertDriverConfig($this->_params, array('phptype'), 'token SQL', array('driver' => 'token'));
+        Horde_Util::assertDriverConfig($this->_params, array('phptype'), 'token SQL');
 
         if (!isset($this->_params['database'])) {
             $this->_params['database'] = '';

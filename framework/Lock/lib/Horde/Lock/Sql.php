@@ -321,14 +321,13 @@ class Horde_Lock_Sql extends Horde_Lock
             return true;
         }
 
-        $result = Horde_Util::assertDriverConfig($this->_params, array('phptype'),
-                                           'Lock SQL', array('driver' => 'lock'));
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Horde_Lock_Exception($result->getMessage());
+        try {
+            Horde_Util::assertDriverConfig($this->_params, array('phptype'), 'Lock SQL');
+        } catch (Horde_Exception $e) {
+            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Horde_Lock_Exception($e);
         }
 
-        require_once 'DB.php';
         $this->_write_db = &DB::connect(
             $this->_params,
             array('persistent' => !empty($this->_params['persistent']),
