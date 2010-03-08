@@ -174,48 +174,61 @@ class Kronolith_Tagger
      */
     public function search($tags, $filter = array())
     {
-        if (!empty($filter['calendarId'])) {
-            // At least filter by ownerId to ease the post-filtering query.
-            $owners = array();
+        $args = array();
+
+        /* These filters are mutually exclusive */
+        if (array_key_exists('userId', $filter)) {
+            /* semi-hack to see if we are querying for a system-owned share -
+             * will need to get the list of all system owned shares and query
+             * using a calendar filter instead of a user filter.
+             */
+            if (empty($filter['userId'])) {
+                // @TODO: No way to get only the system shares the current user can see?
+                $calendars = $GLOBALS['kronolith_shares']->listSystemShares();
+                $c = array();
+                foreach ($calendars as $name => $share) {
+                    if ($share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+                        $c[] = $name;
+                    }
+                }
+                $args['calendarId'] = $c;
+            } else {
+                // Items owned by specific user(s)
+                $args['userId'] = $filter['userId'];
+            }
+            
+        } elseif (!empty($filter['calendarId'])) {
+            // Only events located in specific calendar(s)
+            $args['userId'] = array();
             if (!is_array($filter['calendarId'])) {
                 $filter['calendarId'] = array($filter['calendarId']);
             }
             foreach ($filter['calendarId'] as $calendar) {
                 if ($GLOBALS['all_calendars'][$calendar]->get('owner')) {
-                    $owners[] = $GLOBALS['all_calendars'][$calendar]->get('owner');
+                    $args['userId'][] = $GLOBALS['all_calendars'][$calendar]->get('owner');
                 }
             }
-            $args = array('tagId' => $this->_tagger->ensureTags($tags),
-                          'userId' => $owners,
-                          'typeId' => $this->_type_ids['event']);
-
-            // $results is an object_id => object_name hash
-            $results = $this->_tagger->getObjects($args);
-
-            //TODO: Are there any cases where we can shortcut the postFilter?
-            $results = array('calendar' => array(),
-                             'event' => Kronolith::getDriver()->filterEventsByCalendar($results, $filter['calendarId']));
-        } else {
-            $args = array('tagId' => $this->_tagger->ensureTags($tags));
-            if (!empty($filter['userId'])) {
-                $args['userId'] = $filter['userId'];
-            }
-
-            $cal_results = array();
-            if (empty($filter['typeId']) || $filter['typeId'] == 'calendar') {
-                $args['typeId'] = $this->_type_ids['calendar'];
-                $cal_results = $this->_tagger->getObjects($args);
-            }
-
-            $event_results = array();
-            if (empty($filter['typeId']) || $filter['typeId'] == 'event') {
-                $args['typeId'] = $this->_type_ids['event'];
-                $event_results = $this->_tagger->getObjects($args);
-            }
-
-            $results = array('calendar' => array_values($cal_results),
-                             'event' => array_values($event_results));
         }
+
+        /* Add the tags to the search */
+        $args['tagId'] = $this->_tagger->ensureTags($tags);
+
+        /* Restrict to events or calendars? */
+        $cal_results = $event_results = array();
+        if (empty($filter['typeId']) || $filter['typeId'] == 'calendar') {
+            $args['typeId'] = $this->_type_ids['calendar'];
+            $cal_results = $this->_tagger->getObjects($args);
+        }
+
+        if (empty($filter['typeId']) || $filter['typeId'] == 'event') {
+            $args['typeId'] = $this->_type_ids['event'];
+            $event_results = $this->_tagger->getObjects($args);
+        }
+        
+        $results = array('calendar' => array_values($cal_results),
+                         'event' => !empty($args['calendarId'])?
+                            Kronolith::getDriver()->filterEventsByCalendar(array_values($event_results), $args['calendarId']) :
+                            array_values($event_results));
 
         return $results;
     }
