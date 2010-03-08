@@ -24,7 +24,7 @@ class Kronolith_Tagger
     protected $_tagger;
 
     /**
-     * Const'r
+     * Constructor.
      *
      * @return Kronolith_Tagger
      */
@@ -41,12 +41,15 @@ class Kronolith_Tagger
     }
 
     /**
-     * Tag a kronolith object with any number of tags.
+     * Tags a kronolith object with any number of tags.
      *
      * @param string $localId       The identifier of the kronolith object.
-     * @param mixed $tags           Either a single tag string or an array of tags.
-     * @param string $owner         The tag owner (should normally be the owner of the resource).
-     * @param string $content_type  The type of object we are tagging (event/calendar).
+     * @param mixed $tags           Either a single tag string or an array of
+     *                              tags.
+     * @param string $owner         The tag owner (should normally be the owner
+     *                              of the resource).
+     * @param string $content_type  The type of object we are tagging
+     *                              (event/calendar).
      *
      * @return void
      */
@@ -58,13 +61,13 @@ class Kronolith_Tagger
         }
 
         $this->_tagger->tag($owner,
-                   array('object' => $localId,
-                         'type' => $this->_type_ids[$content_type]),
-                   $tags);
+                            array('object' => $localId,
+                                  'type' => $this->_type_ids[$content_type]),
+                            $tags);
     }
 
     /**
-     * Retrieve the tags on given object(s).
+     * Retrieves the tags on given object(s).
      *
      * @param string $localId  The identifier of the kronolith object.
      * @param string $type     The type of object $localId represents.
@@ -85,15 +88,14 @@ class Kronolith_Tagger
     }
 
     /**
-     * Remove a tag from a kronolith object. Removes *all* tags - regardless of
-     * the user that added the tag.
+     * Removes a tag from a kronolith object.
+     *
+     * Removes *all* tags - regardless of the user that added the tag.
      *
      * @param string $localId       The kronolith object identifier.
      * @param mixed $tags           Either a tag_id, tag_name or an array of
      *                              ids or names to remove.
      * @param string $content_type  The type of object that $localId represents.
-     *
-     * @return void
      */
     public function untag($localId, $tags, $content_type = 'event')
     {
@@ -102,15 +104,14 @@ class Kronolith_Tagger
     }
 
     /**
-     * Tag the given resource with *only* the tags provided, removing any tags
-     * that are already present but not in the list.
+     * Tags the given resource with *only* the tags provided, removing any
+     * tags that are already present but not in the list.
      *
      * @param string $localId  The identifier for the kronolith object.
      * @param mixed $tags      Either a tag_id, tag_name, or array of tag_ids.
-     * @param string $owner    The tag owner - should normally be the resource owner.
+     * @param string $owner    The tag owner - should normally be the resource
+     *                         owner.
      * @param $content_type    The type of object that $localId represents.
-     *
-     * @return void
      */
     public function replaceTags($localId, $tags, $owner, $content_type = 'event')
     {
@@ -155,17 +156,19 @@ class Kronolith_Tagger
     }
 
     /**
-     * Search for resources that are tagged with all of the requested tags.
+     * Searches for resources that are tagged with all of the requested tags.
      *
-     * @param array $tags  Either a tag_id, tag_name or an array.
+     * @param array $tags    Either a tag_id, tag_name or an array.
      * @param array $filter  Array of filter parameters.
-     *   (string)type      - only return either events or calendars, not both.
-     *   (array)user       - only include objects owned by userId(s).
-     *   (array)calendar   - restrict to events contained in these calendars.
+     *                       - type (string) - only return either events or
+     *                         calendars, not both.
+     *                       - user (array) - only include objects owned by
+     *                         these users.
+     *                       - calendar (array) - restrict to events contained
+     *                         in these calendars.
      *
-     * @return A hash of 'calendars' and 'events' that each contain an array
-     *         of calendar_ids and event_uids respectively. Should this return
-     *         the objects?
+     * @return  A hash of 'calendars' and 'events' that each contain an array
+     *          of calendar_ids and event_uids respectively.
      */
     public function search($tags, $filter = array())
     {
@@ -175,10 +178,10 @@ class Kronolith_Tagger
         if (array_key_exists('user', $filter)) {
             /* semi-hack to see if we are querying for a system-owned share -
              * will need to get the list of all system owned shares and query
-             * using a calendar filter instead of a user filter.
-             */
+             * using a calendar filter instead of a user filter. */
             if (empty($filter['user'])) {
-                // @TODO: No way to get only the system shares the current user can see?
+                // @TODO: No way to get only the system shares the current
+                // user can see?
                 $calendars = $GLOBALS['kronolith_shares']->listSystemShares();
                 $c = array();
                 foreach ($calendars as $name => $share) {
@@ -191,7 +194,6 @@ class Kronolith_Tagger
                 // Items owned by specific user(s)
                 $args['userId'] = $filter['user'];
             }
-            
         } elseif (!empty($filter['calendar'])) {
             // Only events located in specific calendar(s)
             $args['userId'] = array();
@@ -221,15 +223,16 @@ class Kronolith_Tagger
         }
         
         $results = array('calendars' => array_values($cal_results),
-                         'events' => (!empty($args['calendarId']) && count($event_results)) ?
-                            Kronolith::getDriver()->filterEventsByCalendar(array_values($event_results), $args['calendarId']) :
-                            array_values($event_results));
+                         'events' => (!empty($args['calendarId']) && count($event_results))
+                                     ? Kronolith::getDriver()->filterEventsByCalendar(array_values($event_results), $args['calendarId'])
+                                     : array_values($event_results));
 
         return $results;
     }
 
     /**
-     * List tags belonging to the current user beginning with $token.
+     * Returns tags belonging to the current user beginning with $token.
+     *
      * Used for autocomplete code.
      *
      * @param string $token  The token to match the start of the tag with.
@@ -238,11 +241,12 @@ class Kronolith_Tagger
      */
     public function listTags($token)
     {
-        return $this->_tagger->getTags(array('q' => $token, 'userId' => Horde_Auth::getAuth()));
+        return $this->_tagger->getTags(array('q' => $token,
+                                             'userId' => Horde_Auth::getAuth()));
     }
 
     /**
-     * Return the data needed to build a tag cloud based on the passed in
+     * Returns the data needed to build a tag cloud based on the passed in
      * user's tag data set.
      *
      * @param string $user    The user whose tags should be included.
