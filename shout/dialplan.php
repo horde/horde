@@ -16,9 +16,9 @@ require_once SHOUT_BASE . '/lib/Forms/ExtensionForm.php';
 
 $action = Horde_Util::getFormData('action');
 $menu = Horde_Util::getFormData('menu');
-$curaccount['code'] = $_SESSION['shout']['curaccount'];
+$curaccount = $_SESSION['shout']['curaccount'];
 
-$menus = $shout->storage->getMenus($curaccount['code']);
+$menus = $shout->storage->getMenus($curaccount);
 
 switch($action) {
 case 'edit':

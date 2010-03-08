@@ -85,7 +85,7 @@ class Shout_Driver_Sql extends Shout_Driver
         $sql = 'SELECT accounts.code AS account, menus.name AS name, ' .
                'menus.description AS description, menus.soundfile AS soundfile ' .
                'FROM menus INNER JOIN accounts ON menus.account_id = accounts.id ' .
-               'WHERE accounts.accountcode = ?';
+               'WHERE accounts.code = ?';
         $vars = array($account);
 
         $msg = 'SQL query in Shout_Driver_Sql#getMenus(): ' . $sql;

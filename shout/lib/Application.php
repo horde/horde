@@ -88,8 +88,8 @@ class Shout_Application extends Horde_Registry_Application
         }
 
         $account = Horde_Util::getFormData('account');
-        if (empty($account) && !empty($_SESSION['shout']['account'])) {
-            $account = $_SESSION['shout']['account'];
+        if (empty($account) && !empty($_SESSION['shout']['curaccount'])) {
+            $account = $_SESSION['shout']['curaccount'];
         }
 
         if (!empty($account) && !in_array($account, array_keys($accounts))) {
