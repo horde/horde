@@ -159,9 +159,9 @@ class Kronolith_Tagger
      *
      * @param array $tags  Either a tag_id, tag_name or an array.
      * @param array $filter  Array of filter parameters.
-     *   (string)typeId      - only return either events or calendars, not both.
-     *   (array)userId       - only include objects owned by userId(s).
-     *   (array)calendarId   - restrict to events contained in these calendars.
+     *   (string)type      - only return either events or calendars, not both.
+     *   (array)user       - only include objects owned by userId(s).
+     *   (array)calendar   - restrict to events contained in these calendars.
      *
      * @return A hash of 'calendars' and 'events' that each contain an array
      *         of calendar_ids and event_uids respectively. Should this return
@@ -172,12 +172,12 @@ class Kronolith_Tagger
         $args = array();
 
         /* These filters are mutually exclusive */
-        if (array_key_exists('userId', $filter)) {
+        if (array_key_exists('user', $filter)) {
             /* semi-hack to see if we are querying for a system-owned share -
              * will need to get the list of all system owned shares and query
              * using a calendar filter instead of a user filter.
              */
-            if (empty($filter['userId'])) {
+            if (empty($filter['user'])) {
                 // @TODO: No way to get only the system shares the current user can see?
                 $calendars = $GLOBALS['kronolith_shares']->listSystemShares();
                 $c = array();
@@ -189,16 +189,16 @@ class Kronolith_Tagger
                 $args['calendarId'] = $c;
             } else {
                 // Items owned by specific user(s)
-                $args['userId'] = $filter['userId'];
+                $args['userId'] = $filter['user'];
             }
             
-        } elseif (!empty($filter['calendarId'])) {
+        } elseif (!empty($filter['calendar'])) {
             // Only events located in specific calendar(s)
             $args['userId'] = array();
-            if (!is_array($filter['calendarId'])) {
-                $filter['calendarId'] = array($filter['calendarId']);
+            if (!is_array($filter['calendar'])) {
+                $filter['calendar'] = array($filter['calendar']);
             }
-            foreach ($filter['calendarId'] as $calendar) {
+            foreach ($filter['calendar'] as $calendar) {
                 if ($GLOBALS['all_calendars'][$calendar]->get('owner')) {
                     $args['userId'][] = $GLOBALS['all_calendars'][$calendar]->get('owner');
                 }
@@ -210,18 +210,18 @@ class Kronolith_Tagger
 
         /* Restrict to events or calendars? */
         $cal_results = $event_results = array();
-        if (empty($filter['typeId']) || $filter['typeId'] == 'calendar') {
+        if (empty($filter['type']) || $filter['type'] == 'calendar') {
             $args['typeId'] = $this->_type_ids['calendar'];
             $cal_results = $this->_tagger->getObjects($args);
         }
 
-        if (empty($filter['typeId']) || $filter['typeId'] == 'event') {
+        if (empty($filter['type']) || $filter['type'] == 'event') {
             $args['typeId'] = $this->_type_ids['event'];
             $event_results = $this->_tagger->getObjects($args);
         }
         
-        $results = array('calendar' => array_values($cal_results),
-                         'event' => (!empty($args['calendarId']) && count($event_results)) ?
+        $results = array('calendars' => array_values($cal_results),
+                         'events' => (!empty($args['calendarId']) && count($event_results)) ?
                             Kronolith::getDriver()->filterEventsByCalendar(array_values($event_results), $args['calendarId']) :
                             array_values($event_results));
 
