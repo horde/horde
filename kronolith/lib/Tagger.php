@@ -226,7 +226,7 @@ class Kronolith_Tagger
         }
         
         $results = array('calendar' => array_values($cal_results),
-                         'event' => !empty($args['calendarId'])?
+                         'event' => (!empty($args['calendarId']) && count($event_results)) ?
                             Kronolith::getDriver()->filterEventsByCalendar(array_values($event_results), $args['calendarId']) :
                             array_values($event_results));
 
