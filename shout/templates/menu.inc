@@ -30,7 +30,7 @@ function accountSubmit(clear)
 }
 // -->
 </script>
- <form action="index.php" method="get" name="accountMenu">
+ <form action="" method="get" name="accountMenu">
   <span style="float:right">
    <?php Horde_Util::pformInput() ?>
    <label for="account" accesskey="<?php echo $accesskey ?>">

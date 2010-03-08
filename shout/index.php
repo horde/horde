@@ -9,4 +9,4 @@
  * @author  Ben Klang <ben@alkaloid.net>
  */
 
-require dirname(__FILE__) . '/extensions.php';
+require dirname(__FILE__) . '/dialplan.php';
