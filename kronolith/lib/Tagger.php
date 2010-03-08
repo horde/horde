@@ -172,13 +172,13 @@ class Kronolith_Tagger
      */
     public function search($tags, $filter = array())
     {
-        if (!empty($filter['calendar'])) {
+        if (!empty($filter['calendarId'])) {
             // At least filter by ownerId to ease the post-filtering query.
             $owners = array();
-            if (!is_array($filter['calendar'])) {
-                $filter['calendar'] = array($filter['calendar']);
+            if (!is_array($filter['calendarId'])) {
+                $filter['calendarId'] = array($filter['calendarId']);
             }
-            foreach ($filter['calendar'] as $calendar) {
+            foreach ($filter['calendarId'] as $calendar) {
                 if ($GLOBALS['all_calendars'][$calendar]->get('owner')) {
                     $owners[] = $GLOBALS['all_calendars'][$calendar]->get('owner');
                 }
@@ -192,7 +192,7 @@ class Kronolith_Tagger
 
             //TODO: Are there any cases where we can shortcut the postFilter?
             $results = array('calendar' => array(),
-                             'event' => Kronolith::getDriver()->filterEventsByCalendar($results, $filter['calendar']));
+                             'event' => Kronolith::getDriver()->filterEventsByCalendar($results, $filter['calendarId']));
         } else {
             $args = array('tagId' => $this->_tagger->ensureTags($tags));
             if (!empty($filter['userId'])) {
