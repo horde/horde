@@ -50,8 +50,8 @@ $actions['users_text'] = _("Users");
 $template->set('actions', $actions);
 
 /* Set up the field list. */
-$images = array('delete' => Horde::img('delete.png', _("Delete User"), '', $registry->getImageDir('horde')),
-                'edit' => Horde::img('edit.png', _("Edit User"), '', $registry->getImageDir('horde')));
+$images = array('delete' => Horde::img('delete.png', _("Delete User")),
+                'edit' => Horde::img('edit.png', _("Edit User")));
 $template->set('images', $images);
 
 $template->set('menu', Vilma::getMenu('string'));

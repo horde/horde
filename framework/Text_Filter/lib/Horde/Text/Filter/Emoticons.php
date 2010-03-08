@@ -124,7 +124,7 @@ class Horde_Text_Filter_Emoticons extends Horde_Text_Filter_Base
     static public function getImage($icon, $prefix, $postfix)
     {
         if (!isset(self::$_iconpath)) {
-            self::$_iconpath = $GLOBALS['registry']->getImageDir('horde') . '/emoticons';
+            self::$_iconpath = Horde_Themes::img(null, 'horde') . '/emoticons';
         }
 
         return $prefix . Horde::img(self::getIcons($icon) . '.png', $icon, array('align' => 'middle', 'title' => $icon), self::$_iconpath) . $postfix;

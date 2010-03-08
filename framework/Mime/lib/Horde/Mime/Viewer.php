@@ -276,7 +276,7 @@ class Horde_Mime_Viewer
         }
 
         if (!is_null($ret)) {
-            $ret['url'] = $GLOBALS['registry']->getImageDir($app) . '/mime/' . $ret['url'];
+            $ret['url'] = Horde_Themes::img('mime/' . $ret['url'], $app);
         }
 
         return $ret;

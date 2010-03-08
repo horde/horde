@@ -158,8 +158,8 @@ if (count($filter_list) == 0) {
     $rule_count = array_sum(array_map(create_function('$a', "return (in_array(\$a['action'], \$_SESSION['ingo']['script_categories'])) ? 1 : 0;"), $filter_list));
 
     /* Common graphics. */
-    $down_img = Horde::img('nav/down.png', _("Move Rule Down"), '', $registry->getImageDir('horde'));
-    $up_img = Horde::img('nav/up.png', _("Move Rule Up"), '', $registry->getImageDir('horde'));
+    $down_img = Horde::img('nav/down.png', _("Move Rule Down"));
+    $up_img = Horde::img('nav/up.png', _("Move Rule Up"));
 
     foreach ($filter_list as $rule_number => $filter) {
         /* Skip non-display categories. */
@@ -254,7 +254,7 @@ if (count($filter_list) == 0) {
         /* Create delete link. */
         if (!is_null($delurl)) {
             $entry['dellink'] = Horde::link($delurl, sprintf(_("Delete %s"), $name), null, null, "return window.confirm('" . addslashes(_("Are you sure you want to delete this rule?")) . "');");
-            $entry['delimg'] = Horde::img('delete.png', sprintf(_("Delete %s"), $name), '', $registry->getImageDir('horde'));
+            $entry['delimg'] = Horde::img('delete.png', sprintf(_("Delete %s"), $name));
         } else {
             $entry['dellink'] = false;
         }

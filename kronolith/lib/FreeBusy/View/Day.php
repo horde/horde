@@ -23,11 +23,11 @@ class Kronolith_FreeBusy_View_Day extends Kronolith_FreeBusy_View {
         $next = new Horde_Date($this->_start);
         $next->mday++;
         return Horde::url('#')->link(array('title' => _("Previous Day"), 'onclick' => 'return switchDate(' . $prev->dateString() . ');'))
-            . Horde::img('nav/left.png', '<', null, $registry->getImageDir('horde'))
+            . Horde::img('nav/left.png', '<')
             . '</a>'
             . $this->_start->strftime($prefs->getValue('date_format'))
             . Horde::url('#')->link(array('title' => _("Next Day"), 'onclick' => 'return switchDate(' . $next->dateString() . ');'))
-            . Horde::img('nav/right.png', '>', null, $registry->getImageDir('horde'))
+            . Horde::img('nav/right.png', '>')
             . '</a>';
     }
 

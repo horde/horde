@@ -100,7 +100,7 @@ class IMP_Horde_Mime_Viewer_Status extends Horde_Mime_Viewer_Driver
         case 'delayed':
             $status = array(
                 array(
-                    'icon' => Horde::img('alerts/error.png', _("Error"), null, $GLOBALS['registry']->getImageDir('horde')),
+                    'icon' => Horde::img('alerts/error.png', _("Error")),
                     'text' => array(
                         _("ERROR: Your message could not be delivered."),
                         sprintf(_("Additional error message details can be viewed %s."), $this->_params['contents']->linkViewJS($part2, 'view_attach', _("HERE"), array('jstext' => _("Additional message details"), 'params' => array('mode' => IMP_Contents::RENDER_INLINE))))
@@ -116,7 +116,7 @@ class IMP_Horde_Mime_Viewer_Status extends Horde_Mime_Viewer_Driver
         case 'relayed':
             $status = array(
                 array(
-                    'icon' => Horde::img('alerts/success.png', _("Success"), null, $GLOBALS['registry']->getImageDir('horde')),
+                    'icon' => Horde::img('alerts/success.png', _("Success")),
                     'text' => array(
                         _("Your message was successfully delivered."),
                         sprintf(_("Additional message details can be viewed %s."), $this->_params['contents']->linkViewJS($part2, 'view_attach', _("HERE"), array('jstext' => _("Additional message details"), 'params' => array('mode' => IMP_Contents::RENDER_INLINE))))

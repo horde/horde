@@ -197,7 +197,7 @@ $nodes[GROUP_ROOT] = GROUP_ROOT;
 
 /* Set up some node params. */
 $spacer = '&nbsp;&nbsp;&nbsp;&nbsp;';
-$icondir = array('icondir' => $registry->getImageDir());
+$icondir = array('icondir' => Horde_Themes::img());
 $group_node = $icondir + array('icon' => 'group.png');
 $add = Horde::applicationUrl('admin/groups.php?actionID=addchild');
 $add_img = Horde::img('add_group.png');

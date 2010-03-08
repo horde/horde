@@ -8,10 +8,10 @@
   <th class="item leftAlign" width="1%" style="cursor:pointer" onclick="document.contacts.checkAll.checked = !document.contacts.checkAll.checked; SelectAll();" nowrap="nowrap"><label for="checkAll" class="hidden"><?php echo _("Check All/None") ?></label><input type="checkbox" id="checkAll" name="checkAll" onclick="document.contacts.checkAll.checked = !document.contacts.checkAll.checked; SelectAll();" <?php echo Horde::getAccessKeyAndTitle(_("Check _All/None")) ?> /></th>
 <?php endif; ?>
 <?php if ($this->showEdit): $col_count++; ?>
-  <th class="item" width="1%"><?php echo Horde::img('edit.png', _("Edit"), '', $GLOBALS['registry']->getImageDir('horde')) ?></th>
+  <th class="item" width="1%"><?php echo Horde::img('edit.png', _("Edit")) ?></th>
 <?php endif; ?>
 <?php if ($this->showVcard): $col_count++; ?>
-  <th class="item" width="1%"><?php echo Horde::img('mime/vcard.png', _("vCard"), '', $GLOBALS['registry']->getImageDir('horde')) ?></th>
+  <th class="item" width="1%"><?php echo Horde::img('mime/vcard.png', _("vCard")) ?></th>
 <?php endif; ?>
 <?php if ($this->showGroup): $col_count++; ?>
   <th class="item" width="1%"><?php echo Horde::img('group.png', _("List")) ?></th>

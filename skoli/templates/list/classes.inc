@@ -3,7 +3,7 @@
     <?php
     if ($class['_edit']) {
         $label = _("New Entry");
-        echo Horde::link(Horde_Util::addParameter(Horde::applicationUrl('add.php'), 'class', $class['_id']), $label) . Horde::img('add.png', $label, null, $registry->getImageDir('skoli')) . '</a>';
+        echo Horde::link(Horde_Util::addParameter(Horde::applicationUrl('add.php'), 'class', $class['_id']), $label) . Horde::img('add.png', $label) . '</a>';
     }
     ?>
   </td>
@@ -11,7 +11,7 @@
     <?php
     if ($class['_edit']) {
         $label = sprintf(_("Edit \"%s\""), $class['name']);
-        echo Horde::link(Horde_Util::addParameter(Horde::applicationUrl('classes/edit.php'), 'c', $class['_id']), $label) . Horde::img('edit.png', $label, null, $registry->getImageDir('horde')) . '</a>';
+        echo Horde::link(Horde_Util::addParameter(Horde::applicationUrl('classes/edit.php'), 'c', $class['_id']), $label) . Horde::img('edit.png', $label) . '</a>';
     }
     ?>
   </td>

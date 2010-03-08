@@ -23,7 +23,7 @@ if (empty($activities)) {
 <?php foreach ($activities as $activity) { ?>
 <tr>
     <td><a href="<?php echo $registry->get('webroot', $activity['activity_scope']) ?>" />
-        <img src="<?php echo $registry->getImageDir($activity['activity_scope']) . '/' . $activity['activity_scope'] ?>.png" />
+        <img src="<?php echo Horde_Themes::img($activitiy['activity_scope'] . 'png', $activity['activity_scope']) ?>" />
         <?php echo $registry->get('name', $activity['activity_scope']) ?></a>
     </td>
     <td><?php echo Folks::format_datetime($activity['activity_date']) ?></td>

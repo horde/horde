@@ -18,11 +18,11 @@ if (!Horde_Auth::getAuth()) {
     exit;
 }
 $edit_url_base = Horde::applicationUrl('resources/edit.php');
-$edit_img = Horde::img('edit.png', _("Edit"), null, $registry->getImageDir('horde'));
+$edit_img = Horde::img('edit.png', _("Edit"));
 $resources = Kronolith::getDriver('Resource')->listResources(Horde_Perms::READ, array('type' => Kronolith_Resource::TYPE_SINGLE));
 $display_url_base = Horde::applicationUrl('month.php', true, -1);
 $delete_url_base = Horde::applicationUrl('resources/delete.php');
-$delete_img = Horde::img('delete.png', _("Delete"), null, $registry->getImageDir('horde'));
+$delete_img = Horde::img('delete.png', _("Delete"));
 ?>
 <script type="text/javascript">
 function performAction(action, rid)

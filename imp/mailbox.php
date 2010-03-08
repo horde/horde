@@ -232,9 +232,6 @@ $mbox_info = $imp_mailbox->getMailboxArray(range($pageOb['begin'], $pageOb['end'
 /* Determine sorting preferences. */
 $sortpref = IMP::getSort($imp_mbox['mailbox']);
 
-/* Cache this value since we use it alot on this page. */
-$graphicsdir = $registry->getImageDir('horde');
-
 /* Determine if we are going to show the Hide/Purge Deleted Message links. */
 if (!$prefs->getValue('use_trash') &&
     !$GLOBALS['imp_search']->isVINBOXFolder()) {
@@ -264,23 +261,23 @@ if (!empty($pageOb['end'])) {
 if ($pageOb['pagecount']) {
     $rtl = !empty(Horde_Nls::$config['rtl'][$language]);
     if ($pageOb['page'] == 1) {
-        $pages_first = Horde::img($rtl ? 'nav/last-grey.png' : 'nav/first-grey.png', null, null, $graphicsdir);
-        $pages_prev = Horde::img($rtl ? 'nav/right-grey.png' : 'nav/left-grey.png', null, null, $graphicsdir);
+        $pages_first = Horde::img($rtl ? 'nav/last-grey.png' : 'nav/first-grey.png');
+        $pages_prev = Horde::img($rtl ? 'nav/right-grey.png' : 'nav/left-grey.png');
     } else {
         $first_url = $mailbox_imp_url->copy()->add('page', 1);
-        $pages_first = Horde::link($first_url, _("First Page")) . Horde::img($rtl ? 'nav/last.png' : 'nav/first.png', $rtl ? '>>' : '<<', null, $graphicsdir) . '</a>';
+        $pages_first = Horde::link($first_url, _("First Page")) . Horde::img($rtl ? 'nav/last.png' : 'nav/first.png', $rtl ? '>>' : '<<') . '</a>';
         $prev_url = $mailbox_imp_url->copy()->add('page', $pageOb['page'] - 1);
-        $pages_prev = Horde::link($prev_url, _("Previous Page")) . Horde::img($rtl ? 'nav/right.png' : 'nav/left.png', $rtl ? '>' : '<', null, $graphicsdir) . '</a>';
+        $pages_prev = Horde::link($prev_url, _("Previous Page")) . Horde::img($rtl ? 'nav/right.png' : 'nav/left.png', $rtl ? '>' : '<') . '</a>';
     }
 
     if ($pageOb['page'] == $pageOb['pagecount']) {
-        $pages_last = Horde::img($rtl ? 'nav/first-grey.png' : 'nav/last-grey.png', null, null, $graphicsdir);
-        $pages_next = Horde::img($rtl ? 'nav/left-grey.png' : 'nav/right-grey.png', null, null, $graphicsdir);
+        $pages_last = Horde::img($rtl ? 'nav/first-grey.png' : 'nav/last-grey.png');
+        $pages_next = Horde::img($rtl ? 'nav/left-grey.png' : 'nav/right-grey.png');
     } else {
         $next_url = $mailbox_imp_url->copy()->add('page', $pageOb['page'] + 1);
-        $pages_next = Horde::link($next_url, _("Next Page")) . Horde::img($rtl ? 'nav/left.png' : 'nav/right.png', $rtl ? '<' : '>', null, $graphicsdir) . '</a>';
+        $pages_next = Horde::link($next_url, _("Next Page")) . Horde::img($rtl ? 'nav/left.png' : 'nav/right.png', $rtl ? '<' : '>') . '</a>';
         $last_url = $mailbox_imp_url->copy()->add('page', $pageOb['pagecount']);
-        $pages_last = Horde::link($last_url, _("Last Page")) . Horde::img($rtl ? 'nav/first.png' : 'nav/last.png', $rtl ? '<<' : '>>', null, $graphicsdir) . '</a>';
+        $pages_last = Horde::link($last_url, _("Last Page")) . Horde::img($rtl ? 'nav/first.png' : 'nav/last.png', $rtl ? '<<' : '>>') . '</a>';
     }
 }
 
@@ -421,7 +418,7 @@ if ($_SESSION['imp']['protocol'] != 'pop') {
     } else {
         if ($imp_search->isEditableVFolder()) {
             $edit_search = sprintf(_("Edit Virtual Folder Definition for %s"), htmlspecialchars($rawtitle));
-            $hdr_template->set('delete_vfolder', Horde::link($imp_search->deleteUrl(), sprintf(_("Delete Virtual Folder Definition for %s"), htmlspecialchars($rawtitle)), null, null, "if (confirm('" . addslashes(_("Are you sure you want to delete this Virtual Folder Definition?")) . "')) { return true; } else { return false; }") . Horde::img('delete.png', sprintf(_("Delete Virtual Folder Definition for %s"), $rawtitle), '', $graphicsdir) . '</a>');
+            $hdr_template->set('delete_vfolder', Horde::link($imp_search->deleteUrl(), sprintf(_("Delete Virtual Folder Definition for %s"), htmlspecialchars($rawtitle)), null, null, "if (confirm('" . addslashes(_("Are you sure you want to delete this Virtual Folder Definition?")) . "')) { return true; } else { return false; }") . Horde::img('delete.png', sprintf(_("Delete Virtual Folder Definition for %s"), $rawtitle)) . '</a>');
         } elseif ($search_mbox && !isset($query_text)) {
             /* Mini search results. */
             $search_mailbox = reset($imp_search->getSearchFolders());
@@ -432,7 +429,7 @@ if ($_SESSION['imp']['protocol'] != 'pop') {
         }
 
         if (isset($edit_search)) {
-            $hdr_template->set('search', Horde::link($imp_search->editUrl(), $edit_search) . Horde::img('edit.png', $edit_search, '', $graphicsdir) . '</a>');
+            $hdr_template->set('search', Horde::link($imp_search->editUrl(), $edit_search) . Horde::img('edit.png', $edit_search) . '</a>');
         }
     }
 }
@@ -646,7 +643,7 @@ if ($pageOb['msgcount']) {
         $ptr = &$headers[$key];
         $ptr['class'] = ($sortpref['by'] == $key) ? 'selected' : 'item';
         if ($sortpref['by'] == $key) {
-            $ptr['change_sort_link'] = Horde::link($sort_url->copy()->add(array('sortby' => $key, 'actionID' => 'change_sort', 'mailbox_token' => $mailbox_token)), $val['stext'], null, null, null, $val['stext']) . Horde::img($sortImg, $sortText, '', $graphicsdir) . '</a>';
+            $ptr['change_sort_link'] = Horde::link($sort_url->copy()->add(array('sortby' => $key, 'actionID' => 'change_sort', 'mailbox_token' => $mailbox_token)), $val['stext'], null, null, null, $val['stext']) . Horde::img($sortImg, $sortText) . '</a>';
         } else {
             $ptr['change_sort_link'] = null;
         }

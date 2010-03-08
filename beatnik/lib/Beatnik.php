@@ -21,8 +21,8 @@ class Beatnik {
         $editing = Horde_Util::getFormData('id');
         $editing = !empty($editing);
 
-        $hordeImgDir = $GLOBALS['registry']->getImageDir('horde');
-        $beatnikImgDir = $GLOBALS['registry']->getImageDir();
+        $hordeImgDir = Horde_Themes::img(null, 'horde');
+        $beatnikImgDir = Horde_Themes::img();
         $menu = new Horde_Menu();
 
         $menu->add(Horde::applicationUrl('listzones.php'), _('List Domains'), 'website.png', $hordeImgDir);

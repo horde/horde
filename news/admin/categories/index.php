@@ -24,9 +24,9 @@ if ($categories instanceof PEAR_Error) {
 /* Set up the template fields. */
 $title = _("Category Administration");
 $edit_url = Horde::applicationUrl('admin/categories/edit.php');
-$edit_img = Horde::img('edit.png', _("Edit"), '', $registry->getImageDir('horde'));
+$edit_img = Horde::img('edit.png', _("Edit"));
 $delete_url = Horde::applicationUrl('admin/categories/delete.php');
-$delete_img = Horde::img('delete.png', _("Delete"), '', $registry->getImageDir('horde'));
+$delete_img = Horde::img('delete.png', _("Delete"));
 
 foreach ($categories as $category_id => $category) {
     $categories[$category_id]['actions'][] = Horde::link(Horde_Util::addParameter($delete_url, 'category_id', $category_id), _("Delete")) .

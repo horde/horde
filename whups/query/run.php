@@ -90,8 +90,7 @@ if (!is_null($tickets)) {
             : array('slug' => $whups_query->slug);
         $subscription = Horde::link(Whups::urlFor('query_rss', $params, true, -1),
                                     _("Subscribe to this query"))
-            . Horde::img('feed.png', _("Subscribe to this query"), null,
-                         $GLOBALS['registry']->getImageDir('horde'))
+            . Horde::img('feed.png', _("Subscribe to this query"))
             . '</a>';
     }
     $results = Whups_View::factory(

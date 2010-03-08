@@ -50,7 +50,7 @@ function openHtmlHelper(type, target)
         }
         cell.appendChild(link);
         img = document.createElement('IMG')
-        img.src = '<?php echo $GLOBALS['registry']->getImageDir('horde') . '/emoticons/' . $icon . '.png' ?>';
+        img.src = '<?php echo Horde_Themes::img('emoticons/' . $icon . '.png') ?>';
         img.align = 'middle';
         img.border = 0;
         link.appendChild(img);

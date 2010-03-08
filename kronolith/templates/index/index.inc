@@ -86,7 +86,7 @@
 
   <form id="kronolithSearchForm" action="">
     <input type="text" id="kronolithSearchTerm" value="<?php echo _("Search") ?>" default="<?php echo _("Search") ?>" />
-    <input id="kronolithSearchButton" type="image" src="<?php echo $GLOBALS['registry']->getImageDir() ?>/search.png" />
+    <input id="kronolithSearchButton" type="image" src="<?php echo Horde_Themes::img('search.png') ?>" />
   </form>
 
   <div id="kronolithMenuCalendars">
@@ -159,7 +159,7 @@
 <div id="kronolithBody">
 <div id="kronolithLoading" style="display:none"></div>
 <?php
-$img_blank = Horde::img('blank.gif', '', 'height="8" width="8"', $registry->getImageDir('horde'));
+$img_blank = Horde::img('blank.gif', '', array('height' => 8, 'width' => 8));
 require dirname(__FILE__) . '/month.inc';
 require dirname(__FILE__) . '/week.inc';
 require dirname(__FILE__) . '/day.inc';

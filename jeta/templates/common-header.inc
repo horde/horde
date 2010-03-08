@@ -8,8 +8,8 @@ if (isset($language)) {
 <?php echo !empty($language) ? '<html lang="' . strtr($language, '_', '-') . '">' : '<html>' ?>
 <head>
 <title><?php echo htmlspecialchars($registry->get('name')) ?></title>
-<link href="<?php echo $GLOBALS['registry']->getImageDir()?>/favicon.ico" rel="SHORTCUT ICON" />
-<?php Horde::includeStylesheetFiles() ?>
+<link href="<?php echo Horde_Themes::img('favicon.ico', array('nohorde' => true)) ?>" rel="SHORTCUT ICON" />
+<?php Horde_Themes::includeStylesheetFiles() ?>
 </head>
 
 <body>

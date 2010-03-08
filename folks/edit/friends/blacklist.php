@@ -68,11 +68,11 @@ if ($groups instanceof PEAR_Error) {
 // Prepare actions
 $actions = array(
     array('url' => Horde::applicationUrl('edit/friends/blacklist.php'),
-          'img' => Horde::img('delete.png', '', '', $registry->getImageDir('horde')),
+          'img' => Horde::img('delete.png'),
           'id' => 'user',
           'name' => _("Remove")),
     array('url' => Horde::applicationUrl('user.php'),
-          'img' => Horde::img('user.png', '', '', $registry->getImageDir('horde')),
+          'img' => Horde::img('user.png'),
           'id' => 'user',
           'name' => _("View profile")));
 

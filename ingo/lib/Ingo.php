@@ -443,7 +443,7 @@ class Ingo
             $menu->add(Horde::applicationUrl('script.php'), _("_Script"), 'script.png');
         }
         if (!empty($GLOBALS['ingo_shares']) && empty($GLOBALS['conf']['share']['no_sharing'])) {
-            $menu->add('#', _("_Permissions"), 'perms.png', $GLOBALS['registry']->getImageDir('horde'), '', Horde::popupJs(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/shares/edit.php', true), array('params' => array('app' => 'ingo', 'share' => $_SESSION['ingo']['backend']['id'] . ':' . Horde_Auth::getAuth()), 'urlencode' => true)) . 'return false;');
+            $menu->add('#', _("_Permissions"), 'perms.png', Horde_Themes::img(null, 'horde'), '', Horde::popupJs(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/shares/edit.php', true), array('params' => array('app' => 'ingo', 'share' => $_SESSION['ingo']['backend']['id'] . ':' . Horde_Auth::getAuth()), 'urlencode' => true)) . 'return false;');
         }
 
         return $menu;

@@ -29,7 +29,7 @@ if (strpos($mime_type, 'text/plain') !== false) {
     $data = reset($data);
     echo $data['data'];
 } else {
-    echo Horde::link(Horde_Util::addParameter(Horde::selfUrl(true), 'p', 1)) . Horde::img('download.png', '', '', $registry->getImageDir('horde')) . ' ' . sprintf(_("Download revision %s"), $r) . '</a>';
+    echo Horde::link(Horde_Util::addParameter(Horde::selfUrl(true), 'p', 1)) . Horde::img('download.png') . ' ' . sprintf(_("Download revision %s"), $r) . '</a>';
 }
 ?>
 </div>

@@ -156,7 +156,7 @@ if ($event->alarm) {
 ?>
 <tr>
  <td colspan="5" class="control toggle" onclick="KronolithEventForm.toggleSection('alarm')">
-  <?php echo Horde::img('tree/blank.png', '', array('id' => 'toggle_alarm'), $GLOBALS['registry']->getImageDir('horde')) . ' <strong>' . Horde::label('alarm', _("_Alarm")) ?></strong>
+  <?php echo Horde::img('tree/blank.png', '', array('id' => 'toggle_alarm')) . ' <strong>' . Horde::label('alarm', _("_Alarm")) ?></strong>
   <span class="extra" id="extra_alarm"><?php if ($alarm_set) printf(_("%d %s before the event starts"), $alarm_value, $alarm_unit_title); ?></span>
 </td>
 </tr>
@@ -221,7 +221,7 @@ if ($event->alarm) {
 <!-- description -->
 <tr>
  <td colspan="5" class="control toggle" onclick="KronolithEventForm.toggleSection('description')">
-  <?php echo Horde::img('tree/blank.png', '', array('id' => 'toggle_description'), $GLOBALS['registry']->getImageDir('horde')) . ' <strong>' . Horde::label('description', _("Descri_ption")) ?></strong>
+  <?php echo Horde::img('tree/blank.png', '', array('id' => 'toggle_description')) . ' <strong>' . Horde::label('description', _("Descri_ption")) ?></strong>
   <span class="extra" id="extra_description"><?php echo htmlspecialchars(substr(str_replace(array("\r", "\n"), '  ', $event->description), 0, 80)) ?></span>
 </td>
 </tr>
@@ -234,7 +234,7 @@ if ($event->alarm) {
 <!-- url -->
 <tr>
  <td colspan="5" class="control toggle" onclick="KronolithEventForm.toggleSection('url')">
-  <?php echo Horde::img('tree/blank.png', '', array('id' => 'toggle_url'), $GLOBALS['registry']->getImageDir('horde')) . ' <strong>' . Horde::label('url', _("URL")) ?></strong>
+  <?php echo Horde::img('tree/blank.png', '', array('id' => 'toggle_url')) . ' <strong>' . Horde::label('url', _("URL")) ?></strong>
   <span class="extra" id="extra_url"><?php echo htmlspecialchars($event->url) ?></span>
 </td>
 </tr>
@@ -248,7 +248,7 @@ if ($event->alarm) {
 <!-- attendees/resources -->
 <tr>
  <td colspan="5" class="control toggle" onclick="KronolithEventForm.toggleSection('attendees')">
-  <?php echo Horde::img('tree/blank.png', '', array('id' => 'toggle_attendees'), $GLOBALS['registry']->getImageDir('horde')) . ' <strong>' . _("Attendees and Resources") ?></strong>
+  <?php echo Horde::img('tree/blank.png', '', array('id' => 'toggle_attendees')) . ' <strong>' . _("Attendees and Resources") ?></strong>
   <span class="extra"><?php echo htmlspecialchars(Kronolith::attendeeList()) ?></span>
  </td>
 </tr>
@@ -265,7 +265,7 @@ if ($event->alarm) {
 <!-- recurrence -->
 <tr>
  <td colspan="5" class="control toggle" onclick="KronolithEventForm.toggleSection('recurrence')">
-  <?php echo Horde::img('tree/blank.png', '', array('id' => 'toggle_recurrence'), $GLOBALS['registry']->getImageDir('horde')) . ' <strong>' . _("Recurrence") ?></strong>
+  <?php echo Horde::img('tree/blank.png', '', array('id' => 'toggle_recurrence')) . ' <strong>' . _("Recurrence") ?></strong>
   <span class="extra" id="extra_recurrence"><?php echo $event->getRecurName(); if ($event->recurs()) echo $event->recurrence->hasRecurEnd() ? sprintf(_(" until %s"), $event->recurrence->recurEnd->strftime($GLOBALS['prefs']->getValue('date_format')) . ($this->event->recurrence->recurEnd->hour == 23 && $this->event->recurrence->recurEnd->min == 59 ? '' : ' ' . $this->event->recurrence->recurEnd->format($GLOBALS['prefs']->getValue('twentyFour') ? 'G:i' : 'g:ia'))) : ($event->recurrence->getRecurCount() ? sprintf(_(", %d times"), $event->recurrence->getRecurCount()) : _(" without end")) ?></span>
  </td>
 </tr>
@@ -357,7 +357,7 @@ if ($event->alarm) {
  <td>
 <?php
 Horde::addScriptFile('open_calendar.js', 'horde', array('direct' => false));
-echo Horde::url('#')->link(array('title' => _("Select a date"), 'onclick' => 'openCalendar(\'recur_endimg\', \'recur_end\', \'' . addslashes($event->js('recur_end')) . '\'); return false;')) . Horde::img('calendar.png', _("Set recurrence end date"), 'id="recur_endimg"', $GLOBALS['registry']->getImageDir('horde')) . '</a>';
+echo Horde::url('#')->link(array('title' => _("Select a date"), 'onclick' => 'openCalendar(\'recur_endimg\', \'recur_end\', \'' . addslashes($event->js('recur_end')) . '\'); return false;')) . Horde::img('calendar.png', _("Set recurrence end date"), 'id="recur_endimg"') . '</a>';
 endif;
 ?>
  </td>
@@ -392,7 +392,7 @@ endif;
 <!-- tags  -->
 <tr>
 <td colspan="5" class="control toggle" onclick="KronolithEventForm.toggleSection('tags')">
- <?php echo Horde::img('tree/blank.png', '', array('id' => 'toggle_tags'), $GLOBALS['registry']->getImageDir('horde')) . ' <strong>' . _("Tags") ?></strong>
+ <?php echo Horde::img('tree/blank.png', '', array('id' => 'toggle_tags')) . ' <strong>' . _("Tags") ?></strong>
   <span class="extra" id="extra_tags"><?php echo (!empty($tags) ? htmlspecialchars($tags) : '');?></span>
   </td>
 </tr>

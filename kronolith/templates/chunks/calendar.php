@@ -27,7 +27,7 @@ asort($groups);
 <div>
   <label><?php echo _("Color") ?>:
     <input type="text" name="color" id="kronolithCalendarinternalColor" size="7" />
-    <?php echo Horde::url('#')->link(array('title' => _("Color Picker"), 'class' => 'kronolithColorPicker')) . Horde::img('colorpicker.png', _("Color Picker"), '', $GLOBALS['registry']->getImageDir('horde')) . '</a>' ?>
+    <?php echo Horde::url('#')->link(array('title' => _("Color Picker"), 'class' => 'kronolithColorPicker')) . Horde::img('colorpicker.png', _("Color Picker")) . '</a>' ?>
   </label>
 </div>
 
@@ -105,17 +105,17 @@ asort($groups);
       </thead>
       <tbody>
         <tr>
-	  <td>
-            <?php if ($auth->hasCapability('list') && ($GLOBALS['conf']['auth']['list_users'] == 'list' || $GLOBALS['conf']['auth']['list_users'] == 'both')): ?>
-            <select name="owner_select">
-              <option value=""><?php echo _("Select a new owner:") ?></option>
-              <?php foreach ($auth->listUsers() as $user): ?>
-              <option value="<?php echo htmlspecialchars($user) ?>"<?php if ($user == Horde_Auth::getAuth()) echo ' selected="selected"' ?>><?php echo htmlspecialchars($user) ?></option>
-              <?php endforeach; ?>
-            </select>
-            <?php else: ?>
-            <input type="text" name="owner_input" size="50" value="<?php echo htmlspecialchars(Horde_Auth::getAuth()) ?>" />
-            <?php endif; ?>
+         <td>
+<?php if ($auth->hasCapability('list') && ($GLOBALS['conf']['auth']['list_users'] == 'list' || $GLOBALS['conf']['auth']['list_users'] == 'both')): ?>
+          <select name="owner_select">
+           <option value=""><?php echo _("Select a new owner:") ?></option>
+<?php foreach ($auth->listUsers() as $user): ?>
+           <option value="<?php echo htmlspecialchars($user) ?>"<?php if ($user == Horde_Auth::getAuth()) echo ' selected="selected"' ?>><?php echo htmlspecialchars($user) ?></option>
+<?php endforeach; ?>
+          </select>
+<?php else: ?>
+          <input type="text" name="owner_input" size="50" value="<?php echo htmlspecialchars(Horde_Auth::getAuth()) ?>" />
+<?php endif; ?>
           </td>
         </tr>
       </tbody>
@@ -322,7 +322,7 @@ asort($groups);
 <div>
   <label><?php echo _("Color") ?>:<br />
     <input type="text" name="color" id="kronolithCalendartasklistsColor" size="7" />
-    <?php echo Horde::url('#')->link(array('title' => _("Color Picker"), 'class' => 'kronolithColorPicker')) . Horde::img('colorpicker.png', _("Color Picker"), '', $GLOBALS['registry']->getImageDir('horde')) . '</a>' ?>
+    <?php echo Horde::url('#')->link(array('title' => _("Color Picker"), 'class' => 'kronolithColorPicker')) . Horde::img('colorpicker.png', _("Color Picker")) . '</a>' ?>
   </label>
 </div>
 
@@ -383,7 +383,7 @@ tbd
 <div>
   <label><?php echo _("Color") ?>:<br />
     <input type="text" name="color" id="kronolithCalendarremoteColor" size="7" />
-    <?php echo Horde::url('#')->link(array('title' => _("Color Picker"), 'onclick' => 'new ColorPicker({ color: $F(\'kronolithCalendarremoteColor\'), offsetParent: Event.element(event), update: [[\'kronolithCalendarremoteColor\', \'value\'], [\'kronolithCalendarremoteColor\', \'background\']] }); return false;')) . Horde::img('colorpicker.png', _("Color Picker"), '', $GLOBALS['registry']->getImageDir('horde')) . '</a>' ?>
+    <?php echo Horde::url('#')->link(array('title' => _("Color Picker"), 'onclick' => 'new ColorPicker({ color: $F(\'kronolithCalendarremoteColor\'), offsetParent: Event.element(event), update: [[\'kronolithCalendarremoteColor\', \'value\'], [\'kronolithCalendarremoteColor\', \'background\']] }); return false;')) . Horde::img('colorpicker.png', _("Color Picker")) . '</a>' ?>
   </label>
 </div>
 

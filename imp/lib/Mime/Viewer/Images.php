@@ -155,7 +155,7 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
                 'data' => '',
                 'status' => array(
                     array(
-                        'icon' => Horde::img('mime/image.png', null, null, $GLOBALS['registry']->getImageDir('horde')),
+                        'icon' => Horde::img('mime/image.png'),
                         'text' => $status
                     )
                 ),

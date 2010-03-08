@@ -12,8 +12,7 @@ if ($ob->hasValue('name')) {
 
 if ($own_source == $ob->getSource() && $own_id == $ob->getValue('__key')) {
     $own_icon = Horde::img('user.png', _("Your own contact"),
-                           array('title' => _("Your own contact")),
-                           $GLOBALS['registry']->getImageDir('horde'));
+                           array('title' => _("Your own contact")));
 } else {
     $own_icon = '&nbsp;';
 }
@@ -25,8 +24,7 @@ if ($ob->hasValue('__key')) {
                                           'key' => $ob->getValue('__key')));
     $vcard_url = Horde::link(Horde::applicationUrl($vcard_url),
                              _("Download vCard"))
-        . Horde::img('mime/vcard.png', _("Download vCard"), '',
-            $GLOBALS['registry']->getImageDir('horde'))
+        . Horde::img('mime/vcard.png', _("Download vCard"))
         . '</a>';
 
     $cell = Horde::link($ob->url()) . $link_text . '</a>';
@@ -38,8 +36,7 @@ if ($ob->hasValue('__key')) {
                   'key' => $ob->getValue('__key'),
                   'url' => Horde::selfUrl(true, false, true)));
         $edit_url = Horde::link(Horde::applicationUrl($edit_url), _("Edit"))
-            . Horde::img('edit.png', _("Edit"), '',
-                         $GLOBALS['registry']->getImageDir('horde'))
+            . Horde::img('edit.png', _("Edit"))
             . '</a>';
     }
 } else {

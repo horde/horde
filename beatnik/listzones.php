@@ -36,7 +36,7 @@ $pager = new Horde_Ui_Pager('page', $pager_vars,
 // Limit the domain list to the current page
 $domains = array_slice($beatnik->domains, $page*$perpage, $perpage);
 
-$img_dir = $registry->getImageDir('horde');
+$img_dir = Horde_Themes::img();
 
 // Hide fields that the user does not want to see
 $fields = Beatnik::getRecFields('soa');

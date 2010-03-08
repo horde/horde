@@ -22,8 +22,8 @@ Horde::includeScriptFiles();
 
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
-<link href="<?php echo $GLOBALS['registry']->getImageDir() ?>/favicon.ico" rel="SHORTCUT ICON" />
-<?php Horde::includeStylesheetFiles() ?>
+<link href="<?php echo Horde_Themes::img('favicon.ico', array('nohorde' => true)) ?>" rel="SHORTCUT ICON" />
+<?php Horde_Themes::includeStylesheetFiles() ?>
 <link rel="alternate" title="<?php echo _("Forums") ?>" href="<?php echo Horde_Util::addParameter(Horde::applicationUrl('rss/index.php', true, -1), 'scope', $scope) ?>" type="application/rss+xml" />
 </head>
 

@@ -26,9 +26,9 @@ foreach ($classes as $class) {
 }
 asort($sorted_classes);
 
-$edit_img = Horde::img('edit.png', _("Edit"), null, $registry->getImageDir('horde'));
-$perms_img = Horde::img('perms.png', _("Change Permissions"), null, $registry->getImageDir('horde'));
-$delete_img = Horde::img('delete.png', _("Delete"), null, $registry->getImageDir('horde'));
+$edit_img = Horde::img('edit.png', _("Edit"));
+$perms_img = Horde::img('perms.png', _("Change Permissions"));
+$delete_img = Horde::img('delete.png', _("Delete"));
 
 Horde::addScriptFile('tables.js', 'horde');
 $title = _("Manage Classes");

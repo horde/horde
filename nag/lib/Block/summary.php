@@ -182,8 +182,7 @@ class Horde_Block_nag_summary extends Horde_Block {
                 $label = sprintf(_("Edit \"%s\""), $task->name);
                 $html .= '<td width="1%">'
                     . Horde::link(htmlspecialchars(Horde::applicationUrl(Horde_Util::addParameter($taskurl, 'actionID', 'modify_task'), true)), $label)
-                    . Horde::img('edit.png', $label, null,
-                                 $registry->getImageDir('horde'))
+                    . Horde::img('edit.png', $label)
                     . '</a></td>';
                 if ($task->completed) {
                     $html .= '<td width="1%">'

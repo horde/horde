@@ -93,8 +93,7 @@ class MergeOrRename extends Page {
 
         $template->set('referrerLink', Wicked::url($referrer));
 
-        $requiredMarker = Horde::img('required.png', '*', '',
-                                     $registry->getImageDir('horde'));
+        $requiredMarker = Horde::img('required.png', '*');
         $template->set('requiredMarker', $requiredMarker);
 
         $references = $wicked->getBackLinks($referrer);

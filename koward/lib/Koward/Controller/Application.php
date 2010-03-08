@@ -54,35 +54,33 @@ class Koward_Controller_Application extends Horde_Controller_Base
      */
     public function getMenu()
     {
-        global $registry;
-
         $menu = new Horde_Menu();
 
         if ($this->koward->hasAccess('object/listall')) {
             $menu->add($this->urlFor(array('controller' => 'object', 'action' => 'listall')),
-                       _("_Objects"), 'user.png', $registry->getImageDir('horde'));
+                       _("_Objects"), 'user.png', Horde_Themes::img(null, 'horde'));
         }
 
         if ($this->koward->hasAccess('object/add', Koward::PERM_EDIT)) {
             $menu->add($this->urlFor(array('controller' => 'object', 'action' => 'add')),
-                       _("_Add"), 'plus.png', $registry->getImageDir('horde'));
+                       _("_Add"), 'plus.png', Horde_Themes::img(null, 'horde'));
         }
 
         if ($this->koward->hasAccess('object/search')) {
             $menu->add($this->urlFor(array('controller' => 'object', 'action' => 'search')),
-                       _("_Search"), 'search.png', $registry->getImageDir('horde'));
+                       _("_Search"), 'search.png', Horde_Themes::img(null, 'horde'));
         }
 
         if (!empty($this->koward->conf['koward']['menu']['queries'])) {
-            $menu->add(Horde::applicationUrl('Queries'), _("_Queries"), 'query.png', $registry->getImageDir('koward'));
+            $menu->add(Horde::applicationUrl('Queries'), _("_Queries"), 'query.png', Horde_Themes::img());
         }
         if (!empty($this->koward->conf['koward']['menu']['test'])) {
             $menu->add($this->urlFor(array('controller' => 'check', 'action' => 'show')),
-                   _("_Test"), 'problem.png', $registry->getImageDir('horde'));
+                   _("_Test"), 'problem.png', Horde_Themes::img(null, 'horde'));
         }
         if (Horde_Auth::getAuth()) {
             $menu->add($this->urlFor(array('controller' => 'index', 'action' => 'logout')),
-                       _("_Logout"), 'logout.png', $registry->getImageDir('horde'));
+                       _("_Logout"), 'logout.png', Horde_Themes::img(null, 'horde'));
         }
         return $menu;
     }

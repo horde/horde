@@ -427,7 +427,7 @@ class Fima {
                 $html .= '<div id="goto" class="control" style="position:absolute;visibility:hidden;padding:1px"></div>' . "\n";
             }
             $html .= '<a href="#" onclick="openCalendar(\'' . $name . '_img\', \'' . $name . '\', \'updateWday(\\\'' . $name . '\\\');\'); return false;" title="Select a date">';
-            $html .= Horde::img('calendar.png', _("Set date"), 'align="top" id="' . $name . '_img"', $GLOBALS['registry']->getImageDir('horde'));
+            $html .= Horde::img('calendar.png', _("Set date"), 'align="top" id="' . $name . '_img"');
             $html .= '</a>' . "\n";
         }
 
@@ -746,14 +746,15 @@ class Fima {
      */
     function getMenu()
     {
-        global $conf, $registry, $browser, $print_link;
+        global $conf, $browser, $print_link;
 
         $actionID = Horde_Util::getFormData('actionID');
+        $hordeimg = Horde_Themes::img(null, 'horde');
 
         $menu = new Horde_Menu(Horde_Menu::MASK_ALL);
         $menu->add(Horde::applicationUrl('postings.php'), _("_List Postings"), 'list.png', null, null, null, (basename($_SERVER['PHP_SELF']) == 'index.php' && basename(dirname($_SERVER['PHP_SELF'])) != 'ledgers') ? 'current' : ($actionID === null ? null : '__noselection'));
         $menu->add(Horde_Util::addParameter(Horde::applicationUrl('postings.php'), 'actionID', 'add_postings'), _("Add _Postings"), 'add.png', null, null, null, $actionID == 'add_postings' ? 'current' : '__noselection');
-        $menu->add(Horde::applicationUrl('search.php'), _("Search"), 'search.png', $registry->getImageDir('horde'));
+        $menu->add(Horde::applicationUrl('search.php'), _("Search"), 'search.png', $hordeimg);
         $menu->add(Horde::applicationUrl('accounts.php'), _("_Accounts"), 'accounts.png');
 
         if (Horde_Auth::getAuth()) {
@@ -764,11 +765,11 @@ class Fima {
         $menu->add(Horde::applicationUrl('report.php'), _("_Reports"), 'report.png');
 
         /* Import/Export. */
-        $menu->add(Horde::applicationUrl('data.php'), _("_Import/Export"), 'data.png', $registry->getImageDir('horde'));
+        $menu->add(Horde::applicationUrl('data.php'), _("_Import/Export"), 'data.png', $hordeimg);
 
         /* Print. */
         if (isset($print_link)) {
-            $menu->add($print_link, _("_Print"), 'print.png', $registry->getImageDir('horde'), '_blank', Horde::popupJs($print_link, array('urlencode' => true)) . 'return false;', '__noselection');
+            $menu->add($print_link, _("_Print"), 'print.png', $hordeimg, '_blank', Horde::popupJs($print_link, array('urlencode' => true)) . 'return false;', '__noselection');
         }
 
         return $menu;

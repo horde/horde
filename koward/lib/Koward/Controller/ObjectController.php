@@ -48,15 +48,13 @@ class ObjectController extends Koward_Controller_Application
                     $this->urlFor(array('controller' => 'object',
                                         'action' => 'edit',
                                         'id' => $uid)),
-                    _("Edit")) . Horde::img('edit.png', _("Edit"), '',
-                                            $GLOBALS['registry']->getImageDir('horde'))
+                    _("Edit")) . Horde::img('edit.png', _("Edit"))
                     . '</a>';
                 $this->objectlist[$uid]['delete_url'] = Horde::link(
                     $this->urlFor(array('controller' => 'object',
                                         'action' => 'delete',
                                         'id' => $uid)),
-                    _("Delete")) . Horde::img('delete.png', _("Delete"), '',
-                                              $GLOBALS['registry']->getImageDir('horde'))
+                    _("Delete")) . Horde::img('delete.png', _("Delete"))
                     . '</a>';
                 if ($this->koward->hasAccess('object/view/' . $this->object_type, Koward::PERM_READ)) {
                     $this->objectlist[$uid]['view_url'] = Horde::link(
@@ -211,8 +209,7 @@ class ObjectController extends Koward_Controller_Application
                     $this->urlFor(array('controller' => 'object',
                                         'action' => 'edit',
                                         'id' => $this->params->id)),
-                    _("Edit")) . Horde::img('edit.png', _("Edit"), '',
-                                            $GLOBALS['registry']->getImageDir('horde'))
+                    _("Edit")) . Horde::img('edit.png', _("Edit"))
                     . '</a>';
 
 
@@ -353,15 +350,13 @@ class ObjectController extends Koward_Controller_Application
                             $this->urlFor(array('controller' => 'object',
                                                 'action' => 'edit',
                                                 'id' => $uid)),
-                            _("Edit")) . Horde::img('edit.png', _("Edit"), '',
-                                                    $GLOBALS['registry']->getImageDir('horde'))
+                            _("Edit")) . Horde::img('edit.png', _("Edit"))
                             . '</a>';
                         $this->objectlist[$uid]['delete_url'] = Horde::link(
                             $this->urlFor(array('controller' => 'object',
                                                 'action' => 'delete',
                                                 'id' => $uid)),
-                            _("Delete")) . Horde::img('delete.png', _("Delete"), '',
-                                                      $GLOBALS['registry']->getImageDir('horde'))
+                            _("Delete")) . Horde::img('delete.png', _("Delete"))
                             . '</a>';
                         $this->objectlist[$uid]['view_url'] = Horde::link(
                             $this->urlFor(array('controller' => 'object',

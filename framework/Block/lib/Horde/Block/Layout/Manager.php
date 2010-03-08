@@ -622,7 +622,7 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
         }
 
         return Horde::link($url, $title) .
-            Horde::img('block/' . $img . '.png', $title, '', $GLOBALS['registry']->getImageDir('horde')) . '</a>';
+            Horde::img('block/' . $img . '.png', $title) . '</a>';
     }
 
     /**

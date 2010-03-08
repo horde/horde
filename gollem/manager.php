@@ -233,7 +233,7 @@ $numitem = count($list);
 $title = $GLOBALS['gollem_be']['label'];
 
 /* Image links. */
-$image_dir = $registry->getImageDir('horde');
+$image_dir = Horde_Themes::img(null, 'horde');
 $edit_img = Horde::img('edit.png', _("Edit"), null, $image_dir);
 $download_img = Horde::img('download.png', _("Download"), null, $image_dir);
 $folder_img = Horde::img('folder.png', _("folder"));

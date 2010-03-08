@@ -37,7 +37,8 @@ Application Framework.
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Add Horde::nocacheUrl().
+ <notes>* Add Horde_Themes:: class.
+ * Add Horde::nocacheUrl().
  * Remove dependency on Horde_DOM package.
  * Added Horde_Registry_Api:: and Horde_Registry_Application:: classes.
  * Moved Horde_Exception to Exception package.
@@ -90,6 +91,12 @@ Application Framework.
      <dir name="Script">
       <file name="Files.php" role="php" />
      </dir> <!-- /lib/Horde/Script -->
+     <file name="Themes.php" role="php" />
+     <dir name="Themes">
+      <file name="Element.php" role="php" />
+      <file name="Image.php" role="php" />
+      <file name="Sound.php" role="php" />
+     </dir> <!-- /lib/Horde/Themes -->
     </dir> <!-- /lib/Horde -->
     <file name="Horde.php" role="php" />
    </dir> <!-- /lib -->
@@ -178,6 +185,10 @@ Application Framework.
    <install name="lib/Horde/Registry/Application.php" as="Horde/Registry/Application.php" />
    <install name="lib/Horde/Registry/Caller.php" as="Horde/Registry/Caller.php" />
    <install name="lib/Horde/Script/Files.php" as="Horde/Script/Files.php" />
+   <install name="lib/Horde/Themes.php" as="Horde/Themes.php" />
+   <install name="lib/Horde/Themes/Element.php" as="Horde/Themes/Element.php" />
+   <install name="lib/Horde/Themes/Image.php" as="Horde/Themes/Image.php" />
+   <install name="lib/Horde/Themes/Sound.php" as="Horde/Themes/Sound.php" />
    <install name="lib/Horde.php" as="Horde.php" />
   </filelist>
  </phprelease>

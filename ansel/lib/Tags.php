@@ -594,7 +594,7 @@ class Ansel_Tags_Search {
             }
             $remove_url = Horde::applicationUrl($remove_url, true);
             $delete_label = sprintf(_("Remove %s from search"), htmlspecialchars($tags[$tagid]));
-            $html .= '<li>' . htmlspecialchars($tags[$tagid]) . Horde::link($remove_url, $delete_label) . Horde::img('delete-small.png', $delete_label, '', $registry->getImageDir('horde')) . '</a></li>';
+            $html .= '<li>' . htmlspecialchars($tags[$tagid]) . Horde::link($remove_url, $delete_label) . Horde::img('delete-small.png', $delete_label) . '</a></li>';
         }
 
         return $html . '</ul>';

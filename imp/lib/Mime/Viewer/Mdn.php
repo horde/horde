@@ -64,7 +64,7 @@ class IMP_Horde_Mime_Viewer_Mdn extends Horde_Mime_Viewer_Driver
 
         $status = array(
             array(
-                'icon' => Horde::img('info_icon.png', _("Info"), null, $GLOBALS['registry']->getImageDir('horde')),
+                'icon' => Horde::img('info_icon.png', _("Info")),
                 'text' => array(_("A message you have sent has resulted in a return notification from the recipient."))
             )
         );

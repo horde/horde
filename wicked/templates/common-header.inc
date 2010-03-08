@@ -22,9 +22,9 @@ Horde::includeScriptFiles();
 
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
-<link href="<?php echo $GLOBALS['registry']->getImageDir()?>/favicon.ico" rel="SHORTCUT ICON" />
+<link href="<?php echo Horde_Themes::img('favicon.ico', array('nohorde' => true)) ?>" rel="SHORTCUT ICON" />
 <link href="<?php echo Horde::applicationUrl('opensearch.php', true, -1) ?>" rel="search" type="application/opensearchdescription+xml" title="<?php echo $registry->get('name') . ' (' . Horde::applicationUrl('', true) . ')' ?>" />
-<?php Horde::includeStylesheetFiles() ?>
+<?php Horde_Themes::includeStylesheetFiles() ?>
 </head>
 
 <body>

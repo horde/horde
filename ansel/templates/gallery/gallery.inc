@@ -53,7 +53,7 @@ if ($prefs->isLocked('default_gallerystyle')) {
   </td>
 </tr>
 <tr>
-  <td align="right" valign="top"><?php echo Horde::img('required.png', '', '', $registry->getImageDir('horde')) ?><strong><?php echo _("Gallery Display Name") ?></strong>&nbsp;</td>
+  <td align="right" valign="top"><?php echo Horde::img('required.png') ?><strong><?php echo _("Gallery Display Name") ?></strong>&nbsp;</td>
   <td>
     <input name="gallery_name" id="gallery_name" type="text" value="<?php echo htmlspecialchars($gallery_name) ?>" size="50" maxlength="100" />
   </td>

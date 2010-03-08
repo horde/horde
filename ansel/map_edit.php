@@ -75,7 +75,7 @@ $image_tag = '<img src="' . Ansel::getImageUrl($image_id, 'thumb', true) . '" al
 $gt = Horde_Ajax_Imple::factory(array('ansel', 'ImageSaveGeotag'));
 $gtUrl = $gt->getUrl();
 
-$loadingImg = Horde::img('loading.gif', _("Loading..."), '', $registry->getImageDir());
+$loadingImg = Horde::img('loading.gif', _("Loading..."));
 
 /* Obtain other geotagged images to possibly locate this image at */
 $imgs = $GLOBALS['ansel_storage']->getRecentImagesGeodata(Horde_Auth::getAuth());

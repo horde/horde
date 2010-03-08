@@ -148,7 +148,6 @@ class Horde_Menu
     {
         global $conf, $registry, $prefs;
 
-        $graphics = $registry->getImageDir('horde');
         $app = $registry->getApp();
 
         if ($this->_mask !== self::MASK_NONE) {
@@ -163,14 +162,14 @@ class Horde_Menu
         if (($this->_mask & self::MASK_PREFS) &&
             $this->showService('options') &&
             ($url = Horde::getServiceLink('options', $app))) {
-            $this->add($url, _("_Options"), 'prefs.png', $graphics);
+            $this->add($url, _("_Options"), 'prefs.png');
         }
 
         /* Add problem link. */
         if (($this->_mask & self::MASK_PROBLEM) &&
             $this->showService('problem') &&
             ($problem_link = Horde::getServiceLink('problem', $app))) {
-            $this->add($problem_link, _("Problem"), 'problem.png', $graphics);
+            $this->add($problem_link, _("Problem"), 'problem.png');
         }
 
         /* Add help link. */
@@ -178,7 +177,7 @@ class Horde_Menu
             $this->showService('help') &&
             ($help_link = Horde::getServiceLink('help', $app))) {
             Horde::
-            $this->add($help_link, _("Help"), 'help_index.png', $graphics, 'help', Horde::popupJs($help_link, array('urlencode' => true)) . 'return false;', 'helplink');
+            $this->add($help_link, _("Help"), 'help_index.png', null, 'help', Horde::popupJs($help_link, array('urlencode' => true)) . 'return false;', 'helplink');
         }
 
         /* Login/Logout. */
@@ -194,12 +193,12 @@ class Horde_Menu
             if (Horde_Auth::getAuth()) {
                 if ((!$prefs->getValue('show_sidebar') || $this->showService('logout')) &&
                     ($logout_link = Horde::getServiceLink('logout', $app))) {
-                    $this->add($logout_link, _("_Log out"), 'logout.png', $graphics, $auth_target, null, '__noselection');
+                    $this->add($logout_link, _("_Log out"), 'logout.png', null, $auth_target, null, '__noselection');
                 }
             } else {
                 if ($this->showService('login') &&
                     ($login_link = Horde::getServiceLink('login', $app))) {
-                    $this->add(Horde_Util::addParameter($login_link, array('url' => Horde::selfUrl(true, true, true))), _("_Log in"), 'login.png', $graphics, $auth_target, null, '__noselection');
+                    $this->add(Horde_Util::addParameter($login_link, array('url' => Horde::selfUrl(true, true, true))), _("_Log in"), 'login.png', null, $auth_target, null, '__noselection');
                 }
             }
         }
@@ -240,7 +239,7 @@ class Horde_Menu
             /* Icon. */
             $icon = '';
             if ($menu_view == 'icon' || $menu_view == 'both') {
-                if (!isset($m['icon_path'])) {
+                if (empty($m['icon_path'])) {
                     $m['icon_path'] = null;
                 }
                 $icon = Horde::img($m['icon'], Horde::stripAccessKey($m['text']), '', $m['icon_path']) . '<br />';

@@ -1,6 +1,6 @@
 <?php echo $tabs->render('image'); ?>
 <h1 class="header"><?php echo $title ?></h1>
-<link href="<?php echo $registry->getImageDir() ?>/../cropper.css" rel="stylesheet" type="text/css" />
+<link href="<?php echo Horde_Themes::img() ?>/../cropper.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript">
 

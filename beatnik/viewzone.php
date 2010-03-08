@@ -36,7 +36,7 @@ foreach ($fields as $field_id => $field) {
     }
 }
 
-$img_dir = $registry->getImageDir('horde');
+$img_dir = Horde_Themes::img(null, 'horde');
 $delete = Horde_Util::addParameter(Horde::applicationUrl('delete.php'), 'curdomain', $_SESSION['beatnik']['curdomain']['zonename']);
 $edit = Horde_Util::addParameter(Horde::applicationUrl('editrec.php'), 'curdomain', $_SESSION['beatnik']['curdomain']['zonename']);
 $rectypes = Beatnik::getRecTypes();

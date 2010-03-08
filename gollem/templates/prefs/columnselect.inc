@@ -37,11 +37,10 @@ if (!$prefs->isLocked('columns')) {
 
     $t->set('columns', $prefs->getValue('columns'));
 
-    $imagedir = $registry->getImageDir('horde');
-    $t->set('add', Horde::img('rhand.png', _("Add column"), null, $imagedir));
-    $t->set('remove', Horde::img('lhand.png', _("Remove column"), null, $imagedir));
-    $t->set('left', Horde::img('nav/up.png', _("Move left"), null, $imagedir));
-    $t->set('right', Horde::img('nav/down.png', _("Move right"), null, $imagedir));
+    $t->set('add', Horde::img('rhand.png', _("Add column")));
+    $t->set('remove', Horde::img('lhand.png', _("Remove column")));
+    $t->set('left', Horde::img('nav/up.png', _("Move left")));
+    $t->set('right', Horde::img('nav/down.png', _("Move right")));
 
     echo $t->fetch(GOLLEM_TEMPLATES . '/prefs/columnselect.html');
 }

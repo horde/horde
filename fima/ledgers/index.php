@@ -28,12 +28,12 @@ foreach ($ledgers as $ledger) {
 }
 asort($sorted_ledgers);
 
-$browse_img = Horde::img('accounts.png', _("Ledger"), null, $registry->getImageDir('fima'));
-$edit_img = Horde::img('edit.png', _("Edit"), null, $registry->getImageDir('horde'));
-$perms_img = Horde::img('perms.png', _("Change Permissions"), null, $registry->getImageDir('horde'));
-$delete_img = Horde::img('delete.png', _("Delete"), null, $registry->getImageDir('horde'));
+$browse_img = Horde::img('accounts.png', _("Ledger"));
+$edit_img = Horde::img('edit.png', _("Edit"));
+$perms_img = Horde::img('perms.png', _("Change Permissions"));
+$delete_img = Horde::img('delete.png', _("Delete"));
 
-Horde::addScriptFile('tables.js', 'turba');
+Horde::addScriptFile('tables.js', 'horde');
 $title = _("Manage Ledgers");
 require FIMA_TEMPLATES . '/common-header.inc';
 require FIMA_TEMPLATES . '/menu.inc';

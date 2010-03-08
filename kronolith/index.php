@@ -50,14 +50,14 @@ foreach (Horde_Alarm::notificationMethods() as $method => $params) {
         case 'sound':
             $alarm_params .= '<ul class="sound-list"><li><input type="radio" ' . $att
                 . ' value="" checked="checked" /> ' . _("No Sound") . '</li>';
-            foreach (glob($registry->get('themesfs', 'horde') . '/sounds/*.wav') as $sound) {
-                $sound = htmlspecialchars(basename($sound));
+            foreach (Horde_Themes::soundList() as $key => $val) {
+                $sound = htmlspecialchars($key);
                 $alarm_params .= '<li><input type="radio" id="kronolithEventAlarmParam'
                     . $name . str_replace('.wav', '', $sound) . '" ' . $name_att
                     . ' value="' .  $sound
                     . '" /> <embed autostart="false" src="'
-                    . $registry->get('themesuri', 'horde') . '/sounds/'
-                    . $sound . '" /> ' . $sound . '</li>';
+                    . htmlspecialchars($val->uri)
+                    . '" /> ' . $sound . '</li>';
             }
             $alarm_params .= '</ul>';
             break;

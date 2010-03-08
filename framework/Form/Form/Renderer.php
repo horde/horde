@@ -54,7 +54,7 @@ class Horde_Form_Renderer {
         global $registry;
         if (isset($registry) && is_a($registry, 'Registry')) {
             /* Registry available, so use a pretty image. */
-            $this->_requiredMarker = Horde::img('required.png', '*', '', $registry->getImageDir('horde'));
+            $this->_requiredMarker = Horde::img('required.png', '*');
         } else {
             /* No registry available, use something plain. */
             $this->_requiredMarker = '*';

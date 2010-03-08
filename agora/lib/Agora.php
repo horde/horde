@@ -188,7 +188,7 @@ class Agora {
                 $sort_img = ($sort_dir ? 'za.png' : 'az.png');
                 $sort_title = ($sort_dir ? _("Sort Ascending") : _("Sort Descending"));
                 $col_arrow = Horde::link(Horde_Util::addParameter($url, array($view . '_sortby' => $col_name, $view . '_sortdir' => $sort_dir ? 0 : 1)), $sort_title) .
-                    Horde::img($sort_img, $sort_title, null, $GLOBALS['registry']->getImageDir('horde')) . '</a> ';
+                    Horde::img($sort_img, $sort_title) . '</a> ';
                 $col_class = 'selected';
             } else {
                 /* Column not currently sorted, add link to sort by
@@ -232,7 +232,7 @@ class Agora {
     function getMenu($returnType = 'object')
     {
         $menu = new Horde_Menu();
-        $img_dir = $GLOBALS['registry']->getImageDir();
+        $img_dir = Horde_Themes::img();
         $scope = Horde_Util::getGet('scope', 'agora');
 
         /* Agora Home. */
@@ -242,9 +242,9 @@ class Agora {
 
         /* Thread list, if applicable. */
         if (isset($GLOBALS['forum_id'])) {
-            $menu->add(Agora::setAgoraId($GLOBALS['forum_id'], null, Horde::applicationUrl('threads.php')), _("_Threads"), 'threads.png', $GLOBALS['registry']->getImageDir());
+            $menu->add(Agora::setAgoraId($GLOBALS['forum_id'], null, Horde::applicationUrl('threads.php')), _("_Threads"), 'threads.png', Horde_Themes::img());
             if ($scope == 'agora' && Horde_Auth::getAuth()) {
-                $menu->add(Agora::setAgoraId($GLOBALS['forum_id'], null, Horde::applicationUrl('messages/edit.php')), _("New Thread"), 'newmessage.png', $GLOBALS['registry']->getImageDir());
+                $menu->add(Agora::setAgoraId($GLOBALS['forum_id'], null, Horde::applicationUrl('messages/edit.php')), _("New Thread"), 'newmessage.png', Horde_Themes::img());
             }
         }
 
@@ -262,7 +262,7 @@ class Agora {
         }
 
         $url = Horde_Util::addParameter(Horde::applicationUrl('search.php'), 'scope', $scope);
-        $menu->add($url, _("_Search"), 'search.png', $GLOBALS['registry']->getImageDir('horde'));
+        $menu->add($url, _("_Search"), 'search.png', Horde_Themes::img(null, 'horde'));
 
         if ($returnType == 'object') {
             return $menu;

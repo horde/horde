@@ -130,8 +130,8 @@ $template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify')
 $template->set('pager', $pager->render());
 
 /* Set up the field list. */
-$images = array('delete' => Horde::img('delete.png', _("Delete User"), '', $registry->getImageDir('horde')),
-                'edit' => Horde::img('edit.png', _("Edit User"), '', $registry->getImageDir('horde')));
+$images = array('delete' => Horde::img('delete.png', _("Delete User")),
+                'edit' => Horde::img('edit.png', _("Edit User")));
 $template->set('images', $images);
 
 /* Render the page. */

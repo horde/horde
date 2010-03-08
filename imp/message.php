@@ -443,16 +443,16 @@ $n_template->set('back_to', Horde::widget($mailbox_url, sprintf(_("Back to %s"),
 $rtl = !empty(Horde_Nls::$config['rtl'][$language]);
 if (Horde_Util::nonInputVar('prev_url')) {
     $n_template->set('prev', Horde::link($prev_url, _("Previous Message")));
-    $n_template->set('prev_img', Horde::img($rtl ? 'nav/right.png' : 'nav/left.png', $rtl ? '>' : '<', '', $registry->getImageDir('horde')));
+    $n_template->set('prev_img', Horde::img($rtl ? 'nav/right.png' : 'nav/left.png', $rtl ? '>' : '<'));
 } else {
-    $n_template->set('prev_img', Horde::img($rtl ? 'nav/right-grey.png' : 'nav/left-grey.png', '', '', $registry->getImageDir('horde')));
+    $n_template->set('prev_img', Horde::img($rtl ? 'nav/right-grey.png' : 'nav/left-grey.png'));
 }
 
 if (Horde_Util::nonInputVar('next_url')) {
     $n_template->set('next', Horde::link($next_url, _("Next Message")));
-    $n_template->set('next_img', Horde::img($rtl ? 'nav/left.png' : 'nav/right.png', $rtl ? '<' : '>', '', $registry->getImageDir('horde')));
+    $n_template->set('next_img', Horde::img($rtl ? 'nav/left.png' : 'nav/right.png', $rtl ? '<' : '>'));
 } else {
-    $n_template->set('next_img', Horde::img($rtl ? 'nav/left-grey.png' : 'nav/right-grey.png', '', '', $registry->getImageDir('horde')));
+    $n_template->set('next_img', Horde::img($rtl ? 'nav/left-grey.png' : 'nav/right-grey.png'));
 }
 
 /* Prepare the navbar actions template. */

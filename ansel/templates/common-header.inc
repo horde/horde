@@ -20,8 +20,7 @@ if (!empty($refresh_time) && ($refresh_time > 0) && !empty($refresh_url)) {
 Horde::includeScriptFiles();
 ?>
 <title><?php echo htmlspecialchars($page_title, ENT_COMPAT, Horde_Nls::getCharset()) ?></title>
-<link href="<?php echo $GLOBALS['registry']->getImageDir() ?>/favicon.ico" rel="SHORTCUT ICON" />
-<link rel="SHORTCUT ICON" href="<?php echo $GLOBALS['registry']->getImageDir() ?>/favicon.ico" />
+<link href="<?php echo Horde_Themes::img('favicon.ico', array('nohorde' => true)) ?>" rel="SHORTCUT ICON" />
 <?php echo Ansel::stylesheetLinks() ?>
 <?php echo Horde::wrapInlineScript(Ansel::initJSVars());?>
 <?php Horde::outputInlineScript(); ?>

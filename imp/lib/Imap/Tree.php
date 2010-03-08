@@ -1786,7 +1786,7 @@ class IMP_Imap_Tree
     {
         if (!isset($this->_eltCache)) {
             $this->_eltCache = $this->getSpecialMailboxes();
-            $this->_eltCache['image_dir'] = $GLOBALS['registry']->getImageDir();
+            $this->_eltCache['image_dir'] = Horde_Themes::img();
         }
     }
 

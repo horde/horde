@@ -5,7 +5,7 @@
   <title><?php echo $title ?></title>
   <description><?php echo $title ?></description>
   <image>
-   <url><?php echo $registry->getImageDir() ?>/folks.png</url>
+   <url><?php echo Horde_Themes::img('folks.png') ?></url>
    <link><?php echo $link ?></link>
    <title><?php echo $title ?></title>
   </image>

@@ -539,7 +539,7 @@ class Nag_Task {
      */
     function treeIcons()
     {
-        $treedir = $GLOBALS['registry']->getImageDir('horde');
+        $treedir = Horde_Themes::img(null, 'horde');
         $html = '';
 
         $parent = $this->parent;
@@ -751,11 +751,11 @@ class Nag_Task {
             if (!empty($methods['notify']['sound'])) {
                 if ($methods['notify']['sound'] == 'on') {
                     // Handle boolean sound preferences;
-                    $methods['notify']['sound'] = $GLOBALS['registry']->get('themesuri') . '/sounds/theetone.wav';
+                    $methods['notify']['sound'] = Horde_Themes::sound('theetone.wav');
                 } else {
                     // Else we know we have a sound name that can be
                     // served from Horde.
-                    $methods['notify']['sound'] = $GLOBALS['registry']->get('themesuri', 'horde') . '/sounds/' . $methods['notify']['sound'];
+                    $methods['notify']['sound'] = Horde_Themes::sound($methods['notify']['sound']);
                 }
             }
         }

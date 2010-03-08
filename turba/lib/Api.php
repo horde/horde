@@ -195,7 +195,7 @@ class Turba_Api extends Horde_Registry_Api
                     $results['turba/' . $owner]['name'] = $owner;
                 }
                 if (in_array('icon', $properties)) {
-                    $results['turba/' . $owner]['icon'] = $registry->getImageDir() . '/turba.png';
+                    $results['turba/' . $owner]['icon'] = Horde_Themes::img('turba.png');
                 }
                 if (in_array('browseable', $properties)) {
                     $results['turba/' . $owner]['browseable'] = true;
@@ -263,7 +263,7 @@ class Turba_Api extends Horde_Registry_Api
                     $results[$curpath . $addressbook]['name'] = $name;
                 }
                 if (in_array('icon', $properties)) {
-                    $results[$curpath . $addressbook]['icon'] = $registry->getImageDir() . '/turba.png';
+                    $results[$curpath . $addressbook]['icon'] = Horde_Themes::img('turba.png');
                 }
                 if (in_array('browseable', $properties)) {
                     $results[$curpath . $addressbook]['browseable'] = true;
@@ -320,7 +320,7 @@ class Turba_Api extends Horde_Registry_Api
                     $results[$key]['name'] = Turba::formatName($contact);
                 }
                 if (in_array('icon', $properties)) {
-                    $results[$key]['icon'] = $registry->getImageDir('horde') . '/mime/vcard.png';
+                    $results[$key]['icon'] = Horde_Themes::img('mime/vcard.png');
                 }
                 if (in_array('browseable', $properties)) {
                     $results[$key]['browseable'] = false;

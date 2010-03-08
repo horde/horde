@@ -11,7 +11,7 @@ Horde::addScriptFile('QuickFinder.js', 'horde');
 Horde::addScriptFile('redbox.js', 'horde');
 Horde::addScriptFile('calendar-panel.js', 'kronolith');
 
-$info_img = Horde::img('info_icon.png', _("Calendar Information"), array('class' => 'calendar-info'), $registry->getImageDir('horde'));
+$info_img = Horde::img('info_icon.png', _("Calendar Information"), array('class' => 'calendar-info'));
 
 $current_user = Horde_Auth::getAuth();
 $my_calendars = array();
@@ -89,7 +89,7 @@ $tagger = Kronolith::getTagger();
 echo htmlspecialchars($tag);
 if ($cal->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
     echo '<a href="#" id="remove' . md5($id . $tag_id) . '">'
-        . Horde::img('delete-small.png', _("Remove Tag"), '', $registry->getImageDir('horde'))
+        . Horde::img('delete-small.png', _("Remove Tag"))
         . '</a>';
 }
 $ta = Horde_Ajax_Imple::factory(array('kronolith', 'TagActions'),

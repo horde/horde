@@ -643,9 +643,7 @@ class Whups {
                 $name = Horde::img('group.png',
                                    !empty($details['name'])
                                    ? $details['name']
-                                   : $details['user'],
-                                   '',
-                                   $GLOBALS['registry']->getImageDir('horde'))
+                                   : $details['user'])
                     . $name;
             }
         }
@@ -838,7 +836,7 @@ class Whups {
         $url_params = array('actionID' => 'download_file',
                             'file' => $file['name'],
                             'ticket' => $ticket);
-        $link .= ' ' . Horde::link(Horde::downloadUrl($file['name'], $url_params), $file['name']) . Horde::img('download.png', _("Download"), null, $GLOBALS['registry']->getImageDir('horde')) . '</a>';
+        $link .= ' ' . Horde::link(Horde::downloadUrl($file['name'], $url_params), $file['name']) . Horde::img('download.png', _("Download")) . '</a>';
 
         // Admins can delete attachments.
         if (Whups::hasPermission($queue, 'queue', Horde_Perms::DELETE)) {
@@ -848,7 +846,7 @@ class Whups {
                       'id' => $ticket,
                       'url' => Horde::selfUrl(true, false, true)));
             $link .= ' ' . Horde::link($url, sprintf(_("Delete %s"), $file['name']), '', '', 'return window.confirm(\'' . addslashes(sprintf(_("Permanently delete %s?"), $file['name'])) . '\');') .
-                Horde::img('delete.png', sprintf(_("Delete %s"), $file['name']), null, $GLOBALS['registry']->getImageDir('horde')) . '</a>';
+                Horde::img('delete.png', sprintf(_("Delete %s"), $file['name'])) . '</a>';
         }
 
         return $link;

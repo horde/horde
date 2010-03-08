@@ -333,7 +333,7 @@ class Turba_Object {
                             'type' => $file['type'],
                             'source' => $this->driver->name,
                             'key' => $this->getValue('__key'));
-        $dl = Horde::link(Horde::downloadUrl($file['name'], $url_params), $file['name']) . Horde::img('download.png', _("Download"), '', $registry->getImageDir('horde')) . '</a>';
+        $dl = Horde::link(Horde::downloadUrl($file['name'], $url_params), $file['name']) . Horde::img('download.png', _("Download")) . '</a>';
 
         // Let's see if we can view this one, too.
         if ($viewer && !is_a($viewer, 'Horde_Mime_Viewer_default')) {
@@ -362,7 +362,7 @@ class Turba_Object {
             '<input type="hidden" name="file" value="' . htmlspecialchars($file['name']) . '" />' .
             '<input type="hidden" name="source" value="' . htmlspecialchars($this->driver->name) . '" />' .
             '<input type="hidden" name="key" value="' . htmlspecialchars($this->getValue('__key')) . '" />' .
-            '<input type="image" class="img" src="' . $GLOBALS['registry']->getImageDir('horde') . '/delete.png" />' .
+            '<input type="image" class="img" src="' . Horde_Themes::img('delete.png') . '" />' .
             '</form>';
 
         return $this->vfsDisplayUrl($file) . ' ' . $delform;

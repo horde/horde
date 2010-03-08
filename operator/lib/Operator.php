@@ -21,11 +21,11 @@ class Operator {
 
         $menu = new Horde_Menu(Horde_Menu::MASK_ALL);
         $menu->add(Horde::applicationUrl('viewgraph.php'), _("_View Graphs"), 'graphs.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
-        $menu->add(Horde::applicationUrl('search.php'), _("_Search"), 'search.png', $registry->getImageDir('horde'));
+        $menu->add(Horde::applicationUrl('search.php'), _("_Search"), 'search.png', Horde_Themes::img(null, 'horde'));
 
         /* Export */
         if ($GLOBALS['conf']['menu']['export']) {
-            $menu->add(Horde::applicationUrl('export.php'), _("_Export"), 'data.png', $GLOBALS['registry']->getImageDir('horde'));
+            $menu->add(Horde::applicationUrl('export.php'), _("_Export"), 'data.png', Horde_Themes::img(null, 'horde'));
         }
 
         if ($returnType == 'object') {

@@ -27,7 +27,7 @@
 
 <table cellspacing="0" class="hrdiff">
 <caption>
- <?php $blank = $registry->getImageDir('horde') . '/blank.gif' ?>
+ <?php $blank = Horde_Themes::img('blank.gif') ?>
  <img class="unmodified" src="<?php echo $blank ?>" alt="<?php echo _("Unmodified") ?>" /> <?php echo _("Unmodified") ?>
  <img class="added" src="<?php echo $blank ?>" alt="<?php echo _("Added") ?>" /> <?php echo _("Added") ?>
  <img class="modified" src="<?php echo $blank ?>" alt="<?php echo _("Modified") ?>" /> <?php echo _("Modified") ?>

@@ -110,13 +110,13 @@ break;
 }
 
 $remove_url = Horde_Util::addParameter(Horde::applicationUrl('edit/friends/groups.php'), 'action', 'delete');
-$remove_img = Horde::img('delete.png', '', '', $registry->getImageDir('horde'));
+$remove_img = Horde::img('delete.png');
 $edit_url = Horde_Util::addParameter(Horde::applicationUrl('edit/friends/groups.php'), 'action', 'edit');
-$edit_img = Horde::img('edit.png', '', '', $registry->getImageDir('horde'));
+$edit_img = Horde::img('edit.png');
 $perms_url = Horde::applicationUrl('perms.php');
-$perms_img = Horde::img('perms.png', '', '', $registry->getImageDir('horde'));
+$perms_img = Horde::img('perms.png');
 $members_url = Horde::applicationUrl('edit/friends/friends.php');
-$members_img = Horde::img('group.png', '', '', $registry->getImageDir('horde'));
+$members_img = Horde::img('group.png');
 
 require FOLKS_TEMPLATES . '/common-header.inc';
 require FOLKS_TEMPLATES . '/menu.inc';

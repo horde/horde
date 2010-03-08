@@ -11,10 +11,10 @@
  <thead>
   <tr>
    <?php if ($this->allowEdit): ?>
-    <th class="item" width="1%"><?php echo Horde::img('edit.png', _("Edit"), '', $GLOBALS['registry']->getImageDir('horde')) ?></th>
+    <th class="item" width="1%"><?php echo Horde::img('edit.png', _("Edit")) ?></th>
    <?php endif; ?>
    <?php if ($this->allowDelete): ?>
-    <th class="item" width="1%"><?php echo Horde::img('delete.png', _("Delete"), '', $GLOBALS['registry']->getImageDir('horde')) ?></th>
+    <th class="item" width="1%"><?php echo Horde::img('delete.png', _("Delete")) ?></th>
    <?php endif; ?>
    <?php foreach ($this->attributes as $attribute => $info): ?>
      <th class="item leftAlign" width="<?php echo $info['width'] ?>%" nowrap="nowrap"><?= $info['title'] ?></th>
@@ -27,12 +27,12 @@
    <?php if ($this->allowEdit): ?>
     <td>
      <?= $info['edit_url'] ?>
-    </td> 
+    </td>
    <?php endif; ?>
    <?php if ($this->allowDelete): ?>
     <td>
      <?= $info['delete_url'] ?>
-    </td> 
+    </td>
    <?php endif; ?>
    <?php foreach ($this->attributes as $attribute => $ainfo): ?>
    <td>
@@ -41,9 +41,9 @@
    <?php else: ?>
     <?= $this->escape($info[$attribute]) ?>
    <?php endif; ?>
-   </td> 
+   </td>
    <?php endforeach; ?>
-  </tr> 
+  </tr>
   <?php endforeach; ?>
  </tbody>
 </table>

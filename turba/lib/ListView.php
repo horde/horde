@@ -318,7 +318,7 @@ class Turba_ListView {
         }
         $sortdir = $this->getColumnSortDirection($i);
         if ($this->isPrimarySortColumn($i)) {
-            return Horde::img($sortdir ? 'za.png' : 'az.png', $title, null, $GLOBALS['registry']->getImageDir('horde'));
+            return Horde::img($sortdir ? 'za.png' : 'az.png', $title);
         } else {
             return Horde::img($sortdir ? 'za_secondary.png' : 'az_secondary.png', _("Sort Direction"));
         }

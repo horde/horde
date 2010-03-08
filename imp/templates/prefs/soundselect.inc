@@ -10,13 +10,13 @@
     <?php echo _("No Sound") ?>
    </label>
   </li>
-<?php foreach (glob($registry->get('themesfs') . '/graphics/audio/*.wav') as $sound): $sound = basename($sound); ?>
+<?php foreach (Horde_Themes::soundList() as $key => $val): ?>
   <li>
    <label>
-    <input type="radio" name="nav_audio" value="<?php echo htmlspecialchars($sound) ?>"<?php if ($nav_audio == $sound) echo ' checked="checked"' ?> />
-    <?php echo htmlspecialchars($sound) ?>
+    <input type="radio" name="nav_audio" value="<?php echo htmlspecialchars($key) ?>"<?php if ($nav_audio == $key) echo ' checked="checked"' ?> />
+    <?php echo htmlspecialchars($key) ?>
    </label>
-   <embed autostart="false" src="<?php echo $registry->getImageDir() . '/audio/' . htmlspecialchars($sound) ?>" />
+   <embed autostart="false" src="<?php echo htmlspecialchars($val->uri) ?>" />
   </li>
 <?php endforeach; ?>
  </ul>

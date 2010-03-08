@@ -12,7 +12,7 @@ if (!empty($haveImages)) {
     Horde::addScriptFile('carousel.js', 'ansel');
 }
 
-$graphic_dir = Horde::applicationUrl($GLOBALS['registry']->getImageDir(), true);
+$graphic_dir = Horde_Themes::img();
 $lbcssurl = Horde::url($GLOBALS['registry']->get('themesuri', 'ansel') . '/lightbox.css', true);
 ?>
 </td>
@@ -129,7 +129,7 @@ Event.observe(window, "resize", resized);
   padding: 2px;
   width: 16px;
   height: 16px;
-  background: url(<?php echo $registry->getImageDir() ?>/slideshow_prev.png);
+  background: url(<?php echo $graphic_dir ?>/slideshow_prev.png);
   background-repeat: no-repeat;
   z-index: 100;
   cursor: pointer;
@@ -149,7 +149,7 @@ Event.observe(window, "resize", resized);
   padding: 2px;
   width: 16px;
   height: 16px;
-  background: url(<?php echo $registry->getImageDir() ?>/slideshow_next.png);
+  background: url(<?php echo $graphic_dir ?>/slideshow_next.png);
   background-repeat: no-repeat;
   z-index: 100;
   cursor: pointer;

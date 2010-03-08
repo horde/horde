@@ -177,8 +177,7 @@ foreach (array_keys($resources) as $id) {
 $view = Horde_Util::getFormData('view', 'Day');
 
 // Pre-format our delete image/link.
-$delimg = Horde::img('delete.png', _("Remove Attendee"), null,
-                     $registry->getImageDir('horde'));
+$delimg = Horde::img('delete.png', _("Remove Attendee"));
 
 $ident = Horde_Prefs_Identity::singleton();
 $identities = $ident->getAll('id');

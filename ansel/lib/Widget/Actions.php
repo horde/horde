@@ -131,7 +131,7 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
                 $url = $registry->bookmarks->getAddUrl($api_params);
             } catch (Horde_Exception $e) {}
 
-            $html .= '<li>' . Horde::link($url, '', 'widget') . Horde::img('trean.png', '', '', $registry->getImageDir('trean')) . ' ' . _("Add to bookmarks") . '</a></li>';
+            $html .= '<li>' . Horde::link($url, '', 'widget') . Horde::img(Horde_Themes::img('trean.png', 'trean')) . ' ' . _("Add to bookmarks") . '</a></li>';
         }
 
         /* Download as ZIP link */
@@ -141,13 +141,13 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
             $this->_view->gallery->hasFeature('zipdownload')) {
 
             $zip_params = array_merge(array('actionID' => 'downloadzip'), $date);
-            $html .= '<li>' . Horde::link(Horde::applicationUrl(Horde_Util::addParameter($galleryurl, $zip_params)), '', 'widget') . Horde::img('mime/compressed.png', '', '', $GLOBALS['registry']->getImageDir('horde')) . ' ' .  _("Download as zip file") . '</a></li>';
+            $html .= '<li>' . Horde::link(Horde::applicationUrl(Horde_Util::addParameter($galleryurl, $zip_params)), '', 'widget') . Horde::img('mime/compressed.png') . ' ' .  _("Download as zip file") . '</a></li>';
         }
 
         /* Image upload, subgalleries, captions etc... */
         if ($this->_view->gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
             /* Properties */
-            $html .= '<li>' . Horde::link(Horde_Util::addParameter($galleryurl, array('actionID' => 'modify', 'url' => $selfurl)), '', 'widget') . Horde::img('edit.png', '', '', $GLOBALS['registry']->getImageDir('horde')) . ' ' . _("Change properties") . '</a></li>';
+            $html .= '<li>' . Horde::link(Horde_Util::addParameter($galleryurl, array('actionID' => 'modify', 'url' => $selfurl)), '', 'widget') . Horde::img('edit.png') . ' ' . _("Change properties") . '</a></li>';
             if ($count) {
                 /* Captions */
                 if ($this->_view->gallery->hasFeature('image_captions')) {
@@ -162,26 +162,26 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
                 }
 
                 /* Regenerate Thumbnails */
-                $html .= '<li>' . Horde::link(Horde_Util::addParameter($galleryurl, array('actionID' => 'generateThumbs')), '', 'widget') . Horde::img('reload.png', '', '', $GLOBALS['registry']->getImageDir('horde')) . ' ' . _("Reset all thumbnails") . '</a></li>';
+                $html .= '<li>' . Horde::link(Horde_Util::addParameter($galleryurl, array('actionID' => 'generateThumbs')), '', 'widget') . Horde::img('reload.png') . ' ' . _("Reset all thumbnails") . '</a></li>';
 
                 /* Regenerate all views  */
-                $html .= '<li>' . Horde::link(Horde_Util::addParameter($galleryurl, array('actionID' => 'deleteCache')), '', 'widget') . Horde::img('reload.png', '', '', $GLOBALS['registry']->getImageDir('horde')) . ' ' . _("Regenerate all photo views") . '</a></li>';
+                $html .= '<li>' . Horde::link(Horde_Util::addParameter($galleryurl, array('actionID' => 'deleteCache')), '', 'widget') . Horde::img('reload.png') . ' ' . _("Regenerate all photo views") . '</a></li>';
 
                 /* Find faces */
                 if ($conf['faces']['driver'] && $this->_view->gallery->hasFeature('faces')) {
-                    $html .= '<li>' . Horde::link(Horde::applicationUrl(Horde_Util::addParameter('faces/gallery.php', array_merge($date, array('gallery' => $id, 'page' => (!empty($this->_view->_params['page']) ? $this->_view->_params['page'] : 0))))), '', 'widget') . Horde::img('user.png','', '', $GLOBALS['registry']->getImageDir('horde')) . ' ' . _("Find faces") . '</a></li>';
+                    $html .= '<li>' . Horde::link(Horde::applicationUrl(Horde_Util::addParameter('faces/gallery.php', array_merge($date, array('gallery' => $id, 'page' => (!empty($this->_view->_params['page']) ? $this->_view->_params['page'] : 0))))), '', 'widget') . Horde::img('user.png') . ' ' . _("Find faces") . '</a></li>';
                 }
 
             } /* end if ($count) {} */
 
             if (Ansel::isAvailable('photo_stack') && $this->_view->gallery->hasFeature('stacks')) {
-                $html .= '<li>' . Horde::link(Horde_Util::addParameter($galleryurl, array('actionID' => 'generateDefault', 'url' => $selfurl)), '', 'widget') . Horde::img('reload.png', '', '', $GLOBALS['registry']->getImageDir('horde')) . ' ' . _("Reset default photo") . '</a></li>';
+                $html .= '<li>' . Horde::link(Horde_Util::addParameter($galleryurl, array('actionID' => 'generateDefault', 'url' => $selfurl)), '', 'widget') . Horde::img('reload.png') . ' ' . _("Reset default photo") . '</a></li>';
             }
         }
 
         if (Horde_Auth::getAuth() &&
             $this->_view->gallery->get('owner') == Horde_Auth::getAuth()) {
-            $html .= '<li>' . Horde::link('#', '', 'popup widget', '', Horde::popupJs(Horde::applicationUrl('perms.php'), array('params' => array('cid' => $this->_view->gallery->id), 'urlencode' => true)) . 'return false;') . Horde::img('perms.png', '', '', $GLOBALS['registry']->getImageDir('horde')) . ' ' . _("Set permissions") . '</a></li>';
+            $html .= '<li>' . Horde::link('#', '', 'popup widget', '', Horde::popupJs(Horde::applicationUrl('perms.php'), array('params' => array('cid' => $this->_view->gallery->id), 'urlencode' => true)) . 'return false;') . Horde::img('perms.png') . ' ' . _("Set permissions") . '</a></li>';
         } elseif (!empty($conf['report_content']['driver']) &&
                   (($conf['report_content']['allow'] == 'authenticated' && Horde_Auth::isAuthenticated()) ||
                    $conf['report_content']['allow'] == 'all')) {
@@ -192,8 +192,8 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
         }
 
         if ($this->_view->gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
-            $html .= '<li>' . Horde::link(Horde_Util::addParameter($galleryurl, 'actionID', 'empty'), '', 'widget') . Horde::img('delete.png', '', '', $GLOBALS['registry']->getImageDir('horde')) . ' ' . _("Delete All Photos") . '</a></li>';
-            $html .= '<li>' . Horde::link(Horde_Util::addParameter($galleryurl, 'actionID', 'delete'), '', 'widget') . Horde::img('delete.png', '', '', $GLOBALS['registry']->getImageDir('horde')) . ' ' . _("Delete Entire Gallery") . '</a></li>';
+            $html .= '<li>' . Horde::link(Horde_Util::addParameter($galleryurl, 'actionID', 'empty'), '', 'widget') . Horde::img('delete.png') . ' ' . _("Delete All Photos") . '</a></li>';
+            $html .= '<li>' . Horde::link(Horde_Util::addParameter($galleryurl, 'actionID', 'delete'), '', 'widget') . Horde::img('delete.png', 'horde') . ' ' . _("Delete Entire Gallery") . '</a></li>';
         }
         $html .= '</ul></div>';
 

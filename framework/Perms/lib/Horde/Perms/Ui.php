@@ -65,7 +65,7 @@ class Horde_Perms_Ui
         /* Get the perms tree. */
         $nodes = $this->_perms->getTree();
 
-        $icondir = array('icondir' => $GLOBALS['registry']->getImageDir());
+        $icondir = array('icondir' => Horde_Themes::img());
         $perms_node = $icondir + array('icon' => 'perms.png');
         $add = Horde::applicationUrl('admin/perms/addchild.php');
         $add_img = Horde::img('add_perm.png', _("Add Permission"));
@@ -250,7 +250,7 @@ class Horde_Perms_Ui
 
         /* Default permissions. */
         $perm_val = $permission->getDefaultPermissions();
-        $this->_form->setSection('default', _("All Authenticated Users"), Horde::img('perms.png', '', '', $registry->getImageDir('horde')), false);
+        $this->_form->setSection('default', _("All Authenticated Users"), Horde::img('perms.png'), false);
 
         /* We MUST use 'deflt' for the variable name because 'default' is a
          * reserved word in JavaScript. */
@@ -281,7 +281,7 @@ class Horde_Perms_Ui
 
         /* Object creator permissions. */
         $perm_val = $permission->getCreatorPermissions();
-        $this->_form->setSection('creator', _("Creator Permissions"), Horde::img('user.png', '', '', $registry->getImageDir('horde')), false);
+        $this->_form->setSection('creator', _("Creator Permissions"), Horde::img('user.png'), false);
 
         if ($this->_type == 'matrix') {
             /* Define a single matrix row for creator perms. */
@@ -294,7 +294,7 @@ class Horde_Perms_Ui
 
         /* Users permissions. */
         $perm_val = $permission->getUserPermissions();
-        $this->_form->setSection('users', _("Individual Users"), Horde::img('user.png', '', '', $registry->getImageDir('horde')), false);
+        $this->_form->setSection('users', _("Individual Users"), Horde::img('user.png'), false);
         $auth = Horde_Auth::singleton($GLOBALS['conf']['auth']['driver']);
         if ($auth->hasCapability('list')) {
             /* The auth driver has list capabilities so set up an array which
@@ -355,7 +355,7 @@ class Horde_Perms_Ui
 
         /* Groups permissions. */
         $perm_val = $permission->getGroupPermissions();
-        $this->_form->setSection('groups', _("Groups"), Horde::img('group.png', '', '', $registry->getImageDir('horde')), false);
+        $this->_form->setSection('groups', _("Groups"), Horde::img('group.png'), false);
         require_once 'Horde/Group.php';
         $groups = Group::singleton();
         $group_list = $groups->listGroups();

@@ -24,7 +24,7 @@ class Horde_Block_imp_tree_folders extends Horde_Block
         }
 
         /* Cache some additional values. */
-        $image_dir = $GLOBALS['registry']->getImageDir();
+        $image_dir = Horde_Themes::img();
 
         $tree->addNode($parent . 'compose', $parent, _("New Message"),
                        $indent, false,

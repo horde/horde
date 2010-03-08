@@ -3,7 +3,7 @@
 $flaglist = $GLOBALS['injector']->getInstance('IMP_Imap_Flags')->getList(array('div' => true, 'fgcolor' => true));
 
 /* Get the graphics. */
-$picker_img = Horde::img('colorpicker.png', _("Color Picker"), '', $registry->getImageDir('horde'));
+$picker_img = Horde::img('colorpicker.png', _("Color Picker"));
 
 ?>
 <input type="hidden" name="flag_action" id="flag_action" />

@@ -93,7 +93,7 @@ class IMP_Horde_Mime_Viewer_Partial extends Horde_Mime_Viewer_Driver
          * status message. */
         if (count($indices) != $total) {
             self::$_statuscache[$this->_mimepart->getMimeId()] = array(
-                'icon' => Horde::img('alerts/error.png', _("Error"), null, $GLOBALS['registry']->getImageDir('horde')),
+                'icon' => Horde::img('alerts/error.png', _("Error")),
                 'text' => array(
                     sprintf(_("Cannot display message - found only %s of %s parts of this message in the current mailbox."), count($indices), $total)
                 )

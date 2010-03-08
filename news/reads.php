@@ -37,7 +37,7 @@ if ($result instanceof PEAR_Error) {
 
 Horde::addScriptFile('tables.js', 'horde');
 Horde::includeScriptFiles();
-Horde::includeStylesheetFiles();
+Horde_Themes::includeStylesheetFiles();
 
 // require_once NEWS_TEMPLATES . '/common-header.inc';
 require_once NEWS_TEMPLATES . '/reads/header.inc';

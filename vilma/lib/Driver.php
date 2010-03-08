@@ -130,7 +130,7 @@ class Vilma_Driver {
         if ($user['user_enabled'] !== 'active') {
             $no_error = false;
             $err_msg = _("User disabled.");
-            $status[] = Horde::img('alerts/error.png', $err_msg, 'align="middle"', $GLOBALS['registry']->getImageDir('horde')) . '&nbsp;' . $err_msg;
+            $status[] = Horde::img('alerts/error.png', $err_msg) . '&nbsp;' . $err_msg;
         }
 
         /* Check if mailbox exists. */
@@ -138,13 +138,13 @@ class Vilma_Driver {
         if (is_a($mailboxes, 'PEAR_Error')) {
             $no_error = false;
             $err_msg = $mailboxes->getMessage();
-            $status[] = Horde::img('alerts/warning.png', $err_msg, 'align="middle"', $GLOBALS['registry']->getImageDir('horde')) . '&nbsp;' . $err_msg;
+            $status[] = Horde::img('alerts/warning.png', $err_msg) . '&nbsp;' . $err_msg;
         }
         $result = $mailboxes->checkMailbox($user_name, $domain_name);
         if (is_a($result, 'PEAR_Error')) {
             $no_error = false;
             $err_msg = $result->getMessage();
-            $status[] = Horde::img('alerts/warning.png', $err_msg, 'align="middle"', $GLOBALS['registry']->getImageDir('horde')) . '&nbsp;' . $err_msg;
+            $status[] = Horde::img('alerts/warning.png', $err_msg) . '&nbsp;' . $err_msg;
         }
 
         /* TODO: Quota checking would be nice too. */
@@ -153,13 +153,13 @@ class Vilma_Driver {
          * user's status. */
         if ($no_error) {
             $msg = _("User ready.");
-            $status = array(Horde::img('alerts/success.png', $msg, 'align="middle"', $GLOBALS['registry']->getImageDir('horde')) . '&nbsp;' . $msg);
+            $status = array(Horde::img('alerts/success.png', $msg) . '&nbsp;' . $msg);
         }
         return $status;
     }
 
     /* Saves or creates alias records for a given user.
-     * 
+     *
      * @param array info The info used to store the information.
      *                   Required fields are:
      *                    'address' => The destination address (used for LDAP ID lookup)
@@ -173,12 +173,12 @@ class Vilma_Driver {
         if (is_a($result, 'PEAR_Error')) {
           return $result;
         }
-        
+
         return true;
     }
-    
+
     /* Deletes alias records for a given user.
-     * 
+     *
      * @param array info The info used to store the information.
      *                   Required fields are:
      *                    'address' => The destination address (used for LDAP ID lookup)
@@ -191,12 +191,12 @@ class Vilma_Driver {
         if (is_a($result, 'PEAR_Error')) {
           return $result;
         }
-        
+
         return true;
     }
-    
+
     /* Saves or creates forward records for a given user.
-     * 
+     *
      * @param array info The info used to store the information.
      *                   Required fields are:
      *                    'address' => The destination address (used for LDAP ID lookup)
@@ -210,12 +210,12 @@ class Vilma_Driver {
         if (is_a($result, 'PEAR_Error')) {
           return $result;
         }
-        
+
         return true;
     }
-    
+
     /* Deletes forward records for a given user.
-     * 
+     *
      * @param array info The info used to store the information.
      *                   Required fields are:
      *                    'address' => The destination address (used for LDAP ID lookup)
@@ -228,10 +228,10 @@ class Vilma_Driver {
         if (is_a($result, 'PEAR_Error')) {
           return $result;
         }
-        
+
         return true;
     }
-    
+
     function saveUser(&$info)
     {
         $create = false;

@@ -38,8 +38,8 @@ var kronolithView = '<?php if (isset($view) && is_object($view)) echo $view->get
 var kronolithDate = new Date(<?php printf('%d, %d, %d', $currentDate->year, $currentDate->month - 1, $currentDate->mday) ?>);
 //]]></script>
 <title><?php echo htmlspecialchars($page_title) ?></title>
-<link href="<?php echo $GLOBALS['registry']->getImageDir()?>/favicon.ico" rel="SHORTCUT ICON" />
-<?php Horde::includeStylesheetFiles() ?>
+<link href="<?php echo Horde_Themes::img('favicon.ico', array('nohorde' => true)) ?>" rel="SHORTCUT ICON" />
+<?php Horde_Themes::includeStylesheetFiles() ?>
 <?php foreach ($GLOBALS['display_calendars'] as $calendar): ?>
 <link href="<?php echo Kronolith::feedUrl($calendar) ?>" rel="alternate" type="application/atom+xml" />
 <?php endforeach; ?>

@@ -214,7 +214,7 @@ class Horde_Help
 
         $url = Horde::getServiceLink('help', $module)->add('topic', $topic)->setRaw(true);
         return Horde::link($url, _("Help"), 'helplink', 'hordehelpwin', Horde::popupJs($url, array('urlencode' => true)) . 'return false;') .
-            Horde::img('help.png', _("Help"), 'width="16" height="16"', $GLOBALS['registry']->getImageDir('horde')) . '</a>';
+            Horde::img('help.png', _("Help"), 'width="16" height="16"') . '</a>';
     }
 
 

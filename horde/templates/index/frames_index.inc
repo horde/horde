@@ -5,7 +5,7 @@ $sidebar_width = isset($GLOBALS['prefs']) ? $GLOBALS['prefs']->getValue('sidebar
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "DTD/xhtml1-frameset.dtd">
 <html>
 <head>
- <link rel="SHORTCUT ICON" href="<?php echo $GLOBALS['registry']->getImageDir() ?>/favicon.ico" />
+<link href="<?php echo Horde_Themes::img('favicon.ico', array('nohorde' => true)) ?>" rel="SHORTCUT ICON" />
  <title><?php echo htmlspecialchars($GLOBALS['registry']->get('name')) ?></title>
 </head>
 

@@ -106,7 +106,7 @@ class Horde_Core_Notification_Status extends Horde_Notification_Event_Status
             return parent::__toString();
         }
 
-        return Horde::img($img, $label, null, $GLOBALS['registry']->getImageDir('horde')) . $text;
+        return Horde::img($img, $label) . $text;
     }
 
 }

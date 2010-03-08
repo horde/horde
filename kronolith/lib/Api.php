@@ -90,8 +90,7 @@ class Kronolith_Api extends Horde_Registry_Api
                     $results[$path]['name'] = $owner;
                 }
                 if (in_array('icon', $properties)) {
-                    $results[$path]['icon'] =
-                        $registry->getImageDir('horde') . '/user.png';
+                    $results[$path]['icon'] = Horde_Themes::img('user.png');
                 }
                 if (in_array('browseable', $properties)) {
                     $results[$path]['browseable'] = true;
@@ -143,8 +142,8 @@ class Kronolith_Api extends Horde_Registry_Api
                     $results[$retpath . '.ics']['displayname'] = rawurlencode($calendar->get('name')) . '.ics';
                 }
                 if (in_array('icon', $properties)) {
-                    $results[$retpath]['icon'] = $registry->getImageDir() . '/kronolith.png';
-                    $results[$retpath . '.ics']['icon'] = $registry->getImageDir() . '/mime/icalendar.png';
+                    $results[$retpath]['icon'] = Horde_Themes::img('kronolith.png');
+                    $results[$retpath . '.ics']['icon'] = Horde_Themes::img('mime/icalendar.png');
                 }
                 if (in_array('browseable', $properties)) {
                     $results[$retpath]['browseable'] = $calendar->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ);
@@ -182,7 +181,7 @@ class Kronolith_Api extends Horde_Registry_Api
             // directory.
             $kronolith_driver = Kronolith::getDriver(null, $parts[1]);
             $events = $kronolith_driver->listEvents();
-            $icon = $registry->getImageDir('horde') . '/mime/icalendar.png';
+            $icon = Horde_Themes::img('mime/icalendar.png');
             $results = array();
             foreach ($events as $dayevents) {
                 foreach ($dayevents as $event) {

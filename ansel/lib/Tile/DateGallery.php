@@ -80,7 +80,7 @@ class Ansel_Tile_DateGallery {
             // horde from Horde_Date
             $gallery_image = '<img src="' . $gallery_image . '" alt="' . $caption . '" />' ;
         } else {
-            $gallery_image = Horde::img($GLOBALS['registry']->getImageDir() . '/thumb-error.png', '', '', '');
+            $gallery_image = Horde::img('thumb-error.png');
         }
 
         /* Check for being called via the api and generate correct view links */

@@ -49,8 +49,7 @@ class Ansel_Api extends Horde_Registry_Api
                     $results['ansel/' . $owner]['name'] = $owner;
                 }
                 if (in_array('icon', $properties)) {
-                    $results['ansel/' . $owner]['icon'] =
-                        $registry->getImageDir('horde') . '/user.png';
+                    $results['ansel/' . $owner]['icon'] = Horde_Themes::img('user.png');
                 }
                 if (in_array('browseable', $properties)) {
                     $results['ansel/' . $owner]['browseable'] = true;
@@ -113,8 +112,7 @@ class Ansel_Api extends Horde_Registry_Api
                         $gallery->data['attribute_name']);
                 }
                 if (in_array('icon', $properties)) {
-                    $results[$retpath]['icon'] = $registry->getImageDir()
-                        . '/ansel.png';
+                    $results[$retpath]['icon'] = Horde_Themes::img('ansel.png');
                 }
                 if (in_array('browseable', $properties)) {
                     $results[$retpath]['browseable'] = $gallery->hasPermission(

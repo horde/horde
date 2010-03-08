@@ -210,7 +210,7 @@ class Horde_Form_Renderer_Query extends Horde_Form_Renderer {
         // little nicer.
         $fimgattrs = 'height="20" width="0" style="vertical-align: middle;"';
         $imgattrs = 'height="20" width="20" style="vertical-align: middle;"';
-        $imgdir = $registry->getImageDir('horde');
+        $imgdir = Horde_Themes::img(null, 'horde');
 
         $space = '';
         $count = count($more);

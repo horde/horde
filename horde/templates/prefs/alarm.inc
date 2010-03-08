@@ -24,13 +24,13 @@ echo Horde::label($pref, $_prefs[$pref]['desc']) ?>&nbsp;<?php echo $helplink ?>
 <?php elseif ($param['type'] == 'sound'): $current_sound = !empty($alarm_pref[$method][$name]) ? $alarm_pref[$method][$name] : ''; ?>
 <ul class="sound-list">
  <li><label><input type="radio" name="<?php echo $pref . '_' . $name ?>" value=""<?php if (!$current_sound) echo ' checked="checked"' ?> /> <?php echo _("No Sound") ?></label></li>
-<?php foreach (glob($registry->get('themesfs', 'horde') . '/sounds/*.wav') as $sound): $sound = basename($sound); ?>
+<?php foreach (Horde_Themes::soundList() as $key => $val): ?>
  <li>
   <label>
-   <input type="radio" name="<?php echo $pref . '_' . $name ?>" value="<?php echo htmlspecialchars($sound) ?>"<?php if ($current_sound == $sound) echo ' checked="checked"' ?> />
-   <?php echo htmlspecialchars($sound) ?>
+   <input type="radio" name="<?php echo $pref . '_' . $name ?>" value="<?php echo htmlspecialchars($key) ?>"<?php if ($current_sound == $key) echo ' checked="checked"' ?> />
+   <?php echo htmlspecialchars($key) ?>
   </label>
-  <embed autostart="false" src="<?php echo $registry->get('themesuri', 'horde') . '/sounds/' . htmlspecialchars($sound) ?>" />
+  <embed autostart="false" src="<?php echo htmlspecialchars($val->uri) ?>" />
  </li>
 <?php endforeach; ?>
 </ul>

@@ -16,7 +16,7 @@ class Horde_Block_turba_tree_menu extends Horde_Block {
 
         $browse = Horde::applicationUrl('browse.php');
         $add = Horde::applicationUrl('add.php');
-        $icondir = $registry->getImageDir() . '/menu';
+        $icondir = Horde_Themes::img() . '/menu';
 
         if ($GLOBALS['addSources']) {
             $tree->addNode($parent . '__new',
@@ -59,7 +59,7 @@ class Horde_Block_turba_tree_menu extends Horde_Block {
                        $indent + 1,
                        false,
                        array('icon' => 'search.png',
-                             'icondir' => $registry->getImageDir('horde'),
+                             'icondir' => Horde_Themes::img(null, 'horde'),
                              'url' => Horde::applicationUrl('search.php')));
     }
 

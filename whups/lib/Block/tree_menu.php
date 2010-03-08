@@ -20,7 +20,7 @@ class Horde_Block_whups_tree_menu extends Horde_Block {
                        $indent + 1,
                        false,
                        array('icon' => 'create.png',
-                             'icondir' => $registry->getImageDir(),
+                             'icondir' => Horde_Themes::img(),
                              'url' => Horde::applicationUrl('ticket/create.php')));
 
         $tree->addNode($parent . '__search',
@@ -29,7 +29,7 @@ class Horde_Block_whups_tree_menu extends Horde_Block {
                        $indent + 1,
                        false,
                        array('icon' => 'search.png',
-                             'icondir' => $registry->getImageDir('horde'),
+                             'icondir' => Horde_Themes::img(),
                              'url' => Horde::applicationUrl('search.php')));
     }
 

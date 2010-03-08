@@ -49,7 +49,7 @@ $t->setOption('gettext', true);
 $t->set('action', Horde::applicationUrl('saveimage.php'));
 $t->set('id', htmlspecialchars($id));
 $t->set('uid', htmlspecialchars($uid));
-$t->set('image_img', Horde::img('mime/image.png', _("Image"), null, $registry->getImageDir('horde')));
+$t->set('image_img', Horde::img('mime/image.png', _("Image")));
 
 /* Build the list of galleries. */
 $t->set('gallerylist', $registry->call('images/selectGalleries', array(null, Horde_Perms::EDIT)));

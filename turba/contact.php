@@ -89,8 +89,7 @@ if ($contact->hasPermission(Horde_Perms::DELETE)) {
 @list($own_source, $own_id) = explode(';', $prefs->getValue('own_contact'));
 if ($own_source == $source && $own_id == $contact->getValue('__key')) {
     $own_icon = ' ' . Horde::img('user.png', _("Your own contact"),
-                                 array('title' => _("Your own contact")),
-                                 $registry->getImageDir('horde'));
+                                 array('title' => _("Your own contact")));
     $own_link = '';
 } else {
     $own_icon = '';

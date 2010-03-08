@@ -82,7 +82,7 @@ case 'sidebar':
         $node_params_master = array(
             'target' => 'help_main',
             'icon' => 'help.png',
-            'icondir' => $registry->getImageDir('horde')
+            'icondir' => dirname(Horde_Themes::img('help.png'))
         );
 
         foreach ($topics as $id => $title) {

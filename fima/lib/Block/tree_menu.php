@@ -9,11 +9,9 @@ class Horde_Block_fima_tree_menu extends Horde_Block {
 
     function _buildTree(&$tree, $indent = 0, $parent = null)
     {
-        global $registry;
-
         $menus = array(
             array('add', _("Add Postings"), 'add.png', Horde_Util::addParameter(Horde::applicationUrl('postings.php'), 'actionID', 'add_postings')),
-            array('search', _("Search"), 'search.png', Horde::applicationUrl('search.php'), $registry->getImageDir('horde')),
+            array('search', _("Search"), 'search.png', Horde::applicationUrl('search.php'), Horde_Themes::img(null, 'horde')),
             array('accounts', _("Accounts"), 'accounts.png', Horde::applicationUrl('accounts.php')),
             array('reports', _("Reports"), 'report.png', Horde::applicationUrl('report.php')),
         );
@@ -25,7 +23,7 @@ class Horde_Block_fima_tree_menu extends Horde_Block {
                            $indent + 1,
                            false,
                            array('icon' => $menu[2],
-                                 'icondir' => isset($menu[4]) ? $menu[4] : $registry->getImageDir(),
+                                 'icondir' => isset($menu[4]) ? $menu[4] : Horde_Themes::img(),
                                  'url' => $menu[3]));
         }
     }

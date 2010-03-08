@@ -117,14 +117,12 @@ class AttachedFiles extends Page {
         $template->setOption('gettext', true);
         $template->set('pageName', $this->pageName());
         $template->set('formAction', Wicked::url('AttachedFiles'));
-        $template->set('deleteButton', $registry->getImageDir('horde')
-                                       . '/delete.png');
+        $template->set('deleteButton', Horde_Themes::img('delete.png'));
         $template->set('referrerLink', Wicked::url($this->referrer()));
 
         $refreshIcon = Horde::link($this->pageUrl())
             . Horde::img('reload.png',
-                         sprintf(_("Reload \"%s\""), $this->pageTitle()),
-                         '', $registry->getImageDir('horde'))
+                         sprintf(_("Reload \"%s\""), $this->pageTitle()))
             . '</a>';
         $template->set('refreshIcon', $refreshIcon);
         $template->set('attachments', $attachments, true);
@@ -147,8 +145,7 @@ class AttachedFiles extends Page {
             $template->set('requireChangelog', false, true);
         }
 
-        $requiredMarker = Horde::img('required.png', '*', '',
-                                     $registry->getImageDir('horde'));
+        $requiredMarker = Horde::img('required.png', '*');
         $template->set('requiredMarker', $requiredMarker);
         $template->set('referrer', $this->referrer());
         $template->set('formInput', Horde_Util::formInput());

@@ -2,7 +2,7 @@
 
 Horde::addScriptFile('redbox.js', 'horde');
 
-$info_img = Horde::img('info_icon.png', _("Task List Information"), array('class' => 'tasklist-info'), $registry->getImageDir('horde'));
+$info_img = Horde::img('info_icon.png', _("Task List Information"), array('class' => 'tasklist-info'));
 
 $current_user = Horde_Auth::getAuth();
 $my_tasklists = array();

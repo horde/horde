@@ -170,7 +170,7 @@ class Horde_Ui_VarRenderer_Html extends Horde_Ui_VarRenderer
         $image = $var->type->getImage($vars, $var);
 
         Horde::addScriptFile('image.js', 'horde');
-        $graphics_dir = $GLOBALS['registry']->getImageDir('horde');
+        $graphics_dir = Horde_Themes::img(null, 'horde');
         $img_dir = $graphics_dir . '/image';
 
         $html = '';
@@ -298,7 +298,7 @@ class Horde_Ui_VarRenderer_Html extends Horde_Ui_VarRenderer
             Horde::addScriptFile('open_html_helper.js', 'horde', array('direct' => false));
             $imgId = $this->_genID($var->getVarName(), false) . 'ehelper';
             if ($var->type->hasHelper('emoticons')) {
-                $html .= Horde::link('#', _("Emoticons"), '', '', 'openHtmlHelper(\'emoticons\', \'' . $var->getVarName() . '\'); return false;') . Horde::img('smile.png', _("Emoticons"), 'id="' . $imgId . '"', $GLOBALS['registry']->getImageDir('horde') . '/emoticons') . '</a>';
+                $html .= Horde::link('#', _("Emoticons"), '', '', 'openHtmlHelper(\'emoticons\', \'' . $var->getVarName() . '\'); return false;') . Horde::img('emoticons/smile.png', _("Emoticons"), 'id="' . $imgId . '"') . '</a>';
             }
             $html .= '</td></tr><tr><td><div ' . $this->_genID('htmlhelper_' . $var->getVarName()) . ' class="control"></div></td></tr></table>' . "\n";
         }
@@ -505,7 +505,7 @@ class Horde_Ui_VarRenderer_Html extends Horde_Ui_VarRenderer
             $GLOBALS['browser']->hasFeature('javascript')) {
             Horde_Ui_JsCalendar::init();
             $imgId = $this->_genID($var->getVarName(), false) . 'goto';
-            $html .= Horde::link('#', _("Select a date"), '', '', 'Horde_Calendar.open(\'' . $imgId . '\', null)') . Horde::img('calendar.png', _("Calendar"), 'id="' . $imgId . '"', $GLOBALS['registry']->getImageDir('horde')) . "</a>\n";
+            $html .= Horde::link('#', _("Select a date"), '', '', 'Horde_Calendar.open(\'' . $imgId . '\', null)') . Horde::img('calendar.png', _("Calendar"), 'id="' . $imgId . '"') . "</a>\n";
         }
 
         return $html;
@@ -564,7 +564,7 @@ class Horde_Ui_VarRenderer_Html extends Horde_Ui_VarRenderer
             $html .= '<td>'
                 . Horde::link('#', _("Color Picker"), '', '',
                               'new ColorPicker({ color: \'' . htmlspecialchars($color) . '\', offsetParent: Event.element(event), update: [[\'' . $varname . '\', \'value\'], [\'' . $varname . '\', \'background\']] }); return false;')
-                . Horde::img('colorpicker.png', _("Color Picker"), 'height="16"', $registry->getImageDir('horde')) . '</a></td>';
+                . Horde::img('colorpicker.png', _("Color Picker"), 'height="16"') . '</a></td>';
         }
         return $html . '</tr></table>';
     }
@@ -585,8 +585,8 @@ class Horde_Ui_VarRenderer_Html extends Horde_Ui_VarRenderer
             '[list]" onchange="' . $instance . '.deselectHeader();" ' .
             $this->_genID($varname . '[list]') . '>' .
             $var->type->getOptions($var->getValue($vars)) . '</select><div class="leftFloat">' .
-            Horde::link('#', _("Move up"), '', '', $instance . '.moveColumnUp(); return false;') . Horde::img('nav/up.png', _("Move up"), '', $registry->getImageDir('horde')) . '</a><br />' .
-            Horde::link('#', _("Move up"), '', '', $instance . '.moveColumnDown(); return false;') . Horde::img('nav/down.png', _("Move down"), '', $registry->getImageDir('horde')) . '</a></div>' .
+            Horde::link('#', _("Move up"), '', '', $instance . '.moveColumnUp(); return false;') . Horde::img('nav/up.png', _("Move up")) . '</a><br />' .
+            Horde::link('#', _("Move up"), '', '', $instance . '.moveColumnDown(); return false;') . Horde::img('nav/down.png', _("Move down")) . '</a></div>' .
             '<script type="text/javascript">' . "\n" .
             sprintf('%1$s = new Horde_Form_Sorter(\'%1$s\', \'%2$s\', \'%3$s\');' . "\n",
                     $instance, $varname, $var->type->getHeader()) .
@@ -614,10 +614,10 @@ class Horde_Ui_VarRenderer_Html extends Horde_Ui_VarRenderer
             $var->type->getOptions(0, $form->getName(), $var->getVarName()) .
             '</select></td><td>' .
             '<a href="#" onclick="Horde_Form_Assign.move(\'' . $form->getName() . '\', \'' . $var->getVarName() . '\', 0); return false;">' .
-            Horde::img('rhand.png', _("Add"), null, $registry->getImageDir('horde')) .
+            Horde::img('rhand.png', _("Add")) .
             '</a><br /><a href="#" onclick="Horde_Form_Assign.move(\'' .
             $form->getName() . '\', \'' . $var->getVarName() . '\', 1); return false;">' .
-            Horde::img('lhand.png', _("Remove"), null, $registry->getImageDir('horde')) .
+            Horde::img('lhand.png', _("Remove")) .
             '</a></td><td>' .
             sprintf('<select name="%s__right" multiple="multiple" size="%d" style="width:%s"%s>',
                     $name, $size, $width,
@@ -932,7 +932,7 @@ EOT;
         }
 
         if ($GLOBALS['browser']->hasFeature('javascript')) {
-            $html .= Horde::link($GLOBALS['registry']->get('webroot', 'horde') . '/services/obrowser/', _("Select an object"), '', '_blank', 'obrowserWindow = ' . Horde::popupJs($GLOBALS['registry']->get('webroot', 'horde') . '/services/obrowser/', array('urlencode' => true)) . 'obrowserWindowName = obrowserWindow.name; return false;') . Horde::img('tree/leaf.png', _("Object"), '', $GLOBALS['registry']->getImageDir('horde')) . "</a>\n";
+            $html .= Horde::link($GLOBALS['registry']->get('webroot', 'horde') . '/services/obrowser/', _("Select an object"), '', '_blank', 'obrowserWindow = ' . Horde::popupJs($GLOBALS['registry']->get('webroot', 'horde') . '/services/obrowser/', array('urlencode' => true)) . 'obrowserWindowName = obrowserWindow.name; return false;') . Horde::img('tree/leaf.png', _("Object")) . "</a>\n";
         }
 
         return $html;
@@ -1148,7 +1148,7 @@ EOT;
         if ($number && $registry->hasMethod('telephony/dial')) {
             $url = $registry->call('telephony/dial', array($number));
             $label = sprintf(_("Dial %s"), $number);
-            $html .= ' ' . Horde::link($url, $label) . Horde::img('phone.png', $label, '', $registry->getImageDir('horde')) . '</a>';
+            $html .= ' ' . Horde::link($url, $label) . Horde::img('phone.png', $label) . '</a>';
         }
 
         return $html;
@@ -1163,7 +1163,7 @@ EOT;
         $number = $var->getValue($vars);
         if ($number && $registry->hasMethod('sms/compose')) {
             $url = $registry->link('sms/compose', array('to' => $number));
-            $html .= ' ' . Horde::link($url, _("Send SMS")) . Horde::img('mobile.png', _("Send SMS"), '', $registry->getImageDir('horde')) . '</a>';
+            $html .= ' ' . Horde::link($url, _("Send SMS")) . Horde::img('mobile.png', _("Send SMS")) . '</a>';
         }
 
         return $html;
@@ -1284,15 +1284,15 @@ EOT;
 
         $html = $text ? nl2br(@htmlspecialchars($address, ENT_QUOTES, $this->_charset)) : '';
         if (!empty($mapurl)) {
-            $html .= '&nbsp;&nbsp;' . Horde::link(Horde::externalUrl($mapurl), $desc, null, '_blank') . Horde::img($icon, $desc, '', $registry->getImageDir('horde')) . '</a>';
+            $html .= '&nbsp;&nbsp;' . Horde::link(Horde::externalUrl($mapurl), $desc, null, '_blank') . Horde::img($icon, $desc) . '</a>';
         }
         if (!empty($mapurl2)) {
-            $html .= '&nbsp;' . Horde::link(Horde::externalUrl($mapurl2), $desc2, null, '_blank') . Horde::img($icon2, $desc2, '', $registry->getImageDir('horde')) . '</a>';
+            $html .= '&nbsp;' . Horde::link(Horde::externalUrl($mapurl2), $desc2, null, '_blank') . Horde::img($icon2, $desc2) . '</a>';
         }
 
         /* Google generated map. */
         if ($address) {
-            $html .= '&nbsp;' . Horde::link(Horde::externalUrl('http://maps.google.com/maps?q=' . urlencode(preg_replace('/\r?\n/', ',', $address)) . '&hl=en'), _("Google Maps"), null, '_blank') . Horde::img($google_icon, _("Google Maps"), '', $registry->getImageDir('horde')) . '</a>';
+            $html .= '&nbsp;' . Horde::link(Horde::externalUrl('http://maps.google.com/maps?q=' . urlencode(preg_replace('/\r?\n/', ',', $address)) . '&hl=en'), _("Google Maps"), null, '_blank') . Horde::img($google_icon, _("Google Maps")) . '</a>';
         }
 
         return $html;

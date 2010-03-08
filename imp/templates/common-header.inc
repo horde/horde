@@ -39,7 +39,7 @@ if (!empty($refresh_time) && !empty($refresh_url)) {
 
 switch ($imp_view) {
 case 'dimp':
-    Horde::includeStylesheetFiles(array('sub' => 'dimp'));
+    Horde_Themes::includeStylesheetFiles(array('sub' => 'dimp'));
     break;
 
 case 'mimp':
@@ -47,7 +47,7 @@ case 'mimp':
     break;
 
 default:
-    Horde::includeStylesheetFiles();
+    Horde_Themes::includeStylesheetFiles();
     Horde::includeScriptFiles();
     break;
 }
@@ -57,10 +57,10 @@ default:
 </head>
 <body>
 <?php elseif ($imp_view == 'dimp'): ?>
-<link href="<?php echo $GLOBALS['registry']->getImageDir() ?>/favicon.ico" rel="SHORTCUT ICON" />
+<link href="<?php echo Horde_Themes::img('favicon.ico', array('nohorde' => true)) ?>" rel="SHORTCUT ICON" />
 </head>
 <?php else: ?>
-<link href="<?php echo $GLOBALS['registry']->getImageDir() ?>/favicon.ico" rel="SHORTCUT ICON" />
+<link href="<?php echo Horde_Themes::img('favicon.ico', array('nohorde' => true)) ?>" rel="SHORTCUT ICON" />
 <?php if ($mailbox_url = Horde_Util::nonInputVar('mailbox_url')): ?>
 <link href="<?php echo $mailbox_url ?>" rel="Up" />
 <?php elseif (!Horde_Util::nonInputVar('login_page')): ?>

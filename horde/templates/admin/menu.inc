@@ -5,7 +5,7 @@
     try {
         foreach ($registry->callByPackage('horde', 'admin_list') as $val) {
             $img = isset($val['icon'])
-                ? $registry->getImageDir() . '/' . $val['icon']
+                ? Horde_Themes::img($val['icon'])
                 : $registry->get('icon');
             $menu->add(strval(Horde::url($registry->applicationWebPath($val['link']))), $val['name'], $img, '');
         }

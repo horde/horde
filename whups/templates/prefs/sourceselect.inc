@@ -295,9 +295,9 @@ function changeSearchFields()
    </select>
   </td>
   <td>
-   <a href="#" onclick="addSource(); return false;"><?php echo Horde::img(isset($GLOBALS['nls']['rtl'][$GLOBALS['language']]) ? 'lhand.png' : 'rhand.png', _("Add source"), null, $registry->getImageDir('horde')) ?></a>
+   <a href="#" onclick="addSource(); return false;"><?php echo Horde::img(isset($GLOBALS['nls']['rtl'][$GLOBALS['language']]) ? 'lhand.png' : 'rhand.png', _("Add source")) ?></a>
    <br />
-   <a href="#" onclick="removeSource(); return false;"><?php echo Horde::img(isset($GLOBALS['nls']['rtl'][$GLOBALS['language']]) ? 'rhand.png' : 'lhand.png', _("Remove source"), null, $registry->getImageDir('horde')) ?></a>
+   <a href="#" onclick="removeSource(); return false;"><?php echo Horde::img(isset($GLOBALS['nls']['rtl'][$GLOBALS['language']]) ? 'rhand.png' : 'lhand.png', _("Remove source")) ?></a>
   </td>
   <td>
    <label for="selected_search_sources" class="hidden"><?php echo _("Selected Address books:") ?></label>
@@ -307,9 +307,9 @@ function changeSearchFields()
    </select>
   </td>
   <td>
-   <a href="#" onclick="moveSourceUp(); return false;"><?php echo Horde::img('nav/up.png', _("Move up"), null, $registry->getImageDir('horde')) ?></a>
+   <a href="#" onclick="moveSourceUp(); return false;"><?php echo Horde::img('nav/up.png', _("Move up")) ?></a>
    <br />
-   <a href="#" onclick="moveSourceDown(); return false;"><?php echo Horde::img('nav/down.png', _("Move down"), null, $registry->getImageDir('horde')) ?></a>
+   <a href="#" onclick="moveSourceDown(); return false;"><?php echo Horde::img('nav/down.png', _("Move down")) ?></a>
   </td>
  </tr>
 </table>

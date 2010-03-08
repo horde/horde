@@ -54,7 +54,7 @@ document.observe('dom:loaded', function() {
    <?php if (!$prefs->isLocked('category_colors')): ?>
     <input size="7" style="background:<?php echo htmlspecialchars($color) ?>; color:<?php echo $fgcolor ?>" id="<?php echo $color_b ?>" name="<?php echo $color_b ?>" value="<?php echo htmlspecialchars($color) ?>" />
     <a href="#" onclick="new ColorPicker({ color: $F('<?php echo $color_b ?>'), offsetParent: Event.element(event), update: [['<?php echo $color_b ?>', 'value'], ['<?php echo $color_b ?>', 'background']] }); return false;">
-    <?php echo Horde::img('colorpicker.png', _("Color Picker"), 'height="16"', $registry->getImageDir('horde')) ?></a>
+    <?php echo Horde::img('colorpicker.png', _("Color Picker"), 'height="16"') ?></a>
    <?php endif; ?>
   </td>
  </tr>
@@ -70,7 +70,7 @@ $color_b = 'color_' . hash('md5', '_unfiled_');
    <?php if (!$prefs->isLocked('category_colors')): ?>
     <input size="7" style="background:<?php echo htmlspecialchars($color) ?>; color:<?php echo $fgcolor ?>" id="<?php echo $color_b ?>" name="<?php echo $color_b ?>" value="<?php echo htmlspecialchars($color) ?>" />
     <a href="#" onclick="new ColorPicker({ color: $F('<?php echo $color_b ?>'), offsetParent: Event.element(event), update: [['<?php echo $color_b ?>', 'value'], ['<?php echo $color_b ?>', 'background']] }); return false;">
-    <?php echo Horde::img('colorpicker.png', _("Color Picker"), 'height="16"', $registry->getImageDir('horde')) ?></a>
+    <?php echo Horde::img('colorpicker.png', _("Color Picker"), 'height="16"') ?></a>
    <?php endif; ?>
   </td>
  </tr>
@@ -86,7 +86,7 @@ foreach ($categories as $name):
    <?php if (!$prefs->isLocked('category_colors')): ?>
     <input size="7" style="background:<?php echo htmlspecialchars($color) ?>; color:<?php echo $fgcolor ?>" id="<?php echo $color_b ?>" name="<?php echo $color_b ?>" value="<?php echo htmlspecialchars($color) ?>" />
     <a href="#" onclick="new ColorPicker({ color: $F('<?php echo $color_b ?>'), offsetParent: Event.element(event), update: [['<?php echo $color_b ?>', 'value'], ['<?php echo $color_b ?>', 'background']] }); return false;">
-    <?php echo Horde::img('colorpicker.png', _("Color Picker"), 'height="16"', $registry->getImageDir('horde')) ?></a>
+    <?php echo Horde::img('colorpicker.png', _("Color Picker"), 'height="16"') ?></a>
     <?php endif; ?>
     <a href="#" onclick="removeCategory(decodeURIComponent('<?php echo rawurlencode(Horde_String::convertCharset($name, Horde_Nls::getCharset(), 'UTF-8')) ?>')); return false;"><?php echo Horde::img('delete.png') ?></a>
   </td>

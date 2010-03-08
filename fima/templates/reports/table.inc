@@ -23,7 +23,7 @@ foreach ($data as $rowId => $row) {
             $sortText = sprintf(_("Sort by %s"), $value);
             echo '<th class="' . (($sortby == $colId) ? 'selected' : 'item') . ' sortable" onclick="document.location.href=' . addslashes(Horde_Util::addParameter(($sortby == $colId) ? $sorturl : $reporturl, 'sortby',  $colId)) . '">';
             if ($sortby == $colId) {
-                echo Horde::link(Horde_Util::addParameter($sorturl, 'sortby', $colId), $sortText, null, null, null, $sortText) . Horde::img($sortImg, $sortImgText, '', $registry->getImageDir('horde')) . '</a>';
+                echo Horde::link(Horde_Util::addParameter($sorturl, 'sortby', $colId), $sortText, null, null, null, $sortText) . Horde::img($sortImg, $sortImgText) . '</a>';
             }
             echo Horde::widget(Horde_Util::addParameter(($sortby == $colId) ? $sorturl : $reporturl, 'sortby', $colId), $sortText, 'widget', null, null, $value);
             echo '</th>';

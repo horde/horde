@@ -18,7 +18,7 @@ class Skeleton
     static public function getMenu()
     {
         $menu = new Horde_Menu(Horde_Menu::MASK_ALL);
-        $menu->add(Horde::applicationUrl('list.php'), _("List"), 'user.png', $GLOBALS['registry']->getImageDir('horde'));
+        $menu->add(Horde::applicationUrl('list.php'), _("List"), 'user.png', Horde_Themes::img(null, 'horde'));
 
         return $menu;
     }

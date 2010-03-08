@@ -11,7 +11,7 @@ if (!empty($queries)):
 <h1 class="header"><?php echo _("My queries") ?></h1>
 <?php
 foreach ($queries as $query) {
-    $delete_img = Horde::img('delete.png', _("Delete"), '', $registry->getImageDir('horde'));
+    $delete_img = Horde::img('delete.png', _("Delete"));
     echo '<tr><td>' . Horde::link(Horde_Util::addParameter(Horde::applicationUrl('search.php'), 'query', $query), '', 'bottom') . $query . '</a></td>';
     echo '<td>' . Horde::link(Horde_Util::addParameter(Horde::applicationUrl('save_search.php'), array('query' => $query, 'delete' => 1))) . $delete_img . '</a></td></tr>';
 }

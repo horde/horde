@@ -29,7 +29,7 @@ class Whups_Api extends Horde_Registry_Api
             $results = array(
                 'whups/queue' => array(
                     'name' => _("Queues"),
-                    'icon' => $registry->getImageDir() . '/whups.png',
+                    'icon' => Horde_Themes::img('whups.png'),
                     'browseable' => count(
                         Whups::permissionsFilter($whups_driver->getQueues(),
                                                  'queue', Horde_Perms::READ))));

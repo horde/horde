@@ -13,7 +13,7 @@ $menu_view = $prefs->getValue('menu_view');
 <span style="float:right">
 <?php
     $link = Horde::link('#', _("Select Domain"), '', '', 'domainSubmit(true); return false;');
-    sprintf('<ul><li>%s%s<br />%s</a></li></ul>', $link, Horde::img('tree/folderopen.png', '', '', $registry->getImageDir('horde')), ($menu_view != 'icon') ? Horde::highlightAccessKey(_("Select _Domain"), $accesskey) : '');
+    sprintf('<ul><li>%s%s<br />%s</a></li></ul>', $link, Horde::img('tree/folderopen.png'), ($menu_view != 'icon') ? Horde::highlightAccessKey(_("Select _Domain"), $accesskey) : '');
 ?>
 </span>
 <span style="float:right">

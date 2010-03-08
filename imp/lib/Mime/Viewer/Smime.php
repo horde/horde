@@ -234,7 +234,6 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
         $partlist = array_keys($this->_mimepart->contentTypeMap());
         $base_id = reset($partlist);
         $sig_id = Horde_Mime::mimeIdArithmetic(next($partlist), 'next');
-        $graphicsdir = $GLOBALS['registry']->getImageDir('horde');
 
         /* Initialize inline data. */
         self::$_cache[$base_id] = array(
@@ -273,7 +272,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
             Horde_Util::getFormData('smime_verify_msg')) {
             try {
                 $sig_result = $this->_impsmime->verifySignature($raw_text);
-                self::$_cache[$base_id]['status'][0]['icon'] = Horde::img('alerts/success.png', _("Success"), null, $graphicsdir);
+                self::$_cache[$base_id]['status'][0]['icon'] = Horde::img('alerts/success.png', _("Success"));
                 self::$_cache[$base_id]['wrap'] = 'mimePartWrapValid';
 
                 if (empty($sig_result->result) ||
@@ -302,8 +301,8 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
                 }
             } catch (Horde_Exception $e) {
                 self::$_cache[$base_id]['status'][0]['icon'] = ($e->getCode() == 'horde.warning')
-                    ? Horde::img('alerts/warning.png', _("Warning"), null, $graphicsdir)
-                    : Horde::img('alerts/error.png', _("Error"), null, $graphicsdir);
+                    ? Horde::img('alerts/warning.png', _("Warning"))
+                    : Horde::img('alerts/error.png', _("Error"));
                 self::$_cache[$base_id]['wrap'] = 'mimePartWrapInvalid';
                 $status[] = $e->getMessage();
             }

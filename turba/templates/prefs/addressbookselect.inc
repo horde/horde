@@ -170,9 +170,9 @@ function moveAddressBookDown()
    </select>
   </td>
   <td>
-   <a href="#" onclick="addAddressBook(); return false;"><?php echo Horde::img(isset($GLOBALS['nls']['rtl'][$GLOBALS['language']]) ? 'lhand.png' : 'rhand.png', _("Add address book"), null, $registry->getImageDir('horde')) ?></a>
+   <a href="#" onclick="addAddressBook(); return false;"><?php echo Horde::img(isset($GLOBALS['nls']['rtl'][$GLOBALS['language']]) ? 'lhand.png' : 'rhand.png', _("Add address book")) ?></a>
    <br />
-   <a href="#" onclick="removeAddressBook(); return false;"><?php echo Horde::img(isset($GLOBALS['nls']['rtl'][$GLOBALS['language']]) ? 'rhand.png' : 'lhand.png', _("Remove address book"), null, $registry->getImageDir('horde')) ?></a>
+   <a href="#" onclick="removeAddressBook(); return false;"><?php echo Horde::img(isset($GLOBALS['nls']['rtl'][$GLOBALS['language']]) ? 'rhand.png' : 'lhand.png', _("Remove address book")) ?></a>
   </td>
   <td>
    <label for="selected_addressbooks" class="hidden"><?php echo _("These address books will display in this order:") ?></label>
@@ -181,9 +181,9 @@ function moveAddressBookDown()
    </select>
   </td>
   <td>
-   <a href="#" onclick="moveAddressBookUp(); return false;"><?php echo Horde::img('nav/up.png', _("Move left"), null, $registry->getImageDir('horde')) ?></a>
+   <a href="#" onclick="moveAddressBookUp(); return false;"><?php echo Horde::img('nav/up.png', _("Move left")) ?></a>
    <br />
-   <a href="#" onclick="moveAddressBookDown(); return false;"><?php echo Horde::img('nav/down.png', _("Move right"), null, $registry->getImageDir('horde')) ?></a>
+   <a href="#" onclick="moveAddressBookDown(); return false;"><?php echo Horde::img('nav/down.png', _("Move right")) ?></a>
   </td>
  </tr>
 </table>

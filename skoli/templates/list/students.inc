@@ -3,7 +3,7 @@
     <?php
     if ($class['_edit']) {
         $label = _("New Entry");
-        echo Horde::link(Horde_Util::addParameter(Horde::applicationUrl('add.php'), array('class'=>$class['_id'], 'student'=>$student['__key'])), $label) . Horde::img('add.png', $label, null, $registry->getImageDir('skoli')) . '</a>';
+        echo Horde::link(Horde_Util::addParameter(Horde::applicationUrl('add.php'), array('class'=>$class['_id'], 'student'=>$student['__key'])), $label) . Horde::img('add.png', $label) . '</a>';
     }
     ?>
   </td>
@@ -13,7 +13,7 @@
         $label = sprintf(_("Show \"%s\""), $student[$conf['addresses']['name_field']]);
         $url = $registry->link('contacts/show', array('source' => $class['address_book'],
                                                       'key' => $student['__key']));
-        echo Horde::link($url, $label) . Horde::img('user.png', $label, null, $registry->getImageDir('horde')) . '</a>';
+        echo Horde::link($url, $label) . Horde::img('user.png', $label) . '</a>';
     }
     ?>
   </td>

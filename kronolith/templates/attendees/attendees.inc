@@ -55,7 +55,7 @@ function switchDateView(view, date)
  <tr><td colspan="4"><em><?php echo _("No attendees") ?></em></td></tr>
 <?php else: foreach ($_SESSION['kronolith']['attendees'] as $email => $status): ?>
  <tr>
-  <td class="nowrap"><?php $name = strpos($email, '@') === false ? $status['name'] : $email; echo Horde::url('#')->link(array('title' => sprintf(_("Remove %s"), $name), 'onclick' => "performAction('remove', decodeURIComponent('" . rawurlencode($email) . "')); return false;")) . Horde::img('delete.png', '', null, $registry->getImageDir('horde')) . '</a> ' . Horde::url('#')->link(array('title' => sprintf(_("Edit %s"), $name), 'onclick' => "performAction('edit', decodeURIComponent('" . rawurlencode($email) . "')); return false;")) . Horde::img('edit.png', '', null, $registry->getImageDir('horde')) . '</a>' ?></td>
+  <td class="nowrap"><?php $name = strpos($email, '@') === false ? $status['name'] : $email; echo Horde::url('#')->link(array('title' => sprintf(_("Remove %s"), $name), 'onclick' => "performAction('remove', decodeURIComponent('" . rawurlencode($email) . "')); return false;")) . Horde::img('delete.png') . '</a> ' . Horde::url('#')->link(array('title' => sprintf(_("Edit %s"), $name), 'onclick' => "performAction('edit', decodeURIComponent('" . rawurlencode($email) . "')); return false;")) . Horde::img('edit.png') . '</a>' ?></td>
   <td><?php echo htmlspecialchars(empty($status['name']) ? $email : Horde_Mime_Address::trimAddress($status['name'] . (strpos($email, '@') === false ? '' : ' <' . $email . '>'))) ?></td>
   <td>
 <label for="<?php echo "attendance_$i" ?>" class="hidden"><?php echo _("Attendance") ?></label>
@@ -91,7 +91,7 @@ function switchDateView(view, date)
  <tr><td colspan="4"><em><?php echo _("No attendees") ?></em></td></tr>
 <?php else: foreach ($resources as $id => $resource): ?>
  <tr>
-  <td class="nowrap"><?php echo Horde::url('#')->link(array('title' => sprintf(_("Remove %s"), $resource['name']), 'onclick' => "performAction('removeResource', " . $id . "); return false;")) . Horde::img('delete.png', '', null, $registry->getImageDir('horde')) ?></a></td>
+  <td class="nowrap"><?php echo Horde::url('#')->link(array('title' => sprintf(_("Remove %s"), $resource['name']), 'onclick' => "performAction('removeResource', " . $id . "); return false;")) . Horde::img('delete.png') ?></a></td>
   <td><?php echo htmlspecialchars($resource['name']) ?></td>
   <td>
   <label for="<?php echo "resourceattendance_$i" ?>" class="hidden"><?php echo _("Attendance") ?></label>

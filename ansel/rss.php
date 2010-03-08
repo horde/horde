@@ -32,8 +32,7 @@ if (empty($rss)) {
                     'name' => _("Error retrieving feed"),
                     'link' => '',
                     'desc' => _("Unable to retrieve requested feed"),
-                    'image_url' => Horde::img('alerts/error.png', '', '',
-                                              $registry->getImageDir('horde')),
+                    'image_url' => Horde::img('alerts/error.png'),
                     'image_link' => '',
                     'image_alt' => '');
     $author = '';

@@ -198,7 +198,7 @@ require_once NEWS_TEMPLATES . '/common-header.inc';
 require_once NEWS_TEMPLATES . '/menu.inc';
 require_once NEWS_TEMPLATES . '/edit/header.inc';
 
-$img_dir = $registry->getImageDir('horde');
+$img_dir = Horde_Themes::img(null, 'horde');
 foreach ($rows as $row) {
     require NEWS_TEMPLATES . '/edit/row.php';
     if ($row['id'] == $id ) {

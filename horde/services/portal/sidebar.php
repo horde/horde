@@ -116,14 +116,16 @@ function buildMenu()
     // Add the administration menu if the user is an admin.
     if (Horde_Auth::isAdmin()) {
         $menu['administration'] = array('name' => _("Administration"),
-                                        'icon' => $registry->getImageDir() . '/administration.png',
+                                        'icon' => Horde_Themes::img('administration.png'),
                                         'status' => 'heading');
 
         try {
             $list = $registry->callByPackage('horde', 'admin_list');
             foreach ($list as $method => $vals) {
                 $name = Horde::stripAccessKey($vals['name']);
-                $icon = isset($vals['icon']) ? $registry->getImageDir() . '/' . $vals['icon'] : $registry->get('icon');
+                $icon = isset($vals['icon'])
+                    ? Horde_Themes::img($vals['icon'])
+                    : $registry->get('icon');
 
                 $menu['administration_' . $method] = array(
                     'name' => $name,
@@ -140,7 +142,7 @@ function buildMenu()
         $conf['prefs']['driver'] != '' && $conf['prefs']['driver'] != 'none') {
         $menu['options'] = array('name' => _("Options"),
                                  'status' => 'active',
-                                 'icon' => $registry->getImageDir() . '/prefs.png');
+                                 'icon' => Horde_Themes::img('prefs.png'));
 
         /* Get a list of configurable applications. */
         $prefs_apps = array();
@@ -189,13 +191,13 @@ function buildMenu()
     if (Horde_Auth::getAuth()) {
         $menu['logout'] = array('name' => _("Log out"),
                                 'status' => 'active',
-                                'icon' => $registry->getImageDir() . '/logout.png',
+                                'icon' => Horde_Themes::img('logout.png'),
                                 'url' => Horde::getServiceLink('logout', 'horde'),
                                 'target' => '_parent');
     } else {
         $menu['login'] = array('name' => _("Log in"),
                                'status' => 'active',
-                               'icon' => $registry->getImageDir() . '/login.png',
+                               'icon' => Horde_Themes::img('login.png'),
                                'url' => Horde::getServiceLink('login', 'horde'));
     }
 

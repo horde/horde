@@ -48,7 +48,7 @@ function stopSlideShow()
   <tr>
    <td style="margin:5px;height:<?php echo $GLOBALS['conf']['screen']['height'] ?>px;vertical-align:top;">
      <div id="Container">
-      <?php echo Horde::img('blank.gif', '', array('id' => 'Photo', 'style' => 'display:none;'), $registry->getImageDir('horde')) ?>
+      <?php echo Horde::img('blank.gif', '', array('id' => 'Photo', 'style' => 'display:none')) ?>
      </div>
    </td>
   </tr>

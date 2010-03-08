@@ -338,28 +338,28 @@ class IMP_Hooks
 //                preg_match("!^user/[^/]+/Calendar!", $box)) {
 //                $newmailboxes[$box] = array(
 //                    'icon' => 'kronolith.png',
-//                    'icondir' => $GLOBALS['registry']->getImageDir('kronolith')
+//                    'icondir' => Horde_Themes::img(null, 'kronolith')
 //                    'alt' => _("Calendar")
 //                );
 //            } elseif ((stripos($box, "INBOX/Tasks") !== false) ||
 //                      preg_match("!^user/[^/]+/Tasks!", $box)) {
 //                $newmailboxes[$box] = array(
 //                    'icon' => 'nag.png',
-//                    'icondir' => $GLOBALS['registry']->getImageDir('nag')
+//                    'icondir' => Horde_Themes::img(null, 'nag')
 //                    'alt' => _("Tasks")
 //                );
 //            } elseif ((stripos($box, "INBOX/Notes") !== false) ||
 //                      preg_match("!^user/[^/]+/Notes!", $box)) {
 //                $newmailboxes[$box] = array(
 //                    'icon' => 'mnemo.png',
-//                    'icondir' => $GLOBALS['registry']->getImageDir('mnemo')
+//                    'icondir' => Horde_Themes::img(null, 'mnemo')
 //                    'alt' => _("Notes")
 //                );
 //            } elseif ((stripos($box, "INBOX/Contacts") !== false) ||
 //                      preg_match("!^user/[^/]+/Contacts!", $box)) {
 //                $newmailboxes[$box] = array(
 //                    'icon' => 'turba.png',
-//                    'icondir' => $GLOBALS['registry']->getImageDir('turba')
+//                    'icondir' => Horde_Themes::img(null, 'turba')
 //                    'alt' => _("Contacts")
 //                );
 //            }
@@ -383,7 +383,7 @@ class IMP_Hooks
 //            case 'event':
 //                $icons[$name] = array(
 //                    'icon' => 'kronolith.png',
-//                    'icondir' => $GLOBALS['registry']->getImageDir('kronolith'),
+//                    'icondir' => Horde_Themes::img(null, 'kronolith')
 //                    'alt' => _("Calendar")
 //                );
 //                break;
@@ -391,7 +391,7 @@ class IMP_Hooks
 //            case 'task':
 //                $icons[$name] = array(
 //                    'icon' => 'nag.png',
-//                    'icondir' => $GLOBALS['registry']->getImageDir('nag'),
+//                    'icondir' => Horde_Themes::img(null, 'nag')
 //                    'alt' => _("Tasks")
 //                );
 //                break;
@@ -399,7 +399,7 @@ class IMP_Hooks
 //            case 'note':
 //                $icons[$name] = array(
 //                    'icon' => 'mnemo.png',
-//                    'icondir' => $GLOBALS['registry']->getImageDir('mnemo'),
+//                    'icondir' => Horde_Themes::img(null, 'mnemo')
 //                    'alt' => _("Notes")
 //                );
 //                break;
@@ -407,7 +407,7 @@ class IMP_Hooks
 //            case 'contact':
 //                $icons[$name] = array(
 //                    'icon' => 'turba.png',
-//                    'icondir' => $GLOBALS['registry']->getImageDir('turba'),
+//                    'icondir' => Horde_Themes::img(null, 'turba')
 //                    'alt' => _("Contacts")
 //                );
 //                break;
@@ -415,7 +415,7 @@ class IMP_Hooks
 //            case 'prefs':
 //                $icons[$name] = array(
 //                    'icon' => 'prefs.png',
-//                    'icondir' => $GLOBALS['registry']->getImageDir('horde'),
+//                    'icondir' => Horde_Themes::img(null, 'horde')
 //                    'alt' => _("Preferences")
 //                );
 //                break;

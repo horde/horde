@@ -190,17 +190,17 @@ $ftpform = '';
 if (!empty($_SESSION['_config'])) {
     $url = Horde::applicationUrl('admin/setup/diff.php');
     $action = _("Show differences between currently saved and the newly generated configuration.");
-    $actions[] = array('icon' => Horde::img('search.png', '', 'align="middle"', $registry->getImageDir('horde')),
+    $actions[] = array('icon' => Horde::img('search.png', '', 'align="middle"'),
                        'link' => Horde::link('#', '', '', '', Horde::popupJs($url, array('height' => 480, 'width' => 640, 'urlencode' => true)) . 'return false;') . $action . '</a>');
 
     /* Action to download the configuration upgrade PHP script. */
     $url = Horde::applicationUrl('admin/setup/scripts.php')->add(array('setup' => 'conf', 'type' => 'php'));
     $action = _("Download generated configuration as PHP script.");
-    $actions[] = array('icon' => Horde::img('download.png', '', 'align="middle"', $registry->getImageDir('horde')),
+    $actions[] = array('icon' => Horde::img('download.png', '', 'align="middle"'),
                        'link' => Horde::link($url) . $action . '</a>');
     /* Action to save the configuration upgrade PHP script. */
     $action = _("Save generated configuration as a PHP script to your server's temporary directory.");
-    $actions[] = array('icon' => Horde::img('save.png', '', 'align="middle"', $registry->getImageDir('horde')),
+    $actions[] = array('icon' => Horde::img('save.png', '', 'align="middle"'),
                        'link' => Horde::link($url->add('save', 'tmp')) . $action . '</a>');
 
     /* Set up the form for FTP upload of scripts. */
@@ -228,7 +228,7 @@ if (file_exists(Horde::getTempDir() . '/horde_setup_upgrade.php')) {
     /* Action to remove the configuration upgrade PHP script. */
     $url = Horde::applicationUrl('admin/setup/scripts.php')->add('clean', 'tmp');
     $action = _("Remove saved script from server's temporary directory.");
-    $actions[] = array('icon' => Horde::img('delete.png', '', 'align="middle"', $registry->getImageDir('horde')),
+    $actions[] = array('icon' => Horde::img('delete.png', '', 'align="middle"'),
                        'link' => Horde::link($url) . $action . '</a>');
 }
 

@@ -10,18 +10,18 @@
  */
 
 class Translate_Display {
-    
+
     function header($msg, $msg2 = '') {
 	global $cnt_i, $registry;
-	$select_img = Horde::img('alerts/message.png', '', '', $registry->getImageDir('horde'));
+	$select_img = Horde::img('alerts/message.png');
 	print sprintf('<table cellspacing=0 cellpadding=0 width=100%%><tr><td class="header">%s</td><td align="right" class="header">%s</td><td  class="header" width="20">%s</td></tr></table>', $msg, $msg2, $select_img);
 	flush();
     }
-    
+
     function warning($msg, $bold = true) {
 	global $cnt_i, $registry;
 	$item = ($cnt_i++ % 2);
-	$select_img = Horde::img('alerts/warning.png', '', '', $registry->getImageDir('horde'));
+	$select_img = Horde::img('alerts/warning.png');
 	if ($bold) {
 	    print sprintf('<table cellspacing=0 cellpadding=0 width=100%%><tr><td class="item%d" style="color: #ff0000">%s</td><td  class="item%1$d" width="20">%s</td></tr></table>', $item, $msg, $select_img);
 	} else {
@@ -29,26 +29,26 @@ class Translate_Display {
 	}
 	flush();
     }
-    
+
     function error($msg) {
 	global $cnt_i, $registry;
 	$item = ($cnt_i++ % 2);
-	$select_img = Horde::img('alerts/error.png', '', '', $registry->getImageDir('horde'));
+	$select_img = Horde::img('alerts/error.png');
 	print sprintf('<table cellspacing=0 cellpadding=0 width=100%%><tr><td class="item%d" style="color: #ff0000"><b>%s</b></td><td  class="item%1$d" width="20">%s</td></tr></table>', $item, $msg, $select_img);
 	flush();
     }
-    
+
     function info($msg = "", $bold = true) {
-	
+
 	global $cnt_i, $registry;
-	
+
 	if (empty($msg)) {
 	    echo "<br />";
 	} else {
-	    
+
 	    $item = ($cnt_i++ % 2);
-	    
-	    $select_img = Horde::img('select.png', '', '', $registry->getImageDir('horde'));
+
+	$select_img = Horde::img('alerts/select.png');
 	    if ($bold) {
 		print sprintf('<table cellspacing=0 cellpadding=0 width=100%%><tr><td class="item%d"><b>%s</b></td><td  class="item%1$d" width="20">%s</td></tr></table>', $item, $msg, $select_img);
 	    } else {
@@ -65,7 +65,7 @@ class Translate_Display {
         }
 	return Horde_Nls::getCharset();
     }
-    
+
     function convert_string($msg) {
 	global $po;
 
@@ -74,7 +74,7 @@ class Translate_Display {
 	$msg = preg_replace($f, $t, $msg);
 	return Horde_String::convertCharset(html_entity_decode($msg), Horde_Nls::getCharset(), Translate_Display::parseCharset($po->meta['Content-Type']));
     }
-    
+
     function display_string($msg) {
 	global $po;
 
@@ -83,32 +83,32 @@ class Translate_Display {
 	$msg = preg_replace($f, $t, $msg);
 	return Horde_String::convertCharset($msg, Translate_Display::parseCharset($po->meta['Content-Type']), Horde_Nls::getCharset());
     }
-    
+
     function get_percent($used, $total) {
 	if ($total > 0) {
 	    $percent = sprintf("%2.2f", (($used * 100) / $total));
 	} else {
 	    $percent = 0;
 	}
-	
+
 	return $percent;
     }
-    
+
     function create_bargraph ($used, $total, $text = true, $reverse = false, $small = false) {
 	if ($total > 0) {
 	    $percent = round(($used * 100) / $total);
 	} else {
 	    $percent = 0;
 	}
-	
+
 	$html = '<table border="0" cellpadding="0" cellspacing="0"><tr><td nowrap="nowrap">';
 	$html .= '<table border="0" width="100" cellpadding="0" cellspacing="0">';
 	$html .= '<tr height="10">';
-	
+
 	if ($percent > 0) {
 	    $html .= '<td nowrap="nowrap" width="' . ($percent) . '" bgcolor="#00FF00"></td>';
 	}
-	
+
 	if ($percent != 100) {
 	    $html .= '<td nowrap="nowrap" width="' . (100 - $percent) . '" ';
 	    if ($reverse) {
@@ -117,9 +117,9 @@ class Translate_Display {
 		$html .= ' bgcolor="#006699"></td>';
 	    }
 	}
-	
+
 	$html .= '</tr></table></td>';
-	
+
 	if ($text) {
 	    if ($small) {
 		$html .= '<td class="small"> ' . $percent .'% </td>';
@@ -127,10 +127,10 @@ class Translate_Display {
 		$html .= '<td> ' . $percent .'% </td>';
 	    }
 	}
-	
+
 	$html .= '</tr></table>';
-	
-	return $html;    
+
+	return $html;
     }
-    
+
 }

@@ -50,7 +50,7 @@ class News {
     static public function getFlag($lang)
     {
         $flag = 'flags/' . strtolower(substr($lang, -2)) . '.png';
-        return Horde::img($flag, $lang, 'align="middle"', $GLOBALS['registry']->getImageDir('horde'));
+        return Horde::img($flag, $lang);
     }
 
     /**
@@ -192,12 +192,12 @@ class News {
         }
 
         if (Horde_Auth::isAdmin('news:admin')) {
-            $delete_img = Horde::img('delete.png', _("Delete"), ' style="width: 16px height: 16px"', $GLOBALS['registry']->getImageDir('horde'));
+            $delete_img = Horde::img('delete.png', _("Delete"), ' style="width: 16px height: 16px"');
             $delete_url = Horde::applicationUrl('delete_file.php');
         }
 
-        $dowload_img = Horde::img('save.png', _("Dowload"), ' style="width: 16px height: 16px"', $GLOBALS['registry']->getImageDir('horde'));
-        $dowload_zip = Horde::img('mime/compressed.png', _("Dowload Zip Compressed"), 'style="width: 16px height: 16px"', $GLOBALS['registry']->getImageDir('horde'));
+        $dowload_img = Horde::img('save.png', _("Dowload"), ' style="width: 16px height: 16px"');
+        $dowload_zip = Horde::img('mime/compressed.png', _("Dowload Zip Compressed"), 'style="width: 16px height: 16px"');
         $view_url = Horde::applicationUrl('files.php');
 
         $html = '<table><tr valign="top"><td>';
@@ -494,7 +494,7 @@ class News {
     static public function getMenu()
     {
         $menu = new Horde_Menu();
-        $img_dir = $GLOBALS['registry']->getImageDir('horde');
+        $img_dir = Horde_Themes::img(null, 'horde');
 
         if ($GLOBALS['prefs']->getValue('news_layout') != '') {
             $menu->add(Horde::applicationUrl('content.php'), _("Overview"), 'layout.png', $img_dir);

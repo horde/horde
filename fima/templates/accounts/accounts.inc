@@ -29,7 +29,7 @@ function Submit(action)
 <div id="accountList">
 <?php
 
-$params = array('icondir' => $GLOBALS['registry']->getImageDir(), 'icon' => '');
+$params = array('icondir' => Horde_Themes::img(), 'icon' => '');
 $tree = Horde_Tree::factory('account_tree', 'Javascript');
 
 foreach ($accounts as $accountId => $account) {
@@ -40,9 +40,9 @@ foreach ($accounts as $accountId => $account) {
     }
     $accountExtra = '';
     if (!$print_view) {
-        if ($perm_delete && $accountId == 'root')           { $accountExtra .= '&nbsp;'.Horde::link('#', _("Delete all"), '', '', "Submit('delete_all'); return false;")                    . Horde::img('delete-small.png', _("Delete"), '', $GLOBALS['registry']->getImageDir('horde')) . '</a>'; }
-        if ($perm_edit   && isset($account['edit_link']))   { $accountExtra .= '&nbsp;'.Horde::link(Horde::applicationUrl($account['edit_link']),   sprintf(_("Edit %s"), $accountLabel))   . Horde::img('edit-small.png', _("Edit"), '', $GLOBALS['registry']->getImageDir('horde'))     . '</a>'; }
-        if ($perm_delete && isset($account['delete_link'])) { $accountExtra .= '&nbsp;'.Horde::link(Horde::applicationUrl($account['delete_link']), sprintf(_("Delete %s"), $accountLabel)) . Horde::img('delete-small.png', _("Delete"), '', $GLOBALS['registry']->getImageDir('horde')) . '</a>'; }
+        if ($perm_delete && $accountId == 'root')           { $accountExtra .= '&nbsp;'.Horde::link('#', _("Delete all"), '', '', "Submit('delete_all'); return false;")                    . Horde::img('delete-small.png', _("Delete")) . '</a>'; }
+        if ($perm_edit   && isset($account['edit_link']))   { $accountExtra .= '&nbsp;'.Horde::link(Horde::applicationUrl($account['edit_link']),   sprintf(_("Edit %s"), $accountLabel))   . Horde::img('edit-small.png', _("Edit"))     . '</a>'; }
+        if ($perm_delete && isset($account['delete_link'])) { $accountExtra .= '&nbsp;'.Horde::link(Horde::applicationUrl($account['delete_link']), sprintf(_("Delete %s"), $accountLabel)) . Horde::img('delete-small.png', _("Delete")) . '</a>'; }
         if ($perm_edit   && isset($account['add_link']))    { $accountExtra .= '&nbsp;'.Horde::link(Horde::applicationUrl($account['add_link']), _("Create a New Account"))                 . Horde::img('new-small.png', '+')                                                            . '</a>'; }
         if (                isset($account['view_link']))   { $accountExtra .= '&nbsp;'.Horde::link(Horde::applicationUrl($account['view_link']), sprintf(_("View %s"), $accountLabel))     . Horde::img('search-small.png', _("Search"))                                                 . '</a>'; }
     }

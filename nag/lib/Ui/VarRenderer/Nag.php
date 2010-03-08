@@ -107,7 +107,7 @@ class Horde_Ui_VarRenderer_Nag extends Horde_Ui_VarRenderer_Html
 <?php if ($GLOBALS['browser']->hasFeature('javascript')) {
 Horde::addScriptFile('open_calendar.js', 'horde', array('direct' => false));
 echo '<div id="goto" class="control" style="position:absolute;visibility:hidden;padding:1px"></div>';
-echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'startimg\', \'start\', \'document.' . $form->getName() . '.start_date[1].checked = true;\'); return false;') . Horde::img('calendar.png', _("Calendar"), 'align="top" id="startimg"', $GLOBALS['registry']->getImageDir('horde')) . '</a>';
+echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'startimg\', \'start\', \'document.' . $form->getName() . '.start_date[1].checked = true;\'); return false;') . Horde::img('calendar.png', _("Calendar"), 'align="top" id="startimg"') . '</a>';
 } ?>
 <?php
     }
@@ -155,7 +155,7 @@ echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'startimg\', \'
 <?php echo $this->buildDayWidget('due[day]', $due_date['mday'], $javascript_due) . ' ' . $this->buildMonthWidget('due[month]', $due_date['mon'], $javascript_due) . ' ' . $this->buildYearWidget('due[year]', 3, $due_date['year'], $javascript_due) ?>
 <?php if ($GLOBALS['browser']->hasFeature('javascript')) {
 echo '<div id="goto" class="control" style="position:absolute;visibility:hidden;padding:1px"></div>';
-echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'dueimg\', \'due\', \'document.' . $form->getName() . '.due_type[1].checked = true;\'); return false;') . Horde::img('calendar.png', _("Calendar"), 'align="top" id="dueimg"', $GLOBALS['registry']->getImageDir('horde')) . '</a>';
+echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'dueimg\', \'due\', \'document.' . $form->getName() . '.due_type[1].checked = true;\'); return false;') . Horde::img('calendar.png', _("Calendar"), 'align="top" id="dueimg"') . '</a>';
 } ?>
 <br />
 

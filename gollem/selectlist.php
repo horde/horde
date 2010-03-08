@@ -102,7 +102,7 @@ $t->set('currdir', htmlspecialchars($currdir));
 $t->set('formid', htmlspecialchars($formid));
 $t->set('navlink', Gollem::directoryNavLink($currdir, Horde_Util::addParameter($self_url, array('cacheid' => $cacheid, 'formid' => $formid))));
 if ($GLOBALS['conf']['backend']['backend_list'] == 'shown') {
-    $t->set('changeserver', Horde::link(htmlspecialchars(Horde_Auth::addLogoutParameters(Horde_Util::addParameter(Horde::applicationUrl('login.php'), array('url' => Horde_Util::addParameter(Horde::url('selectlist.php'), array('formid' => $formid)))), Horde_Auth::REASON_LOGOUT)), _("Change Server")) . Horde::img('logout.png', _("Change Server"), null, $GLOBALS['registry']->getImageDir('horde')) . '</a>', true);
+    $t->set('changeserver', Horde::link(htmlspecialchars(Horde_Auth::addLogoutParameters(Horde_Util::addParameter(Horde::applicationUrl('login.php'), array('url' => Horde_Util::addParameter(Horde::url('selectlist.php'), array('formid' => $formid)))), Horde_Auth::REASON_LOGOUT)), _("Change Server")) . Horde::img('logout.png', _("Change Server")) . '</a>', true);
 } else {
     $t->set('changeserver', '', true);
 }

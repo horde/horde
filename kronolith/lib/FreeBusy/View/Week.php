@@ -17,7 +17,7 @@ class Kronolith_FreeBusy_View_Week extends Kronolith_FreeBusy_View {
 
     function _title()
     {
-        global $registry, $prefs;
+        global $prefs;
 
         $prev = new Horde_Date($this->_start);
         $prev->mday -= 7;
@@ -26,12 +26,12 @@ class Kronolith_FreeBusy_View_Week extends Kronolith_FreeBusy_View {
         $end = new Horde_Date($this->_start);
         $end->mday += $this->_days - 1;
         return Horde::url('#')->link(array('title' => _("Previous Week"), 'onclick' => 'return switchDate(' . $prev->dateString() . ');'))
-            . Horde::img('nav/left.png', '<', null, $registry->getImageDir('horde'))
+            . Horde::img('nav/left.png', '<')
             . '</a>'
             . $this->_start->strftime($prefs->getValue('date_format')) . ' - '
             . $end->strftime($prefs->getValue('date_format'))
             . Horde::url('#')->link(array('title' => _("Next Week"), 'onclick' => 'return switchDate(' . $next->dateString() . ');'))
-            . Horde::img('nav/right.png', '>', null, $registry->getImageDir('horde'))
+            . Horde::img('nav/right.png', '>')
             . '</a>';
     }
 

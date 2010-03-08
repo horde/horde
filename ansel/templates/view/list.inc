@@ -2,7 +2,7 @@
  <span id="listCounts" class="rightFloat">
    <?php if ($this->_g_perPage < $this->_numGalleries) printf(_("%d to %d of %d Galleries"), $this->_start, $end, $this->_numGalleries); else printf(ngettext("%d Gallery", "%d Galleries", $this->_numGalleries), $this->_numGalleries) ?>
  </span>
- <?php if (empty($this->_params['api'])) echo Ansel::getBreadcrumbs() . ' ' . Horde::link(Horde::applicationUrl($refresh_link), _("Refresh List")) . Horde::img('reload.png', _("Refresh List"), null, $registry->getImageDir('horde')) . '</a>' ?>
+ <?php if (empty($this->_params['api'])) echo Ansel::getBreadcrumbs() . ' ' . Horde::link(Horde::applicationUrl($refresh_link), _("Refresh List")) . Horde::img('reload.png', _("Refresh List")) . '</a>' ?>
 </div>
 <?php if (empty($this->_params['api'])): ?>
 <div class="anselActions widget">
@@ -23,11 +23,11 @@
       . _("Owner") . '</a>';
   if ($this->_sortDir) {
       echo Horde::link(Horde::applicationUrl(Horde_Util::addParameter($refresh_link, array('sort' => $this->_sortBy, 'sort_dir' => 0))))
-          . Horde::img('za.png', _("Ascending"), '', $registry->getImageDir('horde'))
+          . Horde::img('za.png', _("Ascending"))
           . '</a>';
   } else {
       echo Horde::link(Horde::applicationUrl(Horde_Util::addParameter($refresh_link, array('sort' => $this->_sortBy, 'sort_dir' => 1))))
-          . Horde::img('az.png', _("Descending"), '', $registry->getImageDir('horde'))
+          . Horde::img('az.png', _("Descending"))
           . '</a>';
    }
  ?>

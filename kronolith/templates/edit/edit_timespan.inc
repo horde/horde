@@ -26,7 +26,7 @@
  <td>
 <?php Horde::addScriptFile('open_calendar.js', 'horde', array('direct' => false)); ?>
   <div id="goto" style="display:none"></div>
-  <?php echo Horde::url('#')->link(array('title' => _("Select a date"), 'onclick' => 'openCalendar(\'startimg\', \'start\', \'' . addslashes($event->js('start')) . '\'); return false;')) . Horde::img('calendar.png', _("Set start date"), 'id="startimg"', $GLOBALS['registry']->getImageDir('horde')) . '</a>'; endif; ?>
+  <?php echo Horde::url('#')->link(array('title' => _("Select a date"), 'onclick' => 'openCalendar(\'startimg\', \'start\', \'' . addslashes($event->js('start')) . '\'); return false;')) . Horde::img('calendar.png', _("Set start date"), 'id="startimg"') . '</a>'; endif; ?>
  </td>
 </tr>
 
@@ -76,7 +76,7 @@
   <td rowspan="2" valign="top">
 <?php
 Horde::addScriptFile('open_calendar.js', 'horde', array('direct' => false));
-echo Horde::url('#')->link(array('title' => _("Select a date"), 'onclick' => 'openCalendar(\'endimg\', \'end\', \'' . addslashes($event->js('end')) . '\'); return false;')) . Horde::img('calendar.png', _("Set end date"), 'id="endimg"', $GLOBALS['registry']->getImageDir('horde')) . '</a>';
+echo Horde::url('#')->link(array('title' => _("Select a date"), 'onclick' => 'openCalendar(\'endimg\', \'end\', \'' . addslashes($event->js('end')) . '\'); return false;')) . Horde::img('calendar.png', _("Set end date"), array('id' => 'endimg')) . '</a>';
 endif;
 ?>
  </td>

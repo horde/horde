@@ -864,7 +864,7 @@ class Agora_Messages {
         $view_bodies = $GLOBALS['prefs']->getValue('thread_view_bodies');
         $abuse_url = Horde::applicationUrl('messages/abuse.php');
         $hot_img = Horde::img('hot.png', _("Hot thread"), array('title' => _("Hot thread")));
-        $new_img = Horde::img('required.png', _("New posts"), array('title' => _("New posts")), $GLOBALS['registry']->getImageDir('horde'));
+        $new_img = Horde::img('required.png', _("New posts"), array('title' => _("New posts")));
         $is_moderator = $this->hasPermission(Horde_Perms::DELETE);
 
         /* Loop through the threads and set up the array. */

@@ -37,7 +37,7 @@ if (!is_a($share, 'PEAR_Error') &&
         $share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT) &&
         (!$task->private || $task->owner == Horde_Auth::getAuth())) {
         $label = sprintf(_("Edit \"%s\""), $task->name);
-        echo Horde::link($task->edit_link, $label) . Horde::img('edit.png', $label, null, $registry->getImageDir('horde')) . '</a>';
+        echo Horde::link($task->edit_link, $label) . Horde::img('edit.png', $label) . '</a>';
     }
     ?>
   </td>

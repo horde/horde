@@ -39,8 +39,8 @@ $template->set('menu', Vilma::getMenu('string'));
 $template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
 
 /* Set up the field list. */
-$images = array('delete' => Horde::img('delete.png', _("Delete Domain"), '', $registry->getImageDir('horde')),
-                'edit' => Horde::img('edit.png', _("Edit Domain"), '', $registry->getImageDir('horde')));
+$images = array('delete' => Horde::img('delete.png', _("Delete Domain")),
+                'edit' => Horde::img('edit.png', _("Edit Domain")));
 $template->set('images', $images);
 
 /* Render the page. */

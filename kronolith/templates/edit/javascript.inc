@@ -256,7 +256,7 @@ Event.observe(window, 'load', function() {
 
 KronolithEventForm.toggleSection = function(section)
 {
-    var dir = '<?php echo $GLOBALS['registry']->getImageDir() ?>';
+    var dir = '<?php echo Horde_Themes::img() ?>';
     if (!$('section_' + section)) {
         return;
     }

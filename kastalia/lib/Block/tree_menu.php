@@ -6,7 +6,7 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Andre Pawlowski aka sqall <sqall@h4des.org> 
+ * @author  Andre Pawlowski aka sqall <sqall@h4des.org>
  * @package Tree_Menu
  */
 
@@ -29,7 +29,7 @@ class Horde_Block_kastalia_tree_menu extends Horde_Block {
                        $indent + 1,
                        false,
                        array('icon' => 'menu/upload.png',
-                             'icondir' => $registry->getImageDir('kastalia'),
+                             'icondir' => Horde_Themes::img(null, 'kastalia'),
                              'url' => Horde::applicationUrl('upload_menu.php')));
     }
 

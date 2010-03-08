@@ -106,8 +106,7 @@ class Horde_Block_Layout
         if ($edit) {
             $icons .= Horde::link($this->getActionUrl('edit', $row, $col),
                                   _("Edit"))
-                . Horde::img('edit.png', _("Edit"), '',
-                             $GLOBALS['registry']->getImageDir('horde'))
+                . Horde::img('edit.png', _("Edit"))
                 . '</a>';
         }
         if ($this->isRemovable($row, $col)) {
@@ -116,8 +115,7 @@ class Horde_Block_Layout
                 '', '',
                 'return window.confirm(\''
                 . addslashes(_("Really delete this block?")) . '\')')
-                . Horde::img('delete.png', _("Remove"), '',
-                             $GLOBALS['registry']->getImageDir('horde'))
+                . Horde::img('delete.png', _("Remove"))
                 . '</a>';
         }
         return $icons;

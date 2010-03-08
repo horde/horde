@@ -48,7 +48,7 @@ class Ansel_Tile_Gallery {
             $thumbstyle = $mini ? 'mini' : $style['thumbstyle'];
 
             if ($gallery->hasPasswd()) {
-                $gallery_image = Horde::img($GLOBALS['registry']->getImageDir() . '/gallery-locked.png', '', '', '');
+                $gallery_image = Horde::img('gallery-locked.png');
             } else {
                 $gallery_image = Ansel::getImageUrl(
                     $gallery->getDefaultImage($style['name']),
@@ -56,9 +56,7 @@ class Ansel_Tile_Gallery {
                 $gallery_image = '<img src="' . $gallery_image . '" alt="' . htmlspecialchars($gallery->get('name')) . '" />';
             }
         } else {
-            $gallery_image = Horde::img(
-                $GLOBALS['registry']->getImageDir() . '/thumb-error.png', '',
-                '', '');
+            $gallery_image = Horde::img('thumb-error.png');
         }
 
         /* Check for being called via the api and generate correct view links */

@@ -38,10 +38,10 @@ function doPrefsUpdate(column, sortDown)
 <thead>
  <tr class="item leftAlign">
   <th width="2%" class="nosort">
-   <?php echo Horde::img('add.png', _("New Entry"), null, $registry->getImageDir('skoli')) ?>
+   <?php echo Horde::img('add.png', _("New Entry")) ?>
   </th>
   <th width="2%" class="nosort">
-   <?php echo Horde::img('edit.png', _("Edit Class"), null, $registry->getImageDir('horde')) ?>
+   <?php echo Horde::img('edit.png', _("Edit Class")) ?>
   </th>
 <?php if (in_array('semesterstart', $class_columns)): ?>
   <th id="s<?php echo SKOLI_SORT_SEMESTERSTART ?>"<?php if ($sortby_class == SKOLI_SORT_SEMESTERSTART) echo ' class="' . $sortdirclass_class . '"' ?> width="2%">
@@ -86,7 +86,7 @@ function doPrefsUpdate(column, sortDown)
    if (Horde_Auth::getAuth() && (!$GLOBALS['prefs']->isLocked('categories') ||
                            !$GLOBALS['prefs']->isLocked('category_colors'))) {
        $categoryUrl = Horde_Util::addParameter(Horde::getServiceLink('options', 'horde'), array('group' => 'categories'));
-       echo ' ' . Horde::link($categoryUrl, _("Edit categories and colors"), '', '_blank', Horde::popupJs($categoryUrl, array('urlencode' => true)) . 'return false;') . Horde::img('colorpicker.png', _("Edit categories and colors"), '', $GLOBALS['registry']->getImageDir('horde')) . '</a>';
+       echo ' ' . Horde::link($categoryUrl, _("Edit categories and colors"), '', '_blank', Horde::popupJs($categoryUrl, array('urlencode' => true)) . 'return false;') . Horde::img('colorpicker.png', _("Edit categories and colors")) . '</a>';
    }
    ?>
   </th>

@@ -72,7 +72,7 @@ function arrowHandler(e)
             (!Horde_Auth::getAuth() ||
              $this->gallery->get('owner') != Horde_Auth::getAuth()) &&
             !empty($GLOBALS['conf']['report_content']['driver']) &&
-            (($conf['report_content']['allow'] == 'authenticated' && 
+            (($conf['report_content']['allow'] == 'authenticated' &&
               Horde_Auth::isAuthenticated()) ||
              $conf['report_content']['allow'] == 'all')) {
 
@@ -83,7 +83,7 @@ function arrowHandler(e)
         }
 ?>
     <div class="slideControls">
-     <?php echo Horde::fullSrcImg('loading.gif', array('dir' => $registry->getImageDir('horde'), 'attr' => 'class="imgloading"'));?>
+     <?php echo Horde::fullSrcImg('loading.gif', array('dir' => Horde_Themes::img(null, 'horde'), 'attr' => 'class="imgloading"'));?>
      <?php
      if (empty($this->_params['hide_slideshow'])) {
          echo '<a style="display:none;" href="' . $this->_urls['slideshow'] . '" class="ssPlay" title="' . _("Start Slideshow") . '">' .
@@ -102,7 +102,7 @@ function arrowHandler(e)
      <noscript>
       <?php echo '<img src="' . $this->_urls['imgsrc'] . '" alt="' . htmlspecialchars($this->resource->filename) . '" />' ?>
      </noscript>
-     <?php echo Horde::img('blank.gif', '', array('id' => 'photodiv', 'width' => $this->_geometry['width'], 'height' => $this->_geometry['height']), $registry->getImageDir('horde')) ?>
+     <?php echo Horde::img('blank.gif', '', array('id' => 'photodiv', 'width' => $this->_geometry['width'], 'height' => $this->_geometry['height'])) ?>
      <div id="CaptionContainer" style="width:<?php echo $this->_geometry['width']?>px;">
      <p id="Caption" style="display:none;">
        <?php echo Horde_Text_Filter::filter($this->resource->caption, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO)) ?>
@@ -110,7 +110,7 @@ function arrowHandler(e)
      </div>
     </div>
     <div class="slideControls">
-     <?php echo Horde::fullSrcImg('loading.gif', array('dir' => $registry->getImageDir('horde'), 'attr' => 'class="imgloading"'));?>
+     <?php echo Horde::fullSrcImg('loading.gif', array('dir' => Horde_Themes::img(null, 'horde'), 'attr' => 'class="imgloading"'));?>
      <?php
      if (empty($this->_params['hide_slideshow'])) {
          echo '<a style="display:none;" href="' . $this->_urls['slideshow'] . '" class="ssPlay" title="' . _("Start Slideshow") . '">' .

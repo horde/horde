@@ -164,7 +164,7 @@ class Ansel
      */
     static public function getErrorImage($view = 'screen')
     {
-        return $GLOBALS['registry']->getImageDir() . '/' . $view . '-error.png';
+        return Horde_Themes::img($view . '-error.png');
     }
 
     /**
@@ -650,13 +650,13 @@ class Ansel
         }
 
         if ($conf['faces']['driver'] && Horde_Auth::isAuthenticated()) {
-            $menu->add(Horde::applicationUrl('faces/search/all.php'), _("_Faces"), 'user.png', $registry->getImageDir('horde'));
+            $menu->add(Horde::applicationUrl('faces/search/all.php'), _("_Faces"), 'user.png', Horde_Themes::img(null, 'horde'));
         }
 
         /* Print. */
         if ($conf['menu']['print'] && ($pl = Horde_Util::nonInputVar('print_link'))) {
             $menu->add($pl, _("_Print"), 'print.png',
-                       $registry->getImageDir('horde'), '_blank',
+                       Horde_Themes::img(null, 'horde'), '_blank',
                        Horde::popupJs($pl, array('urlencode' => true)) . 'return false;');
         }
 
@@ -959,7 +959,7 @@ class Ansel
 
         /* Use Horde's stylesheet code if we aren't ouputting css directly */
         if (!$custom_only) {
-            Horde::includeStylesheetFiles(array('additional' => $css));
+            Horde_Themes::includeStylesheetFiles(array('additional' => $css));
         } else {
             foreach ($css as $file) {
                 echo '<link href="' . $file['u']

@@ -134,7 +134,7 @@ if (count($list) > 0) {
         require SKOLI_TEMPLATES . '/list/classes.inc';
 
         if ($show_students) {
-            $treedir = $registry->getImageDir('horde');
+            $treedir = Horde_Themes::img(null, 'horde');
             $counter = 0;
             foreach ($class['_students'] as $student) {
                 if (++$counter < count($class['_students'])) {

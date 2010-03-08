@@ -626,7 +626,7 @@ if ($pageOb['mode'] == 'list' || $pageOb['mode'] == 'edit') {
 
 /* Generate page links. */
 if ($pageOb['mode'] == 'list') {
-    $graphicsdir = $registry->getImageDir('horde');
+    $graphicsdir = Horde_Themes::img(null, 'horde');
     if ($pageOb['page'] == 1) {
         $pageOb['pages_first'] = Horde::img('nav/first-grey.png', null, null, $graphicsdir);
         $pageOb['pages_prev'] = Horde::img('nav/left-grey.png', null, null, $graphicsdir);

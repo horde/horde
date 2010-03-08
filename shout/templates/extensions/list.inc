@@ -38,8 +38,7 @@
                 <?php
                 $attrs = array('onClick' => 'destinfo("' . $extension . '");',
                                'id' => 'destX' . $extension . 'toggle');
-                echo Horde::img('tree/plusonly.png', _("Destinations"), $attrs,
-                                $registry->getImageDir('horde'));
+                echo Horde::img('tree/plusonly.png', _("Destinations"), $attrs);
                 ?>
                 <span id="destX<?php echo $extension; ?>summary"></span>
                 <div class="extensionDestinations" id="destX<?php echo $extension; ?>info">
@@ -91,7 +90,7 @@ function resetExtenDest(exten)
     dest.devices.each(function (s) {
         // Fill in detail block
         var img = document.createElement('img');
-        img.src = "<?php echo $registry->getImageDir() . '/shout.png'; ?>";
+        img.src = "<?php echo Horde_Themes::img('shout.png') ?>";
 
         var span = document.createElement('span');
         span.className = 'device';
@@ -101,7 +100,7 @@ function resetExtenDest(exten)
 
         var del = document.createElement('img');
         del.id = "dest" + s + "X" + exten + "del";
-        del.src = "<?php echo $registry->getImageDir('horde') . '/delete-small.png'; ?>"
+        del.src = "<?php echo Horde_Themes::img('delete-small.png') ?>"
         del.style.cursor = 'pointer';
         del.setAttribute('onClick', 'delDest("' + exten + '", "device", "' + s + '")');
 
@@ -115,16 +114,15 @@ function resetExtenDest(exten)
 
         // Create summary icons
         img = document.createElement('img');
-        img.src = "<?php echo $registry->getImageDir() . '/shout.png'; ?>";
+        img.src = "<?php echo Horde_Themes::img('shout.png') ?>";
         $('destX' + exten + 'summary').appendChild(img);
-
     });
 
 
     dest.numbers.each(function (s) {
         // Fill in detail block
         var img = document.createElement('img');
-        img.src = "<?php echo $registry->getImageDir() . '/telephone-pole.png'; ?>";
+        img.src = "<?php echo Horde_Themes::img('telephone-pole.png') ?>";
 
         var span = document.createElement('span');
         span.className = 'device';
@@ -134,7 +132,7 @@ function resetExtenDest(exten)
 
         var del = document.createElement('img');
         del.id = "dest" + s + "X" + exten + "del";
-        del.src = "<?php echo $registry->getImageDir('horde') . '/delete-small.png'; ?>";
+        del.src = "<?php echo Horde_Themes::img('delete-small.png') ?>";
         del.style.cursor = 'pointer';
         del.setAttribute('onclick', 'delDest("' + exten + '", "number", "' + s + '")');
 
@@ -148,7 +146,7 @@ function resetExtenDest(exten)
 
         // Create summary icons
         img = document.createElement('img');
-        img.src = "<?php echo $registry->getImageDir() . '/telephone-pole.png'; ?>";
+        img.src = "<?php echo Horde_Themes::img('telephone-pole.png') ?>";
         $('destX' + exten + 'summary').appendChild(img);
     });
 
@@ -200,14 +198,14 @@ function expand(exten)
 {
     $('destX' + exten + 'summary').hide();
     $('destX' + exten + 'info').show();
-    $('destX' + exten + 'toggle').src = '<?php echo $registry->getImageDir('horde') . '/tree/minusonly.png'; ?>';
+    $('destX' + exten + 'toggle').src = '<?php echo Horde_Themes::img('tree/minusonly.png') ?>';
 }
 
 function contract(exten)
 {
     $('destX' + exten + 'summary').show();
     $('destX' + exten + 'info').hide();
-    $('destX' + exten + 'toggle').src = '<?php echo $registry->getImageDir('horde') . '/tree/plusonly.png'; ?>';
+    $('destX' + exten + 'toggle').src = '<?php echo Horde_Themes::img('tree/plusonly.png') ?>';
 }
 
 function processForm(event)
@@ -224,7 +222,7 @@ function processForm(event)
     var exten = form.getInputs('hidden', 'extension').first().value;
 
     var spinner = document.createElement('img');
-    spinner.src = "<?php echo $registry->getImageDir('horde') . '/loading.gif'; ?>"
+    spinner.src = "<?php echo Horde_Themes::img('loading.gif') ?>"
 
     $('destX' + exten + 'submit').hide();
     form.insertBefore(spinner, $('destX' + exten + 'submit'))
@@ -357,14 +355,14 @@ function delDest(exten, type, dest)
         'destination': dest
     });
 
-    
+
     var deleteIcon = $("dest" + dest + "X" + exten + "del")
     // If null we came from an edit so the spinner is already going
     if (deleteIcon !== null) {
         // Hide the delete button and replace it with a spinner
         deleteIcon.hide();
         var spinner = document.createElement('img');
-        spinner.src = "<?php echo $registry->getImageDir('horde') . '/loading.gif'; ?>"
+        spinner.src = "<?php echo Horde_Themes::img('loading.gif') ?>"
         var parent = deleteIcon.parentNode;
         parent.insertBefore(spinner, deleteIcon);
     }

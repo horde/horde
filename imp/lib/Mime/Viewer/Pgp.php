@@ -374,7 +374,6 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
 
         if ($GLOBALS['prefs']->getValue('pgp_verify') ||
             Horde_Util::getFormData('pgp_verify_msg')) {
-            $graphicsdir = $GLOBALS['registry']->getImageDir('horde');
             $sig_part = $this->_params['contents']->getMIMEPart($sig_id);
 
             try {
@@ -382,11 +381,11 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
                     ? $this->_imppgp->verifySignature($sig_part->getContents(array('canonical' => true)), $this->_address)
                     : $this->_imppgp->verifySignature($sig_part->replaceEOL($this->_params['contents']->getBodyPart($signed_id, array('mimeheaders' => true)), Horde_Mime_Part::RFC_EOL), $this->_address, $sig_part->getContents());
 
-                $icon = Horde::img('alerts/success.png', _("Success"), null, $graphicsdir);
+                $icon = Horde::img('alerts/success.png', _("Success"));
                 $sig_text = $sig_result->message;
                 $success = true;
             } catch (Horde_Exception $e) {
-                $icon = Horde::img('alerts/error.png', _("Error"), null, $graphicsdir);
+                $icon = Horde::img('alerts/error.png', _("Error"));
                 $sig_text = $e->getMessage();
                 $success = false;
             }

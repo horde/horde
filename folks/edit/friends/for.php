@@ -30,20 +30,20 @@ if ($list instanceof PEAR_Error) {
 // Prepare actions
 $actions = array(
     array('url' => Horde::applicationUrl('user.php'),
-          'img' => Horde::img('user.png', '', '', $registry->getImageDir('horde')),
+          'img' => Horde::img('user.png'),
           'id' => 'user',
           'name' => _("View profile")),
     array('url' => Horde::applicationUrl('edit/friends/approve.php'),
-          'img' => Horde::img('tick.png', '', '', $registry->getImageDir('horde')),
+          'img' => Horde::img('tick.png'),
           'id' => 'user',
           'name' => _("Approve")),
     array('url' => Horde::applicationUrl('edit/friends/reject.php'),
-          'img' => Horde::img('cross.png', '', '', $registry->getImageDir('horde')),
+          'img' => Horde::img('cross.png'),
           'id' => 'user',
           'name' => _("Reject")));
 if ($registry->hasInterface('letter')) {
     $actions[] = array('url' => $registry->callByPackage('letter', 'compose', ''),
-                        'img' => Horde::img('letter.png', '', '', $registry->getImageDir('letter')),
+                        'img' => Horde::img('letter.png'),
                         'id' => 'user_to',
                         'name' => _("Send message"));
 }

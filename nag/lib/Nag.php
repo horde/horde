@@ -760,11 +760,11 @@ class Nag
         }
 
         /* Search. */
-        $menu->add(Horde::applicationUrl('search.php'), _("_Search"), 'search.png', $registry->getImageDir('horde'));
+        $menu->add(Horde::applicationUrl('search.php'), _("_Search"), 'search.png', Horde_Themes::img(null, 'horde'));
 
         /* Import/Export. */
         if ($conf['menu']['import_export']) {
-            $menu->add(Horde::applicationUrl('data.php'), _("_Import/Export"), 'data.png', $registry->getImageDir('horde'));
+            $menu->add(Horde::applicationUrl('data.php'), _("_Import/Export"), 'data.png', Horde_Themes::img(null, 'horde'));
         }
 
         return $menu;

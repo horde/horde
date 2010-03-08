@@ -38,7 +38,7 @@ function editAction(digit)
 {
     if ($('selectActionForm') == null) {
         curDigit = digit;
-        $('digitGraphic').src = '<?php echo $registry->getImageDir('shout'); ?>/digit-'+digit+'.png';
+        $('digitGraphic').src = '<?php echo Horde_Themes::img() ?>/digit-'+digit+'.png';
 
         // Draw the selectActionForm
         $('editActionOverlay').show();
@@ -136,19 +136,18 @@ function refreshMenu()
     text = document.createTextNode(meta.soundfile);
     col.appendChild(text);
     img = document.createElement('img');
-    img.src = '<?php echo $registry->getImageDir('shout') . '/edit.png'; ?>';
+    img.src = '<?php echo Horde_Themes::img('edit.png') ?>';
     img.alt = '<?php echo _("Change Soundfile"); ?>';
     img.setAttribute('onclick', 'changeSoundfile()');
     col.appendChild(img);
     img = document.createElement('img');
-    img.src = '<?php echo $registry->getImageDir('shout') . '/recordings.png'; ?>';
+    img.src = '<?php echo Horde_Themes::img('recordings.png') ?>';
     img.alt = '<?php echo _("Play Soundfile"); ?>';
     img.setAttribute('onclick', 'playSoundfile()');
     img.setAttribute("style", img.getAttribute("style") + "; float:right; ");
     col.appendChild(img);
     row.appendChild(col);
     $('menuInfo').appendChild(row);
-
 }
 
 function getMetaRow(name, value)

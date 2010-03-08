@@ -2957,9 +2957,7 @@ class Horde_Form_Type_sound extends Horde_Form_Type {
 
     function init()
     {
-        foreach (glob($GLOBALS['registry']->get('themesfs', 'horde') . '/sounds/*.wav') as $sound) {
-            $this->_sounds[] = basename($sound);
-        }
+        $this->_sounds = array_keys(Horde_Themes::getSounds());
     }
 
     function getSounds()

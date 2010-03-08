@@ -34,7 +34,7 @@ echo '<div class="control"><strong>'
 
 foreach ($results as $result) {
     echo '<li class="linedRow">' .
-         Horde::img($result['app'] . '.png', '', '', $registry->getImageDir($result['app'])) .
+         Horde::img(Horde_Themes::img($result['app'] . '.png', $result['app'])) .
          Horde::link($result['view_url'], '', '', '', '', '', '', array('style' => 'margin:4px')) .
          $result['title'] .
          '</a><span style="font-style:italic;"><div style="margin-left:10px;font-style:italic">' . $result['desc'] . '</div></li>';

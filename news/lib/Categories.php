@@ -473,7 +473,7 @@ class News_Categories {
     {
         $cats = $this->getCategories(false);
 
-        $params = array('icondir' => $GLOBALS['registry']->getImageDir(),
+        $params = array('icondir' => Horde_Themes::img(),
                         'icon' => 'folder_open.png');
 
         // Set up the tree

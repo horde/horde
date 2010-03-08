@@ -88,10 +88,10 @@ class Kronolith
              (!empty($GLOBALS['language']) ? '<html lang="' . strtr($GLOBALS['language'], '_', '-') . '"' : '<html') . ">\n".
              "<head>\n" .
              '<title>' . htmlspecialchars($GLOBALS['registry']->get('name')) . "</title>\n" .
-             '<link href="' . $GLOBALS['registry']->getImageDir() . "/favicon.ico\" rel=\"SHORTCUT ICON\" />\n".
+             '<link href="' . Horde_Themes::img('favicon.ico', array('nohorde' => true)) . "\" rel=\"SHORTCUT ICON\" />\n".
              Horde::wrapInlineScript(self::includeJSVars());
 
-        Horde::includeStylesheetFiles();
+        Horde_Themes::includeStylesheetFiles();
 
         echo "</head>\n";
 
@@ -121,7 +121,7 @@ class Kronolith
                 $language = 'en-US';
             }
             $params['conf'] = array(
-                'URI_IMG_HORDE' => $GLOBALS['registry']->getImageDir('horde') . '/',
+                'URI_IMG_HORDE' => Horde_Themes::img(null, 'horde') . '/',
                 'useMarkerLayer' => true,
                 'language' => $language);
 
@@ -185,7 +185,7 @@ class Kronolith
         /* Variables used in core javascript files. */
         $code['conf'] = array(
             'URI_AJAX' => (string)Horde::getServiceLink('ajax', 'kronolith'),
-            'URI_IMG' => $registry->getImageDir() . '/',
+            'URI_IMG' => Horde_Themes::img() . '/',
             'URI_SNOOZE' => (string)Horde::url($registry->get('webroot', 'horde') . '/services/snooze.php', true, -1),
             'URI_CALENDAR_EXPORT' => (string)Horde::url('data.php', true)->add(array('actionID' => 'export', 'all_events' => 1, 'exportID' => Horde_Data::EXPORT_ICALENDAR, 'exportCal' => '')),
             'URI_EVENT_EXPORT' => str_replace(array('%23', '%7B', '%7D'), array('#', '{', '}'), Horde::url('event.php', true)->add(array('view' => 'ExportEvent', 'eventID' => '#{id}', 'calendar' => '#{calendar}', 'type' => '#{type}'))),
@@ -2441,11 +2441,11 @@ class Kronolith
             Horde::addScriptFile('goto.js', 'kronolith', array('direct' => false));
             $menu->add('#', _("_Goto"), 'goto.png', null, '', 'openKGoto(kronolithDate, event); return false;');
         }
-        $menu->add(Horde::applicationUrl('search.php'), _("_Search"), 'search.png', $registry->getImageDir('horde'));
+        $menu->add(Horde::applicationUrl('search.php'), _("_Search"), 'search.png', Horde_Themes::img(null, 'horde'));
 
         /* Import/Export. */
         if ($conf['menu']['import_export']) {
-            $menu->add(Horde::applicationUrl('data.php'), _("_Import/Export"), 'data.png', $registry->getImageDir('horde'));
+            $menu->add(Horde::applicationUrl('data.php'), _("_Import/Export"), 'data.png', Horde_Themes::img(null, 'horde'));
         }
 
         return $menu;

@@ -214,8 +214,7 @@ class Nag_Api extends Horde_Registry_Api
                     $results['nag/' . $owner]['name'] = $owner;
                 }
                 if (in_array('icon', $properties)) {
-                    $results['nag/' . $owner]['icon'] =
-                        $registry->getImageDir('horde') . '/user.png';
+                    $results['nag/' . $owner]['icon'] = Horde_Themes::img('user.png');
                 }
                 if (in_array('browseable', $properties)) {
                     $results['nag/' . $owner]['browseable'] = true;
@@ -259,8 +258,8 @@ class Nag_Api extends Horde_Registry_Api
                     $results[$retpath . '.ics']['name'] = $tasklist->get('name');
                 }
                 if (in_array('icon', $properties)) {
-                    $results[$retpath]['icon'] = $registry->getImageDir() . '/nag.png';
-                    $results[$retpath . '.ics']['icon'] = $registry->getImageDir() . '/mime/icalendar.png';
+                    $results[$retpath]['icon'] = Horde_Themes::img('nag.png');
+                    $results[$retpath . '.ics']['icon'] = Horde_Themes::img('mime/icalendar.png');
                 }
                 if (in_array('browseable', $properties)) {
                     $results[$retpath]['browseable'] = $tasklist->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ);
@@ -318,7 +317,7 @@ class Nag_Api extends Horde_Registry_Api
                 return $result;
             }
 
-            $icon = $registry->getImageDir() . '/nag.png';
+            $icon = Horde_Themes::img('nag.png');
             $results = array();
             $storage->tasks->reset();
             while ($task = $storage->tasks->each()) {

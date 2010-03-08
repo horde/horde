@@ -235,7 +235,7 @@ class Horde_Tree
             $_SESSION['horde_tree'][$this->_instance] = array();
         }
 
-        $this->_img_dir = $GLOBALS['registry']->getImageDir('horde') . '/tree';
+        $this->_img_dir = Horde_Themes::img(null, array('app' => 'horde', 'notheme' => true)) . '/tree';
 
         if (!empty($GLOBALS['nls']['rtl'][$GLOBALS['language']])) {
             $rev_imgs = array(

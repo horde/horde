@@ -1845,7 +1845,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         if ($elt['user_icon']) {
             $ob->cl = 'customimg';
             $dir = empty($elt['icondir'])
-                ? $GLOBALS['registry']->getImageDir()
+                ? Horde_Themes::img()
                 : $elt['icondir'];
             $ob->i = empty($dir)
                 ? $elt['icon']

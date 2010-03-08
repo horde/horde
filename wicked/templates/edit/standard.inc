@@ -25,7 +25,7 @@ function preview()
  <input type="submit" value="<?php echo _("Save") ?>" class="button" />
  <input type="button" value="<?php echo _("Preview") ?>" class="button" onclick="preview()" />
  <a class="button" href="<?php echo $page->pageUrl()->add('actionID', 'unlock') ?>"><?php echo _("Cancel") ?></a>
- <?php if (!empty($GLOBALS['conf']['wicked']['require_change_log'])) echo Horde::img('required.png', _("Changelog is required"), '', $GLOBALS['registry']->getImageDir('horde')) ?>
+ <?php if (!empty($GLOBALS['conf']['wicked']['require_change_log'])) echo Horde::img('required.png', _("Changelog is required")) ?>
  <strong><?php echo _("Change log") . ': ' ?></strong><input type="text" name="changelog" size="50" />
  <input type="checkbox" name="minor" id="minor" checked="checked" /><label for="minor"> <?php echo _("Minor Change") ?></label>
 </div>

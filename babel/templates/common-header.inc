@@ -19,7 +19,7 @@ Horde::includeScriptFiles();
 
 ?>
 <title><?php echo $page_title ?></title>
-<?php Horde::includeStylesheetFiles() ?>
+<?php Horde_Themes::includeStylesheetFiles() ?>
 </head>
 
 <body>

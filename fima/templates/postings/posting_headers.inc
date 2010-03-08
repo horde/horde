@@ -55,7 +55,7 @@ if ($pageOb['mode'] == 'edit') {
 <?php if ($pageOb['mode'] == 'list'): ?>
 <?php if (!$headers_inc_count): ?>
   <th id="checkheader" width="35" onclick="document.messages.checkAll.checked = !document.messages.checkAll.checked; makeSelection(-1);">
-<?php if (!$print_view): ?>  
+<?php if (!$print_view): ?>
    <label for="checkAll" class="hidden">_("Check _All/None")</label>
    <input type="checkbox" class="checkbox" id="checkAll" name="checkAll" onclick="makeSelection(-1);" <?php echo Horde::getAccessKeyAndTitle(_("Check _All/None")) ?> />
 <?php endif; ?>
@@ -69,7 +69,7 @@ if ($pageOb['mode'] == 'edit') {
 <?php if ($pageOb['mode'] == 'list'): ?>
   <th class="<?php echo ($sortby == $key) ? 'selected' : 'item' ?>" width="<?php echo $val['width'] ?>" onclick="document.location.href='<?php echo addslashes(Horde_Util::addParameter(($sortby == $key) ? $sorturl : $pageOb['url'], array('sortby' => $key, 'actionID' => 'change_sort'))) ?>';">
   <?php if ($sortby == $key): ?>
-    <?php echo Horde::link(Horde_Util::addParameter($sorturl, array('sortby' => $key, 'actionID' => 'change_sort')), $val['stext'], null, null, null, $val['stext']) . Horde::img($sortImg, $sortText, '', $registry->getImageDir('horde')) ?></a>
+    <?php echo Horde::link(Horde_Util::addParameter($sorturl, array('sortby' => $key, 'actionID' => 'change_sort')), $val['stext'], null, null, null, $val['stext']) . Horde::img($sortImg, $sortText) ?></a>
   <?php endif; ?>
   <?php echo Horde::widget(Horde_Util::addParameter(($sortby == $key) ? $sorturl : $pageOb['url'], array('sortby' => $key, 'actionID' => 'change_sort')), $val['stext'], 'widget', null, null, $val['text']) ?>
 <?php else: ?>

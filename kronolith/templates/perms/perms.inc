@@ -6,9 +6,9 @@
 <tr valign="middle">
   <td width="100%" colspan="7" class="header">
     <span class="rightFloat">
-      <a href="#" onclick="javascript:window.close();" style="cursor:pointer"><?php echo Horde::img('close.png', _("Close Window"), '', $registry->getImageDir('horde')) ?></a>
+      <a href="#" onclick="javascript:window.close();" style="cursor:pointer"><?php echo Horde::img('close.png', _("Close Window")) ?></a>
     </span>
-    <?php echo Horde::img('perms.png', '', '', $registry->getImageDir('horde')) . '&nbsp;' . sprintf(_("Edit permissions for %s"), htmlspecialchars($share->get('name'))) . '&nbsp;' . Horde_Help::link('kronolith', 'shares') ?>
+    <?php echo Horde::img('perms.png') . '&nbsp;' . sprintf(_("Edit permissions for %s"), htmlspecialchars($share->get('name'))) . '&nbsp;' . Horde_Help::link('kronolith', 'shares') ?>
   </td>
 </tr>
 <tr><td colspan="7">&nbsp;</td></tr>
@@ -19,7 +19,7 @@
 <!-- Ownership -->
 <tr valign="middle">
   <td class="header leftAlign" colspan="7">
-    <?php echo Horde::img('perms.png', '', '', $registry->getImageDir('horde')) . '&nbsp;' . _("Owner") ?>
+    <?php echo Horde::img('perms.png') . '&nbsp;' . _("Owner") ?>
   </td>
 </tr>
 <tr>
@@ -47,7 +47,7 @@
 <!-- Default Permissions -->
 <tr valign="middle">
   <td class="header leftAlign" width="55%">
-    <?php echo Horde::img('perms.png', '', '', $registry->getImageDir('horde')) . '&nbsp;' . _("All Authenticated Users") ?>
+    <?php echo Horde::img('perms.png') . '&nbsp;' . _("All Authenticated Users") ?>
   </td>
   <td class="header" align="center"><?php echo _("Show") ?></td>
   <td class="header" align="center"><?php echo _("Read") ?></td>
@@ -130,7 +130,7 @@
 <!-- Creator Permissions -->
 <tr valign="middle">
   <td class="header leftAlign">
-    <?php echo Horde::img('user.png', '', '', $registry->getImageDir('horde')) . '&nbsp;' . _("Object Creator") ?>
+    <?php echo Horde::img('user.png') . '&nbsp;' . _("Object Creator") ?>
   </td>
   <td class="header" align="center"><?php echo _("Show") ?></td>
   <td class="header" align="center"><?php echo _("Read") ?></td>
@@ -171,7 +171,7 @@
 <!-- User Permissions -->
 <tr valign="middle">
   <td class="header leftAlign">
-    <?php echo Horde::img('user.png', '', '', $registry->getImageDir('horde')) . '&nbsp;' . _("Individual Users") ?>
+    <?php echo Horde::img('user.png') . '&nbsp;' . _("Individual Users") ?>
   </td>
   <td class="header" align="center"><?php echo _("Show") ?></td>
   <td class="header" align="center"><?php echo _("Read") ?></td>
@@ -288,7 +288,7 @@ foreach ($userList as $user) {
 <!-- Group Permissions -->
 <tr valign="middle">
   <td class="header leftAlign">
-    <?php echo Horde::img('group.png', '', '', $registry->getImageDir('horde')) . '&nbsp;' . _("Groups") ?>
+    <?php echo Horde::img('group.png') . '&nbsp;' . _("Groups") ?>
   </td>
   <td class="header" align="center"><?php echo _("Show") ?></td>
   <td class="header" align="center"><?php echo _("Read") ?></td>

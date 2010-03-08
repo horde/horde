@@ -497,11 +497,11 @@ class Skoli {
         }
 
         /* Search. */
-        $menu->add(Horde::applicationUrl('search.php'), _("_Search"), 'search.png', $registry->getImageDir('horde'));
+        $menu->add(Horde::applicationUrl('search.php'), _("_Search"), 'search.png', Horde_Themes::img(null, 'horde'));
 
         /* Import/Export. */
         if ($conf['menu']['export']) {
-            $menu->add(Horde::applicationUrl('data.php'), _("_Export"), 'data.png', $registry->getImageDir('horde'));
+            $menu->add(Horde::applicationUrl('data.php'), _("_Export"), 'data.png', Horde_Themes::img(null, 'horde'));
         }
 
         // @TODO Implement an easy form to create timetables in e.g. Kronolith

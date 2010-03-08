@@ -6,7 +6,7 @@
 $text = sprintf(_("Delete Version %s"), $page->version());
 $url = Horde_Util::addParameter(Wicked::url('DeletePage'), array('referrer' => $page->pageName(),
                                                            'version' => $page->version()));
-echo Horde::link($url, $text) . Horde::img('delete.png', $text, '', $GLOBALS['registry']->getImageDir('horde')) . '</a>';
+echo Horde::link($url, $text) . Horde::img('delete.png', $text) . '</a>';
 ?>
  </td>
 <?php endif; if ($this->allows(WICKED_MODE_EDIT)): ?>
@@ -15,7 +15,7 @@ echo Horde::link($url, $text) . Horde::img('delete.png', $text, '', $GLOBALS['re
 if ($show_edit) {
     $text = sprintf(_("Edit Version %s"), $page->version());
     $url = Horde_Util::addParameter(Wicked::url('EditPage'), array('referrer' => $page->pageName()));
-    echo Horde::link($url, $text) . Horde::img('edit.png', $text, '', $GLOBALS['registry']->getImageDir('horde')) . '</a>';
+    echo Horde::link($url, $text) . Horde::img('edit.png', $text) . '</a>';
 }
 ?>
  </td>

@@ -46,7 +46,7 @@ if ($version_data instanceof PEAR_Error) {
 
 $version_data = unserialize($version_data);
 
-Horde::includeStylesheetFiles();
+Horde_Themes::includeStylesheetFiles();
 
 while (list($k, $v) = each($current_data)) {
     echo '<hr><strong>' . $nls['languages'][$k] . '</strong><hr>' . "\n";

@@ -1,7 +1,4 @@
-<?php
-    $cache = IMP_Application::$prefsCache['sourceselect'];
-    $imagedir = $registry->getImageDir('horde');
-?>
+<?php $cache = IMP_Application::$prefsCache['sourceselect']; ?>
 <?php if (!empty($cache['readSelect']) || !empty($cache['prefSelect'])): ?>
 <div>
  <input type="hidden" name="search_sources" id="search_sources" value="<?php echo implode("\t", $cache['search']['sources']) ?>" />
@@ -19,9 +16,9 @@
     </select>
    </td>
    <td>
-    <a href="#" id="addsource"><?php echo Horde::img(isset($GLOBALS['nls']['rtl'][$GLOBALS['language']]) ? 'lhand.png' : 'rhand.png', _("Add source"), null, $imagedir) ?></a>
+    <a href="#" id="addsource"><?php echo Horde::img(isset($GLOBALS['nls']['rtl'][$GLOBALS['language']]) ? 'lhand.png' : 'rhand.png', _("Add source")) ?></a>
     <br />
-    <a href="#" id="removesource"><?php echo Horde::img(isset($GLOBALS['nls']['rtl'][$GLOBALS['language']]) ? 'rhand.png' : 'lhand.png', _("Remove source"), null, $imagedir) ?></a>
+    <a href="#" id="removesource"><?php echo Horde::img(isset($GLOBALS['nls']['rtl'][$GLOBALS['language']]) ? 'rhand.png' : 'lhand.png', _("Remove source")) ?></a>
    </td>
    <td>
     <label for="selected_search_sources" class="hidden"><?php echo _("Selected Address books:") ?></label>
@@ -33,9 +30,9 @@
     </select>
    </td>
    <td>
-    <a href="#" id="moveup"><?php echo Horde::img('nav/up.png', _("Move up"), null, $imagedir) ?></a>
+    <a href="#" id="moveup"><?php echo Horde::img('nav/up.png', _("Move up")) ?></a>
     <br />
-    <a href="#" id="movedown"><?php echo Horde::img('nav/down.png', _("Move down"), null, $imagedir) ?></a>
+    <a href="#" id="movedown"><?php echo Horde::img('nav/down.png', _("Move down")) ?></a>
    </td>
   </tr>
  </table>

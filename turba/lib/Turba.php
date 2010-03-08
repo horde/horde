@@ -604,11 +604,11 @@ class Turba {
         if (count($GLOBALS['addSources'])) {
             $menu->add(Horde::applicationUrl('add.php'), _("_New Contact"), 'menu/new.png');
         }
-        $menu->add(Horde::applicationUrl('search.php'), _("_Search"), 'search.png', $GLOBALS['registry']->getImageDir('horde'), null, null, (($GLOBALS['prefs']->getValue('initial_page') == 'search.php' && basename($_SERVER['PHP_SELF']) == 'index.php' && strpos($_SERVER['PHP_SELF'], 'addressbooks/index.php') === false) || (basename($_SERVER['PHP_SELF']) == 'browse.php' && Horde_Util::getFormData('key') == '**search')) ? 'current' : null);
+        $menu->add(Horde::applicationUrl('search.php'), _("_Search"), 'search.png', Horde_Themes::img(null, 'horde'), null, null, (($GLOBALS['prefs']->getValue('initial_page') == 'search.php' && basename($_SERVER['PHP_SELF']) == 'index.php' && strpos($_SERVER['PHP_SELF'], 'addressbooks/index.php') === false) || (basename($_SERVER['PHP_SELF']) == 'browse.php' && Horde_Util::getFormData('key') == '**search')) ? 'current' : null);
 
         /* Import/Export */
         if ($GLOBALS['conf']['menu']['import_export']) {
-            $menu->add(Horde::applicationUrl('data.php'), _("_Import/Export"), 'data.png', $GLOBALS['registry']->getImageDir('horde'));
+            $menu->add(Horde::applicationUrl('data.php'), _("_Import/Export"), 'data.png', Horde_Themes::img(null, 'horde'));
         }
 
         return $menu;

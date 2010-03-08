@@ -14,8 +14,8 @@ class Horde_Block_nag_tree_menu extends Horde_Block {
     {
         global $registry;
 
-        $add = Horde::applicationUrl('task.php?actionID=add_task');
-        $icondir = $registry->getImageDir();
+        $add = Horde::applicationUrl('task.php')->add('actionID', 'add_task');
+        $icondir = Horde_Themes::img();
 
         $tree->addNode($parent . '__new',
                        $parent,
@@ -48,7 +48,7 @@ class Horde_Block_nag_tree_menu extends Horde_Block {
                        $indent + 1,
                        false,
                        array('icon' => 'search.png',
-                             'icondir' => $registry->getImageDir('horde'),
+                             'icondir' => Horde_Themes::img(null, 'horde'),
                              'url' => Horde::applicationUrl('search.php')));
     }
 

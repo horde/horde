@@ -39,7 +39,7 @@ echo '<tr><td><a href="' . Horde::applicationUrl('edit/friends/blacklist.php') .
 <br />
 <br />
 
-<h1 class="header"><?php echo Horde::img('feed.png', '', '', $registry->getImageDir('horde')) . ' ' . _("Feeds") ?></h1>
+<h1 class="header"><?php echo Horde::img('feed.png') . ' ' . _("Feeds") ?></h1>
 <table class="striped">
 <tr><td><a href="<?php echo Folks::getUrlFor('feed', 'online') ?>"><?php echo _("Online users") ?></a></td></tr>
 <tr><td><a href="<?php echo Folks::getUrlFor('feed', 'friends') ?>"><?php echo _("Online friends") ?></a></td></tr>

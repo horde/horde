@@ -21,21 +21,21 @@ $view_url  = Horde::applicationUrl('view.php');
 $view_img  = Horde::img('view.gif', _("View"), 'align="middle"');
 
 $download_url = Horde_Util::addParameter($view_url, 'action', 'download');
-$download_img  = Horde::img('download.gif', _("Download"), 'align="middle"', $GLOBALS['registry']->getImageDir('horde'));
+$download_img  = Horde::img('download.gif', _("Download"));
 
 $edit_url = Horde::applicationUrl('edit.php');
 $edit_label = ($folder == 'pending') ? _("Edit") : _("Resend");
-$edit_img = Horde::img('edit.gif', $edit_label, 'align="middle"', $GLOBALS['registry']->getImageDir('horde'));
+$edit_img = Horde::img('edit.gif', $edit_label);
 
 $del_url  = Horde::applicationUrl('delete.php');
-$del_img  = Horde::img('delete-small.gif', _("Delete"), 'align="middle"', $GLOBALS['registry']->getImageDir('horde'));
+$del_img  = Horde::img('delete-small.gif', _("Delete"));
 
 $params = array('folder' => $folder, 'path' => $path);
-$warn_img = Horde::img('alerts/warning.gif', _("Warning"), 'align="middle"', $GLOBALS['registry']->getImageDir('horde'));
+$warn_img = Horde::img('alerts/warning.gif', _("Warning"));
 $send_url  = Horde::applicationUrl('send.php');
 
 $print_url  = Horde::applicationUrl('print.php');
-$print_img  = Horde::img('print.gif', _("Print"), 'align="middle"', $GLOBALS['registry']->getImageDir('horde'));
+$print_img  = Horde::img('print.gif', _("Print"));
 
 /* Loop through list and set up items. */
 $i = 0;

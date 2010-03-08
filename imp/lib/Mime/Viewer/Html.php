@@ -253,7 +253,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             $data = preg_replace_callback($this->_img_regex, array($this, '_blockImages'), $data);
 
             $status[] = array(
-                'icon' => Horde::img('mime/image.png', null, null, $GLOBALS['registry']->getImageDir('horde')),
+                'icon' => Horde::img('mime/image.png'),
                 'text' => array(
                     _("Images have been blocked to protect your privacy."),
                     Horde::link('#', '', 'unblockImageLink') . _("Show Images?") . '</a>'
@@ -290,7 +290,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
     protected function _blockImages($matches)
     {
         if (is_null($this->_blockimg)) {
-            $this->_blockimg = Horde::url($GLOBALS['registry']->getImageDir('imp', false) . '/spacer_red.png', true, -1);
+            $this->_blockimg = Horde::url(Horde_Themes::img('spacer_red.png'), true, -1);
         }
 
         return empty($matches[2])

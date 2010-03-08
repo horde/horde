@@ -1132,11 +1132,11 @@ abstract class Kronolith_Event
             if (!empty($methods['notify']['sound'])) {
                 if ($methods['notify']['sound'] == 'on') {
                     // Handle boolean sound preferences.
-                    $methods['notify']['sound'] = $GLOBALS['registry']->get('themesuri') . '/sounds/theetone.wav';
+                    $methods['notify']['sound'] = Horde_Themes::sound('theetone.wav');
                 } else {
                     // Else we know we have a sound name that can be
                     // served from Horde.
-                    $methods['notify']['sound'] = $GLOBALS['registry']->get('themesuri', 'horde') . '/sounds/' . $methods['notify']['sound'];
+                    $methods['notify']['sound'] = Horde_Themes::sound($methods['notify']['sound']);
                 }
             }
             if ($this->isAllDay()) {
@@ -1405,7 +1405,7 @@ abstract class Kronolith_Event
                         'del_exception' => $date,
                         'url' => Horde_Util::getFormData('url')))
             ->link(array('title' => sprintf(_("Delete exception on %s"), $formatted)))
-            . Horde::img('delete-small.png', _("Delete"), '', $GLOBALS['registry']->getImageDir('horde'))
+            . Horde::img('delete-small.png', _("Delete"))
             . '</a>';
     }
 

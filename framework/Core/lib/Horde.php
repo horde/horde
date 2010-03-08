@@ -1425,35 +1425,27 @@ HTML;
     /**
      * Constructs a correctly-pathed link to an image.
      *
-     * @param string $src   The image file.
+     * @param mixed $src    The image file (either a string or a
+     *                      Horde_Themes_Image object).
      * @param string $alt   Text describing the image.
      * @param mixed  $attr  Any additional attributes for the image tag. Can be
      *                      a pre-built string or an array of key/value pairs
      *                      that will be assembled and html-encoded.
-     * @param string $dir   The root graphics directory.
      *
      * @return string  The full image tag.
      */
-    static public function img($src, $alt = '', $attr = '', $dir = null)
+    static public function img($src, $alt = '', $attr = '')
     {
         $charset = Horde_Nls::getCharset();
 
         /* If browser does not support images, simply return the ALT text. */
         if (!$GLOBALS['browser']->hasFeature('images')) {
-            $old_error = error_reporting(0);
-            $res = htmlspecialchars($alt, ENT_COMPAT, $charset);
-            error_reporting($old_error);
-            return $res;
+            return @htmlspecialchars($alt, ENT_COMPAT, $charset);
         }
 
         /* If no directory has been specified, get it from the registry. */
-        if (is_null($dir)) {
-            $dir = $GLOBALS['registry']->getImageDir();
-        }
-
-        /* If a directory has been provided, prepend it to the image source. */
-        if (!empty($dir)) {
-            $src = $dir . '/' . $src;
+        if (!($src instanceof Horde_Themes_Image) && ($src[0] != '/')) {
+            $src = Horde_Themes::img($src);
         }
 
         /* Build all of the tag attributes. */
@@ -1494,14 +1486,13 @@ HTML;
 
         /* If browser does not support images, simply return the ALT text. */
         if (!$GLOBALS['browser']->hasFeature('images')) {
-            $old_error = error_reporting(0);
-            $res = htmlspecialchars($alt, ENT_COMPAT, $charset);
-            error_reporting($old_error);
-            return $res;
+            return @htmlspecialchars($alt, ENT_COMPAT, $charset);
         }
 
         /* If no directory has been specified, get it from the registry. */
-        $dir = empty($options['dir']) ? $GLOBALS['registry']->getImageDir() : $options['dir'];
+        $dir = empty($options['dir'])
+            ? Horde_Themes::img()
+            : $options['dir'];
 
         /* If we can send as data, no need to get the full path */
         $src = self::base64ImgData($dir . '/' . $src);
@@ -1533,19 +1524,20 @@ HTML;
     /**
      * Generate RFC 2397-compliant image data strings.
      *
-     * @param string $file    Filename containing image data.
+     * @param mixed $in       URI or Horde_Themes_Image object containing
+     *                        image data.
      * @param integer $limit  Sets a hard size limit for image data; if
      *                        exceeded, will not string encode.
      *
      * @return string  The string to use in the image 'src' attribute; either
-     *                 the image data if the browser supports, or the filepath
+     *                 the image data if the browser supports, or the URI
      *                 if not.
      */
-    public function base64ImgData($file, $limit = null)
+    public function base64ImgData($in, $limit = null)
     {
         $dataurl = $GLOBALS['browser']->hasFeature('dataurl');
         if (!$dataurl) {
-            return $file;
+            return $in;
         }
 
         if (!is_null($limit) &&
@@ -1554,18 +1546,20 @@ HTML;
         }
 
         /* Only encode image files if they are below the dataurl limit. */
-        $filename = realpath($GLOBALS['registry']->get('fileroot', 'horde')) . preg_replace('/^' . preg_quote($GLOBALS['registry']->get('webroot', 'horde'), '/') . '/', '', $file);
-        if (!file_exists($filename)) {
-            return $file;
+        if (!($in instanceof Horde_Themes_Image)) {
+            $in = Horde_Themes_Image::fromUri($in);
+            if (!file_exists($in->fs)) {
+                return $in->uri;
+            }
         }
 
         /* Delete approx. 50 chars from the limit to account for the various
          * data/base64 header text.  Multiply by 0.75 to determine the
          * base64 encoded size. */
         return (($dataurl === true) ||
-                (filesize($filename) <= (($dataurl * 0.75) - 50)))
-            ? 'data:image/' . substr($file, strrpos($file, '.') + 1) . ';base64,' . base64_encode(file_get_contents($filename))
-            : $file;
+                (filesize($in->fs) <= (($dataurl * 0.75) - 50)))
+            ? 'data:image/' . substr($in->uri, strrpos($in->uri, '.') + 1) . ';base64,' . base64_encode(file_get_contents($in->fs))
+            : $in->uri;
     }
 
     /**
@@ -1677,228 +1671,6 @@ HTML;
         default:
             return PHP_SAPI;
         }
-    }
-
-    /**
-     * Outputs the necessary style tags, honoring configuration choices as
-     * to stylesheet caching.
-     *
-     * @param array $options  Additional options:
-     * <pre>
-     * 'additional' - (array) TODO
-     * 'sub' - (string) A subdirectory containing additional CSS files to
-     *         load as an overlay to the base CSS files.
-     * </pre>
-     */
-    static public function includeStylesheetFiles($options = array())
-    {
-        global $conf, $prefs, $registry;
-
-        $themesfs = $registry->get('themesfs');
-        $themesuri = $registry->get('themesuri');
-
-        $css = self::getStylesheets($prefs->getValue('theme'), $options);
-        $css_out = array();
-
-        if (!empty($options['additional'])) {
-            $css = array_merge($css, $options['additional']);
-        }
-
-        $cache_type = empty($conf['cachecss'])
-            ? 'none'
-            : $conf['cachecssparams']['driver'];
-
-        if ($cache_type == 'none') {
-            $css_out = $css;
-        } else {
-            $mtime = array(0);
-            $out = '';
-
-            foreach ($css as $file) {
-                $mtime[] = filemtime($file['f']);
-            }
-
-            $sig = hash('md5', serialize($css) . max($mtime));
-
-            switch ($cache_type) {
-            case 'filesystem':
-                $css_filename = '/static/' . $sig . '.css';
-                $css_path = $registry->get('fileroot', 'horde') . $css_filename;
-                $css_url = $registry->get('webroot', 'horde') . $css_filename;
-                $exists = file_exists($css_path);
-                break;
-
-            case 'horde_cache':
-                $cache = $GLOBALS['injector']->getInstance('Horde_Cache');
-
-                // Do lifetime checking here, not on cache display page.
-                $exists = $cache->exists($sig, empty($GLOBALS['conf']['cachecssparams']['lifetime']) ? 0 : $GLOBALS['conf']['cachecssparams']['lifetime']);
-                $css_url = self::getCacheUrl('css', array('cid' => $sig));
-                break;
-            }
-
-            if (!$exists) {
-                $flags = defined('FILE_IGNORE_NEW_LINES')
-                    ? (FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES)
-                    : 0;
-
-                foreach ($css as $file) {
-                    $path = substr($file['u'], 0, strrpos($file['u'], '/') + 1);
-
-                    // Fix relative URLs, convert graphics URLs to data URLs
-                    // (if possible), remove multiple whitespaces, and strip
-                    // comments.
-                    $tmp = preg_replace(array('/(url\(["\']?)([^\/])/i', '/\s+/', '/\/\*.*?\*\//'), array('$1' . $path . '$2', ' ', ''), implode('', file($file['f'], $flags)));
-                    if ($GLOBALS['browser']->hasFeature('dataurl')) {
-                        $tmp = preg_replace_callback('/(background(?:-image)?:[^;}]*(?:url\(["\']?))(.*?)((?:["\']?\)))/i', array('Horde', 'stylesheetCallback'), $tmp);
-                    }
-                    $out .= $tmp;
-                }
-
-                /* Use CSS tidy to clean up file. */
-                if ($conf['cachecssparams']['compress'] == 'php') {
-                    try {
-                        $out = Horde_Text_Filter::filter($out, 'csstidy');
-                    } catch (Horde_Exception $e) {}
-                }
-
-                switch ($cache_type) {
-                case 'filesystem':
-                    if (!file_put_contents($css_path, $out)) {
-                        throw new Horde_Exception('Could not write cached CSS file to disk.');
-                    }
-                    break;
-
-                case 'horde_cache':
-                    $cache->set($sig, $out);
-                    break;
-                }
-            }
-
-            $css_out = array(array('u' => $css_url));
-        }
-
-        foreach ($css_out as $file) {
-            echo '<link href="' . $file['u'] . "\" rel=\"stylesheet\" type=\"text/css\" />\n";
-        }
-    }
-
-    /**
-     * Callback for includeStylesheetFiles() to convert images to base64
-     * data strings.
-     *
-     * @param array $matches  The list of matches from preg_replace_callback.
-     *
-     * @return string  The image string.
-     */
-    public function stylesheetCallback($matches)
-    {
-        /* Limit data to 16 KB in stylesheets. */
-        return $matches[1] . self::base64ImgData($matches[2], 16384) . $matches[3];
-    }
-
-    /**
-     * Return the list of base stylesheets to display.
-     * Callback for includeStylesheetFiles() to convert images to base64
-     * data strings.
-     *
-     * @param mixed $theme    The theme to use; specify an empty value to
-     *                        retrieve the theme from user preferences, and
-     *                        false for no theme.
-     * @param array $options  Additional options:
-     * <pre>
-     * 'app' - (string) The current application.
-     * 'sub' - (string) A subdirectory containing additional CSS files to
-     *         load as an overlay to the base CSS files.
-     * </pre>
-     *
-     * @return array  TODO
-     */
-    public function getStylesheets($theme = '', $options = array())
-    {
-        if (($theme === '') && isset($GLOBALS['prefs'])) {
-            $theme = $GLOBALS['prefs']->getValue('theme');
-        }
-
-        $css = array();
-
-        $css_list = array('screen');
-        if (isset($GLOBALS['nls']['rtl'][$GLOBALS['language']])) {
-            $css_list[] = 'rtl';
-        }
-
-        /* Collect browser specific stylesheets if needed. */
-        switch ($GLOBALS['browser']->getBrowser()) {
-        case 'msie':
-            $ie_major = $GLOBALS['browser']->getMajor();
-            if ($ie_major == 8) {
-                $css_list[] = 'ie8';
-            } elseif ($ie_major == 7) {
-                $css_list[] = 'ie7';
-            } elseif ($ie_major < 7) {
-                $css_list[] = 'ie6_or_less';
-                if ($GLOBALS['browser']->getPlatform() == 'mac') {
-                    $css_list[] = 'ie5mac';
-                }
-            }
-            break;
-
-
-        case 'opera':
-            $css_list[] = 'opera';
-            break;
-
-        case 'mozilla':
-            $css_list[] = 'mozilla';
-            break;
-
-        case 'webkit':
-            $css_list[] = 'webkit';
-        }
-
-        $curr_app = empty($options['app'])
-            ? $GLOBALS['registry']->getApp()
-            : $options['app'];
-        $apps = array_unique(array('horde', $curr_app));
-        $sub = empty($options['sub']) ? null : $options['sub'];
-
-        foreach ($apps as $app) {
-            $themes_fs = $GLOBALS['registry']->get('themesfs', $app) . '/';
-            $themes_uri = self::url($GLOBALS['registry']->get('themesuri', $app), false, -1) . '/';
-
-            foreach ($css_list as $css_name) {
-                $css[$themes_fs . $css_name . '.css'] = $themes_uri . $css_name . '.css';
-                if ($sub && ($app == $curr_app)) {
-                    $css[$themes_fs . $sub . '/' . $css_name . '.css'] = $themes_uri . $sub . '/' . $css_name . '.css';
-                }
-
-                if (!empty($theme)) {
-                    $css[$themes_fs . $theme . '/' . $css_name . '.css'] = $themes_uri . $theme . '/' . $css_name . '.css';
-                    if ($sub && ($app == $curr_app)) {
-                        $css[$themes_fs . $theme . '/' . $sub . '/' . $css_name . '.css'] = $themes_uri . $theme . '/' . $sub . '/' . $css_name . '.css';
-                    }
-                }
-            }
-        }
-
-        /* Add user-defined additional stylesheets. */
-        try {
-            $css = array_merge($css, self::callHook('cssfiles', array($theme), 'horde'));
-        } catch (Horde_Exception_HookNotSet $e) {}
-        if ($curr_app != 'horde') {
-            try {
-                $css = array_merge($css, self::callHook('cssfiles', array($theme), $curr_app));
-            } catch (Horde_Exception_HookNotSet $e) {}
-        }
-
-        $css_out = array();
-        foreach ($css as $f => $u) {
-            if (file_exists($f)) {
-                $css_out[] = array('f' => $f, 'u' => $u);
-            }
-        }
-
-        return $css_out;
     }
 
     /**

@@ -19,11 +19,11 @@ $image_url = Horde::applicationUrl(Horde_Util::addParameter($base_url, array('ac
 <?php
 if ($gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
     echo Horde::link(Horde::applicationUrl($save_url), _("Save Change"))
-             . Horde::img('save.png', '', '', $registry->getImageDir('horde')) . ' ' . _("Save Change") . '</a> ';
+             . Horde::img('save.png') . ' ' . _("Save Change") . '</a> ';
 }
 if ($gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
     echo Horde::link(Horde::applicationUrl($edit_url), _("Cancel Change"))
-             . Horde::img('delete.png', '', '', $registry->getImageDir('horde')) . ' ' . _("Cancel Change") . '</a>';
+             . Horde::img('delete.png') . ' ' . _("Cancel Change") . '</a>';
 }
 ?>
 </div>

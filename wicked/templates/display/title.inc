@@ -30,6 +30,6 @@ if ($this->referrer()) {
 
 echo htmlspecialchars($this->pageName()) . $referrerLink . ($this->isOld() ? ' (' . htmlspecialchars($v) . ')' : '') . ' ' .
  Horde::link($this->pageUrl(), _("Reload Page")) .
- Horde::img('reload.png', _("Reload Page"), '', $GLOBALS['registry']->getImageDir('horde')) ?></a>
+ Horde::img('reload.png', _("Reload Page")) ?></a>
  <?php if ($this->isLocked()) echo Horde::img('locked.png', _("Locked")) ?>
 </div>

@@ -569,7 +569,7 @@ class Horde_Nls
 
         $img = $data['code'] . '.png';
         return file_exists($GLOBALS['registry']->get('themesfs', 'horde') . '/graphics/flags/' . $img)
-            ? Horde::img($img, $data['name'], array('title' => $data['name']), $GLOBALS['registry']->getImageDir('horde') . '/flags')
+            ? Horde::img('flags/' . $img, $data['name'], array('title' => $data['name']))
             : '[' . $data['name'] . ']';
     }
 

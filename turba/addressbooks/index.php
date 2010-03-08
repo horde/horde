@@ -36,10 +36,10 @@ foreach ($addressbooks as $addressbook) {
 }
 asort($sorted_addressbooks);
 
-$browse_img = Horde::img('turba.png', _("Browse"), null, $registry->getImageDir('turba'));
-$edit_img = Horde::img('edit.png', _("Edit"), null, $registry->getImageDir('horde'));
-$perms_img = Horde::img('perms.png', _("Change Permissions"), null, $registry->getImageDir('horde'));
-$delete_img = Horde::img('delete.png', _("Delete"), null, $registry->getImageDir('horde'));
+$browse_img = Horde::img('turba.png', _("Browse"));
+$edit_img = Horde::img('edit.png', _("Edit"));
+$perms_img = Horde::img('perms.png', _("Change Permissions"));
+$delete_img = Horde::img('delete.png', _("Delete"));
 
 Horde::addScriptFile('tables.js', 'horde');
 $title = _("Manage Address Books");

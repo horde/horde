@@ -444,7 +444,7 @@ class IMP_Contents
                         'name' => '',
                         'status' => array(
                             array(
-                                'icon' => Horde::img('alerts/warning.png', _("Warning"), null, $GLOBALS['registry']->getImageDir('horde')),
+                                'icon' => Horde::img('alerts/warning.png', _("Warning")),
                                 'text' => $status
                             )
                         ),

@@ -63,13 +63,6 @@ class Horde_Registry
     protected $_apis = array();
 
     /**
-     * Cached values of the image directories.
-     *
-     * @param array
-     */
-    protected $_imgDir = array();
-
-    /**
      * Hash storing information on each registry-aware application.
      *
      * @var array
@@ -1258,7 +1251,7 @@ class Horde_Registry
             $pval = $this->applications[$app][$parameter];
         } else {
             $pval = ($parameter == 'icon')
-                ? $this->getImageDir($app) . '/' . $app . '.png'
+                ? Horde_Themes::img($app . '.png', $app)
                 : (isset($this->applications['horde'][$parameter]) ? $this->applications['horde'][$parameter] : null);
         }
 
@@ -1361,55 +1354,6 @@ class Horde_Registry
         }
 
         return $classes;
-    }
-
-    /**
-     * Function to work out an application's graphics URI, optionally taking
-     * into account any themes directories that may be set up.
-     *
-     * @param string $app        The application for which to get the image
-     *                           directory. If blank will default to current
-     *                           application.
-     * @param boolean $usetheme  Take into account any theme directory?
-     *
-     * @return string  The image directory uri path.
-     */
-    public function getImageDir($app = null, $usetheme = true)
-    {
-        if (empty($app)) {
-            $app = $this->getApp();
-        }
-
-        if ($this->get('status', $app) == 'heading') {
-            $app = 'horde';
-        }
-
-        $sig = strval($app . '|' . $usetheme);
-
-        if (isset($this->_imgDir[$sig])) {
-            return $this->_imgDir[$sig];
-        }
-
-        /* This is the default location for the graphics. */
-        $this->_imgDir[$sig] = $this->get('themesuri', $app) . '/graphics';
-
-        /* Figure out if this is going to be overridden by any theme
-         * settings. */
-        if ($usetheme &&
-            isset($GLOBALS['prefs']) &&
-            ($theme = $GLOBALS['prefs']->getValue('theme'))) {
-            /* Since theme information is so limited, store directly in the
-             * session. */
-            if (!isset($_SESSION['_registry']['theme'][$theme][$app])) {
-                $_SESSION['_registry']['theme'][$theme][$app] = file_exists($this->get('themesfs', $app) . '/' . $theme . '/themed_graphics');
-            }
-
-            if ($_SESSION['_registry']['theme'][$theme][$app]) {
-                $this->_imgDir[$sig] = $this->get('themesuri', $app) . '/' . $theme . '/graphics';
-            }
-        }
-
-        return $this->_imgDir[$sig];
     }
 
     /**

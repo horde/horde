@@ -155,7 +155,7 @@ class Horde_Form_Renderer_Comment extends Horde_Form_Renderer {
 
             $comment_count++;
             if ($private) {
-                $comment_label = Horde::img('locked.png', '', null, $registry->getImageDir('horde'))
+                $comment_label = Horde::img('locked.png')
                     . sprintf(_("Comment #%d (Private)"), $comment_count);
             } else {
                 $comment_label = sprintf(_("Comment #%d"), $comment_count);

@@ -63,7 +63,7 @@ if (($app = basename(Horde_Util::getFormData('app'))) && isset($apps[$app])) {
     $images = glob($dir . DIRECTORY_SEPARATOR . '*.png');
     if ($images && count($images)) {
         foreach ($images as $png) {
-            echo Horde::img(str_replace($basedir . DIRECTORY_SEPARATOR, '', $png), $png, array('hspace' => 10, 'vspace' => 10), $registry->getImageDir($app));
+            echo Horde::img(Horde_Themes::img(str_replace($basedir . DIRECTORY_SEPARATOR, '', $png) $app), $png, array('hspace' => 10, 'vspace' => 10));
         }
     } else {
         echo _("No icons found.");

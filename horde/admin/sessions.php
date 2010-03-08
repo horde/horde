@@ -31,8 +31,8 @@ try {
     echo ' (' . count($session_info) . ')</h1>' .
          '<ul class="headerbox linedRow">';
 
-    $plus = Horde::img('tree/plusonly.png', _("Expand"), '', $GLOBALS['registry']->getImageDir('horde'));
-    $minus = Horde::img('tree/minusonly.png', _("Collapse"), 'style="display:none"', $GLOBALS['registry']->getImageDir('horde'));
+    $plus = Horde::img('tree/plusonly.png', _("Expand"));
+    $minus = Horde::img('tree/minusonly.png', _("Collapse"), 'style="display:none"');
 
     if (class_exists('Net_DNS')) {
         $resolver = new Net_DNS_Resolver();

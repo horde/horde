@@ -149,7 +149,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                             $handled = true;
                             $url = Horde::url($registry->link('calendar/show', array('uid' => $guid)));
                             $msgs[] = array('success', _("The event was updated in your calendar.") .
-                                            '&nbsp;' . Horde::link($url, _("View event"), null, '_blank') . Horde::img('mime/icalendar.png', _("View event"), null, $registry->getImageDir('horde')) . '</a>');
+                                            '&nbsp;' . Horde::link($url, _("View event"), null, '_blank') . Horde::img('mime/icalendar.png', _("View event")) . '</a>');
                         } catch (Horde_Exception $e) {
                             // Could be a missing permission.
                             $msgs[] = array('warning', _("There was an error updating the event:") . ' ' . $e->getMessage() . '. ' . _("Trying to import the event instead."));
@@ -163,7 +163,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                             $guid = $registry->call('calendar/import', array('content' => $components[$key], 'contentType' => $this->_mimepart->getType()));
                             $url = Horde::url($registry->link('calendar/show', array('uid' => $guid)));
                             $msgs[] = array('success', _("The event was added to your calendar.") .
-                                            '&nbsp;' . Horde::link($url, _("View event"), null, '_blank') . Horde::img('mime/icalendar.png', _("View event"), null, $registry->getImageDir('horde')) . '</a>');
+                                            '&nbsp;' . Horde::link($url, _("View event"), null, '_blank') . Horde::img('mime/icalendar.png', _("View event")) . '</a>');
                         } catch (Horde_Exception $e) {
                             $msgs[] = array('error', _("There was an error importing the event:") . ' ' . $e->getMessage());
                         }
@@ -194,7 +194,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                             $guid = $registry->call('tasks/import', array($components[$key], $this->_mimepart->getType()));
                             $url = Horde::url($registry->link('tasks/show', array('uid' => $guid)));
                             $msgs[] = array('success', _("The task has been added to your tasklist.") .
-                                                         '&nbsp;' . Horde::link($url, _("View task"), null, '_blank') . Horde::img('mime/icalendar.png', _("View task"), null, $registry->getImageDir('horde')) . '</a>');
+                                                         '&nbsp;' . Horde::link($url, _("View task"), null, '_blank') . Horde::img('mime/icalendar.png', _("View task")) . '</a>');
                         } catch (Horde_Exception $e) {
                             $msgs[] = array('error', _("There was an error importing the task:") . ' ' . $e->getMessage());
                         }
@@ -551,7 +551,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
         $html .= '<h1 class="header">' . sprintf($desc, $sender) . '</h1>';
 
         foreach ($msgs as $msg) {
-            $html .= '<p class="notice">' . Horde::img('alerts/' . $msg[0] . '.png', '', null, $registry->getImageDir('horde')) . $msg[1] . '</p>';
+            $html .= '<p class="notice">' . Horde::img('alerts/' . $msg[0] . '.png') . $msg[1] . '</p>';
         }
 
         $start = $vfb->getAttribute('DTSTART');
@@ -721,7 +721,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
         $html .= '<h2 class="header">' . $desc . '</h2>';
 
         foreach ($msgs as $msg) {
-            $html .= '<p class="notice">' . Horde::img('alerts/' . $msg[0] . '.png', '', null, $registry->getImageDir('horde')) . $msg[1] . '</p>';
+            $html .= '<p class="notice">' . Horde::img('alerts/' . $msg[0] . '.png') . $msg[1] . '</p>';
         }
 
         $start = $vevent->getAttribute('DTSTART');
@@ -907,7 +907,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
         $html .= '<h2 class="header">' . $desc . '</h2>';
 
         foreach ($msgs as $msg) {
-            $html .= '<p class="notice">' . Horde::img('alerts/' . $msg[0] . '.png', '', null, $registry->getImageDir('horde')) . $msg[1] . '</p>';
+            $html .= '<p class="notice">' . Horde::img('alerts/' . $msg[0] . '.png') . $msg[1] . '</p>';
         }
 
         $priority = $vtodo->getAttribute('PRIORITY');

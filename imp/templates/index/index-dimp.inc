@@ -137,14 +137,14 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 <?php endforeach; ?>
 <?php if ($show_quota): ?>
         <li id="quota">
-         <span class="used"><?php echo Horde::img('quotauncover.gif', '', '', $registry->get('webroot', 'imp') . '/themes/graphics') ?></span>
+         <span class="used"><?php echo Horde::img('quotauncover.gif') ?></span>
         </li>
 <?php endif; ?>
        </ul>
       </div>
 <?php elseif ($show_quota): ?>
       <div id="quota">
-        <span class="used"><?php echo Horde::img('quotauncover.gif', '', '', $registry->get('webroot', 'imp') . '/themes/graphics') ?></span>
+        <span class="used"><?php echo Horde::img('quotauncover.gif') ?></span>
       </div>
 <?php endif; ?>
      </div>

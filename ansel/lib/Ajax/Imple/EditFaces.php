@@ -54,7 +54,7 @@ class Ansel_Ajax_Imple_EditFaces extends Horde_Ajax_Imple_Base
                     $result = $faces->getFromPicture($image_id, $autocreate);
                 }
                 if (!empty($result)) {
-                    $imgdir = $GLOBALS['registry']->getImageDir('horde');
+                    $imgdir = Horde_Themes::img(null, 'horde');
                     $customurl = Horde::applicationUrl('faces/custom.php');
                     $url = (!empty($args['url']) ? urldecode($args['url']) : '');
                     ob_start();

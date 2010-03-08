@@ -33,8 +33,7 @@ class Horde_Ui_VarRenderer_whups extends Horde_Ui_VarRenderer_Html {
                        @htmlspecialchars($var->getValue($vars)),
                        $this->_getActionScripts($form, $var))
             . '<span id="' . $name . '_loading_img" style="display:none;">'
-            . Horde::img('loading.gif', _("Loading..."), '',
-                         $GLOBALS['registry']->getImageDir('horde'))
+            . Horde::img('loading.gif', _("Loading..."))
             . '</span>';
     }
 
