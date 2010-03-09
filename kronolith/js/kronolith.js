@@ -2150,7 +2150,7 @@ KronolithCore = {
         calendar = calendar.split('|');
         var type = calendar[0];
         calendar = calendar.length == 1 ? null : calendar[1];
-
+        this.doAction('listTopTags', {update: 'kronolithCalendarinternalTopTags'}, this.topTagsCallback);
         var form = $('kronolithCalendarForm' + type),
             firstTab = form.down('.tabset a.kronolithTabLink'),
             info;
@@ -3791,7 +3791,7 @@ KronolithCore = {
         $('kronolithEventSave').show();
         $('kronolithEventDelete').show();
         $('kronolithEventForm').down('.kronolithFormActions .kronolithSeparator').show();
-        this.doAction('listTopTags', {}, this.topTags);
+        this.doAction('listTopTags', {update: 'kronolithEventTopTags'}, this.topTagsCallback);
         if (id) {
             RedBox.loading();
             this.doAction('getEvent', { cal: calendar, id: id, date: date }, this.editEventCallback.bind(this));
@@ -3880,17 +3880,17 @@ KronolithCore = {
                       }.bind(this));
     },
 
-    topTags: function(r)
+    topTagsCallback: function(r)
     {
         if (!r.response.tags) {
-            $('kronolithEventTopTags').update();
+            $(r.response.update).update();
             return;
         }
         t = new Element('div');
         r.response.tags.each(function(tag) {
             t.insert(new Element('span', { className: 'kronolithEventTag' }).update(tag.escapeHTML()));
         });
-        $('kronolithEventTopTags').update(t);
+        $(r.response.update).update(t);
         return;
     },
 

@@ -411,7 +411,9 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     }
 
     /**
-     * TODO
+     * Generate a list of most frequently used tags for the current user.
+     * Takes a 'update' parameter that gets passed back to indicate what element
+     * to update.
      */
     public function listTopTags()
     {
@@ -419,6 +421,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
         $tagger = new Kronolith_Tagger();
         $result = new stdClass;
         $result->tags = array();
+        $result->update = $this->_vars->update;
         $tags = $tagger->getCloud(Horde_Auth::getAuth(), 10);
         foreach ($tags as $tag) {
             $result->tags[] = $tag['tag_name'];
