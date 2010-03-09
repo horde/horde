@@ -2464,6 +2464,11 @@ class Kronolith
         }
     }
 
+    /**
+     * Obtain a Kronolith_Tagger instance
+     *
+     * @return Kronolith_Tagger
+     */
     public static function getTagger()
     {
         if (empty(self::$_tagger)) {
