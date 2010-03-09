@@ -21,6 +21,20 @@ if (!Horde_Auth::getAuth() || $prefs->isLocked('remote_cals')) {
 }
 
 $vars = Horde_Variables::getDefaultVariables();
+$remote_calendar = null;
+
+$remote_calendars = unserialize($GLOBALS['prefs']->getValue('remote_cals'));
+foreach ($remote_calendars as $key => $calendar) {
+    if ($calendar['url'] == $vars->get('url')) {
+        $remote_calendar = $calendar;
+        break;
+    }
+}
+if (is_null($remote_calendar)) {
+    $notification->push(_("The remote calendar was not found."), 'horde.error');
+    header('Location: ' . Horde::applicationUrl('calendars/', true));
+    exit;
+}
 $form = new Kronolith_UnsubscribeRemoteCalendarForm($vars, $remote_calendar);
 
 // Execute if the form is valid (must pass with POST variables only).
