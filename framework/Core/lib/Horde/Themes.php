@@ -179,9 +179,6 @@ class Horde_Themes
                 $css_list[] = 'ie7';
             } elseif ($ie_major < 7) {
                 $css_list[] = 'ie6_or_less';
-                if ($GLOBALS['browser']->getPlatform() == 'mac') {
-                    $css_list[] = 'ie5mac';
-                }
             }
             break;
 
