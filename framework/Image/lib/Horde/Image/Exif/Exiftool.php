@@ -36,27 +36,31 @@ class Horde_Image_Exif_Exiftool extends Horde_Image_Exif_Base
     public function getData($image)
     {
         // Request the full stream of meta data in JSON format.
-        // -j option outputs in JSON, -n = prevent screen formatting
-        // -x DataDump prevents the binary DataDump field from some cameras from
-        // being included. It messes up the JSON decoding, and it's not used
-        // anywhere anyway.
-        $command = '-j -n -x MakerNotes:DataDump ' . $image;
+        // -j option outputs in JSON, appending '#' to the -TAG prevents
+        // screen formatting.
+        $categories = Horde_Image_Exif::getCategories();
+        $tags = '';
+        foreach (array('EXIF', 'IPTC', 'XMP') as $category) {
+            foreach ($categories[$category] as $field => $value) {
+                $tags .= ' -' . $field . '#';
+            }
+        }
+        foreach ($categories['COMPOSITE'] as $field => $value) {
+            $tags .= ' -' . $field;
+        }
+        $command = '-j' . $tags . ' ' . $image;
         $results = json_decode($this->_execute($command));
         if (is_array($results)) {
-            $results = array_pop($results);
-        }
-        // Return as an array since that's what all the other Exif classes do...
-        if ($results instanceof stdClass) {
-            return $this->_processData((array)$results);
+            $exif_results = $this->_processData((array)array_pop($results));
+            return $exif_results;
         }
 
         throw new Horde_Image_Exception('Unknown error running exiftool command');
-
     }
 
     public function supportedCategories()
     {
-        return array('EXIF', 'IPTC', 'XMP');
+        return array('EXIF', 'IPTC', 'XMP', 'COMPOSITE');
     }
 
     /**

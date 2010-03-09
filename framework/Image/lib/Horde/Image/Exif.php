@@ -119,7 +119,16 @@ class Horde_Image_Exif
                 'Artist' => array('description' => _("Artist"), 'type' => 'text'),
                 'LightSource' => array('description' => _("Light source"), 'type' => 'number'),
                 'ImageStabalization' => array('description' => _("Image Stabilization"), 'type' => 'text'),
+                'SceneCaptureType' => array('description' => _("Scene Type"), 'type' => 'number'),
+
             ),
+
+            'COMPOSITE' => array(
+                'LensID' => array('description' => _("Lens"), 'type' => 'text'),
+                'Aperture' => array('description' => _("Aperture"), 'type' => 'text'),
+                'DOF' => array('description' => _("Depth of Field"), 'type' => 'text'),
+                'FOV' => array('description' => _("Field of View"), 'type' => 'text')
+            )
         );
     }
 
@@ -138,7 +147,7 @@ class Horde_Image_Exif
         if ($driver instanceof Horde_Image_Exif_Base) {
             $supported = $driver->supportedCategories();
         } else {
-            $supported = array('XMP', 'IPTC', 'EXIF');
+            $supported = array('XMP', 'IPTC', 'EXIF'    );
         }
         $categories = self::getCategories();
         $flattened = array();
@@ -464,6 +473,15 @@ class Horde_Image_Exif
             switch ($data) {
             case 1: return _("sRGB");
             default: return _("Uncalibrated");
+            }
+
+        case 'SceneCaptureType':
+            switch ($data) {
+            case 0: return _("Standard");
+            case 1: return _("Landscape");
+            case 2: return _("Portrait");
+            case 3: return _("Night Scene");
+            default: return _("Unknown");
             }
 
         case 'DateTime':

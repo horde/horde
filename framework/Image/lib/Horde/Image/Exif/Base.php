@@ -47,8 +47,7 @@ abstract class Horde_Image_Exif_Base
     {
         $results = array();
         if ($exif) {
-            $fields = Horde_Image_Exif::getFields();
-
+            $fields = Horde_Image_Exif::getFields($this);
             foreach ($fields as $field => $data) {
                 $value = isset($exif[$field]) ? $exif[$field] : '';
                 // Don't store empty fields.
