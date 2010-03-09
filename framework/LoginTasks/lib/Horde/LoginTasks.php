@@ -219,6 +219,10 @@ class Horde_LoginTasks
             return;
         }
 
+        if (empty($this->_tasklist->target)) {
+            $this->_tasklist->target = $url;
+        }
+
         /* Perform ready tasks now. */
         foreach ($this->_tasklist->ready(!$this->_tasklist->processed || $confirmed) as $key => $val) {
             if (in_array($val->display, array(self::DISPLAY_AGREE, self::DISPLAY_NOTICE, self::DISPLAY_NONE)) ||
@@ -227,8 +231,6 @@ class Horde_LoginTasks
             }
         }
 
-        $need_display = $this->_tasklist->needDisplay();
-        $tasklist_target = $this->_tasklist->target;
         $processed = $this->_tasklist->processed;
         $this->_tasklist->processed = true;
 
@@ -237,18 +239,17 @@ class Horde_LoginTasks
         if ($this->_tasklist->isDone()) {
             $this->_backend->markLastRun();
 
+            $url = $this->_tasklist->target;
+
             /* This will prevent us from having to store the entire tasklist
              * object in the session, while still indicating we have
              * completed the login tasks for this application. */
             $this->_tasklist = true;
 
-            return $this->_backend->redirect($tasklist_target);
+            return $this->_backend->redirect($url);
         }
 
-        if ((!$processed || $confirmed) && $need_display) {
-            if (empty($this->_tasklist->target)) {
-                $this->_tasklist->target = $url;
-            }
+        if ((!$processed || $confirmed) && $this->_tasklist->needDisplay()) {
             return $this->_backend->redirect($this->getLoginTasksUrl());
         }
     }
