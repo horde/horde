@@ -2354,7 +2354,7 @@ KronolithCore = {
                 } else if (Object.isUndefined(basic) &&
                            same == perm.value &&
                            (perm.value == Kronolith.conf.perms.read ||
-                            perm.value == Kronolith.conf.perms.read | Kronolith.conf.perms.show)) {
+                            perm.value == (Kronolith.conf.perms.read | Kronolith.conf.perms.show))) {
                     basic = perm.value == Kronolith.conf.perms.read ? 'all_read' : 'all_show';
                 } else if (perm.value != 0) {
                     advanced = true;
@@ -2373,9 +2373,9 @@ KronolithCore = {
                 }, this);
                 if (Object.isUndefined(basic) &&
                     $H(perm.value).size() == 1 &&
-                    (groupPerms == Kronolith.conf.perms.show | Kronolith.conf.perms.read ||
-                     groupPerms == Kronolith.conf.perms.show | Kronolith.conf.perms.read | Kronolith.conf.perms.edit)) {
-                    basic = groupPerms == Kronolith.conf.perms.show | Kronolith.conf.perms.read ? 'group_read' : 'group_edit';
+                    (groupPerms == (Kronolith.conf.perms.show | Kronolith.conf.perms.read) ||
+                     groupPerms == (Kronolith.conf.perms.show | Kronolith.conf.perms.read | Kronolith.conf.perms.edit))) {
+                    basic = groupPerms == (Kronolith.conf.perms.show | Kronolith.conf.perms.read) ? 'group_read' : 'group_edit';
                 } else {
                     advanced = true;
                 }
