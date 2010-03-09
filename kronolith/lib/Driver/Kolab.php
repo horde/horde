@@ -367,6 +367,9 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
             $tagger->tag($event->uid, $event->tags, $event->creator, 'event');
         }
 
+        $cal = $GLOBALS['kronolith_shares']->getShare($event->calendar);
+        $tagger->tag($event->uid, $event->tags, $cal->get('owner'), 'event');
+
         /* Notify about the changed event. */
         Kronolith::sendNotification($event, $edit ? 'edit' : 'add');
 
