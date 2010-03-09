@@ -148,7 +148,7 @@ function refreshMenu()
     col.appendChild(img);
     row.appendChild(col);
     $('menuInfo').appendChild(row);
-    
+
     // Fill in the actions
     $H(menuInfo.get('actions')).each(function (pair) {
         var text;
