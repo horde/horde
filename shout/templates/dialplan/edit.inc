@@ -38,7 +38,7 @@ var curDigit = null;
 function editAction(digit)
 {
     if ($('selectActionForm') == null) {
-        curDigit = digit;
+        var curDigit = digit;
         $('digitGraphic').src = '<?php echo Horde_Themes::img() ?>/digit-'+digit+'.png';
 
         // Draw the selectActionForm
@@ -63,6 +63,15 @@ function editAction(digit)
         });
         form.appendChild(select);
         $('selectAction').appendChild(form);
+
+        // Cancel button
+        var span = document.createElement('span');
+        span.id = 'cancelAction';
+        span.setAttribute('onclick', 'cancelEdit()');
+        var text = document.createTextNode('<?php echo _("Cancel"); ?>');
+        span.appendChild(text);
+        $('selectAction').appendChild(span);
+        
     } else {
         var action = null;
         // Draw the options for this action
@@ -94,8 +103,26 @@ function saveAction(digit)
             empty('selectAction');
             empty('editAction');
             $('editActionOverlay').hide();
+            new Ajax.Request(ajax_url + 'getMenuInfo',
+            {
+                method: 'post',
+                parameters: $H({
+                    'menu': menu
+                }),
+                onSuccess: function(r) {
+                    menuInfo = $H(r.responseJSON.response);
+                    refreshMenu();
+                }
+            });
         }
     });
+}
+
+function cancelEdit()
+{
+    empty($('selectAction'));
+    empty($('editAction'));
+    $('editActionOverlay').hide();
 }
 
 function changeSoundfile()

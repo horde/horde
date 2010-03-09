@@ -139,6 +139,14 @@ ul {
     background-image: url('graphics/transparency.png');
 }
 
+#cancelAction {
+    position: absolute;
+    bottom: 5px;
+    right: 50px;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 #digitGraphic {
     float: left;
     margin: 0px 5px 5px 5px;
@@ -157,4 +165,9 @@ ul {
 {
     text-align: right;
     font-style: italic;
+}
+
+.buttonDetail
+{
+    text-align: center;
 }
