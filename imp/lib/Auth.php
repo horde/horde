@@ -85,7 +85,6 @@ class IMP_Auth
      * @param Horde_Auth_Application $auth_ob  The authentication object.
      *
      * @return boolean  Whether transparent login is supported.
-     * @throws Horde_Auth_Exception
      */
     static public function transparent($auth_ob)
     {
@@ -96,8 +95,12 @@ class IMP_Auth
             if (!isset($credentials['server'])) {
                 $credentials['server'] = self::getAutoLoginServer();
             }
-            self::_createSession($auth_ob->getCredential());
-            return true;
+            try {
+                self::_createSession($auth_ob->getCredential());
+                return true;
+            } catch (Horde_Auth_Exception $e) {
+                return false;
+            }
         }
 
         /* Attempt hordeauth authentication. */
@@ -106,8 +109,12 @@ class IMP_Auth
             return false;
         }
 
-        self::_createSession($credentials);
-        return true;
+        try {
+            self::_createSession($credentials);
+            return true;
+        } catch (Horde_Auth_Exception $e) {
+            return false;
+        }
     }
 
     /**

@@ -249,7 +249,6 @@ class Horde_Auth_Application extends Horde_Auth_Base
      * single parameter: the current class instance.
      *
      * @return boolean  Whether transparent login is supported.
-     * @throws Horde_Auth_Exception
      */
     protected function _transparent()
     {
