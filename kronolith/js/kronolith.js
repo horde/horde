@@ -2238,7 +2238,7 @@ KronolithCore = {
         }
 
         if (newCalendar || info.owner) {
-            this.doAction('listTopTags', {tagclass: 'kronolithCalendarTag'}, this.topTagsCallback);
+            this.doAction('listTopTags', null, this.topTagsCallback.curry('kronolithCalendarinternalTopTags', 'kronolithCalendarTag'));
             form.down('.kronolithColorPicker').show();
             if (type == 'internal') {
                 form.down('.kronolithCalendarSubscribe').hide();
@@ -2259,7 +2259,7 @@ KronolithCore = {
             }
         } else {
             form.disable();
-            this.doAction('listTopTags', {tagclass: 'kronolithTagDisable'}, this.topTagsCallback);
+            this.doAction('listTopTags', null, this.topTagsCallback.curry('kronolithCalendarTag', 'kronolithTagDisable'));
             form.down('.kronolithColorPicker').hide();
             form.down('.kronolithCalendarDelete').hide();
             form.down('.kronolithCalendarSave').hide();
@@ -3814,7 +3814,7 @@ KronolithCore = {
         $('kronolithEventSave').show();
         $('kronolithEventDelete').show();
         $('kronolithEventForm').down('.kronolithFormActions .kronolithSeparator').show();
-        this.doAction('listTopTags', {tagclass: 'kronolithEventTag'}, this.topTagsCallback);
+        this.doAction('listTopTags', null, this.topTagsCallback.curry('kronolithEventTopTags', 'kronolithEventTag'));
         if (id) {
             RedBox.loading();
             this.doAction('getEvent', { cal: calendar, id: id, date: date }, this.editEventCallback.bind(this));
@@ -3903,19 +3903,18 @@ KronolithCore = {
                       }.bind(this));
     },
 
-    topTagsCallback: function(r)
+    topTagsCallback: function(update, tagclass, r)
     {
-        var update = (r.response.tagclass == 'kronolithEventTag') ? 'kronolithEventTopTags' : 'kronolithCalendarinternalTopTags';
         if (!r.response.tags) {
             $(update).update();
             return;
         }
-        t = new Element('div');
+
+        var t = new Element('div');
         r.response.tags.each(function(tag) {
-            t.insert(new Element('span', { className: r.response.tagclass }).update(tag.escapeHTML()));
+            t.insert(new Element('span', { className: tagclass }).update(tag.escapeHTML()));
         });
         $(update).update(t);
-        return;
     },
 
     /**

@@ -439,10 +439,11 @@ tbd
 
 </div>
 <?php
-$ctac = Horde_Ajax_Imple::factory(array('kronolith', 'TagAutoCompleter'),
-                                  array('triggerId' => 'kronolithCalendarinternalTags',
-                                        'triggerContainer' => 'kronolithACCalendarTriggerContainer',
-                                        'box' => 'kronolithCalendarinternalACBox',
-                                        'pretty' => true,
-                                        'no_onload' => true));
-$ctac->attach();
+Horde_Ajax_Imple::factory(
+    array('kronolith', 'TagAutoCompleter'),
+    array('triggerId' => 'kronolithCalendarinternalTags',
+          'triggerContainer' => 'kronolithACCalendarTriggerContainer',
+          'box' => 'kronolithCalendarinternalACBox',
+          'pretty' => true,
+          'no_onload' => true))
+    ->attach();
