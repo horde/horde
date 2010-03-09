@@ -86,6 +86,16 @@ abstract class Horde_LoginTasks_Task
     }
 
     /**
+     * Does the task require to be displayed?
+     *
+     * @return boolean True in case the task should be displayed.
+     */
+    public function needsDisplay()
+    {
+        return $this->display != Horde_LoginTasks::DISPLAY_NONE;
+    }
+
+    /**
      * Indicates if the display of the current task should be joined with the
      * given previous task.
      *

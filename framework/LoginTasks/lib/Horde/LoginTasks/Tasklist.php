@@ -54,22 +54,13 @@ class Horde_LoginTasks_Tasklist
      */
     public function addTask($task)
     {
-        $tmp = array(
-            'display' => false,
-            'task' => $task
-        );
-
-        if ($task->display != Horde_LoginTasks::DISPLAY_NONE) {
-            $tmp['display'] = true;
-        }
-
         switch ($task->priority) {
         case Horde_LoginTasks::PRIORITY_HIGH:
-            array_unshift($this->_tasks, $tmp);
+            array_unshift($this->_tasks, $task);
             break;
 
         case Horde_LoginTasks::PRIORITY_NORMAL:
-            $this->_tasks[] = $tmp;
+            $this->_tasks[] = $task;
             break;
         }
     }
@@ -87,10 +78,10 @@ class Horde_LoginTasks_Tasklist
 
         reset($this->_tasks);
         while (list($k, $v) = each($this->_tasks)) {
-            if ($v['display'] && ($k >= $this->_ptr)) {
+            if ($v->needsDisplay() && ($k >= $this->_ptr)) {
                 break;
             }
-            $tmp[] = $v['task'];
+            $tmp[] = $v;
         }
 
         if ($advance) {
@@ -115,12 +106,12 @@ class Horde_LoginTasks_Tasklist
 
         reset($this->_tasks);
         while (list($k, $v) = each($this->_tasks)) {
-            if (!$v['display'] ||
-                (!is_null($previous) && !$v['task']->joinDisplayWith($previous))) {
+            if (!$v->needsDisplay() ||
+                (!is_null($previous) && !$v->joinDisplayWith($previous))) {
                 break;
             }
-            $tmp[] = $v['task'];
-            $previous = $v['task'];
+            $tmp[] = $v;
+            $previous = $v;
         }
 
         if ($advance) {
