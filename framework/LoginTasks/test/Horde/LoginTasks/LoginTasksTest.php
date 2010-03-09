@@ -524,6 +524,94 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
             ),
             Horde_LoginTasks_Stub_Task::$executed
         );
+        $tasklist = $tasks->displayTasks();
+        $classes = array();
+        foreach ($tasklist as $task) {
+            $classes[] = get_class($task);
+        }
+        asort($classes);
+        $this->assertEquals(
+            array(
+                'Horde_LoginTasks_Stub_ConfirmTwo',
+            ),
+            $classes
+        );
+        $_POST['logintasks_confirm_0'] = true;
+        $this->assertContains(
+            'http:///services/logintasks.php?app=test',
+            (string) $tasks->runTasks(true)
+        );
+        $this->assertEquals(
+            array(
+                'Horde_LoginTasks_Stub_ConfirmNo',
+                'Horde_LoginTasks_Stub_Confirm',
+                'Horde_LoginTasks_Stub_Task',
+                'Horde_LoginTasks_Stub_Notice',
+                'Horde_LoginTasks_Stub_ConfirmTwo',
+                'Horde_LoginTasks_Stub_TaskTwo',
+            ),
+            Horde_LoginTasks_Stub_Task::$executed
+        );
+        $_POST = array();
+        $tasklist = $tasks->displayTasks();
+        $classes = array();
+        foreach ($tasklist as $task) {
+            $classes[] = get_class($task);
+        }
+        asort($classes);
+        $this->assertEquals(
+            array(
+                'Horde_LoginTasks_Stub_ConfirmThree',
+            ),
+            $classes
+        );
+        $_POST['logintasks_confirm_0'] = true;
+        $this->assertContains(
+            'http:///services/logintasks.php?app=test',
+            (string) $tasks->runTasks(true)
+        );
+        $this->assertEquals(
+            array(
+                'Horde_LoginTasks_Stub_ConfirmNo',
+                'Horde_LoginTasks_Stub_Confirm',
+                'Horde_LoginTasks_Stub_Task',
+                'Horde_LoginTasks_Stub_Notice',
+                'Horde_LoginTasks_Stub_ConfirmTwo',
+                'Horde_LoginTasks_Stub_TaskTwo',
+                'Horde_LoginTasks_Stub_ConfirmThree',
+            ),
+            Horde_LoginTasks_Stub_Task::$executed
+        );
+        $_POST = array();
+        $tasklist = $tasks->displayTasks();
+        $classes = array();
+        foreach ($tasklist as $task) {
+            $classes[] = get_class($task);
+        }
+        asort($classes);
+        $this->assertEquals(
+            array(
+                'Horde_LoginTasks_Stub_NoticeTwo',
+            ),
+            $classes
+        );
+        $this->assertContains(
+            'redirect',
+            (string) $tasks->runTasks(true)
+        );
+        $this->assertEquals(
+            array(
+                'Horde_LoginTasks_Stub_ConfirmNo',
+                'Horde_LoginTasks_Stub_Confirm',
+                'Horde_LoginTasks_Stub_Task',
+                'Horde_LoginTasks_Stub_Notice',
+                'Horde_LoginTasks_Stub_ConfirmTwo',
+                'Horde_LoginTasks_Stub_TaskTwo',
+                'Horde_LoginTasks_Stub_ConfirmThree',
+                'Horde_LoginTasks_Stub_NoticeTwo',
+            ),
+            Horde_LoginTasks_Stub_Task::$executed
+        );
     }
 
     private function _getLoginTasks(

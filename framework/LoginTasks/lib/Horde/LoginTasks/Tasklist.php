@@ -41,13 +41,6 @@ class Horde_LoginTasks_Tasklist
     protected $_tasks = array();
 
     /**
-     * Internal flag for addTask().
-     *
-     * @var boolean
-     */
-    protected $_addFlag = false;
-
-    /**
      * Current task location pointer.
      *
      * @var integer
@@ -66,14 +59,8 @@ class Horde_LoginTasks_Tasklist
             'task' => $task
         );
 
-        if (($task->display == Horde_LoginTasks::DISPLAY_AGREE) ||
-            ($task->display == Horde_LoginTasks::DISPLAY_NOTICE)) {
+        if ($task->display != Horde_LoginTasks::DISPLAY_NONE) {
             $tmp['display'] = true;
-            $this->_addFlag = true;
-        } elseif (($task->display != Horde_LoginTasks::DISPLAY_NONE) &&
-                  !$this->_addFlag) {
-            $tmp['display'] = true;
-            $this->_addFlag = false;
         }
 
         switch ($task->priority) {
