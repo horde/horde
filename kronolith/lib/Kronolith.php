@@ -121,7 +121,7 @@ class Kronolith
                 $language = 'en-US';
             }
             $params['conf'] = array(
-                'URI_IMG_HORDE' => Horde_Themes::img(null, 'horde') . '/',
+                'URI_IMG_HORDE' => (string)Horde_Themes::img(null, 'horde') . '/',
                 'useMarkerLayer' => true,
                 'language' => $language);
 
@@ -185,7 +185,7 @@ class Kronolith
         /* Variables used in core javascript files. */
         $code['conf'] = array(
             'URI_AJAX' => (string)Horde::getServiceLink('ajax', 'kronolith'),
-            'URI_IMG' => Horde_Themes::img() . '/',
+            'URI_IMG' => (string)Horde_Themes::img() . '/',
             'URI_SNOOZE' => (string)Horde::url($registry->get('webroot', 'horde') . '/services/snooze.php', true, -1),
             'URI_CALENDAR_EXPORT' => (string)Horde::url('data.php', true)->add(array('actionID' => 'export', 'all_events' => 1, 'exportID' => Horde_Data::EXPORT_ICALENDAR, 'exportCal' => '')),
             'URI_EVENT_EXPORT' => str_replace(array('%23', '%7B', '%7D'), array('#', '{', '}'), Horde::url('event.php', true)->add(array('view' => 'ExportEvent', 'eventID' => '#{id}', 'calendar' => '#{calendar}', 'type' => '#{type}'))),
