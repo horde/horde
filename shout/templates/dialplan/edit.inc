@@ -39,7 +39,7 @@ function editAction(digit)
 {
     if ($('selectActionForm') == null) {
         var curDigit = digit;
-        $('digitGraphic').src = '<?php echo Horde_Themes::img() ?>/digit-'+digit+'.png';
+        $('digitGraphic').src = '<?php echo Horde_Themes::img(null, array('notheme' => true, 'nohorde' => true)); ?>/digit-'+digit+'.png';
 
         // Draw the selectActionForm
         $('editActionOverlay').show();
