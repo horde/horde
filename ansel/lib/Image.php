@@ -1230,7 +1230,8 @@ class Ansel_Image Implements Iterator
     public function getAttributes($format = false)
     {
         $attributes = $GLOBALS['ansel_storage']->getImageAttributes($this->id);
-        $fields = Horde_Image_Exif::getFields();
+        $exif = Horde_Image_Exif::factory($GLOBALS['conf']['exif']['driver'], !empty($GLOBALS['conf']['exif']['params']) ? $GLOBALS['conf']['exif']['params'] : array());
+        $fields = Horde_Image_Exif::getFields($exif);
         $output = array();
 
         foreach ($fields as $field => $data) {
