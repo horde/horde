@@ -2204,6 +2204,7 @@ KronolithCore = {
                 $('kronolithCalendar' + type + 'LinkImportExport').up('span').hide();
                 break;
             }
+            $('kronolithCalendar' + type + 'Id').clear();
             $('kronolithCalendar' + type + 'Color').setValue('#dddddd').setStyle({ backgroundColor: '#dddddd', color: '#000' });
             form.down('.kronolithCalendarDelete').hide();
             if (calendar && type == 'remote') {
