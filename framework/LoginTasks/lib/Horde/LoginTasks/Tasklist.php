@@ -124,16 +124,16 @@ class Horde_LoginTasks_Tasklist
     public function needDisplay($advance = false)
     {
         $tmp = array();
-        $display = null;
+        $previous = null;
 
         reset($this->_tasks);
         while (list($k, $v) = each($this->_tasks)) {
             if (!$v['display'] ||
-                (!is_null($display) && ($v['task']->display != $display))) {
+                (!is_null($previous) && !$v['task']->joinDisplayWith($previous))) {
                 break;
             }
             $tmp[] = $v['task'];
-            $display = $v['task']->display;
+            $previous = $v['task'];
         }
 
         if ($advance) {

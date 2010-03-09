@@ -440,7 +440,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
                 'Horde_LoginTasks_Stub_ConfirmTwo',
                 'Horde_LoginTasks_Stub_TaskTwo',
                 'Horde_LoginTasks_Stub_ConfirmThree',
-                'Horde_LoginTasks_Stub_Notice',
+                'Horde_LoginTasks_Stub_NoticeTwo',
             ),
             true
         );
@@ -461,24 +461,28 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
         asort($classes);
         $this->assertEquals(
             array(
-                'Horde_LoginTasks_Stub_ConfirmNo'
+                'Horde_LoginTasks_Stub_ConfirmNo',
+                'Horde_LoginTasks_Stub_Confirm'
             ),
             $classes
         );
         $_POST['logintasks_confirm_0'] = true;
+        $_POST['logintasks_confirm_1'] = true;
         $this->assertEquals(
             'redirect',
-            $tasks->runTasks(true, null)
+            $tasks->runTasks(true)
         );
         $this->assertEquals(
             array(
                 'Horde_LoginTasks_Stub_ConfirmNo',
+                'Horde_LoginTasks_Stub_Confirm',
+                'Horde_LoginTasks_Stub_Task',
             ),
             Horde_LoginTasks_Stub_Task::$executed
         );
         $this->assertContains(
             'http:///services/logintasks.php?app=test',
-            (string) $tasks->runTasks(false, null)
+            (string) $tasks->runTasks(false)
         );
         $this->assertEquals(
             array(

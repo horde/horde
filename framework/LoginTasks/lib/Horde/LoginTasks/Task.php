@@ -85,4 +85,32 @@ abstract class Horde_LoginTasks_Task
         return '';
     }
 
+    /**
+     * Indicates if the display of the current task should be joined with the
+     * given previous task.
+     *
+     * @param Horde_Login_Task $previous The previous task to display.
+     *
+     * @return boolean True in case both tasks should be displayed together.
+     */
+    public function joinDisplayWith(Horde_LoginTasks_Task $previous)
+    {
+        if ($this->display == $previous->display) {
+            return true;
+        }
+        if ($this->_isConfirmTask($this) && $this->_isConfirmTask($previous)) {
+            return true;
+        }
+        return false;
+    }
+
+    private function _isConfirmTask($task)
+    {
+        return in_array(
+            $task->display,
+            array(Horde_LoginTasks::DISPLAY_CONFIRM_YES,
+                  Horde_LoginTasks::DISPLAY_CONFIRM_NO)
+        );
+    }
+
 }
