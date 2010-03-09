@@ -102,18 +102,21 @@ table.monthgrid th, table.monthgrid td {
 .month-eventbox {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+    border-radius: 5px;
     padding: 2px;
     margin: 1px;
 }
 .week-eventbox {
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
+    border-radius: 10px;
     padding: 3px;
     font-size: 90%;
 }
 .day-eventbox {
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
+    border-radius: 10px;
     padding: 3px;
 }
 
@@ -268,8 +271,9 @@ body.rightPanel ul {
     background: #eee;
     border: 1px solid #ccc;
     padding: 4px;
-    -moz-border-radius-bottomleft: 10px;
-    -webkit-border-bottom-left-radius: 10px;
+    -moz-border-radius: 0 0 0 10px;
+    -webkit-border-radius: 0 0 0 10px;
+    border-radius: 0 0 0 10px;
 }
 #pageControls #calendarSearch {
     background-image: url("graphics/search.png");
@@ -433,18 +437,17 @@ body.kronolithAjax {
 #kronolithApplications:hover a {
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
+    border-radius: 0;
 }
 #kronolithApplications:hover li:first-child a {
-    -moz-border-radius-topleft: 5px;
-    -moz-border-radius-topright: 5px;
-    -webkit-border-top-left-radius: 5px;
-    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius: 5px 5px 0 0;
+    -webkit-border-radius: 5px 5px 0 0;
+    border-radius: 5px 5px 0 0;
 }
 #kronolithApplications:hover li:last-child a {
-    -moz-border-radius-bottomleft: 5px;
-    -moz-border-radius-bottomright: 5px;
-    -webkit-border-bottom-left-radius: 5px;
-    -webkit-border-bottom-right-radius: 5px;
+    -moz-border-radius: 0 0 5px 5px;
+    -webkit-border-radius: 0 0 5px 5px;
+    border-radius: 0 0 5px 5px;
 }
 #kronolithApplications a:hover {
     text-decoration: none;
@@ -474,6 +477,7 @@ body.kronolithAjax {
     border: 1px solid #999;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+    border-radius: 5px;
     background: #d9d9d9 url("graphics/alerts/message.png") no-repeat center center;
 }
 #kronolithNotifications.horde-error {
@@ -563,6 +567,7 @@ body.kronolithAjax {
     cursor: pointer;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+    border-radius: 5px;
 }
 #kronolithMenu div.kronolithCalendars div.kronolithCalOn {
     background-image: url("graphics/checkbox_on.png");
@@ -582,6 +587,7 @@ body.kronolithAjax {
     cursor: pointer;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+    border-radius: 5px;
 }
 #kronolithAddEvents {
     margin-bottom: 35px;
@@ -600,6 +606,7 @@ span#kronolithNewEvent {
     border: 1px solid #999;
     -moz-border-radius: 5px 0 0 5px;
     -webkit-border-radius: 5px 0 0 5px;
+    border-radius: 5px 0 0 5px;
     width: 125px;
     height: 23px;
     line-height: 23px;
@@ -610,6 +617,7 @@ span#kronolithQuickEvent {
     border: 1px solid #999;
     -moz-border-radius: 0 5px 5px 0;
     -webkit-border-radius: 0 5px 5px 0;
+    border-radius: 0 5px 5px 0;
     width: 23px;
     height: 23px;
     line-height: 23px;
@@ -661,6 +669,7 @@ a.kronolithFormCancel {
     border: 1px solid #999;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+    border-radius: 5px;
     font-weight: bold;
     cursor: pointer;
 }
@@ -691,20 +700,19 @@ a.kronolithFormCancel {
     border: 1px solid #999;
 }
 #kronolithNav a:first-child {
-    -moz-border-radius-topleft: 5px;
-    -moz-border-radius-bottomleft: 5px;
-    -webkit-border-top-left-radius: 5px;
-    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-radius: 5px 0 0 5px;
+    -webkit-border-radius: 5px 0 0 5px;
+    border-radius: 5px 0 0 5px;
 }
 #kronolithNav a:last-child {
-    -moz-border-radius-topright: 5px;
-    -moz-border-radius-bottomright: 5px;
-    -webkit-border-top-right-radius: 5px;
-    -webkit-border-bottom-right-radius: 5px;
+    -moz-border-radius: 0 5px 5px 0;
+    -webkit-border-radius: 0 5px 5px 0;
+    border-radius: 0 5px 5px 0;
 }
 #kronolithNav a:first-child:last-child {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+    border-radius: 5px;
 }
 #kronolithNav a:hover, #kronolithNav a.on {
     background-color: #d9d9d9;
@@ -770,6 +778,7 @@ div.kronolithFormActions {
     border: 1px #999 solid;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
+    border-radius: 4px;
     font-size: 90%;
 }
 .kronolithTopTags span:hover {
@@ -1134,6 +1143,7 @@ table.kronolithView td.kronolithFirstCol {
     padding: 2px 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
+    border-radius: 4px;
 }
 #kronolithAgendaNoItems td {
     padding: 4px;
@@ -1307,6 +1317,7 @@ div.kronolithEvent {
     filter: alpha(opacity=80);
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+    border-radius: 5px;
 }
 #kronolithViewMonth div.kronolithEvent,
 #kronolithViewDay .kronolithAllDay div.kronolithEvent,
@@ -1318,6 +1329,7 @@ div.kronolithEvent {
     padding: 2px 5px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
+    border-radius: 4px;
 }
 div.kronolithEvent .kronolithDragger {
     position: absolute;
@@ -1345,15 +1357,15 @@ div.kronolithEvent .kronolithDragger.kronolithDraggerTop,
 .kronolithDraggerTop.drag {
     top: 0;
     -moz-border-radius: 5px 5px 0 0;
-    -webkit-border-top-left-radius: 5px;
-    -webkit-border-top-right-radius: 5px;
+    -webkit-border-radius: 5px 5px 0 0;
+    border-radius: 5px 5px 0 0;
 }
 div.kronolithEvent .kronolithDragger.kronolithDraggerBottom,
 .kronolithDraggerBottom.drag {
     bottom: 0;
     -moz-border-radius: 0 0 5px 5px;
-    -webkit-border-bottom-left-radius: 5px;
-    -webkit-border-bottom-right-radius: 5px;
+    -webkit-border-radius: 0 0 5px 5px;
+    border-radius: 0 0 5px 5px;
 }
 div.kronolithEvent.kronolithEditable .kronolithDragger.kronolithDraggerTop {
     cursor: n-resize;
@@ -1475,6 +1487,7 @@ li.panel-tags {
         border: none;
         -moz-border-radius: 0;
         -webkit-border-radius: 0;
+        border-radius: 0;
         border-bottom: thin solid #000;
     }
     body.rightPanel #page {
