@@ -27,6 +27,10 @@ abstract class Horde_Ajax_Imple_AutoCompleter extends Horde_Ajax_Imple_Base
             $params['triggerId'] = $this->_randomid();
         }
 
+        if (empty($params['triggerContainer'])) {
+            $params['triggerContainer'] = $this->_randomid();
+        }
+
         parent::__construct($params);
     }
 
@@ -61,6 +65,7 @@ abstract class Horde_Ajax_Imple_AutoCompleter extends Horde_Ajax_Imple_Base
             $config['params'] = array_merge(array(
                 'boxClass' => 'hordeACBox kronolithLongField',
                 'trigger' => $this->_params['triggerId'],
+                'triggerContainer' => $this->_params['triggerContainer'],
                 'uri' => (string)$this->_getUrl($config['pretty'], $GLOBALS['registry']->getApp()),
                 'URI_IMG_HORDE' => (string)Horde_Themes::img(null, 'horde'),
                 'box' => !empty($this->_params['box']) ? $this->_params['box'] : ''
