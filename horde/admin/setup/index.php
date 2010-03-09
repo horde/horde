@@ -21,9 +21,10 @@ function _uploadFTP($params)
     global $registry, $notification;
 
     $params['hostspec'] = 'localhost';
-    $vfs = VFS::singleton('ftp', $params);
-    if (is_a($vfs, 'PEAR_Error')) {
-        $notification->push(sprintf(_("Could not connect to server \"%s\" using FTP: %s"), $params['hostspec'], $vfs->getMessage()), 'horde.error');
+    try {
+        $vfs = VFS::singleton('ftp', $params);
+    } catch (VFS_Exception $e) {
+        $notification->push(sprintf(_("Could not connect to server \"%s\" using FTP: %s"), $params['hostspec'], $e->getMessage()), 'horde.error');
         return false;
     }
 
@@ -33,22 +34,21 @@ function _uploadFTP($params)
         $path = $registry->get('fileroot', $app) . '/config';
         /* Try to back up the current conf.php. */
         if ($vfs->exists($path, 'conf.php')) {
-            if (($result = $vfs->rename($path, 'conf.php', $path, '/conf.bak.php')) === true) {
+            try {
+                $vfs->rename($path, 'conf.php', $path, '/conf.bak.php');
                 $notification->push(_("Successfully saved backup configuration."), 'horde.success');
-            } elseif (is_a($result, 'PEAR_Error')) {
-                $notification->push(sprintf(_("Could not save a backup configuation: %s"), $result->getMessage()), 'horde.error');
-            } else {
-                $notification->push(_("Could not save a backup configuation."), 'horde.error');
+            } catch (VFS_Exception $e) {
+                $notification->push(sprintf(_("Could not save a backup configuation: %s"), $e->getMessage()), 'horde.error');
             }
         }
 
-        $write = $vfs->writeData($path, 'conf.php', $config);
-        if (is_a($write, 'PEAR_Error')) {
-            $no_errors = false;
-            $notification->push(sprintf(_("Could not write configuration for \"%s\": %s"), $app, $write->getMessage()), 'horde.error');
-        } else {
+        try {
+            $vfs->writeData($path, 'conf.php', $config);
             $notification->push(sprintf(_("Successfully wrote %s"), Horde_Util::realPath($path . '/conf.php')), 'horde.success');
             unset($_SESSION['_config'][$app]);
+        } catch (VFS_Exception $e) {
+            $no_errors = false;
+            $notification->push(sprintf(_("Could not write configuration for \"%s\": %s"), $app, $e->getMessage()), 'horde.error');
         }
     }
     $registry->clearCache();

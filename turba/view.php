@@ -38,18 +38,21 @@ if (!$object->hasPermission(Horde_Perms::READ)) {
     throw new Turba_Exception(_("You do not have permission to view this contact."));
 }
 
-$v_params = Horde::getVFSConfig('documents');
-if (is_a($v_params, 'PEAR_Error')) {
-    throw new Turba_Exception($v_params);
+try {
+    $v_params = Horde::getVFSConfig('documents');
+} catch (Horde_Exception $e) {
+    throw new Turba_Exception($e);
 }
-$vfs = VFS::singleton($v_params['type'], $v_params['params']);
-if (is_a($vfs, 'PEAR_Error')) {
-    throw new Turba_Exception($vfs);
-} else {
+try {
+    $vfs = VFS::singleton($v_params['type'], $v_params['params']);
+} catch (VFS_Exception $e) {
+    throw new Turba_Exception($e);
+}
+
+try {
     $data = $vfs->read(TURBA_VFS_PATH . '/' . $object->getValue('__uid'), $filename);
-}
-if (is_a($data, 'PEAR_Error')) {
-    Horde::logMessage($data, __FILE__, __LINE__, PEAR_LOG_ERR);
+} catch (VFS_Exception $e) {
+    Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
     throw new Turba_Exception(sprintf(_("Access denied to %s"), $filename));
 }
 

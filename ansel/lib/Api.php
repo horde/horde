@@ -650,8 +650,12 @@ class Ansel_Api extends Horde_Registry_Api
                 return PEAR::RaiseError(sprintf(_("Access denied downloading photos from \"%s\"."), $gallery->get('name')));
             }
 
-            $data = $GLOBALS['ansel_vfs']->read($image->getVFSPath('full'),
-                $image->getVFSName('full'));
+            try {
+                $data = $GLOBALS['ansel_vfs']->read($image->getVFSPath('full'),
+                    $image->getVFSName('full'));
+            } catch (VFS_Exception $e) {
+                return PEAR::raiseError($data->getMessage());
+            }
         } else {
             // Load View
             $result = $image->load($view, $style);

@@ -33,8 +33,10 @@ class IMP_LoginTasks_SystemTask_GarbageCollection extends Horde_LoginTasks_Syste
 
         /* Do garbage collection on compose VFS data. */
         if ($GLOBALS['conf']['compose']['use_vfs']) {
-            $vfs = VFS::singleton($GLOBALS['conf']['vfs']['type'], Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
-            VFS_GC::gc($vfs, IMP_Compose::VFS_ATTACH_PATH, 86400);
+            try {
+                $vfs = VFS::singleton($GLOBALS['conf']['vfs']['type'], Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
+                VFS_GC::gc($vfs, IMP_Compose::VFS_ATTACH_PATH, 86400);
+            } catch (VFS_Exception $e) {}
         }
 
         /* Purge non-existent search sorts. */

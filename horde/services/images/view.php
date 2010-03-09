@@ -32,11 +32,12 @@ case 'vfs':
     $pushed = $registry->pushApp($app_conf);
 
     /* Getting a file from Horde's VFS. */
-    $vfs = VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs', $conf['vfs']['type']));
     $path = Horde_Util::getFormData('p');
-    $file_data = $vfs->read($path, $file);
-    if (is_a($file_data, 'PEAR_Error')) {
-        Horde::logMessage(sprintf('Error displaying image [%s]: %s', $path . '/' . $file, $file_data->getMessage()), __FILE__, __LINE__, PEAR_LOG_ERR);
+    try {
+        $vfs = VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs', $conf['vfs']['type']));
+        $file_data = $vfs->read($path, $file);
+    } catch (VFS_Exception $e) {
+        Horde::logMessage(sprintf('Error displaying image [%s]: %s', $path . '/' . $file, $e->getMessage()), __FILE__, __LINE__, PEAR_LOG_ERR);
         exit;
     }
 

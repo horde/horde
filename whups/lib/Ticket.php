@@ -433,11 +433,10 @@ class Whups_Ticket {
             return PEAR::raiseError(_("The VFS backend needs to be configured to enable attachment uploads."), 'horde.error');
         }
 
-        require_once 'VFS.php';
-        $vfs = &VFS::singleton($conf['vfs']['type'],
-                               Horde::getDriverConfig('vfs'));
-        if (is_a($vfs, 'PEAR_Error')) {
-            return $vfs;
+        try {
+            $vfs = VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs'));
+        } catch (VFS_Exception $e) {
+            return PEAR::raiseError($e->getMessage());
         }
 
         // Get existing attachment names.
@@ -463,7 +462,12 @@ class Whups_Ticket {
             }
         }
 
-        return $vfs->write($dir, $attachment_name, $attachment_file, true);
+        try {
+            $vfs->write($dir, $attachment_name, $attachment_file, true);
+            return true;
+        } catch (VFS_Exception $e) {
+            return PEAR::raiseError($e->getMessage());
+        }
     }
 
     /**
@@ -481,11 +485,10 @@ class Whups_Ticket {
             return PEAR::raiseError(_("The VFS backend needs to be configured to enable attachment uploads."), 'horde.error');
         }
 
-        require_once 'VFS.php';
-        $vfs = &VFS::singleton($conf['vfs']['type'],
-                               Horde::getDriverConfig('vfs'));
-        if (is_a($vfs, 'PEAR_Error')) {
-            return $vfs;
+        try {
+            $vfs = VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs'));
+        } catch (VFS_Exception $e) {
+            return PEAR::raiseError($e->getMessage());
         }
 
         $dir = WHUPS_VFS_ATTACH_PATH . '/' . $this->_id;
@@ -495,7 +498,12 @@ class Whups_Ticket {
                                     'horde.error');
         }
 
-        return $vfs->deleteFile($dir, $attachment_name);
+        try {
+            $vfs->deleteFile($dir, $attachment_name);
+            return true;
+        } catch (VFS_Exception $e) {
+            return PEAR::raiseError($e->getMessage());
+        }
     }
 
     /**

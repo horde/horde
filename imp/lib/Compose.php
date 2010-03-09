@@ -1782,7 +1782,7 @@ class IMP_Compose
         }
 
         /* Store the data. */
-        $result = $this->_storeAttachment($part, $attachment);
+        $this->_storeAttachment($part, $attachment);
 
         return $filename;
     }
@@ -1860,6 +1860,8 @@ class IMP_Compose
      *                                or, if $vfs_file is false, the
      *                                attachment data.
      * @param boolean $vfs_file       If using VFS, is $data a filename?
+     *
+     * @throws IMP_Compose_Exception
      */
     protected function _storeAttachment($part, $data, $vfs_file = true)
     {
@@ -1870,11 +1872,14 @@ class IMP_Compose
             $vfs = VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs', $conf['vfs']['type']));
             $cacheID = uniqid(mt_rand());
 
-            $result = $vfs_file
-                ? $vfs->write(self::VFS_ATTACH_PATH, $cacheID, $data, true)
-                : $vfs->writeData(self::VFS_ATTACH_PATH, $cacheID, $data, true);
-            if ($result instanceof PEAR_Error) {
-                return $result;
+            try {
+                if ($vfs_file) {
+                    $vfs->write(self::VFS_ATTACH_PATH, $cacheID, $data, true);
+                } else {
+                    $vfs->writeData(self::VFS_ATTACH_PATH, $cacheID, $data, true);
+                }
+            } catch (VFS_Exception $e) {
+                throw new IMP_Compose_Exception($e);
             }
 
             $this->_cache[] = array(
@@ -2314,15 +2319,17 @@ class IMP_Compose
 
         foreach ($this->getAttachments() as $att) {
             $trailer .= "\n" . $baseurl->copy()->add(array('u' => $auth, 't' => $ts, 'f' => $att->getName()));
-            if ($conf['compose']['use_vfs']) {
-                $res = $vfs->rename(self::VFS_ATTACH_PATH, $att->getInformation('temp_filename'), $fullpath, escapeshellcmd($att->getName()));
-            } else {
-                $data = file_get_contents($att->getInformation('temp_filename'));
-                $res = $vfs->writeData($fullpath, escapeshellcmd($att->getName()), $data, true);
-            }
-            if ($res instanceof PEAR_Error) {
-                Horde::logMessage($res, __FILE__, __LINE__, PEAR_LOG_ERR);
-                return IMP_Compose_Exception($res);
+
+            try {
+                if ($conf['compose']['use_vfs']) {
+                    $vfs->rename(self::VFS_ATTACH_PATH, $att->getInformation('temp_filename'), $fullpath, escapeshellcmd($att->getName()));
+                } else {
+                    $data = file_get_contents($att->getInformation('temp_filename'));
+                    $vfs->writeData($fullpath, escapeshellcmd($att->getName()), $data, true);
+                }
+            } catch (VFS_Exception $e) {
+                Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+                return IMP_Compose_Exception($e);
             }
         }
 
@@ -2590,13 +2597,12 @@ class IMP_Compose
             return;
         }
 
-        $vfs = VFS::singleton($GLOBALS['conf']['vfs']['type'], Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
-        $result = $vfs->writeData(self::VFS_DRAFTS_PATH, hash('md5', Horde_Util::getFormData('user')), $body, true);
-        if ($result instanceof PEAR_Error) {
-            return;
-        }
+        try {
+            $vfs = VFS::singleton($GLOBALS['conf']['vfs']['type'], Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
+            $vfs->writeData(self::VFS_DRAFTS_PATH, hash('md5', Horde_Util::getFormData('user')), $body, true);
 
-        $GLOBALS['notification']->push(_("The message you were composing has been saved as a draft. The next time you login, you may resume composing your message."));
+            $GLOBALS['notification']->push(_("The message you were composing has been saved as a draft. The next time you login, you may resume composing your message."));
+        } catch (VFS_Exception $e) {}
     }
 
     /**
@@ -2611,11 +2617,12 @@ class IMP_Compose
         $filename = hash('md5', Horde_Auth::getAuth());
         $vfs = VFS::singleton($GLOBALS['conf']['vfs']['type'], Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
         if ($vfs->exists(self::VFS_DRAFTS_PATH, $filename)) {
-            $data = $vfs->read(self::VFS_DRAFTS_PATH, $filename);
-            if ($data instanceof PEAR_Error) {
+            try {
+                $data = $vfs->read(self::VFS_DRAFTS_PATH, $filename);
+                $vfs->deleteFile(self::VFS_DRAFTS_PATH, $filename);
+            } catch (VFS_Exception $e) {
                 return;
             }
-            $vfs->deleteFile(self::VFS_DRAFTS_PATH, $filename);
 
             try {
                 $this->_saveDraftServer($data);

@@ -46,17 +46,21 @@ class Ingo_Driver_Vfs extends Ingo_Driver
     {
         $this->_connect();
 
-        $result = empty($script)
-            ? $this->_vfs->deleteFile($this->_params['vfs_path'], $this->_params['filename'])
-            : $this->_vfs->writeData($this->_params['vfs_path'], $this->_params['filename'], $script, true);
-        if ($result instanceof PEAR_Error) {
-            throw new Ingo_Exception($result);
+        try {
+            if (empty($script)) {
+                $this->_vfs->deleteFile($this->_params['vfs_path'], $this->_params['filename']);
+            } else {
+                $this->_vfs->writeData($this->_params['vfs_path'], $this->_params['filename'], $script, true);
+            }
+        } catch (VFS_Exception $e) {
+            throw new Ingo_Exception($e);
         }
 
         if (isset($this->_params['file_perms']) && !empty($script)) {
-            $result = $this->_vfs->changePermissions($this->_params['vfs_path'], $this->_params['filename'], $this->_params['file_perms']);
-            if ($result instanceof PEAR_Error) {
-                throw new Ingo_Exception($result);
+            try {
+                $this->_vfs->changePermissions($this->_params['vfs_path'], $this->_params['filename'], $this->_params['file_perms']);
+            } catch (VFS_Exception $e) {
+                throw new Ingo_Exception($e);
             }
         }
 
@@ -66,17 +70,21 @@ class Ingo_Driver_Vfs extends Ingo_Driver
         if (($backend['script'] == 'procmail') &&
             isset($backend['params']['forward_file']) &&
             isset($backend['params']['forward_string'])) {
-            $result = empty($script)
-                ? $this->_vfs->deleteFile($this->_params['vfs_forward_path'], $backend['params']['forward_file'])
-                : $this->_vfs->writeData($this->_params['vfs_forward_path'], $backend['params']['forward_file'], $backend['params']['forward_string'], true);
-            if ($result instanceof PEAR_Error) {
-                throw new Ingo_Exception($result);
+            try {
+                if (empty($script)) {
+                    $this->_vfs->deleteFile($this->_params['vfs_forward_path'], $backend['params']['forward_file']);
+                } else {
+                    $this->_vfs->writeData($this->_params['vfs_forward_path'], $backend['params']['forward_file'], $backend['params']['forward_string'], true);
+                }
+            } catch (VFS_Exception $e) {
+                throw new Ingo_Exception($e);
             }
 
             if (isset($this->_params['file_perms']) && !empty($script)) {
-                $result = $this->_vfs->changePermissions($this->_params['vfs_forward_path'], $backend['params']['forward_file'], $this->_params['file_perms']);
-                if ($result instanceof PEAR_Error) {
-                    throw new Ingo_Exception($result);
+                try {
+                    $this->_vfs->changePermissions($this->_params['vfs_forward_path'], $backend['params']['forward_file'], $this->_params['file_perms']);
+                } catch (VFS_Exception $e) {
+                    throw new Ingo_Exception($e);
                 }
             }
         }
@@ -124,11 +132,12 @@ class Ingo_Driver_Vfs extends Ingo_Driver
             return true;
         }
 
-        $this->_vfs = VFS::singleton($this->_params['vfstype'], $this->_params);
-        if ($this->_vfs instanceof PEAR_Error) {
+        try {
+            $this->_vfs = VFS::singleton($this->_params['vfstype'], $this->_params);
+        } catch (VFS_Exception $e) {
             $error = new Ingo_Exception($this->_vfs);
             unset($this->_vfs);
-            throw new Ingo_Exception($error);
+            throw $error;
         }
     }
 

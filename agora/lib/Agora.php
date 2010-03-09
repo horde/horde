@@ -226,7 +226,11 @@ class Agora {
             return PEAR::raiseError(_("The VFS backend needs to be configured to enable attachment uploads."));
         }
 
-        return VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs'));
+        try {
+            return VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs'));
+        } catch (VFS_Exception $e) {
+            return PEAR::raiseError($e);
+        }
     }
 
     function getMenu($returnType = 'object')

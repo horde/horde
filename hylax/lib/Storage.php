@@ -28,6 +28,7 @@ class Hylax_Storage {
      * Constructor
      *
      * @param array $params  Any parameters needed for this storage driver.
+     * @throws VFS_Exception
      */
     function Hylax_Storage($params)
     {
@@ -41,8 +42,7 @@ class Hylax_Storage {
         }
         $vfs_driver = $conf['vfs']['type'];
         $vfs_params = Horde::getDriverConfig('vfs', $vfs_driver);
-        require_once 'VFS.php';
-        $this->_vfs = &VFS::singleton($vfs_driver, $vfs_params);
+        $this->_vfs = VFS::singleton($vfs_driver, $vfs_params);
     }
 
     function saveFaxData($data, $type = '.ps')
@@ -56,10 +56,11 @@ class Hylax_Storage {
         /* Save data to VFS backend. */
         $path = Hylax::getVFSPath($fax_id);
         $file = $fax_id . $type;
-        $saved = $this->_vfs->writeData($path, $file, $data, true);
-        if (is_a($saved, 'PEAR_Error')) {
-            Horde::logMessage('Could not save fax file to VFS: ' . $saved->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $saved;
+        try {
+            $this->_vfs->writeData($path, $file, $data, true);
+        } catch (VFS_Exception $e) {
+            Horde::logMessage('Could not save fax file to VFS: ' . $e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw $e;
         }
         return $fax_id;
     }
@@ -111,11 +112,12 @@ class Hylax_Storage {
     {
         $path = Hylax::getVFSPath($fax_id);
         $file = $fax_id . '.ps';
-        $data = $this->_vfs->read($path, $file);
-        if (is_a($data, 'PEAR_Error')) {
-            Horde::logMessage(sprintf("%s '%s/%s'.", $data->getMessage(), $path, $file), __FILE__, __LINE__, PEAR_LOG_ERR);
+        try {
+            return $this->_vfs->read($path, $file);
+        } catch (VFS_Exception $e) {
+            Horde::logMessage(sprintf("%s '%s/%s'.", $e->getMessage(), $path, $file), __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw $e;
         }
-        return $data;
     }
 
     function listFaxes($folder)

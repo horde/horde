@@ -68,8 +68,11 @@ class Folks_Driver {
     protected function _loadVFS()
     {
         $v_params = Horde::getVFSConfig('images');
-
-        return VFS::singleton($v_params['type'], $v_params['params']);
+        try {
+            return VFS::singleton($v_params['type'], $v_params['params']);
+        } catch (VFS_Exception $e) {
+            return PEAR::raiseError($e->getMessage());
+        }
     }
 
     /**
@@ -82,6 +85,7 @@ class Folks_Driver {
     {
         global $conf;
 
+        try {
         $vfs = $this->_loadVFS();
         if ($vfs instanceof PEAR_Error) {
             return $vfs;
@@ -112,9 +116,10 @@ class Folks_Driver {
                         min($conf['images']['screen_height'], $dimensions['height']));
 
         // Store big image
-        $result = $vfs->writeData($vfspath . '/big/', $vfs_name, $img->raw(), true);
-        if ($result instanceof PEAR_Error) {
-            return $result;
+        try {
+            $vfs->writeData($vfspath . '/big/', $vfs_name, $img->raw(), true);
+        } catch (VFS_Exception $e) {
+            return PEAR::raiseError($result->getMessage());
         }
 
         // Resize thumbnail
@@ -142,14 +147,11 @@ class Folks_Driver {
         $vfspath = Folks::VFS_PATH . '/' . substr(str_pad($p, 2, 0, STR_PAD_LEFT), -2) . '/';
         $vfs_name = $p . '.' . $GLOBALS['conf']['images']['image_type'];
 
-        $result = $vfs->deleteFile($vfspath . '/big/', $vfs_name);
-        if ($result instanceof PEAR_Error) {
-            return $result;
-        }
-
-        $result = $vfs->deleteFile($vfspath . '/small/', $vfs_name);
-        if ($result instanceof PEAR_Error) {
-            return $result;
+        try {
+            $vfs->deleteFile($vfspath . '/big/', $vfs_name);
+            $vfs->deleteFile($vfspath . '/small/', $vfs_name);
+        } catch (VFS_Exception $e) {
+            return $e->getMessage();
         }
 
         // Delete cache

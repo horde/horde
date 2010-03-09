@@ -376,9 +376,10 @@ class Ansel_Faces_Base
         $vfspath = Ansel_Faces::getVFSPath($face['image_id']) . 'faces';
         $vfsname = $face_id . Ansel_Faces::getExtension();
         $img = Ansel::getImageObject();
-        $data = $GLOBALS['ansel_vfs']->read($vfspath, $vfsname);
-        if ($data instanceof PEAR_Error) {
-            throw new Horde_Exception_Prior($data);
+        try {
+            $data = $GLOBALS['ansel_vfs']->read($vfspath, $vfsname);
+        } catch (VFS_Exception $e) {
+            throw new Horde_Exception_Prior($e);
         }
         $img->loadString($data);
 
@@ -611,10 +612,11 @@ class Ansel_Faces_Base
         $ext = Ansel_Faces::getExtension();
         $path = Ansel_Faces::getVFSPath($image->id);
         $image->_image->resize(50, 50, false);
-        $result = $GLOBALS['ansel_vfs']->writeData($path . 'faces', $face_id . $ext,
-                                                   $image->_image->raw(), true);
-        if (is_a($result, 'PEAR_Error')) {
-            throw new Horde_Exception_Prior($result);
+        try {
+            $GLOBALS['ansel_vfs']->writeData($path . 'faces', $face_id . $ext,
+                                             $image->_image->raw(), true);
+        } catch (VFS_Exception $e) {
+            throw new Horde_Exception_Prior($e);
         }
 
         return $face_id;

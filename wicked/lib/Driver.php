@@ -53,12 +53,18 @@ class Wicked_Driver {
 
     /**
      * Accessor to manage a VFS instance.
+     *
+     * @throws VFS_Exception
      */
-    function &getVFS()
+    function getVFS()
     {
         if (!$this->_vfs) {
-            $this->_vfs =& VFS::singleton($GLOBALS['conf']['vfs']['type'],
-                                          Horde::getDriverConfig('vfs'));
+            try {
+                $this->_vfs = VFS::singleton($GLOBALS['conf']['vfs']['type'],
+                                             Horde::getDriverConfig('vfs'));
+            } catch (VFS_Exception $e) {
+                return PEAR::raiseError($e->getMessage());
+            }
         }
 
         return $this->_vfs;
@@ -309,7 +315,11 @@ class Wicked_Driver {
         /* We encode the path quoted printable so we won't get any nasty
          * characters the filesystem might reject. */
         $path = WICKED_VFS_ATTACH_PATH . '/' . $file['page_id'];
-        return $vfs->writeData($path, $file['attachment_name'] . ';' . $result, $data, true);
+        try {
+            $vfs->writeData($path, $file['attachment_name'] . ';' . $result, $data, true);
+        } catch (VFS_Exception $e) {
+            return PEAR::raiseError($e->getMessage());
+        }
     }
 
     /**
@@ -342,9 +352,10 @@ class Wicked_Driver {
                 if (!$vfs->exists($path, $attachment . ';' . $fileversion)) {
                     continue;
                 }
-                $result = $vfs->deleteFile($path, $attachment . ';' . $fileversion);
-                if (is_a($result, 'PEAR_Error')) {
-                    return $result;
+                try {
+                    $vfs->deleteFile($path, $attachment . ';' . $fileversion);
+                } catch (VFS_Exception $e) {
+                    return PEAR::raiseError($result->getMessage());
                 }
             }
         }
@@ -369,7 +380,13 @@ class Wicked_Driver {
         if (!$vfs->isFolder(WICKED_VFS_ATTACH_PATH, $pageId)) {
             return true;
         }
-        return $vfs->deleteFolder(WICKED_VFS_ATTACH_PATH, $pageId, true);
+
+        try {
+            $vfs->deleteFolder(WICKED_VFS_ATTACH_PATH, $pageId, true);
+            return true;
+        } catch (VFS_Exception $e) {
+            return PEAR::raiseError($e->getMessage());
+        }
     }
 
     /**
@@ -410,7 +427,12 @@ class Wicked_Driver {
         }
 
         $path = WICKED_VFS_ATTACH_PATH . '/' . $pageId;
-        return $vfs->read($path, $filename . ';' . $version);
+
+        try {
+            return $vfs->read($path, $filename . ';' . $version);
+        } catch (VFS_Exception $e) {
+            return PEAR::raiseError($e->getMessage());
+        }
     }
 
     function removeVersion($pagename, $version)

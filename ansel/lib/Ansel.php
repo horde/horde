@@ -63,24 +63,12 @@ class Ansel
     /**
      * Create and initialize the VFS object
      *
-     * @return VFS object or fatals on error.
+     * @return  VFS object.
      */
-    static public function &getVFS()
+    static public function getVFS()
     {
         $v_params = Horde::getVFSConfig('images');
-        if (is_a($v_params, 'PEAR_Error')) {
-            Horde::fatal(_("You must configure a VFS backend to use Ansel."),
-                         __FILE__, __LINE__);
-        }
-        if ($v_params['type'] != 'none') {
-            $vfs = VFS::singleton($v_params['type'], $v_params['params']);
-        }
-        if (empty($vfs) || is_a($vfs, 'PEAR_ERROR')) {
-            Horde::fatal(_("You must configure a VFS backend to use Ansel."),
-                         __FILE__, __LINE__);
-        }
-
-        return $vfs;
+        return VFS::singleton($v_params['type'], $v_params['params']);
     }
 
     /**

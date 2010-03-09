@@ -33,9 +33,10 @@ if (is_null($mail_user) || is_null($time_stamp) || is_null($file_name)) {
 }
 
 // Initialize the VFS.
-$vfsroot = VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs', $conf['vfs']['type']));
-if ($vfsroot instanceof PEAR_Error) {
-    throw new IMP_Exception(sprintf(_("Could not create the VFS backend: %s"), $vfsroot->getMessage()));
+try {
+    $vfsroot = VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs', $conf['vfs']['type']));
+} catch (VFS_Exception $e) {
+    throw new IMP_Exception(sprintf(_("Could not create the VFS backend: %s"), $e->getMessage()));
 }
 
 // Check if the file exists.
@@ -51,22 +52,23 @@ if (!$vfsroot->exists($full_path, $file_name)) {
 if ($conf['compose']['link_attachments_notify']) {
     if ($vfsroot->exists($full_path, $file_name . '.notify')) {
         $delete_id = Horde_Util::getFormData('d');
-        $read_id = $vfsroot->read($full_path, $file_name . '.notify');
-        if ($read_id instanceof PEAR_Error) {
-            Horde::logMessage($read_id, __FILE__, __LINE__, PEAR_LOG_ERR);
-        } elseif ($delete_id == $read_id) {
-            $vfsroot->deleteFile($full_path, $file_name);
-            $vfsroot->deleteFile($full_path, $file_name . '.notify');
-            printf(_("Attachment %s deleted."), $file_name);
-            exit;
+        try {
+            $read_id = $vfsroot->read($full_path, $file_name . '.notify');
+            if ($delete_id == $read_id) {
+                $vfsroot->deleteFile($full_path, $file_name);
+                $vfsroot->deleteFile($full_path, $file_name . '.notify');
+                printf(_("Attachment %s deleted."), $file_name);
+                exit;
+            }
+        } catch (VFS_Exception $e) {
+            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
         }
     } else {
         /* Create a random identifier for this file. */
         $id = uniqid(mt_rand());
-        $res = $vfsroot->writeData($full_path, $file_name . '.notify', $id, true);
-        if ($res instanceof PEAR_Error) {
-            Horde::logMessage($res, __FILE__, __LINE__, PEAR_LOG_ERR);
-        } else {
+        try {
+            $vfsroot->writeData($full_path, $file_name . '.notify', $id, true);
+
             /* Load $mail_user's preferences so that we can use their
              * locale information for the notification message. */
             $prefs = Horde_Prefs::singleton($conf['prefs']['driver'], 'horde', $mail_user);
@@ -103,14 +105,17 @@ if ($conf['compose']['link_attachments_notify']) {
 
                 $msg->send($mail_address, $msg_headers);
             }
+        } catch (VFS_Exception $e) {
+            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
         }
     }
 }
 
 // Find the file's mime-type.
-$file_data = $vfsroot->read($full_path, $file_name);
-if ($file_data instanceof PEAR_Error) {
-    Horde::logMessage($file_data, __FILE__, __LINE__, PEAR_LOG_ERR);
+try {
+    $file_data = $vfsroot->read($full_path, $file_name);
+} catch (VFS_Exception $e) {
+    Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
     throw new IMP_Exception(_("The specified file cannot be read."));
 }
 $mime_type = Horde_Mime_Magic::analyzeData($file_data, isset($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null);

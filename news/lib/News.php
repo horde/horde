@@ -228,6 +228,7 @@ class News {
      * Load VFS Backend
      *
      * @throws Horde_Exception
+     * @throws VFS_Exception
      */
     static public function loadVFS()
     {
@@ -238,9 +239,7 @@ class News {
         }
 
         $v_params = Horde::getVFSConfig('images');
-
-        $vfs = VFS::singleton($v_params['type'], $v_params['params']);
-        return $vfs;
+        return VFS::singleton($v_params['type'], $v_params['params']);
     }
 
     /**
@@ -256,10 +255,6 @@ class News {
         global $conf;
 
         $vfs = self::loadVFS();
-        if ($vfs instanceof PEAR_Error) {
-            return $vfs;
-        }
-
         $vfspath = self::VFS_PATH . '/images/' . $type;
         $vfs_name = $id . '.' . $conf['images']['image_type'];
 
@@ -278,10 +273,7 @@ class News {
         if ($type == 'news') {
 
             // Store full image
-            $result = $vfs->writeData($vfspath . '/full/', $vfs_name, $img->raw(), true);
-            if ($result instanceof PEAR_Error) {
-                return $result;
-            }
+            $vfs->writeData($vfspath . '/full/', $vfs_name, $img->raw(), true);
 
             // Resize big image?
             if ($resize) {
@@ -298,10 +290,7 @@ class News {
             }
 
             // Store big image
-            $result = $vfs->writeData($vfspath . '/big/', $vfs_name, $img->raw(), true);
-            if ($result instanceof PEAR_Error) {
-                return $result;
-            }
+            $vfs->writeData($vfspath . '/big/', $vfs_name, $img->raw(), true);
         }
 
         // Resize thumbnail
@@ -329,16 +318,10 @@ class News {
     static public function deleteImage($id)
     {
         $vfs = self::loadVFS();
-        if ($vfs instanceof PEAR_Error) {
-            return $vfs;
-        }
-
         $vfs_name = $id . '.' . $GLOBALS['conf']['images']['image_type'];
-        $result = $vfs->deleteFile(self::VFS_PATH . '/images/news/full', $vfs_name);
-        $result = $vfs->deleteFile(self::VFS_PATH . '/images/news/small', $vfs_name);
-        $result = $vfs->deleteFile(self::VFS_PATH . '/images/news/big', $vfs_name);
-
-        return $result;
+        $vfs->deleteFile(self::VFS_PATH . '/images/news/full', $vfs_name);
+        $vfs->deleteFile(self::VFS_PATH . '/images/news/small', $vfs_name);
+        $vfs->deleteFile(self::VFS_PATH . '/images/news/big', $vfs_name);
     }
 
     /**
@@ -350,11 +333,7 @@ class News {
     static public function saveFile($file_id, $file_src)
     {
         $vfs = self::loadVFS();
-        if ($vfs instanceof PEAR_Error) {
-            return $vfs;
-        }
-
-        return $vfs->writeData(self::VFS_PATH . '/files/', $file_id, file_get_contents($file_src), true);
+        $vfs->writeData(self::VFS_PATH . '/files/', $file_id, file_get_contents($file_src), true);
     }
 
     /**
@@ -365,11 +344,7 @@ class News {
     static public function getFile($file_id)
     {
         $vfs = self::loadVFS();
-        if ($vfs instanceof PEAR_Error) {
-            return $vfs;
-        }
-
-        return $vfs->read(self::VFS_PATH . '/files/', $file_id);
+        $vfs->read(self::VFS_PATH . '/files/', $file_id);
     }
 
     /**
@@ -380,15 +355,9 @@ class News {
     static public function deleteFile($file_id)
     {
         $vfs = self::loadVFS();
-        if ($vfs instanceof PEAR_Error) {
-            return $vfs;
-        }
-
         if ($vfs->exists(self::VFS_PATH . '/files/', $file_id)) {
-            return $vfs->deleteFile(self::VFS_PATH . '/files/', $file_id);
+            $vfs->deleteFile(self::VFS_PATH . '/files/', $file_id);
         }
-
-        return true;
     }
 
     /**

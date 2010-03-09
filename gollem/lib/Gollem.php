@@ -207,6 +207,7 @@ class Gollem
      * @param string $dir  The directory name.
      *
      * @return array  The sorted list of files.
+     * @throws VFS_Exception
      */
     static public function listFolder($dir)
     {
@@ -228,15 +229,13 @@ class Gollem
         }
 
         $files = $GLOBALS['gollem_vfs']->listFolder($dir, isset($GLOBALS['gollem_be']['filter']) ? $GLOBALS['gollem_be']['filter'] : null, $GLOBALS['prefs']->getValue('show_dotfiles'));
-        if (!is_a($files, 'PEAR_Error')) {
-            $sortcols = array(
-                self::SORT_TYPE => 'sortType',
-                self::SORT_NAME => 'sortName',
-                self::SORT_DATE => 'sortDate',
-                self::SORT_SIZE => 'sortSize',
-            );
-            usort($files, array('Gollem', $sortcols[$GLOBALS['prefs']->getValue('sortby')]));
-        }
+        $sortcols = array(
+            self::SORT_TYPE => 'sortType',
+            self::SORT_NAME => 'sortName',
+            self::SORT_DATE => 'sortDate',
+            self::SORT_SIZE => 'sortSize',
+        );
+        usort($files, array('Gollem', $sortcols[$GLOBALS['prefs']->getValue('sortby')]));
 
         if (isset($cache)) {
             $cache->set($key, Horde_Serialize::serialize($files, Horde_Serialize::BASIC), $conf['foldercache']['lifetime']);
@@ -332,6 +331,7 @@ class Gollem
      * @param string $name  The folder to create.
      *
      * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
     static public function createFolder($dir, $name)
     {
@@ -346,15 +346,8 @@ class Gollem
         $dir = substr($totalpath, 0, $pos);
         $name = substr($totalpath, $pos + 1);
 
-        $res = $GLOBALS['gollem_vfs']->autocreatePath($dir);
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
-
-        $res = $GLOBALS['gollem_vfs']->createFolder($dir, $name);
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
+        $GLOBALS['gollem_vfs']->autocreatePath($dir);
+        $GLOBALS['gollem_vfs']->createFolder($dir, $name);
 
         if (!empty($GLOBALS['gollem_be']['params']['permissions'])) {
             $GLOBALS['gollem_vfs']->changePermissions($dir, $name, $GLOBALS['gollem_be']['params']['permissions']);
@@ -371,11 +364,11 @@ class Gollem
      * @param string $newDir  New directory name.
      * @param string $old     New file name.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
     static public function renameItem($oldDir, $old, $newDir, $new)
     {
-        return $GLOBALS['gollem_vfs']->rename($oldDir, $old, $newDir, $new);
+        $GLOBALS['gollem_vfs']->rename($oldDir, $old, $newDir, $new);
     }
 
     /**
@@ -384,7 +377,7 @@ class Gollem
      * @param string $dir   The subdirectory name.
      * @param string $name  The folder name to delete.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
     static public function deleteFolder($dir, $name)
     {
@@ -392,7 +385,7 @@ class Gollem
             return PEAR::raiseError(sprintf(_("Access denied to folder \"%s\"."), $dir));
         }
 
-        return ($GLOBALS['prefs']->getValue('recursive_deletes') != 'disabled')
+        ($GLOBALS['prefs']->getValue('recursive_deletes') != 'disabled')
             ? $GLOBALS['gollem_vfs']->deleteFolder($dir, $name, true)
             : $GLOBALS['gollem_vfs']->deleteFolder($dir, $name, false);
     }
@@ -403,14 +396,14 @@ class Gollem
      * @param string $dir   The directory name.
      * @param string $name  The filename to delete.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
     static public function deleteFile($dir, $name)
     {
         if (!Gollem::verifyDir($dir)) {
             return PEAR::raiseError(sprintf(_("Access denied to folder \"%s\"."), $dir));
         }
-        return $GLOBALS['gollem_vfs']->deleteFile($dir, $name);
+        $GLOBALS['gollem_vfs']->deleteFile($dir, $name);
     }
 
     /**
@@ -420,14 +413,14 @@ class Gollem
      * @param string $name        The filename to change permissions on.
      * @param string $permission  The permission mode to set.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
     static public function changePermissions($dir, $name, $permission)
     {
         if (!Gollem::verifyDir($dir)) {
             return PEAR::raiseError(sprintf(_("Access denied to folder \"%s\"."), $dir));
         }
-        return $GLOBALS['gollem_vfs']->changePermissions($dir, $name, $permission);
+        $GLOBALS['gollem_vfs']->changePermissions($dir, $name, $permission);
     }
 
     /**
@@ -437,20 +430,14 @@ class Gollem
      * @param string $name      The filename to create.
      * @param string $filename  The local file containing the file data.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @thows VFS_Exception
      */
     static public function writeFile($dir, $name, $filename)
     {
-        $res = $GLOBALS['gollem_vfs']->write($dir, $name, $filename);
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
-
+        $GLOBALS['gollem_vfs']->write($dir, $name, $filename);
         if (!empty($GLOBALS['gollem_be']['params']['permissions'])) {
             $GLOBALS['gollem_vfs']->changePermissions($dir, $name, $GLOBALS['gollem_be']['params']['permissions']);
         }
-
-        return true;
     }
 
     /**
@@ -462,12 +449,12 @@ class Gollem
      * @param string $backend_t The backend to move the file to.
      * @param string $newdir    The directory to move the file to.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
     static public function moveFile($backend_f, $dir, $name, $backend_t,
                                     $newdir)
     {
-        return Gollem::_copyFile('move', $backend_f, $dir, $name, $backend_t, $newdir);
+        Gollem::_copyFile('move', $backend_f, $dir, $name, $backend_t, $newdir);
     }
 
     /**
@@ -479,16 +466,18 @@ class Gollem
      * @param string $backend_t The backend to copy the file to.
      * @param string $newdir    The directory to copy the file to.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
     static public function copyFile($backend_f, $dir, $name, $backend_t,
                                     $newdir)
     {
-        return Gollem::_copyFile('copy', $backend_f, $dir, $name, $backend_t, $newdir);
+        Gollem::_copyFile('copy', $backend_f, $dir, $name, $backend_t, $newdir);
     }
 
     /**
      * Private function that copies/moves files.
+     *
+     * @throws VFS_Exception
      */
     static protected function _copyFile($mode, $backend_f, $dir, $name,
                                         $backend_t, $newdir)
@@ -500,10 +489,7 @@ class Gollem
                 $ob = &$GLOBALS['gollem_vfs'];
             } else {
                 $ob = Gollem::getVFSOb($backend_f);
-                $valid = $ob->checkCredentials();
-                if (is_a($valid, 'PEAR_Error')) {
-                    return $valid;
-                }
+                $ob->checkCredentials();
             }
             return ($mode == 'copy') ? $ob->copy($dir, $name, $newdir) : $ob->move($dir, $name, $newdir);
         }
@@ -513,40 +499,26 @@ class Gollem
             $from_be = &$GLOBALS['gollem_vfs'];
         } else {
             $from_be = Gollem::getVFSOb($backend_f);
-            $valid = $from_be->checkCredentials();
-            if (is_a($valid, 'PEAR_Error')) {
-                return $valid;
-            }
+            $from_be->checkCredentials();
         }
 
         if ($backend_t == $_SESSION['gollem']['backend_key']) {
             $to_be = &$GLOBALS['gollem_vfs'];
         } else {
             $from_be = Gollem::getVFSOb($backend_t);
-            $valid = $to_be->checkCredentials();
-            if (is_a($valid, 'PEAR_Error')) {
-                return $valid;
-            }
+            $to_be->checkCredentials();
         }
 
         /* Read the source data. */
         $data = $from_be->read($dir, $name);
-        if (is_a($data, 'PEAR_Error')) {
-            return $data;
-        }
 
         /* Write the target data. */
-        $res = $to_be->writeData($newdir, $name, $data);
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
+        $to_be->writeData($newdir, $name, $data);
 
         /* If moving, delete the source data. */
         if ($mode == 'move') {
             $from_be->deleteFile($dir, $name);
         }
-
-        return true;
     }
 
     /**
@@ -829,9 +801,6 @@ class Gollem
 
         // Create VFS object
         $ob = VFS::singleton($be_config['driver'], $params);
-        if (is_a($ob, 'PEAR_Error')) {
-            return $ob;
-        }
 
         // Enable logging within VFS
         $logger = Horde::getLogger();

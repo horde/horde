@@ -42,15 +42,11 @@ if (empty($conf['vfs']['type'])) {
     Horde::fatal(_("The VFS backend needs to be configured to enable attachment uploads."), __FILE__, __LINE__);
 }
 
-require_once 'VFS.php';
 $vfs = VFS::factory($conf['vfs']['type'], Horde::getDriverConfig('vfs'));
-if (is_a($vfs, 'PEAR_Error')) {
-    Horde::fatal($vfs, __FILE__, __LINE__);
-} else {
+try {
     $data = $vfs->read(WHUPS_VFS_ATTACH_PATH . '/' . $id, $filename);
-}
-if (is_a($data, 'PEAR_Error')) {
-    Horde::fatal(sprintf(_("Access denied to %s"), $filename), __FILE__, __LINE__);
+} catch (VFS_Exception $e) {
+    throw Horde_Exception(sprintf(_("Access denied to %s"), $filename));
 }
 
 /* Run through action handlers */

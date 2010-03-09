@@ -511,16 +511,17 @@ class Whups_Driver_sql extends Whups_Driver {
                         'whups_attributes');
 
         if (!empty($conf['vfs']['type'])) {
-            require_once 'VFS.php';
-            $vfs = &VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs'));
-            if (is_a($vfs, 'PEAR_Error')) {
-                return $vfs;
-            } else {
-                if ($vfs->isFolder(WHUPS_VFS_ATTACH_PATH, $id)) {
-                    $result = $vfs->deleteFolder(WHUPS_VFS_ATTACH_PATH, $id, true);
-                    if (is_a($result, 'PEAR_Error')) {
-                        return $result;
-                    }
+            try {
+                $vfs = VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs'));
+            } catch (VFS_Exception $e) {
+                return PEAR::raiseError($e->getMessage());
+            }
+
+            if ($vfs->isFolder(WHUPS_VFS_ATTACH_PATH, $id)) {
+                try {
+                    $vfs->deleteFolder(WHUPS_VFS_ATTACH_PATH, $id, true);
+                } catch (VFS_Exception $e) {
+                    return PEAR::raiseError($e->getMessage());
                 }
             }
         }

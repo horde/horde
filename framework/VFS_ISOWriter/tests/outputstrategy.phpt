@@ -22,25 +22,24 @@ function testDirectOutputStrategy()
 {
     echo "Testing direct output strategy... ";
 
-    $vfs = &VFS::factory('file', array('vfsroot' => '/tmp'));
-    testOutputStrategy($vfs, 'vfs_isowriter_realoutputstrategy_direct');
+    try {
+        $vfs = VFS::factory('file', array('vfsroot' => '/tmp'));
+        testOutputStrategy($vfs, 'vfs_isowriter_realoutputstrategy_direct');
+    } catch (VFS_Exception $e) {
+        echo "ERROR(1): ", $e->getMessage(), "\n";
+    }
 }
 
 function testCopyOutputStrategy()
 {
     echo "Testing copy output strategy... ";
 
-    $vfs = &new VFS_notfile(array('vfsroot' => '/tmp'));
+    $vfs = new VFS_notfile(array('vfsroot' => '/tmp'));
     testOutputStrategy($vfs, 'vfs_isowriter_realoutputstrategy_copy');
 }
 
 function testOutputStrategy(&$vfs, $expectClass)
 {
-    if (is_a($vfs, 'PEAR_Error')) {
-        echo "ERROR(1): ", $vfs->getMessage(), "\n";
-        return;
-    }
-
     $outputStrategy = &VFS_ISOWriter_RealOutputStrategy::factory($vfs, 'foo');
     if (is_a($outputStrategy, 'PEAR_Error')) {
         echo "ERROR(2): ", $outputStrategy->getMessage(), "\n";
@@ -74,9 +73,10 @@ function testOutputStrategy(&$vfs, $expectClass)
         return;
     }
 
-    $res = $vfs->read('/', 'foo');
-    if (is_a($res, 'PEAR_Error')) {
-        echo "ERROR(7): ", $res->getMessage(), "\n";
+    try {
+        $res = $vfs->read('/', 'foo');
+    } catch (VFS_Exception $e) {
+        echo "ERROR(7): ", $e->getMessage(), "\n";
         return;
     }
 

@@ -789,14 +789,18 @@ class Whups {
             return false;
         }
 
-        require_once 'VFS.php';
-        $vfs = &VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs'));
-        if (is_a($vfs, 'PEAR_Error')) {
-            return $vfs;
+        try {
+            $vfs = VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs'));
+        } catch (VFS_Exception $e) {
+            return PEAR::raiseError($vfs->getMessage());
         }
 
         if ($vfs->isFolder(WHUPS_VFS_ATTACH_PATH, $ticket)) {
-            $files = $vfs->listFolder(WHUPS_VFS_ATTACH_PATH . '/' . $ticket);
+            try {
+                $files = $vfs->listFolder(WHUPS_VFS_ATTACH_PATH . '/' . $ticket);
+            } catch (VFS_Exception $e) {
+                $files = array();
+            }
             if (is_null($name)) {
                 return $files;
             } else {

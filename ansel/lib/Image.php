@@ -306,10 +306,11 @@ class Ansel_Image Implements Iterator
         $vfspath = $this->getVFSPath($view, $style);
 
         /* Read in the requested view. */
-        $data = $GLOBALS['ansel_vfs']->read($vfspath, $this->getVFSName($view));
-        if ($data instanceof PEAR_Error) {
-            Horde::logMessage($date, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Ansel_Exception($data);
+        try {
+            $data = $GLOBALS['ansel_vfs']->read($vfspath, $this->getVFSName($view));
+        } catch (VFS_Exception $e) {
+            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Ansel_Exception($e);
         }
 
         /* We've definitely successfully loaded the image now. */
@@ -382,10 +383,11 @@ class Ansel_Image Implements Iterator
         if ($GLOBALS['ansel_vfs']->exists($vfspath, $this->getVFSName($view))) {
             return true;
         }
-        $data = $GLOBALS['ansel_vfs']->read($this->getVFSPath('full'), $this->getVFSName('full'));
-        if ($data instanceof PEAR_Error) {
-            Horde::logMessage($data, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Ansel_Exception($data);
+        try {
+            $data = $GLOBALS['ansel_vfs']->read($this->getVFSPath('full'), $this->getVFSName('full'));
+        } catch (VFS_Exception $e) {
+            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Ansel_Exception($e);
         }
 
         $vHash = $this->getViewHash($view, $style);
@@ -449,12 +451,12 @@ class Ansel_Image Implements Iterator
     {
         $this->_dirty = false;
 
-        $results = $GLOBALS['ansel_vfs']->writeData($this->getVFSPath('full'),
-                                                $this->getVFSName('full'),
-                                                $this->_data['full'], true);
-
-        if ($results instanceof PEAR_Error) {
-            throw new Ansel_Exception($results);
+        try {
+            $GLOBALS['ansel_vfs']->writeData($this->getVFSPath('full'),
+                                             $this->getVFSName('full'),
+                                             $this->_data['full'], true);
+        } catch (VFS_Exception $e) {
+            throw new Ansel_Exception($e);
         }
 
         return true;
@@ -483,12 +485,12 @@ class Ansel_Image Implements Iterator
             $this->deleteCache();
         }
 
-        $results = $GLOBALS['ansel_vfs']->writeData($this->getVFSPath($view),
-                                                $this->getVFSName($view),
-                                                $data, true);
-
-        if ($results instanceof PEAR_Error) {
-            throw new Ansel_Exception($results);
+        try {
+            $GLOBALS['ansel_vfs']->writeData($this->getVFSPath($view),
+                                             $this->getVFSName($view),
+                                             $data, true);
+        } catch (VFS_Exception $e) {
+            throw new Ansel_Exception($e);
         }
     }
 
@@ -628,10 +630,11 @@ class Ansel_Image Implements Iterator
         $this->_exif = array();
 
         /* Get the data */
-        $imageFile = $GLOBALS['ansel_vfs']->readFile($this->getVFSPath('full'),
-                                                     $this->getVFSName('full'));
-        if ($imageFile instanceof PEAR_Error) {
-            throw new Ansel_Exception($imageFile);
+        try {
+            $imageFile = $GLOBALS['ansel_vfs']->readFile($this->getVFSPath('full'),
+                                                         $this->getVFSName('full'));
+        } catch (VFS_Exception $e) {
+            throw new Ansel_Exception($e);
         }
         $exif = Horde_Image_Exif::factory($GLOBALS['conf']['exif']['driver'], !empty($GLOBALS['conf']['exif']['params']) ? $GLOBALS['conf']['exif']['params'] : array());
 
@@ -845,11 +848,11 @@ class Ansel_Image Implements Iterator
                 throw Horde_Exception_PermissionDenied(sprintf(_("Access denied downloading photos from \"%s\"."), $gallery->get('name')));
             }
 
-            $data = $GLOBALS['ansel_vfs']->read($this->getVFSPath('full'),
-                                                $this->getVFSName('full'));
-
-            if ($data instanceof PEAR_Error) {
-                throw new Ansel_Exception($data);
+            try {
+                $data = $GLOBALS['ansel_vfs']->read($this->getVFSPath('full'),
+                                                    $this->getVFSName('full'));
+            } catch (VFS_Exception $e) {
+                throw new Ansel_Exception($e);
             }
             echo $data;
         } else {

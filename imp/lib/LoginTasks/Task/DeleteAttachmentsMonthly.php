@@ -33,23 +33,32 @@ class IMP_LoginTasks_Task_DeleteAttachmentsMonthly extends Horde_LoginTasks_Task
          * purge. */
         $del_time = gmmktime(0, 0, 0, date('n') - $GLOBALS['prefs']->getValue('delete_attachments_monthly_keep'), 1, date('Y'));
 
-        $vfs = VFS::singleton($GLOBALS['conf']['vfs']['type'], Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
+        try {
+            $vfs = VFS::singleton($GLOBALS['conf']['vfs']['type'], Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
+        } catch (VFS_Exception $e) {
+            return false;
+        }
         $path = IMP_Compose::VFS_LINK_ATTACH_PATH . '/' . Horde_Auth::getAuth();
 
         /* Make sure cleaning is done recursively. */
-        $files = $vfs->listFolder($path, null, true, false, true);
-        if (($files instanceof PEAR_Error) || !is_array($files)) {
+        try {
+            $files = $vfs->listFolder($path, null, true, false, true);
+        } catch (VFS_Exception $e) {
             return false;
         }
 
+        $retval = false;
         foreach ($files as $dir) {
             $filetime = (isset($dir['date'])) ? $dir['date'] : intval(basename($dir['name']));
             if ($del_time > $filetime) {
-                $vfs->deleteFolder($path, $dir['name'], true);
+                try {
+                    $vfs->deleteFolder($path, $dir['name'], true);
+                    $retval = true;
+                } catch (VFS_Exception $e) {}
             }
         }
 
-        return true;
+        return $retval;
     }
 
     /**

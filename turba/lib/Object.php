@@ -239,13 +239,11 @@ class Turba_Object {
      *
      * @param array $info  A hash with the file information as returned from a
      *                     Horde_Form_Type_file.
+     * @throws Turba_Exception
      */
     function addFile($info)
     {
-        $result = $this->_vfsInit();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_vfsInit();
 
         $dir = TURBA_VFS_PATH . '/' . $this->getValue('__uid');
         $file = $info['name'];
@@ -262,37 +260,44 @@ class Turba_Object {
             }
         }
 
-        return $this->_vfs->write($dir, $file, $info['tmp_name'], true);
+        try {
+            $this->_vfs->write($dir, $file, $info['tmp_name'], true);
+        } catch (VFS_Exception $e) {
+            throw new Turba_Exception($e);
+        }
     }
 
     /**
      * Deletes a file from the VFS backend associated with this object.
      *
      * @param string $file  The file name.
+     * @throws Turba_Exception
      */
     function deleteFile($file)
     {
-        if (!is_a($result = $this->_vfsInit(), 'PEAR_Error')) {
-            return $this->_vfs->deleteFile(TURBA_VFS_PATH . '/' . $this->getValue('__uid'), $file);
-        } else {
-            return $result;
+        $this->_vfsInit();
+        try {
+            $this->_vfs->deleteFile(TURBA_VFS_PATH . '/' . $this->getValue('__uid'), $file);
+        } catch (VFS_Exception $e) {
+            throw new Turba_Exception($e);
         }
     }
 
     /**
      * Deletes all files from the VFS backend associated with this object.
+     *
+     * @throws Turba_Exception
      */
     function deleteFiles()
     {
-        if (!is_a($result = $this->_vfsInit(), 'PEAR_Error')) {
-            if ($this->_vfs->exists(TURBA_VFS_PATH, $this->getValue('__uid'))) {
-                return $this->_vfs->deleteFolder(TURBA_VFS_PATH, $this->getValue('__uid'), true);
+        $this->_vfsInit();
+        if ($this->_vfs->exists(TURBA_VFS_PATH, $this->getValue('__uid'))) {
+            try {
+                $this->_vfs->deleteFolder(TURBA_VFS_PATH, $this->getValue('__uid'), true);
+            } catch (VFS_Exception $e) {
+                throw new Turba_Exception($e);
             }
-
-            return true;
         }
-
-        return $result;
     }
 
     /**
@@ -302,13 +307,14 @@ class Turba_Object {
      */
     function listFiles()
     {
-        $result = $this->_vfsInit();
+        try {
+            $this->_vfsInit();
+            if ($this->_vfs->exists(TURBA_VFS_PATH, $this->getValue('__uid'))) {
+                return $this->_vfs->listFolder(TURBA_VFS_PATH . '/' . $this->getValue('__uid'));
+            }
+        } catch (VFS_Exception $e) {}
 
-        if (!is_a($result, 'PEAR_Error') && $this->_vfs->exists(TURBA_VFS_PATH, $this->getValue('__uid'))) {
-            return $this->_vfs->listFolder(TURBA_VFS_PATH . '/' . $this->getValue('__uid'));
-        } else {
-            return array();
-        }
+        return array();
     }
 
     /**
@@ -389,16 +395,16 @@ class Turba_Object {
     function _vfsInit()
     {
         if (!isset($this->_vfs)) {
-            $v_params = Horde::getVFSConfig('documents');
-            if (is_a($v_params, 'PEAR_Error')) {
-                throw new Turba_Exception($v_params);
+            try {
+                $v_params = Horde::getVFSConfig('documents');
+            } catch (Horde_Exception $e) {
+                throw new Turba_Exception($e);
             }
-            $result = VFS::singleton($v_params['type'], $v_params['params']);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            } else {
-                $this->_vfs = &$result;
-                return true;
+
+            try {
+                $this->_vfs = VFS::singleton($v_params['type'], $v_params['params']);
+            } catch (VFS_Exception $e) {
+                throw new Turba_Exception($e);
             }
         }
     }

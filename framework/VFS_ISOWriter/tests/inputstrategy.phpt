@@ -23,7 +23,7 @@ function testDirectInputStrategy()
 {
     echo "Testing direct input strategy... ";
 
-    $vfs = &VFS::factory('file', array('vfsroot' => '/tmp'));
+    $vfs = VFS::factory('file', array('vfsroot' => '/tmp'));
     testInputStrategy($vfs, 'vfs_isowriter_realinputstrategy_direct');
 }
 
@@ -51,9 +51,10 @@ function testInputStrategy(&$vfs, $expectClass)
             $file = $name;
         }
 
-        $res = $vfs->writeData('root/' . $dir, $file, $data, true);
-        if (is_a($res, 'PEAR_Error')) {
-            printf("ERROR(1): %s: %s\n", $name, $res->getMessage());
+        try {
+            $vfs->writeData('root/' . $dir, $file, $data, true);
+        } catch (VFS_Exception $e) {
+            printf("ERROR(1): %s: %s\n", $name, $e->getMessage());
             return;
         }
     }

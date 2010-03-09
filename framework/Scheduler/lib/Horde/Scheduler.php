@@ -1,8 +1,4 @@
 <?php
-
-require_once 'Horde.php';
-require_once 'VFS.php';
-
 /**
  * Horde_Scheduler
  *
@@ -63,20 +59,15 @@ class Horde_Scheduler {
      */
     function serialize($id = '')
     {
-        $vfs = &VFS::singleton($GLOBALS['conf']['vfs']['type'],
-                               Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
-        if (is_a($vfs, 'PEAR_Error')) {
-            Horde::logMessage($vfs, __FILE__, __LINE__, PEAR_LOG_ERR);
+        try {
+            $vfs = VFS::singleton($GLOBALS['conf']['vfs']['type'],
+                                  Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
+            $vfs->writeData('.horde/scheduler', Horde_String::lower(get_class($this)) . $id, serialize($this), true);
+            return true;
+        } catch (VFS_Exception $e) {
+            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
             return false;
         }
-
-        $result = $vfs->writeData('.horde/scheduler', Horde_String::lower(get_class($this)) . $id, serialize($this), true);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return false;
-        }
-
-        return true;
     }
 
     /**
@@ -98,24 +89,19 @@ class Horde_Scheduler {
         $class = strtolower($class);
         $scheduler = new $class;
 
-        $vfs = &VFS::singleton($GLOBALS['conf']['vfs']['type'],
-                               Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
-        if (is_a($vfs, 'PEAR_Error')) {
-            Horde::logMessage($vfs, __FILE__, __LINE__, PEAR_LOG_ERR);
-        } else {
+        try {
+            $vfs = VFS::singleton($GLOBALS['conf']['vfs']['type'],
+                              Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
             $data = $vfs->read('.horde/scheduler', $class . $id);
-            if (is_a($data, 'PEAR_Error')) {
-                Horde::logMessage($data, __FILE__, __LINE__, PEAR_LOG_INFO);
-            } else {
-                $scheduler = @unserialize($data);
-                if (!$scheduler) {
-                    $scheduler = new $class;
-                }
+            if ($tmp = @unserialize($data)) {
+                $scheduler = $tmp;
             }
+        } catch (VFS_Exception $e) {
+            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
         }
 
         if ($autosave) {
-            register_shutdown_function(array(&$scheduler, 'serialize'));
+            register_shutdown_function(array($scheduler, 'serialize'));
         }
 
         return $scheduler;
