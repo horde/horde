@@ -265,7 +265,7 @@ class Ansel_View_Image extends Ansel_View_Base
             $prev = $this->_imageList[count($this->_imageList) - 1];
         }
 
-        /** Calculate the page number of the next/prev images */
+        /* Calculate the page number of the next/prev images */
         $perpage = $prefs->getValue('tilesperpage');
         $pagestart = $this->_page * $perpage;
         $pageend = min(count($this->_imageList), $pagestart + $perpage - 1);
