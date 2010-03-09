@@ -126,6 +126,7 @@ ul {
     font-weight: bold;
     font-size: 1.5em;
     color: #666;
+    float: left;
 }
 
 #editActionOverlay {
@@ -150,4 +151,10 @@ ul {
 
 #editAction {
     margin: 5px;
+}
+
+.buttonActionLabel
+{
+    text-align: right;
+    font-style: italic;
 }

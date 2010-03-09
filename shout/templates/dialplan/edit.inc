@@ -32,6 +32,7 @@ var ajax_url = '<?php echo Horde::getServiceLink('ajax', 'shout') ?>';
 var menu = '<?php echo $menu['name']; ?>';
 var menuInfo = $H();
 var menuActions = $H(<?php echo Horde_Serialize::serialize(Shout::getMenuActions(), Horde_Serialize::JSON, Horde_Nls::getCharset()); ?>);
+var destinations = $H(<?php echo Horde_Serialize::serialize($destinations, Horde_Serialize::JSON, Horde_Nls::getCharset()); ?>);
 var curDigit = null;
 
 function editAction(digit)
@@ -71,7 +72,6 @@ function editAction(digit)
             }
         });
         var params = $H({'action': action});
-        var actionForm;
         new Ajax.Updater('editAction', ajax_url + 'getActionForm',
         {
             method: 'post',
@@ -118,6 +118,7 @@ function refreshMenu()
 
     var meta = menuInfo.get('meta');
 
+    // Draw the menu metainfo box
     row = getMetaRow('<?php echo _("Menu Name"); ?>', meta.name);
     $('menuInfo').appendChild(row);
     row = getMetaRow('<?php echo _("Description"); ?>', meta.description);
@@ -130,7 +131,6 @@ function refreshMenu()
     text = document.createTextNode('<?php echo _("Sound file"); ?>');
     col.appendChild(text);
     row.appendChild(col);
-
     col = document.createElement('td');
     col.className='menuStatValue';
     text = document.createTextNode(meta.soundfile);
@@ -148,6 +148,65 @@ function refreshMenu()
     col.appendChild(img);
     row.appendChild(col);
     $('menuInfo').appendChild(row);
+    
+    // Fill in the actions
+    $H(menuInfo.get('actions')).each(function (pair) {
+        var text;
+        var digit = pair.key;
+        var action = pair.value.action;
+        var button = $('digit_'+digit);
+        empty(button);
+        var p = document.createElement('p');
+        p.className = 'buttonActionLabel';
+        var span = document.createElement('span');
+        span.className='digitLabel';
+        if (digit == 'star') {
+            text = document.createTextNode('*');
+        } else if (digit == 'octothorpe') {
+            text = document.createTextNode('#');
+        } else {
+            text = document.createTextNode(digit);
+        }
+        span.appendChild(text);
+        p.appendChild(span);
+        text = document.createTextNode(menuActions.get(action).description);
+        p.appendChild(text);
+        button.appendChild(p);
+
+        p = document.createElement('p');
+        p.className = 'buttonDetail';
+
+        switch(action) {
+        case 'jump':
+            var menu = pair.value.args.first()['menuName'];
+            text = document.createTextNode(destinations.get(exten).name);
+            break;
+        case 'ringexten':
+        case 'leave_message':
+            // FIXME: Why do I need first() here?
+            var exten = pair.value.args.first()['exten'];
+            text = document.createTextNode(destinations.get(exten).name);
+            break;
+        case 'conference':
+            var roomno = pair.value.args.first()['roomno'];
+            if (roomno != null) {
+                text = document.createTextNode(roomno);
+            } else {
+                text = document.createTextNode('');
+            }
+            break;
+        case 'dial':
+            var number = pair.value.args.first()['number'];
+            text = document.createTextNode(number);
+            break;
+        default:
+            text = document.createTextNode('');
+            break;
+        }
+
+        p.appendChild(text);
+        button.appendChild(p);
+    });
 }
 
 function getMetaRow(name, value)

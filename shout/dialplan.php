@@ -55,6 +55,11 @@ case 'edit':
         break;
     }
     $menu = $menus[$menu];
+    try {
+        $destinations = $shout->extensions->getExtensions($curaccount);
+    } catch (Exception $e) {
+        $notification->push(_("Problem getting destination information."));
+    }
     break;
 case 'list':
 default:

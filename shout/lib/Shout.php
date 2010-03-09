@@ -155,7 +155,7 @@ class Shout
                 )
             ),
             'ringexten' => array(
-                'description' => _("Ring an extension."),
+                'description' => _("Ring extension"),
                 'args' => array(
                     'exten' => array(
                         'name' => _("Extension"),
@@ -166,18 +166,18 @@ class Shout
                 )
             ),
             'leave_message' => array(
-                'description' => _("Leave a message."),
+                'description' => _("Go to voicemail"),
                 'args' => array(
                     'mailbox' => array(
                         'name' => _("Mailbox"),
                         'type' => 'enum',
                         'required' => true,
                         'params' => array(self::getNames($shout->extensions->getExtensions($account)))
-                        )
+                    )
                 )
             ),
             'conference' => array(
-                'description' => _("Enter conference room"),
+                'description' => _("Enter conference"),
                 'args' => array(
                     'roomno' => array(
                         'name' => _("Room Number"),
@@ -187,11 +187,11 @@ class Shout
                 )
             ),
             'directory' => array(
-                'description' => _("Enter company directory."),
+                'description' => _("Company directory"),
                 'args' => array()
             ),
             'dial' => array(
-                'description' => _("Place an outgoing call."),
+                'description' => _("Call out"),
                 'args' => array(
                     'number' => array(
                         'name' => _("Phone Number"),
@@ -201,7 +201,7 @@ class Shout
                 )
             ),
             'rewind' => array(
-                'description' => _("Restart the current menu."),
+                'description' => _("Restart menu"),
                 'args' => array()
             ),
             // TODO: Actions to implement: Queue
