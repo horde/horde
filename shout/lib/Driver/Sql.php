@@ -75,22 +75,17 @@ class Shout_Driver_Sql extends Shout_Driver
 
     public function getMenus($account)
     {
-        static $menus;
-        if (isset($menus[$account])) {
-            return $menus[$account];
-        }
-
         $this->_connect();
 
         $sql = 'SELECT accounts.code AS account, menus.name AS name, ' .
                'menus.description AS description, menus.soundfile AS soundfile ' .
                'FROM menus INNER JOIN accounts ON menus.account_id = accounts.id ' .
                'WHERE accounts.code = ?';
-        $vars = array($account);
+        $values = array($account);
 
         $msg = 'SQL query in Shout_Driver_Sql#getMenus(): ' . $sql;
         Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
-        $result = $this->_db->query($sql, $vars);
+        $result = $this->_db->query($sql, $values);
         if ($result instanceof PEAR_Error) {
             throw new Shout_Exception($result);
         }
@@ -100,10 +95,10 @@ class Shout_Driver_Sql extends Shout_Driver
             throw new Shout_Exception($row);
         }
 
-        $menus[$account] = array();
+        $menus = array();
         while ($row && !($row instanceof PEAR_Error)) {
             $menu = $row['name'];
-            $menus[$account][$menu] = array(
+            $menus[$menu] = array(
                 'name' => $menu,
                 'description' => $row['description'],
                 'soundfile' => $row['soundfile']
@@ -111,7 +106,38 @@ class Shout_Driver_Sql extends Shout_Driver
             $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
         }
         $result->free();
-        return $menus[$account];
+        return $menus;
+    }
+
+    function saveMenu($account, $details)
+    {
+        $menus = $this->getMenus($account);
+        if (isset($details['oldname'])) {
+            if (!isset($menus[$details['oldname']])) {
+                throw new Shout_Exception(_("Old menu not found.  Edit aborted."));
+            } else {
+                $sql = 'UPDATE menus SET name = ?, description = ?, ' .
+                       'soundfile = ? WHERE account_id = (SELECT id FROM ' .
+                       'WHERE code = ?) AND name = ?';
+                $values = array($details['name'], $details['description'],
+                                $details['soundfile'], $account,
+                                $details['oldname']);
+            }
+        } else {
+            $sql = "INSERT INTO menus (account_id, name, description, soundfile) " .
+                   "VALUES ((SELECT id FROM accounts WHERE code = ?), ?, ?, ?)";
+            $values = array($account, $details['name'],
+                            $details['description'], $details['soundfile']);
+        }
+
+        $msg = 'SQL query in Shout_Driver_Sql#saveMenu(): ' . $sql;
+        Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $result = $this->_db->query($sql, $values);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+
+        return true;
     }
 
     function getMenuActions($account, $menu)

@@ -1,7 +1,7 @@
 <div class="header">
     <ul id="controls">
         <?php
-        $addurl = Horde::applicationUrl('extensions.php');
+        $addurl = Horde::applicationUrl('dialplan.php');
         $addurl = Horde_Util::addParameter($addurl, 'action', 'add');
         $editurl = Horde::applicationUrl('dialplan.php');
         $editurl = Horde_Util::addParameter($editlink, 'action', 'edit');
