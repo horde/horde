@@ -190,7 +190,7 @@ class Horde_Imap_Client_Utils
         $str = Horde_Mime::decode($str, 'UTF-8');
 
         // Rule 1b: Remove superfluous whitespace.
-        $str = preg_replace("/\s{2,}/", ' ', $str);
+        $str = preg_replace("/\b\s+\b/", ' ', $str);
 
         if (!$str) {
             return '';
