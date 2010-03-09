@@ -184,7 +184,7 @@ foreach (array('to', 'cc', 'bcc') as $val) {
 /* Process the subject now. */
 if (($subject = $mime_headers->getValue('subject'))) {
     /* Filter the subject text, if requested. */
-    $subject = Horde_String::truncate(IMP::filterText($subject), 30);
+    $subject = Horde_String::truncate(IMP::filterText($subject), 50);
 } else {
     $subject = _("[No Subject]");
 }

@@ -136,7 +136,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
 
     /* Format the from header. */
     $getfrom = $imp_ui->getFrom($ob['envelope']);
-    $msg['from'] = Horde_String::truncate($getfrom['from'], 20);
+    $msg['from'] = Horde_String::truncate($getfrom['from'], 50);
 
     /* Get flag information. */
     $flag_parse = $injector->getInstance('IMP_Imap_Flags')->parse(array(
@@ -153,7 +153,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
         }
     }
 
-    $msg['subject'] = Horde_String::truncate($msg['subject'], 30);
+    $msg['subject'] = Horde_String::truncate($msg['subject'], 50);
 
     /* Thread display. */
     $msg['thread'] = empty($threadtree[$ob['uid']])
