@@ -2150,7 +2150,7 @@ KronolithCore = {
         calendar = calendar.split('|');
         var type = calendar[0];
         calendar = calendar.length == 1 ? null : calendar[1];
-        this.doAction('listTopTags', {update: 'kronolithCalendarinternalTopTags'}, this.topTagsCallback);
+        this.doAction('listTopTags', {tagclass: 'kronolithCalendarTag'}, this.topTagsCallback);
         var form = $('kronolithCalendarForm' + type),
             firstTab = form.down('.tabset a.kronolithTabLink'),
             info;
@@ -3359,6 +3359,11 @@ KronolithCore = {
                 e.stop();
                 return;
 
+            case 'kronolithCalendarTag':
+                $('kronolithCalendarinternalTags').autocompleter.addNewItemNode(elt.getText());
+                e.stop();
+                return;
+
             case 'kronolithEventGeo':
                 this.ensureMap();
                 this.geocode($F('kronolithEventLocation'));
@@ -3791,7 +3796,7 @@ KronolithCore = {
         $('kronolithEventSave').show();
         $('kronolithEventDelete').show();
         $('kronolithEventForm').down('.kronolithFormActions .kronolithSeparator').show();
-        this.doAction('listTopTags', {update: 'kronolithEventTopTags'}, this.topTagsCallback);
+        this.doAction('listTopTags', {tagclass: 'kronolithEventTag'}, this.topTagsCallback);
         if (id) {
             RedBox.loading();
             this.doAction('getEvent', { cal: calendar, id: id, date: date }, this.editEventCallback.bind(this));
@@ -3882,15 +3887,16 @@ KronolithCore = {
 
     topTagsCallback: function(r)
     {
+        var update = (r.response.tagclass == 'kronolithEventTag') ? 'kronolithEventTopTags' : 'kronolithCalendarinternalTopTags';
         if (!r.response.tags) {
-            $(r.response.update).update();
+            $(update).update();
             return;
         }
         t = new Element('div');
         r.response.tags.each(function(tag) {
-            t.insert(new Element('span', { className: 'kronolithEventTag' }).update(tag.escapeHTML()));
+            t.insert(new Element('span', { className: r.response.tagclass }).update(tag.escapeHTML()));
         });
-        $(r.response.update).update(t);
+        $(update).update(t);
         return;
     },
 
