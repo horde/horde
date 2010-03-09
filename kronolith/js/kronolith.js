@@ -2150,7 +2150,7 @@ KronolithCore = {
         calendar = calendar.split('|');
         var type = calendar[0];
         calendar = calendar.length == 1 ? null : calendar[1];
-        this.doAction('listTopTags', {tagclass: 'kronolithCalendarTag'}, this.topTagsCallback);
+
         var form = $('kronolithCalendarForm' + type),
             firstTab = form.down('.tabset a.kronolithTabLink'),
             info;
@@ -2238,6 +2238,7 @@ KronolithCore = {
         }
 
         if (newCalendar || info.owner) {
+            this.doAction('listTopTags', {tagclass: 'kronolithCalendarTag'}, this.topTagsCallback);
             form.down('.kronolithColorPicker').show();
             if (type == 'internal') {
                 form.down('.kronolithCalendarSubscribe').hide();
@@ -2258,6 +2259,7 @@ KronolithCore = {
             }
         } else {
             form.disable();
+            this.doAction('listTopTags', {tagclass: 'kronolithTagDisable'}, this.topTagsCallback);
             form.down('.kronolithColorPicker').hide();
             form.down('.kronolithCalendarDelete').hide();
             form.down('.kronolithCalendarSave').hide();
