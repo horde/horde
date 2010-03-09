@@ -14,7 +14,7 @@ asort($groups);
 <div id="kronolithCalendarDialog" class="kronolithDialog">
 
 <form id="kronolithCalendarForminternal" action="">
-<input id="kronolithCalendarType" type="hidden" name="type" value="internal" />
+<input type="hidden" name="type" value="internal" />
 <input id="kronolithCalendarinternalId" type="hidden" name="calendar" />
 
 <div class="kronolithCalendarDiv" id="kronolithCalendarinternal1">
@@ -309,7 +309,7 @@ asort($groups);
 </form>
 
 <form id="kronolithCalendarFormtasklists" action="">
-<input id="kronolithCalendarType" type="hidden" name="type" value="tasklists" />
+<input type="hidden" name="type" value="tasklists" />
 <input id="kronolithCalendartasklistsId" type="hidden" name="calendar" />
 
 <div class="kronolithCalendarDiv" id="kronolithCalendartasklists1">
@@ -370,7 +370,7 @@ tbd
 </form>
 
 <form id="kronolithCalendarFormremote" action="">
-<input id="kronolithCalendarType" type="hidden" name="type" value="remote" />
+<input type="hidden" name="type" value="remote" />
 <input id="kronolithCalendarremoteId" type="hidden" name="calendar" />
 
 <div class="kronolithCalendarDiv" id="kronolithCalendarremote1">
