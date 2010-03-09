@@ -107,7 +107,7 @@ class Horde_LoginTasks_Tasklist
         }
 
         if ($advance) {
-            $this->_tasks = array_slice($this->_tasks, count($tmp) + $this->_ptr);
+            $this->_tasks = array_slice($this->_tasks, count($tmp));
             $this->_ptr = 0;
         }
 

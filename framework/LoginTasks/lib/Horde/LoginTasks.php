@@ -245,8 +245,10 @@ class Horde_LoginTasks
             return $this->_backend->redirect($tasklist_target);
         }
 
-        if (!$processed && $need_display) {
-            $this->_tasklist->target = $url;
+        if ((!$processed || $confirmed) && $need_display) {
+            if (empty($this->_tasklist->target)) {
+                $this->_tasklist->target = $url;
+            }
             return $this->_backend->redirect($this->getLoginTasksUrl());
         }
     }

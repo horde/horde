@@ -422,14 +422,21 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
         );
         $tasks->runTasks(false, 'redirect');
         $tasks->displayTasks();
+        $this->assertContains(
+            'http:///services/logintasks.php?app=test',
+            (string) $tasks->runTasks(true)
+        );
+        $this->assertNull(
+            $tasks->runTasks(false)
+        );
+        $tasks->displayTasks();
         $this->assertEquals(
-            'redirect', $tasks->runTasks(true, null)
+            'redirect', $tasks->runTasks(true)
         );
     }
 
     public function testConfirmSeriesDisplay()
     {
-        //$this->markTestIncomplete();
         Horde_LoginTasks_Stub_Task::$executed = array();
         $tasks = $this->_getLoginTasks(
             array(
@@ -468,8 +475,9 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
         );
         $_POST['logintasks_confirm_0'] = true;
         $_POST['logintasks_confirm_1'] = true;
-        $this->assertNull(
-            $tasks->runTasks(true)
+        $this->assertContains(
+            'http:///services/logintasks.php?app=test',
+            (string) $tasks->runTasks(true)
         );
         $this->assertEquals(
             array(
@@ -499,9 +507,22 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
         asort($classes);
         $this->assertEquals(
             array(
-                'Horde_LoginTasks_Stub_Confirm'
+                'Horde_LoginTasks_Stub_Notice'
             ),
             $classes
+        );
+        $this->assertContains(
+            'http:///services/logintasks.php?app=test',
+            (string) $tasks->runTasks(true)
+        );
+        $this->assertEquals(
+            array(
+                'Horde_LoginTasks_Stub_ConfirmNo',
+                'Horde_LoginTasks_Stub_Confirm',
+                'Horde_LoginTasks_Stub_Task',
+                'Horde_LoginTasks_Stub_Notice'
+            ),
+            Horde_LoginTasks_Stub_Task::$executed
         );
     }
 
