@@ -2616,6 +2616,9 @@ KronolithCore = {
                                   cal.fg = r.response.color;
                                   cal.name = data.name;
                                   cal.desc = data.description;
+                                  if (r.response.perms) {
+                                      cal.perms = r.response.perms;
+                                  }
                                   this.getCalendarList(type, cal.owner).select('div').each(function(element) {
                                       if (element.retrieve('calendar') == data.calendar) {
                                           element
@@ -2639,6 +2642,9 @@ KronolithCore = {
                                       owner: true,
                                       show: true
                                   };
+                                  if (r.response.perms) {
+                                      cal.perms = r.response.perms;
+                                  }
                                   Kronolith.conf.calendars[type][r.response.calendar] = cal;
                                   this.insertCalendarInList(type, r.response.calendar, cal);
                               }

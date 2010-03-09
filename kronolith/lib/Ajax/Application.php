@@ -480,6 +480,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
                     $GLOBALS['notification']->push($e, 'horde.error');
                     return $result;
                 }
+                Kronolith::readPermsForm($calendar);
                 $GLOBALS['notification']->push(sprintf(_("The calendar \"%s\" has been created."), $info['name']), 'horde.success');
                 $result->calendar = $calendar->getName();
                 break;
@@ -500,6 +501,8 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
                 return $result;
 
             }
+            Kronolith::readPermsForm($calendar);
+            $result->perms = $calendar->getPermission()->data;
             if ($calendar->get('name') != $original_name) {
                 $GLOBALS['notification']->push(sprintf(_("The calendar \"%s\" has been renamed to \"%s\"."), $original_name, $calendar->get('name')), 'horde.success');
             } else {
