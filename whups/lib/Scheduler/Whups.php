@@ -1,25 +1,17 @@
 <?php
-
-require_once 'Horde/Scheduler/cron.php';
-
 /**
  * Horde_Scheduler_whups:: Send reminders for tickets based on the
  * reminders configuration file.
  *
  * @package Horde_Scheduler
  */
-class Horde_Scheduler_whups extends Horde_Scheduler {
+class Horde_Scheduler_Whups extends Horde_Scheduler
+{
+    protected $_reminders;
+    protected $_runtime;
+    protected $_filestamp = 0;
 
-    var $_reminders;
-    var $_runtime;
-    var $_filestamp = 0;
-
-    function Horde_Scheduler_whups($params = array())
-    {
-        parent::Horde_Scheduler($params);
-    }
-
-    function run()
+    public function run()
     {
         $this->_runtime = time();
 
@@ -31,7 +23,7 @@ class Horde_Scheduler_whups extends Horde_Scheduler {
         }
 
         foreach ($this->_reminders as $reminder) {
-            $ds = new Horde_Scheduler_cronDate($reminder['frequency']);
+            $ds = new Horde_Scheduler_Cron_Date($reminder['frequency']);
             if ($ds->scheduledAt($this->_runtime)) {
                 if (!empty($reminder['server_name'])) {
                     $GLOBALS['conf']['server']['name'] = $reminder['server_name'];

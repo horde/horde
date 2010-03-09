@@ -1,140 +1,30 @@
 <?php
 /**
- * Horde_Scheduler_cron:: Sort of a cron replacement in a PHP cli
- * script.
- *
- * Date Syntax Examples.
- *
- * Remember:
- *   - Whitespace (space, tab, newline) delimited fields
- *   - Single values, sets, ranges, wildcards
- *
- * SECOND   MINUTE              HOUR        DAY     MONTH
- * *        *                   *           *       *       (every second)
- * 0,30     *                   *           *       *       (every 30 seconds)
- * 0        0,10,20,30,40,50    *           *       *       (every 10 minutes)
- * 0        0                   *           *       *       (beginning of every hour)
- * 0        0                   0,6,12,18   *       *       (at midnight, 6am, noon, 6pm)
- * 0        0                   0           1-7&Fri *       (midnight, first Fri of the month)
- * 0        0                   0           1-7!Fri *       (midnight, first Mon-Thu,Sat-Sun of the month)
- *
- *
- * Example usage:
- *
- * @set_time_limit(0);
- * require_once 'Horde/Scheduler.php';
- * $cron = Horde_Scheduler::factory('cron');
- *
- * // Run this command every 5 minutes.
- * $cron->addTask('perl somescript.pl', '0 0,5,10,15,20,25,30,35,40,45,50,55 * * *');
- *
- * // Run this command midnight of the first Friday of odd numbered months.
- * $cron->addTask('php -q somescript.php', '0 0 0 1-7&Fri 1,3,5,7,9,11');
- *
- * // Also run this command midnight of the second Thursday and Saturday of the even numbered months.
- * $cron->addTask('php -q somescript.php', '0 0 0 8-15&Thu,8-15&Sat 2,4,6,8,10,12');
- *
- * $cron->run();
- *
  * @author  Ryan Flynn <ryan@ryanflynn.com>
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Horde_Scheduler
  */
-class Horde_Scheduler_cron extends Horde_Scheduler {
+class Horde_Scheduler_Cron_Date
+{
+    public $legalDays = array('MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN');
 
-    var $_tasks = array();
+    public $sec;
+    public $min;
+    public $hour;
+    public $day;
+    public $month;
 
-    /**
-     * Every time a task is added it will get a fresh uid even if
-     * immediately removed.
-     */
-    var $_counter = 1;
-
-    function addTask($cmd, $rules)
-    {
-        $ds = new Horde_Scheduler_cronDate($rules);
-
-        $this->_counter++;
-
-        $this->_tasks[] =
-            array(
-                'uid' => $this->_counter,
-                'rules' => $ds,
-                'cmd' => $cmd
-            );
-
-        return $this->_counter;
-    }
-
-    function removeTask($uid)
-    {
-        $count = count($this->_tasks);
-        for ($i = 0; $i < $count; $i++) {
-            if ($this->_tasks['uid'] == $uid) {
-                $found = $i;
-                array_splice($this->_tasks, $i);
-                return $i;
-            }
-        }
-
-        return 0;
-    }
-
-    function run()
-    {
-        if (!count($this->_tasks)) {
-            exit("crond: Nothing to schedule; exiting.\n");
-        }
-
-        while (true) {
-            $t = time();
-
-            // Check each task.
-            foreach ($this->_tasks as $task) {
-                if ($task['rules']->nowMatches()) {
-                    $this->runcmd($task);
-                }
-            }
-
-            // Wait until the next second.
-            while (time() == $t) {
-                $this->sleep(100000);
-            }
-        }
-    }
-
-    function runcmd(&$task)
-    {
-        Horde::logMessage('Horde_Scheduler_Cron::runcmd(): ' . $task['cmd'] . ' run by ' . $task['uid'], __FILE__, __LINE__, PEAR_LOG_INFO);
-        return shell_exec($task['cmd']);
-    }
-
-}
-
-/**
- * @package Horde_Scheduler
- */
-class Horde_Scheduler_cronDate {
-
-    var $legalDays = array('MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN');
-
-    var $sec;
-    var $min;
-    var $hour;
-    var $day;
-    var $month;
-
-    function Horde_Scheduler_cronDate($raw)
+    public function __construct($raw)
     {
         $this->parse(Horde_String::upper($raw));
     }
 
-    function nowMatches()
+    public function nowMatches()
     {
         return $this->scheduledAt(time());
     }
 
-    function scheduledAt($ts = null)
+    public function scheduledAt($ts = null)
     {
         if ($ts === null) {
             $ts = time();
@@ -147,7 +37,7 @@ class Horde_Scheduler_cronDate {
                 $this->secMatches($ts));
     }
 
-    function monthMatches($ts)
+    public function monthMatches($ts)
     {
         if ($this->month == '*') {
             return true;
@@ -158,7 +48,7 @@ class Horde_Scheduler_cronDate {
         return (bool)strpos($this->month, $currentmonth);
     }
 
-    function dayMatches($ts)
+    public function dayMatches($ts)
     {
         if (!empty($this->day['value']) && $this->day['value'] == '*') {
             return true;
@@ -183,7 +73,7 @@ class Horde_Scheduler_cronDate {
         return false;
     }
 
-    function hourMatches($ts)
+    public function hourMatches($ts)
     {
         if ($this->hour == '*') {
             return true;
@@ -194,7 +84,7 @@ class Horde_Scheduler_cronDate {
         return (strpos($this->hour, $currenthour) !== false);
     }
 
-    function minMatches($ts)
+    public function minMatches($ts)
     {
         if ($this->min == '*') {
             return true;
@@ -205,7 +95,7 @@ class Horde_Scheduler_cronDate {
         return (strpos($this->min, $currentmin) !== false);
     }
 
-    function secMatches($ts)
+    public function secMatches($ts)
     {
         if ($this->sec == '*') {
             return true;
@@ -216,7 +106,7 @@ class Horde_Scheduler_cronDate {
         return (strpos($this->sec, $currentsec) !== false);
     }
 
-    function parse($str)
+    public function parse($str)
     {
         $s = array();
 
@@ -308,7 +198,7 @@ class Horde_Scheduler_cronDate {
         }
     }
 
-    function isCond($s)
+    public function isCond($s)
     {
         if (strpos($s, '&') !== false) {
             return '&';
@@ -319,27 +209,27 @@ class Horde_Scheduler_cronDate {
         }
     }
 
-    function isRange($s)
+    public function isRange($s)
     {
         return preg_match('/^\w+\-\w+/', $s);
     }
 
-    function isCondRange($s)
+    public function isCondRange($s)
     {
-        return (isCond($s) && isRange($s));
+        return ($this->isCond($s) && $this->isRange($s));
     }
 
-    function isCondVal($s)
+    public function isCondVal($s)
     {
-        return (isCond($s) && !isRange($s));
+        return ($this->isCond($s) && !$this->isRange($s));
     }
 
-    function rangeVals($s)
+    public function rangeVals($s)
     {
         return explode('-', $s);
     }
 
-    function expandRange($l, $h = '')
+    public function expandRange($l, $h = '')
     {
         // Expand range from 1-5 -> '-1-2-3-4-5-'.
         if (is_array($l)) {
@@ -382,7 +272,7 @@ class Horde_Scheduler_cronDate {
         }
     }
 
-    function dayValue($s)
+    public function dayValue($s)
     {
         for ($i = 0; $i < count($this->legalDays); $i++) {
             if ($this->legalDays[$i] == $s) {
@@ -393,22 +283,22 @@ class Horde_Scheduler_cronDate {
         return -1;
     }
 
-    function isDigit($s)
+    public function isDigit($s)
     {
         return preg_match('/^\d+$/', $s);
     }
 
-    function isAlpha($s)
+    public function isAlpha($s)
     {
         return $this->isLegalDay($s);
     }
 
-    function isLegalDay($s)
+    public function isLegalDay($s)
     {
         return in_array($s, $this->legalDays);
     }
 
-    function generallyDecentSyntax($s)
+    public function generallyDecentSyntax($s)
     {
         return ($s == '*' ||
                 preg_match('/^\d+(-\d+)?([!&][A-Z\*]+(-[A-Z\*]+)?)?(,\d+(-\d+)?([!&][A-Z\*]+(-[A-Z\*]+)?)?)*$/', $s));
