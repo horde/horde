@@ -11,7 +11,11 @@ Horde_Registry::appInit('kronolith');
 
 /* Load traditional interface? */
 if (!$prefs->getValue('dynamic_view') || !$browser->hasFeature('xmlhttpreq') ||
-    ($browser->isBrowser('msie') && $browser->getMajor() <= 6)) {
+    ($browser->isBrowser('msie') && $browser->getMajor() < 7) ||
+    ($browser->hasFeature('issafari') && $browser->getMajor() < 2)) {
+    if ($prefs->getValue('dynamic_view')) {
+        $notification->push(_("Your browser is too old to display the dynamic mode. Using traditional mode instead."), 'horde.error');
+    }
     include KRONOLITH_BASE . '/' . $prefs->getValue('defaultview') . '.php';
     exit;
 }
