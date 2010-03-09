@@ -19,8 +19,13 @@ class Horde_Themes
      * @param array $options  Additional options:
      * <pre>
      * 'additional' - (array) TODO
+     * 'nohorde' - (boolean) If true, don't load files from Horde.
      * 'sub' - (string) A subdirectory containing additional CSS files to
      *         load as an overlay to the base CSS files.
+     * 'subonly' - (boolean) If true, only load the files in 'sub', not
+     *             the default theme files.
+     * 'theme' - (string) Use this theme instead of the default.
+     * 'themeonly' - (boolean) If true, only load the theme files.
      * </pre>
      */
     static public function includeStylesheetFiles($options = array())
@@ -30,7 +35,7 @@ class Horde_Themes
         $themesfs = $registry->get('themesfs');
         $themesuri = $registry->get('themesuri');
 
-        $css = self::getStylesheets($prefs->getValue('theme'), $options);
+        $css = self::getStylesheets(isset($options['theme']) ? $options['theme'] : $prefs->getValue('theme'), $options);
         $css_out = array();
 
         if (!empty($options['additional'])) {
@@ -141,8 +146,12 @@ class Horde_Themes
      * @param array $options  Additional options:
      * <pre>
      * 'app' - (string) The current application.
+     * 'nohorde' - (boolean) If true, don't load files from Horde.
      * 'sub' - (string) A subdirectory containing additional CSS files to
      *         load as an overlay to the base CSS files.
+     * 'subonly' - (boolean) If true, only load the files in 'sub', not
+     *             the default theme files.
+     * 'themeonly' - (boolean) If true, only load the theme files.
      * </pre>
      *
      * @return array  TODO
@@ -192,7 +201,11 @@ class Horde_Themes
         $curr_app = empty($options['app'])
             ? $GLOBALS['registry']->getApp()
             : $options['app'];
-        $apps = array_unique(array('horde', $curr_app));
+        if (empty($options['nohorde'])) {
+            $apps = array_unique(array('horde', $curr_app));
+        } else {
+            $apps = ($curr_app == 'horde') ? array() : array($curr_app);
+        }
         $sub = empty($options['sub']) ? null : $options['sub'];
 
         foreach ($apps as $app) {
@@ -200,13 +213,19 @@ class Horde_Themes
             $themes_uri = Horde::url($GLOBALS['registry']->get('themesuri', $app), false, -1) . '/';
 
             foreach ($css_list as $css_name) {
-                $css[$themes_fs . $css_name . '.css'] = $themes_uri . $css_name . '.css';
+                if (empty($options['subonly'])) {
+                    $css[$themes_fs . $css_name . '.css'] = $themes_uri . $css_name . '.css';
+                }
+
                 if ($sub && ($app == $curr_app)) {
                     $css[$themes_fs . $sub . '/' . $css_name . '.css'] = $themes_uri . $sub . '/' . $css_name . '.css';
                 }
 
                 if (!empty($theme)) {
-                    $css[$themes_fs . $theme . '/' . $css_name . '.css'] = $themes_uri . $theme . '/' . $css_name . '.css';
+                    if (empty($options['subonly'])) {
+                        $css[$themes_fs . $theme . '/' . $css_name . '.css'] = $themes_uri . $theme . '/' . $css_name . '.css';
+                    }
+
                     if ($sub && ($app == $curr_app)) {
                         $css[$themes_fs . $theme . '/' . $sub . '/' . $css_name . '.css'] = $themes_uri . $theme . '/' . $sub . '/' . $css_name . '.css';
                     }
