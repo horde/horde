@@ -61,7 +61,7 @@ $layout_html = $view->toHtml();
 
 $horde_css_stylesheets = array();
 foreach ($view->getApplications() as $app) {
-    $horde_css_stylesheets = array_merge($horde_css_stylesheets, Horde::getStylesheets('', array('app' => $app)));
+    $horde_css_stylesheets = array_merge($horde_css_stylesheets, Horde_Themes::getStylesheets('', array('app' => $app)));
 }
 
 $linkTags = $view->getLinkTags();

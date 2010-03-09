@@ -262,7 +262,7 @@ case 'print_attach':
                 }
 
                 $css = '';
-                foreach (Horde::getStylesheets() as $val) {
+                foreach (Horde_Themes::getStylesheets() as $val) {
                     $css .= file_get_contents($val['f']);
                 }
 
