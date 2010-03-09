@@ -14,7 +14,7 @@ if (!$prefs->getValue('dynamic_view') || !$browser->hasFeature('xmlhttpreq') ||
     ($browser->isBrowser('msie') && $browser->getMajor() < 7) ||
     ($browser->hasFeature('issafari') && $browser->getMajor() < 2)) {
     if ($prefs->getValue('dynamic_view')) {
-        $notification->push(_("Your browser is too old to display the dynamic mode. Using traditional mode instead."), 'horde.error');
+        $notification->push(_("Your browser is too old to display the dynamic mode. Using traditional mode instead."), 'horde.warning');
     }
     include KRONOLITH_BASE . '/' . $prefs->getValue('defaultview') . '.php';
     exit;

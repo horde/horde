@@ -476,7 +476,7 @@ class IMP_Auth
              ($GLOBALS['browser']->hasFeature('issafari') &&
               ($GLOBALS['browser']->getMajor() < 2)))) {
             $sess['view'] = 'imp';
-            $GLOBALS['notification']->push(_("Your browser is too old to display the dynamic mode. Using traditional mode instead."), 'horde.error');
+            $GLOBALS['notification']->push(_("Your browser is too old to display the dynamic mode. Using traditional mode instead."), 'horde.warning');
         }
 
         setcookie('default_imp_view', $sess['view'], time() + 30 * 86400,
