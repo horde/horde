@@ -43,7 +43,11 @@ case 'dimp':
     break;
 
 case 'mimp':
-    // Nothing
+    Horde_Themes::includeStylesheetFiles(array(
+        'nohorde' => true,
+        'sub' => 'mimp',
+        'subonly' => true
+    ));
     break;
 
 default:
