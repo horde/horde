@@ -2300,12 +2300,12 @@ KronolithCore = {
             $('kronolithCalendarPermsGroupList').disable();
             $('kronolithCalendarPermsGroupPerms').disable();
             var perms = {
-                default: Kronolith.conf.perms.read,
-                guest: Kronolith.conf.perms.read
+                'default': Kronolith.conf.perms.read,
+                'guest': Kronolith.conf.perms.read
             };
             if ($F('kronolithCalendarPermsAllShow')) {
-                perms.default |= Kronolith.conf.perms.show;
-                perms.guest |= Kronolith.conf.perms.show;
+                perms['default'] |= Kronolith.conf.perms.show;
+                perms['guest'] |= Kronolith.conf.perms.show;
             }
             this.setPermsFields(perms);
             break;
