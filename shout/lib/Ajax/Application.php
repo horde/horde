@@ -165,7 +165,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
             $form->renderActive(null, null, 'javascript:saveAction()');
             $output = ob_get_flush();
             return $output;
-            
+
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.
             Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
