@@ -118,7 +118,6 @@ class Horde_Image_Exif
                 'Copyright' => array('description' => _("Copyright"), 'type' => 'text'),
                 'Artist' => array('description' => _("Artist"), 'type' => 'text'),
                 'LightSource' => array('description' => _("Light source"), 'type' => 'number'),
-                'FileSource' => array('description' => _("File source"), 'type' => 'number'),
                 'ImageStabalization' => array('description' => _("Image Stabilization"), 'type' => 'text'),
             ),
         );
@@ -448,12 +447,6 @@ class Horde_Image_Exif
            $s = array('B', 'kB', 'MB', 'GB');
            $e = floor(log($data, 1024));
            return round($data/pow(1024, $e), 2) . ' ' . $s[$e];
-
-        case 'FileSource':
-            $data = bin2hex($data);
-            $data = str_replace('00', '', $data);
-            $data = str_replace('03', _("Digital Still Camera"), $data);
-            return $data;
 
         case 'SensingMethod':
             switch ($data) {
