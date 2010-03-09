@@ -312,7 +312,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
             ),
             true
         );
-        $tasks->runTasks(false, null, true);
+        $tasks->runTasks(false, null);
         $this->assertEquals(
             array(
                 'Horde_LoginTasks_Stub_High',
@@ -335,7 +335,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
         );
         $this->assertContains(
             'http:///services/logintasks.php?app=test',
-            (string) $tasks->runTasks(false, null, true)
+            (string) $tasks->runTasks(false, null)
         );
     }
 
@@ -350,7 +350,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
             ),
             true
         );
-        $tasks->runTasks(false, null, true);
+        $tasks->runTasks(false, null);
         $tasklist = $tasks->displayTasks();
         $this->assertEquals(
             'Horde_LoginTasks_Stub_Notice',
@@ -370,7 +370,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
             ),
             true
         );
-        $tasks->runTasks(false, null, true);
+        $tasks->runTasks(false, null);
         $tasklist = $tasks->displayTasks();
         $classes = array();
         foreach ($tasklist as $task) {
@@ -398,10 +398,10 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
             ),
             true
         );
-        $tasks->runTasks(false, null, true);
+        $tasks->runTasks(false, null);
         Horde_LoginTasks_Stub_Task::$executed = array();
         $tasks->displayTasks();
-        $tasks->runTasks(true, null, true);
+        $tasks->runTasks(true, null);
         $this->assertEquals(
             array(
                 'Horde_LoginTasks_Stub_Notice',
@@ -420,10 +420,10 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
             ),
             true
         );
-        $tasks->runTasks(false, 'redirect', true);
+        $tasks->runTasks(false, 'redirect');
         $tasks->displayTasks();
         $this->assertEquals(
-            'redirect', $tasks->runTasks(true, null, true)
+            'redirect', $tasks->runTasks(true, null)
         );
     }
 
@@ -446,7 +446,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
         );
         $this->assertContains(
             'http:///services/logintasks.php?app=test',
-            (string) $tasks->runTasks(false, 'redirect', true)
+            (string) $tasks->runTasks(false, 'redirect')
         );
         $this->assertEquals(
             array(
@@ -468,7 +468,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
         $_POST['logintasks_confirm_0'] = true;
         $this->assertEquals(
             'redirect',
-            $tasks->runTasks(true, null, true)
+            $tasks->runTasks(true, null)
         );
         $this->assertEquals(
             array(
@@ -478,7 +478,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
         );
         $this->assertContains(
             'http:///services/logintasks.php?app=test',
-            (string) $tasks->runTasks(false, null, true)
+            (string) $tasks->runTasks(false, null)
         );
         $this->assertEquals(
             array(
