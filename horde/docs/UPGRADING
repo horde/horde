@@ -2,7 +2,7 @@
  Upgrading Horde
 =================
 
-:Contact:       horde@lists.horde.org
+:Contact: horde@lists.horde.org
 
 
 These are instructions to upgrade from earlier Horde versions. Please backup
@@ -27,8 +27,9 @@ necessary SQL statements are found at::
 
 The following preferences are no longer used and can be removed:
 
-    * do_maintenance
     * confirm_maintenance
+    * do_maintenance
+    * editor_plugins
     * last_maintenance
 
 The following hooks have changed:

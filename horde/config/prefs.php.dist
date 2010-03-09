@@ -163,14 +163,6 @@ if (!empty($GLOBALS['conf']['imsp']['enabled'])) {
     );
 }
 
-// Determine functionality of richtext editor
-$prefGroups['richtext'] = array(
-    'column' => _("Other Information"),
-    'label' => _("Rich Text Editor Options"),
-    'desc' => _("Which plugins to enable for the Rich Text editor."),
-    'members' => array('editor_plugins'),
-);
-
 $prefGroups['syncml'] = array(
     'column' => _("Other Information"),
     'label' => _("SyncML"),
@@ -548,23 +540,6 @@ if (!empty($GLOBALS['conf']['imsp']['enabled'])) {
         'desc' => _("Alternate IMSP Password")
     );
 }
-
-// Rich Text Editor preferences.
-$_prefs['editor_plugins'] = array(
-    'value' => 'a:2:{i:0;s:8:"ListType";i:1;s:12:"CharacterMap";}',
-    'locked' => false,
-    'shared' => true,
-    'type' => 'multienum',
-    'enum' => array(
-        'ContextMenu' => _("Right click context menu"),
-        'TableOperations' => _("Table operations menu bar"),
-        'ListType' => _("Allow setting of ordered list type"),
-        'CharacterMap' => _("Special characters"),
-        'AnselImage' => _("Insertion of images from Photo Galleries in text")),
-    'desc' => _("Select editor plugins")
-);
-// End Rich Text Editor preferences.
-
 
 // last time login tasks were run.
 $_prefs['last_logintasks'] = array(
