@@ -18,6 +18,7 @@ abstract class Horde_Ajax_Imple_AutoCompleter extends Horde_Ajax_Imple_Base
      * @param array $params  Configuration parameters.
      * <pre>
      * 'triggerId' => (string) [optional] TODO
+     * 'no_onload' => (boolean) [optional] Don't wait for dom:onload to attach
      * </pre>
      */
     public function __construct($params)
@@ -85,7 +86,7 @@ abstract class Horde_Ajax_Imple_AutoCompleter extends Horde_Ajax_Imple_Base
 
         Horde::addScriptFile('effects.js', 'horde');
 
-        Horde::addInlineScript((isset($config['var']) ? $config['var'] . ' = ' : '') . 'new ' . $func . '(' . implode(',', $params) . ',' . $js_params . ')', 'dom');
+        Horde::addInlineScript((isset($config['var']) ? $config['var'] . ' = ' : '') . 'new ' . $func . '(' . implode(',', $params) . ',' . $js_params . ')', empty($this->_params['no_onload']) ? 'dom' : null);
     }
 
     /**
