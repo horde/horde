@@ -2292,6 +2292,10 @@ KronolithCore = {
         $('kronolithCalendarPermsAdvanced')
             .select('input[type=checkbox]')
             .invoke('setValue', 0);
+        $('kronolithCalendarPermsAdvanced').select('tr').findAll(function(tr) {
+            return tr.retrieve('remove');
+        }).invoke('remove');
+
         switch (perm) {
         case 'None':
             $('kronolithCalendarPermsAllShow').disable();
@@ -2319,7 +2323,7 @@ KronolithCore = {
             var group = $F('kronolithCalendarPermsGroupSingle')
                 ? $F('kronolithCalendarPermsGroupSingle')
                 : $F('kronolithCalendarPermsGroupList');
-            this.insertGroupOrUser('group', group);
+            this.insertGroupOrUser('group', group, true);
             $('kronolithCalendarPermsGroupshow_' + group).setValue(1);
             $('kronolithCalendarPermsGroupread_' + group).setValue(1);
             if ($F('kronolithCalendarPermsGroupPerms') == 'edit') {
@@ -2431,9 +2435,11 @@ KronolithCore = {
             case 'all_read':
                 $('kronolithCalendarPermsAll').setValue(1);
                 $('kronolithCalendarPermsAllShow').setValue(0);
+                break;
             case 'all_show':
                 $('kronolithCalendarPermsAll').setValue(1);
                 $('kronolithCalendarPermsAllShow').setValue(1);
+                break;
             case 'group_read':
             case 'group_edit':
                 var setGroup = function(group) {
@@ -2457,6 +2463,7 @@ KronolithCore = {
                 $('kronolithCalendarPermsGroupPerms').setValue(basic.substring(6));
                 $('kronolithCalendarPermsAdvanced').hide();
                 $('kronolithCalendarPermsBasic').show();
+                break;
             }
         }
    },
@@ -2524,11 +2531,13 @@ KronolithCore = {
     /**
      * Inserts a group or user row into the advanced permissions interface.
      *
-     * @param what string   Either 'group' or 'user'.
-     * @param group string  The group id or user name to insert. Defaults to
-     *                      the value of the drop down.
+     * @param what string          Either 'group' or 'user'.
+     * @param group string         The group id or user name to insert.
+     *                             Defaults to the value of the drop down.
+     * @param notadvanced boolean  Enforces to NOT switch to the advanced
+     *                             permissions screen.
      */
-    insertGroupOrUser: function(what, id)
+    insertGroupOrUser: function(what, id, notadvanced)
     {
         var elm = $(what == 'user' ? 'kronolithCalendarPermsUserNew' : 'kronolithCalendarPermsGroupNew');
         if (id) {
@@ -2564,7 +2573,9 @@ KronolithCore = {
             elm.clear();
         }
 
-        this.activateAdvancedPerms();
+        if (!notadvanced) {
+            this.activateAdvancedPerms();
+        }
     },
 
     /**
@@ -3162,7 +3173,6 @@ KronolithCore = {
 
             case 'kronolithCalendarPermsAllShow':
                 this.permsClickHandler('All');
-                e.stop();
                 return;
 
             case 'kronolithCalendarPermsAdvanced':
