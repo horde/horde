@@ -429,7 +429,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
 
     public function testConfirmSeriesDisplay()
     {
-        $this->markTestIncomplete();
+        //$this->markTestIncomplete();
         Horde_LoginTasks_Stub_Task::$executed = array();
         $tasks = $this->_getLoginTasks(
             array(
@@ -468,8 +468,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
         );
         $_POST['logintasks_confirm_0'] = true;
         $_POST['logintasks_confirm_1'] = true;
-        $this->assertEquals(
-            'redirect',
+        $this->assertNull(
             $tasks->runTasks(true)
         );
         $this->assertEquals(
@@ -480,13 +479,15 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
             ),
             Horde_LoginTasks_Stub_Task::$executed
         );
-        $this->assertContains(
-            'http:///services/logintasks.php?app=test',
-            (string) $tasks->runTasks(false)
+        $_POST = array();
+        $this->assertNull(
+            $tasks->runTasks(false)
         );
         $this->assertEquals(
             array(
                 'Horde_LoginTasks_Stub_ConfirmNo',
+                'Horde_LoginTasks_Stub_Confirm',
+                'Horde_LoginTasks_Stub_Task',
             ),
             Horde_LoginTasks_Stub_Task::$executed
         );

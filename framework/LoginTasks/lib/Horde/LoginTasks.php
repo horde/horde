@@ -241,13 +241,13 @@ class Horde_LoginTasks
              * object in the session, while still indicating we have
              * completed the login tasks for this application. */
             $this->_tasklist = true;
+
+            return $this->_backend->redirect($tasklist_target);
         }
 
         if (!$processed && $need_display) {
             $this->_tasklist->target = $url;
             return $this->_backend->redirect($this->getLoginTasksUrl());
-        } elseif ($processed && !$need_display) {
-            return $this->_backend->redirect($tasklist_target);
         }
     }
 
