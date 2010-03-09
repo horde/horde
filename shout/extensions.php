@@ -26,12 +26,10 @@ switch ($action) {
 case 'add':
 case 'edit':
     $vars = Horde_Variables::getDefaultVariables();
-    $vars->set('account', $curaccount['code']);
+    $vars->set('account', $curaccount);
     $Form = new ExtensionDetailsForm($vars);
 
-    $FormValid = $Form->validate($vars, true);
-
-    if ($Form->isSubmitted() && $FormValid) {
+    if ($Form->isSubmitted() && $Form->validate($vars, true)) {
         // Form is Valid and Submitted
         try {
             $Form->execute();
@@ -54,7 +52,7 @@ case 'edit':
         $vars->set('oldextension', $extension);
     }
     $vars->set('action', $action);
-    $Form = new ExtensionDetailsForm($vars);
+    //$Form = new ExtensionDetailsForm($vars);
     // Make sure we get the right template below.
     $action = 'edit';
 
