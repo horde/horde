@@ -601,7 +601,7 @@ class Ansel_Api extends Horde_Registry_Api
             $GLOBALS['ansel_storage'] = new Ansel_Storage($app);
         }
 
-        return Ansel::getImageUrl($image_id, $view, $full, $style);
+        return (string)Ansel::getImageUrl($image_id, $view, $full, $style);
     }
 
     /**
