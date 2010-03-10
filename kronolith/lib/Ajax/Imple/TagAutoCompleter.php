@@ -33,6 +33,10 @@ class Kronolith_Ajax_Imple_TagAutoCompleter extends Horde_Ajax_Imple_AutoComplet
             $ret['pretty'] = 'TagAutoCompleter';
         }
 
+        if (!empty($this->_params['var'])) {
+            $ret['var'] = $this->_params['var'];
+        }
+
         return $ret;
     }
 

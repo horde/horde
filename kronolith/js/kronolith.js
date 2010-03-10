@@ -2132,8 +2132,8 @@ KronolithCore = {
             RedBox.loading();
             this.doAction('chunkContent', { chunk: 'calendar' }, function(r) {
                 if (r.response.chunk) {
-                    RedBox.onDisplay = function() { this.editCalendarCallback(calendar); RedBox.onDisplay = null; }.bind(this);
                     RedBox.showHtml(r.response.chunk);
+                    this.editCalendarCallback(calendar);
                 } else {
                     this.closeRedBox();
                 }
@@ -2204,7 +2204,9 @@ KronolithCore = {
                 return;
             }
         }
-
+        if (!kronolithCTagAc.initialized) {
+            kronolithCTagAc.init()
+        }
         if (newCalendar) {
             switch (type) {
             case 'internal':
@@ -2223,6 +2225,10 @@ KronolithCore = {
             $('kronolithCalendar' + type + 'Id').clear();
             $('kronolithCalendar' + type + 'Color').setValue('#dddddd').setStyle({ backgroundColor: '#dddddd', color: '#000' });
             form.down('.kronolithCalendarDelete').hide();
+            if (calendar && type == 'remote') {
+                $('kronolithCalendarremoteUrl').setValue(calendar);
+            }
+            kronolithCTagAc.reset();
         } else {
             info = Kronolith.conf.calendars[type][calendar];
 
@@ -2232,8 +2238,11 @@ KronolithCore = {
 
             switch (type) {
             case 'internal':
-                $('kronolithCalendarinternalTags').autocompleter.init(Kronolith.conf.calendars.internal[calendar].tg);
-                // Fall through
+                $('kronolithCalendarinternalDescription').setValue(info.desc);
+                $('kronolithCalendarinternalLinkImportExport').up('span').show();
+                $('kronolithCalendarinternalExport').href = Kronolith.conf.URI_CALENDAR_EXPORT + '=' + calendar;
+                kronolithCTagAc.reset(Kronolith.conf.calendars.internal[calendar].tg);
+                break;
             case 'tasklists':
                 $('kronolithCalendar' + type + 'Description').setValue(info.desc);
                 $('kronolithCalendar' + type + 'LinkImportExport').up('span').show();
@@ -2272,6 +2281,7 @@ KronolithCore = {
             form.down('.kronolithFormActions .kronolithSeparator').show();
         } else {
             form.disable();
+            kronolithCTagAc.disable();
             form.down('.kronolithColorPicker').hide();
             form.down('.kronolithCalendarDelete').hide();
             form.down('.kronolithCalendarSave').hide();
@@ -3415,12 +3425,12 @@ KronolithCore = {
                 return;
 
             case 'kronolithEventTag':
-                $('kronolithEventTags').autocompleter.addNewItemNode(elt.getText());
+                kronolithETagAc.addNewItemNode(elt.getText());
                 e.stop();
                 return;
 
             case 'kronolithCalendarTag':
-                $('kronolithCalendarinternalTags').autocompleter.addNewItemNode(elt.getText());
+                kronolithCTagAc.addNewItemNode(elt.getText());
                 e.stop();
                 return;
 
@@ -3826,9 +3836,12 @@ KronolithCore = {
     {
         this.closeRedBox();
 
-        if (Object.isUndefined($('kronolithEventTags').autocompleter)) {
+        if (Object.isUndefined(kronolithETagAc)) {
             this.editEvent.bind(this, calendar, id, date).defer();
             return;
+        }
+        if (!kronolithETagAc.initialized) {
+            kronolithETagAc.init();
         }
 
         RedBox.onDisplay = function() {
@@ -3861,7 +3874,7 @@ KronolithCore = {
             RedBox.loading();
             this.doAction('getEvent', { cal: calendar, id: id, date: date }, this.editEventCallback.bind(this));
         } else {
-            $('kronolithEventTags').autocompleter.init();
+            kronolithETagAc.reset();
             var d;
             if (date) {
                 if (date.endsWith('all')) {
@@ -3902,7 +3915,7 @@ KronolithCore = {
             viewDates = this.viewDates(this.date, this.view),
             start = viewDates[0].dateString(),
             end = viewDates[1].dateString();
-        $('kronolithEventTags').autocompleter.shutdown();
+        kronolithETagAc.shutdown();
         this.startLoading(cal, start + end);
         this.doAction('saveEvent',
                       $H($('kronolithEventForm').serialize({ hash: true }))
@@ -4113,7 +4126,7 @@ KronolithCore = {
         }
 
         /* Tags */
-        $('kronolithEventTags').autocompleter.init(ev.tg);
+        kronolithETagAc.reset(ev.tg);
 
         /* Geo */
         if (ev.gl) {

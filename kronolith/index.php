@@ -80,6 +80,20 @@ Horde::outputInlineScript();
 if ($conf['maps']['driver']) {
     Kronolith::initEventMap($conf['maps']);
 }
-$tac = Horde_Ajax_Imple::factory(array('kronolith', 'TagAutoCompleter'), array('triggerId' => 'kronolithEventTags', 'box' => 'kronolithEventACBox', 'pretty' => true));
-$tac->attach();
+Horde_Ajax_Imple::factory(
+    array('kronolith', 'TagAutoCompleter'),
+    array('triggerId' => 'kronolithEventTags',
+          'box' => 'kronolithEventACBox',
+          'pretty' => true,
+          'var' => 'kronolithETagAc'))
+    ->attach();
+
+Horde_Ajax_Imple::factory(
+    array('kronolith', 'TagAutoCompleter'),
+    array('triggerId' => 'kronolithCalendarinternalTags',
+          'triggerContainer' => 'kronolithACCalendarTriggerContainer',
+          'box' => 'kronolithCalendarinternalACBox',
+          'pretty' => true,
+          'var' => 'kronolithCTagAc'))
+    ->attach();
 echo "</body>\n</html>";
