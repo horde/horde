@@ -2210,6 +2210,7 @@ KronolithCore = {
             if (calendar && type == 'remote') {
                 $('kronolithCalendarremoteUrl').setValue(calendar);
             }
+            $('kronolithCalendarinternalTags').autocompleter.init();
         } else {
             info = Kronolith.conf.calendars[type][calendar];
 
@@ -2222,6 +2223,7 @@ KronolithCore = {
                 $('kronolithCalendarinternalDescription').setValue(info.desc);
                 $('kronolithCalendarinternalLinkImportExport').up('span').show();
                 $('kronolithCalendarinternalExport').href = Kronolith.conf.URI_CALENDAR_EXPORT + '=' + calendar;
+                $('kronolithCalendarinternalTags').autocompleter.init(Kronolith.conf.calendars.internal[calendar].tg);
                 break;
             case 'tasklists':
                 $('kronolithCalendartasklistsDescription').setValue(info.desc);
@@ -2630,6 +2632,7 @@ KronolithCore = {
                                   if (r.response.perms) {
                                       cal.perms = r.response.perms;
                                   }
+                                  cal.tg = data.tags.split(',');
                                   this.getCalendarList(type, cal.owner).select('div').each(function(element) {
                                       if (element.retrieve('calendar') == data.calendar) {
                                           element

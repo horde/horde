@@ -182,6 +182,8 @@ class Kronolith
             }
         }
 
+        $tagger = self::getTagger();
+
         /* Variables used in core javascript files. */
         $code['conf'] = array(
             'URI_AJAX' => (string)Horde::getServiceLink('ajax', 'kronolith'),
@@ -257,7 +259,8 @@ class Kronolith
                         'bg' => self::backgroundColor($calendar),
                         'show' => in_array($id, $GLOBALS['display_calendars']),
                         'perms' => $calendar->getPermission()->data,
-                        'edit' => $calendar->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT));
+                        'edit' => $calendar->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT),
+                        'tg' => array_values($tagger->getTags($calendar->getName(), 'calendar')));
                 }
             }
 

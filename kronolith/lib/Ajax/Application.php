@@ -460,6 +460,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
 
         switch ($this->_vars->type) {
         case 'internal':
+            $tagger = Kronolith::getTagger();
             $info = array();
             foreach (array('name', 'color', 'description', 'tags') as $key) {
                 $info[$key] = $this->_vars->$key;
@@ -480,6 +481,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
                 Kronolith::readPermsForm($calendar);
                 $GLOBALS['notification']->push(sprintf(_("The calendar \"%s\" has been created."), $info['name']), 'horde.success');
                 $result->calendar = $calendar->getName();
+                $tagger->tag($result->calendar, $this->_vars->tags, $calendar->get('owner'), 'calendar');
                 break;
             }
 
@@ -498,6 +500,8 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
                 return $result;
 
             }
+            $tagger->replaceTags($calendar->getName(), $this->_vars->tags, $calendar->get('owner'), 'calendar');
+
             Kronolith::readPermsForm($calendar);
             $result->perms = $calendar->getPermission()->data;
             if ($calendar->get('name') != $original_name) {
@@ -643,6 +647,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
             return $result;
         }
         $calendar = $GLOBALS['all_calendars'][$this->_vars->cal];
+        $tagger = Kronolith::getTagger();
         $result->calendar = array(
             'name' => (!$calendar->get('owner') ? '' : '[' . Horde_Auth::convertUsername($calendar->get('owner'), false) . '] ') . $calendar->get('name'),
             'desc' => $calendar->get('desc'),
@@ -651,7 +656,8 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
             'bg' => Kronolith::backgroundColor($calendar),
             'show' => false,
             'perms' => $calendar->getPermission()->data,
-            'edit' => $calendar->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT));
+            'edit' => $calendar->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT),
+            'tg' => array_values($tagger->getTags($calendar->getName(), 'calendar')));
         return $result;
     }
 
