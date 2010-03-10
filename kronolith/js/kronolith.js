@@ -885,7 +885,7 @@ KronolithCore = {
         if (!div) {
             div = this.getCalendarList(type, cal.owner);
         }
-        if (type != 'holiday') {
+        if (type != 'holiday' && type != 'external') {
             div.insert(new Element('span', { className: 'kronolithCalEdit' })
                    .insert('&rsaquo;'));
         }
