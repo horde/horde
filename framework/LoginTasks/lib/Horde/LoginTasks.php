@@ -140,7 +140,7 @@ class Horde_LoginTasks
         $cur_date = getdate();
 
         foreach ($this->_backend->getTasks() as $classname => $app) {
-            $ob = new $classname();
+            $ob = new $classname($this->_backend);
 
             /* If marked inactive, skip the task. */
             if (!$ob->active) {
