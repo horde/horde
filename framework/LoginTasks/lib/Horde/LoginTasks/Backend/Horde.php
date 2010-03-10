@@ -184,9 +184,11 @@ extends Horde_LoginTasks_Backend
     /**
      * Return the URL of the login tasks view.
      *
+     * @param array $tasks The tasks to be displayed next.
+     *
      * @return string The URL of the login tasks view
      */
-    public function getLoginTasksUrl()
+    public function getLoginTasksUrl(array $tasks = null)
     {
         return Horde::url(Horde_Util::addParameter($this->_registry->get('webroot', 'horde') . '/services/logintasks.php', array('app' => $this->_app)), true);
     }

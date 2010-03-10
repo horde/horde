@@ -274,7 +274,7 @@ class Horde_LoginTasks
      */
     public function getLoginTasksUrl()
     {
-        return $this->_backend->getLoginTasksUrl();
+        return $this->_backend->getLoginTasksUrl($this->_tasklist->needDisplay());
     }
 
     /**
