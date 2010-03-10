@@ -2259,7 +2259,7 @@ KronolithCore = {
             }
         } else {
             form.disable();
-            this.doAction('listTopTags', null, this.topTagsCallback.curry('kronolithCalendarTag', 'kronolithTagDisable'));
+            this.doAction('listTopTags', null, this.topTagsCallback.curry('kronolithCalendarinternalTopTags', 'kronolithTagDisable'));
             form.down('.kronolithColorPicker').hide();
             form.down('.kronolithCalendarDelete').hide();
             form.down('.kronolithCalendarSave').hide();
