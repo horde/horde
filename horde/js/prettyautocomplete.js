@@ -195,6 +195,19 @@ var PrettyAutocompleter = Class.create({
             item.remove();
         },
 
+        disable: function()
+        {
+          this._enabled = false;
+          $(this.p.box).select('.hordeACItemRemove').each(function(e) {e.toggle()});
+          $(this.p.trigger).disable();
+        },
+
+        enable: function()
+        {
+            this._enabled = true;
+            $(this.p.box).select('.hordeACItemRemove').each(function(e) {e.toggle()});
+            $(this.p.trigger).enable();
+        },
         _removeItemHandler: function(e)
         {
             var item = Event.element(e).up();
