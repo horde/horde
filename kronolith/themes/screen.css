@@ -838,7 +838,7 @@ div.kronolithFormActions {
     margin: 0;
     height: 100%;
 }
-#kronolithEventACBox, #kronolithCalendarinternalACBox {
+#kronolithEventACBox, #kronolithCalendarinternalACBox, #kronolithAttendeesACBox {
     line-height: 100%;
 }
 

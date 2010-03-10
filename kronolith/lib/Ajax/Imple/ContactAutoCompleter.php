@@ -23,14 +23,22 @@ class Kronolith_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_AutoCom
     {
         $js_params['indicator'] = $this->_params['triggerId'] . '_loading_img';
 
-        return array(
-            'ajax' => 'ContactAutoCompleter',
-            'params' => $js_params,
-            'raw_params' => array(
-                'onSelect' => 'function (v) { if (!v.endsWith(";")) { v += ","; } return v + " "; }',
-                'onType' => 'function (e) { return e.include("<") ? "" : e; }'
-            ),
-        );
+        $ret = array('params' => $js_params,
+                     'raw_params' => array(
+                         'onSelect' => 'function (v) { if (!v.endsWith(";")) { v += ","; } return v + " "; }',
+                         'onType' => 'function (e) { return e.include("<") ? "" : e; }'
+                      ));
+        if (empty($this->_params['pretty'])) {
+            $ret['ajax'] = 'ContactAutoCompleter';
+        } else {
+            $ret['pretty'] = 'ContactAutoCompleter';
+        }
+
+        if (!empty($this->_params['var'])) {
+            $ret['var'] = $this->_params['var'];
+        }
+
+        return $ret;
     }
 
     /**

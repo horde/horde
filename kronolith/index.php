@@ -96,4 +96,14 @@ Horde_Ajax_Imple::factory(
           'pretty' => true,
           'var' => 'kronolithCTagAc'))
     ->attach();
+
+Horde_Ajax_Imple::factory(
+    array('kronolith', 'ContactAutoCompleter'),
+    array('triggerId' => 'kronolithEventAttendees',
+          'triggerContainer' => 'kronolithAttendeesACTriggerContainer',
+          'box' => 'kronolithAttendeesACBox',
+          'pretty' => true,
+          'var' => 'kronolithEAttendeesAc'))
+    ->attach();
+
 echo "</body>\n</html>";

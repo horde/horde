@@ -3858,6 +3858,7 @@ KronolithCore = {
             this.doAction('getEvent', { cal: calendar, id: id, date: date }, this.editEventCallback.bind(this));
             $('kronolithEventTopTags').update();
         } else {
+            kronolithEAttendeesAc.reset();
             kronolithETagAc.reset();
             this.doAction('listTopTags', null, this.topTagsCallback.curry('kronolithEventTopTags', 'kronolithEventTag'));
             var d;
@@ -4071,10 +4072,11 @@ KronolithCore = {
         }
 
         /* Attendees */
+        kronolithEAttendeesAc.reset();
         this.freeBusy = $H();
         $('kronolithEventStartDate').stopObserving('change');
         if (!Object.isUndefined(ev.at)) {
-            $('kronolithEventAttendees').setValue(ev.at.pluck('l').join(', '));
+            kronolithEAttendeesAc.reset(ev.at.pluck('l'));
             var table = $('kronolithEventTabAttendees').down('tbody');
             table.select('tr').invoke('remove');
             ev.at.each(function(attendee) {

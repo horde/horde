@@ -172,7 +172,8 @@
 <div id="kronolithEventTabAttendees" class="kronolithTabsOption" style="display:none">
   <label>
     <?php echo _("Add attendees e-mail addresses") ?>:<br />
-    <textarea name="attendees" id="kronolithEventAttendees" rows="2" cols="100" class="kronolithLongField"></textarea>
+    <input id="kronolithEventAttendees" name="attendees" />
+    <span id="kronolithEventAttendees_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
   </label>
   <br />
   <label>
