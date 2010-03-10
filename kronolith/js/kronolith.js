@@ -2210,8 +2210,6 @@ KronolithCore = {
         if (newCalendar) {
             switch (type) {
             case 'internal':
-                $('kronolithCalendarinternalTags').autocompleter.init();
-                // Fall through
             case 'tasklists':
                 $('kronolithCalendar' + type + 'LinkImportExport').up('span').hide();
                 break;
@@ -2225,9 +2223,6 @@ KronolithCore = {
             $('kronolithCalendar' + type + 'Id').clear();
             $('kronolithCalendar' + type + 'Color').setValue('#dddddd').setStyle({ backgroundColor: '#dddddd', color: '#000' });
             form.down('.kronolithCalendarDelete').hide();
-            if (calendar && type == 'remote') {
-                $('kronolithCalendarremoteUrl').setValue(calendar);
-            }
             kronolithCTagAc.reset();
         } else {
             info = Kronolith.conf.calendars[type][calendar];
