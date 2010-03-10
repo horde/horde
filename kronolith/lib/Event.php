@@ -1618,14 +1618,24 @@ abstract class Kronolith_Event
         $this->status = Horde_Util::getFormData('status', $this->status);
 
         // Attendees.
+        $attendees = Horde_Util::getFormData('attendees');
         if (isset($_SESSION['kronolith']['attendees']) && is_array($_SESSION['kronolith']['attendees'])) {
             $this->attendees = $_SESSION['kronolith']['attendees'];
-        }
-        if ($attendees = Horde_Util::getFormData('attendees')) {
-            $attendees = Kronolith::parseAttendees(trim($attendees));
             if ($attendees) {
-                $this->attendees = $attendees;
+                if ($attendees = Kronolith::parseAttendees(trim($attendees))) {
+                    $this->attendees = $attendees;
+                }
             }
+        } else {
+            if ($attendees) {
+                if ($attendees = Kronolith::parseAttendees(trim($attendees))) {
+                    $this->attendees = $attendees;
+                }
+            } else {
+                $attendees = array();
+            }
+
+            $this->attendees = $attendees;
         }
 
         // Resources
