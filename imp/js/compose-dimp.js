@@ -668,7 +668,8 @@ var DimpCompose = {
             return;
         }
 
-        var elt = orig = e.element(),
+        var elt = e.element(),
+            orig = elt,
             atc_num, id;
 
         while (Object.isElement(elt)) {
@@ -733,12 +734,14 @@ var DimpCompose = {
                     }.bind(this),
                     duration: 0.4
                 });
-                if (id.startsWith('reply')) {
-                    $('to_loading_img').show();
-                    DimpCore.doAction('getReplyData', { headeronly: 1, imp_compose: $F('composeCache'), type: 'reply' }, { callback: this.swapToAddressCallback.bind(this) });
-                } else {
-                    DimpCore.doAction('GetForwardData', { dataonly: 1, imp_compose: $F('composeCache'), type: (id == 'fwdattachnotice' ? 'forward_body' : 'forward_attach') }, { callback: this.forwardAddCallback.bind(this) });
-                    $('composeMessage').stopObserving('keydown');
+                if (!orig.match('SPAN.closeImg')) {
+                    if (id.startsWith('reply')) {
+                        $('to_loading_img').show();
+                        DimpCore.doAction('getReplyData', { headeronly: 1, imp_compose: $F('composeCache'), type: 'reply' }, { callback: this.swapToAddressCallback.bind(this) });
+                    } else {
+                        DimpCore.doAction('GetForwardData', { dataonly: 1, imp_compose: $F('composeCache'), type: (id == 'fwdattachnotice' ? 'forward_body' : 'forward_attach') }, { callback: this.forwardAddCallback.bind(this) });
+                        $('composeMessage').stopObserving('keydown');
+                    }
                 }
                 e.stop();
                 return;

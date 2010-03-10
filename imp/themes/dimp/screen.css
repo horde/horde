@@ -624,6 +624,11 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 .msgwrite .dimpOptions label, #replyallnotice, #replylistnotice {
     cursor: pointer;
 }
+#noticerow li span.closeImg {
+    float: right;
+    margin: -1px 0 0;
+    padding-left: 3px;
+}
 .msgwrite tr {
     vertical-align: top;
 }
