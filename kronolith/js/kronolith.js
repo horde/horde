@@ -885,13 +885,15 @@ KronolithCore = {
         if (!div) {
             div = this.getCalendarList(type, cal.owner);
         }
-        div.insert(new Element('span', { className: 'kronolithCalEdit' })
-                   .insert('&rsaquo;'))
-            .insert(new Element('div', { className: cal.show ? 'kronolithCalOn' : 'kronolithCalOff' })
-                   .store('calendar', id)
-                   .store('calendarclass', type)
-                   .setStyle({ backgroundColor: cal.bg, color: cal.fg })
-                   .update(cal.name.escapeHTML()));
+        if (type != 'holiday') {
+            div.insert(new Element('span', { className: 'kronolithCalEdit' })
+                   .insert('&rsaquo;'));
+        }
+        div.insert(new Element('div', { className: cal.show ? 'kronolithCalOn' : 'kronolithCalOff' })
+               .store('calendar', id)
+               .store('calendarclass', type)
+               .setStyle({ backgroundColor: cal.bg, color: cal.fg })
+               .update(cal.name.escapeHTML()));
     },
 
     /**
