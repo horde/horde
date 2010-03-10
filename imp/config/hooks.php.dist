@@ -168,6 +168,18 @@ class IMP_Hooks
 
 
     /**
+     * Perform an action before a message has been sent.
+     *
+     * @param Horde_Mime_Part $message     The message content object.
+     * @param Horde_Mime_Headers $headers  The message headers object.
+     */
+//    function pre_sent($message, $headers)
+//    {
+//        // Do action here -- no return value from this hook.
+//    }
+
+
+    /**
      * Perform an action after a message has been sent successfully.
      *
      * @param Horde_Mime_Part $message     The message content object.

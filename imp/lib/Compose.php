@@ -747,20 +747,6 @@ class IMP_Compose
     {
         global $conf;
 
-        /* Properly encode the addresses we're sending to. */
-        try {
-            $email = Horde_Mime::encodeAddress($email, null, $_SESSION['imp']['maildomain']);
-        } catch (Horde_Mime_Exception $e) {
-            throw new IMP_Compose_Exception($e);
-        }
-
-        /* Validate the recipient addresses. */
-        try {
-            $result = Horde_Mime_Address::parseAddressList($email, array('defserver' => $_SESSION['imp']['maildomain'], 'validate' => true));
-        } catch (Horde_Mime_Exception $e) {
-            return;
-        }
-
         $timelimit = $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_timelimit');
         if ($timelimit !== true) {
             if ($conf['sentmail']['driver'] == 'none') {
@@ -774,12 +760,31 @@ class IMP_Compose
             }
             if ($recipients > $timelimit) {
                 try {
-                    $message = Horde::callHook('perms_denied', array('imp:max_timelimit'));
+                    $error = Horde::callHook('perms_denied', array('imp:max_timelimit'));
                 } catch (Horde_Exception_HookNotSet $e) {
-                    $message = @htmlspecialchars(sprintf(_("You are not allowed to send messages to more than %d recipients within %d hours."), $timelimit, $conf['sentmail']['params']['limit_period']), ENT_COMPAT, Horde_Nls::getCharset());
+                    $error = @htmlspecialchars(sprintf(_("You are not allowed to send messages to more than %d recipients within %d hours."), $timelimit, $conf['sentmail']['params']['limit_period']), ENT_COMPAT, Horde_Nls::getCharset());
                 }
-                throw new IMP_Compose_Exception($message);
+                throw new IMP_Compose_Exception($error);
             }
+        }
+
+        /* Pass to hook to allow alteration of message details. */
+        try {
+            Horde::callHook('pre_sent', array($message, $headers), 'imp');
+        } catch (Horde_Exception_HookNotSet $e) {}
+
+        /* Properly encode the addresses we're sending to. */
+        try {
+            $email = Horde_Mime::encodeAddress($email, null, $_SESSION['imp']['maildomain']);
+        } catch (Horde_Mime_Exception $e) {
+            throw new IMP_Compose_Exception($e);
+        }
+
+        /* Validate the recipient addresses. */
+        try {
+            $result = Horde_Mime_Address::parseAddressList($email, array('defserver' => $_SESSION['imp']['maildomain'], 'validate' => true));
+        } catch (Horde_Mime_Exception $e) {
+            return;
         }
 
         $mail_driver = $this->getMailDriver();
