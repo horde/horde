@@ -11,7 +11,7 @@
     <span class="rightFloat">
       <a href="#" onclick="javascript:window.close();" style="cursor:pointer"><?php echo Horde::img('close.png', _("Close Window")) ?></a>
     </span>
-    <?php echo Horde::img('perms.png')) . '&nbsp;' . sprintf(_("Edit permissions for \"%s\""), htmlspecialchars($share->get('name'))); if (!empty($help)) echo '&nbsp;' . Horde_Help::link($app, $help) ?>
+    <?php echo Horde::img('perms.png') . '&nbsp;' . sprintf(_("Edit permissions for \"%s\""), htmlspecialchars($share->get('name'))); if (!empty($help)) echo '&nbsp;' . Horde_Help::link($app, $help) ?>
   </td>
 </tr>
 <tr><td>&nbsp;</td></tr>
