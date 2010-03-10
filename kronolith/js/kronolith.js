@@ -2233,11 +2233,8 @@ KronolithCore = {
 
             switch (type) {
             case 'internal':
-                $('kronolithCalendarinternalDescription').setValue(info.desc);
-                $('kronolithCalendarinternalLinkImportExport').up('span').show();
-                $('kronolithCalendarinternalExport').href = Kronolith.conf.URI_CALENDAR_EXPORT + '=' + calendar;
                 kronolithCTagAc.reset(Kronolith.conf.calendars.internal[calendar].tg);
-                break;
+                // fall through
             case 'tasklists':
                 $('kronolithCalendar' + type + 'Description').setValue(info.desc);
                 $('kronolithCalendar' + type + 'LinkImportExport').up('span').show();
