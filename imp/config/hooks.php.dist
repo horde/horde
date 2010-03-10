@@ -171,9 +171,9 @@ class IMP_Hooks
      * Perform an action after a message has been sent successfully.
      *
      * @param Horde_Mime_Part $message     The message content object.
-     * @param Horde_Mime_Headers $message  The message headers object.
+     * @param Horde_Mime_Headers $headers  The message headers object.
      */
-//    function postsent($message, $headers)
+//    function post_sent($message, $headers)
 //    {
 //        // Do action here -- no return value from this hook.
 //    }

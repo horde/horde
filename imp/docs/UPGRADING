@@ -70,8 +70,13 @@ your ``config/prefs.php`` file and your preferences backend::
 Hooks
 -----
 
+
 * hooks.php has changed
-* Hook: spam_bounce -> spam_email
+
+The following hooks have been renamed:
+  OLD: spam_bounce -> NEW: spam_email
+  OLD: postsent -> NEW: post_sent
+
 * imp_hook_vinfo has been removed - use preauth hook instead
 * msglist_format hook has been removed - instead:
 *  x-priority now handled in the core code

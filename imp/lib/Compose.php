@@ -707,7 +707,7 @@ class IMP_Compose
 
         /* Call post-sent hook. */
         try {
-            Horde::callHook('postsent', array($save_msg['msg'], $headers), 'imp');
+            Horde::callHook('post_sent', array($save_msg['msg'], $headers), 'imp');
         } catch (Horde_Exception_HookNotSet $e) {}
 
         return $sent_saved;
