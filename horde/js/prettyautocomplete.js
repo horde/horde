@@ -29,14 +29,19 @@ var PrettyAutocompleter = Class.create({
             this.p.items = element;
             this.p.trigger = element + 'real';
             this.initialized = false;
+            this._enabled = true;
         },
 
         /**
-         * Initialize the autocompleter, build the dom structure, register 
+         * Initialize the autocompleter, build the dom structure, register
          * events, etc...
          */
         init: function()
         {
+            if (this.initialized) {
+                return;
+            }
+
             // Build the DOM structure
             this.buildStructure();
 
@@ -83,6 +88,10 @@ var PrettyAutocompleter = Class.create({
          */
         reset: function(existing)
         {
+            if (!this.initialized) {
+                this.init();
+            }
+
             // TODO: Resize the trigger field to fill the current line?
             // Clear any existing values
             if (this.selectedItems.length) {
@@ -98,7 +107,7 @@ var PrettyAutocompleter = Class.create({
                     this.addNewItemNode(existing[i]);
                 }
             }
-
+            this._enabled = true;
         },
 
         buildStructure: function()
@@ -211,6 +220,10 @@ var PrettyAutocompleter = Class.create({
 
         disable: function()
         {
+          if (!this._enabled || !this.initialized) {
+              return;
+          }
+
           this._enabled = false;
           $(this.p.box).select('.hordeACItemRemove').each(function(e) {e.toggle()});
           $(this.p.trigger).disable();
@@ -218,6 +231,9 @@ var PrettyAutocompleter = Class.create({
 
         enable: function()
         {
+            if (this._enabled) {
+                return;
+            }
             this._enabled = true;
             $(this.p.box).select('.hordeACItemRemove').each(function(e) {e.toggle()});
             $(this.p.trigger).enable();
