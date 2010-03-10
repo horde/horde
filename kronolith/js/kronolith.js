@@ -3853,12 +3853,13 @@ KronolithCore = {
         $('kronolithEventSave').show();
         $('kronolithEventDelete').show();
         $('kronolithEventForm').down('.kronolithFormActions .kronolithSeparator').show();
-        this.doAction('listTopTags', null, this.topTagsCallback.curry('kronolithEventTopTags', 'kronolithEventTag'));
         if (id) {
             RedBox.loading();
             this.doAction('getEvent', { cal: calendar, id: id, date: date }, this.editEventCallback.bind(this));
+            $('kronolithEventTopTags').update();
         } else {
             kronolithETagAc.reset();
+            this.doAction('listTopTags', null, this.topTagsCallback.curry('kronolithEventTopTags', 'kronolithEventTag'));
             var d;
             if (date) {
                 if (date.endsWith('all')) {
@@ -3944,6 +3945,7 @@ KronolithCore = {
 
     topTagsCallback: function(update, tagclass, r)
     {
+        $('kronolithEventTabTags').select('label').each(function(e) {e.show()});
         if (!r.response.tags) {
             $(update).update();
             return;
@@ -4121,6 +4123,10 @@ KronolithCore = {
         if (!ev.pe) {
             $('kronolithEventSave').hide();
             $('kronolithEventForm').disable();
+            kronolithETagAc.disable();
+            $('kronolithEventTabTags').select('label').each(function(e) {e.hide()});
+        } else {
+             this.doAction('listTopTags', null, this.topTagsCallback.curry('kronolithEventTopTags', 'kronolithEventTag'));
         }
         if (!ev.pd) {
             $('kronolithEventDelete').hide();
