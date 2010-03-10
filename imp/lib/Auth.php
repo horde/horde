@@ -95,18 +95,12 @@ class IMP_Auth
             if (!isset($credentials['server'])) {
                 $credentials['server'] = self::getAutoLoginServer();
             }
-            try {
-                self::_createSession($auth_ob->getCredential());
-                return true;
-            } catch (Horde_Auth_Exception $e) {
+        } else {
+            /* Attempt hordeauth authentication. */
+            $credentials = self::_canAutoLogin();
+            if ($credentials === false) {
                 return false;
             }
-        }
-
-        /* Attempt hordeauth authentication. */
-        $credentials = self::_canAutoLogin();
-        if ($credentials === false) {
-            return false;
         }
 
         try {
