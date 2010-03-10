@@ -2204,12 +2204,11 @@ KronolithCore = {
                 return;
             }
         }
-        if (!kronolithCTagAc.initialized) {
-            kronolithCTagAc.init()
-        }
         if (newCalendar) {
             switch (type) {
             case 'internal':
+                kronolithCTagAc.reset();
+                // Fall through
             case 'tasklists':
                 $('kronolithCalendar' + type + 'LinkImportExport').up('span').hide();
                 break;
@@ -2223,7 +2222,6 @@ KronolithCore = {
             $('kronolithCalendar' + type + 'Id').clear();
             $('kronolithCalendar' + type + 'Color').setValue('#dddddd').setStyle({ backgroundColor: '#dddddd', color: '#000' });
             form.down('.kronolithCalendarDelete').hide();
-            kronolithCTagAc.reset();
         } else {
             info = Kronolith.conf.calendars[type][calendar];
 
@@ -2273,14 +2271,11 @@ KronolithCore = {
             form.down('.kronolithFormActions .kronolithSeparator').show();
         } else {
             form.disable();
-            kronolithCTagAc.disable();
             form.down('.kronolithColorPicker').hide();
             form.down('.kronolithCalendarDelete').hide();
             form.down('.kronolithCalendarSave').hide();
             if (type == 'internal' || type == 'tasklists') {
-                if (type == 'internal') {
-                    $('kronolithCalendar' + type + 'Tags').autocompleter.disable();
-                }
+                kronolithCTagAc.disable();
                 if (Kronolith.conf.calendars[type][calendar].show) {
                     form.down('.kronolithCalendarSubscribe').hide();
                     form.down('.kronolithCalendarUnsubscribe').show().enable();
@@ -3831,9 +3826,6 @@ KronolithCore = {
         if (Object.isUndefined(kronolithETagAc)) {
             this.editEvent.bind(this, calendar, id, date).defer();
             return;
-        }
-        if (!kronolithETagAc.initialized) {
-            kronolithETagAc.init();
         }
 
         RedBox.onDisplay = function() {
