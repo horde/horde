@@ -28,7 +28,15 @@ var PrettyAutocompleter = Class.create({
             // the borderless input field located in p.box
             this.p.items = element;
             this.p.trigger = element + 'real';
+            this.initialized = false;
+        },
 
+        /**
+         * Initialize the autocompleter, build the dom structure, register 
+         * events, etc...
+         */
+        init: function()
+        {
             // Build the DOM structure
             this.buildStructure();
 
@@ -65,9 +73,15 @@ var PrettyAutocompleter = Class.create({
             if (typeof this.p.existing != 'undefined') {
                 this.init(this.p.existing);
             }
+
+            this.initialized = true;
         },
 
-        init: function(existing)
+        /**
+         * Reset the autocompleter's state
+         *
+         */
+        reset: function(existing)
         {
             // TODO: Resize the trigger field to fill the current line?
             // Clear any existing values
