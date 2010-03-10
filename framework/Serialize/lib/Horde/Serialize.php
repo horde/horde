@@ -260,7 +260,7 @@ class Horde_Serialize
              * data. */
             if (function_exists('json_last_error') &&
                 (json_last_error() == 5)) {
-                $data = json_encode(Horde_Util::convertToUtf8($data));
+                $data = json_encode(Horde_String::convertToUtf8($data));
             } else {
                 $data = $tmp;
             }

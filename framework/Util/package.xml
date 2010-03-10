@@ -32,7 +32,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <notes>* Removed Horde_Util::uriB64Encode() and Horde_Util::uriB64Decode().
  * Removed Horde_Util::strftime2date() and Horde_Util::date2strftime().
  * Removed Horde_Util::closeWindowJs() and Horde_Util::nocacheUrl().
- * Added Horde_Util::convertToUtf8().
+ * Added Horde_String::convertToUtf8().
  * Added Horde_Util::abbreviate().
  * Removed Horde_Array::combine() and Horde_Util::hmac().
  * Initial Horde 4 package.
