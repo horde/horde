@@ -3105,11 +3105,11 @@ KronolithCore = {
 
             case 'kronolithEventAllday':
                 this.toggleAllDay();
-                return;
+                break;
 
             case 'kronolithEventAlarmDefaultOn':
                 this.disableAlarmMethods();
-                return;
+                break;
 
             case 'kronolithEventLinkNone':
             case 'kronolithEventLinkDaily':
@@ -3118,24 +3118,21 @@ KronolithCore = {
             case 'kronolithEventLinkYearly':
             case 'kronolithEventLinkLength':
                 this.toggleRecurrence(id.substring(18));
-                return;
+                break;
 
             case 'kronolithEventSave':
-                Horde_Calendar.hideCal();
                 this.saveEvent();
                 elt.disable();
                 e.stop();
-                return;
+                break;
 
             case 'kronolithTaskSave':
-                Horde_Calendar.hideCal();
                 this.saveTask();
                 elt.disable();
                 e.stop();
-                return;
+                break;
 
             case 'kronolithEventDelete':
-                Horde_Calendar.hideCal();
                 var cal = $F('kronolithEventCalendar'),
                     eventid = $F('kronolithEventId');
                 this.doAction('deleteEvent',
@@ -3157,7 +3154,7 @@ KronolithCore = {
                 this.closeRedBox();
                 window.history.back();
                 e.stop();
-                return;
+                break;
 
             case 'kronolithTaskDelete':
                 var tasklist = $F('kronolithTaskOldList'),
@@ -3184,7 +3181,7 @@ KronolithCore = {
                 this.closeRedBox();
                 window.history.back();
                 e.stop();
-                return;
+                break;
 
             case 'kronolithCinternalPMore':
             case 'kronolithCinternalPLess':
@@ -3194,7 +3191,7 @@ KronolithCore = {
                 $('kronolithC' + type + 'PBasic').toggle();
                 $('kronolithC' + type + 'PAdvanced').toggle();
                 e.stop();
-                return;
+                break;
 
             case 'kronolithCinternalPNone':
             case 'kronolithCinternalPAll':
@@ -3204,25 +3201,25 @@ KronolithCore = {
             case 'kronolithCtasklistsPG':
                 var info = id.match(/kronolithC(.*)P(.*)/);
                 this.permsClickHandler(info[1], info[2]);
-                return;
+                break;
 
             case 'kronolithCinternalPAllShow':
             case 'kronolithCtasklistsPAllShow':
                 var type = id.match(/kronolithC(.*)P/)[1];
                 this.permsClickHandler(type, 'All');
-                return;
+                break;
 
             case 'kronolithCinternalPAdvanced':
             case 'kronolithCtasklistsPAdvanced':
                 var type = id.match(/kronolithC(.*)P/)[1];
                 if (orig.tagName != 'INPUT') {
-                    return;
+                    break;
                 }
                 this.activateAdvancedPerms(type);
                 if (orig.name.match(/u_.*||new/)) {
                     this.insertGroupOrUser(type, 'user');
                 }
-                return;
+                break;
 
             case 'kronolithNavDay':
             case 'kronolithNavWeek':
@@ -3356,6 +3353,17 @@ KronolithCore = {
                 Horde_ToolTips.detach(elt);
                 Horde_ToolTips.attach(elt);
                 break;
+
+            case 'kronolithEventDialog':
+            case 'kronolithTaskDialog':
+                Horde_Calendar.hideCal();
+                return;
+
+            case 'kronolithCalendarDialog':
+                if (this.colorPicker) {
+                    this.colorPicker.hide();
+                }
+                return;
             }
 
             // Caution, this only works if the element has definitely only a
@@ -3398,34 +3406,30 @@ KronolithCore = {
             case 'kronolithTabLink':
                 this.openTab(elt);
                 e.stop();
-                return;
+                break;
 
             case 'kronolithFormCancel':
-                Horde_Calendar.hideCal();
-                if (this.colorPicker) {
-                    this.colorPicker.hide();
-                }
                 this.closeRedBox();
                 this.resetMap();
                 window.history.back();
                 e.stop();
-                return;
+                break;
 
             case 'kronolithEventTag':
                 kronolithETagAc.addNewItemNode(elt.getText());
                 e.stop();
-                return;
+                break;
 
             case 'kronolithCalendarTag':
                 kronolithCTagAc.addNewItemNode(elt.getText());
                 e.stop();
-                return;
+                break;
 
             case 'kronolithEventGeo':
                 this.ensureMap();
                 this.geocode($F('kronolithEventLocation'));
                 e.stop();
-                return;
+                break;
 
             case 'kronolithTaskRow':
                 if (elt.retrieve('taskid')) {
@@ -3452,6 +3456,7 @@ KronolithCore = {
             case 'kronolithDatePicker':
                 id = elt.readAttribute('id');
                 Horde_Calendar.open(id, Date.parseExact($F(id.replace(/Picker$/, 'Date')), Kronolith.conf.date_format));
+                e.stop();
                 return;
 
             case 'kronolithColorPicker':
@@ -3506,17 +3511,11 @@ KronolithCore = {
                 e.stop();
                 return;
             } else if (elt.hasClassName('kronolithCalendarSave')) {
-                if (this.colorPicker) {
-                    this.colorPicker.hide();
-                }
                 elt.disable();
                 this.saveCalendar(elt.up('form'));
                 e.stop();
-                return;
+                break;
             } else if (elt.hasClassName('kronolithCalendarContinue')) {
-                if (this.colorPicker) {
-                    this.colorPicker.hide();
-                }
                 var form = elt.up('form'),
                     type = form.id.replace(/kronolithCalendarForm/, ''),
                     i = 1;
@@ -3530,7 +3529,7 @@ KronolithCore = {
                         if (!$F('kronolithCalendarremoteUrl')) {
                             this.showNotifications([ { type: 'horde.warning', message: Kronolith.text.no_url }]);
                             e.stop();
-                            return;
+                            break;
                         }
                         this.doAction('getRemoteInfo',
                                       params,
@@ -3579,16 +3578,13 @@ KronolithCore = {
                                       }.bind(this));
                     }
                     e.stop();
-                    return;
+                    break;
                 }
                 this.calendarNext(type);
                 elt.disable();
                 e.stop();
-                return;
+                break;
             } else if (elt.hasClassName('kronolithCalendarDelete')) {
-                if (this.colorPicker) {
-                    this.colorPicker.hide();
-                }
                 var form = elt.up('form'),
                     type = form.id.replace(/kronolithCalendarForm/, ''),
                     calendar = $F('kronolithCalendar' + type + 'Id');
@@ -3612,7 +3608,7 @@ KronolithCore = {
                               }.bind(this));
                 elt.disable();
                 e.stop();
-                return;
+                break;
             } else if (elt.hasClassName('kronolithCalendarSubscribe') ||
                        elt.hasClassName('kronolithCalendarUnsubscribe')) {
                 var form = elt.up('form');
@@ -3621,7 +3617,7 @@ KronolithCore = {
                 this.closeRedBox();
                 window.history.back();
                 e.stop();
-                return;
+                break;
             } else if (elt.tagName == 'INPUT' && elt.name == 'event_alarms[]') {
                 $('kronolithEventAlarmDefaultOff').setValue(1);
                 if ($(elt.id + 'Params')) {
@@ -3631,7 +3627,7 @@ KronolithCore = {
                         $(elt.id + 'Params').hide();
                     }
                 }
-                return;
+                break;
             }
 
             var calClass = elt.retrieve('calendarclass');
