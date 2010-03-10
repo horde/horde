@@ -116,7 +116,7 @@ function buildMenu()
     // Add the administration menu if the user is an admin.
     if (Horde_Auth::isAdmin()) {
         $menu['administration'] = array('name' => _("Administration"),
-                                        'icon' => Horde_Themes::img('administration.png'),
+                                        'icon' => (string)Horde_Themes::img('administration.png'),
                                         'status' => 'heading');
 
         try {
@@ -124,8 +124,8 @@ function buildMenu()
             foreach ($list as $method => $vals) {
                 $name = Horde::stripAccessKey($vals['name']);
                 $icon = isset($vals['icon'])
-                    ? Horde_Themes::img($vals['icon'])
-                    : $registry->get('icon');
+                    ? (string)Horde_Themes::img($vals['icon'])
+                    : (string)$registry->get('icon');
 
                 $menu['administration_' . $method] = array(
                     'name' => $name,
@@ -142,7 +142,7 @@ function buildMenu()
         $conf['prefs']['driver'] != '' && $conf['prefs']['driver'] != 'none') {
         $menu['options'] = array('name' => _("Options"),
                                  'status' => 'active',
-                                 'icon' => Horde_Themes::img('prefs.png'));
+                                 'icon' => (string)Horde_Themes::img('prefs.png'));
 
         /* Get a list of configurable applications. */
         $prefs_apps = array();
@@ -173,7 +173,7 @@ function buildMenu()
             $menu['options_' . 'horde'] = array('name' => _("Global Options"),
                                                 'status' => 'active',
                                                 'menu_parent' => 'options',
-                                                'icon' => $registry->get('icon', 'horde'),
+                                                'icon' => (string)$registry->get('icon', 'horde'),
                                                 'url' => Horde::applicationUrl('services/prefs.php?app=horde'));
             unset($prefs_apps['horde']);
         }
@@ -183,7 +183,7 @@ function buildMenu()
             $menu['options_' . $app] = array('name' => $name,
                                              'status' => 'active',
                                              'menu_parent' => 'options',
-                                             'icon' => $registry->get('icon', $app),
+                                             'icon' => (string)$registry->get('icon', $app),
                                              'url' => Horde::applicationUrl('services/prefs.php?app=' . $app));
         }
     }
@@ -191,13 +191,13 @@ function buildMenu()
     if (Horde_Auth::getAuth()) {
         $menu['logout'] = array('name' => _("Log out"),
                                 'status' => 'active',
-                                'icon' => Horde_Themes::img('logout.png'),
+                                'icon' => (string)Horde_Themes::img('logout.png'),
                                 'url' => Horde::getServiceLink('logout', 'horde'),
                                 'target' => '_parent');
     } else {
         $menu['login'] = array('name' => _("Log in"),
                                'status' => 'active',
-                               'icon' => Horde_Themes::img('login.png'),
+                               'icon' => (string)Horde_Themes::img('login.png'),
                                'url' => Horde::getServiceLink('login', 'horde'));
     }
 
@@ -255,7 +255,7 @@ foreach ($menu as $app => $params) {
 
         $node_params = array('url' => $url,
                              'target' => isset($params['target']) ? $params['target'] : null,
-                             'icon' => isset($params['icon']) ? $params['icon'] : $registry->get('icon', $app),
+                             'icon' => isset($params['icon']) ? (string)$params['icon'] : (string)$registry->get('icon', $app),
                              'icondir' => '',
                              );
         $tree->addNode($app, !empty($params['menu_parent']) ? $params['menu_parent'] : null, $name, 0, false, $node_params);
