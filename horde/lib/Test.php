@@ -178,6 +178,9 @@ class Horde_Test
      * KEY:   setting name
      * VALUE: An array with the following entries:
      *        'error' - (string) Error Message
+     *        'function' - (string) Reference to function to run. If function
+     *                     returns non-empty value, error message will be
+     *                     output.
      *        'setting' - (mixed) Either a boolean (whether setting should be
      *                    on or off) or 'value', which will simply output the
      *                    value of the setting.
@@ -192,7 +195,8 @@ class Horde_Test
         ),
         'memory_limit' => array(
             'setting' => 'value',
-            'error' => 'If PHP\'s internal memory limit is not set high enough Horde will not be able to handle large data items. You should set the value of memory_limit in php.ini to a sufficiently high value - at least 64M is recommended.'
+            'error' => 'If PHP\'s internal memory limit is not set high enough Horde will not be able to handle large data items. You should set the value of memory_limit in php.ini to a sufficiently high value - at least 64M is recommended.',
+            'function' => '_checkMemoryLimit'
         ),
         'register_globals' => array(
             'setting' => false,
@@ -208,11 +212,13 @@ class Horde_Test
         ),
         'session.gc_divisor' => array(
             'setting' => 'value',
-            'error' => 'PHP automatically garbage collects old session information, as long as this setting (and session.gc_probability) are set to non-zero. It is recommended that this value be "10000" or higher (see docs/INSTALL).'
+            'error' => 'PHP automatically garbage collects old session information, as long as this setting (and session.gc_probability) are set to non-zero. It is recommended that this value be "10000" or higher (see docs/INSTALL).',
+            'function' => '_checkGcDivisor'
         ),
         'session.gc_probability' => array(
             'setting' => 'value',
-            'error' => 'PHP automatically garbage collects old session information, as long as this setting (and session.gc_divisor) are set to non-zero. It is recommended that this value be "1".'
+            'error' => 'PHP automatically garbage collects old session information, as long as this setting (and session.gc_divisor) are set to non-zero. It is recommended that this value be "1".',
+            'function' => '_checkGcProbability'
         ),
         'session.use_trans_sid' => array(
             'setting' => false,
@@ -492,13 +498,17 @@ class Horde_Test
                 $result = (ini_get($key) == $val['setting']);
                 $entry[] = $key . ' ' . (($val['setting'] === true) ? 'enabled' : 'disabled');
                 $entry[] = $this->_status($result);
-                if (!$result) {
+                if (!$result &&
+                    (!isset($val['function']) ||
+                     call_user_func(array($this, $val['function'])))) {
                     $entry[] = $val['error'];
                 }
             } elseif ($val['setting'] == 'value') {
                 $entry[] = $key . ' value';
                 $entry[] = ini_get($key);
-                if (!empty($val['error'])) {
+                if (!empty($val['error']) &&
+                    (!isset($val['function']) ||
+                     call_user_func(array($this, $val['function'])))) {
                     $entry[] = $val['error'];
                     $entry[] = 1;
                 }
@@ -590,6 +600,52 @@ class Horde_Test
         ini_restore('track_errors');
 
         return $output;
+    }
+
+    /**
+     * Additional check for 'session.gc_divisor'.
+     *
+     * @return boolean  Returns true if error string should be displayed.
+     */
+    protected function _checkMemoryLimit()
+    {
+        $memlimit = trim(ini_get('memory_limit'));
+        switch (strtolower(substr($memlimit, -1))) {
+        case 'g':
+            $memlimit *= 1024;
+            // Fall-through
+
+        case 'm':
+            $memlimit *= 1024;
+            // Fall-through
+
+        case 'k':
+            $memlimit *= 1024;
+            // Fall-through
+        }
+
+        return ($memlimit < 67108864);
+    }
+
+    /**
+     * Additional check for 'session.gc_divisor'.
+     *
+     * @return boolean  Returns true if error string should be displayed.
+     */
+    protected function _checkGcDivisor()
+    {
+        return (ini_get('session.gc_divisor') < 10000);
+    }
+
+    /**
+     * Additional check for 'session.gc_probability'.
+     *
+     * @return boolean  Returns true if error string should be displayed.
+     */
+    protected function _checkGcProbability()
+    {
+        return !(ini_get('session.gc_probability') &&
+                 ini_get('session.gc_divisor'));
     }
 
     /**
