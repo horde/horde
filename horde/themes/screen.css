@@ -1078,7 +1078,7 @@ div.GrowlerNoticeExit:hover {
     -moz-border-radius-topright:4px;
     margin:5px;
 }
-.hordeACTrigger, .hordeACTrigger:focus {
+.hordeACTrigger, .hordeACTrigger:focus, .hordeACTrigger:disabled {
     background:transparent none repeat scroll 0 0;
     border:0 none;
     display:inline;
