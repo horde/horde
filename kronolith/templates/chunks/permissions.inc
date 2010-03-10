@@ -1,42 +1,48 @@
+<?php
+$groupOptions = '';
+if (count($groups) > 1) {
+    foreach ($groups as $id => $group) {
+        $groupOptions .= '<option value="' . $id . '">' . htmlspecialchars($group) . '</option>';
+    }
+}
+?>
   <div id="kronolithC<?php echo $type ?>PBasic">
-    <div class="kronolithDialogInfo"><?php printf(_("%s Standard sharing. %s You can also set %s advanced sharing %s options."), '<strong>', '</strong>', '<strong><a href="#" id="kronolithC' .  $type . 'PMore">', '</a></strong>') ?></div>
+    <div class="kronolithDialogInfo"><?php printf(_("%sStandard sharing.%s You can also set %sadvanced sharing%s options."), '<strong>', '</strong>', '<strong><a href="#" id="kronolithC' .  $type . 'PMore">', '</a></strong>') ?></div>
     <div>
       <input type="radio" id="kronolithC<?php echo $type ?>PNone" name="basic_perms" checked="checked" />
       <label for="kronolithC<?php echo $type ?>PNone"><?php echo $type == 'internal' ? _("Don't share this calendar") : _("Don't share this task list") ?></label><br />
-      <?php echo _("or share with") ?>
-      <input type="radio" id="kronolithC<?php echo $type ?>PAll" name="basic_perms" />
-      <label for="kronolithC<?php echo $type ?>PAll"><?php echo _("everyone") ?></label>
-      (<?php echo _("and") ?>
-      <input type="checkbox" id="kronolithC<?php echo $type ?>PAllShow" />
-      <?php printf(_("%s make it searchable %s by everyone too"), '<label for="kronolithC<?php echo $type ?>PAllShow">', '</label>') ?>)<br />
-      <span>
-        <?php echo _("or share with") ?>
-        <input type="radio" id="kronolithC<?php echo $type ?>PG" name="basic_perms" />
-        <label for="kronolithC<?php echo $type ?>PG">
-          <?php echo _("the") ?>
-          <input type="hidden" id="kronolithC<?php echo $type ?>PGSingle"<?php if (count($groups) == 1) echo ' value="' . key($groups) . '"' ?> />
-          <span id="kronolithC<?php echo $type ?>PGName"><?php if (count($groups) == 1) echo '&quot;' . htmlspecialchars(reset($groups)) . '&quot;' ?></span>
-        </label>
-        <select id="kronolithC<?php echo $type ?>PGList">
-          <?php if (count($groups) > 1): ?>
-          <?php foreach ($groups as $id => $group): ?>
-          <option value="<?php echo $id ?>"><?php echo htmlspecialchars($group) ?></option>
-          <?php endforeach; ?>
-          <?php endif; ?>
-        </select>
-        <label for="kronolithC<?php echo $type ?>PG">
-          <?php echo _("group") ?>
-        </label>
-        <?php printf(_("and %s allow them to %s"), '<label for="kronolithC<?php echo $type ?>PGPerms">','</label>') ?>
-        <select id="kronolithC<?php echo $type ?>PGPerms" onchange="KronolithCore.permsClickHandler('<?php echo $type ?>', 'G')">
-          <option value="read"><?php echo $type == 'internal' ? _("read the events") : _("read the tasks") ?></option>
-          <option value="edit"><?php echo $type == 'internal' ? _("read and edit the events") : _("read and edit the tasks") ?></option>
-        </select><br />
+      <?php printf(_("or share with %s %severyone%s (and %s %smake it searchable%s by everyone too)"),
+                   '<input type="radio" id="kronolithC' . $type . 'PAll" name="basic_perms" />',
+                   '<label for="kronolithC' . $type . 'PAll">', '</label>',
+                   '<input type="checkbox" id="kronolithC' . $type . 'PAllShow" />',
+                   '<label for="kronolithC' . $type . 'PAllShow">', '</label>')
+      ?>
+      <br />
+      <span<?php if (!count($groups)) echo ' style="display:none"' ?>>
+        <?php printf(_("or share with %s %sthe %s %sgroup%s and %sallow them to%s %s"),
+                     '<input type="radio" id="kronolithC' . $type . 'PG" name="basic_perms" />',
+                     '<label for="kronolithC' . $type . 'PG">',
+                     '<input type="hidden" id="kronolithC' . $type . 'PGSingle"'
+                     . (count($groups) == 1 ? ' value="' . key($groups) . '"' : '') . ' />
+                     <span id="kronolithC' . $type . 'PGName">'
+                     . (count($groups) == 1 ? '&quot;' . htmlspecialchars(reset($groups)) . '&quot;' : '') . '</span>
+                     </label>
+                     <select id="kronolithC' . $type . 'PGList">'
+                     . $groupOptions
+                     . '</select>',
+                     '<label for="kronolithC' . $type . 'PG">', '</label>',
+                     '<label for="kronolithC' . $type . 'PGPerms">', '</label>',
+                     '<select id="kronolithC' . $type . 'PGPerms" onchange="KronolithCore.permsClickHandler(\'' . $type . '\', \'G\')">
+                        <option value="read">' . ($type == 'internal' ? _("read the events") : _("read the tasks")) . '</option>
+                        <option value="edit">' . ($type == 'internal' ? _("read and edit the events") : _("read and edit the tasks")) . '</option>
+                     </select>')
+        ?>
+        <br />
       </span>
     </div>
   </div>
   <div id="kronolithC<?php echo $type ?>PAdvanced" class="kronolithCPAdvanced" style="display:none">
-    <div class="kronolithDialogInfo"><?php printf(_("%s Advanced sharing. %s You can also return to the %s standard settings %s."), '<strong>', '</strong>', '<strong><a href="#" id="kronolithC' . $type . 'PLess">', '</a></strong>') ?></div>
+    <div class="kronolithDialogInfo"><?php printf(_("%sAdvanced sharing.%s You can also return to the %sstandard settings%s."), '<strong>', '</strong>', '<strong><a href="#" id="kronolithC' . $type . 'PLess">', '</a></strong>') ?></div>
     <div>
     <table width="100%" cellspacing="0" cellpadding="0" border="0">
       <thead>
