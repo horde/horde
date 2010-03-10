@@ -20,7 +20,13 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('horde', array('authentication' => 'none'));
+try {
+    Horde_Registry::appInit('horde', array('authentication' => 'none'));
+    $is_init = true;
+} catch (Horde_Exception $e) {
+    define('HORDE_TEMPLATES', dirname(__FILE__) . '/templates');
+    $is_init = false;
+}
 
 if (!empty($conf['testdisable'])) {
     echo '<h2 style="color:red">Horde test scripts have been disabled in the local configuration.</h2>';
@@ -109,16 +115,18 @@ if ($app == 'horde') {
 <h1>Horde Applications</h1>
 <ul>
 <?php
-
     /* Get Horde module version information. */
-    $app_list = $registry->listApps(null, true);
-    unset($app_list[$app]);
-    ksort($app_list);
-    foreach (array_keys($app_list) as $val) {
-        echo '<li>' . ucfirst($val) . ' [' . $registry->get('name', $val) . ']: ' . $registry->getVersion($val) .
-            ' (<a href="' . $url->copy()->add('app', $val) . "\">run tests</a>)</li>\n";
+    if ($is_init) {
+        $app_list = $registry->listApps(null, true);
+        unset($app_list[$app]);
+        ksort($app_list);
+        foreach (array_keys($app_list) as $val) {
+            echo '<li>' . ucfirst($val) . ' [' . $registry->get('name', $val) . ']: ' . $registry->getVersion($val) .
+                ' (<a href="' . $url->copy()->add('app', $val) . "\">run tests</a>)</li>\n";
+        }
+    } else {
+        echo '<li style="color:red"><strong>Horde is not correctly configured so no application information can be displayed. Please follow the instructions in horde/docs/INSTALL and ensure horde/config/conf.php and horde/config/registry.php are correctly configured.</strong></li>';
     }
-
 ?>
 </ul>
 <?php
@@ -164,10 +172,13 @@ if ($config_output = $test_ob->requiredFileCheck()) {
 ?>
 
 <h1>PHP Sessions</h1>
-<?php $_SESSION['horde_test_count']++; ?>
 <ul>
- <li>Session counter: <?php echo $_SESSION['horde_test_count'] ?> [refresh the page to increment the counter]</li>
+<?php if ($is_init): ?>
+ <li>Session counter: <?php echo ++$_SESSION['horde_test_count'] ?> [refresh the page to increment the counter]</li>
  <li>To unregister the session: <a href="<?php $self_url->copy()->add('mode', 'unregister') ?>">click here</a></li>
+<?php else: ?>
+ <li style="color:red"><strong>The PHP session test is disabled until Horde is correctly configured.</strong></li>
+<?php endif; ?>
 </ul>
 
 <h1>PEAR</h1>
