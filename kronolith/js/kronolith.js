@@ -2130,8 +2130,8 @@ KronolithCore = {
             RedBox.loading();
             this.doAction('chunkContent', { chunk: 'calendar' }, function(r) {
                 if (r.response.chunk) {
+                    RedBox.onDisplay = function() { this.editCalendarCallback(calendar); RedBox.onDisplay = null; }.bind(this);
                     RedBox.showHtml(r.response.chunk);
-                    this.editCalendarCallback(calendar);
                 } else {
                     this.closeRedBox();
                 }
