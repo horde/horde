@@ -2157,8 +2157,6 @@ KronolithCore = {
             firstTab = form.down('.tabset a.kronolithTabLink'),
             info;
 
-        this.updateGroupDropDown([['kronolithCinternalPGList', this.updateGroupPerms.bind(this)],
-                                  ['kronolithCinternalPGNew']]);
         form.enable();
         form.reset();
         if (firstTab) {
@@ -2167,32 +2165,40 @@ KronolithCore = {
         $('kronolithCalendarDialog').select('.kronolithCalendarDiv').invoke('hide');
         $('kronolithCalendar' + type + '1').show();
         form.select('.kronolithCalendarContinue').invoke('enable');
-        $('kronolithCinternalPBasic').show();
-        $('kronolithCinternalPAdvanced').hide();
-        $('kronolithCinternalPAllShow').disable();
-        $('kronolithCinternalPGList').disable();
-        $('kronolithCinternalPGPerms').disable();
-        $('kronolithCinternalPAdvanced').select('tr').findAll(function(tr) {
-            return tr.retrieve('remove');
-        }).invoke('remove');
+
+        if (type == 'internal' || type == 'tasklists') {
+            this.updateGroupDropDown([['kronolithC' + type + 'PGList', this.updateGroupPerms.bind(this, type)],
+                                      ['kronolithC' + type + 'PGNew']]);
+            $('kronolithC' + type + 'PBasic').show();
+            $('kronolithC' + type + 'PAdvanced').hide();
+            $('kronolithC' + type + 'PAllShow').disable();
+            $('kronolithC' + type + 'PGList').disable();
+            $('kronolithC' + type + 'PGPerms').disable();
+            $('kronolithC' + type + 'PAdvanced').select('tr').findAll(function(tr) {
+                return tr.retrieve('remove');
+            }).invoke('remove');
+        }
 
         var newCalendar = !calendar;
         if (calendar &&
             (Object.isUndefined(Kronolith.conf.calendars[type]) ||
              Object.isUndefined(Kronolith.conf.calendars[type][calendar]))) {
-            if (type == 'internal') {
-                this.doAction('getCalendar', { cal: calendar }, function(r) {
+            switch (type) {
+            case 'internal':
+            case 'tasklists':
+                this.doAction('getCalendar', { type: type, cal: calendar }, function(r) {
                     if (r.response.calendar) {
-                        Kronolith.conf.calendars.internal[calendar] = r.response.calendar;
-                        this.insertCalendarInList('internal', calendar, r.response.calendar);
+                        Kronolith.conf.calendars[type][calendar] = r.response.calendar;
+                        this.insertCalendarInList(type, calendar, r.response.calendar);
                         $('kronolithSharedCalendars').show();
-                        this.editCalendarCallback('internal|' + calendar);
+                        this.editCalendarCallback(type + '|' + calendar);
                     }
                 }.bind(this));
                 return;
-            } else if (type == 'remote') {
+            case 'remote':
                 newCalendar = true;
-            } else {
+                break;
+            default:
                 this.closeRedBox();
                 window.history.back();
                 return;
@@ -2202,17 +2208,21 @@ KronolithCore = {
         if (newCalendar) {
             switch (type) {
             case 'internal':
+                $('kronolithCalendarinternalTags').autocompleter.init();
+                // Fall through
             case 'tasklists':
                 $('kronolithCalendar' + type + 'LinkImportExport').up('span').hide();
+                break;
+            case 'remote':
+                if (calendar) {
+                    $('kronolithCalendarremoteUrl').setValue(calendar);
+                    $('kronolithCalendarremoteId').setValue(calendar);
+                }
                 break;
             }
             $('kronolithCalendar' + type + 'Id').clear();
             $('kronolithCalendar' + type + 'Color').setValue('#dddddd').setStyle({ backgroundColor: '#dddddd', color: '#000' });
             form.down('.kronolithCalendarDelete').hide();
-            if (calendar && type == 'remote') {
-                $('kronolithCalendarremoteUrl').setValue(calendar);
-            }
-            $('kronolithCalendarinternalTags').autocompleter.init();
         } else {
             info = Kronolith.conf.calendars[type][calendar];
 
@@ -2222,15 +2232,14 @@ KronolithCore = {
 
             switch (type) {
             case 'internal':
-                $('kronolithCalendarinternalDescription').setValue(info.desc);
-                $('kronolithCalendarinternalLinkImportExport').up('span').show();
-                $('kronolithCalendarinternalExport').href = Kronolith.conf.URI_CALENDAR_EXPORT + '=' + calendar;
                 $('kronolithCalendarinternalTags').autocompleter.init(Kronolith.conf.calendars.internal[calendar].tg);
-                break;
+                // Fall through
             case 'tasklists':
-                $('kronolithCalendartasklistsDescription').setValue(info.desc);
-                $('kronolithCalendartasklistsLinkImportExport').up('span').show();
-                $('kronolithCalendartasklistsExport').href = Kronolith.conf.tasks.URI_TASKLIST_EXPORT + '=' + calendar.substring(6);
+                $('kronolithCalendar' + type + 'Description').setValue(info.desc);
+                $('kronolithCalendar' + type + 'LinkImportExport').up('span').show();
+                $('kronolithCalendar' + type + 'Export').href = type == 'internal'
+                    ? Kronolith.conf.URI_CALENDAR_EXPORT + '=' + calendar
+                    : Kronolith.conf.tasks.URI_TASKLIST_EXPORT + '=' + calendar.substring(6);
                 break;
             case 'remote':
                 $('kronolithCalendarremoteUrl').setValue(calendar);
@@ -2242,9 +2251,11 @@ KronolithCore = {
         }
 
         if (newCalendar || info.owner) {
-            this.doAction('listTopTags', null, this.topTagsCallback.curry('kronolithCalendarinternalTopTags', 'kronolithCalendarTag'));
             form.down('.kronolithColorPicker').show();
-            if (type == 'internal') {
+            if (type == 'internal' || type == 'tasklists') {
+                if (type == 'internal') {
+                    this.doAction('listTopTags', null, this.topTagsCallback.curry('kronolithCalendarinternalTopTags', 'kronolithCalendarTag'));
+                }
                 form.down('.kronolithCalendarSubscribe').hide();
                 form.down('.kronolithCalendarUnsubscribe').hide();
                 if (newCalendar || calendar == Kronolith.conf.user) {
@@ -2252,23 +2263,23 @@ KronolithCore = {
                 } else {
                     form.down('.kronolithCalendarDelete').show();
                 }
+                $('kronolithCalendar' + type + 'LinkPerms').up('li').show();
+                if (!Object.isUndefined(info) && info.owner) {
+                    this.setPermsFields(type, info.perms);
+                }
             }
             form.down('.kronolithCalendarSave').show();
             form.down('.kronolithFormActions .kronolithSeparator').show();
-            if (type == 'internal' || type == 'tasklists') {
-                $('kronolithCalendar' + type + 'LinkPerms').up('li').show();
-            }
-            if (!Object.isUndefined(info) && info.owner) {
-                this.setPermsFields(info.perms);
-            }
         } else {
             form.disable();
-            $('kronolithCalendarinternalTags').autocompleter.disable();
             form.down('.kronolithColorPicker').hide();
             form.down('.kronolithCalendarDelete').hide();
             form.down('.kronolithCalendarSave').hide();
-            if (type == 'internal') {
-                if (Kronolith.conf.calendars.internal[calendar].show) {
+            if (type == 'internal' || type == 'tasklists') {
+                if (type == 'internal') {
+                    $('kronolithCalendar' + type + 'Tags').autocompleter.disable();
+                }
+                if (Kronolith.conf.calendars[type][calendar].show) {
                     form.down('.kronolithCalendarSubscribe').hide();
                     form.down('.kronolithCalendarUnsubscribe').show().enable();
                 } else {
@@ -2276,11 +2287,9 @@ KronolithCore = {
                     form.down('.kronolithCalendarUnsubscribe').hide();
                 }
                 form.down('.kronolithFormActions .kronolithSeparator').show();
+                $('kronolithCalendar' + type + 'LinkPerms').up('li').hide();
             } else {
                 form.down('.kronolithFormActions .kronolithSeparator').hide();
-            }
-            if (type == 'internal' || type == 'tasklists') {
-                $('kronolithCalendar' + type + 'LinkPerms').up('li').hide();
             }
         }
     },
@@ -2288,55 +2297,58 @@ KronolithCore = {
     /**
      * Handles clicks on the radio boxes of the basic permissions screen.
      *
+     * @param string type  The calendar type, 'internal' or 'taskslists'.
      * @param string perm  The permission to activate, 'None', 'All', or
      *                     'Group'.
      */
-    permsClickHandler: function(perm)
+    permsClickHandler: function(type, perm)
     {
-        $('kronolithCinternalPAdvanced')
+        $('kronolithC' + type + 'PAdvanced')
             .select('input[type=checkbox]')
             .invoke('setValue', 0);
-        $('kronolithCinternalPAdvanced').select('tr').findAll(function(tr) {
+        $('kronolithC' + type + 'PAdvanced').select('tr').findAll(function(tr) {
             return tr.retrieve('remove');
         }).invoke('remove');
 
         switch (perm) {
         case 'None':
-            $('kronolithCinternalPAllShow').disable();
-            $('kronolithCinternalPGList').disable();
-            $('kronolithCinternalPGPerms').disable();
+            $('kronolithC' + type + 'PAllShow').disable();
+            $('kronolithC' + type + 'PGList').disable();
+            $('kronolithC' + type + 'PGPerms').disable();
             break;
         case 'All':
-            $('kronolithCinternalPAllShow').enable();
-            $('kronolithCinternalPGList').disable();
-            $('kronolithCinternalPGPerms').disable();
+            $('kronolithC' + type + 'PAllShow').enable();
+            $('kronolithC' + type + 'PGList').disable();
+            $('kronolithC' + type + 'PGPerms').disable();
             var perms = {
                 'default': Kronolith.conf.perms.read,
                 'guest': Kronolith.conf.perms.read
             };
-            if ($F('kronolithCinternalPAllShow')) {
+            if ($F('kronolithC' + type + 'PAllShow')) {
                 perms['default'] |= Kronolith.conf.perms.show;
                 perms['guest'] |= Kronolith.conf.perms.show;
             }
-            this.setPermsFields(perms);
+            this.setPermsFields(type, perms);
             break;
-        case 'Group':
-            $('kronolithCinternalPAllShow').disable();
-            $('kronolithCinternalPGList').enable();
-            $('kronolithCinternalPGPerms').enable();
-            var group = $F('kronolithCinternalPGSingle')
-                ? $F('kronolithCinternalPGSingle')
-                : $F('kronolithCinternalPGList');
-            this.insertGroupOrUser('group', group, true);
-            $('kronolithCinternalPGshow_' + group).setValue(1);
-            $('kronolithCinternalPGread_' + group).setValue(1);
-            if ($F('kronolithCinternalPGPerms') == 'edit') {
-                $('kronolithCinternalPGedit_' + group).setValue(1);
+        case 'G':
+            $('kronolithC' + type + 'PAllShow').disable();
+            $('kronolithC' + type + 'PGList').enable();
+            $('kronolithC' + type + 'PGPerms').enable();
+            var group = $F('kronolithC' + type + 'PGSingle')
+                ? $F('kronolithC' + type + 'PGSingle')
+                : $F('kronolithC' + type + 'PGList');
+            this.insertGroupOrUser(type, 'group', group, true);
+            $('kronolithC' + type + 'PGshow_' + group).setValue(1);
+            $('kronolithC' + type + 'PGread_' + group).setValue(1);
+            if ($F('kronolithC' + type + 'PGPerms') == 'edit') {
+                $('kronolithC' + type + 'PGedit_' + group).setValue(1);
             } else {
-                $('kronolithCinternalPGedit_' + group).setValue(0);
+                $('kronolithC' + type + 'PGedit_' + group).setValue(0);
             }
-            $('kronolithCinternalPGdelete_' + group).setValue(0);
-            $('kronolithCinternalPGdelegate_' + group).setValue(0);
+            $('kronolithC' + type + 'PGdelete_' + group).setValue(0);
+            if ($('kronolithC' + type + 'PGdelegate_' + group)) {
+                $('kronolithC' + type + 'PGdelegate_' + group).setValue(0);
+            }
             break;
         }
     },
@@ -2344,12 +2356,13 @@ KronolithCore = {
     /**
      * Populates the permissions field matrix.
      *
+     * @param string type   The calendar type, 'internal' or 'taskslists'.
      * @param object perms  An object with the resource permissions.
      */
-    setPermsFields: function(perms)
+    setPermsFields: function(type, perms)
     {
         if (this.groupLoading) {
-            this.setPermsFields.bind(this, perms).defer();
+            this.setPermsFields.bind(this, type, perms).defer();
             return;
         }
 
@@ -2378,7 +2391,7 @@ KronolithCore = {
                 break;
             case 'groups':
                 $H(perm.value).each(function(group) {
-                    this.insertGroupOrUser('group', group.key);
+                    this.insertGroupOrUser(type, 'group', group.key);
                     groupPerms = group.value;
                     groupId = group.key;
                 }, this);
@@ -2394,10 +2407,10 @@ KronolithCore = {
             case 'users':
                 $H(perm.value).each(function(user) {
                     if (user.key != Kronolith.conf.user) {
-                        this.insertGroupOrUser('user', user.key);
+                        this.insertGroupOrUser(type, 'user', user.key);
+                        advanced = true;
                     }
                 }, this);
-                advanced = true;
                 break;
             }
 
@@ -2410,13 +2423,13 @@ KronolithCore = {
                 case 'guest':
                 case 'creator':
                     if (baseperm.value & perm.value) {
-                        $('kronolithCinternalP' + perm.key + baseperm.key).setValue(1);
+                        $('kronolithC' + type + 'P' + perm.key + baseperm.key).setValue(1);
                     }
                     break;
                 case 'groups':
                     $H(perm.value).each(function(group) {
                         if (baseperm.value & group.value) {
-                            $('kronolithCinternalPG' + baseperm.key + '_' + group.key).setValue(1);
+                            $('kronolithC' + type + 'PG' + baseperm.key + '_' + group.key).setValue(1);
                         }
                     });
                     break;
@@ -2424,7 +2437,7 @@ KronolithCore = {
                     $H(perm.value).each(function(user) {
                         if (baseperm.value & user.value &&
                             user.key != Kronolith.conf.user) {
-                            $('kronolithCinternalPU' + baseperm.key + '_' + user.key).setValue(1);
+                            $('kronolithC' + type + 'PU' + baseperm.key + '_' + user.key).setValue(1);
                         }
                     });
                     break;
@@ -2433,27 +2446,29 @@ KronolithCore = {
         }.bind(this));
 
         if (advanced) {
-            this.activateAdvancedPerms();
+            this.activateAdvancedPerms(type);
         } else {
             switch (basic) {
             case 'all_read':
-                $('kronolithCinternalPAll').setValue(1);
-                $('kronolithCinternalPAllShow').setValue(0);
+                $('kronolithC' + type + 'PAll').setValue(1);
+                $('kronolithC' + type + 'PAllShow').setValue(0);
+                $('kronolithC' + type + 'PAllShow').enable();
                 break;
             case 'all_show':
-                $('kronolithCinternalPAll').setValue(1);
-                $('kronolithCinternalPAllShow').setValue(1);
+                $('kronolithC' + type + 'PAll').setValue(1);
+                $('kronolithC' + type + 'PAllShow').setValue(1);
+                $('kronolithC' + type + 'PAllShow').enable();
                 break;
             case 'group_read':
             case 'group_edit':
                 var setGroup = function(group) {
-                    if ($('kronolithCinternalPGList').visible()) {
-                        $('kronolithCinternalPGList').setValue(group);
-                        if ($('kronolithCinternalPGList').getValue() != group) {
+                    if ($('kronolithC' + type + 'PGList').visible()) {
+                        $('kronolithC' + type + 'PGList').setValue(group);
+                        if ($('kronolithC' + type + 'PGList').getValue() != group) {
                             // Group no longer exists.
                             this.permsClickHandler('None');
                         }
-                    } else if ($('kronolithCinternalPGSingle').getValue() != group) {
+                    } else if ($('kronolithC' + type + 'PGSingle').getValue() != group) {
                         // Group no longer exists.
                         this.permsClickHandler('None');
                     }
@@ -2463,10 +2478,11 @@ KronolithCore = {
                 } else {
                     setGroup();
                 }
-                $('kronolithCinternalPG').setValue(1);
-                $('kronolithCinternalPGPerms').setValue(basic.substring(6));
-                $('kronolithCinternalPAdvanced').hide();
-                $('kronolithCinternalPBasic').show();
+                $('kronolithC' + type + 'PG').setValue(1);
+                $('kronolithC' + type + 'PGPerms').setValue(basic.substring(6));
+                $('kronolithC' + type + 'PAdvanced').hide();
+                $('kronolithC' + type + 'PBasic').show();
+                $('kronolithC' + type + 'PGPerms').enable();
                 break;
             }
         }
@@ -2513,37 +2529,40 @@ KronolithCore = {
      * Updates the basic group permission interface after the group list has
      * been loaded.
      *
+     * @param string type  The calendar type, 'internal' or 'taskslists'.
      * @param Hash groups  The list of groups.
      */
-    updateGroupPerms: function(groups)
+    updateGroupPerms: function(type, groups)
     {
-        $('kronolithCinternalPGSingle').clear();
+        $('kronolithC' + type + 'PGSingle').clear();
         if (!groups) {
-            $('kronolithCinternalPG').up('span').hide();
+            $('kronolithC' + type + 'PG').up('span').hide();
         } else if (groups.size() == 1) {
-            $('kronolithCinternalPGName')
+            $('kronolithC' + type + 'PGName')
                 .update('&quot;' + groups.values()[0].escapeHTML() + '&quot;')
                 .show();
-            $('kronolithCinternalPGSingle').setValue(groups.keys()[0]);
-            $('kronolithCinternalPGList').hide();
+            $('kronolithC' + type + 'PGSingle').setValue(groups.keys()[0]);
+            $('kronolithC' + type + 'PGList').hide();
         } else {
-            $('kronolithCinternalPGName').hide();
-            $('kronolithCinternalPGList').show();
+            $('kronolithC' + type + 'PGName').hide();
+            $('kronolithC' + type + 'PGList').show();
         }
     },
 
     /**
      * Inserts a group or user row into the advanced permissions interface.
      *
+     * @param string type          The calendar type, 'internal' or
+     *                             'taskslists'.
      * @param what string          Either 'group' or 'user'.
      * @param group string         The group id or user name to insert.
      *                             Defaults to the value of the drop down.
      * @param notadvanced boolean  Enforces to NOT switch to the advanced
      *                             permissions screen.
      */
-    insertGroupOrUser: function(what, id, notadvanced)
+    insertGroupOrUser: function(type, what, id, notadvanced)
     {
-        var elm = $(what == 'user' ? 'kronolithCinternalPUNew' : 'kronolithCinternalPGNew');
+        var elm = $(what == 'user' ? 'kronolithC' + type + 'PUNew' : 'kronolithC' + type + 'PGNew');
         if (id) {
             elm.setValue(id);
         }
@@ -2578,18 +2597,20 @@ KronolithCore = {
         }
 
         if (!notadvanced) {
-            this.activateAdvancedPerms();
+            this.activateAdvancedPerms(type);
         }
     },
 
     /**
      * Activates the advanced permissions.
+     *
+     * @param string type  The calendar type, 'internal' or 'taskslists'.
      */
-    activateAdvancedPerms: function()
+    activateAdvancedPerms: function(type)
     {
-        [$('kronolithCinternalPNone'), $('kronolithCinternalPAll'), $('kronolithCinternalPG')].invoke('writeAttribute', 'checked', false);
-        $('kronolithCinternalPBasic').hide();
-        $('kronolithCinternalPAdvanced').show();
+        [$('kronolithC' + type + 'PNone'), $('kronolithC' + type + 'PAll'), $('kronolithC' + type + 'PG')].invoke('writeAttribute', 'checked', false);
+        $('kronolithC' + type + 'PBasic').hide();
+        $('kronolithC' + type + 'PAdvanced').show();
     },
 
     /**
@@ -2634,7 +2655,9 @@ KronolithCore = {
                                   if (r.response.perms) {
                                       cal.perms = r.response.perms;
                                   }
-                                  cal.tg = data.tags.split(',');
+                                  if (data.tags) {
+                                      cal.tg = data.tags.split(',');
+                                  }
                                   this.getCalendarList(type, cal.owner).select('div').each(function(element) {
                                       if (element.retrieve('calendar') == data.calendar) {
                                           element
@@ -2660,6 +2683,9 @@ KronolithCore = {
                                   };
                                   if (r.response.perms) {
                                       cal.perms = r.response.perms;
+                                  }
+                                  if (data.tags) {
+                                      cal.tg = data.tags.split(',');
                                   }
                                   Kronolith.conf.calendars[type][r.response.calendar] = cal;
                                   this.insertCalendarInList(type, r.response.calendar, cal);
@@ -3165,28 +3191,39 @@ KronolithCore = {
 
             case 'kronolithCinternalPMore':
             case 'kronolithCinternalPLess':
-                $('kronolithCinternalPBasic').toggle();
-                $('kronolithCinternalPAdvanced').toggle();
+            case 'kronolithCtasklistsPMore':
+            case 'kronolithCtasklistsPLess':
+                var type = id.match(/kronolithC(.*)P/)[1];
+                $('kronolithC' + type + 'PBasic').toggle();
+                $('kronolithC' + type + 'PAdvanced').toggle();
                 e.stop();
                 return;
 
             case 'kronolithCinternalPNone':
             case 'kronolithCinternalPAll':
             case 'kronolithCinternalPG':
-                this.permsClickHandler(id.substring(22));
+            case 'kronolithCtasklistsPNone':
+            case 'kronolithCtasklistsPAll':
+            case 'kronolithCtasklistsPG':
+                var info = id.match(/kronolithC(.*)P(.*)/);
+                this.permsClickHandler(info[1], info[2]);
                 return;
 
             case 'kronolithCinternalPAllShow':
-                this.permsClickHandler('All');
+            case 'kronolithCtasklistsPAllShow':
+                var type = id.match(/kronolithC(.*)P/)[1];
+                this.permsClickHandler(type, 'All');
                 return;
 
             case 'kronolithCinternalPAdvanced':
+            case 'kronolithCtasklistsPAdvanced':
+                var type = id.match(/kronolithC(.*)P/)[1];
                 if (orig.tagName != 'INPUT') {
                     return;
                 }
-                this.activateAdvancedPerms();
+                this.activateAdvancedPerms(type);
                 if (orig.name.match(/u_.*||new/)) {
-                    this.insertGroupOrUser('user');
+                    this.insertGroupOrUser(type, 'user');
                 }
                 return;
 

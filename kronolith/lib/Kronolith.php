@@ -285,6 +285,7 @@ class Kronolith
                         'fg' => self::foregroundColor($tasklist),
                         'bg' => self::backgroundColor($tasklist),
                         'show' => in_array('tasks/' . $id, $GLOBALS['display_external_calendars']),
+                        'perms' => $tasklist->getPermission()->data,
                         'edit' => $tasklist->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT));
                 }
             }

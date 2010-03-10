@@ -57,7 +57,7 @@ asort($groups);
 </div>
 
 <div id="kronolithCalendarinternalTabPerms" class="kronolithTabsOption" style="display:none">
-<?php include dirname(__FILE__) . '/permissions.inc'; ?>
+<?php $type = 'internal'; include dirname(__FILE__) . '/permissions.inc'; ?>
 </div>
 
 <div id="kronolithCalendarinternalTabImportExport" class="kronolithTabsOption" style="display:none">
@@ -120,7 +120,7 @@ asort($groups);
 </div>
 
 <div id="kronolithCalendartasklistsTabPerms" class="kronolithTabsOption" style="display:none">
-tbd
+<?php $type = 'tasklists'; include dirname(__FILE__) . '/permissions.inc'; ?>
 </div>
 
 <div id="kronolithCalendartasklistsTabImportExport" class="kronolithTabsOption" style="display:none">
@@ -138,6 +138,8 @@ tbd
 <div class="kronolithFormActions">
   <input type="button" value="<?php echo _("Save") ?>" class="kronolithCalendarSave button ok" />
   <input type="button" value="<?php echo _("Delete") ?>" class="kronolithCalendarDelete button ko" />
+  <input type="button" value="<?php echo _("Subscribe") ?>" class="kronolithCalendarSubscribe button ok" style="display:none" />
+  <input type="button" value="<?php echo _("Unsubscribe") ?>" class="kronolithCalendarUnsubscribe button ko" style="display:none" />
   <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
 </div>
 </div>
@@ -158,7 +160,7 @@ tbd
 <div>
   <label><?php echo _("Color") ?>:<br />
     <input type="text" name="color" id="kronolithCalendarremoteColor" size="7" />
-    <?php echo Horde::url('#')->link(array('title' => _("Color Picker"), 'onclick' => 'new ColorPicker({ color: $F(\'kronolithCalendarremoteColor\'), offsetParent: Event.element(event), update: [[\'kronolithCalendarremoteColor\', \'value\'], [\'kronolithCalendarremoteColor\', \'background\']] }); return false;')) . Horde::img('colorpicker.png', _("Color Picker")) . '</a>' ?>
+    <?php echo Horde::url('#')->link(array('title' => _("Color Picker"), 'class' => 'kronolithColorPicker')) . Horde::img('colorpicker.png', _("Color Picker")) . '</a>' ?>
   </label>
 </div>
 

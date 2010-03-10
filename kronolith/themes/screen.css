@@ -858,11 +858,6 @@ div.kronolithFormActions {
     margin-bottom: 0px;
 }
 
-/* Calendar dialog */
-#kronolithCinternalPBasic dd {
-    margin-left: 20px;
-}
-
 /* Mini calendar */
 .kronolithMinical {
     position: relative;
