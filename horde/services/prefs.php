@@ -12,6 +12,27 @@
  * @category Horde
  */
 
+function _loadPrefsConfig($app, $merge = false)
+{
+    try {
+        $res = Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), $app);
+    } catch (Horde_Exception $e) {
+        $res = array('prefGroups' => array(), '_prefs' => array());
+    }
+
+    if ($merge) {
+        try {
+            $GLOBALS['prefGroups']['identities']['members'] = array_keys(array_flip(array_merge(
+                $res['prefGroups']['identities']['members'],
+                $GLOBALS['prefGroups']['identities']['members'])));
+            $GLOBALS['_prefs'] = Horde_Array::array_merge_recursive_overwrite($res['_prefs'], $GLOBALS['_prefs']);
+        } catch (Horde_Exception $e) {}
+    } else {
+        $GLOBALS['prefGroups'] = $res['prefGroups'];
+        $GLOBALS['_prefs'] = $res['_prefs'];
+    }
+}
+
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('horde');
 
@@ -49,9 +70,7 @@ if ($registry->hasAppMethod($app, 'prefsInit')) {
 
 /* Load $app's preferences, if any. */
 $prefGroups = array();
-try {
-    extract(Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), $app));
-} catch (Horde_Exception $e) {}
+_loadPrefsConfig($app);
 
 /* See if this group has a custom URL. */
 if ($group && !empty($prefGroups[$group]['url'])) {
@@ -72,13 +91,7 @@ if (empty($group) && count($prefGroups) == 1) {
 
 if ($group == 'identities') {
     if ($app != 'horde') {
-        try {
-            $result = Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), 'horde');
-            $prefGroups['identities']['members'] = array_keys(array_flip(array_merge(
-                $result['prefGroups']['identities']['members'],
-                $prefGroups['identities']['members'])));
-            $_prefs = Horde_Array::array_merge_recursive_overwrite($result['_prefs'], $_prefs);
-        } catch (Horde_Exception $e) {}
+        _loadPrefsConfig('horde', true);
     }
 
     switch ($actionID) {
@@ -122,9 +135,10 @@ if ($group == 'identities') {
         $identity->save();
         unset($prefGroups);
 
-        try {
-            extract(Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), $app));
-        } catch (Horde_Exception $e) {}
+        _loadPrefsConfig($app);
+        if ($app != 'horde') {
+            _loadPrefsConfig('horde', true);
+        }
         break;
 
     case 'delete_identity':
@@ -144,9 +158,7 @@ if ($group == 'identities') {
 } elseif ($group &&
           ($actionID == 'update_prefs') &&
           Horde_Prefs_Ui::handleForm($group, $prefs, $app, $prefGroups, $_prefs)) {
-    try {
-        extract(Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), $app));
-    } catch (Horde_Exception $e) {}
+    _loadPrefsConfig($app);
 
     if (count($prefGroups) == 1 && empty($group)) {
         $group = array_keys($prefGroups);
