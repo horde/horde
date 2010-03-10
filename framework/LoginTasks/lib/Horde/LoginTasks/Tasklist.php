@@ -41,13 +41,6 @@ class Horde_LoginTasks_Tasklist
     protected $_tasks = array();
 
     /**
-     * Internal flag for addTask().
-     *
-     * @var boolean
-     */
-    protected $_addFlag = false;
-
-    /**
      * Current task location pointer.
      *
      * @var integer
@@ -61,28 +54,13 @@ class Horde_LoginTasks_Tasklist
      */
     public function addTask($task)
     {
-        $tmp = array(
-            'display' => false,
-            'task' => $task
-        );
-
-        if (($task->display == Horde_LoginTasks::DISPLAY_AGREE) ||
-            ($task->display == Horde_LoginTasks::DISPLAY_NOTICE)) {
-            $tmp['display'] = true;
-            $this->_addFlag = true;
-        } elseif (($task->display != Horde_LoginTasks::DISPLAY_NONE) &&
-                  !$this->_addFlag) {
-            $tmp['display'] = true;
-            $this->_addFlag = false;
-        }
-
         switch ($task->priority) {
         case Horde_LoginTasks::PRIORITY_HIGH:
-            array_unshift($this->_tasks, $tmp);
+            array_unshift($this->_tasks, $task);
             break;
 
         case Horde_LoginTasks::PRIORITY_NORMAL:
-            $this->_tasks[] = $tmp;
+            $this->_tasks[] = $task;
             break;
         }
     }
@@ -100,14 +78,14 @@ class Horde_LoginTasks_Tasklist
 
         reset($this->_tasks);
         while (list($k, $v) = each($this->_tasks)) {
-            if ($v['display'] && ($k >= $this->_ptr)) {
+            if ($v->needsDisplay() && ($k >= $this->_ptr)) {
                 break;
             }
-            $tmp[] = $v['task'];
+            $tmp[] = $v;
         }
 
         if ($advance) {
-            $this->_tasks = array_slice($this->_tasks, count($tmp) + $this->_ptr);
+            $this->_tasks = array_slice($this->_tasks, count($tmp));
             $this->_ptr = 0;
         }
 
@@ -124,16 +102,16 @@ class Horde_LoginTasks_Tasklist
     public function needDisplay($advance = false)
     {
         $tmp = array();
-        $display = null;
+        $previous = null;
 
         reset($this->_tasks);
         while (list($k, $v) = each($this->_tasks)) {
-            if (!$v['display'] ||
-                (!is_null($display) && ($v['task']->display != $display))) {
+            if (!$v->needsDisplay() ||
+                (!is_null($previous) && !$v->joinDisplayWith($previous))) {
                 break;
             }
-            $tmp[] = $v['task'];
-            $display = $v['task']->display;
+            $tmp[] = $v;
+            $previous = $v;
         }
 
         if ($advance) {
