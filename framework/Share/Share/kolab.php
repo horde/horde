@@ -221,7 +221,9 @@ class Horde_Share_kolab extends Horde_Share {
                           $sort_by = null, $direction = 0)
     {
         $key = serialize(array($this->_type, $userid, $perm, $attributes));
-        if (empty($this->_listCache[$key])
+        if ($this->_list === false) {
+            $this->_listCache[$key] = array();
+        } else if (empty($this->_listCache[$key])
             || $this->_list->validity != $this->_listCacheValidity) {
             $sharelist = $this->_list->getByType($this->_type);
             if (is_a($sharelist, 'PEAR_Error')) {
