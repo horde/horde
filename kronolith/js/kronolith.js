@@ -2661,7 +2661,6 @@ KronolithCore = {
                               if ($F('kronolithCalendarinternalImport')) {
                                   var name = 'kronolithIframe' + Math.round(Math.random() * 1000),
                                       iframe = new Element('iframe', { src: 'about:blank', name: name, id: name }).setStyle({ display: 'none' });
-                                  //iframe.observe('load', function() { iframe.remove.defer(); });
                                   document.body.insert(iframe);
                                   form.target = name;
                                   form.submit();
