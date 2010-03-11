@@ -36,7 +36,7 @@ require_once 'Horde/Group.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_Permission extends Horde_Permission
+class Horde_Kolab_Storage_Permission extends Horde_Perms_Permission
 {
     /**
      * The folder name.
@@ -51,7 +51,7 @@ class Horde_Kolab_Storage_Permission extends Horde_Permission
      *
      * @var string
      */
-    protected $data;
+    public $data;
 
     /**
      * A cache for the raw IMAP folder acl settings.
