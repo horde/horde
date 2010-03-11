@@ -250,7 +250,7 @@ class Horde_Serialize
 
         // $params = Source character set
         case self::JSON:
-            if (!empty($params) && is_string($data)) {
+            if (!empty($params)) {
                 $data = Horde_String::convertCharset($data, $params, 'UTF-8');
             }
             $tmp = json_encode($data);
@@ -260,7 +260,7 @@ class Horde_Serialize
              * data. */
             if (function_exists('json_last_error') &&
                 (json_last_error() == 5)) {
-                $data = json_encode(Horde_String::convertToUtf8($data));
+                $data = json_encode(Horde_String::convertCharset($data, $params, 'UTF-8', true));
             } else {
                 $data = $tmp;
             }

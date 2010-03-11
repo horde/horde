@@ -67,7 +67,7 @@ class Horde_String
      *
      * @return mixed  The converted input data.
      */
-    static public function convertCharset($input, $from, $to = null)
+    static public function convertCharset($input, $from, $to = null, $force = false)
     {
         /* Don't bother converting numbers. */
         if (is_numeric($input)) {
@@ -80,12 +80,12 @@ class Horde_String
         }
 
         /* If the from and to character sets are identical, return now. */
-        if ($from == $to) {
+        if (!$force && $from == $to) {
             return $input;
         }
         $from = self::lower($from);
         $to = self::lower($to);
-        if ($from == $to) {
+        if (!$force && $from == $to) {
             return $input;
         }
 
@@ -93,7 +93,7 @@ class Horde_String
             $tmp = array();
             reset($input);
             while (list($key, $val) = each($input)) {
-                $tmp[self::_convertCharset($key, $from, $to)] = self::convertCharset($val, $from, $to);
+                $tmp[self::_convertCharset($key, $from, $to)] = self::convertCharset($val, $from, $to, $force);
             }
             return $tmp;
         }
@@ -107,9 +107,10 @@ class Horde_String
                 Horde::logMessage('Called convertCharset() on a PEAR_Error object. ' . print_r($input, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
                 return '';
             }
+            $input = Horde_Util::cloneObject($input);
             $vars = get_object_vars($input);
             while (list($key, $val) = each($vars)) {
-                $input->$key = self::convertCharset($val, $from, $to);
+                $input->$key = self::convertCharset($val, $from, $to, $force);
             }
             return $input;
         }
@@ -140,12 +141,12 @@ class Horde_String
              !Horde_Util::extensionExists('iconv') ||
              !Horde_Util::extensionExists('mbstring'))) {
             if (($to == 'utf-8') &&
-                in_array($from, array('iso-8859-1', 'us-ascii'))) {
+                in_array($from, array('iso-8859-1', 'us-ascii', 'utf-8'))) {
                 return utf8_encode($input);
             }
 
             if (($from == 'utf-8') &&
-                in_array($to, array('iso-8859-1', 'us-ascii'))) {
+                in_array($to, array('iso-8859-1', 'us-ascii', 'utf-8'))) {
                 return utf8_decode($input);
             }
         }
@@ -735,34 +736,6 @@ class Horde_String
         }
 
         return $charset;
-    }
-
-    /**
-     * Convert a variable to UTF-8. Recursively handles inner variables.
-     *
-     * @param mixed $in  The variable to convert.
-     *
-     * @return mixed  The converted variable.
-     */
-    static public function convertToUtf8($in)
-    {
-        if (is_string($in)) {
-            if (Horde_Util::extensionExists('xml')) {
-                $in = utf8_encode($in);
-            }
-        } elseif (is_array($in)) {
-            reset($in);
-            while (list($key, $val) = each($in)) {
-                $in[$key] = self::convertToUtf8($in[$key]);
-            }
-        } elseif (is_object($in)) {
-            $in = self::cloneObject($in);
-            foreach (get_object_vars($in) as $key => $val) {
-                $in->$key = self::convertToUtf8($in->$key);
-            }
-        }
-
-        return $in;
     }
 
 }
