@@ -104,6 +104,13 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session_Interface
     private $_storage;
 
     /**
+     * Mark the session as connected.
+     *
+     * @var true
+     */
+    private $_connected = false;
+
+    /**
      * Constructor.
      *
      * @param string             $user_id The session will be setup for the user
@@ -144,9 +151,9 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session_Interface
             $this->_server->connect($this->_user_id, $password);
             $user_object = $this->_server->objects->fetch();
         } catch (Horde_Kolab_Server_Exception_Bindfailed $e) {
-            throw new Horde_Kolab_Session_Exception_Badlogin($e);
+            throw new Horde_Kolab_Session_Exception_Badlogin('Invalid credentials!', 0, $e);
         } catch (Horde_Kolab_Server_Exception $e) {
-            throw new Horde_Kolab_Session_Exception($e);
+            throw new Horde_Kolab_Session_Exception('Login failed!', 0, $e);
         }
 
         $this->_initMail($user_object);
@@ -356,6 +363,9 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session_Interface
      */
     public function getStorage()
     {
+        if (!$this->_connected) {
+            return false;
+        }
         if (empty($this->_storage)) {
             //@todo: factory?
             $this->_storage = new Horde_Kolab_Storage(

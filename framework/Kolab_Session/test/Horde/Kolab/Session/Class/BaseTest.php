@@ -174,7 +174,7 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
         try {
             $session->connect(array('password' => 'pass'));
         } catch (Horde_Kolab_Session_Exception $e) {
-            $this->assertEquals('Error', $e->getMessage());
+            $this->assertEquals('Login failed!', $e->getMessage());
         }
     }
 
@@ -190,7 +190,7 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
         try {
             $session->connect(array('password' => 'pass'));
         } catch (Horde_Kolab_Session_Exception_Badlogin $e) {
-            $this->assertEquals('Error', $e->getMessage());
+            $this->assertEquals('Invalid credentials!', $e->getMessage());
         }
     }
 
@@ -209,6 +209,7 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
                 '_imap_server',
                 '_freebusy_server',
                 '_storage_params',
+                '_connected'
             ), $session->__sleep()
         );
     }
