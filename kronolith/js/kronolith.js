@@ -3643,21 +3643,6 @@ KronolithCore = {
         Prototype.emptyFunction();
     },
 
-    mouseHandler: function(e, type)
-    {
-        /*
-        var elt = e.element();
-
-        switch (type) {
-        case 'over':
-            if (DragDrop.Drags.drag && elt.hasClassName('exp')) {
-                this.toggleSubFolder(elt.up(), 'exp');
-            }
-            break;
-        }
-        */
-    },
-
     onDrop: function(e)
     {
         var drop = e.element(),
@@ -4485,7 +4470,6 @@ KronolithCore = {
         document.observe('keyup', KronolithCore.keyupHandler.bindAsEventListener(KronolithCore));
         document.observe('click', KronolithCore.clickHandler.bindAsEventListener(KronolithCore));
         document.observe('dblclick', KronolithCore.clickHandler.bindAsEventListener(KronolithCore, true));
-        document.observe('mouseover', KronolithCore.mouseHandler.bindAsEventListener(KronolithCore, 'over'));
 
         $('kronolithSearchTerm').observe('focus', function() {
             if ($F(this) == this.readAttribute('default')) {
