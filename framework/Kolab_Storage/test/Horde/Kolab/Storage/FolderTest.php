@@ -63,7 +63,10 @@ class Horde_Kolab_Storage_FolderTest extends Horde_Kolab_Storage_Scenario
      */
     public function testConstruct()
     {
-        $folder = new Horde_Kolab_Storage_Folder('INBOX/Contacts');
+        $folder = new Horde_Kolab_Storage_Folder(
+            'INBOX/Contacts',
+            new Horde_Kolab_Storage_Namespace()
+        );
         $this->assertEquals('INBOX/Contacts', $folder->name);
         $this->assertTrue(is_array($folder->_data));
         $this->assertTrue(empty($folder->_data));
@@ -76,7 +79,10 @@ class Horde_Kolab_Storage_FolderTest extends Horde_Kolab_Storage_Scenario
     public function testSetName()
     {
         $GLOBALS['language'] = 'de_DE';
-        $folder = new Horde_Kolab_Storage_Folder('INBOX/Contacts');
+        $folder = new Horde_Kolab_Storage_Folder(
+            'INBOX/Contacts',
+            new Horde_Kolab_Storage_Namespace()
+        );
         $folder->setName('TestAÖÜ');
         $this->assertEquals(Horde_String::convertCharset('INBOX/TestAÖÜ', Horde_Nls::getCharset(), 'UTF7-IMAP'), $folder->new_name);
     }

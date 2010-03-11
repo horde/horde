@@ -61,7 +61,14 @@ class Horde_Kolab_Storage_Folder
      *
      * @var string
      */
-    var $name;
+    public $name;
+
+    /**
+     * The namespace handler for this folder
+     *
+     * @var Horde_Kolab_Storage_Namespace
+     */
+    private $_namespace;
 
     /**
      * A new folder name if the folder should be renamed on the next
@@ -166,11 +173,16 @@ class Horde_Kolab_Storage_Folder
     /**
      * Creates a Kolab Folder representation.
      *
-     * @param string $name  Name of the folder
+     * @param string                        $name      Name of the folder
+     * @param Horde_Kolab_Storage_Namespace $namespace The namespace handler for
+     *                                                 this folder.
      */
-    function __construct($name = null)
-    {
-        $this->name = $name;
+    function __construct(
+        $name = null,
+        Horde_Kolab_Storage_Namespace $namespace
+    ) {
+        $this->name       = $name;
+        $this->_namespace = $namespace;
         $this->__wakeup();
     }
 

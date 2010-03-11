@@ -52,6 +52,16 @@ class Horde_Kolab_Storage_Driver_Imap extends Horde_Kolab_Storage_Driver
     }
 
     /**
+     * Retrieve the namespace information for this connection.
+     *
+     * @return Horde_Kolab_Storage_Namespace The initialized namespace handler.
+     */
+    public function getNamespace()
+    {
+        return new Horde_Kolab_Storage_Namespace();
+    }
+
+    /**
      * Retrieves a list of mailboxes on the server.
      *
      * @return array The list of mailboxes.

@@ -336,7 +336,10 @@ class Horde_Kolab_Storage
         if (!isset($this->_folders[$folder])) {
             $result = $this->getConnection($folder);
 
-            $kf = new Horde_Kolab_Storage_Folder($result->name);
+            $kf = new Horde_Kolab_Storage_Folder(
+                $result->name,
+                $result->connection->getNamespace()
+            );
             $kf->restore($this, $result->connection);
             $this->_folders[$folder] = &$kf;
         }
