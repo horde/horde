@@ -80,7 +80,7 @@ class IMP_Ui_Compose
         }
         $recipients = implode(', ', $recip['list']);
 
-        $identity = Horde_Preffs_Identity::singleton(array('imp', 'imp'));
+        $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
         $from_addr = $identity->getFromAddress();
 
         $headers = $contents->getHeaderOb();
