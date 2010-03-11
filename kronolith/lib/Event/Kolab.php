@@ -167,7 +167,7 @@ class Kronolith_Event_Kolab extends Kronolith_Event
         $event['sensitivity'] = $this->private ? 'private' : 'public';
 
         // Only set organizer if this is a new event
-        if ($this->getID() == null) {
+        if ($this->_id == null) {
             $organizer = array(
                             'display-name' => Kronolith::getUserName($this->creator),
                             'smtp-address' => Kronolith::getUserEmail($this->creator)
