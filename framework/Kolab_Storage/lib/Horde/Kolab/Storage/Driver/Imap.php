@@ -278,7 +278,17 @@ class Horde_Kolab_Storage_Driver_Imap extends Horde_Kolab_Storage_Driver
             return $acl;
         }
 
-        return $this->_imap->getACL($folder);
+        try {
+            return $this->_imap->getACL($folder);
+        } catch (Exception $e) {
+            try {
+                return $this->_imap->getMyACLRights($folder);
+            } catch (Exception $e) {
+                $acl = array();
+                $acl[Horde_Auth::getAuth()] = 'lrid';
+                return $acl;
+            }
+        }            
     }
 
     /**
@@ -305,8 +315,12 @@ class Horde_Kolab_Storage_Driver_Imap extends Horde_Kolab_Storage_Driver
      */
     function getAnnotation($entry, $mailbox_name)
     {
-        $result = $this->_imap->getMetadata($mailbox_name, $entry);
-        return $result[$mailbox_name][$entry];
+        try {
+            $result = $this->_imap->getMetadata($mailbox_name, $entry);
+        } catch (Exception $e) {
+            return '';
+        }
+        return isset($result[$mailbox_name][$entry]) ? $result[$mailbox_name][$entry] : '';
     }
 
     /**
