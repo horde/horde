@@ -513,8 +513,11 @@ if (!empty($conf['user']['allow_view_source'])) {
     $a_template->set('view_source', $imp_contents->linkViewJS($imp_contents->getMIMEMessage(), 'view_source', _("_Message Source"), array('jstext' => _("Message Source"), 'css' => 'widget', 'widget' => true)));
 }
 
-if (!$disable_compose && $imp_ui->isDraft($flags)) {
-    $a_template->set('resume', Horde::widget(IMP::composeLink(array(), array('actionID' => 'draft') + $compose_params), _("Resume"), 'widget', '', '', _("Resume"), true));
+if (!$disable_compose) {
+    $imp_ui_mailbox = new IMP_Ui_Mailbox($mailbox_name);
+    if ($imp_ui_mailbox->isDraft($flags)) {
+        $a_template->set('resume', Horde::widget(IMP::composeLink(array(), array('actionID' => 'draft') + $compose_params), _("Resume"), 'widget', '', '', _("Resume"), true));
+    }
 }
 
 $imp_params = IMP::getIMPMboxParameters($imp_mbox['mailbox'], $uid, $mailbox_name);
