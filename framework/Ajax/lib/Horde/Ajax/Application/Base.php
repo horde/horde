@@ -142,4 +142,21 @@ abstract class Horde_Ajax_Application_Base
         return $result;
     }
 
+    /**
+     * Loads a chunk of PHP code (usually an HTML template) from the
+     * application's templates directory.
+     *
+     * @return string  A chunk of PHP output.
+     */
+    public function chunkContent()
+    {
+        $chunk = basename(Horde_Util::getPost('chunk'));
+        $result = new stdClass;
+        if (!empty($chunk)) {
+            $result->chunk = Horde_Util::bufferOutput('include', $GLOBALS['registry']->get('templates', $this->_app) . '/chunks/' . $chunk . '.php');
+        }
+
+        return $result;
+    }
+
 }

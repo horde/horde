@@ -709,18 +709,6 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
         return false;
     }
 
-    public function chunkContent()
-    {
-        $chunk = basename(Horde_Util::getPost('chunk'));
-        $result = new stdClass;
-        if (!empty($chunk)) {
-            $result->chunk = Horde_Util::bufferOutput('include', KRONOLITH_TEMPLATES . '/chunks/' . $chunk . '.php');
-        }
-
-        return $result;
-    }
-
-
     /**
      * Returns the driver object for a calendar.
      *
