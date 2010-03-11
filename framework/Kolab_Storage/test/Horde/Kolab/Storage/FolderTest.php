@@ -37,17 +37,14 @@ class Horde_Kolab_Storage_FolderTest extends Horde_Kolab_Storage_Scenario
      */
     public function setUp()
     {
-        // No 'auth' in world, so this won't work yet. Skip it.
-        $this->markTestSkipped();
+        /* $world = $this->prepareBasicSetup(); */
 
-        $world = $this->prepareBasicSetup();
+        /* $this->storage = $this->authenticate($world['auth'], */
+        /*                  'wrobel@example.org', */
+        /*                  'none'); */
 
-        $this->storage = $this->authenticate($world['auth'],
-                         'wrobel@example.org',
-                         'none');
-
-        $this->prepareNewFolder($this->storage, 'Contacts', 'contact', true);
-        $this->prepareNewFolder($this->storage, 'NewContacts', 'contact');
+        /* $this->prepareNewFolder($this->storage, 'Contacts', 'contact', true); */
+        /* $this->prepareNewFolder($this->storage, 'NewContacts', 'contact'); */
     }
 
     /**
@@ -55,10 +52,10 @@ class Horde_Kolab_Storage_FolderTest extends Horde_Kolab_Storage_Scenario
      */
     public function tearDown()
     {
-        Horde_Imap_Client_Mock::clean();
-        if ($this->storage) {
-            $this->storage->clean();
-        }
+        /* Horde_Imap_Client_Mock::clean(); */
+        /* if ($this->storage) { */
+        /*     $this->storage->clean(); */
+        /* } */
     }
 
     /**
@@ -78,6 +75,7 @@ class Horde_Kolab_Storage_FolderTest extends Horde_Kolab_Storage_Scenario
      */
     public function testSetName()
     {
+        $GLOBALS['language'] = 'de_DE';
         $folder = new Horde_Kolab_Storage_Folder('INBOX/Contacts');
         $folder->setName('TestAÖÜ');
         $this->assertEquals(Horde_String::convertCharset('INBOX/TestAÖÜ', Horde_Nls::getCharset(), 'UTF7-IMAP'), $folder->new_name);
@@ -88,6 +86,7 @@ class Horde_Kolab_Storage_FolderTest extends Horde_Kolab_Storage_Scenario
      */
     public function testSave()
     {
+        $this->markTestIncomplete('Currently broken');
         $folder = $this->storage->getNewFolder();
 
         try {
@@ -169,6 +168,7 @@ class Horde_Kolab_Storage_FolderTest extends Horde_Kolab_Storage_Scenario
      */
     public function testGetImapFailNoServer()
     {
+        $this->markTestIncomplete('Currently broken');
         $session = Horde_Kolab_Session::singleton('anonymous', null, true);
         $imap = $session->getImapParams();
         $this->assertEquals('localhost', $imap['hostspec']);
@@ -179,6 +179,7 @@ class Horde_Kolab_Storage_FolderTest extends Horde_Kolab_Storage_Scenario
      */
     public function testTriggerOwn()
     {
+        $this->markTestIncomplete('Currently broken');
         $folder = $this->getMock('Horde_Kolab_Storage_Folder', array('triggerUrl'));
         $folder->expects($this->once())
             ->method('triggerUrl')
@@ -195,6 +196,7 @@ class Horde_Kolab_Storage_FolderTest extends Horde_Kolab_Storage_Scenario
      */
     public function testTriggerForeign()
     {
+        $this->markTestIncomplete('Currently broken');
         $folder = $this->getMock('Horde_Kolab_Storage_Folder', array('triggerUrl'));
         $folder->expects($this->exactly(2))
             ->method('triggerUrl')
