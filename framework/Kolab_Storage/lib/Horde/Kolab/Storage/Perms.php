@@ -21,7 +21,7 @@ require_once 'Horde/Group.php';
  * @author  Gunnar Wrobel <wrobel@pardus.de>
  * @package Kolab_Storage
  */
-class Horde_Permission_Kolab extends Horde_Permission
+class Horde_Permission_Kolab extends Horde_Perms_Permission
 {
     /**
      * The folder name.
