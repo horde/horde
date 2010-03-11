@@ -50,18 +50,18 @@ class Horde_Kolab_Storage_Folder
     const FBRELEVANCE_NOBODY  = 2;
 
     /**
-     * The connection specific for this folder.
-     *
-     * @var Horde_Kolab_Storage_Driver
-     */
-    private $_connection;
-
-    /**
      * The folder name.
      *
      * @var string
      */
     public $name;
+
+    /**
+     * The connection specific for this folder.
+     *
+     * @var Horde_Kolab_Storage_Driver
+     */
+    private $_connection;
 
     /**
      * The namespace handler for this folder
@@ -213,7 +213,8 @@ class Horde_Kolab_Storage_Folder
     {
         $properties = get_object_vars($this);
         unset($properties['_storage']);
-        unset($properties['connection']);
+        unset($properties['_namespace']);
+        unset($properties['_connection']);
         $properties = array_keys($properties);
         return $properties;
     }
