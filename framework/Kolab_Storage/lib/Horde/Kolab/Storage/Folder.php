@@ -484,25 +484,9 @@ class Horde_Kolab_Storage_Folder
     {
         if (!isset($this->_owner)) {
             if (!isset($this->name) && isset($this->new_name)) {
-                $name = $this->new_name;
+                $this->_owner = $this->_namespace->getOwner($this->new_name);
             } else {
-                $name = $this->name;
-            }
-
-            if (!preg_match(";(shared\.|INBOX[/]?|user/([^/]+)[/]?)([^@]*)(@.*)?;", $name, $matches)) {
-                return PEAR::raiseError(sprintf(_("Owner of folder %s cannot be determined."), $name));
-            }
-
-            $this->_subpath = $matches[3];
-
-            if (substr($matches[1], 0, 6) == 'INBOX/') {
-                $this->_owner = Horde_Auth::getAuth();
-            } elseif (substr($matches[1], 0, 5) == 'user/') {
-                $domain = strstr(Horde_Auth::getAuth(), '@');
-                $user_domain = isset($matches[4]) ? $matches[4] : $domain;
-                $this->_owner = $matches[2] . $user_domain;
-            } elseif ($matches[1] == 'shared.') {
-                $this->_owner =  'anonymous';
+                $this->_owner = $this->_namespace->getOwner($this->name);
             }
         }
         return $this->_owner;
