@@ -1114,6 +1114,8 @@ KronolithCore = {
      */
     loadEvents: function(firstDay, lastDay, view, calendars)
     {
+        var loading = false;
+
         if (typeof calendars == 'undefined') {
             calendars = [];
             $H(Kronolith.conf.calendars).each(function(type) {
@@ -1135,12 +1137,16 @@ KronolithCore = {
                 cals = cals.get(cal[1]);
                 while (!Object.isUndefined(cals.get(startDay.dateString())) &&
                        startDay.isBefore(endDay)) {
-                    this.insertEvents([startDay, startDay], view, cal.join('|'));
+                    if (view != 'year') {
+                        this.insertEvents([startDay, startDay], view, cal.join('|'));
+                    }
                     startDay.add(1).day();
                 }
                 while (!Object.isUndefined(cals.get(endDay.dateString())) &&
                        (!startDay.isAfter(endDay))) {
-                    this.insertEvents([endDay, endDay], view, cal.join('|'));
+                    if (view != 'year') {
+                        this.insertEvents([endDay, endDay], view, cal.join('|'));
+                    }
                     endDay.add(-1).day();
                 }
                 if (startDay.compareTo(endDay) > 0) {
@@ -1149,6 +1155,7 @@ KronolithCore = {
             }
             var start = startDay.dateString(), end = endDay.dateString(),
                 calendar = cal.join('|');
+            loading = true;
             this.startLoading(calendar, start + end);
             this.storeCache($H(), calendar);
             this.doAction('listEvents',
@@ -1158,6 +1165,10 @@ KronolithCore = {
                             view: view },
                           this.loadEventsCallback.bind(this));
         }, this);
+
+        if (!loading && view == 'year') {
+            this.insertEvents([firstDay, lastDay], 'year');
+        }
     },
 
     /**
@@ -1186,7 +1197,9 @@ KronolithCore = {
         }
         delete this.eventsLoading[r.response.cal];
 
-        this.insertEvents(dates, this.view, r.response.cal);
+        if (this.view != 'year' || !$H(this.eventsLoading).size()) {
+            this.insertEvents(dates, this.view, r.response.cal);
+        }
     },
 
     /**
@@ -1293,13 +1306,18 @@ KronolithCore = {
 
             case 'year':
                 td = $('kronolithYear' + date);
-                td.removeClassName('kronolithHasEvents').removeClassName('kronolithIsBusy');
+                if (td.className == 'kronolithMinicalEmpty') {
+                    continue;
+                }
+                if (td.retrieve('nicetitle')) {
+                    Horde_ToolTips.detach(td);
+                    td.store('nicetitle');
+                }
                 if (title) {
-                    td.writeAttribute('title', title).addClassName('kronolithHasEvents');
-                    if (td.readAttribute('nicetitle')) {
-                        Horde_ToolTips.detach(td);
-                    }
-                    Horde_ToolTips.attach(td);
+                    td.addClassName('kronolithHasEvents');
+                    td.store('nicetitle', title);
+                    td.observe('mouseover', Horde_ToolTips.onMouseover.bindAsEventListener(Horde_ToolTips));
+                    td.observe('mouseout', Horde_ToolTips.out.bind(Horde_ToolTips));
                     if (busy) {
                         td.addClassName('kronolithIsBusy');
                     }
