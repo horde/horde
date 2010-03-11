@@ -109,7 +109,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
     {
         $this->ldap_read->expects($this->exactly(1))
             ->method('bind')
-            ->will($this->returnValue(new PEAR_Error('Bind failed!')));
+            ->will($this->throwException(new Horde_Ldap_Exception('Bind failed!')));
         try {
             $this->server->connectGuid('test', 'test');
             $this->fail('No exception!');
@@ -123,12 +123,12 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
     {
         $this->ldap_read->expects($this->exactly(1))
             ->method('bind')
-            ->will($this->returnValue(new PEAR_Error('Credentials invalid!', 49)));
+            ->will($this->throwException(new Horde_Ldap_Exception('Credentials invalid!', 49)));
         try {
             $this->server->connectGuid('test', 'test');
             $this->fail('No exception!');
         } catch (Horde_Kolab_Server_Exception_Bindfailed $e) {
-            $this->assertEquals('Credentials invalid!', $e->getMessage());
+            $this->assertEquals('Invalid username/password!', $e->getMessage());
         }
     }
 

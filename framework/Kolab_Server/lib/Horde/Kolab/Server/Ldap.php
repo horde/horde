@@ -85,10 +85,23 @@ implements Horde_Kolab_Server_Interface
     {
         /** Do we need to switch the user? */
         if ($guid !== $this->_guid) {
-            $this->_handleError(
-                $this->_conn->getRead()->bind($guid, $pass),
-                Horde_Kolab_Server_Exception::BIND_FAILED
-            );
+            try {
+                $this->_conn->getRead()->bind($guid, $pass);
+            } catch (Horde_Ldap_Exception $e) {
+                if ($e->getCode() == 49) {
+                    throw new Horde_Kolab_Server_Exception_Bindfailed(
+                        'Invalid username/password!',
+                        Horde_Kolab_Server_Exception::BIND_FAILED,
+                        $e
+                    );
+                } else {
+                    throw new Horde_Kolab_Server_Exception(
+                        'Bind failed!',
+                        Horde_Kolab_Server_Exception::BIND_FAILED,
+                        $e
+                    );
+                }
+            }
             $this->_guid = $guid;
         }
     }
