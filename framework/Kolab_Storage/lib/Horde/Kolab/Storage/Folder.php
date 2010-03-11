@@ -544,12 +544,7 @@ class Horde_Kolab_Storage_Folder
     function getTitle()
     {
         if (!isset($this->_title) && isset($this->name)) {
-            $title = $this->name;
-            if (substr($title, 0, 6) == 'INBOX/') {
-                $title = substr($title, 6);
-            }
-            $title = str_replace('/', ':', $title);
-            $this->_title = Horde_String::convertCharset($title, 'UTF7-IMAP');
+            $this->_title = $this->_namespace->getTitle($this->name);
         }
         return $this->_title;
     }

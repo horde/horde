@@ -29,4 +29,18 @@
  */
 class Horde_Kolab_Storage_Namespace
 {
+
+    /**
+     * Return the title of a folder.
+     *
+     * @param string $name The name of the folder.
+     */
+    public function getTitle($name)
+    {
+        if (substr($name, 0, 6) == 'INBOX/') {
+            $name = substr($name, 6);
+        }
+        $name = str_replace('/', ':', $name);
+        return Horde_String::convertCharset($name, 'UTF7-IMAP');
+    }
 }
