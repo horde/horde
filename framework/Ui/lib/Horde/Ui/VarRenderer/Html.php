@@ -1132,7 +1132,7 @@ EOT;
                                                   'p' => $image['img']['vfs_path']));
         } else {
             /* Calling an image from a tmp directory (uploads). */
-            $img = Horde_Util::addParameter($img, 'f', $image['img']['file']);
+            $img = (string)Horde_Util::addParameter($img, 'f', $image['img']['file']);
         }
 
         return Horde::img($img, '', '', '');
