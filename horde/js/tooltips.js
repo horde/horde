@@ -20,7 +20,7 @@ var Horde_ToolTips =
         if (!t) {
             return;
         }
-        e.setAttribute('nicetitle', t);
+        e.store('nicetitle', t);
         e.removeAttribute('title');
         e.observe('mouseover', this.onMouseover.bindAsEventListener(this));
         e.observe('mouseout', this.out.bind(this));
@@ -86,11 +86,11 @@ var Horde_ToolTips =
         }
 
         link = this.element;
-        while (!link.readAttribute('nicetitle') && link.match('BODY')) {
+        while (!link.retrieve('nicetitle') && link.match('BODY')) {
             link = link.up();
         }
 
-        nicetitle = link.readAttribute('nicetitle');
+        nicetitle = link.retrieve('nicetitle');
         if (!nicetitle) {
             return;
         }
