@@ -103,17 +103,17 @@ var ImpCompose = {
             break;
 
         case 'send_message':
-            if (($F('subject') == '') &&
-                !window.confirm(IMP.text.compose_nosubject)) {
-                return;
-            }
-
             if (!this.skip_spellcheck &&
                 this.spellcheck &&
                 IMP.SpellChecker &&
                 !IMP.SpellChecker.isActive()) {
                 this.sc_submit = { a: actionID, e: e };
                 IMP.SpellChecker.spellCheck();
+                return;
+            }
+
+            if (($F('subject') == '') &&
+                !window.confirm(IMP.text.compose_nosubject)) {
                 return;
             }
 

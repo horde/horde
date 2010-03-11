@@ -149,17 +149,17 @@ var DimpCompose = {
         if (action == 'sendMessage' || action == 'saveDraft') {
             switch (action) {
             case 'sendMessage':
-                if (($F('subject') == '') &&
-                    !window.confirm(DIMP.text_compose.nosubject)) {
-                    return;
-                }
-
                 if (!this.skip_spellcheck &&
                     DIMP.conf_compose.spellcheck &&
                     DIMP.SpellChecker &&
                     !DIMP.SpellChecker.isActive()) {
                     this.sc_submit = action;
                     DIMP.SpellChecker.spellCheck();
+                    return;
+                }
+
+                if (($F('subject') == '') &&
+                    !window.confirm(DIMP.text_compose.nosubject)) {
                     return;
                 }
                 break;
