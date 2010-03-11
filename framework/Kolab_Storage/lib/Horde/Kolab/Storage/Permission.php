@@ -73,7 +73,7 @@ class Horde_Kolab_Storage_Permission extends Horde_Perms_Permission
         $this->setFolder($folder);
         if (!isset($perms)) {
             $result = $this->getPerm();
-            if (is_a($result, 'PEAR_Error')) {
+            if ($result instanceOf PEAR_Error) {
                 Horde::logMessage(sprintf("Failed parsing permission information. Error was: %s",
                                           $result->getMessage()), __FILE__, __LINE__);
             } else {
@@ -193,7 +193,7 @@ class Horde_Kolab_Storage_Permission extends Horde_Perms_Permission
                     $groups = Group::singleton();
                 }
                 $group_id = $groups->getGroupId(substr($user, 6));
-                if (!is_a($group_id, 'PEAR_Error')) {
+                if ($group_id instanceOf PEAR_Error) {
                     // Store the converted acl in the cache
                     $data['groups'][$group_id] = $result;
                 }
