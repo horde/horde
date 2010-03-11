@@ -10,12 +10,22 @@ if ($groups instanceof PEAR_Error) {
     $groups = array();
 }
 asort($groups);
+$file_upload = $GLOBALS['browser']->allowFileUploads();
 ?>
 <div id="kronolithCalendarDialog" class="kronolithDialog">
 
-<form id="kronolithCalendarForminternal" action="">
+<form id="kronolithCalendarForminternal" method="post" action="<?php echo Horde::applicationUrl('data.php') ?>"<?php if ($file_upload) echo ' enctype="multipart/form-data"' ?>>
 <input type="hidden" name="type" value="internal" />
 <input id="kronolithCalendarinternalId" type="hidden" name="calendar" />
+<?php if ($file_upload): ?>
+<input type="hidden" id="kronolithCalendarinternalImportCal" name="importCal" />
+<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $file_upload ?>" />
+<input type="hidden" name="actionID" value="<?php echo Horde_Data::IMPORT_FILE ?>" />
+<input type="hidden" name="import_step" value="1" />
+<input type="hidden" name="import_format" value="icalendar" />
+<input type="hidden" name="import_ajax" value="1" />
+<?php Horde_Util::pformInput() ?>
+<?php endif; ?>
 
 <div class="kronolithCalendarDiv" id="kronolithCalendarinternal1">
 <div>
@@ -40,7 +50,7 @@ asort($groups);
   <span>
     <span class="kronolithSeparator">|</span>
     <ul>
-      <li><a href="#" class="kronolithTabLink" id="kronolithCalendarinternalLinkImportExport"><?php echo _("Export") /*_("Import/Export")*/ ?></a></li>
+      <li><a href="#" class="kronolithTabLink" id="kronolithCalendarinternalLinkImportExport"><?php echo _("Import/Export") ?></a></li>
     </ul>
   </span>
 </div>
@@ -62,12 +72,12 @@ asort($groups);
 
 <div id="kronolithCalendarinternalTabImportExport" class="kronolithTabsOption" style="display:none">
   <div class="kronolithDialogInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics. Recipients of the iCalendar data file (with supporting software, such as an email client or calendar application) can respond to the sender easily or counter propose another meeting date/time.") ?></div>
-  <?php /* ?>
-  <label><?php echo _("Import ICS file") ?>:
-    <input type="file" name="import_file" />
-  </label>
+  <label for="kronolithCalendarinternalImport"><?php echo _("Import ICS file") ?>:</label>
+  <input type="file" id="kronolithCalendarinternalImport" name="import_file" /><br />
+  <input type="checkbox" id="kronolithCalendarinternalImportOver" name="purge" />
+  <label for="kronolithCalendarinternalImportOver"><?php echo _("Replace existing calendar with the imported one?") ?></label>
+  <?php echo _("Warning: This deletes all entries in your current calendar.") ?>
   <br />
-  <?php */ ?>
   <label><?php echo _("Export ICS file") ?>:</label>
   <a id="kronolithCalendarinternalExport"><?php echo _("Calendar ICS file") ?></a>
 </div>

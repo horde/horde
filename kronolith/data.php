@@ -296,6 +296,16 @@ if (is_array($next_step)) {
     $next_step = $data->cleanup();
 }
 
+if (Horde_Util::getFormData('import_ajax')) {
+    $stack = $notification->notify(array('listeners' => 'status', 'raw' => true));
+    if ($stack) {
+        Horde::addInlineScript('window.parent.KronolithCore.showNotifications(window.parent.$A(' . Horde_Serialize::serialize($stack, Horde_Serialize::JSON, Horde_Nls::getCharset()) . '));');
+        Horde::addInlineScript('window.parent.$(window.name).remove();');
+        Horde::outputInlineScript();
+    }
+    exit;
+}
+
 $import_calendars = $export_calendars = array();
 if (Horde_Auth::getAuth()) {
     $calendars = Kronolith::listCalendars(false, Horde_Perms::EDIT);

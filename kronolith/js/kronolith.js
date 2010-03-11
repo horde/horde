@@ -2226,7 +2226,7 @@ KronolithCore = {
             switch (type) {
             case 'internal':
                 kronolithCTagAc.reset();
-                // Fall through
+                // Fall through.
             case 'tasklists':
                 $('kronolithCalendar' + type + 'LinkImportExport').up('span').hide();
                 break;
@@ -2250,7 +2250,8 @@ KronolithCore = {
             switch (type) {
             case 'internal':
                 kronolithCTagAc.reset(Kronolith.conf.calendars.internal[calendar].tg);
-                // fall through
+                $('kronolithCalendar' + type + 'ImportCal').setValue(calendar);
+                // Fall through.
             case 'tasklists':
                 $('kronolithCalendar' + type + 'Description').setValue(info.desc);
                 $('kronolithCalendar' + type + 'LinkImportExport').up('span').show();
@@ -2657,6 +2658,14 @@ KronolithCore = {
                       data,
                       function(r) {
                           if (r.response.saved) {
+                              if ($F('kronolithCalendarinternalImport')) {
+                                  var name = 'kronolithIframe' + Math.round(Math.random() * 1000),
+                                      iframe = new Element('iframe', { src: 'about:blank', name: name, id: name }).setStyle({ display: 'none' });
+                                  //iframe.observe('load', function() { iframe.remove.defer(); });
+                                  document.body.insert(iframe);
+                                  form.target = name;
+                                  form.submit();
+                              }
                               if (data.calendar) {
                                   var cal = Kronolith.conf.calendars[type][data.calendar],
                                       color = {
