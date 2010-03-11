@@ -373,7 +373,8 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session_Interface
                 //@todo: Use Session_Auth
                 array('hostspec' => $this->getImapServer(),
                       'username' => Horde_Auth::getAuth(),
-                      'password' => Horde_Auth::getCredential('password'))
+                      'password' => Horde_Auth::getCredential('password'),
+                      'secure'   => true)
             );
         }
         return $this->_storage;
