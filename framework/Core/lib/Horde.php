@@ -670,7 +670,7 @@ HTML;
         case 'html':
         case 'plain':
         case 'xml':
-            $s_data = is_string($data) ? $data : $$data->response;
+            $s_data = is_string($data) ? $data : $data->response;
             header('Content-Type: text/' . $ct . '; charset=' . $charset);
             echo $s_data;
             break;
