@@ -8,8 +8,6 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-$compose_mode = (strstr($_SERVER['PHP_SELF'], 'compose-dimp.php') || strstr($_SERVER['PHP_SELF'], 'message-dimp.php'));
-
 $app_urls = $code = $flags = array();
 
 foreach (IMP_Dimp::menuList() as $app) {
@@ -149,7 +147,7 @@ $code['text'] = array(
     'vp_empty' => _("There are no messages in this mailbox."),
 );
 
-if ($compose_mode) {
+if (in_array(basename($_SERVER['PHP_SELF']), array('compose-dimp.php', 'message-dimp.php'))){
     $compose_cursor = $GLOBALS['prefs']->getValue('compose_cursor');
 
     /* Variables used in compose page. */
