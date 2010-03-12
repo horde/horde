@@ -81,6 +81,17 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('äöü', $folder->getTitle());
     }
 
+    public function testFolderTitleIsAccessibleForNewFolders()
+    {
+        $_SESSION['horde_auth']['userId'] = 'test';
+        $folder = new Horde_Kolab_Storage_Folder(
+            null,
+            new Horde_Kolab_Storage_Namespace()
+        );
+        $folder->setName('test');
+        $this->assertEquals('test', $folder->getTitle());
+    }
+
     public function testFolderOwnerIsCurrentUserIfPrefixMatchesPrivateNamespace()
     {
         $this->markTestIncomplete('This expectation currently does not hold as we are not using the namespace handler yet.');

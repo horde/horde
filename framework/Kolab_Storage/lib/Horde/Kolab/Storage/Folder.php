@@ -238,9 +238,14 @@ class Horde_Kolab_Storage_Folder
      *
      * @return string The name of the folder.
      */
-    function getName()
+    public function getName()
     {
-        return $this->name;
+        if (isset($this->name)) {
+            return $this->name;
+        }
+        if (!isset($this->name) && isset($this->new_name)) {
+            return $this->new_name;
+        }
     }
 
     /**
@@ -480,14 +485,10 @@ class Horde_Kolab_Storage_Folder
      *
      * @return string|PEAR_Error  The owner of this folder.
      */
-    function getOwner()
+    public function getOwner()
     {
         if (!isset($this->_owner)) {
-            if (!isset($this->name) && isset($this->new_name)) {
-                $this->_owner = $this->_namespace->getOwner($this->new_name);
-            } else {
-                $this->_owner = $this->_namespace->getOwner($this->name);
-            }
+            $this->_owner = $this->_namespace->getOwner($this->getName());
         }
         return $this->_owner;
     }
@@ -525,10 +526,10 @@ class Horde_Kolab_Storage_Folder
      *
      * @return string  The folder title.
      */
-    function getTitle()
+    public function getTitle()
     {
-        if (!isset($this->_title) && isset($this->name)) {
-            $this->_title = $this->_namespace->getTitle($this->name);
+        if (!isset($this->_title)) {
+            $this->_title = $this->_namespace->getTitle($this->getName());
         }
         return $this->_title;
     }
