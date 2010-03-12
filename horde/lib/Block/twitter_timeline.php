@@ -130,7 +130,9 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
             $stream = Horde_Serialize::unserialize($twitter->statuses->friendsTimeline(), Horde_Serialize::JSON);
         } catch (Horde_Service_Twitter_Exception $e) {
             $msg = Horde_Serialize::unserialize($e->getMessage(), Horde_Serialize::JSON);
-            return sprintf(_("There was an error contacting Twitter: %s"), $msg->error);
+            return $msg
+                ? sprintf(_("There was an error contacting Twitter: %s"), $msg->error)
+                : _("There was an error contacting Twitter.");
         }
         /* Latest status */
         if (empty($this->_profile->status)) {
