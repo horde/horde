@@ -931,7 +931,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      * 'fwd_list' - (array) See IMP_Dimp::getAttachmentInfo().
      * 'header' - (array) The headers of the message.
      * 'identity' - (integer) The identity ID to use for this message.
-     * 'imp_compose'- (string) The IMP_Compose cache identifier.
+     * 'imp_compose' - (string) The IMP_Compose cache identifier.
      * 'opts' - (array) Additional options needed for DimpCompose.fillForm().
      * 'type' - (string) The input 'type' value.
      * 'ViewPort' - (object) See _viewPortData().
@@ -995,7 +995,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      * 'format' - (string) Either 'text' or 'html'.
      * 'header' - (array) The headers of the message.
      * 'identity' - (integer) The identity ID to use for this message.
-     * 'imp_compose'- (string) The IMP_Compose cache identifier.
+     * 'imp_compose' - (string) The IMP_Compose cache identifier.
      * 'opts' - (array) Additional options needed for DimpCompose.fillForm().
      * 'ViewPort' - (object) See _viewPortData().
      * </pre>
