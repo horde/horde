@@ -15,7 +15,7 @@ class Horde_Block_skoli_tree_menu extends Horde_Block {
         require_once dirname(__FILE__) . '/../base.php';
 
         $add = Horde::applicationUrl('add.php');
-        $icondir = Horde_Themes::img();
+        $icondir = (string)Horde_Themes::img();
 
         $classes = Skoli::listClasses(false, Horde_Perms::EDIT);
         if (count($classes) > 0) {
@@ -45,7 +45,7 @@ class Horde_Block_skoli_tree_menu extends Horde_Block {
                            $indent + 1,
                            false,
                            array('icon' => 'search.png',
-                                 'icondir' => Horde_Themes::img(null, 'horde'),
+                                 'icondir' => (string)Horde_Themes::img(null, 'horde'),
                                  'url' => Horde::applicationUrl('search.php')));
         }
 

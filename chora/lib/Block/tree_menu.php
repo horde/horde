@@ -23,7 +23,7 @@ class Horde_Block_chora_tree_menu extends Horde_Block
                     false,
                     array(
                         'icon' => 'folder.png',
-                        'icondir' => Horde_Themes::img(null, 'horde') . '/tree',
+                        'icondir' => (string)Horde_Themes::img(null, 'horde') . '/tree',
                         'url' => Chora::url('browsedir', '', array('rt' => $key))
                     )
                 );

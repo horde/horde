@@ -23,7 +23,7 @@ class Horde_Block_gollem_tree_menu extends Horde_Block {
         // TODO
         return;
 
-        $icondir = Horde_Themes::img();
+        $icondir = (string)Horde_Themes::img();
         $login_url = Horde::applicationUrl('login.php');
 
         foreach ($GLOBALS['gollem_backends'] as $key => $val) {

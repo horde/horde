@@ -47,7 +47,7 @@ class Horde_Block_nag_tree_alarms extends Horde_Block {
                            $indent + 1,
                            false,
                            array('icon' => 'alarm.png',
-                                 'icondir' => Horde_Themes::img(),
+                                 'icondir' => (string)Horde_Themes::img(),
                                  'title' => $title,
                                  'url' => $url));
         }

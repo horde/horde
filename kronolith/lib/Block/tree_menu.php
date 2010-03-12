@@ -21,7 +21,7 @@ class Horde_Block_kronolith_tree_menu extends Horde_Block {
             array('week', _("Week"), 'weekview.png', Horde::applicationUrl('week.php')),
             array('month', _("Month"), 'monthview.png', Horde::applicationUrl('month.php')),
             array('year', _("Year"), 'yearview.png', Horde::applicationUrl('year.php')),
-            array('search', _("Search"), 'search.png', Horde::applicationUrl('search.php'), Horde_Themes::img(null, 'horde')),
+            array('search', _("Search"), 'search.png', Horde::applicationUrl('search.php'), (string)Horde_Themes::img(null, 'horde')),
         );
 
         foreach ($menus as $menu) {
@@ -31,7 +31,7 @@ class Horde_Block_kronolith_tree_menu extends Horde_Block {
                            $indent + 1,
                            false,
                            array('icon' => $menu[2],
-                                 'icondir' => isset($menu[4]) ? $menu[4] : Horde_Themes::img(),
+                                 'icondir' => isset($menu[4]) ? $menu[4] : (string)Horde_Themes::img(),
                                  'url' => $menu[3]));
         }
     }
