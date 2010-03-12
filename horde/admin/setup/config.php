@@ -73,12 +73,6 @@ if (Horde_Util::getFormData('submitbutton') == _("Revert Configuration")) {
     $notification->push(_("There was an error in the configuration form. Perhaps you left out a required field."), 'horde.error');
 }
 
-/* Render the configuration form. */
-$renderer = $form->getRenderer();
-$renderer->setAttrColumnWidth('50%');
-$form = Horde_Util::bufferOutput(array($form, 'renderActive'), $renderer, $vars, 'config.php', 'post');
-
-
 /* Set up the template. */
 $template = $injector->createInstance('Horde_Template');
 $template->set('php', htmlspecialchars($php), true);
@@ -90,10 +84,15 @@ if (!empty($_SESSION['_config'][$app])) {
     $diff_link = Horde::link('#', '', '', '', Horde::popupJs($url, array('height' => 480, 'width' => 640, 'urlencode' => true)) . 'return false;') . _("show differences") . '</a>';
 }
 $template->set('diff_popup', $diff_link, true);
-$template->set('form', $form);
 $template->setOption('gettext', true);
 
 require HORDE_TEMPLATES . '/common-header.inc';
 require HORDE_TEMPLATES . '/admin/menu.inc';
+
+/* Render the configuration form. */
+$renderer = $form->getRenderer();
+$renderer->setAttrColumnWidth('50%');
+$template->set('form', Horde_Util::bufferOutput(array($form, 'renderActive'), $renderer, $vars, 'config.php', 'post'));
+
 echo $template->fetch(HORDE_TEMPLATES . '/admin/setup/config.html');
 require HORDE_TEMPLATES . '/common-footer.inc';
