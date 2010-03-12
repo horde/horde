@@ -193,8 +193,8 @@ Horde::addInlineScript(array_merge($compose_result['js'], $js));
 
 /* Javascript to be run on window load. */
 $fillform_opts['focus'] = ($vars->type == 'new' || $vars->type == 'forward') ? 'to' : 'composeMessage';
-$compose_result['js_onload'][] = 'DimpCompose.fillForm(' . Horde_Serialize::serialize($msg, Horde_Serialize::JSON) . ',' . Horde_Serialize::serialize($header, Horde_Serialize::JSON) . ',' . Horde_Serialize::serialize($fillform_opts, Horde_Serialize::JSON) . ')';
-Horde::addInlineScript($compose_result['js_onload'], 'load');
+$compose_result['jsonload'][] = 'DimpCompose.fillForm(' . Horde_Serialize::serialize($msg, Horde_Serialize::JSON) . ',' . Horde_Serialize::serialize($header, Horde_Serialize::JSON) . ',' . Horde_Serialize::serialize($fillform_opts, Horde_Serialize::JSON) . ')';
+Horde::addInlineScript($compose_result['jsonload'], 'load');
 
 $scripts = array(
     array('compose-base.js', 'imp'),
