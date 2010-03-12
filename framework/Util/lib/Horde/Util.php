@@ -739,12 +739,6 @@ class Horde_Util
      */
     static public function assertDriverConfig($params, $fields, $name)
     {
-        $info = array_merge($info, array(
-            'params' => $params,
-            'fields' => $fields,
-            'name' => $name
-        ));
-
         if (!is_array($params) || !count($params)) {
             throw new Horde_Exception(sprintf('No configuration information specified for %s.', $name), self::DRIVER_CONFIG_MISSING);
         }
