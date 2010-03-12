@@ -40,6 +40,9 @@ if (!empty($refresh_time) && !empty($refresh_url)) {
 switch ($imp_view) {
 case 'dimp':
     Horde_Themes::includeStylesheetFiles(array('sub' => 'dimp'));
+    if (!in_array(basename($_SERVER['PHP_SELF']), array('compose-dimp.php', 'index-dimp.php', 'message-dimp.php'))) {
+        Horde::includeScriptFiles();
+    }
     break;
 
 case 'mimp':
