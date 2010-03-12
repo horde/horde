@@ -17,10 +17,10 @@ $vars = Horde_Variables::getDefaultVariables();
 $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 $perm_id = $vars->get('perm_id');
 $category = $vars->get('category');
-$permission = $perms->getPermissionById($perm_id);
-
-/* If the permission fetched is an error return to permissions list. */
-if (is_a($permission, 'PEAR_Error')) {
+try {
+    $permission = $perms->getPermissionById($perm_id);
+} catch (Exception $e) {
+    /* If the permission fetched is an error return to permissions list. */
     $notification->push(_("Attempt to delete a non-existent permission."), 'horde.error');
     $url = Horde::applicationUrl('admin/perms/index.php', true);
     header('Location: ' . $url);
@@ -33,14 +33,14 @@ $ui->setVars($vars);
 $ui->setupDeleteForm($permission);
 
 if ($confirmed = $ui->validateDeleteForm($info)) {
-    $result = $perms->removePermission($permission, true);
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push(sprintf(_("Unable to delete \"%s\": %s."), $perms->getTitle($permission->getName()), $result->getMessage()), 'horde.error');
-    } else {
+    try {
+        $result = $perms->removePermission($permission, true);
         $notification->push(sprintf(_("Successfully deleted \"%s\"."), $perms->getTitle($permission->getName())), 'horde.success');
         $url = Horde::applicationUrl('admin/perms/index.php', true);
         header('Location: ' . $url);
         exit;
+    } catch (Exception $e) {
+        $notification->push(sprintf(_("Unable to delete \"%s\": %s."), $perms->getTitle($permission->getName()), $result->getMessage()), 'horde.error');
     }
 } elseif ($confirmed === false) {
     $notification->push(sprintf(_("Permission \"%s\" not deleted."), $perms->getTitle($permission->getName())), 'horde.success');

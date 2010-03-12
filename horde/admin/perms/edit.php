@@ -9,6 +9,13 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
+function _redirect()
+{
+    $GLOBALS['notification']->push(_("Attempt to edit a non-existent permission."), 'horde.error');
+    header('Location: ' . Horde::applicationUrl('admin/perms/index.php', true));
+    exit;
+}
+
 require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('horde', array('admin' => true));
 
@@ -20,69 +27,71 @@ $category = $vars->get('category');
 
 /* See if we need to (and are supposed to) autocreate the permission. */
 if ($category !== null) {
-    $permission = $perms->getPermission($category);
-    if (is_a($permission, 'PEAR_Error') && Horde_Util::getFormData('autocreate')) {
-
-        /* Check to see if the permission we are copying from exists before we
-         * autocreate. */
-        $copyFrom = Horde_Util::getFormData('autocreate_copy');
-        if ($copyFrom && !$perms->exists($copyFrom)) {
-            $copyFrom = null;
-        }
-
-        $parent = $vars->get('parent');
-        $permission = $perms->newPermission($category);
-        $result = $perms->addPermission($permission, $parent);
-        if (!is_a($result, 'PEAR_Error')) {
-            $form = 'edit.inc';
-            $perm_id = $perms->getPermissionId($permission);
-        }
-
-        if ($copyFrom) {
-            /* We have autocreated the permission and we have been told to
-             * copy an existing permission for the defaults. */
-            $copyFromObj = $perms->getPermission($copyFrom);
-            $permission->addGuestPermission($copyFromObj->getGuestPermissions(), false);
-            $permission->addDefaultPermission($copyFromObj->getDefaultPermissions(), false);
-            $permission->addCreatorPermission($copyFromObj->getCreatorPermissions(), false);
-            foreach ($copyFromObj->getUserPermissions() as $user => $uperm) {
-                $permission->addUserPermission($user, $uperm, false);
-            }
-            foreach ($copyFromObj->getGroupPermissions() as $group => $gperm) {
-                $permission->addGroupPermission($group, $gperm, false);
-            }
-        } else {
-            /* We have autocreated the permission and we don't have an
-             * existing permission to copy.  See if some defaults were
-             * supplied. */
-            $addPerms = Horde_Util::getFormData('autocreate_guest');
-            if ($addPerms) {
-                $permission->addGuestPermission($addPerms, false);
-            }
-            $addPerms = Horde_Util::getFormData('autocreate_default');
-            if ($addPerms) {
-                $permission->addDefaultPermission($addPerms, false);
-            }
-            $addPerms = Horde_Util::getFormData('autocreate_creator');
-            if ($addPerms) {
-                $permission->addCreatorPermission($addPerms, false);
-            }
-        }
-        $permission->save();
-    } else {
+    try {
+        $permission = $perms->getPermission($category);
         $perm_id = $perms->getPermissionId($permission);
+    } catch (Horde_Perms_Exception $e) {
+        if (Horde_Util::getFormData('autocreate')) {
+            /* Check to see if the permission we are copying from exists
+             * before we autocreate. */
+            $copyFrom = Horde_Util::getFormData('autocreate_copy');
+            if ($copyFrom && !$perms->exists($copyFrom)) {
+                $copyFrom = null;
+            }
+
+            $parent = $vars->get('parent');
+            $permission = $perms->newPermission($category);
+            try {
+                $result = $perms->addPermission($permission, $parent);
+                $form = 'edit.inc';
+                $perm_id = $perms->getPermissionId($permission);
+            } catch (Exception $e) {
+            }
+
+            if ($copyFrom) {
+                /* We have autocreated the permission and we have been told to
+                 * copy an existing permission for the defaults. */
+                $copyFromObj = $perms->getPermission($copyFrom);
+                $permission->addGuestPermission($copyFromObj->getGuestPermissions(), false);
+                $permission->addDefaultPermission($copyFromObj->getDefaultPermissions(), false);
+                $permission->addCreatorPermission($copyFromObj->getCreatorPermissions(), false);
+                foreach ($copyFromObj->getUserPermissions() as $user => $uperm) {
+                    $permission->addUserPermission($user, $uperm, false);
+                }
+                foreach ($copyFromObj->getGroupPermissions() as $group => $gperm) {
+                    $permission->addGroupPermission($group, $gperm, false);
+                }
+            } else {
+                /* We have autocreated the permission and we don't have an
+                 * existing permission to copy.  See if some defaults were
+                 * supplied. */
+                $addPerms = Horde_Util::getFormData('autocreate_guest');
+                if ($addPerms) {
+                    $permission->addGuestPermission($addPerms, false);
+                }
+                $addPerms = Horde_Util::getFormData('autocreate_default');
+                if ($addPerms) {
+                    $permission->addDefaultPermission($addPerms, false);
+                }
+                $addPerms = Horde_Util::getFormData('autocreate_creator');
+                if ($addPerms) {
+                    $permission->addCreatorPermission($addPerms, false);
+                }
+            }
+            $permission->save();
+        } else {
+            _redirect();
+        }
+    } catch (Exception $e) {
+        _redirect();
     }
     $vars->set('perm_id', $perm_id);
 } else {
-    $permission = $perms->getPermissionById($perm_id);
-}
-
-/* If the permission fetched is an error return to the permissions list. */
-if (is_a($permission, 'PEAR_Error')) {
-    $notification->push(_("Attempt to edit a non-existent permission."), 'horde.error');
-    $url = Horde::applicationUrl('admin/perms/index.php', true);
-    header('Location: ' . $url);
-    exit;
+    try {
+        $permission = $perms->getPermissionById($perm_id);
+    } catch (Exception $e) {
+        _redirect();
+    }
 }
 
 $ui = new Horde_Perms_Ui($perms);
