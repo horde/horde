@@ -185,12 +185,11 @@ class Chora_Application extends Horde_Registry_Application
             return $this->_permsCache;
         }
 
-        require_once dirname(__FILE__) . '/../config/sourceroots.php';
-
         $perms['tree']['chora']['sourceroots'] = false;
         $perms['title']['chora:sourceroots'] = _("Repositories");
 
         // Run through every source repository
+        require dirname(__FILE__) . '/../config/sourceroots.php';
         foreach ($sourceroots as $sourceroot => $srconfig) {
             $perms['tree']['chora']['sourceroots'][$sourceroot] = false;
             $perms['title']['chora:sourceroots:' . $sourceroot] = $srconfig['name'];
