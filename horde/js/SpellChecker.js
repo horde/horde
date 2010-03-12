@@ -105,7 +105,7 @@ var SpellChecker = Class.create({
 
     onComplete: function(request)
     {
-        var bad, content,
+        var bad, content, washidden,
             i = 0,
             result = request.responseJSON;
 
@@ -146,7 +146,14 @@ var SpellChecker = Class.create({
             }
         }
 
+        if (!this.target.visible()) {
+            this.target.show();
+            washidden = true;
+        }
         this.reviewDiv.setStyle({ width: this.target.clientWidth + 'px', height: this.target.clientHeight + 'px'});
+        if (washidden) {
+            this.target.hide();
+        }
 
         if (!this.htmlAreaParent) {
             content = content.replace(/~~~/g, '<br />');
