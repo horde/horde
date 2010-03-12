@@ -8,14 +8,7 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-// Check for a prior definition of HORDE_BASE (perhaps by an
-// auto_prepend_file definition for site customization).
-if (!defined('HORDE_BASE')) {
-    @define('HORDE_BASE', dirname(__FILE__) . '/..');
-}
-
-// Load the Horde Framework core, and set up inclusion paths.
-require_once HORDE_BASE . '/lib/core.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
 
 // Registry.
 $registry = new Horde_Registry();
