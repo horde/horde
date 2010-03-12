@@ -753,40 +753,43 @@ class Ansel_Image Implements Iterator
      */
     public function deleteCache($view = 'all')
     {
-        /* Delete cached screen image. */
-        if ($view == 'all' || $view == 'screen') {
-            $GLOBALS['ansel_vfs']->deleteFile($this->getVFSPath('screen'),
-                                              $this->getVFSName('screen'));
-        }
+        /* Catch exceptions from VFS */
+        try {
+            /* Delete cached screen image. (We don't care if the file is not found) */
+            if ($view == 'all' || $view == 'screen') {
+                $GLOBALS['ansel_vfs']->deleteFile($this->getVFSPath('screen'),
+                                                  $this->getVFSName('screen'));
+            }
 
-        /* Delete cached thumbnail. */
-        if ($view == 'all' || $view == 'thumb') {
-            $GLOBALS['ansel_vfs']->deleteFile($this->getVFSPath('thumb'),
-                                              $this->getVFSName('thumb'));
-        }
+            /* Delete cached thumbnail. */
+            if ($view == 'all' || $view == 'thumb') {
+                $GLOBALS['ansel_vfs']->deleteFile($this->getVFSPath('thumb'),
+                                                  $this->getVFSName('thumb'));
+            }
 
-        /* Delete cached mini image. */
-        if ($view == 'all' || $view == 'mini') {
-            $GLOBALS['ansel_vfs']->deleteFile($this->getVFSPath('mini'),
-                                              $this->getVFSName('mini'));
-        }
+            /* Delete cached mini image. */
+            if ($view == 'all' || $view == 'mini') {
+                $GLOBALS['ansel_vfs']->deleteFile($this->getVFSPath('mini'),
+                                                  $this->getVFSName('mini'));
+            }
 
-        if ($view == 'all' || $view == 'prettythumb') {
+            if ($view == 'all' || $view == 'prettythumb') {
 
-            /* No need to try to delete a hash we already removed */
-            $deleted = array();
+                /* No need to try to delete a hash we already removed */
+                $deleted = array();
 
-            /* Need to generate hashes for each possible style */
-            $styles = Horde::loadConfiguration('styles.php', 'styles', 'ansel');
-            foreach ($styles as $style) {
-                $hash =  md5($style['thumbstyle'] . '.' . $style['background']);
-                if (empty($deleted[$hash])) {
-                    $GLOBALS['ansel_vfs']->deleteFile($this->getVFSPath($hash),
-                                                      $this->getVFSName($hash));
-                    $deleted[$hash] = true;
+                /* Need to generate hashes for each possible style */
+                $styles = Horde::loadConfiguration('styles.php', 'styles', 'ansel');
+                foreach ($styles as $style) {
+                    $hash =  md5($style['thumbstyle'] . '.' . $style['background']);
+                    if (empty($deleted[$hash])) {
+                        $GLOBALS['ansel_vfs']->deleteFile($this->getVFSPath($hash),
+                                                          $this->getVFSName($hash));
+                        $deleted[$hash] = true;
+                    }
                 }
             }
-        }
+        } catch (VFS_Exception $e) {}
     }
 
     /**
