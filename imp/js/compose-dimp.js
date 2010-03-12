@@ -10,8 +10,8 @@
 var DimpCompose = {
     // Variables defaulting to empty/false:
     //   auto_save_interval, compose_cursor, disabled, drafts_mbox,
-    //   is_popup, knl_p, knl_sm, last_msg, loaded, rte, skip_spellcheck,
-    //   spellcheck, sc_submit, uploading
+    //   editor_wait, is_popup, knl_p, knl_sm, last_msg, loaded, rte,
+    //   skip_spellcheck, spellcheck, sc_submit, uploading
 
     confirmCancel: function()
     {
@@ -144,6 +144,10 @@ var DimpCompose = {
             DIMP.SpellChecker.isActive()) {
             DIMP.SpellChecker.resume();
             this.skip_spellcheck = true;
+        }
+
+        if (this.editor_wait && IMP_Compose_Base.editor_on) {
+            return this.uniqueSubmit.bind(this, action).defer();
         }
 
         if (action == 'sendMessage' || action == 'saveDraft') {
@@ -359,7 +363,8 @@ var DimpCompose = {
     _onSpellCheckAfter: function()
     {
         if (IMP_Compose_Base.editor_on) {
-            this.rte.setData($F('composeMessage'));
+            this.editor_wait = true;
+            this.rte.setData($F('composeMessage'), function() { this.editor_wait = false; }.bind(this));
             $('composeMessage').next().show();
         }
         this.sc_submit = false;
@@ -501,7 +506,8 @@ var DimpCompose = {
     setBodyText: function(msg)
     {
         if (IMP_Compose_Base.editor_on) {
-            this.rte.setData(msg);
+            this.editor_wait = true;
+            this.rte.setData(msg, function() { this.editor_wait = false; }.bind(this));
         } else {
             $('composeMessage').setValue(msg);
             IMP_Compose_Base.setCursorPosition('composeMessage', DIMP.conf_compose.compose_cursor, IMP_Compose_Base.getIdentity($F('last_identity')).sig);
