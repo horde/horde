@@ -150,4 +150,38 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         $folder->setName('test');
         $this->assertEquals('test', $folder->getOwner());
     }
+
+    public function testSetfolderDoesAddDefaultPersonalNamespace()
+    {
+        $folder = new Horde_Kolab_Storage_Folder(
+            null,
+            new Horde_Kolab_Storage_Namespace()
+        );
+        $folder->setName('test:this');
+        $this->assertEquals('INBOX/test/this', $folder->getName());
+    }
+
+    public function testSetfolderReplacesDoubleColonWithSeparator()
+    {
+        $folder = new Horde_Kolab_Storage_Folder(
+            null,
+            new Horde_Kolab_Storage_Namespace()
+        );
+        $folder->setName('a:b:c');
+        $this->assertEquals('INBOX/a/b/c', $folder->getName());
+    }
+
+    public function testSetfolderConvertsToUtf7()
+    {
+        Horde_Nls::setCharset('UTF8');
+        $folder = new Horde_Kolab_Storage_Folder(
+            null,
+            new Horde_Kolab_Storage_Namespace()
+        );
+        $folder->setName('äöü');
+        $this->assertEquals(
+            'INBOX/äöü',
+            Horde_String::convertCharset($folder->getName(), 'UTF7-IMAP')
+        );
+    }
 }
