@@ -3,6 +3,7 @@ Horde_Form_Type_email tests
 --FILE--
 <?php
 
+require 'Horde/Autoloader.php';
 require dirname(__FILE__) . '/../Form.php';
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -66,16 +67,16 @@ Yes
 Yes
 No: "cal henderson@iamcalx.com" is not a valid email address.
 Yes
-Yes
+No: "cal@iamcalx" is not a valid email address.
 No: "cal@iamcalx com" is not a valid email address.
 No: "cal@hello world.com" is not a valid email address.
 No: "cal@[hello].com" is not a valid email address.
 No: "cal@[hello world].com" is not a valid email address.
 No: "cal@[hello\ world].com" is not a valid email address.
-Yes
-Yes
-Yes
-Yes
+No: "cal@[hello.com]" is not a valid email address.
+No: "cal@[hello world.com]" is not a valid email address.
+No: "cal@[hello\ world.com]" is not a valid email address.
+No: "abcdefghijklmnopqrstuvwxyz@abcdefghijklmnopqrstuvwxyz" is not a valid email address.
 No: "woo\ yay@example.com" is not a valid email address.
 No: "woo\@yay@example.com" is not a valid email address.
 No: "woo\.yay@example.com" is not a valid email address.

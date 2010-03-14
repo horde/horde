@@ -3,6 +3,7 @@ Horde_Form_Type_address tests
 --FILE--
 <?php
 
+require 'Horde/Autoloader.php';
 require dirname(__FILE__) . '/../Form.php';
 
 $addresses = array(
