@@ -73,9 +73,28 @@ class Horde_Kolab_Storage_Namespace
     }
 
     /**
-     * Generate a new name for a folder.
+     * Get the sub path for the given folder name.
      *
-     * @param string $name  The new folder name.
+     * @param string $name The folder name.
+     *
+     * @return string The sub path.
+     */
+    function getSubpath($name)
+    {
+        if (!preg_match(";(shared\.|INBOX[/]?|user/([^/]+)[/]?)([^@]*)(@.*)?;", $name, $matches)) {
+            throw new Horde_Kolab_Storage_Exception(
+                'Subpath of folder %s cannot be determined.', $name
+            );
+        }
+        return $matches[3];
+    }
+
+    /**
+     * Generate an IMAP folder name.
+     *
+     * @param string $name The new folder name.
+     *
+     * @return string The IMAP folder name.
      */
     function setName($name)
     {
@@ -85,5 +104,4 @@ class Horde_Kolab_Storage_Namespace
         }
         return Horde_String::convertCharset($name, Horde_Nls::getCharset(), 'UTF7-IMAP');
     }
-
 }

@@ -234,7 +234,7 @@ class Horde_Kolab_Storage
 
         foreach ($this->_folders as $key => $folder) {
             $result = $this->getConnection($key);
-            $folder->restore($this, $result->connection);
+            $folder->restore($this, $result->connection, $result->connection->getNamespace());
         }
         $this->connect();
     }
@@ -336,11 +336,8 @@ class Horde_Kolab_Storage
         if (!isset($this->_folders[$folder])) {
             $result = $this->getConnection($folder);
 
-            $kf = new Horde_Kolab_Storage_Folder(
-                $result->name,
-                $result->connection->getNamespace()
-            );
-            $kf->restore($this, $result->connection);
+            $kf = new Horde_Kolab_Storage_Folder($result->name);
+            $kf->restore($this, $result->connection, $result->connection->getNamespace());
             $this->_folders[$folder] = &$kf;
         }
         return $this->_folders[$folder];
@@ -361,7 +358,7 @@ class Horde_Kolab_Storage
             $connection = &$this->connections[$connection];
         }
         $folder = new Horde_Kolab_Storage_Folder(null);
-        $folder->restore($this, $connection);
+        $folder->restore($this, $connection, $connection->getNamespace());
         return $folder;
     }
 

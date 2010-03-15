@@ -57,6 +57,14 @@ class Horde_Kolab_Storage_Folder
     public $name;
 
     /**
+     * A new folder name if the folder should be renamed on the next
+     * save.
+     *
+     * @var string
+     */
+    var $new_name;
+
+    /**
      * The connection specific for this folder.
      *
      * @var Horde_Kolab_Storage_Driver
@@ -69,14 +77,6 @@ class Horde_Kolab_Storage_Folder
      * @var Horde_Kolab_Storage_Namespace
      */
     private $_namespace;
-
-    /**
-     * A new folder name if the folder should be renamed on the next
-     * save.
-     *
-     * @var string
-     */
-    var $new_name;
 
     /**
      * The handler for the list of Kolab folders.
@@ -177,12 +177,9 @@ class Horde_Kolab_Storage_Folder
      * @param Horde_Kolab_Storage_Namespace $namespace The namespace handler for
      *                                                 this folder.
      */
-    function __construct(
-        $name = null,
-        Horde_Kolab_Storage_Namespace $namespace
-    ) {
+    function __construct($name = null)
+    {
         $this->name       = $name;
-        $this->_namespace = $namespace;
         $this->__wakeup();
     }
 
@@ -226,11 +223,14 @@ class Horde_Kolab_Storage_Folder
      *                                               folders.
      * @param Horde_Kolab_Storage_Driver $connection The storage connection.
      */
-    function restore(Horde_Kolab_Storage &$storage,
-                     Horde_Kolab_Storage_Driver &$connection)
-    {
+    function restore(
+        Horde_Kolab_Storage &$storage,
+        Horde_Kolab_Storage_Driver &$connection,
+        Horde_Kolab_Storage_Namespace $namespace
+    ) {
         $this->_storage    = $storage;
         $this->_connection = $connection;
+        $this->_namespace  = $namespace;
     }
 
     /**
@@ -498,17 +498,11 @@ class Horde_Kolab_Storage_Folder
      */
     function getSubpath($name = null)
     {
-        if (!isset($this->_subpath) || isset($name)) {
-            if (!isset($name)) {
-                $name = $this->getName();
-            }
-
-            if (!preg_match(";(shared\.|INBOX[/]?|user/([^/]+)[/]?)([^@]*)(@.*)?;", $name, $matches)) {
-                return PEAR::raiseError(sprintf(_("Subpath of folder %s cannot be determined."), $name));
-            }
-
-            $this->_subpath = $matches[3];
-
+        if (!empty($name)) {
+            return $this->_namespace->getSubpath($name);
+        }
+        if (!isset($this->_subpath)) {
+            $this->_subpath = $this->_namespace->getSubpath($this->getName());
         }
         return $this->_subpath;
     }
