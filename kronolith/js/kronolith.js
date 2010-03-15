@@ -2647,77 +2647,86 @@ KronolithCore = {
     /**
      * Submits the calendar form to save the calendar data.
      *
-     * @param Element  The form node.
+     * @param Element form  The form node.
      */
     saveCalendar: function(form)
     {
-        var type = form.id.replace(/kronolithCalendarForm/, ''),
-            data = form.serialize({ hash: true });
+        var data = form.serialize({ hash: true });
+        this.doAction('saveCalendar', data,
+                      this.saveCalendarCallback.bind(this, form, data));
+    },
 
-        this.doAction('saveCalendar',
-                      data,
-                      function(r) {
-                          if (r.response.saved) {
-                              if ($F('kronolithCalendarinternalImport')) {
-                                  var name = 'kronolithIframe' + Math.round(Math.random() * 1000),
-                                      iframe = new Element('iframe', { src: 'about:blank', name: name, id: name }).setStyle({ display: 'none' });
-                                  document.body.insert(iframe);
-                                  form.target = name;
-                                  form.submit();
-                              }
-                              if (data.calendar) {
-                                  var cal = Kronolith.conf.calendars[type][data.calendar],
-                                      color = {
-                                          backgroundColor: data.color,
-                                          color: r.response.color
-                                      };
-                                  cal.bg = data.color;
-                                  cal.fg = r.response.color;
-                                  cal.name = data.name;
-                                  cal.desc = data.description;
-                                  if (r.response.perms) {
-                                      cal.perms = r.response.perms;
-                                  }
-                                  if (data.tags) {
-                                      cal.tg = data.tags.split(',');
-                                  }
-                                  this.getCalendarList(type, cal.owner).select('div').each(function(element) {
-                                      if (element.retrieve('calendar') == data.calendar) {
-                                          element
-                                              .setStyle(color)
-                                              .update(cal.name.escapeHTML());
-                                          throw $break;
-                                      }
-                                  });
-                                  $('kronolithBody').select('div').each(function(el) {
-                                      if (el.retrieve('calendar') == type + '|' + data.calendar) {
-                                          el.setStyle(color);
-                                      }
-                                  });
-                              } else {
-                                  var cal = {
-                                      bg: data.color,
-                                      fg: r.response.color,
-                                      name: data.name,
-                                      desc: data.description,
-                                      edit: true,
-                                      owner: true,
-                                      show: true
-                                  };
-                                  if (r.response.perms) {
-                                      cal.perms = r.response.perms;
-                                  }
-                                  if (data.tags) {
-                                      cal.tg = data.tags.split(',');
-                                  }
-                                  Kronolith.conf.calendars[type][r.response.calendar] = cal;
-                                  this.insertCalendarInList(type, r.response.calendar, cal);
-                              }
-                          }
-                          form.down('.kronolithCalendarSave').enable();
-                          this.closeRedBox();
-                          window.history.back();
-                      }.bind(this));
+    /**
+     * Callback method after saving a calendar.
+     *
+     * @param Element form  The form node.
+     * @param object data   The serialized form data.
+     * @param object r      The ajax response object.
+     */
+    saveCalendarCallback: function(form, data, r)
+    {
+        var type = form.id.replace(/kronolithCalendarForm/, '');
+
+        if (r.response.saved) {
+            if ($F('kronolithCalendarinternalImport')) {
+                var name = 'kronolithIframe' + Math.round(Math.random() * 1000),
+                    iframe = new Element('iframe', { src: 'about:blank', name: name, id: name }).setStyle({ display: 'none' });
+                document.body.insert(iframe);
+                form.target = name;
+                form.submit();
+            }
+            if (data.calendar) {
+                var cal = Kronolith.conf.calendars[type][data.calendar],
+                    color = {
+                        backgroundColor: data.color,
+                        color: r.response.color
+                    };
+                cal.bg = data.color;
+                cal.fg = r.response.color;
+                cal.name = data.name;
+                cal.desc = data.description;
+                if (r.response.perms) {
+                    cal.perms = r.response.perms;
+                }
+                if (data.tags) {
+                    cal.tg = data.tags.split(',');
+                }
+                this.getCalendarList(type, cal.owner).select('div').each(function(element) {
+                    if (element.retrieve('calendar') == data.calendar) {
+                        element
+                            .setStyle(color)
+                            .update(cal.name.escapeHTML());
+                        throw $break;
+                    }
+                });
+                $('kronolithBody').select('div').each(function(el) {
+                    if (el.retrieve('calendar') == type + '|' + data.calendar) {
+                        el.setStyle(color);
+                    }
+                });
+            } else {
+                var cal = {
+                    bg: data.color,
+                    fg: r.response.color,
+                    name: data.name,
+                    desc: data.description,
+                    edit: true,
+                    owner: true,
+                    show: true
+                };
+                if (r.response.perms) {
+                    cal.perms = r.response.perms;
+                }
+                if (data.tags) {
+                    cal.tg = data.tags.split(',');
+                }
+                Kronolith.conf.calendars[type][r.response.calendar] = cal;
+                this.insertCalendarInList(type, r.response.calendar, cal);
+            }
+        }
+        form.down('.kronolithCalendarSave').enable();
+        this.closeRedBox();
+        window.history.back();
     },
 
     /**
