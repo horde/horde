@@ -458,6 +458,7 @@ KronolithCore = {
             break;
 
         case 'app':
+            this.addHistory(fullloc);
             this.closeView('iframe');
             var app = locParts.shift();
             if (data) {
@@ -466,7 +467,6 @@ KronolithCore = {
                 this.iframeContent(Kronolith.conf.app_urls[app]);
             }
             this.updateMinical(this.date);
-            this.addHistory(fullloc);
             this.view = 'iframe';
             break;
         }
