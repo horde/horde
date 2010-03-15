@@ -60,13 +60,13 @@ class Horde_Kolab_Storage_PermsTest extends PHPUnit_Framework_TestCase
 
         $folder = new DummyFolder(
             array(
-                'wrobel' => 'lrid',
-                'reader' => 'lr',
-                'viewer' => 'l',
-                'editor' => 'lre',
-                'anyone' => 'l',
-                'anonymous' => '',
-                'group:editors' => 'lre'
+                'wrobel' => array('l', 'r', 'i', 'd'),
+                'reader' => array('l', 'r'),
+                'viewer' => array('l'),
+                'editor' => array('l', 'r', 'e'),
+                'anyone' => array('l'),
+                'anonymous' => array(''),
+                'group:editors' => array('l', 'r', 'e')
             )
         );
         $perms = new Horde_Kolab_Storage_Permission($folder);
@@ -89,13 +89,13 @@ class Horde_Kolab_Storage_PermsTest extends PHPUnit_Framework_TestCase
 
         $folder = new DummyFolder(
             array(
-                'wrobel' => 'lrid',
-                'reader' => 'lr',
-                'viewer' => 'l',
-                'editor' => 'lre',
-                'anyone' => 'l',
-                'anonymous' => '',
-                'group:editors' => 'lre'
+                'wrobel' => array('l', 'r', 'i', 'd'),
+                'reader' => array('l', 'r'),
+                'viewer' => array('l'),
+                'editor' => array('l', 'r', 'e'),
+                'anyone' => array('l'),
+                'anonymous' => array(''),
+                'group:editors' => array('l', 'r', 'e')
             ),
             'wrobel'
         );
@@ -111,9 +111,9 @@ class Horde_Kolab_Storage_PermsTest extends PHPUnit_Framework_TestCase
         $perms->save();
         $this->assertNotContains('anyone', array_keys($folder->acl));
         $this->assertNotContains('anonymous', array_keys($folder->acl));
-        $this->assertEquals('lr', $folder->acl['test']);
-        $this->assertEquals('lriswcd', $folder->acl['editor']);
-        $this->assertEquals('alriswcd', $folder->acl['wrobel']);
+        $this->assertEquals('lr', join('', $folder->acl['test']));
+        $this->assertEquals('lriswcd', join('', $folder->acl['editor']));
+        $this->assertEquals('alriswcd', join('', $folder->acl['wrobel']));
     }
 
     /**
@@ -129,7 +129,7 @@ class Horde_Kolab_Storage_PermsTest extends PHPUnit_Framework_TestCase
         $hperms->addUserPermission('wrobel', Horde_Perms::SHOW, false);
         $perms = new Horde_Kolab_Storage_Permission($folder, $hperms->data);
         $perms->save();
-        $this->assertEquals('al', $folder->acl['wrobel']);
+        $this->assertEquals('al', join('', $folder->acl['wrobel']));
     }
 }
 
@@ -162,7 +162,7 @@ class DummyFolder extends Horde_Kolab_Storage_Folder
     }
     function setACL($user, $acl)
     {
-        return $this->acl[$user] = $acl;
+        return $this->acl[$user] = str_split($acl);
     }
     function deleteACL($user)
     {
