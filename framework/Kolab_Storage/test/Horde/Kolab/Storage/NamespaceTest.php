@@ -130,6 +130,21 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('test', $folder->getOwner());
     }
 
+    public function testFolderOwnerHasDomainFromFolderDomain()
+    {
+        $_SESSION['horde_auth']['userId'] = 'test@example.com';
+        $folder = new Horde_Kolab_Storage_Folder('user/test/mine');
+        $folder->restore($this->_storage, $this->_connection, new Horde_Kolab_Storage_Namespace());
+        $this->assertEquals('test@example.com', $folder->getOwner());
+    }
+
+    public function testFolderOwnerHasDomainFromCurrentUserIfNoFolderDomain()
+    {
+        $folder = new Horde_Kolab_Storage_Folder('user/test/mine@example.com');
+        $folder->restore($this->_storage, $this->_connection, new Horde_Kolab_Storage_Namespace());
+        $this->assertEquals('test@example.com', $folder->getOwner());
+    }
+
     public function testSetnameDoesAddDefaultPersonalNamespace()
     {
         $folder = new Horde_Kolab_Storage_Folder(null);

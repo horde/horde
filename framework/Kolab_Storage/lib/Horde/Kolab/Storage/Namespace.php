@@ -155,7 +155,7 @@ class Horde_Kolab_Storage_Namespace
             $user = $path[1];
             $domain = strstr(array_pop($path), '@');
             if (!empty($domain)) {
-                $user .= '@' . $domain;
+                $user .= $domain;
             }
             return self::OTHER . ':' . $user;
         }

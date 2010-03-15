@@ -501,7 +501,7 @@ class Horde_Kolab_Storage_Folder
                 if (strpos($user, '@') === false) {
                     $domain = strstr(Horde_Auth::getAuth(), '@');
                     if (!empty($domain)) {
-                        $user .= '@' . $domain;
+                        $user .= $domain;
                     }
                 }
                 $this->_owner = $user;
