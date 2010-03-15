@@ -81,7 +81,6 @@
        <file name="Folder.php" role="php" />
        <file name="Namespace.php" role="php" />
        <file name="Permission.php" role="php" />
-       <file name="Perms.php" role="php" />
       </dir> <!-- /lib/Horde/Kolab/Storage -->
       <file name="Storage.php" role="php" />
      </dir> <!-- /lib/Horde/Kolab -->
@@ -191,7 +190,6 @@
    <install as="Horde/Kolab/Storage/Folder.php" name="lib/Horde/Kolab/Storage/Folder.php" />
    <install as="Horde/Kolab/Storage/Namespace.php" name="lib/Horde/Kolab/Storage/Namespace.php" />
    <install as="Horde/Kolab/Storage/Permission.php" name="lib/Horde/Kolab/Storage/Permission.php" />
-   <install as="Horde/Kolab/Storage/Perms.php" name="lib/Horde/Kolab/Storage/Perms.php" />
    <install as="Horde/Kolab/Storage/Driver/Imap.php" name="lib/Horde/Kolab/Storage/Driver/Imap.php" />
    <install as="Horde/Kolab/Storage/AllTests.php" name="test/Horde/Kolab/Storage/AllTests.php" />
    <install as="Horde/Kolab/Storage/AttachmentTest.php" name="test/Horde/Kolab/Storage/AttachmentTest.php" />
