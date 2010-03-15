@@ -49,6 +49,9 @@ var DimpFullmessage = {
             r = result.response,
             id = (r.identity === null) ? $F('identity') : r.identity;
 
+        if (!r.opts) {
+            r.opts = {};
+        }
         r.opts.noupdate = true;
         r.opts.show_editor = (r.format == 'html');
 
