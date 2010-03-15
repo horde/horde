@@ -175,7 +175,30 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
 
     public function saveAction()
     {
-        return null;
+        try {
+            $shout = $_GLOBALS['shout'] = Horde_Registry::appInit('shout');
+            $vars = $this->_vars;
+            if (!($action = $vars->get('action'))) {
+                throw new Shout_Exception("Invalid action requested.");
+            }
+            $account = $_SESSION['shout']['curaccount'];
+            $digit = $vars->get('digit');
+            $menu = $vars->get('menu');
+            $action = $vars->get('action');
+            $actions = Shout::getMenuActions();
+            if (!isset($actions[$action])) {
+                throw new Shout_Exception('Invalid action requested.');
+            }
+            $args = array();
+            foreach ($action[$action]['args'] as $name => $info) {
+                $args[$name] = $vars->get($name);
+            }
+            $shout->dialplan->saveMenuAction($account, $menu, $action, $args);
+        } catch (Exception $e) {
+            //FIXME: Create a way to notify the user of the failure.
+            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            return false;
+        }
     }
 
     public function responseType()

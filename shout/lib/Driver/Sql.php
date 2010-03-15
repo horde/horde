@@ -38,7 +38,7 @@ class Shout_Driver_Sql extends Shout_Driver
     *
     * @param array  $params    A hash containing connection parameters.
     */
-    function __construct($params = array())
+    public function __construct($params = array())
     {
         parent::__construct($params);
         $this->_connect();
@@ -109,7 +109,7 @@ class Shout_Driver_Sql extends Shout_Driver
         return $menus;
     }
 
-    function saveMenu($account, $details)
+    public function saveMenu($account, $details)
     {
         $menus = $this->getMenus($account);
         if (isset($details['oldname'])) {
@@ -132,7 +132,7 @@ class Shout_Driver_Sql extends Shout_Driver
 
         $msg = 'SQL query in Shout_Driver_Sql#saveMenu(): ' . $sql;
         Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
-        $result = $this->_db->query($sql, $values);
+        $result = $this->_write_db->query($sql, $values);
         if ($result instanceof PEAR_Error) {
             throw new Shout_Exception($result);
         }
@@ -140,7 +140,7 @@ class Shout_Driver_Sql extends Shout_Driver
         return true;
     }
 
-    function getMenuActions($account, $menu)
+    public function getMenuActions($account, $menu)
     {
         static $menuActions;
         if (!empty($menuActions[$menu])) {
@@ -180,6 +180,34 @@ class Shout_Driver_Sql extends Shout_Driver
         $result->free();
 
         return $menuActions[$menu];
+    }
+
+    public function saveMenuAction($account, $menu, $digit, $action, $args)
+    {
+        // Remove any existing action
+        $sql = 'DELETE FROM menu_entries WHERE digit = ?';
+        $values = array($digit);
+        $msg = 'SQL query in Shout_Driver_Sql#saveMenuAction(): ' . $sql;
+        Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $result = $this->_write_db->query($sql, $values);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+
+        $sql = 'INSERT INTO menu_entries (menu_id, digit, action_id, args) ' .
+               'VALUES((SELECT id FROM menus WHERE account_id = ' .
+               '(SELECT id FROM accounts WHERE code = ?) AND name = ?), ?, ' .
+               '(SELECT id FROM actions WHERE name = ?), ?)';
+        $yamlargs = Horde_Yaml::dump($args);
+        $values = array($account, $menu, $digit, $action, $yamlargs);
+        $msg = 'SQL query in Shout_Driver_Sql#saveMenuAction(): ' . $sql;
+        Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $result = $this->_write_db->query($sql, $values);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+
+        return true;
     }
 
     /**
