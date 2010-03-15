@@ -52,19 +52,67 @@ class Horde_Kolab_Storage_Namespace
     );
 
     /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->_charset = Horde_Nls::getCharset();
+    }
+
+    /**
+     * Match a folder name with the corresponding namespace.
+     *
+     * @param string $name The name of the folder.
+     *
+     * @return array The corresponding namespace.
+     *
+     * @throws Horde_Kolab_Storage_Exception If the namespace of the folder
+     *                                       cannot be determined.
+     */
+    protected function matchNamespace($name)
+    {
+        foreach (array(self::PRIV, self::OTHER, self::SHARED) as $type) {
+            foreach ($this->_namespaces[$type] as $namespace => $delimiter) {
+                if (strpos($namespace, $name) === 0) {
+                    return array(
+                        'namespace' => $namespace,
+                        'delimiter' => $delimiter,
+                        'type'      => $type,
+                    );
+                }
+            }
+        }
+        throw new Horde_Kolab_Storage_Exception(
+            'Namespace of folder %s cannot be determined.', $name
+        );
+    }
+
+    /**
+     * Get the character set used/expected when calling the getTitle() or
+     * setName() methods.
+     *
+     * @return string The character set.
+     */
+    public function getCharset()
+    {
+        return $this->_charset;
+    }
+
+    /**
      * Return the title of a folder.
      *
      * @param string $name The name of the folder.
      *
-     * @return sring The title of the folder.
+     * @return string The title of the folder.
      */
     public function getTitle($name)
     {
+        $name = Horde_String::convertCharset($name, 'UTF7-IMAP', $this->_charset);
         if (substr($name, 0, 6) == 'INBOX/') {
             $name = substr($name, 6);
         }
         $name = str_replace('/', ':', $name);
-        return Horde_String::convertCharset($name, 'UTF7-IMAP');
+        return $name;
     }
 
     /**
@@ -100,7 +148,7 @@ class Horde_Kolab_Storage_Namespace
      *
      * @return string The sub path.
      */
-    function getSubpath($name)
+    public function getSubpath($name)
     {
         if (!preg_match(";(shared\.|INBOX[/]?|user/([^/]+)[/]?)([^@]*)(@.*)?;", $name, $matches)) {
             throw new Horde_Kolab_Storage_Exception(
@@ -117,12 +165,12 @@ class Horde_Kolab_Storage_Namespace
      *
      * @return string The IMAP folder name.
      */
-    function setName($name)
+    public function setName($name)
     {
         $name = str_replace(':', '/', $name);
         if (substr($name, 0, 5) != 'user/' && substr($name, 0, 7) != 'shared.') {
             $name = 'INBOX/' . $name;
         }
-        return Horde_String::convertCharset($name, Horde_Nls::getCharset(), 'UTF7-IMAP');
+        return Horde_String::convertCharset($name, $this->_charset, 'UTF7-IMAP');
     }
 }

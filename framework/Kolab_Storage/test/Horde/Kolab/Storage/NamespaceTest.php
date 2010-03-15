@@ -70,7 +70,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
 
     public function testFolderTitleConvertsUtf7()
     {
-        Horde_String::setDefaultCharset('UTF8');
+        Horde_Nls::setCharset('UTF8');
         $name = Horde_String::convertCharset('äöü', 'UTF8', 'UTF7-IMAP');
         $folder = new Horde_Kolab_Storage_Folder('INBOX/' . $name);
         $folder->restore($this->_storage, $this->_connection, new Horde_Kolab_Storage_Namespace());
@@ -133,7 +133,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('test', $folder->getOwner());
     }
 
-    public function testSetfolderDoesAddDefaultPersonalNamespace()
+    public function testSetnameDoesAddDefaultPersonalNamespace()
     {
         $folder = new Horde_Kolab_Storage_Folder(null);
         $folder->restore($this->_storage, $this->_connection, new Horde_Kolab_Storage_Namespace());
@@ -141,7 +141,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('INBOX/test/this', $folder->getName());
     }
 
-    public function testSetfolderReplacesDoubleColonWithSeparator()
+    public function testSetnameReplacesDoubleColonWithSeparator()
     {
         $folder = new Horde_Kolab_Storage_Folder(null);
         $folder->restore($this->_storage, $this->_connection, new Horde_Kolab_Storage_Namespace());
@@ -149,7 +149,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('INBOX/a/b/c', $folder->getName());
     }
 
-    public function testSetfolderConvertsToUtf7()
+    public function testSetnameConvertsToUtf7()
     {
         Horde_Nls::setCharset('UTF8');
         $folder = new Horde_Kolab_Storage_Folder(null);
@@ -157,7 +157,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         $folder->setName('äöü');
         $this->assertEquals(
             'INBOX/äöü',
-            Horde_String::convertCharset($folder->getName(), 'UTF7-IMAP')
+            Horde_String::convertCharset($folder->getName(), 'UTF7-IMAP', 'UTF8')
         );
     }
 
