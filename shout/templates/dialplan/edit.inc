@@ -1,29 +1,31 @@
-<table id="menuInfo" class="striped">
-</table>
+<div id="dialplan">
+    <table id="menuInfo" class="striped">
+    </table>
 
-<div id="digitpad">
-  <div id="editActionOverlay">
-      <img id="digitGraphic" alt="Current Digit">
-      <div id="selectAction"></div>
-      <div id="editAction"></div>
-  </div>
-  <div class="digit" id="digit_1" onClick="editAction('1');"><span class="digitLabel">1</span></div>
-  <div class="digit" id="digit_2" onClick="editAction('2');"><span class="digitLabel">2</span></div>
-  <div class="digit" id="digit_3" onClick="editAction('3');"><span class="digitLabel">3</span></div>
-  <br style="clear:both;">
-  <div class="digit" id="digit_4" onClick="editAction('4');"><span class="digitLabel">4</span></div>
-  <div class="digit" id="digit_5" onClick="editAction('5');"><span class="digitLabel">5</span></div>
-  <div class="digit" id="digit_6" onClick="editAction('6');"><span class="digitLabel">6</span></div>
-  <br style="clear:both;">
-  <div class="digit" id="digit_7" onClick="editAction('7');"><span class="digitLabel">7</span></div>
-  <div class="digit" id="digit_8" onClick="editAction('8');"><span class="digitLabel">8</span></div>
-  <div class="digit" id="digit_9" onClick="editAction('9');"><span class="digitLabel">9</span></div>
-  <br style="clear:both;">
-  <div class="digit" id="digit_*" onClick="editAction('star');"><span class="digitLabel">*</span></div>
-  <div class="digit" id="digit_0" onClick="editAction('0');"><span class="digitLabel">0</span></div>
-  <div class="digit" id="digit_#" onClick="editAction('octothorpe');"><span class="digitLabel">#</span></div>
-  <br style="clear:both;">
-  <div id="defaultAction" onclick="editAction('defaultAction');"><span class="digitLabel">Default Action</span></div>
+    <div id="digitpad">
+      <div id="editActionOverlay">
+          <img id="digitGraphic" alt="Current Digit">
+          <div id="selectAction"></div>
+          <div id="editAction"></div>
+      </div>
+      <div class="digit" id="digit_1" onClick="editAction('1');"><span class="digitLabel">1</span></div>
+      <div class="digit" id="digit_2" onClick="editAction('2');"><span class="digitLabel">2</span></div>
+      <div class="digit" id="digit_3" onClick="editAction('3');"><span class="digitLabel">3</span></div>
+      <br style="clear:both;">
+      <div class="digit" id="digit_4" onClick="editAction('4');"><span class="digitLabel">4</span></div>
+      <div class="digit" id="digit_5" onClick="editAction('5');"><span class="digitLabel">5</span></div>
+      <div class="digit" id="digit_6" onClick="editAction('6');"><span class="digitLabel">6</span></div>
+      <br style="clear:both;">
+      <div class="digit" id="digit_7" onClick="editAction('7');"><span class="digitLabel">7</span></div>
+      <div class="digit" id="digit_8" onClick="editAction('8');"><span class="digitLabel">8</span></div>
+      <div class="digit" id="digit_9" onClick="editAction('9');"><span class="digitLabel">9</span></div>
+      <br style="clear:both;">
+      <div class="digit" id="digit_*" onClick="editAction('star');"><span class="digitLabel">*</span></div>
+      <div class="digit" id="digit_0" onClick="editAction('0');"><span class="digitLabel">0</span></div>
+      <div class="digit" id="digit_#" onClick="editAction('octothorpe');"><span class="digitLabel">#</span></div>
+      <br style="clear:both;">
+      <div id="defaultAction" onclick="editAction('defaultAction');"><span class="digitLabel">Default Action</span></div>
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -46,7 +48,7 @@ function editAction(digit)
         empty('selectAction');
         var p = document.createElement('p');
         p.id = 'actionPrompt';
-        var text = document.createTextNode('<?php echo _("Select Action:"); ?>');
+        var text = document.createTextNode('<?php echo _("Action:"); ?>');
         p.appendChild(text);
         $('selectAction').appendChild(p);
         var form = document.createElement('form');
@@ -54,9 +56,19 @@ function editAction(digit)
         form.setAttribute('onChange', 'editAction('+digit+')');
         var select = document.createElement('select');
         select.name = 'action';
+        var option = document.createElement('option');
+        option.value = '';
+        var text = document.createTextNode('<?php echo _("-- Select Action --"); ?>');
+        option.appendChild(text);
+        select.appendChild(option);
         menuActions.each(function (item) {
-            var option = document.createElement('option');
+            option = document.createElement('option');
             option.value = item.key;
+            if (menuInfo.get('actions')[digit] != null) {
+                if (item.key == menuInfo.get('actions')[digit].action) {
+                    option.selected = "true";
+                }
+            }
             var text = document.createTextNode(item.value.description);
             option.appendChild(text);
             select.appendChild(option);
@@ -72,7 +84,9 @@ function editAction(digit)
         span.appendChild(text);
         $('selectAction').appendChild(span);
         
-    } else {
+    }
+
+    if ($('selectActionForm').getElements().first().getValue() != '') {
         var action = null;
         // Draw the options for this action
         $('selectActionForm').getElements().each(function (e){
@@ -205,17 +219,16 @@ function refreshMenu()
 
         switch(action) {
         case 'jump':
-            var menu = pair.value.args.first()['menuName'];
+            var menu = pair.value.args['menuName'];
             text = document.createTextNode(destinations.get(exten).name);
             break;
         case 'ringexten':
         case 'leave_message':
-            // FIXME: Why do I need first() here?
-            var exten = pair.value.args.first()['exten'];
+            var exten = pair.value.args['exten'];
             text = document.createTextNode(destinations.get(exten).name);
             break;
         case 'conference':
-            var roomno = pair.value.args.first()['roomno'];
+            var roomno = pair.value.args['roomno'];
             if (roomno != null) {
                 text = document.createTextNode(roomno);
             } else {
@@ -223,7 +236,7 @@ function refreshMenu()
             }
             break;
         case 'dial':
-            var number = pair.value.args.first()['number'];
+            var number = pair.value.args['number'];
             text = document.createTextNode(number);
             break;
         default:
