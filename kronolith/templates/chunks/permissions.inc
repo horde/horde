@@ -14,7 +14,7 @@ if (count($groups) > 1) {
       <?php printf(_("or share with %s %severyone%s (and %s %smake it searchable%s by everyone too)"),
                    '<input type="radio" id="kronolithC' . $type . 'PAll" name="basic_perms" />',
                    '<label for="kronolithC' . $type . 'PAll">', '</label>',
-                   '<input type="checkbox" id="kronolithC' . $type . 'PAllShow" />',
+                   '<input type="checkbox" id="kronolithC' . $type . 'PAllShow" checked="checked" />',
                    '<label for="kronolithC' . $type . 'PAllShow">', '</label>')
       ?>
       <br />
