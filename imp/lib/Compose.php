@@ -1349,12 +1349,16 @@ class IMP_Compose
         }
 
         if (!is_null($list_info) && !empty($list_info['reply_list'])) {
-            $header['to'] = $list_info['reply_list'];
+            /* If To/Reply-To and List-Reply address are the same, no need
+             * to handle these address separately. */
+            if (Horde_Mime_Address::bareAddress($list_info['reply_list']) != Horde_Mime_Address::bareAddress($header['to'])) {
+                $header['to'] = $list_info['reply_list'];
+                $reply_type = 'reply_list';
+            }
+
             if ($type == '*') {
                 $all_headers['reply_list'] = $header;
             }
-
-            $reply_type = 'reply_list';
         } elseif (in_array($type, array('reply_all', 'reply_auto', '*'))) {
             /* Clear the To field if we are auto-determining addresses. */
             if ($type == 'reply_auto') {
