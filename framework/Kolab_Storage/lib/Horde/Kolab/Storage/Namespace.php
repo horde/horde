@@ -57,6 +57,7 @@ class Horde_Kolab_Storage_Namespace
     public function __construct()
     {
         $this->_charset = Horde_Nls::getCharset();
+        $this->_sharedPrefix = 'shared.';
     }
 
     /**
@@ -107,21 +108,8 @@ class Horde_Kolab_Storage_Namespace
      */
     public function getTitle($name)
     {
-        $name = Horde_String::convertCharset($name, 'UTF7-IMAP', $this->_charset);
         $namespace = $this->matchNamespace($name);
-        $path = explode($namespace['delimiter'], $name);
-        if ($path[0] == $namespace['namespace']) {
-            array_shift($path);
-        }
-        if ($path[0] == $namespace['delimiter']) {
-            array_shift($path);
-        }
-        if ($namespace['type'] == self::OTHER) {
-            array_shift($path);
-            if ($path[0] == $namespace['delimiter']) {
-                array_shift($path);
-            }
-        }
+        $path = $this->_subpath($name, $namespace);
         return join($path, ':');
     }
 
@@ -134,20 +122,22 @@ class Horde_Kolab_Storage_Namespace
      */
     public function getOwner($name)
     {
-        if (!preg_match(";(shared\.|INBOX[/]?|user/([^/]+)[/]?)([^@]*)(@.*)?;", $name, $matches)) {
-            throw new Horde_Kolab_Storage_Exception(
-                sprintf('Owner of folder %s cannot be determined.', $name)
-            );
+        $namespace = $this->matchNamespace($name);
+        $name = Horde_String::convertCharset($name, 'UTF7-IMAP', $this->_charset);
+        $path = explode($namespace['delimiter'], $name);
+        if ($namespace['type'] == self::PRIV) {
+            return self::PRIV;
         }
-
-        if (substr($matches[1], 0, 6) == 'INBOX/') {
-            return Horde_Auth::getAuth();
-        } elseif (substr($matches[1], 0, 5) == 'user/') {
-            $domain = strstr(Horde_Auth::getAuth(), '@');
-            $user_domain = isset($matches[4]) ? $matches[4] : $domain;
-            return $matches[2] . $user_domain;
-        } elseif ($matches[1] == 'shared.') {
-            return  'anonymous';
+        if ($namespace['type'] == self::OTHER) {
+            $user = $path[1];
+            $domain = strstr(array_pop($path), '@');
+            if (!empty($domain)) {
+                $user .= '@' . $domain;
+            }
+            return self::OTHER . ':' . $user;
+        }
+        if ($namespace['type'] == self::SHARED) {
+            return self::SHARED;
         }
     }
 
@@ -160,12 +150,9 @@ class Horde_Kolab_Storage_Namespace
      */
     public function getSubpath($name)
     {
-        if (!preg_match(";(shared\.|INBOX[/]?|user/([^/]+)[/]?)([^@]*)(@.*)?;", $name, $matches)) {
-            throw new Horde_Kolab_Storage_Exception(
-                sprintf('Subpath of folder %s cannot be determined.', $name)
-            );
-        }
-        return $matches[3];
+        $namespace = $this->matchNamespace($name);
+        $path = $this->_subpath($name, $namespace);
+        return join($path, $namespace['delimiter']);
     }
 
     /**
@@ -182,5 +169,33 @@ class Horde_Kolab_Storage_Namespace
             $name = 'INBOX/' . $name;
         }
         return Horde_String::convertCharset($name, $this->_charset, 'UTF7-IMAP');
+    }
+
+    /**
+     * Return an array describing the path elements of the folder.
+     *
+     * @param string $name      The name of the folder.
+     * @param array  $namespace The namespace of the folder.
+     *
+     * @return array The path elements.
+     */
+    protected function _subpath($name, array $namespace)
+    {
+        $name = Horde_String::convertCharset($name, 'UTF7-IMAP', $this->_charset);
+        $path = explode($namespace['delimiter'], $name);
+        if ($path[0] == $namespace['namespace']) {
+            array_shift($path);
+        }
+        if ($namespace['type'] == self::OTHER) {
+            array_shift($path);
+        }
+        if ($namespace['type'] == self::SHARED && 
+            !empty($this->_sharedPrefix)) {
+            if (strpos($path[0], $this->_sharedPrefix) === 0) {
+                $path[0] = substr($path[0], strlen($this->_sharedPrefix));
+            }
+        }
+        //@todo: What about the potential trailing domain?
+        return $path;
     }
 }

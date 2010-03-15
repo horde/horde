@@ -484,7 +484,29 @@ class Horde_Kolab_Storage_Folder
     public function getOwner()
     {
         if (!isset($this->_owner)) {
-            $this->_owner = $this->_namespace->getOwner($this->getName());
+            $owner = $this->_namespace->getOwner($this->getName());
+            /**
+             * @todo: Reconsider if this handling should really be done here
+             * rather than in a module nearer to the applications.
+             */
+            switch ($owner) {
+            case Horde_Kolab_Storage_Namespace::PRIV:
+                $this->_owner = Horde_Auth::getAuth();
+                break;
+            case Horde_Kolab_Storage_Namespace::SHARED:
+                $this->_owner = 'anonymous';
+                break;
+            default:
+                list($prefix, $user) = explode(':', $owner, 2);
+                if (strpos($user, '@') === false) {
+                    $domain = strstr(Horde_Auth::getAuth(), '@');
+                    if (!empty($domain)) {
+                        $user .= '@' . $domain;
+                    }
+                }
+                $this->_owner = $user;
+                break;
+            }
         }
         return $this->_owner;
     }
@@ -496,7 +518,7 @@ class Horde_Kolab_Storage_Folder
      *
      * @return string|PEAR_Error  The subpath of this folder.
      */
-    function getSubpath($name = null)
+    public function getSubpath($name = null)
     {
         if (!empty($name)) {
             return $this->_namespace->getSubpath($name);
