@@ -458,14 +458,22 @@ class IMP_Ui_Message
     }
 
     /**
-     * Output inline message display for the imp and dimp views.
+     * Generate inline message display.
      *
-     * @param object $imp_contents      The IMP_Contents object containing the
-     *                                  message data.
-     * @param integer $contents_mask    The mask needed for a
-     *                                  IMP_Contents::getSummary() call.
-     * @param array $part_info_display  The list of summary fields to display.
-     * @param string $show_parts        The value of the 'parts_display' pref.
+     * @param object $imp_contents  The IMP_Contents object containing the
+     *                              message data.
+     * @param array $options        Additional options:
+     * <pre>
+     * 'display_mask' - (integer) The mask of display view type to render
+     *                  inline (DEFAULT: IMP_Contents::RENDER_INLINE_AUTO).
+     * 'mask' - (integer) The mask needed for a IMP_Contents::getSummary()
+     *          call.
+     * 'no_inline_all' - (boolean) If true, only display first inline part.
+     *                   Subsequent inline parts will be treated as
+     *                   attachments.
+     * 'part_info_display' - (array) The list of summary fields to display.
+     * 'show_parts' - (string) The value of the 'parts_display' pref.
+     * </pre>
      *
      * @return array  An array with the following keys:
      * <pre>
@@ -475,12 +483,25 @@ class IMP_Ui_Message
      * 'msgtext' - (string) The rendered HTML code.
      * </pre>
      */
-    public function getInlineOutput($imp_contents, $contents_mask,
-                                    $part_info_display, $show_parts)
+    public function getInlineOutput($imp_contents, $options = array())
     {
         $atc_parts = $display_ids = $js_onload = $wrap_ids = array();
         $msgtext = '';
         $parts_list = $imp_contents->getContentTypeMap();
+
+        $contents_mask = isset($options['mask'])
+            ? $options['mask']
+            : 0;
+        $display_mask = isset($options['display_mask'])
+            ? $options['display_mask']
+            : IMP_Contents::RENDER_INLINE_AUTO;
+        $no_inline_all = !empty($options['no_inline_all']);
+        $part_info_display = isset($options['part_info_display'])
+            ? $options['part_info_display']
+            : array();
+        $show_parts = isset($options['show_parts'])
+            ? $options['show_parts']
+            : $GLOBALS['prefs']->getValue('parts_display');
 
         if ($show_parts == 'all') {
             $atc_parts = array_keys($parts_list);
@@ -491,13 +512,15 @@ class IMP_Ui_Message
                 continue;
             }
 
-            if (!($render_mode = $imp_contents->canDisplay($mime_id, IMP_Contents::RENDER_INLINE | IMP_Contents::RENDER_INFO))) {
+            if (!($render_mode = $imp_contents->canDisplay($mime_id, $display_mask))) {
                 if ($imp_contents->isAttachment($mime_type)) {
                     if ($show_parts == 'atc') {
                         $atc_parts[] = $mime_id;
                     }
 
-                    $msgtext .= $this->formatSummary($imp_contents->getSummary($mime_id, $contents_mask), $part_info_display, true);
+                    if ($contents_mask) {
+                        $msgtext .= $this->formatSummary($imp_contents->getSummary($mime_id, $contents_mask), $part_info_display, true);
+                    }
                 }
                 continue;
             }
@@ -512,13 +535,20 @@ class IMP_Ui_Message
 
             if (empty($render_part)) {
                 if ($imp_contents->isAttachment($mime_type)) {
-                    $msgtext .= $this->formatSummary($imp_contents->getSummary($mime_id, $contents_mask), $part_info_display, true);
+                    if ($contents_mask) {
+                        $msgtext .= $this->formatSummary($imp_contents->getSummary($mime_id, $contents_mask), $part_info_display, true);
+                    }
                 }
                 continue;
             }
 
             reset($render_part);
             while (list($id, $info) = each($render_part)) {
+                if ($no_inline_all === 1) {
+                    $atc_parts[] = $id;
+                    continue;
+                }
+
                 $display_ids[] = $id;
 
                 if (empty($info)) {
@@ -537,19 +567,32 @@ class IMP_Ui_Message
                 }
 
                 if (empty($info['attach'])) {
-                    $msgtext .= $this->formatSummary($imp_contents->getSummary($id, $contents_mask), $part_info_display) .
-                        $this->formatStatusMsg($info['status']) .
-                        '<div class="mimePartData">' . $info['data'] . '</div>';
+                    if ($contents_mask) {
+                        $msgtext .= $this->formatSummary($imp_contents->getSummary($id, $contents_mask), $part_info_display) .
+                            $this->formatStatusMsg($info['status']) .
+                            '<div class="mimePartData">' . $info['data'] . '</div>';
+                    } else {
+                        if ($msgtext && !empty($options['sep'])) {
+                            $msgtext .= $options['sep'];
+                        }
+                        $msgtext .= $info['data'];
+                    }
                 } else {
                     if ($show_parts == 'atc') {
                         $atc_parts[] = $id;
                     }
 
-                    $msgtext .= $this->formatSummary($imp_contents->getSummary($id, $contents_mask), $part_info_display, true);
+                    if ($contents_mask) {
+                        $msgtext .= $this->formatSummary($imp_contents->getSummary($id, $contents_mask), $part_info_display, true);
+                    }
                 }
 
                 if (isset($info['js'])) {
                     $js_onload = array_merge($js_onload, $info['js']);
+                }
+
+                if ($no_inline_all) {
+                    $no_inline_all = 1;
                 }
             }
         }

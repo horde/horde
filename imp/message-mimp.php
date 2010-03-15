@@ -75,7 +75,7 @@ case 'ri':
     $msg_delete = (IMP_Spam::reportSpam(array($index_array['mailbox'] => array($index_array['uid'])), $vars->a == 'rs' ? 'spam' : 'innocent') === 1);
     break;
 
-// 'c' = confirm download
+// 'pa' = part action
 // Need to build message information, so don't do action until below.
 }
 
@@ -139,20 +139,29 @@ $self_link = IMP::generateIMPUrl('message-mimp.php', $imp_mbox['mailbox'], $uid,
 $t = $injector->createInstance('Horde_Template');
 $t->setOption('gettext', true);
 
-/* Output download confirmation screen. */
-if (($vars->a == 'c') && isset($vars->atc)) {
-    $summary = $imp_contents->getSummary($vars->atc, IMP_Contents::SUMMARY_SIZE | IMP_Contents::SUMMARY_DESCRIP_NOLINK_NOHTMLSPECCHARS | IMP_Contents::SUMMARY_DOWNLOAD_NOJS);
+/* Output part action screen. */
+if (($vars->a == 'pa') &&
+    (isset($vars->atc) || isset($vars->id))) {
+    if (isset($vars->atc)) {
+        $summary = $imp_contents->getSummary($vars->atc, IMP_Contents::SUMMARY_SIZE | IMP_Contents::SUMMARY_DESCRIP_NOLINK_NOHTMLSPECCHARS | IMP_Contents::SUMMARY_DOWNLOAD_NOJS);
 
-    $title = _("Verify Download");
+        $title = _("Download Attachment");
 
-    $t->set('descrip', $summary['description']);
-    $t->set('download', $summary['download']);
+        $t->set('descrip', $summary['description']);
+        $t->set('download', $summary['download']);
+        $t->set('size', $summary['size']);
+        $t->set('type', $summary['type']);
+    } else {
+        $title = _("View Attachment");
+
+        $data = $imp_contents->renderMIMEPart($vars->id, $imp_contents->canDisplay($vars->id, IMP_Contents::RENDER_INLINE | IMP_Contents::RENDER_INFO));
+        $t->set('view_data', $data ? $data : _("This part is empty."));
+    }
+
     $t->set('self_link', $self_link);
-    $t->set('size', $summary['size']);
-    $t->set('type', $summary['type']);
 
     require IMP_TEMPLATES . '/common-header.inc';
-    echo $t->fetch(IMP_TEMPLATES . '/message/download-mimp.html');
+    echo $t->fetch(IMP_TEMPLATES . '/message/part-mimp.html');
 
     exit;
 }
@@ -231,46 +240,13 @@ foreach ($flag_parse as $val) {
 }
 
 /* Create the body of the message. */
-$parts_list = $imp_contents->getContentTypeMap();
-$atc_parts = $display_ids = array();
-$body_shown = false;
-$msg_text = '';
+$inlineout = $imp_ui->getInlineOutput($imp_contents, array(
+    'display_mask' => IMP_Contents::RENDER_INLINE,
+    'no_inline_all' => !$prefs->getValue('mimp_inline_all'),
+    'sep' => '<br /><hr />'
+));
 
-foreach ($parts_list as $mime_id => $mime_type) {
-    if (in_array($mime_id, $display_ids, true)) {
-        continue;
-    }
-
-    if ($body_shown ||
-        !($render_mode = $imp_contents->canDisplay($mime_id, IMP_Contents::RENDER_INLINE | IMP_Contents::RENDER_INFO))) {
-        if ($imp_contents->isAttachment($mime_type)) {
-            $atc_parts[] = $mime_id;
-        }
-        continue;
-    }
-
-    $render_part = $imp_contents->renderMIMEPart($mime_id, $render_mode);
-    if (($render_mode & IMP_Contents::RENDER_INLINE) && empty($render_part)) {
-        /* This meant that nothing was rendered - allow this part to appear
-         * in the attachment list instead. */
-        $atc_parts[] = $mime_id;
-        continue;
-    }
-
-    while (list($id, $info) = each($render_part)) {
-        if ($body_shown) {
-            $atc_parts[] = $id;
-            continue;
-        }
-
-        if (empty($info)) {
-            continue;
-        }
-
-        $body_shown = true;
-        $msg_text = $info['data'];
-    }
-}
+$msg_text = $inlineout['msgtext'];
 
 /* Display the first 250 characters, or display the entire message? */
 if ($prefs->getValue('mimp_preview_msg') &&
@@ -352,7 +328,7 @@ foreach ($display_headers as $head => $val) {
 $t->set('hdrs', $hdrs);
 
 $atc = array();
-foreach ($atc_parts as $key) {
+foreach ($inlineout['atc_parts'] as $key) {
     $summary = $imp_contents->getSummary($key, IMP_Contents::SUMMARY_BYTES | IMP_Contents::SUMMARY_SIZE | IMP_Contents::SUMMARY_DESCRIP_NOLINK_NOHTMLSPECCHARS | IMP_Contents::SUMMARY_DOWNLOAD_NOJS);
 
     $tmp = array(
@@ -365,8 +341,12 @@ foreach ($atc_parts as $key) {
         /* Preference: if set, only show download confirmation screen if
          * attachment over a certain size. */
         $tmp['download'] = ($summary['bytes'] > $prefs->getValue('mimp_download_confirm'))
-            ? $self_link->copy()->add(array('a' => 'c', 'atc' => $key))
+            ? $self_link->copy()->add(array('a' => 'pa', 'atc' => $key))
             : $summary['download'];
+    }
+
+    if ($imp_contents->canDisplay($key, IMP_Contents::RENDER_INLINE_AUTO)) {
+        $tmp['view'] = $self_link->copy()->add(array('a' => 'pa', 'id' => $key));
     }
 
     $atc[] = $tmp;
@@ -379,4 +359,3 @@ $t->set('title', ($status ? $status . ' | ' : '') . $display_headers['subject'] 
 require IMP_TEMPLATES . '/common-header.inc';
 IMP::status();
 echo $t->fetch(IMP_TEMPLATES . '/message/message-mimp.html');
-

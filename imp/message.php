@@ -598,7 +598,11 @@ if ($imp_ui->MDNCheck($imp_mbox['mailbox'], $uid, $mime_headers, $vars->mdn_conf
 
 /* Build body text. This needs to be done before we build the attachment list
  * that lives in the header. */
-$inlineout = $imp_ui->getInlineOutput($imp_contents, $contents_mask, $part_info_display, $show_parts);
+$inlineout = $imp_ui->getInlineOutput($imp_contents, array(
+    'mask' => $contents_mask,
+    'part_info_display' => $part_info_display,
+    'show_parts' => $show_parts
+));
 
 /* Build the Attachments menu. */
 $a_template->set('atc', Horde::widget('#', _("Attachments"), 'widget hasmenu', '', '', _("Attachments"), true));

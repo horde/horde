@@ -5,7 +5,15 @@
    <div><em><tag:hdrs.label />:</em> <tag:hdrs.val /><if:hdrs.all_to> [<a href="<tag:hdrs.all_to />"><gettext>Show All</gettext></a>]</if:hdrs.all_to></div>
 </loop:hdrs>
 <loop:atc>
-   <div><em><gettext>Attachment</gettext>:</em> <if:atc.download><a href="<tag:atc.download />"><tag:atc.descrip /></a><else:atc.download><tag:atc.descrip /></else:atc.download></if:atc.download> [<tag:atc.type />] <tag:atc.size /></div>
+   <div>
+    <em><gettext>Attachment</gettext>:</em> <tag:atc.descrip /> (<tag:atc.type />) <tag:atc.size />
+<if:atc.view>
+    [<a href="<tag:atc.view />">View</a>]
+</if:atc.view>
+<if:atc.download>
+    [<a href="<tag:atc.download />">Download</a>]
+</if:atc.download>
+   </div>
 </loop:atc>
   </p>
   <p>

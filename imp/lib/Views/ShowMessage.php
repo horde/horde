@@ -262,7 +262,11 @@ class IMP_Views_ShowMessage
 
         /* Build body text. This needs to be done before we build the
          * attachment list. */
-        $inlineout = $imp_ui->getInlineOutput($imp_contents, $contents_mask, $part_info_display, $show_parts);
+        $inlineout = $imp_ui->getInlineOutput($imp_contents, array(
+            'mask' => $contents_mask,
+            'part_info_display' => $part_info_display,
+            'show_parts' => $show_parts
+        ));
 
         $result['js'] = array_merge($result['js'], $inlineout['js_onload']);
         $result['msgtext'] .= $inlineout['msgtext'];

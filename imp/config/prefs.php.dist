@@ -204,7 +204,8 @@ $prefGroups['mimp'] = array(
     'column' => _("Other Options"),
     'label' => _("Minimalist View Options"),
     'desc' => _("Configure options for the minimalist view."),
-    'members' => array('mimp_preview_msg', 'mimp_download_confirm')
+    'members' => array('mimp_preview_msg', 'mimp_download_confirm',
+                       'mimp_inline_all')
 );
 
 $prefGroups['standard'] = array(
@@ -1635,10 +1636,20 @@ $_prefs['mimp_preview_msg'] = array(
 
 $_prefs['mimp_download_confirm'] = array(
     'value' => 0,
+    // Locked by default
     'locked' => true,
     'shared' => false,
     'type' => 'number',
     'desc' => _("Only show download confirmation page if message part is greater than this size, in bytes. Set to 0 to always require the confirmation page.")
+);
+
+$_prefs['mimp_inline_all'] = array(
+    'value' => 0,
+    // Locked by default
+    'locked' => true,
+    'shared' => false,
+    'type' => 'checkbox',
+    'desc' => _("Show all inline parts by default in message view? If unchecked, will treat all but the first viewable inline part as attachments.")
 );
 
 // End Minimalist View Options
