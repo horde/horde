@@ -73,7 +73,7 @@ class Horde_Kolab_Storage_Namespace
     {
         foreach (array(self::PRIV, self::OTHER, self::SHARED) as $type) {
             foreach ($this->_namespaces[$type] as $namespace => $delimiter) {
-                if (strpos($namespace, $name) === 0) {
+                if ($namespace === '' || strpos($name, $namespace) === 0) {
                     return array(
                         'namespace' => $namespace,
                         'delimiter' => $delimiter,
@@ -83,7 +83,7 @@ class Horde_Kolab_Storage_Namespace
             }
         }
         throw new Horde_Kolab_Storage_Exception(
-            'Namespace of folder %s cannot be determined.', $name
+            sprintf('Namespace of folder %s cannot be determined.', $name)
         );
     }
 
@@ -108,11 +108,21 @@ class Horde_Kolab_Storage_Namespace
     public function getTitle($name)
     {
         $name = Horde_String::convertCharset($name, 'UTF7-IMAP', $this->_charset);
-        if (substr($name, 0, 6) == 'INBOX/') {
-            $name = substr($name, 6);
+        $namespace = $this->matchNamespace($name);
+        $path = explode($namespace['delimiter'], $name);
+        if ($path[0] == $namespace['namespace']) {
+            array_shift($path);
         }
-        $name = str_replace('/', ':', $name);
-        return $name;
+        if ($path[0] == $namespace['delimiter']) {
+            array_shift($path);
+        }
+        if ($namespace['type'] == self::OTHER) {
+            array_shift($path);
+            if ($path[0] == $namespace['delimiter']) {
+                array_shift($path);
+            }
+        }
+        return join($path, ':');
     }
 
     /**
@@ -126,7 +136,7 @@ class Horde_Kolab_Storage_Namespace
     {
         if (!preg_match(";(shared\.|INBOX[/]?|user/([^/]+)[/]?)([^@]*)(@.*)?;", $name, $matches)) {
             throw new Horde_Kolab_Storage_Exception(
-                'Owner of folder %s cannot be determined.', $name
+                sprintf('Owner of folder %s cannot be determined.', $name)
             );
         }
 
@@ -152,7 +162,7 @@ class Horde_Kolab_Storage_Namespace
     {
         if (!preg_match(";(shared\.|INBOX[/]?|user/([^/]+)[/]?)([^@]*)(@.*)?;", $name, $matches)) {
             throw new Horde_Kolab_Storage_Exception(
-                'Subpath of folder %s cannot be determined.', $name
+                sprintf('Subpath of folder %s cannot be determined.', $name)
             );
         }
         return $matches[3];
