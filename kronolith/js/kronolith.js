@@ -290,7 +290,8 @@ KronolithCore = {
                     date = this.date;
                 }
 
-                if (this.view == loc && date.getYear() == this.date.getYear() &&
+                if (this.view != 'agenda' &&
+                    this.view == loc && date.getYear() == this.date.getYear() &&
                     ((loc == 'year') ||
                      (loc == 'month' && date.getMonth() == this.date.getMonth()) ||
                      (loc == 'week' && date.getRealWeek() == this.date.getRealWeek()) ||
@@ -354,7 +355,7 @@ KronolithCore = {
         case 'search':
             var cals = [], term = locParts[0],
                 query = Object.toJSON({ title: term });
-            this.closeView();
+            this.closeView('agenda');
             this.updateView(null, 'search', term);
             $H(Kronolith.conf.calendars).each(function(type) {
                 $H(type.value).each(function(calendar) {
@@ -592,8 +593,7 @@ KronolithCore = {
                 $('kronolithAgendaDate')
                     .update(this.setTitle(Kronolith.text.agenda + ' ' + dates[0].toString('d') + ' - ' + dates[1].toString('d')));
             } else {
-                $('kronolithViewAgenda')
-                    .down('caption span')
+                $('kronolithAgendaDate')
                     .update(this.setTitle(Kronolith.text.searching.interpolate({ term: data })));
             }
 
@@ -3367,6 +3367,7 @@ console.log(x);
 
             case 'kronolithSearchButton':
                 this.go('search:' + $F('kronolithSearchTerm'))
+                e.stop();
                 break;
 
             case 'kronolithNotifications':
