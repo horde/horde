@@ -649,7 +649,16 @@ a.kronolithFormCancel {
     text-decoration: underline;
 }
 .kronolithDialogInfo {
+    background: transparent url('graphics/alerts/message.png') 0 0 no-repeat;
+    padding-left: 20px;
     font-style: italic;
+}
+.kronolithDialogWarning {
+    background: transparent url('graphics/alerts/warning.png') 0 0 no-repeat;
+    padding-left: 20px;
+}
+.kronolithDialogWarning strong {
+    color: #f00;
 }
 
 /* Navigation bar */
@@ -799,6 +808,14 @@ div.kronolithFormActions {
 }
 .kronolithDialog .tabset .kronolithSeparator {
     float: left;
+}
+.kronolithDialog hr {
+   margin: 5px 0;
+   height: 0;
+   line-height: 0;
+   border-width: 1px 0;
+   border-color: #ccc transparent #fff;
+   border-style: solid none;
 }
 
 .kronolithTabsOption {

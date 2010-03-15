@@ -74,10 +74,11 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
   <div class="kronolithDialogInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics. Recipients of the iCalendar data file (with supporting software, such as an email client or calendar application) can respond to the sender easily or counter propose another meeting date/time.") ?></div>
   <label for="kronolithCalendarinternalImport"><?php echo _("Import ICS file") ?>:</label>
   <input type="file" id="kronolithCalendarinternalImport" name="import_file" /><br />
-  <input type="checkbox" id="kronolithCalendarinternalImportOver" name="purge" />
-  <label for="kronolithCalendarinternalImportOver"><?php echo _("Replace existing calendar with the imported one?") ?></label>
-  <?php echo _("Warning: This deletes all entries in your current calendar.") ?>
-  <br />
+  <?php printf(_("Importing should %s %sreplace this calendar%s."),
+               '<input type="checkbox" id="kronolithCalendarinternalImportOver" name="purge" />',
+               '<label for="kronolithCalendarinternalImportOver">', '</label>') ?>
+  <span class="kronolithDialogWarning"><?php printf(_("%sWarning:%s also %sdeletes all events%s currently in the calendar."), '<strong>', '</strong>', '<strong>', '</strong>') ?></span>
+  <hr />
   <label><?php echo _("Export ICS file") ?>:</label>
   <a id="kronolithCalendarinternalExport"><?php echo _("Calendar ICS file") ?></a>
 </div>
