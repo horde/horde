@@ -2406,7 +2406,7 @@ KronolithCore = {
                 }
                 break;
             case 'groups':
-                if (perm.value.size()) {
+                if (!Object.isArray(perm.value)) {
                     $H(perm.value).each(function(group) {
                         this.insertGroupOrUser(type, 'group', group.key);
                         groupPerms = group.value;
@@ -2423,7 +2423,7 @@ KronolithCore = {
                 }
                 break;
             case 'users':
-                if (perm.value.size()) {
+                if (!Object.isArray(perm.value)) {
                     $H(perm.value).each(function(user) {
                         if (user.key != Kronolith.conf.user) {
                             this.insertGroupOrUser(type, 'user', user.key);
