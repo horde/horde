@@ -117,7 +117,6 @@ function saveAction(digit)
         method: 'post',
         parameters: params,
         onSuccess: function(r) {
-            alert('FIXME');
             empty('selectAction');
             empty('editAction');
             $('editActionOverlay').hide();
