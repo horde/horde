@@ -52,12 +52,35 @@ class Horde_Kolab_Storage_Namespace
     );
 
     /**
+     * The characterset this module uses to communicate with the outside world.
+     *
+     * @var string
+     */
+    private $_charset;
+
+    /**
+     * A prefix in the shared namespaces that will be ignored/removed.
+     *
+     * @var string
+     */
+    private $_sharedPrefix;
+
+    /**
+     * Indicates the personal namespace that the class will use to create new
+     * folders.
+     *
+     * @var string
+     */
+    private $_primaryPersonalNamespace;
+
+    /**
      * Constructor.
      */
     public function __construct()
     {
         $this->_charset = Horde_Nls::getCharset();
         $this->_sharedPrefix = 'shared.';
+        $this->_primaryPersonalNamespace = 'INBOX';
     }
 
     /**
@@ -164,11 +187,42 @@ class Horde_Kolab_Storage_Namespace
      */
     public function setName($name)
     {
-        $name = str_replace(':', '/', $name);
-        if (substr($name, 0, 5) != 'user/' && substr($name, 0, 7) != 'shared.') {
-            $name = 'INBOX/' . $name;
+        $namespace = $this->matchNamespace($name);
+        $path = explode(':', $name);
+        if (empty($this->_sharedPrefix)
+            || strpos($path[0], $this->_sharedPrefix) === false
+            || in_array($path[0], array_keys($this->_namespaces[self::OTHER]))) {
+            $namespace = $this->_getPrimaryPersonalNamespace();
+            array_unshift($path, $namespace['namespace']);
+        } else {
+            $namespace = $this->matchNamespace($name);
         }
-        return Horde_String::convertCharset($name, $this->_charset, 'UTF7-IMAP');
+        return Horde_String::convertCharset(
+            join($path, $namespace['delimiter']), $this->_charset, 'UTF7-IMAP'
+        );
+    }
+
+    /**
+     * Returns the primary personal namespace.
+     *
+     * @return array The primary personal namespace.
+     */
+    protected function _getPrimaryPersonalNamespace()
+    {
+        foreach ($this->_namespaces[self::PRIV] as $namespace => $delimiter) {
+            if ($namespace == $this->_primaryPersonalNamespace) {
+                return array(
+                    'namespace' => $namespace,
+                    'delimiter' => $delimiter,
+                    'type'      => self::PRIV,
+                );
+            }
+        }
+        return array(
+            'namespace' => array_shift(array_keys($this->_namespaces[self::PRIV])),
+            'delimiter' => reset($this->_namespaces[self::PRIV]),
+            'type'      => self::PRIV,
+        );
     }
 
     /**
@@ -189,8 +243,8 @@ class Horde_Kolab_Storage_Namespace
         if ($namespace['type'] == self::OTHER) {
             array_shift($path);
         }
-        if ($namespace['type'] == self::SHARED && 
-            !empty($this->_sharedPrefix)) {
+        if (!empty($this->_sharedPrefix) 
+            && $namespace['type'] == self::SHARED) {
             if (strpos($path[0], $this->_sharedPrefix) === 0) {
                 $path[0] = substr($path[0], strlen($this->_sharedPrefix));
             }
