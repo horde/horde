@@ -29,6 +29,27 @@
  */
 class Horde_Kolab_Storage_Namespace
 {
+    /** The possible namespace types (RFC 2342 [5]) */
+    const PRIV   = 'private';
+    const OTHER  = 'other';
+    const SHARED = 'shared';
+
+    /**
+     * The namespaces.
+     *
+     * @var array
+     */
+    private $_namespaces = array(
+        self::PRIV => array(
+            'INBOX' => '/',
+        ),
+        self::OTHER => array(
+            'user' => '/',
+        ),
+        self::SHARED => array(
+            '' => '/',
+        ),
+    );
 
     /**
      * Return the title of a folder.
