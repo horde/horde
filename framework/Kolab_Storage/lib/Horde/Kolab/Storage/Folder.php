@@ -500,11 +500,7 @@ class Horde_Kolab_Storage_Folder
     {
         if (!isset($this->_subpath) || isset($name)) {
             if (!isset($name)) {
-                if (!isset($this->name) && isset($this->new_name)) {
-                    $name = $this->new_name;
-                } else {
-                    $name = $this->name;
-                }
+                $name = $this->getName();
             }
 
             if (!preg_match(";(shared\.|INBOX[/]?|user/([^/]+)[/]?)([^@]*)(@.*)?;", $name, $matches)) {
