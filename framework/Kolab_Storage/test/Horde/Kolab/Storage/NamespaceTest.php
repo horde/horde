@@ -184,4 +184,41 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
             Horde_String::convertCharset($folder->getName(), 'UTF7-IMAP')
         );
     }
+
+    public function testFolderSubpathIsAccessibleForNewFolders()
+    {
+        $folder = new Horde_Kolab_Storage_Folder(
+            null,
+            new Horde_Kolab_Storage_Namespace()
+        );
+        $folder->setName('test');
+        $this->assertEquals('test', $folder->getSubpath());
+    }
+
+    public function testFolderSubpathDoesNotContainUsernameIfPrefixContainsOtherNamespace()
+    {
+        $folder = new Horde_Kolab_Storage_Folder(
+            'user/test/mine',
+            new Horde_Kolab_Storage_Namespace()
+        );
+        $this->assertEquals('mine', $folder->getSubpath());
+    }
+
+    public function testFolderSubpathReturnsSubpathWithoutNamespacePrefix()
+    {
+        $folder = new Horde_Kolab_Storage_Folder(
+            'INBOX/a/b',
+            new Horde_Kolab_Storage_Namespace()
+        );
+        $this->assertEquals('a/b', $folder->getSubpath());
+    }
+
+    public function testFolderSubpathReturnsSubpathWithoutSharedPrefix()
+    {
+        $folder = new Horde_Kolab_Storage_Folder(
+            'shared.a/b',
+            new Horde_Kolab_Storage_Namespace()
+        );
+        $this->assertEquals('a/b', $folder->getSubpath());
+    }
 }
