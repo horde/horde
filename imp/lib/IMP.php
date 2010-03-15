@@ -642,7 +642,7 @@ class IMP
     /**
      * Get message indices list.
      *
-     * @param mixed $indices  The following inputs are allowed:
+     * @param array $indices  The following inputs are allowed:
      * <pre>
      * 1. An array of messages indices in the following format:
      *    msg_id IMP::IDX_SEP msg_mbox
