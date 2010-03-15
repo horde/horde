@@ -256,11 +256,7 @@ class Horde_Kolab_Storage_Folder
      */
     function setName($name)
     {
-        $name = str_replace(':', '/', $name);
-        if (substr($name, 0, 5) != 'user/' && substr($name, 0, 7) != 'shared.') {
-            $name = 'INBOX/' . $name;
-        }
-        $this->new_name = Horde_String::convertCharset($name, Horde_Nls::getCharset(), 'UTF7-IMAP');
+        $this->new_name = $this->_namespace->setName($name);
     }
 
     /**

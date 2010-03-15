@@ -71,4 +71,19 @@ class Horde_Kolab_Storage_Namespace
             return  'anonymous';
         }
     }
+
+    /**
+     * Generate a new name for a folder.
+     *
+     * @param string $name  The new folder name.
+     */
+    function setName($name)
+    {
+        $name = str_replace(':', '/', $name);
+        if (substr($name, 0, 5) != 'user/' && substr($name, 0, 7) != 'shared.') {
+            $name = 'INBOX/' . $name;
+        }
+        return Horde_String::convertCharset($name, Horde_Nls::getCharset(), 'UTF7-IMAP');
+    }
+
 }
