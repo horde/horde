@@ -137,6 +137,7 @@ class Horde_Kolab_Storage_StorageTest extends Horde_Kolab_Storage_Scenario
 
     public function testGetFolder()
     {
+        $GLOBALS['language'] = 'de_DE';
         $storage = new Horde_Kolab_Storage(
             'Imap',
             array(

@@ -63,6 +63,7 @@ class Horde_Kolab_Storage_FolderTest extends Horde_Kolab_Storage_Scenario
      */
     public function testConstruct()
     {
+        $GLOBALS['language'] = 'de_DE';
         $folder = new Horde_Kolab_Storage_Folder(
             'INBOX/Contacts',
             new Horde_Kolab_Storage_Namespace()
