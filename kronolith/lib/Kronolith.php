@@ -1617,6 +1617,7 @@ class Kronolith
         $u_delete = Horde_Util::getFormData('u_delete');
         $u_delegate = Horde_Util::getFormData('u_delegate');
 
+        $perm->removeUserPermission(null, null, false);
         foreach ($u_names as $key => $user_backend) {
             // Apply backend hooks
             $user = Horde_Auth::convertUsername($user_backend, true);
@@ -1632,28 +1633,18 @@ class Kronolith
 
             if (!empty($u_show[$key])) {
                 $perm->addUserPermission($user, Horde_Perms::SHOW, false);
-            } else {
-                $perm->removeUserPermission($user, Horde_Perms::SHOW, false);
             }
             if (!empty($u_read[$key])) {
                 $perm->addUserPermission($user, Horde_Perms::READ, false);
-            } else {
-                $perm->removeUserPermission($user, Horde_Perms::READ, false);
             }
             if (!empty($u_edit[$key])) {
                 $perm->addUserPermission($user, Horde_Perms::EDIT, false);
-            } else {
-                $perm->removeUserPermission($user, Horde_Perms::EDIT, false);
             }
             if (!empty($u_delete[$key])) {
                 $perm->addUserPermission($user, Horde_Perms::DELETE, false);
-            } else {
-                $perm->removeUserPermission($user, Horde_Perms::DELETE, false);
             }
             if (!empty($u_delegate[$key])) {
                 $perm->addUserPermission($user, Kronolith::PERMS_DELEGATE, false);
-            } else {
-                $perm->removeUserPermission($user, Kronolith::PERMS_DELEGATE, false);
             }
         }
 
@@ -1665,6 +1656,7 @@ class Kronolith
         $g_delete = Horde_Util::getFormData('g_delete');
         $g_delegate = Horde_Util::getFormData('g_delegate');
 
+        $perm->removeGroupPermission(null, null, false);
         foreach ($g_names as $key => $group) {
             if (empty($group)) {
                 continue;
@@ -1672,28 +1664,18 @@ class Kronolith
 
             if (!empty($g_show[$key])) {
                 $perm->addGroupPermission($group, Horde_Perms::SHOW, false);
-            } else {
-                $perm->removeGroupPermission($group, Horde_Perms::SHOW, false);
             }
             if (!empty($g_read[$key])) {
                 $perm->addGroupPermission($group, Horde_Perms::READ, false);
-            } else {
-                $perm->removeGroupPermission($group, Horde_Perms::READ, false);
             }
             if (!empty($g_edit[$key])) {
                 $perm->addGroupPermission($group, Horde_Perms::EDIT, false);
-            } else {
-                $perm->removeGroupPermission($group, Horde_Perms::EDIT, false);
             }
             if (!empty($g_delete[$key])) {
                 $perm->addGroupPermission($group, Horde_Perms::DELETE, false);
-            } else {
-                $perm->removeGroupPermission($group, Horde_Perms::DELETE, false);
             }
             if (!empty($g_delegate[$key])) {
                 $perm->addGroupPermission($group, Kronolith::PERMS_DELEGATE, false);
-            } else {
-                $perm->removeGroupPermission($group, Kronolith::PERMS_DELEGATE, false);
             }
         }
 
