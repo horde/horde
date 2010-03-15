@@ -3011,10 +3011,6 @@ KronolithCore = {
         this.view = 'iframe';
     },
 
-    onResize: function(noupdate, nowait)
-    {
-    },
-
     /* Keydown event handler */
     keydownHandler: function(e)
     {
@@ -4637,7 +4633,6 @@ KronolithCore = {
 
 /* Initialize global event handlers. */
 document.observe('dom:loaded', KronolithCore.onDomLoad.bind(KronolithCore));
-Event.observe(window, 'resize', KronolithCore.onResize.bind(KronolithCore));
 document.observe('DragDrop2:drag', KronolithCore.onDrag.bindAsEventListener(KronolithCore));
 document.observe('DragDrop2:drop', KronolithCore.onDrop.bindAsEventListener(KronolithCore));
 document.observe('DragDrop2:end', KronolithCore.onDragEnd.bindAsEventListener(KronolithCore));
