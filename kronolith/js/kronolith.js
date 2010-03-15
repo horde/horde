@@ -1500,11 +1500,9 @@ KronolithCore = {
                     nodrop: true,
                     parentElement: function() { return $(view == 'day' ? 'kronolithEventsDay' : 'kronolithEventsWeek' + date); },
                     snap: function(x, y) {
-console.log(x);
                         x = (view == 'week')
                             ? Math.max(minLeft, stepX * ((Math.min(maxLeft, x - (x < 0 ? stepX : 0)) + stepX / 2) / stepX | 0))
                             : 0;
-console.log(x);
                         y = Math.max(0, step * (Math.min(maxDiv, y) / step | 0));
                         return [x, y];
                     }
