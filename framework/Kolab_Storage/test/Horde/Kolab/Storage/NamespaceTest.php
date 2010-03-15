@@ -32,41 +32,39 @@ require_once 'Autoload.php';
  */
 class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        $this->_storage = $this->getMock('Horde_Kolab_Storage', array(), array(), '', false, false);
+        $this->_connection = $this->getMock('Horde_Kolab_Storage_Driver');
+    }
+
     public function testFolderTitleIsEmptyForPrivateNamespace()
     {
         $this->markTestIncomplete('This expectation currently does not hold as we are not using the namespace handler yet.');
-        $folder = new Horde_Kolab_Storage_Folder(
-            'INBOX',
-            new Horde_Kolab_Storage_Namespace()
-        );
+        $folder = new Horde_Kolab_Storage_Folder('INBOX');
+        $folder->restore($this->_storage, $this->_connection, new Horde_Kolab_Storage_Namespace());
         $this->assertEquals('', $folder->getTitle());
     }
 
     public function testFolderTitleDoesNotContainPrivateNamespace()
     {
-        $folder = new Horde_Kolab_Storage_Folder(
-            'INBOX/test',
-            new Horde_Kolab_Storage_Namespace()
-        );
+        $folder = new Horde_Kolab_Storage_Folder('INBOX/test');
+        $folder->restore($this->_storage, $this->_connection, new Horde_Kolab_Storage_Namespace());
         $this->assertEquals('test', $folder->getTitle());
     }
 
     public function testFolderTitleOfOtherUserDoesNotContainUserPrefixAndOtherUserName()
     {
         $this->markTestIncomplete('This expectation currently does not hold as we are not using the namespace handler yet.');
-        $folder = new Horde_Kolab_Storage_Folder(
-            'user/test/his_folder',
-            new Horde_Kolab_Storage_Namespace()
-        );
+        $folder = new Horde_Kolab_Storage_Folder('user/test/his_folder');
+        $folder->restore($this->_storage, $this->_connection, new Horde_Kolab_Storage_Namespace());
         $this->assertEquals('his_folder', $folder->getTitle());
     }
 
     public function testFolderTitleReplacesSeparatorWithDoubleColon()
     {
-        $folder = new Horde_Kolab_Storage_Folder(
-            'INBOX/test/sub',
-            new Horde_Kolab_Storage_Namespace()
-        );
+        $folder = new Horde_Kolab_Storage_Folder('INBOX/test/sub');
+        $folder->restore($this->_storage, $this->_connection, new Horde_Kolab_Storage_Namespace());
         $this->assertEquals('test:sub', $folder->getTitle());
     }
 
@@ -74,20 +72,16 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
     {
         Horde_String::setDefaultCharset('UTF8');
         $name = Horde_String::convertCharset('äöü', 'UTF8', 'UTF7-IMAP');
-        $folder = new Horde_Kolab_Storage_Folder(
-            'INBOX/' . $name,
-            new Horde_Kolab_Storage_Namespace()
-        );
+        $folder = new Horde_Kolab_Storage_Folder('INBOX/' . $name);
+        $folder->restore($this->_storage, $this->_connection, new Horde_Kolab_Storage_Namespace());
         $this->assertEquals('äöü', $folder->getTitle());
     }
 
     public function testFolderTitleIsAccessibleForNewFolders()
     {
         $_SESSION['horde_auth']['userId'] = 'test';
-        $folder = new Horde_Kolab_Storage_Folder(
-            null,
-            new Horde_Kolab_Storage_Namespace()
-        );
+        $folder = new Horde_Kolab_Storage_Folder(null);
+        $folder->restore($this->_storage, $this->_connection, new Horde_Kolab_Storage_Namespace());
         $folder->setName('test');
         $this->assertEquals('test', $folder->getTitle());
     }
@@ -96,77 +90,61 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
     {
         $this->markTestIncomplete('This expectation currently does not hold as we are not using the namespace handler yet.');
         $_SESSION['horde_auth']['userId'] = 'test';
-        $folder = new Horde_Kolab_Storage_Folder(
-            'INBOX',
-            new Horde_Kolab_Storage_Namespace()
-        );
+        $folder = new Horde_Kolab_Storage_Folder('INBOX');
+        $folder->restore($this->_storage, $this->_connection, new Horde_Kolab_Storage_Namespace());
         $this->assertEquals('test', $folder->getOwner());
     }
 
     public function testFolderOwnerIsCurrentUserIfPrefixContainsPrivateNamespace()
     {
         $_SESSION['horde_auth']['userId'] = 'test';
-        $folder = new Horde_Kolab_Storage_Folder(
-            'INBOX/mine',
-            new Horde_Kolab_Storage_Namespace()
-        );
+        $folder = new Horde_Kolab_Storage_Folder('INBOX/mine');
+        $folder->restore($this->_storage, $this->_connection, new Horde_Kolab_Storage_Namespace());
         $this->assertEquals('test', $folder->getOwner());
     }
 
     public function testFolderOwnerIsOtherUserIfPrefixMatchesOtherNamespace()
     {
-        $folder = new Horde_Kolab_Storage_Folder(
-            'user/test',
-            new Horde_Kolab_Storage_Namespace()
-        );
+        $folder = new Horde_Kolab_Storage_Folder('user/test');
+        $folder->restore($this->_storage, $this->_connection, new Horde_Kolab_Storage_Namespace());
         $this->assertEquals('test', $folder->getOwner());
     }
 
     public function testFolderOwnerIsOtherUserIfPrefixContainsOtherNamespace()
     {
-        $folder = new Horde_Kolab_Storage_Folder(
-            'user/test/mine',
-            new Horde_Kolab_Storage_Namespace()
-        );
+        $folder = new Horde_Kolab_Storage_Folder('user/test/mine');
+        $folder->restore($this->_storage, $this->_connection, new Horde_Kolab_Storage_Namespace());
         $this->assertEquals('test', $folder->getOwner());
     }
 
     public function testFolderOwnerIsAnonymousIfPrefixContainsSharedNamespace()
     {
-        $folder = new Horde_Kolab_Storage_Folder(
-            'shared.test',
-            new Horde_Kolab_Storage_Namespace()
-        );
+        $folder = new Horde_Kolab_Storage_Folder('shared.test');
+        $folder->restore($this->_storage, $this->_connection, new Horde_Kolab_Storage_Namespace());
         $this->assertEquals('anonymous', $folder->getOwner());
     }
 
     public function testFolderOwnerIsAccessibleForNewFolders()
     {
         $_SESSION['horde_auth']['userId'] = 'test';
-        $folder = new Horde_Kolab_Storage_Folder(
-            null,
-            new Horde_Kolab_Storage_Namespace()
-        );
+        $folder = new Horde_Kolab_Storage_Folder(null);
+        $folder->restore($this->_storage, $this->_connection, new Horde_Kolab_Storage_Namespace());
         $folder->setName('test');
         $this->assertEquals('test', $folder->getOwner());
     }
 
     public function testSetfolderDoesAddDefaultPersonalNamespace()
     {
-        $folder = new Horde_Kolab_Storage_Folder(
-            null,
-            new Horde_Kolab_Storage_Namespace()
-        );
+        $folder = new Horde_Kolab_Storage_Folder(null);
+        $folder->restore($this->_storage, $this->_connection, new Horde_Kolab_Storage_Namespace());
         $folder->setName('test:this');
         $this->assertEquals('INBOX/test/this', $folder->getName());
     }
 
     public function testSetfolderReplacesDoubleColonWithSeparator()
     {
-        $folder = new Horde_Kolab_Storage_Folder(
-            null,
-            new Horde_Kolab_Storage_Namespace()
-        );
+        $folder = new Horde_Kolab_Storage_Folder(null);
+        $folder->restore($this->_storage, $this->_connection, new Horde_Kolab_Storage_Namespace());
         $folder->setName('a:b:c');
         $this->assertEquals('INBOX/a/b/c', $folder->getName());
     }
@@ -174,10 +152,8 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
     public function testSetfolderConvertsToUtf7()
     {
         Horde_Nls::setCharset('UTF8');
-        $folder = new Horde_Kolab_Storage_Folder(
-            null,
-            new Horde_Kolab_Storage_Namespace()
-        );
+        $folder = new Horde_Kolab_Storage_Folder(null);
+        $folder->restore($this->_storage, $this->_connection, new Horde_Kolab_Storage_Namespace());
         $folder->setName('äöü');
         $this->assertEquals(
             'INBOX/äöü',
@@ -187,38 +163,30 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
 
     public function testFolderSubpathIsAccessibleForNewFolders()
     {
-        $folder = new Horde_Kolab_Storage_Folder(
-            null,
-            new Horde_Kolab_Storage_Namespace()
-        );
+        $folder = new Horde_Kolab_Storage_Folder(null);
+        $folder->restore($this->_storage, $this->_connection, new Horde_Kolab_Storage_Namespace());
         $folder->setName('test');
         $this->assertEquals('test', $folder->getSubpath());
     }
 
     public function testFolderSubpathDoesNotContainUsernameIfPrefixContainsOtherNamespace()
     {
-        $folder = new Horde_Kolab_Storage_Folder(
-            'user/test/mine',
-            new Horde_Kolab_Storage_Namespace()
-        );
+        $folder = new Horde_Kolab_Storage_Folder('user/test/mine');
+        $folder->restore($this->_storage, $this->_connection, new Horde_Kolab_Storage_Namespace());
         $this->assertEquals('mine', $folder->getSubpath());
     }
 
     public function testFolderSubpathReturnsSubpathWithoutNamespacePrefix()
     {
-        $folder = new Horde_Kolab_Storage_Folder(
-            'INBOX/a/b',
-            new Horde_Kolab_Storage_Namespace()
-        );
+        $folder = new Horde_Kolab_Storage_Folder('INBOX/a/b');
+        $folder->restore($this->_storage, $this->_connection, new Horde_Kolab_Storage_Namespace());
         $this->assertEquals('a/b', $folder->getSubpath());
     }
 
     public function testFolderSubpathReturnsSubpathWithoutSharedPrefix()
     {
-        $folder = new Horde_Kolab_Storage_Folder(
-            'shared.a/b',
-            new Horde_Kolab_Storage_Namespace()
-        );
+        $folder = new Horde_Kolab_Storage_Folder('shared.a/b');
+        $folder->restore($this->_storage, $this->_connection, new Horde_Kolab_Storage_Namespace());
         $this->assertEquals('a/b', $folder->getSubpath());
     }
 }

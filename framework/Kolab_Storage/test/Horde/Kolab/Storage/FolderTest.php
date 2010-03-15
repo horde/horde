@@ -79,10 +79,10 @@ class Horde_Kolab_Storage_FolderTest extends Horde_Kolab_Storage_Scenario
     public function testSetName()
     {
         $GLOBALS['language'] = 'de_DE';
-        $folder = new Horde_Kolab_Storage_Folder(
-            'INBOX/Contacts',
-            new Horde_Kolab_Storage_Namespace()
-        );
+        $storage = $this->getMock('Horde_Kolab_Storage', array(), array(), '', false, false);
+        $connection = $this->getMock('Horde_Kolab_Storage_Driver');
+        $folder = new Horde_Kolab_Storage_Folder('INBOX/Contacts');
+        $folder->restore($storage, $connection, new Horde_Kolab_Storage_Namespace());
         $folder->setName('TestAÖÜ');
         $this->assertEquals(Horde_String::convertCharset('INBOX/TestAÖÜ', Horde_Nls::getCharset(), 'UTF7-IMAP'), $folder->new_name);
     }
