@@ -450,7 +450,7 @@ KronolithCore = {
 
         case 'options':
             this.closeView('iframe');
-            this.iframeContent(loc, Kronolith.conf.prefs_url);
+            this.iframeContent(Kronolith.conf.prefs_url);
             this.setTitle(Kronolith.text.prefs);
             this.updateMinical(this.date);
             this.addHistory(loc);
@@ -461,9 +461,9 @@ KronolithCore = {
             this.closeView('iframe');
             var app = locParts.shift();
             if (data) {
-                this.iframeContent(loc, data);
+                this.iframeContent(data);
             } else if (Kronolith.conf.app_urls[app]) {
-                this.iframeContent(loc, Kronolith.conf.app_urls[app]);
+                this.iframeContent(Kronolith.conf.app_urls[app]);
             }
             this.updateMinical(this.date);
             this.addHistory(fullloc);
@@ -2990,23 +2990,24 @@ KronolithCore = {
         }
     },
 
-    iframeContent: function(name, loc)
+    /**
+     * Loads an external page into the iframe view.
+     *
+     * @param string loc  The URL of the page to load.
+     */
+    iframeContent: function(loc)
     {
-        this.closeView();
-
-        if (name === null) {
-            name = loc;
+        var view = $('kronolithViewIframe'), iframe = $('kronolithIframe');
+        view.hide();
+        if (!iframe) {
+            view.insert(new Element('iframe', { id: 'kronolithIframe', className: 'kronolithIframe', frameBorder: 0 }));
+            iframe = $('kronolithIframe');
         }
-
-        if ($('kronolithIframe' + name)) {
-            $('kronolithIframe' + name).src = loc;
-        } else {
-            var iframe = new Element('iframe', { id: 'kronolithIframe' + name, className: 'kronolithIframe', frameBorder: 0, src: loc });
-            //this.resizeIE6Iframe(iframe);
-            $('kronolithViewIframe').insert(iframe);
-        }
-
-        $('kronolithViewIframe').appear({ queue: 'end' });
+        iframe.observe('load', function() {
+            view.appear({ queue: 'end' });
+            iframe.stopObserving('load');
+        });
+        iframe.src = loc;
         this.view = 'iframe';
     },
 
@@ -3996,7 +3997,7 @@ KronolithCore = {
         var ev = r.response.event;
 
         if (!Object.isUndefined(ev.ln)) {
-            this.iframeContent('event', ev.ln);
+            this.iframeContent(ev.ln);
             this.closeRedBox();
             return;
         }
