@@ -51,7 +51,6 @@ case 'u':
 
     /* Get mailbox/UID of message. */
     $index_array = $imp_mailbox->getIMAPIndex();
-    $index_array = $imp_mailbox->getIMAPIndex();
     $indices_array = array($index_array['mailbox'] => array($index_array['uid']));
 
     if ($vars->a == 'u') {
