@@ -2409,6 +2409,11 @@ KronolithCore = {
                 if (!Object.isArray(perm.value)) {
                     $H(perm.value).each(function(group) {
                         this.insertGroupOrUser(type, 'group', group.key);
+                        if (!$('kronolithC' + type + 'PGshow_' + group.key)) {
+                            // Group doesn't exist anymore.
+                            delete perm.value[group.key];
+                            return;
+                        }
                         groupPerms = group.value;
                         groupId = group.key;
                     }, this);
@@ -2427,6 +2432,11 @@ KronolithCore = {
                     $H(perm.value).each(function(user) {
                         if (user.key != Kronolith.conf.user) {
                             this.insertGroupOrUser(type, 'user', user.key);
+                            if (!$('kronolithC' + type + 'PUshow_' + user.key)) {
+                                // User doesn't exist anymore.
+                                delete perm.value[user.key];
+                                return;
+                            }
                             advanced = true;
                         }
                     }, this);
