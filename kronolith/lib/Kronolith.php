@@ -469,7 +469,7 @@ class Kronolith
         $driver = self::getDriver();
         foreach ($calendars as $calendar) {
             $driver->open($calendar);
-            $events = $driver->listEvents($startDate, $endDate, true);
+            $events = $driver->listEvents($startDate, $endDate, $showRecurrence);
             self::mergeEvents($results, $events);
         }
 
@@ -484,7 +484,7 @@ class Kronolith
             $driver = self::getDriver('Resource');
             foreach ($GLOBALS['display_resource_calendars'] as $calendar) {
                 $driver->open($calendar);
-                $events = $driver->listEvents($startDate, $endDate, true);
+                $events = $driver->listEvents($startDate, $endDate, $showRecurrence);
                 self::mergeEvents($results, $events);
             }
         }
@@ -494,7 +494,7 @@ class Kronolith
             $driver = self::getDriver('Horde');
             foreach ($GLOBALS['display_external_calendars'] as $external_cal) {
                 $driver->open($external_cal);
-                $events = $driver->listEvents($startDate, $endDate, true);
+                $events = $driver->listEvents($startDate, $endDate, $showRecurrence);
                 self::mergeEvents($results, $events);
             }
 
@@ -505,7 +505,7 @@ class Kronolith
                 foreach (self::getRemoteParams($url) as $param => $value) {
                     $driver->setParam($param, $value);
                 }
-                $events = $driver->listEvents($startDate, $endDate, true);
+                $events = $driver->listEvents($startDate, $endDate, $showRecurrence);
                 self::mergeEvents($results, $events);
             }
 
@@ -513,7 +513,7 @@ class Kronolith
             $driver = self::getDriver('Holidays');
             foreach ($GLOBALS['display_holidays'] as $holiday) {
                 $driver->open($holiday);
-                $events = $driver->listEvents($startDate, $endDate, true);
+                $events = $driver->listEvents($startDate, $endDate, $showRecurrence);
                 self::mergeEvents($results, $events);
             }
         }
