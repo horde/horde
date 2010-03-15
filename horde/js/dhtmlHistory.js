@@ -199,7 +199,7 @@ Horde.dhtmlHistory = {
         if (Prototype.Browser.WebKit) {
             return this.getSafariState();
         } else {
-            return this.removeHash(unescape(location.hash));
+            return this.removeHash(decodeURIComponent(location.hash));
         }
     },
 
@@ -230,7 +230,7 @@ Horde.dhtmlHistory = {
 
         // Save this as our current location and change the browser location
         this.currentLocation = newLoc;
-        this.setLocation(escape(newLoc));
+        this.setLocation(encodeURIComponent(newLoc));
 
         // Change the hidden iframe's location if on IE
         if (Prototype.Browser.IE) {
@@ -357,7 +357,7 @@ Horde.dhtmlHistory = {
         }
 
         // Get the new location
-        this.setLocation(escape(newLoc));
+        this.setLocation(encodeURIComponent(newLoc));
 
         // Notify listeners of the change
         this.fireHistoryEvent(newLoc);
