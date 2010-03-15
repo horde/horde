@@ -149,9 +149,10 @@ class Horde_Kolab_Storage_Permission extends Horde_Perms_Permission
 
         // Loop through the returned users
         $data = array();
-        foreach ($acl as $user => $rights) {
+        foreach ($acl as $user => $r) {
             // Convert the user rights to horde format
             $result = 0;
+            $rights = join('', $r);
             for ($i = 0, $j = strlen($rights); $i < $j; $i++) {
                 switch ($rights[$i]) {
                 case 'l':

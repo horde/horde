@@ -434,7 +434,7 @@ class Horde_Kolab_Storage_Folder
                 // setAnnotation apparently does not suppoort UTF-8 nor any special characters
                 $store = base64_encode($value);
                 if ($key == 'desc') {
-                    $entry = '/comment';
+                    $entry = '/shared/comment';
                 } else {
                     $entry = self::ANNOT_SHARE_ATTR . $key;
                 }
@@ -1260,12 +1260,12 @@ class Horde_Kolab_Storage_Folder
      */
     function setPermission(&$perms, $update = true)
     {
-        if (!is_a($perms, 'Horde_Permission')) {
-            return PEAR::raiseError('The permissions for this share must be specified as an instance of the Horde_Permission class!');
+        if (!is_a($perms, 'Horde_Perms_Permission')) {
+            return PEAR::raiseError('The permissions for this share must be specified as an instance of the Horde_Perms_Permission class!');
         }
 
-        if (!is_a($perms, 'Horde_Permission_Kolab')) {
-            $this->_perms = new Horde_Permission_Kolab($this, $perms->data);
+        if (!is_a($perms, 'Horde_Kolab_Storage_Permission')) {
+            $this->_perms = new Horde_Kolab_Storage_Permission($this, $perms->data);
         } else {
             $this->_perms = $perms;
             $this->_perms->setFolder($this);
