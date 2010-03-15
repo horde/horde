@@ -2406,27 +2406,31 @@ KronolithCore = {
                 }
                 break;
             case 'groups':
-                $H(perm.value).each(function(group) {
-                    this.insertGroupOrUser(type, 'group', group.key);
-                    groupPerms = group.value;
-                    groupId = group.key;
-                }, this);
-                if (Object.isUndefined(basic) &&
-                    $H(perm.value).size() == 1 &&
-                    (groupPerms == (Kronolith.conf.perms.show | Kronolith.conf.perms.read) ||
-                     groupPerms == (Kronolith.conf.perms.show | Kronolith.conf.perms.read | Kronolith.conf.perms.edit))) {
-                    basic = groupPerms == (Kronolith.conf.perms.show | Kronolith.conf.perms.read) ? 'group_read' : 'group_edit';
-                } else {
-                    advanced = true;
+                if (perm.value.size()) {
+                    $H(perm.value).each(function(group) {
+                        this.insertGroupOrUser(type, 'group', group.key);
+                        groupPerms = group.value;
+                        groupId = group.key;
+                    }, this);
+                    if (Object.isUndefined(basic) &&
+                        $H(perm.value).size() == 1 &&
+                        (groupPerms == (Kronolith.conf.perms.show | Kronolith.conf.perms.read) ||
+                         groupPerms == (Kronolith.conf.perms.show | Kronolith.conf.perms.read | Kronolith.conf.perms.edit))) {
+                        basic = groupPerms == (Kronolith.conf.perms.show | Kronolith.conf.perms.read) ? 'group_read' : 'group_edit';
+                    } else {
+                        advanced = true;
+                    }
                 }
                 break;
             case 'users':
-                $H(perm.value).each(function(user) {
-                    if (user.key != Kronolith.conf.user) {
-                        this.insertGroupOrUser(type, 'user', user.key);
-                        advanced = true;
-                    }
-                }, this);
+                if (perm.value.size()) {
+                    $H(perm.value).each(function(user) {
+                        if (user.key != Kronolith.conf.user) {
+                            this.insertGroupOrUser(type, 'user', user.key);
+                            advanced = true;
+                        }
+                    }, this);
+                }
                 break;
             }
 
