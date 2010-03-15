@@ -158,6 +158,22 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testSetnameAllowsCreatingFoldersInSharedNamespace()
+    {
+        $folder = new Horde_Kolab_Storage_Folder(null);
+        $folder->restore($this->_storage, $this->_connection, new Horde_Kolab_Storage_Namespace());
+        $folder->setName('shared.test');
+        $this->assertEquals('shared.test', $folder->getName());
+    }
+
+    public function testSetnameAllowsCreatingFoldersInOthersNamespace()
+    {
+        $folder = new Horde_Kolab_Storage_Folder(null);
+        $folder->restore($this->_storage, $this->_connection, new Horde_Kolab_Storage_Namespace());
+        $folder->setName('user:test:test');
+        $this->assertEquals('user/test/test', $folder->getName());
+    }
+
     public function testFolderSubpathIsAccessibleForNewFolders()
     {
         $folder = new Horde_Kolab_Storage_Folder(null);

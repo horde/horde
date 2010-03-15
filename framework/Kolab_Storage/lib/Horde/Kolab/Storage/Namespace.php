@@ -190,8 +190,8 @@ class Horde_Kolab_Storage_Namespace
         $namespace = $this->matchNamespace($name);
         $path = explode(':', $name);
         if (empty($this->_sharedPrefix)
-            || strpos($path[0], $this->_sharedPrefix) === false
-            || in_array($path[0], array_keys($this->_namespaces[self::OTHER]))) {
+            || (strpos($path[0], $this->_sharedPrefix) === false
+                && !in_array($path[0], array_keys($this->_namespaces[self::OTHER])))) {
             $namespace = $this->_getPrimaryPersonalNamespace();
             array_unshift($path, $namespace['namespace']);
         } else {
