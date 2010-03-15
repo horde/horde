@@ -35,12 +35,10 @@ var menu = '<?php echo $menu['name']; ?>';
 var menuInfo = $H();
 var menuActions = $H(<?php echo Horde_Serialize::serialize(Shout::getMenuActions(), Horde_Serialize::JSON, Horde_Nls::getCharset()); ?>);
 var destinations = $H(<?php echo Horde_Serialize::serialize($destinations, Horde_Serialize::JSON, Horde_Nls::getCharset()); ?>);
-var curDigit = null;
 
 function editAction(digit)
 {
     if ($('selectActionForm') == null) {
-        var curDigit = digit;
         $('digitGraphic').src = '<?php echo Horde_Themes::img(null, array('notheme' => true, 'nohorde' => true)); ?>/digit-'+digit+'.png';
 
         // Draw the selectActionForm
@@ -83,7 +81,6 @@ function editAction(digit)
         var text = document.createTextNode('<?php echo _("Cancel"); ?>');
         span.appendChild(text);
         $('selectAction').appendChild(span);
-        
     }
 
     if ($('selectActionForm').getElements().first().getValue() != '') {
@@ -98,7 +95,14 @@ function editAction(digit)
         new Ajax.Updater('editAction', ajax_url + 'getActionForm',
         {
             method: 'post',
-            parameters: params
+            parameters: params,
+            onComplete: function() {
+                var hidden = document.createElement('input');
+                hidden.type = 'hidden';
+                hidden.name = 'digit';
+                hidden.value = digit;
+                $('editActionForm').appendChild(hidden);
+            }
         });
     }
 }
@@ -107,7 +111,6 @@ function saveAction(digit)
 {
     var params = $('editActionForm').serialize(true);
     params.menu = menuInfo.get('meta').name;
-    params.digit = curDigit;
     new Ajax.Request(ajax_url + 'saveAction',
     {
         method: 'post',
@@ -236,8 +239,11 @@ function refreshMenu()
             }
             break;
         case 'dial':
-            var number = pair.value.args['number'];
-            text = document.createTextNode(number);
+            if (pair.value.args.length > 1) {
+                text = document.createTextNode(pair.value.args.length + ' <?php echo _("numbers"); ?>');
+            } else {
+                text = document.createTextNode(pair.value.args.first().number);
+            }
             break;
         default:
             text = document.createTextNode('');
