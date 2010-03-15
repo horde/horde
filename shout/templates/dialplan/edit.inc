@@ -111,6 +111,7 @@ function saveAction(digit)
 {
     var params = $('editActionForm').serialize(true);
     params.menu = menuInfo.get('meta').name;
+    params.action = $('selectActionForm').getElements().first().getValue();
     new Ajax.Request(ajax_url + 'saveAction',
     {
         method: 'post',

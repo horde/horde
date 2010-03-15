@@ -200,6 +200,7 @@ class Shout_Driver_Sql extends Shout_Driver
                '(SELECT id FROM actions WHERE name = ?), ?)';
         $yamlargs = Horde_Yaml::dump($args);
         $values = array($account, $menu, $digit, $action, $yamlargs);
+        Horde::logMessage("Data: ".print_r($values, true), __FILE__, __LINE__, PEAR_LOG_ERR);
         $msg = 'SQL query in Shout_Driver_Sql#saveMenuAction(): ' . $sql;
         Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
         $result = $this->_write_db->query($sql, $values);

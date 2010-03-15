@@ -176,7 +176,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
     public function saveAction()
     {
         try {
-            $shout = $_GLOBALS['shout'] = Horde_Registry::appInit('shout');
+            $shout = $GLOBALS['shout'] = Horde_Registry::appInit('shout');
             $vars = $this->_vars;
             if (!($action = $vars->get('action'))) {
                 throw new Shout_Exception("Invalid action requested.");
@@ -190,10 +190,10 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
                 throw new Shout_Exception('Invalid action requested.');
             }
             $args = array();
-            foreach ($action[$action]['args'] as $name => $info) {
+            foreach ($actions[$action]['args'] as $name => $info) {
                 $args[$name] = $vars->get($name);
             }
-            $shout->dialplan->saveMenuAction($account, $menu, $action, $args);
+            $shout->dialplan->saveMenuAction($account, $menu, $digit, $action, $args);
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.
             Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
