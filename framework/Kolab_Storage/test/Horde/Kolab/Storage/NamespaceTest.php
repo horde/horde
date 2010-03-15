@@ -40,7 +40,6 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
 
     public function testFolderTitleIsEmptyForPrivateNamespace()
     {
-        $this->markTestIncomplete('This expectation currently does not hold as we are not using the namespace handler yet.');
         $folder = new Horde_Kolab_Storage_Folder('INBOX');
         $folder->restore($this->_storage, $this->_connection, new Horde_Kolab_Storage_Namespace());
         $this->assertEquals('', $folder->getTitle());
@@ -55,7 +54,6 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
 
     public function testFolderTitleOfOtherUserDoesNotContainUserPrefixAndOtherUserName()
     {
-        $this->markTestIncomplete('This expectation currently does not hold as we are not using the namespace handler yet.');
         $folder = new Horde_Kolab_Storage_Folder('user/test/his_folder');
         $folder->restore($this->_storage, $this->_connection, new Horde_Kolab_Storage_Namespace());
         $this->assertEquals('his_folder', $folder->getTitle());
@@ -88,7 +86,6 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
 
     public function testFolderOwnerIsCurrentUserIfPrefixMatchesPrivateNamespace()
     {
-        $this->markTestIncomplete('This expectation currently does not hold as we are not using the namespace handler yet.');
         $_SESSION['horde_auth']['userId'] = 'test';
         $folder = new Horde_Kolab_Storage_Folder('INBOX');
         $folder->restore($this->_storage, $this->_connection, new Horde_Kolab_Storage_Namespace());
