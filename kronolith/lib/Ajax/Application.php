@@ -186,11 +186,19 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
             case 'offDays':
                 $event->start->mday += $value;
                 $event->end->mday += $value;
+                if ($event->recurs()) {
+                    $event->recurrence->start->mday += $value;
+                    $event->recurrence->end->mday += $value;
+                }
                 break;
 
             case 'offMins':
                 $event->start->min += $value;
                 $event->end->min += $value;
+                if ($event->recurs()) {
+                    $event->recurrence->start->min += $value;
+                    $event->recurrence->end->min += $value;
+                }
                 break;
             }
         }
