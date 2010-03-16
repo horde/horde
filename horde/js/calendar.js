@@ -119,6 +119,7 @@ var Horde_Calendar =
             cell = new Element('TD');
 
             if (i < 1 || i > daysInMonth) {
+                cell.addClassName('hordeCalendarEmpty');
                 row.appendChild(cell);
 
                 if (count == 7) {
