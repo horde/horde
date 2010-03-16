@@ -31,12 +31,11 @@ if (!$imp_mailbox->isValidIndex(false)) {
     exit;
 }
 
-$imp_message = $injector->getInstance('IMP_Message');
+$readonly = $imp_imap->isReadOnly($imp_mbox['mailbox']);
+
+$imp_mimp = $injector->getInstance('IMP_Ui_Mimp');
 $imp_hdr_ui = new IMP_Ui_Headers();
 $imp_ui = new IMP_Ui_Message();
-
-/* Determine if mailbox is readonly. */
-$readonly = $imp_imap->isReadOnly($imp_mbox['mailbox']);
 
 /* Run through action handlers */
 $msg_delete = false;
@@ -48,21 +47,19 @@ case 'u':
     if ($readonly) {
         break;
     }
+    $index_ob = $imp_mailbox->getIMAPIndex();
+    $index_array = array($index_ob['mailbox'] => array($index_ob['uid']));
+    $imp_message = $injector->getInstance('IMP_Message');
 
-    /* Get mailbox/UID of message. */
-    $index_array = $imp_mailbox->getIMAPIndex();
-    $indices_array = array($index_array['mailbox'] => array($index_array['uid']));
-
-    if ($vars->a == 'u') {
-        $imp_message->undelete($indices_array);
-    } else {
+    if ($vars->a == 'd') {
         try {
             Horde::checkRequestToken('imp.message-mimp', $vars->mt);
-            $imp_message->delete($indices_array);
-            $msg_delete = false;
+            $msg_delete = (bool)$imp_message->delete($index_array);
         } catch (Horde_Exception $e) {
             $notification->push($e);
         }
+    } else {
+        $imp_message->undelete($index_array);
     }
     break;
 
@@ -308,7 +305,7 @@ if ($conf['notspam']['reporting'] &&
     $menu[] = array(_("Report as Innocent"), $self_link->copy()->add(array('a' => 'ri', 'mt' => Horde::getRequestToken('imp.message-mimp'))));
 }
 
-$t->set('menu', $injector->getInstance('IMP_Ui_Mimp')->getMenu('message', $menu));
+$t->set('menu', $imp_mimp->getMenu('message', $menu));
 
 $hdrs = array();
 foreach ($display_headers as $head => $val) {

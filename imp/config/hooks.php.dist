@@ -745,4 +745,37 @@ class IMP_Hooks
 //         return empty($ob['personal']) ? $ob['address'] : $ob['personal'];
 //    }
 
+
+    /**
+     * MIMP: Activate various advanced features in the minimal view.
+     *
+     * The combination of the rapid pace of development for both mobile
+     * devices and their browsers, coupled with the limited resources of an
+     * open source project to test and track these developments, make it
+     * near impossible to accurately identify a list of mobile browsers
+     * that can handle a interface with more features than the base
+     * minimal view. Therefore, this hook provides a wait for a site
+     * administrator to best decide when (and if) they want to allow this
+     * advanced functionality to be available in the minimal view.
+     *
+     * @param string $feature  The advanced feature. One of the following:
+     * <pre>
+     * 'checkbox' - Adds a checkbox interface to selecting messages on the
+     *              mailbox listing page.
+     * </pre>
+     *
+     * @return boolean  If true, activates the feature. By default, these
+     *                  advanced features are NOT active.
+     */
+//     function mimp_advanced($feature)
+//     {
+//         switch ($feature) {
+//         case 'checkbox':
+//             // Activate the mailbox checkbox interface.
+//             return true;
+//         }
+//
+//         return false;
+//     }
+
 }

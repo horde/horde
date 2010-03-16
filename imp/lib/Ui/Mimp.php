@@ -53,4 +53,33 @@ class IMP_Ui_Mimp
         return $out . '</ol>';
     }
 
+    /**
+     * [Un]Delete message(s).
+     *
+     * @param string $action  Either 'delete' or 'undelete'.
+     * @param mixed $uids     See IMP::parseIndicesList().
+     * @param string $token   Mailbox action token.
+     *
+     * @return boolean  True if messages were removed from the mailbox.
+     */
+    public function delete($action, $uids, $token)
+    {
+        switch ($action) {
+        case 'delete':
+            try {
+                Horde::checkRequestToken('imp.message-mimp', $token);
+                return (bool)$GLOBALS['injector']->getInstance('IMP_Message')->delete($uids);
+            } catch (Horde_Exception $e) {
+                $GLOBALS['notification']->push($e);
+            }
+            break;
+
+        case 'undelete':
+            $imp_message->undelete($uids);
+            break;
+        }
+
+        return false;
+    }
+
 }

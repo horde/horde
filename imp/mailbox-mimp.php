@@ -37,6 +37,38 @@ $readonly = $imp_imap->isReadOnly($imp_mbox['mailbox']);
 /* Get the base URL for this page. */
 $mailbox_url = IMP::generateIMPUrl('mailbox-mimp.php', $imp_mbox['mailbox']);
 
+/* Perform message actions (via advanced UI). */
+switch ($vars->checkbox) {
+// 'd' = delete message
+// 'u' = undelete message
+case 'd':
+case 'u':
+    if ($readonly) {
+        break;
+    }
+
+    $imp_message = $injector->getInstance('IMP_Message');
+
+    if ($vars->checkbox == 'd') {
+        try {
+            Horde::checkRequestToken('imp.message-mimp', $vars->mt);
+            $imp_message->delete($vars->indices);
+        } catch (Horde_Exception $e) {
+            $notification->push($e);
+        }
+    } else {
+        $imp_message->undelete($vars->indices);
+    }
+    break;
+
+// 'rs' = report spam
+// 'ri' = report innocent
+case 'rs':
+case 'ri':
+    IMP_Spam::reportSpam($vars->indices, $vars->a == 'rs' ? 'spam' : 'innocent');
+    break;
+}
+
 /* Run through the action handlers */
 switch ($vars->a) {
 // 'm' = message missing
@@ -131,7 +163,8 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     /* Initialize the header fields. */
     $msg = array(
         'status' => '',
-        'subject' => trim($imp_ui->getSubject($ob['envelope']['subject']))
+        'subject' => trim($imp_ui->getSubject($ob['envelope']['subject'])),
+        'uid' => $ob['uid'] . IMP::IDX_SEP . $ob['mailbox']
     );
 
     /* Format the from header. */
@@ -163,7 +196,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     /* Generate the target link. */
     $msg['target'] = in_array('\\draft', $ob['flags'])
         ? IMP::composeLink(array(), array('a' => 'd', 'thismailbox' => $imp_mbox['mailbox'], 'uid' => $ob['uid'], 'bodypart' => 1))
-         : IMP::generateIMPUrl('message-mimp.php', $imp_mbox['mailbox'], $ob['uid'], $ob['mailbox']);
+        : IMP::generateIMPUrl('message-mimp.php', $imp_mbox['mailbox'], $ob['uid'], $ob['mailbox']);
 
     $msgs[] = $msg;
 }
@@ -227,6 +260,15 @@ if ($pageOb['page'] != $pageOb['pagecount']) {
 }
 
 $t->set('menu', $imp_ui_mimp->getMenu('mailbox', $menu));
+
+/* Activate advanced checkbox UI? */
+try {
+    if (Horde::callHook('mimp_advanced', array('checkbox'), 'imp')) {
+        $t->set('checkbox', $mailbox_url->copy()->add('p', $pageOb['page']));
+        $t->set('forminput', Horde_Util::formInput());
+        $t->set('mt', Horde::getRequestToken('imp.message-mimp'));
+    }
+} catch (Horde_Exception_HookNotSet $e) {}
 
 require_once IMP_TEMPLATES . '/common-header.inc';
 IMP::status();
