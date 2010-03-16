@@ -46,10 +46,13 @@
  *   Fired on mousemove.
  *
  * 'DragDrop2:end'
+ *   Fired on mouseup.
+ *
+ * 'DragDrop2:mousedown'
  *   Fired on mousedown.
  *
  * 'DragDrop2:start'
- *   Fired on mouseup.
+ *   Fired when first moved more than 'threshold'.
  *
  *
  * new Drop(element, {
@@ -263,9 +266,11 @@ Drag = Class.create({
         DragDrop.Drags.activate(this);
         this.move = 0;
         this.wasDragged = false;
+        this.wasMoved = false;
         this.lastcaption = null;
+        this.clickEvent = e;
 
-        this.element.fire('DragDrop2:start', e);
+        this.element.fire('DragDrop2:mousedown', e);
 
         if (this.options.ghosting || this.options.caption) {
             if (!DragDrop.Drags.cover) {
@@ -305,6 +310,9 @@ Drag = Class.create({
 
         if (++this.move <= this.options.threshold) {
             return;
+        } else if (!this.wasMoved) {
+            this.element.fire('DragDrop2:start', this.clickEvent);
+            this.wasMoved = true;
         }
 
         this.lastCoord = xy = [ e.pointerX(), e.pointerY() ];

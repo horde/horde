@@ -1607,7 +1607,7 @@ var DimpBase = {
         return cnt + ' ' + (cnt == 1 ? DIMP.text.message : DIMP.text.messages);
     },
 
-    onDragStart: function(e)
+    onDragMouseDown: function(e)
     {
         var args,
             elt = e.element(),
@@ -3077,7 +3077,7 @@ DimpBase._folderDropConfig = {
 document.observe('DragDrop2:drag', DimpBase.onDrag.bindAsEventListener(DimpBase));
 document.observe('DragDrop2:drop', DimpBase.folderDropHandler.bindAsEventListener(DimpBase));
 document.observe('DragDrop2:end', DimpBase.onDragEnd.bindAsEventListener(DimpBase));
-document.observe('DragDrop2:start', DimpBase.onDragStart.bindAsEventListener(DimpBase));
+document.observe('DragDrop2:mousedown', DimpBase.onDragMouseDown.bindAsEventListener(DimpBase));
 
 /* Route AJAX responses through ViewPort. */
 DimpCore.onDoActionComplete = function(r) {
