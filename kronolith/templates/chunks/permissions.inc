@@ -61,7 +61,7 @@ if (count($groups) > 1) {
 <?php endforeach; ?>
           </select>
 <?php else: ?>
-          <input type="text" name="owner_input" size="50" value="<?php echo htmlspecialchars(Horde_Auth::getAuth()) ?>" />
+          <input type="text" name="owner_input" size="50" value="<?php echo htmlspecialchars(Horde_Auth::getAuth()) ?>" class="kronolithLongField" />
 <?php endif; ?>
           </td>
         </tr>
@@ -71,7 +71,7 @@ if (count($groups) > 1) {
     <table width="100%" cellspacing="0" cellpadding="0" border="0">
       <thead>
         <tr valign="middle">
-          <th><?php echo _("Sharing") ?></th>
+          <th><?php echo _("Default users") ?></th>
           <th colspan="<?php echo $type == 'internal' ? 5 : 4 ?>"><?php echo _("Permissions") ?></th>
         </tr>
       </thead>
@@ -159,12 +159,21 @@ if (count($groups) > 1) {
         </td>
         <?php endif; ?>
       </tr>
+      </tbody>
+    </table>
 
-      <!-- User Permissions -->
+    <!-- User Permissions -->
+    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+      <thead>
+        <tr valign="middle">
+          <th><?php echo _("Users") ?></th>
+	  <th colspan="<?php echo $type == 'internal' ? 5 : 4 ?>"><?php echo _("Permissions") ?></th>
+        </tr>
+      </thead>
+      <tbody>
       <tr>
         <td>
-          <?php echo _("User:") ?>
-          <label for="kronolithC<?php echo $type ?>PUNew" class="hidden"><?php echo _("User to add:") ?></label>
+          <label for="kronolithC<?php echo $type ?>PUNew" class="hidden"><?php echo _("User to add") ?>:</label>
           <?php if ($auth->hasCapability('list') && ($GLOBALS['conf']['auth']['list_users'] == 'list' || $GLOBALS['conf']['auth']['list_users'] == 'both')): ?>
           <select id="kronolithC<?php echo $type ?>PUNew" name="u_names[||new]" onchange="KronolithCore.insertGroupOrUser('<?php echo $type ?>', 'user')">
             <option value=""><?php echo _("Select a user") ?></option>
@@ -175,7 +184,7 @@ if (count($groups) > 1) {
             <?php endforeach; ?>
           </select>
           <?php else: ?>
-          <input type="text" id="kronolithC<?php echo $type ?>PUNew" name="u_names[||new]" onchange="KronolithCore.insertGroupOrUser('<?php echo $type ?>', 'user')" />
+          <input type="text" id="kronolithC<?php echo $type ?>PUNew" name="u_names[||new]" onchange="KronolithCore.insertGroupOrUser('<?php echo $type ?>', 'user')" size="30" />
           <?php endif; ?>
         </td>
         <td>
@@ -201,11 +210,20 @@ if (count($groups) > 1) {
         </td>
         <?php endif; ?>
       </tr>
+      </tbody>
+    </table>
 
-      <!-- Group Permissions -->
+    <!-- Group Permissions -->
+    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+      <thead>
+        <tr valign="middle">
+          <th><?php echo _("Groups") ?></th>
+          <th colspan="<?php echo $type == 'internal' ? 5 : 4 ?>"><?php echo _("Permissions") ?></th>
+        </tr>
+      </thead>
+      <tbody>
       <tr>
         <td>
-          <?php echo _("Group:") ?>
           <label for="kronolithC<?php echo $type ?>PGNew" class="hidden"><?php echo _("Select a group to add:") ?></label>
           <select id="kronolithC<?php echo $type ?>PGNew" name="g_names[||new]" onchange="KronolithCore.insertGroupOrUser('<?php echo $type ?>', 'group')">
             <option value=""><?php echo _("Select a group") ?></option>
