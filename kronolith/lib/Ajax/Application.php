@@ -81,12 +81,26 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
             return $result;
         }
 
+        if (!$this->_vars->event) {
+            $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+            if ($perms->hasAppPermission('max_events') !== true &&
+                $perms->hasAppPermission('max_events') <= Kronolith::countEvents()) {
+                try {
+                    $message = Horde::callHook('perms_denied', array('kronolith:max_events'));
+                } catch (Horde_Exception_HookNotSet $e) {
+                    $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d events."), $perms->hasAppPermission('max_events')), ENT_COMPAT, Horde_Nls::getCharset());
+                }
+                $GLOBALS['notification']->push($message, 'horde.error', array('content.raw'));
+                return $result;
+            }
+        }
+
         $event = $kronolith_driver->getEvent($this->_vars->event);
         if (!$event) {
             $GLOBALS['notification']->push(_("The requested event was not found."), 'horde.error');
             return $result;
         } elseif (!$event->hasPermission(Horde_Perms::EDIT)) {
-            $notification->push(_("You do not have permission to edit this event."), 'horde.warning');
+            $GLOBALS['notification']->push(_("You do not have permission to edit this event."), 'horde.warning');
             return $result;
         }
 
