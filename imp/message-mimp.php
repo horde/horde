@@ -48,6 +48,7 @@ case 'u':
         break;
     }
     $index_ob = $imp_mailbox->getIMAPIndex();
+    $msg_index = $imp_mailbox->getMessageIndex();
     $index_array = array($index_ob['mailbox'] => array($index_ob['uid']));
     $imp_message = $injector->getInstance('IMP_Message');
 
@@ -67,8 +68,10 @@ case 'u':
 // 'ri' = report innocent
 case 'rs':
 case 'ri':
-    $index_array = $imp_mailbox->getIMAPIndex();
-    $msg_delete = (IMP_Spam::reportSpam(array($index_array['mailbox'] => array($index_array['uid'])), $vars->a == 'rs' ? 'spam' : 'innocent') === 1);
+    $index_ob = $imp_mailbox->getIMAPIndex();
+    $msg_index = $imp_mailbox->getMessageIndex();
+
+    $msg_delete = (IMP_Spam::reportSpam(array($index_ob['mailbox'] => array($index_ob['uid'])), $vars->a == 'rs' ? 'spam' : 'innocent') === 1);
     break;
 
 // 'pa' = part action
@@ -84,15 +87,15 @@ if ($imp_ui->moveAfterAction()) {
  * case. */
 if (!$imp_mailbox->isValidIndex() ||
     ($msg_delete && $prefs->getValue('mailbox_return'))) {
-    header('Location: ' . IMP::generateIMPUrl('mailbox-mimp.php', $imp_mbox['mailbox'])->setRaw(true)->add('s', $imp_mailbox->getMessageIndex()));
+    header('Location: ' . IMP::generateIMPUrl('mailbox-mimp.php', $imp_mbox['mailbox'])->setRaw(true)->add('s', $msg_index));
     exit;
 }
 
 /* Now that we are done processing the messages, get the index and
  * array index of the current message. */
-$index_array = $imp_mailbox->getIMAPIndex();
-$mailbox_name = $index_array['mailbox'];
-$uid = $index_array['uid'];
+$index_ob = $imp_mailbox->getIMAPIndex();
+$mailbox_name = $index_ob['mailbox'];
+$uid = $index_ob['uid'];
 
 /* Get envelope/flag/header information. */
 try {
