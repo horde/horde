@@ -80,10 +80,11 @@ implements Horde_Kolab_Server_Interface
         } catch (Horde_Kolab_Server_Exception $e) {
             $this->_logger->info(
                 sprintf(
-                    "Failed saving object \"%s\"! Error: %s",
-                    $object->getGuid(), $e->getMessage()
+                    "Failed connecting to the Kolab Server as \"%s\"! Error: %s",
+                    $guid, $e->getMessage()
                 )
             );
+            throw $e;
         }
     }
 
