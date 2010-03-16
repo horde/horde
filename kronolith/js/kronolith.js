@@ -2329,9 +2329,10 @@ KronolithCore = {
             switch (type) {
             case 'internal':
                 kronolithCTagAc.reset();
+                $('kronolithCalendar' + type + 'LinkImport').up('span').hide();
                 // Fall through.
             case 'tasklists':
-                $('kronolithCalendar' + type + 'LinkImportExport').up('span').hide();
+                $('kronolithCalendar' + type + 'LinkExport').up('span').hide();
                 break;
             case 'remote':
                 if (calendar) {
@@ -2354,10 +2355,11 @@ KronolithCore = {
             case 'internal':
                 kronolithCTagAc.reset(Kronolith.conf.calendars.internal[calendar].tg);
                 $('kronolithCalendar' + type + 'ImportCal').setValue(calendar);
+                $('kronolithCalendar' + type + 'LinkImport').up('span').show();
                 // Fall through.
             case 'tasklists':
                 $('kronolithCalendar' + type + 'Description').setValue(info.desc);
-                $('kronolithCalendar' + type + 'LinkImportExport').up('span').show();
+                $('kronolithCalendar' + type + 'LinkExport').up('span').show();
                 $('kronolithCalendar' + type + 'Export').href = type == 'internal'
                     ? Kronolith.conf.URI_CALENDAR_EXPORT + '=' + calendar
                     : Kronolith.conf.tasks.URI_TASKLIST_EXPORT + '=' + calendar.substring(6);
