@@ -1,6 +1,6 @@
 <?php
 /**
- * Provides minimalist view (MIMP) helper functions.
+ * Provides minimal view (MIMP) helper functions.
  *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *

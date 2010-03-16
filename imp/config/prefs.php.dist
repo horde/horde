@@ -202,7 +202,7 @@ if (Horde_Util::extensionExists('openssl') && isset($GLOBALS['conf']['openssl'][
 
 $prefGroups['mimp'] = array(
     'column' => _("Other Options"),
-    'label' => _("Minimalist View Options"),
+    'label' => _("Minimal View Options"),
     'desc' => _("Configure options for the minimalist view."),
     'members' => array('mimp_preview_msg', 'mimp_download_confirm',
                        'mimp_inline_all')
@@ -1623,7 +1623,7 @@ $_prefs['smime_additional_cert'] = array(
 
 // End S/MIME Options
 
-// Minimalist View Options
+// Minimal View Options
 
 // display only the first 250 characters of a message on first message view?
 $_prefs['mimp_preview_msg'] = array(
@@ -1652,7 +1652,7 @@ $_prefs['mimp_inline_all'] = array(
     'desc' => _("Show all inline parts by default in message view? If unchecked, will treat all but the first viewable inline part as attachments.")
 );
 
-// End Minimalist View Options
+// End Minimal View Options
 
 // Standard View Options
 

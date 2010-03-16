@@ -1,6 +1,6 @@
 <?php
 /**
- * Minimalist (mimp) compose display page.
+ * Minimal (MIMP) compose display page.
  *
  * URL Parameters:
  *   'a' = (string) The action ID.
