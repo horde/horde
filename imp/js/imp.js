@@ -37,7 +37,7 @@ document.observe('dom:loaded', function() {
 
         e.stop();
 
-        elt.fade({
+        elt.slideUp({
             afterFinish: function() { elt.remove(); },
             duration: 0.6
         });
