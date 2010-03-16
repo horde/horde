@@ -191,7 +191,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     /* Thread display. */
     $msg['thread'] = empty($threadtree[$ob['uid']])
         ? ''
-        : $threadtree[$ob['uid']];
+        : str_replace(' ', '&nbsp;', $threadtree[$ob['uid']]);
 
     /* Generate the target link. */
     $msg['target'] = in_array('\\draft', $ob['flags'])
