@@ -773,6 +773,10 @@ class IMP_Hooks
 //         case 'checkbox':
 //             // Activate the mailbox checkbox interface.
 //             return true;
+//
+//         case 'compose_attach':
+//             // Activate the compose attachment interface.
+//             return true;
 //         }
 //
 //         return false;

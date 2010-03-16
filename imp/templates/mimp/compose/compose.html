@@ -1,6 +1,6 @@
   <div><tag:title /></div>
   <hr />
-  <form action="<tag:url />" method="post">
+  <form action="<tag:url />" method="post" <if:attach><if:attach_data><else:attach_data>enctype="multipart/form-data"</else:attach_data></if:attach_data></if:attach>>
    <input type="hidden" name="composeCache" value="<tag:cacheid />" />
 <if:redirect>
    <input type="hidden" name="action" value="rc" />
@@ -55,6 +55,17 @@
     <input type="submit" name="a" value="<gettext>Expand Names</gettext>" />
     <input type="submit" name="a" value="<gettext>Cancel</gettext>" />
    </p>
+<if:attach>
+   <hr />
+   <p>
+    <gettext>Attach</gettext>:
+<if:attach_data>
+    <tag:attach_data />
+<else:attach_data>
+    <input name="upload_1" type="file" />
+</else:attach_data></if:attach_data>
+   </p>
+</if:attach>
   </form>
   <hr />
   <div><gettext>Menu</gettext></div>

@@ -2,8 +2,10 @@
 v5.0-git
 --------
 
-[mms] Add checkbox interface to mailbox page for advanced mobile browsers
-      (MIMP).
+[mms] Add ability to add attachments to composed messages for advanced mobile
+      browsers - disabled by default (MIMP).
+[mms] Add checkbox interface to mailbox page for advanced mobile browsers -
+      disabled by default (MIMP).
 [mms] Add preference to allow viewing of all inline parts by default (MIMP).
 [mms] Add hook to alter composed message details before sending.
 [mms] DIMP now honors the 'allow_resume_all' configuration option.
