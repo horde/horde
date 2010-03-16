@@ -2327,14 +2327,14 @@ class IMP_Compose
         }
 
         foreach ($this->getAttachments() as $att) {
-            $trailer .= "\n" . $baseurl->copy()->add(array('u' => $auth, 't' => $ts, 'f' => $att->getName()));
+            $trailer .= "\n" . $baseurl->copy()->add(array('u' => $auth, 't' => $ts, 'f' => $att['part']->getName()));
 
             try {
-                if ($conf['compose']['use_vfs']) {
-                    $vfs->rename(self::VFS_ATTACH_PATH, $att->getInformation('temp_filename'), $fullpath, escapeshellcmd($att->getName()));
+                if ($att['filetype'] == 'vfs') {
+                    $vfs->rename(self::VFS_ATTACH_PATH, $att['filename'], $fullpath, escapeshellcmd($att['part']->getName()));
                 } else {
-                    $data = file_get_contents($att->getInformation('temp_filename'));
-                    $vfs->writeData($fullpath, escapeshellcmd($att->getName()), $data, true);
+                    $data = file_get_contents($att['filename']);
+                    $vfs->writeData($fullpath, escapeshellcmd($att['part']->getName()), $data, true);
                 }
             } catch (VFS_Exception $e) {
                 Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
