@@ -110,6 +110,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
         if (($result !== true) && $this->_vars->sendupdates) {
             Kronolith::sendITipNotifications($event, $GLOBALS['notification'], Kronolith::ITIP_REQUEST);
         }
+        Kronolith::notifyOfResourceRejection($event);
 
         return $result;
     }
