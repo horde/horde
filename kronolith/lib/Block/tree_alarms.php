@@ -33,12 +33,11 @@ class Horde_Block_kronolith_tree_alarms extends Horde_Block {
                 $alarmCount++;
                 $tree->addNode($parent . $calId . $event->id,
                                $parent,
-                               $event->getTitle(),
+                               htmlspecialchars($event->getTitle(), ENT_COMPAT, Horde_Nls::getCharset()),
                                $indent + 1,
                                false,
                                array('icon' => 'alarm.png',
                                      'icondir' => (string)Horde_Themes::img(),
-                                     'title' => $event->getTooltip(),
                                      'url' => $event->getViewUrl()));
             }
         }
