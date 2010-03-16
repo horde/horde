@@ -691,33 +691,33 @@ ul.sound-list {
 }
 
 /* Calendar Popup. */
-table.calendarPopup {
+.hordeCalendarPopup {
     border: 1px solid #ccc;
     background: #fff;
     width: 12em;
 }
-.calendarPopup thead {
+.hordeCalendarPopup thead {
     font-weight: bold;
 }
-.calendarPopup th {
+.hordeCalendarPopup th {
     border-bottom: 1px solid #ccc;
 }
-.calendarPopup tbody {
+.hordeCalendarPopup tbody {
     text-align: right;
 }
-.calendarPopup a {
+.hordeCalendarPopup a {
     color: #000;
     display: block;
     padding: 2px;
 }
-.calendarPopup tbody a:hover {
+.hordeCalendarPopup tbody a:hover {
     background: #ffc;
 }
-.calendarPopup .current {
+.hordeCalendarPopup .hordeCalendarCurrent {
     font-weight: bold;
     background: #eef;
 }
-.calendarPopup .today {
+.hordeCalendarPopup .hordeCalendarToday {
     font-weight: bold;
 }
 

@@ -70,7 +70,7 @@ var Horde_Calendar =
 
         var cell, i, i_max, p, row, startOfView, vp,
             count = 1,
-            div = $('horde-calendar'),
+            div = $('hordeCalendar'),
             tbody = div.down('TBODY'),
 
             // Requires init above
@@ -133,13 +133,13 @@ var Horde_Calendar =
             if (today_year == this.year &&
                 today_month == this.month &&
                 today_day == i) {
-                cell.writeAttribute({ className: 'today' });
+                cell.writeAttribute({ className: 'hordeCalendarToday' });
             }
 
             if (open_year == this.year &&
                 open_month == this.month &&
                 open_day == i) {
-                cell.addClassName('current');
+                cell.addClassName('hordeCalendarCurrent');
             }
 
             row.insert(cell.insert(new Element('A', { href: '#' }).insert(i).observe('click', this.dayOnClick.bindAsEventListener(this))));
@@ -178,9 +178,9 @@ var Horde_Calendar =
 
         // IE 6 only.
         if (Prototype.Browser.IE && !window.XMLHttpRequest) {
-            iframe = $('iframe_tt');
+            iframe = $('hordeCalendarIframe');
             if (!iframe) {
-                iframe = new Element('IFRAME', { name: 'iframe_tt', id: 'iframe_tt', src: 'javascript:false;', scrolling: 'no', frameborder: 0 }).hide();
+                iframe = new Element('IFRAME', { name: 'hordeCalendarIframe', id: 'hordeCalendarIframe', src: 'javascript:false;', scrolling: 'no', frameborder: 0 }).hide();
                 document.body.appendChild(iframe);
             }
             iframe.clonePosition(div).setStyle({
@@ -203,9 +203,9 @@ var Horde_Calendar =
 
     hideCal: function()
     {
-        var iefix = $('ieframe_tt');
+        var iefix = $('hordeCalendarIframe');
 
-        $('horde-calendar').hide();
+        $('hordeCalendar').hide();
 
         if (iefix) {
             iefix.hide();
@@ -234,7 +234,7 @@ var Horde_Calendar =
     {
         var i, link, row,
             thead = new Element('THEAD'),
-            table = new Element('TABLE', { className: 'calendarPopup', cellSpacing: 0 }).insert(thead).insert(new Element('TBODY'));
+            table = new Element('TABLE', { className: 'hordeCalendarPopup', cellSpacing: 0 }).insert(thead).insert(new Element('TBODY'));
 
         // Title bar.
         link = new Element('A', { href: '#' }).insert('x');
@@ -276,7 +276,7 @@ var Horde_Calendar =
         }
         thead.insert(row);
 
-        $(document.body).insert({ bottom: new Element('DIV', { id: 'horde-calendar' }).setStyle({ position: 'absolute' }).hide().insert(table) });
+        $(document.body).insert({ bottom: new Element('DIV', { id: 'hordeCalendar' }).setStyle({ position: 'absolute' }).hide().insert(table) });
     }
 
 };

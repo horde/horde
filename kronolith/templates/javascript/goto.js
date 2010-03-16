@@ -88,7 +88,7 @@ function openKGoto(d, event)
     var tbody = document.createElement('TBODY');
     table.appendChild(thead);
     table.appendChild(tbody);
-    table.className = 'calendarPopup';
+    table.className = 'hordeCalendarPopup';
     table.cellSpacing = 0;
 
     // Title.
@@ -254,7 +254,7 @@ function openKGoto(d, event)
         if (thisYear == year &&
             today.getMonth() == month &&
             today.getDate() == i) {
-            cell.className = 'today';
+            cell.className = 'hordeCalendarToday';
         }
         link = document.createElement('A');
         link.href = '<?php echo Horde::applicationUrl('day.php') ?>';

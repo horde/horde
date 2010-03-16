@@ -178,7 +178,7 @@ var Horde_Calendar = {
         var tbody = document.createElement('TBODY');
         table.appendChild(thead);
         table.appendChild(tbody);
-        table.className = 'calendarPopup';
+        table.className = 'hordeCalendarPopup';
         table.cellSpacing = 0;
 
         // Title bar.
@@ -330,15 +330,15 @@ var Horde_Calendar = {
             if (today_year == year &&
                 today_month == month &&
                 today_day == i) {
-                cell.className = 'today';
+                cell.className = 'hordeCalendarToday';
             }
             if (open_year == year &&
                 open_month == month &&
                 open_day == i) {
                 if (cell.className.length) {
-                    cell.className += ' current';
+                    cell.className += ' hordeCalendarCurrent';
                 } else {
-                    cell.className = 'current';
+                    cell.className = 'hordeCalendarCurrent';
                 }
             }
 
