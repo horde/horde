@@ -3331,6 +3331,11 @@ KronolithCore = {
                               function(r) {
                                   if (r.response.deleted) {
                                       this.removeTask(taskid, tasklist);
+                                      if ($('kronolithViewTasksBody').select('tr').length > 3) {
+                                          $('kronolithTasksNoItems').hide();
+                                      } else {
+                                          $('kronolithTasksNoItems').show();
+                                      }
                                   } else {
                                       $('kronolithViewTasksBody').select('tr').find(function(el) {
                                           return el.retrieve('tasklist') == tasklist &&
