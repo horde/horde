@@ -265,7 +265,7 @@ class Horde_Mime_Headers
     public function getUserAgent()
     {
         if (is_null($this->_agent)) {
-            $this->_agent = 'Horde Application Framework 4.0';
+            $this->_agent = 'Horde Application Framework v4';
         }
         return $this->_agent;
     }
