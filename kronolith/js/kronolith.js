@@ -3188,7 +3188,9 @@ KronolithCore = {
 
             case 'kronolithEventDelete':
                 var cal = $F('kronolithEventCalendar'),
-                    eventid = $F('kronolithEventId');
+                    eventid = $F('kronolithEventId'),
+                    view = this.view,
+                    date = this.date;
                 this.doAction('deleteEvent',
                               { cal: cal, id: eventid },
                               function(r) {
@@ -3199,6 +3201,12 @@ KronolithCore = {
                                           return el.retrieve('calendar') == cal &&
                                               el.retrieve('eventid') == eventid;
                                       }).invoke('toggle');
+                                  }
+                                  if (view == this.view &&
+                                      date.equals(this.date) &&
+                                      (view == 'week' || view == 'day')) {
+                                      // Re-render.
+                                      this.insertEvents(this.viewDates(this.date, view), view);
                                   }
                               }.bind(this));
                 $('kronolithBody').select('div').findAll(function(el) {
