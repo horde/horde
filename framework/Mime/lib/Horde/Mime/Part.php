@@ -1501,15 +1501,11 @@ class Horde_Mime_Part
 
         $this->_basepart = $old_basepart;
 
-        if (is_a($result, 'PEAR_Error') && ($driver == 'sendmail')) {
+        if (($result instanceof PEAR_Error) && ($driver == 'sendmail')) {
             $error = Horde_Mime_Mail::sendmailError($result->getCode());
             if (is_null($error)) {
                 $error = $result;
-                $userinfo = null;
-            } else {
-                $userinfo = $result->toString();
             }
-            // TODO: userinfo
             throw new Horde_Mime_Exception($error);
         }
 
