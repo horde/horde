@@ -1443,7 +1443,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             $headers['from'] = $identity->getFromLine(null, $this->_vars->from);
         } catch (Horde_Exception $e) {
             $GLOBALS['notification']->push($e);
-            $result->success = 1;
+            $result->success = 0;
             return array($result);
         }
 
