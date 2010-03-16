@@ -238,6 +238,7 @@ class Horde_Registry
         $injector->addBinder('Horde_Perms', new Horde_Core_Binder_Perms());
         $injector->addBinder('Horde_Template', new Horde_Core_Binder_Template());
         $injector->addBinder('Net_DNS_Resolver', new Horde_Core_Binder_Dns());
+        $injector->bindFactory('Horde_Kolab_Server_Composite', 'Horde_Core_Factory_KolabServer', 'getComposite');
 
         $GLOBALS['registry'] = $this;
         $injector->setInstance('Horde_Registry', $this);

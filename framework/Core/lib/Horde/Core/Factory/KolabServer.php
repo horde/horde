@@ -1,14 +1,14 @@
 <?php
 /**
- * A library for accessing the Kolab user database.
+ * A factory for Kolab server objects.
  *
  * PHP version 5
  *
- * @category Kolab
- * @package  Kolab_Server
+ * @category Horde
+ * @package  Core
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ * @link     http://pear.horde.org/index.php?package=Core
  */
 
 /**
@@ -19,14 +19,13 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @category Kolab
- * @package  Kolab_Server
+ * @category Horde
+ * @package  Core
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ * @link     http://pear.horde.org/index.php?package=Core
  */
-class Horde_Kolab_Server_Factory_Injector
-implements Horde_Kolab_Server_Factory_Interface
+class Horde_Core_Factory_KolabServer
 {
     /**
      * The injector.
@@ -43,62 +42,8 @@ implements Horde_Kolab_Server_Factory_Interface
     public function __construct(
         Horde_Injector $injector
     ) {
-        $this->_injector      = $injector;
+        $this->_injector = $injector;
         $this->_setup();
-    }
-
-    /**
-     * Prepares the injector with basic configuration information.
-     *
-     * @param string         $factory  The class name of the conn connection
-     *                                 factory.
-     * @param array          $config   Configuration parameters for the server.
-     * @param Horde_Injector $injector The injector to use.
-     *
-     * @return NULL
-     */
-    static public function setup(
-        $factory,
-        array $config,
-        Horde_Injector $injector
-    ) {
-        self::_setupConfiguration($config, $injector);
-        self::_setupConnectionFactory($factory, $injector);
-    }
-
-    /**
-     * Inject the server configuration.
-     *
-     * @param array          $config   Configuration parameters for the server.
-     * @param Horde_Injector $injector The injector to use.
-     *
-     * @return NULL
-     */
-    static private function _setupConfiguration(
-        array $config,
-        Horde_Injector $injector
-    ) {
-        $injector->setInstance(
-            'Horde_Kolab_Server_Configuration', $config
-        );
-    }
-
-    /**
-     * Setup the machinery to create a Horde_Kolab_Server_Factory_Conn.
-     *
-     * @param string         $factory  The class name of the conn connection
-     *                                 factory.
-     * @param Horde_Injector $injector The injector to use.
-     *
-     * @return NULL
-     */
-    static private function _setupConnectionFactory(
-        $factory,
-        Horde_Injector $injector
-    ) {
-        $injector->bindImplementation(
-            'Horde_Kolab_Server_Factory_Connection_Interface', $factory
-        );
     }
 
     /**
@@ -108,12 +53,64 @@ implements Horde_Kolab_Server_Factory_Interface
      */
     private function _setup()
     {
+        $this->_setupConfiguration();
+        $this->_setupConnection();
         $this->_setupObjects();
         $this->_setupSearch();
         $this->_setupSchema();
         $this->_setupStructure();
-        $this->_setupConnection();
         $this->_setupServer();
+    }
+
+    /**
+     * Inject the server configuration.
+     *
+     * @return NULL
+     */
+    private function _setupConfiguration()
+    {
+        $configuration = array();
+
+        //@todo: Update configuration parameters
+        if (!empty($GLOBALS['conf']['kolab']['ldap'])) {
+            $configuration = $GLOBALS['conf']['kolab']['ldap'];
+        }
+        if (!empty($GLOBALS['conf']['kolab']['server'])) {
+            $configuration = $GLOBALS['conf']['kolab']['server'];
+        }
+
+        if (isset($configuration['server'])) {
+            $configuration['host'] = $configuration['server'];
+            unset($configuration['server']);
+        }
+
+        if (isset($configuration['phpdn'])) {
+            $configuration['binddn'] = $configuration['phpdn'];
+            unset($configuration['phpdn']);
+        }
+
+        if (isset($configuration['phppw'])) {
+            $configuration['bindpw'] = $configuration['phppw'];
+            unset($configuration['phppw']);
+        }
+
+        $this->_injector->setInstance(
+            'Horde_Kolab_Server_Configuration', $configuration
+        );
+    }
+
+    /**
+     * Setup the machinery to create a Horde_Kolab_Server_Connection.
+     *
+     * @return NULL
+     */
+    private function _setupConnection()
+    {
+        $this->_injector->bindFactory(
+            'Horde_Kolab_Server_Connection',
+            'Horde_Core_Factory_KolabServer',
+            'getConnection'
+        );
     }
 
     /**
@@ -179,38 +176,12 @@ implements Horde_Kolab_Server_Factory_Interface
      *
      * @return NULL
      */
-    private function _setupConnection()
-    {
-        $this->_injector->bindFactory(
-            'Horde_Kolab_Server_Connection_Interface',
-            'Horde_Kolab_Server_Factory_Connection_Injector',
-            'getConnection'
-        );
-    }
-
-    /**
-     * Setup the machinery to create a Horde_Kolab_Server.
-     *
-     * @return NULL
-     */
     private function _setupServer()
     {
         $this->_injector->bindFactory(
             'Horde_Kolab_Server_Interface',
-            'Horde_Kolab_Server_Factory_Injector',
+            'Horde_Core_Factory_KolabServer',
             'getServer'
-        );
-    }
-
-    /**
-     * Return the conn server connection that should be used.
-     *
-     * @return Horde_Kolab_Server The Horde_Kolab_Server connection.
-     */
-    public function getConnectionFactory()
-    {
-        return $this->_injector->getInstance(
-            'Horde_Kolab_Server_Factory_Connection_Interface'
         );
     }
 
@@ -221,9 +192,38 @@ implements Horde_Kolab_Server_Factory_Interface
      */
     public function getConnection()
     {
-        return $this->_injector->getInstance(
-            'Horde_Kolab_Server_Connection_Interface'
-        );
+        $configuration = $this->_injector->getInstance('Horde_Kolab_Server_Configuration');
+        if (empty($configuration['mock'])) {
+            if (!isset($configuration['basedn'])) {
+                throw new Horde_Exception('The parameter \'basedn\' is missing in the Kolab server configuration!');
+            }
+
+            $ldap_read = new Horde_Ldap($configuration);
+            if (isset($configuration['host_master'])) {
+                $configuration['host'] = $configuration['host_master'];
+                $ldap_write = new Horde_Ldap($configuration);
+                $connection = new Horde_Kolab_Server_Connection_Splittedldap(
+                    $ldap_read, $ldap_write
+                );
+            } else {
+                $connection = new Horde_Kolab_Server_Connection_Simpleldap(
+                    $ldap_read
+                );
+            }
+            return $connection;
+        } else {
+            if (isset($configuration['data'])) {
+                $data = $configuration['data'];
+            } else {
+                $data = array();
+            }
+            $connection = new Horde_Kolab_Server_Connection_Mock(
+                new Horde_Kolab_Server_Connection_Mock_Ldap(
+                    $configuration, $data
+                )
+            );
+            return $connection;
+        }
     }
 
     /**
@@ -245,7 +245,7 @@ implements Horde_Kolab_Server_Factory_Interface
     {
         $configuration = $this->getConfiguration();
         if (!isset($configuration['basedn'])) {
-            throw new Horde_Kolab_Server_Exception('The base DN is missing!');
+            throw new Horde_Exception('The parameter \'basedn\' is missing in the Kolab server configuration!');
         }
 
         $connection = $this->getConnection();
@@ -260,6 +260,30 @@ implements Horde_Kolab_Server_Factory_Interface
                 $connection,
                 $configuration['basedn'],
                 $configuration['filter']
+            );
+        }
+
+        if (isset($configuration['map'])) {
+            $server = new Horde_Kolab_Server_Decorator_Map(
+                $server, $configuration['map']
+            );
+        }
+
+        if (isset($configuration['debug']) || isset($configuration['log'])) {
+            $server = new Horde_Kolab_Server_Decorator_Log(
+                $server, $this->_injector->getInstance('Horde_Log_Logger')
+            );
+        }
+
+        if (isset($configuration['debug']) || isset($configuration['count'])) {
+            $server = new Horde_Kolab_Server_Decorator_Count(
+                $server, $this->_injector->getInstance('Horde_Log_Logger')
+            );
+        }
+
+        if (!empty($configuration['cleanup'])) {
+            $server = new Horde_Kolab_Server_Decorator_Clean(
+                $server
             );
         }
         return $server;
@@ -323,8 +347,12 @@ implements Horde_Kolab_Server_Factory_Interface
      */
     public function getComposite()
     {
-        return $this->_injector->getInstance(
-            'Horde_Kolab_Server_Composite'
+        return new Horde_Kolab_Server_Composite(
+            $this->getServer(),
+            $this->getObjects(),
+            $this->getStructure(),
+            $this->getSearch(),
+            $this->getSchema()
         );
     }
 }

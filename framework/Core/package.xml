@@ -72,6 +72,9 @@ Application Framework.
        <file name="Perms.php" role="php" />
        <file name="Template.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Binder -->
+      <dir name="Factory">
+       <file name="KolabServer.php" role="php" />
+      </dir> <!-- /lib/Horde/Core/Factory -->
       <dir name="Notification">
        <file name="Status.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Notification -->
@@ -103,6 +106,12 @@ Application Framework.
    <dir name="test">
     <dir name="Horde">
      <dir name="Core">
+      <file name="AllTests.php" role="test" />
+      <file name="Autoload.php" role="test" />
+      <dir name="Factory">
+       <file name="KolabServerTest.php" role="test" />
+      </dir> <!-- /test/Horde/Core/Factory -->
+      <file name="phpunit.xml" role="test" />
       <file name="url.phpt" role="test" />
      </dir> <!-- /test/Horde/Core -->
     </dir> <!-- /test/Horde -->
@@ -175,6 +184,7 @@ Application Framework.
    <install name="lib/Horde/Core/Binder/Notification.php" as="Horde/Core/Binder/Notification.php" />
    <install name="lib/Horde/Core/Binder/Perms.php" as="Horde/Core/Binder/Perms.php" />
    <install name="lib/Horde/Core/Binder/Template.php" as="Horde/Core/Binder/Template.php" />
+   <install name="lib/Horde/Core/Factory/KolabServer.php" as="Horde/Core/Factory/KolabServer.php" />
    <install name="lib/Horde/Core/Notification/Status.php" as="Horde/Core/Notification/Status.php" />
    <install name="lib/Horde/ErrorHandler.php" as="Horde/ErrorHandler.php" />
    <install name="lib/Horde/Exception/HookNotSet.php" as="Horde/Exception/HookNotSet.php" />
@@ -190,6 +200,9 @@ Application Framework.
    <install name="lib/Horde/Themes/Image.php" as="Horde/Themes/Image.php" />
    <install name="lib/Horde/Themes/Sound.php" as="Horde/Themes/Sound.php" />
    <install name="lib/Horde.php" as="Horde.php" />
+   <install name="test/Horde/Core/AllTests.php" as="Horde/Core/AllTests.php" />
+   <install name="test/Horde/Core/Autoload.php" as="Horde/Core/Autoload.php" />
+   <install name="test/Horde/Core/Factory/KolabServerTest.php" as="Horde/Core/Factory/KolabServerTest.php" />
   </filelist>
  </phprelease>
  <changelog>

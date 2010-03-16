@@ -88,7 +88,7 @@ class Horde_Share_kolab extends Horde_Share {
     public function getSession()
     {
         if (!isset($this->_session)) {
-            $this->_session = Horde_Kolab_Session_Singleton::singleton();
+            $this->_session = $GLOBALS['injector']->getInstance('Horde_Kolab_Session');
         }
         return $this->_session;
     }
@@ -470,7 +470,7 @@ class Horde_Share_Object_kolab extends Horde_Share_Object {
     public function getSession()
     {
         if (!isset($this->_session)) {
-            $this->_session = Horde_Kolab_Session_Singleton::singleton();
+            $this->_session = $GLOBALS['injector']->getInstance('Horde_Kolab_Session');
         }
         return $this->_session;
     }

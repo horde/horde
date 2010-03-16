@@ -35,23 +35,32 @@ extends Horde_Kolab_Server_LdapTestCase
 {
     public function setUp()
     {
-        $conf['basedn'] = 'dc=test';
-        $conf['mock']   = true;
-        $conf['data']   = array(
-            'dn=user,dc=test' => array(
-                'dn' => 'dn=user,dc=test',
-                'data' => array(
-                    'uid' => array('user'),
-                    'mail' => array('user@example.org'),
-                    'objectClass' => array('top', 'kolabInetOrgPerson'),
+        $connection = new Horde_Kolab_Server_Connection_Mock(
+            new Horde_Kolab_Server_Connection_Mock_Ldap(
+                array('basedn' => 'dc=test'),
+                array(
+                    'dn=user,dc=test' => array(
+                        'dn' => 'dn=user,dc=test',
+                        'data' => array(
+                            'uid' => array('user'),
+                            'mail' => array('user@example.org'),
+                            'objectClass' => array('top', 'kolabInetOrgPerson'),
+                        )
+                    )
                 )
             )
         );
-        $server_factory = new Horde_Kolab_Server_Factory_Configuration(
-            $conf
-        );
 
-        $this->composite = $server_factory->getComposite();
+        $this->composite = new Horde_Kolab_Server_Composite(
+            new Horde_Kolab_Server_Ldap_Standard(
+                $connection,
+                'dc=test'
+            ),
+            new Horde_Kolab_Server_Objects_Base(),
+            new Horde_Kolab_Server_Structure_Kolab(),
+            new Horde_Kolab_Server_Search_Base(),
+            new Horde_Kolab_Server_Schema_Base()
+        );
         $this->composite->server->connectGuid();
     }
 

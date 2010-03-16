@@ -97,29 +97,6 @@
         <file name="Bindfailed.php" role="php" />
         <file name="Novalue.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Server/Exception -->
-       <dir name="Factory">
-        <dir name="Connection">
-         <file name="Base.php" role="php" />
-         <file name="Configuration.php" role="php" />
-         <file name="Injector.php" role="php" />
-         <file name="Interface.php" role="php" />
-         <file name="Ldap.php" role="php" />
-         <file name="Mock.php" role="php" />
-        </dir> <!-- /lib/Horde/Kolab/Server/Factory/Connection -->
-        <dir name="Decorator">
-         <file name="Clean.php" role="php" />
-         <file name="Count.php" role="php" />
-         <file name="Log.php" role="php" />
-         <file name="Map.php" role="php" />
-        </dir> <!-- /lib/Horde/Kolab/Server/Factory/Decorator -->
-        <file name="Base.php" role="php" />
-        <file name="Configuration.php" role="php" />
-        <file name="Constructor.php" role="php" />
-        <file name="Default.php" role="php" />
-        <file name="Injector.php" role="php" />
-        <file name="Interface.php" role="php" />
-        <file name="Kolab.php" role="php" />
-       </dir> <!-- /lib/Horde/Kolab/Server/Factory -->
        <dir name="Ldap">
         <file name="Changes.php" role="php" />
         <file name="Filtered.php" role="php" />
@@ -283,24 +260,6 @@
           <file name="CleanTest.php" role="test" />
           <file name="LogTest.php" role="test" />
          </dir> <!-- /test/Horde/Kolab/Server/Class/Server/Decorator -->
-         <dir name="Factory">
-          <dir name="Connection">
-           <file name="ConfigurationTest.php" role="test" />
-           <file name="InjectorTest.php" role="test" />
-           <file name="LdapTest.php" role="test" />
-           <file name="MockTest.php" role="test" />
-          </dir> <!-- /test/Horde/Kolab/Server/Class/Server/Factory/Connection -->
-          <dir name="Decorator">
-           <file name="CleanTest.php" role="test" />
-           <file name="CountTest.php" role="test" />
-           <file name="LogTest.php" role="test" />
-           <file name="MapTest.php" role="test" />
-          </dir> <!-- /test/Horde/Kolab/Server/Class/Server/Factory/Decorator -->
-          <file name="ConfigurationTest.php" role="test" />
-          <file name="ConstructorTest.php" role="test" />
-          <file name="InjectorTest.php" role="test" />
-          <file name="KolabTest.php" role="test" />
-         </dir> <!-- /test/Horde/Kolab/Server/Class/Server/Factory -->
          <dir name="Ldap">
           <file name="ChangesTest.php" role="test" />
           <file name="FilteredTest.php" role="test" />
@@ -430,23 +389,6 @@
    <install as="Horde/Kolab/Server/Decorator/Map.php" name="lib/Horde/Kolab/Server/Decorator/Map.php" />
    <install as="Horde/Kolab/Server/Exception/Bindfailed.php" name="lib/Horde/Kolab/Server/Exception/Bindfailed.php" />
    <install as="Horde/Kolab/Server/Exception/Novalue.php" name="lib/Horde/Kolab/Server/Exception/Novalue.php" />
-   <install as="Horde/Kolab/Server/Factory/Base.php" name="lib/Horde/Kolab/Server/Factory/Base.php" />
-   <install as="Horde/Kolab/Server/Factory/Configuration.php" name="lib/Horde/Kolab/Server/Factory/Configuration.php" />
-   <install as="Horde/Kolab/Server/Factory/Constructor.php" name="lib/Horde/Kolab/Server/Factory/Constructor.php" />
-   <install as="Horde/Kolab/Server/Factory/Default.php" name="lib/Horde/Kolab/Server/Factory/Default.php" />
-   <install as="Horde/Kolab/Server/Factory/Injector.php" name="lib/Horde/Kolab/Server/Factory/Injector.php" />
-   <install as="Horde/Kolab/Server/Factory/Interface.php" name="lib/Horde/Kolab/Server/Factory/Interface.php" />
-   <install as="Horde/Kolab/Server/Factory/Kolab.php" name="lib/Horde/Kolab/Server/Factory/Kolab.php" />
-   <install as="Horde/Kolab/Server/Factory/Connection/Base.php" name="lib/Horde/Kolab/Server/Factory/Connection/Base.php" />
-   <install as="Horde/Kolab/Server/Factory/Connection/Configuration.php" name="lib/Horde/Kolab/Server/Factory/Connection/Configuration.php" />
-   <install as="Horde/Kolab/Server/Factory/Connection/Injector.php" name="lib/Horde/Kolab/Server/Factory/Connection/Injector.php" />
-   <install as="Horde/Kolab/Server/Factory/Connection/Interface.php" name="lib/Horde/Kolab/Server/Factory/Connection/Interface.php" />
-   <install as="Horde/Kolab/Server/Factory/Connection/Ldap.php" name="lib/Horde/Kolab/Server/Factory/Connection/Ldap.php" />
-   <install as="Horde/Kolab/Server/Factory/Connection/Mock.php" name="lib/Horde/Kolab/Server/Factory/Connection/Mock.php" />
-   <install as="Horde/Kolab/Server/Factory/Decorator/Clean.php" name="lib/Horde/Kolab/Server/Factory/Decorator/Clean.php" />
-   <install as="Horde/Kolab/Server/Factory/Decorator/Count.php" name="lib/Horde/Kolab/Server/Factory/Decorator/Count.php" />
-   <install as="Horde/Kolab/Server/Factory/Decorator/Log.php" name="lib/Horde/Kolab/Server/Factory/Decorator/Log.php" />
-   <install as="Horde/Kolab/Server/Factory/Decorator/Map.php" name="lib/Horde/Kolab/Server/Factory/Decorator/Map.php" />
    <install as="Horde/Kolab/Server/Ldap/Changes.php" name="lib/Horde/Kolab/Server/Ldap/Changes.php" />
    <install as="Horde/Kolab/Server/Ldap/Filtered.php" name="lib/Horde/Kolab/Server/Ldap/Filtered.php" />
    <install as="Horde/Kolab/Server/Ldap/Standard.php" name="lib/Horde/Kolab/Server/Ldap/Standard.php" />
@@ -563,18 +505,6 @@
    <install as="Horde/Kolab/Server/Class/Server/Connection/Mock/LdapTest.php" name="test/Horde/Kolab/Server/Class/Server/Connection/Mock/LdapTest.php" />
    <install as="Horde/Kolab/Server/Class/Server/Decorator/CleanTest.php" name="test/Horde/Kolab/Server/Class/Server/Decorator/CleanTest.php" />
    <install as="Horde/Kolab/Server/Class/Server/Decorator/LogTest.php" name="test/Horde/Kolab/Server/Class/Server/Decorator/LogTest.php" />
-   <install as="Horde/Kolab/Server/Class/Server/Factory/ConfigurationTest.php" name="test/Horde/Kolab/Server/Class/Server/Factory/ConfigurationTest.php" />
-   <install as="Horde/Kolab/Server/Class/Server/Factory/ConstructorTest.php" name="test/Horde/Kolab/Server/Class/Server/Factory/ConstructorTest.php" />
-   <install as="Horde/Kolab/Server/Class/Server/Factory/InjectorTest.php" name="test/Horde/Kolab/Server/Class/Server/Factory/InjectorTest.php" />
-   <install as="Horde/Kolab/Server/Class/Server/Factory/KolabTest.php" name="test/Horde/Kolab/Server/Class/Server/Factory/KolabTest.php" />
-   <install as="Horde/Kolab/Server/Class/Server/Factory/Connection/ConfigurationTest.php" name="test/Horde/Kolab/Server/Class/Server/Factory/Connection/ConfigurationTest.php" />
-   <install as="Horde/Kolab/Server/Class/Server/Factory/Connection/InjectorTest.php" name="test/Horde/Kolab/Server/Class/Server/Factory/Connection/InjectorTest.php" />
-   <install as="Horde/Kolab/Server/Class/Server/Factory/Connection/LdapTest.php" name="test/Horde/Kolab/Server/Class/Server/Factory/Connection/LdapTest.php" />
-   <install as="Horde/Kolab/Server/Class/Server/Factory/Connection/MockTest.php" name="test/Horde/Kolab/Server/Class/Server/Factory/Connection/MockTest.php" />
-   <install as="Horde/Kolab/Server/Class/Server/Factory/Decorator/CleanTest.php" name="test/Horde/Kolab/Server/Class/Server/Factory/Decorator/CleanTest.php" />
-   <install as="Horde/Kolab/Server/Class/Server/Factory/Decorator/CountTest.php" name="test/Horde/Kolab/Server/Class/Server/Factory/Decorator/CountTest.php" />
-   <install as="Horde/Kolab/Server/Class/Server/Factory/Decorator/LogTest.php" name="test/Horde/Kolab/Server/Class/Server/Factory/Decorator/LogTest.php" />
-   <install as="Horde/Kolab/Server/Class/Server/Factory/Decorator/MapTest.php" name="test/Horde/Kolab/Server/Class/Server/Factory/Decorator/MapTest.php" />
    <install as="Horde/Kolab/Server/Class/Server/Ldap/ChangesTest.php" name="test/Horde/Kolab/Server/Class/Server/Ldap/ChangesTest.php" />
    <install as="Horde/Kolab/Server/Class/Server/Ldap/FilteredTest.php" name="test/Horde/Kolab/Server/Class/Server/Ldap/FilteredTest.php" />
    <install as="Horde/Kolab/Server/Class/Server/Ldap/StandardTest.php" name="test/Horde/Kolab/Server/Class/Server/Ldap/StandardTest.php" />
