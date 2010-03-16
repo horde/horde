@@ -281,7 +281,7 @@ case 'folders_empty_mailbox_confirm':
         $template->set('folders', $loop);
         $template->set('folders_url', $folders_url);
         $template->set('folders_token', Horde::getRequestToken('imp.folders'));
-        echo $template->fetch(IMP_TEMPLATES . '/folders/folders_confirm.html');
+        echo $template->fetch(IMP_TEMPLATES . '/imp/folders/folders_confirm.html');
 
         require $registry->get('templates', 'horde') . '/common-footer.inc';
         exit;
@@ -321,7 +321,7 @@ case 'mbox_size':
         $template->set('folders', $loop);
         $template->set('folders_url', $folders_url);
         $template->set('folders_sum', sprintf(_("%.2fMB"), $sum / (1024 * 1024)));
-        echo $template->fetch(IMP_TEMPLATES . '/folders/folders_size.html');
+        echo $template->fetch(IMP_TEMPLATES . '/imp/folders/folders_size.html');
 
         require $registry->get('templates', 'horde') . '/common-footer.inc';
         exit;
@@ -350,7 +350,7 @@ if ($_SESSION['imp']['file_upload'] && ($actionID == 'import_mbox')) {
     $i_template->set('import_folder', $folder_list[0]);
     $i_template->set('folder_name', htmlspecialchars(Horde_String::convertCharset($folder_list[0], 'UTF7-IMAP'), ENT_COMPAT, $charset));
     $i_template->set('folders_token', $folders_token);
-    echo $i_template->fetch(IMP_TEMPLATES . '/folders/import.html');
+    echo $i_template->fetch(IMP_TEMPLATES . '/imp/folders/import.html');
     require $registry->get('templates', 'horde') . '/common-footer.inc';
     exit;
 }
@@ -475,12 +475,12 @@ IMP::menu();
 IMP::status();
 IMP::quota();
 
-echo $head_template->fetch(IMP_TEMPLATES . '/folders/head.html');
-echo $a_template->fetch(IMP_TEMPLATES . '/folders/actions.html');
-echo $template->fetch(IMP_TEMPLATES . '/folders/folders.html');
+echo $head_template->fetch(IMP_TEMPLATES . '/imp/folders/head.html');
+echo $a_template->fetch(IMP_TEMPLATES . '/imp/folders/actions.html');
+echo $template->fetch(IMP_TEMPLATES . '/imp/folders/folders.html');
 if (count($rows) > 10) {
     $a_template->set('id', 1);
-    echo $a_template->fetch(IMP_TEMPLATES . '/folders/actions.html');
+    echo $a_template->fetch(IMP_TEMPLATES . '/imp/folders/actions.html');
 }
 
 /* No need for extra template - close out the tags here. */

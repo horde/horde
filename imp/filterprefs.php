@@ -120,7 +120,7 @@ if (!$blacklist_link && !$whitelist_link && !$filters_link) {
     }
 }
 
-echo $t->fetch(IMP_TEMPLATES . '/filters/prefs.html');
+echo $t->fetch(IMP_TEMPLATES . '/prefs/filters/filters.html');
 if (!$chunk) {
     require $registry->get('templates', 'horde') . '/common-footer.inc';
 }

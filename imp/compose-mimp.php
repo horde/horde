@@ -348,4 +348,4 @@ $t->set('title', $title);
 
 require IMP_TEMPLATES . '/common-header.inc';
 IMP::status();
-echo $t->fetch(IMP_TEMPLATES . '/compose/compose-mimp.html');
+echo $t->fetch(IMP_TEMPLATES . '/mimp/compose/compose.html');

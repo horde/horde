@@ -105,5 +105,5 @@ Horde::addInlineScript(array(
     'ImpContacts.formname = \'' . $formname . '\'',
     'ImpContacts.to_only = ' . intval($to_only),
 ));
-echo $template->fetch(IMP_TEMPLATES . '/contacts/contacts.html');
+echo $template->fetch(IMP_TEMPLATES . '/imp/contacts/contacts.html');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

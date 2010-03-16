@@ -74,5 +74,5 @@ if ($browser->hasFeature('javascript')) {
     $t->set('advsearch', Horde::link(Horde::applicationUrl('search.php')->add(array('search_mailbox' => $search_mailbox))));
 }
 
-echo $t->fetch(IMP_TEMPLATES . '/search/search-basic.html');
+echo $t->fetch(IMP_TEMPLATES . '/imp/search/search-basic.html');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

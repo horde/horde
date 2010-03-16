@@ -157,7 +157,7 @@ if (($vars->a == 'pa') &&
     $t->set('self_link', $self_link);
 
     require IMP_TEMPLATES . '/common-header.inc';
-    echo $t->fetch(IMP_TEMPLATES . '/message/part-mimp.html');
+    echo $t->fetch(IMP_TEMPLATES . '/mimp/message/part.html');
 
     exit;
 }
@@ -354,4 +354,4 @@ $t->set('title', ($status ? $status . ' | ' : '') . $display_headers['subject'] 
 
 require IMP_TEMPLATES . '/common-header.inc';
 IMP::status();
-echo $t->fetch(IMP_TEMPLATES . '/message/message-mimp.html');
+echo $t->fetch(IMP_TEMPLATES . '/mimp/message/message.html');

@@ -648,7 +648,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         $t->set('import_public_key', $target == 'process_import_public_key');
         $t->set('import_personal_public_key', $target == 'process_import_personal_public_key');
         $t->set('import_personal_private_key', $target == 'process_import_personal_private_key');
-        echo $t->fetch(IMP_TEMPLATES . '/pgp/import_key.html');
+        echo $t->fetch(IMP_TEMPLATES . '/prefs/pgp/import_key.html');
     }
 
     /**

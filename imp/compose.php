@@ -731,7 +731,7 @@ if ($redirect) {
     $t->set('input_value', htmlspecialchars($header['to']));
     $t->set('help', Horde_Help::link('imp', 'compose-to'));
 
-    $template_output = $t->fetch(IMP_TEMPLATES . '/compose/redirect.html');
+    $template_output = $t->fetch(IMP_TEMPLATES . '/imp/compose/redirect.html');
 } else {
     /* Prepare the compose template. */
     $tabindex = 0;
@@ -1037,7 +1037,7 @@ if ($redirect) {
     }
 
     $t->set('status', Horde_Util::bufferOutput(array('IMP', 'status')));
-    $template_output = $t->fetch(IMP_TEMPLATES . '/compose/compose.html');
+    $template_output = $t->fetch(IMP_TEMPLATES . '/imp/compose/compose.html');
 }
 
 if ($rtemode && !$redirect) {

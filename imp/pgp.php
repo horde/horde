@@ -326,7 +326,7 @@ if ($prefs->getValue('use_pgp')) {
 }
 $t->set('prefsurl', Horde::getServiceLink('options', 'imp'));
 
-echo $t->fetch(IMP_TEMPLATES . '/pgp/pgp.html');
+echo $t->fetch(IMP_TEMPLATES . '/prefs/pgp/pgp.html');
 if (!$chunk) {
     require $registry->get('templates', 'horde') . '/common-footer.inc';
 }

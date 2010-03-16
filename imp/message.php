@@ -665,16 +665,16 @@ IMP::menu();
 IMP::status();
 IMP::quota();
 
-echo $t_template->fetch(IMP_TEMPLATES . '/message/navbar_top.html');
-echo $n_template->fetch(IMP_TEMPLATES . '/message/navbar_navigate.html');
-echo $a_template->fetch(IMP_TEMPLATES . '/message/navbar_actions.html');
-echo $m_template->fetch(IMP_TEMPLATES . '/message/message.html');
+echo $t_template->fetch(IMP_TEMPLATES . '/imp/message/navbar_top.html');
+echo $n_template->fetch(IMP_TEMPLATES . '/imp/message/navbar_navigate.html');
+echo $a_template->fetch(IMP_TEMPLATES . '/imp/message/navbar_actions.html');
+echo $m_template->fetch(IMP_TEMPLATES . '/imp/message/message.html');
 
 $a_template->set('isbottom', true);
-echo $a_template->fetch(IMP_TEMPLATES . '/message/navbar_actions.html');
+echo $a_template->fetch(IMP_TEMPLATES . '/imp/message/navbar_actions.html');
 
 $n_template->set('id', 2);
 $n_template->set('isbottom', true);
-echo $n_template->fetch(IMP_TEMPLATES . '/message/navbar_navigate.html');
+echo $n_template->fetch(IMP_TEMPLATES . '/imp/message/navbar_navigate.html');
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';

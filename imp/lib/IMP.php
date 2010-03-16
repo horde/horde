@@ -545,7 +545,7 @@ class IMP
     static public function menu()
     {
         self::prepareMenu();
-        echo self::$_menuTemplate->fetch(IMP_TEMPLATES . '/menu.html');
+        echo self::$_menuTemplate->fetch(IMP_TEMPLATES . '/imp/menu/menu.html');
     }
 
     /**

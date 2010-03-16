@@ -99,7 +99,7 @@ case 's':
 
     require_once IMP_TEMPLATES . '/common-header.inc';
     IMP::status();
-    echo $t->fetch(IMP_TEMPLATES . '/mailbox/search-mimp.html');
+    echo $t->fetch(IMP_TEMPLATES . '/mimp/mailbox/search.html');
     exit;
 
 // 'rs' = run search
@@ -272,4 +272,4 @@ try {
 
 require_once IMP_TEMPLATES . '/common-header.inc';
 IMP::status();
-echo $t->fetch(IMP_TEMPLATES . '/mailbox/mailbox-mimp.html');
+echo $t->fetch(IMP_TEMPLATES . '/mimp/mailbox/mailbox.html');

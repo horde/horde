@@ -131,7 +131,7 @@ $t->set('content', $stationery['c']);
 $t->set('button_href', $compose_url->copy()->add('group', 'compose'));
 $t->set('button_val', htmlspecialchars(_("Return to Message Composition"), ENT_COMPAT, Horde_Nls::getCharset()));
 
-echo $t->fetch(IMP_TEMPLATES . '/stationery/stationery.html');
+echo $t->fetch(IMP_TEMPLATES . '/prefs/stationery/stationery.html');
 if (!$chunk) {
     require $registry->get('templates', 'horde') . '/common-footer.inc';
 }

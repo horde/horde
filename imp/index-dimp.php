@@ -62,7 +62,7 @@ foreach (IMP_Dimp::menuList() as $app) {
 }
 
 echo "<body>\n";
-require IMP_TEMPLATES . '/index/index-dimp.inc';
+require IMP_TEMPLATES . '/dimp/index.inc';
 Horde::includeScriptFiles();
 Horde::outputInlineScript();
 echo "</body>\n</html>";

@@ -74,4 +74,4 @@ $t->set('title', $title);
 
 require_once IMP_TEMPLATES . '/common-header.inc';
 IMP::status();
-echo $t->fetch(IMP_TEMPLATES . '/folders/folders-mimp.html');
+echo $t->fetch(IMP_TEMPLATES . '/mimp/folders/folders.html');

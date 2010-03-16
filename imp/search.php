@@ -221,5 +221,5 @@ if (!$dimp_view) {
 }
 IMP::status();
 
-echo $t->fetch(IMP_TEMPLATES . '/search/search.html');
+echo $t->fetch(IMP_TEMPLATES . '/imp/search/search.html');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

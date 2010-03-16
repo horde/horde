@@ -483,7 +483,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
         $t->set('forminput', Horde_Util::formInput());
         $t->set('import_public_key', $target == 'process_import_public_key');
         $t->set('import_personal_certs', $target == 'process_import_personal_certs');
-        echo $t->fetch(IMP_TEMPLATES . '/smime/import_key.html');
+        echo $t->fetch(IMP_TEMPLATES . '/prefs/smime/import_key.html');
     }
 
     /**

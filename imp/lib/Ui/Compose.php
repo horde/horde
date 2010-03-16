@@ -288,7 +288,7 @@ class IMP_Ui_Compose
         require IMP_TEMPLATES . '/common-header.inc';
         $success_template = $GLOBALS['injector']->createInstance('Horde_Template');
         $success_template->set('menu', $menu->render());
-        echo $success_template->fetch(IMP_TEMPLATES . '/compose/success.html');
+        echo $success_template->fetch(IMP_TEMPLATES . '/imp/compose/success.html');
         IMP::status();
         require $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc';
     }

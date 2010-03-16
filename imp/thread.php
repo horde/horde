@@ -162,5 +162,5 @@ IMP::prepareMenu();
 require IMP_TEMPLATES . '/common-header.inc';
 IMP::menu();
 IMP::status();
-echo $template->fetch(IMP_TEMPLATES . '/thread/thread.html');
+echo $template->fetch(IMP_TEMPLATES . '/imp/thread/thread.html');
 require $registry->get('templates', 'horde') . '/common-footer.inc';
