@@ -3172,6 +3172,12 @@ KronolithCore = {
                 e.stop();
                 break;
 
+            case 'kronolithEventSaveAsNew':
+                this.saveEvent(true);
+                elt.disable();
+                e.stop();
+                break;
+
             case 'kronolithTaskSave':
                 this.saveTask();
                 elt.disable();
@@ -3872,13 +3878,13 @@ KronolithCore = {
         this.updateCalendarDropDown('kronolithEventTarget');
         this.toggleAllDay(false);
         this.openTab($('kronolithEventForm').down('.tabset a.kronolithTabLink'));
-        $('kronolithEventForm').enable();
         this.disableAlarmMethods();
         $('kronolithEventForm').reset();
         if (Kronolith.conf.maps.driver) {
             $('kronolithEventMapLink').hide();
         }
         $('kronolithEventSave').show();
+        $('kronolithEventSaveAsNew').show();
         $('kronolithEventDelete').show();
         $('kronolithEventForm').down('.kronolithFormActions .kronolithSeparator').show();
         if (id) {
@@ -3910,6 +3916,7 @@ KronolithCore = {
             $('kronolithEventEndDate').setValue(d.toString(Kronolith.conf.date_format));
             $('kronolithEventEndTime').setValue(d.toString(Kronolith.conf.time_format));
             $('kronolithEventLinkExport').up('span').hide();
+            $('kronolithEventSaveAsNew').hide();
             RedBox.showHtml($('kronolithEventDialog').show());
         }
     },
@@ -3917,7 +3924,7 @@ KronolithCore = {
     /**
      * Submits the event edit form to create or update an event.
      */
-    saveEvent: function()
+    saveEvent: function(asnew)
     {
         if (this.wrongFormat.size()) {
             this.showNotifications([{ type: 'horde.warning', message: Kronolith.text.fix_form_values }]);
@@ -3936,7 +3943,8 @@ KronolithCore = {
                           .merge({
                               view: this.view,
                               view_start: start,
-                              view_end: end
+                              view_end: end,
+                              as_new: !!asnew
                           }),
                       function(r) {
                           if (r.response.events && eventid) {
@@ -4152,7 +4160,6 @@ KronolithCore = {
 
         if (!ev.pe) {
             $('kronolithEventSave').hide();
-            $('kronolithEventForm').disable();
             kronolithETagAc.disable();
             $('kronolithEventTabTags').select('label').each(function(e) {e.hide()});
         } else {
@@ -4160,9 +4167,6 @@ KronolithCore = {
         }
         if (!ev.pd) {
             $('kronolithEventDelete').hide();
-        }
-        if (!ev.pe && !ev.pd) {
-            $('kronolithEventForm').down('.kronolithFormActions .kronolithSeparator').hide();
         }
 
         this.setTitle(ev.t);

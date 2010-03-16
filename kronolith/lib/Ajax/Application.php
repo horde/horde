@@ -81,6 +81,9 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
             return $result;
         }
 
+        if ($this->_vars->as_new) {
+            unset($this->_vars->event);
+        }
         if (!$this->_vars->event) {
             $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
             if ($perms->hasAppPermission('max_events') !== true &&
