@@ -152,7 +152,14 @@ implements Horde_Kolab_Server_Interface
      */
     public function find($query, array $params = array())
     {
-        return $this->_server->find($query, $params);
+        $result = $this->_server->find($query, $params);
+        $this->_logger->debug(
+            sprintf(
+                "Query %s identified %s result(s).",
+                $query, $result->count()
+            )
+        );
+        return $result;
     }
 
     /**
