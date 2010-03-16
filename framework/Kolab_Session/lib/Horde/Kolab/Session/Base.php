@@ -113,18 +113,14 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session_Interface
     /**
      * Constructor.
      *
-     * @param string             $user_id The session will be setup for the user
-     *                                    with this ID.
      * @param Horde_Kolab_Server $server  The connection to the Kolab user
      *                                    database.
      * @param array              $params  Kolab configuration settings.
      */
     public function __construct(
-        $user_id,
-        Horde_Kolab_Server_Composite_Interface $server,
+        Horde_Kolab_Server_Composite $server,
         array $params
     ) {
-        $this->_user_id = $user_id;
         $this->_server  = $server;
         $this->_params  = $params;
     }
@@ -132,15 +128,17 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session_Interface
     /**
      * Try to connect the session handler.
      *
-     * @param array $credentials An array of login credentials. For Kolab,
-     *                           this must contain a "password" entry.
+     * @param string $user_id     The user ID to connect with.
+     * @param array  $credentials An array of login credentials. For Kolab,
+     *                            this must contain a "password" entry.
      *
      * @return NULL
      *
      * @throws Horde_Kolab_Session_Exception If the connection failed.
      */
-    public function connect(array $credentials = null)
+    public function connect($user_id = null, array $credentials = null)
     {
+        $this->_user_id = $user_id;
         if (isset($credentials['password'])) {
             $password = $credentials['password'];
         } else {

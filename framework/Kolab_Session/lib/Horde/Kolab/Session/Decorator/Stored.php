@@ -76,14 +76,15 @@ implements Horde_Kolab_Session_Interface
     /**
      * Try to connect the session handler.
      *
-     * @param array $credentials An array of login credentials. For Kolab,
-     *                           this must contain a "password" entry.
+     * @param string $user_id     The user ID to connect with.
+     * @param array  $credentials An array of login credentials. For Kolab,
+     *                            this must contain a "password" entry.
      *
      * @return NULL
      */
-    public function connect(array $credentials = null)
+    public function connect($user_id = null, array $credentials = null)
     {
-        $this->_session->connect($credentials);
+        $this->_session->connect($user_id, $credentials);
         $this->_connected = true;
     }
 

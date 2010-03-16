@@ -116,7 +116,7 @@ class Horde_Kolab_Session_Class_Factory_ConfigurationTest extends Horde_Kolab_Se
             )
         );
         $this->assertType(
-            'Horde_Kolab_Server_Composite_Interface',
+            'Horde_Kolab_Server_Composite',
             $factory->getServer()
         );
     }

@@ -43,7 +43,7 @@ class Horde_Kolab_Session_Class_Factory_ConstructorTest extends Horde_Kolab_Sess
         $factory = new Horde_Kolab_Session_Factory_Constructor(
             $this->server, $this->session_auth, array(), $this->session_storage
         );
-        $this->assertType('Horde_Kolab_Server_Composite_Interface', $factory->getServer());
+        $this->assertType('Horde_Kolab_Server_Composite', $factory->getServer());
     }
 
     public function testMethodGetsessionauthHasResultHordekolabsessionauth()

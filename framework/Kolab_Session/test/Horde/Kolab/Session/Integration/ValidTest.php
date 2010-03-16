@@ -47,7 +47,7 @@ class Horde_Kolab_Session_Integration_ValidTest extends Horde_Kolab_Session_Sess
             ->will($this->returnValue(''));
         $composite = $this->_getMockedComposite();
         $session = new Horde_Kolab_Session_Base(
-            '', $composite, array()
+            $composite, array()
         );
         $valid = new Horde_Kolab_Session_Valid_Base($session, $auth);
         $this->assertTrue($valid->isValid());
@@ -61,7 +61,7 @@ class Horde_Kolab_Session_Integration_ValidTest extends Horde_Kolab_Session_Sess
             ->will($this->returnValue('mail@example.org'));
         $composite = $this->_getMockedComposite();
         $session = new Horde_Kolab_Session_Base(
-            '', $composite, array()
+            $composite, array()
         );
         $valid = new Horde_Kolab_Session_Valid_Base($session, $auth);
         $this->assertFalse($valid->isValid());
@@ -84,9 +84,9 @@ class Horde_Kolab_Session_Integration_ValidTest extends Horde_Kolab_Session_Sess
             ->method('fetch')
             ->will($this->returnValue($this->user));
         $session = new Horde_Kolab_Session_Base(
-            '', $composite, array()
+            $composite, array()
         );
-        $session->connect(array('password' => ''));
+        $session->connect('', array('password' => ''));
         $valid = new Horde_Kolab_Session_Valid_Base($session, $auth);
         $this->assertFalse($valid->isValid());
     }
@@ -108,9 +108,9 @@ class Horde_Kolab_Session_Integration_ValidTest extends Horde_Kolab_Session_Sess
             ->method('fetch')
             ->will($this->returnValue($this->user));
         $session = new Horde_Kolab_Session_Base(
-            '', $composite, array()
+            $composite, array()
         );
-        $session->connect(array('password' => ''));
+        $session->connect('', array('password' => ''));
         $valid = new Horde_Kolab_Session_Valid_Base($session, $auth);
         $this->assertTrue($valid->isValid());
     }
@@ -132,9 +132,9 @@ class Horde_Kolab_Session_Integration_ValidTest extends Horde_Kolab_Session_Sess
             ->method('fetch')
             ->will($this->returnValue($this->user));
         $session = new Horde_Kolab_Session_Base(
-            '', $composite, array()
+            $composite, array()
         );
-        $session->connect(array('password' => ''));
+        $session->connect('', array('password' => ''));
         $valid = new Horde_Kolab_Session_Valid_Base($session, $auth);
         $this->assertFalse($valid->isValid('somebody@example.org'));
     }
@@ -156,9 +156,9 @@ class Horde_Kolab_Session_Integration_ValidTest extends Horde_Kolab_Session_Sess
             ->method('fetch')
             ->will($this->returnValue($this->user));
         $session = new Horde_Kolab_Session_Base(
-            '', $composite, array()
+            $composite, array()
         );
-        $session->connect(array('password' => ''));
+        $session->connect('', array('password' => ''));
         $valid = new Horde_Kolab_Session_Valid_Base($session, $auth);
         $this->assertTrue($valid->isValid('mail@example.org'));
     }

@@ -52,33 +52,27 @@ implements Horde_Kolab_Session_Factory_Interface
     /**
      * Validate the given session.
      *
-     * @param Horde_Kolab_Session $session The session to validate.
-     * @param string              $user    The session will be validated for
-     *                                     this user ID.
+     * @param Horde_Kolab_Session_Interface $session The session to validate.
      *
      * @return boolean True if the given session is valid.
      */
     public function validate(
-        Horde_Kolab_Session_Interface $session,
-        $user = null
+        Horde_Kolab_Session_Interface $session
     ) {
         return $this->getSessionValidator(
             $session,
             $this->getSessionAuth()
-        )->isValid($user);
+        )->isValid();
     }
 
     /**
      * Returns a new session handler.
      *
-     * @param string $user The session will be setup for the user with this ID.
-     *
      * @return Horde_Kolab_Session The concrete Kolab session reference.
      */
-    public function createSession($user = null)
+    public function createSession()
     {
         $session = new Horde_Kolab_Session_Base(
-            $user, 
             $this->getServer(),
             $this->getSessionConfiguration()
         );
@@ -94,22 +88,17 @@ implements Horde_Kolab_Session_Factory_Interface
      * Returns either a reference to a session handler with data retrieved from
      * the session or a new session handler.
      *
-     * @param string $user        The session will be setup for the user with
-     *                            this ID.
-     * @param array  $credentials An array of login credentials.
-     *
      * @return Horde_Kolab_Session The concrete Kolab session reference.
      */
-    public function getSession($user = null, array $credentials = null)
+    public function getSession()
     {
         $storage = $this->getSessionStorage();
         $session = $storage->load();
 
-        if (!empty($session) && $this->validate($session, $user)) {
+        if (!empty($session) && $this->validate($session)) {
             return $session;
         }
-        $session = $this->createSession($user);
-        $session->connect($credentials);
+        $session = $this->createSession();
         return $session;
     }
 }

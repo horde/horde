@@ -37,14 +37,8 @@ extends Horde_Kolab_Session_SessionTestCase
     {
         $session = $this->getMock('Horde_Kolab_Session_Interface');
         $session->expects($this->once())
-            ->method('getId')
-            ->will($this->returnValue(null));
-        $session->expects($this->once())
-            ->method('setId')
-            ->with('anonymous');
-        $session->expects($this->once())
             ->method('connect')
-            ->with(array('password' => 'pass'));
+            ->with('anonymous', array('password' => 'pass'));
         $anonymous = new Horde_Kolab_Session_Decorator_Anonymous(
             $session, 'anonymous', 'pass'
         );

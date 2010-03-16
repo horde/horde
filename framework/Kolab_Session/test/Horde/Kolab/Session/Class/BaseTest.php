@@ -39,25 +39,36 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
         );
     }
 
-    public function testMethodConstructHasParameterStringUserid()
-    {
-        $session = new Horde_Kolab_Session_Base(
-            'userid', $this->_getComposite(), array()
-        );
-    }
-
     public function testMethodConstructHasParameterServercompositeServer()
     {
         $session = new Horde_Kolab_Session_Base(
-            '', $this->_getComposite(), array()
+            $this->_getComposite(), array()
         );
     }
 
     public function testMethodConstructHasParameterArrayParams()
     {
         $session = new Horde_Kolab_Session_Base(
-            '', $this->_getComposite(), array('params' => 'params')
+            $this->_getComposite(), array('params' => 'params')
         );
+    }
+
+    public function testMethodConnectHasParameterStringUserid()
+    {
+        $this->user->expects($this->exactly(1))
+            ->method('getSingle')
+            ->will($this->returnValue('mail@example.org'));
+        $this->user->expects($this->exactly(4))
+            ->method('getExternal')
+            ->will($this->returnValue(array('mail@example.org')));
+        $composite = $this->_getMockedComposite();
+        $composite->objects->expects($this->once())
+            ->method('fetch')
+            ->will($this->returnValue($this->user));
+        $session = new Horde_Kolab_Session_Base(
+            $composite, array()
+        );
+        $session->connect('userid', array('password' => ''));
     }
 
     public function testMethodConnectHasParameterArrayCredentials()
@@ -73,9 +84,9 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
             ->method('fetch')
             ->will($this->returnValue($this->user));
         $session = new Horde_Kolab_Session_Base(
-            '', $composite, array()
+            $composite, array()
         );
-        $session->connect(array('password' => ''));
+        $session->connect('', array('password' => ''));
     }
 
     public function testMethodConnectHasPostconditionThatTheUserMailAddressIsKnown()
@@ -91,7 +102,7 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
             ->method('fetch')
             ->will($this->returnValue($this->user));
         $session = new Horde_Kolab_Session_Base(
-            '', $composite, array()
+            $composite, array()
         );
         $session->connect(array('password' => ''));
         $this->assertEquals('mail@example.org', $session->getMail());
@@ -107,7 +118,7 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
             ->method('fetch')
             ->will($this->returnValue($this->user));
         $session = new Horde_Kolab_Session_Base(
-            '', $composite, array()
+            $composite, array()
         );
         $session->connect(array('password' => ''));
         $this->assertEquals('uid', $session->getUid());
@@ -123,7 +134,7 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
             ->method('fetch')
             ->will($this->returnValue($this->user));
         $session = new Horde_Kolab_Session_Base(
-            '', $composite, array()
+            $composite, array()
         );
         $session->connect(array('password' => ''));
         $this->assertEquals('name', $session->getName());
@@ -139,9 +150,9 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
             ->method('fetch')
             ->will($this->returnValue($this->user));
         $session = new Horde_Kolab_Session_Base(
-            'userid', $composite, array()
+            $composite, array()
         );
-        $session->connect(array('password' => ''));
+        $session->connect('userid', array('password' => ''));
         $this->assertEquals('home.example.org', $session->getImapServer());
     }
 
@@ -155,10 +166,10 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
             ->method('fetch')
             ->will($this->returnValue($this->user));
         $session = new Horde_Kolab_Session_Base(
-            'userid', $composite,
+            $composite,
             array('freebusy' => array('url_format' => 'https://%s/fb'))
         );
-        $session->connect(array('password' => ''));
+        $session->connect('userid', array('password' => ''));
         $this->assertEquals('https://freebusy.example.org/fb', $session->getFreebusyServer());
     }
 
@@ -169,10 +180,10 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
             ->method('connectGuid')
             ->will($this->throwException(new Horde_Kolab_Server_Exception('Error')));
         $session = new Horde_Kolab_Session_Base(
-            'user', $composite, array()
+            $composite, array()
         );
         try {
-            $session->connect(array('password' => 'pass'));
+            $session->connect('user', array('password' => 'pass'));
         } catch (Horde_Kolab_Session_Exception $e) {
             $this->assertEquals('Login failed!', $e->getMessage());
         }
@@ -185,10 +196,10 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
             ->method('connectGuid')
             ->will($this->throwException(new Horde_Kolab_Server_Exception_Bindfailed('Error')));
         $session = new Horde_Kolab_Session_Base(
-            'user', $composite, array()
+            $composite, array()
         );
         try {
-            $session->connect(array('password' => 'pass'));
+            $session->connect('user', array('password' => 'pass'));
         } catch (Horde_Kolab_Session_Exception_Badlogin $e) {
             $this->assertEquals('Invalid credentials!', $e->getMessage());
         }
@@ -197,7 +208,7 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
     public function testMethodSleepHasResultArrayThePropertiesToSerialize()
     {
         $session = new Horde_Kolab_Session_Base(
-            'user', $this->_getComposite(), array()
+            $this->_getComposite(), array()
         );
         $this->assertEquals(
             array(
@@ -216,9 +227,20 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodGetidHasResultStringTheIdOfTheUserUserUsedForConnecting()
     {
+        $this->user->expects($this->exactly(1))
+            ->method('getSingle')
+            ->will($this->returnValue('mail@example.org'));
+        $this->user->expects($this->exactly(4))
+            ->method('getExternal')
+            ->will($this->returnValue(array('mail@example.org')));
+        $composite = $this->_getMockedComposite();
+        $composite->objects->expects($this->once())
+            ->method('fetch')
+            ->will($this->returnValue($this->user));
         $session = new Horde_Kolab_Session_Base(
-            'userid', $this->_getComposite(), array()
+            $composite, array()
         );
+        $session->connect('userid', array('password' => 'pass'));
         $this->assertEquals('userid', $session->getId());
     }
 
@@ -235,9 +257,9 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
             ->method('fetch')
             ->will($this->returnValue($this->user));
         $session = new Horde_Kolab_Session_Base(
-            'userid', $composite, array()
+            $composite, array()
         );
-        $session->connect(array('password' => ''));
+        $session->connect('userid', array('password' => ''));
         $this->assertEquals('userid', $session->getMail());
     }
 
@@ -251,9 +273,9 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
             ->method('fetch')
             ->will($this->returnValue($this->user));
         $session = new Horde_Kolab_Session_Base(
-            'userid', $composite, array()
+            $composite, array()
         );
-        $session->connect(array('password' => ''));
+        $session->connect('userid', array('password' => ''));
         $this->assertEquals('userid', $session->getUid());
     }
 
@@ -267,9 +289,9 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
             ->method('fetch')
             ->will($this->returnValue($this->user));
         $session = new Horde_Kolab_Session_Base(
-            'userid', $composite, array()
+            $composite, array()
         );
-        $session->connect(array('password' => ''));
+        $session->connect('userid', array('password' => ''));
         $this->assertEquals('userid', $session->getName());
     }
 
@@ -283,10 +305,10 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
             ->method('fetch')
             ->will($this->returnValue($this->user));
         $session = new Horde_Kolab_Session_Base(
-            'userid', $composite,
+            $composite,
             array('freebusy' => array('url_format' => 'https://%s/fb'))
         );
-        $session->connect(array('password' => ''));
+        $session->connect('userid', array('password' => ''));
         $this->assertEquals('https://freebusy.example.org/fb', $session->getFreebusyServer());
     }
 
@@ -300,9 +322,9 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
             ->method('fetch')
             ->will($this->returnValue($this->user));
         $session = new Horde_Kolab_Session_Base(
-            'userid', $composite, array()
+            $composite, array()
         );
-        $session->connect(array('password' => ''));
+        $session->connect('userid', array('password' => ''));
         $this->assertEquals('http://freebusy.example.org/freebusy', $session->getFreebusyServer());
     }
 
@@ -316,10 +338,10 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
             ->method('fetch')
             ->will($this->returnValue($this->user));
         $session = new Horde_Kolab_Session_Base(
-            'userid', $composite,
+            $composite,
             array('freebusy' => array('url' => 'https://freebusy2.example.org/fb'))
         );
-        $session->connect(array('password' => ''));
+        $session->connect('userid', array('password' => ''));
         $this->assertEquals('https://freebusy2.example.org/fb', $session->getFreebusyServer());
     }
 
@@ -333,10 +355,10 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
             ->method('fetch')
             ->will($this->returnValue($this->user));
         $session = new Horde_Kolab_Session_Base(
-            'userid', $composite,
+            $composite,
             array('freebusy' => array('url_format' => 'https://%s/fb'))
         );
-        $session->connect(array('password' => ''));
+        $session->connect('userid', array('password' => ''));
         $this->assertEquals('https://localhost/fb', $session->getFreebusyServer());
     }
 
@@ -350,9 +372,9 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
             ->method('fetch')
             ->will($this->returnValue($this->user));
         $session = new Horde_Kolab_Session_Base(
-            'userid', $composite, array()
+            $composite, array()
         );
-        $session->connect(array('password' => ''));
+        $session->connect('userid', array('password' => ''));
         $this->assertEquals('http://localhost/freebusy', $session->getFreebusyServer());
     }
 
@@ -366,10 +388,10 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
             ->method('fetch')
             ->will($this->returnValue($this->user));
         $session = new Horde_Kolab_Session_Base(
-            'userid', $composite,
+            $composite,
             array('freebusy' => array('url_format' => 'https://%s/fb'))
         );
-        $session->connect(array('password' => ''));
+        $session->connect('userid', array('password' => ''));
         $this->assertEquals('https://localhost/fb', $session->getFreebusyServer());
     }
 
@@ -383,9 +405,9 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
             ->method('fetch')
             ->will($this->returnValue($this->user));
         $session = new Horde_Kolab_Session_Base(
-            'userid', $composite, array()
+            $composite, array()
         );
-        $session->connect(array('password' => ''));
+        $session->connect('userid', array('password' => ''));
         $this->assertEquals('http://localhost/freebusy', $session->getFreebusyServer());
     }
 
@@ -399,9 +421,9 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
             ->method('fetch')
             ->will($this->returnValue($this->user));
         $session = new Horde_Kolab_Session_Base(
-            'userid', $composite, array()
+            $composite, array()
         );
-        $session->connect(array('password' => ''));
+        $session->connect('userid', array('password' => ''));
         $this->assertEquals('home.example.org', $session->getImapServer());
     }
 
@@ -415,10 +437,10 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
             ->method('fetch')
             ->will($this->returnValue($this->user));
         $session = new Horde_Kolab_Session_Base(
-            'userid', $composite,
+            $composite,
             array('imap' => array('server' => 'imap.example.org'))
         );
-        $session->connect(array('password' => ''));
+        $session->connect('userid', array('password' => ''));
         $this->assertEquals('imap.example.org', $session->getImapServer());
     }
 
@@ -432,9 +454,9 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
             ->method('fetch')
             ->will($this->returnValue($this->user));
         $session = new Horde_Kolab_Session_Base(
-            'userid', $composite, array()
+            $composite, array()
         );
-        $session->connect(array('password' => ''));
+        $session->connect('userid', array('password' => ''));
         $this->assertEquals('localhost', $session->getImapServer());
     }
 

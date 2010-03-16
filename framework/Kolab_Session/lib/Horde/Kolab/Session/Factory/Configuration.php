@@ -146,41 +146,32 @@ implements Horde_Kolab_Session_Factory_Interface
     /**
      * Validate the given session.
      *
-     * @param Horde_Kolab_Session $session The session to validate.
-     * @param string              $user    The session will be validated for
-     *                                     this user ID.
-     *
      * @return boolean True if the given session is valid.
      */
-    public function validate(Horde_Kolab_Session_Interface $session, $user = null)
-    {
-        return $this->_factory->validate($session, $user);
+    public function validate(
+        Horde_Kolab_Session_Interface $session
+    ) {
+        return $this->_factory->validate($session);
     }
 
     /**
      * Returns a new session handler.
      *
-     * @param string $user The session will be setup for the user with this ID.
-     *
      * @return Horde_Kolab_Session The concrete Kolab session reference.
      */
-    public function createSession($user = null)
+    public function createSession()
     {
-        return $this->_factory->createSession($user);
+        return $this->_factory->createSession();
     }
 
     /**
      * Returns either a reference to a session handler with data retrieved from
      * the session or a new session handler.
      *
-     * @param string $user        The session will be setup for the user with
-     *                            this ID.
-     * @param array  $credentials An array of login credentials.
-     *
      * @return Horde_Kolab_Session The concrete Kolab session reference.
      */
-    public function getSession($user = null, array $credentials = null)
+    public function getSession()
     {
-        return $this->_factory->getSession($user, $credentials);
+        return $this->_factory->getSession();
     }
 }

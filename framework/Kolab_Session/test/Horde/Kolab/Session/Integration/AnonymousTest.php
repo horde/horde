@@ -50,7 +50,7 @@ class Horde_Kolab_Session_Integration_AnonymousTest extends Horde_Kolab_Session_
             ->method('fetch')
             ->will($this->returnValue($user));
         $session = new Horde_Kolab_Session_Base(
-            '', $composite, array()
+            $composite, array()
         );
         $anonymous = new Horde_Kolab_Session_Decorator_Anonymous(
             $session, 'anonymous', 'pass'
