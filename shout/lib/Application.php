@@ -65,6 +65,11 @@ class Shout_Application extends Horde_Registry_Application
     /**
      * TODO
      */
+    public $vfs = null;
+
+    /**
+     * TODO
+     */
     static protected $_perms = array();
 
     /**
@@ -74,12 +79,14 @@ class Shout_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
-        $this->storage = Shout_Driver::factory('storage');
-        $this->extensions = Shout_Driver::factory('extensions');
-        $this->devices = Shout_Driver::factory('devices');
-        $this->dialplan = Shout_Driver::factory('dialplan');
-
         try {
+            $this->storage = Shout_Driver::factory('storage');
+            $this->extensions = Shout_Driver::factory('extensions');
+            $this->devices = Shout_Driver::factory('devices');
+            $this->dialplan = Shout_Driver::factory('dialplan');
+            $conf = $GLOBALS['conf'];
+            $this->vfs = VFS::singleton($conf['vfs']['driver'], $conf['vfs']['params']);
+
             $accounts = $this->storage->getAccounts();
         } catch (Shout_Exception $e) {
             $GLOBALS['notification']->push($e);
