@@ -484,14 +484,9 @@ class Horde_Mime_Mail
         }
 
         /* Send message. */
-        $res = $basepart->send(implode(', ', $this->_recipients),
+        return $basepart->send(implode(', ', $this->_recipients),
                                $this->_headers, $this->_mailer_driver,
                                $this->_mailer_params);
-        if (is_a($res, 'PEAR_Error')) {
-            throw new Horde_Mime_Exception($res);
-        }
-
-        return $res;
     }
 
     /**
