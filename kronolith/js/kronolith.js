@@ -1276,6 +1276,88 @@ KronolithCore = {
                         }
                         this.holidays.push(event.key);
                     }
+                    if (view == 'month' && Kronolith.conf.max_events) {
+                        var events = $('kronolithMonthDay' + date).select('.kronolithEvent');
+                        if (events.size() >= Kronolith.conf.max_events) {
+                            if (date == (new Date().dateString())) {
+                                // This is today.
+                                if (event.value.al || event.value.end.isBefore()) {
+                                    // No room for all-day or finished events.
+                                    this.insertMore(date);
+                                    return;
+                                }
+                                var remove, max;
+                                // Find an event that is earlier than now or
+                                // later then the current event.
+                                events.each(function(elm) {
+                                    var calendar = elm.retrieve('calendar').split('|'),
+                                        event = this.ecache.get(calendar[0]).get(calendar[1]).get(date).get(elm.retrieve('eventid'));
+                                    if (event.start.isBefore()) {
+                                        remove = elm;
+                                        throw $break;
+                                    }
+                                    if (!max || event.start.isAfter(max)) {
+                                        max = event.start;
+                                        remove = elm;
+                                    }
+                                }, this);
+                                if (remove) {
+                                    remove.remove();
+                                } else {
+                                    this.insertMore(date);
+                                    return;
+                                }
+                            } else {
+                                // Not today.
+                                var allDays = events.findAll(function(elm) {
+                                    var calendar = elm.retrieve('calendar').split('|');
+                                    return this.ecache.get(calendar[0]).get(calendar[1]).get(date).get(elm.retrieve('eventid')).al;
+                                }.bind(this));
+                                if (event.value.al) {
+                                    // We want one all-day event.
+                                    if (allDays.size()) {
+                                        // There already is an all-day event.
+                                        if (event.value.x == Kronolith.conf.status.confirmed ||
+                                            event.value.x == Kronolith.conf.status.tentative) {
+                                            // But is there a less important
+                                            // one?
+                                            var status = [Kronolith.conf.status.free, Kronolith.conf.status.cancelled];
+                                            if (event.value.x == Kronolith.conf.status.confirmed) {
+                                                status.push(Kronolith.conf.status.tentative);
+                                            }
+                                            var free = allDays.detect(function(elm) {
+                                                var calendar = elm.retrieve('calendar').split('|');
+                                                return status.include(this.ecache.get(calendar[0]).get(calendar[1]).get(date).get(elm.retrieve('eventid')).x);
+                                            }.bind(this));
+                                            if (!free) {
+                                                this.insertMore(date);
+                                                return;
+                                            }
+                                            free.remove();
+                                        } else {
+                                            // No.
+                                            this.insertMore(date);
+                                            return;
+                                        }
+                                    } else {
+                                        // Remove the last event to make room
+                                        // for this one.
+                                        events.pop().remove();
+                                    }
+                                } else {
+                                    if (allDays.size() > 1) {
+                                        // We don't want more than one all-day
+                                        // event.
+                                        allDays.pop().remove();
+                                    } else {
+                                        // This day is full.
+                                        this.insertMore(date);
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    }
                     break;
 
                 case 'year':
@@ -1571,11 +1653,16 @@ KronolithCore = {
             var div = _createElement(event)
                 .setStyle({ backgroundColor: Kronolith.conf.calendars[calendar[0]][calendar[1]].bg,
                             color: Kronolith.conf.calendars[calendar[0]][calendar[1]].fg });
-
             $('kronolithMonthDay' + date).insert(div);
             if (event.value.pe) {
                 div.setStyle({ cursor: 'move' });
                 new Drag('kronolithEventmonth' + event.value.calendar + date + event.key, { threshold: 5, parentElement: function() { return $('kronolithViewMonthBody'); }, snapToParent: true });
+            }
+            if (Kronolith.conf.max_events) {
+                var more = $('kronolithMonthDay' + date).down('.kronolithMore');
+                if (more) {
+                    $('kronolithMonthDay' + date).insert({ bottom: more.remove() });
+                }
             }
             break;
 
@@ -1597,6 +1684,22 @@ KronolithCore = {
         this.setEventText(div, event.value)
             .observe('mouseover', div.addClassName.curry('kronolithSelected'))
             .observe('mouseout', div.removeClassName.curry('kronolithSelected'));
+    },
+
+    /**
+     * Adds a "more..." button to the month view cell that links to the days,
+     * or moves it to the buttom.
+     *
+     * @param string date  The date string of the day cell.
+     */
+    insertMore: function(date)
+    {
+        var more = $('kronolithMonthDay' + date).down('.kronolithMore');
+        if (more) {
+            $('kronolithMonthDay' + date).insert({ bottom: more.remove() });
+        } else {
+            $('kronolithMonthDay' + date).insert({ bottom: new Element('span', { className: 'kronolithMore' }).store('date', date).insert(Kronolith.text.more) });
+        }
     },
 
     setEventText: function(div, event)
@@ -3513,6 +3616,11 @@ KronolithCore = {
                     date += 'all';
                 }
                 this.go('event:' + date);
+                e.stop();
+                return;
+
+            case 'kronolithMore':
+                this.go('day:' + elt.retrieve('date'));
                 e.stop();
                 return;
 

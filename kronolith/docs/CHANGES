@@ -2,6 +2,7 @@
 v3.0-git
 --------
 
+[jan] Add preference to limit the events per day in the month view.
 [jan] Add system calendars (Request #2059).
 [jan] Add URL field to events.
 [jan] Add task management capabilities to the Ajax interface.

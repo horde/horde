@@ -10,7 +10,7 @@ $prefGroups['view'] = array(
     'label' => _("User Interface"),
     'desc' => _("Select confirmation options, how to display the different views and choose default view."),
     'members' => array('dynamic_view', 'confirm_delete', 'defaultview',
-                       'time_between_days', 'week_start_monday',
+                       'max_events', 'time_between_days', 'week_start_monday',
                        'day_hour_start', 'day_hour_end', 'day_hour_force',
                        'slots_per_hour', 'show_icons', 'show_time',
                        'show_location', 'show_fb_legend',
@@ -93,6 +93,14 @@ $_prefs['defaultview'] = array(
                     'workweek' => _("Work Week"),
                     'month' => _("Month")),
     'desc' => _("Select the view to display on startup:")
+);
+
+$_prefs['max_events'] = array(
+    'value' => 3,
+    'locked' => false,
+    'shared' => false,
+    'type' => 'number',
+    'desc' => _("How many events should be displayed per day in the month view? Set to 0 to always show all events."),
 );
 
 // Display the timeslots between each day column, in week view.

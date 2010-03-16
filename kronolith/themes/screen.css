@@ -1282,18 +1282,6 @@ table.kronolithView td.kronolithFirstCol {
     background-color: #ebf3fc;
     border-color: #808080;
 }
-.kronolithMore {
-    position: absolute;
-    z-index: 10;
-    right: 0;
-    bottom: 0;
-    width: 15px;
-    height: 15px;
-    background: white;
-    border-right: none;
-    border-bottom: none;
-    text-align: center;
-}
 /*
 .kronolithWeekend {
     background: #ffc;
