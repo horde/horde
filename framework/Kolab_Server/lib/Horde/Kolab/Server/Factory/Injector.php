@@ -114,7 +114,6 @@ implements Horde_Kolab_Server_Factory_Interface
         $this->_setupStructure();
         $this->_setupConnection();
         $this->_setupServer();
-        $this->_setupComposite();
     }
 
     /**
@@ -200,19 +199,6 @@ implements Horde_Kolab_Server_Factory_Interface
             'Horde_Kolab_Server_Interface',
             'Horde_Kolab_Server_Factory_Injector',
             'getServer'
-        );
-    }
-
-    /**
-     * Setup the machinery to create a Horde_Kolab_Server_Composite server.
-     *
-     * @return NULL
-     */
-    private function _setupComposite()
-    {
-        $this->_injector->bindImplementation(
-            'Horde_Kolab_Server_Composite_Interface',
-            'Horde_Kolab_Server_Composite_Base'
         );
     }
 
@@ -338,7 +324,7 @@ implements Horde_Kolab_Server_Factory_Interface
     public function getComposite()
     {
         return $this->_injector->getInstance(
-            'Horde_Kolab_Server_Composite_Interface'
+            'Horde_Kolab_Server_Composite'
         );
     }
 }

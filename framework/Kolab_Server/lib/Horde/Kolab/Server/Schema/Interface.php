@@ -34,7 +34,7 @@ interface Horde_Kolab_Server_Schema_Interface
      *                                                server handler.
      */
     public function setComposite(
-        Horde_Kolab_Server_Composite_Interface $composite
+        Horde_Kolab_Server_Composite $composite
     );
 
     /**

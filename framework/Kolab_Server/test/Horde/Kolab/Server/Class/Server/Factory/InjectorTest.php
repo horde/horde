@@ -153,7 +153,7 @@ extends Horde_Kolab_Server_LdapTestCase
         $this->skipIfNoLdap();
         $factory = $this->_getFactory(array('basedn' => 'test'));
         $this->assertType(
-            'Horde_Kolab_Server_Composite_Interface',
+            'Horde_Kolab_Server_Composite',
             $factory->getComposite()
         );
     }

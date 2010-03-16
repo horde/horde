@@ -37,7 +37,7 @@ extends Horde_Kolab_Server_Object_Attribute_Decorator
      */
     public function __construct(
         Horde_Kolab_Server_Object_Interface $object,
-        Horde_Kolab_Server_Composite_Interface $composite
+        Horde_Kolab_Server_Composite $composite
     ) {
         $this->_attribute = new Horde_Kolab_Server_Object_Attribute_Required(
             new Horde_Kolab_Server_Object_Attribute_Locked(

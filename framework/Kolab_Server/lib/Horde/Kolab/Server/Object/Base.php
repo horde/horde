@@ -51,7 +51,7 @@ implements Horde_Kolab_Server_Object_Interface
      * @param string                       $guid      GUID of the object.
      */
     public function __construct(
-        Horde_Kolab_Server_Composite_Interface $composite,
+        Horde_Kolab_Server_Composite $composite,
         $guid = null
     ) {
         $this->_composite = $composite;

@@ -127,7 +127,7 @@ extends Horde_Kolab_Server_LdapTestCase
             $this->search, $this->schema, array('basedn' => 'test')
         );
         $this->assertType(
-            'Horde_Kolab_Server_Composite_Interface',
+            'Horde_Kolab_Server_Composite',
             $factory->getComposite()
         );
     }

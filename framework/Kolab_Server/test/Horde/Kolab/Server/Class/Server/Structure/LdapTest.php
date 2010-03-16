@@ -35,7 +35,7 @@ class Horde_Kolab_Server_Class_Server_Structure_LdapTest extends Horde_Kolab_Ser
     public function setUp()
     {
         $server = $this->getMock('Horde_Kolab_Server_Interface');
-        $this->composite = new Horde_Kolab_Server_Composite_Base(
+        $this->composite = new Horde_Kolab_Server_Composite(
             $server,
             $this->getMock('Horde_Kolab_Server_Objects_Interface'),
             new Horde_Kolab_Server_Structure_Ldap(),

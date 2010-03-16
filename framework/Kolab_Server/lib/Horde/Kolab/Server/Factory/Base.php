@@ -129,7 +129,7 @@ implements Horde_Kolab_Server_Factory_Interface
      */
     public function getComposite()
     {
-        $composite = new Horde_Kolab_Server_Composite_Base(
+        $composite = new Horde_Kolab_Server_Composite(
             $this->getServer(),
             $this->getObjects(),
             $this->getStructure(),

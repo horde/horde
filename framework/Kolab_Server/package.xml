@@ -75,10 +75,7 @@
     <dir name="Horde">
      <dir name="Kolab">
       <dir name="Server">
-       <dir name="Composite">
-        <file name="Base.php" role="php" />
-        <file name="Interface.php" role="php" />
-       </dir> <!-- /lib/Horde/Kolab/Server/Composite -->
+       <file name="Composite.php" role="php" />
        <dir name="Connection">
         <dir name="Mock">
          <file name="Ldap.php" role="php" />
@@ -419,8 +416,7 @@
    <install as="Horde/Kolab/Server/Exception.php" name="lib/Horde/Kolab/Server/Exception.php" />
    <install as="Horde/Kolab/Server/Interface.php" name="lib/Horde/Kolab/Server/Interface.php" />
    <install as="Horde/Kolab/Server/Ldap.php" name="lib/Horde/Kolab/Server/Ldap.php" />
-   <install as="Horde/Kolab/Server/Composite/Base.php" name="lib/Horde/Kolab/Server/Composite/Base.php" />
-   <install as="Horde/Kolab/Server/Composite/Interface.php" name="lib/Horde/Kolab/Server/Composite/Interface.php" />
+   <install as="Horde/Kolab/Server/Composite.php" name="lib/Horde/Kolab/Server/Composite.php" />
    <install as="Horde/Kolab/Server/Connection/File.php" name="lib/Horde/Kolab/Server/Connection/File.php" />
    <install as="Horde/Kolab/Server/Connection/Interface.php" name="lib/Horde/Kolab/Server/Connection/Interface.php" />
    <install as="Horde/Kolab/Server/Connection/Mock.php" name="lib/Horde/Kolab/Server/Connection/Mock.php" />

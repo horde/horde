@@ -42,13 +42,13 @@ class Horde_Kolab_Server_TestCase extends PHPUnit_Framework_TestCase
     protected function getComposite()
     {
         return $this->getMock(
-            'Horde_Kolab_Server_Composite_Interface'
+            'Horde_Kolab_Server_Composite', array(), array(), '', false, false
         );
     }
 
     protected function getMockedComposite()
     {
-        return new Horde_Kolab_Server_Composite_Base(
+        return new Horde_Kolab_Server_Composite(
             $this->getMock('Horde_Kolab_Server_Interface'),
             $this->getMock('Horde_Kolab_Server_Objects_Interface'),
             $this->getMock('Horde_Kolab_Server_Structure_Interface'),

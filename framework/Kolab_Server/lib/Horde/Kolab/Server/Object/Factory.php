@@ -42,7 +42,7 @@ class Horde_Kolab_Server_Object_Factory
      */
     static public function factory(
         $type, $uid,
-        Horde_Kolab_Server_Composite_Interface $storage,
+        Horde_Kolab_Server_Composite $storage,
         $data = null
     ) {
         if (class_exists($type)) {
