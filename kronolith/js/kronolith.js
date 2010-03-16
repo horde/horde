@@ -3168,13 +3168,15 @@ KronolithCore = {
 
             case 'kronolithEventSave':
                 this.saveEvent();
-                elt.disable();
+                $('kronolithEventSave').disable();
+                $('kronolithEventSaveAsNew').disable();
                 e.stop();
                 break;
 
             case 'kronolithEventSaveAsNew':
                 this.saveEvent(true);
-                elt.disable();
+                $('kronolithEventSave').disable();
+                $('kronolithEventSaveAsNew').disable();
                 e.stop();
                 break;
 
@@ -3883,8 +3885,8 @@ KronolithCore = {
         if (Kronolith.conf.maps.driver) {
             $('kronolithEventMapLink').hide();
         }
-        $('kronolithEventSave').show();
-        $('kronolithEventSaveAsNew').show();
+        $('kronolithEventSave').show().enable();
+        $('kronolithEventSaveAsNew').show().enable();
         $('kronolithEventDelete').show();
         $('kronolithEventForm').down('.kronolithFormActions .kronolithSeparator').show();
         if (id) {
