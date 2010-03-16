@@ -446,7 +446,9 @@ Drag = Class.create({
             DragDrop.Drags.cover.down().siblings().invoke('remove');
         }
 
-        this.element.fire('DragDrop2:end', e);
+        if (this.wasMoved) {
+            this.element.fire('DragDrop2:end', e);
+        }
     },
 
     _onMoveDrag: function(xy, e)
