@@ -508,14 +508,15 @@ class IMP_Ui_Message
         }
 
         foreach ($parts_list as $mime_id => $mime_type) {
-            if (in_array($mime_id, $display_ids, true)) {
+            if (isset($display_ids[$mime_id]) ||
+                isset($atc_parts[$mime_id])) {
                 continue;
             }
 
             if (!($render_mode = $imp_contents->canDisplay($mime_id, $display_mask))) {
                 if ($imp_contents->isAttachment($mime_type)) {
                     if ($show_parts == 'atc') {
-                        $atc_parts[] = $mime_id;
+                        $atc_parts[$mime_id] = 1;
                     }
 
                     if ($contents_mask) {
@@ -530,7 +531,7 @@ class IMP_Ui_Message
                 $imp_contents->isAttachment($mime_type) &&
                 (empty($render_part) ||
                  !($render_mode & IMP_Contents::RENDER_INLINE))) {
-                $atc_parts[] = $mime_id;
+                $atc_parts[$mime_id] = 1;
             }
 
             if (empty($render_part)) {
@@ -544,14 +545,14 @@ class IMP_Ui_Message
 
             reset($render_part);
             while (list($id, $info) = each($render_part)) {
-                if ($no_inline_all === 1) {
-                    $atc_parts[] = $id;
+                $display_ids[$id] = 1;
+
+                if (empty($info)) {
                     continue;
                 }
 
-                $display_ids[] = $id;
-
-                if (empty($info)) {
+                if ($no_inline_all === 1) {
+                    $atc_parts[$id] = 1;
                     continue;
                 }
 
@@ -579,7 +580,7 @@ class IMP_Ui_Message
                     }
                 } else {
                     if ($show_parts == 'atc') {
-                        $atc_parts[] = $id;
+                        $atc_parts[$id] = 1;
                     }
 
                     if ($contents_mask) {
@@ -607,8 +608,8 @@ class IMP_Ui_Message
         }
 
         return array(
-            'atc_parts' => $atc_parts,
-            'display_ids' => $display_ids,
+            'atc_parts' => array_keys($atc_parts),
+            'display_ids' => array_keys($display_ids),
             'js_onload' => $js_onload,
             'msgtext' => $msgtext
         );
