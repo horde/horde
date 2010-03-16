@@ -59,16 +59,20 @@ class IMP_Horde_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Driver
     /**
      * Render out the currently set contents.
      *
-     * @param boolean $inline  Are we viewing inline?
+     * @param boolean $inline        Are we viewing inline?
+     * @param boolean $prefer_plain  For MIMP, prefer text/plain part over
+     *                               all others.
      *
      * @return array  See Horde_Mime_Viewer_Driver::render().
      */
-    protected function _IMPrender($inline)
+    protected function _IMPrender($inline, $prefer_plain = true)
     {
         $base_id = $this->_mimepart->getMimeId();
         $subparts = $this->_mimepart->contentTypeMap();
 
         $base_ids = $display_ids = $ret = array();
+
+        $is_mimp = (IMP::getViewMode() == 'mimp');
 
         /* Look for a displayable part. RFC: show the LAST choice that can be
          * displayed inline. If an alternative is itself a multipart, the user
@@ -76,16 +80,23 @@ class IMP_Horde_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Driver
          * or both. If we find a multipart alternative that contains at least
          * one viewable part, we will display all viewable subparts of that
          * alternative. */
-        foreach (array_keys($subparts) as $mime_id) {
+        foreach ($subparts as $mime_id => $type) {
             $ret[$mime_id] = null;
             if ((strcmp($base_id, $mime_id) !== 0) &&
                 $this->_params['contents']->canDisplay($mime_id, $inline ? IMP_Contents::RENDER_INLINE : IMP_Contents::RENDER_FULL)) {
-                $display_ids[strval($mime_id)] = true;
+                if (!$is_mimp ||
+                    !$prefer_plain ||
+                    ($type == 'text/plain')) {
+                    $display_ids[strval($mime_id)] = true;
+                }
             }
         }
 
         /* If we found no IDs, return now. */
         if (empty($display_ids)) {
+            if ($is_mimp && $prefer_plain) {
+                return $this->_IMPRender($inline, false);
+            }
             $ret[$base_id] = array(
                 'data' => '',
                 'status' => array(
