@@ -92,7 +92,4 @@ echo "<body>\n";
 require IMP_TEMPLATES . '/dimp/chunks/message.php';
 Horde::includeScriptFiles();
 Horde::outputInlineScript();
-if (!$disable_compose) {
-    echo $compose_result['jsappend'];
-}
 echo "</body>\n</html>";

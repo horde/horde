@@ -22,10 +22,9 @@ class IMP_Views_Compose
      *
      * @return array  Array with the following keys:
      * <pre>
-     * 'html' - The rendered HTML content.
-     * 'js' - An array of javascript code to run immediately.
-     * 'jsappend' - Javascript code to append at bottom of page.
-     * 'jsonload' - An array of javascript code to run on load.
+     * 'html' - (string) The rendered HTML content.
+     * 'js' - (array) Javascript code to run immediately.
+     * 'jsonload' - (array) Javascript code to run on load.
      * </pre>
      */
     static public function showCompose($args)

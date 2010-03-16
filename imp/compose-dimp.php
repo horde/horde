@@ -208,5 +208,4 @@ IMP_Dimp::header(_("Message Composition"), $scripts);
 echo $t->fetch(IMP_TEMPLATES . '/dimp/compose/compose.html');
 Horde::includeScriptFiles();
 Horde::outputInlineScript();
-echo $compose_result['jsappend'];
 echo "</body>\n</html>";
