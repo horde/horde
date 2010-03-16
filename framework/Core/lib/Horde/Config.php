@@ -1245,6 +1245,42 @@ class Horde_Config
                             'driverconfig' => $sql
                         )
                     )
+                ),
+                'ssh2' => array(
+                    'desc' => 'SSH2 (SFTP)',
+                    'fields' => array(
+                        'params' => array(
+                            'hostspec' => array(
+                                '_type' => 'text',
+                                'required' => true,
+                                'desc' => 'SSH server/host',
+                                'default' => $this->_default($ctx . '|hostspec', '')
+                            ),
+                            'port' => array(
+                                '_type' => 'text',
+                                'required' => false,
+                                'desc' => 'Port number on which SSH listens',
+                                'default' => $this->_default($ctx . '|port', '22')
+                            ),
+                            'username' => array(
+                                '_type' => 'text',
+                                'required' => true,
+                                'desc' => 'Username to connect to the SSH server',
+                                'default' => $this->_default($ctx . '|username', '')
+                            ),
+                            'password' => array(
+                                '_type' => 'text',
+                                'required' => true,
+                                'desc' => 'Password with which to connect',
+                                'default' => $this->_default($ctx . '|password', '')
+                            ),
+                            'vfsroot' => array(
+                                '_type' => 'text',
+                                'desc' => 'Where on the real filesystem should Horde use as root of the virtual filesystem?',
+                                'default' => $this->_default($ctx . '|vfsroot', '/tmp')
+                            )
+                        )
+                    )
                 )
             )
         );
