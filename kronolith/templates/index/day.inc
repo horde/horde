@@ -36,7 +36,7 @@
     <?php for ($i = 0; $i < 24; $i++): ?>
     <tr<?php if ($i < 9 || $i > 19) echo ' class="kronolithNight"' ?>>
       <td class="kronolithFirstCol"><span><?php echo $i ?>:00</span></td>
-      <td></td>
+      <td>&nbsp;</td>
     </tr>
     <?php endfor; ?>
   </tbody>
