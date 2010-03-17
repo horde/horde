@@ -10,6 +10,7 @@ v2.0-git
 v1.2.4-cvs
 ----------
 
+[jan] Correctly escape addresses in procmail driver (Bug #8875).
 [jan] Fix procmail scripts when using composite headers (Bug #8804).
 [jan] Support some non-standard Date: headers in Sieve vacation rules
       (Request #8783).

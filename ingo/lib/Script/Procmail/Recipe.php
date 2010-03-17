@@ -301,21 +301,21 @@ class Ingo_Script_Procmail_Recipe
             break;
 
         case 'address':
-            $string .= '(.*\<)?' . quotemeta($condition['value']);
+            $string .= '(.*\<)?' . preg_quote($condition['value']);
             break;
 
         case 'not begins with':
             $reverseCondition = true;
             // fall through
         case 'begins with':
-            $string .= $prefix . quotemeta($condition['value']);
+            $string .= $prefix . preg_quote($condition['value']);
             break;
 
         case 'not ends with':
             $reverseCondition = true;
             // fall through
         case 'ends with':
-            $string .= '.*' . quotemeta($condition['value']) . '$';
+            $string .= '.*' . preg_quote($condition['value']) . '$';
             break;
 
         case 'not contain':
@@ -323,7 +323,7 @@ class Ingo_Script_Procmail_Recipe
             // fall through
         case 'contains':
         default:
-            $string .= '.*' . quotemeta($condition['value']);
+            $string .= '.*' . preg_quote($condition['value']);
             break;
         }
 
