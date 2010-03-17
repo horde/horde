@@ -52,7 +52,7 @@ class Horde_Core_Factory_KolabServerTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    private function _getFactory(array $configuration = array())
+    private function _getFactory()
     {
         return new Horde_Core_Factory_KolabServer(
             new Horde_Injector(new Horde_Injector_TopLevel())
