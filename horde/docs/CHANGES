@@ -37,6 +37,8 @@ v4.0-cvs
 v3.3.7-cvs
 ----------
 
+[jan] Allow to update existing identities while requiring email confirmation
+      (Sebastian Radish, Bug #8877).
 [jan] Fix casting errors when using SQL shares and groups on PostgreSQL
       (Bug #8899).
 [gwr] Allow conf.d style directory configuration overriding (Request #8172).

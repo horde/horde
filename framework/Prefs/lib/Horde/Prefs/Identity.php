@@ -484,13 +484,22 @@ class Horde_Prefs_Identity
         }
 
         $identity = $this->_prefs->convertFromDriver($confirm[$hash], Horde_Nls::getCharset());
-        $verified = array();
-        foreach ($identity as $key => $value) {
-            if (!$this->_prefs->isLocked($key)) {
-                $verified[$key] = $value;
+        $id = array_search($identity['id'], $this->getAll('id'));
+        if ($id === false) {
+            /* Adding a new identity. */
+            $verified = array();
+            foreach ($identity as $key => $value) {
+                if (!$this->_prefs->isLocked($key)) {
+                    $verified[$key] = $value;
+                }
+            }
+            $this->add($verified);
+        } else {
+            /* Updating an existing identity. */
+            foreach ($identity as $key => $value) {
+                $this->setValue($key, $value, $id);
             }
         }
-        $this->add($verified);
         $this->save();
         unset($confirm[$hash]);
         $this->_prefs->setValue('confirm_email', serialize($confirm), false);
