@@ -61,36 +61,9 @@ class Horde_Share_kolab extends Horde_Share {
             return $this->_type;
         }
 
-        $this->_list = $this->getSession()->getStorage();
+        $this->_list = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage');
 
         parent::__wakeup();
-    }
-
-    /**
-     * Set the session handler.
-     *
-     * @param Horde_Kolab_Session $session The session handler.
-     *
-     * @return NULL
-     */
-    public function setSession(Horde_Kolab_Session $session)
-    {
-        $this->_session = $session;
-    }
-
-    /**
-     * Retrieve a connected kolab session.
-     *
-     * @return Horde_Kolab_Session The connected session.
-     *
-     * @throws Horde_Kolab_Session_Exception
-     */
-    public function getSession()
-    {
-        if (!isset($this->_session)) {
-            $this->_session = $GLOBALS['injector']->getInstance('Horde_Kolab_Session');
-        }
-        return $this->_session;
     }
 
     private function _getFolderType($app)
@@ -449,33 +422,6 @@ class Horde_Share_Object_kolab extends Horde_Share_Object {
     }
 
     /**
-     * Set the session handler.
-     *
-     * @param Horde_Kolab_Session $session The session handler.
-     *
-     * @return NULL
-     */
-    public function setSession(Horde_Kolab_Session $session)
-    {
-        $this->_session = $session;
-    }
-
-    /**
-     * Retrieve a connected kolab session.
-     *
-     * @return Horde_Kolab_Session The connected session.
-     *
-     * @throws Horde_Kolab_Session_Exception
-     */
-    public function getSession()
-    {
-        if (!isset($this->_session)) {
-            $this->_session = $GLOBALS['injector']->getInstance('Horde_Kolab_Session');
-        }
-        return $this->_session;
-    }
-
-    /**
      * Associates a Share object with this share.
      *
      * @param Horde_Share $shareOb  The Share object.
@@ -490,7 +436,7 @@ class Horde_Share_Object_kolab extends Horde_Share_Object {
      */
     function __wakeup()
     {
-        $this->_list = $this->getSession()->getStorage();
+        $this->_list = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage');
         if (isset($this->_folder_name)) {
             $this->_folder = $this->_list->getFolder($this->_folder_name);
         }

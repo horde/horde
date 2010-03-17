@@ -169,33 +169,6 @@ class Horde_Kolab_Storage
     }
 
     /**
-     * Attempts to return a reference to a concrete Horde_Kolab_Storage_List
-     * instance based on $driver and $params. It will only create a new instance
-     * if no Horde_Kolab_Storage_List instance with the same parameters currently
-     * exists.
-     *
-     * This method must be invoked as:
-     *   $var = &Horde_Kolab_Storage_List::singleton()
-     *
-     * @param string $driver The driver used for the primary storage connection.
-     * @param array  $params Additional connection parameters.
-     *
-     * @return Horde_Kolab_Storage_List  The concrete Horde_Kolab_Storage reference.
-     */
-    static public function singleton($driver, $params = array())
-    {
-        ksort($params);
-        $signature = hash('md5', serialize(array($driver, $params)));
-
-        if (!isset(self::$instances[$signature])) {
-            self::$instances[$signature] = Horde_Kolab_Storage::factory($driver,
-                                                                        $params);
-        }
-
-        return self::$instances[$signature];
-    }
-
-    /**
      * Clean the simulated IMAP store.
      *
      * @return NULL

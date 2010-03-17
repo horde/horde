@@ -240,6 +240,7 @@ class Horde_Registry
         $injector->addBinder('Net_DNS_Resolver', new Horde_Core_Binder_Dns());
         $injector->bindFactory('Horde_Kolab_Server_Composite', 'Horde_Core_Factory_KolabServer', 'getComposite');
         $injector->bindFactory('Horde_Kolab_Session', 'Horde_Core_Factory_KolabSession', 'getSession');
+        $injector->bindFactory('Horde_Kolab_Storage', 'Horde_Core_Factory_KolabStorage', 'getStorage');
 
         $GLOBALS['registry'] = $this;
         $injector->setInstance('Horde_Registry', $this);

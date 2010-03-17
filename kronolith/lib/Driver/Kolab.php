@@ -50,38 +50,11 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
     private $_store;
 
     /**
-     * Set the session handler.
-     *
-     * @param Horde_Kolab_Session $session The session handler.
-     *
-     * @return NULL
-     */
-    public function setSession(Horde_Kolab_Session $session)
-    {
-        $this->_session = $session;
-    }
-
-    /**
-     * Retrieve a connected kolab session.
-     *
-     * @return Horde_Kolab_Session The connected session.
-     *
-     * @throws Horde_Kolab_Session_Exception
-     */
-    public function getSession()
-    {
-        if (!isset($this->_session)) {
-            $this->_session = $GLOBALS['injector']->getInstance('Horde_Kolab_Session');
-        }
-        return $this->_session;
-    }
-
-    /**
      * Attempts to open a Kolab Groupware folder.
      */
     public function initialize()
     {
-        $this->_kolab = $this->getSession()->getStorage();
+        $this->_kolab = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage');
         $this->reset();
     }
 
