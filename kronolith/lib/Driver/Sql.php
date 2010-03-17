@@ -181,19 +181,24 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             $event = $this->getEvent($eventId);
             $showRecurrence = true;
             if ($event->recurs()) {
-                if (empty($query->end)) {
-                    $eventEnd = $event->recurrence->nextRecurrence($now);
-                    if (!$eventEnd) {
-                        continue;
-                    }
-                } else {
-                    $eventEnd = $query->end;
-                }
-                if (empty($query->start)) {
+                if (empty($query->start) && empty($query->end)) {
                     $eventStart = $event->start;
-                    $showRecurrence = false;
+                    $eventEnd = $event->end;
                 } else {
-                    $eventStart = $query->start;
+                    if (empty($query->end)) {
+                        $eventEnd = $event->recurrence->nextRecurrence($now);
+                        if (!$eventEnd) {
+                            continue;
+                        }
+                    } else {
+                        $eventEnd = $query->end;
+                    }
+                    if (empty($query->start)) {
+                        $eventStart = $event->start;
+                        $showRecurrence = false;
+                    } else {
+                        $eventStart = $query->start;
+                    }
                 }
             } else {
                 $eventStart = $event->start;

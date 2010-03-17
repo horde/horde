@@ -252,6 +252,20 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
         if (!isset($query->end)) {
             $query->end = null;
         }
+        switch ($this->_vars->time) {
+        case 'all':
+            $query->start = null;
+            $query->end = null;
+            break;
+        case 'future':
+            $query->start = new Horde_Date($_SERVER['REQUEST_TIME']);
+            $query->end = null;
+            break;
+        case 'past':
+            $query->start = null;
+            $query->end = new Horde_Date($_SERVER['REQUEST_TIME']);
+            break;
+        }
 
         $cals = Horde_Serialize::unserialize($this->_vars->cals, Horde_Serialize::JSON);
         $events = array();

@@ -34,6 +34,7 @@ KronolithCore = {
     mapMarker: null,
     map: null,
     mapInitialized: false,
+    search: 'future',
 
     doActionOpts: {
         onException: function(parentfunc, r, e)
@@ -353,8 +354,18 @@ KronolithCore = {
             break;
 
         case 'search':
-            var cals = [], term = locParts[0],
+            var cals = [], time = locParts[0], term = locParts[1],
                 query = Object.toJSON({ title: term });
+
+            if (!($w('all past future').include(time))) {
+                return;
+            }
+
+            this.search = time;
+            $w('All Past Future').each(function(time) {
+                $('kronolithSearch' + time).up().removeClassName('activeTab');
+            });
+            $('kronolithSearch' + this.search.capitalize()).up().addClassName('activeTab');
             this.closeView('agenda');
             this.updateView(null, 'search', term);
             $H(Kronolith.conf.calendars).each(function(type) {
@@ -366,7 +377,7 @@ KronolithCore = {
             });
             this.startLoading('search', query);
             this.doAction('searchEvents',
-                          { cals: cals.toJSON(), query: query },
+                          { cals: cals.toJSON(), query: query, time: this.search },
                           function(r) {
                               // Hide spinner.
                               this.loading--;
@@ -592,9 +603,13 @@ KronolithCore = {
                     day = dates[0].clone();
                 $('kronolithAgendaDate')
                     .update(this.setTitle(Kronolith.text.agenda + ' ' + dates[0].toString('d') + ' - ' + dates[1].toString('d')));
+                $('kronolithAgendaNavigation').show();
+                $('kronolithSearchNavigation').hide();
             } else {
                 $('kronolithAgendaDate')
                     .update(this.setTitle(Kronolith.text.searching.interpolate({ term: data })));
+                $('kronolithAgendaNavigation').hide();
+                $('kronolithSearchNavigation').show();
             }
 
             // Remove old rows. Maybe we should only rebuild the calendars if
@@ -3147,7 +3162,7 @@ KronolithCore = {
                     break;
 
                 case 'kronolithSearchForm':
-                    this.go('search:' + $F('kronolithSearchTerm'))
+                    this.go('search:' + this.search + ':' + $F('kronolithSearchTerm'))
                     e.stop();
                     break;
 
@@ -3510,7 +3525,28 @@ KronolithCore = {
                 return;
 
             case 'kronolithSearchButton':
-                this.go('search:' + $F('kronolithSearchTerm'))
+                this.go('search:' + this.search + ':' + $F('kronolithSearchTerm'));
+                e.stop();
+                break;
+
+            case 'kronolithSearchFuture':
+                if (this.search != 'future') {
+                    this.go('search:future:' + $F('kronolithSearchTerm'));
+                }
+                e.stop();
+                break;
+
+            case 'kronolithSearchPast':
+                if (this.search != 'past') {
+                    this.go('search:past:' + $F('kronolithSearchTerm'));
+                }
+                e.stop();
+                break;
+
+            case 'kronolithSearchAll':
+                if (this.search != 'all') {
+                    this.go('search:all:' + $F('kronolithSearchTerm'));
+                }
                 e.stop();
                 break;
 
