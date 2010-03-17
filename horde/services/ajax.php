@@ -61,7 +61,7 @@ try {
 // Clear the output buffer that we started above, and log any unexpected
 // output at a DEBUG level.
 if (ob_get_length()) {
-    Horde::logMessage('Unexpected output (' . $app . '): ' . ob_get_clean(), __FILE__, __LINE__, 'DEBUG');
+    Horde::logMessage('Unexpected output: ' . ob_get_clean(), 'DEBUG');
 }
 
 // Send the final result.
