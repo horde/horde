@@ -77,9 +77,7 @@ class Ansel_Application extends Horde_Registry_Application
 
         // Get list of available styles for this client.
         $GLOBALS['ansel_styles'] = Ansel::getAvailableStyles();
-        if ($logger = Horde::getLogger()) {
-            $GLOBALS['ansel_vfs']->setLogger($logger, $GLOBALS['conf']['log']['priority']);
-        }
+        $GLOBALS['ansel_vfs']->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
     }
 
     /**
