@@ -4069,7 +4069,7 @@ KronolithCore = {
                               view: this.view,
                               view_start: start,
                               view_end: end,
-                              as_new: !!asnew
+                              as_new: asnew ? 1 : 0
                           }),
                       function(r) {
                           if (r.response.events && eventid) {
