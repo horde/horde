@@ -99,14 +99,14 @@ class Horde_String
         }
 
         if (is_object($input)) {
-            // PEAR_Error objects are almost guaranteed to contain recursion,
-            // which will cause a segfault in PHP.  We should never reach
-            // this line, but add a check and a log message to help the devs
-            // track down and fix this issue.
-            if (is_a($input, 'PEAR_Error')) {
-                Horde::logMessage('Called convertCharset() on a PEAR_Error object. ' . print_r($input, true), 'DEBUG');
+            // PEAR_Error/Exception objects are almost guaranteed to contain
+            // recursion, which will cause a segfault in PHP. We should never
+            // reach this line, but add a check.
+            if (($input instanceof Exception) ||
+                ($input instanceof PEAR_Error)) {
                 return '';
             }
+
             $input = Horde_Util::cloneObject($input);
             $vars = get_object_vars($input);
             while (list($key, $val) = each($vars)) {

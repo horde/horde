@@ -77,12 +77,12 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <pearinstaller>
     <min>1.5.4</min>
    </pearinstaller>
+   <package>
+    <name>Url</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </required>
   <optional>
-   <package>
-    <name>PEAR</name>
-    <channel>pear.php.net</channel>
-   </package>
    <extension>
     <name>iconv</name>
    </extension>
