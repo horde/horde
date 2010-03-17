@@ -1019,7 +1019,6 @@ table.kronolithView td.kronolithFirstCol {
     cursor: pointer;
 }
 .kronolithPrev, .kronolithNext {
-    position: absolute;
     right: 0;
     width: 16px;
     text-indent: -10000px;
@@ -1030,8 +1029,26 @@ table.kronolithView td.kronolithFirstCol {
     background-image: url("graphics/left.png");
 }
 .kronolithGotoToday {
-    position: absolute;
     right: 35px;
+}
+.kronolithPrint,
+.kronolithGotoToday,
+.kronolithPrev,
+.kronolithNext {
+    position: static;
+    float: left;
+    margin-left: 1px;
+}
+.kronolithPrint {
+    margin-left: 5px;
+}
+.kronolithPrint span {
+    display: block;
+    width: 16px;
+    height: 16px;
+    background-image: url('graphics/print.png');
+    text-indent: -9999px;
+    overflow: hidden;
 }
 
 /* Main view year */
