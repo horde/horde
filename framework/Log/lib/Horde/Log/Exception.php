@@ -18,13 +18,4 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  */
-class Horde_Log_Exception extends Exception
-{
-    /**
-     */
-    public function __construct($msg, $code = 0)
-    {
-        parent::__construct($msg, $code);
-    }
-
-}
+class Horde_Log_Exception extends Exception {}
