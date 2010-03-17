@@ -83,25 +83,11 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
     private $_freebusy_server;
 
     /**
-     * The connection parameters for the Kolab storage system.
-     *
-     * @var array
-     */
-    private $_storage_params;
-
-    /**
      * The kolab user database connection.
      *
      * @var Horde_Kolab_Server
      */
     private $_server;
-
-    /**
-     * The connection to the Kolab storage system.
-     *
-     * @var Horde_Kolab_Storage
-     */
-    private $_storage;
 
     /**
      * Mark the session as connected.
@@ -274,8 +260,6 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
     {
         $properties = get_object_vars($this);
         unset($properties['_server']);
-        unset($properties['_storage']);
-        unset($properties['_auth']);
         $properties = array_keys($properties);
         return $properties;
     }

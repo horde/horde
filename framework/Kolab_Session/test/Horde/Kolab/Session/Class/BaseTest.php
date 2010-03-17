@@ -219,7 +219,6 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
                 '_user_name',
                 '_imap_server',
                 '_freebusy_server',
-                '_storage_params',
                 '_connected'
             ), $session->__sleep()
         );
