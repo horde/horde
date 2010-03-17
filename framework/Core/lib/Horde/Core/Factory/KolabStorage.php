@@ -95,6 +95,7 @@ class Horde_Core_Factory_KolabStorage
         }
 
         return new Horde_Kolab_Storage(
+            new Horde_Kolab_Storage_Connection(),
             'Imap',
             array(
                 'hostspec' => $session->getImapServer(),

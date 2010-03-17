@@ -51,11 +51,11 @@
 class Horde_Kolab_Storage
 {
     /**
-     * Singleton instance.
+     * The master Kolab storage system.
      *
-     * @var Horde_Kolab_Storage
+     * @var Horde_Kolab_Storage_Connection
      */
-    static protected $instances = array();
+    private $_master;
 
     /**
      * An array of Horde_Kolab_Storage_Driver connections to Kolab
@@ -120,8 +120,12 @@ class Horde_Kolab_Storage
      * @param string $driver The driver used for the primary storage connection.
      * @param array  $params Additional connection parameters.
      */
-    public function __construct($driver, $params = array())
-    {
+    public function __construct(
+        Horde_Kolab_Storage_Connection $master,
+        $driver, $params = array()
+    ) {
+        $this->_master = $master;
+
         $this->_driver = $driver;
         $this->_params = $params;
 
