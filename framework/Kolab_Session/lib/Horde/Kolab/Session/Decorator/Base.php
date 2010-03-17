@@ -1,6 +1,7 @@
 <?php
 /**
- * The interface describing Horde_Kolab_Session handlers.
+ * The Horde_Kolab_Session_Decorator_Base provides a base for session
+ * decorators.
  *
  * PHP version 5
  *
@@ -12,19 +13,10 @@
  */
 
 /**
- * The interface describing Horde_Kolab_Session handlers.
+ * The Horde_Kolab_Session_Decorator_Base provides a base for session
+ * decorators.
  *
- * Horde_Kolab_Server currently has no caching so we mainly cache some core user
- * information in the Kolab session handler as reading this data is expensive
- * and it is sufficient to read it once per session.
- *
- * The core user credentials (login, pass) are kept within the Auth module and
- * can be retrieved using <code>Auth::getAuth()</code> respectively
- * <code>Auth::getCredential('password')</code>. Any additional Kolab user data
- * relevant for the user session should be accessed via the Horde_Kolab_Session
- * class.
- *
- * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -35,8 +27,28 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-interface Horde_Kolab_Session
+class Horde_Kolab_Session_Decorator_Base
+implements Horde_Kolab_Session
 {
+    /**
+     * The session handler this instance provides with anonymous access.
+     *
+     * @var Horde_Kolab_Session
+     */
+    protected $_session;
+
+    /**
+     * Constructor.
+     *
+     * @param Horde_Kolab_Session $session The this instance should provide
+     *                                     anonymous access for.
+     */
+    public function __construct(
+        Horde_Kolab_Session $session
+    ) {
+        $this->_session        = $session;
+    }
+
     /**
      * Try to connect the session handler.
      *
@@ -48,47 +60,68 @@ interface Horde_Kolab_Session
      *
      * @throws Horde_Kolab_Session_Exception If the connection failed.
      */
-    public function connect($user_id = null, array $credentials = null);
+    public function connect($user_id = null, array $credentials = null)
+    {
+        $this->_session->connect($user_id, $credentials);
+    }
 
     /**
      * Return the user id used for connecting the session.
      *
      * @return string The user id.
      */
-    public function getId();
+    public function getId()
+    {
+        return $this->_session->getId();
+    }
 
     /**
      * Return the users mail address.
      *
      * @return string The users mail address.
      */
-    public function getMail();
+    public function getMail()
+    {
+        return $this->_session->getMail();
+    }
 
     /**
      * Return the users uid.
      *
      * @return string The users uid.
      */
-    public function getUid();
+    public function getUid()
+    {
+        return $this->_session->getUid();
+    }
 
     /**
      * Return the users name.
      *
      * @return string The users name.
      */
-    public function getName();
+    public function getName()
+    {
+        return $this->_session->getName();
+    }
 
     /**
      * Return the imap server.
      *
      * @return string The imap host for the current user.
      */
-    public function getImapServer();
+    public function getImapServer()
+    {
+        return $this->_session->getImapServer();
+    }
 
     /**
      * Return the freebusy server.
      *
      * @return string The freebusy host for the current user.
      */
-    public function getFreebusyServer();
+    public function getFreebusyServer()
+    {
+        return $this->_session->getFreebusyServer();
+    }
 }

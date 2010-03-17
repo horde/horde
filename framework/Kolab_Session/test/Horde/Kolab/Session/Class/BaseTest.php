@@ -459,9 +459,4 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
         $session->connect('userid', array('password' => ''));
         $this->assertEquals('localhost', $session->getImapServer());
     }
-
-    public function testMethodGetstorageHasResultKolabstorageConnectionForTheCurrentUser()
-    {
-        $this->markTestIncomplete('Not implemented');
-    }
 }

@@ -73,7 +73,7 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
      *
      * @var string
      */
-    private $_imap_server;
+    private $_imap_server = false;
 
     /**
      * The free/busy server for the current user.
@@ -291,18 +291,6 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
     }
 
     /**
-     * Set the user id used for connecting the session.
-     *
-     * @param string $id The user id.
-     *
-     * @return NULL
-     */
-    public function setId($id)
-    {
-        $this->_user_id = $id;
-    }
-
-    /**
      * Return the users mail address.
      *
      * @return string The users mail address.
@@ -350,31 +338,5 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
     public function getFreebusyServer()
     {
         return $this->_freebusy_server;
-    }
-
-    /**
-     * Return a connection to the Kolab storage system.
-     *
-     * @return Horde_Kolab_Storage The storage connection.
-     *
-     * @todo Implement
-     */
-    public function getStorage()
-    {
-        if (!$this->_connected) {
-            return false;
-        }
-        if (empty($this->_storage)) {
-            //@todo: factory?
-            $this->_storage = new Horde_Kolab_Storage(
-                'Imap',
-                //@todo: Use Session_Auth
-                array('hostspec' => $this->getImapServer(),
-                      'username' => Horde_Auth::getAuth(),
-                      'password' => Horde_Auth::getCredential('password'),
-                      'secure'   => true)
-            );
-        }
-        return $this->_storage;
     }
 }
