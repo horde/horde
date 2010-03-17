@@ -11,7 +11,7 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('admin' => true));
 
-$horde_alarm = Horde_Alarm::factory();
+$horde_alarm = $injector->getInstance('Horde_Alarm');
 $methods = array();
 foreach ($horde_alarm->notificationMethods() as $name => $method) {
     $methods[$name] = $method['__desc'];

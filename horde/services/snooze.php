@@ -11,7 +11,7 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('nologintasks' => true));
 
-$alarm = Horde_Alarm::factory();
+$alarm = $injector->getInstance('Horde_Alarm');
 $id = Horde_Util::getPost('alarm');
 $snooze = Horde_Util::getPost('snooze');
 

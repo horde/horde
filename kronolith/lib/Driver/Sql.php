@@ -737,10 +737,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         }
 
         /* Remove any pending alarms. */
-        if (@include_once 'Horde/Alarm.php') {
-            $alarm = Horde_Alarm::factory();
-            $alarm->delete($event->uid);
-        }
+        $GLOBALS['injector']->getInstance('Horde_Alarm')->delete($event->uid);
 
         /* Remove any tags */
         $tagger = Kronolith::getTagger();

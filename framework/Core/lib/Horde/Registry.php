@@ -234,6 +234,7 @@ class Horde_Registry
 
         /* Define binders. */
         $binders = array(
+            'Horde_Alarm' => new Horde_Core_Binder_Alarm(),
             'Horde_Cache' => new Horde_Core_Binder_Cache(),
             'Horde_Db_Adapter_Base' => new Horde_Core_Binder_Db('reader'),
             'Horde_Log_Logger' => new Horde_Core_Binder_Logger(),

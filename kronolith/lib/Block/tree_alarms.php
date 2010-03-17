@@ -12,10 +12,7 @@ class Horde_Block_kronolith_tree_alarms extends Horde_Block {
 
     function _buildTree(&$tree, $indent = 0, $parent = null)
     {
-        $horde_alarm = null;
-        if (!empty($GLOBALS['conf']['alarms']['driver'])) {
-            $horde_alarm = Horde_Alarm::factory();
-        }
+        $horde_alarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
 
         $alarmCount = 0;
         try {
@@ -27,7 +24,7 @@ class Horde_Block_kronolith_tree_alarms extends Horde_Block {
         }
         foreach ($alarms as $calId => $calAlarms) {
             foreach ($calAlarms as $event) {
-                if ($horde_alarm && $horde_alarm->isSnoozed($event->uid, Horde_Auth::getAuth())) {
+                if ($horde_alarm->isSnoozed($event->uid, Horde_Auth::getAuth())) {
                     continue;
                 }
                 $alarmCount++;

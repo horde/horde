@@ -18,11 +18,20 @@
 class Horde_Alarm
 {
     /**
+     * Logger.
+     *
+     * @var Horde_Log_Logger
+     */
+    protected $_logger;
+
+    /**
      * Hash containing connection parameters.
      *
      * @var array
      */
-    protected $_params = array('ttl' => 300);
+    protected $_params = array(
+        'ttl' => 300
+    );
 
     /**
      * Attempts to return a concrete instance based on $driver.
@@ -37,40 +46,42 @@ class Horde_Alarm
      * @return Horde_Alarm  The newly created concrete instance.
      * @throws Horde_Alarm_Exception
      */
-    static public function factory($driver = null, $params = null)
+    static public function factory($driver = null, $params = array())
     {
-        if (is_null($driver)) {
-            $driver = $GLOBALS['conf']['alarms']['driver'];
-        }
         if (empty($driver)) {
-            return new Horde_Alarm();
+            return new Horde_Alarm($params);
         }
 
         $driver = ucfirst(basename($driver));
-
-        if (is_null($params)) {
-            $params = Horde::getDriverConfig('alarms', $driver);
-        }
-
         $class = __CLASS__ . '_' . $driver;
 
-        if (class_exists($class)) {
-            $alarm = new $class($params);
-            $alarm->initialize();
-            $alarm->gc();
-            return $alarm;
+        if (!class_exists($class)) {
+            throw new Horde_Alarm_Exception('Could not find driver.');
         }
 
-        throw new Horde_Alarm_Exception('Could not find driver.');
+        $alarm = new $class($params);
+        $alarm->initialize();
+        $alarm->gc();
+
+        return $alarm;
     }
 
     /**
      * Constructor.
      *
-     * @param array $params  Any parameters needed for this driver.
+     * @param array $params  Configuration parameters:
+     * <pre>
+     * 'logger' - (Horde_Log_Logger) A logger instance.
+     * 'ttl' - (integer) Time to live value, in seconds.
+     * </pre>
      */
     public function __construct($params = array())
     {
+        if (isset($params['logger'])) {
+            $this->_logger = $params['logger'];
+            unset($params['logger']);
+        }
+
         $this->_params = array_merge($this->_params, $params);
     }
 
@@ -300,7 +311,9 @@ class Horde_Alarm
                 try {
                     $app_alarms = $GLOBALS['registry']->callByPackage($app, 'listAlarms', array(time(), $user), array('noperms' => true));
                 } catch (Horde_Exception $e) {
-                    Horde::logMessage($e, 'ERR');
+                    if ($this->_logger) {
+                        $this->_logger->log($e, 'ERR');
+                    }
                     $app_alarms = array();
                 }
                 $alarms = array_merge($alarms, $app_alarms);
@@ -374,7 +387,9 @@ class Horde_Alarm
         try {
             $alarms = $this->listAlarms($user, null, $load, $preload);
         } catch (Horde_Alarm_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            if ($this->_logger) {
+                $this->_logger->log($e, 'ERR');
+            }
             throw $e;
         }
 
@@ -390,7 +405,9 @@ class Horde_Alarm
                     try {
                         $this->{'_' . $alarm_method}($alarm);
                     } catch (Horde_Alarm_Exception $e) {
-                        Horde::logMessage($e, 'ERR');
+                        if ($this->_logger) {
+                            $this->_logger->log($e, 'ERR');
+                        }
                     }
                 }
             }

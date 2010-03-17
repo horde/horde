@@ -12,10 +12,7 @@ class Horde_Block_nag_tree_alarms extends Horde_Block {
 
     function _buildTree(&$tree, $indent = 0, $parent = null)
     {
-        $horde_alarm = null;
-        if (!empty($GLOBALS['conf']['alarms']['driver'])) {
-            $horde_alarm = Horde_Alarm::factory();
-        }
+        $horde_alarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
 
         // Get any alarms in the next hour.
         $now = time();
@@ -26,8 +23,7 @@ class Horde_Block_nag_tree_alarms extends Horde_Block {
 
         $alarmCount = 0;
         foreach ($alarms as $taskId => $task) {
-            if ($horde_alarm &&
-                $horde_alarm->isSnoozed($task->uid, Horde_Auth::getAuth())) {
+            if ($horde_alarm->isSnoozed($task->uid, Horde_Auth::getAuth())) {
                 continue;
             }
             $alarmCount++;

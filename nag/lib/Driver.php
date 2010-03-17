@@ -241,13 +241,10 @@ class Nag_Driver
         }
 
         /* Add an alarm if necessary. */
-        if (!empty($GLOBALS['conf']['alarms']['driver']) && !empty($alarm)) {
-            $alarm = $task->toAlarm();
-            if ($alarm) {
-                $alarm['start'] = new Horde_Date($alarm['start']);
-                $horde_alarm = Horde_Alarm::factory();
-                $horde_alarm->set($alarm);
-            }
+        if (!empty($alarm) &&
+            ($alarm = $task->toAlarm())) {
+            $alarm['start'] = new Horde_Date($alarm['start']);
+            $GLOBALS['injector']->getInstance('Horde_Alarm')->set($alarm);
         }
 
         return array($taskId, $uid);
@@ -340,17 +337,15 @@ class Nag_Driver
         }
 
         /* Update alarm if necessary. */
-        if (!empty($GLOBALS['conf']['alarms']['driver'])) {
-            $horde_alarm = Horde_Alarm::factory();
-            if (empty($alarm) || $completed) {
-                $horde_alarm->delete($task->uid);
-            } else {
-                $task = $this->get($taskId);
-                $alarm = $task->toAlarm();
-                if ($alarm) {
-                    $alarm['start'] = new Horde_Date($alarm['start']);
-                    $horde_alarm->set($alarm);
-                }
+        $horde_alarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
+        if (empty($alarm) || $completed) {
+            $horde_alarm->delete($task->uid);
+        } else {
+            $task = $this->get($taskId);
+            $alarm = $task->toAlarm();
+            if ($alarm) {
+                $alarm['start'] = new Horde_Date($alarm['start']);
+                $horde_alarm->set($alarm);
             }
         }
 
@@ -407,10 +402,8 @@ class Nag_Driver
         }
 
         /* Delete alarm if necessary. */
-        if (!empty($GLOBALS['conf']['alarms']['driver']) &&
-            !empty($task->alarm)) {
-            $horde_alarm = Horde_Alarm::factory();
-            $horde_alarm->delete($task->uid);
+        if (!empty($task->alarm)) {
+            $GLOBALS['injector']->getInstance('Horde_Alarm')->delete($task->uid);
         }
 
         return true;

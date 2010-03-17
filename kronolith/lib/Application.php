@@ -171,7 +171,7 @@ class Kronolith_Application extends Horde_Registry_Application
             try {
                 $alarms = $GLOBALS['registry']->callByPackage('kronolith', 'listAlarms', array($_SERVER['REQUEST_TIME']));
                 if (!empty($alarms)) {
-                    $horde_alarm = Horde_Alarm::factory();
+                    $horde_alarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
                     foreach ($alarms as $alarm) {
                         $alarm['start'] = new Horde_Date($alarm['start']);
                         $alarm['end'] = new Horde_Date($alarm['end']);

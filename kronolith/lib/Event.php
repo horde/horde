@@ -479,14 +479,10 @@ abstract class Kronolith_Event
             }
         }
 
-        if (!empty($GLOBALS['conf']['alarms']['driver'])) {
-            $alarm = $this->toAlarm(new Horde_Date($_SERVER['REQUEST_TIME']));
-            if ($alarm) {
-                $alarm['start'] = new Horde_Date($alarm['start']);
-                $alarm['end'] = new Horde_Date($alarm['end']);
-                $horde_alarm = Horde_Alarm::factory();
-                $horde_alarm->set($alarm);
-            }
+        if ($alarm = $this->toAlarm(new Horde_Date($_SERVER['REQUEST_TIME']))) {
+            $alarm['start'] = new Horde_Date($alarm['start']);
+            $alarm['end'] = new Horde_Date($alarm['end']);
+            $GLOBALS['injector']->getInstance('Horde_Alarm')->set($alarm);
         }
 
         return $result;
