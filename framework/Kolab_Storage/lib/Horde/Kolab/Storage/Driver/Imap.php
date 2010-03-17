@@ -52,16 +52,6 @@ class Horde_Kolab_Storage_Driver_Imap extends Horde_Kolab_Storage_Driver
     }
 
     /**
-     * Retrieve the namespace information for this connection.
-     *
-     * @return Horde_Kolab_Storage_Namespace The initialized namespace handler.
-     */
-    public function getNamespace()
-    {
-        return new Horde_Kolab_Storage_Namespace();
-    }
-
-    /**
      * Retrieves a list of mailboxes on the server.
      *
      * @return array The list of mailboxes.
@@ -292,11 +282,9 @@ class Horde_Kolab_Storage_Driver_Imap extends Horde_Kolab_Storage_Driver
             return $this->_imap->getACL($folder);
         } catch (Exception $e) {
             try {
-                return $this->_imap->getMyACLRights($folder);
+                return array(Horde_Auth::getAuth() => str_split($this->_imap->getMyACLRights($folder)));
             } catch (Exception $e) {
-                $acl = array();
-                $acl[Horde_Auth::getAuth()] = 'lrid';
-                return $acl;
+                return array(Horde_Auth::getAuth() => str_split('lrid'));
             }
         }            
     }

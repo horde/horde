@@ -1276,29 +1276,7 @@ class Horde_Kolab_Storage_Folder
      */
     function getACL()
     {
-        $acl = $this->_connection->getACL($this->name);
-
-        /*
-         * Check if the getPerm comes from the owner in this case we
-         * can use getACL to have all the right of the share Otherwise
-         * we just ask for the right of the current user for a folder
-         */
-        if ($this->getOwner() == Horde_Auth::getAuth()) {
-            return $acl;
-        } else {
-            if (!is_a($acl, 'PEAR_Error')) {
-                return $acl;
-            }
-
-            $my_rights = $this->_connection->getMyrights($this->name);
-            if (is_a($my_rights, 'PEAR_Error')) {
-                return $my_rights;
-            }
-
-            $acl = array();
-            $acl[Horde_Auth::getAuth()] = $my_rights;
-            return $acl;
-        }
+        return $this->_connection->getACL($this->name);
     }
 
     /**
