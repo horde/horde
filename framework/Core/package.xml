@@ -80,6 +80,7 @@ Application Framework.
        <file name="Logger.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Log -->
       <dir name="Notification">
+       <file name="Hordelog.php" role="php" />
        <file name="Status.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Notification -->
      </dir> <!-- /lib/Horde/Core -->
@@ -190,6 +191,7 @@ Application Framework.
    <install name="lib/Horde/Core/Binder/Template.php" as="Horde/Core/Binder/Template.php" />
    <install name="lib/Horde/Core/Factory/KolabServer.php" as="Horde/Core/Factory/KolabServer.php" />
    <install name="lib/Horde/Core/Log/Logger.php" as="Horde/Core/Log/Logger.php" />
+   <install name="lib/Horde/Core/Notification/Hordelog.php" as="Horde/Core/Notification/Hordelog.php" />
    <install name="lib/Horde/Core/Notification/Status.php" as="Horde/Core/Notification/Status.php" />
    <install name="lib/Horde/ErrorHandler.php" as="Horde/ErrorHandler.php" />
    <install name="lib/Horde/Exception/HookNotSet.php" as="Horde/Exception/HookNotSet.php" />

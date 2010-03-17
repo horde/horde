@@ -40,7 +40,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <dir name="Decorator">
         <file name="Alarm.php" role="php" />
         <file name="Base.php" role="php" />
-        <file name="Hordelog.php" role="php" />
         <file name="Log.php" role="php" />
        </dir> <!-- /lib/Horde/Notification/Handler/Decorator -->
       </dir> <!-- /lib/Horde/Notification/Handler -->
@@ -73,7 +72,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
         <dir name="Handler">
          <dir name="Decorator">
           <file name="AlarmTest.php" role="test" />
-          <file name="HordelogTest.php" role="test" />
           <file name="LogTest.php" role="test" />
          </dir> <!-- /test/Horde/Notification/Class/Notification/Handler/Decorator -->
         </dir> <!-- /test/Horde/Notification/Class/Notification/Handler -->
@@ -123,7 +121,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Notification/Event/Status.php" as="Horde/Notification/Event/Status.php" />
    <install name="lib/Horde/Notification/Handler/Decorator/Alarm.php" as="Horde/Notification/Handler/Decorator/Alarm.php" />
    <install name="lib/Horde/Notification/Handler/Decorator/Base.php" as="Horde/Notification/Handler/Decorator/Base.php" />
-   <install name="lib/Horde/Notification/Handler/Decorator/Hordelog.php" as="Horde/Notification/Handler/Decorator/Hordelog.php" />
    <install name="lib/Horde/Notification/Handler/Decorator/Log.php" as="Horde/Notification/Handler/Decorator/Log.php" />
    <install name="lib/Horde/Notification/Listener/Audio.php" as="Horde/Notification/Listener/Audio.php" />
    <install name="lib/Horde/Notification/Listener/Javascript.php" as="Horde/Notification/Listener/Javascript.php" />
@@ -140,7 +137,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="test/Horde/Notification/Class/Notification/HandlerTest.php" as="Horde/Notification/Class/Notification/HandlerTest.php" />
    <install name="test/Horde/Notification/Class/Notification/EventTest.php" as="Horde/Notification/Class/Notification/EventTest.php" />
    <install name="test/Horde/Notification/Class/Notification/Handler/Decorator/AlarmTest.php" as="Horde/Notification/Class/Notification/Handler/Decorator/AlarmTest.php" />
-   <install name="test/Horde/Notification/Class/Notification/Handler/Decorator/HordelogTest.php" as="Horde/Notification/Class/Notification/Handler/Decorator/HordelogTest.php" />
    <install name="test/Horde/Notification/Class/Notification/Handler/Decorator/LogTest.php" as="Horde/Notification/Class/Notification/Handler/Decorator/LogTest.php" />
    <install name="test/Horde/Notification/Class/Notification/ListenerTest.php" as="Horde/Notification/Class/Notification/ListenerTest.php" />
    <install name="test/Horde/Notification/Class/Notification/Listener/AudioTest.php" as="Horde/Notification/Class/Notification/Listener/AudioTest.php" />

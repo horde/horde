@@ -37,13 +37,6 @@ class Horde_Perms_Sql extends Horde_Perms
     protected $_write_db;
 
     /**
-     * Pointer to a Horde_Cache instance
-     *
-     * @var Horde_Cache
-     */
-    protected $_cache;
-
-    /**
      * Incrementing version number if cached classes change.
      *
      * @var integer
@@ -59,10 +52,18 @@ class Horde_Perms_Sql extends Horde_Perms
 
     /**
      * Constructor.
+     *
+     * @param array $params  Configuration parameters (in addition to base
+     *                       Horde_Perms parameters):
+     * <pre>
+     * NONE (TODO - pass in SQL object)
+     * </pre>
+     *
+     * @throws Horde_Perms_Exception
      */
-    public function __construct()
+    public function __construct($params = array())
     {
-        $this->_cache = $GLOBALS['injector']->getInstance('Horde_Cache');
+        parent::__construct($params);
     }
 
     /**

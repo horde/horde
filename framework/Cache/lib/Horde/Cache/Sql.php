@@ -122,7 +122,9 @@ class Horde_Cache_Sql extends Horde_Cache_Base
         try {
             $this->_connect();
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            if ($this->_logger) {
+                $this->_logger->log($e, 'ERR');
+            }
             return;
         }
 
@@ -132,7 +134,9 @@ class Horde_Cache_Sql extends Horde_Cache_Base
 
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
+            if ($this->_logger) {
+                $this->_logger->log($result, 'ERR');
+            }
         }
     }
 
@@ -160,7 +164,9 @@ class Horde_Cache_Sql extends Horde_Cache_Base
         try {
             $this->_connect();
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            if ($this->_logger) {
+                $this->_logger->log($e, 'ERR');
+            }
             return false;
         }
 
@@ -180,18 +186,25 @@ class Horde_Cache_Sql extends Horde_Cache_Base
 
         $result = $this->_db->getOne($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
+            if ($this->_logger) {
+                $this->_logger->log($result, 'ERR');
+            }
             return false;
         } elseif (is_null($result)) {
             /* No rows were found - cache miss */
-            Horde::logMessage(sprintf('Cache miss: %s (Id %s newer than %d)', $okey, $key, $maxage), 'DEBUG');
+            if ($this->_logger) {
+                $this->_logger->log(sprintf('Cache miss: %s (Id %s newer than %d)', $okey, $key, $maxage), 'DEBUG');
+            }
             return false;
         }
 
         if ($this->_mc) {
             $this->_mc->set($key, $result);
         }
-        Horde::logMessage(sprintf('Cache hit: %s (Id %s newer than %d)', $okey, $key, $maxage), 'DEBUG');
+
+        if ($this->_logger) {
+            $this->_logger->log(sprintf('Cache hit: %s (Id %s newer than %d)', $okey, $key, $maxage), 'DEBUG');
+        }
 
         return $result;
     }
@@ -218,7 +231,9 @@ class Horde_Cache_Sql extends Horde_Cache_Base
         try {
             $this->_connect();
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            if ($this->_logger) {
+                $this->_logger->log($e, 'ERR');
+            }
             return false;
         }
 
@@ -229,7 +244,9 @@ class Horde_Cache_Sql extends Horde_Cache_Base
             ? 0
             : $this->_getLifetime($lifetime) + $timestamp;
 
-        Horde::logMessage(sprintf('Cache set: %s (Id %s set at %d expires at %d)', $okey, $key, $timestamp, $expiration), 'DEBUG');
+            if ($this->_logger) {
+                $this->_logger->log(sprintf('Cache set: %s (Id %s set at %d expires at %d)', $okey, $key, $timestamp, $expiration), 'DEBUG');
+            }
 
         // Remove any old cache data and prevent duplicate keys
         $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE cache_id=?';
@@ -244,7 +261,9 @@ class Horde_Cache_Sql extends Horde_Cache_Base
 
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
+            if ($this->_logger) {
+                $this->_logger->log($result, 'ERR');
+            }
             return false;
         }
 
@@ -273,7 +292,9 @@ class Horde_Cache_Sql extends Horde_Cache_Base
         try {
             $this->_connect();
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            if ($this->_logger) {
+                $this->_logger->log($e, 'ERR');
+            }
             return false;
         }
 
@@ -290,16 +311,23 @@ class Horde_Cache_Sql extends Horde_Cache_Base
 
         $result = $this->_db->getRow($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
+            if ($this->_logger) {
+                $this->_logger->log($result, 'ERR');
+            }
             return false;
         }
 
         $timestamp = time();
         if (empty($result)) {
-            Horde::logMessage(sprintf('Cache exists() miss: %s (Id %s newer than %d)', $okey, $key, $timestamp), 'DEBUG');
+            if ($this->_logger) {
+                $this->_logger->log(sprintf('Cache exists() miss: %s (Id %s newer than %d)', $okey, $key, $timestamp), 'DEBUG');
+            }
             return false;
         }
-        Horde::logMessage(sprintf('Cache exists() hit: %s (Id %s newer than %d)', $okey, $key, $timestamp), 'DEBUG');
+
+        if ($this->_logger) {
+            $this->_logger->log(sprintf('Cache exists() hit: %s (Id %s newer than %d)', $okey, $key, $timestamp), 'DEBUG');
+        }
 
         return true;
     }
@@ -322,7 +350,9 @@ class Horde_Cache_Sql extends Horde_Cache_Base
         try {
             $this->_connect();
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            if ($this->_logger) {
+                $this->_logger->log($e, 'ERR');
+            }
             return false;
         }
 
@@ -332,7 +362,9 @@ class Horde_Cache_Sql extends Horde_Cache_Base
 
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
+            if ($this->_logger) {
+                $this->_logger->log($result, 'ERR');
+            }
             return false;
         }
 

@@ -32,6 +32,20 @@ class Horde_Perms
     const ROOT = -1;
 
     /**
+     * Cache object.
+     *
+     * @var Horde_Cache
+     */
+    protected $_cache;
+
+    /**
+     * Logger.
+     *
+     * @var Horde_Log_Logger
+     */
+    protected $_logger;
+
+    /**
      * Caches information about application permissions.
      *
      * @var array
@@ -73,6 +87,28 @@ class Horde_Perms
         }
 
         return new $class($params);
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param array $params  Configuration parameters:
+     * <pre>
+     * 'cache' - (Horde_Cache) The object to use to cache perms.
+     * 'logger' - (Horde_Log_Logger) A logger object.
+     * </pre>
+     *
+     * @throws Horde_Perms_Exception
+     */
+    public function __construct($params = array())
+    {
+        if (isset($params['cache'])) {
+            $this->_cache = $params['cache'];
+        }
+
+        if (isset($params['logger'])) {
+            $this->_logger = $params['logger'];
+        }
     }
 
     /**
@@ -299,7 +335,9 @@ class Horde_Perms
             try {
                 $permission = $this->getPermission($permission);
             } catch (Horde_Perms_Exception $e) {
-                Horde::logMessage($e, 'DEBUG');
+                if ($this->_logger) {
+                    $this->_logger->log($e, 'DEBUG');
+                }
                 return false;
             }
         }

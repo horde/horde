@@ -31,6 +31,8 @@ class Horde_Core_Binder_Cache implements Horde_Injector_Binder
             }
         }
 
+        $params['logger'] = $injector->getInstance('Horde_Log_Logger');
+
         return Horde_Cache::factory($driver, $params);
     }
 

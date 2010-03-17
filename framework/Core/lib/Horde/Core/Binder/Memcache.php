@@ -5,7 +5,7 @@ class Horde_Core_Binder_Memcache implements Horde_Injector_Binder
     {
         return empty($GLOBALS['conf']['memcache']['enabled'])
             ? null
-            : new Horde_Memcache($GLOBALS['conf']['memcache']);
+            : new Horde_Memcache(array_merge($GLOBALS['conf']['memcache'], array('logger' => $injector->getInstance('Horde_Log_Logger'))));
     }
 
     public function equals(Horde_Injector_Binder $binder)

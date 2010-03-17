@@ -35,6 +35,13 @@ class Horde_Template
     protected $_cache;
 
     /**
+     * Logger.
+     *
+     * @var Horde_Log_Logger
+     */
+    protected $_logger;
+
+    /**
      * Option values.
      *
      * @var array
@@ -104,9 +111,10 @@ class Horde_Template
      * <pre>
      * 'basepath' - (string) The directory where templates are read from.
      * 'cacheob' - (Horde_Cache) A caching object used to cache the output.
+     * 'logger' - (Horde_Log_Logger) A logger object.
      * </pre>
      */
-    public function __construct($basepath = null)
+    public function __construct($params = array())
     {
         if (isset($params['basepath'])) {
             $this->_basepath = $params['basepath'];
@@ -114,6 +122,10 @@ class Horde_Template
 
         if (isset($params['cacheob'])) {
             $this->_cache = $params['cacheob'];
+        }
+
+        if (isset($params['logger'])) {
+            $this->_logger = $params['logger'];
         }
     }
 
@@ -230,8 +242,9 @@ class Horde_Template
             $this->_parse();
             if ($this->_cache &&
                 isset($cacheid) &&
-                !$this->_cache->set($cacheid, $this->_template)) {
-                Horde::logMessage(sprintf(_("Could not save the compiled template file '%s'."), $file), 'ERR');
+                !$this->_cache->set($cacheid, $this->_template) &&
+                $this->_logger) {
+                $this->_logger->log(sprintf('Could not save the compiled template file "%s".', $file), 'ERR');
             }
         }
 

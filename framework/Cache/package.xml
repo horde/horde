@@ -33,7 +33,8 @@ Performance Suite&apos;s content cache), memcached, or an SQL table.
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Initial Horde 4 package.</notes>
+ <notes>* Removed dependency on Horde Core.
+ * Initial Horde 4 package.</notes>
  <contents>
   <dir name="/">
    <dir name="data">
@@ -80,6 +81,10 @@ Performance Suite&apos;s content cache), memcached, or an SQL table.
    <extension>
     <name>memcache</name>
    </extension>
+   <package>
+    <name>Log</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </optional>
  </dependencies>
  <phprelease>

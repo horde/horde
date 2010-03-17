@@ -8,9 +8,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Jan Schneider <jan@horde.org>
- * @package Horde_Notification
+ * @package Horde_Core
  */
-class Horde_Notification_Handler_Decorator_Hordelog
+class Horde_Core_Notification_Hordelog
 extends Horde_Notification_Handler_Decorator_Base
 {
     /**

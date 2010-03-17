@@ -87,6 +87,13 @@ class Horde_Memcache
     protected $_noexist = array();
 
     /**
+     * Logger instance.
+     *
+     * @var Horde_Log_Logger
+     */
+    protected $_logger;
+
+    /**
      * Constructor.
      *
      * @param array $params  TODO
@@ -98,6 +105,10 @@ class Horde_Memcache
         $this->_params = array_merge($this->_params, $params);
         $this->_params['prefix'] = (empty($this->_params['prefix'])) ? 'horde' : $this->_params['prefix'];
         $this->_large = !empty($this->_params['large_items']);
+
+        if (isset($params['logger'])) {
+            $this->_logger = $params['logger'];
+        }
 
         $this->__wakeup();
     }
@@ -129,7 +140,9 @@ class Horde_Memcache
         // Force consistent hashing
         ini_set('memcache.hash_strategy', 'consistent');
 
-        Horde::logMessage('Connected to the following memcache servers:' . implode($servers, ', '), 'DEBUG');
+        if ($this->_logger) {
+            $this->_logger->log('Connected to the following memcache servers:' . implode($servers, ', '), 'DEBUG');
+        }
     }
 
     /**

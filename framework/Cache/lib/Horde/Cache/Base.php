@@ -23,9 +23,21 @@ abstract class Horde_Cache_Base
     protected $_params = array();
 
     /**
+     * Logger.
+     *
+     * @var Horde_Log_Logger
+     */
+    protected $_logger;
+
+    /**
      * Construct a new Horde_Cache object.
      *
-     * @param array $params  Parameter array.
+     * @param array $params  Parameter array:
+     * <pre>
+     * 'lifetime' - (integer) Lifetime of data, in seconds.
+     *              DEFAULT: 86400 seconds
+     * 'logger' - (Horde_Log_Logger) Log object to use for log/debug messages.
+     * </pre>
      */
     public function __construct($params = array())
     {
@@ -33,6 +45,11 @@ abstract class Horde_Cache_Base
             $params['lifetime'] = isset($GLOBALS['conf']['cache']['default_lifetime'])
                 ? $GLOBALS['conf']['cache']['default_lifetime']
                 : 86400;
+        }
+
+        if (isset($params['logger'])) {
+            $this->_logger = $params['logger'];
+            unset($params['logger']);
         }
 
         $this->_params = $params;

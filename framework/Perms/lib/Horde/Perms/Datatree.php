@@ -23,13 +23,6 @@ class Horde_Perms_Datatree extends Horde_Perms
     protected $_datatree;
 
     /**
-     * Pointer to a Horde_Cache instance.
-     *
-     * @var Horde_Cache
-     */
-    protected $_cache;
-
-    /**
      * Incrementing version number if cached classes change.
      *
      * @var integer
@@ -46,22 +39,23 @@ class Horde_Perms_Datatree extends Horde_Perms
     /**
      * Constructor.
      *
-     * @throws Horde_Exception
+     * @param array $params  Configuration parameters (in addition to base
+     *                       Horde_Perms parameters):
+     * <pre>
+     * 'datatree' - (DataTree) A datatree object. [REQUIRED]
+     * </pre>
+     *
+     * @throws Horde_Perms_Exception
      */
-    public function __construct()
+    public function __construct($params = array())
     {
-        global $conf;
-
-        if (empty($conf['datatree']['driver'])) {
-            throw new Horde_Exception('You must configure a DataTree backend.');
+        if (empty($params['datatree'])) {
+            throw new Horde_Perms_Exception('You must configure a DataTree backend.');
         }
 
-        $driver = $conf['datatree']['driver'];
-        $this->_datatree = DataTree::singleton($driver,
-                                               array_merge(Horde::getDriverConfig('datatree', $driver),
-                                                           array('group' => 'horde.perms')));
+        $this->_datatree = $params['datatree'];
 
-        $this->_cache = $GLOBALS['injector']->getInstance('Horde_Cache');
+        parent::__construct($params);
     }
 
     /**
