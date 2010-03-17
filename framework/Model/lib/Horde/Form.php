@@ -370,14 +370,7 @@ class Horde_Form {
         $this->_autofilled = true;
 
         if ($this->_useFormToken) {
-            global $conf;
-            if (isset($conf['token'])) {
-                /* If there is a configured token system, set it up. */
-                $tokenSource = Horde_Token::factory($conf['token']['driver'], Horde::getDriverConfig('token', $conf['token']['driver']));
-            } else {
-                /* Default to the file system if no config. */
-                $tokenSource = Horde_Token::factory('file');
-            }
+            $tokenSource = $GLOBALS['injector']->getInstance('Horde_Token');
             if (!$tokenSource->verify($this->_vars->get($this->_name . '_formToken'))) {
                 $this->_errors['_formToken'] = _("This form has already been processed.");
             }

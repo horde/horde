@@ -412,7 +412,6 @@ class Horde_Form {
         }
 
         if ($this->_useFormToken) {
-            require_once 'Horde/Token.php';
             $token = Horde_Token::generateId($this->_name);
             $_SESSION['horde_form_secrets'][$token] = true;
             $this->_preserveVarByPost($this->_name . '_formToken', $token);
@@ -473,7 +472,6 @@ class Horde_Form {
         }
 
         if ($this->_useFormToken) {
-            require_once 'Horde/Token.php';
             $token = Horde_Token::generateId($this->_name);
             $_SESSION['horde_form_secrets'][$token] = true;
             $this->_preserveVarByPost($this->_name . '_formToken', $token);
@@ -531,7 +529,6 @@ class Horde_Form {
     function preserve($vars)
     {
         if ($this->_useFormToken) {
-            require_once 'Horde/Token.php';
             $token = Horde_Token::generateId($this->_name);
             $_SESSION['horde_form_secrets'][$token] = true;
             $this->_preserveVarByPost($this->_name . '_formToken', $token);
@@ -612,15 +609,7 @@ class Horde_Form {
         $this->_autofilled = true;
 
         if ($this->_useFormToken) {
-            global $conf;
-            require_once 'Horde/Token.php';
-            if (isset($conf['token'])) {
-                /* If there is a configured token system, set it up. */
-                $tokenSource = &Horde_Token::singleton($conf['token']['driver'], Horde::getDriverConfig('token', $conf['token']['driver']));
-            } else {
-                /* Default to the file system if no config. */
-                $tokenSource = &Horde_Token::singleton('file');
-            }
+            $tokenSource = $GLOBALS['injector']->getInstance('Horde_Token');
             $passedToken = $vars->get($this->_name . '_formToken');
             if (!empty($passedToken) && !$tokenSource->verify($passedToken)) {
                 $this->_errors['_formToken'] = _("This form has already been processed.");

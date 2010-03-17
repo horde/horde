@@ -105,7 +105,9 @@ class Horde_Token_Sql extends Horde_Token
         /* Return an error if the update fails. */
         $result = $this->_write_db->query($query, $values);
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'ERR');
+            if ($this->_logger) {
+                $this->_logger->log($result, 'ERR');
+            }
             throw new Horde_Exception_Prior($result);
         }
     }
@@ -131,7 +133,9 @@ class Horde_Token_Sql extends Horde_Token
 
         $result = $this->_db->getOne($query, $values);
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'ERR');
+            if ($this->_logger) {
+                $this->_logger->log($result, 'ERR');
+            }
             return false;
         } else {
             return !empty($result);
@@ -156,7 +160,9 @@ class Horde_Token_Sql extends Horde_Token
 
         $result = $this->_write_db->query($query, $values);
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'ERR');
+            if ($this->_logger) {
+                $this->_logger->log($result, 'ERR');
+            }
             throw new Horde_Exception_Prior($result);
         }
     }

@@ -241,6 +241,7 @@ class Horde_Registry
             'Horde_Notification' => new Horde_Core_Binder_Notification(),
             'Horde_Perms' => new Horde_Core_Binder_Perms(),
             'Horde_Template' => new Horde_Core_Binder_Template(),
+            'Horde_Token' => new Horde_Core_Binder_Token(),
             'Horde_Vfs' => new Horde_Core_Binder_Vfs(),
             'Net_DNS_Resolver' => new Horde_Core_Binder_Dns()
         );

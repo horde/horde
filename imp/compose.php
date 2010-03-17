@@ -80,9 +80,7 @@ $uid = $vars->uid;
 
 /* Check for duplicate submits. */
 if ($vars->compose_formToken) {
-    $tokenSource = isset($conf['token'])
-        ? Horde_Token::factory($conf['token']['driver'], Horde::getDriverConfig('token', $conf['token']['driver']))
-        : Horde_Token::factory('file');
+    $tokenSource = $injector->getInstance('Horde_Token');
 
     try {
         if (!$tokenSource->verify($vars->compose_formToken)) {

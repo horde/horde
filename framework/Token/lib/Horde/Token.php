@@ -23,6 +23,13 @@ class Horde_Token
     static protected $_instances = array();
 
     /**
+     * Logger.
+     *
+     * @var Horde_Log_Logger
+     */
+    protected $_logger;
+
+    /**
      * Hash of parameters necessary to use the chosen backend.
      *
      * @var array
@@ -49,7 +56,7 @@ class Horde_Token
 
         $driver = basename($driver);
         $class = __CLASS__;
-        if ($driver == 'none') {
+        if ($driver != 'none') {
             $class .= '_' . ucfirst($driver);
         }
 
@@ -99,9 +106,19 @@ class Horde_Token
 
     /**
      * Constructor.
+     *
+     * @param array $params  Configuration parameters:
+     * <pre>
+     * 'logger' - (Horde_Log_Logger) A logger object.
+     * </pre>
      */
     protected function __construct($params)
     {
+        if (isset($params['logger'])) {
+            $this->_logger = $params['logger'];
+            unset($params['logger']);
+        }
+
         $this->_params = $params;
     }
 
@@ -113,18 +130,6 @@ class Horde_Token
         return isset($_SERVER['REMOTE_ADDR'])
             ? base64_encode($_SERVER['REMOTE_ADDR'])
             : '';
-    }
-
-    /**
-     * Generates a connection id and returns it.
-     *
-     * @param string $seed  A unique ID to be included in the token.
-     *
-     * @return string  The generated id string.
-     */
-    public function generateId($seed = '')
-    {
-        return Horde_Url::uriB64Encode(pack('H*', sha1(uniqid(mt_rand(), true) . $seed . (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : ''))));
     }
 
     /**
@@ -182,6 +187,18 @@ class Horde_Token
      */
     public function purge()
     {
+    }
+
+    /**
+     * Generates a connection id and returns it.
+     *
+     * @param string $seed  A unique ID to be included in the token.
+     *
+     * @return string  The generated id string.
+     */
+    static public function generateId($seed = '')
+    {
+        return Horde_Url::uriB64Encode(pack('H*', sha1(uniqid(mt_rand(), true) . $seed . (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : ''))));
     }
 
 }
