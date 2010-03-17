@@ -1047,7 +1047,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
     public function cancelCompose()
     {
         $imp_compose = IMP_Compose::singleton($this->_vars->imp_compose);
-        $imp_compose->destroy(false);
+        $imp_compose->destroy('cancel');
 
         return true;
     }
@@ -1064,14 +1064,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function deleteDraft()
     {
-        $imp_compose = IMP_Compose::singleton($this->_vars->imp_compose);
-        $imp_compose->destroy(false);
-
-        if ($draft_uid = $imp_compose->getMetadata('draft_uid')) {
-            $idx_array = array($draft_uid . IMP::IDX_SEP . IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true));
-            $GLOBALS['injector']->getInstance('IMP_Message')->delete($idx_array, array('nuke' => true));
-        }
-
+        IMP_Compose::singleton($this->_vars->imp_compose)->destroy('cancel');
         return true;
     }
 
@@ -1400,7 +1393,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             }
         }
 
-        $imp_compose->destroy();
+        $imp_compose->destroy('send');
 
         $result->mailbox = $this->_getMailboxResponse($imptree);
 
@@ -1492,7 +1485,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             } else {
                 $GLOBALS['notification']->push($res);
                 if ($GLOBALS['prefs']->getValue('close_draft')) {
-                    $imp_compose->destroy();
+                    $imp_compose->destroy('save_draft');
                 }
             }
         } catch (IMP_Compose_Exception $e) {

@@ -321,7 +321,7 @@ case 'redirect_send':
 
     try {
         $imp_ui->redirectMessage($f_to, $imp_compose, $imp_contents);
-        $imp_compose->destroy();
+        $imp_compose->destroy('send');
         if ($isPopup) {
             if ($prefs->getValue('compose_confirm')) {
                 $notification->push(_("Message redirected successfully."), 'horde.success');
@@ -381,7 +381,7 @@ case 'send_message':
                 if ($vars->actionID == 'save_draft') {
                     if ($isPopup) {
                         if ($prefs->getValue('close_draft')) {
-                            $imp_compose->destroy();
+                            $imp_compose->destroy('save_draft');
                             echo Horde::wrapInlineScript(array('window.close();'));
                             exit;
                         } else {
@@ -390,7 +390,7 @@ case 'send_message':
                     } else {
                         $notification->push($result, 'horde.success');
                         if ($prefs->getValue('close_draft')) {
-                            $imp_compose->destroy();
+                            $imp_compose->destroy('save_draft');
                             header('Location: ' . $imp_ui->mailboxReturnUrl(false));
                             exit;
                         }
@@ -432,7 +432,7 @@ case 'send_message':
 
     try {
         $sent = $imp_compose->buildAndSendMessage($message, $header, $charset, $rtemode, $options);
-        $imp_compose->destroy();
+        $imp_compose->destroy('send');
     } catch (IMP_Compose_Exception $e) {
         $get_sig = false;
         $code = $e->getCode();
@@ -483,7 +483,7 @@ case 'fwd_digest':
     break;
 
 case 'cancel_compose':
-    $imp_compose->destroy(false);
+    $imp_compose->destroy('cancel');
     if ($isPopup) {
         echo Horde::wrapInlineScript(array('window.close();'));
     } else {

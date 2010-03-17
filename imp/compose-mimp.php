@@ -242,7 +242,7 @@ case _("Send"):
         try {
             $notification->push($imp_compose->saveDraft($header, $message, Horde_Nls::getCharset(), false), 'horde.success');
             if ($prefs->getValue('close_draft')) {
-                $imp_compose->destroy();
+                $imp_compose->destroy('save_draft');
                 require IMP_BASE . '/mailbox-mimp.php';
                 exit;
             }
@@ -265,7 +265,7 @@ case _("Send"):
 
         try {
             if ($imp_compose->buildAndSendMessage($message, $header, Horde_Nls::getEmailCharset(), false, $options)) {
-                $imp_compose->destroy();
+                $imp_compose->destroy('send');
 
                 $notification->push(_("Message sent successfully."), 'horde.success');
                 require IMP_BASE . '/mailbox-mimp.php';
@@ -279,7 +279,7 @@ case _("Send"):
     break;
 
 case _("Cancel"):
-    $imp_compose->destroy(false);
+    $imp_compose->destroy('cancel');
     require IMP_BASE . '/mailbox-mimp.php';
     exit;
 }

@@ -146,19 +146,33 @@ class IMP_Compose
     /**
      * Destroys an IMP_Compose instance.
      *
-     * @param boolean $success  Was the message sent successfully?
+     * @param string $action  The action performed to cause the end of this
+     *                        instance.  Either 'cancel', 'save_draft', or
+     *                        'send'.
      */
-    public function destroy($success = true)
+    public function destroy($action)
     {
-        /* Delete draft if we were auto saving and this wasn't a resume
-         * draft request, -or- if this was a resume draft request,
-         * auto_delete_drafts was true, and we successfully sent the
-         * message. */
-        if ((($GLOBALS['prefs']->getValue('auto_save_drafts') &&
-              !$this->getMetadata('resume')) ||
-             ($success && $GLOBALS['prefs']->getValue('auto_delete_drafts'))) &&
-            ($uid = $this->getMetadata('draft_uid'))) {
-            $GLOBALS['injector']->getInstance('IMP_Message')->delete(array($uid . IMP::IDX_SEP . IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true)), array('nuke' => true));
+        $uids = array();
+
+        switch ($action) {
+        case 'save_draft':
+            /* Don't delete any drafts. */
+            break;
+
+        case 'send':
+            /* Delete the auto-draft and the original resumed draft. */
+            $uids[] = $this->getMetadata('draft_uid_resume');
+            // Fall-through
+
+        case 'cancel':
+            /* Delete the auto-draft, but save the original resume draft. */
+            $uids[] = $this->getMetadata('draft_uid');
+            $uids = array_filter($uids);
+            break;
+        }
+
+        if (!empty($uids)) {
+            $GLOBALS['injector']->getInstance('IMP_Message')->delete($uids, array('nuke' => true));
         }
 
         $this->deleteAllAttachments();
@@ -320,26 +334,21 @@ class IMP_Compose
         /* Get the message ID. */
         $headers = Horde_Mime_Headers::parseHeaders($data);
 
+        $drafts_mbox = IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true);
+        $old_uid = $this->getMetadata('draft_uid');
+
         /* Add the message to the mailbox. */
         try {
-            $old_uid = $this->getMetadata('autodraft')
-                ? $this->getMetadata('draft_uid')
-                : null;
-
             $ids = $GLOBALS['imp_imap']->ob()->append($drafts_mbox, array(array('data' => $data, 'flags' => $append_flags, 'messageid' => $headers->getValue('message-id'))));
 
             if ($old_uid) {
-                $idx_array = array($old_uid . IMP::IDX_SEP . IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true));
-                $GLOBALS['injector']->getInstance('IMP_Message')->delete($idx_array, array('nuke' => true));
+                $GLOBALS['injector']->getInstance('IMP_Message')->delete(array($old_uid), array('nuke' => true));
             }
 
-            $this->_metadata['draft_uid'] = reset($ids);
-            $this->_metadata['autodraft'] = true;
+            $this->_metadata['draft_uid'] = reset($ids) . IMP::IDX_SEP . $drafts_mbox;
             $this->_modified = true;
             return sprintf(_("The draft has been saved to the \"%s\" folder."), IMP::displayFolder($drafts_mbox));
         } catch (Horde_Imap_Client_Exception $e) {
-            unset($this->_metadata['draft_uid']);
-            $this->_modified = true;
             return _("The draft was not successfully saved.");
         }
     }
@@ -435,8 +444,7 @@ class IMP_Compose
             } catch (Horde_Exception $e) {}
         }
 
-        list($this->_metadata['draft_uid'],) = explode(IMP::IDX_SEP, $uid);
-        $this->_metadata['resume'] = 1;
+        $this->_metadata['draft_uid_resume'] = $uid;
         $this->_modified = true;
 
         return array(
