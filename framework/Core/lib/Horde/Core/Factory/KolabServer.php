@@ -1,6 +1,6 @@
 <?php
 /**
- * A factory for Kolab server objects.
+ * A Horde_Injector:: based Horde_Kolab_Server:: factory.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * A factory for Kolab server objects.
+ * A Horde_Injector:: based Horde_Kolab_Server:: factory.
  *
  * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *

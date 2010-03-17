@@ -1,6 +1,6 @@
 <?php
 /**
- * A Horde_Injector:: based Kolab_Session:: factory.
+ * A Horde_Injector:: based Horde_Kolab_Session:: factory.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * A Horde_Injector:: based Kolab_Session:: factory.
+ * A Horde_Injector:: based Horde_Kolab_Session:: factory.
  *
  * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
  *
@@ -37,7 +37,6 @@ class Horde_Core_Factory_KolabSession
     /**
      * Constructor.
      *
-     * @param array          $config   Configuration parameters for the session.
      * @param Horde_Injector $injector The injector to use.
      */
     public function __construct(
