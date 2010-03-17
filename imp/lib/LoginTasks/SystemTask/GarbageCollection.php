@@ -28,8 +28,7 @@ class IMP_LoginTasks_SystemTask_GarbageCollection extends Horde_LoginTasks_Syste
         $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->getPollList(true, true);
 
         /* Do garbage collection on sentmail entries. */
-        $sentmail = IMP_Sentmail::factory();
-        $sentmail->gc();
+        $GLOBALS['injector']->getInstance('IMP_Sentmail')->gc();
 
         /* Do garbage collection on compose VFS data. */
         if ($GLOBALS['conf']['compose']['use_vfs']) {

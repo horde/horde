@@ -125,10 +125,7 @@ class IMP_Ui_Message
             $success = false;
         }
 
-        if ($GLOBALS['conf']['sentmail']['driver'] != 'none') {
-            $sentmail = IMP_Sentmail::factory();
-            $sentmail->log('mdn', '', $return_addr, $success);
-        }
+        $GLOBALS['injector']->getInstance('IMP_Sentmail')->log('mdn', '', $return_addr, $success);
 
         return false;
     }

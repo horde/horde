@@ -27,28 +27,20 @@ class IMP_Sentmail
      *                        to return.  The class name is based on the
      *                        storage driver ($driver).  The code is
      *                        dynamically included.
-     *
      * @param array $params   A hash containing any additional configuration
      *                        or connection parameters a subclass might need.
      *
      * @return IMP_Sentmail  The newly created concrete IMP_Sentmail instance.
      */
-    static public function factory($driver = null, $params = null)
+    static public function factory($driver = null, $params = array())
     {
-        if (is_null($driver)) {
-            $driver = $GLOBALS['conf']['sentmail']['driver'];
-        }
-
-        if (is_null($params)) {
-            $params = Horde::getDriverConfig('sentmail', $driver);
-        }
-
-        $class = 'IMP_Sentmail_' . ucfirst(basename($driver));
-
-        if (class_exists($class)) {
-            try {
-                return new $class($params);
-            } catch (Horde_Exception $e) {}
+        if ($driver && ($driver != 'none')) {
+            $class = 'IMP_Sentmail_' . ucfirst(basename($driver));
+            if (class_exists($class)) {
+                try {
+                    return new $class($params);
+                } catch (Horde_Exception $e) {}
+            }
         }
 
         return new IMP_Sentmail($params);
@@ -61,7 +53,7 @@ class IMP_Sentmail
      */
     protected function __construct($params = array())
     {
-        $this->_params = $params;
+        $this->_params = array_merge($this->_params, $params);
     }
 
     /**

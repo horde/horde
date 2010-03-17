@@ -193,8 +193,7 @@ class IMP_Api extends Horde_Registry_Api
     public function favouriteRecipients($limit,
                                         $filter = array('new', 'forward', 'reply', 'redirect'))
     {
-        $sentmail = IMP_Sentmail::factory();
-        return $sentmail->favouriteRecipients($limit, $filter);
+        return $GLOBALS['injector']->getInstance('IMP_Sentmail')->favouriteRecipients($limit, $filter);
     }
 
     /**

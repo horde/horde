@@ -108,10 +108,7 @@ class IMP_Ui_Compose
                          $_SERVER['REMOTE_ADDR'], $recipients, Horde_Auth::getAuth());
         Horde::logMessage($entry, 'INFO');
 
-        if ($GLOBALS['conf']['sentmail']['driver'] != 'none') {
-            $sentmail = IMP_Sentmail::factory();
-            $sentmail->log('redirect', $headers->getValue('message-id'), $recipients);
-        }
+        $GLOBALS['injector']->getInstance('IMP_Sentmail')>log('redirect', $headers->getValue('message-id'), $recipients);
     }
 
     /**

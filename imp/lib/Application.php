@@ -98,8 +98,16 @@ class IMP_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
-        $GLOBALS['injector']->addBinder('IMP_Folder', new IMP_Injector_Binder_Folder());
-        $GLOBALS['injector']->addBinder('IMP_Imap_Tree', new IMP_Injector_Binder_Imaptree());
+        /* Add IMP-specific binders. */
+        $binders = array(
+            'IMP_Folder' => new IMP_Injector_Binder_Folder(),
+            'IMP_Imap_Tree' => new IMP_Injector_Binder_Imaptree(),
+            'IMP_Sentmail' => new IMP_Injector_Binder_Imaptree()
+        );
+
+        foreach ($binders as $key => $val) {
+            $GLOBALS['injector']->addBinder($key, $val);
+        }
 
         // Initialize global $imp_imap object.
         $GLOBALS['imp_imap'] = new IMP_Imap();

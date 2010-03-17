@@ -594,9 +594,7 @@ class IMP_Compose
             }
         } catch (Horde_Exception $e) {}
 
-        if ($conf['sentmail']['driver'] != 'none') {
-            $sentmail = IMP_Sentmail::factory();
-        }
+        $sentmail = $GLOBALS['injector']->getInstance('IMP_Sentmail');
 
         /* Send the messages out now. */
         foreach ($send_msgs as $val) {
@@ -605,17 +603,12 @@ class IMP_Compose
             } catch (IMP_Compose_Exception $e) {
                 /* Unsuccessful send. */
                 Horde::logMessage($e, 'ERR');
-                if (isset($sentmail)) {
-                    $sentmail->log($this->getMetadata('reply_type') || 'new', $headers->getValue('message-id'), $val['recipients'], false);
-                }
-
+                $sentmail->log($this->getMetadata('reply_type') || 'new', $headers->getValue('message-id'), $val['recipients'], false);
                 throw new IMP_Compose_Exception(sprintf(_("There was an error sending your message: %s"), $e->getMessage()));
             }
 
             /* Store history information. */
-            if (isset($sentmail)) {
-                $sentmail->log($this->getMetadata('reply_type') || 'new', $headers->getValue('message-id'), $val['recipients'], true);
-            }
+            $sentmail->log($this->getMetadata('reply_type') || 'new', $headers->getValue('message-id'), $val['recipients'], true);
         }
 
         $sent_saved = true;
@@ -757,7 +750,8 @@ class IMP_Compose
 
         $timelimit = $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_timelimit');
         if ($timelimit !== true) {
-            if ($conf['sentmail']['driver'] == 'none') {
+            $sentmail = $GLOBALS['injector']->getInstance('IMP_Sentmail');
+            if (!is_subclass_of($sentmail, 'IMP_Sentmail')) {
                 Horde::logMessage('The permission for the maximum number of recipients per time period has been enabled, but no backend for the sent-mail logging has been configured for IMP.', 'ERR');
                 throw new IMP_Compose_Exception(_("The system is not properly configured. A detailed error description has been logged for the administrator."));
             }
