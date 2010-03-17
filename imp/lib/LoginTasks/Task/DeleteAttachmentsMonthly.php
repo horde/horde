@@ -34,7 +34,7 @@ class IMP_LoginTasks_Task_DeleteAttachmentsMonthly extends Horde_LoginTasks_Task
         $del_time = gmmktime(0, 0, 0, date('n') - $GLOBALS['prefs']->getValue('delete_attachments_monthly_keep'), 1, date('Y'));
 
         try {
-            $vfs = VFS::singleton($GLOBALS['conf']['vfs']['type'], Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
+            $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs');
         } catch (VFS_Exception $e) {
             return false;
         }

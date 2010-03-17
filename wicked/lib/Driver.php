@@ -60,8 +60,7 @@ class Wicked_Driver {
     {
         if (!$this->_vfs) {
             try {
-                $this->_vfs = VFS::singleton($GLOBALS['conf']['vfs']['type'],
-                                             Horde::getDriverConfig('vfs'));
+                $this->_vfs = $GLOBALS['injector']->getInstance('Horde_Vfs');
             } catch (VFS_Exception $e) {
                 return PEAR::raiseError($e->getMessage());
             }

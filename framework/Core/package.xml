@@ -72,6 +72,7 @@ Application Framework.
        <file name="Notification.php" role="php" />
        <file name="Perms.php" role="php" />
        <file name="Template.php" role="php" />
+       <file name="Vfs.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Binder -->
       <dir name="Factory">
        <file name="KolabServer.php" role="php" />
@@ -199,6 +200,7 @@ Application Framework.
    <install name="lib/Horde/Core/Binder/Notification.php" as="Horde/Core/Binder/Notification.php" />
    <install name="lib/Horde/Core/Binder/Perms.php" as="Horde/Core/Binder/Perms.php" />
    <install name="lib/Horde/Core/Binder/Template.php" as="Horde/Core/Binder/Template.php" />
+   <install name="lib/Horde/Core/Binder/Vfs.php" as="Horde/Core/Binder/Vfs.php" />
    <install name="lib/Horde/Core/Factory/KolabServer.php" as="Horde/Core/Factory/KolabServer.php" />
    <install name="lib/Horde/Core/Factory/KolabSession.php" as="Horde/Core/Factory/KolabSession.php" />
    <install name="lib/Horde/Core/Log/Logger.php" as="Horde/Core/Log/Logger.php" />

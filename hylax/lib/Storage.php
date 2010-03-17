@@ -32,17 +32,14 @@ class Hylax_Storage {
      */
     function Hylax_Storage($params)
     {
-        global $conf;
-
         $this->_params = $params;
 
         /* Set up the VFS storage. */
-        if (!isset($conf['vfs']['type'])) {
+        if (!isset($GLOBALS['conf']['vfs']['type'])) {
             Horde::fatal(_("You must configure a VFS backend to use Hylax."), __FILE__, __LINE__);
         }
-        $vfs_driver = $conf['vfs']['type'];
-        $vfs_params = Horde::getDriverConfig('vfs', $vfs_driver);
-        $this->_vfs = VFS::singleton($vfs_driver, $vfs_params);
+
+        $this->_vfs = $GLOBALS['injector']->getInstance('Horde_Vfs');
     }
 
     function saveFaxData($data, $type = '.ps')

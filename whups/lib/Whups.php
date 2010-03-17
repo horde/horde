@@ -783,14 +783,12 @@ class Whups {
      */
     function getAttachments($ticket, $name = null)
     {
-        global $conf;
-
-        if (empty($conf['vfs']['type'])) {
+        if (empty($GLOBALS['conf']['vfs']['type'])) {
             return false;
         }
 
         try {
-            $vfs = VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs'));
+            $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs');
         } catch (VFS_Exception $e) {
             return PEAR::raiseError($vfs->getMessage());
         }

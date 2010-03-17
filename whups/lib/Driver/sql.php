@@ -490,8 +490,6 @@ class Whups_Driver_sql extends Whups_Driver {
 
     function deleteTicket($info)
     {
-        global $conf;
-
         $id = (int)$info['id'];
 
         $tables = array('whups_ticket_listeners',
@@ -500,9 +498,9 @@ class Whups_Driver_sql extends Whups_Driver {
                         'whups_tickets',
                         'whups_attributes');
 
-        if (!empty($conf['vfs']['type'])) {
+        if (!empty($GLOBALS['conf']['vfs']['type'])) {
             try {
-                $vfs = VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs'));
+                $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs');
             } catch (VFS_Exception $e) {
                 return PEAR::raiseError($e->getMessage());
             }

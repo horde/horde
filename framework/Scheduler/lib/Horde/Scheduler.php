@@ -82,8 +82,7 @@ class Horde_Scheduler
     public function serialize($id = '')
     {
         try {
-            $vfs = VFS::singleton($GLOBALS['conf']['vfs']['type'],
-                                  Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
+            $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs');
             $vfs->writeData('.horde/scheduler', Horde_String::lower(get_class($this)) . $id, serialize($this), true);
             return true;
         } catch (VFS_Exception $e) {
@@ -112,8 +111,7 @@ class Horde_Scheduler
         $scheduler = new $class;
 
         try {
-            $vfs = VFS::singleton($GLOBALS['conf']['vfs']['type'],
-                              Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
+            $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs');
             $data = $vfs->read('.horde/scheduler', $class . $id);
             if ($tmp = @unserialize($data)) {
                 $scheduler = $tmp;

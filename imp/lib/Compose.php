@@ -1882,14 +1882,12 @@ class IMP_Compose
      */
     protected function _storeAttachment($part, $data, $vfs_file = true)
     {
-        global $conf;
-
         /* Store in VFS. */
-        if ($conf['compose']['use_vfs']) {
-            $vfs = VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs', $conf['vfs']['type']));
-            $cacheID = uniqid(mt_rand());
-
+        if ($GLOBALS['conf']['compose']['use_vfs']) {
             try {
+                $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs');
+                $cacheID = uniqid(mt_rand());
+
                 if ($vfs_file) {
                     $vfs->write(self::VFS_ATTACH_PATH, $cacheID, $data, true);
                 } else {
@@ -1945,8 +1943,10 @@ class IMP_Compose
             switch ($atc['filetype']) {
             case 'vfs':
                 /* Delete from VFS. */
-                $vfs = VFS::singleton($GLOBALS['conf']['vfs']['type'], Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
-                $vfs->deleteFile(self::VFS_ATTACH_PATH, $atc['filename']);
+                try {
+                    $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs');
+                    $vfs->deleteFile(self::VFS_ATTACH_PATH, $atc['filename']);
+                } catch (VFS_Exception $e) {}
                 break;
 
             case 'file':
@@ -2037,8 +2037,10 @@ class IMP_Compose
         switch ($this->_cache[$id]['filetype']) {
         case 'vfs':
             // TODO: Use streams
-            $vfs = VFS::singleton($GLOBALS['conf']['vfs']['type'], Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
-            $part->setContents($vfs->read(self::VFS_ATTACH_PATH, $this->_cache[$id]['filename']));
+            try {
+                $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs');
+                $part->setContents($vfs->read(self::VFS_ATTACH_PATH, $this->_cache[$id]['filename']));
+            } catch (VFS_Exception $e) {}
             break;
 
         case 'file':
@@ -2318,7 +2320,11 @@ class IMP_Compose
         $auth = Horde_Auth::getAuth();
         $baseurl = Horde::applicationUrl('attachment.php', true)->setRaw(true);
 
-        $vfs = VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs', $conf['vfs']['type']));
+        try {
+            $GLOBALS['injector']->getInstance('Horde_Vfs');
+        } catch (VFS_Exception $e) {
+            throw new IMP_Compose_Exception($e);
+        }
 
         $ts = time();
         $fullpath = sprintf('%s/%s/%d', self::VFS_LINK_ATTACH_PATH, $auth, $ts);
@@ -2615,7 +2621,7 @@ class IMP_Compose
         }
 
         try {
-            $vfs = VFS::singleton($GLOBALS['conf']['vfs']['type'], Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
+            $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs');
             $vfs->writeData(self::VFS_DRAFTS_PATH, hash('md5', Horde_Util::getFormData('user')), $body, true);
 
             $GLOBALS['notification']->push(_("The message you were composing has been saved as a draft. The next time you login, you may resume composing your message."));
@@ -2632,7 +2638,13 @@ class IMP_Compose
         }
 
         $filename = hash('md5', Horde_Auth::getAuth());
-        $vfs = VFS::singleton($GLOBALS['conf']['vfs']['type'], Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
+
+        try {
+            $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs');
+        } catch (VFS_Exception $e) {
+            return;
+        }
+
         if ($vfs->exists(self::VFS_DRAFTS_PATH, $filename)) {
             try {
                 $data = $vfs->read(self::VFS_DRAFTS_PATH, $filename);

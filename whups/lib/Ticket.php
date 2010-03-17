@@ -427,14 +427,12 @@ class Whups_Ticket {
      */
     function addAttachment(&$attachment_name, $attachment_file)
     {
-        global $conf;
-
-        if (!isset($conf['vfs']['type'])) {
+        if (!isset($GLOBALS['conf']['vfs']['type'])) {
             return PEAR::raiseError(_("The VFS backend needs to be configured to enable attachment uploads."), 'horde.error');
         }
 
         try {
-            $vfs = VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs'));
+            $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs');
         } catch (VFS_Exception $e) {
             return PEAR::raiseError($e->getMessage());
         }
@@ -479,14 +477,12 @@ class Whups_Ticket {
      */
     function deleteAttachment($attachment_name)
     {
-        global $conf;
-
-        if (!isset($conf['vfs']['type'])) {
+        if (!isset($GLOBALS['conf']['vfs']['type'])) {
             return PEAR::raiseError(_("The VFS backend needs to be configured to enable attachment uploads."), 'horde.error');
         }
 
         try {
-            $vfs = VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs'));
+            $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs');
         } catch (VFS_Exception $e) {
             return PEAR::raiseError($e->getMessage());
         }

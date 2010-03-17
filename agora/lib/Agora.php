@@ -227,7 +227,7 @@ class Agora {
         }
 
         try {
-            return VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs'));
+            return $GLOBALS['injector']->getInstance('Horde_Vfs');
         } catch (VFS_Exception $e) {
             return PEAR::raiseError($e);
         }

@@ -34,7 +34,7 @@ if (is_null($mail_user) || is_null($time_stamp) || is_null($file_name)) {
 
 // Initialize the VFS.
 try {
-    $vfsroot = VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs', $conf['vfs']['type']));
+    $vfsroot = $injector->getInstance('Horde_Vfs');
 } catch (VFS_Exception $e) {
     throw new IMP_Exception(sprintf(_("Could not create the VFS backend: %s"), $e->getMessage()));
 }

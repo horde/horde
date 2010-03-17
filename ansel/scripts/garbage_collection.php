@@ -36,7 +36,7 @@ foreach ($opts as $opt) {
     }
 }
 
-$vfs = VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs', $conf['vfs']['type']));
+$vfs = $GLOBALS['injector']->getInstance('Horde_Vfs');
 $vfspath = '.horde/ansel/';
 $garbagepath = $vfspath . 'garbage/';
 
