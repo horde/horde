@@ -62,7 +62,7 @@ class Horde
      * @see Horde_Core_Log_Logger
      */
     static public function logMessage($event, $priority = 'INFO',
-                                      $options = array())
+                                      array $options = array())
     {
         $options['trace'] = 2;
         $GLOBALS['injector']->getInstance('Horde_Log_Logger')->log($event, $priority, $options);
