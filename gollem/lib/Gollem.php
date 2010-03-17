@@ -803,8 +803,7 @@ class Gollem
         $ob = VFS::singleton($be_config['driver'], $params);
 
         // Enable logging within VFS
-        $logger = Horde::getLogger();
-        $ob->setLogger($logger, $GLOBALS['conf']['log']['priority']);
+        $ob->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
 
         if (!isset($be_config['quota_val']) &&
             !empty($be_config['quota'])) {
