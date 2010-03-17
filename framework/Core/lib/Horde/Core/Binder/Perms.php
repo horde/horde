@@ -5,7 +5,7 @@ class Horde_Core_Binder_Perms implements Horde_Injector_Binder
     {
         $perm_params = array(
             'cache' => $injector->getInstance('Horde_Cache'),
-            'logger' => $injector->getInstance('Horde_Logger')
+            'logger' => $injector->getInstance('Horde_Log_Logger')
         );
 
         $perm_driver = empty($GLOBALS['conf']['perms']['driver'])
