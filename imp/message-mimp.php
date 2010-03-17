@@ -1,6 +1,6 @@
 <?php
 /**
- * Minimal (MIMP) message display page.
+ * Mobile (MIMP) message display page.
  *
  * URL Parameters:
  *   'a' - (string) actionID

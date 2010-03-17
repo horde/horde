@@ -1,6 +1,6 @@
 <?php
 /**
- * Minimalist folder display page.
+ * Mobile (MIMP) folder display page.
  *
  * URL Parameters:
  *   'ts' = (integer) Toggle subscribe view.

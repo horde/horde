@@ -1,6 +1,6 @@
 <?php
 /**
- * Minimal (MIMP) mailbox display page.
+ * Mobile (MIMP) mailbox display page.
  *
  * URL Parameters:
  *   'a' = (string) actionID

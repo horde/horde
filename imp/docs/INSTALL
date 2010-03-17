@@ -438,6 +438,13 @@ reliable way to reproduce the error.  Developers/other interested folks will
 be much more likely to help you if all this information is provided.
 
 
+Mobile View
+===========
+
+IMP also offers a view optimized for mobile devices that contains no graphics,
+minimal styling, and a reduced feature set (formerly known as MIMP).
+
+
 Obtaining Support
 =================
 

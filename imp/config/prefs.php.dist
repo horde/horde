@@ -202,8 +202,8 @@ if (Horde_Util::extensionExists('openssl') && isset($GLOBALS['conf']['openssl'][
 
 $prefGroups['mimp'] = array(
     'column' => _("Other Options"),
-    'label' => _("Minimal View Options"),
-    'desc' => _("Configure options for the minimalist view."),
+    'label' => _("Mobile View Options"),
+    'desc' => _("Configure options for the mobile view."),
     'members' => array('mimp_preview_msg', 'mimp_download_confirm',
                        'mimp_inline_all')
 );
@@ -1128,7 +1128,7 @@ $_prefs['msgflags'] = array(
     //   KEY: Flag name
     //   VALUE: Array with the following entries
     //          'a' - (string) [abbreviation] The abbreviation used in
-    //                the mimp (minimal) view.
+    //                the mobile (mimp) view.
     //                DEFAULT: Don't show flag
     //          'b' - (string) [background] The CSS background color
     //                DEFAULT: Use value of 'msgflags_color'

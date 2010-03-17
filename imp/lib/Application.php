@@ -259,7 +259,7 @@ class IMP_Application extends Horde_Registry_Application
                         // Dimp selected is handled by javascript (dimp_sel)
                     ),
                     'mimp' => array(
-                        'name' => _("Minimal"),
+                        'name' => _("Mobile"),
                         'selected' => $view_cookie == 'mimp'
                     )
                 )
