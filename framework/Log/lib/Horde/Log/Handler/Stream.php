@@ -37,6 +37,20 @@ class Horde_Log_Handler_Stream extends Horde_Log_Handler_Base
     protected $_stream = null;
 
     /**
+     * The open mode.
+     *
+     * @var string
+     */
+    protected $_mode;
+
+    /**
+     * The stream to open.
+     *
+     * @var string
+     */
+    protected $_streamOrUrl;
+
+    /**
      * Class Constructor
      *
      * @param mixed $streamOrUrl   Stream or URL to open as a stream
@@ -48,7 +62,10 @@ class Horde_Log_Handler_Stream extends Horde_Log_Handler_Base
         if (is_null($formatter)) {
             $formatter = new Horde_Log_Formatter_Simple();
         }
+
         $this->_formatter = $formatter;
+        $this->_mode = $mode;
+        $this->_streamOrUrl = $streamOrUrl;
 
         if (is_resource($streamOrUrl)) {
             if (get_resource_type($streamOrUrl) != 'stream') {
@@ -61,10 +78,18 @@ class Horde_Log_Handler_Stream extends Horde_Log_Handler_Base
 
             $this->_stream = $streamOrUrl;
         } else {
-            if (! $this->_stream = @fopen($streamOrUrl, $mode, false)) {
-                $msg = "\"$streamOrUrl\" cannot be opened with mode \"$mode\"";
-                throw new Horde_Log_Exception($msg);
-            }
+            $this->__wakeup();
+        }
+    }
+
+    /**
+     * Wakup function - reattaches stream.
+     */
+    public function __wakeup()
+    {
+        if (! $this->_stream = @fopen($this->_streamOrUrl, $this->_mode, false)) {
+            $msg = '"' . $this->_streamOrUrl . '" cannot be opened with mode "' . $this->_mode . '"';
+            throw new Horde_Log_Exception($msg);
         }
     }
 
