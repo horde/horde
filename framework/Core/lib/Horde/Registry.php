@@ -232,19 +232,42 @@ class Horde_Registry
         Horde_Autoloader::addCallback('Horde_Auth', array('Horde_Core_Autoloader_Callback_Auth', 'callback'));
         Horde_Autoloader::addCallback('Horde_Mime', array('Horde_Core_Autoloader_Callback_Mime', 'callback'));
 
+        /* Define binders. */
+        $binders = array(
+            'Horde_Cache' => new Horde_Core_Binder_Cache(),
+            'Horde_Db_Adapter_Base' => new Horde_Core_Binder_Db('reader'),
+            'Horde_Log_Logger' => new Horde_Core_Binder_Logger(),
+            'Horde_Memcache' => new Horde_Core_Binder_Memcache(),
+            'Horde_Notification' => new Horde_Core_Binder_Notification(),
+            'Horde_Perms' => new Horde_Core_Binder_Perms(),
+            'Horde_Template' => new Horde_Core_Binder_Template(),
+            'Net_DNS_Resolver' => new Horde_Core_Binder_Dns()
+        );
+
+        /* Define factories. */
+        $factories = array(
+            'Horde_Kolab_Server_Composite' => array(
+                'Horde_Core_Factory_KolabServer',
+                'getComposite'
+            ),
+            'Horde_Kolab_Session' => array(
+                'Horde_Core_Factory_KolabSession',
+                'getSession'
+            ),
+            'Horde_Kolab_Storage' => array(
+                'Horde_Core_Factory_KolabStorage',
+                'getStorage'
+            )
+        );
+
         /* Setup injector. */
         $GLOBALS['injector'] = $injector = new Horde_Injector(new Horde_Injector_TopLevel());
-        $injector->addBinder('Horde_Cache', new Horde_Core_Binder_Cache());
-        $injector->addBinder('Horde_Db_Adapter_Base', new Horde_Core_Binder_Db('reader'));
-        $injector->addBinder('Horde_Log_Logger', new Horde_Core_Binder_Logger());
-        $injector->addBinder('Horde_Memcache', new Horde_Core_Binder_Memcache());
-        $injector->addBinder('Horde_Notification', new Horde_Core_Binder_Notification());
-        $injector->addBinder('Horde_Perms', new Horde_Core_Binder_Perms());
-        $injector->addBinder('Horde_Template', new Horde_Core_Binder_Template());
-        $injector->addBinder('Net_DNS_Resolver', new Horde_Core_Binder_Dns());
-        $injector->bindFactory('Horde_Kolab_Server_Composite', 'Horde_Core_Factory_KolabServer', 'getComposite');
-        $injector->bindFactory('Horde_Kolab_Session', 'Horde_Core_Factory_KolabSession', 'getSession');
-        $injector->bindFactory('Horde_Kolab_Storage', 'Horde_Core_Factory_KolabStorage', 'getStorage');
+        foreach ($binders as $key => $val) {
+            $injector->addBinder($key, $val);
+        }
+        foreach ($factories as $key => $val) {
+            $injector->bindFactory($key, $val[0], $val[1]);
+        }
 
         $GLOBALS['registry'] = $this;
         $injector->setInstance('Horde_Registry', $this);
