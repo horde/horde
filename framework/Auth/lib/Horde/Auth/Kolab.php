@@ -107,7 +107,8 @@ class Horde_Auth_Kolab extends Horde_Auth_Base
     protected function _authenticate($userId, $credentials)
     {
         try {
-            $session = $this->getSession($userId, $credentials);
+            $session = $GLOBALS['injector']->getInstance('Horde_Kolab_Session');
+            $session->connect($userId, $credentials);
         } catch (Horde_Kolab_Session_Exception_Badlogin $e) {
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
         } catch (Horde_Kolab_Session_Exception $e) {

@@ -61,18 +61,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <dir name="Exception">
         <file name="Badlogin.php" role="php" />
        </dir> <!-- /lib/Horde/Session/Exception -->
-       <dir name="Factory">
-        <file name="Base.php" role="php" />
-        <file name="Configuration.php" role="php" />
-        <file name="Constructor.php" role="php" />
-        <dir name="Decorator">
-         <file name="Anonymous.php" role="php" />
-         <file name="Logged.php" role="php" />
-        </dir> <!-- /lib/Horde/Session/Factory/Decorator -->
-        <file name="Default.php" role="php" />
-        <file name="Injector.php" role="php" />
-        <file name="Interface.php" role="php" />
-       </dir> <!-- /lib/Horde/Session/Factory -->
        <file name="Interface.php" role="php" />
        <file name="Singleton.php" role="php" />
        <dir name="Storage">
@@ -108,17 +96,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
          <file name="LoggedTest.php" role="test" />
          <file name="StoredTest.php" role="test" />
         </dir> <!-- /test/Horde/Kolab/Session/Class/Decorator -->
-        <dir name="Factory">
-         <file name="BaseTest.php" role="test" />
-         <file name="ConfigurationTest.php" role="test" />
-         <file name="ConstructorTest.php" role="test" />
-         <dir name="Decorator">
-          <file name="AnonymousTest.php" role="test" />
-          <file name="LoggedTest.php" role="test" />
-         </dir> <!-- /test/Horde/Kolab/Session/Class/Factory/Decorator -->
-         <file name="DefaultTest.php" role="test" />
-         <file name="InjectorTest.php" role="test" />
-        </dir> <!-- /test/Horde/Kolab/Session/Class/Factory -->
         <dir name="Storage">
          <file name="MockTest.php" role="test" />
          <file name="SessionobjectsTest.php" role="test" />
@@ -133,7 +110,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <dir name="Integration">
         <file name="AnonymousTest.php" role="test" />
         <file name="SessionTest.php" role="test" />
-        <file name="SingletonTest.php" role="test" />
         <file name="ValidTest.php" role="test" />
        </dir> <!-- /test/Horde/Kolab/Session/Integration -->
        <file name="phpunit.xml" role="test" />
@@ -191,14 +167,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Kolab/Session/Decorator/Anonymous.php" as="Horde/Kolab/Session/Decorator/Anonymous.php" />
    <install name="lib/Horde/Kolab/Session/Decorator/Logged.php" as="Horde/Kolab/Session/Decorator/Logged.php" />
    <install name="lib/Horde/Kolab/Session/Decorator/Stored.php" as="Horde/Kolab/Session/Decorator/Stored.php" />
-   <install name="lib/Horde/Kolab/Session/Factory/Base.php" as="Horde/Kolab/Session/Factory/Base.php" />
-   <install name="lib/Horde/Kolab/Session/Factory/Configuration.php" as="Horde/Kolab/Session/Factory/Configuration.php" />
-   <install name="lib/Horde/Kolab/Session/Factory/Constructor.php" as="Horde/Kolab/Session/Factory/Constructor.php" />
-   <install name="lib/Horde/Kolab/Session/Factory/Default.php" as="Horde/Kolab/Session/Factory/Default.php" />
-   <install name="lib/Horde/Kolab/Session/Factory/Decorator/Anonymous.php" as="Horde/Kolab/Session/Factory/Decorator/Anonymous.php" />
-   <install name="lib/Horde/Kolab/Session/Factory/Decorator/Logged.php" as="Horde/Kolab/Session/Factory/Decorator/Logged.php" />
-   <install name="lib/Horde/Kolab/Session/Factory/Injector.php" as="Horde/Kolab/Session/Factory/Injector.php" />
-   <install name="lib/Horde/Kolab/Session/Factory/Interface.php" as="Horde/Kolab/Session/Factory/Interface.php" />
    <install name="lib/Horde/Kolab/Session/Interface.php" as="Horde/Kolab/Session/Interface.php" />
    <install name="lib/Horde/Kolab/Session/Singleton.php" as="Horde/Kolab/Session/Singleton.php" />
    <install name="lib/Horde/Kolab/Session/Storage/Interface.php" as="Horde/Kolab/Session/Storage/Interface.php" />
@@ -215,20 +183,12 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="test/Horde/Kolab/Session/Class/Decorator/AnonymousTest.php" as="Horde/Kolab/Session/Class/Decorator/AnonymousTest.php" />
    <install name="test/Horde/Kolab/Session/Class/Decorator/LoggedTest.php" as="Horde/Kolab/Session/Class/Decorator/LoggedTest.php" />
    <install name="test/Horde/Kolab/Session/Class/Decorator/StoredTest.php" as="Horde/Kolab/Session/Class/Decorator/StoredTest.php" />
-   <install name="test/Horde/Kolab/Session/Class/Factory/BaseTest.php" as="Horde/Kolab/Session/Class/Factory/BaseTest.php" />
-   <install name="test/Horde/Kolab/Session/Class/Factory/ConfigurationTest.php" as="Horde/Kolab/Session/Class/Factory/ConfigurationTest.php" />
-   <install name="test/Horde/Kolab/Session/Class/Factory/ConstructorTest.php" as="Horde/Kolab/Session/Class/Factory/ConstructorTest.php" />
-   <install name="test/Horde/Kolab/Session/Class/Factory/Decorator/AnonymousTest.php" as="Horde/Kolab/Session/Class/Factory/Decorator/AnonymousTest.php" />
-   <install name="test/Horde/Kolab/Session/Class/Factory/Decorator/LoggedTest.php" as="Horde/Kolab/Session/Class/Factory/Decorator/LoggedTest.php" />
-   <install name="test/Horde/Kolab/Session/Class/Factory/DefaultTest.php" as="Horde/Kolab/Session/Class/Factory/DefaultTest.php" />
-   <install name="test/Horde/Kolab/Session/Class/Factory/InjectorTest.php" as="Horde/Kolab/Session/Class/Factory/InjectorTest.php" />
    <install name="test/Horde/Kolab/Session/Class/Storage/MockTest.php" as="Horde/Kolab/Session/Class/Storage/MockTest.php" />
    <install name="test/Horde/Kolab/Session/Class/Storage/SessionobjectsTest.php" as="Horde/Kolab/Session/Class/Storage/SessionobjectsTest.php" />
    <install name="test/Horde/Kolab/Session/Class/Valid/BaseTest.php" as="Horde/Kolab/Session/Class/Valid/BaseTest.php" />
    <install name="test/Horde/Kolab/Session/Class/Valid/Decorator/LoggedTest.php" as="Horde/Kolab/Session/Class/Valid/Decorator/LoggedTest.php" />
    <install name="test/Horde/Kolab/Session/Integration/AnonymousTest.php" as="Horde/Kolab/Session/Integration/AnonymousTest.php" />
    <install name="test/Horde/Kolab/Session/Integration/SessionTest.php" as="Horde/Kolab/Session/Integration/SessionTest.php" />
-   <install name="test/Horde/Kolab/Session/Integration/SingletonTest.php" as="Horde/Kolab/Session/Integration/SingletonTest.php" />
    <install name="test/Horde/Kolab/Session/Integration/ValidTest.php" as="Horde/Kolab/Session/Integration/ValidTest.php" />
    <install name="test/Horde/Kolab/Session/phpunit.xml" as="Horde/Kolab/Session/phpunit.php" />
    <install name="test/Horde/Kolab/Session/SessionTestCase.php" as="Horde/Kolab/Session/SessionTestCase.php" />
