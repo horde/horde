@@ -71,7 +71,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
     public function getSession()
     {
         if (!isset($this->_session)) {
-            $this->_session = Horde_Kolab_Session_Singleton::singleton();
+            $this->_session = $GLOBALS['injector']->getInstance('Horde_Kolab_Session_Interface');
         }
         return $this->_session;
     }
