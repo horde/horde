@@ -85,7 +85,7 @@ class Shout_Application extends Horde_Registry_Application
             $this->devices = Shout_Driver::factory('devices');
             $this->dialplan = Shout_Driver::factory('dialplan');
             $conf = $GLOBALS['conf'];
-            $this->vfs = VFS::singleton($conf['vfs']['driver'], $conf['vfs']['params']);
+            $this->vfs = VFS::singleton($conf['ivr']['driver'], $conf['ivr']['params']);
 
             $accounts = $this->storage->getAccounts();
         } catch (Shout_Exception $e) {

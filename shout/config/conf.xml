@@ -78,10 +78,10 @@
    </configswitch>
   </configsection>
  </configtab>
- <configtab name="vfs" desc="IVR Prompt Storage">
-  <configsection name="vfs">
+ <configtab name="ivr" desc="IVR Prompt Storage">
+  <configsection name="ivr">
    <configheader>IVR Prompt Storage Settings</configheader>
-   <configvfs switchname="type"/>
+   <configvfs switchname="driver"/>
   </configsection>
  </configtab>
 </configuration>

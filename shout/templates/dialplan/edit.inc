@@ -144,7 +144,21 @@ function cancelEdit()
 
 function changeSoundfile()
 {
-    alert("Changing soundfile");
+    //empty($('editSound'));
+    // FIXME: Add spinner
+    new Ajax.Request(ajax_url + 'getRecordings',
+    {
+        method: 'get',
+        onSuccess: function(r) {
+            //var form = document.createElement('form');
+            //form.name = 'selectSoundFile';
+            //form.id = 'selectSoundFile';
+            //var select = document.createElement('select');
+            //select.name = 'filename';
+            var recordings = r.responseJSON.response;
+            alert('done');
+        }
+    });
 }
 
 function playSoundfile()
@@ -171,6 +185,7 @@ function refreshMenu()
     // Handle the soundfile row specially
     row = document.createElement('tr');
     col = document.createElement('td');
+    col.id = 'editSound';
     col.className = 'menuStatName';
     text = document.createTextNode('<?php echo _("Sound file"); ?>');
     col.appendChild(text);

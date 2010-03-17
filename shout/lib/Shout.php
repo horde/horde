@@ -217,4 +217,22 @@ class Shout
         return $res;
     }
 
+    static public function getRecordings($account)
+    {
+        $rlist = $shout->vfs->listFolder($account);
+
+        // In Asterisk, filenames the same basename and different extension are
+        // functionally equivalent.  Asterisk chooses the file based on the least cost
+        // to transcode.  For that reason, we will drop the filename extension when
+        // handling files.
+        $recordings = array();
+        foreach ($rlist as $name => $info) {
+            $name = substr($name, 0, strrpos($name, '.'));
+            $info['name'] = $name;
+            $recordings[$name] = $info;
+        }
+
+        return $recordings;
+    }
+
 }
