@@ -119,7 +119,7 @@ class IMP_Views_ListMessages
         if ($args['initial']) {
             if (IMP::isSpecialFolder($mbox)) {
                 $md->special = 1;
-                if ($mbox == IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'))) {
+                if ($mbox == IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true)) {
                     $md->drafts = 1;
                 }
             }
