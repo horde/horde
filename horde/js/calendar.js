@@ -238,7 +238,7 @@ var Horde_Calendar =
             table = new Element('TABLE', { className: 'hordeCalendarPopup', cellSpacing: 0 }).insert(thead).insert(new Element('TBODY'));
 
         // Title bar.
-        link = new Element('A', { href: '#' }).insert('x');
+        link = new Element('A', { href: '#', className: 'hordeCalendarClose' }).insert('x');
         link.observe('click', this.hideCal.bind(this));
         thead.insert(new Element('TR').insert(new Element('TD', { colSpan: 7, className: 'rightAlign' }).insert(link)));
 
