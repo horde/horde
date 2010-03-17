@@ -1131,6 +1131,13 @@ table.kronolithView td.kronolithFirstCol {
 #kronolithViewMonthContainer table.kronolithView td.kronolithFirstCol {
     vertical-align: top;
 }
+.kronolithMore {
+    display: block;
+    padding: 0 2px;
+    color: #888;
+    font-style: italic;
+    cursor: pointer;
+}
 
 /* Main view agenda. */
 #kronolithViewAgenda td.kronolithFirstCol {
