@@ -718,7 +718,7 @@ class Horde_Share_sql extends Horde_Share {
                 $ids = array_keys($groups);
                 $group_ids = array();
                 foreach ($ids as $id) {
-                    $group_ids[] = $this->_db->quote($id);
+                    $group_ids[] = $this->_db->quote((string)$id);
                 }
                 $query .= ' LEFT JOIN ' . $this->_table . '_groups g ON g.share_id = s.share_id';
                 $where .= ' OR (g.group_uid IN (' . implode(',', $group_ids) . ')'

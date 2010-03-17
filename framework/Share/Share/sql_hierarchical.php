@@ -218,7 +218,7 @@ class Horde_Share_sql_hierarchical extends Horde_Share_sql {
                     $ids = array_keys($groups);
                     $group_ids = array();
                     foreach ($ids as $id) {
-                        $group_ids[] = $this->_db->quote($id);
+                        $group_ids[] = $this->_db->quote((string)$id);
                     }
                     $query .= ' LEFT JOIN ' . $this->_table . '_groups AS g ON g.share_id = s.share_id';
                     $where .= ' OR (g.group_uid IN (' . implode(',', $group_ids) . ')'
