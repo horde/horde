@@ -34,12 +34,12 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
 class Horde_Kolab_Session_Decorator_Anonymous
-implements Horde_Kolab_Session_Interface
+implements Horde_Kolab_Session
 {
     /**
      * The session handler this instance provides with anonymous access.
      *
-     * @var Horde_Kolab_Session_Interface
+     * @var Horde_Kolab_Session
      */
     private $_session;
 
@@ -60,13 +60,13 @@ implements Horde_Kolab_Session_Interface
     /**
      * Constructor.
      *
-     * @param Horde_Kolab_Session_Interface $session The this instance should provide
-     *                                               anonymous access for.
-     * @param string                        $user    ID of the anonymous user.
-     * @param string                        $pass    Password of the anonymous user.
+     * @param Horde_Kolab_Session $session The this instance should provide
+     *                                     anonymous access for.
+     * @param string              $user    ID of the anonymous user.
+     * @param string              $pass    Password of the anonymous user.
      */
     public function __construct(
-        Horde_Kolab_Session_Interface $session,
+        Horde_Kolab_Session $session,
         $user,
         $pass
     ) {

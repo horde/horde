@@ -34,7 +34,7 @@ class Horde_Auth_Kolab_Class_KolabTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->session = $this->getMock('Horde_Kolab_Session_Interface');
+        $this->session = $this->getMock('Horde_Kolab_Session');
         $this->factory = $this->getMock('Horde_Kolab_Session_Factory_Interface');
 
         if (!defined('HORDE_BASE')) {
@@ -53,7 +53,7 @@ class Horde_Auth_Kolab_Class_KolabTest extends PHPUnit_Framework_TestCase
         $auth = new Horde_Auth_Kolab();
         $auth->setSession($this->session);
         $this->assertType(
-            'Horde_Kolab_Session_Interface',
+            'Horde_Kolab_Session',
             $auth->getSession('user', array('password' => 'test'))
         );
     }
@@ -67,7 +67,7 @@ class Horde_Auth_Kolab_Class_KolabTest extends PHPUnit_Framework_TestCase
             ->with('user', array('password' => 'test'))
             ->will($this->returnValue($this->session));
         $this->assertType(
-            'Horde_Kolab_Session_Interface',
+            'Horde_Kolab_Session',
             $auth->getSession('user', array('password' => 'test'))
         );
     }

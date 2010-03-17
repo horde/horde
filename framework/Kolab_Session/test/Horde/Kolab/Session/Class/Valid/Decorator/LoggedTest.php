@@ -46,7 +46,7 @@ extends Horde_Kolab_Session_SessionTestCase
         $auth->expects($this->exactly(2))
             ->method('getCurrentUser')
             ->will($this->returnValue('auth@example.org'));
-        $session = $this->getMock('Horde_Kolab_Session_Interface');
+        $session = $this->getMock('Horde_Kolab_Session');
         $session->expects($this->exactly(2))
             ->method('getMail')
             ->will($this->returnValue('somebody@example.org'));

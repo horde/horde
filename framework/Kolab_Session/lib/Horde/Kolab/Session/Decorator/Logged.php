@@ -26,12 +26,12 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
 class Horde_Kolab_Session_Decorator_Logged
-implements Horde_Kolab_Session_Interface
+implements Horde_Kolab_Session
 {
     /**
      * The session handler.
      *
-     * @var Horde_Kolab_Session_Interface
+     * @var Horde_Kolab_Session
      */
     private $_session;
 
@@ -48,11 +48,11 @@ implements Horde_Kolab_Session_Interface
      * The provided logger class needs to implement the methods info() and
      * err().
      *
-     * @param Horde_Kolab_Session_Interface $session The session handler.
-     * @param mixed                         $logger  The logger instance.
+     * @param Horde_Kolab_Session $session The session handler.
+     * @param mixed               $logger  The logger instance.
      */
     public function __construct(
-        Horde_Kolab_Session_Interface $session,
+        Horde_Kolab_Session $session,
         $logger
     ) {
         $this->_session = $session;

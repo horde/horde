@@ -47,11 +47,11 @@ implements Horde_Kolab_Session_Storage_Interface
     /**
      * Save the session information.
      *
-     * @param Horde_Kolab_Session_Interface $session The session information.
+     * @param Horde_Kolab_Session $session The session information.
      *
      * @return NULL
      */
-    public function save(Horde_Kolab_Session_Interface $session)
+    public function save(Horde_Kolab_Session $session)
     {
         $this->session = $session;
     }

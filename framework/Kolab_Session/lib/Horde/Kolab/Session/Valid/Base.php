@@ -37,7 +37,7 @@ implements Horde_Kolab_Session_Valid_Interface
     /**
      * The session handler this instance provides with anonymous access.
      *
-     * @var Horde_Kolab_Session_Interface
+     * @var Horde_Kolab_Session
      */
     private $_session;
 
@@ -51,12 +51,12 @@ implements Horde_Kolab_Session_Valid_Interface
     /**
      * Constructor.
      *
-     * @param Horde_Kolab_Session_Interface      $session The session that should be
-     *                                                     validated.
+     * @param Horde_Kolab_Session                $session The session that should be
+     *                                                    validated.
      * @param Horde_Kolab_Session_Auth_Interface $auth    The authentication handler.
      */
     public function __construct(
-        Horde_Kolab_Session_Interface $session,
+        Horde_Kolab_Session $session,
         Horde_Kolab_Session_Auth_Interface $auth
     ) {
         $this->_session = $session;
@@ -90,7 +90,7 @@ implements Horde_Kolab_Session_Valid_Interface
     /**
      * Return the session this validator checks.
      *
-     * @return Horde_Kolab_Session_Interface The session checked by this
+     * @return Horde_Kolab_Session The session checked by this
      * validator.
      */
     public function getSession()

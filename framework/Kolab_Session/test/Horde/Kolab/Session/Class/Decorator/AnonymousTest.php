@@ -35,7 +35,7 @@ extends Horde_Kolab_Session_SessionTestCase
 {
     public function testMethodConnectHasPostconditionThatTheConnectionHasBeenEstablishedAsAnonymousUserIfRequired()
     {
-        $session = $this->getMock('Horde_Kolab_Session_Interface');
+        $session = $this->getMock('Horde_Kolab_Session');
         $session->expects($this->once())
             ->method('connect')
             ->with('anonymous', array('password' => 'pass'));
@@ -47,7 +47,7 @@ extends Horde_Kolab_Session_SessionTestCase
 
     public function testMethodGetidReturnsNullIfConnectedUserIsAnonymousUser()
     {
-        $session = $this->getMock('Horde_Kolab_Session_Interface');
+        $session = $this->getMock('Horde_Kolab_Session');
         $session->expects($this->once())
             ->method('getId')
             ->will($this->returnValue('anonymous'));
@@ -59,7 +59,7 @@ extends Horde_Kolab_Session_SessionTestCase
 
     public function testMethodConnectGetsDelegated()
     {
-        $session = $this->getMock('Horde_Kolab_Session_Interface');
+        $session = $this->getMock('Horde_Kolab_Session');
         $session->expects($this->once())
             ->method('connect')
             ->with(array('password' => 'pass'));
@@ -71,7 +71,7 @@ extends Horde_Kolab_Session_SessionTestCase
 
     public function testMethodGetidGetsDelegated()
     {
-        $session = $this->getMock('Horde_Kolab_Session_Interface');
+        $session = $this->getMock('Horde_Kolab_Session');
         $session->expects($this->once())
             ->method('getId')
             ->will($this->returnValue('1'));
@@ -83,7 +83,7 @@ extends Horde_Kolab_Session_SessionTestCase
 
     public function testMethodSetidGetsDelegated()
     {
-        $session = $this->getMock('Horde_Kolab_Session_Interface');
+        $session = $this->getMock('Horde_Kolab_Session');
         $session->expects($this->once())
             ->method('setId')
             ->with('1');
@@ -95,7 +95,7 @@ extends Horde_Kolab_Session_SessionTestCase
 
     public function testMethodGetmailGetsDelegated()
     {
-        $session = $this->getMock('Horde_Kolab_Session_Interface');
+        $session = $this->getMock('Horde_Kolab_Session');
         $session->expects($this->once())
             ->method('getMail')
             ->will($this->returnValue('1'));
@@ -107,7 +107,7 @@ extends Horde_Kolab_Session_SessionTestCase
 
     public function testMethodGetuidGetsDelegated()
     {
-        $session = $this->getMock('Horde_Kolab_Session_Interface');
+        $session = $this->getMock('Horde_Kolab_Session');
         $session->expects($this->once())
             ->method('getUid')
             ->will($this->returnValue('1'));
@@ -119,7 +119,7 @@ extends Horde_Kolab_Session_SessionTestCase
 
     public function testMethodGetnameGetsDelegated()
     {
-        $session = $this->getMock('Horde_Kolab_Session_Interface');
+        $session = $this->getMock('Horde_Kolab_Session');
         $session->expects($this->once())
             ->method('getName')
             ->will($this->returnValue('1'));
@@ -131,7 +131,7 @@ extends Horde_Kolab_Session_SessionTestCase
 
     public function testMethodGetimapserverGetsDelegated()
     {
-        $session = $this->getMock('Horde_Kolab_Session_Interface');
+        $session = $this->getMock('Horde_Kolab_Session');
         $session->expects($this->once())
             ->method('getImapServer')
             ->will($this->returnValue('1'));
@@ -143,7 +143,7 @@ extends Horde_Kolab_Session_SessionTestCase
 
     public function testMethodGetfreebusyserverGetsDelegated()
     {
-        $session = $this->getMock('Horde_Kolab_Session_Interface');
+        $session = $this->getMock('Horde_Kolab_Session');
         $session->expects($this->once())
             ->method('getFreebusyServer')
             ->will($this->returnValue('1'));
@@ -155,7 +155,7 @@ extends Horde_Kolab_Session_SessionTestCase
 
     public function testMethodGetstorageGetsDelegated()
     {
-        $session = $this->getMock('Horde_Kolab_Session_Interface');
+        $session = $this->getMock('Horde_Kolab_Session');
         $session->expects($this->once())
             ->method('getStorage')
             ->will($this->returnValue('1'));

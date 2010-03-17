@@ -47,7 +47,7 @@ class Horde_Core_Factory_KolabSessionTest extends PHPUnit_Framework_TestCase
 
     public function testMethodGetvalidatorHasResultHordekolabsessionvalid()
     {
-        $session = $this->getMock('Horde_Kolab_Session_Interface');
+        $session = $this->getMock('Horde_Kolab_Session');
         $this->assertType(
             'Horde_Kolab_Session_Valid_Interface',
             $this->_getFactory()->getSessionValidator($session, $this->session_auth)
@@ -60,7 +60,7 @@ class Horde_Core_Factory_KolabSessionTest extends PHPUnit_Framework_TestCase
         $this->session_auth->expects($this->once())
             ->method('getCurrentUser')
             ->will($this->returnValue('mail@example.org'));
-        $session = $this->getMock('Horde_Kolab_Session_Interface');
+        $session = $this->getMock('Horde_Kolab_Session');
         $session->expects($this->once())
             ->method('getMail')
             ->will($this->returnValue('mail@example.org'));
@@ -75,7 +75,7 @@ class Horde_Core_Factory_KolabSessionTest extends PHPUnit_Framework_TestCase
     public function testMethodGetsessionHasResultHordekolabsessionTheOldSessionIfAnOldSessionWasStoredAndValid()
     {
         $factory = $this->_getFactory();
-        $session = $this->getMock('Horde_Kolab_Session_Interface');
+        $session = $this->getMock('Horde_Kolab_Session');
         $session->expects($this->once())
             ->method('getMail')
             ->will($this->returnValue('mail@example.org'));
@@ -91,7 +91,7 @@ class Horde_Core_Factory_KolabSessionTest extends PHPUnit_Framework_TestCase
     public function testMethodGetsessionHasResultHordekolabsessionANewSessionIfAnOldSessionWasStoredAndInvalid()
     {
         $factory = $this->_getFactory();
-        $session = $this->getMock('Horde_Kolab_Session_Interface');
+        $session = $this->getMock('Horde_Kolab_Session');
         $session->expects($this->once())
             ->method('getMail')
             ->will($this->returnValue('mail@example.org'));
@@ -110,7 +110,7 @@ class Horde_Core_Factory_KolabSessionTest extends PHPUnit_Framework_TestCase
         $this->session_storage->expects($this->once())
             ->method('load')
             ->will($this->returnValue(false));
-        $this->assertType('Horde_Kolab_Session_Interface', $factory->getSession());
+        $this->assertType('Horde_Kolab_Session', $factory->getSession());
     }
 
 
@@ -135,7 +135,7 @@ class Horde_Core_Factory_KolabSessionTest extends PHPUnit_Framework_TestCase
 
     public function testMethodGetsessionvalidatorHasResultHordekolabsessionvalidloggedIfConfiguredThatWay()
     {
-        $session = $this->getMock('Horde_Kolab_Session_Interface');
+        $session = $this->getMock('Horde_Kolab_Session');
         $auth = $this->getMock('Horde_Kolab_Session_Auth_Interface');
         $GLOBALS['conf']['kolab']['session']['log'] = true;
         $this->assertType(

@@ -26,12 +26,12 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
 class Horde_Kolab_Session_Decorator_Stored
-implements Horde_Kolab_Session_Interface
+implements Horde_Kolab_Session
 {
     /**
      * The session handler.
      *
-     * @var Horde_Kolab_Session_Interface
+     * @var Horde_Kolab_Session
      */
     private $_session;
 
@@ -52,11 +52,11 @@ implements Horde_Kolab_Session_Interface
     /**
      * Constructor.
      *
-     * @param Horde_Kolab_Session_Interface $session The session handler.
-     * @param Horde_Kolab_Session_Storage   $storage Store the session here.
+     * @param Horde_Kolab_Session         $session The session handler.
+     * @param Horde_Kolab_Session_Storage $storage Store the session here.
      */
     public function __construct(
-        Horde_Kolab_Session_Interface $session,
+        Horde_Kolab_Session $session,
         Horde_Kolab_Session_Storage_Interface $storage
     ) {
         $this->_session = $session;

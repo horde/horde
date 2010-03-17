@@ -19,7 +19,7 @@ class Horde_Auth_Kolab extends Horde_Auth_Base
     /**
      * The session handler.
      *
-     * @var Horde_Kolab_Session_Interface
+     * @var Horde_Kolab_Session
      */
     private $_session;
 
@@ -48,11 +48,11 @@ class Horde_Auth_Kolab extends Horde_Auth_Base
     /**
      * Set the session handler.
      *
-     * @param Horde_Kolab_Session_Interface $session The session handler.
+     * @param Horde_Kolab_Session $session The session handler.
      *
      * @return NULL
      */
-    public function setSession(Horde_Kolab_Session_Interface $session)
+    public function setSession(Horde_Kolab_Session $session)
     {
         $this->_session = $session;
     }
@@ -72,7 +72,7 @@ class Horde_Auth_Kolab extends Horde_Auth_Base
     /**
      * Retrieve a connected kolab session.
      *
-     * @return Horde_Kolab_Session_Interface The connected session.
+     * @return Horde_Kolab_Session The connected session.
      *
      * @throws Horde_Kolab_Session_Exception
      */

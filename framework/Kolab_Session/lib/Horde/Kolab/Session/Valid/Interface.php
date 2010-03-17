@@ -47,7 +47,7 @@ interface Horde_Kolab_Session_Valid_Interface
     /**
      * Return the session this validator checks.
      *
-     * @return Horde_Kolab_Session_Interface The session checked by this
+     * @return Horde_Kolab_Session The session checked by this
      * validator.
      */
     public function getSession();

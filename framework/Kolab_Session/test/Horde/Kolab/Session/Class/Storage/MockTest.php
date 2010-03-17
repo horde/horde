@@ -40,7 +40,7 @@ class Horde_Kolab_Session_Class_Storage_MockTest extends Horde_Kolab_Session_Ses
 
     public function testMethodSaveHasPostconditionThatTheSessionDataWasSaved()
     {
-        $session = $this->getMock('Horde_Kolab_Session_Interface');
+        $session = $this->getMock('Horde_Kolab_Session');
         $storage = new Horde_Kolab_Session_Storage_Mock('test');
         $storage->save($session);
         $this->assertSame($session, $storage->session);

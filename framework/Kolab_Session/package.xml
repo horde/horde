@@ -45,6 +45,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Kolab">
+      <file name="Session.php" role="php" />
       <dir name="Session">
        <dir name="Auth">
         <file name="Horde.php" role="php" />
@@ -61,7 +62,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <dir name="Exception">
         <file name="Badlogin.php" role="php" />
        </dir> <!-- /lib/Horde/Session/Exception -->
-       <file name="Interface.php" role="php" />
        <file name="Singleton.php" role="php" />
        <dir name="Storage">
         <file name="Mock.php" role="php" />
@@ -158,6 +158,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
+   <install name="lib/Horde/Kolab/Session.php" as="Horde/Kolab/Session.php" />
    <install name="lib/Horde/Kolab/Session/Auth/Horde.php" as="Horde/Kolab/Session/Auth/Horde.php" />
    <install name="lib/Horde/Kolab/Session/Auth/Interface.php" as="Horde/Kolab/Session/Auth/Interface.php" />
    <install name="lib/Horde/Kolab/Session/Auth/Mock.php" as="Horde/Kolab/Session/Auth/Mock.php" />
@@ -167,7 +168,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Kolab/Session/Decorator/Anonymous.php" as="Horde/Kolab/Session/Decorator/Anonymous.php" />
    <install name="lib/Horde/Kolab/Session/Decorator/Logged.php" as="Horde/Kolab/Session/Decorator/Logged.php" />
    <install name="lib/Horde/Kolab/Session/Decorator/Stored.php" as="Horde/Kolab/Session/Decorator/Stored.php" />
-   <install name="lib/Horde/Kolab/Session/Interface.php" as="Horde/Kolab/Session/Interface.php" />
    <install name="lib/Horde/Kolab/Session/Singleton.php" as="Horde/Kolab/Session/Singleton.php" />
    <install name="lib/Horde/Kolab/Session/Storage/Interface.php" as="Horde/Kolab/Session/Storage/Interface.php" />
    <install name="lib/Horde/Kolab/Session/Storage/Mock.php" as="Horde/Kolab/Session/Storage/Mock.php" />
