@@ -3150,7 +3150,7 @@ class Horde_Form_Type_sound extends Horde_Form_Type {
 
     function init()
     {
-        $this->_sounds = array_keys(Horde_Themes::getSounds());
+        $this->_sounds = array_keys(Horde_Themes::soundList());
     }
 
     function getSounds()
