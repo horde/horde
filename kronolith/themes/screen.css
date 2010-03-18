@@ -745,6 +745,11 @@ a.kronolithFormCancel {
     background-image: url("graphics/yearview.png");
 }
 
+/* Calendar form dialogs */
+.kronolithCPAdvanced th:first-child {
+    width: 220px;
+}
+
 /* Event/task form dialogs */
 .kronolithDialog {
     width: 700px;
