@@ -787,14 +787,11 @@ class Horde_Share_Object {
      */
     function lock($item_uid = null)
     {
-        require_once 'Horde/Lock.php';
-
         try {
-            $locks = &Horde_Lock::singleton($GLOBALS['conf']['lock']['driver']);
+            $locks = $GLOBALS['injector']->getInstance('Horde_Lock');
         } catch (Horde_Lock_Exception $e) {
-            $locks = PEAR::raiseError($e->getMessage());
-            Horde::logMessage($locks, 'ERR');
-            return $locks;
+            Horde::logMessage($e, 'ERR');
+            return PEAR::raiseError($e->getMessage());
         }
 
         $shareid = $this->getId();
@@ -847,14 +844,11 @@ class Horde_Share_Object {
      */
     function unlock($lockid)
     {
-        require_once 'Horde/Lock.php';
-
         try {
-            $locks = &Horde_Lock::singleton($GLOBALS['conf']['lock']['driver']);
+            $locks = $GLOBALS['injector']->getInstance('Horde_Lock');
         } catch (Horde_Lock_Exception $e) {
-            $locks = PEAR::raiseError($e->getMessage());
-            Horde::logMessage($locks, 'ERR');
-            return $locks;
+            Horde::logMessage($e, 'ERR');
+            return PEAR::raiseError($e->getMessage());
         }
 
         return $locks->clearLock($lockid);
@@ -874,13 +868,11 @@ class Horde_Share_Object {
      */
     function checkLocks($item_uid = null)
     {
-        require_once 'Horde/Lock.php';
         try {
-            $locks = &Horde_Lock::singleton($GLOBALS['conf']['lock']['driver']);
+            $locks = $GLOBALS['injector']->getInstance('Horde_Lock');
         } catch (Horde_Lock_Exception $e) {
-            $locks = PEAR::raiseError($e->getMessage());
-            Horde::logMessage($locks, 'ERR');
-            return $locks;
+            Horde::logMessage($e, 'ERR');
+            return PEAR::raiseError($e->getMessage());
         }
 
         $shareid = $this->getId();
@@ -890,9 +882,8 @@ class Horde_Share_Object {
         try {
             $result = $locks->getLocks($this->_shareOb->getApp(), $shareid, $locktype);
         } catch (Horde_Lock_Exception $e) {
-            $result = PEAR::raiseError($e->getMessage());
-            Horde::logMessage($result, 'ERR');
-            return $result;
+            Horde::logMessage($e, 'ERR');
+            return PEAR::raiseError($e->getMessage());
         }
 
         if (empty($result) && !empty($item_uid)) {
@@ -901,9 +892,8 @@ class Horde_Share_Object {
             try {
                 $result = $locks->getLocks($this->_shareOb->getApp() . ':' . $shareid, $item_uid, $locktype);
             } catch (Horde_Lock_Exception $e) {
-                $result = PEAR::raiseError($e->getMessage());
-                Horde::logMessage($result, 'ERR');
-                return $result;
+                Horde::logMessage($e, 'ERR');
+                return PEAR::raiseError($e->getMessage());
             }
         } else {
             $locktargettype = 'share';

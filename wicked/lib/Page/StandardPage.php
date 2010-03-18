@@ -107,7 +107,7 @@ class StandardPage extends Page {
 
         if ($GLOBALS['conf']['lock']['driver'] != 'none') {
             $this->supportedModes[WICKED_MODE_LOCKING] = $this->supportedModes[WICKED_MODE_UNLOCKING] = true;
-            $this->_locks = Horde_Lock::factory($GLOBALS['conf']['lock']['driver']);
+            $this->_locks = $GLOBALS['injector']->getInstance('Horde_Lock');
             $locks = $this->_locks->getLocks('wicked', $pagename, Horde_Lock::TYPE_EXCLUSIVE);
             if ($locks) {
                 $this->_lock = reset($locks);

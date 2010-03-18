@@ -421,7 +421,7 @@ abstract class Kronolith_Event
 
         /* Check for acceptance/denial of this event's resources. */
         $add_events = array();
-        $locks = Horde_Lock::singleton($GLOBALS['conf']['lock']['driver']);
+        $locks = $GLOBALS['injector']->getInstance('Horde_Lock');
         $lock = array();
         $failed_resources = array();
         foreach ($this->getResources() as $id => $resourceData) {

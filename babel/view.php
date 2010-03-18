@@ -65,7 +65,7 @@ if ($app) {
     $lockscope = sprintf("babel-%s-%s", $app, $lang);
 
     // Initialize Horde_Lock class
-    $locks = &Horde_Lock::singleton('Sql');
+    $locks = Horde_Lock::singleton('Sql', Horde::getDriverConfig('lock', 'Sql'));
 
 //    $curlocks = $locks->getLocks($lockscope);
 //    var_dump($curlocks);

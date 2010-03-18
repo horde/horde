@@ -697,9 +697,9 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         }
 
         try {
-            $locks = Horde_Lock::singleton($GLOBALS['conf']['lock']['driver']);
+            $locks = $GLOBALS['injector']->getInstance('Horde_Lock');
         } catch (Horde_Lock_Exception $e) {
-            Horde::logMessage($e->getMessage(), 'ERR');
+            Horde::logMessage($e, 'ERR');
             return 500;
         }
 
@@ -712,7 +712,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
             $lockid = $locks->setLock(Horde_Auth::getAuth(), 'webdav', $params['path'],
                                       $timeout, $locktype);
         } catch (Horde_Lock_Exception $e) {
-            Horde::logMessage($e->getMessage(), 'ERR');
+            Horde::logMessage($e, 'ERR');
             return 500;
         }
         if ($lockid === false) {
@@ -744,16 +744,16 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         }
 
         try {
-            $locks = Horde_Lock::singleton($GLOBALS['conf']['lock']['driver']);
+            $locks = $GLOBALS['injector']->getInstance('Horde_Lock');
         } catch (Horde_Lock_Exception $e) {
-            Horde::logMessage($e->getMessage(), 'ERR');
+            Horde::logMessage($e, 'ERR');
             return 500;
         }
 
         try {
             $res = $locks->clearLock($params['token']);
         } catch (Horde_Lock_Exception $e) {
-            Horde::logMessage($e->getMessage(), 'ERR');
+            Horde::logMessage($e, 'ERR');
             return 500;
         }
         if ($res === false) {
@@ -776,16 +776,16 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         }
 
         try {
-            $locks = Horde_Lock::singleton($GLOBALS['conf']['lock']['driver']);
+            $locks = $GLOBALS['injector']->getInstance('Horde_Lock');
         } catch (Horde_Lock_Exception $e) {
-            Horde::logMessage($e->getMessage(), 'ERR');
+            Horde::logMessage($e, 'ERR');
             return false;
         }
 
         try {
             $res =  $locks->getLocks('webdav', $resource);
         } catch (Horde_Lock_Exception $e) {
-            Horde::logMessage($e->getMessage(), 'ERR');
+            Horde::logMessage($e, 'ERR');
             return false;
         }
 

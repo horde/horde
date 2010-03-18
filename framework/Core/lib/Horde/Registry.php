@@ -237,6 +237,7 @@ class Horde_Registry
             'Horde_Alarm' => new Horde_Core_Binder_Alarm(),
             'Horde_Cache' => new Horde_Core_Binder_Cache(),
             'Horde_Db_Adapter_Base' => new Horde_Core_Binder_Db('reader'),
+            'Horde_Lock' => new Horde_Core_Binder_Lock(),
             'Horde_Log_Logger' => new Horde_Core_Binder_Logger(),
             'Horde_Memcache' => new Horde_Core_Binder_Memcache(),
             'Horde_Notification' => new Horde_Core_Binder_Notification(),
