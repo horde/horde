@@ -223,7 +223,7 @@ if ($openssl_check && $prefs->getValue('use_smime')) {
 }
 $t->set('prefsurl', Horde::getServiceLink('options', 'imp'));
 
-echo $t->fetch(IMP_TEMPLATES . '/smime/smime.html');
+echo $t->fetch(IMP_TEMPLATES . '/prefs/smime/smime.html');
 if (!$chunk) {
     require $registry->get('templates', 'horde') . '/common-footer.inc';
 }
