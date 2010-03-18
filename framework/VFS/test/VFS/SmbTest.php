@@ -19,7 +19,6 @@ class VFS_SmbTest extends PHPUnit_Framework_TestCase
         $listing = $vfs->parseListing(file(dirname(__FILE__) . '/fixtures/samba1.txt'), null, true, false);
         $this->assertType('array', $listing);
         $this->assertEquals(7, count($listing));
-        var_export($listing);
         $this->assertEquals(
             array (
                 'SystemHiddenReadonlyArchive' =>
