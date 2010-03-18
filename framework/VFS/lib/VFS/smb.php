@@ -342,7 +342,7 @@ class VFS_smb extends VFS
                                $dironly = false)
     {
         list($path) = $this->_escapeShellCommand($path);
-        return $this->parseListing($this->_command($path, array('ls'), $filter, $dotfiles, $dironly);
+        return $this->parseListing($this->_command($path, array('ls')), $filter, $dotfiles, $dironly);
     }
 
     /**
@@ -431,9 +431,9 @@ class VFS_smb extends VFS
     {
         // dirname will strip last component from path, even on a directory
         $folder = array(
-            ['val'] = dirname($path),
-            $folder['abbrev'] = '..',
-            $folder['label'] = '..'
+            'val' => dirname($path),
+            'abbrev' => '..',
+            'label' => '..'
         );
         $folders = array($folder['val'] => $folder);
 
