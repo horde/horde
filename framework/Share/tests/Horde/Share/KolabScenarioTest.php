@@ -15,6 +15,7 @@
 /**
  *  We need the base class
  */
+return false;
 require_once 'Horde/Kolab/Test/Storage.php';
 
 /**

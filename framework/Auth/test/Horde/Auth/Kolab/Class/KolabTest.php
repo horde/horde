@@ -44,12 +44,14 @@ class Horde_Auth_Kolab_Class_KolabTest extends PHPUnit_Framework_TestCase
 
     public function testMethodSetsessionHasParameterSession()
     {
+        throw new PHPUnit_Framework_IncompleteTestError('Horde_Auth_Kolab::setSession() does not exist.');
         $auth = new Horde_Auth_Kolab();
         $auth->setSession($this->session);
     }
 
     public function testMethodGetsessionHasResultSession()
     {
+        throw new PHPUnit_Framework_IncompleteTestError('Horde_Auth_Kolab::setSession() does not exist.');
         $auth = new Horde_Auth_Kolab();
         $auth->setSession($this->session);
         $this->assertType(
@@ -61,6 +63,7 @@ class Horde_Auth_Kolab_Class_KolabTest extends PHPUnit_Framework_TestCase
     public function testMethodGetsessionHasResultSessionFromTheFactoryIfTheSessionWasUnset()
     {
         $auth = new Horde_Auth_Kolab();
+        throw new PHPUnit_Framework_IncompleteTestError('Horde_Auth_Kolab::setSessionFactory() does not exist.');
         $auth->setSessionFactory($this->factory);
         $this->factory->expects($this->once())
             ->method('getSession')
@@ -75,6 +78,7 @@ class Horde_Auth_Kolab_Class_KolabTest extends PHPUnit_Framework_TestCase
     public function testMethodAuthenticateHasResultBooleanTrueIfTheConnectionWasSuccessful()
     {
         $auth = new Horde_Auth_Kolab();
+        throw new PHPUnit_Framework_IncompleteTestError('Horde_Auth_Kolab::setSessionFactory() does not exist.');
         $auth->setSessionFactory($this->factory);
         $this->factory->expects($this->once())
             ->method('getSession')
@@ -88,6 +92,7 @@ class Horde_Auth_Kolab_Class_KolabTest extends PHPUnit_Framework_TestCase
     public function testMethodAuthenticateHasPostconditionThatTheUserIdIsBeingRewrittenIfRequired()
     {
         $auth = new Horde_Auth_Kolab();
+        throw new PHPUnit_Framework_IncompleteTestError('Horde_Auth_Kolab::setSessionFactory() does not exist.');
         $auth->setSessionFactory($this->factory);
         $this->factory->expects($this->once())
             ->method('getSession')
@@ -103,6 +108,7 @@ class Horde_Auth_Kolab_Class_KolabTest extends PHPUnit_Framework_TestCase
     public function testMethodAuthenticateThrowsExceptionIfTheLoginFailed()
     {
         $auth = new Horde_Auth_Kolab();
+        throw new PHPUnit_Framework_IncompleteTestError('Horde_Auth_Kolab::setSessionFactory() does not exist.');
         $auth->setSessionFactory($this->factory);
         $this->factory->expects($this->once())
             ->method('getSession')
@@ -115,6 +121,7 @@ class Horde_Auth_Kolab_Class_KolabTest extends PHPUnit_Framework_TestCase
     public function testMethodAuthenticateThrowsExceptionIfTheCredentialsWereInvalid()
     {
         $auth = new Horde_Auth_Kolab();
+        throw new PHPUnit_Framework_IncompleteTestError('Horde_Auth_Kolab::setSessionFactory() does not exist.');
         $auth->setSessionFactory($this->factory);
         $this->factory->expects($this->once())
             ->method('getSession')

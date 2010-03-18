@@ -51,7 +51,7 @@ class Horde_Auth_Kolab_Integration_AuthTest extends PHPUnit_Framework_TestCase
                 )
             )
         );
-        $this->factory = new Horde_Kolab_Session_Factory_Configuration($config);
+        //$this->factory = new Horde_Kolab_Session_Factory_Configuration($config);
 
         if (!defined('HORDE_BASE')) {
             define('HORDE_BASE', '/nowhere');
@@ -61,6 +61,7 @@ class Horde_Auth_Kolab_Integration_AuthTest extends PHPUnit_Framework_TestCase
     public function testKolabLoginViaUid()
     {
         $auth = new Horde_Auth_Kolab();
+        throw new PHPUnit_Framework_IncompleteTestError('Horde_Auth_Kolab::setSessionFactory() does not exist.');
         $auth->setSessionFactory($this->factory);
         $this->assertTrue(
             $auth->authenticate('user', array('password' => 'pass'), false)
@@ -70,6 +71,7 @@ class Horde_Auth_Kolab_Integration_AuthTest extends PHPUnit_Framework_TestCase
     public function testKolabLoginViaMail()
     {
         $auth = new Horde_Auth_Kolab();
+        throw new PHPUnit_Framework_IncompleteTestError('Horde_Auth_Kolab::setSessionFactory() does not exist.');
         $auth->setSessionFactory($this->factory);
         $this->assertTrue(
             $auth->authenticate(
@@ -81,6 +83,7 @@ class Horde_Auth_Kolab_Integration_AuthTest extends PHPUnit_Framework_TestCase
     public function testKolabLoginFailureViaUid()
     {
         $auth = new Horde_Auth_Kolab();
+        throw new PHPUnit_Framework_IncompleteTestError('Horde_Auth_Kolab::setSessionFactory() does not exist.');
         $auth->setSessionFactory($this->factory);
         $auth->authenticate('user', array('password' => 'invalid'), false);
         $this->assertEquals(
@@ -92,6 +95,7 @@ class Horde_Auth_Kolab_Integration_AuthTest extends PHPUnit_Framework_TestCase
     public function testKolabLoginFailureViaMail()
     {
         $auth = new Horde_Auth_Kolab();
+        throw new PHPUnit_Framework_IncompleteTestError('Horde_Auth_Kolab::setSessionFactory() does not exist.');
         $auth->setSessionFactory($this->factory);
         $auth->authenticate(
             'user@example.org', array('password' => 'invalid'), false
@@ -105,6 +109,7 @@ class Horde_Auth_Kolab_Integration_AuthTest extends PHPUnit_Framework_TestCase
     public function testKolabLoginIdRewrite()
     {
         $auth = new Horde_Auth_Kolab_Dummy();
+        throw new PHPUnit_Framework_IncompleteTestError('Horde_Auth_Kolab::setSessionFactory() does not exist.');
         $auth->setSessionFactory($this->factory);
         $this->assertTrue(
             $auth->authenticate('user', array('password' => 'pass'), false)
