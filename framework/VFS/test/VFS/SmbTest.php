@@ -10,7 +10,7 @@
  * @package    Horde_VFS
  * @subpackage UnitTests
  */
-class Horde_VFS_SmbTest extends PHPUnit_Framework_TestCase
+class VFS_SmbTest extends PHPUnit_Framework_TestCase
 {
     public function testParseListing()
     {
