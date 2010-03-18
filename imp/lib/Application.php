@@ -102,7 +102,7 @@ class IMP_Application extends Horde_Registry_Application
         $binders = array(
             'IMP_Folder' => new IMP_Injector_Binder_Folder(),
             'IMP_Imap_Tree' => new IMP_Injector_Binder_Imaptree(),
-            'IMP_Sentmail' => new IMP_Injector_Binder_Imaptree()
+            'IMP_Sentmail' => new IMP_Injector_Binder_Sentmail()
         );
 
         foreach ($binders as $key => $val) {
