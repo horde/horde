@@ -40,7 +40,7 @@ require_once VILMA_BASE . '/lib/Vilma.php';
 require_once VILMA_BASE . '/lib/Driver.php';
 
 /* Templates */
-$template = $injector->createInstance('Horde_Template');
+//$template = $injector->createInstance('Horde_Template');
 
 /* Vilma driver. */
 $GLOBALS['vilma_driver'] = &Vilma_Driver::singleton();
