@@ -86,11 +86,11 @@ class Horde_Test_AllTests
         foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($basedir)) as $file) {
             if ($file->isFile() && preg_match('/Test.php$/', $file->getFilename())) {
                 $pathname = $file->getPathname();
-                require $pathname;
-
-                $class = str_replace(DIRECTORY_SEPARATOR, '_',
-                                     preg_replace("/^$baseregexp(.*)\.php/", '\\1', $pathname));
-                $suite->addTestSuite(self::$_package . '_' . $class);
+                if (require $pathname) {
+                    $class = str_replace(DIRECTORY_SEPARATOR, '_',
+                                         preg_replace("/^$baseregexp(.*)\.php/", '\\1', $pathname));
+                    $suite->addTestSuite(self::$_package . '_' . $class);
+                }
             }
         }
 
