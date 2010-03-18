@@ -466,10 +466,6 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function importKeyDialog($target, $reload)
     {
-        /* Need to handle notifications inline, and need to set explicitly
-         * since the popup window is not part of the preferences framework. */
-        $GLOBALS['notification']->replace('status', array('prefs' => true, 'viewmode' => 'imp'), 'IMP_Notification_Listener_Status');
-
         $title = _("Import S/MIME Key");
         require IMP_TEMPLATES . '/common-header.inc';
         IMP::status();

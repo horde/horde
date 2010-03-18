@@ -630,10 +630,6 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      */
     public function importKeyDialog($target, $reload)
     {
-        /* Need to handle notifications inline, and need to set explicitly
-         * since the popup window is not part of the preferences framework. */
-        $GLOBALS['notification']->replace('status', array('prefs' => true, 'viewmode' => 'imp'), 'IMP_Notification_Listener_Status');
-
         $title = _("Import PGP Key");
         require IMP_TEMPLATES . '/common-header.inc';
         IMP::status();
