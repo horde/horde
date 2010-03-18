@@ -323,14 +323,14 @@ KronolithCore = {
             case 'tasks':
                 var tasktype = locParts.shift() || this.tasktype;
                 if ((this.view == loc && this.tasktype == tasktype) ||
-                    !([ 'all', 'complete', 'incomplete', 'future' ].include(tasktype))) {
+                    !($w('all complete incomplete future').include(tasktype))) {
                     return;
                 }
                 this.tasktype = tasktype;
-                [ 'All', 'Complete', 'Incomplete', 'Future' ].each(function(tasktype) {
-                    $($('kronolithTasks' + tasktype).parentNode).removeClassName('activeTab');
+                $w('All Complete Incomplete Future').each(function(tasktype) {
+                    $('kronolithTasks' + tasktype).up().removeClassName('activeTab');
                 });
-                $('kronolithTasks' + this.tasktype.capitalize()).parentNode.addClassName('activeTab');
+                $('kronolithTasks' + this.tasktype.capitalize()).up().addClassName('activeTab');
                 this.loadTasks(this.tasktype);
                 if ($('kronolithView' + locCap)) {
                     this.viewLoading = true;
@@ -1103,7 +1103,7 @@ KronolithCore = {
         dialog.select('.kronolithTabsOption').invoke('hide');
         dialog.select('.tabset li').invoke('removeClassName', 'activeTab');
         $(elt.id.replace(/Link/, 'Tab')).show();
-        elt.parentNode.addClassName('activeTab');
+        elt.up().addClassName('activeTab');
         if (elt.id == 'kronolithEventLinkMap') {
                     /* Maps */
             if (!this.mapInitialized) {
@@ -3867,7 +3867,7 @@ KronolithCore = {
             start = viewDates[0].toString('yyyyMMdd'),
             end = viewDates[1].toString('yyyyMMdd');
 
-        if (drop == el.parentNode) {
+        if (drop == el.up()) {
             return;
         }
 
@@ -4653,7 +4653,7 @@ KronolithCore = {
         dialog.select('.kronolithTabsOption').invoke('hide');
         dialog.select('.tabset li').invoke('removeClassName', 'activeTab');
         $('kronolithEventTabMap').show();
-        $('kronolithEventLinkMap').parentNode.addClassName('activeTab');
+        $('kronolithEventLinkMap').up().addClassName('activeTab');
     },
 
     /**
