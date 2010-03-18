@@ -27,7 +27,6 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
  * Prepare the test setup.
  */
 require_once 'Horde/Test/AllTests.php';
-set_include_path(dirname(__FILE__) . '/../../' . PATH_SEPARATOR . get_include_path());
 
 /**
  * @package    Horde_Argv
@@ -36,6 +35,8 @@ set_include_path(dirname(__FILE__) . '/../../' . PATH_SEPARATOR . get_include_pa
 class Horde_Argv_AllTests extends Horde_Test_AllTests
 {
 }
+
+Horde_Argv_AllTests::init('Horde_Argv', __FILE__);
 
 if (PHPUnit_MAIN_METHOD == 'Horde_Argv_AllTests::main') {
     Horde_Argv_AllTests::main('Horde_Argv', __FILE__);
