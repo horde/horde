@@ -1023,6 +1023,9 @@ table.kronolithView td.kronolithFirstCol {
     right: 2px;
     cursor: pointer;
 }
+#kronolithBody caption .kronolithNavigation ul {
+    float: left;
+}
 .kronolithPrev, .kronolithNext {
     right: 0;
     width: 16px;
