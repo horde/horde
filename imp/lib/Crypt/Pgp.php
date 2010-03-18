@@ -603,7 +603,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         try {
             $key_info = $this->pgpPrettyKey($key);
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__);
+            Horde::logMessage($e, 'INFO');
             $key_info = $e->getMessage();
         }
 

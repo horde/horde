@@ -73,9 +73,7 @@ class Horde_Kolab_FreeBusy_Cache {
                 }
             }
         } catch (Horde_Kolab_Server_Exception $e) {
-            Horde::logMessage(sprintf("Failed fetching the k=kolab configuration object. Error was: %s",
-                                      $e->getMessage()),
-                              __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage(sprintf("Failed fetching the k=kolab configuration object. Error was: %s", $e->getMessage()), 'ERR');
             if (isset($conf['kolab']['freebusy']['past'])) {
                 $fbpast = $conf['kolab']['freebusy']['past'];
             } else {
@@ -110,9 +108,7 @@ class Horde_Kolab_FreeBusy_Cache {
 
         /* missing data means delete the cache files */
         if (empty($vCal)) {
-            Horde::logMessage(sprintf("No events. Purging cache %s.",
-                                      $fbfilename),
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage(sprintf("No events. Purging cache %s.", $fbfilename), 'DEBUG');
 
             $result = $c_pvcal->purge();
             if (is_a($result, 'PEAR_Error')) {
@@ -181,9 +177,7 @@ class Horde_Kolab_FreeBusy_Cache {
                 $acl = null;
             }
 
-            Horde::logMessage(sprintf("Horde_Kolab_FreeBusy_Cache::store(file=%s, relevance=%s, acl=%s, xacl=%s)",
-                                      $fbfilename, $relevance, $acl, $xacl),
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage(sprintf("Horde_Kolab_FreeBusy_Cache::store(file=%s, relevance=%s, acl=%s, xacl=%s)", $fbfilename, $relevance, $acl, $xacl), 'DEBUG');
         }
         return true;
     }
@@ -235,8 +229,7 @@ class Horde_Kolab_FreeBusy_Cache {
     function _allowExtended($file, &$access)
     {
         if (!isset($access->user_object)) {
-            Horde::logMessage(sprintf("Extended attributes on folder %s disallowed for unknown user.",
-                                      $access->folder, $access->user), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage(sprintf("Extended attributes on folder %s disallowed for unknown user.", $access->folder, $access->user), 'DEBUG');
             return false;
         }
 
@@ -256,8 +249,7 @@ class Horde_Kolab_FreeBusy_Cache {
                 return true;
             }
         }
-        Horde::logMessage(sprintf("Extended attributes on folder %s disallowed for user %s.",
-                                  $access->folder, $access->user), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf("Extended attributes on folder %s disallowed for user %s.", $access->folder, $access->user), 'DEBUG');
         return false;
     }
 
@@ -302,7 +294,7 @@ class Horde_Kolab_FreeBusy_Cache {
                 $message = sprintf("Unable to read free/busy information from %s",
                                    'https://' . urlencode($access->user) . ':XXX'
                                    . '@' . $server . $_SERVER['REQUEST_URI']);
-                Horde::logMessage($message, __FILE__, __LINE__, PEAR_LOG_INFO);
+                Horde::logMessage($message, 'INFO');
             }
 
             $rvCal = new Horde_iCalendar();
@@ -313,7 +305,7 @@ class Horde_Kolab_FreeBusy_Cache {
                                    'https://' . urlencode($access->user) . ':XXX'
                                    . '@' . $server . $_SERVER['REQUEST_URI'],
                                    $result->getMessage());
-                Horde::logMessage($message, __FILE__, __LINE__, PEAR_LOG_INFO);
+                Horde::logMessage($message, 'INFO');
             }
 
             $rvFb = &$rvCal->findComponent('vfreebusy');
@@ -321,7 +313,7 @@ class Horde_Kolab_FreeBusy_Cache {
                 $message = sprintf("Unable to find free/busy information in data from %s.",
                                    'https://' . urlencode($access->user) . ':XXX'
                                    . '@' . $server . $_SERVER['REQUEST_URI']);
-                Horde::logMessage($message, __FILE__, __LINE__, PEAR_LOG_INFO);
+                Horde::logMessage($message, 'INFO');
             }
             if ($ets = $rvFb->getAttributeDefault('DTEND', false) !== false) {
                 // PENDING(steffen): Make value configurable
@@ -329,7 +321,7 @@ class Horde_Kolab_FreeBusy_Cache {
                     $message = sprintf("free/busy information from %s is too old.",
                                        'https://' . urlencode($access->user) . ':XXX'
                                        . '@' . $server . $_SERVER['REQUEST_URI']);
-                    Horde::logMessage($message, __FILE__, __LINE__, PEAR_LOG_INFO);
+                    Horde::logMessage($message, 'INFO');
                 }
             }
             if (!empty($vFb)) {

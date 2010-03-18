@@ -89,10 +89,16 @@ class Horde_Alarm_Sql extends Horde_Alarm
         $query = sprintf('SELECT alarm_id, alarm_uid, alarm_start, alarm_end, alarm_methods, alarm_params, alarm_title, alarm_text, alarm_snooze, alarm_internal FROM %s WHERE alarm_id = ? AND %s',
                          $this->_params['table'],
                          !empty($user) ? 'alarm_uid = ?' : '(alarm_uid = ? OR alarm_uid IS NULL)');
-        Horde::logMessage('SQL query by Horde_Alarm_sql::_get(): ' . $query, 'DEBUG');
+
+        if ($this->_logger) {
+            $this->_logger->log('SQL query by Horde_Alarm_sql::_get(): ' . $query, 'DEBUG');
+        }
+
         $alarm = $this->_db->getRow($query, array($id, $user), DB_FETCHMODE_ASSOC);
         if ($alarm instanceof PEAR_Error) {
-            Horde::logMessage($alarm, __FILE__, __LINE__);
+            if ($this->_logger) {
+                $this->_logger->log($alarm, 'INFO');
+            }
             throw new Horde_Alarm_Exception($alarm);
         }
 
@@ -123,18 +129,25 @@ class Horde_Alarm_Sql extends Horde_Alarm
             $values[] = '';
             $values[] = (string)$user;
         }
-        Horde::logMessage('SQL query by Horde_Alarm_sql::_list(): ' . $query, 'DEBUG');
+
+        if ($this->_logger) {
+            $this->_logger->log('SQL query by Horde_Alarm_sql::_list(): ' . $query, 'DEBUG');
+        }
 
         $alarms = array();
         $result = $this->_db->query($query, $values);
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__);
+            if ($this->_logger) {
+                $this->_logger->log($result, 'INFO');
+            }
             throw new Horde_Alarm_Exception($result);
         }
 
         while ($alarm = $result->fetchRow(DB_FETCHMODE_ASSOC)) {
             if ($alarm instanceof PEAR_Error) {
-                Horde::logMessage($alarm, __FILE__, __LINE__);
+                if ($this->_logger) {
+                    $this->_logger->log($alarm, 'INFO');
+                }
                 throw new Horde_Alarm_Exception($alarm);
             }
 
@@ -181,11 +194,15 @@ class Horde_Alarm_Sql extends Horde_Alarm
             empty($alarm['text']) ? null : $this->_toDriver($alarm['text']),
             null
         );
-        Horde::logMessage('SQL query by Horde_Alarm_sql::_add(): ' . $query, 'DEBUG');
+        if ($this->_logger) {
+            $this->_logger->log('SQL query by Horde_Alarm_sql::_add(): ' . $query, 'DEBUG');
+        }
 
         $result = $this->_write_db->query($query, $values);
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__);
+            if ($this->_logger) {
+                $this->_logger->log($result, 'INFO');
+            }
             throw new Horde_Alarm_Exception($result);
         }
 
@@ -212,11 +229,16 @@ class Horde_Alarm_Sql extends Horde_Alarm
                               : $this->_toDriver($alarm['text']),
                         $alarm['id'],
                         isset($alarm['user']) ? $alarm['user'] : '');
-        Horde::logMessage('SQL query by Horde_Alarm_sql::_update(): ' . $query, 'DEBUG');
+
+        if ($this->_logger) {
+            $this->_logger->log('SQL query by Horde_Alarm_sql::_update(): ' . $query, 'DEBUG');
+        }
 
         $result = $this->_write_db->query($query, $values);
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__);
+            if ($this->_logger) {
+                $this->_logger->log($result, 'INFO');
+            }
             throw new Horde_Alarm_Exception($result);
         }
 
@@ -237,11 +259,16 @@ class Horde_Alarm_Sql extends Horde_Alarm
                          $this->_params['table'],
                          !empty($user) ? 'alarm_uid = ?' : '(alarm_uid = ? OR alarm_uid IS NULL)');
         $values = array(serialize($internal), $id, $user);
-        Horde::logMessage('SQL query by Horde_Alarm_sql::_internal(): ' . $query, 'DEBUG');
+
+        if ($this->_logger) {
+            $this->_logger->log('SQL query by Horde_Alarm_sql::_internal(): ' . $query, 'DEBUG');
+        }
 
         $result = $this->_write_db->query($query, $values);
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__);
+            if ($this->_logger) {
+                $this->_logger->log($result, 'INFO');
+            }
             throw new Horde_Alarm_Exception($result);
         }
 
@@ -261,11 +288,16 @@ class Horde_Alarm_Sql extends Horde_Alarm
         $query = sprintf('SELECT 1 FROM %s WHERE alarm_id = ? AND %s',
                          $this->_params['table'],
                          !empty($user) ? 'alarm_uid = ?' : '(alarm_uid = ? OR alarm_uid IS NULL)');
-        Horde::logMessage('SQL query by Horde_Alarm_sql::_exists(): ' . $query, 'DEBUG');
+
+        if ($this->_logger) {
+            $this->_logger->log('SQL query by Horde_Alarm_sql::_exists(): ' . $query, 'DEBUG');
+        }
 
         $result = $this->_db->getOne($query, array($id, $user));
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__);
+            if ($this->_logger) {
+                $this->_logger->log($result, 'INFO');
+            }
             throw new Horde_Alarm_Exception($result);
         }
 
@@ -285,11 +317,16 @@ class Horde_Alarm_Sql extends Horde_Alarm
                          $this->_params['table'],
                          !empty($user) ? 'alarm_uid = ?' : '(alarm_uid = ? OR alarm_uid IS NULL)');
         $values = array((string)$snooze->setTimezone('UTC'), $id, $user);
-        Horde::logMessage('SQL query by Horde_Alarm_sql::_snooze(): ' . $query, 'DEBUG');
+
+        if ($this->_logger) {
+            $this->_logger->log('SQL query by Horde_Alarm_sql::_snooze(): ' . $query, 'DEBUG');
+        }
 
         $result = $this->_write_db->query($query, $values);
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__);
+            if ($this->_logger) {
+                $this->_logger->log($result, 'INFO');
+            }
             throw new Horde_Alarm_Exception($result);
         }
 
@@ -308,11 +345,16 @@ class Horde_Alarm_Sql extends Horde_Alarm
                          $this->_params['table'],
                          !empty($user) ? 'alarm_uid = ?' : '(alarm_uid = ? OR alarm_uid IS NULL)');
         $values = array($id, $user);
-        Horde::logMessage('SQL query by Horde_Alarm_sql::_dismiss(): ' . $query, 'DEBUG');
+
+        if ($this->_logger) {
+            $this->_logger->log('SQL query by Horde_Alarm_sql::_dismiss(): ' . $query, 'DEBUG');
+        }
 
         $result = $this->_write_db->query($query, $values);
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__);
+            if ($this->_logger) {
+                $this->_logger->log($result, 'INFO');
+            }
             throw new Horde_Alarm_Exception($result);
         }
 
@@ -333,11 +375,16 @@ class Horde_Alarm_Sql extends Horde_Alarm
         $query = sprintf('SELECT 1 FROM %s WHERE alarm_id = ? AND %s AND (alarm_dismissed = 1 OR (alarm_snooze IS NOT NULL AND alarm_snooze >= ?))',
                          $this->_params['table'],
                          !empty($user) ? 'alarm_uid = ?' : '(alarm_uid = ? OR alarm_uid IS NULL)');
-        Horde::logMessage('SQL query by Horde_Alarm_sql::_isSnoozed(): ' . $query, 'DEBUG');
+
+        if ($this->_logger) {
+            $this->_logger->log('SQL query by Horde_Alarm_sql::_isSnoozed(): ' . $query, 'DEBUG');
+        }
 
         $result = $this->_db->getOne($query, array($id, $user, (string)$time->setTimezone('UTC')));
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__);
+            if ($this->_logger) {
+                $this->_logger->log($result, 'INFO');
+            }
             throw new Horde_Alarm_Exception($result);
         }
 
@@ -360,11 +407,16 @@ class Horde_Alarm_Sql extends Horde_Alarm
                 : ' AND alarm_uid = ?';
             $values[] = $user;
         }
-        Horde::logMessage('SQL query by Horde_Alarm_sql::_delete(): ' . $query, 'DEBUG');
+
+        if ($this->_logger) {
+            $this->_logger->log('SQL query by Horde_Alarm_sql::_delete(): ' . $query, 'DEBUG');
+        }
 
         $result = $this->_write_db->query($query, $values);
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__);
+            if ($this->_logger) {
+                $this->_logger->log($result, 'INFO');
+            }
             throw new Horde_Alarm_Exception($result);
         }
 
@@ -377,12 +429,18 @@ class Horde_Alarm_Sql extends Horde_Alarm
     protected function _gc()
     {
         $query = sprintf('DELETE FROM %s WHERE alarm_end IS NOT NULL AND alarm_end < ?', $this->_params['table']);
-        Horde::logMessage('SQL query by Horde_Alarm_sql::_gc(): ' . $query, 'DEBUG');
+
+        if ($this->_logger) {
+            $this->_logger->log('SQL query by Horde_Alarm_sql::_gc(): ' . $query, 'DEBUG');
+        }
+
         $end = new Horde_Date(time());
 
         $result = $this->_write_db->query($query, (string)$end->setTimezone('UTC'));
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__);
+            if ($this->_logger) {
+                $this->_logger->log($result, 'INFO');
+            }
             throw new Horde_Alarm_Exception($result);
         }
 
@@ -409,7 +467,9 @@ class Horde_Alarm_Sql extends Horde_Alarm
                                        array('persistent' => !empty($this->_params['persistent']),
                                              'ssl' => !empty($this->_params['ssl'])));
         if ($this->_write_db instanceof PEAR_Error) {
-            Horde::logMessage($this->_write_db, __FILE__, __LINE__);
+            if ($this->_logger) {
+                $this->_logger->log($this->_write_db, 'INFO');
+            }
             throw new Horde_Alarm_Exception($this->_write_db);
         }
         $this->_initConn($this->_write_db);
@@ -421,7 +481,9 @@ class Horde_Alarm_Sql extends Horde_Alarm
                                      array('persistent' => !empty($params['persistent']),
                                            'ssl' => !empty($params['ssl'])));
             if ($this->_db instanceof PEAR_Error) {
-                Horde::logMessage($this->_db, __FILE__, __LINE__);
+                if ($this->_logger) {
+                    $this->_logger->log($this->_db, 'INFO');
+                }
                 throw new Horde_Alarm_Exception($this->_db);
             }
             $this->_initConn($this->_db);
@@ -451,8 +513,9 @@ class Horde_Alarm_Sql extends Horde_Alarm
         case 'oci8':
             $query = "ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS'";
 
-            /* Log the query at a DEBUG log level. */
-            Horde::logMessage(sprintf('SQL connection setup for Alarms, query = "%s"', $query), 'DEBUG');
+            if ($this->_logger) {
+                $this->_logger->log(sprintf('SQL connection setup for Alarms, query = "%s"', $query), 'DEBUG');
+            }
 
             $db->query($query);
             break;
@@ -460,8 +523,9 @@ class Horde_Alarm_Sql extends Horde_Alarm
         case 'pgsql':
             $query = "SET datestyle TO 'iso'";
 
-            /* Log the query at a DEBUG log level. */
-            Horde::logMessage(sprintf('SQL connection setup for Alarms, query = "%s"', $query), 'DEBUG');
+            if ($this->_logger) {
+                $this->_logger->log(sprintf('SQL connection setup for Alarms, query = "%s"', $query), 'DEBUG');
+            }
 
             $db->query($query);
             break;

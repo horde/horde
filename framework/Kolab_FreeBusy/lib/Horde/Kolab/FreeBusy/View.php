@@ -273,7 +273,7 @@ class Horde_Kolab_FreeBusy_View_error extends Horde_Kolab_FreeBusy_View {
         echo "<p>" . $body . "</p>\n";
         if (!empty($error)) {
             echo "<hr><pre>" . $error->getMessage() . "</pre>\n";
-            Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($error, 'ERR');
         }
         echo "<hr>\n";
         echo isset($_SERVER['SERVER_SIGNATURE'])?$_SERVER['SERVER_SIGNATURE']:'' . "\n";

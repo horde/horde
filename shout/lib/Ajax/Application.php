@@ -207,7 +207,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
             return Shout::getRecordings($_SESSION['shout']['curaccount']);
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.
-            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e->getMessage(), 'ERR');
             return false;
         }
     }

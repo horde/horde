@@ -74,8 +74,7 @@ class Horde_Kolab_Storage_Permission extends Horde_Perms_Permission
         if (!isset($perms)) {
             $result = $this->getPerm();
             if ($result instanceOf PEAR_Error) {
-                Horde::logMessage(sprintf("Failed parsing permission information. Error was: %s",
-                                          $result->getMessage()), __FILE__, __LINE__);
+                Horde::logMessage(sprintf("Failed parsing permission information. Error was: %s", $result->getMessage()), 'INFO');
             } else {
                 $perms = $result;
             }
@@ -139,7 +138,7 @@ class Horde_Kolab_Storage_Permission extends Horde_Perms_Permission
         try {
             $acl = $this->_folder->getACL();
         } catch (Horde_Kolab_Storage_Exception $e) {
-            Horde::logMessage($acl, __FILE__, __LINE__);
+            Horde::logMessage($acl, 'INFO');
             return array();
         }
         if (empty($acl)) {

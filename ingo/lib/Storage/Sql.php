@@ -376,7 +376,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
         }
 
         if (is_a($ret, 'PEAR_Error')) {
-            Horde::logMessage($ret, __FILE__, __LINE__);
+            Horde::logMessage($ret, 'INFO');
         }
 
         return $ret;

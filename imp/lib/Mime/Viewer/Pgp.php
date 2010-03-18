@@ -229,7 +229,7 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
                 }
             }
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__);
+            Horde::logMessage($e, 'INFO');
             return null;
         }
 
@@ -237,7 +237,7 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
         try {
             $info = $this->_imppgp->pgpPacketInformation($encrypted_data);
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__);
+            Horde::logMessage($e, 'INFO');
             return null;
         }
 

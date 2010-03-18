@@ -35,7 +35,7 @@ class Whups_Api extends Horde_Registry_Api
                                                  'queue', Horde_Perms::READ))));
         } else {
             $path = explode('/', $path);
-            Horde::logMessage(var_export($path, true), __FILE__, __LINE__);
+            Horde::logMessage(var_export($path, true), 'INFO');
             $results = array();
 
             switch ($path[0]) {

@@ -897,7 +897,7 @@ class Ansel_Image Implements Iterator
             $this->load($view);
             return $this->_image->getDimensions();
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e->getMessage(), __FILE__, __LINE__);
+            Horde::logMessage($e, 'INFO');
             throw new Ansel_Exception($e);
         }
     }
