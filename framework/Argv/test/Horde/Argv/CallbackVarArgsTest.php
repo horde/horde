@@ -20,8 +20,8 @@ class Horde_Argv_CallbackVarArgsTest extends Horde_Argv_TestCase
             $this->makeOption('-b', array('action' => 'store_true', 'dest' => 'b')),
             $this->makeOption('-c', '--callback', array('action' => 'callback', 'callback' => array($this, 'variableArgs'), 'dest' => 'c')),
         );
-        $this->parser = new Horde_Argv_InterceptingParser(array('usage' => Horde_Argv_Option::SUPPRESS_USAGE,
-                                                                'optionList' => $options));
+        $this->parser = new Horde_Argv_Parser(array('usage' => Horde_Argv_Option::SUPPRESS_USAGE,
+                                                    'optionList' => $options));
     }
 
     public function variableArgs($option, $opt, $value, $parser)
