@@ -32,8 +32,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Lock">
-      <file name="Sql.php" role="php" />
+      <file name="Driver.php" role="php" />
       <file name="Exception.php" role="php" />
+      <file name="Sql.php" role="php" />
      </dir> <!-- /lib/Horde/Lock -->
      <file name="Lock.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -43,13 +44,13 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <dependencies>
   <required>
    <php>
-    <min>4.0.0</min>
+    <min>5.2.0</min>
    </php>
    <pearinstaller>
-    <min>1.4.0b1</min>
+    <min>1.7.0</min>
    </pearinstaller>
    <package>
-    <name>Horde_Framework</name>
+    <name>Core</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
@@ -66,15 +67,16 @@ http://pear.php.net/dtd/package-2.0.xsd">
   </required>
   <optional>
    <package>
-    <name>Horde_Tree</name>
+    <name>Log</name>
     <channel>pear.horde.org</channel>
    </package>
   </optional>
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Lock/Sql.php" as="Horde/Lock/Sql.php" />
+   <install name="lib/Horde/Lock/Driver.php" as="Horde/Lock/Driver.php" />
    <install name="lib/Horde/Lock/Exception.php" as="Horde/Lock/Exception.php" />
+   <install name="lib/Horde/Lock/Sql.php" as="Horde/Lock/Sql.php" />
    <install name="lib/Horde/Lock.php" as="Horde/Lock.php" />
   </filelist>
  </phprelease>
