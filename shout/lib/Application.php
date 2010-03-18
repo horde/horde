@@ -72,10 +72,6 @@ class Shout_Application extends Horde_Registry_Application
      */
     static protected $_perms = array();
 
-    public function __construct() {
-        print "Here!";
-    }
-
     /**
      * Initialization function.
      *
