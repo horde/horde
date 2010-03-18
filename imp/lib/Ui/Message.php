@@ -621,7 +621,7 @@ class IMP_Ui_Message
      */
     public function getDisplaySubject($subject)
     {
-        return Horde_Text_Filter::filter(IMP::filterText($subject), 'text2html', array(
+        return Horde_Text_Filter::filter(preg_replace("/\b\s+\b/", ' ', IMP::filterText($subject)), 'text2html', array(
             // See Ticket #8836
             'noprefetch' => ($GLOBALS['browser']->isBrowser('mozilla') && !$GLOBALS['browser']->usingSSLConnection()),
             'parselevel' => Horde_Text_Filter_Text2html::MICRO
