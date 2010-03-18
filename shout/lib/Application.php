@@ -72,6 +72,10 @@ class Shout_Application extends Horde_Registry_Application
      */
     static protected $_perms = array();
 
+    public function __construct() {
+        print "Here!";
+    }
+
     /**
      * Initialization function.
      *
@@ -132,11 +136,7 @@ class Shout_Application extends Horde_Registry_Application
         self::$_perms['tree']['shout']['superadmin'] = false;
         self::$_perms['title']['shout:superadmin'] = _("Super Administrator");
 
-        if (empty($this->accounts)) {
-            $this->__construct(array('init' => true));
-        }
-
-        $accounts = $this->accounts->getAccounts();
+        $accounts = $this->storage->getAccounts();
 
         self::$_perms['tree']['shout']['accounts'] = false;
         self::$_perms['title']['shout:accounts'] = _("Accounts");

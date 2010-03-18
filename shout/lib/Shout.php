@@ -139,7 +139,7 @@ class Shout
 
     static public function getMenuActions()
     {
-        global $shout;
+        $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
         $account = $_SESSION['shout']['curaccount'];
 
         return array(
