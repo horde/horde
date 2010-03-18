@@ -44,14 +44,10 @@ class Horde_Core_Log_Logger extends Horde_Log_Logger
 
         if ($event instanceof Exception) {
             $text = $event->getMessage();
-            if ($event instanceof ErrorException) {
-                $trace = array(
-                    'file' => $event->getFile(),
-                    'line' => $event->getLine()
-                );
-            } else {
-                $trace = reset($event->getTrace());
-            }
+            $trace = array(
+                'file' => $event->getFile(),
+                'line' => $event->getLine()
+            );
         } else {
             if ($event instanceof PEAR_Error) {
                 $userinfo = $event->getUserInfo();
