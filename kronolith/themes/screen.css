@@ -1365,6 +1365,7 @@ div.kronolithEvent {
 }
 div.kronolithEvent .kronolithDragger {
     position: absolute;
+    visibility: hidden;
     left: 0;
     right: 3px;
     height: 12px;
@@ -1407,9 +1408,12 @@ div.kronolithEvent.kronolithEditable .kronolithDragger.kronolithDraggerBottom {
 }
 div.kronolithEvent .kronolithEventInfo {
     position: absolute;
-    top: 7px;
+    top: 0;
+    bottom: 0;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
     right: 3px;
-    bottom: 7px;
     left: 0;
     padding: 5px;
     overflow: hidden;
@@ -1417,6 +1421,15 @@ div.kronolithEvent .kronolithEventInfo {
 #kronolithEventsWeek div.kronolithEvent .kronolithEventInfo,
 #kronolithEventsWeek div.kronolithEvent .kronolithDragger {
     right: 4px;
+}
+div.kronolithEvent:hover .kronolithEventInfo,
+div.kronolithEvent.kronolithSelected .kronolithEventInfo {
+    top: 7px;
+    bottom: 7px;
+}
+div.kronolithEvent:hover .kronolithDragger,
+div.kronolithEvent.kronolithSelected .kronolithDragger {
+    visibility: visible;
 }
 
 /* Redbox styles. */
