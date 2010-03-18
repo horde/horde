@@ -409,26 +409,20 @@ var ViewPort = Class.create({
         this.isbusy = true;
         opts = opts || {};
 
-        var args,
-            i = 0,
-            visible = vs.get('div'),
-            vsize = visible.size();
+        var args = { duration: 0.2, to: 0.01 },
+            visible = vs.get('div');
 
         this.deselect(vs);
 
         // If we have visible elements to remove, only call refresh after
         // the last effect has finished.
-        if (vsize) {
+        if (visible.size()) {
             // Set 'to' to a value slightly above 0 to prevent fade()
             // from auto hiding.  Hiding is unnecessary, since we will be
             // removing from the document shortly.
-            args = { duration: 0.2, to: 0.01 };
-            visible.each(function(v) {
-                if (++i == vsize) {
-                    args.afterFinish = this._removeids.bind(this, vs, opts);
-                }
-                v.fade(args);
-            }, this);
+            visible.slice(0, -1).invoke('fade', args);
+            args.afterFinish = this._removeids.bind(this, vs, opts);
+            visible.last().fade(args);
         } else {
             this._removeids(vs, opts);
         }
