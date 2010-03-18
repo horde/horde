@@ -1,4 +1,7 @@
 <?php
+
+require_once dirname(__FILE__) . '/InterceptedException.php';
+
 /**
  * @author     Chuck Hagenbuch <chuck@horde.org>
  * @author     Mike Naberezny <mike@maintainable.com>
