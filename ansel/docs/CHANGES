@@ -10,6 +10,7 @@ v2.0-git
 v1.1.1-cvs
 ----------
 
+[mjr] Fix escaping location query for Postgres (Bug #8919).
 [mjr] Properly url encode and escape html when processing tags.
 [mjr] Protect against divide-by-zero errors (Bug #8761).
 [jan] Fix invalid class name in block for recently geotagged images.
