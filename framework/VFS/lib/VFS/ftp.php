@@ -226,7 +226,8 @@ class VFS_ftp extends VFS
     public function writeData($path, $name, $data, $autocreate = false)
     {
         $this->_checkQuotaWrite('string', $data);
-        file_put_contents(tempnam('null', 'vfs'), $data);
+        $tmpFile = tempnam(null, 'vfs');
+        file_put_contents($tmpFile, $data);
         try {
             $this->write($path, $name, $tmpFile, $autocreate);
             unlink($tmpFile);
