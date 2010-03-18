@@ -95,7 +95,7 @@ class Operator {
      */
     public static function getAccountCodes($permfilter = false)
     {
-        global $operator;
+        $operator = $GLOBALS['registry']->getApiInstance('operator', 'application');;
 
         // Set up arrays for filtering
         $keys = $values = $operator->driver->getAccountCodes();
