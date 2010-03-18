@@ -219,6 +219,7 @@ class Shout
 
     static public function getRecordings($account)
     {
+        $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
         $rlist = $shout->vfs->listFolder($account);
 
         // In Asterisk, filenames the same basename and different extension are
