@@ -23,6 +23,7 @@ class Horde_Core_Binder_Logger implements Horde_Injector_Binder
                 break;
 
             case 'default':
+            default:
                 // Use Horde_Log defaults.
                 $formatter = null;
                 break;

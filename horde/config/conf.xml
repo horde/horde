@@ -742,17 +742,20 @@
        <value desc="DEBUG">DEBUG</value>
       </values>
      </configenum>
-     <configstring name="ident" desc="What identifier should we use in the
-     logs?">HORDE</configstring>
+     <configstring name="ident" required="false" desc="What identifier should
+     we use in the logs?">HORDE</configstring>
+     <configstring name="time_format" required="false" desc="What time format
+     should we use in the logs? (Acceptable formats are the inputs to PHP's
+     date() function). Leave blank to use the default."></configstring>
 
      <configswitch name="type" desc="What log driver should we use?">file
       <case name="file" desc="File">
        <configstring name="name" desc="Path to the log
        file">/tmp/horde.log</configstring>
        <configsection name="params">
-        <configboolean name="append" required="false" desc="Should new log
-        entries be appended to an existing log file? If this is false, new log
-        files will overwrite existing ones.">true</configboolean>
+        <configboolean name="append" desc="Should new log entries be appended
+        to an existing log file? If this is false, new log files will
+        overwrite existing ones.">true</configboolean>
         <configswitch name="format" required="false" desc="What format should
         the log entries be in?">default
          <case name="custom" desc="Custom Template">

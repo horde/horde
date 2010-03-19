@@ -86,7 +86,10 @@ class Horde_Core_Log_Logger extends Horde_Log_Logger
             ? $GLOBALS['registry']->getApp()
             : 'horde';
 
-        $message = ($app ? '[' . $app . '] ' : '') . $text . ' [pid ' . getmypid() . ' on line ' . $line . ' of "' . $file . '"]';
+        $message = (empty($GLOBALS['conf']['log']['ident']) ? $GLOBALS['conf']['log']['ident'] . ' ' : '') .
+            ($app ? '[' . $app . '] ' : '') .
+            $text .
+            ' [pid ' . getmypid() . ' on line ' . $line . ' of "' . $file . '"]';
 
         if (is_string($priority)) {
             $priority = defined('Horde_Log::' . $priority)
@@ -101,11 +104,16 @@ class Horde_Core_Log_Logger extends Horde_Log_Logger
         $tz = getenv('TZ');
         @putenv('TZ');
 
-        parent::log(array(
+        $eventob = array(
             'level' => $priority,
             'message' => $message,
-            //'timestamp'
-        ));
+        );
+
+        if (!empty($GLOBALS['conf']['log']['time_format'])) {
+            $eventob['timestamp'] = date($GLOBALS['conf']['log']['time_format']);
+        }
+
+        parent::log($eventob);
 
         /* Restore original locale and timezone. */
         // TODO: Needed?
