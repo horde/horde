@@ -46,19 +46,18 @@ class Horde_History_Mock extends Horde_History
      * Logs an event to an item's history log. Any other details about the
      * event are passed in $attributes.
      *
-     * @param Horde_HistoryObject $history       The history item to add to.
-     * @param array               $attributes    The hash of name => value
-     *                                           entries that describe this
-     *                                           event.
-     * @param boolean             $replaceAction If $attributes['action'] is
-     *                                           already present in the item's
-     *                                           history log, update that entry
-     *                                           instead of creating a new one.
+     * @param Horde_History_Log $history       The history item to add to.
+     * @param array             $attributes    The hash of name => value
+     *                                         entries that describe this
+     *                                         event.
+     * @param boolean           $replaceAction If $attributes['action'] is
+     *                                         already present in the item's
+     *                                         history log, update that entry
+     *                                         instead of creating a new one.
      *
      * @throws Horde_History_Exception
      */
-    protected function _log(Horde_HistoryObject $history,
-                            array $attributes,
+    protected function _log(Horde_History_Log $history, array $attributes,
                             $replaceAction = false)
     {
         $values = array(
@@ -80,10 +79,10 @@ class Horde_History_Mock extends Horde_History
          * or not to add the entry later. */
         $done = false;
         if ($replaceAction && !empty($values['history_action'])) {
-            for ($i = 0, $count = count($history->data); $i < $count; ++$i) {
-                if (!empty($history->data[$i]['action']) &&
-                    $history->data[$i]['action'] == $values['history_action']) {
-                    $this->_data[$history->data[$i]['id']] = $values;
+            foreach ($history as $entry) {
+                if (!empty($entry['action']) &&
+                    $entry['action'] == $values['history_action']) {
+                    $this->_data[$entry['id']] = $values;
                     $done = true;
                     break;
                 }
@@ -100,12 +99,12 @@ class Horde_History_Mock extends Horde_History
     }
 
     /**
-     * Returns a Horde_HistoryObject corresponding to the named history entry,
+     * Returns a Horde_History_Log corresponding to the named history entry,
      * with the data retrieved appropriately.
      *
      * @param string $guid  The name of the history entry to retrieve.
      *
-     * @return Horde_HistoryObject  A Horde_HistoryObject
+     * @return Horde_History_Log  A Horde_History_Log object.
      */
     public function _getHistory($guid)
     {
@@ -116,7 +115,7 @@ class Horde_History_Mock extends Horde_History
                 $result[] = $element;
             }
         }
-        return new Horde_HistoryObject($guid, $result);
+        return new Horde_History_Log($guid, $result);
     }
 
     /**

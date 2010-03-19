@@ -76,19 +76,18 @@ class Horde_History_Sql extends Horde_History
      * Logs an event to an item's history log. Any other details about the
      * event are passed in $attributes.
      *
-     * @param Horde_HistoryObject $history       The history item to add to.
-     * @param array               $attributes    The hash of name => value
-     *                                           entries that describe this
-     *                                           event.
-     * @param boolean             $replaceAction If $attributes['action'] is
-     *                                           already present in the item's
-     *                                           history log, update that entry
-     *                                           instead of creating a new one.
+     * @param Horde_History_Log $history       The history item to add to.
+     * @param array             $attributes    The hash of name => value
+     *                                         entries that describe this
+     *                                         event.
+     * @param boolean           $replaceAction If $attributes['action'] is
+     *                                         already present in the item's
+     *                                         history log, update that entry
+     *                                         instead of creating a new one.
      *
      * @throws Horde_History_Exception
      */
-    protected function _log(Horde_HistoryObject $history,
-                            array $attributes,
+    protected function _log(Horde_History_Log $history, array $attributes,
                             $replaceAction = false)
     {
         /* If we want to replace an entry with the same action, try and find
@@ -96,9 +95,9 @@ class Horde_History_Sql extends Horde_History
          * or not to add the entry later. */
         $done = false;
         if ($replaceAction && !empty($attributes['action'])) {
-            for ($i = 0, $count = count($history->data); $i < $count; ++$i) {
-                if (!empty($history->data[$i]['action']) &&
-                    $history->data[$i]['action'] == $attributes['action']) {
+            foreach ($history as $entry) {
+                if (!empty($entry['action']) &&
+                    $entry['action'] == $attributes['action']) {
                     $values = array(
                         $attributes['ts'],
                         $attributes['who'],
@@ -110,7 +109,7 @@ class Horde_History_Sql extends Horde_History
                     $values[] = $attributes
                         ? serialize($attributes)
                         : null;
-                    $values[] = $history->data[$i]['id'];
+                    $values[] = $entry['id'];
 
                     $r = $this->_write_db->query(
                         'UPDATE horde_histories SET history_ts = ?,' .
@@ -156,12 +155,12 @@ class Horde_History_Sql extends Horde_History
     }
 
     /**
-     * Returns a Horde_HistoryObject corresponding to the named history entry,
+     * Returns a Horde_History_Log corresponding to the named history entry,
      * with the data retrieved appropriately.
      *
      * @param string $guid The name of the history entry to retrieve.
      *
-     * @return Horde_HistoryObject  A Horde_HistoryObject
+     * @return Horde_History_Log  A Horde_History_Log object.
      *
      * @throws Horde_History_Exception
      */
@@ -169,7 +168,7 @@ class Horde_History_Sql extends Horde_History
     {
         $rows = $this->_db->getAll('SELECT * FROM horde_histories WHERE object_uid = ?', array($guid), DB_FETCHMODE_ASSOC);
         $this->handleError($rows);
-        return new Horde_HistoryObject($guid, $rows);
+        return new Horde_History_Log($guid, $rows);
     }
 
     /**

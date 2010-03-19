@@ -8,9 +8,10 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
+ * @author  Jan Schneider <jan@horde.org>
  * @package History
  */
-class Horde_HistoryObject
+class Horde_History_Log implements Iterator, ArrayAccess, Countable
 {
     /**
      * TODO
@@ -20,7 +21,7 @@ class Horde_HistoryObject
     /**
      * TODO
      */
-    public $data = array();
+    protected $_data = array();
 
     /**
      * Constructor.
@@ -51,13 +52,57 @@ class Horde_HistoryObject
                     $history = array_merge($history, $extra);
                 }
             }
-            $this->data[] = $history;
+            $this->_data[] = $history;
         }
     }
 
-    public function getData()
+    public function current()
     {
-        return $this->data;
+        return current($this->_data);
     }
 
+    public function key()
+    {
+        return key($this->_data);
+    }
+
+    public function next()
+    {
+        next($this->_data);
+    }
+
+    public function rewind()
+    {
+        reset($this->_data);
+    }
+
+    public function valid()
+    {
+        return current($this->_data) !== false;
+    }
+
+    public function offsetExists($offset)
+    {
+        return isset($this->_data[$offset]);
+    }
+
+    public function offsetGet($offset)
+    {
+        return $this->_data[$offset];
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        $this->_data[$offset] = $value;
+    }
+
+    public function offsetUnset($offset)
+    {
+        unset($this->_data[$offset]);
+    }
+
+    public function count()
+    {
+        return count($this->_data);
+    }
 }

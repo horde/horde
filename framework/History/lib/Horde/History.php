@@ -152,27 +152,27 @@ abstract class Horde_History
      * Logs an event to an item's history log. Any other details about the
      * event are passed in $attributes.
      *
-     * @param Horde_HistoryObject $history       The history item to add to.
-     * @param array               $attributes    The hash of name => value
-     *                                           entries that describe this
-     *                                           event.
-     * @param boolean             $replaceAction If $attributes['action'] is
-     *                                           already present in the item's
-     *                                           history log, update that entry
-     *                                           instead of creating a new one.
+     * @param Horde_History_Log $history       The history item to add to.
+     * @param array             $attributes    The hash of name => value
+     *                                         entries that describe this
+     *                                         event.
+     * @param boolean           $replaceAction If $attributes['action'] is
+     *                                         already present in the item's
+     *                                         history log, update that entry
+     *                                         instead of creating a new one.
      *
      * @throws Horde_History_Exception
      */
-    abstract protected function _log(Horde_HistoryObject $history,
+    abstract protected function _log(Horde_History_Log $history,
                                      array $attributes, $replaceAction = false);
 
     /**
-     * Returns a Horde_HistoryObject corresponding to the named history
-     * entry, with the data retrieved appropriately.
+     * Returns a Horde_History_Log corresponding to the named history entry,
+     * with the data retrieved appropriately.
      *
      * @param string $guid The name of the history entry to retrieve.
      *
-     * @return Horde_HistoryObject A Horde_HistoryObject
+     * @return Horde_History_Log  A Horde_History_Log object.
      *
      * @throws Horde_History_Exception
      * @throws InvalidArgumentException
@@ -186,14 +186,12 @@ abstract class Horde_History
     }
 
     /**
-     * Returns a Horde_HistoryObject corresponding to the named history
-     * entry, with the data retrieved appropriately.
+     * Returns a Horde_History_Log corresponding to the named history entry,
+     * with the data retrieved appropriately.
      *
-     * @param string $guid The name of the history entry to retrieve.
+     * @param string $guid  The name of the history entry to retrieve.
      *
-     * @return Horde_HistoryObject A Horde_HistoryObject
-     *
-     * @throws Horde_History_Exception
+     * @return Horde_History_Log  A Horde_History_Log object.
      */
     abstract public function _getHistory($guid);
 
@@ -287,11 +285,9 @@ abstract class Horde_History
 
         $last = 0;
 
-        if (is_array($history->data)) {
-            foreach ($history->data as $entry) {
-                if (($entry['action'] == $action) && ($entry['ts'] > $last)) {
-                    $last = $entry['ts'];
-                }
+        foreach ($history as $entry) {
+            if (($entry['action'] == $action) && ($entry['ts'] > $last)) {
+                $last = $entry['ts'];
             }
         }
 

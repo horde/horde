@@ -195,7 +195,7 @@ EOL;
             $history = $this->getHistory($environment);
             $history->log('test', array('action' => 'test'));
             $this->assertTrue($history->getActionTimestamp('test', 'test') > 0);
-            $data = $history->getHistory('test')->getData();
+            $data = $history->getHistory('test');
             $this->assertTrue(isset($data[0]['who']));
         }
     }
@@ -229,31 +229,31 @@ EOL;
             $history->log('test', array('who' => 'me', 'ts' => 1000, 'action' => 'test'), false);
             $history->log('test', array('who' => 'you', 'ts' => 2000, 'action' => 'yours'));
             $history->log('test', array('who' => 'you', 'ts' => 2000, 'action' => 'yours'), true);
-            $data = $history->getHistory('test')->getData();
+            $data = $history->getHistory('test');
             $expect = array(
-                array(
-                    'action' => 'test',
-                    'desc'   => '',
-                    'who'    => 'me',
-                    'id'     => 1,
-                    'ts'     => 1000,
-                ),
-                array(
-                    'action' => 'test',
-                    'desc'   => '',
-                    'who'    => 'me',
-                    'id'     => 2,
-                    'ts'     => 1000,
-                ),
-                array(
-                    'action' => 'yours',
-                    'desc'   => '',
-                    'who'    => 'you',
-                    'id'     => 3,
-                    'ts'     => 2000,
-                ),
+                'action' => 'test',
+                'desc'   => '',
+                'who'    => 'me',
+                'id'     => 1,
+                'ts'     => 1000,
             );
-            $this->assertEquals($expect, $data);
+            $this->assertEquals($expect, $data[0]);
+            $expect = array(
+                'action' => 'test',
+                'desc'   => '',
+                'who'    => 'me',
+                'id'     => 2,
+                'ts'     => 1000,
+            );
+            $this->assertEquals($expect, $data[1]);
+            $expect = array(
+                'action' => 'yours',
+                'desc'   => '',
+                'who'    => 'you',
+                'id'     => 3,
+                'ts'     => 2000,
+            );
+            $this->assertEquals($expect, $data[2]);
         }
     }
 
@@ -269,31 +269,30 @@ EOL;
         }
     }
 
-    public function testMethodGethistoryHasResultHordehistoryobjectRepresentingTheHistoryLogMatchingTheGivenGuid()
+    public function testMethodGethistoryHasResultHordehistorylogRepresentingTheHistoryLogMatchingTheGivenGuid()
     {
         foreach ($this->getEnvironments() as $environment) {
             $history = $this->getHistory($environment);
             $history->log('test', array('who' => 'me', 'ts' => 1000, 'action' => 'test'));
             $history->log('test', array('who' => 'you', 'ts' => 2000, 'action' => 'yours', 'extra' => array('a' => 'a')));
-            $data = $history->getHistory('test')->getData();
+            $data = $history->getHistory('test');
             $expect = array(
-                array(
-                    'action' => 'test',
-                    'desc'   => '',
-                    'who'    => 'me',
-                    'id'     => 1,
-                    'ts'     => 1000,
-                ),
-                array(
-                    'action' => 'yours',
-                    'desc'   => '',
-                    'who'    => 'you',
-                    'id'     => 2,
-                    'ts'     => 2000,
-                    'extra'  => array('a' => 'a'),
-                ),
+                'action' => 'test',
+                'desc'   => '',
+                'who'    => 'me',
+                'id'     => 1,
+                'ts'     => 1000,
             );
-            $this->assertEquals($expect, $data);
+            $this->assertEquals($expect, $data[0]);
+            $expect = array(
+                'action' => 'yours',
+                'desc'   => '',
+                'who'    => 'you',
+                'id'     => 2,
+                'ts'     => 2000,
+                'extra'  => array('a' => 'a'),
+            );
+            $this->assertEquals($expect, $data[1]);
         }
     }
 
@@ -431,22 +430,20 @@ EOL;
             $history->log('yours', array('who' => 'you', 'ts' => 2000, 'action' => 'yours'));
             $history->log('yours', array('who' => 'you', 'ts' => 2000, 'action' => 'yours'), true);
             $history->removeByNames(array('test'));
-            $data = $history->getHistory('test')->getData();
-            $this->assertEquals(array(), $data);
-            $data = $history->getHistory('yours')->getData();
+            $data = $history->getHistory('test');
+            $this->assertEquals(0, count($data));
+            $data = $history->getHistory('yours');
             $expect = array(
-                array(
-                    'action' => 'yours',
-                    'desc'   => '',
-                    'who'    => 'you',
-                    'id'     => 3,
-                    'ts'     => 2000,
-                ),
+                'action' => 'yours',
+                'desc'   => '',
+                'who'    => 'you',
+                'id'     => 3,
+                'ts'     => 2000,
             );
-            $this->assertEquals($expect, $data);
+            $this->assertEquals($expect, $data[0]);
             $history->removeByNames(array('yours'));
-            $data = $history->getHistory('yours')->getData();
-            $this->assertEquals(array(), $data);
+            $data = $history->getHistory('yours');
+            $this->assertEquals(0, count($data));
         }
     }
 
@@ -459,10 +456,10 @@ EOL;
             $history->log('yours', array('who' => 'you', 'ts' => 2000, 'action' => 'yours'));
             $history->log('yours', array('who' => 'you', 'ts' => 2000, 'action' => 'yours'), true);
             $history->removeByNames(array('test', 'yours'));
-            $data = $history->getHistory('test')->getData();
-            $this->assertEquals(array(), $data);
-            $data = $history->getHistory('yours')->getData();
-            $this->assertEquals(array(), $data);
+            $data = $history->getHistory('test');
+            $this->assertEquals(0, count($data));
+            $data = $history->getHistory('yours');
+            $this->assertEquals(0, count($data));
         }
     }
 
