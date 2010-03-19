@@ -136,7 +136,9 @@ class Horde
 
         // Log the error via logMessage() if requested.
         if ($log) {
-            self::logMessage($error, 'EMERG');
+            try {
+                self::logMessage($error, 'EMERG');
+            } catch (Exception $e) {}
         }
 
         if ($cli) {
@@ -164,7 +166,11 @@ HTML;
     static public function logDeprecated($errno, $errstr, $errfile, $errline,
                                          $errcontext)
     {
-        self::logMessage(new ErrorException($errstr, 0, $errno, $errfile, $errline), 'DEBUG');
+        if (class_exists('Horde_Log')) {
+            try {
+                self::logMessage(new ErrorException($errstr, 0, $errno, $errfile, $errline), 'DEBUG');
+            } catch (Exception $e) {}
+        }
     }
 
     /**

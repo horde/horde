@@ -42,3 +42,7 @@ Horde_Autoloader::addClassPattern('/^Horde(?:$|_)/i', dirname(__FILE__));
  * output this unless an admin. */
 set_exception_handler(array('Horde', 'fatal'));
 
+/* Catch and log E_DEPRECATED errors. */
+if (defined('E_DEPRECATED')) {
+    set_error_handler(array('Horde', 'logDeprecated'), E_DEPRECATED);
+}

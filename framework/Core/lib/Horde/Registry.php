@@ -184,10 +184,6 @@ class Horde_Registry
         try {
             $GLOBALS['registry']->pushApp($app, array('check_perms' => ($args['authentication'] != 'none'), 'logintasks' => !$args['nologintasks']));
 
-            /* Catch and log E_DEPRECATED errors. */
-            if (defined('E_DEPRECATED')) {
-                set_error_handler(array('Horde', 'logDeprecated'), E_DEPRECATED);
-            }
             if ($args['admin'] && !Horde_Auth::isAdmin()) {
                 throw new Horde_Exception('Not an admin');
             }
