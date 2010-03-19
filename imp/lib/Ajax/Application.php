@@ -1403,10 +1403,12 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * Setup environment for dimp compose actions.
      *
+     * Variables used:
      * <pre>
      * 'composeCache' - (string) The IMP_Compose cache identifier.
+     * 'from' - (string) TODO
+     * 'identity' - (integer) The identity to use
      * </pre>
-     * from, identity, composeCache
      *
      * @return array  An array with the following values:
      * <pre>

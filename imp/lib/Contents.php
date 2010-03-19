@@ -991,9 +991,7 @@ class IMP_Contents
     }
 
     /**
-     * Injects body contents into the base Horde_Mime_part object. If given
-     * a list of IDs, does not add body contents for that part or children
-     * of that part.
+     * Injects body contents into the base Horde_Mime_part object.
      *
      * @param array $ignore  A list of MIME IDs to ignore.
      *

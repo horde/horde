@@ -7,6 +7,7 @@
  * one were written by Mike Naberezny and Chuck Hagenbuch.
  *
  * @package  Horde_Log
+ * @subpackage Filters
  * @author   Mike Naberezny <mike@maintainable.com>
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
@@ -14,6 +15,7 @@
 
 /**
  * @package  Horde_Log
+ * @subpackage Filters
  * @author   Mike Naberezny <mike@maintainable.com>
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
