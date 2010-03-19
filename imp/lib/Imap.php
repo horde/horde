@@ -137,7 +137,7 @@ class IMP_Imap
             return false;
         }
 
-        Horde_Imap_Client::$encryptKey = Horde_Secret::getKey('imp');
+        Horde_Imap_Client::$encryptKey = $GLOBALS['injector']->getInstance('Horde_Secret')->getKey('imp');
 
         $old_error = error_reporting(0);
         $this->_ob = unserialize($_SESSION['imp']['imap_ob'][$_SESSION['imp']['server_key']]);

@@ -3,32 +3,61 @@
  * The Horde_Secret:: class provides an API for encrypting and decrypting
  * small pieces of data with the use of a shared key.
  *
- * The Horde_Secret:: functions use the Horde_Cipher:: class if mcrypt is not
- * available.
- *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_Secret
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @package  Horde_Secret
  */
 class Horde_Secret
 {
+    /**
+     * Configuration parameters.
+     *
+     * @var array
+     */
+    protected $_params = array(
+        'cookie_domain' => '',
+        'cookie_expire' => 0,
+        'cookie_path' => '',
+        'cookie_ssl' => false,
+        'session_name' => 'horde_secret'
+    );
+
     /**
      * Cipher cache.
      *
      * @var array
      */
-    static protected $_cipherCache = array();
+    protected $_cipherCache = array();
 
     /**
      * Key cache.
      *
      * @var array
      */
-    static protected $_keyCache = array();
+    protected $_keyCache = array();
+
+    /**
+     * Constructor.
+     *
+     * @param array $params  Configuration parameters:
+     * <pre>
+     * 'cookie_domain' - (string) The cookie domain.
+     * 'cookie_expire' - (integer) The cookie expiration time (in seconds).
+     * 'cookie_path' - (string) The cookie path.
+     * 'cookie_ssl' - (boolean) Only transmit cookie securely?
+     * 'session_name' - (string) The cookie session name.
+     * </pre>
+     */
+    public function __construct($params = array())
+    {
+        $this->_params = array_merge($this->_params, $params);
+    }
 
     /**
      * Take a small piece of data and encrypt it with a key.
@@ -37,20 +66,19 @@ class Horde_Secret
      * @param string $message  The plaintext message.
      *
      * @return string  The ciphertext message.
+     * @throws Horde_Secret_Exception
      */
-    static public function write($key, $message)
+    public function write($key, $message)
     {
-        if (!strlen($key)) {
-            return false;
+        $val = strlen($key)
+            ? $this->_getCipherOb($key)->encrypt($message)
+            : false;
+
+        if ($val instanceof PEAR_Error) {
+            throw new Horde_Secret_Exception($val);
         }
 
-        $ret = self::_getMcryptData($key, $message, 'encrypt');
-        if ($ret !== false) {
-            return $ret;
-        }
-
-        $ptr = self::_getCipherOb($key);
-        return $ptr->encrypt($message);
+        return $val;
     }
 
     /**
@@ -60,53 +88,39 @@ class Horde_Secret
      * @param string $message  The ciphertext message.
      *
      * @return string  The plaintext message.
+     * @throws Horde_Secret_Exception
      */
-    static public function read($key, $ciphertext)
+    public function read($key, $ciphertext)
     {
-        $ret = self::_getMcryptData($key, $ciphertext, 'decrypt');
-        if ($ret !== false) {
-            return rtrim($ret, "\0");
+        $val = $this->_getCipherOb($key)->decrypt($ciphertext);
+
+        if ($val instanceof PEAR_Error) {
+            throw new Horde_Secret_Exception($val);
         }
 
-        $ptr = self::_getCipherOb($key);
-        return $ptr->decrypt($ciphertext);
+        return $val;
     }
 
     /**
-     * TODO
+     * Returns the cached crypt object.
+     *
+     * @param string $key  The key to use for [de|en]cryption.
+     *
+     * @return Crypt_Blowfish  The crypt object.
+     * @throws Horde_Secret_Exception
      */
-    static protected function _getMcryptData($key, $text, $type)
-    {
-        $ret = false;
-
-        if (Horde_Util::extensionExists('mcrypt')) {
-            $old_error = error_reporting(0);
-            $td = mcrypt_module_open(MCRYPT_GOST, '', MCRYPT_MODE_ECB, '');
-            if ($td) {
-                $iv = mcrypt_create_iv(mcrypt_enc_get_iv_size($td), MCRYPT_RAND);
-                mcrypt_generic_init($td, $key, $iv);
-                $ret = ($type == 'encrypt') ? mcrypt_generic($td, $text) : mdecrypt_generic($td, $text);
-                mcrypt_generic_deinit($td);
-            }
-            error_reporting($old_error);
-        }
-
-        return $ret;
-    }
-
-    /**
-     * TODO
-     */
-    static protected function _getCipherOb($key)
+    protected function _getCipherOb($key)
     {
         $idx = hash('md5', $key);
 
-        if (!isset(self::$_cipherCache[$idx])) {
-            self::$_cipherCache[$idx] = Horde_Cipher::factory('rc2');
-            self::$_cipherCache[$idx]->setKey($key);
+        if (!isset($this->_cipherCache[$idx])) {
+            if (!class_exists('Crypt_Blowfish')) {
+                throw new Horde_Secret_Exception('Crypt_Blowfish library not found.');
+            }
+            $this->_cipherCache[$idx] = new Crypt_Blowfish($key);
         }
 
-        return self::$_cipherCache[$idx];
+        return $this->_cipherCache[$idx];
     }
 
     /**
@@ -118,19 +132,23 @@ class Horde_Secret
      *
      * @return string  The secret key that has been generated.
      */
-    static public function setKey($keyname = 'generic')
+    public function setKey($keyname = 'generic')
     {
-        if (isset($_COOKIE[$GLOBALS['conf']['session']['name']])) {
+        $set = true;
+
+        if (isset($_COOKIE[$this->_params['session_name']])) {
             if (isset($_COOKIE[$keyname . '_key'])) {
                 $key = $_COOKIE[$keyname . '_key'];
+                $set = false;
             } else {
-                $key = hash('md5', mt_rand());
-                $_COOKIE[$keyname . '_key'] = $key;
-                self::_setCookie($keyname, $key);
+                $key = $_COOKIE[$keyname . '_key'] = hash('md5', uniqid());
             }
         } else {
             $key = session_id();
-            self::_setCookie($keyname, $key);
+        }
+
+        if ($set) {
+            $this->_setCookie($keyname, $key);
         }
 
         return $key;
@@ -145,37 +163,20 @@ class Horde_Secret
      *
      * @return string  The secret key.
      */
-    static public function getKey($keyname = 'generic')
+    public function getKey($keyname = 'generic')
     {
-        if (!isset(self::$_keyCache[$keyname])) {
+        if (!isset($this->_keyCache[$keyname])) {
             if (isset($_COOKIE[$keyname . '_key'])) {
-                self::$_keyCache[$keyname] = $_COOKIE[$keyname . '_key'];
+                $key = $_COOKIE[$keyname . '_key'];
             } else {
-                self::$_keyCache[$keyname] = session_id();
-                self::_setCookie($keyname, self::$_keyCache[$keyname]);
+                $key = session_id();
+                $this->_setCookie($keyname, $key);
             }
+
+            $this->_keyCache[$keyname] = $key;
         }
 
-        return self::$_keyCache[$keyname];
-    }
-
-    /**
-     * TODO
-     */
-    static protected function _setCookie($keyname, $key)
-    {
-        global $conf;
-
-        $old_error = error_reporting(0);
-        setcookie(
-            $keyname . '_key',
-            $key,
-            $conf['session']['timeout'] ? time() + $conf['session']['timeout'] : 0,
-            $conf['cookie']['path'],
-            $conf['cookie']['domain'],
-            $conf['use_ssl'] == 1 ? 1 : 0
-        );
-        error_reporting($old_error);
+        return $this->_keyCache[$keyname];
     }
 
     /**
@@ -185,14 +186,33 @@ class Horde_Secret
      *
      * @return boolean  True if key existed, false if not.
      */
-    static public function clearKey($keyname = 'generic')
+    public function clearKey($keyname = 'generic')
     {
-        if (isset($_COOKIE[$GLOBALS['conf']['session']['name']]) &&
+        if (isset($_COOKIE[$this->_params['session_name']]) &&
             isset($_COOKIE[$keyname . '_key'])) {
             unset($_COOKIE[$keyname . '_key']);
             return true;
         }
+
         return false;
+    }
+
+    /**
+     * Sets the cookie with the given keyname/key.
+     *
+     * @param string $keyname  The name of the key to set.
+     * @param string $key      The key to use for encryption.
+     */
+    protected function _setCookie($keyname, $key)
+    {
+        @setcookie(
+            $keyname . '_key',
+            $key,
+            (empty($this->_params['cookie_expire']) ? 0 : (time() + $this->_params['cookie_expire'])),
+            $this->_params['cookie_path'],
+            $this->_params['cookie_domain'],
+            $this->_params['cookie_ssl']
+        );
     }
 
 }

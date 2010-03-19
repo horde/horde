@@ -192,12 +192,15 @@ class Kolab_Resource
                                     OUT_LOG | EX_UNAVAILABLE);
         }
         @session_start();
+
+        $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
+
         $_SESSION['__auth'] = array(
             'authenticated' => true,
             'userId' => $calendar_user,
             'timestamp' => time(),
-            'credentials' => Horde_Secret::write(Horde_Secret::getKey('auth'),
-                                           serialize(array('password' => $conf['kolab']['filter']['calendar_pass']))),
+            'credentials' => $secret->write($secret->getKey('auth'),
+                                            serialize(array('password' => $conf['kolab']['filter']['calendar_pass']))),
             'remote_addr' => isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null,
         );
 

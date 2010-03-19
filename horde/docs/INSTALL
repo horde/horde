@@ -86,8 +86,9 @@ below at Prerequisites_.
 
 3. Install PEAR packages::
 
-     pear install -o Mail DB Date File
-     pear -d preferred_state=beta install -a Services_Weather
+     pear install -o Crypt_Blowfish Date DB File Mail Net_DNS \
+                     Services_Weather
+     pear -d preferred_state=beta install -a HTTP_WebDAV_Server
 
 4. Extract tarball::
 
@@ -231,13 +232,13 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
    c. Mcrypt support ``--with-mcrypt``
 
       Mcrypt is a general-purpose cryptography library which is broader and
-      significantly more efficient (FASTER!) than PHP's own cryptographic
-      code. You can obtain mcrypt from
+      more efficient (FASTER!) than the default encryption method. You can
+      obtain mcrypt from
 
          http://mcrypt.sourceforge.net/
 
       Building PHP without mcrypt support will not stop Horde from working,
-      but will force it to use weaker (and much slower) encryption.
+      but will force it to use slower encryption.
 
    d. UTF-8 support ``--enable-mbstring``
 
@@ -301,7 +302,7 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
 
    You will see something like::
 
-     PEAR directory                 php_dir         /usr/share/php
+     PEAR directory   php_dir   /usr/share/php
 
    Now open the php.ini file of your system, for example ``/etc/php.ini``,
    find the ``include_path`` and make sure that ``/usr/share/php`` is part of
@@ -311,7 +312,13 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
    These PEAR modules are **REQUIRED** to be installed for complete Horde
    functionality:
 
-   a. Mail (>= 1.2.0)
+   a. Crypt_Blowfish (>= 1.0.1)
+
+      To install, enter the following at the command prompt::
+
+        pear install Crypt_Blowfish
+
+   b. Mail (>= 1.2.0)
 
       To install, enter the following at the command prompt::
 
@@ -319,28 +326,46 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
 
    These PEAR modules are **RECOMMENDED** to be installed:
 
-   a. DB (>= 1.7.8)
-
-      **REQUIRED** as soon as you want or need to store anything in a database.
-      To install, enter the following at the command prompt::
-
-        pear install DB
-
-   b. File
-
-      **REQUIRED** only if you wish to import CSV files.
-      To install, enter the following at the command prompt::
-
-        pear install File
-
-   c. Date
+   a. Date
 
       **REQUIRED** only if you are dealing with calendar data.
       To install, enter the following at the command prompt::
 
         pear install Date
 
-   d. Services_Weather (>= 1.3.1)
+   b. DB (>= 1.7.8)
+
+      **REQUIRED** as soon as you want or need to store anything in a database.
+      To install, enter the following at the command prompt::
+
+        pear install DB
+
+   c. File
+
+      **REQUIRED** only if you wish to import CSV files.
+      To install, enter the following at the command prompt::
+
+        pear install File
+
+   d. HTTP_WebDAV_Server
+
+      **REQUIRED** only if you want to use Horde's WebDAV interface, for
+      example to access calendars, tasklists or files with an external client.
+      To install, enter the following at the command prompt::
+
+        pear install HTTP_WebDAV_Server-beta
+
+   e. Net_DNS
+
+      If installed, it will be used instead of the built-in PHP function
+      gethostbyaddr() for host name lookups. This has the advantage that
+      Net_DNS has configurable timeouts and retries. Net_DNS requires the
+      ``mhash`` PHP extension.
+      To install, enter the following at the command prompt::
+
+        pear install Net_DNS
+
+   f. Services_Weather (>= 1.3.1)
 
       **REQUIRED** only if you wish to use the weather.com block on the portal
       page.
@@ -352,42 +377,12 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
       the portal page. See the file ``data/Services_Weather/buildMetarDB.php``
       in your PEAR directory for details.
 
-   e. HTTP_WebDAV_Server
-
-      **REQUIRED** only if you want to use Horde's WebDAV interface, for
-      example to access calendars, tasklists or files with an external client.
-      To install, enter the following at the command prompt::
-
-        pear install HTTP_WebDAV_Server-beta
-
-   f. Net_DNS
-
-      If installed, it will be used instead of the built-in PHP function
-      gethostbyaddr() for host name lookups. This has the advantage that
-      Net_DNS has configurable timeouts and retries. Net_DNS requires the
-      ``mhash`` PHP extension.
-      To install, enter the following at the command prompt::
-
-        pear install Net_DNS
 
    This method of installing PEAR modules requires that you have a PHP version
-   that has been compiled as a static binary.  All versions of PHP 4.3.0+
-   build both a SAPI module (Apache, CGI, etc.) and a command-line (CLI)
-   binary at the same time.  Check if you have a php binary in
-   ``/usr/local/bin`` (``/usr/bin`` if if you installed from an operating
-   system package) before recompiling.
-
-   If you receive the error ``Could not read cmd args`` you should run the pear
-   script this way::
-
-     php -d register_argc_argv=1 _PEAR_ install _MODULE_
-
-   _PEAR_ is the complete path of the pear script installed by PHP during
-   installation (e.g. ``/usr/local/bin/pear``).  Make sure the ``pear`` script
-   appears in your path. The default installation path for pear is
-   ``/usr/local/bin/pear``.
-
-   _MODULE_ is the PEAR module, listed above, which you wish to install.
+   that has been compiled as a static binary.  All versions of PHP build both
+   both a SAPI module (Apache, CGI, etc.) and a command-line (CLI) binary.
+   Check if you have a php binary in ``/usr/local/bin`` (``/usr/bin`` if you
+   installed from an operating system package) before recompiling.
 
    For more detailed directions on installing PEAR modules, see the PEAR
    documentation at http://pear.php.net/manual/

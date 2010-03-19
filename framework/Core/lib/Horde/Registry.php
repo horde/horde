@@ -242,6 +242,7 @@ class Horde_Registry
             'Horde_Memcache' => new Horde_Core_Binder_Memcache(),
             'Horde_Notification' => new Horde_Core_Binder_Notification(),
             'Horde_Perms' => new Horde_Core_Binder_Perms(),
+            'Horde_Secret' => new Horde_Core_Binder_Secret(),
             'Horde_Template' => new Horde_Core_Binder_Template(),
             'Horde_Token' => new Horde_Core_Binder_Token(),
             'Horde_Vfs' => new Horde_Core_Binder_Vfs(),
@@ -1560,10 +1561,11 @@ class Horde_Registry
         /* Reset cookie timeouts, if necessary. */
         if (!empty($GLOBALS['conf']['session']['timeout'])) {
             $app = $this->getApp();
-            if (Horde_Secret::clearKey($app)) {
-                Horde_Secret::setKey($app);
+            $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
+            if ($secret->clearKey($app)) {
+                $secret->setKey($app);
             }
-            Horde_Secret::setKey('auth');
+            $secret->setKey('auth');
         }
     }
 

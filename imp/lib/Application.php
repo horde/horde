@@ -360,7 +360,8 @@ class IMP_Application extends Horde_Registry_Application
 
         $params = array_merge($params, $_SESSION['imp']['imap']['admin']['params']);
         if (isset($params['admin_password'])) {
-            $params['admin_password'] = Horde_Secret::read(Horde_Secret::getKey('imp'), $params['admin_password']);
+            $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
+            $params['admin_password'] = $secret->read($secret->getKey('imp'), $params['admin_password']);
         }
         $auth = Horde_Auth::singleton('imap', $params);
         $auth->addUser($userId, $credentials);
@@ -382,7 +383,8 @@ class IMP_Application extends Horde_Registry_Application
 
         $params = array_merge($params, $_SESSION['imp']['imap']['admin']['params']);
         if (isset($params['admin_password'])) {
-            $params['admin_password'] = Horde_Secret::read(Horde_Secret::getKey('imp'), $params['admin_password']);
+            $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
+            $params['admin_password'] = $secret->read($secret->getKey('imp'), $params['admin_password']);
         }
         $auth = Horde_Auth::singleton('imap', $params);
         $auth->removeUser($userId);
@@ -403,7 +405,8 @@ class IMP_Application extends Horde_Registry_Application
 
         $params = array_merge($params, $_SESSION['imp']['imap']['admin']['params']);
         if (isset($params['admin_password'])) {
-            $params['admin_password'] = Horde_Secret::read(Horde_Secret::getKey('imp'), $params['admin_password']);
+            $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
+            $params['admin_password'] = $secret->read($secret->getKey('imp'), $params['admin_password']);
         }
         $auth = Horde_Auth::singleton('imap', $params);
         return $auth->listUsers();

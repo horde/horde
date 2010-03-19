@@ -1710,8 +1710,9 @@ class Kronolith
         if (strlen($info['username']) || strlen($info['password'])) {
             $key = Horde_Auth::getCredential('password');
             if ($key) {
-                $info['username'] = base64_encode(Horde_Secret::write($key, $info['username']));
-                $info['password'] = base64_encode(Horde_Secret::write($key, $info['password']));
+                $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
+                $info['username'] = base64_encode($secret->write($key, $info['username']));
+                $info['password'] = base64_encode($secret->write($key, $info['password']));
             }
         }
 
@@ -2472,8 +2473,9 @@ class Kronolith
                 $password = isset($cal['password']) ? $cal['password'] : '';
                 $key = Horde_Auth::getCredential('password');
                 if ($key && $user) {
-                    $user = Horde_Secret::read($key, base64_decode($user));
-                    $password = Horde_Secret::read($key, base64_decode($password));
+                    $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
+                    $user = $secret->read($key, base64_decode($user));
+                    $password = $secret->read($key, base64_decode($password));
                 }
                 if (!empty($user)) {
                     return array('user' => $user, 'password' => $password);

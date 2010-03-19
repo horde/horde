@@ -658,7 +658,8 @@ class Horde_Auth
                     $credentials = array($credential => $value);
                 }
 
-                $_SESSION['horde_auth']['app'][$app] = Horde_Secret::write(Horde_Secret::getKey('auth'), serialize($credentials));
+                $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
+                $_SESSION['horde_auth']['app'][$app] = $secret->write($secret->getKey('auth'), serialize($credentials));
             }
         }
     }
@@ -676,9 +677,12 @@ class Horde_Auth
             $app = $_SESSION['horde_auth']['credentials'];
         }
 
-        return isset($_SESSION['horde_auth']['app'])
-            ? @unserialize(Horde_Secret::read(Horde_Secret::getKey('auth'), $_SESSION['horde_auth']['app'][$app]))
-            : false;
+        if (!isset($_SESSION['horde_auth']['app'])) {
+            return false;
+        }
+
+        $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
+        return @unserialize($secret->read($secret->getKey('auth'), $_SESSION['horde_auth']['app'][$app]));
     }
 
     /**
@@ -721,7 +725,9 @@ class Horde_Auth
         $app_array = $is_auth
             ? $_SESSION['horde_auth']['app']
             : array();
-        $app_array[$app] = Horde_Secret::write(Horde_Secret::getKey('auth'), serialize($credentials));
+
+        $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
+        $app_array[$app] = $secret->write($secret->getKey('auth'), serialize($credentials));
 
         if ($is_auth) {
             /* Store app credentials. */

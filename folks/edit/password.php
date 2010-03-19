@@ -161,12 +161,10 @@ do {
     // reset credentials so user is not forced to relogin
     if (Horde_Auth::getCredential('password') == $info['old']) {
         Horde_Auth::setCredential('password', $info['new']);
-        if (Horde_Auth::getProvider() == 'imp' || !empty($_SESSION['imp']['pass'])) {
-            $_SESSION['imp']['pass'] = Horde_Secret::write(Horde_Secret::getKey('imp'),
-                                                        $info['new']);
-        } elseif (Horde_Auth::getProvider() == 'mimp' || !empty($_SESSION['mimp']['pass'])) {
-            $_SESSION['mimp']['pass'] = Horde_Secret::write(Horde_Secret::getKey('mimp'),
-                                                        $info['new']);
+        $secret = $injector->getInstance('Horde_Secret');
+        if (Horde_Auth::getProvider() == 'imp' ||
+            !empty($_SESSION['imp']['pass'])) {
+            $_SESSION['imp']['pass'] = $secret->write($secret->getKey('imp'), $info['new']);
         }
     }
 

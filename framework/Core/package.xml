@@ -73,6 +73,7 @@ Application Framework.
        <file name="Memcache.php" role="php" />
        <file name="Notification.php" role="php" />
        <file name="Perms.php" role="php" />
+       <file name="Secret.php" role="php" />
        <file name="Template.php" role="php" />
        <file name="Token.php" role="php" />
        <file name="Vfs.php" role="php" />
@@ -205,6 +206,7 @@ Application Framework.
    <install name="lib/Horde/Core/Binder/Memcache.php" as="Horde/Core/Binder/Memcache.php" />
    <install name="lib/Horde/Core/Binder/Notification.php" as="Horde/Core/Binder/Notification.php" />
    <install name="lib/Horde/Core/Binder/Perms.php" as="Horde/Core/Binder/Perms.php" />
+   <install name="lib/Horde/Core/Binder/Secret.php" as="Horde/Core/Binder/Secret.php" />
    <install name="lib/Horde/Core/Binder/Template.php" as="Horde/Core/Binder/Template.php" />
    <install name="lib/Horde/Core/Binder/Token.php" as="Horde/Core/Binder/Token.php" />
    <install name="lib/Horde/Core/Binder/Vfs.php" as="Horde/Core/Binder/Vfs.php" />

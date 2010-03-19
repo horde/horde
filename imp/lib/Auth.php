@@ -404,7 +404,8 @@ class IMP_Auth
                      * these entries in the session if they exist. */
                     foreach (array('password', 'admin_password') as $key) {
                         if (isset($ptr[$val]['params'][$key])) {
-                            $sess['imap'][$val]['params'][$key] = Horde_Secret::write(Horde_Secret::getKey('imp'), $ptr[$val]['params'][$key]);
+                            $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
+                            $sess['imap'][$val]['params'][$key] = $secret->write($secret->getKey('imp'), $ptr[$val]['params'][$key]);
                         }
                     }
                 }

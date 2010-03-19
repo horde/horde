@@ -59,7 +59,8 @@ class Gollem_Auth
 
         if (empty($credentials) &&
             !empty($GLOBALS['gollem_be']['params']['password'])) {
-            $credentials = array('password' => Horde_Secret::read(Horde_Secret::getKey('gollem'), $GLOBALS['gollem_be']['params']['password']));
+            $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
+            $credentials = array('password' => $secret->read($secret->getKey('gollem'), $GLOBALS['gollem_be']['params']['password']));
         }
 
         $login = ($login && (Horde_Auth::getProvider() == 'gollem'));
@@ -241,7 +242,8 @@ class Gollem_Auth
         if ($pass === null) {
             $ptr['params']['password'] = null;
         } else {
-            $ptr['params']['password'] = Horde_Secret::write(Horde_Secret::getKey('gollem'), $pass);
+            $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
+            $ptr['params']['password'] = $secret->write($secret->getKey('gollem'), $pass);
         }
 
         /* Try to authenticate with the given information. */

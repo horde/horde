@@ -89,7 +89,7 @@ $horde_login_nosidebar = false;
 
 /* Initialize the Auth credentials key. */
 if (!$is_auth) {
-    Horde_Secret::setKey('auth');
+    $GLOBALS['injector']->getInstance('Horde_Secret')->setKey('auth');
 }
 
 /* Get an Auth object. */

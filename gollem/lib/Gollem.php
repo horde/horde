@@ -795,7 +795,8 @@ class Gollem
         if (!count($params)) {
             $params = $be_config['params'];
             if (!empty($params['password'])) {
-                $params['password'] = Horde_Secret::read(Horde_Secret::getKey('gollem'), $params['password']);
+                $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
+                $params['password'] = $secret->read($secret->getKey('gollem'), $params['password']);
             }
         }
 

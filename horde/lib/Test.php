@@ -257,6 +257,9 @@ class Horde_Test
         'Cache' => array(
             'error' => 'Cache is used by the Services_Weather module on the weather applet/block on the portal page.'
         ),
+        'Crypt_Blowfish' => array(
+            'error' => 'Crypt_Blowfish is required to store authentication credentials securely within the session data.'
+        ),
         'Date' => array(
             'path' => 'Date/Calc.php',
             'error' => 'Horde requires the Date_Calc class for Kronolith to calculate dates.'
