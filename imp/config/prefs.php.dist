@@ -291,6 +291,9 @@ $_prefs['save_sent_mail'] = array(
 
 // sent mail folder
 $_prefs['sent_mail_folder'] = array(
+    // NOTE: Localization of this name for display purposes is done
+    // automatically. This entry only needs to be changed if the mailbox name
+    // on the IMAP server is different than this value.
     'value' => 'Sent',
     // If the mailbox value contains non-ASCII characters, it must be encoded
     // in the UTF7-IMAP charset (RFC 3501 [5.1.3]). This entry will do the
@@ -333,6 +336,9 @@ $_prefs['draftsselect'] = array('type' => 'special');
 
 // drafts folder
 $_prefs['drafts_folder'] = array(
+    // NOTE: Localization of this name for display purposes is done
+    // automatically. This entry only needs to be changed if the mailbox name
+    // on the IMAP server is different than this value.
     'value' => 'Drafts',
     // If the mailbox value contains non-ASCII characters, it must be encoded
     // in the UTF7-IMAP charset (RFC 3501 [5.1.3]). This entry will do the
@@ -348,6 +354,9 @@ $_prefs['trashselect'] = array('type' => 'special');
 
 // trash folder
 $_prefs['trash_folder'] = array(
+    // NOTE: Localization of this name for display purposes is done
+    // automatically. This entry only needs to be changed if the mailbox name
+    // on the IMAP server is different than this value.
     'value' => 'Trash',
     // If the mailbox value contains non-ASCII characters, it must be encoded
     // in the UTF7-IMAP charset (RFC 3501 [5.1.3]). This entry will do the
@@ -365,6 +374,9 @@ $_prefs['spamselect'] = array('type' => 'special');
 
 // spam folder
 $_prefs['spam_folder'] = array(
+    // NOTE: Localization of this name for display purposes is done
+    // automatically. This entry only needs to be changed if the mailbox name
+    // on the IMAP server is different than this value.
     'value' => 'Spam',
     // If the mailbox value contains non-ASCII characters, it must be encoded
     // in the UTF7-IMAP charset (RFC 3501 [5.1.3]). This entry will do the
