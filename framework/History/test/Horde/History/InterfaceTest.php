@@ -534,6 +534,10 @@ EOL;
     }
 }
 
+if (!class_exists('DB_common')) {
+    class DB_common {}
+}
+
 /**
  * A dummy database connection producing nothing bot errors.
  *
