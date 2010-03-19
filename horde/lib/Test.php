@@ -258,7 +258,8 @@ class Horde_Test
             'error' => 'Cache is used by the Services_Weather module on the weather applet/block on the portal page.'
         ),
         'Crypt_Blowfish' => array(
-            'error' => 'Crypt_Blowfish is required to store authentication credentials securely within the session data.'
+            'error' => 'Crypt_Blowfish is required to store authentication credentials securely within the session data.',
+            'required' => true
         ),
         'Date' => array(
             'path' => 'Date/Calc.php',
@@ -276,7 +277,8 @@ class Horde_Test
         ),
         'Mail' => array(
             'path' => 'Mail/RFC822.php',
-            'error' => 'You do not have the Mail package installed on your system. See the INSTALL file for instructions on how to install the package.'
+            'error' => 'You do not have the Mail package installed on your system. See the INSTALL file for instructions on how to install the package.',
+            'required' => true
         ),
         'MDB2' => array(
             'error' => 'You will need MDB2 if you are using the SQL driver for Shares.',
