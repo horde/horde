@@ -5,27 +5,34 @@ class Horde_Core_Binder_Logger implements Horde_Injector_Binder
     {
         global $conf;
 
+        /* Default handler. */
+        $handler = new Horde_Log_Handler_Null();
+
         // Try to make sure that we can log messages somehow.
-        if (empty($conf['log']['enabled'])) {
-            $handler = new Horde_Log_Handler_Null();
-        } else {
+        if (!empty($conf['log']['enabled'])) {
             switch ($conf['log']['type']) {
             case 'file':
-                $handler = new Horde_Log_Handler_Stream($conf['log']['name'], $conf['log']['params']['append'] ? 'a+' : 'w+');
+                try {
+                    $handler = new Horde_Log_Handler_Stream($conf['log']['name'], $conf['log']['params']['append'] ? 'a+' : 'w+');
+                } catch (Horde_Log_Exception $e) {}
                 break;
 
             case 'stream':
-                $handler = new Horde_Log_Handler_Stream($conf['log']['name']);
+                try {
+                    $handler = new Horde_Log_Handler_Stream($conf['log']['name']);
+                } catch (Horde_Log_Exception $e) {}
                 break;
 
             case 'syslog':
-                $handler = new Horde_Log_Handler_Syslog();
+                try {
+                    $handler = new Horde_Log_Handler_Syslog();
+                } catch (Horde_Log_Exception $e) {}
                 break;
 
-            case 'null':
-            default:
-                $handler = new Horde_Log_Handler_Null();
-                break;
+            // case 'null':
+            // default:
+            //     // Use default null handler.
+            //     break;
             }
 
             if (!is_string($conf['log']['priority'])) {
