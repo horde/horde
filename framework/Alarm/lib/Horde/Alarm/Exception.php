@@ -1,6 +1,6 @@
 <?php
 /**
- * Exception handler for the Horde_Alarm class.
+ * Exception handler for the Horde_Alarm library.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
