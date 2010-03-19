@@ -218,9 +218,14 @@ class Turba_View_Browse {
                         /* Log the adding of this item in the history again,
                          * because otherwise the delete log would be after the
                          * add log. */
-                        $history = Horde_History::singleton();
-                        $history->log('turba:' . $targetDriver->getName() . ':' . $objAttributes['__uid'],
-                                      array('action' => 'add'), true);
+                        try {
+                            Horde_History::singleton()
+                                ->log('turba:' . $targetDriver->getName() . ':' . $objAttributes['__uid'],
+                                      array('action' => 'add'),
+                                      true);
+                        } catch (Exception $e) {
+                            Horde::logMessage($e, 'ERR');
+                        }
                     }
                 }
                 break;

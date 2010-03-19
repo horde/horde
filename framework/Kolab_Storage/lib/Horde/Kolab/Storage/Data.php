@@ -475,11 +475,10 @@ class Horde_Kolab_Storage_Data
 
         /* Log the action on this item in the history log. */
         try {
-            $history = &Horde_History::singleton();
-
-            $history_id = $app . ':' . $this->_folder->getShareId() . ':' . $object_uid;
-            $history->log($history_id, array('action' => $action, 'ts' => $mod_ts),
-                          true);
+            Horde_History::singleton()
+                ->log($app . ':' . $this->_folder->getShareId() . ':' . $object_uid,
+                      array('action' => $action, 'ts' => $mod_ts),
+                      true);
         } catch (Horde_Exception $e) {
         }
     }

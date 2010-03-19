@@ -179,8 +179,7 @@ class Nag_Application extends Horde_Registry_Application
         }
 
         /* Now delete history as well. */
-        $history = Horde_History::singleton();
-        $histories = $history->removeByParent('nag:' . $user);
+        Horde_History::singleton()->removeByParent('nag:' . $user);
 
         /* ...and finally, delete the actual share */
         if (!empty($share)) {

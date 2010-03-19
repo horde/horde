@@ -61,10 +61,9 @@ $userId = Horde_Auth::getAuth();
 $createdby = '';
 $modifiedby = '';
 if (!empty($task->uid)) {
-    $history = Horde_History::singleton();
-    $log = $history->getHistory('nag:' . $tasklist_id . ':' . $task->uid);
-    if ($log && !is_a($log, 'PEAR_Error')) {
-        foreach ($log->getData() as $entry) {
+    try {
+        $log = Horde_History::singleton()->getHistory('nag:' . $tasklist_id . ':' . $task->uid);
+        foreach ($log as $entry) {
             switch ($entry['action']) {
             case 'add':
                 $created = $entry['ts'];
@@ -90,7 +89,7 @@ if (!empty($task->uid)) {
                 }
             }
         }
-    }
+    } catch (Exception $e) {}
 }
 
 $title = $task->name;

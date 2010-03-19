@@ -46,10 +46,9 @@ class Turba_View_Contact {
 
         /* Get the contact's history. */
         if ($this->contact->getValue('__uid')) {
-            $history = Horde_History::singleton();
-            $log = $history->getHistory($this->contact->getGuid());
-            if ($log && !is_a($log, 'PEAR_Error')) {
-                foreach ($log->getData() as $entry) {
+            try {
+                $log = Horde_History::singleton()->getHistory($this->contact->getGuid());
+                foreach ($log as $entry) {
                     switch ($entry['action']) {
                     case 'add':
                         if ($userId != $entry['who']) {
@@ -74,7 +73,7 @@ class Turba_View_Contact {
                         break;
                     }
                 }
-            }
+            } catch (Exception $e) {}
         }
 
         echo '<div id="Contact"' . ($active ? '' : ' style="display:none"') . '>';

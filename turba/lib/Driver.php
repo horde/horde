@@ -783,9 +783,13 @@ class Turba_Driver
         }
 
         /* Log the creation of this item in the history log. */
-        $history = &Horde_History::singleton();
-        $history->log('turba:' . $this->getName() . ':' . $uid,
+        try {
+            Horde_History::singleton()
+                ->log('turba:' . $this->getName() . ':' . $uid,
                       array('action' => 'add'), true);
+        } catch (Exception $e) {
+            Horde::logMessage($e, 'ERR');
+        }
 
         return $key;
     }
@@ -836,9 +840,13 @@ class Turba_Driver
 
         /* Log the deletion of this item in the history log. */
         if ($object->getValue('__uid')) {
-            $history = Horde_History::singleton();
-            $history->log($object->getGuid(),
-                          array('action' => 'delete'), true);
+            try {
+                Horde_History::singleton()->log($object->getGuid(),
+                                                array('action' => 'delete'),
+                                                true);
+            } catch (Exception $e) {
+                Horde::logMessage($e, 'ERR');
+            }
         }
 
         return true;
@@ -879,9 +887,13 @@ class Turba_Driver
 
         /* Log the modification of this item in the history log. */
         if ($object->getValue('__uid')) {
-            $history = &Horde_History::singleton();
-            $history->log($object->getGuid(),
-                          array('action' => 'modify'), true);
+            try {
+                Horde_History::singleton()->log($object->getGuid(),
+                                                array('action' => 'modify'),
+                                                true);
+            } catch (Exception $e) {
+                Horde::logMessage($e, 'ERR');
+            }
         }
         return $object_id;
     }

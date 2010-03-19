@@ -487,7 +487,9 @@ class Turba_Api extends Horde_Registry_Api
      *                               history.
      *
      * @return array  An array of UIDs matching the action and time criteria.
+     *
      * @throws Horde_Exception
+     * @throws InvalidArgumentException
      */
     public function listBy($action, $timestamp, $sources = null)
     {
@@ -507,6 +509,7 @@ class Turba_Api extends Horde_Registry_Api
         }
 
         $uids = array();
+        $history = Horde_History::singleton();
         foreach ($sources as $source) {
             if (empty($source) || !isset($cfgSources[$source])) {
                 throw new Horde_Exception(sprintf(_("Invalid address book: %s"), $source));
@@ -517,17 +520,18 @@ class Turba_Api extends Horde_Registry_Api
                 throw new Horde_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
             }
 
-            $histories = Horde_History::singleton()->getByTimestamp('>', $timestamp,
+            $histories = $history->getByTimestamp(
+                '>', $timestamp,
                 array(array('op' => '=',
-                'field' => 'action',
-                'value' => $action)),
+                            'field' => 'action',
+                            'value' => $action)),
                 'turba:' . $driver->getName());
 
             // Strip leading turba:addressbook:.
             $uids = array_merge($uids,
-                str_replace('turba:' . $driver->getName() . ':',
-                '',
-                array_keys($histories)));
+                                str_replace('turba:' . $driver->getName() . ':',
+                                            '',
+                                            array_keys($histories)));
         }
 
         return $uids;
@@ -543,7 +547,9 @@ class Turba_Api extends Horde_Registry_Api
      *                               history.
      *
      * @return integer  The timestamp for this action.
+     *
      * @throws Horde_Exception
+     * @throws InvalidArgumentException
      */
     public function getActionTimestamp($uid, $action, $sources = null)
     {
@@ -563,6 +569,7 @@ class Turba_Api extends Horde_Registry_Api
         }
 
         $last = 0;
+        $history = Horde_History::singleton();
         foreach ($sources as $source) {
             if (empty($source) || !isset($cfgSources[$source])) {
                 throw new Horde_Exception(sprintf(_("Invalid address book: %s"), $source));
@@ -573,7 +580,6 @@ class Turba_Api extends Horde_Registry_Api
                 throw new Horde_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
             }
 
-            $history = Horde_History::singleton();
             $ts = $history->getActionTimestamp('turba:' . $driver->getName()
                 . ':' . $uid,
                 $action);

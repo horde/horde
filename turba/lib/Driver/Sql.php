@@ -362,13 +362,18 @@ class Turba_Driver_Sql extends Turba_Driver
         }
 
         /* Update Horde_History */
-        $history = &Horde_History::singleton();
-        while($ids->fetchInto($row)) {
-            // This is slightly hackish, but it saves us from having to create
-            // and save an array of Turba_Objects before we delete them, just to
-            // be able to calculate this using Turba_Object#getGuid
-            $guid = 'turba:' . $this->getName() . ':' . $row[0];
-            $history->log($guid, array('action' => 'delete'), true);
+        $history = Horde_History::singleton();
+        try {
+            while ($ids->fetchInto($row)) {
+                // This is slightly hackish, but it saves us from having to
+                // create and save an array of Turba_Objects before we delete
+                // them, just to be able to calculate this using
+                // Turba_Object#getGuid
+                $guid = 'turba:' . $this->getName() . ':' . $row[0];
+                $history->log($guid, array('action' => 'delete'), true);
+            }
+        } catch (Exception $e) {
+            Horde::logMessage($e, 'ERR');
         }
 
         return true;

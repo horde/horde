@@ -377,8 +377,11 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         Kronolith::sendNotification($event, $edit ? 'edit' : 'add');
 
         /* Log the creation/modification of this item in the history log. */
-        $history = Horde_History::singleton();
-        $history->log('kronolith:' . $event->calendar . ':' . $event->uid, $action, true);
+        try {
+            Horde_History::singleton()->log('kronolith:' . $event->calendar . ':' . $event->uid, $action, true);
+        } catch (Exception $e) {
+            Horde::logMessage($e, 'ERR');
+        }
 
         // refresh IMAP cache
         $this->synchronize(true);
@@ -465,8 +468,11 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
             }
 
             /* Log the deletion of this item in the history log. */
-            $history = Horde_History::singleton();
-            $history->log('kronolith:' . $event->calendar . ':' . $event->uid, array('action' => 'delete'), true);
+            try {
+                Horde_History::singleton()->log('kronolith:' . $event->calendar . ':' . $event->uid, array('action' => 'delete'), true);
+            } catch (Exception $e) {
+                Horde::logMessage($e, 'ERR');
+            }
 
             if (is_callable('Kolab', 'triggerFreeBusyUpdate')) {
                 //Kolab::triggerFreeBusyUpdate($this->_store->parseFolder($event->calendar));

@@ -51,35 +51,31 @@ class Kronolith_View_Event {
         $userId = Horde_Auth::getAuth();
         if ($this->event->uid) {
             /* Get the event's history. */
-            $history = &Horde_History::singleton();
             try {
-                $log = $history->getHistory('kronolith:' . $this->event->calendar . ':' .
-                                            $this->event->uid);
-                if ($log) {
-                    foreach ($log->getData() as $entry) {
-                        switch ($entry['action']) {
-                        case 'add':
-                            $created = new Horde_Date($entry['ts']);
-                            if ($userId != $entry['who']) {
-                                $createdby = sprintf(_("by %s"), Kronolith::getUserName($entry['who']));
-                            } else {
-                                $createdby = _("by me");
-                            }
-                            break;
-
-                        case 'modify':
-                            $modified = new Horde_Date($entry['ts']);
-                            if ($userId != $entry['who']) {
-                                $modifiedby = sprintf(_("by %s"), Kronolith::getUserName($entry['who']));
-                            } else {
-                                $modifiedby = _("by me");
-                            }
-                            break;
+                $log = Horde_History::singleton()
+                    ->getHistory('kronolith:' . $this->event->calendar . ':' . $this->event->uid);
+                foreach ($log as $entry) {
+                    switch ($entry['action']) {
+                    case 'add':
+                        $created = new Horde_Date($entry['ts']);
+                        if ($userId != $entry['who']) {
+                            $createdby = sprintf(_("by %s"), Kronolith::getUserName($entry['who']));
+                        } else {
+                            $createdby = _("by me");
                         }
+                        break;
+
+                    case 'modify':
+                        $modified = new Horde_Date($entry['ts']);
+                        if ($userId != $entry['who']) {
+                            $modifiedby = sprintf(_("by %s"), Kronolith::getUserName($entry['who']));
+                        } else {
+                            $modifiedby = _("by me");
+                        }
+                        break;
                     }
                 }
-            } catch (Exception $e) {
-            }
+            } catch (Exception $e) {}
         }
 
         $creatorId = $this->event->creator;

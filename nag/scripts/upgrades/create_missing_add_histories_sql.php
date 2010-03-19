@@ -28,7 +28,7 @@ foreach ($tasklists as $tasklist => $share) {
     foreach ($tasks as $taskId => $task) {
         $log = $history->getHistory('nag:' . $tasklist . ':' . $task['uid']);
         $created = false;
-        foreach ($log->getData() as $entry) {
+        foreach ($log as $entry) {
             if ($entry['action'] == 'add') {
                 $created = true;
                 break;

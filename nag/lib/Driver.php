@@ -227,11 +227,19 @@ class Nag_Driver
 
         /* Log the creation of this item in the history log. */
         $history = Horde_History::singleton();
-        $history->log('nag:' . $this->_tasklist . ':' . $uid, array('action' => 'add'), true);
+        try {
+            $history->log('nag:' . $this->_tasklist . ':' . $uid, array('action' => 'add'), true);
+        } catch (Exception $e) {
+            Horde::logMessage($e, 'ERR');
+        }
 
         /* Log completion status changes. */
         if ($completed) {
-            $history->log('nag:' . $this->_tasklist . ':' . $uid, array('action' => 'complete'), true);
+            try {
+                $history->log('nag:' . $this->_tasklist . ':' . $uid, array('action' => 'complete'), true);
+            } catch (Exception $e) {
+                Horde::logMessage($e, 'ERR');
+            }
         }
 
         /* Notify users about the new event. */
@@ -330,8 +338,16 @@ class Nag_Driver
             /* Log the moving of this item in the history log. */
             if (!empty($task->uid)) {
                 $history = Horde_History::singleton();
-                $history->log('nag:' . $task->tasklist . ':' . $task->uid, array('action' => 'delete'), true);
-                $history->log('nag:' . $tasklist . ':' . $task->uid, array('action' => 'add'), true);
+                try {
+                    $history->log('nag:' . $task->tasklist . ':' . $task->uid, array('action' => 'delete'), true);
+                } catch (Exception $e) {
+                    Horde::logMessage($e, 'ERR');
+                }
+                try {
+                    $history->log('nag:' . $tasklist . ':' . $task->uid, array('action' => 'add'), true);
+                } catch (Exception $e) {
+                    Horde::logMessage($e, 'ERR');
+                }
                 $log_tasklist = $tasklist;
             }
         }
@@ -351,18 +367,24 @@ class Nag_Driver
 
         /* Log the modification of this item in the history log. */
         if (!empty($task->uid)) {
-            $history = Horde_History::singleton();
-            $history->log('nag:' . $log_tasklist . ':' . $task->uid, array('action' => 'modify'), true);
+            try {
+                Horde_History::singleton()->log('nag:' . $log_tasklist . ':' . $task->uid, array('action' => 'modify'), true);
+            } catch (Exception $e) {
+                Horde::logMessage($e, 'ERR');
+            }
         }
 
         /* Log completion status changes. */
         if ($task->completed != $completed) {
-            $history = Horde_History::singleton();
             $attributes = array('action' => 'complete');
             if (!$completed) {
                 $attributes['ts'] = 0;
             }
-            $history->log('nag:' . $log_tasklist . ':' . $task->uid, $attributes, true);
+            try {
+                Horde_History::singleton()->log('nag:' . $log_tasklist . ':' . $task->uid, $attributes, true);
+            } catch (Exception $e) {
+                Horde::logMessage($e, 'ERR');
+            }
         }
 
         /* Notify users about the changed event. */
@@ -391,8 +413,11 @@ class Nag_Driver
 
         /* Log the deletion of this item in the history log. */
         if (!empty($task->uid)) {
-            $history = Horde_History::singleton();
-            $history->log('nag:' . $this->_tasklist . ':' . $task->uid, array('action' => 'delete'), true);
+            try {
+                Horde_History::singleton()->log('nag:' . $this->_tasklist . ':' . $task->uid, array('action' => 'delete'), true);
+            } catch (Exception $e) {
+                Horde::logMessage($e, 'ERR');
+            }
         }
 
         /* Notify users about the deleted event. */

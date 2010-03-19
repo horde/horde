@@ -851,10 +851,10 @@ class Nag_Task {
         }
 
         /* Get the task's history. */
-        $history = Horde_History::singleton();
-        $log = $history->getHistory('nag:' . $this->tasklist . ':' . $this->uid);
-        if ($log && !is_a($log, 'PEAR_Error')) {
-            foreach ($log->getData() as $entry) {
+        $created = $modified = null;
+        try {
+            $log = Horde_History::singleton()->getHistory('nag:' . $this->tasklist . ':' . $this->uid);
+            foreach ($log as $entry) {
                 switch ($entry['action']) {
                 case 'add':
                     $created = $entry['ts'];
@@ -865,7 +865,7 @@ class Nag_Task {
                     break;
                 }
             }
-        }
+        } catch (Exception $e) {}
         if (!empty($created)) {
             $vTodo->setAttribute($v1 ? 'DCREATED' : 'CREATED', $created);
             if (empty($modified)) {

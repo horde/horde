@@ -477,9 +477,9 @@ class Nag_Api extends Horde_Registry_Api
                         // the task's history.
                         $history = Horde_History::singleton();
                         $created = $modified = null;
-                        $log = $history->getHistory('nag:' . $tasklist . ':' . $task->uid);
-                        if ($log && !is_a($log, 'PEAR_Error')) {
-                            foreach ($log->getData() as $entry) {
+                        try {
+                            $log = $history->getHistory('nag:' . $tasklist . ':' . $task->uid);
+                            foreach ($log as $entry) {
                                 switch ($entry['action']) {
                                 case 'add':
                                     $created = $entry['ts'];
@@ -490,7 +490,7 @@ class Nag_Api extends Horde_Registry_Api
                                     break;
                                 }
                             }
-                        }
+                        } catch (Exception $e) {}
                         if (empty($modified) && !empty($add)) {
                             $modified = $add;
                         }
@@ -679,6 +679,9 @@ class Nag_Api extends Horde_Registry_Api
      *                            user's default tasklist will be used.
      *
      * @return array  An array of UIDs matching the action and time criteria.
+     *
+     * @throws Horde_History_Exception
+     * @throws InvalidArgumentException
      */
     public function listBy($action, $timestamp, $tasklist = null)
     {
@@ -691,11 +694,7 @@ class Nag_Api extends Horde_Registry_Api
                 return PEAR::raiseError(_("Permission Denied"));
             }
 
-        $history = Horde_History::singleton();
-        $histories = $history->getByTimestamp('>', $timestamp, array(array('op' => '=', 'field' => 'action', 'value' => $action)), 'nag:' . $tasklist);
-        if (is_a($histories, 'PEAR_Error')) {
-            return $histories;
-        }
+        $histories = Horde_History::singleton()->getByTimestamp('>', $timestamp, array(array('op' => '=', 'field' => 'action', 'value' => $action)), 'nag:' . $tasklist);
 
         // Strip leading nag:username:.
         return preg_replace('/^([^:]*:){2}/', '', array_keys($histories));
@@ -710,6 +709,8 @@ class Nag_Api extends Horde_Registry_Api
      *                         user's default tasklist will be used.
      *
      * @return integer  The timestamp for this action.
+     *
+     * @throws InvalidArgumentException
      */
     public function getActionTimestamp($uid, $action, $tasklist = null)
     {
@@ -722,8 +723,7 @@ class Nag_Api extends Horde_Registry_Api
                 return PEAR::raiseError(_("Permission Denied"));
             }
 
-        $history = Horde_History::singleton();
-        return $history->getActionTimestamp('nag:' . $tasklist . ':' . $uid, $action);
+        return Horde_History::singleton()->getActionTimestamp('nag:' . $tasklist . ':' . $uid, $action);
     }
 
     /**

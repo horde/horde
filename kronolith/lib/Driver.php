@@ -319,8 +319,12 @@ class Kronolith_Driver
         $uid = $event->uid;
         if ($uid) {
             $history = Horde_History::singleton();
-            $history->log('kronolith:' . $event->calendar . ':' . $uid, array('action' => 'delete'), true);
-            $history->log('kronolith:' . $newCalendar . ':' . $uid, array('action' => 'add'), true);
+            try {
+                $history->log('kronolith:' . $event->calendar . ':' . $uid, array('action' => 'delete'), true);
+                $history->log('kronolith:' . $newCalendar . ':' . $uid, array('action' => 'add'), true);
+            } catch (Exception $e) {
+                Horde::logMessage($e, 'ERR');
+            }
         }
     }
 

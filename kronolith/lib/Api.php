@@ -326,25 +326,21 @@ class Kronolith_Api extends Horde_Registry_Api
                         $existing_event = $kronolith_driver->getByUID($uid, array($calendar));
                         // Check if our event is newer then the existing - get
                         // the event's history.
-                        $history = Horde_History::singleton();
                         $created = $modified = null;
-                        $log = $history->getHistory('kronolith:' . $calendar . ':' . $uid);
                         try {
-                            if ($log) {
-                                foreach ($log->getData() as $entry) {
-                                    switch ($entry['action']) {
-                                    case 'add':
-                                        $created = $entry['ts'];
-                                        break;
+                            $log = Horde_History::singleton()->getHistory('kronolith:' . $calendar . ':' . $uid);
+                            foreach ($log as $entry) {
+                                switch ($entry['action']) {
+                                case 'add':
+                                    $created = $entry['ts'];
+                                    break;
 
-                                    case 'modify':
-                                        $modified = $entry['ts'];
-                                        break;
-                                    }
+                                case 'modify':
+                                    $modified = $entry['ts'];
+                                    break;
                                 }
                             }
-                        } catch (Exception $e) {
-                        }
+                        } catch (Exception $e) {}
                         if (empty($modified) && !empty($created)) {
                             $modified = $created;
                         }
@@ -484,7 +480,10 @@ class Kronolith_Api extends Horde_Registry_Api
      * @param string  $calendar   The calendar to search in.
      *
      * @return array  An array of UIDs matching the action and time criteria.
+     *
      * @throws Kronolith_Exception
+     * @throws Horde_History_Exception
+     * @throws InvalidArgumentException
      */
     public function listBy($action, $timestamp, $calendar = null)
     {
@@ -497,8 +496,7 @@ class Kronolith_Api extends Horde_Registry_Api
             throw new Horde_Exception_PermissionDenied();
         }
 
-        $history = Horde_History::singleton();
-        $histories = $history->getByTimestamp('>', $timestamp, array(array('op' => '=', 'field' => 'action', 'value' => $action)), 'kronolith:' . $calendar);
+        $histories = Horde_History::singleton()->getByTimestamp('>', $timestamp, array(array('op' => '=', 'field' => 'action', 'value' => $action)), 'kronolith:' . $calendar);
 
         // Strip leading kronolith:username:.
         return preg_replace('/^([^:]*:){2}/', '', array_keys($histories));
@@ -512,7 +510,9 @@ class Kronolith_Api extends Horde_Registry_Api
      * @param string $calendar The calendar to search in.
      *
      * @return integer  The timestamp for this action.
+     *
      * @throws Kronolith_Exception
+     * @throws InvalidArgumentException
      */
     public function getActionTimestamp($uid, $action, $calendar = null)
     {
@@ -525,9 +525,7 @@ class Kronolith_Api extends Horde_Registry_Api
             throw new Horde_Exception_PermissionDenied();
         }
 
-        $history = Horde_History::singleton();
-        return $history->getActionTimestamp('kronolith:' . $calendar . ':' .
-            $uid, $action);
+        return Horde_History::singleton()->getActionTimestamp('kronolith:' . $calendar . ':' . $uid, $action);
     }
 
     /**

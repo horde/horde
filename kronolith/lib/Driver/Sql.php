@@ -562,8 +562,11 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
             /* Log the modification of this item in the history log. */
             if ($event->uid) {
-                $history = Horde_History::singleton();
-                $history->log('kronolith:' . $this->calendar . ':' . $event->uid, array('action' => 'modify'), true);
+                try {
+                    Horde_History::singleton()->log('kronolith:' . $this->calendar . ':' . $event->uid, array('action' => 'modify'), true);
+                } catch (Exception $e) {
+                    Horde::logMessage($e, 'ERR');
+                }
             }
 
             /* Update tags */
@@ -624,8 +627,11 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         $this->handleError($result);
 
         /* Log the creation of this item in the history log. */
-        $history = Horde_History::singleton();
-        $history->log('kronolith:' . $this->calendar . ':' . $uid, array('action' => 'add'), true);
+        try {
+            Horde_History::singleton()->log('kronolith:' . $this->calendar . ':' . $uid, array('action' => 'add'), true);
+        } catch (Exception $e) {
+            Horde::logMessage($e, 'ERR');
+        }
 
         /* Deal with any tags */
         $tagger = Kronolith::getTagger();
@@ -723,8 +729,11 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         /* Log the deletion of this item in the history log. */
         if ($event->uid) {
-            $history = Horde_History::singleton();
-            $history->log('kronolith:' . $this->calendar . ':' . $event->uid, array('action' => 'delete'), true);
+            try {
+                Horde_History::singleton()->log('kronolith:' . $this->calendar . ':' . $event->uid, array('action' => 'delete'), true);
+            } catch (Exception $e) {
+                Horde::logMessage($e, 'ERR');
+            }
         }
 
         /* Remove the event from any resources that are attached to it */

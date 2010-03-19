@@ -513,25 +513,21 @@ abstract class Kronolith_Event
         $vEvent->setAttribute('UID', $this->uid);
 
         /* Get the event's history. */
-        $history = &Horde_History::singleton();
         $created = $modified = null;
         try {
-            $log = $history->getHistory('kronolith:' . $this->calendar . ':' . $this->uid);
-            if ($log) {
-                foreach ($log->getData() as $entry) {
-                    switch ($entry['action']) {
-                    case 'add':
-                        $created = $entry['ts'];
-                        break;
+            $log = Horde_History::singleton()->getHistory('kronolith:' . $this->calendar . ':' . $this->uid);
+            foreach ($log as $entry) {
+                switch ($entry['action']) {
+                case 'add':
+                    $created = $entry['ts'];
+                    break;
 
-                    case 'modify':
-                        $modified = $entry['ts'];
-                        break;
-                    }
+                case 'modify':
+                    $modified = $entry['ts'];
+                    break;
                 }
             }
-        } catch (Exception $e) {
-        }
+        } catch (Exception $e) {}
         if (!empty($created)) {
             $vEvent->setAttribute($v1 ? 'DCREATED' : 'CREATED', $created);
             if (empty($modified)) {
@@ -1206,7 +1202,7 @@ abstract class Kronolith_Event
      * @param boolean $full        Whether to return all event details.
      * @param string $time_format  The date() format to use for time formatting.
      *
-     * @return object  A simple object.
+     * @return stdClass  A simple object.
      */
     public function toJson($allDay = null, $full = false, $time_format = 'H:i')
     {

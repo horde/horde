@@ -311,6 +311,8 @@ class Kronolith_Application extends Horde_Registry_Application
      * @param string $user  Name of user to remove data for.
      *
      * @throws Kronolith_Exception
+     * @throws Horde_History_Exception
+     * @throws InvalidArgumentException
      */
     public function removeUserData($user)
     {
@@ -322,8 +324,7 @@ class Kronolith_Application extends Horde_Registry_Application
         $result = Kronolith::getDriver()->removeUserData($user);
 
         /* Now delete history as well. */
-        $history = Horde_History::singleton();
-        $histories = $history->removeByParent('kronolith:' . $user);
+        Horde_History::singleton()->removeByParent('kronolith:' . $user);
 
         /* Get the user's default share */
         try {

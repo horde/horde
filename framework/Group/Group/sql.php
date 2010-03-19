@@ -193,6 +193,9 @@ class Group_sql extends Group {
      * function is called.
      *
      * @param SQLObject_Group $group  The new group object.
+     *
+     * @throws Horde_History_Exception
+     * @throws InvalidArgumentException
      */
     function addGroup(&$group)
     {
@@ -234,11 +237,8 @@ class Group_sql extends Group {
         }
 
         /* Log the addition of the group in the history log. */
-        $history = &Horde_History::singleton();
-        $log = $history->log($this->getGUID($group), array('action' => 'add'), true);
-        if (is_a($log, 'PEAR_Error')) {
-            return $log;
-        }
+        $history = Horde_History::singleton();
+        $history->log($this->getGUID($group), array('action' => 'add'), true);
 
         return $result;
     }
@@ -247,6 +247,9 @@ class Group_sql extends Group {
      * Stores updated data - users, etc. - of a group to the backend system.
      *
      * @param SQLObject_Group $group  The group to update.
+     *
+     * @throws Horde_History_Exception
+     * @throws InvalidArgumentException
      */
     function updateGroup($group)
     {
@@ -279,7 +282,7 @@ class Group_sql extends Group {
         $this->_groupCache[$group->getName()] = &$group;
 
         /* Log the update of the group users on the history log. */
-        $history = &Horde_History::singleton();
+        $history = Horde_History::singleton();
         $guid = $this->getGUID($group);
         foreach ($group->getAuditLog() as $userId => $action) {
             $history->log($guid, array('action' => $action, 'user' => $userId), true);
@@ -297,6 +300,9 @@ class Group_sql extends Group {
      *
      * @param SQLObject_Group $group  The group to remove.
      * @param boolean $force               Force to remove every child.
+     *
+     * @throws Horde_History_Exception
+     * @throws InvalidArgumentException
      */
     function removeGroup($group, $force = false)
     {
@@ -313,8 +319,7 @@ class Group_sql extends Group {
         }
         unset($this->_groupCache[$name]);
 
-        $history = &Horde_History::singleton();
-        $history->log($this->getGUID($group), array('action' => 'delete'), true);
+        Horde_History::singleton()->log($this->getGUID($group), array('action' => 'delete'), true);
 
         $query = 'DELETE FROM horde_groups_members WHERE group_uid = ?';
         $result = $this->_write_db->query($query, array($id));

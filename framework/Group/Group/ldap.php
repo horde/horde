@@ -322,6 +322,9 @@ class Group_ldap extends Group {
      * @param LDAP_Object $group  The group to update
      *
      * @return mixed  True on success, PEAR_Error otherwise.
+     *
+     * @throws Horde_History_Exception
+     * @throws InvalidArgumentException
      */
     function updateGroup($group)
     {
@@ -348,7 +351,7 @@ class Group_ldap extends Group {
         @ldap_close($this->_ds);
 
         /* Log the update of the group users on the history log. */
-        $history = &Horde_History::singleton();
+        $history = Horde_History::singleton();
         $guid = $this->getGUID($group);
         foreach ($group->getAuditLog() as $userId => $action) {
             $history->log($guid, array('action' => $action, 'user' => $userId), true);

@@ -216,6 +216,9 @@ class Group {
      * function is called.
      *
      * @param DataTreeObject_Group $group  The new group object.
+     *
+     * @throws Horde_History_Exception
+     * @throws InvalidArgumentException
      */
     function addGroup($group)
     {
@@ -236,11 +239,7 @@ class Group {
         }
 
         /* Log the addition of the group in the history log. */
-        $history = &Horde_History::singleton();
-        $log = $history->log($this->getGUID($group), array('action' => 'add'), true);
-        if (is_a($log, 'PEAR_Error')) {
-            return $log;
-        }
+        Horde_History::singleton()->log($this->getGUID($group), array('action' => 'add'), true);
 
         return $result;
     }
@@ -249,6 +248,9 @@ class Group {
      * Stores updated data - users, etc. - of a group to the backend system.
      *
      * @param DataTreeObject_Group $group  The group to update.
+     *
+     * @throws Horde_History_Exception
+     * @throws InvalidArgumentException
      */
     function updateGroup($group)
     {
@@ -263,7 +265,7 @@ class Group {
         $this->_groupCache[$group->getName()] = &$group;
 
         /* Log the update of the group users on the history log. */
-        $history = &Horde_History::singleton();
+        $history = Horde_History::singleton();
         $guid = $this->getGUID($group);
         foreach ($group->getAuditLog() as $userId => $action) {
             $history->log($guid, array('action' => $action, 'user' => $userId), true);
@@ -280,6 +282,9 @@ class Group {
      *
      * @param DataTreeObject_Group $group  The group to remove.
      * @param boolean $force               Force to remove every child.
+     *
+     * @throws Horde_History_Exception
+     * @throws InvalidArgumentException
      */
     function removeGroup($group, $force = false)
     {
@@ -294,8 +299,7 @@ class Group {
         }
         unset($this->_groupCache[$group->getName()]);
 
-        $history = &Horde_History::singleton();
-        $history->log($this->getGUID($group), array('action' => 'delete'), true);
+        Horde_History::singleton()->log($this->getGUID($group), array('action' => 'delete'), true);
 
         return $this->_datatree->remove($group, $force);
     }

@@ -55,7 +55,7 @@ class IMP_Maillog
 
             try {
                 $history->log(self::_getUniqueHistoryId($val), $params);
-            } catch (Horde_Exception $e) {
+            } catch (Exception $e) {
                 /* On error, log the error message only since informing the
                  * user is just a waste of time and a potential point of
                  * confusion, especially since they most likely don't even
@@ -71,8 +71,7 @@ class IMP_Maillog
      *
      * @param string $msg_id  The Message-ID of the message.
      *
-     * @return DataTreeObject  The DataTreeObject object containing the log
-     *                         information.
+     * @return Horde_History_Log  The object containing the log information.
      * @throws Horde_Exception
      */
     static public function getLog($msg_id)
@@ -99,7 +98,7 @@ class IMP_Maillog
         }
 
         if ($msg_history) {
-            foreach ($msg_history->getData() as $entry) {
+            foreach ($msg_history as $entry) {
                 if (($entry['action'] == 'mdn') && ($entry['type'] == $type)) {
                     return true;
                 }
@@ -139,7 +138,7 @@ class IMP_Maillog
         $tf = $GLOBALS['prefs']->getValue('time_format');
         $ret = array();
 
-        foreach ($msg_history->getData() as $entry) {
+        foreach ($msg_history as $entry) {
             $msg = null;
 
             if (isset($entry['desc'])) {
@@ -197,7 +196,7 @@ class IMP_Maillog
         $msg_ids = array_map(array('IMP_Maillog', '_getUniqueHistoryId'), $msg_ids);
 
         $history = Horde_History::singleton();
-        return $history->removeByNames($msg_ids);
+        $history->removeByNames($msg_ids);
     }
 
     /**
