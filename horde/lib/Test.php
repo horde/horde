@@ -546,16 +546,6 @@ class Horde_Test
         }
         $output .= $this->_outputLine($entry);
 
-        /* Check for a recent PEAR version. */
-        $entry = array();
-        $newpear = $this->_isRecentPear();
-        $entry[] = 'Recent PEAR';
-        $entry[] = $this->_status($newpear);
-        if (!$newpear) {
-            $entry[] = 'This version of PEAR is not recent enough. See the <a href="http://www.horde.org/pear/">Horde PEAR page</a> for details.';
-        }
-        $output .= $this->_outputLine($entry);
-
         /* Go through module list. */
         $succeeded = array();
         foreach ($this->_pearList as $key => $val) {
@@ -726,19 +716,6 @@ class Horde_Test
         }
 
         return $output;
-    }
-
-    /**
-     * Is this a 'recent' version of PEAR?
-     *
-     * @param boolean  True if a recent version of PEAR.
-     */
-    protected function _isRecentPear()
-    {
-        $pear_methods = get_class_methods('PEAR');
-        return (is_array($pear_methods) &&
-                (in_array('registershutdownfunc', $pear_methods) ||
-                 in_array('registerShutdownFunc', $pear_methods)));
     }
 
     /**
