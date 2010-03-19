@@ -80,6 +80,7 @@ Application Framework.
       <dir name="Factory">
        <file name="KolabServer.php" role="php" />
        <file name="KolabSession.php" role="php" />
+       <file name="KolabStorage.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Factory -->
       <dir name="Log">
        <file name="Logger.php" role="php" />
@@ -209,6 +210,7 @@ Application Framework.
    <install name="lib/Horde/Core/Binder/Vfs.php" as="Horde/Core/Binder/Vfs.php" />
    <install name="lib/Horde/Core/Factory/KolabServer.php" as="Horde/Core/Factory/KolabServer.php" />
    <install name="lib/Horde/Core/Factory/KolabSession.php" as="Horde/Core/Factory/KolabSession.php" />
+   <install name="lib/Horde/Core/Factory/KolabStorage.php" as="Horde/Core/Factory/KolabStorage.php" />
    <install name="lib/Horde/Core/Log/Logger.php" as="Horde/Core/Log/Logger.php" />
    <install name="lib/Horde/Core/Notification/Hordelog.php" as="Horde/Core/Notification/Hordelog.php" />
    <install name="lib/Horde/Core/Notification/Status.php" as="Horde/Core/Notification/Status.php" />

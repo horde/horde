@@ -53,7 +53,7 @@ class Horde_Kolab_Storage
     /**
      * The master Kolab storage system.
      *
-     * @var Horde_Kolab_Storage_Connection
+     * @var Horde_Kolab_Storage_Driver
      */
     private $_master;
 
@@ -117,11 +117,12 @@ class Horde_Kolab_Storage
     /**
      * Constructor.
      *
+     * @param Horde_Kolab_Storage_Driver $master The primary connection driver.
      * @param string $driver The driver used for the primary storage connection.
      * @param array  $params Additional connection parameters.
      */
     public function __construct(
-        Horde_Kolab_Storage_Connection $master,
+        Horde_Kolab_Storage_Driver $master,
         $driver, $params = array()
     ) {
         $this->_master = $master;
@@ -213,7 +214,6 @@ class Horde_Kolab_Storage
             $result = $this->getConnection($key);
             $folder->restore($this, $result->connection, $result->connection->getNamespace());
         }
-        $this->connect();
     }
 
     /**
@@ -249,22 +249,11 @@ class Horde_Kolab_Storage
         }
 
         if (empty($connection) || !isset($this->connections[$connection])) {
-            $result->connection = &$this->connections['BASE'];
+            $result->connection = $this->_master;
         } else {
-            $result->connection = &$this->connections[$connection];
+            $result->connection = $this->connections[$connection];
         }
         return $result;
-    }
-
-    /**
-     * Initializes the connection to the Kolab Storage system.
-     *
-     * @return NULL
-     */
-    protected function connect()
-    {
-        $this->connections['BASE'] = &Horde_Kolab_Storage_Driver::factory($this->_driver,
-                                                                          $this->_params);
     }
 
     /**
@@ -330,7 +319,7 @@ class Horde_Kolab_Storage
     public function getNewFolder($connection = null)
     {
         if (empty($connection) || !isset($this->connections[$connection])) {
-            $connection = &$this->connections['BASE'];
+            $connection = &$this->_master;
         } else {
             $connection = &$this->connections[$connection];
         }
@@ -441,15 +430,11 @@ class Horde_Kolab_Storage
         $this->_types    = array();
         $this->_defaults = array();
 
+        $folders = array_merge($this->_list, $this->_master->getMailboxes());
         foreach ($this->connections as $key => $connection) {
-            if ($key == 'BASE') {
-                // Obtain a list of all folders the current user has access to
-                $folders = array_merge($this->_list, $connection->getMailboxes());
-            } else {
-                $list = $connection->getMailboxes();
-                foreach ($list as $item) {
-                    $folders[] = $key . '@' . $item;
-                }
+            $list = $connection->getMailboxes();
+            foreach ($list as $item) {
+                $folders[] = $key . '@' . $item;
             }
         }
 

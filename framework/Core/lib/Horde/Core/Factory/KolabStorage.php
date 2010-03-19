@@ -93,16 +93,22 @@ class Horde_Core_Factory_KolabStorage
         if (empty($mail)) {
             return false;
         }
+        $params = array(
+            'hostspec' => $session->getImapServer(),
+            'username' => Horde_Auth::getAuth(),
+            'password' => Horde_Auth::getCredential('password'),
+            'secure'   => true
+        );
+
+        $master = Horde_Kolab_Storage_Driver::factory(
+            'Imap',
+            $params
+        );
 
         return new Horde_Kolab_Storage(
-            new Horde_Kolab_Storage_Connection(),
+            $master,
             'Imap',
-            array(
-                'hostspec' => $session->getImapServer(),
-                'username' => Horde_Auth::getAuth(),
-                'password' => Horde_Auth::getCredential('password'),
-                'secure'   => true
-            )
+            $params
         );
     }
 }

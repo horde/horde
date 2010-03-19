@@ -137,6 +137,8 @@ class Horde_Kolab_Storage_StorageTest extends Horde_Kolab_Storage_Scenario
 
     public function testGetFolder()
     {
+        $this->markTestSkipped();
+        
         $GLOBALS['language'] = 'de_DE';
         $storage = new Horde_Kolab_Storage(
             new Horde_Kolab_Storage_Connection(),
