@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/TestCase.php';
+require_once dirname(__FILE__) . '/ConflictTestCase.php';
 
 /**
  * @author     Chuck Hagenbuch <chuck@horde.org>
