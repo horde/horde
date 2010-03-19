@@ -142,26 +142,63 @@ function cancelEdit()
     $('editActionOverlay').hide();
 }
 
-function changeSoundfile()
+function changeSoundFile()
 {
-    //empty($('editSound'));
+    empty($('editSound'));
     // FIXME: Add spinner
     new Ajax.Request(ajax_url + 'getRecordings',
     {
         method: 'get',
         onSuccess: function(r) {
-            //var form = document.createElement('form');
-            //form.name = 'selectSoundFile';
-            //form.id = 'selectSoundFile';
-            //var select = document.createElement('select');
-            //select.name = 'filename';
-            var recordings = r.responseJSON.response;
-            alert('done');
+            var form = document.createElement('form');
+            form.name = 'selectSoundFile';
+            form.id = 'selectSoundFile';
+            var select = document.createElement('select');
+            select.name = 'filename';
+            var recordings = $H(r.responseJSON.response);
+            recordings.each(function (pair) {
+                var option = document.createElement('option');
+                option.value = pair.value.name;
+                var text = document.createTextNode(pair.value.name);
+                option.appendChild(text);
+                select.appendChild(option);
+            });
+            form.appendChild(select);
+            var spacer = document.createTextNode(' ');
+            form.appendChild(spacer);
+            var save = document.createElement('input');
+            save.type = 'submit';
+            save.name = 'save';
+            save.value = '<?php echo _("Save"); ?>';
+            form.appendChild(save);
+            $('editSound').appendChild(form);
+            Event.observe($('selectSoundFile'), 'submit', function(event) {saveSoundFile(event);});
         }
     });
 }
 
-function playSoundfile()
+function saveSoundFile(event)
+{
+    Event.stop(event);
+    var form = event.target;
+    Element.extend(form);
+    var file = form.getElements().first().getValue();
+    // TODO: Allow editing other menu details
+    // TODO: Add spinner
+    new Ajax.Request(ajax_url + 'saveMenuInfo',
+    {
+        method: 'post',
+        parameters: $H({
+            'file': file
+        }),
+        onSuccess: function(r) {
+            refreshMenu();
+            // TODO: Stop spinner
+        }
+    });
+}
+
+function playSoundFile()
 {
     alert("Playing soundfile");
 }
@@ -185,24 +222,24 @@ function refreshMenu()
     // Handle the soundfile row specially
     row = document.createElement('tr');
     col = document.createElement('td');
-    col.id = 'editSound';
     col.className = 'menuStatName';
     text = document.createTextNode('<?php echo _("Sound file"); ?>');
     col.appendChild(text);
     row.appendChild(col);
     col = document.createElement('td');
+    col.id = 'editSound';
     col.className='menuStatValue';
     text = document.createTextNode(meta.soundfile);
     col.appendChild(text);
     img = document.createElement('img');
     img.src = '<?php echo Horde_Themes::img('edit.png') ?>';
-    img.alt = '<?php echo _("Change Soundfile"); ?>';
-    img.setAttribute('onclick', 'changeSoundfile()');
+    img.alt = '<?php echo _("Change Sound File"); ?>';
+    img.setAttribute('onclick', 'changeSoundFile()');
     col.appendChild(img);
     img = document.createElement('img');
     img.src = '<?php echo Horde_Themes::img('recordings.png') ?>';
-    img.alt = '<?php echo _("Play Soundfile"); ?>';
-    img.setAttribute('onclick', 'playSoundfile()');
+    img.alt = '<?php echo _("Play Sound File"); ?>';
+    img.setAttribute('onclick', 'playSoundFile()');
     img.setAttribute("style", img.getAttribute("style") + "; float:right; ");
     col.appendChild(img);
     row.appendChild(col);

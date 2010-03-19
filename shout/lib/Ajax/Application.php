@@ -33,7 +33,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
     public function addDestination()
     {
         $vars = $this->_vars;
-        $shout = Horde_Registry::appInit('shout');
+        $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
         $account = $_SESSION['shout']['curaccount'];
         try {
             $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
@@ -53,7 +53,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
     public function deleteDestination()
     {
         $vars = $this->_vars;
-        $shout = Horde_Registry::appInit('shout');
+        $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
         $account = $_SESSION['shout']['curaccount'];
         try {
             // FIXME: Use Form?
@@ -74,7 +74,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
     public function getDestinations()
     {
         $vars = $this->_vars;
-        $shout = Horde_Registry::appInit('shout');
+        $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
         $account = $_SESSION['shout']['curaccount'];
         try {
             return $shout->extensions->getExtensions($account);
@@ -92,7 +92,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
     {
         try {
             $vars = $this->_vars;
-            $shout = Horde_Registry::appInit('shout');
+            $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
             $account = $_SESSION['shout']['curaccount'];
             $menus = $shout->storage->getMenus($account);
             $menu = $vars->menu;
@@ -114,6 +114,11 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
         }
     }
 
+    public function saveMenuInfo()
+    {
+        return true;
+    }
+
     /**
      * TODO
      */
@@ -121,7 +126,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
     {
         try {
             $vars = $this->_vars;
-            $GLOBALS['shout'] = Horde_Registry::appInit('shout');
+            $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
             $account = $_SESSION['shout']['curaccount'];
             $actions = Shout::getMenuActions($contex, $menu);
             return $actions;
@@ -139,7 +144,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
             if (!($action = $vars->get('action'))) {
                 throw new Shout_Exception("Invalid action requested.");
             }
-            $GLOBALS['shout'] = Horde_Registry::appInit('shout');
+            $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
             $account = $_SESSION['shout']['curaccount'];
             $actions = Shout::getMenuActions();
             $action = $actions[$action];
