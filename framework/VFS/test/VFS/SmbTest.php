@@ -14,6 +14,10 @@ class VFS_SmbTest extends PHPUnit_Framework_TestCase
 {
     public function testParseListing()
     {
+        if (!class_exists('Log')) {
+            $this->markTestSkipped('The PEAR-Log package is not installed!');
+        }
+
         $vfs = new VFS_smb();
 
         $listing = $vfs->parseListing(file(dirname(__FILE__) . '/fixtures/samba1.txt'), null, true, false);
