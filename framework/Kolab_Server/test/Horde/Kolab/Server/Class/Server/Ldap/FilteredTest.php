@@ -107,7 +107,7 @@ class Horde_Kolab_Server_Class_Server_Ldap_FilteredTest extends Horde_Kolab_Serv
     {
         $this->ldap_read->expects($this->exactly(1))
             ->method('search')
-            ->will($this->returnValue(new PEAR_Error('Search failed!')));
+            ->will($this->throwException(new Horde_Ldap_Exception('Search failed!')));
         try {
             $this->assertEquals(array('dn' => 'test'), $this->server->findBelow('(equals=equals)', ''));
             $this->fail('No exception!');

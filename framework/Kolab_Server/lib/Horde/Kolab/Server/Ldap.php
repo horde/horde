@@ -65,10 +65,15 @@ implements Horde_Kolab_Server_Interface
         $this->_conn    = $connection;
         $this->_base_dn = $base_dn;
 
-        $this->_handleError(
-            Horde_Ldap::checkLDAPExtension(),
-            Horde_Kolab_Server_Exception::MISSING_LDAP_EXTENSION
-        );
+        try {
+            Horde_Ldap::checkLDAPExtension();
+        } catch (Horde_Ldap_Exception $e) {
+            throw new Horde_Kolab_Server_Exception(
+                $e->getMessage(),
+                Horde_Kolab_Server_Exception::MISSING_LDAP_EXTENSION,
+                $e
+            );
+        }
     }
 
     /**
@@ -97,7 +102,7 @@ implements Horde_Kolab_Server_Interface
                 } else {
                     throw new Horde_Kolab_Server_Exception(
                         'Bind failed!',
-                        Horde_Kolab_Server_Exception::BIND_FAILED,
+                        Horde_Kolab_Server_Exception::SYSTEM,
                         $e
                     );
                 }
@@ -209,14 +214,18 @@ implements Horde_Kolab_Server_Interface
         array $data
     ) {
         $changes = new Horde_Kolab_Server_Ldap_Changes($object, $data);
-        $entry  = $this->_conn->getWrite()->getEntry(
-            $object->getGuid(), array_keys($data)
-        );
-        $this->_handleError($entry, Horde_Kolab_Server_Exception::SYSTEM);
-        $this->_handleError(
-            $this->_conn->getWrite()->modify($entry, $changes->getChangeset()),
-            Horde_Kolab_Server_Exception::SYSTEM
-        );
+        try {
+            $entry  = $this->_conn->getWrite()->getEntry(
+                $object->getGuid(), array_keys($data)
+            );
+            $this->_conn->getWrite()->modify($entry, $changes->getChangeset());
+        } catch (Horde_Ldap_Exception $e) {
+            throw new Horde_Kolab_Server_Exception(
+                'Saving failed!',
+                Horde_Kolab_Server_Exception::SYSTEM,
+                $e
+            );
+        }
     }
 
     /**
@@ -234,12 +243,16 @@ implements Horde_Kolab_Server_Interface
         Horde_Kolab_Server_Object_Interface $object,
         array $data
     ) {
-        $entry  = Horde_Ldap_Entry::createFresh($object->getGuid(), $data);
-        $this->_handleError($entry, Horde_Kolab_Server_Exception::SYSTEM);
-        $this->_handleError(
-            $this->_conn->getWrite()->add($entry),
-            Horde_Kolab_Server_Exception::SYSTEM
-        );
+        try {
+            $entry  = Horde_Ldap_Entry::createFresh($object->getGuid(), $data);
+            $this->_conn->getWrite()->add($entry);
+        } catch (Horde_Ldap_Exception $e) {
+            throw new Horde_Kolab_Server_Exception(
+                'Adding object failed!',
+                Horde_Kolab_Server_Exception::SYSTEM,
+                $e
+            );
+        }
     }
 
     /**
@@ -253,10 +266,15 @@ implements Horde_Kolab_Server_Interface
      */
     public function delete($guid)
     {
-        $this->_handleError(
-            $this->_conn->getWrite()->delete($guid),
-            Horde_Kolab_Server_Exception::SYSTEM
-        );
+        try {
+            $this->_conn->getWrite()->delete($guid);
+        } catch (Horde_Ldap_Exception $e) {
+            throw new Horde_Kolab_Server_Exception(
+                'Deleting object failed!',
+                Horde_Kolab_Server_Exception::SYSTEM,
+                $e
+            );
+        }
     }
 
     /**
@@ -271,10 +289,15 @@ implements Horde_Kolab_Server_Interface
      */
     public function rename($guid, $new)
     {
-        $this->_handleError(
-            $this->_conn->getWrite()->move($guid, $new),
-            Horde_Kolab_Server_Exception::SYSTEM
-        );
+        try {
+            $this->_conn->getWrite()->move($guid, $new);
+        } catch (Horde_Ldap_Exception $e) {
+            throw new Horde_Kolab_Server_Exception(
+                'Renaming object failed!',
+                Horde_Kolab_Server_Exception::SYSTEM,
+                $e
+            );
+        }
     }
 
     /**
@@ -286,9 +309,15 @@ implements Horde_Kolab_Server_Interface
      */
     public function getSchema()
     {
-        $result = $this->_conn->getRead()->schema();
-        $this->_handleError($result, Horde_Kolab_Server_Exception::SYSTEM);
-        return $result;
+        try {
+            return $this->_conn->getRead()->schema();
+        } catch (Horde_Ldap_Exception $e) {
+            throw new Horde_Kolab_Server_Exception(
+                'Retrieving the schema failed!',
+                Horde_Kolab_Server_Exception::SYSTEM,
+                $e
+            );
+        }
     }
 
     /**
@@ -300,45 +329,27 @@ implements Horde_Kolab_Server_Interface
      */
     public function getParentGuid($guid)
     {
-        $base = Horde_Ldap_Util::ldap_explode_dn(
-            $guid,
-            array(
-                'casefold' => 'none',
-                'reverse' => false,
-                'onlyvalues' => false
-            )
-        );
-        $this->_handleError($base);
-        $id = array_shift($base);
-        $parent = Horde_Ldap_Util::canonical_dn(
-            $base, array('casefold' => 'none')
-        );
-        $this->_handleError($parent);
-        return $parent;
-    }
-
-    /**
-     * Check for a PEAR Error and convert it to an exception if necessary.
-     *
-     * @param mixed $result The result to be tested.
-     * @param code  $code   The error code to use in case the result is an error.
-     *
-     * @return NULL.
-     *
-     * @throws Horde_Kolab_Server_Exception If the connection failed.
-     */
-    private function _handleError(
-        $result,
-        $code = Horde_Kolab_Server_Exception::SYSTEM
-    ) {
-        if ($result instanceOf PEAR_Error) {
-            if ($code == Horde_Kolab_Server_Exception::BIND_FAILED
-                && $result->getCode() == 49) {
-                throw new Horde_Kolab_Server_Exception_Bindfailed($result, $code);
-            } else {
-                throw new Horde_Kolab_Server_Exception($result, $code);
-            }
+        try {
+            $base = Horde_Ldap_Util::ldap_explode_dn(
+                $guid,
+                array(
+                    'casefold' => 'none',
+                    'reverse' => false,
+                    'onlyvalues' => false
+                )
+            );
+            $id = array_shift($base);
+            $parent = Horde_Ldap_Util::canonical_dn(
+                $base, array('casefold' => 'none')
+            );
+        } catch (Horde_Ldap_Exception $e) {
+            throw new Horde_Kolab_Server_Exception(
+                'Retrieving the parent object failed!',
+                Horde_Kolab_Server_Exception::SYSTEM,
+                $e
+            );
         }
+        return $parent;
     }
 
     /**
@@ -355,8 +366,15 @@ implements Horde_Kolab_Server_Interface
      */
     protected function _search($filter, array $params, $base)
     {
-        $search = $this->_conn->getRead()->search($base, $filter, $params);
-        $this->_handleError($search, Horde_Kolab_Server_Exception::SYSTEM);
+        try {
+            $search = $this->_conn->getRead()->search($base, $filter, $params);
+        } catch (Horde_Ldap_Exception $e) {
+            throw new Horde_Kolab_Server_Exception(
+                'Search failed!',
+                Horde_Kolab_Server_Exception::SYSTEM,
+                $e
+            );
+        }
         return new Horde_Kolab_Server_Result_Ldap($search);
     }
 }
