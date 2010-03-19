@@ -32,7 +32,12 @@ class Horde_Log_Formatter_Simple
     protected $_format;
 
     /**
-     * Constructor
+     * Constructor.
+     *
+     * @param array $options  Configuration Options:
+     * <pre>
+     * 'format' - (string) The log template.
+     * </pre>
      */
     public function __construct($options = null)
     {
