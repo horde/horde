@@ -13,11 +13,6 @@
  */
 
 /**
- *  We need the base class
- */
-require_once 'VFS.php';
-
-/**
  * Test the Kolab based virtual file system.
  *
  * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
