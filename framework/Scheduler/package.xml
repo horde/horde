@@ -24,19 +24,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Initial Horde 4 package.
+ <notes>* Removed Horde-specific command line script.
+ * Initial Horde 4 package.
  </notes>
  <contents>
   <dir name="/">
-   <dir name="scripts">
-    <dir name="Horde">
-     <dir name="Scheduler">
-      <file name="horde-crond.php" role="script">
-       <tasks:replace from="@php_bin@" to="php_bin" type="pear-config"/>
-      </file>
-     </dir> <!-- /scripts/Horde/Scheduler -->
-    </dir> <!-- /scripts/Horde -->
-   </dir> <!-- /scripts -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Scheduler">
@@ -74,7 +66,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="scripts/Horde/Scheduler/horde-crond.php" as="horde-crond" />
    <install name="lib/Horde/Scheduler/Cron/Date.php" as="Horde/Scheduler/Cron/Date.php" />
    <install name="lib/Horde/Scheduler/Cron.php" as="Horde/Scheduler/Cron.php" />
    <install name="lib/Horde/Scheduler.php" as="Horde/Scheduler.php" />

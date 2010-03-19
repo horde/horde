@@ -37,19 +37,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Initial Horde 4 package.
+ <notes>* Removed Horde-specific session counting script.
+ * Initial Horde 4 package.
  </notes>
  <contents>
   <dir name="/">
-   <dir name="scripts">
-    <dir name="Horde">
-     <dir name="SessionHandler">
-      <file name="horde-active-sessions.php" role="script">
-       <tasks:replace from="@php_bin@" to="php_bin" type="pear-config"/>
-      </file>
-     </dir> <!-- /scripts/Horde/SessionHandler -->
-    </dir> <!-- /scripts/Horde -->
-   </dir> <!-- /scripts -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="SessionHandler">
@@ -77,11 +69,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
   </required>
   <optional>
    <package>
-    <name>Horde_Memcache</name>
+    <name>Memcache</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Horde_SQL</name>
+    <name>SQL</name>
     <channel>pear.horde.org</channel>
    </package>
   </optional>
@@ -95,7 +87,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/SessionHandler/Oci8.php" as="Horde/SessionHandler/Pgsql.php" />
    <install name="lib/Horde/SessionHandler/Sql.php" as="Horde/SessionHandler/Sql.php" />
    <install name="lib/Horde/SessionHandler.php" as="Horde/SessionHandler.php" />
-   <install name="scripts/Horde/SessionHandler/horde-active-sessions.php" as="scripts/horde-active-sessions.php" />
   </filelist>
  </phprelease>
  <changelog>
