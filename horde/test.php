@@ -19,6 +19,23 @@
  * @author Michael Slusarz <slusarz@horde.org>
  */
 
+/* Function to output fatal error message. */
+function _hordeTestError($msg)
+{
+    exit('<html><head><title>ERROR</title></head><body><h3 style="color:red">' . htmlspecialchars($msg) . '</h3></body></html>');
+}
+
+/* If we can't find the Autoloader, then the framework is not setup. A user
+ * must at least correctly install the framework. */
+if (!@include_once 'Horde/Autoloader.php') {
+    _hordeTestError('Could not find Horde\'s framework libraries. Please read horde/docs/INSTALL for information on how to install these libraries.');
+}
+
+/* Similarly, registry.php needs to exist. */
+if (!file_exists(dirname(__FILE__) . '/config/registry.php')) {
+    _hordeTestError('Could not find horde/config/registry.php. Please make sure this file exists. Read horde/docs/INSTALL for further information.');
+}
+
 require_once dirname(__FILE__) . '/lib/Application.php';
 try {
     Horde_Registry::appInit('horde', array('authentication' => 'none'));
@@ -29,22 +46,19 @@ try {
 }
 
 if (!empty($conf['testdisable'])) {
-    echo '<h2 style="color:red">Horde test scripts have been disabled in the local configuration.</h2>';
-    exit;
+    _hordeTestError('Horde test scripts have been disabled in the local configuration.');
 }
 
 /* We should have loaded the String class, from the Horde_Util package. If it
  * isn't defined, then we're not finding some critical libraries. */
 if (!class_exists('Horde_String')) {
-    echo '<h2 style="color:red">Required Horde libraries were not found. If PHP\'s error_reporting setting is high enough and display_errors is on, there should be error messages printed above that may help you in debugging the problem. If you are simply missing these files, then you need to install the framework module.</h2>';
-    exit;
+    _hordeTestError('Required Horde libraries were not found. If PHP\'s error_reporting setting is high enough and display_errors is on, there should be error messages printed above that may help you in debugging the problem. If you are simply missing these files, then you need to install the framework module.');
 }
 
 /* Initialize the Horde_Test:: class. */
 if (!class_exists('Horde_Test')) {
     /* Try and provide enough information to debug the missing file. */
-    echo '<h2 style="color:red">Unable to find the Horde_Test library. Your Horde installation may be missing critical files, or PHP may not have sufficient permissions to include files. There may be error messages printed above this message that will help you in debugging the problem.</h2>';
-    exit;
+    _hordeTestError('Unable to find the Horde_Test library. Your Horde installation may be missing critical files, or PHP may not have sufficient permissions to include files. There may be error messages printed above this message that will help you in debugging the problem.');
 }
 
 /* Load the application. */
@@ -59,8 +73,7 @@ if ($app != 'horde') {
 }
 $classname = ucfirst($app) . '_Test';
 if (!class_exists($classname)) {
-    echo '<h2 style="color:red">No tests found for ' . ucfirst($app) . ' [' . $app_name . '].</h2>';
-    exit;
+    _hordeTestError('No tests found for ' . ucfirst($app) . ' [' . $app_name . '].');
 }
 $test_ob = new $classname();
 
