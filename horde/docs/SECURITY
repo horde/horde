@@ -2,7 +2,7 @@
  Horde Security Notes
 ======================
 
-:Contact:       horde@lists.horde.org
+:Contact: horde@lists.horde.org
 
 .. contents:: Contents
 .. section-numbering::
@@ -44,9 +44,7 @@ Sites with a large user base should consider setting the
 ``session.entropy_file`` and ``session.entropy_length`` to appropriate values.
 
 Horde will encrypt the user credentials before storing them in the session.
-However, this encryption can be improved if you have and enable the PHP
-extension "mcrypt" which allows for stronger encryption than is otherwise
-provided by Horde.
+Thus, a compromised sessions will not reveal the user's stored credentials.
 
 
 Default database passwords
