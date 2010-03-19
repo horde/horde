@@ -16,7 +16,7 @@
  * @category Horde
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true));
 
 $c = new Console_Getopt();
