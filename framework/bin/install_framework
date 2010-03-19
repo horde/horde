@@ -145,7 +145,7 @@ error_reporting(E_ALL & ~E_NOTICE);
 
 $linker = new Linker($copy);
 if ($pkg) {
-    $linker->process(getcwd() . DIRECTORY_SEPARATOR . $pkg, $destDir);
+    $linker->process($pkg, $destDir);
 } elseif ($handle = opendir($srcDir)) {
     while ($file = readdir($handle)) {
         if ($file != '.' &&
