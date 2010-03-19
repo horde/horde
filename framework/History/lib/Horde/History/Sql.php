@@ -1,6 +1,6 @@
 <?php
 /**
- * A sql based history driver.
+ * A SQL based history driver.
  *
  * PHP version 5
  *
@@ -12,8 +12,8 @@
  */
 
 /**
- * The Horde_History_Sql:: class provides a method of tracking changes in Horde
- * objects, stored in a SQL table.
+ * The Horde_History_Sql:: class provides a method of tracking changes in
+ * Horde objects, stored in a SQL table.
  *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
@@ -37,7 +37,8 @@ class Horde_History_Sql extends Horde_History
 
     /**
      * Handle for the current database connection, used for writing. Defaults
-     * to the same handle as $_db if a separate write database is not required.
+     * to the same handle as $_db if a separate write database is not
+     * required.
      *
      * @var DB_common
      */
@@ -46,9 +47,9 @@ class Horde_History_Sql extends Horde_History
     /**
      * Constructor.
      *
-     * @param DB_common $db The database connection.
+     * @param DB_common $db  The database connection.
      *
-     * @throws Horde_Exception
+     * @throws Horde_History_Exception
      */
     public function __construct(DB_common $db)
     {
@@ -58,14 +59,12 @@ class Horde_History_Sql extends Horde_History
     }
 
     /**
-     * Set a separate read database connection if you want to split read and
+     * Sets a separate read database connection if you want to split read and
      * write access to the db.
      *
-     * @param DB_common $db The database connection.
+     * @param DB_common $db  The database connection.
      *
-     * @return NULL
-     *
-     * @throws Horde_Exception
+     * @throws Horde_History_Exception
      */
     public function setReadDb(DB_common $db)
     {
@@ -74,20 +73,19 @@ class Horde_History_Sql extends Horde_History
     }
 
     /**
-     * Logs an event to an item's history log. Any other details about the event
-     * are passed in $attributes.
+     * Logs an event to an item's history log. Any other details about the
+     * event are passed in $attributes.
      *
      * @param Horde_HistoryObject $history       The history item to add to.
-     * @param array               $attributes    The hash of name => value entries
-     *                                           that describe this event.
+     * @param array               $attributes    The hash of name => value
+     *                                           entries that describe this
+     *                                           event.
      * @param boolean             $replaceAction If $attributes['action'] is
      *                                           already present in the item's
      *                                           history log, update that entry
      *                                           instead of creating a new one.
      *
-     * @return boolean True if the operation succeeded.
-     *
-     * @throws Horde_Exception
+     * @throws Horde_History_Exception
      */
     protected function _log(Horde_HistoryObject $history,
                             array $attributes,
@@ -155,17 +153,17 @@ class Horde_History_Sql extends Horde_History
             );
             $this->handleError($r);
         }
-
-        return true;
     }
 
     /**
-     * Returns a Horde_HistoryObject corresponding to the named history
-     * entry, with the data retrieved appropriately.
+     * Returns a Horde_HistoryObject corresponding to the named history entry,
+     * with the data retrieved appropriately.
      *
      * @param string $guid The name of the history entry to retrieve.
      *
      * @return Horde_HistoryObject  A Horde_HistoryObject
+     *
+     * @throws Horde_History_Exception
      */
     public function _getHistory($guid)
     {
@@ -184,11 +182,10 @@ class Horde_History_Sql extends Horde_History
      * @param array   $filters An array of additional (ANDed) criteria.
      *                         Each array value should be an array with 3
      *                         entries:
-     * <pre>
-     * 'field' - the history field being compared (i.e. 'action').
-     * 'op'    - the operator to compare this field with.
-     * 'value' - the value to check for (i.e. 'add').
-     * </pre>
+     *                         - field: the history field being compared (i.e.
+     *                           'action').
+     *                         - op: the operator to compare this field with.
+     *                         - value: the value to check for (i.e. 'add').
      * @param string  $parent  The parent history to start searching at. If
      *                         non-empty, will be searched for with a LIKE
      *                         '$parent:%' clause.
@@ -196,9 +193,9 @@ class Horde_History_Sql extends Horde_History
      * @return array  An array of history object ids, or an empty array if
      *                none matched the criteria.
      *
-     * @throws Horde_Exception
+     * @throws Horde_History_Exception
      */
-    public function _getByTimestamp($cmp, $ts, $filters = array(),
+    public function _getByTimestamp($cmp, $ts, array $filters = array(),
                                     $parent = null)
     {
         /* Build the timestamp test. */
@@ -221,18 +218,16 @@ class Horde_History_Sql extends Horde_History
     }
 
     /**
-     * Remove one or more history entries by name.
+     * Removes one or more history entries by name.
      *
-     * @param array $names The history entries to remove.
+     * @param array $names  The history entries to remove.
      *
-     * @return boolean True if the operation succeeded.
-     *
-     * @throws Horde_Exception
+     * @throws Horde_History_Exception
      */
-    public function removeByNames($names)
+    public function removeByNames(array $names)
     {
         if (!count($names)) {
-            return true;
+            return;
         }
 
         $ids = array();
@@ -240,20 +235,16 @@ class Horde_History_Sql extends Horde_History
             $ids[] = $this->_write_db->quote($name);
         }
 
-        $result = $this->_write_db->query('DELETE FROM horde_histories WHERE object_uid IN (' . implode(',', $ids) . ')');
-        $this->handleError($result);
-        return $result;
+        $this->handleError($this->_write_db->query('DELETE FROM horde_histories WHERE object_uid IN (' . implode(',', $ids) . ')'));
     }
 
     /**
-     * Determine if the given result is a PEAR error. If it is, log the event
-     * and throw an exception.
+     * Determines if the given result is a PEAR error. If it is, logs the event
+     * and throws an exception.
      *
-     * @param mixed $result The result to check.
+     * @param mixed $result  The result to check.
      *
-     * @return NULL
-     *
-     * @throws Horde_Exception
+     * @throws Horde_History_Exception
      */
     protected function handleError($result)
     {
@@ -263,7 +254,7 @@ class Horde_History_Sql extends Horde_History
             } else {
                 Horde::logMessage($result, 'ERR');
             }
-            throw new Horde_Exception($result->getMessage());
+            throw new Horde_History_Exception($result->getMessage());
         }
     }
 }

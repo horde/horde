@@ -33,7 +33,7 @@ require_once 'Horde/Autoloader.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=History
  */
-class Horde_History
+abstract class Horde_History
 {
     /**
      * Instance cache.
@@ -59,7 +59,7 @@ class Horde_History
      * @param string $driver The driver to use.
      *
      * @return Horde_History  The concrete Horde_History reference.
-     * @throws Horde_Exception
+     * @throws Horde_History_Exception
      */
     static public function singleton($driver = null)
     {
@@ -72,7 +72,7 @@ class Horde_History
         if ($driver == 'Sql') {
             if (empty($conf['sql']['phptype'])
                 || ($conf['sql']['phptype'] == 'none')) {
-                throw new Horde_Exception(_("The History system is disabled."));
+                throw new Horde_History_Exception(_("The History system is disabled."));
             }
             $params = $conf['sql'];
         } else {
@@ -109,28 +109,25 @@ class Horde_History
     }
 
     /**
-     * Logs an event to an item's history log. The item must be uniquely
-     * identified by $guid. Any other details about the event are passed in
-     * $attributes. Standard suggested attributes are:
+     * Logs an event to an item's history log.
      *
-     *   'who' => The id of the user that performed the action (will be added
-     *            automatically if not present).
+     * The item must be uniquely identified by $guid. Any other details about
+     * the event are passed in $attributes. Standard suggested attributes are:
+     * - who: The id of the user that performed the action (will be added
+     *        automatically if not present).
+     * - ts:  Timestamp of the action (this will be added automatically if it
+     *        is not present).
      *
-     *   'ts' => Timestamp of the action (this will be added automatically if
-     *           it is not present).
-     *
-     * @param string  $guid          The unique identifier of the entry to
-     *                               add to.
+     * @param string  $guid          The unique identifier of the entry to add
+     *                               to.
      * @param array   $attributes    The hash of name => value entries that
      *                               describe this event.
      * @param boolean $replaceAction If $attributes['action'] is already
-     *                               present in the item's history log,
-     *                               update that entry instead of creating a
-     *                               new one.
+     *                               present in the item's history log, update
+     *                               that entry instead of creating a new one.
      *
-     * @return boolean True if the operation succeeded.
-     *
-     * @throws Horde_Exception
+     * @throws Horde_History_Exception
+     * @throws InvalidArgumentException
      */
     public function log($guid, array $attributes = array(),
                         $replaceAction = false)
@@ -148,30 +145,26 @@ class Horde_History
             $attributes['ts'] = time();
         }
 
-        return $this->_log($history, $attributes, $replaceAction);
+        $this->_log($history, $attributes, $replaceAction);
     }
 
     /**
-     * Logs an event to an item's history log. Any other details about the event
-     * are passed in $attributes.
+     * Logs an event to an item's history log. Any other details about the
+     * event are passed in $attributes.
      *
      * @param Horde_HistoryObject $history       The history item to add to.
-     * @param array               $attributes    The hash of name => value entries
-     *                                           that describe this event.
+     * @param array               $attributes    The hash of name => value
+     *                                           entries that describe this
+     *                                           event.
      * @param boolean             $replaceAction If $attributes['action'] is
      *                                           already present in the item's
      *                                           history log, update that entry
      *                                           instead of creating a new one.
      *
-     * @return boolean True if the operation succeeded.
-     *
-     * @throws Horde_Exception
+     * @throws Horde_History_Exception
      */
-    protected function _log(Horde_HistoryObject $history, array $attributes,
-                            $replaceAction = false)
-    {
-        throw new Horde_Exception('Not implemented!');
-    }
+    abstract protected function _log(Horde_HistoryObject $history,
+                                     array $attributes, $replaceAction = false);
 
     /**
      * Returns a Horde_HistoryObject corresponding to the named history
@@ -181,7 +174,8 @@ class Horde_History
      *
      * @return Horde_HistoryObject A Horde_HistoryObject
      *
-     * @throws Horde_Exception
+     * @throws Horde_History_Exception
+     * @throws InvalidArgumentException
      */
     public function getHistory($guid)
     {
@@ -199,12 +193,9 @@ class Horde_History
      *
      * @return Horde_HistoryObject A Horde_HistoryObject
      *
-     * @throws Horde_Exception
+     * @throws Horde_History_Exception
      */
-    public function _getHistory($guid)
-    {
-        throw new Horde_Exception('Not implemented!');
-    }
+    abstract public function _getHistory($guid);
 
     /**
      * Finds history objects by timestamp, and optionally filter on other
@@ -216,11 +207,10 @@ class Horde_History
      * @param array   $filters An array of additional (ANDed) criteria.
      *                         Each array value should be an array with 3
      *                         entries:
-     * <pre>
-     * 'field' - the history field being compared (i.e. 'action').
-     * 'op'    - the operator to compare this field with.
-     * 'value' - the value to check for (i.e. 'add').
-     * </pre>
+     *                         - field: the history field being compared (i.e.
+     *                           'action').
+     *                         - op: the operator to compare this field with.
+     *                         - value: the value to check for (i.e. 'add').
      * @param string  $parent  The parent history to start searching at. If
      *                         non-empty, will be searched for with a LIKE
      *                         '$parent:%' clause.
@@ -228,7 +218,8 @@ class Horde_History
      * @return array  An array of history object ids, or an empty array if
      *                none matched the criteria.
      *
-     * @throws Horde_Exception
+     * @throws Horde_History_Exception
+     * @throws InvalidArgumentException
      */
     public function getByTimestamp($cmp, $ts, array $filters = array(),
                                    $parent = null)
@@ -252,11 +243,10 @@ class Horde_History
      * @param array   $filters An array of additional (ANDed) criteria.
      *                         Each array value should be an array with 3
      *                         entries:
-     * <pre>
-     * 'field' - the history field being compared (i.e. 'action').
-     * 'op'    - the operator to compare this field with.
-     * 'value' - the value to check for (i.e. 'add').
-     * </pre>
+     *                         - field: the history field being compared (i.e.
+     *                           'action').
+     *                         - op: the operator to compare this field with.
+     *                         - value: the value to check for (i.e. 'add').
      * @param string  $parent  The parent history to start searching at. If
      *                         non-empty, will be searched for with a LIKE
      *                         '$parent:%' clause.
@@ -264,13 +254,11 @@ class Horde_History
      * @return array  An array of history object ids, or an empty array if
      *                none matched the criteria.
      *
-     * @throws Horde_Exception
+     * @throws Horde_History_Exception
      */
-    public function _getByTimestamp($cmp, $ts, array $filters = array(),
-                                    $parent = null)
-    {
-        throw new Horde_Exception('Not implemented!');
-    }
+    abstract public function _getByTimestamp($cmp, $ts,
+                                             array $filters = array(),
+                                             $parent = null);
 
     /**
      * Gets the timestamp of the most recent change to $guid.
@@ -282,7 +270,6 @@ class Horde_History
      *
      * @throws InvalidArgumentException If the input parameters are not of
      *                                  type string.
-     * @throws Horde_Exception
      */
     public function getActionTimestamp($guid, $action)
     {
@@ -290,12 +277,11 @@ class Horde_History
             throw new InvalidArgumentException('$guid and $action need to be strings!');
         }
 
-        /* This implementation still works, but we should be able to
-         * get much faster now with a SELECT MAX(history_ts)
-         * ... query. */
+        /* This implementation still works, but we should be able to get much
+         * faster now with a SELECT MAX(history_ts) ... query. */
         try {
             $history = $this->getHistory($guid);
-        } catch (Horde_Exception $e) {
+        } catch (Horde_History_Exception $e) {
             return 0;
         }
 
@@ -317,7 +303,7 @@ class Horde_History
      *
      * @param string $parent  The parent name to remove.
      *
-     * @throws Horde_Exception
+     * @throws Horde_History_Exception
      */
     public function removeByParent($parent)
     {
@@ -330,17 +316,12 @@ class Horde_History
     }
 
     /**
-     * Remove one or more history entries by name.
+     * Removes one or more history entries by name.
      *
-     * @param array $names The history entries to remove.
+     * @param array $names  The history entries to remove.
      *
-     * @return boolean True if the operation succeeded.
-     *
-     * @throws Horde_Exception
+     * @throws Horde_History_Exception
      */
-    public function removeByNames(array $names)
-    {
-        throw new Horde_Exception('Not implemented!');
-    }
+    abstract public function removeByNames(array $names);
 
 }

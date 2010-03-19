@@ -45,10 +45,24 @@ class Horde_History_InterfaceTest extends PHPUnit_Framework_TestCase
     private $_db_file;
 
     /**
+     * Test setup.
+     */
+    public function setUp()
+    {
+        if (in_array(self::ENVIRONMENT_DB, $this->getEnvironments())) {
+            /* PEAR DB is not E_STRICT safe. */
+            $this->_errorReporting = error_reporting(E_ALL & ~E_STRICT);
+        }
+    }
+
+    /**
      * Test cleanup.
      */
     public function tearDown()
     {
+        if (in_array(self::ENVIRONMENT_DB, $this->getEnvironments())) {
+            error_reporting($this->_errorReporting);
+        }
         if (!empty($this->_db_file)) {
             unlink($this->_db_file);
         }
@@ -62,10 +76,8 @@ class Horde_History_InterfaceTest extends PHPUnit_Framework_TestCase
     public function getEnvironments()
     {
         if (empty($this->_environments)) {
-            /**
-             * The db environment provides our only test scenario before
-             * refactoring.
-             */
+            /* The db environment provides our only test scenario before
+             * refactoring.  */
             $this->_environments = array(
                 self::ENVIRONMENT_MOCK,
                 /** Uncomment if you want to run a sqlity based test */
@@ -454,7 +466,7 @@ EOL;
         }
     }
 
-    public function testMethodRemovebynamesHasResultBooleanTrueIfParameterNamesIsEmpty()
+    public function testMethodRemovebynamesSucceedsIfParameterNamesIsEmpty()
     {
         foreach ($this->getEnvironments() as $environment) {
             $history = $this->getHistory($environment);
@@ -462,39 +474,7 @@ EOL;
             $history->log('test', array('who' => 'me', 'ts' => 1000, 'action' => 'test'), false);
             $history->log('test', array('who' => 'you', 'ts' => 2000, 'action' => 'yours'));
             $history->log('test', array('who' => 'you', 'ts' => 2000, 'action' => 'yours'), true);
-            $this->assertEquals(true, $data = $history->removeByNames(array()));
-        }
-    }
-
-    public function testBaseHordehistoryClassProvidesIncompleteImplementation()
-    {
-        global $conf;
-
-        try {
-            $history = new Horde_History();
-            $history->getHistory('');
-            $this->fail('No exception was thrown!');
-        } catch (Horde_Exception $e) {
-        }
-        try {
-            $history = new Horde_History();
-            $history->getByTimestamp('=', 1);
-            $this->fail('No exception was thrown!');
-        } catch (Horde_Exception $e) {
-        }
-        try {
-            $history = new Horde_History();
             $history->removeByNames(array());
-            $this->fail('No exception was thrown!');
-        } catch (Horde_Exception $e) {
-        }
-
-        unset($conf['sql']);
-
-        try {
-            $history = Horde_History::singleton();
-            $this->fail('No exception was thrown!');
-        } catch (Horde_Exception $e) {
         }
     }
 
@@ -556,7 +536,8 @@ class Dummy_Db extends DB_common
 {
     public function &query($query, $params = array())
     {
-        return new PEAR_Error('Error');
+        $e = new PEAR_Error('Error');
+        return $e;
     }
 
     public function nextId($seq_name, $ondemand = true)
@@ -567,12 +548,14 @@ class Dummy_Db extends DB_common
     public function &getAll($query, $params = array(),
                             $fetchmode = DB_FETCHMODE_DEFAULT)
     {
-        return new PEAR_Error('Error');
+        $e = new PEAR_Error('Error');
+        return $e;
     }
 
     public function &getAssoc($query, $force_array = false, $params = array(),
                               $fetchmode = DB_FETCHMODE_DEFAULT, $group = false)
     {
-        return new PEAR_Error('Error');
+        $e = new PEAR_Error('Error');
+        return $e;
     }
 }

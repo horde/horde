@@ -12,8 +12,8 @@
  */
 
 /**
- * The Horde_History_Mock:: class provides a method of tracking changes in Horde
- * objects, stored in memory.
+ * The Horde_History_Mock:: class provides a method of tracking changes in
+ * Horde objects, stored in memory.
  *
  * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
  *
@@ -43,20 +43,19 @@ class Horde_History_Mock extends Horde_History
     private $_id = 1;
 
     /**
-     * Logs an event to an item's history log. Any other details about the event
-     * are passed in $attributes.
+     * Logs an event to an item's history log. Any other details about the
+     * event are passed in $attributes.
      *
      * @param Horde_HistoryObject $history       The history item to add to.
-     * @param array               $attributes    The hash of name => value entries
-     *                                           that describe this event.
+     * @param array               $attributes    The hash of name => value
+     *                                           entries that describe this
+     *                                           event.
      * @param boolean             $replaceAction If $attributes['action'] is
      *                                           already present in the item's
      *                                           history log, update that entry
      *                                           instead of creating a new one.
      *
-     * @return boolean True if the operation succeeded.
-     *
-     * @throws Horde_Exception
+     * @throws Horde_History_Exception
      */
     protected function _log(Horde_HistoryObject $history,
                             array $attributes,
@@ -98,15 +97,13 @@ class Horde_History_Mock extends Horde_History
             $this->_data[$this->_id] = $values;
             $this->_id++;
         }
-
-        return true;
     }
 
     /**
-     * Returns a Horde_HistoryObject corresponding to the named history
-     * entry, with the data retrieved appropriately.
+     * Returns a Horde_HistoryObject corresponding to the named history entry,
+     * with the data retrieved appropriately.
      *
-     * @param string $guid The name of the history entry to retrieve.
+     * @param string $guid  The name of the history entry to retrieve.
      *
      * @return Horde_HistoryObject  A Horde_HistoryObject
      */
@@ -132,11 +129,10 @@ class Horde_History_Mock extends Horde_History
      * @param array   $filters An array of additional (ANDed) criteria.
      *                         Each array value should be an array with 3
      *                         entries:
-     * <pre>
-     * 'field' - the history field being compared (i.e. 'action').
-     * 'op'    - the operator to compare this field with.
-     * 'value' - the value to check for (i.e. 'add').
-     * </pre>
+     *                         - field: the history field being compared (i.e.
+     *                           'action').
+     *                         - op: the operator to compare this field with.
+     *                         - value: the value to check for (i.e. 'add').
      * @param string  $parent  The parent history to start searching at. If
      *                         non-empty, will be searched for with a LIKE
      *                         '$parent:%' clause.
@@ -144,7 +140,7 @@ class Horde_History_Mock extends Horde_History
      * @return array  An array of history object ids, or an empty array if
      *                none matched the criteria.
      *
-     * @throws Horde_Exception
+     * @throws Horde_History_Exception
      */
     public function _getByTimestamp($cmp, $ts, array $filters = array(),
                                     $parent = null)
@@ -184,7 +180,7 @@ class Horde_History_Mock extends Horde_History
                 };
                 break;
             default:
-                throw new Horde_Exception(sprintf("Comparison %s not implemented!", $cmp));
+                throw new Horde_History_Exception(sprintf("Comparison %s not implemented!", $cmp));
             }
 
             if ($ignore) {
@@ -195,7 +191,7 @@ class Horde_History_Mock extends Horde_History
             if ($filters) {
                 foreach ($filters as $filter) {
                     if ($filter['op'] != '=') {
-                        throw new Horde_Exception(sprintf("Comparison %s not implemented!", $filter['op']));
+                        throw new Horde_History_Exception(sprintf("Comparison %s not implemented!", $filter['op']));
                     }
                     if ($element['history_' . $filter['field']] != $filter['value']) {
                         $ignore = true;
@@ -219,18 +215,16 @@ class Horde_History_Mock extends Horde_History
     }
 
     /**
-     * Remove one or more history entries by name.
+     * Removes one or more history entries by name.
      *
-     * @param array $names The history entries to remove.
+     * @param array $names  The history entries to remove.
      *
-     * @return boolean True if the operation succeeded.
-     *
-     * @throws Horde_Exception
+     * @throws Horde_History_Exception
      */
     public function removeByNames(array $names)
     {
         if (!count($names)) {
-            return true;
+            return;
         }
 
         $ids = array();
@@ -243,6 +237,5 @@ class Horde_History_Mock extends Horde_History
         foreach ($ids as $id) {
             unset($this->_data[$id]);
         }
-        return true;
     }
 }

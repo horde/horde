@@ -8,7 +8,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_History
+ * @package History
  */
 class Horde_HistoryObject
 {
