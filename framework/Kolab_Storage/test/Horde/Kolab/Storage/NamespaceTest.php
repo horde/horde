@@ -267,7 +267,48 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
     private function _getNamespaces()
     {
         return array(
-            new Horde_Kolab_Storage_Namespace_Fixed()
+            new Horde_Kolab_Storage_Namespace_Fixed(),
+            new Horde_Kolab_Storage_Namespace_Config(
+                array(
+                    'elements' => array(
+                        Horde_Kolab_Storage_Namespace::PRIV => array(
+                            'INBOX' => '/',
+                        ),
+                        Horde_Kolab_Storage_Namespace::OTHER => array(
+                            'user' => '/',
+                        ),
+                        Horde_Kolab_Storage_Namespace::SHARED => array(
+                            '' => '/',
+                        ),
+                    ),
+                    'shared_prefix' => 'shared.',
+                    'add_namespace' => 'INBOX',
+                )
+            ),
+            new Horde_Kolab_Storage_Namespace_Imap(
+                array(
+                    array(
+                        'name'      => 'INBOX',
+                        'type'      =>  Horde_Kolab_Storage_Namespace::PRIV,
+                        'delimiter' => '/',
+                    ),
+                    array(
+                        'name'      => 'user',
+                        'type'      =>  Horde_Kolab_Storage_Namespace::OTHER,
+                        'delimiter' => '/',
+                    ),
+                    array(
+                        'name'      => '',
+                        'type'      =>  Horde_Kolab_Storage_Namespace::SHARED,
+                        'delimiter' => '/',
+                    ),
+                ),
+                array(
+                    'shared_prefix' => 'shared.',
+                    'add_namespace' => 'INBOX',
+                )
+            ),
+            
         );
     }
 }
