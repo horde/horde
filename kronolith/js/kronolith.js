@@ -2344,7 +2344,6 @@ KronolithCore = {
             switch (type) {
             case 'internal':
                 kronolithCTagAc.reset();
-                $('kronolithCalendar' + type + 'LinkImport').up('span').hide();
                 // Fall through.
             case 'tasklists':
                 $('kronolithCalendar' + type + 'LinkExport').up('span').hide();
@@ -2370,7 +2369,11 @@ KronolithCore = {
             case 'internal':
                 kronolithCTagAc.reset(Kronolith.conf.calendars.internal[calendar].tg);
                 $('kronolithCalendar' + type + 'ImportCal').setValue(calendar);
-                $('kronolithCalendar' + type + 'LinkImport').up('span').show();
+                if (info.edit) {
+                    $('kronolithCalendar' + type + 'LinkImport').up('li').show();
+                } else {
+                    $('kronolithCalendar' + type + 'LinkImport').up('li').hide();
+                }
                 // Fall through.
             case 'tasklists':
                 $('kronolithCalendar' + type + 'Description').setValue(info.desc);
