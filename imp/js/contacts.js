@@ -7,7 +7,7 @@
 
 var ImpContacts = {
     // The following variables are defined in contacts.php:
-    //   formname, to_only
+    //   formfield, formname, to_only
 
     _passAddresses: function()
     {
@@ -77,15 +77,16 @@ var ImpContacts = {
         $('selected_addresses').childElements().each(function(s) {
             var address = s.value, f, field = null, pos, v;
             pos = address.indexOf(':');
-            f = address.substring(0, pos);
             address = address.substring(pos + 2, address.length)
 
-            if (f == 'to') {
-                field = parent.opener.document[this.formname].to;
-            } else if (!this.to_only && f == 'cc') {
-                field = parent.opener.document[this.formname].cc;
-            } else if (!this.to_only && f == 'bcc') {
-                field = parent.opener.document[this.formname].bcc;
+            if (this.formfield) {
+                field = parent.opener.document[this.formname][this.formfield];
+            } else {
+                f = address.substring(0, pos);
+                if (f == 'to' ||
+                    (!this.to_only && (f == 'cc' || f == 'bcc'))) {
+                    field = parent.opener.document[this.formname][f];
+                }
             }
 
             if (!field) {
