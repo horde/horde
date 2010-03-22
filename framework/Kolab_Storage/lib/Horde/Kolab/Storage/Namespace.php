@@ -27,7 +27,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_Namespace
+abstract class Horde_Kolab_Storage_Namespace
 {
     /** The possible namespace types (RFC 2342 [5]) */
     const PRIV   = 'private';
@@ -39,7 +39,7 @@ class Horde_Kolab_Storage_Namespace
      *
      * @var array
      */
-    private $_namespaces = array(
+    protected $_namespaces = array(
         self::PRIV => array(
             'INBOX' => '/',
         ),
@@ -56,14 +56,14 @@ class Horde_Kolab_Storage_Namespace
      *
      * @var string
      */
-    private $_charset;
+    protected $_charset;
 
     /**
      * A prefix in the shared namespaces that will be ignored/removed.
      *
      * @var string
      */
-    private $_sharedPrefix;
+    protected $_sharedPrefix;
 
     /**
      * Indicates the personal namespace that the class will use to create new
@@ -71,17 +71,7 @@ class Horde_Kolab_Storage_Namespace
      *
      * @var string
      */
-    private $_primaryPersonalNamespace;
-
-    /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-        $this->_charset = Horde_Nls::getCharset();
-        $this->_sharedPrefix = 'shared.';
-        $this->_primaryPersonalNamespace = 'INBOX';
-    }
+    protected $_primaryPersonalNamespace;
 
     /**
      * Match a folder name with the corresponding namespace.

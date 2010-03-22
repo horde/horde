@@ -53,7 +53,7 @@ abstract class Horde_Kolab_Storage_Driver
      */
     public function getNamespace()
     {
-        return new Horde_Kolab_Storage_Namespace();
+        return new Horde_Kolab_Storage_Namespace_Fixed();
     }
 
 }
