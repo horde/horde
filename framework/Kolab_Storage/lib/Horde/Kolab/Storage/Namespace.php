@@ -121,9 +121,7 @@ abstract class Horde_Kolab_Storage_Namespace
      */
     public function getTitle($name)
     {
-        $namespace = $this->matchNamespace($name);
-        $path = $this->_subpath($name, $namespace);
-        return join($path, ':');
+        return join($this->_subpath($name, $this->matchNamespace($name)), ':');
     }
 
     /**
