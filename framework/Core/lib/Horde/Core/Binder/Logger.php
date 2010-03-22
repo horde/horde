@@ -16,8 +16,11 @@ class Horde_Core_Binder_Logger implements Horde_Injector_Binder
             $append = ($conf['log']['type'] == 'file')
                 ? ($conf['log']['params']['append'] ? 'a+' : 'w+')
                 : null;
+            $format = isset($conf['log']['params']['format'])
+                ? $conf['log']['params']['format']
+                : 'default';
 
-            switch ($conf['log']['params']['format']) {
+            switch ($format) {
             case 'custom':
                 $formatter = new Horde_Log_Formatter_Xml(array('format' => $conf['log']['params']['template']));
                 break;
