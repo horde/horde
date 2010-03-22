@@ -42,6 +42,7 @@ The following hooks have changed:
 Horde_Alarm is using UTC dates now.
 
 Mail 1.2.0 is minimum version.
+Crypt_Blowfish is required.
 
 
 Upgrading Horde from 3.3.x to 3.3.5
