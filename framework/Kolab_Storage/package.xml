@@ -43,6 +43,8 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* Added namespace support (Bug #6691).
+* Converted the package to Horde 4 / PHP 5.
 * Fixed list driver to prevent overwriting folder data when
   authenticating twice (relevant for testing).
 * Allow to supress triggering (relevant for testing).
