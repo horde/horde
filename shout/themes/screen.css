@@ -109,6 +109,10 @@ ul {
     -webkit-border-radius: 10px;
 }
 
+.digit:hover {
+    cursor: pointer;
+}
+
 #defaultAction {
     width: 284px;
     height: 38px;
