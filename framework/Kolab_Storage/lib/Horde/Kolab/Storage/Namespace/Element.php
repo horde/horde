@@ -24,6 +24,9 @@ abstract class Horde_Kolab_Storage_Namespace_Element
      */
     public function __construct($name, $delimiter)
     {
+        if (substr($name, -1) == $delimiter) {
+            $name = substr($name, 0, -1);
+        }
         $this->_name = $name;
         $this->_delimiter = $delimiter;
     }

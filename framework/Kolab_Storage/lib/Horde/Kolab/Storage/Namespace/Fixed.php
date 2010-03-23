@@ -45,8 +45,8 @@ extends  Horde_Kolab_Storage_Namespace
     {
         parent::__construct();
 
-        $personal = new Horde_Kolab_Storage_Namespace_Element_Personal('INBOX', '/');
-        $other    = new Horde_Kolab_Storage_Namespace_Element_Other('user', '/');
+        $personal = new Horde_Kolab_Storage_Namespace_Element_Personal('INBOX/', '/');
+        $other    = new Horde_Kolab_Storage_Namespace_Element_Other('user/', '/');
         $shared   = new Horde_Kolab_Storage_Namespace_Element_SharedWithPrefix('', '/', 'shared.');
 
         $this->_namespaces = array($personal, $other);

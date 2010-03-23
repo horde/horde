@@ -272,13 +272,13 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
                 array(
                     array(
                         'type' => Horde_Kolab_Storage_Namespace::PERSONAL,
-                        'name' => 'INBOX',
+                        'name' => 'INBOX/',
                         'delimiter' => '/',
                         'add' => true,
                     ),
                     array(
                         'type' => Horde_Kolab_Storage_Namespace::OTHER,
-                        'name' => 'user',
+                        'name' => 'user/',
                         'delimiter' => '/',
                     ),
                     array(
@@ -292,12 +292,12 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
             new Horde_Kolab_Storage_Namespace_Imap(
                 array(
                     array(
-                        'name'      => 'INBOX',
+                        'name'      => 'INBOX/',
                         'type'      =>  Horde_Kolab_Storage_Namespace::PERSONAL,
                         'delimiter' => '/',
                     ),
                     array(
-                        'name'      => 'user',
+                        'name'      => 'user/',
                         'type'      =>  Horde_Kolab_Storage_Namespace::OTHER,
                         'delimiter' => '/',
                     ),
@@ -308,7 +308,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
                     ),
                 ),
                 array(
-                    'INBOX' => array(
+                    'INBOX/' => array(
                         'add' => true,
                     ),
                     '' => array(
