@@ -4,7 +4,7 @@ class Horde_Kolab_Storage_Namespace_Element_Other
 extends Horde_Kolab_Storage_Namespace_Element
 {
     /**
-     * Return the type of this namespace (private, other, or shared).
+     * Return the type of this namespace (personal, other, or shared).
      *
      * @return string The type.
      */

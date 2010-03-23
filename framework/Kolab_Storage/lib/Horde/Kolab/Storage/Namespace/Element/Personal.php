@@ -1,16 +1,16 @@
 <?php
 
-class Horde_Kolab_Storage_Namespace_Element_Private
+class Horde_Kolab_Storage_Namespace_Element_Personal
 extends Horde_Kolab_Storage_Namespace_Element
 {
     /**
-     * Return the type of this namespace (private, other, or shared).
+     * Return the type of this namespace (personal, other, or shared).
      *
      * @return string The type.
      */
     public function getType()
     {
-        return Horde_Kolab_Storage_Namespace::PRIV;
+        return Horde_Kolab_Storage_Namespace::PERSONAL;
     }
 
     /**
@@ -22,6 +22,6 @@ extends Horde_Kolab_Storage_Namespace_Element
      */
     public function getOwner($name)
     {
-        return Horde_Kolab_Storage_Namespace::PRIV;
+        return Horde_Kolab_Storage_Namespace::PERSONAL;
     }
 }

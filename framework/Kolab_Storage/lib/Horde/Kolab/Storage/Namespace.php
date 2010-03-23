@@ -30,9 +30,9 @@
 abstract class Horde_Kolab_Storage_Namespace
 {
     /** The possible namespace types (RFC 2342 [5]) */
-    const PRIV   = 'private';
-    const OTHER  = 'other';
-    const SHARED = 'shared';
+    const PERSONAL = 'personal';
+    const OTHER    = 'other';
+    const SHARED   = 'shared';
 
     /**
      * The namespaces.
@@ -78,18 +78,18 @@ abstract class Horde_Kolab_Storage_Namespace
     {
         $this->_charset = Horde_Nls::getCharset();
         if (empty($this->_primaryPersonalNamespace)) {
-            $priv = null;
+            $personal = null;
             foreach ($this->_namespaces as $namespace) {
                 if ($namespace->getName() == 'INBOX') {
                     $this->_primaryPersonalNamespace = $namespace;
                     break;
                 }
-                if (empty($priv) && $namespace->getType() == self::PRIV) {
-                    $priv = $namespace;
+                if (empty($personal) && $namespace->getType() == self::PERSONAL) {
+                    $personal = $namespace;
                 }
             }
             if (empty($this->_primaryPersonalNamespace)) {
-                $this->_primaryPersonalNamespace = $priv;
+                $this->_primaryPersonalNamespace = $personal;
             }
         }
     }

@@ -486,7 +486,7 @@ class Horde_Kolab_Storage_Folder
              * rather than in a module nearer to the applications.
              */
             switch ($owner) {
-            case Horde_Kolab_Storage_Namespace::PRIV:
+            case Horde_Kolab_Storage_Namespace::PERSONAL:
                 $this->_owner = Horde_Auth::getAuth();
                 break;
             case Horde_Kolab_Storage_Namespace::SHARED:

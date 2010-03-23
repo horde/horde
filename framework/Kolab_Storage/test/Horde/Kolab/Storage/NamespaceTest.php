@@ -38,7 +38,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         $this->_connection = $this->getMock('Horde_Kolab_Storage_Driver');
     }
 
-    public function testFolderTitleIsEmptyForPrivateNamespace()
+    public function testFolderTitleIsEmptyForPersonalNamespace()
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = new Horde_Kolab_Storage_Folder('INBOX');
@@ -47,7 +47,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testFolderTitleDoesNotContainPrivateNamespace()
+    public function testFolderTitleDoesNotContainPersonalNamespace()
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = new Horde_Kolab_Storage_Folder('INBOX/test');
@@ -96,7 +96,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testFolderOwnerIsCurrentUserIfPrefixMatchesPrivateNamespace()
+    public function testFolderOwnerIsCurrentUserIfPrefixMatchesPersonalNamespace()
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $_SESSION['horde_auth']['userId'] = 'test';
@@ -106,7 +106,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testFolderOwnerIsCurrentUserIfPrefixContainsPrivateNamespace()
+    public function testFolderOwnerIsCurrentUserIfPrefixContainsPersonalNamespace()
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $_SESSION['horde_auth']['userId'] = 'test';
@@ -271,7 +271,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
             new Horde_Kolab_Storage_Namespace_Config(
                 array(
                     array(
-                        'type' => Horde_Kolab_Storage_Namespace::PRIV,
+                        'type' => Horde_Kolab_Storage_Namespace::PERSONAL,
                         'name' => 'INBOX',
                         'delimiter' => '/',
                         'add' => true,
@@ -293,7 +293,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
                 array(
                     array(
                         'name'      => 'INBOX',
-                        'type'      =>  Horde_Kolab_Storage_Namespace::PRIV,
+                        'type'      =>  Horde_Kolab_Storage_Namespace::PERSONAL,
                         'delimiter' => '/',
                     ),
                     array(

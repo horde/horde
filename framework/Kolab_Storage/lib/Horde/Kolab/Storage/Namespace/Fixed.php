@@ -45,13 +45,13 @@ extends  Horde_Kolab_Storage_Namespace
     {
         parent::__construct();
 
-        $priv = new Horde_Kolab_Storage_Namespace_Element_Private('INBOX', '/');
-        $other = new Horde_Kolab_Storage_Namespace_Element_Other('user', '/');
-        $shared = new Horde_Kolab_Storage_Namespace_Element_SharedWithPrefix('', '/', 'shared.');
+        $personal = new Horde_Kolab_Storage_Namespace_Element_Personal('INBOX', '/');
+        $other    = new Horde_Kolab_Storage_Namespace_Element_Other('user', '/');
+        $shared   = new Horde_Kolab_Storage_Namespace_Element_SharedWithPrefix('', '/', 'shared.');
 
-        $this->_namespaces = array($priv, $other);
+        $this->_namespaces = array($personal, $other);
         $this->_any = $shared;
-        $this->_primaryPersonalNamespace = $priv;
+        $this->_primaryPersonalNamespace = $personal;
         $this->_sharedPrefix = 'shared.';
     }
 }
