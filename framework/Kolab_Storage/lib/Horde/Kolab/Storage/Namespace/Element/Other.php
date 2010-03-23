@@ -24,9 +24,11 @@ extends Horde_Kolab_Storage_Namespace_Element
     {
         $path = explode($this->_delimiter, $name);
         $user = $path[1];
-        $domain = strstr(array_pop($path), '@');
-        if (!empty($domain)) {
-            $user .= $domain;
+        if (strpos($user, '@') === false) {
+            $domain = strstr(array_pop($path), '@');
+            if (!empty($domain)) {
+                $user .= $domain;
+            }
         }
         return Horde_Kolab_Storage_Namespace::OTHER . ':' . $user;
     }
