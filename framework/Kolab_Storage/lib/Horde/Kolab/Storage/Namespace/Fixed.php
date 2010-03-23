@@ -31,30 +31,6 @@ class Horde_Kolab_Storage_Namespace_Fixed
 extends  Horde_Kolab_Storage_Namespace
 {
     /**
-     * The namespaces.
-     *
-     * @var array
-     */
-    protected $_namespaces = array(
-        self::PRIV => array(
-            'INBOX' => '/',
-        ),
-        self::OTHER => array(
-            'user' => '/',
-        ),
-        self::SHARED => array(
-            '' => '/',
-        ),
-    );
-
-    /**
-     * A prefix in the shared namespaces that will be ignored/removed.
-     *
-     * @var string
-     */
-    protected $_sharedPrefix = 'shared.';
-
-    /**
      * Indicates the personal namespace that the class will use to create new
      * folders.
      *
@@ -67,6 +43,15 @@ extends  Horde_Kolab_Storage_Namespace
      */
     public function __construct()
     {
-        $this->_charset = Horde_Nls::getCharset();
+        parent::__construct();
+
+        $priv = new Horde_Kolab_Storage_Namespace_Element_Private('INBOX', '/');
+        $other = new Horde_Kolab_Storage_Namespace_Element_Other('user', '/');
+        $shared = new Horde_Kolab_Storage_Namespace_Element_SharedWithPrefix('', '/', 'shared.');
+
+        $this->_namespaces = array($priv, $other);
+        $this->_any = $shared;
+        $this->_primaryPersonalNamespace = $priv;
+        $this->_sharedPrefix = 'shared.';
     }
 }

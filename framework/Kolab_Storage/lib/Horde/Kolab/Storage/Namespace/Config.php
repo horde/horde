@@ -31,51 +31,30 @@ class Horde_Kolab_Storage_Namespace_Config
 extends  Horde_Kolab_Storage_Namespace
 {
     /**
-     * The namespaces.
-     *
-     * @var array
-     */
-    protected $_namespaces = array(
-        self::PRIV => array(
-            'INBOX' => '/',
-        ),
-        self::OTHER => array(
-            'user' => '/',
-        ),
-        self::SHARED => array(
-            '' => '/',
-        ),
-    );
-
-    /**
-     * A prefix in the shared namespaces that will be ignored/removed.
-     *
-     * @var string
-     */
-    protected $_sharedPrefix = '';
-
-    /**
-     * Indicates the personal namespace that the class will use to create new
-     * folders.
-     *
-     * @var string
-     */
-    protected $_primaryPersonalNamespace = 'INBOX';
-
-    /**
      * Constructor.
      */
     public function __construct(array $configuration)
     {
-        if (isset($configuration['elements'])) {
-            $this->_namespaces = $configuration['elements'];
+        parent::__construct();
+        foreach ($configuration as $element) {
+            if ($element['type'] == Horde_Kolab_Storage_Namespace::SHARED
+                && isset($element['prefix'])) {
+                $namespace_element = new Horde_Kolab_Storage_Namespace_Element_SharedWithPrefix(
+                    $element['name'], $element['delimiter'], $element['prefix']
+                );
+                $this->_sharedPrefix = $element['prefix'];
+            } else {
+                $class = 'Horde_Kolab_Storage_Namespace_Element_' . ucfirst($element['type']);
+                $namespace_element = new $class($element['name'], $element['delimiter']);
+            }
+            if (empty($element['name'])) {
+                $this->_any = $namespace_element;
+            } else {
+                $this->_namespaces[] = $namespace_element;
+            }
+            if (isset($element['add'])) {
+                $this->_primaryPersonalNamespace = $namespace_element;
+            }
         }
-        if (isset($configuration['shared_prefix'])) {
-            $this->_sharedPrefix = $configuration['shared_prefix'];
-        }
-        if (isset($configuration['add_namespace'])) {
-            $this->_primaryPersonalNamespace = $configuration['add_namespace'];
-        }
-        $this->_charset = Horde_Nls::getCharset();
     }
 }

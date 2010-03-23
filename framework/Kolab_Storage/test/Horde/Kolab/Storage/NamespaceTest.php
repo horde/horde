@@ -270,19 +270,23 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
             new Horde_Kolab_Storage_Namespace_Fixed(),
             new Horde_Kolab_Storage_Namespace_Config(
                 array(
-                    'elements' => array(
-                        Horde_Kolab_Storage_Namespace::PRIV => array(
-                            'INBOX' => '/',
-                        ),
-                        Horde_Kolab_Storage_Namespace::OTHER => array(
-                            'user' => '/',
-                        ),
-                        Horde_Kolab_Storage_Namespace::SHARED => array(
-                            '' => '/',
-                        ),
+                    array(
+                        'type' => Horde_Kolab_Storage_Namespace::PRIV,
+                        'name' => 'INBOX',
+                        'delimiter' => '/',
+                        'add' => true,
                     ),
-                    'shared_prefix' => 'shared.',
-                    'add_namespace' => 'INBOX',
+                    array(
+                        'type' => Horde_Kolab_Storage_Namespace::OTHER,
+                        'name' => 'user',
+                        'delimiter' => '/',
+                    ),
+                    array(
+                        'type' => Horde_Kolab_Storage_Namespace::SHARED,
+                        'name' => '',
+                        'delimiter' => '/',
+                        'prefix' => 'shared.'
+                    ),
                 )
             ),
             new Horde_Kolab_Storage_Namespace_Imap(
@@ -304,8 +308,12 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
                     ),
                 ),
                 array(
-                    'shared_prefix' => 'shared.',
-                    'add_namespace' => 'INBOX',
+                    'INBOX' => array(
+                        'add' => true,
+                    ),
+                    '' => array(
+                        'prefix' => 'shared.',
+                    ),
                 )
             ),
             

@@ -82,6 +82,13 @@
        <file name="Namespace.php" role="php" />
        <dir name="Namespace">
         <file name="Config.php" role="php" />
+        <file name="Element.php" role="php" />
+        <dir name="Element">
+         <file name="Other.php" role="php" />
+         <file name="Private.php" role="php" />
+         <file name="Shared.php" role="php" />
+         <file name="SharedWithPrefix.php" role="php" />
+        </dir> <!-- /lib/Horde/Kolab/Storage/Element -->
         <file name="Fixed.php" role="php" />
         <file name="Imap.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Storage/Namespace -->
@@ -195,6 +202,11 @@
    <install as="Horde/Kolab/Storage/Folder.php" name="lib/Horde/Kolab/Storage/Folder.php" />
    <install as="Horde/Kolab/Storage/Namespace.php" name="lib/Horde/Kolab/Storage/Namespace.php" />
    <install as="Horde/Kolab/Storage/Namespace/Config.php" name="lib/Horde/Kolab/Storage/Namespace/Config.php" />
+   <install as="Horde/Kolab/Storage/Namespace/Element.php" name="lib/Horde/Kolab/Storage/Namespace/Element.php" />
+   <install as="Horde/Kolab/Storage/Namespace/Element/Other.php" name="lib/Horde/Kolab/Storage/Namespace/Element/Other.php" />
+   <install as="Horde/Kolab/Storage/Namespace/Element/Private.php" name="lib/Horde/Kolab/Storage/Namespace/Element/Private.php" />
+   <install as="Horde/Kolab/Storage/Namespace/Element/Shared.php" name="lib/Horde/Kolab/Storage/Namespace/Element/Shared.php" />
+   <install as="Horde/Kolab/Storage/Namespace/Element/SharedWithPrefix.php" name="lib/Horde/Kolab/Storage/Namespace/Element/SharedWithPrefix.php" />
    <install as="Horde/Kolab/Storage/Namespace/Fixed.php" name="lib/Horde/Kolab/Storage/Namespace/Fixed.php" />
    <install as="Horde/Kolab/Storage/Namespace/Imap.php" name="lib/Horde/Kolab/Storage/Namespace/Imap.php" />
    <install as="Horde/Kolab/Storage/Permission.php" name="lib/Horde/Kolab/Storage/Permission.php" />
