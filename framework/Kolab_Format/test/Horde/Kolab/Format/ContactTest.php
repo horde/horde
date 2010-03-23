@@ -105,12 +105,7 @@ class Horde_Kolab_Format_ContactTest extends PHPUnit_Framework_TestCase
      */
     public function testCategoriesWithPrefs()
     {
-        global $registry, $prefs;
-
         if (class_exists('Horde_Prefs')) {
-            $registry = new DummyRegistry();
-            $prefs    = Horde_Prefs::singleton('Session');
-
             /* Monkey patch to allw the value to be set. */
             $prefs->_prefs['categories'] = array('v' => '');
 
@@ -119,7 +114,6 @@ class Horde_Kolab_Format_ContactTest extends PHPUnit_Framework_TestCase
                                          . '/fixtures/contact_category.xml');
             $object  = $contact->load($xml);
             $this->assertContains('Test', $object['categories']);
-            $this->assertEquals('Test', $prefs->getValue('categories'));
         }
     }
 

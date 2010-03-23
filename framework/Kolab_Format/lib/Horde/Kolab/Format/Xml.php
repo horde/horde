@@ -1006,17 +1006,6 @@ class Horde_Kolab_Format_Xml
             return;
         }
 
-        // Create horde category if needed
-        if ($this->_create_categories &&
-            class_exists('Horde_Prefs_CategoryManager') &&
-            isset($prefs) && $prefs instanceof Horde_Prefs) {
-            $cManager         = new Horde_Prefs_CategoryManager();
-            $horde_categories = $cManager->get();
-        } else {
-            $cManager         = null;
-            $horde_categories = null;
-        }
-
         $kolab_categories = explode(',', $object['categories']);
 
         $primary_category = '';
@@ -1024,14 +1013,6 @@ class Horde_Kolab_Format_Xml
             $kolab_category = trim($kolab_category);
 
             $valid_category = true;
-            if ($cManager &&
-                array_search($kolab_category, $horde_categories) === false) {
-                // Unknown category -> Add
-                if ($cManager->add($kolab_category) === false) {
-                    // categories might be locked
-                    $valid_category = false;
-                }
-            }
 
             // First valid category becomes primary category
             if ($valid_category && empty($primary_category)) {
