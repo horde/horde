@@ -335,4 +335,25 @@ class Horde_Kolab_Storage_Driver_Imap extends Horde_Kolab_Storage_Driver
         return $this->_imap->setMetadata($mailbox_name,
                                          array($entry => $value));
     }
+
+
+    /**
+     * Retrieve the namespace information for this connection.
+     *
+     * @return Horde_Kolab_Storage_Namespace The initialized namespace handler.
+     */
+    public function getNamespace()
+    {
+        if ($this->_imap->queryCapability('NAMESPACE') === true) {
+            return new Horde_Kolab_Storage_Namespace_Imap(
+                $this->_imap->getNamespaces(),
+                isset($this->_params['namespaces']) ? $this->_params['namespaces'] : array()
+            );
+        } else if (isset($this->_params['namespaces'])) {
+            return new Horde_Kolab_Storage_Namespace_Config(
+                $this->_params['namespaces']
+            );
+        }
+        return new Horde_Kolab_Storage_Namespace_Fixed();
+    }
 }

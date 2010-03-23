@@ -45,15 +45,4 @@ abstract class Horde_Kolab_Storage_Driver
         throw new Horde_Kolab_Storage_Exception(
             'Driver type definition "' . $class . '" missing.');
     }
-
-    /**
-     * Retrieve the namespace information for this connection.
-     *
-     * @return Horde_Kolab_Storage_Namespace The initialized namespace handler.
-     */
-    public function getNamespace()
-    {
-        return new Horde_Kolab_Storage_Namespace_Fixed();
-    }
-
 }
