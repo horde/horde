@@ -124,6 +124,8 @@ class Horde_Auth_Kolab_Integration_AuthTest extends PHPUnit_Framework_TestCase
      */
     public function testKolabLoginViaSessionSingleton()
     {
+        $this->markTestIncomplete('Needs correct kolab session setup.');
+
         global $conf;
 
         $conf['kolab']['ldap']['basedn'] = 'dc=test';
