@@ -188,7 +188,6 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
                 $event->end->mday += $value;
                 if ($event->recurs()) {
                     $event->recurrence->start->mday += $value;
-                    $event->recurrence->end->mday += $value;
                 }
                 break;
 
@@ -197,7 +196,6 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
                 $event->end->min += $value;
                 if ($event->recurs()) {
                     $event->recurrence->start->min += $value;
-                    $event->recurrence->end->min += $value;
                 }
                 break;
             }
