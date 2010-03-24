@@ -233,6 +233,7 @@ class Horde_Registry
         /* Define binders. */
         $binders = array(
             'Horde_Alarm' => new Horde_Core_Binder_Alarm(),
+            // 'Horde_Browser' - initialized below
             'Horde_Cache' => new Horde_Core_Binder_Cache(),
             'Horde_Db_Adapter_Base' => new Horde_Core_Binder_Db('reader'),
             'Horde_Lock' => new Horde_Core_Binder_Lock(),
@@ -240,6 +241,7 @@ class Horde_Registry
             'Horde_Memcache' => new Horde_Core_Binder_Memcache(),
             'Horde_Notification' => new Horde_Core_Binder_Notification(),
             'Horde_Perms' => new Horde_Core_Binder_Perms(),
+            // 'Horde_Registry' - initialized below
             'Horde_Secret' => new Horde_Core_Binder_Secret(),
             'Horde_Template' => new Horde_Core_Binder_Template(),
             'Horde_Token' => new Horde_Core_Binder_Token(),
@@ -282,8 +284,7 @@ class Horde_Registry
         $injector->setInstance('Horde_Registry', $this);
 
         /* Initialize browser object. */
-        $GLOBALS['browser'] = new Horde_Browser();
-        $injector->setInstance('Horde_Browser', $GLOBALS['browser']);
+        $GLOBALS['browser'] = $injector->getInstance('Horde_Browser');
 
         /* Import and global Horde's configuration values. Almost a chicken
          * and egg issue - since loadConfiguration() uses registry in certain
