@@ -72,7 +72,7 @@ class Horde_Block_imp_tree_folders extends Horde_Block
 
             $node_params = array(
                 'icon' => $val['icon'],
-                'icondir' => $val['icondir'],
+                'icondir' => (string)$val['icondir'],
                 'iconopen' => $val['iconopen'],
                 'url' => ($val['container']) ? null : $name_url->add('mailbox', $val['value']),
             );
@@ -95,7 +95,7 @@ class Horde_Block_imp_tree_folders extends Horde_Block
             }
 
             $node_params = array('url' => $url,
-                                 'icon' => $GLOBALS['registry']->get('icon', $parent),
+                                 'icon' => (string)$GLOBALS['registry']->get('icon', $parent),
                                  'icondir' => '');
             $menu_parent = $GLOBALS['registry']->get('menu_parent', $parent);
             $name = $GLOBALS['registry']->get('name', $parent);

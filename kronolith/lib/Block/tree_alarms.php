@@ -48,7 +48,7 @@ class Horde_Block_kronolith_tree_alarms extends Horde_Block {
             $purl = Horde::url($GLOBALS['registry']->getInitialPage($parent));
         }
         $pnode_params = array('url' => $purl,
-                              'icon' => $GLOBALS['registry']->get('icon', $parent),
+                              'icon' => (string)$GLOBALS['registry']->get('icon', $parent),
                               'icondir' => '');
         $pnode_name = $GLOBALS['registry']->get('name', $parent);
         if ($alarmCount) {

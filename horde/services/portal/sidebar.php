@@ -124,12 +124,12 @@ function buildMenu()
             foreach ($list as $method => $vals) {
                 $name = Horde::stripAccessKey($vals['name']);
                 $icon = isset($vals['icon'])
-                    ? (string)Horde_Themes::img($vals['icon'])
-                    : (string)$registry->get('icon');
+                    ? Horde_Themes::img($vals['icon'])
+                    : $registry->get('icon');
 
                 $menu['administration_' . $method] = array(
                     'name' => $name,
-                    'icon' => $icon,
+                    'icon' => (string)$icon,
                     'status' => 'active',
                     'menu_parent' => 'administration',
                     'url' => Horde::url($registry->applicationWebPath($vals['link'])),
@@ -255,7 +255,7 @@ foreach ($menu as $app => $params) {
 
         $node_params = array('url' => $url,
                              'target' => isset($params['target']) ? $params['target'] : null,
-                             'icon' => isset($params['icon']) ? (string)$params['icon'] : (string)$registry->get('icon', $app),
+                             'icon' => (string)(isset($params['icon']) ? $params['icon'] : $registry->get('icon', $app)),
                              'icondir' => '',
                              );
         $tree->addNode($app, !empty($params['menu_parent']) ? $params['menu_parent'] : null, $name, 0, false, $node_params);
