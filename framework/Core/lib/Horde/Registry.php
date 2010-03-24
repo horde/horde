@@ -224,9 +224,11 @@ class Horde_Registry
      */
     public function __construct($session_flags = 0)
     {
-        /* Set autoloader callbacks. */
-        Horde_Autoloader::addCallback('Horde_Auth', array('Horde_Core_Autoloader_Callback_Auth', 'callback'));
-        Horde_Autoloader::addCallback('Horde_Mime', array('Horde_Core_Autoloader_Callback_Mime', 'callback'));
+        /* Define autoloader callbacks. */
+        $callbacks = array(
+            'Horde_Auth' => 'Horde_Core_Autoloader_Callback_Auth',
+            'Horde_Mime' => 'Horde_Core_Autoloader_Callback_Mime'
+        );
 
         /* Define binders. */
         $binders = array(
@@ -261,6 +263,11 @@ class Horde_Registry
                 'getStorage'
             )
         );
+
+        /* Setup autoloader callbacks. */
+        foreach ($callbacks as $key => $val) {
+            Horde_Autoloader::addCallback($key, array($val, 'callback'));
+        }
 
         /* Setup injector. */
         $GLOBALS['injector'] = $injector = new Horde_Injector(new Horde_Injector_TopLevel());
