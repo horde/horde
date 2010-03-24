@@ -129,13 +129,12 @@ ul.msgactions, ul.msgactions ul {
     color: #000;
     background: #ccc;
 }
-.bottomborder {
+.bottomborder, .bottombordercollapse {
     border-bottom: 1px solid #999;
+}
+.bottomborder {
     padding-bottom: 0;
     padding-top: 0;
-}
-.bottombordercollapse {
-    border-bottom: 2px solid #999;
 }
 .topborder {
     border-top: 1px solid #999;
