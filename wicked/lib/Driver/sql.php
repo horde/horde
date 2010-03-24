@@ -435,7 +435,7 @@ class Wicked_Driver_sql extends Wicked_Driver {
             ' WHERE page_id = ?';
         $params = array($pageId);
 
-        Horde::logMessage('Wicked_Driver_sql::removeAllAttachments: ' . $sql, 'DEBUG')
+        Horde::logMessage('Wicked_Driver_sql::removeAllAttachments: ' . $sql, 'DEBUG');
 
         $result = $this->_db->query($sql, $params);
         if (is_a($result, 'PEAR_Error')) {
