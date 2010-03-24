@@ -72,7 +72,16 @@ class Horde_Core_Log_Logger extends Horde_Log_Logger
             }
 
             $trace = debug_backtrace();
-            $trace = $trace[isset($options['trace']) ? ($options['trace'] - 1) : 0];
+            if (isset($options['trace'])) {
+                $frame = $options['trace'] - 1;
+            } elseif (count($trace) > 1 &&
+                      $trace[1]['class'] == 'Horde_Log_Logger' &&
+                      $trace[1]['function'] == '__call') {
+                $frame = 2;
+            } else {
+                $frame = 0;
+            }
+            $trace = $trace[$frame];
         }
 
         $file = isset($options['file'])
