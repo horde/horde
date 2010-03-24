@@ -44,7 +44,7 @@ class DeviceDetailsForm extends Horde_Form {
 
     public function execute()
     {
-        $shout = $GLOBALS['injector']->getInstance('shout', 'application');
+        $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
 
         $action = $this->_vars->get('action');
         $account = $this->_vars->get('account');
@@ -110,7 +110,7 @@ class DeviceDeleteForm extends Horde_Form
 
     function execute()
     {
-        $shout = $GLOBALS['injector']->getInstance('shout', 'application');
+        $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
         $account = $this->_vars->get('account');
         $devid = $this->_vars->get('devid');
         $shout->devices->deleteDevice($account, $devid);

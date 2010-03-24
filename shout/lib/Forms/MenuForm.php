@@ -42,7 +42,7 @@ class MenuForm extends Horde_Form {
 
     public function execute()
     {
-        $shout = $GLOBALS['injector']->getInstance('shout', 'application');
+        $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
 
         $account = $_SESSION['shout']['curaccount'];
 
@@ -79,7 +79,7 @@ class DeviceMenuForm extends Horde_Form
 
     function execute()
     {
-        $shout = $GLOBALS['injector']->getInstance('shout', 'application');
+        $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
         $account = $this->_vars->get('account');
         $menu = $this->_vars->get('menu');
         $shout->devices->deleteMenu($account, $menu);

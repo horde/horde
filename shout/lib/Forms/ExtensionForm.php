@@ -21,9 +21,6 @@ class ExtensionDetailsForm extends Horde_Form {
      */
     function __construct(&$vars)
     {
-        $shout = $GLOBALS['injector']->getInstance('shout', 'application');
-
-
         $account = $_SESSION['shout']['curaccount'];
         $action = $vars->get('action');
         if ($action == 'edit') {
@@ -58,7 +55,7 @@ class ExtensionDetailsForm extends Horde_Form {
      */
     function execute()
     {
-        $shout = $GLOBALS['injector']->getInstance('shout', 'application');
+        $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
 
         $extension = $this->_vars->get('extension');
         $account = $this->_vars->get('account');
@@ -96,7 +93,7 @@ class ExtensionDeleteForm extends Horde_Form
 
     function execute()
     {
-        $shout = $GLOBALS['injector']->getInstance('shout', 'application');
+        $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
         $account = $this->_vars->get('account');
         $extension = $this->_vars->get('extension');
         $shout->extensions->deleteExtension($account, $extension);
