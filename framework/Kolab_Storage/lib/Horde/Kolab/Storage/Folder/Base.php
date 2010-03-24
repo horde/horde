@@ -276,9 +276,9 @@ implements Horde_Kolab_Storage_Folder
      *                          special ones like 'type', 'default',
      *                          'owner' and 'desc'.
      *
-     * @return boolean|PEAR_Error True on success.
+     * @return NULL
      */
-    function save($attributes = null)
+    public function save($attributes = null)
     {
         if (!isset($this->name)) {
             /* A new folder needs to be created */
@@ -347,21 +347,6 @@ implements Horde_Kolab_Storage_Folder
 
                 $result = $this->_connection->rename($this->name, $this->new_name);
                 $this->_storage->removeFromCache($this);
-
-                /**
-                 * Trigger the old folder on an empty IMAP folder.
-                 */
-                try {
-                    $this->_connection->create($this->name);
-                    $this->_connection->setAnnotation(self::ANNOT_FOLDER_TYPE,
-                                                      $this->_type,
-                                                      $this->name);
-                    $this->trigger($this->name);
-                    $this->_connection->delete($this->name);
-                } catch (Exception $e) {
-                    Horde::logMessage(sprintf('Failed handling the dummy folder: %s!',
-                                              $e->getMessage()), 'ERR');
-                }
 
                 $this->name     = $this->new_name;
                 $this->new_name = null;
@@ -434,13 +419,6 @@ implements Horde_Kolab_Storage_Folder
 
         $this->_storage->addToCache($this);
 
-        try {
-            $this->trigger();
-        } catch (Horde_Kolab_Storage_Exception $e) {
-            Horde::logMessage(sprintf('Failed triggering folder %s! Error was: %s',
-                                      $this->name, $e->getMessage()), 'ERR');
-        }
-
         return true;
     }
 
@@ -497,6 +475,8 @@ implements Horde_Kolab_Storage_Folder
      * @param string $name Name of the folder that should be triggered.
      *
      * @return string|PEAR_Error  The subpath of this folder.
+     *
+     * @todo Is this is only needed by triggering? Can it be removed/moved?
      */
     public function getSubpath($name = null)
     {
@@ -693,24 +673,13 @@ implements Horde_Kolab_Storage_Folder
      * @param  string  $id      IMAP id of the message to be deleted.
      * @param  boolean $trigger Should the folder be triggered?
      *
-     * @return boolean|PEAR_Error True if successful.
+     * @return NULL
      */
-    function deleteMessage($id, $trigger = true)
+    public function deleteMessage($id, $trigger = true)
     {
         // Select folder
         $this->_connection->deleteMessages($this->name, $id);
         $this->_connection->expunge($this->name);
-
-        if ($trigger) {
-            try {
-                $result = $this->trigger();
-            } catch (Horde_Kolab_Storage_Exception $e) {
-                Horde::logMessage(sprintf('Failed triggering folder %s! Error was: %s',
-                                          $this->name, $result->getMessage()), 'ERR');
-            }
-        }
-
-        return true;
     }
 
     /**
@@ -719,33 +688,13 @@ implements Horde_Kolab_Storage_Folder
      * @param string $id     IMAP id of the message to be moved.
      * @param string $folder Name of the receiving folder.
      *
-     * @return boolean|PEAR_Error True if successful.
+     * @return boolean True if successful.
      */
-    function moveMessage($id, $folder)
+    public function moveMessage($id, $folder)
     {
-        // Select folder
-        $result = $this->_connection->select($this->name);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
-        $result = $this->_connection->moveMessage($this->name, $id, $folder);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
-        $result = $this->_connection->expunge($this->name);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
-        $result = $this->trigger();
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage(sprintf('Failed triggering folder %s! Error was: %s',
-                                      $this->name, $result->getMessage()), 'ERR');
-        }
-
-        return true;
+        $this->_connection->select($this->name);
+        $this->_connection->moveMessage($this->name, $id, $folder);
+        $this->_connection->expunge($this->name);
     }
 
     /**
@@ -754,24 +703,14 @@ implements Horde_Kolab_Storage_Folder
      * @param string $id    IMAP id of the message to be moved.
      * @param string $share Name of the receiving share.
      *
-     * @return boolean|PEAR_Error True if successful.
+     * @return NULL
      */
-    function moveMessageToShare($id, $share)
+    public function moveMessageToShare($id, $share)
     {
         $folder = $this->_storage->getByShare($share, $this->getType());
-        if (is_a($folder, 'PEAR_Error')) {
-            return $folder;
-        }
         $folder->tainted = true;
 
         $success = $this->moveMessage($id, $folder->name);
-
-        $result = $this->trigger();
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage(sprintf('Failed triggering folder %s! Error was: %s',
-                                      $this->name, $result->getMessage()), 'ERR');
-        }
-        return $success;
     }
 
     /**
@@ -810,7 +749,7 @@ implements Horde_Kolab_Storage_Folder
      *
      * @return boolean True on success.
      */
-    function saveObject(&$object, $data_version, $object_type, $id = null,
+    public function saveObject(&$object, $data_version, $object_type, $id = null,
                         &$old_object = null)
     {
         // Select folder
@@ -980,15 +919,6 @@ implements Horde_Kolab_Storage_Folder
         if ($id != null) {
             $this->_connection->expunge($this->name);
         }
-
-        try {
-            $this->trigger();
-        } catch (Horde_Kolab_Storage_Exception $e) {
-            Horde::logMessage(sprintf('Failed triggering folder %s! Error was: %s',
-                                      $this->name, $result->getMessage()), 'ERR');
-        }
-
-        return true;
     }
 
     /**
@@ -1101,84 +1031,6 @@ implements Horde_Kolab_Storage_Folder
     }
 
     /**
-     * Triggers any required updates after changes within the
-     * folder. This is currently only required for handling free/busy
-     * information with Kolab.
-     *
-     * @param string $name Name of the folder that should be triggered.
-     *
-     * @return boolean|PEAR_Error True if successfull.
-     */
-    function trigger($name = null)
-    {
-        $type =  $this->getType();
-        if (is_a($type, 'PEAR_Error')) {
-            return $type;
-        }
-
-        $owner = $this->getOwner();
-        if (is_a($owner, 'PEAR_Error')) {
-            return $owner;
-        }
-
-        $subpath = $this->getSubpath($name);
-        if (is_a($subpath, 'PEAR_Error')) {
-            return $subpath;
-        }
-
-        switch($type) {
-        case 'event':
-            $session = &Horde_Kolab_Session_Singleton::singleton();
-            $url = sprintf('%s/trigger/%s/%s.pfb',
-                           $session->freebusy_server, $owner, $subpath);
-            break;
-        default:
-            return true;
-        }
-
-        $result = $this->triggerUrl($url);
-        if (is_a($result, 'PEAR_Error')) {
-            return PEAR::raiseError(sprintf(_("Failed triggering folder %s. Error was: %s"),
-                                            $this->name, $result->getMessage()));
-        }
-        return $result;
-    }
-
-    /**
-     * Triggers a URL.
-     *
-     * @param string $url The URL to be triggered.
-     *
-     * @return boolean|PEAR_Error True if successfull.
-     */
-    function triggerUrl($url)
-    {
-        global $conf;
-
-        if (!empty($conf['kolab']['no_triggering'])) {
-            return true;
-        }
-
-        $options['method'] = 'GET';
-        $options['timeout'] = 5;
-        $options['allowRedirects'] = true;
-
-        if (isset($conf['http']['proxy']) && !empty($conf['http']['proxy']['proxy_host'])) {
-            $options = array_merge($options, $conf['http']['proxy']);
-        }
-
-        require_once 'HTTP/Request.php';
-        $http = new HTTP_Request($url, $options);
-        $http->setBasicAuth(Horde_Auth::getAuth(), Horde_Auth::getCredential('password'));
-        @$http->sendRequest();
-        if ($http->getResponseCode() != 200) {
-            return PEAR::raiseError(sprintf(_("Unable to trigger URL %s. Response: %s"),
-                                            $url, $http->getResponseCode()));
-        }
-        return true;
-    }
-
-    /**
      * Checks to see if a user has a given permission.
      *
      * @param string $userid       The userid of the user.
@@ -1254,24 +1106,24 @@ implements Horde_Kolab_Storage_Folder
     }
 
     /**
-     * Return the IMAP ACL of this folder.
+     * Return the ACL of this folder.
      *
-     * @return array|PEAR_Error  An array with IMAP ACL.
+     * @return array An array with ACL.
      */
-    function getACL()
+    public function getACL()
     {
         return $this->_connection->getACL($this->name);
     }
 
     /**
-     * Set the IMAP ACL of this folder.
+     * Set the ACL of this folder.
      *
      * @param $user The user for whom the ACL should be set.
      * @param $acl  The new ACL value.
      *
-     * @return boolean|PEAR_Error  True on success.
+     * @return NULL
      */
-    function setACL($user, $acl)
+    public function setACL($user, $acl)
     {
         $this->_connection->setACL($this->name, $user, $acl);
 
@@ -1279,24 +1131,16 @@ implements Horde_Kolab_Storage_Folder
             /** Refresh the cache after changing the permissions */
             $this->_perms->getPerm();
         }
-
-        $result = $this->trigger();
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage(sprintf('Failed triggering folder %s! Error was: %s',
-                                      $this->name, $result->getMessage()), 'ERR');
-        }
-
-        return $result;
     }
 
     /**
-     * Delete the IMAP ACL for a user on this folder.
+     * Delete the ACL for a user on this folder.
      *
      * @param $user The user for whom the ACL should be deleted.
      *
-     * @return boolean|PEAR_Error  True on success.
+     * @return NULL
      */
-    function deleteACL($user)
+    public function deleteACL($user)
     {
         global $conf;
 
@@ -1305,14 +1149,6 @@ implements Horde_Kolab_Storage_Folder
         }
 
         $this->_connection->deleteACL($this->name, $user);
-
-        $result = $this->trigger();
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage(sprintf('Failed triggering folder %s! Error was: %s',
-                                      $this->name, $result->getMessage()), 'ERR');
-        }
-
-        return $iresult;
     }
 
 

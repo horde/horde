@@ -83,6 +83,10 @@
        <file name="Folder.php" role="php" />
        <dir name="Folder">
         <file name="Base.php" role="php" />
+        <dir name="Decorator">
+         <file name="Base.php" role="php" />
+         <file name="Trigger.php" role="php" />
+        </dir> <!-- /lib/Horde/Kolab/Storage/Folder/Decorator -->
        </dir> <!-- /lib/Horde/Kolab/Storage/Folder -->
        <file name="Namespace.php" role="php" />
        <dir name="Namespace">
@@ -206,6 +210,8 @@
    <install as="Horde/Kolab/Storage/Exception.php" name="lib/Horde/Kolab/Storage/Exception.php" />
    <install as="Horde/Kolab/Storage/Folder.php" name="lib/Horde/Kolab/Storage/Folder.php" />
    <install as="Horde/Kolab/Storage/Folder/Base.php" name="lib/Horde/Kolab/Storage/Folder/Base.php" />
+   <install as="Horde/Kolab/Storage/Folder/Decorator/Base.php" name="lib/Horde/Kolab/Storage/Folder/Decorator/Base.php" />
+   <install as="Horde/Kolab/Storage/Folder/Decorator/Trigger.php" name="lib/Horde/Kolab/Storage/Folder/Decorator/Trigger.php" />
    <install as="Horde/Kolab/Storage/Namespace.php" name="lib/Horde/Kolab/Storage/Namespace.php" />
    <install as="Horde/Kolab/Storage/Namespace/Config.php" name="lib/Horde/Kolab/Storage/Namespace/Config.php" />
    <install as="Horde/Kolab/Storage/Namespace/Element.php" name="lib/Horde/Kolab/Storage/Namespace/Element.php" />

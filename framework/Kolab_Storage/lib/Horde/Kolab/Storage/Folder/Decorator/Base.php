@@ -1,36 +1,48 @@
 <?php
 /**
- * The interface describing a Kolab folder.
+ * The basic decorator definition for Kolab folders.
  *
  * PHP version 5
  *
  * @category Kolab
  * @package  Kolab_Storage
- * @author   Stuart Binge <omicron@mighty.co.za>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 
 /**
- * The interface describing a Kolab folder.
+ * The basic decorator definition for Kolab folders.
  *
- * Copyright 2004-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @category Kolab
- * @package  Kolab_Storage
- * @author   Stuart Binge <omicron@mighty.co.za>
- * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Storage
+ * @author  Gunnar Wrobel <wrobel@pardus.de>
+ * @package Kolab_Storage
  */
-interface Horde_Kolab_Storage_Folder
+class Horde_Kolab_Storage_Folder_Decorator_Base
+implements Horde_Kolab_Storage_Folder
 {
+
+    /**
+     * The decorated folder.
+     *
+     * @var Horde_Kolab_Storage_Folder
+     */
+    protected $_folder;
+
+    /**
+     * Constructor
+     *
+     * @param Horde_Kolab_Storage_Folder $folder The folder to be decorated.
+     */
+    public function __construct(Horde_Kolab_Storage_Folder $folder)
+    {
+        $this->_folder = $folder;
+    }
+
     /**
      * Saves the folder.
      *
@@ -41,7 +53,10 @@ interface Horde_Kolab_Storage_Folder
      *
      * @return NULL
      */
-    public function save($attributes = null);
+    public function save($attributes = null)
+    {
+        $this->_folder->save($attributes);
+    }
 
     /**
      * Delete the specified message from this folder.
@@ -51,7 +66,10 @@ interface Horde_Kolab_Storage_Folder
      *
      * @return NULL
      */
-    public function deleteMessage($id, $trigger = true);
+    public function deleteMessage($id, $trigger = true)
+    {
+        $this->_folder->deleteMessage($id, $trigger);
+    }
 
     /**
      * Move the specified message to the specified folder.
@@ -61,7 +79,10 @@ interface Horde_Kolab_Storage_Folder
      *
      * @return boolean True if successful.
      */
-    public function moveMessage($id, $folder);
+    public function moveMessage($id, $folder)
+    {
+        $this->_folder->moveMessage($id, $folder);
+    }
 
     /**
      * Move the specified message to the specified share.
@@ -71,7 +92,10 @@ interface Horde_Kolab_Storage_Folder
      *
      * @return NULL
      */
-    public function moveMessageToShare($id, $share);
+    public function moveMessageToShare($id, $share)
+    {
+        $this->_folder->moveMessageToShare($id, $share);
+    }
 
     /**
      * Save an object in this folder.
@@ -87,14 +111,20 @@ interface Horde_Kolab_Storage_Folder
      * @return boolean True on success.
      */
     public function saveObject(&$object, $data_version, $object_type, $id = null,
-                               &$old_object = null);
+                               &$old_object = null)
+    {
+        $this->_folder->saveObject($object, $data_version, $object_type, $id, $old_object = null);
+    }
 
     /**
      * Return the IMAP ACL of this folder.
      *
      * @return array An array with IMAP ACL.
      */
-    public function getACL();
+    public function getACL()
+    {
+        return $this->_folder->getACL();
+    }
 
     /**
      * Set the ACL of this folder.
@@ -104,7 +134,10 @@ interface Horde_Kolab_Storage_Folder
      *
      * @return NULL
      */
-    public function setACL($user, $acl);
+    public function setACL($user, $acl)
+    {
+        $this->_folder->setACL($user, $acl);
+    }
 
     /**
      * Delete the ACL for a user on this folder.
@@ -113,6 +146,9 @@ interface Horde_Kolab_Storage_Folder
      *
      * @return NULL
      */
-    public function deleteACL($user);
+    public function deleteACL($user)
+    {
+        $this->_folder->deleteACL($user);
+    }
 
 }
