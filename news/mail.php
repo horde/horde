@@ -54,11 +54,11 @@ $body = sprintf(_("%s would you like to invite you to read the news\n Title: %s\
                 News::getUrlFor('news', $id, true, -1));
 
 $mail = new Horde_Mime_Mail(array('subject' => $row['title'], 'body' => $body, 'to' => $to, 'from' => $from, 'charset' => Horde_Nls::getCharset()));
-$result = $mail->send($conf['mailer']['type'], $conf['mailer']['params']);
-if ($result instanceof PEAR_Error) {
-    $notification->push($result);
-} else {
+try {
+    $mail->send($GLOBALS['injector']->getInstance('Mail'));
     $notification->push(sprintf(_("News succesfully send to %s"), $to), 'horde.success');
+} catch (Horde_Mime_Exception $e) {
+    $notification->push($e);
 }
 
 header('Location: ' . News::getUrlFor('news', $id));

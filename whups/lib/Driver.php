@@ -489,7 +489,7 @@ class Whups_Driver {
             $mail->addHeader('To', $to, Horde_Nls::getCharset());
 
             try {
-                $mail->send(Horde::getMailerConfig(), true);
+                $mail->send($GLOBALS['injector']->getInstance('Mail'), true);
                 $entry = sprintf('%s Message sent to %s from "%s"',
                                  $_SERVER['REMOTE_ADDR'], $to,
                                  Horde_Auth::getAuth());

@@ -14,7 +14,9 @@ $mail->setBody('Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
 consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
 cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.');
 
-echo $mail->send(array('type' => 'dummy'));
+$dummy = Mail::factory('dummy');
+$mail->send($dummy);
+echo $dummy->send_output;
 
 ?>
 --EXPECTF--

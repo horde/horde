@@ -843,24 +843,6 @@ HTML;
     }
 
     /**
-     * Return the driver and parameters for the current mailer configuration.
-     *
-     * @return array  Array with driver name and parameter hash.
-     */
-    static public function getMailerConfig()
-    {
-        $mail_driver = $GLOBALS['conf']['mailer']['type'];
-        $mail_params = $GLOBALS['conf']['mailer']['params'];
-        if ($mail_driver == 'smtp' && $mail_params['auth'] &&
-            empty($mail_params['username'])) {
-            $mail_params['username'] = Horde_Auth::getAuth();
-            $mail_params['password'] = Horde_Auth::getCredential('password');
-        }
-
-        return array('type' => $mail_driver, 'params' => $mail_params);
-    }
-
-    /**
      * Checks if all necessary parameters for a driver configuration
      * are set and throws a fatal error with a detailed explanation
      * how to fix this, if something is missing.

@@ -12,7 +12,9 @@ $mail = new Horde_Mime_Mail(array('subject' => 'My Subject',
                                   'to' => 'recipient@example.com',
                                   'from' => 'sender@example.com',
                                   'charset' => 'iso-8859-15'));
-echo $mail->send(array('type' => 'dummy'));
+$dummy = Mail::factory('dummy');
+$mail->send($dummy);
+echo $dummy->send_output;
 
 ?>
 --EXPECTF--

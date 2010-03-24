@@ -2048,7 +2048,7 @@ class Kronolith
             $mail->setBasePart($multipart);
 
             try {
-                $mail->send(Horde::getMailerConfig());
+                $mail->send($GLOBALS['injector']->getInstance('Mail'));
                 $notification->push(
                     sprintf(_("The event notification to %s was successfully sent."), $recipient),
                     'horde.success'
@@ -2180,7 +2180,7 @@ class Kronolith
                     $mime_mail->addHeader('User-Agent', 'Kronolith ' . $GLOBALS['registry']->getVersion());
                     $mime_mail->setBody($message, Horde_Nls::getCharset(), true);
                     Horde::logMessage(sprintf('Sending event notifications for %s to %s', $event->title, implode(', ', $df_recipients)), 'DEBUG');
-                    $mime_mail->send(Horde::getMailerConfig(), false, false);
+                    $mime_mail->send($GLOBALS['injector']->getInstance('Mail'), false, false);
                 }
             }
         }

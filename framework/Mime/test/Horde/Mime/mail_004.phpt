@@ -17,7 +17,9 @@ $mail->addPart('application/octet-stream',
                file_get_contents(dirname(__FILE__) . '/fixtures/attachment.bin'),
                null, 'attachment');
 
-echo $mail->send(array('type' => 'dummy'));
+$dummy = Mail::factory('dummy');
+$mail->send($dummy);
+echo $dummy->send_output;
 
 ?>
 --EXPECTF--

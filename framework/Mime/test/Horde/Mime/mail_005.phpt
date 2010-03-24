@@ -30,7 +30,10 @@ $mail = new Horde_Mime_Mail(array('subject' => 'My Subject',
                                   'to' => 'recipient@example.com',
                                   'from' => 'sender@example.com'));
 $mail->setHTMLBody("<h1>Header Title</h1>\n<p>This is<br />the html text body.</p>");
-echo $mail->send(array('type' => 'dummy'));
+
+$dummy = Mail::factory('dummy');
+$mail->send($dummy);
+echo $dummy->send_output;
 
 ?>
 --EXPECTF--

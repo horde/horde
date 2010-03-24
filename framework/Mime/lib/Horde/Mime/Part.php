@@ -1440,17 +1440,15 @@ class Horde_Mime_Part
      * @param string $email                The address list to send to.
      * @param Horde_Mime_Headers $headers  The Horde_Mime_Headers object
      *                                     holding this message's headers.
-     * @param string $driver               The Mail:: driver to use.
-     * @param array $params                Any parameters necessary for the
-     *                                     Mail driver.
+     * @param Mail $mailer                 A Mail driver.
      *
      * @throws Horde_Mime_Exception
+     * @throws InvalidArgumentException
      */
-    public function send($email, $headers, $driver, $params = array())
+    public function send($email, $headers, $mailer)
     {
-        $mailer = Mail::factory($driver, $params);
-        if ($mailer instanceof PEAR_Error) {
-            throw new Horde_Mime_Exception($mailer);
+        if (!($mailer instanceof Mail)) {
+            throw new InvalidArgumentException('Invalid Mail object passed to send().');
         }
 
         $old_basepart = $this->_basepart;
@@ -1460,7 +1458,7 @@ class Horde_Mime_Part
          * BINARYMIME (RFC 3030) extensions? Requires PEAR's Mail package
          * version 1.2+ and Net_SMTP version 1.3+. */
         $encode = self::ENCODE_7BIT;
-        if ($driver == 'smtp') {
+        if ($mailer instanceof Mail_smtp) {
             $net_smtp = $mailer->getSMTPObject();
             if (!($net_smtp instanceof PEAR_Error)) {
                 $smtp_ext = $net_smtp->getServiceExtensions();
@@ -1497,19 +1495,9 @@ class Horde_Mime_Part
             }
         }
 
-        $result = $mailer->send(Horde_Mime::encodeAddress($email, $this->getCharset()), $headers->toArray(array('charset' => $this->getHeaderCharset())), $msg);
-
         $this->_basepart = $old_basepart;
 
-        if (($result instanceof PEAR_Error) && ($driver == 'sendmail')) {
-            $error = Horde_Mime_Mail::sendmailError($result->getCode());
-            if (is_null($error)) {
-                $error = $result;
-            }
-            throw new Horde_Mime_Exception($error);
-        }
-
-        return $result;
+        Horde_Mime_Mail::sendPearMail($mailer, Horde_Mime::encodeAddress($email, $this->getCharset()), $headers->toArray(array('charset' => $this->getHeaderCharset())), $msg);
     }
 
     /**

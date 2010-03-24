@@ -187,9 +187,9 @@ class Wicked {
             $mail->addHeader($hkey, $headers[$hkey]);
         }
         try {
-            $mail->send(Horde::getMailerConfig());
-        } catch (Exception $e) {
-            $GLOBALS['notification']->push($e->getMessage());
+            $mail->send($GLOBALS['injector']->getInstance('Mail'));
+        } catch (Horde_Mime_Exception $e) {
+            $GLOBALS['notification']->push($e);
         }
     }
 

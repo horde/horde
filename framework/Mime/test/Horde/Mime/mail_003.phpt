@@ -14,7 +14,10 @@ $mail = new Horde_Mime_Mail(array('subject' => 'Schöner Betreff',
                                   'from' => 'sender@example.com',
                                   'charset' => 'iso-8859-1'));
 $mail->addHeader('Cc', 'Der schöne Peter <peter@example.com>', 'iso-8859-15');
-echo $mail->send(array('type' => 'dummy'));
+
+$dummy = Mail::factory('dummy');
+$mail->send($dummy);
+echo $dummy->send_output;
 
 ?>
 --EXPECTF--

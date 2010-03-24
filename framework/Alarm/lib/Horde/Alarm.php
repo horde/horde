@@ -464,7 +464,7 @@ class Horde_Alarm
         ));
         $mail->addHeader('Auto-Submitted', 'auto-generated');
         $mail->addHeader('X-Horde-Alarm', $alarm['title'], Horde_Nls::getCharset());
-        $sent = $mail->send(Horde::getMailerConfig());
+        $mail->send($GLOBALS['injector']->getInstance('Mail'));
 
         $alarm['internal']['mail']['sent'] = true;
         $this->_internal($alarm['id'], $alarm['user'], $alarm['internal']);

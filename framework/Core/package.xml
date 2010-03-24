@@ -70,6 +70,7 @@ Application Framework.
        <file name="Dns.php" role="php" />
        <file name="Lock.php" role="php" />
        <file name="Logger.php" role="php" />
+       <file name="Mail.php" role="php" />
        <file name="Memcache.php" role="php" />
        <file name="Notification.php" role="php" />
        <file name="Perms.php" role="php" />
@@ -203,6 +204,7 @@ Application Framework.
    <install name="lib/Horde/Core/Binder/Dns.php" as="Horde/Core/Binder/Dns.php" />
    <install name="lib/Horde/Core/Binder/Lock.php" as="Horde/Core/Binder/Lock.php" />
    <install name="lib/Horde/Core/Binder/Logger.php" as="Horde/Core/Binder/Logger.php" />
+   <install name="lib/Horde/Core/Binder/Mail.php" as="Horde/Core/Binder/Mail.php" />
    <install name="lib/Horde/Core/Binder/Memcache.php" as="Horde/Core/Binder/Memcache.php" />
    <install name="lib/Horde/Core/Binder/Notification.php" as="Horde/Core/Binder/Notification.php" />
    <install name="lib/Horde/Core/Binder/Perms.php" as="Horde/Core/Binder/Perms.php" />

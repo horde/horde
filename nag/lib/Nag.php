@@ -1036,10 +1036,7 @@ class Nag
 
                     Horde::logMessage(sprintf('Sending event notifications for %s to %s',
                                               $task->name, implode(', ', $df_recipients)), 'INFO');
-                    $sent = $mail->send(Horde::getMailerConfig());
-                    if (is_a($sent, 'PEAR_Error')) {
-                        return $sent;
-                    }
+                    $mail->send($GLOBALS['injector']->getInstance('Mail'));
                 }
             }
         }

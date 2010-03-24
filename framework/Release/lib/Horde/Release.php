@@ -649,9 +649,10 @@ class Horde_Release
         $mail = new Horde_Mime_Mail();
         $mail->setBody($body, 'utf-8', false);
         $mail->addHeaders($headers);
-        $result = $mail->send(array('type' => $this->_options['mailer']['type'], 'params' => $this->_options['mailer']['params']));
-        if (is_a($result, 'PEAR_Error')) {
-            print $result->getMessage() . "\n";
+        try {
+            $mail->send(Mail::factory($this->_options['mailer']['type'], $this->_options['mailer']['params']));
+        } catch (Horde_Mime_Exception $e) {
+            print $e->getMessage() . "\n";
         }
     }
 

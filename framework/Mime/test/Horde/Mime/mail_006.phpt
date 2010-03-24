@@ -15,7 +15,9 @@ $mail = new Horde_Mime_Mail(array('subject' => 'My Subject',
 $mail->addAttachment(dirname(__FILE__) . '/fixtures/attachment.bin');
 $mail->addAttachment(dirname(__FILE__) . '/mail_dummy.inc', 'my_name.html', 'text/html', 'iso-8859-15');
 
-echo $mail->send(array('type' => 'dummy'));
+$dummy = Mail::factory('dummy');
+$mail->send($dummy);
+echo $dummy->send_output;
 
 ?>
 --EXPECTF--

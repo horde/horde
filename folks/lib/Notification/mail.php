@@ -54,8 +54,6 @@ class Folks_Notification_mail extends Folks_Notification {
             return true;
         }
 
-        list($mail_driver, $mail_params) = Horde::getMailerConfig();
-
         $mail = new Horde_Mime_Mail(array('subject' => $subject,
                                           'body' => $body,
                                           'from' => $this->_params['from_addr'],
@@ -81,7 +79,7 @@ class Folks_Notification_mail extends Folks_Notification {
                 continue;
             }
             $mail->addHeader('To', $to, Horde_Nls::getCharset(), true);
-            $mail->send($mail_driver, $mail_params);
+            $mail->send($GLOBALS['injector']->getInstance('Mail'));
         }
 
         return true;

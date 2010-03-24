@@ -401,20 +401,14 @@ class Horde_Mime_Mail
     /**
      * Sends this message.
      *
-     * For the possible Mail drivers and parameters see the PEAR Mail
-     * documentation.
-     * @link http://pear.php.net/Mail
-     *
-     * @param array $config    A hash with the Mail driver to use in 'type' and
-     *                         any parameters necessary for the Mail driver in
-     *                         'params'.
+     * @param Mail $mailer     A Mail object.
      * @param boolean $resend  If true, the message id and date are re-used;
      *                         If false, they will be updated.
      * @param boolean $flowed  Send message in flowed text format.
      *
      * @throws Horde_Mime_Exception
      */
-    public function send($config, $resend = false, $flowed = true)
+    public function send($mailer, $resend = false, $flowed = true)
     {
         /* Add mandatory headers if missing. */
         $has_header = $this->_headers->getValue('Message-ID');
@@ -475,80 +469,108 @@ class Horde_Mime_Mail
             }
         }
 
-        /* Check mailer configuration. */
-        if (!empty($config['type'])) {
-            $this->_mailer_driver = $config['type'];
-        }
-        if (!empty($config['params'])) {
-            $this->_mailer_params = $config['params'];
-        }
-
         /* Send message. */
         return $basepart->send(implode(', ', $this->_recipients),
-                               $this->_headers, $this->_mailer_driver,
-                               $this->_mailer_params);
+                               $this->_headers, $mailer);
     }
 
     /**
-     * Return error string corresponding to a sendmail error code.
+     * Utility function to send a message using a PEAR Mail driver. Handles
+     * errors from this class.
      *
-     * @param integer $code  The error code.
+     * @param Mail $mailer    A Mail object.
+     * @param string $email   The address list to send to.
+     * @param array $headers  An array of message headers.
+     * @param string $msg     The message text.
      *
-     * @return string  The error string, or null if the code is unknown.
+     * @throws Horde_Mime_Exception
      */
-    static public function sendmailError($code)
+    static public function sendPearMail($mailer, $email, $headers, $msg)
     {
-        switch ($code) {
+        $result = $mailer->send($email, $headers, $msg);
+
+        if (!$result instanceof PEAR_Error) {
+            return;
+        }
+
+        if (!($mailer instanceof Mail_sendmail)) {
+            throw new Horde_Mime_Exception($result);
+        }
+
+        switch ($result->getCode()) {
         case 64: // EX_USAGE
-            return 'sendmail: ' . _("command line usage error") . ' (64)';
+            $msg = 'command line usage error';
+            break;
 
         case 65: // EX_DATAERR
-            return 'sendmail: ' . _("data format error") . ' (65)';
+            $msg =  'data format error';
+            break;
 
         case 66: // EX_NOINPUT
-            return 'sendmail: ' . _("cannot open input") . ' (66)';
+            $msg = 'cannot open input';
+            break;
 
         case 67: // EX_NOUSER
-            return 'sendmail: ' . _("addressee unknown") . ' (67)';
+            $msg = 'addressee unknown';
+            break;
 
         case 68: // EX_NOHOST
-            return 'sendmail: ' . _("host name unknown") . ' (68)';
+            $msg = 'host name unknown';
+            break;
 
         case 69: // EX_UNAVAILABLE
-            return 'sendmail: ' . _("service unavailable") . ' (69)';
+            $msg = 'service unavailable';
+            break;
 
         case 70: // EX_SOFTWARE
-            return 'sendmail: ' . _("internal software error") . ' (70)';
+            $msg = 'internal software error';
+            break;
 
         case 71: // EX_OSERR
-            return 'sendmail: ' . _("system error") . ' (71)';
+            $msg = 'system error';
+            break;
 
         case 72: // EX_OSFILE
-            return 'sendmail: ' . _("critical system file missing") . ' (72)';
+            $msg = 'critical system file missing';
+            break;
 
         case 73: // EX_CANTCREAT
-            return 'sendmail: ' . _("cannot create output file") . ' (73)';
+            $msg = 'cannot create output file';
+            break;
 
         case 74: // EX_IOERR
-            return 'sendmail: ' . _("input/output error") . ' (74)';
+            $msg = 'input/output error';
+            break;
 
         case 75: // EX_TEMPFAIL
-            return 'sendmail: ' . _("temporary failure") . ' (75)';
+            $msg = 'temporary failure';
+            break;
 
         case 76: // EX_PROTOCOL
-            return 'sendmail: ' . _("remote error in protocol") . ' (76)';
+            $msg = 'remote error in protocol';
+            break;
 
         case 77: // EX_NOPERM
-            return 'sendmail: ' . _("permission denied") . ' (77)';
+            $msg = 'permission denied';
+            break;
+
+        case 77: // EX_NOPERM
+            $msg = 'permission denied';
+            break;
 
         case 78: // EX_CONFIG
-            return 'sendmail: ' . _("configuration error") . ' (78)';
+            $msg = 'configuration error';
+            break;
 
         case 79: // EX_NOTFOUND
-            return 'sendmail: ' . _("entry not found") . ' (79)';
+            $msg = 'entry not found';
+            break;
 
         default:
-            return null;
+            throw new Horde_Mime_Exception($result);
         }
+
+        throw new Horde_Mime_Exception('sendmail: ' . $msg . ' (' . $result->getCode() . ')');
     }
+
 }

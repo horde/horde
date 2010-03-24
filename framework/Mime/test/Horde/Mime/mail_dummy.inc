@@ -15,10 +15,13 @@ require dirname(__FILE__) . '/../../../lib/Horde/Mime/Mail.php';
 require dirname(__FILE__) . '/../../../lib/Horde/Mime/Part.php';
 $_SERVER['SERVER_NAME'] = 'mail.example.com';
 
-class Mail_dummy extends Mail {
+class Mail_dummy extends Mail
+{
+    var $send_output;
+
     function send($recipients, $headers, $body)
     {
         list(,$text_headers) = Mail::prepareHeaders($headers);
-        return $text_headers . "\n\n" . $body;
+        $this->send_output = $text_headers . "\n\n" . $body;
     }
 }

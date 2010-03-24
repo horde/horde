@@ -7,12 +7,17 @@ require dirname(__FILE__) . '/mail_dummy.inc';
 require_once 'Horde/String.php';
 require_once 'Horde/Util.php';
 
+$dummy = Mail::factory('dummy');
+
 $mail = new Horde_Mime_Mail(array('subject' => 'My Subject',
                                   'body' => "This is\nthe body",
                                   'to' => 'recipient@example.com',
                                   'from' => 'sender@example.com',
                                   'charset' => 'iso-8859-15'));
-$raw = $mail->send(array('type' => 'dummy'));
+
+$mail->send($dummy);
+$raw = $dummy->send_output;
+
 echo $raw;
 preg_match('/^Message-ID: (.*)$/m', $raw, $id1);
 
@@ -20,7 +25,10 @@ echo "====================================================================\n";
 
 $mail->addHeader('To', 'Änderung <other@example.com>', 'utf-8');
 $raw = $mail->send(array('type' => 'dummy'));
-echo $raw;
+
+$mail->send($dummy);
+$raw = $dummy->send_output;
+
 preg_match('/^Message-ID: (.*)$/m', $raw, $id2);
 
 echo "====================================================================\n";
