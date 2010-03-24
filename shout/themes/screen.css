@@ -175,6 +175,10 @@ ul {
     margin: 5px;
 }
 
+.button a {
+    color: #fff;
+}
+
 .buttonActionLabel
 {
     text-align: right;

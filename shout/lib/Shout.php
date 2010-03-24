@@ -145,7 +145,7 @@ class Shout
 
         return array(
             'jump' => array(
-                'description' => _("Jump to menu."),
+                'description' => _("Jump to menu"),
                 'args' => array (
                     'menuName' => array(
                         'name' => _("Menu"),
@@ -169,7 +169,7 @@ class Shout
             'leave_message' => array(
                 'description' => _("Go to voicemail"),
                 'args' => array(
-                    'mailbox' => array(
+                    'exten' => array(
                         'name' => _("Mailbox"),
                         'type' => 'enum',
                         'required' => true,

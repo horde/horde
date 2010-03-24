@@ -1,19 +1,10 @@
 <div class="header">
-    <ul id="controls">
-        <?php
-        $addurl = Horde::applicationUrl('dialplan.php');
-        $addurl = Horde_Util::addParameter($addurl, 'action', 'add');
-        $editurl = Horde::applicationUrl('dialplan.php');
-        $editurl = Horde_Util::addParameter($editlink, 'action', 'edit');
-        ?>
-        <li><a href="<?php echo $addurl; ?>">
-            <?php echo Horde::img('add-menu.png'); ?>&nbsp;New Menu
-            </a>
-        </li>
-    </ul>
     Account: <?php echo $_SESSION['shout']['accounts'][$curaccount]; ?>
 </div>
-
+<?php
+$editurl = Horde::applicationUrl('dialplan.php');
+$editurl = Horde_Util::addParameter($editlink, 'action', 'edit');
+?>
 <div id="extensionList">
     <table width="100%" cellspacing="0" class="striped">
         <tr>
@@ -30,3 +21,14 @@
         <?php } ?>
     </table>
 </div>
+<ul id="controls">
+    <?php
+    $addurl = Horde::applicationUrl('dialplan.php');
+    $addurl = Horde_Util::addParameter($addurl, 'action', 'add');
+
+    ?>
+    <li class="button"><a href="<?php echo $addurl; ?>">
+        <?php echo Horde::img('add-menu.png'); ?>&nbsp;New Menu
+        </a>
+    </li>
+</ul>

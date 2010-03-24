@@ -275,7 +275,7 @@ function refreshMenu()
         switch(action) {
         case 'jump':
             var menu = pair.value.args['menuName'];
-            text = document.createTextNode(destinations.get(exten).name);
+            text = document.createTextNode(menu);
             break;
         case 'ringexten':
         case 'leave_message':

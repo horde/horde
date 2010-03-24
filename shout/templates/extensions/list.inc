@@ -1,14 +1,4 @@
 <div class="header">
-    <ul id="controls">
-        <?php
-        $addurl = Horde::applicationUrl('extensions.php');
-        $addurl = Horde_Util::addParameter($addurl, 'action', 'add');
-        ?>
-        <li><a href="<?php echo $addurl; ?>">
-            <?php echo Horde::img('add-extension.png'); ?>&nbsp;New Extension
-            </a>
-        </li>
-    </ul>
     Account: <?php echo $_SESSION['shout']['accounts'][$curaccount]; ?>
 </div>
 
@@ -48,6 +38,16 @@
         ?>
     </table>
 </div>
+<ul id="controls">
+    <?php
+    $addurl = Horde::applicationUrl('extensions.php');
+    $addurl = Horde_Util::addParameter($addurl, 'action', 'add');
+    ?>
+    <li class="button"><a href="<?php echo $addurl; ?>">
+        <?php echo Horde::img('add-extension.png'); ?>&nbsp;New Extension
+        </a>
+    </li>
+</ul>
 
 <script type="text/javascript">
 <!--
