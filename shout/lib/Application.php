@@ -138,9 +138,9 @@ class Shout_Application extends Horde_Registry_Application
         self::$_perms['title']['shout:accounts'] = _("Accounts");
 
         // Run through every contact source.
-        foreach ($accounts as $account) {
-            self::$_perms['tree']['shout']['accounts'][$account] = false;
-            self::$_perms['title']['shout:accounts:' . $account] = $account;
+        foreach ($accounts as $code => $account) {
+            self::$_perms['tree']['shout']['accounts'][$code] = false;
+            self::$_perms['title']['shout:accounts:' . $code] = $account;
 
             foreach(
                 array(
@@ -149,8 +149,8 @@ class Shout_Application extends Horde_Registry_Application
                     'conferences' => 'Conference Rooms',
                 )
                 as $module => $modname) {
-                self::$_perms['tree']['shout']['accounts'][$account][$module] = false;
-                self::$_perms['title']["shout:accounts:$account:$module"] = $modname;
+                self::$_perms['tree']['shout']['accounts'][$code][$module] = false;
+                self::$_perms['title']["shout:accounts:$code:$module"] = $modname;
             }
         }
 
