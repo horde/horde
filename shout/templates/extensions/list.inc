@@ -36,13 +36,11 @@
             </td>
             <td>
                 <?php
-                $attrs = array('onClick' => 'destinfo("' . $extension . '");',
+                $attrs = array('onClick' => 'showDetail("' . $extension . '");',
                                'id' => 'destX' . $extension . 'toggle');
                 echo Horde::img('tree/plusonly.png', _("Destinations"), $attrs);
                 ?>
-                <span id="destX<?php echo $extension; ?>summary"></span>
-                <div class="extensionDestinations" id="destX<?php echo $extension; ?>info">
-                </div>
+                <span id="destX<?php echo $extension; ?>"></span>
             </td>
         </tr>
         <?php
@@ -56,18 +54,29 @@
 
 var destinations = [];
 var ajax_url = '<?php echo Horde::getServiceLink('ajax', 'shout') ?>';
+var curexten = null;
 
-function resetExtenDest(exten)
+function empty(p)
 {
     var e;
+    while ((e = $(p).childNodes[0]) != null) {
+        $(p).removeChild(e);
+    }
+}
 
-    while ((e = $('destX' + exten + 'info').childNodes[0]) != null) {
-        $('destX' + exten + 'info').removeChild(e);
+function showDetail(exten)
+{
+    // Hide any currently expanded extension info
+    if (curexten) {
+        showSummary(curexten);
     }
 
-    while ((e = $('destX' + exten + 'summary').childNodes[0]) != null) {
-        $('destX' + exten + 'summary').removeChild(e);
-    }
+    $('destX' + exten + 'toggle').src = '<?php echo Horde_Themes::img('tree/minusonly.png') ?>';
+    $('destX' + exten + 'toggle').setAttribute('onclick', 'showSummary('+exten+')');
+    curexten = exten;
+
+    var e = $('destX'+exten);
+    empty(e);
 
     var dest = destinations.get(exten);
 
@@ -82,11 +91,19 @@ function resetExtenDest(exten)
     if (dest.devices.size() == 0 && dest.numbers.size() == 0) {
         var span = document.createElement('span');
         span.className = 'informational';
-        var text = document.createTextNode("No destinations configured");
+        var text = document.createTextNode('<?php echo _("No destinations configured"); ?>');
         span.appendChild(text);
-        $('destX' + exten + 'summary').appendChild(span);
+        e.appendChild(span);
+    } else {
+        var span = document.createElement('span');
+        span.className = 'informational';
+        var text = document.createTextNode('<?php echo _("Configured Destinations:"); ?>');
+        span.appendChild(text);
+        e.appendChild(span);
     }
 
+    var div = document.createElement('div');
+    div.className = 'extensionDestinations';
     dest.devices.each(function (s) {
         // Fill in detail block
         var img = document.createElement('img');
@@ -106,16 +123,10 @@ function resetExtenDest(exten)
 
         var br = document.createElement('br');
 
-        var info = $('destX' + exten + 'info');
-        info.appendChild(img);
-        info.appendChild(span);
-        info.appendChild(del);
-        info.appendChild(br);
-
-        // Create summary icons
-        img = document.createElement('img');
-        img.src = "<?php echo Horde_Themes::img('shout.png') ?>";
-        $('destX' + exten + 'summary').appendChild(img);
+        div.appendChild(img);
+        div.appendChild(span);
+        div.appendChild(del);
+        div.appendChild(br);
     });
 
 
@@ -138,17 +149,13 @@ function resetExtenDest(exten)
 
         var br = document.createElement('br');
 
-        var info = $('destX' + exten + 'info');
-        info.appendChild(img);
-        info.appendChild(span);
-        info.appendChild(del);
-        info.appendChild(br);
-
-        // Create summary icons
-        img = document.createElement('img');
-        img.src = "<?php echo Horde_Themes::img('telephone-pole.png') ?>";
-        $('destX' + exten + 'summary').appendChild(img);
+        div.appendChild(img);
+        div.appendChild(span);
+        div.appendChild(del);
+        div.appendChild(br);
     });
+
+
 
     var form = document.createElement('form');
     form.method = 'post';
@@ -159,7 +166,7 @@ function resetExtenDest(exten)
     hidden.name = 'extension';
     hidden.value = exten;
     form.appendChild(hidden);
-    $('destX' + exten + 'info').appendChild(form);
+    div.appendChild(form);
 
     var a = document.createElement('a');
     a.id = 'destX' + exten + 'addDest';
@@ -168,44 +175,56 @@ function resetExtenDest(exten)
     a.setAttribute('onClick', 'addDest(' + exten + ')');
     var t = document.createTextNode('Add destination...');
     a.appendChild(t);
-    $('destX' + exten + 'info').appendChild(a);
+    div.appendChild(a);
+
+    e.appendChild(div);
+}
+
+function showSummary(exten)
+{
+    var e = $('destX' + exten);
+    empty(e);
+
+    $('destX' + exten + 'toggle').src = '<?php echo Horde_Themes::img('tree/plusonly.png') ?>';
+    $('destX' + exten + 'toggle').setAttribute('onclick', 'showDetail('+exten+')');
+
+    var dest = destinations.get(exten);
+
+    if (dest.devices == null) {
+        dest.devices = [];
+    }
+
+    if (dest.numbers == null) {
+        dest.numbers = [];
+    }
+
+    if (dest.devices.size() == 0 && dest.numbers.size() == 0) {
+        var span = document.createElement('span');
+        span.className = 'informational';
+        var text = document.createTextNode("No destinations configured");
+        span.appendChild(text);
+        e.appendChild(span);
+    } else {
+        dest.devices.each(function (s) {
+            // Fill in detail block
+            var img = document.createElement('img');
+            img.src = "<?php echo Horde_Themes::img('shout.png') ?>";
+            e.appendChild(img);
+        })
+        dest.numbers.each(function (s) {
+            // Fill in detail block
+            var img = document.createElement('img');
+            img.src = "<?php echo Horde_Themes::img('telephone-pole.png') ?>";
+            e.appendChild(img);
+        })
+    }
 }
 
 function resetDestInfo(collapse)
 {
     destinations.each(function (item) {
-        var exten;
-        exten = item.key;
-        resetExtenDest(exten);
-        if (collapse) {
-            contract(exten);
-        }
-    });
-}
-
-function destinfo(exten)
-{
-    // Use the summary icons span as our state key
-    if ($('destX' + exten + 'summary').style.display == 'none') {
-        // Icons hidden, we are expanded
-        contract(exten);
-    } else {
-        expand(exten);
-    }
-}
-
-function expand(exten)
-{
-    $('destX' + exten + 'summary').hide();
-    $('destX' + exten + 'info').show();
-    $('destX' + exten + 'toggle').src = '<?php echo Horde_Themes::img('tree/minusonly.png') ?>';
-}
-
-function contract(exten)
-{
-    $('destX' + exten + 'summary').show();
-    $('destX' + exten + 'info').hide();
-    $('destX' + exten + 'toggle').src = '<?php echo Horde_Themes::img('tree/plusonly.png') ?>';
+        showSummary(item.key)
+    })
 }
 
 function processForm(event)
