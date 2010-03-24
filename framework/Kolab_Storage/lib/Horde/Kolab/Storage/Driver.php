@@ -28,25 +28,6 @@
 abstract class Horde_Kolab_Storage_Driver
 {
     /**
-     * Factory.
-     *
-     * @param string $driver The driver type used for the storage connection.
-     * @param array  $params Additional connection parameters.
-     *
-     * @return Horde_Kolab_Storage_List A concrete list instance.
-     */
-    static public function &factory($driver, $params = array())
-    {
-        $class = 'Horde_Kolab_Storage_Driver_' . ucfirst(basename($driver));
-        if (class_exists($class)) {
-            $driver = new $class($params);
-            return $driver;
-        }
-        throw new Horde_Kolab_Storage_Exception(
-            'Driver type definition "' . $class . '" missing.');
-    }
-
-    /**
      * Retrieve the namespace information for this connection.
      *
      * @return Horde_Kolab_Storage_Namespace The initialized namespace handler.

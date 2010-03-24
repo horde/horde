@@ -39,16 +39,10 @@ class Horde_Kolab_Storage_Driver_Imap extends Horde_Kolab_Storage_Driver
      *
      * @param array  $params Connection parameters.
      */
-    public function __construct($params = array())
-    {
-        if (isset($params['driver'])) {
-            $driver = $params['driver'];
-            unset($params['driver']);
-        } else {
-            $driver = 'socket';
-        }
-
-        $this->_imap = Horde_Imap_Client::factory($driver, $params);
+    public function __construct(
+        Horde_Imap_Client_Base $imap
+    ) {
+        $this->_imap = $imap;
     }
 
     /**

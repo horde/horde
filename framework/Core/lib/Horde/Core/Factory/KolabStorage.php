@@ -100,14 +100,14 @@ class Horde_Core_Factory_KolabStorage
             'secure'   => true
         );
 
-        $master = Horde_Kolab_Storage_Driver::factory(
-            'Imap',
-            $params
+        $imap = Horde_Imap_Client::factory('socket', $params);
+
+        $master = new Horde_Kolab_Storage_Driver_Imap(
+            $imap
         );
 
         return new Horde_Kolab_Storage(
             $master,
-            'Imap',
             $params
         );
     }
