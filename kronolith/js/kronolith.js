@@ -1028,6 +1028,22 @@ KronolithCore = {
     },
 
     /**
+     * Loads a certain calendar, if the current view is still a calendar view.
+     *
+     * @param string type      The calendar type.
+     * @param string calendar  The calendar id.
+     */
+    loadCalendar: function(type, calendar)
+    {
+        if (Kronolith.conf.calendars[type][calendar].show &&
+            $w('day week month year').include(this.view)) {
+            var dates = this.viewDates(this.date, this.view);
+            this.deleteCache(null, [type, calendar]);
+            this.loadEvents(dates[0], dates[1], this.view, [[type, calendar]]);
+        }
+    },
+
+    /**
      * Toggles a calendars visibility.
      *
      * @param string type      The calendar type.
@@ -1039,8 +1055,7 @@ KronolithCore = {
             if (this.view == 'year' ||
                 Object.isUndefined(this.ecache.get(type)) ||
                 Object.isUndefined(this.ecache.get(type).get(calendar))) {
-                var dates = this.viewDates(this.date, this.view);
-                this.loadEvents(dates[0], dates[1], this.view, [[type, calendar]]);
+                this.loadCalendar(type, calendar);
             } else {
                 $('kronolithBody').select('div').findAll(function(el) {
                     return el.retrieve('calendar') == type + '|' + calendar;

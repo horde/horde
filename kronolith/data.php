@@ -292,6 +292,9 @@ if (is_array($next_step)) {
     if (!$error) {
         $notification->push(sprintf(_("%s file successfully imported"),
                                     $file_types[$_SESSION['import_data']['format']]), 'horde.success');
+        if (Horde_Util::getFormData('import_ajax')) {
+            Horde::addInlineScript('window.parent.KronolithCore.loadCalendar(\'internal\', \'' . $_SESSION['import_data']['import_cal'] . '\');');
+        }
     }
     $next_step = $data->cleanup();
 }
@@ -300,9 +303,9 @@ if (Horde_Util::getFormData('import_ajax')) {
     $stack = $notification->notify(array('listeners' => 'status', 'raw' => true));
     if ($stack) {
         Horde::addInlineScript('window.parent.KronolithCore.showNotifications(window.parent.$A(' . Horde_Serialize::serialize($stack, Horde_Serialize::JSON, Horde_Nls::getCharset()) . '));');
-        Horde::addInlineScript('window.parent.$(window.name).remove();');
-        Horde::outputInlineScript();
     }
+    Horde::addInlineScript('window.parent.$(window.name).remove();');
+    Horde::outputInlineScript();
     exit;
 }
 
