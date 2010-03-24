@@ -60,7 +60,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
             $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
             $shout->extensions->deleteDestination($account, $vars->extension, $vars->type, $vars->destination);
 
-            return $shout->extensions->getExtensions($account);
+            return $this->getDestinations();
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.
             Horde::logMessage($e, 'ERR');
@@ -73,11 +73,25 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function getDestinations()
     {
-        $vars = $this->_vars;
-        $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
-        $account = $_SESSION['shout']['curaccount'];
         try {
+            $vars = $this->_vars;
+            $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
+            $account = $_SESSION['shout']['curaccount'];
             return $shout->extensions->getExtensions($account);
+        } catch (Exception $e) {
+            //FIXME: Create a way to notify the user of the failure.
+            Horde::logMessage($e, 'ERR');
+            return false;
+        }
+    }
+
+    public function getDevices()
+    {
+        try {
+            $vars = $this->_vars;
+            $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
+            $account = $_SESSION['shout']['curaccount'];
+            return $shout->devices->getDevices($account);
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.
             Horde::logMessage($e, 'ERR');

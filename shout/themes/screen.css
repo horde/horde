@@ -28,6 +28,11 @@ table {
     border: 1px solid #000;
 }
 
+#destinationsCol
+{
+    width: 66%;
+}
+
 .uheader{
     background: #fff;
     color: #a22;
@@ -44,7 +49,7 @@ table {
     left: 25px;
 }
 
-a.addDest
+a#addDest
 {
     font-style: italic;
 }

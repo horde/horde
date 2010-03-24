@@ -16,7 +16,7 @@
     <table width="100%" cellspacing="0" class="striped">
         <tr>
             <td class="uheader">Extension</td>
-            <td class="uheader">Destinations</td>
+            <td id ="destinationsCol" class="uheader">Destinations</td>
         </tr>
         <?php
             foreach ($extensions as $extension => $info) {
@@ -52,7 +52,8 @@
 <script type="text/javascript">
 <!--
 
-var destinations = [];
+var destinations = $H();
+var devices = $H();
 var ajax_url = '<?php echo Horde::getServiceLink('ajax', 'shout') ?>';
 var curexten = null;
 
@@ -111,7 +112,7 @@ function showDetail(exten)
 
         var span = document.createElement('span');
         span.className = 'device';
-        var text = document.createTextNode(" " + s + " ");
+        var text = document.createTextNode(" " + devices.get(s).name + " ");
         span.setAttribute('onClick', 'editDest("' + exten + '", "device", "' + s + '")');
         span.appendChild(text);
 
@@ -155,12 +156,10 @@ function showDetail(exten)
         div.appendChild(br);
     });
 
-
-
     var form = document.createElement('form');
     form.method = 'post';
     form.action = ajax_url + 'addDestination';
-    form.id = 'destX' + exten + 'form';
+    form.id = 'destEditForm';
     var hidden = document.createElement('input');
     hidden.type = 'hidden';
     hidden.name = 'extension';
@@ -169,8 +168,7 @@ function showDetail(exten)
     div.appendChild(form);
 
     var a = document.createElement('a');
-    a.id = 'destX' + exten + 'addDest';
-    a.className = 'addDest';
+    a.id = 'addDest';
     a.href = '#';
     a.setAttribute('onClick', 'addDest(' + exten + ')');
     var t = document.createTextNode('Add destination...');
@@ -259,7 +257,8 @@ function processForm(event)
                 var xd = destinations.get(exten);
                 xd[key].push(origdest);
                 destinations.set(exten, xd);
-                resetExtenDest(exten);
+                alert("FIXME");
+                //resetExtenDest(exten);
                 return true;
         } else {
             // A change was made.  Remove the old destination first.
@@ -285,16 +284,62 @@ function addDest(exten)
 {
     // Hide the link to create the form below.
     // We only want one active at a time.
-    $('destX' + exten + 'addDest').hide();
+    $('addDest').hide();
 
     var hidden = document.createElement('input');
     hidden.type = 'hidden';
     hidden.name = 'action';
     hidden.value = 'addDestination';
+    $('destEditForm').appendChild(hidden);
+    showDestForm();
+}
+
+function editDest(exten, type, dest)
+{
+    var key = (type == "number") ? 'numbers' : 'devices';
+
+    // Remove the current destination from the list
+    var xd = destinations.get(exten);
+    xd[key] = xd[key].without(dest);
+    destinations.set(exten, xd);
+    showDetail(exten);
+
+    // Fill in the new destination and tell processForm() this is an edit
+    var editflag = document.createElement('input');
+    editflag.type = 'hidden';
+    editflag.name = 'edit';
+    editflag.value = 'true';
+    var origtype = document.createElement('input');
+    origtype.type = 'hidden';
+    origtype.name = 'origtype';
+    origtype.value = type;
+    var origdest = document.createElement('input');
+    origdest.type = 'hidden';
+    origdest.name = 'origdest';
+    origdest.value = dest;
+
+    $('destEditForm').appendChild(editflag);
+    $('destEditForm').appendChild(origtype);
+    $('destEditForm').appendChild(origdest);
+
+    showDestForm();
+
+    // Preserve the original values for the user.
+    $('destType').value = type
+    $('destValue').value = dest;
+
+    // Refresh the value part of the form
+    showDestType();
+}
+
+function showDestForm()
+{
+    var spacer = document.createTextNode(' ');
 
     var select = document.createElement('select');
-    select.id = 'destX' + exten + 'type';
+    select.id = 'destType';
     select.name = 'type';
+    select.setAttribute('onchange', 'showDestType()');
 
     var option = document.createElement('option');
     option.value = 'number';
@@ -308,62 +353,62 @@ function addDest(exten)
     option.appendChild(text);
     select.appendChild(option);
 
-    var input = document.createElement('input');
-    input.id = 'destX' + exten + 'destination';
-    input.name = 'destination';
-    input.type = "text";
-    input.size = 12;
-    input.maxlength = 15;
+    $('destEditForm').appendChild(select);
+
+    $('destEditForm').appendChild(spacer.cloneNode(true));
+
+    var span = document.createElement('span');
+    span.id = 'destValueContainer';
+    $('destEditForm').appendChild(span);
+
+
+    $('destEditForm').appendChild(spacer.cloneNode(true));
 
     var save = document.createElement("input");
     save.name = "submit";
     save.value = "Save";
     save.type = "submit";
-    save.id = 'destX' + exten + 'submit';
-
     var br = document.createElement('br');
+    $('destEditForm').appendChild(save);
+    $('destEditForm').appendChild(br);
 
-    $('destX' + exten + 'form').appendChild(hidden);
-    $('destX' + exten + 'form').appendChild(select);
-    $('destX' + exten + 'form').appendChild(input);
-    $('destX' + exten + 'form').appendChild(save);
-    $('destX' + exten + 'form').appendChild(br);
-    input.focus();
-    Event.observe($('destX' + exten + 'form'), 'submit', function(event) {processForm(event);});
+    showDestType();
 }
 
-function editDest(exten, type, dest)
+function showDestType()
 {
-    var key = (type == "number") ? 'numbers' : 'devices';
+    empty('destValueContainer');
+    var type = $('destType').value;
+    switch(type) {
+    case 'number':
+        var input = document.createElement('input');
+        input.id = 'destValue';
+        input.name = 'destination';
+        input.type = "text";
+        input.size = 12;
+        input.maxlength = 15;
 
-    // Remove the current destination from the list
-    var xd = destinations.get(exten);
-    xd[key] = xd[key].without(dest);
-    destinations.set(exten, xd);
-    resetExtenDest(exten);
+        $('destValueContainer').appendChild(input);
+        input.focus();
+        break;
 
-    addDest(exten);
+    case 'device':
+        var select = document.createElement('select');
+        select.id = 'destValue';
+        select.name = 'destination';
 
-    // Tell processForm() this is an edit
-    var editflag = document.createElement('input');
-    editflag.type = 'hidden';
-    editflag.name = 'edit';
-    editflag.value = 'true';
-    var origtype = document.createElement('input');
-    origtype.type = 'hidden';
-    origtype.name = 'origtype';
-    origtype.value = type;
-    var origdest = document.createElement('input');
-    origdest.type = 'hidden';
-    origdest.name = 'origdest';
-    origdest.value = dest;
-    $('destX' + exten + 'form').appendChild(editflag);
-    $('destX' + exten + 'form').appendChild(origtype);
-    $('destX' + exten + 'form').appendChild(origdest);
+        devices.each(function(pair) {
+            var option = document.createElement('option');
+            option.value = pair.key;
+            var text = document.createTextNode(pair.value.name);
+            option.appendChild(text);
+            select.appendChild(option);
+        })
+        $('destValueContainer').appendChild(select);
+        break;
+    }
 
-    // Preserve the original values for the user.
-    $('destX' + exten + 'type').value = type
-    $('destX' + exten + 'destination').value = dest;
+    Event.observe($('destEditForm'), 'submit', function(event) {processForm(event);});
 }
 
 function delDest(exten, type, dest)
@@ -400,7 +445,14 @@ function delDest(exten, type, dest)
     });
 }
 
-destinations = $H();
+new Ajax.Request(ajax_url + 'getDevices',
+{
+    method: 'post',
+    onSuccess: function(r) {
+        devices = $H(r.responseJSON.response);
+    }
+});
+
 
 new Ajax.Request(ajax_url + 'getDestinations',
 {
