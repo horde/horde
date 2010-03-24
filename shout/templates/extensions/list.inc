@@ -218,7 +218,7 @@ function showSummary(exten)
     }
 }
 
-function resetDestInfo(collapse)
+function resetDestInfo()
 {
     destinations.each(function (item) {
         showSummary(item.key)
@@ -241,14 +241,14 @@ function processForm(event)
     var spinner = document.createElement('img');
     spinner.src = "<?php echo Horde_Themes::img('loading.gif') ?>"
 
-    $('destX' + exten + 'submit').hide();
-    form.insertBefore(spinner, $('destX' + exten + 'submit'))
+    $('destSave').hide();
+    form.insertBefore(spinner, $('destSave'))
 
     if (editflag) {
         var origtype = form.getInputs('hidden', 'origtype').first().value;
         var origdest = form.getInputs('hidden', 'origdest').first().value;
-        var newtype = $('destX' + exten + 'type').value;
-        var newdest = $('destX' + exten + 'destination').value;
+        var newtype = $('destType').value;
+        var newdest = $('destValue').value;
 
         if ((origtype == newtype) && (origdest == newdest)) {
             // The user hit "save" without making any changes.
@@ -258,8 +258,9 @@ function processForm(event)
                 xd[key].push(origdest);
                 destinations.set(exten, xd);
                 alert("FIXME");
-                //resetExtenDest(exten);
-                return true;
+                resetDestInfo();
+                showDetail(exten);
+                return false;
         } else {
             // A change was made.  Remove the old destination first.
             delDest(exten, origtype, origdest);
@@ -296,6 +297,12 @@ function addDest(exten)
 
 function editDest(exten, type, dest)
 {
+    // Reset the screen just in case we already have an edit in progress
+    // FIXME: Use the following lines with a unchanged copy of "destinations"
+    // to allow transitioning between active edits
+    //resetDestInfo();
+    //showDetail(exten);
+
     var key = (type == "number") ? 'numbers' : 'devices';
 
     // Remove the current destination from the list
@@ -326,10 +333,9 @@ function editDest(exten, type, dest)
 
     // Preserve the original values for the user.
     $('destType').value = type
-    $('destValue').value = dest;
 
     // Refresh the value part of the form
-    showDestType();
+    showDestType(dest);
 }
 
 function showDestForm()
@@ -365,6 +371,7 @@ function showDestForm()
     $('destEditForm').appendChild(spacer.cloneNode(true));
 
     var save = document.createElement("input");
+    save.id = 'destSave';
     save.name = "submit";
     save.value = "Save";
     save.type = "submit";
@@ -375,7 +382,7 @@ function showDestForm()
     showDestType();
 }
 
-function showDestType()
+function showDestType(value)
 {
     empty('destValueContainer');
     var type = $('destType').value;
@@ -387,6 +394,9 @@ function showDestType()
         input.type = "text";
         input.size = 12;
         input.maxlength = 15;
+        if (value) {
+            input.value = value;
+        }
 
         $('destValueContainer').appendChild(input);
         input.focus();
@@ -404,6 +414,11 @@ function showDestType()
             option.appendChild(text);
             select.appendChild(option);
         })
+
+        if (value) {
+            select.value = value;
+        }
+
         $('destValueContainer').appendChild(select);
         break;
     }
