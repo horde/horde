@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id: ExtensionForm.php 502 2009-12-21 04:01:12Z bklang $
- *
  * Copyright 2005-2010 Alkaloid Networks LLC (http://projects.alkaloid.net)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
@@ -15,8 +13,6 @@ class MenuForm extends Horde_Form {
 
     function __construct(&$vars)
     {
-        global $shout_extensions;
-
         if ($vars->exists('menu')) {
             $formtitle = _("Edit Menu");
             $menu = $vars->get('menu');
@@ -46,7 +42,8 @@ class MenuForm extends Horde_Form {
 
     public function execute()
     {
-        global $shout;
+        $shout = $GLOBALS['injector']->getInstance('shout', 'application');
+
         $account = $_SESSION['shout']['curaccount'];
 
         $details = array(
@@ -82,7 +79,7 @@ class DeviceMenuForm extends Horde_Form
 
     function execute()
     {
-        global $shout;
+        $shout = $GLOBALS['injector']->getInstance('shout', 'application');
         $account = $this->_vars->get('account');
         $menu = $this->_vars->get('menu');
         $shout->devices->deleteMenu($account, $menu);

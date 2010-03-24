@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * Copyright 2005-2009 Alkaloid Networks LLC (http://projects.alkaloid.net)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
@@ -23,7 +21,8 @@ class ExtensionDetailsForm extends Horde_Form {
      */
     function __construct(&$vars)
     {
-        global $shout;
+        $shout = $GLOBALS['injector']->getInstance('shout', 'application');
+
 
         $account = $_SESSION['shout']['curaccount'];
         $action = $vars->get('action');
@@ -59,7 +58,7 @@ class ExtensionDetailsForm extends Horde_Form {
      */
     function execute()
     {
-        global $shout;
+        $shout = $GLOBALS['injector']->getInstance('shout', 'application');
 
         $extension = $this->_vars->get('extension');
         $account = $this->_vars->get('account');
@@ -97,7 +96,7 @@ class ExtensionDeleteForm extends Horde_Form
 
     function execute()
     {
-        global $shout;
+        $shout = $GLOBALS['injector']->getInstance('shout', 'application');
         $account = $this->_vars->get('account');
         $extension = $this->_vars->get('extension');
         $shout->extensions->deleteExtension($account, $extension);

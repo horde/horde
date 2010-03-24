@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id: ExtensionForm.php 502 2009-12-21 04:01:12Z bklang $
- *
  * Copyright 2005-2010 Alkaloid Networks LLC (http://projects.alkaloid.net)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
@@ -15,8 +13,6 @@ class DeviceDetailsForm extends Horde_Form {
 
     function __construct(&$vars)
     {
-        global $shout_extensions;
-
         if ($vars->exists('devid')) {
             $formtitle = "Edit Device";
             $devid = $vars->get('devid');
@@ -48,7 +44,7 @@ class DeviceDetailsForm extends Horde_Form {
 
     public function execute()
     {
-        global $shout;
+        $shout = $GLOBALS['injector']->getInstance('shout', 'application');
 
         $action = $this->_vars->get('action');
         $account = $this->_vars->get('account');
@@ -114,7 +110,7 @@ class DeviceDeleteForm extends Horde_Form
 
     function execute()
     {
-        global $shout;
+        $shout = $GLOBALS['injector']->getInstance('shout', 'application');
         $account = $this->_vars->get('account');
         $devid = $this->_vars->get('devid');
         $shout->devices->deleteDevice($account, $devid);
