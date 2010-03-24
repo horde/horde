@@ -630,7 +630,7 @@ KronolithCore = {
      */
     closeView: function(loc)
     {
-        [ 'Day', 'Week', 'Month', 'Year', 'Tasks', 'Agenda' ].each(function(a) {
+        $w('Day Week Month Year Tasks Agenda').each(function(a) {
             a = $('kronolithNav' + a);
             if (a) {
                 a.removeClassName('on');
@@ -1035,7 +1035,7 @@ KronolithCore = {
      */
     toggleCalendar: function(type, calendar) {
         Kronolith.conf.calendars[type][calendar].show = !Kronolith.conf.calendars[type][calendar].show;
-        if ([ 'day', 'week', 'month', 'year' ].include(this.view)) {
+        if ($w('day week month year').include(this.view)) {
             if (this.view == 'year' ||
                 Object.isUndefined(this.ecache.get(type)) ||
                 Object.isUndefined(this.ecache.get(type).get(calendar))) {
@@ -3072,7 +3072,7 @@ KronolithCore = {
     deleteTasksCache: function(task, list)
     {
         this.deleteCache(task, [ 'external', 'tasks/' + list ]);
-        [ 'complete', 'incomplete' ].each(function(type) {
+        $w('complete incomplete').each(function(type) {
             if (!Object.isUndefined(this.tcache.get(type)) &&
                 !Object.isUndefined(this.tcache.get(type).get(list))) {
                 this.tcache.get(type).get(list).unset(task);
