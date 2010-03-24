@@ -248,7 +248,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
         $this->_connection->expects($this->any())
             ->method('getNamespace')
             ->will($this->returnValue($namespace));
-        $folder = new Horde_Kolab_Storage_Folder($name);
+        $folder = new Horde_Kolab_Storage_Folder_Base($name);
         $folder->restore($this->_storage, $this->_connection);
         return $folder;
     }

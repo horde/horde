@@ -147,7 +147,7 @@ class Horde_Kolab_Storage_PermsTest extends PHPUnit_Framework_TestCase
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class DummyFolder extends Horde_Kolab_Storage_Folder
+class DummyFolder extends Horde_Kolab_Storage_Folder_Base
 {
     var $acl;
     var $_owner;

@@ -302,7 +302,7 @@ class Horde_Kolab_Storage
         if (!isset($this->_folders[$folder])) {
             $result = $this->getConnection($folder);
 
-            $kf = new Horde_Kolab_Storage_Folder($result->name);
+            $kf = new Horde_Kolab_Storage_Folder_Base($result->name);
             $kf->restore($this, $result->connection);
             $this->_folders[$folder] = &$kf;
         }
@@ -323,7 +323,7 @@ class Horde_Kolab_Storage
         } else {
             $connection = &$this->connections[$connection];
         }
-        $folder = new Horde_Kolab_Storage_Folder(null);
+        $folder = new Horde_Kolab_Storage_Folder_Base(null);
         $folder->restore($this, $connection);
         return $folder;
     }

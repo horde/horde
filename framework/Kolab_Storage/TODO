@@ -1,0 +1,8 @@
+=====================================
+ Kolab_Storage Development TODO List
+=====================================
+
+ - Remove character set conversion from the namespace handler
+
+ - Do not hide the prefix of the shared namespace?
+
