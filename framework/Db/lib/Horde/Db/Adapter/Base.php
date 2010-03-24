@@ -604,7 +604,7 @@ abstract class Horde_Db_Adapter_Base
         /*@TODO */
         $name = (empty($name) ? '' : $name)
               . (empty($runtime) ? '' : sprintf(" (%.4fs)", $runtime));
-        $this->_logger->info($this->_formatLogEntry($name, $sql));
+        $this->_logger->debug($this->_formatLogEntry($name, $sql));
     }
 
     /**
