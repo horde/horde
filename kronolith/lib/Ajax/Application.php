@@ -788,10 +788,12 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
         $result = $this->_signedResponse($event->calendarType . '|' . $event->calendar);
         try {
             $event->save();
+            $end = new Horde_Date($this->_vars->view_end);
+            $end->hour = 23;
+            $end->min = $end->sec = 59;
             Kronolith::addEvents($events, $event,
                                  new Horde_Date($this->_vars->view_start),
-                                 new Horde_Date($this->_vars->view_end),
-                                 true, true);
+                                 $end, true, true);
             if (count($events)) {
                 $result->events = $events;
             }
