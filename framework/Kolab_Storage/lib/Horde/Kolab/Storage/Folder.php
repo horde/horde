@@ -72,13 +72,6 @@ class Horde_Kolab_Storage_Folder
     private $_connection;
 
     /**
-     * The namespace handler for this folder
-     *
-     * @var Horde_Kolab_Storage_Namespace
-     */
-    private $_namespace;
-
-    /**
      * The handler for the list of Kolab folders.
      *
      * @var Kolab_storage
@@ -174,8 +167,6 @@ class Horde_Kolab_Storage_Folder
      * Creates a Kolab Folder representation.
      *
      * @param string                        $name      Name of the folder
-     * @param Horde_Kolab_Storage_Namespace $namespace The namespace handler for
-     *                                                 this folder.
      */
     function __construct($name = null)
     {
@@ -210,7 +201,6 @@ class Horde_Kolab_Storage_Folder
     {
         $properties = get_object_vars($this);
         unset($properties['_storage']);
-        unset($properties['_namespace']);
         unset($properties['_connection']);
         $properties = array_keys($properties);
         return $properties;
@@ -225,12 +215,10 @@ class Horde_Kolab_Storage_Folder
      */
     function restore(
         Horde_Kolab_Storage &$storage,
-        Horde_Kolab_Storage_Driver &$connection,
-        Horde_Kolab_Storage_Namespace $namespace
+        Horde_Kolab_Storage_Driver &$connection
     ) {
         $this->_storage    = $storage;
         $this->_connection = $connection;
-        $this->_namespace  = $namespace;
     }
 
     /**
@@ -256,7 +244,7 @@ class Horde_Kolab_Storage_Folder
      */
     function setName($name)
     {
-        $this->new_name = $this->_namespace->setName($name);
+        $this->new_name = $this->_connection->getNamespace()->setName($name);
     }
 
     /**
@@ -480,7 +468,7 @@ class Horde_Kolab_Storage_Folder
     public function getOwner()
     {
         if (!isset($this->_owner)) {
-            $owner = $this->_namespace->getOwner($this->getName());
+            $owner = $this->_connection->getNamespace()->getOwner($this->getName());
             /**
              * @todo: Reconsider if this handling should really be done here
              * rather than in a module nearer to the applications.
@@ -517,10 +505,10 @@ class Horde_Kolab_Storage_Folder
     public function getSubpath($name = null)
     {
         if (!empty($name)) {
-            return $this->_namespace->getSubpath($name);
+            return $this->_connection->getNamespace()->getSubpath($name);
         }
         if (!isset($this->_subpath)) {
-            $this->_subpath = $this->_namespace->getSubpath($this->getName());
+            $this->_subpath = $this->_connection->getNamespace()->getSubpath($this->getName());
         }
         return $this->_subpath;
     }
@@ -533,7 +521,7 @@ class Horde_Kolab_Storage_Folder
     public function getTitle()
     {
         if (!isset($this->_title)) {
-            $this->_title = $this->_namespace->getTitle($this->getName());
+            $this->_title = $this->_connection->getNamespace()->getTitle($this->getName());
         }
         return $this->_title;
     }
