@@ -1685,8 +1685,8 @@ abstract class Horde_Imap_Client_Base
      *                substring to return.
      *                DEFAULT: The entire text is returned.
      *     'parse' - (boolean) If true, and the Horde MIME library is
-     *               available, parse the header text into a Horde_Mime_Headers
-     *               object.
+     *               available, parse the header text into a
+     *               Horde_Mime_Headers object.
      *               DEFAULT: The full header text is returned.
      *     'peek' - (boolean) If set, does not set the '\Seen' flag on the
      *              message.
@@ -1696,10 +1696,9 @@ abstract class Horde_Imap_Client_Base
      *               DEFAULT: The entire text is returned.
      *   Return key: 'headertext'
      *   Return format: (mixed) If 'parse' is true, a Horde_Mime_Headers
-     *                  object. Else, an array of header text entries. Keys are
-     *                  the 'id', values are the message header text strings
-     *                  (or the portion of the text delineated by the
-     *                  'start'/'length' parameters).
+     *                  object. Else, the raw text of the header (or the
+     *                  (portion of the text delineated by the 'start' &
+     *                  'length' parameters).
      *
      * Key: Horde_Imap_Client::FETCH_BODYTEXT
      *   Desc: Returns the body text. Body text is defined only for the
