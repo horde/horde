@@ -1422,12 +1422,12 @@ div.kronolithEvent .kronolithEventInfo {
 #kronolithEventsWeek div.kronolithEvent .kronolithDragger {
     right: 4px;
 }
-div.kronolithEvent:hover .kronolithEventInfo,
+div.kronolithEditable:hover .kronolithEventInfo,
 div.kronolithEvent.kronolithSelected .kronolithEventInfo {
     top: 7px;
     bottom: 7px;
 }
-div.kronolithEvent:hover .kronolithDragger,
+div.kronolithEditable:hover .kronolithDragger,
 div.kronolithEvent.kronolithSelected .kronolithDragger {
     visibility: visible;
 }
