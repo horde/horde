@@ -24,16 +24,17 @@ class Shout
      */
     static public function getMenu($returnType = 'object')
     {
-        global $conf, $curaccount, $section, $action;
-
-        require_once 'Horde/Menu.php';
-
         $menu = new Horde_Menu(Horde_Menu::MASK_ALL);
 
         $menu->add(Horde::applicationUrl('dialplan.php'), _("Incoming Calls"), "dialplan.png");
         $menu->add(Horde::applicationUrl('extensions.php'), _("Extensions"), "user.png");
         $menu->add(Horde::applicationUrl('devices.php'), _("Devices"), "shout.png");
         $menu->add(Horde::applicationUrl('recordings.php'), _("Recordings"), "recordings.png");
+
+        /* Administration. */
+        if (Horde_Auth::isAdmin('shout:admin')) {
+            $menu->add(Horde::applicationUrl('admin.php'), _("_Admin"), 'admin.png');
+        }
 
         if ($returnType == 'object') {
             return $menu;

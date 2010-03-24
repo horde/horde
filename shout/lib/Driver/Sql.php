@@ -73,6 +73,32 @@ class Shout_Driver_Sql extends Shout_Driver
          return $accounts;
     }
 
+    public function saveAccount($code, $name)
+    {
+        $this->_connect();
+
+        if (isset($details['oldname'])) {
+            if (!isset($menus[$details['oldname']])) {
+                throw new Shout_Exception(_("Old account not found.  Edit aborted."));
+            } else {
+                throw new Shout_Exception(_("Unsupported operation."));
+                $sql = 'UPDATE accounts SET code = ?, name =? WHERE code = ?';
+            }
+        } else {
+            $sql = 'INSERT INTO accounts (code, name) VALUES (?,?)';
+        }
+
+        $vars = array($code, $name);
+
+        $msg = 'SQL query in Shout_Driver_Sql#getAccounts(): ' . $sql;
+        Horde::logMessage($msg, 'DEBUG');
+        $result = $this->_db->query($sql, $vars);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+
+    }
+
     public function getMenus($account)
     {
         $this->_connect();
