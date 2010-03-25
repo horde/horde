@@ -1183,7 +1183,7 @@ class IMP_Compose
 
         if ($attach_flag) {
             if ($this->_pgpAttachPubkey) {
-                $imp_pgp = Horde_Crypt::singleton(array('IMP', 'Pgp'));
+                $imp_pgp = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp');
                 $base->addPart($imp_pgp->publicKeyMIMEPart());
             }
 
@@ -1197,7 +1197,7 @@ class IMP_Compose
         if ($GLOBALS['prefs']->getValue('use_pgp') &&
             !empty($GLOBALS['conf']['gnupg']['path']) &&
             in_array($encrypt, array(IMP::PGP_ENCRYPT, IMP::PGP_SIGN, IMP::PGP_SIGNENC, IMP::PGP_SYM_ENCRYPT, IMP::PGP_SYM_SIGNENC))) {
-            $imp_pgp = Horde_Crypt::singleton(array('IMP', 'Pgp'));
+            $imp_pgp = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp');
 
             switch ($encrypt) {
             case IMP::PGP_SIGN:
@@ -1253,7 +1253,7 @@ class IMP_Compose
             }
         } elseif ($GLOBALS['prefs']->getValue('use_smime') &&
                   in_array($encrypt, array(IMP::SMIME_ENCRYPT, IMP::SMIME_SIGN, IMP::SMIME_SIGNENC))) {
-            $imp_smime = Horde_Crypt::singleton(array('IMP', 'Smime'));
+            $imp_smime = $GLOBALS['injector']->getInstance('IMP_Crypt_Smime');
 
             /* Check to see if we have the user's passphrase yet. */
             if (in_array($encrypt, array(IMP::SMIME_SIGN, IMP::SMIME_SIGNENC))) {

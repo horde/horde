@@ -69,7 +69,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
         if (is_null($this->_impsmime) &&
             $GLOBALS['prefs']->getValue('use_smime')) {
             try {
-                $this->_impsmime = Horde_Crypt::singleton(array('IMP', 'Smime'));
+                $this->_impsmime = $GLOBALS['injector']->getInstance('IMP_Crypt_Smime');
                 $this->_impsmime->checkForOpenSSL();
             } catch (Horde_Exception $e) {
                 $this->_impsmime = null;

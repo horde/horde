@@ -17,14 +17,6 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
     const PUBKEY_FIELD = 'smimePublicKey';
 
     /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct(array('temp' => Horde::getTempDir()));
-    }
-
-    /**
      * Add the personal public key to the prefs.
      *
      * @param mixed $key  The public key to add (either string or array).

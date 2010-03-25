@@ -133,7 +133,7 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Ajax_Imple_Base
             case 'pgpPersonal':
             case 'pgpSymmetric':
                 if ($this->_vars->dialog_input) {
-                    $imp_pgp = Horde_Crypt::singleton(array('IMP', 'Pgp'));
+                    $imp_pgp = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp');
                     if ((($vars->type == 'pgpPersonal') &&
                          $imp_pgp->storePassphrase('personal', $this->_vars->dialog_input)) ||
                         (($vars->type == 'pgpSymmeetric') &&
@@ -149,7 +149,7 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Ajax_Imple_Base
 
             case 'smimePersonal':
                 if ($this->_vars->dialog_input) {
-                $imp_smime = Horde_Crypt::singleton(array('IMP', 'Smime'));
+                    $imp_smime = $GLOBALS['injector']->getInstance('IMP_Crypt_Smime');
                     if ($imp_smime->storePassphrase($this->_vars->dialog_input)) {
                         $result->success = 1;
                     } else {

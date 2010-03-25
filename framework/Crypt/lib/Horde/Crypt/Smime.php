@@ -62,17 +62,6 @@ class Horde_Crypt_Smime extends Horde_Crypt
     );
 
     /**
-     * Constructor.
-     *
-     * @param array $params  Parameter array.
-     *                       'temp' => Location of temporary directory.
-     */
-    protected function __construct($params)
-    {
-        $this->_tempdir = $params['temp'];
-    }
-
-    /**
      * Verify a passphrase for a given private key.
      *
      * @param string $private_key  The user's private key.

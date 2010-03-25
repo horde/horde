@@ -207,8 +207,7 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
     protected function _parsePGP()
     {
         /* Avoid infinite loop. */
-        $imp_pgp = Horde_Crypt::singleton(array('IMP', 'Pgp'));
-        $parts = $imp_pgp->parsePGPData($this->_mimepart->getContents());
+        $parts = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp')->parsePGPData($this->_mimepart->getContents());
         if (empty($parts) ||
             ((count($parts) == 1) &&
              ($parts[0]['type'] == Horde_Crypt_Pgp::ARMOR_TEXT))) {

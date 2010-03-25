@@ -17,17 +17,6 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
     const PUBKEY_FIELD = 'pgpPublicKey';
 
     /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        parent::__construct(array(
-            'program' => $GLOBALS['conf']['gnupg']['path'],
-            'temp' => Horde::getTempDir()
-        ));
-    }
-
-    /**
      * Generate the personal Public/Private keypair and store in prefs.
      *
      * @param string $realname    See Horde_Crypt_Pgp::

@@ -673,7 +673,7 @@ if ($prefs->getValue('use_pgp') && !$prefs->isLocked('default_encrypt')) {
         try {
             $addrs = $imp_compose->recipientList($header);
             if (!empty($addrs['list'])) {
-                $imp_pgp = Horde_Crypt::singleton(array('IMP', 'Pgp'));
+                $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
                 foreach ($addrs['list'] as $val) {
                     $imp_pgp->getPublicKey($val);
                 }

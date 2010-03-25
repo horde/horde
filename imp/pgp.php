@@ -14,7 +14,7 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('imp');
 
-$imp_pgp = Horde_Crypt::singleton(array('IMP', 'Pgp'));
+$imp_pgp = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp');
 $secure_check = Horde::isConnectionSecure();
 
 /* Run through the action handlers */

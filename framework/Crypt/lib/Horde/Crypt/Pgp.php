@@ -117,22 +117,30 @@ class Horde_Crypt_Pgp extends Horde_Crypt
     protected $_privateKeyring;
 
     /**
+     * Configuration parameters.
+     *
+     * @var array
+     */
+    protected $_params = array();
+
+    /**
      * Constructor.
      *
      * @param array $params  The following parameters:
      * <pre>
      * 'program' - (string) [REQUIRED] The path to the GnuPG binary.
-     * 'temp' - (string) [OPTIONAL] Path to a temporary directory.
+     * 'proxy_host - (string) Proxy host.
+     * 'proxy_port - (integer) Proxy port.
      * </pre>
      *
-     * @throws Horde_Exception
+     * @throws InvalidArgumentException
      */
-    protected function __construct($params = array())
+    public function __construct($params = array())
     {
-        $this->_tempdir = Horde_Util::createTempDir(true, $params['temp']);
+        parent::__construct($params);
 
         if (empty($params['program'])) {
-            throw new Horde_Exception('The location of the GnuPG binary must be given to the Horde_Crypt_Pgp:: class.');
+            throw new InvalidArgumentException('The location of the GnuPG binary must be given to the Horde_Crypt_Pgp:: class.');
         }
 
         /* Store the location of GnuPG and set common options. */
@@ -149,6 +157,8 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         if (strncasecmp(PHP_OS, 'WIN', 3)) {
             array_unshift($this->_gnupg, 'LANG= ;');
         }
+
+        $this->_params = $params;
     }
 
     /**
@@ -880,11 +890,11 @@ class Horde_Crypt_Pgp extends Horde_Crypt
     /**
      * Connects to a public key server via HKP (Horrowitz Keyserver Protocol).
      *
-     * @param string $method   POST, GET, etc.
-     * @param string $server   The keyserver to use.
-     * @param string $uri      The URI to access (relative to the server).
-     * @param string $command  The PGP command to run.
-     * @param float $timeout   The timeout value.
+     * @param string $method    POST, GET, etc.
+     * @param string $server    The keyserver to use.
+     * @param string $resource  The URI to access (relative to the server).
+     * @param string $command   The PGP command to run.
+     * @param float $timeout    The timeout value.
      *
      * @return string  The text from standard output on success.
      * @throws Horde_Exception
@@ -896,15 +906,13 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $output = '';
 
         $port = '11371';
-        if (!empty($GLOBALS['conf']['http']['proxy']['proxy_host'])) {
+        if (!empty($this->_params['proxy_host'])) {
             $resource = 'http://' . $server . ':' . $port . $resource;
 
-            $server = $GLOBALS['conf']['http']['proxy']['proxy_host'];
-            if (!empty($GLOBALS['conf']['http']['proxy']['proxy_port'])) {
-                $port = $GLOBALS['conf']['http']['proxy']['proxy_port'];
-            } else {
-                $port = 80;
-            }
+            $server = $this->_params['proxy_host'];
+            $port = isset($this->_params['proxy_port'])
+                ? $this->_params['proxy_port']
+                : 80;
         }
 
         $command = $method . ' ' . $resource . ' HTTP/1.0' . ($command ? "\r\n" . $command : '');

@@ -14,13 +14,6 @@
 class Horde_Crypt
 {
     /**
-     * Singleton instances.
-     *
-     * @var array
-     */
-    static protected $_instances = array();
-
-    /**
      * The temporary directory to use.
      *
      * @var string
@@ -64,35 +57,22 @@ class Horde_Crypt
     }
 
     /**
-     * Attempts to return a reference to a concrete Horde_Crypt instance
-     * based on $driver. It will only create a new instance if no
-     * Horde_Crypt instance with the same parameters currently exists.
+     * Constructor.
      *
-     * This should be used if multiple crypto backends (and, thus,
-     * multiple Horde_Crypt instances) are required.
+     * @param array $params  Configuration parameters:
+     * <pre>
+     * 'temp' - (string) [REQUIRED] Location of temporary directory.
+     * </pre>
      *
-     * This method must be invoked as: $var = Horde_Crypt::singleton()
-     *
-     * @param mixed $driver  The type of concrete Horde_Crypt subclass to
-     *                       return. If $driver is an array, then we will look
-     *                       in $driver[0]/lib/Crypt/ for the subclass
-     *                       implementation named $driver[1].php.
-     * @param array $params  A hash containing any additional configuration or
-     *                       connection parameters a subclass might need.
-     *
-     * @return Horde_Crypt  The concrete Horde_Crypt reference.
-     * @throws Horde_Exception
+     * @throws InvalidArgumentException
      */
-    static public function singleton($driver, $params = array())
+    public function __construct($params = array())
     {
-        ksort($params);
-        $signature = hash('md5', serialize(array($driver, $params)));
-
-        if (!isset(self::$_instances[$signature])) {
-            self::$_instances[$signature] = self::factory($driver, $params);
+        if (empty($params['temp'])) {
+            throw new InvalidArgumentException('A temporary directory must be provided.');
         }
 
-        return self::$_instances[$signature];
+        $this->_tempdir = Horde_Util::createTempDir(true, $params['temp']);
     }
 
     /**

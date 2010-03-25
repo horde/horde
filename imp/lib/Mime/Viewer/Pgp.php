@@ -49,13 +49,6 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
     );
 
     /**
-     * IMP_Crypt_Pgp object.
-     *
-     * @var IMP_Crypt_Pgp
-     */
-    protected $_imppgp;
-
-    /**
      * The address of the sender.
      *
      * @var string
@@ -86,11 +79,7 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
             )
         );
 
-        if (empty($this->_imppgp)) {
-            $this->_imppgp = Horde_Crypt::singleton(array('IMP', 'Pgp'));
-        }
-
-        $parts = $this->_imppgp->parsePGPData($this->_mimepart->getContents());
+        $parts = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp')->parsePGPData($this->_mimepart->getContents());
         foreach (array_keys($parts) as $key) {
             if ($parts[$key]['type'] == Horde_Crypt_Pgp::ARMOR_SIGNATURE) {
                 $ret[$id]['data'] = implode("\r\n", $parts[$key]['data']);
@@ -109,11 +98,6 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
     protected function _renderInline()
     {
         $id = $this->_mimepart->getMimeId();
-
-        if (empty($this->_imppgp) &&
-            !empty($GLOBALS['conf']['gnupg']['path'])) {
-            $this->_imppgp = Horde_Crypt::singleton(array('IMP', 'Pgp'));
-        }
 
         if (Horde_Util::getFormData('rawpgpkey')) {
             return array(
@@ -198,10 +182,6 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
             return null;
         }
 
-        if (empty($this->_imppgp)) {
-            $this->_imppgp = Horde_Crypt::singleton(array('IMP', 'Pgp'));
-        }
-
         /* PGP version information appears in the first MIME subpart. We
          * don't currently need to do anything with this information. The
          * encrypted data appears in the second MIME subpart. */
@@ -212,10 +192,11 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
 
         /* Check if this a symmetrically encrypted message. */
         try {
-            $symmetric = $this->_imppgp->encryptedSymmetrically($encrypted_data);
+            $imp_pgp = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp');
+            $symmetric = $imp_pgp->encryptedSymmetrically($encrypted_data);
             if ($symmetric) {
                 $symmetric_id = $this->_getSymmetricID();
-                $symmetric_pass = $this->_imppgp->getPassphrase('symmetric', $symmetric_id);
+                $symmetric_pass = $imp_pgp->getPassphrase('symmetric', $symmetric_id);
 
                 if (is_null($symmetric_pass)) {
                     $status[] = _("The data in this part has been encrypted via PGP.");
@@ -235,7 +216,7 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
 
         /* Check if this is a literal compressed message. */
         try {
-            $info = $this->_imppgp->pgpPacketInformation($encrypted_data);
+            $info = $imp_pgp->pgpPacketInformation($encrypted_data);
         } catch (Horde_Exception $e) {
             Horde::logMessage($e, 'INFO');
             return null;
@@ -248,8 +229,8 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
             $status[] = _("The data in this part has been encrypted via PGP.");
 
             if (!$symmetric) {
-                if ($this->_imppgp->getPersonalPrivateKey()) {
-                    $personal_pass = $this->_imppgp->getPassphrase('personal');
+                if ($imp_pgp->getPersonalPrivateKey()) {
+                    $personal_pass = $imp_pgp->getPassphrase('personal');
                     if (is_null($personal_pass)) {
                         /* Ask for the private key's passphrase if this is
                          * encrypted asymmetrically. */
@@ -269,16 +250,16 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
 
         try {
             if (!is_null($symmetric_pass)) {
-                $decrypted_data = $this->_imppgp->decryptMessage($encrypted_data, 'symmetric', $symmetric_pass);
+                $decrypted_data = $imp_pgp->decryptMessage($encrypted_data, 'symmetric', $symmetric_pass);
             } elseif (!is_null($personal_pass)) {
-                $decrypted_data = $this->_imppgp->decryptMessage($encrypted_data, 'personal', $personal_pass);
+                $decrypted_data = $imp_pgp->decryptMessage($encrypted_data, 'personal', $personal_pass);
             } else {
-                $decrypted_data = $this->_imppgp->decryptMessage($encrypted_data, 'literal');
+                $decrypted_data = $imp_pgp->decryptMessage($encrypted_data, 'literal');
             }
         } catch (Horde_Exception $e) {
             $status[] = _("The data in this part does not appear to be a valid PGP encrypted message. Error: ") . $e->getMessage();
             if (!is_null($symmetric_pass)) {
-                $this->_imppgp->unsetPassphrase('symmetric', $this->_getSymmetricID());
+                $imp_pgp->unsetPassphrase('symmetric', $this->_getSymmetricID());
                 return $this->_getEmbeddedMimeParts();
             }
             return null;
@@ -311,16 +292,17 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
         );
 
         $mime_id = $this->_mimepart->getMimeId();
+        $imp_pgp = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp');
 
         if ($GLOBALS['prefs']->getValue('use_pgp') &&
             $GLOBALS['prefs']->getValue('add_source') &&
             $GLOBALS['registry']->hasMethod('contacts/addField')) {
-            $status['text'][] = Horde::link('#', '', '', '', $this->_imppgp->savePublicKeyURL($this->_params['contents']->getMailbox(), $this->_params['contents']->getUid(), $mime_id) . 'return false;') . _("Save the key to your address book.") . '</a>';
+            $status['text'][] = Horde::link('#', '', '', '', $imp_pgp->savePublicKeyURL($this->_params['contents']->getMailbox(), $this->_params['contents']->getUid(), $mime_id) . 'return false;') . _("Save the key to your address book.") . '</a>';
         }
         $status['text'][] = $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', _("View the raw text of the Public Key."), array('jstext' => _("View Public Key"), 'params' => array('mode' => IMP_Contents::RENDER_INLINE, 'rawpgpkey' => 1)));
 
         try {
-            $data = '<span class="fixed">' . nl2br(str_replace(' ', '&nbsp;', $this->_imppgp->pgpPrettyKey($this->_mimepart->getContents()))) . '</span>';
+            $data = '<span class="fixed">' . nl2br(str_replace(' ', '&nbsp;', $imp_pgp->pgpPrettyKey($this->_mimepart->getContents()))) . '</span>';
         } catch (Horde_Exception $e) {
             $data = $e->getMessage();
         }
@@ -377,9 +359,10 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
             $sig_part = $this->_params['contents']->getMIMEPart($sig_id);
 
             try {
+                $imp_pgp = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp');
                 $sig_result = $sig_part->getMetadata('imp-pgp-signature')
-                    ? $this->_imppgp->verifySignature($sig_part->getContents(array('canonical' => true)), $this->_address)
-                    : $this->_imppgp->verifySignature($sig_part->replaceEOL($this->_params['contents']->getBodyPart($signed_id, array('mimeheaders' => true)), Horde_Mime_Part::RFC_EOL), $this->_address, $sig_part->getContents());
+                    ? $imp_pgp->verifySignature($sig_part->getContents(array('canonical' => true)), $this->_address)
+                    : $imp_pgp->verifySignature($sig_part->replaceEOL($this->_params['contents']->getBodyPart($signed_id, array('mimeheaders' => true)), Horde_Mime_Part::RFC_EOL), $this->_address, $sig_part->getContents());
 
                 $icon = Horde::img('alerts/success.png', _("Success"));
                 $sig_text = $sig_result->message;
@@ -423,7 +406,7 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
      */
     protected function _getSymmetricID()
     {
-        return $this->_imppgp->getSymmetricID($this->_params['contents']->getMailbox(), $this->_params['contents']->getUid(), $this->_mimepart->getMimeId());
+        return $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp')->getSymmetricID($this->_params['contents']->getMailbox(), $this->_params['contents']->getUid(), $this->_mimepart->getMimeId());
     }
 
     /**

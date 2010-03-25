@@ -15,7 +15,7 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('imp');
 
-$imp_smime = Horde_Crypt::singleton(array('IMP', 'Smime'));
+$imp_smime = $GLOBALS['injector']->getInstance('IMP_Crypt_Smime');
 
 /* Run through the action handlers */
 $actionID = Horde_Util::getFormData('actionID');
