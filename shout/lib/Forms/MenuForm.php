@@ -49,7 +49,7 @@ class MenuForm extends Horde_Form {
         $details = array(
             'name' => $this->_vars->get('name'),
             'description' => $this->_vars->get('description'),
-            'soundfile' => $this->_vars->get('description')
+            'soundfile' => $this->_vars->get('soundfile')
         );
 
         // FIXME: Validate soundfile
