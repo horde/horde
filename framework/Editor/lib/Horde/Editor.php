@@ -110,18 +110,15 @@ class Horde_Editor
 
     /**
      * List the available editors.
-     * Can be called statically: Horde_Editor::availableEditors();
      *
      * @return array  List of available editors.
      */
     static public function availableEditors()
     {
         $eds = array();
-        $d = dir(dirname(__FILE__) . '/Editor');
-        while (false !== ($entry = $d->read())) {
-            if (preg_match('/\.php$/', $entry)) {
-                $eds[] = basename($entry, '.php');
-            }
+
+        foreach (glob(dirname(__FILE__) . '/Editor/*.php') as $val) {
+            $eds[] = basename($val, '.php');
         }
 
         return $eds;
