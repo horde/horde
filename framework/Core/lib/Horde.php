@@ -85,42 +85,21 @@ class Horde
         $cli = Horde_Cli::runningFromCLI();
 
         $errortext = '<h1>' . _("A fatal error has occurred") . '</h1>';
-        if ($error instanceof PEAR_Error) {
-            $info = array_merge(array('file' => 'conf.php', 'variable' => '$conf'),
-                                array($error->getUserInfo()));
 
-            switch ($error->getCode()) {
-            case Horde_Util::HORDE_ERROR_DRIVER_CONFIG_MISSING:
-                $message = sprintf(_("No configuration information specified for %s."), $info['name']) . '<br />' .
-                    sprintf(_("The file %s should contain some %s settings."),
-                            $GLOBALS['registry']->get('fileroot') . '/config/' . $info['file'],
-                            sprintf("%s['%s']['params']", $info['variable'], $info['driver']));
-                break;
-
-            case Horde_Util::HORDE_ERROR_DRIVER_CONFIG:
-                $message = sprintf(_("Required \"%s\" not specified in %s configuration."), $info['field'], $info['name']) . '<br />' .
-                    sprintf(_("The file %s should contain a %s setting."),
-                            $GLOBALS['registry']->get('fileroot') . '/config/' . $info['file'],
-                            sprintf("%s['%s']['params']['%s']", $info['variable'], $info['driver'], $info['field']));
-                break;
-
-            default:
-                $message = $error->getMessage();
-                break;
-            }
-
-            $errortext .= '<h3>' . htmlspecialchars($message) . '</h3>';
-        } elseif (is_object($error) && method_exists($error, 'getMessage')) {
+        if (($error instanceof PEAR_Error) ||
+            (is_object($error) && method_exists($error, 'getMessage'))) {
             $errortext .= '<h3>' . htmlspecialchars($error->getMessage()) . '</h3>';
         } elseif (is_string($error)) {
             $errortext .= '<h3>' . htmlspecialchars($error) . '</h3>';
         }
 
-        if (is_null($file) && $error instanceof Exception) {
-            $file = $error->getFile();
-        }
-        if (is_null($line) && $error instanceof Exception) {
-            $line = $error->getLine();
+        if ($error instanceof Exception) {
+            if (is_null($file)) {
+                $file = $error->getFile();
+            }
+            if (is_null($line)) {
+                $line = $error->getLine();
+            }
         }
 
         if ($admin) {
