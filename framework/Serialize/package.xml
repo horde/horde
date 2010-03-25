@@ -81,6 +81,32 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <channel>pear.horde.org</channel>
    </package>
   </required>
+  <optional>
+   <extension>
+    <name>bzip2</name>
+   </extension>
+   <extension>
+    <name>lzf</name>
+   </extension>
+   <extension>
+    <name>wddx</name>
+   </extension>
+   <extension>
+    <name>zlib</name>
+   </extension>
+   <package>
+    <name>DB</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>Imap_Client</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Mime</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
