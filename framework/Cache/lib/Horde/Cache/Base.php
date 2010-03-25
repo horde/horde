@@ -8,10 +8,11 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Anil Madhavapeddy <anil@recoil.org>
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Cache
+ * @author   Anil Madhavapeddy <anil@recoil.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @package  Cache
  */
 abstract class Horde_Cache_Base
 {
@@ -20,7 +21,9 @@ abstract class Horde_Cache_Base
      *
      * @var array
      */
-    protected $_params = array();
+    protected $_params = array(
+        'lifetime' => 86400
+    );
 
     /**
      * Logger.
@@ -41,18 +44,12 @@ abstract class Horde_Cache_Base
      */
     public function __construct($params = array())
     {
-        if (!isset($params['lifetime'])) {
-            $params['lifetime'] = isset($GLOBALS['conf']['cache']['default_lifetime'])
-                ? $GLOBALS['conf']['cache']['default_lifetime']
-                : 86400;
-        }
-
         if (isset($params['logger'])) {
             $this->_logger = $params['logger'];
             unset($params['logger']);
         }
 
-        $this->_params = $params;
+        $this->_params = array_merge($this->_params, $params);
     }
 
     /**

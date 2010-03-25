@@ -31,6 +31,10 @@ class Horde_Core_Binder_Cache implements Horde_Injector_Binder
             }
         }
 
+        if (isset($GLOBALS['conf']['cache']['default_lifetime'])) {
+            $params['lifetime'] = $GLOBALS['conf']['cache']['default_lifetime'];
+        }
+
         $params['logger'] = $injector->getInstance('Horde_Log_Logger');
 
         return Horde_Cache::factory($driver, $params);

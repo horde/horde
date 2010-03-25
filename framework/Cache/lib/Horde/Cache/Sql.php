@@ -3,31 +3,6 @@
  * The Horde_Cache_Sql:: class provides a SQL implementation of the Horde
  * Caching system.
  *
- * Required parameters:<pre>
- *   'phptype'      The database type (ie. 'pgsql', 'mysql', etc.).</pre>
- *
- * Required by some database implementations:<pre>
- *   'database'     The name of the database.
- *   'hostspec'     The hostname of the database server.
- *   'username'     The username with which to connect to the database.
- *   'password'     The password associated with 'username'.
- *   'options'      Additional options to pass to the database.
- *   'tty'          The TTY on which to connect to the database.
- *   'port'         The port on which to connect to the database.</pre>
- *
- * Optional parameters:<pre>
- *   'table'             The name of the cache table in 'database'.
- *                       Defaults to 'horde_cache'.
- *   'use_memorycache'   Use this Horde_Cache:: memory caching object to cache
- *                       the data (to avoid DB accesses).</pre>
- *
- * Optional values when using separate reading and writing servers, for example
- * in replication settings:<pre>
- *   'splitread'   Boolean, whether to implement the separation or not.
- *   'read'        Array containing the parameters which are different for
- *                 the read database connection, currently supported
- *                 only 'hostspec' and 'port' parameters.</pre>
- *
  * The table structure for the cache is as follows:
  * <pre>
  * CREATE TABLE horde_cache (
@@ -48,9 +23,10 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Slusarz <slusarz@curecanti.org>
- * @author  Ben Klang <ben@alkaloid.net>
- * @package Horde_Cache
+ * @author   Michael Slusarz <slusarz@curecanti.org>
+ * @author   Ben Klang <ben@alkaloid.net>
+ * @category Horde
+ * @package  Cache
  */
 class Horde_Cache_Sql extends Horde_Cache_Base
 {
@@ -86,7 +62,33 @@ class Horde_Cache_Sql extends Horde_Cache_Base
     /**
      * Constructs a new Horde_Cache_Sql object.
      *
-     * @param array $params  A hash containing configuration parameters.
+     * @param array $params  Configuration parameters:
+     * <pre>
+     * Required parameters:
+     * 'phptype' - The database type (ie. 'pgsql', 'mysql', etc.).
+     *
+     * Required by some database implementations:
+     * 'database' - The name of the database.
+     * 'hostspec' - The hostname of the database server.
+     * 'username' - The username with which to connect to the database.
+     * 'password' - The password associated with 'username'.
+     * 'options' - Additional options to pass to the database.
+     * 'tty' - The TTY on which to connect to the database.
+     * 'port' - The port on which to connect to the database.
+     *
+     * Optional parameters:
+     * 'table' - The name of the cache table in 'database'.
+     *           DEFAULT: 'horde_cache'.
+     * 'use_memorycache' -  Use this Horde_Cache memory caching object to
+     *                      cache the data (to avoid DB accesses).
+     *
+     * Optional values when using separate reading and writing servers, for
+     * example in replication settings:
+     * 'splitread' - (boolean) Whether to implement the separation.
+     * 'read' - (array) Parameters which are different for the read database
+     *          connection, currently supported only 'hostspec' and 'port'
+     *          parameters.
+     * </pre>
      */
     public function __construct($params = array())
     {

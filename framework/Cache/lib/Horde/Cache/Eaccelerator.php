@@ -8,8 +8,9 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Duck <duck@obala.net>
- * @package Horde_Cache
+ * @author   Duck <duck@obala.net>
+ * @category Horde
+ * @package  Cache
  */
 class Horde_Cache_Eaccelerator extends Horde_Cache_Base
 {

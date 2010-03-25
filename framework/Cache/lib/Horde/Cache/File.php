@@ -14,9 +14,10 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Anil Madhavapeddy <anil@recoil.org>
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_Cache
+ * @author   Anil Madhavapeddy <anil@recoil.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @package  Cache
  */
 class Horde_Cache_File extends Horde_Cache_Base
 {

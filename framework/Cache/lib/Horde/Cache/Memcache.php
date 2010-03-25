@@ -3,12 +3,6 @@
  * The Horde_Cache_Memcache:: class provides a memcached implementation of the
  * Horde caching system.
  *
- * Addtional parameters:
- * ---------------------
- * <pre>
- * 'memcache' - (Horde_Memcache) A Horde_Memcache object.
- * </pre>
- *
  * Copyright 2006-2007 Duck <duck@obala.net>
  * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
  *
@@ -18,7 +12,7 @@
  * @author   Duck <duck@obala.net>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @package  Horde_Cache
+ * @package  Cache
  */
 class Horde_Cache_Memcache extends Horde_Cache_Base
 {
@@ -38,7 +32,10 @@ class Horde_Cache_Memcache extends Horde_Cache_Base
     /**
      * Construct a new Horde_Cache_Memcache object.
      *
-     * @param array $params  Parameter array.
+     * @param array $params  Parameter array:
+     * <pre>
+     * 'memcache' - (Horde_Memcache) A Horde_Memcache object.
+     * </pre>
      *
      * @throws InvalidArgumentException
      */
