@@ -292,9 +292,6 @@ class Horde_Registry
          * 'horde', registry is not used in the method so we are free to
          * call it here (prevents us from duplicating a bunch of code
          * here. */
-        /* Load Log.php so we can update Horde 3 configurations which still
-         * use the PEAR_LOG_* contants. */
-        @include_once 'Log.php';
         $this->_cache['conf-horde'] = Horde::loadConfiguration('conf.php', 'conf', 'horde');
         $conf = $GLOBALS['conf'] = &$this->_cache['conf-horde'];
 

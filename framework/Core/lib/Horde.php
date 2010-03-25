@@ -673,7 +673,15 @@ HTML;
             $output = ob_get_clean();
 
             if (!empty($output) && !$show_output) {
-                throw new Horde_Exception(sprintf('Failed to import configuration file "%s": ', $file) . strip_tags($output));
+                /* Horde 3 -> 4 conversion checking. This is the only place
+                 * to catch PEAR_LOG errors. */
+                if (isset($conf['log']['priority']) &&
+                    (strpos($conf['log'], 'PEAR_LOG_') !== false)) {
+                    $conf['log']['priority'] = 'INFO';
+                    self::logMessage('Logging priority is using the old PEAR_LOG constant', 'INFO');
+                } else {
+                    throw new Horde_Exception(sprintf('Failed to import configuration file "%s": ', $file) . strip_tags($output));
+                }
             }
 
             if (!$success) {
