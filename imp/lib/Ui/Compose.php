@@ -63,55 +63,6 @@ class IMP_Ui_Compose
     }
 
     /**
-     * Redirect a message.
-     *
-     * @param string $to                  The To address.
-     * @param IMP_Compose $imp_compose    An IMP_Compose object.
-     * @param IMP_Contents $imp_contents  An IMP_Contents object.
-     *
-     * @throws Horde_Exception
-     */
-    public function redirectMessage($to, $imp_compose, $contents)
-    {
-        try {
-            $recip = $imp_compose->recipientList(array('to' => $to));
-        } catch (IMP_Compose_Exception $e) {
-            throw new Horde_Exception_Prior($recip);
-        }
-        $recipients = implode(', ', $recip['list']);
-
-        $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
-        $from_addr = $identity->getFromAddress();
-
-        $headers = $contents->getHeaderOb();
-        $headers->addResentHeaders($from_addr, $recip['header']['to']);
-
-        $mime_message = $contents->getMIMEMessage();
-
-        /* We need to set the Return-Path header to the current user - see
-           RFC 2821 [4.4]. */
-        $headers->removeHeader('return-path');
-        $headers->addHeader('Return-Path', $from_addr);
-
-        /* Store history information. */
-        if (!empty($GLOBALS['conf']['maillog']['use_maillog'])) {
-            IMP_Maillog::log('redirect', $headers->getValue('message-id'), $recipients);
-        }
-
-        try {
-            $imp_compose->sendMessage($recipients, $headers, $mime_message);
-        } catch (IMP_Compose_Exception $e) {
-            throw new Horde_Exception_Prior($e);
-        }
-
-        $entry = sprintf("%s Redirected message sent to %s from %s",
-                         $_SERVER['REMOTE_ADDR'], $recipients, Horde_Auth::getAuth());
-        Horde::logMessage($entry, 'INFO');
-
-        $GLOBALS['injector']->getInstance('IMP_Sentmail')>log('redirect', $headers->getValue('message-id'), $recipients);
-    }
-
-    /**
      * Attach the auto-completer to the current compose form.
      *
      * @param array $fields  The list of DOM IDs to attach the autocompleter

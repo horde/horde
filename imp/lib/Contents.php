@@ -307,9 +307,13 @@ class IMP_Contents
     /**
      * Returns the header object.
      *
-     * @return Horde_Mime_Headers  The Horde_Mime_Headers object.
+     * @param boolean $parse  Parse the headers into a headers object?
+     *
+     * @return Horde_Mime_Headers|string  Either a Horde_Mime_Headers object
+     *                                    (if $parse is true) or the header
+     *                                    text (if $parse is false).
      */
-    public function getHeaderOb()
+    public function getHeaderOb($parse = true)
     {
         if (is_null($this->_message)) {
             return $this->_message->getMIMEHeaders();
@@ -317,11 +321,13 @@ class IMP_Contents
 
         try {
             $res = $GLOBALS['imp_imap']->ob()->fetch($this->_mailbox, array(
-                Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => true))
+                Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => $parse, 'peek' => true))
             ), array('ids' => array($this->_uid)));
             return $res[$this->_uid]['headertext'][0];
         } catch (Horde_Imap_Client_Exception $e) {
-            return new Horde_Mime_Headers();
+            return $parse
+                ? new Horde_Mime_Headers()
+                : '';
         }
     }
 
@@ -345,7 +351,7 @@ class IMP_Contents
      *            bodypart from the server.
      *            DEFAULT: All data is retrieved.
      * 'nocontents' - (boolean) If true, don't add the contents to the part
-     *              DEFAULT: Contents are added to the part
+     *                DEFAULT: Contents are added to the part
      * </pre>
      *
      * @return Horde_Mime_Part  The raw MIME part asked for (reference).

@@ -940,12 +940,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
     public function getForwardData()
     {
         try {
-            $imp_compose = IMP_Compose::singleton($this->_vars->imp_compose);
-            if (!($imp_contents = $imp_compose->getContentsOb())) {
-                $indices = $GLOBALS['imp_imap']->ob()->utils->fromSequenceString($this->_vars->uid);
-                $i = each($indices);
-                $imp_contents = IMP_Contents::singleton(reset($i['value']) . IMP::IDX_SEP . $i['key']);
-            }
+            list($imp_compose, $imp_contents) = $this->_initCompose();
 
             $fwd_msg = $imp_compose->forwardMessage($this->_vars->type, $imp_contents);
 
@@ -997,18 +992,14 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      * 'identity' - (integer) The identity ID to use for this message.
      * 'imp_compose' - (string) The IMP_Compose cache identifier.
      * 'opts' - (array) Additional options needed for DimpCompose.fillForm().
+     * 'type' - (string) The input 'type' value.
      * 'ViewPort' - (object) See _viewPortData().
      * </pre>
      */
     public function getReplyData()
     {
         try {
-            $imp_compose = IMP_Compose::singleton($this->_vars->imp_compose);
-            if (!($imp_contents = $imp_compose->getContentsOb())) {
-                $indices = $GLOBALS['imp_imap']->ob()->utils->fromSequenceString($this->_vars->uid);
-                $i = each($indices);
-                $imp_contents = IMP_Contents::singleton(reset($i['value']) . IMP::IDX_SEP . $i['key']);
-            }
+            list($imp_compose, $imp_contents) = $this->_initCompose();
 
             $reply_msg = $imp_compose->replyMessage($this->_vars->type, $imp_contents);
             $reply_msg['headers']['replytype'] = 'reply';
@@ -1017,6 +1008,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
              * cache id. */
             $result = new stdClass;
             $result->header = $reply_msg['headers'];
+            $result->type = $this->_vars->type;
             if (!$this->_vars->headeronly) {
                 $result->body = $reply_msg['body'];
                 $result->format = $reply_msg['format'];
@@ -1032,6 +1024,35 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         }
 
         return $result;
+    }
+
+    /**
+     * AJAX action: Get compose redirect data.
+     *
+     * Variables used:
+     * <pre>
+     * 'uid' - (string) Index of the message to redirect (IMAP sequence
+     *         string).
+     * </pre>
+     *
+     * @return mixed  False on failure, or an object with the following
+     *                entries:
+     * <pre>
+     * 'imp_compose' - (string) The IMP_Compose cache identifier.
+     * 'type' - (string) The input 'type' value.
+     * </pre>
+     */
+    public function getRedirectData()
+    {
+        list($imp_compose, $imp_contents) = $this->_initCompose();
+
+        $imp_compose->redirectMessage($imp_contents);
+
+        $ob = new stdClass;
+        $ob->imp_compose = $imp_compose->getCacheId();
+        $ob->type = $this->_vars->type;
+
+        return $ob;
     }
 
     /**
@@ -1401,6 +1422,56 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
     }
 
     /**
+     * Redirect the message.
+     *
+     * Variables used:
+     * <pre>
+     * 'redirect_composeCache' - (string) The IMP_Compose cache identifier.
+     * 'redirect_to' - (string) The address(es) to redirect to.
+     * </pre>
+     *
+     * @return object  An object with the following entries:
+     * <pre>
+     * 'log' - (array) TODO
+     * 'mbox' - (array) TODO
+     * 'success' - (integer) 1 on success, 0 on failure.
+     * 'uid' - (integer) TODO
+     * </pre>
+     */
+    public function redirectMessage()
+    {
+        $result = new stdClass;
+        $result->action = $this->_action;
+        $result->success = 1;
+
+        try {
+            $imp_compose = IMP_Compose::singleton($this->_vars->redirect_composeCache);
+            $imp_compose->sendRedirectMessage($this->_vars->redirect_to);
+
+            $result->mbox = $imp_compose->getMetadata('mailbox');
+            $result->uid = $imp_compose->getMetadata('uid');
+
+            $contents = $imp_compose->getContentsOb();
+            $headers = $contents->getHeaderOb();
+
+            if ($GLOBALS['prefs']->getValue('compose_confirm')) {
+                $subject = $headers->getValue('subject');
+                $GLOBALS['notification']->push(empty($subject) ? _("Message redirected successfully.") : sprintf(_("Message \"%s\" redirected successfully."), Horde_String::truncate($subject)), 'horde.success');
+            }
+
+            if (!empty($GLOBALS['conf']['maillog']['use_maillog']) &&
+                ($tmp = IMP_Dimp::getMsgLogInfo($headers->getValue('message-id')))) {
+                $result->log = $tmp;
+            }
+        } catch (Horde_Exception $e) {
+            $GLOBALS['notification']->push($e);
+            $result->success = 0;
+        }
+
+        return $result;
+    }
+
+    /**
      * Setup environment for dimp compose actions.
      *
      * Variables used:
@@ -1455,6 +1526,21 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         $imp_compose = IMP_Compose::singleton($this->_vars->composeCache);
 
         return array($result, $imp_compose, $headers, $identity);
+    }
+
+    /**
+     * TODO
+     */
+    protected function _initCompose()
+    {
+        $imp_compose = IMP_Compose::singleton($this->_vars->imp_compose);
+        if (!($imp_contents = $imp_compose->getContentsOb())) {
+            $indices = $GLOBALS['imp_imap']->ob()->utils->fromSequenceString($this->_vars->uid);
+            $i = each($indices);
+            $imp_contents = IMP_Contents::singleton(reset($i['value']) . IMP::IDX_SEP . $i['key']);
+        }
+
+        return array($imp_compose, $imp_contents);
     }
 
     /**
@@ -1584,7 +1670,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      * 'view' - (string) The current ViewPort view (mailbox).
      * </pre>
      *
-     * @param boolean $rw            Open mailbox as READ+WRITE?
+     * @param boolean $rw  Open mailbox as READ+WRITE?
      *
      * @return boolean  True if the server state differs from the browser
      *                  state.

@@ -124,13 +124,15 @@
 <?php endif; ?>
 </div>
 
-<?php if (!$prefs->isLocked('forward_default')): ?>
 <div class="context" id="ctx_forwardpopdown" style="display:none;">
+<?php if (!$prefs->isLocked('forward_default')): ?>
  <a id="ctx_forward_attach"><span class="contextImg"></span><?php echo _("As Attachment") ?></a>
  <a id="ctx_forward_body"><span class="contextImg"></span><?php echo _("In Body Text") ?></a>
  <a id="ctx_forward_both"><span class="contextImg"></span><?php echo _("Attachment and Body Text") ?></a>
-</div>
+ <div class="sep"></div>
 <?php endif; ?>
+ <a id="ctx_forward_redirect"><span class="contextImg"></span><?php echo _("Redirect") ?></a>
+</div>
 <?php endif; ?>
 
 <div class="context" id="ctx_contacts" style="display:none">

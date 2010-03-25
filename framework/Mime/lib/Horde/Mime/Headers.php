@@ -234,22 +234,6 @@ class Horde_Mime_Headers
     }
 
     /**
-     * Generate the 'Resent' headers (conforms to guidelines in
-     * RFC 2822 [3.6.6]).
-     *
-     * @param string $from  The address to use for 'Resent-From'.
-     * @param string $to    The address to use for 'Resent-To'.
-     */
-    public function addResentHeaders($from, $to)
-    {
-        /* We don't set Resent-Sender, Resent-Cc, or Resent-Bcc. */
-        $this->addHeader('Resent-Date', date('r'));
-        $this->addHeader('Resent-From', $from);
-        $this->addHeader('Resent-To', $to);
-        $this->addHeader('Resent-Message-ID', Horde_Mime::generateMessageId());
-    }
-
-    /**
      * Generate the user agent description header.
      */
     public function addUserAgentHeader()

@@ -307,18 +307,17 @@ case 'forward_both':
     break;
 
 case 'redirect_compose':
-    $title = _("Redirect this message");
-    break;
-
-case 'redirect_send':
     if (!($imp_contents = $imp_ui->getIMPContents($uid, $thismailbox))) {
         break;
     }
+    $imp_compose->redirectMessage($imp_contents);
+    $title = _("Redirect");
+    break;
 
-    $f_to = $imp_ui->getAddressList($vars->to);
-
+case 'redirect_send':
     try {
-        $imp_ui->redirectMessage($f_to, $imp_compose, $imp_contents);
+        $imp_compose->sendRedirectMessage($imp_ui->getAddressList($vars->to));
+
         $imp_compose->destroy('send');
         if ($isPopup) {
             if ($prefs->getValue('compose_confirm')) {
@@ -714,8 +713,7 @@ $t->set('allow_compose', !$compose_disable);
 
 if ($redirect) {
     /* Prepare the redirect template. */
-    $t->set('mailbox', htmlspecialchars($thismailbox));
-    $t->set('uid', htmlspecialchars($uid));
+    $t->set('cacheid', $composeCacheID);
     $t->set('status', Horde_Util::bufferOutput(array('IMP', 'status')));
     $t->set('title', htmlspecialchars($title));
     $t->set('token', Horde::getRequestToken('imp.compose'));

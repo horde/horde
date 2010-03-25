@@ -403,13 +403,15 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  <a id="ctx_reply_reply_list"><span class="contextImg"></span><?php echo _("To List") ?></a>
 </div>
 
-<?php if (!$prefs->isLocked('forward_default')): ?>
 <div class="context" id="ctx_forward" style="display:none;">
+<?php if (!$prefs->isLocked('forward_default')): ?>
  <a id="ctx_forward_attach"><span class="contextImg"></span><?php echo _("As Attachment") ?></a>
  <a id="ctx_forward_body"><span class="contextImg"></span><?php echo _("In Body Text") ?></a>
  <a id="ctx_forward_both"><span class="contextImg"></span><?php echo _("Attachment and Body Text") ?></a>
-</div>
+ <div class="sep"></div>
 <?php endif; ?>
+ <a id="ctx_forward_redirect"><span class="contextImg"></span><?php echo _("Redirect") ?></a>
+</div>
 
 <div class="context" id="ctx_otheractions" style="display:none">
  <a id="oa_preview_hide"><span class="contextImg"></span><?php echo _("Hide Preview") ?></a>

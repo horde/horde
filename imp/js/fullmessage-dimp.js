@@ -13,14 +13,13 @@ var DimpFullmessage = {
         var func, ob = {};
         ob[this.mailbox] = [ this.uid ];
 
-        $('msgData').hide();
-        $('qreply').show();
-
         switch (type) {
         case 'reply':
         case 'reply_all':
         case 'reply_auto':
         case 'reply_list':
+            $('compose').show();
+            $('redirect').hide();
             func = 'getReplyData';
             break;
 
@@ -28,9 +27,20 @@ var DimpFullmessage = {
         case 'forward_attach':
         case 'forward_body':
         case 'forward_both':
+            $('compose').show();
+            $('redirect').hide();
             func = 'getForwardData';
             break;
+
+        case 'forward_redirect':
+            $('compose').hide();
+            $('redirect').show();
+            func = 'getRedirectData';
+            break;
         }
+
+        $('msgData').hide();
+        $('qreply').show();
 
         DimpCore.doAction(func,
                           { imp_compose: $F('composeCache'),
@@ -45,24 +55,28 @@ var DimpFullmessage = {
             return;
         }
 
-        var i,
-            r = result.response,
+        var i, id,
+            r = result.response;
+
+        if (r.type == 'forward_redirect') {
+            $('redirect_composeCache').setValue(r.imp_compose);
+        } else {
+            if (!r.opts) {
+                r.opts = {};
+            }
+            r.opts.noupdate = true;
+            r.opts.show_editor = (r.format == 'html');
+
             id = (r.identity === null) ? $F('identity') : r.identity;
+            i = IMP_Compose_Base.getIdentity(id, r.opts.show_editor);
 
-        if (!r.opts) {
-            r.opts = {};
-        }
-        r.opts.noupdate = true;
-        r.opts.show_editor = (r.format == 'html');
+            $('identity', 'last_identity').invoke('setValue', id);
 
-        i = IMP_Compose_Base.getIdentity(id, r.opts.show_editor);
+            DimpCompose.fillForm((i.id[2]) ? ("\n" + i.sig + r.body) : (r.body + "\n" + i.sig), r.header, r.opts);
 
-        $('identity', 'last_identity').invoke('setValue', id);
-
-        DimpCompose.fillForm((i.id[2]) ? ("\n" + i.sig + r.body) : (r.body + "\n" + i.sig), r.header, r.opts);
-
-        if (r.imp_compose) {
-            $('composeCache').setValue(r.imp_compose);
+            if (r.imp_compose) {
+                $('composeCache').setValue(r.imp_compose);
+            }
         }
     },
 
@@ -157,6 +171,7 @@ var DimpFullmessage = {
         case 'ctx_forward_attach':
         case 'ctx_forward_body':
         case 'ctx_forward_both':
+        case 'ctx_forward_redirect':
             this.quickreply(id.substring(4));
             break;
 
@@ -190,9 +205,7 @@ var DimpFullmessage = {
             tmp = $('reply_link', 'forward_link').compact().invoke('up', 'SPAN').concat([ $('ctx_contacts_new') ]).compact().invoke('remove');
         } else {
             this.addPopdown('reply_link', 'replypopdown');
-            if ($('ctx_forwardpopdown')) {
-                this.addPopdown('forward_link', 'forwardpopdown');
-            }
+            this.addPopdown('forward_link', 'forwardpopdown');
         }
 
         /* Set up address linking. */

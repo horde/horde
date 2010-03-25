@@ -748,9 +748,10 @@ class IMP_Compose
         $email = $this->_prepSendMessage($email, $headers, $message);
 
         $mail_driver = $this->getMailDriver();
-        $mailer = Mail::factory($mail_driver['driver'], $mail_driver['params']);
-        if ($mailer instanceof PEAR_Error) {
-            throw new IMP_Compose_Exception($mailer);
+        try {
+            $mailer = Horde_Mime_Mail::getMailOb($mail_driver['driver'], $mail_driver['params']);
+        } catch (Horde_Mime_Exception $e) {
+            throw new IMP_Compose_Exception($e);
         }
 
         try {
@@ -850,7 +851,10 @@ class IMP_Compose
             $params['password'] = $GLOBALS['imp_imap']->ob()->getParam('password');
         }
 
-        return array('driver' => $GLOBALS['conf']['mailer']['type'], 'params' => $params);
+        return array(
+            'driver' => $GLOBALS['conf']['mailer']['type'],
+            'params' => $params
+        );
     }
 
     /**
@@ -1640,6 +1644,74 @@ class IMP_Compose
     }
 
     /**
+     * Prepare a redirect message.
+     *
+     * @param IMP_Contents $contents  An IMP_Contents object.
+     */
+    public function redirectMessage($contents)
+    {
+        $this->_metadata['mailbox'] = $contents->getMailbox();
+        $this->_metadata['reply_type'] = 'redirect';
+        $this->_metadata['uid'] = $contents->getUid();
+        $this->_modified = true;
+    }
+
+    /**
+     * Send a redirect (a/k/a resent) message. See RFC 5322 [3.6.6].
+     *
+     * @param string $to  The addresses to redirect to.
+     *
+     * @throws IMP_Compose_Exception
+     */
+    public function sendRedirectMessage($to)
+    {
+        $recip = $this->recipientList(array('to' => $to));
+        $recipients = implode(', ', $recip['list']);
+
+        $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+        $from_addr = $identity->getFromAddress();
+
+        $contents = $this->getContentsOb();
+        $headers = $contents->getHeaderOb();
+
+        /* Generate the 'Resent' headers (RFC 5322 [3.6.6]). These headers are
+         * prepended to the message. */
+        $resent_headers = new Horde_Mime_Headers();
+        $resent_headers->addHeader('Resent-Date', date('r'));
+        $resent_headers->addHeader('Resent-From', $from_addr);
+        $resent_headers->addHeader('Resent-To', $recip['header']['to']);
+        $resent_headers->addHeader('Resent-Message-ID', Horde_Mime::generateMessageId());
+
+        $header_text = trim($resent_headers->toString(array('encode' => Horde_Nls::getCharset()))) . "\n" . trim($contents->getHeaderOb(false));
+
+        $mail_driver = $this->getMailDriver();
+        try {
+            $mailer = Horde_Mime_Mail::getMailOb($mail_driver['driver'], $mail_driver['params'], array('raw' => array('from' => $headers->getValue('from'), 'headertext' => $header_text)));
+        } catch (Horde_Mime_Exception $e) {
+            throw new IMP_Compose_Exception($e);
+        }
+
+        $to = $this->_prepSendMessage($recipients);
+
+        try {
+            Horde_Mime_Mail::sendPearMail($mailer, $to, $headers->toArray(array('charset' => Horde_Nls::getCharset())), $contents->getBody());
+        } catch (Horde_Mime_Exception $e) {
+            throw new IMP_Compose_Exception($e);
+        }
+
+        Horde::logMessage(sprintf("%s Redirected message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, Horde_Auth::getAuth()), 'INFO');
+
+        /* Store history information. */
+        if (!empty($GLOBALS['conf']['maillog']['use_maillog'])) {
+            IMP_Maillog::log('redirect', $headers->getValue('message-id'), $recipients);
+        }
+
+        if ($GLOBALS['conf']['sentmail']['driver'] != 'none') {
+            $GLOBALS['injector']->getInstance('IMP_Sentmail')>log('redirect', $headers->getValue('message-id'), $recipients);
+        }
+    }
+
+    /**
      * Get "tieto" identity information.
      *
      * @param Horde_Mime_Headers $h  The headers object for the message.
@@ -1653,8 +1725,7 @@ class IMP_Compose
             $msgAddresses[] = $h->getValue($val);
         }
 
-        $user_identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
-        return $user_identity->getMatchingIdentity($msgAddresses);
+        return Horde_Prefs_Identity::singleton(array('imp', 'imp'))->getMatchingIdentity($msgAddresses);
     }
 
     /**

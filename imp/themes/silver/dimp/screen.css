@@ -82,7 +82,7 @@ span.dimpactionDrafts {
 #ctx_reply_reply span.contextImg, #ctx_reply_reply_all span.contextImg, #ctx_reply_reply_list span.contextImg {
     background-image: url("../graphics/replyall.png");
 }
-#ctx_message_forward span.contextImg, #ctx_forward_attach span.contextImg, #ctx_forward_body span.contextImg, #ctx_forward_both span.contextImg {
+#ctx_message_forward span.contextImg, #ctx_forward_attach span.contextImg, #ctx_forward_body span.contextImg, #ctx_forward_both span.contextImg, #ctx_forward_redirect span.contextImg {
     background-image: url("../graphics/forward.png");
 }
 #ctx_folder_empty span.contextImg, #ctx_message_deleted span.contextImg, #oa_purge_deleted span.contextImg {

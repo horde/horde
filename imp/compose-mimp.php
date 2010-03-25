@@ -38,6 +38,7 @@ $vars = Horde_Variables::getDefaultVariables();
 $expand = array();
 $header = array('to' => '', 'cc' => '', 'bcc' => '');
 $msg = '';
+$title = _("Compose Message");
 
 /* Get the list of headers to display. */
 $display_hdrs = array('to' => _("To: "));
@@ -150,6 +151,7 @@ case 'rl':
     $header = $reply_msg['headers'];
 
     $notification->push(_("Reply text will be automatically appended to your outgoing message."), 'horde.message');
+    $title = _("Reply");
     break;
 
 // 'f' = forward
@@ -161,17 +163,24 @@ case 'f':
     $header = $fwd_msg['headers'];
 
     $notification->push(_("Forwarded message will be automatically added to your outgoing message."), 'horde.message');
+    $title = _("Forward");
+    break;
+
+// 'rc' = redirect compose
+case 'rc':
+    $title = _("Redirect");
+    if (!($imp_contents = $imp_ui->getIMPContents($imp_mbox['uid'], $imp_mbox['thismailbox']))) {
+        // TODO: Error message
+        break;
+    }
+    $imp_compose->redirectMessage($imp_contents);
     break;
 
 case _("Redirect"):
-    if (!($imp_contents = $imp_ui->getIMPContents($imp_compose->getMetadata('uid'), $imp_compose->getMetadata('mailbox')))) {
-        break;
-    }
-
-    $f_to = $imp_ui->getAddressList($header['to']);
-
     try {
-        $imp_ui->redirectMessage($f_to, $imp_compose, $imp_contents);
+        $imp_compose->sendRedirectMessage($imp_ui->getAddressList($header['to']));
+        $imp_compose->destroy('send');
+
         if ($prefs->getValue('compose_confirm')) {
             $notification->push(_("Message redirected successfully."), 'horde.success');
         }
@@ -302,8 +311,8 @@ $t->set('to', htmlspecialchars($header['to']));
 $t->set('url', Horde::applicationUrl('compose-mimp.php'));
 
 if ($vars->a == 'rc') {
+    $t->set('redirect', true);
     unset($display_hdrs['cc'], $display_hdrs['bcc']);
-    $title = _("Redirect");
 } else {
     $t->set('compose_enable', !$compose_disable);
     $t->set('msg', htmlspecialchars($msg));

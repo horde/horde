@@ -44,8 +44,12 @@ foreach (array('to', 'cc', 'bcc', 'subject') as $v) {
 
 $fillform_opts = array('noupdate' => 1);
 $get_sig = true;
-$js = array();
 $msg = '';
+
+$js = array();
+if ($vars->popup) {
+    $js[] = 'DIMP.conf_compose.popup = 1';
+}
 
 $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
 if (!$prefs->isLocked('default_identity') && isset($vars->identity)) {
@@ -58,14 +62,10 @@ $imp_compose = IMP_Compose::singleton();
 /* Init IMP_Ui_Compose:: object. */
 $imp_ui = new IMP_Ui_Compose();
 
-/* Attach spellchecker & auto completer. */
-$imp_ui->attachAutoCompleter(array('to', 'cc', 'bcc'));
-$imp_ui->attachSpellChecker();
-
 $show_editor = false;
 $title = _("New Message");
 
-if (in_array($vars->type, array('reply', 'reply_all', 'reply_auto', 'reply_list', 'forward_attach', 'forward_auto', 'forward_body', 'forward_both', 'resume'))) {
+if (in_array($vars->type, array('reply', 'reply_all', 'reply_auto', 'reply_list', 'forward_attach', 'forward_auto', 'forward_body', 'forward_both', 'forward_redirect', 'resume'))) {
     if (!$vars->uid || !$vars->folder) {
         $vars->type = 'new';
     }
@@ -134,6 +134,13 @@ case 'forward_both':
     }
     break;
 
+case 'forward_redirect':
+    $imp_compose->redirectMessage($imp_contents);
+    $get_sig = false;
+    $title = _("Redirect");
+    $vars->type = 'redirect';
+    break;
+
 case 'resume':
     try {
         $result = $imp_compose->resumeDraft($vars->uid . IMP::IDX_SEP . $vars->folder);
@@ -158,15 +165,27 @@ case 'new':
     break;
 }
 
-$sig = $identity->getSignature();
-if ($get_sig && !empty($sig)) {
-    if ($show_editor) {
-        $sig = '<p><!--begin_signature-->' . $imp_compose->text2html(trim($sig)) . '<!--end_signature--></p>';
+/* Attach spellchecker & auto completer. */
+if ($vars->type == 'redirect') {
+    $imp_ui->attachAutoCompleter(array('redirect_to'));
+} else {
+    $imp_ui->attachAutoCompleter(array('to', 'cc', 'bcc', 'redirect_to'));
+    $imp_ui->attachSpellChecker();
+
+    $sig = $identity->getSignature();
+    if ($get_sig && !empty($sig)) {
+        if ($show_editor) {
+            $sig = '<p><!--begin_signature-->' . $imp_compose->text2html(trim($sig)) . '<!--end_signature--></p>';
+        }
+
+        $msg = ($identity->getValue('sig_first'))
+            ? "\n" . $sig . $msg
+            : $msg . "\n" . $sig;
     }
 
-    $msg = ($identity->getValue('sig_first'))
-        ? "\n" . $sig . $msg
-        : $msg . "\n" . $sig;
+    if ($show_editor) {
+        $js[] = 'DIMP.conf_compose.show_editor = 1';
+    }
 }
 
 $t = $injector->createInstance('Horde_Template');
@@ -175,25 +194,17 @@ $t->set('title', $title);
 
 $compose_result = IMP_Views_Compose::showCompose(array(
     'composeCache' => $imp_compose->getCacheId(),
-    'folder' => $vars->folder,
-    'qreply' => false,
-    'uid' => $vars->uid
+    'redirect' => ($vars->type == 'redirect')
 ));
 
 $t->set('compose_html', $compose_result['html']);
 
-/* Javscript variables to be set immediately. */
-if ($show_editor) {
-    $js[] = 'DIMP.conf_compose.show_editor = 1';
-}
-if ($vars->popup) {
-    $js[] = 'DIMP.conf_compose.popup = 1';
-}
 Horde::addInlineScript(array_merge($compose_result['js'], $js));
 
-/* Javascript to be run on window load. */
-$fillform_opts['focus'] = ($vars->type == 'new' || $vars->type == 'forward') ? 'to' : 'composeMessage';
-$compose_result['jsonload'][] = 'DimpCompose.fillForm(' . Horde_Serialize::serialize($msg, Horde_Serialize::JSON) . ',' . Horde_Serialize::serialize($header, Horde_Serialize::JSON) . ',' . Horde_Serialize::serialize($fillform_opts, Horde_Serialize::JSON) . ')';
+$fillform_opts['focus'] = in_array($vars->type, array('forward', 'new', 'redirect')) ? 'to' : 'composeMessage';
+if ($vars->type != 'redirect') {
+    $compose_result['jsonload'][] = 'DimpCompose.fillForm(' . Horde_Serialize::serialize($msg, Horde_Serialize::JSON) . ',' . Horde_Serialize::serialize($header, Horde_Serialize::JSON) . ',' . Horde_Serialize::serialize($fillform_opts, Horde_Serialize::JSON) . ')';
+}
 Horde::addInlineScript($compose_result['jsonload'], 'load');
 
 $scripts = array(
@@ -204,7 +215,7 @@ $scripts = array(
 );
 
 IMP::status();
-IMP_Dimp::header(_("Message Composition"), $scripts);
+IMP_Dimp::header($title, $scripts);
 echo $t->fetch(IMP_TEMPLATES . '/dimp/compose/compose.html');
 Horde::includeScriptFiles();
 Horde::outputInlineScript();

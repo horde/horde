@@ -138,7 +138,9 @@ var DimpCompose = {
 
     uniqueSubmit: function(action)
     {
-        var c = $('compose');
+        var c = (action == 'redirectMessage')
+            ? $('redirect')
+            : $('compose');
 
         if (DIMP.SpellChecker &&
             DIMP.SpellChecker.isActive()) {
@@ -196,7 +198,7 @@ var DimpCompose = {
 
             // Can't disable until we send the message - or else nothing
             // will get POST'ed.
-            if (action == 'sendMessage' || action == 'saveDraft') {
+            if (action != 'autoSaveDraft') {
                 this.setDisabled(true);
             }
         }
@@ -259,6 +261,19 @@ var DimpCompose = {
                 }
                 return this.closeCompose();
 
+            case 'redirectMessage':
+                if (this.is_popup && DIMP.baseWindow.DimpBase) {
+                    if (d.log) {
+                        DIMP.baseWindow.DimpBase.updateMsgLog(d.log, { uid: d.uid, mailbox: d.mbox });
+                    }
+
+                    if (!DIMP.conf_compose.qreply) {
+                        DIMP.baseWindow.DimpCore.showNotifications(r.msgs);
+                        r.msgs = [];
+                    }
+                }
+                return this.closeCompose();
+
             case 'addAttachment':
                 this.uploading = false;
                 if (d.success) {
@@ -281,20 +296,27 @@ var DimpCompose = {
         }
 
         this.setDisabled(false);
-        $('compose').setStyle({ cursor: null });
+
+        $((d.action == 'redirectMessage') ? 'redirect' : 'compose').setStyle({ cursor: null });
     },
 
     setDisabled: function(disable)
     {
         this.disabled = disable;
-        DimpCore.loadingImg('sendingImg', 'composeMessageParent', disable);
-        DimpCore.toggleButtons($('compose').select('DIV.dimpActions A'), disable);
-        [ $('compose') ].invoke(disable ? 'disable' : 'enable');
-        if (DIMP.SpellChecker) {
-            DIMP.SpellChecker.disable(disable);
-        }
-        if (IMP_Compose_Base.editor_on) {
-            this.RTELoading(disable ? 'show' : 'hide', true);
+
+        if ($('redirect').visible()) {
+            DimpCore.loadingImg('sendingImg', 'redirect', disable);
+            DimpCore.toggleButtons($('redirect').select('DIV.dimpActions A'), disable);
+        } else {
+            DimpCore.loadingImg('sendingImg', 'composeMessageParent', disable);
+            DimpCore.toggleButtons($('compose').select('DIV.dimpActions A'), disable);
+            [ $('compose') ].invoke(disable ? 'disable' : 'enable');
+            if (DIMP.SpellChecker) {
+                DIMP.SpellChecker.disable(disable);
+            }
+            if (IMP_Compose_Base.editor_on) {
+                this.RTELoading(disable ? 'show' : 'hide', true);
+            }
         }
     },
 
@@ -425,11 +447,13 @@ var DimpCompose = {
         if (DIMP.conf_compose.auto_save_interval_val &&
             !this.auto_save_interval) {
             this.auto_save_interval = new PeriodicalExecuter(function() {
-                var curr_hash = MD5.hash($('to', 'cc', 'bcc', 'subject').invoke('getValue').join('\0') + (IMP_Compose_Base.editor_on ? this.rte.getData() : $F('composeMessage')));
-                if (this.last_msg && curr_hash != this.last_msg) {
-                    this.uniqueSubmit('autoSaveDraft');
+                if ($('compose').visible()) {
+                    var curr_hash = MD5.hash($('to', 'cc', 'bcc', 'subject').invoke('getValue').join('\0') + (IMP_Compose_Base.editor_on ? this.rte.getData() : $F('composeMessage')));
+                    if (this.last_msg && curr_hash != this.last_msg) {
+                        this.uniqueSubmit('autoSaveDraft');
+                    }
+                    this.last_msg = curr_hash;
                 }
-                this.last_msg = curr_hash;
             }.bind(this), DIMP.conf_compose.auto_save_interval_val * 60);
             /* Immediately execute to get MD5 hash of empty message. */
             this.auto_save_interval.execute();
@@ -662,9 +686,15 @@ var DimpCompose = {
     },
 
     /* Open the addressbook window. */
-    openAddressbook: function()
+    openAddressbook: function(params)
     {
-        window.open(DIMP.conf_compose.URI_ABOOK, 'contacts', 'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100');
+        var uri = DIMP.conf_compose.URI_ABOOK;
+
+        if (params) {
+            uri = DimpCore.addURLParam(uri, params);
+        }
+
+        window.open(uri, 'contacts', 'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100');
     },
 
     /* Click observe handler. */
@@ -693,9 +723,20 @@ var DimpCompose = {
                 break;
 
             case 'draft_button':
+                if (!this.disabled) {
+                    this.uniqueSubmit('saveDraft');
+                }
+                break;
+
             case 'send_button':
                 if (!this.disabled) {
-                    this.uniqueSubmit(id == 'send_button' ? 'sendMessage' : 'saveDraft');
+                    this.uniqueSubmit('sendMessage');
+                }
+                break;
+
+            case 'send_button_redirect':
+                if (!this.disabled) {
+                    this.uniqueSubmit('redirectMessage');
                 }
                 break;
 
@@ -705,6 +746,16 @@ var DimpCompose = {
                     this.toggleHtmlEditor();
                 } else {
                     $('htmlcheckbox').setValue(true);
+                }
+                break;
+
+            case 'redirect_sendto':
+                if (orig.match('TD.label SPAN')) {
+                    this.openAddressbook({
+                        formfield: 'redirect_to',
+                        formname: 'redirect',
+                        to_only: 1
+                    });
                 }
                 break;
 
@@ -782,6 +833,20 @@ var DimpCompose = {
 
         this.is_popup = (DIMP.baseWindow && DIMP.baseWindow.DimpBase);
 
+        /* Initialize redirect elements (always needed). */
+        $('redirect').observe('submit', Event.stop);
+        new TextareaResize('redirect_to');
+        if (DIMP.conf_compose.URI_ABOOK) {
+            $('redirect_sendto').down('TD.label SPAN').addClassName('composeAddrbook');
+        }
+
+        /* Nothing more to do if this is strictly a redirect window. */
+        if (DIMP.conf_compose.redirect) {
+            $('dimpLoading').hide();
+            $('redirect', 'pageContainer').invoke('show');
+            return;
+        }
+
         /* Attach event handlers. */
         document.observe('change', this.changeHandler.bindAsEventListener(this));
         Event.observe(window, 'resize', this.resizeMsgArea.bind(this));
@@ -793,18 +858,6 @@ var DimpCompose = {
         if (DIMP.conf_compose.rte_avail) {
             document.observe('SpellChecker:after', this._onSpellCheckAfter.bind(this));
             document.observe('SpellChecker:before', this._onSpellCheckBefore.bind(this));
-        }
-
-        // Automatically resize address fields.
-        new TextareaResize('to');
-        new TextareaResize('cc');
-        new TextareaResize('bcc');
-
-        /* Add addressbook link formatting. */
-        if (DIMP.conf_compose.URI_ABOOK) {
-            $('sendto', 'sendcc', 'sendbcc').each(function(a) {
-                a.down('TD.label SPAN').addClassName('composeAddrbook');
-            });
         }
 
         /* Create folderlist. */
@@ -827,6 +880,18 @@ var DimpCompose = {
             });
             this.setPriorityLabel('normal');
             $('priority_label').insert({ after: new Element('SPAN', { className: 'popdownImg' }).observe('click', function(e) { if (!this.disabled) { this.knl_p.show(); this.knl_p.ignoreClick(e); e.stop(); } }.bindAsEventListener(this)) });
+        }
+
+        // Automatically resize compose address fields.
+        new TextareaResize('to');
+        new TextareaResize('cc');
+        new TextareaResize('bcc');
+
+        /* Add addressbook link formatting. */
+        if (DIMP.conf_compose.URI_ABOOK) {
+            $('sendto', 'sendcc', 'sendbcc', 'redirect_sendto').each(function(a) {
+                a.down('TD.label SPAN').addClassName('composeAddrbook');
+            });
         }
 
         $('dimpLoading').hide();

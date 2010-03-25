@@ -19,6 +19,7 @@ $save_attach = $GLOBALS['prefs']->getValue('save_attachments');
 $compose_disable = !IMP::canCompose();
 
 ?>
+<?php if (!$redirect): ?>
 <form id="compose" name="compose" enctype="multipart/form-data" action="<?php echo Horde::getServiceLink('ajax', 'imp') ?>addAttachment" method="post" target="submit_frame">
 <?php echo Horde_Util::formInput() ?>
 <input type="hidden" id="last_identity" name="last_identity" value="<?php echo (int)$selected_identity ?>" />
@@ -140,6 +141,28 @@ $compose_disable = !IMP::canCompose();
  </div>
 </div>
 </form>
+<?php endif; // !$redirect ?>
+
+<?php if (!$compose_disable): ?>
+<form id="redirect" name="redirect" style="display:none">
+ <input type="hidden" id="redirect_composeCache" name="redirect_composeCache" value="<?php echo $composeCache ?>" />
+<?php echo Horde_Util::formInput() ?>
+ <div class="msgwrite">
+  <div class="dimpActions dimpActionsCompose">
+   <div><?php echo IMP_Dimp::actionButton(array('icon' => 'Forward', 'id' => 'send_button_redirect', 'title' => _("Redirect"))); ?></div>
+  </div>
+ <table>
+  <tr id="redirect_sendto">
+   <td class="label"><span><?php echo _("To: ") ?></span></td>
+   <td>
+    <span id="redirect_to_loading_img" class="loadingImg" style="display:none"></span>
+    <textarea id="redirect_to" name="redirect_to" rows="1" cols="75"></textarea>
+   </td>
+  </tr>
+ </table>
+ </div>
+</form>
+<?php endif; ?>
 
 <span id="sendingImg" class="loadingImg" style="display:none"></span>
 
