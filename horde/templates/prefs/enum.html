@@ -1,0 +1,12 @@
+<div>
+ <tag:desc />
+ <tag:helplink />
+</div>
+
+<div>
+ <select id="<tag:pref />" name="<tag:pref />">
+<loop:enum>
+  <option<if:enum.s> selected="selected"</if:enum.s> value="<tag:enum.v />"><tag:enum.l /></option>
+</loop:enum>
+ </select>
+</div>

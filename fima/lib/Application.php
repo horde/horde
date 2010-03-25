@@ -6,38 +6,33 @@ class Fima_Application extends Horde_Regsitry_Application
     /**
      * Special preferences handling on update.
      *
-     * @param string $item      The preference name.
-     * @param boolean $updated  Set to true if preference was updated.
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     * @param string $item             The preference name.
      *
      * @return boolean  True if preference was updated.
      */
-    public function prefsSpecial($item, $updated)
+    public function prefsSpecialUpdate($ui, $item)
     {
         switch ($item) {
         case 'ledgerselect':
-            $active_ledger = Horde_Util::getFormData('active_ledger');
-            if (!is_null($active_ledger)) {
+            if (isset($ui->vars->active_ledger)) {
                 $ledgers = Fima::listLedgers();
                 if (is_array($ledgers) &&
-                    array_key_exists($active_ledger, $ledgers)) {
-                    $GLOBALS['prefs']->setValue('active_ledger', $active_ledger);
+                    array_key_exists($ui->vars->active_ledger, $ledgers)) {
+                    $GLOBALS['prefs']->setValue('active_ledger', $ui->vars->active_ledger);
                     return true;
                 }
             }
             break;
 
         case 'closedperiodselect':
-            $period = Horde_Util::getFormData('closedperiod');
-            if ((int)$period['year'] > 0 && (int)$period['month'] > 0) {
-                $period = mktime(0, 0, 0, $period['month'] + 1, 0, $period['year']);
-            } else {
-                $period = 0;
-            }
+            $period = $ui->vars->closedperiod;
+            $period = ((int)$period['year'] > 0 && (int)$period['month'] > 0)
+                ? mktime(0, 0, 0, $period['month'] + 1, 0, $period['year'])
+                : 0;
             $GLOBALS['prefs']->setValue('closed_period', $period);
             return true;
         }
-
-        return $updated;
     }
 
     /**

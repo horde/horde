@@ -1,0 +1,91 @@
+<input type="hidden" name="accounts_action" id="accounts_action" />
+<input type="hidden" name="accounts_data" id="accounts_data" />
+
+<if:new>
+<table class="accountsmanagement">
+ <tr>
+  <td class="item"><gettext>Label</gettext>:</td>
+  <td class="item"><input name="accounts_label" size="30"/></td>
+  <td></td>
+ </tr>
+ <tr>
+  <td class="item"><gettext>Type</gettext>:</td>
+  <td class="item">
+   <select name="accounts_type">
+    <option value="imap" selected="selected"><gettext>IMAP</gettext></option>
+    <option value="pop3"><gettext>POP3</gettext></option>
+   </select>
+  </td>
+  <td class="required">*</td>
+ </tr>
+ <tr>
+  <td class="item"><gettext>Server</gettext>:</td>
+  <td class="item"><input name="accounts_server" size="30"/></td>
+  <td class="required">*</td>
+ </tr>
+ <tr>
+  <td class="item"><gettext>Username</gettext>:</td>
+  <td class="item"><input name="accounts_username" size="30"/></td>
+  <td class="required">*</td>
+ </tr>
+ <tr>
+  <td class="item"><gettext>Port</gettext>:</td>
+  <td class="item"><input name="accounts_port" size="10"/></td>
+  <td></td>
+ </tr>
+ <tr>
+  <td class="item"><gettext>Use secure connection?</gettext></td>
+  <td class="item">
+   <select name="accounts_secure">
+    <option value="yes" selected="selected"><gettext>Required</gettext></option>
+    <option value="auto" selected="selected"><gettext>Use if available</gettext></option>
+    <option value="no" selected="selected"><gettext>Never</gettext></option>
+   </select>
+  </td>
+  <td></td>
+ </tr>
+</table>
+
+<input id="add_button" type="button" class="button" value="<gettext>Save</gettext>" />
+<input id="cancel_button" type="button" class="button" value="<gettext>Cancel</gettext>" />
+<else:new>
+<table class="accountsmanagement">
+ <thead>
+  <tr>
+   <td><gettext>Label</gettext></td>
+   <td><gettext>Server</gettext></td>
+   <td><gettext>Type</gettext></td>
+   <td><gettext>Port</gettext></td>
+   <td><gettext>Secure</gettext>?</td>
+   <td></td>
+  </tr>
+ </thead>
+ <tbody>
+<if:accounts>
+<loop:accounts>
+  <tr id="accountsid_<tag:accounts.id />">
+   <td><tag:accounts.label /></td>
+   <td><tag:accounts.server /></td>
+   <td><tag:accounts.type /></td>
+   <td><tag:accounts.port /></td>
+<if:accounts.secure_auto>
+   <td><gettext>Auto</gettext></td>
+<else:accounts.secure_auto>
+<if:accounts.secure>
+   <td class="accountsSecure"><gettext>Yes</gettext></td>
+<else:accounts.secure>
+   <td class="accountsNotSecure"><gettext>No</gettext></td>
+</else:accounts.secure></if:accounts.secure></else:accounts,secure_auto></if:accounts.secure_auto>
+   <td><a class="accountsdelete" href="#"><tag:delete_img /></a></td>
+  </tr>
+</loop:accounts>
+<else:accounts>
+  <tr>
+   <td class="noneconfigured" colspan="3"><gettext>No accounts configured</gettext></td>
+  </tr>
+</else:accounts></if:accounts>
+ </tbody>
+</table>
+
+<input id="new_button" type="submit" class="button" value="<gettext>Add Account</gettext>" />
+</else:new></if:new>

@@ -759,9 +759,7 @@ $cfgSources['favourites'] = array(
  * IMSP Horde_Share hooks in horde/config/hooks.php.
  */
 // Check that IMSP is configured in Horde but fall through if there is no
-// configuration at all - in case we don't have at least a 3.0.6 Horde
-// install.  (In that case, be sure to change the params array below to suit
-// your needs.
+// configuration at all.
 if (!empty($GLOBALS['conf']['imsp']['enabled']) ||
     !isset($GLOBALS['conf']['imsp']['enabled'])) {
     // First, get the user name to login to IMSP server with.

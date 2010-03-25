@@ -46,7 +46,7 @@
  *
  * @author   Jon Parise <jon@horde.org>
  * @category Horde
- * @package  Horde_Prefs
+ * @package  Prefs
  */
 class Horde_Prefs_Sql extends Horde_Prefs
 {

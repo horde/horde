@@ -13,9 +13,9 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('horde');
 
-if (empty($GLOBALS['conf']['facebook']['enabled']) ||
-    empty($GLOBALS['conf']['facebook']['key']) ||
-    empty($GLOBALS['conf']['facebook']['secret'])) {
+if (empty($conf['facebook']['enabled']) ||
+    empty($conf['facebook']['key']) ||
+    empty($conf['facebook']['secret'])) {
 
     $horde_url = Horde::url($registry->get('webroot', 'horde') . '/index.php');
     header('Location: ' . $horde_url);
@@ -23,8 +23,8 @@ if (empty($GLOBALS['conf']['facebook']['enabled']) ||
 }
 
 // Facebook key and secret
-$apikey = $GLOBALS['conf']['facebook']['key'];
-$secret = $GLOBALS['conf']['facebook']['secret'];
+$apikey = $conf['facebook']['key'];
+$secret = $conf['facebook']['secret'];
 
 // Create required objects
 $context = array('http_client' => new Horde_Http_Client(),
@@ -40,14 +40,14 @@ if ($token = Horde_Util::getFormData('auth_token')) {
     try {
         $haveSession = $facebook->auth->validateSession(true, true);
     } catch (Horde_Service_Facebook_Exception $e) {
-        $GLOBALS['notify']->push(_("Temporarily unable to connect with Facebook, Please try again."), 'horde.alert');
+        $notification->push(_("Temporarily unable to connect with Facebook, Please try again."), 'horde.alert');
     }
     if ($haveSession) {
         // Remember in user prefs
         $sid =  $facebook->auth->getSessionKey();
         $uid = $facebook->auth->getUser();
         $prefs->setValue('facebook', serialize(array('uid' => $uid, 'sid' => $sid)));
-        $GLOBALS['notification']->push(_("Succesfully connected your Facebook account."), 'horde.success');
+        $notification->push(_("Succesfully connected your Facebook account."), 'horde.success');
     }
 } else {
     // Require the rest of the actions to be POST only since following them
@@ -196,10 +196,9 @@ if (!empty($haveSession)) {
 }
 
 // Start rendering the prefs page
-$chunk = Horde_Util::nonInputVar('chunk');
-Horde_Prefs_Ui::generateHeader('horde', null, 'facebook', $chunk);
-$csslink = $GLOBALS['registry']->get('themesuri', 'horde') . '/facebook.css';
-echo '<link href="' . $csslink . '" rel="stylesheet" type="text/css" />';
+// TODO: This won't work - prefs handling must be moved to the new
+// preferences framework.
+//$csslink = $registry->get('themesuri', 'horde') . '/facebook.css';
 
 if (!empty($haveSession)) {
     // If we are here, we have a valid session. Facebook strongly suggests to
@@ -212,7 +211,7 @@ if (!empty($haveSession)) {
     try {
         $user_info = $facebook->fql->run($fql);
     } catch (Horde_Service_Facebook_Exception $e) {
-        $GLOBALS['notify']->push(_("Temporarily unable to connect with Facebook, Please try again."), 'horde.alert');
+        $notify->push(_("Temporarily unable to connect with Facebook, Please try again."), 'horde.alert');
     }
     // url to revoke authorization
     $url = Horde_Util::addParameter(Horde::selfUrl(true), array('action' => 'revokeApplication'));
@@ -287,6 +286,3 @@ if (!empty($haveSession)) {
         echo sprintf(_("Login to Facebook and authorize the %s application:"), $registry->get('name'))
             . '<a class="fbbutton" href="' . $url . '">Facebook</a>';
 }
-// Need to close the prefs form (opened by the Horde_Prefs_Ui)
-echo '</form>';
-require HORDE_TEMPLATES . '/common-footer.inc';

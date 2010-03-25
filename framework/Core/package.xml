@@ -37,7 +37,8 @@ Application Framework.
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Convert from PEAR Log to Horde_Log for logging.
+ <notes>* Import prefs UI handling class from Horde_Prefs.
+ * Convert from PEAR Log to Horde_Log for logging.
  * Add Horde_Themes:: class.
  * Add Horde::nocacheUrl().
  * Remove dependency on Horde_DOM package.
@@ -93,6 +94,13 @@ Application Framework.
        <file name="Hordelog.php" role="php" />
        <file name="Status.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Notification -->
+      <dir name="Prefs">
+       <dir name="Ui">
+        <file name="Widgets.php" role="php" />
+       </dir> <!-- /lib/Horde/Core/Prefs/Ui -->
+       <file name="Ui.php" role="php" />
+       <file name="Utils.php" role="php" />
+      </dir> <!-- /lib/Horde/Core/Prefs -->
      </dir> <!-- /lib/Horde/Core -->
      <file name="ErrorHandler.php" role="php" />
      <dir name="Exception">
@@ -226,6 +234,9 @@ Application Framework.
    <install name="lib/Horde/Core/Log/Logger.php" as="Horde/Core/Log/Logger.php" />
    <install name="lib/Horde/Core/Notification/Hordelog.php" as="Horde/Core/Notification/Hordelog.php" />
    <install name="lib/Horde/Core/Notification/Status.php" as="Horde/Core/Notification/Status.php" />
+   <install name="lib/Horde/Core/Prefs/Ui/Widgets.php" as="Horde/Core/Prefs/Ui/Widgets.php" />
+   <install name="lib/Horde/Core/Prefs/Ui.php" as="Horde/Core/Prefs/Ui.php" />
+   <install name="lib/Horde/Core/Prefs/Utils.php" as="Horde/Core/Prefs/Utils.php" />
    <install name="lib/Horde/ErrorHandler.php" as="Horde/ErrorHandler.php" />
    <install name="lib/Horde/Exception/HookNotSet.php" as="Horde/Exception/HookNotSet.php" />
    <install name="lib/Horde/Help.php" as="Horde/Help.php" />

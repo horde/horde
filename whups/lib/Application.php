@@ -122,4 +122,61 @@ class Whups_Application extends Horde_Registry_Application
         return $perms;
     }
 
+    /**
+     * Code to run on init when viewing prefs for this application.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     */
+    public function prefsInit($ui)
+    {
+        switch ($ui->group) {
+        case 'addressbooks':
+            Horde_Core_Prefs_Ui_Widgets::addressbooksInit($ui);
+            break;
+        }
+
+        if (!$GLOBALS['registry']->hasMethod('contacts/sources')) {
+            $ui->suppressGroups[] = 'addressbooks';
+        }
+    }
+
+    /**
+     * Generate code used to display a special preference.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     * @param string $item             The preference name.
+     *
+     * @return string  The HTML code to display on the options page.
+     */
+    public function prefsSpecial($ui, $item)
+    {
+        switch ($item) {
+        case 'sourceselect':
+            return Horde_Core_Prefs_Ui_Widgets::addressbooks($ui);
+        }
+
+        return '';
+    }
+
+    /**
+     * Special preferences handling on update.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     * @param string $item             The preference name.
+     *
+     * @return boolean  True if preference was updated.
+     */
+    public function prefsSpecialUpdate($ui, $item)
+    {
+        $updated = false;
+
+        switch ($item) {
+        case 'sourceselect':
+            $updated = Horde_Core_Prefs_Ui_Widgets::addressbooksUpdate($ui);
+            break;
+        }
+
+        return $updated;
+    }
+
 }

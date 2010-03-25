@@ -41,9 +41,8 @@ class Horde_Script_Files
      */
     public function add($file, $app = null, $direct = false, $full = false)
     {
-        $res = $this->_add($file, $app, $direct, $full);
-
-        if (($res === false) || (!ob_get_length() && !headers_sent())) {
+        if (($this->_add($file, $app, $direct, $full) === false) ||
+            !(ob_get_length() && headers_sent())) {
             return;
         }
 

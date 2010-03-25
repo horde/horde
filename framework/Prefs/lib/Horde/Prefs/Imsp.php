@@ -7,8 +7,9 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Rubinsky <mrubinsk@horde.org>
- * @package Horde_Prefs
+ * @author   Michael Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @package  Prefs
  */
 class Horde_Prefs_Imsp extends Horde_Prefs
 {

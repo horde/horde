@@ -2838,7 +2838,7 @@ class IMP_Compose
      */
     static public function getAddressList($search = '')
     {
-        $sparams = self::getAddressSearchParams();
+        $sparams = Horde_Core_Prefs_Utils::getAddressbookSearchParams();
         try {
             $res = $GLOBALS['registry']->call('contacts/search', array($search, $sparams['sources'], $sparams['fields'], false));
         } catch (Horde_Exception $e) {
@@ -2867,36 +2867,6 @@ class IMP_Compose
         }
 
         return $search;
-    }
-
-    /**
-     * Determines parameters needed to do an address search
-     *
-     * @return array  An array with two keys: 'sources' and 'fields'.
-     */
-    static public function getAddressSearchParams()
-    {
-        $src = explode("\t", $GLOBALS['prefs']->getValue('search_sources'));
-        if ((count($src) == 1) && empty($src[0])) {
-            $src = array();
-        }
-
-        $fields = array();
-        if (($val = $GLOBALS['prefs']->getValue('search_fields'))) {
-            $field_arr = explode("\n", $val);
-            foreach ($field_arr as $field) {
-                $field = trim($field);
-                if (!empty($field)) {
-                    $tmp = explode("\t", $field);
-                    if (count($tmp) > 1) {
-                        $source = array_splice($tmp, 0, 1);
-                        $fields[$source[0]] = $tmp;
-                    }
-                }
-            }
-        }
-
-        return array('sources' => $src, 'fields' => $fields);
     }
 
 }

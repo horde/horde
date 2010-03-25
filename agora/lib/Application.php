@@ -84,6 +84,50 @@ class Agora_Application extends Horde_Registry_Application
     }
 
     /**
+     * Code to run on init when viewing prefs for this application.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     */
+    public function prefsInit($ui)
+    {
+        switch ($ui->group) {
+        case 'display_avatar':
+            $vfs = Agora::getVFS();
+            if (!($vfs instanceof PEAR_Error) &&
+                $GLOBALS['conf']['avatar']['enable_gallery'] &&
+                $vfs->isFolder(Agora::AVATAR_PATH, 'gallery')) {
+                Horde::addScriptFile('popup.js', 'horde', true);
+            } else {
+                $suppress[] = 'avatar_link'
+            }
+            break;
+        }
+
+        /* Hide appropriate prefGroups. */
+        if (!$GLOBALS['conf']['avatar']['allow_avatars']) {
+            $ui->suppressGroups[] = 'display_avatar';
+        }
+    }
+
+    /**
+     * Generate code used to display a special preference.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     * @param string $item             The preference name.
+     *
+     * @return string  The HTML code to display on the options page.
+     */
+    public function prefsSpecial($ui, $item)
+    {
+        switch ($item) {
+        case 'avatarselect':
+            return $this->_accountsManagement($ui);
+        }
+
+        return '';
+    }
+
+    /**
      * Generate the menu to use on the prefs page.
      *
      * @return Horde_Menu  A Horde_Menu object.

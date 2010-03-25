@@ -1,0 +1,42 @@
+<input name="cAction" value="" type="hidden" />
+<input name="category" value="" type="hidden" />
+<input type="button" class="button" id="add_category" value="<gettext>New Category</gettext>" />
+
+<table>
+ <tr>
+  <td style="background-color:<tag:default_color />;color:<tag:default_fgcolor />">
+   <strong><tag:default_label /></strong>
+  </td>
+  <td>
+<if:picker_img>
+   <input size="7" style="background:<tag:default_color />;color:<tag:default_fgcolor />" id="<tag:default_id />" name="<tag:default_id />" value="<tag:default_color />" />
+   <a href="#" class="categoryColorPicker"><tag:picker_img /></a>
+</if:picker_img>
+  </td>
+ </tr>
+ <tr>
+  <td style="background-color:<tag:unfiled_color />;color:<tag:unfiled_fgcolor />">
+   <strong><tag:unfiled_label /></strong>
+  </td>
+  <td>
+<if:picker_img>
+   <input size="7" style="background:<tag:unfiled_color />;color:<tag:unfiled_fgcolor />" id="<tag:unfiled_id />" name="<tag:unfiled_id />" value="<tag:unfiled_color />" />
+   <a href="#" class="categoryColorPicker"><tag:picker_img /></a>
+</if:picker_img>
+  </td>
+ </tr>
+<loop:categories>
+ <tr>
+  <td style="background-color:<tag:categories.color />;color:<tag:categories.fgcolor />">
+   <strong><tag:categories.label /></strong>
+  </td>
+  <td>
+<if:picker_img>
+   <input size="7" style="background:<tag:categories.color />;color:<tag:categories.fgcolor />" id="<tag:categories.id />" name="<tag:categories.id />" value="<tag:categories.color />" />
+   <a href="#" class="categoryColorPicker"><tag:picker_img /></a>
+</if:picker_img>
+   <a href="#" class="categoryDelete" category="<tag:categories.name />"><tag:delete_img /></a>
+  </td>
+ </tr>
+</loop:categories>
+</table>

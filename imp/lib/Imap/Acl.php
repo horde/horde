@@ -39,6 +39,10 @@ class IMP_Imap_Acl
             throw new Horde_Exception(_("ACL requires an IMAP server."));
         }
 
+        if (empty($_SESSION['imp']['imap']['acl'])) {
+            throw new Horde_Exception(_("ACLs not configured for this server."));
+        }
+
         if (!$GLOBALS['imp_imap']->ob()->queryCapability('ACL')) {
             throw new Horde_Exception(_("IMAP server does not support ACLs."));
         }

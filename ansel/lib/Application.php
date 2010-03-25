@@ -97,32 +97,28 @@ class Ansel_Application extends Horde_Registry_Application
     /**
      * Special preferences handling on update.
      *
-     * @param string $item      The preference name.
-     * @param boolean $updated  Set to true if preference was updated.
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     * @param string $item             The preference name.
      *
      * @return boolean  True if preference was updated.
      */
-    public function prefsSpecial($item, $updated)
+    public function prefsSpecialUpdate($ui, $item)
     {
         switch ($item) {
         case 'default_category_select':
-            $default_category = Horde_Util::getFormData('default_category_select');
-            if (!is_null($default_category)) {
-                $GLOBALS['prefs']->setValue('default_category', $default_category);
+            if (isset($ui->vars->default_category_select)) {
+                $GLOBALS['prefs']->setValue('default_category', $ui->vars->default_category_select);
                 return true;
             }
             break;
 
         case 'default_gallerystyle_select':
-            $default_style = Horde_Util::getFormData('default_gallerystyle_select');
-            if (!is_null($default_style)) {
-                $GLOBALS['prefs']->setValue('default_gallerystyle', $default_style);
+            if (isset($ui->vars->default_gallerystyle_select)) {
+                $GLOBALS['prefs']->setValue('default_gallerystyle', $ui->vars->default_gallerystyle_select);
                 return true;
             }
             break;
         }
-
-        return $updated;
     }
 
     /**

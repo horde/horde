@@ -30,7 +30,9 @@
  *
  * Setting value
  * -------------
- * If 'hook' => true in a preference attribute, a hook named
+ * If
+ *   'hook' => true
+ * exists for a preference (config/prefs.php), a hook named
  * prefs_hook_<prefname> will be run on login. It receives the username as
  * the only parameter and the return value from the function will be used as
  * the preference value.
@@ -188,7 +190,7 @@ class Horde_Hooks
 //    // Example preferences change hook.
 //    function prefs_change_hook_theme()
 //    {
-//        $GLOBALS['notification']->push('You changed your theme to ' . $GLOBALS['prefs']->getValue('theme') . '!');
+//        $GLOBALS['notification']->push('You changed your theme to ' . $GLOBALS['prefs']->getValue('theme') . '.');
 //    }
 
 

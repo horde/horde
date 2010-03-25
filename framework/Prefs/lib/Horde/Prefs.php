@@ -4,36 +4,14 @@
  * various preferences storage mediums.  It also includes all of the
  * functions for retrieving, storing, and checking preference values.
  *
- * TODO: document the format of the $_prefs hash here
- *
- * $_prefs[*pref name*] = array(
- *     'value'  => *Default value*,
- *     'locked' => *boolean*,
- *     'shared' => *boolean*,
- *     'type'   => 'checkbox'
- *                 'text'
- *                 'password'
- *                 'textarea'
- *                 'select'
- *                 'number'
- *                 'implicit'
- *                 'special'
- *                 'link' - There must be a field named either 'url'
- *                          (internal application link) or 'xurl'
- *                          (external application link) if this type is used.
- *                 'enum'
- *     'enum'   => TODO,
- *     'desc'   => _(*Description string*),
- *     'help'   => *Name of the entry in the XML help file*
- * );
- *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Jon Parise <jon@horde.org>
- * @package Horde_Prefs
+ * @author   Jon Parise <jon@horde.org>
+ * @category Horde
+ * @package  Prefs
  */
 class Horde_Prefs
 {
@@ -62,9 +40,9 @@ class Horde_Prefs
      * itself a hash, so this will ultimately be multi-dimensional.
      *
      * [*pref name*] => Array(
-     *     [d]  =>  *default value*
-     *     [m]  =>  *pref mask*
-     *     [v]  =>  *pref value*
+     *     [d] => (string) Default value
+     *     [m] => (integer) Pref mask
+     *     [v] => (string) Current pref value
      * )
      *
      * @var array
@@ -332,6 +310,9 @@ class Horde_Prefs
         return $result;
     }
 
+    /**
+     * Shortcut to setValue().
+     */
     public function __set($name, $value)
     {
         return $this->setValue($name, $value);
@@ -375,7 +356,7 @@ class Horde_Prefs
         if (isset($GLOBALS['conf']['prefs']['maxsize']) &&
             (strlen($val) > $GLOBALS['conf']['prefs']['maxsize']) &&
             isset($GLOBALS['notification'])) {
-            $GLOBALS['notification']->push(sprintf(_("The preference \"%s\" could not be saved because its data exceeded the maximum allowable size"), $pref), 'horde.error');
+            $GLOBALS['notification']->push(sprintf(_("The preference \"%s\" could not be saved because its data exceeds the maximum allowable size"), $pref), 'horde.error');
             return false;
         }
 
@@ -425,6 +406,9 @@ class Horde_Prefs
         return $value;
     }
 
+    /**
+     * Shortcut to getValue().
+     */
     public function __get($name)
     {
         return $this->getValue($name);
@@ -781,56 +765,50 @@ class Horde_Prefs
          * the default values. */
         try {
             $result = Horde::loadConfiguration('prefs.php', array('_prefs'), $scope);
-            if (empty($result)) {
+            if (empty($result) || !isset($result['_prefs'])) {
                 return;
             }
         } catch (Horde_Exception $e) {
             return;
         }
 
-        extract($result);
-        if (!isset($_prefs)) {
-            return;
-        }
+        foreach ($result['_prefs'] as $name => $pref) {
+            if (!isset($pref['value'])) {
+                continue;
+            }
 
-        foreach ($_prefs as $name => $pref) {
-            if (isset($pref['value']) &&
-                isset($pref['locked']) &&
-                isset($pref['shared']) &&
-                ($pref['type'] != 'link') &&
-                ($pref['type'] != 'special')) {
-                $name = str_replace('.', '_', $name);
+            $name = str_replace('.', '_', $name);
 
-                $mask = 0;
-                $mask &= ~self::DIRTY;
-                $mask |= self::PREFS_DEFAULT;
+            $mask = 0;
+            $mask &= ~self::DIRTY;
+            $mask |= self::PREFS_DEFAULT;
 
-                if ($pref['locked']) {
-                    $mask |= self::LOCKED;
-                }
+            if (!empty($pref['locked'])) {
+                $mask |= self::LOCKED;
+            }
 
-                if ($pref['shared'] || ($scope == 'horde')) {
-                    $mask |= self::SHARED;
-                    $pref_scope = 'horde';
-                } else {
-                    $pref_scope = $scope;
-                }
+            if (empty($pref['shared'])) {
+                $pref_scope = $scope;
+            } else {
+                $mask |= self::SHARED;
+                $pref_scope = 'horde';
+            }
 
-                if ($pref['shared'] && isset($this->_scopes[$pref_scope][$name])) {
-                    // This is a shared preference that was already
-                    // retrieved.
-                    $this->_scopes[$pref_scope][$name]['m'] = $mask & ~self::PREFS_DEFAULT;
-                    $this->_scopes[$pref_scope][$name]['d'] = $pref['value'];
-                } else {
-                    $this->_scopes[$pref_scope][$name] = array('v' => $pref['value'], 'm' => $mask, 'd' => $pref['value']);
-                }
+            if (!empty($pref['shared']) &&
+                isset($this->_scopes[$pref_scope][$name])) {
+                // This is a shared preference that was already retrieved.
+                $this->_scopes[$pref_scope][$name]['m'] = $mask & ~self::PREFS_DEFAULT;
+                $this->_scopes[$pref_scope][$name]['d'] = $pref['value'];
+            } else {
+                $this->_scopes[$pref_scope][$name] = array(
+                    'd' => $pref['value'],
+                    'm' => $mask,
+                    'v' => $pref['value']
+                );
+            }
 
-                if (!empty($pref['hook'])) {
-                    if (!isset($this->_hooks[$scope])) {
-                        $this->_hooks[$scope] = array();
-                    }
-                    $this->_hooks[$scope][$name] = $pref_scope;
-                }
+            if (!empty($pref['hook'])) {
+                $this->_hooks[$scope][$name] = $pref_scope;
             }
         }
     }

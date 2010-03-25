@@ -7,8 +7,9 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Gunnar Wrobel <p@rdus.de>
- * @package Horde_Prefs
+ * @author   Gunnar Wrobel <p@rdus.de>
+ * @category Horde
+ * @package  Prefs
  */
 class Horde_Prefs_KolabImap extends Horde_Prefs
 {

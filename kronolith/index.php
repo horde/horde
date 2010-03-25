@@ -27,7 +27,7 @@ if ($help_link) {
     $help_link = Horde::widget($help_link, _("Help"), 'helplink', 'help', Horde::popupJs($help_link, array('urlencode' => true)) . 'return false;');
 }
 $today = new Horde_Date($_SERVER['REQUEST_TIME']);
-$_SESSION['horde_prefs']['nomenu'] = true;
+Horde_Core_Prefs_Ui::hideMenu(true);
 
 $alarm_methods = $alarm_params = '';
 foreach (Horde_Alarm::notificationMethods() as $method => $params) {

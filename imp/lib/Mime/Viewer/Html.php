@@ -310,7 +310,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             return false;
         }
 
-        $params = IMP_Compose::getAddressSearchParams();
+        $params = Horde_Core_Prefs_Utils::getAddressbookSearchParams();
         $headers = $this->_params['contents']->getHeaderOb();
 
         /* Try to get back a result from the search. */

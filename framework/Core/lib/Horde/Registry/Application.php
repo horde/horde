@@ -95,4 +95,56 @@ class Horde_Registry_Application
     {
     }
 
+    // Horde_Core_Prefs_Ui functions.
+
+    /**
+     * Code to run if the language preference changes.
+     */
+    // public function changeLanguage() {}
+
+    /**
+     * Code to run on init when viewing prefs for this application.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     */
+    // public function prefsInit($ui) {}
+
+    /**
+     * Called when preferences are changed.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     */
+    // public function prefsCallback($ui) {}
+
+    /**
+     * Generate the menu to use on the prefs page.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     *
+     * @return Horde_Menu  The Horde_Menu object to display.
+     */
+    // public function prefsMenu($ui) {}
+
+    /**
+     * Generate code used to display a special preference.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     * @param string $item             The preference name.
+     *
+     * @return string  The HTML code to display on the options page.
+     */
+    // public function prefsSpecial($ui, $item) {}
+
+    /**
+     * Special preferences handling on update.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     * @param string $item             The preference name.
+     *
+     * @return boolean  True if preference was updated.
+     */
+    // public function prefsSpecialUpdate($ui, $item) {}
+
+    // END Horde_Core_Prefs_Ui functions.
+
 }

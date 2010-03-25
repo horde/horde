@@ -92,39 +92,70 @@ class Nag_Application extends Horde_Registry_Application
     }
 
     /**
-     * Special preferences handling on update.
+     * Code to run on init when viewing prefs for this application.
      *
-     * @param string $item      The preference name.
-     * @param boolean $updated  Set to true if preference was updated.
-     *
-     * @return boolean  True if preference was updated.
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
-    public function prefsSpecial($item, $updated)
+    public function prefsInit($ui)
     {
-        switch ($item) {
-        case 'tasklistselect':
-            $default_tasklist = Horde_Util::getFormData('default_tasklist');
-            if (!is_null($default_tasklist)) {
-                $tasklists = Nag::listTasklists();
-                if (isset($tasklists[$default_tasklist]) &&
-                    ($tasklists[$default_tasklist]->get('owner') == Horde_Auth::getAuth() ||
-                     in_array($default_tasklist, $GLOBALS['display_tasklists']))) {
-                    $GLOBALS['prefs']->setValue('default_tasklist', $default_tasklist);
-                    return true;
-                }
+        global $conf, $prefs, $registry;
+
+        switch ($ui->group) {
+        case 'notification':
+            if (empty($conf['alarms']['driver'])) {
+                $ui->suppress[] = 'task_alarms';
             }
             break;
 
-        case 'showsummaryselect':
-            $GLOBALS['prefs']->setValue('summary_categories', Horde_Util::getFormData('summary_categories'));
-            return true;
+        case 'share':
+            if (!$prefs->isLocked('default_tasklist')) {
+                $all_tasklists = Nag::listTasklists();
+                $tasklists = array();
 
-        case 'defaultduetimeselect':
-            $GLOBALS['prefs']->setValue('default_due_time', Horde_Util::getFormData('default_due_time'));
-            return true;
+                foreach ($all_tasklists as $id => $tasklist) {
+                    if (!empty($conf['share']['hidden']) &&
+                        ($tasklist->get('owner') != Horde_Auth::getAuth()) &&
+                        !in_array($tasklist->getName(), $GLOBALS['display_tasklists'])) {
+                        continue;
+                    }
+                    $tasklists[$id] = $tasklist;
+                }
+
+                $vals = array();
+                foreach ($tasklists as $id => $tasklist) {
+                    $vals[htmlspecialchars($id)] = htmlspecialchars($tasklist->get('name'));
+                }
+                $ui->override['default_tasklist'] = $vals;
+            }
+            break;
+
+        case 'tasks':
+            if (!$prefs->isLocked('default_due_time')) {
+                $twentyfour = $prefs->getValue('twentyFour');
+
+                $vals = array('now' => _("The current hour"));
+                for ($i = 0; $i < 24; ++$i) {
+                    $value = sprintf('%02d:00', $i);
+                    $vals[$value] = ($twentyfour)
+                        ? $value
+                        : sprintf('%02d:00 ' . ($i >= 12 ? _("pm") : _("am")), ($i % 12 ? $i % 12 : 12));
+                }
+                $ui->override['default_due_time'] = $vals;
+            }
+            break;
         }
 
-        return $updated;
+        /* Hide appropriate prefGroups. */
+        $show_external = array();
+        if ($registry->hasMethod('getListTypes', 'whups')) {
+            $show_external['whups'] = $registry->get('name', 'whups');
+        }
+        if (count($show_external)) {
+            $ui->override['show_external'] = $show_external;
+        } else {
+            $ui->suppress[] = 'show_external';
+            $ui->suppresGroups[] = 'external';
+        }
     }
 
     /**

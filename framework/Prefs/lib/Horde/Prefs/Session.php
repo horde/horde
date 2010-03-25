@@ -7,8 +7,9 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Jon Parise <jon@horde.org>
- * @package Horde_Prefs
+ * @author   Jon Parise <jon@horde.org>
+ * @category Horde
+ * @package  Prefs
  */
 class Horde_Prefs_Session extends Horde_Prefs
 {

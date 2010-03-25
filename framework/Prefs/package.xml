@@ -24,7 +24,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Initial Horde 4 package.
+ <notes>* Moved UI code to Horde_Core::.
+ * Initial Horde 4 package.
  </notes>
  <contents>
   <dir name="/">
@@ -32,7 +33,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <dir name="Horde">
      <dir name="Prefs">
       <file name="CategoryManager.php" role="php" />
-      <file name="Credentials.php" role="php" />
       <file name="File.php" role="php" />
       <file name="Identity.php" role="php" />
       <file name="Imsp.php" role="php" />
@@ -41,7 +41,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="Ldap.php" role="php" />
       <file name="Session.php" role="php" />
       <file name="Sql.php" role="php" />
-      <file name="Ui.php" role="php" />
      </dir> <!-- /lib/Horde/Prefs -->
      <file name="Prefs.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -85,7 +84,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <phprelease>
   <filelist>
    <install name="lib/Horde/Prefs/CategoryManager.php" as="Horde/Prefs/CategoryManager.php" />
-   <install name="lib/Horde/Prefs/Credentials.php" as="Horde/Prefs/Credentials.php" />
    <install name="lib/Horde/Prefs/File.php" as="Horde/Prefs/File.php" />
    <install name="lib/Horde/Prefs/Identity.php" as="Horde/Prefs/Identity.php" />
    <install name="lib/Horde/Prefs/Imsp.php" as="Horde/Prefs/Imsp.php" />
@@ -94,7 +92,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Prefs/Ldap.php" as="Horde/Prefs/Ldap.php" />
    <install name="lib/Horde/Prefs/Session.php" as="Horde/Prefs/Session.php" />
    <install name="lib/Horde/Prefs/Sql.php" as="Horde/Prefs/Sql.php" />
-   <install name="lib/Horde/Prefs/Ui.php" as="Horde/Prefs/Ui.php" />
    <install name="lib/Horde/Prefs.php" as="Horde/Prefs.php" />
   </filelist>
  </phprelease>
@@ -111,8 +108,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <api>alpha</api>
    </stability>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>* Add 'nomenu' option to hide menu generation in Prefs_UI::.
-   * Data in postgres must be stored in a BYTEA field, not a TEXT field (Bug #8130).
+   <notes>* Data in postgres must be stored in a BYTEA field, not a TEXT field (Bug #8130).
    * Converted to package.xml 2.0 for pear.horde.org
    * Added files-based preferences backend (thomas.jarosch@intra2net.com, Request #6653)
    </notes>

@@ -10,7 +10,7 @@
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
- * @package  Horde_Prefs
+ * @package  Prefs
  */
 class Horde_Prefs_CategoryManager
 {

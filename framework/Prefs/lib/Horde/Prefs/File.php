@@ -9,7 +9,7 @@
  *
  * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @category Horde
- * @package  Horde_Prefs
+ * @package  Prefs
  */
 class Horde_Prefs_File extends Horde_Prefs
 {

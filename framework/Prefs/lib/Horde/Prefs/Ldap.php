@@ -49,7 +49,7 @@
  * @author   Jon Parise <jon@horde.org>
  * @author   Ben Klang <ben@alkaloid.net>
  * @category Horde
- * @package  Horde_Prefs
+ * @package  Prefs
  */
 class Horde_Prefs_Ldap extends Horde_Prefs
 {

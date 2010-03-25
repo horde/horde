@@ -1,0 +1,13 @@
+<div>
+ <div>
+  <tag:label />
+ </div>
+ <div>
+  <input type="hidden" name="trash_new" id="trash_new" value="" />
+  <select id="trash" name="trash">
+   <option value="<tag:nofolder />"><gettext>None</gettext></option>
+   <option value="<tag:vtrash />"<if:vtrash_select> selected="selected"</if:vtrash_select>><gettext>Use Virtual Trash</gettext></option>
+   <tag:flist />
+  </select>
+ </div>
+</div>

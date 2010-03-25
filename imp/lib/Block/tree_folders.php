@@ -18,7 +18,7 @@ class Horde_Block_imp_tree_folders extends Horde_Block
     protected function _buildTree(&$tree, $indent = 0, $parent = null)
     {
         /* Run filters now */
-        if ($GLOBALS['prefs']->getValue('filter_on_sidebar')) {
+        if ($GLOBALS['prefs']->getValue('filter_on_display')) {
             $imp_filter = new IMP_Filter();
             $imp_filter->filter('INBOX');
         }

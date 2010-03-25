@@ -1472,6 +1472,15 @@ li.panel-tags {
     display: none;
 }
 
+/* Prefs */
+.fburl {
+    border: 1px solid black;
+    padding: 5px 0 10px 15px;
+}
+.fburl .fixed {
+    padding-top: 3px;
+}
+
 @media print {
     .rowEven td, .rowOdd td {
         background: #fff;

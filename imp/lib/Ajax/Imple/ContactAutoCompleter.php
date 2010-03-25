@@ -40,7 +40,7 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_AutoCompleter
 
         if ($ac_browser && !isset($_SESSION['imp']['cache']['ac_ajax'])) {
             $success = $use_ajax = true;
-            $sparams = IMP_Compose::getAddressSearchParams();
+            $sparams = Horde_Core_Prefs_Utils::getAddressbookSearchParams();
             foreach ($sparams['fields'] as $val) {
                 array_map('strtolower', $val);
                 sort($val);

@@ -1,0 +1,20 @@
+<div>
+ <p><gettext>Play a sound on new mail? Although most browsers support embedded sound files, some may require a plugin.</gettext></p>
+ <ul class="sound-list">
+  <li>
+   <label>
+    <input type="radio" name="nav_audio" value=""<if:nav_audio><else:nav_audio> checked="checked"</else:nav_audio></if:nav_audio> />
+    <gettext>No Sound</gettext>
+   </label>
+  </li>
+<loop:sounds>
+  <li>
+   <label>
+    <input type="radio" name="nav_audio" value="<tag:sounds.v />"<if:sounds.c> checked="checked"</if:sounds.c> />
+    <tag:sounds.l />
+   </label>
+   <embed autostart="false" src="<tag:sounds.s />" />
+  </li>
+</loop:sounds>
+ </ul>
+</div>

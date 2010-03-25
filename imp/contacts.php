@@ -40,7 +40,7 @@ if (!isset($vars->formname)) {
     $vars->formname = 'compose';
 }
 
-$search_params = IMP_Compose::getAddressSearchParams();
+$search_params = Horde_Core_Prefs_Utils::getAddressbookSearchParams();
 $apiargs = array(
     'addresses' => array($vars->search),
     'addressbooks' => array($vars->source),

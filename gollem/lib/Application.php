@@ -98,24 +98,21 @@ class Gollem_Application extends Horde_Registry_Application
     /**
      * Special preferences handling on update.
      *
-     * @param string $item      The preference name.
-     * @param boolean $updated  Set to true if preference was updated.
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     * @param string $item             The preference name.
      *
      * @return boolean  True if preference was updated.
      */
-    public function prefsSpecial($item, $updated)
+    public function prefsSpecialUpdate($ui, $item)
     {
         switch ($item) {
         case 'columnselect':
-            $columns = Horde_Util::getFormData('columns');
-            if (!empty($columns)) {
-                $GLOBALS['prefs']->setValue('columns', $columns);
+            if (isset($ui->vars->columns)) {
+                $GLOBALS['prefs']->setValue('columns', $ui->vars->columns);
                 return true;
             }
             break;
         }
-
-        return $updated;
     }
 
     /**

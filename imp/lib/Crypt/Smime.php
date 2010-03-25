@@ -162,7 +162,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
         } catch (Horde_Exception_HookNotSet $e) {
         }
 
-        $params = IMP_Compose::getAddressSearchParams();
+        $params = Horde_Core_Prefs_Utils::getAddressbookSearchParams();
 
         try {
             $key = $GLOBALS['registry']->call('contacts/getField', array($address, self::PUBKEY_FIELD, $params['sources'], false, true));
@@ -191,7 +191,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function listPublicKeys()
     {
-        $params = IMP_Compose::getAddressSearchParams();
+        $params = Horde_Core_Prefs_Utils::getAddressbookSearchParams();
         if (empty($params['sources'])) {
             return array();
         }
@@ -207,7 +207,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function deletePublicKey($email)
     {
-        $params = IMP_Compose::getAddressSearchParams();
+        $params = Horde_Core_Prefs_Utils::getAddressbookSearchParams();
         $GLOBALS['registry']->call('contacts/deleteField', array($email, self::PUBKEY_FIELD, $params['sources']));
     }
 
@@ -474,7 +474,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
         $t->set('forminput', Horde_Util::formInput());
         $t->set('import_public_key', $target == 'process_import_public_key');
         $t->set('import_personal_certs', $target == 'process_import_personal_certs');
-        echo $t->fetch(IMP_TEMPLATES . '/prefs/smime/import_key.html');
+        echo $t->fetch(IMP_TEMPLATES . '/smime/import_key.html');
     }
 
     /**

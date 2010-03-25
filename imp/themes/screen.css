@@ -226,6 +226,11 @@ span.trashImg {
     background-image: url("graphics/folders/trash.png");
 }
 
+.folderunsub {
+    background: #bbb;
+    font-style: italic;
+}
+
 /* Style for div that fixes KHTML browsers. */
 .ohide {
     overflow: hidden;
@@ -364,15 +369,23 @@ table.accountsmanagement td.noneconfigured {
     font-style: italic;
 }
 
-/* PGP & S/MIME prefs styles. */
-.redText {
+/* Prefs styles. */
+.prefsPgpContainer, .prefsSmimeContainer {
+    border: 1px solid black;
+    margin: 5px 0;
+    padding: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+.prefsPgpHeader, .prefsSmimeHeader {
+    margin-bottom: 5px;
+}
+.prefsPgpWarning, .prefsSmimeWarning {
     color: red;
+    padding: 5px 10px;
 }
 
-.folderunsub {
-    background: #bbb;
-    font-style: italic;
-}
+/* Quota styles. */
 .quotawarn {
     color: #000;
     background: yellow;

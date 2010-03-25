@@ -524,6 +524,9 @@ div.nicetitle {
     list-style: none;
     display: inline;
 }
+#services_prefs #app {
+    font-weight: bold;
+}
 .prefsOverview div {
     float: left;
 }
@@ -557,6 +560,9 @@ div.prefsContainer {
 }
 div.prefsContainer p {
     padding-top: 1em;
+}
+img.prefsLinkImg {
+    padding-right: 1px;
 }
 
 /* Block styles. */

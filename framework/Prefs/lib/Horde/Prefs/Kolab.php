@@ -11,7 +11,7 @@
  *
  * @author   Stuart Binge <s.binge@codefusion.co.za>
  * @category Horde
- * @package  Horde_Prefs
+ * @package  Prefs
  */
 class Horde_Prefs_Kolab extends Horde_Prefs_Ldap
 {

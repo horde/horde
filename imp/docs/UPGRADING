@@ -64,6 +64,7 @@ your ``config/prefs.php`` file and your preferences backend::
 
    alternative_display
    attachment_display
+   filter_on_sidebar
    forward_bodytext
 
 

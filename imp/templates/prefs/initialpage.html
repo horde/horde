@@ -1,0 +1,15 @@
+<div>
+ <div>
+  <tag:label />
+ </div>
+ <div>
+  <select id="initial_page" name="initial_page">
+<if:nofolder>
+   <option value="INBOX" selected="selected"><gettext>Inbox</gettext></option>
+<else:nofolder>
+   <option value="folders.php"<if:foldersel> selected="selected"</if:foldersel>><gettext>Folder Navigator</gettext></option>
+   <tag:flist />
+</else:nofolder></if:nofolder>
+  </select>
+ </div>
+</div>

@@ -177,7 +177,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         }
 
         /* Try retrieving by e-mail only first. */
-        $params = IMP_Compose::getAddressSearchParams();
+        $params = Horde_Core_Prefs_Utils::getAddressbookSearchParams();
         try {
             $result = $GLOBALS['registry']->call('contacts/getField', array($address, self::PUBKEY_FIELD, $params['sources'], false, true));
         } catch (Horde_Exception $e) {
@@ -226,7 +226,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      */
     public function listPublicKeys()
     {
-        $params = IMP_Compose::getAddressSearchParams();
+        $params = Horde_Core_Prefs_Utils::getAddressbookSearchParams();
         if (empty($params['sources'])) {
             return array();
         }
@@ -243,7 +243,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      */
     public function deletePublicKey($email)
     {
-        $params = IMP_Compose::getAddressSearchParams();
+        $params = Horde_Core_Prefs_Utils::getAddressbookSearchParams();
         return $GLOBALS['registry']->call('contacts/deleteField', array($email, self::PUBKEY_FIELD, $params['sources']));
     }
 
@@ -637,7 +637,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         $t->set('import_public_key', $target == 'process_import_public_key');
         $t->set('import_personal_public_key', $target == 'process_import_personal_public_key');
         $t->set('import_personal_private_key', $target == 'process_import_personal_private_key');
-        echo $t->fetch(IMP_TEMPLATES . '/prefs/pgp/import_key.html');
+        echo $t->fetch(IMP_TEMPLATES . '/pgp/import_key.html');
     }
 
     /**

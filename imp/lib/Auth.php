@@ -478,6 +478,7 @@ class IMP_Auth
         /* Suppress menus in options screen and indicate that notifications
          * should use the ajax mode. */
         if ($sess['view'] == 'dimp') {
+            Horde_Core_Prefs_Ui::hideMenu(true);
             $_SESSION['horde_prefs']['nomenu'] = true;
             $_SESSION['horde_notification']['override'] = array(
                 IMP_BASE . '/lib/Notification/Listener/AjaxStatus.php',

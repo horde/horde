@@ -1,0 +1,25 @@
+<form method="get" name="appswitch" id="appswitch" action="<tag:action />">
+ <tag:forminput />
+ <div class="header">
+  <span class="smallheader rightFloat">
+   <select id="app" name="app" onchange="document.appswitch.submit();">
+    <option value=""><gettext>Edit Options for</gettext>:</option>
+<if:horde>
+    <option value="" disabled="disabled">- - - - - - - - -</option>
+    <option value="horde"><gettext>Global Options</gettext></option>
+    <option value="" disabled="disabled">- - - - - - - - -</option>
+</if:horde>
+<loop:apps>
+    <option value="<tag:apps.v />"><tag:apps.l /></option>
+</loop:apps>
+   </select>
+   <input class="button" type="submit" onclick="return document.appswitch.app.selectedIndex != 0;" value="<gettext>Go</gettext>" />
+  </span>
+  <span>
+   <tag:header />
+  </span>
+  <br class="clear" />
+ </div>
+</form>
+
+<br class="spacer" />

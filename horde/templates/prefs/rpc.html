@@ -1,0 +1,38 @@
+<div>
+ <tag:serverlabel />
+ <select id="server" name="server">
+  <option value="-1"><gettext>Select a server</gettext>:</option>
+<loop:serverlist>
+  <option value="<tag:serverlist.i />"><tag:serverlist.l /></option>
+</loop:serverlist>
+ </select>
+</div>
+
+<div>
+ <tag:urllabel />
+</div>
+<div>
+ <input type="text" id="url" name="url" size="30" maxlength="60" />
+</div>
+
+<div>
+ <tag:userlabel />
+</div>
+<div>
+ <input type="text" id="user" name="user" size="30" maxlength="60" />
+</div>
+
+<div>
+ <tag:passwdlabel />
+</div>
+<div>
+ <input type="password" id="passwd" name="passwd" size="30" maxlength="60" />
+</div>
+
+<p class="nowrap">
+ <input type="submit" id="rpc_change" name="rpc_change" class="button" value="<gettext>Change</gettext>" />
+ <input type="submit" id="rpc_create" name="rpc_create" class="button" value="<gettext>Create</gettext>" />
+ <input type="submit" id="rpc_delete" name="rpc_delete" class="button" value="<gettext>Delete</gettext>" />
+ <input type="button" id="rpc_reset" class="button" value="<gettext>Reset</gettext>" />
+</p>
+

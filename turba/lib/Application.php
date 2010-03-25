@@ -158,75 +158,190 @@ class Turba_Application extends Horde_Registry_Application
     }
 
     /**
-     * Code to run when viewing prefs for this application.
+     * Code to run on init when viewing prefs for this application.
      *
-     * @param string $group  The prefGroup name.
-     *
-     * @return array  A list of variables to export to the prefs display page.
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
-    public function prefsInit($group)
+    public function prefsInit($ui)
     {
-        $out = array();
+        global $prefs;
 
-        /* Assign variables for select lists. */
-        if (!$GLOBALS['prefs']->isLocked('default_dir')) {
-            $out['default_dir_options'] = array();
-            foreach ($GLOBALS['cfgSources'] as $key => $info) {
-                $out['default_dir_options'][$key] = $info['title'];
+        switch ($ui->group) {
+        case 'addressbooks':
+            Horde_Core_Prefs_Ui_Widgets::sourceInit($ui);
+
+            if (!$prefs->isLocked('default_dir')) {
+                $out = array();
+                foreach ($GLOBALS['cfgSources'] as $key => $info) {
+                    $out[$key] = $info['title'];
+                }
+                $ui->override['default_dir'] = $out;
             }
+
+            $out = array();
+            foreach (Turba::getAddressBooks() as $key => $curSource) {
+                if (empty($curSource['map']['__uid'])) {
+                    continue;
+                }
+                if (!empty($curSource['browse'])) {
+                    $out[$key] = $curSource['title'];
+                }
+                $sync_books = @unserialize($prefs->getValue('sync_books'));
+                if (empty($sync_books)) {
+                    $prefs->setValue('sync_books', serialize(array(Turba::getDefaultAddressbook())));
+                }
+            }
+            $ui->override['sync_books'] = $out;
+            break;
+
+        case 'columns':
+            Horde::addScriptFile('effects.js', 'horde');
+            Horde::addScriptFile('dragdrop.js', 'horde');
+            Horde::addScriptFile('columnprefs.js', 'turba');
+            break;
         }
+    }
 
-        $out['sync_books_options'] = array();
-        foreach (Turba::getAddressBooks() as $key => $curSource) {
-            if (empty($curSource['map']['__uid'])) {
-                continue;
+    /**
+     * Generate code used to display a special preference.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     * @param string $item             The preference name.
+     *
+     * @return string  The HTML code to display on the options page.
+     */
+    public function prefsSpecial($ui, $item)
+    {
+        switch ($item) {
+        case 'addressbookselect':
+            $order = Turba::getAddressBookOrder();
+            $selected = $sorted = $unselected = array();
+
+            foreach (array_keys($GLOBALS['cfgSources']) as $val) {
+                if (isset($order[$val])) {
+                    $sorted[intval($order[$val])] = $val;
+                } else {
+                    $unselected[$val] = $GLOBALS['cfgSources'][$val]['title'];
+                }
             }
-            if (!empty($curSource['browse'])) {
-                $out['sync_books_options'][$key] = $curSource['title'];
+
+            foreach ($sorted as $val) {
+                $selected[$val] = $GLOBALS['cfgSources'][$val]['title'];
             }
-            $sync_books = @unserialize($GLOBALS['prefs']->getValue('sync_books'));
-            if (empty($sync_books)) {
-                $GLOBALS['prefs']->setValue('sync_books', serialize(array(Turba::getDefaultAddressbook())));
+
+            return Horde_Core_Prefs_Ui_Widgets::source($ui, array(
+                'mainlabel' => _("Choose which address books to display, and in what order:"),
+                'selected' => $selected,
+                'selectlabel' => _("These addressbooks will display in this order:"),
+                'unselected' => $unselected,
+                'unselectlabel' => _("Address books that will not be displayed:")
+            ));
+
+        case 'columnselect':
+            $sources = Turba::getColumns();
+
+            $t = $GLOBALS['injector']->createInstance('Horde_Template');
+            $t->setOption('gettext', true);
+
+            $t->set('columns', htmlspecialchars($GLOBALS['prefs']->getValue('columns')));
+
+            $col_list = $cols = array();
+            foreach ($GLOBALS['cfgSources'] as $source => $info) {
+                $col_list[] = array(
+                    'first' => empty($col_list),
+                    'source' => htmlspecialchars($source),
+                    'title' => htmlspecialchars($info['title'])
+                );
+
+                // First the selected columns in their current order.
+                $i = 0;
+                $inputs = array();
+
+                if (isset($sources[$source])) {
+                    $selected = array_flip($sources[$source]);
+                    foreach ($sources[$source] as $column) {
+                        if ((substr($column, 0, 2) == '__') ||
+                            ($column == 'name')) {
+                            continue;
+                        }
+
+                        $inputs[] = array(
+                            'checked' => isset($selected[$column]),
+                            'column' => htmlspecialchars($column),
+                            'i' => $i,
+                            'label' => htmlspecialchars($GLOBALS['attributes'][$column]['label'])
+                        );
+                    }
+                } else {
+                    // Need to unset this for the loop below, otherwise
+                    // selected columns from another source could interfere
+                    unset($selected);
+                }
+
+                // Then the unselected columns in source order.
+                foreach (array_keys($info['map']) as $column) {
+                    if ((substr($column, 0, 2) == '__') ||
+                        ($column == 'name') ||
+                        isset($selected[$column])) {
+                        continue;
+                    }
+
+                    $inputs[] = array(
+                        'checked' => isset($selected[$column]),
+                        'column' => htmlspecialchars($column),
+                        'i' => $i,
+                        'label' => htmlspecialchars($GLOBALS['attributes'][$column]['label'])
+                    );
+                }
+
+                $cols[] = array(
+                    'first' => empty($cols),
+                    'inputs' => $inputs,
+                    'source' => htmlspecialchars($source)
+                );
             }
+
+            if (!empty($col_list)) {
+                $t->set('col_list', $col_list);
+                $t->set('cols', $cols);
+            }
+
+            return $t->fetch(TURBA_TEMPLATES . '/prefs/column.html');
         }
-
-        return $out;
     }
 
     /**
      * Special preferences handling on update.
      *
-     * @param string $item      The preference name.
-     * @param boolean $updated  Set to true if preference was updated.
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     * @param string $item             The preference name.
      *
      * @return boolean  True if preference was updated.
      */
-    public function prefsSpecial($item, $updated)
+    public function prefsSpecialUpdate($ui, $item)
     {
         switch ($item) {
+        case 'addressbookselect':
+            $ui->setValue('addressbooks', Horde_Serialize::unserialize($ui->vars->sources, Horde_Serialize::JSON));
+            return true;
+
         case 'columnselect':
-            $columns = Horde_Util::getFormData('columns');
-            if (!empty($columns)) {
-                $GLOBALS['prefs']->setValue('columns', $columns);
+            if (isset($ui->vars->columns)) {
+                $ui->setValue('columns', $ui->vars->columns);
                 return true;
             }
             break;
-
-        case 'addressbookselect':
-            $addressbooks = Horde_Util::getFormData('addressbooks');
-            $GLOBALS['prefs']->setValue('addressbooks', str_replace("\r", '', $addressbooks));
-            return true;
         }
-
-        return $updated;
     }
 
     /**
      * Generate the menu to use on the prefs page.
      *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     *
      * @return Horde_Menu  A Horde_Menu object.
      */
-    public function prefsMenu()
+    public function prefsMenu($ui)
     {
         return Turba::getMenu();
     }
@@ -284,7 +399,8 @@ class Turba_Application extends Horde_Registry_Application
                 }
             }
 
-            /* Get a list of all shares this user has perms to and remove the perms */
+            /* Get a list of all shares this user has perms to and remove the
+             * perms. */
             $shares = $GLOBALS['turba_shares']->listShares($user);
             if (is_a($shares, 'PEAR_Error')) {
                 Horde::logMessage($shares, 'ERR');
