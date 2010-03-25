@@ -6,7 +6,7 @@ CREATE TABLE ansel_images (
     image_caption        TEXT,
     image_uploaded_date  INT NOT NULL,
     image_sort           INT NOT NULL,
-    image_faces          INT NOT NULL,
+    image_faces          INT DEFAULT 0 NOT NULL,
     image_original_date  INT NOT NULL,
     image_latitude VARCHAR(32),
     image_longitude VARCHAR(32),
