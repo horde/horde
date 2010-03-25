@@ -8,12 +8,20 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Nuno Loureiro <nuno@co.sapo.pt>
- * @author  Michael Slusarz <slusarz@curecanti.org>
- * @package Horde_Editor
+ * @author   Nuno Loureiro <nuno@co.sapo.pt>
+ * @author   Michael Slusarz <slusarz@curecanti.org>
+ * @category Horde
+ * @package  Editor
  */
 class Horde_Editor
 {
+    /**
+     * A browser detection object.
+     *
+     * @var Horde_Browser
+     */
+    protected $_browser;
+
     /**
      * Javascript code to init the editor.
      *
@@ -22,15 +30,14 @@ class Horde_Editor
     protected $_js = '';
 
     /**
-     * Attempts to return a concrete Horde_Editor instance based on $driver.
+     * Attempts to return a concrete instance based on $driver.
      *
-     * @param string $driver  The type of concrete Horde_Editor subclass to
-     *                       return.
-     * @param array $params  A hash containing any additional configuration or
-     *                       connection parameters a subclass might need.
+     * @param string $driver  The type of concrete subclass to return.
+     * @param array $params   A hash containing any additional configuration
+     *                        or connection parameters a subclass might need.
      *
-     * @return Horde_Editor  The newly created concrete Horde_Editor instance,
-     *                       or false on error.
+     * @return Horde_Editor  The newly created concrete instance.
+     * @throws Horde_Editor_Exception.
      */
     static public function factory($driver, $params = null)
     {
@@ -40,52 +47,26 @@ class Horde_Editor
         }
 
         $class = __CLASS__ . '_' . $driver;
-        if (!class_exists($class)) {
-            throw new Exception('Driver ' . $driver . ' not found');
+        if (class_exists($class)) {
+            return new $class($params);
         }
 
-        if (is_null($params) && class_exists('Horde')) {
-            $params = Horde::getDriverConfig('editor', $driver);
-        }
-        return new $class($params);
+        throw new Horde_Editor_Exception('Driver ' . $driver . ' not found');
     }
 
     /**
-     * Attempts to return a reference to a concrete Horde_Editor
-     * instance based on $driver. It will only create a new instance
-     * if no Horde_Editor instance with the same parameters currently
-     * exists.
+     * Constructor.
      *
-     * This should be used if multiple cache backends (and, thus,
-     * multiple Horde_Editor instances) are required.
-     *
-     * This method must be invoked as:
-     *   $var = Horde_Editor::singleton()
-     *
-     * @param mixed $driver  The type of concrete Horde_Editor subclass to
-     *                       return. If $driver is an array, then we will look
-     *                       in $driver[0]/lib/Editor/ for the subclass
-     *                       implementation named $driver[1].php.
-     * @param array $params  A hash containing any additional configuration or
-     *                       connection parameters a subclass might need.
-     *
-     * @return Horde_Editor  The concrete Horde_Editor reference, or false on
-     *                       error.
+     * @param array $params  The following configuration parameters:
+     * <pre>
+     * 'browser' - (Horde_Browser) A browser object.
+     * </pre>
      */
-    public static function singleton($driver, $params = null)
+    public function __construct($params = array())
     {
-        static $instances = array();
-
-        if (is_null($params) && class_exists('Horde')) {
-            $params = Horde::getDriverConfig('editor', $driver);
+        if (isset($params['browser'])) {
+            $this->_browser = $params['browser'];
         }
-
-        $signature = serialize(array($driver, $params));
-        if (!array_key_exists($signature, $instances)) {
-            $instances[$signature] = self::factory($driver, $params);
-        }
-
-        return $instances[$signature];
     }
 
     /**
@@ -105,7 +86,7 @@ class Horde_Editor
      */
     public function supportedByBrowser()
     {
-        return true;
+        return false;
     }
 
     /**

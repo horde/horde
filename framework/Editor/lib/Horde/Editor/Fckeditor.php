@@ -8,10 +8,11 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Nuno Loureiro <nuno@co.sapo.pt>
- * @author  Jan Schneider <jan@horde.org>
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Editor
+ * @author   Nuno Loureiro <nuno@co.sapo.pt>
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @package  Editor
  */
 class Horde_Editor_Fckeditor extends Horde_Editor
 {
@@ -20,13 +21,19 @@ class Horde_Editor_Fckeditor extends Horde_Editor
      *
      * @param array $params  The following configuration parameters:
      * <pre>
-     * 'id' - The ID of the text area to turn into an editor.
-     * 'no_notify' - Don't output JS code automatically. Code will be stored
-     *               for access via getJS().
+     * 'id' - (string) The ID of the text area to turn into an editor.
+     * 'no_notify' - (boolean) Don't output JS code automatically. Code will
+     *               be stored for access via getJS().
      * </pre>
      */
     public function __construct($params = array())
     {
+        parent::__construct($params);
+
+        if (!$this->supportedByBrowser()) {
+            return;
+        }
+
         $fck_path = $GLOBALS['registry']->get('webroot', 'horde') . '/services/editor/fckeditor/';
         $js = array(
             'var oFCKeditor = new FCKeditor("' . $params['id'] . '")',
@@ -50,9 +57,11 @@ class Horde_Editor_Fckeditor extends Horde_Editor
      */
     public function supportedByBrowser()
     {
-        global $browser;
+        if (!$this->_browser) {
+            return true;
+        }
 
-        switch ($browser->getBrowser()) {
+        switch ($this->_browser->getBrowser()) {
         case 'webkit':
         case 'msie':
         case 'mozilla':
@@ -61,7 +70,7 @@ class Horde_Editor_Fckeditor extends Horde_Editor
             // Firefox: 1.5+
             // Opera: 9.5+
             // Safari: 3.0+
-            return $browser->hasFeature('rte');
+            return $this->_browser->hasFeature('rte');
 
         default:
             return false;

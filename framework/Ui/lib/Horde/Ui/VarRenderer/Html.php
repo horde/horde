@@ -289,8 +289,8 @@ class Horde_Ui_VarRenderer_Html extends Horde_Ui_VarRenderer
                         $var->isDisabled() ? ' disabled="disabled"' : '',
                         @htmlspecialchars($var->getValue($vars), ENT_QUOTES, $this->_charset));
 
-        if ($var->type->hasHelper('rte') && $browser->hasFeature('rte')) {
-            $editor = Horde_Editor::singleton('fckeditor', array('id' => $varname, 'relativelinks' => $var->type->hasHelper('relativelinks')));
+        if ($var->type->hasHelper('rte')) {
+            $GLOBALS['injector']->getInstance('Horde_Editor')->getEditor('fckeditor', array('id' => $varname, 'relativelinks' => $var->type->hasHelper('relativelinks')));
         }
 
         if ($var->type->hasHelper() && $browser->hasFeature('javascript')) {

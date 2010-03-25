@@ -97,7 +97,7 @@ if ($updated) {
 }
 
 if ($stationery['t'] == 'html') {
-    $editor = Horde_Editor::singleton('Fckeditor', array('id' => 'content'));
+    $injector->getInstance('Horde_Editor')->getEditor('Ckeditor', array('id' => 'content'));
 }
 
 /* Show the header. */

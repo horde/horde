@@ -145,7 +145,7 @@ class IMP_Ui_Compose
      */
     public function initRTE($basic = false)
     {
-        $editor = Horde_Editor::singleton('Ckeditor', array('basic' => $basic));
+        $GLOBALS['injector']->getInstance('Horde_Editor')->getEditor('Ckeditor', array('basic' => $basic));
 
         $config = array(
             /* To more closely match "normal" textarea behavior, send <BR> on

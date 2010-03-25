@@ -68,6 +68,7 @@ Application Framework.
        <file name="Cache.php" role="php" />
        <file name="Db.php" role="php" />
        <file name="Dns.php" role="php" />
+       <file name="Editor.php" role="php" />
        <file name="Lock.php" role="php" />
        <file name="Logger.php" role="php" />
        <file name="Mail.php" role="php" />
@@ -80,6 +81,7 @@ Application Framework.
        <file name="Vfs.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Binder -->
       <dir name="Factory">
+       <file name="Editor.php" role="php" />
        <file name="KolabServer.php" role="php" />
        <file name="KolabSession.php" role="php" />
        <file name="KolabStorage.php" role="php" />
@@ -179,6 +181,10 @@ Application Framework.
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Editor</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Kolab_Server</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -202,6 +208,7 @@ Application Framework.
    <install name="lib/Horde/Core/Binder/Cache.php" as="Horde/Core/Binder/Cache.php" />
    <install name="lib/Horde/Core/Binder/Db.php" as="Horde/Core/Binder/Db.php" />
    <install name="lib/Horde/Core/Binder/Dns.php" as="Horde/Core/Binder/Dns.php" />
+   <install name="lib/Horde/Core/Binder/Editor.php" as="Horde/Core/Binder/Editor.php" />
    <install name="lib/Horde/Core/Binder/Lock.php" as="Horde/Core/Binder/Lock.php" />
    <install name="lib/Horde/Core/Binder/Logger.php" as="Horde/Core/Binder/Logger.php" />
    <install name="lib/Horde/Core/Binder/Mail.php" as="Horde/Core/Binder/Mail.php" />
@@ -212,6 +219,7 @@ Application Framework.
    <install name="lib/Horde/Core/Binder/Template.php" as="Horde/Core/Binder/Template.php" />
    <install name="lib/Horde/Core/Binder/Token.php" as="Horde/Core/Binder/Token.php" />
    <install name="lib/Horde/Core/Binder/Vfs.php" as="Horde/Core/Binder/Vfs.php" />
+   <install name="lib/Horde/Core/Factory/Editor.php" as="Horde/Core/Factory/Editor.php" />
    <install name="lib/Horde/Core/Factory/KolabServer.php" as="Horde/Core/Factory/KolabServer.php" />
    <install name="lib/Horde/Core/Factory/KolabSession.php" as="Horde/Core/Factory/KolabSession.php" />
    <install name="lib/Horde/Core/Factory/KolabStorage.php" as="Horde/Core/Factory/KolabStorage.php" />

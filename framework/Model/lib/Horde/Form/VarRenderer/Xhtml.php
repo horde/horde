@@ -155,8 +155,8 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer
                         $var->isDisabled() ? ' disabled="disabled"' : '',
                         htmlspecialchars($var->getValue($vars)));
 
-        if ($var->type->hasHelper('rte') && $browser->hasFeature('rte')) {
-            $editor = Horde_Editor::singleton('ckeditor', array('id' => $var->getVarName()));
+        if ($var->type->hasHelper('rte')) {
+            $GLOBALS['injector']->getInstance('Horde_Editor')->getEditor('ckeditor', array('id' => $var->getVarName()));
         }
 
         if ($var->type->hasHelper() && $browser->hasFeature('javascript')) {

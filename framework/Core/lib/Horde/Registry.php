@@ -236,6 +236,7 @@ class Horde_Registry
             // 'Horde_Browser' - initialized below
             'Horde_Cache' => new Horde_Core_Binder_Cache(),
             'Horde_Db_Adapter_Base' => new Horde_Core_Binder_Db('reader'),
+            'Horde_Editor' => new Horde_Core_Binder_Editor(),
             'Horde_Lock' => new Horde_Core_Binder_Lock(),
             'Horde_Log_Logger' => new Horde_Core_Binder_Logger(),
             'Horde_Memcache' => new Horde_Core_Binder_Memcache(),

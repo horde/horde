@@ -101,8 +101,8 @@ $vars->set('image_desc', strlen($image->caption) ? $image->caption : $image->fil
 $form = new Ansel_Form_Ecard($vars, $title);
 $renderer = new Horde_Form_Renderer();
 
-if ($browser->hasFeature('rte')) {
-    $editor = Horde_Editor::singleton('ckeditor', array('id' => 'ecard_comments'));
+$editor = $injector->getInstance('Horde_Editor')->getEditor('ckeditor', array('id' => 'ecard_comments'));
+if ($editor->supportedByBrowser()) {
     $vars->set('rtemode', 1);
     $form->addHidden('', 'rtemode', 'text', false);
 }

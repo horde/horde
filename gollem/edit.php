@@ -55,7 +55,7 @@ case 'edit_file':
         echo Horde::wrapInlineScript(array('window.close();'));
     }
     if ($mime_type == 'text/html') {
-        $editor = Horde_Editor::singleton('ckeditor', array('id' => 'content'));
+        $injector->getInstance('Horde_Editor')->getEditor('ckeditor', array('id' => 'content'));
     }
     require GOLLEM_TEMPLATES . '/common-header.inc';
     Gollem::status();

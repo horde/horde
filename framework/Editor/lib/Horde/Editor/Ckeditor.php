@@ -8,8 +8,9 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Editor
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @package  Editor
  */
 class Horde_Editor_Ckeditor extends Horde_Editor
 {
@@ -30,6 +31,12 @@ class Horde_Editor_Ckeditor extends Horde_Editor
      */
     public function __construct($params = array())
     {
+        parent::__construct($params);
+
+        if (!$this->supportedByBrowser()) {
+            return;
+        }
+
         $ck_file = empty($params['basic'])
             ? 'ckeditor.js'
             : 'ckeditor_basic.js';
@@ -59,9 +66,11 @@ class Horde_Editor_Ckeditor extends Horde_Editor
      */
     public function supportedByBrowser()
     {
-        global $browser;
+        if (!$this->_browser) {
+            return true;
+        }
 
-        switch ($browser->getBrowser()) {
+        switch ($this->_browser->getBrowser()) {
         case 'webkit':
         case 'msie':
         case 'mozilla':
@@ -70,7 +79,7 @@ class Horde_Editor_Ckeditor extends Horde_Editor
             // Firefox: 1.5+
             // Opera: 9.5+
             // Safari: 3.0+
-            return $browser->hasFeature('rte');
+            return $this->_browser->hasFeature('rte');
 
         default:
             return false;
