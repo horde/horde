@@ -49,21 +49,14 @@ case 'add':
 
     break;
 case 'edit':
-    if (!isset($menus[$menu])) {
-        $notification->push(_("That menu does not exist."), 'horde.error');
-        $action = 'list';
-        break;
-    }
-    $menu = $menus[$menu];
+default:
+    $action = 'edit';
     try {
         $destinations = $shout->extensions->getExtensions($curaccount);
     } catch (Exception $e) {
         $notification->push(_("Problem getting destination information."));
     }
-    break;
-case 'list':
-default:
-    $action = 'list';
+
     break;
 }
 

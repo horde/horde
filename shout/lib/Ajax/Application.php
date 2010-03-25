@@ -102,24 +102,17 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * TODO
      */
-    public function getMenuInfo()
+    public function getMenus()
     {
         try {
-            $vars = $this->_vars;
             $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
             $account = $_SESSION['shout']['curaccount'];
             $menus = $shout->storage->getMenus($account);
-            $menu = $vars->menu;
-            if (!isset($menus[$menu])) {
-                Horde::logMessage("User requested a menu that does not exist.", 'ERR');
-                //$GLOBALS['notification']->push(_("That menu does not exist."), 'horde.error');
-                // FIXME notifications
-                return false;
+            foreach ($menus as $menu => $info) {
+                // Fill in the actions for each menu
+                $menus[$menu]['actions'] = $shout->dialplan->getMenuActions($account, $menu);
             }
-
-            $data['meta'] = $menus[$menu];
-            $data['actions'] = $shout->dialplan->getMenuActions($account, $menu);
-            return $data;
+            return $menus;
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.
             die(var_dump($e));
@@ -142,7 +135,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
             $vars = $this->_vars;
             $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
             $account = $_SESSION['shout']['curaccount'];
-            $actions = Shout::getMenuActions($contex, $menu);
+            $actions = Shout::getMenuActions();
             return $actions;
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.

@@ -1,6 +1,32 @@
 <div id="dialplan">
-    <table id="menuInfo" class="striped">
-    </table>
+    <div id="menuInfo">
+        <table class="striped">
+            <tr>
+                <td class="metaStatName">Menu</td>
+                <td class="metaStatInfo"><select id="menu.select" onchange="refreshMenu()"></select></td>
+            </tr>
+            <tr>
+                <td class="metaStatName">Description</td>
+                <td class="metaStatInfo" id="menu.description"></td>
+            </tr>
+            <tr>
+                <td class="metaStatName">Sound File</td>
+                <td class="metaStatInfo"><span id="menu.soundfile"></span></td>
+            </tr>
+        </table>
+        <br style="clear:both;">
+        <ul id="controls">
+        <?php
+        $addurl = Horde::applicationUrl('dialplan.php');
+        $addurl = Horde_Util::addParameter($addurl, 'action', 'add');
+
+        ?>
+        <li class="button"><a href="<?php echo $addurl; ?>">
+            <?php echo Horde::img('add-menu.png'); ?>&nbsp;New Menu
+            </a>
+        </li>
+        </ul>
+    </div>
 
     <div id="digitpad">
       <div id="editActionOverlay">
@@ -31,7 +57,7 @@
 <script type="text/javascript">
 <!--
 var ajax_url = '<?php echo Horde::getServiceLink('ajax', 'shout') ?>';
-var menu = '<?php echo $menu['name']; ?>';
+var curmenu = null;
 var menuInfo = $H();
 var menuActions = $H(<?php echo Horde_Serialize::serialize(Shout::getMenuActions(), Horde_Serialize::JSON, Horde_Nls::getCharset()); ?>);
 var destinations = $H(<?php echo Horde_Serialize::serialize($destinations, Horde_Serialize::JSON, Horde_Nls::getCharset()); ?>);
@@ -124,7 +150,7 @@ function saveAction(digit)
             {
                 method: 'post',
                 parameters: $H({
-                    'menu': menu
+                    'menu': curmenu
                 }),
                 onSuccess: function(r) {
                     menuInfo = $H(r.responseJSON.response);
@@ -205,45 +231,19 @@ function playSoundFile()
 
 function refreshMenu()
 {
-    var row;
-    var col;
-    var img;
-    var text;
-    empty('menuInfo');
+    curmenu = $('menu.select').value;
+    if (!curmenu || !menuInfo.get(curmenu)) {
+        // TODO Show an error of some kind
+        return false;
+    }
 
-    var meta = menuInfo.get('meta');
+    var text = document.createTextNode(menuInfo.get(curmenu).description);
+    empty('menu.description');
+    $('menu.description').appendChild(text);
 
-    // Draw the menu metainfo box
-    row = getMetaRow('<?php echo _("Menu Name"); ?>', meta.name);
-    $('menuInfo').appendChild(row);
-    row = getMetaRow('<?php echo _("Description"); ?>', meta.description);
-    $('menuInfo').appendChild(row);
-
-    // Handle the soundfile row specially
-    row = document.createElement('tr');
-    col = document.createElement('td');
-    col.className = 'menuStatName';
-    text = document.createTextNode('<?php echo _("Sound file"); ?>');
-    col.appendChild(text);
-    row.appendChild(col);
-    col = document.createElement('td');
-    col.id = 'editSound';
-    col.className='menuStatValue';
-    text = document.createTextNode(meta.soundfile);
-    col.appendChild(text);
-    img = document.createElement('img');
-    img.src = '<?php echo Horde_Themes::img('edit.png') ?>';
-    img.alt = '<?php echo _("Change Sound File"); ?>';
-    img.setAttribute('onclick', 'changeSoundFile()');
-    col.appendChild(img);
-    img = document.createElement('img');
-    img.src = '<?php echo Horde_Themes::img('recordings.png') ?>';
-    img.alt = '<?php echo _("Play Sound File"); ?>';
-    img.setAttribute('onclick', 'playSoundFile()');
-    img.setAttribute("style", img.getAttribute("style") + "; float:right; ");
-    col.appendChild(img);
-    row.appendChild(col);
-    $('menuInfo').appendChild(row);
+    var text = document.createTextNode(menuInfo.get(curmenu).soundfile);
+    empty('menu.soundfile');
+    $('menu.soundfile').appendChild(text);
 
     // Fill in the actions
     $H(menuInfo.get('actions')).each(function (pair) {
@@ -336,14 +336,18 @@ function empty(p)
 }
 
 $('editActionOverlay').hide();
-new Ajax.Request(ajax_url + 'getMenuInfo',
+new Ajax.Request(ajax_url + 'getMenus',
 {
-    method: 'post',
-    parameters: $H({
-        'menu': menu
-    }),
+    method: 'get',
     onSuccess: function(r) {
         menuInfo = $H(r.responseJSON.response);
+        menuInfo.each(function (item) {
+            var option = document.createElement('option');
+            option.value = item.key;
+            var text = document.createTextNode(item.value.name);
+            option.appendChild(text);
+            $('menu.select').appendChild(option);
+        })
         refreshMenu();
     }
 });
