@@ -10,6 +10,9 @@ v2.0-git
 v1.1.1-cvs
 ----------
 
+[mjr] Fix default value for image_faces value in the database schema (Bug #8925)
+[mjr] Fix sending ecards when SMTP auth is set, but no global username/password
+      exists in the configuration (Bug #8924 horde (at) albasoft (dot) com).
 [mjr] Fix escaping location query for Postgres (Bug #8919).
 [mjr] Properly url encode and escape html when processing tags.
 [mjr] Protect against divide-by-zero errors (Bug #8761).
