@@ -639,7 +639,7 @@ var DimpCompose = {
                 });
             });
 
-            this.rte.resize('100%', mah - pad, false);
+            this.rte.resize('99%', mah - pad - 1, false);
         } else {
             /* Logic: Determine the size of a given textarea row, divide that
              * size by the available height, round down to the lowest integer
