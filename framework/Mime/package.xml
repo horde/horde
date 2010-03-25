@@ -31,7 +31,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>
+ <notes>* Add Mail driver extensions (raw header output).
  * No need to generate Content-Transfer-Encoding header if part data is 7bit.
  * Default disposition should be empty by default, not inline (RFC 2183 [2]).
  * Request #8556: Allow specifying a header charset for a part.
@@ -49,6 +49,12 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Mime">
+      <dir name="Mail">
+       <file name="mail.php" role="php" />
+       <file name="sendmail.php" role="php" />
+       <file name="smtp.php" role="php" />
+       <file name="smtpmx.php" role="php" />
+      </dir> <!-- /lib/Horde/Mime/Mail -->
       <dir name="Viewer">
        <dir name="Ooo">
         <file name="common.xsl" role="php" />
@@ -216,6 +222,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
+   <install name="lib/Horde/Mime/Mail/mail.php" as="Horde/Mime/Mail/mail.php" />
+   <install name="lib/Horde/Mime/Mail/sendmail.php" as="Horde/Mime/Mail/sendmail.php" />
+   <install name="lib/Horde/Mime/Mail/smtp.php" as="Horde/Mime/Mail/smtp.php" />
+   <install name="lib/Horde/Mime/Mail/smtpmx.php" as="Horde/Mime/Mail/smtpmx.php" />
    <install name="lib/Horde/Mime/Viewer/Ooo/common.xsl" as="Horde/Mime/Viewer/Ooo/common.xsl" />
    <install name="lib/Horde/Mime/Viewer/Ooo/global_document.xsl" as="Horde/Mime/Viewer/Ooo/global_document.xsl" />
    <install name="lib/Horde/Mime/Viewer/Ooo/main_html.xsl" as="Horde/Mime/Viewer/Ooo/main_html.xsl" />

@@ -13,12 +13,11 @@ class Horde_Core_Binder_Mail implements Horde_Injector_Binder
             $params['password'] = Horde_Auth::getCredential('password');
         }
 
-        $result = Mail::factory($driver, $params);
-        if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
+        try {
+            return Horde_Mime_Mail::getMailOb($driver, $params);
+        } catch (Horde_Mime_Exception $e) {
+            throw new Horde_Exception($e);
         }
-
-        return $result;
     }
 
     public function equals(Horde_Injector_Binder $binder)

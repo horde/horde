@@ -475,6 +475,50 @@ class Horde_Mime_Mail
     }
 
     /**
+     * Utility function to create a Mail object.
+     *
+     * @param string $driver  The mail driver.
+     * @param array $params   The mail parameters.
+     * @param array $options  Additional options:
+     * <pre>
+     * 'raw' - (array) If set, will use the value contained in 'headertext'
+     *         as the exact data to use for the message header. Additionally,
+     *         the 'from' key should contain the From address to use.
+     * </pre>
+     *
+     * @return Mail  A Mail object.
+     * @throws Horde_Mime_Exception
+     */
+    static public function getMailOb($driver, $params, $options = array())
+    {
+        if (!empty($options['raw'])) {
+            switch ($driver) {
+            case 'mail':
+            case 'sendmail':
+            case 'smtp':
+            case 'smtpmx':
+                /* Can't autoload - Mail doesn't support it. */
+                require_once dirname(__FILE__) . '/Mail/' . $driver . '.php';
+                $driver = 'horde_mime_' . $driver;
+                $params['from'] = empty($options['raw']['from'])
+                    ? ''
+                    : $options['raw']['from'];
+                $params['headertext'] = empty($options['raw']['headertext'])
+                    ? ''
+                    : $options['raw']['headertext'];
+                break;
+            }
+        }
+
+        $mailer = Mail::factory($driver, $params);
+        if ($mailer instanceof PEAR_Error) {
+            throw new Horde_Mime_Exception($mailer);
+        }
+
+        return $mailer;
+    }
+
+    /**
      * Utility function to send a message using a PEAR Mail driver. Handles
      * errors from this class.
      *
