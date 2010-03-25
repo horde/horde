@@ -447,16 +447,7 @@ class Horde_Prefs_Identity
         $body->setContents(Horde_String::wrap($message, 76, "\n"));
         $body->setCharset(Horde_Nls::getCharset());
 
-        $mail_driver = $conf['mailer']['type'];
-        $mail_params = $conf['mailer']['params'];
-        if (($mail_driver == 'smtp') &&
-            $mail_params['auth'] &&
-            empty($mail_params['username'])) {
-            $mail_params['username'] = Horde_Auth::getAuth();
-            $mail_params['password'] = Horde_Auth::getCredential('password');
-        }
-
-        $body->send($new_addr, $msg_headers, $mail_driver, $mail_params);
+        $body->send($new_addr, $msg_headers, $GLOBALS['injector']->getInstance('Mail'));
 
         return new Horde_Notification_Event(sprintf(_("A message has been sent to \"%s\" to verify that this is really your address. The new email address is activated as soon as you confirm this message."), $new_addr));
     }
