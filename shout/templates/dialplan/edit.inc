@@ -73,9 +73,9 @@
       <div class="digit" id="digit_8" onClick="editAction('8');"><span class="digitLabel">8</span></div>
       <div class="digit" id="digit_9" onClick="editAction('9');"><span class="digitLabel">9</span></div>
       <br style="clear:both;">
-      <div class="digit" id="digit_*" onClick="editAction('star');"><span class="digitLabel">*</span></div>
+      <div class="digit" id="digit_star" onClick="editAction('star');"><span class="digitLabel">*</span></div>
       <div class="digit" id="digit_0" onClick="editAction('0');"><span class="digitLabel">0</span></div>
-      <div class="digit" id="digit_#" onClick="editAction('octothorpe');"><span class="digitLabel">#</span></div>
+      <div class="digit" id="digit_octo" onClick="editAction('octo');"><span class="digitLabel">#</span></div>
     </div>
 </div>
 
@@ -116,7 +116,7 @@ function editAction(digit)
         $('selectAction').appendChild(p);
         var select = document.createElement('select');
         select.name = 'action';
-        select.setAttribute('onChange', 'editAction('+digit+')');
+        select.setAttribute('onChange', 'editAction("'+digit+'")');
         var option = document.createElement('option');
         option.value = '';
         var text = document.createTextNode('<?php echo _("-- Select Action --"); ?>');
@@ -125,15 +125,13 @@ function editAction(digit)
         menuActions.each(function (item) {
             option = document.createElement('option');
             option.value = item.key;
-            if (menuInfo.get(curmenu).actions[digit] != null) {
-                if (item.key == menuInfo.get(curmenu).actions[digit].action) {
-                    option.selected = "true";
-                }
-            }
             var text = document.createTextNode(item.value.description);
             option.appendChild(text);
             select.appendChild(option);
         });
+        if (menuInfo.get(curmenu).actions[digit] != null) {
+            select.value = menuInfo.get(curmenu).actions[digit].action
+        }
         var option = document.createElement('option');
         option.value = 'none';
         var text = document.createTextNode('<?php echo _("No action"); ?>');
@@ -170,8 +168,12 @@ function editAction(digit)
                 option.appendChild(text);
                 select.appendChild(option);
             })
+            if (menuInfo.get(curmenu).actions[digit] != null) {
+                select.value = menuInfo.get(curmenu).actions[digit].args.menuName;
+            }
             div.appendChild(select);
             break;
+
         case 'ringexten':
         case 'leave_message':
             var span = document.createElement('span');
@@ -192,9 +194,9 @@ function editAction(digit)
             if (menuInfo.get(curmenu).actions[digit] != null) {
                 select.value = menuInfo.get(curmenu).actions[digit].exten;
             }
-
             div.appendChild(select);
             break;
+
         case 'conference':
             var span = document.createElement('span');
             var text = document.createTextNode(menuActions.get(action).description);
@@ -203,13 +205,23 @@ function editAction(digit)
 
             var input = document.createElement('input');
             input.name = 'roomno';
-
+            if (menuInfo.get(curmenu).actions[digit] != null) {
+                input.value = menuInfo.get(curmenu).actions[digit].args.roomno;
+            }
+            div.appendChild(input);
             break;
+
         case 'dial':
             alert(action);
+            if (menuInfo.get(curmenu).actions[digit] != null) {
+                alert("FIXME: Preserve values");
+            }
             break;
+
+        case 'rewind':
         case 'none':
             break;
+
         default:
             alert(action);
             break;
@@ -291,11 +303,22 @@ function refreshMenu()
         return false;
     }
 
-    $A(['1','2','3','4','5','6','7','8','9','0','*','#']).each(function (digit){
+    $A(['1','2','3','4','5','6','7','8','9','0','star','octo']).each(function (digit){
         empty('digit_' + digit);
         var span = document.createElement('span');
         span.className = 'digitLabel';
-        var text = document.createTextNode(digit);
+        var text;
+        switch(digit) {
+        case 'star':
+            text = document.createTextNode('*');
+            break;
+        case 'octo':
+            text = document.createTextNode('#');
+            break;
+        default:
+            text = document.createTextNode(digit);
+            break;
+        }
         span.appendChild(text);
         $('digit_' + digit).appendChild(span);
     })
@@ -334,7 +357,7 @@ function refreshMenu()
         var text;
         var digit = pair.key;
         var action = pair.value.action;
-        var button = $('digit_'+digit);
+        var button = $('digit_' + digit);
         var p = document.createElement('p');
         p.className = 'buttonActionLabel';
         text = document.createTextNode(menuActions.get(action).description);
@@ -363,10 +386,14 @@ function refreshMenu()
             }
             break;
         case 'dial':
-            if (pair.value.args.length > 1) {
-                text = document.createTextNode(pair.value.args.length + ' <?php echo _("numbers"); ?>');
-            } else {
+            if (pair.value.args.length == 1) {
                 text = document.createTextNode(pair.value.args.first().number);
+            } else if (pair.value.args.length > 1) {
+                text = document.createTextNode(pair.value.args.length + ' <?php echo _("numbers"); ?>');  
+            } else {
+                // Technically, this is an error.
+                // There should always be a number to dial.
+                text = document.createTextNode('');
             }
             break;
         default:
