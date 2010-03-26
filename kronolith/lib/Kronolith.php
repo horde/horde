@@ -454,13 +454,16 @@ class Kronolith
      *                                 Defaults to false
      * @param boolean $showRemote      Return events from remote and
      *                                 listTimeObjects as well?
+     * @param boolean $hideExceptions  Hide events that represent exceptions to
+     *                                 a recurring event?
      *
      * @return array  The events happening in this time period.
      * @throws Kronolith_Exception
      */
     public static function listEvents($startDate, $endDate, $calendars = null,
                                       $showRecurrence = true,
-                                      $alarmsOnly = false, $showRemote = true)
+                                      $alarmsOnly = false, $showRemote = true,
+                                      $hideExceptions = false)
     {
         $results = array();
 
@@ -471,7 +474,10 @@ class Kronolith
         $driver = self::getDriver();
         foreach ($calendars as $calendar) {
             $driver->open($calendar);
-            $events = $driver->listEvents($startDate, $endDate, $showRecurrence);
+            $events = $driver->listEvents($startDate, $endDate, $showRecurrence,
+                                          $alarmsOnly, false, true,
+                                          $hideExceptions);
+            
             self::mergeEvents($results, $events);
         }
 

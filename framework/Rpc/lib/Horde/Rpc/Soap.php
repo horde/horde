@@ -46,11 +46,11 @@ class Horde_Rpc_Soap extends Horde_Rpc
      *
      * @access private
      */
-    public function __construct($params = array())
+    public function __construct($request, $params = array())
     {
         Horde_Nls::setCharset('UTF-8');
 
-        parent::__construct($params);
+        parent::__construct($request, $params);
 
         if (!empty($params['allowedTypes'])) {
             $this->_allowedTypes = $params['allowedTypes'];

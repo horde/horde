@@ -31,9 +31,9 @@ class Horde_Rpc_Jsonrpc extends Horde_Rpc
      * @param array $config  A hash containing any additional configuration or
      *                       connection parameters this class might need.
      */
-    function __construct($params = array())
+    function __construct($request, $params = array())
     {
-        parent::__construct($params);
+        parent::__construct($request, $params);
         Horde_Nls::setCharsetEnvironment('UTF-8');
     }
 

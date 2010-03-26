@@ -216,7 +216,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
      *
      * @access private
      */
-    public function __construct()
+    public function __construct($request, $params = array())
     {
         // PHP messages destroy XML output -> switch them off
         ini_set('display_errors', 0);
@@ -225,7 +225,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         // so that derived classes can simply modify these
         $this->_SERVER = $_SERVER;
 
-        parent::__construct();
+        parent::__construct($request, $params);
     }
 
     /**
@@ -2381,11 +2381,11 @@ class Horde_Rpc_Webdav extends Horde_Rpc
     {
         $args = func_get_args();
         if (count($args) == 3) {
-            return array("ns"   => $args[0], 
+            return array("ns"   => $args[0],
                          "name" => $args[1],
                          "val"  => $args[2]);
         } else {
-            return array("ns"   => "DAV:", 
+            return array("ns"   => "DAV:",
                          "name" => $args[0],
                          "val"  => $args[1]);
         }

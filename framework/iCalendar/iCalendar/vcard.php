@@ -125,7 +125,7 @@ class Horde_iCalendar_vcard extends Horde_iCalendar {
      *
      * @return string  The RFC822-formatted email address.
      */
-    function getBareEmail($address)
+    static function getBareEmail($address)
     {
         // Empty values are still empty.
         if (!$address) {

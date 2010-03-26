@@ -87,12 +87,14 @@ if ($exception = Horde_Util::getFormData('del_exception')) {
                                                  $exception->month,
                                                  $exception->mday);
                 $event->save();
+                $uid = $event->uid;
 
                 /* Create one-time event. */
                 $kronolith_driver->open($target);
                 $event = $kronolith_driver->getEvent();
                 $event->readForm();
                 $event->recurrence->setRecurType(Horde_Date_Recurrence::RECUR_NONE);
+                $event->baseid = $uid;
 
                 break;
 

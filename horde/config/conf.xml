@@ -1965,4 +1965,17 @@
    </configswitch>
   </configsection>
  </configtab>
+ <configtab name="activesync" desc="ActiveSync">
+  <configsection name="activesync">
+   <configswitch name="enabled" quote="false" desc="Enable ActiveSync server?">false
+    <case name="false" desc="Disabled" />
+    <case name="true" desc="Enabled">
+     <configsection name="state">
+      <configheader>State Storage Settings</configheader>
+      <configstring name="directory" desc="Directory to hold state files:">/tmp</configstring>
+     </configsection>
+    </case>
+   </configswitch>
+  </configsection>
+ </configtab>
 </configuration>

@@ -727,7 +727,8 @@ class Turba_Api extends Horde_Registry_Api
      *                               text/vcard - text/x-vcard The first two
      *                               produce a vcard3.0 (rfc2426), the second
      *                               produces a vcard in old 2.1 format
-     *                               defined by imc.org
+     *                               defined by imc.org Also supports a raw
+     *                               array
      * @param string|array $sources The source(s) from which the contact will
      *                               be exported.
      * @param array $fields          Hash of field names and SyncML_Property
@@ -780,6 +781,7 @@ class Turba_Api extends Horde_Registry_Api
                 throw new Horde_Exception("Internal Horde Error: multiple turba objects with same objectId.");
             }
 
+
             $version = '3.0';
             list($contentType,) = explode(';', $contentType);
             switch ($contentType) {
@@ -797,6 +799,16 @@ class Turba_Api extends Horde_Registry_Api
                     $export .= $vcard->exportvCalendar();
                 }
                 return $export;
+            
+            case 'array':
+                $attributes = array();
+                foreach ($result->objects as $object) {
+                    foreach ($cfgSources[$source]['map'] as $field => $map) {
+                        $attributes[$field] = $object->getValue($field);
+                    }
+                }
+
+                return $attributes;
             }
 
             throw new Horde_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));

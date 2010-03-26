@@ -476,6 +476,7 @@ class Horde_Date
         } else {
             $d->sec += $factor;
         }
+
         return $d;
     }
 

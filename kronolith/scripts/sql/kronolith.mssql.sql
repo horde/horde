@@ -23,6 +23,7 @@ CREATE TABLE kronolith_events (
     event_alarm_methods VARCHAR(MAX),
     event_modified INT NOT NULL,
     event_private INT DEFAULT 0 NOT NULL,
+    event_baseid VARCHAR(255) DEFAULT '',
 
     PRIMARY KEY (event_id)
 );

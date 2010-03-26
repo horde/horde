@@ -25,9 +25,9 @@ class Horde_Rpc_Xmlrpc extends Horde_Rpc
      *
      * @access private
      */
-    public function __construct()
+    public function __construct($request, $params = array())
     {
-        parent::__construct();
+        parent::__construct($request, $params);
 
         $this->_server = xmlrpc_server_create();
 

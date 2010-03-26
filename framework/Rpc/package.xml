@@ -49,6 +49,7 @@ various remote methods of accessing Horde functionality.
       <file name="Syncml.php" role="php" />
       <file name="Webdav.php" role="php" />
       <file name="Xmlrpc.php" role="php" />
+      <file name="ActiveSync.php" role="php" />
      </dir> <!-- /lib/Horde/Rpc -->
      <file name="Rpc.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -86,6 +87,7 @@ various remote methods of accessing Horde functionality.
    <install name="lib/Horde/Rpc/Syncml.php" as="Horde/Rpc/Syncml.php" />
    <install name="lib/Horde/Rpc/Webdav.php" as="Horde/Rpc/Webdav.php" />
    <install name="lib/Horde/Rpc/Xmlrpc.php" as="Horde/Rpc/Xmlrpc.php" />
+   <install name="lib/Horde/Rpc/ActiveSync.php" as="Horde/Rpc/ActiveSync.php" />
    <install name="lib/Horde/Rpc.php" as="Horde/Rpc.php" />
   </filelist>
  </phprelease>

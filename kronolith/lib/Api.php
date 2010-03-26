@@ -552,6 +552,8 @@ class Kronolith_Api extends Horde_Registry_Api
             throw new Horde_Exception_PermissionDenied();
         }
 
+        $kronolith_driver = Kronolith::getDriver(null, $calendar);
+
         switch ($contentType) {
         case 'text/calendar':
         case 'text/x-vcalendar':
@@ -569,7 +571,6 @@ class Kronolith_Api extends Horde_Registry_Api
                 throw new Kronolith_Exception(_("No iCalendar data was found."));
             }
 
-            $kronolith_driver = Kronolith::getDriver(null, $calendar);
             $ids = array();
             foreach ($components as $content) {
                 if ($content instanceof Horde_iCalendar_vevent) {
@@ -608,6 +609,12 @@ class Kronolith_Api extends Horde_Registry_Api
                 return $ids[0];
             }
             return $ids;
+
+            case 'activesync':
+                $event = $kronolith_driver->getEvent();
+                $event->fromASAppointment($content);
+                $event->save();
+                return $event->uid;
         }
 
         throw new Kronolith_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
@@ -679,6 +686,8 @@ class Kronolith_Api extends Horde_Registry_Api
 
             return $iCal->exportvCalendar();
 
+        case 'activesync':
+            return $event->toASAppointment();
         }
 
         throw new Kronolith_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
@@ -820,6 +829,11 @@ class Kronolith_Api extends Horde_Registry_Api
 
         if ($content instanceof Horde_iCalendar_vevent) {
             $component = $content;
+        } elseif ($content instanceof Horde_ActiveSync_Message_Appointment) {
+            $event->fromASAppointment($content);
+            $event->save();
+            $event->uid = $uid;
+            return;
         } else {
             switch ($contentType) {
             case 'text/calendar':
@@ -1000,12 +1014,16 @@ class Kronolith_Api extends Horde_Registry_Api
      * @param boolean $showRemote      Return events from remote calendars and
      *                                 listTimeObject API as well?
      *
+     * @param boolean $hideExceptions  Hide events that represent exceptions to
+     *                                 a recurring event (events with baseid
+     *                                 set)?
+     *
      * @return array  A list of event hashes.
      * @throws Kronolith_Exception
      */
     public function listEvents($startstamp = null, $endstamp = null,
         $calendars = null, $showRecurrence = true,
-        $alarmsOnly = false, $showRemote = true)
+        $alarmsOnly = false, $showRemote = true, $hideExceptions = false)
     {
         if (!isset($calendars)) {
             $calendars = array($GLOBALS['prefs']->getValue('default_share'));
@@ -1019,9 +1037,14 @@ class Kronolith_Api extends Horde_Registry_Api
             }
         }
 
-        return Kronolith::listEvents(new Horde_Date($startstamp),
+        return Kronolith::listEvents(
+            new Horde_Date($startstamp),
             new Horde_Date($endstamp),
-            $calendars, $showRecurrence, $alarmsOnly, $showRemote);
+            $calendars,
+            $showRecurrence,
+            $alarmsOnly,
+            $showRemote,
+            $hideExceptions);
     }
 
     /**

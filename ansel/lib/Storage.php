@@ -1163,7 +1163,6 @@ class Ansel_Storage
         $sql = 'SELECT DISTINCT image_location, image_latitude, image_longitude FROM ansel_images WHERE LENGTH(image_location) > 0';
         if (strlen($search)) {
             $sql .= ' AND image_location LIKE ' . $GLOBALS['ansel_db']->quote("$search%");
-
         }
         Horde::logMessage(sprintf("SQL QUERY BY Ansel_Storage::searchLocations: %s", $sql), 'DEBUG');
         $results = $this->_db->query($sql);

@@ -23,9 +23,9 @@ class Horde_Rpc_Phpgw extends Horde_Rpc
     /**
      * XMLRPC server constructor.
      */
-    function __construct()
+    function __construct($request, $params = array())
     {
-        parent::__construct();
+        parent::__construct($request, $params);
 
         $this->_server = xmlrpc_server_create();
 

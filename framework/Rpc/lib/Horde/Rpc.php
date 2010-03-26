@@ -50,23 +50,51 @@ class Horde_Rpc
     var $_requestMissingAuthorization = true;
 
     /**
+     * Request variables, cookies etc...
+     *
+     * @var Horde_Controller_Request_Http
+     */
+    protected $_request;
+
+    /**
+     * Logging
+     *
+     * @var Horde_Log_Logger
+     */
+    protected $_logger;
+
+    /**
      * RPC server constructor.
+     *
+     * @param Horde_Controller_Request_Http  The request object
      *
      * @param array $config  A hash containing any additional configuration or
      *                       connection parameters a subclass might need.
      *
      * @return Horde_Rpc  An RPC server instance.
      */
-    public function __construct($params = array())
+    public function __construct($request, $params = array())
     {
-        $this->_params = $params;
+        // Create a stub if we don't have a useable logger.
+        if (isset($params['logger'])
+            && is_callable(array($params['logger'], 'log'))) {
+            $this->_logger = $params['logger'];
+            unset($params['logger']);
+        } else {
+            $this->_logger = new Horde_Support_Stub;
+        }
 
+        $this->_params = $params;
+        $this->_request = $request;
+        
         if (isset($params['requireAuthorization'])) {
             $this->_requireAuthorization = $params['requireAuthorization'];
         }
         if (isset($params['requestMissingAuthorization'])) {
             $this->_requestMissingAuthorization = $params['requestMissingAuthorization'];
         }
+
+        $this->_logger->debug('Horde_Rpc::__construct complete');
     }
 
     /**
@@ -81,17 +109,19 @@ class Horde_Rpc
      */
     function authorize()
     {
+        $this->_logger->debug('Horde_Rpc::authorize() starting');
         if (!$this->_requireAuthorization) {
             return true;
         }
 
+        // @TODO: inject this
         $auth = Horde_Auth::singleton($GLOBALS['conf']['auth']['driver']);
 
-        if (isset($_SERVER['PHP_AUTH_USER'])) {
-            $user = $_SERVER['PHP_AUTH_USER'];
-            $pass = $_SERVER['PHP_AUTH_PW'];
-        } elseif (isset($_SERVER['Authorization'])) {
-            $hash = str_replace('Basic ', '', $_SERVER['Authorization']);
+        if ($this->_request->getServer('PHP_AUTH_USER')) {
+            $user = $this->_request->getServer('PHP_AUTH_USER');
+            $pass = $this->_request->getServer('PHP_AUTH_PW');
+        } elseif ($this->_request->getServer('Authorization')) {
+            $hash = str_replace('Basic ', '', $this->_request->getServer('Authorization'));
             $hash = base64_decode($hash);
             if (strpos($hash, ':') !== false) {
                 list($user, $pass) = explode(':', $hash, 2);
@@ -108,6 +138,7 @@ class Horde_Rpc
             exit;
         }
 
+        $this->_logger->debug('Horde_Rpc::authorize() exiting');
         return true;
     }
 
@@ -154,6 +185,22 @@ class Horde_Rpc
     }
 
     /**
+     * Send the output back to the client
+     *
+     * @param string $output  The output to send back to the client. Can be
+     *                        overridden in classes if needed.
+     *
+     * @return void
+     */
+    function sendOutput($output)
+    {
+        header('Content-Type: ' . $this->getResponseContentType());
+        header('Content-length: ' . strlen($output));
+        header('Accept-Charset: UTF-8');
+        echo $output;
+    }
+
+    /**
      * Builds an RPC request and sends it to the RPC server.
      *
      * This statically called method is actually the RPC client.
@@ -192,12 +239,12 @@ class Horde_Rpc
      * @return Horde_Rpc  The newly created concrete Horde_Rpc server instance,
      *                    or an exception if there is an error.
      */
-    public static function factory($driver, $params = null)
+    public static function factory($driver, $request, $params = null)
     {
         $driver = basename($driver);
         $class = 'Horde_Rpc_' . $driver;
         if (class_exists($class)) {
-            return new $class($params);
+            return new $class($request, $params);
         } else {
             throw new Horde_Rpc_Exception('Class definition of ' . $class . ' not found.');
         }

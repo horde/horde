@@ -137,6 +137,10 @@ class Kronolith_Event_Sql extends Kronolith_Event
         if (isset($SQLEvent['event_alarm_methods'])) {
             $this->methods = $driver->convertFromDriver(unserialize($SQLEvent['event_alarm_methods']));
         }
+        if (isset($SQLEvent['event_baseid'])) {
+            $this->baseid = $SQLEvent['event_baseid'];
+        }
+
         $this->initialized = true;
         $this->stored = true;
     }
@@ -209,6 +213,10 @@ class Kronolith_Event_Sql extends Kronolith_Event
                 break;
             }
             $this->_properties['event_exceptions'] = implode(',', $this->recurrence->getExceptions());
+        }
+
+        if (!empty($this->baseid)) {
+            $this->_properties['event_baseid'] = $this->baseid;
         }
     }
 

@@ -152,6 +152,12 @@
     <default>0</default>
    </field>
 
+   <field>
+    <name>event_baseid</name>
+    <type>text</type>
+    <length>255</length>
+   </field>
+
    <index>
     <name>kronolith_primary</name>
     <primary>true</primary>

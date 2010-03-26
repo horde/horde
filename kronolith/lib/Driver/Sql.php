@@ -146,6 +146,17 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                 }
             }
         }
+
+        if (!empty($query->baseid)) {
+            $binds = Horde_SQL::buildClause($this->_db, 'event_baseid', '=', $query->baseid, true);
+            if (is_array($binds)) {
+                $cond .= $binds[0] . ' AND ';
+                $values = array_merge($values, $binds[1]);
+            } else {
+                $cond .= $binds;
+            }
+        }
+
         if (isset($query->status)) {
             $binds = Horde_SQL::buildClause($this->_db, 'event_status', '=', $query->status, true);
             if (is_array($binds)) {
@@ -266,7 +277,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      */
     public function listEvents($startDate = null, $endDate = null,
                                $showRecurrence = false, $hasAlarm = false,
-                               $json = false, $coverDates = true)
+                               $json = false, $coverDates = true, $hideExceptions = false)
     {
         if (!is_null($startDate)) {
             $startDate = clone $startDate;
@@ -278,9 +289,16 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             $endDate->min = $endDate->sec = 59;
         }
 
-        $events = $this->_listEventsConditional($startDate, $endDate,
-                                                $hasAlarm ? 'event_alarm > ?' : '',
-                                                $hasAlarm ? array(0) : array());
+        $conditions =  $hasAlarm ? 'event_alarm > ?' : '';
+        $values = $hasAlarm ? array(0) : array();
+        if ($hideExceptions) {
+            if (!empty($conditions)) {
+                $conditions .= ' AND ';
+            }
+            $conditions .= "event_baseid = ''";
+        }
+
+        $events = $this->_listEventsConditional($startDate, $endDate, $conditions, $values);
         $results = array();
         foreach ($events as $id) {
             Kronolith::addEvents($results, $this->getEvent($id), $startDate,
@@ -312,7 +330,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             ' event_recurtype, event_recurenddate, event_recurinterval,' .
             ' event_recurdays, event_start, event_end, event_allday,' .
             ' event_alarm, event_alarm_methods, event_modified,' .
-            ' event_exceptions, event_creator_id, event_resources' .
+            ' event_exceptions, event_creator_id, event_resources, event_baseid' .
             ' FROM ' . $this->_params['table'] .
             ' WHERE calendar_id = ?';
         $values = array($this->calendar);
@@ -426,8 +444,9 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             ' event_recurtype, event_recurenddate, event_recurinterval,' .
             ' event_recurdays, event_start, event_end, event_allday,' .
             ' event_alarm, event_alarm_methods, event_modified,' .
-            ' event_exceptions, event_creator_id, event_resources' .
-            ' FROM ' . $this->_params['table'] . ' WHERE event_id = ? AND calendar_id = ?';
+            ' event_exceptions, event_creator_id, event_resources,' .
+            ' event_baseid FROM ' . $this->_params['table'] .
+            ' WHERE event_id = ? AND calendar_id = ?';
         $values = array($eventId, $this->calendar);
 
         /* Log the query at a DEBUG log level. */

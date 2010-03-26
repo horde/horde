@@ -269,6 +269,14 @@ abstract class Kronolith_Event
     protected $_rowspan;
 
     /**
+     * The baseid. For events that represent exceptions this is the UID of the
+     * original, recurring event.
+     *
+     * @var string
+     */
+    public $baseid;
+
+    /**
      * Constructor.
      *
      * @param Kronolith_Driver $driver  The backend driver that this event is
@@ -963,6 +971,176 @@ abstract class Kronolith_Event
         }
 
         $this->initialized = true;
+    }
+
+    /**
+     * Imports the values for this event from a MS ActiveSync Message.
+     *
+     * @see Horde_ActiveSync_Message_Appointment
+     */
+    public function fromASAppointment(Horde_ActiveSync_Message_Appointment $message)
+    {
+        /* New event? */
+        if ($this->id === null) {
+            $this->creator = Horde_Auth::getAuth();
+        }
+        if ($title = Horde_String::convertCharset($message->getSubject(), 'utf-8', Horde_Nls::getCharset())) {
+            $this->title = $title;
+        }
+        if ($description = Horde_String::convertCharset($message->getBody(), 'utf-8', Horde_Nls::getCharset())) {
+            $this->description = $description;
+        }
+        if ($location = Horde_String::convertCharset($message->getLocation(), 'utf-8', Horde_Nls::getCharset())) {
+            $this->location = $location;
+        }
+
+        /* Date/times */
+        $dates = $message->getDatetime();
+        $this->start = $dates['start'];
+        $this->end = $dates['end'];
+        $this->allday = $dates['allday'];
+
+        /* Sensitivity */
+        $this->private = ($message->getSensitivity() == 'private' || $message->getSensitivity() == 'confidential') ? true :  false;
+
+        /* Response Status */
+        $status = $message->getResponseType();
+        switch ($status) {
+        case 'declined':
+            $status = 'CANCELLED';
+            break;
+        case 'accepted':
+            $status = 'CONFIRMED';
+            break;
+        case 'tenative':
+            $status = 'TENATIVE';
+        default:
+            $status = 'FREE';
+        }
+        $this->status = constant('Kronolith::STATUS_' . $status);
+
+        /* Alarm */
+        if ($alarm = $message->getReminder()) {
+            $this->alarm = $alarm;
+        }
+
+        /* Attendees */
+
+        /* Recurrence */
+        if ($rrule = $message->getRecurrence()) {
+            $this->recurrence = $rrule;
+
+            /* Exceptions */
+            /* Since AS keeps exceptions as part of the original event, we need to
+             * delete all existing exceptions and re-create them. The only drawback
+             * to this is that the UIDs will change.
+             */
+            if (!empty($this->uid)) {
+                $kronolith_driver = Kronolith::getDriver(null, $this->calendar);
+                $search = new StdClass();
+                $search->start = $rrule->getRecurStart();
+                $search->end = $rrule->getRecurEnd();
+                $search->baseid = $this->uid;
+                $results = $kronolith_driver->search($search);
+                foreach ($results as $days) {
+                    foreach ($days as $exception) {
+                        $kronolith_driver->deleteEvent($exception->id);
+                    }
+                }
+            }
+
+            $erules = $message->getExceptions();
+            foreach ($erules as $rule){
+                $d = new Horde_Date($rule->getExceptionStartTime());
+                $this->recurrence->addException($d->format('Y'), $d->format('m'), $d->format('d'));
+
+                /* Readd the exception event */
+                $event = $kronolith_driver->getEvent();
+                $times = $rule->getDatetime();
+                $event->start = $times['start'];
+                $event->end = $times['end'];
+                $event->allday = $times['allday'];
+                $event->title = Horde_String::convertCharset($rule->getSubject(), 'utf-8', Horde_Nls::getCharset());
+                $event->description = Horde_String::convertCharset($rule->getBody(), 'utf-8', Horde_Nls::getCharset());
+                $event->baseid = $this->uid;
+                $event->initialized = true;
+                $event->save();
+            }
+        }
+
+        /* Flag that we are initialized */
+        $this->initialized = true;
+    }
+
+    /**
+     * Export this event as a MS ActiveSync Message
+     *
+     * @return Horde_ActiveSync_Message_Appointment
+     */
+    public function toASAppointment()
+    {
+        $message = new Horde_ActiveSync_Message_Appointment(array('logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger')));
+        $message->setSubject(Horde_String::convertCharset($this->getTitle(), Horde_Nls::getCharset(), 'utf-8'));
+        $message->setBody(Horde_String::convertCharset($this->description, Horde_Nls::getCharset(), 'utf-8'));
+        $message->setLocation(Horde_String::convertCharset($this->location, Horde_Nls::getCharset(), 'utf-8'));
+
+        /* Start and End */
+        $message->setDatetime(array('start' => $this->start,
+                                    'end' => $this->end,
+                                    'allday' => $this->isAllDay()));
+
+        /* Timezone */
+        $message->setTimezone($this->start);
+
+        /* Organizer */
+        $name = Kronolith::getUserName($this->creator);
+        $name = Horde_String::convertCharset($name, Horde_Nls::getCharset(), 'utf-8');
+        $message->setOrganizer(
+                array('name' => $name,
+                      'email' => Kronolith::getUserEmail($this->creator))
+        );
+
+        /* Privacy */
+        $message->setSensitivity($this->private ? 'private' : 'normal');
+
+        /* Response Status */
+        switch ($this->status) {
+        case Kronolith::STATUS_CANCELLED:
+            $status = 'declined';
+            break;
+        case Kronolith::STATUS_CONFIRMED:
+            $status = 'accepted';
+            break;
+        case Kronolith::STATUS_TENTATIVE:
+            $status = 'tenative';
+        case Kronolith::STATUS_FREE:
+        case Kronolith::STATUS_NONE:
+            $status = 'none';
+        }
+        $message->setResponseType($status);
+
+        /* DTStamp */
+        $message->setDTStamp($_SERVER['REQUEST_TIME']);
+
+        /* Recurrence */
+        if ($this->recurs()) {
+            $message->setRecurrence($this->recurrence);
+
+            /* Exceptions */
+            if (!empty($this->recurrence) && $exceptions = $this->recurrence->getExceptions()) {
+                foreach ($exceptions as $start) {
+                    $e = new Horde_ActiveSync_Message_Exception();
+                    $e->setDateTime(array('start' => new Horde_Date($start)));
+                    $message->addException($e);
+                }
+            }
+        }
+
+        /* Attendees */
+
+        $message->setReminder($this->alarm);
+
+        return $message;
     }
 
     /**
