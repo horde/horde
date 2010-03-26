@@ -1030,9 +1030,8 @@ var DimpBase = {
 
     setSortColumns: function(sortby)
     {
-        var tmp,
+        var hdr, tmp,
             ptr = DIMP.conf.sort,
-            togglesort = [],
             m = $('msglistHeader');
 
         if (Object.isUndefined(sortby)) {
@@ -1050,6 +1049,7 @@ var DimpBase = {
 
             m.down('.msgFrom').update(ptr.get('from').e).insert(ptr.get('to').e);
             m.down('.msgSize').update(ptr.get('size').e);
+            m.down('.msgDate').update(ptr.get('date').e);
         }
 
         /* Toggle between From/To header. */
@@ -1064,27 +1064,17 @@ var DimpBase = {
         tmp = m.down('.msgSubject');
         if (this.isSearch() ||
             this.viewport.getMetaData('nothread')) {
-            togglesort.push({ l: 'subject', t: tmp });
+            hdr = { l: 'subject', t: tmp };
         } else if (sortby == ptr.get('thread').v) {
-            togglesort.push({ l: 'thread', s: 'subject', t: tmp });
+            hdr = { l: 'thread', s: 'subject', t: tmp };
         } else {
-            togglesort.push({ l: 'subject', s: 'thread', t: tmp });
+            hdr = { l: 'subject', s: 'thread', t: tmp };
         }
 
-        /* Toggle between Date/Arrival header. */
-        tmp = m.down('.msgDate');
-        if (sortby == ptr.get('arrival').v) {
-            togglesort.push({ l: 'arrival', s: 'date', t: tmp });
-        } else {
-            togglesort.push({ l: 'date', s: 'arrival', t: tmp });
+        hdr.t.update().update(ptr.get(hdr.l).e.removeClassName('smallSort').update(ptr.get(hdr.l).t));
+        if (hdr.s) {
+            hdr.t.insert(ptr.get(hdr.s).e.addClassName('smallSort').update('[' + ptr.get(hdr.s).t + ']'));
         }
-
-        togglesort.each(function(hdr) {
-            hdr.t.update().update(ptr.get(hdr.l).e.removeClassName('smallSort').update(ptr.get(hdr.l).t));
-            if (hdr.s) {
-                hdr.t.insert(ptr.get(hdr.s).e.addClassName('smallSort').update('[' + ptr.get(hdr.s).t + ']'));
-            }
-        });
 
         ptr.find(function(s) {
             return (sortby == s.value.v)

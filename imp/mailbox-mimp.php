@@ -215,7 +215,6 @@ if (!$readonly &&
 
 /* Create header links. */
 $hdr_list = array(
-    'hdr_arrival' => array('#', Horde_Imap_Client::SORT_ARRIVAL),
     'hdr_from' => array(_("From"), Horde_Imap_Client::SORT_FROM),
     'hdr_subject' => array(_("Subject"), Horde_Imap_Client::SORT_SUBJECT),
     'hdr_thread' => array(_("Thread"), Horde_Imap_Client::SORT_THREAD)

@@ -38,6 +38,9 @@ class IMP
     const PREF_NO_FOLDER = 'nofolder\0';
     const PREF_VTRASH = 'vtrash\0';
 
+    /* Sorting constants. */
+    const IMAP_SORT_DATE = 100;
+
     /* Storage place for an altered version of the current URL. */
     static public $newUrl = null;
 
@@ -863,16 +866,17 @@ class IMP
     /**
      * Return the sorting preference for the current mailbox.
      *
-     * @param string $mbox  The mailbox to use (defaults to current mailbox
-     *                      in the session).
+     * @param string $mbox      The mailbox to use (defaults to current
+     *                          mailbox in the session).
+     * @param boolean $convert  Convert 'by' to a Horde_Imap_Client constant?
      *
      * @return array  An array with the following keys:
      * <pre>
-     * 'by'  - (integer) Sort type (Horde_Imap_Client constant)
-     * 'dir' - (integer) Sort direction
+     * 'by'  - (integer) Sort type.
+     * 'dir' - (integer) Sort direction.
      * </pre>
      */
-    static public function getSort($mbox = null)
+    static public function getSort($mbox = null, $convert = false)
     {
         if (is_null($mbox)) {
             $mbox = $GLOBALS['imp_mbox']['mailbox'];
@@ -893,18 +897,18 @@ class IMP
             'dir' => isset($entry['d']) ? $entry['d'] : $GLOBALS['prefs']->getValue('sortdir'),
         );
 
-        /* Restrict POP3 sorting to arrival only.  Although possible to
+        /* Restrict POP3 sorting to sequence only.  Although possible to
          * abstract other sorting methods, all other methods require a
          * download of all messages, which is too much overhead.*/
         if ($_SESSION['imp']['protocol'] == 'pop') {
-            $ob['by'] = Horde_Imap_Client::SORT_ARRIVAL;
+            $ob['by'] = Horde_Imap_Client::SORT_SEQUENCE;
             return $ob;
         }
 
         /* Can't do threaded searches in search mailboxes. */
         if (!self::threadSortAvailable($mbox) &&
             ($ob['by'] == Horde_Imap_Client::SORT_THREAD)) {
-            $ob['by'] = Horde_Imap_Client::SORT_DATE;
+            $ob['by'] = IMP::IMAP_SORT_DATE;
         }
 
         if (self::isSpecialFolder($mbox)) {
@@ -915,6 +919,10 @@ class IMP
             }
         } elseif ($ob['by'] == Horde_Imap_Client::SORT_TO) {
             $ob['by'] = Horde_Imap_Client::SORT_FROM;
+        }
+
+        if ($convert && ($ob['by'] == IMP::IMAP_SORT_DATE)) {
+            $ob['by'] = $GLOBALS['prefs']->getValue('sortdate');
         }
 
         return $ob;

@@ -22,7 +22,7 @@ class IMP_Block_Newmail extends Horde_Block
 
         $query = new Horde_Imap_Client_Search_Query();
         $query->flag('\\seen', false);
-        $ids = $GLOBALS['imp_search']->runSearchQuery($query, 'INBOX', Horde_Imap_Client::SORT_ARRIVAL, 1);
+        $ids = $GLOBALS['imp_search']->runSearchQuery($query, 'INBOX', Horde_Imap_Client::SORT_SEQUENCE, 1);
 
         $html = '<table cellspacing="0" width="100%">';
         if (empty($ids)) {

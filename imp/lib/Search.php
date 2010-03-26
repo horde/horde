@@ -267,9 +267,9 @@ class IMP_Search
         }
 
         /* How do we want to sort results? */
-        $sortpref = IMP::getSort();
+        $sortpref = IMP::getSort(null, true);
         if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
-            $sortpref['by'] = Horde_Imap_Client::SORT_DATE;
+            $sortpref['by'] = $GLOBALS['prefs']->getValue('sortdate');
         }
 
         foreach ($search['f'] as $val) {

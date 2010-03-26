@@ -333,7 +333,8 @@ class IMP_Mailbox
                 $GLOBALS['notification']->push(_("Mailbox listing failed") . ': ' . $e->getMessage(), 'horde.error');
             }
         } else {
-            $sortpref = IMP::getSort($this->_mailbox);
+            $sortpref = IMP::getSort($this->_mailbox, true);
+            $sortpref['by'] = 1;
 
             if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
                 $this->_threadob = null;
@@ -608,9 +609,9 @@ class IMP_Mailbox
         case IMP::MAILBOX_START_FIRSTUNSEEN:
             $sortpref = IMP::getSort($this->_mailbox);
 
-            /* Optimization: if sorting by arrival then first unseen
+            /* Optimization: if sorting by sequence then first unseen
              * information is returned via a SELECT/EXAMINE call. */
-            if ($sortpref['by'] == Horde_Imap_Client::SORT_ARRIVAL) {
+            if ($sortpref['by'] == Horde_Imap_Client::SORT_SEQUENCE) {
                 try {
                     $res = $GLOBALS['imp_imap']->ob()->status($this->_mailbox, Horde_Imap_Client::STATUS_FIRSTUNSEEN);
                     if (!is_null($res['firstunseen'])) {
@@ -821,7 +822,7 @@ class IMP_Mailbox
     public function getCacheID()
     {
         if (!$this->_searchmbox) {
-            $sortpref = IMP::getSort($this->_mailbox);
+            $sortpref = IMP::getSort($this->_mailbox, true);
             try {
                 return $GLOBALS['imp_imap']->ob()->getCacheId($this->_mailbox, array($sortpref['by'], $sortpref['dir']));
             } catch (Horde_Imap_Client_Exception $e) {}

@@ -92,11 +92,7 @@ $code['conf'] = array_filter(array(
         ),
         'date' => array(
             't' => _("Date"),
-            'v' => Horde_Imap_Client::SORT_DATE
-        ),
-        'arrival' => array(
-            't' => _("Arrival"),
-            'v' => Horde_Imap_Client::SORT_ARRIVAL
+            'v' => IMP::IMAP_SORT_DATE
         ),
         'size' => array(
             't' => _("Size"),

@@ -24,32 +24,16 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
      */
     public function execute()
     {
+        $this->_upgradeForwardPrefs();
         $this->_upgradeSortPrefs();
         $this->_upgradeVirtualFolders();
     }
 
     /**
-     * Check for old, non-existent sort values. See Bug #7296.
+     * Upgrade to the new forward preferences.
      */
-    protected function _upgradeSortPrefs()
+    protected function upgradeForwardPrefs()
     {
-        $sortby = $GLOBALS['prefs']->getValue('sortby');
-        if ($sortby > 10) {
-            $GLOBALS['prefs']->setValue('sortby', Horde_Imap_Client::SORT_ARRIVAL);
-        }
-
-        $update = false;
-        $sortpref = @unserialize($GLOBALS['prefs']->getValue('sortpref'));
-        foreach ($sortpref as $key => $val) {
-            if ($val['b'] > 10) {
-                $sortpref[$key]['b'] = Horde_Imap_Client::SORT_ARRIVAL;
-                $update = true;
-            }
-        }
-        if ($update) {
-            $GLOBALS['prefs']->setValue('sortpref', serialize($sortpref));
-        }
-
         switch ($GLOBALS['prefs']->getValue('forward_default')) {
         case 'forward_attachments':
             $GLOBALS['prefs']->setValue('forward_default', 'both');
@@ -74,6 +58,55 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
             $GLOBALS['prefs']->setDefault('forward_default', true);
             break;
         }
+    }
+
+    /**
+     * Check for old, non-existent sort values. See Bug #7296.
+     */
+    protected function _upgradeSortPrefs()
+    {
+        $update = false;
+        $sortpref = @unserialize($GLOBALS['prefs']->getValue('sortpref'));
+        foreach ($sortpref as $key => $val) {
+            $sb = $this->_newSortbyValue($val['b']);
+            if (!is_null($sb)) {
+                $sortpref[$key]['b'] = $sb;
+                $update = true;
+            }
+        }
+
+        if ($update) {
+            $GLOBALS['prefs']->setValue('sortpref', serialize($sortpref));
+        }
+
+        $sb = $this->_newSortbyValue($GLOBALS['prefs']->getValue('sortby'));
+        if (!is_null($sb)) {
+            $GLOBALS['prefs']->setValue('sortby', $sb);
+        }
+    }
+
+    /**
+     * Get the new sortby pref value.
+     *
+     * @param integer $sortby  The old value.
+     *
+     * @return integer  Null if no change or else the converted sort value.
+     */
+    protected function _newSortbyValue($sortby)
+    {
+        switch ($sortby) {
+        case 1: // SORTARRIVAL
+            /* Sortarrival was the same thing as sequence sort in IMP 4. */
+            return Horde_Imap_Client::SORT_SEQUENCE;
+
+        case 2: // SORTDATE
+            return IMP::IMAP_SORT_DATE;
+
+        case 161: // SORTTHREAD
+            return Horde_Imap_Client::SORT_THREAD;
+        }
+
+        return null;
     }
 
     /**

@@ -568,12 +568,7 @@ if ($pageOb['msgcount']) {
     $sortImg = ($sortpref['dir']) ? 'za.png' : 'az.png';
     $sortText = ($sortpref['dir']) ? '\/' : '/\\';
     $headers = array(
-        Horde_Imap_Client::SORT_ARRIVAL => array(
-            'stext' => _("Sort by Arrival"),
-            'text' => _("Arrival"),
-            'width' => '14%'
-        ),
-        Horde_Imap_Client::SORT_DATE => array(
+        IMP::IMAP_SORT_DATE => array(
             'stext' => _("Sort by Date"),
             'text' => _("Dat_e"),
             'width' => '14%'
@@ -612,17 +607,6 @@ if ($pageOb['msgcount']) {
     } else {
         unset($headers[Horde_Imap_Client::SORT_TO]);
     }
-
-    /* Determine which of Date/Arrival to emphasize. */
-    if ($sortpref['by'] == Horde_Imap_Client::SORT_ARRIVAL) {
-        $extra = Horde_Imap_Client::SORT_DATE;
-        $standard = Horde_Imap_Client::SORT_ARRIVAL;
-    } else {
-        $extra = Horde_Imap_Client::SORT_ARRIVAL;
-        $standard = Horde_Imap_Client::SORT_DATE;
-    }
-    $headers[$standard]['extra'] = '<span class="toggleSort">[' . Horde::widget($mailbox_imp_url->copy()->add(array('sortby' => $extra, 'actionID' => 'change_sort', 'mailbox_token' => $mailbox_token)), $headers[$extra]['stext'], 'widget', null, null, $headers[$extra]['text']) . ']</span>';
-    unset($headers[$extra]);
 
     /* Determine which of Subject/Thread to emphasize. */
     if (!IMP::threadSortAvailable($imp_mbox['mailbox'])) {
