@@ -30,7 +30,8 @@ Horde_Registry::appInit('horde', array('authentication' => 'none', 'nocompress' 
 $request = new Horde_Controller_Request_Http();
 
 /* TODO: This is for debugging, replace with logger from injector before merge */
-$params['logger'] = new Horde_Log_Logger(new Horde_Log_Handler_Stream(fopen('/tmp/activesync.txt', 'a')));
+//$params['logger'] = new Horde_Log_Logger(new Horde_Log_Handler_Stream(fopen('/tmp/activesync.txt', 'a')));
+$params['logger'] = $GLOBALS['injector']->getInstance('Horde_Log_Logger');
 
 /* Look at the Content-type of the request, if it is available, to try
  * and determine what kind of request this is. */
