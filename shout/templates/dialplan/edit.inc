@@ -306,6 +306,15 @@ function refreshMenu()
         return false;
     }
 
+    $A(['1','2','3','4','5','6','7','8','9','0','*','#']).each(function (digit){
+        empty('digit_' + digit);
+        var span = document.createElement('span');
+        span.className = 'digitLabel';
+        var text = document.createTextNode(digit);
+        span.appendChild(text);
+        $('digit_' + digit).appendChild(span);
+    })
+
     var text = document.createTextNode(menuInfo.get(curmenu).description);
     empty('menu.description');
     $('menu.description').appendChild(text);
