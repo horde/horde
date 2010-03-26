@@ -151,6 +151,7 @@ function editAction(digit)
     }
 
     if ($('editActionForm').down('select').getValue() != '') {
+        empty('editAction');
         var action = $('editActionForm').down('select').getValue();
         var div = document.createElement('div');
         switch(action) {
