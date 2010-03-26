@@ -326,6 +326,8 @@ function refreshMenu()
     // Fill in the actions
     if (menuInfo.get(curmenu).actions.length == 0) {
         // No actions configured yet.
+        $('menuWorking').hide();
+        $('dialpadWorking').hide();
         return true;
     }
 

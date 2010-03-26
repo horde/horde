@@ -205,7 +205,7 @@ ul {
     height: 100%;
     margin: 0;
     padding: 0;
-    filter:alpha(opacity=50);
+    filter:alpha('opacity=50');
     -moz-opacity:0.5;
     -khtml-opacity: 0.5;
     opacity: 0.5;
