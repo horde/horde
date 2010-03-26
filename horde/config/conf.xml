@@ -1967,12 +1967,19 @@
  </configtab>
  <configtab name="activesync" desc="ActiveSync">
   <configsection name="activesync">
+   <configdescription>To enable ActiveSync support, you must create an alias on
+   your webserver to redirect /Microsoft-Servers-ActiveSync to /horde/rpc.php.
+   You will also need to create a webserver-writable directory to store the
+   state files in. See http://wiki.horde.org/Project/ActiveSync for more
+   information.
+   </configdescription>
    <configswitch name="enabled" quote="false" desc="Enable ActiveSync server?">false
     <case name="false" desc="Disabled" />
     <case name="true" desc="Enabled">
      <configsection name="state">
       <configheader>State Storage Settings</configheader>
-      <configstring name="directory" desc="Directory to hold state files:">/tmp</configstring>
+      <configstring name="directory" desc="Directory to hold state files (this
+      directory should be writeable by the webserver):">/tmp</configstring>
      </configsection>
     </case>
    </configswitch>
