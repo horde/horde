@@ -1364,6 +1364,7 @@ abstract class Horde_Imap_Client_Base
      * Horde_Imap_Client::SORT_CC
      * Horde_Imap_Client::SORT_DATE
      * Horde_Imap_Client::SORT_FROM
+     * Horde_Imap_Client::SORT_SEQUENCE
      * Horde_Imap_Client::SORT_SIZE
      * Horde_Imap_Client::SORT_SUBJECT
      * Horde_Imap_Client::SORT_TO
@@ -1378,7 +1379,7 @@ abstract class Horde_Imap_Client_Base
      *          entire list to be sorted in reverse order, use the 'reverse'
      *          option instead. If this option is set, the 'results' option
      *          is ignored.
-     *          DEFAULT: Arrival sort (Horde_Imap_Client::SORT_ARRIVAL)
+     *          DEFAULT: None.
      * </pre>
      *
      * @return array  An array with the following keys:
@@ -2803,7 +2804,7 @@ abstract class Horde_Imap_Client_Base
             $search = new Horde_Imap_Client_Search_Query();
             $search->sequence($ids, $seq);
         }
-        $res = $this->search($this->_selected, $search, array('sort' => array(Horde_Imap_Client::SORT_ARRIVAL)));
+        $res = $this->search($this->_selected, $search, array('sort' => array(Horde_Imap_Client::SORT_SEQUENCE)));
         $ret = array('uids' => $res['sort']);
         if ($seq) {
             if (!$res['count']) {

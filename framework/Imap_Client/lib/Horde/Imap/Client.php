@@ -118,6 +118,9 @@ class Horde_Imap_Client
     /* Sort criteria defined in draft-ietf-morg-sortdisplay-02 */
     const SORT_DISPLAYFROM = 10;
     const SORT_DISPLAYTO = 11;
+    /* SORT_SEQUENCE does a simple numerical sort on the returned
+     * UIDs/sequence numbers. */
+    const SORT_SEQUENCE = 12;
 
     const SORT_RESULTS_COUNT = 1;
     const SORT_RESULTS_MATCH = 2;

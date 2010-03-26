@@ -31,7 +31,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Add ability to disable server capabilities.
+ <notes>* Add sequence sort (numeric sort by UID/sequence number).
+ * Add ability to disable server capabilities.
  * Add Horde_Imap_Client_Base::parseCacheId().
  * Added STATUS_LASTMODSEQ and STATUS_LASTMODSEQUIDS status() entries.
  * Add support for LIST-STATUS (draft-ietf-morg-status-in-list-01).

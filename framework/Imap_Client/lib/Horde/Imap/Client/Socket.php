@@ -1641,6 +1641,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             Horde_Imap_Client::SORT_DISPLAYTO => 'DISPLAYTO',
             Horde_Imap_Client::SORT_FROM => 'FROM',
             Horde_Imap_Client::SORT_REVERSE => 'REVERSE',
+            // This is a bogus entry to allow the sort options check to
+            // correctly work below.
+            Horde_Imap_Client::SORT_SEQUENCE => 'SEQUENCE',
             Horde_Imap_Client::SORT_SIZE => 'SIZE',
             Horde_Imap_Client::SORT_SUBJECT => 'SUBJECT',
             Horde_Imap_Client::SORT_TO => 'TO'
@@ -1655,22 +1658,40 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         );
 
         // Check if the server supports server-side sorting (RFC 5256).
-        $esearch = $server_sort = $return_sort = false;
+        $esearch = $return_sort = $server_seq_sort = $server_sort = false;
         if (!empty($options['sort'])) {
-            $return_sort = true;
-            $server_sort = $this->queryCapability('SORT');
-
-            /* Make sure sort options are correct. If not, default to ARRIVAL
+            /* Make sure sort options are correct. If not, default to no
              * sort. */
             if (count(array_intersect($options['sort'], array_keys($sort_criteria))) === 0) {
-                $options['sort'] = array(Horde_Imap_Client::SORT_ARRIVAL);
-            }
+                unset($options['sort']);
+            } else {
+                $return_sort = true;
 
-            /* Make sure server supports DISPLAYFROM & DISPLAYTO. */
-            if ((in_array(Horde_Imap_Client::SORT_DISPLAYFROM, $options['sort']) ||
-                 in_array(Horde_Imap_Client::SORT_DISPLAYTO, $options['sort'])) &&
-                (!is_array($server_sort) || !in_array('DISPLAY', $server_sort))) {
-                $server_sort = false;
+                $server_sort =
+                    $this->queryCapability('SORT') &&
+                    /* Make sure server supports DISPLAYFROM & DISPLAYTO. */
+                    !((in_array(Horde_Imap_Client::SORT_DISPLAYFROM, $options['sort']) ||
+                       in_array(Horde_Imap_Client::SORT_DISPLAYTO, $options['sort'])) &&
+                      (!is_array($server_sort) || !in_array('DISPLAY', $server_sort)));
+
+                /* If doing a sequence sort, need to do this on the client
+                 * side. */
+                if ($server_sort &&
+                    in_array(Horde_Imap_Client::SORT_SEQUENCE, $options['sort'])) {
+                    $server_sort = false;
+
+                    /* Optimization: If doing only a sequence sort, just do a
+                     * simple search and sort UIDs/sequences on client side. */
+                    switch (count($options['sort'])) {
+                    case 1:
+                        $server_seq_sort = true;
+                        break;
+
+                    case 2:
+                        $server_seq_sort = (reset($options['sort']) == Horde_Imap_Client::SORT_REVERSE);
+                        break;
+                    }
+                }
             }
         }
 
@@ -1724,7 +1745,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $this->_sendLine($cmd . $options['_query']['charset'] . ' ' . $options['_query']['query']);
 
         if ($return_sort && !$server_sort) {
-            $sr = array_values($this->_clientSort($sr, $options));
+            if ($server_seq_sort) {
+                sort($sr, SORT_NUMERIC);
+                if (reset($options['sort']) == Horde_Imap_Client::SORT_REVERSE) {
+                    $sr = array_reverse($sr);
+                }
+            } else {
+                $sr = array_values($this->_clientSort($sr, $options));
+            }
         }
 
         $ret = array();
@@ -1840,9 +1868,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $criteria = array();
         foreach ($opts['sort'] as $val) {
             switch ($val) {
+            case Horde_Imap_Client::SORT_ARRIVAL:
+                $criteria[Horde_Imap_Client::FETCH_DATE] = true;
+                break;
+
             case Horde_Imap_Client::SORT_DATE:
                 $criteria[Horde_Imap_Client::FETCH_DATE] = true;
-                // Fall through
+                $criteria[Horde_Imap_Client::FETCH_ENVELOPE] = true;
+                break;
 
             case Horde_Imap_Client::SORT_CC:
             case Horde_Imap_Client::SORT_FROM:
@@ -1884,7 +1917,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 }
 
                 switch ($val) {
-                case Horde_Imap_Client::SORT_ARRIVAL:
+                case Horde_Imap_Client::SORT_SEQUENCE:
                     /* There is no requirement that IDs be returned in
                      * sequence order (see RFC 4549 [4.3.1]). So we must sort
                      * ourselves. */
@@ -1926,6 +1959,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                         }
                     }
                     asort($sorted, SORT_LOCALE_STRING);
+                    break;
+
+                case Horde_Imap_Client::SORT_ARRIVAL:
+                    $sorted = $this->_getSentDates($fetch_res, $slice, true);
+                    asort($sorted, SORT_NUMERIC);
                     break;
 
                 case Horde_Imap_Client::SORT_DATE:
@@ -1986,24 +2024,24 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      * Get the sent dates for purposes of SORT/THREAD sorting under RFC 5256
      * [2.2].
      *
-     * @param array $data  Data returned from fetch() that includes both the
-     *                     'envelope' and 'date' keys.
-     * @param array $ids   The IDs to process.
+     * @param array $data        Data returned from fetch() that includes both
+     *                           the 'envelope' and 'date' keys.
+     * @param array $ids         The IDs to process.
+     * @param boolean $internal  Only use internal date?
      *
      * @return array  A mapping of IDs -> UNIX timestamps.
      */
-    protected function _getSentDates($data, $ids)
+    protected function _getSentDates($data, $ids, $internal = false)
     {
         $dates = array();
 
         $tz = new DateTimeZone('UTC');
         foreach ($ids as $num) {
-            if (empty($data[$num]['envelope']['date'])) {
-                $dt = $data[$num]['date'];
-                $dt->setTimezone($tz);
-            } else {
-                $dt = new DateTime($data[$num]['envelope']['date'], $tz);
-            }
+            $dt = ($internal || empty($data[$num]['envelope']['date']))
+                // RFC 5256 [3] & 3501 [6.4.4]: disregard timezone when
+                // using internaldate.
+                ? $data[$num]['date']
+                : new DateTime($data[$num]['envelope']['date'], $tz);
             $dates[$num] = $dt->format('U');
         }
 

@@ -807,9 +807,15 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
             return $this->_getSocket()->search($this->_selected, $query, $options);
         }
 
-        $old_error = error_reporting(0);
-        if (empty($options['sort'])) {
-            $res = imap_search($this->_stream, $options['_query']['query'], empty($options['sequence']) ? SE_UID : 0, $options['_query']['charset']);
+        $sort = empty($options['sort'])
+            ? null
+            : reset($options['sort']);
+
+        if (!$sort || ($sort == Horde_Imap_Client::SORT_SEQUENCE)) {
+            $res = @imap_search($this->_stream, $options['_query']['query'], empty($options['sequence']) ? SE_UID : 0, $options['_query']['charset']);
+            if ($sort && ($res !== false)) {
+                sort($res, SORT_NUMERIC);
+            }
         } else {
             $sort_criteria = array(
                 Horde_Imap_Client::SORT_ARRIVAL => SORTARRIVAL,
@@ -821,10 +827,9 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 Horde_Imap_Client::SORT_TO => SORTTO
             );
 
-            $res = imap_sort($this->_stream, $sort_criteria[reset($options['sort'])], 0, empty($options['sequence']) ? SE_UID : 0, $options['_query']['query'], $options['_query']['charset']);
+            $res = @imap_sort($this->_stream, $sort_criteria[$sort], 0, empty($options['sequence']) ? SE_UID : 0, $options['_query']['query'], $options['_query']['charset']);
         }
         $res = ($res === false) ? array() : $res;
-        error_reporting($old_error);
 
         $ret = array();
         foreach ($options['results'] as $val) {
@@ -834,7 +839,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 break;
 
             case Horde_Imap_Client::SORT_RESULTS_MATCH:
-                $ret[empty($options['sort']) ? 'match' : 'sort'] = $res;
+                $ret[$sort ? 'sort' : 'match'] = $res;
                 break;
 
             case Horde_Imap_Client::SORT_RESULTS_MAX:
