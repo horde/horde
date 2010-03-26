@@ -147,7 +147,7 @@ ul {
 
 #editActionOverlay {
     width: 290px;
-    height: 444px;
+    height: 389px;
     padding: 5px;
     position: absolute;
     top: 0px;
@@ -161,14 +161,6 @@ ul {
     position: absolute;
     top: 0px;
     left: 0px;
-}
-
-#cancelAction {
-    position: absolute;
-    bottom: 5px;
-    right: 50px;
-    cursor: pointer;
-    text-decoration: underline;
 }
 
 #digitGraphic {
@@ -188,6 +180,7 @@ ul {
 .button {
     float:left;
     margin: 3px;
+    cursor: pointer;
 }
 
 .button a {

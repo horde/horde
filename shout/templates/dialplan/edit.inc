@@ -53,8 +53,10 @@
     <div id="digitpad">
       <div id="editActionOverlay">
           <img id="digitGraphic" alt="Current Digit">
+          <form id="editActionForm">
           <div id="selectAction"></div>
           <div id="editAction"></div>
+          </form>
       </div>
       <div class="digit" id="digit_1" onClick="editAction('1');"><span class="digitLabel">1</span></div>
       <div class="digit" id="digit_2" onClick="editAction('2');"><span class="digitLabel">2</span></div>
@@ -84,24 +86,32 @@ var menuActions = $H(<?php echo Horde_Serialize::serialize(Shout::getMenuActions
 var destinations = $H(<?php echo Horde_Serialize::serialize($destinations, Horde_Serialize::JSON, Horde_Nls::getCharset()); ?>);
 var soundfiles = $H(<?php echo Horde_Serialize::serialize($soundfiles, Horde_Serialize::JSON, Horde_Nls::getCharset()); ?>);
 
+function empty(p)
+{
+    while ((e = $(p).childNodes[0]) != null) {
+        $(p).removeChild(e);
+    }
+}
+
 function editAction(digit)
 {
-    if ($('selectActionForm') == null) {
+    empty('editAction');
+
+    if ($('selectAction').firstChild == null) {
         $('digitGraphic').src = '<?php echo Horde_Themes::img(null, array('notheme' => true, 'nohorde' => true)); ?>/digit-'+digit+'.png';
 
         // Draw the selectActionForm
         $('editActionOverlay').show();
         empty('selectAction');
+        empty('editAction');
         var p = document.createElement('p');
         p.id = 'actionPrompt';
         var text = document.createTextNode('<?php echo _("Action:"); ?>');
         p.appendChild(text);
         $('selectAction').appendChild(p);
-        var form = document.createElement('form');
-        form.id = 'selectActionForm';
-        form.setAttribute('onChange', 'editAction('+digit+')');
         var select = document.createElement('select');
         select.name = 'action';
+        select.setAttribute('onChange', 'editAction('+digit+')');
         var option = document.createElement('option');
         option.value = '';
         var text = document.createTextNode('<?php echo _("-- Select Action --"); ?>');
@@ -119,40 +129,96 @@ function editAction(digit)
             option.appendChild(text);
             select.appendChild(option);
         });
-        form.appendChild(select);
-        $('selectAction').appendChild(form);
+        var option = document.createElement('option');
+        option.value = 'none';
+        var text = document.createTextNode('<?php echo _("No action"); ?>');
+        option.appendChild(text);
+        select.appendChild(option);
+        $('selectAction').appendChild(select);
 
         // Cancel button
-        var div = document.createElement('div');
-        div.setAttribute('onclick', 'cancelEdit()');
-        div.className = 'button';
-        var text = document.createTextNode('<?php echo _("Cancel"); ?>');
-        div.appendChild(text);
-        div.id = 'cancelAction';
-        $('selectAction').appendChild(div);
+        var cancel = document.createElement('input');
+        cancel.setAttribute('onclick', 'cancelEdit()');
+        cancel.className = 'button';
+        cancel.type = "reset";
+        cancel.value = '<?php echo _("Cancel"); ?>';
+        $('editAction').appendChild(cancel);
     }
 
-    if ($('selectActionForm').getElements().first().getValue() != '') {
-        var action = null;
-        // Draw the options for this action
-        $('selectActionForm').getElements().each(function (e){
-            if (e.name == 'action') {
-                action = e.value;
+    if ($('editActionForm').down('select').getValue() != '') {
+        var action = $('editActionForm').down('select').getValue();
+        var div = document.createElement('div');
+        switch(action) {
+        case 'jump':
+            var span = document.createElement('span');
+            var text = document.createTextNode('<?php echo _("Menu:"); ?>');
+            span.appendChild(text);
+            div.appendChild(span);
+
+            var select = document.createElement('select');
+            select.name = 'menuName';
+            menuInfo.each(function (item) {
+                var option = document.createElement('option');
+                option.value = item.key;
+                var text = document.createTextNode(item.value.name);
+                option.appendChild(text);
+                select.appendChild(option);
+            })
+            div.appendChild(select);
+            break;
+        case 'ringexten':
+        case 'leave_message':
+            var span = document.createElement('span');
+            var text;
+            if (action == 'ringexten') {
+                text = document.createTextNode('<?php echo _("Extension:"); ?>');
+            } else {
+                text = document.createTextNode('<?php echo _("Mailbox:"); ?>');
             }
-        });
-        var params = $H({'action': action});
-        new Ajax.Updater('editAction', ajax_url + 'getActionForm',
-        {
-            method: 'post',
-            parameters: params,
-            onComplete: function() {
-                var hidden = document.createElement('input');
-                hidden.type = 'hidden';
-                hidden.name = 'digit';
-                hidden.value = digit;
-                $('editActionForm').appendChild(hidden);
-            }
-        });
+            span.appendChild(text);
+            div.appendChild(span);
+
+            var select = document.createElement('select');
+            select.name = 'exten';
+            destinations.each(function (item) {
+                var option = document.createElement('option');
+                option.value = item.key;
+                var text = document.createTextNode(item.value.name);
+                option.appendChild(text);
+                select.appendChild(option);
+            })
+            div.appendChild(select);
+            break;
+        case 'conference':
+            alert(action);
+            break;
+        case 'dial':
+            alert(action);
+            break;
+        case 'none':
+            break;
+        default:
+            alert(action);
+            break;
+        }
+        $('editAction').appendChild(div);
+
+        // Save and Cancel buttons
+        var div = document.createElement('div');
+        var submit = document.createElement('input');
+        submit.type = 'submit';
+        submit.className = 'button';
+        submit.value = '<?php echo _("Save"); ?>';
+        div.appendChild(submit);
+        
+        var cancel = document.createElement('input');
+        cancel.setAttribute('onclick', 'cancelEdit()');
+        cancel.className = 'button';
+        cancel.type = 'reset';
+        cancel.value = '<?php echo _("Cancel"); ?>';
+        div.appendChild(cancel);
+
+        $('editAction').appendChild(div);
     }
 }
 
@@ -160,7 +226,7 @@ function saveAction(digit)
 {
     var params = $('editActionForm').serialize(true);
     params.menu = menuInfo.get('meta').name;
-    params.action = $('selectActionForm').getElements().first().getValue();
+    params.action = $('editActionForm').getElements().first().getValue();
     new Ajax.Request(ajax_url + 'saveAction',
     {
         method: 'post',
@@ -308,13 +374,6 @@ function refreshMenu()
 function editMenu()
 {
     $('editMenu').show();
-}
-
-function empty(p)
-{
-    while ((e = $(p).childNodes[0]) != null) {
-        $(p).removeChild(e);
-    }
 }
 
 $('editActionOverlay').hide();
