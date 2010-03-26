@@ -239,7 +239,7 @@ var ViewPort = Class.create({
         this.opts.container = $(opts.container);
         this.opts.pane_data = $(opts.pane_data);
 
-        this.opts.content = new Element('DIV', { className: opts.list_class }).setStyle({ overflow: 'hidden' });
+        this.opts.content = new Element('DIV', { className: opts.list_class }).setStyle({ float: 'left', overflow: 'hidden' });
         this.opts.container.insert(this.opts.content);
 
         this.scroller = new ViewPort_Scroller(this);
@@ -251,6 +251,7 @@ var ViewPort = Class.create({
                 loc: opts.page_size
             },
             init: false,
+            spacer: null,
             vert: {
                 width: opts.pane_width
             }
@@ -488,8 +489,12 @@ var ViewPort = Class.create({
             }
             sp.horiz.loc = this.page_size;
 
+            if (sp.spacer) {
+                sp.spacer.hide();
+            }
+
             h = lh * this.page_size;
-            c.setStyle({ float: 'left', height: h + 'px', width: '100%' });
+            c.setStyle({ height: h + 'px', width: '100%' });
             sp.currbar.show();
             this.opts.pane_data.setStyle({ height: (this._getMaxHeight() - h - lh) + 'px' }).show();
             break;
@@ -505,8 +510,12 @@ var ViewPort = Class.create({
                 sp.vert.width = parseInt(this.opts.container.clientWidth * 0.35, 10);
             }
 
+            if (sp.spacer) {
+                sp.spacer.hide();
+            }
+
             h = lh * this.page_size;
-            c.setStyle({ float: 'left', height: h + 'px', width: sp.vert.width + 'px' });
+            c.setStyle({ height: h + 'px', width: sp.vert.width + 'px' });
             sp.currbar.setStyle({ height: h + 'px' }).show();
             this.opts.pane_data.setStyle({ height: h + 'px' }).show();
             break;
@@ -524,7 +533,14 @@ var ViewPort = Class.create({
                 this.page_size = this.getPageSize('max');
             }
 
-            c.setStyle({ float: 'none', height: (lh * this.page_size) + 'px', width: '100%' });
+            if (sp.spacer) {
+                sp.spacer.show();
+            } else {
+                sp.spacer = new Element('DIV').setStyle({ clear: 'left' });
+                this.opts.content.up().insert(sp.spacer);
+            }
+
+            c.setStyle({ height: (lh * this.page_size) + 'px', width: '100%' });
             break;
         }
 
@@ -1293,7 +1309,7 @@ ViewPort_Scroller = Class.create({
         var c = this.vp.opts.content;
 
         // Create the outer div.
-        this.scrollDiv = new Element('DIV', { className: 'vpScroll' }).setStyle({ overflow: 'hidden' }).hide();
+        this.scrollDiv = new Element('DIV', { className: 'vpScroll' }).setStyle({ float: 'left', overflow: 'hidden' }).hide();
         c.insert({ after: this.scrollDiv });
 
         this.scrollDiv.observe('Slider2:change', this._onScroll.bind(this));
@@ -1336,20 +1352,17 @@ ViewPort_Scroller = Class.create({
 
         if (this.scrollbar.needScroll()) {
             switch (this.vp.pane_mode) {
-            case 'horiz':
-                this.scrollDiv.setStyle({ float: 'left' }).setStyle({ marginLeft: '-' + this.scrollDiv.getWidth() + 'px' });
-                break;
-
             case 'vert':
-                this.scrollDiv.setStyle({ float: 'left', marginLeft: 0 });
+                this.scrollDiv.setStyle({ marginLeft: 0 });
                 if (!this.vertscroll) {
                     c.setStyle({ width: (c.clientWidth - this.scrollDiv.getWidth()) + 'px' });
                 }
                 vs = true;
                 break;
 
+            case 'horiz':
             default:
-                this.scrollDiv.setStyle({ float: 'none' }).setStyle({ marginLeft: '-' + this.scrollDiv.getWidth() + 'px' });
+                this.scrollDiv.setStyle({ marginLeft: '-' + this.scrollDiv.getWidth() + 'px' });
                 break;
             }
 
