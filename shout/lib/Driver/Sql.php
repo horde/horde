@@ -211,8 +211,11 @@ class Shout_Driver_Sql extends Shout_Driver
     public function saveMenuAction($account, $menu, $digit, $action, $args)
     {
         // Remove any existing action
-        $sql = 'DELETE FROM menu_entries WHERE digit = ?';
-        $values = array($digit);
+        $sql = 'DELETE FROM menu_entries WHERE menu_id = ' .
+               '(SELECT id FROM menus WHERE account_id = ' .
+               '(SELECT id FROM accounts WHERE code = ?) AND name = ?) ' .
+               'AND digit = ?';
+        $values = array($account, $menu, $digit);
         $msg = 'SQL query in Shout_Driver_Sql#saveMenuAction(): ' . $sql;
         Horde::logMessage($msg, 'DEBUG');
         $result = $this->_write_db->query($sql, $values);
