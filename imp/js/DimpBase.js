@@ -1665,12 +1665,8 @@ var DimpBase = {
             id = elt.identify(),
             d = DragDrop.Drags.getDrag(id);
 
-        if (elt.hasClassName('vpRow')) {
-            if (d.selectIfNoDrag && !d.wasDragged) {
-                this.msgSelect(id, { right: e.memo.isRightClick() });
-            }
-        } else if (elt.hasClassName('folder')) {
-            if (!d.opera && d.wasDragged) {
+        if (elt.hasClassName('folder')) {
+            if (!d.opera) {
                 $('folderopts').show();
                 $('dropbase').hide();
             }
@@ -1678,6 +1674,17 @@ var DimpBase = {
             $('sidebar').setStyle({ width: d.lastCoord[0] + 'px' });
             elt.setStyle({ left: $('sidebar').clientWidth + 'px' });
             $('dimpmain').setStyle({ left: ($('sidebar').clientWidth + elt.clientWidth) + 'px' });
+        }
+    },
+
+    onDragMouseUp: function(e)
+    {
+        var elt = e.element(),
+            id = elt.identify();
+
+        if (elt.hasClassName('vpRow') &&
+            DragDrop.Drags.getDrag(id).selectIfNoDrag) {
+            this.msgSelect(id, { right: e.memo.isRightClick() });
         }
     },
 
@@ -3080,6 +3087,7 @@ document.observe('DragDrop2:drag', DimpBase.onDrag.bindAsEventListener(DimpBase)
 document.observe('DragDrop2:drop', DimpBase.folderDropHandler.bindAsEventListener(DimpBase));
 document.observe('DragDrop2:end', DimpBase.onDragEnd.bindAsEventListener(DimpBase));
 document.observe('DragDrop2:mousedown', DimpBase.onDragMouseDown.bindAsEventListener(DimpBase));
+document.observe('DragDrop2:mouseup', DimpBase.onDragMouseUp.bindAsEventListener(DimpBase));
 
 /* Route AJAX responses through ViewPort. */
 DimpCore.onDoActionComplete = function(r) {
