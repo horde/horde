@@ -1,5 +1,6 @@
 <div id="dialplan">
     <div id="menuInfo">
+        <div id="menuWorking" class="working"></div>
         <table class="striped">
             <tr>
                 <td class="metaStatName">Menu</td>
@@ -18,15 +19,15 @@
         <table class="striped">
             <tr>
                 <td class="metaStatName">Menu Name</td>
-                <td class="metaStatInfo"><input name="name"></td>
+                <td class="metaStatInfo"><input id="menu_edit.name" name="name"></td>
             </tr>
             <tr>
                 <td class="metaStatName">Description</td>
-                <td class="metaStatInfo"><input name="description"></td>
+                <td class="metaStatInfo"><input id="menu_edit.description" name="description"></td>
             </tr>
             <tr>
                 <td class="metaStatName">Sound File</td>
-                <td class="metaStatInfo"><select name="soundfile"></select></td>
+                <td class="metaStatInfo"><select id="menu_edit.soundfile" name="soundfile"></select></td>
             </tr>
             <tr>
                 <td><div class="button" onclick="saveMenu()"><?php echo _("Save"); ?></div></td>
@@ -51,13 +52,14 @@
     </div>
 
     <div id="digitpad">
+      <div id="dialpadWorking" class="working"></div>
       <div id="editActionOverlay">
-          <img id="digitGraphic" alt="Current Digit">
-          <form id="editActionForm">
-              <input name="digit" id="editActionFormDigit" type="hidden">
-              <div id="selectAction"></div>
-              <div id="editAction"></div>
-          </form>
+        <img id="digitGraphic" alt="Current Digit">
+        <form id="editActionForm">
+          <input name="digit" id="editActionFormDigit" type="hidden">
+          <div id="selectAction"></div>
+          <div id="editAction"></div>
+        </form>
       </div>
       <div class="digit" id="digit_1" onClick="editAction('1');"><span class="digitLabel">1</span></div>
       <div class="digit" id="digit_2" onClick="editAction('2');"><span class="digitLabel">2</span></div>
@@ -96,6 +98,7 @@ function empty(p)
 
 function editAction(digit)
 {
+    $('dialpadWorking').show();
     empty('editAction');
     $('editActionFormDigit').value = digit;
 
@@ -219,7 +222,7 @@ function editAction(digit)
         submit.className = 'button';
         submit.value = '<?php echo _("Save"); ?>';
         div.appendChild(submit);
-        
+
         var cancel = document.createElement('input');
         cancel.setAttribute('onclick', 'cancelEdit()');
         cancel.className = 'button';
@@ -229,13 +232,14 @@ function editAction(digit)
 
         Event.observe($('editActionForm'), 'submit', function(event) {saveAction(event);});
 
-
         $('editAction').appendChild(div);
     }
+    $('dialpadWorking').hide();
 }
 
 function saveAction(event)
 {
+    $('dialpadWorking').show();
     Event.stop(event);
     var form = event.target;
     Element.extend(form);
@@ -252,13 +256,14 @@ function saveAction(event)
             $('editActionOverlay').hide();
             new Ajax.Request(ajax_url + 'getMenus',
             {
-                method: 'post',
+                method: 'get',
                 parameters: $H({
                     'menu': curmenu
                 }),
                 onSuccess: function(r) {
                     menuInfo = $H(r.responseJSON.response);
                     refreshMenu();
+                    $('dialpadWorking').hide();
                 }
             });
         }
@@ -272,27 +277,6 @@ function cancelEdit()
     $('editActionOverlay').hide();
 }
 
-function saveSoundFile(event)
-{
-    Event.stop(event);
-    var form = event.target;
-    Element.extend(form);
-    var file = form.getElements().first().getValue();
-    // TODO: Allow editing other menu details
-    // TODO: Add spinner
-    new Ajax.Request(ajax_url + 'saveMenuInfo',
-    {
-        method: 'post',
-        parameters: $H({
-            'file': file
-        }),
-        onSuccess: function(r) {
-            refreshMenu();
-            // TODO: Stop spinner
-        }
-    });
-}
-
 function playSoundFile()
 {
     alert("Playing soundfile");
@@ -300,6 +284,8 @@ function playSoundFile()
 
 function refreshMenu()
 {
+    $('menuWorking').show();
+    $('dialpadWorking').show();
     curmenu = $('menu.select').value;
     if (!curmenu || !menuInfo.get(curmenu)) {
         // TODO Show an error of some kind
@@ -323,26 +309,33 @@ function refreshMenu()
     empty('menu.soundfile');
     $('menu.soundfile').appendChild(text);
 
+    $('menu_edit.name').value = menuInfo.get(curmenu).name;
+    $('menu_edit.description').value = menuInfo.get(curmenu).description;
+
+    var select = $('menu_edit.soundfile');
+    empty(select);
+    soundfiles.each(function (item) {
+        var option = document.createElement('option');
+        option.value = item.key;
+        var text = document.createTextNode(item.value.name);
+        option.appendChild(text);
+        select.appendChild(option);
+    })
+    select.value = menuInfo.get(curmenu).soundfile;
+
     // Fill in the actions
+    if (menuInfo.get(curmenu).actions.length == 0) {
+        // No actions configured yet.
+        return true;
+    }
+
     $H(menuInfo.get(curmenu).actions).each(function (pair) {
         var text;
         var digit = pair.key;
         var action = pair.value.action;
         var button = $('digit_'+digit);
-        empty(button);
         var p = document.createElement('p');
         p.className = 'buttonActionLabel';
-        var span = document.createElement('span');
-        span.className='digitLabel';
-        if (digit == 'star') {
-            text = document.createTextNode('*');
-        } else if (digit == 'octothorpe') {
-            text = document.createTextNode('#');
-        } else {
-            text = document.createTextNode(digit);
-        }
-        span.appendChild(text);
-        p.appendChild(span);
         text = document.createTextNode(menuActions.get(action).description);
         p.appendChild(text);
         button.appendChild(p);
@@ -383,21 +376,40 @@ function refreshMenu()
         p.appendChild(text);
         button.appendChild(p);
     });
-
-    var select = $('editMenu').down('select');
-    empty(select);
-    soundfiles.each(function (item) {
-        var option = document.createElement('option');
-        option.value = item.key;
-        var text = document.createTextNode(item.value.name);
-        option.appendChild(text);
-        select.appendChild(option);
-    })
+    $('menuWorking').hide();
+    $('dialpadWorking').hide();
 }
 
 function editMenu()
 {
     $('editMenu').show();
+}
+
+function saveMenu()
+{
+    $('menuWorking').show();
+    var params = $('editMenu').serialize(true);
+    params.oldname = curmenu;
+    new Ajax.Request(ajax_url + 'saveAction',
+    {
+        method: 'post',
+        parameters: params,
+        onSuccess: function(r) {
+            $('editMenu').hide();
+            new Ajax.Request(ajax_url + 'getMenus',
+            {
+                method: 'get',
+                parameters: $H({
+                    'menu': curmenu
+                }),
+                onSuccess: function(r) {
+                    menuInfo = $H(r.responseJSON.response);
+                    refreshMenu();
+                    $('menuWorking').hide();
+                }
+            });
+        }
+    });
 }
 
 $('editActionOverlay').hide();
@@ -415,7 +427,6 @@ new Ajax.Request(ajax_url + 'getMenus',
             $('menu.select').appendChild(option);
         })
         refreshMenu();
-        Event.observe($('editMenu'), 'submit', function(event) {saveSoundFile(event);});
     }
 });
 // -->
