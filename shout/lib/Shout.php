@@ -181,7 +181,7 @@ class Shout
                 'description' => _("Enter conference"),
                 'args' => array(
                     'roomno' => array(
-                        'name' => _("Room Number"),
+                        'name' => _("Room Number (optional)"),
                         'type' => 'number',
                         'required' => false
                     )

@@ -54,8 +54,9 @@
       <div id="editActionOverlay">
           <img id="digitGraphic" alt="Current Digit">
           <form id="editActionForm">
-          <div id="selectAction"></div>
-          <div id="editAction"></div>
+              <input name="digit" id="editActionFormDigit" type="hidden">
+              <div id="selectAction"></div>
+              <div id="editAction"></div>
           </form>
       </div>
       <div class="digit" id="digit_1" onClick="editAction('1');"><span class="digitLabel">1</span></div>
@@ -96,6 +97,7 @@ function empty(p)
 function editAction(digit)
 {
     empty('editAction');
+    $('editActionFormDigit').value = digit;
 
     if ($('selectAction').firstChild == null) {
         $('digitGraphic').src = '<?php echo Horde_Themes::img(null, array('notheme' => true, 'nohorde' => true)); ?>/digit-'+digit+'.png';
@@ -121,7 +123,7 @@ function editAction(digit)
             option = document.createElement('option');
             option.value = item.key;
             if (menuInfo.get(curmenu).actions[digit] != null) {
-                if (item.key == menuInfo.get('actions')[digit].action) {
+                if (item.key == menuInfo.get(curmenu).actions[digit].action) {
                     option.selected = "true";
                 }
             }
@@ -151,7 +153,7 @@ function editAction(digit)
         switch(action) {
         case 'jump':
             var span = document.createElement('span');
-            var text = document.createTextNode('<?php echo _("Menu:"); ?>');
+            var text = document.createTextNode(menuActions.get(action).description);
             span.appendChild(text);
             div.appendChild(span);
 
@@ -169,12 +171,7 @@ function editAction(digit)
         case 'ringexten':
         case 'leave_message':
             var span = document.createElement('span');
-            var text;
-            if (action == 'ringexten') {
-                text = document.createTextNode('<?php echo _("Extension:"); ?>');
-            } else {
-                text = document.createTextNode('<?php echo _("Mailbox:"); ?>');
-            }
+            var text = document.createTextNode(menuActions.get(action).description);
             span.appendChild(text);
             div.appendChild(span);
 
@@ -187,10 +184,22 @@ function editAction(digit)
                 option.appendChild(text);
                 select.appendChild(option);
             })
+
+            if (menuInfo.get(curmenu).actions[digit] != null) {
+                select.value = menuInfo.get(curmenu).actions[digit].exten;
+            }
+
             div.appendChild(select);
             break;
         case 'conference':
-            alert(action);
+            var span = document.createElement('span');
+            var text = document.createTextNode(menuActions.get(action).description);
+            span.appendChild(text);
+            div.appendChild(span);
+
+            var input = document.createElement('input');
+            input.name = 'roomno';
+
             break;
         case 'dial':
             alert(action);
@@ -218,15 +227,21 @@ function editAction(digit)
         cancel.value = '<?php echo _("Cancel"); ?>';
         div.appendChild(cancel);
 
+        Event.observe($('editActionForm'), 'submit', function(event) {saveAction(event);});
+
+
         $('editAction').appendChild(div);
     }
 }
 
-function saveAction(digit)
+function saveAction(event)
 {
-    var params = $('editActionForm').serialize(true);
-    params.menu = menuInfo.get('meta').name;
-    params.action = $('editActionForm').getElements().first().getValue();
+    Event.stop(event);
+    var form = event.target;
+    Element.extend(form);
+
+    var params = form.serialize(true);
+    params.menu = curmenu;
     new Ajax.Request(ajax_url + 'saveAction',
     {
         method: 'post',
@@ -235,7 +250,7 @@ function saveAction(digit)
             empty('selectAction');
             empty('editAction');
             $('editActionOverlay').hide();
-            new Ajax.Request(ajax_url + 'getMenuInfo',
+            new Ajax.Request(ajax_url + 'getMenus',
             {
                 method: 'post',
                 parameters: $H({
@@ -300,7 +315,7 @@ function refreshMenu()
     $('menu.soundfile').appendChild(text);
 
     // Fill in the actions
-    $H(menuInfo.get('actions')).each(function (pair) {
+    $H(menuInfo.get(curmenu).actions).each(function (pair) {
         var text;
         var digit = pair.key;
         var action = pair.value.action;

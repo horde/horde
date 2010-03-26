@@ -123,48 +123,8 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
 
     public function saveMenuInfo()
     {
+        // FIXME
         return true;
-    }
-
-    public function getActionForm()
-    {
-        try {
-            $vars = $this->_vars;
-            if (!($action = $vars->get('action'))) {
-                throw new Shout_Exception("Invalid action requested.");
-            }
-            $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
-            $account = $_SESSION['shout']['curaccount'];
-            $actions = Shout::getMenuActions();
-            $action = $actions[$action];
-            $form = new Horde_Form($vars, $action['description'], 'editActionForm');
-            foreach($action['args'] as $name => $info) {
-                $defaults = array(
-                    'required' => true,
-                    'readonly' => false,
-                    'description' => null,
-                    'params' => array()
-                );
-                $info = array_merge($defaults, $info);
-                $form->addVariable($info['name'], $name, $info['type'],
-                                   $info['required'], $info['readonly'],
-                                   $info['description'], $info['params']);
-            }
-            $form->setButtons(_("Save"));
-
-            $this->_responseType = 'html';
-
-            // Catch and return the output from $form->renderActive()
-            ob_start();
-            $form->renderActive(null, null, 'javascript:saveAction()');
-            $output = ob_get_flush();
-            return $output;
-
-        } catch (Exception $e) {
-            //FIXME: Create a way to notify the user of the failure.
-            Horde::logMessage($e, 'ERR');
-            return false;
-        }
     }
 
     public function saveAction()
