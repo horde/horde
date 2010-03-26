@@ -555,7 +555,7 @@ var DimpBase = {
             l = this.viewport.getMetaData('label');
             if (l) {
                 if (this.isSearch(null, true)) {
-                    l += ' (' + this.search.mbox + ')';
+                    l += ' (' + this.search.label + ')';
                 }
                 $('folderName').update(l);
             }
@@ -873,6 +873,7 @@ var DimpBase = {
             } else if (menu.endsWith('_filter') || menu.endsWith('_filternot')) {
                 this.search = {
                     flag: elt.readAttribute('flag'),
+                    label: this.viewport.getMetaData('label'),
                     mbox: this.folder,
                     not: menu.endsWith('_filternot')
                 };
@@ -988,7 +989,7 @@ var DimpBase = {
             label = this.viewport.getMetaData('label');
 
         if (this.isSearch(null, true)) {
-            label += ' (' + this.search.mbox + ')';
+            label += ' (' + this.search.label + ')';
         } else {
             elt = $(this.getFolderId(this.folder));
             if (elt) {
@@ -1512,7 +1513,11 @@ var DimpBase = {
             }
             this.viewport.reload();
         } else {
-            this.search = { mbox: this.folder, query: q };
+            this.search = {
+                label: this.viewport.getMetaData('label'),
+                mbox: this.folder,
+                query: q
+            };
             this.loadMailbox(DIMP.conf.qsearchid);
         }
     },
