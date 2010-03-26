@@ -231,8 +231,6 @@ function editAction(digit)
         cancel.value = '<?php echo _("Cancel"); ?>';
         div.appendChild(cancel);
 
-        Event.observe($('editActionForm'), 'submit', function(event) {saveAction(event);});
-
         $('editAction').appendChild(div);
     }
     $('dialpadWorking').hide();
@@ -417,6 +415,7 @@ function saveMenu()
 
 $('editActionOverlay').hide();
 $('editMenu').hide();
+Event.observe($('editActionForm'), 'submit', function(event) {saveAction(event);});
 new Ajax.Request(ajax_url + 'getMenus',
 {
     method: 'get',
