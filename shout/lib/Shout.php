@@ -29,7 +29,7 @@ class Shout
         $menu->add(Horde::applicationUrl('dialplan.php'), _("Incoming Calls"), "dialplan.png");
         $menu->add(Horde::applicationUrl('extensions.php'), _("Extensions"), "user.png");
         $menu->add(Horde::applicationUrl('devices.php'), _("Devices"), "shout.png");
-        $menu->add(Horde::applicationUrl('recordings.php'), _("Recordings"), "recordings.png");
+        //$menu->add(Horde::applicationUrl('recordings.php'), _("Recordings"), "recordings.png");
 
         /* Administration. */
         if (Horde_Auth::isAdmin('shout:admin')) {
