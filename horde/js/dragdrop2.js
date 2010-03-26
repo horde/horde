@@ -46,10 +46,13 @@
  *   Fired on mousemove.
  *
  * 'DragDrop2:end'
- *   Fired on mouseup.
+ *   Fired when dragging ends.
  *
  * 'DragDrop2:mousedown'
  *   Fired on mousedown.
+ *
+ * 'DragDrop2:mouseup'
+ *   Fored on mouseup *if* the element was not dragged.
  *
  * 'DragDrop2:start'
  *   Fired when first moved more than 'threshold'.
@@ -446,9 +449,7 @@ Drag = Class.create({
             DragDrop.Drags.cover.down().siblings().invoke('remove');
         }
 
-        if (this.wasMoved) {
-            this.element.fire('DragDrop2:end', e);
-        }
+        this.element.fire(this.wasMoved ? 'DragDrop2:end' : 'DragDrop2:mouseup', e);
     },
 
     _onMoveDrag: function(xy, e)
