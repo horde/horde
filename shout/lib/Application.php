@@ -157,4 +157,24 @@ class Shout_Application extends Horde_Registry_Application
         return self::$_perms;
     }
 
+
+    public function getRecordings()
+    {
+        $account = $_SESSION['shout']['curaccount'];
+        $rlist = $this->vfs->listFolder($account);
+
+        // In Asterisk, filenames the same basename and different extension are
+        // functionally equivalent.  Asterisk chooses the file based on the least cost
+        // to transcode.  For that reason, we will drop the filename extension when
+        // handling files.
+        $recordings = array();
+        foreach ($rlist as $name => $info) {
+            $name = substr($name, 0, strrpos($name, '.'));
+            $info['name'] = $name;
+            $recordings[$name] = $info;
+        }
+
+        return $recordings;
+    }
+
 }

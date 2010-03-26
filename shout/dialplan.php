@@ -53,6 +53,7 @@ default:
     $action = 'edit';
     try {
         $destinations = $shout->extensions->getExtensions($curaccount);
+        $soundfiles = $shout->getRecordings();
     } catch (Exception $e) {
         $notification->push(_("Problem getting destination information."));
     }

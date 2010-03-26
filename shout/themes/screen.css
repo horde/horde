@@ -66,6 +66,11 @@ ul {
 }
 
 #controls {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#controls li {
     float: left;
 }
 
@@ -75,11 +80,8 @@ ul {
 
 #menuInfo {
     float: left;
-    width: 300px;
-}
-
-#menuInfo img:hover {
-    cursor: pointer;
+    width: 340px;
+    position: relative;
 }
 
 .menuStatName {
@@ -153,6 +155,14 @@ ul {
     background-image: url('graphics/transparency.png');
 }
 
+#editMenu
+{
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
 #cancelAction {
     position: absolute;
     bottom: 5px;
@@ -173,6 +183,11 @@ ul {
 
 #editAction {
     margin: 5px;
+}
+
+.button {
+    float:left;
+    margin: 3px;
 }
 
 .button a {

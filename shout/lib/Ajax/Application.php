@@ -126,24 +126,6 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
         return true;
     }
 
-    /**
-     * TODO
-     */
-    public function getMenuActions()
-    {
-        try {
-            $vars = $this->_vars;
-            $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
-            $account = $_SESSION['shout']['curaccount'];
-            $actions = Shout::getMenuActions();
-            return $actions;
-        } catch (Exception $e) {
-            //FIXME: Create a way to notify the user of the failure.
-            Horde::logMessage($e, 'ERR');
-            return false;
-        }
-    }
-
     public function getActionForm()
     {
         try {
@@ -209,17 +191,6 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.
             Horde::logMessage($e, 'ERR');
-            return false;
-        }
-    }
-
-    public function getRecordings()
-    {
-        try {
-            return Shout::getRecordings($_SESSION['shout']['curaccount']);
-        } catch (Exception $e) {
-            //FIXME: Create a way to notify the user of the failure.
-            Horde::logMessage($e->getMessage(), 'ERR');
             return false;
         }
     }

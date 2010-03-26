@@ -14,17 +14,39 @@
                 <td class="metaStatInfo"><span id="menu.soundfile"></span></td>
             </tr>
         </table>
+        <form id="editMenu">
+        <table class="striped">
+            <tr>
+                <td class="metaStatName">Menu Name</td>
+                <td class="metaStatInfo"><input name="name"></td>
+            </tr>
+            <tr>
+                <td class="metaStatName">Description</td>
+                <td class="metaStatInfo"><input name="description"></td>
+            </tr>
+            <tr>
+                <td class="metaStatName">Sound File</td>
+                <td class="metaStatInfo"><select name="soundfile"></select></td>
+            </tr>
+            <tr>
+                <td><div class="button" onclick="saveMenu()"><?php echo _("Save"); ?></div></td>
+                <td><div class="button" onclick="$('editMenu').hide()"><?php echo _("Cancel"); ?></div></td>
+            </tr>
+        </table>
+        </form>
         <br style="clear:both;">
         <ul id="controls">
         <?php
         $addurl = Horde::applicationUrl('dialplan.php');
         $addurl = Horde_Util::addParameter($addurl, 'action', 'add');
-
         ?>
-        <li class="button"><a href="<?php echo $addurl; ?>">
-            <?php echo Horde::img('add-menu.png'); ?>&nbsp;New Menu
-            </a>
+        <a href="<?php echo $addurl; ?>">
+        <li class="button">
+            <?php echo Horde::img('menu-add.png'); ?>&nbsp;New Menu
         </li>
+        </a>
+        <li class="button" onclick="editMenu()"><?php echo Horde::img('menu-edit.png'); ?>&nbsp;Edit Menu</li>
+        <li class="button" onclick="deleteMenu()"><?php echo Horde::img('menu-delete.png');?>&nbsp;Delete Menu</li>
         </ul>
     </div>
 
@@ -49,18 +71,18 @@
       <div class="digit" id="digit_*" onClick="editAction('star');"><span class="digitLabel">*</span></div>
       <div class="digit" id="digit_0" onClick="editAction('0');"><span class="digitLabel">0</span></div>
       <div class="digit" id="digit_#" onClick="editAction('octothorpe');"><span class="digitLabel">#</span></div>
-      <br style="clear:both;">
-      <div id="defaultAction" onclick="editAction('defaultAction');"><span class="digitLabel">Default Action</span></div>
     </div>
 </div>
 
 <script type="text/javascript">
 <!--
+// TODO: Convert to object
 var ajax_url = '<?php echo Horde::getServiceLink('ajax', 'shout') ?>';
 var curmenu = null;
 var menuInfo = $H();
 var menuActions = $H(<?php echo Horde_Serialize::serialize(Shout::getMenuActions(), Horde_Serialize::JSON, Horde_Nls::getCharset()); ?>);
 var destinations = $H(<?php echo Horde_Serialize::serialize($destinations, Horde_Serialize::JSON, Horde_Nls::getCharset()); ?>);
+var soundfiles = $H(<?php echo Horde_Serialize::serialize($soundfiles, Horde_Serialize::JSON, Horde_Nls::getCharset()); ?>);
 
 function editAction(digit)
 {
@@ -88,7 +110,7 @@ function editAction(digit)
         menuActions.each(function (item) {
             option = document.createElement('option');
             option.value = item.key;
-            if (menuInfo.get('actions')[digit] != null) {
+            if (menuInfo.get(curmenu).actions[digit] != null) {
                 if (item.key == menuInfo.get('actions')[digit].action) {
                     option.selected = "true";
                 }
@@ -101,12 +123,13 @@ function editAction(digit)
         $('selectAction').appendChild(form);
 
         // Cancel button
-        var span = document.createElement('span');
-        span.id = 'cancelAction';
-        span.setAttribute('onclick', 'cancelEdit()');
+        var div = document.createElement('div');
+        div.setAttribute('onclick', 'cancelEdit()');
+        div.className = 'button';
         var text = document.createTextNode('<?php echo _("Cancel"); ?>');
-        span.appendChild(text);
-        $('selectAction').appendChild(span);
+        div.appendChild(text);
+        div.id = 'cancelAction';
+        $('selectAction').appendChild(div);
     }
 
     if ($('selectActionForm').getElements().first().getValue() != '') {
@@ -166,41 +189,6 @@ function cancelEdit()
     empty($('selectAction'));
     empty($('editAction'));
     $('editActionOverlay').hide();
-}
-
-function changeSoundFile()
-{
-    empty($('editSound'));
-    // FIXME: Add spinner
-    new Ajax.Request(ajax_url + 'getRecordings',
-    {
-        method: 'get',
-        onSuccess: function(r) {
-            var form = document.createElement('form');
-            form.name = 'selectSoundFile';
-            form.id = 'selectSoundFile';
-            var select = document.createElement('select');
-            select.name = 'filename';
-            var recordings = $H(r.responseJSON.response);
-            recordings.each(function (pair) {
-                var option = document.createElement('option');
-                option.value = pair.value.name;
-                var text = document.createTextNode(pair.value.name);
-                option.appendChild(text);
-                select.appendChild(option);
-            });
-            form.appendChild(select);
-            var spacer = document.createTextNode(' ');
-            form.appendChild(spacer);
-            var save = document.createElement('input');
-            save.type = 'submit';
-            save.name = 'save';
-            save.value = '<?php echo _("Save"); ?>';
-            form.appendChild(save);
-            $('editSound').appendChild(form);
-            Event.observe($('selectSoundFile'), 'submit', function(event) {saveSoundFile(event);});
-        }
-    });
 }
 
 function saveSoundFile(event)
@@ -305,27 +293,21 @@ function refreshMenu()
         p.appendChild(text);
         button.appendChild(p);
     });
+
+    var select = $('editMenu').down('select');
+    empty(select);
+    soundfiles.each(function (item) {
+        var option = document.createElement('option');
+        option.value = item.key;
+        var text = document.createTextNode(item.value.name);
+        option.appendChild(text);
+        select.appendChild(option);
+    })
 }
 
-function getMetaRow(name, value)
+function editMenu()
 {
-    var row;
-    var col;
-    var text;
-    row = document.createElement('tr');
-    col = document.createElement('td');
-    col.className = 'menuStatName';
-    text = document.createTextNode(name);
-    col.appendChild(text);
-    row.appendChild(col);
-
-    col = document.createElement('td');
-    col.className='menuStatValue';
-    text = document.createTextNode(value);
-    col.appendChild(text);
-    row.appendChild(col);
-
-    return row;
+    $('editMenu').show();
 }
 
 function empty(p)
@@ -336,6 +318,7 @@ function empty(p)
 }
 
 $('editActionOverlay').hide();
+$('editMenu').hide();
 new Ajax.Request(ajax_url + 'getMenus',
 {
     method: 'get',
@@ -349,6 +332,7 @@ new Ajax.Request(ajax_url + 'getMenus',
             $('menu.select').appendChild(option);
         })
         refreshMenu();
+        Event.observe($('editMenu'), 'submit', function(event) {saveSoundFile(event);});
     }
 });
 // -->
