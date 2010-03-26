@@ -39,7 +39,7 @@ class Horde_Editor
      * @return Horde_Editor  The newly created concrete instance.
      * @throws Horde_Editor_Exception.
      */
-    static public function factory($driver, $params = null)
+    static public function factory($driver = null, $params = null)
     {
         $driver = ucfirst(basename($driver));
         if (empty($driver) || (strcmp($driver, 'None') == 0)) {
