@@ -19,9 +19,9 @@ class Horde_Core_Log_Logger extends Horde_Log_Logger
      *
      * @param mixed $event     Either a string (log string), an array
      *                         (containing 'level', 'message', and 'timestamp'
-                               entries) or an object with a getMessage()
-                               method (e.g. PEAR_Error, Exception,
-                               ErrorException).
+     *                         entries) or an object with a getMessage()
+     *                         method (e.g. PEAR_Error, Exception,
+     *                         ErrorException).
      * @param mixed $priority  The priority of the message. Integers
      *                         correspond to Horde_Log constants. String
      *                         values are auto translated to Horde_Log
@@ -35,11 +35,17 @@ class Horde_Core_Log_Logger extends Horde_Log_Logger
      */
     public function log($event, $priority = 'INFO', $options = array())
     {
+        if (is_string($priority)) {
+            $priority = defined('Horde_Log::' . $priority)
+                ? constant('Horde_Log::' . $priority)
+                : Horde_Log::INFO;
+        }
+
         /* If an array is passed in, assume that the caller knew what they
          * were doing and pass it directly to the log backend. */
         if (is_array($event)) {
             parent::log($event, $priority);
-            exit;
+            return;
         }
 
         if ($event instanceof Exception) {
@@ -99,12 +105,6 @@ class Horde_Core_Log_Logger extends Horde_Log_Logger
             ($app ? '[' . $app . '] ' : '') .
             $text .
             ' [pid ' . getmypid() . ' on line ' . $line . ' of "' . $file . '"]';
-
-        if (is_string($priority)) {
-            $priority = defined('Horde_Log::' . $priority)
-                ? constant('Horde_Log::' . $priority)
-                : Horde_Log::INFO;
-        }
 
         /* Make sure to log in the system's locale and timezone. */
         // TODO: Needed?
