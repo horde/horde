@@ -334,8 +334,6 @@ class IMP_Mailbox
             }
         } else {
             $sortpref = IMP::getSort($this->_mailbox, true);
-            $sortpref['by'] = 1;
-
             if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
                 $this->_threadob = null;
                 $threadob = $this->getThreadOb();
