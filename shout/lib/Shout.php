@@ -205,7 +205,12 @@ class Shout
                 'description' => _("Restart menu"),
                 'args' => array()
             ),
-            // TODO: Actions to implement: Queue
+            'none' => array(
+                'description' => _("No action"),
+                'args' => array()
+            )
+
+            // TODO: Actions to implement: Queue, VoicemailLogin
         );
     }
 

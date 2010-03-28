@@ -132,11 +132,6 @@ function editAction(digit)
         if (menuInfo.get(curmenu).actions[digit] != null) {
             select.value = menuInfo.get(curmenu).actions[digit].action
         }
-        var option = document.createElement('option');
-        option.value = 'none';
-        var text = document.createTextNode('<?php echo _("No action"); ?>');
-        option.appendChild(text);
-        select.appendChild(option);
         $('selectAction').appendChild(select);
 
         // Cancel button
@@ -234,6 +229,7 @@ function editAction(digit)
             div.appendChild(img);
             break;
 
+        case 'directory':
         case 'rewind':
         case 'none':
             break;

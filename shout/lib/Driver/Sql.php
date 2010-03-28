@@ -208,7 +208,7 @@ class Shout_Driver_Sql extends Shout_Driver
         return $menuActions[$menu];
     }
 
-    public function saveMenuAction($account, $menu, $digit, $action, $args)
+    public function deleteMenuAction($account, $menu, $digit)
     {
         // Remove any existing action
         $sql = 'DELETE FROM menu_entries WHERE menu_id = ' .
@@ -222,6 +222,11 @@ class Shout_Driver_Sql extends Shout_Driver
         if ($result instanceof PEAR_Error) {
             throw new Shout_Exception($result);
         }
+    }
+
+    public function saveMenuAction($account, $menu, $digit, $action, $args)
+    {
+        $this->deleteMenuAction($account, $menu, $digit);
 
         $sql = 'INSERT INTO menu_entries (menu_id, digit, action_id, args) ' .
                'VALUES((SELECT id FROM menus WHERE account_id = ' .

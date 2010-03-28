@@ -139,6 +139,13 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
             $digit = $vars->get('digit');
             $menu = $vars->get('menu');
             $action = $vars->get('action');
+
+            if ($action == 'none') {
+                // Remove the menu action and return
+                $shout->dialplan->deleteMenuAction($account, $menu, $digit);
+                return true;
+            }
+
             $actions = Shout::getMenuActions();
             if (!isset($actions[$action])) {
                 throw new Shout_Exception('Invalid action requested.');
@@ -148,6 +155,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
                 $args[$name] = $vars->get($name);
             }
             $shout->dialplan->saveMenuAction($account, $menu, $digit, $action, $args);
+            return true;
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.
             Horde::logMessage($e, 'ERR');
