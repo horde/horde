@@ -14,6 +14,13 @@
  */
 class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_Base
 {
+
+    /** Status Codes **/
+    const STATUS_SUCCESS = 1;
+    const STATUS_INVALIDCOL = 2;
+    const STATUS_NOTPRIMED = 3;
+    const STATUS_KEYMISM = 4;
+
     /**
      * Handle the request
      *
@@ -22,72 +29,77 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
      */
     public function handle(Horde_ActiveSync $activeSync)
     {
+        $status = array();
         $collections = array();
 
-        if (!$this->_decoder->getElementStartTag(SYNC_GETITEMESTIMATE_GETITEMESTIMATE)) {
-            return false;
-        }
+        if (!$this->_decoder->getElementStartTag(SYNC_GETITEMESTIMATE_GETITEMESTIMATE) ||
+            !$this->_decoder->getElementStartTag(SYNC_GETITEMESTIMATE_FOLDERS)) {
 
-        if (!$this->_decoder->getElementStartTag(SYNC_GETITEMESTIMATE_FOLDERS)) {
+            // Not sure why the protocol doesn't have a status for this...
             return false;
         }
 
         while ($this->_decoder->getElementStartTag(SYNC_GETITEMESTIMATE_FOLDER)) {
 
+            /* Status - Assume success */
+            $cStatus = self::STATUS_SUCCESS;
+
+            /* Collection Class */
             if (!$this->_decoder->getElementStartTag(SYNC_GETITEMESTIMATE_FOLDERTYPE)) {
                 return false;
             }
-
             $class = $this->_decoder->getElementContent();
-
             if (!$this->_decoder->getElementEndTag()) {
                 return false;
             }
 
+            /* Collection Id */
             if ($this->_decoder->getElementStartTag(SYNC_GETITEMESTIMATE_FOLDERID)) {
                 $collectionid = $this->_decoder->getElementContent();
-
                 if (!$this->_decoder->getElementEndTag()) {
                     return false;
                 }
             }
 
+            /* Filter Type */
             if (!$this->_decoder->getElementStartTag(SYNC_FILTERTYPE)) {
                 return false;
             }
             $filtertype = $this->_decoder->getElementContent();
-
             if (!$this->_decoder->getElementEndTag()) {
                 return false;
             }
 
+            /* Sync Key */
             if (!$this->_decoder->getElementStartTag(SYNC_SYNCKEY)) {
                 return false;
             }
-
             $synckey = $this->_decoder->getElementContent();
-
-            if (!$this->_decoder->getElementEndTag()) {
-                return false;
+            if (empty($synckey)) {
+                $cStatus = self::STATUS_NOTPRIMED;
             }
             if (!$this->_decoder->getElementEndTag()) {
                 return false;
             }
 
+            /* End the FOLDER element */
+            if (!$this->_decoder->getElementEndTag()) {
+                return false;
+            }
+
+            /* Build the collection array */
             $collection = array();
             $collection['synckey'] = $synckey;
             $collection['class'] = $class;
             $collection['filtertype'] = $filtertype;
 
-            /* Initialize the state */
-            $state = &$this->_driver->getStateObject($collection);
-            $state->loadState($collection['synckey']);
-
-            // compatibility mode - get folderid from the state directory
+            /* compatibility mode - get id from state */
             if (!isset($collectionid)) {
+                $state = &$this->_driver->getStateObject();
                 $collectionid = $state>getFolderData($this->_devid, $collection['class']);
             }
             $collection['id'] = $collectionid;
+            $status[$collection['id']] = $cStatus;
 
             array_push($collections, $collection);
         }
@@ -99,7 +111,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
             $this->_encoder->startTag(SYNC_GETITEMESTIMATE_RESPONSE);
 
             $this->_encoder->startTag(SYNC_GETITEMESTIMATE_STATUS);
-            $this->_encoder->content(1);
+            $this->_encoder->content($status[$collection['id']]);
             $this->_encoder->endTag();
 
             $this->_encoder->startTag(SYNC_GETITEMESTIMATE_FOLDER);
@@ -116,6 +128,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
 
             $importer = new Horde_ActiveSync_ContentsCache();
 
+            $state = $this->_driver->getStateObject($collection);
             $state->loadState($collection['synckey']);
 
             $exporter = $this->_driver->GetExporter();
