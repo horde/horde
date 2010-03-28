@@ -39,7 +39,7 @@ v4.0-cvs
 v3.3.7-cvs
 ----------
 
-[mjr] Fix issue in Horde_Image that would cause generated images to loose
+[mjr] Fix issue in Horde_Image that would cause generated images to lose
       transparency in certain situations.
 [jan] Allow to update existing identities while requiring email confirmation
       (Sebastian Radish, Bug #8877).
