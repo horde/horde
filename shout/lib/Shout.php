@@ -194,7 +194,7 @@ class Shout
             'dial' => array(
                 'description' => _("Call out"),
                 'args' => array(
-                    'number' => array(
+                    'numbers' => array(
                         'name' => _("Phone Number"),
                         'type' => 'phone',
                         'required' => true

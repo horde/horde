@@ -152,12 +152,11 @@ function editAction(digit)
         empty('editAction');
         var action = $('editActionForm').down('select').getValue();
         var div = document.createElement('div');
+        div.id = 'editActionArgs';
         switch(action) {
         case 'jump':
-            var span = document.createElement('span');
-            var text = document.createTextNode(menuActions.get(action).description);
-            span.appendChild(text);
-            div.appendChild(span);
+            var text = document.createTextNode(menuActions.get(action).args.menuName.name);
+            div.appendChild(text);
 
             var select = document.createElement('select');
             select.name = 'menuName';
@@ -176,10 +175,8 @@ function editAction(digit)
 
         case 'ringexten':
         case 'leave_message':
-            var span = document.createElement('span');
-            var text = document.createTextNode(menuActions.get(action).description);
-            span.appendChild(text);
-            div.appendChild(span);
+            var text = document.createTextNode(menuActions.get(action).args.exten.name);
+            div.appendChild(text);
 
             var select = document.createElement('select');
             select.name = 'exten';
@@ -198,10 +195,8 @@ function editAction(digit)
             break;
 
         case 'conference':
-            var span = document.createElement('span');
-            var text = document.createTextNode(menuActions.get(action).description);
-            span.appendChild(text);
-            div.appendChild(span);
+            var text = document.createTextNode(menuActions.get(action).args.roomno.name);
+            div.appendChild(text);
 
             var input = document.createElement('input');
             input.name = 'roomno';
@@ -212,10 +207,31 @@ function editAction(digit)
             break;
 
         case 'dial':
-            alert(action);
+            var text = document.createTextNode(menuActions.get(action).args.numbers.name);
+            div.appendChild(text);
+            var br = document.createElement('br');
+            div.appendChild(br);
             if (menuInfo.get(curmenu).actions[digit] != null) {
-                alert("FIXME: Preserve values");
+                menuInfo.get(curmeun).actions[digit].args.numbers.each(function (s) {
+                    var input = document.createElement('input');
+                    input.name = 'numbers[]';
+                    input.value = s;
+                    input.size = "15";
+                    div.appendChild(input);
+                })
+            } else {
+                var input = document.createElement('input');
+                input.name = 'numbers[]';
+                input.size = "15";
+                div.appendChild(input);
+
             }
+            var img = document.createElement('img');
+            img.alt = '<?php echo _("Add a number"); ?>';
+            img.id = 'addDialNumberButton';
+            img.src = '<?php echo Horde_Themes::img('plus.png'); ?>';
+            img.setAttribute('onclick', 'addDialNumber()');
+            div.appendChild(img);
             break;
 
         case 'rewind':
@@ -246,6 +262,23 @@ function editAction(digit)
         $('editAction').appendChild(div);
     }
     $('dialpadWorking').hide();
+}
+
+function addDialNumber()
+{
+    $('editActionArgs').removeChild($('addDialNumberButton'));
+    var br = document.createElement('br');
+    $('editActionArgs').appendChild(br);
+    var input = document.createElement('input');
+    input.name = 'numbers[]';
+    input.size = "15";
+    $('editActionArgs').appendChild(input);
+    var img = document.createElement('img');
+    img.alt = '<?php echo _("Add a number"); ?>';
+    img.id = 'addDialNumberButton';
+    img.src = '<?php echo Horde_Themes::img('plus.png'); ?>';
+    img.setAttribute('onclick', 'addDialNumber()');
+    $('editActionArgs').appendChild(img);
 }
 
 function saveAction(event)
@@ -386,10 +419,11 @@ function refreshMenu()
             }
             break;
         case 'dial':
-            if (pair.value.args.length == 1) {
-                text = document.createTextNode(pair.value.args.first().number);
-            } else if (pair.value.args.length > 1) {
-                text = document.createTextNode(pair.value.args.length + ' <?php echo _("numbers"); ?>');  
+            if (pair.value.args.numbers.length == 1) {
+                text = document.createTextNode(pair.value.args.numbers.first());
+            } else if (pair.value.args.numbers.length > 1) {
+                text = document.createTextNode(pair.value.args.numbers.length +
+                                               ' <?php echo _("numbers"); ?>');
             } else {
                 // Technically, this is an error.
                 // There should always be a number to dial.

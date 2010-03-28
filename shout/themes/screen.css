@@ -44,7 +44,6 @@ table {
 
 .extensionDestinations
 {
-    /*display: none;*/
     position: relative;
     left: 25px;
 }
@@ -153,6 +152,11 @@ ul {
     top: 0px;
     left: 0px;
     background-image: url('graphics/transparency.png');
+}
+
+#editActionArgs
+{
+    padding-left: 45px;
 }
 
 #editMenu
