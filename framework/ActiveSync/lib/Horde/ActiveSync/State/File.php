@@ -117,7 +117,6 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
             throw new Horde_ActiveSync_Exception('Sync state not found');
         }
         $this->_stateCache = unserialize(file_get_contents($filename));
-
         $this->_syncKey = $syncKey;
     }
 
