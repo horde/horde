@@ -27,8 +27,9 @@ class Shout
         $menu = new Horde_Menu(Horde_Menu::MASK_ALL);
 
         $menu->add(Horde::applicationUrl('dialplan.php'), _("Incoming Calls"), "dialplan.png");
-        $menu->add(Horde::applicationUrl('extensions.php'), _("Extensions"), "user.png");
+        $menu->add(Horde::applicationUrl('extensions.php'), _("Extensions"), "extension.png");
         $menu->add(Horde::applicationUrl('devices.php'), _("Devices"), "shout.png");
+        $menu->add(Horde::applicationUrl('conferences.pngp'), _("Conferences"), "conference.png");
         //$menu->add(Horde::applicationUrl('recordings.php'), _("Recordings"), "recordings.png");
 
         /* Administration. */

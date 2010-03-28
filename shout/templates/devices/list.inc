@@ -44,7 +44,7 @@
     $addurl = Horde_Util::addParameter($addurl, 'action', 'add');
     ?>
     <li class="button"><a href="<?php echo $addurl; ?>">
-        <?php echo Horde::img('add-device.png'); ?>&nbsp;New Device
+        <?php echo Horde::img('device-add.png'); ?>&nbsp;New Device
         </a>
     </li>
 </ul>
