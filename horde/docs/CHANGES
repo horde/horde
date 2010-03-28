@@ -2,6 +2,7 @@
 v4.0-cvs
 --------
 
+[mjr] Horde_Image can now act as an Iterator for multi-page images.
 [mms] Remove Horde_Cipher library.
 [mms] Add 'cssfiles' hook to add custom CSS files to a page.
 [jan] Add option to not automatically show all available shares.
@@ -38,6 +39,8 @@ v4.0-cvs
 v3.3.7-cvs
 ----------
 
+[mjr] Fix issue in Horde_Image that would cause generated images to loose
+      transparency in certain situations.
 [jan] Allow to update existing identities while requiring email confirmation
       (Sebastian Radish, Bug #8877).
 [jan] Fix casting errors when using SQL shares and groups on PostgreSQL
