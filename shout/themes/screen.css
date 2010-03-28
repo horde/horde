@@ -59,14 +59,10 @@ span.device:hover
     cursor: pointer;
 }
 
-ul {
-    list-style: none;
-    display: inline;
-}
-
 #controls {
     margin-left: auto;
     margin-right: auto;
+    list-style: none;
 }
 
 #controls li {
@@ -113,9 +109,6 @@ ul {
     background-image: url('graphics/digit-bg.png');
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
-}
-
-.digit:hover {
     cursor: pointer;
 }
 
@@ -185,6 +178,7 @@ ul {
     float:left;
     margin: 3px;
     cursor: pointer;
+    padding: 2px 8px;
 }
 
 .button a {

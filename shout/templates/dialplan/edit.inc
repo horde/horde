@@ -88,6 +88,7 @@ var curmenu = null;
 var menuInfo = $H();
 var menuActions = $H(<?php echo Horde_Serialize::serialize(Shout::getMenuActions(), Horde_Serialize::JSON, Horde_Nls::getCharset()); ?>);
 var destinations = $H(<?php echo Horde_Serialize::serialize($destinations, Horde_Serialize::JSON, Horde_Nls::getCharset()); ?>);
+var conferences = $H(<?php echo Horde_Serialize::serialize($conferences, Horde_Serialize::JSON, Horde_Nls::getCharset()); ?>);
 var soundfiles = $H(<?php echo Horde_Serialize::serialize($soundfiles, Horde_Serialize::JSON, Horde_Nls::getCharset()); ?>);
 
 function empty(p)
@@ -194,12 +195,20 @@ function editAction(digit)
             var text = document.createTextNode(menuActions.get(action).args.roomno.name);
             div.appendChild(text);
 
-            var input = document.createElement('input');
-            input.name = 'roomno';
+            var select = document.createElement('select');
+            select.name = 'roomno';
+            conferences.each(function (item) {
+                var option = document.createElement('option');
+                option.value = item.key;
+                var text = document.createTextNode(item.value.name);
+                option.appendChild(text);
+                select.appendChild(option);
+            })
+
             if (menuInfo.get(curmenu).actions[digit] != null) {
-                input.value = menuInfo.get(curmenu).actions[digit].args.roomno;
+                select.value = menuInfo.get(curmenu).actions[digit].roomno;
             }
-            div.appendChild(input);
+            div.appendChild(select);
             break;
 
         case 'dial':
@@ -410,7 +419,7 @@ function refreshMenu()
         case 'conference':
             var roomno = pair.value.args['roomno'];
             if (roomno != null) {
-                text = document.createTextNode(roomno);
+                text = document.createTextNode(conferences.get(roomno).name);
             } else {
                 text = document.createTextNode('');
             }

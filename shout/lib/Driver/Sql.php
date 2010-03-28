@@ -425,6 +425,38 @@ class Shout_Driver_Sql extends Shout_Driver
         throw new Shout_Exception("Not implemented.");
     }
 
+    public function getConferences($account)
+    {
+        $sql = 'SELECT id, room_number, name, pin, options ' .
+               'FROM conferences ' .
+               'WHERE account_id = (SELECT id FROM accounts WHERE code = ?);';
+        $args = array($account);
+        $msg = 'SQL query in Shout_Driver_Sql#getConferences(): ' . $sql;
+        Horde::logMessage($msg, 'DEBUG');
+        $sth = $this->_db->prepare($sql);
+        $result = $this->_db->execute($sth, $args);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+
+        $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
+        if ($row instanceof PEAR_Error) {
+            throw new Shout_Exception($row);
+        }
+
+        $conferences = array();
+        while ($row && !($row instanceof PEAR_Error)) {
+            $roomno = $row['room_number'];
+            $conferences[$roomno] = $row;
+
+            /* Advance to the new row in the result set. */
+            $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
+        }
+
+        $result->free();
+        return $conferences;
+    }
+
     /**
      * Attempts to open a persistent connection to the SQL server.
      *

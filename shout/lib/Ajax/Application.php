@@ -115,7 +115,19 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
             return $menus;
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.
-            die(var_dump($e));
+            Horde::logMessage($e, 'ERR');
+            return false;
+        }
+    }
+
+    public function getConferences()
+    {
+        try {
+            $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
+            $account = $_SESSION['shout']['curaccount'];
+            return $shout->storage->getConferences($account);
+        } catch (Exception $e) {
+            //FIXME: Create a way to notify the user of the failure.
             Horde::logMessage($e, 'ERR');
             return false;
         }
