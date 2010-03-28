@@ -212,7 +212,7 @@ function editAction(digit)
             var br = document.createElement('br');
             div.appendChild(br);
             if (menuInfo.get(curmenu).actions[digit] != null) {
-                menuInfo.get(curmeun).actions[digit].args.numbers.each(function (s) {
+                menuInfo.get(curmenu).actions[digit].args.numbers.each(function (s) {
                     var input = document.createElement('input');
                     input.name = 'numbers[]';
                     input.value = s;
