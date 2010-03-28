@@ -39,6 +39,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
             return false;
         }
 
+        /* Obtain all the collections we are getting estimates for */
         while ($this->_decoder->getElementStartTag(SYNC_GETITEMESTIMATE_FOLDER)) {
 
             /* Status - Assume success */
@@ -106,6 +107,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
 
         $this->_encoder->startWBXML();
 
+        /* Start getting the actual esitmates and outputting the results */
         $this->_encoder->startTag(SYNC_GETITEMESTIMATE_GETITEMESTIMATE);
         foreach ($collections as $collection) {
             $this->_encoder->startTag(SYNC_GETITEMESTIMATE_RESPONSE);

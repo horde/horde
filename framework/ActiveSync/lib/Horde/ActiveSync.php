@@ -464,29 +464,7 @@ define("SYNC_PROVISION_RWSTATUS_WIPED", 3);
  */
 class Horde_ActiveSync
 {
-    /* SYNC Status response codes */
-    const STATUS_SYNC_SUCCESS = 1;
-    const STATUS_SYNC_VERSIONMISM = 2;
-    const STATUS_SYNC_KEYMISM = 3;
-    const STATUS_SYNC_PROTERROR = 4;
-    const STATUS_SYNC_SERVERERROR = 5;
-
-    const STATUS_PING_NOCHANGES = 1;
-    const STATUS_PING_NEEDSYNC = 2;
-    const STATUS_PING_MISSING = 3;
-    const STATUS_PING_PROTERROR = 4;
-    // Hearbeat out of bounds (TODO)
-    const STATUS_PING_HBOUTOFBOUNDS = 5;
-
-    // Requested more then the max folders (TODO)
-    const STATUS_PING_MAXFOLDERS = 6;
-
-    // Folder sync is required, hierarchy out of date.
-    const STATUS_PING_FOLDERSYNCREQD = 7;
-    const STATUS_PING_SERVERERROR = 8;
-
-
-    /**
+   /**
      * DTD
      */
     static public $zpushdtd = array(
