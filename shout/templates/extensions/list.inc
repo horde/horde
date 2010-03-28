@@ -43,7 +43,7 @@
     $addurl = Horde::applicationUrl('extensions.php');
     $addurl = Horde_Util::addParameter($addurl, 'action', 'add');
     ?>
-    <li class="button"><a href="<?php echo $addurl; ?>">
+    <li><a class="button" href="<?php echo $addurl; ?>">
         <?php echo Horde::img('extension-add.png'); ?>&nbsp;New Extension
         </a>
     </li>

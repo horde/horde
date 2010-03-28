@@ -1,14 +1,4 @@
 <div class="header">
-    <ul id="controls">
-        <?php
-        $addurl = Horde::applicationUrl('recordings.php');
-        $addurl = Horde_Util::addParameter($addurl, 'action', 'add');
-        ?>
-        <li><a href="<?php echo $addurl; ?>">
-            <?php echo Horde::img('recording-add.png'); ?>&nbsp;New Recording
-            </a>
-        </li>
-    </ul>
     Account: <?php echo $_SESSION['shout']['accounts'][$curaccount]; ?>
 </div>
 
@@ -43,3 +33,13 @@
         ?>
     </table>
 </div>
+<ul id="controls">
+    <?php
+    $addurl = Horde::applicationUrl('recordings.php');
+    $addurl = Horde_Util::addParameter($addurl, 'action', 'add');
+    ?>
+    <li><a class="button" href="<?php echo $addurl; ?>">
+        <?php echo Horde::img('recording-add.png'); ?>&nbsp;New Recording
+        </a>
+    </li>
+</ul>
