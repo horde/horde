@@ -12,5 +12,4 @@ class Horde_ActiveSync_ContentsCache
     public function ImportMessageDeletion($message) { return true; }
     public function ImportMessageReadFlag($message) { return true; }
     public function ImportMessageMove($message) { return true; }
-
 }
