@@ -156,8 +156,22 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
 
     public function saveMenuInfo()
     {
-        // FIXME
-        return true;
+        try {
+            $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
+            $account = $_SESSION['shout']['curaccount'];
+            $vars = &$this->_vars;
+            $info = array(
+                'name' => $vars->get('name'),
+                'oldname' => $vars->get('oldname'),
+                'description' => $vars->get('description'),
+                'recording_id' => $vars->get('recording_id')
+            );
+            return $shout->storage->saveMenuInfo($account, $info);
+        } catch (Exception $e) {
+            //FIXME: Create a way to notify the user of the failure.
+            Horde::logMessage($e, 'ERR');
+            return false;
+        }
     }
 
     public function saveAction()

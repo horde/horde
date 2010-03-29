@@ -134,7 +134,7 @@ class Shout_Driver_Sql extends Shout_Driver
         return $menus;
     }
 
-    public function saveMenu($account, $details)
+    public function saveMenuInfo($account, $details)
     {
         $menus = $this->getMenus($account);
         if (isset($details['oldname'])) {

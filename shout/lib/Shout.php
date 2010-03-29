@@ -207,7 +207,7 @@ class Shout
                 'description' => _("Restart menu"),
                 'args' => array()
             ),
-            'adminlogin' => array(
+            'admin_login' => array(
                 'description' => _("Login to Admin Functions"),
                 'args' => array()
             ),

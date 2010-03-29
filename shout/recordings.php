@@ -43,22 +43,8 @@ case 'add':
     // Create a new add form
     $vars = new Horde_Variables();
     $vars->set('action', $action);
-    //$Form = new MenuForm($vars);
+    break;
 
-    break;
-case 'edit':
-    if (!isset($menus[$menu])) {
-        $notification->push(_("That menu does not exist."), 'horde.error');
-        $action = 'list';
-        break;
-    }
-    $menu = $menus[$menu];
-    try {
-        $destinations = $shout->extensions->getExtensions($curaccount);
-    } catch (Exception $e) {
-        $notification->push(_("Problem getting destination information."));
-    }
-    break;
 case 'list':
 default:
     $action = 'list';

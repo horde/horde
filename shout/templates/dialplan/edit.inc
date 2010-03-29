@@ -498,12 +498,12 @@ function deleteMenu()
     }
 }
 
-function saveMenu()
+function saveMenuInfo()
 {
     $('menuWorking').show();
     var params = $('editMenu').serialize(true);
     params.oldname = curmenu;
-    new Ajax.Request(ajax_url + 'saveAction',
+    new Ajax.Request(ajax_url + 'saveMenuInfo',
     {
         method: 'post',
         parameters: params,
