@@ -33,8 +33,6 @@ case 'edit':
     if ($Form->isSubmitted() && $Form->isValid()) {
         // Form is Valid and Submitted
         try {
-            $devid = Horde_Util::getFormData('devid');
-
             $Form->execute();
             $notification->push(_("Conference information saved."),
                                   'horde.success');
@@ -50,17 +48,18 @@ case 'edit':
     }
 
     // Create a new add/edit form
-    $devid = Horde_Util::getFormData('devid');
-    $devices = $shout->devices->getDevices($curaccount);
-    $vars = new Horde_Variables($devices[$devid]);
+    $roomno = Horde_Util::getFormData('roomno');
+    $conferences = $shout->storage->getConferences($curaccount);
+    $vars = new Horde_Variables($conferences[$roomno]);
 
     $vars->set('action', $action);
+
     $Form = new ConferenceDetailsForm($vars);
 
     // Make sure we get the right template below.
     $action = 'edit';
-
     break;
+
 case 'delete':
     $title .= sprintf(_("Delete Devices %s"), $extension);
     $devid = Horde_Util::getFormData('devid');
@@ -86,7 +85,6 @@ case 'delete':
     $vars = Horde_Variables::getDefaultVariables(array());
     $vars->set('account', $curaccount);
     $Form = new DeviceDeleteForm($vars);
-
     break;
 
 case 'list':

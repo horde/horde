@@ -11,33 +11,31 @@
             <td class="uheader">Options</td>
         </tr>
         <?php
+            $url = Horde::applicationUrl("conferences.php");
             $editurl = Horde_Util::addParameter($url, 'action', 'edit');
             $deleteurl = Horde_Util::addParameter($url, 'action', 'delete');
             foreach ($conferences as $roomno => $info) {
-
-                $url = Horde::applicationUrl("conferences.php");
-                $url = Horde_Util::addParameter($url,
+                $editurl = Horde_Util::addParameter($editurl,
                     array(
                         'roomno' => $roomno,
                     )
                 );
-
-        ?>
-        <tr class="item">
-            <td>
-                <?php echo Horde::link($editurl); echo $info['name']; ?></a>
-            </td>
-            <td>
-                <?php echo $roomno; ?>
-            </td>
-            <td>
-                <?php echo $info['pin']; ?>
-            </td>
-            <td>
-                <?php echo Horde::link($editurl); echo $info['options']; ?></a>
-            </td>
-        </tr>
-        <?php
+                ?>
+                <tr class="item">
+                    <td>
+                        <?php echo Horde::link($editurl); echo $info['name']; echo '</a>'; ?>
+                    </td>
+                    <td>
+                        <?php echo Horde::link($editurl); echo $roomno; echo '</a>'; ?>
+                    </td>
+                    <td>
+                        <?php echo $info['pin']; ?>
+                    </td>
+                    <td>
+                        <?php echo $info['options']; ?>
+                    </td>
+                </tr>
+                <?php
             }
         ?>
     </table>

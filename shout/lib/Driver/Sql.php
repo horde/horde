@@ -427,14 +427,13 @@ class Shout_Driver_Sql extends Shout_Driver
 
     public function getConferences($account)
     {
-        $sql = 'SELECT id, room_number, name, pin, options ' .
+        $sql = 'SELECT id, room_number AS roomno, name, pin, options ' .
                'FROM conferences ' .
                'WHERE account_id = (SELECT id FROM accounts WHERE code = ?);';
         $args = array($account);
         $msg = 'SQL query in Shout_Driver_Sql#getConferences(): ' . $sql;
         Horde::logMessage($msg, 'DEBUG');
-        $sth = $this->_db->prepare($sql);
-        $result = $this->_db->execute($sth, $args);
+        $result = $this->_db->query($sql, $args);
         if ($result instanceof PEAR_Error) {
             throw new Shout_Exception($result);
         }
@@ -446,7 +445,7 @@ class Shout_Driver_Sql extends Shout_Driver
 
         $conferences = array();
         while ($row && !($row instanceof PEAR_Error)) {
-            $roomno = $row['room_number'];
+            $roomno = $row['roomno'];
             $conferences[$roomno] = $row;
 
             /* Advance to the new row in the result set. */
@@ -455,6 +454,33 @@ class Shout_Driver_Sql extends Shout_Driver
 
         $result->free();
         return $conferences;
+    }
+
+    public function saveConference($account, $roomno, $details)
+    {
+        if (isset($details['oldroomno'])) {
+            // This is an edit
+            $sql = 'UPDATE conferences ' .
+                   'SET room_number = ?, name = ?, pin = ? ' .
+                   'WHERE room_number = ? AND account_id = ' .
+                   '(SELECT id FROM accounts WHERE code = ?)';
+            $args = array($roomno, $details['name'], $details['pin'],
+                          $details['oldroomno'], $account);
+        } else {
+            $sql = 'INSERT INTO conferences ' .
+                   '(room_number, name, pin, account_id) ' .
+                   'VALUES (?, ?, ?, (SELECT id FROM accounts WHERE code = ?))';
+            $args = array($roomno, $details['name'], $details['pin'], $account);
+        }
+
+        $msg = 'SQL query in Shout_Driver_Sql#saveConference(): ' . $sql;
+        Horde::logMessage($msg, 'DEBUG');
+        $result = $this->_db->query($sql, $args);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+
+        return true;
     }
 
     /**
