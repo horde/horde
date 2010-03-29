@@ -523,14 +523,14 @@ class Horde_Controller_Request_Http extends Horde_Controller_Request_Base
      */
     function getHeader($name)
     {
-        if ($this->_headers == NULL) {
+        if ($this->_headers == null) {
             $this->_headers = $this->_getAllHeaders();
         }
 
         if (isset($this->_headers[$name])) {
             return $this->_headers[$name];
         }
-        return NULL;
+        return null;
     }
 
     /**
@@ -544,7 +544,7 @@ class Horde_Controller_Request_Http extends Horde_Controller_Request_Base
      */
     function getHeaderNames()
     {
-        if ($this->_headers == NULL) {
+        if ($this->_headers == null) {
             $this->_headers = $this->_getAllHeaders();
         }
         return array_keys($this->_headers);
@@ -561,7 +561,7 @@ class Horde_Controller_Request_Http extends Horde_Controller_Request_Base
      */
     function getHeaders()
     {
-        if ($this->_headers == NULL) {
+        if ($this->_headers == null) {
             $this->_headers = $this->_getAllHeaders();
         }
         return $this->_headers;
@@ -582,9 +582,14 @@ class Horde_Controller_Request_Http extends Horde_Controller_Request_Base
             return getallheaders();
         }
 
-        reset($_SERVER);
         $result = array();
-        array_walk($_SERVER, array($this, '_getAllHeadersHelper'), $result);
+        reset($_SERVER);
+        foreach ($_SERVER as $key => $value) {
+            $header_name = substr($key, 0, 5);
+            if ($header_name == 'HTTP_') {
+                $result[$key] = $value;
+            }
+        }
 
         // map so that the variables gotten from the environment when
         // running as CGI have the same names as when PHP is an apache
@@ -601,23 +606,23 @@ class Horde_Controller_Request_Http extends Horde_Controller_Request_Base
 
         $mapped_result = array();
         foreach ($result as $k => $v) {
-            $mapped_result[$map[$k]] = $v;
+            if (!empty($map[$k])) {
+                $mapped_result[$map[$k]] = $v;
+            } elseif (substr($k, 0, 6) == 'HTTP_X') {
+                // Try to work with what we have...
+                $hdr_key = substr($k, 5);
+                $tokens = explode('_', $hdr_key);
+                if (count($tokens) > 0 && strlen($hdr_key) > 2) {
+                    foreach($tokens as $key => $value) {
+                        $tokens[$key] = ucfirst($value);
+                    }
+                    $hdr_key = implode('-', $tokens);
+                    $mapped_result[$hdr_key] = $v;
+                }
+            }
         }
 
         return $mapped_result;
-    }
-
-    /**
-     * Helper function for _getallheaders.
-     *
-     * For use with array_walk.
-     */
-    protected function _getAllHeadersHelper($value, $key, &$result)
-    {
-        $header_name = substr($key, 0, 5);
-        if ($header_name == 'HTTP_') {
-            $result[$key] = $value;
-        }
     }
 
 }
