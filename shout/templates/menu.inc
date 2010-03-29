@@ -33,12 +33,12 @@ function accountSubmit(clear)
    <?php Horde_Util::pformInput() ?>
     <select id="account" name="account" onchange="accountSubmit()">
      <?php
-        foreach ($accounts as $account => $name) {
+        foreach ($accounts as $account => $info) {
             print "<option value=\"$account\"";
             if ($account == $curaccount) {
                 print " selected";
             }
-            print ">$name</option>\n";
+            print ">${info['name']}</option>\n";
         }
      ?>
     </select>

@@ -46,7 +46,7 @@ case 'edit':
     // Create a new add/edit form
     $account = Horde_Util::getFormData('extension');
     $accounts = $shout->storage->getAccounts();
-    $vars = new Horde_Variables(array('code' => $account, 'name' => $accounts[$account]));
+    $vars = new Horde_Variables(array('code' => $account, 'name' => $accounts[$account]['name']));
     $vars->set('action', $action);
 
     // Make sure we get the right template below.

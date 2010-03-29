@@ -1,42 +1,41 @@
 <div class="header">
-    Account: <?php echo $_SESSION['shout']['accounts'][$curaccount]; ?>
+    Account: <?php echo $_SESSION['shout']['accounts'][$curaccount]['name']; ?>
 </div>
 
 <div id="extensionList">
     <table width="100%" cellspacing="0" class="striped">
         <tr>
             <td class="uheader">Account Code</td>
-            <td id ="destinationsCol" class="uheader">Account Name</td>
+            <td class="uheader">Account Name</td>
+            <td class="uheader">Admin PIN</td>
         </tr>
         <?php
-            foreach ($accounts as $code => $name) {
-
-                $url = Horde::applicationUrl("admin.php");
-                $url = Horde_Util::addParameter($url,
-                    array(
-                        'account' => $code,
-                    )
-                );
-                $editurl = Horde_Util::addParameter($url, 'action', 'edit');
-                $deleteurl = Horde_Util::addParameter($url, 'action', 'delete');
-        ?>
-        <tr class="item" style="vertical-align: top">
-            <td>
-                <?php echo Horde::link($editurl); echo $code; ?></a>
-            </td>
-            <td>
-                <?php echo $name; ?>
-            </td>
-        </tr>
-        <?php
+            $url = Horde::applicationUrl("admin.php");
+            $editurl = Horde_Util::addParameter($url, 'action', 'edit');
+            $deleteurl = Horde_Util::addParameter($url, 'action', 'delete');
+            foreach ($accounts as $acctinfo) {
+                $code = $acctinfo['code'];
+                ?>
+                <tr class="item" style="vertical-align: top">
+                    <td>
+                        <?php echo Horde::link(Horde_Util::addParameter($editurl,
+                            array('account' => $code))); echo $code; echo '</a>'; ?>
+                    </td>
+                    <td>
+                        <?php echo $acctinfo['name']; ?>
+                    </td>
+                    <td>
+                        <?php echo $acctinfo['adminpin']; ?>
+                    </td>
+                </tr>
+                <?php
             }
-        ?>
+            ?>
     </table>
 </div>
 <ul id="controls">
     <?php
-    $addurl = Horde::applicationUrl('admin.php');
-    $addurl = Horde_Util::addParameter($addurl, 'action', 'add');
+    $addurl = Horde_Util::addParameter($url, 'action', 'add');
     ?>
     <li><a class="button" href="<?php echo $addurl; ?>">
         <?php echo Horde::img('extension-add.png'); ?>&nbsp;New Account

@@ -48,7 +48,7 @@ class Shout_Driver_Sql extends Shout_Driver
     {
         $this->_connect();
 
-        $sql = 'SELECT name, code FROM accounts';
+        $sql = 'SELECT name, code, adminpin FROM accounts';
         $vars = array();
 
         $msg = 'SQL query in Shout_Driver_Sql#getAccounts(): ' . $sql;
@@ -65,7 +65,7 @@ class Shout_Driver_Sql extends Shout_Driver
 
         $accounts = array();
         while ($row && !($row instanceof PEAR_Error)) {
-            $accounts[$row['code']] = $row['name'];
+            $accounts[$row['code']] = $row;
             $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
         }
 
@@ -73,24 +73,23 @@ class Shout_Driver_Sql extends Shout_Driver
          return $accounts;
     }
 
-    public function saveAccount($code, $name)
+    public function saveAccount($code, $name, $adminpin)
     {
         $this->_connect();
 
-        if (isset($details['oldname'])) {
-            if (!isset($menus[$details['oldname']])) {
-                throw new Shout_Exception(_("Old account not found.  Edit aborted."));
-            } else {
-                throw new Shout_Exception(_("Unsupported operation."));
-                $sql = 'UPDATE accounts SET code = ?, name =? WHERE code = ?';
-            }
-        } else {
-            $sql = 'INSERT INTO accounts (code, name) VALUES (?,?)';
-        }
-
-        $vars = array($code, $name);
-
-        $msg = 'SQL query in Shout_Driver_Sql#getAccounts(): ' . $sql;
+        // FIXME: Enable editing of account details
+//        if (isset($details['oldname'])) {
+//            if (!isset($menus[$details['oldname']])) {
+//                throw new Shout_Exception(_("Old account not found.  Edit aborted."));
+//            } else {
+//                throw new Shout_Exception(_("Unsupported operation."));
+//                $sql = 'UPDATE accounts SET code = ?, name = ?, adminpin = ? ' .
+//                       'WHERE code = ?';
+//            }
+//        } else {
+        $sql = 'INSERT INTO accounts (code, name, adminpin) VALUES (?,?,?)';
+        $vars = array($code, $name, $adminpin);
+        $msg = 'SQL query in Shout_Driver_Sql#saveAccount(): ' . $sql;
         Horde::logMessage($msg, 'DEBUG');
         $result = $this->_db->query($sql, $vars);
         if ($result instanceof PEAR_Error) {

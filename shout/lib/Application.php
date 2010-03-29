@@ -138,9 +138,9 @@ class Shout_Application extends Horde_Registry_Application
         self::$_perms['title']['shout:accounts'] = _("Accounts");
 
         // Run through every contact source.
-        foreach ($accounts as $code => $account) {
+        foreach ($accounts as $code => $info) {
             self::$_perms['tree']['shout']['accounts'][$code] = false;
-            self::$_perms['title']['shout:accounts:' . $code] = $account;
+            self::$_perms['title']['shout:accounts:' . $code] = $info['name'];
 
             foreach(
                 array(

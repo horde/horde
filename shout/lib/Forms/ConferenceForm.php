@@ -26,7 +26,7 @@ class ConferenceDetailsForm extends Horde_Form {
 
         $curaccount = $_SESSION['shout']['curaccount'];
         $accountname = $vars->account;
-        $title = sprintf(_("$formtitle - Account: %s"), $accountname);
+        $title = sprintf(_("$formtitle"));
         parent::__construct($vars, $title);
 
         $this->addHidden('', 'action', 'text', true);
@@ -76,7 +76,7 @@ class ConferenceDeleteForm extends Horde_Form
         $account = $vars->get('account');
 
         $title = _("FIXME Delete Device %s - Account: %s");
-        $title = sprintf($title, $devid, $_SESSION['shout']['accounts'][$account]);
+        $title = sprintf($title, $devid, $_SESSION['shout']['accounts'][$account]['name']);
         parent::__construct($vars, $title);
 
         $this->addHidden('', 'account', 'text', true);

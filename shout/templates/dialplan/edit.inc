@@ -239,6 +239,7 @@ function editAction(digit)
             div.appendChild(img);
             break;
 
+        case 'adminlogin':
         case 'directory':
         case 'rewind':
         case 'none':

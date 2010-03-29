@@ -31,7 +31,7 @@ class AccountDetailsForm extends Horde_Form {
             $formtitle = "Add Account";
         }
 
-        $accountname = $_SESSION['shout']['accounts'][$curaccount];
+        $accountname = $_SESSION['shout']['accounts'][$curaccount]['name'];
         $title = sprintf(_("$formtitle %s"), $accountname);
         parent::__construct($vars, $title);
 
@@ -39,6 +39,7 @@ class AccountDetailsForm extends Horde_Form {
         //$this->addHidden('', 'oldaccount', 'text', false);
         $this->addVariable(_("Account Name"), 'name', 'text', true);
         $this->addVariable(_("Account Code"), 'code', 'text', true);
+        $this->addVariable(_("Admin PIN"), 'adminpin', 'number', false);
 
         return true;
     }
@@ -52,8 +53,12 @@ class AccountDetailsForm extends Horde_Form {
 
         $code = $this->_vars->get('code');
         $name = $this->_vars->get('name');
+        $adminpin = $this->_vars->get('adminpin');
+        if (empty($adminpin)) {
+            $adminpin = rand(1000, 9999);
+        }
 
-        $shout->storage->saveAccount($code, $name);;
+        $shout->storage->saveAccount($code, $name, $adminpin);
     }
 
 }
@@ -66,7 +71,7 @@ class AccountDeleteForm extends Horde_Form
         $account = $vars->get('account');
 
         $title = _("Delete Extension %s - Account: %s");
-        $title = sprintf($title, $extension, $_SESSION['shout']['accounts'][$account]);
+        $title = sprintf($title, $extension, $_SESSION['shout']['accounts'][$account]['name']);
         parent::__construct($vars, $title);
 
         $this->addHidden('', 'account', 'text', true);
