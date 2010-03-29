@@ -100,175 +100,179 @@ function empty(p)
 
 function editAction(digit)
 {
-    $('dialpadWorking').show();
-    empty('editAction');
-    $('editActionFormDigit').value = digit;
-
-    if ($('selectAction').firstChild == null) {
-        $('digitGraphic').src = '<?php echo Horde_Themes::img(null, array('notheme' => true, 'nohorde' => true)); ?>/digit-'+digit+'.png';
-
-        // Draw the selectActionForm
-        $('editActionOverlay').show();
-        empty('selectAction');
+    try {
+        $('dialpadWorking').show();
         empty('editAction');
-        var p = document.createElement('p');
-        p.id = 'actionPrompt';
-        var text = document.createTextNode('<?php echo _("Action:"); ?>');
-        p.appendChild(text);
-        $('selectAction').appendChild(p);
-        var select = document.createElement('select');
-        select.name = 'action';
-        select.setAttribute('onChange', 'editAction("'+digit+'")');
-        var option = document.createElement('option');
-        option.value = '';
-        var text = document.createTextNode('<?php echo _("-- Select Action --"); ?>');
-        option.appendChild(text);
-        select.appendChild(option);
-        menuActions.each(function (item) {
-            option = document.createElement('option');
-            option.value = item.key;
-            var text = document.createTextNode(item.value.description);
+        $('editActionFormDigit').value = digit;
+
+        if ($('selectAction').firstChild == null) {
+            $('digitGraphic').src = '<?php echo Horde_Themes::img(null, array('notheme' => true, 'nohorde' => true)); ?>/digit-'+digit+'.png';
+
+            // Draw the selectActionForm
+            $('editActionOverlay').show();
+            empty('selectAction');
+            empty('editAction');
+            var p = document.createElement('p');
+            p.id = 'actionPrompt';
+            var text = document.createTextNode('<?php echo _("Action:"); ?>');
+            p.appendChild(text);
+            $('selectAction').appendChild(p);
+            var select = document.createElement('select');
+            select.name = 'action';
+            select.setAttribute('onChange', 'editAction("'+digit+'")');
+            var option = document.createElement('option');
+            option.value = '';
+            var text = document.createTextNode('<?php echo _("-- Select Action --"); ?>');
             option.appendChild(text);
             select.appendChild(option);
-        });
-        if (menuInfo.get(curmenu).actions[digit] != null) {
-            select.value = menuInfo.get(curmenu).actions[digit].action
+            menuActions.each(function (item) {
+                option = document.createElement('option');
+                option.value = item.key;
+                var text = document.createTextNode(item.value.description);
+                option.appendChild(text);
+                select.appendChild(option);
+            });
+            if (menuInfo.get(curmenu).actions[digit] != null) {
+                select.value = menuInfo.get(curmenu).actions[digit].action
+            }
+            $('selectAction').appendChild(select);
+
+            // Cancel button
+            var cancel = document.createElement('input');
+            cancel.setAttribute('onclick', 'cancelEdit()');
+            cancel.className = 'button';
+            cancel.type = "reset";
+            cancel.value = '<?php echo _("Cancel"); ?>';
+            $('editAction').appendChild(cancel);
         }
-        $('selectAction').appendChild(select);
 
-        // Cancel button
-        var cancel = document.createElement('input');
-        cancel.setAttribute('onclick', 'cancelEdit()');
-        cancel.className = 'button';
-        cancel.type = "reset";
-        cancel.value = '<?php echo _("Cancel"); ?>';
-        $('editAction').appendChild(cancel);
-    }
+        if ($('editActionForm').down('select').getValue() != '') {
+            empty('editAction');
+            var action = $('editActionForm').down('select').getValue();
+            var div = document.createElement('div');
+            div.id = 'editActionArgs';
+            switch(action) {
+            case 'jump':
+                var text = document.createTextNode(menuActions.get(action).args.menuName.name);
+                div.appendChild(text);
 
-    if ($('editActionForm').down('select').getValue() != '') {
-        empty('editAction');
-        var action = $('editActionForm').down('select').getValue();
-        var div = document.createElement('div');
-        div.id = 'editActionArgs';
-        switch(action) {
-        case 'jump':
-            var text = document.createTextNode(menuActions.get(action).args.menuName.name);
-            div.appendChild(text);
+                var select = document.createElement('select');
+                select.name = 'menuName';
+                menuInfo.each(function (item) {
+                    var option = document.createElement('option');
+                    option.value = item.key;
+                    var text = document.createTextNode(item.value.name);
+                    option.appendChild(text);
+                    select.appendChild(option);
+                })
+                if (menuInfo.get(curmenu).actions[digit] != null) {
+                    select.value = menuInfo.get(curmenu).actions[digit].args.menuName;
+                }
+                div.appendChild(select);
+                break;
 
-            var select = document.createElement('select');
-            select.name = 'menuName';
-            menuInfo.each(function (item) {
-                var option = document.createElement('option');
-                option.value = item.key;
-                var text = document.createTextNode(item.value.name);
-                option.appendChild(text);
-                select.appendChild(option);
-            })
-            if (menuInfo.get(curmenu).actions[digit] != null) {
-                select.value = menuInfo.get(curmenu).actions[digit].args.menuName;
-            }
-            div.appendChild(select);
-            break;
+            case 'ringexten':
+            case 'leave_message':
+                var text = document.createTextNode(menuActions.get(action).args.exten.name);
+                div.appendChild(text);
 
-        case 'ringexten':
-        case 'leave_message':
-            var text = document.createTextNode(menuActions.get(action).args.exten.name);
-            div.appendChild(text);
+                var select = document.createElement('select');
+                select.name = 'exten';
+                destinations.each(function (item) {
+                    var option = document.createElement('option');
+                    option.value = item.key;
+                    var text = document.createTextNode(item.value.name);
+                    option.appendChild(text);
+                    select.appendChild(option);
+                })
 
-            var select = document.createElement('select');
-            select.name = 'exten';
-            destinations.each(function (item) {
-                var option = document.createElement('option');
-                option.value = item.key;
-                var text = document.createTextNode(item.value.name);
-                option.appendChild(text);
-                select.appendChild(option);
-            })
+                if (menuInfo.get(curmenu).actions[digit] != null) {
+                    select.value = menuInfo.get(curmenu).actions[digit].exten;
+                }
+                div.appendChild(select);
+                break;
 
-            if (menuInfo.get(curmenu).actions[digit] != null) {
-                select.value = menuInfo.get(curmenu).actions[digit].exten;
-            }
-            div.appendChild(select);
-            break;
+            case 'conference':
+                var text = document.createTextNode(menuActions.get(action).args.roomno.name);
+                div.appendChild(text);
 
-        case 'conference':
-            var text = document.createTextNode(menuActions.get(action).args.roomno.name);
-            div.appendChild(text);
+                var select = document.createElement('select');
+                select.name = 'roomno';
+                conferences.each(function (item) {
+                    var option = document.createElement('option');
+                    option.value = item.key;
+                    var text = document.createTextNode(item.value.name);
+                    option.appendChild(text);
+                    select.appendChild(option);
+                })
 
-            var select = document.createElement('select');
-            select.name = 'roomno';
-            conferences.each(function (item) {
-                var option = document.createElement('option');
-                option.value = item.key;
-                var text = document.createTextNode(item.value.name);
-                option.appendChild(text);
-                select.appendChild(option);
-            })
+                if (menuInfo.get(curmenu).actions[digit] != null) {
+                    select.value = menuInfo.get(curmenu).actions[digit].roomno;
+                }
+                div.appendChild(select);
+                break;
 
-            if (menuInfo.get(curmenu).actions[digit] != null) {
-                select.value = menuInfo.get(curmenu).actions[digit].roomno;
-            }
-            div.appendChild(select);
-            break;
-
-        case 'dial':
-            var text = document.createTextNode(menuActions.get(action).args.numbers.name);
-            div.appendChild(text);
-            var br = document.createElement('br');
-            div.appendChild(br);
-            if (menuInfo.get(curmenu).actions[digit] != null) {
-                menuInfo.get(curmenu).actions[digit].args.numbers.each(function (s) {
+            case 'dial':
+                var text = document.createTextNode(menuActions.get(action).args.numbers.name);
+                div.appendChild(text);
+                var br = document.createElement('br');
+                div.appendChild(br);
+                if (menuInfo.get(curmenu).actions[digit] != null) {
+                    menuInfo.get(curmenu).actions[digit].args.numbers.each(function (s) {
+                        var input = document.createElement('input');
+                        input.name = 'numbers[]';
+                        input.value = s;
+                        input.size = "15";
+                        div.appendChild(input);
+                    })
+                } else {
                     var input = document.createElement('input');
                     input.name = 'numbers[]';
-                    input.value = s;
                     input.size = "15";
                     div.appendChild(input);
-                })
-            } else {
-                var input = document.createElement('input');
-                input.name = 'numbers[]';
-                input.size = "15";
-                div.appendChild(input);
 
+                }
+                var img = document.createElement('img');
+                img.alt = '<?php echo _("Add a number"); ?>';
+                img.id = 'addDialNumberButton';
+                img.src = '<?php echo Horde_Themes::img('plus.png'); ?>';
+                img.setAttribute('onclick', 'addDialNumber()');
+                div.appendChild(img);
+                break;
+
+            case 'admin_login':
+            case 'directory':
+            case 'rewind':
+            case 'none':
+                break;
+
+            default:
+                alert(action);
+                break;
             }
-            var img = document.createElement('img');
-            img.alt = '<?php echo _("Add a number"); ?>';
-            img.id = 'addDialNumberButton';
-            img.src = '<?php echo Horde_Themes::img('plus.png'); ?>';
-            img.setAttribute('onclick', 'addDialNumber()');
-            div.appendChild(img);
-            break;
+            $('editAction').appendChild(div);
 
-        case 'adminlogin':
-        case 'directory':
-        case 'rewind':
-        case 'none':
-            break;
+            // Save and Cancel buttons
+            var div = document.createElement('div');
+            var submit = document.createElement('input');
+            submit.type = 'submit';
+            submit.className = 'button';
+            submit.value = '<?php echo _("Save"); ?>';
+            div.appendChild(submit);
 
-        default:
-            alert(action);
-            break;
+            var cancel = document.createElement('input');
+            cancel.setAttribute('onclick', 'cancelEdit()');
+            cancel.className = 'button';
+            cancel.type = 'reset';
+            cancel.value = '<?php echo _("Cancel"); ?>';
+            div.appendChild(cancel);
+
+            $('editAction').appendChild(div);
         }
-        $('editAction').appendChild(div);
-
-        // Save and Cancel buttons
-        var div = document.createElement('div');
-        var submit = document.createElement('input');
-        submit.type = 'submit';
-        submit.className = 'button';
-        submit.value = '<?php echo _("Save"); ?>';
-        div.appendChild(submit);
-
-        var cancel = document.createElement('input');
-        cancel.setAttribute('onclick', 'cancelEdit()');
-        cancel.className = 'button';
-        cancel.type = 'reset';
-        cancel.value = '<?php echo _("Cancel"); ?>';
-        div.appendChild(cancel);
-
-        $('editAction').appendChild(div);
+        $('dialpadWorking').hide();
+    } catch (e) {
+        logException(e);
     }
-    $('dialpadWorking').hide();
 }
 
 function addDialNumber()
@@ -328,142 +332,153 @@ function cancelEdit()
     $('editActionOverlay').hide();
 }
 
-function playSoundFile()
+function playRecording()
 {
-    alert("Playing soundfile");
+    // TODO
+    alert("Playing recording");
 }
 
 function refreshMenu()
 {
-    $('menuWorking').show();
-    $('dialpadWorking').show();
-    curmenu = $('menu.select').value;
+    try {
+        $('menuWorking').show();
+        $('dialpadWorking').show();
+        curmenu = $('menu.select').value;
 
-    empty('menu.select');
-    menuInfo.each(function (item) {
-        var option = document.createElement('option');
-        option.value = item.key;
-        var text = document.createTextNode(item.value.name);
-        option.appendChild(text);
-        $('menu.select').appendChild(option);
-    })
+        empty('menu.select');
+        menuInfo.each(function (item) {
+            var option = document.createElement('option');
+            option.value = item.key;
+            var text = document.createTextNode(item.value.name);
+            option.appendChild(text);
+            $('menu.select').appendChild(option);
+        })
 
-    $A(['1','2','3','4','5','6','7','8','9','0','star','octo']).each(function (digit){
-        empty('digit_' + digit);
-        var span = document.createElement('span');
-        span.className = 'digitLabel';
-        var text;
-        switch(digit) {
-        case 'star':
-            text = document.createTextNode('*');
-            break;
-        case 'octo':
-            text = document.createTextNode('#');
-            break;
-        default:
-            text = document.createTextNode(digit);
-            break;
-        }
-        span.appendChild(text);
-        $('digit_' + digit).appendChild(span);
-    })
-
-    if (!(menuInfo.size())) {
-        curmenu = null;
-        $('menuWorking').hide();
-        $('dialpadWorking').hide();
-        return true;
-    }
-
-    if (!menuInfo.get(curmenu)) {
-        curmenu = menuInfo.keys().first();
-    }
-    $('menu.select').value = curmenu;
-
-    var text = document.createTextNode(menuInfo.get(curmenu).description);
-    empty('menu.description');
-    $('menu.description').appendChild(text);
-
-    var text = document.createTextNode(menuInfo.get(curmenu).soundfile);
-    empty('menu.soundfile');
-    $('menu.soundfile').appendChild(text);
-
-    $('menu_edit.name').value = menuInfo.get(curmenu).name;
-    $('menu_edit.description').value = menuInfo.get(curmenu).description;
-
-    var select = $('menu_edit.soundfile');
-    empty(select);
-    soundfiles.each(function (item) {
-        var option = document.createElement('option');
-        option.value = item.key;
-        var text = document.createTextNode(item.value.name);
-        option.appendChild(text);
-        select.appendChild(option);
-    })
-    select.value = menuInfo.get(curmenu).soundfile;
-
-    // Fill in the actions
-    if (menuInfo.get(curmenu).actions.length == 0) {
-        // No actions configured yet.
-        $('menuWorking').hide();
-        $('dialpadWorking').hide();
-        return true;
-    }
-
-    $H(menuInfo.get(curmenu).actions).each(function (pair) {
-        var text;
-        var digit = pair.key;
-        var action = pair.value.action;
-        var button = $('digit_' + digit);
-        var p = document.createElement('p');
-        p.className = 'buttonActionLabel';
-        text = document.createTextNode(menuActions.get(action).description);
-        p.appendChild(text);
-        button.appendChild(p);
-
-        p = document.createElement('p');
-        p.className = 'buttonDetail';
-
-        switch(action) {
-        case 'jump':
-            var menu = pair.value.args['menuName'];
-            text = document.createTextNode(menu);
-            break;
-        case 'ringexten':
-        case 'leave_message':
-            var exten = pair.value.args['exten'];
-            text = document.createTextNode(destinations.get(exten).name);
-            break;
-        case 'conference':
-            var roomno = pair.value.args['roomno'];
-            if (roomno != null) {
-                text = document.createTextNode(conferences.get(roomno).name);
-            } else {
-                text = document.createTextNode('');
+        $A(['1','2','3','4','5','6','7','8','9','0','star','octo']).each(function (digit){
+            empty('digit_' + digit);
+            var span = document.createElement('span');
+            span.className = 'digitLabel';
+            var text;
+            switch(digit) {
+            case 'star':
+                text = document.createTextNode('*');
+                break;
+            case 'octo':
+                text = document.createTextNode('#');
+                break;
+            default:
+                text = document.createTextNode(digit);
+                break;
             }
-            break;
-        case 'dial':
-            if (pair.value.args.numbers.length == 1) {
-                text = document.createTextNode(pair.value.args.numbers.first());
-            } else if (pair.value.args.numbers.length > 1) {
-                text = document.createTextNode(pair.value.args.numbers.length +
-                                               ' <?php echo _("numbers"); ?>');
-            } else {
-                // Technically, this is an error.
-                // There should always be a number to dial.
-                text = document.createTextNode('');
-            }
-            break;
-        default:
-            text = document.createTextNode('');
-            break;
+            span.appendChild(text);
+            $('digit_' + digit).appendChild(span);
+        })
+
+        if (!(menuInfo.size())) {
+            curmenu = null;
+            $('menuWorking').hide();
+            $('dialpadWorking').hide();
+            return true;
         }
 
-        p.appendChild(text);
-        button.appendChild(p);
-    });
-    $('menuWorking').hide();
-    $('dialpadWorking').hide();
+        if (!menuInfo.get(curmenu)) {
+            curmenu = menuInfo.keys().first();
+        }
+        $('menu.select').value = curmenu;
+
+        var text = document.createTextNode(menuInfo.get(curmenu).description);
+        empty('menu.description');
+        $('menu.description').appendChild(text);
+
+        if (recordings.get(menuInfo.get(curmenu).recording_id)) {
+            var text = document.createTextNode(recordings.get(menuInfo.get(curmenu).recording_id).filename);
+        } else {
+            // We have an invalid recording id.  It either was never set
+            // or it references a deleted recording.
+            var text = document.createTextNode('<?php echo _("Invalid Filename"); ?>');
+        }
+        empty('menu.recording');
+        $('menu.recording').appendChild(text);
+
+        $('menu_edit.name').value = menuInfo.get(curmenu).name;
+        $('menu_edit.description').value = menuInfo.get(curmenu).description;
+
+        var select = $('menu_edit.recording');
+        empty(select);
+        recordings.each(function (item) {
+            var option = document.createElement('option');
+            option.value = item.key;
+            var text = document.createTextNode(item.value.filename);
+            option.appendChild(text);
+            select.appendChild(option);
+        })
+        select.value = menuInfo.get(curmenu).recording_id;
+
+        // Fill in the actions
+        if (menuInfo.get(curmenu).actions.length == 0) {
+            // No actions configured yet.
+            $('menuWorking').hide();
+            $('dialpadWorking').hide();
+            return true;
+        }
+
+        $H(menuInfo.get(curmenu).actions).each(function (pair) {
+            var text;
+            var digit = pair.key;
+            var action = pair.value.action;
+            var button = $('digit_' + digit);
+            var p = document.createElement('p');
+            p.className = 'buttonActionLabel';
+            text = document.createTextNode(menuActions.get(action).description);
+            p.appendChild(text);
+            button.appendChild(p);
+
+            p = document.createElement('p');
+            p.className = 'buttonDetail';
+
+            switch(action) {
+            case 'jump':
+                var menu = pair.value.args['menuName'];
+                text = document.createTextNode(menu);
+                break;
+            case 'ringexten':
+            case 'leave_message':
+                var exten = pair.value.args['exten'];
+                text = document.createTextNode(destinations.get(exten).name);
+                break;
+            case 'conference':
+                var roomno = pair.value.args['roomno'];
+                if (roomno != null) {
+                    text = document.createTextNode(conferences.get(roomno).name);
+                } else {
+                    text = document.createTextNode('');
+                }
+                break;
+            case 'dial':
+                if (pair.value.args.numbers.length == 1) {
+                    text = document.createTextNode(pair.value.args.numbers.first());
+                } else if (pair.value.args.numbers.length > 1) {
+                    text = document.createTextNode(pair.value.args.numbers.length +
+                                                   ' <?php echo _("numbers"); ?>');
+                } else {
+                    // Technically, this is an error.
+                    // There should always be a number to dial.
+                    text = document.createTextNode('');
+                }
+                break;
+            default:
+                text = document.createTextNode('');
+                break;
+            }
+
+            p.appendChild(text);
+            button.appendChild(p);
+        });
+        $('menuWorking').hide();
+        $('dialpadWorking').hide();
+    } catch (e) {
+        logException(e);
+    }
 }
 
 function editMenu()
@@ -518,6 +533,15 @@ function saveMenuInfo()
                 }
             });
         }
+    });
+}
+
+function logException(e)
+{
+    new Ajax.Request(ajax_url + 'logException',
+    {
+        method: 'post',
+        parameters: e
     });
 }
 

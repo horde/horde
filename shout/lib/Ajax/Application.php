@@ -210,6 +210,18 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
         }
     }
 
+    public function logException()
+    {
+        $vars = &$this->_vars;
+        $filename = $vars->get('fileName');
+        $message = $vars->get('message');
+        $stack = $vars->get('stack');
+        $log = sprintf('Client side error in %s: %s.  Stacktrace follows:\n%s',
+                       $filename, $message, $stack);
+        Horde::logMessage($log, 'ERR');
+        return true;
+    }
+
     public function responseType()
     {
         return $this->_responseType;
