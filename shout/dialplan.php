@@ -56,7 +56,8 @@ default:
         $conferences = $shout->storage->getConferences($curaccount);
         $soundfiles = $shout->getRecordings();
     } catch (Exception $e) {
-        $notification->push(_("Problem getting destination information."));
+        Horde::logMessage($e, 'ERR');
+        $notification->push(_("Problem getting menu information."));
     }
 
     break;

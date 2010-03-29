@@ -108,6 +108,9 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
             $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
             $account = $_SESSION['shout']['curaccount'];
             $menus = $shout->storage->getMenus($account);
+            if (empty($menus)) {
+                return false;
+            }
             foreach ($menus as $menu => $info) {
                 // Fill in the actions for each menu
                 $menus[$menu]['actions'] = $shout->dialplan->getMenuActions($account, $menu);
