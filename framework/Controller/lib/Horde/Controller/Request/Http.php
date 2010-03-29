@@ -608,7 +608,7 @@ class Horde_Controller_Request_Http extends Horde_Controller_Request_Base
         foreach ($result as $k => $v) {
             if (!empty($map[$k])) {
                 $mapped_result[$map[$k]] = $v;
-            } elseif (substr($k, 0, 6) == 'HTTP_X') {
+            } elseif (substr($k, 0, 5) == 'HTTP_') {
                 // Try to work with what we have...
                 $hdr_key = substr($k, 5);
                 $tokens = explode('_', $hdr_key);
