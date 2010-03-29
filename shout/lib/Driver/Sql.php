@@ -103,7 +103,7 @@ class Shout_Driver_Sql extends Shout_Driver
         $this->_connect();
 
         $sql = 'SELECT accounts.code AS account, menus.name AS name, ' .
-               'menus.description AS description, menus.soundfile AS soundfile ' .
+               'menus.description AS description, recording_id ' .
                'FROM menus INNER JOIN accounts ON menus.account_id = accounts.id ' .
                'WHERE accounts.code = ?';
         $values = array($account);
@@ -126,7 +126,7 @@ class Shout_Driver_Sql extends Shout_Driver
             $menus[$menu] = array(
                 'name' => $menu,
                 'description' => $row['description'],
-                'soundfile' => $row['soundfile']
+                'recording_id' => $row['recording_id']
             );
             $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
         }
@@ -142,17 +142,17 @@ class Shout_Driver_Sql extends Shout_Driver
                 throw new Shout_Exception(_("Old menu not found.  Edit aborted."));
             } else {
                 $sql = 'UPDATE menus SET name = ?, description = ?, ' .
-                       'soundfile = ? WHERE account_id = (SELECT id FROM ' .
-                       'WHERE code = ?) AND name = ?';
+                       'recording_id = ? WHERE account_id = ' .
+                       '(SELECT id FROM accounts WHERE code = ?) AND name = ?';
                 $values = array($details['name'], $details['description'],
-                                $details['soundfile'], $account,
+                                $details['recording_id'], $account,
                                 $details['oldname']);
             }
         } else {
-            $sql = "INSERT INTO menus (account_id, name, description, soundfile) " .
+            $sql = "INSERT INTO menus (account_id, name, description, recording_id) " .
                    "VALUES ((SELECT id FROM accounts WHERE code = ?), ?, ?, ?)";
             $values = array($account, $details['name'],
-                            $details['description'], $details['soundfile']);
+                            $details['description'], $details['recording_id']);
         }
 
         $msg = 'SQL query in Shout_Driver_Sql#saveMenu(): ' . $sql;

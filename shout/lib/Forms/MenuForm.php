@@ -35,7 +35,7 @@ class MenuForm extends Horde_Form {
         }
         $this->addVariable(_("Menu Name"), 'name', 'text', true);
         $this->addVariable(_("Description"), 'description', 'text', false);
-        $this->addVariable(_("Sound File"), 'soundfile', 'text', true);
+        $this->addVariable(_("Recording"), 'recording_id', 'enum', true);
 
         return true;
     }
@@ -49,16 +49,14 @@ class MenuForm extends Horde_Form {
         $details = array(
             'name' => $this->_vars->get('name'),
             'description' => $this->_vars->get('description'),
-            'soundfile' => $this->_vars->get('soundfile')
+            'recording_id' => $this->_vars->get('recording_id')
         );
-
-        // FIXME: Validate soundfile
 
         if ($action == 'edit') {
             $details['oldname'] = $this->_vars->get('oldname');
         }
 
-        $shout->devices->saveMenu($account, $details);
+        $shout->devices->saveMenuInfo($account, $details);
     }
 
 }

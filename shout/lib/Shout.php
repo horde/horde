@@ -27,11 +27,11 @@ class Shout
         $mask = Horde_Menu::MASK_PROBLEM | Horde_Menu::MASK_LOGIN;
         $menu = new Horde_Menu($mask);
 
-        $menu->add(Horde::applicationUrl('dialplan.php'), _("Incoming Calls"), "dialplan.png");
+        $menu->add(Horde::applicationUrl('dialplan.php'), _("Call Menus"), "dialplan.png");
+        $menu->add(Horde::applicationUrl('recordings.php'), _("Recordings"), "recordings.png");
         $menu->add(Horde::applicationUrl('extensions.php'), _("Extensions"), "extension.png");
         $menu->add(Horde::applicationUrl('devices.php'), _("Devices"), "shout.png");
         $menu->add(Horde::applicationUrl('conferences.php'), _("Conferences"), "conference.png");
-        //$menu->add(Horde::applicationUrl('recordings.php'), _("Recordings"), "recordings.png");
 
         /* Administration. */
         if (Horde_Auth::isAdmin('shout:admin')) {

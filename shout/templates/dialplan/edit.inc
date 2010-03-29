@@ -11,8 +11,8 @@
                 <td class="metaStatInfo" id="menu.description"></td>
             </tr>
             <tr>
-                <td class="metaStatName">Sound File</td>
-                <td class="metaStatInfo"><span id="menu.soundfile"></span></td>
+                <td class="metaStatName">Recording</td>
+                <td class="metaStatInfo"><span id="menu.recording"></span></td>
             </tr>
         </table>
         <form id="editMenu">
@@ -26,11 +26,11 @@
                 <td class="metaStatInfo"><input id="menu_edit.description" name="description"></td>
             </tr>
             <tr>
-                <td class="metaStatName">Sound File</td>
-                <td class="metaStatInfo"><select id="menu_edit.soundfile" name="soundfile"></select></td>
+                <td class="metaStatName">Recording</td>
+                <td class="metaStatInfo"><select id="menu_edit.recording" name="recording_id"></select></td>
             </tr>
             <tr>
-                <td><div class="button" onclick="saveMenu()"><?php echo _("Save"); ?></div></td>
+                <td><div class="button" onclick="saveMenuInfo()"><?php echo _("Save"); ?></div></td>
                 <td><div class="button" onclick="$('editMenu').hide()"><?php echo _("Cancel"); ?></div></td>
             </tr>
         </table>
@@ -89,7 +89,7 @@ var menuInfo = $H();
 var menuActions = $H(<?php echo Horde_Serialize::serialize(Shout::getMenuActions(), Horde_Serialize::JSON, Horde_Nls::getCharset()); ?>);
 var destinations = $H(<?php echo Horde_Serialize::serialize($destinations, Horde_Serialize::JSON, Horde_Nls::getCharset()); ?>);
 var conferences = $H(<?php echo Horde_Serialize::serialize($conferences, Horde_Serialize::JSON, Horde_Nls::getCharset()); ?>);
-var soundfiles = $H(<?php echo Horde_Serialize::serialize($soundfiles, Horde_Serialize::JSON, Horde_Nls::getCharset()); ?>);
+var recordings = $H(<?php echo Horde_Serialize::serialize($recordings, Horde_Serialize::JSON, Horde_Nls::getCharset()); ?>);
 
 function empty(p)
 {

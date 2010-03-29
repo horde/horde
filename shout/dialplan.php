@@ -61,7 +61,19 @@ if ($action == 'edit') {
     try {
         $destinations = $shout->extensions->getExtensions($curaccount);
         $conferences = $shout->storage->getConferences($curaccount);
-        $soundfiles = $shout->getRecordings();
+        $recordings = $shout->storage->getRecordings($curaccount);
+        // If any of these are empty, we need to coerce them to null.
+        // Otherwise we end up with a Prototype.js $H([]) (Hash of an empty
+        // Array) which causes confusion inside the library.
+        if (empty($destinations)) {
+            $destinations = null;
+        }
+        if (empty($conferences)) {
+            $conferences = null;
+        }
+        if (empty($recordings)) {
+            $recordings = null;
+        }
     } catch (Exception $e) {
         Horde::logMessage($e, 'ERR');
         $notification->push(_("Problem getting menu information."));
