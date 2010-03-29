@@ -506,6 +506,68 @@ class Shout_Driver_Sql extends Shout_Driver
         return true;
     }
 
+    public function getRecordings($account)
+    {
+        $sql = 'SELECT id, filename FROM recordings ' .
+               'WHERE account_id = (SELECT id FROM accounts WHERE code = ?);';
+        $args = array($account);
+        $msg = 'SQL query in Shout_Driver_Sql#getRecordings(): ' . $sql;
+        Horde::logMessage($msg, 'DEBUG');
+        $result = $this->_db->query($sql, $args);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+
+        $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
+        if ($row instanceof PEAR_Error) {
+            throw new Shout_Exception($row);
+        }
+
+        $recordings = array();
+        while ($row && !($row instanceof PEAR_Error)) {
+            $id = $row['id'];
+            $recordings[$id] = $row;
+
+            /* Advance to the new row in the result set. */
+            $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
+        }
+
+        $result->free();
+        return $recordings;
+    }
+
+    public function addRecording($account, $name)
+    {
+        $sql = 'INSERT INTO recordings (filename, account_id) ' .
+               'VALUES (?,(SELECT id FROM accounts WHERE code = ?))';
+        $args = array($name, $account);
+
+        $msg = 'SQL query in Shout_Driver_Sql#addRecording(): ' . $sql;
+        Horde::logMessage($msg, 'DEBUG');
+        $result = $this->_write_db->query($sql, $args);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+
+        return true;
+    }
+
+    public function deleteRecording($account, $name)
+    {
+        $sql = 'DELETE FROM recordings WHERE filename = ? AND account_id = ' .
+               '(SELECT id FROM accounts WHERE code = ?)';
+        $vars = array($name, $account);
+
+        $msg = 'SQL query in Shout_Driver_Sql#deleteRecording(): ' . $sql;
+        Horde::logMessage($msg, 'DEBUG');
+        $result = $this->_write_db->query($sql, $args);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+
+        return true;
+    }
+
     /**
      * Attempts to open a persistent connection to the SQL server.
      *
