@@ -35,7 +35,15 @@ class MenuForm extends Horde_Form {
         }
         $this->addVariable(_("Menu Name"), 'name', 'text', true);
         $this->addVariable(_("Description"), 'description', 'text', false);
-        $this->addVariable(_("Recording"), 'recording_id', 'enum', true);
+
+        $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
+        $recordings = $shout->storage->getRecordings($curaccount);
+        $list = array();
+        foreach ($recordings as $id => $info) {
+            $list[$id] = $info['filename'];
+        }
+        $this->addVariable(_("Recording"), 'recording_id', 'enum', true, false,
+                           null, array($list));
 
         return true;
     }
