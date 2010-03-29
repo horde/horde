@@ -614,7 +614,7 @@ class Horde_Controller_Request_Http extends Horde_Controller_Request_Base
                 $tokens = explode('_', $hdr_key);
                 if (count($tokens) > 0) {
                     foreach($tokens as $key => $value) {
-                        $tokens[$key] = ucfirst(strtolower($value));
+                        $tokens[$key] = Horde_String::ucfirst(Horde_String::lower($value));
                     }
                     $hdr_key = implode('-', $tokens);
                     $mapped_result[$hdr_key] = $v;
