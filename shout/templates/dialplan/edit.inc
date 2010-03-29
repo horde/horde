@@ -336,6 +336,16 @@ function refreshMenu()
 {
     $('menuWorking').show();
     $('dialpadWorking').show();
+    curmenu = $('menu.select').value;
+
+    empty('menu.select');
+    menuInfo.each(function (item) {
+        var option = document.createElement('option');
+        option.value = item.key;
+        var text = document.createTextNode(item.value.name);
+        option.appendChild(text);
+        $('menu.select').appendChild(option);
+    })
 
     $A(['1','2','3','4','5','6','7','8','9','0','star','octo']).each(function (digit){
         empty('digit_' + digit);
@@ -358,12 +368,16 @@ function refreshMenu()
     })
 
     if (!(menuInfo.size())) {
+        curmenu = null;
         $('menuWorking').hide();
         $('dialpadWorking').hide();
         return true;
     }
 
-    curmenu = $('menu.select').value;
+    if (!menuInfo.get(curmenu)) {
+        curmenu = menuInfo.keys().first();
+    }
+    $('menu.select').value = curmenu;
 
     var text = document.createTextNode(menuInfo.get(curmenu).description);
     empty('menu.description');
@@ -456,6 +470,33 @@ function editMenu()
     $('editMenu').show();
 }
 
+function deleteMenu()
+{
+    $('menuWorking').show();
+    var msg = '<?php echo _("You are about to delete the \"%menu%\" menu.  Click \"OK\" to delete or \"Cancel\" to keep the menu."); ?>';
+    msg = msg.replace('%menu%', menuInfo.get(curmenu).name);
+    if (confirm(msg)) {
+        var params = {'menu': curmenu};
+        new Ajax.Request(ajax_url + 'deleteMenu',
+        {
+            method: 'post',
+            parameters: params,
+            onSuccess: function(r) {
+                new Ajax.Request(ajax_url + 'getMenus',
+                {
+                    method: 'get',
+                    onSuccess: function(r) {
+                        menuInfo = $H(r.responseJSON.response);
+                        refreshMenu();
+                    }
+                });
+            }
+        });
+    } else {
+        $('menuWorking').hide();
+    }
+}
+
 function saveMenu()
 {
     $('menuWorking').show();
@@ -470,13 +511,9 @@ function saveMenu()
             new Ajax.Request(ajax_url + 'getMenus',
             {
                 method: 'get',
-                parameters: $H({
-                    'menu': curmenu
-                }),
                 onSuccess: function(r) {
                     menuInfo = $H(r.responseJSON.response);
                     refreshMenu();
-                    $('menuWorking').hide();
                 }
             });
         }
@@ -491,13 +528,6 @@ new Ajax.Request(ajax_url + 'getMenus',
     method: 'get',
     onSuccess: function(r) {
         menuInfo = $H(r.responseJSON.response);
-        menuInfo.each(function (item) {
-            var option = document.createElement('option');
-            option.value = item.key;
-            var text = document.createTextNode(item.value.name);
-            option.appendChild(text);
-            $('menu.select').appendChild(option);
-        })
         refreshMenu();
     }
 });

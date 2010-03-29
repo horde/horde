@@ -33,7 +33,8 @@ case 'add':
             $notification->push(_("Menu added."),
                                   'horde.success');
             $menus = $shout->storage->getMenus($curaccount);
-            $action = 'list';
+            $action = 'edit';
+
         } catch (Exception $e) {
             $notification->push($e);
         }
@@ -46,11 +47,17 @@ case 'add':
     $vars = new Horde_Variables();
     $vars->set('action', $action);
     //$Form = new MenuForm($vars);
-
     break;
+
 case 'edit':
 default:
     $action = 'edit';
+    break;
+}
+
+// Check again explicitly for edit as we may have converted to an edit
+// after a successful add.
+if ($action == 'edit') {
     try {
         $destinations = $shout->extensions->getExtensions($curaccount);
         $conferences = $shout->storage->getConferences($curaccount);
@@ -59,8 +66,6 @@ default:
         Horde::logMessage($e, 'ERR');
         $notification->push(_("Problem getting menu information."));
     }
-
-    break;
 }
 
 Horde::addScriptFile('stripe.js', 'horde');

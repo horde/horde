@@ -166,6 +166,30 @@ class Shout_Driver_Sql extends Shout_Driver
         return true;
     }
 
+    public function deleteMenu($account, $menu)
+    {
+        $sql = 'DELETE FROM menu_entries WHERE menu_id = ' .
+               '(SELECT id FROM menus WHERE name = ? AND account_id = ' .
+               '(SELECT id FROM accounts WHERE code = ?))';
+        $values = array($menu, $account);
+        $msg = 'SQL query in Shout_Driver_Sql#deleteMenu(): ' . $sql;
+        Horde::logMessage($msg, 'DEBUG');
+        $result = $this->_write_db->query($sql, $values);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+
+        $sql = 'DELETE FROM menus WHERE name = ? AND account_id = ' .
+               '(SELECT id FROM accounts WHERE code = ?)';
+        $values = array($menu, $account);
+        $msg = 'SQL query in Shout_Driver_Sql#deleteMenu(): ' . $sql;
+        Horde::logMessage($msg, 'DEBUG');
+        $result = $this->_write_db->query($sql, $values);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+    }
+
     public function getMenuActions($account, $menu)
     {
         static $menuActions;
@@ -475,7 +499,7 @@ class Shout_Driver_Sql extends Shout_Driver
 
         $msg = 'SQL query in Shout_Driver_Sql#saveConference(): ' . $sql;
         Horde::logMessage($msg, 'DEBUG');
-        $result = $this->_db->query($sql, $args);
+        $result = $this->_write_db->query($sql, $args);
         if ($result instanceof PEAR_Error) {
             throw new Shout_Exception($result);
         }

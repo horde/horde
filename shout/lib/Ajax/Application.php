@@ -123,6 +123,24 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
         }
     }
 
+    public function deleteMenu()
+    {
+        try {
+            $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
+            $account = $_SESSION['shout']['curaccount'];
+            $menu = $this->_vars->get('menu');
+            if (empty($menu)) {
+                throw new Shout_Exception('Must specify a menu to delete.');
+            }
+            $shout->dialplan->deleteMenu($account, $menu);
+            return true;
+        } catch (Exception $e) {
+            //FIXME: Create a way to notify the user of the failure.
+            Horde::logMessage($e, 'ERR');
+            return false;
+        }
+    }
+
     public function getConferences()
     {
         try {
