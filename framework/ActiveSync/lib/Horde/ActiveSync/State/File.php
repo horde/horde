@@ -72,6 +72,13 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
     private $_changes;
 
     /**
+     * Cache results of file_exists for user's state directory
+     *
+     * @var boolean
+     */
+    private $_haveStateDirectory;
+
+    /**
      * Const'r
      *
      * @param array  $params   Must contain 'stateDir' entry
