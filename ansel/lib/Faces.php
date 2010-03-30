@@ -52,16 +52,18 @@ class Ansel_Faces
             if ($face instanceof PEAR_Error) {
                 throw new Horde_Exception_Prior($face);
             }
-
-            foreach ($face as $id) {
-                $GLOBALS['ansel_vfs']->deleteFile($path, $id . $ext);
-            }
-
+            try {
+                foreach ($face as $id) {
+                    $GLOBALS['ansel_vfs']->deleteFile($path, $id . $ext);
+                }
+            } catch (VFS_Exception $e) {}
             $GLOBALS['ansel_db']->exec('DELETE FROM ansel_faces WHERE image_id = ' . $image->id);
             $GLOBALS['ansel_db']->exec('UPDATE ansel_images SET image_faces = 0 WHERE image_id = ' . $image->id . ' AND image_faces > 0 ');
             $GLOBALS['ansel_db']->exec('UPDATE ansel_shares SET attribute_faces = attribute_faces - ' . count($face) . ' WHERE gallery_id = ' . $image->gallery . ' AND attribute_faces > 0 ');
         } else {
-            $GLOBALS['ansel_vfs']->deleteFile($path, (int)$face . $ext);
+            try {
+                $GLOBALS['ansel_vfs']->deleteFile($path, (int)$face . $ext);
+            } catch (VFS_Exception $e) {}
             $GLOBALS['ansel_db']->exec('DELETE FROM ansel_faces WHERE face_id = ' . (int)$face);
             $GLOBALS['ansel_db']->exec('UPDATE ansel_images SET image_faces = image_faces - 1 WHERE image_id = ' . $image->id . ' AND image_faces > 0 ');
             $GLOBALS['ansel_db']->exec('UPDATE ansel_shares SET attribute_faces = attribute_faces - 1 WHERE gallery_id = ' . $image->gallery . ' AND attribute_faces > 0 ');

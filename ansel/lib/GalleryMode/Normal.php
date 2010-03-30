@@ -226,8 +226,10 @@ class Ansel_GalleryMode_Normal {
         $image->deleteCache();
 
         /* Delete original image from VFS. */
-        $GLOBALS['ansel_vfs']->deleteFile($image->getVFSPath('full'),
-                                          $image->getVFSName('full'));
+        try {
+            $GLOBALS['ansel_vfs']->deleteFile($image->getVFSPath('full'),
+                                              $image->getVFSName('full'));
+        } catch (VFS_Exception $e) {}
 
         /* Delete from SQL. */
         $this->_gallery->_shareOb->_write_db->exec('DELETE FROM ansel_images WHERE image_id = ' . (int)$image->id);
