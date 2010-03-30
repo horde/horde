@@ -35,6 +35,7 @@ KronolithCore = {
     map: null,
     mapInitialized: false,
     search: 'future',
+    effectDur: 0.4,
 
     doActionOpts: {
         onException: function(parentfunc, r, e)
@@ -306,6 +307,7 @@ KronolithCore = {
                 if ($('kronolithView' + locCap)) {
                     this.viewLoading = true;
                     $('kronolithView' + locCap).appear({
+                            duration: this.effectDur,
                             queue: 'end',
                             afterFinish: function() {
                                 if (loc == 'week' || loc == 'day') {
@@ -334,7 +336,12 @@ KronolithCore = {
                 this.loadTasks(this.tasktype);
                 if ($('kronolithView' + locCap)) {
                     this.viewLoading = true;
-                    $('kronolithView' + locCap).appear({ queue: 'end', afterFinish: function() { this.viewLoading = false; }.bind(this) });
+                    $('kronolithView' + locCap).appear({
+                        duration: this.effectDur,
+                        queue: 'end',
+                        afterFinish: function() {
+                            this.viewLoading = false;
+                        }.bind(this) });
                 }
                 $('kronolithLoading' + loc).insert($('kronolithLoading').remove());
                 this.updateMinical(this.date);
@@ -344,7 +351,12 @@ KronolithCore = {
             default:
                 if ($('kronolithView' + locCap)) {
                     this.viewLoading = true;
-                    $('kronolithView' + locCap).appear({ queue: 'end', afterFinish: function() { this.viewLoading = false; }.bind(this) });
+                    $('kronolithView' + locCap).appear({
+                        duration: this.effectDur,
+                        queue: 'end',
+                        afterFinish: function() {
+                            this.viewLoading = false;
+                        }.bind(this) });
                 }
                 break;
             }
@@ -403,7 +415,12 @@ KronolithCore = {
                               }, this);
                           }.bind(this));
             this.viewLoading = true;
-            $('kronolithViewAgenda').appear({ queue: 'end', afterFinish: function() { this.viewLoading = false; }.bind(this) });
+            $('kronolithViewAgenda').appear({
+                duration: this.effectDur,
+                queue: 'end',
+                afterFinish: function() {
+                    this.viewLoading = false;
+                }.bind(this) });
             $('kronolithLoadingagenda').insert($('kronolithLoading').remove());
             this.updateMinical(this.date);
             this.addHistory(fullloc);
@@ -637,7 +654,10 @@ KronolithCore = {
             }
         });
         if (this.view && this.view != loc) {
-            $('kronolithView' + this.view.capitalize()).fade({ queue: 'end' });
+            $('kronolithView' + this.view.capitalize()).fade({
+                duration: this.effectDur,
+                queue: 'end'
+            });
             this.view = null;
         }
     },
@@ -2067,7 +2087,12 @@ KronolithCore = {
         }
         if ((this.tasktype == 'complete' && !task.cp) ||
             ((this.tasktype == 'incomplete' || this.tasktype == 'future_incomplete') && task.cp)) {
-            row.fade({ afterFinish: function() { row.remove(); } });
+            row.fade({
+                duration: this.effectDur,
+                afterFinish: function() {
+                    row.remove();
+                }
+            });
         }
     },
 
@@ -3159,7 +3184,7 @@ KronolithCore = {
             iframe = $('kronolithIframe');
         }
         iframe.observe('load', function() {
-            view.appear({ queue: 'end' });
+            view.appear({ duration: this.effectDur, queue: 'end' });
             iframe.stopObserving('load');
         });
         iframe.src = loc;
@@ -3204,7 +3229,7 @@ KronolithCore = {
             case Event.KEY_ESC:
                 switch (form.identify()) {
                 case 'kronolithQuickinsertForm':
-                    $('kronolithQuickinsert').fade();
+                    $('kronolithQuickinsert').fade({ duration: this.effectDur });
                     break;
                 case 'kronolithEventForm':
                     this.closeRedBox();
@@ -3275,7 +3300,7 @@ KronolithCore = {
             case 'kronolithQuickEvent':
                 this.updateCalendarDropDown('kronolithQuickinsertCalendars');
                 $('kronolithQuickinsert').appear({
-                    duration: 0.3,
+                    duration: this.effectDur,
                     afterFinish: function() {
                         $('kronolithQuickinsertQ').focus();
                     }
@@ -3289,7 +3314,7 @@ KronolithCore = {
                 return;
 
             case 'kronolithQuickinsertCancel':
-                $('kronolithQuickinsert').fade();
+                $('kronolithQuickinsert').fade({ duration: this.effectDur });
                 $('kronolithQuickinsertQ').value = '';
                 e.stop();
                 return;
@@ -4150,7 +4175,7 @@ KronolithCore = {
             start = viewDates[0].dateString(),
             end = viewDates[1].dateString();
 
-        $('kronolithQuickinsert').fade();
+        $('kronolithQuickinsert').fade({ duration: this.effectDur });
         this.startLoading(null, start + end);
         this.doAction('quickSaveEvent',
                       $H({ text: text,
