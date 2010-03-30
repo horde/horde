@@ -866,6 +866,10 @@ var DimpBase = {
             }
             break;
 
+        case 'ctx_mboxsort_none':
+            this.sort($H(DIMP.conf.sort).get('sequence').v);
+            break;
+
         default:
             if (menu.endsWith('_setflag') || menu.endsWith('_unsetflag')) {
                 flag = elt.readAttribute('flag');
@@ -1004,16 +1008,13 @@ var DimpBase = {
         DimpCore.setTitle(label);
     },
 
-    sort: function(e)
+    sort: function(sortby)
     {
-        var s,
-            sortby = e.element().retrieve('sortby');
+        var s;
 
         if (Object.isUndefined(sortby)) {
             return;
         }
-
-        e.stop();
 
         sortby = Number(sortby);
         if (sortby == this.viewport.getMetaData('sortby')) {
@@ -1077,9 +1078,14 @@ var DimpBase = {
         }
 
         ptr.find(function(s) {
-            return (sortby == s.value.v)
-                ? s.value.e.up().addClassName(this.viewport.getMetaData('sortdir') ? 'sortup' : 'sortdown')
-                : false;
+            if (sortby != s.value.v) {
+                return false;
+            }
+            var elt = s.value.e.up();
+            if (elt) {
+                elt.addClassName(this.viewport.getMetaData('sortdir') ? 'sortup' : 'sortdown');
+            }
+            return true;
         }, this);
     },
 
@@ -2012,7 +2018,8 @@ var DimpBase = {
                 return;
 
             case 'msglistHeader':
-                this.sort(e);
+                this.sort(e.element().retrieve('sortby'));
+                e.stop();
                 return;
 
             case 'th_expand':
@@ -2973,6 +2980,8 @@ var DimpBase = {
             this._addMouseEvents({ id: 'button_forward', type: 'forward' }, $('button_forward'));
             DM.disable('button_forward_img', true, true);
         }
+
+        this._addMouseEvents({ id: 'msglistHeader', type: 'mboxsort' });
 
         new Drop('dropbase', this._folderDropConfig);
 

@@ -461,6 +461,10 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  <a id="ctx_contacts_add"><span class="contextImg"></span><?php echo _("Add to Address Book") ?></a>
 </div>
 
+<div class="context" id="ctx_mboxsort" style="display:none">
+ <a id="ctx_mboxsort_none"><?php echo _("Clear Sort") ?></a>
+</div>
+
 <?php if ($_SESSION['imp']['protocol'] != 'pop'): ?>
 <div class="context" id="ctx_qsearchopts" style="display:none">
  <a id="ctx_qsearchopts_by"><?php echo _("Search By") ?></a>

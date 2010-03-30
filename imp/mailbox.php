@@ -651,6 +651,10 @@ if ($pageOb['msgcount']) {
     $mh_template->set('sessiontag', Horde_Util::formInput());
     $mh_template->set('headers', $headers);
 
+    if ($sortpref['by'] != Horde_Imap_Client::SORT_SEQUENCE) {
+        $mh_template->set('no_sort', Horde::widget($sort_url->copy()->remove('sortdir')->add(array('sortby' => Horde_Imap_Client::SORT_SEQUENCE, 'actionID' => 'change_sort', 'mailbox_token' => $mailbox_token)), _("Clear Sort"), 'widget', '', '', _("Clear Sort")));
+    }
+
     if (!$search_mbox) {
         $mh_template->set('mh_count', $mh_count++);
         echo $mh_template->fetch(IMP_TEMPLATES . '/imp/mailbox/message_headers.html');

@@ -231,6 +231,8 @@ var ImpMailbox = {
             } else if (elt.hasClassName('checkbox')) {
                 this.selectRange(e);
                 // Fall through to elt.up() call below.
+            } else if (elt.hasClassName('nosort')) {
+                return;
             }
 
             id = elt.readAttribute('id');

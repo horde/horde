@@ -74,6 +74,10 @@ $code['conf'] = array_filter(array(
     'searchprefix' => IMP_Search::MBOX_PREFIX,
     'sidebar_width' => max((int)$GLOBALS['prefs']->getValue('sidebar_width'), 150) . 'px',
     'sort' => array(
+        'sequence' => array(
+            't' => '',
+            'v' => Horde_Imap_Client::SORT_SEQUENCE
+        ),
         'from' => array(
             't' => _("From"),
             'v' => Horde_Imap_Client::SORT_FROM
