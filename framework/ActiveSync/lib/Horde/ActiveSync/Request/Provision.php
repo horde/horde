@@ -52,7 +52,7 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
      * @return boolean
      * @throws Horde_ActiveSync_Exception
      */
-    public function handle(Horde_ActiveSync $activeSync)
+    public function handle(Horde_ActiveSync $activeSync, $devId)
     {
         parent::handle($activeSync, $devId);
 
