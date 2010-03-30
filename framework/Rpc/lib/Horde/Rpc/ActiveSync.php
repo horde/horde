@@ -34,26 +34,6 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
     private $_backend;
 
     /**
-     * Policy key
-     * (Sent by client either as 'X-Ms-Policykey' or 'X-MS-PolicyKey')
-     *
-     * @var string
-     */
-    private $_policykey;
-
-    /**
-     * Require provisioning? Valid values:
-     *  true  - provisioning required
-     *  false - not checked
-     *  loose - Allows the 'loose enforcement' of the provisioning policies for
-     *          older devices which don't support provisioning
-     *
-     * @var mixed
-     */
-    private $_provisioning;
-
-
-    /**
      * Constructor.
      * Parameters in addition to Horde_Rpc's:
      *   (required) 'backend'      = Horde_ActiveSync_Driver
@@ -83,11 +63,7 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
         $this->_server = $params['server'];
 
         /* provisioning can be false, true, or 'loose' */
-        $this->_provisioning = empty($params['provisioning']) ? false : $params['provisioning'];
-        if ($this->_provisioning) {
-            $this->_policykey = $this->_server->getPolicyKey();
-        }
-        $this->_server->setProvisioning = $this->_provisioning;
+        $this->_server->setProvisioning = empty($params['provisioning']) ? false : $params['provisioning'];
     }
 
     /**
