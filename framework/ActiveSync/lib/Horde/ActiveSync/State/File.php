@@ -92,27 +92,37 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
     /**
      * Load the sync state
      *
+     * @param string $syncKey   The synckey
+     *
      * @return void
      * @throws Horde_ActiveSync_Exception
      */
     public function loadState($syncKey)
     {
+        /* Make sure this user's state directory exists */
+        $dir = $this->_stateDir . '/' . $this->_backend->getUser();
+        if (!file_exists($dir)) {
+            if (!mkdir($dir)) {
+                throw new Horde_ActiveSync_Exception('Failed to create user state storage');
+            }
+        }
+
         /* Prime the state cache for the first sync */
         if (empty($syncKey)) {
             $this->_stateCache = array();
             return;
         }
 
-        // Check if synckey is allowed
+        /* Check if synckey is allowed */
         if (!preg_match('/^s{0,1}\{([0-9A-Za-z-]+)\}([0-9]+)$/', $syncKey, $matches)) {
             throw new Horde_ActiveSync_Exception('Invalid sync key');
         }
 
-        // Cleanup all older syncstates
+        /* Cleanup all older syncstates */
         $this->_gc($syncKey);
 
-        // Read current sync state
-        $filename = $this->_stateDir . '/' . $syncKey;
+        /* Read current sync state */
+        $filename = $dir . '/' . $syncKey;
         if (!file_exists($filename)) {
             throw new Horde_ActiveSync_Exception('Sync state not found');
         }
@@ -164,7 +174,9 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
      */
     public function save()
     {
-        return file_put_contents($this->_stateDir . '/' . $this->_syncKey, !empty($this->_stateCache) ? serialize($this->_stateCache) : '');
+        return file_put_contents(
+            $this->_stateDir . '/' . $this->_backend->getUser() . '/' . $this->_syncKey,
+            !empty($this->_stateCache) ? serialize($this->_stateCache) : '');
     }
 
     /**
@@ -218,10 +230,11 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
     }
 
     /**
-     * Save folder data for a specific device
+     * Save folder data for a specific device. Used only for compatibility with
+     * older (version 1) ActiveSync requests.
      *
-     * @param string $devId  The device Id
-     * @param array $folders The folder data
+     * @param string $devId     The device Id
+     * @param array $folders    The folder data
      *
      * @return boolean
      * @throws Horde_ActiveSync_Exception
@@ -254,14 +267,15 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
             $unique_folders[SYNC_FOLDER_TYPE_CONTACT] = SYNC_FOLDER_TYPE_DUMMY;
 
         }
-        if (!file_put_contents($this->_stateDir . '/compat-' . $devId, serialize($unique_folders))) {
+        if (!file_put_contents($this->_stateDir . '/' . $this->_backend->getUser() . '/compat-' . $devId, serialize($unique_folders))) {
             $this->logError('_saveFolderData: Data could not be saved!');
             throw new Horde_ActiveSync_Exception('Folder data could not be saved');
         }
     }
 
     /**
-     * Get the folder data for a specific device
+     * Get the folder data for a specific collection for a specific device. Used
+     * only with older (version 1) ActiveSync requests.
      *
      * @param string $devId  The device id
      * @param string $class  The folder class to fetch (Calendar, Contacts etc.)
@@ -270,7 +284,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
      */
     public function getFolderData($devId, $class)
     {
-        $filename = $this->_stateDir . '/compat-' . $devId;
+        $filename = $this->_stateDir . '/' . $this->_backend->getUser() . '/compat-' . $devId;
         if (file_exists($filename)) {
             $arr = unserialize(file_get_contents($filename));
             if ($class == "Calendar") {
@@ -285,7 +299,9 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
     }
 
     /**
-     * Return an array of known folders.
+     * Return an array of known folders. This is essentially the state for a
+     * FOLDERSYNC request. AS uses a seperate synckey for FOLDERSYNC requests
+     * also, so need to treat it as any other collection.
      *
      * @return array
      */
@@ -305,14 +321,14 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
      * Perform any initialization needed to deal with pingStates
      * For this driver, it loads the device's state file.
      *
-     * @param string $devId  The device id of the PIM to load PING state for
+     * @param string $devId     The device id of the PIM to load PING state for
      *
-     * @return The $collection array
+     * @return array The $collection array
      */
     public function initPingState($devId)
     {
         $this->_devId = $devId;
-        $file = $this->_stateDir . '/' . $devId;
+        $file = $this->_stateDir . '/' . $this->_backend->getUser() . '/' . $devId;
         if (file_exists($file)) {
             $this->_pingState = unserialize(file_get_contents($file));
         } else {
@@ -325,7 +341,38 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
     }
 
     /**
-     * Load a specific collection's ping state
+     * Obtain the device info array.
+     *
+     * @param <type> $devId
+     */
+    public function getDeviceInfo($devId)
+    {
+        $this->_devId = $devId;
+        $file = $this->_stateDir . '/' . $this->_backend->getUser() . '/info-' . $devId;
+        if (file_exists($file)) {
+            return unserialize(file_get_contents($file));
+        }
+
+        return array('policykey' => 0,
+                     'rwstatus' => 0,
+                     'devicetype' => '',
+                     'useragent' => '');
+    }
+
+    /**
+     * Set new device info
+     *
+     */
+    public function setDeviceInfo($devId, $data)
+    {
+        $this->_devId = $devId;
+        $file = $this->_stateDir . '/' . $this->_backend->getUser() . '/info-' . $devId;
+        return file_put_contents($file, serialize($data));
+    }
+
+    /**
+     * Load a specific collection's ping state. Ping state must already have
+     * been loaded.
      *
      * @param array $pingCollection  The collection array from the PIM request
      *
@@ -353,9 +400,6 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
         /* Initialize state for this collection */
         if (!$haveState) {
             $this->_logger->debug('Empty state for '. $pingCollection['class']);
-
-            /* Start with empty state cache */
-            //$this->_stateCache[$pingCollection['id']] = array();
 
             /* Init members for the getChanges call */
             $this->_syncKey = $this->_devId;
@@ -406,9 +450,10 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
         if (empty($this->_pingState)) {
             throw new Horde_ActiveSync_Exception('PING state not initialized');
         }
-        $state = serialize(array('lifetime' => $this->_pingState['lifetime'], 'collections' => $this->_pingState['collections']));
+        $state = serialize(array('lifetime' => $this->_pingState['lifetime'],
+                                 'collections' => $this->_pingState['collections']));
 
-        return file_put_contents($this->_stateDir . '/' . $this->_devId, $state);
+        return file_put_contents($this->_stateDir . '/' . $this->_backend->getUser() . '/' . $this->_devId, $state);
     }
 
     /**
@@ -434,10 +479,38 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
     }
 
     /**
+     * Obtain the current policy key, if it exists.
      *
-     * @param <type> $collectionClass  The collection we are syncing
+     * @param string $devId     The device id to obtain policy key for.
      *
-     * @return <type>
+     * @return integer  The current policy key for this device, or 0 if none
+     *                  exists.
+     */
+    public function getPolicyKey($devId)
+    {
+        $info = $this->getDeviceInfo($devId);
+        return $info['policykey'];
+    }
+
+    /**
+     * Save a new device policy key to storage.
+     *
+     * @param string $devId  The device id
+     * @param integer $key   The new policy key
+     */
+    public function setPolicyKey($devId, $key)
+    {
+        $info = $this->getDeviceInfo($devId);
+        $info['policykey'] = $key;
+        $this->setDeviceInfo($devId, $info);
+    }
+
+    /**
+     * Get list of server changes
+     *
+     * @param integer $flags
+     *
+     * @return array
      */
     public function getChanges($flags = 0)
     {
@@ -485,12 +558,17 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
         return $this->_changes;
     }
 
+    /**
+     * Get the number of server changes.
+     *
+     * @return integer
+     */
     public function getChangeCount()
     {
         if (!isset($this->_changes)) {
             $this->getChanges();
-            //throw new Horde_ActiveSync_Exception('Changes not yet retrieved. Must call getChanges() first');
         }
+
         return count($this->_changes);
     }
 
@@ -500,8 +578,8 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
      *
      * @params string $syncKey  The sync key
      *
+     * @return boolean
      * @throws Horde_ActiveSync_Exception
-     * @return boolean?
      */
     protected function _gc($syncKey)
     {
@@ -511,14 +589,14 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
         $guid = $matches[1];
         $n = $matches[2];
 
-        $dir = opendir($this->_stateDir);
+        $dir = @opendir($this->_stateDir . '/' . $this->_backend->getUser());
         if (!$dir) {
             return false;
         }
         while ($entry = readdir($dir)) {
             if (preg_match('/^s{0,1}\{([0-9A-Za-z-]+)\}([0-9]+)$/', $entry, $matches)) {
                 if ($matches[1] == $guid && $matches[2] < $n) {
-                    unlink($this->_stateDir . '/' . $entry);
+                    unlink($this->_stateDir . '/' . $this->_backend->getUser() . '/' . $entry);
                 }
             }
         }
@@ -527,9 +605,12 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
     }
 
     /**
+     * Helper function that performs the actual diff between PIM state and
+     * server state arrays.
      *
-     * @param $old
-     * @param $new
+     * @param array $old  The PIM state
+     * @param array $new  The current server state
+     *
      * @return unknown_type
      */
     private function _getDiff($old, $new)
@@ -609,6 +690,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
     }
 
     /**
+     * Helper function for the _diff method
      *
      * @param $a
      * @param $b

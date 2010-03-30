@@ -14,7 +14,6 @@
  */
 class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_Base
 {
-
     /** Status Codes **/
     const STATUS_SUCCESS = 1;
     const STATUS_INVALIDCOL = 2;
@@ -29,6 +28,13 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
      */
     public function handle(Horde_ActiveSync $activeSync)
     {
+        $this->_logger->info('[Horde_ActiveSync::handleFolderSync] Beginning GETITEMESTIMATE');
+
+        /* Check policy */
+        if (!$this->checkPolicyKey($activeSync->getPolicyKey())) {
+            return false;
+        }
+
         $status = array();
         $collections = array();
 
@@ -111,40 +117,29 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
         $this->_encoder->startTag(SYNC_GETITEMESTIMATE_GETITEMESTIMATE);
         foreach ($collections as $collection) {
             $this->_encoder->startTag(SYNC_GETITEMESTIMATE_RESPONSE);
-
             $this->_encoder->startTag(SYNC_GETITEMESTIMATE_STATUS);
             $this->_encoder->content($status[$collection['id']]);
             $this->_encoder->endTag();
-
             $this->_encoder->startTag(SYNC_GETITEMESTIMATE_FOLDER);
-
             $this->_encoder->startTag(SYNC_GETITEMESTIMATE_FOLDERTYPE);
             $this->_encoder->content($collection['class']);
             $this->_encoder->endTag();
-
             $this->_encoder->startTag(SYNC_GETITEMESTIMATE_FOLDERID);
             $this->_encoder->content($collection['id']);
             $this->_encoder->endTag();
-
             $this->_encoder->startTag(SYNC_GETITEMESTIMATE_ESTIMATE);
 
             $importer = new Horde_ActiveSync_ContentsCache();
-
             $state = $this->_driver->getStateObject($collection);
             $state->loadState($collection['synckey']);
-
             $exporter = $this->_driver->GetExporter();
             $exporter->init($state, $importer, $collection);
 
             $this->_encoder->content($exporter->GetChangeCount());
-
             $this->_encoder->endTag();
-
             $this->_encoder->endTag();
-
             $this->_encoder->endTag();
         }
-
         $this->_encoder->endTag();
 
         return true;

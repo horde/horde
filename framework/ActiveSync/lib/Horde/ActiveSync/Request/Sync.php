@@ -30,6 +30,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
     {
         $this->_logger->info('[Horde_ActiveSync::handleSync] Handling SYNC command.');
 
+        /* Check policy */
+        if (!$this->checkPolicyKey($activeSync->getPolicyKey())) {
+            return false;
+        }
+
         /* Be optimistic */
         $this->_statusCode = self::STATUS_SUCCESS;
 

@@ -113,11 +113,18 @@ abstract class Horde_ActiveSync_State_Base
      * Loads the initial state from storage for the specified syncKey and
      * intializes the stateMachine for use.
      *
-     * @param string $key  The key for the syncState or pingState to load.
+     * @param string $key       The key for the syncState or pingState to load.
      *
      * @return array The state array
      */
     abstract public function loadState($syncKey);
+
+    /**
+     * Load/initialize the ping state for the specified device.
+     *
+     * @param string $devId
+     */
+    abstract public function initPingState($devId);
 
     /**
      * Load the ping state for the given device id
@@ -167,6 +174,25 @@ abstract class Horde_ActiveSync_State_Base
      * @return boolean
      */
     abstract public function isConflict($stat, $type);
+
+    /**
+     * Get the specified device's policy key.
+     *
+     * @param string $devId     The device id to get key for.
+     *
+     * @return integer  The policy key
+     */
+    abstract public function getPolicyKey($devId);
+
+    /**
+     * Set the policy key for the specified device id
+     *
+     * @param string $devId     The device id
+     * @param integer $key      The policy key
+     *
+     * @return void
+     */
+    abstract public function setPolicyKey($devId, $key);
 
     /**
      * Set the backend driver

@@ -23,9 +23,14 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
 
     public function handle(Horde_ActiveSync $activeSync)
     {
-        /* Be optomistic */
+        /* Be optimistic */
         $this->_statusCode = self::STATUS_SUCCESS;
         $this->_logger->info('[Horde_ActiveSync::handleFolderSync] Beginning FOLDERSYNC');
+
+        /* Check policy */
+        if (!$this->checkPolicyKey($activeSync->getPolicyKey())) {
+            return false;
+        }
 
         /* Maps serverid -> clientid for items that are received from the PIM */
         $map = array();

@@ -42,15 +42,6 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
     private $_policykey;
 
     /**
-     * ActiveSync protocol version
-     * (Sent as either 'Ms-Asprotocolversion' or 'MS-ASProtocolVersion')
-     * Should default to '1.0' if not sent.
-     *
-     * @var string
-     */
-    private $_protocolVersion;
-
-    /**
      * Require provisioning? Valid values:
      *  true  - provisioning required
      *  false - not checked
@@ -60,6 +51,7 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
      * @var mixed
      */
     private $_provisioning;
+
 
     /**
      * Constructor.
@@ -96,9 +88,6 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
             $this->_policykey = $this->_server->getPolicyKey();
         }
         $this->_server->setProvisioning = $this->_provisioning;
-
-        /* Protocol Version */
-        $this->_protocolVersion = $this->_server->getProtocolVersion();
     }
 
     /**
@@ -145,19 +134,8 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
 
             // Do the actual request
             $this->_logger->debug('Horde_Rpc_ActiveSync::getResponse() starting for ' . $this->_get['Cmd']);
-            if (!$this->_server->handleRequest($this->_get['Cmd'], $this->_get['DeviceId'], $this->_protocolVersion)) {
-                /* @TODO If request failed, try to output a reasonable error to the
-                 * device if we can...and this should be done from the ActiveSync
-                 * objects anyway...
-                 */
-                if(!headers_sent()) {
-                    header('Content-type: text/html');
-                    echo("<BODY>\n");
-                    echo("<h3>Error</h3><p>\n");
-                    echo("There was a problem processing the <i>{$this->_get['Cmd']}</i> command from your PDA.\n");
-                    echo("</BODY>\n");
-                }
-            }
+            $this->_server->handleRequest($this->_get['Cmd'], $this->_get['DeviceId']);
+
             break;
 
         case 'GET':
@@ -242,18 +220,6 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
             header('HTTP/1.1 401 Unauthorized');
             header('WWW-Authenticate: Basic realm="Horde RPC"');
             echo 'Access denied or user ' . $this->_get['User'] . ' unknown.';
-        }
-
-        /* Policies / Provisioning */
-        if ($this->_provisioning !== false && $this->_request->getServer('REQUEST_METHOD') != 'OPTIONS' &&
-            $this->_get['Cmd'] != 'Ping' && $this->_get['Cmd'] != 'Provision' &&
-            $this->_backend->CheckPolicy($this->_policykey, $this->_get['DeviceId']) != SYNC_PROVISION_STATUS_SUCCESS &&
-            ($this->_provisioning !== 'loose' ||
-            ($this->_provisioning === 'loose' && !empty($this->_policyKey)))) {
-
-            Horde_ActiveSync::provisioningRequired();
-
-            return false;
         }
 
         $this->_logger->debug('Horde_Rpc_ActiveSync::authorize() exiting');

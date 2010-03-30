@@ -17,140 +17,173 @@
 class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
 {
 
+    /* Status Constants */
+    const STATUS_SUCCESS = 1;
+    const STATUS_PROTERROR = 2;  // Global status
+    const STATUS_NOTDEFINED = 2; // Policy status
+
+    const STATUS_SERVERERROR = 3; // Global
+    const STATUS_POLICYUNKNOWN = 3; // Policy
+
+    const STATUS_DEVEXTMANAGED = 4; // Global
+    const STATUS_POLICYCORRUPT = 4; // Policy
+
+    const STATUS_POLKEYMISM = 5;
+
+    /* Client -> Server Status */
+    const STATUS_CLIENT_SUCCESS = 1;
+    const STATUS_CLIENT_PARTIAL = 2; // Only pin was enabled.
+    const STATUS_CLIENT_FAILED = 3; // No policies applied at all.
+    const STATUS_CLIENT_THIRDPARTY = 4; // Client provisioned by 3rd party?
+
+    const RWSTATUS_NA = 0;
+    const RWSTATUS_OK = 1;
+    const RWSTATUS_PENDING = 2;
+    const RWSTATUS_WIPED = 3;
+
+    /**
+     * Handle the Provision request. This is a 3-phase process. Phase 1 is
+     * actually the enforcement, when the server rejects a request and forces
+     * the client to perform this PROVISION request...so we are handling phase
+     * 2 (download policies) and 3 (acknowledge policies) here.
+     *
+     * @param Horde_ActiveSync $activeSync  The activesync object.
+     *
+     * @return boolean
+     * @throws Horde_ActiveSync_Exception
+     */
     public function handle(Horde_ActiveSync $activeSync)
     {
+        /* Get the policy key if it was sent */
         $policykey = $activeSync->getPolicyKey();
 
-        $status = SYNC_PROVISION_STATUS_SUCCESS;
+        $this->_logger->debug('PIM PolicyKey: ' . $policykey);
+        /* Be optimistic */
+        $status = self::STATUS_SUCCESS;
+        $policyStatus = self::STATUS_SUCCESS;
+
+        /* Start by assuming we are in stage 2 */
         $phase2 = true;
         if (!$this->_decoder->getElementStartTag(SYNC_PROVISION_PROVISION)) {
-            return false;
+            return $this->_globalError(self::STATUS_PROTERROR);
         }
 
-        //handle android remote wipe.
+        /* Handle android remote wipe */
         if ($this->_decoder->getElementStartTag(SYNC_PROVISION_REMOTEWIPE)) {
             if (!$this->_decoder->getElementStartTag(SYNC_PROVISION_STATUS)) {
-                return false;
+                return $this->_globalError(self::STATUS_PROTERROR);
             }
-
+            // TODO: Look at $status here...
             $status = $this->_decoder->getElementContent();
-
-            if (!$this->_decoder->getElementEndTag()) {
-                return false;
-            }
-
-            if (!$this->_decoder->getElementEndTag()) {
-                return false;
+            if (!$this->_decoder->getElementEndTag() ||
+                !$this->_decoder->getElementEndTag()) {
+                return $this->_globalError(self::STATUS_PROTERROR);
             }
         } else {
-            if (!$this->_decoder->getElementStartTag(SYNC_PROVISION_POLICIES)) {
-                return false;
-            }
+            if (!$this->_decoder->getElementStartTag(SYNC_PROVISION_POLICIES) ||
+                !$this->_decoder->getElementStartTag(SYNC_PROVISION_POLICY) ||
+                !$this->_decoder->getElementStartTag(SYNC_PROVISION_POLICYTYPE)) {
 
-            if (!$this->_decoder->getElementStartTag(SYNC_PROVISION_POLICY)) {
-                return false;
-            }
-
-            if (!$this->_decoder->getElementStartTag(SYNC_PROVISION_POLICYTYPE)) {
-                return false;
+                return $this->_globalError(self::STATUS_PROTERROR);
             }
 
             $policytype = $this->_decoder->getElementContent();
             if ($policytype != 'MS-WAP-Provisioning-XML') {
-                $status = SYNC_PROVISION_STATUS_SERVERERROR;
+                $policyStatus = self::STATUS_POLICYUNKNOWN;
             }
             if (!$this->_decoder->getElementEndTag()) {//policytype
-                return false;
+                return $this->_globalError(self::STATUS_PROTERROR);
             }
 
+            /* POLICYKEY is only sent by client in phase 3 */
             if ($this->_decoder->getElementStartTag(SYNC_PROVISION_POLICYKEY)) {
-                // This should be Phase 3 of the Provision conversation...
-                // We get the intermediate policy key sent back from the client.
-                // TODO: Still need to verify the key once we have some kind of
-                // storage for it.
                 $policykey = $this->_decoder->getElementContent();
-                if (!$this->_decoder->getElementEndTag()) {
-                    return false;
+                if (!$this->_decoder->getElementEndTag() ||
+                    !$this->_decoder->getElementStartTag(SYNC_PROVISION_STATUS)) {
+
+                    return $this->_globalError(self::STATUS_PROTERROR);
+                }
+                if ($this->_decoder->getElementContent() != self::STATUS_SUCCESS) {
+                    $policyStatus = self::STATUS_POLICYCORRUPT;
                 }
 
-                if (!$this->_decoder->getElementStartTag(SYNC_PROVISION_STATUS)) {
-                    return false;
-                }
-
-                $status = $this->_decoder->getElementContent();
-                //do status handling
-                $status = SYNC_PROVISION_STATUS_SUCCESS;
-
                 if (!$this->_decoder->getElementEndTag()) {
-                    return false;
+                    return $this->_globalError(self::STATUS_PROTERROR);
                 }
                 $phase2 = false;
             }
 
-            if (!$this->_decoder->getElementEndTag()) {//policy
-                return false;
+            if (!$this->_decoder->getElementEndTag() ||
+                !$this->_decoder->getElementEndTag()) {
+
+                return $this->_globalError(self::STATUS_PROTERROR);
             }
 
-            if (!$this->_decoder->getElementEndTag()) {//policies
-                return false;
-            }
-
+            /* Handle remote wipe for other devices */
             if ($this->_decoder->getElementStartTag(SYNC_PROVISION_REMOTEWIPE)) {
                 if (!$this->_decoder->getElementStartTag(SYNC_PROVISION_STATUS)) {
-                    return false;
+                    return $this->_globalError(self::STATUS_PROTERROR);
                 }
-
+                // @TODO: look at status here??
                 $status = $this->_decoder->getElementContent();
-                if (!$this->_decoder->getElementEndTag()) {
-                    return false;
-                }
+                if (!$this->_decoder->getElementEndTag() ||
+                    !$this->_decoder->getElementEndTag()) {
 
-                if (!$this->_decoder->getElementEndTag()) {
-                    return false;
+                    return $this->_globalError(self::STATUS_PROTERROR);
                 }
             }
         }
 
         if (!$this->_decoder->getElementEndTag()) {//provision
-            return false;
+            return $this->_globalError(self::STATUS_PROTERROR);
         }
+
+        /* Start handling request and sending output */
         $this->_encoder->StartWBXML();
 
         // End of Phase 3 - We create the "final" policy key, store it, then
         // send it to the client.
+        $state = $this->_driver->getStateObject();
         if (!$phase2) {
+            /* Verify intermediate key */
+            if ($state->getPolicyKey($this->_devId) != $policykey) {
+                $policyStatus = self::STATUS_POLKEYMISM;
+            } else {
+                $policykey = $this->_driver->generatePolicyKey();
+                $info = array('policykey' => $policykey,
+                              'useragent' => $this->_userAgent,
+                              'devicetype' => $this->_deviceType);
+                $state->setDeviceInfo($this->_devId, $info);
+            }
+        } elseif (empty($policykey)) {
+            // This is phase2 - we need to set the intermediate key
             $policykey = $this->_driver->generatePolicyKey();
-            $this->_driver->setPolicyKey($policykey, $this->_devId);
+            $state->setPolicyKey($this->_devId, $policykey);
         }
 
         $this->_encoder->startTag(SYNC_PROVISION_PROVISION);
-
         $this->_encoder->startTag(SYNC_PROVISION_STATUS);
         $this->_encoder->content($status);
         $this->_encoder->endTag();
 
         $this->_encoder->startTag(SYNC_PROVISION_POLICIES);
         $this->_encoder->startTag(SYNC_PROVISION_POLICY);
-
         $this->_encoder->startTag(SYNC_PROVISION_POLICYTYPE);
         $this->_encoder->content($policytype);
         $this->_encoder->endTag();
         $this->_encoder->startTag(SYNC_PROVISION_STATUS);
-        $this->_encoder->content($status);
+        $this->_encoder->content($policyStatus);
         $this->_encoder->endTag();
         $this->_encoder->startTag(SYNC_PROVISION_POLICYKEY);
         $this->_encoder->content($policykey);
         $this->_encoder->endTag();
-        if ($phase2) {
-            // If we are in Phase 2, send the security policies.
-            // TODO: Configure this!
+
+        /* Send security policies - configure this/move to it's own method...*/
+        if ($phase2 && $status == self::STATUS_SUCCESS && $policyStatus == self::STATUS_SUCCESS) {
             $this->_encoder->startTag(SYNC_PROVISION_DATA);
             if ($policytype == 'MS-WAP-Provisioning-XML') {
                 // Set 4131 to 0 to require a PIN, 4133
                 $this->_encoder->content('<wap-provisioningdoc><characteristic type="SecurityPolicy"><parm name="4131" value="1"/><parm name="4133" value="0"/></characteristic></wap-provisioningdoc>');
-            } else {
-                $this->_logger->err('Wrong policy type');
-                return false;
             }
             $this->_encoder->endTag();//data
         }
@@ -159,15 +192,27 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
         $rwstatus = $this->_driver->getDeviceRWStatus($this->_devId);
 
         //wipe data if status is pending or wiped
-        if ($rwstatus == SYNC_PROVISION_RWSTATUS_PENDING || $rwstatus == SYNC_PROVISION_RWSTATUS_WIPED) {
+        if ($rwstatus == self::RWSTATUS_PENDING || $rwstatus == self::RWSTATUS_WIPED) {
             $this->_encoder->startTag(SYNC_PROVISION_REMOTEWIPE, false, true);
-            $this->_driver->setDeviceRWStatus($this->_devId, SYNC_PROVISION_RWSTATUS_WIPED);
+            $this->_driver->setDeviceRWStatus($this->_devId, self::RWSTATUS_WIPED);
             //$rwstatus = SYNC_PROVISION_RWSTATUS_WIPED;
         }
 
         $this->_encoder->endTag();//provision
 
         return true;
+    }
+
+    private function _globalError($status)
+    {
+        $this->_encoder->StartWBXML();
+        $this->_encoder->startTag(SYNC_PROVISION_PROVISION);
+        $this->_encoder->startTag(SYNC_PROVISION_STATUS);
+        $this->_encoder->content($status);
+        $this->_encoder->endTag();
+        $this->_encoder->endTag();
+
+        return false;
     }
 
 }

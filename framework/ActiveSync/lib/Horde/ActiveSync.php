@@ -447,17 +447,6 @@ define("SYNC_TRUNCATION_5K", 4);
 define("SYNC_TRUNCATION_SEVEN", 7);
 define("SYNC_TRUNCATION_ALL", 9);
 
-define("SYNC_PROVISION_STATUS_SUCCESS", 1);
-define("SYNC_PROVISION_STATUS_PROTERROR", 2);
-define("SYNC_PROVISION_STATUS_SERVERERROR", 3);
-define("SYNC_PROVISION_STATUS_DEVEXTMANAGED", 4);
-define("SYNC_PROVISION_STATUS_POLKEYMISM", 5);
-
-define("SYNC_PROVISION_RWSTATUS_NA", 0);
-define("SYNC_PROVISION_RWSTATUS_OK", 1);
-define("SYNC_PROVISION_RWSTATUS_PENDING", 2);
-define("SYNC_PROVISION_RWSTATUS_WIPED", 3);
-
 /**
  * Main ActiveSync class. Entry point for performing all ActiveSync operations
  *
@@ -868,12 +857,10 @@ class Horde_ActiveSync
           );
 
     /**
-     * Used to track what error code to send back to PIM on failure
+     * Provisioning support
      *
-     * @var integer
+     * @var string (TODO _constant this)
      */
-    protected $_statusCode = 0;
-
     protected $_provisioning;
 
     /**
@@ -1549,10 +1536,12 @@ class Horde_ActiveSync
      * @param $protocolversion
      * @return unknown_type
      */
-    public function handleRequest($cmd, $devId, $version)
+    public function handleRequest($cmd, $devId)
     {
         $class = 'Horde_ActiveSync_Request_' . basename($cmd);
+        $version = $this->getProtocolVersion();
         if (class_exists($class)) {
+            //@TODO: Remove version - get it in handle() since we pass self to it anyway
             $request = new $class($this->_driver,
                                   $this->_decoder,
                                   $this->_encoder,
@@ -1563,9 +1552,6 @@ class Horde_ActiveSync
             $request->setLogger($this->_logger);
             return $request->handle($this);
         }
-
-        // GetHierarchy is used in v1.0 of the AS protocol, in v2, it is replaced
-        // by the FolderSync command
 
         // @TODO: Leave the following in place until all are refactored...then throw
         // an error if the class does not exist.
@@ -1653,6 +1639,7 @@ class Horde_ActiveSync
 
     /**
      * Send the MS_Server-ActiveSync header
+     * (This is the version Exchange 2003 implements)
      *
      * @return void
      */
@@ -1698,15 +1685,12 @@ class Horde_ActiveSync
      */
     public function getPolicyKey()
     {
-        if (isset($this->_policykey)) {
-            return $this->_policykey;
-        }
-
         /* Policy key headers may be sent in either of these forms: */
         $this->_policykey = $this->_request->getHeader('X-Ms-Policykey');
         if (empty($this->_policykey)) {
             $this->_policykey = $this->_request->getHeader('X-MS-PolicyKey');
         }
+
         if (empty($this->_policykey)) {
             $this->_policykey = 0;
         }

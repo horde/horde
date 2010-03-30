@@ -74,7 +74,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      * @return void
      * @throws Horde_ActiveSync_Exception
      */
-    public function loadState($syncKey)
+    public function loadState($syncKey, $username)
     {
         if (empty($syncKey)) {
             return;

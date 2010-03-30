@@ -241,6 +241,16 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
+     * Get the username for this request.
+     *
+     * @return string  The current username
+     */
+    public function getUser()
+    {
+        return $this->_authUser;
+    }
+
+    /**
      * Any code to run on log off
      *
      * @return boolean
@@ -326,7 +336,8 @@ abstract class Horde_ActiveSync_Driver_Base
     /**
      * Will (eventually) return an appropriate state object based on the class
      * being sync'd.
-     * @param <type> $collection
+     *
+     * @param array $collection
      */
     public function &getStateObject($collection = array())
     {
@@ -477,60 +488,13 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * Checks if the sent policykey matches the latest policykey on the server
-     * TODO: Revisit this once we have refactored state storage
-     * @param string $policykey
-     * @param string $devid
-     *
-     * @return status flag
-     */
-    public function CheckPolicy($policyKey, $devId)
-    {
-        $status = SYNC_PROVISION_STATUS_SUCCESS;
-//        $user_policykey = $this->getPolicyKey($this->_authUser, $this->_authPass, $devId);
-//        if ($user_policykey != $policyKey) {
-//            $status = SYNC_PROVISION_STATUS_POLKEYMISM;
-//        }
-//
-        return $status;
-    }
-
-    /**
-     * Return a policy key for given user with a given device id.
-     * If there is no combination user-deviceid available, a new key
-     * should be generated.
-     *
-     * @param string $user
-     * @param string $pass
-     * @param string $devid
-     *
-     * @return unknown
-     */
-    public function getPolicyKey($user, $pass, $devid)
-    {
-        return false;
-    }
-
-    /**
-     * Generate a random policy key. Right now it's a 10-digit number.
+     * Generate a random 10 digit policy key
      *
      * @return unknown
      */
     public function generatePolicyKey()
     {
         return mt_rand(1000000000, 9999999999);
-    }
-
-    /**
-     * Set a new policy key for the given device id.
-     *
-     * @param string $policykey
-     * @param string $devid
-     * @return unknown
-     */
-    public function setPolicyKey($policykey, $devid)
-    {
-        return false;
     }
 
     /**

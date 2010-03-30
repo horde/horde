@@ -50,7 +50,7 @@ abstract class Horde_ActiveSync_Request_Base
      *
      * @var mixed
      */
-    protected $_provisioning = false;
+    protected $_provisioning;
 
     /**
      * The ActiveSync Version
@@ -65,6 +65,9 @@ abstract class Horde_ActiveSync_Request_Base
      * @var string
      */
     protected $_devId;
+
+    protected $_userAgent;
+    protected $_deviceType;
 
     /**
      * Used to track what error code to send back to PIM on failure
@@ -113,8 +116,38 @@ abstract class Horde_ActiveSync_Request_Base
         /* Provisioning support */
         $this->_provisioning = $provisioning;
 
+        /* Useragent and device identification */
+       $this->_userAgent = $request->getHeader('User-Agent');
+       $get = $request->getGetParams();
+       $this->_deviceType = $get['DeviceType'];
+
         /* Logger */
         $this->_logger;
+    }
+
+    /**
+     * Ensure the PIM's policy key is current.
+     *
+     * @param <type> $devId
+     * @return <type>
+     */
+    public function checkPolicyKey($sentKey)
+    {
+        /* Don't attempt if we don't care */
+        if ($this->_provisioning !== false) {
+            $state = $this->_driver->getStateObject();
+            $storedKey = $state->getPolicyKey($this->_devId);
+            /* Loose provsioning should allow a blank key */
+            if ($storedKey != $sentKey &&
+               ($this->_provisioning !== 'loose' ||
+               ($this->_provisioning === 'loose' && !empty($this->_policyKey)))) {
+
+                    Horde_ActiveSync::provisioningRequired();
+                    return false;
+            }
+        }
+
+        return true;
     }
 
     public function setLogger(Horde_Log_Logger $logger) {
