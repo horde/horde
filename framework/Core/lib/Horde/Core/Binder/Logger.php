@@ -7,7 +7,7 @@ class Horde_Core_Binder_Logger implements Horde_Injector_Binder
 
         /* Default handler. */
         if (empty($conf['log']['enabled'])) {
-            return new Horde_Log_Logger(new Horde_Log_Handler_Null());
+            return new Horde_Core_Log_Logger(new Horde_Log_Handler_Null());
         }
 
         switch ($conf['log']['type']) {
@@ -39,7 +39,7 @@ class Horde_Core_Binder_Logger implements Horde_Injector_Binder
             try {
                 $handler = new Horde_Log_Handler_Stream($conf['log']['name'], $append, $formatter);
             } catch (Horde_Log_Exception $e) {
-                return new Horde_Log_Logger(new Horde_Log_Handler_Null());
+                return new Horde_Core_Log_Logger(new Horde_Log_Handler_Null());
             }
             break;
 
@@ -47,14 +47,14 @@ class Horde_Core_Binder_Logger implements Horde_Injector_Binder
             try {
                 $handler = new Horde_Log_Handler_Syslog();
             } catch (Horde_Log_Exception $e) {
-                return new Horde_Log_Logger(new Horde_Log_Handler_Null());
+                return new Horde_Core_Log_Logger(new Horde_Log_Handler_Null());
             }
             break;
 
         case 'null':
         default:
             // Use default null handler.
-            return new Horde_Log_Logger(new Horde_Log_Handler_Null());
+            return new Horde_Core_Log_Logger(new Horde_Log_Handler_Null());
             break;
         }
 
