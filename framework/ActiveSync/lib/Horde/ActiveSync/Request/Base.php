@@ -119,7 +119,7 @@ abstract class Horde_ActiveSync_Request_Base
             $state = $this->_driver->getStateObject();
             $storedKey = $state->getPolicyKey($this->_devId);
             /* Loose provsioning should allow a blank key */
-            if (($storedKey == 0 || $storedKey != $sentKey) &&
+            if ((empty($storedKey) || $storedKey != $sentKey) &&
                ($this->_provisioning !== 'loose' ||
                ($this->_provisioning === 'loose' && !empty($this->_policyKey)))) {
 
