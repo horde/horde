@@ -1981,6 +1981,66 @@
       <configstring name="directory" desc="Directory to hold state files (this
       directory should be writeable by the webserver):">/tmp</configstring>
      </configsection>
+     <configsection name="securitypolicies">
+      <configswitch name="provisioning" quote="false" desc="How should device
+      provisioning be handled? Set to DISABLE to ignore provisioning. Set to 
+      ALLOW to force devices that CAN be provisioned to use provisioning, but
+      allow older devices with no support for provisioning to still be used. Set
+      to FORCE to only allow devices that are provisioned to connect to your
+      server.">false
+       <case name="false" desc="Disable" />
+       <case name="loose" desc="Allow">
+        <configswitch name="pin" desc="Force device to use a PIN to unlock
+        the device.">false
+         <case name="false" desc="No" />
+         <case name="true" desc="Yes">
+          <configinteger name="wipethreshold" desc="How many unlock attempts
+          before device should get wiped?">10</configinteger>
+          <configinteger name="codewordfrequency" desc="How many unlock
+          attempts before validating that an actual person is using the device
+          is able to read and write. This should typically be half of the
+          wipethreshold setting above.">5</configinteger>
+          <configinteger name="minimumlength" desc="Minimum PIN size">5</configinteger>
+          <configenum name="complexity" desc="PIN/Password complexity. Some
+          devices may be able to ONLY support numeric PINS.">
+           <values>
+            <value desc="Require alphanumeric">0</value>
+            <value desc="Allow only numeric">1</value>
+            <value desc="Allow any">2</value>
+         </values>
+        </configenum>
+        <configinteger name="Number of minutes of inactivity before device
+        should lock.">3</configinteger>
+         </case>
+        </configswitch>
+       </case>
+       <case name="true" desc="Force">
+        <configswitch name="pin" desc="Force device to use a PIN to unlock
+        the device.">false
+         <case name="false" desc="No" />
+         <case name="true" desc="Yes">
+          <configinteger name="wipethreshold" desc="How many unlock attempts
+          before device should get wiped?">10</configinteger>
+          <configinteger name="codewordfrequency" desc="How many unlock
+          attempts before validating that an actual person is using the device
+          is able to read and write. This should typically be half of the
+          wipethreshold setting above.">5</configinteger>
+          <configinteger name="minimumlength" desc="Minimum PIN size">5</configinteger>
+          <configenum name="complexity" desc="PIN/Password complexity. Some
+          devices may be able to ONLY support numeric PINS.">
+           <values>
+            <value desc="Require alphanumeric">0</value>
+            <value desc="Allow only numeric">1</value>
+            <value desc="Allow any">2</value>
+           </values>
+          </configenum>
+         </case>
+        </configswitch>
+       </case>
+      </configswitch>
+      <configinteger name="inactivity" desc="Number of minutes of inactivity before device
+      should lock.">3</configinteger>
+     </configsection>
     </case>
    </configswitch>
   </configsection>
