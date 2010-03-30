@@ -1493,6 +1493,7 @@ KronolithCore = {
 
             var midnight = this.parseDate(date),
                 innerDiv = new Element('div', { className: 'kronolithEventInfo' }),
+                minHeight = 0, height,
                 draggerTop, draggerBottom;
             if (event.value.fi) {
                 draggerTop = new Element('div', { id: event.value.nodeId + 'top', className: 'kronolithDragger kronolithDraggerTop' }).setStyle(style);
@@ -1507,7 +1508,6 @@ KronolithCore = {
 
             div.setStyle({
                 top: (Math.round(midnight.getElapsed(event.value.start) / 60000) * this[storage].height / 60 | 0) + 'px',
-                height: (Math.round(event.value.start.getElapsed(event.value.end) / 60000) * this[storage].height / 60 - this[storage].spacing | 0) + 'px',
                 width: '100%'
             })
                 .insert(innerDiv.setStyle(style));
@@ -1518,6 +1518,13 @@ KronolithCore = {
                 div.insert(draggerBottom);
             }
             $(view == 'day' ? 'kronolithEventsDay' : 'kronolithEventsWeek' + date).insert(div);
+            if (draggerTop) {
+                minHeight += draggerTop.getHeight();
+            }
+            if (draggerBottom) {
+                minHeight += draggerBottom.getHeight();
+            }
+            div.setStyle({ height: Math.max(Math.round(event.value.start.getElapsed(event.value.end) / 60000) * this[storage].height / 60 - this[storage].spacing | 0, minHeight) + 'px' });
 
             if (event.value.pe) {
                 div.addClassName('kronolithEditable');
