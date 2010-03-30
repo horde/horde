@@ -8,6 +8,7 @@
 var RedBox = {
 
     overlay: true,
+    duration: 0.4,
     onDisplay: null,
 
     showInline: function(id)
@@ -25,19 +26,25 @@ var RedBox = {
     appearWindow: function()
     {
         var loading = $('RB_loading'),
-            opts = { duration: 0.4, queue: 'end' };
+            opts = { queue: 'end' },
+            effects = [], effect;
 
         if (loading && loading.visible()) {
             loading.hide();
         } else {
-            this.showOverlay();
+            effect = this.showOverlay(true);
+            if (effect) {
+                effects.push(effect);
+            }
         }
 
         if (this.onDisplay) {
             opts.afterFinish = this.onDisplay;
         }
 
-        $('RB_window').appear(opts).scrollTo();
+        effects.push(new Effect.Appear($('RB_window'), { sync: true, duration: this.duration }));
+        new Effect.Parallel(effects, opts);
+        $('RB_window').scrollTo();
     },
 
     loading: function()
@@ -53,13 +60,13 @@ var RedBox = {
 
     close: function()
     {
-        $('RB_window').fade({ duration: 0.4 });
+        $('RB_window').fade({ duration: this.duration });
         if (this.overlay && this.overlayVisible()) {
-            $('RB_overlay').fade({ duration: 0.4 });
+            $('RB_overlay').fade({ duration: this.duration });
         }
     },
 
-    showOverlay: function()
+    showOverlay: function(sync)
     {
         var rb = $('RB_redbox'), ov;
 
@@ -77,7 +84,7 @@ var RedBox = {
 
         if (this.overlay) {
             this.setOverlaySize();
-            $('RB_overlay').appear({ duration: 0.4, to: 0.6, queue: 'end' });
+            return new Effect.Appear($('RB_overlay'), { sync: sync, duration: this.duration, to: 0.6, queue: sync ? 'parallel' : 'end' });
         }
     },
 
