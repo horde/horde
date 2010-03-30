@@ -370,8 +370,8 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 <?php if (!empty($flag_list)): ?>
  <div>
   <div class="sep"></div>
-  <a id="ctx_message_setflag"><span class="contextImg"></span><?php echo _("Mark as") ?></a>
-  <a id="ctx_message_unsetflag"><span class="contextImg"></span><?php echo _("Unmark as") ?></a>
+  <a id="ctx_message_setflag"><span class="contextImg"></span><?php echo _("Mark as") ?>...</a>
+  <a id="ctx_message_unsetflag"><span class="contextImg"></span><?php echo _("Unmark as") ?>...</a>
  </div>
 <?php endif; ?>
  <div class="sep"></div>
@@ -421,8 +421,8 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 <?php if (!empty($flag_list)): ?>
  <div>
   <div class="sep"></div>
-  <a id="oa_setflag"><span class="contextImg"></span><?php echo _("Mark as") ?></a>
-  <a id="oa_unsetflag"><span class="contextImg"></span><?php echo _("Unmark as") ?></a>
+  <a id="oa_setflag"><span class="contextImg"></span><?php echo _("Mark as") ?>...</a>
+  <a id="oa_unsetflag"><span class="contextImg"></span><?php echo _("Unmark as") ?>...</a>
  </div>
 <?php endif; ?>
 <?php if ($has_blacklist || $has_whitelist): ?>
