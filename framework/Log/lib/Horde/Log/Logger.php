@@ -117,7 +117,7 @@ class Horde_Log_Logger
         }
 
         if (!isset($this->_levels[$event['level']])) {
-            throw new Horde_Log_Exception('Bad log level');
+            throw new Horde_Log_Exception('Bad log level: ' . $event['level']);
         }
 
         // Fill in the level name and timestamp for filters, formatters, handlers
