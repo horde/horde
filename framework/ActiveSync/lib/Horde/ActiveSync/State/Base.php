@@ -176,23 +176,51 @@ abstract class Horde_ActiveSync_State_Base
     abstract public function isConflict($stat, $type);
 
     /**
-     * Get the specified device's policy key.
+     * Obtain the current policy key, if it exists.
      *
-     * @param string $devId     The device id to get key for.
+     * @param string $devId     The device id to obtain policy key for.
      *
-     * @return integer  The policy key
+     * @return integer  The current policy key for this device, or 0 if none
+     *                  exists.
      */
     abstract public function getPolicyKey($devId);
 
     /**
-     * Set the policy key for the specified device id
+     * Save a new device policy key to storage.
      *
-     * @param string $devId     The device id
-     * @param integer $key      The policy key
-     *
-     * @return void
+     * @param string $devId  The device id
+     * @param integer $key   The new policy key
      */
     abstract public function setPolicyKey($devId, $key);
+
+    /**
+     * Obtain the device object.
+     *
+     * @param string $devId
+     *
+     * @return StdClass
+     */
+    abstract public function getDeviceInfo($devId);
+
+    /**
+     * Check that a given device id is known to the server. This is regardless
+     * of Provisioning status.
+     *
+     * @param string $devId
+     *
+     * @return boolean
+     */
+    abstract public function deviceExists($devId);
+
+    /**
+     * Set new device info
+     *
+     * @param string $devId   The device id.
+     * @param StdClass $data  The device information
+     *
+     * @return boolean
+     */
+    abstract public function setDeviceInfo($devId, $data);
 
     /**
      * Set the backend driver

@@ -54,6 +54,8 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
      */
     public function handle(Horde_ActiveSync $activeSync)
     {
+        parent::handle($activeSync, $devId);
+
         /* Get the policy key if it was sent */
         $policykey = $activeSync->getPolicyKey();
 
@@ -149,11 +151,9 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
             if ($state->getPolicyKey($this->_devId) != $policykey) {
                 $policyStatus = self::STATUS_POLKEYMISM;
             } else {
+                /* Set the final key */
                 $policykey = $this->_driver->generatePolicyKey();
-                $info = array('policykey' => $policykey,
-                              'useragent' => $this->_userAgent,
-                              'devicetype' => $this->_deviceType);
-                $state->setDeviceInfo($this->_devId, $info);
+                $state->setPolicyKey($this->_devId, $policykey);
             }
         } elseif (empty($policykey)) {
             // This is phase2 - we need to set the intermediate key

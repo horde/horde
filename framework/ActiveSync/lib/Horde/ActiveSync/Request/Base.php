@@ -66,9 +66,6 @@ abstract class Horde_ActiveSync_Request_Base
      */
     protected $_devId;
 
-    protected $_userAgent;
-    protected $_deviceType;
-
     /**
      * Used to track what error code to send back to PIM on failure
      *
@@ -95,7 +92,7 @@ abstract class Horde_ActiveSync_Request_Base
                                 Horde_ActiveSync_Wbxml_Decoder $decoder,
                                 Horde_ActiveSync_Wbxml_Encoder $encoder,
                                 Horde_Controller_Request_Http $request,
-                                $version, $devId, $provisioning)
+                                $provisioning)
     {
         /* Backend driver */
         $this->_driver = $driver;
@@ -107,22 +104,8 @@ abstract class Horde_ActiveSync_Request_Base
         /* The http request */
         $this->_request = $request;
 
-        /* Protocol Version */
-        $this->_version = $version;
-
-        /* Device Id */
-        $this->_devId = $devId;
-
         /* Provisioning support */
         $this->_provisioning = $provisioning;
-
-        /* Useragent and device identification */
-       $this->_userAgent = $request->getHeader('User-Agent');
-       $get = $request->getGetParams();
-       $this->_deviceType = $get['DeviceType'];
-
-        /* Logger */
-        $this->_logger;
     }
 
     /**
@@ -158,6 +141,10 @@ abstract class Horde_ActiveSync_Request_Base
      * @param string $version
      * @param string $devId
      */
-    abstract public function handle(Horde_ActiveSync $activeSync);
+    public function handle(Horde_ActiveSync $activeSync, $devId)
+    {
+        $this->_version = $activeSync->getProtocolVersion();
+        $this->_devId = $devId;
+    }
 
 }

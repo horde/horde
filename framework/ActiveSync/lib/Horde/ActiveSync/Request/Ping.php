@@ -39,8 +39,10 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
      *
      * @return boolean
      */
-    public function handle(Horde_ActiveSync $activeSync)
+    public function handle(Horde_ActiveSync $activeSync, $devId)
     {
+        parent::handle($activeSync, $devId);
+
         // FIXME
         $timeout = 3;
         $this->_logger->info('Ping received for: ' . $this->_devId);

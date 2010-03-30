@@ -21,8 +21,10 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
     const STATUS_KEYMISM = 9;
     const STATUS_PROTOERR = 10;
 
-    public function handle(Horde_ActiveSync $activeSync)
+    public function handle(Horde_ActiveSync $activeSync, $devId)
     {
+        parent::handle($activeSync, $devId);
+
         /* Be optimistic */
         $this->_statusCode = self::STATUS_SUCCESS;
         $this->_logger->info('[Horde_ActiveSync::handleFolderSync] Beginning FOLDERSYNC');

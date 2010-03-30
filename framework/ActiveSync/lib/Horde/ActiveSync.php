@@ -1531,26 +1531,39 @@ class Horde_ActiveSync
     }
 
     /**
-     * @param $cmd
-     * @param $devid
-     * @param $protocolversion
-     * @return unknown_type
+     * The heart of the server. Dispatch a request to the request object to
+     * handle.
+     *
+     * @param string $cmd    The command we are requesting.
+     * @param string $devId  The device id making the request.
+     *
+     * @return boolean
      */
     public function handleRequest($cmd, $devId)
     {
+        /* Check that this device is known */
+        $state = $this->_driver->getStateObject();
+        if (!empty($devId) && !$state->deviceExists($devId)) {
+            $get = $this->_request->getGetParams();
+            $device = new StdClass();
+            $device->userAgent = $this->_request->getHeader('User-Agent');
+            $device->deviceType = !empty($get['DeviceType']) ? $get['DeviceType'] : '';
+            $device->policykey = 0;
+            $state->setDeviceInfo($devId, $device);
+        }
+
+        /* Load the request handler to handle the request */
         $class = 'Horde_ActiveSync_Request_' . basename($cmd);
         $version = $this->getProtocolVersion();
         if (class_exists($class)) {
-            //@TODO: Remove version - get it in handle() since we pass self to it anyway
             $request = new $class($this->_driver,
                                   $this->_decoder,
                                   $this->_encoder,
                                   $this->_request,
-                                  $version,
-                                  $devId,
                                   $this->_provisioning);
             $request->setLogger($this->_logger);
-            return $request->handle($this);
+
+            return $request->handle($this, $devId);
         }
 
         // @TODO: Leave the following in place until all are refactored...then throw

@@ -26,8 +26,9 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
      * @return boolean
      * @throws Horde_ActiveSync_Exception
      */
-    public function handle(Horde_ActiveSync $activeSync)
+    public function handle(Horde_ActiveSync $activeSync, $devId)
     {
+        parent::handle($activeSync, $devId);
         $this->_logger->info('[Horde_ActiveSync::handleFolderSync] Beginning GETITEMESTIMATE');
 
         /* Check policy */

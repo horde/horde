@@ -14,7 +14,7 @@
  */
 class Horde_ActiveSync_Request_Options extends Horde_ActiveSync_Request_Base
 {
-    public function handle(Horde_ActiveSync $activeSync)
+    public function handle(Horde_ActiveSync $activeSync, $devId)
     {
         Horde_ActiveSync::activeSyncHeader();
         Horde_ActiveSync::versionHeader();

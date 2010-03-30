@@ -341,9 +341,11 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
     }
 
     /**
-     * Obtain the device info array.
+     * Obtain the device object.
      *
-     * @param <type> $devId
+     * @param string $devId
+     *
+     * @return StdClass
      */
     public function getDeviceInfo($devId)
     {
@@ -353,21 +355,42 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
             return unserialize(file_get_contents($file));
         }
 
-        return array('policykey' => 0,
-                     'rwstatus' => 0,
-                     'devicetype' => '',
-                     'useragent' => '');
+        /* Default structure */
+        $device = new StdClass();
+        $device->policykey = 0;
+        $device->rwstatus = 0; // ??
+        $device->deviceType = '';
+        $device->userAgent = '';
+
+        return $device;
     }
 
     /**
      * Set new device info
      *
+     * @param string $devId   The device id.
+     * @param StdClass $data  The device information
+     *
+     * @return boolean
      */
     public function setDeviceInfo($devId, $data)
     {
         $this->_devId = $devId;
         $file = $this->_stateDir . '/' . $this->_backend->getUser() . '/info-' . $devId;
         return file_put_contents($file, serialize($data));
+    }
+
+    /**
+     * Check that a given device id is known to the server. This is regardless
+     * of Provisioning status.
+     *
+     * @param string $devId
+     *
+     * @return boolean
+     */
+    public function deviceExists($devId)
+    {
+        return file_exists($this->_stateDir . '/' . $this->_backend->getUser() . '/info-' . $devId);
     }
 
     /**
@@ -489,7 +512,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
     public function getPolicyKey($devId)
     {
         $info = $this->getDeviceInfo($devId);
-        return $info['policykey'];
+        return $info->policykey;
     }
 
     /**
@@ -501,7 +524,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
     public function setPolicyKey($devId, $key)
     {
         $info = $this->getDeviceInfo($devId);
-        $info['policykey'] = $key;
+        $info->policykey = $key;
         $this->setDeviceInfo($devId, $info);
     }
 
