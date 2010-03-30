@@ -82,8 +82,6 @@ abstract class Horde_ActiveSync_Request_Base
      * @param Horde_ActiveSync_Wbxml_Decoder $decoder    The Wbxml decoder
      * @param Horde_ActiveSync_Wbxml_Endcodder $encdoer  The Wbxml encoder
      * @param Horde_Controller_Request_Http $request     The request object
-     * @param string $version                            ActiveSync version
-     * @param string $devId                              The PIM device id
      * @param string $provisioning                       Is provisioning required?
      *
      * @return Horde_ActiveSync
@@ -121,7 +119,7 @@ abstract class Horde_ActiveSync_Request_Base
             $state = $this->_driver->getStateObject();
             $storedKey = $state->getPolicyKey($this->_devId);
             /* Loose provsioning should allow a blank key */
-            if ($storedKey != $sentKey &&
+            if (($storedKey == 0 || $storedKey != $sentKey) &&
                ($this->_provisioning !== 'loose' ||
                ($this->_provisioning === 'loose' && !empty($this->_policyKey)))) {
 
