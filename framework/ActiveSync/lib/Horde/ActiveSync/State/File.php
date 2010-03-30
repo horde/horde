@@ -99,13 +99,8 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
      */
     public function loadState($syncKey)
     {
-        /* Make sure this user's state directory exists */
-        $dir = $this->_stateDir . '/' . $this->_backend->getUser();
-        if (!file_exists($dir)) {
-            if (!mkdir($dir)) {
-                throw new Horde_ActiveSync_Exception('Failed to create user state storage');
-            }
-        }
+        /* Ensure state directory is present */
+        $this->_ensureUserDirectory();
 
         /* Prime the state cache for the first sync */
         if (empty($syncKey)) {
@@ -375,6 +370,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
      */
     public function setDeviceInfo($devId, $data)
     {
+        $this->_ensureUserDirectory();
         $this->_devId = $devId;
         $file = $this->_stateDir . '/' . $this->_backend->getUser() . '/info-' . $devId;
         return file_put_contents($file, serialize($data));
@@ -604,7 +600,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
      * @return boolean
      * @throws Horde_ActiveSync_Exception
      */
-    protected function _gc($syncKey)
+    private function _gc($syncKey)
     {
         if (!preg_match('/^s{0,1}\{([0-9A-Za-z-]+)\}([0-9]+)$/', $syncKey, $matches)) {
             return false;
@@ -625,6 +621,28 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
         }
 
         return true;
+    }
+
+    /**
+     * Ensure that the user's state directory is present.
+     *
+     * @return void
+     */
+    private function _ensureUserDirectory()
+    {
+        /* Make sure this user's state directory exists */
+        if ($this->_haveStateDirectory) {
+            return true;
+        }
+
+        $dir = $this->_stateDir . '/' . $this->_backend->getUser();
+        if (!file_exists($dir)) {
+            if (!mkdir($dir)) {
+                throw new Horde_ActiveSync_Exception('Failed to create user state storage');
+            }
+        }
+
+        $this->_haveStateDirectory = true;
     }
 
     /**
