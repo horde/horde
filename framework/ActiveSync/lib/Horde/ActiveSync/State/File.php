@@ -124,7 +124,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
         $this->_gc($syncKey);
 
         /* Read current sync state */
-        $filename = $dir . '/' . $syncKey;
+        $filename = $this->_stateDir . '/' . $this->_backend->getUser() . '/' . $syncKey;
         if (!file_exists($filename)) {
             throw new Horde_ActiveSync_Exception('Sync state not found');
         }
