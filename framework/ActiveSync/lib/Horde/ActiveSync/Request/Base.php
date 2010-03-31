@@ -131,9 +131,11 @@ abstract class Horde_ActiveSync_Request_Base
         return true;
     }
 
-    public function setLogger(Horde_Log_Logger $logger) {
+    public function setLogger(Horde_Log_Logger $logger)
+    {
         $this->_logger = $logger;
     }
+
     /**
      *
      * @param string $version
