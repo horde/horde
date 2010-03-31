@@ -146,12 +146,12 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         // this is not done when sync'ing messages - we let the exporter write
         // directly to WBXML.
         // TODO: Combine all these import caches into a single Class
-        $importer = new Horde_ActiveSync_HierarchyCache();
-        $exporter = $this->_driver->GetSyncObject();
-        $exporter->init($state, $importer, array('synckey' => $synckey));
+        $connector = new Horde_ActiveSync_Connector_Exporter();
+        $sync = $this->_driver->GetSyncObject();
+        $sync->init($state, $connector, array('synckey' => $synckey));
 
         /* Perform the actual sync operation */
-        while(is_array($exporter->syncronize()));
+        while(is_array($sync->syncronize()));
 
         // Output our WBXML reply now
         $this->_encoder->StartWBXML();
@@ -169,11 +169,11 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         $this->_encoder->startTag(SYNC_FOLDERHIERARCHY_CHANGES);
 
         $this->_encoder->startTag(SYNC_FOLDERHIERARCHY_COUNT);
-        $this->_encoder->content($importer->count);
+        $this->_encoder->content($connector->count);
         $this->_encoder->endTag();
 
-        if (count($importer->changed) > 0) {
-            foreach ($importer->changed as $folder) {
+        if (count($connector->changed) > 0) {
+            foreach ($connector->changed as $folder) {
                 if (isset($folder->serverid) && in_array($folder->serverid, $seenfolders)) {
                     $this->_encoder->startTag(SYNC_FOLDERHIERARCHY_UPDATE);
                 } else {
@@ -184,8 +184,8 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
             }
         }
 
-        if (count($importer->deleted) > 0) {
-            foreach ($importer->deleted as $folder) {
+        if (count($connector->deleted) > 0) {
+            foreach ($connector->deleted as $folder) {
                 $this->_encoder->startTag(SYNC_FOLDERHIERARCHY_REMOVE);
                 $this->_encoder->startTag(SYNC_FOLDERHIERARCHY_SERVERENTRYID);
                 $this->_encoder->content($folder);

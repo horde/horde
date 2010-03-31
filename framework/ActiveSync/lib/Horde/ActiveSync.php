@@ -1549,6 +1549,7 @@ class Horde_ActiveSync
             $device->userAgent = $this->_request->getHeader('User-Agent');
             $device->deviceType = !empty($get['DeviceType']) ? $get['DeviceType'] : '';
             $device->policykey = 0;
+            $device->rwstatus = 0;
             $state->setDeviceInfo($devId, $device);
         }
 

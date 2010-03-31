@@ -3,7 +3,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-class Horde_ActiveSync_Importer
+class Horde_ActiveSync_Connector_Importer
 {
     /**
      *
@@ -258,4 +258,5 @@ class Horde_ActiveSync_Importer
 
         return $this->_stateMachine->isConflict($stat, $type);
     }
+
 }

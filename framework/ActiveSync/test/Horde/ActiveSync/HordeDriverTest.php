@@ -193,6 +193,7 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
     }
     /**
      * Test ChangeMessage:
+     * 
      * This tests converting the contact streamer object to a hash suitable for
      * passing to the contacts/import method. Because it only returns the UID
      * for the newly added/edited entry, we can't check the results here. The

@@ -102,9 +102,9 @@ class Horde_ActiveSync_Sync
     /**
      * The change streamer
      *
-     * @var Horde_ActiveSync_Streamer
+     * @var Horde_ActiveSync_Connector_Exporter
      */
-    protected $_streamer;
+    protected $_exporter;
 
     protected $_logger;
 
@@ -119,11 +119,11 @@ class Horde_ActiveSync_Sync
     }
 
     public function init(Horde_ActiveSync_State_Base &$stateMachine,
-                         $streamer,
+                         $exporter,
                          $collection = array())
     {
         $this->_stateMachine = &$stateMachine;
-        $this->_streamer = $streamer;
+        $this->_exporter = $exporter;
         $this->_folderId = !empty($collection['id']) ? $collection['id'] : false;
         $this->_changes = $stateMachine->getChanges();
         $this->_syncKey = $collection['synckey'];
@@ -158,12 +158,12 @@ class Horde_ActiveSync_Sync
                         return;
                     }
 
-                    if ($flags & BACKEND_DISCARD_DATA || $this->_streamer->FolderChange($folder)) {
+                    if ($flags & BACKEND_DISCARD_DATA || $this->_exporter->FolderChange($folder)) {
                         $this->_stateMachine->updateState('change', $stat);
                     }
                     break;
                 case 'delete':
-                    if ($flags & BACKEND_DISCARD_DATA || $this->_streamer->FolderDeletion($change['id'])) {
+                    if ($flags & BACKEND_DISCARD_DATA || $this->_exporter->FolderDeletion($change['id'])) {
                         $this->_stateMachine->updateState('delete', $change);
                     }
                     break;
@@ -198,26 +198,26 @@ class Horde_ActiveSync_Sync
                     $message->flags = (isset($change['flags'])) ? $change['flags'] : 0;
 
                     if ($stat && $message) {
-                        if ($flags & BACKEND_DISCARD_DATA || $this->_streamer->messageChange($change['id'], $message) == true) {
+                        if ($flags & BACKEND_DISCARD_DATA || $this->_exporter->messageChange($change['id'], $message) == true) {
                             $this->_stateMachine->updateState('change', $stat);
                         }
                     }
                     break;
 
                 case 'delete':
-                    if ($flags & BACKEND_DISCARD_DATA || $this->_streamer->messageDeletion($change['id']) == true) {
+                    if ($flags & BACKEND_DISCARD_DATA || $this->_exporter->messageDeletion($change['id']) == true) {
                         $this->_stateMachine->updateState('delete', $change);
                     }
                     break;
 
                 case 'flags':
-                    if ($flags & BACKEND_DISCARD_DATA || $this->_streamer->messageReadFlag($change['id'], $change['flags']) == true) {
+                    if ($flags & BACKEND_DISCARD_DATA || $this->_exporter->messageReadFlag($change['id'], $change['flags']) == true) {
                         $this->_stateMachine->updateState('flags', $change);
                     }
                     break;
 
                 case 'move':
-                    if ($flags & BACKEND_DISCARD_DATA || $this->_streamer->messageMove($change['id'], $change['parent']) == true) {
+                    if ($flags & BACKEND_DISCARD_DATA || $this->_exporter->messageMove($change['id'], $change['parent']) == true) {
                         $this->_stateMachine->updateState('move', $change);
                     }
                     break;

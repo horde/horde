@@ -344,12 +344,11 @@ abstract class Horde_ActiveSync_Driver_Base
 
     /**
      * @TODO: This will replace the above two methods
-     * @return Horde_ActiveSync_Importer
+     * @return Horde_ActiveSync_Connector_Importer
      */
     public function getImporter()
     {
-        $importer = new Horde_ActiveSync_Importer($this);
-        //$importer->setLogger($this->_logger);
+        $importer = new Horde_ActiveSync_Connector_Importer($this);
         return $importer;
     }
 

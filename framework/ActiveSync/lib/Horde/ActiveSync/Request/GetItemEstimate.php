@@ -130,7 +130,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
             $this->_encoder->endTag();
             $this->_encoder->startTag(SYNC_GETITEMESTIMATE_ESTIMATE);
 
-            $importer = new Horde_ActiveSync_ContentsCache();
+            $importer = new Horde_ActiveSync_Connector_NullImporter();
             $state = $this->_driver->getStateObject($collection);
             $state->loadState($collection['synckey']);
             $exporter = $this->_driver->getSyncObject();

@@ -15,11 +15,15 @@
  *
  *
  */
-class Horde_ActiveSync_Streamer
+class Horde_ActiveSync_Connector_Exporter
 {
     protected $_encoder;
     protected $_type;
     protected $_seenObjects;
+    
+    public $changed = array();
+    public $deleted = array();
+    public $count = 0;
 
     /**
      * Const'r
@@ -27,11 +31,11 @@ class Horde_ActiveSync_Streamer
      * @param Horde_ActiveSync_Wbxml_Encoder $encoder
      * @param string $class  The collection class
      *
-     * @return Horde_ActiveSync_Streamer
+     * @return Horde_ActiveSync_Connector_Exporter
      */
-    public function __construct(&$encoder, $class)
+    public function __construct($encoder = null, $class = null)
     {
-        $this->_encoder = &$encoder;
+        $this->_encoder = $encoder;
         $this->_type = $class;
         $this->_seenObjects = array();
     }
@@ -119,6 +123,32 @@ class Horde_ActiveSync_Streamer
      */
     function messageMove($message)
     {
+        return true;
+    }
+
+    /**
+     *
+     * @param <type> $folder
+     * @return <type>
+     */
+    public function FolderChange($folder)
+    {
+        array_push($this->changed, $folder);
+        $this->count++;
+
+        return true;
+    }
+
+    /**
+     *
+     * @param <type> $id
+     * @return <type> 
+     */
+    public function FolderDeletion($id)
+    {
+        array_push($this->deleted, $id);
+        $this->count++;
+
         return true;
     }
 }

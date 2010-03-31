@@ -31,6 +31,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="lib">
     <dir name="Horde">
       <dir name="ActiveSync">
+       <dir name="Connector">
+         <file name="Exporter.php" role="php" />
+         <file name="Importer.php" role="php" />
+         <file name="NullImporter.php" role="php" />
+       </dir>
        <dir name="State">
          <file name="Base.php" role="php" />
          <file name="File.php" role="php" />
@@ -67,14 +72,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
          <file name="GetItemEstimate.php" role="php" />
        </dir>
        <file name="Exception.php" role="php" />
-       <file name="ContentsCache.php" role="php" />
-       <file name="HierarchyCache.php" role="php" />
-       <file name="ImportContentsChangesStream.php" role="php" />
        <file name="Wbxml.php" role="php" />
        <file name="Timezone.php" role="php" />
        <file name="Sync.php" role="php" />
-       <file name="Importer.php" role="php" />
-       <file name="Streamer.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync -->
       <file name="ActiveSync.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -97,6 +97,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
+   <install name="lib/Horde/ActiveSync/Connector/Exporter.php" as="Horde/ActiveSync/Connector/Exporter.php" />
+   <install name="lib/Horde/ActiveSync/Connector/Importer.php" as="Horde/ActiveSync/Connector/Importer.php" />
+   <install name="lib/Horde/ActiveSync/Connector/NullImporter.php" as="Horde/ActiveSync/Connector/NullImporter.php" />
    <install name="lib/Horde/ActiveSync/State/Base.php" as="Horde/ActiveSync/State/Base.php" />
    <install name="lib/Horde/ActiveSync/State/File.php" as="Horde/ActiveSync/State/File.php" />
    <install name="lib/Horde/ActiveSync/Driver/Horde/Connector/Registry.php" as="Horde/ActiveSync/Driver/Horde/Connector/Registry.php" />
@@ -118,15 +121,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/ActiveSync/Request/Options.php" as="Horde/ActiveSync/Request/Options.php" />
    <install name="lib/Horde/ActiveSync/Request/Provision.php" as="Horde/ActiveSync/Request/Provision.php" />
    <install name="lib/Horde/ActiveSync/Request/GetItemEstimate.php" as="Horde/ActiveSync/Request/GetItemEstimate.php" />
-   <install name="lib/Horde/ActiveSync/ContentsCache.php" as="Horde/ActiveSync/ContentsCache.php" />
    <install name="lib/Horde/ActiveSync/Exception.php" as="Horde/ActiveSync/Exception.php" />
-   <install name="lib/Horde/ActiveSync/HierarchyCache.php" as="Horde/ActiveSync/HierarchyCache.php" />
-   <install name="lib/Horde/ActiveSync/ImportContentsChangesStream.php" as="Horde/ActiveSync/ImportContentsChangesStream.php" />
    <install name="lib/Horde/ActiveSync/Wbxml.php" as="Horde/ActiveSync/Wbxml.php" />
    <install name="lib/Horde/ActiveSync/Timezone.php" as="Horde/ActiveSync/Timezone.php" />
-   <install name="lib/Horde/ActiveSync/Importer.php" as="Horde/ActiveSync/Importer.php" />
-   <install name="lib/Horde/ActiveSync/Sync.php" as="Horde/ActiveSync/Exporter.php" />
-   <install name="lib/Horde/ActiveSync/Streamer.php" as="Horde/ActiveSync/Streamer.php" />
+   <install name="lib/Horde/ActiveSync/Sync.php" as="Horde/ActiveSync/Sync.php" />
    <install name="lib/Horde/ActiveSync.php" as="Horde/ActiveSync.php" />
   </filelist>
  </phprelease>

@@ -435,10 +435,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             /* Send server changes to PIM */
             if (isset($collection['getchanges'])) {
                 $filtertype = isset($collection['filtertype']) ? $collection['filtertype'] : false;
-                $streamer = new Horde_ActiveSync_Streamer($this->_encoder, $collection['class']);
-                $exporter = $this->_driver->getSyncObject();
-                $exporter->init($state, $streamer, $collection);
-                $changecount = $exporter->getChangeCount();
+                $exporter = new Horde_ActiveSync_Connector_Exporter($this->_encoder, $collection['class']);
+                $sync = $this->_driver->getSyncObject();
+                $sync->init($state, $exporter, $collection);
+                $changecount = $sync->getChangeCount();
                 if (!empty($collection['windowsize']) && $changecount > $collection['windowsize']) {
                     $this->_encoder->startTag(SYNC_MOREAVAILABLE, false, true);
                 }
@@ -449,7 +449,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 // Stream the changes to the PDA
                 $n = 0;
                 while (1) {
-                    $progress = $exporter->syncronize();
+                    $progress = $sync->syncronize();
                     if (!is_array($progress)) {
                         break;
                     }
@@ -467,7 +467,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
             /* Save the sync state for the next time */
             if (isset($collection['newsynckey'])) {
-                if (!empty($exporter) || !empty($importer) || !empty($streamer) || $collection['synckey'] == 0)  {
+                if (!empty($sync) || !empty($importer) || !empty($exporter) || $collection['synckey'] == 0)  {
                     $state->setNewSyncKey($collection['newsynckey']);
                     $state->save();
                 } else {
