@@ -476,6 +476,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
         if (empty($this->_pingState)) {
             throw new Horde_ActiveSync_Exception('PING state not initialized');
         }
+        $this->_ensureUserDirectory();
         $state = serialize(array('lifetime' => $this->_pingState['lifetime'],
                                  'collections' => $this->_pingState['collections']));
 
