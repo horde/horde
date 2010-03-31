@@ -47,10 +47,12 @@ abstract class Horde_Ajax_Imple_Base
      * @param string $driver
      * @param string $app
      * @param array $params
+     * @param boolean $full
      *
      * @return string
      */
-    protected function _getUrl($driver, $app = 'horde', $params = array(), $full = false)
+    protected function _getUrl($driver, $app = 'horde', $params = array(),
+                               $full = false)
     {
         $qstring = 'imple=' . $driver;
 

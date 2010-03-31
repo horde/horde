@@ -85,7 +85,7 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Ajax_Imple_Base
             'password' => true,
             'text' => $text,
             'type' => $this->_params['type'],
-            'uri' => strval($this->_getUrl('PassphraseDialog', 'imp'))
+            'uri' => strval($this->_getUrl('PassphraseDialog', 'imp', array('sessionWrite' => 1)))
         );
 
         Horde::addScriptFile('effects.js', 'horde');
@@ -132,12 +132,12 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Ajax_Imple_Base
             switch ($vars->type) {
             case 'pgpPersonal':
             case 'pgpSymmetric':
-                if ($this->_vars->dialog_input) {
+                if ($vars->dialog_input) {
                     $imp_pgp = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp');
                     if ((($vars->type == 'pgpPersonal') &&
-                         $imp_pgp->storePassphrase('personal', $this->_vars->dialog_input)) ||
+                         $imp_pgp->storePassphrase('personal', $vars->dialog_input)) ||
                         (($vars->type == 'pgpSymmeetric') &&
-                         $imp_pgp->storePassphrase('symmetric', $this->_vars->dialog_input, $this->_vars->symmetricid))) {
+                         $imp_pgp->storePassphrase('symmetric', $vars->dialog_input, $vars->symmetricid))) {
                         $result->success = 1;
                     } else {
                         $result->error = _("Invalid passphrase entered.");
@@ -148,9 +148,9 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Ajax_Imple_Base
                 break;
 
             case 'smimePersonal':
-                if ($this->_vars->dialog_input) {
+                if ($vars->dialog_input) {
                     $imp_smime = $GLOBALS['injector']->getInstance('IMP_Crypt_Smime');
-                    if ($imp_smime->storePassphrase($this->_vars->dialog_input)) {
+                    if ($imp_smime->storePassphrase($vars->dialog_input)) {
                         $result->success = 1;
                     } else {
                         $result->error = _("Invalid passphrase entered.");
@@ -164,7 +164,7 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Ajax_Imple_Base
             $result->error = $e->getMessage();
         }
 
-        return $result;
+        return Horde::prepareResponse($result);
     }
 
     /**

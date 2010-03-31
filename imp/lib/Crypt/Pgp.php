@@ -408,7 +408,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      *
      * @return boolean  Returns true if correct passphrase, false if incorrect.
      */
-    public function storePassphrase($type, $passphrase, $id)
+    public function storePassphrase($type, $passphrase, $id = null)
     {
         if ($type == 'personal') {
             if ($this->verifyPassphrase($this->getPersonalPublicKey(), $this->getPersonalPrivateKey(), $passphrase) === false) {
