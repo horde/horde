@@ -148,7 +148,7 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
         $this->assertEquals('PharmD', $results->suffix);
         $this->assertEquals('Michael Joseph Rubinsky', $results->fileas);
         $this->assertEquals('mrubinsk@horde.org', $results->email1address);
-        $this->assertEquals('6757200', $results->birthday);
+        $this->assertEquals('6757200', $results->birthday->timestamp());
         $this->assertEquals('(856)555-1234', $results->homephonenumber);
         $this->assertEquals('(856)555-5678', $results->businessphonenumber);
         $this->assertEquals('(609)555-9876', $results->mobilephonenumber);

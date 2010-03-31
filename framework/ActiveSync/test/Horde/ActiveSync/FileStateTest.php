@@ -18,6 +18,9 @@ class Horde_ActiveSync_FileStateTest extends Horde_Test_Case
      */
     public function testCollectionSyncState()
     {
+        $this->markTestIncomplete();
+        return;
+        
         $state = new Horde_ActiveSync_State_File(array('stateDir' => './'));
         $state->init(array('id' => 'Contacts',
                            'class' => 'Contacts'));
@@ -115,22 +118,26 @@ class Horde_ActiveSync_FileStateTest extends Horde_Test_Case
 
     public function testFolderSyncState()
     {
-        // TODO
+        $this->markTestIncomplete();
+        return;
     }
     
     public function testConflicts()
     {
-        // TODO
+        $this->markTestIncomplete();
+        return;
     }
 
     public function testPingState()
     {
-        // TODO
+        $this->markTestIncomplete();
+        return;
     }
 
     public function testPingStateUpdatedAfterStateUpdate()
     {
-        
+        $this->markTestIncomplete();
+        return;
     }
 }
 
