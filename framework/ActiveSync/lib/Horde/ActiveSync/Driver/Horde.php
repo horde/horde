@@ -443,7 +443,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
      *
      * @param string $folderid  The folder id
      * @param string $id        The message id
-     * @param mixed $hint       ??
+     * @param mixed $hint       @TODO: Figure out what, exactly, this does :)
      *
      * @return message stat hash
      */

@@ -201,14 +201,14 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 /* compatibility mode - set default conflict behavior if no
                  * conflict resolution algorithm is set */
                 if (!isset($collection['conflict'])) {
-                    $collection['conflict'] = SYNC_CONFLICT_OVERWRITE_PIM;
+                    $collection['conflict'] = Horde_ActiveSync::CONFLICT_OVERWRITE_PIM;
                 }
             }
 
             if ($this->_decoder->getElementStartTag(SYNC_COMMANDS)) {
                 /* Configure importer with last state */
                 $importer = $this->_driver->getImporter();
-                $importer->init($state, $collection['id'], $collection['synckey'], $collection['conflict']);
+                $importer->init($state, $collection['id'], $collection['conflict']);
                 $nchanges = 0;
                 while (1) {
                     // MODIFY or REMOVE or ADD or FETCH

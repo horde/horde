@@ -1,5 +1,14 @@
 <?php
 /**
+ * Connector class for exporting ActiveSync messages to the wbxml output stream.
+ * Contains code written by the Z-Push project. Original file header preserved
+ * below.
+ *
+ * @copyright 2010 The Horde Project (http://www.horde.org)
+ * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @package Horde_ActiveSync
+ */
+/**
  * File      :   streamimporter.php
  * Project   :   Z-Push
  * Descr     :   Stream import classes
@@ -10,60 +19,97 @@
  * This file is distributed under GPL v2.
  * Consult LICENSE file for details
  */
-
-/**
- *
- *
- */
 class Horde_ActiveSync_Connector_Exporter
 {
+    /**
+     * The wbxml encoder
+     *
+     * @var Horde_ActiveSync_Wbxml_Encoder
+     */
     protected $_encoder;
-    protected $_type;
-    protected $_seenObjects;
-    
+
+    /**
+     * The collection class for what we are exporting
+     *
+     * @var string
+     */
+    protected $_class;
+
+    /**
+     * Local cache of object ids we have already dealt with.
+     *
+     * @var array
+     */
+    protected $_seenObjects = array();
+
+    /**
+     * Array of object ids that have changed.
+     * Used when exporting folder structure changes since they are not streamed
+     * from this object.
+     *
+     * @var array
+     */
     public $changed = array();
+
+    /**
+     * Array of folder ids that have been deleted on the server.
+     *
+     * @var array
+     */
     public $deleted = array();
+
+    /**
+     * Tracks the total number of folder changes
+     *
+     * @var integer
+     */
     public $count = 0;
 
     /**
      * Const'r
      *
-     * @param Horde_ActiveSync_Wbxml_Encoder $encoder
-     * @param string $class  The collection class
+     * @param Horde_ActiveSync_Wbxml_Encoder $encoder The encoder
+     * @param string $class                           The collection class
      *
      * @return Horde_ActiveSync_Connector_Exporter
      */
     public function __construct($encoder = null, $class = null)
     {
         $this->_encoder = $encoder;
-        $this->_type = $class;
-        $this->_seenObjects = array();
+        $this->_class = $class;
     }
 
     /**
+     * Send a message change over the wbxml stream
      *
-     * @param $id
-     * @param $message
-     * @return unknown_type
+     * @param string $id                              Thenuid of the message
+     * @param Horde_ActiveSync_Message_Base $message  The message object
+     *
+     * @return boolean
      */
     public function messageChange($id, $message)
     {
-        if ($message->getClass() != $this->_type) {
-            return true; // ignore other types
+        /* Just ignore any messages that are not from this collection */
+        if ($message->getClass() != $this->_class) {
+            return true; 
         }
 
-        // prevent sending the same object twice in one request
+        /* Prevent sending the same object twice in one request */
         if (in_array($id, $this->_seenObjects)) {
         	return true;
         }
 
+        /* Remember this message */
         $this->_seenObjects[] = $id;
+
+        /* Specify if this is an ADD or a MODIFY change? */
         if ($message->flags === false || $message->flags === SYNC_NEWMESSAGE) {
             $this->_encoder->startTag(SYNC_ADD);
         } else {
             $this->_encoder->startTag(SYNC_MODIFY);
         }
 
+        /* Send the message */
         $this->_encoder->startTag(SYNC_SERVERENTRYID);
         $this->_encoder->content($id);
         $this->_encoder->endTag();
@@ -76,9 +122,11 @@ class Horde_ActiveSync_Connector_Exporter
     }
 
     /**
+     * Stream a message deletion to the PIM
      *
-     * @param $id
-     * @return unknown_type
+     * @param string $id  The uid of the message we are deleting.
+     *
+     * @return boolean
      */
     public function messageDeletion($id)
     {
@@ -92,16 +140,21 @@ class Horde_ActiveSync_Connector_Exporter
     }
 
     /**
+     * Change a message's READ flag.
      *
-     * @param $id
-     * @param $flags
-     * @return unknown_type
+     * @param string $id      The uid
+     * @param integer $flags  The flag
+     *
+     * @return boolean
      */
     public function messageReadFlag($id, $flags)
     {
-        if ($this->_type != "syncmail") {
+        /* This only applies to mail folders */
+        if ($this->_class != "syncmail") {
             return true;
         }
+
+        /* Encode and stream */
         $this->_encoder->startTag(SYNC_MODIFY);
         $this->_encoder->startTag(SYNC_SERVERENTRYID);
         $this->_encoder->content($id);
@@ -117,9 +170,11 @@ class Horde_ActiveSync_Connector_Exporter
     }
 
     /**
+     * Move a message to a different folder.
+     * @TODO
+     * @param Horde_ActiveSync_Message_Base $message  The message
      *
-     * @param $message
-     * @return unknown_type
+     * @return boolean
      */
     function messageMove($message)
     {
@@ -127,9 +182,11 @@ class Horde_ActiveSync_Connector_Exporter
     }
 
     /**
+     * Add a folder change to the cache. (used during FolderSync Requests).
      *
-     * @param <type> $folder
-     * @return <type>
+     * @param Horde_ActiveSync_Message_Folder $folder
+     *
+     * @return boolean
      */
     public function FolderChange($folder)
     {
@@ -140,9 +197,11 @@ class Horde_ActiveSync_Connector_Exporter
     }
 
     /**
+     * Add a folder deletion to the cache (used during FolderSync Requests).
      *
-     * @param <type> $id
-     * @return <type> 
+     * @param string $id  The folder id
+     * 
+     * @return boolean
      */
     public function FolderDeletion($id)
     {

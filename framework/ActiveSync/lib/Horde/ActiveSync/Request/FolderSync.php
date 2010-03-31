@@ -21,6 +21,14 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
     const STATUS_KEYMISM = 9;
     const STATUS_PROTOERR = 10;
 
+    /**
+     * Handle the request.
+     *
+     * @param Horde_ActiveSync $activeSync  The activesync server object
+     * @param string $devId                 The device id
+     *
+     * @return boolean
+     */
     public function handle(Horde_ActiveSync $activeSync, $devId)
     {
         parent::handle($activeSync, $devId);
@@ -99,7 +107,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
 
             /* Configure importer with last state */
             $importer = $this->_driver->getImporter();
-            $importer->init($state, false, $synckey);
+            $importer->init($state, false);
 
             while (1) {
                 $folder = new Horde_ActiveSync_Message_Folder(array('logger' => $this->_logger));
@@ -140,12 +148,8 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         /* Start sending server -> PIM changes */
         $this->_logger->debug('[Horde_ActiveSync::handleFolderSync] Preparing to send changes to PIM');
 
-        // The $importer caches all imports in-memory, so we can send a change
-        // count before sending the actual data. As the amount of data done in
-        // this operation is rather low, this is not memory problem. Note that
-        // this is not done when sync'ing messages - we let the exporter write
-        // directly to WBXML.
-        // TODO: Combine all these import caches into a single Class
+        // The $connector just caches all folder changes in-memory, so we can
+        // count before sending the actual data.
         $connector = new Horde_ActiveSync_Connector_Exporter();
         $sync = $this->_driver->GetSyncObject();
         $sync->init($state, $connector, array('synckey' => $synckey));

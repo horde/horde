@@ -437,9 +437,6 @@ define("SYNC_FOLDER_TYPE_UNKNOWN", 18);
 define("SYNC_FOLDER_TYPE_RECIPIENT_CACHE", 19);
 define("SYNC_FOLDER_TYPE_DUMMY", "__dummy.Folder.Id__");
 
-define("SYNC_CONFLICT_OVERWRITE_SERVER", 0);
-define("SYNC_CONFLICT_OVERWRITE_PIM", 1);
-
 define("SYNC_TRUNCATION_HEADERS", 0);
 define("SYNC_TRUNCATION_512B", 1);
 define("SYNC_TRUNCATION_1K", 2);
@@ -855,6 +852,10 @@ class Horde_ActiveSync
                   0x10 => "GAL",
               )
           );
+
+    /* Constants */
+    const CONFLICT_OVERWRITE_SERVER = 0;
+    const CONFLICT_OVERWRITE_PIM = 1;
 
     /**
      * Provisioning support
