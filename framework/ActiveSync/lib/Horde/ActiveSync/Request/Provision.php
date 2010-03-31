@@ -41,6 +41,9 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
     const RWSTATUS_PENDING = 2;
     const RWSTATUS_WIPED = 3;
 
+    const POLICYTYPE_XML = 'MS-WAP-Provisioning-XML';
+    const POLICYTYPE_WBXML = 'MS-EAS-Provisioning-WBXML';
+
     /**
      * Handle the Provision request. This is a 3-phase process. Phase 1 is
      * actually the enforcement, when the server rejects a request and forces
@@ -90,7 +93,7 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
             }
 
             $policytype = $this->_decoder->getElementContent();
-            if ($policytype != 'MS-WAP-Provisioning-XML') {
+            if ($policytype != self::POLICYTYPE_XML) {
                 $policyStatus = self::STATUS_POLICYUNKNOWN;
             }
             if (!$this->_decoder->getElementEndTag()) {//policytype
@@ -100,6 +103,7 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
             /* POLICYKEY is only sent by client in phase 3 */
             if ($this->_decoder->getElementStartTag(SYNC_PROVISION_POLICYKEY)) {
                 $policykey = $this->_decoder->getElementContent();
+                $this->_logger->debug('PHASE 3 policykey sent from PIM: ' . $policykey);
                 if (!$this->_decoder->getElementEndTag() ||
                     !$this->_decoder->getElementStartTag(SYNC_PROVISION_STATUS)) {
 
@@ -181,9 +185,10 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
         /* Send security policies - configure this/move to it's own method...*/
         if ($phase2 && $status == self::STATUS_SUCCESS && $policyStatus == self::STATUS_SUCCESS) {
             $this->_encoder->startTag(SYNC_PROVISION_DATA);
-            if ($policytype == 'MS-WAP-Provisioning-XML') {
-                // Set 4131 to 0 to require a PIN, 4133
-                $this->_encoder->content('<wap-provisioningdoc><characteristic type="SecurityPolicy"><parm name="4131" value="1"/><parm name="4133" value="0"/></characteristic></wap-provisioningdoc>');
+            if ($policytype == self::POLICYTYPE_XML) {
+                $this->_encoder->content($this->_driver->getCurrentPolicy(self::POLICYTYPE_XML));
+            } else {
+                // TODO wbxml for 12.0
             }
             $this->_encoder->endTag();//data
         }

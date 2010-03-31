@@ -69,6 +69,27 @@ abstract class Horde_ActiveSync_Driver_Base
     protected $_params;
 
     /**
+     * Secuirity Policies. These settings can be overridden by the backend
+     * provider by passing in a 'policies' key in the const'r params array. This
+     * way the server can provide user-specific policies.
+     *
+     * <pre>
+     * Currently supported settings are:
+     *   requirePin     - Device must have a pin lock enabled.
+     *   computerUnlock - Device can be unlocked docked to a computer.??
+     * </pre>
+     */
+    protected $_policies = array(
+        'requirePin' => true,
+        'computerUnlock' => true,
+        'AEFrequencyType' => 0,
+        'DeviceWipeThreshold' => 10,
+        'CodewordFrequency' => 5,
+        'MinimumPasswordLength' => 4,
+        'PasswordComplexity' => 2,
+        );
+
+    /**
      * The state object for this request. Needs to be injected into this class.
      * Different Sync objects may require more then one type of stateObject.
      * For instance, Horde can sync contacts and caledar data with a history
@@ -97,14 +118,13 @@ abstract class Horde_ActiveSync_Driver_Base
     public function __construct($params = array())
     {
         $this->_params = $params;
-
         if (empty($params['state_basic']) ||
             !($params['state_basic'] instanceof Horde_ActiveSync_State_Base)) {
 
             throw new Horde_ActiveSync_Exception('Missing required state object');
         }
 
-        // Create a stub if we don't have a useable logger.
+        /* Create a stub if we don't have a useable logger. */
         if (isset($params['logger'])
             && is_callable(array($params['logger'], 'log'))) {
             $this->_logger = $params['logger'];
@@ -116,6 +136,11 @@ abstract class Horde_ActiveSync_Driver_Base
         $this->_stateObject = $params['state_basic'];
         $this->_stateObject->setLogger($this->_logger);
         $this->_stateObject->setBackend($this);
+
+        /* Override any security policies */
+        if (!empty($params['policies'])) {
+            array_merge($this->_policies, $params['policies']);
+        }
     }
 
     /**
@@ -537,6 +562,50 @@ abstract class Horde_ActiveSync_Driver_Base
     public function AlterPingChanges($folderid, &$syncstate)
     {
         return array();
+    }
+
+    /**
+     * Build a <wap-provisioningdoc> for the given security settings provided
+     * by the backend.
+     *
+     * 4131 (Enforce password on device) 0: enabled 1: disabled
+     * 4133 (Unlock from computer) 0: disabled 1: enabled
+     * AEFrequencyType 0: no inactivity time 1: inactivity time is set
+     * AEFrequencyValue inactivity time in minutes
+     * DeviceWipeThreshold after how many worng password to device should get wiped
+     * CodewordFrequency validate every 3 wrong passwords, that a person is using the device which is able to read and write. should be half of DeviceWipeThreshold
+     * MinimumPasswordLength minimum password length
+     * PasswordComplexity 0: Require alphanumeric 1: Require only numeric, 2: anything goes
+     *
+     * @param string  The type of policy to return.
+     *
+     * @return string
+     */
+    public function getCurrentPolicy($policyType = 'MS-WAP-Provisioning-XML')
+    {
+        return '<wap-provisioningdoc><characteristic type="SecurityPolicy">'
+        . '<parm name="4131" value="' . ($this->_policies['requirePin'] ? 0 : 1) . '"/>'
+        . '<parm name="4133" value="' . ($this->_policies['computerUnlock'] ? 1 : 0) . '"/>'
+        . '</characteristic>'
+        . '<characteristic type="Registry">'
+        .   '<characteristic type="HKLM\Comm\Security\Policy\LASSD\AE\{50C13377-C66D-400C-889E-C316FC4AB374}">'
+        .        '<parm name="AEFrequencyType" value="' . $this->_policies['AEFrequencyType'] . '"/>'
+        .        (!empty($this->_policies['AEFrequencyValue']) ? '<parm name="AEFrequencyValue" value="' . $this->_policies['AEFrequencyValue'] . '"/>' : '')
+        .    '</characteristic>'
+        .    '<characteristic type="HKLM\Comm\Security\Policy\LASSD">'
+        .        '<parm name="DeviceWipeThreshold" value="' . $this->_policies['DeviceWipeThreshold'] . '"/>'
+        .    '</characteristic>'
+        .    '<characteristic type="HKLM\Comm\Security\Policy\LASSD">'
+        .        '<parm name="CodewordFrequency" value="' . $this->_policies['CodewordFrequency'] . '"/>'
+        .    '</characteristic>'
+        .    '<characteristic type="HKLM\Comm\Security\Policy\LASSD\LAP\lap_pw">'
+        .        '<parm name="MinimumPasswordLength" value="' . $this->_policies['MinimumPasswordLength'] . '"/>'
+        .    '</characteristic>'
+        .    '<characteristic type="HKLM\Comm\Security\Policy\LASSD\LAP\lap_pw">'
+        .        '<parm name="PasswordComplexity" value="' . $this->_policies['PasswordComplexity'] . '"/>'
+        .    '</characteristic>'
+        . '</characteristic>'
+        . '</wap-provisioningdoc>';
     }
 
 }

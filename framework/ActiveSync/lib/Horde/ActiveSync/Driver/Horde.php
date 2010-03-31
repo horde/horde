@@ -138,6 +138,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
     /**
      * Return a list of available folders
      *
+     * @TODO: only return those folders we configure horde to serve
      * @return array  An array of folder stats
      */
     public function getFolderList()
