@@ -542,7 +542,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
     public function getDeviceRWStatus($devId)
     {
         $info = $this->getDeviceInfo($devId);
-        return $info['rwstatus'];
+        return $info->rwstatus;
     }
 
     /**
@@ -556,7 +556,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
     public function setDeviceRWStatus($devId, $status)
     {
         $info = $this->getDeviceInfo($devId);
-        $info['rwstatus'] = $status;
+        $info->rwstatus = $status;
         $this->setDeviceInfo($devId, $info);
     }
 
