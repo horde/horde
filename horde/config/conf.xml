@@ -2009,8 +2009,6 @@
             <value desc="Allow any">2</value>
          </values>
         </configenum>
-        <configinteger name="Number of minutes of inactivity before device
-        should lock.">3</configinteger>
          </case>
         </configswitch>
        </case>
