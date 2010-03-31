@@ -16,7 +16,7 @@ class RecordingDetailsForm extends Horde_Form {
 
         $formtitle = "Create Recording";
 
-        $curaccount = $_SESSION['shout']['curaccount'];
+        $curaccount = $_SESSION['shout']['curaccount']['code'];
         $accountname = $vars->account;
         $title = sprintf(_("$formtitle"));
         parent::__construct($vars, $title);
@@ -49,7 +49,7 @@ class ConferenceDeleteForm extends Horde_Form
         $account = $vars->get('account');
 
         $title = _("FIXME Delete Recording %s - Account: %s");
-        $title = sprintf($title, $devid, $_SESSION['shout']['accounts'][$account]['name']);
+        $title = sprintf($title, $devid, $_SESSION['shout']['curaccount']['name']);
         parent::__construct($vars, $title);
 
         $this->addHidden('', 'account', 'text', true);

@@ -16,7 +16,7 @@ require_once SHOUT_BASE . '/lib/Forms/MenuForm.php';
 
 $action = Horde_Util::getFormData('action');
 $menu = Horde_Util::getFormData('menu');
-$curaccount = $_SESSION['shout']['curaccount'];
+$curaccount = $_SESSION['shout']['curaccount']['code'];
 
 $menus = $shout->storage->getMenus($curaccount);
 

@@ -34,7 +34,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
     {
         $vars = $this->_vars;
         $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
-        $account = $_SESSION['shout']['curaccount'];
+        $account = $_SESSION['shout']['curaccount']['code'];
         try {
             $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
             $shout->extensions->addDestination($account, $vars->extension, $vars->type, $vars->destination);
@@ -54,7 +54,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
     {
         $vars = $this->_vars;
         $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
-        $account = $_SESSION['shout']['curaccount'];
+        $account = $_SESSION['shout']['curaccount']['code'];
         try {
             // FIXME: Use Form?
             $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
@@ -76,7 +76,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
         try {
             $vars = $this->_vars;
             $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
-            $account = $_SESSION['shout']['curaccount'];
+            $account = $_SESSION['shout']['curaccount']['code'];
             return $shout->extensions->getExtensions($account);
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.
@@ -90,7 +90,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
         try {
             $vars = $this->_vars;
             $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
-            $account = $_SESSION['shout']['curaccount'];
+            $account = $_SESSION['shout']['curaccount']['code'];
             return $shout->devices->getDevices($account);
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.
@@ -106,7 +106,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
     {
         try {
             $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
-            $account = $_SESSION['shout']['curaccount'];
+            $account = $_SESSION['shout']['curaccount']['code'];
             $menus = $shout->storage->getMenus($account);
             if (empty($menus)) {
                 return false;
@@ -127,7 +127,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
     {
         try {
             $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
-            $account = $_SESSION['shout']['curaccount'];
+            $account = $_SESSION['shout']['curaccount']['code'];
             $menu = $this->_vars->get('menu');
             if (empty($menu)) {
                 throw new Shout_Exception('Must specify a menu to delete.');
@@ -145,7 +145,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
     {
         try {
             $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
-            $account = $_SESSION['shout']['curaccount'];
+            $account = $_SESSION['shout']['curaccount']['code'];
             return $shout->storage->getConferences($account);
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.
@@ -158,7 +158,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
     {
         try {
             $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
-            $account = $_SESSION['shout']['curaccount'];
+            $account = $_SESSION['shout']['curaccount']['code'];
             $vars = &$this->_vars;
             $info = array(
                 'name' => $vars->get('name'),
@@ -182,7 +182,7 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
             if (!($action = $vars->get('action'))) {
                 throw new Shout_Exception("Invalid action requested.");
             }
-            $account = $_SESSION['shout']['curaccount'];
+            $account = $_SESSION['shout']['curaccount']['code'];
             $digit = $vars->get('digit');
             $menu = $vars->get('menu');
             $action = $vars->get('action');

@@ -1,5 +1,5 @@
 <div class="header">
-    Account: <?php echo $_SESSION['shout']['accounts'][$curaccount]['name']; ?>
+    Account: <?php echo $_SESSION['shout']['curaccount']['name']; ?>
 </div>
 
 <div id="conferenceList">

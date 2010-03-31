@@ -22,8 +22,8 @@ class DeviceDetailsForm extends Horde_Form {
             $edit = false;
         }
 
-        $curaccount = $_SESSION['shout']['curaccount'];
-        $accountname = $_SESSION['shout']['accounts'][$curaccount]['name'];
+        $curaccount = $_SESSION['shout']['curaccount']['code'];
+        $accountname = $_SESSION['shout']['curaccount']['name'];
         $title = sprintf(_("$formtitle - Account: %s"), $accountname);
         parent::__construct($vars, $title);
 

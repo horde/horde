@@ -8,5 +8,17 @@
  *
  * @author  Ben Klang <ben@alkaloid.net>
  */
+require_once dirname(__FILE__) . '/lib/Application.php';
+$shout = Horde_Registry::appInit('shout');
+$curaccount = $_SESSION['shout']['curaccount'];
+if (empty($curaccount)) {
+    die("Permission denied.");
+}
+$menus = $shout->storage->getMenus($curaccount);
 
-require dirname(__FILE__) . '/dialplan.php';
+if (empty($menus)) {
+    print_r($curaccount);
+} else {
+    header('Location: ' . Horde::applicationUrl('dialplan.php', true));
+    exit;
+}

@@ -14,7 +14,7 @@ $shout = Horde_Registry::appInit('shout');
 
 require_once SHOUT_BASE . '/lib/Forms/DeviceForm.php';
 
-$curaccount = $_SESSION['shout']['curaccount'];
+$curaccount = $_SESSION['shout']['curaccount']['code'];
 $action = Horde_Util::getFormData('action');
 $vars = Horde_Variables::getDefaultVariables();
 

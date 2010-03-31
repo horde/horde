@@ -15,7 +15,7 @@ $shout = Horde_Registry::appInit('shout');
 require_once SHOUT_BASE . '/lib/Forms/RecordingForm.php';
 
 $action = Horde_Util::getFormData('action');
-$curaccount = $_SESSION['shout']['curaccount'];
+$curaccount = $_SESSION['shout']['curaccount']['code'];
 $recordings = $shout->storage->getRecordings($curaccount);
 
 switch($action) {

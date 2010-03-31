@@ -22,7 +22,7 @@ class AccountDetailsForm extends Horde_Form {
      */
     function __construct(&$vars)
     {
-        $account = $_SESSION['shout']['curaccount'];
+        $account = $_SESSION['shout']['curaccount']['code'];
         $action = $vars->get('action');
         if ($action == 'edit') {
             $formtitle = "Edit Account";
@@ -31,7 +31,7 @@ class AccountDetailsForm extends Horde_Form {
             $formtitle = "Add Account";
         }
 
-        $accountname = $_SESSION['shout']['accounts'][$curaccount]['name'];
+        $accountname = $_SESSION['shout']['curaccount']['name'];
         $title = sprintf(_("$formtitle %s"), $accountname);
         parent::__construct($vars, $title);
 

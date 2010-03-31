@@ -22,8 +22,8 @@ class MenuForm extends Horde_Form {
             $edit = false;
         }
 
-        $curaccount = $_SESSION['shout']['curaccount'];
-        $accountname = $_SESSION['shout']['accounts'][$curaccount]['name'];
+        $curaccount = $_SESSION['shout']['curaccount']['code'];
+        $accountname = $_SESSION['shout']['curaccount']['name'];
         $title = sprintf(_("%s - Account: %s"), $formtitle, $accountname);
         parent::__construct($vars, $title);
 
@@ -52,7 +52,7 @@ class MenuForm extends Horde_Form {
     {
         $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
 
-        $account = $_SESSION['shout']['curaccount'];
+        $account = $_SESSION['shout']['curaccount']['code'];
 
         $details = array(
             'name' => $this->_vars->get('name'),
@@ -77,7 +77,7 @@ class DeviceMenuForm extends Horde_Form
         $account = $vars->get('account');
 
         $title = _("Delete Menu %s - Account: %s");
-        $title = sprintf($title, $menu, $_SESSION['shout']['accounts'][$account]['name']);
+        $title = sprintf($title, $menu, $_SESSION['shout']['curaccount']['name']);
         parent::__construct($vars, $title);
 
         $this->setButtons(array(_("Delete"), _("Cancel")));

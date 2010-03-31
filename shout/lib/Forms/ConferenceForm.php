@@ -24,7 +24,7 @@ class ConferenceDetailsForm extends Horde_Form {
             $edit = false;
         }
 
-        $curaccount = $_SESSION['shout']['curaccount'];
+        $curaccount = $_SESSION['shout']['curaccount']['code'];
         $accountname = $vars->account;
         $title = sprintf(_("$formtitle"));
         parent::__construct($vars, $title);
