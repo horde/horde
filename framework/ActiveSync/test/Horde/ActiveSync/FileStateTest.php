@@ -13,20 +13,11 @@ require_once dirname(__FILE__) . '/../../../lib/Horde/ActiveSync.php';
 class Horde_ActiveSync_FileStateTest extends Horde_Test_Case
 {
     /**
-     * Tests initial state loading from synckey zero.
-     * Should initialize the initial server state.
+     * Tests initial state loading from synckey zero. Should initialize the
+     * blank pim state and correctly detect the one change on the mocked server.
      */
     public function testCollectionSyncState()
     {
-        $this->markTestIncomplete();
-        return;
-        
-        $state = new Horde_ActiveSync_State_File(array('stateDir' => './'));
-        $state->init(array('id' => 'Contacts',
-                           'class' => 'Contacts'));
-
-        $state->loadState(0);
-
         $contact = array(
             '__key' => '9b07c14b086932e69cc7eb1baed0cc87',
             '__owner' => 'mike',
@@ -75,12 +66,15 @@ class Horde_ActiveSync_FileStateTest extends Horde_Test_Case
         $fixture = array('contacts_list' => array('20070112030611.62g1lg5nry80@test.theupstairsroom.com'),
                          'contacts_getActionTimestamp' => 0,
                          'contacts_export' => $contact);
-        
         $connector = new Horde_ActiveSync_MockConnector(array('fixture' => $fixture));
+        $state = new Horde_ActiveSync_State_File(array('stateDir' => './'));
         $driver = new Horde_ActiveSync_Driver_Horde(array('connector' => $connector,
                                                           'state_basic' => $state));
-        $state->setBackend($driver);
-        $state->setLogger(new Horde_Support_Stub());
+
+        $state->init(array('id' => 'Contacts',
+                           'class' => 'Contacts'));
+
+        $state->loadState(0);
         
         /* Get the current state from the "server" */
         $changes = $state->getChanges();
@@ -94,7 +88,7 @@ class Horde_ActiveSync_FileStateTest extends Horde_Test_Case
             $state->updateState('change', $stat, 0);
         }
 
-        /* Get and set the new synckey */
+        /* Get and set the new, blank,  synckey */
         $key = $state->getNewSyncKey(0);
         $state->setNewSyncKey($key);
         $state->save();
