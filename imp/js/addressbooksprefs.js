@@ -15,7 +15,7 @@ var ImpAddressbooksPrefs = {
 
     resetHidden: function()
     {
-        $('search_sources').setValue($F('selected_search_sources').join("\t"));
+        $('search_sources').setValue($A($('selected_search_sources').options).slice(1).pluck('value').join("\t"));
     },
 
     addSource: function()
