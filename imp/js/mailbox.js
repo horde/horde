@@ -16,7 +16,9 @@ var ImpMailbox = {
 
     selectRow: function(id, select)
     {
-        [ id ].invoke(select ? 'addClassName' : 'removeClassName', 'selectedRow');
+        if (id.readAttribute('id')) {
+            [ id ].invoke(select ? 'addClassName' : 'removeClassName', 'selectedRow');
+        }
         id.down('INPUT.checkbox').setValue(select);
     },
 
