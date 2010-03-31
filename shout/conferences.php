@@ -14,7 +14,7 @@ $shout = Horde_Registry::appInit('shout');
 
 require_once SHOUT_BASE . '/lib/Forms/ConferenceForm.php';
 
-$curaccount = $_SESSION['shout']['curaccount']['code'];
+$curaccount = $_SESSION['shout']['curaccount'];
 $action = Horde_Util::getFormData('action');
 $vars = Horde_Variables::getDefaultVariables();
 
@@ -26,7 +26,7 @@ switch ($action) {
 case 'add':
 case 'edit':
     $vars = Horde_Variables::getDefaultVariables();
-    $vars->set('account', $curaccount);
+    $vars->set('account', $curaccount['code']);
     $Form = new ConferenceDetailsForm($vars);
 
     // Show the list if the save was successful, otherwise back to edit.
@@ -49,7 +49,7 @@ case 'edit':
 
     // Create a new add/edit form
     $roomno = Horde_Util::getFormData('roomno');
-    $conferences = $shout->storage->getConferences($curaccount);
+    $conferences = $shout->storage->getConferences($curaccount['code']);
     $vars = new Horde_Variables($conferences[$roomno]);
 
     $vars->set('action', $action);
@@ -65,7 +65,7 @@ case 'delete':
     $devid = Horde_Util::getFormData('devid');
 
     $vars = Horde_Variables::getDefaultVariables();
-    $vars->set('account', $curaccount);
+    $vars->set('account', $curaccount['code']);
     $Form = new DeviceDeleteForm($vars);
 
     $FormValid = $Form->validate($vars, true);
@@ -83,7 +83,7 @@ case 'delete':
     }
 
     $vars = Horde_Variables::getDefaultVariables(array());
-    $vars->set('account', $curaccount);
+    $vars->set('account', $curaccount['code']);
     $Form = new DeviceDeleteForm($vars);
     break;
 
@@ -95,7 +95,7 @@ default:
 
 // Fetch the (possibly updated) list of extensions
 try {
-    $conferences = $shout->devices->getConferences($curaccount);
+    $conferences = $shout->devices->getConferences($curaccount['code']);
 } catch (Exception $e) {
     $notification->push($e);
     $devices = array();

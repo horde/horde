@@ -13,20 +13,19 @@ class ConferenceDetailsForm extends Horde_Form {
 
     function __construct(&$vars)
     {
+        $accountname = $_SESSION['shout']['curaccount']['name'];
         if ($vars->exists('roomno')) {
-            $formtitle = "Edit Conference Room";
+            $title = sprintf(_("Edit Conference Room - Account: %s"), $accountname);
             $roomno = $vars->get('roomno');
             $this->addHidden('', 'oldroomno', 'text', true);
             $vars->set('oldroomno', $roomno);
             $edit = true;
         } else {
-            $formtitle = "Create Conference Room";
+            $title = sprintf(_("Create Conference Room - Account: %s"), $accountname);
             $edit = false;
         }
 
-        $curaccount = $_SESSION['shout']['curaccount']['code'];
-        $accountname = $vars->account;
-        $title = sprintf(_("$formtitle"));
+        ;
         parent::__construct($vars, $title);
 
         $this->addHidden('', 'action', 'text', true);

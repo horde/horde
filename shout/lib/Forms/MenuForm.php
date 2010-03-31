@@ -22,7 +22,6 @@ class MenuForm extends Horde_Form {
             $edit = false;
         }
 
-        $curaccount = $_SESSION['shout']['curaccount']['code'];
         $accountname = $_SESSION['shout']['curaccount']['name'];
         $title = sprintf(_("%s - Account: %s"), $formtitle, $accountname);
         parent::__construct($vars, $title);
@@ -37,7 +36,7 @@ class MenuForm extends Horde_Form {
         $this->addVariable(_("Description"), 'description', 'text', false);
 
         $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
-        $recordings = $shout->storage->getRecordings($curaccount);
+        $recordings = $shout->storage->getRecordings($_SESSION['shout']['curaccount']['code']);
         $list = array();
         foreach ($recordings as $id => $info) {
             $list[$id] = $info['filename'];

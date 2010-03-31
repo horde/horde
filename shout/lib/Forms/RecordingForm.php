@@ -16,7 +16,6 @@ class RecordingDetailsForm extends Horde_Form {
 
         $formtitle = "Create Recording";
 
-        $curaccount = $_SESSION['shout']['curaccount']['code'];
         $accountname = $vars->account;
         $title = sprintf(_("$formtitle"));
         parent::__construct($vars, $title);

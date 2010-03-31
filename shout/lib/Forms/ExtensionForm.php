@@ -21,7 +21,6 @@ class ExtensionDetailsForm extends Horde_Form {
      */
     function __construct(&$vars)
     {
-        $curaccount = $_SESSION['shout']['curaccount']['code'];
         $action = $vars->get('action');
         if ($action == 'edit') {
             $formtitle = "Edit User";

@@ -35,7 +35,7 @@ function accountSubmit(clear)
      <?php
         foreach ($accounts as $account => $info) {
             print "<option value=\"$account\"";
-            if ($account == $curaccount) {
+            if ($account == $curaccount['code']) {
                 print " selected";
             }
             print ">${info['name']}</option>\n";
