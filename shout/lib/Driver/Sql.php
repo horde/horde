@@ -536,6 +536,30 @@ class Shout_Driver_Sql extends Shout_Driver
         return $recordings;
     }
 
+    public function getRecordingByName($account, $filename)
+    {
+        $sql = 'SELECT id, filename FROM recordings ' .
+               'WHERE account_id = (SELECT id FROM accounts WHERE code = ?) ' .
+               'AND filename = ?;';
+        $args = array($account, $filename);
+        $msg = 'SQL query in Shout_Driver_Sql#getRecordingByName(): ' . $sql;
+        Horde::logMessage($msg, 'DEBUG');
+        $result = $this->_db->query($sql, $args);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+
+        $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
+        if ($row instanceof PEAR_Error) {
+            throw new Shout_Exception($row);
+        }
+        if ($row === null) {
+            throw new Shout_Exception('No such recording found for this account.');
+        }
+        $result->free();
+        return $row;
+    }
+
     public function addRecording($account, $name)
     {
         $sql = 'INSERT INTO recordings (filename, account_id) ' .

@@ -10,14 +10,16 @@
  */
 require_once dirname(__FILE__) . '/lib/Application.php';
 $shout = Horde_Registry::appInit('shout');
-$curaccount = $_SESSION['shout']['curaccount'];
-if (empty($curaccount)) {
+
+if (empty($_SESSION['shout']['curaccount'])) {
     die("Permission denied.");
 }
-$menus = $shout->storage->getMenus($curaccount);
+
+$curaccount = $_SESSION['shout']['curaccount'];
+$menus = $shout->storage->getMenus($curaccount['code']);
 
 if (empty($menus)) {
-    print_r($curaccount);
+    header('Location: ' . Horde::applicationUrl('wizard.php', true));
 } else {
     header('Location: ' . Horde::applicationUrl('dialplan.php', true));
     exit;

@@ -13,6 +13,17 @@
  */
 class Shout
 {
+    /**
+     * @var string default menu, used for creating initial menu
+     */
+    const MAIN_MENU = 'Main Menu';
+
+    /**
+     *
+     * @var string default recording, used for creating initial menu
+     */
+    const MAIN_RECORDING = 'main_menu';
+
     var $applist = array();
     var $_applist_curapp = '';
     var $_applist_curfield = '';
