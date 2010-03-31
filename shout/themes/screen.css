@@ -15,6 +15,10 @@ table {
     width: 100%;
 }
 
+.attention {
+    font-weight: bold;
+}
+
 .header {
     color: #fff;
     background: #66a;

@@ -41,7 +41,7 @@ try {
     // Populate the default option, granting the ability to log into the admin
     // section.
     $shout->dialplan->saveMenuAction($curaccount['code'], Shout::MAIN_MENU,
-                                     '*', 'admin_login', array());
+                                     'star', 'admin_login', array());
 
     
 } catch (Exception $e) {
