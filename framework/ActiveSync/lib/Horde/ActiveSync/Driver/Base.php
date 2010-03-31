@@ -75,8 +75,17 @@ abstract class Horde_ActiveSync_Driver_Base
      *
      * <pre>
      * Currently supported settings are:
-     *   requirePin     - Device must have a pin lock enabled.
-     *   computerUnlock - Device can be unlocked docked to a computer.??
+     *   requirePin      - Device must have a pin lock enabled.
+     *   computerUnlock  - Device can be unlocked by a computer.
+     *   AEFrequencyType - AEFrequencyValue is set (1) or not (0)
+     *   AEFrequencyValue - Time (in minutes) of inactivity before device locks
+     *   DeviceWipeThreshold - Number of failed unlock attempts before the
+     *                         device should wipe on devices that support this.
+     *   CodewordFrequency   - Number of failed unlock attempts before needing
+     *                         to verify that a person who can read and write is
+     *                         using the PIM.
+     *   MinimumPasswordLength
+     *   PasswordComplexity     - 0 - alphanumeric, 1 - numeric, 2 - anything
      * </pre>
      */
     protected $_policies = array(
