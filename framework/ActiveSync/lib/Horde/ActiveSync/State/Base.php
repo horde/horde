@@ -204,6 +204,26 @@ abstract class Horde_ActiveSync_State_Base
     abstract public function setPolicyKey($devId, $key);
 
     /**
+     * Return a device remotewipe status
+     *
+     * @param string $devId  The device id
+     *
+     * @return int
+     */
+    abstract public function getDeviceRWStatus($devId);
+
+
+    /**
+     * Set a new remotewipe status for the device
+     *
+     * @param string $devid
+     * @param string $status
+     *
+     * @return boolean
+     */
+    abstract public function setDeviceRWStatus($devid, $status);
+
+    /**
      * Obtain the device object.
      *
      * @param string $devId

@@ -523,34 +523,6 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * Return a device wipe status
-     *
-     * @param string $user
-     * @param string $pass
-     * @param string $devid
-     * @return int
-     */
-    public function getDeviceRWStatus($devid)
-    {
-        return false;
-    }
-
-    /**
-     * Set a new rw status for the device
-     *
-     * @param string $user
-     * @param string $pass
-     * @param string $devid
-     * @param string $status
-     *
-     * @return boolean
-     */
-    public function setDeviceRWStatus($devid, $status)
-    {
-        return false;
-    }
-
-    /**
      *
      * @return unknown_type
      */

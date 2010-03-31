@@ -194,12 +194,12 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
         }
         $this->_encoder->endTag();//policy
         $this->_encoder->endTag(); //policies
-        $rwstatus = $this->_driver->getDeviceRWStatus($this->_devId);
+        $rwstatus = $state->getDeviceRWStatus($this->_devId);
 
         //wipe data if status is pending or wiped
         if ($rwstatus == self::RWSTATUS_PENDING || $rwstatus == self::RWSTATUS_WIPED) {
             $this->_encoder->startTag(SYNC_PROVISION_REMOTEWIPE, false, true);
-            $this->_driver->setDeviceRWStatus($this->_devId, self::RWSTATUS_WIPED);
+            $state->setDeviceRWStatus($this->_devId, self::RWSTATUS_WIPED);
             //$rwstatus = SYNC_PROVISION_RWSTATUS_WIPED;
         }
 

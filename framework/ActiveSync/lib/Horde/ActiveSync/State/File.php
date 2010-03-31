@@ -533,6 +533,34 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
     }
 
     /**
+     * Return a device wipe status
+     *
+     * @param string $devId
+     *
+     * @return integer
+     */
+    public function getDeviceRWStatus($devId)
+    {
+        $info = $this->getDeviceInfo($devId);
+        return $info['rwstatus'];
+    }
+
+    /**
+     * Set a new remotewipe status for the device
+     *
+     * @param string $devId
+     * @param integer $status
+     *
+     * @return boolean
+     */
+    public function setDeviceRWStatus($devId, $status)
+    {
+        $info = $this->getDeviceInfo($devId);
+        $info['rwstatus'] = $status;
+        $this->setDeviceInfo($devId, $info);
+    }
+
+    /**
      * Get list of server changes
      *
      * @param integer $flags
