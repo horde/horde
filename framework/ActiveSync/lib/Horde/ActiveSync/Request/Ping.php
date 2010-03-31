@@ -126,7 +126,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     // Make sure we have the synckey (which is the devid for
                     // PING requests.
                     $collection['synckey'] = $this->_devId;
-                    $exporter = $this->_driver->getExporter();
+                    $exporter = $this->_driver->getSyncObject();
                     $state->loadPingCollectionState($collection);
                     try {
                         $exporter->init($state, false, $collection);

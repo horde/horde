@@ -41,7 +41,7 @@ define('BACKEND_DISCARD_DATA', 1);
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Horde_ActiveSync
  */
-class Horde_ActiveSync_Exporter
+class Horde_ActiveSync_Sync
 {
     /**
      * Local copy of changes to push to PIM

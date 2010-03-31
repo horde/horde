@@ -436,7 +436,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             if (isset($collection['getchanges'])) {
                 $filtertype = isset($collection['filtertype']) ? $collection['filtertype'] : false;
                 $streamer = new Horde_ActiveSync_Streamer($this->_encoder, $collection['class']);
-                $exporter = $this->_driver->getExporter();
+                $exporter = $this->_driver->getSyncObject();
                 $exporter->init($state, $streamer, $collection);
                 $changecount = $exporter->getChangeCount();
                 if (!empty($collection['windowsize']) && $changecount > $collection['windowsize']) {

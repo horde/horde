@@ -147,7 +147,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         // directly to WBXML.
         // TODO: Combine all these import caches into a single Class
         $importer = new Horde_ActiveSync_HierarchyCache();
-        $exporter = $this->_driver->GetExporter();
+        $exporter = $this->_driver->GetSyncObject();
         $exporter->init($state, $importer, array('synckey' => $synckey));
 
         /* Perform the actual sync operation */

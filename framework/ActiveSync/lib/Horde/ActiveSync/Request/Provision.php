@@ -200,7 +200,6 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
         if ($rwstatus == self::RWSTATUS_PENDING || $rwstatus == self::RWSTATUS_WIPED) {
             $this->_encoder->startTag(SYNC_PROVISION_REMOTEWIPE, false, true);
             $state->setDeviceRWStatus($this->_devId, self::RWSTATUS_WIPED);
-            //$rwstatus = SYNC_PROVISION_RWSTATUS_WIPED;
         }
 
         $this->_encoder->endTag();//provision

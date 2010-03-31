@@ -360,9 +360,9 @@ abstract class Horde_ActiveSync_Driver_Base
      * @return unknown_type
      *
      */
-    public function getExporter()
+    public function getSyncObject()
     {
-        $exporter = new Horde_ActiveSync_Exporter($this);
+        $exporter = new Horde_ActiveSync_Sync($this);
         $exporter->setLogger($this->_logger);
 
         return $exporter;

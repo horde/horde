@@ -133,7 +133,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
             $importer = new Horde_ActiveSync_ContentsCache();
             $state = $this->_driver->getStateObject($collection);
             $state->loadState($collection['synckey']);
-            $exporter = $this->_driver->GetExporter();
+            $exporter = $this->_driver->getSyncObject();
             $exporter->init($state, $importer, $collection);
 
             $this->_encoder->content($exporter->GetChangeCount());
