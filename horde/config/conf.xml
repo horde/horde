@@ -1982,6 +1982,7 @@
       directory should be writeable by the webserver):">/tmp</configstring>
      </configsection>
      <configsection name="securitypolicies">
+     <configheader>Security Policies</configheader>
       <configswitch name="provisioning" quote="false" desc="How should device
       provisioning be handled? Set to DISABLE to ignore provisioning. Set to 
       ALLOW to force devices that CAN be provisioned to use provisioning, but
