@@ -110,6 +110,16 @@ abstract class Horde_ActiveSync_State_Base
     }
 
     /**
+     * Generate a random 10 digit policy key
+     *
+     * @return unknown
+     */
+    public function generatePolicyKey()
+    {
+        return mt_rand(1000000000, 9999999999);
+    }
+
+    /**
      * Loads the initial state from storage for the specified syncKey and
      * intializes the stateMachine for use.
      *

@@ -156,12 +156,12 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
                 $policyStatus = self::STATUS_POLKEYMISM;
             } else {
                 /* Set the final key */
-                $policykey = $this->_driver->generatePolicyKey();
+                $policykey = $state->generatePolicyKey();
                 $state->setPolicyKey($this->_devId, $policykey);
             }
         } elseif (empty($policykey)) {
             // This is phase2 - we need to set the intermediate key
-            $policykey = $this->_driver->generatePolicyKey();
+            $policykey = $state->generatePolicyKey();
             $state->setPolicyKey($this->_devId, $policykey);
         }
 

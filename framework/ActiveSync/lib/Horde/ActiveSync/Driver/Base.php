@@ -82,10 +82,11 @@ abstract class Horde_ActiveSync_Driver_Base
     protected $_policies = array(
         'requirePin' => true,
         'computerUnlock' => true,
-        'AEFrequencyType' => 0,
+        'AEFrequencyType' => 1,
+        'AEFrequencyValue' => 5,
         'DeviceWipeThreshold' => 10,
         'CodewordFrequency' => 5,
-        'MinimumPasswordLength' => 4,
+        'MinimumPasswordLength' => 5,
         'PasswordComplexity' => 2,
         );
 
@@ -510,16 +511,6 @@ abstract class Horde_ActiveSync_Driver_Base
     public function getSearchResults($searchquery)
     {
         throw new Horde_ActiveSync_Exception('getSearchResults not implemented.');
-    }
-
-    /**
-     * Generate a random 10 digit policy key
-     *
-     * @return unknown
-     */
-    public function generatePolicyKey()
-    {
-        return mt_rand(1000000000, 9999999999);
     }
 
     /**
