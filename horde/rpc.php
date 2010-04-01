@@ -35,7 +35,7 @@ $params['logger'] = $GLOBALS['injector']->getInstance('Horde_Log_Logger');
 
 /* Look at the Content-type of the request, if it is available, to try
  * and determine what kind of request this is. */
-if (!empty($GLOBALS['conf']['activesync']['enabled']) && 
+if (!empty($conf['activesync']['enabled']) &&
     ((strpos($request->getServer('CONTENT_TYPE'), 'application/vnd.ms-sync.wbxml') !== false) ||
     (strpos($request->getUri(), 'Microsoft-Server-ActiveSync') !== false))) {
     /* ActiveSync Request */
@@ -54,6 +54,7 @@ if (!empty($GLOBALS['conf']['activesync']['enabled']) &&
                                              new Horde_ActiveSync_Wbxml_Encoder(fopen('php://output', 'w+')),
                                              $request);
     $params['server']->setLogger($params['logger']);
+    $params['provisioning'] = $conf['activesync']['securitypolicies']['provisioning'];
 
 } elseif ($request->getServer('PATH_INFO') ||
     in_array($request->getServer('REQUEST_METHOD'), array('DELETE', 'PROPFIND', 'PUT', 'OPTIONS'))) {
