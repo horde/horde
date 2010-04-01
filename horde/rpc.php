@@ -35,7 +35,7 @@ $params['logger'] = $GLOBALS['injector']->getInstance('Horde_Log_Logger');
 
 /* Look at the Content-type of the request, if it is available, to try
  * and determine what kind of request this is. */
-if (!empty($conf['activesync']['enabled']) &&
+if (!empty($GLOBALS['conf']['activesync']['enabled']) &&
     ((strpos($request->getServer('CONTENT_TYPE'), 'application/vnd.ms-sync.wbxml') !== false) ||
     (strpos($request->getUri(), 'Microsoft-Server-ActiveSync') !== false))) {
     /* ActiveSync Request */
@@ -47,15 +47,16 @@ if (!empty($conf['activesync']['enabled']) &&
     $params['registry'] = $GLOBALS['registry'];
     $connector = new Horde_ActiveSync_Driver_Horde_Connector_Registry($params);
     $stateMachine = new Horde_ActiveSync_State_File(array('stateDir' => $GLOBALS['conf']['activesync']['state']['directory']));
-    $params['backend'] = new Horde_ActiveSync_Driver_Horde(array('connector' => $connector,
-                                                                 'state_basic' => $stateMachine));
+    $driver_params = array('connector' => $connector, 'state_basic' => $stateMachine);
+    if ($params['provisioning'] = $GLOBALS['conf']['activesync']['securitypolicies']['provisioning']) {
+        $driver_params['policies'] = $GLOBALS['conf']['activesync']['securitypolicies'];
+    }
+    $params['backend'] = new Horde_ActiveSync_Driver_Horde($driver_params);
     $params['server'] = new Horde_ActiveSync($params['backend'],
                                              new Horde_ActiveSync_Wbxml_Decoder(fopen('php://input', 'r')),
                                              new Horde_ActiveSync_Wbxml_Encoder(fopen('php://output', 'w+')),
                                              $request);
     $params['server']->setLogger($params['logger']);
-    $params['provisioning'] = $conf['activesync']['securitypolicies']['provisioning'];
-
 } elseif ($request->getServer('PATH_INFO') ||
     in_array($request->getServer('REQUEST_METHOD'), array('DELETE', 'PROPFIND', 'PUT', 'OPTIONS'))) {
     $serverType = 'Webdav';

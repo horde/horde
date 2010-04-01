@@ -75,9 +75,8 @@ abstract class Horde_ActiveSync_Driver_Base
      *
      * <pre>
      * Currently supported settings are:
-     *   requirePin      - Device must have a pin lock enabled.
-     *   computerUnlock  - Device can be unlocked by a computer.
-     *   AEFrequencyType - AEFrequencyValue is set (1) or not (0)
+     *   pin      - Device must have a pin lock enabled.
+     *   computerunlock  - Device can be unlocked by a computer.
      *   AEFrequencyValue - Time (in minutes) of inactivity before device locks
      *   DeviceWipeThreshold - Number of failed unlock attempts before the
      *                         device should wipe on devices that support this.
@@ -89,14 +88,13 @@ abstract class Horde_ActiveSync_Driver_Base
      * </pre>
      */
     protected $_policies = array(
-        'requirePin' => true,
-        'computerUnlock' => true,
-        'AEFrequencyType' => 1,
-        'AEFrequencyValue' => 5,
-        'DeviceWipeThreshold' => 10,
-        'CodewordFrequency' => 5,
-        'MinimumPasswordLength' => 5,
-        'PasswordComplexity' => 2,
+        'pin' => true,
+        'computerunlock' => true,
+        'inactivity' => 5,
+        'wipethreshold' => 10,
+        'codewordfrequency' => 5,
+        'minimumlength' => 5,
+        'complexity' => 2,
         );
 
     /**
@@ -555,25 +553,25 @@ abstract class Horde_ActiveSync_Driver_Base
     public function getCurrentPolicy($policyType = 'MS-WAP-Provisioning-XML')
     {
         return '<wap-provisioningdoc><characteristic type="SecurityPolicy">'
-        . '<parm name="4131" value="' . ($this->_policies['requirePin'] ? 0 : 1) . '"/>'
-        . '<parm name="4133" value="' . ($this->_policies['computerUnlock'] ? 1 : 0) . '"/>'
+        . '<parm name="4131" value="' . ($this->_policies['pin'] ? 0 : 1) . '"/>'
+        . '<parm name="4133" value="' . ($this->_policies['computerunlock'] ? 1 : 0) . '"/>'
         . '</characteristic>'
         . '<characteristic type="Registry">'
         .   '<characteristic type="HKLM\Comm\Security\Policy\LASSD\AE\{50C13377-C66D-400C-889E-C316FC4AB374}">'
-        .        '<parm name="AEFrequencyType" value="' . $this->_policies['AEFrequencyType'] . '"/>'
-        .        (!empty($this->_policies['AEFrequencyValue']) ? '<parm name="AEFrequencyValue" value="' . $this->_policies['AEFrequencyValue'] . '"/>' : '')
+        .        '<parm name="AEFrequencyType" value="' . (!empty($this->_policies['inactivity']) ? 1 : 0) . '"/>'
+        .        (!empty($this->_policies['AEFrequencyValue']) ? '<parm name="AEFrequencyValue" value="' . $this->_policies['inactivity'] . '"/>' : '')
         .    '</characteristic>'
         .    '<characteristic type="HKLM\Comm\Security\Policy\LASSD">'
-        .        '<parm name="DeviceWipeThreshold" value="' . $this->_policies['DeviceWipeThreshold'] . '"/>'
+        .        '<parm name="DeviceWipeThreshold" value="' . $this->_policies['wipethreshold'] . '"/>'
         .    '</characteristic>'
         .    '<characteristic type="HKLM\Comm\Security\Policy\LASSD">'
-        .        '<parm name="CodewordFrequency" value="' . $this->_policies['CodewordFrequency'] . '"/>'
+        .        '<parm name="CodewordFrequency" value="' . $this->_policies['codewordfrequency'] . '"/>'
         .    '</characteristic>'
         .    '<characteristic type="HKLM\Comm\Security\Policy\LASSD\LAP\lap_pw">'
-        .        '<parm name="MinimumPasswordLength" value="' . $this->_policies['MinimumPasswordLength'] . '"/>'
+        .        '<parm name="MinimumPasswordLength" value="' . $this->_policies['minimumlength'] . '"/>'
         .    '</characteristic>'
         .    '<characteristic type="HKLM\Comm\Security\Policy\LASSD\LAP\lap_pw">'
-        .        '<parm name="PasswordComplexity" value="' . $this->_policies['PasswordComplexity'] . '"/>'
+        .        '<parm name="PasswordComplexity" value="' . $this->_policies['complexity'] . '"/>'
         .    '</characteristic>'
         . '</characteristic>'
         . '</wap-provisioningdoc>';

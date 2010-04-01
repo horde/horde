@@ -121,7 +121,7 @@ abstract class Horde_ActiveSync_Request_Base
             /* Loose provsioning should allow a blank key */
             if ((empty($storedKey) || $storedKey != $sentKey) &&
                ($this->_provisioning !== 'loose' ||
-               ($this->_provisioning === 'loose' && !empty($this->_policyKey)))) {
+               ($this->_provisioning === 'loose' && !is_null($this->_policyKey)))) {
 
                     Horde_ActiveSync::provisioningRequired();
                     return false;
