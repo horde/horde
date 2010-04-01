@@ -61,9 +61,8 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
         /* Set our server and backend objects */
         $this->_backend = $params['backend'];
         $this->_server = $params['server'];
-
         /* provisioning can be false, true, or 'loose' */
-        $this->_server->setProvisioning = empty($params['provisioning']) ? false : $params['provisioning'];
+        $this->_server->setProvisioning(empty($params['provisioning']) ? false : $params['provisioning']);
     }
 
     /**
