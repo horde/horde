@@ -139,10 +139,8 @@ ul.msgactions, ul.msgactions ul {
     color: #000;
     background: #ccc;
 }
-.bottomborder, .bottombordercollapse {
-    border-bottom: 1px solid #999;
-}
 .bottomborder {
+    border-bottom: 1px solid #999;
     padding-bottom: 0;
     padding-top: 0;
 }
