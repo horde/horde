@@ -2010,6 +2010,8 @@
             <value desc="Allow any">2</value>
          </values>
         </configenum>
+        <configinteger name="inactivity" desc="Number of minutes of inactivity before device
+        should lock.">3</configinteger>
          </case>
         </configswitch>
        </case>
@@ -2033,12 +2035,12 @@
             <value desc="Allow any">2</value>
            </values>
           </configenum>
+          <configinteger name="inactivity" desc="Number of minutes of inactivity before device
+          should lock.">3</configinteger>
          </case>
         </configswitch>
        </case>
       </configswitch>
-      <configinteger name="inactivity" desc="Number of minutes of inactivity before device
-      should lock.">3</configinteger>
      </configsection>
     </case>
    </configswitch>
