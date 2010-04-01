@@ -18,9 +18,8 @@
  * This file is distributed under GPL v2.
  * Consult LICENSE file for details
  */
-class Horde_ActiveSync_Wbxml_Encoder
+class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
 {
-    private $_dtd;
     private $_out;
     private $_tagcp;
     private $_attrcp;
@@ -36,28 +35,30 @@ class Horde_ActiveSync_Wbxml_Encoder
      * Const'r
      *
      * @param stream $output
-     * @param array $dtd
      * @param array $config
      *
      * @return Horde_ActiveSync_Wbxml_Encoder
      */
-    function __construct($output, $dtd)
+    function __construct($output)
     {
         $this->_out = $output;
         $this->_tagcp = 0;
         $this->_attrcp = 0;
 
         // reverse-map the DTD
-        foreach ($dtd['namespaces'] as $nsid => $nsname) {
-            $this->_dtd['namespaces'][$nsname] = $nsid;
+        $dtd = array();
+        foreach ($this->_dtd['namespaces'] as $nsid => $nsname) {
+            $dtd['namespaces'][$nsname] = $nsid;
         }
 
-        foreach ($dtd['codes'] as $cp => $value) {
-            $this->_dtd['codes'][$cp] = array();
-            foreach ($dtd['codes'][$cp] as $tagid => $tagname) {
-                $this->_dtd['codes'][$cp][$tagname] = $tagid;
+        foreach ($this->_dtd['codes'] as $cp => $value) {
+            $dtd['codes'][$cp] = array();
+            foreach ($this->_dtd['codes'][$cp] as $tagid => $tagname) {
+                $dtd['codes'][$cp][$tagname] = $tagid;
             }
         }
+
+        $this->_dtd = $dtd;
     }
 
     public function setLogger(Horde_Log_Logger $logger)

@@ -50,8 +50,8 @@ if (!empty($GLOBALS['conf']['activesync']['enabled']) &&
     $params['backend'] = new Horde_ActiveSync_Driver_Horde(array('connector' => $connector,
                                                                  'state_basic' => $stateMachine));
     $params['server'] = new Horde_ActiveSync($params['backend'],
-                                             new Horde_ActiveSync_Wbxml_Decoder(fopen('php://input', 'r'), Horde_ActiveSync::$zpushdtd),
-                                             new Horde_ActiveSync_Wbxml_Encoder(fopen('php://output', 'w+'), Horde_ActiveSync::$zpushdtd),
+                                             new Horde_ActiveSync_Wbxml_Decoder(fopen('php://input', 'r')),
+                                             new Horde_ActiveSync_Wbxml_Encoder(fopen('php://output', 'w+')),
                                              $request);
     $params['server']->setLogger($params['logger']);
 

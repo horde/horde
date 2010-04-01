@@ -1,7 +1,6 @@
 <?php
 /**
- * ActiveSync specific WBXML handling. This (and all related code) needs to be
- * refactored to use XML_WBXML, or the H4 equivelant when it is written...
+ * ActiveSync specific WBXML decoder.
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Horde_ActiveSync
@@ -18,16 +17,8 @@
  * This file is distributed under GPL v2.
  * Consult LICENSE file for details
  */
-class Horde_ActiveSync_Wbxml_Decoder
+class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
 {
-    // @TODO
-    /**
-     * The DTD
-     *
-     * @var array
-     */
-    protected $_dtd;
-
     /**
      * PHP input stream
      *
@@ -63,10 +54,9 @@ class Horde_ActiveSync_Wbxml_Decoder
      *
      * @return Horde_ActiveSync_Wbxml_Decoder
      */
-    public function __construct($input, $dtd)
+    public function __construct($input)
     {
         $this->_in = $input;
-        $this->_dtd = $dtd;
         $this->_logger = new Horde_Support_Stub();
         // @TODO - these don't seem to be used anywhere, do we really need
         // to keep them in an instance variable?
