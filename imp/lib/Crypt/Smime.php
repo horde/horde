@@ -431,7 +431,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function printCertInfo($key = '')
     {
-        $cert_info = $this->certToHTML($cert);
+        $cert_info = $this->certToHTML($key);
 
         if (empty($cert_info)) {
             $this->textWindowOutput('S/MIME Key Information', _("Invalid key"));
