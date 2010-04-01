@@ -1,12 +1,13 @@
 <?php
 /**
- * ActiveSync specific WBXML handling. This (and all related code) needs to be
- * refactored to use XML_WBXML, or the H4 equivelant when it is written...
+ * ActiveSync specific WBXML encoding. No need to build xml document in memory
+ * since we stream the actual binary data as we build it. Contains code from
+ * the Z-Push project. Original file header below.
  *
+ * @copyright 2010 The Horde Project (http://www.horde.org)
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Horde_ActiveSync
  */
-
 /**
  * File      :   wbxml.php
  * Project   :   Z-Push
@@ -20,15 +21,38 @@
  */
 class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
 {
+    /**
+     * Output stream - normally the php output stream, but can technically take
+     * any writable stream (for testing).
+     *
+     * @var stream
+     */
     private $_out;
+
+    /**
+     * Track the codepage for the currently output tag so we know when to
+     * switch codepages.
+     *
+     * @var integer
+     */
     private $_tagcp;
-    private $_attrcp;
+
+    /**
+     * Used to hold log entries for each tag so we can only output the log
+     * entries for the tags that are actually sent (@see $_stack).
+     *
+     * @var array
+     */
     private $_logStack = array();
 
-    // We use a delayed output mechanism in which we only output a tag when it actually has something
-    // in it. This can cause entire XML trees to disappear if they don't have output data in them; Ie
-    // calling 'startTag' 10 times, and then 'endTag' will cause 0 bytes of output apart from the header.
-    // Only when content() is called do we output the current stack of tags=
+    /**
+     * Cache the tags to output. The stack is output when content() is called.
+     * We only output tags when they actually contain something. i.e. calling
+     * startTag() 10 times, then endTag() will cause 0 bytes of output apart
+     * from the header.
+     *
+     * @var array
+     */
     private $_stack = array();
 
     /**
@@ -43,9 +67,8 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     {
         $this->_out = $output;
         $this->_tagcp = 0;
-        $this->_attrcp = 0;
 
-        // reverse-map the DTD
+        /* reverse-map the DTD */
         $dtd = array();
         foreach ($this->_dtd['namespaces'] as $nsid => $nsname) {
             $dtd['namespaces'][$nsname] = $nsid;
@@ -61,28 +84,37 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
         $this->_dtd = $dtd;
     }
 
+    /**
+     * Setter for the logger
+     *
+     * @param Horde_Log_Logger $logger  The logger instance
+     */
     public function setLogger(Horde_Log_Logger $logger)
     {
         $this->_logger = $logger;
     }
+
     /**
+     * Starts the wbxml output
      *
-     * @return unknown_type
+     * @return void
      */
     public function startWBXML()
     {
         header('Content-Type: application/vnd.ms-sync.wbxml');
-        $this->_outByte(0x03); // WBXML 1.3
+        $this->_outByte(0x03);   // WBXML 1.3
         $this->_outMBUInt(0x01); // Public ID 1
-        $this->_outMBUInt(106); // UTF-8
+        $this->_outMBUInt(106);  // UTF-8
         $this->_outMBUInt(0x00); // string table length (0)
     }
 
     /**
+     * Start output for the specified tag
      *
-     * @param $tag
-     * @param $attributes
-     * @param $nocontent
+     * @param string $tag        The textual representation of the tag to start
+     * @param mixed $attributes  Any attributes for the start tag
+     * @param boolean $nocontent Force output of empty tags
+     *
      * @return void
      */
     public function startTag($tag, $attributes = false, $nocontent = false)
@@ -93,40 +125,39 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
             $stackelem['attributes'] = $attributes;
             $stackelem['nocontent'] = $nocontent;
             $stackelem['sent'] = false;
-
             array_push($this->_stack, $stackelem);
-
-            // If 'nocontent' is specified, then apparently the user wants to force
-            // output of an empty tag, and we therefore output the stack here
         } else {
+            /* Flush the stack if we want to force empty tags */
             $this->_outputStack();
             $this->_startTag($tag, $attributes, $nocontent);
         }
     }
 
     /**
+     * Output the end tag
      *
      * @return void
      */
     public function endTag()
     {
         $stackelem = array_pop($this->_stack);
-        // Only output end tags for items that have had a start tag sent
+        /* Only output end tags for items that have had a start tag sent */
         if ($stackelem['sent']) {
             $this->_endTag();
         }
     }
 
     /**
+     * Output the tag content
      *
-     * @param $content
+     * @param string $content  The value to output for this tag
      *
      * @return void
      */
     public function content($content)
     {
-        // We need to filter out any \0 chars because it's the string terminator in WBXML. We currently
-        // cannot send \0 characters within the XML content anywhere.
+        /* Filter out \0 since it's a string terminator in wbxml. We cannot send
+         * \0 within the xml content */
         $content = str_replace('\0', '', $content);
         if ('x' . $content == 'x') {
             return;
@@ -138,7 +169,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     /**
      * Output any tags on the stack that haven't been output yet
      *
-     * @TODO: Not 100% sure this can be private
+     * @return void
      */
     private function _outputStack()
     {
@@ -150,29 +181,37 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
         }
     }
 
-    // Outputs an actual start tag
+    /**
+     * Actually outputs the start tag
+     *
+     * @param string $tag @see Horde_ActiveSync_Wbxml_Encoder::startTag
+     * @param mixed $attributes @see Horde_ActiveSync_Wbxml_Encoder::startTag
+     * @param boolean $nocontent @see Horde_ActiveSync_Wbxml_Encoder::startTag
+     *
+     * @return void
+     */
     private function _startTag($tag, $attributes = false, $nocontent = false)
     {
         $this->_logStartTag($tag, $attributes, $nocontent);
         $mapping = $this->_getMapping($tag);
         if (!$mapping) {
-            return false;
+           return false;
         }
 
+        /* Make sure we don't need to switch code pages */
         if ($this->_tagcp != $mapping['cp']) {
             $this->_outSwitchPage($mapping['cp']);
             $this->_tagcp = $mapping['cp'];
         }
 
+        /* Build and send the code */
         $code = $mapping['code'];
         if (isset($attributes) && is_array($attributes) && count($attributes) > 0) {
             $code |= 0x80;
         }
-
         if (!isset($nocontent) || !$nocontent) {
             $code |= 0x40;
         }
-
         $this->_outByte($code);
         if ($code & 0x80) {
             $this->_outAttributes($attributes);
@@ -182,9 +221,9 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     /**
      * Outputs data
      *
-     * @param $content
+     * @param string $content  The content to send
      *
-     * @return unknown_type
+     * @return void
      */
     private function _content($content)
     {
@@ -193,15 +232,20 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
         $this->_outTermStr($content);
     }
 
-    // Outputs an actual end tag
+    /**
+     * Output the endtag
+     *
+     * @return void
+     */
     function _endTag() {
         $this->_logEndTag();
         $this->_outByte(Horde_ActiveSync_Wbxml::END);
     }
 
     /**
+     * Output a single byte to the stream
      *
-     * @param $byte
+     * @param byte $byte
      * @return unknown_type
      */
     private function _outByte($byte)
@@ -210,7 +254,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     }
 
     /**
-     *
+     * Outputs an MBUInt to the stream
      * @param $uint
      * @return unknown_type
      */
@@ -229,9 +273,11 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     }
 
     /**
+     * Output a string along with the terminator.
      *
-     * @param $content
-     * @return unknown_type
+     * @param string $content  The string
+     *
+     * @return void
      */
     private function _outTermStr($content)
     {
@@ -240,8 +286,9 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     }
 
     /**
+     * Output attributes
      *
-     * @return unknown_type
+     * @return void
      */
     private function _outAttributes()
     {
@@ -264,9 +311,11 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     }
 
     /**
+     * Obtain the wbxml mapping for the given tag
      *
-     * @param $tag
-     * @return unknown_type
+     * @param string $tag
+     *
+     * @return array
      */
     private function _getMapping($tag)
     {
@@ -286,9 +335,12 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     }
 
     /**
+     * Split a tag into it's atomic parts
      *
-     * @param $fulltag
-     * @return unknown_type
+     * @param string $fulltag  The full tag name
+     *                         (e.g. POOMCONTACTS:Email1Address)
+     *
+     * @return array  An array containing the namespace and tagname
      */
     private function _splitTag($fulltag)
     {
@@ -311,11 +363,13 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     }
 
     /**
+     * Log the start tag output
      *
-     * @param $tag
-     * @param $attr
-     * @param $nocontent
-     * @return unknown_type
+     * @param string $tag
+     * @param mixed $attr
+     * @param boolean $nocontent
+     *
+     * @return void
      */
     private function _logStartTag($tag, $attr, $nocontent)
     {
@@ -329,8 +383,9 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     }
 
     /**
+     * Log the endtag output
      *
-     * @return unknown_type
+     * @return void
      */
     private function _logEndTag()
     {
@@ -340,9 +395,11 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     }
 
     /**
+     * Log the content output
      *
-     * @param unknown_type $content
-     * @return unknown_type
+     * @param string $content  The output
+     *
+     * @return void
      */
     private function _logContent($content)
     {
