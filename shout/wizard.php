@@ -11,6 +11,8 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 $shout = Horde_Registry::appInit('shout');
 
+require_once SHOUT_BASE . '/lib/Forms/ExtensionForm.php';
+
 try {
     // Only continue if there is no existing "Main Menu"
     $curaccount = $_SESSION['shout']['curaccount'];
@@ -43,7 +45,8 @@ try {
     $shout->dialplan->saveMenuAction($curaccount['code'], Shout::MAIN_MENU,
                                      'star', 'admin_login', array());
 
-    
+    $vars = Horde_Variables::getDefaultVariables();
+    $extensionform = new ExtensionDetailsForm($vars);
 } catch (Exception $e) {
     $notification->push($e);
 }

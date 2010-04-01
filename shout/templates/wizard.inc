@@ -9,9 +9,15 @@
         Follow the prompts to create and save your new recording.</li>
     </ol>
     When finished, hang up.
-    <input type="cancel" onclick="shownext()" value="Continue to Step 2">
+    <br style="clear:both;">
+    <div class="button" onclick="$('step2').show()">Continue to Step 2</div>
 </div>
-
+<br style="clear:both;">
 <div id="step2" class="step">
-    Here we create an extension.
+    <?php $extensionform->renderActive(null, $vars, Horde::applicationUrl('dialplan.php'), 'post');?>
 </div>
+<script type="text/javascript">
+<!--
+$('step2').hide();
+// -->
+</script>

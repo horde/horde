@@ -214,3 +214,11 @@ span.device:hover
     background: url('graphics/redbox_spinner.gif') no-repeat center #000;
     z-index: 5;
 }
+
+.step
+{
+    width: 500px;
+    border: 1px dotted;
+    margin: 5px;
+    padding: 5px;
+}
