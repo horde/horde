@@ -36,8 +36,8 @@
  *   RFC 5267 - ESORT
  *   RFC 5464 - METADATA
  *   RFC 5530 - IMAP Response Codes
+ *   RFC 5819 - LIST-STATUS
  *
- *   draft-ietf-morg-status-in-list-01  LIST-STATUS
  *   draft-ietf-morg-sortdisplay-02     SORT=DISPLAY
  *   draft-ietf-morg-inthread-00        THREAD=REFS
  *
@@ -50,7 +50,7 @@
  *   RFC 2177 - IDLE (probably not necessary due to the limited connection
  *                    time by each HTTP/PHP request)
  *   RFC 2193 - MAILBOX-REFERRALS
- *   RFC 4467/5092/5524/5550 - URLAUTH, URL-PARTIAL
+ *   RFC 4467/5092/5524/5550 - URLAUTH, URLFETCH=BINARY, URL-PARTIAL
  *   RFC 4469/5550 - CATENATE
  *   RFC 4978 - COMPRESS=DEFLATE
  *              See: http://bugs.php.net/bug.php?id=48725
@@ -59,8 +59,14 @@
  *   RFC 5267 - CONTEXT
  *   RFC 5465 - NOTIFY
  *   RFC 5466 - FILTERS
+ *   RFC 5738 - UTF8
  *
  *   draft-ietf-morg-inthread-00 - SEARCH=INTHREAD
+ *
+ *   [NO RFC] - XLIST
+ *       + See http://markmail.org/message/vxbqgt5omnph3hnt
+ *
+ * [See: http://www.iana.org/assignments/imap4-capabilities]
  * </pre>
  *
  * Originally based on code from:
