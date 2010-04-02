@@ -418,6 +418,8 @@ class Kronolith
         if ($calendar) {
             $driver = explode('|', $calendar, 2);
             $calendars = array($driver[0] => array($driver[1]));
+        } elseif (!empty($query->calendars)) {
+            $calendars = $query->calendars;
         } else {
             $calendars = array(
                 Horde_String::ucfirst($GLOBALS['conf']['calendar']['driver']) => $GLOBALS['display_calendars'],
@@ -463,7 +465,7 @@ class Kronolith
     public static function listEvents($startDate, $endDate, $calendars = null,
                                       $showRecurrence = true,
                                       $alarmsOnly = false, $showRemote = true,
-                                      $hideExceptions = false)
+                                      $hideExceptions = false, $coverDates = true)
     {
         $results = array();
 
@@ -475,7 +477,7 @@ class Kronolith
         foreach ($calendars as $calendar) {
             $driver->open($calendar);
             $events = $driver->listEvents($startDate, $endDate, $showRecurrence,
-                                          $alarmsOnly, false, true,
+                                          $alarmsOnly, false, $coverDates,
                                           $hideExceptions);
             
             self::mergeEvents($results, $events);
