@@ -41,8 +41,8 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
                 false,         // Recurrence
                 false,         // Alarms only
                 false,         // Show remote
-                true);         // Hide exception events
-
+                true,          // Hide exception events
+                false);        // Don't return multi-day events on *each* day
         return $result;
     }
 
