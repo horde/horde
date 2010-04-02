@@ -224,12 +224,13 @@ div#wizard h3
     border-top-right-radius: 5px;
     padding: 5px;
     display: block;
+    width: 500px;
 }
 
 .step
 {
     width: 500px;
     border: 1px dotted;
-    margin: 5px;
+    margin: 0px 5px;
     padding: 5px;
 }

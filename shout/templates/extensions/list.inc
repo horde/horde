@@ -43,11 +43,52 @@
     $addurl = Horde::applicationUrl('extensions.php');
     $addurl = Horde_Util::addParameter($addurl, 'action', 'add');
     ?>
-    <li><a class="button" href="<?php echo $addurl; ?>">
+    <li><a class="button" style="display: block;" href="<?php echo $addurl; ?>">
         <?php echo Horde::img('extension-add.png'); ?>&nbsp;New Extension
         </a>
     </li>
 </ul>
+
+<div id="addExtension" class="form">
+    <div class="header">Add Extension</div>
+        <table cellspacing="0" class="striped">
+            <tr valign="top" class="rowOdd">
+                <td align="right" width="15%">
+                    <span class="form-error">*</span>&nbsp;Full Name
+                </td>
+                <td>
+                    <input type="text" value="" size="40" id="name" name="name">
+                </td>
+            </tr>
+            <tr valign="top" class="rowEven">
+                <td align="right" width="15%">
+                    <span class="form-error">*</span>&nbsp;Extension
+                </td>
+                <td>
+                    <input type="text" value="" id="extension" name="extension" size="5">
+                </td>
+            </tr>
+            <tr valign="top" class="rowOdd">
+                <td align="right" width="15%">
+                    <span class="form-error">*</span>&nbsp;E-Mail Address
+                </td>
+                <td>
+                    <input type="text" value="" id="email" name="email">
+                </td>
+            </tr>
+            <tr valign="top" class="rowEven">
+                <td align="right" width="15%">
+                    <span class="form-error">*</span>&nbsp;PIN
+                </td>
+                <td>
+                    <input type="text" value="" id="mailboxpin" name="mailboxpin" size="5">
+                </td>
+            </tr>
+        </table>
+    <div class="control">
+        <input type="submit" value="Save" name="addExtension" class="button">
+    </div>
+</div>
 
 <script type="text/javascript">
 <!--
@@ -56,6 +97,9 @@ var destinations = $H();
 var devices = $H();
 var ajax_url = '<?php echo Horde::getServiceLink('ajax', 'shout') ?>';
 var curexten = null;
+
+$('addExtension').hide();
+
 
 function empty(p)
 {
