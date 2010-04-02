@@ -73,7 +73,6 @@ class Horde
      *
      * @param mixed $error   Either a string or an object with a getMessage()
      *                       method (e.g. PEAR_Error, Exception).
-     *                       @todo Better Exception handling
      * @param integer $file  The file in which the error occured.
      * @param integer $line  The line on which the error occured.
      * @param boolean $log   Log this message via logMessage()?

@@ -368,12 +368,14 @@ class Horde_Registry
         } else {
             $GLOBALS['notification']->attach('status');
         }
+
+        register_shutdown_function(array($this, 'shutdown'));
     }
 
     /**
      * Events to do on shutdown.
      */
-    public function __destruct()
+    public function shutdown()
     {
         /* Register access key logger for translators. */
         if (!empty($GLOBALS['conf']['log_accesskeys'])) {
