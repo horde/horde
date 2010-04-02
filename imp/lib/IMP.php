@@ -922,7 +922,8 @@ class IMP
         }
 
         if ($convert && ($ob['by'] == IMP::IMAP_SORT_DATE)) {
-            $ob['by'] = $GLOBALS['prefs']->getValue('sortdate');
+            $ob['by'] = $GLOBALS['prefs']->getValue('sortdate') ||
+                        Horde_Imap_Client::SORT_ARRIVAL;
         }
 
         return $ob;
