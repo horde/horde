@@ -221,10 +221,21 @@ div#wizard
     background-color: #fcc;
 }
 
+div#wizard .step
+{
+    background-color: #fff;
+    border: 2px solid #c00;
+    margin: 5px;
+    padding: 5px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
 div#wizard h3
 {
     cursor: pointer;
-    padding: 0 5px;
+    padding: 5px;
     display: block;
 }
 
@@ -232,16 +243,6 @@ div#wizard ol, div#wizard ul {
     margin-left: 30px;
 }
 
-.step
-{
-    background-color: #fff;
-    border: 2px solid #c00;
-    margin: 5px;
-    padding: 0 5px;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-}
 
 .form {
     position: relative;
