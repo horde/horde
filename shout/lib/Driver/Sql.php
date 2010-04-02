@@ -120,7 +120,6 @@ class Shout_Driver_Sql extends Shout_Driver
             throw new Shout_Exception($row);
         }
 
-        $menus = array();
         while ($row && !($row instanceof PEAR_Error)) {
             $menu = $row['name'];
             $menus[$menu] = array(
@@ -590,6 +589,39 @@ class Shout_Driver_Sql extends Shout_Driver
         }
 
         return true;
+    }
+
+    public function getNumbers()
+    {
+        $sql = 'SELECT numbers.id AS id, numbers.did AS did, ' .
+               'accounts.code AS accountcode, menus.name AS menuName ' .
+               'FROM numbers ' .
+               'INNER JOIN accounts ON numbers.account_id = accounts.id ' .
+               'INNER JOIN menus ON numbers.menu_id = menus.id';
+        
+        $msg = 'SQL query in Shout_Driver_Sql#getNumbers(): ' . $sql;
+        Horde::logMessage($msg, 'DEBUG');
+        $result = $this->_db->query($sql, $args);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+
+        $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
+        if ($row instanceof PEAR_Error) {
+            throw new Shout_Exception($row);
+        }
+
+        $numbers = array();
+        while ($row && !($row instanceof PEAR_Error)) {
+            $id = $numbers['did'];
+            $numbers[$id] = $row;
+
+            /* Advance to the new row in the result set. */
+            $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
+        }
+
+        $result->free();
+        return $numbers;
     }
 
     /**
