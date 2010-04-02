@@ -46,7 +46,7 @@ case 'edit':
 
     // Create a new add/edit form
     $extension = Horde_Util::getFormData('extension');
-    $extensions = $shout->extensions->getExtensions($curaccount);
+    $extensions = $shout->extensions->getExtensions($curaccount['code']);
     $vars = new Horde_Variables($extensions[$extension]);
     if ($action == 'edit') {
         $vars->set('oldextension', $extension);
