@@ -22,7 +22,10 @@
         ?>
         <tr class="item" style="vertical-align: top">
             <td>
-                <?php echo Horde::link($editurl); echo $info['name'] . ' (' . $extension . ')'; ?></a>
+                <?php echo Horde::link($editurl);
+                      echo $info['name'] . ' (' . $extension . ')';
+                      echo '</a>';
+                 ?>
             </td>
             <td>
                 <?php
@@ -38,21 +41,24 @@
         ?>
     </table>
 </div>
+<br />
 <ul id="controls">
     <?php
     $addurl = Horde::applicationUrl('extensions.php');
     $addurl = Horde_Util::addParameter($addurl, 'action', 'add');
     ?>
-    <li><a class="button" style="display: block;" href="<?php echo $addurl; ?>">
+    <li><span class="button" onclick="showExtensionForm()">
         <?php echo Horde::img('extension-add.png'); ?>&nbsp;New Extension
-        </a>
+        </span>
     </li>
 </ul>
 
 <div id="addExtension" class="form">
-    <div class="header">Add Extension</div>
+    <form id="addExtensionForm" action="#" name="addExtension">
+        <div class="header">Add Extension</div>
         <table cellspacing="0" class="striped">
             <tr valign="top" class="rowOdd">
+                <!-- FIXME: Make these error fields dynamic -->
                 <td align="right" width="15%">
                     <span class="form-error">*</span>&nbsp;Full Name
                 </td>
@@ -85,9 +91,10 @@
                 </td>
             </tr>
         </table>
-    <div class="control">
-        <input type="submit" value="Save" name="addExtension" class="button">
-    </div>
+        <div class="control">
+            <input type="submit" value="Save" name="addExtension" class="button">
+        </div>
+    </form>
 </div>
 
 <script type="text/javascript">
@@ -99,7 +106,7 @@ var ajax_url = '<?php echo Horde::getServiceLink('ajax', 'shout') ?>';
 var curexten = null;
 
 $('addExtension').hide();
-
+Event.observe('addExtensionForm', 'submit', function(event) {saveExtension(event);});
 
 function empty(p)
 {
@@ -501,6 +508,20 @@ function delDest(exten, type, dest)
             resetDestInfo();
         },
         onFailure: function(){ alert('Something went wrong...') }
+    });
+}
+
+function showExtensionForm()
+{
+    $('controls').hide();
+    Effect.BlindDown('addExtension');
+}
+
+function saveExtension(event)
+{
+    event.stop();
+    Effect.BlindUp('addExtension', {
+        afterFinish: function() { $('controls').show() }
     });
 }
 
