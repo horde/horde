@@ -319,7 +319,9 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
             $r->dayofweek = $recurrence->getRecurOnDays();
             break;
         }
-
+        if (!empty($recurrence->recurInterval)) {
+            $r->interval = $recurrence->recurInterval;
+        }
         $this->_properties['recurrence'] = $r;
     }
 
