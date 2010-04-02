@@ -111,7 +111,12 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
             $vars = $this->_vars;
             $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
             $account = $_SESSION['shout']['curaccount']['code'];
-            return $shout->devices->getDevices($account);
+            $devices = $shout->devices->getDevices($account);
+            if (empty($devices)) {
+                return false;
+            } else {
+                return $devices;
+            }
         } catch (Exception $e) {
             //FIXME: Create a way to notify the user of the failure.
             Horde::logMessage($e, 'ERR');
