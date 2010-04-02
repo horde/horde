@@ -46,27 +46,29 @@ class Kronolith_LoginTasks_Task_PurgeEvents extends Horde_LoginTasks_Task
 
         /* Start building an event object to use for the search */
         $kronolith_driver = Kronolith::getDriver();
-        $query = $kronolith_driver->getEvent();
+        $query = new StdClass();
         $query->start = null;
         $query->end = $del_time;
         $query->status = null;
-        $query->calendars = array_keys($calendars);
+        $query->calendars = array(Horde_String::ucfirst($GLOBALS['conf']['calendar']['driver']) => array_keys($calendars));
         $query->creator = Horde_Auth::getAuth();
 
         /* Perform the search */
-        $events = Kronolith::search($query);
+        $days = Kronolith::search($query);
         $count = 0;
-        foreach ($events as $event) {
-            if (!$event->recurs()) {
-                if ($event->calendar != $kronolith_driver->calendar) {
-                    $kronolith_driver->open($event->calendar);
-                }
-                try {
-                    $kronolith_driver->deleteEvent($event->id, true);
-                    ++$count;
-                } catch (Exception $e) {
-                    Horde::logMessage($e, 'ERR');
-                    throw $e;
+        foreach ($days as $events) {
+            foreach ($events as $event) {
+                if (!$event->recurs()) {
+                    if ($event->calendar != $kronolith_driver->calendar) {
+                        $kronolith_driver->open($event->calendar);
+                    }
+                    try {
+                        $kronolith_driver->deleteEvent($event->id, true);
+                        ++$count;
+                    } catch (Exception $e) {
+                        Horde::logMessage($e, 'ERR');
+                        throw $e;
+                    }
                 }
             }
         }
