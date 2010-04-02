@@ -31,12 +31,12 @@
             </tr>
             <tr>
                 <td><div class="button" onclick="saveMenuInfo()"><?php echo _("Save"); ?></div></td>
-                <td><div class="button" onclick="$('editMenu').hide()"><?php echo _("Cancel"); ?></div></td>
+                <td><div class="button" onclick="Effect.BlindUp('editMenu')"><?php echo _("Cancel"); ?></div></td>
             </tr>
         </table>
         </form>
         <br style="clear:both;">
-        <ul id="controls">
+        <ul id="dialplanControls" class="controls">
         <?php
         $addurl = Horde::applicationUrl('dialplan.php');
         $addurl = Horde_Util::addParameter($addurl, 'action', 'add');
@@ -101,7 +101,7 @@ var recordings = $H(<?php echo Horde_Serialize::serialize($recordings, Horde_Ser
 
 function empty(p)
 {
-    while ((e = $(p).childNodes[0]) != null) {
+    while ($(p) && (e = $(p).childNodes[0]) != null) {
         $(p).removeChild(e);
     }
 }
@@ -491,7 +491,7 @@ function refreshMenu()
 
 function editMenu()
 {
-    $('editMenu').show();
+    Effect.BlindDown('editMenu');
 }
 
 function deleteMenu()
@@ -531,7 +531,7 @@ function saveMenuInfo()
         method: 'post',
         parameters: params,
         onSuccess: function(r) {
-            $('editMenu').hide();
+            Effect.BlindUp('editMenu');
             new Ajax.Request(ajax_url + 'getMenus',
             {
                 method: 'get',
