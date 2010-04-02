@@ -27,6 +27,26 @@ class Shout_Ajax_Application extends Horde_Ajax_Application_Base
         return null;
     }
 
+    public function saveExtension()
+    {
+        try {
+            $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
+            $curaccount = $_SESSION['shout']['curaccount'];
+            require_once SHOUT_BASE . '/lib/Forms/ExtensionForm.php';
+            $this->_vars->set('account', $curaccount['code']);
+            $Form = new ExtensionDetailsForm($this->_vars);
+            $Form->setSubmitted();
+            if ($Form->isValid()) {
+                $Form->execute();
+                return true;
+            }
+        } catch (Exception $e) {
+            //FIXME: Create a way to notify the user of the failure.
+            Horde::logMessage($e, 'ERR');
+            return false;
+        }
+    }
+
     /**
      * TODO
      */

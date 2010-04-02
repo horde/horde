@@ -42,7 +42,7 @@
     </table>
 </div>
 <br />
-<ul id="controls">
+<ul id="extensionsControls" class="controls">
     <?php
     $addurl = Horde::applicationUrl('extensions.php');
     $addurl = Horde_Util::addParameter($addurl, 'action', 'add');
@@ -54,6 +54,7 @@
 </ul>
 
 <div id="addExtension" class="form">
+    <div id="addExtensionWorking" class="working"></div>
     <form id="addExtensionForm" action="#" name="addExtension">
         <div class="header">Add Extension</div>
         <table cellspacing="0" class="striped">
@@ -105,13 +106,15 @@ var devices = $H();
 var ajax_url = '<?php echo Horde::getServiceLink('ajax', 'shout') ?>';
 var curexten = null;
 
+$('addExtensionWorking').hide();
 $('addExtension').hide();
 Event.observe('addExtensionForm', 'submit', function(event) {saveExtension(event);});
 
 function empty(p)
 {
     var e;
-    while ((e = $(p).childNodes[0]) != null) {
+
+    while ($(p) && (e = $(p).childNodes[0]) != null) {
         $(p).removeChild(e);
     }
 }
@@ -513,16 +516,61 @@ function delDest(exten, type, dest)
 
 function showExtensionForm()
 {
-    $('controls').hide();
+    $('addExtensionWorking').hide();
+    $('extensionsControls').hide();
     Effect.BlindDown('addExtension');
 }
 
 function saveExtension(event)
 {
     event.stop();
-    Effect.BlindUp('addExtension', {
-        afterFinish: function() { $('controls').show() }
+    $('addExtensionWorking').show();
+    var params = Element.extend(event.target).serialize(true);
+
+    new Ajax.Request(ajax_url + 'saveExtension',
+    {
+        method: 'post',
+        parameters: params,
+        onSuccess: function(r) {
+            new Ajax.Request(ajax_url + 'getDestinations',
+            {
+                method: 'get',
+                onSuccess: function(r) {
+                    destinations = $H(r.responseJSON.response);
+                    addExtension(params);
+                    resetDestInfo();
+                    Effect.BlindUp('addExtension', {
+                        afterFinish: function() { $('extensionsControls').show() }
+                    });
+                }
+            });
+        }
     });
+   
+}
+
+function addExtension(params)
+{
+    var tr = document.createElement('tr');
+    tr.className = 'item';
+    var td = document.createElement('td');
+    var text = document.createTextNode(params.name + " (" + params.extension + ")");
+    td.appendChild(text);
+    tr.appendChild(td);
+
+    var td = document.createElement('td');
+    var img = document.createElement('img');
+    img.src = '<?php echo Horde_Themes::img('tree/plusonly.png'); ?>';
+    img.setAttribute('onclick', 'showDetail("'+params.extension+'");');
+    img.id = "destX" + params.extension + "toggle";
+    var span = document.createElement('span');
+    span.id = "destX" + params.extension;
+    td.appendChild(img);
+    td.appendChild(span);
+    tr.appendChild(td);
+
+    $('extensionList').down('tbody').appendChild(tr);
+    Horde.stripeAllElements.bind(Horde)();
 }
 
 new Ajax.Request(ajax_url + 'getDevices',
@@ -536,10 +584,10 @@ new Ajax.Request(ajax_url + 'getDevices',
 
 new Ajax.Request(ajax_url + 'getDestinations',
 {
-    method: 'post',
+    method: 'get',
     onSuccess: function(r) {
         destinations = $H(r.responseJSON.response);
-        resetDestInfo(true);
+        resetDestInfo();
     }
 });
 
