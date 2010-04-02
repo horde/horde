@@ -179,14 +179,9 @@ span.device:hover
 }
 
 .button {
-    float:left;
     margin: 3px;
     cursor: pointer;
     padding: 2px 8px;
-}
-
-.button a {
-    color: #fff;
 }
 
 .buttonActionLabel
@@ -213,6 +208,22 @@ span.device:hover
     opacity: 0.5;
     background: url('graphics/redbox_spinner.gif') no-repeat center #000;
     z-index: 5;
+}
+
+div#wizard h3
+{
+    cursor: pointer;
+    border-top: 5px solid #c00;
+    border-left: 5px solid #c00;
+    border-right: 5px solid #c00;
+    -moz-border-radius-topleft: 5px;
+    -webkit-border-top-left-radius: 5px;
+    border-top-left-radius: 5px;
+    -moz-border-radius-topright: 5px;
+    -webkit-border-top-right-radius: 5px;
+    border-top-right-radius: 5px;
+    padding: 5px;
+    display: block;
 }
 
 .step

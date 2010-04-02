@@ -43,12 +43,20 @@
         ?>
         
         <li>
-            <a class="button" href="<?php echo $addurl; ?>">
+            <a class="button" style="display: block;" href="<?php echo $addurl; ?>">
             <?php echo Horde::img('menu-add.png'); ?>&nbsp;New Menu
             </a>
         </li>
-        <li class="button" onclick="editMenu()"><?php echo Horde::img('menu-edit.png'); ?>&nbsp;Edit Menu</li>
-        <li class="button" onclick="deleteMenu()"><?php echo Horde::img('menu-delete.png');?>&nbsp;Delete Menu</li>
+        <li>
+            <div class="button" onclick="editMenu()">
+            <?php echo Horde::img('menu-edit.png'); ?>&nbsp;Edit Menu
+            </div>
+        </li>
+        <li>
+            <div class="button" onclick="deleteMenu()">
+            <?php echo Horde::img('menu-delete.png');?>&nbsp;Delete Menu
+            </div>
+        </li>
         </ul>
     </div>
 
