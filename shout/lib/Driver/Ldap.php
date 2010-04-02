@@ -51,7 +51,9 @@ class Shout_Driver_Ldap extends Shout_Driver
      */
     public function getExtensions($account)
     {
-
+        if (empty($account)) {
+            throw new Shout_Exception('Must specify an account code');
+        }
         static $entries = array();
         if (isset($entries[$account])) {
             return $entries[$account];
