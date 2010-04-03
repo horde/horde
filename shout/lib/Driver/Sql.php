@@ -167,6 +167,19 @@ class Shout_Driver_Sql extends Shout_Driver
 
     public function deleteMenu($account, $menu)
     {
+        // Disassociate any numbers that were previously associated
+        $sql = 'UPDATE numbers SET menu_id = 1 WHERE ' .
+               '(SELECT id FROM menus WHERE name = ? AND account_id = ' .
+               '(SELECT id FROM accounts WHERE code = ?))';
+        $values = array($menu, $account);
+        $msg = 'SQL query in Shout_Driver_Sql#deleteMenu(): ' . $sql;
+        Horde::logMessage($msg, 'DEBUG');
+        $result = $this->_write_db->query($sql, $values);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+
+        // Remove any associated menu entries
         $sql = 'DELETE FROM menu_entries WHERE menu_id = ' .
                '(SELECT id FROM menus WHERE name = ? AND account_id = ' .
                '(SELECT id FROM accounts WHERE code = ?))';
@@ -178,6 +191,7 @@ class Shout_Driver_Sql extends Shout_Driver
             throw new Shout_Exception($result);
         }
 
+        // Finally, remove the menu itself.
         $sql = 'DELETE FROM menus WHERE name = ? AND account_id = ' .
                '(SELECT id FROM accounts WHERE code = ?)';
         $values = array($menu, $account);
