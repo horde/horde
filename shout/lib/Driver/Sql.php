@@ -670,15 +670,18 @@ class Shout_Driver_Sql extends Shout_Driver
         if (isset($numbers[$number])) {
             $sql = 'UPDATE numbers SET ' .
                    'account_id = (SELECT id FROM accounts WHERE code = ?), ' .
-                   'menu_id = (SELECT id FROM menus WHERE name = ?) ' .
+                   'menu_id = (SELECT id FROM menus WHERE name = ? AND ' .
+                   'account_id = (SELECT id FROM accounts WHERE code = ?)) ' .
                    'WHERE did = ?';
+            $values = array($account, $menu, $account, $number);
         } else {
             $sql = 'INSERT INTO numbers (account_id, menu_id, did) VALUES (' .
                    '(SELECT id FROM accounts WHERE code = ?), ' .
                    '(SELECT id FROM menus WHERE name = ?), ' .
                    '?)';
+            $values = array($account, $menu, $number);
         }
-        $values = array($account, $menu, $number);
+
         $msg = 'SQL query in Shout_Driver_Sql#saveNumber(): ' . $sql;
         Horde::logMessage($msg, 'DEBUG');
         $result = $this->_write_db->query($sql, $values);

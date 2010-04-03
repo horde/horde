@@ -61,6 +61,7 @@ try {
                                      'star', 'admin_login', array());
     $extensions = $shout->extensions->getExtensions($curaccount['code']);
 } catch (Exception $e) {
+    print_r($e);
     $notification->push($e);
 }
 
