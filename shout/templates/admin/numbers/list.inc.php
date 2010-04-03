@@ -10,18 +10,19 @@
             $editurl = Horde_Util::addParameter($url, 'action', 'edit');
             $deleteurl = Horde_Util::addParameter($url, 'action', 'delete');
             foreach ($numbers as $numberinfo) {
-                $code = $acctinfo['code'];
+                $accountcode = $numberinfo['accountcode'];
                 ?>
-                <tr class="item" style="vertical-align: top">
+                <tr class="item">
                     <td>
                         <?php echo Horde::link(Horde_Util::addParameter($editurl,
-                            array('account' => $code))); echo $code; echo '</a>'; ?>
+                                    array('number' => $numberinfo['number'])));
+                              echo $numberinfo['number']; echo '</a>'; ?>
                     </td>
                     <td>
-                        <?php echo $acctinfo['name']; ?>
+                        <?php echo $accounts[$accountcode]['name']; ?>
                     </td>
                     <td>
-                        <?php echo $acctinfo['adminpin']; ?>
+                        <?php echo $numberinfo['menuName']; ?>
                     </td>
                 </tr>
                 <?php

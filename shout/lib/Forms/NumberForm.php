@@ -37,6 +37,7 @@ class NumberDetailsForm extends Horde_Form {
 
         $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
         $accounts = $shout->storage->getAccounts();
+        $list = array();
         foreach ($accounts as $id => $info) {
             $list[$id] = $info['name'];
         }
@@ -47,13 +48,15 @@ class NumberDetailsForm extends Horde_Form {
         $select->setOption('trackchange', true);
 
         $accountcode = $vars->get('accountcode');
-        $menus = $shout->storage->getMenus($accountcode);
-        $list = array('' => _("-- none --"));
-        foreach ($menus as $id => $info) {
-            $list[$id] = $info['name'];
+        if (!empty($accountcode)) {
+            $menus = $shout->storage->getMenus($accountcode);
+            $list = array();
+            foreach ($menus as $id => $info) {
+                $list[$id] = $info['name'];
+            }
+            $this->addVariable(_("Menu"), 'menuName', 'enum', false,
+                                         false, null, array($list));
         }
-        $this->addVariable(_("Menu"), 'menuName', 'enum', false,
-                                     false, null, array($list));
         return true;
     }
 
@@ -62,19 +65,14 @@ class NumberDetailsForm extends Horde_Form {
      */
     function execute()
     {
-        die("FIXME");
         $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
 
-        $code = $this->_vars->get('code');
-        $name = $this->_vars->get('name');
-        $adminpin = $this->_vars->get('adminpin');
-        if (empty($adminpin)) {
-            $adminpin = rand(1000, 9999);
-        }
+        $number = $this->_vars->get('number');
+        $accountcode = $this->_vars->get('accountcode');
+        $menuName = $this->_vars->get('menuName');
 
-        $shout->storage->saveAccount($code, $name, $adminpin);
+        return $shout->storage->saveNumber($number, $accountcode, $menuName);
     }
-
 }
 
 class NumberDeleteForm extends Horde_Form

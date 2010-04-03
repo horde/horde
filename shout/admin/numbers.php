@@ -24,7 +24,13 @@ $title = _("Numbers: ");
 switch ($action) {
 case 'add':
 case 'edit':
-    $vars = Horde_Variables::getDefaultVariables();
+    $number = Horde_Util::getFormData('number');
+    if ($action == 'edit' && !empty($number)) {
+        $numbers = $shout->storage->getNumbers();
+        $vars = Horde_Variables::getDefaultVariables($numbers['number']);
+    } else {
+        $vars = Horde_Variables::getDefaultVariables();
+    }
     $Form = new NumberDetailsForm($vars);
 
     if ($Form->isSubmitted() && $Form->validate($vars, true)) {
@@ -34,10 +40,10 @@ case 'edit':
             $notification->push(_("Account information saved."),
                                   'horde.success');
             $action = 'list';
+            break;
         } catch (Exception $e) {
             $notification->push($e);
         }
-        break;
     } elseif ($Form->isSubmitted()) {
         $notification->push(_("Problem processing the form.  Please check below and try again."), 'horde.warning');
     }
@@ -84,11 +90,11 @@ default:
 }
 
 try {
+    $accounts = $shout->storage->getAccounts();
     $numbers = $shout->storage->getNumbers();
 } catch (Exception $e) {
     $notification->push($e);
 }
-
 
 Horde::addScriptFile('stripe.js', 'horde');
 Horde::addScriptFile('prototype.js', 'horde');

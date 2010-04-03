@@ -256,7 +256,6 @@ class Shout_Driver_Sql extends Shout_Driver
                '(SELECT id FROM actions WHERE name = ?), ?)';
         $yamlargs = Horde_Yaml::dump($args);
         $values = array($account, $menu, $digit, $action, $yamlargs);
-        Horde::logMessage("Data: ".print_r($values, true), 'ERR');
         $msg = 'SQL query in Shout_Driver_Sql#saveMenuAction(): ' . $sql;
         Horde::logMessage($msg, 'DEBUG');
         $result = $this->_write_db->query($sql, $values);
@@ -593,7 +592,7 @@ class Shout_Driver_Sql extends Shout_Driver
 
     public function getNumbers()
     {
-        $sql = 'SELECT numbers.id AS id, numbers.did AS did, ' .
+        $sql = 'SELECT numbers.id AS id, numbers.did AS number, ' .
                'accounts.code AS accountcode, menus.name AS menuName ' .
                'FROM numbers ' .
                'INNER JOIN accounts ON numbers.account_id = accounts.id ' .
@@ -613,7 +612,7 @@ class Shout_Driver_Sql extends Shout_Driver
 
         $numbers = array();
         while ($row && !($row instanceof PEAR_Error)) {
-            $id = $numbers['did'];
+            $id = $row['number'];
             $numbers[$id] = $row;
 
             /* Advance to the new row in the result set. */
@@ -622,6 +621,45 @@ class Shout_Driver_Sql extends Shout_Driver
 
         $result->free();
         return $numbers;
+    }
+
+    public function deleteNumber($number)
+    {
+        // Remove any existing action
+        $sql = 'DELETE FROM numbers WHERE did = ?';
+        $values = array($number);
+        $msg = 'SQL query in Shout_Driver_Sql#deleteNumber(): ' . $sql;
+        Horde::logMessage($msg, 'DEBUG');
+        $result = $this->_write_db->query($sql, $values);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+        return true;
+    }
+
+    public function saveNumber($number, $account, $menu)
+    {
+        $numbers = $this->getNumbers();
+        if (isset($numbers[$number])) {
+            $sql = 'UPDATE numbers SET ' .
+                   'account_id = (SELECT id FROM accounts WHERE code = ?), ' .
+                   'menu_id = (SELECT id FROM menus WHERE name = ?) ' .
+                   'WHERE did = ?';
+        } else {
+            $sql = 'INSERT INTO numbers (account_id, menu_id, did) VALUES (' .
+                   '(SELECT id FROM accounts WHERE code = ?), ' .
+                   '(SELECT id FROM menus WHERE name = ?), ' .
+                   '?)';
+        }
+        $values = array($account, $menu, $number);
+        $msg = 'SQL query in Shout_Driver_Sql#saveNumber(): ' . $sql;
+        Horde::logMessage($msg, 'DEBUG');
+        $result = $this->_write_db->query($sql, $values);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+
+        return true;
     }
 
     /**
