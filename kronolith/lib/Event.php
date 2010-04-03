@@ -2465,7 +2465,9 @@ abstract class Kronolith_Event
                     . '</a>';
             }
             if ($this->hasPermission(Horde_Perms::DELETE)) {
-                $link .= $this->getDeleteUrl()
+                $link .= $this->getDeleteUrl(
+                    array('datetime' => $datetime->strftime('%Y%m%d%H%M%S'),
+                          'url' => $from_url))
                     ->link(array('title' => sprintf(_("Delete %s"), $event_title),
                                  'class' => 'iconDelete'))
                     . Horde::fullSrcImg('delete-' . $icon_color . '.png',
