@@ -1,7 +1,3 @@
-<div class="header">
-    Account: <?php echo $_SESSION['shout']['curaccount']['name']; ?>
-</div>
-
 <div id="extensionList">
     <table width="100%" cellspacing="0" class="striped">
         <tr>
@@ -10,7 +6,7 @@
             <td class="uheader">Admin PIN</td>
         </tr>
         <?php
-            $url = Horde::applicationUrl("admin.php");
+            $url = Horde::applicationUrl("admin/accounts.php");
             $editurl = Horde_Util::addParameter($url, 'action', 'edit');
             $deleteurl = Horde_Util::addParameter($url, 'action', 'delete');
             foreach ($accounts as $acctinfo) {
