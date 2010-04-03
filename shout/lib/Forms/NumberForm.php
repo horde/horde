@@ -50,7 +50,7 @@ class NumberDetailsForm extends Horde_Form {
         $accountcode = $vars->get('accountcode');
         if (!empty($accountcode)) {
             $menus = $shout->storage->getMenus($accountcode);
-            $list = array();
+            $list = array('' => '-- None --');
             foreach ($menus as $id => $info) {
                 $list[$id] = $info['name'];
             }

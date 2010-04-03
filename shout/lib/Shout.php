@@ -242,19 +242,19 @@ class Shout
 
     static public function getAdminTabs()
     {
-        $tabname = Horde_Util::getFormData('tabname');
+        $tabname = Horde_Util::getFormData('view');
         $tabs = new Horde_Ui_Tabs('view', Horde_Variables::getDefaultVariables());
         $tabs->addTab(_("Telephone Numbers"),
                       Horde::applicationUrl('admin/numbers.php'),
-                      array('tabname' => 'numbers', id => 'tabnumbers'));
+                      array('view' => 'numbers', id => 'tabnumbers'));
         $tabs->addTab(_("Accounts"),
                       Horde::applicationUrl('admin/accounts.php'),
-                      array('tabname' => 'accounts', id => 'tabaccounts'));
-        if ($tabname === null) {
-            $tabname = 'numbers';
+                      array('view' => 'accounts', id => 'tabaccounts'));
+        if ($view === null) {
+            $view = 'numbers';
         }
 
-        echo $tabs->render($tabname);
+        echo $tabs->render($view);
     }
 
 }

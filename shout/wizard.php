@@ -14,38 +14,54 @@ $shout = Horde_Registry::appInit('shout');
 require_once SHOUT_BASE . '/lib/Forms/ExtensionForm.php';
 
 try {
-    // Only continue if there is no existing "Main Menu"
     $curaccount = $_SESSION['shout']['curaccount'];
+
+    // Only continue if there is an assigned phone number
+    $numbers = $shout->storage->getNumbers($curaccount['code']);
+    if (empty($numbers)) {
+        throw new Shout_Exception("No valid numbers on this account.");
+    }
+    // Grab the first available number
+    $number = reset($numbers);
+    $number = $number['number'];
+
+    // Only continue if there is no existing "Main Menu"
     $menus = $shout->storage->getMenus($curaccount['code']);
 
-//    if (!empty($menus) && !empty($menus[Shout::MAIN_MENU])) {
-//        header('Location: ' . Horde::applicationUrl('dialplan.php', true));
-//        exit;
-//    }
-//
-//    // Create the default recording for the main menu
-//    try {
-//        $recording = $shout->storage->getRecordingByName($curaccount['code'],
-//                                                         Shout::MAIN_RECORDING);
-//    } catch (Shout_Exception $e) {
-//        $shout->storage->addRecording($curaccount['code'], Shout::MAIN_RECORDING);
-//        $recording = $shout->storage->getRecordingByName($curaccount['code'],
-//                                                         Shout::MAIN_RECORDING);
-//    }
-//
-//    // Create a default main menu
-//    $details = array(
-//        'name' => Shout::MAIN_MENU,
-//        'description' => _("Main menu: what your callers will hear."),
-//        'recording_id' => $recording['id']
-//    );
-//    $shout->dialplan->saveMenuInfo($curaccount['code'], $details);
-//    // Populate the default option, granting the ability to log into the admin
-//    // section.
-//    $shout->dialplan->saveMenuAction($curaccount['code'], Shout::MAIN_MENU,
-//                                     'star', 'admin_login', array());
+    if (!empty($menus) && !empty($menus[Shout::MAIN_MENU])) {
+        header('Location: ' . Horde::applicationUrl('dialplan.php', true));
+        exit;
+    }
+
+    // Create the default recording for the main menu
+    try {
+        $recording = $shout->storage->getRecordingByName($curaccount['code'],
+                                                         Shout::MAIN_RECORDING);
+    } catch (Shout_Exception $e) {
+        $shout->storage->addRecording($curaccount['code'], Shout::MAIN_RECORDING);
+        $recording = $shout->storage->getRecordingByName($curaccount['code'],
+                                                         Shout::MAIN_RECORDING);
+    }
+
+    // Create a default main menu
+    $details = array(
+        'name' => Shout::MAIN_MENU,
+        'description' => _("Main menu: what your callers will hear."),
+        'recording_id' => $recording['id']
+    );
+    $shout->dialplan->saveMenuInfo($curaccount['code'], $details);
+
+    // Associate this menu with the first number.
+    // FIXME: This could be disruptive.
+    $shout->storage->saveNumber($number, $curaccount['code'], Shout::MAIN_MENU);
+
+    // Populate the default option, granting the ability to log into the admin
+    // section.
+    $shout->dialplan->saveMenuAction($curaccount['code'], Shout::MAIN_MENU,
+                                     'star', 'admin_login', array());
     $extensions = $shout->extensions->getExtensions($curaccount['code']);
 } catch (Exception $e) {
+    print_r($e);
     $notification->push($e);
 }
 

@@ -11,7 +11,7 @@
     <h3 onclick="showstep('step1')">Step 1: Create your company greeting</h3>
     <div id="step1">
         <ol>
-            <li>Call your new number: FIXME</li>
+            <li>Call your new number: <?php echo $number; ?></li>
             <li>When you hear the default greeting, press the star key, "<span class="attention">*</span>".</li>
             <li>When prompted, enter your admin PIN: <span class="attention"><?php echo $curaccount['adminpin']; ?></span>.</li>
             <li>Press <span class="attention">1</span> to manage recordings.</li>
