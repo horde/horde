@@ -526,7 +526,7 @@ class Horde_Controller_Request_Http extends Horde_Controller_Request_Base
         if ($this->_headers == null) {
             $this->_headers = $this->_getAllHeaders();
         }
-
+        $name = Horde_String::lower($name);
         if (isset($this->_headers[$name])) {
             return $this->_headers[$name];
         }
@@ -579,7 +579,7 @@ class Horde_Controller_Request_Http extends Horde_Controller_Request_Base
     function _getAllHeaders()
     {
         if (function_exists('getallheaders')) {
-            return getallheaders();
+            return array_change_key_case(getallheaders(), CASE_LOWER);
         }
 
         $result = array();
@@ -587,42 +587,12 @@ class Horde_Controller_Request_Http extends Horde_Controller_Request_Base
         foreach ($_SERVER as $key => $value) {
             $header_name = substr($key, 0, 5);
             if ($header_name == 'HTTP_') {
-                $result[$key] = $value;
+                $hdr = str_replace('_', '-', Horde_String::lower(substr($key, 5)));
+                $result[$hdr] = $value;
             }
         }
 
-        // map so that the variables gotten from the environment when
-        // running as CGI have the same names as when PHP is an apache
-        // module
-        $map = array (
-            'HTTP_ACCEPT'           =>  'Accept',
-            'HTTP_ACCEPT_CHARSET'   =>  'Accept-Charset',
-            'HTTP_ACCEPT_ENCODING'  =>  'Accept-Encoding',
-            'HTTP_ACCEPT_LANGUAGE'  =>  'Accept-Language',
-            'HTTP_CONNECTION'       =>  'Connection',
-            'HTTP_HOST'             =>  'Host',
-            'HTTP_KEEP_ALIVE'       =>  'Keep-Alive',
-            'HTTP_USER_AGENT'       =>  'User-Agent' );
-
-        $mapped_result = array();
-        foreach ($result as $k => $v) {
-            if (!empty($map[$k])) {
-                $mapped_result[$map[$k]] = $v;
-            } elseif (substr($k, 0, 5) == 'HTTP_') {
-                // Try to work with what we have...
-                $hdr_key = substr($k, 5);
-                $tokens = explode('_', $hdr_key);
-                if (count($tokens) > 0) {
-                    foreach($tokens as $key => $value) {
-                        $tokens[$key] = Horde_String::ucfirst(Horde_String::lower($value));
-                    }
-                    $hdr_key = implode('-', $tokens);
-                    $mapped_result[$hdr_key] = $v;
-                }
-            }
-        }
-
-        return $mapped_result;
+        return $result;
     }
 
 }
