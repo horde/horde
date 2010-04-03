@@ -107,6 +107,6 @@ $notification->notify();
 
 Shout::getAdminTabs();
 
-require SHOUT_TEMPLATES . '/accounts/' . $action . '.inc';
+require SHOUT_TEMPLATES . '/admin/accounts/' . $action . '.inc';
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';
