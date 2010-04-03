@@ -139,14 +139,11 @@ class IMP_Imap
 
         Horde_Imap_Client::$encryptKey = $GLOBALS['injector']->getInstance('Horde_Secret')->getKey('imp');
 
-        $old_error = error_reporting(0);
-        $this->_ob = unserialize($_SESSION['imp']['imap_ob'][$_SESSION['imp']['server_key']]);
-        error_reporting($old_error);
-
+        $this->_ob = @unserialize($_SESSION['imp']['imap_ob'][$_SESSION['imp']['server_key']]);
         if (empty($this->_ob)) {
-            // @todo How to handle bad unserialize?
-            // @todo Log message
-            return false;
+            /* Throw fatal error here - should never reach here and if we
+             * do, we are out of luck. */
+            throw new IMP_Exception(_("Could not acquire mail server credentials from the session."));
         }
 
         $this->_postcreate($_SESSION['imp']['protocol']);
