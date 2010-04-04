@@ -158,6 +158,12 @@
     <length>255</length>
    </field>
 
+   <field>
+    <name>event_exceptionoriginaldate</name>
+    <type>timestamp</type>
+    <default></default>
+   </field>
+
    <index>
     <name>kronolith_primary</name>
     <primary>true</primary>

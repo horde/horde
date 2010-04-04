@@ -330,8 +330,8 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             ' event_recurtype, event_recurenddate, event_recurinterval,' .
             ' event_recurdays, event_start, event_end, event_allday,' .
             ' event_alarm, event_alarm_methods, event_modified,' .
-            ' event_exceptions, event_creator_id, event_resources, event_baseid' .
-            ' FROM ' . $this->_params['table'] .
+            ' event_exceptions, event_creator_id, event_resources, event_baseid,' .
+            ' event_exceptionoriginaldate FROM ' . $this->_params['table'] .
             ' WHERE calendar_id = ?';
         $values = array($this->calendar);
 
@@ -445,8 +445,8 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             ' event_recurdays, event_start, event_end, event_allday,' .
             ' event_alarm, event_alarm_methods, event_modified,' .
             ' event_exceptions, event_creator_id, event_resources,' .
-            ' event_baseid FROM ' . $this->_params['table'] .
-            ' WHERE event_id = ? AND calendar_id = ?';
+            ' event_baseid, event_exceptionoriginaldate FROM ' .
+            $this->_params['table'] . ' WHERE event_id = ? AND calendar_id = ?';
         $values = array($eventId, $this->calendar);
 
         /* Log the query at a DEBUG log level. */
@@ -484,8 +484,9 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             ' event_recurtype, event_recurenddate, event_recurinterval,' .
             ' event_recurdays, event_start, event_end, event_allday,' .
             ' event_alarm, event_alarm_methods, event_modified,' .
-            ' event_exceptions, event_creator_id, event_resources' .
-            ' FROM ' . $this->_params['table'] . ' WHERE event_uid = ?';
+            ' event_exceptions, event_creator_id, event_resources, event_baseid,' .
+            ' event_exceptionoriginaldate FROM ' . $this->_params['table'] .
+            ' WHERE event_uid = ?';
         $values = array($uid);
 
         /* Optionally filter by calendar */

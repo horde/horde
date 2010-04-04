@@ -95,6 +95,7 @@ if ($exception = Horde_Util::getFormData('del_exception')) {
                 $event->readForm();
                 $event->recurrence->setRecurType(Horde_Date_Recurrence::RECUR_NONE);
                 $event->baseid = $uid;
+                $event->exceptionoriginaldate = $exception;
 
                 break;
 

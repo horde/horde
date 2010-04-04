@@ -24,6 +24,7 @@ CREATE TABLE kronolith_events (
     event_modified NUMBER(16) NOT NULL,
     event_private NUMBER(1) DEFAULT 0 NOT NULL,
     event_baseid VARCHAR2(255) DEFAULT '',
+    event_exceptionoriginaldate DATE,
 
 --
     PRIMARY KEY (event_id)

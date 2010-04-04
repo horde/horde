@@ -140,6 +140,9 @@ class Kronolith_Event_Sql extends Kronolith_Event
         if (isset($SQLEvent['event_baseid'])) {
             $this->baseid = $SQLEvent['event_baseid'];
         }
+        if (isset($SQLEvent['event_exceptionoriginaldate'])) {
+            $this->exceptionoriginaldate = new Horde_Date($SQLEvent['event_exceptionoriginaldate']);
+        }
 
         $this->initialized = true;
         $this->stored = true;
@@ -215,9 +218,12 @@ class Kronolith_Event_Sql extends Kronolith_Event
             $this->_properties['event_exceptions'] = implode(',', $this->recurrence->getExceptions());
         }
 
+        /* Exception information */
         if (!empty($this->baseid)) {
             $this->_properties['event_baseid'] = $this->baseid;
+            $this->_properties['event_exceptionoriginaldate'] = $this->exceptionoriginaldate;
         }
+
     }
 
     public function getProperties()
