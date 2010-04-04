@@ -161,6 +161,10 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
             $this->_properties['alldayevent'] = self::IS_ALL_DAY;
         } elseif (!empty($datetime['allday'])) {
             $this->_properties['alldayevent'] = self::IS_ALL_DAY;
+            $end = new Horde_Date(
+                array('year'  => (int)$end->year,
+                      'month' => (int)$end->month,
+                      'mday'  => (int)$end->mday));
         }
         $this->_properties['starttime'] = $start;
         $this->_properties['endtime'] = $end;
@@ -385,11 +389,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      */
     public function addException(Horde_ActiveSync_Message_Exception $exception)
     {
-//        if (!isset($this->_properties['exceptions']) || !is_array($this->_properties['exceptions'])) {
-//            $this->_properties['exceptions'] = array();
-//        }
         $this->exceptions[] = $exception;
-        //$this->_properties['exceptions'][] = $exception;
     }
 
     /**
@@ -399,7 +399,6 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     public function getExceptions()
     {
         return $this->exceptions;
-        //return $this->_getAttribute('exceptions', array());
     }
 
     /**

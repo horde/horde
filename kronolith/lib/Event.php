@@ -277,6 +277,14 @@ abstract class Kronolith_Event
     public $baseid;
 
     /**
+     * For exceptions, the date of the original recurring event that this is an
+     * exception for.
+     * 
+     * @var Horde_Date
+     */
+    public $exceptionoriginaldate;
+
+    /**
      * Constructor.
      *
      * @param Kronolith_Driver $driver  The backend driver that this event is
@@ -1051,20 +1059,22 @@ abstract class Kronolith_Event
 
             $erules = $message->getExceptions();
             foreach ($erules as $rule){
-                $d = new Horde_Date($rule->getExceptionStartTime());
-                $this->recurrence->addException($d->format('Y'), $d->format('m'), $d->format('d'));
-
-                /* Readd the exception event */
-                $event = $kronolith_driver->getEvent();
-                $times = $rule->getDatetime();
-                $event->start = $times['start'];
-                $event->end = $times['end'];
-                $event->allday = $times['allday'];
-                $event->title = Horde_String::convertCharset($rule->getSubject(), 'utf-8', Horde_Nls::getCharset());
-                $event->description = Horde_String::convertCharset($rule->getBody(), 'utf-8', Horde_Nls::getCharset());
-                $event->baseid = $this->uid;
-                $event->initialized = true;
-                $event->save();
+                /* Readd the exception event, but only if not deleted */
+                if (!$rule->deleted) {
+                    $event = $kronolith_driver->getEvent();
+                    $times = $rule->getDatetime();
+                    $original = $rule->getExceptionStartTime();
+                    $this->recurrence->addException($original->format('Y'), $original->format('m'), $original->format('d'));
+                    $event->start = $times['start'];
+                    $event->end = $times['end'];
+                    $event->allday = $times['allday'];
+                    $event->title = Horde_String::convertCharset($rule->getSubject(), 'utf-8', Horde_Nls::getCharset());
+                    $event->description = Horde_String::convertCharset($rule->getBody(), 'utf-8', Horde_Nls::getCharset());
+                    $event->baseid = $this->uid;
+                    $event->exceptionoriginaldate = $original;
+                    $event->initialized = true;
+                    $event->save();
+                }
             }
         }
 
@@ -1126,11 +1136,44 @@ abstract class Kronolith_Event
         if ($this->recurs()) {
             $message->setRecurrence($this->recurrence);
 
-            /* Exceptions */
+            /* Exceptions are tricky. Exceptions, even those are that represent
+             * deleted instances of a recurring event, must be added. To do this
+             * we need query storage for all the events that represent exceptions
+             * (those with the baseid == $this->uid) and then remove the
+             * exceptionoriginaldate from the list of exceptions we know about.
+             * Any dates left in this list when we are done, must represent
+             * deleted instances of this recurring event.*/
             if (!empty($this->recurrence) && $exceptions = $this->recurrence->getExceptions()) {
-                foreach ($exceptions as $start) {
+                $kronolith_driver = Kronolith::getDriver(null, $this->calendar);
+                $search = new StdClass();
+                $search->start = $this->recurrence->getRecurStart();
+                $search->end = $this->recurrence->getRecurEnd();
+                $search->baseid = $this->uid;
+                $results = $kronolith_driver->search($search);
+                foreach ($results as $days) {
+                    foreach ($days as $exception) {
+                        $e = new Horde_ActiveSync_Message_Exception();
+                        /* Times */
+                        $e->setDateTime(
+                            array('start' => $exception->start,
+                                  'end' => $exception->end,
+                                  'allday' => $exception->isAllDay()));
+                        /* The start time of the original recurring event */
+                        $e->setExceptionStartTime($exception->exceptionoriginaldate);
+                        $originaldate = $exception->exceptionoriginaldate->format('Ymd');
+                        $key = array_search($originaldate, $exceptions);
+                        if ($key !== false) {
+                            unset($exceptions[$key]);
+                        }
+                        $message->addexception($e);
+                    }
+                }
+
+                /* Any dates left in $exceptions must be deleted exceptions */
+                foreach ($exceptions as $deleted) {
                     $e = new Horde_ActiveSync_Message_Exception();
-                    $e->setDateTime(array('start' => new Horde_Date($start)));
+                    $e->setExceptionStartTime(new Horde_Date($deleted));
+                    $e->deleted = true;
                     $message->addException($e);
                 }
             }
@@ -1138,6 +1181,7 @@ abstract class Kronolith_Event
 
         /* Attendees */
 
+        /* Reminder */
         $message->setReminder($this->alarm);
 
         return $message;
