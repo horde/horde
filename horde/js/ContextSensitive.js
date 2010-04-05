@@ -217,7 +217,7 @@ var ContextSensitive = Class.create({
     {
         if (this.trigger(e.element(), left, e.pointerX(), e.pointerY())) {
             e.stop();
-        };
+        }
     },
 
     /**

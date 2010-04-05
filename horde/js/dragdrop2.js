@@ -273,7 +273,7 @@ Drag = Class.create({
         this.lastcaption = null;
         this.clickEvent = e;
 
-        this.element.fire('DragDrop2:mousedown', e);
+        this.element.fire('DragDrop2:mousedown', Object.clone(e));
 
         if (this.options.ghosting || this.options.caption) {
             if (!DragDrop.Drags.cover) {
@@ -314,7 +314,7 @@ Drag = Class.create({
         if (++this.move <= this.options.threshold) {
             return;
         } else if (!this.wasMoved) {
-            this.element.fire('DragDrop2:start', this.clickEvent);
+            this.element.fire('DragDrop2:start', Object.clone(this.clickEvent));
             this.wasMoved = true;
         }
 
@@ -413,7 +413,7 @@ Drag = Class.create({
 
         this.wasDragged = true;
 
-        this.element.fire('DragDrop2:drag', e);
+        this.element.fire('DragDrop2:drag', Object.clone(e));
 
         if (this.options.scroll) {
             this._onMoveScroll();
@@ -422,7 +422,7 @@ Drag = Class.create({
 
     _mouseUp: function(e)
     {
-        var d = DragDrop.Drops.drop;
+        var d = DragDrop.Drops.drop, tmp;
 
         this._stopScrolling();
 
@@ -449,7 +449,15 @@ Drag = Class.create({
             DragDrop.Drags.cover.down().siblings().invoke('remove');
         }
 
-        this.element.fire(this.wasMoved ? 'DragDrop2:end' : 'DragDrop2:mouseup', e);
+        if (!this.element.parentNode) {
+            tmp = new Element('DIV').insert(this.element);
+        }
+
+        this.element.fire(this.wasMoved ? 'DragDrop2:end' : 'DragDrop2:mouseup', Object.clone(e));
+
+        if (tmp) {
+            tmp.remove();
+        }
     },
 
     _onMoveDrag: function(xy, e)
