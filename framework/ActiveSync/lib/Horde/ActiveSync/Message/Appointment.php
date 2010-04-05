@@ -662,12 +662,13 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     }
 
     /**
+     * Get a list of this event's attendees
      *
      * @return array  An array of 'name' and 'email' hashes
      */
     public function getAttendees()
     {
-        return $this->_getAttribute('attendees');
+        return $this->_getAttribute('attendees', array());
     }
 
     /**
