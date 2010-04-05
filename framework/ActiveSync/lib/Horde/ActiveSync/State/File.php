@@ -465,9 +465,6 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
     /**
      * Save the current ping state to storage
      *
-     * @param string $devId      The PIM device id
-     * @param integer $lifetime  The ping heartbeat/lifetime interval
-     *
      * @return boolean
      * @throws Horde_ActiveSync_Exception
      */
