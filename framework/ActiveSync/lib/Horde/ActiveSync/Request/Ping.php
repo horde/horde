@@ -108,7 +108,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
             for ($n = 0; $n < 10; $n++) {
                 //check the remote wipe status
                 if ($this->_provisioning === true) {
-                    $rwstatus = $this->_driver->getDeviceRWStatus($this->_devId);
+                    $rwstatus = $state->getDeviceRWStatus($this->_devId);
                     if ($rwstatus == SYNC_PROVISION_RWSTATUS_PENDING || $rwstatus == SYNC_PROVISION_RWSTATUS_WIPED) {
                         $this->_statusCode = self::STATUS_FOLDERSYNCREQD;
                         break;
