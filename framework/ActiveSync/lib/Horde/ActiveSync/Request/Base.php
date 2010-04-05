@@ -109,8 +109,9 @@ abstract class Horde_ActiveSync_Request_Base
     /**
      * Ensure the PIM's policy key is current.
      *
-     * @param <type> $devId
-     * @return <type>
+     * @param integer $sentKey  The policykey sent to us by the PIM
+     *
+     * @return boolean
      */
     public function checkPolicyKey($sentKey)
     {
@@ -121,7 +122,7 @@ abstract class Horde_ActiveSync_Request_Base
             /* Loose provsioning should allow a blank key */
             if ((empty($storedKey) || $storedKey != $sentKey) &&
                ($this->_provisioning !== 'loose' ||
-               ($this->_provisioning === 'loose' && !is_null($this->_policyKey)))) {
+               ($this->_provisioning === 'loose' && !is_null($sentKey)))) {
 
                     Horde_ActiveSync::provisioningRequired();
                     return false;
