@@ -668,18 +668,37 @@ class Shout_Driver_Sql extends Shout_Driver
     {
         $numbers = $this->getNumbers();
         if (isset($numbers[$number])) {
+            // This is an edit
             $sql = 'UPDATE numbers SET ' .
-                   'account_id = (SELECT id FROM accounts WHERE code = ?), ' .
-                   'menu_id = (SELECT id FROM menus WHERE name = ? AND ' .
-                   'account_id = (SELECT id FROM accounts WHERE code = ?)) ' .
-                   'WHERE did = ?';
-            $values = array($account, $menu, $account, $number);
+                   'account_id = (SELECT id FROM accounts WHERE code = ?), ';
+            $values = array($account);
+            if ($menu == 'INACTIVE') {
+                // Special handling for the 'NONE' menu
+                $sql .= 'menu_id = 1 ';
+            } else {
+                $sql .= 'menu_id = (SELECT id FROM menus WHERE name = ? AND ' .
+                        'account_id = (SELECT id FROM accounts WHERE code = ?)) ';
+                $values[] = $menu;
+                $values[] = $account;
+            }
+            $sql .= 'WHERE did = ?';
+            $values[] = $number;
         } else {
+            // This is an add
             $sql = 'INSERT INTO numbers (account_id, menu_id, did) VALUES (' .
-                   '(SELECT id FROM accounts WHERE code = ?), ' .
-                   '(SELECT id FROM menus WHERE name = ?), ' .
-                   '?)';
-            $values = array($account, $menu, $number);
+                   '(SELECT id FROM accounts WHERE code = ?), ';
+            $values = array($account);
+            if ($menu == 'INACTIVE') {
+                // Special handling for the 'NONE' menu
+                $sql .= 'menu_id = 1, ';
+            } else {
+                $sql .= 'menu_id = (SELECT id FROM menus WHERE name = ? AND ' .
+                        'account_id = (SELECT id FROM accounts WHERE code = ?)), ';
+                $values[] = $menu;
+                $values[] = $account;
+            }
+            $sql .= '?)';
+            $values[] = $number;
         }
 
         $msg = 'SQL query in Shout_Driver_Sql#saveNumber(): ' . $sql;
