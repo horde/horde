@@ -325,7 +325,7 @@ class Horde_ActiveSync_Message_Base
     protected function _logError($message)
     {
         if (!empty($this->_logger)) {
-            $this->_logger->error($message);
+            $this->_logger->err($message);
         }
     }
 
