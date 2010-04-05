@@ -32,7 +32,7 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
     /**
      * Upgrade to the new forward preferences.
      */
-    protected function upgradeForwardPrefs()
+    protected function _upgradeForwardPrefs()
     {
         switch ($GLOBALS['prefs']->getValue('forward_default')) {
         case 'forward_attachments':
