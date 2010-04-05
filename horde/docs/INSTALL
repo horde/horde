@@ -379,6 +379,13 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
       in your PEAR directory for details.
 
 
+   g. File_Fstab
+
+     Required only if you use the localhost driver for the Accounts block.
+     To install, enter the following at the command prompt::
+
+       pear install File_Fstab
+
    This method of installing PEAR modules requires that you have a PHP version
    that has been compiled as a static binary.  All versions of PHP build both
    both a SAPI module (Apache, CGI, etc.) and a command-line (CLI) binary.
