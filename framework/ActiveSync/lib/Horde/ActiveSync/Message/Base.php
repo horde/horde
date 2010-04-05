@@ -197,7 +197,7 @@ class Horde_ActiveSync_Message_Base
                             $decoded = $decoder->getElementContent();
                             if ($decoded === false) {
                                 $this->_logError('Unable to get content for ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG]);
-                                throw new Horde_ActiveSync_Exception('Unknown parsing error.');
+                                //throw new Horde_ActiveSync_Exception('Unknown parsing error.');
                             }
 
                             if (!$decoder->getElementEndTag()) {
