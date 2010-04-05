@@ -28,7 +28,7 @@ function _hordeTestError($msg)
 /* If we can't find the Autoloader, then the framework is not setup. A user
  * must at least correctly install the framework. */
 if (!@include_once 'Horde/Autoloader.php') {
-    _hordeTestError('Could not find Horde\'s framework libraries. Please read horde/docs/INSTALL for information on how to install these libraries.');
+    _hordeTestError(sprintf('Could not find Horde\'s framework libraries in the following path(s): %s. Please read horde/docs/INSTALL for information on how to install these libraries.', get_include_path()));
 }
 
 /* Similarly, registry.php needs to exist. */
