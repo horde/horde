@@ -114,35 +114,31 @@ class Horde_Mime_Mdn
      * Generate the MDN according to the specifications listed in RFC
      * 3798 [3].
      *
-     * @param boolean $action     Was this MDN type a result of a manual
-     *                            action on part of the user?
-     * @param boolean $sending    Was this MDN sent as a result of a manual
-     *                            action on part of the user?
-     * @param string $type        The type of action performed by the user.
+     * @param boolean $action   Was this MDN type a result of a manual
+     *                          action on part of the user?
+     * @param boolean $sending  Was this MDN sent as a result of a manual
+     *                          action on part of the user?
+     * @param string $type      The type of action performed by the user.
      * <pre>
      * Per RFC 3798 [3.2.6.2] the following types are valid:
-     * =====================================================
      * 'displayed'
      * 'deleted'
      * </pre>
-     * @param string $name        The name of the local server.
-     * @param string $maildriver  The mail driver used to send the message.
-     * @param array $mailparams   Any parameters the mail driver may need.
-     * @param array $mod          The list of modifications.
+     * @param string $name      The name of the local server.
+     * @param Mail $mailer      A Mail driver.
+     * @param array $mod        The list of modifications.
      * <pre>
      * Per RFC 3798 [3.2.6.3] the following modifications are valid:
-     * =============================================================
      * 'error'
      * </pre>
-     * @param array $err          If $mod is 'error', the additional
-     *                            information to provide.  Key is the type of
-     *                            modification, value is the text.
+     * @param array $err        If $mod is 'error', the additional
+     *                          information to provide.  Key is the type of
+     *                          modification, value is the text.
      *
      * @throws Horde_Mime_Exception
      */
-    public function generate($action, $sending, $type, $name, $maildriver,
-                             $mailparams = array(), $mod = array(),
-                             $err = array())
+    public function generate($action, $sending, $type, $name, $mailer,
+                             $mod = array(), $err = array())
     {
         /* Set up some variables we use later. */
         $identity = Horde_Prefs_Identity::singleton();
@@ -227,7 +223,7 @@ class Horde_Mime_Mdn
         $part_three->setContents($part_three_text);
         $msg->addPart($part_three);
 
-        return $msg->send($to, $msg_headers, $maildriver, $mailparams);
+        return $msg->send($to, $msg_headers, $mailer);
     }
 
     /**
