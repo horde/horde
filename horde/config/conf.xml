@@ -1981,6 +1981,17 @@
       <configstring name="directory" desc="Directory to hold state files (this
       directory should be writeable by the webserver):">/tmp</configstring>
      </configsection>
+     <configheader>Logging</configheader>
+     <configsection name="logging">
+      <configswitch name="type" desc="For debugging, it may be useful to send
+      activesync-related log messages to a seperate log. If you want to do this,
+      set this to Custom and enter the path to the log file to use.">
+        <case name="horde" desc="Horde" />
+        <case name="custom" desc="Custom">
+         <configstring name="path" desc="Path to logfile" />
+        </case>
+      </configswitch>
+     </configsection>
      <configsection name="securitypolicies">
      <configheader>Security Policies</configheader>
       <configswitch name="provisioning" quote="false" desc="How should device
