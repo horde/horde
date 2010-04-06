@@ -113,15 +113,15 @@ class IMP_Ui_Message
 
         /* Send out the MDN now. */
         try {
-            $mail_driver = IMP_Compose::getMailDriver();
-            $mdn->generate(false, $confirmed, 'displayed', $GLOBALS['conf']['server']['name'], $mail_driver['driver'], $mail_driver['params']);
+            $mailer = IMP_Compose::getMailOb();
+            $mdn->generate(false, $confirmed, 'displayed', $GLOBALS['conf']['server']['name'], $mailer);
             IMP_Maillog::log('mdn', $msg_id, 'displayed');
             $success = true;
 
             if ($mdn_flag) {
                 $GLOBALS['injector']->getInstance('IMP_Message')->flag(array('$MDNSent'), $uid . IMP::IDX_SEP . $mailbox, true);
             }
-        } catch (Horde_Mime_Exception $e) {
+        } catch (Exception $e) {
             $success = false;
         }
 

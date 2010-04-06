@@ -339,13 +339,11 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                     $msg_headers->addHeader('Subject', Horde_Mime::encode($subject, $charset));
 
                     // Send the reply.
-                    $mail_driver = IMP_Compose::getMailDriver();
                     try {
-                        $mime->send($organizerEmail, $msg_headers,
-                                    $mail_driver['driver'],
-                                    $mail_driver['params']);
+                        $mailer = IMP_Compose::getMailOb();
+                        $mime->send($organizerEmail, $msg_headers, $mailer);
                         $msgs[] = array('success', _("Reply Sent."));
-                    } catch (Horde_Mime_Exception $e) {
+                    } catch (Exception $e) {
                         $msgs[] = array('error', sprintf(_("Error sending reply: %s."), $e->getMessage()));
                     }
                 } else {
@@ -442,13 +440,11 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                     $msg_headers->addHeader('Subject', Horde_Mime::encode(_("Free/Busy Request Response"), $charset));
 
                     // Send the reply.
-                    $mail_driver = IMP_Compose::getMailDriver();
                     try {
-                        $mime->send($organizerEmail, $msg_headers,
-                                    $mail_driver['driver'],
-                                    $mail_driver['params']);
+                        $mailer = IMP_Compose::getMailOb();
+                        $mime->send($organizerEmail, $msg_headers, $mailer);
                         $msgs[] = array('success', _("Reply Sent."));
-                    } catch (Horde_Mime_Exception $e) {
+                    } catch (Exception $e) {
                         $msgs[] = array('error', sprintf(_("Error sending reply: %s."), $e->getMessage()));
                     }
                 } else {

@@ -746,13 +746,7 @@ class IMP_Compose
     public function sendMessage($email, $headers, $message)
     {
         $email = $this->_prepSendMessage($email, $headers, $message);
-
-        $mail_driver = $this->getMailDriver();
-        try {
-            $mailer = Horde_Mime_Mail::getMailOb($mail_driver['driver'], $mail_driver['params']);
-        } catch (Horde_Mime_Exception $e) {
-            throw new IMP_Compose_Exception($e);
-        }
+        $mailer = $this->getMailOb();
 
         try {
             $message->send($email, $headers, $mailer);
@@ -820,41 +814,6 @@ class IMP_Compose
         }
 
         return $email;
-    }
-
-    /**
-     * Return mail driver/params necessary to send a message.
-     *
-     * @return array  'driver' => mail driver; 'params' => list of params.
-     */
-    static public function getMailDriver()
-    {
-        /* We don't actually want to alter the contents of the $conf['mailer']
-         * array, so we make a copy of the current settings. We will apply our
-         * modifications (if any) to the copy, instead. */
-        $params = $GLOBALS['conf']['mailer']['params'];
-
-        /* Force the SMTP host and port value to the current SMTP server if
-         * one has been selected for this connection. */
-        if (!empty($_SESSION['imp']['smtp'])) {
-            $params = array_merge($params, $_SESSION['imp']['smtp']);
-        }
-
-        /* If SMTP authentication has been requested, use either the username
-         * and password provided in the configuration or populate the username
-         * and password fields based on the current values for the user. Note
-         * that we assume that the username and password values from the
-         * current IMAP / POP3 connection are valid for SMTP authentication as
-         * well. */
-        if (!empty($params['auth']) && empty($params['username'])) {
-            $params['username'] = $GLOBALS['imp_imap']->ob()->getParam('username');
-            $params['password'] = $GLOBALS['imp_imap']->ob()->getParam('password');
-        }
-
-        return array(
-            'driver' => $GLOBALS['conf']['mailer']['type'],
-            'params' => $params
-        );
     }
 
     /**
@@ -1684,12 +1643,9 @@ class IMP_Compose
 
         $header_text = trim($resent_headers->toString(array('encode' => Horde_Nls::getCharset()))) . "\n" . trim($contents->getHeaderOb(false));
 
-        $mail_driver = $this->getMailDriver();
-        try {
-            $mailer = Horde_Mime_Mail::getMailOb($mail_driver['driver'], $mail_driver['params'], array('raw' => array('from' => $headers->getValue('from'), 'headertext' => $header_text)));
-        } catch (Horde_Mime_Exception $e) {
-            throw new IMP_Compose_Exception($e);
-        }
+        $mailer = $this->getMailOb(array(
+            'raw' => array('from' => $headers->getValue('from'), 'headertext' => $header_text)
+        ));
 
         $to = $this->_prepSendMessage($recipients);
 
@@ -2749,6 +2705,76 @@ class IMP_Compose
     }
 
     /**
+     * If this object contains sufficient metadata, return an IMP_Contents
+     * object reflecting that metadata.
+     *
+     * @return mixed  Either an IMP_Contents object or null.
+     */
+    public function getContentsOb()
+    {
+        return $this->getMetadata('reply_type')
+            ? IMP_Contents::singleton($this->getMetadata('uid') . IMP::IDX_SEP . $this->getMetadata('mailbox'))
+            : null;
+    }
+
+    /* Static utility functions. */
+
+    /**
+     * Return mail driver/params necessary to send a message.
+     *
+     * @return array  'driver' => mail driver; 'params' => list of params.
+     */
+    static public function getMailDriver()
+    {
+        /* We don't actually want to alter the contents of the $conf['mailer']
+         * array, so we make a copy of the current settings. We will apply our
+         * modifications (if any) to the copy, instead. */
+        $params = $GLOBALS['conf']['mailer']['params'];
+
+        /* Force the SMTP host and port value to the current SMTP server if
+         * one has been selected for this connection. */
+        if (!empty($_SESSION['imp']['smtp'])) {
+            $params = array_merge($params, $_SESSION['imp']['smtp']);
+        }
+
+        /* If SMTP authentication has been requested, use either the username
+         * and password provided in the configuration or populate the username
+         * and password fields based on the current values for the user. Note
+         * that we assume that the username and password values from the
+         * current IMAP / POP3 connection are valid for SMTP authentication as
+         * well. */
+        if (!empty($params['auth']) && empty($params['username'])) {
+            $params['username'] = $GLOBALS['imp_imap']->ob()->getParam('username');
+            $params['password'] = $GLOBALS['imp_imap']->ob()->getParam('password');
+        }
+
+        return array(
+            'driver' => $GLOBALS['conf']['mailer']['type'],
+            'params' => $params
+        );
+    }
+
+    /**
+     * Return a Mail object with the current driver parameters.
+     *
+     * @param array $options  Additional options to pass to
+     *                        Horde_Mime_Mail::getMailOb().
+     *
+     * @return Mail  A Mail object.
+     * @throws IMP_Compose_Exception
+     */
+    static public function getMailOb($options = array())
+    {
+        $mail_driver = self::getMailDriver();
+
+        try {
+            return Horde_Mime_Mail::getMailOb($mail_driver['driver'], $mail_driver['params'], $options);
+        } catch (Horde_Mime_Exception $e) {
+            throw new IMP_Compose_Exception($e);
+        }
+    }
+
+    /**
      * Formats the address properly.
      *
      * @param string $addr  The address to format.
@@ -2871,19 +2897,6 @@ class IMP_Compose
         }
 
         return array('sources' => $src, 'fields' => $fields);
-    }
-
-    /**
-     * If this object contains sufficient metadata, return an IMP_Contents
-     * object reflecting that metadata.
-     *
-     * @return mixed  Either an IMP_Contents object or null.
-     */
-    public function getContentsOb()
-    {
-        return $this->getMetadata('reply_type')
-            ? IMP_Contents::singleton($this->getMetadata('uid') . IMP::IDX_SEP . $this->getMetadata('mailbox'))
-            : null;
     }
 
 }
