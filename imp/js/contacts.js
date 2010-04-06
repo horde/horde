@@ -77,16 +77,14 @@ var ImpContacts = {
         $('selected_addresses').childElements().each(function(s) {
             var address = s.value, f, field = null, pos, v;
             pos = address.indexOf(':');
+            f = address.substring(0, pos);
             address = address.substring(pos + 2, address.length)
 
             if (this.formfield) {
                 field = parent.opener.document[this.formname][this.formfield];
-            } else {
-                f = address.substring(0, pos);
-                if (f == 'to' ||
-                    (!this.to_only && (f == 'cc' || f == 'bcc'))) {
-                    field = parent.opener.document[this.formname][f];
-                }
+            } else if (f == 'to' ||
+                      (!this.to_only && (f == 'cc' || f == 'bcc'))) {
+                field = parent.opener.document[this.formname][f];
             }
 
             if (!field) {
