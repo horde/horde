@@ -114,6 +114,15 @@ class Horde_Prefs_Ui
                     case 'multienum':
                         $vals = Horde_Util::getPost($pref);
                         $set = array();
+                        if (empty($_prefs[$pref]['enum'])) {
+                            if ($registry->hasAppMethod($app, 'prefsInit')) {
+                                $result = $registry->callAppMethod($app, 'prefsInit', array('args' => array($group)));
+                                if (!empty($result)) {
+                                    extract($result);
+                                }
+                            }
+                            $_prefs[$pref]['enum'] = Horde_Util::nonInputVar($pref . '_options');
+                        }
                         if (is_array($vals)) {
                             foreach ($vals as $val) {
                                 if (isset($_prefs[$pref]['enum'][$val])) {
