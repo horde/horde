@@ -95,6 +95,52 @@ class Ansel_Application extends Horde_Registry_Application
     }
 
     /**
+     * Code to run on init when viewing prefs for this application.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     */
+    public function prefsInit($ui)
+    {
+        global $conf, $prefs;
+
+        switch ($ui->group) {
+        case 'metadata':
+            if (!$prefs->isLocked('exif_tags')) {
+                $fields = Horde_Image_Exif::getFields(array($conf['exif']['driver'], !empty($conf['exif']['params']) ? $conf['exif']['params'] : array()), true);
+                $ui->override['exif_tags'] = $fields;
+                $ui->override['exif_title'] = array_merge(array(
+                    'none' => _("None")
+                ), $fields);
+            }
+            break;
+        }
+    }
+
+    /**
+     * Generate code used to display a special preference.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     * @param string $item             The preference name.
+     *
+     * @return string  The HTML code to display on the options page.
+     */
+    public function prefsSpecial($ui, $item)
+    {
+        switch ($item) {
+        case 'default_category_select':
+            $cManager = new Horde_Prefs_CategoryManager();
+            return _("Default category for galleries") . $cManager->getSelect('default_category_select', $GLOBALS['prefs']->getValue('default_category'));
+
+        case 'default_gallerystyle_select':
+            return _("Default style for galleries") .
+                Ansel::getStyleSelect('default_gallerystyle_select', $GLOBALS['prefs']->getValue('default_gallerystyle')) .
+                '<br />';
+        }
+
+        return '';
+    }
+
+    /**
      * Special preferences handling on update.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
@@ -119,6 +165,8 @@ class Ansel_Application extends Horde_Registry_Application
             }
             break;
         }
+
+        return false;
     }
 
     /**
