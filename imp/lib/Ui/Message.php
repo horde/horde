@@ -68,8 +68,9 @@ class IMP_Ui_Message
      */
     public function MDNCheck($mailbox, $uid, $headers, $confirmed = false)
     {
-        if (!$GLOBALS['prefs']->getValue('disposition_send_mdn') ||
-            $GLOBALS['imp_imap']->isReadOnly($mailbox)) {
+        $pref_val = $GLOBALS['prefs']->getValue('disposition_send_mdn');
+
+        if (!$pref_val || $GLOBALS['imp_imap']->isReadOnly($mailbox)) {
             return false;
         }
 
@@ -107,7 +108,9 @@ class IMP_Ui_Message
         }
 
         /* See if we need to query the user. */
-        if ($mdn->userConfirmationNeeded() && !$confirmed) {
+        if (!$confirmed &&
+            ((intval($pref_val) == 1) ||
+             $mdn->userConfirmationNeeded())) {
             return true;
         }
 

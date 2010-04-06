@@ -1026,8 +1026,13 @@ $_prefs['disposition_send_mdn'] = array(
     // Locked by default
     'locked' => true,
     'shared' => false,
-    'type' => 'checkbox',
-    'desc' => _("Prompt to send read receipt when requested by the sender?"),
+    'type' => 'enum',
+    'enum' => array(
+        0 => _("Never send read receipt"),
+        1 => _("Always prompt"),
+        2 => _("Prompt only if necessary; otherwise automatically send")
+    ),
+    'desc' => _("Prompt to send read receipt (a/k/a message disposition notification) when requested by the sender?"),
     'help' => 'prefs-disposition_send_mdn'
 );
 
