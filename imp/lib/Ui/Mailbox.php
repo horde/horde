@@ -199,6 +199,10 @@ class IMP_Ui_Mailbox
      */
     public function getDate($date)
     {
+        if (empty($date)) {
+            return _("Unknown Date");
+        }
+
         if (!isset($this->_cache['today_start'])) {
             $this->_cache['today_start'] = strtotime('today');
             $this->_cache['today_end'] = strtotime('today + 1 day');
