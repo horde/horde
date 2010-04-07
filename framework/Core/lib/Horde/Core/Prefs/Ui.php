@@ -198,31 +198,6 @@ class Horde_Core_Prefs_Ui
         /* Run through the action handlers */
         foreach ($preflist as $pref) {
             switch ($this->prefs[$pref]['type']) {
-            case 'alarm':
-                $methods = Horde_Alarm::notificationMethods();
-                $val = (isset($this->vars->$pref) && is_array($this->vars->$pref))
-                    ? $this->vars->$pref
-                    : array();
-                $value = array();
-
-                foreach ($val as $method) {
-                    $value[$method] = array();
-                    if (!empty($methods[$method])) {
-                        foreach (array_keys($methods[$method]) as $param) {
-                            $value[$method][$param] = $this->vars->get($pref . '_' . $param, '');
-                            if (is_array($methods[$method][$param]) &&
-                                $methods[$method][$param]['required'] &&
-                                ($value[$method][$param] === '')) {
-                                $notification->push(sprintf(_("You must provide a setting for \"%s\"."), $methods[$method][$param]['desc']), 'horde.error');
-                                break 3;
-                            }
-                        }
-                    }
-                }
-
-                $updated |= $prefs->setValue($pref, serialize($value));
-                break;
-
             case 'checkbox':
                 $updated |= $prefs->setValue($pref, intval(isset($this->vars->$pref)));
                 break;
@@ -380,82 +355,6 @@ class Horde_Core_Prefs_Ui
 
                 $type = $this->prefs[$pref]['type'];
                 switch ($type) {
-                case 'alarm':
-                    Horde::addScriptFile('alarmprefs.js', 'horde');
-                    Horde::addInlineScript(array(
-                        'HordeAlarmPrefs.pref = ' . Horde_Serialize::serialize($pref, Horde_Serialize::JSON)
-                    ));
-
-                    $alarm_pref = unserialize($prefs->getValue($pref));
-                    $selected = array_keys($alarm_pref);
-
-                    $param_list = $select_list = array();
-                    foreach (Horde_Alarm::notificationMethods() as $method => $params) {
-                        $select_list[] = array(
-                            'l' => $params['__desc'],
-                            's' => in_array($method, $selected),
-                            'v' => $method
-                        );
-
-                        if (count($params > 1)) {
-                            $tmp = array(
-                                'method' => $method,
-                                'param' => array()
-                            );
-
-                            foreach ($params as $name => $param) {
-                                if (substr($name, 0, 2) == '__') {
-                                    continue;
-                                }
-
-                                switch ($param['type']) {
-                                case 'text':
-                                    $tmp['param'][] = array(
-                                        'label' => Horde::label($pref . '_' . $name, $param['desc']),
-                                        'name' => $pref . '_' . $name,
-                                        'text' => true,
-                                        'value' => empty($alarm_pref[$method][$name]) ? '' : htmlspecialchars($alarm_pref[$method][$name])
-                                    );
-                                    break;
-
-                                case 'bool':
-                                    $tmp['param'][] = array(
-                                        'bool' => true,
-                                        'checked' => !empty($alarm_pref[$method][$name]),
-                                        'label' => Horde::label($pref . '_' . $name, $param['desc']),
-                                        'name' => $pref . '_' . $name
-                                    );
-                                    break;
-
-                                case 'sound':
-                                    $current_sound = empty($alarm_pref[$method][$name])
-                                        ? ''
-                                        : $alarm_pref[$method][$name];
-                                    $sounds = array();
-                                    foreach (Horde_Themes::soundList() as $key => $val) {
-                                        $sounds[] = array(
-                                            'c' => ($current_sound == $key),
-                                            'uri' => htmlspecialchars($val->uri),
-                                            'val' => htmlspecialchars($key)
-                                        );
-                                    }
-
-                                    $tmp['param'][] = array(
-                                        'sound' => true,
-                                        'checked' => !$current_sound,
-                                        'name' => $pref . '_' . $name
-                                    );
-                                    break;
-                                }
-                            }
-
-                            $param_list[] = $tmp;
-                        }
-                    }
-                    $t->set('param_list', $param_list);
-                    $t->set('select_list', $select_list);
-                    break;
-
                 case 'checkbox':
                     $t->set('checked', $prefs->getValue($pref));
                     break;

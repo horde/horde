@@ -47,7 +47,7 @@ $prefGroups['notification'] = array(
     'desc' => _("Choose how you want to be notified about event changes, event alarms and upcoming events."),
     'members' => array(
         'event_notification', 'event_notification_exclude_self',
-        'daily_agenda', 'event_reminder', 'event_alarms'
+        'daily_agenda', 'event_reminder', 'event_alarms_select'
     )
 );
 
@@ -288,10 +288,12 @@ $_prefs['event_reminder'] = array(
 );
 
 // alarm methods
+$_prefs['event_alarms_select'] = array(
+    'type' => 'special'
+);
+
 $_prefs['event_alarms'] = array(
-    'value' => 'a:1:{s:6:"notify";a:0:{}}',
-    'type' => 'alarm',
-    'desc' => _("Choose how you want to receive reminders for events with alarms:")
+    'value' => 'a:1:{s:6:"notify";a:0:{}}'
 );
 
 // number of days to generate Free/Busy information for:

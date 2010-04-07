@@ -136,8 +136,12 @@ class Kronolith_Application extends Horde_Registry_Application
             break;
 
         case 'notification':
-            if (empty($conf['alarms']['driver'])) {
+            if (empty($conf['alarms']['driver']) ||
+                $prefs->isLocked('event_alarms') ||
+                $prefs->isLocked('event_alarms_select')) {
                 $ui->suppress[]= 'event_alarms';
+            } else {
+                Horde_Core_Prefs_Ui_Widgets::alarminit();
             }
             break;
 
@@ -201,6 +205,12 @@ class Kronolith_Application extends Horde_Registry_Application
         case 'default_alarm_management':
             return $this->_defaultAlarmManagement($ui);
 
+        case 'event_alarms_select':
+            return Horde_Core_Prefs_Ui_Widgets::alarm(array(
+                'label' => _("Choose how you want to receive reminders for events with alarms:"),
+                'pref' => 'event_alarms'
+            ));
+
         case 'sourceselect':
             $search = Kronolith::getAddressbookSearchParams();
             return Horde_Core_Prefs_Ui_Widgets::addressbooks(array(
@@ -226,6 +236,14 @@ class Kronolith_Application extends Horde_Registry_Application
         case 'default_alarm_management':
             $GLOBALS['prefs']->setValue('default_alarm', (int)$ui->vars->alarm_value * (int)$ui->vars->alarm_unit);
             return true;
+
+        case 'event_alarms_select':
+            $data = Horde_Core_Prefs_Ui_Widgets::alarmUpdate($ui, array('pref' => 'event_alarms'));
+            if (!is_null($data)) {
+                $GLOBALS['prefs']->setValue('event_alarms', serialize($data));
+                return true;
+            }
+            break;
 
         case 'remote_cal_management':
             return $this->_prefsRemoteCalManagement($ui);

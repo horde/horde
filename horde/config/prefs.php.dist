@@ -55,10 +55,6 @@
  * following is the list of types, with a description of further keys used
  * for each type.
  *
- * 'alarm'
- * -------
- * TODO
- *
  * 'checkbox'
  * ----------
  * Provides a checkbox (yes/no) entry.

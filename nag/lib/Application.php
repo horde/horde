@@ -102,7 +102,9 @@ class Nag_Application extends Horde_Registry_Application
 
         switch ($ui->group) {
         case 'notification':
-            if (empty($conf['alarms']['driver'])) {
+            if (empty($conf['alarms']['driver']) ||
+                $prefs->isLocked('task_alarms') ||
+                $prefs->isLocked('task_alarms_select')) {
                 $ui->suppress[] = 'task_alarms';
             }
             break;
@@ -156,6 +158,50 @@ class Nag_Application extends Horde_Registry_Application
             $ui->suppress[] = 'show_external';
             $ui->suppresGroups[] = 'external';
         }
+    }
+
+    /**
+     * Generate code used to display a special preference.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     * @param string $item             The preference name.
+     *
+     * @return string  The HTML code to display on the options page.
+     */
+    public function prefsSpecial($ui, $item)
+    {
+        switch ($item) {
+        case 'task_alarms_select':
+            return Horde_Core_Prefs_Ui_Widgets::alarm(array(
+                'label' => _("Choose how you want to receive reminders for tasks with alarms:"),
+                'pref' => 'task_alarms'
+            ));
+        }
+
+        return '';
+    }
+
+    /**
+     * Special preferences handling on update.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     * @param string $item             The preference name.
+     *
+     * @return boolean  True if preference was updated.
+     */
+    public function prefsSpecialUpdate($ui, $item)
+    {
+        switch ($item) {
+        case 'task_alarms_select':
+            $data = Horde_Core_Prefs_Ui_Widgets::alarmUpdate($ui, array('pref' => 'task_alarms'));
+            if (!is_null($data)) {
+                $GLOBALS['prefs']->setValue('task_alarms', serialize($data));
+                return true;
+            }
+            break;
+        }
+
+        return false;
     }
 
     /**

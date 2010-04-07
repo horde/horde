@@ -37,7 +37,7 @@ $prefGroups['notification'] = array(
     'column' => _("Task List and Share Options"),
     'label' => _("Notifications"),
     'desc' => _("Choose if you want to be notified of task changes and task alarms."),
-    'members' => array('task_notification', 'task_alarms'),
+    'members' => array('task_notification', 'task_alarms_select'),
 );
 
 $prefGroups['external'] = array(
@@ -155,10 +155,12 @@ $_prefs['task_notification'] = array(
 );
 
 // alarm methods
+$_prefs['task_alarms_select'] = array(
+    'type' => 'special'
+);
+
 $_prefs['task_alarms'] = array(
-    'value' => 'a:1:{s:6:"notify";a:0:{}}',
-    'type' => 'alarm',
-    'desc' => _("Choose how you want to receive reminders for tasks with alarms:"),
+    'value' => 'a:1:{s:6:"notify";a:0:{}}'
 );
 
 // show data from other applications that can be listed as tasks?

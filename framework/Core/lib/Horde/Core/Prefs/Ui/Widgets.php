@@ -220,4 +220,152 @@ class Horde_Core_Prefs_Ui_Widgets
         return $out . $t->fetch(HORDE_TEMPLATES . '/prefs/addressbooks.html');
     }
 
+    /* Alarms selection widget. */
+
+    /**
+     * Code to run on init for alarms selection.
+     */
+    static public function alarmInit()
+    {
+        Horde::addScriptFile('alarmprefs.js', 'horde');
+    }
+
+    /**
+     * Create code needed for alarm selection.
+     *
+     * @param array $data  Data items:
+     * <pre>
+     * 'helplink' - (string) [OPTIONAL] Help link.
+     * 'label' - (string) Label.
+     * 'pref' - (string) Preference name.
+     * </pre>
+     *
+     * @return string  HTML UI code.
+     */
+    static public function alarm($data)
+    {
+        $pref = $data['pref'];
+
+        Horde::addInlineScript(array(
+            'HordeAlarmPrefs.pref = ' . Horde_Serialize::serialize($pref, Horde_Serialize::JSON)
+        ));
+
+        $alarm_pref = unserialize($prefs->getValue($pref));
+        $selected = array_keys($alarm_pref);
+
+        $param_list = $select_list = array();
+        foreach (Horde_Alarm::notificationMethods() as $method => $params) {
+            $select_list[] = array(
+                'l' => $params['__desc'],
+                's' => in_array($method, $selected),
+                'v' => $method
+            );
+
+            if (count($params > 1)) {
+                $tmp = array(
+                    'method' => $method,
+                    'param' => array()
+                );
+
+                foreach ($params as $name => $param) {
+                    if (substr($name, 0, 2) == '__') {
+                        continue;
+                    }
+
+                    switch ($param['type']) {
+                    case 'text':
+                        $tmp['param'][] = array(
+                            'label' => Horde::label($pref . '_' . $name, $param['desc']),
+                            'name' => $pref . '_' . $name,
+                            'text' => true,
+                            'value' => empty($alarm_pref[$method][$name]) ? '' : htmlspecialchars($alarm_pref[$method][$name])
+                            );
+                        break;
+
+                    case 'bool':
+                        $tmp['param'][] = array(
+                            'bool' => true,
+                            'checked' => !empty($alarm_pref[$method][$name]),
+                            'label' => Horde::label($pref . '_' . $name, $param['desc']),
+                            'name' => $pref . '_' . $name
+                        );
+                        break;
+
+                    case 'sound':
+                        $current_sound = empty($alarm_pref[$method][$name])
+                            ? ''
+                            : $alarm_pref[$method][$name];
+                        $sounds = array();
+                        foreach (Horde_Themes::soundList() as $key => $val) {
+                            $sounds[] = array(
+                                'c' => ($current_sound == $key),
+                                'uri' => htmlspecialchars($val->uri),
+                                'val' => htmlspecialchars($key)
+                            );
+                        }
+
+                        $tmp['param'][] = array(
+                            'sound' => true,
+                            'checked' => !$current_sound,
+                            'name' => $pref . '_' . $name
+                        );
+                        break;
+                    }
+                }
+
+                $param_list[] = $tmp;
+            }
+        }
+
+        $base = $GLOBALS['injector']->createInstance('Horde_Template');
+        $base->setOption('gettext', true);
+
+        $t->set('desc', Horde::label($pref, $data['label']));
+        if (!empty($data['helplink'])) {
+            $t->set('helplink', $data['helplink']);
+        }
+        $t->set('pref', htmlspecialchars($pref));
+        $t->set('param_list', $param_list);
+        $t->set('select_list', $select_list);
+
+        return $t->fetch(HORDE_TEMPLATES . '/prefs/alarm.html');
+    }
+
+    /**
+     * Process form data.
+     *
+     * @param array $data  Data items:
+     * <pre>
+     * 'pref' - (string) Preference name.
+     * </pre>
+     *
+     * @return array  TODO
+     */
+    static public function alarmUpdate($ui, $data)
+    {
+        $pref = $data['pref'];
+        $methods = Horde_Alarm::notificationMethods();
+        $val = (isset($ui->vars->$pref) && is_array($ui->vars->$pref))
+            ? $ui->vars->$pref
+            : array();
+        $value = array();
+
+        foreach ($val as $method) {
+            $value[$method] = array();
+            if (!empty($methods[$method])) {
+                foreach (array_keys($methods[$method]) as $param) {
+                    $value[$method][$param] = $ui->vars->get($pref . '_' . $param, '');
+                    if (is_array($methods[$method][$param]) &&
+                        $methods[$method][$param]['required'] &&
+                        ($value[$method][$param] === '')) {
+                        $GLOBALS['notification']->push(sprintf(_("You must provide a setting for \"%s\"."), $methods[$method][$param]['desc']), 'horde.error');
+                        return null;
+                    }
+                }
+            }
+        }
+
+        return $value;
+    }
+
 }
