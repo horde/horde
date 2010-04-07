@@ -66,13 +66,6 @@ class Horde_Kolab_Storage
     protected $connections = array();
 
     /**
-     * The driver type for the base connection.
-     *
-     * @var string
-     */
-    private $_driver;
-
-    /**
      * The parameters for the base connection.
      *
      * @var array
@@ -123,11 +116,10 @@ class Horde_Kolab_Storage
      */
     public function __construct(
         Horde_Kolab_Storage_Driver $master,
-        $driver, $params = array()
+        $params = array()
     ) {
         $this->_master = $master;
 
-        $this->_driver = $driver;
         $this->_params = $params;
 
         if (isset($this->_params['owner'])) {
