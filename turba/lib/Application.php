@@ -322,8 +322,12 @@ class Turba_Application extends Horde_Registry_Application
     {
         switch ($item) {
         case 'addressbookselect':
-            $ui->setValue('addressbooks', Horde_Serialize::unserialize($ui->vars->sources, Horde_Serialize::JSON));
-            return true;
+            $data = Horde_Core_Prefs_Ui_Widgets::sourceUpdate($ui);
+            if (isset($data['sources'])) {
+                $ui->setValue('addressbooks', Horde_Serialize::unserialize($data['sources'], Horde_Serialize::JSON));
+                return true;
+            }
+            break;
 
         case 'columnselect':
             if (isset($ui->vars->columns)) {
@@ -332,6 +336,8 @@ class Turba_Application extends Horde_Registry_Application
             }
             break;
         }
+
+        return false;
     }
 
     /**

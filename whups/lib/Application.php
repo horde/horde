@@ -176,13 +176,15 @@ class Whups_Application extends Horde_Registry_Application
 
         switch ($item) {
         case 'sourceselect':
-            if (isset($ui->vars->sources)) {
-                $prefs->setValue('search_sources', $ui->vars->sources);
+            $data = Horde_Core_Prefs_Ui_Widgets::addressbooksUpdate($ui);
+
+            if (isset($data['sources'])) {
+                $prefs->setValue('search_sources', $data['sources']);
                 $updated = true;
             }
 
-            if (isset($ui->vars->search_fields)) {
-                $prefs->setValue('search_fields', $ui->vars->search_fields);
+            if (isset($data['fields'])) {
+                $prefs->setValue('search_fields', $data['fields']);
                 $updated = true;
             }
             break;

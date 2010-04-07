@@ -27,12 +27,6 @@ class Horde_Core_Prefs_Ui_Widgets
     /**
      * Create code needed for source selection.
      *
-     * Returns data in a form variable named 'sources'. If only one source
-     * was originally given, this variable will contain the list of selected
-     * values (JSON encoded). If multiple sources were given, this variable
-     * will contain a list of arrays; each subarray contains the source name
-     * and the list of selected values (JSON encoded).
-     *
      * @param array $data  Data items:
      * <pre>
      * 'mainlabel' - (string) Main label.
@@ -102,6 +96,28 @@ class Horde_Core_Prefs_Ui_Widgets
         return $t->fetch(HORDE_TEMPLATES . '/prefs/source.html');
     }
 
+    /**
+     * Process form data for source selection.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     *
+     * @return array  If only one source was originally given, contains the
+     *                list of selected values (JSON encoded). If multiple
+     *                sources were given, this variable will contain a list of
+     *                arrays; each subarray contains the source name and the
+     *                list of selected values (JSON encoded).
+     */
+    static public function sourceUpdate($ui)
+    {
+        $out = array();
+
+        if (isset($ui->vars->sources)) {
+            $out['sources'] = $ui->vars->sources;
+        }
+
+        return $out;
+    }
+
     /* Addressbook selection widget. Extends the source widget to handle
      * the special case of addressbook selection. */
 
@@ -116,11 +132,6 @@ class Horde_Core_Prefs_Ui_Widgets
 
     /**
      * Create code needed for addressbook selection.
-     *
-     * Returns data in form variables named sources and search_fields.
-     * Sources contains the list of selected addressbooks (JSON encoded).
-     * search_fields contains a hash containing sources as keys and an array
-     * of search fields as the value.
      *
      * @param array $data  Data items:
      * <pre>
@@ -218,6 +229,31 @@ class Horde_Core_Prefs_Ui_Widgets
         }
 
         return $out . $t->fetch(HORDE_TEMPLATES . '/prefs/addressbooks.html');
+    }
+
+    /**
+     * Process form data for address book selection.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     *
+     * @return array  Array with two possible keys: sources and fields.
+     *                Sources contains the list of selected addressbooks (JSON
+     *                encoded). Fields contains a hash containing sources as
+     *                keys and an array of search fields as the value.
+     */
+    static public function addressbooksUpdate($ui)
+    {
+        $out = self::sourcesUpdate($ui);
+
+        if (isset($ui->vars->sources)) {
+            $out['sources'] = $ui->vars->sources;
+        }
+
+        if (isset($ui->vars->search_fields)) {
+            $out['fields'] = $ui->vars->search_fields;
+        }
+
+        return $out;
     }
 
     /* Alarms selection widget. */
@@ -332,9 +368,10 @@ class Horde_Core_Prefs_Ui_Widgets
     }
 
     /**
-     * Process form data.
+     * Process form data for alarm selection.
      *
-     * @param array $data  Data items:
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     * @param array $data              Data items:
      * <pre>
      * 'pref' - (string) Preference name.
      * </pre>
