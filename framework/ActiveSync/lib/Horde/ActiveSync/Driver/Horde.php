@@ -73,10 +73,8 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
      */
     public function logon($username, $password, $domain = null)
     {
-        $this->_logger->debug('Horde_ActiveSync_Driver_Horde::logon');
+        $this->_logger->info('Horde_ActiveSync_Driver_Horde::logon attempt for: ' . $username);
         parent::logon($username, $password, $domain);
-
-        $this->_startProfiling();
         $auth = Horde_Auth::singleton($GLOBALS['conf']['auth']['driver']);
 
         return $auth->authenticate($username, array('password' => $password));
@@ -89,8 +87,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
      */
     public function Logoff()
     {
-        $this->_logger->debug('Horde_ActiveSync_Driver_Horde::logoff');
-        $this->_endProfiling();
+        $this->_logger->info('Horde_ActiveSync_Driver_Horde::logoff');
         return true;
     }
 
@@ -105,7 +102,6 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
      */
     public function setup($user)
     {
-        $this->_logger->debug('Horde::Setup(' . $user . ')');
         parent::setup($user);
         $this->_modCache = array();
         return true;
@@ -332,7 +328,6 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
      */
     public function StatMessage($folderid, $id)
     {
-        $this->_logger->debug('Horde::StatMessage(' . $folderid . ', ' . $id . ')');
         return $this->_smartStatMessage($folderid, $id, true);
     }
 
@@ -479,27 +474,6 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
 
         return $message;
     }
-
-    /**
-     * Start profiling data
-     *
-     * @return void
-     */
-    private function _startProfiling()
-    {
-        $this->_starttime = microtime(true);
-    }
-
-    /**
-     * End profiling
-     *
-     * @return void
-     */
-    private function _endProfiling()
-    {
-        $this->_logger->debug('Session lasted ' . sprintf('%0.3f',microtime(true) - $this->_starttime) . ' s');
-    }
-
 
     /**
      * Create a hash suitable for importing into contacts/import or

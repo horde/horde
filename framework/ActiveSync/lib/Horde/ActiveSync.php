@@ -457,6 +457,13 @@ class Horde_ActiveSync
     const CONFLICT_OVERWRITE_PIM = 1;
 
     /**
+     * Logger
+     *
+     * @var Horde_Log_Logger
+     */
+    protected $_logger;
+
+    /**
      * Provisioning support
      *
      * @var string (TODO _constant this)
@@ -992,6 +999,7 @@ class Horde_ActiveSync
 
     public function provisioningRequired()
     {
+        $this->_logger->info('HTTP/1.1 449 Retry after sending a PROVISION command');
         self::provisionHeader();
         self::activeSyncHeader();
         self::versionHeader();
@@ -1226,29 +1234,6 @@ class Horde_ActiveSync
         }
 
         return $status;
-    }
-
-    /**
-     * Read input from the php input stream
-     *
-     * @TODO: Get rid of this - the wbxml classes have a php:// stream already
-     *        and when we need *just* the stream and not wbxml, we can use
-     *        $request->body
-     *
-     * @return string
-     */
-    public function readStream()
-    {
-        $s = "";
-        while (1) {
-            $data = fread($this->_inputStream, 4096);
-            if (strlen($data) == 0) {
-                break;
-            }
-            $s .= $data;
-        }
-
-        return $s;
     }
 
     /**

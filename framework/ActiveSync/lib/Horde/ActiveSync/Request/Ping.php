@@ -45,7 +45,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
 
         // FIXME
         $timeout = 3;
-        $this->_logger->info('Ping received for: ' . $this->_devId);
+        $this->_logger->info('[' . $devId . '] Ping received.');
 
         /* Glass half full kinda guy... */
         $this->_statusCode = self::STATUS_NOCHANGES;
@@ -61,7 +61,6 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
 
         /* Build the $collections array if we receive request from PIM */
         if ($this->_decoder->getElementStartTag(SYNC_PING_PING)) {
-            $this->_logger->debug('Ping init');
             if ($this->_decoder->getElementStartTag(SYNC_PING_LIFETIME)) {
                 $lifetime = $this->_decoder->getElementContent();
                 $state->setPingLifetime($lifetime);
@@ -102,7 +101,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
 
         /* Start waiting for changes, but only if we don't have any errors */
         if ($this->_statusCode == self::STATUS_NOCHANGES) {
-            $this->_logger->info(sprintf('Waiting for changes... (lifetime %d)', $lifetime));
+            $this->_logger->info(sprintf('[%s] Waiting for changes (lifetime: %d)', $this->_devId, $lifetime));
             // FIXME
             //for ($n = 0; $n < $lifetime / $timeout; $n++) {
             for ($n = 0; $n < 10; $n++) {
@@ -151,13 +150,13 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 }
 
                 if ($dataavailable) {
-                    $this->_logger->info('Found changes');
+                    $this->_logger->info('[' . $this->_devId . '] Changes available');
                     break;
                 }
                 sleep($timeout);
             }
         }
-        $this->_logger->debug('Starting StartWBXML output');
+        $this->_logger->info('[' . $this->_devId . '] Sending response for PING.');
         $this->_encoder->StartWBXML();
 
         $this->_encoder->startTag(SYNC_PING_PING);
