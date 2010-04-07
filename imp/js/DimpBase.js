@@ -2713,7 +2713,7 @@ var DimpBase = {
     reportSpam: function(spam, opts)
     {
         opts = opts || {};
-        if (this._doMsgAction('reportSpam', opts, { spam: spam })) {
+        if (this._doMsgAction('reportSpam', opts, { spam: Number(spam) })) {
             // Indicate to the user that something is happening (since spam
             // reporting may not be instantaneous).
             this.loadingImg('viewport', true);
