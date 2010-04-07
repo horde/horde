@@ -425,7 +425,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
 
         /* Initialize state for this collection */
         if (!$haveState) {
-            $this->_logger->debug('Empty state for '. $pingCollection['class']);
+            $this->_logger->info('[' . $this->_devId . '] Empty state for '. $pingCollection['class']);
 
             /* Init members for the getChanges call */
             $this->_syncKey = $this->_devId;
@@ -477,6 +477,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
         $state = serialize(array('lifetime' => $this->_pingState['lifetime'],
                                  'collections' => $this->_pingState['collections']));
 
+        $this->_logger->info('[' . $this->_devId . '] Saving new PING state.');
         return file_put_contents($this->_stateDir . '/' . $this->_backend->getUser() . '/' . $this->_devId, $state);
     }
 
@@ -527,6 +528,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
         $info = $this->getDeviceInfo($devId);
         $info->policykey = $key;
         $this->setDeviceInfo($devId, $info);
+        $this->_logger->info('[' . $devId . '] New policykey saved: ' . $key);
     }
 
     /**
@@ -555,6 +557,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
         $info = $this->getDeviceInfo($devId);
         $info->rwstatus = $status;
         $this->setDeviceInfo($devId, $info);
+        $this->_logger->info('[' . $devId . '] Setting DeviceRWStatus: ' . $status);
     }
 
     /**
@@ -571,13 +574,13 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
 
         if (!empty($this->_collection['id'])) {
             $folderId = $this->_collection['id'];
-            $this->_logger->debug('Initializing message diff engine');
+            $this->_logger->info('[' . $this->_devId . '] Initializing message diff engine.');
             if (!$syncState) {
                 $syncState = array();
             }
-            $this->_logger->debug(count($syncState) . ' messages in state');
+            $this->_logger->debug('[' . $this->_devId . ']' . count($syncState) . ' messages in state.');
 
-            //do nothing if it is a dummy folder
+            /* do nothing if it is a dummy folder */
             if ($folderId != SYNC_FOLDER_TYPE_DUMMY) {
                 // on ping: check if backend supports alternative PING mechanism & use it
                 if ($this->_collection['class'] === false && $flags == BACKEND_DISCARD_DATA && $this->_backend->AlterPing()) {
@@ -585,7 +588,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
                     // Not even sure if we need this AlterPing?
                     $this->_changes = $this->_backend->AlterPingChanges($folderId, $syncState);
                 } else {
-                    // Get our lists - syncstate (old)  and msglist (new)
+                    /* Get our lists - syncstate (old)  and msglist (new) */
                     $msglist = $this->_backend->GetMessageList($this->_collection['id'], $cutoffdate);
                     if ($msglist === false) {
                         return false;
@@ -593,18 +596,18 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
                     $this->_changes = $this->_getDiff($syncState, $msglist);
                 }
             }
-            $this->_logger->debug('Found ' . count($this->_changes) . ' message changes');
+            $this->_logger->info('[' . $this->_devId . '] Found ' . count($this->_changes) . ' message changes.');
 
         } else {
 
-            $this->_logger->debug('Initializing folder diff engine');
+            $this->_logger->info('[' . $this->_devId . '] Initializing folder diff engine.');
             $folderlist = $this->_backend->getFolderList();
             if ($folderlist === false) {
                 return false;
             }
 
             $this->_changes = $this->_getDiff($syncState, $folderlist);
-            $this->_logger->debug('Config: Found ' . count($this->_changes) . ' folder changes');
+            $this->_logger->info('[' . $this->_devId . '] Found ' . count($this->_changes) . ' folder changes.');
         }
 
         return $this->_changes;

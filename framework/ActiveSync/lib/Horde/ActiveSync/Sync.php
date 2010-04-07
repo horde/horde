@@ -146,7 +146,6 @@ class Horde_ActiveSync_Sync
         $progress = array();
 
         if ($this->_folderId == false) {
-            //@TODO: Folder changes not implemented??
             if ($this->_step < count($this->_changes)) {
                 $change = $this->_changes[$this->_step];
 

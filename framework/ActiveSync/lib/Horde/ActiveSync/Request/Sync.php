@@ -29,7 +29,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
     public function handle(Horde_ActiveSync $activeSync, $devId)
     {
         parent::handle($activeSync, $devId);
-        $this->_logger->info('[Horde_ActiveSync::handleSync] Handling SYNC command.');
+        $this->_logger->info('[' . $this->_devId . '] Handling SYNC command.');
 
         /* Check policy */
         if (!$this->checkPolicyKey($activeSync->getPolicyKey())) {
@@ -65,7 +65,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             }
 
             $collection['class'] = $this->_decoder->getElementContent();
-            $this->_logger->debug('[Horde_ActiveSync::handleSync] Folder class: ' . $collection['class']);
+            $this->_logger->info('[' . $this->_devId . '] Syncing folder class: ' . $collection['class']);
             if (!$this->_decoder->getElementEndTag()) {
                 throw new Horde_ActiveSync_Exception('Protocol error');
             }
@@ -80,7 +80,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
             if ($this->_decoder->getElementStartTag(SYNC_FOLDERID)) {
                 $collection['id'] = $this->_decoder->getElementContent();
-                $this->_logger->debug('[Horde_ActiveSync::handleSync] Folder collectionid: ' . $collection['id']);
+                $this->_logger->info('[' . $this->_devId . '] Folder server id: ' . $collection['id']);
                 if (!$this->_decoder->getElementEndTag()) {
                     throw new Horde_ActiveSync_Exception('Protocol error');
                 }
@@ -325,7 +325,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     }
                 }
 
-                $this->_logger->debug(sprintf('[Horde_ActiveSync::handleSync] Processed %d incoming changes', $nchanges));
+                $this->_logger->debug(sprintf('[%s] Processed %d incoming changes', $this->_devId, $nchanges));
 
                 if (!$this->_decoder->getElementEndTag()) {
                     // end commands
@@ -356,6 +356,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         }
 
         /* Start output to PIM */
+        $this->_logger->info('[' . $this->_devId . '] Beginning SYNC Response.');
         $this->_encoder->startWBXML();
         $this->_encoder->startTag(SYNC_SYNCHRONIZE);
         $this->_encoder->startTag(SYNC_FOLDERS);
@@ -456,7 +457,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     $n++;
 
                     if (!empty($collection['windowsize']) && $n >= $collection['windowsize']) {
-                        $this->_logger->info(sprintf('[Horde_ActiveSync::handleSync] Exported maxItems of messages: %d - more available.',  $collection['windowsize']));
+                        $this->_logger->info(sprintf('[%s] Exported maxItems of messages: %d - more available.', $this->_devId, $collection['windowsize']));
                         break;
                     }
                 }
@@ -471,7 +472,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     $state->setNewSyncKey($collection['newsynckey']);
                     $state->save();
                 } else {
-                    $this->_logger->err(sprintf('[Horde_ActiveSync::handleSync] Error saving %s - no state information available.', $collection["newsynckey"]));
+                    $this->_logger->err(sprintf('[%s] Error saving %s - no state information available.', $this->_devId, $collection["newsynckey"]));
                 }
             }
         }
