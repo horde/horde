@@ -33,15 +33,9 @@ $apiargs['addresses'] = array($search);
 $apiargs['addressbooks'] = array($source);
 $apiargs['fields'] = array();
 
-if ($search_fields_pref = $prefs->getValue('search_fields')) {
-    foreach (explode("\n", $search_fields_pref) as $s) {
-        $s = trim($s);
-        $s = explode("\t", $s);
-        if (!empty($s[0]) && ($s[0] == $source)) {
-            $apiargs['fields'][array_shift($s)] = $s;
-            break;
-        }
-    }
+$search_fields_pref = json_decode($prefs->getValue('search_fields'), true);
+if (!empty($search_fields_pref) && isset($search_fields_pref[$source])) {
+    $apiargs['fields'][$source] = $search_fields_pref[$source];
 }
 
 if ($search || $prefs->getValue('display_contact')) {

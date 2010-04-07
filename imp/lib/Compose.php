@@ -2838,7 +2838,7 @@ class IMP_Compose
      */
     static public function getAddressList($search = '')
     {
-        $sparams = Horde_Core_Prefs_Utils::getAddressbookSearchParams();
+        $sparams = IMP::getAddressbookSearchParams();
         try {
             $res = $GLOBALS['registry']->call('contacts/search', array($search, $sparams['sources'], $sparams['fields'], false));
         } catch (Horde_Exception $e) {

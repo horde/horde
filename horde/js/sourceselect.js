@@ -34,6 +34,7 @@ var HordeSourceSelectPrefs = {
         $(from).childElements().each(function(c) {
             if (c.selected) {
                 c.remove();
+                c.selected = false;
                 $(to).insert(c);
             }
         });

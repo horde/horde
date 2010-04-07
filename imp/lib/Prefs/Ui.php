@@ -382,10 +382,7 @@ class IMP_Prefs_Ui
             return $prefs->setValue('nav_audio', $ui->vars->nav_audio);
 
         case 'sourceselect':
-            if (isset($ui->vars->sources)) {
-                unset($_SESSION['imp']['cache']['ac_ajax']);
-            }
-            return Horde_Core_Prefs_Ui_Widgets::addressbooksUpdate($ui);
+            return $this->_updateSource($ui);
 
         case 'spamselect':
             return $this->_updateSpecialFolders('spam_folder', $vars->spam, $vars->spam_new, $ui);
@@ -1319,6 +1316,35 @@ class IMP_Prefs_Ui
         $t->set('sounds', $sounds);
 
         return $t->fetch(IMP_TEMPLATES . '/prefs/sound.html');
+    }
+
+    /* Addressbook selection. */
+
+    /**
+     * Update address book related preferences.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     *
+     * @return boolean  True if preferences were updated.
+     */
+    protected function _updateSource($ui)
+    {
+        global $prefs;
+
+        $updated = false;
+
+        if (isset($ui->vars->sources)) {
+            $prefs->setValue('search_sources', $ui->vars->sources);
+            unset($_SESSION['imp']['cache']['ac_ajax']);
+            $updated = true;
+        }
+
+        if (isset($ui->vars->search_fields)) {
+            $prefs->setValue('search_fields', $ui->vars->search_fields);
+            $updated = true;
+        }
+
+        return $updated;
     }
 
     /* Spam selection. */

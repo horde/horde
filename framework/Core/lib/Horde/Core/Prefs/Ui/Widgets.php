@@ -29,6 +29,12 @@ class Horde_Core_Prefs_Ui_Widgets
     /**
      * Create code needed for source selection.
      *
+     * Returns data in a form variable named 'sources'. If only one source
+     * was originally given, this variable will contain the list of selected
+     * values (JSON encoded). If multiple sources were given, this variable
+     * will contain a list of arrays; each subarray contains the source name
+     * and the list of selected values (JSON encoded).
+     *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
      * @param array $data              Data items:
      * <pre>
@@ -55,14 +61,14 @@ class Horde_Core_Prefs_Ui_Widgets
         foreach ($data['sources'] as $key => $val) {
             $selected = $unselected = array();
 
-            foreach ($data['selected'] as $key2 => $val2) {
+            foreach ($val['selected'] as $key2 => $val2) {
                 $selected[] = array(
                     'l' => $val2,
                     'v' => $key2
                 );
             }
 
-            foreach ($data['unselected'] as $key2 => $val2) {
+            foreach ($val['unselected'] as $key2 => $val2) {
                 $unselected[] = array(
                     'l' => $val2,
                     'v' => $key2
@@ -115,6 +121,11 @@ class Horde_Core_Prefs_Ui_Widgets
 
     /**
      * Create code needed for addressbook selection.
+     *
+     * Returns data in form variables named sources and search_fields.
+     * Sources contains the list of selected addressbooks (JSON encoded).
+     * search_fields contains a hash containing sources as keys and an array
+     * of search fields as the value.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
      *
@@ -179,49 +190,36 @@ class Horde_Core_Prefs_Ui_Widgets
 
             $js = array();
             foreach (array_keys($readable) as $source) {
-                $tmp = array($source);
+                $tmp = $tmpsel = array();
 
                 try {
                     foreach ($registry->call('contacts/fields', array($source)) as $field) {
                         if ($field['search']) {
-                            $tmp[] = array($field['name'], $field['label'], isset($search['fields'][$source]) && in_array($field['name'], $search['fields'][$source]));
+                            $tmp[] = array(
+                                'name' => $field['name'],
+                                'label' => $field['label']
+                            );
+                            if (isset($search['fields'][$source]) &&
+                                in_array($field['name'], $search['fields'][$source])) {
+                                $tmpsel[] = $field['name'];
+                            }
                         }
                     }
                 } catch (Horde_Exception $e) {}
 
-                $js[] = $tmp;
+                $js[$source] = array(
+                    'entries' => $tmp,
+                    'selected' => $tmpsel
+                );
             }
 
             Horde::addInlineScript(array(
-                'HordeAddressbooksPrefs.fields = ' . Horde_Serialize::serialize($js, Horde_Serialize::JSON, Horde_Nls::getCharset())
+                'HordeAddressbooksPrefs.fields = ' . Horde_Serialize::serialize($js, Horde_Serialize::JSON, Horde_Nls::getCharset()),
+                'HordeAddressbooksPrefs.nonetext = ' . Horde_Serialize::serialize(_("No address book selected."), Horde_Serialize::JSON, Horde_Nls::getCharset())
             ));
         }
 
         return $out . $t->fetch(HORDE_TEMPLATES . '/prefs/addressbooks.html');
-    }
-
-    /**
-     * Update prefs for addressbook selection.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     *
-     * @return boolean  True if preferences were updated.
-     */
-    static public function addressbooksUpdate($ui)
-    {
-        $updated = false;
-
-        if (isset($ui->vars->sources)) {
-            $GLOBALS['prefs']->setValue('search_sources', implode("\t", Horde_Serialize::unserialize($ui->vars->sources, Horde_Serialize::JSON)));
-            $updated = true;
-        }
-
-        if (isset($ui->vars->search_fields_string)) {
-            $GLOBALS['prefs']->setValue('search_fields', $ui->vars->search_fields_string);
-            $updated = true;
-        }
-
-        return $updated;
     }
 
 }

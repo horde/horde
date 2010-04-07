@@ -99,7 +99,6 @@ Application Framework.
         <file name="Widgets.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Prefs/Ui -->
        <file name="Ui.php" role="php" />
-       <file name="Utils.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Prefs -->
      </dir> <!-- /lib/Horde/Core -->
      <file name="ErrorHandler.php" role="php" />
@@ -236,7 +235,6 @@ Application Framework.
    <install name="lib/Horde/Core/Notification/Status.php" as="Horde/Core/Notification/Status.php" />
    <install name="lib/Horde/Core/Prefs/Ui/Widgets.php" as="Horde/Core/Prefs/Ui/Widgets.php" />
    <install name="lib/Horde/Core/Prefs/Ui.php" as="Horde/Core/Prefs/Ui.php" />
-   <install name="lib/Horde/Core/Prefs/Utils.php" as="Horde/Core/Prefs/Utils.php" />
    <install name="lib/Horde/ErrorHandler.php" as="Horde/ErrorHandler.php" />
    <install name="lib/Horde/Exception/HookNotSet.php" as="Horde/Exception/HookNotSet.php" />
    <install name="lib/Horde/Help.php" as="Horde/Help.php" />

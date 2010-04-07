@@ -226,7 +226,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      */
     public function listPublicKeys()
     {
-        $params = Horde_Core_Prefs_Utils::getAddressbookSearchParams();
+        $params = IMP::getAddressbookSearchParams();
         if (empty($params['sources'])) {
             return array();
         }
@@ -243,7 +243,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      */
     public function deletePublicKey($email)
     {
-        $params = Horde_Core_Prefs_Utils::getAddressbookSearchParams();
+        $params = IMP::getAddressbookSearchParams();
         return $GLOBALS['registry']->call('contacts/deleteField', array($email, self::PUBKEY_FIELD, $params['sources']));
     }
 

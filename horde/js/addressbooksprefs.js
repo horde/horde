@@ -7,80 +7,59 @@
 
 var HordeAddressbooksPrefs = {
 
-    // Variables set by other code: fields
+    // Variables set by other code: fields, nonetext
 
     updateSearchFields: function()
     {
-        var sv = this._getSelectedValue(false),
-            sf = $('search_fields');
+        var tmp,
+            sv = $F('selected_sources'),
+            sf = $('search_fields_select');
 
-        sf.update('');
-        this.fields.each(function(f) {
-            if (f[0] == sv) {
-                f.slice(1).each(function(o) {
-                    var tmp = new Option(o[1], o[0]);
-                    if (o[2]) {
-                        tmp.selected = true;
-                    }
-                    sf.insert(tmp);
-                });
-            }
-        });
+        sf.childElements().invoke('remove');
 
-        this.changeSearchFields();
-    },
-
-    _getSelectedValue: function(index)
-    {
-        var ss = $('selected_sources');
-        if (ss) {
-            if (index) {
-                return ss.selectedIndex;
-            }
-            if (ss.selectedIndex >= 0) {
-                return ss.options[ss.selectedIndex].value;
-            }
-            return '';
+        if (sv.size() == 1) {
+            tmp = this.fields.get(sv.first());
+            tmp.entries.each(function(o) {
+                var opt = new Option(o.label, o.name);
+                if (tmp.selected.include(o.name)) {
+                    opt.selected = true;
+                }
+                sf.insert(opt);
+            });
         } else {
-            return index ? 0 : this.fields[0][0];
+            tmp = new Option(this.nonetext, '');
+            tmp.disabled = true;
+            sf.insert(tmp);
         }
     },
 
     changeSearchFields: function()
     {
-        var data = [],
-            i = 0,
-            sf = $('search_fields'),
-            sv = this._getSelectedValue(true);
+        var tmp,
+            out = $H(),
+            sv = $F('selected_sources');
 
-        $A(sf.options).each(function(o) {
-            this.fields[sv][i][2] = o.selected;
-            ++i;
-        }.bind(this));
+        if (sv.size() == 1) {
+            tmp = this.fields.get(sv.first());
+            tmp.selected = $F('search_fields_select');
+            this.fields.set(sv.first(), tmp);
 
-        this.fields.each(function(f) {
-            var tmp = [ f[0] ];
-            f.slice(1).each(function(o) {
-                if (o[2]) {
-                    tmp.push(o[0]);
-                }
+            this.fields.each(function(f) {
+                out.set(f.key, f.value.selected);
             });
-            data.push(tmp.join("\t"));
-        });
-        $('search_fields_string').setValue(data.join("\n"));
+
+            $('search_fields').setValue(out.toJSON());
+        }
     },
 
     onDomLoad: function()
     {
+        this.fields = $H(this.fields);
+
         this.updateSearchFields();
 
-        if ($('search_fields')) {
-            $('search_fields').observe('change', this.changeSearchFields.bind(this));
-        }
-
-        if ($('selected_sources')) {
-            $('selected_sources').observe('change', this.updateSearchFields.bind(this));
-        }
+        $('search_fields_select').observe('change', this.changeSearchFields.bind(this));
+        $('selected_sources').observe('change', this.updateSearchFields.bind(this));
     }
 
 };

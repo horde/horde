@@ -227,7 +227,7 @@ class Kronolith_Application extends Horde_Registry_Application
             return $this->_prefsRemoteCalManagement($ui);
 
         case 'sourceselect':
-            return Horde_Core_Prefs_Ui_Widgets::addressbooksUpdate($ui);
+            return $this->_prefsSourceselect($ui);
         }
 
         return false;
@@ -356,6 +356,32 @@ class Kronolith_Application extends Horde_Registry_Application
             }
             $GLOBALS['prefs']->setValue('remote_cals', serialize($cals));
         }
+    }
+
+    /**
+     * Update address book related preferences.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     *
+     * @return boolean  True if preferences were updated.
+     */
+    protected function _prefsSourceselect($ui)
+    {
+        global $prefs;
+
+        $updated = false;
+
+        if (isset($ui->vars->sources)) {
+            $prefs->setValue('search_sources', $ui->vars->sources);
+            $updated = true;
+        }
+
+        if (isset($ui->vars->search_fields)) {
+            $prefs->setValue('search_fields', $ui->vars->search_fields);
+            $updated = true;
+        }
+
+        return $updated;
     }
 
     /**

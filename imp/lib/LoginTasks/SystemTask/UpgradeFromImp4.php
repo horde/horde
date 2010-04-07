@@ -24,9 +24,39 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
      */
     public function execute()
     {
+        $this->_upgradeAbookPrefs();
         $this->_upgradeForwardPrefs();
         $this->_upgradeSortPrefs();
         $this->_upgradeVirtualFolders();
+    }
+
+    /**
+     * Upgrade to the new addressbook preferences.
+     */
+    protected function _upgradeAbookPrefs()
+    {
+        global $prefs;
+
+        $src = $prefs->getValue('search_sources');
+        if (!is_array(json_decode($src))) {
+            $prefs->setValue('search_sources', json_encode(explode("\t", $src)));
+        }
+
+        $val = $prefs->getValue('search_fields');
+        if (!is_array(json_decode($val, true))) {
+            $fields = array();
+            foreach (explode("\n", $val) as $field) {
+                $field = trim($field);
+                if (!empty($field)) {
+                    $tmp = explode("\t", $field);
+                    if (count($tmp) > 1) {
+                        $source = array_splice($tmp, 0, 1);
+                        $fields[$source[0]] = $tmp;
+                    }
+                }
+            }
+            $prefs->setValue('search_fields', $fields);
+        }
     }
 
     /**
@@ -34,17 +64,19 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
      */
     protected function _upgradeForwardPrefs()
     {
-        switch ($GLOBALS['prefs']->getValue('forward_default')) {
+        global $prefs;
+
+        switch ($prefs->getValue('forward_default')) {
         case 'forward_attachments':
-            $GLOBALS['prefs']->setValue('forward_default', 'both');
+            $prefs->setValue('forward_default', 'both');
             break;
 
         case 'forward_all':
-            $GLOBALS['prefs']->setValue('forward_default', 'attach');
+            $prefs->setValue('forward_default', 'attach');
             break;
 
         case 'forward_body':
-            $GLOBALS['prefs']->setValue('forward_default', 'body');
+            $prefs->setValue('forward_default', 'body');
             break;
 
         case 'attach':
@@ -54,8 +86,8 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
             break;
 
         default:
-            $GLOBALS['prefs']->setValue('forward_default', 'attach');
-            $GLOBALS['prefs']->setDefault('forward_default', true);
+            $prefs->setValue('forward_default', 'attach');
+            $prefs->setDefault('forward_default', true);
             break;
         }
     }
@@ -65,8 +97,10 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
      */
     protected function _upgradeSortPrefs()
     {
+        global $prefs;
+
         $update = false;
-        $sortpref = @unserialize($GLOBALS['prefs']->getValue('sortpref'));
+        $sortpref = @unserialize($prefs->getValue('sortpref'));
         foreach ($sortpref as $key => $val) {
             $sb = $this->_newSortbyValue($val['b']);
             if (!is_null($sb)) {
@@ -76,12 +110,12 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
         }
 
         if ($update) {
-            $GLOBALS['prefs']->setValue('sortpref', serialize($sortpref));
+            $prefs->setValue('sortpref', serialize($sortpref));
         }
 
-        $sb = $this->_newSortbyValue($GLOBALS['prefs']->getValue('sortby'));
+        $sb = $this->_newSortbyValue($prefs->getValue('sortby'));
         if (!is_null($sb)) {
-            $GLOBALS['prefs']->setValue('sortby', $sb);
+            $prefs->setValue('sortby', $sb);
         }
     }
 

@@ -162,7 +162,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
         } catch (Horde_Exception_HookNotSet $e) {
         }
 
-        $params = Horde_Core_Prefs_Utils::getAddressbookSearchParams();
+        $params = IMP::getAddressbookSearchParams();
 
         try {
             $key = $GLOBALS['registry']->call('contacts/getField', array($address, self::PUBKEY_FIELD, $params['sources'], false, true));
@@ -191,7 +191,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function listPublicKeys()
     {
-        $params = Horde_Core_Prefs_Utils::getAddressbookSearchParams();
+        $params = IMP::getAddressbookSearchParams();
         if (empty($params['sources'])) {
             return array();
         }

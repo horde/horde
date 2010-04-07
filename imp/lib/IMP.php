@@ -1137,4 +1137,27 @@ class IMP
         return 'RedBox.overlay = false; RedBox.showHtml(\'' . addcslashes($t_html, "'/") . '\');';
     }
 
+    /**
+     * Determines parameters needed to do an address search
+     *
+     * @return array  An array with two keys: 'fields' and 'sources'.
+     */
+    static public function getAddressbookSearchParams()
+    {
+        $src = json_decode($GLOBALS['prefs']->getValue('search_sources'));
+        if (empty($src)) {
+            $src = array();
+        }
+
+        $fields = json_decode($GLOBALS['prefs']->getValue('search_fields'), true);
+        if (empty($fields)) {
+            $fields = array();
+        }
+
+        return array(
+            'fields' => $fields,
+            'sources' => $src
+        );
+    }
+
 }

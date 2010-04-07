@@ -143,21 +143,27 @@ $_prefs['comment_sort_dir'] = array(
 // address book selection widget
 $_prefs['sourceselect'] = array('type' => 'special');
 
-// address book(s) to use when expanding addresses
-// You can provide default values this way (note the \t and the double quotes):
-// 'value' => "source_one\tsource_two"
-// refer to turba/config/sources.php for possible source values
+// Address book(s) to use when expanding addresses
+// Refer to turba/config/sources.php for possible source values
+//
+// You can provide default values this way:
+//   'value' => json_encode('source_one', 'source_two')
+
 $_prefs['search_sources'] = array(
-    'value' => ""
+    'value' => ''
 );
 
-// field(s) to use when expanding addresses
-// This depends on the search_sources preference if you want to provide
-// default values:
-// 'value' => "source_one\tfield_one\tfield_two\nsource_two\tfield_three"
+// Field(s) to use when expanding addresses
+// Refer to turba/config/sources.php for possible source and field values
+//
+// If you want to provide a default value, this field depends on the
+// search_sources preference. For example:
+//   'value' => json_encode(array(
+//       'source_one' => array('field_one', 'field_two'),
+//       'source_two' => array('field_three')
+//   ))
 // will search the fields 'field_one' and 'field_two' in source_one and
 // 'field_three' in source_two.
-// refer to turba/config/sources.php for possible source and field values
 $_prefs['search_fields'] = array(
-    'value' => ""
+    'value' => ''
 );

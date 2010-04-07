@@ -134,27 +134,21 @@ class Whups_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_AutoComplet
      */
     static public function getAddressSearchParams()
     {
-        $src = explode("\t", $GLOBALS['prefs']->getValue('search_sources'));
-        if ((count($src) == 1) && empty($src[0])) {
+        $src = json_decode($GLOBALS['prefs']->getValue('search_sources'));
+        if (!is_array($src)) {
             $src = array();
         }
 
-        $fields = array();
-        if (($val = $GLOBALS['prefs']->getValue('search_fields'))) {
-            $field_arr = explode("\n", $val);
-            foreach ($field_arr as $field) {
-                $field = trim($field);
-                if (!empty($field)) {
-                    $tmp = explode("\t", $field);
-                    if (count($tmp) > 1) {
-                        $source = array_splice($tmp, 0, 1);
-                        $fields[$source[0]] = $tmp;
-                    }
-                }
-            }
+
+        $fields = json_decode($GLOBALS['prefs']->getValue('search_fields'), true);
+        if (!is_array($fields)) {
+            $fields = array();
         }
 
-        return array('sources' => $src, 'fields' => $fields);
+        return array(
+            'fields' => $fields,
+            'sources' => $src
+        );
     }
 
 }
