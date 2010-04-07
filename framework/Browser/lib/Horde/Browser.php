@@ -1060,7 +1060,7 @@ class Horde_Browser
             $tmp_name = $_FILES[$field]['tmp_name'];
         }
 
-        if (!isset($_FILES) || ($error == UPLOAD_ERR_NO_FILE)) {
+        if (empty($_FILES) || ($error == UPLOAD_ERR_NO_FILE)) {
             throw new Horde_Browser_Exception(sprintf('There was a problem with the file upload: No %s was uploaded.', $name), UPLOAD_ERR_NO_FILE);
         } elseif (($error == UPLOAD_ERR_OK) && is_uploaded_file($tmp_name)) {
             if (!filesize($tmp_name)) {
