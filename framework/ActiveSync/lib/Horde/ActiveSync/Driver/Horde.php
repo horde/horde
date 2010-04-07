@@ -435,6 +435,19 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
     }
 
     /**
+     * Returns array of items which contain contact information
+     *
+     * @param string $searchquery
+     *
+     * @return array
+     */
+    public function getSearchResults($searchquery)
+    {
+        $this->_logger->err('getSearchResults not yet implemented');
+        return array();
+    }
+
+    /**
      *
      * @param string $folderid  The folder id
      * @param string $id        The message id
