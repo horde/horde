@@ -4,6 +4,43 @@ class Fima_Application extends Horde_Regsitry_Application
     public $version = '1.0.1';
 
     /**
+     * Code to run on init when viewing prefs for this application.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     */
+    public function prefsInit($ui)
+    {
+        switch ($ui->group) {
+        case 'share':
+            if (!$GLOBALS['prefs']->isLocked('active_ledger')) {
+                $ui->override['active_ledger'] = Fima::listLedgers();
+            }
+            break;
+        }
+    }
+
+    /**
+     * Generate code used to display a special preference.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     * @param string $item             The preference name.
+     *
+     * @return string  The HTML code to display on the options page.
+     */
+    public function prefsSpecial($ui, $item)
+    {
+        switch ($item) {
+        case 'closedperiodselect':
+            return _("Closed by period:") .
+                '<br />' .
+                Fima::buildDateWidget('closedperiod', (int)$GLOBALS['prefs']->getValue('closed_period'), '', _("None"), true) .
+                '</select><br /><br />';
+        }
+
+        return '';
+    }
+
+    /**
      * Special preferences handling on update.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
@@ -14,17 +51,6 @@ class Fima_Application extends Horde_Regsitry_Application
     public function prefsSpecialUpdate($ui, $item)
     {
         switch ($item) {
-        case 'ledgerselect':
-            if (isset($ui->vars->active_ledger)) {
-                $ledgers = Fima::listLedgers();
-                if (is_array($ledgers) &&
-                    array_key_exists($ui->vars->active_ledger, $ledgers)) {
-                    $GLOBALS['prefs']->setValue('active_ledger', $ui->vars->active_ledger);
-                    return true;
-                }
-            }
-            break;
-
         case 'closedperiodselect':
             $period = $ui->vars->closedperiod;
             $period = ((int)$period['year'] > 0 && (int)$period['month'] > 0)
