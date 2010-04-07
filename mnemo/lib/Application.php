@@ -40,10 +40,10 @@ class Mnemo_Application extends Horde_Registry_Application
      * @var string
      */
     public $version = 'H4 (3.0-git)';
-    
+
     /**
      * Initialization function.
-     * 
+     *
      * Global variables defined:
      *   $mnemo_shares - TODO
      */
@@ -51,13 +51,35 @@ class Mnemo_Application extends Horde_Registry_Application
     {
 	// Set the timezone variable.
 	Horde_Nls::setTimeZone();
-	
+
 	// Create a share instance.
 	$GLOBALS['mnemo_shares'] = Horde_Share::singleton($GLOBALS['registry']->getApp());
-	
+
 	Mnemo::initialize();
     }
-    
+
+    /**
+     * Code to run on init when viewing prefs for this application.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     */
+    public function prefsInit($ui)
+    {
+        global $conf, $prefs, $registry;
+
+        switch ($ui->group) {
+        case 'share':
+            if (!$prefs->isLocked('default_notepad')) {
+                $notepads = array();
+                foreach (Mnemo::listNotepads() as $key => $val) {
+                    $notepads[htmlspecialchars($key)] = htmlspecialchars($val->get('name'));
+                }
+                $ui->override['default_tasklist'] = $notepads;
+            }
+            break;
+        }
+    }
+
     /**
      * Generate the menu to use on the prefs page.
      *
