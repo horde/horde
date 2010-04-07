@@ -189,9 +189,17 @@ class Horde_Test
      * @var array
      */
     protected $_settingsList = array(
+        'allow_url_include' => array(
+            'setting' => false,
+            'error' => 'This is a security hazard. Horde will attempt to disable automatically, but it is best to manually disable also.'
+        ),
         'magic_quotes_runtime' => array(
             'setting' => false,
-            'error' => 'magic_quotes_runtime may cause problems with database inserts, etc. Turn it off.'
+            'error' => 'magic_quotes_runtime may cause problems with database inserts, etc. Horde will attempt to disable automatically, but it is best to manually disable also.'
+        ),
+        'magic_quotes_sybase' => array(
+            'setting' => false,
+            'error' => 'magic_quotes_sybase may cause problems with database inserts, etc. Horde will attempt to disable automatically, but it is best to manually disable also.'
         ),
         'memory_limit' => array(
             'setting' => 'value',
@@ -224,9 +232,17 @@ class Horde_Test
             'setting' => false,
             'error' => 'Horde will work with session.use_trans_sid turned on, but you may see double session-ids in your URLs, and if the session name in php.ini differs from the session name configured in Horde, you may get two session ids and see other odd behavior. The URL-rewriting that use_trans_sid does also tends to break XHTML compliance. In short, you should really disable this.'
         ),
+        'tidy.clean_output' => array(
+            'setting' => false,
+            'error' => 'This will break output of any dynamically created, non-HTML content. Horde will attempt to disable automatically, but it is best to manually disable also.'
+        ),
         'zend_accelerator.compress_all' => array(
             'setting' => false,
             'error' => 'You should not enable output compression unconditionally because some browsers and scripts don\'t work well with output compression. Enable compression in Horde\'s configuration instead, so that we have full control over the conditions where to enable and disable it.'
+        ),
+        'zend.ze1_compatibility_mode' => array(
+            'setting' => false,
+            'error' => 'Unneeded, deprecated PHP 4 compatibility option. Horde will attempt to disable automatically, but it is best to manually disable also.'
         ),
         'zlib.output_compression' => array(
             'setting' => false,
