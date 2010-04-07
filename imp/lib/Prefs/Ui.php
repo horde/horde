@@ -38,7 +38,7 @@ class IMP_Prefs_Ui
 
         case 'addressbooks':
             if (!$prefs->isLocked('sourceselect')) {
-                Horde_Core_Prefs_Ui_Widgets::addressbooksInit($ui);
+                Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
             }
 
             if (!$prefs->isLocked('add_source')) {
@@ -308,7 +308,7 @@ class IMP_Prefs_Ui
             return $this->_sound();
 
         case 'sourceselect':
-            return Horde_Core_Prefs_Ui_Widgets::addressbooks($ui);
+            return Horde_Core_Prefs_Ui_Widgets::addressbooks();
 
         case 'spamselect':
             return $this->_spam();

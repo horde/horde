@@ -18,10 +18,8 @@ class Horde_Core_Prefs_Ui_Widgets
 
     /**
      * Code to run on init.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
-    static public function sourceInit($ui)
+    static public function sourceInit()
     {
         Horde::addScriptFile('sourceselect.js', 'horde');
     }
@@ -35,8 +33,7 @@ class Horde_Core_Prefs_Ui_Widgets
      * will contain a list of arrays; each subarray contains the source name
      * and the list of selected values (JSON encoded).
      *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     * @param array $data              Data items:
+     * @param array $data  Data items:
      * <pre>
      * 'mainlabel' - (string) Main label.
      * 'selectlabel' - (array) Selected label.
@@ -49,7 +46,7 @@ class Horde_Core_Prefs_Ui_Widgets
      *
      * @return string  HTML UI code.
      */
-    static public function source($ui, $data = array())
+    static public function source($data)
     {
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
 
@@ -110,12 +107,10 @@ class Horde_Core_Prefs_Ui_Widgets
 
     /**
      * Code to run on init for addressbook selection.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
-    static public function addressbooksInit($ui)
+    static public function addressbooksInit()
     {
-        self::sourceInit($ui);
+        self::sourceInit();
         Horde::addScriptFile('addressbooksprefs.js', 'horde');
     }
 
@@ -127,11 +122,9 @@ class Horde_Core_Prefs_Ui_Widgets
      * search_fields contains a hash containing sources as keys and an array
      * of search fields as the value.
      *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     *
      * @return string  HTML UI code.
      */
-    static public function addressbooks($ui)
+    static public function addressbooks()
     {
         global $prefs, $registry;
 
@@ -176,7 +169,7 @@ class Horde_Core_Prefs_Ui_Widgets
         }
 
         if (!empty($selected) || !empty($unselected)) {
-            $out = Horde_Core_Prefs_Ui_Widgets::source($ui, array(
+            $out = Horde_Core_Prefs_Ui_Widgets::source(array(
                   'mainlabel' => _("Choose the order of address books to search when expanding addresses."),
                   'selectlabel' => _("Selected address books:"),
                   'sources' => array(array(

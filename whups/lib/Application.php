@@ -131,7 +131,7 @@ class Whups_Application extends Horde_Registry_Application
     {
         switch ($ui->group) {
         case 'addressbooks':
-            Horde_Core_Prefs_Ui_Widgets::addressbooksInit($ui);
+            Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
             break;
         }
 
@@ -152,7 +152,7 @@ class Whups_Application extends Horde_Registry_Application
     {
         switch ($item) {
         case 'sourceselect':
-            return Horde_Core_Prefs_Ui_Widgets::addressbooks($ui);
+            return Horde_Core_Prefs_Ui_Widgets::addressbooks();
         }
 
         return '';

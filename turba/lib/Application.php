@@ -168,7 +168,7 @@ class Turba_Application extends Horde_Registry_Application
 
         switch ($ui->group) {
         case 'addressbooks':
-            Horde_Core_Prefs_Ui_Widgets::sourceInit($ui);
+            Horde_Core_Prefs_Ui_Widgets::sourceInit();
 
             if (!$prefs->isLocked('default_dir')) {
                 $out = array();
@@ -229,7 +229,7 @@ class Turba_Application extends Horde_Registry_Application
                 $selected[$val] = $GLOBALS['cfgSources'][$val]['title'];
             }
 
-            return Horde_Core_Prefs_Ui_Widgets::source($ui, array(
+            return Horde_Core_Prefs_Ui_Widgets::source(array(
                 'mainlabel' => _("Choose which address books to display, and in what order:"),
                 'selected' => $selected,
                 'selectlabel' => _("These addressbooks will display in this order:"),

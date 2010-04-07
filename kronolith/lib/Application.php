@@ -120,7 +120,7 @@ class Kronolith_Application extends Horde_Registry_Application
         switch ($ui->group) {
         case 'addressbooks':
             if (!$prefs->isLocked('sourceselect')) {
-                Horde_Core_Prefs_Ui_Widgets::addressbooksInit($ui);
+                Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
             }
             break;
 
@@ -202,7 +202,7 @@ class Kronolith_Application extends Horde_Registry_Application
             return $this->_defaultAlarmManagement($ui);
 
         case 'sourceselect':
-            return Horde_Core_Prefs_Ui_Widgets::addressbooks($ui);
+            return Horde_Core_Prefs_Ui_Widgets::addressbooks();
         }
 
         return '';

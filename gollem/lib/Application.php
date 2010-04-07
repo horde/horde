@@ -107,7 +107,7 @@ class Gollem_Application extends Horde_Registry_Application
         switch ($ui->group) {
         case 'display':
             if (!$prefs->isLocked('columns')) {
-                Horde_Core_Prefs_Ui_Widgets::sourceInit($ui);
+                Horde_Core_Prefs_Ui_Widgets::sourceInit();
             }
             break;
         }
@@ -147,7 +147,7 @@ class Gollem_Application extends Horde_Registry_Application
                 );
             }
 
-            return Horde_Core_Prefs_Ui_Widgets::source($ui, array(
+            return Horde_Core_Prefs_Ui_Widgets::source(array(
                 'mainlabel' => _("Choose which address books to display, and in what order:"),
                 'selectlabel' => _("These addressbooks will display in this order:"),
                 'sourcelabel' => _("Select a backend:"),
