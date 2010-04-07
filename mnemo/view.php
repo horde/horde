@@ -9,14 +9,15 @@
  */
 
 @define('MNEMO_BASE', dirname(__FILE__));
-require_once MNEMO_BASE . '/lib/base.php';
+require_once MNEMO_BASE . '/lib/Application.php';
+Horde_Registry::appInit('mnemo');
 
 /* Check if a passphrase has been sent. */
 $passphrase = Horde_Util::getFormData('memo_passphrase');
 
 /* We can either have a UID or a memo id and a notepad. Check for UID
  * first. */
-$storage = &Mnemo_Driver::singleton();
+$storage = Mnemo_Driver::singleton();
 if ($uid = Horde_Util::getFormData('uid')) {
     $memo = $storage->getByUID($uid, $passphrase);
     if (is_a($memo, 'PEAR_Error')) {
@@ -40,7 +41,7 @@ if ($uid = Horde_Util::getFormData('uid')) {
     $memo = Mnemo::getMemo($memolist_id, $memo_id, $passphrase);
 }
 
-$share = &$GLOBALS['mnemo_shares']->getShare($memolist_id);
+$share = $GLOBALS['mnemo_shares']->getShare($memolist_id);
 if (is_a($share, 'PEAR_Error')) {
     $notification->push(sprintf(_("There was an error viewing this notepad: %s"), $share->getMessage()), 'horde.error');
     header('Location: ' . Horde::applicationUrl('list.php', true));
@@ -63,10 +64,9 @@ $userId = Horde_Auth::getAuth();
 $createdby = '';
 $modifiedby = '';
 if (!empty($memo['uid'])) {
-    $history = &Horde_History::singleton();
-    $log = $history->getHistory('mnemo:' . $memolist_id . ':' . $memo['uid']);
+    $log = Horde_History::singleton()->getHistory('mnemo:' . $memolist_id . ':' . $memo['uid']);
     if ($log && !is_a($log, 'PEAR_Error')) {
-        foreach ($log->getData() as $entry) {
+	foreach ($log as $entry) {
             switch ($entry['action']) {
             case 'add':
                 $created = $entry['ts'];

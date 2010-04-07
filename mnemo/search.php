@@ -13,12 +13,15 @@
  */
 
 @define('MNEMO_BASE', dirname(__FILE__));
-require_once MNEMO_BASE . '/lib/base.php';
+require_once MNEMO_BASE . '/lib/Application.php';
+Horde_Registry::appInit('mnemo');
+
 $title = _("Search");
 $notification->push('document.getElementById(\'search_pattern\').focus();', 'javascript');
 Horde::addScriptFile('prototype.js', 'horde', true);
 require MNEMO_TEMPLATES . '/common-header.inc';
 require MNEMO_TEMPLATES . '/menu.inc';
+$notification->notify();
 require MNEMO_TEMPLATES . '/search/search.inc';
 require MNEMO_TEMPLATES . '/panel.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

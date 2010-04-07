@@ -20,18 +20,14 @@ if (!empty($refresh_time) && ($refresh_time > 0) && !empty($refresh_url)) {
 
 Horde::includeScriptFiles();
 
-$bc = Horde_Util::nonInputVar('bodyClass');
-if ($prefs->getValue('show_panel')) {
-    if ($bc) {
-        $bc .= ' ';
-    }
-    $bc .= 'rightPanel';
-}
+$bc = $prefs->getValue('show_panel')
+    ? 'rightPanel'
+    : '';
 
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
-<link href="<?php echo $GLOBALS['registry']->getImageDir()?>/favicon.ico" rel="SHORTCUT ICON" />
-<?php Horde::includeStylesheetFiles() ?>
+<link href="<?php echo Horde_Themes::img('favicon.ico', array('nohorde' => true)) ?>" rel="SHORTCUT ICON" />
+<?php Horde_Themes::includeStylesheetFiles() ?>
 <link href="<?php echo Horde::applicationUrl('themes/categoryCSS.php') ?>" rel="stylesheet" type="text/css" />
 </head>
 

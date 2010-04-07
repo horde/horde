@@ -53,7 +53,8 @@ function showPassphrase($memo)
 }
 
 @define('MNEMO_BASE', dirname(__FILE__));
-require_once MNEMO_BASE . '/lib/base.php';
+require_once MNEMO_BASE . '/lib/Application.php';
+Horde_Registry::appInit('mnemo');
 
 /* Redirect to the notepad view if no action has been requested. */
 $memo_id = Horde_Util::getFormData('memo');
@@ -71,8 +72,8 @@ $cManager = new Horde_Prefs_CategoryManager();
 switch ($actionID) {
 case 'add_memo':
     /* Check permissions. */
-    if (Mnemo::hasPermission('max_notes') !== true &&
-        Mnemo::hasPermission('max_notes') <= Mnemo::countMemos()) {
+    if ($GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_notes') !== true &&
+        $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_notes') <= Mnemo::countMemos()) {
         $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d notes."), Mnemo::hasPermission('max_notes')), ENT_COMPAT, Horde_Nls::getCharset());
         if (!empty($conf['hooks']['permsdenied'])) {
             $message = Horde::callHook('_perms_hook_denied', array('mnemo:max_notes'), 'horde', $message);
@@ -129,7 +130,7 @@ case 'save_memo':
     $memo_passphrase = Horde_Util::getFormData('memo_passphrase');
     $memo_passphrase2 = Horde_Util::getFormData('memo_passphrase2');
 
-    $share = &$GLOBALS['mnemo_shares']->getShare($notepad_target);
+    $share = $GLOBALS['mnemo_shares']->getShare($notepad_target);
     if (is_a($share, 'PEAR_Error')) {
         $notification->push(sprintf(_("Access denied saving note: %s"), $share->getMessage()), 'horde.error');
     } elseif (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
@@ -192,13 +193,13 @@ case 'save_memo':
             $result = $storage->modify($memo_id, $memo_desc, $memo_body, $memo_category, $memo_passphrase);
         } else {
             /* Check permissions. */
-            if (Mnemo::hasPermission('max_notes') !== true &&
-                Mnemo::hasPermission('max_notes') <= Mnemo::countMemos()) {
+            if ($GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_notes') !== true &&
+                $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_notes') <= Mnemo::countMemos()) {
                 header('Location: ' . Horde::applicationUrl('list.php', true));
                 exit;
             }
             /* Creating a new note. */
-            $storage = &Mnemo_Driver::singleton($notepad_target);
+            $storage = Mnemo_Driver::singleton($notepad_target);
             $memo_desc = $storage->getMemoDescription($memo_body);
             $result = $memo_id = $storage->add($memo_desc, $memo_body,
                                                $memo_category, null,
@@ -251,5 +252,6 @@ default:
 $notepads = Mnemo::listNotepads(false, Horde_Perms::EDIT);
 require MNEMO_TEMPLATES . '/common-header.inc';
 require MNEMO_TEMPLATES . '/menu.inc';
+$notification->notify();
 require MNEMO_TEMPLATES . '/memo/memo.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

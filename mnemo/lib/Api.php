@@ -5,7 +5,7 @@
  * This file defines Mnemo's external API interface.  Other applications can
  * interact with Mnemo through this API.
  *
- * $Horde: mnemo/lib/api.php,v 1.99 2009/11/24 04:13:44 chuck Exp $
+ * $Horde: mnemo/lib/api.php,v 1.99 2009-11-24 04:13:44 chuck Exp $
  *
  * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
  *
@@ -106,14 +106,14 @@ function _mnemo_removeUserData($user)
     /* Get the share object for later deletion */
     $share = $GLOBALS['mnemo_shares']->getShare($user);
     if (is_a($share, 'PEAR_Error')) {
-        Horde::logMessage($share->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+        Horde::logMessage($share->getMessage(), 'ERR');
         unset($share);
     } else {
         $GLOBALS['display_notepads'] = array($user);
         $memos = Mnemo::listMemos();
         if (is_a($memos, 'PEAR_Error')) {
             $hasError = true;
-            Horde::logMessage($mnemos->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($mnemos->getMessage(), 'ERR');
         } else {
             $uids = array();
             foreach ($memos as $memo) {
@@ -134,7 +134,7 @@ function _mnemo_removeUserData($user)
             /* Remove entries 100 at a time. */
             $all = $history->getByTimestamp('>', 0, array(), 'mnemo:' . $user);
             if (is_a($all, 'PEAR_Error')) {
-                Horde::logMessage($all, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($all, 'ERR');
             } else {
                 $all = array_keys($all);
                 while (count($d = array_splice($all, 0, 100)) > 0) {
@@ -148,7 +148,7 @@ function _mnemo_removeUserData($user)
             $result = $GLOBALS['mnemo_shares']->removeShare($share);
             if (is_a($result, 'PEAR_Error')) {
                 $hasError = true;
-                Horde::logMessage($result->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result->getMessage(), 'ERR');
             }
         }
 
@@ -156,7 +156,7 @@ function _mnemo_removeUserData($user)
         $shares = $GLOBALS['mnemo_shares']->listShares($user);
         if (is_a($shares, 'PEAR_Error')) {
             $hasError = true;
-            Horde::logMessage($shares, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($shares, 'ERR');
         } else {
             foreach ($shares as $share) {
                 $share->removeUser($user);

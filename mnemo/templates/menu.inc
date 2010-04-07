@@ -1,4 +1,3 @@
 <div id="menu">
- <?php echo Mnemo::getMenu('string') ?>
+ <?php echo Mnemo::getMenu()->render() ?>
 </div>
-<?php $GLOBALS['notification']->notify(array('listeners' => 'status')) ?>

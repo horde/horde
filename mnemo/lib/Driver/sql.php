@@ -156,8 +156,7 @@ class Mnemo_Driver_sql extends Mnemo_Driver {
         $values = array($this->_notepad, $noteId);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Mnemo_Driver_sql::get(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Mnemo_Driver_sql::get(): %s', $query), 'DEBUG');
 
         /* Execute the query. */
         $row = $this->_db->getRow($query, $values, DB_FETCHMODE_ASSOC);
@@ -186,8 +185,7 @@ class Mnemo_Driver_sql extends Mnemo_Driver {
         $values = array($uid);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Mnemo_Driver_sql::getByUID(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Mnemo_Driver_sql::getByUID(): %s', $query), 'DEBUG');
 
         /* Execute the query. */
         $row = $this->_db->getRow($query, $values, DB_FETCHMODE_ASSOC);
@@ -241,15 +239,14 @@ class Mnemo_Driver_sql extends Mnemo_Driver {
                         Horde_String::convertCharset($uid, Horde_Nls::getCharset(), $this->_params['charset']));
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Mnemo_Driver_sql::add(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Mnemo_Driver_sql::add(): %s', $query), 'DEBUG');
 
         /* Attempt the insertion query. */
         $result = $this->_write_db->query($query, $values);
 
         /* Return an error immediately if the query failed. */
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -293,14 +290,13 @@ class Mnemo_Driver_sql extends Mnemo_Driver {
         array_push($values, $this->_notepad, $noteId);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Mnemo_Driver_sql::modify(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Mnemo_Driver_sql::modify(): %s', $query), 'DEBUG');
 
         /* Attempt the update query. */
         $result = $this->_write_db->query($query, $values);
 
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -331,13 +327,12 @@ class Mnemo_Driver_sql extends Mnemo_Driver {
         $values = array($newNotepad, $this->_notepad, $noteId);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Mnemo_Driver_sql::move(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Mnemo_Driver_sql::move(): %s', $query), 'DEBUG');
 
         /* Attempt the move query. */
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -361,14 +356,13 @@ class Mnemo_Driver_sql extends Mnemo_Driver {
         $values = array($this->_notepad, $noteId);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Mnemo_Driver_sql::delete(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Mnemo_Driver_sql::delete(): %s', $query), 'DEBUG');
 
         /* Attempt the delete query. */
         $result = $this->_write_db->query($query, $values);
 
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -383,13 +377,12 @@ class Mnemo_Driver_sql extends Mnemo_Driver {
 
     function deleteAll()
     {
-        $query = 'DELETE FROM ' . $this->_params['table'] .
-                 ' WHERE memo_owner = ?';
+        $query = sprintf('DELETE FROM %s WHERE memo_owner = ?',
+			 $this->_params['table']);
         $values = array($this->_notepad);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Mnemo_Driver_sql::deleteAll(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Mnemo_Driver_sql::deleteAll(): %s', $query), 'DEBUG');
 
         /* Attempt the delete query. */
         $result = $this->_write_db->query($query, $values);
@@ -406,16 +399,16 @@ class Mnemo_Driver_sql extends Mnemo_Driver {
     function retrieve()
     {
         /* Build the SQL query. */
-        $query = 'SELECT * FROM ' . $this->_params['table'] .
-                 ' WHERE memo_owner = ?';
+        $query = sprintf('SELECT * FROM %s WHERE memo_owner = ?',
+			 $this->_params['table']);
         $values = array($this->_notepad);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Mnemo_Driver_sql::retrieve(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('Mnemo_Driver_sql::retrieve(): %s', $query), 'DEBUG');
 
         /* Execute the query. */
         $result = $this->_db->query($query, $values);
+
         if (is_a($result, 'PEAR_Error')) {
             return $result;
         }
@@ -444,8 +437,7 @@ class Mnemo_Driver_sql extends Mnemo_Driver {
             $values = array($row['memo_uid'], $row['memo_owner'], $row['memo_id']);
 
             /* Log the query at a DEBUG log level. */
-            Horde::logMessage(sprintf('Mnemo_Driver_sql adding missing UID: %s', $query),
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage(sprintf('Mnemo_Driver_sql adding missing UID: %s', $query), 'DEBUG');
             $this->_write_db->query($query, $values);
         }
 

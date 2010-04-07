@@ -9,7 +9,8 @@
  */
 
 @define('MNEMO_BASE', dirname(dirname(__FILE__)));
-require_once MNEMO_BASE . '/lib/base.php';
+require_once MNEMO_BASE . '/lib/Application.php';
+Horde_Registry::appInit('mnemo');
 
 // Exit if this isn't an authenticated user.
 if (!Horde_Auth::getAuth()) {
@@ -21,6 +22,7 @@ $edit_url_base = Horde::applicationUrl('notepads/edit.php');
 $perms_url_base = Horde::url($registry->get('webroot', 'horde') . '/services/shares/edit.php?app=mnemo', true);
 $delete_url_base = Horde::applicationUrl('notepads/delete.php');
 
+
 $notepads = Mnemo::listNotepads(true);
 $sorted_notepads = array();
 foreach ($notepads as $notepad) {
@@ -28,14 +30,15 @@ foreach ($notepads as $notepad) {
 }
 asort($sorted_notepads);
 
-$edit_img = Horde::img('edit.png', _("Edit"), null, $registry->getImageDir('horde'));
-$perms_img = Horde::img('perms.png', _("Change Permissions"), null, $registry->getImageDir('horde'));
-$delete_img = Horde::img('delete.png', _("Delete"), null, $registry->getImageDir('horde'));
+$edit_img = Horde::img('edit.png', _("Edit"), null);
+$perms_img = Horde::img('perms.png', _("Change Permissions"), null);
+$delete_img = Horde::img('delete.png', _("Delete"), null);
 
 Horde::addScriptFile('popup.js', 'horde', true);
 Horde::addScriptFile('tables.js', 'horde', true);
 $title = _("Manage Notepads");
 require MNEMO_TEMPLATES . '/common-header.inc';
 require MNEMO_TEMPLATES . '/menu.inc';
+$notification->notify();
 require MNEMO_TEMPLATES . '/notepad_list.php';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

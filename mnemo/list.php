@@ -9,8 +9,8 @@
  */
 
 @define('MNEMO_BASE', dirname(__FILE__));
-require_once MNEMO_BASE . '/lib/base.php';
-
+require_once MNEMO_BASE . '/lib/Application.php';
+Horde_Registry::appInit('mnemo');
 /* Get the current action ID. */
 $actionID = Horde_Util::getFormData('actionID');
 
@@ -61,6 +61,7 @@ Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('QuickFinder.js', 'horde', true);
 require MNEMO_TEMPLATES . '/common-header.inc';
 require MNEMO_TEMPLATES . '/menu.inc';
+$notification->notify();
 require MNEMO_TEMPLATES . '/list/header.inc';
 
 if (count($memos)) {
@@ -91,7 +92,7 @@ if (count($memos)) {
         $memourl = Horde_Util::addParameter(
             'memo.php', array('memo' => $memo['memo_id'],
                               'memolist' => $memo['memolist_id']));
-        $share = &$GLOBALS['mnemo_shares']->getShare($memo['memolist_id']);
+        $share = $GLOBALS['mnemo_shares']->getShare($memo['memolist_id']);
 
         $notepad = $memo['memolist_id'];
         if (!is_a($share, 'PEAR_Error')) {

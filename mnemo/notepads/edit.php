@@ -9,7 +9,9 @@
  */
 
 @define('MNEMO_BASE', dirname(dirname(__FILE__)));
-require_once MNEMO_BASE . '/lib/base.php';
+require_once MNEMO_BASE . '/lib/Application.php';
+Horde_Registry::appInit('mnemo');
+
 require_once MNEMO_BASE . '/lib/Forms/EditNotepad.php';
 
 // Exit if this isn't an authenticated user.
@@ -55,5 +57,6 @@ $vars->set('description', $notepad->get('desc'));
 $title = $form->getTitle();
 require MNEMO_TEMPLATES . '/common-header.inc';
 require MNEMO_TEMPLATES . '/menu.inc';
+$notification->notify();
 echo $form->renderActive($form->getRenderer(), $vars, 'edit.php', 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -20,7 +20,8 @@ function _cleanup()
 }
 
 @define('MNEMO_BASE', dirname(__FILE__));
-require_once MNEMO_BASE . '/lib/base.php';
+require_once MNEMO_BASE . '/lib/Application.php';
+Horde_Registry::appInit('mnemo');
 
 if (!$conf['menu']['import_export']) {
     require MNEMO_BASE . '/index.php';
@@ -36,9 +37,9 @@ $templates = array(
     Horde_Data::IMPORT_CSV => array($registry->get('templates', 'horde') . '/data/csvinfo.inc'),
     Horde_Data::IMPORT_MAPPED => array($registry->get('templates', 'horde') . '/data/csvmap.inc'),
 );
-if (Mnemo::hasPermission('max_notes') !== true &&
-    Mnemo::hasPermission('max_notes') <= Mnemo::countMemos()) {
-    $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d notes."), Mnemo::hasPermission('max_notes')), ENT_COMPAT, Horde_Nls::getCharset());
+if ($GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_notes') !== true &&
+    $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_notes') <= Mnemo::countMemos()) {
+    $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d notes."), $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_notes')), ENT_COMPAT, Horde_Nls::getCharset());
     if (!empty($conf['hooks']['permsdenied'])) {
         $message = Horde::callHook('_perms_hook_denied', array('mnemo:max_notes'), 'horde', $message);
     }
@@ -120,11 +121,11 @@ if (is_array($next_step)) {
 
     /* Create a Mnemo storage instance. */
     $storage = &Mnemo_Driver::singleton($_SESSION['import_data']['target']);
-    $max_memos = Mnemo::hasPermission('max_notes');
+    $max_memos = $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_notes');
     $num_memos = Mnemo::countMemos();
     foreach ($next_step as $row) {
         if ($max_memos !== true && $num_memos >= $max_memos) {
-            $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d notes."), Mnemo::hasPermission('max_notes')), ENT_COMPAT, Horde_Nls::getCharset());
+            $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d notes."), $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_notes')), ENT_COMPAT, Horde_Nls::getCharset());
             if (!empty($conf['hooks']['permsdenied'])) {
                 $message = Horde::callHook('_perms_hook_denied', array('mnemo:max_notes'), 'horde', $message);
             }
@@ -204,6 +205,7 @@ if (is_array($next_step)) {
 $title = _("Import/Export Notes");
 require MNEMO_TEMPLATES . '/common-header.inc';
 require MNEMO_TEMPLATES . '/menu.inc';
+$notification->notify();
 
 if (isset($templates[$next_step])) {
     foreach ($templates[$next_step] as $template) {

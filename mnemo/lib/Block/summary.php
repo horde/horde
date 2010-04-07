@@ -16,13 +16,17 @@ class Horde_Block_Mnemo_summary extends Horde_Block {
     function _title()
     {
         global $registry;
-        return Horde::link(Horde::url($registry->getInitialPage(), true)) .
-            htmlspecialchars($registry->get('name')) . '</a>';
+	
+	$label = !empty($this->_params['block_title'])
+            ? $this->_params['block_title']
+            : $registry->get('name');
+        return Horde::link(Horde::applicationUrl($registry->getInitialPage(),
+						 true))
+            . htmlspecialchars($label) . '</a>';
     }
 
     function _params()
     {
-        require_once dirname(__FILE__) . '/../base.php';
         $cManager = new Horde_Prefs_CategoryManager();
         $categories = array();
         foreach ($cManager->get() as $c) {
@@ -46,8 +50,7 @@ class Horde_Block_Mnemo_summary extends Horde_Block {
 
     function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-        global $prefs;
+        global $registry, $prefs;
 
         $cManager = new Horde_Prefs_CategoryManager();
         $colors = $cManager->colors();

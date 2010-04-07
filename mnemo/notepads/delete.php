@@ -9,7 +9,9 @@
  */
 
 @define('MNEMO_BASE', dirname(dirname(__FILE__)));
-require_once MNEMO_BASE . '/lib/base.php';
+require_once MNEMO_BASE . '/lib/Application.php';
+Horde_Registry::appInit('mnemo');
+
 require_once MNEMO_BASE . '/lib/Forms/DeleteNotepad.php';
 
 // Exit if this isn't an authenticated user.
@@ -56,5 +58,6 @@ if ($form->validate(new Horde_Variables($_POST))) {
 $title = $form->getTitle();
 require MNEMO_TEMPLATES . '/common-header.inc';
 require MNEMO_TEMPLATES . '/menu.inc';
+$notification->notify();
 echo $form->renderActive($form->getRenderer(), $vars, 'delete.php', 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

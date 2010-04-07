@@ -14,9 +14,10 @@ class Horde_Block_mnemo_tree_menu extends Horde_Block {
 
     function _buildTree(&$tree, $indent = 0, $parent = null)
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         global $registry;
+
+        $add = Horde::applicationUrl('memo.php')->add('actionID', 'add_memo');
+	$icondir = (string)Horde_Themes::img();
 
         $tree->addNode($parent . '__new',
                        $parent,
@@ -24,19 +25,23 @@ class Horde_Block_mnemo_tree_menu extends Horde_Block {
                        $indent + 1,
                        false,
                        array('icon' => 'add.png',
-                             'icondir' => $registry->getImageDir(),
-                             'url' => Horde::applicationUrl('memo.php?actionID=add_memo')));
+                             'icondir' => $icondir,
+                             'url' => $add));
 
         foreach (Mnemo::listNotepads() as $name => $notepad) {
+	    if ($notepad->get('owner') != Horde_Auth::getAuth() &&
+		!empty($GLOBALS['conf']['share']['hidden']) &&
+		!in_array($notepad->getName(), $GLOBALS['display_notepads'])) {
+		continue;
+	    }
             $tree->addNode($parent . $name . '__new',
                            $parent . '__new',
                            sprintf(_("in %s"), $notepad->get('name')),
                            $indent + 2,
                            false,
                            array('icon' => 'add.png',
-                                 'icondir' => $registry->getImageDir(),
-                                 'url' => Horde_Util::addParameter(Horde::applicationUrl('memo.php?memolist=' . urlencode($name)),
-                                                             'actionID', 'add_memo')));
+                                 'icondir' => $icondir,
+                                 'url' => Horde_Util::addParameter($add, array('memolist' => $name))));
         }
 
         $tree->addNode($parent . '__search',
@@ -45,7 +50,7 @@ class Horde_Block_mnemo_tree_menu extends Horde_Block {
                        $indent + 1,
                        false,
                        array('icon' => 'search.png',
-                             'icondir' => $registry->getImageDir('horde'),
+                             'icondir' => (string)Horde_Themes::img(null, 'horde'),
                              'url' => Horde::applicationUrl('search.php')));
     }
 

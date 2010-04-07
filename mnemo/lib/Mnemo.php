@@ -67,7 +67,7 @@ class Mnemo {
      *
      * @see Mnemo_Driver::listMemos()
      */
-    function listMemos($sortby = MNEMO_SORT_DESC,
+    public static function listMemos($sortby = MNEMO_SORT_DESC,
                        $sortdir = MNEMO_SORT_ASCEND)
     {
         global $conf, $display_notepads;
@@ -169,17 +169,15 @@ class Mnemo {
      *
      * @return array  The memo lists.
      */
-    function listNotepads($owneronly = false, $permission = Horde_Perms::SHOW)
+    public static function listNotepads($owneronly = false, $permission = Horde_Perms::SHOW)
     {
         if ($owneronly && !Horde_Auth::getAuth()) {
             return array();
         }
-
         $notepads = $GLOBALS['mnemo_shares']->listShares(Horde_Auth::getAuth(), $permission, $owneronly ? Horde_Auth::getAuth() : null, 0, 0, 'name');
         if (is_a($notepads, 'PEAR_Error')) {
-            Horde::logMessage($notepads, __FILE__, __LINE__, PEAR_LOG_ERR);
-            $empty = array();
-            return $empty;
+            Horde::logMessage($notepads, 'ERR');
+            return array();
         }
 
         return $notepads;
@@ -189,7 +187,7 @@ class Mnemo {
      * Returns the default notepad for the current user at the specified
      * permissions level.
      */
-    function getDefaultNotepad($permission = Horde_Perms::SHOW)
+    public static function getDefaultNotepad($permission = Horde_Perms::SHOW)
     {
         global $prefs;
 
@@ -199,8 +197,9 @@ class Mnemo {
         if (isset($notepads[$default_notepad])) {
             return $default_notepad;
         } elseif ($prefs->isLocked('default_notepad')) {
-            return '';
+            return Horde_Auth::getAuth();
         } elseif (count($notepads)) {
+	    reset($notepads);
             return key($notepads);
         }
 
@@ -401,7 +400,7 @@ class Mnemo {
     /**
      * Initial app setup code.
      */
-    function initialize()
+    public static function initialize()
     {
         // Update the preference for which notepads to display. If the
         // user doesn't have any selected notepads for view then fall
@@ -467,37 +466,34 @@ class Mnemo {
     /**
      * Builds Mnemo's list of menu items.
      */
-    function getMenu($returnType = 'object')
+    public static function getMenu()
     {
         global $conf, $registry, $print_link;
 
         $menu = new Horde_Menu();
         $menu->add(Horde::applicationUrl('list.php'), _("_List Notes"), 'mnemo.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
+
         if (Mnemo::getDefaultNotepad(Horde_Perms::EDIT) &&
             (!empty($conf['hooks']['permsdenied']) ||
-             Mnemo::hasPermission('max_notes') === true ||
-             Mnemo::hasPermission('max_notes') > Mnemo::countMemos())) {
-            $menu->add(Horde::applicationUrl('memo.php?actionID=add_memo'), _("_New Note"), 'add.png', null, null, null, Horde_Util::getFormData('memo') ? '__noselection' : null);
+             $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_notes') === true ||
+             $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_notes') > Mnemo::countMemos())) {
+            $menu->add(Horde::applicationUrl(Horde_Util::addParameter('memo.php', 'actionID', 'add_memo')), _("_New Note"), 'add.png', null, null, null, Horde_Util::getFormData('memo') ? '__noselection' : null);
         }
 
         /* Search. */
-        $menu->add(Horde::applicationUrl('search.php'), _("_Search"), 'search.png', $registry->getImageDir('horde'));
+        $menu->add(Horde::applicationUrl('search.php'), _("_Search"), 'search.png', Horde_Themes::img(null, 'horde'));
 
         /* Import/Export */
         if ($conf['menu']['import_export']) {
-            $menu->add(Horde::applicationUrl('data.php'), _("_Import/Export"), 'data.png', $registry->getImageDir('horde'));
+            $menu->add(Horde::applicationUrl('data.php'), _("_Import/Export"), 'data.png', Horde_Themes::img(null, 'horde'));
         }
 
         /* Print */
         if ($conf['menu']['print'] && isset($print_link)) {
-            $menu->add($print_link, _("_Print"), 'print.png', $registry->getImageDir('horde'), '_blank', 'popup(this.href); return false;');
+            $menu->add(Horde::applicationUrl($print_link), _("_Print"), 'print.png', Horde_Themes::img(null, 'horde'), '_blank', 'popup(this.href); return false;');
         }
 
-        if ($returnType == 'object') {
             return $menu;
-        } else {
-            return $menu->render();
-        }
     }
 
 }

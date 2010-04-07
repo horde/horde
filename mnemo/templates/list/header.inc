@@ -1,7 +1,7 @@
 <div id="page">
 <div class="header leftAlign">
  <?php echo htmlspecialchars($title) . ' (' . count($memos) . ')' ?>
- <a id="quicksearchL" href="<?php echo Horde::applicationUrl('search.php') ?>" title="<?php echo _("Search") ?>" onclick="$('quicksearchL').hide(); $('quicksearch').show(); $('quicksearchT').focus(); return false;"><?php echo Horde::img('search.png', _("Search"), '', $registry->getImageDir('horde')) ?></a>
+ <a id="quicksearchL" href="<?php echo Horde::applicationUrl('search.php') ?>" title="<?php echo _("Search") ?>" onclick="$('quicksearchL').hide(); $('quicksearch').show(); $('quicksearchT').focus(); return false;"><?php echo Horde::img('search.png', _("Search"), '') ?></a>
  <div id="quicksearch" style="display:none">
   <input type="text" name="quicksearchT" id="quicksearchT" for="notes_body" empty="notes_empty" />
   <small>
