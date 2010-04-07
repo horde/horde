@@ -112,14 +112,16 @@ class Turba {
      */
     function getAddressBookOrder()
     {
-        $i = 0;
-        $lines = explode("\n", $GLOBALS['prefs']->getValue('addressbooks'));
-        $temp = $lines;
+        $lines = json_decode($GLOBALS['prefs']->getValue('addressbooks'));
         $addressbooks = array();
-        foreach ($lines as $line) {
-            $line = trim($line);
-            if ($line && isset($GLOBALS['cfgSources'][$line])) {
-                $addressbooks[$line] = $i++;
+
+        if (!empty($lines)) {
+            $i = 0;
+            foreach ($lines as $line) {
+                $line = trim($line);
+                if ($line && isset($GLOBALS['cfgSources'][$line])) {
+                    $addressbooks[$line] = $i++;
+                }
             }
         }
         return $addressbooks;
@@ -132,11 +134,13 @@ class Turba {
      */
     function getDefaultAddressBook()
     {
-        $lines = explode("\n", $GLOBALS['prefs']->getValue('addressbooks'));
-        foreach ($lines as $line) {
-            $line = trim($line);
-            if ($line && isset($GLOBALS['cfgSources'][$line])) {
-                return $line;
+        $lines = json_decode($GLOBALS['prefs']->getValue('addressbooks'));
+        if (!empty($lines)) {
+            foreach ($lines as $line) {
+                $line = trim($line);
+                if ($line && isset($GLOBALS['cfgSources'][$line])) {
+                    return $line;
+                }
             }
         }
 
@@ -577,12 +581,9 @@ class Turba {
         /* Add the new addressbook to the user's list of visible address
          * books. */
         $prefs = $GLOBALS['prefs']->getValue('addressbooks');
-        if ($prefs) {
-            $prefs = explode("\n", $prefs);
-            if (array_search($share_id, $prefs) === false) {
-                $prefs[] = $share_id;
-                $GLOBALS['prefs']->setValue('addressbooks', implode("\n", $prefs));
-            }
+        if (array_search($share_id, $prefs) === false) {
+            $prefs[] = $share_id;
+            $GLOBALS['prefs']->setValue('addressbooks', json_encode($prefs));
         }
 
         return $share;

@@ -53,7 +53,7 @@ class Turba_ViewBrowseTest extends Turba_TestBase {
         $GLOBALS['copymoveSources'] = array();
         $GLOBALS['cfgSources'] = $cfgSources;
 
-        $this->setPref('addressbooks', '_test_sql');
+        $this->setPref('addressbooks', json_encode(array('_test_sql')));
     }
 
     function getPage()

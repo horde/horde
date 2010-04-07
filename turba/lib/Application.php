@@ -324,7 +324,7 @@ class Turba_Application extends Horde_Registry_Application
         case 'addressbookselect':
             $data = Horde_Core_Prefs_Ui_Widgets::sourceUpdate($ui);
             if (isset($data['sources'])) {
-                $ui->setValue('addressbooks', Horde_Serialize::unserialize($data['sources'], Horde_Serialize::JSON));
+                $ui->setValue('addressbooks', $data['sources']);
                 return true;
             }
             break;
