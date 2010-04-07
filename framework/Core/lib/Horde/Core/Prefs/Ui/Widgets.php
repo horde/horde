@@ -30,13 +30,15 @@ class Horde_Core_Prefs_Ui_Widgets
      * Create code needed for source selection.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     * @param array $data              REQUIRED data items:
+     * @param array $data              Data items:
      * <pre>
-     * 'mainlabel'
-     * 'selected'
-     * 'selectlabel'
-     * 'unselected'
-     * 'unselectlabel'
+     * 'mainlabel' - (string) Main label.
+     * 'selectlabel' - (array) Selected label.
+     * 'sourcelabel' - (string) [OPTIONAL] Source selection label.
+     * 'sources' - (array) List of sources - keys are source names. Each
+     *             source is an array with two entries - selected and
+     *             unselected.
+     * 'unselectlabel' - (array) Unselected label.
      * </pre>
      *
      * @return string  HTML UI code.
@@ -44,29 +46,49 @@ class Horde_Core_Prefs_Ui_Widgets
     static public function source($ui, $data = array())
     {
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
-        $t->setOption('gettext', true);
 
         $t->set('mainlabel', $data['mainlabel']);
         $t->set('selectlabel', $data['selectlabel']);
         $t->set('unselectlabel', $data['unselectlabel']);
 
-        $unselected = array();
-        foreach ($data['unselected'] as $key => $val) {
-            $unselected[] = array(
-                'l' => $val,
-                'v' => $key
-            );
-        }
-        $t->set('unselected', $unselected);
+        $sources = array();
+        foreach ($data['sources'] as $key => $val) {
+            $selected = $unselected = array();
 
-        $selected = array();
-        foreach ($data['selected'] as $key => $val) {
-            $selected[] = array(
-                'l' => $val,
-                'v' => $key
-            );
+            foreach ($data['selected'] as $key2 => $val2) {
+                $selected[] = array(
+                    'l' => $val2,
+                    'v' => $key2
+                );
+            }
+
+            foreach ($data['unselected'] as $key2 => $val2) {
+                $unselected[] = array(
+                    'l' => $val2,
+                    'v' => $key2
+                );
+            }
+
+            $sources[$key] = array($selected, $unselected);
         }
-        $t->set('selected', $selected);
+
+        if (count($sources) == 1) {
+            $val = reset($sources);
+            $t->set('selected', $val[0]);
+            $t->set('unselected', $val[1]);
+        } else {
+            $js = array();
+            foreach ($sources as $key => $val) {
+                $js[] = array(
+                    'selected' => $val[0],
+                    'source' => $key,
+                    'unselected' => $val[1]
+                );
+            }
+            Horde::addInlineScript(array(
+                'HordeSourceSelectPrefs.source_list = ' . Horde_Serialize::serialize($js, Horde_Serialize::JSON, Horde_Nls::getCharset())
+            ));
+        }
 
         $t->set('addimg', Horde::img(isset($GLOBALS['nls']['rtl'][$GLOBALS['language']]) ? 'lhand.png' : 'rhand.png', _("Add source")));
         $t->set('removeimg', Horde::img(isset($GLOBALS['nls']['rtl'][$GLOBALS['language']]) ? 'rhand.png' : 'lhand.png', _("Remove source")));
@@ -145,9 +167,11 @@ class Horde_Core_Prefs_Ui_Widgets
         if (!empty($selected) || !empty($unselected)) {
             $out = Horde_Core_Prefs_Ui_Widgets::source($ui, array(
                   'mainlabel' => _("Choose the order of address books to search when expanding addresses."),
-                  'selected' => $selected,
                   'selectlabel' => _("Selected address books:"),
-                  'unselected' => $unselected,
+                  'sources' => array(array(
+                      'selected' => $selected,
+                      'unselected' => $unselected
+                  )),
                   'unselectlabel' => _("Available address books:")
              ));
 

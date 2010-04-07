@@ -9,8 +9,11 @@ $prefGroups['display'] = array(
     'column' => _("User Interface"),
     'label' => _("File Display"),
     'desc' => _("Change your file sorting options."),
-    'members' => array('show_dotfiles', 'sortdirsfirst', 'columnselect',
-                       'sortby', 'sortdir', 'perpage'));
+    'members' => array(
+        'show_dotfiles', 'sortdirsfirst', 'columnselect', 'sortby', 'sortdir',
+        'perpage'
+    )
+);
 
 $prefGroups['settings'] = array(
     'column' => _("User Interface"),
@@ -21,31 +24,23 @@ $prefGroups['settings'] = array(
 // show dotfiles?
 $_prefs['show_dotfiles'] = array(
     'value' => 1,
-    'locked' => false,
-    'shared' => false,
     'type' => 'checkbox',
     'desc' => _("Show dotfiles?")
 );
 
 // columns selection widget
 $_prefs['columnselect'] = array(
-    'locked' => false,
     'type' => 'special'
 );
 
 // columns to be displayed
 $_prefs['columns'] = array(
-    'value' => "ftp\ttype\tname\tdownload\tmodified\tsize\tpermission\towner\tgroup",
-    'locked' => false,
-    'shared' => false,
-    'type' => 'implicit'
+    'value' => "ftp\ttype\tname\tdownload\tmodified\tsize\tpermission\towner\tgroup"
 );
 
 // user preferred sorting column
 $_prefs['sortby'] = array(
     'value' => Gollem::SORT_TYPE,
-    'locked' => false,
-    'shared' => false,
     'type' => 'enum',
     'enum' => array(
         Gollem::SORT_TYPE => _("File Type"),
@@ -59,8 +54,6 @@ $_prefs['sortby'] = array(
 // user preferred sorting direction
 $_prefs['sortdir'] = array(
     'value' => 0,
-    'locked' => false,
-    'shared' => false,
     'type' => 'enum',
     'enum' => array(
         Gollem::SORT_ASCEND => _("Ascending"),
@@ -72,8 +65,6 @@ $_prefs['sortdir'] = array(
 // always sort directories before files
 $_prefs['sortdirsfirst'] = array(
     'value' => 0,
-    'locked' => false,
-    'shared' => false,
     'type' => 'checkbox',
     'desc' => _("List folders first?")
 );
@@ -81,8 +72,6 @@ $_prefs['sortdirsfirst'] = array(
 // number of items per page
 $_prefs['perpage'] = array(
     'value' => 20,
-    'locked' => false,
-    'shared' => true,
     'type' => 'number',
     'desc' => _("Items per page")
 );
@@ -90,8 +79,6 @@ $_prefs['perpage'] = array(
 // user preferred recursive deletes
 $_prefs['recursive_deletes'] = array(
     'value' => 'disabled',
-    'locked' => false,
-    'shared' => false,
     'type' => 'enum',
     'enum' => array(
         'disabled' => _("No"),

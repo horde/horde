@@ -1,15 +1,32 @@
 /**
  * Provides the javascript for managing the source selection widget.
  *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  */
 
 var HordeSourceSelectPrefs = {
 
-    resetHidden: function()
+    // Vars defaulting to null: source_list
+
+    setSourcesHidden: function()
     {
-        $('sources').setValue($F('selected_sources').toJSON());
+        var out = [], ss;
+
+        if (this.source_list) {
+            ss = $F('source_select');
+            if (ss) {
+                this.source_list.each(function(s) {
+                    if (s.source == ss) {
+                        s.selected = $F('selected_sources');
+                    }
+                    out.push([ s.source, s.selected ]);
+                });
+                $('sources').setValue(out.toJSON());
+            }
+        } else {
+            $('sources').setValue($F('selected_sources').toJSON());
+        }
     },
 
     moveAction: function(from, to)
@@ -21,7 +38,7 @@ var HordeSourceSelectPrefs = {
             }
         });
 
-        this.resetHidden();
+        this.setSourcesHidden();
     },
 
     moveSource: function(e, mode)
@@ -59,20 +76,46 @@ var HordeSourceSelectPrefs = {
             break;
         }
 
-        this.resetHidden();
+        this.setSourcesHidden();
         e.stop();
+    },
+
+    changeSource: function()
+    {
+        var source,
+            sel = $('selected_sources'),
+            ss = $('source_select'),
+            unsel = $('unselected_sources'),
+            val = $F(ss);
+
+        sel.down().siblings().invoke('remove');
+        unsel.down().siblings().invoke('remove');
+
+        if (val) {
+            source = this.source_list.find(function(s) {
+                return val == s.source;
+            });
+            source.selected.each(function(s) {
+                sel.insert(new Option(s.v, s.l));
+            });
+            source.unselected.each(function(u) {
+                unsel.insert(new Option(s.v, s.l));
+            });
+        }
     },
 
     onDomLoad: function()
     {
-        this.resetHidden();
-
-        if ($('unselected_sources')) {
-            $('addsource').observe('click', this.moveAction.bind(this, 'unselected_sources', 'selected_sources'));
-            $('removesource').observe('click', this.moveAction.bind(this, 'selected_sources', 'unselected_sources'));
-            $('moveup').observe('click', this.moveSource.bindAsEventListener(this, 'up'));
-            $('movedown').observe('click', this.moveSource.bindAsEventListener(this, 'down'));
+        if (this.source_list) {
+            $('source_select').observe('change', this.changeSource.bind(this));
         }
+
+        this.setSourcesHidden();
+
+        $('addsource').observe('click', this.moveAction.bind(this, 'unselected_sources', 'selected_sources'));
+        $('removesource').observe('click', this.moveAction.bind(this, 'selected_sources', 'unselected_sources'));
+        $('moveup').observe('click', this.moveSource.bindAsEventListener(this, 'up'));
+        $('movedown').observe('click', this.moveSource.bindAsEventListener(this, 'down'));
     }
 
 };

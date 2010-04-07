@@ -96,6 +96,70 @@ class Gollem_Application extends Horde_Registry_Application
     }
 
     /**
+     * Code to run on init when viewing prefs for this application.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     */
+    public function prefsInit($ui)
+    {
+        global $prefs;
+
+        switch ($ui->group) {
+        case 'display':
+            if (!$prefs->isLocked('columns')) {
+                Horde_Core_Prefs_Ui_Widgets::sourceInit($ui);
+            }
+            break;
+        }
+    }
+
+    /**
+     * Generate code used to display a special preference.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     * @param string $item             The preference name.
+     *
+     * @return string  The HTML code to display on the options page.
+     */
+    public function prefsSpecial($ui, $item)
+    {
+        switch ($item) {
+        case 'columnselect':
+            $cols = Gollem::displayColumns();
+            $sources = array();
+
+            foreach ($GLOBALS['gollem_backends'] as $source => $info) {
+                $selected = $unselected = array();
+                $selected_list = isset($cols[$source])
+                    ? array_flip($cols[$source]) :
+                    : array();
+
+                foreach ($info['attributes'] as $column) {
+                    if (isset($selected_list[$column])) {
+                        $selected[] = array($column, $column);
+                    } else {
+                        $unselected[] = array($column, $column);
+                    }
+                }
+                $sources[$source] = array(
+                    'selected' => $selected,
+                    'unselected' => $unselected,
+                );
+            }
+
+            return Horde_Core_Prefs_Ui_Widgets::source($ui, array(
+                'mainlabel' => _("Choose which address books to display, and in what order:"),
+                'selectlabel' => _("These addressbooks will display in this order:"),
+                'sourcelabel' => _("Select a backend:"),
+                'sources' => $foo,
+                'unselectlabel' => _("Address books that will not be displayed:")
+            ));
+        }
+
+        return '';
+    }
+
+    /**
      * Special preferences handling on update.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
@@ -107,12 +171,18 @@ class Gollem_Application extends Horde_Registry_Application
     {
         switch ($item) {
         case 'columnselect':
-            if (isset($ui->vars->columns)) {
-                $GLOBALS['prefs']->setValue('columns', $ui->vars->columns);
+            if (isset($ui->vars->sources)) {
+                $pref = array();
+                foreach (Horde_Serialize::unserialize($ui->vars->sources, Horde_Serialize::JSON) as $val) {
+                    $pref[] = implode("\t", array_merge($val[0], $val[1]));
+                }
+                $GLOBALS['prefs']->setValue('columns', implode("\n", $pref));
                 return true;
             }
             break;
         }
+
+        return false;
     }
 
     /**
