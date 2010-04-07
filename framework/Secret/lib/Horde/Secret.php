@@ -72,7 +72,7 @@ class Horde_Secret
     {
         $val = strlen($key)
             ? $this->_getCipherOb($key)->encrypt($message)
-            : false;
+            : '';
 
         if ($val instanceof PEAR_Error) {
             throw new Horde_Secret_Exception($val);
@@ -92,7 +92,9 @@ class Horde_Secret
      */
     public function read($key, $ciphertext)
     {
-        $val = $this->_getCipherOb($key)->decrypt($ciphertext);
+        $val = strlen($key)
+            ? $this->_getCipherOb($key)->decrypt($ciphertext)
+            : '';
 
         if ($val instanceof PEAR_Error) {
             throw new Horde_Secret_Exception($val);
