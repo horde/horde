@@ -96,7 +96,7 @@ class Whups_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_AutoComplet
      */
     static public function getAddressList($search = '')
     {
-        $sparams = self::getAddressSearchParams();
+        $sparams = Whups::getAddressbookSearchParams();
         try {
             $res = $GLOBALS['registry']->call('contacts/search', array($search, $sparams['sources'], $sparams['fields'], false));
         } catch (Horde_Exception $e) {
@@ -125,30 +125,6 @@ class Whups_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_AutoComplet
         }
 
         return $search;
-    }
-
-    /**
-     * Determines parameters needed to do an address search
-     *
-     * @return array  An array with two keys: 'sources' and 'fields'.
-     */
-    static public function getAddressSearchParams()
-    {
-        $src = json_decode($GLOBALS['prefs']->getValue('search_sources'));
-        if (!is_array($src)) {
-            $src = array();
-        }
-
-
-        $fields = json_decode($GLOBALS['prefs']->getValue('search_fields'), true);
-        if (!is_array($fields)) {
-            $fields = array();
-        }
-
-        return array(
-            'fields' => $fields,
-            'sources' => $src
-        );
     }
 
 }

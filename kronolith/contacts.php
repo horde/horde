@@ -33,9 +33,9 @@ $apiargs['addresses'] = array($search);
 $apiargs['addressbooks'] = array($source);
 $apiargs['fields'] = array();
 
-$search_fields_pref = json_decode($prefs->getValue('search_fields'), true);
-if (!empty($search_fields_pref) && isset($search_fields_pref[$source])) {
-    $apiargs['fields'][$source] = $search_fields_pref[$source];
+$searchpref = Kronolith::getAddressbookSearchParams();
+if (isset($searchpref[$source])) {
+    $apiargs['fields'][$source] = $searchpref[$source];
 }
 
 if ($search || $prefs->getValue('display_contact')) {

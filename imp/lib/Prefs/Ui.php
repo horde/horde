@@ -308,7 +308,11 @@ class IMP_Prefs_Ui
             return $this->_sound();
 
         case 'sourceselect':
-            return Horde_Core_Prefs_Ui_Widgets::addressbooks();
+            $search = IMP::getAddressbookSearchParams();
+            return Horde_Core_Prefs_Ui_Widgets::addressbooks(array(
+                'fields' => $search['fields'],
+                'sources' => $search['sources']
+            ));
 
         case 'spamselect':
             return $this->_spam();

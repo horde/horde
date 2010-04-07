@@ -122,9 +122,16 @@ class Horde_Core_Prefs_Ui_Widgets
      * search_fields contains a hash containing sources as keys and an array
      * of search fields as the value.
      *
+     * @param array $data  Data items:
+     * <pre>
+     * 'fields' - (array) Hash containing addressbook sources as keys and an
+     *            array of search fields as values.
+     * 'sources' - (array) List of selected addressbooks.
+     * </pre>
+     *
      * @return string  HTML UI code.
      */
-    static public function addressbooks()
+    static public function addressbooks($data)
     {
         global $prefs, $registry;
 
@@ -151,20 +158,18 @@ class Horde_Core_Prefs_Ui_Widgets
             $writeable = array();
         }
 
-        $search = Horde_Core_Prefs_Utils::getAddressbookSearchParams();
-
         if (count($readable) == 1) {
             // Only one source, no need to display the selection widget
-            $search['sources'] = array_keys($readable);
+            $data['sources'] = array_keys($readable);
         }
 
-        foreach ($search['sources'] as $source) {
+        foreach ($data['sources'] as $source) {
             if (!empty($readable[$source])) {
                 $selected[$source] = $readable[$source];
             }
         }
 
-        foreach (array_diff(array_keys($readable), $search['sources']) as $val) {
+        foreach (array_diff(array_keys($readable), $data['sources']) as $val) {
             $unselected[$val] = $readable[$val];
         }
 
@@ -192,8 +197,8 @@ class Horde_Core_Prefs_Ui_Widgets
                                 'name' => $field['name'],
                                 'label' => $field['label']
                             );
-                            if (isset($search['fields'][$source]) &&
-                                in_array($field['name'], $search['fields'][$source])) {
+                            if (isset($data['fields'][$source]) &&
+                                in_array($field['name'], $data['fields'][$source])) {
                                 $tmpsel[] = $field['name'];
                             }
                         }

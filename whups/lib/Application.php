@@ -152,7 +152,11 @@ class Whups_Application extends Horde_Registry_Application
     {
         switch ($item) {
         case 'sourceselect':
-            return Horde_Core_Prefs_Ui_Widgets::addressbooks();
+            $search = Whups::getAddressbookSearchParams();
+            return Horde_Core_Prefs_Ui_Widgets::addressbooks(array(
+                'fields' => $search['fields'],
+                'sources' => $search['sources']
+            ));
         }
 
         return '';

@@ -998,4 +998,27 @@ class Whups {
             : array();
     }
 
+    /**
+     * Determines parameters needed to do an address search
+     *
+     * @return array  An array with two keys: 'sources' and 'fields'.
+     */
+    static public function getAddressbookSearchParams()
+    {
+        $src = json_decode($GLOBALS['prefs']->getValue('search_sources'));
+        if (!is_array($src)) {
+            $src = array();
+        }
+
+        $fields = json_decode($GLOBALS['prefs']->getValue('search_fields'), true);
+        if (!is_array($fields)) {
+            $fields = array();
+        }
+
+        return array(
+            'fields' => $fields,
+            'sources' => $src
+        );
+    }
+
 }

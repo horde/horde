@@ -75,18 +75,10 @@ class Kronolith_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_AutoCom
 
         $search = reset(array_filter(array_map('trim', Horde_Mime_Address::explode($addrString, ',;'))));
 
-        $src = json_decode($GLOBALS['prefs']->getValue('search_sources'));
-        if (!is_array($src)) {
-            $src = array();
-        }
-
-        $fields = json_decode($GLOBALS['prefs']->getValue('search_fields'), true);
-        if (!is_array($fields)) {
-            $fields = array();
-        }
+        $searchpref = Kronolith::getAddressbookSearchParams();
 
         try {
-            $res = $GLOBALS['registry']->call('contacts/search', array($search, $src, $fields, true));
+            $res = $GLOBALS['registry']->call('contacts/search', array($search, $searchpref['sources'], $searchpref['fields'], true));
         } catch (Horde_Exception $e) {
             Horde::logMessage($e, 'ERR');
             return array();
