@@ -152,9 +152,6 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
         } else {
             $this->_logger->err('Unmatched end tag:');
             $this->_logger->err(print_r($element, true));
-            //$bt = debug_backtrace();
-           // $c = count($bt);
-           // $this->_logger->err('From ' . $bt[$c-2]['file'] . ':' . $bt[$c - 2]['line']);
             $this->_ungetElement($element);
         }
 
@@ -498,7 +495,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
         $ch = fread($this->_in, 1);
         if (strlen($ch) > 0) {
             $ch = ord($ch);
-            $this->_logger->debug('_getByte: ' . $ch);
+            //$this->_logger->debug('_getByte: ' . $ch);
             return $ch;
         } else {
             return;
@@ -522,7 +519,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
           }
         }
 
-        $this->_logger->debug('_getMBUInt(): ' . $uint);
+        //$this->_logger->debug('_getMBUInt(): ' . $uint);
         return $uint;
     }
 
@@ -538,7 +535,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
             $stringtable = fread($this->_in, $length);
         }
 
-        $this->_logger->debug('_getStringTable(): ' . $stringtable);
+        //$this->_logger->debug('_getStringTable(): ' . $stringtable);
         return $stringtable;
     }
 
