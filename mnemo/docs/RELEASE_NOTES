@@ -1,0 +1,47 @@
+<?php
+/**
+ * Release focus. Possible values:
+ * 0 - N/A
+ * 1 - Initial freshmeat announcement
+ * 2 - Documentation
+ * 3 - Code cleanup
+ * 4 - Minor feature enhancements
+ * 5 - Major feature enhancements
+ * 6 - Minor bugfixes
+ * 7 - Major bugfixes
+ * 8 - Minor security fixes
+ * 9 - Major security fixes
+ */
+$this->notes['fm']['focus'] = 4;
+
+/* Mailing list release notes. */
+$this->notes['ml']['changes'] = <<<ML
+The Horde Team is pleased to announce the first release candidate of the Mnemo
+Note Manager version H3 (2.2).
+
+The Mnemo Note Manager is the Horde notes/memos application.  It provides
+web-based notes and freeform text, similar to the PalmOS Note application and
+shared notepads.  It requires the Horde Application Framework and an SQL
+database or Kolab server for backend storage.
+
+This is a preview version that should not be used on production systems. This
+version is considered feature complete but a few bugs may still exist in the
+code.
+
+We encourage widespread testing and feedback via the mailing lists or our bug
+tracking system.  Updated translations are very welcome, though some strings
+might still change before the final release.
+
+The major changes compared to the Nag version H3 (2.2-ALPHA) are:
+    * Small bugfixes and improvements.
+ML;
+
+/* Freshmeat release notes. */
+$this->notes['fm']['changes'] = <<<FM
+Small bugfixes and improvements have been made.
+FM;
+
+$this->notes['name'] = 'Mnemo';
+$this->notes['list'] = 'horde';
+$this->notes['fm']['project'] = 'mnemo';
+$this->notes['fm']['branch'] = 'Horde 3';
