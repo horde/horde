@@ -119,9 +119,6 @@ class Horde_Prefs_Ui
         case 'categorymanagement':
             return $this->_categoryManagement($ui);
 
-        case 'identityselect':
-            return $this->_identitySelect($ui);
-
         case 'remotemanagement':
             return $this->_remoteManagement($ui);
 
@@ -145,9 +142,6 @@ class Horde_Prefs_Ui
         switch ($item) {
         case 'categorymanagement':
             return $this->_updateCategoryManagement($ui);
-
-        case 'identityselect':
-            return false;
 
         case 'remotemanagement':
             $this->_updateRemoteManagement($ui);
@@ -294,93 +288,6 @@ class Horde_Prefs_Ui
         $t->set('categories', $entries);
 
         return $t->fetch(HORDE_TEMPLATES . '/prefs/category.html');
-    }
-
-    /**
-     * Create code for identity selection.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     *
-     * @return string  HTML UI code.
-     */
-    protected function _identitySelect($ui)
-    {
-        $identity = Horde_Prefs_Identity::singleton($ui->app == 'horde' ? null : array($ui->app, $ui->app));
-        $default_identity = $identity->getDefault();
-
-        $t = $GLOBALS['injector']->createInstance('Horde_Template');
-        $t->setOption('gettext', true);
-
-        if ($GLOBALS['prefs']->isLocked('default_identity')) {
-            $t->set('locked', true);
-            $t->set('default_identity', intval($default_identity));
-        } else {
-            $t->set('label', Horde::label('identity', _("Select the identity you want to change:")));
-
-            $identities = $identity->getAll('id');
-            $members = $this->getChangeablePrefs('identities');
-
-            $entry = $js = array();
-
-            for ($i = 0, $icnt = count($identities); $i < $icnt; ++$i) {
-                $entry[] = array(
-                    'i' => $i,
-                    'label' => htmlspecialchars($identities[$i]),
-                    'sel' => ($i == $default_identity)
-                );
-
-                $tmp = array();
-                foreach ($members as $member) {
-                    if (($member == 'default_identity') ||
-                        !empty($this->prefs[$member]['locked']) ||
-                        empty($this->prefs[$member]['type']) ||
-                        in_array($this->prefs[$member]['type'], array('link', 'special'))) {
-                        continue;
-                    }
-
-                    $val = $identity->getValue($member, $i);
-                    switch ($this->prefs[$member]['type']) {
-                    case 'checkbox':
-                        $val2 = $val ? 'true' : 'false';
-                        break;
-
-                    case 'number':
-                        $val2 = intval($val);
-                        break;
-
-                    case 'textarea':
-                        if (is_array($val)) {
-                            $val = implode("\n", $val);
-                        }
-                        // Fall-through
-
-                    default:
-                        $val2 = Horde_String::convertCharset($val, Horde_Nls::getCharset(), 'UTF-8');
-                    }
-
-                    $tmp[] = array(
-                        $member,
-                        $this->prefs[$member]['type'],
-                        $val2
-                    );
-                }
-
-                $js[] = $tmp;
-            }
-
-            $t->set('entry', $entry);
-
-            Horde::addScriptFile('identityselect.js', 'horde');
-            Horde::addInlineScript(array(
-                'IdentitySelect.newChoice()'
-            ), 'dom');
-            Horde::addInlineScript(array(
-                'IdentitySelect.identities = ' . Horde_Serialize::serialize($js, Horde_Serialize::JSON),
-                'IdentitySelect.deleteurl = ' . Horde_Serialize::serialize(strval(Horde::selfUrl(true)->setRaw(true)->add('actionID', 'delete_identity')), Horde_Serialize::JSON)
-            ));
-        }
-
-        return $t->fetch(HORDE_TEMPLATES . '/prefs/identityselect.html');
     }
 
     /**
@@ -587,79 +494,4 @@ class Horde_Prefs_Ui
         }
     }
 
-/*
-            try {
-                $this->prefGroups['identities']['members'] = array_keys(array_flip(array_merge(
-                    $res['prefGroups']['identities']['members'],
-                    $this->prefGroups['identities']['members']
-                )));
-                $this->prefs = Horde_Array::array_merge_recursive_overwrite($res['_prefs'], $this->prefs);
-            } catch (Horde_Exception $e) {}
-            case 'update_prefs':
-                $from_addresses = $identity->getAll('from_addr');
-                $current_from = $identity->getValue('from_addr');
-                if ($prefs->isLocked('default_identity')) {
-                    $default = $identity->getDefault();
-                } else {
-                    $default = $this->vars->default_identity;
-                    $id = $this->vars->identity;
-                    if ($id == -1) {
-                        $id = $identity->add();
-                    } elseif ($id == -2) {
-                        $this->prefGroups['identities']['members'] = array('default_identity');
-                    }
-                    $identity->setDefault($id);
-                }
-
-                $this->_save = $identity;
-
-                if (!$this->_handleForm($this->getChangeablePrefs($this->group))) {
-                    return;
-                }
-
-                $new_from = $identity->getValue('from_addr');
-                if (!empty($conf['user']['verify_from_addr']) &&
-                    $current_from != $new_from &&
-                    !in_array($new_from, $from_addresses)) {
-                    try {
-                        $result = $identity->verifyIdentity($id, empty($current_from) ? $new_from : $current_from);
-                        if ($result instanceof Notification_Event) {
-                            $notification->push($result, 'horde.message');
-                        }
-                    } catch (Horde_Exception $e) {
-                        $notification->push(_("The new from address can't be verified, try again later: ") . $e->getMessage(), 'horde.error');
-                        Horde::logMessage($e, 'ERR');
-                    }
-                    break;
-                }
-
-                $identity->setDefault($default);
-                $identity->save();
-                break;
-            case 'delete_identity':
-                $id = intval($this->vars->id);
-                $deleted_identity = $identity->delete($id);
-                unset($this->prefs['default_identity']['enum'][$id]);
-                $notification->push(sprintf(_("The identity \"%s\" has been deleted."), $deleted_identity[0]['id']), 'horde.success');
-                break;
-
-            case 'change_default_identity':
-                $default_identity = $identity->setDefault(intval($this->vars->id));
-                $identity->save();
-                $notification->push(_("Your default identity has been changed."), 'horde.success');
-                break;
-            }
-            break;
-
-            if (is_callable(array($this->_save, 'verify'))) {
-                try {
-                    $this->_save->verify();
-                } catch (Exception $e) {
-                    $notification->push($e, 'horde.error');
-                }
-            }
-
-        //    $ui->override['default_identity'] = $identity->getAll('id');
-        //
-*/
 }

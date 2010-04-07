@@ -53,6 +53,13 @@ class Horde_Core_Prefs_Ui
     public $suppressGroups = array();
 
     /**
+     * Suppressed preference entries to automatically update.
+     *
+     * @var array
+     */
+    public $suppressUpdate = array();
+
+    /**
      * Current application.
      *
      * @var string
@@ -150,23 +157,27 @@ class Horde_Core_Prefs_Ui
     /**
      * Handle a preferences form submission if there is one, updating
      * any preferences which have been changed.
-     *
-     * @return boolean  Whether preferences have been updated.
      */
     public function handleForm()
     {
         if (!$this->group || !$this->groupIsEditable($this->group)) {
-            return false;
+            return;
         }
 
         if (isset($this->vars->prefs_return)) {
             $this->group = $this->vars->actionID = '';
-            return false;
+            return;
         }
 
         switch ($this->vars->actionID) {
         case 'update_prefs':
-            return $this->_handleForm($this->getChangeablePrefs($this->group));
+            if (isset($this->prefGroups[$this->group]['type']) &&
+                ($this->prefGroups[$this->group]['type'] == 'identities')) {
+                $this->_identitiesUpdate();
+            } else {
+                $this->_handleForm(array_diff($this->getChangeablePrefs($this->group), $this->suppressUpdate), $prefs);
+            }
+            break;
 
         case 'update_special':
             $special = array();
@@ -175,10 +186,9 @@ class Horde_Core_Prefs_Ui
                     $special[] = $pref;
                 }
             }
-            return $this->_handleForm($special);
+            $this->_handleForm($special, $GLOBALS['prefs']);
+            break;
         }
-
-        return false;
     }
 
     /*
@@ -186,10 +196,9 @@ class Horde_Core_Prefs_Ui
      * any preferences which have been changed.
      *
      * @param array $preflist  The list of preferences to process.
-     *
-     * @return boolean  Whether preferences have been updated.
+     * @param mixed $save      The object to save preferences values to.
      */
-    protected function _handleForm($preflist)
+    protected function _handleForm($preflist, $save)
     {
         global $notification, $prefs, $registry;
 
@@ -199,12 +208,12 @@ class Horde_Core_Prefs_Ui
         foreach ($preflist as $pref) {
             switch ($this->prefs[$pref]['type']) {
             case 'checkbox':
-                $updated |= $prefs->setValue($pref, intval(isset($this->vars->$pref)));
+                $updated |= $save->setValue($pref, intval(isset($this->vars->$pref)));
                 break;
 
             case 'enum':
                 if (isset($this->prefs[$pref]['enum'][$this->vars->$pref])) {
-                    $updated |= $prefs->setValue($pref, $this->vars->$pref);
+                    $updated |= $save->setValue($pref, $this->vars->$pref);
                 } else {
                     $notification->push(_("An illegal value was specified."), 'horde.error');
                 }
@@ -224,7 +233,7 @@ class Horde_Core_Prefs_Ui
                     }
                 }
 
-                $updated |= $prefs->setValue($pref, @serialize($set));
+                $updated |= $save->setValue($pref, @serialize($set));
                 break;
 
             case 'number':
@@ -234,14 +243,14 @@ class Horde_Core_Prefs_Ui
                 } elseif (empty($num)) {
                     $notification->push(_("This number must be non-zero."), 'horde.error');
                 } else {
-                    $updated |= $prefs->setValue($pref, $num);
+                    $updated |= $save->setValue($pref, $num);
                 }
                 break;
 
             case 'password':
             case 'text':
             case 'textarea':
-                $updated |= $prefs->setValue($pref, $this->vars->$pref);
+                $updated |= $save->setValue($pref, $this->vars->$pref);
                 break;
 
 
@@ -256,6 +265,11 @@ class Horde_Core_Prefs_Ui
         }
 
         if ($updated) {
+            if ($save instanceof Horde_Prefs_Identity) {
+                // Throws Exception caught in _identitiesUpdate().
+                $save->verify();
+            }
+
             if ($registry->hasAppMethod($this->app, 'prefsCallback')) {
                 $registry->callAppMethod($this->app, 'prefsCallback', array('args' => array($this)));
             }
@@ -268,8 +282,6 @@ class Horde_Core_Prefs_Ui
 
             $this->_loadPrefs($this->app);
         }
-
-        return $updated;
     }
 
     /**
@@ -304,6 +316,7 @@ class Horde_Core_Prefs_Ui
         global $notification, $prefs, $registry;
 
         $columns = $pref_list = array();
+        $identities = false;
 
         /* Run app-specific init code. */
         if ($registry->hasAppMethod($this->app, 'prefsInit')) {
@@ -314,6 +327,17 @@ class Horde_Core_Prefs_Ui
 
         if ($this->group) {
             $pref_list = $this->getChangeablePrefs($this->group, true);
+
+            /* Add necessary init stuff for identities pages. */
+            if (isset($prefgroups[$this->group]['type']) &&
+                ($prefgroups[$this->group]['type'] == 'identities')) {
+                Horde::addScriptFile('identityselect.js', 'horde');
+                $identities = true;
+
+                /* If this is an identities group, need to grab the base
+                 * identity fields from Horde, if current app is NOT Horde. */
+                $pref_list = $this->_addHordeIdentitiesPrefs($pref_list);
+            }
         } else {
             foreach ($prefgroups as $key => $val) {
                 $columns[$val['column']][$key] = $val;
@@ -337,6 +361,10 @@ class Horde_Core_Prefs_Ui
         ob_start();
 
         if ($this->group) {
+            if ($identities) {
+                echo $this->_identityHeader($pref_list);
+            }
+
             foreach ($pref_list as $pref) {
                 if ($this->prefs[$pref]['type'] == 'special') {
                     if ($registry->hasAppMethod($this->app, 'prefsSpecial')) {
@@ -567,19 +595,26 @@ class Horde_Core_Prefs_Ui
     }
 
     /**
-     * Loads preferences configuration into the current object.
+     * Parses/loads preferences configuration.
      *
-     * @param string $app  The application.
+     * @param string $app    The application.
+     * @param boolean $data  Return the data instead of loading into the
+     *                       current object?
      */
-    protected function _loadPrefs($app, $merge = false)
+    protected function _loadPrefs($app, $data = false)
     {
         try {
             $res = Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), $app);
-            $this->prefGroups = $res['prefGroups'];
-            $this->prefs = $res['_prefs'];
         } catch (Horde_Exception $e) {
-            $this->prefGroups = $this->prefs = array();
+            $res = array('prefGroups' => array(), '_prefs' => array());
         }
+
+        if ($data) {
+            return $res;
+        }
+
+        $this->prefGroups = $res['prefGroups'];
+        $this->prefs = $res['_prefs'];
 
         /* If there's only one prefGroup, just show it. */
         if (!$this->group && (count($this->prefGroups) == 1)) {
@@ -605,6 +640,180 @@ class Horde_Core_Prefs_Ui
         }
 
         return $out;
+    }
+
+    /**
+     * Adds Horde base identities prefs to preference list.
+     *
+     * @param array $pref_list  Preference list.
+     *
+     * @return array  The preference list with the Horde preferences added, if
+     *                needed. These prefs are also added to $this->prefs.
+     */
+    protected function _addHordeIdentitiesPrefs($pref_list)
+    {
+        if ($this->app != 'horde') {
+            try {
+                $res = $this->_loadPrefs('horde', true);
+                foreach ($res['prefGroups'] as $pgroup) {
+                    if (isset($pgroup['type']) &&
+                        ($pgroup['type'] == 'identities')) {
+                        foreach ($pgroup['members'] as $member) {
+                            $this->prefs[$member] = $res['_prefs'][$member];
+                        }
+                        $pref_list = array_merge($pgroup['members'], $pref_list);
+                    }
+                }
+            } catch (Horde_Exception $e) {}
+        }
+
+        return $pref_list;
+    }
+
+    /**
+     * Output the identities page header entries (default identity,
+     * identity selection, and identity deletion).
+     *
+     * @param array $members  The list of prefs to display on this page.
+     *
+     * @return string  HTML output.
+     */
+    protected function _identityHeader($members)
+    {
+        $identity = Horde_Prefs_Identity::singleton(($this->app == 'horde') ? null : array($this->app, $this->app));
+        $default_identity = $identity->getDefault();
+
+        $t = $GLOBALS['injector']->createInstance('Horde_Template');
+        $t->setOption('gettext', true);
+
+        if ($GLOBALS['prefs']->isLocked('default_identity')) {
+            $t->set('default_identity', intval($default_identity));
+            $identities = array($default_identity);
+        } else {
+            $t->set('defaultid', _("Your default identity:"));
+            $t->set('label', Horde::label('identity', _("Select the identity you want to change:")));
+            $identities = $identity->getAll('id');
+        }
+
+        $entry = $js = array();
+        foreach ($identities as $key => $val) {
+            $entry[] = array(
+                'i' => $key,
+                'label' => htmlspecialchars($val),
+                'sel' => ($key == $default_identity)
+            );
+
+            $tmp = array();
+            foreach ($members as $member) {
+                $val = $identity->getValue($member, $key);
+                switch ($this->prefs[$member]['type']) {
+                case 'checkbox':
+                case 'number':
+                    $val2 = intval($val);
+                    break;
+
+                case 'textarea':
+                    if (is_array($val)) {
+                        $val = implode("\n", $val);
+                    }
+                    // Fall-through
+
+                default:
+                    $val2 = Horde_String::convertCharset($val, Horde_Nls::getCharset(), 'UTF-8');
+                }
+
+                // [0] = pref name
+                // [1] = pref type
+                // [2] = pref value
+                $tmp[] = array(
+                    $member,
+                    $this->prefs[$member]['type'],
+                    $val2
+                );
+            }
+            $js[] = $tmp;
+        }
+        $t->set('entry', $entry);
+
+        Horde::addInlineScript(array(
+            'HordeIdentitySelect.newChoice()'
+        ), 'dom');
+        Horde::addInlineScript(array(
+            'HordeIdentitySelect.identities = ' . Horde_Serialize::serialize($js, Horde_Serialize::JSON)
+        ));
+
+        return $t->fetch(HORDE_TEMPLATES . '/prefs/identityselect.html');
+    }
+
+    /**
+     * Update identities prefs.
+     */
+    protected function _identitiesUpdate()
+    {
+        global $conf, $notification, $prefs;
+
+        $identity = Horde_Prefs_Identity::singleton(($this->app == 'horde') ? null : array($this->app, $this->app));
+
+        if ($this->vars->delete_identity) {
+            $id = intval($this->vars->id);
+            $deleted_identity = $identity->delete($id);
+            $this->_loadPrefs($this->app);
+            $notification->push(sprintf(_("The identity \"%s\" has been deleted."), $deleted_identity[0]['id']), 'horde.success');
+            return;
+        }
+
+        $old_default = $identity->getDefault();
+        $from_addresses = $identity->getAll('from_addr');
+        $current_from = $identity->getValue('from_addr');
+        $id = intval($this->vars->identity);
+
+        if (!$prefs->isLocked('default_identity')) {
+            $new_default = intval($this->vars->default_identity);
+            if ($new_default != $old_default) {
+                $identity->setDefault($new_default);
+                $old_default = $new_default;
+                $notification->push(_("Your default identity has been changed."), 'horde.success');
+
+                /* Need to immediately save, since we may short-circuit
+                 * saving the identities below. */
+                $identity->save();
+            }
+        }
+
+        if ($id == -2) {
+            return;
+        }
+
+        if ($id == -1) {
+            $id = $identity->add();
+        }
+
+        $identity->setDefault($id);
+
+        try {
+            $this->_handleForm(array_diff($this->_addHordeIdentitiesPrefs($this->getChangeablePrefs($this->group)), $this->suppressUpdate), $identity);
+        } catch (Exception $e) {
+            $notification->push($e, 'horde.error');
+            return;
+        }
+
+        $new_from = $identity->getValue('from_addr');
+        if (!empty($conf['user']['verify_from_addr']) &&
+            ($current_from != $new_from) &&
+            !in_array($new_from, $from_addresses)) {
+            try {
+                $result = $identity->verifyIdentity($id, empty($current_from) ? $new_from : $current_from);
+                if ($result instanceof Notification_Event) {
+                    $notification->push($result, 'horde.message');
+                }
+            } catch (Horde_Exception $e) {
+                $notification->push(_("The new from address can't be verified, try again later: ") . $e->getMessage(), 'horde.error');
+                Horde::logMessage($e, 'ERR');
+            }
+        } else {
+            $identity->setDefault($old_default);
+            $identity->save();
+        }
     }
 
 }

@@ -20,6 +20,16 @@
  * desc - (string) Description shown under label.
  * label - (string) Label for the group of settings.
  * members - (array) List of displayable preferences contained in this group.
+ * type - (string) The prefGroup type.
+ *        VALUES:
+ *          'identities' - An identities screen. The identities screen will
+ *                         always show all the shared identities prefs from
+ *                         Horde, as well as the identity switching widget.
+ *                         Additionally, applications can define additional
+ *                         identity information in their prefs.php file that
+ *                         will be displayed after the Horde-wide settings.
+ *          Empty - The default options screen.
+ *        DEFAULT: The default options screen.
  *
  * $_prefs
  * =======
@@ -189,44 +199,14 @@
  * $Id$
  */
 
-// *** Personal Information preferences ***
+// *** Personal Information (Identities) Preferences ***
 
 $prefGroups['identities'] = array(
     'column' => _("Your Information"),
     'label' => _("Personal Information"),
     'desc' => _("Change the name and address that people see when they read and reply to your emails."),
-    'members' => array(
-        'default_identity', 'identityselect', 'id', 'fullname', 'from_addr'
-    )
-);
-
-// default identity
-// Set locked to true if you don't want the users to have multiple identities.
-$_prefs['default_identity'] = array(
-    'value' => 0,
-    'shared' => true,
-    'type' => 'enum',
-    'desc' => _("Your default identity:")
-);
-
-// identities data
-$_prefs['identities'] = array(
-    // value = serialize(array())
-    'value' => 'a:0:{}',
-    'shared' => true
-);
-
-// identify email confirmation
-$_prefs['confirm_email'] = array(
-    // value = serialize(array())
-    'value' => 'a:0:{}',
-    'shared' => true
-);
-
-// identity selection widget
-$_prefs['identityselect'] = array(
-    'type' => 'special',
-    'shared' => true
+    'members' => array('id', 'fullname', 'from_addr'),
+    'type' => 'identities'
 );
 
 // identity name
@@ -257,6 +237,27 @@ $_prefs['from_addr'] = array(
     'shared' => true,
     'type' => 'text',
     'desc' =>  _("Your From: address:")
+);
+
+// default identity
+// Set locked to true if you don't want the users to have multiple identities.
+$_prefs['default_identity'] = array(
+    'value' => 0,
+    'shared' => true
+);
+
+// identities data
+$_prefs['identities'] = array(
+    // default value = serialize(array())
+    'value' => 'a:0:{}',
+    'shared' => true
+);
+
+// identify email confirmation
+$_prefs['confirm_email'] = array(
+    // default value = serialize(array())
+    'value' => 'a:0:{}',
+    'shared' => true
 );
 
 

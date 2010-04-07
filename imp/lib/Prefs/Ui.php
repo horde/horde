@@ -167,18 +167,18 @@ class IMP_Prefs_Ui
             if ($prefs->isLocked('drafts_folder')) {
                 $ui->suppress[] = 'draftsselect';
             } else {
-                $code[] = array('drafts', 'drafts_new', _("Enter the name for your new drafts folder"), _("Create a new drafts folder"));
+                $code['drafts'] = _("Enter the name for your new drafts folder");
             }
 
             if ($prefs->isLocked('spam_folder')) {
                 $ui->suppress[] = 'spamselect';
             } else {
-                $code[] = array('spam', 'spam_new', _("Enter the name for your new spam folder"), _("Create a new spam folder"));
+                $code['spam'] = _("Enter the name for your new spam folder");
             }
 
             if (!$prefs->isLocked('trash_folder') &&
                 !$prefs->isLocked('use_vtrash')) {
-                $code[] = array('trash', 'trash_new', _("Enter the name for your new trash folder"), _("Create a new trash folder"));
+                $code['trash'] = _("Enter the name for your new trash folder");
             } else {
                 $ui->suppress[] = 'trashselect';
             }
@@ -349,7 +349,7 @@ class IMP_Prefs_Ui
             return false;
 
         case 'draftsselect':
-            return $this->_updateSpecialFolders('drafts_folder', $ui->vars->drafts, $ui->vars->drafts_new, $ui);
+            return $this->_updateSpecialFolders('drafts_folder', $ui->vars->drafts, $ui->vars->drafts_folder_new, $ui);
 
         case 'encryptselect':
             $prefs->setValue('default_encrypt', $ui->vars->default_encrypt);
@@ -1105,8 +1105,18 @@ class IMP_Prefs_Ui
      */
     protected function _sentmail()
     {
+        $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+
+        $js = array();
+        foreach (array_keys($identity->getAll('id')) as $key) {
+            $js[$key] = $identity->getValue('sent_mail_folder', $key);
+        };
+
         Horde::addInlineScript(array(
-            'ImpFolderPrefs.folders = ' . Horde_Serialize::serialize(array('sent_mail_folder', 'sent_mail_new', _("Enter the name for your new sent-mail folder"), _("Create a new sent-mail folder")), Horde_Serialize::JSON, Horde_Nls::getCharset())
+            'ImpFolderPrefs.folders = ' . Horde_Serialize::serialize(array(
+                'sent_mail_folder' => _("Create a new sent-mail folder")
+            ), Horde_Serialize::JSON, Horde_Nls::getCharset()),
+            'ImpFolderPrefs.sentmail = ' . Horde_Serialize::serialize($js, Horde_Serialize::JSON, Horde_Nls::getCharset())
         ));
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
@@ -1115,7 +1125,7 @@ class IMP_Prefs_Ui
         $t->set('label', Horde::label('sent_mail_folder', _("Sent mail folder:")));
         $t->set('flist', IMP::flistSelect(array(
             'filter' => array('INBOX'),
-            'heading' => _("Create a new sent mail folder")
+            'new_folder' => true
         )));
 
         return $t->fetch(IMP_TEMPLATES . '/prefs/sentmail.html');
@@ -1130,26 +1140,29 @@ class IMP_Prefs_Ui
      */
     protected function _updateSentmail($ui)
     {
-        if (!$GLOBALS['conf']['user']['allow_folders'] ||
-            $GLOBALS['prefs']->isLocked('sent_mail_folder')) {
+        global $conf, $prefs;
+
+        if (!$conf['user']['allow_folders'] ||
+            $prefs->isLocked('sent_mail_folder')) {
             return false;
         }
 
         $sent_mail_folder = $ui->vars->sent_mail_folder;
-        $sent_mail_new = Horde_String::convertCharset($ui->vars->sent_mail_new, Horde_Nls::getCharset(), 'UTF7-IMAP');
-        $sent_mail_default = $GLOBALS['prefs']->getValue('sent_mail_folder');
-
-        if (empty($sent_mail_folder) && !empty($sent_mail_new)) {
-            $sent_mail_folder = $GLOBALS['imp_imap']->appendNamespace($sent_mail_new);
-        } elseif (($sent_mail_folder == '-1') && !empty($sent_mail_default)) {
-            $sent_mail_folder = $GLOBALS['imp_imap']->appendNamespace($sent_mail_default);
+        if (empty($sent_mail_folder)) {
+            $sent_mail_new = $GLOBALS['imp_imap']->appendNamespace(Horde_String::convertCharset($ui->vars->sent_mail_folder_new, Horde_Nls::getCharset(), 'UTF7-IMAP'));
+        } elseif ($sent_mail_folder == '-1') {
+            if ($sent_mail_default = $prefs->getValue('sent_mail_folder')) {
+                $sent_mail_folder = $GLOBALS['imp_imap']->appendNamespace($sent_mail_default);
+            }
         }
 
-        if (!empty($sent_mail_folder)) {
-            $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
-            if (!$imp_folder->exists($sent_mail_folder)) {
-                $imp_folder->create($sent_mail_folder, $GLOBALS['prefs']->getValue('subscribe'));
-            }
+        if (empty($sent_mail_folder)) {
+            return false;
+        }
+
+        $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
+        if (!$imp_folder->exists($sent_mail_folder)) {
+            $imp_folder->create($sent_mail_folder, $prefs->getValue('subscribe'));
         }
 
         $imp_identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));

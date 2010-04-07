@@ -1,9 +1,20 @@
-<if:locked>
-<input type="hidden" name="identity" value="<tag:default_identity />" />
-<else:locked>
+<if:defaultid>
+<div>
+ <tag:defaultid />
+</div>
+
+<div>
+ <select id="default_identity" name="default_identity">
+<loop:entry>
+  <option value="<tag:entry.i />"<if:entry.sel> selected="selected"</if:entry.sel>><tag:entry.label /></option>
+</loop:entry>
+ </select>
+</div>
+
 <div>
  <tag:label />
 </div>
+
 <div>
  <select name="identity" id="identity">
   <option value="-2" selected="selected"><gettext>None</gettext></option>
@@ -16,7 +27,9 @@
 
 <div>
  <p>
-  <input id="deleteidentity" type="button" class="button" value="<gettext>Delete</gettext>" />
+  <input type="submit" name="delete_identity" class="button" value="<gettext>Delete</gettext>" />
  </p>
 </div>
-</else:locked></if:locked>
+<else:defaultid>
+<input type="hidden" name="identity" value="<tag:default_identity />" />
+</else:defaultid></if:defaultid>

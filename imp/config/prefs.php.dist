@@ -15,7 +15,8 @@ $prefGroups['identities'] = array(
         'replyto_addr', 'alias_addr', 'tieto_addr', 'bcc_addr', 'signature',
         'sig_dashes', 'sig_first', 'save_sent_mail', 'sent_mail_folder',
         'sentmailselect'
-    )
+    ),
+    'type' => 'identities'
 );
 
 // user preferred email address for Reply-To:, if different from From:
@@ -1440,7 +1441,7 @@ $_prefs['search_fields'] = array(
 $_prefs['add_source'] = array(
 //  'value' => 'localsql',
     'value' => '',
-    'shared' => true
+    'shared' => true,
     'type' => 'enum',
     'desc' => _("Choose the address book to use when adding addresses.")
 );
