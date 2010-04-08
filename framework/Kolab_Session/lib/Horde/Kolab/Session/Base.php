@@ -177,7 +177,7 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
         Horde_Kolab_Server_Object_Hash $user
     ) {
         try {
-            $this->_user_uid = $user->getExternal('uid');
+            $this->_user_uid = $user->getSingle('uid');
         } catch (Horde_Kolab_Server_Exception_Novalue $e) {
             $this->_user_uid = $this->_user_id;
         }
@@ -194,7 +194,7 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
         Horde_Kolab_Server_Object_Hash $user
     ) {
         try {
-            $this->_user_name = $user->getExternal('Firstnamelastname');
+            $this->_user_name = $user->getSingle('Firstnamelastname');
         } catch (Horde_Kolab_Server_Exception_Novalue $e) {
             $this->_user_name = $this->_user_id;
         }
@@ -211,7 +211,7 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
         Horde_Kolab_Server_Object_Hash $user
     ) {
         try {
-            $this->_imap_server = $user->getExternal('kolabHomeServer');
+            $this->_imap_server = $user->getSingle('kolabHomeServer');
         } catch (Horde_Kolab_Server_Exception_Novalue $e) {
             if (isset($this->_params['imap']['server'])) {
                 $this->_imap_server = $this->_params['imap']['server'];
@@ -232,7 +232,7 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
         Horde_Kolab_Server_Object_Hash $user
     ) {
         try {
-            $fb_server = $user->getExternal('kolabFreebusyHost');
+            $fb_server = $user->getSingle('kolabFreebusyHost');
         } catch (Horde_Kolab_Server_Exception_Novalue $e) {
             if (isset($this->_params['freebusy']['url'])) {
                 $this->_freebusy_server = $this->_params['freebusy']['url'];
