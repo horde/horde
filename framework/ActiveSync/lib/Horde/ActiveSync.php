@@ -997,9 +997,8 @@ class Horde_ActiveSync
         return $this->handleFolderCreate($this->_driver, $protocolversion);
     }
 
-    public function provisioningRequired()
+    static public function provisioningRequired()
     {
-        $this->_logger->info('HTTP/1.1 449 Retry after sending a PROVISION command');
         self::provisionHeader();
         self::activeSyncHeader();
         self::versionHeader();
