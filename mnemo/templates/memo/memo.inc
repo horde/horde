@@ -52,7 +52,7 @@ if ($memo_id):
 <?php endif; ?>
  <p><?php echo Horde::label('memo_body', _("Note _Text")) ?>&nbsp;(<?php printf(_("%s characters"), '<span id="charcount">' . Horde_String::length(str_replace(array("\r", "\n"), '', $memo_body)) . '</span>') ?>):</p>
  <textarea name="memo_body" id="memo_body" class="fixed" rows="20" onchange="updateCharCount()" onclick="updateCharCount()" onkeypress="setTimeout('updateCharCount()', 1)"><?php echo htmlspecialchars($memo_body) ?></textarea>
- <?php try { echo Horde::callHook('_mnemo_hook_description_help', array(), 'mnemo', ''); } catch (Horde_Exception_HookNotSet $e) {} ?>
+ <?php try { echo Horde::callHook('description_help', array(), 'mnemo', ''); } catch (Horde_Exception_HookNotSet $e) {} ?>
 
  <p>
   <input type="submit" class="button" value="<?php echo _("Save") ?>" onclick="return checkCategory();" />
