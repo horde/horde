@@ -1081,7 +1081,11 @@ abstract class Kronolith_Event
         /* Attendees */
         $attendees = $message->getAttendees();
         foreach ($attendees as $attendee) {
-            $this->addAttendee($attendee->email, $attendee->type, $attendee->status, $attendee->name);
+            //if ($attendee->type == Horde_ActiveSync_Message_Attendee::TYPE_RESOURCE) {
+                // @TODO figure out a way to map this to an existing resource??
+            //} else {
+                $this->addAttendee($attendee->email, $attendee->type, $attendee->status, $attendee->name);
+            //}
         }
 
         /* Flag that we are initialized */
@@ -1215,10 +1219,23 @@ abstract class Kronolith_Event
         foreach ($this->attendees as $email => $properties) {
             $attendee = new Horde_ActiveSync_Message_Attendee();
             $attendee->email = $email;
-            $attendee->type = $properties['attendance'];
-            $attendee->status = $properties['response'];
+            // AS only as required or opitonal
+            //$attendee->type = ($properties['attendance'] !== Kronolith::PART_REQUIRED ? Kronolith::PART_OPTIONAL : Kronolith::PART_REQUIRED);
+            //$attendee->status = $properties['response'];
             $message->addAttendee($attendee);
         }
+
+//        /* Resources */
+//        $r = $this->getResources();
+//        foreach ($r as $id => $data) {
+//            $resource = Kronolith::getDriver('Resource')->getResource($id);
+//            $attendee = new Horde_ActiveSync_Message_Attendee();
+//            $attendee->email = $resource->get('email');
+//            $attendee->type = Horde_ActiveSync_Message_Attendee::TYPE_RESOURCE;
+//            $attendee->name = $data['name'];
+//            $attendee->status = $data['response'];
+//            $message->addAttendee($attendee);
+//        }
 
         /* Reminder */
         $message->setReminder($this->alarm);

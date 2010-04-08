@@ -78,7 +78,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
             SYNC_POOMCAL_BODYTRUNCATED => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'bodytruncated'),
             SYNC_POOMCAL_EXCEPTIONS => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'exceptions', Horde_ActiveSync_Message_Base::KEY_TYPE => 'Horde_ActiveSync_Message_Exception', Horde_ActiveSync_Message_Base::KEY_VALUES => SYNC_POOMCAL_EXCEPTION),
             SYNC_POOMCAL_CATEGORIES => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'categories', Horde_ActiveSync_Message_Base::KEY_VALUES => SYNC_POOMCAL_CATEGORY),
-            SYNC_POOMCAL_RESPONSETYPE => array(Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'responsetype'),
+            //SYNC_POOMCAL_RESPONSETYPE => array(Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'responsetype'),
         );
 
         parent::__construct($mapping, $params);

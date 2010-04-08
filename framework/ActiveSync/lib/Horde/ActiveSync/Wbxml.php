@@ -268,9 +268,9 @@ class Horde_ActiveSync_Wbxml
                         0x26 => 'Subject',
                         0x27 => 'StartTime',
                         0x28 => 'UID',
-                        0x29 => 'AttendeeStatus',
-                        0x2A => 'AttendeeType',
-                        0x36 => 'ResponseType',
+                        //0x29 => 'AttendeeStatus',
+                        //0x2A => 'AttendeeType',
+                        //0x36 => 'ResponseType',
                     ),
                     /* MOVE */
                     5 => array (
