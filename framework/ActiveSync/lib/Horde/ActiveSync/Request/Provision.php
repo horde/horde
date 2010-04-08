@@ -84,6 +84,8 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
                 !$this->_decoder->getElementEndTag()) {
                 return $this->_globalError(self::STATUS_PROTERROR);
             }
+            /* Need to send *something* in the policytype field even if wiping */
+            $policytype = self::POLICYTYPE_XML;
         } else {
             if (!$this->_decoder->getElementStartTag(SYNC_PROVISION_POLICIES) ||
                 !$this->_decoder->getElementStartTag(SYNC_PROVISION_POLICY) ||
