@@ -100,6 +100,11 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
                 return $this->_globalError(self::STATUS_PROTERROR);
             }
 
+            /* Check to be sure that we *need* to PROVISION */
+            if ($this->_provisioning === false) {
+                $policyStatus = self::STATUS_NOTDEFINED;
+            }
+
             /* POLICYKEY is only sent by client in phase 3 */
             if ($this->_decoder->getElementStartTag(SYNC_PROVISION_POLICYKEY)) {
                 $policykey = $this->_decoder->getElementContent();
