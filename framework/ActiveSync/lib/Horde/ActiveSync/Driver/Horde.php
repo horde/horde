@@ -543,8 +543,11 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
         $hash['department'] = Horde_String::convertCharset($message->department, 'utf-8', $charset);
 
         /* Categories */
-        $hash['category']['value'] = Horde_String::convertCharset(implode(';', $message->categories), 'utf-8', $charset);
-        $hash['category']['new'] = true;
+        if (count($message->categories)) {
+            $hash['category']['value'] = Horde_String::convertCharset(implode(';', $message->categories), 'utf-8', $charset);
+            $hash['category']['new'] = true;
+        }
+        
         /* Children */
         // @TODO
 
