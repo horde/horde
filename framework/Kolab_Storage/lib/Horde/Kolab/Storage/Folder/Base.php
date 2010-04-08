@@ -61,11 +61,11 @@ implements Horde_Kolab_Storage_Folder
     var $new_name;
 
     /**
-     * The connection specific for this folder.
+     * The driver for this folder.
      *
      * @var Horde_Kolab_Storage_Driver
      */
-    private $_connection;
+    private $_driver;
 
     /**
      * The handler for the list of Kolab folders.
@@ -197,7 +197,7 @@ implements Horde_Kolab_Storage_Folder
     {
         $properties = get_object_vars($this);
         unset($properties['_storage']);
-        unset($properties['_connection']);
+        unset($properties['_driver']);
         $properties = array_keys($properties);
         return $properties;
     }
@@ -207,15 +207,62 @@ implements Horde_Kolab_Storage_Folder
      *
      * @param Horde_Kolab_Storage        $storage    The handler for the list of
      *                                               folders.
-     * @param Horde_Kolab_Storage_Driver $connection The storage connection.
+     * @param Horde_Kolab_Storage_Driver $driver The storage driver.
      */
     function restore(
         Horde_Kolab_Storage &$storage,
-        Horde_Kolab_Storage_Driver &$connection
+        Horde_Kolab_Storage_Driver &$driver
     ) {
-        $this->_storage    = $storage;
-        $this->_connection = $connection;
+        $this->_storage = $storage;
+        $this->_driver  = $driver;
     }
+
+    /**
+     * Retrieve the driver for this folder.
+     *
+     * @return Horde_Kolab_Storage_Driver The folder driver.
+     */
+    public function getDriver()
+    {
+        return $this->_driver;
+    }
+
+    /**
+     * Get the permissions for this folder.
+     *
+     * @return Horde_Kolab_Storage_Folder_Permission The permission handler.
+     */
+    public function getPermission()
+    {
+        if ($this->_perms === null) {
+            $this->_perms = new Horde_Kolab_Storage_Folder_Permission(
+                $this->getName(),
+                $this,
+                $this->_driver->getGroupHandler()
+            );
+        }
+        return $this->_perms;
+    }
+
+    /**
+     * Sets the permissions on this folder.
+     *
+     * @param Horde_Kolab_Storage_Folder_Permission $perms  Permission object.
+     * @param boolean                               $update Save the updated
+     *                                                      information?
+     *
+     * @return NULL
+     */
+    public function setPermission(
+        Horde_Kolab_Storage_Folder_Permission $perms,
+        $update = true
+    ) {
+        $this->_perms = $perms;
+        if ($update) {
+            $this->save();
+        }
+    }
+
 
     /**
      * Return the name of the folder.
@@ -227,7 +274,7 @@ implements Horde_Kolab_Storage_Folder
         if (isset($this->name)) {
             return $this->name;
         }
-        if (!isset($this->name) && isset($this->new_name)) {
+        if (isset($this->new_name)) {
             return $this->new_name;
         }
     }
@@ -240,7 +287,7 @@ implements Horde_Kolab_Storage_Folder
      */
     function setName($name)
     {
-        $this->new_name = $this->_connection->getNamespace()->setName($name);
+        $this->new_name = $this->_driver->getNamespace()->setName($name);
     }
 
     /**
@@ -301,14 +348,14 @@ implements Horde_Kolab_Storage_Folder
                 $this->_default = false;
             }
 
-            $result = $this->_connection->exists($this->new_name);
+            $result = $this->_driver->exists($this->new_name);
             if ($result) {
                 throw new Horde_Kolab_Storage_Exception(sprintf("Unable to add %s: destination folder already exists",
                                                                 $this->new_name),
                                                         Horde_Kolab_Storage_Exception::FOLDER_EXISTS);
             }
 
-            $this->_connection->create($this->new_name);
+            $this->_driver->create($this->new_name);
 
             $this->name = $this->new_name;
             $this->new_name = null;
@@ -339,13 +386,13 @@ implements Horde_Kolab_Storage_Folder
             if (isset($this->new_name)
                 && $this->new_name != $this->name) {
                 /** The folder needs to be renamed */
-                $result = $this->_connection->exists($this->new_name);
+                $result = $this->_driver->exists($this->new_name);
                 if ($result) {
                     throw new Horde_Kolab_Storage_Exception(sprintf(_("Unable to rename %s to %s: destination folder already exists"),
                                                                     $name, $new_name));
                 }
 
-                $result = $this->_connection->rename($this->name, $this->new_name);
+                $result = $this->_driver->rename($this->name, $this->new_name);
                 $this->_storage->removeFromCache($this);
 
                 $this->name     = $this->new_name;
@@ -415,6 +462,7 @@ implements Horde_Kolab_Storage_Folder
         /** Now save the folder permissions */
         if (isset($this->_perms)) {
             $this->_perms->save();
+            $this->_perms = null;
         }
 
         $this->_storage->addToCache($this);
@@ -429,7 +477,7 @@ implements Horde_Kolab_Storage_Folder
      */
     function delete()
     {
-        $this->_connection->delete($this->name);
+        $this->_driver->delete($this->name);
         $this->_storage->removeFromCache($this);
         return true;
     }
@@ -442,14 +490,14 @@ implements Horde_Kolab_Storage_Folder
     public function getOwner()
     {
         if (!isset($this->_owner)) {
-            $owner = $this->_connection->getNamespace()->getOwner($this->getName());
+            $owner = $this->_driver->getNamespace()->getOwner($this->getName());
             /**
              * @todo: Reconsider if this handling should really be done here
              * rather than in a module nearer to the applications.
              */
             switch ($owner) {
             case Horde_Kolab_Storage_Namespace::PERSONAL:
-                $this->_owner = Horde_Auth::getAuth();
+                $this->_owner = $this->_driver->getAuth();
                 break;
             case Horde_Kolab_Storage_Namespace::SHARED:
                 $this->_owner = 'anonymous';
@@ -457,7 +505,7 @@ implements Horde_Kolab_Storage_Folder
             default:
                 list($prefix, $user) = explode(':', $owner, 2);
                 if (strpos($user, '@') === false) {
-                    $domain = strstr(Horde_Auth::getAuth(), '@');
+                    $domain = strstr($this->_driver->getAuth(), '@');
                     if (!empty($domain)) {
                         $user .= $domain;
                     }
@@ -481,10 +529,10 @@ implements Horde_Kolab_Storage_Folder
     public function getSubpath($name = null)
     {
         if (!empty($name)) {
-            return $this->_connection->getNamespace()->getSubpath($name);
+            return $this->_driver->getNamespace()->getSubpath($name);
         }
         if (!isset($this->_subpath)) {
-            $this->_subpath = $this->_connection->getNamespace()->getSubpath($this->getName());
+            $this->_subpath = $this->_driver->getNamespace()->getSubpath($this->getName());
         }
         return $this->_subpath;
     }
@@ -497,7 +545,7 @@ implements Horde_Kolab_Storage_Folder
     public function getTitle()
     {
         if (!isset($this->_title)) {
-            $this->_title = $this->_connection->getNamespace()->getTitle($this->getName());
+            $this->_title = $this->_driver->getNamespace()->getTitle($this->getName());
         }
         return $this->_title;
     }
@@ -608,8 +656,11 @@ implements Horde_Kolab_Storage_Folder
      */
     function exists()
     {
+        if ($this->name === null) {
+            return false;
+        }
         try {
-            return $this->_connection->exists($this->name);
+            return $this->_driver->exists($this->name);
         } catch (Horde_Imap_Client_Exception $e) {
             return false;
         }
@@ -623,7 +674,7 @@ implements Horde_Kolab_Storage_Folder
     function accessible()
     {
         try {
-            return $this->_connection->select($this->name);
+            return $this->_driver->select($this->name);
         } catch (Horde_Imap_Client_Exception $e) {
             return false;
         }
@@ -678,8 +729,8 @@ implements Horde_Kolab_Storage_Folder
     public function deleteMessage($id, $trigger = true)
     {
         // Select folder
-        $this->_connection->deleteMessages($this->name, $id);
-        $this->_connection->expunge($this->name);
+        $this->_driver->deleteMessages($this->name, $id);
+        $this->_driver->expunge($this->name);
     }
 
     /**
@@ -692,9 +743,9 @@ implements Horde_Kolab_Storage_Folder
      */
     public function moveMessage($id, $folder)
     {
-        $this->_connection->select($this->name);
-        $this->_connection->moveMessage($this->name, $id, $folder);
-        $this->_connection->expunge($this->name);
+        $this->_driver->select($this->name);
+        $this->_driver->moveMessage($this->name, $id, $folder);
+        $this->_driver->expunge($this->name);
     }
 
     /**
@@ -753,7 +804,7 @@ implements Horde_Kolab_Storage_Folder
                         &$old_object = null)
     {
         // Select folder
-        $this->_connection->select($this->name);
+        $this->_driver->select($this->name);
 
         $new_headers = new Horde_Mime_Headers();
         $new_headers->setEOL("\r\n");
@@ -776,7 +827,7 @@ implements Horde_Kolab_Storage_Folder
 
         if ($id != null) {
             /** Update an existing kolab object */
-            if (!in_array($id, $this->_connection->getUids($this->name))) {
+            if (!in_array($id, $this->_driver->getUids($this->name))) {
                 return PEAR::raiseError(sprintf(_("The message with ID %s does not exist. This probably means that the Kolab object has been modified by somebody else while you were editing it. Your edits have been lost."),
                                                 $id));
             }
@@ -903,21 +954,21 @@ implements Horde_Kolab_Storage_Folder
 
         // delete old email?
         if ($id != null) {
-            $this->_connection->deleteMessages($this->name, $id);
+            $this->_driver->deleteMessages($this->name, $id);
         }
 
         // store new email
         try {
-            $result = $this->_connection->appendMessage($this->name, $msg);
+            $result = $this->_driver->appendMessage($this->name, $msg);
         } catch (Horde_Kolab_Storage_Exception $e) {
             if ($id != null) {
-                $this->_connection->undeleteMessages($id);
+                $this->_driver->undeleteMessages($id);
             }
         }
 
         // remove deleted object
         if ($id != null) {
-            $this->_connection->expunge($this->name);
+            $this->_driver->expunge($this->name);
         }
     }
 
@@ -938,13 +989,13 @@ implements Horde_Kolab_Storage_Folder
     function parseMessage($id, $mime_type, $parse_headers = true,
                           $formats = array('XML'))
     {
-        $raw_headers = $this->_connection->getMessageHeader($this->name, $id);
+        $raw_headers = $this->_driver->getMessageHeader($this->name, $id);
         if (is_a($raw_headers, 'PEAR_Error')) {
             return PEAR::raiseError(sprintf(_("Failed retrieving the message with ID %s. Original error: %s."),
                                             $id, $raw_headers->getMessage()));
         }
 
-        $body = $this->_connection->getMessageBody($this->name, $id);
+        $body = $this->_driver->getMessageBody($this->name, $id);
         if (is_a($body, 'PEAR_Error')) {
             return PEAR::raiseError(sprintf(_("Failed retrieving the message with ID %s. Original error: %s."),
                                             $id, $body->getMessage()));
@@ -1023,86 +1074,11 @@ implements Horde_Kolab_Storage_Folder
     function getStatus()
     {
         // Select the folder to update uidnext
-        $this->_connection->select($this->name);
+        $this->_driver->select($this->name);
 
-        $status = $this->_connection->status($this->name);
-        $uids   = $this->_connection->getUids($this->name);
+        $status = $this->_driver->status($this->name);
+        $uids   = $this->_driver->getUids($this->name);
         return array($status['uidvalidity'], $status['uidnext'], $uids);
-    }
-
-    /**
-     * Checks to see if a user has a given permission.
-     *
-     * @param string $userid       The userid of the user.
-     * @param integer $permission  A Horde_Perms::* constant to test for.
-     * @param string $creator      The creator of the shared object.
-     *
-     * @return boolean|PEAR_Error  Whether or not $userid has $permission.
-     */
-    function hasPermission($userid, $permission, $creator = null)
-    {
-        if ($userid == $this->getOwner()) {
-            return true;
-        }
-
-        $perm = &$this->getPermission();
-        if (is_a($perm, 'PEAR_Error')) {
-            return $perm;
-        }
-        return $perm->hasPermission($userid, $permission, $creator);
-    }
-
-    /**
-     * Returns the permissions from this storage object.
-     *
-     * @return Horde_Permission_Kolab  The permissions on the share.
-     */
-    function &getPermission()
-    {
-        if (!isset($this->_perms)) {
-            if ($this->exists()) {
-                // The permissions are unknown but the folder exists
-                // -> discover permissions
-                $perms = null;
-            } else {
-                $perms = array(
-                    'users' => array(
-                        Horde_Auth::getAuth() => Horde_Perms::ALL
-                    )
-                );
-            }
-            $this->_perms = new Horde_Kolab_Storage_Permission($this, $perms);
-        }
-        return $this->_perms;
-    }
-
-    /**
-     * Sets the permissions on the share.
-     *
-     * @param Horde_Permission_Kolab $perms Permission object to store on the
-     *                                     object.
-     * @param boolean $update              Save the updated information?
-     *
-     * @return boolean|PEAR_Error  True on success.
-     */
-    function setPermission(&$perms, $update = true)
-    {
-        if (!is_a($perms, 'Horde_Perms_Permission')) {
-            return PEAR::raiseError('The permissions for this share must be specified as an instance of the Horde_Perms_Permission class!');
-        }
-
-        if (!is_a($perms, 'Horde_Kolab_Storage_Permission')) {
-            $this->_perms = new Horde_Kolab_Storage_Permission($this, $perms->data);
-        } else {
-            $this->_perms = $perms;
-            $this->_perms->setFolder($this);
-        }
-
-        if ($update) {
-            return $this->save();
-        }
-
-        return true;
     }
 
     /**
@@ -1110,9 +1086,12 @@ implements Horde_Kolab_Storage_Folder
      *
      * @return array An array with ACL.
      */
-    public function getACL()
+    public function getAcl()
     {
-        return $this->_connection->getACL($this->name);
+        if (!$this->exists()) {
+            array($this->getDriver()->getAuth() => 'lrid');
+        }
+        return $this->getDriver()->getAcl($this);
     }
 
     /**
@@ -1123,14 +1102,11 @@ implements Horde_Kolab_Storage_Folder
      *
      * @return NULL
      */
-    public function setACL($user, $acl)
+    public function setAcl($user, $acl)
     {
-        $this->_connection->setACL($this->name, $user, $acl);
-
-        if (!empty($this->_perms)) {
-            /** Refresh the cache after changing the permissions */
-            $this->_perms->getPerm();
-        }
+        $this->getDriver()->setAcl(
+            $this->getName(), $user, $acl
+        );
     }
 
     /**
@@ -1140,17 +1116,12 @@ implements Horde_Kolab_Storage_Folder
      *
      * @return NULL
      */
-    public function deleteACL($user)
+    public function deleteAcl($user)
     {
-        global $conf;
-
-        if (!empty($conf['kolab']['imap']['no_acl'])) {
-            return true;
-        }
-
-        $this->_connection->deleteACL($this->name, $user);
+        $this->getDriver()->deleteAcl(
+            $this->getName(), $user
+        );
     }
-
 
     /**
      * Get annotation values on IMAP server that do not support
@@ -1176,7 +1147,7 @@ implements Horde_Kolab_Storage_Folder
         global $conf;
 
         if (empty($conf['kolab']['imap']['no_annotations'])) {
-            return $this->_connection->getAnnotation($key, $this->name);
+            return $this->_driver->getAnnotation($key, $this->name);
         }
 
         if (!isset($this->_annotation_data)) {
@@ -1206,7 +1177,7 @@ implements Horde_Kolab_Storage_Folder
     function _setAnnotation($key, $value)
     {
         if (empty($conf['kolab']['imap']['no_annotations'])) {
-            return $this->_connection->setAnnotation($key, $value, $this->name);
+            return $this->_driver->setAnnotation($key, $value, $this->name);
         }
 
         if (!isset($this->_annotation_data)) {

@@ -31,8 +31,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-03-11</date>
- <time>20:56:19</time>
+ <date>2010-04-07</date>
+ <time>19:47:51</time>
  <version>
   <release>0.4.0</release>
   <api>0.1.0</api>
@@ -76,32 +76,52 @@
        <dir name="Driver">
         <file name="Imap.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Storage/Driver -->
-       <file name="Cache.php" role="php" />
-       <file name="Data.php" role="php" />
-       <file name="Driver.php" role="php" />
-       <file name="Exception.php" role="php" />
-       <file name="Folder.php" role="php" />
        <dir name="Folder">
-        <file name="Base.php" role="php" />
         <dir name="Decorator">
          <file name="Base.php" role="php" />
          <file name="Trigger.php" role="php" />
         </dir> <!-- /lib/Horde/Kolab/Storage/Folder/Decorator -->
+        <dir name="Permission">
+         <dir name="Acl">
+          <file name="Anonymous.php" role="php" />
+          <file name="Anyone.php" role="php" />
+          <file name="Creator.php" role="php" />
+          <file name="Group.php" role="php" />
+          <file name="User.php" role="php" />
+         </dir> <!-- /lib/Horde/Kolab/Storage/Folder/Permission/Acl -->
+         <dir name="Element">
+          <file name="Creator.php" role="php" />
+          <file name="Default.php" role="php" />
+          <file name="Group.php" role="php" />
+          <file name="Guest.php" role="php" />
+          <file name="User.php" role="php" />
+         </dir> <!-- /lib/Horde/Kolab/Storage/Folder/Permission/Element -->
+         <file name="Acl.php" role="php" />
+         <file name="AclIterator.php" role="php" />
+         <file name="Element.php" role="php" />
+         <file name="ElementIterator.php" role="php" />
+        </dir> <!-- /lib/Horde/Kolab/Storage/Folder/Permission -->
+        <file name="Base.php" role="php" />
+        <file name="Permission.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Storage/Folder -->
-       <file name="Namespace.php" role="php" />
        <dir name="Namespace">
-        <file name="Config.php" role="php" />
-        <file name="Element.php" role="php" />
         <dir name="Element">
          <file name="Other.php" role="php" />
          <file name="Personal.php" role="php" />
          <file name="Shared.php" role="php" />
          <file name="SharedWithPrefix.php" role="php" />
-        </dir> <!-- /lib/Horde/Kolab/Storage/Element -->
+        </dir> <!-- /lib/Horde/Kolab/Storage/Namespace/Element -->
+        <file name="Config.php" role="php" />
+        <file name="Element.php" role="php" />
         <file name="Fixed.php" role="php" />
         <file name="Imap.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Storage/Namespace -->
-       <file name="Permission.php" role="php" />
+       <file name="Cache.php" role="php" />
+       <file name="Data.php" role="php" />
+       <file name="Driver.php" role="php" />
+       <file name="Exception.php" role="php" />
+       <file name="Folder.php" role="php" />
+       <file name="Namespace.php" role="php" />
       </dir> <!-- /lib/Horde/Kolab/Storage -->
       <file name="Storage.php" role="php" />
      </dir> <!-- /lib/Horde/Kolab -->
@@ -111,13 +131,15 @@
     <dir name="Horde">
      <dir name="Kolab">
       <dir name="Storage">
+       <file name="AclTest.php" role="test" />
        <file name="AllTests.php" role="test" />
        <file name="AttachmentTest.php" role="test" />
        <file name="Autoload.php" role="test" />
        <file name="CacheTest.php" role="test" />
        <file name="DataTest.php" role="test" />
        <file name="FolderTest.php" role="test" />
-       <file name="PermsTest.php" role="test" />
+       <file name="NamespaceTest.php" role="test" />
+       <file name="PermissionTest.php" role="test" />
        <file name="phpunit.xml" role="test" />
        <file name="Scenario.php" role="test" />
        <file name="StorageTest.php" role="test" />
@@ -125,6 +147,7 @@
      </dir> <!-- /test/Horde/Kolab -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
+   <file name="TODO" role="data" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -209,27 +232,43 @@
    <install as="Horde/Kolab/Storage/Driver.php" name="lib/Horde/Kolab/Storage/Driver.php" />
    <install as="Horde/Kolab/Storage/Exception.php" name="lib/Horde/Kolab/Storage/Exception.php" />
    <install as="Horde/Kolab/Storage/Folder.php" name="lib/Horde/Kolab/Storage/Folder.php" />
+   <install as="Horde/Kolab/Storage/Namespace.php" name="lib/Horde/Kolab/Storage/Namespace.php" />
+   <install as="Horde/Kolab/Storage/Driver/Imap.php" name="lib/Horde/Kolab/Storage/Driver/Imap.php" />
    <install as="Horde/Kolab/Storage/Folder/Base.php" name="lib/Horde/Kolab/Storage/Folder/Base.php" />
+   <install as="Horde/Kolab/Storage/Folder/Permission.php" name="lib/Horde/Kolab/Storage/Folder/Permission.php" />
    <install as="Horde/Kolab/Storage/Folder/Decorator/Base.php" name="lib/Horde/Kolab/Storage/Folder/Decorator/Base.php" />
    <install as="Horde/Kolab/Storage/Folder/Decorator/Trigger.php" name="lib/Horde/Kolab/Storage/Folder/Decorator/Trigger.php" />
-   <install as="Horde/Kolab/Storage/Namespace.php" name="lib/Horde/Kolab/Storage/Namespace.php" />
+   <install as="Horde/Kolab/Storage/Folder/Permission/Acl.php" name="lib/Horde/Kolab/Storage/Folder/Permission/Acl.php" />
+   <install as="Horde/Kolab/Storage/Folder/Permission/AclIterator.php" name="lib/Horde/Kolab/Storage/Folder/Permission/AclIterator.php" />
+   <install as="Horde/Kolab/Storage/Folder/Permission/Element.php" name="lib/Horde/Kolab/Storage/Folder/Permission/Element.php" />
+   <install as="Horde/Kolab/Storage/Folder/Permission/ElementIterator.php" name="lib/Horde/Kolab/Storage/Folder/Permission/ElementIterator.php" />
+   <install as="Horde/Kolab/Storage/Folder/Permission/Acl/Anonymous.php" name="lib/Horde/Kolab/Storage/Folder/Permission/Acl/Anonymous.php" />
+   <install as="Horde/Kolab/Storage/Folder/Permission/Acl/Anyone.php" name="lib/Horde/Kolab/Storage/Folder/Permission/Acl/Anyone.php" />
+   <install as="Horde/Kolab/Storage/Folder/Permission/Acl/Creator.php" name="lib/Horde/Kolab/Storage/Folder/Permission/Acl/Creator.php" />
+   <install as="Horde/Kolab/Storage/Folder/Permission/Acl/Group.php" name="lib/Horde/Kolab/Storage/Folder/Permission/Acl/Group.php" />
+   <install as="Horde/Kolab/Storage/Folder/Permission/Acl/User.php" name="lib/Horde/Kolab/Storage/Folder/Permission/Acl/User.php" />
+   <install as="Horde/Kolab/Storage/Folder/Permission/Element/Creator.php" name="lib/Horde/Kolab/Storage/Folder/Permission/Element/Creator.php" />
+   <install as="Horde/Kolab/Storage/Folder/Permission/Element/Default.php" name="lib/Horde/Kolab/Storage/Folder/Permission/Element/Default.php" />
+   <install as="Horde/Kolab/Storage/Folder/Permission/Element/Group.php" name="lib/Horde/Kolab/Storage/Folder/Permission/Element/Group.php" />
+   <install as="Horde/Kolab/Storage/Folder/Permission/Element/Guest.php" name="lib/Horde/Kolab/Storage/Folder/Permission/Element/Guest.php" />
+   <install as="Horde/Kolab/Storage/Folder/Permission/Element/User.php" name="lib/Horde/Kolab/Storage/Folder/Permission/Element/User.php" />
    <install as="Horde/Kolab/Storage/Namespace/Config.php" name="lib/Horde/Kolab/Storage/Namespace/Config.php" />
    <install as="Horde/Kolab/Storage/Namespace/Element.php" name="lib/Horde/Kolab/Storage/Namespace/Element.php" />
+   <install as="Horde/Kolab/Storage/Namespace/Fixed.php" name="lib/Horde/Kolab/Storage/Namespace/Fixed.php" />
+   <install as="Horde/Kolab/Storage/Namespace/Imap.php" name="lib/Horde/Kolab/Storage/Namespace/Imap.php" />
    <install as="Horde/Kolab/Storage/Namespace/Element/Other.php" name="lib/Horde/Kolab/Storage/Namespace/Element/Other.php" />
    <install as="Horde/Kolab/Storage/Namespace/Element/Personal.php" name="lib/Horde/Kolab/Storage/Namespace/Element/Personal.php" />
    <install as="Horde/Kolab/Storage/Namespace/Element/Shared.php" name="lib/Horde/Kolab/Storage/Namespace/Element/Shared.php" />
    <install as="Horde/Kolab/Storage/Namespace/Element/SharedWithPrefix.php" name="lib/Horde/Kolab/Storage/Namespace/Element/SharedWithPrefix.php" />
-   <install as="Horde/Kolab/Storage/Namespace/Fixed.php" name="lib/Horde/Kolab/Storage/Namespace/Fixed.php" />
-   <install as="Horde/Kolab/Storage/Namespace/Imap.php" name="lib/Horde/Kolab/Storage/Namespace/Imap.php" />
-   <install as="Horde/Kolab/Storage/Permission.php" name="lib/Horde/Kolab/Storage/Permission.php" />
-   <install as="Horde/Kolab/Storage/Driver/Imap.php" name="lib/Horde/Kolab/Storage/Driver/Imap.php" />
+   <install as="Horde/Kolab/Storage/AclTest.php" name="test/Horde/Kolab/Storage/AclTest.php" />
    <install as="Horde/Kolab/Storage/AllTests.php" name="test/Horde/Kolab/Storage/AllTests.php" />
    <install as="Horde/Kolab/Storage/AttachmentTest.php" name="test/Horde/Kolab/Storage/AttachmentTest.php" />
    <install as="Horde/Kolab/Storage/Autoload.php" name="test/Horde/Kolab/Storage/Autoload.php" />
    <install as="Horde/Kolab/Storage/CacheTest.php" name="test/Horde/Kolab/Storage/CacheTest.php" />
    <install as="Horde/Kolab/Storage/DataTest.php" name="test/Horde/Kolab/Storage/DataTest.php" />
    <install as="Horde/Kolab/Storage/FolderTest.php" name="test/Horde/Kolab/Storage/FolderTest.php" />
-   <install as="Horde/Kolab/Storage/PermsTest.php" name="test/Horde/Kolab/Storage/PermsTest.php" />
+   <install as="Horde/Kolab/Storage/NamespaceTest.php" name="test/Horde/Kolab/Storage/NamespaceTest.php" />
+   <install as="Horde/Kolab/Storage/PermissionTest.php" name="test/Horde/Kolab/Storage/PermissionTest.php" />
    <install as="Horde/Kolab/Storage/phpunit.xml" name="test/Horde/Kolab/Storage/phpunit.xml" />
    <install as="Horde/Kolab/Storage/Scenario.php" name="test/Horde/Kolab/Storage/Scenario.php" />
    <install as="Horde/Kolab/Storage/StorageTest.php" name="test/Horde/Kolab/Storage/StorageTest.php" />
@@ -303,9 +342,11 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-03-11</date>
+   <date>2010-04-07</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* Added namespace support (Bug #6691).
+* Converted the package to Horde 4 / PHP 5.
 * Fixed list driver to prevent overwriting folder data when
   authenticating twice (relevant for testing).
 * Allow to supress triggering (relevant for testing).

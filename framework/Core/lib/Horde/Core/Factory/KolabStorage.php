@@ -93,6 +93,7 @@ class Horde_Core_Factory_KolabStorage
         if (empty($mail)) {
             return false;
         }
+
         $params = array(
             'hostspec' => $session->getImapServer(),
             'username' => Horde_Auth::getAuth(),
@@ -102,8 +103,12 @@ class Horde_Core_Factory_KolabStorage
 
         $imap = Horde_Imap_Client::factory('socket', $params);
 
+        //@todo: The Group package needs to be converted to H4
+        require_once 'Horde/Group.php';
+
         $master = new Horde_Kolab_Storage_Driver_Imap(
-            $imap
+            $imap,
+            Group::singleton()
         );
 
         return new Horde_Kolab_Storage(

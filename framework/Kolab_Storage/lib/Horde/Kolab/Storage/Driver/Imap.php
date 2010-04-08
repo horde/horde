@@ -35,14 +35,33 @@ class Horde_Kolab_Storage_Driver_Imap extends Horde_Kolab_Storage_Driver
     private $_imap;
 
     /**
+     * The group handler for this connection.
+     *
+     * @var Horde_Group
+     */
+    private $_groups;
+
+    /**
      * Constructor.
      *
      * @param array  $params Connection parameters.
      */
     public function __construct(
-        Horde_Imap_Client_Base $imap
+        Horde_Imap_Client_Base $imap,
+        Group $groups
     ) {
-        $this->_imap = $imap;
+        $this->_imap   = $imap;
+        $this->_groups = $groups;
+    }
+
+    /**
+     * Return the id of the user currently authenticated.
+     *
+     * @return string The id of the user that opened the IMAP connection.
+     */
+    public function getAuth()
+    {
+        return $this->_imap->getParam('username');
     }
 
     /**
@@ -257,44 +276,97 @@ class Horde_Kolab_Storage_Driver_Imap extends Horde_Kolab_Storage_Driver
     }
 
     /**
-     * Retrieve the access rights from a folder
+     * Retrieve the access rights for a folder.
      *
-     * @param string $folder  The folder to retrieve the ACLs from.
+     * @param Horde_Kolab_Storage_Folder $folder The folder to retrieve the ACL for.
      *
-     * @return mixed An array of rights if successfull, a PEAR error
-     * otherwise.
+     * @return An array of rights.
      */
-    function getACL($folder)
+    public function getAcl(Horde_Kolab_Storage_Folder $folder)
     {
-        if (!$this->_imap->queryCapability('ACL')) {
-            $acl = array();
-            $acl[Horde_Auth::getAuth()] = 'lrid';
-            return $acl;
-        }
-
-        try {
-            return $this->_imap->getACL($folder);
-        } catch (Exception $e) {
-            try {
-                return array(Horde_Auth::getAuth() => str_split($this->_imap->getMyACLRights($folder)));
-            } catch (Exception $e) {
-                return array(Horde_Auth::getAuth() => str_split('lrid'));
+        //@todo: Separate driver class
+        if ($this->_imap->queryCapability('ACL') === true) {
+            if ($folder->getOwner() == $this->getAuth()) {
+                try {
+                    return $this->_getAcl($folder->getName());
+                } catch (Exception $e) {
+                    return array($this->getAuth() => $this->_getMyAcl($folder->getName()));
+                }
+            } else {
+                $acl = $this->_getMyAcl($folder->getName());
+                if (strpos($acl, 'a')) {
+                    try {
+                        return $this->_getAcl($folder->getName());
+                    } catch (Exception $e) {
+                    }
+                }
+                return array($this->getAuth() => $acl);
             }
-        }            
+        } else {
+            return array($this->getAuth() => 'lrid');
+        }
     }
 
     /**
-     * Set the access rights for a folder
+     * Retrieve the access rights for a folder.
      *
-     * @param string $folder  The folder to retrieve the ACLs from.
-     * @param string $user    The user to set the ACLs for
-     * @param string $acl     The ACLs
+     * @param string $folder The folder to retrieve the ACL for.
      *
-     * @return mixed True if successfull, a PEAR error otherwise.
+     * @return An array of rights.
      */
-    function setACL($folder, $user, $acl)
+    private function _getAcl($folder)
     {
-        return $this->_imap->setACL($folder, $user, array('rights' => $acl));
+        $acl = $this->_imap->getACL($folder);
+        $result = array();
+        foreach ($acl as $user => $rights) {
+            $result[$user] = join('', $rights);
+        }
+        return $result;
+    }
+    
+    /**
+     * Retrieve the access rights on a folder for the current user.
+     *
+     * @param string $folder The folder to retrieve the ACL for.
+     *
+     * @return An array of rights.
+     */
+    private function _getMyAcl($folder)
+    {
+        return $this->_imap->getMyACLRights($folder);
+    }
+
+    /**
+     * Set the access rights for a folder.
+     *
+     * @param string $folder  The folder to act upon.
+     * @param string $user    The user to set the ACL for.
+     * @param string $acl     The ACL.
+     *
+     * @return NULL
+     */
+    public function setAcl($folder, $user, $acl)
+    {
+        //@todo: Separate driver class
+        if ($this->_imap->queryCapability('ACL') === true) {
+            $this->_imap->setACL($folder, $user, array('rights' => $acl));
+        }
+    }
+
+    /**
+     * Delete the access rights for user on a folder.
+     *
+     * @param string $folder  The folder to act upon.
+     * @param string $user    The user to delete the ACL for
+     *
+     * @return NULL
+     */
+    public function deleteAcl($folder, $user)
+    {
+        //@todo: Separate driver class
+        if ($this->_imap->queryCapability('ACL') === true) {
+            $this->_imap->setACL($folder, $user, array('remove' => true));
+        }
     }
 
     /**
@@ -350,4 +422,15 @@ class Horde_Kolab_Storage_Driver_Imap extends Horde_Kolab_Storage_Driver
         }
         return new Horde_Kolab_Storage_Namespace_Fixed();
     }
+
+    /**
+     * Get the group handler for this connection.
+     *
+     * @return Horde_Group The group handler.
+     */
+    public function getGroupHandler()
+    {
+        return $this->_groups;
+    }
+
 }

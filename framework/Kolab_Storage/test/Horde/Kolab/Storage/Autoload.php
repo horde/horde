@@ -47,3 +47,5 @@ if (!defined('HORE_KOLAB_STORAGE_TESTS')) {
 
     Horde_Autoloader::addClassPath(HORE_KOLAB_STORAGE_TESTS);
 }
+
+require_once 'Horde/Group.php';

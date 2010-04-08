@@ -83,7 +83,9 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
     public function testFolderTitleIsAccessibleForNewFolders()
     {
         foreach ($this->_getNamespaces() as $namespace) {
-            $_SESSION['horde_auth']['userId'] = 'test';
+            $this->_connection->expects($this->any())
+                ->method('getAuth')
+                ->will($this->returnValue('test'));
             $folder = $this->_getFolder(null, $namespace);
             $folder->setName('test');
             $this->assertEquals('test', $folder->getTitle());
@@ -93,7 +95,9 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
     public function testFolderOwnerIsCurrentUserIfPrefixMatchesPersonalNamespace()
     {
         foreach ($this->_getNamespaces() as $namespace) {
-            $_SESSION['horde_auth']['userId'] = 'test';
+            $this->_connection->expects($this->any())
+                ->method('getAuth')
+                ->will($this->returnValue('test'));
             $folder = $this->_getFolder('INBOX', $namespace);
             $this->assertEquals('test', $folder->getOwner());
         }
@@ -102,7 +106,9 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
     public function testFolderOwnerIsCurrentUserIfPrefixContainsPersonalNamespace()
     {
         foreach ($this->_getNamespaces() as $namespace) {
-            $_SESSION['horde_auth']['userId'] = 'test';
+            $this->_connection->expects($this->any())
+                ->method('getAuth')
+                ->will($this->returnValue('test'));
             $folder = $this->_getFolder('INBOX/mine', $namespace);
             $this->assertEquals('test', $folder->getOwner());
         }
@@ -135,7 +141,9 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
     public function testFolderOwnerIsAccessibleForNewFolders()
     {
         foreach ($this->_getNamespaces() as $namespace) {
-            $_SESSION['horde_auth']['userId'] = 'test';
+            $this->_connection->expects($this->any())
+                ->method('getAuth')
+                ->will($this->returnValue('test'));
             $folder = $this->_getFolder(null, $namespace);
             $folder->setName('test');
             $this->assertEquals('test', $folder->getOwner());
@@ -145,7 +153,9 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
     public function testFolderOwnerHasDomainFromFolderDomain()
     {
         foreach ($this->_getNamespaces() as $namespace) {
-            $_SESSION['horde_auth']['userId'] = 'test@example.com';
+            $this->_connection->expects($this->any())
+                ->method('getAuth')
+                ->will($this->returnValue('test@example.com'));
             $folder = $this->_getFolder('user/test/mine', $namespace);
             $this->assertEquals('test@example.com', $folder->getOwner());
         }

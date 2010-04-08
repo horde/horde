@@ -44,6 +44,42 @@ implements Horde_Kolab_Storage_Folder
     }
 
     /**
+     * Retrieve the driver for this folder.
+     *
+     * @return Horde_Kolab_Storage_Driver The folder driver.
+     */
+    public function getDriver()
+    {
+        return $this->_folder->getDriver();
+    }
+
+    /**
+     * Get the permissions for this folder.
+     *
+     * @return Horde_Kolab_Storage_Folder_Permission The permission handler.
+     */
+    public function getPermission()
+    {
+        return $this->_folder->getPermission();
+    }
+
+    /**
+     * Sets the permissions on this folder.
+     *
+     * @param Horde_Kolab_Storage_Folder_Permission $perms  Permission object.
+     * @param boolean                               $update Save the updated
+     *                                                      information?
+     *
+     * @return NULL
+     */
+    public function setPermission(
+        Horde_Kolab_Storage_Folder_Permission $perms,
+        $update = true
+    ) {
+        $this->_folder->setPermission($perms, $update);
+    }
+
+    /**
      * Saves the folder.
      *
      * @param array $attributes An array of folder attributes. You can

@@ -35,7 +35,7 @@ extends  Horde_Kolab_Storage_Namespace_Config
     /**
      * Constructor.
      */
-    public function __construct(array $namespaces, array $configuration)
+    public function __construct(array $namespaces, array $configuration = array())
     {
         $c = array();
         foreach ($namespaces as $namespace) {
