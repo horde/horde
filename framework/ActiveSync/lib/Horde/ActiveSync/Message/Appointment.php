@@ -45,7 +45,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * from a __get() property.
      */
     public $exceptions = array();
-    public $attendees;
+    public $attendees = array();
     public $categories;
 
     /**
@@ -653,12 +653,8 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      */
     public function addAttendee($attendee)
     {
-        if (!isset($this->_properties['attendees']) || !is_array($this->_properties['attendees'])) {
-            $this->_properties['attendees'] = array();
-        }
-
         /* Both email and name are REQUIRED if setting an attendee */
-        $this->_properties['attendees'][] = $attendee;
+        $this->attendees[] = $attendee;
     }
 
     /**
@@ -668,7 +664,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      */
     public function getAttendees()
     {
-        return $this->_getAttribute('attendees', array());
+        return $this->attendees;
     }
 
     /**
