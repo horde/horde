@@ -54,7 +54,8 @@ abstract class Kronolith_Resource_Base
         $this->_params = array_merge(array('description' => '',
                                            'response_type' => Kronolith_Resource::RESPONSETYPE_MANUAL,
                                            'members' => '',
-                                           'calendar' => ''),
+                                           'calendar' => '',
+                                           'email' => ''),
                                      $params);
 
     }

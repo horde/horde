@@ -50,6 +50,7 @@ class Kronolith_EditResourceForm extends Horde_Form
 
         $this->addHidden('', 'c', 'text', true);
         $this->addVariable(_("Name"), 'name', 'text', true);
+        $this->addVariable(_("Email"), 'email', 'email', false);
         $this->addVariable(_("Description"), 'description', 'longtext', false, false, null, array(4, 60));
         $this->addVariable(_("Response type"), 'responsetype', 'enum', true, false, null, array('enum' => $responses));
         $this->addVariable(_("Groups"), 'category', 'multienum', false, false, null, array('enum' => $enum));
@@ -66,6 +67,7 @@ class Kronolith_EditResourceForm extends Horde_Form
         $this->_resource->set('name', $new_name);
         $this->_resource->set('description', $this->_vars->get('description'));
         $this->_resource->set('response_type', $this->_vars->get('responsetype'));
+        $this->_resource->set('email', $this->_vars->get('email'));
 
         /* Update group memberships */
         $driver = Kronolith::getDriver('Resource');

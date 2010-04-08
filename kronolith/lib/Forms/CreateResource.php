@@ -42,6 +42,7 @@ class Kronolith_CreateResourceForm extends Horde_Form
 
         $this->addVariable(_("Name"), 'name', 'text', true);
         $this->addVariable(_("Description"), 'description', 'longtext', false, false, null, array(4, 60));
+        $this->addVariable(_("Email"), 'email', 'email', false);
         $v = &$this->addVariable(_("Response type"), 'responsetype', 'enum', true, false, null, array('enum' => $responses));
         $v->setDefault(Kronolith_Resource::RESPONSETYPE_AUTO);
         $this->addVariable(_("Groups"), 'category', 'multienum', false, false, null, array('enum' => $enum));
@@ -55,17 +56,20 @@ class Kronolith_CreateResourceForm extends Horde_Form
     {
         $new = array('name' => $this->_vars->get('name'),
                      'description' => $this->_vars->get('description'),
-                     'response_type' => $this->_vars->get('responsetype'));
+                     'response_type' => $this->_vars->get('responsetype'),
+                     'email' => $this->_vars->get('email'));
         $resource = Kronolith_Resource::addResource(new Kronolith_Resource_Single($new));
 
         /* Do we need to add this to any groups? */
         $groups = $this->_vars->get('category');
-        foreach ($groups as $group_id) {
-            $group = Kronolith::getDriver('Resource')->getResource($group_id);
-            $members = $group->get('members');
-            $members[] = $resource->getId();
-            $group->set('members', $members);
-            $group->save();
+        if (!empty($groups)) {
+            foreach ($groups as $group_id) {
+                $group = Kronolith::getDriver('Resource')->getResource($group_id);
+                $members = $group->get('members');
+                $members[] = $resource->getId();
+                $group->set('members', $members);
+                $group->save();
+            }
         }
     }
 

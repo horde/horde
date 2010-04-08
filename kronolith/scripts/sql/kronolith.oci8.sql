@@ -91,6 +91,7 @@ CREATE TABLE kronolith_resources (
     resource_description CLOB,
     resource_response_type NUMBER(16),
     resource_type VARCHAR2(255) NOT NULL,
+    resource_email VARCHAR2(255),
 
     resource_members CLOB,
     
