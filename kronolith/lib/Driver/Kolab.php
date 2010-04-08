@@ -230,10 +230,10 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
                                             'year' => 9999));
         }
         if (!is_a($startDate, 'Horde_Date')) {
-            $startDate = &new Horde_Date($startDate);
+            $startDate = new Horde_Date($startDate);
         }
         if (!is_a($endDate, 'Horde_Date')) {
-            $endDate = &new Horde_Date($endDate);
+            $endDate = new Horde_Date($endDate);
         }
 
         $startDate = clone $startDate;
