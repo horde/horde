@@ -279,7 +279,7 @@ abstract class Kronolith_Event
     /**
      * For exceptions, the date of the original recurring event that this is an
      * exception for.
-     * 
+     *
      * @var Horde_Date
      */
     public $exceptionoriginaldate;
@@ -1078,6 +1078,12 @@ abstract class Kronolith_Event
             }
         }
 
+        /* Attendees */
+        $attendees = $message->getAttendees();
+        foreach ($attendees as $attendee) {
+            $this->addAttendee($attendee->email, $attendee->type, $attendee->status, $attendee->name);
+        }
+
         /* Flag that we are initialized */
         $this->initialized = true;
     }
@@ -1180,6 +1186,13 @@ abstract class Kronolith_Event
         }
 
         /* Attendees */
+        foreach ($this->attendees as $email => $properties) {
+            $attendee = new Horde_ActiveSync_Message_Attendee();
+            $attendee->email = $email;
+            $attendee->type = $properties['attendance'];
+            $attendee->status = $properties['response'];
+            $message->addAttendee($attendee);
+        }
 
         /* Reminder */
         $message->setReminder($this->alarm);
