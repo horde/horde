@@ -32,6 +32,34 @@
 interface Horde_Kolab_Storage_Folder
 {
     /**
+     * Retrieve the driver for this folder.
+     *
+     * @return Horde_Kolab_Storage_Driver The folder driver.
+     */
+    public function getDriver();
+
+    /**
+     * Get the permissions for this folder.
+     *
+     * @return Horde_Kolab_Storage_Folder_Permission The permission handler.
+     */
+    public function getPermission();
+
+    /**
+     * Sets the permissions on this folder.
+     *
+     * @param Horde_Kolab_Storage_Folder_Permission $perms  Permission object.
+     * @param boolean                               $update Save the updated
+     *                                                      information?
+     *
+     * @return NULL
+     */
+    public function setPermission(
+        Horde_Kolab_Storage_Folder_Permission $perms,
+        $update = true
+    );
+
+    /**
      * Saves the folder.
      *
      * @param array $attributes An array of folder attributes. You can
@@ -90,11 +118,11 @@ interface Horde_Kolab_Storage_Folder
                                &$old_object = null);
 
     /**
-     * Return the IMAP ACL of this folder.
+     * Return the ACL of this folder.
      *
-     * @return array An array with IMAP ACL.
+     * @return array An array with ACL.
      */
-    public function getACL();
+    public function getAcl();
 
     /**
      * Set the ACL of this folder.
@@ -104,7 +132,7 @@ interface Horde_Kolab_Storage_Folder
      *
      * @return NULL
      */
-    public function setACL($user, $acl);
+    public function setAcl($user, $acl);
 
     /**
      * Delete the ACL for a user on this folder.
@@ -113,6 +141,6 @@ interface Horde_Kolab_Storage_Folder
      *
      * @return NULL
      */
-    public function deleteACL($user);
+    public function deleteAcl($user);
 
 }
