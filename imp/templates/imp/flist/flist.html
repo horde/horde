@@ -1,0 +1,31 @@
+<if:heading>
+<option value=""><tag:heading /></option>
+</if:heading>
+<if:new_mbox>
+<option value="" disabled="disabled">- - - - - - - -</option>
+<option value="&#000;create"><gettext>Create New Mailbox</gettext></option>
+<option value="" disabled="disabled">- - - - - - - -</option>
+</if:new_mbox>
+<loop:mbox>
+<option value="<tag:mbox.v />"<if:mbox.sel> selected="selected"</if:mbox.sel>><tag:mbox.l /></option>
+</loop:mbox>
+<if:vfolder>
+<option value="" disabled="disabled">- - - - - - - -</option>
+<loop:vfolder>
+<option value="<tag:vfolder.v />"<if:vfolder.sel> selected="selected"</if:vfolder.sel>><tag:vfolder.l /></option>
+</loop:vfolder>
+</if:vfolder>
+<if:tasklist>
+<option value="" disabled="disabled"></option>
+<option value="" disabled="disabled">- - <gettext>Task Lists</gettext> - -</option>
+<loop:tasklist>
+<option value="<tag:tasklist.v />"><tag:tasklist.l /></option>
+</loop:tasklist>
+</if:tasklist>
+<if:notepad>
+<option value="" disabled="disabled"></option>
+<option value="" disabled="disabled">- - <gettext>Notepads</gettext> - -</option>
+<loop:notepad>
+<option value="<tag:notepad.v />"><tag:notepad.l /></option>
+</loop:notepad>
+</if:notepad>
