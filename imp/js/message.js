@@ -65,7 +65,7 @@ var ImpMessage = {
         tmbox.setValue($F('target1'));
 
         // Check for a mailbox actually being selected.
-        if ($F(tmbox) == '*new*') {
+        if ($F(tmbox) == "\0create") {
             newFolder = window.prompt(IMP.text.newfolder, '');
             if (newFolder != null && newFolder != '') {
                 $('newMbox').setValue(1);

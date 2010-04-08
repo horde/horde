@@ -157,44 +157,56 @@ class IMP
          * rather than a cached value for each different mailbox we may
          * visit. */
         $mailboxes = $GLOBALS['injector']->getInstance('IMP_Folder')->flist();
-        $text = '';
 
-        if (!empty($options['heading']) &&
-            (strlen($options['heading']) > 0)) {
-            $text .= '<option value="">' . $options['heading'] . "</option>\n";
+        $t = $GLOBALS['injector']->getInstance('Horde_Template');
+        $t->setOption('gettext', true);
+
+        if (!empty($options['heading']) && (strlen($options['heading']) > 0)) {
+            $t->set('heading', $options['heading']);
         }
 
         if (!empty($options['new_folder']) &&
             (!empty($GLOBALS['conf']['hooks']['permsdenied']) ||
              ($GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('create_folders') &&
               $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_folders')))) {
-            $text .= "<option value=\"\" disabled=\"disabled\">- - - - - - - -</option>\n" .
-                '<option value="*new*">' . _("New Folder") . "</option>\n" .
-                "<option value=\"\" disabled=\"disabled\">- - - - - - - -</option>\n";
+            $t->set('new_mbox', true);
         }
 
         /* Add the list of mailboxes to the lists. */
-        $filter = empty($options['filter']) ? array() : array_flip($options['filter']);
-        foreach ($mailboxes as $mbox) {
-            if (isset($filter[$mbox['val']])) {
-                continue;
-            }
+        $filter = empty($options['filter'])
+            ? array()
+            : array_flip($options['filter']);
+        $mbox_list = array();
 
-            $val = isset($filter[$mbox['val']]) ? '' : htmlspecialchars($mbox['val']);
-            $sel = ($mbox['val'] && !empty($options['selected']) && ($mbox['val'] === $options['selected'])) ? ' selected="selected"' : '';
-            $label = (isset($options['abbrev']) && !$options['abbrev']) ? $mbox['label'] : $mbox['abbrev'];
-            $text .= sprintf('<option value="%s"%s>%s</option>%s', $val, $sel, Horde_Text_Filter::filter($label, 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)), "\n");
+        foreach ($mailboxes as $mbox) {
+            if (!isset($filter[$mbox['val']])) {
+                $label = (isset($options['abbrev']) && !$options['abbrev'])
+                    ? $mbox['label']
+                    : $mbox['abbrev'];
+
+                $mbox_list[] = array(
+                    'l' => Horde_Text_Filter::filter($label, 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)),
+                    'sel' => (!empty($options['selected']) && ($mbox['val'] === $options['selected'])),
+                    'v' => htmlspecialchars($mbox['val'])
+                );
+            }
         }
+        $t->set('mbox', $mbox_list);
 
         /* Add the list of virtual folders to the list. */
         if (!empty($options['inc_vfolder'])) {
             $vfolders = $GLOBALS['imp_search']->listQueries(IMP_Search::LIST_VFOLDER);
             if (!empty($vfolders)) {
+                $vfolder_list = array();
                 $vfolder_sel = $GLOBALS['imp_search']->searchMboxID();
-                $text .= '<option value="" disabled="disabled">- - - - - - - - -</option>' . "\n";
                 foreach ($vfolders as $id => $val) {
-                    $text .= sprintf('<option value="%s"%s>%s</option>%s', $GLOBALS['imp_search']->createSearchID($id), ($vfolder_sel == $id) ? ' selected="selected"' : '', Horde_Text_Filter::filter($val, 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)), "\n");
+                    $vfolder_list[] = array(
+                        'l' => Horde_Text_Filter::filter($val, 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)),
+                        'sel' => ($vfolder_sel == $id),
+                        'v' => htmlspecialchars($GLOBALS['imp_search']->createSearchID($id))
+                    );
                 }
+                $t->set('vfolder', $vfolder_list);
             }
         }
 
@@ -205,14 +217,14 @@ class IMP
                 $tasklists = $GLOBALS['registry']->call('tasks/listTasklists', array(false, Horde_Perms::EDIT));
 
                 if (count($tasklists)) {
-                    $text .= '<option value="" disabled="disabled">&nbsp;</option><option value="" disabled="disabled">- - ' . _("Task Lists") . ' - -</option>' . "\n";
-
+                    $tasklist_list = array();
                     foreach ($tasklists as $id => $tasklist) {
-                        $text .= sprintf('<option value="%s">%s</option>%s',
-                                         '_tasklist_' . $id,
-                                         Horde_Text_Filter::filter($tasklist->get('name'), 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)),
-                                         "\n");
+                        $tasklist_list[] = array(
+                            'l' => Horde_Text_Filter::filter($tasklist->get('name'), 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)),
+                            'v' => '_tasklist_' . $id
+                        );
                     }
+                    $t->set('tasklist', $tasklist_list);
                 }
             } catch (Horde_Exception $e) {}
         }
@@ -222,20 +234,21 @@ class IMP
             !empty($_SESSION['imp']['notepadavail'])) {
             try {
                 $notepads = $GLOBALS['registry']->call('notes/listNotepads', array(false, Horde_Perms::EDIT));
-                if (count($notepads)) {
-                    $text .= '<option value="" disabled="disabled">&nbsp;</option><option value="" disabled="disabled">- - ' . _("Notepads") . " - -</option>\n";
 
+                if (count($notepads)) {
+                    $notepad_list[] = array();
                     foreach ($notepads as $id => $notepad) {
-                        $text .= sprintf('<option value="%s">%s</option>%s',
-                                         '_notepad_' . $id,
-                                         Horde_Text_Filter::filter($notepad->get('name'), 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)),
-                                         "\n");
+                        $notepad_list[] = array(
+                            'l' => Horde_Text_Filter::filter($notepad->get('name'), 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)),
+                            'v' => '_notepad_' . $id
+                        );
                     }
+                    $t->set('notepad', $notepad_list);
                 }
             } catch (Horde_Exception $e) {}
         }
 
-        return $text;
+        return $t->fetch(IMP_TEMPLATES . '/imp/flist/flist.html');
     }
 
     /**
