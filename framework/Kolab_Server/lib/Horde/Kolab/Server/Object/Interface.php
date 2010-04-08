@@ -45,9 +45,7 @@ interface Horde_Kolab_Server_Object_Interface
     /**
      * Get the internal attributes supported by this object.
      *
-     * @return array The internal attributes supported by this object. This is
-     * an association of internal attribute names an the correspodning attribute
-     * class names.
+     * @return array The internal attributes supported by this object.
      */
     public function getInternalAttributes();
 
