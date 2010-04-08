@@ -67,15 +67,15 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
     public function save($resource)
     {
         if ($resource->getId()) {
-            $query = 'UPDATE kronolith_resources SET resource_name = ?, resource_calendar = ? , resource_description = ?, resource_response_type = ?, resource_type = ?, resource_members = ? WHERE resource_id = ?';
-            $values = array($this->convertToDriver($resource->get('name')), $resource->get('calendar'), $this->convertToDriver($resource->get('description')), $resource->get('response_type'), $resource->get('type'), serialize($resource->get('members')), $resource->getId());
+            $query = 'UPDATE kronolith_resources SET resource_name = ?, resource_calendar = ? , resource_description = ?, resource_response_type = ?, resource_type = ?, resource_members = ?, resource_email = ? WHERE resource_id = ?';
+            $values = array($this->convertToDriver($resource->get('name')), $resource->get('calendar'), $this->convertToDriver($resource->get('description')), $resource->get('response_type'), $resource->get('type'), serialize($resource->get('members')), $resource->get('email'), $resource->getId());
             $result = $this->_write_db->query($query, $values);
             $this->handleError($result);
         } else {
-            $query = 'INSERT INTO kronolith_resources (resource_id, resource_name, resource_calendar, resource_description, resource_response_type, resource_type, resource_members)';
-            $cols_values = ' VALUES (?, ?, ?, ?, ?, ?, ?)';
+            $query = 'INSERT INTO kronolith_resources (resource_id, resource_name, resource_calendar, resource_description, resource_response_type, resource_type, resource_members, resource_email)';
+            $cols_values = ' VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
             $id = $this->_db->nextId('kronolith_resources');
-            $values = array($id, $this->convertToDriver($resource->get('name')), $resource->get('calendar'), $this->convertToDriver($resource->get('description')), $resource->get('response_type'), $resource->get('type'), serialize($resource->get('members')));
+            $values = array($id, $this->convertToDriver($resource->get('name')), $resource->get('calendar'), $this->convertToDriver($resource->get('description')), $resource->get('response_type'), $resource->get('type'), serialize($resource->get('members'), $resource->get('email')));
             $result = $this->_write_db->query($query . $cols_values, $values);
             $this->handleError($result);
             $resource->setId($id);
@@ -116,7 +116,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
      */
     public function getResource($id)
     {
-        $query = 'SELECT resource_id, resource_name, resource_calendar, resource_description, resource_response_type, resource_type, resource_members FROM kronolith_resources WHERE resource_id = ?';
+        $query = 'SELECT resource_id, resource_name, resource_calendar, resource_description, resource_response_type, resource_type, resource_members, resource_email FROM kronolith_resources WHERE resource_id = ?';
         $results = $this->_db->getRow($query, array($id), DB_FETCHMODE_ASSOC);
         $this->handleError($results);
         if (empty($results)) {
@@ -170,7 +170,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
             return array();
         }
 
-        $query = 'SELECT resource_id, resource_name, resource_calendar, resource_description, resource_response_type, resource_type, resource_members FROM kronolith_resources';
+        $query = 'SELECT resource_id, resource_name, resource_calendar, resource_description, resource_response_type, resource_type, resource_members, resource_email FROM kronolith_resources';
         if (count($filter)) {
             $clause = ' WHERE ';
             $i = 0;

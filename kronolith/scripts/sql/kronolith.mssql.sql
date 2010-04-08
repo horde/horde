@@ -91,6 +91,7 @@ CREATE TABLE kronolith_resources (
     resource_response_type INT,
     resource_type VARCHAR(255) NOT NULL,
     resource_members VARCHAR(MAX),
+    resource_email VARCHAR(255),
     
     PRIMARY KEY (resource_id)
 );

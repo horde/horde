@@ -537,7 +537,12 @@
     <name>resource_members</name>
     <type>clob</type>
    </field>
-   
+
+   <field>
+    <name>resource_email</name>
+    <type>text</type>
+    <length>255</length>
+   </field>
    <index>
     <name>kronolith_resources_type_idx</name>
     <field>

@@ -53,6 +53,7 @@ if ($form->validate($vars)) {
 }
 
 $vars->set('name', $resource->get('name'));
+$vars->set('email', $resource->get('email'));
 $vars->set('description', $resource->get('description'));
 $vars->set('category', Kronolith::getDriver('Resource')->getGroupMemberships($resource->getId()));
 $vars->set('responsetype', $resource->get('response_type'));
