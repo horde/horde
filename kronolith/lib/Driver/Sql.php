@@ -595,6 +595,9 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
             /* Add tags again, but as the share owner (replaceTags removes ALL tags). */
             $cal = $GLOBALS['kronolith_shares']->getShare($event->calendar);
+            if ($cal instanceof PEAR_Error) {
+                throw new Kronolith_Exception($cal);
+            }
             $tagger->tag($event->uid, $event->tags, $cal->get('owner'), 'event');
 
             /* Update Geolocation */
