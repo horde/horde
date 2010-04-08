@@ -668,18 +668,23 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     }
 
     /**
-     * TODO
+     * Set the appointment's body
      *
-     * @param <type> $body
+     * @param string $body  UTF-8 encoded string
      */
     public function setBody($body)
     {
-
+        $this->_properties['body'] = $body;
     }
 
+    /**
+     * Get the appointment's body
+     *
+     * @return string  UTF-8 encoded string
+     */
     public function getBody()
     {
-
+        return $this->_getAttribute('body');
     }
 
     /**

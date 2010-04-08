@@ -1171,7 +1171,33 @@ abstract class Kronolith_Event
                         if ($key !== false) {
                             unset($exceptions[$key]);
                         }
+
+                        /* Remaining properties that could be different */
+                        $e->setSubject(Horde_String::convertCharset($exception->getTitle(), Horde_Nls::getCharset(), 'utf-8'));
+                        $e->setLocation(Horde_String::convertCharset($exception->location, Horde_Nls::getCharset(), 'utf-8'));
+                        $e->setBody(Horde_String::convertCharset($exception->description, Horde_Nls::getCharset(), 'utf-8'));
+
+                        $e->setSensitivity($exception->private ? 'private' : 'normal');
+                        $e->setReminder($exception->alarm);
+                        $e->setDTStamp($_SERVER['REQUEST_TIME']);
+                        /* Response Status */
+                        switch ($exception->status) {
+                        case Kronolith::STATUS_CANCELLED:
+                            $status = 'declined';
+                            break;
+                        case Kronolith::STATUS_CONFIRMED:
+                            $status = 'accepted';
+                            break;
+                        case Kronolith::STATUS_TENTATIVE:
+                            $status = 'tenative';
+                        case Kronolith::STATUS_FREE:
+                        case Kronolith::STATUS_NONE:
+                            $status = 'none';
+                        }
+                        $e->setResponseType($status);
+
                         $message->addexception($e);
+
                     }
                 }
 
