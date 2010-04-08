@@ -73,10 +73,7 @@ class Horde_Kolab_Session_Integration_ValidTest extends Horde_Kolab_Session_Sess
         $auth->expects($this->once())
             ->method('getCurrentUser')
             ->will($this->returnValue('somebody@example.org'));
-        $this->user->expects($this->exactly(4))
-            ->method('getExternal')
-            ->will($this->returnValue(array('mail@example.org')));
-        $this->user->expects($this->exactly(1))
+        $this->user->expects($this->exactly(5))
             ->method('getSingle')
             ->will($this->returnValue('mail@example.org'));
         $composite = $this->_getMockedComposite();
@@ -97,10 +94,7 @@ class Horde_Kolab_Session_Integration_ValidTest extends Horde_Kolab_Session_Sess
         $auth->expects($this->once())
             ->method('getCurrentUser')
             ->will($this->returnValue('mail@example.org'));
-        $this->user->expects($this->exactly(4))
-            ->method('getExternal')
-            ->will($this->returnValue(array('mail@example.org')));
-        $this->user->expects($this->exactly(1))
+        $this->user->expects($this->exactly(5))
             ->method('getSingle')
             ->will($this->returnValue('mail@example.org'));
         $composite = $this->_getMockedComposite();
@@ -121,10 +115,7 @@ class Horde_Kolab_Session_Integration_ValidTest extends Horde_Kolab_Session_Sess
         $auth->expects($this->once())
             ->method('getCurrentUser')
             ->will($this->returnValue('mail@example.org'));
-        $this->user->expects($this->exactly(4))
-            ->method('getExternal')
-            ->will($this->returnValue(array('mail@example.org')));
-        $this->user->expects($this->exactly(1))
+        $this->user->expects($this->exactly(5))
             ->method('getSingle')
             ->will($this->returnValue('mail@example.org'));
         $composite = $this->_getMockedComposite();
@@ -145,10 +136,7 @@ class Horde_Kolab_Session_Integration_ValidTest extends Horde_Kolab_Session_Sess
         $auth->expects($this->once())
             ->method('getCurrentUser')
             ->will($this->returnValue('mail@example.org'));
-        $this->user->expects($this->exactly(4))
-            ->method('getExternal')
-            ->will($this->returnValue(array('mail@example.org')));
-        $this->user->expects($this->exactly(1))
+        $this->user->expects($this->exactly(5))
             ->method('getSingle')
             ->will($this->returnValue('mail@example.org'));
         $composite = $this->_getMockedComposite();

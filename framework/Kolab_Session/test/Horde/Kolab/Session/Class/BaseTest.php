@@ -55,12 +55,9 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodConnectHasParameterStringUserid()
     {
-        $this->user->expects($this->exactly(1))
+        $this->user->expects($this->exactly(5))
             ->method('getSingle')
             ->will($this->returnValue('mail@example.org'));
-        $this->user->expects($this->exactly(4))
-            ->method('getExternal')
-            ->will($this->returnValue(array('mail@example.org')));
         $composite = $this->_getMockedComposite();
         $composite->objects->expects($this->once())
             ->method('fetch')
@@ -73,12 +70,9 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodConnectHasParameterArrayCredentials()
     {
-        $this->user->expects($this->exactly(1))
+        $this->user->expects($this->exactly(5))
             ->method('getSingle')
             ->will($this->returnValue('mail@example.org'));
-        $this->user->expects($this->exactly(4))
-            ->method('getExternal')
-            ->will($this->returnValue(array('mail@example.org')));
         $composite = $this->_getMockedComposite();
         $composite->objects->expects($this->once())
             ->method('fetch')
@@ -91,12 +85,9 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodConnectHasPostconditionThatTheUserMailAddressIsKnown()
     {
-        $this->user->expects($this->exactly(1))
+        $this->user->expects($this->exactly(5))
             ->method('getSingle')
             ->will($this->returnValue('mail@example.org'));
-        $this->user->expects($this->exactly(4))
-            ->method('getExternal')
-            ->will($this->returnValue(array('mail@example.org')));
         $composite = $this->_getMockedComposite();
         $composite->objects->expects($this->once())
             ->method('fetch')
@@ -110,8 +101,8 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodConnectHasPostconditionThatTheUserUidIsKnown()
     {
-        $this->user->expects($this->exactly(4))
-            ->method('getExternal')
+        $this->user->expects($this->exactly(5))
+            ->method('getSingle')
             ->will($this->returnValue('uid'));
         $composite = $this->_getMockedComposite();
         $composite->objects->expects($this->once())
@@ -126,8 +117,8 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodConnectHasPostconditionThatTheUserNameIsKnown()
     {
-        $this->user->expects($this->exactly(4))
-            ->method('getExternal')
+        $this->user->expects($this->exactly(5))
+            ->method('getSingle')
             ->will($this->returnValue('name'));
         $composite = $this->_getMockedComposite();
         $composite->objects->expects($this->once())
@@ -142,8 +133,8 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodConnectHasPostconditionThatTheUsersImapHostIsKnown()
     {
-        $this->user->expects($this->exactly(4))
-            ->method('getExternal')
+        $this->user->expects($this->exactly(5))
+            ->method('getSingle')
             ->will($this->returnValue('home.example.org'));
         $composite = $this->_getMockedComposite();
         $composite->objects->expects($this->once())
@@ -158,8 +149,8 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodConnectHasPostconditionThatTheUsersFreebusyHostIsKnown()
     {
-        $this->user->expects($this->exactly(4))
-            ->method('getExternal')
+        $this->user->expects($this->exactly(5))
+            ->method('getSingle')
             ->will($this->returnValue('freebusy.example.org'));
         $composite = $this->_getMockedComposite();
         $composite->objects->expects($this->once())
@@ -226,12 +217,9 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodGetidHasResultStringTheIdOfTheUserUserUsedForConnecting()
     {
-        $this->user->expects($this->exactly(1))
+        $this->user->expects($this->exactly(5))
             ->method('getSingle')
             ->will($this->returnValue('mail@example.org'));
-        $this->user->expects($this->exactly(4))
-            ->method('getExternal')
-            ->will($this->returnValue(array('mail@example.org')));
         $composite = $this->_getMockedComposite();
         $composite->objects->expects($this->once())
             ->method('fetch')
@@ -245,10 +233,7 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodGetmailHasResultStringTheMailOfTheConnectedUser()
     {
-        $this->user->expects($this->exactly(4))
-            ->method('getExternal')
-            ->will($this->throwException(new Horde_Kolab_Server_Exception_Novalue()));
-        $this->user->expects($this->exactly(1))
+        $this->user->expects($this->exactly(5))
             ->method('getSingle')
             ->will($this->throwException(new Horde_Kolab_Server_Exception_Novalue()));
         $composite = $this->_getMockedComposite();
@@ -264,8 +249,8 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodGetuidHasResultStringTheUidOfTheConnectedUser()
     {
-        $this->user->expects($this->exactly(4))
-            ->method('getExternal')
+        $this->user->expects($this->exactly(5))
+            ->method('getSingle')
             ->will($this->throwException(new Horde_Kolab_Server_Exception_Novalue()));
         $composite = $this->_getMockedComposite();
         $composite->objects->expects($this->once())
@@ -280,8 +265,8 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodGetnameHasResultStringTheNameOfTheConnectedUser()
     {
-        $this->user->expects($this->exactly(4))
-            ->method('getExternal')
+        $this->user->expects($this->exactly(5))
+            ->method('getSingle')
             ->will($this->throwException(new Horde_Kolab_Server_Exception_Novalue()));
         $composite = $this->_getMockedComposite();
         $composite->objects->expects($this->once())
@@ -296,8 +281,8 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodGetfreebusyserverHasResultStringTheUsersFreebusyServerConverterdToACompleteUrlUsingParametersIfAvailable()
     {
-        $this->user->expects($this->exactly(4))
-            ->method('getExternal')
+        $this->user->expects($this->exactly(5))
+            ->method('getSingle')
             ->will($this->returnValue('freebusy.example.org'));
         $composite = $this->_getMockedComposite();
         $composite->objects->expects($this->once())
@@ -313,8 +298,8 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodGetfreebusyserverHasResultStringTheUsersFreebusyServerConverterdToACompleteUrlUsingFreebusyIfAvailable()
     {
-        $this->user->expects($this->exactly(4))
-            ->method('getExternal')
+        $this->user->expects($this->exactly(5))
+            ->method('getSingle')
             ->will($this->returnValue('freebusy.example.org'));
         $composite = $this->_getMockedComposite();
         $composite->objects->expects($this->once())
@@ -329,8 +314,8 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodGetfreebusyserverHasResultStringTheConfiguredServerIfAvailable()
     {
-        $this->user->expects($this->exactly(4))
-            ->method('getExternal')
+        $this->user->expects($this->exactly(5))
+            ->method('getSingle')
             ->will($this->throwException(new Horde_Kolab_Server_Exception_Novalue()));
         $composite = $this->_getMockedComposite();
         $composite->objects->expects($this->once())
@@ -346,8 +331,8 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodGetfreebusyserverHasResultStringTheUsersHomeServerConverterdToACompleteUrlUsingParametersIfAvailable()
     {
-        $this->user->expects($this->exactly(4))
-            ->method('getExternal')
+        $this->user->expects($this->exactly(5))
+            ->method('getSingle')
             ->will($this->throwException(new Horde_Kolab_Server_Exception_Novalue()));
         $composite = $this->_getMockedComposite();
         $composite->objects->expects($this->once())
@@ -363,8 +348,8 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodGetfreebusyserverHasResultStringTheUsersHomeServerConverterdToACompleteUrlUsingFreebusyIfAvailable()
     {
-        $this->user->expects($this->exactly(4))
-            ->method('getExternal')
+        $this->user->expects($this->exactly(5))
+            ->method('getSingle')
             ->will($this->throwException(new Horde_Kolab_Server_Exception_Novalue()));
         $composite = $this->_getMockedComposite();
         $composite->objects->expects($this->once())
@@ -379,8 +364,8 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodGetfreebusyserverHasResultStringLocalhostConvertedToACompleteUrlUsingParametersIfAvailable()
     {
-        $this->user->expects($this->exactly(4))
-            ->method('getExternal')
+        $this->user->expects($this->exactly(5))
+            ->method('getSingle')
             ->will($this->throwException(new Horde_Kolab_Server_Exception_Novalue()));
         $composite = $this->_getMockedComposite();
         $composite->objects->expects($this->once())
@@ -396,8 +381,8 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodGetfreebusyserverHasResultStringLocalhostConvertedToACompleteUrlUsingFreebusy()
     {
-        $this->user->expects($this->exactly(4))
-            ->method('getExternal')
+        $this->user->expects($this->exactly(5))
+            ->method('getSingle')
             ->will($this->throwException(new Horde_Kolab_Server_Exception_Novalue()));
         $composite = $this->_getMockedComposite();
         $composite->objects->expects($this->once())
@@ -412,8 +397,8 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodGetimapserverHasResultStringTheUsersHomeServerIfAvailable()
     {
-        $this->user->expects($this->exactly(4))
-            ->method('getExternal')
+        $this->user->expects($this->exactly(5))
+            ->method('getSingle')
             ->will($this->returnValue('home.example.org'));
         $composite = $this->_getMockedComposite();
         $composite->objects->expects($this->once())
@@ -428,8 +413,8 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodGetimapserverHasResultStringTheConfiguredServerIfAvailable()
     {
-        $this->user->expects($this->exactly(4))
-            ->method('getExternal')
+        $this->user->expects($this->exactly(5))
+            ->method('getSingle')
             ->will($this->throwException(new Horde_Kolab_Server_Exception_Novalue()));
         $composite = $this->_getMockedComposite();
         $composite->objects->expects($this->once())
@@ -445,8 +430,8 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodGetimapserverHasResultStringLocalhostIfNoAlternative()
     {
-        $this->user->expects($this->exactly(4))
-            ->method('getExternal')
+        $this->user->expects($this->exactly(5))
+            ->method('getSingle')
             ->will($this->throwException(new Horde_Kolab_Server_Exception_Novalue()));
         $composite = $this->_getMockedComposite();
         $composite->objects->expects($this->once())
