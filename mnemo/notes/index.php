@@ -8,7 +8,9 @@
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
  */
 
-require_once dirname(__FILE__) . '/../lib/base.php';
+@define('MNEMO_BASE', dirname(dirname(__FILE__)));
+require_once MNEMO_BASE . '/lib/Application.php';
+Horde_Registry::appInit('mnemo');
 
 $search = Horde_Util::getGet('q');
 if (!$search) {
