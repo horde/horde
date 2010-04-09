@@ -1157,11 +1157,13 @@ table.kronolithView td.kronolithFirstCol {
     vertical-align: top;
 }
 .kronolithMore {
-    display: block;
     padding: 0 2px;
     color: #888;
     font-style: italic;
     cursor: pointer;
+}
+.kronolithMore:hover {
+    text-decoration: underline;
 }
 
 /* Main view agenda. */
