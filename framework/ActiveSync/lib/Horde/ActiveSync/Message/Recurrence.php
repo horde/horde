@@ -23,7 +23,7 @@ class Horde_ActiveSync_Message_Recurrence extends Horde_ActiveSync_Message_Base
         $mapping = array (
             Horde_ActiveSync_Message_Appointment::POOMCAL_TYPE => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'type'),
             Horde_ActiveSync_Message_Appointment::POOMCAL_UNTIL => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'until', Horde_ActiveSync_Message_Base::KEY_TYPE => Horde_ActiveSync_Message_Base::TYPE_DATE),
-            Horde_ActiveSync_Message_Appointment::OCCURRENCES => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'occurrences'),
+            Horde_ActiveSync_Message_Appointment::POOMCAL_OCCURRENCES => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'occurrences'),
             Horde_ActiveSync_Message_Appointment::POOMCAL_INTERVAL => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'interval'),
             Horde_ActiveSync_Message_Appointment::POOMCAL_DAYOFWEEK => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'dayofweek'),
             Horde_ActiveSync_Message_Appointment::POOMCAL_DAYOFMONTH => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'dayofmonth'),
