@@ -354,6 +354,40 @@ class Horde_ActiveSync
     const TRUNCATION_SEVEN = 7;
     const TRUNCATION_ALL = 9;
 
+    /* Namespace constants */
+    /* SYNC */
+    const SYNC_SYNCHRONIZE = 'Synchronize';
+    const SYNC_REPLIES = 'Replies';
+    const SYNC_ADD = 'Add';
+    const SYNC_MODIFY = 'Modify';
+    const SYNC_REMOVE = 'Remove';
+    const SYNC_FETCH = 'Fetch';
+    const SYNC_SYNCKEY = 'SyncKey';
+    const SYNC_CLIENTENTRYID = 'ClientEntryId';
+    const SYNC_SERVERENTRYID = 'ServerEntryId';
+    const SYNC_STATUS = 'Status';
+    const SYNC_FOLDER = 'Folder';
+    const SYNC_FOLDERTYPE = 'FolderType';
+    const SYNC_VERSION = 'Version';
+    const SYNC_FOLDERID = 'FolderId';
+    const SYNC_GETCHANGES = 'GetChanges';
+    const SYNC_MOREAVAILABLE = 'MoreAvailable';
+    const SYNC_WINDOWSIZE = 'WindowSize';
+    const SYNC_COMMANDS = 'Commands';
+    const SYNC_OPTIONS = 'Options';
+    const SYNC_FILTERTYPE = 'FilterType';
+    const SYNC_TRUNCATION = 'Truncation';
+    const SYNC_RTFTRUNCATION = 'RtfTruncation';
+    const SYNC_CONFLICT = 'Conflict';
+    const SYNC_FOLDERS = 'Folders';
+    const SYNC_DATA = 'Data';
+    const SYNC_DELETESASMOVES = 'DeletesAsMoves';
+    const SYNC_NOTIFYGUID = 'NotifyGUID';
+    const SYNC_SUPPORTED = 'Supported';
+    const SYNC_SOFTDELETE = 'SoftDelete';
+    const SYNC_MIMESUPPORT = 'MIMESupport';
+    const SYNC_MIMETRUNCATION = 'MIMETruncation';
+
     /* Flags */
     const FLAG_NEWMESSAGE = 'NewMessage';
 

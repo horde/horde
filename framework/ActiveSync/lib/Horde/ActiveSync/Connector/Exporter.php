@@ -104,16 +104,16 @@ class Horde_ActiveSync_Connector_Exporter
 
         /* Specify if this is an ADD or a MODIFY change? */
         if ($message->flags === false || $message->flags === Horde_ActiveSync::FLAG_NEWMESSAGE) {
-            $this->_encoder->startTag(Horde_ActiveSync_Request_Sync::ADD);
+            $this->_encoder->startTag(Horde_ActiveSync::SYNC_ADD);
         } else {
-            $this->_encoder->startTag(Horde_ActiveSync_Request_Sync::MODIFY);
+            $this->_encoder->startTag(Horde_ActiveSync::SYNC_MODIFY);
         }
 
         /* Send the message */
-        $this->_encoder->startTag(Horde_ActiveSync_Request_Sync::SERVERENTRYID);
+        $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
         $this->_encoder->content($id);
         $this->_encoder->endTag();
-        $this->_encoder->startTag(Horde_ActiveSync_Request_Sync::DATA);
+        $this->_encoder->startTag(Horde_ActiveSync::SYNC_DATA);
         $message->encodeStream($this->_encoder);
         $this->_encoder->endTag();
         $this->_encoder->endTag();
@@ -130,8 +130,8 @@ class Horde_ActiveSync_Connector_Exporter
      */
     public function messageDeletion($id)
     {
-        $this->_encoder->startTag(Horde_ActiveSync_Request_Sync::REMOVE);
-        $this->_encoder->startTag(Horde_ActiveSync_Request_Sync::SERVERENTRYID);
+        $this->_encoder->startTag(Horde_ActiveSync::SYNC_REMOVE);
+        $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
         $this->_encoder->content($id);
         $this->_encoder->endTag();
         $this->_encoder->endTag();
@@ -155,11 +155,11 @@ class Horde_ActiveSync_Connector_Exporter
         }
 
         /* Encode and stream */
-        $this->_encoder->startTag(Horde_ActiveSync_Request_Sync::MODIFY);
-        $this->_encoder->startTag(Horde_ActiveSync_Request_Sync::SERVERENTRYID);
+        $this->_encoder->startTag(Horde_ActiveSync::SYNC_MODIFY);
+        $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
         $this->_encoder->content($id);
         $this->_encoder->endTag();
-        $this->_encoder->startTag(Horde_ActiveSync_Request_Sync::DATA);
+        $this->_encoder->startTag(Horde_ActiveSync::SYNC_DATA);
         $this->_encoder->startTag(SYNC_POOMMAIL_READ);
         $this->_encoder->content($flags);
         $this->_encoder->endTag();
