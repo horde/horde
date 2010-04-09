@@ -25,39 +25,6 @@
  * This file is distributed under GPL v2.
  * Consult LICENSE file for details
  */
-// TODO Class constant these:
-define("SYNC_SYNCHRONIZE","Synchronize");
-define("SYNC_REPLIES","Replies");
-define("SYNC_ADD","Add");
-define("SYNC_MODIFY","Modify");
-define("SYNC_REMOVE","Remove");
-define("SYNC_FETCH","Fetch");
-define("SYNC_SYNCKEY","SyncKey");
-define("SYNC_CLIENTENTRYID","ClientEntryId");
-define("SYNC_SERVERENTRYID","ServerEntryId");
-define("SYNC_STATUS","Status");
-define("SYNC_FOLDER","Folder");
-define("SYNC_FOLDERTYPE","FolderType");
-define("SYNC_VERSION","Version");
-define("SYNC_FOLDERID","FolderId");
-define("SYNC_GETCHANGES","GetChanges");
-define("SYNC_MOREAVAILABLE","MoreAvailable");
-define("SYNC_WINDOWSIZE","WindowSize");
-define("SYNC_COMMANDS","Commands");
-define("SYNC_OPTIONS","Options");
-define("SYNC_FILTERTYPE","FilterType");
-define("SYNC_TRUNCATION","Truncation");
-define("SYNC_RTFTRUNCATION","RtfTruncation");
-define("SYNC_CONFLICT","Conflict");
-define("SYNC_FOLDERS","Folders");
-define("SYNC_DATA","Data");
-define("SYNC_DELETESASMOVES","DeletesAsMoves");
-define("SYNC_NOTIFYGUID","NotifyGUID");
-define("SYNC_SUPPORTED","Supported");
-define("SYNC_SOFTDELETE","SoftDelete");
-define("SYNC_MIMESUPPORT","MIMESupport");
-define("SYNC_MIMETRUNCATION","MIMETruncation");
-define("SYNC_NEWMESSAGE","NewMessage");
 
 // POOMMAIL
 define("SYNC_POOMMAIL_ATTACHMENT","POOMMAIL:Attachment");
