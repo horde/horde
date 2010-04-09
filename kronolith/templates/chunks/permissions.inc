@@ -10,9 +10,9 @@ if (count($groups) > 1) {
     <div class="kronolithDialogInfo"><?php printf(_("%sStandard sharing.%s You can also set %sadvanced sharing%s options."), '<strong>', '</strong>', '<strong><a href="#" id="kronolithC' .  $type . 'PMore">', '</a></strong>') ?></div>
     <div>
       <input type="radio" id="kronolithC<?php echo $type ?>PNone" name="basic_perms" checked="checked" />
-      <label for="kronolithC<?php echo $type ?>PNone"><?php echo $type == 'internal' ? _("Don't share this calendar") : _("Don't share this task list") ?></label><br />
-      <?php printf(_("or share with %s %severyone%s (and %s %smake it searchable%s by everyone too)"),
-                   '<input type="radio" id="kronolithC' . $type . 'PAll" name="basic_perms" />',
+      <label for="kronolithC<?php echo $type ?>PNone"><?php echo $type == 'internal' ? _("Don't share this calendar") : _("Don't share this task list") ?></label> <?php echo _("or") ?><br />
+      <input type="radio" id="kronolithC<?php echo $type ?>PAll" name="basic_perms" />
+      <?php printf(_("%sShare with everyone%s (public) and %s %smake it searchable%s by everyone too"),
                    '<label for="kronolithC' . $type . 'PAll">', '</label>',
                    '<input type="checkbox" id="kronolithC' . $type . 'PAllShow" checked="checked" />',
                    '<label for="kronolithC' . $type . 'PAllShow">', '</label>')
