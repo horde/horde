@@ -41,6 +41,17 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
   </label>
 </div>
 
+<div id="kronolithCalendarinternalUrls" style="display:none">
+  <label><?php echo _("Subscription URL") ?></label>
+  <span class="kronolithSeparator">&mdash;</span>
+  <span class="kronolithDialogInfo"><?php echo _("To subscribe to this calendar from another calendar program, use this URL:") ?></span><br />
+  <a id="kronolithCalendarinternalUrlSub" href="#" target="_blank"></a><br />
+  <label><?php echo _("Feed URL") ?></label>
+  <span class="kronolithSeparator">&mdash;</span>
+  <span class="kronolithDialogInfo"><?php echo _("To subscribe to this calendar from a feed reader, use this URL:") ?></span><br />
+  <a id="kronolithCalendarinternalUrlFeed" href="#" target="_blank"></a><br />
+</div>
+
 <div class="tabset">
   <ul>
     <li class="activeTab"><a href="#" class="kronolithTabLink" id="kronolithCalendarinternalLinkDescription"><?php echo _("Description") ?></a></li>
@@ -119,6 +130,13 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
     <input type="text" name="color" id="kronolithCalendartasklistsColor" size="7" />
     <?php echo Horde::url('#')->link(array('title' => _("Color Picker"), 'class' => 'kronolithColorPicker')) . Horde::img('colorpicker.png', _("Color Picker")) . '</a>' ?>
   </label>
+</div>
+
+<div id="kronolithCalendartasklistsUrls" style="display:none">
+  <label><?php echo _("Subscription URL") ?></label>
+  <span class="kronolithSeparator">&mdash;</span>
+  <span class="kronolithDialogInfo"><?php echo _("To subscribe to this taks list from another program, use this URL:") ?></span><br />
+  <a id="kronolithCalendartasklistsUrlSub" href="#" target="_blank"></a><br />
 </div>
 
 <div class="tabset">

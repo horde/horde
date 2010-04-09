@@ -240,6 +240,9 @@ class Kronolith
             $code['conf']['tasks'] = $registry->tasks->ajaxDefaults();
         }
 
+        $subscriptionCals = Horde::url($registry->get('webroot', 'horde') . ($GLOBALS['conf']['urls']['pretty'] == 'rewrite' ? '/rpc/kronolith/' : '/rpc.php/kronolith/'), true, -1);
+        $subscriptionTasks = Horde::url($registry->get('webroot', 'horde') . ($GLOBALS['conf']['urls']['pretty'] == 'rewrite' ? '/rpc/nag/' : '/rpc.php/nag/'), true, -1);
+
         // Calendars
         foreach (array(true, false) as $my) {
             foreach ($GLOBALS['all_calendars'] as $id => $calendar) {
@@ -261,6 +264,8 @@ class Kronolith
                         'show' => in_array($id, $GLOBALS['display_calendars']),
                         'perms' => $calendar->getPermission()->data,
                         'edit' => $calendar->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT),
+                        'sub' => $subscriptionCals . ($calendar->get('owner') ? $calendar->get('owner') : '-system-') . '/' . $calendar->getName() . '.ics',
+                        'feed' => (string)Kronolith::feedUrl($calendar->getName()),
                         'tg' => array_values($tagger->getTags($calendar->getName(), 'calendar')));
                 }
             }
@@ -287,7 +292,8 @@ class Kronolith
                         'bg' => self::backgroundColor($tasklist),
                         'show' => in_array('tasks/' . $id, $GLOBALS['display_external_calendars']),
                         'perms' => $tasklist->getPermission()->data,
-                        'edit' => $tasklist->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT));
+                        'edit' => $tasklist->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT),
+                        'sub' => $subscriptionTasks . ($tasklist->get('owner') ? $tasklist->get('owner') : '-system-') . '/' . $tasklist->getName() . '.ics');
                 }
             }
         }

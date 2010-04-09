@@ -2367,6 +2367,7 @@ KronolithCore = {
             $('kronolithC' + type + 'PAdvanced').select('tr').findAll(function(tr) {
                 return tr.retrieve('remove');
             }).invoke('remove');
+            $('kronolithCalendar' + type + 'Urls').hide();
         }
 
         var newCalendar = !calendar;
@@ -2428,6 +2429,9 @@ KronolithCore = {
                 } else {
                     $('kronolithCalendar' + type + 'LinkImport').up('li').hide();
                 }
+                $('kronolithCalendar' + type + 'UrlFeed')
+                    .writeAttribute('href', info.feed)
+                    .update(info.feed.escapeHTML());
                 // Fall through.
             case 'tasklists':
                 $('kronolithCalendar' + type + 'Description').setValue(info.desc);
@@ -2435,6 +2439,10 @@ KronolithCore = {
                 $('kronolithCalendar' + type + 'Export').href = type == 'internal'
                     ? Kronolith.conf.URI_CALENDAR_EXPORT + '=' + calendar
                     : Kronolith.conf.tasks.URI_TASKLIST_EXPORT + '=' + calendar.substring(6);
+                $('kronolithCalendar' + type + 'Urls').show();
+                $('kronolithCalendar' + type + 'UrlSub')
+                    .writeAttribute('href', info.sub)
+                    .update(info.sub.escapeHTML());
                 break;
             case 'remote':
                 $('kronolithCalendarremoteUrl').setValue(calendar);
