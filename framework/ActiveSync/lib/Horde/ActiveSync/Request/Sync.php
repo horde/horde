@@ -91,7 +91,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                $this->_decoder->getElementStartTag(self::FOLDER)) {
 
             $collection = array();
-            $collection['truncation'] = SYNC_TRUNCATION_ALL;
+            $collection['truncation'] = Horde_ActiveSync::TRUNCATION_ALL;
             $collection['clientids'] = array();
             $collection['fetchids'] = array();
 

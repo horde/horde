@@ -336,13 +336,6 @@ define("SYNC_FOLDER_TYPE_UNKNOWN", 18);
 define("SYNC_FOLDER_TYPE_RECIPIENT_CACHE", 19);
 define("SYNC_FOLDER_TYPE_DUMMY", "__dummy.Folder.Id__");
 
-define("SYNC_TRUNCATION_HEADERS", 0);
-define("SYNC_TRUNCATION_512B", 1);
-define("SYNC_TRUNCATION_1K", 2);
-define("SYNC_TRUNCATION_5K", 4);
-define("SYNC_TRUNCATION_SEVEN", 7);
-define("SYNC_TRUNCATION_ALL", 9);
-
 /**
  * Main ActiveSync class. Entry point for performing all ActiveSync operations
  *
@@ -353,6 +346,13 @@ class Horde_ActiveSync
     const CONFLICT_OVERWRITE_SERVER = 0;
     const CONFLICT_OVERWRITE_PIM = 1;
 
+    /* TRUNCATION Constants */
+    const TRUNCATION_HEADERS = 0;
+    const TRUNCATION_512B = 1;
+    const TRUNCATION_1K = 2;
+    const TRUNCATION_5K = 4;
+    const TRUNCATION_SEVEN = 7;
+    const TRUNCATION_ALL = 9;
     /**
      * Logger
      *
