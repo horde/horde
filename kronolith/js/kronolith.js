@@ -917,8 +917,15 @@ KronolithCore = {
      */
     insertCalendarInList: function(type, id, cal, div)
     {
+        var noItems;
         if (!div) {
             div = this.getCalendarList(type, cal.owner);
+        }
+        noItems = div.previous();
+        if (noItems &&
+            noItems.tagName == 'DIV' &&
+            noItems.className == 'kronolithDialogInfo') {
+            noItems.hide();
         }
         if (type != 'holiday' && type != 'external') {
             div.insert(new Element('span', { className: 'kronolithCalEdit' })

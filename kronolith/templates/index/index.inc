@@ -117,6 +117,7 @@
     <span><?php echo _("Shared Calendars") ?></span>
   </h3>
 
+  <div class="kronolithDialogInfo"><?php echo _("No items to display") ?></div>
   <div id="kronolithSharedCalendars" class="kronolithCalendars" style="display:none">
   </div>
 
@@ -126,6 +127,7 @@
     <span><?php echo _("Shared Task Lists") ?></span>
   </h3>
 
+  <div class="kronolithDialogInfo"><?php echo _("No items to display") ?></div>
   <div id="kronolithSharedTasklists" class="kronolithCalendars" style="display:none">
   </div>
   <?php endif; ?>
@@ -137,6 +139,7 @@
     <span><?php echo _("Remote Calendars") ?></span>
   </h3>
 
+  <div class="kronolithDialogInfo"><?php echo _("No items to display") ?></div>
   <div id="kronolithRemoteCalendars" class="kronolithCalendars" style="display:none">
   </div>
 
