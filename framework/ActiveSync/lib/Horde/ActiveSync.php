@@ -102,46 +102,46 @@ define("SYNC_AIRNOTIFY_ID","AirNotify:Id");
 define("SYNC_AIRNOTIFY_EXPIRY","AirNotify:Expiry");
 define("SYNC_AIRNOTIFY_NOTIFYGUID","AirNotify:NotifyGUID");
 
-// POOMCAL
-define("SYNC_POOMCAL_TIMEZONE","POOMCAL:Timezone");
-define("SYNC_POOMCAL_ALLDAYEVENT","POOMCAL:AllDayEvent");
-define("SYNC_POOMCAL_ATTENDEES","POOMCAL:Attendees");
-define("SYNC_POOMCAL_ATTENDEE","POOMCAL:Attendee");
-define("SYNC_POOMCAL_ATTENDEESTATUS", "POOMCAL:AttendeeStatus");
-define("SYNC_POOMCAL_ATTENDEETYPE", "POOMCAL:AttendeeType");
-define("SYNC_POOMCAL_EMAIL","POOMCAL:Email");
-define("SYNC_POOMCAL_NAME","POOMCAL:Name");
-define("SYNC_POOMCAL_BODY","POOMCAL:Body");
-define("SYNC_POOMCAL_BODYTRUNCATED","POOMCAL:BodyTruncated");
-define("SYNC_POOMCAL_BUSYSTATUS","POOMCAL:BusyStatus");
-define("SYNC_POOMCAL_CATEGORIES","POOMCAL:Categories");
-define("SYNC_POOMCAL_CATEGORY","POOMCAL:Category");
-define("SYNC_POOMCAL_RTF","POOMCAL:Rtf");
-define("SYNC_POOMCAL_DTSTAMP","POOMCAL:DtStamp");
-define("SYNC_POOMCAL_ENDTIME","POOMCAL:EndTime");
-define("SYNC_POOMCAL_EXCEPTION","POOMCAL:Exception");
-define("SYNC_POOMCAL_EXCEPTIONS","POOMCAL:Exceptions");
-define("SYNC_POOMCAL_DELETED","POOMCAL:Deleted");
-define("SYNC_POOMCAL_EXCEPTIONSTARTTIME","POOMCAL:ExceptionStartTime");
-define("SYNC_POOMCAL_LOCATION","POOMCAL:Location");
-define("SYNC_POOMCAL_MEETINGSTATUS","POOMCAL:MeetingStatus");
-define("SYNC_POOMCAL_ORGANIZEREMAIL","POOMCAL:OrganizerEmail");
-define("SYNC_POOMCAL_ORGANIZERNAME","POOMCAL:OrganizerName");
-define("SYNC_POOMCAL_RECURRENCE","POOMCAL:Recurrence");
-define("SYNC_POOMCAL_TYPE","POOMCAL:Type");
-define("SYNC_POOMCAL_UNTIL","POOMCAL:Until");
-define("SYNC_POOMCAL_OCCURRENCES","POOMCAL:Occurrences");
-define("SYNC_POOMCAL_INTERVAL","POOMCAL:Interval");
-define("SYNC_POOMCAL_DAYOFWEEK","POOMCAL:DayOfWeek");
-define("SYNC_POOMCAL_DAYOFMONTH","POOMCAL:DayOfMonth");
-define("SYNC_POOMCAL_WEEKOFMONTH","POOMCAL:WeekOfMonth");
-define("SYNC_POOMCAL_MONTHOFYEAR","POOMCAL:MonthOfYear");
-define("SYNC_POOMCAL_REMINDER","POOMCAL:Reminder");
-define("SYNC_POOMCAL_SENSITIVITY","POOMCAL:Sensitivity");
-define("SYNC_POOMCAL_SUBJECT","POOMCAL:Subject");
-define("SYNC_POOMCAL_STARTTIME","POOMCAL:StartTime");
-define("SYNC_POOMCAL_UID","POOMCAL:UID");
-define("SYNC_POOMCAL_RESPONSETYPE", "POOMCAL:ResponseType");
+//// POOMCAL
+//define("SYNC_POOMCAL_TIMEZONE","POOMCAL:Timezone");
+//define("SYNC_POOMCAL_ALLDAYEVENT","POOMCAL:AllDayEvent");
+//define("SYNC_POOMCAL_ATTENDEES","POOMCAL:Attendees");
+//define("SYNC_POOMCAL_ATTENDEE","POOMCAL:Attendee");
+//define("SYNC_POOMCAL_ATTENDEESTATUS", "POOMCAL:AttendeeStatus");
+//define("SYNC_POOMCAL_ATTENDEETYPE", "POOMCAL:AttendeeType");
+//define("SYNC_POOMCAL_EMAIL","POOMCAL:Email");
+//define("SYNC_POOMCAL_NAME","POOMCAL:Name");
+//define("SYNC_POOMCAL_BODY","POOMCAL:Body");
+//define("SYNC_POOMCAL_BODYTRUNCATED","POOMCAL:BodyTruncated");
+//define("SYNC_POOMCAL_BUSYSTATUS","POOMCAL:BusyStatus");
+//define("SYNC_POOMCAL_CATEGORIES","POOMCAL:Categories");
+//define("SYNC_POOMCAL_CATEGORY","POOMCAL:Category");
+//define("SYNC_POOMCAL_RTF","POOMCAL:Rtf");
+//define("SYNC_POOMCAL_DTSTAMP","POOMCAL:DtStamp");
+//define("SYNC_POOMCAL_ENDTIME","POOMCAL:EndTime");
+//define("SYNC_POOMCAL_EXCEPTION","POOMCAL:Exception");
+//define("SYNC_POOMCAL_EXCEPTIONS","POOMCAL:Exceptions");
+//define("SYNC_POOMCAL_DELETED","POOMCAL:Deleted");
+//define("SYNC_POOMCAL_EXCEPTIONSTARTTIME","POOMCAL:ExceptionStartTime");
+//define("SYNC_POOMCAL_LOCATION","POOMCAL:Location");
+//define("SYNC_POOMCAL_MEETINGSTATUS","POOMCAL:MeetingStatus");
+//define("SYNC_POOMCAL_ORGANIZEREMAIL","POOMCAL:OrganizerEmail");
+//define("SYNC_POOMCAL_ORGANIZERNAME","POOMCAL:OrganizerName");
+//define("SYNC_POOMCAL_RECURRENCE","POOMCAL:Recurrence");
+//define("SYNC_POOMCAL_TYPE","POOMCAL:Type");
+//define("SYNC_POOMCAL_UNTIL","POOMCAL:Until");
+//define("SYNC_POOMCAL_OCCURRENCES","POOMCAL:Occurrences");
+//define("SYNC_POOMCAL_INTERVAL","POOMCAL:Interval");
+//define("SYNC_POOMCAL_DAYOFWEEK","POOMCAL:DayOfWeek");
+//define("SYNC_POOMCAL_DAYOFMONTH","POOMCAL:DayOfMonth");
+//define("SYNC_POOMCAL_WEEKOFMONTH","POOMCAL:WeekOfMonth");
+//define("SYNC_POOMCAL_MONTHOFYEAR","POOMCAL:MonthOfYear");
+//define("SYNC_POOMCAL_REMINDER","POOMCAL:Reminder");
+//define("SYNC_POOMCAL_SENSITIVITY","POOMCAL:Sensitivity");
+//define("SYNC_POOMCAL_SUBJECT","POOMCAL:Subject");
+//define("SYNC_POOMCAL_STARTTIME","POOMCAL:StartTime");
+//define("SYNC_POOMCAL_UID","POOMCAL:UID");
+//define("SYNC_POOMCAL_RESPONSETYPE", "POOMCAL:ResponseType");
 
 // Move
 define("SYNC_MOVE_MOVES","Move:Moves");
@@ -353,6 +353,10 @@ class Horde_ActiveSync
     const TRUNCATION_5K = 4;
     const TRUNCATION_SEVEN = 7;
     const TRUNCATION_ALL = 9;
+
+    /* Flags */
+    const FLAG_NEWMESSAGE = 'NewMessage';
+
     /**
      * Logger
      *

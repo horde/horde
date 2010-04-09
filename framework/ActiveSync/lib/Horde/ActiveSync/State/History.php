@@ -553,7 +553,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
                 } else {
                     // Message in new seems to be new (add)
                     $change['type'] = 'change';
-                    $change['flags'] = SYNC_NEWMESSAGE;
+                    $change['flags'] = Horde_ActiveSync::FLAG_NEWMESSAGE;
                     $change['id'] = $new[$inew]['id'];
                     $changes[] = $change;
                     $inew++;
@@ -572,7 +572,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         while ($inew < count($new)) {
             // All data left in new have been added
             $change['type'] = 'change';
-            $change['flags'] = SYNC_NEWMESSAGE;
+            $change['flags'] = Horde_ActiveSync::FLAG_NEWMESSAGE;
             $change['id'] = $new[$inew]['id'];
             $changes[] = $change;
             $inew++;

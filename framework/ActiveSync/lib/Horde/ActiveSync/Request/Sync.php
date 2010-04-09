@@ -46,7 +46,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
     const SOFTDELETE = 'SoftDelete';
     const MIMESUPPORT = 'MIMESupport';
     const MIMETRUNCATION = 'MIMETruncation';
-    const NEWMESSAGE = 'NewMessage';
     
     /* Status */
     const STATUS_SUCCESS = 1;

@@ -42,7 +42,7 @@ class Horde_ActiveSync_Message_Base
     const TYPE_MAPI_STREAM = 4;
 
     /**
-     * Holds the mapping for SYNC_POOMCAL_* -> object properties
+     * Holds the mapping for object properties
      *
      * @var array
      */
