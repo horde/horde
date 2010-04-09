@@ -423,6 +423,8 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
+     * @TODO
+     * 
      * @param $rfc822
      * @param $forward
      * @param $reply

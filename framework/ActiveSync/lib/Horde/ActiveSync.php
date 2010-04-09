@@ -553,21 +553,6 @@ class Horde_ActiveSync
      * @param $protocolversion
      * @return unknown_type
      */
-    public function handleSendMail($protocolversion)
-    {
-        // All that happens here is that we receive an rfc822 message on stdin
-        // and just forward it to the backend. We provide no output except for
-        // an OK http reply
-        $rfc822 = $this->readStream();
-
-        return $this->_driver->SendMail($rfc822);
-    }
-
-    /**
-     *
-     * @param $protocolversion
-     * @return unknown_type
-     */
     public function handleSmartForward($protocolversion)
     {
         // SmartForward is a normal 'send' except that you should attach the
