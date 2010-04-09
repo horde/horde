@@ -28,6 +28,15 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
     const STATUS_FOLDERSYNCREQD = 7;
     const STATUS_SERVERERROR = 8;
 
+    // Ping
+    const PING = 'Ping:Ping';
+    const STATUS = 'Ping:Status';
+    const LIFETIME =  'Ping:LifeTime';
+    const FOLDERS =  'Ping:Folders';
+    const FOLDER =  'Ping:Folder';
+    const SERVERENTRYID =  'Ping:ServerEntryId';
+    const FOLDERTYPE =  'Ping:FolderType';
+
     /**
      * Handle a PING command from the PIM. Ping is sent periodically by the PIM
      * to tell the server what folders we are interested in monitoring for
@@ -60,22 +69,22 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         $lifetime = $state->getPingLifetime();
 
         /* Build the $collections array if we receive request from PIM */
-        if ($this->_decoder->getElementStartTag(SYNC_PING_PING)) {
-            if ($this->_decoder->getElementStartTag(SYNC_PING_LIFETIME)) {
+        if ($this->_decoder->getElementStartTag(self::PING)) {
+            if ($this->_decoder->getElementStartTag(self::LIFETIME)) {
                 $lifetime = $this->_decoder->getElementContent();
                 $state->setPingLifetime($lifetime);
                 $this->_decoder->getElementEndTag();
             }
 
-            if ($this->_decoder->getElementStartTag(SYNC_PING_FOLDERS)) {
+            if ($this->_decoder->getElementStartTag(self::FOLDERS)) {
                 $collections = array();
-                while ($this->_decoder->getElementStartTag(SYNC_PING_FOLDER)) {
+                while ($this->_decoder->getElementStartTag(self::FOLDER)) {
                     $collection = array();
-                    if ($this->_decoder->getElementStartTag(SYNC_PING_SERVERENTRYID)) {
+                    if ($this->_decoder->getElementStartTag(self::SERVERENTRYID)) {
                         $collection['id'] = $this->_decoder->getElementContent();
                         $this->_decoder->getElementEndTag();
                     }
-                    if ($this->_decoder->getElementStartTag(SYNC_PING_FOLDERTYPE)) {
+                    if ($this->_decoder->getElementStartTag(self::FOLDERTYPE)) {
                         $collection['class'] = $this->_decoder->getElementContent();
                         $this->_decoder->getElementEndTag();
                     }
@@ -108,7 +117,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 //check the remote wipe status
                 if ($this->_provisioning === true) {
                     $rwstatus = $state->getDeviceRWStatus($this->_devId);
-                    if ($rwstatus == SYNC_PROVISION_RWSTATUS_PENDING || $rwstatus == SYNC_PROVISION_RWSTATUS_WIPED) {
+                    if ($rwstatus == Horde_ActiveSync::PROVISION_RWSTATUS_PENDING || $rwstatus == Horde_ActiveSync::PROVISION_RWSTATUS_WIPED) {
                         $this->_statusCode = self::STATUS_FOLDERSYNCREQD;
                         break;
                     }
@@ -159,16 +168,16 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         $this->_logger->info('[' . $this->_devId . '] Sending response for PING.');
         $this->_encoder->StartWBXML();
 
-        $this->_encoder->startTag(SYNC_PING_PING);
+        $this->_encoder->startTag(self::PING);
 
-        $this->_encoder->startTag(SYNC_PING_STATUS);
+        $this->_encoder->startTag(self::STATUS);
         $this->_encoder->content($this->_statusCode);
         $this->_encoder->endTag();
 
-        $this->_encoder->startTag(SYNC_PING_FOLDERS);
+        $this->_encoder->startTag(self::FOLDERS);
         foreach ($collections as $collection) {
             if (isset($changes[$collection['id']])) {
-                $this->_encoder->startTag(SYNC_PING_FOLDER);
+                $this->_encoder->startTag(self::FOLDER);
                 $this->_encoder->content($collection['id']);
                 $this->_encoder->endTag();
             }

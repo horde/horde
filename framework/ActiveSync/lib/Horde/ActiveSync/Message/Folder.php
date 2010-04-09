@@ -18,10 +18,10 @@ class Horde_ActiveSync_Message_Folder extends Horde_ActiveSync_Message_Base
     public function __construct($params = array())
     {
         $mapping = array (
-            SYNC_FOLDERHIERARCHY_SERVERENTRYID => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'serverid'),
-            SYNC_FOLDERHIERARCHY_PARENTID => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'parentid'),
-            SYNC_FOLDERHIERARCHY_DISPLAYNAME => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'displayname'),
-            SYNC_FOLDERHIERARCHY_TYPE => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'type')
+            Horde_ActiveSync::FOLDERHIERARCHY_SERVERENTRYID => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'serverid'),
+            Horde_ActiveSync::FOLDERHIERARCHY_PARENTID => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'parentid'),
+            Horde_ActiveSync::FOLDERHIERARCHY_DISPLAYNAME => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'displayname'),
+            Horde_ActiveSync::FOLDERHIERARCHY_TYPE => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'type')
         );
 
         parent::__construct($mapping, $params);

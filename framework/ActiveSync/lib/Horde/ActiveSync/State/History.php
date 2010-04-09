@@ -202,7 +202,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         $unique_folders = array ();
         foreach ($folders as $folder) {
             // don't save folder-ids for emails
-            if ($folder->type == SYNC_FOLDER_TYPE_INBOX) {
+            if ($folder->type == Horde_ActiveSync::FOLDER_TYPE_INBOX) {
                 continue;
             }
 
@@ -214,11 +214,11 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
 
         // Treo does initial sync for calendar and contacts too, so we need to fake
         // these folders if they are not supported by the backend
-        if (!array_key_exists(SYNC_FOLDER_TYPE_APPOINTMENT, $unique_folders)) {
-            $unique_folders[SYNC_FOLDER_TYPE_APPOINTMENT] = SYNC_FOLDER_TYPE_DUMMY;
+        if (!array_key_exists(Horde_ActiveSync::FOLDER_TYPE_APPOINTMENT, $unique_folders)) {
+            $unique_folders[Horde_ActiveSync::FOLDER_TYPE_APPOINTMENT] = Horde_ActiveSync::FOLDER_TYPE_DUMMY;
         }
-        if (!array_key_exists(SYNC_FOLDER_TYPE_CONTACT, $unique_folders)) {
-            $unique_folders[SYNC_FOLDER_TYPE_CONTACT] = SYNC_FOLDER_TYPE_DUMMY;
+        if (!array_key_exists(Horde_ActiveSync::FOLDER_TYPE_CONTACT, $unique_folders)) {
+            $unique_folders[Horde_ActiveSync::FOLDER_TYPE_CONTACT] = Horde_ActiveSync::FOLDER_TYPE_DUMMY;
         }
         /* Storage to SQL? */
 //
@@ -242,10 +242,10 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
 //        if (file_exists($filename)) {
 //            $arr = unserialize(file_get_contents($filename));
 //            if ($class == "Calendar") {
-//                return $arr[SYNC_FOLDER_TYPE_APPOINTMENT];
+//                return $arr[Horde_ActiveSync::FOLDER_TYPE_APPOINTMENT];
 //            }
 //            if ($class == "Contacts") {
-//                return $arr[SYNC_FOLDER_TYPE_CONTACT];
+//                return $arr[Horde_ActiveSync::FOLDER_TYPE_CONTACT];
 //            }
 //        }
 //
@@ -425,7 +425,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             $this->_logger->debug('Initializing message diff engine');
 
             //do nothing if it is a dummy folder
-            if ($folderId != SYNC_FOLDER_TYPE_DUMMY) {
+            if ($folderId != Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
                 /* First, need to see if we have exising changes left over
                  * from a previous sync that resulted in a MORE_AVAILABLE */
                 if (!$empty($this->_changes)) {

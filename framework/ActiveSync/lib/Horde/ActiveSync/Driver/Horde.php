@@ -168,13 +168,13 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
 
         switch ($id) {
         case self::APPOINTMENTS_FOLDER:
-            $folder->type = SYNC_FOLDER_TYPE_APPOINTMENT;
+            $folder->type = Horde_ActiveSync::FOLDER_TYPE_APPOINTMENT;
             break;
         case self::CONTACTS_FOLDER:
-            $folder->type = SYNC_FOLDER_TYPE_CONTACT;
+            $folder->type = Horde_ActiveSync::FOLDER_TYPE_CONTACT;
             break;
         case self::TASKS_FOLDER:
-            $folder->type = SYNC_FOLDER_TYPE_TASK;
+            $folder->type = Horde_ActiveSync::FOLDER_TYPE_TASK;
             break;
         default:
             return false;

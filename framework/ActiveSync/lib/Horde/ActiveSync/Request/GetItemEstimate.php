@@ -20,6 +20,18 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
     const STATUS_NOTPRIMED = 3;
     const STATUS_KEYMISM = 4;
 
+    /* Request tag constants */
+    const GETITEMESTIMATE = 'GetItemEstimate:GetItemEstimate';
+    const VERSION = 'GetItemEstimate:Version';
+    const FOLDERS = 'GetItemEstimate:Folders';
+    const FOLDER = 'GetItemEstimate:Folder';
+    const FOLDERTYPE = 'GetItemEstimate:FolderType';
+    const FOLDERID = 'GetItemEstimate:FolderId';
+    const DATETIME = 'GetItemEstimate:DateTime';
+    const ESTIMATE = 'GetItemEstimate:Estimate';
+    const RESPONSE = 'GetItemEstimate:Response';
+    const STATUS = 'GetItemEstimate:Status';
+
     /**
      * Handle the request
      *
@@ -39,21 +51,21 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
         $status = array();
         $collections = array();
 
-        if (!$this->_decoder->getElementStartTag(SYNC_GETITEMESTIMATE_GETITEMESTIMATE) ||
-            !$this->_decoder->getElementStartTag(SYNC_GETITEMESTIMATE_FOLDERS)) {
+        if (!$this->_decoder->getElementStartTag(self::GETITEMESTIMATE) ||
+            !$this->_decoder->getElementStartTag(self::FOLDERS)) {
 
             // Not sure why the protocol doesn't have a status for this...
             return false;
         }
 
         /* Obtain all the collections we are getting estimates for */
-        while ($this->_decoder->getElementStartTag(SYNC_GETITEMESTIMATE_FOLDER)) {
+        while ($this->_decoder->getElementStartTag(self::FOLDER)) {
 
             /* Status - Assume success */
             $cStatus = self::STATUS_SUCCESS;
 
             /* Collection Class */
-            if (!$this->_decoder->getElementStartTag(SYNC_GETITEMESTIMATE_FOLDERTYPE)) {
+            if (!$this->_decoder->getElementStartTag(self::FOLDERTYPE)) {
                 return false;
             }
             $class = $this->_decoder->getElementContent();
@@ -62,7 +74,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
             }
 
             /* Collection Id */
-            if ($this->_decoder->getElementStartTag(SYNC_GETITEMESTIMATE_FOLDERID)) {
+            if ($this->_decoder->getElementStartTag(self::FOLDERID)) {
                 $collectionid = $this->_decoder->getElementContent();
                 if (!$this->_decoder->getElementEndTag()) {
                     return false;
@@ -115,20 +127,20 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
         $this->_encoder->startWBXML();
 
         /* Start getting the actual esitmates and outputting the results */
-        $this->_encoder->startTag(SYNC_GETITEMESTIMATE_GETITEMESTIMATE);
+        $this->_encoder->startTag(self::GETITEMESTIMATE);
         foreach ($collections as $collection) {
-            $this->_encoder->startTag(SYNC_GETITEMESTIMATE_RESPONSE);
-            $this->_encoder->startTag(SYNC_GETITEMESTIMATE_STATUS);
+            $this->_encoder->startTag(self::RESPONSE);
+            $this->_encoder->startTag(self::STATUS);
             $this->_encoder->content($status[$collection['id']]);
             $this->_encoder->endTag();
-            $this->_encoder->startTag(SYNC_GETITEMESTIMATE_FOLDER);
-            $this->_encoder->startTag(SYNC_GETITEMESTIMATE_FOLDERTYPE);
+            $this->_encoder->startTag(self::FOLDER);
+            $this->_encoder->startTag(self::FOLDERTYPE);
             $this->_encoder->content($collection['class']);
             $this->_encoder->endTag();
-            $this->_encoder->startTag(SYNC_GETITEMESTIMATE_FOLDERID);
+            $this->_encoder->startTag(self::FOLDERID);
             $this->_encoder->content($collection['id']);
             $this->_encoder->endTag();
-            $this->_encoder->startTag(SYNC_GETITEMESTIMATE_ESTIMATE);
+            $this->_encoder->startTag(self::ESTIMATE);
 
             $importer = new Horde_ActiveSync_Connector_NullImporter();
             $state = $this->_driver->getStateObject($collection);

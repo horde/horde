@@ -69,13 +69,13 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
 
         /* Start by assuming we are in stage 2 */
         $phase2 = true;
-        if (!$this->_decoder->getElementStartTag(SYNC_PROVISION_PROVISION)) {
+        if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_PROVISION)) {
             return $this->_globalError(self::STATUS_PROTERROR);
         }
 
         /* Handle android remote wipe */
-        if ($this->_decoder->getElementStartTag(SYNC_PROVISION_REMOTEWIPE)) {
-            if (!$this->_decoder->getElementStartTag(SYNC_PROVISION_STATUS)) {
+        if ($this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_REMOTEWIPE)) {
+            if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_STATUS)) {
                 return $this->_globalError(self::STATUS_PROTERROR);
             }
             // TODO: Look at $status here...
@@ -87,9 +87,9 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
             /* Need to send *something* in the policytype field even if wiping */
             $policytype = self::POLICYTYPE_XML;
         } else {
-            if (!$this->_decoder->getElementStartTag(SYNC_PROVISION_POLICIES) ||
-                !$this->_decoder->getElementStartTag(SYNC_PROVISION_POLICY) ||
-                !$this->_decoder->getElementStartTag(SYNC_PROVISION_POLICYTYPE)) {
+            if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_POLICIES) ||
+                !$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_POLICY) ||
+                !$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_POLICYTYPE)) {
 
                 return $this->_globalError(self::STATUS_PROTERROR);
             }
@@ -108,11 +108,11 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
             }
 
             /* POLICYKEY is only sent by client in phase 3 */
-            if ($this->_decoder->getElementStartTag(SYNC_PROVISION_POLICYKEY)) {
+            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_POLICYKEY)) {
                 $policykey = $this->_decoder->getElementContent();
                 $this->_logger->debug('PHASE 3 policykey sent from PIM: ' . $policykey);
                 if (!$this->_decoder->getElementEndTag() ||
-                    !$this->_decoder->getElementStartTag(SYNC_PROVISION_STATUS)) {
+                    !$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_STATUS)) {
 
                     return $this->_globalError(self::STATUS_PROTERROR);
                 }
@@ -133,8 +133,8 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
             }
 
             /* Handle remote wipe for other devices */
-            if ($this->_decoder->getElementStartTag(SYNC_PROVISION_REMOTEWIPE)) {
-                if (!$this->_decoder->getElementStartTag(SYNC_PROVISION_STATUS)) {
+            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_REMOTEWIPE)) {
+                if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_STATUS)) {
                     return $this->_globalError(self::STATUS_PROTERROR);
                 }
                 // @TODO: look at status here??
@@ -172,26 +172,26 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
             $state->setPolicyKey($this->_devId, $policykey);
         }
 
-        $this->_encoder->startTag(SYNC_PROVISION_PROVISION);
-        $this->_encoder->startTag(SYNC_PROVISION_STATUS);
+        $this->_encoder->startTag(Horde_ActiveSync::PROVISION_PROVISION);
+        $this->_encoder->startTag(Horde_ActiveSync::PROVISION_STATUS);
         $this->_encoder->content($status);
         $this->_encoder->endTag();
 
-        $this->_encoder->startTag(SYNC_PROVISION_POLICIES);
-        $this->_encoder->startTag(SYNC_PROVISION_POLICY);
-        $this->_encoder->startTag(SYNC_PROVISION_POLICYTYPE);
+        $this->_encoder->startTag(Horde_ActiveSync::PROVISION_POLICIES);
+        $this->_encoder->startTag(Horde_ActiveSync::PROVISION_POLICY);
+        $this->_encoder->startTag(Horde_ActiveSync::PROVISION_POLICYTYPE);
         $this->_encoder->content($policytype);
         $this->_encoder->endTag();
-        $this->_encoder->startTag(SYNC_PROVISION_STATUS);
+        $this->_encoder->startTag(Horde_ActiveSync::PROVISION_STATUS);
         $this->_encoder->content($policyStatus);
         $this->_encoder->endTag();
-        $this->_encoder->startTag(SYNC_PROVISION_POLICYKEY);
+        $this->_encoder->startTag(Horde_ActiveSync::PROVISION_POLICYKEY);
         $this->_encoder->content($policykey);
         $this->_encoder->endTag();
 
         /* Send security policies - configure this/move to it's own method...*/
         if ($phase2 && $status == self::STATUS_SUCCESS && $policyStatus == self::STATUS_SUCCESS) {
-            $this->_encoder->startTag(SYNC_PROVISION_DATA);
+            $this->_encoder->startTag(Horde_ActiveSync::PROVISION_DATA);
             if ($policytype == self::POLICYTYPE_XML) {
                 $this->_encoder->content($this->_driver->getCurrentPolicy(self::POLICYTYPE_XML));
             } else {
@@ -205,7 +205,7 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
 
         //wipe data if status is pending or wiped
         if ($rwstatus == self::RWSTATUS_PENDING || $rwstatus == self::RWSTATUS_WIPED) {
-            $this->_encoder->startTag(SYNC_PROVISION_REMOTEWIPE, false, true);
+            $this->_encoder->startTag(Horde_ActiveSync::PROVISION_REMOTEWIPE, false, true);
             $state->setDeviceRWStatus($this->_devId, self::RWSTATUS_WIPED);
         }
 
@@ -217,8 +217,8 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
     private function _globalError($status)
     {
         $this->_encoder->StartWBXML();
-        $this->_encoder->startTag(SYNC_PROVISION_PROVISION);
-        $this->_encoder->startTag(SYNC_PROVISION_STATUS);
+        $this->_encoder->startTag(Horde_ActiveSync::PROVISION_PROVISION);
+        $this->_encoder->startTag(Horde_ActiveSync::PROVISION_STATUS);
         $this->_encoder->content($status);
         $this->_encoder->endTag();
         $this->_encoder->endTag();
