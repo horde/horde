@@ -922,7 +922,7 @@ KronolithCore = {
         }
         if (type != 'holiday' && type != 'external') {
             div.insert(new Element('span', { className: 'kronolithCalEdit' })
-                   .insert('&rsaquo;'));
+                   .insert('&#9656;'));
         }
         div.insert(new Element('div', { className: cal.show ? 'kronolithCalOn' : 'kronolithCalOff' })
                .store('calendar', id)
