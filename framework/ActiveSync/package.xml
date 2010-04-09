@@ -70,6 +70,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
          <file name="Options.php" role="php" />
          <file name="Provision.php" role="php" />
          <file name="GetItemEstimate.php" role="php" />
+         <file name="SendMail.php" role="php" />
        </dir>
        <file name="Exception.php" role="php" />
        <file name="Wbxml.php" role="php" />
@@ -121,6 +122,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/ActiveSync/Request/Options.php" as="Horde/ActiveSync/Request/Options.php" />
    <install name="lib/Horde/ActiveSync/Request/Provision.php" as="Horde/ActiveSync/Request/Provision.php" />
    <install name="lib/Horde/ActiveSync/Request/GetItemEstimate.php" as="Horde/ActiveSync/Request/GetItemEstimate.php" />
+   <install name="lib/Horde/ActiveSync/Request/SendMail.php" as="Horde/ActiveSync/Request/SendMail.php" />
    <install name="lib/Horde/ActiveSync/Exception.php" as="Horde/ActiveSync/Exception.php" />
    <install name="lib/Horde/ActiveSync/Wbxml.php" as="Horde/ActiveSync/Wbxml.php" />
    <install name="lib/Horde/ActiveSync/Timezone.php" as="Horde/ActiveSync/Timezone.php" />
