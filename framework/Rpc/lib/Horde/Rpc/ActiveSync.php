@@ -182,8 +182,7 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
         if (!$results && empty($this->_policykey)) {
             header('HTTP/1.1 401 Unauthorized');
             header('WWW-Authenticate: Basic realm="Horde RPC"');
-            echo 'Access denied. Username or password incorrect.';
-            // @TODO: Logging, once Rpc gets an actual logger.
+            $this->_logger->info('Access denied for user: ' . $user . '. Username or password incorrect.');
         }
 
         /* Successfully authenticated to backend, try to setup the backend */
