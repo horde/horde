@@ -151,26 +151,4 @@ abstract class Horde_ActiveSync_Request_Base
         $this->_logger->info('Request received from device: ' . $devId . ' Supporting protocol version: ' . $this->_version);
     }
 
-    /**
-     * Read input from the php input stream
-     *
-     * @TODO: Get rid of this - the wbxml classes have a php:// stream already
-     *        and when we need *just* the stream and not wbxml, we can use
-     *        $request->body
-     *
-     * @return string
-     */
-    protected function _readStream()
-    {
-        $s = "";
-        while (1) {
-            $data = fread($this->_inputStream, 4096);
-            if (strlen($data) == 0) {
-                break;
-            }
-            $s .= $data;
-        }
-
-        return $s;
-    }
 }
