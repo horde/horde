@@ -114,7 +114,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/ActiveSync/Message/Folder.php" as="Horde/ActiveSync/Message/Folder.php" />
    <install name="lib/Horde/ActiveSync/Message/Recurrence.php" as="Horde/ActiveSync/Message/Recurrence.php" />
    <install name="lib/Horde/ActiveSync/Message/Exception.php" as="Horde/ActiveSync/Message/Exception.php" />
-   <install name="lib/Horde/ActiveSync/Message/Task.php" as="Horde/ActiveSync/Message/Exception.php" />
+   <install name="lib/Horde/ActiveSync/Message/Task.php" as="Horde/ActiveSync/Message/Task.php" />
    <install name="lib/Horde/ActiveSync/Wbxml/Decoder.php" as="Horde/ActiveSync/Wbxml/Decoder.php" />
    <install name="lib/Horde/ActiveSync/Wbxml/Encoder.php" as="Horde/ActiveSync/Wbxml/Encoder.php" />
    <install name="lib/Horde/ActiveSync/Request/Base.php" as="Horde/ActiveSync/Request/Base.php" />
