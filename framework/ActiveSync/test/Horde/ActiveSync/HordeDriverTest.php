@@ -244,7 +244,7 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
     {
         $registry = $this->getMockSkipConstructor('Horde_Registry');
         $state = $this->getMockSkipConstructor('Horde_ActiveSync_State_File');
-        $connector = new Horde_ActiveSync_MockConnector(array('fixture' => array()));
+        $connector = new Horde_ActiveSync_MockConnector(array('fixture' => array('horde_listApis' => array('horde', 'contacts', 'calendar', 'tasks'))));
         $driver = new Horde_ActiveSync_Driver_Horde(array('connector' => $connector,
                                                           'state_basic' => $state));
         $results = $driver->getFolderList();

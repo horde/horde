@@ -126,10 +126,21 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
     public function getFolderList()
     {
         $this->_logger->debug('Horde::getFolderList()');
+        /* Make sure we have the APIs needed for each folder class */
+        $supported = $this->_connector->horde_listApis();
         $folders = array();
-        $folders[] = $this->StatFolder(self::APPOINTMENTS_FOLDER);
-        $folders[] = $this->StatFolder(self::CONTACTS_FOLDER);
-        $folders[] = $this->StatFolder(self::TASKS_FOLDER);
+
+        if (array_search('calendar', $supported)){
+            $folders[] = $this->StatFolder(self::APPOINTMENTS_FOLDER);
+        }
+
+        if (array_search('contacts', $supported)){
+            $folders[] = $this->StatFolder(self::CONTACTS_FOLDER);
+        }
+
+        if (array_search('tasks', $supported)){
+            $folders[] = $this->StatFolder(self::TASKS_FOLDER);
+        }
 
         return $folders;
     }

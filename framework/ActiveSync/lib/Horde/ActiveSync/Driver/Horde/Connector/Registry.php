@@ -214,4 +214,19 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
         return $result;
     }
 
+    public function tasks_listTasks()
+    {
+        return $this->_registry->tasks->listTasks();
+    }
+
+    public function horde_listApis()
+    {
+        return $this->_registry->horde->listAPIs();
+    }
+
+    public function horde_getPref($app, $pref)
+    {
+        return $this->_registry->horde->getPref($app, $pref);
+    }
+
 }
