@@ -29,6 +29,6 @@ class Horde_ActiveSync_Request_SendMail extends Horde_ActiveSync_Request_Base
         // an OK http reply
         $rfc822 = $this->_request->getBody();
 
-        return $this->_driver->SendMail($rfc822);
+        return $this->_driver->sendMail($rfc822);
     }
 }

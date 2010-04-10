@@ -431,7 +431,7 @@ abstract class Horde_ActiveSync_Driver_Base
      * @param $parent
      * @return unknown_type
      */
-    public function SendMail($rfc822, $forward = false, $reply = false, $parent = false)
+    public function sendMail($rfc822, $forward = false, $reply = false, $parent = false)
     {
         return true;
     }

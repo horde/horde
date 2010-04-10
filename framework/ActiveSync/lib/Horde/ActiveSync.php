@@ -571,7 +571,7 @@ class Horde_ActiveSync
             $parent = false;
         }
 
-        return $this->_driver->SendMail($rfc822, $orig, false, $parent);
+        return $this->_driver->sendMail($rfc822, $orig, false, $parent);
     }
 
     /**
@@ -597,7 +597,7 @@ class Horde_ActiveSync
             $parent = false;
         }
 
-        return $this->_driver->SendMail($rfc822, false, $orig, $parent);
+        return $this->_driver->sendMail($rfc822, false, $orig, $parent);
     }
 
     /**
@@ -1036,9 +1036,6 @@ class Horde_ActiveSync
         // @TODO: Leave the following in place until all are refactored...then throw
         // an error if the class does not exist.
         switch($cmd) {
-            case 'SendMail':
-                $status = $this->handleSendMail($version);
-                break;
             case 'SmartForward':
                 $status = $this->handleSmartForward($version);
                 break;
