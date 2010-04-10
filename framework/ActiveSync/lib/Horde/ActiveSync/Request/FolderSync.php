@@ -74,15 +74,15 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         try {
             /* Get folders that we know about already */
             $state->loadState($synckey);
+            
+            /* Get new synckey to send back */
+            $newsynckey = $state->getNewSyncKey($synckey);
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_statusCode = self::STATUS_KEYMISM;
             $this->_handleError();
             exit;
         }
         $seenfolders = $state->getKnownFolders();
-
-        /* Get new synckey to send back */
-        $newsynckey = $state->getNewSyncKey($synckey);
         $this->_logger->debug('[Horde_ActiveSync::handleFolderSync] newSyncKey: ' . $newsynckey);
 
         /* Deal with folder hierarchy changes */

@@ -367,8 +367,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             if (isset($collection['importedchanges']) ||
                 isset($collection['getchanges']) ||
                 $collection['synckey'] == '0') {
-
-                $collection['newsynckey'] = $state->getNewSyncKey($collection['synckey']);
+                try {
+                    $collection['newsynckey'] = $state->getNewSyncKey($collection['synckey']);
+                } catch (Horde_ActiveSync_Exception $e) {
+                    $this->_statusCode = self::STATUS_KEYMISM;
+                }
             }
 
             $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDER);

@@ -296,6 +296,7 @@ abstract class Horde_ActiveSync_State_Base
      * @param string $syncKey  The old syncKey
      *
      * @return string  The new synckey
+     * @throws Horde_ActiveSync_Exception
      */
     static public function getNewSyncKey($syncKey)
     {
@@ -308,9 +309,7 @@ abstract class Horde_ActiveSync_State_Base
 
                 return '{' . $matches[1] . '}' . $n;
             }
-
-            // @TODO: should this thrown an exception instead of returning false?
-            return false;
+            throw new Horde_ActiveSync_Exception('Invalid SyncKey format passed to getNewSyncKey()');
         }
     }
 

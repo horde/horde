@@ -678,8 +678,12 @@ class Horde_ActiveSync
         }
 
         // Get state of hierarchy
-        $syncstate = $this->_stateMachine->loadState($synckey);
-        $newsynckey = $this->_stateMachine->getNewSyncKey($synckey);
+        try {
+            $syncstate = $this->_stateMachine->loadState($synckey);
+            $newsynckey = $this->_stateMachine->getNewSyncKey($synckey);
+        } catch (Horde_ActiveSync_Exception $e) {
+            // @TODO - send error status keymism when refactored.
+        }
 
         // additional information about already seen folders
         $seenfolders = unserialize($this->_stateMachine->loadState('s' . $synckey));
