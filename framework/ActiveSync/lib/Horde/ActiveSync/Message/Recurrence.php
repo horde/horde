@@ -21,14 +21,14 @@ class Horde_ActiveSync_Message_Recurrence extends Horde_ActiveSync_Message_Base
     function __construct($params = array())
     {
         $mapping = array (
-            Horde_ActiveSync_Message_Appointment::POOMCAL_TYPE => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'type'),
-            Horde_ActiveSync_Message_Appointment::POOMCAL_UNTIL => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'until', Horde_ActiveSync_Message_Base::KEY_TYPE => Horde_ActiveSync_Message_Base::TYPE_DATE),
-            Horde_ActiveSync_Message_Appointment::POOMCAL_OCCURRENCES => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'occurrences'),
-            Horde_ActiveSync_Message_Appointment::POOMCAL_INTERVAL => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'interval'),
-            Horde_ActiveSync_Message_Appointment::POOMCAL_DAYOFWEEK => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'dayofweek'),
-            Horde_ActiveSync_Message_Appointment::POOMCAL_DAYOFMONTH => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'dayofmonth'),
-            Horde_ActiveSync_Message_Appointment::POOMCAL_WEEKOFMONTH => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'weekofmonth'),
-            Horde_ActiveSync_Message_Appointment::POOMCAL_MONTHOFYEAR => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'monthofyear')
+            Horde_ActiveSync_Message_Appointment::POOMCAL_TYPE => array (self::KEY_ATTRIBUTE => 'type'),
+            Horde_ActiveSync_Message_Appointment::POOMCAL_UNTIL => array (self::KEY_ATTRIBUTE => 'until', self::KEY_TYPE => self::TYPE_DATE),
+            Horde_ActiveSync_Message_Appointment::POOMCAL_OCCURRENCES => array (self::KEY_ATTRIBUTE => 'occurrences'),
+            Horde_ActiveSync_Message_Appointment::POOMCAL_INTERVAL => array (self::KEY_ATTRIBUTE => 'interval'),
+            Horde_ActiveSync_Message_Appointment::POOMCAL_DAYOFWEEK => array (self::KEY_ATTRIBUTE => 'dayofweek'),
+            Horde_ActiveSync_Message_Appointment::POOMCAL_DAYOFMONTH => array (self::KEY_ATTRIBUTE => 'dayofmonth'),
+            Horde_ActiveSync_Message_Appointment::POOMCAL_WEEKOFMONTH => array (self::KEY_ATTRIBUTE => 'weekofmonth'),
+            Horde_ActiveSync_Message_Appointment::POOMCAL_MONTHOFYEAR => array (self::KEY_ATTRIBUTE => 'monthofyear')
         );
 
         parent::__construct($mapping, $params);

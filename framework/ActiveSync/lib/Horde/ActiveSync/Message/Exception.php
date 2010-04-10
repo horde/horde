@@ -23,10 +23,10 @@ class Horde_ActiveSync_Message_Exception extends Horde_ActiveSync_Message_Appoin
 
         /* Some additional properties for Exceptions */
         $this->_mapping[Horde_ActiveSync_Message_Appointment::POOMCAL_EXCEPTIONSTARTTIME] = array(
-            Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'exceptionstarttime',
-            Horde_ActiveSync_Message_Base::KEY_TYPE => Horde_ActiveSync_Message_Base::TYPE_DATE);
+            self::KEY_ATTRIBUTE => 'exceptionstarttime',
+            self::KEY_TYPE => self::TYPE_DATE);
 
-        $this->_mapping[Horde_ActiveSync_Message_Appointment::POOMCAL_DELETED] = array(Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'deleted');
+        $this->_mapping[Horde_ActiveSync_Message_Appointment::POOMCAL_DELETED] = array(self::KEY_ATTRIBUTE => 'deleted');
     }
 
     /**
