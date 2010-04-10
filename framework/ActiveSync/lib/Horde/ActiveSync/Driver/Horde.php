@@ -108,18 +108,6 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * @todo
-     *
-     * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#SendMail($rfc822, $forward, $reply, $parent)
-     */
-    public function SendMail($rfc822, $forward = false, $reply = false, $parent = false)
-    {
-        $this->_logger->debug('Horde::SendMail(...)');
-
-        return false;
-    }
-
-    /**
      * @TODO
      *
      * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#GetWasteBasket()
@@ -448,6 +436,42 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
     }
 
     /**
+     * Sends the email represented by the rfc822 string received by the PIM.
+     * Currently only used when meeting requests are sent from the PIM.
+     *
+     * @param string $rfc822    The rfc822 mime message
+     * @param boolean $forward  @TODO
+     * @param boolean $reply    @TODO
+     * @param boolean $parent   @TODO
+     *
+     * @return boolean
+     */
+    public function sendMail($rfc822, $forward = false, $reply = false, $parent = false)
+    {
+        $headers = Horde_Mime_Headers::parseHeaders($rfc822);
+        $part = Horde_Mime_Part::parseMessage($rfc822);
+
+        $mail = new Horde_Mime_Mail();
+        $mail->addHeaders($headers->toArray());
+
+        $body_id = $part->findBody();
+        if ($body_id) {
+            $body = $part->getPart($body_id);
+            $body = $body->getContents();
+            $mail->setBody($body);
+        } else {
+            $mail->setBody('No body?');
+        }
+        foreach ($part->contentTypeMap() as $id => $type) {
+            $mail->addPart($type, $part->getPart($id)->toString());
+        }
+
+        $mail->send($this->_params['mail']);
+
+        return true;
+    }
+
+    /**
      *
      * @param string $folderid  The folder id
      * @param string $id        The message id
@@ -547,7 +571,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
             $hash['category']['value'] = Horde_String::convertCharset(implode(';', $message->categories), 'utf-8', $charset);
             $hash['category']['new'] = true;
         }
-        
+
         /* Children */
         // @TODO
 
