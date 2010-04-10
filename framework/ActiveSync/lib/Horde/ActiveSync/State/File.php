@@ -628,6 +628,17 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
     }
 
     /**
+     * Explicitly remove a specific state. Normally used if a request results in
+     * a synckey mismatch. This isn't strictly needed, but helps keep the state
+     * storage clean.
+     *
+     */
+    public function removeState($syncKey)
+    {
+        $this->_gc($syncKey, true);
+    }
+
+    /**
      * Garbage collector - clean up from previous sync
      * requests.
      *
@@ -636,7 +647,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
      * @return boolean
      * @throws Horde_ActiveSync_Exception
      */
-    private function _gc($syncKey)
+    private function _gc($syncKey, $all = false)
     {
         if (!preg_match('/^s{0,1}\{([0-9A-Za-z-]+)\}([0-9]+)$/', $syncKey, $matches)) {
             return false;
@@ -650,7 +661,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
         }
         while ($entry = readdir($dir)) {
             if (preg_match('/^s{0,1}\{([0-9A-Za-z-]+)\}([0-9]+)$/', $entry, $matches)) {
-                if ($matches[1] == $guid && $matches[2] < $n) {
+                if ($matches[1] == $guid && ((!$all && $matches[2] < $n) || $all)) {
                     unlink($this->_stateDir . '/' . $this->_backend->getUser() . '/' . $entry);
                 }
             }

@@ -507,7 +507,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             $collection['synckey'] == '0') {
 
             $collection['newsynckey'] = Horde_ActiveSync_State_Base::getNewSyncKey(($this->_statusCode == self::STATUS_KEYMISM) ? 0 : $collection['synckey']);
-            // @TODO: Need to reset the state??
+            if ($collection['synckey'] != 0) {
+                $state = &$this->_driver->getStateObject($collection);
+                $state->removeState($collection['synckey']);
+            }
         }
 
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDER);

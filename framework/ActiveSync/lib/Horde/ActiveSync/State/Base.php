@@ -253,6 +253,13 @@ abstract class Horde_ActiveSync_State_Base
     abstract public function setDeviceInfo($devId, $data);
 
     /**
+     * Explicitly remove a state from storage.
+     *
+     * @param string $synckey
+     */
+    abstract public function removeState($synckey);
+
+    /**
      * Set the backend driver
      * (should really only be called by a backend object when passing this
      * object to client code)
