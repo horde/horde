@@ -20,8 +20,6 @@
  */
 class Horde_ActiveSync_Wbxml
 {
-    // @TODO - debug should be a config parameter
-    const DEBUG = false;
     const SWITCH_PAGE =     0x00;
     const END =             0x01;
     const ENTITY =          0x02;

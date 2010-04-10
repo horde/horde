@@ -36,9 +36,9 @@ class Horde_ActiveSync_Connector_Importer
     protected $_backend;
 
     /**
+     * Flags
      *
-     * @TODO
-     * @var <type>
+     * @var integer
      */
     protected $_flags;
 
