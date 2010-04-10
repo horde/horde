@@ -21,7 +21,6 @@
 ************************************************/
 class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
 {
-
     /** Constants **/
     const APPOINTMENTS_FOLDER = 'Calendar';
     const CONTACTS_FOLDER = 'Contacts';
@@ -122,15 +121,12 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
     /**
      * Return a list of available folders
      *
-     * @TODO: only return those folders we configure horde to serve
      * @return array  An array of folder stats
      */
     public function getFolderList()
     {
         $this->_logger->debug('Horde::getFolderList()');
         $folders = array();
-
-        // @TODO: Be able to configure the folders to sync/not sync
         $folders[] = $this->StatFolder(self::APPOINTMENTS_FOLDER);
         $folders[] = $this->StatFolder(self::CONTACTS_FOLDER);
         $folders[] = $this->StatFolder(self::TASKS_FOLDER);
@@ -267,8 +263,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
 
     /**
      * Get a message from the backend
-     *
-     * @TODO: Default value for truncsize? Do we need it?
+     * 
      * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#GetMessage($folderid, $id, $truncsize, $mimesupport)
      */
     public function GetMessage($folderid, $id, $truncsize, $mimesupport = 0)
