@@ -400,7 +400,6 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
             $rrule->setRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY);
             $rrule->setRecurOnDay($recurrence->dayofweek);
             break;
-        /* TODO: Not sure about these 'Nth' rules - might need more eyes */
         case Horde_ActiveSync_Message_Recurrence::TYPE_YEARLY:
             $rrule->setRecurType(Horde_Date_Recurrence::RECUR_YEARLY_DATE);
             break;
@@ -636,55 +635,21 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * Set the status for this appointment. Should be one of:
      *   none, meeting, received, canceled, canceledreceived.
      *
-     * TODO: Not really sure about when these would be used.
-     *
-     *
-     * @param <type> $status
+     * @param integer $status  A MEETING_* constant
      */
     public function setMeetingStatus($status)
     {
-        switch ($status) {
-        case 'none':
-            $status = self::MEETING_NOT_MEETING;
-            break;
-        case 'meeting':
-            $status = self::MEETING_IS_MEETING;
-            break;
-        case 'received':
-            $status = self::MEETING_RECEIVED;
-            break;
-        case 'canceled':
-            $status = self::MEETING_CANCELLED;
-            break;
-        default:
-            return;
-        }
 
         $this->_properties['meetingstatus'] = $status;
     }
 
     /**
      *
-     * @return string  One of none, meeting, received, canceled
+     * @return integer A MEETING_* constant
      */
     public function getMeetingStatus()
     {
-        switch ($this->_getAttribute('meetingstatus')) {
-        case self::MEETING_NOT_MEETING:
-            return 'none';
-            break;
-        case self::MEETING_IS_MEETING:
-            return 'meeting';
-            break;
-        case  self::MEETING_RECEIVED:
-            return 'received';
-            break;
-        case self::MEETING_CANCELLED:
-            return 'canceled';
-            break;
-        default:
-            return;
-        }
+        return $this->_getAttribute('meetingstatus', self::MEETING_NOT_MEETING);
     }
 
     /**

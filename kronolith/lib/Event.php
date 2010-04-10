@@ -1216,13 +1216,16 @@ abstract class Kronolith_Event
         }
 
         /* Attendees */
-        foreach ($this->attendees as $email => $properties) {
-            $attendee = new Horde_ActiveSync_Message_Attendee();
-            $attendee->email = $email;
-            // AS only as required or opitonal
-            //$attendee->type = ($properties['attendance'] !== Kronolith::PART_REQUIRED ? Kronolith::PART_OPTIONAL : Kronolith::PART_REQUIRED);
-            //$attendee->status = $properties['response'];
-            $message->addAttendee($attendee);
+        if (count($this->attendees)) {
+            $message->setMeetingStatus(Horde_ActiveSync_Message_Appointment::MEETING_IS_MEETING);
+            foreach ($this->attendees as $email => $properties) {
+                $attendee = new Horde_ActiveSync_Message_Attendee();
+                $attendee->email = $email;
+                // AS only as required or opitonal
+                //$attendee->type = ($properties['attendance'] !== Kronolith::PART_REQUIRED ? Kronolith::PART_OPTIONAL : Kronolith::PART_REQUIRED);
+                //$attendee->status = $properties['response'];
+                $message->addAttendee($attendee);
+            }
         }
 
 //        /* Resources */
