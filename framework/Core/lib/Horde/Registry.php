@@ -1234,16 +1234,17 @@ class Horde_Registry
     /**
      * Loads the preferences for the current user for the current application
      * and imports them into the global $prefs variable.
+     * $app will be the active application after calling this function.
      *
      * @param string $app  The name of the application.
+     * @throws Horde_Exception
      */
     public function loadPrefs($app = null)
     {
         if (is_null($app)) {
             $app = $this->getApp();
-            $pushed = false;
         } else {
-            $pushed = $this->pushApp($app);
+            $this->pushApp($app);
         }
 
         /* If there is no logged in user, return an empty Horde_Prefs::
@@ -1257,10 +1258,6 @@ class Horde_Registry
             } else {
                 $GLOBALS['prefs']->retrieve($app);
             }
-        }
-
-        if ($pushed) {
-            $this->popApp();
         }
     }
 
