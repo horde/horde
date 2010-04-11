@@ -300,7 +300,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
 
         case self::CONTACTS_FOLDER:
             try {
-                $contact = $this->_connector->contacts_export($id, 'array');
+                $contact = $this->_connector->contacts_export($id);
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->GetMessage());
                 return false;
@@ -418,7 +418,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
             $content = self::_toHash($message);
             if (!$id) {
                 try {
-                    $id = $this->_connector->contacts_import($content, 'array');
+                    $id = $this->_connector->contacts_import($content);
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     return false;
@@ -426,7 +426,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
                 $stat = $this->_smartStatMessage($folderid, $id, false);
             } else {
                 try {
-                    $this->_connector->contacts_replace($id, $content, 'array');
+                    $this->_connector->contacts_replace($id, $content);
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     return false;
