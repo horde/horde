@@ -241,7 +241,13 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
             break;
 
         case self::TASKS_FOLDER:
-            // @TODO?
+            $tasks = $this->_connector->tasks_listTasks();
+            foreach ($tasks as $task)
+            {
+                $messages[] = $this->_smartStatMessage($folderid, $task, true);
+            }
+            break;
+
         default:
             return false;
         }
@@ -274,7 +280,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
 
     /**
      * Get a message from the backend
-     * 
+     *
      * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#GetMessage($folderid, $id, $truncsize, $mimesupport)
      */
     public function GetMessage($folderid, $id, $truncsize, $mimesupport = 0)
@@ -290,8 +296,6 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
                 $this->_logger->err($e->GetMessage());
                 return false;
             }
-            //$message = self::_fromVCalendar($event);
-
             break;
 
         case self::CONTACTS_FOLDER:
@@ -302,17 +306,20 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
                 return false;
             }
 
-            $message = self::_fromHash($contact);
+           return self::_fromHash($contact);
             break;
 
         case self::TASKS_FOLDER:
-            // @TODO
+            try {
+                return $this->_connector->tasks_export($id);
+            } catch (Horde_Exception $e) {
+                $this->_logger->err($e->GetMessage());
+                return false;
+            }
             break;
         default:
             return false;
         }
-
-        return $message;
     }
 
     /**
@@ -355,6 +362,12 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
             break;
 
         case self::TASKS_FOLDER:
+            try {
+                $status = $this->_connector->tasks_delete($id);
+            } catch (Horde_Exception $e) {
+                $this->_logger->err($e->getMessage());
+                return false;
+            }
             break;
         default:
             return false;
@@ -421,10 +434,30 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
                 $stat = $this->_smartStatMessage($folderid, $id, false);
             }
         case self::TASKS_FOLDER:
+            if (!$id) {
+                try {
+                    $id = $this->_connector->tasks_import($message);
+                } catch (Horde_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    return false;
+                }
+
+                $stat = $this->_smartStatMessage($folderid, $id, false);
+            } else {
+                try {
+                    $this->_connector->tasks_replace($id, $message);
+                } catch (Horde_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    return false;
+                }
+                $stat = $this->_smartStatMessage($folderid, $id, false);
+            }
+
             break;
         default:
             return false;
         }
+
         return $stat;
     }
 
@@ -504,6 +537,8 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
                 $mod = $this->_connector->contacts_getActionTimestamp($id, 'modify');
                 break;
             case self::TASKS_FOLDER:
+                $mod = $this->_connector->tasks_getActionTimestamp($id, 'modify');
+
                 break;
             default:
                 return false;

@@ -329,6 +329,15 @@ class Horde_ActiveSync_Message_Base
         }
     }
 
+    protected function _getAttribute($name, $default = null)
+    {
+        if (!empty($this->_properties[$name])) {
+            return $this->_properties[$name];
+        } else {
+            return $default;
+        }
+    }
+
     /**
      * Oh yeah. This is beautiful. Exchange outputs date fields differently in
      * calendar items and emails. We could just always send one or the other,

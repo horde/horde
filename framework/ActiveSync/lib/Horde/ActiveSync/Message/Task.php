@@ -42,6 +42,16 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
     const POOMTASKS_SUBJECT = 'POOMTASKS:Subject';
     const POOMTASKS_RTF = 'POOMTASKS:Rtf';
 
+    const TASK_COMPLETE_TRUE = 1;
+    const TASK_COMPLETE_FALSE = 0;
+
+    const IMPORTANCE_LOW = 0;
+    const IMPORTANCE_NORMAL = 1;
+    const IMPORTANCE_HIGH = 2;
+
+    const REMINDER_SET_FALSE = 0;
+    const REMINDER_SET_TRUE = 1;
+
     /**
      * Const'r
      *
@@ -70,5 +80,186 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
 
         parent::__construct($mapping, $params);
     }
-    
+
+    /**
+     * Sets the task subject
+     *
+     * @param string $subject
+     */
+    public function setSubject($subject)
+    {
+        $this->_properties['subject'] = $subject;
+    }
+
+    /**
+     * Get the task subject/title
+     *
+     * @return string  The task subject
+     */
+    public function getSubject()
+    {
+        return $this->_getAttribute('subject');
+    }
+
+    /**
+     * Returns the body of the task.
+     *
+     * @return string  The descriptive body.
+     */
+    public function getBody()
+    {
+        return $this->_getAttribute('body');
+    }
+
+    /**
+     * Set the task body element.
+     *
+     * @param string $body  The task body
+     */
+    public function setBody($body)
+    {
+        $this->_properties['body'] = $body;
+    }
+
+    /**
+     * Set the task completion flag
+     *
+     * @param integer $flag  TASK_COMPLETE constant
+     */
+    public function setComplete($flag)
+    {
+        $this->_properties['complete'] = $flag;
+    }
+
+    /**
+     * Get the completion flag
+     *
+     * @return integer  A TASK_COMPLETE constant
+     */
+    public function getComplete()
+    {
+        return $this->_getAttribute('complete');
+    }
+
+    /**
+     * Set the date the task was completed.
+     *
+     * @param Horde_Date $date  The date in local tz.
+     */
+    public function setDateCompleted($date)
+    {
+        $this->_properties['datecompleted'] = $date;
+    }
+
+    /**
+     * Get the date completed.
+     *
+     * @return Horde_Date  The date in the local tz.
+     */
+    public function getDateCompleted()
+    {
+        return $this->_getAttribute('datecompleted');
+    }
+
+    /**
+     * Set the due date. Note that even though the property is called UTCDueDate
+     * we still pass a Horde_Date in the user's timezone since the dates are
+     * transformed to UTC during encoding. Yay consistency...
+     *
+     *
+     */
+    public function setDueDate($date)
+    {
+        $this->_properties['utcduedate'] = $date;
+    }
+
+    /**
+     * Get the task due date.
+     *
+     * @return Horde_Date  Date in local tz
+     */
+    public function getDueDate()
+    {
+        return $this->_getAttribute('utcduedate');
+    }
+
+    /**
+     * Set the importance
+     *
+     * @param integer $importance  A IMPORTANCE_* flag
+     */
+    public function setImportance($importance)
+    {
+        if (is_null($importance)) {
+            $importance = self::IMPORTANCE_NORMAL;
+        }
+
+        $this->_properties['importance'] = $importance;
+    }
+
+    /**
+     * Get the task importance level
+     *
+     * @return integer  A IMPORTANCE_* constant
+     */
+    public function getImportance()
+    {
+        return $this->_getAttribute('importance', self::IMPORTANCE_NORMAL);
+    }
+
+    /**
+     * Set the reminder datetime
+     *
+     * @param Horde_Date $datetime  The time to trigger the alarm in local tz.
+     */
+    public function setReminder($datetime)
+    {
+        $this->_properties['remindertime'] = $datetime;
+        $this->_properties['reminderset'] = self::REMINDER_SET_TRUE;
+    }
+
+    /**
+     * Get the reminder time.
+     *
+     * @return Horde_Date  in local tz
+     */
+    public function getReminder()
+    {
+        if (!$this->_getAttribute('reminderset')) {
+            return false;
+        }
+
+        return $this->_getAttribute('remindertime');
+    }
+
+    /**
+     * Set the task start datetime
+     *
+     * @param Horde_Date $date  Date in local tz
+     */
+    public function setStartDate($date)
+    {
+        $this->_properties['utcstartdate'] = $date;
+    }
+
+    /**
+     * Get the task start datetime
+     *
+     * @return Horde_Date
+     */
+    public function getStartDate()
+    {
+        return $this->_getAttribute('utcstartdate');
+    }
+
+    /**
+     * Return this object's folder class
+     *
+     * @return string
+     */
+    public function getClass()
+    {
+        return 'Tasks';
+    }
+
 }

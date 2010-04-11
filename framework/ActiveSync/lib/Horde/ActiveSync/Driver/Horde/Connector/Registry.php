@@ -216,7 +216,34 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
 
     public function tasks_listTasks()
     {
-        return $this->_registry->tasks->listTasks();
+        $app = $this->horde_hasInterface('tasks');
+        $tasklist = $this->horde_getPref($app, 'default_tasklist');
+        return $this->_registry->tasks->listTaskUids($tasklist);
+    }
+
+    public function tasks_export($uid)
+    {
+        return $this->_registry->tasks->export($uid, 'activesync');
+    }
+
+    public function tasks_import($message)
+    {
+        return $this->_registry->tasks->import($message, 'activesync');
+    }
+
+    public function tasks_replace($uid, $message)
+    {
+        return $this->_registry->tasks->replace($uid, $message, 'activesync');
+    }
+
+    public function tasks_delete($id)
+    {
+        return $this->_registry->tasks->delete($id);
+    }
+
+    public function tasks_getActionTimestamp($uid, $action)
+    {
+        return $this->_registry->tasks->getActionTimestamp($uid, $action);
     }
 
     public function horde_listApis()
@@ -226,7 +253,12 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
 
     public function horde_getPref($app, $pref)
     {
-        return $this->_registry->horde->getPref($app, $pref);
+        return $this->_registry->horde->getPreference($app, $pref);
+    }
+
+    public function horde_hasInterface($api)
+    {
+        return $this->_registry->hasInterface($api);
     }
 
 }

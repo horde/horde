@@ -91,7 +91,7 @@ class Horde_ActiveSync_Connector_Exporter
     {
         /* Just ignore any messages that are not from this collection */
         if ($message->getClass() != $this->_class) {
-            return true; 
+            return true;
         }
 
         /* Prevent sending the same object twice in one request */

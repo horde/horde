@@ -720,12 +720,4 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
         return 'Calendar';
     }
 
-    protected function _getAttribute($name, $default = null)
-    {
-        if (!empty($this->_properties[$name])) {
-            return $this->_properties[$name];
-        } else {
-            return $default;
-        }
-    }
 }

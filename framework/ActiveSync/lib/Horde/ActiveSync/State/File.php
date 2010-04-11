@@ -445,7 +445,8 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
                 case 'change':
                     $stat = $this->_backend->StatMessage($this->_collection['id'], $change['id']);
                     if (!$message = $this->_backend->GetMessage($this->_collection['id'], $change['id'], 0)) {
-                        throw new Horde_ActiveSync_Exception('Message not found');
+                        continue;
+                        //throw new Horde_ActiveSync_Exception('Message not found');
                     }
                     if ($stat && $message) {
                         $this->updateState('change', $stat);
