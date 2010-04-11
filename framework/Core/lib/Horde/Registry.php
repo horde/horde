@@ -1073,6 +1073,9 @@ class Horde_Registry
             throw new Horde_Exception(sprintf(_('%s is not authorized for %s.'), Horde_Auth::getAuth() ? 'User ' . Horde_Auth::getAuth() : 'Guest user', $this->applications[$app]['name']), self::PERMISSION_DENIED);
         }
 
+        /* Push application on the stack. */
+        $this->_appStack[] = $app;
+
         /* Set up autoload paths for the current application. This needs to
          * be done here because it is possible to try to load app-specific
          * libraries from other applications. */
@@ -1103,10 +1106,6 @@ class Horde_Registry
                 Horde_Nls::setLanguageEnvironment($language, $app);
             }
         }
-
-        /* Once we know everything succeeded and is in a consistent state
-         * again, push the new application onto the stack. */
-        $this->_appStack[] = $app;
 
         /* Call post-push hook. */
         try {
