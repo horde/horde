@@ -833,6 +833,26 @@ class Nag_Api extends Horde_Registry_Api
                 return $ids[0];
             }
             return $ids;
+
+        case 'activesync':
+            $task = new Nag_Task();
+            $task->fromASTask($content);
+            return $storage->add(
+                        isset($task->name) ? $task->name : '',
+                        isset($task->desc) ? $task->desc : '',
+                        isset($task->start) ? $task->start : 0,
+                        isset($task->due) ? $task->due : 0,
+                        isset($task->priority) ? $task->priority : 3,
+                        isset($task->estimate) ? $task->estimate : 0,
+                        !empty($task->completed),
+                        isset($task->category) ? $task->category : '',
+                        isset($task->alarm) ? $task->alarm : 0,
+                        isset($task->methods) ? $task->methods : null,
+                        isset($task->uid) ? $task->uid : null,
+                        isset($task->parent_id) ? $task->parent_id : '',
+                        !empty($task->private),
+                        Horde_Auth::getAuth(),
+                        isset($task->assignee) ? $task->assignee : null);
         }
 
         return PEAR::raiseError(sprintf(_("Unsupported Content-Type: %s"), $contentType));
@@ -970,7 +990,8 @@ class Nag_Api extends Horde_Registry_Api
             $iCal->addComponent($vTodo);
 
             return $iCal->exportvCalendar();
-
+        case 'activesync':
+            return $task->toASTask();
         default:
             return PEAR::raiseError(sprintf(_("Unsupported Content-Type: %s"), $contentType));
         }
@@ -1172,6 +1193,25 @@ class Nag_Api extends Horde_Registry_Api
 
             break;
 
+        case 'activesync':
+            $task = new Nag_Task();
+            $task->fromASTask($content);
+            $result = $storage->modify(
+                $taskId,
+                isset($task->name) ? $task->name : $existing->name,
+                isset($task->desc) ? $task->desc : $existing->desc,
+                isset($task->start) ? $task->start : $existing->start,
+                isset($task->due) ? $task->due : $existing->due,
+                isset($task->priority) ? $task->priority : $existing->priority,
+                isset($task->estimate) ? $task->estimate : 0,
+                isset($task->completed) ? (int)$task->completed : $existing->completed,
+                isset($task->category) ? $task->category : $existing->category,
+                isset($task->alarm) ? $task->alarm : $existing->alarm,
+                isset($task->parent_id) ? $task->parent_id : $existing->parent_id,
+                isset($task->private) ? $task->private : $existing->private,
+                isset($task->owner) ? $task->owner : $existing->owner,
+                isset($task->assignee) ? $task->assignee : $existing->assignee);
+            break;
         default:
             return PEAR::raiseError(sprintf(_("Unsupported Content-Type: %s"), $contentType));
         }
