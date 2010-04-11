@@ -1235,6 +1235,9 @@ class Horde_Registry
     {
         if (is_null($app)) {
             $app = $this->getApp();
+            $pushed = false;
+        } else {
+            $pushed = $this->pushApp($app);
         }
 
         /* If there is no logged in user, return an empty Horde_Prefs::
@@ -1248,6 +1251,10 @@ class Horde_Registry
             } else {
                 $GLOBALS['prefs']->retrieve($app);
             }
+        }
+
+        if ($pushed) {
+            $this->popApp();
         }
     }
 
