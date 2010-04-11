@@ -1032,8 +1032,6 @@ abstract class Kronolith_Event
             $this->alarm = $alarm;
         }
 
-        /* Attendees */
-
         /* Recurrence */
         if ($rrule = $message->getRecurrence()) {
             $this->recurrence = $rrule;
