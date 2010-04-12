@@ -286,10 +286,14 @@ class Horde_Core_Prefs_Ui_Widgets
             'HordeAlarmPrefs.pref = ' . Horde_Serialize::serialize($pref, Horde_Serialize::JSON)
         ));
 
-        $alarm_pref = unserialize($prefs->getValue($pref));
+        $alarm_pref = unserialize($GLOBALS['prefs']->getValue($pref));
         $selected = array_keys($alarm_pref);
 
+        $t = $GLOBALS['injector']->createInstance('Horde_Template');
+        $t->setOption('gettext', true);
+
         $param_list = $select_list = array();
+
         foreach (Horde_Alarm::notificationMethods() as $method => $params) {
             $select_list[] = array(
                 'l' => $params['__desc'],
@@ -339,6 +343,7 @@ class Horde_Core_Prefs_Ui_Widgets
                                 'val' => htmlspecialchars($key)
                             );
                         }
+                        $t->set('sounds', $sounds);
 
                         $tmp['param'][] = array(
                             'sound' => true,
@@ -352,9 +357,6 @@ class Horde_Core_Prefs_Ui_Widgets
                 $param_list[] = $tmp;
             }
         }
-
-        $base = $GLOBALS['injector']->createInstance('Horde_Template');
-        $base->setOption('gettext', true);
 
         $t->set('desc', Horde::label($pref, $data['label']));
         if (!empty($data['helplink'])) {
