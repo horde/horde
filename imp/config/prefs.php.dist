@@ -1117,10 +1117,7 @@ $_prefs['msgflags'] = array(
 // See the 'msgflags' preference for the format of this value.
 $_prefs['msgflags_user'] = array(
     // 'value' = json_encode(array())
-    'value' => '[]',
-    'locked' => false,
-    'shared' => false,
-    'type' => 'implicit'
+    'value' => '[]'
 );
 
 // The default color to use for flags that don't require row highlighting.
