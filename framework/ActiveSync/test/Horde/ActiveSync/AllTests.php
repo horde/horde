@@ -27,8 +27,9 @@ require_once 'Horde/Test/AllTests.php';
  */
 class Horde_ActiveSync_AllTests extends Horde_Test_AllTests
 {
-
 }
+
+Horde_ActiveSync_AllTests::init('Horde_ActiveSync', __FILE__);
 
 if (PHPUnit_MAIN_METHOD == 'Horde_ActiveSync_AllTests::main') {
     Horde_ActiveSync_AllTests::main('Horde_ActiveSync', __FILE__);
