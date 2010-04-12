@@ -24,7 +24,7 @@ class Horde_Exception_Prior extends Horde_Exception
     {
         if (is_object($message) &&
             method_exists($message, 'getMessage')) {
-            if (is_null($code) &&
+            if (empty($code) &&
                 method_exists($message, 'getCode')) {
                 $code = $message->getCode();
             }
