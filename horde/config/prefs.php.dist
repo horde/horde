@@ -236,7 +236,7 @@ $_prefs['from_addr'] = array(
     'value' => '',
     'shared' => true,
     'type' => 'text',
-    'desc' =>  _("Your From: address:")
+    'desc' =>  _("The default e-mail address to use with this identity:")
 );
 
 // default identity
