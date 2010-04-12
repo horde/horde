@@ -83,8 +83,6 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
      */
     public function testGetMessage()
     {
-        //$this->marktestIncomplete('Currently failing - please fix!');
-
         require_once 'Horde/ActiveSync.php';
 
         $contact = array(
@@ -173,8 +171,6 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
      */
     public function testStreamerUTF8()
     {
-        //$this->marktestIncomplete('Currently failing - please fix!');
-
         // Need to init the Nls system
         if (version_compare(PHP_VERSION, '5.3.0', '>=')) {
             error_reporting(E_ALL & ~E_DEPRECATED);
@@ -212,9 +208,6 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
      */
     public function testChangeMessage()
     {
-        //
-        //$this->marktestIncomplete('Currently failing - please fix!');
-
         // fixtures
         $message = new Horde_ActiveSync_Message_Contact();
         $message->fileas = 'Michael Joseph Rubinsky';
