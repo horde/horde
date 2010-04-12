@@ -231,9 +231,11 @@ class Turba_Application extends Horde_Registry_Application
 
             return Horde_Core_Prefs_Ui_Widgets::source(array(
                 'mainlabel' => _("Choose which address books to display, and in what order:"),
-                'selected' => $selected,
                 'selectlabel' => _("These addressbooks will display in this order:"),
-                'unselected' => $unselected,
+                'sources' => array(array(
+                    'selected' => $selected,
+                    'unselected' => $unselected
+                )),
                 'unselectlabel' => _("Address books that will not be displayed:")
             ));
 
