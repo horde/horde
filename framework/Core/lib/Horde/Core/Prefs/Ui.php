@@ -141,13 +141,15 @@ class Horde_Core_Prefs_Ui
     {
         $prefs = array();
 
-        foreach ($this->prefGroups[$group]['members'] as $pref) {
-            if (!$GLOBALS['prefs']->isLocked($pref) &&
-                !in_array($pref, $this->suppress) &&
-                (!$implicit ||
-                 (!empty($this->prefs[$pref]['type']) &&
-                  ($this->prefs[$pref]['type'] != 'implicit')))) {
-                $prefs[] = $pref;
+        if (!empty($this->prefGroups[$group]['members'])) {
+            foreach ($this->prefGroups[$group]['members'] as $pref) {
+                if (!$GLOBALS['prefs']->isLocked($pref) &&
+                    !in_array($pref, $this->suppress) &&
+                    (!$implicit ||
+                     (!empty($this->prefs[$pref]['type']) &&
+                      ($this->prefs[$pref]['type'] != 'implicit')))) {
+                    $prefs[] = $pref;
+                }
             }
         }
 
