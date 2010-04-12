@@ -4566,6 +4566,9 @@ KronolithCore = {
         }
     },
 
+    /**
+     * Closes a RedBox overlay, after saving its content to the body.
+     */
     closeRedBox: function()
     {
         if (!RedBox.getWindow()) {
