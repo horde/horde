@@ -1147,7 +1147,10 @@ $_prefs['flagmanagement'] = array(
     'type' => 'special'
 );
 
-// Message flags
+// Message flags - system defaults
+// This entry should normally never be changed.  It provides the base flags
+// for all users. Flags specific to a certain user should be defined in
+// 'msgflags_user'.
 $_prefs['msgflags'] = array(
     // Format:
     //   KEY: Flag name
@@ -1272,6 +1275,19 @@ $_prefs['msgflags'] = array(
             't' => 'imap'
         ),
     )),
+    'locked' => false,
+    'shared' => false,
+    'type' => 'implicit'
+);
+
+// Message flags - user specific
+// This array contains the list of flags created by the user through the
+// flags UI. Additionally, an admin can define default non-system flags
+// for a user in this preference.
+// See the 'msgflags' preference for the format of this value.
+$_prefs['msgflags_user'] = array(
+    // 'value' = json_encode(array())
+    'value' => '[]',
     'locked' => false,
     'shared' => false,
     'type' => 'implicit'

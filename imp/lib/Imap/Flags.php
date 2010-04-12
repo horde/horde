@@ -24,11 +24,29 @@ class IMP_Imap_Flags
     protected $_flags = null;
 
     /**
-     * Save the flag list to the prefs backend.
+     * The 'msgflags_user' preference value.
+     *
+     * @var array
      */
-    protected function _save()
+    protected $_userflags = null;
+
+    /**
+     * Save the flag list to the prefs backend.
+     *
+     * @param boolean $user  If true, update the user flag list. Otherwise,
+     *                       update the system flag list.
+     */
+    protected function _save($user = true)
     {
-        $GLOBALS['prefs']->setValue('msgflags', json_encode($this->_flags));
+        global $prefs;
+
+        if ($user) {
+            if (!$prefs->isLocked('msgflags_user')) {
+                $prefs->setValue('msgflags_user', json_encode($this->_userflags));
+            }
+        } elseif (!$prefs->isLocked('msgflags')) {
+            $prefs->setValue('msgflags', json_encode(array_diff_key($this->_flags, $this->_userflags)));
+        }
     }
 
     /**
@@ -109,7 +127,11 @@ class IMP_Imap_Flags
             return;
         }
 
-        $this->_flags = json_decode($GLOBALS['prefs']->getValue('msgflags'), true);
+        $this->_userflags = json_decode($GLOBALS['prefs']->getValue('msgflags_user'), true);
+        $this->_flags = array_merge(
+            $this->_userflags,
+            json_decode($GLOBALS['prefs']->getValue('msgflags'), true)
+        );
 
         /* Sanity checking. */
         if (is_array($this->_flags)) {
@@ -140,7 +162,7 @@ class IMP_Imap_Flags
         for ($i = 0;; ++$i) {
             $curr = self::PREFIX . $i;
             if (!isset($this->_flags[$curr])) {
-                $this->_flags[$curr] = array(
+                $entry = array(
                     // 'a' => These flags are not shown in mimp
                     // TODO: Generate random background
                     'b' => '#ffffff',
@@ -149,6 +171,9 @@ class IMP_Imap_Flags
                     'l' => $label,
                     't' => 'imapp'
                 );
+
+                $this->_flags[$curr] = $entry;
+                $this->_userflags[$curr] = $entry;
 
                 $this->_save();
                 return $curr;
@@ -171,7 +196,7 @@ class IMP_Imap_Flags
                 $this->_flags[$label][$key] = $val;
             }
 
-            $this->_save();
+            $this->_save(isset($this->_updateflags[$label]));
         }
     }
 
@@ -189,7 +214,7 @@ class IMP_Imap_Flags
         if (isset($this->_flags[$label]) &&
             $this->_flags[$label]['l'] &&
             !empty($this->_flags[$label]['d'])) {
-            unset($this->_flags[$label]);
+            unset($this->_flags[$label], $this->_userflags[$label]);
             $this->_save();
             return true;
         }
