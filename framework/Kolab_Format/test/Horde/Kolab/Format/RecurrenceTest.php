@@ -47,8 +47,15 @@ class Horde_Kolab_Format_RecurrenceTest extends PHPUnit_Framework_TestCase
         }
 
         Horde_Nls::setCharset('utf-8');
+
+        $this->_oldTimezone = date_default_timezone_get();
+        date_default_timezone_set('Europe/Berlin');
     }
 
+    public function tearDown()
+    {
+        date_default_timezone_set($this->_oldTimezone);
+    }
 
     /**
      * Test for http://bugs.horde.org/ticket/?id=6388
