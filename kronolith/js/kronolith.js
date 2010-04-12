@@ -4108,7 +4108,7 @@ KronolithCore = {
     {
         this.closeRedBox();
 
-        if (Object.isUndefined(kronolithETagAc)) {
+        if (typeof kronolithETagAc == 'undefined') {
             this.editEvent.bind(this, calendar, id, date).defer();
             return;
         }
