@@ -82,7 +82,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
             }
 
             /* Filter Type */
-            if (!$this->_decoder->getElementStartTag(SYNC_FILTERTYPE)) {
+            if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FILTERTYPE)) {
                 return false;
             }
             $filtertype = $this->_decoder->getElementContent();
@@ -91,7 +91,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
             }
 
             /* Sync Key */
-            if (!$this->_decoder->getElementStartTag(SYNC_SYNCKEY)) {
+            if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SYNCKEY)) {
                 return false;
             }
             $synckey = $this->_decoder->getElementContent();
@@ -142,13 +142,12 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
             $this->_encoder->endTag();
             $this->_encoder->startTag(self::ESTIMATE);
 
-            $importer = new Horde_ActiveSync_Connector_NullImporter();
             $state = $this->_driver->getStateObject($collection);
             $state->loadState($collection['synckey']);
-            $exporter = $this->_driver->getSyncObject();
-            $exporter->init($state, $importer, $collection);
+            $sync = $this->_driver->getSyncObject();
+            $sync->init($state, null, $collection);
 
-            $this->_encoder->content($exporter->GetChangeCount());
+            $this->_encoder->content($sync->GetChangeCount());
             $this->_encoder->endTag();
             $this->_encoder->endTag();
             $this->_encoder->endTag();
