@@ -3201,7 +3201,7 @@ KronolithCore = {
         iframe.observe('load', function() {
             view.appear({ duration: this.effectDur, queue: 'end' });
             iframe.stopObserving('load');
-        });
+        }.bind(this));
         iframe.src = loc;
         this.view = 'iframe';
     },
