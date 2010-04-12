@@ -272,7 +272,7 @@ body.rightPanel ul {
     border: 1px solid #ccc;
     padding: 4px;
     -moz-border-radius: 0 0 0 10px;
-    -webkit-border-radius: 0 0 0 10px;
+    -webkit-border-bottom-left-radius: 10px;
     border-radius: 0 0 0 10px;
 }
 #pageControls #calendarSearch {
@@ -441,12 +441,14 @@ body.kronolithAjax {
 }
 #kronolithApplications:hover li:first-child a {
     -moz-border-radius: 5px 5px 0 0;
-    -webkit-border-radius: 5px 5px 0 0;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
     border-radius: 5px 5px 0 0;
 }
 #kronolithApplications:hover li:last-child a {
     -moz-border-radius: 0 0 5px 5px;
-    -webkit-border-radius: 0 0 5px 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
     border-radius: 0 0 5px 5px;
 }
 #kronolithApplications a:hover {
@@ -605,7 +607,8 @@ span#kronolithNewEvent {
     background: #f0f0f0;
     border: 1px solid #999;
     -moz-border-radius: 5px 0 0 5px;
-    -webkit-border-radius: 5px 0 0 5px;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
     border-radius: 5px 0 0 5px;
     width: 125px;
     height: 23px;
@@ -616,7 +619,8 @@ span#kronolithNewEvent {
 span#kronolithQuickEvent {
     border: 1px solid #999;
     -moz-border-radius: 0 5px 5px 0;
-    -webkit-border-radius: 0 5px 5px 0;
+    -webkit-border-top-right-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
     border-radius: 0 5px 5px 0;
     width: 23px;
     height: 23px;
@@ -710,12 +714,14 @@ a.kronolithFormCancel {
 }
 #kronolithNav a:first-child {
     -moz-border-radius: 5px 0 0 5px;
-    -webkit-border-radius: 5px 0 0 5px;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
     border-radius: 5px 0 0 5px;
 }
 #kronolithNav a:last-child {
     -moz-border-radius: 0 5px 5px 0;
-    -webkit-border-radius: 0 5px 5px 0;
+    -webkit-border-top-right-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
     border-radius: 0 5px 5px 0;
 }
 #kronolithNav a:first-child:last-child {
@@ -1392,14 +1398,16 @@ div.kronolithEvent .kronolithDragger.kronolithDraggerTop,
 .kronolithDraggerTop.drag {
     top: 0;
     -moz-border-radius: 5px 5px 0 0;
-    -webkit-border-radius: 5px 5px 0 0;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
     border-radius: 5px 5px 0 0;
 }
 div.kronolithEvent .kronolithDragger.kronolithDraggerBottom,
 .kronolithDraggerBottom.drag {
     bottom: 0;
     -moz-border-radius: 0 0 5px 5px;
-    -webkit-border-radius: 0 0 5px 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
     border-radius: 0 0 5px 5px;
 }
 div.kronolithEvent.kronolithEditable .kronolithDragger.kronolithDraggerTop {
