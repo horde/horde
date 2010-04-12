@@ -31,15 +31,23 @@ var HordeSourceSelectPrefs = {
 
     moveAction: function(from, to)
     {
+        var moved = false;
+
         $(from).childElements().each(function(c) {
             if (c.selected) {
                 c.remove();
                 c.selected = false;
                 $(to).insert(c);
+                moved = true;
             }
         });
 
-        this.setSourcesHidden();
+
+        if (moved) {
+            $(to).fire('HordeSourceSelectPrefs:add');
+            $(from).fire('HordeSourceSelectPrefs:remove');
+            this.setSourcesHidden();
+        }
     },
 
     moveSource: function(e, mode)

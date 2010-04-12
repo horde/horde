@@ -60,6 +60,7 @@ var HordeAddressbooksPrefs = {
 
         $('search_fields_select').observe('change', this.changeSearchFields.bind(this));
         $('selected_sources').observe('change', this.updateSearchFields.bind(this));
+        $('selected_sources').observe('HordeSourceSelectPrefs:remove', this.updateSearchFields.bind(this));
     }
 
 };
