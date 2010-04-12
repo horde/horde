@@ -309,13 +309,6 @@ class Horde_ActiveSync
     protected $_logger;
 
     /**
-     * Logger
-     *
-     * @var Horde_Log_Logger
-     */
-    protected $_logger;
-
-    /**
      * Provisioning support
      *
      * @var string (TODO _constant this)
