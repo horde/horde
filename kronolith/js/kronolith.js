@@ -16,7 +16,7 @@ var frames = { horde_main: true },
 KronolithCore = {
     // Vars used and defaulting to null/false:
     //   DMenu, Growler, inAjaxCallback, is_logout,
-    //   daySizes, viewLoading, groupLoading, freeBusy, colorPicker
+    //   daySizes, viewLoading, groupLoading, freeBusy, colorPicker, duration
 
     view: '',
     ecache: $H(),
@@ -4164,6 +4164,7 @@ KronolithCore = {
             $('kronolithEventStartDate').setValue(d.toString(Kronolith.conf.date_format));
             $('kronolithEventStartTime').setValue(d.toString(Kronolith.conf.time_format));
             d.add(1).hour();
+            this.duration = 60;
             $('kronolithEventEndDate').setValue(d.toString(Kronolith.conf.date_format));
             $('kronolithEventEndTime').setValue(d.toString(Kronolith.conf.time_format));
             $('kronolithEventLinkExport').up('span').hide();
@@ -4283,6 +4284,7 @@ KronolithCore = {
         $('kronolithEventStartTime').setValue(ev.st);
         $('kronolithEventEndDate').setValue(ev.ed);
         $('kronolithEventEndTime').setValue(ev.et);
+        this.duration = Math.abs(Date.parse(ev.e).getTime() - Date.parse(ev.s).getTime()) / 60000;
         $('kronolithEventStatus').setValue(ev.x);
         $('kronolithEventDescription').setValue(ev.d);
         $('kronolithEventPrivate').setValue(ev.pv);
@@ -4362,7 +4364,9 @@ KronolithCore = {
         /* Attendees */
         kronolithEAttendeesAc.reset();
         this.freeBusy = $H();
-        $('kronolithEventStartDate').stopObserving('change');
+        if (this.attendeeStartDateHandler) {
+            this.attendeeStartDateHandler.stop();
+        }
         if (!Object.isUndefined(ev.at)) {
             kronolithEAttendeesAc.reset(ev.at.pluck('l'));
             var table = $('kronolithEventTabAttendees').down('tbody');
@@ -4394,7 +4398,7 @@ KronolithCore = {
             if (this.fbLoading) {
                 $('kronolithFBLoading').show();
             }
-            $('kronolithEventStartDate').observe('change', function() {
+            this.attendeeStartDateHandler = $('kronolithEventStartDate').on('change', function() {
                 ev.at.each(function(attendee) {
                     this.insertFreeBusy(attendee.e);
                 }, this);
@@ -4547,6 +4551,38 @@ KronolithCore = {
         }
     },
 
+    /**
+     * Returns the Date object representing the date and time specified in the
+     * event form's start or end fields.
+     *
+     * @param string what  Which fields to parse, either 'start' or 'end'.
+     *
+     * @return Date  The date object or null if the fields can't be parsed.
+     */
+    getDate: function(what) {
+        var dateElm, timeElm, date, time;
+        if (what == 'start') {
+            dateElm = 'kronolithEventStartDate';
+            timeElm = 'kronolithEventStartTime';
+        } else {
+            dateElm = 'kronolithEventEndDate';
+            timeElm = 'kronolithEventEndTime';
+        }
+        date = Date.parseExact($F(dateElm), Kronolith.conf.date_format)
+            || Date.parse($F(dateElm));
+        if (date) {
+            time = Date.parseExact($F(timeElm), Kronolith.conf.time_format);
+            if (!time) {
+                time = Date.parse($F(timeElm));
+            }
+            if (time) {
+                date.setHours(time.getHours());
+                date.setMinutes(time.getMinutes());
+            }
+        }
+        return date;
+    },
+
     checkDate: function(e) {
         var elm = e.element();
         if ($F(elm)) {
@@ -4572,6 +4608,118 @@ KronolithCore = {
                 this.showNotifications([{ type: 'horde.warning', message: Kronolith.text.wrong_time_format.interpolate({ wrong: $F(elm), right: new Date().toString(Kronolith.conf.time_format) }) }]);
                 this.wrongFormat.set(elm.id, true);
             }
+        }
+    },
+
+    /**
+     * Updates the end time in the event form after changing the start time.
+     */
+    updateEndTime: function() {
+        var date = this.getDate('start');
+        if (!date) {
+            return;
+        }
+        date.add(this.duration).minutes();
+        $('kronolithEventEndDate').setValue(date.toString(Kronolith.conf.date_format));
+        $('kronolithEventEndTime').setValue(date.toString(Kronolith.conf.time_format));
+    },
+
+    /**
+     * Event handler for scrolling the mouse over the date field.
+     *
+     * @param Event e       The mouse event.
+     * @param string field  The field name.
+     */
+    scrollDateField: function(e, field) {
+        var date = Date.parseExact($F(field), Kronolith.conf.date_format);
+        if (!date || (!e.wheelData && !e.detail)) {
+            return;
+        }
+        date.add(e.wheelData > 0 || e.detail < 0 ? 1 : -1).days();
+        $(field).setValue(date.toString(Kronolith.conf.date_format));
+        switch (field) {
+        case 'kronolithEventStartDate':
+            this.updateEndTime();
+            break;
+        case 'kronolithEventEndDate':
+            var start = this.getDate('start'), end = this.getDate('end');
+            if (start) {
+                if (start.isAfter(end)) {
+                    $('kronolithEventStartDate').setValue(date.toString(Kronolith.conf.date_format));
+                    $('kronolithEventStartTime').setValue($F('kronolithEventEndTime'));
+                }
+                this.duration = Math.abs(date.getTime() - start.getTime()) / 60000;
+            }
+            break;
+        }
+    },
+
+    /**
+     * Event handler for scrolling the mouse over the time field.
+     *
+     * @param Event e       The mouse event.
+     * @param string field  The field name.
+     */
+    scrollTimeField: function(e, field) {
+        var time = Date.parseExact($F(field), Kronolith.conf.time_format) || Date.parse($F(field)),
+            hour, minute;
+        if (!time || (!e.wheelData && !e.detail)) {
+            return;
+        }
+
+        minute = time.getMinutes();
+        if (minute % 10) {
+            if (e.wheelData > 0 || e.detail < 0) {
+                minute = (minute + 10) / 10 | 0;
+            } else {
+                minute = minute / 10 | 0;
+            }
+            minute *= 10;
+        } else {
+            minute += (e.wheelData > 0 || e.detail < 0 ? 10 : -10);
+        }
+        hour = time.getHours();
+        if (minute < 0) {
+            if (hour > 0) {
+                hour--;
+                minute = 50;
+            } else {
+                minute = 0;
+            }
+        } else if (minute >= 60) {
+            if (hour < 23) {
+                hour++;
+                minute = 0;
+            } else {
+                minute = 59;
+            }
+        }
+        time.setHours(hour);
+        time.setMinutes(minute);
+
+        $(field).setValue(time.toString(Kronolith.conf.time_format));
+        switch (field) {
+        case 'kronolithEventStartTime':
+            this.updateEndTime();
+            break;
+        case 'kronolithEventEndTime':
+            var start = this.getDate('start'), end = this.getDate('end');
+            if (start) {
+                if (start.isAfter(end)) {
+                    $('kronolithEventStartDate').setValue(end.toString(Kronolith.conf.date_format));
+                    $('kronolithEventStartTime').setValue($F('kronolithEventEndTime'));
+                }
+                this.duration = Math.abs(end.getTime() - start.getTime()) / 60000;
+            }
+            break;
+        }
+
+        /* Mozilla bug https://bugzilla.mozilla.org/show_bug.cgi?id=502818
+         * Need to stop or else multiple scroll events may be fired. We
+         * lose the ability to have the mousescroll bubble up, but that is
+         * more desirable than having the wrong scrolling behavior. */
+        if (Prototype.Browser.Gecko && !e.stop) {
+            Event.stop(e);
         }
     },
 
@@ -4790,6 +4938,7 @@ KronolithCore = {
 
         $('kronolithEventStartDate', 'kronolithEventEndDate', 'kronolithTaskDueDate').compact().invoke('observe', 'blur', this.checkDate.bind(this));
         $('kronolithEventStartTime', 'kronolithEventEndTime', 'kronolithTaskDueTime').compact().invoke('observe', 'blur', this.checkTime.bind(this));
+        $('kronolithEventStartDate', 'kronolithEventStartTime').invoke('observe', 'change', this.updateEndTime.bind(this));
 
         if (Kronolith.conf.has_tasks) {
             $('kronolithTaskDueDate', 'kronolithEventDueTime').compact().invoke('observe', 'focus', this.setDefaultDue.bind(this));
@@ -4803,62 +4952,11 @@ KronolithCore = {
             timeFields.push('kronolithTaskDueTime');
         }
         dateFields.each(function(field) {
-            $(field).observe(Prototype.Browser.Gecko ? 'DOMMouseScroll' : 'mousewheel', function(e) {
-                var date = Date.parseExact($F(field), Kronolith.conf.date_format);
-                if (!date || (!e.wheelData && !e.detail)) {
-                    return;
-                }
-                date.add(e.wheelData > 0 || e.detail < 0 ? 1 : -1).days();
-                $(field).setValue(date.toString(Kronolith.conf.date_format));
-            });
-        });
+            $(field).observe(Prototype.Browser.Gecko ? 'DOMMouseScroll' : 'mousewheel', this.scrollDateField.bindAsEventListener(this, field));
+        }, this);
         timeFields.each(function(field) {
-            $(field).observe(Prototype.Browser.Gecko ? 'DOMMouseScroll' : 'mousewheel', function(e) {
-                var time = $F(field).match(/(\d+)\s*:\s*(\d+)\s*((a|p)m)?/i),
-                    hour, minute;
-                if (!time || (!e.wheelData && !e.detail)) {
-                    return;
-                }
-
-                minute = parseInt(time[2]);
-                if (minute % 10) {
-                    if (e.wheelData > 0 || e.detail < 0) {
-                        minute = (minute + 10) / 10 | 0;
-                    } else {
-                        minute = minute / 10 | 0;
-                    }
-                    minute *= 10;
-                } else {
-                    minute += (e.wheelData > 0 || e.detail < 0 ? 10 : -10);
-                }
-                hour = parseInt(time[1]);
-                if (minute < 0) {
-                    if (hour > 0) {
-                        hour--;
-                        minute = 50;
-                    } else {
-                        minute = 0;
-                    }
-                } else if (minute >= 60) {
-                    if (hour < 23) {
-                        hour++;
-                        minute = 0;
-                    } else {
-                        minute = 59;
-                    }
-                }
-
-                $(field).setValue($F(field).replace(/(.*?)\d+(\s*:\s*)\d+(.*)/, '$1' + hour + ':' + minute.toPaddedString(2) + '$3'));
-
-                /* Mozilla bug https://bugzilla.mozilla.org/show_bug.cgi?id=502818
-                 * Need to stop or else multiple scroll events may be fired. We
-                 * lose the ability to have the mousescroll bubble up, but that is
-                 * more desirable than having the wrong scrolling behavior. */
-                if (Prototype.Browser.Gecko && !e.stop) {
-                    Event.stop(e);
-                }
-            });
-        });
+            $(field).observe(Prototype.Browser.Gecko ? 'DOMMouseScroll' : 'mousewheel', this.scrollTimeField.bindAsEventListener(this, field));
+        }, this);
 
         if (Horde.dhtmlHistory.initialize()) {
             Horde.dhtmlHistory.addListener(this.go.bind(this));
