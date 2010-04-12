@@ -20,8 +20,6 @@
  */
 class Horde_ActiveSync_Wbxml
 {
-    // @TODO - debug should be a config parameter
-    const DEBUG = false;
     const SWITCH_PAGE =     0x00;
     const END =             0x01;
     const ENTITY =          0x02;
@@ -268,9 +266,9 @@ class Horde_ActiveSync_Wbxml
                         0x26 => 'Subject',
                         0x27 => 'StartTime',
                         0x28 => 'UID',
-                        0x29 => 'AttendeeStatus',
-                        0x2A => 'AttendeeType',
-                        0x36 => 'ResponseType',
+                        //0x29 => 'AttendeeStatus',
+                        //0x2A => 'AttendeeType',
+                        //0x36 => 'ResponseType',
                     ),
                     /* MOVE */
                     5 => array (

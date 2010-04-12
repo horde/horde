@@ -405,6 +405,9 @@ class Nag_Driver
     {
         /* Get the task's details for use later. */
         $task = $this->get($taskId);
+        if ($task instanceof PEAR_Error) {
+            return $task;
+        }
 
         $delete = $this->_delete($taskId);
         if (is_a($delete, 'PEAR_Error')) {

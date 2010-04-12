@@ -75,8 +75,10 @@ class Horde_Controller_Request_Http extends Horde_Controller_Request_Base
     public function __construct($options = array())
     {
         try {
-            $this->_initSessionData();
-
+            if (!empty($options['session_control']) && $options['session_control'] != 'none') {
+                $this->_initSessionData();
+            }
+            
             // register default mime types
             Horde_Controller_Mime_Type::registerTypes();
 

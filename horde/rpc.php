@@ -19,61 +19,69 @@
 
 require_once dirname(__FILE__) . '/lib/Application.php';
 
+// We have a chicken-and-egg problem here regarding app initialization. Since
+// different RPC servers have different session requirements, we can't call
+// appInit() until we know which server we are requesting. The Request object
+// also needs to know that we don't want a session since it tries to access/
+// initialize the session state.  We therfore don't create the Request object
+// or initialize the application until after we know the rpc server we want.
 $input = $session_control = null;
 $nocompress = false;
 $params = array();
 
-/* Load base libraries. */
-Horde_Registry::appInit('horde', array('authentication' => 'none', 'nocompress' => $nocompress, 'session_control' => $session_control));
-
-/* Get a request object. */
-$request = new Horde_Controller_Request_Http();
-
-/* TODO: This is for debugging, replace with logger from injector before merge */
-if ($conf['activesync']['logging']['type'] == 'custom') {
-    $params['logger'] = new Horde_Log_Logger(new Horde_Log_Handler_Stream(fopen($conf['activesync']['logging']['path'], 'a')));
-} else {
-    $params['logger'] = $GLOBALS['injector']->getInstance('Horde_Log_Logger');
-}
-
 /* Look at the Content-type of the request, if it is available, to try
  * and determine what kind of request this is. */
-if (!empty($GLOBALS['conf']['activesync']['enabled']) &&
-    ((strpos($request->getServer('CONTENT_TYPE'), 'application/vnd.ms-sync.wbxml') !== false) ||
-    (strpos($request->getUri(), 'Microsoft-Server-ActiveSync') !== false))) {
+if ((!empty($_SERVER['CONTENT_TYPE']) && strpos($_SERVER['CONTENT_TYPE'], 'application/vnd.ms-sync.wbxml') !== false) ||
+    strpos($_SERVER['REQUEST_URI'], 'Microsoft-Server-ActiveSync') !== false) {
+
     /* ActiveSync Request */
     $serverType = 'ActiveSync';
-    $horde_session_control = 'none';
-    $horde_no_compress = true;
+    $session_control = 'none';
+    $nocompress = true;
+    Horde_Registry::appInit('horde', array('authentication' => 'none', 'nocompress' => $nocompress, 'session_control' => $session_control));
 
-    /* TODO: Probably want to bind a factory to injector for this? */
-    $params['registry'] = $GLOBALS['registry'];
-    $connector = new Horde_ActiveSync_Driver_Horde_Connector_Registry($params);
-    $stateMachine = new Horde_ActiveSync_State_File(array('stateDir' => $GLOBALS['conf']['activesync']['state']['directory']));
-    $driver_params = array('connector' => $connector, 'state_basic' => $stateMachine);
-    if ($params['provisioning'] = $GLOBALS['conf']['activesync']['securitypolicies']['provisioning']) {
-        $driver_params['policies'] = $GLOBALS['conf']['activesync']['securitypolicies'];
+    /* Check if we are even enabled for AS */
+    if (!empty($GLOBALS['conf']['activesync']['enabled'])) {
+        $request = new Horde_Controller_Request_Http(array('session_control' => $session_control));
+        if ($conf['activesync']['logging']['type'] == 'custom') {
+            $params['logger'] = new Horde_Log_Logger(new Horde_Log_Handler_Stream(fopen($conf['activesync']['logging']['path'], 'a')));
+        } else {
+            $params['logger'] = $GLOBALS['injector']->getInstance('Horde_Log_Logger');
+        }
+
+        $mailer = $GLOBALS['injector']->getInstance('Mail');
+
+        /* TODO: Probably want to bind a factory to injector for this? */
+        $params['registry'] = $GLOBALS['registry'];
+        $connector = new Horde_ActiveSync_Driver_Horde_Connector_Registry($params);
+        $stateMachine = new Horde_ActiveSync_State_File(array('stateDir' => $GLOBALS['conf']['activesync']['state']['directory']));
+        $driver_params = array('connector' => $connector,
+                               'state_basic' => $stateMachine,
+                               'mail' => $mailer);
+        if ($params['provisioning'] = $GLOBALS['conf']['activesync']['securitypolicies']['provisioning']) {
+            $driver_params['policies'] = $GLOBALS['conf']['activesync']['securitypolicies'];
+        }
+        $params['backend'] = new Horde_ActiveSync_Driver_Horde($driver_params);
+        $params['server'] = new Horde_ActiveSync($params['backend'],
+                                                 new Horde_ActiveSync_Wbxml_Decoder(fopen('php://input', 'r')),
+                                                 new Horde_ActiveSync_Wbxml_Encoder(fopen('php://output', 'w+')),
+                                                 $request);
+        $params['server']->setLogger($params['logger']);
     }
-    $params['backend'] = new Horde_ActiveSync_Driver_Horde($driver_params);
-    $params['server'] = new Horde_ActiveSync($params['backend'],
-                                             new Horde_ActiveSync_Wbxml_Decoder(fopen('php://input', 'r')),
-                                             new Horde_ActiveSync_Wbxml_Encoder(fopen('php://output', 'w+')),
-                                             $request);
-    $params['server']->setLogger($params['logger']);
-} elseif ($request->getServer('PATH_INFO') ||
-    in_array($request->getServer('REQUEST_METHOD'), array('DELETE', 'PROPFIND', 'PUT', 'OPTIONS'))) {
+} elseif ($_SERVER['PATH_INFO'] ||
+    in_array($_SERVER['REQUEST_METHOD'], array('DELETE', 'PROPFIND', 'PUT', 'OPTIONS'))) {
     $serverType = 'Webdav';
+    Horde_Registry::appInit('horde', array('authentication' => 'none', 'nocompress' => $nocompress, 'session_control' => $session_control));
+    $request = new Horde_Controller_Request_Http(array('session_control' => $session_control));
 } elseif ($request->getServer('CONTENT_TYPE')) {
     if (strpos($request->getServer('CONTENT_TYPE'), 'application/vnd.syncml+xml') !== false) {
         $serverType = 'Syncml';
-        /* Syncml does its own session handling. */
         $session_control = 'none';
         $nocompress = true;
     } elseif (strpos($request->getServer('CONTENT_TYPE'), 'application/vnd.syncml+wbxml') !== false) {
         $serverType = 'Syncml_Wbxml';
-        /* Syncml does its own session handling. */
-        $horde_session_control = 'none';
-        $horde_no_compress = true;
+        $session_control = 'none';
+        $nocompress = true;
     } elseif (strpos($request->getServer('CONTENT_TYPE'), 'text/xml') !== false) {
         $input = Horde_Rpc::getInput();
         /* Check for SOAP namespace URI. */
@@ -88,10 +96,16 @@ if (!empty($GLOBALS['conf']['activesync']['enabled']) &&
         header('HTTP/1.0 501 Not Implemented');
         exit;
     }
-} elseif ($request->getServer('QUERY_STRING') && $request->getServer('QUERY_STRING') == 'phpgw') {
+    Horde_Registry::appInit('horde', array('authentication' => 'none', 'nocompress' => $nocompress, 'session_control' => $session_control));
+    $request = new Horde_Controller_Request_Http(array('session_control' => $session_control));
+} elseif ($_SERVER['QUERY_STRING'] && $_SERVER['QUERY_STRING'] == 'phpgw') {
     $serverType = 'Phpgw';
+    Horde_Registry::appInit('horde', array('authentication' => 'none', 'nocompress' => $nocompress, 'session_control' => $session_control));
+    $request = new Horde_Controller_Request_Http(array('session_control' => $session_control));
 } else {
     $serverType = 'Soap';
+    Horde_Registry::appInit('horde', array('authentication' => 'none', 'nocompress' => $nocompress, 'session_control' => $session_control));
+    $request = new Horde_Controller_Request_Http(array('session_control' => $session_control));
 }
 
 if ($serverType == 'Soap' &&
@@ -110,6 +124,11 @@ if ($serverType == 'Soap' &&
  * present. */
 if (($ra = Horde_Util::getGet('requestMissingAuthorization')) !== null) {
     $params['requestMissingAuthorization'] = $ra;
+}
+
+/* Make sure we have a logger */
+if (empty($params['logger'])) {
+    $params['logger'] = $GLOBALS['injector']->getInstance('Horde_Log_Logger');
 }
 
 /* Load the RPC backend based on $serverType. */

@@ -10,6 +10,47 @@
  */
 class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
 {
+    /* POOMCAL Tag Constants */
+    const POOMCAL_TIMEZONE = 'POOMCAL:Timezone';
+    const POOMCAL_ALLDAYEVENT = 'POOMCAL:AllDayEvent';
+    const POOMCAL_ATTENDEES = 'POOMCAL:Attendees';
+    const POOMCAL_ATTENDEE = 'POOMCAL:Attendee';
+    const POOMCAL_ATTENDEESTATUS =  'POOMCAL:AttendeeStatus';
+    const POOMCAL_ATTENDEETYPE =  'POOMCAL:AttendeeType';
+    const POOMCAL_EMAIL = 'POOMCAL:Email';
+    const POOMCAL_NAME = 'POOMCAL:Name';
+    const POOMCAL_BODY = 'POOMCAL:Body';
+    const POOMCAL_BODYTRUNCATED = 'POOMCAL:BodyTruncated';
+    const POOMCAL_BUSYSTATUS = 'POOMCAL:BusyStatus';
+    const POOMCAL_CATEGORIES = 'POOMCAL:Categories';
+    const POOMCAL_CATEGORY = 'POOMCAL:Category';
+    const POOMCAL_RTF = 'POOMCAL:Rtf';
+    const POOMCAL_DTSTAMP = 'POOMCAL:DtStamp';
+    const POOMCAL_ENDTIME = 'POOMCAL:EndTime';
+    const POOMCAL_EXCEPTION = 'POOMCAL:Exception';
+    const POOMCAL_EXCEPTIONS = 'POOMCAL:Exceptions';
+    const POOMCAL_DELETED = 'POOMCAL:Deleted';
+    const POOMCAL_EXCEPTIONSTARTTIME = 'POOMCAL:ExceptionStartTime';
+    const POOMCAL_LOCATION = 'POOMCAL:Location';
+    const POOMCAL_MEETINGSTATUS = 'POOMCAL:MeetingStatus';
+    const POOMCAL_ORGANIZEREMAIL = 'POOMCAL:OrganizerEmail';
+    const POOMCAL_ORGANIZERNAME = 'POOMCAL:OrganizerName';
+    const POOMCAL_RECURRENCE = 'POOMCAL:Recurrence';
+    const POOMCAL_TYPE = 'POOMCAL:Type';
+    const POOMCAL_UNTIL = 'POOMCAL:Until';
+    const POOMCAL_OCCURRENCES = 'POOMCAL:Occurrences';
+    const POOMCAL_INTERVAL = 'POOMCAL:Interval';
+    const POOMCAL_DAYOFWEEK = 'POOMCAL:DayOfWeek';
+    const POOMCAL_DAYOFMONTH = 'POOMCAL:DayOfMonth';
+    const POOMCAL_WEEKOFMONTH = 'POOMCAL:WeekOfMonth';
+    const POOMCAL_MONTHOFYEAR = 'POOMCAL:MonthOfYear';
+    const POOMCAL_REMINDER = 'POOMCAL:Reminder';
+    const POOMCAL_SENSITIVITY = 'POOMCAL:Sensitivity';
+    const POOMCAL_SUBJECT = 'POOMCAL:Subject';
+    const POOMCAL_STARTTIME = 'POOMCAL:StartTime';
+    const POOMCAL_UID = 'POOMCAL:UID';
+    const POOMCAL_RESPONSETYPE =  'POOMCAL:ResponseType';
+
     /* Sensitivity */
     const SENSITIVITY_NORMAL = 0;
     const SENSITIVITY_PERSONAL = 1;
@@ -46,7 +87,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      */
     public $exceptions = array();
     public $attendees = array();
-    public $categories;
+    public $categories = array();
 
     /**
      * Constructor
@@ -57,28 +98,28 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      */
     public function __construct($params = array()) {
         $mapping = array(
-            SYNC_POOMCAL_TIMEZONE => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'timezone'),
-            SYNC_POOMCAL_DTSTAMP => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'dtstamp', Horde_ActiveSync_Message_Base::KEY_TYPE => Horde_ActiveSync_Message_Base::TYPE_DATE),
-            SYNC_POOMCAL_STARTTIME => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'starttime', Horde_ActiveSync_Message_Base::KEY_TYPE => Horde_ActiveSync_Message_Base::TYPE_DATE),
-            SYNC_POOMCAL_SUBJECT => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'subject'),
-            SYNC_POOMCAL_UID => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'uid', Horde_ActiveSync_Message_Base::KEY_TYPE => Horde_ActiveSync_Message_Base::TYPE_HEX),
-            SYNC_POOMCAL_ORGANIZERNAME => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'organizername'),
-            SYNC_POOMCAL_ORGANIZEREMAIL => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'organizeremail'),
-            SYNC_POOMCAL_LOCATION => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'location'),
-            SYNC_POOMCAL_ENDTIME => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'endtime', Horde_ActiveSync_Message_Base::KEY_TYPE => Horde_ActiveSync_Message_Base::TYPE_DATE),
-            SYNC_POOMCAL_RECURRENCE => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'recurrence', Horde_ActiveSync_Message_Base::KEY_TYPE => 'Horde_ActiveSync_Message_Recurrence'),
-            SYNC_POOMCAL_SENSITIVITY => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'sensitivity'),
-            SYNC_POOMCAL_BUSYSTATUS => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'busystatus'),
-            SYNC_POOMCAL_ALLDAYEVENT => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'alldayevent'),
-            SYNC_POOMCAL_REMINDER => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'reminder'),
-            SYNC_POOMCAL_RTF => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'rtf'),
-            SYNC_POOMCAL_MEETINGSTATUS => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'meetingstatus'),
-            SYNC_POOMCAL_ATTENDEES => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'attendees', Horde_ActiveSync_Message_Base::KEY_TYPE => 'Horde_ActiveSync_Message_Attendee', Horde_ActiveSync_Message_Base::KEY_VALUES => SYNC_POOMCAL_ATTENDEE),
-            SYNC_POOMCAL_BODY => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'body'),
-            SYNC_POOMCAL_BODYTRUNCATED => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'bodytruncated'),
-            SYNC_POOMCAL_EXCEPTIONS => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'exceptions', Horde_ActiveSync_Message_Base::KEY_TYPE => 'Horde_ActiveSync_Message_Exception', Horde_ActiveSync_Message_Base::KEY_VALUES => SYNC_POOMCAL_EXCEPTION),
-            SYNC_POOMCAL_CATEGORIES => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'categories', Horde_ActiveSync_Message_Base::KEY_VALUES => SYNC_POOMCAL_CATEGORY),
-            SYNC_POOMCAL_RESPONSETYPE => array(Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'responsetype'),
+            self::POOMCAL_TIMEZONE => array (self::KEY_ATTRIBUTE => 'timezone'),
+            self::POOMCAL_DTSTAMP => array (self::KEY_ATTRIBUTE => 'dtstamp', self::KEY_TYPE => self::TYPE_DATE),
+            self::POOMCAL_STARTTIME => array (self::KEY_ATTRIBUTE => 'starttime', self::KEY_TYPE => self::TYPE_DATE),
+            self::POOMCAL_SUBJECT => array (self::KEY_ATTRIBUTE => 'subject'),
+            self::POOMCAL_UID => array (self::KEY_ATTRIBUTE => 'uid', self::KEY_TYPE => self::TYPE_HEX),
+            self::POOMCAL_ORGANIZERNAME => array (self::KEY_ATTRIBUTE => 'organizername'),
+            self::POOMCAL_ORGANIZEREMAIL => array (self::KEY_ATTRIBUTE => 'organizeremail'),
+            self::POOMCAL_LOCATION => array (self::KEY_ATTRIBUTE => 'location'),
+            self::POOMCAL_ENDTIME => array (self::KEY_ATTRIBUTE => 'endtime', self::KEY_TYPE => self::TYPE_DATE),
+            self::POOMCAL_RECURRENCE => array (self::KEY_ATTRIBUTE => 'recurrence', self::KEY_TYPE => 'Horde_ActiveSync_Message_Recurrence'),
+            self::POOMCAL_SENSITIVITY => array (self::KEY_ATTRIBUTE => 'sensitivity'),
+            self::POOMCAL_BUSYSTATUS => array (self::KEY_ATTRIBUTE => 'busystatus'),
+            self::POOMCAL_ALLDAYEVENT => array (self::KEY_ATTRIBUTE => 'alldayevent'),
+            self::POOMCAL_REMINDER => array (self::KEY_ATTRIBUTE => 'reminder'),
+            self::POOMCAL_RTF => array (self::KEY_ATTRIBUTE => 'rtf'),
+            self::POOMCAL_MEETINGSTATUS => array (self::KEY_ATTRIBUTE => 'meetingstatus'),
+            self::POOMCAL_ATTENDEES => array (self::KEY_ATTRIBUTE => 'attendees', self::KEY_TYPE => 'Horde_ActiveSync_Message_Attendee', self::KEY_VALUES => self::POOMCAL_ATTENDEE),
+            self::POOMCAL_BODY => array (self::KEY_ATTRIBUTE => 'body'),
+            self::POOMCAL_BODYTRUNCATED => array (self::KEY_ATTRIBUTE => 'bodytruncated'),
+            self::POOMCAL_EXCEPTIONS => array (self::KEY_ATTRIBUTE => 'exceptions', self::KEY_TYPE => 'Horde_ActiveSync_Message_Exception', self::KEY_VALUES => self::POOMCAL_EXCEPTION),
+            self::POOMCAL_CATEGORIES => array (self::KEY_ATTRIBUTE => 'categories', self::KEY_VALUES => self::POOMCAL_CATEGORY),
+            //self::POOMCAL_RESPONSETYPE => array(self::KEY_ATTRIBUTE => 'responsetype'),
         );
 
         parent::__construct($mapping, $params);
@@ -359,7 +400,6 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
             $rrule->setRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY);
             $rrule->setRecurOnDay($recurrence->dayofweek);
             break;
-        /* TODO: Not sure about these 'Nth' rules - might need more eyes */
         case Horde_ActiveSync_Message_Recurrence::TYPE_YEARLY:
             $rrule->setRecurType(Horde_Date_Recurrence::RECUR_YEARLY_DATE);
             break;
@@ -595,55 +635,21 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * Set the status for this appointment. Should be one of:
      *   none, meeting, received, canceled, canceledreceived.
      *
-     * TODO: Not really sure about when these would be used.
-     *
-     *
-     * @param <type> $status
+     * @param integer $status  A MEETING_* constant
      */
     public function setMeetingStatus($status)
     {
-        switch ($status) {
-        case 'none':
-            $status = self::MEETING_NOT_MEETING;
-            break;
-        case 'meeting':
-            $status = self::MEETING_IS_MEETING;
-            break;
-        case 'received':
-            $status = self::MEETING_RECEIVED;
-            break;
-        case 'canceled':
-            $status = self::MEETING_CANCELLED;
-            break;
-        default:
-            return;
-        }
 
         $this->_properties['meetingstatus'] = $status;
     }
 
     /**
      *
-     * @return string  One of none, meeting, received, canceled
+     * @return integer A MEETING_* constant
      */
     public function getMeetingStatus()
     {
-        switch ($this->_getAttribute('meetingstatus')) {
-        case self::MEETING_NOT_MEETING:
-            return 'none';
-            break;
-        case self::MEETING_IS_MEETING:
-            return 'meeting';
-            break;
-        case  self::MEETING_RECEIVED:
-            return 'received';
-            break;
-        case self::MEETING_CANCELLED:
-            return 'canceled';
-            break;
-        default:
-            return;
-        }
+        return $this->_getAttribute('meetingstatus', self::MEETING_NOT_MEETING);
     }
 
     /**
@@ -714,12 +720,4 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
         return 'Calendar';
     }
 
-    protected function _getAttribute($name, $default = null)
-    {
-        if (!empty($this->_properties[$name])) {
-            return $this->_properties[$name];
-        } else {
-            return $default;
-        }
-    }
 }

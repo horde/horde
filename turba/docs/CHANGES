@@ -10,6 +10,7 @@ v3.0-git
 v2.3.4-cvs
 ----------
 
+[jan] Remove deleted contacts from distribution lists in the same address book.
 [mjr] Allow creation of default, personal address book when other read-only
       sources are present.
 [mjr] Log deletion in History  when deleting all of a user's contacts

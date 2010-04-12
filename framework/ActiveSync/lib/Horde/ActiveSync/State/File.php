@@ -250,7 +250,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
         $unique_folders = array ();
         foreach ($folders as $folder) {
             // don't save folder-ids for emails
-            if ($folder->type == SYNC_FOLDER_TYPE_INBOX) {
+            if ($folder->type == Horde_ActiveSync::FOLDER_TYPE_INBOX) {
                 continue;
             }
 
@@ -262,11 +262,11 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
 
         // Treo does initial sync for calendar and contacts too, so we need to fake
         // these folders if they are not supported by the backend
-        if (!array_key_exists(SYNC_FOLDER_TYPE_APPOINTMENT, $unique_folders)) {
-            $unique_folders[SYNC_FOLDER_TYPE_APPOINTMENT] = SYNC_FOLDER_TYPE_DUMMY;
+        if (!array_key_exists(Horde_ActiveSync::FOLDER_TYPE_APPOINTMENT, $unique_folders)) {
+            $unique_folders[Horde_ActiveSync::FOLDER_TYPE_APPOINTMENT] = Horde_ActiveSync::FOLDER_TYPE_DUMMY;
         }
-        if (!array_key_exists(SYNC_FOLDER_TYPE_CONTACT, $unique_folders)) {
-            $unique_folders[SYNC_FOLDER_TYPE_CONTACT] = SYNC_FOLDER_TYPE_DUMMY;
+        if (!array_key_exists(Horde_ActiveSync::FOLDER_TYPE_CONTACT, $unique_folders)) {
+            $unique_folders[Horde_ActiveSync::FOLDER_TYPE_CONTACT] = Horde_ActiveSync::FOLDER_TYPE_DUMMY;
 
         }
         if (!file_put_contents($this->_stateDir . '/' . $this->_backend->getUser() . '/compat-' . $devId, serialize($unique_folders))) {
@@ -290,10 +290,10 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
         if (file_exists($filename)) {
             $arr = unserialize(file_get_contents($filename));
             if ($class == "Calendar") {
-                return $arr[SYNC_FOLDER_TYPE_APPOINTMENT];
+                return $arr[Horde_ActiveSync::FOLDER_TYPE_APPOINTMENT];
             }
             if ($class == "Contacts") {
-                return $arr[SYNC_FOLDER_TYPE_CONTACT];
+                return $arr[Horde_ActiveSync::FOLDER_TYPE_CONTACT];
             }
         }
 
@@ -445,7 +445,8 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
                 case 'change':
                     $stat = $this->_backend->StatMessage($this->_collection['id'], $change['id']);
                     if (!$message = $this->_backend->GetMessage($this->_collection['id'], $change['id'], 0)) {
-                        throw new Horde_ActiveSync_Exception('Message not found');
+                        continue;
+                        //throw new Horde_ActiveSync_Exception('Message not found');
                     }
                     if ($stat && $message) {
                         $this->updateState('change', $stat);
@@ -581,7 +582,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
             $this->_logger->debug('[' . $this->_devId . ']' . count($syncState) . ' messages in state.');
 
             /* do nothing if it is a dummy folder */
-            if ($folderId != SYNC_FOLDER_TYPE_DUMMY) {
+            if ($folderId != Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
                 // on ping: check if backend supports alternative PING mechanism & use it
                 if ($this->_collection['class'] === false && $flags == BACKEND_DISCARD_DATA && $this->_backend->AlterPing()) {
                     //@TODO - look at the passing of syncstate here - should probably pass self??
@@ -628,6 +629,17 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
     }
 
     /**
+     * Explicitly remove a specific state. Normally used if a request results in
+     * a synckey mismatch. This isn't strictly needed, but helps keep the state
+     * storage clean.
+     *
+     */
+    public function removeState($syncKey)
+    {
+        $this->_gc($syncKey, true);
+    }
+
+    /**
      * Garbage collector - clean up from previous sync
      * requests.
      *
@@ -636,7 +648,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
      * @return boolean
      * @throws Horde_ActiveSync_Exception
      */
-    private function _gc($syncKey)
+    private function _gc($syncKey, $all = false)
     {
         if (!preg_match('/^s{0,1}\{([0-9A-Za-z-]+)\}([0-9]+)$/', $syncKey, $matches)) {
             return false;
@@ -650,7 +662,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
         }
         while ($entry = readdir($dir)) {
             if (preg_match('/^s{0,1}\{([0-9A-Za-z-]+)\}([0-9]+)$/', $entry, $matches)) {
-                if ($matches[1] == $guid && $matches[2] < $n) {
+                if ($matches[1] == $guid && ((!$all && $matches[2] < $n) || $all)) {
                     unlink($this->_stateDir . '/' . $this->_backend->getUser() . '/' . $entry);
                 }
             }
@@ -738,7 +750,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
                 } else {
                     // Message in new seems to be new (add)
                     $change['type'] = 'change';
-                    $change['flags'] = SYNC_NEWMESSAGE;
+                    $change['flags'] = Horde_ActiveSync::FLAG_NEWMESSAGE;
                     $change['id'] = $new[$inew]['id'];
                     $changes[] = $change;
                     $inew++;
@@ -757,7 +769,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
         while ($inew < count($new)) {
             // All data left in new have been added
             $change['type'] = 'change';
-            $change['flags'] = SYNC_NEWMESSAGE;
+            $change['flags'] = Horde_ActiveSync::FLAG_NEWMESSAGE;
             $change['id'] = $new[$inew]['id'];
             $changes[] = $change;
             $inew++;

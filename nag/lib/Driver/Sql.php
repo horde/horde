@@ -79,7 +79,7 @@ class Nag_Driver_Sql extends Nag_Driver {
         $values = array($this->_tasklist, $taskId);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Nag_Driver_Sql::get(): %s', $query), 'DEBUG');
+        Horde::logMessage(sprintf('Nag_Driver_Sql::get(): %s VALUES: %s', $query, print_r($values, true)), 'DEBUG');
 
         /* Execute the query. */
         $result = $this->_db->query($query, $values);

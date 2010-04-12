@@ -166,6 +166,7 @@ class Turba_Object_Group extends Turba_Object {
                     // Remove the contact if it no longer exists
                     $this->removeMember($member);
                     $modified = true;
+                    continue;
                 }
             } else {
                 list($sourceId, $contactId) = explode(':', $member, 2);
@@ -177,6 +178,9 @@ class Turba_Object_Group extends Turba_Object {
                 if (!is_a($driver, 'PEAR_Error')) {
                     $contact = $driver->getObject($contactId);
                     if (is_a($contact, 'PEAR_Error')) {
+                        // Remove the contact if it no longer exists
+                        $this->removeMember($member);
+                        $modified = true;
                         continue;
                     }
                 } else {

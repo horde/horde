@@ -25,97 +25,6 @@
  * This file is distributed under GPL v2.
  * Consult LICENSE file for details
  */
-// TODO Class constant these:
-define("SYNC_SYNCHRONIZE","Synchronize");
-define("SYNC_REPLIES","Replies");
-define("SYNC_ADD","Add");
-define("SYNC_MODIFY","Modify");
-define("SYNC_REMOVE","Remove");
-define("SYNC_FETCH","Fetch");
-define("SYNC_SYNCKEY","SyncKey");
-define("SYNC_CLIENTENTRYID","ClientEntryId");
-define("SYNC_SERVERENTRYID","ServerEntryId");
-define("SYNC_STATUS","Status");
-define("SYNC_FOLDER","Folder");
-define("SYNC_FOLDERTYPE","FolderType");
-define("SYNC_VERSION","Version");
-define("SYNC_FOLDERID","FolderId");
-define("SYNC_GETCHANGES","GetChanges");
-define("SYNC_MOREAVAILABLE","MoreAvailable");
-define("SYNC_WINDOWSIZE","WindowSize");
-define("SYNC_COMMANDS","Commands");
-define("SYNC_OPTIONS","Options");
-define("SYNC_FILTERTYPE","FilterType");
-define("SYNC_TRUNCATION","Truncation");
-define("SYNC_RTFTRUNCATION","RtfTruncation");
-define("SYNC_CONFLICT","Conflict");
-define("SYNC_FOLDERS","Folders");
-define("SYNC_DATA","Data");
-define("SYNC_DELETESASMOVES","DeletesAsMoves");
-define("SYNC_NOTIFYGUID","NotifyGUID");
-define("SYNC_SUPPORTED","Supported");
-define("SYNC_SOFTDELETE","SoftDelete");
-define("SYNC_MIMESUPPORT","MIMESupport");
-define("SYNC_MIMETRUNCATION","MIMETruncation");
-define("SYNC_NEWMESSAGE","NewMessage");
-
-// POOMCONTACTS
-define("SYNC_POOMCONTACTS_ANNIVERSARY","POOMCONTACTS:Anniversary");
-define("SYNC_POOMCONTACTS_ASSISTANTNAME","POOMCONTACTS:AssistantName");
-define("SYNC_POOMCONTACTS_ASSISTNAMEPHONENUMBER","POOMCONTACTS:AssistnamePhoneNumber");
-define("SYNC_POOMCONTACTS_BIRTHDAY","POOMCONTACTS:Birthday");
-define("SYNC_POOMCONTACTS_BODY","POOMCONTACTS:Body");
-define("SYNC_POOMCONTACTS_BODYSIZE","POOMCONTACTS:BodySize");
-define("SYNC_POOMCONTACTS_BODYTRUNCATED","POOMCONTACTS:BodyTruncated");
-define("SYNC_POOMCONTACTS_BUSINESS2PHONENUMBER","POOMCONTACTS:Business2PhoneNumber");
-define("SYNC_POOMCONTACTS_BUSINESSCITY","POOMCONTACTS:BusinessCity");
-define("SYNC_POOMCONTACTS_BUSINESSCOUNTRY","POOMCONTACTS:BusinessCountry");
-define("SYNC_POOMCONTACTS_BUSINESSPOSTALCODE","POOMCONTACTS:BusinessPostalCode");
-define("SYNC_POOMCONTACTS_BUSINESSSTATE","POOMCONTACTS:BusinessState");
-define("SYNC_POOMCONTACTS_BUSINESSSTREET","POOMCONTACTS:BusinessStreet");
-define("SYNC_POOMCONTACTS_BUSINESSFAXNUMBER","POOMCONTACTS:BusinessFaxNumber");
-define("SYNC_POOMCONTACTS_BUSINESSPHONENUMBER","POOMCONTACTS:BusinessPhoneNumber");
-define("SYNC_POOMCONTACTS_CARPHONENUMBER","POOMCONTACTS:CarPhoneNumber");
-define("SYNC_POOMCONTACTS_CATEGORIES","POOMCONTACTS:Categories");
-define("SYNC_POOMCONTACTS_CATEGORY","POOMCONTACTS:Category");
-define("SYNC_POOMCONTACTS_CHILDREN","POOMCONTACTS:Children");
-define("SYNC_POOMCONTACTS_CHILD","POOMCONTACTS:Child");
-define("SYNC_POOMCONTACTS_COMPANYNAME","POOMCONTACTS:CompanyName");
-define("SYNC_POOMCONTACTS_DEPARTMENT","POOMCONTACTS:Department");
-define("SYNC_POOMCONTACTS_EMAIL1ADDRESS","POOMCONTACTS:Email1Address");
-define("SYNC_POOMCONTACTS_EMAIL2ADDRESS","POOMCONTACTS:Email2Address");
-define("SYNC_POOMCONTACTS_EMAIL3ADDRESS","POOMCONTACTS:Email3Address");
-define("SYNC_POOMCONTACTS_FILEAS","POOMCONTACTS:FileAs");
-define("SYNC_POOMCONTACTS_FIRSTNAME","POOMCONTACTS:FirstName");
-define("SYNC_POOMCONTACTS_HOME2PHONENUMBER","POOMCONTACTS:Home2PhoneNumber");
-define("SYNC_POOMCONTACTS_HOMECITY","POOMCONTACTS:HomeCity");
-define("SYNC_POOMCONTACTS_HOMECOUNTRY","POOMCONTACTS:HomeCountry");
-define("SYNC_POOMCONTACTS_HOMEPOSTALCODE","POOMCONTACTS:HomePostalCode");
-define("SYNC_POOMCONTACTS_HOMESTATE","POOMCONTACTS:HomeState");
-define("SYNC_POOMCONTACTS_HOMESTREET","POOMCONTACTS:HomeStreet");
-define("SYNC_POOMCONTACTS_HOMEFAXNUMBER","POOMCONTACTS:HomeFaxNumber");
-define("SYNC_POOMCONTACTS_HOMEPHONENUMBER","POOMCONTACTS:HomePhoneNumber");
-define("SYNC_POOMCONTACTS_JOBTITLE","POOMCONTACTS:JobTitle");
-define("SYNC_POOMCONTACTS_LASTNAME","POOMCONTACTS:LastName");
-define("SYNC_POOMCONTACTS_MIDDLENAME","POOMCONTACTS:MiddleName");
-define("SYNC_POOMCONTACTS_MOBILEPHONENUMBER","POOMCONTACTS:MobilePhoneNumber");
-define("SYNC_POOMCONTACTS_OFFICELOCATION","POOMCONTACTS:OfficeLocation");
-define("SYNC_POOMCONTACTS_OTHERCITY","POOMCONTACTS:OtherCity");
-define("SYNC_POOMCONTACTS_OTHERCOUNTRY","POOMCONTACTS:OtherCountry");
-define("SYNC_POOMCONTACTS_OTHERPOSTALCODE","POOMCONTACTS:OtherPostalCode");
-define("SYNC_POOMCONTACTS_OTHERSTATE","POOMCONTACTS:OtherState");
-define("SYNC_POOMCONTACTS_OTHERSTREET","POOMCONTACTS:OtherStreet");
-define("SYNC_POOMCONTACTS_PAGERNUMBER","POOMCONTACTS:PagerNumber");
-define("SYNC_POOMCONTACTS_RADIOPHONENUMBER","POOMCONTACTS:RadioPhoneNumber");
-define("SYNC_POOMCONTACTS_SPOUSE","POOMCONTACTS:Spouse");
-define("SYNC_POOMCONTACTS_SUFFIX","POOMCONTACTS:Suffix");
-define("SYNC_POOMCONTACTS_TITLE","POOMCONTACTS:Title");
-define("SYNC_POOMCONTACTS_WEBPAGE","POOMCONTACTS:WebPage");
-define("SYNC_POOMCONTACTS_YOMICOMPANYNAME","POOMCONTACTS:YomiCompanyName");
-define("SYNC_POOMCONTACTS_YOMIFIRSTNAME","POOMCONTACTS:YomiFirstName");
-define("SYNC_POOMCONTACTS_YOMILASTNAME","POOMCONTACTS:YomiLastName");
-define("SYNC_POOMCONTACTS_RTF","POOMCONTACTS:Rtf");
-define("SYNC_POOMCONTACTS_PICTURE","POOMCONTACTS:Picture");
 
 // POOMMAIL
 define("SYNC_POOMMAIL_ATTACHMENT","POOMMAIL:Attachment");
@@ -193,47 +102,6 @@ define("SYNC_AIRNOTIFY_ID","AirNotify:Id");
 define("SYNC_AIRNOTIFY_EXPIRY","AirNotify:Expiry");
 define("SYNC_AIRNOTIFY_NOTIFYGUID","AirNotify:NotifyGUID");
 
-// POOMCAL
-define("SYNC_POOMCAL_TIMEZONE","POOMCAL:Timezone");
-define("SYNC_POOMCAL_ALLDAYEVENT","POOMCAL:AllDayEvent");
-define("SYNC_POOMCAL_ATTENDEES","POOMCAL:Attendees");
-define("SYNC_POOMCAL_ATTENDEE","POOMCAL:Attendee");
-define("SYNC_POOMCAL_ATTENDEESTATUS", "POOMCAL:AttendeeStatus");
-define("SYNC_POOMCAL_ATTENDEETYPE", "POOMCAL:AttendeeType");
-define("SYNC_POOMCAL_EMAIL","POOMCAL:Email");
-define("SYNC_POOMCAL_NAME","POOMCAL:Name");
-define("SYNC_POOMCAL_BODY","POOMCAL:Body");
-define("SYNC_POOMCAL_BODYTRUNCATED","POOMCAL:BodyTruncated");
-define("SYNC_POOMCAL_BUSYSTATUS","POOMCAL:BusyStatus");
-define("SYNC_POOMCAL_CATEGORIES","POOMCAL:Categories");
-define("SYNC_POOMCAL_CATEGORY","POOMCAL:Category");
-define("SYNC_POOMCAL_RTF","POOMCAL:Rtf");
-define("SYNC_POOMCAL_DTSTAMP","POOMCAL:DtStamp");
-define("SYNC_POOMCAL_ENDTIME","POOMCAL:EndTime");
-define("SYNC_POOMCAL_EXCEPTION","POOMCAL:Exception");
-define("SYNC_POOMCAL_EXCEPTIONS","POOMCAL:Exceptions");
-define("SYNC_POOMCAL_DELETED","POOMCAL:Deleted");
-define("SYNC_POOMCAL_EXCEPTIONSTARTTIME","POOMCAL:ExceptionStartTime");
-define("SYNC_POOMCAL_LOCATION","POOMCAL:Location");
-define("SYNC_POOMCAL_MEETINGSTATUS","POOMCAL:MeetingStatus");
-define("SYNC_POOMCAL_ORGANIZEREMAIL","POOMCAL:OrganizerEmail");
-define("SYNC_POOMCAL_ORGANIZERNAME","POOMCAL:OrganizerName");
-define("SYNC_POOMCAL_RECURRENCE","POOMCAL:Recurrence");
-define("SYNC_POOMCAL_TYPE","POOMCAL:Type");
-define("SYNC_POOMCAL_UNTIL","POOMCAL:Until");
-define("SYNC_POOMCAL_OCCURRENCES","POOMCAL:Occurrences");
-define("SYNC_POOMCAL_INTERVAL","POOMCAL:Interval");
-define("SYNC_POOMCAL_DAYOFWEEK","POOMCAL:DayOfWeek");
-define("SYNC_POOMCAL_DAYOFMONTH","POOMCAL:DayOfMonth");
-define("SYNC_POOMCAL_WEEKOFMONTH","POOMCAL:WeekOfMonth");
-define("SYNC_POOMCAL_MONTHOFYEAR","POOMCAL:MonthOfYear");
-define("SYNC_POOMCAL_REMINDER","POOMCAL:Reminder");
-define("SYNC_POOMCAL_SENSITIVITY","POOMCAL:Sensitivity");
-define("SYNC_POOMCAL_SUBJECT","POOMCAL:Subject");
-define("SYNC_POOMCAL_STARTTIME","POOMCAL:StartTime");
-define("SYNC_POOMCAL_UID","POOMCAL:UID");
-define("SYNC_POOMCAL_RESPONSETYPE", "POOMCAL:ResponseType");
-
 // Move
 define("SYNC_MOVE_MOVES","Move:Moves");
 define("SYNC_MOVE_MOVE","Move:Move");
@@ -243,40 +111,6 @@ define("SYNC_MOVE_DSTFLDID","Move:DstFldId");
 define("SYNC_MOVE_RESPONSE","Move:Response");
 define("SYNC_MOVE_STATUS","Move:Status");
 define("SYNC_MOVE_DSTMSGID","Move:DstMsgId");
-
-// GetItemEstimate
-define("SYNC_GETITEMESTIMATE_GETITEMESTIMATE","GetItemEstimate:GetItemEstimate");
-define("SYNC_GETITEMESTIMATE_VERSION","GetItemEstimate:Version");
-define("SYNC_GETITEMESTIMATE_FOLDERS","GetItemEstimate:Folders");
-define("SYNC_GETITEMESTIMATE_FOLDER","GetItemEstimate:Folder");
-define("SYNC_GETITEMESTIMATE_FOLDERTYPE","GetItemEstimate:FolderType");
-define("SYNC_GETITEMESTIMATE_FOLDERID","GetItemEstimate:FolderId");
-define("SYNC_GETITEMESTIMATE_DATETIME","GetItemEstimate:DateTime");
-define("SYNC_GETITEMESTIMATE_ESTIMATE","GetItemEstimate:Estimate");
-define("SYNC_GETITEMESTIMATE_RESPONSE","GetItemEstimate:Response");
-define("SYNC_GETITEMESTIMATE_STATUS","GetItemEstimate:Status");
-
-// FolderHierarchy
-define("SYNC_FOLDERHIERARCHY_FOLDERS","FolderHierarchy:Folders");
-define("SYNC_FOLDERHIERARCHY_FOLDER","FolderHierarchy:Folder");
-define("SYNC_FOLDERHIERARCHY_DISPLAYNAME","FolderHierarchy:DisplayName");
-define("SYNC_FOLDERHIERARCHY_SERVERENTRYID","FolderHierarchy:ServerEntryId");
-define("SYNC_FOLDERHIERARCHY_PARENTID","FolderHierarchy:ParentId");
-define("SYNC_FOLDERHIERARCHY_TYPE","FolderHierarchy:Type");
-define("SYNC_FOLDERHIERARCHY_RESPONSE","FolderHierarchy:Response");
-define("SYNC_FOLDERHIERARCHY_STATUS","FolderHierarchy:Status");
-define("SYNC_FOLDERHIERARCHY_CONTENTCLASS","FolderHierarchy:ContentClass");
-define("SYNC_FOLDERHIERARCHY_CHANGES","FolderHierarchy:Changes");
-define("SYNC_FOLDERHIERARCHY_ADD","FolderHierarchy:Add");
-define("SYNC_FOLDERHIERARCHY_REMOVE","FolderHierarchy:Remove");
-define("SYNC_FOLDERHIERARCHY_UPDATE","FolderHierarchy:Update");
-define("SYNC_FOLDERHIERARCHY_SYNCKEY","FolderHierarchy:SyncKey");
-define("SYNC_FOLDERHIERARCHY_FOLDERCREATE","FolderHierarchy:FolderCreate");
-define("SYNC_FOLDERHIERARCHY_FOLDERDELETE","FolderHierarchy:FolderDelete");
-define("SYNC_FOLDERHIERARCHY_FOLDERUPDATE","FolderHierarchy:FolderUpdate");
-define("SYNC_FOLDERHIERARCHY_FOLDERSYNC","FolderHierarchy:FolderSync");
-define("SYNC_FOLDERHIERARCHY_COUNT","FolderHierarchy:Count");
-define("SYNC_FOLDERHIERARCHY_VERSION","FolderHierarchy:Version");
 
 // MeetingResponse
 define("SYNC_MEETINGRESPONSE_CALENDARID","MeetingResponse:CalendarId");
@@ -288,37 +122,6 @@ define("SYNC_MEETINGRESPONSE_RESULT","MeetingResponse:Result");
 define("SYNC_MEETINGRESPONSE_STATUS","MeetingResponse:Status");
 define("SYNC_MEETINGRESPONSE_USERRESPONSE","MeetingResponse:UserResponse");
 define("SYNC_MEETINGRESPONSE_VERSION","MeetingResponse:Version");
-
-// POOMTASKS
-define("SYNC_POOMTASKS_BODY","POOMTASKS:Body");
-define("SYNC_POOMTASKS_BODYSIZE","POOMTASKS:BodySize");
-define("SYNC_POOMTASKS_BODYTRUNCATED","POOMTASKS:BodyTruncated");
-define("SYNC_POOMTASKS_CATEGORIES","POOMTASKS:Categories");
-define("SYNC_POOMTASKS_CATEGORY","POOMTASKS:Category");
-define("SYNC_POOMTASKS_COMPLETE","POOMTASKS:Complete");
-define("SYNC_POOMTASKS_DATECOMPLETED","POOMTASKS:DateCompleted");
-define("SYNC_POOMTASKS_DUEDATE","POOMTASKS:DueDate");
-define("SYNC_POOMTASKS_UTCDUEDATE","POOMTASKS:UtcDueDate");
-define("SYNC_POOMTASKS_IMPORTANCE","POOMTASKS:Importance");
-define("SYNC_POOMTASKS_RECURRENCE","POOMTASKS:Recurrence");
-define("SYNC_POOMTASKS_TYPE","POOMTASKS:Type");
-define("SYNC_POOMTASKS_START","POOMTASKS:Start");
-define("SYNC_POOMTASKS_UNTIL","POOMTASKS:Until");
-define("SYNC_POOMTASKS_OCCURRENCES","POOMTASKS:Occurrences");
-define("SYNC_POOMTASKS_INTERVAL","POOMTASKS:Interval");
-define("SYNC_POOMTASKS_DAYOFWEEK","POOMTASKS:DayOfWeek");
-define("SYNC_POOMTASKS_DAYOFMONTH","POOMTASKS:DayOfMonth");
-define("SYNC_POOMTASKS_WEEKOFMONTH","POOMTASKS:WeekOfMonth");
-define("SYNC_POOMTASKS_MONTHOFYEAR","POOMTASKS:MonthOfYear");
-define("SYNC_POOMTASKS_REGENERATE","POOMTASKS:Regenerate");
-define("SYNC_POOMTASKS_DEADOCCUR","POOMTASKS:DeadOccur");
-define("SYNC_POOMTASKS_REMINDERSET","POOMTASKS:ReminderSet");
-define("SYNC_POOMTASKS_REMINDERTIME","POOMTASKS:ReminderTime");
-define("SYNC_POOMTASKS_SENSITIVITY","POOMTASKS:Sensitivity");
-define("SYNC_POOMTASKS_STARTDATE","POOMTASKS:StartDate");
-define("SYNC_POOMTASKS_UTCSTARTDATE","POOMTASKS:UtcStartDate");
-define("SYNC_POOMTASKS_SUBJECT","POOMTASKS:Subject");
-define("SYNC_POOMTASKS_RTF","POOMTASKS:Rtf");
 
 // ResolveRecipients
 define("SYNC_RESOLVERECIPIENTS_RESOLVERECIPIENTS","ResolveRecipients:ResolveRecipients");
@@ -346,38 +149,6 @@ define("SYNC_VALIDATECERT_CERTIFICATE","ValidateCert:Certificate");
 define("SYNC_VALIDATECERT_CERTIFICATECHAIN","ValidateCert:CertificateChain");
 define("SYNC_VALIDATECERT_CHECKCRL","ValidateCert:CheckCRL");
 define("SYNC_VALIDATECERT_STATUS","ValidateCert:Status");
-
-// POOMCONTACTS2
-define("SYNC_POOMCONTACTS2_CUSTOMERID","POOMCONTACTS2:CustomerId");
-define("SYNC_POOMCONTACTS2_GOVERNMENTID","POOMCONTACTS2:GovernmentId");
-define("SYNC_POOMCONTACTS2_IMADDRESS","POOMCONTACTS2:IMAddress");
-define("SYNC_POOMCONTACTS2_IMADDRESS2","POOMCONTACTS2:IMAddress2");
-define("SYNC_POOMCONTACTS2_IMADDRESS3","POOMCONTACTS2:IMAddress3");
-define("SYNC_POOMCONTACTS2_MANAGERNAME","POOMCONTACTS2:ManagerName");
-define("SYNC_POOMCONTACTS2_COMPANYMAINPHONE","POOMCONTACTS2:CompanyMainPhone");
-define("SYNC_POOMCONTACTS2_ACCOUNTNAME","POOMCONTACTS2:AccountName");
-define("SYNC_POOMCONTACTS2_NICKNAME","POOMCONTACTS2:NickName");
-define("SYNC_POOMCONTACTS2_MMS","POOMCONTACTS2:MMS");
-
-// Ping
-define("SYNC_PING_PING","Ping:Ping");
-define("SYNC_PING_STATUS","Ping:Status");
-define("SYNC_PING_LIFETIME", "Ping:LifeTime");
-define("SYNC_PING_FOLDERS", "Ping:Folders");
-define("SYNC_PING_FOLDER", "Ping:Folder");
-define("SYNC_PING_SERVERENTRYID", "Ping:ServerEntryId");
-define("SYNC_PING_FOLDERTYPE", "Ping:FolderType");
-
-//Provision
-define("SYNC_PROVISION_PROVISION", "Provision:Provision");
-define("SYNC_PROVISION_POLICIES", "Provision:Policies");
-define("SYNC_PROVISION_POLICY", "Provision:Policy");
-define("SYNC_PROVISION_POLICYTYPE", "Provision:PolicyType");
-define("SYNC_PROVISION_POLICYKEY", "Provision:PolicyKey");
-define("SYNC_PROVISION_DATA", "Provision:Data");
-define("SYNC_PROVISION_STATUS", "Provision:Status");
-define("SYNC_PROVISION_REMOTEWIPE", "Provision:RemoteWipe");
-define("SYNC_PROVISION_EASPROVISIONDOC", "Provision:EASProvisionDoc");
 
 //Search
 define("SYNC_SEARCH_SEARCH", "Search:Search");
@@ -417,35 +188,6 @@ define("SYNC_GAL_HOMEPHONE", "GAL:HomePhone");
 define("SYNC_GAL_MOBILEPHONE", "GAL:MobilePhone");
 define("SYNC_GAL_EMAILADDRESS", "GAL:EmailAddress");
 
-// Other constants
-define("SYNC_FOLDER_TYPE_OTHER", 1);
-define("SYNC_FOLDER_TYPE_INBOX", 2);
-define("SYNC_FOLDER_TYPE_DRAFTS", 3);
-define("SYNC_FOLDER_TYPE_WASTEBASKET", 4);
-define("SYNC_FOLDER_TYPE_SENTMAIL", 5);
-define("SYNC_FOLDER_TYPE_OUTBOX", 6);
-define("SYNC_FOLDER_TYPE_TASK", 7);
-define("SYNC_FOLDER_TYPE_APPOINTMENT", 8);
-define("SYNC_FOLDER_TYPE_CONTACT", 9);
-define("SYNC_FOLDER_TYPE_NOTE", 10);
-define("SYNC_FOLDER_TYPE_JOURNAL", 11);
-define("SYNC_FOLDER_TYPE_USER_MAIL", 12);
-define("SYNC_FOLDER_TYPE_USER_APPOINTMENT", 13);
-define("SYNC_FOLDER_TYPE_USER_CONTACT", 14);
-define("SYNC_FOLDER_TYPE_USER_TASK", 15);
-define("SYNC_FOLDER_TYPE_USER_JOURNAL", 16);
-define("SYNC_FOLDER_TYPE_USER_NOTE", 17);
-define("SYNC_FOLDER_TYPE_UNKNOWN", 18);
-define("SYNC_FOLDER_TYPE_RECIPIENT_CACHE", 19);
-define("SYNC_FOLDER_TYPE_DUMMY", "__dummy.Folder.Id__");
-
-define("SYNC_TRUNCATION_HEADERS", 0);
-define("SYNC_TRUNCATION_512B", 1);
-define("SYNC_TRUNCATION_1K", 2);
-define("SYNC_TRUNCATION_5K", 4);
-define("SYNC_TRUNCATION_SEVEN", 7);
-define("SYNC_TRUNCATION_ALL", 9);
-
 /**
  * Main ActiveSync class. Entry point for performing all ActiveSync operations
  *
@@ -455,6 +197,114 @@ class Horde_ActiveSync
     /* Constants */
     const CONFLICT_OVERWRITE_SERVER = 0;
     const CONFLICT_OVERWRITE_PIM = 1;
+
+    /* TRUNCATION Constants */
+    const TRUNCATION_HEADERS = 0;
+    const TRUNCATION_512B = 1;
+    const TRUNCATION_1K = 2;
+    const TRUNCATION_5K = 4;
+    const TRUNCATION_SEVEN = 7;
+    const TRUNCATION_ALL = 9;
+
+    /* Request related constants that are used in multiple places */
+    /* FOLDERHIERARCHY */ 
+    const FOLDERHIERARCHY_FOLDERS = 'FolderHierarchy:Folders';
+    const FOLDERHIERARCHY_FOLDER = 'FolderHierarchy:Folder';
+    const FOLDERHIERARCHY_DISPLAYNAME = 'FolderHierarchy:DisplayName';
+    const FOLDERHIERARCHY_SERVERENTRYID = 'FolderHierarchy:ServerEntryId';
+    const FOLDERHIERARCHY_PARENTID = 'FolderHierarchy:ParentId';
+    const FOLDERHIERARCHY_TYPE = 'FolderHierarchy:Type';
+    const FOLDERHIERARCHY_RESPONSE = 'FolderHierarchy:Response';
+    const FOLDERHIERARCHY_STATUS = 'FolderHierarchy:Status';
+    const FOLDERHIERARCHY_CONTENTCLASS = 'FolderHierarchy:ContentClass';
+    const FOLDERHIERARCHY_CHANGES = 'FolderHierarchy:Changes';
+    const FOLDERHIERARCHY_ADD = 'FolderHierarchy:Add';
+    const FOLDERHIERARCHY_REMOVE = 'FolderHierarchy:Remove';
+    const FOLDERHIERARCHY_UPDATE = 'FolderHierarchy:Update';
+    const FOLDERHIERARCHY_SYNCKEY = 'FolderHierarchy:SyncKey';
+    const FOLDERHIERARCHY_FOLDERCREATE = 'FolderHierarchy:FolderCreate';
+    const FOLDERHIERARCHY_FOLDERDELETE = 'FolderHierarchy:FolderDelete';
+    const FOLDERHIERARCHY_FOLDERUPDATE = 'FolderHierarchy:FolderUpdate';
+    const FOLDERHIERARCHY_FOLDERSYNC = 'FolderHierarchy:FolderSync';
+    const FOLDERHIERARCHY_COUNT = 'FolderHierarchy:Count';
+    const FOLDERHIERARCHY_VERSION = 'FolderHierarchy:Version';
+    
+    /* SYNC */
+    const SYNC_SYNCHRONIZE = 'Synchronize';
+    const SYNC_REPLIES = 'Replies';
+    const SYNC_ADD = 'Add';
+    const SYNC_MODIFY = 'Modify';
+    const SYNC_REMOVE = 'Remove';
+    const SYNC_FETCH = 'Fetch';
+    const SYNC_SYNCKEY = 'SyncKey';
+    const SYNC_CLIENTENTRYID = 'ClientEntryId';
+    const SYNC_SERVERENTRYID = 'ServerEntryId';
+    const SYNC_STATUS = 'Status';
+    const SYNC_FOLDER = 'Folder';
+    const SYNC_FOLDERTYPE = 'FolderType';
+    const SYNC_VERSION = 'Version';
+    const SYNC_FOLDERID = 'FolderId';
+    const SYNC_GETCHANGES = 'GetChanges';
+    const SYNC_MOREAVAILABLE = 'MoreAvailable';
+    const SYNC_WINDOWSIZE = 'WindowSize';
+    const SYNC_COMMANDS = 'Commands';
+    const SYNC_OPTIONS = 'Options';
+    const SYNC_FILTERTYPE = 'FilterType';
+    const SYNC_TRUNCATION = 'Truncation';
+    const SYNC_RTFTRUNCATION = 'RtfTruncation';
+    const SYNC_CONFLICT = 'Conflict';
+    const SYNC_FOLDERS = 'Folders';
+    const SYNC_DATA = 'Data';
+    const SYNC_DELETESASMOVES = 'DeletesAsMoves';
+    const SYNC_NOTIFYGUID = 'NotifyGUID';
+    const SYNC_SUPPORTED = 'Supported';
+    const SYNC_SOFTDELETE = 'SoftDelete';
+    const SYNC_MIMESUPPORT = 'MIMESupport';
+    const SYNC_MIMETRUNCATION = 'MIMETruncation';
+
+    /* PROVISION */
+    const PROVISION_PROVISION =  'Provision:Provision';
+    const PROVISION_POLICIES =  'Provision:Policies';
+    const PROVISION_POLICY =  'Provision:Policy';
+    const PROVISION_POLICYTYPE =  'Provision:PolicyType';
+    const PROVISION_POLICYKEY =  'Provision:PolicyKey';
+    const PROVISION_DATA =  'Provision:Data';
+    const PROVISION_STATUS =  'Provision:Status';
+    const PROVISION_REMOTEWIPE =  'Provision:RemoteWipe';
+    const PROVISION_EASPROVISIONDOC =  'Provision:EASProvisionDoc';
+
+    /* Flags */
+    const FLAG_NEWMESSAGE = 'NewMessage';
+
+    /* Folder types */
+    // Other constants
+    const FOLDER_TYPE_OTHER =  1;
+    const FOLDER_TYPE_INBOX =  2;
+    const FOLDER_TYPE_DRAFTS =  3;
+    const FOLDER_TYPE_WASTEBASKET =  4;
+    const FOLDER_TYPE_SENTMAIL =  5;
+    const FOLDER_TYPE_OUTBOX =  6;
+    const FOLDER_TYPE_TASK =  7;
+    const FOLDER_TYPE_APPOINTMENT =  8;
+    const FOLDER_TYPE_CONTACT =  9;
+    const FOLDER_TYPE_NOTE =  10;
+    const FOLDER_TYPE_JOURNAL =  11;
+    const FOLDER_TYPE_USER_MAIL =  12;
+    const FOLDER_TYPE_USER_APPOINTMENT =  13;
+    const FOLDER_TYPE_USER_CONTACT =  14;
+    const FOLDER_TYPE_USER_TASK =  15;
+    const FOLDER_TYPE_USER_JOURNAL =  16;
+    const FOLDER_TYPE_USER_NOTE =  17;
+    const FOLDER_TYPE_UNKNOWN =  18;
+    const FOLDER_TYPE_RECIPIENT_CACHE =  19;
+    const FOLDER_TYPE_DUMMY =  '__dummy.Folder.Id__';
+ 
+    /**
+     * Logger
+     *
+     * @var Horde_Log_Logger
+     */
+    protected $_logger;
 
     /**
      * Logger
@@ -644,10 +494,10 @@ class Horde_ActiveSync
         $this->_stateMachine->setFolderData($devid, $folders);
 
         $this->_encoder->StartWBXML();
-        $this->_encoder->startTag(SYNC_FOLDERHIERARCHY_FOLDERS);
+        $this->_encoder->startTag(self::FOLDERHIERARCHY_FOLDERS);
 
         foreach ($folders as $folder) {
-            $this->_encoder->startTag(SYNC_FOLDERHIERARCHY_FOLDER);
+            $this->_encoder->startTag(self::FOLDERHIERARCHY_FOLDER);
             $folder->encodeStream($this->_encoder);
             $this->_encoder->endTag();
         }
@@ -679,21 +529,6 @@ class Horde_ActiveSync
      * @param $protocolversion
      * @return unknown_type
      */
-    public function handleSendMail($protocolversion)
-    {
-        // All that happens here is that we receive an rfc822 message on stdin
-        // and just forward it to the backend. We provide no output except for
-        // an OK http reply
-        $rfc822 = $this->readStream();
-
-        return $this->_driver->SendMail($rfc822);
-    }
-
-    /**
-     *
-     * @param $protocolversion
-     * @return unknown_type
-     */
     public function handleSmartForward($protocolversion)
     {
         // SmartForward is a normal 'send' except that you should attach the
@@ -712,7 +547,7 @@ class Horde_ActiveSync
             $parent = false;
         }
 
-        return $this->_driver->SendMail($rfc822, $orig, false, $parent);
+        return $this->_driver->sendMail($rfc822, $orig, false, $parent);
     }
 
     /**
@@ -738,7 +573,7 @@ class Horde_ActiveSync
             $parent = false;
         }
 
-        return $this->_driver->SendMail($rfc822, false, $orig, $parent);
+        return $this->_driver->sendMail($rfc822, false, $orig, $parent);
     }
 
     /**
@@ -754,11 +589,11 @@ class Horde_ActiveSync
 
         $create = $update = $delete = false;
 
-        if ($el[Horde_ActiveSync_Wbxml::EN_TAG] == SYNC_FOLDERHIERARCHY_FOLDERCREATE) {
+        if ($el[Horde_ActiveSync_Wbxml::EN_TAG] == self::FOLDERHIERARCHY_FOLDERCREATE) {
             $create = true;
-        } elseif ($el[Horde_ActiveSync_Wbxml::EN_TAG] == SYNC_FOLDERHIERARCHY_FOLDERUPDATE) {
+        } elseif ($el[Horde_ActiveSync_Wbxml::EN_TAG] == self::FOLDERHIERARCHY_FOLDERUPDATE) {
             $update = true;
-        } elseif ($el[Horde_ActiveSync_Wbxml::EN_TAG] == SYNC_FOLDERHIERARCHY_FOLDERDELETE) {
+        } elseif ($el[Horde_ActiveSync_Wbxml::EN_TAG] == self::FOLDERHIERARCHY_FOLDERDELETE) {
             $delete = true;
         }
 
@@ -767,7 +602,7 @@ class Horde_ActiveSync
         }
 
         // SyncKey
-        if (!$this->_decoder->getElementStartTag(SYNC_FOLDERHIERARCHY_SYNCKEY)) {
+        if (!$this->_decoder->getElementStartTag(self::FOLDERHIERARCHY_SYNCKEY)) {
             return false;
         }
         $synckey = $this->_decoder->getElementContent();
@@ -777,7 +612,7 @@ class Horde_ActiveSync
 
         // ServerID
         $serverid = false;
-        if ($this->_decoder->getElementStartTag(SYNC_FOLDERHIERARCHY_SERVERENTRYID)) {
+        if ($this->_decoder->getElementStartTag(self::FOLDERHIERARCHY_SERVERENTRYID)) {
             $serverid = $this->_decoder->getElementContent();
             if (!$this->_decoder->getElementEndTag()) {
                 return false;
@@ -788,7 +623,7 @@ class Horde_ActiveSync
         if (!$delete) {
             // Parent
             $parentid = false;
-            if ($this->_decoder->getElementStartTag(SYNC_FOLDERHIERARCHY_PARENTID)) {
+            if ($this->_decoder->getElementStartTag(self::FOLDERHIERARCHY_PARENTID)) {
                 $parentid = $this->_decoder->getElementContent();
                 if (!$this->_decoder->getElementEndTag()) {
                     return false;
@@ -796,7 +631,7 @@ class Horde_ActiveSync
             }
 
             // Displayname
-            if (!$this->_decoder->getElementStartTag(SYNC_FOLDERHIERARCHY_DISPLAYNAME)) {
+            if (!$this->_decoder->getElementStartTag(self::FOLDERHIERARCHY_DISPLAYNAME)) {
                 return false;
             }
             $displayname = $this->_decoder->getElementContent();
@@ -806,7 +641,7 @@ class Horde_ActiveSync
 
             // Type
             $type = false;
-            if ($this->_decoder->getElementStartTag(SYNC_FOLDERHIERARCHY_TYPE)) {
+            if ($this->_decoder->getElementStartTag(self::FOLDERHIERARCHY_TYPE)) {
                 $type = $this->_decoder->getElementContent();
                 if (!$this->_decoder->getElementEndTag()) {
                     return false;
@@ -819,8 +654,12 @@ class Horde_ActiveSync
         }
 
         // Get state of hierarchy
-        $syncstate = $this->_stateMachine->loadState($synckey);
-        $newsynckey = $this->_stateMachine->getNewSyncKey($synckey);
+        try {
+            $syncstate = $this->_stateMachine->loadState($synckey);
+            $newsynckey = $this->_stateMachine->getNewSyncKey($synckey);
+        } catch (Horde_ActiveSync_Exception $e) {
+            // @TODO - send error status keymism when refactored.
+        }
 
         // additional information about already seen folders
         $seenfolders = unserialize($this->_stateMachine->loadState('s' . $synckey));
@@ -844,18 +683,18 @@ class Horde_ActiveSync
             // add folder id to the seen folders
             $seenfolders[] = $serverid;
 
-            $this->_encoder->startTag(SYNC_FOLDERHIERARCHY_FOLDERCREATE);
+            $this->_encoder->startTag(self::FOLDERHIERARCHY_FOLDERCREATE);
 
 
-            $this->_encoder->startTag(SYNC_FOLDERHIERARCHY_STATUS);
+            $this->_encoder->startTag(self::FOLDERHIERARCHY_STATUS);
             $this->_encoder->content(1);
             $this->_encoder->endTag();
 
-            $this->_encoder->startTag(SYNC_FOLDERHIERARCHY_SYNCKEY);
+            $this->_encoder->startTag(self::FOLDERHIERARCHY_SYNCKEY);
             $this->_encoder->content($newsynckey);
             $this->_encoder->endTag();
 
-            $this->_encoder->startTag(SYNC_FOLDERHIERARCHY_SERVERENTRYID);
+            $this->_encoder->startTag(self::FOLDERHIERARCHY_SERVERENTRYID);
             $this->_encoder->content($serverid);
             $this->_encoder->endTag();
 
@@ -864,25 +703,25 @@ class Horde_ActiveSync
             $this->_encoder->endTag();
         } elseif ($update) {
 
-            $this->_encoder->startTag(SYNC_FOLDERHIERARCHY_FOLDERUPDATE);
+            $this->_encoder->startTag(self::FOLDERHIERARCHY_FOLDERUPDATE);
 
-            $this->_encoder->startTag(SYNC_FOLDERHIERARCHY_STATUS);
+            $this->_encoder->startTag(self::FOLDERHIERARCHY_STATUS);
             $this->_encoder->content(1);
             $this->_encoder->endTag();
 
-            $this->_encoder->startTag(SYNC_FOLDERHIERARCHY_SYNCKEY);
+            $this->_encoder->startTag(self::FOLDERHIERARCHY_SYNCKEY);
             $this->_encoder->content($newsynckey);
             $this->_encoder->endTag();
 
             $this->_encoder->endTag();
         } elseif ($delete) {
-            $this->_encoder->startTag(SYNC_FOLDERHIERARCHY_FOLDERDELETE);
+            $this->_encoder->startTag(self::FOLDERHIERARCHY_FOLDERDELETE);
 
-            $this->_encoder->startTag(SYNC_FOLDERHIERARCHY_STATUS);
+            $this->_encoder->startTag(self::FOLDERHIERARCHY_STATUS);
             $this->_encoder->content($deletedstat);
             $this->_encoder->endTag();
 
-            $this->_encoder->startTag(SYNC_FOLDERHIERARCHY_SYNCKEY);
+            $this->_encoder->startTag(self::FOLDERHIERARCHY_SYNCKEY);
             $this->_encoder->content($newsynckey);
             $this->_encoder->endTag();
 
@@ -1177,9 +1016,6 @@ class Horde_ActiveSync
         // @TODO: Leave the following in place until all are refactored...then throw
         // an error if the class does not exist.
         switch($cmd) {
-            case 'SendMail':
-                $status = $this->handleSendMail($version);
-                break;
             case 'SmartForward':
                 $status = $this->handleSmartForward($version);
                 break;

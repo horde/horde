@@ -155,8 +155,14 @@ class Horde_Api extends Horde_Registry_Api
      */
     public function getPreference($app, $pref)
     {
+        $pushed = $GLOBALS['registry']->pushApp($app);
         $GLOBALS['registry']->loadPrefs($app);
-        return $GLOBALS['prefs']->getValue($pref);
+        $value = $GLOBALS['prefs']->getValue($pref);
+        if ($pushed) {
+            $GLOBALS['registry']->popApp();
+        }
+
+        return $value;
     }
 
     /**
@@ -169,8 +175,12 @@ class Horde_Api extends Horde_Registry_Api
      */
     public function setPreference($app, $pref, $value)
     {
+        $pushed = $GLOBALS['registry']->pushApp($app);
         $GLOBALS['registry']->loadPrefs($app);
-        return $GLOBALS['prefs']->setValue($pref, $value);
+        $value = $GLOBALS['prefs']->setValue($pref, $value);
+        if ($pushed) {
+            $GLOBALS['registry']->popApp();
+        }
     }
 
     /**

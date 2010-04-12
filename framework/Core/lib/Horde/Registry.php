@@ -1073,6 +1073,9 @@ class Horde_Registry
             throw new Horde_Exception(sprintf(_('%s is not authorized for %s.'), Horde_Auth::getAuth() ? 'User ' . Horde_Auth::getAuth() : 'Guest user', $this->applications[$app]['name']), self::PERMISSION_DENIED);
         }
 
+        /* Push application on the stack. */
+        $this->_appStack[] = $app;
+
         /* Set up autoload paths for the current application. This needs to
          * be done here because it is possible to try to load app-specific
          * libraries from other applications. */
@@ -1087,26 +1090,8 @@ class Horde_Registry
          * with the current language, and reset the language later. */
         Horde_Nls::setLanguageEnvironment($GLOBALS['language'], $app);
 
-        /* Import this application's configuration values. */
-        $this->importConfig($app);
-
-        /* Load preferences after the configuration has been loaded to make
-         * sure the prefs file has all the information it needs. */
-        $this->loadPrefs($app);
-
-        /* Reset the language in case there is a different one selected in the
-         * preferences. */
-        $language = '';
-        if (isset($GLOBALS['prefs'])) {
-            $language = $GLOBALS['prefs']->getValue('language');
-            if ($language != $GLOBALS['language']) {
-                Horde_Nls::setLanguageEnvironment($language, $app);
-            }
-        }
-
-        /* Once we know everything succeeded and is in a consistent state
-         * again, push the new application onto the stack. */
-        $this->_appStack[] = $app;
+        /* Load config and prefs and set proper language from the prefs. */
+        $this->_onAppSwitch($app);
 
         /* Call post-push hook. */
         try {
@@ -1159,13 +1144,34 @@ class Horde_Registry
          * and set the gettext domain and the preferred language. */
         $app = $this->getApp();
         if ($app) {
-            $this->importConfig($app);
-            $this->loadPrefs($app);
-            $language = $GLOBALS['prefs']->getValue('language');
-            Horde_Nls::setLanguageEnvironment($language, $app);
+            $this->_onAppSwitch($app);
         }
 
         return $previous;
+    }
+
+    /**
+     * Code to run when switching to an application.
+     *
+     * @param string $app  The application name.
+     *
+     * @throws Horde_Exception
+     */
+    protected function _onAppSwitch($app)
+    {
+        /* Import this application's configuration values. */
+        $this->importConfig($app);
+
+        /* Load preferences after the configuration has been loaded to make
+         * sure the prefs file has all the information it needs. */
+        $this->loadPrefs($app);
+
+        /* Reset the language in case there is a different one selected in the
+         * preferences. */
+        $language = $GLOBALS['prefs']->getValue('language');
+        if ($language != $GLOBALS['language']) {
+            Horde_Nls::setLanguageEnvironment($language, $app);
+        }
     }
 
     /**
@@ -1228,13 +1234,17 @@ class Horde_Registry
     /**
      * Loads the preferences for the current user for the current application
      * and imports them into the global $prefs variable.
+     * $app will be the active application after calling this function.
      *
      * @param string $app  The name of the application.
+     * @throws Horde_Exception
      */
     public function loadPrefs($app = null)
     {
         if (is_null($app)) {
             $app = $this->getApp();
+        } else {
+            $this->pushApp($app);
         }
 
         /* If there is no logged in user, return an empty Horde_Prefs::

@@ -29,10 +29,10 @@ class Horde_ActiveSync_Message_Attendee extends Horde_ActiveSync_Message_Base
      */
     function __construct($params = array()) {
         $mapping = array(
-            SYNC_POOMCAL_EMAIL => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'email'),
-            SYNC_POOMCAL_NAME => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'name'),
-            SYNC_POOMCAL_ATTENDEETYPE => array(Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'type'),
-            SYNC_POOMCAL_ATTENDEESTATUS => array(Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'status')
+            Horde_ActiveSync_Message_Appointment::POOMCAL_EMAIL => array (self::KEY_ATTRIBUTE => 'email'),
+            Horde_ActiveSync_Message_Appointment::POOMCAL_NAME => array (self::KEY_ATTRIBUTE => 'name'),
+            //SYNC_POOMCAL_ATTENDEETYPE => array(self::KEY_ATTRIBUTE => 'type'),
+            //SYNC_POOMCAL_ATTENDEESTATUS => array(self::KEY_ATTRIBUTE => 'status')
         );
 
         parent::__construct($mapping, $params);

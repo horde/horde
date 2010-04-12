@@ -21,7 +21,7 @@ class Horde_ActiveSync_MockConnector
         return $this->_fixture[$name];
     }
 
-    public function contacts_import($content, $content_type)
+    public function contacts_import($content)
     {
         // $content is a vCard that should eq:
         $expected = array(

@@ -10,134 +10,159 @@
  */
 class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
 {
-    public $anniversary;
-    public $assistantname;
-    public $assistnamephonenumber;
-    public $birthday;
-    public $body;
-    public $bodysize;
-    public $bodytruncated;
-    public $business2phonenumber;
-    public $businesscity;
-    public $businesscountry;
-    public $businesspostalcode;
-    public $businessstate;
-    public $businessstreet;
-    public $businessfaxnumber;
-    public $businessphonenumber;
-    public $carphonenumber;
     public $categories = array();
     public $children = array();
-    public $companyname;
-    public $department;
-    public $email1address;
-    public $email2address;
-    public $email3address;
-    public $fileas;
-    public $firstname;
-    public $home2phonenumber;
-    public $homecity;
-    public $homecountry;
-    public $homepostalcode;
-    public $homestate;
-    public $homestreet;
-    public $homefaxnumber;
-    public $homephonenumber;
-    public $jobtitle;
-    public $lastname;
-    public $middlename;
-    public $mobilephonenumber;
-    public $officelocation;
-    public $othercity;
-    public $othercountry;
-    public $otherpostalcode;
-    public $otherstate;
-    public $otherstreet;
-    public $pagernumber;
-    public $radiophonenumber;
-    public $spouse;
-    public $suffix;
-    public $title;
-    public $webpage;
-    public $yomicompanyname;
-    public $yomifirstname;
-    public $yomilastname;
-    public $rtf;
-    public $picture;
-    public $nickname;
 
+
+    /* POOMCONTACTS */
+    const ANNIVERSARY = "POOMCONTACTS:Anniversary";
+    const ASSISTANTNAME = "POOMCONTACTS:AssistantName";
+    const ASSISTNAMEPHONENUMBER = "POOMCONTACTS:AssistnamePhoneNumber";
+    const BIRTHDAY = "POOMCONTACTS:Birthday";
+    const BODY = "POOMCONTACTS:Body";
+    const BODYSIZE = "POOMCONTACTS:BodySize";
+    const BODYTRUNCATED = "POOMCONTACTS:BodyTruncated";
+    const BUSINESS2PHONENUMBER = "POOMCONTACTS:Business2PhoneNumber";
+    const BUSINESSCITY = "POOMCONTACTS:BusinessCity";
+    const BUSINESSCOUNTRY = "POOMCONTACTS:BusinessCountry";
+    const BUSINESSPOSTALCODE = "POOMCONTACTS:BusinessPostalCode";
+    const BUSINESSSTATE = "POOMCONTACTS:BusinessState";
+    const BUSINESSSTREET = "POOMCONTACTS:BusinessStreet";
+    const BUSINESSFAXNUMBER = "POOMCONTACTS:BusinessFaxNumber";
+    const BUSINESSPHONENUMBER = "POOMCONTACTS:BusinessPhoneNumber";
+    const CARPHONENUMBER = "POOMCONTACTS:CarPhoneNumber";
+    const CATEGORIES = "POOMCONTACTS:Categories";
+    const CATEGORY = "POOMCONTACTS:Category";
+    const CHILDREN = "POOMCONTACTS:Children";
+    const CHILD = "POOMCONTACTS:Child";
+    const COMPANYNAME = "POOMCONTACTS:CompanyName";
+    const DEPARTMENT = "POOMCONTACTS:Department";
+    const EMAIL1ADDRESS = "POOMCONTACTS:Email1Address";
+    const EMAIL2ADDRESS = "POOMCONTACTS:Email2Address";
+    const EMAIL3ADDRESS = "POOMCONTACTS:Email3Address";
+    const FILEAS = "POOMCONTACTS:FileAs";
+    const FIRSTNAME = "POOMCONTACTS:FirstName";
+    const HOME2PHONENUMBER = "POOMCONTACTS:Home2PhoneNumber";
+    const HOMECITY = "POOMCONTACTS:HomeCity";
+    const HOMECOUNTRY = "POOMCONTACTS:HomeCountry";
+    const HOMEPOSTALCODE = "POOMCONTACTS:HomePostalCode";
+    const HOMESTATE = "POOMCONTACTS:HomeState";
+    const HOMESTREET = "POOMCONTACTS:HomeStreet";
+    const HOMEFAXNUMBER = "POOMCONTACTS:HomeFaxNumber";
+    const HOMEPHONENUMBER = "POOMCONTACTS:HomePhoneNumber";
+    const JOBTITLE = "POOMCONTACTS:JobTitle";
+    const LASTNAME = "POOMCONTACTS:LastName";
+    const MIDDLENAME = "POOMCONTACTS:MiddleName";
+    const MOBILEPHONENUMBER = "POOMCONTACTS:MobilePhoneNumber";
+    const OFFICELOCATION = "POOMCONTACTS:OfficeLocation";
+    const OTHERCITY = "POOMCONTACTS:OtherCity";
+    const OTHERCOUNTRY = "POOMCONTACTS:OtherCountry";
+    const OTHERPOSTALCODE = "POOMCONTACTS:OtherPostalCode";
+    const OTHERSTATE = "POOMCONTACTS:OtherState";
+    const OTHERSTREET = "POOMCONTACTS:OtherStreet";
+    const PAGERNUMBER = "POOMCONTACTS:PagerNumber";
+    const RADIOPHONENUMBER = "POOMCONTACTS:RadioPhoneNumber";
+    const SPOUSE = "POOMCONTACTS:Spouse";
+    const SUFFIX = "POOMCONTACTS:Suffix";
+    const TITLE = "POOMCONTACTS:Title";
+    const WEBPAGE = "POOMCONTACTS:WebPage";
+    const YOMICOMPANYNAME = "POOMCONTACTS:YomiCompanyName";
+    const YOMIFIRSTNAME = "POOMCONTACTS:YomiFirstName";
+    const YOMILASTNAME = "POOMCONTACTS:YomiLastName";
+    const RTF = "POOMCONTACTS:Rtf";
+    const PICTURE = "POOMCONTACTS:Picture";
+
+    /* POOMCONTACTS2 */
+    const CUSTOMERID = "POOMCONTACTS2:CustomerId";
+    const GOVERNMENTID = "POOMCONTACTS2:GovernmentId";
+    const IMADDRESS = "POOMCONTACTS2:IMAddress";
+    const IMADDRESS2 = "POOMCONTACTS2:IMAddress2";
+    const IMADDRESS3 = "POOMCONTACTS2:IMAddress3";
+    const MANAGERNAME = "POOMCONTACTS2:ManagerName";
+    const COMPANYMAINPHONE = "POOMCONTACTS2:CompanyMainPhone";
+    const ACCOUNTNAME = "POOMCONTACTS2:AccountName";
+    const NICKNAME = "POOMCONTACTS2:NickName";
+    const MMS = "POOMCONTACTS2:MMS";
+
+    /**
+     * Const'r
+     *
+     * @param array $params
+     *
+     * @return Horde_ActiveSync_Message_Contact
+     */
     public function __construct($params = array())
     {
         $mapping = array (
-            SYNC_POOMCONTACTS_ANNIVERSARY => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE =>  'anniversary', Horde_ActiveSync_Message_Base::KEY_TYPE => Horde_ActiveSync_Message_Base::TYPE_DATE_DASHES  ),
-            SYNC_POOMCONTACTS_ASSISTANTNAME => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'assistantname'),
-            SYNC_POOMCONTACTS_ASSISTNAMEPHONENUMBER => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'assistnamephonenumber'),
-            SYNC_POOMCONTACTS_BIRTHDAY => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'birthday', Horde_ActiveSync_Message_Base::KEY_TYPE => Horde_ActiveSync_Message_Base::TYPE_DATE_DASHES  ),
-            SYNC_POOMCONTACTS_BODY => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'body'),
-            SYNC_POOMCONTACTS_BODYSIZE => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'bodysize'),
-            SYNC_POOMCONTACTS_BODYTRUNCATED => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'bodytruncated'),
-            SYNC_POOMCONTACTS_BUSINESS2PHONENUMBER => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'business2phonenumber'),
-            SYNC_POOMCONTACTS_BUSINESSCITY => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'businesscity'),
-            SYNC_POOMCONTACTS_BUSINESSCOUNTRY => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'businesscountry'),
-            SYNC_POOMCONTACTS_BUSINESSPOSTALCODE => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'businesspostalcode'),
-            SYNC_POOMCONTACTS_BUSINESSSTATE => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'businessstate'),
-            SYNC_POOMCONTACTS_BUSINESSSTREET => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'businessstreet'),
-            SYNC_POOMCONTACTS_BUSINESSFAXNUMBER => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'businessfaxnumber'),
-            SYNC_POOMCONTACTS_BUSINESSPHONENUMBER => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'businessphonenumber'),
-            SYNC_POOMCONTACTS_CARPHONENUMBER => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'carphonenumber'),
-            SYNC_POOMCONTACTS_CHILDREN => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'children', Horde_ActiveSync_Message_Base::KEY_VALUES => SYNC_POOMCONTACTS_CHILD ),
-            SYNC_POOMCONTACTS_COMPANYNAME => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'companyname'),
-            SYNC_POOMCONTACTS_DEPARTMENT => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'department'),
-            SYNC_POOMCONTACTS_EMAIL1ADDRESS => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'email1address'),
-            SYNC_POOMCONTACTS_EMAIL2ADDRESS => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'email2address'),
-            SYNC_POOMCONTACTS_EMAIL3ADDRESS => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'email3address'),
-            SYNC_POOMCONTACTS_FILEAS => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'fileas'),
-            SYNC_POOMCONTACTS_FIRSTNAME => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'firstname'),
-            SYNC_POOMCONTACTS_HOME2PHONENUMBER => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'home2phonenumber'),
-            SYNC_POOMCONTACTS_HOMECITY => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'homecity'),
-            SYNC_POOMCONTACTS_HOMECOUNTRY => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'homecountry'),
-            SYNC_POOMCONTACTS_HOMEPOSTALCODE => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'homepostalcode'),
-            SYNC_POOMCONTACTS_HOMESTATE => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'homestate'),
-            SYNC_POOMCONTACTS_HOMESTREET => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'homestreet'),
-            SYNC_POOMCONTACTS_HOMEFAXNUMBER => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'homefaxnumber'),
-            SYNC_POOMCONTACTS_HOMEPHONENUMBER => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'homephonenumber'),
-            SYNC_POOMCONTACTS_JOBTITLE => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'jobtitle'),
-            SYNC_POOMCONTACTS_LASTNAME => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'lastname'),
-            SYNC_POOMCONTACTS_MIDDLENAME => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'middlename'),
-            SYNC_POOMCONTACTS_MOBILEPHONENUMBER => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'mobilephonenumber'),
-            SYNC_POOMCONTACTS_OFFICELOCATION => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'officelocation'),
-            SYNC_POOMCONTACTS_OTHERCITY => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'othercity'),
-            SYNC_POOMCONTACTS_OTHERCOUNTRY => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'othercountry'),
-            SYNC_POOMCONTACTS_OTHERPOSTALCODE => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'otherpostalcode'),
-            SYNC_POOMCONTACTS_OTHERSTATE => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'otherstate'),
-            SYNC_POOMCONTACTS_OTHERSTREET => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'otherstreet'),
-            SYNC_POOMCONTACTS_PAGERNUMBER => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'pagernumber'),
-            SYNC_POOMCONTACTS_RADIOPHONENUMBER => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'radiophonenumber'),
-            SYNC_POOMCONTACTS_SPOUSE => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'spouse'),
-            SYNC_POOMCONTACTS_SUFFIX => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'suffix'),
-            SYNC_POOMCONTACTS_TITLE => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'title'),
-            SYNC_POOMCONTACTS_WEBPAGE => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'webpage'),
-            SYNC_POOMCONTACTS_YOMICOMPANYNAME => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'yomicompanyname'),
-            SYNC_POOMCONTACTS_YOMIFIRSTNAME => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'yomifirstname'),
-            SYNC_POOMCONTACTS_YOMILASTNAME => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'yomilastname'),
-            SYNC_POOMCONTACTS_RTF => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'rtf'),
-            SYNC_POOMCONTACTS_PICTURE => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'picture'),
-            SYNC_POOMCONTACTS_CATEGORIES => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'categories', Horde_ActiveSync_Message_Base::KEY_VALUES => SYNC_POOMCONTACTS_CATEGORY ),
+            self::ANNIVERSARY => array (self::KEY_ATTRIBUTE =>  'anniversary', self::KEY_TYPE => self::TYPE_DATE_DASHES),
+            self::ASSISTANTNAME => array (self::KEY_ATTRIBUTE => 'assistantname'),
+            self::ASSISTNAMEPHONENUMBER => array (self::KEY_ATTRIBUTE => 'assistnamephonenumber'),
+            self::BIRTHDAY => array (self::KEY_ATTRIBUTE => 'birthday', self::KEY_TYPE => self::TYPE_DATE_DASHES),
+            self::BODY => array (self::KEY_ATTRIBUTE => 'body'),
+            self::BODYSIZE => array (self::KEY_ATTRIBUTE => 'bodysize'),
+            self::BODYTRUNCATED => array (self::KEY_ATTRIBUTE => 'bodytruncated'),
+            self::BUSINESS2PHONENUMBER => array (self::KEY_ATTRIBUTE => 'business2phonenumber'),
+            self::BUSINESSCITY => array (self::KEY_ATTRIBUTE => 'businesscity'),
+            self::BUSINESSCOUNTRY => array (self::KEY_ATTRIBUTE => 'businesscountry'),
+            self::BUSINESSPOSTALCODE => array (self::KEY_ATTRIBUTE => 'businesspostalcode'),
+            self::BUSINESSSTATE => array (self::KEY_ATTRIBUTE => 'businessstate'),
+            self::BUSINESSSTREET => array (self::KEY_ATTRIBUTE => 'businessstreet'),
+            self::BUSINESSFAXNUMBER => array (self::KEY_ATTRIBUTE => 'businessfaxnumber'),
+            self::BUSINESSPHONENUMBER => array (self::KEY_ATTRIBUTE => 'businessphonenumber'),
+            self::CARPHONENUMBER => array (self::KEY_ATTRIBUTE => 'carphonenumber'),
+            self::CHILDREN => array (self::KEY_ATTRIBUTE => 'children', self::KEY_VALUES => self::CHILD),
+            self::COMPANYNAME => array (self::KEY_ATTRIBUTE => 'companyname'),
+            self::DEPARTMENT => array (self::KEY_ATTRIBUTE => 'department'),
+            self::EMAIL1ADDRESS => array (self::KEY_ATTRIBUTE => 'email1address'),
+            self::EMAIL2ADDRESS => array (self::KEY_ATTRIBUTE => 'email2address'),
+            self::EMAIL3ADDRESS => array (self::KEY_ATTRIBUTE => 'email3address'),
+            self::FILEAS => array (self::KEY_ATTRIBUTE => 'fileas'),
+            self::FIRSTNAME => array (self::KEY_ATTRIBUTE => 'firstname'),
+            self::HOME2PHONENUMBER => array (self::KEY_ATTRIBUTE => 'home2phonenumber'),
+            self::HOMECITY => array (self::KEY_ATTRIBUTE => 'homecity'),
+            self::HOMECOUNTRY => array (self::KEY_ATTRIBUTE => 'homecountry'),
+            self::HOMEPOSTALCODE => array (self::KEY_ATTRIBUTE => 'homepostalcode'),
+            self::HOMESTATE => array (self::KEY_ATTRIBUTE => 'homestate'),
+            self::HOMESTREET => array (self::KEY_ATTRIBUTE => 'homestreet'),
+            self::HOMEFAXNUMBER => array (self::KEY_ATTRIBUTE => 'homefaxnumber'),
+            self::HOMEPHONENUMBER => array (self::KEY_ATTRIBUTE => 'homephonenumber'),
+            self::JOBTITLE => array (self::KEY_ATTRIBUTE => 'jobtitle'),
+            self::LASTNAME => array (self::KEY_ATTRIBUTE => 'lastname'),
+            self::MIDDLENAME => array (self::KEY_ATTRIBUTE => 'middlename'),
+            self::MOBILEPHONENUMBER => array (self::KEY_ATTRIBUTE => 'mobilephonenumber'),
+            self::OFFICELOCATION => array (self::KEY_ATTRIBUTE => 'officelocation'),
+            self::OTHERCITY => array (self::KEY_ATTRIBUTE => 'othercity'),
+            self::OTHERCOUNTRY => array (self::KEY_ATTRIBUTE => 'othercountry'),
+            self::OTHERPOSTALCODE => array (self::KEY_ATTRIBUTE => 'otherpostalcode'),
+            self::OTHERSTATE => array (self::KEY_ATTRIBUTE => 'otherstate'),
+            self::OTHERSTREET => array (self::KEY_ATTRIBUTE => 'otherstreet'),
+            self::PAGERNUMBER => array (self::KEY_ATTRIBUTE => 'pagernumber'),
+            self::RADIOPHONENUMBER => array (self::KEY_ATTRIBUTE => 'radiophonenumber'),
+            self::SPOUSE => array (self::KEY_ATTRIBUTE => 'spouse'),
+            self::SUFFIX => array (self::KEY_ATTRIBUTE => 'suffix'),
+            self::TITLE => array (self::KEY_ATTRIBUTE => 'title'),
+            self::WEBPAGE => array (self::KEY_ATTRIBUTE => 'webpage'),
+            self::YOMICOMPANYNAME => array (self::KEY_ATTRIBUTE => 'yomicompanyname'),
+            self::YOMIFIRSTNAME => array (self::KEY_ATTRIBUTE => 'yomifirstname'),
+            self::YOMILASTNAME => array (self::KEY_ATTRIBUTE => 'yomilastname'),
+            self::RTF => array (self::KEY_ATTRIBUTE => 'rtf'),
+            self::PICTURE => array (self::KEY_ATTRIBUTE => 'picture'),
+            self::CATEGORIES => array (self::KEY_ATTRIBUTE => 'categories', self::KEY_VALUES => self::CATEGORY),
         );
 
         /* Additional mappings for AS versions >= 2.5 */
         if (isset($params['protocolversion']) && $params['protocolversion'] >= 2.5) {
             $mapping += array(
-                SYNC_POOMCONTACTS2_CUSTOMERID => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'customerid'),
-                SYNC_POOMCONTACTS2_GOVERNMENTID => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'governmentid'),
-                SYNC_POOMCONTACTS2_IMADDRESS => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'imaddress'),
-                SYNC_POOMCONTACTS2_IMADDRESS2 => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'imaddress2'),
-                SYNC_POOMCONTACTS2_IMADDRESS3 => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'imaddress3'),
-                SYNC_POOMCONTACTS2_MANAGERNAME => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'managername'),
-                SYNC_POOMCONTACTS2_COMPANYMAINPHONE => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'companymainphone'),
-                SYNC_POOMCONTACTS2_ACCOUNTNAME => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'accountname'),
-                SYNC_POOMCONTACTS2_NICKNAME => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'nickname'),
-                SYNC_POOMCONTACTS2_MMS => array (Horde_ActiveSync_Message_Base::KEY_ATTRIBUTE => 'mms'),
+                self::CUSTOMERID => array (self::KEY_ATTRIBUTE => 'customerid'),
+                self::GOVERNMENTID => array (self::KEY_ATTRIBUTE => 'governmentid'),
+                self::IMADDRESS => array (self::KEY_ATTRIBUTE => 'imaddress'),
+                self::IMADDRESS2 => array (self::KEY_ATTRIBUTE => 'imaddress2'),
+                self::IMADDRESS3 => array (self::KEY_ATTRIBUTE => 'imaddress3'),
+                self::MANAGERNAME => array (self::KEY_ATTRIBUTE => 'managername'),
+                self::COMPANYMAINPHONE => array (self::KEY_ATTRIBUTE => 'companymainphone'),
+                self::ACCOUNTNAME => array (self::KEY_ATTRIBUTE => 'accountname'),
+                self::NICKNAME => array (self::KEY_ATTRIBUTE => 'nickname'),
+                self::MMS => array (self::KEY_ATTRIBUTE => 'mms'),
             );
         }
 
@@ -148,4 +173,5 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
     {
         return 'Contacts';
     }
+
 }

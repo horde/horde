@@ -880,6 +880,58 @@ class Nag_Task {
     }
 
     /**
+     * Create an AS message from this task
+     *
+     */
+    function toASTask()
+    {
+        $message = new Horde_ActiveSync_Message_Task();
+
+        /* Notes and Title */
+        $message->setBody(Horde_String::convertCharset($this->desc, Horde_Nls::getCharset(), 'utf-8'));
+        $message->setSubject(Horde_String::convertCharset($this->name, Horde_Nls::getCharset(), 'utf-8'));
+
+        /* Completion */
+        if ($this->completed) {
+            $message->SetDateCompleted(new Horde_Date($this->completed_date));
+            $message->setComplete(Horde_ActiveSync_Message_Task::TASK_COMPLETE_TRUE);
+        } else {
+            $message->setComplete(Horde_ActiveSync_Message_Task::TASK_COMPLETE_FALSE);
+        }
+
+        /* Due Date */
+        $message->setDueDate(new Horde_Date($this->due));
+
+        /* Start Date */
+        $message->setStartDate(new Horde_Date($this->start));
+
+        /* Priority */
+        switch ($this->priority) {
+        case 5:
+            $priority = Horde_ActiveSync_Message_Task::IMPORTANCE_LOW;
+            break;
+        case 4:
+        case 3:
+        case 2:
+            $priority = Horde_ActiveSync_Message_Task::IMPORTANCE_NORMAL;
+            break;
+        case 1:
+            $priority = Horde_ActiveSync_Message_Task::IMPORTANCE_HIGH;
+            break;
+        default:
+            $priority = Horde_ActiveSync_Message_Task::IMPORTANCE_NORMAL;
+        }
+        $message->setImportance($priority);
+
+        /* Reminders */
+        if ($this->due && $this->alarm) {
+            $message->setReminder(new Horde_Date($this->due - $this->alarm));
+        }
+
+        return $message;
+    }
+
+    /**
      * Creates a task from a Horde_iCalendar_vtodo object.
      *
      * @param Horde_iCalendar_vtodo $vTodo  The iCalendar data to update from.
@@ -979,6 +1031,54 @@ class Nag_Task {
             $class = Horde_String::upper($class);
             $this->private = $class == 'PRIVATE' || $class == 'CONFIDENTIAL';
         }
+    }
+
+    /**
+     * Create a nag Task object from an activesync message
+     *
+     */
+    function fromASTask(Horde_ActiveSync_Message_Task $message)
+    {
+        /* Notes and Title */
+        $this->desc = Horde_String::convertCharset($message->getBody(), 'utf-8', Horde_Nls::getCharset());
+        $this->name = Horde_String::convertCharset($message->getSubject(), 'utf-8', Horde_Nls::getCharset());
+
+        /* Completion */
+        if ($this->completed = $message->getComplete()) {
+            $dateCompleted = $message->getDateCompleted();
+            $this->completed_date = empty($dateCompleted) ? null : $dateCompleted;
+        }
+
+        /* Due Date */
+        if ($due = $message->getDueDate()) {
+            $this->due = $due->timstamp();
+        }
+
+        /* Start Date */
+        if ($start = $message->getStartDate()) {
+            $this->start = $start->timestamp();
+        }
+
+        /* Priority */
+        switch ($message->getImportance()) {
+        case Horde_ActiveSync_Message_Task::IMPORTANCE_LOW;
+            $this->priority = 5;
+            break;
+        case Horde_ActiveSync_Message_Task::IMPORTANCE_NORMAL;
+            $this->priority = 3;
+            break;
+        case Horde_ActiveSync_Message_Task::IMPORTANCE_HIGH;
+            $this->priority = 1;
+            break;
+        default:
+            $this->priority = 3;
+        }
+
+        if ($alarm = $message->getReminder() && $this->due) {
+            $this->alarm = $this->due - $alarm->timestamp();
+        }
+
+        $this->tasklist = $GLOBALS['prefs']->getValue('default_tasklist');
     }
 
 }

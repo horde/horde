@@ -130,7 +130,9 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
         );
 
         // Need to init the Nls system
-        error_reporting(E_ALL & ~E_DEPRECATED);
+        if (version_compare(PHP_VERSION, '5.3.0', '>=')) {
+            error_reporting(E_ALL & ~E_DEPRECATED);
+        }
         require_once dirname(__FILE__) . '/../../../../../horde/lib/core.php';
         Horde_Nls::setLanguage();
         
@@ -148,7 +150,7 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
         $this->assertEquals('PharmD', $results->suffix);
         $this->assertEquals('Michael Joseph Rubinsky', $results->fileas);
         $this->assertEquals('mrubinsk@horde.org', $results->email1address);
-        $this->assertEquals('6757200', $results->birthday->timestamp());
+        $this->assertEquals('1970-03-20', $results->birthday->format('Y-m-d'));
         $this->assertEquals('(856)555-1234', $results->homephonenumber);
         $this->assertEquals('(856)555-5678', $results->businessphonenumber);
         $this->assertEquals('(609)555-9876', $results->mobilephonenumber);
@@ -170,7 +172,9 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
     public function testStreamerUTF8()
     {
         // Need to init the Nls system
-        error_reporting(E_ALL & ~E_DEPRECATED);
+        if (version_compare(PHP_VERSION, '5.3.0', '>=')) {
+            error_reporting(E_ALL & ~E_DEPRECATED);
+        }
         require_once dirname(__FILE__) . '/../../../../../horde/lib/core.php';
         Horde_Nls::setLanguage();
         
@@ -191,6 +195,7 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
 
         $this->assertEquals(Horde_String::convertCharset('Grüb', Horde_Nls::getCharset(), 'utf-8'), $results->firstname);
     }
+
     /**
      * Test ChangeMessage:
      * 
@@ -220,7 +225,9 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
         $message->homepostalcode = '08080';
 
         // Need to init the Nls system
-        error_reporting(E_ALL & ~E_DEPRECATED);
+        if (version_compare(PHP_VERSION, '5.3.0', '>=')) {
+            error_reporting(E_ALL & ~E_DEPRECATED);
+        }
         require_once dirname(__FILE__) . '/../../../../../horde/lib/core.php';
         Horde_Nls::setLanguage();
         
@@ -244,7 +251,7 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
     {
         $registry = $this->getMockSkipConstructor('Horde_Registry');
         $state = $this->getMockSkipConstructor('Horde_ActiveSync_State_File');
-        $connector = new Horde_ActiveSync_MockConnector(array('fixture' => array()));
+        $connector = new Horde_ActiveSync_MockConnector(array('fixture' => array('horde_listApis' => array('horde', 'contacts', 'calendar', 'tasks'))));
         $driver = new Horde_ActiveSync_Driver_Horde(array('connector' => $connector,
                                                           'state_basic' => $state));
         $results = $driver->getFolderList();

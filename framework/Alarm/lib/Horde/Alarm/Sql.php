@@ -216,7 +216,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
      */
     protected function _update($alarm)
     {
-        $query = sprintf('UPDATE %s set alarm_start = ?, alarm_end = ?, alarm_methods = ?, alarm_params = ?, alarm_title = ?, alarm_text = ? WHERE alarm_id = ? AND %s',
+        $query = sprintf('UPDATE %s set alarm_start = ?, alarm_end = ?, alarm_methods = ?, alarm_params = ?, alarm_title = ?, alarm_text = ?, alarm_snooze = NULL WHERE alarm_id = ? AND %s',
                          $this->_params['table'],
                          isset($alarm['user']) ? 'alarm_uid = ?' : '(alarm_uid = ? OR alarm_uid IS NULL)');
         $values = array((string)$alarm['start']->setTimezone('UTC'),

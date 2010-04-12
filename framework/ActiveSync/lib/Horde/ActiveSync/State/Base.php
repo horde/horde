@@ -253,6 +253,13 @@ abstract class Horde_ActiveSync_State_Base
     abstract public function setDeviceInfo($devId, $data);
 
     /**
+     * Explicitly remove a state from storage.
+     *
+     * @param string $synckey
+     */
+    abstract public function removeState($synckey);
+
+    /**
      * Set the backend driver
      * (should really only be called by a backend object when passing this
      * object to client code)
@@ -296,6 +303,7 @@ abstract class Horde_ActiveSync_State_Base
      * @param string $syncKey  The old syncKey
      *
      * @return string  The new synckey
+     * @throws Horde_ActiveSync_Exception
      */
     static public function getNewSyncKey($syncKey)
     {
@@ -308,9 +316,7 @@ abstract class Horde_ActiveSync_State_Base
 
                 return '{' . $matches[1] . '}' . $n;
             }
-
-            // @TODO: should this thrown an exception instead of returning false?
-            return false;
+            throw new Horde_ActiveSync_Exception('Invalid SyncKey format passed to getNewSyncKey()');
         }
     }
 

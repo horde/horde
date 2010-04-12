@@ -248,16 +248,16 @@ class Horde_ActiveSync_Sync
     private static function _getTruncSize($truncation)
     {
         switch($truncation) {
-        case SYNC_TRUNCATION_HEADERS:
+        case Horde_ActiveSync::TRUNCATION_HEADERS:
             return 0;
-        case SYNC_TRUNCATION_512B:
+        case Horde_ActiveSync::TRUNCATION_512B:
             return 512;
-        case SYNC_TRUNCATION_1K:
+        case Horde_ActiveSync::TRUNCATION_1K:
             return 1024;
-        case SYNC_TRUNCATION_5K:
+        case Horde_ActiveSync::TRUNCATION_5K:
             return 5 * 1024;
-        case SYNC_TRUNCATION_SEVEN:
-        case SYNC_TRUNCATION_ALL:
+        case Horde_ActiveSync::TRUNCATION_SEVEN:
+        case Horde_ActiveSync::TRUNCATION_ALL:
             return 1024 * 1024; // We'll limit to 1MB anyway
         default:
             return 1024; // Default to 1Kb

@@ -21,7 +21,6 @@
 ************************************************/
 class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
 {
-
     /** Constants **/
     const APPOINTMENTS_FOLDER = 'Calendar';
     const CONTACTS_FOLDER = 'Contacts';
@@ -108,18 +107,6 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * @todo
-     *
-     * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#SendMail($rfc822, $forward, $reply, $parent)
-     */
-    public function SendMail($rfc822, $forward = false, $reply = false, $parent = false)
-    {
-        $this->_logger->debug('Horde::SendMail(...)');
-
-        return false;
-    }
-
-    /**
      * @TODO
      *
      * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#GetWasteBasket()
@@ -134,18 +121,26 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
     /**
      * Return a list of available folders
      *
-     * @TODO: only return those folders we configure horde to serve
      * @return array  An array of folder stats
      */
     public function getFolderList()
     {
         $this->_logger->debug('Horde::getFolderList()');
+        /* Make sure we have the APIs needed for each folder class */
+        $supported = $this->_connector->horde_listApis();
         $folders = array();
 
-        // @TODO: Be able to configure the folders to sync/not sync
-        $folders[] = $this->StatFolder(self::APPOINTMENTS_FOLDER);
-        $folders[] = $this->StatFolder(self::CONTACTS_FOLDER);
-        $folders[] = $this->StatFolder(self::TASKS_FOLDER);
+        if (array_search('calendar', $supported)){
+            $folders[] = $this->StatFolder(self::APPOINTMENTS_FOLDER);
+        }
+
+        if (array_search('contacts', $supported)){
+            $folders[] = $this->StatFolder(self::CONTACTS_FOLDER);
+        }
+
+        if (array_search('tasks', $supported)){
+            $folders[] = $this->StatFolder(self::TASKS_FOLDER);
+        }
 
         return $folders;
     }
@@ -168,13 +163,13 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
 
         switch ($id) {
         case self::APPOINTMENTS_FOLDER:
-            $folder->type = SYNC_FOLDER_TYPE_APPOINTMENT;
+            $folder->type = Horde_ActiveSync::FOLDER_TYPE_APPOINTMENT;
             break;
         case self::CONTACTS_FOLDER:
-            $folder->type = SYNC_FOLDER_TYPE_CONTACT;
+            $folder->type = Horde_ActiveSync::FOLDER_TYPE_CONTACT;
             break;
         case self::TASKS_FOLDER:
-            $folder->type = SYNC_FOLDER_TYPE_TASK;
+            $folder->type = Horde_ActiveSync::FOLDER_TYPE_TASK;
             break;
         default:
             return false;
@@ -246,7 +241,13 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
             break;
 
         case self::TASKS_FOLDER:
-            // @TODO?
+            $tasks = $this->_connector->tasks_listTasks();
+            foreach ($tasks as $task)
+            {
+                $messages[] = $this->_smartStatMessage($folderid, $task, true);
+            }
+            break;
+
         default:
             return false;
         }
@@ -280,7 +281,6 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
     /**
      * Get a message from the backend
      *
-     * @TODO: Default value for truncsize? Do we need it?
      * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#GetMessage($folderid, $id, $truncsize, $mimesupport)
      */
     public function GetMessage($folderid, $id, $truncsize, $mimesupport = 0)
@@ -296,29 +296,30 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
                 $this->_logger->err($e->GetMessage());
                 return false;
             }
-            //$message = self::_fromVCalendar($event);
-
             break;
 
         case self::CONTACTS_FOLDER:
             try {
-                $contact = $this->_connector->contacts_export($id, 'array');
+                $contact = $this->_connector->contacts_export($id);
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->GetMessage());
                 return false;
             }
 
-            $message = self::_fromHash($contact);
+           return self::_fromHash($contact);
             break;
 
         case self::TASKS_FOLDER:
-            // @TODO
+            try {
+                return $this->_connector->tasks_export($id);
+            } catch (Horde_Exception $e) {
+                $this->_logger->err($e->GetMessage());
+                return false;
+            }
             break;
         default:
             return false;
         }
-
-        return $message;
     }
 
     /**
@@ -361,6 +362,12 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
             break;
 
         case self::TASKS_FOLDER:
+            try {
+                $status = $this->_connector->tasks_delete($id);
+            } catch (Horde_Exception $e) {
+                $this->_logger->err($e->getMessage());
+                return false;
+            }
             break;
         default:
             return false;
@@ -411,7 +418,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
             $content = self::_toHash($message);
             if (!$id) {
                 try {
-                    $id = $this->_connector->contacts_import($content, 'array');
+                    $id = $this->_connector->contacts_import($content);
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     return false;
@@ -419,7 +426,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
                 $stat = $this->_smartStatMessage($folderid, $id, false);
             } else {
                 try {
-                    $this->_connector->contacts_replace($id, $content, 'array');
+                    $this->_connector->contacts_replace($id, $content);
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     return false;
@@ -427,10 +434,30 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
                 $stat = $this->_smartStatMessage($folderid, $id, false);
             }
         case self::TASKS_FOLDER:
+            if (!$id) {
+                try {
+                    $id = $this->_connector->tasks_import($message);
+                } catch (Horde_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    return false;
+                }
+
+                $stat = $this->_smartStatMessage($folderid, $id, false);
+            } else {
+                try {
+                    $this->_connector->tasks_replace($id, $message);
+                } catch (Horde_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    return false;
+                }
+                $stat = $this->_smartStatMessage($folderid, $id, false);
+            }
+
             break;
         default:
             return false;
         }
+
         return $stat;
     }
 
@@ -445,6 +472,42 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
     {
         $this->_logger->err('getSearchResults not yet implemented');
         return array();
+    }
+
+    /**
+     * Sends the email represented by the rfc822 string received by the PIM.
+     * Currently only used when meeting requests are sent from the PIM.
+     *
+     * @param string $rfc822    The rfc822 mime message
+     * @param boolean $forward  @TODO
+     * @param boolean $reply    @TODO
+     * @param boolean $parent   @TODO
+     *
+     * @return boolean
+     */
+    public function sendMail($rfc822, $forward = false, $reply = false, $parent = false)
+    {
+        $headers = Horde_Mime_Headers::parseHeaders($rfc822);
+        $part = Horde_Mime_Part::parseMessage($rfc822);
+
+        $mail = new Horde_Mime_Mail();
+        $mail->addHeaders($headers->toArray());
+
+        $body_id = $part->findBody();
+        if ($body_id) {
+            $body = $part->getPart($body_id);
+            $body = $body->getContents();
+            $mail->setBody($body);
+        } else {
+            $mail->setBody('No body?');
+        }
+        foreach ($part->contentTypeMap() as $id => $type) {
+            $mail->addPart($type, $part->getPart($id)->toString());
+        }
+
+        $mail->send($this->_params['mail']);
+
+        return true;
     }
 
     /**
@@ -474,6 +537,8 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
                 $mod = $this->_connector->contacts_getActionTimestamp($id, 'modify');
                 break;
             case self::TASKS_FOLDER:
+                $mod = $this->_connector->tasks_getActionTimestamp($id, 'modify');
+
                 break;
             default:
                 return false;
@@ -547,7 +612,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
             $hash['category']['value'] = Horde_String::convertCharset(implode(';', $message->categories), 'utf-8', $charset);
             $hash['category']['new'] = true;
         }
-        
+
         /* Children */
         // @TODO
 

@@ -36,9 +36,9 @@ class Horde_ActiveSync_Connector_Importer
     protected $_backend;
 
     /**
+     * Flags
      *
-     * @TODO
-     * @var <type>
+     * @var integer
      */
     protected $_flags;
 
@@ -97,7 +97,7 @@ class Horde_ActiveSync_Connector_Importer
     public function ImportMessageChange($id, $message)
     {
         /* do nothing if it is in a dummy folder */
-        if ($this->_folderId == SYNC_FOLDER_TYPE_DUMMY) {
+        if ($this->_folderId == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
             return false;
         }
 
@@ -143,7 +143,7 @@ class Horde_ActiveSync_Connector_Importer
     public function ImportMessageDeletion($id)
     {
         /* Do nothing if it is in a dummy folder */
-        if ($this->_folderId == SYNC_FOLDER_TYPE_DUMMY) {
+        if ($this->_folderId == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
             return true;
         }
 
@@ -177,7 +177,7 @@ class Horde_ActiveSync_Connector_Importer
     public function ImportMessageReadFlag($id, $flags)
     {
         /* Do nothing if it is a dummy folder */
-        if ($this->_folderId == SYNC_FOLDER_TYPE_DUMMY) {
+        if ($this->_folderId == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
             return true;
         }
 
@@ -221,7 +221,7 @@ class Horde_ActiveSync_Connector_Importer
     public function ImportFolderChange($id, $parent, $displayname, $type)
     {
         /* do nothing if it is a dummy folder */
-        if ($parent == SYNC_FOLDER_TYPE_DUMMY) {
+        if ($parent == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
             return false;
         }
 
@@ -254,7 +254,7 @@ class Horde_ActiveSync_Connector_Importer
     public function ImportFolderDeletion($id, $parent)
     {
         /* Do nothing if it is a dummy folder */
-        if ($parent == SYNC_FOLDER_TYPE_DUMMY) {
+        if ($parent == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
             return false;
         }
 

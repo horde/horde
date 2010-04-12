@@ -312,9 +312,6 @@ abstract class Horde_ActiveSync_Driver_Base
     /**
      * Return the helper for importing hierarchy changes from the PIM.
      *
-     * @TODO: Probably not functional, as methods were missing from original
-     * codebase.
-     *
      * @return Horde_ActiveSync_DiffState_ImportHierarchy
      */
     public function GetHierarchyImporter()
@@ -398,8 +395,6 @@ abstract class Horde_ActiveSync_Driver_Base
     /**
      * Obtain a message from the backend.
      *
-     * @TODO: Not sure why we have this *and* GetMessage()??
-     *
      * @param string $folderid
      * @param string $id
      * @param ?? $mimesupport  (Not sure what this was supposed to do)
@@ -423,16 +418,16 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * @param $rfc822
-     * @param $forward
-     * @param $reply
-     * @param $parent
-     * @return unknown_type
+     * Sends the email represented by the rfc822 string received by the PIM.
+     *
+     * @param string $rfc822    The rfc822 mime message
+     * @param boolean $forward  Is this a message forward?
+     * @param boolean $reply    Is this a reply?
+     * @param boolean $parent   Parent message in thread.
+     *
+     * @return boolean
      */
-    public function SendMail($rfc822, $forward = false, $reply = false, $parent = false)
-    {
-        return true;
-    }
+    abstract function sendMail($rfc822, $forward = false, $reply = false, $parent = false);
 
     /**
      * @return unknown_type
@@ -443,11 +438,13 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * @TODO: Missing method from Z-Push
+     * Delete a folder on the server.
      *
-     * @param $parent
-     * @param $id
-     * @return unknown_type
+     * @param string $parent  The parent folder.
+     * @param string $id      The folder to delete.
+     *
+     * @return boolean
+     * @throws Horde_ActiveSync_Exception
      */
     public function DeleteFolder($parent, $id)
     {
@@ -467,13 +464,14 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * @TODO: This method was missing from Z-Push
+     * Change the name and/or type of a folder.
      *
-     * @param unknown_type $parent
-     * @param unknown_type $id
-     * @param unknown_type $displayname
-     * @param unknown_type $type
-     * @return unknown_type
+     * @param string $parent
+     * @param string $id
+     * @param string $displayname
+     * @param string $type
+     * 
+     * @return boolean
      */
     public function changeFolder($parent, $id, $displayname, $type)
     {
