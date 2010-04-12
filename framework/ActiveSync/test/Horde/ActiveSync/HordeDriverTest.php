@@ -129,9 +129,16 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
             'smimePublicKey' => '',
         );
 
-        // Need to init the Nls system
         if (version_compare(PHP_VERSION, '5.3.0', '>=')) {
             error_reporting(E_ALL & ~E_DEPRECATED);
+        }
+
+        /* This test REQUIRES that the NLS system be initialized, so skip this
+         * if we don't have a configured horde
+         */
+        if (!file_exists(dirname(__FILE__) . '/../../../../../horde/config/conf.php')) {
+            $this->markTestIncomplete('Test requires the NLS system');
+            return;
         }
         require_once dirname(__FILE__) . '/../../../../../horde/lib/core.php';
         Horde_Nls::setLanguage();
@@ -171,9 +178,16 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
      */
     public function testStreamerUTF8()
     {
-        // Need to init the Nls system
         if (version_compare(PHP_VERSION, '5.3.0', '>=')) {
             error_reporting(E_ALL & ~E_DEPRECATED);
+        }
+
+        /* This test REQUIRES that the NLS system be initialized, so skip this
+         * if we don't have a configured horde
+         */
+        if (!file_exists(dirname(__FILE__) . '/../../../../../horde/config/conf.php')) {
+            $this->markTestIncomplete('Test requires the NLS system');
+            return;
         }
         require_once dirname(__FILE__) . '/../../../../../horde/lib/core.php';
         Horde_Nls::setLanguage();
@@ -224,9 +238,17 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
         $message->homestate = 'NJ';
         $message->homepostalcode = '08080';
 
-        // Need to init the Nls system
+
         if (version_compare(PHP_VERSION, '5.3.0', '>=')) {
             error_reporting(E_ALL & ~E_DEPRECATED);
+        }
+
+        /* This test REQUIRES that the NLS system be initialized, so skip this
+         * if we don't have a configured horde
+         */
+        if (!file_exists(dirname(__FILE__) . '/../../../../../horde/config/conf.php')) {
+            $this->markTestIncomplete('Test requires the NLS system');
+            return;
         }
         require_once dirname(__FILE__) . '/../../../../../horde/lib/core.php';
         Horde_Nls::setLanguage();
