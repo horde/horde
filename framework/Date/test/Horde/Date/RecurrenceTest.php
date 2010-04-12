@@ -11,7 +11,6 @@ require_once 'Horde/iCalendar.php';
 require_once dirname(__FILE__) . '/../../../lib/Horde/Date.php';
 require_once dirname(__FILE__) . '/../../../lib/Horde/Date/Recurrence.php';
 require_once dirname(__FILE__) . '/../../../lib/Horde/Date/Utils.php';
-date_default_timezone_set('Europe/Berlin');
 
 /**
  * @category   Horde
@@ -24,6 +23,13 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
     {
         Horde_String::setDefaultCharset('UTF-8');
         $this->ical = new Horde_iCalendar();
+        $this->_oldTimezone = date_default_timezone_get();
+        date_default_timezone_set('Europe/Berlin');
+    }
+
+    public function tearDown()
+    {
+        date_default_timezone_set($this->_oldTimezone);
     }
 
     private function _getRecurrences($r)
