@@ -1371,6 +1371,13 @@ div.kronolithEvent {
     -webkit-border-radius: 4px;
     border-radius: 4px;
 }
+#kronolithViewDay .kronolithAllDay div.kronolithEvent,
+#kronolithViewWeek .kronolithAllDay div.kronolithEvent {
+    white-space: nowrap;
+}
+#kronolithViewDay .kronolithAllDay div.kronolithEvent {
+    float: left;
+}
 div.kronolithEvent .kronolithDragger {
     position: absolute;
     visibility: hidden;

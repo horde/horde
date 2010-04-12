@@ -1306,7 +1306,7 @@ KronolithCore = {
                         .select('.kronolithEvent')
                         .invoke('remove');
                     $('kronolithAllDay' + date)
-                        .select('.kronolithEvent')
+                        .childElements()
                         .invoke('remove');
                 }
                 break;
@@ -1516,7 +1516,15 @@ KronolithCore = {
                 if (view == 'day') {
                     $('kronolithViewDay').down('.kronolithAllDayContainer').insert(div.setStyle(style));
                 } else {
-                    $('kronolithAllDay' + date).insert(div.setStyle(style));
+                    var existing = $('kronolithAllDay' + date).select('div');
+                    if (existing.size() == 3) {
+                        if (existing[2].className != 'kronolithMore') {
+                            existing[2].remove();
+                            $('kronolithAllDay' + date).insert({ bottom: new Element('span', { className: 'kronolithMore' }).store('date', date).insert(Kronolith.text.more) });
+                        }
+                    } else {
+                        $('kronolithAllDay' + date).insert(div.setStyle(style));
+                    }
                 }
                 break;
             }
