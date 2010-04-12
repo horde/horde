@@ -349,7 +349,7 @@ $_prefs['fb_url'] = array(
 $_prefs['fb_cals'] = array(
     'value' => 'a:0:{}',
     'type' => 'multienum',
-    'desc' => _("Choose the calendars to include in the above Free/Busy URL:"))
+    'desc' => _("Choose the calendars to include in the above Free/Busy URL:"),
 );
 
 // Login Tasks preferences
