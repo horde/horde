@@ -131,7 +131,7 @@ class Gollem_Application extends Horde_Registry_Application
             foreach ($GLOBALS['gollem_backends'] as $source => $info) {
                 $selected = $unselected = array();
                 $selected_list = isset($cols[$source])
-                    ? array_flip($cols[$source]) :
+                    ? array_flip($cols[$source])
                     : array();
 
                 foreach ($info['attributes'] as $column) {
