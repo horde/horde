@@ -477,12 +477,15 @@ KronolithCore = {
             break;
 
         case 'options':
+            var url = Kronolith.conf.prefs_url;
+            if (data) {
+                url += (url.include('?') ? '&' : '?') + $H(data).toQueryString();
+            }
             this.closeView('iframe');
-            this.iframeContent(Kronolith.conf.prefs_url);
+            this.iframeContent(url);
             this.setTitle(Kronolith.text.prefs);
             this.updateMinical(this.date);
             this.addHistory(loc);
-            this.view = 'iframe';
             break;
 
         case 'app':
@@ -3340,6 +3343,20 @@ KronolithCore = {
 
             case 'kronolithEventAlarmDefaultOn':
                 this.disableAlarmMethods();
+                break;
+
+            case 'kronolithEventAlarmPrefs':
+                this.closeRedBox();
+                window.history.back();
+                this.go('options', { app: 'kronolith', group: 'notification' });
+                e.stop();
+                break;
+
+            case 'kronolithTaskAlarmPrefs':
+                this.closeRedBox();
+                window.history.back();
+                this.go('options', { app: 'nag', group: 'notification' });
+                e.stop();
                 break;
 
             case 'kronolithEventLinkNone':

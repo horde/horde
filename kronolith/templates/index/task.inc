@@ -55,6 +55,7 @@
 </div>
 
 <div id="kronolithTaskTabReminder" class="kronolithTabsOption" style="display:none">
+  <div class="kronolithDialogInfo"><?php printf(_("You can change the default settings in the %sNotification options%s"), '<a id="kronolithTaskAlarmPrefs" href="#">', '</a>') ?></div>
   <?php printf(_("%s don't set %s or %s set %s before due date"),
   '<label><input type="radio" name="task[alarm][on]" id="kronolithTaskAlarmOff" value="0" checked="checked" />', '</label>',
   '<label><input type="radio" name="task[alarm][on]" id="kronolithTaskAlarmOn" value="1" />', '</label>
