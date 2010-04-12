@@ -83,7 +83,7 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
      */
     public function testGetMessage()
     {
-        $this->marktestIncomplete('Currently failing - please fix!');
+        //$this->marktestIncomplete('Currently failing - please fix!');
 
         require_once 'Horde/ActiveSync.php';
 
@@ -152,7 +152,7 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
         $this->assertEquals('PharmD', $results->suffix);
         $this->assertEquals('Michael Joseph Rubinsky', $results->fileas);
         $this->assertEquals('mrubinsk@horde.org', $results->email1address);
-        $this->assertEquals('6757200', $results->birthday->timestamp());
+        $this->assertEquals('1970-03-20', $results->birthday->format('Y-m-d'));
         $this->assertEquals('(856)555-1234', $results->homephonenumber);
         $this->assertEquals('(856)555-5678', $results->businessphonenumber);
         $this->assertEquals('(609)555-9876', $results->mobilephonenumber);
@@ -173,7 +173,7 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
      */
     public function testStreamerUTF8()
     {
-        $this->marktestIncomplete('Currently failing - please fix!');
+        //$this->marktestIncomplete('Currently failing - please fix!');
 
         // Need to init the Nls system
         if (version_compare(PHP_VERSION, '5.3.0', '>=')) {
@@ -199,6 +199,7 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
 
         $this->assertEquals(Horde_String::convertCharset('Grüb', Horde_Nls::getCharset(), 'utf-8'), $results->firstname);
     }
+
     /**
      * Test ChangeMessage:
      * 
@@ -211,7 +212,8 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
      */
     public function testChangeMessage()
     {
-        $this->marktestIncomplete('Currently failing - please fix!');
+        //
+        //$this->marktestIncomplete('Currently failing - please fix!');
 
         // fixtures
         $message = new Horde_ActiveSync_Message_Contact();
