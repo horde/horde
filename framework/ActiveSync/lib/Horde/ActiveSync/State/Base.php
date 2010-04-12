@@ -110,6 +110,16 @@ abstract class Horde_ActiveSync_State_Base
     }
 
     /**
+     * Get the current synckey
+     *
+     * @return string  The synkey we last retrieved state for
+     */
+    public function getCurrentSyncKey()
+    {
+        return $this->_syncKey;
+    }
+
+    /**
      * Generate a random 10 digit policy key
      *
      * @return unknown

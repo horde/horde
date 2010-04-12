@@ -137,7 +137,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     $sync = $this->_driver->getSyncObject();
                     $state->loadPingCollectionState($collection);
                     try {
-                        $sync->init($state, false, $collection);
+                        $sync->init($state, null, $collection);
                     } catch (Horde_ActiveSync_Exception $e) {
                         /* Stop ping if exporter cannot be configured */
                         $this->_logger->err('Ping error: Exporter can not be configured. Waiting 30 seconds before ping is retried.');
@@ -155,7 +155,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
 
                     // Update the state, but don't bother with the backend since we
                     // are not updating any data.
-                    while (is_array($sync->syncronize(BACKEND_DISCARD_DATA)));
+                    while (is_array($sync->syncronize(Horde_ActiveSync::BACKEND_DISCARD_DATA)));
                 }
 
                 if ($dataavailable) {

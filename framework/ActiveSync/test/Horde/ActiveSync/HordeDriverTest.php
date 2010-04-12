@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * Unit tests for the horde backend
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
@@ -39,7 +39,7 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
     /**
      * Test that Horde_ActiveSync_Driver_Horde#getMessageList() returns expected
      * data structures. Uses mock data via the MockConnector
-     * 
+     *
      */
     public function testGetMessageList()
     {
@@ -79,7 +79,7 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
      * Mocks the registry response.
      *
      * @TODO: Calendar data, more complete test of vCard attribtues.
-     * 
+     *
      */
     public function testGetMessage()
     {
@@ -129,13 +129,19 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
             'smimePublicKey' => '',
         );
 
-        // Need to init the Nls system
         if (version_compare(PHP_VERSION, '5.3.0', '>=')) {
             error_reporting(E_ALL & ~E_DEPRECATED);
         }
+        /* This test REQUIRES that the NLS system be initialized, so skip this
+         * if we don't have a configured horde
+         */
+        if (!file_exists(dirname(__FILE__) . '/../../../../../horde/config/conf.php')) {
+            $this->markTestIncomplete('Test requires the NLS system');
+            return;
+        }
         require_once dirname(__FILE__) . '/../../../../../horde/lib/core.php';
         Horde_Nls::setLanguage();
-        
+
         $fixture = array('contacts_export' => $contact);
         $connector = new Horde_ActiveSync_MockConnector(array('fixture' => $fixture));
         $state = $this->getMockSkipConstructor('Horde_ActiveSync_State_File');
@@ -171,13 +177,20 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
      */
     public function testStreamerUTF8()
     {
-        // Need to init the Nls system
         if (version_compare(PHP_VERSION, '5.3.0', '>=')) {
             error_reporting(E_ALL & ~E_DEPRECATED);
         }
+
+        /* This test REQUIRES that the NLS system be initialized, so skip this
+         * if we don't have a configured horde
+         */
+        if (!file_exists(dirname(__FILE__) . '/../../../../../horde/config/conf.php')) {
+            $this->markTestIncomplete('Test requires the NLS system');
+            return;
+        }
         require_once dirname(__FILE__) . '/../../../../../horde/lib/core.php';
         Horde_Nls::setLanguage();
-        
+
         $contact = array(
             '__uid' => '20100205111228.89913meqtp5u09rg@localhost',
             'firstname' => Horde_String::convertCharset('Grüb', Horde_Nls::getCharset(), 'iso-8859-1')
@@ -198,7 +211,7 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
 
     /**
      * Test ChangeMessage:
-     * 
+     *
      * This tests converting the contact streamer object to a hash suitable for
      * passing to the contacts/import method. Because it only returns the UID
      * for the newly added/edited entry, we can't check the results here. The
@@ -224,13 +237,11 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
         $message->homestate = 'NJ';
         $message->homepostalcode = '08080';
 
-        // Need to init the Nls system
+
         if (version_compare(PHP_VERSION, '5.3.0', '>=')) {
             error_reporting(E_ALL & ~E_DEPRECATED);
         }
-        require_once dirname(__FILE__) . '/../../../../../horde/lib/core.php';
-        Horde_Nls::setLanguage();
-        
+
         $connector = new Horde_ActiveSync_MockConnector(array('fixture' => array()));
         $state = $this->getMockSkipConstructor('Horde_ActiveSync_State_File');
         $driver = new Horde_ActiveSync_Driver_Horde(array('connector' => $connector,

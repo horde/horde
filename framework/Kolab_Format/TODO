@@ -3,3 +3,7 @@
 ====================================
 
  - Find a decent way of handling tags within Horde 4
+
+ - Remove dependency on the Horde_Nls and Horde_String language
+   settings. I currently assume we should only return UTF-8 from this
+   library.

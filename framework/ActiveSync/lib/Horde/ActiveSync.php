@@ -198,6 +198,8 @@ class Horde_ActiveSync
     const CONFLICT_OVERWRITE_SERVER = 0;
     const CONFLICT_OVERWRITE_PIM = 1;
 
+    const BACKEND_DISCARD_DATA = 1;
+
     /* TRUNCATION Constants */
     const TRUNCATION_HEADERS = 0;
     const TRUNCATION_512B = 1;
@@ -207,7 +209,7 @@ class Horde_ActiveSync
     const TRUNCATION_ALL = 9;
 
     /* Request related constants that are used in multiple places */
-    /* FOLDERHIERARCHY */ 
+    /* FOLDERHIERARCHY */
     const FOLDERHIERARCHY_FOLDERS = 'FolderHierarchy:Folders';
     const FOLDERHIERARCHY_FOLDER = 'FolderHierarchy:Folder';
     const FOLDERHIERARCHY_DISPLAYNAME = 'FolderHierarchy:DisplayName';
@@ -228,7 +230,7 @@ class Horde_ActiveSync
     const FOLDERHIERARCHY_FOLDERSYNC = 'FolderHierarchy:FolderSync';
     const FOLDERHIERARCHY_COUNT = 'FolderHierarchy:Count';
     const FOLDERHIERARCHY_VERSION = 'FolderHierarchy:Version';
-    
+
     /* SYNC */
     const SYNC_SYNCHRONIZE = 'Synchronize';
     const SYNC_REPLIES = 'Replies';
@@ -298,7 +300,7 @@ class Horde_ActiveSync
     const FOLDER_TYPE_UNKNOWN =  18;
     const FOLDER_TYPE_RECIPIENT_CACHE =  19;
     const FOLDER_TYPE_DUMMY =  '__dummy.Folder.Id__';
- 
+
     /**
      * Logger
      *
@@ -1120,11 +1122,7 @@ class Horde_ActiveSync
     public function getPolicyKey()
     {
         /* Policy key headers may be sent in either of these forms: */
-        $this->_policykey = $this->_request->getHeader('X-Ms-Policykey');
-        if (empty($this->_policykey)) {
-            $this->_policykey = $this->_request->getHeader('X-MS-PolicyKey');
-        }
-
+        $this->_policykey = $this->_request->getHeader('X-MS-PolicyKey');
         if (empty($this->_policykey)) {
             $this->_policykey = 0;
         }
@@ -1140,14 +1138,12 @@ class Horde_ActiveSync
         if (isset($this->_version)) {
             return $this->_version;
         }
-
-        $this->_version = $this->_request->getHeader('Ms-Asprotocolversion');
-        if (empty($this->_version)) {
-            $this->_version = $this->_request->getHeader('MS-ASProtocolVersion');
-        }
+        $this->_version = $this->_request->getHeader('MS-ASProtocolVersion');
         if (empty($this->_version)) {
             $this->_version = '1.0';
         }
+
+        return $this->_version;
     }
 
 }

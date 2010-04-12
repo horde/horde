@@ -102,6 +102,11 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     public function startWBXML()
     {
         header('Content-Type: application/vnd.ms-sync.wbxml');
+        $this->outputWbxmlHeader();
+    }
+
+    public function outputWbxmlHeader()
+    {
         $this->_outByte(0x03);   // WBXML 1.3
         $this->_outMBUInt(0x01); // Public ID 1
         $this->_outMBUInt(106);  // UTF-8

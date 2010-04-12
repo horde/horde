@@ -584,7 +584,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
             /* do nothing if it is a dummy folder */
             if ($folderId != Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
                 // on ping: check if backend supports alternative PING mechanism & use it
-                if ($this->_collection['class'] === false && $flags == BACKEND_DISCARD_DATA && $this->_backend->AlterPing()) {
+                if ($this->_collection['class'] === false && $flags == Horde_ActiveSync::BACKEND_DISCARD_DATA && $this->_backend->AlterPing()) {
                     //@TODO - look at the passing of syncstate here - should probably pass self??
                     // Not even sure if we need this AlterPing?
                     $this->_changes = $this->_backend->AlterPingChanges($folderId, $syncState);

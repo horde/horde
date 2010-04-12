@@ -41,6 +41,7 @@ class Horde_Kolab_Format_EventTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         Horde_Nls::setCharset('utf-8');
+        Horde_String::setDefaultCharset('iso-8859-1');
     }
 
 
@@ -57,6 +58,7 @@ class Horde_Kolab_Format_EventTest extends PHPUnit_Framework_TestCase
         $event  = file_get_contents(dirname(__FILE__)
                                     . '/fixtures/event_umlaut.xml');
         $result = $xml->load($event);
+
         // Check that the xml loads fine
         $this->assertEquals(mb_convert_encoding($result['body'], 'UTF-8',
                                                 'ISO-8859-1'), '...übbe...');

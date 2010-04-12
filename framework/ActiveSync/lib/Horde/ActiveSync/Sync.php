@@ -1,20 +1,15 @@
 <?php
-define('BACKEND_DISCARD_DATA', 1);
-
 /**
- * Horde_ActiveSync_DiffState classes provide a basic diff engine for comparing
- * PIM and backend state. This is a general diff engine, and can be used as-is
- * or subclassed/overridden by individual backend drivers if they backend can
- * provide the differential information more effeciently.
+ * Syncronizer object. Responsible for performing syncronization of the PIM
+ * state with the server state. Sends each change to the exporter and updates
+ * state accordingly.
  *
- * Diff algorithms ported from Z-Push's diffbackend.php DiffState class, all
- * other code and modifications:
+ * Some code adapted from the Z-Push project. Original file header below.
  *
  * Copyright 2010 The Horde Project (http://www/horde.org)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Horde_ActiveSync
- *
  */
 /***********************************************
 * File      :   diffbackend.php
@@ -33,14 +28,6 @@ define('BACKEND_DISCARD_DATA', 1);
 * This file is distributed under GPL v2.
 * Consult LICENSE file for details
 ************************************************/
-
-/**
- * This class handles preparing the diff data for sending back to the PIM. Takes
- * the data from the Importer, syncronizes it and tracks the state.
- *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Horde_ActiveSync
- */
 class Horde_ActiveSync_Sync
 {
     /**
@@ -93,31 +80,38 @@ class Horde_ActiveSync_Sync
     protected $_state;
 
     /**
-     * The current syncKey for this request
-     *
-     * @var string
-     */
-    protected $_syncKey;
-
-    /**
      * The change streamer
      *
      * @var Horde_ActiveSync_Connector_Exporter
      */
     protected $_exporter;
 
+    /**
+     * Logger
+     *
+     * @var Horde_Log_Logger
+     */
     protected $_logger;
 
     /**
      * Const'r
      *
-     * @param <type> $backend
+     * @param Horde_ActiveSync_Driver_Base $backend  The backend driver
      */
     public function __construct(Horde_ActiveSync_Driver_Base $backend)
     {
         $this->_backend = $backend;
     }
 
+    /**
+     * Initialize the sync
+     *
+     * @param Horde_ActiveSync_State_Base $stateMachine      The state machine
+     * @param Horde_ActiveSync_Connector_Exporter $exporter  The exporter object
+     * @param array $collection                              Collection data
+     *
+     * @return void
+     */
     public function init(Horde_ActiveSync_State_Base &$stateMachine,
                          $exporter,
                          $collection = array())
@@ -126,7 +120,6 @@ class Horde_ActiveSync_Sync
         $this->_exporter = $exporter;
         $this->_folderId = !empty($collection['id']) ? $collection['id'] : false;
         $this->_changes = $stateMachine->getChanges();
-        $this->_syncKey = $collection['synckey'];
         $this->_truncation = !empty($collection['truncation']) ? $collection['truncation'] : 0;
     }
 
@@ -157,12 +150,12 @@ class Horde_ActiveSync_Sync
                         return;
                     }
 
-                    if ($flags & BACKEND_DISCARD_DATA || $this->_exporter->FolderChange($folder)) {
+                    if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA || $this->_exporter->FolderChange($folder)) {
                         $this->_stateMachine->updateState('change', $stat);
                     }
                     break;
                 case 'delete':
-                    if ($flags & BACKEND_DISCARD_DATA || $this->_exporter->FolderDeletion($change['id'])) {
+                    if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA || $this->_exporter->FolderDeletion($change['id'])) {
                         $this->_stateMachine->updateState('delete', $change);
                     }
                     break;
@@ -197,26 +190,26 @@ class Horde_ActiveSync_Sync
                     $message->flags = (isset($change['flags'])) ? $change['flags'] : 0;
 
                     if ($stat && $message) {
-                        if ($flags & BACKEND_DISCARD_DATA || $this->_exporter->messageChange($change['id'], $message) == true) {
+                        if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA || $this->_exporter->messageChange($change['id'], $message) == true) {
                             $this->_stateMachine->updateState('change', $stat);
                         }
                     }
                     break;
 
                 case 'delete':
-                    if ($flags & BACKEND_DISCARD_DATA || $this->_exporter->messageDeletion($change['id']) == true) {
+                    if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA || $this->_exporter->messageDeletion($change['id']) == true) {
                         $this->_stateMachine->updateState('delete', $change);
                     }
                     break;
 
                 case 'flags':
-                    if ($flags & BACKEND_DISCARD_DATA || $this->_exporter->messageReadFlag($change['id'], $change['flags']) == true) {
+                    if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA || $this->_exporter->messageReadFlag($change['id'], $change['flags']) == true) {
                         $this->_stateMachine->updateState('flags', $change);
                     }
                     break;
 
                 case 'move':
-                    if ($flags & BACKEND_DISCARD_DATA || $this->_exporter->messageMove($change['id'], $change['parent']) == true) {
+                    if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA || $this->_exporter->messageMove($change['id'], $change['parent']) == true) {
                         $this->_stateMachine->updateState('move', $change);
                     }
                     break;
