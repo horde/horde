@@ -37,25 +37,29 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
     {
         global $prefs;
 
-        $src = $prefs->getValue('search_sources');
-        if (!is_array(json_decode($src))) {
-            $prefs->setValue('search_sources', json_encode(explode("\t", $src)));
+        if (!$prefs->isDefault('search_sources')) {
+            $src = $prefs->getValue('search_sources');
+            if (!is_array(json_decode($src))) {
+                $prefs->setValue('search_sources', json_encode(explode("\t", $src)));
+            }
         }
 
-        $val = $prefs->getValue('search_fields');
-        if (!is_array(json_decode($val, true))) {
-            $fields = array();
-            foreach (explode("\n", $val) as $field) {
-                $field = trim($field);
-                if (!empty($field)) {
-                    $tmp = explode("\t", $field);
-                    if (count($tmp) > 1) {
-                        $source = array_splice($tmp, 0, 1);
-                        $fields[$source[0]] = $tmp;
+        if (!$prefs->isDefault('search_fields')) {
+            $val = $prefs->getValue('search_fields');
+            if (!is_array(json_decode($val, true))) {
+                $fields = array();
+                foreach (explode("\n", $val) as $field) {
+                    $field = trim($field);
+                    if (!empty($field)) {
+                        $tmp = explode("\t", $field);
+                        if (count($tmp) > 1) {
+                            $source = array_splice($tmp, 0, 1);
+                            $fields[$source[0]] = $tmp;
+                        }
                     }
                 }
+                $prefs->setValue('search_fields', $fields);
             }
-            $prefs->setValue('search_fields', $fields);
         }
     }
 
@@ -65,6 +69,10 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
     protected function _upgradeForwardPrefs()
     {
         global $prefs;
+
+        if ($prefs->isDefault('forward_default')) {
+            return;
+        }
 
         switch ($prefs->getValue('forward_default')) {
         case 'forward_attachments':
@@ -99,23 +107,27 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
     {
         global $prefs;
 
-        $update = false;
-        $sortpref = @unserialize($prefs->getValue('sortpref'));
-        foreach ($sortpref as $key => $val) {
-            $sb = $this->_newSortbyValue($val['b']);
-            if (!is_null($sb)) {
-                $sortpref[$key]['b'] = $sb;
-                $update = true;
+        if (!$prefs->isDefault('sortpref')) {
+            $update = false;
+            $sortpref = @unserialize($prefs->getValue('sortpref'));
+            foreach ($sortpref as $key => $val) {
+                $sb = $this->_newSortbyValue($val['b']);
+                if (!is_null($sb)) {
+                    $sortpref[$key]['b'] = $sb;
+                    $update = true;
+                }
+            }
+
+            if ($update) {
+                $prefs->setValue('sortpref', serialize($sortpref));
             }
         }
 
-        if ($update) {
-            $prefs->setValue('sortpref', serialize($sortpref));
-        }
-
-        $sb = $this->_newSortbyValue($prefs->getValue('sortby'));
-        if (!is_null($sb)) {
-            $prefs->setValue('sortby', $sb);
+        if (!$prefs->isDefault('sortby')) {
+            $sb = $this->_newSortbyValue($prefs->getValue('sortby'));
+            if (!is_null($sb)) {
+                $prefs->setValue('sortby', $sb);
+            }
         }
     }
 
@@ -148,6 +160,10 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
      */
     protected function _upgradeVirtualFolders()
     {
+        if ($GLOBALS['prefs']->isDefault('vfolder')) {
+            return;
+        }
+
         $vfolders = $GLOBALS['prefs']->getValue('vfolder');
         if (!empty($vfolders)) {
             $vfolders = @unserialize($vfolders);

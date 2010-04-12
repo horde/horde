@@ -34,25 +34,29 @@ class Kronolith_LoginTasks_SystemTask_UpgradeFromKronolith2 extends Horde_LoginT
     {
         global $prefs;
 
-        $src = $prefs->getValue('search_sources');
-        if (!is_array(json_decode($src))) {
-            $prefs->setValue('search_sources', json_encode(explode("\t", $src)));
+        if (!$prefs->isDefault('search_sources')) {
+            $src = $prefs->getValue('search_sources');
+            if (!is_array(json_decode($src))) {
+                $prefs->setValue('search_sources', json_encode(explode("\t", $src)));
+            }
         }
 
-        $val = $prefs->getValue('search_fields');
-        if (!is_array(json_decode($val, true))) {
-            $fields = array();
-            foreach (explode("\n", $val) as $field) {
-                $field = trim($field);
-                if (!empty($field)) {
-                    $tmp = explode("\t", $field);
-                    if (count($tmp) > 1) {
-                        $source = array_splice($tmp, 0, 1);
-                        $fields[$source[0]] = $tmp;
+        if (!$prefs->isDefault('search_fields')) {
+            $val = $prefs->getValue('search_fields');
+            if (!is_array(json_decode($val, true))) {
+                $fields = array();
+                foreach (explode("\n", $val) as $field) {
+                    $field = trim($field);
+                    if (!empty($field)) {
+                        $tmp = explode("\t", $field);
+                        if (count($tmp) > 1) {
+                            $source = array_splice($tmp, 0, 1);
+                            $fields[$source[0]] = $tmp;
+                        }
                     }
                 }
+                $prefs->setValue('search_fields', $fields);
             }
-            $prefs->setValue('search_fields', $fields);
         }
     }
 

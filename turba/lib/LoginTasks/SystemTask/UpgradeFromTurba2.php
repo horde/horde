@@ -34,14 +34,16 @@ class Turba_LoginTasks_SystemTask_UpgradeFromTurba2 extends Horde_LoginTasks_Sys
     {
         global $prefs;
 
-        $abooks = $prefs->getValue('addressbooks');
-        if (!is_array(json_decode($abooks))) {
-            $abooks = @explode("\n", $abooks);
-            if (empty($abooks)) {
-                $abooks = array();
-            }
+        if (!$prefs->isDefault('addressbooks')) {
+            $abooks = $prefs->getValue('addressbooks');
+            if (!is_array(json_decode($abooks))) {
+                $abooks = @explode("\n", $abooks);
+                if (empty($abooks)) {
+                    $abooks = array();
+                }
 
-            return $prefs->setValue('addressbooks', json_encode($abooks));
+                return $prefs->setValue('addressbooks', json_encode($abooks));
+            }
         }
     }
 
