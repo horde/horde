@@ -222,7 +222,7 @@ class Horde_iCalendar {
             }
         }
         if (!count($result)) {
-            return PEAR::raiseError('Attribute "' . $name . '" Not Found');
+            return new PEAR_Error('Attribute "' . $name . '" Not Found');
         } if (count($result) == 1 && !$params) {
             return $result[0];
         } else {
@@ -319,7 +319,7 @@ class Horde_iCalendar {
      */
     function addComponent($component)
     {
-        if (is_a($component, 'Horde_iCalendar')) {
+        if ($component instanceOf Horde_iCalendar) {
             $component->_container = &$this;
             $this->_components[] = &$component;
         }
@@ -430,9 +430,9 @@ class Horde_iCalendar {
         $childclass = 'Horde_iCalendar_' . Horde_String::lower($childclass);
         $keys = array_keys($this->_components);
         foreach ($keys as $key) {
-            if (is_a($this->_components[$key], $childclass)) {
+            if ($this->_components[$key] instanceOf $childclass) {
                 $attr = $this->_components[$key]->getAttribute($attribute);
-                if (is_a($attr, 'PEAR_Error')) {
+                if ($attr instanceOf PEAR_Error) {
                     continue;
                 }
                 if ($value !== null && $value != $attr) {
@@ -1214,7 +1214,7 @@ class Horde_iCalendar {
 
         // Get timezone info for date fields from $tzid and container.
         $tzoffset = ($time['zone'] == 'Local' && $tzid &&
-                     is_a($this->_container, 'Horde_iCalendar'))
+                     $this->_container instanceOf Horde_iCalendar)
             ? $this->_parseTZID($date, $time, $tzid) : false;
         if ($time['zone'] == 'UTC' || $tzoffset !== false) {
             $result = @gmmktime($time['hour'], $time['minute'], $time['second'],

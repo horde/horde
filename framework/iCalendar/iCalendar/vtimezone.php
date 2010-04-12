@@ -36,24 +36,24 @@ class Horde_iCalendar_vtimezone extends Horde_iCalendar {
         $result['time'] = 0;
 
         $t = $child->getAttribute('TZOFFSETFROM');
-        if (is_a($t, 'PEAR_Error')) {
+        if ($t instanceOf PEAR_Error) {
             return false;
         }
         $result['from'] = ($t['hour'] * 60 * 60 + $t['minute'] * 60) * ($t['ahead'] ? 1 : -1);
 
         $t = $child->getAttribute('TZOFFSETTO');
-        if (is_a($t, 'PEAR_Error')) {
+        if ($t instanceOf PEAR_Error) {
             return false;
         }
         $result['to'] = ($t['hour'] * 60 * 60 + $t['minute'] * 60) * ($t['ahead'] ? 1 : -1);
 
         $switch_time = $child->getAttribute('DTSTART');
-        if (is_a($switch_time, 'PEAR_Error')) {
+        if ($switch_time instanceOf PEAR_Error) {
             return false;
         }
 
         $rrules = $child->getAttribute('RRULE');
-        if (is_a($rrules, 'PEAR_Error')) {
+        if ($rrules instanceOf PEAR_Error) {
             if (!is_int($switch_time)) {
                 return false;
             }
