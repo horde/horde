@@ -13,7 +13,11 @@
   <tr>
    <td>
 <if:flags.imapp>
+<if:flags.locked>
+    <tag:flags.label />
+<else:flags.locked>
     <input name="<tag:flags.label_name />" value="<tag:flags.label />" />
+</else:flags.locked></if:flags.locked>
 <else:flags.imapp>
     <tag:flags.label />
 </else:flags.imapp></if:flags.imapp>
@@ -26,14 +30,21 @@
 </else:flags.imapp></if:flags.imapp>
    </td>
    <td>
+<if:flags.locked>
+    <input size="7" disabled="disabled" style="<tag:flags.colorstyle />" value="<tag:flags.color />" />
+<else:flags.locked>
     <input size="7" style="<tag:flags.colorstyle />" id="<tag:flags.colorid />" name="<tag:flags.colorid />" value="<tag:flags.color />" />
     <a class="flagcolorpicker" href="#"><tag:picker_img /></a>
 <if:flags.flag_del>
     <a class="flagdelete" href="#"><span class="deleteImg"></span></a>
 </if:flags.flag_del>
+</else:flags.locked></if:flags.locked>
    </td>
   </tr>
  </tbody>
 </loop:flags>
 </table>
+
+<if:userflags_notlocked>
 <input id="new_button" type="button" class="button" value="<gettext>New Flag</gettext>" />
+</if:userflags_notlocked>

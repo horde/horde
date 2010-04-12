@@ -106,8 +106,13 @@ class IMP_Prefs_Ui
             break;
 
         case 'flags':
-            Horde::addScriptFile('colorpicker.js', 'horde');
-            Horde::addScriptFile('flagprefs.js', 'imp');
+            if ($prefs->isLocked('msgflags') &&
+                $prefs->isLocked('msgflags_user')) {
+                $ui->nobuttons = true;
+            } else {
+                Horde::addScriptFile('colorpicker.js', 'horde');
+                Horde::addScriptFile('flagprefs.js', 'imp');
+            }
             break;
 
         case 'identities':
@@ -804,6 +809,9 @@ class IMP_Prefs_Ui
             'ImpFlagPrefs.confirm_delete = ' . Horde_Serialize::serialize(_("Are you sure you want to delete this flag?"), Horde_Serialize::JSON, Horde_Nls::getCharset())
         ));
 
+        $msgflags_locked = $GLOBALS['prefs']->isLocked('msgflags');
+        $userflags_locked = $GLOBALS['prefs']->isLocked('msgflags_user');
+
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
 
@@ -818,13 +826,19 @@ class IMP_Prefs_Ui
             $tmp = array();
 
             if ($val['t'] == 'imapp') {
-                $tmp['imapp'] = true;
-                $tmp['label_name'] = 'label_' . $hash;
                 $tmp['label'] = $label;
                 $tmp['icon'] = $bgstyle;
+                $tmp['imapp'] = true;
+                $tmp['label_name'] = 'label_' . $hash;
+                if ($userflags_locked) {
+                    $tmp['locked'] = true;
+                }
             } else {
                 $tmp['label'] = Horde::label($bgid, $label);
                 $tmp['icon'] = $val['div'];
+                if ($msgflags_locked) {
+                    $tmp['locked'] = true;
+                }
             }
 
             $tmp['colorstyle'] = $bgstyle . ';color:' . htmlspecialchars($val['f']);
@@ -837,6 +851,8 @@ class IMP_Prefs_Ui
 
         $t->set('picker_img', Horde::img('colorpicker.png', _("Color Picker")));
         $t->set('flag_del', !empty($val['d']));
+
+        $t->set('userflags_notlocked', !$userflags_locked);
 
         return $t->fetch(IMP_TEMPLATES . '/prefs/flags.html');
     }
