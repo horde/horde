@@ -147,7 +147,7 @@ class Kronolith_Application extends Horde_Registry_Application
 
        case 'share':
             if (!$prefs->isLocked('default_share')) {
-                $all_tasklists = Kronolith::listCalendars();
+                $all_shares = Kronolith::listCalendars();
                 $sharelist = array();
 
                 foreach ($all_shares as $id => $share) {
@@ -301,7 +301,7 @@ class Kronolith_Application extends Horde_Registry_Application
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
 
-        if ($alarm_value = $prefs->getValue('default_alarm')) {
+        if ($alarm_value = $GLOBALS['prefs']->getValue('default_alarm')) {
             if ($alarm_value % 10080 == 0) {
                 $alarm_value /= 10080;
                 $t->set('week', true);
