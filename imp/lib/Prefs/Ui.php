@@ -357,16 +357,14 @@ class IMP_Prefs_Ui
             return $this->_updateSpecialFolders('drafts_folder', $ui->vars->drafts, $ui->vars->drafts_folder_new, $ui);
 
         case 'encryptselect':
-            $prefs->setValue('default_encrypt', $ui->vars->default_encrypt);
-            return true;
+            return $prefs->setValue('default_encrypt', $ui->vars->default_encrypt);
 
         case 'flagmanagement':
             $this->_updateFlagManagement($ui);
             return false;
 
         case 'initialpageselect':
-            $prefs->setValue('initial_page', $ui->vars->initial_page);
-            return true;
+            return $prefs->setValue('initial_page', $ui->vars->initial_page);
 
         case 'pgpprivatekey':
             $this->_updatePgpPrivateKey($ui);
