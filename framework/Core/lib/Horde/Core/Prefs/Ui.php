@@ -613,7 +613,9 @@ class Horde_Core_Prefs_Ui
             return $res;
         }
 
-        $this->prefGroups = $res['prefGroups'];
+        $this->prefGroups = isset($res['prefGroups'])
+            ? $res['prefGroups']
+            : array();
         $this->prefs = $res['_prefs'];
 
         /* If there's only one prefGroup, just show it. */
