@@ -4327,11 +4327,12 @@ KronolithCore = {
         /* Recurrence */
         if (ev.r) {
             var scheme = Kronolith.conf.recur[ev.r.t],
+                schemeLower = scheme.toLowerCase(),
                 div = $('kronolithEventRepeat' + scheme);
             $('kronolithEventLink' + scheme).setValue(true);
             this.toggleRecurrence(scheme);
             if (scheme == 'Monthly' || scheme == 'Yearly') {
-                div.down('input[name=recur_' + scheme.toLowerCase() + '_scheme][value=' + ev.r.t + ']').setValue(true);
+                div.down('input[name=recur_' + schemeLower + '_scheme][value=' + ev.r.t + ']').setValue(true);
             }
             if (scheme == 'Weekly') {
                 div.select('input[type=checkbox]').each(function(input) {
@@ -4342,10 +4343,10 @@ KronolithCore = {
                 });
             }
             if (ev.r.i == 1) {
-                div.down('input[name=recur_' + scheme.toLowerCase() + '][value=1]').setValue(true);
+                div.down('input[name=recur_' + schemeLower + '][value=1]').setValue(true);
             } else {
-                div.down('input[name=recur_' + scheme.toLowerCase() + '][value=0]').setValue(true);
-                div.down('input[name=recur_' + scheme.toLowerCase() + '_interval]').setValue(ev.r.i);
+                div.down('input[name=recur_' + schemeLower + '][value=0]').setValue(true);
+                div.down('input[name=recur_' + schemeLower + '_interval]').setValue(ev.r.i);
             }
             if (!Object.isUndefined(ev.r.e)) {
                 $('kronolithEventRepeatLength').down('input[name=recur_end_type][value=date]').setValue(true);
