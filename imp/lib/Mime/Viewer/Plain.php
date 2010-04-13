@@ -349,7 +349,7 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
             'text2html' => array(
                 'charset' => Horde_Nls::getCharset(),
                 // See Ticket #8836
-                'noprefetch' => ($inline && $GLOBALS['browser']->isBrowser('mozilla') && !$GLOBALS['browser']->usingSSLConnection()),
+                'noprefetch' => ($GLOBALS['browser']->isBrowser('mozilla') && !$GLOBALS['browser']->usingSSLConnection()),
                 'parselevel' => Horde_Text_Filter_Text2html::MICRO
             ),
             'tabs2spaces' => array(),
