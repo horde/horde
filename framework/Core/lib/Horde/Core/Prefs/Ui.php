@@ -136,12 +136,11 @@ class Horde_Core_Prefs_Ui
     /**
      * Returns the list of changeable prefs for a group.
      *
-     * @param string $group      The preferences group to check.
-     * @param boolean $implicit  Don't add to list if marked as implict?
+     * @param string $group  The preferences group to check.
      *
      * @return array  The list of changeable prefs.
      */
-    public function getChangeablePrefs($group, $implicit = false)
+    public function getChangeablePrefs($group)
     {
         $prefs = array();
 
@@ -151,14 +150,13 @@ class Horde_Core_Prefs_Ui
                  *   1. Not locked
                  *   2. Not in suppressed array ($this->suppress)
                  *   3. Not an advanced pref -or- in advanced view mode
-                 *   4. Not checking for implicit -or- not an implicit pref */
+                 *   4. Not an implicit pref */
                 if (!$GLOBALS['prefs']->isLocked($pref) &&
                     !in_array($pref, $this->suppress) &&
                     (empty($this->prefs[$pref]['advanced']) ||
                      !empty($_SESSION['horde_prefs']['advanced'])) &&
-                    (!$implicit ||
-                     (!empty($this->prefs[$pref]['type']) &&
-                      ($this->prefs[$pref]['type'] != 'implicit')))) {
+                    ((!empty($this->prefs[$pref]['type']) &&
+                     ($this->prefs[$pref]['type'] != 'implicit')))) {
                     $prefs[] = $pref;
                 }
             }
@@ -194,13 +192,13 @@ class Horde_Core_Prefs_Ui
                 ($this->prefGroups[$this->group]['type'] == 'identities')) {
                 $this->_identitiesUpdate();
             } else {
-                $this->_handleForm(array_diff($this->getChangeablePrefs($this->group), $this->suppressUpdate), $prefs);
+                $this->_handleForm(array_diff($this->getChangeablePrefs($this->group), $this->suppressUpdate), $GLOBALS['prefs']);
             }
             break;
 
         case 'update_special':
             $special = array();
-            foreach ($this->getChangeablePrefs($this->group, true) as $pref) {
+            foreach ($this->getChangeablePrefs($this->group) as $pref) {
                 if ($this->prefs[$pref]['type'] == 'special') {
                     $special[] = $pref;
                 }
@@ -345,7 +343,7 @@ class Horde_Core_Prefs_Ui
         $prefgroups = $this->_getPrefGroups();
 
         if ($this->group) {
-            $pref_list = $this->getChangeablePrefs($this->group, true);
+            $pref_list = $this->getChangeablePrefs($this->group);
 
             /* Add necessary init stuff for identities pages. */
             if (isset($prefgroups[$this->group]['type']) &&
