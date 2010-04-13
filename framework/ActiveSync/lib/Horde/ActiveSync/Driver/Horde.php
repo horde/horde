@@ -84,9 +84,9 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
      *
      * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#Logoff()
      */
-    public function Logoff()
+    public function logOff()
     {
-        $this->_logger->info('Horde_ActiveSync_Driver_Horde::logoff');
+        $this->_logger->info('User ' . $this->_user . ' logged off');
         return true;
     }
 

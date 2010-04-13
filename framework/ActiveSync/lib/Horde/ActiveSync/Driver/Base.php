@@ -288,7 +288,7 @@ abstract class Horde_ActiveSync_Driver_Base
      *
      * @return boolean
      */
-    public function Logoff()
+    public function logOff()
     {
         return true;
     }

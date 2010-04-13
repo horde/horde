@@ -1005,7 +1005,10 @@ class Horde_ActiveSync
                                   $this->_provisioning);
             $request->setLogger($this->_logger);
 
-            return $request->handle($this, $devId);
+            $result = $request->handle($this, $devId);
+            $this->_driver->logOff();
+
+            return $result;
         }
 
         // @TODO: Leave the following in place until all are refactored...then throw
