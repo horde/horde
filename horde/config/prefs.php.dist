@@ -39,6 +39,13 @@
  *
  * The following are OPTIONAL values for each entry:
  *
+ * advanced - (boolean) Mark pref as advanced - will only be displayed if user
+ *            switches to advanced options mode.
+ *            VALUES:
+ *              true: Advanced preference; hidden in basic options mode.
+ *              false: Basic preference; shown regardless of options mode.
+ *            DEFAULT: false
+ *
  * locked - (boolean) Allow preference to be changed from the options screen?
  *          VALUES:
  *            true: Do not show this preference in the UI and don't allow

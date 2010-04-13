@@ -449,8 +449,7 @@ $_prefs['compose_confirm'] = array(
 // allow the user to add a priority header when composing messages?
 $_prefs['set_priority'] = array(
     'value' => 1,
-    // Locked by default
-    'locked' => true,
+    'advanced' => true,
     'type' => 'checkbox',
     'desc' => _("Set a priority header when composing messages?")
 );
@@ -582,8 +581,7 @@ $prefGroups['reply'] = array(
 // Should the original message be included?
 $_prefs['reply_quote'] = array(
     'value' => 1,
-    // Locked by default
-    'locked' => true,
+    'advanced' => true,
     'type' => 'checkbox',
     'desc' => _("Include original message in a reply?")
 );
@@ -628,8 +626,7 @@ $prefGroups['forward'] = array(
 // forward method.
 $_prefs['forward_default'] = array(
     'value' => 'attach',
-    // Locked by default
-    'locked' => true,
+    'advanced' => true,
     'type' => 'enum',
     'enum' => array(
         'attach' => _("As attachment"),
@@ -643,7 +640,7 @@ $_prefs['forward_default'] = array(
 // original message (for the body text)?
 $_prefs['forward_format'] = array(
     'value' => 0,
-    // Locked by default
+    'advanced' => true,
     'locked' => true,
     'type' => 'checkbox',
     'desc' => _("When forwarding a message in the body text, should we use the same format as the original message?")
@@ -680,8 +677,7 @@ $_prefs['unseen_drafts'] = array(
 // auto-save drafts? value is in minutes, 0 == don't save.
 $_prefs['auto_save_drafts'] = array(
     'value' => 5,
-    // Locked by default
-    'locked' => true,
+    'advanced' => true,
     'type' => 'enum',
     'enum' => array(
         0 => _("No"),
@@ -773,8 +769,7 @@ $_prefs['html_image_addrbook'] = array(
 // should we try to mark different conversations with different colors?
 $_prefs['highlight_text'] = array(
     'value' => 1,
-    // Locked by default
-    'locked' => true,
+    'advanced' => true,
     'type' => 'checkbox',
     'desc' => _("Mark different levels of quoting with different colors?")
 );
@@ -782,8 +777,7 @@ $_prefs['highlight_text'] = array(
 // should we try to mark simple markup with html tags?
 $_prefs['highlight_simple_markup'] = array(
     'value' => 1,
-    // Locked by default
-    'locked' => true,
+    'advanced' => true,
     'type' => 'checkbox',
     'desc' => _("Mark simple markup?")
 );
@@ -805,8 +799,7 @@ $_prefs['show_quoteblocks'] = array(
 // should we dim signatures?
 $_prefs['dim_signature'] = array(
     'value' => 0,
-    // Locked by default
-    'locked' => true,
+    'advanced' => true,
     'type' => 'checkbox',
     'desc' => _("Dim signatures?")
 );
@@ -858,8 +851,7 @@ $_prefs['default_msg_charset'] = array(
 // Send read receipts?
 $_prefs['disposition_send_mdn'] = array(
     'value' => 1,
-    // Locked by default
-    'locked' => true,
+    'advanced' => true,
     'type' => 'enum',
     'enum' => array(
         0 => _("Never send read receipt"),
@@ -1205,8 +1197,7 @@ $_prefs['sortdate'] = array(
     // message was first received on the IMAP server and is maintained even
     // if the message moves between mailboxes.
     'value' => Horde_Imap_Client::SORT_ARRIVAL,
-    // Locked by default
-    'locked' => true,
+    'advanced' => true,
     'type' => 'enum',
     'enum' => array(
         Horde_Imap_Client::SORT_ARRIVAL => _("Arrival time on server"),
@@ -1629,16 +1620,14 @@ $_prefs['mimp_preview_msg'] = array(
 
 $_prefs['mimp_download_confirm'] = array(
     'value' => 0,
-    // Locked by default
-    'locked' => true,
+    'advanced' => true,
     'type' => 'number',
     'desc' => _("Only show download confirmation page if message part is greater than this size, in bytes. Set to 0 to always require the confirmation page.")
 );
 
 $_prefs['mimp_inline_all'] = array(
     'value' => 0,
-    // Locked by default
-    'locked' => true,
+    'advanced' => true,
     'type' => 'checkbox',
     'desc' => _("Show all inline parts by default in message view? If unchecked, will treat all but the first viewable inline part as attachments.")
 );
@@ -1669,8 +1658,7 @@ $_prefs['preview_enabled'] = array(
 
 $_prefs['preview_maxlen'] = array(
     'value' => 250,
-    // Locked by default
-    'locked' => true,
+    'advanced' => true,
     'type' => 'enum',
     'enum' => array(
         100 => _("100 characters"),
@@ -1678,29 +1666,26 @@ $_prefs['preview_maxlen'] = array(
         500 => _("500 characters"),
         1000 => _("1000 characters")
     ),
-    'desc' => _("Characters to display:")
+    'desc' => _("Characters to display in preview:")
 );
 
 $_prefs['preview_strip_nl'] = array(
     'value' => 1,
-    // Locked by default
-    'locked' => true,
+    'advanced' => true,
     'type' => 'checkbox',
-    'desc' => _("Strip linebreaks?")
+    'desc' => _("Strip linebreaks in preview?")
 );
 
 $_prefs['preview_show_unread'] = array(
     'value' => 1,
-    // Locked by default
-    'locked' => true,
+    'advanced' => true,
     'type' => 'checkbox',
     'desc' => _("Show previews for unread messages only?")
 );
 
 $_prefs['preview_show_tooltip'] = array(
     'value' => 0,
-    // Locked by default
-    'locked' => true,
+    'advanced' => true,
     'type' => 'checkbox',
     'desc' => _("Show previews in tooltips?")
 );

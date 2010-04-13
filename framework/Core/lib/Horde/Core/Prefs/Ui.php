@@ -5,6 +5,10 @@
  * See Horde_Registry_Application:: for a summary of the API callbacks that
  * are available.
  *
+ * Session variables set (stored in 'horde_prefs'):
+ * 'advanced' - (boolean) If true, display advanced prefs.
+ * 'nomenu' - (boolean) If true, hide menu display.
+ *
  * Copyright 2001-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -143,8 +147,15 @@ class Horde_Core_Prefs_Ui
 
         if (!empty($this->prefGroups[$group]['members'])) {
             foreach ($this->prefGroups[$group]['members'] as $pref) {
+                /* Changeable pref if:
+                 *   1. Not locked
+                 *   2. Not in suppressed array ($this->suppress)
+                 *   3. Not an advanced pref -or- in advanced view mode
+                 *   4. Not checking for implicit -or- not an implicit pref */
                 if (!$GLOBALS['prefs']->isLocked($pref) &&
                     !in_array($pref, $this->suppress) &&
+                    (empty($this->prefs[$pref]['advanced']) ||
+                     !empty($_SESSION['horde_prefs']['advanced'])) &&
                     (!$implicit ||
                      (!empty($this->prefs[$pref]['type']) &&
                       ($this->prefs[$pref]['type'] != 'implicit')))) {
@@ -162,6 +173,12 @@ class Horde_Core_Prefs_Ui
      */
     public function handleForm()
     {
+        /* Toggle Advanced/Basic mode. */
+        if (!empty($this->vars->show_advanced) ||
+            !empty($this->vars->show_basic)) {
+            $_SESSION['horde_prefs']['advanced'] = !empty($this->vars->show_advanced);
+        }
+
         if (!$this->group || !$this->groupIsEditable($this->group)) {
             return;
         }
@@ -547,6 +564,13 @@ class Horde_Core_Prefs_Ui
         }
         $t->set('apps', $tmp);
         $t->set('header', htmlspecialchars(($this->app == 'horde') ? _("Global Options") : sprintf(_("Options for %s"), $registry->get('name', $this->app))));
+
+        if (empty($_SESSION['horde_prefs']['advanced'])) {
+            $t->set('advanced', $this->selfUrl()->add('show_advanced', 1));
+        } else {
+            $t->set('basic', $this->selfUrl()->add('show_basic', 1));
+        }
+
         echo $t->fetch($h_templates . '/prefs/app.html');
 
         /* Generate navigation header. */

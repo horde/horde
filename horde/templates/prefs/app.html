@@ -15,6 +15,13 @@
    </select>
    <input class="button" type="submit" onclick="return document.appswitch.app.selectedIndex != 0;" value="<gettext>Go</gettext>" />
   </span>
+  <span class="rightFloat prefsAdvanced">
+<if:advanced>
+   [<a href="<tag:advanced />"><gettext>Show Advanced Options<gettext></a>]
+<else:advanced>
+   [<a href="<tag:basic />"><gettext>Hide Advanced Options<gettext></a>]
+</else:advanced></if:advanced>
+  </span>
   <span>
    <tag:header />
   </span>

@@ -2,6 +2,7 @@
 v4.0-cvs
 --------
 
+[mms] Add advanced preferences options screen.
 [mjr] Horde_Image can now act as an Iterator for multi-page images.
 [mms] Remove Horde_Cipher library.
 [mms] Add 'cssfiles' hook to add custom CSS files to a page.

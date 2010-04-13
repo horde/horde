@@ -564,6 +564,10 @@ div.prefsContainer p {
 img.prefsLinkImg {
     padding-right: 1px;
 }
+span.prefsAdvanced {
+    padding: 3px 10px 0 0;
+    font-size: 80%;
+}
 
 /* Block styles. */
 .currentBlock {
