@@ -1756,7 +1756,7 @@ KronolithCore = {
             break;
         }
 
-        this.setEventText(div, event.value)
+        this.setEventText(div, event.value, view == 'month' ? 30 : null)
             .observe('mouseover', div.addClassName.curry('kronolithSelected'))
             .observe('mouseout', div.removeClassName.curry('kronolithSelected'));
     },
@@ -1777,14 +1777,14 @@ KronolithCore = {
         }
     },
 
-    setEventText: function(div, event)
+    setEventText: function(div, event, length)
     {
         var calendar = event.calendar.split('|');
         div.update();
         if (event.ic) {
             div.insert(new Element('img', { src: event.ic }));
         }
-        div.insert(event.t.escapeHTML());
+        div.insert((length ? event.t.truncate(length) : event.t).escapeHTML());
         if (event.a) {
             div.insert(' ')
                 .insert(new Element('img', { src: Kronolith.conf.URI_IMG + 'alarm-' + Kronolith.conf.calendars[calendar[0]][calendar[1]].fg.substr(1) + '.png', title: Kronolith.text.alarm + ' ' + event.a }));
