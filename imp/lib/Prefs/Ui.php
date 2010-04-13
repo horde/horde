@@ -66,14 +66,18 @@ class IMP_Prefs_Ui
         case 'delmove':
             if ($pop3) {
                 $ui->suppress[] = 'move_ham_after_report';
+                $ui->suppress[] = 'empty_spam_menu';
                 $ui->suppress[] = 'use_trash';
                 $ui->suppress[] = 'trashselect';
-                $ui->suppress[] = 'use_vtrash';
                 $ui->suppress[] = 'empty_trash_menu';
 
                 $tmp = $ui->prefs['delete_spam_after_report']['enum'];
                 unset($tmp[2]);
                 $ui->override['delete_spam_after_report'] = $tmp;
+            } elseif ($prefs->isLocked('use_trash') ||
+                      !$prefs->getValue('use_trash')) {
+                $ui->suppress[] = 'trashselect';
+                $ui->suppress[] = 'empty_trash_menu';
             }
             break;
 
@@ -454,6 +458,9 @@ class IMP_Prefs_Ui
             break;
 
         case 'delmove':
+            if ($prefs->isDirty('use_trash')) {
+                $ui->suppress = array_diff($ui->suppress, array('trashselect', 'empty_trash_menu'));
+            }
             if ($prefs->isDirty('use_vtrash')) {
                 $GLOBALS['imp_search']->initialize(true);
             }
