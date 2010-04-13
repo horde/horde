@@ -306,7 +306,9 @@ class SyncPages extends Page {
             }
         }
 
-        return Horde_Util::bufferOutput(array($form, 'renderActive'), null, null, null, 'get');
+        Horde::startBuffer();
+        $form->renderActive(null, null, null, 'get');
+        return Horde::endBuffer();
     }
 
     /**

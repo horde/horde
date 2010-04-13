@@ -87,8 +87,15 @@ if ($form->validate()) {
 /* Set up template data. */
 $view = new Agora_View();
 $view->menu = Agora::getMenu('string');
-$view->formbox = Horde_Util::bufferOutput(array($form, 'renderActive'), null, $vars, 'abuse.php', 'post');
-$view->notify = Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status'));
+
+Horde::startBuffer();
+$form->renderActive(null, $vars, 'abuse.php', 'post');
+$view->formbox = Horde::endBuffer();
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$view->notify = Horde::endBuffer();
+
 $view->message_subject = $message['message_subject'];
 $view->message_author = $message['message_author'];
 $view->message_date = strftime($prefs->getValue('date_format'), $message['message_timestamp']);

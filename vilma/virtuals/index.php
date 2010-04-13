@@ -55,7 +55,10 @@ $images = array('delete' => Horde::img('delete.png', _("Delete User")),
 $template->set('images', $images);
 
 $template->set('menu', Vilma::getMenu('string'));
-$template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$template->set('notify', Horde::endBuffer());
 
 /* Render the page. */
 require VILMA_TEMPLATES . '/common-header.inc';

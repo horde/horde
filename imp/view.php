@@ -245,7 +245,9 @@ case 'print_attach':
             $t->set('headers', $headers);
 
             if (!$browser->isBrowser('mozilla')) {
-                $t->set('css', Horde_Util::bufferOutput(array('Horde_Themes', 'includeStylesheetFiles')));
+                Horde::startBuffer();
+                Horde_Themes::includeStylesheetFiles();
+                $t->set('css', Horde::endBuffer());
                 echo $t->fetch(IMP_TEMPLATES . '/print/headers.html');
                 break;
             }

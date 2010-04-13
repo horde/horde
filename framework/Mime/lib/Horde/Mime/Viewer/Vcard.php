@@ -39,12 +39,16 @@ class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Driver
     protected function _render()
     {
         $ret = $this->_renderInline();
+
         if (!empty($ret)) {
             reset($ret);
-            $ret[key($ret)]['data'] = Horde_Util::bufferOutput('include', $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc') .
-                $ret[key($ret)]['data'] .
-                Horde_Util::bufferOutput('include', $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc');
+            Horde::startBuffer();
+            include $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc';
+            echo $ret[key($ret)]['data'];
+            include $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc';
+            $ret[key($ret)]['data'] = Horde::endBuffer();
         }
+
         return $ret;
     }
 
@@ -390,9 +394,12 @@ class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Driver
 
         $html .=  '</table>';
 
+        Horde::startBuffer();
+        $notification->notify(array('listeners' => 'status');
+
         return array(
             $this->_mimepart->getMimeId() => array(
-                'data' => Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')) . $html,
+                'data' => Horde::endBuffer() . $html,
                 'status' => array(),
                 'type' => 'text/html; charset=' . Horde_Nls::getCharset()
             )

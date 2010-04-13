@@ -39,7 +39,9 @@ class Horde_Block_Whups_myqueries extends Horde_Block {
         $myqueries = Whups_View::factory('SavedQueries',
                                          array('results' => $queries));
 
-        $html = Horde_Util::bufferOutput(array($myqueries, 'html'), false);
+        Horde::startBuffer();
+        $myqueries->html(false);
+        $html = Horde::endBuffer();
         if ($html) {
             return $html;
         }

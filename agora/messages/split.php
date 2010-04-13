@@ -63,7 +63,11 @@ if ($form->validate()) {
 /* Template object. */
 $view = new Agora_View();
 $view->menu = Agora::getMenu('string');
-$view->formbox = Horde_Util::bufferOutput(array($form, 'renderActive'), null, $vars, 'split.php', 'post');
+
+Horde::startBuffer();
+$form->renderActive(null, $vars, 'split.php', 'post');
+$view->formbox = Horde::endBuffer();
+
 $view->message_subject = $message['message_subject'];
 $view->message_author = $message['message_author'];
 $view->message_body = Agora_Messages::formatBody($message['body']);

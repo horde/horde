@@ -59,14 +59,20 @@ $pages = Hylax::getPages($fax_id, $fax['fax_pages']);
 /* Render the form. */
 require_once 'Horde/Form/Renderer.php';
 $renderer = new Horde_Form_Renderer();
-$send_form = Horde_Util::bufferOutput(array($form, 'renderActive'), $renderer, $vars, 'send.php', 'post');
+
+Horde::startBuffer();
+$form->renderActive($renderer, $vars, 'send.php', 'post');
+$send_form = Horde::endBuffer();
 
 /* Set up template. */
 $template = $injector->createInstance('Horde_Template');
 $template->set('form', $send_form);
 $template->set('pages', $pages);
 $template->set('menu', $menu->getMenu());
-$template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$template->set('notify', Horde::endBuffer());
 
 require HYLAX_TEMPLATES . '/common-header.inc';
 echo $template->fetch(HYLAX_TEMPLATES . '/fax/fax.html');

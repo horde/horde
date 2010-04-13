@@ -86,7 +86,9 @@ class Horde_Image_Gd extends Horde_Image_Base
             return '';
         }
 
-        return Horde_Util::bufferOutput('image' . $this->_type, $this->_im);
+        ob_start();
+        call_user_func('image' . $this->_type, $this->_im);
+        return ob_get_clean();
     }
 
     /**

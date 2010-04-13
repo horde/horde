@@ -38,9 +38,11 @@ class Horde_Mime_Viewer_Srchighlite extends Horde_Mime_Viewer_Source
 
         // Need Horde headers for CSS tags.
         reset($ret);
-        $ret[key($ret)]['data'] =  Horde_Util::bufferOutput('require', $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc') .
-            $ret[key($ret)]['data'] .
-            Horde_Util::bufferOutput('require', $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc');
+        Horde::startBuffer();
+        require $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc';
+        echo $ret[key($ret)]['data'];
+        require $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc';
+        $ret[key($ret)]['data'] = Horde::endBuffer();
 
         return $ret;
     }

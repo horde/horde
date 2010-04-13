@@ -185,7 +185,11 @@ default:
 
 /* Set up the main template tags. */
 $view->menu = Agora::getMenu('string');
-$view->notify = Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status'));
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$view->notify = Horde::endBuffer();
+
 $view->actions = $actions;
 $view->threads = $threads;
 $view->rss = Horde_Util::addParameter(Horde::applicationUrl('rss/messages.php', true, -1), array('scope' => $scope, 'message_id' => $message_id, 'forum_id' => $forum_id));
@@ -207,7 +211,9 @@ if (!$messages->hasPermission(Horde_Perms::EDIT)) {
     $vars->set('message_subject', $reply['message_subject']);
     $vars->set('message_body_old', $reply['body']);
     $form = $messages->getForm($vars, sprintf(_("Post a Reply to \"%s\""), $reply['message_subject']));
-    $view->form = Horde_Util::bufferOutput(array($form, 'renderActive'), null, null, 'edit.php', 'post', null, false);
+    Horde::startBuffer();
+    $form->renderActive(null, null, 'edit.php', 'post', null, false);
+    $view->form = Horde::endBuffer();
 }
 
 Horde::addScriptFile('hideable.js', 'horde', true);

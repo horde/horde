@@ -64,7 +64,11 @@ $view->forum_name = sprintf(_("Threads in %s"), $forum_array['forum_name']);
 $view->forum_description =  Agora_Messages::formatBody($forum_array['forum_description']);
 $view->actions = $threads->getThreadActions();
 $view->menu = Agora::getMenu('string');
-$view->notify = Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status'));
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$view->notify = Horde::endBuffer();
+
 $view->rss = Horde_Util::addParameter(Horde::applicationUrl('rss/threads.php', true, -1), array('scope' => $scope, 'forum_id' => $forum_id));
 
 /* Set up pager. */

@@ -101,69 +101,6 @@ class Horde_Util
     }
 
     /**
-     * Buffers the output from a function call, like readfile() or
-     * highlight_string(), that prints the output directly, so that instead it
-     * can be returned as a string and used.
-     *
-     * @param string $function  The function to run.
-     * @param mixed $arg1       First argument to $function().
-     * @param mixed $arg2       Second argument to $function().
-     * @param mixed $arg...     ...
-     * @param mixed $argN       Nth argument to $function().
-     *
-     * @return string  The output of the function.
-     */
-    static public function bufferOutput()
-    {
-        if (func_num_args() == 0) {
-            return false;
-        }
-
-        $include = false;
-        $args = func_get_args();
-        $function = array_shift($args);
-
-        if (is_array($function)) {
-            if (!is_callable($function)) {
-                return false;
-            }
-        } elseif (($function == 'include') ||
-                  ($function == 'include_once') ||
-                  ($function == 'require') ||
-                  ($function == 'require_once')) {
-            $include = true;
-        } elseif (!function_exists($function)) {
-            return false;
-        }
-
-        ob_start();
-        if ($include) {
-            $file = implode(',', $args);
-            switch ($function) {
-            case 'include':
-                include $file;
-                break;
-
-            case 'include_once':
-                include_once $file;
-                break;
-
-            case 'require':
-                require $file;
-                break;
-
-            case 'require_once':
-                require_once $file;
-                break;
-            }
-        } else {
-            call_user_func_array($function, $args);
-        }
-
-        return ob_get_clean();
-    }
-
-    /**
      * Checks to see if a value has been set by the script and not by GET,
      * POST, or cookie input. The value being checked MUST be in the global
      * scope.

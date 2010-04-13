@@ -101,11 +101,16 @@ if (!$vars->exists('mode') || $vars->getExists('retry')) {
 require_once 'Horde/Form/Renderer.php';
 $renderer = &new Horde_Form_Renderer();
 
-$main = Util::bufferOutput(array($form, 'renderActive'), $renderer, $vars, 'editForward.php', 'post');
+Horde::startBuffer();
+$form->renderActive($renderer, $vars, 'editForward.php', 'post');
+$main = Horde::endBuffer();
 
 $template->set('main', $main);
 $template->set('menu', Vilma::getMenu('string'));
-$template->set('notify', Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$template->set('notify', Horde::endBuffer());
 
 require VILMA_TEMPLATES . '/common-header.inc';
 echo $template->fetch(VILMA_TEMPLATES . '/main/main.html');

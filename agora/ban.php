@@ -61,8 +61,15 @@ $form->addVariable(_("User"), 'user', 'text', true);
 
 $view = new Agora_View();
 $view->menu = Agora::getMenu('string');
-$view->formbox = Horde_Util::bufferOutput(array($form, 'renderActive'), null, null, 'ban.php', 'post');
-$view->notify = Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status'));
+
+Horde::startBuffer();
+$form->renderActive(null, null, 'ban.php', 'post');
+$view->formbox = Horde::endBuffer();
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$view->notify = Horde::endBuffer();
+
 $view->banned = $banned;
 $view->forum = $forums->getForum();
 

@@ -443,7 +443,10 @@ class Agora_Api extends Horde_Registry_Api
         $messages = &Agora_Messages::singleton($scope, $params['forum_id']);
         if ($messages instanceof PEAR_Error) {
             $queue->push(_("Could not post the message: ") . $messages->getMessage(), 'horde.error');
-            return Horde_Util::bufferOutput(array($queue, 'notify'), array('listeners' => 'status'));
+
+            Horde::startBuffer();
+            $queue->notify(array('listeners' => 'status'));
+            return Horde::endBuffer();
         }
 
         /* Check post permissions. */
@@ -500,7 +503,10 @@ class Agora_Api extends Horde_Registry_Api
                 $queue->push(_("Message posted."), 'horde.success');
                 $count = $messages->countMessages();
                 $registry->callByPackage($scope, $callback, array($forum_name, 'messages', $count));
-                return Horde_Util::bufferOutput(array($queue, 'notify'), array('listeners' => 'status'));
+
+                Horde::startBuffer();
+                $queue->notify(array('listeners' => 'status'));
+                return Horde::endBuffer();
             }
         }
 
@@ -521,7 +527,9 @@ class Agora_Api extends Horde_Registry_Api
             $url = Horde::selfUrl(true, false, true);
         }
 
-        return Horde_Util::bufferOutput(array($form, 'renderActive'), null, $vars, $url, 'post', null, false);
+        Horde::startBuffer();
+        $form->renderActive(null, $vars, $url, 'post', null, false);
+        return Horde::endBuffer();
     }
 
     /**
@@ -608,10 +616,15 @@ class Agora_Api extends Horde_Registry_Api
             } else {
                 $queue->push(_("Message not deleted."), 'horde.message');
             }
-            return Horde_Util::bufferOutput(array($queue, 'notify'), array('listeners' => 'status'));
+
+            Horde::startBuffer();
+            $queue->notify(array('listeners' => 'status'));
+            return Horde::endBuffer();
         }
 
-        return Horde_Util::bufferOutput(array($form, 'renderActive'), null, null, null, 'post', null, false);
+        Horde::startBuffer();
+        $form->renderActive(null, null, null, 'post', null, false);
+        return Horde::endBuffer();
     }
 
     /**

@@ -93,7 +93,10 @@ class IMP_Test extends Horde_Test
 
         $self_url = Horde::selfUrl()->add('app', 'imp');
 
-        return $ret . Horde_Util::bufferOutput('require', IMP_TEMPLATES . '/test/mailserver.inc');
+        Horde::startBuffer();
+        require IMP_TEMPLATES . '/test/mailserver.inc';
+
+        return $ret . Horde::endBuffer();
     }
 
     /**

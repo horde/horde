@@ -49,7 +49,10 @@ $form->addVariable(_("Comment"), 'comment', 'longtext', false, false, null, arra
 $template = $injector->createInstance('Horde_Template');
 $template->set('form', '');
 $template->set('menu', Hylax::getMenu('string'));
-$template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$template->set('notify', Horde::endBuffer());
 
 require HYLAX_TEMPLATES . '/common-header.inc';
 echo $template->fetch(HYLAX_TEMPLATES . '/compose/compose.html');

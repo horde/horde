@@ -58,7 +58,11 @@ $view = new Agora_View();
 $view->col_headers = $col_headers;
 $view->forums_list = $forums_list;
 $view->menu = Agora::getMenu('string');
-$view->notify = Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status'));
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$view->notify = Horde::endBuffer();
+
 $view->actions = empty($actions) ? null : $actions;
 
 /* Set up pager. */

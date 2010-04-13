@@ -81,7 +81,10 @@ foreach ($tasklist as $key => $ob) {
 $template->setOption('gettext', true);
 $template->set('tasks', $display_tasks, true);
 $template->set('logintasks_url', htmlspecialchars($tasks->getLoginTasksUrl()));
-$template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$template->set('notify', Horde::endBuffer());
 
 $bodyId = 'services_logintasks';
 require HORDE_TEMPLATES . '/common-header.inc';

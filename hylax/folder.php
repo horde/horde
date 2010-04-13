@@ -94,7 +94,10 @@ if ($folder == 'archive') {
 $template->set('folder', $folder_list, true);
 $template->set('actions', $actions);
 $template->set('menu', Hylax::getMenu('string'));
-$template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$template->set('notify', Horde::endBuffer());
 
 require HYLAX_TEMPLATES . '/common-header.inc';
 echo $template->fetch(HYLAX_TEMPLATES . '/folder/folder.html');

@@ -81,8 +81,15 @@ if ($messages->countForums() > 50) {
 /* Set up template data. */
 $view = new Agora_View();
 $view->menu = Agora::getMenu('string');
-$view->formbox = Horde_Util::bufferOutput(array($form, 'renderActive'), null, null, 'moderators.php', 'post');
-$view->notify = Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status'));
+
+Horde::startBuffer();
+$form->renderActive(null, null, 'moderators.php', 'post');
+$view->formbox = Horde::endBuffer();
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$view->notify = Horde::endBuffer();
+
 $view->forums = $forums_list;
 
 Horde::addScriptFile('stripe.js', 'horde', true);

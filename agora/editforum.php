@@ -60,8 +60,14 @@ if ($forum_id) {
 /* Set up template variables. */
 $view = new Agora_View();
 $view->menu = Agora::getMenu('string');
-$view->main = Horde_Util::bufferOutput(array($form, 'renderActive'), null, null, 'editforum.php', 'post');
-$view->notify = Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status'));
+
+Horde::startBuffer();
+$form->renderActive(null, null, 'editforum.php', 'post');
+$view->main = Horde::endBuffer();
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$view->notify = Horde::endBuffer();
 
 require AGORA_TEMPLATES . '/common-header.inc';
 echo $view->render('main.html.php');

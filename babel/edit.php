@@ -43,7 +43,10 @@ if ($app) {
 
 /* Set up the template fields. */
 $template->set('menu', Babel::getMenu()->render());
-$template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status')));
+$template->set('notify', Horde::endBuffer());
 
 /* Create upload form */
 $form = new Horde_Form($vars, _("Edit Translation"), $show);
@@ -53,15 +56,15 @@ if ($app && Horde_Util::getFormData('submitbutton') == _("Save")) {
 
     if ($form->validate($vars, false)) {
 	$form->getInfo($vars, $form_values);
-	
+
 	foreach($meta_params as $k => $v) {
 	    if ($val = Horde_Util::getFormData($k)) {
 		$po->meta[$k] = $val;
 	    }
 	}
-	
+
 	$po->save($pofile);
-	
+
 	if (Horde_Util::getFormData('url') == 'view') {
 	    $url = Horde::applicationUrl('view.php');
 	    $url = Horde_Util::addParameter($url, array('module' => $app));
@@ -80,10 +83,10 @@ if (!$app) {
     $form->setButtons(_("Save"));
     $form->addHidden('', 'module', 'text', false);
     $vars->set('module', $app);
-    
+
     $form->addHidden('', 'url', 'text', false);
     $vars->set('url', Horde_Util::getFormData('url'));
-    
+
     foreach($meta_params as $k => $v) {
 	$form->addVariable($k, $k, 'text', false, false);
 	if (isset($po->meta[$k]) && !empty($po->meta[$k])) {

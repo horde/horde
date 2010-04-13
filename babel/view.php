@@ -143,7 +143,10 @@ if ($f_save && $cstring) {
 
 /* Set up the template fields. */
 $template->set('menu', Babel::getMenu()->render());
-$template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$template->set('notify', Horde::endBuffer());
 
 /* Create upload form */
 $form = new Horde_Form($vars, _("View Translation"), $show);

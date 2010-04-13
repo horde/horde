@@ -36,7 +36,10 @@ foreach ($domains as $id => $domain) {
 /* Set up the template fields. */
 $template->set('domains', $domains, true);
 $template->set('menu', Vilma::getMenu('string'));
-$template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$template->set('notify', Horde::endBuffer());
 
 /* Set up the field list. */
 $images = array('delete' => Horde::img('delete.png', _("Delete Domain")),

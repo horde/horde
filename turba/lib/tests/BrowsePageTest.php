@@ -60,7 +60,11 @@ class Turba_BrowsePageTest extends Turba_TestBase {
         $this->_pageParams['registry']->pushApp('turba', array('check_perms' => false));
         $this->fakeAuth();
         $page = new Turba_BrowsePage($this->_pageParams);
-        $this->_output = Horde_Util::bufferOutput(array($page, 'run'));
+
+        Horde::startBuffer();
+        $page->run();
+        $this->_output = Horde::endBuffer();
+
         if ($push_result) {
             $this->_pageParams['registry']->popApp();
         }

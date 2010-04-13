@@ -91,7 +91,10 @@ class Turba_Test extends Horde_Test
 
         $self_url = Horde::selfUrl()->add('app', 'turba');
 
-        return $ret . Horde_Util::bufferOutput('require', TURBA_TEMPLATES . '/test/ldapserver.inc');
+        Horde::startBuffer();
+        require TURBA_TEMPLATES . '/test/ldapserver.inc';
+
+        return $ret . Horde::endBuffer();
     }
 
     /**

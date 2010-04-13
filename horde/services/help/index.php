@@ -140,8 +140,10 @@ case 'sidebar':
 
         $renderer = new Horde_Form_Renderer();
         $renderer->setAttrColumnWidth('50%');
-        $contents = Horde_Util::bufferOutput(array($searchForm, 'renderActive'), $renderer, $vars, $sidebar_url->copy()->setRaw(true), 'post') .
-            '<br />';
+
+        Horde::startBuffer();
+        $searchForm->renderActive($renderer, $vars, $sidebar_url->copy()->setRaw(true), 'post');
+        $contents = Horde::endBuffer() . '<br />';
 
         $keywords = $vars->get('keyword');
         if (!empty($keywords)) {

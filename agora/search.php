@@ -62,8 +62,14 @@ if ($form->isSubmitted() || $thread_page != null) {
 }
 
 $view->menu = Agora::getMenu('string');
-$view->notify = Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status'));
-$view->searchForm = Horde_Util::bufferOutput(array($form, 'renderActive'), null, $vars, 'search.php', 'get');
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$view->notify = Horde::endBuffer();
+
+Horde::startBuffer();
+$form->renderActive(null, $vars, 'search.php', 'get');
+$view->searchForm = Horde::endBuffer();
 
 $title = _("Search Forums");
 require AGORA_TEMPLATES . '/common-header.inc';

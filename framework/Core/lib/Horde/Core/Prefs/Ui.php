@@ -375,7 +375,7 @@ class Horde_Core_Prefs_Ui
         /* Need to buffer output - it is possible that 'special' types can
          * do things like add javascript to the page output. This should all
          * be combined and served in the page HEAD. */
-        ob_start();
+        Horde::startBuffer();
 
         if ($this->group) {
             if ($identities) {
@@ -512,7 +512,7 @@ class Horde_Core_Prefs_Ui
             echo $t->fetch($h_templates . '/prefs/overview.html');
         }
 
-        $content = ob_get_clean();
+        $content = Horde::endBuffer();
 
         $title = _("User Options");
 

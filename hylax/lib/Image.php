@@ -36,7 +36,9 @@ class Hylax_Image {
     function getDimensions()
     {
         $tmp_file = Horde_Util::getTempFile('fax', true, '/tmp');
-        Horde::logMessage('Created temp file:' . Horde_Util::bufferOutput('var_dump', $tmp_file) . ':', 'DEBUG');
+        Horde::startBuffer();
+        var_dump($tmp_file);
+        Horde::logMessage('Created temp file:' . Horde::endBuffer() . ':', 'DEBUG');
         $fp = fopen($tmp_file, 'w');
         fwrite($fp, $this->_data);
         fclose($fp);

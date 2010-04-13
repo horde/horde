@@ -57,6 +57,20 @@ class Horde
     static protected $_inlineScript = array();
 
     /**
+     * The current buffer level.
+     *
+     * @var integer
+     */
+    static protected $_bufferLevel = 0;
+
+    /**
+     * Has content been sent at the base buffer level?
+     *
+     * @var boolean
+     */
+    static protected $_contentSent = false;
+
+    /**
      * Shortcut to logging method.
      *
      * @see Horde_Core_Log_Logger
@@ -1954,6 +1968,45 @@ HTML;
         }
 
         return 'Horde.popup(' . self::escapeJson($params, array('urlencode' => !empty($options['urlencode']))) . ');';
+    }
+
+    /**
+     * Start buffering output.
+     */
+    static public function startBuffer()
+    {
+        if (!self::$_bufferLevel) {
+            self::$_contentSent = self::contentSent();
+        }
+
+        ++self::$_bufferLevel;
+        ob_start();
+    }
+
+    /**
+     * End buffering output.
+     *
+     * @return string  The buffered output.
+     */
+    static public function endBuffer()
+    {
+        if (self::$_bufferLevel) {
+            --self::$_bufferLevel;
+            return ob_get_clean();
+        }
+
+        return '';
+    }
+
+    /**
+     * Has any content been sent to the browser?
+     *
+     * @return boolean  True if content has been sent.
+     */
+    static public function contentSent()
+    {
+        return ((self::$_bufferLevel && self::$_contentSent) ||
+                (!self::$_bufferLevel && (ob_get_length() || headers_sent())));
     }
 
 }

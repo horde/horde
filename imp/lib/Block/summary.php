@@ -39,7 +39,9 @@ class Horde_Block_imp_summary extends Horde_Block
         $html = '<table cellspacing="0" width="100%">';
 
         /* Quota info, if available. */
-        $quota_msg = Horde_Util::bufferOutput(array('IMP', 'quota'));
+        Horde::startBuffer();
+        IMP::quota();
+        $quota_msg = Horde::endBuffer();
         if (!empty($quota_msg)) {
             $html .= '<tr><td colspan="3">' . $quota_msg . '</td></tr>';
         }
@@ -56,8 +58,10 @@ class Horde_Block_imp_summary extends Horde_Block
         if (!empty($newmsgs) &&
             ($GLOBALS['prefs']->getValue('nav_audio') ||
              $GLOBALS['prefs']->getValue('nav_popup'))) {
-            $html .= Horde_Util::bufferOutput(IMP::newmailAlerts($newmsgs)) .
-                Horde_Util::bufferOutput(array($GLOBALS['notification'], 'notify'), array('listeners' => 'audio'));
+            Horde::startBuffer();
+            IMP::newmailAlerts($newmsgs);
+            $GLOBALS['notification']->notify(array('listeners' => 'audio'));
+            $html .= Horde::endBuffer();
         }
 
         return $html . $html_out . '</table>';

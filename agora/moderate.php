@@ -64,7 +64,10 @@ $view->col_headers = $col_headers;
 $view->messages = $messages_list;
 $view->buttons = array(_("Approve"), _("Delete"));
 $view->session_tag = Horde_Util::formInput();
-$view->notify = Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status'));
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$view->notify = Horde::endBuffer();
 
 /* Set up pager. */
 $vars = Horde_Variables::getDefaultVariables();

@@ -92,7 +92,10 @@ require HORDE_TEMPLATES . '/admin/menu.inc';
 /* Render the configuration form. */
 $renderer = $form->getRenderer();
 $renderer->setAttrColumnWidth('50%');
-$template->set('form', Horde_Util::bufferOutput(array($form, 'renderActive'), $renderer, $vars, 'config.php', 'post'));
+
+Horde::startBuffer();
+$form->renderActive($renderer, $vars, 'config.php', 'post');
+$template->set('form', Horde::endBuffer());
 
 echo $template->fetch(HORDE_TEMPLATES . '/admin/setup/config.html');
 require HORDE_TEMPLATES . '/common-footer.inc';

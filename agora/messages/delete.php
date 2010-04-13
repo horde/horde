@@ -77,8 +77,14 @@ $view->message_author = $message['message_author'];
 $view->message_date = $messages->dateFormat($message['message_timestamp']);
 $view->message_body = Agora_Messages::formatBody($message['body']);
 $view->menu = Agora::getMenu('string');
-$view->notify = Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status'));
-$view->formbox = Horde_Util::bufferOutput(array($form, 'renderActive'), null, $vars, 'delete.php', 'post');
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$view->notify = Horde::endBuffer();
+
+Horde::startBuffer();
+$form->renderActive(null, $vars, 'delete.php', 'post');
+$view->formbox = Horde::endBuffer();
 
 require AGORA_TEMPLATES . '/common-header.inc';
 echo $view->render('messages/form.html.php');

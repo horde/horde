@@ -44,7 +44,10 @@ class Horde_Block_Horde_cloud extends Horde_Block {
                                'doSearch(\'' . $tag['tag_name'] . '\');');
         }
 
-        return Horde_Util::bufferOutput('include', HORDE_TEMPLATES . '/block/cloud.inc')
+        Horde::startBuffer();
+        include HORDE_TEMPLATES . '/block/cloud.inc';
+
+        return Horde::endBuffer()
             . '<div>&nbsp;'
             . Horde::img('loading.gif', '', array('style' => 'display:none;', 'id' => 'cloudloadingimg'))
             . '</div>' . $cloud->buildHTML()

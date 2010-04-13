@@ -153,7 +153,9 @@ abstract class Horde_Ajax_Application_Base
         $chunk = basename(Horde_Util::getPost('chunk'));
         $result = new stdClass;
         if (!empty($chunk)) {
-            $result->chunk = Horde_Util::bufferOutput('include', $GLOBALS['registry']->get('templates', $this->_app) . '/chunks/' . $chunk . '.php');
+            Horde::startBuffer();
+            include $GLOBALS['registry']->get('templates', $this->_app) . '/chunks/' . $chunk . '.php';
+            $result->chunk = Horde::endBuffer();
         }
 
         return $result;

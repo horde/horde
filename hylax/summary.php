@@ -30,7 +30,10 @@ $template->set('out_faxes', $hylax->gateway->numFaxesOut());
 $template->set('inbox', $fmt_inbox, true);
 $template->set('outbox', $fmt_outbox, true);
 $template->set('menu', Hylax::getMenu('string'));
-$template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$template->set('notify', Horde::endBuffer());
 
 require HYLAX_TEMPLATES . '/common-header.inc';
 echo $template->fetch(HYLAX_TEMPLATES . '/summary/summary.html');

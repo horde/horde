@@ -695,9 +695,12 @@ $t->set('allow_compose', !$compose_disable);
 if ($redirect) {
     /* Prepare the redirect template. */
     $t->set('cacheid', $composeCacheID);
-    $t->set('status', Horde_Util::bufferOutput(array('IMP', 'status')));
     $t->set('title', htmlspecialchars($title));
     $t->set('token', Horde::getRequestToken('imp.compose'));
+
+    Horde::startBuffer();
+    IMP::status();
+    $t->set('status', Horde::endBuffer());
 
     if ($registry->hasMethod('contacts/search')) {
         $t->set('has_search', true);
@@ -1013,7 +1016,10 @@ if ($redirect) {
         }
     }
 
-    $t->set('status', Horde_Util::bufferOutput(array('IMP', 'status')));
+    Horde::startBuffer();
+    IMP::status();
+    $t->set('status', Horde::endBuffer());
+
     $template_output = $t->fetch(IMP_TEMPLATES . '/imp/compose/compose.html');
 }
 

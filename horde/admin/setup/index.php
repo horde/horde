@@ -221,7 +221,9 @@ if (!empty($_SESSION['_config'])) {
         }
     }
     /* Render the form. */
-    $ftpform = Horde_Util::bufferOutput(array($ftpform, 'renderActive'), new Horde_Form_Renderer(), $vars, 'index.php', 'post');
+    Horde::startBuffer();
+    $ftpform->renderActive(new Horde_Form_Renderer(), $vars, 'index.php', 'post');
+    $ftpform = Horde::endBuffer();
 }
 
 if (file_exists(Horde::getTempDir() . '/horde_setup_upgrade.php')) {

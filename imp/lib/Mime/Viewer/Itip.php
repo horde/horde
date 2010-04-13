@@ -37,9 +37,12 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
         $ret = $this->_renderInline(true);
         if (!empty($ret)) {
             reset($ret);
-            $ret[key($ret)]['data'] = Horde_Util::bufferOutput('include', $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc') .
-                $ret[key($ret)]['data'] .
-                Horde_Util::bufferOutput('include', $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc');
+            Horde::startBuffer();
+            include $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc';
+            echo $ret[key($ret)]['data'];
+            include $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc';
+
+            $ret[key($ret)]['data'] = Horde::endBuffer();
         }
         return $ret;
     }

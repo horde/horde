@@ -126,7 +126,11 @@ $template->set('addresses', $addresses, true);
 $template->set('maxusers', $maxusers, true);
 $template->set('menu', Vilma::getMenu('string'));
 $template->set('tabs', $tabs->render());
-$template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$template->set('notify', Horde::endBuffer());
+
 $template->set('pager', $pager->render());
 
 /* Set up the field list. */
