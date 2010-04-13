@@ -80,7 +80,7 @@ class IMP_Views_Compose
 
                 /* Check to make sure the sent-mail folders are created - they
                  * need to exist to show up in drop-down list. */
-                foreach (array_keys($identity->getAllSignatures()) as $ident) {
+                foreach (array_keys($identity->getAll('id')) as $ident) {
                     $val = $identity->getValue('sent_mail_folder', $ident);
                     if (!$imp_folder->exists($val)) {
                         $imp_folder->create($val, true);
