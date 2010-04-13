@@ -455,9 +455,7 @@ Drag = Class.create({
 
         this.element.fire(this.wasMoved ? 'DragDrop2:end' : 'DragDrop2:mouseup', Object.clone(e));
 
-        if (tmp) {
-            tmp.remove();
-        }
+        tmp = null;
     },
 
     _onMoveDrag: function(xy, e)
