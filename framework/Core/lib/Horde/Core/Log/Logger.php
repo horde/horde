@@ -9,8 +9,9 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Slusarz <slusarz@curecanti.org>
- * @package Horde_Core
+ * @author   Michael Slusarz <slusarz@curecanti.org>
+ * @category Horde
+ * @package  Core
  */
 class Horde_Core_Log_Logger extends Horde_Log_Logger
 {

@@ -8,7 +8,8 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Core
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @package  Core
  */
 class Horde_Themes_Image extends Horde_Themes_Element {}

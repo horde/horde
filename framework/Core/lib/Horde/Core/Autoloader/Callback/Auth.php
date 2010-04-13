@@ -1,6 +1,7 @@
 <?php
 /**
- * TODO
+ * @category Horde
+ * @package  Core
  */
 class Horde_Core_Autoloader_Callback_Auth
 {

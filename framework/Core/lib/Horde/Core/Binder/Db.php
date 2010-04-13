@@ -1,4 +1,8 @@
 <?php
+/**
+ * @category Horde
+ * @package  Core
+ */
 class Horde_Core_Binder_Db implements Horde_Injector_Binder
 {
     /**
