@@ -150,12 +150,12 @@ class Horde_ActiveSync_Sync
                         return;
                     }
 
-                    if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA || $this->_exporter->FolderChange($folder)) {
+                    if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA || $this->_exporter->folderChange($folder)) {
                         $this->_stateMachine->updateState('change', $stat);
                     }
                     break;
                 case 'delete':
-                    if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA || $this->_exporter->FolderDeletion($change['id'])) {
+                    if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA || $this->_exporter->folderDeletion($change['id'])) {
                         $this->_stateMachine->updateState('delete', $change);
                     }
                     break;

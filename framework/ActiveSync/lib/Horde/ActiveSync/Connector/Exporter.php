@@ -188,7 +188,7 @@ class Horde_ActiveSync_Connector_Exporter
      *
      * @return boolean
      */
-    public function FolderChange($folder)
+    public function folderChange($folder)
     {
         array_push($this->changed, $folder);
         $this->count++;
@@ -203,7 +203,7 @@ class Horde_ActiveSync_Connector_Exporter
      * 
      * @return boolean
      */
-    public function FolderDeletion($id)
+    public function folderDeletion($id)
     {
         array_push($this->deleted, $id);
         $this->count++;

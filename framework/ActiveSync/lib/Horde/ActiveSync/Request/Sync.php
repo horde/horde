@@ -283,16 +283,16 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                             // Currently, 'read' is only sent by the PDA when it
                             // is ONLY setting the read flag.
                             if (isset($appdata->read)) {
-                                $importer->ImportMessageReadFlag($serverid, $appdata->read);
+                                $importer->importMessageReadFlag($serverid, $appdata->read);
                             } else {
-                                $importer->ImportMessageChange($serverid, $appdata);
+                                $importer->importMessageChange($serverid, $appdata);
                             }
                             $collection['importedchanges'] = true;
                         }
                         break;
                     case Horde_ActiveSync::SYNC_ADD:
                         if (isset($appdata)) {
-                            $id = $importer->ImportMessageChange(false, $appdata);
+                            $id = $importer->importMessageChange(false, $appdata);
                             if ($clientid && $id) {
                                 $collection['clientids'][$clientid] = $id;
                                 $collection['importedchanges'] = true;
@@ -304,13 +304,13 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                             $folderid = $this->_driver->getWasteBasket();
 
                             if ($folderid) {
-                                $importer->ImportMessageMove($serverid, $folderid);
+                                $importer->importMessageMove($serverid, $folderid);
                                 $collection['importedchanges'] = true;
                                 break;
                             }
                         }
 
-                        $importer->ImportMessageDeletion($serverid);
+                        $importer->importMessageDeletion($serverid);
                         $collection['importedchanges'] = true;
                         break;
                     case Horde_ActiveSync::SYNC_FETCH:

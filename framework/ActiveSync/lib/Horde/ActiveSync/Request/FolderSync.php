@@ -118,10 +118,10 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                 switch ($element[Horde_ActiveSync_Wbxml::EN_TAG]) {
                 case SYNC_ADD:
                 case SYNC_MODIFY:
-                    $serverid = $importer->ImportFolderChange($folder);
+                    $serverid = $importer->importFolderChange($folder);
                     break;
                 case SYNC_REMOVE:
-                    $serverid = $importer->ImportFolderDeletion($folder);
+                    $serverid = $importer->importFolderDeletion($folder);
                     break;
                 }
 

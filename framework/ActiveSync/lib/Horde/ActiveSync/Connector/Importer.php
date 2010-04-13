@@ -94,7 +94,7 @@ class Horde_ActiveSync_Connector_Importer
      *
      * @return mixed The server message id or false
      */
-    public function ImportMessageChange($id, $message)
+    public function importMessageChange($id, $message)
     {
         /* do nothing if it is in a dummy folder */
         if ($this->_folderId == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
@@ -140,7 +140,7 @@ class Horde_ActiveSync_Connector_Importer
      *
      * @return boolean
      */
-    public function ImportMessageDeletion($id)
+    public function importMessageDeletion($id)
     {
         /* Do nothing if it is in a dummy folder */
         if ($this->_folderId == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
@@ -174,7 +174,7 @@ class Horde_ActiveSync_Connector_Importer
      * @param string $id  Server message id
      * @param ??  $flags  The read flags to set
      */
-    public function ImportMessageReadFlag($id, $flags)
+    public function importMessageReadFlag($id, $flags)
     {
         /* Do nothing if it is a dummy folder */
         if ($this->_folderId == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
@@ -203,7 +203,7 @@ class Horde_ActiveSync_Connector_Importer
      *
      * @return boolean
      */
-    public function ImportMessageMove($id, $newfolder)
+    public function importMessageMove($id, $newfolder)
     {
         return true;
     }
@@ -218,7 +218,7 @@ class Horde_ActiveSync_Connector_Importer
      *
      * @return boolean
      */
-    public function ImportFolderChange($id, $parent, $displayname, $type)
+    public function importFolderChange($id, $parent, $displayname, $type)
     {
         /* do nothing if it is a dummy folder */
         if ($parent == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
@@ -251,7 +251,7 @@ class Horde_ActiveSync_Connector_Importer
      *
      * @return boolean
      */
-    public function ImportFolderDeletion($id, $parent)
+    public function importFolderDeletion($id, $parent)
     {
         /* Do nothing if it is a dummy folder */
         if ($parent == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {

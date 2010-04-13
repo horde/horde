@@ -418,7 +418,7 @@ class Horde_ActiveSync
             $this->_encoder->endTag();
 
             $importer = $this->_driver->GetContentsImporter($move['srcfldid']);
-            $result = $importer->ImportMessageMove($move['srcmsgid'], $move['dstfldid']);
+            $result = $importer->importMessageMove($move['srcmsgid'], $move['dstfldid']);
 
             // We discard the importer state for now.
             $this->_encoder->startTag(SYNC_MOVE_STATUS);
@@ -667,10 +667,10 @@ class Horde_ActiveSync
 
         if (!$delete) {
             // Send change
-            $serverid = $importer->ImportFolderChange($serverid, $parentid, $displayname, $type);
+            $serverid = $importer->importFolderChange($serverid, $parentid, $displayname, $type);
         } else {
             // delete folder
-            $deletedstat = $importer->ImportFolderDeletion($serverid, 0);
+            $deletedstat = $importer->importFolderDeletion($serverid, 0);
         }
 
         $this->_encoder->startWBXML();
