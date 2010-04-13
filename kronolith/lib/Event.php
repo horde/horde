@@ -1079,11 +1079,8 @@ abstract class Kronolith_Event
         /* Attendees */
         $attendees = $message->getAttendees();
         foreach ($attendees as $attendee) {
-            //if ($attendee->type == Horde_ActiveSync_Message_Attendee::TYPE_RESOURCE) {
-                // @TODO figure out a way to map this to an existing resource??
-            //} else {
-                $this->addAttendee($attendee->email, $attendee->type, $attendee->status, $attendee->name);
-            //}
+            // TODO: participation and response are not supported in AS <= 2.5
+            $this->addAttendee($attendee->email, Kronolith::PART_NONE, Kronolith::RESPONSE_NONE, $attendee->name);
         }
 
         /* Flag that we are initialized */
