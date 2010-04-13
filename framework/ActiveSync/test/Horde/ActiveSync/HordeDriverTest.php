@@ -170,6 +170,15 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
     }
 
     /**
+     * Test that the driver calls the correct api method for the provided
+     * message type to delete.
+     */
+    public function testDeleteMessage()
+    {
+        $this->markTestIncomplete();
+    }
+
+    /**
      * Test return structure of GetFolderList command
      */
     public function testGetFolderList()
