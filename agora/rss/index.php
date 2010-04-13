@@ -16,7 +16,7 @@ $scope = Horde_Util::getGet('scope', 'agora');
 $cache_key = 'agora_rss_' . $scope;
 
 /* Initialize the Cache object. */
-$cache = $injector->getInstance('Horde_Cache')
+$cache = $injector->getInstance('Horde_Cache');
 
 $rss = $cache->get($cache_key, $conf['cache']['default_lifetime']);
 if (!$rss) {

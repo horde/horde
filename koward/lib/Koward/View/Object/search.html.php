@@ -14,7 +14,7 @@
     <th class="item" width="1%"><?php echo Horde::img('edit.png', _("Edit")) ?></th>
    <?php endif; ?>
    <?php if ($this->allowDelete): ?>
-    <th class="item" width="1%"><?php echo Horde::img('delete.png', _("Delete"),) ?></th>
+    <th class="item" width="1%"><?php echo Horde::img('delete.png', _("Delete")) ?></th>
    <?php endif; ?>
    <?php foreach ($this->attributes as $attribute => $info): ?>
      <th class="item leftAlign" width="<?php echo $info['width'] ?>%" nowrap="nowrap"><?= $info['title'] ?></th>

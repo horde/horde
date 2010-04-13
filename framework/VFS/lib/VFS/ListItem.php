@@ -52,7 +52,7 @@ class VFS_ListItem
      *
      * @var string
      */
-    protected. $_size;
+    protected $_size;
 
     /**
      * Last modified date.
@@ -98,7 +98,7 @@ class VFS_ListItem
      * @param string $path      The path to the file.
      * @param array $fileArray  An array of file properties.
      */
-    public function _-construct($path, $fileArray)
+    public function __construct($path, $fileArray)
     {
         $this->_path = $path . '/' . $fileArray['name'];
         $this->_name = $fileArray['name'];

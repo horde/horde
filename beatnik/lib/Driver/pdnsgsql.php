@@ -173,7 +173,7 @@ class Beatnik_Driver_pdnsgsql extends Beatnik_Driver
                   'd.id = r.domain_id AND d.name = ?';
         $values = array($domain);
 
-        Horde::logMessage('SQL Query by Beatnik_Driver_pdnsgsql::getRecords(): ' . $query, 'DEBUG')
+        Horde::logMessage('SQL Query by Beatnik_Driver_pdnsgsql::getRecords(): ' . $query, 'DEBUG');
         $result = $this->_db->getAll($query, $values, DB_FETCHMODE_ASSOC);
         if (is_a($result, 'PEAR_Error')) {
             Horde::logMessage($result, 'ERR');

@@ -97,7 +97,7 @@ if ($form->validate($vars)) {
     $spam->setSpamLevel($vars->level);
 
     try {
-        $ingo_storage->store($spam):
+        $ingo_storage->store($spam);
         $notification->push(_("Changes saved."), 'horde.success');
         if ($vars->submitbutton == _("Save and Enable")) {
             $filters->ruleEnable($spam_id);

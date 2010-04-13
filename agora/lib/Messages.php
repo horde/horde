@@ -745,7 +745,7 @@ class Agora_Messages {
         }
 
         $sql .= ', message_modifystamp = ' . $_SERVER['REQUEST_TIME'] . '  WHERE message_id = ' . (int)$thread_id;
-        Horde::logMessage('Query by Agora_Messages::_sequence(): ' . $sql, 'DEBUG')
+        Horde::logMessage('Query by Agora_Messages::_sequence(): ' . $sql, 'DEBUG');
         return $this->_write_db->query($sql);
     }
 
