@@ -602,7 +602,7 @@ if ($isPopup) {
             'composeCache' => $composeCacheID
         ));
     } else {
-        $cancel_url = $imp_ui->mailboxReturnUrl(true)->setRaw(false);
+        $cancel_url = $imp_ui->mailboxReturnUrl(false)->setRaw(false);
     }
     $showmenu = true;
 }
