@@ -84,7 +84,7 @@ class Horde_ActiveSync_FileStateTest extends Horde_Test_Case
         /* Import the state into the state object */
         foreach($changes as $change) {
             // We know it's always a 'change' since the above test passed
-            $stat = $driver->StatMessage('Contacts', $change['id'], 0);
+            $stat = $driver->statMessage('Contacts', $change['id'], 0);
             $state->updateState('change', $stat, 0);
         }
 

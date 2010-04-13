@@ -145,7 +145,7 @@ class Horde_ActiveSync_Sync
                 switch($change['type']) {
                 case 'change':
                     $folder = $this->_backend->getFolder($change['id']);
-                    $stat = $this->_backend->StatFolder($change['id']);
+                    $stat = $this->_backend->statFolder($change['id']);
                     if (!$folder) {
                         return;
                     }
@@ -181,8 +181,8 @@ class Horde_ActiveSync_Sync
                     // Note: because 'parseMessage' and 'statMessage' are two seperate
                     // calls, we have a chance that the message has changed between both
                     // calls. This may cause our algorithm to 'double see' changes.
-                    $stat = $this->_backend->StatMessage($this->_folderId, $change['id']);
-                    if (!$message = $this->_backend->GetMessage($this->_folderId, $change['id'], $truncsize)) {
+                    $stat = $this->_backend->statMessage($this->_folderId, $change['id']);
+                    if (!$message = $this->_backend->getMessage($this->_folderId, $change['id'], $truncsize)) {
                         return false;
                     }
 

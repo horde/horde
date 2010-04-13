@@ -121,7 +121,7 @@ class Horde_ActiveSync_Connector_Importer
         }
 
         /* Tell the backend about the change */
-        $stat = $this->_backend->ChangeMessage($this->_folderId, $id, $message);
+        $stat = $this->_backend->changeMessage($this->_folderId, $id, $message);
         if (!is_array($stat)) {
             return $stat;
         }
@@ -286,7 +286,7 @@ class Horde_ActiveSync_Connector_Importer
      */
     protected function _isConflict($type, $folderid, $id)
     {
-        $stat = $this->_backend->StatMessage($folderid, $id);
+        $stat = $this->_backend->statMessage($folderid, $id);
         if (!$stat) {
             /* Message is gone, if type is change, this is a conflict */
             if ($type == 'change') {

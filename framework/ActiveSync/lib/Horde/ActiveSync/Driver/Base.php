@@ -199,7 +199,7 @@ abstract class Horde_ActiveSync_Driver_Base
      *
      * @return array  A list of messages
      */
-    abstract public function GetMessageList($folderId, $cutOffDate);
+    abstract public function getMessageList($folderId, $cutOffDate);
 
     /**
      * Get a list of server changes that occured during the specified time
@@ -222,7 +222,7 @@ abstract class Horde_ActiveSync_Driver_Base
      *
      * @return hash with 'id', 'mod', and 'flags' members
      */
-    abstract public function StatMessage($folderId, $id);
+    abstract public function statMessage($folderId, $id);
 
     /**
      *
@@ -233,7 +233,7 @@ abstract class Horde_ActiveSync_Driver_Base
      *
      * @return Horde_ActiveSync_Message_Base The message data
      */
-    abstract public function GetMessage($folderid, $id, $truncsize, $mimesupport = 0);
+    abstract public function getMessage($folderid, $id, $truncsize, $mimesupport = 0);
 
     /**
      * Delete a message
@@ -254,7 +254,7 @@ abstract class Horde_ActiveSync_Driver_Base
      *
      * @return a stat array of the new message
      */
-    abstract public function ChangeMessage($folderid, $id, $message);
+    abstract public function changeMessage($folderid, $id, $message);
 
     /**
      * Any code needed to authenticate to backend as the actual user.
@@ -404,7 +404,7 @@ abstract class Horde_ActiveSync_Driver_Base
     public function Fetch($folderid, $id, $mimesupport = 0)
     {
         // Forces entire message (up to 1Mb)
-        return $this->GetMessage($folderid, $id, 1024 * 1024, $mimesupport);
+        return $this->getMessage($folderid, $id, 1024 * 1024, $mimesupport);
     }
 
     /**
@@ -432,7 +432,7 @@ abstract class Horde_ActiveSync_Driver_Base
     /**
      * @return unknown_type
      */
-    public function GetWasteBasket()
+    public function getWasteBasket()
     {
         return false;
     }

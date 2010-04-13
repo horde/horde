@@ -348,8 +348,8 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             foreach ($changes as $change) {
                 switch ($change['type']) {
                 case 'change':
-                    $stat = $this->_backend->StatMessage($this->_collection['id'], $change['id']);
-                    if (!$message = $this->_backend->GetMessage($this->_collection['id'], $change['id'], 0)) {
+                    $stat = $this->_backend->statMessage($this->_collection['id'], $change['id']);
+                    if (!$message = $this->_backend->getMessage($this->_collection['id'], $change['id'], 0)) {
                         throw new Horde_ActiveSync_Exception('Message not found');
                     }
                     if ($stat && $message) {

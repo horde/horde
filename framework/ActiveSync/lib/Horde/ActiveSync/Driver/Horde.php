@@ -109,11 +109,11 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
     /**
      * @TODO
      *
-     * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#GetWasteBasket()
+     * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#getWasteBasket()
      */
-    public function GetWasteBasket()
+    public function getWasteBasket()
     {
-        $this->_logger->debug('Horde::GetWasteBasket()');
+        $this->_logger->debug('Horde::getWasteBasket()');
 
         return false;
     }
@@ -131,15 +131,15 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
         $folders = array();
 
         if (array_search('calendar', $supported)){
-            $folders[] = $this->StatFolder(self::APPOINTMENTS_FOLDER);
+            $folders[] = $this->statFolder(self::APPOINTMENTS_FOLDER);
         }
 
         if (array_search('contacts', $supported)){
-            $folders[] = $this->StatFolder(self::CONTACTS_FOLDER);
+            $folders[] = $this->statFolder(self::CONTACTS_FOLDER);
         }
 
         if (array_search('tasks', $supported)){
-            $folders[] = $this->StatFolder(self::TASKS_FOLDER);
+            $folders[] = $this->statFolder(self::TASKS_FOLDER);
         }
 
         return $folders;
@@ -185,9 +185,9 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
      *
      * @return a stat hash
      */
-    public function StatFolder($id)
+    public function statFolder($id)
     {
-        $this->_logger->debug('Horde::StatFolder(' . $id . ')');
+        $this->_logger->debug('Horde::statFolder(' . $id . ')');
 
         $folder = array();
         $folder['id'] = $id;
@@ -200,11 +200,11 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
     /**
      * Get the message list of specified folder
      *
-     * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#GetMessageList($folderId, $cutOffDate)
+     * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#getMessageList($folderId, $cutOffDate)
      */
-    public function GetMessageList($folderid, $cutoffdate)
+    public function getMessageList($folderid, $cutoffdate)
     {
-        $this->_logger->debug('Horde::GetMessageList(' . $folderid . ', ' . $cutoffdate . ')');
+        $this->_logger->debug('Horde::getMessageList(' . $folderid . ', ' . $cutoffdate . ')');
 
         $messages = array();
         switch ($folderid) {
@@ -215,7 +215,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
             try {
                 $events = $this->_connector->calendar_listEvents($startstamp, $endstamp, null);
             } catch (Horde_Exception $e) {
-                $this->_logger->err($e->GetMessage());
+                $this->_logger->err($e->getMessage());
                 return array();
             }
             foreach ($events as $day) {
@@ -229,7 +229,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
             try {
                 $contacts = $this->_connector->contacts_list();
             } catch (Horde_Exception $e) {
-                $this->_logger->err($e->GetMessage());
+                $this->_logger->err($e->getMessage());
                 return array();
             }
 
@@ -279,11 +279,11 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
     /**
      * Get a message from the backend
      *
-     * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#GetMessage($folderid, $id, $truncsize, $mimesupport)
+     * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#getMessage($folderid, $id, $truncsize, $mimesupport)
      */
-    public function GetMessage($folderid, $id, $truncsize, $mimesupport = 0)
+    public function getMessage($folderid, $id, $truncsize, $mimesupport = 0)
     {
-        $this->_logger->debug('Horde::GetMessage(' . $folderid . ', ' . $id . ')');
+        $this->_logger->debug('Horde::getMessage(' . $folderid . ', ' . $id . ')');
 
         $message = false;
         switch ($folderid) {
@@ -291,7 +291,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
             try {
                 return $this->_connector->calendar_export($id);
             } catch (Horde_Exception $e) {
-                $this->_logger->err($e->GetMessage());
+                $this->_logger->err($e->getMessage());
                 return false;
             }
             break;
@@ -300,7 +300,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
             try {
                 return $this->_connector->contacts_export($id);
             } catch (Horde_Exception $e) {
-                $this->_logger->err($e->GetMessage());
+                $this->_logger->err($e->getMessage());
                 return false;
             }
 
@@ -310,7 +310,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
             try {
                 return $this->_connector->tasks_export($id);
             } catch (Horde_Exception $e) {
-                $this->_logger->err($e->GetMessage());
+                $this->_logger->err($e->getMessage());
                 return false;
             }
             break;
@@ -322,9 +322,9 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
     /**
      * Get message stat data
      *
-     * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#StatMessage($folderId, $id)
+     * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#statMessage($folderId, $id)
      */
-    public function StatMessage($folderid, $id)
+    public function statMessage($folderid, $id)
     {
         return $this->_smartStatMessage($folderid, $id, true);
     }
@@ -380,11 +380,11 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
      * @param string $id
      * @param Horde_ActiveSync_Message_Base $message
      *
-     * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#ChangeMessage($folderid, $id, $message)
+     * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#changeMessage($folderid, $id, $message)
      */
-    public function ChangeMessage($folderid, $id, $message)
+    public function changeMessage($folderid, $id, $message)
     {
-        $this->_logger->debug('Horde::ChangeMessage(' . $folderid . ', ' . $id . ')');
+        $this->_logger->debug('Horde::changeMessage(' . $folderid . ', ' . $id . ')');
 
         $stat = false;
         switch ($folderid) {

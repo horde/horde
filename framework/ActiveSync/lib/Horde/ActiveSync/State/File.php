@@ -443,8 +443,8 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
             foreach ($changes as $change) {
                 switch ($change['type']) {
                 case 'change':
-                    $stat = $this->_backend->StatMessage($this->_collection['id'], $change['id']);
-                    if (!$message = $this->_backend->GetMessage($this->_collection['id'], $change['id'], 0)) {
+                    $stat = $this->_backend->statMessage($this->_collection['id'], $change['id']);
+                    if (!$message = $this->_backend->getMessage($this->_collection['id'], $change['id'], 0)) {
                         continue;
                         //throw new Horde_ActiveSync_Exception('Message not found');
                     }
@@ -590,7 +590,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
                     $this->_changes = $this->_backend->AlterPingChanges($folderId, $syncState);
                 } else {
                     /* Get our lists - syncstate (old)  and msglist (new) */
-                    $msglist = $this->_backend->GetMessageList($this->_collection['id'], $cutoffdate);
+                    $msglist = $this->_backend->getMessageList($this->_collection['id'], $cutoffdate);
                     if ($msglist === false) {
                         return false;
                     }
