@@ -2637,7 +2637,7 @@ class IMP_Compose
      *
      * @return string  HTML text.
      */
-    public function text2html($msg)
+    static public function text2html($msg)
     {
         return Horde_Text_Filter::filter($msg, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL, 'class' => null, 'callback' => null));
     }

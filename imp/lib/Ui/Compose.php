@@ -273,12 +273,14 @@ class IMP_Ui_Compose
         $identities = array();
         $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
 
+        $html_sigs = $identity->getAllSignatures('html');
+
         foreach ($identity->getAllSignatures() as $ident => $sig) {
             $identities[] = array(
                 // Plain text signature
                 'sig' => $sig,
                 // HTML signature
-                'sig_html' => str_replace(' target="_blank"', '', Horde_Text_Filter::filter($sig, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL, 'class' => null, 'callback' => null))),
+                'sig_html' => $html_sigs[$ident],
                 // Signature location
                 'sig_loc' => (bool)$identity->getValue('sig_first', $ident),
                 // Sent mail folder name
@@ -295,5 +297,67 @@ class IMP_Ui_Compose
         return 'IMP_Compose_Base.identities = ' . Horde_Serialize::serialize($identities, Horde_Serialize::JSON);
     }
 
+    /**
+     * Convert compose data to/from text/HTML.
+     *
+     * @param string $data       The message text.
+     * @param string $to         Either 'text' or 'html'.
+     * @param integer $identity  The current identity.
+     *
+     * @return string  The converted text
+     */
+    public function convertComposeText($data, $to, $identity)
+    {
+        $imp_identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+        $replaced = 0;
+
+        $html_sig = $imp_identity->getSignature('html', $identity);
+        $txt_sig = $imp_identity->getSignature('text', $identity);
+
+        /* Try to find the signature, replace it with a placeholder, convert
+         * the message, and then re-add the signature in the new format. */
+        switch ($to) {
+        case 'html':
+            if ($txt_sig) {
+                $data = preg_replace('/' . preg_replace('/(?<!^)\s+/', '\\s+', preg_quote($txt_sig, '/')) . '/', '###IMP_SIGNATURE###', $data, 1, $replaced);
+            }
+            $data = IMP_Compose::text2html($data);
+            $sig = $html_sig;
+            break;
+
+        case 'text':
+            if ($html_sig) {
+                /* Silence errors from parsing HTML. */
+                $old_error = libxml_use_internal_errors(true);
+                $doc = DOMDocument::loadHTML($data);
+                if (!$old_error) {
+                    libxml_use_internal_errors(false);
+                }
+
+                $xpath = new DOMXPath($doc);
+                $entries = $xpath->query("//div[@class='impComposeSignature']");
+                $node = $entries->item(0);
+                $node->parentNode->replaceChild($doc->createTextNode('###IMP_SIGNATURE###'), $node);
+                $replaced = 1;
+
+                $data = '';
+                foreach ($doc->getElementsByTagName('body')->item(0)->childNodes as $node) {
+                    $data .= $doc->saveXML($node);
+                }
+            }
+
+            $data = Horde_Text_Filter::filter($data, 'Html2text', array('charset' => Horde_Nls::getCharset(), 'wrap' => false));
+            $sig = $txt_sig;
+            break;
+        }
+
+        if ($replaced) {
+            return str_replace('###IMP_SIGNATURE###', $sig, $data);
+        } elseif ($imp_identity->getValue('sig_first', $identity)) {
+            return $sig . $data;
+        } else {
+            return $msg . "\n" . $sig;
+        }
+    }
 
 }

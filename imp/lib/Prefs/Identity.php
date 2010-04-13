@@ -26,15 +26,9 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
         'froms' => array(),
         'names' => array(),
         // 'own_addresses'
+        'signatures' => array()
         // 'tie_addresses'
     );
-
-    /**
-     * Cached signature list.
-     *
-     * @var array
-     */
-    protected $_signatures = array();
 
     /**
      * Reads all the user's identities from the prefs object or builds
@@ -43,11 +37,14 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
     public function __construct()
     {
         parent::__construct();
+
         $this->_properties = array_merge(
             $this->_properties,
-            array('replyto_addr', 'alias_addr', 'tieto_addr', 'bcc_addr',
-                  'signature', 'sig_first', 'sig_dashes', 'save_sent_mail',
-                  'sent_mail_folder')
+            array(
+                'replyto_addr', 'alias_addr', 'tieto_addr', 'bcc_addr',
+                'signature', 'signature_html', 'sig_first', 'sig_dashes',
+                'save_sent_mail', 'sent_mail_folder'
+            )
         );
     }
 
@@ -404,50 +401,77 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
      */
     public function getFullname($ident = null)
     {
-        if (isset($this->_names[$ident])) {
-            return $this->_names[$ident];
+        if (isset($this->_cached['names'][$ident])) {
+            return $this->_cached['names'][$ident];
         }
 
-        $this->_names[$ident] = $this->getValue('fullname', $ident);
+        $this->_cached['names'][$ident] = $this->getValue('fullname', $ident);
 
-        return $this->_names[$ident];
+        return $this->_cached['names'][$ident];
     }
 
     /**
      * Returns the full signature based on the current settings for the
      * signature itself, the dashes and the position.
      *
+     * @param string $type    Either 'text' or 'html'.
      * @param integer $ident  The identity to retrieve the signature from.
      *
      * @return string  The full signature.
      * @throws Horde_Exception
      */
-    public function getSignature($ident = null)
+    public function getSignature($type = 'text', $ident = null)
     {
-        if (isset($this->_signatures[$ident])) {
-            return $this->_signatures[$ident];
+        $convert = false;
+        $key = $ident . '|' . $type;
+        $val = null;
+
+        if (isset($this->_cached['signatures'][$key])) {
+            return $this->_cached['signatures'][$key];
         }
 
-        $val = $this->getValue('signature', $ident);
-        if (!empty($val)) {
-            $sig_first = $this->getValue('sig_first', $ident);
-            $sig_dashes = $this->getValue('sig_dashes', $ident);
-            $val = str_replace("\r\n", "\n", $val);
-            if ($sig_dashes) {
-                $val = "-- \n$val";
+        if ($type == 'html') {
+            $val = $this->getValue('signature_html', $ident);
+            if (!strlen($val)) {
+                $convert = true;
+                $val = null;
             }
-            if (isset($sig_first) && $sig_first) {
-                $val = "\n" . $val . "\n\n\n";
-            } else {
-                $val = "\n" . $val;
+        }
+
+        if (is_null($val)) {
+            $val = $this->getValue('signature', $ident);
+
+            if (!empty($val) && ($type == 'text')) {
+                $sig_first = $this->getValue('sig_first', $ident);
+                $sig_dashes = $this->getValue('sig_dashes', $ident);
+
+                $val = str_replace("\r\n", "\n", $val);
+
+                if ($sig_dashes) {
+                    $val = "-- \n" . $val . "\n";
+                } else {
+                    $val = "\n" . $val;
+                }
+
+                if ($sig_first) {
+                    $val .= "\n\n\n";
+                }
             }
+        }
+
+        if ($val && ($type == 'html')) {
+            if ($convert) {
+                $val = IMP_Compose::text2html(trim($val));
+            }
+
+            $val = '<div class="impComposeSignature">' . $val . '</div>';
         }
 
         try {
             $val = Horde::callHook('prefs_hook_signature', array($val), 'imp');
         } catch (Horde_Exception_HookNotSet $e) {}
 
-        $this->_signatures[$ident] = $val;
+        $this->_cached['signatures'][$key] = $val;
 
         return $val;
     }
@@ -455,18 +479,14 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
     /**
      * Returns an array with the signatures from all identities
      *
+     * @param string $type  Either 'text' or 'html'.
+     *
      * @return array  The array with all the signatures.
      */
-    public function getAllSignatures()
+    public function getAllSignatures($type = 'text')
     {
-        static $list;
-
-        if (isset($list)) {
-            return $list;
-        }
-
         foreach ($this->_identities as $key => $identity) {
-            $list[$key] = $this->getSignature($key);
+            $list[$key] = $this->getSignature($type, $key);
         }
 
         return $list;

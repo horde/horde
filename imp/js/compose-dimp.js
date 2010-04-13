@@ -337,11 +337,11 @@ var DimpCompose = {
             this.rte.destroy();
 
             this.RTELoading('show');
-            DimpCore.doAction('html2Text', { text: text }, { callback: this.setMessageText.bind(this), ajaxopts: { asynchronous: false } });
+            DimpCore.doAction('html2Text', { identity: $F('identity'), text: text }, { callback: this.setMessageText.bind(this), ajaxopts: { asynchronous: false } });
             this.RTELoading('hide');
         } else {
             if (!noupdate) {
-                DimpCore.doAction('text2Html', { text: $F('composeMessage') }, { callback: this.setMessageText.bind(this), ajaxopts: { asynchronous: false } });
+                DimpCore.doAction('text2Html', { identity: $F('identity'), text: $F('composeMessage') }, { callback: this.setMessageText.bind(this), ajaxopts: { asynchronous: false } });
             }
 
             config = Object.clone(IMP.ckeditor_config);

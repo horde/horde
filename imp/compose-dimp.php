@@ -172,15 +172,13 @@ if ($vars->type == 'redirect') {
     $imp_ui->attachAutoCompleter(array('to', 'cc', 'bcc', 'redirect_to'));
     $imp_ui->attachSpellChecker();
 
-    $sig = $identity->getSignature();
+    $sig = $identity->getSignature($show_editor ? 'html' : 'text');
     if ($get_sig && !empty($sig)) {
-        if ($show_editor) {
-            $sig = '<p><!--begin_signature-->' . $imp_compose->text2html(trim($sig)) . '<!--end_signature--></p>';
+        if ($identity->getValue('sig_first')) {
+            $msg = $sig . $msg;
+        } else {
+            $msg .= $sig;
         }
-
-        $msg = ($identity->getValue('sig_first'))
-            ? "\n" . $sig . $msg
-            : $msg . "\n" . $sig;
     }
 
     if ($show_editor) {

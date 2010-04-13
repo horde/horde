@@ -121,6 +121,14 @@ class IMP_Prefs_Ui
             } else {
                 Horde::addScriptFile('folderprefs.js', 'imp');
             }
+
+            if ($prefs->isLocked('signature_html') ||
+                empty($_SESSION['imp']['rteavail'])) {
+                $ui->suppress[] = 'signature_html_select';
+            } else {
+                Horde::addScriptFile('signaturehtml.js', 'imp');
+                $GLOBALS['injector']->getInstance('Horde_Editor')->getEditor('Ckeditor', array('id' => 'signature_html'));
+            }
             break;
 
         case 'logintasks':
@@ -309,6 +317,9 @@ class IMP_Prefs_Ui
         case 'smimepublickey':
             return $this->_smimePublicKey($ui);
 
+        case 'signature_html_select':
+            return $this->_signatureHtml();
+
         case 'soundselect':
             return $this->_sound();
 
@@ -384,6 +395,9 @@ class IMP_Prefs_Ui
         case 'smimepublickey':
             $this->_updateSmimePublicKey($ui);
             return false;
+
+        case 'signature_html_select':
+            return Horde_Prefs_Identity::singleton(array('imp', 'imp'))->setValue('signature_html', $ui->vars->signature_html);
 
         case 'soundselect':
             return $prefs->setValue('nav_audio', $ui->vars->nav_audio);
@@ -1317,6 +1331,32 @@ class IMP_Prefs_Ui
                 $GLOBALS['notification']->push($e);
             }
         }
+    }
+
+    /* HTML Signature editing. */
+
+    /**
+     * Create code for HTML Signature editing.
+     *
+     * @return string  HTML UI code.
+     */
+    protected function _signatureHtml()
+    {
+        $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+
+        $js = array();
+        foreach (array_keys($identity->getAll('id')) as $key) {
+            $js[$key] = $identity->getValue('signature_html', $key);
+        };
+
+        Horde::addInlineScript(array(
+            'ImpHtmlSignaturePrefs.sigs = ' . Horde_Serialize::serialize($js, Horde_Serialize::JSON, Horde_Nls::getCharset())
+        ));
+
+        $t = $GLOBALS['injector']->createInstance('Horde_Template');
+        $t->setOption('gettext', true);
+
+        return $t->fetch(IMP_TEMPLATES . '/prefs/signaturehtml.html');
     }
 
     /* Sound selection. */

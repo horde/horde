@@ -616,24 +616,17 @@ if (empty($msg)) {
     $msg = "\n" . $msg;
 }
 
-/* Get the current signature. */
-$sig = $identity->getSignature();
-
 /* Convert from Text -> HTML or vice versa if RTE mode changed. */
 if (!is_null($oldrtemode) && ($oldrtemode != $rtemode)) {
-    if ($rtemode) {
-        /* Try to find the signature, replace it with a placeholder,
-         * HTML-ize the message, then replace the signature
-         * placeholder with the HTML-ized signature, complete with
-         * marker comment. */
-        $msg = preg_replace('/' . preg_replace('/(?<!^)\s+/', '\\s+', preg_quote($sig, '/')) . '/', '##IMP_SIGNATURE##', $msg, 1);
-        $msg = preg_replace('/\s+##IMP_SIGNATURE##/', '##IMP_SIGNATURE_WS####IMP_SIGNATURE##', $msg);
-        $msg = $imp_compose->text2html($msg);
-        $msg = str_replace(array('##IMP_SIGNATURE_WS##', '##IMP_SIGNATURE##'),
-                           array('<p>&nbsp;</p>', '<p><!--begin_signature-->' . $imp_compose->text2html($sig) . '<!--end_signature--></p>'),
-                           $msg);
-    } else {
-        $msg = Horde_Text_Filter::filter($msg, 'Html2text', array('charset' => Horde_Nls::getCharset(), 'wrap' => false));
+    $msg = $imp_ui->convertComposeText($msg, $rtemode ? 'html' : 'text', $identity->getDefault());
+} elseif ($get_sig) {
+    $sig = $identity->getSignature($rtemode ? 'html' : 'text');
+    if (!empty($sig)) {
+        if ($identity->getValue('sig_first')) {
+            $msg = $sig . $msg;
+        } else {
+            $msg .= "\n" . $sig;
+        }
     }
 }
 
@@ -646,18 +639,6 @@ if (!$vars->compose_formToken && ($vars->actionID != 'draft')) {
 foreach (array('to', 'cc', 'bcc', 'subject') as $val) {
     if (!isset($header[$val])) {
         $header[$val] = $imp_ui->getAddressList($vars->$val);
-    }
-}
-
-if ($get_sig && isset($msg) && !empty($sig)) {
-    if ($rtemode) {
-        $sig = '<p>&nbsp;</p><p><!--begin_signature-->' . $imp_compose->text2html(trim($sig)) . '<!--end_signature--></p>';
-    }
-
-    if ($identity->getValue('sig_first')) {
-        $msg = "\n" . $sig . $msg;
-    } else {
-        $msg .= "\n" . $sig;
     }
 }
 

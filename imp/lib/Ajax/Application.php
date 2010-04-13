@@ -866,10 +866,11 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
     }
 
     /**
-     * AJAX action: Convert HTML to text.
+     * AJAX action: Convert HTML to text (compose data).
      *
      * Variables used:
      * <pre>
+     * 'identity' - (integer) The current identity.
      * 'text' - (string) The text to convert.
      * </pre>
      *
@@ -881,18 +882,17 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
     public function html2Text()
     {
         $result = new stdClass;
-        // Need to replace line endings or else IE won't display line endings
-        // properly.
-        $result->text = str_replace("\n", "\r\n", Horde_Text_Filter::filter($this->_vars->text, 'Html2text', array('charset' => Horde_Nls::getCharset())));
+        $result->text = $GLOBALS['injector']->getInstance('IMP_Ui_Compose')->convertComposeText($this->_vars->text, 'text', intval($this->_vars->identity));
 
         return $result;
     }
 
     /**
-     * AJAX action: Convert text to HTML.
+     * AJAX action: Convert text to HTML (compose data).
      *
      * Variables used:
      * <pre>
+     * 'identity' - (integer) The current identity.
      * 'text' - (string) The text to convert.
      * </pre>
      *
@@ -904,7 +904,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
     public function text2Html()
     {
         $result = new stdClass;
-        $result->text = Horde_Text_Filter::filter($this->_vars->text, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL));
+        $result->text = $GLOBALS['injector']->getInstance('IMP_Ui_Compose')->convertComposeText($this->_vars->text, 'html', intval($this->_vars->identity));
 
         return $result;
     }

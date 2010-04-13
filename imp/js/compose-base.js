@@ -64,51 +64,49 @@ var IMP_Compose_Base = {
 
     replaceSignature: function(id)
     {
-        var lastsig, msg, nextsig, oldmsg, pos,
-            last = this.getIdentity($F('last_identity')),
+        var lastsig, msg, nextsig, pos, tmp, tmp2,
             next = this.getIdentity(id);
 
         // If the rich text editor is on, we'll use a regexp to find the
         // signature comment and replace its contents.
         if (this.editor_on) {
-            msg = oldmsg = CKEDITOR.instances['composeMessage'].getData().replace(/\r\n/g, '\n');
-
-            lastsig = '<p><!--begin_signature--><!--end_signature--></p>';
-            nextsig = '<p><!--begin_signature-->' + next.sig.replace(/^ ?<br \/>\n/, '').replace(/ +/g, ' ') + '<!--end_signature--></p>';
-
-            // Dot-all functionality achieved with [\s\S], see:
-            // http://simonwillison.net/2004/Sep/20/newlines/
-            msg = msg.replace(/<p>\s*<!--begin_signature-->[\s\S]*?<!--end_signature-->\s*<\/p>/, lastsig);
-            if (msg == oldmsg) {
-                msg = nextsig;
+            // Create a temporary element, import the data from the editor,
+            // search/replace the current imp signature data, and reinsert
+            // into the editor.
+            tmp = new Element('DIV').hide();
+            $(document.body).insert(tmp);
+            tmp.update(CKEDITOR.instances['composeMessage'].getData());
+            tmp2 = tmp.select('DIV.impComposeSignature');
+            if (tmp2.size()) {
+                msg = tmp2.last().update(next.sig);
+            } else {
+                msg = next.id.sig_loc
+                    ? tmp.insert({ top: next.sig })
+                    : tmp.insert({ bottom: next.sig });
             }
+            CKEDITOR.instances['composeMessage'].setData(msg.innerHTML);
+            tmp.remove();
         } else {
             msg = $F('composeMessage').replace(/\r\n/g, '\n');
-
+            last = this.getIdentity($F('last_identity'));
             lastsig = last.sig.replace(/^\n/, '');
             nextsig = next.sig.replace(/^\n/, '');
-        }
 
-        pos = (last.id.sig_loc)
-            ? msg.indexOf(lastsig)
-            : msg.lastIndexOf(lastsig);
+            pos = last.id.sig_loc
+                ? msg.indexOf(lastsig)
+                : msg.lastIndexOf(lastsig);
 
-        if (pos != -1) {
-            if (next.id.sig_loc == last.id.sig_loc) {
-                msg = msg.substring(0, pos) + nextsig + msg.substring(pos + lastsig.length, msg.length);
-            } else if (next.id.sig_loc) {
-                msg = nextsig + msg.substring(0, pos) + msg.substring(pos + lastsig.length, msg.length);
-            } else {
-                msg = msg.substring(0, pos) + msg.substring(pos + lastsig.length, msg.length) + nextsig;
+            if (pos != -1) {
+                if (next.id.sig_loc == last.id.sig_loc) {
+                    msg = msg.substring(0, pos) + nextsig + msg.substring(pos + lastsig.length, msg.length);
+                } else if (next.id.sig_loc) {
+                    msg = nextsig + msg.substring(0, pos) + msg.substring(pos + lastsig.length, msg.length);
+                } else {
+                    msg = msg.substring(0, pos) + msg.substring(pos + lastsig.length, msg.length) + nextsig;
+                }
+
+                $('composeMessage').setValue(msg.replace(/\r\n/g, '\n').replace(/\n/g, '\r\n'));
             }
-
-            msg = msg.replace(/\r\n/g, '\n').replace(/\n/g, '\r\n');
-        }
-
-        if (this.editor_on) {
-            CKEDITOR.instances['composeMessage'].setData(msg);
-        } else {
-            $('composeMessage').setValue(msg);
         }
 
         $('last_identity').setValue(id);
