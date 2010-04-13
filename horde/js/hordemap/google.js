@@ -63,7 +63,7 @@ HordeMap.Geocoder.Google = Class.create(
     _reverseCallback: function(r)
     {
         if (r.Status.code != 200) {
-            this._errorCallback(r.code);
+            this._errorCallback(r.Status.code);
             return;
         }
         var results = [];
@@ -84,6 +84,7 @@ HordeMap.Geocoder.Google = Class.create(
     reverseGeocode: function(latlon, completeCallback, errorCallback)
     {
         this._userCallback = completeCallback;
+        this._errorCallback = errorCallback || function () {};
         this.gc.getLocations(new GLatLng(latlon.lat, latlon.lon), this._reverseCallback.bind(this));
     }
 });
