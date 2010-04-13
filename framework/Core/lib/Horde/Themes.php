@@ -295,7 +295,7 @@ class Horde_Themes
      */
     static public function sound($name = null, $options = array())
     {
-        return self::_getObject('sound', $name, $options);
+        return self::_getObject('sounds', $name, $options);
     }
 
     /**
