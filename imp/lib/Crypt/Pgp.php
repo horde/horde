@@ -177,7 +177,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         }
 
         /* Try retrieving by e-mail only first. */
-        $params = Horde_Core_Prefs_Utils::getAddressbookSearchParams();
+        $params = IMP::getAddressbookSearchParams();
         try {
             $result = $GLOBALS['registry']->call('contacts/getField', array($address, self::PUBKEY_FIELD, $params['sources'], false, true));
         } catch (Horde_Exception $e) {
