@@ -60,7 +60,7 @@ class Horde_ActiveSync_Message_Base
      * //FIXME: use accessor methods, make this protected
      * @var Horde_ActiveSync_FLAG_* constant
      */
-    public $flags;
+    public $flags = false;
 
     /**
      * Logger
@@ -77,17 +77,22 @@ class Horde_ActiveSync_Message_Base
      *
      * @return Horde_ActiveSync_Message_Base
      */
-    public function __construct($mapping, $options)
+    public function __construct($options)
     {
-        $this->_mapping = $mapping;
-        $this->flags = false;
         if (!empty($options['logger'])) {
             $this->_logger = $options['logger'];
+        } else {
+            $this->_logger = new Horde_Support_Stub();
         }
     }
 
     public function __get($property)
     {
+        if (!array_key_exists($property, $this->_properties)) {
+            $this->_logger->err('Unknown property: ' . $property);
+            throw new InvalidArgumentException('Unknown property: ' . $property);
+        }
+
         if (!empty($this->_properties[$property])) {
             return $this->_properties[$property];
         } else {
@@ -97,8 +102,27 @@ class Horde_ActiveSync_Message_Base
 
     public function __set($property, $value)
     {
+        if (!array_key_exists($property, $this->_properties)) {
+            $this->_logger->err('Unknown property: ' . $property);
+            throw new InvalidArgumentException('Unknown property: ' . $property);
+        }
         $this->_properties[$property] = $value;
     }
+
+    public function __call($method, $arg)
+    {
+        /* Support calling set{Property}() */
+        if (strpos($method, 'set') === 0) {
+            $property = Horde_String::lower(substr($method, 3));
+            $this->_properties[$property] = $arg;
+        } elseif (strpos($method, 'get') === 0) {
+            return $this->_getAttribute(Horde_String::lower(substr($method, 3)));
+        }
+
+        throw new BadMethodCallException('Unknown method: ' . $method . ' in class: ' . __CLASS__);
+    }
+
+
 
     public function __isset($property)
     {
@@ -329,6 +353,14 @@ class Horde_ActiveSync_Message_Base
         }
     }
 
+    /**
+     * Helper method to allow default values for unset properties.
+     *
+     * @param string $name  The property name
+     * @param stting $default The default value to return if $property is empty
+     *
+     * @return mixed
+     */
     protected function _getAttribute($name, $default = null)
     {
         if (!empty($this->_properties[$name])) {

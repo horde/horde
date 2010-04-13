@@ -17,14 +17,21 @@ class Horde_ActiveSync_Message_Folder extends Horde_ActiveSync_Message_Base
 
     public function __construct($params = array())
     {
-        $mapping = array (
+        $this->_mapping = array (
             Horde_ActiveSync::FOLDERHIERARCHY_SERVERENTRYID => array (self::KEY_ATTRIBUTE => 'serverid'),
             Horde_ActiveSync::FOLDERHIERARCHY_PARENTID => array (self::KEY_ATTRIBUTE => 'parentid'),
             Horde_ActiveSync::FOLDERHIERARCHY_DISPLAYNAME => array (self::KEY_ATTRIBUTE => 'displayname'),
             Horde_ActiveSync::FOLDERHIERARCHY_TYPE => array (self::KEY_ATTRIBUTE => 'type')
         );
 
-        parent::__construct($mapping, $params);
+        $this->_properties = array(
+            'serverid' => false,
+            'parentid' => false,
+            'displayname' => false,
+            'type' => false,
+        );
+
+        parent::__construct($params);
     }
 
     public function getClass()

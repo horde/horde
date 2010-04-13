@@ -97,7 +97,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * @return Horde_ActiveSync_Message_Appointment
      */
     public function __construct($params = array()) {
-        $mapping = array(
+        $this->_mapping = array(
             self::POOMCAL_TIMEZONE => array (self::KEY_ATTRIBUTE => 'timezone'),
             self::POOMCAL_DTSTAMP => array (self::KEY_ATTRIBUTE => 'dtstamp', self::KEY_TYPE => self::TYPE_DATE),
             self::POOMCAL_STARTTIME => array (self::KEY_ATTRIBUTE => 'starttime', self::KEY_TYPE => self::TYPE_DATE),
@@ -122,7 +122,28 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
             //self::POOMCAL_RESPONSETYPE => array(self::KEY_ATTRIBUTE => 'responsetype'),
         );
 
-        parent::__construct($mapping, $params);
+        $this->_properties = array(
+            'timezone' => false,
+            'dtstamp' => false,
+            'starttime' => false,
+            'subject' => false,
+            'uid' => false,
+            'organizername' => false,
+            'organizeremail' => false,
+            'location' => false,
+            'endtime' => false,
+            'recurrence' => false,
+            'sensitivity' => false,
+            'busystatus' => false,
+            'alldayevent' => false,
+            'reminder' => false,
+            'rtf' => false,
+            'meetingstatus' => false,
+            'body' => false,
+            'bodytruncated' => false,
+        );
+
+        parent::__construct($params);
     }
 
     /**

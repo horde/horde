@@ -596,8 +596,8 @@ class Turba_Api extends Horde_Registry_Api
      *
      * @param string $content      The content of the contact.
      * @param string $contentType  What format is the data in? Currently
-     *                             supports array, text/directory, text/vcard
-     *                             and text/x-vcard.
+     *                             supports array, text/directory, text/vcard,
+     *                             text/x-vcard, and activesync.
      * @param string $source       The source into which the contact will be
      *                             imported.
      *
@@ -682,6 +682,10 @@ class Turba_Api extends Horde_Registry_Api
                     }
                     return $ids;
                 }
+                break;
+
+            case 'activesync':
+                $hash = $driver->fromASContact($content);
                 break;
 
             default:
@@ -809,6 +813,13 @@ class Turba_Api extends Horde_Registry_Api
                 }
 
                 return $attributes;
+
+            case 'activesync':
+                foreach ($result->objects as $object) {
+                    $return = $object;
+                }
+
+                return $driver->toASContact($return);
             }
 
             throw new Horde_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
@@ -979,7 +990,7 @@ class Turba_Api extends Horde_Registry_Api
      * @param string $content        The content of the contact.
      * @param string $contentType    What format is the data in? Currently
      *                               supports array, text/directory,
-     *                               text/vcard and text/x-vcard.
+     *                               text/vcard, text/x-vcard and activesync.
      * @param string|array $sources  The source(s) where the contact will be
      *                               replaced.
      *
@@ -1055,6 +1066,9 @@ class Turba_Api extends Horde_Registry_Api
                 default:
                     throw new Horde_Exception(_("Only one vcard supported."));
                 }
+                break;
+            case 'activesync':
+                $content = $driver->fromASContact($content);
                 break;
 
             default:

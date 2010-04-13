@@ -20,7 +20,7 @@ class Horde_ActiveSync_Message_Recurrence extends Horde_ActiveSync_Message_Base
 
     function __construct($params = array())
     {
-        $mapping = array (
+        $this->_mapping = array (
             Horde_ActiveSync_Message_Appointment::POOMCAL_TYPE => array (self::KEY_ATTRIBUTE => 'type'),
             Horde_ActiveSync_Message_Appointment::POOMCAL_UNTIL => array (self::KEY_ATTRIBUTE => 'until', self::KEY_TYPE => self::TYPE_DATE),
             Horde_ActiveSync_Message_Appointment::POOMCAL_OCCURRENCES => array (self::KEY_ATTRIBUTE => 'occurrences'),
@@ -31,7 +31,18 @@ class Horde_ActiveSync_Message_Recurrence extends Horde_ActiveSync_Message_Base
             Horde_ActiveSync_Message_Appointment::POOMCAL_MONTHOFYEAR => array (self::KEY_ATTRIBUTE => 'monthofyear')
         );
 
-        parent::__construct($mapping, $params);
+        $this->_properties = array(
+            'type' => false,
+            'until' => false,
+            'occurrences' => false,
+            'interval' => false,
+            'dayofweek' => false,
+            'dayofmonth' => false,
+            'weekofmonth' => false,
+            'monthofyear' => false,
+        );
+
+        parent::__construct($params);
     }
 
 }

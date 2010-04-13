@@ -58,7 +58,7 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
      * @param array $params
      */
     function __construct($params = array()) {
-        $mapping = array (
+        $this->_mapping = array (
             self::POOMTASKS_BODY => array (self::KEY_ATTRIBUTE => 'body'),
             self::POOMTASKS_COMPLETE => array (self::KEY_ATTRIBUTE => 'complete'),
             self::POOMTASKS_DATECOMPLETED => array (self::KEY_ATTRIBUTE => 'datecompleted', self::KEY_TYPE => self::TYPE_DATE_DASHES),
@@ -78,7 +78,27 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
             self::POOMTASKS_CATEGORIES => array (self::KEY_ATTRIBUTE => 'categories', self::KEY_VALUES => self::POOMTASKS_CATEGORY),
         );
 
-        parent::__construct($mapping, $params);
+        $this->_properties = array(
+            'body' => false,
+            'complete' => false,
+            'datecompleted' => false,
+            'duedate' => false,
+            'utcduedate' => false,
+            'importance' => false,
+            'recurrence' => false,
+            'regenerate' => false,
+            'deadoccur' => false,
+            'reminderset' => false,
+            'remindertime' => false,
+            'sensitiviy' => false,
+            'startdate' => false,
+            'utcstartdate' => false,
+            'subject' => false,
+            'rtf' => false,
+            'categories' => false,
+        );
+
+        parent::__construct($params);
     }
 
     /**

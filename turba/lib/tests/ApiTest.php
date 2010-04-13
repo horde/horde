@@ -15,7 +15,10 @@ class Turba_ApiTest extends Turba_TestBase {
         require_once TURBA_BASE . '/lib/api.php';
         $this->setUpDatabase();
     }
-
+    function testSomething()
+    {
+     echo 'fail';
+    }
     function test_search_api_should_return_results()
     {
         global $registry;

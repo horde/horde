@@ -151,7 +151,7 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
      */
     public function contacts_export($uid)
     {
-        return $this->_registry->contacts->export($uid, 'array');
+        return $this->_registry->contacts->export($uid, 'activesync');
     }
 
     /**

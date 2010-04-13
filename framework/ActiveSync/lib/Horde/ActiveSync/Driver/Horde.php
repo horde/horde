@@ -216,8 +216,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
                 $events = $this->_connector->calendar_listEvents($startstamp, $endstamp, null);
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->GetMessage());
-
-                return false;
+                return array();
             }
             foreach ($events as $day) {
                 foreach($day as $e) {
@@ -231,8 +230,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
                 $contacts = $this->_connector->contacts_list();
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->GetMessage());
-
-                return false;
+                return array();
             }
 
             foreach ($contacts as $contact) {
@@ -249,7 +247,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
             break;
 
         default:
-            return false;
+            return array();
         }
 
         return $messages;
@@ -300,13 +298,12 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
 
         case self::CONTACTS_FOLDER:
             try {
-                $contact = $this->_connector->contacts_export($id);
+                return $this->_connector->contacts_export($id);
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->GetMessage());
                 return false;
             }
 
-           return self::_fromHash($contact);
             break;
 
         case self::TASKS_FOLDER:
@@ -415,10 +412,9 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
             break;
 
         case self::CONTACTS_FOLDER:
-            $content = self::_toHash($message);
             if (!$id) {
                 try {
-                    $id = $this->_connector->contacts_import($content);
+                    $id = $this->_connector->contacts_import($message);
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     return false;
@@ -549,231 +545,6 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
         $message['id'] = $id;
         $message['mod'] = $mod;
         $message['flags'] = 1;
-
-        return $message;
-    }
-
-    /**
-     * Create a hash suitable for importing into contacts/import or
-     * contacts/replace from a Horde_ActiveSync_Message_Base object.
-     *
-     * @param Horde_ActiveSync_Message_Contact $message
-     *
-     * @return array
-     */
-    private static function _toHash(Horde_ActiveSync_Message_Contact $message)
-    {
-        $charset = Horde_Nls::getCharset();
-        $formattedname = false;
-
-        /* Name */
-        $hash['name'] = Horde_String::convertCharset($message->fileas, 'utf-8', $charset);
-        $hash['lastname'] = Horde_String::convertCharset($message->lastname, 'utf-8', $charset);
-        $hash['firstname'] = Horde_String::convertCharset($message->firstname, 'utf-8', $charset);
-        $hash['middlenames'] = Horde_String::convertCharset($message->middlename, 'utf-8', $charset);
-        $hash['namePrefix'] = Horde_String::convertCharset($message->title, 'utf-8', $charset);
-        $hash['nameSuffix'] = Horde_String::convertCharset($message->suffix, 'utf-8', $charset);
-
-
-        // picture ($message->picture *should* already be base64 encdoed)
-        $hash['photo'] = base64_decode($message->picture);
-
-        /* Home */
-        $hash['homeStreet'] = Horde_String::convertCharset($message->homestreet, 'utf-8', $charset);
-        $hash['homeCity'] = Horde_String::convertCharset($message->homecity, 'utf-8', $charset);
-        $hash['homeProvince'] = Horde_String::convertCharset($message->homestate, 'utf-8', $charset);
-        $hash['homePostalCode'] = $message->homepostalcode;
-        $hash['homeCountry'] = Horde_String::convertCharset($message->homecountry, 'utf-8', $charset);
-
-        /* Business */
-        $hash['workStreet'] = Horde_String::convertCharset($message->businessstreet, 'utf-8', $charset);
-        $hash['workCity'] = Horde_String::convertCharset($message->businesscity, 'utf-8', $charset);
-        $hash['workProvince'] = Horde_String::convertCharset($message->businessstate, 'utf-8', $charset);
-        $hash['workPostalCode'] = $message->businesspostalcode;
-        $hash['workCountry'] = Horde_String::convertCharset($message->businesscountry, 'utf-8', $charset);
-
-        $hash['homePhone'] = $message->homephonenumber;
-        $hash['workPhone'] = $message->businessphonenumber;
-        $hash['fax'] = $message->businessfaxnumber;
-        $hash['pager'] = $message->pagernumber;
-        $hash['cellPhone'] = $message->mobilephonenumber;
-
-        /* Email addresses */
-        $hash['email'] = Horde_iCalendar_vcard::getBareEmail($message->email1address);
-
-        /* Job title */
-        $hash['title'] = Horde_String::convertCharset($message->jobtitle, 'utf-8', $charset);
-
-        $hash['company'] = Horde_String::convertCharset($message->companyname, 'utf-8', $charset);
-        $hash['department'] = Horde_String::convertCharset($message->department, 'utf-8', $charset);
-
-        /* Categories */
-        if (count($message->categories)) {
-            $hash['category']['value'] = Horde_String::convertCharset(implode(';', $message->categories), 'utf-8', $charset);
-            $hash['category']['new'] = true;
-        }
-
-        /* Children */
-        // @TODO
-
-        /* Spouse */
-        $hash['spouse'] = Horde_String::convertCharset($message->spouse, 'utf-8', $charset);
-
-        /* Notes */
-        $hash['notes'] = Horde_String::convertCharset($message->body, 'utf-8', $charset);
-
-        /* webpage */
-        $hash['website'] = Horde_String::convertCharset($message->webpage, 'utf-8', $charset);
-
-        /* Birthday and Anniversary */
-        if (!empty($message->birthday)) {
-            $bday = new Horde_Date($message->birthday);
-            $hash['birthday'] = $bday->format('Y-m-d');
-        } else {
-            $hash['birthday'] = null;
-        }
-        if (!empty($message->anniversary)) {
-            $anniversary = new Horde_Date($message->anniversary);
-            $hash['anniversary'] = $anniversary->format('Y-m-d');
-        } else {
-            $hash['anniversary'] = null;
-        }
-
-        /* Assistant */
-        $hash['assistant'] = Horde_String::convertCharset($message->assistantname, 'utf-8', $charset);
-
-        return $hash;
-    }
-
-    /**
-     * Import data from Horde's contacts API
-     *
-     * @param array $hash  A hash as returned from contacts/export
-     *
-     * @return Horde_ActiveSync_Message_Base object
-     */
-    private static function _fromHash($hash)
-    {
-        $message = new Horde_ActiveSync_Message_Contact();
-
-        $charset = Horde_Nls::getCharset();
-
-        foreach ($hash as $field => $value) {
-            switch ($field) {
-            case 'name':
-                $message->fileas = Horde_String::convertCharset($value, $charset, 'utf-8');
-                break;
-            case 'lastname':
-                $message->lastname = Horde_String::convertCharset($value, $charset, 'utf-8');
-                break;
-            case 'firstname':
-                $message->firstname = Horde_String::convertCharset($value, $charset, 'utf-8');
-                break;
-            case 'middlenames':
-                $message->middlename = Horde_String::convertCharset($value, $charset, 'utf-8');
-                break;
-            case 'namePrefix':
-                $message->title = Horde_String::convertCharset($value, $charset, 'utf-8');
-                break;
-            case 'nameSuffix':
-                $message->suffix = Horde_String::convertCharset($value, $charset, 'utf-8');
-                break;
-
-            case 'photo':
-                $message->picture = base64_encode($value['load']['data']);
-                break;
-
-            /* Address (TODO: check for a single home/workAddress field instead) */
-            case 'homeStreet':
-                $message->homestreet = Horde_String::convertCharset($hash['homeStreet'], $charset, 'utf-8');
-                break;
-            case 'homeCity':
-                $message->homecity = Horde_String::convertCharset($hash['homeCity'], $charset, 'utf-8');
-                break;
-            case 'homeProvince':
-                $message->homestate = Horde_String::convertCharset($hash['homeProvince'], $charset, 'utf-8');
-                break;
-            case 'homePostalCode':
-                $message->homepostalcode = Horde_String::convertCharset($hash['homePostalCode'], $charset, 'utf-8');
-                break;
-            case 'homeCountry':
-                $message->homecountry = Horde_String::convertCharset($hash['homeCountry'], $charset, 'utf-8');
-                break;
-            case 'workStreet':
-                $message->businessstreet = Horde_String::convertCharset($hash['workStreet'], $charset, 'utf-8');
-                break;
-            case 'workCity':
-                $message->businesscity = Horde_String::convertCharset($hash['workCity'], $charset, 'utf-8');
-                break;
-            case 'workProvince':
-                $message->businessstate = Horde_String::convertCharset($hash['workProvince'], $charset, 'utf-8');
-                break;
-            case 'workPostalCode':
-                $message->businesspostalcode = Horde_String::convertCharset($hash['workPostalCode'], $charset, 'utf-8');
-                break;
-            case 'workCountry':
-                $message->businesscountry = Horde_String::convertCharset($hash['workCountry'], $charset, 'utf-8');
-                break;
-            case 'homePhone':
-                /* Phone */
-                $message->homephonenumber = $hash['homePhone'];
-                break;
-            case 'cellPhone':
-                $message->mobilephonenumber = $hash['cellPhone'];
-                break;
-            case 'fax':
-                $message->businessfaxnumber = $hash['fax'];
-                break;
-            case 'workPhone':
-                $message->businessphonenumber = $hash['workPhone'];
-                break;
-            case 'pager':
-                $message->pagernumber = $hash['pager'];
-                break;
-
-            case 'email':
-                $message->email1address = Horde_iCalendar_vcard::getBareEmail($value);
-                break;
-
-            case 'title':
-                $message->jobtitle = Horde_String::convertCharset($value, $charset, 'utf-8');
-                break;
-
-            case 'company':
-                $message->companyname = Horde_String::convertCharset($value, $charset, 'utf-8');
-                break;
-            case 'departnemt':
-                $message->department = Horde_String::convertCharset($value, $charset, 'utf-8');
-                break;
-
-            case 'category':
-                // Categories FROM horde are a simple string value, going BACK to horde are an array with 'value' and 'new' keys
-                $message->categories = explode(';', Horde_String::convertCharset($value, $charset, 'utf-8'));
-                break;
-
-            case 'spouse':
-                $message->spouse = Horde_String::convertCharset($value, $charset, 'utf-8');
-                break;
-            case 'notes':
-                $message->body = Horde_String::convertCharset($value, $charset, 'utf-8');
-                $message->bodysize = strlen($message->body);
-                $message->bodytruncated = false;
-                break;
-            case 'website':
-                $message->webpage = $value;
-                break;
-
-            case 'birthday':
-            case 'anniversary':
-                if (!empty($value)) {
-                    $date = new Horde_Date($value);
-                    $message->{$field} = $date;
-                } else {
-                    $message->$field = null;
-                }
-                break;
-            }
-        }
 
         return $message;
     }

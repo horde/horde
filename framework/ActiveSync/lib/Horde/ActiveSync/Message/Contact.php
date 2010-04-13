@@ -10,9 +10,9 @@
  */
 class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
 {
+    /* Workaround for issues with arrays from __get() */
     public $categories = array();
     public $children = array();
-
 
     /* POOMCONTACTS */
     const ANNIVERSARY = "POOMCONTACTS:Anniversary";
@@ -93,7 +93,8 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
      */
     public function __construct($params = array())
     {
-        $mapping = array (
+        /* Mappings for the encoder */
+        $this->_mapping = array (
             self::ANNIVERSARY => array (self::KEY_ATTRIBUTE =>  'anniversary', self::KEY_TYPE => self::TYPE_DATE_DASHES),
             self::ASSISTANTNAME => array (self::KEY_ATTRIBUTE => 'assistantname'),
             self::ASSISTNAMEPHONENUMBER => array (self::KEY_ATTRIBUTE => 'assistnamephonenumber'),
@@ -150,9 +151,67 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
             self::CATEGORIES => array (self::KEY_ATTRIBUTE => 'categories', self::KEY_VALUES => self::CATEGORY),
         );
 
+        /* Accepted property values */
+        $this->_properties = array(
+            'anniversary' => false,
+            'assistantname' => false,
+            'assistnamephonenumber' => false,
+            'birthday' => false,
+            'body' => false,
+            'bodysize' => false,
+            'bodytruncated' => false,
+            'business2phonenumber' => false,
+            'businesscity' => false,
+            'businesscountry' => false,
+            'businesspostalcode' => false,
+            'businessstate' => false,
+            'businessstreet' => false,
+            'businessfaxnumber' => false,
+            'businessphonenumber' => false,
+            'carphonenumber' => false,
+            'children' => false,
+            'companyname' => false,
+            'department' => false,
+            'email1address' => false,
+            'email2address' => false,
+            'email3address' => false,
+            'fileas' => false,
+            'firstname' => false,
+            'home2phonenumber' => false,
+            'homecity' => false,
+            'homecountry' => false,
+            'homepostalcode' => false,
+            'homestate' => false,
+            'homestreet' => false,
+            'homefaxnumber' => false,
+            'homephonenumber' => false,
+            'jobtitle' => false,
+            'lastname' => false,
+            'middlename' => false,
+            'mobilephonenumber' => false,
+            'officelocation' => false,
+            'othercity' => false,
+            'othercountry' => false,
+            'otherpostalcode' => false,
+            'otherstate' => false,
+            'otherstreet' => false,
+            'pagernumber' => false,
+            'radiophonenumber' => false,
+            'spouse' => false,
+            'suffix' => false,
+            'title' => false,
+            'webpage' => false,
+            'yomicompanyname' => false,
+            'yomifirstname' => false,
+            'yomilastname' => false,
+            'rtf' => false,
+            'picture' => false,
+            'categories' => false,
+        );
+
         /* Additional mappings for AS versions >= 2.5 */
         if (isset($params['protocolversion']) && $params['protocolversion'] >= 2.5) {
-            $mapping += array(
+            $this->_mapping += array(
                 self::CUSTOMERID => array (self::KEY_ATTRIBUTE => 'customerid'),
                 self::GOVERNMENTID => array (self::KEY_ATTRIBUTE => 'governmentid'),
                 self::IMADDRESS => array (self::KEY_ATTRIBUTE => 'imaddress'),
@@ -164,9 +223,22 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
                 self::NICKNAME => array (self::KEY_ATTRIBUTE => 'nickname'),
                 self::MMS => array (self::KEY_ATTRIBUTE => 'mms'),
             );
+
+            $this->_properties += array(
+                'customerid' => false,
+                'governmentid' => false,
+                'imaddress' => false,
+                'imaddress2' => false,
+                'imaddress3' => false,
+                'managername' => false,
+                'companymainphone' => false,
+                'accountname' => false,
+                'nickname' => false,
+                'mms' => false,
+            );
         }
 
-        parent::__construct($mapping, $params);
+        parent::__construct($params);
     }
 
     public function getClass()

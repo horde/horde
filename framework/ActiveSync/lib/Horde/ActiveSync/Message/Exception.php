@@ -2,7 +2,7 @@
 /**
  * Horde_ActiveSync_Message_Exception class represents a single exception to a
  * recurring event. This is basically a Appointment object with some tweaks.
- * 
+ *
  * @copyright 2010 The Horde Project (http://www.horde.org)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
@@ -18,7 +18,7 @@ class Horde_ActiveSync_Message_Exception extends Horde_ActiveSync_Message_Appoin
      * @return Horde_ActiveSync_Message_Appointment
      */
     public function __construct($params = array())
-    {   
+    {
         parent::__construct($params);
 
         /* Some additional properties for Exceptions */
@@ -27,6 +27,11 @@ class Horde_ActiveSync_Message_Exception extends Horde_ActiveSync_Message_Appoin
             self::KEY_TYPE => self::TYPE_DATE);
 
         $this->_mapping[Horde_ActiveSync_Message_Appointment::POOMCAL_DELETED] = array(self::KEY_ATTRIBUTE => 'deleted');
+
+        $this->_properties += array(
+            'exceptionstarttime' => false,
+            'deleted' => false,
+        );
     }
 
     /**

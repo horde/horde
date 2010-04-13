@@ -75,152 +75,72 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
     }
 
     /**
-     * Test retrieving a message from storage.
-     * Mocks the registry response.
-     *
-     * @TODO: Calendar data, more complete test of vCard attribtues.
-     *
+     * Tests that getMessage() requests the correct object type based on
+     * the folder class we are requesting.
      */
     public function testGetMessage()
     {
         require_once 'Horde/ActiveSync.php';
 
-        $contact = array(
-            '__key' => '9b07c14b086932e69cc7eb1baed0cc87',
-            '__owner' => 'mike',
-            '__type' => 'Object',
-            '__members' => '',
-            '__uid' => '20100205111228.89913meqtp5u09rg@localhost',
-            'firstname' => 'Michael',
-            'lastname' => 'Rubinsky',
-            'middlenames' => 'Joseph',
-            'namePrefix' => 'Dr',
-            'nameSuffix' => 'PharmD',
-            'name' => 'Michael Joseph Rubinsky',
-            'alias' => 'Me',
-            'birthday' => '1970-03-20',
-            'homeStreet' => '123 Main St.',
-            'homePOBox' => '',
-            'homeCity' => 'Anywhere',
-            'homeProvince' => 'NJ',
-            'homePostalCode' => '08080',
-            'homeCountry' => 'US',
-            'workStreet' => 'Kings Hwy',
-            'workPOBox' => '',
-            'workCity' => 'Somewhere',
-            'workProvince' => 'NJ',
-            'workPostalCode' => '08052',
-            'workCountry' => 'US',
-            'timezone' => 'America/New_York',
-            'email' => 'mrubinsk@horde.org',
-            'homePhone' => '(856)555-1234',
-            'workPhone' => '(856)555-5678',
-            'cellPhone' => '(609)555-9876',
-            'fax' => '',
-            'pager' => '',
-            'title' => '',
-            'role' => '',
-            'company' => '',
-            'category' => '',
-            'notes' => '',
-            'website' => '',
-            'freebusyUrl' => '',
-            'pgpPublicKey' => '',
-            'smimePublicKey' => '',
-        );
+        $contact = new Horde_ActiveSync_Message_Contact();
+        $event = new Horde_ActiveSync_Message_Appointment();
+        $task = new Horde_ActiveSync_Message_Task();
 
         if (version_compare(PHP_VERSION, '5.3.0', '>=')) {
             error_reporting(E_ALL & ~E_DEPRECATED);
         }
-        /* This test REQUIRES that the NLS system be initialized, so skip this
-         * if we don't have a configured horde
-         */
-        if (!file_exists(dirname(__FILE__) . '/../../../../../horde/config/conf.php')) {
-            $this->markTestIncomplete('Test requires the NLS system');
-            return;
-        }
-        require_once dirname(__FILE__) . '/../../../../../horde/lib/core.php';
-        Horde_Nls::setLanguage();
 
-        $fixture = array('contacts_export' => $contact);
+        /* Mock the registry connector */
+        $fixture = array(
+            'contacts_export' => $contact,
+            'calendar_export' => $event,
+            'tasks_export' => $task
+        );
         $connector = new Horde_ActiveSync_MockConnector(array('fixture' => $fixture));
+
+        /* We don't need to remember any state for this test, mock it */
         $state = $this->getMockSkipConstructor('Horde_ActiveSync_State_File');
+
+        /* Get the driver, and test it */
         $driver = new Horde_ActiveSync_Driver_Horde(array('connector' => $connector,
                                                           'state_basic' => $state));
 
-        $results = $driver->getMessage(Horde_ActiveSync_Driver_Horde::CONTACTS_FOLDER,
-                                       '20070112030603.249j42k3k068@test.theupstairsroom.com',
-                                       0);
+        $results = $driver->getMessage(Horde_ActiveSync_Driver_Horde::CONTACTS_FOLDER, 'xxx', 0);
         $this->assertType('Horde_ActiveSync_Message_Contact', $results);
-        $this->assertEquals('Dr', $results->title);
-        $this->assertEquals('PharmD', $results->suffix);
-        $this->assertEquals('Michael Joseph Rubinsky', $results->fileas);
-        $this->assertEquals('mrubinsk@horde.org', $results->email1address);
-        $this->assertEquals('1970-03-20', $results->birthday->format('Y-m-d'));
-        $this->assertEquals('(856)555-1234', $results->homephonenumber);
-        $this->assertEquals('(856)555-5678', $results->businessphonenumber);
-        $this->assertEquals('(609)555-9876', $results->mobilephonenumber);
-        $this->assertEquals('123 Main St.', $results->homestreet);
-        $this->assertEquals('Anywhere', $results->homecity);
-        $this->assertEquals('NJ', $results->homestate);
-        $this->assertEquals('08080', $results->homepostalcode);
-        $this->assertEquals('US', $results->homecountry);
-        $this->assertEquals('Kings Hwy', $results->businessstreet);
-        $this->assertEquals('Somewhere', $results->businesscity);
-        $this->assertEquals('NJ', $results->businessstate);
-        $this->assertEquals('08052', $results->businesspostalcode);
-        $this->assertEquals('US', $results->businesscountry);
+
+        $results = $driver->getMessage(Horde_ActiveSync_Driver_Horde::APPOINTMENTS_FOLDER, 'xxx', 0);
+        $this->assertType('Horde_ActiveSync_Message_Appointment', $results);
+
+        $results = $driver->getMessage(Horde_ActiveSync_Driver_Horde::TASKS_FOLDER, 'xxx', 0);
+        $this->assertType('Horde_ActiveSync_Message_Task', $results);
     }
 
     /**
-     * Test that the values present in the contact message are always utf-8.
-     */
-    public function testStreamerUTF8()
-    {
-        if (version_compare(PHP_VERSION, '5.3.0', '>=')) {
-            error_reporting(E_ALL & ~E_DEPRECATED);
-        }
-
-        /* This test REQUIRES that the NLS system be initialized, so skip this
-         * if we don't have a configured horde
-         */
-        if (!file_exists(dirname(__FILE__) . '/../../../../../horde/config/conf.php')) {
-            $this->markTestIncomplete('Test requires the NLS system');
-            return;
-        }
-        require_once dirname(__FILE__) . '/../../../../../horde/lib/core.php';
-        Horde_Nls::setLanguage();
-
-        $contact = array(
-            '__uid' => '20100205111228.89913meqtp5u09rg@localhost',
-            'firstname' => Horde_String::convertCharset('Grüb', Horde_Nls::getCharset(), 'iso-8859-1')
-        );
-
-        $fixture = array('contacts_export' => $contact);
-        $connector = new Horde_ActiveSync_MockConnector(array('fixture' => $fixture));
-        $state = $this->getMockSkipConstructor('Horde_ActiveSync_State_File');
-        $driver = new Horde_ActiveSync_Driver_Horde(array('connector' => $connector,
-                                                          'state_basic' => $state));
-
-        $results = $driver->getMessage(Horde_ActiveSync_Driver_Horde::CONTACTS_FOLDER,
-                                       '20070112030603.249j42k3k068@test.theupstairsroom.com',
-                                       0);
-
-        $this->assertEquals(Horde_String::convertCharset('Grüb', Horde_Nls::getCharset(), 'utf-8'), $results->firstname);
-    }
-
-    /**
-     * Test ChangeMessage:
-     *
-     * This tests converting the contact streamer object to a hash suitable for
-     * passing to the contacts/import method. Because it only returns the UID
-     * for the newly added/edited entry, we can't check the results here. The
-     * check is done in the MockConnector object, throwing an exception if it
-     * fails.
-     *
+     * Test ChangeMessage: Only thing to really test for the changeMessage
+     * method is that it calls the correct API method, with the correct object
+     * type. No data conversion is done in the driver, it's the responsiblity of
+     * the client code.
      */
     public function testChangeMessage()
     {
+        $this->markTestIncomplete('Test still being written');
+        /* Setup mock connector method return values for adding a new contact */
+        $connector = $this->getMockSkipConstructor('Horde_ActiveSync_Driver_Horde_Connector_Registry');
+        $connector->expects($this->once())->method('contacts_import')->will($this->returnValue(1));
+        $connector->expects($this->at(1))->method('contacts_getActionTimestamp')->will($this->returnValue(array('todo')));
+
+        /* Setup mock connector return for modifying an existing contact */
+        $connector->expects($this->once())->method('contacts_replace')->will($this->returnValue(2));
+        $connector->expects($this->at(1))->method('contacts_getActionTimestamp')->will($this->returnValue(array('todo')));
+
+        /* TODO: appointments and todos */
+
+        /* We don't need to remember any state for this test, mock it */
+        $state = $this->getMockSkipConstructor('Horde_ActiveSync_State_File');
+
+        /* Get the driver, and test it */
+        $driver = new Horde_ActiveSync_Driver_Horde(array('connector' => $connector,
+                                                          'state_basic' => $state));
         // fixtures
         $message = new Horde_ActiveSync_Message_Contact();
         $message->fileas = 'Michael Joseph Rubinsky';
@@ -242,14 +162,8 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
             error_reporting(E_ALL & ~E_DEPRECATED);
         }
 
-        $connector = new Horde_ActiveSync_MockConnector(array('fixture' => array()));
-        $state = $this->getMockSkipConstructor('Horde_ActiveSync_State_File');
-        $driver = new Horde_ActiveSync_Driver_Horde(array('connector' => $connector,
-                                                          'state_basic' => $state));
-
         try {
-            $results = $driver->ChangeMessage(Horde_ActiveSync_Driver_Horde::CONTACTS_FOLDER,
-                                              0, $message);
+            $results = $driver->ChangeMessage(Horde_ActiveSync_Driver_Horde::CONTACTS_FOLDER, 0, $message);
         } catch (Horde_ActiveSync_Exception $e) {
             $this->fail($e->getMessage());
         }
