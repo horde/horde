@@ -4365,7 +4365,7 @@ KronolithCore = {
         kronolithEAttendeesAc.reset();
         this.freeBusy = $H();
         if (this.attendeeStartDateHandler) {
-            this.attendeeStartDateHandler.stop();
+            $('kronolithEventStartDate').stopObserving('change', this.attendeeStartDateHandler);
         }
         if (!Object.isUndefined(ev.at)) {
             kronolithEAttendeesAc.reset(ev.at.pluck('l'));
@@ -4398,11 +4398,12 @@ KronolithCore = {
             if (this.fbLoading) {
                 $('kronolithFBLoading').show();
             }
-            this.attendeeStartDateHandler = $('kronolithEventStartDate').on('change', function() {
+            this.attendeeStartDateHandler = function() {
                 ev.at.each(function(attendee) {
                     this.insertFreeBusy(attendee.e);
                 }, this);
-            }.bind(this));
+            }.bind(this);
+            $('kronolithEventStartDate').observe('change', this.attendeeStartDateHandler);
         }
 
         /* Tags */
