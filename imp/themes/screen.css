@@ -62,11 +62,6 @@
 #checkheader input {
     float: left;
 }
-#checkheader span.nosort {
-    font-weight: normal;
-    font-size: 90%;
-    padding-left: 3px;
-}
 
 /* Newmail alerts. */
 #newmail {

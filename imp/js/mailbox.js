@@ -202,33 +202,40 @@ var ImpMailbox = {
             if (elt.match('.msgactions A.widget')) {
                 if (elt.hasClassName('moveAction')) {
                     this._transfer('move_messages');
+                    e.stop();
                 } else if (elt.hasClassName('copyAction')) {
                     this._transfer('copy_messages');
+                    e.stop();
                 } else if (elt.hasClassName('permdeleteAction')) {
                     if (confirm(IMP.text.mailbox_delete)) {
                         this.submit('delete_messages');
                     }
+                    e.stop();
                 } else if (elt.hasClassName('deleteAction')) {
                     this.submit('delete_messages');
+                    e.stop();
                 } else if (elt.hasClassName('undeleteAction')) {
                     this.submit('undelete_messages');
+                    e.stop();
                 } else if (elt.hasClassName('blacklistAction')) {
                     this.submit('blacklist');
+                    e.stop();
                 } else if (elt.hasClassName('whitelistAction')) {
                     this.submit('whitelist');
+                    e.stop();
                 } else if (elt.hasClassName('forwardAction')) {
                     this.submit('fwd_digest');
+                    e.stop();
                 } else if (elt.hasClassName('spamAction')) {
                     this.submit('spam_report');
+                    e.stop();
                 } else if (elt.hasClassName('notspamAction')) {
                     this.submit('notspam_report');
+                    e.stop();
                 } else if (elt.hasClassName('viewAction')) {
                     this.submit('view_messages');
-                } else if (elt.hasClassName('hideAction') || elt.hasClassName('purgeAction')) {
-                    return;
+                    e.stop();
                 }
-
-                e.stop();
                 return;
             } else if (elt.hasClassName('checkbox')) {
                 this.selectRange(e);

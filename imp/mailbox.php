@@ -513,13 +513,30 @@ if ($pageOb['msgcount']) {
         $a_template->set('undelete', Horde::widget('#', _("Undelete"), 'widget undeleteAction', '', '', _("_Undelete")));
     }
 
+    $mboxactions = array();
     if ($showdelete['purge']) {
         $mailbox_link = $mailbox_imp_url->copy()->add('page', $pageOb['page']);
         if (isset($deleted_prompt)) {
-            $a_template->set('hide_deleted', Horde::widget($mailbox_link->copy()->add(array('actionID' => 'hide_deleted', 'mailbox_token' => $mailbox_token)), $deleted_prompt, 'widget hideAction', '', '', $deleted_prompt));
+            $mboxactions[] = array(
+                'v' => Horde::widget($mailbox_link->copy()->add(array('actionID' => 'hide_deleted', 'mailbox_token' => $mailbox_token)), $deleted_prompt, 'widget hideAction', '', '', $deleted_prompt)
+            );
         }
-        $a_template->set('purge_deleted', Horde::widget($mailbox_link->copy()->add(array('actionID' => 'expunge_mailbox', 'mailbox_token' => $mailbox_token)), _("Purge Deleted"), 'widget purgeAction', '', '', _("Pur_ge Deleted")));
+        $mboxacrtions[] = array(
+            'v' => Horde::widget($mailbox_link->copy()->add(array('actionID' => 'expunge_mailbox', 'mailbox_token' => $mailbox_token)), _("Purge Deleted"), 'widget purgeAction', '', '', _("Pur_ge Deleted"))
+        );
     }
+
+    if ($sortpref['by'] != Horde_Imap_Client::SORT_SEQUENCE) {
+        $mboxactions[] = array(
+            'v' => Horde::widget($sort_url->copy()->remove('sortdir')->add(array('sortby' => Horde_Imap_Client::SORT_SEQUENCE, 'actionID' => 'change_sort', 'mailbox_token' => $mailbox_token)), _("Clear Sort"), 'widget', '', '', _("Clear Sort"))
+        );
+    }
+
+    /* Hack since IE doesn't support :last-child CSS selector. */
+    if (!empty($mboxactions)) {
+        $mboxactions[count($mboxactions) - 1]['last'] = true;
+    }
+    $a_template->set('mboxactions', $mboxactions);
 
     if ($registry->hasMethod('mail/blacklistFrom')) {
         $a_template->set('blacklist', Horde::widget('#', _("Blacklist"), 'widget blacklistAction', '', '', _("_Blacklist")));
@@ -650,10 +667,6 @@ if ($pageOb['msgcount']) {
     $mh_template->set('mailbox_token', $mailbox_token);
     $mh_template->set('sessiontag', Horde_Util::formInput());
     $mh_template->set('headers', $headers);
-
-    if ($sortpref['by'] != Horde_Imap_Client::SORT_SEQUENCE) {
-        $mh_template->set('no_sort', Horde::widget($sort_url->copy()->remove('sortdir')->add(array('sortby' => Horde_Imap_Client::SORT_SEQUENCE, 'actionID' => 'change_sort', 'mailbox_token' => $mailbox_token)), _("Clear Sort"), 'widget', '', '', _("Clear Sort")));
-    }
 
     if (!$search_mbox) {
         $mh_template->set('mh_count', $mh_count++);
