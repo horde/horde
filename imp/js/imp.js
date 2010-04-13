@@ -42,15 +42,6 @@ document.observe('dom:loaded', function() {
             duration: 0.6
         });
 
-        // Need to use non-prototypejs methods to work with data inside of
-        // the IFRAME. Prototypejs's Selector works, but only if we use
-        // the pure javascript method.
-        if (s.mode != 'normal') {
-            delete Selector._cache['[htmlimgblocked]'];
-            s.mode = 'normal';
-            s.compileMatcher();
-        }
-
         callback = this.imgOnload.bind(this, iframeid);
 
         s.findElements(iframe.contentWindow.document).each(function(img) {
@@ -71,11 +62,6 @@ document.observe('dom:loaded', function() {
                 }
             }
         });
-
-        // Delete this entry, because in the rare case that another selector
-        // on the page uses the same expression, it will break the next time
-        // it is used.
-        delete Selector._cache['[htmlimgblocked]'];
 
         if (!imgload) {
             this.iframeResize(iframeid);
