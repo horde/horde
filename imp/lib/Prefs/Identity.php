@@ -33,10 +33,12 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
     /**
      * Reads all the user's identities from the prefs object or builds
      * a new identity from the standard values given in prefs.php.
+     *
+     * @see Horde_Prefs_Identity::__construct()
      */
-    public function __construct()
+    public function __construct($params)
     {
-        parent::__construct();
+        parent::__construct($params);
 
         $this->_properties = array_merge(
             $this->_properties,

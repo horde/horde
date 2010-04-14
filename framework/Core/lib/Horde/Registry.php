@@ -244,6 +244,7 @@ class Horde_Registry
             'Horde_Memcache' => new Horde_Core_Binder_Memcache(),
             'Horde_Notification' => new Horde_Core_Binder_Notification(),
             'Horde_Perms' => new Horde_Core_Binder_Perms(),
+            'Horde_Prefs_Identity' => new Horde_Core_Binder_Identity(),
             // 'Horde_Registry' - initialized below
             'Horde_Secret' => new Horde_Core_Binder_Secret(),
             'Horde_Template' => new Horde_Core_Binder_Template(),

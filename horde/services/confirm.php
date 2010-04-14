@@ -11,7 +11,7 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('nologintasks' => true));
 
-$identity = Horde_Prefs_Identity::singleton();
+$identity = $injector->getInstance('Horde_Prefs_Identity')->getOb();
 list($message, $type) = $identity->confirmIdentity(Horde_Util::getFormData('h'));
 $notification->push($message, $type);
 

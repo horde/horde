@@ -716,7 +716,7 @@ class Fima {
 
                 /* If the user's personal ledger doesn't exist, then create it. */
                 if (!$GLOBALS['fima_shares']->exists(Horde_Auth::getAuth())) {
-                    $identity = Horde_Prefs_Identity::singleton();
+                    $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getOb();
                     $name = $identity->getValue('fullname');
                     if (trim($name) == '') {
                         $name = Horde_Auth::getOriginalAuth();

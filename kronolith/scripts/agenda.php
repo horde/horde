@@ -72,7 +72,7 @@ function send_agendas()
         }
 
         // try to find an email address for the user
-        $identity = Horde_Prefs_Identity::singleton('none', $user);
+        $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getOb($user);
         $email = $identity->getValue('from_addr');
         if (strstr($email, '@')) {
             list($mailbox, $host) = explode('@', $email);

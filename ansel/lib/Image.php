@@ -1013,7 +1013,7 @@ class Ansel_Image Implements Iterator
         }
 
         if (empty($watermark)) {
-            $identity = Horde_Prefs_Identity::singleton();
+            $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getOb();
             $name = $identity->getValue('fullname');
             if (empty($name)) {
                 $name = Horde_Auth::getAuth();

@@ -74,7 +74,7 @@ if ($conf['compose']['link_attachments_notify']) {
             $prefs = Horde_Prefs::singleton($conf['prefs']['driver'], 'horde', $mail_user);
             $prefs->retrieve();
 
-            $mail_identity = Horde_Prefs_Identity::singleton('none', $mail_user);
+            $mail_identity = $injector->getInstance('Horde_Prefs_Identity')->getOb($mail_user);
             $mail_address = $mail_identity->getDefaultFromAddress();
 
             /* Ignore missing addresses, which are returned as <>. */
@@ -86,8 +86,8 @@ if ($conf['compose']['link_attachments_notify']) {
                 /* Set up the mail headers and read the log file. */
                 $msg_headers = new Horde_Mime_Headers();
                 $msg_headers->addReceivedHeader(array(
-                    'dns' => $GLOBALS['injector']->getInstance('Net_DNS_Resolver'),
-                    'server' => $GLOBALS['conf']['server']['name']
+                    'dns' => $injector->getInstance('Net_DNS_Resolver'),
+                    'server' => $conf['server']['name']
                 ));
                 $msg_headers->addMessageIdHeader();
                 $msg_headers->addUserAgentHeader();

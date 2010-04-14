@@ -65,7 +65,7 @@ class Nag_TaskForm extends Horde_Form {
         }
         if (count($users)) {
             foreach (array_keys($users) as $user) {
-                $identity = Horde_Prefs_Identity::singleton('none', $user);
+                $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getOb($user);
                 $fullname = $identity->getValue('fullname');
                 $users[$user] = strlen($fullname) ? $fullname : $user;
             }

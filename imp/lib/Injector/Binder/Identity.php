@@ -16,7 +16,7 @@ class IMP_Injector_Binder_Identity implements Horde_Injector_Binder
      */
     public function create(Horde_Injector $injector)
     {
-        return Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+        return $injector->getInstance('Horde_Prefs_Identity')->getOb(null, 'imp');
     }
 
     /**

@@ -13,7 +13,7 @@
 require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('horde');
 
-$identity = Horde_Prefs_Identity::singleton();
+$identity = $injector->getInstance('Horde_Prefs_Identity')->getOb();
 $fullname = $identity->getValue('fullname');
 if (empty($fullname)) {
     $fullname = Horde_Auth::getAuth();

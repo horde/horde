@@ -647,7 +647,7 @@ class Nag
             return '';
         }
 
-        $identity = Horde_Prefs_Identity::singleton('none', $assignee);
+        $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getOb($assignee);
         $fullname = $identity->getValue('fullname');
         if (!strlen($fullname)) {
             $fullname = $assignee;
@@ -720,7 +720,7 @@ class Nag
 
                 /* If the user's personal tasklist doesn't exist, then create it. */
                 if (!$GLOBALS['nag_shares']->exists(Horde_Auth::getAuth())) {
-                    $identity = Horde_Prefs_Identity::singleton();
+                    $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getOb();
                     $name = $identity->getValue('fullname');
                     if (trim($name) == '') {
                         $name = Horde_Auth::getOriginalAuth();
@@ -838,7 +838,7 @@ class Nag
 
         $groups = Group::singleton();
         $recipients = array();
-        $identity = Horde_Prefs_Identity::singleton();
+        $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getOb();
         $from = $identity->getDefaultFromAddress(true);
 
         $owner = $share->get('owner');
@@ -873,7 +873,7 @@ class Nag
             if (!$vals) {
                 continue;
             }
-            $identity = Horde_Prefs_Identity::singleton('none', $user);
+            $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getOb($user);
             $email = $identity->getValue('from_addr');
             if (strpos($email, '@') === false) {
                 continue;
@@ -953,12 +953,12 @@ class Nag
                                   $old_task->category, $task->category);
                 }
                 if ($old_task->assignee != $task->assignee) {
-                    $identity = Horde_Prefs_Identity::singleton('none', $old_task->assignee);
+                    $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getOb($old_task->assignee);
                     $old_name = $identity->getValue('fullname');
                     if (!strlen($old_name)) {
                         $old_name = $old_task->assignee;
                     }
-                    $identity = Horde_Prefs_Identity::singleton('none', $task->assignee);
+                    $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getOb($task->assignee);
                     $new_name = $identity->getValue('fullname');
                     if (!strlen($new_name)) {
                         $new_name = $new_task->assignee;
@@ -1050,7 +1050,7 @@ class Nag
         static $names = array();
 
         if (!isset($names[$uid])) {
-            $ident = Horde_Prefs_Identity::singleton('none', $uid);
+            $ident = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getOb($uid);
             $ident->setDefault($ident->getDefault());
             $names[$uid] = $ident->getValue('fullname');
             if (empty($names[$uid])) {

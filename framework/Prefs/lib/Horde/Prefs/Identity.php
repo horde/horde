@@ -18,13 +18,6 @@
 class Horde_Prefs_Identity
 {
     /**
-     * Singleton instances.
-     *
-     * @var array
-     */
-    static protected $_instances = array();
-
-    /**
      * Array containing all the user's identities.
      *
      * @var array
@@ -64,30 +57,20 @@ class Horde_Prefs_Identity
     /**
      * Constructor.
      *
-     * Reads all the user's identities from the prefs object or builds a new
-     * identity from the standard values given in prefs.php.
-     *
-     * @param string $user  If specified, we read another user's identities
-     *                      instead of the current user.
+     * @param array $params  Parameters:
+     * <pre>
+     * 'prefs' - (Horde_Prefs) [REQUIRED] The prefs object to use.
+     * 'user' - (string) [REQUIRED] The user whose prefs we are handling.
+     * </pre>
      */
-    public function __construct($user = null)
+    public function __construct($params = array())
     {
-        $this->_user = is_null($user)
-            ? Horde_Auth::getAuth()
-            : $user;
-
-        if ((is_null($user) || $user == Horde_Auth::getAuth()) &&
-            isset($GLOBALS['prefs'])) {
-            $this->_prefs = $GLOBALS['prefs'];
-        } else {
-            $this->_prefs = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'], $GLOBALS['registry']->getApp(), $user, '', null, false);
-            $this->_prefs->retrieve();
-        }
+        $this->_prefs = $params['prefs'];
+        $this->_user = $params['user'];
 
         if (!($this->_identities = @unserialize($this->_prefs->getValue('identities', false)))) {
-            /* Convert identities from the old format. */
-            $this->_identities = @unserialize($this->_prefs->getValue('identities'));
-        } elseif (is_array($this->_identities)) {
+            $this->_identities = $this->_prefs->getDefault('identities');
+        } else {
             $this->_identities = $this->_prefs->convertFromDriver($this->_identities, Horde_Nls::getCharset());
         }
 
@@ -497,81 +480,6 @@ class Horde_Prefs_Identity
         $this->_prefs->setValue('confirm_email', serialize($confirm), false);
 
         return array(sprintf(_("The email address %s has been added to your identities. You can close this window now."), $verified['from_addr']), 'horde.success');
-    }
-
-    /**
-     * Attempts to return a concrete instance based on $type.
-     *
-     * @param mixed $driver  The type of concrete Identity subclass to return.
-     *                       This is based on the storage driver. The code is
-     *                       dynamically included. If $type is an array, then
-     *                       we will look in $driver[0]/lib/Prefs/Identity/
-     *                       for the subclass implementation named
-     *                       $driver[1].php.
-     * @param string $user   If specified, we read another user's identities
-     *                       instead of the current user.
-     *
-     * @return Horde_Prefs_Identity  The newly created instance.
-     * @throws Horde_Exception
-     */
-    static public function factory($driver = 'None', $user = null)
-    {
-        if (is_array($driver)) {
-            list($app, $driv_name) = $driver;
-            $driver = basename($driv_name);
-        } else {
-            $driver = basename($driver);
-        }
-
-        /* Return a base Identity object if no driver is specified. */
-        if (empty($driver) || (strcasecmp($driver, 'none') == 0)) {
-            $instance = new self($user);
-            $instance->init();
-            return $instance;
-        }
-
-        $class = (empty($app) ? 'Horde' : $app) . '_Prefs_Identity';
-
-        if (class_exists($class)) {
-            $instance = new $class($user);
-            $instance->init();
-            return $instance;
-        }
-
-        throw new Horde_Exception('Class definition of ' . $class . ' not found.');
-    }
-
-    /**
-     * Attempts to return a reference to a concrete instance based on
-     * $type. It will only create a new instance if no instance with
-     * the same parameters currently exists.
-     *
-     * This should be used if multiple types of identities (and, thus,
-     * multiple instances) are required.
-     *
-     * This method must be invoked as:
-     *   $var = Horde_Prefs_Identity::singleton()
-     *
-     * @param mixed $type   The type of concrete subclass to return.
-     *                      This is based on the storage driver ($type). The
-     *                      code is dynamically included. If $type is an array,
-     *                      then we will look in $type[0]/lib/Prefs/Identity/
-     *                      for the subclass implementation named
-     *                      $type[1].php.
-     * @param string $user  If specified, we read another user's identities
-     *                      instead of the current user.
-     *
-     * @return Horde_Prefs_Identity  The concrete reference.
-     * @throws Horde_Exception
-     */
-    static public function singleton($type = 'None', $user = null)
-    {
-        $signature = hash('md5', serialize(array($type, $user)));
-        if (!isset(self::$_instances[$signature])) {
-            self::$_instances[$signature] = self::factory($type, $user);
-        }
-
-        return self::$_instances[$signature];
     }
 
 }

@@ -170,7 +170,7 @@ case 'update':
         $notification->push(sprintf(_("There was a problem updating \"%s\": %s"),
                                     $user_name_1, $result->getMessage()), 'horde.error');
     } else {
-        $identity = Horde_Prefs_Identity::singleton('none', $user_name_1);
+        $identity = $injector->getInstance('Horde_Prefs_Identity')->getOb($user_name_1);
         $identity->setValue('fullname', $fullname);
         $identity->setValue('from_addr', $email);
         $identity->save();
@@ -216,7 +216,7 @@ require HORDE_TEMPLATES . '/common-header.inc';
 require HORDE_TEMPLATES . '/admin/menu.inc';
 
 if (isset($update_form) && $auth->hasCapability('list')) {
-    $identity = Horde_Prefs_Identity::singleton('none', $f_user_name);
+    $identity = $injector->getInstance('Horde_Prefs_Identity')->getOb($f_user_name);
     require HORDE_TEMPLATES . '/admin/user/update.inc';
 } elseif (isset($remove_form) &&
           $auth->hasCapability('list') &&

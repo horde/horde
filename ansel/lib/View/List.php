@@ -158,7 +158,7 @@ class Ansel_View_List extends Ansel_View_Base
                                             'ansel', $this->_owner, '', null, false);
                 $fullname = $uprefs->getValue('grouptitle');
                 if (!$fullname) {
-                    $identity = Horde_Prefs_Identity::singleton('none', $this->_owner);
+                    $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getOb($this->_owner);
                     $fullname = $identity->getValue('fullname');
                     if (!$fullname) {
                         $fullname = $this->_owner;

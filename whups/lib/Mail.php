@@ -214,7 +214,7 @@ class Whups_Mail {
 
         if ($auth->hasCapability('list')) {
             foreach ($auth->listUsers() as $user) {
-                $identity = Horde_Prefs_Identity::singleton('none', $user);
+                $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getOb($user);
                 $addrs = $identity->getAll('from_addr');
                 foreach ($addrs as $addr) {
                     if (strcasecmp($from, $addr) == 0) {

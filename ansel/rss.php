@@ -137,7 +137,7 @@ if (empty($rss)) {
         if (isset($galleries) && count($galleries)) {
             $images = $ansel_storage->getRecentImages($galleries);
             if (!is_a($images, 'PEAR_Error') && count($images)) {
-                $owner = Horde_Prefs_Identity::singleton('none', $id);
+                $owner = $injector->getInstance('Horde_Prefs_Identity')->getOb($id);
                 $name = $owner->getValue('fullname');
                 $author = $owner->getValue('from_addr');
                 if (!$name) {

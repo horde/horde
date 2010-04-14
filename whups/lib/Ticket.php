@@ -726,7 +726,7 @@ class Whups_Ticket {
         }
 
         /* Build message template. */
-        $identity = &Horde_Prefs_Identity::singleton();
+        $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getOb();
         $name = $identity->getValue('fullname');
         if (empty($name)) {
             $name = Horde_Auth::getBareAuth();

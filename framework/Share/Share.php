@@ -505,7 +505,7 @@ class Horde_Share {
             }
         }
 
-        return Horde_Prefs_Identity::singleton('none', $share->get('owner'));
+        return $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getOb($share->get('owner'));
     }
 
     /**
