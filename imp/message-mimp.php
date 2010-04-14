@@ -25,7 +25,7 @@ Horde_Nls::setTimeZone();
 $vars = Horde_Variables::getDefaultVariables();
 
 /* Make sure we have a valid index. */
-$imp_mailbox = IMP_Mailbox::singleton($imp_mbox['mailbox'], $imp_mbox['uid'] . IMP::IDX_SEP . $imp_mbox['thismailbox']);
+$imp_mailbox = $GLOBALS['injector']->getInstance('IMP_Mailbox')->getOb($imp_mbox['mailbox'], $imp_mbox['thismailbox'], $imp_mbox['uid']);
 if (!$imp_mailbox->isValidIndex(false)) {
     header('Location: ' . IMP::generateIMPUrl('mailbox-mimp.php', $imp_mbox['mailbox'])->setRaw(true)->add('a', 'm'));
     exit;

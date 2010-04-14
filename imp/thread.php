@@ -20,7 +20,7 @@ Horde_Nls::setTimeZone();
  */
 $mode = Horde_Util::getFormData('mode', 'thread');
 
-$imp_mailbox = IMP_Mailbox::singleton($imp_mbox['mailbox'], $imp_mbox['uid'] . IMP::IDX_SEP . $imp_mbox['thismailbox']);
+$imp_mailbox = $GLOBALS['injector']->getInstance('IMP_Mailbox')->getOb($imp_mbox['mailbox'], $imp_mbox['thismailbox'], $imp_mbox['uid']);
 
 $error = false;
 if ($mode == 'thread') {

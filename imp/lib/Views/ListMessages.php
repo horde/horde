@@ -88,7 +88,7 @@ class IMP_Views_ListMessages
         }
 
         /* Generate the sorted mailbox list now. */
-        $imp_mailbox = IMP_Mailbox::singleton($mbox);
+        $imp_mailbox = $GLOBALS['injector']->getInstance('IMP_Mailbox')->getOb($mbox);
         $sorted_list = $imp_mailbox->getSortedList();
         $msgcount = count($sorted_list['s']);
 

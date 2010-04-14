@@ -116,7 +116,7 @@ class IMP_Message
                 try {
                     $GLOBALS['imp_imap']->ob()->copy($mbox, $targetMbox, array('ids' => $msgIndices, 'move' => $imap_move));
 
-                    $imp_mailbox = IMP_Mailbox::singleton($mbox);
+                    $imp_mailbox = $GLOBALS['injector']->getInstance('IMP_Mailbox')->getOb($mbox);
                     if (($action == 'move') && $imp_mailbox->isBuilt()) {
                         $imp_mailbox->removeMsgs(array($mbox => $msgIndices));
                     }
@@ -211,7 +211,7 @@ class IMP_Message
                 try {
                     $GLOBALS['imp_imap']->ob()->copy($mbox, $trash, array('ids' => $msgIndices, 'move' => true));
 
-                    $imp_mailbox = IMP_Mailbox::singleton($mbox);
+                    $imp_mailbox = $GLOBALS['injector']->getInstance('IMP_Mailbox')->getOb($mbox);
                     if ($imp_mailbox->isBuilt()) {
                         $imp_mailbox->removeMsgs(array($mbox => $msgIndices));
                     }
@@ -534,7 +534,7 @@ class IMP_Message
 
         $this->delete($indices, array('nuke' => true, 'keeplog' => true));
 
-        $imp_mailbox = IMP_Mailbox::singleton($mbox);
+        $imp_mailbox = $GLOBALS['injector']->getInstance('IMP_Mailbox')->getOb($mbox);
         $imp_mailbox->setIndex(reset($uid));
 
         /* We need to replace the old index in the query string with the
@@ -682,7 +682,7 @@ class IMP_Message
             try {
                 $update_list[$key] = $GLOBALS['imp_imap']->ob()->expunge($key, array('ids' => is_array($val) ? $val : array(), 'list' => $msg_list));
 
-                $imp_mailbox = IMP_Mailbox::singleton($key);
+                $imp_mailbox = $GLOBALS['injector']->getInstance('IMP_Mailbox')->getOb($key);
                 if ($imp_mailbox->isBuilt()) {
                     $imp_mailbox->removeMsgs(is_array($val) ? array($key => $val) : true);
                 }

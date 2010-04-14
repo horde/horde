@@ -99,6 +99,7 @@ class IMP_Application extends Horde_Registry_Application
             'IMP_Folder' => new IMP_Injector_Binder_Folder(),
             'IMP_Identity' => new IMP_Injector_Binder_Identity(),
             'IMP_Imap_Tree' => new IMP_Injector_Binder_Imaptree(),
+            'IMP_Mailbox' => new IMP_Injector_Binder_Mailbox(),
             'IMP_Quota' => new IMP_Injector_Binder_Quota(),
             'IMP_Sentmail' => new IMP_Injector_Binder_Sentmail()
         );

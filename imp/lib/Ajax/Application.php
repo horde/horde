@@ -649,7 +649,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
                 $result->ViewPort = $this->_viewPortData(true);
             } else {
                 $result->ViewPort = new stdClass;
-                $result->ViewPort->updatecacheid = IMP_Mailbox::singleton($this->_vars->view)->getCacheID($this->_vars->view);
+                $result->ViewPort->updatecacheid = $GLOBALS['injector']->getInstance('IMP_Mailbox')->getOb($this->_vars->view)->getCacheID($this->_vars->view);
                 $result->ViewPort->view = $this->_vars->view;
             }
             return $result;
@@ -848,7 +848,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
                 $result = $this->_checkUidvalidity($result);
             } elseif (!$change) {
                 /* Only update cacheid info if it changed. */
-                $cacheid = IMP_Mailbox::singleton($this->_vars->view)->getCacheID($this->_vars->view);
+                $cacheid = $GLOBALS['injector']->getInstance('IMP_Mailbox')->getOb($this->_vars->view)->getCacheID($this->_vars->view);
                 if ($cacheid != $this->_vars->cacheid) {
                     $result->ViewPort = new stdClass;
                     $result->ViewPort->updatecacheid = $cacheid;
@@ -1648,7 +1648,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             $result->ViewPort = $this->_viewPortData(true);
         } else {
             $result->ViewPort = new stdClass;
-            $result->ViewPort->updatecacheid = IMP_Mailbox::singleton($this->_vars->view)->getCacheID($this->_vars->view);
+            $result->ViewPort->updatecacheid = $GLOBALS['injector']->getInstance('IMP_Mailbox')->getOb($this->_vars->view)->getCacheID($this->_vars->view);
             $result->ViewPort->view = $this->_vars->view;
         }
 
@@ -1693,7 +1693,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             }
         }
 
-        return (IMP_Mailbox::singleton($this->_vars->view)->getCacheID($this->_vars->view) != $this->_vars->cacheid);
+        return ($GLOBALS['injector']->getInstance('IMP_Mailbox')->getOb($this->_vars->view)->getCacheID($this->_vars->view) != $this->_vars->cacheid);
     }
 
     /**

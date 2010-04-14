@@ -223,7 +223,7 @@ if ($conf['user']['allow_folders']) {
 }
 
 /* Build the list of messages in the mailbox. */
-$imp_mailbox = IMP_Mailbox::singleton($imp_mbox['mailbox']);
+$imp_mailbox = $injector->getInstance('IMP_Mailbox')->getOb($imp_mbox['mailbox']);
 $pageOb = $imp_mailbox->buildMailboxPage(Horde_Util::getFormData('page'), $start);
 $show_preview = $prefs->getValue('preview_enabled');
 

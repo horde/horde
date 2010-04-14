@@ -14,13 +14,6 @@
 class IMP_Mailbox
 {
     /**
-     * Singleton instances
-     *
-     * @var array
-     */
-    protected static $_instances = array();
-
-    /**
      * The mailbox to work with.
      *
      * @var string
@@ -71,33 +64,12 @@ class IMP_Mailbox
     protected $_changed = false;
 
     /**
-     * Attempts to return a reference to a concrete instance.
-     * It will only create a new instance if no instance with the same
-     * parameters currently exists.
-     *
-     * @param string $mailbox  See constructor.
-     * @param string $uid      UID string (UID . IMP::IDX_SEP . Mailbox).
-     *
-     * @return IMP_Mailbox  The created instance.
-     */
-    static public function singleton($mailbox, $uid = null)
-    {
-        if (!isset(self::$_instances[$mailbox])) {
-            self::$_instances[$mailbox] = new self($mailbox, $uid);
-        } elseif (!is_null($uid)) {
-            self::$_instances[$mailbox]->setIndex($uid);
-        }
-
-        return self::$_instances[$mailbox];
-    }
-
-    /**
      * Constructor.
      *
      * @param string $mailbox  The mailbox to work with.
      * @param string $uid      UID string (UID . IMP::IDX_SEP . Mailbox).
      */
-    protected function __construct($mailbox, $uid = null)
+    public function __construct($mailbox, $uid = null)
     {
         $this->_mailbox = $mailbox;
         $this->_searchmbox = $GLOBALS['imp_search']->isSearchMbox($mailbox);
