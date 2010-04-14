@@ -177,7 +177,7 @@ EOL;
         return $this->_histories[$environment];
     }
 
-    public function testMethodFactoryHasResultHordehistoryWhichIsAlwaysTheSame()
+    public function testMethodFactoryHasResultHordehistory()
     {
         foreach ($this->getEnvironments() as $environment) {
             $history = $this->getHistory($environment);
@@ -185,7 +185,6 @@ EOL;
             $this->assertType('Horde_History', $history1);
             $history2 = Horde_History::factory($environment);
             $this->assertType('Horde_History', $history2);
-            $this->assertSame($history1, $history2);
         }
     }
 
