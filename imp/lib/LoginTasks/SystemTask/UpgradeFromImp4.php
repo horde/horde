@@ -217,8 +217,8 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
                 case 'body':
                 case 'text':
                     $tmp->t = $val;
-                    $tmp->v = $ob['text'][$key];
-                    $tmp->n = !empty($ob['text_not'][$key]);
+                    $tmp->v = $ui['text'][$key];
+                    $tmp->n = !empty($ui['text_not'][$key]);
                     break;
 
                 case 'date_on':
@@ -226,15 +226,15 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
                 case 'date_since':
                     $tmp->t = $val;
                     $tmp->v = new stdClass;
-                    $tmp->v->y = $ob['date'][$key]['year'];
-                    $tmp->v->m = $ob['date'][$key]['month'] - 1;
-                    $tmp->v->d = $ob['date'][$key]['day'];
+                    $tmp->v->y = $ui['date'][$key]['year'];
+                    $tmp->v->m = $ui['date'][$key]['month'] - 1;
+                    $tmp->v->d = $ui['date'][$key]['day'];
                     break;
 
                 case 'size_smaller':
                 case 'size_larger':
                     $tmp->t = $val;
-                    $tmp->v = $ob['text'][$key];
+                    $tmp->v = $ui['text'][$key];
                     break;
 
                 case 'seen':
