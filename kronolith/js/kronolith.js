@@ -811,26 +811,16 @@ KronolithCore = {
             return;
         }
 
+        var td = $(view).down('.kronolithViewBody tr td').next('td'),
+            layout = td.getLayout(),
+            spacing = td.up('table').getStyle('borderSpacing');
+
+        // FIXME: spacing is hardcoded for IE 7 because it doesn't know about
+        // border-spacing, but still uses it. WTF?
+        spacing = spacing ? parseInt($w(spacing)[1]) : 2;
         this[storage] = {};
-        var tr = $(view).down('.kronolithViewBody tr'),
-            td = tr.down('td').next('td'), tdTop, tdHeight,
-            tdAlign = td.getStyle('verticalAlign'),
-            tr2 = tr.next('tr'),
-            td2 = tr2.down('td').next('td'), td2Top,
-            div = new Element('div').setStyle({ width: '1px', height: '1px' });
-
-        td.insert({ top: div });
-        tdTop = div.cumulativeOffset().top;
-        td.setStyle({ verticalAlign: 'bottom' });
-        td.insert({ bottom: div });
-        tdHeight = div.cumulativeOffset().top + parseInt(td.getStyle('lineHeight')) - tdTop;
-        td.setStyle({ verticalAlign: tdAlign });
-        td2.insert({ top: div });
-        td2Top = div.cumulativeOffset().top;
-        div.remove();
-
-        this[storage].height = td2Top - tdTop;
-        this[storage].spacing = this[storage].height - parseInt(td.getStyle('height'));
+        this[storage].height = layout.get('margin-box-height') + spacing;
+        this[storage].spacing = this[storage].height - layout.get('padding-box-height');
     },
 
     /**
