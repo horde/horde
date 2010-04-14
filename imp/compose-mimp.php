@@ -50,7 +50,7 @@ if ($prefs->getValue('compose_bcc')) {
 }
 
 /* Set the current identity. */
-$identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+$identity = $injector->getInstance('IMP_Identity');
 if (!$prefs->isLocked('default_identity') && isset($vars->identity)) {
     $identity->setDefault($vars->identity);
 }

@@ -47,7 +47,7 @@ class IMP_Views_Compose
 
         if (empty($args['redirect'])) {
             /* Load Identity. */
-            $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+            $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
             $selected_identity = $identity->getDefault();
 
             /* Generate identities list. */

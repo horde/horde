@@ -265,7 +265,7 @@ class IMP_Imap_Flags
 
         if (isset($options['personal'])) {
             if (is_array($options['personal'])) {
-                $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+                $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
                 foreach ($options['personal'] as $val) {
                     if ($identity->hasAddress($val['inner'])) {
                         $process['personal'] = $f['personal'];

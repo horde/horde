@@ -28,7 +28,7 @@ $oldrtemode = $rtemode = null;
 $vars = Horde_Variables::getDefaultVariables();
 
 /* Set the current identity. */
-$identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+$identity = $injector->getInstance('IMP_Identity');
 if (!$prefs->isLocked('default_identity')) {
     if (!is_null($vars->identity)) {
         $identity->setDefault($vars->identity);

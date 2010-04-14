@@ -51,7 +51,7 @@ if ($vars->popup) {
     $js[] = 'DIMP.conf_compose.popup = 1';
 }
 
-$identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+$identity = $injector->getInstance('IMP_Identity');
 if (!$prefs->isLocked('default_identity') && isset($vars->identity)) {
     $identity->setDefault($vars->identity);
 }

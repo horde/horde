@@ -1497,7 +1497,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         $result->success = 1;
 
         /* Set up identity. */
-        $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+        $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
         if (isset($this->_vars->identity) &&
             !$GLOBALS['prefs']->isLocked('default_identity')) {
             $identity->setDefault($this->_vars->identity);

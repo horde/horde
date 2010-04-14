@@ -263,7 +263,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                     $vEvent_reply->setAttribute('ORGANIZER', $vEvent->getAttribute('ORGANIZER'), array_pop($organizer));
 
                     // Find out who we are and update status.
-                    $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+                    $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
                     $attendees = $vEvent->getAttribute('ATTENDEE');
                     if (!is_array($attendees)) {
                         $attendees = array($attendees);
@@ -401,7 +401,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                                                  array('startStamp' => $startStamp,
                                                        'endStamp' => $endStamp));
                     // Find out who we are and update status.
-                    $identity = Horde_Prefs_Identity::singleton();
+                    $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
                     $email = $identity->getFromAddress();
 
                     // Build the reply.
@@ -645,7 +645,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                 // Check that you are one of the attendees here.
                 $is_attendee = false;
                 if (!($attendees instanceof PEAR_Error) && !empty($attendees)) {
-                    $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+                    $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
                     for ($i = 0, $c = count($attendees); $i < $c; ++$i) {
                         $attendee = parse_url($attendees[$i]);
                         if (!empty($attendee['path']) &&

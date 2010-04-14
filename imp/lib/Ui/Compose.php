@@ -271,7 +271,7 @@ class IMP_Ui_Compose
     public function identityJs()
     {
         $identities = array();
-        $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+        $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
 
         $html_sigs = $identity->getAllSignatures('html');
 
@@ -308,7 +308,7 @@ class IMP_Ui_Compose
      */
     public function convertComposeText($data, $to, $identity)
     {
-        $imp_identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+        $imp_identity = $GLOBALS['injector']->getInstance('IMP_Identity');
         $replaced = 0;
 
         $html_sig = $imp_identity->getSignature('html', $identity);

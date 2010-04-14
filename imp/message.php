@@ -43,7 +43,7 @@ if (!$imp_mailbox->isValidIndex(false)) {
 $imp_message = $injector->getInstance('IMP_Message');
 
 /* Initialize the user's identities. */
-$user_identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+$user_identity = $injector->getInstance('IMP_Identity');
 
 /* Run through action handlers. */
 $vars = Horde_Variables::getDefaultVariables();

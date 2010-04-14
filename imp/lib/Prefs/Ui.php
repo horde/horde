@@ -401,7 +401,7 @@ class IMP_Prefs_Ui
             return false;
 
         case 'signature_html_select':
-            return Horde_Prefs_Identity::singleton(array('imp', 'imp'))->setValue('signature_html', $ui->vars->signature_html);
+            return $GLOBALS['injector']->getInstance('IMP_Identity')->setValue('signature_html', $ui->vars->signature_html);
 
         case 'soundselect':
             return $prefs->setValue('nav_audio', $ui->vars->nav_audio);
@@ -994,7 +994,7 @@ class IMP_Prefs_Ui
                 $t->set('deletekeypair', addslashes(_("Are you sure you want to delete your keypair? (This is NOT recommended!)")));
                 $t->set('personalkey-delete-help', Horde_Help::link('imp', 'pgp-personalkey-delete'));
             } else {
-                $imp_identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+                $imp_identity = $GLOBALS['injector']->getInstance('IMP_Identity');
                 $t->set('fullname', $imp_identity->getFullname());
                 $t->set('personalkey-create-name-help', Horde_Help::link('imp', 'pgp-personalkey-create-name'));
                 $t->set('personalkey-create-comment-help', Horde_Help::link('imp', 'pgp-personalkey-create-comment'));
@@ -1140,7 +1140,7 @@ class IMP_Prefs_Ui
      */
     protected function _sentmail()
     {
-        $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+        $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
 
         $js = array();
         foreach (array_keys($identity->getAll('id')) as $key) {
@@ -1200,8 +1200,7 @@ class IMP_Prefs_Ui
             $imp_folder->create($sent_mail_folder, $prefs->getValue('subscribe'));
         }
 
-        $imp_identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
-        $imp_identity->setValue('sent_mail_folder', IMP::folderPref($sent_mail_folder, false));
+        $GLOBALS['injector']->getInstance('IMP_Identity')->setValue('sent_mail_folder', IMP::folderPref($sent_mail_folder, false));
 
         return true;
     }
@@ -1349,7 +1348,7 @@ class IMP_Prefs_Ui
      */
     protected function _signatureHtml()
     {
-        $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+        $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
 
         $js = array();
         foreach (array_keys($identity->getAll('id')) as $key) {

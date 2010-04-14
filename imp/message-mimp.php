@@ -166,7 +166,7 @@ if (($vars->a == 'pa') &&
 }
 
 /* Create the Identity object. */
-$user_identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+$user_identity = $injector->getInstance('IMP_Identity');
 
 /* Develop the list of headers to display. */
 $basic_headers = $imp_ui->basicHeaders();

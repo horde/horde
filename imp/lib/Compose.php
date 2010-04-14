@@ -399,7 +399,7 @@ class IMP_Compose
         $identity_id = null;
         $headers = $contents->getHeaderOb();
         if (($fromaddr = Horde_Mime_Address::bareAddress($headers->getValue('from')))) {
-            $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+            $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
             $identity_id = $identity->getMatchingIdentity($fromaddr);
         }
 
@@ -1354,7 +1354,7 @@ class IMP_Compose
             }
 
             /* Filter out our own address from the addresses we reply to. */
-            $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+            $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
             $all_addrs = array_keys($identity->getAllFromAddresses(true));
 
             /* Build the To: header. It is either:
@@ -1627,7 +1627,7 @@ class IMP_Compose
         $recip = $this->recipientList(array('to' => $to));
         $recipients = implode(', ', $recip['list']);
 
-        $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+        $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
         $from_addr = $identity->getFromAddress();
 
         $contents = $this->getContentsOb();
@@ -1681,7 +1681,7 @@ class IMP_Compose
             $msgAddresses[] = $h->getValue($val);
         }
 
-        return Horde_Prefs_Identity::singleton(array('imp', 'imp'))->getMatchingIdentity($msgAddresses);
+        return $GLOBALS['injector']->getInstance('IMP_Identity')->getMatchingIdentity($msgAddresses);
     }
 
     /**

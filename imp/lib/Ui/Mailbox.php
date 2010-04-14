@@ -78,8 +78,7 @@ class IMP_Ui_Mailbox
             $ret['from'] = _("Invalid Address");
             $ret['error'] = true;
         } else {
-            $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
-            if ($identity->hasAddress($from['inner'])) {
+            if ($GLOBALS['injector']->getInstance('IMP_Identity')->hasAddress($from['inner'])) {
                 /* This message was sent by one of the user's identity
                  * addresses - show To: information instead. */
                 if (empty($ob['to'])) {

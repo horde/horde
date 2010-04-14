@@ -1799,7 +1799,7 @@ class IMP_Imap_Tree
      */
     public function getSpecialMailboxes()
     {
-        $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+        $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
         return array(
             'draft' => IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true),
             'sent' => $identity->getAllSentmailFolders(),

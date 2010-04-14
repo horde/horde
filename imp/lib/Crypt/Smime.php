@@ -168,7 +168,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
             $key = $GLOBALS['registry']->call('contacts/getField', array($address, self::PUBKEY_FIELD, $params['sources'], false, true));
         } catch (Horde_Exception $e) {
             /* See if the address points to the user's public key. */
-            $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+            $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
             $personal_pubkey = $this->getPersonalPublicKey();
             if (!empty($personal_pubkey) && $identity->hasAddress($address)) {
                 return $personal_pubkey;

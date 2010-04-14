@@ -234,7 +234,7 @@ case 'print_attach':
             }
 
             if (!empty($conf['print']['add_printedby'])) {
-                $user_identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+                $user_identity = $injector->getInstance('IMP_Identity');
                 $headers[] = array(
                     'header' => htmlspecialchars(_("Printed By")),
                     'value' => htmlspecialchars($user_identity->getFullname() ? $user_identity->getFullname() : Horde_Auth::getAuth())
