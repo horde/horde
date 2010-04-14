@@ -6,7 +6,6 @@
  * @category Horde
  * @package Horde_ActiveSync
  */
-require_once dirname(__FILE__) . '/fixtures/MockConnector.php';
 class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
 {
     /**
@@ -38,17 +37,20 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
 
     /**
      * Test that Horde_ActiveSync_Driver_Horde#getMessageList() returns expected
-     * data structures. Uses mock data via the MockConnector
+     * data structures.
      *
      */
     public function testGetMessageList()
     {
         // Test Contacts - simulates returning two contacts, both of which have no history modify entries.
         $fixture = array('contacts_list' => array('20070112030603.249j42k3k068@test.theupstairsroom.com',
-                                                          '20070112030611.62g1lg5nry80@test.theupstairsroom.com'),
+                                                  '20070112030611.62g1lg5nry80@test.theupstairsroom.com'),
                          'contacts_getActionTimestamp' => 0);
 
-        $connector = new Horde_ActiveSync_MockConnector(array('fixture' => $fixture));
+        $connector = $this->getMockSkipConstructor('Horde_ActiveSync_Driver_Horde_Connector_Registry');
+        $connector->expects($this->once())->method('contacts_list')->will($this->returnValue($fixture['contacts_list']));
+        $connector->expects($this->exactly(2))->method('contacts_getActionTimestamp')->will($this->returnValue($fixture['contacts_getActionTimestamp']));
+
         $state = $this->getMockSkipConstructor('Horde_ActiveSync_State_File');
         $driver = new Horde_ActiveSync_Driver_Horde(array('connector' => $connector,
                                                           'state_basic' => $state));
@@ -91,12 +93,18 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
         }
 
         /* Mock the registry connector */
-        $fixture = array(
-            'contacts_export' => $contact,
-            'calendar_export' => $event,
-            'tasks_export' => $task
-        );
-        $connector = new Horde_ActiveSync_MockConnector(array('fixture' => $fixture));
+        $connector = $this->getMockSkipConstructor('Horde_ActiveSync_Driver_Horde_Connector_Registry');
+        $connector->expects($this->once())
+                ->method('contacts_export')
+                ->will($this->returnValue($contact));
+
+        $connector->expects($this->once())
+                ->method('calendar_export')
+                ->will($this->returnValue($event));
+
+        $connector->expects($this->once())
+                ->method('tasks_export')
+                ->will($this->returnValue($task));
 
         /* We don't need to remember any state for this test, mock it */
         $state = $this->getMockSkipConstructor('Horde_ActiveSync_State_File');
@@ -126,12 +134,22 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
         $this->markTestIncomplete('Test still being written');
         /* Setup mock connector method return values for adding a new contact */
         $connector = $this->getMockSkipConstructor('Horde_ActiveSync_Driver_Horde_Connector_Registry');
-        $connector->expects($this->once())->method('contacts_import')->will($this->returnValue(1));
-        $connector->expects($this->at(1))->method('contacts_getActionTimestamp')->will($this->returnValue(array('todo')));
+        $connector->expects($this->once())
+                ->method('contacts_import')
+                ->will($this->returnValue(1));
+
+        $connector->expects($this->at(1))
+                ->method('contacts_getActionTimestamp')
+                ->will($this->returnValue(array('todo')));
 
         /* Setup mock connector return for modifying an existing contact */
-        $connector->expects($this->once())->method('contacts_replace')->will($this->returnValue(2));
-        $connector->expects($this->at(1))->method('contacts_getActionTimestamp')->will($this->returnValue(array('todo')));
+        $connector->expects($this->once())
+                ->method('contacts_replace')
+                ->will($this->returnValue(2));
+
+        $connector->expects($this->at(1))
+                ->method('contacts_getActionTimestamp')
+                ->will($this->returnValue(array('todo')));
 
         /* TODO: appointments and todos */
 
@@ -185,7 +203,13 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
     {
         $registry = $this->getMockSkipConstructor('Horde_Registry');
         $state = $this->getMockSkipConstructor('Horde_ActiveSync_State_File');
-        $connector = new Horde_ActiveSync_MockConnector(array('fixture' => array('horde_listApis' => array('horde', 'contacts', 'calendar', 'tasks'))));
+
+        /* Mock registry connector */
+        $connector = $this->getMockSkipConstructor('Horde_ActiveSync_Driver_Horde_Connector_Registry');
+        $connector->expects($this->once())
+                ->method('horde_listApis')
+                ->will($this->returnValue(array('horde', 'contacts', 'calendar', 'tasks')));
+
         $driver = new Horde_ActiveSync_Driver_Horde(array('connector' => $connector,
                                                           'state_basic' => $state));
         $results = $driver->getFolderList();
