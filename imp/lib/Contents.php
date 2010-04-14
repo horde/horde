@@ -44,21 +44,6 @@ class IMP_Contents
     public $lastBodyPartDecode = null;
 
     /**
-     * Singleton instances
-     *
-     * @var array
-     */
-    static protected $_instances = array();
-
-    /**
-     * Internal counter for ensuring Horde_Mime_Part objects passed to
-     * singleton() are given unique objects.
-     *
-     * @var integer
-     */
-    static protected $_mimepartid = 1;
-
-    /**
      * The IMAP UID of the message.
      *
      * @var integer
@@ -94,39 +79,13 @@ class IMP_Contents
     protected $_embedded = array();
 
     /**
-     * Attempts to return a reference to a concrete IMP_Contents instance.
-     * If an IMP_Contents object is currently stored in the local cache,
-     * recreate that object.  Else, create a new instance.
-     * Ensures that only one IMP_Contents instance for any given message is
-     * available at any one time.
-     *
-     * @param mixed $in  Either a UID string (UID . IMP::IDX_SEP . Mailbox) or
-     *                   a Horde_Mime_Part object.
-     *
-     * @return IMP_Contents  The IMP_Contents object.
-     * @throws Horde_Exception
-     */
-    static public function singleton($in)
-    {
-        $sig = ($in instanceof Horde_Mime_Part)
-            ? 'horde_mime_part_' . self::$_mimepartid++
-            : $in;
-
-        if (empty(self::$_instances[$sig])) {
-            self::$_instances[$sig] = new self($in);
-        }
-
-        return self::$_instances[$sig];
-    }
-
-    /**
      * Constructor.
      *
      * @param mixed $in  Either a UID string (UID . IMP::IDX_SEP . Mailbox) or
      *                   a Horde_Mime_Part object.
-     * @throws Horde_Exception
+     * @throws IMP_Exception
      */
-    protected function __construct($in)
+    public function __construct($in)
     {
         if ($in instanceof Horde_Mime_Part) {
             $this->_message = $in;
@@ -139,11 +98,11 @@ class IMP_Contents
                     Horde_Imap_Client::FETCH_STRUCTURE => array('parse' => true)
                 ), array('ids' => array($this->_uid)));
             } catch (Horde_Imap_Client_Exception $e) {
-                throw new Horde_Exception('Error displaying message.');
+                throw new IMP_Exception('Error displaying message.');
             }
 
             if (!isset($ret[$this->_uid]['structure'])) {
-                throw new Horde_Exception('Error displaying message.');
+                throw new IMP_Exception('Error displaying message.');
             }
 
             $this->_message = $ret[$this->_uid]['structure'];
@@ -704,7 +663,7 @@ class IMP_Contents
         if (($mask && self::SUMMARY_IMAGE_SAVE) &&
             $GLOBALS['registry']->hasMethod('images/selectGalleries') &&
             ($mime_part->getPrimaryType() == 'image')) {
-            $part['img_save'] = Horde::link('#', _("Save Image in Gallery"), 'saveImgAtc', null, Horde::popupJs(Horde::applicationUrl('saveimage.php'), array('params' => array('uid' => ($this->_uid . IMP::IDX_SEP . $this->_mailbox), 'id' => $id), 'height' => 200, 'width' => 450)) . 'return false;') . '</a>';
+            $part['img_save'] = Horde::link('#', _("Save Image in Gallery"), 'saveImgAtc', null, Horde::popupJs(Horde::applicationUrl('saveimage.php'), array('params' => array('mbox' => $this->_mailbox, 'uid' => $this->_uid, 'id' => $id), 'height' => 200, 'width' => 450)) . 'return false;') . '</a>';
         }
 
         /* Add print link? */

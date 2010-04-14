@@ -113,7 +113,7 @@ class IMP_Filter
             $GLOBALS['imp_imap']->checkUidvalidity($mbox);
 
             foreach ($msgIndices as $idx) {
-                $contents = IMP_Contents::singleton($idx . IMP::IDX_SEP . $mbox);
+                $contents = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($mbox, $idx);
                 $hdr = $contents->getHeaderOb();
                 $addr[] = Horde_Mime_Address::bareAddress($hdr->getValue('from'));
             }

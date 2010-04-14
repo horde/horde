@@ -234,7 +234,7 @@ case 'mailto_link':
 
 case 'draft':
     try {
-        $result = $imp_compose->resumeDraft($uid . IMP::IDX_SEP . $thismailbox);
+        $result = $imp_compose->resumeDraft($thismailbox, $uid);
 
         if (!is_null($rtemode)) {
             $rtemode = ($result['mode'] == 'html');

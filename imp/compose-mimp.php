@@ -104,7 +104,7 @@ switch ($vars->a) {
 // 'd' = draft
 case 'd':
     try {
-        $result = $imp_compose->resumeDraft($imp_mbox['uid'] . IMP::IDX_SEP . $imp_mbox['thismailbox']);
+        $result = $imp_compose->resumeDraft($imp_mbox['thismailbox'], $imp_mbox['uid']);
 
         $msg = $result['msg'];
         $header = array_merge($header, $result['header']);

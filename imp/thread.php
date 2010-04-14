@@ -88,7 +88,7 @@ foreach ($loop_array as $mbox => $idxlist) {
 
         /* Get the body of the message. */
         $curr_msg = $curr_tree = array();
-        $contents = IMP_Contents::singleton($idx . IMP::IDX_SEP . $mbox);
+        $contents = $injector->getInstance('IMP_Contents')->getOb($mbox, $idx);
         $mime_id = $contents->findBody();
         if ($contents->canDisplay($mime_id, IMP_Contents::RENDER_INLINE)) {
             $ret = $contents->renderMIMEPart($mime_id, IMP_Contents::RENDER_INLINE);

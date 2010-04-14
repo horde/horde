@@ -39,7 +39,7 @@ class IMP_Spam
         foreach ($msgList as $mbox => $msgIndices) {
             try {
                 $GLOBALS['imp_imap']->checkUidvalidity($mbox);
-            } catch (Horde_Exception $e) {
+            } catch (IMP_Exception $e) {
                 continue;
             }
 
@@ -47,8 +47,8 @@ class IMP_Spam
                 /* Fetch the raw message contents (headers and complete
                  * body). */
                 try {
-                    $imp_contents = IMP_Contents::singleton($idx . IMP::IDX_SEP . $mbox);
-                } catch (Horde_Exception $e) {
+                    $imp_contents = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($mbox, $idx);
+                } catch (IMP_Exception $e) {
                     continue;
                 }
 

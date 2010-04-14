@@ -264,13 +264,13 @@ class IMP_Mailbox
                           !in_array('\\seen', $v['flags'])))) {
                         if (empty($preview_info[$k])) {
                             try {
-                                $imp_contents = IMP_Contents::singleton($k . IMP::IDX_SEP . $mbox);
+                                $imp_contents = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($mbox, $k);
                                 $prev = $imp_contents->generatePreview();
                                 $preview_info[$k] = array('IMPpreview' => $prev['text'], 'IMPpreviewc' => $prev['cut']);
                                 if (!is_null($cache)) {
                                     $tostore[$k] = $preview_info[$k];
                                 }
-                            } catch (Horde_Exception $e) {
+                            } catch (Exception $e) {
                                 $preview_info[$k] = array('IMPpreview' => '', 'IMPpreviewc' => false);
                             }
                         }

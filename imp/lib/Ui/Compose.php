@@ -191,8 +191,8 @@ class IMP_Ui_Compose
     {
         if (!empty($uid)) {
             try {
-                return IMP_Contents::singleton($uid . IMP::IDX_SEP . $mailbox);
-            } catch (Horde_Exception $e) {
+                return $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($mailbox, $uid);
+            } catch (IMP_Exception $e) {
                 $GLOBALS['notification']->push(_("Could not retrieve the message from the mail server."), 'horde.error');
             }
         }

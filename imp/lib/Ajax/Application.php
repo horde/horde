@@ -1537,7 +1537,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         if (!($imp_contents = $imp_compose->getContentsOb())) {
             $indices = $GLOBALS['imp_imap']->ob()->utils->fromSequenceString($this->_vars->uid);
             $i = each($indices);
-            $imp_contents = IMP_Contents::singleton(reset($i['value']) . IMP::IDX_SEP . $i['key']);
+            $imp_contents = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($i['key'], reset($i['value']));
         }
 
         return array($imp_compose, $imp_contents);

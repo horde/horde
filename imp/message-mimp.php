@@ -120,8 +120,8 @@ $use_pop = ($_SESSION['imp']['protocol'] == 'pop');
 
 /* Parse the message. */
 try {
-    $imp_contents = IMP_Contents::singleton($uid . IMP::IDX_SEP . $mailbox_name);
-} catch (Horde_Exception $e) {
+    $imp_contents = $injector->getInstance('IMP_Contents')->getOb($mailbox_name, $uid);
+} catch (IMP_Exception $e) {
     header('Location: ' . IMP::generateIMPUrl('mailbox-mimp.php', $mailbox_name)->setRaw(true)->add('a', 'm'));
     exit;
 }

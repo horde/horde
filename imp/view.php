@@ -61,12 +61,12 @@ if ($vars->actionID == 'compose_attach_preview') {
 
     /* Create a dummy IMP_Contents() object so we can use the view code below.
      * Then use the 'view_attach' handler to output. */
-    $contents = IMP_Contents::singleton($mime);
+    $contents = new IMP_Contents($mime);
 } else {
     if (!$vars->uid || !$vars->mailbox) {
         exit;
     }
-    $contents = IMP_Contents::singleton($vars->uid . IMP::IDX_SEP . $vars->mailbox);
+    $contents = $injector->getInstance('IMP_Contents')->getOb($vars->mailbox, $vars->uid);
 }
 
 /* Run through action handlers */

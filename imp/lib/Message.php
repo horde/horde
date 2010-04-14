@@ -312,7 +312,7 @@ class IMP_Message
         foreach ($msgList as $folder => $msgIndices) {
             foreach ($msgIndices as $index) {
                 /* Fetch the message contents. */
-                $imp_contents = IMP_Contents::singleton($index . IMP::IDX_SEP . $folder);
+                $imp_contents = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($folder, $index);
 
                 /* Fetch the message headers. */
                 $imp_headers = $imp_contents->getHeaderOb();
@@ -475,7 +475,7 @@ class IMP_Message
         $GLOBALS['imp_imap']->checkUidvalidity($mbox);
 
         /* Get a local copy of the message. */
-        $contents = IMP_Contents::singleton($index . IMP::IDX_SEP . $mbox);
+        $contents = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($mbox, $index);
 
         /* Loop through all to-be-stripped mime parts. */
         if (is_null($partid)) {

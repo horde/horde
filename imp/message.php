@@ -188,8 +188,8 @@ $uid = $index_array['uid'];
 
 /* Parse the message. */
 try {
-    $imp_contents = IMP_Contents::singleton($uid . IMP::IDX_SEP . $mailbox_name);
-} catch (Horde_Exception $e) {
+    $imp_contents = $injector->getInstance('IMP_Contents')->getOb($mailbox_name, $uid);
+} catch (IMP_Exception $e) {
     $imp_mailbox->removeMsgs(true);
     _returnToMailbox(null, 'message_missing');
     require IMP_BASE . '/mailbox.php';

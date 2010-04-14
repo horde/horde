@@ -356,8 +356,8 @@ class IMP_Compose
     /**
      * Resumes a previously saved draft message.
      *
-     * @param string $uid  The IMAP message mailbox/index. The uid should
-     *                     be in IMP::parseIndicesList() format #1.
+     * @param string $mailbox  Draft mailbox.
+     * @param integer $uid     Message UID.
      *
      * @return mixed  An array with the following keys:
      * <pre>
@@ -368,11 +368,11 @@ class IMP_Compose
      * </pre>
      * @throws IMP_Compose_Exception
      */
-    public function resumeDraft($uid)
+    public function resumeDraft($mailbox, $uid)
     {
         try {
-            $contents = IMP_Contents::singleton($uid);
-        } catch (Horde_Exception $e) {
+            $contents = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($mailbox, $uid);
+        } catch (IMP_Exception $e) {
             throw new IMP_Compose_Exception($e);
         }
 
@@ -436,15 +436,15 @@ class IMP_Compose
                     // even though the server is the same. UIDVALIDITY should
                     // catch any true server/backend changes.
                     ($GLOBALS['imp_imap']->checkUidvalidity($imap_url['mailbox']) == $imap_url['uidvalidity']) &&
-                    IMP_Contents::singleton($imap_url['uid'] . IMP::IDX_SEP . $imap_url['mailbox'])) {
+                    $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($imap_url['uid'] . IMP::IDX_SEP . $imap_url['mailbox'])) {
                     $this->_metadata['mailbox'] = $imap_url['mailbox'];
                     $this->_metadata['reply_type'] = $reply_type;
                     $this->_metadata['uid'] = $imap_url['uid'];
                 }
-            } catch (Horde_Exception $e) {}
+            } catch (Exception $e) {}
         }
 
-        $this->_metadata['draft_uid_resume'] = $uid;
+        $this->_metadata['draft_uid_resume'] = $uid . IMP::IDX_SEP . $mailbox;
         $this->_modified = true;
 
         return array(
@@ -1702,7 +1702,7 @@ class IMP_Compose
         foreach ($msgList as $mbox => $indicesList) {
             foreach ($indicesList as $idx) {
                 ++$attached;
-                $contents = IMP_Contents::singleton($idx . IMP::IDX_SEP . $mbox);
+                $contents = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($mbox, $idx);
                 $headerob = $contents->getHeaderOb();
 
                 $part = new Horde_Mime_Part();
@@ -2713,7 +2713,7 @@ class IMP_Compose
     public function getContentsOb()
     {
         return $this->getMetadata('reply_type')
-            ? IMP_Contents::singleton($this->getMetadata('uid') . IMP::IDX_SEP . $this->getMetadata('mailbox'))
+            ? $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($this->getMetadata('mailbox'), $this->getMetadata('uid'))
             : null;
     }
 

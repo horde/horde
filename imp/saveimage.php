@@ -14,14 +14,13 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('imp');
 
-$id = Horde_Util::getFormData('id');
-$uid = Horde_Util::getFormData('uid');
+$vars = Horde_Variables::getDefaultVariables();
 
 /* Run through the action handlers. */
-switch (Horde_Util::getFormData('actionID')) {
+switch ($vars->actionID) {
 case 'save_image':
-    $contents = IMP_Contents::singleton($uid);
-    $mime_part = $contents->getMIMEPart($id);
+    $contents = $injector->getInstance('IMP_Contents')->getOb($vars->mbox, $vars->uid);
+    $mime_part = $contents->getMIMEPart($vars->id);
     $image_data = array(
         'data' => $mime_part->getContents(),
         'description' => $mime_part->getDescription(true),
@@ -29,7 +28,7 @@ case 'save_image':
         'type' => $mime_part->getType()
     );
     try {
-        $registry->call('images/saveImage', array(null, Horde_Util::getFormData('gallery'), $image_data));
+        $registry->call('images/saveImage', array(null, $vars->gallery, $image_data));
     } catch (Horde_Exception $e) {
         $notification->push($e);
         break;
@@ -47,8 +46,8 @@ if (!$registry->hasMethod('images/selectGalleries') ||
 $t = $injector->createInstance('Horde_Template');
 $t->setOption('gettext', true);
 $t->set('action', Horde::applicationUrl('saveimage.php'));
-$t->set('id', htmlspecialchars($id));
-$t->set('uid', htmlspecialchars($uid));
+$t->set('id', htmlspecialchars($vars->id));
+$t->set('uid', htmlspecialchars($vars->uid));
 $t->set('image_img', Horde::img('mime/image.png', _("Image")));
 
 /* Build the list of galleries. */
