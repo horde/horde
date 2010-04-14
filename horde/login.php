@@ -63,7 +63,11 @@ function _getLogoutReasonString($code)
         return _("Your login has expired.");
 
     case Horde_Auth::REASON_MESSAGE:
-        return Horde_Util::getFormData(Horde_Auth::REASON_MSG_PARAM);
+        $msg = Horde_Auth::getAuthError(true);
+        if (!$msg) {
+               Horde_Util::getFormData(Horde_Auth::REASON_MSG_PARAM);
+        }
+        return $msg;
 
     default:
         return '';

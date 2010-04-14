@@ -119,11 +119,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
 
         $credentials['auth_ob'] = $this;
 
-        try {
-            $result = $GLOBALS['registry']->callAppMethod($this->_app, $this->_apiMethods['authenticate'], array('args' => array($userId, $credentials), 'noperms' => true));
-        } catch (Horde_Auth_Exception $e) {
-            throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
-        }
+        $GLOBALS['registry']->callAppMethod($this->_app, $this->_apiMethods['authenticate'], array('args' => array($userId, $credentials), 'noperms' => true));
     }
 
     /**
