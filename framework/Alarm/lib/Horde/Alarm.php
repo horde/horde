@@ -118,7 +118,7 @@ class Horde_Alarm
     }
 
     /**
-     * @throws new Horde_Alarm_Exception
+     * @throws Horde_Alarm_Exception
      */
     protected function _get()
     {
@@ -132,7 +132,7 @@ class Horde_Alarm
      * @param array $alarm         An alarm hash. See self::get() for format.
      * @param boolean $keepsnooze  Whether to keep the snooze value unchanged.
      *
-     * @return TODO
+     * @throws Horde_Alarm_Exception
      */
     public function set($alarm, $keepsnooze = false)
     {
@@ -148,14 +148,14 @@ class Horde_Alarm
     }
 
     /**
-     * @throws new Horde_Alarm_Exception
+     * @throws Horde_Alarm_Exception
      */
     protected function _update()
     {
     }
 
     /**
-     * @throws new Horde_Alarm_Exception
+     * @throws Horde_Alarm_Exception
      */
     protected function _add()
     {
@@ -193,7 +193,6 @@ class Horde_Alarm
      * @param integer $minutes  The delay in minutes. A negative value
      *                          dismisses the alarm completely.
      *
-     * @return TODO
      * @throws Horde_Alarm_Exception
      */
     public function snooze($id, $user, $minutes)
@@ -208,22 +207,23 @@ class Horde_Alarm
             if ($minutes > 0) {
                 $alarm['snooze'] = new Horde_Date(time());
                 $alarm['snooze']->min += $minutes;
-                return $this->_snooze($id, $user, $alarm['snooze']);
+                $this->_snooze($id, $user, $alarm['snooze']);
+                return;
             }
 
-            return $this->_dismiss($id, $user);
+            $this->_dismiss($id, $user);
         }
     }
 
     /**
-     * @throws new Horde_Alarm_Exception
+     * @throws Horde_Alarm_Exception
      */
     protected function _snooze()
     {
     }
 
     /**
-     * @throws new Horde_Alarm_Exception
+     * @throws Horde_Alarm_Exception
      */
     protected function _dismiss()
     {
@@ -238,6 +238,8 @@ class Horde_Alarm
      *                          Defaults to now.
      *
      * @return boolean  True if the alarm is snoozed.
+     *
+     * @throws Horde_Alarm_Exception
      */
     public function isSnoozed($id, $user, $time = null)
     {
@@ -248,7 +250,7 @@ class Horde_Alarm
     }
 
     /**
-     * @throws new Horde_Alarm_Exception
+     * @throws Horde_Alarm_Exception
      */
     protected function _isSnoozed()
     {
@@ -259,14 +261,16 @@ class Horde_Alarm
      *
      * @param string $id    The alarm's unique id.
      * @param string $user  The alarm's user. All users' alarms if null.
+     *
+     * @throws Horde_Alarm_Exception
      */
     function delete($id, $user = null)
     {
-        return $this->_delete($id, $user);
+        $this->_delete($id, $user);
     }
 
     /**
-     * @throws new Horde_Alarm_Exception
+     * @throws Horde_Alarm_Exception
      */
     protected function _delete()
     {
@@ -365,7 +369,7 @@ class Horde_Alarm
     }
 
     /**
-     * @throws new Horde_Alarm_Exception
+     * @throws Horde_Alarm_Exception
      */
     protected function _list()
     {
@@ -441,6 +445,7 @@ class Horde_Alarm
      * @param array $alarm  An alarm hash.
      *
      * @throws Horde_Mime_Exception
+     * @throws Horde_Alarm_Exception
      */
     protected function _mail($alarm)
     {
@@ -474,7 +479,7 @@ class Horde_Alarm
     }
 
     /**
-     * @throws new Horde_Alarm_Exception
+     * @throws Horde_Alarm_Exception
      */
     protected function _internal()
     {
@@ -539,12 +544,14 @@ class Horde_Alarm
 
     /**
      * Garbage collects old alarms in the backend.
+     *
+     * @throws Horde_Alarm_Exception
      */
     public function gc()
     {
         /* A 1% chance we will run garbage collection during a call. */
         if (rand(0, 99) == 0) {
-            return $this->_gc();
+            $this->_gc();
         }
     }
 

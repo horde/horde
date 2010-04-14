@@ -83,6 +83,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
      * @param string $user  The alarm's user
      *
      * @return array  An alarm hash.
+     * @throws Horde_Alarm_Exception
      */
     protected function _get($id, $user)
     {
@@ -117,6 +118,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
      *                          null, or global alarms if empty.
      *
      * @return array  A list of alarm hashes.
+     * @throws Horde_Alarm_Exception
      */
     protected function _list($user, $time)
     {
@@ -179,6 +181,8 @@ class Horde_Alarm_Sql extends Horde_Alarm
      * Adds an alarm hash to the backend.
      *
      * @param array $alarm  An alarm hash.
+     *
+     * @throws Horde_Alarm_Exception
      */
     protected function _add($alarm)
     {
@@ -205,8 +209,6 @@ class Horde_Alarm_Sql extends Horde_Alarm
             }
             throw new Horde_Alarm_Exception($result);
         }
-
-        return $result;
     }
 
     /**
@@ -245,8 +247,6 @@ class Horde_Alarm_Sql extends Horde_Alarm
             }
             throw new Horde_Alarm_Exception($result);
         }
-
-        return $result;
     }
 
     /**
@@ -256,6 +256,8 @@ class Horde_Alarm_Sql extends Horde_Alarm
      * @param string $id       The alarm's unique id.
      * @param string $user     The alarm's user
      * @param array $internal  A hash with the internal data.
+     *
+     * @throws Horde_Alarm_Exception
      */
     protected function _internal($id, $user, $internal)
     {
@@ -275,8 +277,6 @@ class Horde_Alarm_Sql extends Horde_Alarm
             }
             throw new Horde_Alarm_Exception($result);
         }
-
-        return $result;
     }
 
     /**
@@ -286,6 +286,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
      * @param string $user  The alarm's user
      *
      * @return boolean  True if the specified alarm exists.
+     * @throws Horde_Alarm_Exception
      */
     protected function _exists($id, $user)
     {
@@ -314,6 +315,8 @@ class Horde_Alarm_Sql extends Horde_Alarm
      * @param string $id          The alarm's unique id.
      * @param string $user        The alarm's user
      * @param Horde_Date $snooze  The snooze time.
+     *
+     * @throws Horde_Alarm_Exception
      */
     protected function _snooze($id, $user, $snooze)
     {
@@ -333,8 +336,6 @@ class Horde_Alarm_Sql extends Horde_Alarm
             }
             throw new Horde_Alarm_Exception($result);
         }
-
-        return $result;
     }
 
     /**
@@ -342,6 +343,8 @@ class Horde_Alarm_Sql extends Horde_Alarm
      *
      * @param string $id          The alarm's unique id.
      * @param string $user        The alarm's user
+     *
+     * @throws Horde_Alarm_Exception
      */
     protected function _dismiss($id, $user)
     {
@@ -361,8 +364,6 @@ class Horde_Alarm_Sql extends Horde_Alarm
             }
             throw new Horde_Alarm_Exception($result);
         }
-
-        return $result;
     }
 
     /**
@@ -373,6 +374,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
      * @param Horde_Date $time  The time when the alarm may be snoozed.
      *
      * @return boolean  True if the alarm is snoozed.
+     * @throws Horde_Alarm_Exception
      */
     protected function _isSnoozed($id, $user, $time)
     {
@@ -400,6 +402,8 @@ class Horde_Alarm_Sql extends Horde_Alarm
      *
      * @param string $id    The alarm's unique id.
      * @param string $user  The alarm's user. All users' alarms if null.
+     *
+     * @throws Horde_Alarm_Exception
      */
     protected function _delete($id, $user = null)
     {
@@ -423,12 +427,12 @@ class Horde_Alarm_Sql extends Horde_Alarm
             }
             throw new Horde_Alarm_Exception($result);
         }
-
-        return $result;
     }
 
     /**
      * Garbage collects old alarms in the backend.
+     *
+     * @throws Horde_Alarm_Exception
      */
     protected function _gc()
     {
@@ -453,6 +457,8 @@ class Horde_Alarm_Sql extends Horde_Alarm
 
     /**
      * Attempts to open a connection to the SQL server.
+     *
+     * @throws Horde_Alarm_Exception
      */
     public function initialize()
     {
