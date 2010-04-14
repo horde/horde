@@ -23,11 +23,13 @@ if (ini_get('register_globals')) {
     exit('Register globals is enabled. Exiting.');
 }
 
+$dirname = dirname(__FILE__);
+
 if (!defined('HORDE_BASE')) {
-    define('HORDE_BASE', dirname(__FILE__) . '/..');
+    define('HORDE_BASE', $dirname . '/..');
 }
 
-ini_set('include_path', dirname(__FILE__) . PATH_SEPARATOR . ini_get('include_path'));
+ini_set('include_path', $dirname . PATH_SEPARATOR . ini_get('include_path'));
 if (file_exists(HORDE_BASE . '/config/horde.local.php')) {
     include HORDE_BASE . '/config/horde.local.php';
 }
@@ -36,7 +38,7 @@ if (file_exists(HORDE_BASE . '/config/horde.local.php')) {
  * be defined in Horde_Autoloader since the current directory path can not be
  * determined there. */
 include_once 'Horde/Autoloader.php';
-Horde_Autoloader::addClassPattern('/^Horde(?:$|_)/i', dirname(__FILE__));
+Horde_Autoloader::addClassPattern('/^Horde(?:$|_)/i', $dirname);
 
 /* Default exception handler for uncaught exceptions. The default fatal
  * exception handler output may include things like passwords, etc. so don't
