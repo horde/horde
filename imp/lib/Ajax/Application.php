@@ -1067,7 +1067,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function cancelCompose()
     {
-        $imp_compose = IMP_Compose::singleton($this->_vars->imp_compose);
+        $imp_compose = $GLOBALS['injector']->getInstance('IMP_Compose')->getOb($this->_vars->imp_compose);
         $imp_compose->destroy('cancel');
 
         return true;
@@ -1085,7 +1085,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function deleteDraft()
     {
-        IMP_Compose::singleton($this->_vars->imp_compose)->destroy('cancel');
+        $GLOBALS['injector']->getInstance('IMP_Compose')->getOb($this->_vars->imp_compose)->destroy('cancel');
         return true;
     }
 
@@ -1103,7 +1103,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
     public function deleteAttach()
     {
         if (isset($this->_vars->atc_indices)) {
-            $imp_compose = IMP_Compose::singleton($this->_vars->imp_compose);
+            $imp_compose = $GLOBALS['injector']->getInstance('IMP_Compose')->getOb($this->_vars->imp_compose);
             foreach ($imp_compose->deleteAttachment($this->_vars->atc_indices) as $val) {
                 $GLOBALS['notification']->push(sprintf(_("Deleted attachment \"%s\"."), Horde_Mime::decode($val)), 'horde.success');
             }
@@ -1287,7 +1287,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function addAttachment()
     {
-        $imp_compose = IMP_Compose::singleton($this->_vars->composeCache);
+        $imp_compose = $GLOBALS['injector']->getInstance('IMP_Compose')->getOb($this->_vars->composeCache);
 
         $result = new stdClass;
         $result->action = 'addAttachment';
@@ -1445,7 +1445,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         $result->success = 1;
 
         try {
-            $imp_compose = IMP_Compose::singleton($this->_vars->redirect_composeCache);
+            $imp_compose = $GLOBALS['injector']->getInstance('IMP_Compose')->getOb($this->_vars->redirect_composeCache);
             $imp_compose->sendRedirectMessage($this->_vars->redirect_to);
 
             $result->mbox = $imp_compose->getMetadata('mailbox');
@@ -1523,7 +1523,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         }
         $headers['subject'] = $this->_vars->subject;
 
-        $imp_compose = IMP_Compose::singleton($this->_vars->composeCache);
+        $imp_compose = $GLOBALS['injector']->getInstance('IMP_Compose')->getOb($this->_vars->composeCache);
 
         return array($result, $imp_compose, $headers, $identity);
     }
@@ -1533,7 +1533,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      */
     protected function _initCompose()
     {
-        $imp_compose = IMP_Compose::singleton($this->_vars->imp_compose);
+        $imp_compose = $GLOBALS['injector']->getInstance('IMP_Compose')->getOb($this->_vars->imp_compose);
         if (!($imp_contents = $imp_compose->getContentsOb())) {
             $indices = $GLOBALS['imp_imap']->ob()->utils->fromSequenceString($this->_vars->uid);
             $i = each($indices);

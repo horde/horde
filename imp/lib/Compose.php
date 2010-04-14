@@ -23,13 +23,6 @@ class IMP_Compose
     const VFS_DRAFTS_PATH = '.horde/imp/drafts';
 
     /**
-     * Singleton instances.
-     *
-     * @var array
-     */
-    static protected $_instances = array();
-
-    /**
      * The cached attachment data.
      *
      * @var array
@@ -87,36 +80,11 @@ class IMP_Compose
     protected $_modified = false;
 
     /**
-     * Attempts to return a reference to a concrete IMP_Compose instance.
-     *
-     * If an IMP_Cacheid object exists with the given cacheid, recreate that
-     * that object.  Else, create a new instance.
-     *
-     * @param string $cacheid  The cache ID string.
-     *
-     * @return IMP_Compose  The IMP_Compose object.
-     */
-    static public function singleton($cacheid = null)
-    {
-        if (!empty($cacheid) && !isset(self::$_instances[$cacheid])) {
-            $obs = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
-            self::$_instances[$cacheid] = $obs->query($cacheid);
-        }
-
-        if (empty($cacheid) || empty(self::$_instances[$cacheid])) {
-            $cacheid = empty($cacheid) ? uniqid(mt_rand()) : $cacheid;
-            self::$_instances[$cacheid] = new self($cacheid);
-        }
-
-        return self::$_instances[$cacheid];
-    }
-
-    /**
      * Constructor.
      *
      * @param string $cacheid  The cache ID string.
      */
-    protected function __construct($cacheid)
+    public function __construct($cacheid)
     {
         $this->_cacheid = $cacheid;
         $this->__wakeup();

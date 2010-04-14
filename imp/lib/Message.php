@@ -319,7 +319,6 @@ class IMP_Message
                 $subject = $imp_headers->getValue('subject');
 
                 /* Extract the message body. */
-                $imp_compose = IMP_Compose::singleton();
                 $mime_message = $imp_contents->getMIMEMessage();
                 $body_id = $imp_contents->findBody();
                 $body_part = $mime_message->getPart($body_id);

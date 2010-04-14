@@ -76,8 +76,7 @@ class IMP_Application extends Horde_Registry_Application
     {
         if (($e->getCode() == Horde_Registry::AUTH_FAILURE) &&
             Horde_Util::getFormData('composeCache')) {
-            $imp_compose = IMP_Compose::singleton();
-            $imp_compose->sessionExpireDraft();
+            $imp_compose = $GLOBALS['injector']->getInstance('IMP_Compose')->getOb()->sessionExpireDraft();
         }
     }
 
@@ -93,6 +92,7 @@ class IMP_Application extends Horde_Registry_Application
     {
         /* Add IMP-specific binders. */
         $binders = array(
+            'IMP_Compose' => new IMP_Injector_Binder_Compose(),
             'IMP_Contents' => new IMP_Injector_Binder_Contents(),
             'IMP_Crypt_Pgp' => new IMP_Injector_Binder_Pgp(),
             'IMP_Crypt_Smime' => new IMP_Injector_Binder_Smime(),

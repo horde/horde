@@ -1,0 +1,78 @@
+<?php
+/**
+ * A Horde_Injector:: based IMP_Compose:: factory.
+ *
+ * PHP version 5
+ *
+ * @category Horde
+ * @package  IMP
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @link     http://pear.horde.org/index.php?package=IMP
+ */
+
+/**
+ * A Horde_Injector:: based IMP_Compose:: factory.
+ *
+ * Copyright 2010 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
+ * @category Horde
+ * @package  IMP
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @link     http://pear.horde.org/index.php?package=IMP
+ */
+class IMP_Injector_Factory_Compose
+{
+    /**
+     * Instances.
+     *
+     * @var array
+     */
+    private $_instances = array();
+
+    /**
+     * The injector.
+     *
+     * @var Horde_Injector
+     */
+    private $_injector;
+
+    /**
+     * Constructor.
+     *
+     * @param Horde_Injector $injector  The injector to use.
+     */
+    public function __construct(Horde_Injector $injector)
+    {
+        $this->_injector = $injector;
+    }
+
+    /**
+     * Return the Horde_Compose:: instance.
+     *
+     * @param string $cacheid  The cache ID string.
+     *
+     * @return IMP_Compose  The singleton compose instance.
+     * @throws IMP_Exception
+     */
+    public function getOb($cacheid = null)
+    {
+        if (empty($cacheid)) {
+            $cacheid = uniqid(mt_rand());
+        } elseif (!isset($this->_instances[$cacheid])) {
+            $obs = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
+            $this->_instances[$cacheid] = $obs->query($cacheid);
+        }
+
+        if (empty($this->_instances[$cacheid])) {
+            $this->_instances[$cacheid] = new IMP_Compose($cacheid);
+        }
+
+        return $this->_instances[$cacheid];
+    }
+
+}

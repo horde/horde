@@ -70,7 +70,7 @@ $save_sent_mail = $imp_imap->isReadOnly($sent_mail_folder)
 $compose_disable = !IMP::canCompose();
 
 /* Initialize objects. */
-$imp_compose = IMP_Compose::singleton($vars->composeCache);
+$imp_compose = $injector->getInstance('IMP_Compose')->getOb($vars->composeCache);
 $imp_ui = new IMP_Ui_Compose();
 
 foreach (array_keys($display_hdrs) as $val) {

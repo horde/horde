@@ -57,7 +57,7 @@ if (!$prefs->isLocked('default_identity') && isset($vars->identity)) {
 }
 
 /* Initialize the IMP_Compose:: object. */
-$imp_compose = IMP_Compose::singleton();
+$imp_compose = $injector->getInstance('IMP_Compose')->getOb();
 
 /* Init IMP_Ui_Compose:: object. */
 $imp_ui = new IMP_Ui_Compose();

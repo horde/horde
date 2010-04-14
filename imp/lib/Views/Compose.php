@@ -41,7 +41,7 @@ class IMP_Views_Compose
         if (empty($args['composeCache'])) {
             $composeCache = null;
         } else {
-            $imp_compose = IMP_Compose::singleton($args['composeCache']);
+            $imp_compose = $GLOBALS['injector']->getInstance('IMP_Compose')->getOb($args['composeCache']);
             $composeCache = $args['composeCache'];
         }
 
