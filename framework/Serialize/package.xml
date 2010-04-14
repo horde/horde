@@ -82,18 +82,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    </package>
   </required>
   <optional>
-   <extension>
-    <name>bzip2</name>
-   </extension>
-   <extension>
-    <name>lzf</name>
-   </extension>
-   <extension>
-    <name>wddx</name>
-   </extension>
-   <extension>
-    <name>zlib</name>
-   </extension>
    <package>
     <name>DB</name>
     <channel>pear.php.net</channel>
@@ -106,6 +94,18 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <name>Mime</name>
     <channel>pear.horde.org</channel>
    </package>
+   <extension>
+    <name>bzip2</name>
+   </extension>
+   <extension>
+    <name>lzf</name>
+   </extension>
+   <extension>
+    <name>wddx</name>
+   </extension>
+   <extension>
+    <name>zlib</name>
+   </extension>
   </optional>
  </dependencies>
  <phprelease>

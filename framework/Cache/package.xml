@@ -72,6 +72,10 @@ Performance Suite&apos;s content cache), memcached, or an SQL table.
    </package>
   </required>
   <optional>
+   <package>
+    <name>Log</name>
+    <channel>pear.horde.org</channel>
+   </package>
    <extension>
     <name>apc</name>
    </extension>
@@ -81,10 +85,6 @@ Performance Suite&apos;s content cache), memcached, or an SQL table.
    <extension>
     <name>memcache</name>
    </extension>
-   <package>
-    <name>Log</name>
-    <channel>pear.horde.org</channel>
-   </package>
   </optional>
  </dependencies>
  <phprelease>
