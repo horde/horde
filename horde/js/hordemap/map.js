@@ -1,5 +1,16 @@
 /**
- * Initial bootstrap file for hordemap
+ * Initial bootstrap file for hordemap.
+ *
+ * This file is responsible for loading the javascript for the map driver we are
+ * using. Horde ships with a Horde driver that relies on OpenLayers.js. The
+ * Horde driver is able to support any mapping provider that can serve map
+ * tiles. We have built in support for Google, Yahoo, and Bing as well as built
+ * in support for OpenStreetMaps. To write a new driver to support a new
+ * provider, include a new {drivername}.js file in the same directory as this
+ * file. Your js file is responsible for including any additional javascript
+ * files you may need (such as externally served api files for example). Take
+ * a look at the public.js or google.js files for the interface that needs to be
+ * implemented.
  */
 HordeMap = {
 
@@ -35,9 +46,8 @@ HordeMap = {
             if (this._opts.conf.language != 'en-US') {
                 this._addScript(path + this._opts.conf.language + '.js');
             }
-        } else if (this._opts.driver == 'SAPO') {
-            this._addScript(this._getProviderUrl('SAPO'));
         }
+        
         this._addScript(path + this._opts.driver.toLowerCase() + '.js');
 
         if (this._opts.geocoder) {
@@ -128,8 +138,7 @@ HordeMap = {
             return 'http://api.maps.yahoo.com/ajaxymap?v=3.8&appid=' + this.conf['apikeys']['yahoo'];
         case 'Ve':
             return 'http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.1';
-        case 'SAPO':
-            return 'http://js.sapo.pt/Bundles/SAPOMapsAPI-1.0.js';
+
         default:
             return '';
         }
