@@ -109,7 +109,7 @@ class Horde_Core_Factory_KolabSession
     public function getStorage()
     {
         $storage = new Horde_Kolab_Session_Storage_Sessionobjects(
-            Horde_SessionObjects::singleton()
+            new Horde_SessionObjects()
         );
         return $storage;
     }

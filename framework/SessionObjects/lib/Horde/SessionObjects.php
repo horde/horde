@@ -16,13 +16,6 @@
 class Horde_SessionObjects
 {
     /**
-     * The singleton instance.
-     *
-     * @var array
-     */
-    static protected $_instance = array();
-
-    /**
      * The name of the store.
      *
      * @var string
@@ -51,37 +44,16 @@ class Horde_SessionObjects
     protected $_sdata = null;
 
     /**
-     * Returns a reference to the global Horde_SessionObjects object, only
-     * creating it if it doesn't already exist.
-     *
-     * This method must be invoked as:
-     *   $objectstore = Horde_SessionObjects::singleton();
-     *
-     * @return Horde_SessionObjects  The Horde_SessionObjects instance.
-     */
-    static public function singleton($params = array())
-    {
-        ksort($params);
-        $sig = md5(Horde_Serialize::serialize($params, Horde_Serialize::BASIC));
-
-        if (!isset(self::$_instance[$sig])) {
-            self::$_instance[$sig] = new self($params);
-        }
-
-        return self::$_instance[$sig];
-    }
-
-    /**
      * Constructor.
      *
-     * @param array $params  The parameter array.
+     * @param array $params  Optional parameters:
      * <pre>
-     * Optional Parameters:
-     * 'name'  --  The name of the session variable to store the objects in.
-     * 'size'  --  The maximum size of the (non-prunable) object store.
+     * 'name' - (string) The name of the session variable to store the objects
+     *          in.
+     * 'size' - (integer) The maximum size of the (non-prunable) object store.
      * </pre>
      */
-    protected function __construct($params = array())
+    public function __construct($params = array())
     {
         if (isset($params['name'])) {
             $this->_name = $params['name'];

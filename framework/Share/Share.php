@@ -99,8 +99,7 @@ class Horde_Share {
         $signature = $app . '_' . $driver;
         if (!isset($shares[$signature]) &&
             !empty($GLOBALS['conf']['share']['cache'])) {
-            require_once 'Horde/SessionObjects.php';
-            $session = Horde_SessionObjects::singleton();
+            $session = new Horde_SessionObjects();
             $shares[$signature] = $session->query('horde_share_' . $app . '_' . $driver . '1');
         }
 
@@ -162,8 +161,7 @@ class Horde_Share {
     function shutdown()
     {
         $driver = str_replace('horde_share_', '', Horde_String::lower(get_class($this)));
-        require_once 'Horde/SessionObjects.php';
-        $session = Horde_SessionObjects::singleton();
+        $session = new Horde_SessionObjects();
         $session->overwrite('horde_share_' . $this->_app . '_' . $driver, $this, false);
     }
 

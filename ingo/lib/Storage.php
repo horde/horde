@@ -108,7 +108,7 @@ class Ingo_Storage
      */
     public function shutdown()
     {
-        $cache = Horde_SessionObjects::singleton();
+        $cache = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
 
         /* Store the current objects. */
         foreach ($this->_cache as $key => $val) {
@@ -140,7 +140,7 @@ class Ingo_Storage
             if (!isset($this->_cache[$field])) {
                 $this->_cache[$field] = array('mod' => false);
                 if (isset($_SESSION['ingo']['storage'][$field])) {
-                    $cacheSess = Horde_SessionObjects::singleton();
+                    $cacheSess = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
                     $this->_cache[$field]['ob'] = $cacheSess->query($_SESSION['ingo']['storage'][$field]);
                 } else {
                     $this->_cache[$field]['ob'] = $this->_retrieve($field, $readonly);

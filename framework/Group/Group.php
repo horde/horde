@@ -603,7 +603,7 @@ class Group {
      */
     function shutdown()
     {
-        $session = Horde_SessionObjects::singleton();
+        $session = new Horde_SessionObjects();
         $session->overwrite('horde_group', $this, false);
     }
 
@@ -679,7 +679,7 @@ class Group {
 
         $group = null;
         if (!empty($GLOBALS['conf']['group']['cache'])) {
-            $session = Horde_SessionObjects::singleton();
+            $session = new Horde_SessionObjects();
             $group = $session->query('horde_group');
         }
 

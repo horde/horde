@@ -502,7 +502,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function reloadWindow($reload)
     {
-        $cacheSess = Horde_SessionObjects::singleton();
+        $cacheSess = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
         $href = $cacheSess->query($reload);
         $cacheSess->prune($reload);
         echo Horde::wrapInlineScript(array(

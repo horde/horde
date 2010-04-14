@@ -99,7 +99,7 @@ class IMP_Compose
     static public function singleton($cacheid = null)
     {
         if (!empty($cacheid) && !isset(self::$_instances[$cacheid])) {
-            $obs = Horde_SessionObjects::singleton();
+            $obs = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
             self::$_instances[$cacheid] = $obs->query($cacheid);
         }
 
@@ -138,7 +138,7 @@ class IMP_Compose
     {
         if ($this->_modified) {
             $this->_modified = false;
-            $obs = Horde_SessionObjects::singleton();
+            $obs = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
             $obs->overwrite($this->_cacheid, $this, false);
         }
     }
@@ -176,7 +176,7 @@ class IMP_Compose
         }
 
         $this->deleteAllAttachments();
-        $obs = Horde_SessionObjects::singleton();
+        $obs = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
         $obs->prune($this->_cacheid);
     }
 

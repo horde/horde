@@ -26,7 +26,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Added prune() function.
+ <notes>* Remove singleton().
+ * Added prune() function.
  * Initial Horde 4 package</notes>
  <contents>
   <dir name="/">

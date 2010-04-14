@@ -1005,7 +1005,7 @@ class IMP_Prefs_Ui
                 $t->set('keygen', addslashes(_("Key generation may take a long time to complete.  Continue with key generation?")));
 
                 if ($_SESSION['imp']['file_upload']) {
-                    $cacheSess = Horde_SessionObjects::singleton();
+                    $cacheSess = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
                     $t->set('import_url', Horde::popupJs($pgp_url, array('params' => array('actionID' => 'import_personal_public_key', 'reload' => $cacheSess->storeOid($ui->selfUrl()->setRaw(true), false)), 'height' => 275, 'width' => 750, 'urlencode' => true)));
                 }
 
@@ -1105,7 +1105,7 @@ class IMP_Prefs_Ui
         if ($_SESSION['imp']['file_upload']) {
             $t->set('no_source', !$GLOBALS['prefs']->getValue('add_source'));
             if (!$t->get('no_source')) {
-                $cacheSess = Horde_SessionObjects::singleton();
+                $cacheSess = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
                 $t->set('import_url', Horde::popupJs($pgp_url, array('params' => array('actionID' => 'import_public_key', 'reload' => $cacheSess->storeOid($ui->selfUrl()->setRaw(true), false)), 'height' => 275, 'width' => 750, 'urlencode' => true)));
                 $t->set('import_pubkey-help', Horde_Help::link('imp', 'pgp-import-pubkey'));
             }
@@ -1240,7 +1240,7 @@ class IMP_Prefs_Ui
                 $t->set('deletekeypair', addslashes(_("Are you sure you want to delete your keypair? (This is NOT recommended!)")));
                 $t->set('personalkey-delete-help', Horde_Help::link('imp', 'smime-delete-personal-certs'));
             } elseif ($_SESSION['imp']['file_upload']) {
-                $cacheSess = Horde_SessionObjects::singleton();
+                $cacheSess = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
                 $t->set('import_url', Horde::popupJs($smime_url, array('params' => array('actionID' => 'import_personal_public_key', 'reload' => $cacheSess->storeOid($ui->selfUrl()->setRaw(true), false)), 'height' => 275, 'width' => 750, 'urlencode' => true)));
                 $t->set('import-cert-help', Horde_Help::link('imp', 'smime-import-personal-certs'));
             }
@@ -1311,7 +1311,7 @@ class IMP_Prefs_Ui
         if ($_SESSION['imp']['file_upload']) {
             $t->set('no_source', !$GLOBALS['prefs']->getValue('add_source'));
             if (!$t->get('no_source')) {
-                $cacheSess = Horde_SessionObjects::singleton();
+                $cacheSess = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
                 $t->set('import_url', Horde::popupJs($smime_url, array('params' => array('actionID' => 'import_public_key', 'reload' => $cacheSess->storeOid($ui->selfUrl()->setRaw(true), false)), 'height' => 275, 'width' => 750, 'urlencode' => true)));
                 $t->set('import_pubkey-help', Horde_Help::link('imp', 'smime-import-pubkey'));
             }

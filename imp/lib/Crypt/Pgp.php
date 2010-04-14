@@ -665,7 +665,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      */
     public function reloadWindow($reload)
     {
-        $cacheSess = Horde_SessionObjects::singleton();
+        $cacheSess = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
         $href = $cacheSess->query($reload);
         $cacheSess->prune($reload);
         echo Horde::wrapInlineScript(array(
