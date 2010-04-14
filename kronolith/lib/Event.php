@@ -1400,11 +1400,11 @@ abstract class Kronolith_Event
             if (!empty($methods['notify']['sound'])) {
                 if ($methods['notify']['sound'] == 'on') {
                     // Handle boolean sound preferences.
-                    $methods['notify']['sound'] = Horde_Themes::sound('theetone.wav');
+                    $methods['notify']['sound'] = (string)Horde_Themes::sound('theetone.wav');
                 } else {
                     // Else we know we have a sound name that can be
                     // served from Horde.
-                    $methods['notify']['sound'] = Horde_Themes::sound($methods['notify']['sound']);
+                    $methods['notify']['sound'] = (string)Horde_Themes::sound($methods['notify']['sound']);
                 }
             }
             if ($this->isAllDay()) {
