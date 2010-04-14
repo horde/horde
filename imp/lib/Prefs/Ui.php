@@ -789,7 +789,6 @@ class IMP_Prefs_Ui
         $t->set('nofolder', IMP::PREF_NO_FOLDER);
         $t->set('flist', IMP::flistSelect(array(
             'filter' => array('INBOX'),
-            'heading' => _("Create a new drafts folder"),
             'new_folder' => true,
             'selected' => IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true)
         )));
@@ -1439,7 +1438,6 @@ class IMP_Prefs_Ui
         $t->set('nofolder', IMP::PREF_NO_FOLDER);
         $t->set('flist', IMP::flistSelect(array(
             'filter' => array('INBOX'),
-            'heading' => _("Create a new Spam folder"),
             'new_folder' => true,
             'selected' => IMP::folderPref($GLOBALS['prefs']->getValue('spam_folder'), true)
         )));
@@ -1591,7 +1589,6 @@ class IMP_Prefs_Ui
         $t->set('vtrash_select', $use_vtrash);
         $t->set('flist', IMP::flistSelect(array(
             'filter' => array('INBOX'),
-            'heading' => _("Create a new trash folder"),
             'new_folder' => true,
             'selected' => ($use_vtrash ? null : IMP::folderPref($GLOBALS['prefs']->getValue('trash_folder'), true))
         )));
@@ -1657,18 +1654,19 @@ class IMP_Prefs_Ui
         if ($folder == IMP::PREF_NO_FOLDER) {
             $prefs->setValue($pref, '');
         } else {
-            if (empty($folder) && !empty($new)) {
+            if (!empty($new)) {
                 $folder = $GLOBALS['imp_imap']->appendNamespace($new);
-                if (!$GLOBALS['injector']->getInstance('IMP_Folder')->create($folder, $GLOBALS['prefs']->getValue('subscribe'))) {
+                if (!$GLOBALS['injector']->getInstance('IMP_Folder')->create($folder, $prefs->getValue('subscribe'))) {
                     $folder = null;
                 }
             }
 
-            if (!empty($folder)) {
-                $prefs->setValue($pref, IMP::folderPref($folder, false));
-                return true;
+            if (strlen($folder)) {
+                return $prefs->setValue($pref, IMP::folderPref($folder, false));
             }
         }
+
+        return false;
     }
 
 }
