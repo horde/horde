@@ -1641,8 +1641,8 @@ KronolithCore = {
 
                 if (view == 'week') {
                     var dates = this.viewDates(midnight, view),
-                        minLeft = $('kronolithEventsWeek' + dates[0].toString('yyyyMMdd')).offsetLeft - $('kronolithEventsWeek' + date).offsetLeft,
-                        maxLeft = $('kronolithEventsWeek' + dates[1].toString('yyyyMMdd')).offsetLeft - $('kronolithEventsWeek' + date).offsetLeft,
+                        minLeft = $('kronolithEventsWeek' + dates[0].dateString()).offsetLeft - $('kronolithEventsWeek' + date).offsetLeft,
+                        maxLeft = $('kronolithEventsWeek' + dates[1].dateString()).offsetLeft - $('kronolithEventsWeek' + date).offsetLeft,
                         stepX = (maxLeft - minLeft) / 6;
                 }
                 var d = new Drag(div, {
@@ -3971,16 +3971,20 @@ KronolithCore = {
     onDrop: function(e)
     {
         var drop = e.element(),
-            el = e.memo.element,
+            el = e.memo.element;
+
+        if (drop == el.up()) {
+            return;
+        }
+
+        var lastDate = this.parseDate(el.up().retrieve('date')),
+            newDate = this.parseDate(drop.retrieve('date')),
+            diff = newDate.subtract(lastDate),
             eventid = el.retrieve('eventid'),
             cal = el.retrieve('calendar'),
             viewDates = this.viewDates(this.date, 'month'),
             start = viewDates[0].toString('yyyyMMdd'),
             end = viewDates[1].toString('yyyyMMdd');
-
-        if (drop == el.up()) {
-            return;
-        }
 
         drop.insert(el);
         this.startLoading(cal, start + end);
@@ -3990,7 +3994,7 @@ KronolithCore = {
                         view: this.view,
                         view_start: start,
                         view_end: end,
-                        att: $H({ start_date: drop.retrieve('date') }).toJSON() },
+                        att: $H({ offDays: diff }).toJSON() },
                       function(r) {
                           if (r.response.events) {
                               this.removeEvent(eventid, cal);
