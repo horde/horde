@@ -152,6 +152,9 @@ KronolithCore = {
                         message = new Element('a', { href: alarm.params.notify.url })
                             .insert(message);
                     }
+                    if (alarm.params.notify.sound) {
+                        Sound.play(alarm.params.notify.sound);
+                    }
                 }
                 message = new Element('div')
                     .insert(message);

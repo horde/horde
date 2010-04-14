@@ -66,6 +66,7 @@ class Kronolith
             $datejs = 'en-US.js';
         }
         Horde::addScriptFile('effects.js', 'horde');
+        Horde::addScriptFile('sound.js', 'horde');
         Horde::addScriptFile('horde.js', 'horde');
         Horde::addScriptFile('dragdrop2.js', 'horde');
         Horde::addScriptFile('Growler.js', 'horde');
