@@ -177,13 +177,13 @@ EOL;
         return $this->_histories[$environment];
     }
 
-    public function testMethodSingletonHasResultHordehistoryWhichIsAlwaysTheSame()
+    public function testMethodFactoryHasResultHordehistoryWhichIsAlwaysTheSame()
     {
         foreach ($this->getEnvironments() as $environment) {
             $history = $this->getHistory($environment);
-            $history1 = Horde_History::singleton($environment);
+            $history1 = Horde_History::factory($environment);
             $this->assertType('Horde_History', $history1);
-            $history2 = Horde_History::singleton($environment);
+            $history2 = Horde_History::factory($environment);
             $this->assertType('Horde_History', $history2);
             $this->assertSame($history1, $history2);
         }

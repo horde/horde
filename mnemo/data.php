@@ -164,7 +164,7 @@ if (is_array($next_step)) {
         /* If we have created or modified dates for the note, set them
          * correctly in the history log. */
         if (!empty($row['created'])) {
-            $history = &Horde_History::singleton();
+            $history = $GLOBALS['injector']->getInstance('Horde_History');
             if (is_array($row['created'])) {
                 $row['created'] = $row['created']['ts'];
             }
@@ -172,7 +172,7 @@ if (is_array($next_step)) {
                           array('action' => 'add', 'ts' => $row['created']), true);
         }
         if (!empty($row['modified'])) {
-            $history = &Horde_History::singleton();
+            $history = $GLOBALS['injector']->getInstance('Horde_History');
             if (is_array($row['modified'])) {
                 $row['modified'] = $row['modified']['ts'];
             }

@@ -127,7 +127,7 @@ function _mnemo_removeUserData($user)
         }
 
         /* Now delete history as well. */
-        $history = &Horde_History::singleton();
+        $history = $GLOBALS['injector']->getInstance('Horde_History');
         if (method_exists($history, 'removeByParent')) {
             $histories = $history->removeByParent('mnemo:' . $user);
         } else {
@@ -252,7 +252,7 @@ function _mnemo_listBy($action, $timestamp, $notepad = null)
         return PEAR::raiseError(_("Permission Denied"));
     }
 
-    $history = &Horde_History::singleton();
+    $history = $GLOBALS['injector']->getInstance('Horde_History');
     $histories = $history->getByTimestamp('>', $timestamp, array(array('op' => '=', 'field' => 'action', 'value' => $action)), 'mnemo:' . $notepad);
     if (is_a($histories, 'PEAR_Error')) {
         return $histories;
@@ -285,7 +285,7 @@ function _mnemo_getActionTimestamp($uid, $action, $notepad = null)
         return PEAR::raiseError(_("Permission Denied"));
     }
 
-    $history = &Horde_History::singleton();
+    $history = $GLOBALS['injector']->getInstance('Horde_History');
     return $history->getActionTimestamp('mnemo:' . $notepad . ':' . $uid, $action);
 }
 

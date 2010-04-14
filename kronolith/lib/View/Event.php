@@ -52,7 +52,7 @@ class Kronolith_View_Event {
         if ($this->event->uid) {
             /* Get the event's history. */
             try {
-                $log = Horde_History::singleton()
+                $log = $GLOBALS['injector']->getInstance('Horde_History')
                     ->getHistory('kronolith:' . $this->event->calendar . ':' . $this->event->uid);
                 foreach ($log as $entry) {
                     switch ($entry['action']) {

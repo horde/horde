@@ -853,7 +853,7 @@ class Nag_Task {
         /* Get the task's history. */
         $created = $modified = null;
         try {
-            $log = Horde_History::singleton()->getHistory('nag:' . $this->tasklist . ':' . $this->uid);
+            $log = $GLOBALS['injector']->getInstance('Horde_History')->getHistory('nag:' . $this->tasklist . ':' . $this->uid);
             foreach ($log as $entry) {
                 switch ($entry['action']) {
                 case 'add':

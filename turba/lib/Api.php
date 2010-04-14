@@ -509,7 +509,7 @@ class Turba_Api extends Horde_Registry_Api
         }
 
         $uids = array();
-        $history = Horde_History::singleton();
+        $history = $GLOBALS['injector']->getInstance('Horde_History');
         foreach ($sources as $source) {
             if (empty($source) || !isset($cfgSources[$source])) {
                 throw new Horde_Exception(sprintf(_("Invalid address book: %s"), $source));
@@ -569,7 +569,7 @@ class Turba_Api extends Horde_Registry_Api
         }
 
         $last = 0;
-        $history = Horde_History::singleton();
+        $history = $GLOBALS['injector']->getInstance('Horde_History');
         foreach ($sources as $source) {
             if (empty($source) || !isset($cfgSources[$source])) {
                 throw new Horde_Exception(sprintf(_("Invalid address book: %s"), $source));

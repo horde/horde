@@ -531,7 +531,7 @@ abstract class Kronolith_Event
         /* Get the event's history. */
         $created = $modified = null;
         try {
-            $log = Horde_History::singleton()->getHistory('kronolith:' . $this->calendar . ':' . $this->uid);
+            $log = $GLOBALS['injector']->getInstance('Horde_History')->getHistory('kronolith:' . $this->calendar . ':' . $this->uid);
             foreach ($log as $entry) {
                 switch ($entry['action']) {
                 case 'add':

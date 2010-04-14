@@ -583,7 +583,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             /* Log the modification of this item in the history log. */
             if ($event->uid) {
                 try {
-                    Horde_History::singleton()->log('kronolith:' . $this->calendar . ':' . $event->uid, array('action' => 'modify'), true);
+                    $GLOBALS['injector']->getInstance('Horde_History')->log('kronolith:' . $this->calendar . ':' . $event->uid, array('action' => 'modify'), true);
                 } catch (Exception $e) {
                     Horde::logMessage($e, 'ERR');
                 }
@@ -651,7 +651,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         /* Log the creation of this item in the history log. */
         try {
-            Horde_History::singleton()->log('kronolith:' . $this->calendar . ':' . $uid, array('action' => 'add'), true);
+            $GLOBALS['injector']->getInstance('Horde_History')->log('kronolith:' . $this->calendar . ':' . $uid, array('action' => 'add'), true);
         } catch (Exception $e) {
             Horde::logMessage($e, 'ERR');
         }
@@ -753,7 +753,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         /* Log the deletion of this item in the history log. */
         if ($event->uid) {
             try {
-                Horde_History::singleton()->log('kronolith:' . $this->calendar . ':' . $event->uid, array('action' => 'delete'), true);
+                $GLOBALS['injector']->getInstance('Horde_History')->log('kronolith:' . $this->calendar . ':' . $event->uid, array('action' => 'delete'), true);
             } catch (Exception $e) {
                 Horde::logMessage($e, 'ERR');
             }

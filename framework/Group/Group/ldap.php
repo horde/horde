@@ -351,7 +351,7 @@ class Group_ldap extends Group {
         @ldap_close($this->_ds);
 
         /* Log the update of the group users on the history log. */
-        $history = Horde_History::singleton();
+        $history = $GLOBALS['injector']->getInstance('Horde_History');
         $guid = $this->getGUID($group);
         foreach ($group->getAuditLog() as $userId => $action) {
             $history->log($guid, array('action' => $action, 'user' => $userId), true);

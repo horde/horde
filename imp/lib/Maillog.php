@@ -26,7 +26,7 @@ class IMP_Maillog
      */
     static public function log($type, $msg_ids, $data = null)
     {
-        $history = Horde_History::singleton();
+        $history = $GLOBALS['injector']->getInstance('Horde_History');
 
         if (!is_array($msg_ids)) {
             $msg_ids = array($msg_ids);
@@ -76,7 +76,7 @@ class IMP_Maillog
      */
     static public function getLog($msg_id)
     {
-        return Horde_History::singleton()->getHistory(self::_getUniqueHistoryId($msg_id));
+        return $GLOBALS['injector']->getInstance('Horde_History')->getHistory(self::_getUniqueHistoryId($msg_id));
     }
 
     /**
@@ -195,8 +195,7 @@ class IMP_Maillog
         }
         $msg_ids = array_map(array('IMP_Maillog', '_getUniqueHistoryId'), $msg_ids);
 
-        $history = Horde_History::singleton();
-        $history->removeByNames($msg_ids);
+        $GLOBALS['injector']->getInstance('Horde_History')->removeByNames($msg_ids);
     }
 
     /**

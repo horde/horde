@@ -318,7 +318,7 @@ class Kronolith_Driver
         /* Log the moving of this item in the history log. */
         $uid = $event->uid;
         if ($uid) {
-            $history = Horde_History::singleton();
+            $history = $GLOBALS['injector']->getInstance('Horde_History');
             try {
                 $history->log('kronolith:' . $event->calendar . ':' . $uid, array('action' => 'delete'), true);
                 $history->log('kronolith:' . $newCalendar . ':' . $uid, array('action' => 'add'), true);

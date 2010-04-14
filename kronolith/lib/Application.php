@@ -426,7 +426,7 @@ class Kronolith_Application extends Horde_Registry_Application
         $result = Kronolith::getDriver()->removeUserData($user);
 
         /* Now delete history as well. */
-        Horde_History::singleton()->removeByParent('kronolith:' . $user);
+        $GLOBALS['injector']->getInstance('Horde_History')->removeByParent('kronolith:' . $user);
 
         /* Get the user's default share */
         try {

@@ -13,7 +13,7 @@
 require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('nag', array('authentication' => 'none', 'cli' => true));
 
-$history = Horde_History::singleton();
+$history = $GLOBALS['injector']->getInstance('Horde_History');
 
 // Run through every tasklist.
 $tasklists = $nag_shares->listAllShares();

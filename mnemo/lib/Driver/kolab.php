@@ -622,7 +622,7 @@ class Mnemo_Driver_kolab_wrapper_new extends Mnemo_Driver_kolab_wrapper {
         }
 
         /* Log the action in the history log. */
-        $history = &Horde_History::singleton();
+        $history = $GLOBALS['injector']->getInstance('Horde_History');
         $history->log('mnemo:' . $this->_notepad . ':' . $this->_uniqueId($note_uid), $action, true);
 
         return $this->_uniqueId($note_uid);
@@ -696,7 +696,7 @@ class Mnemo_Driver_kolab_wrapper_new extends Mnemo_Driver_kolab_wrapper {
             return $result;
         }
 
-        $history = &Horde_History::singleton();
+        $history = $GLOBALS['injector']->getInstance('Horde_History');
         $history->log('mnemo:' . $this->_notepad . ':' . $this->_uniqueId($noteId), array('action' => 'delete'), true);
 
         return $result;

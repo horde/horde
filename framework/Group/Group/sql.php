@@ -237,8 +237,7 @@ class Group_sql extends Group {
         }
 
         /* Log the addition of the group in the history log. */
-        $history = Horde_History::singleton();
-        $history->log($this->getGUID($group), array('action' => 'add'), true);
+        $GLOBALS['injector']->getInstance('Horde_History')->log($this->getGUID($group), array('action' => 'add'), true);
 
         return $result;
     }
@@ -282,7 +281,7 @@ class Group_sql extends Group {
         $this->_groupCache[$group->getName()] = &$group;
 
         /* Log the update of the group users on the history log. */
-        $history = Horde_History::singleton();
+        $history = $GLOBALS['injector']->getInstance('Horde_History');
         $guid = $this->getGUID($group);
         foreach ($group->getAuditLog() as $userId => $action) {
             $history->log($guid, array('action' => $action, 'user' => $userId), true);
@@ -319,7 +318,7 @@ class Group_sql extends Group {
         }
         unset($this->_groupCache[$name]);
 
-        Horde_History::singleton()->log($this->getGUID($group), array('action' => 'delete'), true);
+        $GLOBALS['injector']->getInstance('Horde_History')->log($this->getGUID($group), array('action' => 'delete'), true);
 
         $query = 'DELETE FROM horde_groups_members WHERE group_uid = ?';
         $result = $this->_write_db->query($query, array($id));

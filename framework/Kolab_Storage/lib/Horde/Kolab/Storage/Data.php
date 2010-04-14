@@ -475,7 +475,7 @@ class Horde_Kolab_Storage_Data
 
         /* Log the action on this item in the history log. */
         try {
-            Horde_History::singleton()
+            $GLOBALS['injector']->getInstance('Horde_History')
                 ->log($app . ':' . $this->_folder->getShareId() . ':' . $object_uid,
                       array('action' => $action, 'ts' => $mod_ts),
                       true);

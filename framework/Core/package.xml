@@ -70,6 +70,7 @@ Application Framework.
        <file name="Db.php" role="php" />
        <file name="Dns.php" role="php" />
        <file name="Editor.php" role="php" />
+       <file name="History.php" role="php" />
        <file name="Lock.php" role="php" />
        <file name="Logger.php" role="php" />
        <file name="Mail.php" role="php" />
@@ -216,6 +217,7 @@ Application Framework.
    <install name="lib/Horde/Core/Binder/Db.php" as="Horde/Core/Binder/Db.php" />
    <install name="lib/Horde/Core/Binder/Dns.php" as="Horde/Core/Binder/Dns.php" />
    <install name="lib/Horde/Core/Binder/Editor.php" as="Horde/Core/Binder/Editor.php" />
+   <install name="lib/Horde/Core/Binder/History.php" as="Horde/Core/Binder/History.php" />
    <install name="lib/Horde/Core/Binder/Lock.php" as="Horde/Core/Binder/Lock.php" />
    <install name="lib/Horde/Core/Binder/Logger.php" as="Horde/Core/Binder/Logger.php" />
    <install name="lib/Horde/Core/Binder/Mail.php" as="Horde/Core/Binder/Mail.php" />

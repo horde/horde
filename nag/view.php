@@ -62,7 +62,7 @@ $createdby = '';
 $modifiedby = '';
 if (!empty($task->uid)) {
     try {
-        $log = Horde_History::singleton()->getHistory('nag:' . $tasklist_id . ':' . $task->uid);
+        $log = $GLOBALS['injector']->getInstance('Horde_History')->getHistory('nag:' . $tasklist_id . ':' . $task->uid);
         foreach ($log as $entry) {
             switch ($entry['action']) {
             case 'add':

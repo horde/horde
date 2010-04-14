@@ -47,7 +47,7 @@ class Turba_View_Contact {
         /* Get the contact's history. */
         if ($this->contact->getValue('__uid')) {
             try {
-                $log = Horde_History::singleton()->getHistory($this->contact->getGuid());
+                $log = $GLOBALS['injector']->getInstance('Horde_History')->getHistory($this->contact->getGuid());
                 foreach ($log as $entry) {
                     switch ($entry['action']) {
                     case 'add':

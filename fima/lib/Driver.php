@@ -125,8 +125,7 @@ class Fima_Driver {
         }
 
         /* Log the creation of this item in the history log. */
-        $history = &Horde_History::singleton();
-        $history->log('fima:' . $this->_ledger . ':' . $accountId, array('action' => 'add'), true);
+        $GLOBALS['injector']->getInstance('Horde_History')->log('fima:' . $this->_ledger . ':' . $accountId, array('action' => 'add'), true);
 
         return $accountId;
     }
@@ -154,8 +153,7 @@ class Fima_Driver {
         /* Log the modification of this item in the history log. */
         $account = $this->getAccount($accountId);
         if (!is_a($account, 'PEAR_Error')) {
-            $history = &Horde_History::singleton();
-            $history->log('fima:' . $this->_ledger . ':' . $account['account_id'], array('action' => 'modify'), true);
+            $GLOBALS['injector']->getInstance('Horde_History')->log('fima:' . $this->_ledger . ':' . $account['account_id'], array('action' => 'modify'), true);
         }
 
         return true;
@@ -184,8 +182,7 @@ class Fima_Driver {
 
         /* Log the deletion of this item in the history log. */
         if (!is_a($account, 'PEAR_Error')) {
-            $history = &Horde_History::singleton();
-            $history->log('fima:' . $this->_ledger . ':' . $account['account_id'], array('action' => 'delete'), true);
+            $GLOBALS['injector']->getInstance('Horde_History')->log('fima:' . $this->_ledger . ':' . $account['account_id'], array('action' => 'delete'), true);
         }
 
         return true;
@@ -212,8 +209,7 @@ class Fima_Driver {
         }
 
         /* Log the creation of this item in the history log. */
-        $history = &Horde_History::singleton();
-        $history->log('fima:' . $this->_ledger . ':' . $postingId, array('action' => 'add'), true);
+        $GLOBALS['injector']->getInstance('Horde_History')->log('fima:' . $this->_ledger . ':' . $postingId, array('action' => 'add'), true);
 
         return $postingId;
     }
@@ -242,8 +238,7 @@ class Fima_Driver {
         /* Log the modification of this item in the history log. */
         $posting = $this->getPosting($postingId);
         if (!is_a($posting, 'PEAR_Error')) {
-            $history = &Horde_History::singleton();
-            $history->log('fima:' . $this->_ledger . ':' . $posting['posting_id'], array('action' => 'modify'), true);
+            $GLOBALS['injector']->getInstance('Horde_History')->log('fima:' . $this->_ledger . ':' . $posting['posting_id'], array('action' => 'modify'), true);
         }
 
         return true;
@@ -268,8 +263,7 @@ class Fima_Driver {
 
         /* Log the deletion of this item in the history log. */
         if (!is_a($posting, 'PEAR_Error')) {
-            $history = &Horde_History::singleton();
-            $history->log('fima:' . $this->_ledger . ':' . $posting['posting_id'], array('action' => 'delete'), true);
+            $GLOBALS['injector']->getInstance('Horde_History')->log('fima:' . $this->_ledger . ':' . $posting['posting_id'], array('action' => 'delete'), true);
         }
 
         return true;
@@ -296,8 +290,7 @@ class Fima_Driver {
 
         /* Log the shifting of this item in the history log. */
         if (!is_a($posting, 'PEAR_Error')) {
-            $history = &Horde_History::singleton();
-            $history->log('fima:' . $this->_ledger . ':' . $posting['posting_id'], array('action' => 'shift'), true);
+            $GLOBALS['injector']->getInstance('Horde_History')->log('fima:' . $this->_ledger . ':' . $posting['posting_id'], array('action' => 'shift'), true);
         }
 
         return true;
@@ -319,8 +312,7 @@ class Fima_Driver {
         }
 
         /* Log the deletion of this item in the history log. */
-        $history = &Horde_History::singleton();
-        $history->log('fima:' . $this->_ledger . ':all', array('action' => 'delete'), true);
+        $GLOBALS['injector']->getInstance('Horde_History')->log('fima:' . $this->_ledger . ':all', array('action' => 'delete'), true);
 
         return true;
     }

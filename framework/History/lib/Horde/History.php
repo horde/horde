@@ -36,13 +36,6 @@ require_once 'Horde/Autoloader.php';
 abstract class Horde_History
 {
     /**
-     * Instance cache.
-     *
-     * @var array
-     */
-    static protected $_instances;
-
-    /**
      * Our log handler.
      *
      * @var Horde_Log_Logger
@@ -51,49 +44,29 @@ abstract class Horde_History
 
     /**
      * Attempts to return a reference to a concrete History instance.
-     * It will only create a new instance if no History instance
-     * currently exists.
      *
-     * This method must be invoked as: $var = History::singleton()
-     *
-     * @param string $driver The driver to use.
+     * @param string $driver  The driver to use.
+     * @param array $params   Parameters needed for the driver.
      *
      * @return Horde_History  The concrete Horde_History reference.
      * @throws Horde_History_Exception
      */
-    static public function singleton($driver = null)
+    static public function factory($driver, $params = array())
     {
-        global $conf;
+        $injector = new Horde_Injector(new Horde_Injector_TopLevel());
 
-        if (empty($driver)) {
-            $driver = 'Sql';
-        }
+        $injector->bindFactory(
+            __CLASS__,
+            __CLASS__ . '_Factory',
+            'getHistory'
+        );
 
-        if ($driver == 'Sql') {
-            if (empty($conf['sql']['phptype'])
-                || ($conf['sql']['phptype'] == 'none')) {
-                throw new Horde_History_Exception(_("The History system is disabled."));
-            }
-            $params = $conf['sql'];
-        } else {
-            $params = array();
-        }
+        $config = new stdClass;
+        $config->driver = $driver;
+        $config->params = $params;
+        $injector->setInstance(__CLASS__ . '_Config', $config);
 
-        if (!isset(self::$_instances[$driver])) {
-            $injector = new Horde_Injector(new Horde_Injector_TopLevel());
-            $injector->bindFactory(
-                __CLASS__,
-                __CLASS__ . '_Factory',
-                'getHistory'
-            );
-            $config = new stdClass;
-            $config->driver = $driver;
-            $config->params = $params;
-            $injector->setInstance(__CLASS__ . '_Config', $config);
-            self::$_instances[$driver] = $injector->getInstance(__CLASS__);
-        }
-
-        return self::$_instances[$driver];
+        return $injector->getInstance(__CLASS__);
     }
 
     /**

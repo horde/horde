@@ -285,7 +285,7 @@ class Mnemo_Driver {
         }
 
         /* Get the note's history. */
-        $history = &Horde_History::singleton();
+        $history = $GLOBALS['injector']->getInstance('Horde_History');
         $log = $history->getHistory('mnemo:' . $memo['memolist_id'] . ':' . $memo['uid']);
         if ($log && !is_a($log, 'PEAR_Error')) {
             foreach ($log->getData() as $entry) {

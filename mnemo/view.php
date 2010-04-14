@@ -64,7 +64,7 @@ $userId = Horde_Auth::getAuth();
 $createdby = '';
 $modifiedby = '';
 if (!empty($memo['uid'])) {
-    $log = Horde_History::singleton()->getHistory('mnemo:' . $memolist_id . ':' . $memo['uid']);
+    $log = $GLOBALS['injector']->getInstance('Horde_History')->getHistory('mnemo:' . $memolist_id . ':' . $memo['uid']);
     if ($log && !is_a($log, 'PEAR_Error')) {
 	foreach ($log as $entry) {
             switch ($entry['action']) {

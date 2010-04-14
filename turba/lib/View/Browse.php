@@ -219,7 +219,7 @@ class Turba_View_Browse {
                          * because otherwise the delete log would be after the
                          * add log. */
                         try {
-                            Horde_History::singleton()
+                            $GLOBALS['injector']->getInstance('Horde_History')
                                 ->log('turba:' . $targetDriver->getName() . ':' . $objAttributes['__uid'],
                                       array('action' => 'add'),
                                       true);

@@ -226,7 +226,7 @@ class Nag_Driver
         $task = $this->get($taskId);
 
         /* Log the creation of this item in the history log. */
-        $history = Horde_History::singleton();
+        $history = $GLOBALS['injector']->getInstance('Horde_History');
         try {
             $history->log('nag:' . $this->_tasklist . ':' . $uid, array('action' => 'add'), true);
         } catch (Exception $e) {
@@ -337,7 +337,7 @@ class Nag_Driver
 
             /* Log the moving of this item in the history log. */
             if (!empty($task->uid)) {
-                $history = Horde_History::singleton();
+                $history = $GLOBALS['injector']->getInstance('Horde_History');
                 try {
                     $history->log('nag:' . $task->tasklist . ':' . $task->uid, array('action' => 'delete'), true);
                 } catch (Exception $e) {
@@ -368,7 +368,7 @@ class Nag_Driver
         /* Log the modification of this item in the history log. */
         if (!empty($task->uid)) {
             try {
-                Horde_History::singleton()->log('nag:' . $log_tasklist . ':' . $task->uid, array('action' => 'modify'), true);
+                $GLOBALS['injector']->getInstance('Horde_History')->log('nag:' . $log_tasklist . ':' . $task->uid, array('action' => 'modify'), true);
             } catch (Exception $e) {
                 Horde::logMessage($e, 'ERR');
             }
@@ -381,7 +381,7 @@ class Nag_Driver
                 $attributes['ts'] = 0;
             }
             try {
-                Horde_History::singleton()->log('nag:' . $log_tasklist . ':' . $task->uid, $attributes, true);
+                $GLOBALS['injector']->getInstance('Horde_History')->log('nag:' . $log_tasklist . ':' . $task->uid, $attributes, true);
             } catch (Exception $e) {
                 Horde::logMessage($e, 'ERR');
             }
@@ -417,7 +417,7 @@ class Nag_Driver
         /* Log the deletion of this item in the history log. */
         if (!empty($task->uid)) {
             try {
-                Horde_History::singleton()->log('nag:' . $this->_tasklist . ':' . $task->uid, array('action' => 'delete'), true);
+                $GLOBALS['injector']->getInstance('Horde_History')->log('nag:' . $this->_tasklist . ':' . $task->uid, array('action' => 'delete'), true);
             } catch (Exception $e) {
                 Horde::logMessage($e, 'ERR');
             }

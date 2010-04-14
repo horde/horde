@@ -475,7 +475,7 @@ class Nag_Api extends Horde_Registry_Api
                         }
                         // Check if our task is newer then the existing - get
                         // the task's history.
-                        $history = Horde_History::singleton();
+                        $history = $GLOBALS['injector']->getInstance('Horde_History');
                         $created = $modified = null;
                         try {
                             $log = $history->getHistory('nag:' . $tasklist . ':' . $task->uid);
@@ -694,7 +694,7 @@ class Nag_Api extends Horde_Registry_Api
                 return PEAR::raiseError(_("Permission Denied"));
             }
 
-        $histories = Horde_History::singleton()->getByTimestamp('>', $timestamp, array(array('op' => '=', 'field' => 'action', 'value' => $action)), 'nag:' . $tasklist);
+        $histories = $GLOBALS['injector']->getInstance('Horde_History')->getByTimestamp('>', $timestamp, array(array('op' => '=', 'field' => 'action', 'value' => $action)), 'nag:' . $tasklist);
 
         // Strip leading nag:username:.
         return preg_replace('/^([^:]*:){2}/', '', array_keys($histories));
@@ -723,7 +723,7 @@ class Nag_Api extends Horde_Registry_Api
                 return PEAR::raiseError(_("Permission Denied"));
             }
 
-        return Horde_History::singleton()->getActionTimestamp('nag:' . $tasklist . ':' . $uid, $action);
+        return $GLOBALS['injector']->getInstance('Horde_History')->getActionTimestamp('nag:' . $tasklist . ':' . $uid, $action);
     }
 
     /**

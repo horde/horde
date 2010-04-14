@@ -75,7 +75,7 @@ class Horde_History_Factory
      * @param Horde_Injector $injector  The environment for creating the
      *                                  instance.
      * @param array $params             The db connection parameters if the
-     *                                  environment does not already provide a 
+     *                                  environment does not already provide a
      *                                  connection.
      *
      * @return Horde_History_Sql The new Horde_History_Sql instance.
@@ -119,7 +119,7 @@ class Horde_History_Factory
      * @param Horde_Injector $injector  The environment for creating the
      *                                  instance.
      * @param array $params             The db connection parameters if the
-     *                                  environment does not already provide a 
+     *                                  environment does not already provide a
      *                                  connection.
      *
      * @return Horde_History_Mock The new Horde_History_Mock instance.

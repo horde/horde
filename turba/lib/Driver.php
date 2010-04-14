@@ -784,7 +784,7 @@ class Turba_Driver
 
         /* Log the creation of this item in the history log. */
         try {
-            Horde_History::singleton()
+            $GLOBALS['injector']->getInstance('Horde_History')
                 ->log('turba:' . $this->getName() . ':' . $uid,
                       array('action' => 'add'), true);
         } catch (Exception $e) {
@@ -841,7 +841,7 @@ class Turba_Driver
         /* Log the deletion of this item in the history log. */
         if ($object->getValue('__uid')) {
             try {
-                Horde_History::singleton()->log($object->getGuid(),
+                $GLOBALS['injector']->getInstance('Horde_History')->log($object->getGuid(),
                                                 array('action' => 'delete'),
                                                 true);
             } catch (Exception $e) {
@@ -888,7 +888,7 @@ class Turba_Driver
         /* Log the modification of this item in the history log. */
         if ($object->getValue('__uid')) {
             try {
-                Horde_History::singleton()->log($object->getGuid(),
+                $GLOBALS['injector']->getInstance('Horde_History')->log($object->getGuid(),
                                                 array('action' => 'modify'),
                                                 true);
             } catch (Exception $e) {

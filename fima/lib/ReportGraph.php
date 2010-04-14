@@ -111,8 +111,7 @@ class Fima_ReportGraph {
         }
 
         /* Log the execution of the report in the history log. */
-        $history = &Horde_History::singleton();
-        $history->log('fima:reportgraph', array('action' => 'execute'), true);
+        $GLOBALS['injector']->getInstance('Horde_History')->log('fima:reportgraph', array('action' => 'execute'), true);
 
         return true;
     }

@@ -92,8 +92,7 @@ class Fima_Report {
         }
 
         /* Log the execution of the report in the history log. */
-        $history = &Horde_History::singleton();
-        $history->log('fima:report:' . $this->_params['report_id'], array('action' => 'execute'), true);
+        $GLOBALS['injector']->getInstance('Horde_History')->log('fima:report:' . $this->_params['report_id'], array('action' => 'execute'), true);
 
         return true;
     }

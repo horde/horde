@@ -58,7 +58,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.5.4</min>
    </pearinstaller>
    <package>
-    <name>History</name>
+    <name>DB</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>Exception</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>

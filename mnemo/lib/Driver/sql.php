@@ -251,7 +251,7 @@ class Mnemo_Driver_sql extends Mnemo_Driver {
         }
 
         /* Log the creation of this item in the history log. */
-        $history = &Horde_History::singleton();
+        $history = $GLOBALS['injector']->getInstance('Horde_History');
         $history->log('mnemo:' . $this->_notepad . ':' . $uid, array('action' => 'add'), true);
 
         return $noteId;
@@ -303,7 +303,7 @@ class Mnemo_Driver_sql extends Mnemo_Driver {
         /* Log the modification of this item in the history log. */
         $note = $this->get($noteId);
         if (!empty($note['uid'])) {
-            $history = &Horde_History::singleton();
+            $history = $GLOBALS['injector']->getInstance('Horde_History');
             $history->log('mnemo:' . $this->_notepad . ':' . $note['uid'], array('action' => 'modify'), true);
         }
 
@@ -338,7 +338,7 @@ class Mnemo_Driver_sql extends Mnemo_Driver {
 
         /* Log the moving of this item in the history log. */
         if (!empty($note['uid'])) {
-            $history = &Horde_History::singleton();
+            $history = $GLOBALS['injector']->getInstance('Horde_History');
             $history->log('mnemo:' . $this->_notepad . ':' . $note['uid'], array('action' => 'delete'), true);
             $history->log('mnemo:' . $newNotepad . ':' . $note['uid'], array('action' => 'add'), true);
         }
@@ -368,7 +368,7 @@ class Mnemo_Driver_sql extends Mnemo_Driver {
 
         /* Log the deletion of this item in the history log. */
         if (!empty($note['uid'])) {
-            $history = &Horde_History::singleton();
+            $history = $GLOBALS['injector']->getInstance('Horde_History');
             $history->log('mnemo:' . $this->_notepad . ':' . $note['uid'], array('action' => 'delete'), true);
         }
 

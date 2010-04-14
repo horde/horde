@@ -69,7 +69,7 @@ class Horde_Auth_Kolab extends Horde_Auth_Base
 
 /*         if ($session->auth !== true && */
 /*             class_exists('Horde_History')) { */
-/*             $history = Horde_History::singleton(); */
+/*             $history = $GLOBALS['injector']->getInstance('Horde_History'); */
 
 /*             $history_identifier = "$userId@logins.kolab"; */
 /*             $history_log = $history->getHistory($history_identifier); */

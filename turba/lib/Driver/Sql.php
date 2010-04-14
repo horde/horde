@@ -362,7 +362,7 @@ class Turba_Driver_Sql extends Turba_Driver
         }
 
         /* Update Horde_History */
-        $history = Horde_History::singleton();
+        $history = $GLOBALS['injector']->getInstance('Horde_History');
         try {
             while ($ids->fetchInto($row)) {
                 // This is slightly hackish, but it saves us from having to
