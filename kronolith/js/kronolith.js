@@ -1666,19 +1666,42 @@ KronolithCore = {
                 });
             }
 
-            var column = 1, columns, width, left, conflict = false,
-                pos = this.dayGroups.length, placeFound = false;
+            var
+                // The current column that we're probing for available space.
+                column = 1,
+                // The number of columns in the current conflict group.
+                columns,
+                // The column width in the current conflict group.
+                width,
+                // The first event that conflict with the current event.
+                conflict = false,
+                // The conflict group where this event should go.
+                pos = this.dayGroups.length,
+                // The event below the current event fits.
+                placeFound = false;
 
+            // this.dayEvents contains all events of the current day.
+            // this.dayGroups contains conflict groups, i.e. all events that
+            // conflict with each other and share a set of columns.
+            //
+            // Go through all events that have been added to this day already.
             this.dayEvents.each(function(ev) {
+                // If it doesn't conflict with the current event, rember it
+                // as a possible event below that we can put the current event
+                // and go ahead.
                 if (!ev.end.isAfter(event.value.start)) {
                     placeFound = ev;
                     return;
                 }
 
                 if (!conflict) {
+                    // This is the first conflicting event.
                     conflict = ev;
                     for (i = 0; i < this.dayGroups.length; i++) {
+                        // Find the conflict group of the conflicting event.
                         if (this.dayGroups[i].indexOf(conflict) != -1) {
+                            // If our possible candidate "above" is a member of
+                            // this group, it's no longer a candidate.
                             if (this.dayGroups[i].indexOf(placeFound) == -1) {
                                 placeFound = false;
                             }
@@ -1686,6 +1709,7 @@ KronolithCore = {
                         }
                     }
                 }
+                // We didn't find a place, put the event a column further right.
                 if (!placeFound) {
                     column++;
                 }
@@ -1693,12 +1717,15 @@ KronolithCore = {
             event.value.column = column;
 
             if (conflict) {
+                // We had a conflict, find the matching conflict group and add
+                // the current event there.
                 for (i = 0; i < this.dayGroups.length; i++) {
                     if (this.dayGroups[i].indexOf(conflict) != -1) {
                         pos = i;
                         break;
                     }
                 }
+                // See if the current event had to add yet another column.
                 columns = Math.max(conflict.columns, column);
             } else {
                 columns = column;
@@ -1707,6 +1734,7 @@ KronolithCore = {
                 this.dayGroups[pos] = [];
             }
             this.dayGroups[pos].push(event.value);
+            // Update the widths of all events in a conflict group.
             width = 100 / columns;
             this.dayGroups[pos].each(function(ev) {
                 ev.columns = columns;
