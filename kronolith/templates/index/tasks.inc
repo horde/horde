@@ -21,7 +21,7 @@
     </tr>
     <tr id="kronolithTasksTemplate" class="kronolithTaskRow" style="display:none">
       <td class="kronolithTaskCol">
-        <div class="kronolithTaskCheckbox"/>
+        <div class="kronolithTaskCheckbox"></div>
       </td>
     </tr>
     <tr id="kronolithTasksNoItems" class="kronolithTaskRow">
