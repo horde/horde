@@ -30,7 +30,7 @@ class Horde_LoginTasks_SystemTask_UpgradeFromHorde3 extends Horde_LoginTasks_Sys
     /**
      * Upgrade to the new identity preferences.
      */
-    protected function _upgradeAbookPrefs()
+    protected function _upgradeIdentityPrefs()
     {
         global $prefs;
 
