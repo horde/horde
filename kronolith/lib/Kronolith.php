@@ -573,6 +573,22 @@ class Kronolith
         if ($event->recurs() && $showRecurrence) {
             /* Recurring Event. */
 
+            /* If the event ends at 12am and does not end at the same time
+             * that it starts (0 duration), set the end date to the previous
+             * day's end date. */
+            if ($event->end->hour == 0 &&
+                $event->end->min == 0 &&
+                $event->end->sec == 0 &&
+                $event->start->compareDateTime($event->end) != 0) {
+                $event->end = new Horde_Date(
+                    array('hour' =>  23,
+                          'min' =>   59,
+                          'sec' =>   59,
+                          'month' => $event->end->month,
+                          'mday' =>  $event->end->mday - 1,
+                          'year' =>  $event->end->year));
+            }
+
             /* We can't use the event duration here because we might cover a
              * daylight saving time switch. */
             $diff = array($event->end->year - $event->start->year,
