@@ -212,12 +212,16 @@ class Horde_Alarm_Sql extends Horde_Alarm
     /**
      * Updates an alarm hash in the backend.
      *
-     * @param array $alarm  An alarm hash.
+     * @param array $alarm         An alarm hash.
+     * @param boolean $keepsnooze  Whether to keep the snooze value unchanged.
+     *
+     * @throws Horde_Alarm_Exception
      */
-    protected function _update($alarm)
+    protected function _update($alarm, $keepsnooze = false)
     {
-        $query = sprintf('UPDATE %s set alarm_start = ?, alarm_end = ?, alarm_methods = ?, alarm_params = ?, alarm_title = ?, alarm_text = ?, alarm_snooze = NULL WHERE alarm_id = ? AND %s',
+        $query = sprintf('UPDATE %s set alarm_start = ?, alarm_end = ?, alarm_methods = ?, alarm_params = ?, alarm_title = ?, alarm_text = ?%s WHERE alarm_id = ? AND %s',
                          $this->_params['table'],
+                         $keepsnooze ? '' : ', alarm_snooze = NULL',
                          isset($alarm['user']) ? 'alarm_uid = ?' : '(alarm_uid = ? OR alarm_uid IS NULL)');
         $values = array((string)$alarm['start']->setTimezone('UTC'),
                         empty($alarm['end']) ? null : (string)$alarm['end']->setTimezone('UTC'),

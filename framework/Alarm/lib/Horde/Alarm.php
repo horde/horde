@@ -129,19 +129,22 @@ class Horde_Alarm
      *
      * The alarm will be added if it doesn't exist, and updated otherwise.
      *
-     * @param array $alarm  An alarm hash. See self::get() for format.
+     * @param array $alarm         An alarm hash. See self::get() for format.
+     * @param boolean $keepsnooze  Whether to keep the snooze value unchanged.
      *
      * @return TODO
      */
-    public function set($alarm)
+    public function set($alarm, $keepsnooze = false)
     {
         if (isset($alarm['mail']['body'])) {
             $alarm['mail']['body'] = $this->_toDriver($alarm['mail']['body']);
         }
 
-        return $this->exists($alarm['id'], isset($alarm['user']) ? $alarm['user'] : '')
-            ? $this->_update($alarm)
-            : $this->_add($alarm);
+        if ($this->exists($alarm['id'], isset($alarm['user']) ? $alarm['user'] : '')) {
+            $this->_update($alarm, $keepsnooze);
+        } else {
+            $this->_add($alarm);
+        }
     }
 
     /**
@@ -320,7 +323,7 @@ class Horde_Alarm
             }
 
             foreach ($alarms as $alarm) {
-                $this->set($alarm);
+                $this->set($alarm, true);
             }
         }
 
