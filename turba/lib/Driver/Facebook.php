@@ -182,6 +182,9 @@ class Turba_Driver_Facebook extends Turba_Driver
                                                    $context);
 
             $session = unserialize($prefs->getValue('facebook'));
+            if (!$session || !isset($session['uid']) || !isset($session['sid'])) {
+                return PEAR::raiseError(_("You have to connect to Facebook in your address book preferences."));
+            }
             $this->_facebook->auth->setUser($session['uid'], $session['sid'], 0);
         }
 
