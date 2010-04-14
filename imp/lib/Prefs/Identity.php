@@ -493,15 +493,29 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
     }
 
     /**
+     * Returns a property from one of the identities.
+     *
      * @see Horde_Prefs_Identity::getValue()
      */
     public function getValue($key, $identity = null)
     {
+        $val = parent::getValue($key, $identity);
+        return (($key == 'sent_mail_folder') && strlen($val))
+            ? IMP::folderPref($val, true)
+            : $val;
+    }
+
+    /**
+     * Sets a property with a specified value.
+     *
+     * @see Horde_Prefs_Identity::getValue()
+     */
+    public function setValue($key, $val, $identity = null)
+    {
         if ($key == 'sent_mail_folder') {
-            $folder = parent::getValue('sent_mail_folder', $identity);
-            return strlen($folder) ? IMP::folderPref($folder, true) : '';
+            $val = IMP::folderPrefs($val, false);
         }
-        return parent::getValue($key, $identity);
+        return parent::setValue($key, $val, $identity);
     }
 
     /**

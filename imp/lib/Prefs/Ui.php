@@ -1200,9 +1200,7 @@ class IMP_Prefs_Ui
             $imp_folder->create($sent_mail_folder, $prefs->getValue('subscribe'));
         }
 
-        $GLOBALS['injector']->getInstance('IMP_Identity')->setValue('sent_mail_folder', IMP::folderPref($sent_mail_folder, false));
-
-        return true;
+        return $GLOBALS['injector']->getInstance('IMP_Identity')->setValue('sent_mail_folder', $sent_mail_folder);
     }
 
     /* Personal S/MIME certificate management. */
