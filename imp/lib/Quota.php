@@ -14,46 +14,11 @@
 class IMP_Quota
 {
     /**
-     * Singleton instances.
-     *
-     * @var array
-     */
-    static protected $_instances = array();
-
-    /**
      * Hash containing connection parameters.
      *
      * @var array
      */
     protected $_params = array();
-
-    /**
-     * Attempts to return a reference to a concrete IMP_Quota instance based on
-     * $driver.
-     *
-     * It will only create a new instance if no instance with the same
-     * parameters currently exists.
-     *
-     * This method must be invoked as: $var = IMP_Quota::singleton()
-     *
-     * @param string $driver  The type of concrete subclass to return.
-     * @param array $params   A hash containing any additional configuration
-     *                        or connection parameters a subclass might need.
-     *
-     * @return IMP_Quota  The concrete instance.
-     * @throws Horde_Exception
-     */
-    static public function singleton($driver, $params = array())
-    {
-        ksort($params);
-        $sig = hash('md5', serialize(array($driver, $params)));
-
-        if (!isset(self::$_instances[$sig])) {
-            self::$_instances[$sig] = self::factory($driver, $params);
-        }
-
-        return self::$_instances[$sig];
-    }
 
     /**
      * Attempts to return a concrete instance based on $driver.
@@ -63,7 +28,7 @@ class IMP_Quota
      *                        connection parameters a subclass might need.
      *
      * @return IMP_Quota  The concrete instance.
-     * @throws Horde_Exception
+     * @throws IMP_Exception
      */
     static public function factory($driver, $params = array())
     {
@@ -74,7 +39,7 @@ class IMP_Quota
             return new $class($params);
         }
 
-        throw new Horde_Exception('Could not create IMP_Quota instance: ' . $driver);
+        throw new IMP_Exception('Could not create ' . __CLASS__ .  ' instance: ' . $driver);
     }
 
     /**

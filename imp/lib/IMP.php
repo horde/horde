@@ -601,9 +601,9 @@ class IMP
         }
 
         try {
-            $quotaDriver = IMP_Quota::singleton($_SESSION['imp']['imap']['quota']['driver'], isset($_SESSION['imp']['imap']['quota']['params']) ? $_SESSION['imp']['imap']['quota']['params'] : array());
+            $quotaDriver = $GLOBALS['injector']->getInstance('IMP_Quota');
             $quota = $quotaDriver->getQuota();
-        } catch (Horde_Exception $e) {
+        } catch (Exception $e) {
             Horde::logMessage($e, 'ERR');
             return false;
         }
