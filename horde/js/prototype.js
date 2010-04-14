@@ -5173,8 +5173,8 @@ Object.extend(Element.ClassNames.prototype, Enumerable);
         // Either way, it means the element is the width it needs to be
         // in order to report an accurate height.
         newWidth = getPixelValue(width);
-      } else if (width && (position === 'absolute' || position === 'fixed')) {
-        newWidth = getPixelValue(width);
+      } else if (positionedWidth && (position === 'absolute' || position === 'fixed')) {
+        newWidth = getPixelValue(positionedWidth);
       } else {
         // If not, that means the element's width depends upon the width of
         // its parent.
