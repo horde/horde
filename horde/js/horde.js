@@ -145,6 +145,60 @@ Object.extend(Date.prototype, {
     dateString: function()
     {
         return this.toString('yyyyMMdd');
+    },
+
+    /**
+     * Converts this date from the proleptic Gregorian calendar to the no of
+     * days since 24th November, 4714 B.C. (Julian calendar).
+     *
+     * @return integer  The number of days since 24th November, 4714 B.C.
+     */
+    toDays: function()
+    {
+        var day = this.getDate(),
+            month = this.getMonth() + 1,
+            year = this.getYear() + 1900;
+
+        if (month > 2) {
+            // March = 0, April = 1, ..., December = 9, January = 10,
+            // February = 11
+            month -= 3;
+        } else {
+            month += 9;
+            year--;
+        }
+
+        var hb_negativeyear = year < 0,
+            century = year / 100 | 0,
+            year = year % 100;
+
+        if (hb_negativeyear) {
+            // Subtract 1 because year 0 is a leap year;
+            // And N.B. that we must treat the leap years as occurring
+            // one year earlier than they do, because for the purposes
+            // of calculation, the year starts on 1st March:
+            return ((14609700 * century + (year == 0 ? 1 : 0)) / 400 | 0) +
+                   ((1461 * year + 1) / 4 | 0) +
+                   ((153 * month + 2) / 5 | 0) +
+                   day + 1721118;
+        }
+
+        return (146097 * century / 4 | 0) +
+               (1461 * year / 4 | 0) +
+               ((153 * month + 2) / 5 | 0) +
+               day + 1721119;
+    },
+
+    /**
+     * Returns the difference to another date in days.
+     *
+     * @param Date date  Another date.
+     *
+     * @return integer  The number of days between this and the other date.
+     */
+    subtract: function(date)
+    {
+        return this.toDays() - date.toDays();
     }
 
 });
