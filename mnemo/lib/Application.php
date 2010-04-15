@@ -74,7 +74,7 @@ class Mnemo_Application extends Horde_Registry_Application
                 foreach (Mnemo::listNotepads() as $key => $val) {
                     $notepads[htmlspecialchars($key)] = htmlspecialchars($val->get('name'));
                 }
-                $ui->override['default_tasklist'] = $notepads;
+                $ui->override['default_notepad'] = $notepads;
             }
             break;
         }
