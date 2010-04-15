@@ -42,14 +42,16 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 </div>
 
 <div id="kronolithCalendarinternalUrls" style="display:none">
-  <label><?php echo _("Subscription URL") ?></label>
-  <span class="kronolithSeparator">&mdash;</span>
-  <span class="kronolithDialogInfo"><?php echo _("To subscribe to this calendar from another calendar program, use this URL:") ?></span><br />
-  <a id="kronolithCalendarinternalUrlSub" href="#" target="_blank"></a><br />
-  <label><?php echo _("Feed URL") ?></label>
-  <span class="kronolithSeparator">&mdash;</span>
-  <span class="kronolithDialogInfo"><?php echo _("To subscribe to this calendar from a feed reader, use this URL:") ?></span><br />
-  <a id="kronolithCalendarinternalUrlFeed" href="#" target="_blank"></a><br />
+  <div>
+    <label><?php echo _("Subscription URL") ?></label>
+    <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe from another calendar program") ?></span><br />
+    <a id="kronolithCalendarinternalUrlSub" href="#" target="_blank"></a><br />
+  </div>
+  <div>
+    <label><?php echo _("Feed URL") ?></label>
+    <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe from a feed reader") ?></span><br />
+    <a id="kronolithCalendarinternalUrlFeed" href="#" target="_blank"></a><br />
+  </div>
 </div>
 
 <div class="tabset">
@@ -134,8 +136,7 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 
 <div id="kronolithCalendartasklistsUrls" style="display:none">
   <label><?php echo _("Subscription URL") ?></label>
-  <span class="kronolithSeparator">&mdash;</span>
-  <span class="kronolithDialogInfo"><?php echo _("To subscribe to this taks list from another program, use this URL:") ?></span><br />
+  <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe from another program") ?></span><br />
   <a id="kronolithCalendartasklistsUrlSub" href="#" target="_blank"></a><br />
 </div>
 
