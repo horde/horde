@@ -26,6 +26,7 @@ KronolithCore = {
     eventsLoading: {},
     loading: 0,
     fbLoading: 0,
+    redBoxLoading: false,
     date: Date.today(),
     tasktype: 'incomplete',
     growls: 0,
@@ -43,7 +44,7 @@ KronolithCore = {
             /* Make sure loading images are closed. */
             this.loading--;
             if (!this.loading) {
-                    $('kronolithLoading').hide();
+                $('kronolithLoading').hide();
             }
             this.closeRedBox();
             this.showNotifications([ { type: 'horde.error', message: Kronolith.text.ajax_error } ]);
@@ -2171,13 +2172,20 @@ KronolithCore = {
 
     editTask: function(tasklist, id)
     {
-        this.closeRedBox();
+        if (this.redBoxLoading) {
+            return;
+        }
 
+        this.closeRedBox();
+        this.redBoxOnDisplay = RedBox.onDisplay;
         RedBox.onDisplay = function() {
+            if (this.redBoxOnDisplay) {
+                this.redBoxOnDisplay();
+            }
             try {
                 $('kronolithTaskForm').focusFirstElement();
             } catch(e) {}
-            RedBox.onDisplay = null;
+            RedBox.onDisplay = this.redBoxOnDisplay;
         };
 
         this.openTab($('kronolithTaskForm').down('.tabset a.kronolithTabLink'));
@@ -2200,6 +2208,7 @@ KronolithCore = {
                 this.setDefaultDue();
             }
             $('kronolithTaskDelete').hide();
+            this.redBoxLoading = true;
             RedBox.showHtml($('kronolithTaskDialog').show());
         }
     },
@@ -2261,6 +2270,7 @@ KronolithCore = {
         }
 
         this.setTitle(task.n);
+        this.redBoxLoading = true;
         RedBox.showHtml($('kronolithTaskDialog').show());
     },
 
@@ -2349,15 +2359,20 @@ KronolithCore = {
      */
     editCalendar: function(calendar)
     {
-        this.closeRedBox();
+        if (this.redBoxLoading) {
+            return;
+        }
 
+        this.closeRedBox();
         if ($('kronolithCalendarDialog')) {
+            this.redBoxLoading = true;
             RedBox.showHtml($('kronolithCalendarDialog').show());
             this.editCalendarCallback(calendar);
         } else {
             RedBox.loading();
             this.doAction('chunkContent', { chunk: 'calendar' }, function(r) {
                 if (r.response.chunk) {
+                    this.redBoxLoading = true;
                     RedBox.showHtml(r.response.chunk);
                     this.editCalendarCallback(calendar);
                 } else {
@@ -4135,15 +4150,21 @@ KronolithCore = {
 
     editEvent: function(calendar, id, date)
     {
-        this.closeRedBox();
-
+        if (this.redBoxLoading) {
+            return;
+        }
         if (typeof kronolithETagAc == 'undefined') {
             this.editEvent.bind(this, calendar, id, date).defer();
             return;
         }
 
+        this.closeRedBox();
+        this.redBoxOnDisplay = RedBox.onDisplay;
         RedBox.onDisplay = function() {
-            try {
+           if (this.redBoxOnDisplay) {
+               this.redBoxOnDisplay();
+           }
+           try {
                 $('kronolithEventForm').focusFirstElement();
             } catch(e) {}
             if (Kronolith.conf.maps.driver &&
@@ -4152,7 +4173,7 @@ KronolithCore = {
 
                 this.initializeMap();
             }
-            RedBox.onDisplay = null;
+            RedBox.onDisplay = this.redBoxOnDisplay;
         }.bind(this);
 
         this.updateCalendarDropDown('kronolithEventTarget');
@@ -4198,6 +4219,7 @@ KronolithCore = {
             $('kronolithEventEndTime').setValue(d.toString(Kronolith.conf.time_format));
             $('kronolithEventLinkExport').up('span').hide();
             $('kronolithEventSaveAsNew').hide();
+            this.redBoxLoading = true;
             RedBox.showHtml($('kronolithEventDialog').show());
         }
     },
@@ -4456,6 +4478,7 @@ KronolithCore = {
         }
 
         this.setTitle(ev.t);
+        this.redBoxLoading = true;
         RedBox.showHtml($('kronolithEventDialog').show());
 
         /* Hide alarm message for this event. */
@@ -4950,6 +4973,10 @@ KronolithCore = {
             this.DMenu = new ContextSensitive({ onClick: this.contextOnClick, onShow: this.contextOnShow });
         }
 
+        RedBox.onDisplay = function() {
+            this.redBoxLoading = false;
+        }.bind(this);
+
         document.observe('keydown', KronolithCore.keydownHandler.bindAsEventListener(KronolithCore));
         document.observe('keyup', KronolithCore.keyupHandler.bindAsEventListener(KronolithCore));
         document.observe('click', KronolithCore.clickHandler.bindAsEventListener(KronolithCore));
@@ -4988,12 +5015,12 @@ KronolithCore = {
             $(field).observe(Prototype.Browser.Gecko ? 'DOMMouseScroll' : 'mousewheel', this.scrollTimeField.bindAsEventListener(this, field));
         }, this);
 
+        this.updateCalendarList();
+        this.updateMinical(this.date);
+
         if (Horde.dhtmlHistory.initialize()) {
             Horde.dhtmlHistory.addListener(this.go.bind(this));
         }
-
-        this.updateCalendarList();
-        this.updateMinical(this.date);
 
         /* Initialize the starting page if necessary. addListener() will have
          * already fired if there is a current location so only do a go()
