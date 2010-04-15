@@ -186,36 +186,9 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                                                   $query->end,
                                                   $cond,
                                                   $values);
-        $now = new Horde_Date($_SERVER['REQUEST_TIME']);
         $events = array();
         foreach ($eventIds as $eventId) {
-            $event = $this->getEvent($eventId);
-            $showRecurrence = true;
-            if ($event->recurs()) {
-                if (empty($query->start) && empty($query->end)) {
-                    $eventStart = $event->start;
-                    $eventEnd = $event->end;
-                } else {
-                    if (empty($query->end)) {
-                        $eventEnd = $event->recurrence->nextRecurrence($now);
-                        if (!$eventEnd) {
-                            continue;
-                        }
-                    } else {
-                        $eventEnd = $query->end;
-                    }
-                    if (empty($query->start)) {
-                        $eventStart = $event->start;
-                        $showRecurrence = false;
-                    } else {
-                        $eventStart = $query->start;
-                    }
-                }
-            } else {
-                $eventStart = $event->start;
-                $eventEnd = $event->end;
-            }
-            Kronolith::addEvents($events, $event, $eventStart, $eventEnd, $showRecurrence, $json, false);
+            Kronolith::addSearchEvents($events, $this->getEvent($eventId), $query, $json);
         }
 
         return $events;

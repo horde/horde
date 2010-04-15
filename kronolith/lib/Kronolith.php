@@ -801,6 +801,50 @@ class Kronolith
     }
 
     /**
+     * Adds an event to set of search results.
+     *
+     * @param array $events           The list of events to update with the new
+     *                                event.
+     * @param Kronolith_Event $event  An event from a search result.
+     * @param stdClass $query         A search query.
+     * @param boolean $json           Store the results of the events' toJson()
+     *                                method?
+     */
+    public static function addSearchEvents(&$events, $event, $query, $json)
+    {
+        static $now;
+        if (!isset($now)) {
+            $now = new Horde_Date($_SERVER['REQUEST_TIME']);
+        }
+        $showRecurrence = true;
+        if ($event->recurs()) {
+            if (empty($query->start) && empty($query->end)) {
+                $eventStart = $event->start;
+                $eventEnd = $event->end;
+            } else {
+                if (empty($query->end)) {
+                    $eventEnd = $event->recurrence->nextRecurrence($now);
+                    if (!$eventEnd) {
+                        continue;
+                    }
+                } else {
+                    $eventEnd = $query->end;
+                }
+                if (empty($query->start)) {
+                    $eventStart = $event->start;
+                    $showRecurrence = false;
+                } else {
+                    $eventStart = $query->start;
+                }
+            }
+        } else {
+            $eventStart = $event->start;
+            $eventEnd = $event->end;
+        }
+        Kronolith::addEvents($events, $event, $eventStart, $eventEnd, $showRecurrence, $json, false);
+    }
+
+    /**
      * Returns the number of events in calendars that the current user owns.
      *
      * @return integer  The number of events.

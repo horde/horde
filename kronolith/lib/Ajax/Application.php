@@ -265,6 +265,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
             break;
         }
 
+        $tagger = new Kronolith_Tagger();
         $cals = Horde_Serialize::unserialize($this->_vars->cals, Horde_Serialize::JSON);
         $events = array();
         foreach ($cals as $cal) {
@@ -278,6 +279,13 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
                 }
             } catch (Exception $e) {
                 $GLOBALS['notification']->push($e, 'horde.error');
+            }
+            $split = explode('|', $cal);
+            if ($split[0] == 'internal') {
+                $result = $tagger->search($query->title, array('type' => 'event', 'calendar' => $split[1]));
+                foreach ($result['events'] as $uid) {
+                    Kronolith::addSearchEvents($events[$cal], $kronolith_driver->getByUID($uid), $query, true);
+                }
             }
         }
 
