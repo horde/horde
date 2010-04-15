@@ -183,29 +183,22 @@ class Kronolith_Tagger
                 // @TODO: No way to get only the system shares the current
                 // user can see?
                 $calendars = $GLOBALS['kronolith_shares']->listSystemShares();
-                $c = array();
+                $args['calendarId'] = array();
                 foreach ($calendars as $name => $share) {
                     if ($share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
-                        $c[] = $name;
+                        $args['calendarId'][] = $name;
                     }
                 }
-                $args['calendarId'] = $c;
             } else {
                 // Items owned by specific user(s)
                 $args['userId'] = $filter['user'];
             }
         } elseif (!empty($filter['calendar'])) {
             // Only events located in specific calendar(s)
-            $args['userId'] = array();
             if (!is_array($filter['calendar'])) {
                 $filter['calendar'] = array($filter['calendar']);
             }
-            foreach ($filter['calendar'] as $calendar) {
-                if ($GLOBALS['all_calendars'][$calendar]->get('owner')) {
-                    $args['userId'][] = $GLOBALS['all_calendars'][$calendar]->get('owner');
-                }
-            }
-            $args['userId'] = array_unique($args['userId']);
+            $args['calendarId'] = $filter['calendar'];
         }
 
         /* Add the tags to the search */
