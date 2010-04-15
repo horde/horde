@@ -390,6 +390,7 @@ KronolithCore = {
                     }
                 });
             });
+            $('kronolithAgendaNoItems').hide();
             this.startLoading('search', query);
             this.doAction('searchEvents',
                           { cals: cals.toJSON(), query: query, time: this.search },
@@ -400,8 +401,11 @@ KronolithCore = {
                                   $('kronolithLoading').hide();
                               }
                               if (r.response.view != 'search' ||
-                                  r.response.query != this.eventsLoading['search'] ||
-                                  Object.isUndefined(r.response.events)) {
+                                  r.response.query != this.eventsLoading['search']) {
+                                  return;
+                              }
+                              if (Object.isUndefined(r.response.events)) {
+                                  $('kronolithAgendaNoItems').show();
                                   return;
                               }
                               delete this.eventsLoading['search'];
