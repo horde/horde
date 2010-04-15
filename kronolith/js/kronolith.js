@@ -3261,7 +3261,14 @@ KronolithCore = {
     keydownHandler: function(e)
     {
         var kc = e.keyCode || e.charCode,
-            form = e.findElement('FORM');
+            form = e.findElement('FORM'), trigger = e.findElement();
+
+        if (trigger.id == 'kronolithEventLocation' && kc == Event.KEY_RETURN) {
+            this.ensureMap();
+            this.geocode($F('kronolithEventLocation'));
+            e.stop();
+            return;
+        }
 
         if (form) {
             switch (kc) {
