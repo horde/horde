@@ -102,7 +102,7 @@ class Kolab_Resource
         $policies = array();
         $defaultpolicy = false;
         foreach ($actions as $action) {
-            if (ereg('(.*):(.*)', $action, $regs)) {
+            if (preg_match('/(.*):(.*)/', $action, $regs)) {
                 $policies[strtolower($regs[1])] = $regs[2];
             } else {
                 $defaultpolicy = $action;
@@ -209,7 +209,7 @@ class Kolab_Resource
         $list = &Kolab_List::singleton();
         $default = $list->getForeignDefault($id, 'event');
         if (!$default || is_a($default, 'PEAR_Error')) {
-            $default = &new Kolab_Folder();
+            $default = new Kolab_Folder();
             $default->setList($list);
             $default->setName($conf['kolab']['filter']['calendar_store']);
             //FIXME: The calendar user needs access here
@@ -236,7 +236,7 @@ class Kolab_Resource
                 $object['organizer']['display-name'] = $org_params[0]['CN'];
             }
             $orgemail = $itip->getAttributeDefault('ORGANIZER', '');
-            if (eregi('mailto:(.*)', $orgemail, $regs )) {
+            if (preg_match('/mailto:(.*)/i', $orgemail, $regs )) {
                 $orgemail = $regs[1];
             }
             $object['organizer']['smtp-address'] = $orgemail;
@@ -270,7 +270,7 @@ class Kolab_Resource
                 }
 
                 $attendeeemail = $attendees[$i];
-                if (eregi('mailto:(.*)', $attendeeemail, $regs)) {
+                if (preg_match('/mailto:(.*)/i', $attendeeemail, $regs)) {
                     $attendeeemail = $regs[1];
                 }
                 $attendee['smtp-address'] = $attendeeemail;

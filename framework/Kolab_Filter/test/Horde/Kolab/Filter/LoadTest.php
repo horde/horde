@@ -112,5 +112,6 @@ class Horde_Kolab_Filter_LoadTest extends PHPUnit_Extensions_PerformanceTestCase
             $parser->parse($inh, 'drop');
 
         }
+	unlink($tmpfile);
     }
 }

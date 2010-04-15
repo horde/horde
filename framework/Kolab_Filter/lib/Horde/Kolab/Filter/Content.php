@@ -109,19 +109,19 @@ class Horde_Kolab_Filter_Content extends Horde_Kolab_Filter_Base
                 switch( $state ) {
                 case RM_STATE_READING_HEADER:
                     if ($allow_sender_header &&
-                        eregi('^Sender: (.*)', $line, $regs)) {
+                        preg_match('#^Sender: (.*)#i', $line, $regs)) {
                         $from = $regs[1];
                         $state = RM_STATE_READING_SENDER;
-                    } else if (!$from && eregi('^From: (.*)', $line, $regs)) {
+                    } else if (!$from && preg_match('#^From: (.*)#i', $line, $regs)) {
                         $from = $regs[1];
                         $state = RM_STATE_READING_FROM;
-                    } else if (eregi('^Subject: (.*)', $line, $regs)) {
+                    } else if (preg_match('#^Subject: (.*)#i', $line, $regs)) {
                         $subject = $regs[1];
                         $state = RM_STATE_READING_SUBJECT;
-                    } else if (eregi('^Content-Type: text/calendar', $line)) {
+                    } else if (preg_match('#^Content-Type: text/calendar#i', $line)) {
                         Horde::logMessage("Found iCal data in message", 'DEBUG');
                         $ical = true;
-                    } else if (eregi('^Message-ID: (.*)', $line, $regs)) {
+                    } else if (preg_match('#^Message-ID: (.*)#i', $line, $regs)) {
                         $this->_id = $regs[1];
                     }
                     break;
@@ -230,7 +230,7 @@ class Horde_Kolab_Filter_Content extends Horde_Kolab_Filter_Base
         while (!feof($tmpf) && $state != RM_STATE_READING_BODY) {
             $buffer = fgets($tmpf, 8192);
             if ($rewrittenfrom) {
-                if (eregi( '^From: (.*)', $buffer)) {
+                if (preg_match( '#^From: (.*)#i', $buffer)) {
                     $result = $transport->data($rewrittenfrom);
                     if (is_a($result, 'PEAR_Error')) {
                         return $result;

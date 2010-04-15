@@ -69,10 +69,10 @@ class Horde_Kolab_Filter_Incoming extends Horde_Kolab_Filter_Base
             if ($line == '') {
                 /* Done with headers */
                 $headers_done = true;
-            } else if (eregi('^Content-Type: text/calendar', $line)) {
+            } else if (preg_match('#^Content-Type: text/calendar#i', $line)) {
                 Horde::logMessage("Found iCal data in message", 'DEBUG');
                 $ical = true;
-            } else if (eregi('^Message-ID: (.*)', $line, $regs)) {
+            } else if (preg_match('#^Message-ID: (.*)#i', $line, $regs)) {
                 $this->_id = $regs[1];
             }
             if (@fwrite($this->_tmpfh, $buffer) === false) {
