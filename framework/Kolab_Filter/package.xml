@@ -43,11 +43,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
   * Fixed handling of whole day invitations.
   * Extended iTip reply delivery to support different transport mechanisms.
   * Splitted Free/Busy functionality in a separate driver class.
-  * kolab/issue973 (Rewritten from shown inconveniently in kontact)
-  * kolab/issue3594 (Mail containing NUL byte not delivered, Kolab
-    Filter does not report lmtp error)
-  * kolab/issue3965 (Always accept: invitations get lost when Calendar
-    folder ist not writable for the calendar user)
+  * kolab/issue3962 (Names of config variables for "untrusted" text missleading)
+  * kolab/issue3967 (UNTRUSTED vs. UNAUTHENTICATED, distinction considered
+    harmful)
+  * kolab/issue3983 (Phpunit testsuite fails on OpenPKG Kolab 2.2.2)
  </notes>
  <contents>
   <dir name="/">
@@ -284,6 +283,26 @@ http://pear.php.net/dtd/package-2.0.xsd">
   </filelist>
  </phprelease>
  <changelog>
+  <release>
+   <date>2010-01-11</date>
+   <version>
+    <release>0.1.8</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+   <notes>
+    * Fix quoting when delivering to Dovecot.
+    * kolab/issue973 (Rewritten from shown inconveniently in kontact)
+    * kolab/issue3594 (Mail containing NUL byte not delivered, Kolab
+      Filter does not report lmtp error)
+    * kolab/issue3965 (Always accept: invitations get lost when Calendar
+      folder ist not writable for the calendar user)
+   </notes>
+  </release>
   <release>
    <date>2009-11-16</date>
    <version>

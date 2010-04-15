@@ -385,18 +385,10 @@ class Horde_Kolab_Filter_Content extends Horde_Kolab_Filter_Base
             $allowed_addrs = false;
         }
 
-        if ($sasluser) {
-            if (isset($conf['kolab']['filter']['untrusted_subject_insert'])) {
-                $fmt = $conf['kolab']['filter']['untrusted_subject_insert'];
-            } else {
-                $fmt = _("(UNTRUSTED, sender is <%s>)");
-            }
+        if (isset($conf['kolab']['filter']['unauthenticated_from_insert'])) {
+            $fmt = $conf['kolab']['filter']['unauthenticated_from_insert'];
         } else {
-            if (isset($conf['kolab']['filter']['unauthenticated_subject_insert'])) {
-                $fmt = $conf['kolab']['filter']['unauthenticated_subject_insert'];
-            } else {
-                $fmt = _("(UNTRUSTED, sender <%s> is not authenticated)");
-            }
+            $fmt = _("(UNTRUSTED, sender <%s> is not authenticated)");
         }
 
         $adrs = imap_rfc822_parse_adrlist($fromhdr, $domains[0]);
