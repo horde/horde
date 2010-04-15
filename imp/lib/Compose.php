@@ -404,7 +404,7 @@ class IMP_Compose
                     // even though the server is the same. UIDVALIDITY should
                     // catch any true server/backend changes.
                     ($GLOBALS['imp_imap']->checkUidvalidity($imap_url['mailbox']) == $imap_url['uidvalidity']) &&
-                    $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($imap_url['uid'] . IMP::IDX_SEP . $imap_url['mailbox'])) {
+                    $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($imap_url['mailbox'], $imap_url['uid'])) {
                     $this->_metadata['mailbox'] = $imap_url['mailbox'];
                     $this->_metadata['reply_type'] = $reply_type;
                     $this->_metadata['uid'] = $imap_url['uid'];
