@@ -2810,18 +2810,27 @@ var DimpBase = {
 
     updateFlag: function(vs, flag, add)
     {
+        var s = {};
         add = this.convertFlag(flag, add);
 
         vs.get('dataob').each(function(ob) {
             this._updateFlag(ob, flag, add);
 
-            /* If this is a search mailbox, also need to update flag in base
-             * view, if it is in the buffer. */
             if (this.isSearch()) {
-                var tmp = this.viewport.getSelection(ob.view).search({ imapuid: { equal: [ ob.imapuid ] }, view: { equal: [ ob.view ] } });
-                if (tmp.size()) {
-                    this._updateFlag(tmp.get('dataob').first(), flag, add);
+                if (s[ob.view]) {
+                    s[ob.view].push(ob.imapuid);
+                } else {
+                    s[ob.view] = [ ob.imapuid ];
                 }
+            }
+        }, this);
+
+        /* If this is a search mailbox, also need to update flag in base view,
+         * if it is in the buffer. */
+        $H(s).each(function(m) {
+            var tmp = this.viewport.getSelection(m.key).search({ imapuid: { equal: m.value }, view: { equal: m.key } });
+            if (tmp.size()) {
+                this._updateFlag(tmp.get('dataob').first(), flag, add);
             }
         }, this);
     },
