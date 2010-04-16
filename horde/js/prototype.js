@@ -5765,19 +5765,6 @@ Object.extend(Element.ClassNames.prototype, Enumerable);
     return element;
   }
   
-  Element.addMethods({
-    getLayout:              getLayout,
-    measure:                measure,
-    getDimensions:          getDimensions,    
-    getOffsetParent:        getOffsetParent,
-    cumulativeOffset:       cumulativeOffset,
-    positionedOffset:       positionedOffset,
-    cumulativeScrollOffset: cumulativeScrollOffset,
-    viewportOffset:         viewportOffset,    
-    absolutize:             absolutize,
-    relativize:             relativize    
-  });
-  
   function isBody(element) {
     return element.nodeName.toUpperCase() === 'BODY';
   }
