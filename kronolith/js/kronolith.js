@@ -3001,6 +3001,9 @@ KronolithCore = {
         }
         $('kronolithCalendar' + type + i).hide();
         $('kronolithCalendar' + type + ++i).show();
+        if (this.colorPicker) {
+            this.colorPicker.hide();
+        }
     },
 
     /**
