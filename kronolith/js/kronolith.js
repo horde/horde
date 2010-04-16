@@ -2412,9 +2412,12 @@ KronolithCore = {
                                       ['kronolithC' + type + 'PGNew']]);
             $('kronolithC' + type + 'PBasic').show();
             $('kronolithC' + type + 'PAdvanced').hide();
+            $('kronolithC' + type + 'PNone').setValue(1);
             $('kronolithC' + type + 'PAllShow').disable();
             $('kronolithC' + type + 'PGList').disable();
             $('kronolithC' + type + 'PGPerms').disable();
+            $('kronolithC' + type + 'PUList').disable();
+            $('kronolithC' + type + 'PUPerms').disable();
             $('kronolithC' + type + 'PAdvanced').select('tr').findAll(function(tr) {
                 return tr.retrieve('remove');
             }).invoke('remove');
@@ -2567,11 +2570,15 @@ KronolithCore = {
             $('kronolithC' + type + 'PAllShow').disable();
             $('kronolithC' + type + 'PGList').disable();
             $('kronolithC' + type + 'PGPerms').disable();
+            $('kronolithC' + type + 'PUList').disable();
+            $('kronolithC' + type + 'PUPerms').disable();
             break;
         case 'All':
             $('kronolithC' + type + 'PAllShow').enable();
             $('kronolithC' + type + 'PGList').disable();
             $('kronolithC' + type + 'PGPerms').disable();
+            $('kronolithC' + type + 'PUList').disable();
+            $('kronolithC' + type + 'PUPerms').disable();
             var perms = {
                 'default': Kronolith.conf.perms.read,
                 'guest': Kronolith.conf.perms.read
@@ -2586,6 +2593,8 @@ KronolithCore = {
             $('kronolithC' + type + 'PAllShow').disable();
             $('kronolithC' + type + 'PGList').enable();
             $('kronolithC' + type + 'PGPerms').enable();
+            $('kronolithC' + type + 'PUList').disable();
+            $('kronolithC' + type + 'PUPerms').disable();
             var group = $F('kronolithC' + type + 'PGSingle')
                 ? $F('kronolithC' + type + 'PGSingle')
                 : $F('kronolithC' + type + 'PGList');
@@ -2601,6 +2610,29 @@ KronolithCore = {
             if ($('kronolithC' + type + 'PGdelegate_' + group)) {
                 $('kronolithC' + type + 'PGdelegate_' + group).setValue(0);
             }
+            break;
+        case 'U':
+            $('kronolithC' + type + 'PAllShow').disable();
+            $('kronolithC' + type + 'PGList').disable();
+            $('kronolithC' + type + 'PGPerms').disable();
+            $('kronolithC' + type + 'PUList').enable();
+            $('kronolithC' + type + 'PUPerms').enable();
+            var users = $F('kronolithC' + type + 'PUList').strip();
+            users = users ? users.split(/,\s*/) : [];
+            users.each(function(user) {
+                this.insertGroupOrUser(type, 'user', user, true);
+                $('kronolithC' + type + 'PUshow_' + user).setValue(1);
+                $('kronolithC' + type + 'PUread_' + user).setValue(1);
+                if ($F('kronolithC' + type + 'PUPerms') == 'edit') {
+                    $('kronolithC' + type + 'PUedit_' + user).setValue(1);
+                } else {
+                    $('kronolithC' + type + 'PUedit_' + user).setValue(0);
+                }
+                $('kronolithC' + type + 'PUdelete_' + user).setValue(0);
+                if ($('kronolithC' + type + 'PUdelegate_' + user)) {
+                    $('kronolithC' + type + 'PUdelegate_' + user).setValue(0);
+                }
+            }, this);
             break;
         }
     },
@@ -2619,8 +2651,8 @@ KronolithCore = {
         }
 
         var allperms = $H(Kronolith.conf.perms),
-            advanced = false,
-            basic, same, groupPerms, groupId;
+            advanced = false, users = [],
+            basic, same, groupPerms, groupId, userPerms;
         $H(perms).each(function(perm) {
             switch (perm.key) {
             case 'default':
@@ -2673,7 +2705,25 @@ KronolithCore = {
                                 delete perm.value[user.key];
                                 return;
                             }
-                            advanced = true;
+                            // Check if we already have other basic permissions.
+                            if (Object.isUndefined(userPerms) &&
+                                !Object.isUndefined(basic)) {
+                                advanced = true;
+                            }
+                            // Check if all users have the same permissions.
+                            if (!Object.isUndefined(userPerms) &&
+                                userPerms != user.value) {
+                                advanced = true;
+                            }
+                            userPerms = user.value;
+                            if (!advanced &&
+                                (userPerms == (Kronolith.conf.perms.show | Kronolith.conf.perms.read) ||
+                                 userPerms == (Kronolith.conf.perms.show | Kronolith.conf.perms.read | Kronolith.conf.perms.edit))) {
+                                basic = userPerms == (Kronolith.conf.perms.show | Kronolith.conf.perms.read) ? 'user_read' : 'user_edit';
+                                users.push(user.key);
+                            } else {
+                                advanced = true;
+                            }
                         }
                     }, this);
                 }
@@ -2749,6 +2799,15 @@ KronolithCore = {
                 $('kronolithC' + type + 'PAdvanced').hide();
                 $('kronolithC' + type + 'PBasic').show();
                 $('kronolithC' + type + 'PGPerms').enable();
+                break;
+            case 'user_read':
+            case 'user_edit':
+                $('kronolithC' + type + 'PUList').enable().setValue(users.join(', '));
+                $('kronolithC' + type + 'PU').setValue(1);
+                $('kronolithC' + type + 'PUPerms').setValue(basic.substring(5));
+                $('kronolithC' + type + 'PAdvanced').hide();
+                $('kronolithC' + type + 'PBasic').show();
+                $('kronolithC' + type + 'PUPerms').enable();
                 break;
             }
         }
@@ -3520,9 +3579,11 @@ KronolithCore = {
             case 'kronolithCinternalPNone':
             case 'kronolithCinternalPAll':
             case 'kronolithCinternalPG':
+            case 'kronolithCinternalPU':
             case 'kronolithCtasklistsPNone':
             case 'kronolithCtasklistsPAll':
             case 'kronolithCtasklistsPG':
+            case 'kronolithCtasklistsPU':
                 var info = id.match(/kronolithC(.*)P(.*)/);
                 this.permsClickHandler(info[1], info[2]);
                 break;

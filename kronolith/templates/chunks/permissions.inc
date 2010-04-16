@@ -39,6 +39,17 @@ if (count($groups) > 1) {
         ?>
         <br />
       </span>
+      <?php printf(_("or share with %s %sthe users%s %s and %sallow them to%s %s"),
+                   '<input type="radio" id="kronolithC' . $type . 'PU" name="basic_perms" />',
+                   '<label for="kronolithC' . $type . 'PU">', '</label>',
+                   '<input type="text" id="kronolithC' . $type . 'PUList" onchange="KronolithCore.permsClickHandler(\'' . $type . '\', \'U\')" />',
+                   '<label for="kronolithC' . $type . 'PUPerms">', '</label>',
+                   '<select id="kronolithC' . $type . 'PUPerms" onchange="KronolithCore.permsClickHandler(\'' . $type . '\', \'U\')">
+                      <option value="read">' . ($type == 'internal' ? _("read the events") : _("read the tasks")) . '</option>
+                      <option value="edit">' . ($type == 'internal' ? _("read and edit the events") : _("read and edit the tasks")) . '</option>
+                   </select>')
+      ?>
+      <br />
     </div>
   </div>
   <div id="kronolithC<?php echo $type ?>PAdvanced" class="kronolithCPAdvanced" style="display:none">
