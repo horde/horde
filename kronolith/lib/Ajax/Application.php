@@ -616,6 +616,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
                 $GLOBALS['notification']->push(sprintf(_("The calendar \"%s\" has been saved."), $calendar['name']), 'horde.success');
             } else {
                 $GLOBALS['notification']->push(sprintf(_("You have been subscribed to \"%s\" (%s)."), $calendar['name'], $calendar['url']), 'horde.success');
+                $result->calendar = $calendar['url'];
             }
             break;
         }
