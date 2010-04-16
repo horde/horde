@@ -1171,8 +1171,7 @@
   <configsection name="lock">
    <configheader>Lock System Settings</configheader>
    <configswitch name="driver" desc="If you want to enable resource locking
-   you must choose a driver here. Currently locking is only used by the WebDAV
-   subsystem to allow locking on Horde objects via WebDAV.">Sql
+   you must choose a driver here.">Sql
     <case name="none" desc="Disable Horde Locks"/>
     <case name="Sql" desc="SQL-based locking">
      <configsection name="params">
