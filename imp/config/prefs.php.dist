@@ -1135,8 +1135,8 @@ $prefGroups['mboxdisplay'] = array(
     'label' => _("Mailbox Display Options"),
     'desc' => _("Change display options such as how many messages you see on each page and how messages are sorted."),
     'members' => array(
-        'mailbox_start', 'sortby', 'sortdir', 'max_msgs', 'from_link',
-        'time_format', 'atc_flag'
+        'mailbox_start', 'sortby', 'sortdir', 'sortdate', 'max_msgs',
+        'from_link', 'time_format', 'atc_flag'
     )
 );
 
