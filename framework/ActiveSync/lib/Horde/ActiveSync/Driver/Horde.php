@@ -429,6 +429,8 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
                 }
                 $stat = $this->_smartStatMessage($folderid, $id, false);
             }
+            break;
+
         case self::TASKS_FOLDER:
             if (!$id) {
                 try {
