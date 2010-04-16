@@ -603,11 +603,11 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
 
         case 'remote':
             $calendar = array();
-            foreach (array('name', 'description', 'url', 'color', 'username', 'password') as $key) {
+            foreach (array('name', 'desc', 'url', 'color', 'user', 'password') as $key) {
                 $calendar[$key] = $this->_vars->$key;
             }
             try {
-                Kronolith::subscribeRemoteCalendar($calendar);
+                Kronolith::subscribeRemoteCalendar($calendar, $calendar_id);
             } catch (Exception $e) {
                 $GLOBALS['notification']->push($e, 'horde.error');
                 return $result;

@@ -1770,13 +1770,15 @@ class Kronolith
     }
 
     /**
-     * Subscribes to a remote calendar.
+     * Subscribes to or updates a remote calendar.
      *
-     * @param array $info  Hash with calendar information.
+     * @param array $info     Hash with calendar information.
+     * @param string $update  If present, the original URL of the calendar to
+     *                        update.
      *
      * @throws Kronolith_Exception
      */
-    public static function subscribeRemoteCalendar($info)
+    public static function subscribeRemoteCalendar($info, $update = false)
     {
         if (!(strlen($info['name']) && strlen($info['url']))) {
             throw new Kronolith_Exception(_("You must specify a name and a URL."));
@@ -1792,14 +1794,16 @@ class Kronolith
         }
 
         $remote_calendars = unserialize($GLOBALS['prefs']->getValue('remote_cals'));
-        $remote_calendars[] = array(
-            'name' => $info['name'],
-            'desc' => $info['description'],
-            'url' => $info['url'],
-            'color' => $info['color'],
-            'user' => $info['username'],
-            'password' => $info['password'],
-        );
+        if ($update) {
+            foreach ($remote_calendars as $key => $calendar) {
+                if ($calendar['url'] == $update) {
+                    $remote_calendars[$key] = $info;
+                    break;
+                }
+            }
+        } else {
+            $remote_calendars[] = $info;
+        }
 
         $GLOBALS['prefs']->setValue('remote_cals', serialize($remote_calendars));
     }

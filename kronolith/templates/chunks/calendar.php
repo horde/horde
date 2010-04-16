@@ -209,7 +209,7 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 
 <div>
   <label><?php echo _("Username") ?>:<br />
-    <input type="text" name="username" id="kronolithCalendarremoteUsername" class="kronolithLongField" />
+    <input type="text" name="user" id="kronolithCalendarremoteUsername" class="kronolithLongField" />
   </label>
 </div>
 
@@ -234,7 +234,7 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 
 <div>
   <label><?php echo _("Description") ?>:<br />
-    <textarea name="description" id="kronolithCalendarremoteDescription" rows="5" cols="40" class="kronolithLongField"></textarea>
+    <textarea name="desc" id="kronolithCalendarremoteDescription" rows="5" cols="40" class="kronolithLongField"></textarea>
   </label>
 </div>
 

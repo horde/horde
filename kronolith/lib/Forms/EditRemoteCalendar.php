@@ -42,30 +42,7 @@ class Kronolith_EditRemoteCalendarForm extends Horde_Form
         foreach (array('name', 'new_url', 'user', 'password', 'color', 'desc') as $key) {
             $info[$key == 'new_url' ? 'url' : $key] = $this->_vars->get($key);
         }
-        $url = trim($this->_vars->get('url'));
-
-        if (!strlen($info['name']) || !strlen($url)) {
-            return false;
-        }
-
-        if (strlen($info['username']) || strlen($info['password'])) {
-            $key = Horde_Auth::getCredential('password');
-            if ($key) {
-                $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-                $info['username'] = base64_encode($secret->write($key, $info['username']));
-                $info['password'] = base64_encode($secret->write($key, $info['password']));
-            }
-        }
-
-        $remote_calendars = unserialize($GLOBALS['prefs']->getValue('remote_cals'));
-        foreach ($remote_calendars as $key => $calendar) {
-            if ($calendar['url'] == $url) {
-                $remote_calendars[$key] = $info;
-                break;
-            }
-        }
-
-        $GLOBALS['prefs']->setValue('remote_cals', serialize($remote_calendars));
+        Kronolith::subscribeRemoteCalendar($info, trim($this->_vars->get('url')));
     }
 
 }
