@@ -1077,43 +1077,88 @@ KronolithCore = {
      * @param string type      The calendar type.
      * @param string calendar  The calendar id.
      */
-    toggleCalendar: function(type, calendar) {
+    toggleCalendar: function(type, calendar)
+    {
+        var elt = $('kronolithMenuCalendars').select('div').find(function(div) {
+            return div.retrieve('calendarclass') == type &&
+            div.retrieve('calendar') == calendar;
+        });
+
         Kronolith.conf.calendars[type][calendar].show = !Kronolith.conf.calendars[type][calendar].show;
-        if ($w('day week month year').include(this.view)) {
-            if (this.view == 'year' ||
-                Object.isUndefined(this.ecache.get(type)) ||
+        elt.toggleClassName('kronolithCalOn');
+        elt.toggleClassName('kronolithCalOff');
+
+        switch (this.view) {
+        case 'month':
+            if (Object.isUndefined(this.ecache.get(type)) ||
                 Object.isUndefined(this.ecache.get(type).get(calendar))) {
                 this.loadCalendar(type, calendar);
             } else {
-                $('kronolithBody').select('div').findAll(function(el) {
+                var allEvents = $('kronolithBody').select('div').findAll(function(el) {
                     return el.retrieve('calendar') == type + '|' + calendar;
-                }).invoke('toggle');
-            }
-        }
-        var elt = $('kronolithMenuCalendars').select('div').find(function(div) {
-            return div.retrieve('calendarclass') == type &&
-                div.retrieve('calendar') == calendar;
-        });
-        elt.toggleClassName('kronolithCalOn');
-        elt.toggleClassName('kronolithCalOff');
-        switch (type) {
-        case 'tasklists':
-            var tasklist = calendar.substr(6);
-            if (this.view == 'tasks') {
-                if (elt.hasClassName('kronolithCalOff')) {
-                    $('kronolithViewTasksBody').select('tr').findAll(function(el) {
-                        return el.retrieve('tasklist') == tasklist;
-                    }).invoke('remove');
+                });
+                if (Kronolith.conf.max_events) {
+                    var dates = this.viewDates(this.date, this.view);
+                    if (elt.hasClassName('kronolithCalOff')) {
+                        var day, more, events, calendars = [];
+                        $H(Kronolith.conf.calendars).each(function(type) {
+                            $H(type.value).each(function(cal) {
+                                if (cal.value.show) {
+                                    calendars.push(type.key + '|' + cal.key);
+                                }
+                            });
+                        });
+                        allEvents.invoke('remove');
+                        for (var date = dates[0]; !date.isAfter(dates[1]); date.add(1).days()) {
+                            day = $('kronolithMonthDay' + date.dateString());
+                            more = day.select('.kronolithMore');
+                            events = day.select('.kronolithEvent');
+                            if (more.size() &&
+                                events.size() < Kronolith.conf.max_events) {
+                                more[0].remove();
+                                events.invoke('remove');
+                                calendars.each(function(calendar) {
+                                    this.insertEvents([date, date], 'month', calendar);
+                                }, this);
+                            }
+                        }
+                    } else {
+                        this.insertEvents(dates, 'month', type + '|' + calendar);
+                    }
                 } else {
-                    this.loadTasks(this.tasktype, [ tasklist ]);
+                    allEvents.invoke('toggle');
                 }
             }
-            // Fall through.
-        case 'remote':
-        case 'external':
-        case 'holiday':
-            calendar = type + '_' + calendar;
             break;
+
+        case 'year':
+        case 'week':
+        case 'day':
+            if (Object.isUndefined(this.ecache.get(type)) ||
+                Object.isUndefined(this.ecache.get(type).get(calendar))) {
+                this.loadCalendar(type, calendar);
+            } else {
+                this.insertEvents(this.viewDates(this.date, this.view), this.view);
+            }
+            break;
+
+        case 'tasks':
+            if (type != 'tasklists') {
+                break;
+            }
+            var tasklist = calendar.substr(6);
+            if (elt.hasClassName('kronolithCalOff')) {
+                $('kronolithViewTasksBody').select('tr').findAll(function(el) {
+                    return el.retrieve('tasklist') == tasklist;
+                }).invoke('remove');
+            } else {
+                this.loadTasks(this.tasktype, [ tasklist ]);
+            }
+            break;
+        }
+
+        if ($w('tasklists remote external holiday').include(type)) {
+            calendar = type + '_' + calendar;
         }
         this.doAction('saveCalPref', { toggle_calendar: calendar });
     },
@@ -1448,6 +1493,11 @@ KronolithCore = {
                 td = $('kronolithYear' + date);
                 if (td.className == 'kronolithMinicalEmpty') {
                     continue;
+                }
+                if (td.hasClassName('kronolithToday')) {
+                    td.className = 'kronolithToday';
+                } else {
+                    td.className = '';
                 }
                 if (td.retrieve('nicetitle')) {
                     Horde_ToolTips.detach(td);
