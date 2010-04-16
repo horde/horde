@@ -37,26 +37,47 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
 
     /**
      * Test that Horde_ActiveSync_Driver_Horde#getMessageList() returns expected
-     * data structures.
+     * data structures, calls the expected registry methods, and calls ONLY
+     * the expected registry methods.
      *
      */
     public function testGetMessageList()
     {
+        // Events fixture - only need the uid property for this test
+        $e1 = new stdClass();
+        $e1->uid = '20080112030603.249j42k3k068@test.theupstairsroom.com';
+        
         // Test Contacts - simulates returning two contacts, both of which have no history modify entries.
         $fixture = array('contacts_list' => array('20070112030603.249j42k3k068@test.theupstairsroom.com',
                                                   '20070112030611.62g1lg5nry80@test.theupstairsroom.com'),
-                         'contacts_getActionTimestamp' => 0);
-
+                         'contacts_getActionTimestamp' => 0,
+                          // Normally this method returns an array of dates, each containing an
+                          // array of events.
+                         'calendar_listEvents' => array(array($e1)),
+                         'calendar_getActionTimestamp' => 0,
+                         'tasks_list' => array('20070112030603.249j42k3k068@test.theupstairsroom.com',
+                                               '20070112030611.62g1lg5nry80@test.theupstairsroom.com'),
+                         'tasks_getActionTimestamp' => 0);
+        
+        /* Mock the registry responses */
         $connector = $this->getMockSkipConstructor('Horde_ActiveSync_Driver_Horde_Connector_Registry');
         $connector->expects($this->once())->method('contacts_list')->will($this->returnValue($fixture['contacts_list']));
         $connector->expects($this->exactly(2))->method('contacts_getActionTimestamp')->will($this->returnValue($fixture['contacts_getActionTimestamp']));
+
+        /* Setup the calls for calendar_listEvents */
+        $connector->expects($this->once())->method('calendar_listEvents')->will($this->returnValue($fixture['calendar_listEvents']));
+        $connector->expects($this->once())->method('calendar_getActionTimestamp')->will($this->returnValue($fixture['calendar_getActionTimestamp']));
+
+        /* Setup the calls for calendar_listEvents */
+        $connector->expects($this->once())->method('tasks_listTasks')->will($this->returnValue($fixture['tasks_list']));
+        $connector->expects($this->exactly(2))->method('tasks_getActionTimestamp')->will($this->returnValue($fixture['tasks_getActionTimestamp']));
 
         $state = $this->getMockSkipConstructor('Horde_ActiveSync_State_File');
         $driver = new Horde_ActiveSync_Driver_Horde(array('connector' => $connector,
                                                           'state_basic' => $state));
 
+        /* Contacts */
         $results = $driver->getMessageList('Contacts', time());
-
         //$expected = array(
         //    array('id' => '20070112030603.249j42k3k068@test.theupstairsroom.com',
         //          'mod' => 0,
@@ -65,7 +86,24 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
         //          'mod' => 0,
         //          'flags' => 1)
         //);
+        $this->assertEquals(2, count($results));
+        foreach ($results as $result) {
+            if ($result['id'] != '20070112030603.249j42k3k068@test.theupstairsroom.com') {
+                $this->assertEquals('20070112030611.62g1lg5nry80@test.theupstairsroom.com', $result['id']);
+            } else {
+                $this->assertEquals('20070112030603.249j42k3k068@test.theupstairsroom.com', $result['id']);
+            }
+        }
 
+        /* Calendar */
+        $results = $driver->getMessageList('Calendar', time());
+        $this->assertEquals(1, count($results));
+        foreach ($results as $result) {
+            $this->assertEquals('20080112030603.249j42k3k068@test.theupstairsroom.com', $result['id']);
+        }
+
+        /* Tasks */
+        $results = $driver->getMessageList('Tasks', time());
         $this->assertEquals(2, count($results));
         foreach ($results as $result) {
             if ($result['id'] != '20070112030603.249j42k3k068@test.theupstairsroom.com') {
