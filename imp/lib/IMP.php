@@ -891,23 +891,29 @@ class IMP
      */
     static public function getSort($mbox = null, $convert = false)
     {
+        global $prefs;
+
         if (is_null($mbox)) {
             $mbox = $GLOBALS['imp_mbox']['mailbox'];
         }
 
         $search_mbox = $GLOBALS['imp_search']->isSearchMbox($mbox);
-        $prefmbox = $search_mbox ? $mbox : self::folderPref($mbox, false);
+        $prefmbox = $search_mbox
+            ? $mbox
+            : self::folderPref($mbox, false);
 
-        $sortpref = @unserialize($GLOBALS['prefs']->getValue('sortpref'));
-        $entry = (isset($sortpref[$prefmbox])) ? $sortpref[$prefmbox] : array();
+        $sortpref = @unserialize($prefs->getValue('sortpref'));
+        $entry = isset($sortpref[$prefmbox])
+            ? $sortpref[$prefmbox]
+            : array();
 
         if (!isset($entry['b'])) {
-            $sortby = $GLOBALS['prefs']->getValue('sortby');
+            $sortby = $prefs->getValue('sortby');
         }
 
         $ob = array(
             'by' => isset($entry['b']) ? $entry['b'] : $sortby,
-            'dir' => isset($entry['d']) ? $entry['d'] : $GLOBALS['prefs']->getValue('sortdir'),
+            'dir' => isset($entry['d']) ? $entry['d'] : $prefs->getValue('sortdir'),
         );
 
         /* Restrict POP3 sorting to sequence only.  Although possible to
@@ -918,25 +924,36 @@ class IMP
             return $ob;
         }
 
-        /* Can't do threaded searches in search mailboxes. */
-        if (!self::threadSortAvailable($mbox) &&
-            ($ob['by'] == Horde_Imap_Client::SORT_THREAD)) {
-            $ob['by'] = IMP::IMAP_SORT_DATE;
-        }
+        switch ($ob['by']) {
+        case Horde_Imap_Client::SORT_THREAD:
+            /* Can't do threaded searches in search mailboxes. */
+            if (!self::threadSortAvailable($mbox)) {
+                $ob['by'] = IMP::IMAP_SORT_DATE;
+            }
+            break;
 
-        if (self::isSpecialFolder($mbox)) {
+        case Horde_Imap_Client::SORT_FROM:
             /* If the preference is to sort by From Address, when we are
              * in the Drafts or Sent folders, sort by To Address. */
-            if ($ob['by'] == Horde_Imap_Client::SORT_FROM) {
+            if (self::isSpecialFolder($mbox)) {
                 $ob['by'] = Horde_Imap_Client::SORT_TO;
             }
-        } elseif ($ob['by'] == Horde_Imap_Client::SORT_TO) {
-            $ob['by'] = Horde_Imap_Client::SORT_FROM;
+            break;
+
+        case Horde_Imap_Client::SORT_TO:
+            if (!self::isSpecialFolder($mbox)) {
+                $ob['by'] = Horde_Imap_Client::SORT_FROM;
+            }
+            break;
         }
 
         if ($convert && ($ob['by'] == IMP::IMAP_SORT_DATE)) {
-            $ob['by'] = $GLOBALS['prefs']->getValue('sortdate') ||
-                        Horde_Imap_Client::SORT_ARRIVAL;
+            $ob['by'] = $prefs->getValue('sortdate');
+        }
+
+        /* Sanity check: make sure we have some sort of sort value. */
+        if (!$ob['by']) {
+            $ob['by'] = Horde_Imap_Client::SORT_ARRIVAL;
         }
 
         return $ob;
