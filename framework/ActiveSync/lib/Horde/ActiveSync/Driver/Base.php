@@ -243,7 +243,7 @@ abstract class Horde_ActiveSync_Driver_Base
      *
      * @return boolean
      */
-    abstract public function DeleteMessage($folderid, $id);
+    abstract public function deleteMessage($folderid, $id);
 
     /**
      * Change (i.e. add or edit) a message on the backend

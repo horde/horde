@@ -77,7 +77,6 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
                                                           'state_basic' => $state));
 
         /* Contacts */
-        $results = $driver->getMessageList('Contacts', time());
         //$expected = array(
         //    array('id' => '20070112030603.249j42k3k068@test.theupstairsroom.com',
         //          'mod' => 0,
@@ -86,6 +85,7 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
         //          'mod' => 0,
         //          'flags' => 1)
         //);
+        $results = $driver->getMessageList('Contacts', time());
         $this->assertEquals(2, count($results));
         foreach ($results as $result) {
             if ($result['id'] != '20070112030603.249j42k3k068@test.theupstairsroom.com') {
@@ -185,9 +185,9 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
                 ->method('contacts_replace')
                 ->will($this->returnValue(2));
 
-        $connector->expects($this->at(1))
+        $connector->expects($this->once())
                 ->method('contacts_getActionTimestamp')
-                ->will($this->returnValue(array('todo')));
+                ->will($this->returnValue(0));
 
         /* TODO: appointments and todos */
 

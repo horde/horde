@@ -332,11 +332,11 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
     /**
      * Delete a message
      *
-     * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#DeleteMessage($folderid, $id)
+     * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#deleteMessage($folderid, $id)
      */
-    public function DeleteMessage($folderid, $id)
+    public function deleteMessage($folderid, $id)
     {
-        $this->_logger->debug('Horde::DeleteMessage(' . $folderid . ', ' . $id . ')');
+        $this->_logger->debug('Horde::deleteMessage(' . $folderid . ', ' . $id . ')');
 
         $status = false;
         switch ($folderid) {

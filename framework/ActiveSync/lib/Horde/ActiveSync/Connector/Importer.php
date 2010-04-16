@@ -163,7 +163,7 @@ class Horde_ActiveSync_Connector_Importer
         }
 
         /* Tell backend about the deletion */
-        $this->_backend->DeleteMessage($this->_folderId, $id);
+        $this->_backend->deleteMessage($this->_folderId, $id);
 
         return true;
     }
