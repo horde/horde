@@ -22,15 +22,6 @@ var HordeIdentitySelect = {
             var field = $(a[0]);
 
             switch (a[1]) {
-            case "enum":
-                for (var j = 0; j < field.options.length; ++j) {
-                    if (field.options[j].value == a[2]) {
-                        field.selectedIndex = j;
-                        break;
-                    }
-                }
-                break;
-
             case "special":
                 identity.fire('HordeIdentitySelect:change', {
                     i: id,
