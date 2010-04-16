@@ -34,7 +34,6 @@ var ImpCompose = {
         var id = $F(elt),
             last = IMP_Compose_Base.getIdentity($F('last_identity')),
             next = IMP_Compose_Base.getIdentity(id),
-            i = 0,
             bcc = $('bcc'),
             save = $('ssm'),
             smf = $('sent_mail_folder'),
@@ -43,26 +42,16 @@ var ImpCompose = {
         IMP_Compose_Base.replaceSignature(id);
 
         if (this.smf_check) {
-            $A(smf.options).detect(function(f) {
-                if (f.value == next.id.smf_name) {
-                    smf.selectedIndex = i;
-                    return true;
-                }
-                ++i;
-            });
+            smf.setValue(next.id.smf_name);
         } else {
-            if (smf.firstChild) {
-                smf.replaceChild(document.createTextNode(next.id.smf_name), smf.firstChild);
-            } else {
-                smf.appendChild(document.createTextNode(next.id.smf_name));
-            }
+            smf.update(next.id.smf_display);
         }
 
         if (save) {
-            save.checked = next.id.smf_save;
+            save.setValue(next.id.smf_save);
         }
         if (bcc) {
-            bccval = bcc.value;
+            bccval = $F(bcc);
 
             if (last.id.bcc) {
                 re = new RegExp(last.id.bcc + ",? ?", 'gi');
