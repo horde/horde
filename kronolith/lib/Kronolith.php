@@ -62,7 +62,7 @@ class Kronolith
     {
         // Need to include script files before we start output
         $datejs = str_replace('_', '-', $GLOBALS['language']) . '.js';
-        if (!file_exists($GLOBALS['registry']->get('jsfs') . '/' . $datejs)) {
+        if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/date/' . $datejs)) {
             $datejs = 'en-US.js';
         }
         Horde::addScriptFile('effects.js', 'horde');
@@ -74,8 +74,8 @@ class Kronolith
         Horde::addScriptFile('redbox.js', 'horde');
         Horde::addScriptFile('tooltips.js', 'horde');
         Horde::addScriptFile('colorpicker.js', 'horde');
-        Horde::addScriptFile($datejs, 'kronolith');
-        Horde::addScriptFile('date.js', 'kronolith');
+        Horde::addScriptFile('date/' . $datejs, 'horde');
+        Horde::addScriptFile('date/date.js', 'horde');
         Horde::addScriptFile('kronolith.js', 'kronolith');
         Horde::addScriptFile('new.js', 'kronolith');
         Horde_Ui_JsCalendar::init();
