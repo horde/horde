@@ -151,6 +151,8 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
         $driver = new Horde_ActiveSync_Driver_Horde(array('connector' => $connector,
                                                           'state_basic' => $state));
 
+        /* The 'xxx' represents the uid of the object we are getting - which
+         * doesn't matter b/c the registry response is mocked */
         $results = $driver->getMessage(Horde_ActiveSync_Driver_Horde::CONTACTS_FOLDER, 'xxx', 0);
         $this->assertType('Horde_ActiveSync_Message_Contact', $results);
 
@@ -169,25 +171,48 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
      */
     public function testChangeMessage()
     {
-        $this->markTestIncomplete('Test still being written');
+        //$this->markTestIncomplete('Test still being written');
         /* Setup mock connector method return values for adding a new contact */
         $connector = $this->getMockSkipConstructor('Horde_ActiveSync_Driver_Horde_Connector_Registry');
         $connector->expects($this->once())
                 ->method('contacts_import')
-                ->will($this->returnValue(1));
+                ->will($this->returnValue('localhost@123.123'));
 
-        $connector->expects($this->at(1))
+        $connector->expects($this->exactly(2))
                 ->method('contacts_getActionTimestamp')
-                ->will($this->returnValue(array('todo')));
+                ->will($this->returnValue(0));
 
         /* Setup mock connector return for modifying an existing contact */
         $connector->expects($this->once())
                 ->method('contacts_replace')
-                ->will($this->returnValue(2));
+                ->will($this->returnValue(true));
 
+        /* appointment */
         $connector->expects($this->once())
-                ->method('contacts_getActionTimestamp')
+                ->method('calendar_import')
+                ->will($this->returnValue('localhost@123.123'));
+        $connector->expects($this->exactly(2))
+                ->method('calendar_getActionTimestamp')
                 ->will($this->returnValue(0));
+
+        /* Setup mock connector return for modifying an existing contact */
+        $connector->expects($this->once())
+                ->method('calendar_replace')
+                ->will($this->returnValue(true));
+
+        /* tasks */
+        $connector->expects($this->once())
+                ->method('tasks_import')
+                ->will($this->returnValue('localhost@123.123'));
+        $connector->expects($this->exactly(2))
+                ->method('tasks_getActionTimestamp')
+                ->will($this->returnValue(0));
+
+        /* Setup mock connector return for modifying an existing contact */
+        $connector->expects($this->once())
+                ->method('tasks_replace')
+                ->will($this->returnValue(true));
+
 
         /* TODO: appointments and todos */
 
@@ -197,32 +222,59 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
         /* Get the driver, and test it */
         $driver = new Horde_ActiveSync_Driver_Horde(array('connector' => $connector,
                                                           'state_basic' => $state));
-        // fixtures
+
+        /* Fixtures - don't really need data, since the change is not actually done */
         $message = new Horde_ActiveSync_Message_Contact();
-        $message->fileas = 'Michael Joseph Rubinsky';
-        $message->firstname = 'Michael';
-        $message->lastname = 'Rubinsky';
-        $message->middlename = 'Joseph';
-        $message->birthday = '6757200';
-        $message->email1address = 'mrubinsk@horde.org';
-        $message->homephonenumber = '(856)555-1234';
-        $message->businessphonenumber = '(856)555-5678';
-        $message->mobilephonenumber = '(609)555-9876';
-        $message->homestreet = '123 Main St.';
-        $message->homecity = 'Anywhere';
-        $message->homestate = 'NJ';
-        $message->homepostalcode = '08080';
 
-
-        if (version_compare(PHP_VERSION, '5.3.0', '>=')) {
-            error_reporting(E_ALL & ~E_DEPRECATED);
-        }
-
+        /* Try adding a new contact */
         try {
             $results = $driver->ChangeMessage(Horde_ActiveSync_Driver_Horde::CONTACTS_FOLDER, 0, $message);
         } catch (Horde_ActiveSync_Exception $e) {
             $this->fail($e->getMessage());
         }
+        $this->assertEquals(array('id' => 'localhost@123.123', 'mod' => 0, 'flags' => 1), $results);
+
+       /* Try editing a contact */
+        try {
+            $results = $driver->ChangeMessage(Horde_ActiveSync_Driver_Horde::CONTACTS_FOLDER, 'localhost@123.123', $message);
+        } catch (Horde_ActiveSync_Exception $e) {
+            $this->fail($e->getMessage());
+        }
+        $this->assertEquals(array('id' => 'localhost@123.123', 'mod' => 0, 'flags' => 1), $results);
+
+        /* Try adding a new appointment */
+        $message = new Horde_ActiveSync_Message_Appointment();
+        try {
+            $results = $driver->ChangeMessage(Horde_ActiveSync_Driver_Horde::APPOINTMENTS_FOLDER, 0, $message);
+        } catch (Horde_ActiveSync_Exception $e) {
+            $this->fail($e->getMessage());
+        }
+        $this->assertEquals(array('id' => 'localhost@123.123', 'mod' => 0, 'flags' => 1), $results);
+
+       /* Try editing an appointment */
+        try {
+            $results = $driver->ChangeMessage(Horde_ActiveSync_Driver_Horde::APPOINTMENTS_FOLDER, 'localhost@123.123', $message);
+        } catch (Horde_ActiveSync_Exception $e) {
+            $this->fail($e->getMessage());
+        }
+        $this->assertEquals(array('id' => 'localhost@123.123', 'mod' => 0, 'flags' => 1), $results);
+
+        /* Try adding a new task */
+        $message = new Horde_ActiveSync_Message_Task();
+        try {
+            $results = $driver->ChangeMessage(Horde_ActiveSync_Driver_Horde::TASKS_FOLDER, 0, $message);
+        } catch (Horde_ActiveSync_Exception $e) {
+            $this->fail($e->getMessage());
+        }
+        $this->assertEquals(array('id' => 'localhost@123.123', 'mod' => 0, 'flags' => 1), $results);
+
+       /* Try editing an appointment */
+        try {
+            $results = $driver->ChangeMessage(Horde_ActiveSync_Driver_Horde::TASKS_FOLDER, 'localhost@123.123', $message);
+        } catch (Horde_ActiveSync_Exception $e) {
+            $this->fail($e->getMessage());
+        }
+        $this->assertEquals(array('id' => 'localhost@123.123', 'mod' => 0, 'flags' => 1), $results);
     }
 
     /**
