@@ -138,11 +138,13 @@ var DimpCore = {
             tmp = {};
 
         if (b.getMetaData('search')) {
-            s.get('dataob').each(function(r) {
-                if (!tmp[r.view]) {
-                    tmp[r.view] = [];
+            s.get('uid').each(function(r) {
+                var parts = r.split(DIMP.conf.IDX_SEP);
+                if (tmp[parts[1]]) {
+                    tmp[parts[1]].push(parts[0]);
+                } else {
+                    tmp[parts[1]] = [ parts[0] ];
                 }
-                tmp[r.view].push(r.imapuid);
             });
         } else {
             tmp[b.getView()] = s.get('uid');

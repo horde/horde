@@ -1225,7 +1225,7 @@ var ViewPort = Class.create({
     getSelection: function(view)
     {
         var buffer = this._getBuffer(view);
-        return this.createSelection('uid', buffer ? buffer.getAllUIDs() : [], view);
+        return this.createSelection('uid', buffer ? buffer.getSelected().get('uid') : [], view);
     },
 
     // vs = (Viewport_Selection | array) A Viewport_Selection object -or- if
