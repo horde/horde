@@ -515,7 +515,7 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
     public function setValue($key, $val, $identity = null)
     {
         if ($key == 'sent_mail_folder') {
-            $val = IMP::folderPrefs($val, false);
+            $val = IMP::folderPref($val, false);
         }
         return parent::setValue($key, $val, $identity);
     }
