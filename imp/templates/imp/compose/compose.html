@@ -15,7 +15,7 @@
 
 <table cellspacing="0">
  <tr>
-  <td>&nbsp;</td>
+  <td></td>
   <td class="nowrap">
 <if:allow_compose>
    <input name="btn_send_message" type="submit" <tag:send_msg_ak /> class="button" value="<gettext>Send Message</gettext>" />
@@ -28,11 +28,11 @@
  </tr>
 
  <tr>
-  <td class="light rightAlign"><strong><if:di_locked><gettext>From</gettext><else:di_locked><tag:identity_label /></else:di_locked></if:di_locked>&nbsp;</strong></td>
+  <td class="light rightAlign"><strong><if:di_locked><gettext>From</gettext><else:di_locked><tag:identity_label /></else:di_locked></if:di_locked></strong></td>
   <td class="item">
 <if:di_locked>
 <if:fromaddr_locked>
-   <strong>&nbsp;<tag:from /></strong>
+   <strong><tag:from /></strong>
 <else:fromaddr_locked>
    <input id="text_identity" type="text" tabindex="<tag:fromaddr_tabindex />" name="from" value="<tag:from />" style="direction:ltr" />
 </else:fromaddr_locked></if:fromaddr_locked>
@@ -54,7 +54,7 @@
 
 <loop:addr>
  <tr>
-  <td class="light rightAlign"><strong><tag:addr.label />&nbsp;</strong></td>
+  <td class="light rightAlign"><strong><tag:addr.label /></strong></td>
   <td class="item addressTr">
    <input type="text" id="<tag:addr.id />" autocomplete="off" tabindex="<tag:addr.input_tabindex />" style="direction:ltr" name="<tag:addr.id />" value="<tag:addr.input_value />" />
    <span id="<tag:addr.id />_loading_img" style="display:none;" class="loadingImg"></span>
@@ -63,7 +63,7 @@
 </loop:addr>
 
  <tr>
-  <td class="light rightAlign"><strong><tag:subject_label />&nbsp;</strong></td>
+  <td class="light rightAlign"><strong><tag:subject_label /></strong></td>
   <td class="item">
    <input type="text" id="subject" tabindex="<tag:subject_tabindex />" name="subject" value="<tag:subject />" />
   </td>
@@ -72,7 +72,7 @@
 <if:unlocked_charset>
  <tr>
   <td class="light rightAlign">
-   <strong><tag:charset_label />&nbsp;</strong>
+   <strong><tag:charset_label /></strong>
   </td>
   <td class="item">
    <select id="charset" name="charset" tabindex="<tag:charset_tabindex />">
@@ -87,7 +87,7 @@
 <if:set_priority>
  <tr>
   <td class="light rightAlign">
-   <strong><tag:priority_label />&nbsp;</strong>
+   <strong><tag:priority_label /></strong>
   </td>
   <td class="item">
    <select id="priority" name="priority" tabindex="<tag:priority_tabindex />">
@@ -101,7 +101,7 @@
 
 <if:stationery>
  <tr>
-  <td class="light rightAlign"><strong><tag:stationery_label />&nbsp;</strong></td>
+  <td class="light rightAlign"><strong><tag:stationery_label /></strong></td>
   <td class="item">
    <select name="stationery" id="stationery">
     <option value=""><gettext>Select stationery:</gettext></option>
@@ -114,7 +114,7 @@
 </if:stationery>
 
  <tr>
-  <td>&nbsp;</td>
+  <td></td>
   <td class="item">
    <table width="100%" cellspacing="0">
     <tr>
@@ -130,7 +130,7 @@
 
 <if:ssm>
  <tr>
-  <td>&nbsp;</td>
+  <td></td>
   <td class="item">
    <input id="ssm" type="checkbox" class="checkbox" name="save_sent_mail" <if:ssm_selected>checked="checked" </if:ssm_selected>/>
    <tag:ssm_label />
@@ -145,7 +145,7 @@
 
 <if:rrr>
  <tr>
-  <td>&nbsp;</td>
+  <td></td>
   <td class="item">
    <input id="rrr" type="checkbox" class="checkbox" name="request_read_receipt" <if:rrr_selected>checked="checked" </if:rrr_selected>/> <tag:rrr_label />
   </td>
@@ -154,7 +154,7 @@
 
 <if:compose_html>
  <tr>
-  <td>&nbsp;</td>
+  <td></td>
   <td class="item">
    <tag:html_img />
    <tag:html_switch />
@@ -164,14 +164,14 @@
 </if:compose_html>
 
  <tr>
-  <td class="light rightAlign"><strong><tag:message_label />&nbsp;</strong></td>
+  <td class="light rightAlign"><strong><tag:message_label /></strong></td>
   <td class="item" id="composeMessageParent">
    <textarea class="fixed composebody" tabindex="<tag:message_tabindex />" name="message" id="composeMessage" rows="20" cols="80"><tag:message /></textarea>
   </td>
  </tr>
 
  <tr>
-  <td>&nbsp;</td>
+  <td></td>
   <td class="nowrap">
 <if:allow_compose>
    <input name="btn_send_message" type="submit" <tag:send_msg_ak /> class="button" value="<gettext>Send Message</gettext>" />
@@ -185,9 +185,9 @@
 
 <if:use_encrypt>
  <tr>
-  <td>&nbsp;</td>
+  <td></td>
   <td class="item nowrap">
-   <tag:encrypt_label />:&nbsp;
+   <tag:encrypt_label />:
    <select id="encrypt_options" name="encrypt_options">
     <tag:encrypt_options />
    </select>
@@ -197,7 +197,7 @@
 
 <if:pgp_options>
  <tr>
-  <td>&nbsp;</td>
+  <td></td>
   <td class="item nowrap">
    <input id="pap" type="checkbox" class="checkbox" name="pgp_attach_pubkey" <if:pgp_attach_pubkey>checked="checked" </if:pgp_attach_pubkey>/>
    <tag:pap />
@@ -207,7 +207,7 @@
 
 <if:vcard>
  <tr>
-  <td>&nbsp;</td>
+  <td></td>
   <td class="item nowrap">
    <input id="vcard" type="checkbox" class="checkbox" name="vcard" <if:attach_vcard>checked="checked" </if:attach_vcard>/>
    <tag:vcard />
@@ -220,9 +220,9 @@
 <br />
 
 <h1 class="header">
- <strong>&nbsp;<a id="attachments"></a><gettext>Attachments</gettext></strong>
+ <strong><a id="attachments"></a><gettext>Attachments</gettext></strong>
 <if:selectlistlink>
- &nbsp;<tag:selectlistlink />
+ <tag:selectlistlink />
  <input type="hidden" name="selectlist_selectid" value="" />
 </if:selectlistlink>
 </h1>
@@ -260,7 +260,7 @@
 <loop:attach_options>
  <tr class="item">
   <td colspan="3">
-   <strong><label for="<tag:attach_options.name />"><tag:attach_options.label /></label></strong>&nbsp;
+   <strong><label for="<tag:attach_options.name />"><tag:attach_options.label /></label></strong>
    <select id="<tag:attach_options.name />" name="<tag:attach_options.name />">
     <option value="1"<if:attach_options.select_yes> selected="selected"</if:attach_options.select_yes>><gettext>Yes</gettext></option>
     <option value="0"<if:attach_options.select_no> selected="selected"</if:attach_options.select_no>><gettext>No</gettext></option>
@@ -283,14 +283,14 @@
  <tr class="item">
   <td>
    <img style="padding-right:5px" src="<tag:atc.icon />" alt="[Icon]" />
-   <strong><tag:atc.name /></strong> &nbsp;(<tag:atc.type />) &nbsp;&nbsp;<strong><gettext>Size:</gettext></strong> <tag:atc.size /> <gettext>KB</gettext>
+   <strong><tag:atc.name /></strong> (<tag:atc.type />) <strong><gettext>Size:</gettext></strong> <tag:atc.size /> <gettext>KB</gettext>
   </td>
  </tr>
  <tr class="item">
   <td style="padding-left:30px">
    <table>
     <tr>
-     <td class="rightAlign"><strong><label for="file_description_<tag:atc.number />"><gettext>Description:</gettext></label></strong>&nbsp;</td>
+     <td class="rightAlign"><strong><label for="file_description_<tag:atc.number />"><gettext>Description:</gettext></label></strong></td>
      <td><input type="text" size="40" id="file_description_<tag:atc.number />" name="file_description_<tag:atc.number />" value="<tag:atc.description />" /></td>
     </tr>
     <tr>
