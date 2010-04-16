@@ -361,14 +361,14 @@ class IMP_Imap
     /**
      * Get namespace info for a full folder path.
      *
-     * @param string $mailbox  The folder path. If empty, will return info
-     *                         on the default namespace (i.e. the first
-     *                         personal namespace).
+     * @param string $mailbox    The folder path.
+     * @param boolean $personal  If true, will return empty namespace only
+     *                           if it is a personal namespace.
      *
      * @return mixed  The namespace info for the folder path or null if the
      *                path doesn't exist.
      */
-    public function getNamespace($mailbox = null)
+    public function getNamespace($mailbox = null, $personal = false)
     {
         if ($_SESSION['imp']['protocol'] == 'pop') {
             return null;
@@ -388,7 +388,9 @@ class IMP_Imap
             }
         }
 
-        return isset($ns['']) ? $ns[''] : null;
+        return (isset($ns['']) && (!$personal || ($val['type'] == 'personal')))
+            ? $ns['']
+            : null;
     }
 
     /**
