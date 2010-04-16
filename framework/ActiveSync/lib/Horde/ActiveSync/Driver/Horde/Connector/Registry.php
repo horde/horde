@@ -164,7 +164,7 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
      */
     public function contacts_import($content, $import_source = null)
     {
-        return $this->_registry->contacts->import($content, 'array', $import_source);
+        return $this->_registry->contacts->import($content, 'activesync', $import_source);
     }
 
     /**
@@ -178,7 +178,7 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
      */
     public function contacts_replace($uid, $content, $sources = null)
     {
-        return $this->_registry->contacts->replace($uid, $content, 'array', $sources);
+        return $this->_registry->contacts->replace($uid, $content, 'activesync', $sources);
     }
 
     /**
