@@ -5765,6 +5765,10 @@ Object.extend(Element.ClassNames.prototype, Enumerable);
     return element;
   }
   
+  Element.addMethods({
+    getLayout:              getLayout,
+  });
+
   function isBody(element) {
     return element.nodeName.toUpperCase() === 'BODY';
   }
