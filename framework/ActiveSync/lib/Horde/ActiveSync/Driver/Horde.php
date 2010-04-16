@@ -422,7 +422,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
                 $stat = $this->_smartStatMessage($folderid, $id, false);
             } else {
                 try {
-                    $this->_connector->contacts_replace($id, $content);
+                    $this->_connector->contacts_replace($id, $message);
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     return false;
