@@ -717,18 +717,16 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     /**
      * Add a category to the appointment
      *
-     * TODO
-     *
      * @param string $category
      */
     public function addCategory($category)
     {
-
+        $this->categories[] = $category;
     }
 
-    public function getCategory()
+    public function getCategories()
     {
-
+        return $this->categories;
     }
 
     /**

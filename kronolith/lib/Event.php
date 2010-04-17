@@ -1083,6 +1083,12 @@ abstract class Kronolith_Event
             $this->addAttendee($attendee->email, Kronolith::PART_NONE, Kronolith::RESPONSE_NONE, $attendee->name);
         }
 
+        /* Categories (Tags) */
+        $tags = $message->getCategories();
+        foreach ($tags as $tag) {
+            $this->tags[] = Horde_String::convertCharset($tag, 'utf-8', Horde_Nls::getCharset());
+        }
+
         /* Flag that we are initialized */
         $this->initialized = true;
     }
@@ -1237,6 +1243,11 @@ abstract class Kronolith_Event
 
         /* Reminder */
         $message->setReminder($this->alarm);
+
+        /* Categories (tags) */
+        foreach ($this->tags as $tag) {
+            $message->addCategory(Horde_String::convertCharset($tag, Horde_Nls::getCharset(), 'utf-8'));
+        }
 
         return $message;
     }
