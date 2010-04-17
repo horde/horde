@@ -988,17 +988,19 @@ abstract class Kronolith_Event
      */
     public function fromASAppointment(Horde_ActiveSync_Message_Appointment $message)
     {
+        $charset = Horde_Nls::getCharset();
+
         /* New event? */
         if ($this->id === null) {
             $this->creator = Horde_Auth::getAuth();
         }
-        if ($title = Horde_String::convertCharset($message->getSubject(), 'utf-8', Horde_Nls::getCharset())) {
+        if ($title = Horde_String::convertCharset($message->getSubject(), 'utf-8', $charset)) {
             $this->title = $title;
         }
-        if ($description = Horde_String::convertCharset($message->getBody(), 'utf-8', Horde_Nls::getCharset())) {
+        if ($description = Horde_String::convertCharset($message->getBody(), 'utf-8', $charset)) {
             $this->description = $description;
         }
-        if ($location = Horde_String::convertCharset($message->getLocation(), 'utf-8', Horde_Nls::getCharset())) {
+        if ($location = Horde_String::convertCharset($message->getLocation(), 'utf-8', $charset)) {
             $this->location = $location;
         }
 
@@ -1066,8 +1068,8 @@ abstract class Kronolith_Event
                     $event->start = $times['start'];
                     $event->end = $times['end'];
                     $event->allday = $times['allday'];
-                    $event->title = Horde_String::convertCharset($rule->getSubject(), 'utf-8', Horde_Nls::getCharset());
-                    $event->description = Horde_String::convertCharset($rule->getBody(), 'utf-8', Horde_Nls::getCharset());
+                    $event->title = Horde_String::convertCharset($rule->getSubject(), 'utf-8', $charset);
+                    $event->description = Horde_String::convertCharset($rule->getBody(), 'utf-8', $charset);
                     $event->baseid = $this->uid;
                     $event->exceptionoriginaldate = $original;
                     $event->initialized = true;
@@ -1086,7 +1088,7 @@ abstract class Kronolith_Event
         /* Categories (Tags) */
         $tags = $message->getCategories();
         foreach ($tags as $tag) {
-            $this->tags[] = Horde_String::convertCharset($tag, 'utf-8', Horde_Nls::getCharset());
+            $this->tags[] = Horde_String::convertCharset($tag, 'utf-8', $charset);
         }
 
         /* Flag that we are initialized */
@@ -1100,10 +1102,12 @@ abstract class Kronolith_Event
      */
     public function toASAppointment()
     {
+        $charset = $charset;
+
         $message = new Horde_ActiveSync_Message_Appointment(array('logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger')));
-        $message->setSubject(Horde_String::convertCharset($this->getTitle(), Horde_Nls::getCharset(), 'utf-8'));
-        $message->setBody(Horde_String::convertCharset($this->description, Horde_Nls::getCharset(), 'utf-8'));
-        $message->setLocation(Horde_String::convertCharset($this->location, Horde_Nls::getCharset(), 'utf-8'));
+        $message->setSubject(Horde_String::convertCharset($this->getTitle(), $charset, 'utf-8'));
+        $message->setBody(Horde_String::convertCharset($this->description, $charset, 'utf-8'));
+        $message->setLocation(Horde_String::convertCharset($this->location, $charset, 'utf-8'));
 
         /* Start and End */
         $message->setDatetime(array('start' => $this->start,
@@ -1115,7 +1119,7 @@ abstract class Kronolith_Event
 
         /* Organizer */
         $name = Kronolith::getUserName($this->creator);
-        $name = Horde_String::convertCharset($name, Horde_Nls::getCharset(), 'utf-8');
+        $name = Horde_String::convertCharset($name, $charset, 'utf-8');
         $message->setOrganizer(
                 array('name' => $name,
                       'email' => Kronolith::getUserEmail($this->creator))
@@ -1178,9 +1182,9 @@ abstract class Kronolith_Event
                         }
 
                         /* Remaining properties that could be different */
-                        $e->setSubject(Horde_String::convertCharset($exception->getTitle(), Horde_Nls::getCharset(), 'utf-8'));
-                        $e->setLocation(Horde_String::convertCharset($exception->location, Horde_Nls::getCharset(), 'utf-8'));
-                        $e->setBody(Horde_String::convertCharset($exception->description, Horde_Nls::getCharset(), 'utf-8'));
+                        $e->setSubject(Horde_String::convertCharset($exception->getTitle(), $charset, 'utf-8'));
+                        $e->setLocation(Horde_String::convertCharset($exception->location, $charset, 'utf-8'));
+                        $e->setBody(Horde_String::convertCharset($exception->description, $charset, 'utf-8'));
 
                         $e->setSensitivity($exception->private ? 'private' : 'normal');
                         $e->setReminder($exception->alarm);
@@ -1246,7 +1250,7 @@ abstract class Kronolith_Event
 
         /* Categories (tags) */
         foreach ($this->tags as $tag) {
-            $message->addCategory(Horde_String::convertCharset($tag, Horde_Nls::getCharset(), 'utf-8'));
+            $message->addCategory(Horde_String::convertCharset($tag, $charset, 'utf-8'));
         }
 
         return $message;

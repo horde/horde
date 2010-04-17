@@ -2301,7 +2301,6 @@ class Turba_Driver
         $message = new Horde_ActiveSync_Message_Contact(array('logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger')));
         $charset = Horde_Nls::getCharset();
         $hash = $object->getAttributes();
-        //var_dump($hash);
         foreach ($hash as $field => $value) {
            switch ($field) {
             case 'name':
