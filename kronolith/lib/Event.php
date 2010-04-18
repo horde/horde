@@ -1102,7 +1102,7 @@ abstract class Kronolith_Event
      */
     public function toASAppointment()
     {
-        $charset = $charset;
+        $charset = Horde_Nls::getCharset();
 
         $message = new Horde_ActiveSync_Message_Appointment(array('logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger')));
         $message->setSubject(Horde_String::convertCharset($this->getTitle(), $charset, 'utf-8'));
