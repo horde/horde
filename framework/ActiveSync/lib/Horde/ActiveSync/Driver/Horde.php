@@ -27,13 +27,6 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
     const TASKS_FOLDER = 'Tasks';
 
     /**
-     * Used for profiling
-     *
-     * @var timestamp
-     */
-    private $_starttime;
-
-    /**
      * Cache message stats
      *
      * @var Array of stat hashes
