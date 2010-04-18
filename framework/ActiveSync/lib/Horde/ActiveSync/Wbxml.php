@@ -407,7 +407,7 @@ class Horde_ActiveSync_Wbxml
                     0xd => array (
                         0x05 => 'Ping',
                         0x07 => 'Status',
-                        0x08 => 'LifeTime',
+                        0x08 => 'HeartbeatInterval',
                         0x09 => 'Folders',
                         0x0a => 'Folder',
                         0x0b => 'ServerEntryId',

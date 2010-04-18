@@ -334,12 +334,17 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
         if (file_exists($file)) {
             $this->_pingState = unserialize(file_get_contents($file));
         } else {
-            $this->_pingState = array(
-                'lifetime' => 0,
-                'collections' => array());
+            $this->resetPingState();
         }
 
         return $this->_pingState['collections'];
+    }
+
+    public function resetPingState()
+    {
+        $this->_pingState = array(
+            'lifetime' => 0,
+            'collections' => array());
     }
 
     /**
@@ -490,7 +495,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
      * @return integer  The hearbeat interval, or zero if not found.
      * @throws Horde_ActiveSync_Exception
      */
-    public function getPingLifetime()
+    public function getHeartbeatInterval()
     {
         if (empty($this->_pingState)) {
             throw new Horde_ActiveSync_Exception('PING state not initialized');
@@ -499,7 +504,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
         return (!$this->_pingState) ? 0 : $this->_pingState['lifetime'];
     }
 
-    public function setPingLifetime($lifetime)
+    public function setHeartbeatInterval($lifetime)
     {
         $this->_pingState['lifetime'] = $lifetime;
     }

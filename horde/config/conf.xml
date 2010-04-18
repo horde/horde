@@ -1991,6 +1991,29 @@
         </case>
       </configswitch>
      </configsection>
+     <configsection name="ping">
+      <configheader>Ping Settings</configheader>
+      <configdescription>The Heartbeat Interval specifies the length of time, in
+      seconds, that the server SHOULD wait before notifying the client of
+      changes in a folder on the server.  These settings allow you to indicate
+      the allowable range for this setting. Note that not all clients will
+      request this information.</configdescription>
+      <configinteger name="heartbeatmin" desc="The minimum number of seconds to
+      wait before sending results. This value must be greater then zero.">10
+      </configinteger>
+      <configinteger name="heartbeatmax" desc="The maximum number of seconds to
+      wait before sending results. Note this value must not be greater then 3540
+      (59 minutes).">60</configinteger>
+      <configinteger name="heartbeatdefault" desc="If the client does not
+      request a heartbeat interval, this interval will be used by default.">10
+      </configinteger>
+      <configinteger name="waitinterval" desc="How many seconds should elapse
+      between checks for changes? Increasing this value will cause the server
+      to wait longer between checks for changes during the heartbeat,
+      essentially reducing the number of checks done during each heartbeat.
+      Lowering this value will increase the number of checks that are down
+      during each heartbeat.">5</configinteger>
+     </configsection>
      <configsection name="securitypolicies">
      <configheader>Security Policies</configheader>
       <configswitch name="provisioning" quote="false" desc="How should device

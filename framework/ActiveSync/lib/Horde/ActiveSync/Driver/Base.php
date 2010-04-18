@@ -164,6 +164,16 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
+     * Obtain the ping heartbeat settings
+     *
+     * @return array
+     */
+    public function getHeartbeatConfig()
+    {
+        return $this->_params['ping'];
+    }
+
+    /**
      * Get folder stat
      *  "id" => The server ID that will be used to identify the folder.
      *          It must be unique, and not too long. How long exactly is not

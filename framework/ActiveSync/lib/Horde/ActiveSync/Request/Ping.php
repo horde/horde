@@ -31,7 +31,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
     // Ping
     const PING = 'Ping:Ping';
     const STATUS = 'Ping:Status';
-    const LIFETIME =  'Ping:LifeTime';
+    const HEARTBEATINTERVAL =  'Ping:HeartbeatInterval';
     const FOLDERS =  'Ping:Folders';
     const FOLDER =  'Ping:Folder';
     const SERVERENTRYID =  'Ping:ServerEntryId';
@@ -50,11 +50,15 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
      */
     public function handle(Horde_ActiveSync $activeSync, $devId)
     {
+        $now = time();
         parent::handle($activeSync, $devId);
 
-        // FIXME
-        $timeout = 3;
-        $this->_logger->info('[' . $devId . '] Ping received.');
+        /* Get the settings for the server */
+        $ping_settings = $this->_driver->getHeartbeatConfig();
+        $timeout = $ping_settings['waitinterval'];
+
+        /* Notify */
+        $this->_logger->info('[' . $devId . '] Ping received at timestamp: ' . $now . '.');
 
         /* Glass half full kinda guy... */
         $this->_statusCode = self::STATUS_NOCHANGES;
@@ -66,13 +70,39 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
          * we read in the PING request since the PING request is allowed to omit
          * sections if they have been sent previously */
         $collections = array_values($state->initPingState($this->_devId));
-        $lifetime = $state->getPingLifetime();
+        $lifetime = $state->getHeartbeatInterval();
+        if ($lifetime !== 0 && $lifetime < $ping_settings['heartbeatmin']) {
+            $this->_statusCode = self::STATUS_HBOUTOFBOUNDS;
+            $lifetime = $ping_settings['heartbeatmin'];
+        } elseif ($lifetime > $ping_settings['heartbeatmax']) {
+            $this->_statusCode = self::STATUS_HBOUTOFBOUNDS;
+            $lifetime = $ping_settings['heartbeatmax'];
+        }
+        if ($this->_statusCode == self::STATUS_HBOUTOFBOUNDS) {
+            $state->resetPingState();
+            $this->_handleHBError($lifetime);
+            $state->savePingState();
+            return false;
+        }
 
         /* Build the $collections array if we receive request from PIM */
         if ($this->_decoder->getElementStartTag(self::PING)) {
-            if ($this->_decoder->getElementStartTag(self::LIFETIME)) {
+            if ($this->_decoder->getElementStartTag(self::HEARTBEATINTERVAL)) {
                 $lifetime = $this->_decoder->getElementContent();
-                $state->setPingLifetime($lifetime);
+                if ($lifetime !== 0 && $lifetime < $ping_settings['heartbeatmin']) {
+                    $this->_statusCode = self::STATUS_HBOUTOFBOUNDS;
+                    $lifetime = $ping_settings['heartbeatmin'];
+                } elseif ($lifetime > $ping_settings['heartbeatmax']) {
+                    $this->_statusCode = self::STATUS_HBOUTOFBOUNDS;
+                    $lifetime = $ping_settings['heartbeatmax'];
+                }
+                if ($this->_statusCode == self::STATUS_HBOUTOFBOUNDS) {
+                    $state->resetPingState();
+                    $this->_handleHBError($lifetime);
+                    $state->savePingState();
+                    return false;
+                }
+                $state->setHeartbeatInterval($lifetime);
                 $this->_decoder->getElementEndTag();
             }
 
@@ -110,11 +140,11 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
 
         /* Start waiting for changes, but only if we don't have any errors */
         if ($this->_statusCode == self::STATUS_NOCHANGES) {
-            $this->_logger->info(sprintf('[%s] Waiting for changes (lifetime: %d)', $this->_devId, $lifetime));
-            // FIXME
-            //for ($n = 0; $n < $lifetime / $timeout; $n++) {
-            for ($n = 0; $n < 10; $n++) {
-                //check the remote wipe status
+            $this->_logger->info(sprintf('[%s] Waiting for changes (heartbeat interval: %d)', $this->_devId, $lifetime));
+            $expire = $now + $lifetime;
+            while (time() <= $expire) {
+                /* Check the remote wipe status and request a foldersync if
+                 * we want the device wiped. */
                 if ($this->_provisioning === true) {
                     $rwstatus = $state->getDeviceRWStatus($this->_devId);
                     if ($rwstatus == Horde_ActiveSync::PROVISION_RWSTATUS_PENDING || $rwstatus == Horde_ActiveSync::PROVISION_RWSTATUS_WIPED) {
@@ -131,8 +161,6 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
 
                 for ($i = 0; $i < count($collections); $i++) {
                     $collection = $collections[$i];
-                    // Make sure we have the synckey (which is the devid for
-                    // PING requests.
                     $collection['synckey'] = $this->_devId;
                     $sync = $this->_driver->getSyncObject();
                     $state->loadPingCollectionState($collection);
@@ -141,7 +169,6 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     } catch (Horde_ActiveSync_Exception $e) {
                         /* Stop ping if exporter cannot be configured */
                         $this->_logger->err('Ping error: Exporter can not be configured. Waiting 30 seconds before ping is retried.');
-                        $n = $lifetime/ $timeout;
                         sleep(30);
                         break;
                     }
@@ -153,8 +180,8 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         $this->_statusCode = self::STATUS_NEEDSYNC;
                     }
 
-                    // Update the state, but don't bother with the backend since we
-                    // are not updating any data.
+                    /* Update the state, but don't bother with the backend since we
+                     * are not updating any data.*/
                     while (is_array($sync->syncronize(Horde_ActiveSync::BACKEND_DISCARD_DATA)));
                 }
 
@@ -162,9 +189,12 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     $this->_logger->info('[' . $this->_devId . '] Changes available');
                     break;
                 }
+                /* Wait a bit before trying again */
                 sleep($timeout);
             }
         }
+
+        /* Prepare for response */
         $this->_logger->info('[' . $this->_devId . '] Sending response for PING.');
         $this->_encoder->StartWBXML();
 
@@ -189,5 +219,19 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         $state->savePingState();
 
         return true;
+    }
+
+    protected function _handleHBError($lifetime)
+    {
+        $this->_logger->info('[' . $this->_devId . '] Sending response for PING.');
+        $this->_encoder->StartWBXML();
+        $this->_encoder->startTag(self::PING);
+        $this->_encoder->startTag(self::STATUS);
+        $this->_encoder->content($this->_statusCode);
+        $this->_encoder->endTag();
+        $this->_encoder->startTag(self::HEARTBEATINTERVAL);
+        $this->_encoder->content($lifetime);
+        $this->_encoder->endTag();
+        $this->_encoder->endTag();
     }
 }

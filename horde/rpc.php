@@ -48,7 +48,6 @@ if ((!empty($_SERVER['CONTENT_TYPE']) && strpos($_SERVER['CONTENT_TYPE'], 'appli
         } else {
             $params['logger'] = $GLOBALS['injector']->getInstance('Horde_Log_Logger');
         }
-
         $mailer = $GLOBALS['injector']->getInstance('Mail');
 
         /* TODO: Probably want to bind a factory to injector for this? */
@@ -57,7 +56,8 @@ if ((!empty($_SERVER['CONTENT_TYPE']) && strpos($_SERVER['CONTENT_TYPE'], 'appli
         $stateMachine = new Horde_ActiveSync_State_File(array('stateDir' => $GLOBALS['conf']['activesync']['state']['directory']));
         $driver_params = array('connector' => $connector,
                                'state_basic' => $stateMachine,
-                               'mail' => $mailer);
+                               'mail' => $mailer,
+                               'ping' => $GLOBALS['conf']['activesync']['ping']);
         if ($params['provisioning'] = $GLOBALS['conf']['activesync']['securitypolicies']['provisioning']) {
             $driver_params['policies'] = $GLOBALS['conf']['activesync']['securitypolicies'];
         }
