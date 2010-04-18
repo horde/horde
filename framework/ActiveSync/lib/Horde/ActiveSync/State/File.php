@@ -451,7 +451,6 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
                     $stat = $this->_backend->statMessage($this->_collection['id'], $change['id']);
                     if (!$message = $this->_backend->getMessage($this->_collection['id'], $change['id'], 0)) {
                         continue;
-                        //throw new Horde_ActiveSync_Exception('Message not found');
                     }
                     if ($stat && $message) {
                         $this->updateState('change', $stat);
