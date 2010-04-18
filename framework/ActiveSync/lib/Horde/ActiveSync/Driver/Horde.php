@@ -227,7 +227,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
             }
 
             foreach ($contacts as $contact) {
-                $messages[] = $this->_smartStatMessage($folderid, $contact, true);
+                $messages[] = $this->_smartStatMessage($folderid, $contact, false);
             }
             break;
 
@@ -235,7 +235,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
             $tasks = $this->_connector->tasks_listTasks();
             foreach ($tasks as $task)
             {
-                $messages[] = $this->_smartStatMessage($folderid, $task, true);
+                $messages[] = $this->_smartStatMessage($folderid, $task, false);
             }
             break;
 
