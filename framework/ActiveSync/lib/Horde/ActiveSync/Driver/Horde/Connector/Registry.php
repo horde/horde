@@ -68,7 +68,7 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
     }
 
     /**
-     * Export the specified calendar in the specified content type
+     * Export the specified event as an ActiveSync message
      *
      * @param string $uid          The calendar id
      *
