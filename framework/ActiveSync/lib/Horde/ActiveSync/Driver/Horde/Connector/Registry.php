@@ -36,16 +36,15 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
      *
      * @param timestamp $startstamp    The start of time period.
      * @param timestamp $endstamp      The end of time period
-     * @param string $calendar         The calendar(s) to get events for
      *
      * @return array
      */
-    public function calendar_listEvents($startstamp, $endstamp, $calendar)
+    public function calendar_listEvents($startstamp, $endstamp)
     {
         $result = $this->_registry->calendar->listEvents(
                 $startstamp,   // Start
                 $endstamp,     // End
-                $calendar,     // Calendar
+                null,          // Calendar
                 false,         // Recurrence
                 false,         // Alarms only
                 false,         // Show remote
@@ -60,13 +59,12 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
      *
      * @param string $action      The action to check for (add, modify, delete)
      * @param timestamp $from_ts  The timestamp to start checking from
-     * @param string $calendar    The calendar to limit results to
      *
      * @return array  An array of event uids
      */
-    public function calendar_listBy($action, $from_ts, $calendar = null)
+    public function calendar_listBy($action, $from_ts)
     {
-        return $this->_registry->calendar->listBy($action, $from_ts, $calendar);
+        return $this->_registry->calendar->listBy($action, $from_ts);
     }
 
     /**
@@ -89,9 +87,9 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
      *
      * @return string  The event's UID
      */
-    public function calendar_import($content, $calendar = null)
+    public function calendar_import($content)
     {
-        return $this->_registry->calendar->import($content, 'activesync', $calendar);
+        return $this->_registry->calendar->import($content, 'activesync');
     }
 
     /**

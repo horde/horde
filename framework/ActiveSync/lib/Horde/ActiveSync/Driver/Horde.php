@@ -213,7 +213,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
             $endstamp = time() + 32140800; //60 * 60 * 24 * 31 * 12 == one year
 
             try {
-                $events = $this->_connector->calendar_listEvents($startstamp, $endstamp, null);
+                $events = $this->_connector->calendar_listEvents($startstamp, $endstamp);
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 return array();
