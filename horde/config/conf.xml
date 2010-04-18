@@ -1997,7 +1997,10 @@
       seconds, that the server SHOULD wait before notifying the client of
       changes in a folder on the server.  These settings allow you to indicate
       the allowable range for this setting. Note that not all clients will
-      request this information.</configdescription>
+      request this information.NOTE: Some Android devices do not implement this
+      correctly. If you plan on synching Android devices, you should make sure
+      that this range is wide enough to allow Android's default of 470 seconds.
+      </configdescription>
       <configinteger name="heartbeatmin" desc="The minimum number of seconds to
       wait before sending results. This value must be greater then zero.">10
       </configinteger>
