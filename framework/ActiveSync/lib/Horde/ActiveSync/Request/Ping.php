@@ -106,6 +106,10 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 $this->_decoder->getElementEndTag();
             }
 
+            if ($lifetime == 0) {
+                $lifetime = $ping_settings['heartbeatdefault'];
+            }
+
             if ($this->_decoder->getElementStartTag(self::FOLDERS)) {
                 $collections = array();
                 while ($this->_decoder->getElementStartTag(self::FOLDER)) {
