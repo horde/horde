@@ -270,6 +270,18 @@ abstract class Horde_ActiveSync_State_Base
     abstract public function removeState($synckey);
 
     /**
+     * Return the heartbeat interval, or zero if we have no existing state
+     *
+     * @param string $devId
+     *
+     * @return integer  The hearbeat interval, or zero if not found.
+     * @throws Horde_ActiveSync_Exception
+     */
+    abstract public function getHeartbeatInterval();
+
+    abstract public function setHeartbeatInterval($lifetime);
+
+    /**
      * Set the backend driver
      * (should really only be called by a backend object when passing this
      * object to client code)
