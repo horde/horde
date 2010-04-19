@@ -37,7 +37,7 @@ $prefGroups['notification'] = array(
     'column' => _("Task List and Share Options"),
     'label' => _("Notifications"),
     'desc' => _("Choose if you want to be notified of task changes and task alarms."),
-    'members' => array('task_notification', 'task_alarms_select'),
+    'members' => array('task_notification', 'task_notification_exclude_self', 'task_alarms_select'),
 );
 
 $prefGroups['external'] = array(
@@ -152,6 +152,14 @@ $_prefs['task_notification'] = array(
         'read' => _("On all task lists I have read access to")
     ),
     'desc' => _("Choose if you want to be notified of new, edited, and deleted tasks by email:"),
+);
+
+$_prefs['task_notification_exclude_self'] = array(
+    'value' => 0,
+    'locked' => false,
+    'shared' => false,
+    'type' => 'checkbox',
+    'desc' => _("Don't send me a notification if I've added, changed or deleted the task?")
 );
 
 // alarm methods
