@@ -45,12 +45,12 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
   <div>
     <label><?php echo _("Subscription URL") ?></label>
     <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe from another calendar program") ?></span><br />
-    <a id="kronolithCalendarinternalUrlSub" href="#" target="_blank"></a><br />
+    <input type="text" id="kronolithCalendarinternalUrlSub" class="kronolithLongField" onfocus="this.select()" /><br />
   </div>
   <div>
     <label><?php echo _("Feed URL") ?></label>
     <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe from a feed reader") ?></span><br />
-    <a id="kronolithCalendarinternalUrlFeed" href="#" target="_blank"></a><br />
+    <input type="text" id="kronolithCalendarinternalUrlFeed" class="kronolithLongField" onfocus="this.select()" /><br />
   </div>
 </div>
 
@@ -137,7 +137,7 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 <div id="kronolithCalendartasklistsUrls" style="display:none">
   <label><?php echo _("Subscription URL") ?></label>
   <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe from another program") ?></span><br />
-  <a id="kronolithCalendartasklistsUrlSub" href="#" target="_blank"></a><br />
+  <input type="text" id="kronolithCalendartasklistsUrlSub" class="kronolithLongField" onfocus="this.select()"><br />
 </div>
 
 <div class="tabset">
