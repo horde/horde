@@ -283,6 +283,37 @@ class Horde_Kolab_Filter_ResourceTest extends Horde_Kolab_Test_Filter
     }
 
     /**
+     * Test all day events
+     */
+    public function testAllDay()
+    {
+        $GLOBALS['KOLAB_FILTER_TESTING'] = &new Horde_iCalendar_vfreebusy();
+        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTSTART', Horde_iCalendar::_parseDateTime('20090901T000000Z'));
+        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTEND', Horde_iCalendar::_parseDateTime('20091101T000000Z'));
+
+        $params = array('unmodified_content' => true,
+                        'incoming' => true);
+
+        $this->sendFixture(dirname(__FILE__) . '/fixtures/allday_invitation.eml',
+                           dirname(__FILE__) . '/fixtures/null.ret',
+                           '', '', 'test@example.org', 'wrobel@example.org',
+                           'home.example.org', $params);
+
+        $result = $this->auth->authenticate('wrobel', array('password' => 'none'));
+        $this->assertNoError($result);
+
+        $folder = $this->storage->getFolder('INBOX/Kalender');
+        $data = $folder->getData();
+        $events = $data->getObjects();
+
+        $this->assertEquals(1251928800, $events[0]['start-date']);
+        $this->assertEquals(1252015200, $events[0]['end-date']);
+
+        $result = $data->deleteAll();
+        $this->assertNoError($result);
+    }
+
+    /**
      * Test that the attendee status gets transferred.
      */
     public function testAttendeeStatusInvitation()

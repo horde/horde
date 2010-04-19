@@ -21,6 +21,12 @@ require_once 'Horde/MIME/Message.php';
 require_once 'Horde/MIME/Headers.php';
 require_once 'Horde/MIME/Part.php';
 require_once 'Horde/MIME/Structure.php';
+
+/** Load Kolab_Filter elements */
+require_once 'Horde/Kolab/Resource/Epoch.php';
+require_once 'Horde/Kolab/Resource/Itip.php';
+
+require_once 'Horde/String.php';
 Horde_String::setDefaultCharset('utf-8');
 
 // What actions we can take when receiving an event request
@@ -379,28 +385,35 @@ class Kolab_Resource
             Horde::logMessage(sprintf('No VEVENT found in iCalendar data, passing through to %s', $id), 'INFO');
             return true;
         }
+        $itip = new Horde_Kolab_Resource_Itip($itip);
 
         // What is the request's method? i.e. should we create a new event/cancel an
         // existing event, etc.
-        $method = strtoupper($iCalendar->getAttributeDefault('METHOD',
-                                                             $itip->getAttributeDefault('METHOD', 'REQUEST')));
+        $method = strtoupper(
+            $iCalendar->getAttributeDefault(
+                'METHOD',
+                $itip->getMethod()
+            )
+        );
 
         // What resource are we managing?
         Horde::logMessage(sprintf('Processing %s method for %s', $method, $id), 'DEBUG');
 
         // This is assumed to be constant across event creation/modification/deletipn
-        $uid = $itip->getAttributeDefault('UID', '');
+        $uid = $itip->getUid();
         Horde::logMessage(sprintf('Event has UID %s', $uid), 'DEBUG');
 
         // Who is the organiser?
-        $organiser = preg_replace('/^mailto:\s*/i', '', $itip->getAttributeDefault('ORGANIZER', ''));
+        $organiser = $itip->getOrganizer();
         Horde::logMessage(sprintf('Request made by %s', $organiser), 'DEBUG');
 
         // What is the events summary?
-        $summary = $itip->getAttributeDefault('SUMMARY', '');
-
-        $dtstart = $this->convert2epoch($itip->getAttributeDefault('DTSTART', 0));
-        $dtend = $this->convert2epoch($itip->getAttributeDefault('DTEND', 0));
+        $summary = $itip->getSummary();
+  
+        $estart = new Horde_Kolab_Resource_Epoch($itip->getStart());
+        $dtstart = $estart->getEpoch();
+        $eend = new Horde_Kolab_Resource_Epoch($itip->getEnd());
+        $dtend = $eend->getEpoch();
 
         Horde::logMessage(sprintf('Event starts on <%s> %s and ends on <%s> %s.',
                                   $dtstart, $this->iCalDate2Kolab($dtstart), $dtend, $this->iCalDate2Kolab($dtend)), 'DEBUG');
@@ -461,7 +474,7 @@ class Kolab_Resource
             }
 
             /** Generate the Kolab object */
-            $object = $this->_objectFromItip($itip);
+            $object = $itip->getKolabObject();
 
             $outofperiod=0;
 
@@ -483,7 +496,8 @@ class Kolab_Resource
                 Horde::logMessage(sprintf('Free/busy info starts on <%s> %s and ends on <%s> %s',
                                           $vfbstart, $this->iCalDate2Kolab($vfbstart), $vfbend, $this->iCalDate2Kolab($vfbend)), 'DEBUG');
 
-                if ($vfbstart && $dtstart > $this->convert2epoch ($vfbend)) {
+                $evfbend = new Horde_Kolab_Resource_Epoch($vfbend);
+                if ($vfbstart && $dtstart > $evfbend->getEpoch()) {
                     $outofperiod=1;
                 } else {
                     // Check whether we are busy or not
@@ -608,37 +622,12 @@ class Kolab_Resource
                 }
             }
 
-            $result = $data->save($object, $old_uid);
+            $itip->setAccepted($resource);
+
+            $result = $data->save($itip->getKolabObject(), $old_uid);
             if (is_a($result, 'PEAR_Error')) {
                 $result->code = OUT_LOG | EX_UNAVAILABLE;
                 return $result;
-            }
-
-            // Update our status within the iTip request and send the reply
-            $itip->setAttribute('STATUS', 'CONFIRMED', array(), false);
-            $attendees = $itip->getAttribute('ATTENDEE');
-            if (!is_array($attendees)) {
-                $attendees = array($attendees);
-            }
-            $attparams = $itip->getAttribute('ATTENDEE', true);
-            foreach ($attendees as $i => $attendee) {
-                $attendee = preg_replace('/^mailto:\s*/i', '', $attendee);
-                if ($attendee != $resource) {
-                    continue;
-                }
-
-                $attparams[$i]['PARTSTAT'] = 'ACCEPTED';
-                if (array_key_exists('RSVP', $attparams[$i])) {
-                    unset($attparams[$i]['RSVP']);
-                }
-            }
-
-            // Re-add all the attendees to the event, using our updates status info
-            $firstatt = array_pop($attendees);
-            $firstattparams = array_pop($attparams);
-            $itip->setAttribute('ATTENDEE', $firstatt, $firstattparams, false);
-            foreach ($attendees as $i => $attendee) {
-                $itip->setAttribute('ATTENDEE', $attendee, $attparams[$i]);
             }
 
             if ($outofperiod) {
@@ -952,8 +941,9 @@ class Kolab_Resource
             $temp = $this->cleanArray($ical_date);
             if (array_key_exists('DATE', $temp)) {
                 if ($type == 'ENDDATE') {
+                    $etemp = new Horde_Kolab_Resource_Epoch($temp);
                     // substract a day (86400 seconds) using epochs to take number of days per month into account
-                    $epoch= $this->convert2epoch($temp) - 86400;
+                    $epoch= $etemp->getEpoch() - 86400;
                     $date = gmstrftime('%Y-%m-%d', $epoch);
                 } else {
                     $date= sprintf('%04d-%02d-%02d', $temp['year'], $temp['month'], $temp['mday']);
@@ -970,29 +960,5 @@ class Kolab_Resource
         }
         Horde::logMessage(sprintf('To <%s>', $date), 'DEBUG');
         return $date;
-    }
-
-    /**
-     * Convert a date to an epoch.
-     *
-     * @param array  $values  The array to convert.
-     *
-     * @return int Time.
-     */
-    function convert2epoch($values)
-    {
-        Horde::logMessage(sprintf('Converting to epoch %s',
-                                  print_r($values, true)), 'DEBUG');
-
-        if (is_array($values)) {
-            $temp = $this->cleanArray($values);
-            $epoch = gmmktime($temp['hour'], $temp['minute'], $temp['second'],
-                              $temp['month'], $temp['mday'], $temp['year']);
-        } else {
-            $epoch = $values;
-        }
-
-        Horde::logMessage(sprintf('Converted <%s>', $epoch), 'DEBUG');
-        return $epoch;
     }
 }

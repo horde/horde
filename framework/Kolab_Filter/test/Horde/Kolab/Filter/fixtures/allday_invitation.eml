@@ -1,0 +1,86 @@
+Received: from localhost (example.com [127.0.0.1])
+	(Authenticated sender: 1@example.com)
+	by example.com (Postfix) with ESMTP id D47689B1C0
+	for <3@example.com>; Tue, 22 Sep 2009 15:36:22 +0200 (CEST)
+Message-ID: 	<20090922153619.71582t7kl56avveo@example.com>
+Date: Tue, 22 Sep 2009 15:36:19 +0200
+From: 1 1 <1@example.com>
+To: 3@example.com
+Subject: 5
+User-Agent: Kronolith H3 (2.3)
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+	boundary="=_2qehldvr5f40"
+Content-Transfer-Encoding: 7bit
+
+This message is in MIME format.
+
+--=_2qehldvr5f40
+Content-Type: text/plain;
+	charset=UTF-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+5 (am 03.09.2009 um 06:00)
+
+Ort: 5
+
+Teilnehmer: 3@example.com
+
+Im Anhang befindet sich eine iCalendar-Datei mit mehr Informationen zu diese=
+m Termin. Wenn Ihr E-Mail-Programm iTip-Anfragen beherrscht, k=C3=B6nnen Sie=
+ diese Datei dazu benutzen, Ihre lokale Version des Termins zu aktualisieren=
+.
+
+Falls Ihr E-Mail-Programm keine iTip-Anfragen unterst=C3=BCtzt, k=C3=B6nnen =
+Sie einen der folgenden Links verwenden, um den Termin zu best=C3=A4tigen od=
+er abzulehnen.
+
+Um den Termin zu best=C3=A4tigen:
+https://example.com/client/kronolith/attend.php=
+?c=3D1%40example.com&e=3Dcee9e56161efb8b8831059=
+b2bc506e4e&u=3D3%40example.com&a=3Daccept
+
+Um den Termin unter Vorbehalt zu best=C3=A4tigen:
+https://example.com/client/kronolith/attend.php=
+?c=3D1%40example.com&e=3Dcee9e56161efb8b8831059=
+b2bc506e4e&u=3D3%40example.com&a=3Dtentative
+
+Um den Termin abzulehnen:
+https://example.com/client/kronolith/attend.php=
+?c=3D1%40example.com&e=3Dcee9e56161efb8b8831059=
+b2bc506e4e&u=3D3%40example.com&a=3Ddecline
+--=_2qehldvr5f40
+Content-Type: text/calendar;
+	charset=UTF-8;
+	name="event-invitation.ics";
+	METHOD="REQUEST"
+Content-Disposition: inline;
+	filename="event-invitation.ics"
+Content-Transfer-Encoding: 7bit
+
+BEGIN:VCALENDAR
+VERSION:2.0
+METHOD:REQUEST
+X-WR-CALNAME:Kalender
+PRODID:-//The Horde Project//Horde_iCalendar Library//EN
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20090903
+DTEND;VALUE=DATE:20090904
+DTSTAMP:20090922T133615Z
+UID:cee9e56161efb8b8831059b2bc506e4e
+CREATED:20090922T133619Z
+LAST-MODIFIED:20090922T133619Z
+SUMMARY:5
+ORGANIZER;CN=1 1:mailto:1@example.com
+LOCATION:5
+CLASS:PUBLIC
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=TRUE:mailto:3@exam
+ ple.com
+RRULE:FREQ=MONTHLY;INTERVAL=1;BYDAY=1TH
+END:VEVENT
+END:VCALENDAR
+
+--=_2qehldvr5f40--

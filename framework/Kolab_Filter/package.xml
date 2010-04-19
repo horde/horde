@@ -28,7 +28,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2009-11-16</date>
+ <date>2010-04-19</date>
  <version>
   <release>0.2.0</release>
   <api>0.1.0</api>
@@ -43,6 +43,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   * Fixed handling of whole day invitations.
   * Extended iTip reply delivery to support different transport mechanisms.
   * Splitted Free/Busy functionality in a separate driver class.
+  * kolab/issue4257 ("Always accept" policy doesn't set atendee status to
+    "accepted") 
   * kolab/issue3962 (Names of config variables for "untrusted" text missleading)
   * kolab/issue3967 (UNTRUSTED vs. UNAUTHENTICATED, distinction considered
     harmful)
@@ -67,6 +69,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Filter.php" role="php" />
       </dir> <!-- /lib/Horde/Kolab/Test -->
       <file name="Resource.php" role="php" />
+      <dir name="Resource">
+       <file name="Epoch.php" role="php" />
+       <file name="Itip.php" role="php" />
+      </dir> <!-- /lib/Horde/Kolab/Resource -->
       <dir name="Filter">
        <file name="Content.php" role="php" />
        <file name="Base.php" role="php" />
@@ -143,6 +149,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="LoadTest.php" role="test" />
        <file name="ResourceTest.php" role="test" />
        <dir name="fixtures">
+        <file name="allday_invitation.eml" role="test" />
         <file name="attendee_status_invitation.eml" role="test" />
         <file name="empty.eml" role="test" />
         <file name="empty2.ret" role="test" />
@@ -229,6 +236,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <filelist>
    <install name="doc/Horde/Kolab/Filter/kolabfilter.1" as="man/man1/kolabfilter.1" />
    <install name="lib/Horde/Kolab/Resource.php" as="Horde/Kolab/Resource.php" />
+   <install name="lib/Horde/Kolab/Resource/Epoch.php" as="Horde/Kolab/Resource/Epoch.php" />
+   <install name="lib/Horde/Kolab/Resource/Itip.php" as="Horde/Kolab/Resource/Itip.php" />
    <install name="lib/Horde/Kolab/Resource/Freebusy.php" as="Horde/Kolab/Resource/Freebusy.php" />
    <install name="lib/Horde/Kolab/Resource/Freebusy/Kolab.php" as="Horde/Kolab/Resource/Freebusy/Kolab.php" />
    <install name="lib/Horde/Kolab/Resource/Freebusy/Mock.php" as="Horde/Kolab/Resource/Freebusy/Mock.php" />
@@ -255,6 +264,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="test/Horde/Kolab/Filter/IncomingTest.php" as="Horde/Kolab/Filter/IncomingTest.php" />
    <install name="test/Horde/Kolab/Filter/LoadTest.php" as="Horde/Kolab/Filter/LoadTest.php" />
    <install name="test/Horde/Kolab/Filter/ResourceTest.php" as="Horde/Kolab/Filter/ResourceTest.php" />
+   <install name="test/Horde/Kolab/Filter/fixtures/allday_invitation.eml" as="Horde/Kolab/Filter/fixtures/allday_invitation.eml" />
    <install name="test/Horde/Kolab/Filter/fixtures/attendee_status_invitation.eml" as="Horde/Kolab/Filter/fixtures/attendee_status_invitation.eml" />
    <install name="test/Horde/Kolab/Filter/fixtures/empty.eml" as="Horde/Kolab/Filter/fixtures/empty.eml" />
    <install name="test/Horde/Kolab/Filter/fixtures/empty2.ret" as="Horde/Kolab/Filter/fixtures/empty2.ret" />
