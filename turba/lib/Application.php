@@ -322,18 +322,20 @@ class Turba_Application extends Horde_Registry_Application
      */
     public function prefsSpecialUpdate($ui, $item)
     {
+        global $prefs;
+
         switch ($item) {
         case 'addressbookselect':
             $data = Horde_Core_Prefs_Ui_Widgets::sourceUpdate($ui);
             if (isset($data['sources'])) {
-                $ui->setValue('addressbooks', $data['sources']);
+                $prefs->setValue('addressbooks', $data['sources']);
                 return true;
             }
             break;
 
         case 'columnselect':
             if (isset($ui->vars->columns)) {
-                $ui->setValue('columns', $ui->vars->columns);
+                $prefs->setValue('columns', $ui->vars->columns);
                 return true;
             }
             break;
