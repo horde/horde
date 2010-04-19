@@ -713,8 +713,8 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         /* Fetch the event for later use. */
         $event = $this->getEvent($eventId);
 
-        $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE (event_id = ? OR event_baseid = ?) AND calendar_id = ?';
-        $values = array($eventId, $event->uid, $this->calendar);
+        $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE event_id = ? AND calendar_id = ?';
+        $values = array($eventId, $this->calendar);
 
         /* Log the query at a DEBUG log level. */
         Horde::logMessage(sprintf('Kronolith_Driver_Sql::deleteEvent(): user = "%s"; query = "%s"; values = "%s"',
