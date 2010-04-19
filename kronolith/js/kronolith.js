@@ -4105,6 +4105,15 @@ KronolithCore = {
         Prototype.emptyFunction();
     },
 
+    /**
+     * Handles date selections from a date picker.
+     */
+    datePickerHandler: function(e)
+    {
+        e.element().previous().setValue(e.memo.toString(Kronolith.conf.date_format));
+        this.updateEndTime()
+    },
+
     onDrop: function(e)
     {
         var drop = e.element(),
@@ -5179,3 +5188,4 @@ document.observe('DragDrop2:drag', KronolithCore.onDrag.bindAsEventListener(Kron
 document.observe('DragDrop2:drop', KronolithCore.onDrop.bindAsEventListener(KronolithCore));
 document.observe('DragDrop2:end', KronolithCore.onDragEnd.bindAsEventListener(KronolithCore));
 document.observe('DragDrop2:start', KronolithCore.onDragStart.bindAsEventListener(KronolithCore));
+document.observe('Horde_Calendar:select', KronolithCore.datePickerHandler.bindAsEventListener(KronolithCore));

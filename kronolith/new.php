@@ -76,7 +76,6 @@ foreach ($all_calendars as $id => $calendar) {
 }
 
 $title = _("Add a new event");
-Horde::addScriptFile('new.js', 'kronolith');
 Horde::addScriptFile('popup.js', 'horde');
 require KRONOLITH_TEMPLATES . '/common-header.inc';
 require KRONOLITH_TEMPLATES . '/menu.inc';
