@@ -73,6 +73,33 @@ class Horde_History_Sql extends Horde_History
     }
 
     /**
+     * Gets the timestamp of the most recent change to $guid.
+     *
+     * @param string $guid   The name of the history entry to retrieve.
+     * @param string $action An action: 'add', 'modify', 'delete', etc.
+     *
+     * @return integer  The timestamp, or 0 if no matching entry is found.
+     *
+     * @throws InvalidArgumentException If the input parameters are not of
+     *                                  type string.
+     */
+    public function getActionTimestamp($guid, $action)
+    {
+        if (!is_string($guid) || !is_string($action)) {
+            throw new InvalidArgumentException('$guid and $action need to be strings!');
+        }
+
+        $result = $this->_db->getOne('SELECT MAX(history_ts) FROM horde_histories WHERE history_action = ? AND object_uid = ?', array($action, $guid));
+        try {
+            $this->handleError($result);
+        } catch (Horde_History_Exception $e) {
+            return 0;
+        }
+
+        return (int)$result;
+    }
+
+    /**
      * Logs an event to an item's history log. Any other details about the
      * event are passed in $attributes.
      *

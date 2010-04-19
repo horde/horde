@@ -248,8 +248,6 @@ abstract class Horde_History
             throw new InvalidArgumentException('$guid and $action need to be strings!');
         }
 
-        /* This implementation still works, but we should be able to get much
-         * faster now with a SELECT MAX(history_ts) ... query. */
         try {
             $history = $this->getHistory($guid);
         } catch (Horde_History_Exception $e) {
