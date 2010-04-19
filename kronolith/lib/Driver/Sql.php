@@ -712,6 +712,8 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
     {
         /* Fetch the event for later use. */
         $event = $this->getEvent($eventId);
+        $original_uid = $event->uid;
+        $isRecurring = $event->recurs();
 
         $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE event_id = ? AND calendar_id = ?';
         $values = array($eventId, $this->calendar);
@@ -761,6 +763,22 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         /* Notify about the deleted event. */
         if (!$silent) {
             Kronolith::sendNotification($event, 'delete');
+        }
+
+        /* Now check for any exceptions */
+        if ($isRecurring) {
+            $query = 'SELECT event_id FROM ' . $this->_params['table'] . ' WHERE event_baseid = ? AND calendar_id = ?';
+            $values = array($original_uid, $this->calendar);
+
+            /* Log the query at a DEBUG log level. */
+            Horde::logMessage(sprintf('Kronolith_Driver_Sql::deleteEvent(): user = "%s"; query = "%s"; values = "%s"',
+                                      Horde_Auth::getAuth(), $query, implode(',', $values)), 'DEBUG');
+
+            $result = $this->_db->getCol($query, 0, $values);
+            $this->handleError($result);
+            foreach ($result as $id) {
+                $this->deleteEvent($id, $silent);
+            }
         }
     }
 

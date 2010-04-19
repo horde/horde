@@ -2,6 +2,8 @@
 v3.0-git
 --------
 
+[mjr] Deleting a recurring event now also deletes all exceptions to that event.
+[mjr] Add support for inline maps to the Ajax interface.
 [jan] Add preference to limit the events per day in the month view.
 [jan] Add system calendars (Request #2059).
 [jan] Add URL field to events.
