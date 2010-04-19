@@ -4368,7 +4368,7 @@ KronolithCore = {
                               as_new: asnew ? 1 : 0
                           }),
                       function(r) {
-                          if (r.response.events && eventid) {
+                          if (!asnew && r.response.events && eventid) {
                               this.removeEvent(eventid, cal);
                           }
                           this.loadEventsCallback(r);
