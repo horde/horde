@@ -30,7 +30,7 @@ if (!Horde_Util::getFormData('cancel')) {
             $event = Kronolith::getDriver(null, $calendar_id)->getEvent();
             $event->readForm();
             try {
-                $event->save();
+                $result = $event->save();
                 Kronolith::notifyOfResourceRejection($event);
                 if (Horde_Util::getFormData('sendupdates', false)) {
                     try {
