@@ -2111,7 +2111,8 @@ class Kronolith
             $ics->setContentTypeParameter('METHOD', $method);
             $ics->setCharset(Horde_Nls::getCharset());
 
-            $multipart = new Horde_Mime_Part('multipart/alternative');
+            $multipart = new Horde_Mime_Part();
+            $multipart->setType('multipart/alternative');
             $body = new Horde_Mime_Part();
             $body->setType('text/plain');
             $body->setCharset(Horde_Nls::getCharset());
