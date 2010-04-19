@@ -532,7 +532,7 @@ KronolithCore = {
                 .update(this.setTitle(date.toString('D')));
             $('kronolithViewDay')
                 .down('.kronolithAllDayContainer')
-                .writeAttribute('id', 'kronolithEventsDay' + date.dateString());
+                .store('date', date.dateString());
             $('kronolithEventsDay').store('date', date.dateString());
             break;
 
@@ -573,7 +573,8 @@ KronolithCore = {
                     .down('span').update(day.toString('dddd, d'));
                 td.removeClassName('kronolithToday')
                     .down('div')
-                    .writeAttribute('id', 'kronolithAllDay' + day.dateString());
+                    .writeAttribute('id', 'kronolithAllDay' + day.dateString())
+                    .store('date', day.dateString());
                 if (day.equals(today)) {
                     td.addClassName('kronolithToday');
                 }
@@ -3901,7 +3902,7 @@ KronolithCore = {
 
             case 'kronolithEventsWeek':
             case 'kronolithAllDayContainer':
-                var date = elt.identify().substr(elt.identify().length - 8);
+                var date = elt.retrieve('date');
                 if (elt.className == 'kronolithAllDayContainer') {
                     date += 'all';
                 }
