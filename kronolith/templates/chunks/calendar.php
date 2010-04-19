@@ -90,7 +90,7 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 </div>
 
 <div id="kronolithCalendarinternalTabImport" class="kronolithTabsOption" style="display:none">
-  <div class="kronolithDialogInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics. Recipients of the iCalendar data file (with supporting software, such as an email client or calendar application) can respond to the sender easily or counter propose another meeting date/time.") ?></div>
+  <div class="kronolithDialogInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics.") ?></div>
   <label for="kronolithCalendarinternalImport"><?php echo _("Import ICS file") ?>:</label>
   <input type="file" id="kronolithCalendarinternalImport" name="import_file" /><br />
   <?php printf(_("Importing should %s %sreplace this calendar%s."),
@@ -100,7 +100,7 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 </div>
 
 <div id="kronolithCalendarinternalTabExport" class="kronolithTabsOption" style="display:none">
-  <div class="kronolithDialogInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics. Recipients of the iCalendar data file (with supporting software, such as an email client or calendar application) can respond to the sender easily or counter propose another meeting date/time.") ?></div>
+  <div class="kronolithDialogInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics.") ?></div>
   <label><?php echo _("Export ICS file") ?>:</label>
   <a id="kronolithCalendarinternalExport"><?php echo _("Calendar ICS file") ?></a>
 </div>
