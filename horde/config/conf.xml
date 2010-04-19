@@ -1997,7 +1997,7 @@
       seconds, that the server SHOULD wait before notifying the client of
       changes in a folder on the server.  These settings allow you to indicate
       the allowable range for this setting. Note that not all clients will
-      request this information.NOTE: Some Android devices do not implement this
+      request this information. NOTE: Some Android devices do not implement this
       correctly. If you plan on synching Android devices, you should make sure
       that this range is wide enough to allow Android's default of 470 seconds.
       </configdescription>
@@ -2006,7 +2006,7 @@
       </configinteger>
       <configinteger name="heartbeatmax" desc="The maximum number of seconds to
       wait before sending results. Note this value must not be greater then 3540
-      (59 minutes).">60</configinteger>
+      (59 minutes).">470</configinteger>
       <configinteger name="heartbeatdefault" desc="If the client does not
       request a heartbeat interval, this interval will be used by default.">10
       </configinteger>
@@ -2037,7 +2037,8 @@
           attempts before validating that an actual person is using the device
           is able to read and write. This should typically be half of the
           wipethreshold setting above.">5</configinteger>
-          <configinteger name="minimumlength" desc="Minimum PIN size">5</configinteger>
+          <configinteger name="minimumlength" desc="Minimum PIN
+          size">5</configinteger>
           <configenum name="complexity" desc="PIN/Password complexity. Some
           devices may be able to ONLY support numeric PINS.">
            <values>
@@ -2046,8 +2047,8 @@
             <value desc="Allow any">2</value>
          </values>
         </configenum>
-        <configinteger name="inactivity" desc="Number of minutes of inactivity before device
-        should lock.">3</configinteger>
+        <configinteger name="inactivity" desc="Number of minutes of inactivity
+        before device should lock.">3</configinteger>
          </case>
         </configswitch>
        </case>
@@ -2062,7 +2063,8 @@
           attempts before validating that an actual person is using the device
           is able to read and write. This should typically be half of the
           wipethreshold setting above.">5</configinteger>
-          <configinteger name="minimumlength" desc="Minimum PIN size">5</configinteger>
+          <configinteger name="minimumlength" desc="Minimum PIN
+          size">5</configinteger>
           <configenum name="complexity" desc="PIN/Password complexity. Some
           devices may be able to ONLY support numeric PINS.">
            <values>
@@ -2071,8 +2073,8 @@
             <value desc="Allow any">2</value>
            </values>
           </configenum>
-          <configinteger name="inactivity" desc="Number of minutes of inactivity before device
-          should lock.">3</configinteger>
+          <configinteger name="inactivity" desc="Number of minutes of
+          inactivity before device should lock.">3</configinteger>
          </case>
         </configswitch>
        </case>
