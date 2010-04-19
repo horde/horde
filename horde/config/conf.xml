@@ -2002,13 +2002,13 @@
       that this range is wide enough to allow Android's default of 470 seconds.
       </configdescription>
       <configinteger name="heartbeatmin" desc="The minimum number of seconds to
-      wait before sending results. This value must be greater then zero.">10
+      wait before sending results. This value must be greater then zero.">60
       </configinteger>
       <configinteger name="heartbeatmax" desc="The maximum number of seconds to
       wait before sending results. Note this value must not be greater then 3540
-      (59 minutes).">470</configinteger>
+      (59 minutes).">2700</configinteger>
       <configinteger name="heartbeatdefault" desc="If the client does not
-      request a heartbeat interval, this interval will be used by default.">10
+      request a heartbeat interval, this interval will be used by default.">480
       </configinteger>
       <configinteger name="waitinterval" desc="How many seconds should elapse
       between checks for changes? Increasing this value will cause the server
