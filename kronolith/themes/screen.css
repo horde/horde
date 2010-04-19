@@ -1378,11 +1378,14 @@ div.kronolithEvent {
 #kronolithViewDay .kronolithAllDay div.kronolithEvent {
     float: left;
 }
+#kronolithViewWeek .kronolithAllDay div.kronolithEvent {
+    margin-right: 10%;
+}
 div.kronolithEvent .kronolithDragger {
     position: absolute;
     visibility: hidden;
     left: 0;
-    right: 3px;
+    right: 0;
     height: 12px;
 }
 div.kronolithEvent.kronolithEditable {
@@ -1430,14 +1433,10 @@ div.kronolithEvent .kronolithEventInfo {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
-    right: 3px;
+    right: 0;
     left: 0;
     padding: 5px;
     overflow: hidden;
-}
-#kronolithEventsWeek div.kronolithEvent .kronolithEventInfo,
-#kronolithEventsWeek div.kronolithEvent .kronolithDragger {
-    right: 4px;
 }
 div.kronolithEditable:hover .kronolithEventInfo,
 div.kronolithEvent.kronolithSelected .kronolithEventInfo {
