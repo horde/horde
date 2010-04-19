@@ -235,7 +235,7 @@ case 'export':
     }
 
     $exportType = Horde_Util::getFormData('exportID');
-    $vcard = $exportType == EXPORT_VCARD ||
+    $vcard = $exportType == Horde_Data::EXPORT_VCARD ||
         $exportType == 'vcard30';
     if ($vcard) {
         $version = $exportType == 'vcard30' ? '3.0' : '2.1';
