@@ -48,6 +48,7 @@ var PrettyAutocompleter = Class.create({
 
         var trigger = $(this.p.trigger);
         trigger.observe('keydown', this._onKeyDown.bindAsEventListener(this));
+        trigger.observe('blur', this._processValue.bind(this));
 
         // Make sure the p.items element is hidden
         if (!this.p.debug) {
@@ -157,7 +158,7 @@ var PrettyAutocompleter = Class.create({
 
     _processValue: function()
     {
-        var value = $F(this.p.trigger).replace(/^,/, '');
+        var value = $F(this.p.trigger).replace(/^,/, '').strip();
         if (value.length) {
             this.addNewItemNode(value);
         }
