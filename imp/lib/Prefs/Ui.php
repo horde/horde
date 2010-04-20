@@ -13,6 +13,41 @@
 class IMP_Prefs_Ui
 {
     /**
+     * Populate dynamically-generated preference values.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     */
+    public function prefsEnum($ui)
+    {
+        global $prefs, $registry;
+
+        switch ($ui->group) {
+        case 'addressbooks':
+            if (!$prefs->isLocked('add_source')) {
+                try {
+                    $sources = array();
+                    foreach ($registry->call('contacts/sources', array(true)) as $source => $name) {
+                        $sources[$source] = $name;
+                    }
+                    $ui->override['add_source'] = $sources;
+                } catch (Horde_Exception $e) {
+                    $ui->suppress[] = 'add_source';
+                }
+            }
+            break;
+
+        case 'delmove':
+            if (isset($_SESSION['imp']['protocol']) &&
+                ($_SESSION['imp']['protocol'] == 'pop')) {
+                $tmp = $ui->prefs['delete_spam_after_report']['enum'];
+                unset($tmp[2]);
+                $ui->override['delete_spam_after_report'] = $tmp;
+            }
+            break;
+        }
+    }
+
+    /**
      * Code to run on init when viewing prefs for this application.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
@@ -40,18 +75,6 @@ class IMP_Prefs_Ui
             if (!$prefs->isLocked('sourceselect')) {
                 Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
             }
-
-            if (!$prefs->isLocked('add_source')) {
-                try {
-                    $sources = array();
-                    foreach ($registry->call('contacts/sources', array(true)) as $source => $name) {
-                        $sources[$source] = $name;
-                    }
-                    $ui->override['add_source'] = $sources;
-                } catch (Horde_Exception $e) {
-                    $ui->suppress[] = 'add_source';
-                }
-            }
             break;
 
         case 'compose':
@@ -70,10 +93,6 @@ class IMP_Prefs_Ui
                 $ui->suppress[] = 'use_trash';
                 $ui->suppress[] = 'trashselect';
                 $ui->suppress[] = 'empty_trash_menu';
-
-                $tmp = $ui->prefs['delete_spam_after_report']['enum'];
-                unset($tmp[2]);
-                $ui->override['delete_spam_after_report'] = $tmp;
             } elseif ($prefs->isLocked('use_trash') ||
                       !$prefs->getValue('use_trash')) {
                 $ui->suppress[] = 'trashselect';

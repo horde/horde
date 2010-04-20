@@ -104,6 +104,13 @@ class Horde_Registry_Application
     // public function changeLanguage() {}
 
     /**
+     * Populate dynamically-generated preference values.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     */
+    // public function prefsEnum($ui) {}
+
+    /**
      * Code to run on init when viewing prefs for this application.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.

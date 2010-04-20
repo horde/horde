@@ -109,6 +109,13 @@ class Horde_Core_Prefs_Ui
 
         /* Load preferences. */
         $this->_loadPrefs($this->app);
+
+        /* Populate enums. */
+        if ($this->group &&
+            $GLOBALS['registry']->hasAppMethod($this->app, 'prefsEnum') &&
+            $this->groupIsEditable($this->group)) {
+            $GLOBALS['registry']->callAppMethod($this->app, 'prefsEnum', array('args' => array($this)));
+        }
     }
 
     /**
@@ -229,7 +236,10 @@ class Horde_Core_Prefs_Ui
                 break;
 
             case 'enum':
-                if (isset($this->prefs[$pref]['enum'][$this->vars->$pref])) {
+                $enum = isset($this->override[$pref])
+                    ? $this->override[$pref]
+                    : $this->prefs[$pref]['enum'];
+                if (isset($enum[$this->vars->$pref])) {
                     $updated |= $save->setValue($pref, $this->vars->$pref);
                 } else {
                     $notification->push(_("An illegal value was specified."), 'horde.error');
@@ -240,8 +250,12 @@ class Horde_Core_Prefs_Ui
                 $set = array();
 
                 if (is_array($this->vars->$pref)) {
+                    $enum = isset($this->override[$pref])
+                        ? $this->override[$pref]
+                        : $this->prefs[$pref]['enum'];
+
                     foreach ($this->vars->$pref as $val) {
-                        if (isset($this->prefs[$pref]['enum'][$val])) {
+                        if (isset($enum[$val])) {
                             $set[] = $val;
                         } else {
                             $notification->push(_("An illegal value was specified."), 'horde.error');

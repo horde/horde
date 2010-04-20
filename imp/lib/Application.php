@@ -415,6 +415,16 @@ class IMP_Application extends Horde_Registry_Application
      * IMP_Prefs_Ui so it doesn't have to be loaded on every page load. */
 
     /**
+     * Populate dynamically-generated preference values.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     */
+    public function prefsEnum($ui)
+    {
+        $GLOBALS['injector']->getInstance('IMP_Prefs_Ui')->prefsEnum($ui);
+    }
+
+    /**
      * Code to run on init when viewing prefs for this application.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.

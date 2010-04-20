@@ -49,27 +49,25 @@ class Mnemo_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
-	// Set the timezone variable.
-	Horde_Nls::setTimeZone();
+        // Set the timezone variable.
+        Horde_Nls::setTimeZone();
 
-	// Create a share instance.
-	$GLOBALS['mnemo_shares'] = Horde_Share::singleton($GLOBALS['registry']->getApp());
+        // Create a share instance.
+        $GLOBALS['mnemo_shares'] = Horde_Share::singleton($GLOBALS['registry']->getApp());
 
-	Mnemo::initialize();
+        Mnemo::initialize();
     }
 
     /**
-     * Code to run on init when viewing prefs for this application.
+     * Populate dynamically-generated preference values.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
-    public function prefsInit($ui)
+    public function prefsEnum($ui)
     {
-        global $conf, $prefs, $registry;
-
         switch ($ui->group) {
         case 'share':
-            if (!$prefs->isLocked('default_notepad')) {
+            if (!$GLOBALS['prefs']->isLocked('default_notepad')) {
                 $notepads = array();
                 foreach (Mnemo::listNotepads() as $key => $val) {
                     $notepads[htmlspecialchars($key)] = htmlspecialchars($val->get('name'));

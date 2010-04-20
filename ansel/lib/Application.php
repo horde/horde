@@ -95,11 +95,11 @@ class Ansel_Application extends Horde_Registry_Application
     }
 
     /**
-     * Code to run on init when viewing prefs for this application.
+     * Populate dynamically-generated preference values.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
-    public function prefsInit($ui)
+    public function prefsEnum($ui)
     {
         global $conf, $prefs;
 

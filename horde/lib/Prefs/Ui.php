@@ -13,13 +13,13 @@
 class Horde_Prefs_Ui
 {
     /**
-     * Code to run on init when viewing prefs for this application.
+     * Populate dynamically-generated preference values.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
-    public function prefsInit($ui)
+    public function prefsEnum($ui)
     {
-        global $conf, $prefs, $registry;
+        global $prefs, $registry;
 
         switch ($ui->group) {
         case 'display':
@@ -74,7 +74,19 @@ class Horde_Prefs_Ui
                 array_unshift($ui->override['timezone'], _("Default"));
             }
             break;
+        }
+    }
 
+    /**
+     * Code to run on init when viewing prefs for this application.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     */
+    public function prefsInit($ui)
+    {
+        global $conf;
+
+        switch ($ui->group) {
         case 'remote':
             Horde::addScriptFile('rpcprefs.js', 'horde');
             $ui->nobuttons = true;

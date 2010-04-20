@@ -92,23 +92,15 @@ class Nag_Application extends Horde_Registry_Application
     }
 
     /**
-     * Code to run on init when viewing prefs for this application.
+     * Populate dynamically-generated preference values.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
-    public function prefsInit($ui)
+    public function prefsEnum($ui)
     {
-        global $conf, $prefs, $registry;
+        global $prefs, $registry;
 
         switch ($ui->group) {
-        case 'notification':
-            if (empty($conf['alarms']['driver']) ||
-                $prefs->isLocked('task_alarms') ||
-                $prefs->isLocked('task_alarms_select')) {
-                $ui->suppress[] = 'task_alarms';
-            }
-            break;
-
         case 'share':
             if (!$prefs->isLocked('default_tasklist')) {
                 $all_tasklists = Nag::listTasklists();
@@ -147,7 +139,6 @@ class Nag_Application extends Horde_Registry_Application
             break;
         }
 
-        /* Hide appropriate prefGroups. */
         $show_external = array();
         if ($registry->hasMethod('getListTypes', 'whups')) {
             $show_external['whups'] = $registry->get('name', 'whups');
@@ -156,7 +147,27 @@ class Nag_Application extends Horde_Registry_Application
             $ui->override['show_external'] = $show_external;
         } else {
             $ui->suppress[] = 'show_external';
-            $ui->suppresGroups[] = 'external';
+            $ui->suppressGroups[] = 'external';
+        }
+    }
+
+    /**
+     * Code to run on init when viewing prefs for this application.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     */
+    public function prefsInit($ui)
+    {
+        global $conf, $prefs;
+
+        switch ($ui->group) {
+        case 'notification':
+            if (empty($conf['alarms']['driver']) ||
+                $prefs->isLocked('task_alarms') ||
+                $prefs->isLocked('task_alarms_select')) {
+                $ui->suppress[] = 'task_alarms';
+            }
+            break;
         }
     }
 

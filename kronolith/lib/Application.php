@@ -109,21 +109,15 @@ class Kronolith_Application extends Horde_Registry_Application
     }
 
     /**
-     * Code to run on init when viewing prefs for this application.
+     * Populate dynamically-generated preference values.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
-    public function prefsInit($ui)
+    public function prefsEnum($ui)
     {
         global $conf, $prefs, $registry;
 
         switch ($ui->group) {
-        case 'addressbooks':
-            if (!$prefs->isLocked('sourceselect')) {
-                Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
-            }
-            break;
-
         case 'freebusy':
             if (!$prefs->isLocked('fb_cals')) {
                 $fb_cals = Kronolith::ListCalendars();
@@ -132,16 +126,6 @@ class Kronolith_Application extends Horde_Registry_Application
                     $fb_list[htmlspecialchars($fb_cal)] = htmlspecialchars($cal->get('name'));
                 }
                 $ui->override['fb_cals'] = $fb_list;
-            }
-            break;
-
-        case 'notification':
-            if (empty($conf['alarms']['driver']) ||
-                $prefs->isLocked('event_alarms') ||
-                $prefs->isLocked('event_alarms_select')) {
-                $ui->suppress[]= 'event_alarms';
-            } else {
-                Horde_Core_Prefs_Ui_Widgets::alarminit();
             }
             break;
 
@@ -177,6 +161,34 @@ class Kronolith_Application extends Horde_Registry_Application
                 }
                 $ui->override['day_hour_end'] = $out;
                 $ui->override['day_hour_start'] = $out;
+            }
+            break;
+        }
+    }
+
+    /**
+     * Code to run on init when viewing prefs for this application.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     */
+    public function prefsInit($ui)
+    {
+        global $conf, $prefs, $registry;
+
+        switch ($ui->group) {
+        case 'addressbooks':
+            if (!$prefs->isLocked('sourceselect')) {
+                Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
+            }
+            break;
+
+        case 'notification':
+            if (empty($conf['alarms']['driver']) ||
+                $prefs->isLocked('event_alarms') ||
+                $prefs->isLocked('event_alarms_select')) {
+                $ui->suppress[]= 'event_alarms';
+            } else {
+                Horde_Core_Prefs_Ui_Widgets::alarminit();
             }
             break;
         }

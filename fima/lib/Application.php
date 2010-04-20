@@ -4,11 +4,11 @@ class Fima_Application extends Horde_Regsitry_Application
     public $version = '1.0.1';
 
     /**
-     * Code to run on init when viewing prefs for this application.
+     * Populate dynamically-generated preference values.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
-    public function prefsInit($ui)
+    public function prefsEnum($ui)
     {
         switch ($ui->group) {
         case 'share':
