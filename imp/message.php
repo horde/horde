@@ -605,17 +605,23 @@ $inlineout = $imp_ui->getInlineOutput($imp_contents, array(
 ));
 
 /* Build the Attachments menu. */
-$a_template->set('atc', Horde::widget('#', _("Attachments"), 'widget hasmenu', '', '', _("Attachments"), true));
+$show_atc = false;
 if ($show_parts == 'atc') {
     $a_template->set('show_parts_all', Horde::widget($headersURL->copy()->add(array('show_parts' => 'all')), _("Show All Message Parts"), 'widget', '', '', _("Show All Message Parts"), true));
-} elseif ($show_parts == 'all') {
-    $a_template->set('show_parts_atc', Horde::widget($headersURL->copy()->add(array('show_parts' => 'atc')), _("Show Attachments Only"), 'widget', '', '', _("Show Attachments Only"), true));
+    $show_atc = true;
 }
+
 if (count($inlineout['display_ids']) > 2) {
     $a_template->set('download_all', Horde::widget($imp_contents->urlView($imp_contents->getMIMEMessage(), 'download_all'), _("Download All Attachments (in .zip file)"), 'widget', '', '', _("Download All Attachments (in .zip file)"), true));
     if ($strip_atc) {
         $a_template->set('strip_all', Horde::widget(Horde::selfUrl(true)->remove(array('actionID'))->add(array('actionID' => 'strip_all', 'message_token' => $message_token)), _("Strip All Attachments"), 'widget', '', "return window.confirm('" . addslashes(_("Are you sure you wish to PERMANENTLY delete all attachments?")) . "');", _("Strip All Attachments"), true));
     }
+
+    $show_atc = true;
+}
+
+if ($show_atc) {
+    $a_template->set('atc', Horde::widget('#', _("Attachments"), 'widget hasmenu', '', '', _("Attachments"), true));
 }
 
 /* Show attachment information in headers? 'atc_parts' will be empty if
