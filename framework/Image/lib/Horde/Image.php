@@ -1,7 +1,7 @@
 <?php
 /**
  * This class provides some utility functions, such as generating highlights
- * of a color as well as a factory method responsible for creating a concerete
+ * of a color as well as a factory method responsible for creating a concrete
  * Horde_Image driver.
  *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
@@ -11,16 +11,12 @@
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- *
- * @package Horde_Image
+ * @package Image
  */
 class Horde_Image
 {
-    static protected $_loadedEffects = array();
     /**
      * Calculate a lighter (or darker) version of a color.
-     *
-     * @static
      *
      * @param string $color   An HTML color, e.g.: #ffffcc.
      * @param string $factor  TODO
@@ -29,21 +25,17 @@ class Horde_Image
      */
     static public function modifyColor($color, $factor = 0x11)
     {
-        $r = hexdec(substr($color, 1, 2)) + $factor;
-        $g = hexdec(substr($color, 3, 2)) + $factor;
-        $b = hexdec(substr($color, 5, 2)) + $factor;
+        list($r, $g, $b) = self::_getColor($color);
 
-        $r = min(max($r, 0), 255);
-        $g = min(max($g, 0), 255);
-        $b = min(max($b, 0), 255);
+        $r = min(max($r + $factor, 0), 255);
+        $g = min(max($g + $factor, 0), 255);
+        $b = min(max($b + $factor, 0), 255);
 
         return '#' . str_pad(dechex($r), 2, '0', STR_PAD_LEFT) . str_pad(dechex($g), 2, '0', STR_PAD_LEFT) . str_pad(dechex($b), 2, '0', STR_PAD_LEFT);
     }
 
     /**
      * Calculate a more intense version of a color.
-     *
-     * @static
      *
      * @param string $color   An HTML color, e.g.: #ffffcc.
      * @param string $factor  TODO
@@ -52,9 +44,7 @@ class Horde_Image
      */
     static public function moreIntenseColor($color, $factor = 0x11)
     {
-        $r = hexdec(substr($color, 1, 2));
-        $g = hexdec(substr($color, 3, 2));
-        $b = hexdec(substr($color, 5, 2));
+        list($r, $g, $b) = self::_getColor($color);
 
         if ($r >= $g && $r >= $b) {
             $g = $g / $r;
@@ -89,19 +79,41 @@ class Horde_Image
     /**
      * Returns the brightness of a color.
      *
-     * @static
-     *
      * @param string $color  An HTML color, e.g.: #ffffcc.
      *
      * @return integer  The brightness on a scale of 0 to 255.
      */
     static public function brightness($color)
     {
-        $r = hexdec(substr($color, 1, 2));
-        $g = hexdec(substr($color, 3, 2));
-        $b = hexdec(substr($color, 5, 2));
+        list($r, $g, $b) = self::_getColor($color);
 
         return round((($r * 299) + ($g * 587) + ($b * 114)) / 1000);
+    }
+
+    /**
+     * Normalizes an HTML color.
+     *
+     * @param string $color  An HTML color, e.g.: #ffffcc or #ffc.
+     *
+     * @return array  Array with three elements: red, green, and blue.
+     */
+    static public function _getColor($color)
+    {
+        if ($color[0] == '#') {
+            $color = substr($color, 1);
+        }
+
+        if (strlen($color) == 3) {
+            $color = str_repeat($color[0], 2) .
+                str_repeat($color[1], 2) .
+                str_repeat($color[2], 2);
+        }
+
+        return array(
+            hexdec(substr($color, 0, 2)),
+            hexdec(substr($color, 2, 2)),
+            hexdec(substr($color, 4, 2))
+        );
     }
 
     /**
