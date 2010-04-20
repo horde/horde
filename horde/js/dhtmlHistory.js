@@ -303,7 +303,7 @@ Horde.dhtmlHistory = {
         var hash = this.getCurrentLocation();
 
         // See if there has been a change or there is no hash location
-        if (hash == this.currentLocation || Object.isUndefined(hash)) {
+        if (hash.replace(/@/, '%40') == this.currentLocation || Object.isUndefined(hash)) {
             return;
         }
 
