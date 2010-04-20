@@ -243,7 +243,7 @@ class Horde_Core_Prefs_Ui_Widgets
      */
     static public function addressbooksUpdate($ui)
     {
-        $out = self::sourcesUpdate($ui);
+        $out = self::sourceUpdate($ui);
 
         if (isset($ui->vars->sources)) {
             $out['sources'] = $ui->vars->sources;
