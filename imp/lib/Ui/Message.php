@@ -503,10 +503,6 @@ class IMP_Ui_Message
             ? $options['show_parts']
             : $GLOBALS['prefs']->getValue('parts_display');
 
-        if ($show_parts == 'all') {
-            $atc_parts = array_keys($parts_list);
-        }
-
         foreach ($parts_list as $mime_id => $mime_type) {
             if (isset($display_ids[$mime_id]) ||
                 isset($atc_parts[$mime_id])) {
@@ -607,8 +603,12 @@ class IMP_Ui_Message
             $msgtext = $this->formatStatusMsg(array(array('text' => array(_("There are no parts that can be shown inline.")))));
         }
 
+        $atc_parts = ($show_parts == 'all')
+            ? array_diff(array_keys($atc_parts), array_keys($display_ids))
+            : array_keys($atc_parts);
+
         return array(
-            'atc_parts' => array_keys($atc_parts),
+            'atc_parts' => $atc_parts,
             'display_ids' => array_keys($display_ids),
             'js_onload' => $js_onload,
             'msgtext' => $msgtext
