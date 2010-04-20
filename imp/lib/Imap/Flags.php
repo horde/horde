@@ -13,9 +13,6 @@
  */
 class IMP_Imap_Flags
 {
-    /* IMAP flag prefix for IMP-specific flags/keywords. */
-    const PREFIX = 'impflag';
-
     /**
      * The cached list of flags.
      *
@@ -179,20 +176,19 @@ class IMP_Imap_Flags
 
         $this->_loadList();
 
-        /* Flags are named PREFIX{$i}. Keep incrementing until we find the
-         * next available flag. */
-        for ($i = 0;; ++$i) {
-            $curr = self::PREFIX . $i;
-            if (!isset($this->_flags[$curr])) {
-                $entry = $this->_createEntry($label);
+        /* IMAP keywords must conform to RFC 3501 [9] (flag-keyword). Convert
+         * whitespace to underscore. */
+        $key = $GLOBALS['imp_imap']->ob()->utils->stripNonAtomChars(Horde_String::convertCharset(strtr($label, ' ', '_'), Horde_Nls::getCharset(), 'UTF7-IMAP'));
+        if (!isset($this->_flags[$key])) {
+            $entry = $this->_createEntry($label);
 
-                $this->_flags[$curr] = $entry;
-                $this->_userflags[$curr] = $entry;
+            $this->_flags[$key] = $entry;
+            $this->_userflags[$key] = $entry;
 
-                $this->_save();
-                return $curr;
-            }
+            $this->_save();
         }
+
+        return $key;
     }
 
     /**
