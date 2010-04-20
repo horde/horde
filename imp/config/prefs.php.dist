@@ -973,7 +973,7 @@ $prefGroups['flags'] = array(
     'column' => _("Message Options"),
     'label' => _("Message Flags"),
     'desc' => _("Configure flag highlighting."),
-    'members' => array('flagmanagement')
+    'members' => array('flagmanagement', 'show_all_flags')
 );
 
 // UI for flag management.
@@ -1123,7 +1123,15 @@ $_prefs['msgflags_user'] = array(
 
 // The default color to use for flags that don't require row highlighting.
 $_prefs['msgflags_color'] = array(
-    'value' => '#ffffff'
+    'value' => '#ddd'
+);
+
+// Show all flags (including flags set by other mail programs)?
+$_prefs['show_all_flags'] = array(
+    'value' => 0,
+    'advanced' => true,
+    'type' => 'checkbox',
+    'desc' => _("Show all flags (including flags set by other mail programs)?")
 );
 
 

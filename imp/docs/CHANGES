@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Add preference to show flags created by other MUAs (Request #8882).
 [mms] Added HTML signature support (Request #1406).
 [mms] Simplified date sorting display (Ticket #8936).
 [mms] Properly redirect messages pursuant to RFC 5322 [3.6.6].
