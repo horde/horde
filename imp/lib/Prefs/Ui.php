@@ -903,9 +903,9 @@ class IMP_Prefs_Ui
     {
         $imp_flags = $GLOBALS['injector']->getInstance('IMP_Imap_Flags');
 
-        if ($ui->vars->action == 'add') {
-            $GLOBALS['notification']->push(sprintf(_("Added flag \"%s\"."), $ui->vars->data), 'horde.success');
-            $imp_flags->addFlag($ui->vars->data);
+        if ($ui->vars->flag_action == 'add') {
+            $GLOBALS['notification']->push(sprintf(_("Added flag \"%s\"."), $ui->vars->flag_data), 'horde.success');
+            $imp_flags->addFlag($ui->vars->flag_data);
             return;
         }
 
@@ -915,9 +915,9 @@ class IMP_Prefs_Ui
         foreach ($imp_flags->getList() as $key => $val) {
             $md5 = hash('md5', $key);
 
-            switch ($ui->vars->action) {
+            switch ($ui->vars->flag_action) {
             case 'delete':
-                if ($ui->vars->data == ('bg_' . $md5)) {
+                if ($ui->vars->flag_data == ('bg_' . $md5)) {
                     $imp_flags->deleteFlag($key);
                     $GLOBALS['notification']->push(sprintf(_("Deleted flag \"%s\"."), $val['l']), 'horde.success');
                 }
