@@ -324,7 +324,12 @@ Drag = Class.create({
             if (!this.ghost) {
                 // Create the "ghost", i.e. the moving element, a clone of the
                 // original element, if it doesn't exist yet.
-                this.ghost = $(this.element.cloneNode(true)).writeAttribute('id', null).addClassName(this.options.classname).clonePosition(this.element, { setHeight: false, setWidth: false }).setStyle({ height: this.element.clientHeight + 'px', position: 'absolute', width: this.element.clientWidth + 'px' });
+                var layout = this.element.getLayout();
+                this.ghost = $(this.element.cloneNode(true))
+                    .writeAttribute('id', null)
+                    .addClassName(this.options.classname)
+                    .clonePosition(this.element, { setHeight: false, setWidth: false })
+                    .setStyle({ position: 'absolute', height: layout.get('height') + 'px', width: layout.get('width') + 'px' });
 
                 // eo is the offset of the original element to the body.
                 eo = this.element.cumulativeOffset();
