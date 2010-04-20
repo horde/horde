@@ -322,6 +322,10 @@ Drag = Class.create({
 
         if (!this.options.caption) {
             if (!this.ghost) {
+                // Use the position of the original click event as the start
+                // coordinate.
+                xy = [ this.clickEvent.pointerX(), this.clickEvent.pointerY() ];
+
                 // Create the "ghost", i.e. the moving element, a clone of the
                 // original element, if it doesn't exist yet.
                 var layout = this.element.getLayout();
