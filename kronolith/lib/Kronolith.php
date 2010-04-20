@@ -1802,6 +1802,8 @@ class Kronolith
             }
         } else {
             $remote_calendars[] = $info;
+            $GLOBALS['display_remote_calendars'][] = $info['url'];
+            $GLOBALS['prefs']->setValue('display_remote_cals', serialize($GLOBALS['display_remote_calendars']));
         }
 
         $GLOBALS['prefs']->setValue('remote_cals', serialize($remote_calendars));
