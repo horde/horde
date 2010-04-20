@@ -5766,7 +5766,7 @@ Object.extend(Element.ClassNames.prototype, Enumerable);
   }
   
   Element.addMethods({
-    getLayout:              getLayout,
+    getLayout:              getLayout
   });
 
   function isBody(element) {
