@@ -22,11 +22,14 @@ var HordeSourceSelectPrefs = {
                     }
                     out.push([ s.source, s.selected ]);
                 });
-                $('sources').setValue(out.toJSON());
             }
         } else {
-            $('sources').setValue($F('selected_sources').toJSON());
+            $A($('selected_sources').options).slice(1).each(function(s) {
+                out.push(s.value);
+            });
         }
+
+        $('sources').setValue(out.toJSON());
     },
 
     moveAction: function(from, to)
