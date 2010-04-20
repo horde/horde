@@ -16,6 +16,7 @@
  *   RFC 2595/4616 - TLS & AUTH=PLAIN
  *   RFC 2831 - DIGEST-MD5 authentication mechanism.
  *   RFC 2971 - ID
+ *   RFC 3348 - CHILDREN
  *   RFC 3501 - IMAP4rev1 specification
  *   RFC 3502 - MULTIAPPEND
  *   RFC 3516 - BINARY

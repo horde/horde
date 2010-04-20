@@ -835,8 +835,10 @@ abstract class Horde_Imap_Client_Base
      *                in an array with each attribute in lowercase.
      *                DEFAULT: Do not return this information.
      * 'children' - (boolean) Tell server to return children attribute
-     *              information. Requires the LIST-EXTENDED extension. Server
-     *              MAY return this attribute without this option, but it
+     *              information (\HasChildren, \HasNoChildren). Requires the
+     *              LIST-EXTENDED extension to guarantee this information is
+     *              returned. Server MAY return this attribute without this
+     *              option, or if the CHILDREN extension is available, but it
      *              is not guaranteed.
      *              DEFAULT: false
      * 'delimiter' - (boolean) If true, return delimiter information under

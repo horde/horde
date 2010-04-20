@@ -26,6 +26,7 @@ RFC 2342        NAMESPACE
 RFC 2595/4616   TLS & AUTH=PLAIN
 RFC 2831        DIGEST-MD5 authentication mechanism.
 RFC 2971        ID
+RFC 3348        CHILDREN
 RFC 3502        MULTIAPPEND
 RFC 3503        $MDNSent keyword
 RFC 3516        BINARY
