@@ -3473,7 +3473,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         if ($this->_debug) {
-            fwrite($this->_debug, 'C (' . microtime(true) . '): ' . (empty($options['debug']) ? $query : $options['debug']) . "\n");
+            fwrite($this->_debug, '(' . microtime(true) . ') C: ' . (empty($options['debug']) ? $query : $options['debug']) . "\n");
         }
 
         fwrite($this->_stream, $query . "\r\n");
@@ -3685,7 +3685,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 rewind($data);
             }
 
-            fwrite($this->_debug, 'S (' . microtime(true) . '): ' . ($binary ? '[BINARY DATA - ' . $len . ' bytes]' : rtrim($stream ? stream_get_contents($data): $data)) . "\n");
+            fwrite($this->_debug, '(' . microtime(true) . ') S: ' . ($binary ? '[BINARY DATA - ' . $len . ' bytes]' : rtrim($stream ? stream_get_contents($data): $data)) . "\n");
         }
 
         return is_null($len) ? rtrim($data) : $data;
