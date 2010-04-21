@@ -161,15 +161,25 @@ class Horde_Imap_Client_Utils
     }
 
     /**
-     * Escape IMAP output via a quoted string (see RFC 3501 [4.3]).
+     * Escape IMAP output via a quoted string (see RFC 3501 [4.3]). Note that
+     * IMAP quoted strings support 7-bit characters only and can not contain
+     * either CR or LF.
      *
-     * @param string $str  The unescaped string.
+     * @param string $str     The unescaped string.
+     * @param boolean $force  Always add quotes?
      *
      * @return string  The escaped string.
      */
-    public function escape($str)
+    public function escape($str, $force = false)
     {
-        return '"' . addcslashes($str, '"\\') . '"';
+        if (!strlen($str)) {
+            return '""';
+        }
+
+        $newstr = addcslashes($str, '"\\');
+        return (!$force && ($str == $newstr))
+            ? $str
+            : '"' . $newstr . '"';
     }
 
     /**
