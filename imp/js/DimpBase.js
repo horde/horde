@@ -520,15 +520,23 @@ var DimpBase = {
         });
 
         /* Custom ViewPort events. */
+        container.observe('ViewPort:add', function(e) {
+            var row = e.memo.identify();
+
+            // Add context menu
+            this._addMouseEvents({ id: row, type: 'message' });
+            new Drag(row, this._msgDragConfig);
+        }.bindAsEventListener(this));
+
         container.observe('ViewPort:cacheUpdate', function(e) {
             delete this.cacheids[e.memo];
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:clear', function(e) {
-            e.memo.each(this._removeMouseEvents.bind(this));
+            this._removeMouseEvents(e.memo);
         }.bindAsEventListener(this));
 
-        container.observe('ViewPort:contentComplete', function(e) {
+        container.observe('ViewPort:contentComplete', function() {
             var flags, ssc, tmp,
                 ham = spam = 'show',
                 l = this.viewport.getMetaData('label');
@@ -543,12 +551,6 @@ var DimpBase = {
                 this.viewport.select(this.viewport.createSelection('rownum', this.rownum));
                 this.rownum = null;
             }
-
-            e.memo.each(function(row) {
-                // Add context menu
-                this._addMouseEvents({ id: row.VP_domid, type: 'message' });
-                new Drag(row.VP_domid, this._msgDragConfig);
-            }, this);
 
             // 'label' will not be set if there has been an error
             // retrieving data from the server.

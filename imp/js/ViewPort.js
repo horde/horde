@@ -90,17 +90,21 @@
  * Custom events are triggered on the container element. The parameters given
  * below are available through the 'memo' property of the Event object.
  *
+ * ViewPort:add
+ *   Fired when a row has been added to the screen.
+ *   params: (Element) The viewport row being added.
+ *
  * ViewPort:cacheUpdate
  *   Fired when the internal cached data of a view is changed.
  *   params: (string) View which is being updated.
  *
  * ViewPort:clear
  *   Fired when a row is being removed from the screen.
- *   params: (array) The list of viewport rows being removed.
+ *   params: (Element) The viewport row being removed.
  *
  * ViewPort:contentComplete
- *   Fired when a row has been added to the screen.
- *   params: (array) The list of viewport rows that were added.
+ *   Fired when the view has changed and all viewport rows have been added.
+ *   params: NONE
  *
  * ViewPort:deselect
  *   Fired when rows are deselected.
@@ -323,7 +327,7 @@ var ViewPort = Class.create({
         }
 
         if (!init) {
-            this.opts.content.fire('ViewPort:clear', this.visibleRows());
+            this.visibleRows().each(this.opts.content.fire.curry('ViewPort:clear'));
             this.opts.content.update();
             this.scroller.clear();
         }
@@ -435,7 +439,6 @@ var ViewPort = Class.create({
     {
         this._getBuffer(opts.view).setMetaData({ total_rows: this.getMetaData('total_rows', opts.view) - vs.size() }, true);
 
-        this.opts.content.fire('ViewPort:clear', vs.get('div').compact());
         this._getBuffer().remove(vs.get('rownum'));
         this.opts.container.fire('ViewPort:cacheUpdate', opts.view || this.view);
 
@@ -901,12 +904,12 @@ var ViewPort = Class.create({
             return false;
         }
 
-        var c = this.opts.content,
-            c_nodes = [],
+        var added = {},
+            c = this.opts.content,
             page_size = this.getPageSize(),
-            rows;
-
-        this.opts.container.fire('ViewPort:clear', this.visibleRows());
+            tmp = [],
+            vr = this.visibleRows(),
+            fdiv, rows;
 
         this.scroller.setSize(page_size, this.getMetaData('total_rows'));
         this.scrollTo(offset + 1, { noupdate: true, top: true });
@@ -919,15 +922,37 @@ var ViewPort = Class.create({
         rows = this.createSelection('rownum', $A($R(offset + 1, offset + page_size)));
 
         if (rows.size()) {
-            c_nodes = rows.get('dataob');
-            c.update(c_nodes.collect(this.prepareRow.bind(this)).join(''));
+            fdiv = document.createDocumentFragment().appendChild(new Element('DIV'));
+
+            rows.get('dataob').each(function(r) {
+                var elt = $(r.VP_domid);
+                if (elt) {
+                    tmp.push(elt);
+                } else {
+                    fdiv.update(this.prepareRow(r));
+                    added[r.VP_domid] = 1;
+                    tmp.push(fdiv.down());
+                }
+            }, this);
+
+            vr.pluck('id').diff(rows.get('domid')).each($).compact().each(this.opts.content.fire.curry('ViewPort:clear'));
+
+            c.childElements().invoke('remove');
+
+            tmp.each(function(r) {
+                c.insert(r);
+                if (added[r.identify()]) {
+                    this.opts.container.fire('ViewPort:add', r);
+                }
+            }, this);
         } else {
+            vr.each(this.opts.content.fire.curry('ViewPort:clear'));
+            vr.invoke('remove');
             c.update(this.empty_msg);
         }
 
         this.scroller.updateDisplay();
-
-        this.opts.container.fire('ViewPort:contentComplete', c_nodes);
+        this.opts.container.fire('ViewPort:contentComplete');
 
         return true;
     },
@@ -947,11 +972,9 @@ var ViewPort = Class.create({
     {
         var d = $(row.VP_domid);
         if (d) {
-            this.opts.container.fire('ViewPort:clear', [ d ]);
-
+            this.opts.container.fire('ViewPort:clear', d);
             d.replace(this.prepareRow(row));
-
-            this.opts.container.fire('ViewPort:contentComplete', [ row ]);
+            this.opts.container.fire('ViewPort:add', $(row.VP_domid));
         }
     },
 
