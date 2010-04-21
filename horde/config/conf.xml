@@ -1037,10 +1037,14 @@
    commonly processed objects.">file
     <case name="none" desc="Don't cache any objects"/>
     <case name="apc" desc="Use the APC cache"/>
-    <case name="eaccelerator" desc="Use the eAccelerator cache">
+    <case name="eaccelerator" desc="Use the eAccelerator cache (up to version
+    0.9.5)">
      <configdescription>
      eAccelerator must be built with --with-eaccelerator-shared-memory at
-     compile time to allow caching.
+     compile time to allow caching. &lt;strong&gt;WARNING:&lt;/strong&gt; The
+     cache functionality has been removed with eAccelerator version 0.9.6. If
+     you want to use the eAccelerator cache driver, you need version 0.9.5 or
+     lower.
      </configdescription>
     </case>
     <case name="memcache" desc="Use a Memcache server"/>
