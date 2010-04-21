@@ -150,6 +150,15 @@ class Horde_Imap_Client
     const FETCH_SEQ = 14;
     const FETCH_MODSEQ = 15;
 
+    /* IMAP data types (RFC 3501 [4]) */
+    const DATA_ASTRING = 1;
+    const DATA_ATOM = 2;
+    const DATA_LISTMAILBOX = 3;
+    const DATA_MAILBOX = 4;
+    const DATA_NSTRING = 5;
+    const DATA_NUMBER = 6;
+    const DATA_STRING = 7;
+
     /**
      * The key used to encrypt the password when serializing.
      *

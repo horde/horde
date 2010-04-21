@@ -2785,6 +2785,93 @@ abstract class Horde_Imap_Client_Base
     }
 
     /**
+     * Parses a client command array to create a server command string.
+     *
+     * @param string $out         The unprocessed command string.
+     * @param array $query        An array with the following format:
+     * <pre>
+     * (null) Ignored
+     * (string) - Output as-is (raw)
+     * (array)
+     *   * Array with keys 't' and 'v'
+     *     + 't' key = IMAP data type (Horde_Imap_Client::DATA_* constants)
+     *     + 'v' key = Data value
+     *   * Array with only values
+     *     + Treated as a parenthesized list
+     * </pre>
+     * @param callback $callback  A callback function to use if literal data
+     *                            is found. Two arguments are passed: the
+     *                            command string (as built so far) and the
+     *                            literal data. The return value should be the
+     *                            new value for the current command string.
+     *
+     * @return string  The command string.
+     */
+    public function parseCommandArray($query, $out = '', $callback = null)
+    {
+        foreach ($query as $val) {
+            if (is_null($val)) {
+                continue;
+            }
+
+            if (is_array($val)) {
+                if (isset($val['t'])) {
+                    if ($val['t'] == Horde_Imap_Client::DATA_NUMBER) {
+                        $out .= intval($val['v']) . ' ';
+                    } elseif (($val['t'] != Horde_Imap_Client::DATA_ATOM) &&
+                              preg_match('/[\x80-\xff\n\r]/', $val['v'])) {
+                        $out = is_null($callback)
+                            /* This is technically not correct - 8-bit
+                             * characters can not be sent in quoted text.
+                             * However, this is the only valid fallback here -
+                             * thus the need for a callback function to
+                             * correctly handle. */
+                            ? $out . $this->utils->escape($val['v'], true) . ' '
+                            : call_user_func_array($callback, array($out, $val['v']));
+                    } else {
+                        switch ($val['t']) {
+                        case Horde_Imap_Client::DATA_ASTRING:
+                        case Horde_Imap_Client::DATA_MAILBOX:
+                            /* Only requires quoting if an atom-special is
+                             * present (besides resp-specials). */
+                            $out .= $this->utils->escape($val['v'], preg_match('/[\x00-\x1f\x7f\(\)\{\s%\*"\\\\]/', $val['v']));
+                            break;
+
+
+                        case Horde_Imap_Client::DATA_ATOM:
+                            $out .= $val['v'];
+                            break;
+
+                        case Horde_Imap_Client::DATA_STRING:
+                            /* IMAP strings MUST be quoted. */
+                            $out .= $this->utils->escape($val['v'], true);
+                            break;
+
+                        case Horde_Imap_Client::DATA_LISTMAILBOX:
+                            $out .= $this->utils->escape($val['v'], preg_match('/[\x00-\x1f\x7f\(\)\{\s"\\\\]/', $val['v']));
+                            break;
+
+                        case Horde_Imap_Client::DATA_NSTRING:
+                            $out .= strlen($val['v'])
+                                ? $this->utils->escape($val['v'], true)
+                                : 'NIL';
+                            break;
+                        }
+
+                        $out .= ' ';
+                    }
+                } else {
+                    $out = rtrim($this->parseCommandArray($val, $out . '(', $callback)) . ') ';
+                }
+            } else {
+                $out .= $val . ' ';
+            }
+        }
+
+        return $out;
+    }
+
+    /**
      * Returns UIDs for an ALL search, or for a sequence number -> UID lookup.
      *
      * @param mixed $ids    If null, return all UIDs for the mailbox. If an

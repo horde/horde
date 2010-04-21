@@ -59,37 +59,6 @@ class Horde_Imap_Client_Search_Query
     protected $_search = array();
 
     /**
-     * The Horde_Imap_Client_Utils object
-     *
-     * @var Horde_Imap_Client_Utils
-     */
-    protected $_utils = null;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->__wakeup();
-    }
-
-    /**
-     * Tasks to perform on a serialize().
-     */
-    public function __sleep()
-    {
-        return array_diff(array_keys(get_class_vars(__CLASS__)), array('_utils'));
-    }
-
-    /**
-     * Tasks to perform on an unserialize().
-     */
-    public function __wakeup()
-    {
-        $this->_utils = new Horde_Imap_Client_Utils();
-    }
-
-    /**
      * Sets the charset of the search text.
      *
      * @param string $charset  The charset to use for the search.
@@ -146,7 +115,7 @@ class Horde_Imap_Client_Search_Query
                     // This is a 'NOT' search.  All system flags but \Recent
                     // have 'UN' equivalents.
                     if ($key == 'RECENT') {
-                        $tmp = 'NOT ';
+                        $cmds[] = 'NOT';
                         // NOT searches were not in IMAP2
                         $imap4 = true;
                     } else {
@@ -154,50 +123,67 @@ class Horde_Imap_Client_Search_Query
                     }
                 }
 
-                $cmds[] = $tmp . ($val['type'] == 'keyword' ? 'KEYWORD ' : '') . $key;
+                if ($val['type'] == 'keyword') {
+                    $cmds[] = $tmp . 'KEYWORD';
+                    $cmds[] = array('t' => Horde_Imap_Client::DATA_ATOM, 'v' => $key);
+                } else {
+                    $cmds[] = $tmp . $key;
+                }
             }
         }
 
         if (!empty($ptr['header'])) {
             foreach ($ptr['header'] as $val) {
-                $tmp = '';
                 if ($val['not']) {
-                    $tmp = 'NOT ';
+                    $cmds[] = 'NOT';
                     // NOT searches were not in IMAP2
                     $imap4 = true;
                 }
 
-                if (!in_array($val['header'], $this->_systemheaders)) {
+                if (in_array($val['header'], $this->_systemheaders)) {
+                    $cmds[] = $val['header'];
+                } else {
                     // HEADER searches were not in IMAP2
-                    $tmp .= 'HEADER ';
+                    $cmds[] = 'HEADER';
+                    $cmds[] = array('t' => Horde_Imap_Client::DATA_ASTRING, 'v' => $val['header']);
                     $imap4 = true;
                 }
-                $cmds[] = $tmp . $val['header'] . ' ' . $this->_utils->escape($val['text']);
+                $cmds[] = array('t' => Horde_Imap_Client::DATA_ASTRING, 'v' => $val['text']);
             }
         }
 
         if (!empty($ptr['text'])) {
             foreach ($ptr['text'] as $val) {
-                $tmp = '';
                 if ($val['not']) {
-                    $tmp = 'NOT ';
+                    $cmds[] = 'NOT';
                     // NOT searches were not in IMAP2
                     $imap4 = true;
                 }
-                $cmds[] = $tmp . $val['type'] . ' ' . $this->_utils->escape($val['text']);
+                $cmds[] = $val['type'];
+                $cmds[] = array('t' => Horde_Imap_Client::DATA_ASTRING, 'v' => $val['text']);
             }
         }
 
         if (!empty($ptr['size'])) {
             foreach ($ptr['size'] as $key => $val) {
-                $cmds[] = ($val['not'] ? 'NOT ' : '' ) . $key . ' ' . $val['size'];
+                if ($val['not']) {
+                    $cmds[] = 'NOT';
+                }
+                $cmds[] = $key;
+                $cmds[] = array('t' => Horde_Imap_Client::DATA_NUMBER, 'v' => $val['size']);
                 // LARGER/SMALLER searches were not in IMAP2
                 $imap4 = true;
             }
         }
 
         if (isset($ptr['sequence'])) {
-            $cmds[] = ($ptr['sequence']['not'] ? 'NOT ' : '') . ($ptr['sequence']['sequence'] ? '' : 'UID ') . $ptr['sequence']['ids'];
+            if ($ptr['sequence']['not']) {
+                $cmds[] = 'NOT';
+            }
+            if (!$ptr['sequence']['sequence']) {
+                $cmds[] = 'UID';
+            }
+            $cmds[] = $ptr['sequence']['ids'];
 
             // sequence searches were not in IMAP2
             $imap4 = true;
@@ -205,26 +191,31 @@ class Horde_Imap_Client_Search_Query
 
         if (!empty($ptr['date'])) {
             foreach ($ptr['date'] as $key => $val) {
-                $tmp = '';
                 if ($val['not']) {
-                    $tmp = 'NOT ';
+                    $cmds[] = 'NOT';
                     // NOT searches were not in IMAP2
                     $imap4 = true;
                 }
 
                 if ($key == 'header') {
-                    $tmp .= 'SENT';
+                    $cmds[] = 'SENT' . $val['range'];
                     // 'SENT*' searches were not in IMAP2
                     $imap4 = true;
+                } else {
+                    $cmds[] = $val['range'];
                 }
-                $cmds[] = $tmp . $val['range'] . ' ' . $val['date'];
+                $cmds[] = $val['date'];
             }
         }
 
         if (!empty($ptr['within'])) {
             if (isset($exts['WITHIN'])) {
                 foreach ($ptr['within'] as $key => $val) {
-                    $cmds[] = ($val['not'] ? 'NOT ' : '') . $key . ' ' . $val['interval'];
+                    if ($val['not']) {
+                        $cmds[] = 'NOT';
+                    }
+                    $cmds[] = $key;
+                    $cmds[] = array('t' => Horde_Imap_Client::DATA_NUMBER, 'v' => $val['interval']);
                 }
                 $exts_used[] = 'WITHIN';
                 $imap4 = true;
@@ -232,17 +223,17 @@ class Horde_Imap_Client_Search_Query
                 // This workaround is only accurate to within 1 day, due to
                 // limitations with the IMAP4rev1 search commands.
                 foreach ($ptr['within'] as $key => $val) {
-                    $tmp = '';
                     if ($val['not']) {
-                        $tmp = 'NOT ';
+                        $cmds[] = 'NOT';
                         // NOT searches were not in IMAP2
                         $imap4 = true;
                     }
 
                     $date = new DateTime('now -' . $val['interval'] . ' seconds');
-                    $cmds[] = $tmp .
-                        (($key == self::INTERVAL_OLDER) ? self::DATE_BEFORE : self::DATE_SINCE) .
-                        ' ' . $date->format('d-M-Y');
+                    $cmds[] = ($key == self::INTERVAL_OLDER)
+                        ? self::DATE_BEFORE
+                        : self::DATE_SINCE;
+                    $cmds[] = $date->format('d-M-Y');
                 }
             }
         }
@@ -255,12 +246,15 @@ class Horde_Imap_Client_Search_Query
             $exts_used[] = 'CONDSTORE';
             $imap4 = true;
 
-            $cmds[] = ($ptr['modseq']['not'] ? 'NOT ' : '') .
-                'MODSEQ ' .
-                (is_null($ptr['modseq']['name'])
-                    ? ''
-                    : $this->_utils->escape($ptr['modseq']['name']) . ' ' . $ptr['modseq']['type'] . ' ') .
-                $ptr['modseq']['value'];
+            if ($ptr['modseq']['not']) {
+                $cmds[] = 'NOT';
+            }
+            $cmds[] = 'MODSEQ';
+            if (!is_null($ptr['modseq']['name'])) {
+                $cmds[] = array('t' => Horde_Imap_Client::DATA_STRING, 'v' => $ptr['modseq']['name']);
+                $cmds[] = $ptr['modseq']['type'];
+            }
+            $cmds[] = array('t' => Horde_Imap_Client::DATA_NUMBER, 'v' => $ptr['modseq']['value']);
         }
 
         if (isset($ptr['prevsearch'])) {
@@ -271,16 +265,17 @@ class Horde_Imap_Client_Search_Query
             $exts_used[] = 'SEARCHRES';
             $imap4 = true;
 
-            $cmds[] = ($ptr['prevsearch'] ? '' : 'NOT ') . '$';
+            if (!$ptr['prevsearch']) {
+                $cmds[] = 'NOT';
+            }
+            $cmds[] = '$';
         }
-
-        $query = '';
 
         // Add AND'ed queries
         if (!empty($ptr['and'])) {
             foreach ($ptr['and'] as $val) {
                 $ret = $val->build();
-                $query .= ' ' . $ret['query'];
+                $cmds = array_merge($cmds, $ret['query']);
             }
         }
 
@@ -293,24 +288,27 @@ class Horde_Imap_Client_Search_Query
                 $ret = $val->build();
 
                 // First OR'd query
-                $query = (empty($query) && empty($cmds))
-                    ? trim($ret['query']) . ' '
-                    : 'OR (' . trim($ret['query']) . ') ' . $query;
+                if (empty($cmds)) {
+                    $cmds = $ret['query'];
+                } else {
+                    $cmds = array_merge(array(
+                        'OR',
+                        $ret['query']
+                    ), $cmds);
+                }
             }
         }
 
         // Default search is 'ALL'
         if (empty($cmds)) {
-            $query .= empty($query) ? 'ALL' : '';
-        } else {
-            $query .= implode(' ', $cmds);
+            $cmds[] = 'ALL';
         }
 
         return array(
             'charset' => $this->_charset,
             'exts' => $exts_used,
             'imap4' => $imap4,
-            'query' => trim($query)
+            'query' => $cmds
         );
     }
 
@@ -431,7 +429,8 @@ class Horde_Imap_Client_Search_Query
         if (empty($ids)) {
             $ids = '1:*';
         } else {
-            $ids = $this->_utils->toSequenceString($ids);
+            $utils = new Horde_Imap_Client_Utils();
+            $ids = $utils->toSequenceString($ids);
         }
         $this->_search['sequence'] = array(
             'ids' => $ids,

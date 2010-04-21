@@ -31,7 +31,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Add Horde_Imap_Client_Utils::stripNonAtomChars().
+ <notes>* Correctly output 8-bit strings (RFC 3501 [4.3]).
+ * Add Horde_Imap_Client_Utils::stripNonAtomChars().
  * Add sequence sort (numeric sort by UID/sequence number).
  * Add ability to disable server capabilities.
  * Add Horde_Imap_Client_Base::parseCacheId().
