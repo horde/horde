@@ -69,7 +69,7 @@ class Horde_Mime_Headers
     public function toArray($options = array())
     {
         $charset = empty($options['charset']) ? null : $options['charset'];
-        $address_keys = $charset ? array() : $this->addressFields();
+        $address_keys = $this->addressFields();
         $mime = $this->mimeParamFields();
         $ret = array();
 
