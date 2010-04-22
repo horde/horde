@@ -180,7 +180,7 @@ abstract class Horde_Imap_Client_Base
         }
 
         if (!empty($this->_params['debug'])) {
-            $this->_debug = fopen($this->_params['debug'], 'a');
+            $this->_debug = @fopen($this->_params['debug'], 'a');
         }
     }
 
