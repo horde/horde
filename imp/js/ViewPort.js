@@ -1010,7 +1010,7 @@ var ViewPort = Class.create({
 
     visibleRows: function()
     {
-        return this.opts.content.childElements();
+        return this.opts.content.select('DIV.vpRow');
     },
 
     getMetaData: function(id, view)
