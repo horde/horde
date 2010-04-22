@@ -31,7 +31,8 @@ v3.0-git
 v2.3.4-cvs
 ----------
 
-
+[jan] Delete Horde alarms when resetting an event alarm.
+[jan] Set an alarm to one minute, if users try to set an alarm without time.
 
 
 ------

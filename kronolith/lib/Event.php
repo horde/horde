@@ -499,6 +499,8 @@ abstract class Kronolith_Event
             $alarm['start'] = new Horde_Date($alarm['start']);
             $alarm['end'] = new Horde_Date($alarm['end']);
             $GLOBALS['injector']->getInstance('Horde_Alarm')->set($alarm);
+        } else {
+            $GLOBALS['injector']->getInstance('Horde_Alarm')->delete($this->uid);
         }
 
         return $result;
@@ -2057,7 +2059,12 @@ abstract class Kronolith_Event
         // Alarm.
         if (!is_null($alarm = Horde_Util::getFormData('alarm'))) {
             if ($alarm) {
-                $this->alarm = Horde_Util::getFormData('alarm_value') * Horde_Util::getFormData('alarm_unit');
+                $value = Horde_Util::getFormData('alarm_value');
+                $unit = Horde_Util::getFormData('alarm_unit');
+                if ($value == 0) {
+                    $value = $unit = 1;
+                }
+                $this->alarm = $value * $unit;
                 // Notification.
                 if (Horde_Util::getFormData('alarm_change_method')) {
                     $types = Horde_Util::getFormData('event_alarms');
