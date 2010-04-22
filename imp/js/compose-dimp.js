@@ -221,8 +221,6 @@ var DimpCompose = {
             switch (d.action) {
             case 'autoSaveDraft':
             case 'saveDraft':
-                this.setDisabled(false);
-
                 this.updateDraftsMailbox();
 
                 if (d.action == 'saveDraft') {
@@ -278,8 +276,6 @@ var DimpCompose = {
                 this.uploading = false;
                 if (d.success) {
                     this.addAttach(d.atc.num, d.atc.name, d.atc.type, d.atc.size);
-                } else {
-                    this.setDisabled(false);
                 }
                 if (DIMP.conf_compose.attach_limit != -1 &&
                     $('attach_list').childElements().size() > DIMP.conf_compose.attach_limit) {
