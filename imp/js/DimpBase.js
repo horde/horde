@@ -672,15 +672,26 @@ var DimpBase = {
         });
     },
 
-    _addMouseEvents: function(p, popdown)
+    _addPopdown: function(p, t)
     {
-        if (popdown) {
-            popdown.insert({ after: new Element('SPAN', { className: 'iconImg popdownImg popdown', id: p.id + '_img' }) });
-            p.id += '_img';
-            p.offset = popdown.up();
-            p.left = true;
-        }
+        var elt = new Element('SPAN', { className: 'iconImg popdownImg popdown' });
+        $(p).insert({ after: elt });
+        this._addPopdownContextMenu(elt, t);
+        return elt;
+    },
 
+    _addPopdownContextMenu: function(elt, t)
+    {
+        this._addMouseEvents({
+            id: elt.identify(),
+            left: true,
+            offset: elt.up(),
+            type: t
+        });
+    },
+
+    _addMouseEvents: function(p)
+    {
         DimpCore.DMenu.addElement(p.id, 'ctx_' + p.type, p);
     },
 
@@ -1994,10 +2005,6 @@ var DimpBase = {
                 e.stop();
                 return;
 
-            case 'folderopts':
-                DimpCore.DMenu.trigger($('folderopts_img'), true);
-                return;
-
             case 'button_forward':
             case 'button_reply':
                 this.composeMailbox(id == 'button_reply' ? 'reply_auto' : 'forward_auto');
@@ -2011,11 +2018,6 @@ var DimpBase = {
 
             case 'button_deleted':
                 this.deleteMsg();
-                e.stop();
-                return;
-
-            case 'button_other':
-                DimpCore.DMenu.trigger(e.findElement('A').next(), true);
                 e.stop();
                 return;
 
@@ -2969,8 +2971,10 @@ var DimpBase = {
         this._setQsearchText(true);
 
         /* Add popdown menus. Check for disabled compose at the same time. */
-        this._addMouseEvents({ id: 'button_other', type: 'otheractions' }, $('button_other'));
-        this._addMouseEvents({ id: 'folderopts', type: 'folderopts' }, $('folderopts').down(1));
+        this._addPopdown('button_other', 'otheractions');
+        this._addPopdownContextMenu($('button_other'), 'otheractions');
+        this._addPopdown('folderopts_link', 'folderopts');
+        this._addPopdownContextMenu($('folderopts_link'), 'folderopts');
 
         DM.addSubMenu('ctx_message_reply', 'ctx_reply');
         DM.addSubMenu('ctx_message_forward', 'ctx_forward');
@@ -2985,11 +2989,8 @@ var DimpBase = {
         if (DIMP.conf.disable_compose) {
             $('button_reply', 'button_forward').compact().invoke('up', 'SPAN').concat($('button_compose', 'composelink', 'ctx_contacts_new')).compact().invoke('remove');
         } else {
-            this._addMouseEvents({ id: 'button_reply', type: 'reply' }, $('button_reply'));
-            DM.disable('button_reply_img', true, true);
-
-            this._addMouseEvents({ id: 'button_forward', type: 'forward' }, $('button_forward'));
-            DM.disable('button_forward_img', true, true);
+            DM.disable(this._addPopdown('button_reply', 'reply').identify(), true, true);
+            DM.disable(this._addPopdown('button_forward', 'forward').identify(), true, true);
         }
 
         this._addMouseEvents({ id: 'msglistHeader', type: 'mboxsort' });

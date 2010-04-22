@@ -104,7 +104,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
     <ul class="folderlist" id="normalfolders">
      <li class="folder" id="folderopts">
       <span class="iconSpan folderImg"></span>
-      <a title="<?php echo _("Folder Options") ?>"><?php echo _("Folder Options") ?></a>
+      <a id="folderopts_link" title="<?php echo _("Folder Options") ?>"><?php echo _("Folder Options") ?></a>
      </li>
      <li class="folder" id="dropbase" style="display:none">
       <span class="iconSpan folderImg"></span>
