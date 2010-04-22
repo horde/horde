@@ -197,6 +197,14 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
 
         // Change can be a change or an add
         if ($type == 'change') {
+            /* If we are a change and don't already have a mod time, stat the
+             * message. This would only happen when exporting a server side 
+             * change. We need the mod time to track the version of the message
+             * on the PIM.
+             */
+            if (!isset($change['mod'])) {
+                $change = $this->_backend->statMessage($this->_collection['id'], $change['id']);
+            }
             for($i = 0; $i < count($this->_stateCache); $i++) {
                 if($this->_stateCache[$i]['id'] == $change['id']) {
                     $this->_stateCache[$i] = $change;

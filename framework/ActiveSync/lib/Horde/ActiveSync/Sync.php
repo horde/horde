@@ -178,21 +178,14 @@ class Horde_ActiveSync_Sync
                 switch($change['type']) {
                 case 'change':
                     $truncsize = self::_getTruncSize($this->_truncation);
-                    // Note: because 'parseMessage' and 'statMessage' are two seperate
-                    // calls, we have a chance that the message has changed between both
-                    // calls. This may cause our algorithm to 'double see' changes.
-                    $stat = $this->_backend->statMessage($this->_folderId, $change['id']);
                     if (!$message = $this->_backend->getMessage($this->_folderId, $change['id'], $truncsize)) {
                         return false;
                     }
 
                     // copy the flag to the message
                     $message->flags = (isset($change['flags'])) ? $change['flags'] : 0;
-
-                    if ($stat && $message) {
-                        if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA || $this->_exporter->messageChange($change['id'], $message) == true) {
-                            $this->_stateMachine->updateState('change', $stat);
-                        }
+                    if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA || $this->_exporter->messageChange($change['id'], $message) == true) {
+                        $this->_stateMachine->updateState('change', $change);
                     }
                     break;
 
