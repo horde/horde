@@ -1546,7 +1546,7 @@ ViewPort_Buffer = Class.create({
             if (!Object.isUndefined(e)) {
                 // We can directly write the rownum to the original object
                 // since we will always rewrite when creating rows.
-                e.VP_domid = 'VP_row' + u;
+                e.VP_domid = 'VProw' + this.view + '_' + u;
                 e.VP_rownum = this.uidlist.get(u);
                 e.VP_id = u;
                 return e;
@@ -1709,10 +1709,11 @@ ViewPort_Selection = Class.create({
 
         case 'div':
             // ID here is the DOM ID of the element object.
-            return d.pluck('id').invoke('substring', 6);
+            d = d.pluck('id');
+            // Fall-through
 
         case 'domid':
-            return d.invoke('substring', 6);
+            return d.invoke('substring', 6 + this.buffer.getView().length);
 
         case 'rownum':
             return this.buffer.rowsToUIDs(d);
