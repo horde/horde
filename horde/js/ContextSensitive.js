@@ -237,7 +237,8 @@ var ContextSensitive = Class.create({
         if (!ctx ||
             ctx.disable ||
             !(el = $(ctx.ctx)) ||
-            (leftclick && target == this.baseelt)) {
+            (leftclick && target == this.baseelt) ||
+            this.currentmenu() == ctx.ctx) {
             this.close();
             return false;
         }
