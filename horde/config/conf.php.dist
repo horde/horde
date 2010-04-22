@@ -55,8 +55,9 @@ $conf['cookie']['domain'] = $_SERVER['SERVER_NAME'];
 //    http://lists.horde.org/archives/imp/Week-of-Mon-20030113/029149.html
 $conf['cookie']['path'] = '/horde';
 
-// Disable the test script (horde/test.php)?
-$conf['testdisable'] = false;
+// Disable the test script (horde/test.php)? For security reasons, this is
+// disabled by default.
+$conf['testdisable'] = true;
 
 // YOU SHOULDN'T CHANGE ANTHING BELOW THIS LINE.
 $conf['debug_level'] = E_ALL & ~E_NOTICE;

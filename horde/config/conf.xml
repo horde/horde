@@ -34,7 +34,8 @@
   with? This will affect the permissions on any temporary files that are
   created. This value is an integer.">077</configinteger>
   <configboolean name="testdisable" desc="Disable the test script
-  (horde/test.php)?">false</configboolean>
+  (horde/test.php)? For security reasons, this is disabled by
+  default">true</configboolean>
   <configstring name="tmpdir" required="false" desc="If you want to use a
   temporary directory other than the system default or the one specified in
   php's upload_tmp_dir value, enter it here."/>

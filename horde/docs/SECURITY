@@ -99,13 +99,17 @@ etc. that may be in use on your server.
 .. _INSTALL: ?f=INSTALL.html
 
 
-Restricting test.php files
-==========================
+Restricting the test script
+===========================
 
-The ``test.php`` files provide a wealth of information that can be used
-against the site by attackers.  One you have confirmed that everything is
-working, you should disable access to the test.php files, which can be done by
-setting 'testdisable' to true in the Horde configuration.
+The test script (``horde/test.php``) provides a wealth of information that can
+be used against the site by attackers.  This script is disabled by default for
+this reason.
+
+This script is configured via the 'testdisable' configuration option.
+
+After manually enabling the script, and once you have confirmed that
+everything is working, you should disable access to the test script.
 
 
 Preventing Apache from serving configuration and source files

@@ -47,7 +47,7 @@ try {
 }
 
 if (!empty($conf['testdisable'])) {
-    _hordeTestError('Horde test scripts have been disabled in the local configuration.');
+    _hordeTestError('Horde test scripts have been disabled in the local configuration. To enable, change the \'testdisable\' setting in horde/config/conf.php to false.');
 }
 
 /* We should have loaded the String class, from the Horde_Util package. If it

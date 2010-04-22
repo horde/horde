@@ -110,7 +110,9 @@ below at Prerequisites_.
 
 7. Test Horde::
 
+     [edit horde/config/conf.php and set 'testdisable' to false]
      http://your-server/horde/test.php
+     [SECURITY: edit horde/config/conf.php and set 'testdisable' to true]
 
 8. Finish configuration::
 
@@ -623,6 +625,10 @@ Configuring Horde
    URL to the test page would be::
 
       http://your-server/horde/test.php
+
+   The test script is disabled by default for security reasons. To enable
+   set the 'testdisable' configuration option to false. After testing is
+   completed, the testdisable option should be reset to true.
 
    Check that your PHP and PEAR versions are acceptably recent, that all
    required module capabilities are present, and that ``magic_quotes_runtime``
