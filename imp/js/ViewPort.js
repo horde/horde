@@ -327,7 +327,7 @@ var ViewPort = Class.create({
         }
 
         if (!init) {
-            this.visibleRows().each(this.opts.content.fire.curry('ViewPort:clear'));
+            this.visibleRows().each(this.opts.content.fire.bind(this.opts.content, 'ViewPort:clear'));
             this.opts.content.update();
             this.scroller.clear();
         }
@@ -941,7 +941,7 @@ var ViewPort = Class.create({
                 }
             }, this);
 
-            vr.pluck('id').diff(rows.get('domid')).each($).compact().each(this.opts.content.fire.curry('ViewPort:clear'));
+            vr.pluck('id').diff(rows.get('domid')).each($).compact().each(this.opts.content.fire.bind(this.opts.content, 'ViewPort:clear'));
 
             c.childElements().invoke('remove');
 
@@ -952,7 +952,7 @@ var ViewPort = Class.create({
                 }
             }, this);
         } else {
-            vr.each(this.opts.content.fire.curry('ViewPort:clear'));
+            vr.each(this.opts.content.fire.bind(this.opts.content, 'ViewPort:clear'));
             vr.invoke('remove');
             c.update(this.empty_msg);
         }
