@@ -1363,6 +1363,19 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         $this->login();
 
+        // Check for MULTIAPPEND extension (RFC 3502)
+        if ((count($data) > 1) &&
+            !$this->queryCapability('MULTIAPPEND')) {
+            $result = array();
+            foreach (array_keys($data) as $key) {
+                $res = $this->_append($mailbox, array($data[$key]), $options);
+                $result = ($res === true)
+                    ? true
+                    : array_merge($result, $res);
+            }
+            return $result;
+        }
+
         // If the mailbox is currently selected read-only, we need to close
         // because some IMAP implementations won't allow an append.
         if (($this->_selected == $mailbox) &&
@@ -1370,95 +1383,53 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->close();
         }
 
-        // Check for MULTIAPPEND extension (RFC 3502)
-        $multiappend = $this->queryCapability('MULTIAPPEND');
-
         $t = &$this->_temp;
         $t['appenduid'] = array();
         $t['trycreate'] = null;
         $t['uidplusmbox'] = $mailbox;
-        $cnt = count($data);
-        $i = 0;
-        $notag = false;
-        $literaldata = true;
 
-        reset($data);
-        while (list(,$m_data) = each($data)) {
-            if (!$i++ || !$multiappend) {
-                $cmd = array(
-                    'APPEND',
-                    array('t' => Horde_Imap_Client::DATA_MAILBOX, 'v' => $mailbox)
-                );
-            } else {
-                $cmd = array();
-                $notag = true;
-            }
+        $cmd = array(
+            'APPEND',
+            array('t' => Horde_Imap_Client::DATA_MAILBOX, 'v' => $mailbox)
+        );
 
-            if (!empty($m_data['flags'])) {
+        stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
+
+        foreach (array_keys($data) as $key) {
+            if (!empty($data[$key]['flags'])) {
                 $tmp = array();
-                foreach ($m_data['flags'] as $val) {
+                foreach ($data[$key]['flags'] as $val) {
                     $tmp[] = array('t' => Horde_Imap_Client::DATA_ATOM, 'v' => $val);
                 }
                 $cmd[] = $tmp;
             }
 
-            if (!empty($m_data['internaldate'])) {
-                $cmd[] = $m_data['internaldate']->format('j-M-Y H:i:s O');
+            if (!empty($data[$key]['internaldate'])) {
+                $cmd[] = $data[$key]['internaldate']->format('j-M-Y H:i:s O');
             }
 
-            /* @todo There is no way I am aware of to determine the length of
-             * a stream. Having a user pass in the length of a stream is
-             * cumbersome, and they would most likely have to do just as much
-             * work to get the length of the stream as we have to do here. So
-             * for now, simply grab the contents of the stream and do a
-             * strlen() call to determine the literal size to send to the
-             * IMAP server. */
-            if (is_resource($m_data['data'])) {
-                rewind($m_data['data']);
-            }
-            $text = $this->utils->removeBareNewlines(is_resource($m_data['data']) ? stream_get_contents($m_data['data']) : $m_data['data']);
-            $datalength = strlen($text);
+            $text = fopen('php://temp', 'w+');
+            stream_filter_append($text, 'horde_eol', STREAM_FILTER_WRITE);
 
-            /* RFC 3516/4466 says we should be able to append binary data
-             * using literal8 "~{#} format", but it doesn't seem to work in
-             * all servers tried (UW-IMAP/Cyrus). However, there is no other
-             * way to append null data, so try anyway. */
-            $binary = (strpos($text, "\0") !== false);
-
-            /* Need to add 2 additional characters (we send CRLF at the end of
-             * a line) to literal count for multiappend messages to ensure the
-             * server will accept the next line of information, which contains
-             * the next append request. */
-            if ($multiappend) {
-                if ($i == $cnt) {
-                    $literaldata = false;
-                } else {
-                    $datalength += 2;
-                }
+            if (is_resource($data[$key]['data'])) {
+                rewind($data[$key]['data']);
+                stream_copy_to_stream($data[$key]['data'], $text);
             } else {
-                $literaldata = false;
+                fwrite($text, $data[$key]['data']);
             }
 
-            try {
-                $this->_sendLine($cmd, array(
-                    'binary' => $binary,
-                    'literal' => $datalength,
-                    'notag' => $notag
-                ));
-            } catch (Horde_Imap_Client_Exception $e) {
-                if (!empty($options['create']) && $this->_temp['trycreate']) {
-                    $this->createMailbox($mailbox);
-                    unset($options['create']);
-                    return $this->_append($mailbox, $data, $options);
-                }
-                throw $e;
-            }
+            $cmd[] = $text;
+        }
 
-            // Send data.
-            $this->_sendLine($text, array(
-                'literaldata' => $literaldata,
-                'notag' => true
-            ));
+        try {
+            $this->_sendLine($cmd);
+        } catch (Horde_Imap_Client_Exception $e) {
+            if (!empty($options['create']) && $this->_temp['trycreate']) {
+                $this->createMailbox($mailbox);
+                unset($options['create']);
+                return $this->_append($mailbox, $data, $options);
+            }
+            throw $e;
         }
 
         /* If we reach this point and have data in $_temp['appenduid'],
@@ -3572,11 +3543,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      *       meant for a command while scanning for untagged responses
      *       unilaterally sent by the server.
      *
-     * @param mixed $query   The IMAP command to execute. If string TODO. If
-     *                       array TODO.
+     * @param mixed $data    The IMAP command to execute. If string output as
+     *                       is. If array, parsed via parseCommandArray(). If
+     *                       resource, output directly to server.
      * @param array $options  Additional options:
      * <pre>
-     * 'binary' - (boolean) Does $query contain binary data?  If so, and the
+     * 'binary' - (boolean) Does $data contain binary data?  If so, and the
      *            'BINARY' extension is available on the server, the data
      *            will be sent in literal8 format. If not available, an
      *            exception will be returned. 'binary' requires literal to
@@ -3602,7 +3574,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      *
      * @throws Horde_Imap_Client_Exception
      */
-    protected function _sendLine($query, $options = array())
+    protected function _sendLine($data, $options = array())
     {
         $out = '';
 
@@ -3616,14 +3588,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             );
         }
 
-        if (is_array($query)) {
+        if (is_array($data)) {
             if (!empty($options['debug'])) {
                 $this->_temp['sendnodebug'] = true;
             }
-            $out = rtrim($this->parseCommandArray($query, $out, array($this, 'parseCommandArrayCallback')));
+            $out = rtrim($this->parseCommandArray($data, $out, array($this, 'parseCommandArrayCallback')));
             unset($this->_temp['sendnodebug']);
-        } else {
-            $out .= $query;
+        } elseif (is_string($data)) {
+            $out .= $data;
         }
 
         $continuation = $literalplus = false;
@@ -3653,10 +3625,23 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         if ($this->_debug && empty($this->_temp['sendnodebug'])) {
-            fwrite($this->_debug, '(' . microtime(true) . ') C: ' . (empty($options['debug']) ? $out : $options['debug']) . "\n");
+            fwrite($this->_debug, '(' . microtime(true) . ') C: ');
+            if (is_resource($data)) {
+                rewind($data);
+                while ($in = fread($data, 8192)) {
+                    fwrite($this->_debug, $in);
+                }
+            } else {
+                fwrite($this->_debug, (empty($options['debug']) ? $out : $options['debug']) . "\n");
+            }
         }
 
-        fwrite($this->_stream, $out . "\r\n");
+        if (is_resource($data)) {
+            rewind($data);
+            stream_copy_to_stream($data, $this->_stream);
+        } else {
+            fwrite($this->_stream, $out . "\r\n");
+        }
 
         if ($literalplus) {
             return;
@@ -3677,19 +3662,40 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     /**
      * Callback for parseCommandArray() when literal data is found.
      *
-     * @param string $cmd      The unprocessed command string.
-     * @param string $literal  The literal data.
+     * @param string $cmd  The unprocessed command string.
+     * @param mixed $data  The literal data (either a string or a resource).
      *
      * @return string  The new unprocessed command string.
      */
-    public function parseCommandArrayCallback($cmd, $literal)
+    public function parseCommandArrayCallback($cmd, $data)
     {
-        $this->_sendLine($cmd, array(
-            'literal' => strlen($literal),
+        /* RFC 3516/4466 says we should be able to append binary data
+         * using literal8 "~{#} format", but it doesn't seem to work in
+         * all servers tried (UW-IMAP/Cyrus). However, there is no other
+         * way to append null data, so try anyway. */
+        if (is_string($data)) {
+            $binary = (strpos($data, "\0") !== false);
+            $len = strlen($data);
+        } else {
+            $binary = false;
+            rewind($data);
+            while (($in = fread($data, 8192))) {
+                if (strpos($in, "\0") !== false) {
+                    $binary = true;
+                    break;
+                }
+            }
+            fseek($data, 0, SEEK_END);
+            $len = ftell($data);
+        }
+
+        $this->_sendLine(rtrim($cmd), array(
+            'binary' => $binary,
+            'literal' => $len,
             'notag' => true
         ));
 
-        $this->_sendLine($literal, array(
+        $this->_sendLine($data, array(
             'literaldata' => true,
             'notag' => true
         ));

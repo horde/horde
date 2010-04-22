@@ -2796,14 +2796,15 @@ abstract class Horde_Imap_Client_Base
      * @param string $out         The unprocessed command string.
      * @param array $query        An array with the following format:
      * <pre>
-     * (null) Ignored
-     * (string) - Output as-is (raw)
      * (array)
      *   * Array with keys 't' and 'v'
      *     + 't' key = IMAP data type (Horde_Imap_Client::DATA_* constants)
      *     + 'v' key = Data value
      *   * Array with only values
      *     + Treated as a parenthesized list
+     * (null) Ignored
+     * (resource) Treated as literal data
+     * (string) Output as-is (raw)
      * </pre>
      * @param callback $callback  A callback function to use if literal data
      *                            is found. Two arguments are passed: the
@@ -2868,6 +2869,12 @@ abstract class Horde_Imap_Client_Base
                     }
                 } else {
                     $out = rtrim($this->parseCommandArray($val, $out . '(', $callback)) . ') ';
+                }
+            } elseif (is_resource($val)) {
+                /* Resource indicates literal data. Absolutely nothing we can
+                 * do without a callback function here. */
+                if (!is_null($callback)) {
+                    $out = call_user_func_array($callback, array($out, $val));
                 }
             } else {
                 $out .= $val . ' ';
