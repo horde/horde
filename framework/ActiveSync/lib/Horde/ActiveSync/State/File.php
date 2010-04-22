@@ -154,7 +154,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
             return false;
         }
 
-        if ($state['mod'] != $oldstat['mod']) {
+        if ($stat['mod'] != $oldstat['mod']) {
             // Changed here
             if ($type == 'delete' || $type == 'change') {
                 // changed here, but deleted there -> conflict,
