@@ -106,10 +106,15 @@ class Horde_ActiveSync_Connector_Importer
             /* Check for conflicts */
             $conflict = $this->_isConflict('change', $this->_folderId, $id);
 
-            /* Update client state */
+            /* Update client state before we attempt to save changes, so we
+             * have a record of the change. This way, if the server change fails
+             * the server copy will be re-sync'd back to the PIM, maintaining
+             * at least some sort of consistency. */
             $change = array();
             $change['id'] = $id;
-            $change['mod'] = 0; // dummy, will be updated later if the change succeeds
+            // mod is 0 to force a re-synch in the case of server failure. This
+            // is updated after the change succeeds in the next updateState()
+            $change['mod'] = 0; 
             $change['parent'] = $this->_folderId;
             $change['flags'] = (isset($message->read)) ? $message->read : 0;
             $this->_state->updateState('change', $change);
