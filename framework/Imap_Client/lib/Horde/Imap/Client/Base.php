@@ -1122,17 +1122,23 @@ abstract class Horde_Imap_Client_Base
     public function statusMultiple($mailboxes,
                                    $flags = Horde_Imap_Client::STATUS_ALL)
     {
-        $ret = array();
+        $ret = null;
 
         if ($this->queryCapability('LIST-STATUS')) {
             try {
+                $ret = array();
                 foreach ($this->listMailboxes($mailboxes, Horde_Imap_Client::MBOX_ALL, array('status' => $flags)) as $val) {
                     if (isset($val['status'])) {
                         $ret[$val['mailbox']] = $val['status'];
                     }
                 }
-            } catch (Horde_Imap_Client_Exception $e) {}
-        } else {
+            } catch (Horde_Imap_Client_Exception $e) {
+                $ret = null;
+            }
+        }
+
+        if (is_null($ret)) {
+            $ret = array();
             foreach ($mailboxes as $val) {
                 try {
                     $ret[$val] = $this->status($val, $flags);
