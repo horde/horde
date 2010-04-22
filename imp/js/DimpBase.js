@@ -717,7 +717,7 @@ var DimpBase = {
 
         case 'ctx_folder_empty':
             tmp = baseelt.up('LI');
-            if (window.confirm(DIMP.text.empty_folder.replace(/%s/, tmp.readAttribute('title')))) {
+            if (window.confirm(DIMP.text.empty_folder.sub('%s', tmp.readAttribute('title')))) {
                 DimpCore.doAction('emptyFolder', { mbox: tmp.retrieve('mbox') }, { callback: this._emptyFolderCallback.bind(this) });
             }
             break;
@@ -725,7 +725,7 @@ var DimpBase = {
         case 'ctx_folder_delete':
         case 'ctx_vfolder_delete':
             tmp = baseelt.up('LI');
-            if (window.confirm(DIMP.text.delete_folder.replace(/%s/, tmp.readAttribute('title')))) {
+            if (window.confirm(DIMP.text.delete_folder.sub('%s', tmp.readAttribute('title')))) {
                 DimpCore.doAction('deleteMailbox', { mbox: tmp.retrieve('mbox') }, { callback: this.mailboxCallback.bind(this) });
             }
             break;
@@ -1395,7 +1395,7 @@ var DimpBase = {
 
     getFolderId: function(f)
     {
-        return 'fld' + f.replace(/_/g,'__').replace(/\W/g, '_');
+        return 'fld' + f.gsub('_', '__').gsub(/\W/, '_');
     },
 
     getSubFolderId: function(f)
@@ -3061,7 +3061,7 @@ DimpBase._folderDropConfig = {
             l = drop.retrieve('l');
 
         if (drop == $('dropbase')) {
-            return DIMP.text.moveto.replace(/%s/, d).replace(/%s/, DIMP.text.baselevel);
+            return DIMP.text.moveto.sub('%s', d).sub('%s', DIMP.text.baselevel);
         }
 
         switch (e.type) {
@@ -3084,10 +3084,10 @@ DimpBase._folderDropConfig = {
         }
 
         if (drag.hasClassName('folder')) {
-            return (ftype != 'special' && !DimpBase.isSubfolder(drag, drop)) ? m.replace(/%s/, d).replace(/%s/, l) : '';
+            return (ftype != 'special' && !DimpBase.isSubfolder(drag, drop)) ? m.sub('%s', d).sub('%s', l) : '';
         }
 
-        return ftype != 'container' ? m.replace(/%s/, DimpBase.dragCaption()).replace(/%s/, l) : '';
+        return ftype != 'container' ? m.sub('%s', DimpBase.dragCaption()).sub('%s', l) : '';
     },
     keypress: true
 };
