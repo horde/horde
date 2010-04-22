@@ -839,7 +839,8 @@ var ViewPort = Class.create({
 
         var callback, offset, tmp,
             buffer = this._getBuffer(r.view),
-            llist = buffer.getMetaData('llist') || $H();
+            llist = buffer.getMetaData('llist') || $H(),
+            updated = [];
 
         buffer.update(Object.isArray(r.data) ? {} : r.data, Object.isArray(r.rowlist) ? {} : r.rowlist, r.metadata || {}, { reset: r.reset, resetmd: r.resetmd, update: r.update });
 
@@ -881,7 +882,10 @@ var ViewPort = Class.create({
         }
 
         if (this.view == r.view) {
-            this._updateContent(Object.isUndefined(r.rownum) ? (Object.isUndefined(offset) ? this.currentOffset() : offset) : Number(r.rownum) - 1);
+            if (r.update) {
+                updated = this.createSelection('uid', Object.keys(r.data)).get('domid');
+            }
+            this._updateContent(Object.isUndefined(r.rownum) ? (Object.isUndefined(offset) ? this.currentOffset() : offset) : Number(r.rownum) - 1, { updated: updated });
         } else if (r.rownum) {
             // We loaded in the background. If rownumber information was
             // provided, we need to save this or else we will position the
@@ -893,7 +897,7 @@ var ViewPort = Class.create({
     },
 
     // offset = (integer) TODO
-    // opts = (object) TODO [background, view]
+    // opts = (object) TODO [background, updated, view]
     _updateContent: function(offset, opts)
     {
         opts = opts || {};
@@ -908,6 +912,7 @@ var ViewPort = Class.create({
             c = this.opts.content,
             page_size = this.getPageSize(),
             tmp = [],
+            updated = opts.updated || [],
             vr = this.visibleRows(),
             fdiv, rows;
 
@@ -925,8 +930,9 @@ var ViewPort = Class.create({
             fdiv = document.createDocumentFragment().appendChild(new Element('DIV'));
 
             rows.get('dataob').each(function(r) {
-                var elt = $(r.VP_domid);
-                if (elt) {
+                var elt;
+                if (!updated.include(r.VP_domid) &&
+                    (elt = $(r.VP_domid))) {
                     tmp.push(elt);
                 } else {
                     fdiv.update(this.prepareRow(r));
