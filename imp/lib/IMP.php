@@ -158,7 +158,7 @@ class IMP
          * visit. */
         $mailboxes = $GLOBALS['injector']->getInstance('IMP_Folder')->flist();
 
-        $t = $GLOBALS['injector']->getInstance('Horde_Template');
+        $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
 
         if (!empty($options['heading']) && (strlen($options['heading']) > 0)) {
