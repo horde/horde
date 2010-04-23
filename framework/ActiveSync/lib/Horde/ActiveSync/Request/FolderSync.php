@@ -71,10 +71,11 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
 
         /* Initialize state engine */
         $state = &$this->_driver->getStateObject(array('synckey' => $synckey));
+        $state->getDeviceInfo($devId);
         try {
             /* Get folders that we know about already */
-            $state->loadState($synckey);
-            
+            $state->loadState($synckey, 'foldersync');
+
             /* Get new synckey to send back */
             $newsynckey = $state->getNewSyncKey($synckey);
         } catch (Horde_ActiveSync_Exception $e) {

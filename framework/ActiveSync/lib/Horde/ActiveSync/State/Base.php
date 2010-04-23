@@ -133,11 +133,12 @@ abstract class Horde_ActiveSync_State_Base
      * Loads the initial state from storage for the specified syncKey and
      * intializes the stateMachine for use.
      *
-     * @param string $key       The key for the syncState or pingState to load.
+     * @param string $syncKey  The key for the state to load.
+     * @param string $type     Treat the loaded state data as this type of state.
      *
      * @return array The state array
      */
-    abstract public function loadState($syncKey);
+    abstract public function loadState($syncKey, $type = null, $id = '');
 
     /**
      * Load/initialize the ping state for the specified device.
@@ -176,7 +177,7 @@ abstract class Horde_ActiveSync_State_Base
      * @param <type> $change
      * @param <type> $key
      */
-    abstract public function updateState($type, $change);
+    abstract public function updateState($type, $change, $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA);
 
     /**
      * Obtain the diff between PIM and server
@@ -399,5 +400,100 @@ abstract class Horde_ActiveSync_State_Base
             return 0; // unlimited
         }
     }
+    /**
+     * Helper function that performs the actual diff between PIM state and
+     * server state arrays.
+     *
+     * @param array $old  The PIM state
+     * @param array $new  The current server state
+     *
+     * @return unknown_type
+     */
+    protected function _getDiff($old, $new)
+    {
+        $changes = array();
 
+        // Sort both arrays in the same way by ID
+        usort($old, array(__CLASS__, 'RowCmp'));
+        usort($new, array(__CLASS__, 'RowCmp'));
+
+        $inew = 0;
+        $iold = 0;
+
+        // Get changes by comparing our list of messages with
+        // our previous state
+        while (1) {
+            $change = array();
+
+            if ($iold >= count($old) || $inew >= count($new)) {
+                break;
+            }
+
+            if ($old[$iold]['id'] == $new[$inew]['id']) {
+                // Both messages are still available, compare flags and mod
+                if (isset($old[$iold]['flags']) && isset($new[$inew]['flags']) && $old[$iold]['flags'] != $new[$inew]['flags']) {
+                    // Flags changed
+                    $change['type'] = 'flags';
+                    $change['id'] = $new[$inew]['id'];
+                    $change['flags'] = $new[$inew]['flags'];
+                    $changes[] = $change;
+                }
+
+                if ($old[$iold]['mod'] != $new[$inew]['mod']) {
+                    $change['type'] = 'change';
+                    $change['id'] = $new[$inew]['id'];
+                    $changes[] = $change;
+                }
+
+                $inew++;
+                $iold++;
+            } else {
+                if ($old[$iold]['id'] > $new[$inew]['id']) {
+                    // Message in state seems to have disappeared (delete)
+                    $change['type'] = 'delete';
+                    $change['id'] = $old[$iold]['id'];
+                    $changes[] = $change;
+                    $iold++;
+                } else {
+                    // Message in new seems to be new (add)
+                    $change['type'] = 'change';
+                    $change['flags'] = Horde_ActiveSync::FLAG_NEWMESSAGE;
+                    $change['id'] = $new[$inew]['id'];
+                    $changes[] = $change;
+                    $inew++;
+                }
+            }
+        }
+
+        while ($iold < count($old)) {
+            // All data left in _syncstate have been deleted
+            $change['type'] = 'delete';
+            $change['id'] = $old[$iold]['id'];
+            $changes[] = $change;
+            $iold++;
+        }
+
+        while ($inew < count($new)) {
+            // All data left in new have been added
+            $change['type'] = 'change';
+            $change['flags'] = Horde_ActiveSync::FLAG_NEWMESSAGE;
+            $change['id'] = $new[$inew]['id'];
+            $changes[] = $change;
+            $inew++;
+        }
+
+        return $changes;
+    }
+
+    /**
+     * Helper function for the _diff method
+     *
+     * @param $a
+     * @param $b
+     * @return unknown_type
+     */
+    static public function RowCmp($a, $b)
+    {
+        return $a['id'] < $b['id'] ? 1 : -1;
+    }
 }

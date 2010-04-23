@@ -55,7 +55,6 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
 
     /**
      * Get a list of event uids that have had $action happen since $from_ts.
-     * Optionally limits to a specific calendar.
      *
      * @param string $action      The action to check for (add, modify, delete)
      * @param timestamp $from_ts  The timestamp to start checking from
@@ -64,7 +63,7 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
      */
     public function calendar_listBy($action, $from_ts)
     {
-        return $this->_registry->calendar->listBy($action, $from_ts);
+        return $this->_registry->calendar->listBy($action, (int)$from_ts);
     }
 
     /**
@@ -206,6 +205,19 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
     }
 
     /**
+     * Get a list of contact uids that have had $action happen since $from_ts.
+     *
+     * @param string $action      The action to check for (add, modify, delete)
+     * @param timestamp $from_ts  The timestamp to start checking from
+     *
+     * @return array  An array of event uids
+     */
+    public function contacts_listBy($action, $from_ts)
+    {
+        return $this->_registry->contacts->listBy($action, (int)$from_ts);
+    }
+
+    /**
      * List all tasks in the user's default tasklist.
      *
      * @return array  An array of task uids.
@@ -215,6 +227,11 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
         $app = $this->horde_hasInterface('tasks');
         $tasklist = $this->horde_getPref($app, 'default_tasklist');
         return $this->_registry->tasks->listTaskUids($tasklist);
+    }
+
+    public function tasks_listTaskLists()
+    {
+        return $this->_registry->tasks->listTaskLists();
     }
 
     /**
@@ -277,6 +294,19 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
     public function tasks_getActionTimestamp($uid, $action)
     {
         return $this->_registry->tasks->getActionTimestamp($uid, $action);
+    }
+
+    /**
+     * Get a list of task uids that have had $action happen since $from_ts.
+     *
+     * @param string $action      The action to check for (add, modify, delete)
+     * @param timestamp $from_ts  The timestamp to start checking from
+     *
+     * @return array  An array of event uids
+     */
+    public function tasks_listBy($action, $from_ts)
+    {
+        return $this->_registry->tasks->listBy($action, (int)$from_ts);
     }
 
     /**

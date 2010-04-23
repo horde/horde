@@ -257,14 +257,78 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
      * @return array A list of messge uids that have chnaged in the specified
      *               time period.
      */
-    public function getServerChanges($folderId, $from_ts, $to_ts)
+    public function getServerChanges($folderId, $from_ts, $to_ts, $cutoffdate)
     {
-        $adds = $this->_connector->calendar_listBy('add', $from_ts);
-        $changes = $this->_connector->calendar_listBy('modify', $from_ts);
-        $deletes = $this->_connector->calendar_listBy('delete', $from_ts);
-
         // FIXME: Need to filter the results by $from_ts OR need to fix
         // Horde_History to query for a timerange instead of a single timestamp
+        $this->_logger->debug("Horde_ActiveSync_Driver_Horde::getServerChanges($folderId, $from_ts, $to_ts, $cutoffdate)");
+        switch ($folderId) {
+        case self::APPOINTMENTS_FOLDER:
+            if ($from_ts == 0) {
+                /* Can't use History if it's a first sync */
+                $startstamp = (int)$cutoffdate;
+                $endstamp = time() + 32140800; //60 * 60 * 24 * 31 * 12 == one year
+                $events = $this->_connector->calendar_listEvents($startstamp, $endstamp);
+                foreach ($events as $day) {
+                    foreach($day as $e) {
+                        $adds[] = $e->uid;
+                    }
+                }
+                $edits = $deletes = array();
+            } else {
+                $adds = $this->_connector->calendar_listBy('add', $from_ts);
+                $edits = $this->_connector->calendar_listBy('modify', $from_ts);
+                $deletes = $this->_connector->calendar_listBy('delete', $from_ts);
+            }
+            break;
+        case self::CONTACTS_FOLDER:
+            /* Can't use History for first sync */
+            if ($from_ts == 0) {
+                $adds = $this->_connector->contacts_list();
+                $edits = $deletes = array();
+            } else {
+                $adds = $this->_connector->contacts_listBy('add', $from_ts);
+                $edits = $this->_connector->contacts_listBy('modify', $from_ts);
+                $deletes = $this->_connector->contacts_listBy('delete', $from_ts);
+            }
+            break;
+        case self::TASKS_FOLDER:
+            /* Can't use History for first sync */
+            if ($from_ts == 0) {
+                $adds = $this->_connector->tasks_listTasks();
+                $edits = $deletes = array();
+            } else {
+                $adds = $this->_connector->tasks_listBy('add', $from_ts);
+                $edits = $this->_connector->tasks_listBy('modify', $from_ts);
+                $deletes = $this->_connector->tasks_listBy('delete', $from_ts);
+            }
+            break;
+        }
+
+        /* Build the changes array */
+        $changes = array();
+        /* Server additions */
+        foreach ($adds as $add) {
+            $changes[] = array(
+                'id' => $add,
+                'type' => 'change',
+                'flags' => Horde_ActiveSync::FLAG_NEWMESSAGE);
+        }
+
+        /* Server changes */
+        foreach ($edits as $change) {
+            $changes[] = array(
+                'id' => $change,
+                'type' => 'change');
+
+        }
+
+        /* Server Deletions */
+        foreach ($deletes as $deleted) {
+            $changes[] = array(
+                'id' => $deleted,
+                'type' => 'deletion');
+        }
 
         return $changes;
     }
@@ -389,7 +453,11 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
                     $this->_logger->err($e->getMessage());
                     return false;
                 }
+                /* There is no history entry for new messages, so use the
+                 * current time for purposes of remembering this is from the PIM
+                 */
                 $stat = $this->_smartStatMessage($folderid, $id, false);
+                $stat['mod'] = time();
             } else {
                 // ActiveSync messages do NOT contain the serverUID value, put
                 // it in ourselves so we can have it during import/change.

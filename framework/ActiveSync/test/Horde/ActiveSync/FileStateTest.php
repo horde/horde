@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * Unit tests for the file state machine
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
@@ -25,7 +25,7 @@ class Horde_ActiveSync_FileStateTest extends Horde_Test_Case
                 ->method('contacts_list')
                 ->will($this->returnValue($fixture['contacts_list']));
 
-        $connector->expects($this->exactly(1))
+        $connector->expects($this->exactly(2))
                 ->method('contacts_getActionTimestamp')
                 ->will($this->returnValue($fixture['contacts_getActionTimestamp']));
 
@@ -37,12 +37,12 @@ class Horde_ActiveSync_FileStateTest extends Horde_Test_Case
                            'class' => 'Contacts'));
 
         $state->loadState(0);
-        
+
         /* Get the current state from the "server" */
         $changes = $state->getChanges();
         $this->assertEquals(1, $state->getChangeCount());
         $this->assertEquals(array('type' => 'change', 'flags' => 'NewMessage', 'id' => '20070112030611.62g1lg5nry80@test.theupstairsroom.com'), $changes[0]);
-        
+
         /* Import the state into the state object */
         foreach($changes as $change) {
             // We know it's always a 'change' since the above test passed
@@ -77,7 +77,7 @@ class Horde_ActiveSync_FileStateTest extends Horde_Test_Case
         $this->markTestIncomplete();
         return;
     }
-    
+
     public function testConflicts()
     {
         $this->markTestIncomplete();

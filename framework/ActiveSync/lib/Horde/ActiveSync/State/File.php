@@ -100,11 +100,12 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
      * Load the sync state
      *
      * @param string $syncKey   The synckey
+     * @prarm string $type      Treat loaded state as this type of state.
      *
      * @return void
      * @throws Horde_ActiveSync_Exception
      */
-    public function loadState($syncKey)
+    public function loadState($syncKey, $type = null, $id = '')
     {
         /* Ensure state directory is present */
         $this->_ensureUserDirectory();
@@ -189,7 +190,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
      *
      * @return void
      */
-    public function updateState($type, $change)
+    public function updateState($type, $change, $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA)
     {
         if (empty($this->_stateCache)) {
             $this->_stateCache = array();
@@ -200,7 +201,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
             /* If we are a change and don't already have a mod time, stat the
              * message. This would only happen when exporting a server side 
              * change. We need the mod time to track the version of the message
-             * on the PIM.
+             * on the PIM. (Folder changes will already have a mod value)
              */
             if (!isset($change['mod'])) {
                 $change = $this->_backend->statMessage($this->_collection['id'], $change['id']);
@@ -703,103 +704,6 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
         }
 
         $this->_haveStateDirectory = true;
-    }
-
-    /**
-     * Helper function that performs the actual diff between PIM state and
-     * server state arrays.
-     *
-     * @param array $old  The PIM state
-     * @param array $new  The current server state
-     *
-     * @return unknown_type
-     */
-    private function _getDiff($old, $new)
-    {
-        $changes = array();
-
-        // Sort both arrays in the same way by ID
-        usort($old, array(__CLASS__, 'RowCmp'));
-        usort($new, array(__CLASS__, 'RowCmp'));
-
-        $inew = 0;
-        $iold = 0;
-
-        // Get changes by comparing our list of messages with
-        // our previous state
-        while (1) {
-            $change = array();
-
-            if ($iold >= count($old) || $inew >= count($new)) {
-                break;
-            }
-
-            if ($old[$iold]['id'] == $new[$inew]['id']) {
-                // Both messages are still available, compare flags and mod
-                if (isset($old[$iold]['flags']) && isset($new[$inew]['flags']) && $old[$iold]['flags'] != $new[$inew]['flags']) {
-                    // Flags changed
-                    $change['type'] = 'flags';
-                    $change['id'] = $new[$inew]['id'];
-                    $change['flags'] = $new[$inew]['flags'];
-                    $changes[] = $change;
-                }
-
-                if ($old[$iold]['mod'] != $new[$inew]['mod']) {
-                    $change['type'] = 'change';
-                    $change['id'] = $new[$inew]['id'];
-                    $changes[] = $change;
-                }
-
-                $inew++;
-                $iold++;
-            } else {
-                if ($old[$iold]['id'] > $new[$inew]['id']) {
-                    // Message in state seems to have disappeared (delete)
-                    $change['type'] = 'delete';
-                    $change['id'] = $old[$iold]['id'];
-                    $changes[] = $change;
-                    $iold++;
-                } else {
-                    // Message in new seems to be new (add)
-                    $change['type'] = 'change';
-                    $change['flags'] = Horde_ActiveSync::FLAG_NEWMESSAGE;
-                    $change['id'] = $new[$inew]['id'];
-                    $changes[] = $change;
-                    $inew++;
-                }
-            }
-        }
-
-        while ($iold < count($old)) {
-            // All data left in _syncstate have been deleted
-            $change['type'] = 'delete';
-            $change['id'] = $old[$iold]['id'];
-            $changes[] = $change;
-            $iold++;
-        }
-
-        while ($inew < count($new)) {
-            // All data left in new have been added
-            $change['type'] = 'change';
-            $change['flags'] = Horde_ActiveSync::FLAG_NEWMESSAGE;
-            $change['id'] = $new[$inew]['id'];
-            $changes[] = $change;
-            $inew++;
-        }
-
-        return $changes;
-    }
-
-    /**
-     * Helper function for the _diff method
-     *
-     * @param $a
-     * @param $b
-     * @return unknown_type
-     */
-    static public function RowCmp($a, $b)
-    {
-        return $a['id'] < $b['id'] ? 1 : -1;
     }
 
 }

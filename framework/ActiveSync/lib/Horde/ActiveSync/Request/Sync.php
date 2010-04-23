@@ -186,8 +186,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             if ($this->_statusCode == self::STATUS_SUCCESS) {
                 /* Initialize the state */
                 $state = &$this->_driver->getStateObject($collection);
+                $state->getDeviceInfo($devId);
                 try {
-                    $state->loadState($collection['synckey']);
+                    $state->loadState($collection['synckey'], 'sync');
                 } catch (Horde_ActiveSync_Exception $e) {
                     $this->_statusCode = self::STATUS_KEYMISM;
                     $this->_handleError($collection);

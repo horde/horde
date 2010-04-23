@@ -301,6 +301,10 @@ class Horde_ActiveSync
     const FOLDER_TYPE_RECIPIENT_CACHE =  19;
     const FOLDER_TYPE_DUMMY =  '__dummy.Folder.Id__';
 
+    const CHANGE_ORIGIN_PIM = 0;
+    const CHANGE_ORIGIN_SERVER = 1;
+    const CHANGE_ORIGIN_NA = 3;
+
     /**
      * Logger
      *

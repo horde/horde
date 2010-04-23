@@ -222,7 +222,7 @@ abstract class Horde_ActiveSync_Driver_Base
      * @return array A list of messge uids that have chnaged in the specified
      *               time period.
      */
-    abstract public function getServerChanges($folderId, $from_ts, $to_ts);
+    abstract public function getServerChanges($folderId, $from_ts, $to_ts, $cutoffdate);
 
     /**
      * Get a message stat.

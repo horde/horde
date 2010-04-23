@@ -116,6 +116,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
             /* compatibility mode - get id from state */
             if (!isset($collectionid)) {
                 $state = &$this->_driver->getStateObject();
+                $state->getDeviceInfo($devId);
                 $collectionid = $state>getFolderData($this->_devid, $collection['class']);
             }
             $collection['id'] = $collectionid;

@@ -46,7 +46,7 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
         // Events fixture - only need the uid property for this test
         $e1 = new stdClass();
         $e1->uid = '20080112030603.249j42k3k068@test.theupstairsroom.com';
-        
+
         // Test Contacts - simulates returning two contacts, both of which have no history modify entries.
         $fixture = array('contacts_list' => array('20070112030603.249j42k3k068@test.theupstairsroom.com',
                                                   '20070112030611.62g1lg5nry80@test.theupstairsroom.com'),
@@ -58,7 +58,7 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
                          'tasks_list' => array('20070112030603.249j42k3k068@test.theupstairsroom.com',
                                                '20070112030611.62g1lg5nry80@test.theupstairsroom.com'),
                          'tasks_getActionTimestamp' => 0);
-        
+
         /* Mock the registry responses */
         $connector = $this->getMockSkipConstructor('Horde_ActiveSync_Driver_Horde_Connector_Registry');
         $connector->expects($this->once())->method('contacts_list')->will($this->returnValue($fixture['contacts_list']));
@@ -232,7 +232,8 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
         } catch (Horde_ActiveSync_Exception $e) {
             $this->fail($e->getMessage());
         }
-        $this->assertEquals(array('id' => 'localhost@123.123', 'mod' => 0, 'flags' => 1), $results);
+        $this->assertEquals('localhost@123.123', $results['id']);
+        $this->assertEquals(1, $results['flags']);
 
        /* Try editing a contact */
         try {
@@ -240,7 +241,8 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
         } catch (Horde_ActiveSync_Exception $e) {
             $this->fail($e->getMessage());
         }
-        $this->assertEquals(array('id' => 'localhost@123.123', 'mod' => 0, 'flags' => 1), $results);
+        $this->assertEquals('localhost@123.123', $results['id']);
+        $this->assertEquals(1, $results['flags']);
 
         /* Try adding a new appointment */
         $message = new Horde_ActiveSync_Message_Appointment();
@@ -249,7 +251,8 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
         } catch (Horde_ActiveSync_Exception $e) {
             $this->fail($e->getMessage());
         }
-        $this->assertEquals(array('id' => 'localhost@123.123', 'mod' => 0, 'flags' => 1), $results);
+        $this->assertEquals('localhost@123.123', $results['id']);
+        $this->assertEquals(1, $results['flags']);
 
        /* Try editing an appointment */
         try {
@@ -257,7 +260,8 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
         } catch (Horde_ActiveSync_Exception $e) {
             $this->fail($e->getMessage());
         }
-        $this->assertEquals(array('id' => 'localhost@123.123', 'mod' => 0, 'flags' => 1), $results);
+        $this->assertEquals('localhost@123.123', $results['id']);
+        $this->assertEquals(1, $results['flags']);
 
         /* Try adding a new task */
         $message = new Horde_ActiveSync_Message_Task();
@@ -266,7 +270,8 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
         } catch (Horde_ActiveSync_Exception $e) {
             $this->fail($e->getMessage());
         }
-        $this->assertEquals(array('id' => 'localhost@123.123', 'mod' => 0, 'flags' => 1), $results);
+        $this->assertEquals('localhost@123.123', $results['id']);
+        $this->assertEquals(1, $results['flags']);
 
        /* Try editing an appointment */
         try {
@@ -274,7 +279,12 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
         } catch (Horde_ActiveSync_Exception $e) {
             $this->fail($e->getMessage());
         }
-        $this->assertEquals(array('id' => 'localhost@123.123', 'mod' => 0, 'flags' => 1), $results);
+
+        /* Only check these two fields, 'mod' will contain the timestamp the
+         * change was actually made.
+         */
+        $this->assertEquals('localhost@123.123', $results['id']);
+        $this->assertEquals(1, $results['flags']);
     }
 
     /**

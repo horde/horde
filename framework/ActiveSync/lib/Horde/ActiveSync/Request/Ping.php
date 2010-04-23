@@ -76,7 +76,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         $timeout = $this->_ping_settings['waitinterval'];
 
         /* Notify */
-        $this->_logger->info('[' . $devId . '] Ping received at timestamp: ' . $now . '.');
+        $this->_logger->info('[' . $devId . '] PING received at timestamp: ' . $now . '.');
 
         /* Glass half full kinda guy... */
         $this->_statusCode = self::STATUS_NOCHANGES;
@@ -160,7 +160,12 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     $collection = $collections[$i];
                     $collection['synckey'] = $this->_devId;
                     $sync = $this->_driver->getSyncObject();
-                    $this->_state->loadPingCollectionState($collection);
+                    try {
+                        $this->_state->loadPingCollectionState($collection);
+                    } catch (Horde_ActiveSync_Exception $e) {
+                        $this->_logger->err('PING terminating: ' . $e->getMessage());
+                        break;
+                    }
                     try {
                         $sync->init($this->_state, null, $collection);
                     } catch (Horde_ActiveSync_Exception $e) {

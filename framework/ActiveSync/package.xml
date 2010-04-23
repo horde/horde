@@ -38,6 +38,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <dir name="State">
          <file name="Base.php" role="php" />
          <file name="File.php" role="php" />
+         <file name="History.php" role="php" />
        </dir>
        <dir name="Driver">
          <dir name="Horde">
@@ -102,6 +103,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/ActiveSync/Connector/Importer.php" as="Horde/ActiveSync/Connector/Importer.php" />
    <install name="lib/Horde/ActiveSync/State/Base.php" as="Horde/ActiveSync/State/Base.php" />
    <install name="lib/Horde/ActiveSync/State/File.php" as="Horde/ActiveSync/State/File.php" />
+   <install name="lib/Horde/ActiveSync/State/History.php" as="Horde/ActiveSync/State/History.php" />
    <install name="lib/Horde/ActiveSync/Driver/Horde/Connector/Registry.php" as="Horde/ActiveSync/Driver/Horde/Connector/Registry.php" />
    <install name="lib/Horde/ActiveSync/Driver/Base.php" as="Horde/ActiveSync/Driver/Base.php" />
    <install name="lib/Horde/ActiveSync/Driver/Horde.php" as="Horde/ActiveSync/Driver/Horde.php" />

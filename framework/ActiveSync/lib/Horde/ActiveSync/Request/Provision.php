@@ -75,6 +75,7 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
 
         /* Get state object */
         $state = $this->_driver->getStateObject();
+        $state->getDeviceInfo($devId);
 
         /* Handle android remote wipe */
         if ($this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_REMOTEWIPE)) {
