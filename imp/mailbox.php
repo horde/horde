@@ -335,6 +335,10 @@ if ($search_mbox) {
     $unread = $imp_mailbox->unseenMessages(Horde_Imap_Client::SORT_RESULTS_COUNT);
 }
 
+horde::addInlineScript(array(
+    'ImpMailbox.unread = ' . intval($unread)
+));
+
 /* Get the recent message count. */
 $newmsgs = 0;
 if ($prefs->getValue('nav_popup') || $prefs->getValue('nav_audio')) {
@@ -399,6 +403,8 @@ IMP::quota();
 
 /* Prepare the header template. */
 $hdr_template = $injector->createInstance('Horde_Template');
+$hdr_template->setOption('gettext', true);
+
 $hdr_template->set('title', $title);
 $hdr_template->set('pagetitle', $pagetitle);
 if ($readonly) {
@@ -413,12 +419,15 @@ if ($_SESSION['imp']['protocol'] != 'pop') {
     if (!$search_mbox) {
         $hdr_template->set('search', Horde::link(Horde::applicationUrl('search-basic.php')->add('search_mailbox', $imp_mbox['mailbox']), sprintf(_("Search %s"), $rawtitle)) . Horde::img('search.png', _("Search")) . '</a>');
         if (!$readonly) {
-            $hdr_template->set('empty', Horde::link($mailbox_imp_url->copy()->add(array('actionID' => 'empty_mailbox', 'mailbox' => $imp_mbox['mailbox'], 'mailbox_token' => $mailbox_token)), _("Empty folder"), '', '', "ImpMailbox.confirmDialog(this.href, '" . addslashes(_("Are you sure you wish to delete all mail in this folder?")) . "'); return false;") . Horde::img('empty_spam.png', _("Empty folder")) . '</a>');
+            $hdr_template->set('empty', $mailbox_imp_url->copy()->add(array('actionID' => 'empty_mailbox', 'mailbox' => $imp_mbox['mailbox'], 'mailbox_token' => $mailbox_token)));
+            $hdr_template->set('empty_img', Horde::img('empty_spam.png', _("Empty folder")));
         }
     } else {
         if ($imp_search->isEditableVFolder()) {
             $edit_search = sprintf(_("Edit Virtual Folder Definition for %s"), htmlspecialchars($rawtitle));
-            $hdr_template->set('delete_vfolder', Horde::link($imp_search->deleteUrl(), sprintf(_("Delete Virtual Folder Definition for %s"), htmlspecialchars($rawtitle)), null, null, "if (confirm('" . addslashes(_("Are you sure you want to delete this Virtual Folder Definition?")) . "')) { return true; } else { return false; }") . Horde::img('delete.png', sprintf(_("Delete Virtual Folder Definition for %s"), $rawtitle)) . '</a>');
+            $hdr_template->set('delete_vfolder_url', $imp_search->deleteUrl());
+            $hdr_template->set('delete_vfolder_label', sprintf(_("Delete Virtual Folder Definition for %s"), htmlspecialchars($rawtitle)));
+            $hdr_template->set('delete_vfolder_img', Horde::img('delete.png', sprintf(_("Delete Virtual Folder Definition for %s"), $rawtitle)));
         } elseif ($search_mbox && !isset($query_text)) {
             /* Mini search results. */
             $search_mailbox = reset($imp_search->getSearchFolders());
@@ -838,9 +847,5 @@ if (($pageOb['end'] - $pageOb['begin']) >= 20) {
     $n_template->set('isbottom', true);
     echo $n_template->fetch(IMP_TEMPLATES . '/imp/mailbox/navbar.html');
 }
-
-Horde::addInlineScript(array(
-    'ImpMailbox.unread = ' . strval($unread)
-));
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';

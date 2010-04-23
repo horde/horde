@@ -6,8 +6,12 @@
   <if:filter><tag:filter /></if:filter>
   <if:search><tag:search /></if:search>
   <if:searchclose><tag:searchclose /><span class="closeImg"></span></a></if:searchclose>
-  <if:empty><tag:empty /></if:empty>
-  <if:delete_vfolder><tag:delete_vfolder /></if:delete_vfolder>
+  <if:empty>
+   <a href="<tag:empty />" id="empty_mailbox" title="<gettext>Empty Mailbox</gettext>"><tag:empty_img /></a>
+  </if:empty>
+  <if:delete_vfolder_url
+   <a href="<tag:delete_vfolder_url />" id="delete_vfolder" title="<tag:delete_vfolder_label />"><tag:delete_vfolder_img /></a>
+  </if:delete_vfolder_url>
  </div>
 <if:page>
  <div style="width:20%" class="leftFloat">

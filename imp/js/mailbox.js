@@ -261,6 +261,16 @@ var ImpMailbox = {
                     this.selectRow(i, $F('checkAll'));
                 }, this);
                 return;
+
+            case 'delete_vfolder':
+                this.confirmDialog(elt.readAttribute('href'), IMP.text.mailbox_delete_vfolder);
+                e.stop();
+                return;
+
+            case 'empty_mailbox':
+                this.confirmDialog(elt.readAttribute('href'), IMP.text.mailbox_delete_all);
+                e.stop();
+                return;
             }
 
             if (elt.match('TH') &&
