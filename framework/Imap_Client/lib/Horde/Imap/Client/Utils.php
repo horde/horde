@@ -259,21 +259,22 @@ class Horde_Imap_Client_Utils
      * POP URLs take one of the following forms:
      * pop://<user>;auth=<auth>@<host>:<port>
      *
-     * @todo Support relative URLs
-     *
      * @param string $url  A URL string.
      *
      * @return mixed  False if the URL is invalid.  If valid, an array with
      *                the following fields:
      * <pre>
      * 'auth' - (string) The authentication method to use.
-     * 'hostspec' - (string) The remote server.
+     * 'hostspec' - (string) The remote server. (Not present for relative
+     *              URLs).
      * 'mailbox' - (string) The IMAP mailbox.
      * 'partial' - (string) A byte range for use with IMAP FETCH.
-     * 'port' - (integer) The remote port.
+     * 'port' - (integer) The remote port. (Not present for relative URLs).
+     * 'relative' - (boolean) True if this is a relative URL.
      * 'search' - (string) A search query to be run with IMAP SEARCH.
      * 'section' - (string) A MIME part ID.
-     * 'type' - (string) Either 'imap' or 'pop'.
+     * 'type' - (string) Either 'imap' or 'pop'. (Not present for relative
+     *          URLs).
      * 'username' - (string) The username to use on the remote server.
      * 'uid' - (string) The IMAP UID.
      * 'uidvalidity' - (integer) The IMAP UIDVALIDITY for the given mailbox.
@@ -283,18 +284,22 @@ class Horde_Imap_Client_Utils
     public function parseUrl($url)
     {
         $data = parse_url(trim($url));
-        if (!isset($data['scheme'])) {
-            return false;
-        }
 
-        $type = strtolower($data['scheme']);
-        if (!in_array($type, array('imap', 'pop'))) {
-            return false;
+        if (isset($data['scheme'])) {
+            $type = strtolower($data['scheme']);
+            if (!in_array($type, array('imap', 'pop'))) {
+                return false;
+            }
+            $relative = false;
+        } else {
+            $type = null;
+            $relative = true;
         }
 
         $ret_array = array(
-            'hostspec' => $data['host'],
+            'hostspec' => isset($data['host']) ? $data['host'] : null,
             'port' => isset($data['port']) ? $data['port'] : 143,
+            'relative' => $relative,
             'type' => $type
         );
 
@@ -312,7 +317,7 @@ class Horde_Imap_Client_Utils
         }
 
         /* IMAP-only information. */
-        if ($type == 'imap') {
+        if (!$type || ($type == 'imap')) {
             if (isset($data['path'])) {
                 $data['path'] = ltrim($data['path'], '/');
                 $parts = explode('/;', $data['path']);
