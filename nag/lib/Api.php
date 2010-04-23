@@ -101,7 +101,7 @@ class Nag_Api extends Horde_Registry_Api
      *
      * @return array  The task lists.
      */
-    public function listTasklists($owneronly, $permission)
+    public function listTasklists($owneronly = false, $permission = Horde_Perms::SHOW)
     {
         return Nag::listTasklists($owneronly, $permission);
     }
