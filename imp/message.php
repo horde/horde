@@ -458,7 +458,6 @@ if (Horde_Util::nonInputVar('next_url')) {
 /* Prepare the navbar actions template. */
 $a_template = $injector->createInstance('Horde_Template');
 $a_template->setOption('gettext', true);
-$a_template->set('readonly', $readonly);
 $compose_params = array('identity' => $identity, 'thismailbox' => $mailbox_name, 'uid' => $uid);
 if (!$prefs->getValue('compose_popup')) {
     $compose_params += array('start' => $msgindex, 'mailbox' => $imp_mbox['mailbox']);
@@ -501,11 +500,11 @@ if (IMP::threadSortAvailable($imp_mbox['mailbox'])) {
     $a_template->set('show_thread', Horde::widget(IMP::generateIMPUrl('thread.php', $imp_mbox['mailbox'], $uid, $mailbox_name)->add(array('start' => $msgindex)), _("View Thread"), 'widget', '', '', _("_View Thread"), true));
 }
 
-if ($registry->hasMethod('mail/blacklistFrom')) {
+if (!$readonly && $registry->hasMethod('mail/blacklistFrom')) {
     $a_template->set('blacklist', Horde::widget($self_link->copy()->add('actionID', 'blacklist'), _("Blacklist"), 'widget', '', '', _("_Blacklist"), true));
 }
 
-if ($registry->hasMethod('mail/whitelistFrom')) {
+if (!$readonly && $registry->hasMethod('mail/whitelistFrom')) {
     $a_template->set('whitelist', Horde::widget($self_link->copy()->add('actionID', 'whitelist'), _("Whitelist"), 'widget', '', '', _("_Whitelist"), true));
 }
 

@@ -9,6 +9,6 @@
 }
 
 /* Message body styling. */
-#messageBody {
+.messageBody {
     padding: 2px;
 }
