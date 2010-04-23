@@ -261,13 +261,6 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
     public function updateState($type, $change, $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA)
     {
         if ($origin == Horde_ActiveSync::CHANGE_ORIGIN_PIM) {
-            /* We must be updating state during receiving changes from PIM */
-            //$sql = 'DELETE FROM ' . $this->_syncMapTable . ' WHERE message_uid = ? AND sync_devid = ?';
-            //try {
-            //    $this->_db->delete($sql, array($change['id'], $this->_devId));
-            //} catch (Horde_Db_Exception $e) {
-            //    throw new Horde_ActiveSync_Exception($e);
-            //}
             $sql = 'INSERT INTO ' . $this->_syncMapTable . ' (message_uid, sync_modtime, sync_key, sync_devid, sync_folderid) VALUES (?, ?, ?, ?, ?)';
             try {
                $this->_db->insert($sql, array($change['id'], $change['mod'], $this->_syncKey, $this->_devId, $change['parent']));
