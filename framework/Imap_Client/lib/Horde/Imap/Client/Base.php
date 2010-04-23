@@ -1169,15 +1169,6 @@ abstract class Horde_Imap_Client_Base
      *                  appended message.
      *                  DEFAULT: internaldate will be the same date as when
      *                  the message was appended.
-     * 'messageid' - (string) For servers/drivers that support the UIDPLUS
-     *               IMAP extension, the UID of the appended message(s) can be
-     *               determined automatically. If this extension is not
-     *               available, the message-id of each message is needed to
-     *               determine the UID. If UIDPLUS is not available, and this
-     *               option is not defined, append() will return true only.
-     *               DEFAULT: If UIDPLUS is supported, or this string is
-     *               provided, appended ID is returned. Else, append() will
-     *               return true.
      * </pre>
      * @param array $options  Additonal options:
      * <pre>
@@ -1185,9 +1176,7 @@ abstract class Horde_Imap_Client_Base
      *             DEFAULT: No.
      * </pre>
      *
-     * @return mixed  An array of the UIDs of the appended messages (if server
-     *                supports UIDPLUS extension or 'messageid' is defined)
-     *                or true.
+     * @return array  The UIDs of the appended messages.
      * @throws Horde_Imap_Client_Exception
      */
     public function append($mailbox, $data, $options = array())
@@ -1201,22 +1190,34 @@ abstract class Horde_Imap_Client_Base
             return $ret;
         }
 
-        $msgid = false;
         $uids = array();
 
         while (list(,$val) = each($data)) {
-            if (empty($val['messageid'])) {
-                $uids[] = null;
-            } else {
-                $msgid = true;
+            if (is_string($data['data'])) {
+                $text = $data;
+            } elseif (is_resource($data['data'])) {
+                $text = '';
+                rewind($data['data']);
+                while ($in = fread($data['data'], 1024)) {
+                    $text .= $in;
+                    if (preg_match("/\n\r*\n\r*/", $text)) {
+                        break;
+                    }
+                }
+            }
+
+            $headers = Horde_Mime_Headers::parseHeaders($text);
+            $msgid = $headers->getValue('message-id');
+
+            if ($msgid) {
                 $search_query = new Horde_Imap_Client_Search_Query();
-                $search_query->headerText('Message-ID', $val['messageid']);
+                $search_query->headerText('Message-ID', $msgid);
                 $uidsearch = $this->search($mailbox, $search_query);
                 $uids[] = reset($uidsearch['match']);
             }
         }
 
-        return $msgid ? $uids : true;
+        return $uids;
     }
 
     /**

@@ -299,15 +299,12 @@ class IMP_Compose
          * set the $MDNSent keyword. However, IMP doesn't write MDN headers
          * until send time so no need to set the flag here. */
 
-        /* Get the message ID. */
-        $headers = Horde_Mime_Headers::parseHeaders($data);
-
         $drafts_mbox = IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true);
         $old_uid = $this->getMetadata('draft_uid');
 
         /* Add the message to the mailbox. */
         try {
-            $ids = $GLOBALS['imp_imap']->ob()->append($drafts_mbox, array(array('data' => $data, 'flags' => $append_flags, 'messageid' => $headers->getValue('message-id'))));
+            $ids = $GLOBALS['imp_imap']->ob()->append($drafts_mbox, array(array('data' => $data, 'flags' => $append_flags)));
 
             if ($old_uid) {
                 $GLOBALS['injector']->getInstance('IMP_Message')->delete(array($old_uid), array('nuke' => true));
