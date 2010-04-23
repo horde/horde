@@ -306,12 +306,12 @@ var DimpCore = {
         }
     },
 
-    loadingImg: function(elt, id, show, offsetTop)
+    loadingImg: function(elt, id, show)
     {
         elt = $(elt);
 
         if (show) {
-            elt.clonePosition(id, { offsetTop: offsetTop || 0, setHeight: false, setLeft: false, setWidth: false }).show();
+            elt.clonePosition(id, { setHeight: false, setLeft: false, setWidth: false }).show();
         } else {
             elt.fade({ duration: 0.2 });
         }

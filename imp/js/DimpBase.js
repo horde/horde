@@ -2884,7 +2884,7 @@ var DimpBase = {
 
     loadingImg: function(id, show)
     {
-        DimpCore.loadingImg(id + 'Loading', id == 'viewport' ? 'msgSplitPane' : 'previewPane', show, id == 'msg' ? $('previewPane').scrollTop : 0);
+        DimpCore.loadingImg(id + 'Loading', id == 'viewport' ? 'msgSplitPane' : 'previewPane', show);
     },
 
     // p = (element) Parent element
