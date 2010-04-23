@@ -38,6 +38,7 @@ class IMP_Message
     /**
      * Copies or moves a list of messages to a new mailbox.
      * Handles search and Trash mailboxes.
+     * Also handles moves to the tasklist and/or notepad applications.
      *
      * @param string $targetMbox  The mailbox to move/copy messages to
      *                            (UTF7-IMAP).
@@ -51,21 +52,22 @@ class IMP_Message
     {
         global $conf, $notification, $prefs;
 
-        if ($conf['tasklist']['use_tasklist'] &&
-            (strpos($targetMbox, '_tasklist_') === 0)) {
-            /* If the target is a tasklist, handle the move/copy specially. */
-            $tasklist = str_replace('_tasklist_', '', $targetMbox);
-            return $this->createTasksOrNotes($tasklist, $action, $indices, 'task');
-        }
-        if ($conf['notepad']['use_notepad'] &&
-            (strpos($targetMbox, '_notepad_') === 0)) {
-            /* If the target is a notepad, handle the move/copy specially. */
-            $notepad = str_replace('_notepad_', '', $targetMbox);
-            return $this->createTasksOrNotes($notepad, $action, $indices, 'note');
-        }
-
         if (!($msgList = IMP::parseIndicesList($indices))) {
             return false;
+        }
+
+        /* If the target is a tasklist, handle the move/copy specially. */
+        if ($conf['tasklist']['use_tasklist'] &&
+            (strpos($targetMbox, '_tasklist_') === 0)) {
+            $this->_createTasksOrNotes(str_replace('_tasklist_', '', $targetMbox), $action, $msgList, 'task');
+            return true;
+        }
+
+        /* If the target is a notepad, handle the move/copy specially. */
+        if ($conf['notepad']['use_notepad'] &&
+            (strpos($targetMbox, '_notepad_') === 0)) {
+            $this->_createTasksOrNotes(str_replace('_notepad_', '', $targetMbox), $action, $msgList, 'note');
+            return true;
         }
 
         if ($new) {
@@ -295,19 +297,12 @@ class IMP_Message
      * @param string $list    The list in which the task or note will be
      *                        created.
      * @param string $action  Either 'copy' or 'move'.
-     * @param mixed $indices  See IMP::parseIndicesList().
+     * @param mixed $msgList  See IMP::parseIndicesList().
      * @param string $type    The object type to create ('note' or 'task').
-     *
-     * @return boolean  True if successful, false if not.
      */
-    public function createTasksOrNotes($list, $action, $indices,
-                                       $type = 'task')
+    protected function _createTasksOrNotes($list, $action, $msgList, $type)
     {
         global $registry, $notification, $prefs;
-
-        if (!($msgList = IMP::parseIndicesList($indices))) {
-            return false;
-        }
 
         foreach ($msgList as $folder => $msgIndices) {
             foreach ($msgIndices as $index) {
@@ -356,7 +351,7 @@ class IMP_Message
                         $lists = $registry->call('tasks/listTasklists', array(false, Horde_Perms::EDIT));
                     } catch (Horde_Exception $e) {
                         $lists = null;
-                        $notification->push($e, $e->getCode());
+                        $notification->push($e);
                     }
 
                     /* Attempt to add the new vTodo item to the requested
@@ -365,7 +360,7 @@ class IMP_Message
                         $res = $registry->call('tasks/import', array($vTodo, 'text/calendar', $list));
                     } catch (Horde_Exception $e) {
                         $res = null;
-                        $notification->push($e, $e->getCode());
+                        $notification->push($e);
                     }
                     break;
 
@@ -380,7 +375,7 @@ class IMP_Message
                         $lists = $registry->call('notes/listNotepads', array(false, Horde_Perms::EDIT));
                     } catch (Horde_Exception $e) {
                         $lists = null;
-                        $notification->push($e, $e->getCode());
+                        $notification->push($e);
                     }
 
                     /* Attempt to add the new vNote item to the requested
@@ -389,7 +384,7 @@ class IMP_Message
                         $res = $registry->call('notes/import', array($vNote, 'text/x-vnote', $list));
                     } catch (Horde_Exception $e) {
                         $res = null;
-                        $notification->push($e, $e->getCode());
+                        $notification->push($e);
                     }
                     break;
                 }
@@ -438,8 +433,6 @@ class IMP_Message
         if ($action == 'move') {
             $this->delete($indices);
         }
-
-        return true;
     }
 
     /**
