@@ -429,7 +429,7 @@ class IMP_Prefs_Ui
             return $this->_updateSource($ui);
 
         case 'spamselect':
-            return $this->_updateSpecialFolders('spam_folder', $vars->spam, $vars->spam_new, $ui);
+            return $this->_updateSpecialFolders('spam_folder', $ui->vars->spam, $ui->vars->spam_new, $ui);
 
         case 'stationerymanagement':
             return $this->_updateStationeryManagement($ui);
