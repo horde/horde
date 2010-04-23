@@ -273,13 +273,16 @@ abstract class Horde_ActiveSync_State_Base
     /**
      * Return the heartbeat interval, or zero if we have no existing state
      *
-     * @param string $devId
-     *
      * @return integer  The hearbeat interval, or zero if not found.
      * @throws Horde_ActiveSync_Exception
      */
     abstract public function getHeartbeatInterval();
 
+    /**
+     * Set the device's heartbeat interval
+     *
+     * @param integer $lifetime
+     */
     abstract public function setHeartbeatInterval($lifetime);
 
     /**
@@ -316,6 +319,32 @@ abstract class Horde_ActiveSync_State_Base
     public function setLogger($logger)
     {
         $this->_logger = $logger;
+    }
+
+    /**
+     * Reset the device's PING state.
+     *
+     * @return void
+     */
+    public function resetPingState()
+    {
+        $this->_pingState = array(
+            'lifetime' => 0,
+            'collections' => array());
+    }
+
+    /**
+     * Get the number of server changes.
+     *
+     * @return integer
+     */
+    public function getChangeCount()
+    {
+        if (!isset($this->_changes)) {
+            $this->getChanges();
+        }
+
+        return count($this->_changes);
     }
 
     /**

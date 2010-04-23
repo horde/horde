@@ -83,7 +83,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
 
         /* Initialize the state machine */
         $this->_state = &$this->_driver->getStateObject();
-        $device = $this->_state->getDeviceInfo($devId);
+        $this->_state->getDeviceInfo($devId);
 
         /* See if we have an existing PING state. Need to do this here, before
          * we read in the PING request since the PING request is allowed to omit

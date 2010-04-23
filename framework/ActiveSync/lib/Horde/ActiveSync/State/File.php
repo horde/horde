@@ -199,7 +199,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
         // Change can be a change or an add
         if ($type == 'change') {
             /* If we are a change and don't already have a mod time, stat the
-             * message. This would only happen when exporting a server side 
+             * message. This would only happen when exporting a server side
              * change. We need the mod time to track the version of the message
              * on the PIM. (Folder changes will already have a mod value)
              */
@@ -349,13 +349,6 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
         return $this->_pingState['collections'];
     }
 
-    public function resetPingState()
-    {
-        $this->_pingState = array(
-            'lifetime' => 0,
-            'collections' => array());
-    }
-
     /**
      * Obtain the device object.
      *
@@ -498,8 +491,6 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
     /**
      * Return the heartbeat interval, or zero if we have no existing state
      *
-     * @param string $devId
-     *
      * @return integer  The hearbeat interval, or zero if not found.
      * @throws Horde_ActiveSync_Exception
      */
@@ -512,6 +503,11 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
         return (!$this->_pingState) ? 0 : $this->_pingState['lifetime'];
     }
 
+    /**
+     * Set the device's heartbeat interval
+     *
+     * @param integer $lifetime
+     */
     public function setHeartbeatInterval($lifetime)
     {
         $this->_pingState['lifetime'] = $lifetime;
@@ -625,20 +621,6 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
         }
 
         return $this->_changes;
-    }
-
-    /**
-     * Get the number of server changes.
-     *
-     * @return integer
-     */
-    public function getChangeCount()
-    {
-        if (!isset($this->_changes)) {
-            $this->getChanges();
-        }
-
-        return count($this->_changes);
     }
 
     /**
