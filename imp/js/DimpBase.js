@@ -1338,7 +1338,7 @@ var DimpBase = {
 
         if (rows) {
             range = this.viewport.currentViewableRange();
-            $('msgHeader').update(DIMP.text.messages + ' ' + range.first + ' - ' + range.last + ' ' + DIMP.text.of + ' ' + rows);
+            $('msgHeader').update(DIMP.text.messagetitle.sub('%d', range.first).sub('%d', range.last).sub('%d', rows));
         } else {
             $('msgHeader').update(DIMP.text.nomessages);
         }
