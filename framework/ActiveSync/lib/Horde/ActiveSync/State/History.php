@@ -394,7 +394,8 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
     }
 
     /**
-     * Obtain the device object.
+     * Obtain the device object. For this driver, we also store the PING data
+     * in the device table.
      *
      * @param string $devId
      *
@@ -403,7 +404,6 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
     public function getDeviceInfo($devId)
     {
         $this->_devId = $devId;
-
         $query = 'SELECT device_type, device_agent, device_ping, device_policykey, device_rwstatus FROM '
             . $this->_syncDeviceTable . ' WHERE device_id = ?';
         try {
@@ -433,16 +433,6 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         }
 
         return $device;
-    }
-
-    /**
-     * @TODO: move to base class?
-     */
-    public function resetPingState()
-    {
-        $this->_pingState = array(
-            'lifetime' => 0,
-            'collections' => array());
     }
 
     /**
