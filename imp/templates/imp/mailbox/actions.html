@@ -1,6 +1,6 @@
-<table width="100%" cellspacing="0">
+<table class="mboxactions">
  <tr>
-  <td class="mboxcontrol <if:isbottom>topborder</if:isbottom>">
+  <td class="mboxcontrol<if:isbottom> topborder</if:isbottom>">
    <span class="rightFloat">
     <ul class="msgactions">
 <loop:mboxactions>
@@ -10,17 +10,27 @@
    </span>
    <span class="leftFloat">
     <ul class="msgactions">
-<if:readonly><else:readonly>
-     <if:delete><li><tag:delete /></li></if:delete>
-     <if:undelete><li><tag:undelete /></li></if:undelete>
-     <if:blacklist><li><tag:blacklist /></li></if:blacklist>
-     <if:whitelist><li><tag:whitelist /></li></if:whitelist>
-</else:readonly></if:readonly>
-     <if:forward><li><tag:forward /></li></if:forward>
-<if:readonly><else:readonly>
-     <if:spam><li><tag:spam /></li></if:spam>
-     <if:notspam><li><tag:notspam /></li></if:notspam>
-</else:readonly></if:readonly>
+<if:delete>
+     <li><tag:delete /></li>
+</if:delete>
+<if:undelete>
+     <li><tag:undelete /></li>
+</if:undelete>
+<if:blacklist>
+     <li><tag:blacklist /></li>
+</if:blacklist>
+<if:whitelist>
+     <li><tag:whitelist /></li>
+</if:whitelist>
+<if:forward>
+     <li><tag:forward /></li>
+</if:forward>
+<if:spam>
+     <li><tag:spam /></li>
+</if:spam>
+<if:notspam>
+     <li><tag:notspam /></li>
+</if:notspam>
      <li class="lastnavbar"><tag:view_messages /></li>
     </ul>
    </span>

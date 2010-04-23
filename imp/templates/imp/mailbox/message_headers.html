@@ -1,22 +1,18 @@
-<if:form_tag>
-<form method="post" id="messages" name="messages" action="<tag:mailbox_url />">
-<input type="hidden" name="mailbox" value="<tag:mailbox />" />
-<input type="hidden" name="mailbox_token" value="<tag:mailbox_token />" />
-<tag:sessiontag />
-</if:form_tag>
-<table class="messageList" width="100%" cellspacing="0">
+<table class="messageList">
  <tr class="item">
-<if:mh_count>
-  <th width="8%">&nbsp;</th>
-<else:mh_count>
-  <th id="checkheader" width="8%">
+     <th id="checkheader">
+<if:show_checkbox>
    <label for="checkAll" class="hidden"><gettext>Check All/None</gettext></label>
    <input type="checkbox" class="checkbox" id="checkAll" name="checkAll" <tag:check_all /> />
   </th>
-</else:mh_count></if:mh_count>
+</if:show_checkbox>
 <loop:headers>
-  <th class="<tag:headers.class />" width="<tag:headers.width />">
-   <tag:headers.change_sort_link /> <tag:headers.change_sort_widget /> <tag:headers.extra />
+  <th class="<tag:headers.class />" id="<tag:headers.id />">
+   <tag:headers.change_sort_link />
+   <tag:headers.change_sort_widget />
+<if:headers.altsort>
+   <span class="toggleSort">[<tag:headers.altsort />]</span>
+</if:headers.altsort>
   </th>
 </loop:headers>
  </tr>

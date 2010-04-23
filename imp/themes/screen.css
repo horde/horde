@@ -1,7 +1,38 @@
-/* Mailbox header styling. */
+/* Mailbox page styling. */
 .mboxheader {
     font-size: 110%;
     text-align: left;
+}
+.mboxheader .pageCount {
+    padding-right: 10px;
+}
+
+table.mboxactions {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#checkheader {
+    width: 8%;
+}
+#checkheader input {
+    float: left;
+}
+
+#mboxdate {
+    width: 14%;
+}
+
+#mboxto, #mboxfrom {
+    width: 20%;
+}
+
+#mboxthread, #mboxsubject {
+    width: 52%;
+}
+
+#mboxsize {
+    width: 6%;
 }
 
 /* Message list table styles. */
@@ -39,9 +70,6 @@
     border: 1px solid #ddd;
     vertical-align: middle;
 }
-.messageList td label {
-    padding-right: 2px;
-}
 .messageList td label input {
     vertical-align: middle;
 }
@@ -57,10 +85,6 @@
 #messages h1.header span.flagUser {
     font-size: 80%;
     margin-left: 3px;
-}
-
-#checkheader input {
-    float: left;
 }
 
 /* Newmail alerts. */

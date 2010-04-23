@@ -1,27 +1,36 @@
 <div class="header mboxheader">
- <div <if:page>style="width:40%" </if:page>class="leftFloat">
-  <span dir="ltr"><tag:pagetitle /></span>
-  <if:readonly><tag:readonly /></if:readonly>
-  <tag:refresh /><span class="reloadImg"></span></a>
-  <if:filter><tag:filter /></if:filter>
-  <if:search><tag:search /></if:search>
-  <if:searchclose><tag:searchclose /><span class="closeImg"></span></a></if:searchclose>
-  <if:empty>
-   <a href="<tag:empty />" id="empty_mailbox" title="<gettext>Empty Mailbox</gettext>"><tag:empty_img /></a>
-  </if:empty>
-  <if:delete_vfolder_url>
-   <a href="<tag:delete_vfolder_url />" id="delete_vfolder" title="<tag:delete_vfolder_label />"><tag:delete_vfolder_img /></a>
-  </if:delete_vfolder_url>
+ <div class="rightFloat rightAlign">
+  <tag:msgcount />
  </div>
 <if:page>
- <div style="width:20%" class="leftFloat">
-  <tag:page />
+ <div class="rightFloat pageCount">
+  (<tag:page />)
  </div>
- <div style="width:40%" class="rightFloat rightAlign">
-<else:page>
- <div class="rightFloat rightAlign">
-</else:page></if:page>
-  <tag:msgcount />
+</if:page>
+ <div class="leftFloat">
+  <span dir="ltr"><tag:pagetitle /></span>
+<if:readonly>
+  <tag:readonly />
+</if:readonly>
+  <tag:refresh /><span class="reloadImg"></span></a>
+<if:filter_url>
+  <a href="<tag:filter_url />" title="<gettext>Apply Filters</gettext>"><tag:filter_img /></a>
+</if:filter_url>
+<if:search_url>
+  <a href="<tag:search_url />" title="<gettext>Search</gettext>"><tag:search_img /></a>
+<if:searchclose>
+  <a href="<tag:searchclose />" title="<gettext>Exit Search</gettext>"><span class="closeImg"</span></a>
+</if:searchclose>
+</if:search_url>
+<if:edit_search_url>
+  <a href="<tag:edit_search_url />" title="<tag:edit_search_title />"><tag:edit_search_img /></a>
+</if:edit_search_url>
+<if:empty>
+  <a href="<tag:empty />" id="empty_mailbox" title="<gettext>Empty Mailbox</gettext>"><tag:empty_img /></a>
+</if:empty>
+<if:delete_vfolder_url>
+  <a href="<tag:delete_vfolder_url />" id="delete_vfolder" title="<gettext>Delete Virtual Folder</gettext>"><tag:delete_vfolder_img /></a>
+</if:delete_vfolder_url>
  </div>
  <div class="clear"></div>
 </div>
