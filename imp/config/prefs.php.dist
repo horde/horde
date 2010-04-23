@@ -1020,7 +1020,7 @@ $_prefs['msgflags'] = array(
         ),
         'highpri' => array(
             'a' => '!',
-            'b' => '#ffcccc',
+            'b' => '#fcc',
             'c' => 'flagHighpriority',
             'l' => _("High Priority"),
             't' => 'imp'
@@ -1059,7 +1059,7 @@ $_prefs['msgflags'] = array(
         // System IMAP flags (RFC 3501 [2.3.2])
         '\\answered' => array(
             'a' => 'r',
-            'b' => '#ccffcc',
+            'b' => '#cfc',
             'c' => 'flagAnswered',
             'l' => _("Answered"),
             // By default, this flag is not settable by the user - it is
@@ -1076,7 +1076,7 @@ $_prefs['msgflags'] = array(
         ),
         '\\deleted' => array(
             'a' => 'D',
-            'b' => '#999999',
+            'b' => '#999',
             'c' => 'flagDeleted',
             'l' => _("Deleted"),
             // By default, this flag is not settable by the user - it is
@@ -1085,7 +1085,7 @@ $_prefs['msgflags'] = array(
         ),
         '\\seen' => array(
             'a' => 'N',
-            'b' => '#eeeeff',
+            'b' => '#eef',
             'c' => 'flagUnseen',
             'l' => _("Unseen"),
             'n' => true,
@@ -1093,7 +1093,7 @@ $_prefs['msgflags'] = array(
         ),
         '\\flagged' => array(
             'a' => '*',
-            'b' => '#ffcccc',
+            'b' => '#fcc',
             'c' => 'flagFlagged',
             'l' => _("Flagged for Followup"),
             't' => 'imapu'
