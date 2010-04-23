@@ -227,12 +227,17 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             $data = '';
         }
 
+        $params = array($this->_syncKey,
+                        $data,
+                        $this->_devId,
+                        $this->_thisSyncTS,
+                        !empty($this->_collection['id']) ? $this->_collection['id'] : false);
         try {
-            $this->_db->insert($sql, array($this->_syncKey, $data, $this->_devId, $this->_thisSyncTS, !empty($this->_collection['id']) ? $this->_collection['id'] : false));
+            $this->_db->insert($sql, $params);
         } catch (Horde_Db_Exception $e) {
             /* Might exist already if the last sync attempt failed. */
             $this->_db->delete('DELETE FROM ' . $this->_syncStateTable . ' WHERE sync_key = ?', array($this->_syncKey));
-            $this->_db->insert($sql, array($this->_syncKey, $data, $this->_devId, $this->_thisSyncTS, $this->_collection['id']));
+            $this->_db->insert($sql, $params);
         }
 
         return true;
