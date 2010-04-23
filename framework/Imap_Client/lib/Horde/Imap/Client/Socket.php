@@ -24,6 +24,7 @@
  *   RFC 4315 - UIDPLUS
  *   RFC 4422 - SASL Authentication (for DIGEST-MD5)
  *   RFC 4466 - Collected extensions (updates RFCs 2088, 3501, 3502, 3516)
+ *   RFC 4469/5550 - CATENATE
  *   RFC 4551 - CONDSTORE
  *   RFC 4731 - ESEARCH
  *   RFC 4959 - SASL-IR
@@ -52,7 +53,6 @@
  *                    time by each HTTP/PHP request)
  *   RFC 2193 - MAILBOX-REFERRALS
  *   RFC 4467/5092/5524/5550 - URLAUTH, URLFETCH=BINARY, URL-PARTIAL
- *   RFC 4469/5550 - CATENATE
  *   RFC 4978 - COMPRESS=DEFLATE
  *              See: http://bugs.php.net/bug.php?id=48725
  *   RFC 5257 - ANNOTATE (Experimental)
@@ -1378,10 +1378,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         // If the mailbox is currently selected read-only, we need to close
         // because some IMAP implementations won't allow an append.
-        if (($this->_selected == $mailbox) &&
-            ($this->_mode == Horde_Imap_Client::OPEN_READONLY)) {
-            $this->close();
-        }
+        $this->close();
+
+        // Check for CATENATE extension (RFC 4469)
+        $catenate = $this->queryCapability('CATENATE');
 
         $t = &$this->_temp;
         $t['appenduid'] = array();
@@ -1392,8 +1392,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             'APPEND',
             array('t' => Horde_Imap_Client::DATA_MAILBOX, 'v' => $mailbox)
         );
-
-        stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
 
         foreach (array_keys($data) as $key) {
             if (!empty($data[$key]['flags'])) {
@@ -1408,17 +1406,31 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $cmd[] = $data[$key]['internaldate']->format('j-M-Y H:i:s O');
             }
 
-            $text = fopen('php://temp', 'w+');
-            stream_filter_append($text, 'horde_eol', STREAM_FILTER_WRITE);
+            if (is_array($data[$key]['data'])) {
+                if ($catenate) {
+                    $cmd[] = 'CATENATE';
 
-            if (is_resource($data[$key]['data'])) {
-                rewind($data[$key]['data']);
-                stream_copy_to_stream($data[$key]['data'], $text);
+                    $tmp = array();
+                    foreach (array_keys($data[$key]['data']) as $key2) {
+                        switch ($data[$key]['data'][$key2]['t']) {
+                        case 'text':
+                            $tmp[] = 'TEXT';
+                            $tmp[] = $this->_prepareAppendData($data[$key]['data'][$key2]['v']);
+                            break;
+
+                        case 'url':
+                            $tmp[] = 'URL';
+                            $tmp[] = $data[$key]['data'][$key2]['v'];
+                            break;
+                        }
+                    }
+                    $cmd[] = $tmp;
+                } else {
+                    $cmd[] = $this->_buildCatenateData($data[$key]['data']);
+                }
             } else {
-                fwrite($text, $data[$key]['data']);
+                $cmd[] = $this->_prepareAppendData($data[$key]['data']);
             }
-
-            $cmd[] = $text;
         }
 
         try {
@@ -4278,6 +4290,22 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'UIDNOTSTICKY':
             // Defined by RFC 4315 [3]
             $this->_temp['mailbox']['uidnotsticky'] = true;
+            break;
+
+        case 'BADURL':
+            // Defined by RFC 4469 [4.1]
+            $this->_temp['parsestatuserr'] = array(
+                Horde_Imap_Client_Exception::CATENATE_BADURL,
+                substr($ob['line'], $end_pos + 2)
+            );
+            break;
+
+        case 'TOOBIG':
+            // Defined by RFC 4469 [4.2]
+            $this->_temp['parsestatuserr'] = array(
+                Horde_Imap_Client_Exception::CATENATE_TOOBIG,
+                substr($ob['line'], $end_pos + 2)
+            );
             break;
 
         case 'HIGHESTMODSEQ':

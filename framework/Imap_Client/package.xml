@@ -31,7 +31,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Correctly output 8-bit strings (RFC 3501 [4.3]).
+ <notes>* Add Horde_Imap_Client_Base::fetchFromSectionString().
+ * Add support for RFC 4469 (CATENATE).
+ * Correctly output 8-bit strings (RFC 3501 [4.3]).
  * Add Horde_Imap_Client_Utils::stripNonAtomChars().
  * Add sequence sort (numeric sort by UID/sequence number).
  * Add ability to disable server capabilities.
@@ -115,6 +117,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <package>
     <name>Stream_Filter</name>
     <channel>pear.horde.org</channel>
+   </package>
+   <package>
+     <name>Support</name>
+     <channel>pear.horde.org</channel>
    </package>
    <extension>
     <name>imap</name>

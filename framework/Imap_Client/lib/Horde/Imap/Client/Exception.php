@@ -56,6 +56,12 @@ class Horde_Imap_Client_Exception extends Exception
     // Thrown if read error for server response.
     const SERVER_READERROR = 12;
 
+    // Thrown on CATENATE if a bad IMAP URL is found.
+    const CATENATE_BADURL = 13;
+
+    // Thrown on CATENATE if the message was too big.
+    const CATENATE_TOOBIG = 14;
+
     /**
      * Define a callback function used to log the exception. Will be passed
      * a single parameter - a copy of this object.

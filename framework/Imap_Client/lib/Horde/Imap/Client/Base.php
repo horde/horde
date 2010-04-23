@@ -1159,8 +1159,15 @@ abstract class Horde_Imap_Client_Base
      *                         each embedded array having the following
      *                         entries:
      * <pre>
-     * 'data' - (mixed) The data to append. Either a string or a stream
-     *          resource.
+     * 'data' - (mixed) The data to append. If a string or a stream resource,
+     *          this will be used as the entire contents of a single message.
+     *          If an array, will catenate all given parts into a single
+     *          message. This array contains one or more arrays with two keys:
+     *            't' - (string) Either 'url' or 'text'.
+     *            'v' - (mixed) If 't' is 'url', this is the IMAP URL to the
+     *                  message part to append. If 't' is 'text', this is
+     *                  either a string or resource representation of the
+     *                  message part data.
      *          DEFAULT: NONE (entry is MANDATORY)
      * 'flags' - (array) An array of flags/keywords to set on the appended
      *           message.
@@ -1705,10 +1712,11 @@ abstract class Horde_Imap_Client_Base
      *               returned, the starting position is identified here.
      *               DEFAULT: The entire text is returned.
      *   Return key: 'headertext'
-     *   Return format: (mixed) If 'parse' is true, a Horde_Mime_Headers
-     *                  object. Else, the raw text of the header (or the
-     *                  (portion of the text delineated by the 'start' &
-     *                  'length' parameters).
+     *   Return format: (array) An array of header text entries. Keys are
+     *                  the 'id'. If 'parse' is true, values are
+     *                  Horde_Mime_Headers objects. Otherwise, values are the
+     *                  raw text of the header (or the portion of the text
+     *                  delineated by the 'start' & 'length' parameters).
      *
      * Key: Horde_Imap_Client::FETCH_BODYTEXT
      *   Desc: Returns the body text. Body text is defined only for the
@@ -2886,6 +2894,119 @@ abstract class Horde_Imap_Client_Base
     }
 
     /**
+     * Given an IMAP body section string, fetches the corresponding part.
+     *
+     * @param string $mailbox  The IMAP mailbox name.
+     * @param integer $uid     The IMAP UID.
+     * @param string $section  The IMAP section string.
+     *
+     * @return resource  The section contents in a stream.
+     * @throws Horde_Imap_Client_Exception
+     */
+    public function fetchFromSectionString($mailbox, $uid, $section = null)
+    {
+        $section = trim($section);
+
+        // BODY[]
+        if (!strlen($section)) {
+            $fetch = $this->fetch($mailbox, array(
+                Horde_Imap_Client::FETCH_FULLMSG => array(
+                    'peek' => true,
+                    'stream' => true
+                )
+            ), array('ids' => array($uid)));
+            return $fetch[$uid]['fullmsg'];
+        }
+
+        // BODY[<#.>HEADER.FIELDS<.NOT>()]
+        if (($pos = stripos($section, 'HEADER.FIELDS')) !== false) {
+            $hdr_pos = strpos($section, '(');
+            $cmd = substr($section, 0, $hdr_pos);
+
+            $fetch = $this->fetch($mailbox, array(
+                Horde_Imap_Client::FETCH_HEADERS => array(
+                    array(
+                        'headers' => explode(' ', substr($section, $hdr_pos + 1, strrpos($section, ')') - $hdr_pos)),
+                        'id' => ($pos ? substr($section, 0, $pos - 1) : 0),
+                        'label' => 'section',
+                        'notsearch' => (stripos($cmd, '.NOT') !== false),
+                        'peek' => true
+                    )
+                )
+            ), array('ids' => array($uid)));
+
+            $stream = fopen('php://temp', 'w+');
+            fwrite($stream, $fetch[$uid]['headers']['section']);
+            return $stream;
+        }
+
+        // BODY[#]
+        if (is_numeric(substr($section, -1))) {
+            $fetch = $this->fetch($mailbox, array(
+                Horde_Imap_Client::FETCH_BODYPART => array(
+                    array(
+                        'id' => $section,
+                        'peek' => true,
+                        'stream' => true
+                    )
+                )
+            ), array('ids' => array($uid)));
+            return $fetch[$uid]['bodypart'][$section];
+        }
+
+        // BODY[<#.>HEADER]
+        if (($pos = stripos($section, 'HEADER')) !== false) {
+            $id = ($pos ? substr($section, 0, $pos - 1) : 0);
+            $fetch = $this->fetch($mailbox, array(
+                Horde_Imap_Client::FETCH_HEADERTEXT => array(
+                    array(
+                        'id' => $id,
+                        'peek' => true
+                    )
+                )
+            ), array('ids' => array($uid)));
+
+            $stream = fopen('php://temp', 'w+');
+            fwrite($stream, $fetch[$uid]['headertext'][$id]);
+            return $stream;
+        }
+
+        // BODY[<#.>TEXT]
+        if (($pos = stripos($section, 'TEXT')) !== false) {
+            $id = ($pos ? substr($section, 0, $pos - 1) : 0);
+            $fetch = $this->fetch($mailbox, array(
+                Horde_Imap_Client::FETCH_BODYTEXT => array(
+                    array(
+                        'id' => $id,
+                        'peek' => true,
+                        'stream' => true
+                    )
+                )
+            ), array('ids' => array($uid)));
+            return $fetch[$uid]['bodytext'][$id];
+        }
+
+        // BODY[<#.>MIMEHEADER]
+        if (($pos = stripos($section, 'MIME')) !== false) {
+            $id = ($pos ? substr($section, 0, $pos - 1) : 0);
+            $fetch = $this->fetch($mailbox, array(
+                Horde_Imap_Client::FETCH_MIMEHEADER => array(
+                    array(
+                        'id' => $id,
+                        'peek' => true
+                    )
+                )
+            ), array('ids' => array($uid)));
+
+            $stream = fopen('php://temp', 'w+');
+            fwrite($stream, $fetch[$uid]['mimeheader'][$id]);
+            return $stream;
+        }
+
+        return null;
+    }
+
+    /**
      * Returns UIDs for an ALL search, or for a sequence number -> UID lookup.
      *
      * @param mixed $ids    If null, return all UIDs for the mailbox. If an
@@ -3138,6 +3259,80 @@ abstract class Horde_Imap_Client_Base
             $uidvalid = $status['uidvalidity'];
         }
         $this->cache->setMetaData($mailbox, $uidvalid, $data);
+    }
+
+    /**
+     * Prepares append message data for insertion into the IMAP command
+     * string.
+     *
+     * @param mixed $data  Either a resource or a string.
+     *
+     * @param resource  A stream containing the message data.
+     */
+    protected function _prepareAppendData($data)
+    {
+        $stream = fopen('php://temp', 'w+');
+        stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
+        stream_filter_append($stream, 'horde_eol', STREAM_FILTER_WRITE);
+
+        if (is_resource($data)) {
+            rewind($data);
+            stream_copy_to_stream($data, $stream);
+        } else {
+            fwrite($stream, $data);
+        }
+
+        return $stream;
+    }
+
+    /**
+     * Builds a stream from CATENATE input to append().
+     *
+     * @param array $data  See append() - array input for the 'data' key to
+     *                     the $data parameter.
+     *
+     * @return resource  The data combined into a single stream.
+     * @throws Horde_Imap_Client_Exception
+     */
+    protected function _buildCatenateData($data)
+    {
+        $parts = array();
+
+        foreach (array_keys($data) as $key2) {
+            switch ($data[$key2]['t']) {
+            case 'text':
+                $parts[] = $this->_prepareAppendData($data[$key2]['v']);
+                break;
+
+            case 'url':
+                $part = null;
+                $url = $this->utils->parseUrl($data[$key2]['v']);
+
+                if (isset($url['mailbox']) &&
+                    isset($url['uid'])) {
+                    try {
+                        $status_res = isset($url['uidvalidity'])
+                            ? $this->status($url['mailbox'], Horde_Imap_Client::STATUS_UIDVALIDITY)
+                            : null;
+
+                        if (is_null($status_res) ||
+                            ($status_res['uidvalidity'] == $url['uidvalidity'])) {
+                            $part = $this->fetchFromSectionString($url['mailbox'], $url['uid'], isset($url['section']) ? $url['section'] : null);
+                        }
+                    } catch (Horde_Imap_Client_Exception $e) {}
+                }
+
+                if (is_null($part)) {
+                    throw new Horde_Imap_Client_Exception('Bad IMAP URL given in CATENATE data', Horde_Imap_Client_Exception::CATENATE_BADURL);
+                } else {
+                    $parts[] = $part;
+                }
+                break;
+            }
+        }
+
+        $swrapper = new Horde_Support_CombineStream($parts);
+        return $swrapper->fopen();
     }
 
 }
