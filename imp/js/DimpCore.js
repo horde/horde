@@ -320,11 +320,39 @@ var DimpCore = {
     toggleButtons: function(elts, disable)
     {
         elts.each(function(b) {
+            var tmp;
             [ b.up() ].invoke(disable ? 'addClassName' : 'removeClassName', 'disabled');
-            if (this.DMenu) {
-                this.DMenu.disable(b.identify() + '_img', true, disable);
+            if (this.DMenu &&
+                (tmp = b.next('.popdown'))) {
+                this.DMenu.disable(tmp.identify(), true, disable);
             }
         }, this);
+    },
+
+    // p = (Element) Parent element
+    // t = (string) Context menu type
+    // d = (boolean) Disabled?
+    addPopdown: function(p, t, d)
+    {
+        var elt = new Element('SPAN', { className: 'iconImg popdownImg popdown' });
+        $(p).insert({ after: elt });
+
+        this.addContextMenu({
+            disable: d,
+            id: elt.identify(),
+            left: true,
+            offset: elt.up(),
+            type: t
+        });
+
+        return elt;
+    },
+
+    addContextMenu: function(p)
+    {
+        if (this.DMenu) {
+            this.DMenu.addElement(p.id, 'ctx_' + p.type, p);
+        }
     },
 
     /* Add dropdown menus to addresses. */

@@ -522,9 +522,10 @@ var DimpBase = {
         /* Custom ViewPort events. */
         container.observe('ViewPort:add', function(e) {
             var row = e.memo.identify();
-
-            // Add context menu
-            this._addMouseEvents({ id: row, type: 'message' });
+            DimpCore.addContextMenu({
+                id: row,
+                type: 'message'
+            });
             new Drag(row, this._msgDragConfig);
         }.bindAsEventListener(this));
 
@@ -670,29 +671,6 @@ var DimpBase = {
                 DimpCore.showNotifications([ { type: 'horde.warning', message: DIMP.text.listmsg_wait } ]);
             }
         });
-    },
-
-    _addPopdown: function(p, t)
-    {
-        var elt = new Element('SPAN', { className: 'iconImg popdownImg popdown' });
-        $(p).insert({ after: elt });
-        this._addPopdownContextMenu(elt, t);
-        return elt;
-    },
-
-    _addPopdownContextMenu: function(elt, t)
-    {
-        this._addMouseEvents({
-            id: elt.identify(),
-            left: true,
-            offset: elt.up(),
-            type: t
-        });
-    },
-
-    _addMouseEvents: function(p)
-    {
-        DimpCore.DMenu.addElement(p.id, 'ctx_' + p.type, p);
     },
 
     _removeMouseEvents: function(elt)
@@ -2571,12 +2549,18 @@ var DimpBase = {
         case 'container':
         case 'folder':
             new Drag(li, this._folderDragConfig);
-            this._addMouseEvents({ id: fid, type: ftype });
+            DimpCore.addContextMenu({
+                id: fid,
+                type: ftype
+            });
             break;
 
         case 'scontainer':
         case 'virtual':
-            this._addMouseEvents({ id: fid, type: (ob.v == 2) ? 'vfolder' : 'noactions' });
+            DimpCore.addContextMenu({
+                id: fid,
+                type: (ob.v == 2) ? 'vfolder' : 'noactions'
+            });
             break;
         }
     },
@@ -2937,8 +2921,18 @@ var DimpBase = {
          * list since it may be disabled if we are in a search mailbox. */
         if ($('qsearch')) {
             $('qsearch_input').observe('blur', this._quicksearchOnBlur.bind(this));
-            this._addMouseEvents({ id: 'qsearch_icon', left: true, offset: 'qsearch', type: 'qsearchopts' });
-            this._addMouseEvents({ id: 'qsearch_icon', left: false, offset: 'qsearch', type: 'qsearchopts' });
+            DimpCore.addContextMenu({
+                id: 'qsearch_icon',
+                left: true,
+                offset: 'qsearch',
+                type: 'qsearchopts'
+            });
+            DimpCore.addContextMenu({
+                id: 'qsearch_icon',
+                left: false,
+                offset: 'qsearch',
+                type: 'qsearchopts'
+            });
             DM.addSubMenu('ctx_qsearchopts_by', 'ctx_qsearchby');
             DM.addSubMenu('ctx_qsearchopts_filter', 'ctx_flag');
             DM.addSubMenu('ctx_qsearchopts_filternot', 'ctx_flag');
@@ -2971,10 +2965,8 @@ var DimpBase = {
         this._setQsearchText(true);
 
         /* Add popdown menus. Check for disabled compose at the same time. */
-        this._addPopdown('button_other', 'otheractions');
-        this._addPopdownContextMenu($('button_other'), 'otheractions');
-        this._addPopdown('folderopts_link', 'folderopts');
-        this._addPopdownContextMenu($('folderopts_link'), 'folderopts');
+        DimpCore.addPopdown('button_other', 'otheractions');
+        DimpCore.addPopdown('folderopts_link', 'folderopts');
 
         DM.addSubMenu('ctx_message_reply', 'ctx_reply');
         DM.addSubMenu('ctx_message_forward', 'ctx_forward');
@@ -2989,11 +2981,14 @@ var DimpBase = {
         if (DIMP.conf.disable_compose) {
             $('button_reply', 'button_forward').compact().invoke('up', 'SPAN').concat($('button_compose', 'composelink', 'ctx_contacts_new')).compact().invoke('remove');
         } else {
-            DM.disable(this._addPopdown('button_reply', 'reply').identify(), true, true);
-            DM.disable(this._addPopdown('button_forward', 'forward').identify(), true, true);
+            DimpCore.addPopdown('button_reply', 'reply', true);
+            DimpCore.addPopdown('button_forward', 'forward', true);
         }
 
-        this._addMouseEvents({ id: 'msglistHeader', type: 'mboxsort' });
+        DimpCore.addContextMenu({
+            id: 'msglistHeader',
+            type: 'mboxsort'
+        });
 
         new Drop('dropbase', this._folderDropConfig);
 

@@ -181,14 +181,6 @@ var DimpFullmessage = {
         }
     },
 
-    /* Add a popdown menu to a dimpactions button. */
-    addPopdown: function(bid, ctx)
-    {
-        var bidelt = $(bid);
-        bidelt.insert({ after: new Element('SPAN', { className: 'iconImg popdownImg popdown', id: bid + '_img' }) });
-        DimpCore.DMenu.addElement(bid + '_img', 'ctx_' + ctx, { offset: bidelt.up(), left: true });
-    },
-
     resizeWindow: function()
     {
         var mb = $('msgData').down('DIV.messageBody');
@@ -204,8 +196,8 @@ var DimpFullmessage = {
         if (DIMP.conf.disable_compose) {
             tmp = $('reply_link', 'forward_link').compact().invoke('up', 'SPAN').concat([ $('ctx_contacts_new') ]).compact().invoke('remove');
         } else {
-            this.addPopdown('reply_link', 'replypopdown');
-            this.addPopdown('forward_link', 'forwardpopdown');
+            DimpCore.addPopdown('reply_link', 'replypopdown');
+            DimpCore.addPopdown('forward_link', 'forwardpopdown');
         }
 
         /* Set up address linking. */
