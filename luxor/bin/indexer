@@ -1,0 +1,149 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.php.
+ *
+ * @author Jan Schneider <jan@horde.org>
+ */
+
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('luxor');
+
+// Make sure no one runs this from the web.
+if (!Horde_Cli::runningFromCLI()) {
+    exit("Must be run from the command line\n");
+}
+
+// Load the CLI environment - make sure there's no time limit, init
+// some variables, etc.
+$cli = Horde_Cli::init();
+
+// Now go ahead and load Luxor.
+$session_control = 'none';
+@define('AUTH_HANDLER', true);
+
+$p = new Horde_Argv_Parser(array('optionList' => array(
+    new Horde_Argv_Option('-q', '--quiet', array('action' => 'store_true', 'help' => 'No output except errors')),
+    new Horde_Argv_Option('-v', '--verbose', array('action' => 'store_true', 'help' => 'Debug-level output')),
+)));
+list($values, $args) = $p->parseArgs();
+
+if ($values->quiet && $values->verbose) {
+    $cli->fatal(_("Can't be both verbose and quiet"));
+}
+/*@TODO replace with a Horde_Log command-line logger? */
+define('VERBOSE', $values->verbose);
+define('QUIET', $values->quiet);
+
+$first = true;
+$skipped = array();
+foreach ($sources as $sourceid => $source) {
+    if ($args && !in_array($sourceid, $args)) {
+        continue;
+    }
+    $index = Luxor_Driver::factory($sourceid);
+    $files = Luxor_Files::factory($source['driver'], $source);
+
+    // Clear old data out of the database.
+    if ($first) {
+        $index->clearIndex();
+        $first = false;
+    }
+
+    // Index files.
+    if (!QUIET) $cli->writeln($cli->bold(sprintf(_("Indexing %s"), $source['name'])));
+    genindex($files, '/');
+    if (!QUIET) $cli->writeln();
+
+    // Reference files.
+    if (!QUIET) $cli->writeln($cli->bold(sprintf(_("Referencing %s"), $source['name'])));
+    genrefs($files, '/');
+    gensearch();
+    if (!QUIET) $cli->writeln();
+}
+
+if (VERBOSE) {
+    $cli->writeln($cli->yellow(_("Skipped files:")));
+    ksort($skipped);
+    foreach (array_keys($skipped) as $file) {
+        $cli->writeln('  ' . $file);
+    }
+}
+
+if (!QUIET) $cli->writeln($cli->green(_("DONE")));
+exit(0);
+
+
+/**
+ * Functions.
+ */
+function genindex($files, $path)
+{
+    global $cli, $skipped;
+
+    if (VERBOSE) $cli->writeln("*** $path");
+    if (substr($path, -1, 1) == '/') {
+        $dirs = $files->getDir($path);
+        if (is_a($dirs, 'PEAR_Error')) {
+            $cli->writeln($cli->red($dirs->getMessage()));
+            return;
+        }
+        foreach ($dirs as $dir) {
+            genindex($files, $path . $dir);
+        }
+    } else {
+        $lang = Luxor_Lang::builder($files, $path);
+        if ($lang === false) {
+            $skipped[$path] = true;
+            return;
+        } elseif (is_a($lang, 'PEAR_Error')) {
+            $cli->writeln($cli->red($lang->getMessage()));
+            return;
+        }
+
+        $result = Luxor_Tagger::processFile($files, $path, $lang);
+        if (is_a($result, 'PEAR_Error')) {
+            $cli->writeln($cli->red($result->getMessage()));
+            return;
+        }
+    }
+}
+
+function genrefs($files, $path)
+{
+    global $cli, $skipped;
+
+    if (VERBOSE) $cli->writeln("### $path");
+    if (substr($path, -1, 1) == '/') {
+        $dirs = $files->getDir($path);
+        if (is_a($dirs, 'PEAR_Error')) {
+            $cli->writeln($cli->red($dirs->getMessage()));
+            return;
+        }
+        foreach ($dirs as $dir) {
+            genrefs($files, $path . $dir);
+        }
+    } else {
+        $lang = Luxor_Lang::builder($files, $path);
+        if ($lang === false) {
+            $skipped[$path] = true;
+            return;
+        } elseif (is_a($lang, 'PEAR_Error')) {
+            $cli->writeln($cli->red($lang->getMessage()));
+            return;
+        }
+
+        $result = Luxor_Tagger::processRefs($files, $path, $lang);
+        if (is_a($result, 'PEAR_Error')) {
+            $cli->writeln($cli->red($result->getMessage()));
+            return;
+        }
+    }
+}
+
+function gensearch()
+{
+}

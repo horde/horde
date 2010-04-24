@@ -1,0 +1,11 @@
+Luxor
+Version 0.1
+
+What is Luxor?
+-----------------
+
+Luxor is a port of LXR to PHP, integrated into the Horde framework.
+You can find LXR at http://sourceforge.net/projects/lxr
+
+This software is OSI Certified Open Source Software.
+OSI Certified is a certification mark of the Open Source Initiative.

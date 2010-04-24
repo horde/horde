@@ -1,0 +1,170 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright YEAR Horde Project
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2008-08-01 10:44+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ident.php:79
+#, php-format
+msgid "%s :: Symbol \"%s\""
+msgstr ""
+
+#: lib/Tagger.php:46 lib/Tagger.php:101
+#, php-format
+msgid "%s was already indexed."
+msgstr ""
+
+#: lib/Tagger.php:30 lib/Tagger.php:84
+#, php-format
+msgid "Can't build language class for file %s."
+msgstr ""
+
+#: lib/Tagger.php:57 lib/Tagger.php:112
+#, php-format
+msgid "Can't create copy of file %s."
+msgstr ""
+
+#: lib/Files/plain.php:85
+#, php-format
+msgid "Can't open directory %s"
+msgstr ""
+
+#: lib/Lang/Generic.php:117
+#, php-format
+msgid "Can't open file %s."
+msgstr ""
+
+#: lib/Lang/Generic.php:75
+msgid "Can't run ectags."
+msgstr ""
+
+#: source.php:95
+#, php-format
+msgid "Could not markup file %s."
+msgstr ""
+
+#: source.php:18
+msgid "Date (GMT)"
+msgstr ""
+
+#: templates/ident/ident.html:7
+msgid "Declarations"
+msgstr ""
+
+#: search.php:60
+msgid "Declared as "
+msgstr ""
+
+#: ident.php:43
+#, php-format
+msgid "Declared as a %s"
+msgstr ""
+
+#: source.php:19
+msgid "Description"
+msgstr ""
+
+#: source.php:150
+#, php-format
+msgid "Directory Listing :: %s"
+msgstr ""
+
+#: lib/Lang/Generic.php:65
+#, php-format
+msgid "Exuberant ctags version 5 or above required, found version %s"
+msgstr ""
+
+#: scripts/genxref.php:56
+#, php-format
+msgid "Indexing %s"
+msgstr ""
+
+#: ident.php:49 ident.php:73
+#, php-format
+msgid "Line %s"
+msgstr ""
+
+#: templates/headerbar.inc:2
+msgid "Location:"
+msgstr ""
+
+#: source.php:153
+#, php-format
+msgid "Markup of %s"
+msgstr ""
+
+#: source.php:16
+msgid "Name"
+msgstr ""
+
+#: lib/Luxor.php:60
+msgid "Other Sources"
+msgstr ""
+
+#: lib/Luxor.php:138
+msgid "Parent Directory"
+msgstr ""
+
+#: templates/ident/ident.html:8
+msgid "Referenced in"
+msgstr ""
+
+#: scripts/genxref.php:61
+#, php-format
+msgid "Referencing %s"
+msgstr ""
+
+#: source.php:17
+msgid "Size"
+msgstr ""
+
+#: search.php:35
+#, php-format
+msgid "Symbol Search for \"%s\""
+msgstr ""
+
+#: ident.php:26
+msgid "Symbol not found"
+msgstr ""
+
+#: source.php:89
+#, php-format
+msgid "The file %s can't be opened or doesn't exist."
+msgstr ""
+
+#: templates/headerbar.inc:9
+msgid "Tracking Branch"
+msgstr ""
+
+#: lib/Luxor.php:137
+msgid "Up to parent"
+msgstr ""
+
+#: source.php:39
+#, php-format
+msgid "You do not have permission to view %s."
+msgstr ""
+
+#: lib/Luxor.php:448
+msgid "_Browse"
+msgstr ""
+
+#: lib/Luxor.php:149
+msgid "bytes"
+msgstr ""
+
+#: lib/Luxor.php:151
+msgid "kbytes"
+msgstr ""
