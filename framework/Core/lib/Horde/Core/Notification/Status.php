@@ -47,13 +47,21 @@ class Horde_Core_Notification_Status extends Horde_Notification_Event_Status
             $text = $alarm['title'];
 
             if (!empty($alarm['params']['notify']['show'])) {
-                $text = Horde::link(Horde::url($GLOBALS['registry']->linkByPackage($alarm['params']['notify']['show']['__app'], 'show', $alarm['params']['notify']['show'])), $alarm['text']) . $text . '</a>';
+                try {
+                    $text = Horde::link(Horde::url($GLOBALS['registry']->linkByPackage($alarm['params']['notify']['show']['__app'], 'show', $alarm['params']['notify']['show'])), $alarm['text']) . $text . '</a>';
+                } catch (Horde_Exception $e) {
+                    return $e->getMessage();
+                }
             }
 
             if (!empty($alarm['user']) &&
                 $GLOBALS['browser']->hasFeature('xmlhttpreq')) {
                 Horde::addScriptFile('prototype.js', 'horde');
-                $url = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/snooze.php', true);
+                try {
+                    $url = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/snooze.php', true);
+                } catch (Horde_Exception $e) {
+                    return $e->getMessage();
+                }
                 $opts = array(
                     '-1' => _("Dismiss"),
                     '5' => _("5 minutes"),
