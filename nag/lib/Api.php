@@ -837,7 +837,7 @@ class Nag_Api extends Horde_Registry_Api
         case 'activesync':
             $task = new Nag_Task();
             $task->fromASTask($content);
-            return $storage->add(
+            $results = $storage->add(
                         isset($task->name) ? $task->name : '',
                         isset($task->desc) ? $task->desc : '',
                         isset($task->start) ? $task->start : 0,
@@ -853,6 +853,9 @@ class Nag_Api extends Horde_Registry_Api
                         !empty($task->private),
                         Horde_Auth::getAuth(),
                         isset($task->assignee) ? $task->assignee : null);
+            
+            /* array index 0 is id, 1 is uid */
+            return $results[1];
         }
 
         return PEAR::raiseError(sprintf(_("Unsupported Content-Type: %s"), $contentType));
