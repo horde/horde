@@ -270,14 +270,15 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
     }
 
     /**
-     * Save folder data for a specific device
+     * Save folder data for a specific device. This is needed for BC with older
+     * activesync versions that use GETHIERARCHY requests to get the folder info
+     * instead of maintaining the folder state with FOLDERSYNC requests.
      *
      * @param string $devId  The device Id
      * @param array $folders The folder data
      *
      * @return boolean
      * @throws Horde_ActiveSync_Exception
-     * @TODO
      */
     public function setFolderData($devId, $folders)
     {
@@ -287,12 +288,12 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
 
         $unique_folders = array ();
         foreach ($folders as $folder) {
-            // don't save folder-ids for emails
+            /* don't save folder-ids for emails */
             if ($folder->type == Horde_ActiveSync::FOLDER_TYPE_INBOX) {
                 continue;
             }
 
-            // no folder from that type or the default folder
+            /* no folder from that type or the default folder */
             if (!array_key_exists($folder->type, $unique_folders) || $folder->parentid == 0) {
                 $unique_folders[$folder->type] = $folder->serverid;
             }
@@ -306,7 +307,14 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         if (!array_key_exists(Horde_ActiveSync::FOLDER_TYPE_CONTACT, $unique_folders)) {
             $unique_folders[Horde_ActiveSync::FOLDER_TYPE_CONTACT] = Horde_ActiveSync::FOLDER_TYPE_DUMMY;
         }
+        
         /* Storage to SQL? */
+        $sql = 'UPDATE ' . $this->_syncDeviceTable . ' SET device_folders = ? WHERE device_id = ?';
+        try {
+            return $this->_db->update($sql, array(serialize($folders), $devId));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_ActiveSync_Exception($e);
+        }
     }
 
     /**
@@ -316,22 +324,26 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      * @param string $class  The folder class to fetch (Calendar, Contacts etc.)
      *
      * @return mixed  Either an array of folder data || false
-     * @TODO
      */
     public function getFolderData($devId, $class)
     {
-//        $filename = $this->_stateDir . '/compat-' . $devId;
-//        if (file_exists($filename)) {
-//            $arr = unserialize(file_get_contents($filename));
-//            if ($class == "Calendar") {
-//                return $arr[Horde_ActiveSync::FOLDER_TYPE_APPOINTMENT];
-//            }
-//            if ($class == "Contacts") {
-//                return $arr[Horde_ActiveSync::FOLDER_TYPE_CONTACT];
-//            }
-//        }
-//
-//        return false;
+        $sql = 'SELECT device_folders FROM ' . $this->_syncDeviceTable . ' WHERE device_id = ?';
+        try {
+            $folders = $this->_db->selectValue($sql, array($devId));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_ActiveSync_Exception($e);
+        }
+        if ($folders) {
+            $folders = unserialize($folders);
+            if ($class == "Calendar") {
+                return $folders[Horde_ActiveSync::FOLDER_TYPE_APPOINTMENT];
+            }
+            if ($class == "Contacts") {
+                return $folders[Horde_ActiveSync::FOLDER_TYPE_CONTACT];
+            }
+        }
+
+        return false;
     }
 
     /**
