@@ -2022,15 +2022,25 @@
       correctly. If you plan on synching Android devices, you should make sure
       that this range is wide enough to allow Android's default of 470 seconds.
       </configdescription>
-      <configinteger name="heartbeatmin" desc="The minimum number of seconds to
-      wait before sending results. This value must be greater then zero.">60
-      </configinteger>
-      <configinteger name="heartbeatmax" desc="The maximum number of seconds to
-      wait before sending results. Note this value must not be greater then 3540
-      (59 minutes).">2700</configinteger>
-      <configinteger name="heartbeatdefault" desc="If the client does not
-      request a heartbeat interval, this interval will be used by default.">480
-      </configinteger>
+      <configswitch name="deviceping" desc="Allow devices to manage the heartbeat or
+      force Horde to use a specific heartbeat for every device?">true
+       <case name="true" desc="Device managed heartbeat">
+        <configinteger name="heartbeatmin" desc="The minimum number of seconds to
+        wait before sending results. This value must be greater then zero.">60
+        </configinteger>
+        <configinteger name="heartbeatmax" desc="The maximum number of seconds to
+        wait before sending results. Note this value must not be greater then 3540
+        (59 minutes).">2700</configinteger>
+        <configinteger name="heartbeatdefault" desc="If the client does not
+        request a heartbeat interval, this interval will be used by default.">480
+        </configinteger>
+       </case>
+       <case name="false" desc="Forced heartbeat">
+        <configinteger name="forcedheartbeat" desc="The number of seconds to
+        force the server to wait before sending PING results.">60
+        </configinteger>
+       </case>
+      </configswitch>
       <configinteger name="waitinterval" desc="How many seconds should elapse
       between checks for changes? Increasing this value will cause the server
       to wait longer between checks for changes during the heartbeat,
