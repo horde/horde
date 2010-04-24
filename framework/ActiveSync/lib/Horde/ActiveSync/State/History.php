@@ -108,14 +108,17 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      * @return void
      * @throws Horde_ActiveSync_Exception
      */
-    public function loadState($syncKey, $type = null, $id = '')
+    public function loadState($syncKey, $type = null, $id = null)
     {
+        $this->_type = $type;
+        if ($type == 'foldersync' && empty($id)) {
+            $id = 'foldersync';
+        }
         if (empty($syncKey)) {
             $this->_state = array();
             $this->_resetDeviceState($id);
             return;
         }
-        $this->_type = $type;
 
         $this->_logger->debug(sprintf('[%s] Loading state for synckey %s', $this->_devId, $syncKey));
         /* Check if synckey is allowed */
@@ -149,7 +152,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             $changes = unserialize($results['sync_data']);
             $this->_changes = ($changes !== false) ? $changes : null;
             if ($this->_changes) {
-                $this->_logger->debug(sprintf('[%s] Found %n changes remaining from previous SYNC.'), $this->_devId, count($this->_changes));
+                $this->_logger->debug(sprintf('[%s] Found %n changes remaining from previous SYNC.', $this->_devId, count($this->_changes)));
             }
         }
     }
@@ -205,7 +208,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
                         $data,
                         $this->_devId,
                         $this->_thisSyncTS,
-                        !empty($this->_collection['id']) ? $this->_collection['id'] : false);
+                        !empty($this->_collection['id']) ? $this->_collection['id'] : 'foldersync');
         try {
             $this->_db->insert($sql, $params);
         } catch (Horde_Db_Exception $e) {
@@ -241,13 +244,24 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             } catch (Horde_Db_Exception $e) {
                throw new Horde_ActiveSync_Exception($e);
             }
+            /* @TODO: Deal with PIM generated folder changes (mail only) */
         } else {
            /* When sending server changes, $this->_changes will contain all
             * changes. Need to track which ones are sent since we might not
             * send all of them.
             */
+            $this->_logger->debug('Updating state during ' . $this->_type);
            foreach ($this->_changes as $key => $value) {
                if ($value['id'] == $change['id']) {
+                   if ($this->_type == 'foldersync') {
+                       foreach ($this->_state as $fi => $state) {
+                           if ($state['id'] == $value['id']) {
+                               unset($this->_state[$fi]);
+                           }
+                       }
+                       $this->_state[] = $value;
+                       $this->_state = array_values($this->_state);
+                   }
                    unset($this->_changes[$key]);
                    break;
                }
@@ -359,7 +373,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
          }
 
          /* Need to get the last sync time for this collection */
-         return !empty($this->_pingState['collections']);
+         return $this->_pingState['collections'];
     }
 
     /**
@@ -743,7 +757,9 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
          * key if the PIM never received the new key in a SYNC response. */
         $sql = 'SELECT sync_key FROM ' . $this->_syncStateTable . ' WHERE sync_devid = ? AND sync_folderid = ?';
         $values = array($this->_devId,
-                        !empty($this->_collection['id']) ? $this->_collection['id'] : 0);
+                        !empty($this->_collection['id']) ? $this->_collection['id'] : 'foldersync');
+
+        $this->_logger->debug('[' . $this->_devId . '] SQL query by Horde_ActiveSync_State:_gc(): ' . $sql . ' VALUES: ' . print_r($values, true));
         $results = $this->_db->selectAll($sql, $values);
         $remove = array();
         $guids = array($guid);
