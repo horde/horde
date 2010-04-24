@@ -1000,6 +1000,7 @@ class Horde_ActiveSync
             $device->deviceType = !empty($get['DeviceType']) ? $get['DeviceType'] : '';
             $device->policykey = 0;
             $device->rwstatus = self::RWSTATUS_NA;
+            $device->user = $this->_driver->getUser();
             $state->setDeviceInfo($devId, $device);
         }
 
