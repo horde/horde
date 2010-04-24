@@ -144,7 +144,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                  * we want the device wiped. */
                 if ($this->_provisioning === true) {
                     $rwstatus = $this->_state->getDeviceRWStatus($this->_devId);
-                    if ($rwstatus == Horde_ActiveSync::PROVISION_RWSTATUS_PENDING || $rwstatus == Horde_ActiveSync::PROVISION_RWSTATUS_WIPED) {
+                    if ($rwstatus == Horde_ActiveSync::RWSTATUS_PENDING || $rwstatus == Horde_ActiveSync::RWSTATUS_WIPED) {
                         $this->_statusCode = self::STATUS_FOLDERSYNCREQD;
                         break;
                     }

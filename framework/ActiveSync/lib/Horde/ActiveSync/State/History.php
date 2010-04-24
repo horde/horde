@@ -400,7 +400,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         } else {
             /* Default structure */
             $this->_deviceInfo->policykey = 0;
-            $this->_deviceInfo->rwstatus = 0; // ??
+            $this->_deviceInfo->rwstatus = Horde_ActiveSync::RWSTATUS_NA;
             $this->_deviceInfo->deviceType = '';
             $this->_deviceInfo->userAgent = '';
             $this->_deviceInfo->id = $devId;

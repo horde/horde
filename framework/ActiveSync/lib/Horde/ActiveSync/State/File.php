@@ -352,7 +352,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
         /* Default structure */
         $device = new StdClass();
         $device->policykey = 0;
-        $device->rwstatus = 0; // ??
+        $device->rwstatus = Horde_ActiveSync::RWSTATUS_NA;
         $device->deviceType = '';
         $device->userAgent = '';
 

@@ -36,11 +36,6 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
     const STATUS_CLIENT_FAILED = 3; // No policies applied at all.
     const STATUS_CLIENT_THIRDPARTY = 4; // Client provisioned by 3rd party?
 
-    const RWSTATUS_NA = 0;
-    const RWSTATUS_OK = 1;
-    const RWSTATUS_PENDING = 2;
-    const RWSTATUS_WIPED = 3;
-
     const POLICYTYPE_XML = 'MS-WAP-Provisioning-XML';
     const POLICYTYPE_WBXML = 'MS-EAS-Provisioning-WBXML';
 
@@ -88,7 +83,7 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
                 return $this->_globalError(self::STATUS_PROTERROR);
             }
             if ($status == self::STATUS_CLIENT_SUCCESS) {
-                $state->setDeviceRWStatus($this->_devId, self::RWSTATUS_WIPED);
+                $state->setDeviceRWStatus($this->_devId, Horde_ActiveSync::RWSTATUS_WIPED);
             }
 
             /* Need to send *something* in the policytype field even if wiping */
@@ -151,7 +146,7 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
                     return $this->_globalError(self::STATUS_PROTERROR);
                 }
                 if ($status == self::STATUS_CLIENT_SUCCESS) {
-                    $state->setDeviceRWStatus($this->_devId, self::RWSTATUS_WIPED);
+                    $state->setDeviceRWStatus($this->_devId, Horde_ActiveSync::RWSTATUS_WIPED);
                 }
             }
         }
@@ -187,9 +182,9 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
 
         /* Wipe data if status is pending or wiped */
         $rwstatus = $state->getDeviceRWStatus($this->_devId);
-        if ($rwstatus == self::RWSTATUS_PENDING || $rwstatus == self::RWSTATUS_WIPED) {
+        if ($rwstatus == Horde_ActiveSync::RWSTATUS_PENDING || $rwstatus == Horde_ActiveSync::RWSTATUS_WIPED) {
             $this->_encoder->startTag(Horde_ActiveSync::PROVISION_REMOTEWIPE, false, true);
-            $state->setDeviceRWStatus($this->_devId, self::RWSTATUS_WIPED);
+            $state->setDeviceRWStatus($this->_devId, Horde_ActiveSync::RWSTATUS_WIPED);
         } else {
             $this->_encoder->startTag(Horde_ActiveSync::PROVISION_POLICIES);
             $this->_encoder->startTag(Horde_ActiveSync::PROVISION_POLICY);

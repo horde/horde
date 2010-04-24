@@ -305,6 +305,11 @@ class Horde_ActiveSync
     const CHANGE_ORIGIN_SERVER = 1;
     const CHANGE_ORIGIN_NA = 3;
 
+    const RWSTATUS_NA = 0;
+    const RWSTATUS_OK = 1;
+    const RWSTATUS_PENDING = 2;
+    const RWSTATUS_WIPED = 3;
+
     /**
      * Logger
      *
@@ -994,7 +999,7 @@ class Horde_ActiveSync
             $device->userAgent = $this->_request->getHeader('User-Agent');
             $device->deviceType = !empty($get['DeviceType']) ? $get['DeviceType'] : '';
             $device->policykey = 0;
-            $device->rwstatus = 0;
+            $device->rwstatus = self::RWSTATUS_NA;
             $state->setDeviceInfo($devId, $device);
         }
 
