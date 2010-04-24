@@ -355,8 +355,6 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      */
     public function getKnownFolders()
     {
-        //@TODO: Look at moving this to the base class
-        /* folder state would have been loaded already in laodState() */
         if (!isset($this->_state)) {
             throw new Horde_ActiveSync_Exception('Sync state not loaded');
         }
