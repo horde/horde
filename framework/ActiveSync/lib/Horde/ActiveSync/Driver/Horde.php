@@ -481,6 +481,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
                     return false;
                 }
                 $stat = $this->_smartStatMessage($folderid, $id, false);
+                $stat['mod'] = time();
             } else {
                 try {
                     $this->_connector->contacts_replace($id, $message);
@@ -500,8 +501,8 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
                     $this->_logger->err($e->getMessage());
                     return false;
                 }
-
                 $stat = $this->_smartStatMessage($folderid, $id, false);
+                $stat['mod'] = time();
             } else {
                 try {
                     $this->_connector->tasks_replace($id, $message);
