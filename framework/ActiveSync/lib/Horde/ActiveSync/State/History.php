@@ -37,46 +37,25 @@
 class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
 {
     /**
-     * Cache for ping state
-     * @TODO: look at moving this to base class
-     * @var array
-     */
-    private $_pingState;
-
-    /**
      * The timestamp for the last syncKey
      *
      * @var timestamp
      */
-    private $_lastSyncTS = 0;
+    protected $_lastSyncTS = 0;
 
     /**
      * The current sync timestamp
      *
      * @var timestamp
      */
-    private $_thisSyncTS = 0;
+    protected $_thisSyncTS = 0;
 
     /**
-     * Local cache of changes that need to be sent
+     * Local cache of state.
      *
      * @var array
      */
-    private $_changes;
-
-    /**
-     * Local cache of state only used for FOLDERSYNC requests.
-     *
-     * @var array
-     */
-    private $_state;
-
-    /**
-     * The type of request we are handling (if important).
-     *
-     * @var string
-     */
-    private $_type;
+    protected $_state;
 
     /**
      * DB handle
@@ -84,13 +63,6 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      * @var Horde_Db_Adapter_Base
      */
     protected $_db;
-
-    /**
-     * The current syncKey
-     *
-     * @var string
-     */
-    protected $_syncKey;
 
     /* TODO - config these */
     protected $_syncStateTable = 'horde_activesync_state';
@@ -403,6 +375,11 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      */
     public function getDeviceInfo($devId)
     {
+        /* See if we have it already */
+        if ($this->_devId == $devId && !empty($this->_deviceInfo)) {
+            return $this->_deviceInfo;
+        }
+
         $this->_devId = $devId;
         $query = 'SELECT device_type, device_agent, device_ping, device_policykey, device_rwstatus FROM '
             . $this->_syncDeviceTable . ' WHERE device_id = ?';
@@ -411,13 +388,13 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
-        $device = new StdClass();
+        $this->_deviceInfo = new StdClass();
         if ($result) {
-            $device->policykey = $result['device_policykey'];
-            $device->rwstatus = $result['device_rwstatus'];
-            $device->deviceType = $result['device_type'];
-            $device->userAgent = $result['device_agent'];
-            $device->id = $devId;
+            $this->_deviceInfo->policykey = $result['device_policykey'];
+            $this->_deviceInfo->rwstatus = $result['device_rwstatus'];
+            $this->_deviceInfo->deviceType = $result['device_type'];
+            $this->_deviceInfo->userAgent = $result['device_agent'];
+            $this->_deviceInfo->id = $devId;
             if ($result['device_ping']) {
                 $this->_pingState = unserialize($result['device_ping']);
             } else {
@@ -425,21 +402,19 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             }
         } else {
             /* Default structure */
-            $device->policykey = 0;
-            $device->rwstatus = 0; // ??
-            $device->deviceType = '';
-            $device->userAgent = '';
-            $device->id = $devId;
+            $this->_deviceInfo->policykey = 0;
+            $this->_deviceInfo->rwstatus = 0; // ??
+            $this->_deviceInfo->deviceType = '';
+            $this->_deviceInfo->userAgent = '';
+            $this->_deviceInfo->id = $devId;
+            $this->setDeviceInfo($devId, $this->_deviceInfo);
         }
 
-        return $device;
+        return $this->_deviceInfo;
     }
 
     /**
      * Set new device info
-     *
-     * @TODO: for this driver, we can add private methods to set/update some
-     * of these fields instead of rewriting the whole record.
      *
      * @param string $devId   The device id.
      * @param StdClass $data  The device information
@@ -449,6 +424,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
     public function setDeviceInfo($devId, $data)
     {
         /* Delete the old entry, just in case */
+        $this->_deviceInfo = $data;
         try {
             $query = 'DELETE FROM ' . $this->_syncDeviceTable . ' WHERE device_id = ?';
             $this->_db->execute($query, array($devId));
@@ -644,6 +620,69 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
     }
 
     /**
+     * Save a new device policy key to storage.
+     *
+     * @param string $devId  The device id
+     * @param integer $key   The new policy key
+     */
+    public function setPolicyKey($devId, $key)
+    {
+        if (empty($this->_deviceInfo)) {
+            $this->getDeviceInfo($devId);
+        }
+
+        $query = 'UPDATE ' . $this->_syncDeviceTable . ' SET device_policykey = ? WHERE device_id = ?';
+        try {
+            $this->_db->update($query, array($key, $devId));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_ActiveSync_Exception($e);
+        }
+    }
+
+    /**
+     * Set a new remotewipe status for the device
+     *
+     * @param string $devid
+     * @param string $status
+     *
+     * @return boolean
+     * @throws Horde_ActiveSync_Exception
+     */
+    public function setDeviceRWStatus($devId, $status)
+    {
+        if (empty($this->_deviceInfo)) {
+            $this->getDeviceInfo($devId);
+        }
+
+        $query = 'UPDATE ' . $this->_syncDeviceTable . ' SET device_rwstatus = ? WHERE device_id = ?';
+        try {
+            $this->_db->update($query, array($status, $devId));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_ActiveSync_Exception($e);
+        }
+    }
+
+    /**
+     * Explicitly remove a state from storage.
+     *
+     * @param string $synckey  The specific state to remove
+     *
+     * @throws Horde_ActiveSyncException
+     */
+    public function removeState($synckey)
+    {
+        $this->_logger->debug('[' . $this->_devId . '] Removing device state.');
+        $state_query = 'DELETE FROM ' . $this->_syncStateTable . ' WHERE sync_key = ?';
+        $map_query = 'DELETE FROM ' . $this->_syncMapTable . ' WHERE sync_key = ?';
+        try {
+            $this->_db->delete($state_query, array($synckey));
+            $this->_db->delete($map_query, array($synckey));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_ActiveSync_Exception($e);
+        }
+    }
+
+    /**
      * Get a timestamp from the map table for the last PIM-initiated change for
      * the provided uid. Used to avoid mirroring back changes to the PIM that it
      * sent to the server.
@@ -764,65 +803,6 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
-    }
-
-    /**
-     * Obtain the current policy key, if it exists.
-     *
-     * @param string $devId     The device id to obtain policy key for.
-     *
-     * @return integer  The current policy key for this device, or 0 if none
-     *                  exists.
-     */
-    public function getPolicyKey($devId)
-    {
-
-    }
-
-    /**
-     * Save a new device policy key to storage.
-     *
-     * @param string $devId  The device id
-     * @param integer $key   The new policy key
-     */
-    public function setPolicyKey($devId, $key)
-    {
-
-    }
-
-    /**
-     * Return a device remotewipe status
-     *
-     * @param string $devId  The device id
-     *
-     * @return int
-     */
-    public function getDeviceRWStatus($devId)
-    {
-
-    }
-
-    /**
-     * Set a new remotewipe status for the device
-     *
-     * @param string $devid
-     * @param string $status
-     *
-     * @return boolean
-     */
-    public function setDeviceRWStatus($devid, $status)
-    {
-
-    }
-
-    /**
-     * Explicitly remove a state from storage.
-     *
-     * @param string $synckey
-     */
-    public function removeState($synckey)
-    {
-        $this->_resetDeviceState();
     }
 
 }

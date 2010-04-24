@@ -57,21 +57,6 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
     private $_stateDir;
 
     /**
-     * Cache for ping state
-     *
-     * @var array
-     */
-    private $_pingState;
-
-    /**
-     * Local cache for changes to *send* to PIM
-     * (Will remain null until getChanges() is called)
-     *
-     * @var
-     */
-    private $_changes;
-
-    /**
      * Cache results of file_exists for user's state directory
      *
      * @var boolean
@@ -514,20 +499,6 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
     }
 
     /**
-     * Obtain the current policy key, if it exists.
-     *
-     * @param string $devId     The device id to obtain policy key for.
-     *
-     * @return integer  The current policy key for this device, or 0 if none
-     *                  exists.
-     */
-    public function getPolicyKey($devId)
-    {
-        $info = $this->getDeviceInfo($devId);
-        return $info->policykey;
-    }
-
-    /**
      * Save a new device policy key to storage.
      *
      * @param string $devId  The device id
@@ -539,19 +510,6 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
         $info->policykey = $key;
         $this->setDeviceInfo($devId, $info);
         $this->_logger->info('[' . $devId . '] New policykey saved: ' . $key);
-    }
-
-    /**
-     * Return a device wipe status
-     *
-     * @param string $devId
-     *
-     * @return integer
-     */
-    public function getDeviceRWStatus($devId)
-    {
-        $info = $this->getDeviceInfo($devId);
-        return $info->rwstatus;
     }
 
     /**

@@ -55,6 +55,13 @@ abstract class Horde_ActiveSync_State_Base
     protected $_backend;
 
     /**
+     * Cache for ping state
+     *
+     * @var array
+     */
+    protected $_pingState;
+
+    /**
      * The collection array for the collection we are currently syncing.
      * Keys include:
      *   'class'      - The collection class Contacts, Calendar etc...
@@ -83,6 +90,28 @@ abstract class Horde_ActiveSync_State_Base
      * @var string
      */
     protected $_devId;
+
+    /**
+     * Device info cache
+     *
+     * @var array
+     */
+    protected $_deviceInfo;
+
+    /**
+     * Local cache for changes to *send* to PIM
+     * (Will remain null until getChanges() is called)
+     *
+     * @var
+     */
+    protected $_changes;
+
+    /**
+     * The type of request we are handling (if important).
+     *
+     * @var string
+     */
+    protected $_type;
 
     /**
      * Const'r
@@ -204,7 +233,11 @@ abstract class Horde_ActiveSync_State_Base
      * @return integer  The current policy key for this device, or 0 if none
      *                  exists.
      */
-    abstract public function getPolicyKey($devId);
+    public function getPolicyKey($devId)
+    {
+        $info = $this->getDeviceInfo($devId);
+        return $info->policykey;
+    }
 
     /**
      * Save a new device policy key to storage.
@@ -215,13 +248,17 @@ abstract class Horde_ActiveSync_State_Base
     abstract public function setPolicyKey($devId, $key);
 
     /**
-     * Return a device remotewipe status
+     * Return a device wipe status
      *
-     * @param string $devId  The device id
+     * @param string $devId
      *
-     * @return int
+     * @return integer
      */
-    abstract public function getDeviceRWStatus($devId);
+    public function getDeviceRWStatus($devId)
+    {
+        $info = $this->getDeviceInfo($devId);
+        return $info->rwstatus;
+    }
 
 
     /**
