@@ -13,7 +13,6 @@
  */
 abstract class Horde_ActiveSync_State_Base
 {
-
     /**
      * Filtertype constants
      */
@@ -159,73 +158,6 @@ abstract class Horde_ActiveSync_State_Base
     }
 
     /**
-     * Loads the initial state from storage for the specified syncKey and
-     * intializes the stateMachine for use.
-     *
-     * @param string $syncKey  The key for the state to load.
-     * @param string $type     Treat the loaded state data as this type of state.
-     *
-     * @return array The state array
-     */
-    abstract public function loadState($syncKey, $type = null, $id = '');
-
-    /**
-     * Load/initialize the ping state for the specified device.
-     *
-     * @param string $devId
-     */
-    abstract public function initPingState($devId);
-
-    /**
-     * Load the ping state for the given device id
-     *
-     * @param string $devid  The device id.
-     */
-    abstract public function loadPingCollectionState($devid);
-
-    /**
-     * Get the list of known folders for the specified syncState
-     *
-     * @param string $syncKey  The syncState key
-     *
-     * @return array  An array of server folder ids
-     */
-    abstract public function getKnownFolders();
-
-    /**
-     * Save the current syncstate to storage
-     *
-     * @param string $syncKey
-     */
-    abstract public function save();
-
-    /**
-     * Update the state for a specific syncKey
-     *
-     * @param <type> $type
-     * @param <type> $change
-     * @param <type> $key
-     */
-    abstract public function updateState($type, $change, $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA);
-
-    /**
-     * Obtain the diff between PIM and server
-     */
-    abstract public function getChanges();
-
-    /**
-     * Determines if the server version of the message represented by $stat
-     * conflicts with the PIM version of the message according to the current
-     * state.
-     *
-     * @param array $stat   A message stat array
-     * @param string $type  The type of change (change, delete, add)
-     *
-     * @return boolean
-     */
-    abstract public function isConflict($stat, $type);
-
-    /**
      * Obtain the current policy key, if it exists.
      *
      * @param string $devId     The device id to obtain policy key for.
@@ -240,14 +172,6 @@ abstract class Horde_ActiveSync_State_Base
     }
 
     /**
-     * Save a new device policy key to storage.
-     *
-     * @param string $devId  The device id
-     * @param integer $key   The new policy key
-     */
-    abstract public function setPolicyKey($devId, $key);
-
-    /**
      * Return a device wipe status
      *
      * @param string $devId
@@ -259,68 +183,6 @@ abstract class Horde_ActiveSync_State_Base
         $info = $this->getDeviceInfo($devId);
         return $info->rwstatus;
     }
-
-
-    /**
-     * Set a new remotewipe status for the device
-     *
-     * @param string $devid
-     * @param string $status
-     *
-     * @return boolean
-     */
-    abstract public function setDeviceRWStatus($devid, $status);
-
-    /**
-     * Obtain the device object.
-     *
-     * @param string $devId
-     *
-     * @return StdClass
-     */
-    abstract public function getDeviceInfo($devId);
-
-    /**
-     * Check that a given device id is known to the server. This is regardless
-     * of Provisioning status.
-     *
-     * @param string $devId
-     *
-     * @return boolean
-     */
-    abstract public function deviceExists($devId);
-
-    /**
-     * Set new device info
-     *
-     * @param string $devId   The device id.
-     * @param StdClass $data  The device information
-     *
-     * @return boolean
-     */
-    abstract public function setDeviceInfo($devId, $data);
-
-    /**
-     * Explicitly remove a state from storage.
-     *
-     * @param string $synckey
-     */
-    abstract public function removeState($synckey);
-
-    /**
-     * Return the heartbeat interval, or zero if we have no existing state
-     *
-     * @return integer  The hearbeat interval, or zero if not found.
-     * @throws Horde_ActiveSync_Exception
-     */
-    abstract public function getHeartbeatInterval();
-
-    /**
-     * Set the device's heartbeat interval
-     *
-     * @param integer $lifetime
-     */
-    abstract public function setHeartbeatInterval($lifetime);
 
     /**
      * Set the backend driver
@@ -466,6 +328,7 @@ abstract class Horde_ActiveSync_State_Base
             return 0; // unlimited
         }
     }
+
     /**
      * Helper function that performs the actual diff between PIM state and
      * server state arrays.
@@ -562,4 +425,144 @@ abstract class Horde_ActiveSync_State_Base
     {
         return $a['id'] < $b['id'] ? 1 : -1;
     }
+
+    /**
+     * Loads the initial state from storage for the specified syncKey and
+     * intializes the stateMachine for use.
+     *
+     * @param string $syncKey  The key for the state to load.
+     * @param string $type     Treat the loaded state data as this type of state.
+     * @param string $id       The collection id this represents
+     *
+     * @return array The state array
+     */
+    abstract public function loadState($syncKey, $type = null, $id = '');
+
+    /**
+     * Load/initialize the ping state for the specified device.
+     *
+     * @param string $devId
+     */
+    abstract public function initPingState($devId);
+
+    /**
+     * Load the ping state for the given device id
+     *
+     * @param string $devid  The device id.
+     */
+    abstract public function loadPingCollectionState($devid);
+
+    /**
+     * Get the list of known folders for the specified syncState
+     *
+     * @return array  An array of server folder ids
+     */
+    abstract public function getKnownFolders();
+
+    /**
+     * Save the current syncstate to storage
+     */
+    abstract public function save();
+
+    /**
+     * Update the state to reflect changes
+     *
+     * @param string $type     The type of change (change, delete, flags)
+     * @param array $change    A stat/change hash describing the change
+     * @param integer $origin  Flag to indicate the origin of the change.
+     *
+     * @return void
+     */
+    abstract public function updateState($type, $change, $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA);
+
+    /**
+     * Get all items that have changed since the last sync time
+     *
+     * @param integer $flags
+     *
+     * @return array
+     */
+    abstract public function getChanges($flags = 0);
+
+    /**
+     * Determines if the server version of the message represented by $stat
+     * conflicts with the PIM version of the message according to the current
+     * state.
+     *
+     * @param array $stat   A message stat array
+     * @param string $type  The type of change (change, delete, add)
+     *
+     * @return boolean
+     */
+    abstract public function isConflict($stat, $type);
+
+    /**
+     * Save a new device policy key to storage.
+     *
+     * @param string $devId  The device id
+     * @param integer $key   The new policy key
+     */
+    abstract public function setPolicyKey($devId, $key);
+
+    /**
+     * Set a new remotewipe status for the device
+     *
+     * @param string $devid
+     * @param string $status
+     *
+     * @return boolean
+     */
+    abstract public function setDeviceRWStatus($devid, $status);
+
+    /**
+     * Obtain the device object.
+     *
+     * @param string $devId
+     *
+     * @return StdClass
+     */
+    abstract public function getDeviceInfo($devId);
+
+    /**
+     * Check that a given device id is known to the server. This is regardless
+     * of Provisioning status.
+     *
+     * @param string $devId
+     *
+     * @return boolean
+     */
+    abstract public function deviceExists($devId);
+
+    /**
+     * Set new device info
+     *
+     * @param string $devId   The device id.
+     * @param StdClass $data  The device information
+     *
+     * @return boolean
+     */
+    abstract public function setDeviceInfo($devId, $data);
+
+    /**
+     * Explicitly remove a state from storage.
+     *
+     * @param string $synckey
+     */
+    abstract public function removeState($synckey);
+
+    /**
+     * Return the heartbeat interval, or zero if we have no existing state
+     *
+     * @return integer  The hearbeat interval, or zero if not found.
+     * @throws Horde_ActiveSync_Exception
+     */
+    abstract public function getHeartbeatInterval();
+
+    /**
+     * Set the device's heartbeat interval
+     *
+     * @param integer $heartbeat  The interval (in seconds).
+     */
+    abstract public function setHeartbeatInterval($heartbeat);
+
 }
