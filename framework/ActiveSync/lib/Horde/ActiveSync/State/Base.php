@@ -565,4 +565,22 @@ abstract class Horde_ActiveSync_State_Base
      */
     abstract public function setHeartbeatInterval($heartbeat);
 
+    /**
+     * List all devices that we know about.
+     *
+     * @return array  An array of device hashes
+     * @throws Horde_ActiveSync_Exception
+     */
+    abstract public function listDevices();
+
+    /**
+     * Get the last time a particular device issued a SYNC request.
+     *
+     * @param string $devId  The device id
+     *
+     * @return integer  The timestamp of the last sync, regardless of collection
+     * @throws Horde_ActiveSync_Exception
+     */
+    abstract public function getLastSyncTimestamp($devId);
+
 }

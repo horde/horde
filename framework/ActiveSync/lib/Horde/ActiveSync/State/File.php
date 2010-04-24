@@ -592,6 +592,24 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
         $this->_gc($syncKey, true);
     }
 
+    public function listDevices()
+    {
+       throw new Horde_ActiveSync_Exception('Not Implemented');
+    }
+
+    /**
+     * Get the last time a particular device issued a SYNC request.
+     *
+     * @param string $devId  The device id
+     *
+     * @return integer  The timestamp of the last sync, regardless of collection
+     * @throws Horde_ActiveSync_Exception
+     */
+    public function getLastSyncTimestamp($devId)
+    {
+        throw new Horde_ActiveSync_Exception('Not Implemented');
+    }
+
     /**
      * Garbage collector - clean up from previous sync
      * requests.

@@ -478,9 +478,42 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
     public function deviceExists($devId)
     {
         $query = 'SELECT COUNT(*) FROM ' . $this->_syncDeviceTable . ' WHERE device_id = ?';
-
         try {
             return $this->_db->selectValue($query, array($devId));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_ActiveSync_Exception($e);
+        }
+    }
+
+    /**
+     * List all devices that we know about.
+     *
+     * @return array  An array of device hashes
+     * @throws Horde_ActiveSync_Exception
+     */
+    public function listDevices()
+    {
+        $sql = 'SELECT * from ' . $this->_syncDeviceTable;
+        try {
+            return $this->_db->selectAll($sql);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_ActiveSync_Exception($e);
+        }
+    }
+
+    /**
+     * Get the last time a particular device issued a SYNC request.
+     *
+     * @param string $devId  The device id
+     *
+     * @return integer  The timestamp of the last sync, regardless of collection
+     * @throws Horde_ActiveSync_Exception
+     */
+    public function getLastSyncTimestamp($devId)
+    {
+        $sql = 'SELECT sync_time FROM ' . $this->_syncStateTable . ' WHERE sync_devid = ?';
+        try {
+            return $this->_db->selectValue($sql, array($devId));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
