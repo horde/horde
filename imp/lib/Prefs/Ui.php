@@ -269,7 +269,7 @@ class IMP_Prefs_Ui
 
         try {
             $GLOBALS['injector']->getInstance('IMP_Imap_Acl');
-        } catch (Exception $e) {
+        } catch (IMP_Exception $e) {
             $ui->suppressGroups[] = 'acl';
         }
 
@@ -637,7 +637,12 @@ class IMP_Prefs_Ui
             ? 'INBOX'
             : $ui->vars->folder;
 
-        $curr_acl = $ACL->getACL($folder);
+        try {
+            $curr_acl = $ACL->getACL($folder);
+        } catch (IMP_Exception $e) {
+            $GLOBALS['notification']->notify($e);
+            return '';
+        }
         $canEdit = $ACL->canEdit($folder, Horde_Auth::getAuth());
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
@@ -740,12 +745,18 @@ class IMP_Prefs_Ui
                 } else {
                     $GLOBALS['notification']->push(sprintf(_("All rights on folder \"%s\" successfully removed for user \"%s\"."), $ui->vars->folder, $new_user), 'horde.success');
                 }
-            } catch (Horde_Exception $e) {
+            } catch (IMP_Exception $e) {
                 $GLOBALS['notification']->push($e);
+                return;
             }
         }
 
-        $curr_acl = $ACL->getACL($ui->vars->folder);
+        try {
+            $curr_acl = $ACL->getACL($ui->vars->folder);
+        } catch (IMP_Exception $e) {
+            $GLOBALS['notification']->notify($e);
+            return;
+        }
         $protected = $ACL->getProtected();
 
         foreach ($acl_list as $user => $val) {
@@ -786,7 +797,7 @@ class IMP_Prefs_Ui
                 } else {
                     $GLOBALS['notification']->push(sprintf(_("User \"%s\" successfully given the specified rights for the folder \"%s\"."), $user, $ui->vars->folder), 'horde.success');
                 }
-            } catch (Horde_Exception $e) {
+            } catch (IMP_Exception $e) {
                 $GLOBALS['notification']->push($e);
             }
         }

@@ -444,6 +444,7 @@ class IMP_Compose
      *                  sent-mail folder.
      * @throws Horde_Exception
      * @throws IMP_Compose_Exception
+     * @throws IMP_Exception
      */
     public function buildAndSendMessage($body, $header, $charset, $html,
                                         $opts = array())
@@ -742,8 +743,11 @@ class IMP_Compose
                 Horde::logMessage('The permission for the maximum number of recipients per time period has been enabled, but no backend for the sent-mail logging has been configured for IMP.', 'ERR');
                 throw new IMP_Compose_Exception(_("The system is not properly configured. A detailed error description has been logged for the administrator."));
             }
-            $sentmail = IMP_Sentmail::factory();
-            $recipients = $sentmail->numberOfRecipients($GLOBALS['conf']['sentmail']['params']['limit_period'], true);
+            try {
+                $recipients = $sentmail->numberOfRecipients($GLOBALS['conf']['sentmail']['params']['limit_period'], true);
+            } catch (IMP_Exception $e) {
+                $recipients = 0;
+            }
             foreach ($result as $address) {
                 $recipients += isset($address['grounpname']) ? count($address['addresses']) : 1;
             }

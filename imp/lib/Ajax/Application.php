@@ -1596,7 +1596,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
     {
         try {
             $GLOBALS['imp_imap']->checkUidvalidity($this->_vars->view);
-        } catch (Horde_Exception $e) {
+        } catch (IMP_Exception $e) {
             if (!is_object($result)) {
                 $result = new stdClass;
             }

@@ -69,7 +69,7 @@ class IMP_Quota_Command extends IMP_Quota
      * @return array  An array with the following keys:
      *                'limit' = Maximum quota allowed
      *                'usage' = Currently used portion of quota (in bytes)
-     * @throws Horde_Exception
+     * @throws IMP_Exception
      */
     public function getQuota()
     {
@@ -88,7 +88,7 @@ class IMP_Quota_Command extends IMP_Quota
                         'limit' => $quota[2] * $blocksize);
         }
 
-        throw new Horde_Exception(_("Unable to retrieve quota"));
+        throw new IMP_Exception(_("Unable to retrieve quota"));
     }
 
 }

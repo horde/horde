@@ -99,7 +99,7 @@ class IMP_Filter
      *                         notification message?
      *
      * @return boolean  True on success.
-     * @throws Horde_Exception
+     * @throws IMP_Exception
      */
     protected function _processBWlist($indices, $descrip, $reg1, $reg2, $link)
     {

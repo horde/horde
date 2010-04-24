@@ -603,7 +603,7 @@ class IMP
         try {
             $quotaDriver = $GLOBALS['injector']->getInstance('IMP_Quota');
             $quota = $quotaDriver->getQuota();
-        } catch (Exception $e) {
+        } catch (IMP_Exception $e) {
             Horde::logMessage($e, 'ERR');
             return false;
         }

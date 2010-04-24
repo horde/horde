@@ -108,7 +108,7 @@ class IMP_Message
             if (!$error) {
                 try {
                     $GLOBALS['imp_imap']->checkUidvalidity($mbox);
-                } catch (Horde_Exception $e) {
+                } catch (IMP_Exception $e) {
                     $error = $e->getMessage();
                 }
             }
@@ -194,7 +194,7 @@ class IMP_Message
             if (!$error) {
                 try {
                     $GLOBALS['imp_imap']->checkUidvalidity($mbox);
-                } catch (Horde_Exception $e) {
+                } catch (IMP_Exception $e) {
                     $error = $e->getMessage();
                 }
             }
@@ -443,25 +443,25 @@ class IMP_Message
      * @param string $partid  The MIME ID of the part to strip. All parts are
      *                        stripped if null.
      *
-     * @throws Horde_Exception
+     * @throws IMP_Exception
      */
     public function stripPart($indices, $partid = null)
     {
         /* Return error if no index was provided. */
         if (!($msgList = IMP::parseIndicesList($indices))) {
-            throw new Horde_Exception(_("An error occured while attempting to strip the attachment."));
+            throw new IMP_Exception(_("An error occured while attempting to strip the attachment."));
         }
 
         /* If more than one index provided, return error. */
         reset($msgList);
         list($mbox, $index) = each($msgList);
         if (each($msgList) || (count($index) > 1)) {
-            throw new Horde_Exception(_("An error occured while attempting to strip the attachment."));
+            throw new IMP_Exception(_("An error occured while attempting to strip the attachment."));
         }
         $index = implode('', $index);
 
         if ($GLOBALS['imp_imap']->isReadOnly($mbox)) {
-            throw new Horde_Exception(_("Cannot strip the MIME part as the mailbox is read-only"));
+            throw new IMP_Exception(_("Cannot strip the MIME part as the mailbox is read-only"));
         }
 
         $GLOBALS['imp_imap']->checkUidvalidity($mbox);
@@ -520,7 +520,7 @@ class IMP_Message
 
             $uid = $GLOBALS['imp_imap']->ob()->append($mbox, array(array('data' => $message->toString(array('headers' => $res['headertext'][0], 'stream' => true)), 'flags' => $res['flags'])));
         } catch (Horde_Imap_Client_Exception $e) {
-            throw new Horde_Exception(_("An error occured while attempting to strip the attachment."));
+            throw new IMP_Exception(_("An error occured while attempting to strip the attachment."));
         }
 
         $this->delete($indices, array('nuke' => true, 'keeplog' => true));
@@ -565,7 +565,7 @@ class IMP_Message
             if (!$error) {
                 try {
                     $GLOBALS['imp_imap']->checkUidvalidity($mbox);
-                } catch (Horde_Exception $e) {
+                } catch (IMP_Exception $e) {
                     $error = $e->getMessage();
                 }
             }
@@ -665,7 +665,7 @@ class IMP_Message
             if (is_array($val)) {
                 try {
                     $GLOBALS['imp_imap']->checkUidvalidity($key);
-                } catch (Horde_Exception $e) {
+                } catch (IMP_Exception $e) {
                     continue;
                 }
             }

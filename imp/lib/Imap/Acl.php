@@ -31,20 +31,20 @@ class IMP_Imap_Acl
     /**
      * Constructor.
      *
-     * @throws Horde_Exception
+     * @throws IMP_Exception
      */
     public function __construct()
     {
         if ($_SESSION['imp']['protocol'] != 'imap') {
-            throw new Horde_Exception(_("ACL requires an IMAP server."));
+            throw new IMP_Exception(_("ACL requires an IMAP server."));
         }
 
         if (empty($_SESSION['imp']['imap']['acl'])) {
-            throw new Horde_Exception(_("ACLs not configured for this server."));
+            throw new IMP_Exception(_("ACLs not configured for this server."));
         }
 
         if (!$GLOBALS['imp_imap']->ob()->queryCapability('ACL')) {
-            throw new Horde_Exception(_("IMAP server does not support ACLs."));
+            throw new IMP_Exception(_("IMAP server does not support ACLs."));
         }
 
         $this->_protected = array($GLOBALS['imp_imap']->ob()->getParam('username'));
@@ -121,14 +121,14 @@ class IMP_Imap_Acl
      * @param string $mbox  The mailbox to get the ACL for.
      *
      * @return array  See Horde_Imap_Client_Base::getACL().
-     * @throws Horde_Exception
+     * @throws IMP_Exception
      */
     public function getACL($mbox)
     {
         try {
             return $GLOBALS['imp_imap']->ob()->getACL($mbox);
         } catch (Horde_Imap_Client_Exception $e) {
-            throw new Horde_Exception(_("Could not retrieve ACL"));
+            throw new IMP_Exception(_("Could not retrieve ACL"));
         }
     }
 
@@ -139,14 +139,14 @@ class IMP_Imap_Acl
      * @param string $user  The user to grant rights to.
      * @param array $acl    The rights to be granted.
      *
-     * @throws Horde_Exception
+     * @throws IMP_Exception
      */
     public function editACL($mbox, $user, $acl)
     {
         try {
             $GLOBALS['imp_imap']->ob()->setACL($mbox, $user, array('remove' => empty($acl), 'rights' => implode('', $acl)));
         } catch (Horde_Imap_Client_Exception $e) {
-            throw new Horde_Exception(sprintf(_("Couldn't give user \"%s\" the following rights for the folder \"%s\": %s"), $user, $mbox, implode('', $acl)));
+            throw new IMP_Exception(sprintf(_("Couldn't give user \"%s\" the following rights for the folder \"%s\": %s"), $user, $mbox, implode('', $acl)));
         }
     }
 

@@ -39,9 +39,9 @@ class IMP_Quota_Sql extends IMP_Quota
     protected $_db;
 
     /**
-     * Connects to the database
+     * Connects to the database.
      *
-     * @throws Horde_Exception
+     * @throws IMP_Exception
      */
     protected function _connect()
     {
@@ -53,7 +53,7 @@ class IMP_Quota_Sql extends IMP_Quota
                                  array('persistent' => !empty($this->_params['persistent']),
                                        'ssl' => !empty($this->_params['ssl'])));
         if ($this->_db instanceof PEAR_Error) {
-            throw new Horde_Exception(_("Unable to connect to SQL server."));
+            throw new IMP_Exception(_("Unable to connect to SQL server."));
         }
     }
 
@@ -63,7 +63,7 @@ class IMP_Quota_Sql extends IMP_Quota
      * @return array  An array with the following keys:
      *                'limit' = Maximum quota allowed
      *                'usage' = Currently used portion of quota (in bytes)
-     * @throws Horde_Exception
+     * @throws IMP_Exception
      */
     public function getQuota()
     {
@@ -82,7 +82,7 @@ class IMP_Quota_Sql extends IMP_Quota
                                  $this->_params['query_quota']);
             $result = $this->_db->query($query);
             if ($result instanceof PEAR_Error) {
-                throw new Horde_Exception_Prior($result);
+                throw new IMP_Exception($result);
             }
 
             $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
@@ -103,7 +103,7 @@ class IMP_Quota_Sql extends IMP_Quota
                                  $this->_params['query_used']);
             $result = $this->_db->query($query);
             if ($result instanceof PEAR_Error) {
-                throw new Horde_Exception_Prior($result);
+                throw new IMP_Exception($result);
             }
 
             $row = $result->fetchRow(DB_FETCHMODE_ASSOC);

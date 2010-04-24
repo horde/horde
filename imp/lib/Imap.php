@@ -306,7 +306,7 @@ class IMP_Imap
      * @param string $mailbox  The mailbox to check. Must be an IMAP mailbox.
      *
      * @return string  The mailbox UIDVALIDITY.
-     * @throws Horde_Exception
+     * @throws IMP_Exception
      */
     public function checkUidvalidity($mailbox)
     {
@@ -327,7 +327,7 @@ class IMP_Imap
         }
 
         if ($this->_uidvalid[$mailbox]) {
-            throw new Horde_Exception(_("Mailbox structure on server has changed."));
+            throw new IMP_Exception(_("Mailbox structure on server has changed."));
         }
 
         return $_SESSION['imp']['cache']['uidvalid'][$mailbox];

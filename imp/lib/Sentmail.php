@@ -39,7 +39,7 @@ class IMP_Sentmail
             if (class_exists($class)) {
                 try {
                     return new $class($params);
-                } catch (Horde_Exception $e) {}
+                } catch (IMP_Exception $e) {}
             }
         }
 
@@ -49,7 +49,7 @@ class IMP_Sentmail
     /**
      * Constructor.
      *
-     * @throws Horde_Exception
+     * @throws IMP_Exception
      */
     protected function __construct($params = array())
     {
@@ -100,7 +100,7 @@ class IMP_Sentmail
      *                        A value of null returns all message types.
      *
      * @return array  A list with the $limit most favourite recipients.
-     * @throws Horde_Exception
+     * @throws IMP_Exception
      */
     public function favouriteRecipients($limit,
                                         $filter = array('new', 'forward', 'reply', 'redirect'))
@@ -116,7 +116,7 @@ class IMP_Sentmail
      *                        user?
      *
      * @return integer  The number of recipients in the given time period.
-     * @throws Horde_Exception
+     * @throws IMP_Exception
      */
     public function numberOfRecipients($hours, $user = false)
     {

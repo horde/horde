@@ -25,19 +25,19 @@ class IMP_Quota_Hook extends IMP_Quota
      * @return array  An array with the following keys:
      *                'limit' = Maximum quota allowed
      *                'usage' = Currently used portion of quota (in bytes)
-     * @throws Horde_Exception
+     * @throws IMP_Exception
      */
     public function getQuota()
     {
         try {
             $quota = Horde::callHook('quota', array($this->_params), 'imp');
         } catch (Horde_Exception_HookNotSet $e) {
-            throw new Horde_Exception($e->getMessage());
+            throw new IMP_Exception($e->getMessage());
         }
 
         if (count($quota) != 2) {
             Horde::logMessage('Incorrect number of return values from quota hook.', 'ERR');
-            throw new Horde_Exception(_("Unable to retrieve quota"));
+            throw new IMP_Exception(_("Unable to retrieve quota"));
         }
 
         return array('usage' => $quota[0], 'limit' => $quota[1]);

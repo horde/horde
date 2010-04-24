@@ -2023,7 +2023,7 @@ class IMP_Imap_Tree
      * @param string $parent  The new mailbox name (UTF7-IMAP).
      *
      * @return string  The full path to the new mailbox.
-     * @throws Horde_Exception
+     * @throws IMP_Exception
      */
     public function createMailboxName($parent, $new)
     {
@@ -2038,7 +2038,7 @@ class IMP_Imap_Tree
                     return $new;
                 }
             }
-            throw new Horde_Exception(_("Cannot directly create mailbox in this folder."));
+            throw new IMP_Exception(_("Cannot directly create mailbox in this folder."));
         }
 
         $mbox = $ns_info['name'];

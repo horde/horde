@@ -189,6 +189,7 @@ class IMP_Api extends Horde_Registry_Api
      *                        A value of null returns all message types.
      *
      * @return array  A list with the $limit most favourite recipients.
+     * @throws IMP_Exception
      */
     public function favouriteRecipients($limit,
                                         $filter = array('new', 'forward', 'reply', 'redirect'))

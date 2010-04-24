@@ -40,13 +40,17 @@ class IMP_Sentmail_Sql extends IMP_Sentmail
      *
      * @param array $params  A hash containing connection parameters.
      *
-     * @throws Horde_Exception
+     * @throws IMP_Exception
      */
     protected function __construct($params = array())
     {
         parent::__construct($params);
 
-        Horde::assertDriverConfig($this->_params, 'storage', array('phptype', 'table'));
+        try {
+            Horde::assertDriverConfig($this->_params, 'storage', array('phptype', 'table'));
+        } catch (Horde_Exception $e) {
+            throw new IMP_Exception($e);
+        }
 
         if (!isset($this->_params['database'])) {
             $this->_params['database'] = '';
@@ -63,7 +67,7 @@ class IMP_Sentmail_Sql extends IMP_Sentmail
                                  array('persistent' => !empty($this->_params['persistent']),
                                        'ssl' => !empty($this->_params['ssl'])));
         if ($this->_db instanceof PEAR_Error) {
-            throw new Horde_Exception_Prior($this->_db);
+            throw new IMP_Exception($this->_db);
         }
 
         /* Set DB portability options. */
@@ -119,7 +123,7 @@ class IMP_Sentmail_Sql extends IMP_Sentmail
      *                        A value of null returns all message types.
      *
      * @return array  A list with the $limit most favourite recipients.
-     * @throws Horde_Exception
+     * @throws IMP_Exception
      */
     public function favouriteRecipients($limit,
                                         $filter = array('new', 'forward', 'reply', 'redirect'))
@@ -144,7 +148,7 @@ class IMP_Sentmail_Sql extends IMP_Sentmail
         $recipients = $this->_db->getAll($query);
         if ($recipients instanceof PEAR_Error) {
             Horde::logMessage($recipients, 'ERR');
-            throw new Horde_Exception_Prior($recipients);
+            throw new IMP_Exception($recipients);
         }
 
         /* Extract email addresses. */
@@ -164,7 +168,7 @@ class IMP_Sentmail_Sql extends IMP_Sentmail
      *                        user?
      *
      * @return integer  The number of recipients in the given time period.
-     * @throws Horde_Exception
+     * @throws IMP_Exception
      */
     public function numberOfRecipients($hours, $user = false)
     {
@@ -182,7 +186,7 @@ class IMP_Sentmail_Sql extends IMP_Sentmail
         $recipients = $this->_db->getOne($query, array(time() - $hours * 3600));
         if ($recipients instanceof PEAR_Error) {
             Horde::logMessage($recipients, 'ERR');
-            throw new Horde_Exception_Prior($recipients);
+            throw new IMP_Exception($recipients);
         }
 
         return $recipients;
