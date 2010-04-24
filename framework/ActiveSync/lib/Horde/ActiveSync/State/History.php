@@ -242,6 +242,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             try {
                $this->_db->insert($sql, array($change['id'], $change['mod'], $this->_syncKey, $this->_devId, $change['parent']));
             } catch (Horde_Db_Exception $e) {
+                $this->_logger->err($e->getMessage());
                throw new Horde_ActiveSync_Exception($e);
             }
             /* @TODO: Deal with PIM generated folder changes (mail only) */
@@ -402,7 +403,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         }
 
         $this->_devId = $devId;
-        $query = 'SELECT device_type, device_agent, device_ping, device_policykey, device_rwstatus FROM '
+        $query = 'SELECT device_type, device_agent, device_ping, device_policykey, device_rwstatus, device_user FROM '
             . $this->_syncDeviceTable . ' WHERE device_id = ?';
         try {
             $result = $this->_db->selectOne($query, array($devId));
@@ -416,6 +417,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             $this->_deviceInfo->deviceType = $result['device_type'];
             $this->_deviceInfo->userAgent = $result['device_agent'];
             $this->_deviceInfo->id = $devId;
+            $this->deviceInfo->user = $result['device_user'];
             if ($result['device_ping']) {
                 $this->_pingState = unserialize($result['device_ping']);
             } else {
@@ -428,6 +430,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             $this->_deviceInfo->deviceType = '';
             $this->_deviceInfo->userAgent = '';
             $this->_deviceInfo->id = $devId;
+            $this->_deviceInfo->user = $this->_backend->getUser();
             $this->setDeviceInfo($devId, $this->_deviceInfo);
             $this->resetPingState();
         }
@@ -452,10 +455,10 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             $this->_db->execute($query, array($devId));
 
             $query = 'INSERT INTO ' . $this->_syncDeviceTable
-                . '(device_type, device_agent, device_ping, device_policykey, device_rwstatus, device_id)'
-                . ' VALUES(?, ?, ?, ?, ?, ?)';
+                . '(device_type, device_agent, device_ping, device_policykey, device_rwstatus, device_id, device_user)'
+                . ' VALUES(?, ?, ?, ?, ?, ?, ?)';
 
-            $values = array($data->deviceType, $data->userAgent, '', $data->policykey, $data->rwstatus, $devId);
+            $values = array($data->deviceType, $data->userAgent, '', $data->policykey, $data->rwstatus, $devId, $data->user);
             $this->_devId = $devId;
 
             return $this->_db->insert($query, $values);
