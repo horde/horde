@@ -29,6 +29,7 @@ CREATE TABLE horde_activesync_device (
     device_ping       TEXT,
     device_policykey  BIGINT DEFAULT 0,
     device_rwstatus   INTEGER,
+    device_folders    TEXT,
 
 --
     PRIMARY KEY (device_id)
