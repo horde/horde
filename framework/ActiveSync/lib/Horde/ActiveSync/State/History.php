@@ -64,10 +64,10 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      */
     protected $_db;
 
-    /* TODO - config these */
-    protected $_syncStateTable = 'horde_activesync_state';
-    protected $_syncMapTable = 'horde_activesync_map';
-    protected $_syncDeviceTable = 'horde_activesync_device';
+    /* Table names */
+    protected $_syncStateTable;
+    protected $_syncMapTable;
+    protected $_syncDeviceTable;
 
     /**
      * Const'r
@@ -89,7 +89,9 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             throw new InvalidArgumentException('Missing or invalid Horde_Db parameter.');
         }
 
-        $this->_params = $params;
+        $this->_syncStateTable = $params['statetable'];
+        $this->_syncMapTable = $params['maptable'];
+        $this->_syncDeviceTable = $params['devicetable'];
         $this->_db = $params['db'];
     }
 
@@ -291,11 +293,6 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             $unique_folders[Horde_ActiveSync::FOLDER_TYPE_CONTACT] = Horde_ActiveSync::FOLDER_TYPE_DUMMY;
         }
         /* Storage to SQL? */
-//
-//        if (!file_put_contents($this->_stateDir . '/compat-' . $devId, serialize($unique_folders))) {
-//            $this->logError('_saveFolderData: Data could not be saved!');
-//            throw new Horde_ActiveSync_Exception('Folder data could not be saved');
-//        }
     }
 
     /**
@@ -362,7 +359,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
          }
 
          /* Need to get the last sync time for this collection */
-         return $this->_pingState['collections'];
+         return !empty($this->_pingState['collections']);
     }
 
     /**
@@ -408,6 +405,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             $this->_deviceInfo->userAgent = '';
             $this->_deviceInfo->id = $devId;
             $this->setDeviceInfo($devId, $this->_deviceInfo);
+            $this->resetPingState();
         }
 
         return $this->_deviceInfo;

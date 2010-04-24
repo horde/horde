@@ -66,7 +66,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
     /**
      * Const'r
      *
-     * @param array  $params   Must contain 'stateDir' entry
+     * @param array  $params   Must contain 'directory' entry
      *
      * @return Horde_ActiveSync_StateMachine_File
      */
@@ -74,11 +74,11 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
     {
         parent::__construct($params);
 
-        if (empty($this->_params['stateDir'])) {
+        if (empty($this->_params['directory'])) {
             throw new InvalidArgumentException('Missing required "stateDir" parameter.');
         }
 
-        $this->_stateDir = $this->_params['stateDir'];
+        $this->_stateDir = $this->_params['directory'];
     }
 
     /**

@@ -29,7 +29,7 @@ class Horde_ActiveSync_FileStateTest extends Horde_Test_Case
                 ->method('contacts_getActionTimestamp')
                 ->will($this->returnValue($fixture['contacts_getActionTimestamp']));
 
-        $state = new Horde_ActiveSync_State_File(array('stateDir' => './'));
+        $state = new Horde_ActiveSync_State_File(array('directory' => './'));
         $driver = new Horde_ActiveSync_Driver_Horde(array('connector' => $connector,
                                                           'state_basic' => $state));
 
@@ -60,7 +60,7 @@ class Horde_ActiveSync_FileStateTest extends Horde_Test_Case
 
         /* ...and check that it contains the serialized state data
          *  by reading it into a new object and performing another diff */
-        $newstate = new Horde_ActiveSync_State_File(array('stateDir' => './'));
+        $newstate = new Horde_ActiveSync_State_File(array('directory' => './'));
         $newstate->init(array('id' => 'Contacts',
                            'class' => 'Contacts'));
         $newstate->setBackend($driver);
