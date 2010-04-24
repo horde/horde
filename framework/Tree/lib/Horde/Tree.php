@@ -423,7 +423,7 @@ class Horde_Tree
             // Set only allowed and non-null params.
             if (in_array($param_id, $allowed) && !is_null($param_val)) {
                 // Cast Horde_Url objects
-                if ($param_id == 'url') {
+                if ($param_id == 'url' || $param_id == 'icondir') {
                     $param_val = (string)$param_val;
                 }
                 $this->_nodes[$id][$param_id] = $param_val;
