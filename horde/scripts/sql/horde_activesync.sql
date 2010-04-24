@@ -20,7 +20,7 @@ CREATE TABLE horde_activesync_map (
 );
 
 CREATE INDEX activesync_map_devid_idx ON horde_activesync_map (sync_devid);
-CREATE INDEX activesync_map_message_idx ON horde_activesync_map(message_uid);
+CREATE INDEX activesync_map_message_idx ON horde_activesync_map (message_uid);
 
 CREATE TABLE horde_activesync_device (
     device_id         VARCHAR(255) NOT NULL,
@@ -30,7 +30,11 @@ CREATE TABLE horde_activesync_device (
     device_policykey  BIGINT DEFAULT 0,
     device_rwstatus   INTEGER,
     device_folders    TEXT,
+    device_user       VARCHAR(255),
 
 --
     PRIMARY KEY (device_id)
 );
+
+CREATE INDEX activesync_device_user_idx ON horde_activesync_device (device_user);
+
