@@ -967,6 +967,8 @@ class Horde_Mime_Part
      *             headers to this object. If a string, use the string
      *             verbatim.
      *             DEFAULT: true
+     * 'id' - (string) Return only this MIME ID part.
+     *        DEFAULT: Returns the base part.
      * 'stream' - (boolean) Return a stream resource.
      *            DEFAULT: false
      * </pre>
@@ -977,95 +979,121 @@ class Horde_Mime_Part
     public function toString($options = array())
     {
         $eol = $this->getEOL();
-        $ptype = $this->getPrimaryType();
+        $isbase = true;
+        $oldbaseptr = null;
         $parts = $parts_close = array();
 
-        if ($isbase = empty($options['_notbase'])) {
-            $headers = !empty($options['headers'])
-                ? $options['headers']
-                : false;
-
-            if (empty($options['encode'])) {
-                $options['encode'] = null;
+        if (isset($options['id'])) {
+            $id = $options['id'];
+            if (!($part = $this->getPart($id))) {
+                return $part;
             }
-            if (empty($options['defserver'])) {
-                $options['defserver'] = null;
-            }
-            $options['headers'] = true;
-            $options['_notbase'] = true;
+            unset($options['id']);
+            $contents = $part->toString($options);
 
-            $oldbaseptr = null;
-        } else {
-            $headers = true;
-            $oldbaseptr = &$options['_baseptr'];
-        }
-
-        $this->_temp['toString'] = '';
-        $options['_baseptr'] = &$this->_temp['toString'];
-
-        /* Any information about a message/* is embedded in the message
-           contents themself. Simply output the contents of the part
-           directly and return. */
-        if ($ptype == 'message') {
-            $parts[] = $this->_contents;
-        } else {
-            if (!empty($this->_contents)) {
-                $encoding = $this->_getTransferEncoding($options['encode']);
-                switch ($encoding) {
-                case '8bit':
-                    if (empty($options['_baseptr'])) {
-                        $options['_baseptr'] = '8bit';
-                    }
-                    break;
-
-                case 'binary':
-                    $options['_baseptr'] = 'binary';
-                    break;
-                }
-
-                $parts[] = $this->_transferEncode($this->_contents, $encoding);
-
-                /* If not using $this->_contents, we can close the stream when
-                 * finished. */
-                if ($this->_temp['transferEncodeClose']) {
-                    $parts_close[] = end($parts);
-                }
+            $prev_id = Horde_Mime::mimeIdArithmetic($id, 'up', array('norfc822' => true));
+            $prev_part = ($prev_id == $this->getMimeId())
+                ? $this
+                : $this->getPart($prev_id);
+            if (!$prev_part) {
+                return $contents;
             }
 
-            /* Deal with multipart messages. */
-            if ($ptype == 'multipart') {
-                if (empty($this->_contents)) {
-                    $parts[] = 'This message is in MIME format.' . $eol;
-                }
+            $boundary = trim($this->getContentTypeParameter('boundary'), '"');
+            $parts = array(
+                $eol . '--' . $boundary . $eol,
+                $contents
+            );
 
-                $this->_generateBoundary();
-                $boundary = trim($this->getContentTypeParameter('boundary'), '"');
-
-                reset($this->_parts);
-                while (list(,$part) = each($this->_parts)) {
-                    $parts[] = $eol . '--' . $boundary . $eol;
-                    $oldEOL = $part->getEOL();
-                    $part->setEOL($eol);
-                    $tmp = $part->toString($options);
-                    if (!empty($options['stream'])) {
-                        $parts_close[] = $tmp;
-                    }
-                    $parts[] = $tmp;
-                    $part->setEOL($oldEOL);
-                }
+            if (!$this->getPart(Horde_Mime::mimeIdArithmetic($id, 'next'))) {
                 $parts[] = $eol . '--' . $boundary . '--' . $eol;
             }
-        }
+        } else {
+            if ($isbase = empty($options['_notbase'])) {
+                $headers = !empty($options['headers'])
+                    ? $options['headers']
+                    : false;
 
-        if (is_string($headers)) {
-            array_unshift($parts, $headers);
-        } elseif ($headers) {
-            $hdr_ob = $this->addMimeHeaders(array('encode' => $options['encode'], 'headers' => ($headers === true) ? null : $headers));
-            $hdr_ob->setEOL($eol);
-            if (!empty($this->_temp['toString'])) {
-                $hdr_ob->replaceHeader('Content-Transfer-Encoding', $this->_temp['toString']);
+                if (empty($options['encode'])) {
+                    $options['encode'] = null;
+                }
+                if (empty($options['defserver'])) {
+                    $options['defserver'] = null;
+                }
+                $options['headers'] = true;
+                $options['_notbase'] = true;
+            } else {
+                $headers = true;
+                $oldbaseptr = &$options['_baseptr'];
             }
-            array_unshift($parts, $hdr_ob->toString(array('charset' => $this->getHeaderCharset(), 'defserver' => $options['defserver'])));
+
+            $this->_temp['toString'] = '';
+            $options['_baseptr'] = &$this->_temp['toString'];
+
+            /* Any information about a message/* is embedded in the message
+             * contents themself. Simply output the contents of the part
+             * directly and return. */
+            $ptype = $this->getPrimaryType();
+            if ($ptype == 'message') {
+                $parts[] = $this->_contents;
+            } else {
+                if (!empty($this->_contents)) {
+                    $encoding = $this->_getTransferEncoding($options['encode']);
+                    switch ($encoding) {
+                    case '8bit':
+                        if (empty($options['_baseptr'])) {
+                            $options['_baseptr'] = '8bit';
+                        }
+                        break;
+
+                    case 'binary':
+                        $options['_baseptr'] = 'binary';
+                        break;
+                    }
+
+                    $parts[] = $this->_transferEncode($this->_contents, $encoding);
+
+                    /* If not using $this->_contents, we can close the stream
+                     * when finished. */
+                    if ($this->_temp['transferEncodeClose']) {
+                        $parts_close[] = end($parts);
+                    }
+                }
+
+                /* Deal with multipart messages. */
+                if ($ptype == 'multipart') {
+                    if (empty($this->_contents)) {
+                        $parts[] = 'This message is in MIME format.' . $eol;
+                    }
+
+                    $boundary = trim($this->getContentTypeParameter('boundary'), '"');
+
+                    reset($this->_parts);
+                    while (list(,$part) = each($this->_parts)) {
+                        $parts[] = $eol . '--' . $boundary . $eol;
+                        $oldEOL = $part->getEOL();
+                        $part->setEOL($eol);
+                        $tmp = $part->toString($options);
+                        if (!empty($options['stream'])) {
+                            $parts_close[] = $tmp;
+                        }
+                        $parts[] = $tmp;
+                        $part->setEOL($oldEOL);
+                    }
+                    $parts[] = $eol . '--' . $boundary . '--' . $eol;
+                }
+            }
+
+            if (is_string($headers)) {
+                array_unshift($parts, $headers);
+            } elseif ($headers) {
+                $hdr_ob = $this->addMimeHeaders(array('encode' => $options['encode'], 'headers' => ($headers === true) ? null : $headers));
+                $hdr_ob->setEOL($eol);
+                if (!empty($this->_temp['toString'])) {
+                    $hdr_ob->replaceHeader('Content-Transfer-Encoding', $this->_temp['toString']);
+                }
+                array_unshift($parts, $hdr_ob->toString(array('charset' => $this->getHeaderCharset(), 'defserver' => $options['defserver'])));
+            }
         }
 
         $newfp = $this->_writeStream($parts);
