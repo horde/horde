@@ -349,33 +349,36 @@ class Horde_Imap_Client_Utils
      *
      * @param array $data  The data used to create the URL. See the return
      *                     value from parseUrl() for the available fields.
-     *                     REQUIRED: 'type', 'hostspec'
      *
      * @return string  A URL string.
      */
     public function createUrl($data)
     {
-        $url = $data['type'] . '://';
+        $url = '';
 
-        if (isset($data['username'])) {
-            $url .= $data['username'];
-        }
+        if (isset($type)) {
+            $url = $data['type'] . '://';
 
-        if (isset($data['auth'])) {
-            $url .= ';AUTH=' . $data['auth'] . '@';
-        } elseif (isset($data['username'])) {
-            $url .= '@';
-        }
+            if (isset($data['username'])) {
+                $url .= $data['username'];
+            }
 
-        $url .= $data['hostspec'];
+            if (isset($data['auth'])) {
+                $url .= ';AUTH=' . $data['auth'] . '@';
+            } elseif (isset($data['username'])) {
+                $url .= '@';
+            }
 
-        if (isset($data['port']) && ($data['port'] != 143)) {
-            $url .= ':' . $data['port'];
+            $url .= $data['hostspec'];
+
+            if (isset($data['port']) && ($data['port'] != 143)) {
+                $url .= ':' . $data['port'];
+            }
         }
 
         $url .= '/';
 
-        if ($data['type'] == 'imap') {
+        if (!isset($data['type']) || ($data['type'] == 'imap')) {
             $url .= urlencode($data['mailbox']);
 
             if (!empty($data['uidvalidity'])) {
