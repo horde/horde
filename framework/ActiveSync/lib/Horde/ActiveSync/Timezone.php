@@ -10,7 +10,7 @@
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  *
  * @category Horde
- * @package  Horde_Rpc
+ * @package  Horde_ActiveSync
  */
 class Horde_ActiveSync_Timezone
 {

@@ -1,12 +1,20 @@
 <?php
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Registry connector for Horde backend. Provides the communication between
+ * the Horde Registry on the local machine and the ActiveSync Horde driver.
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
+ * Copyright 2010 The Horde Project (http://www.horde.org)
+ *
+ * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @package Horde_ActiveSync
  */
 class Horde_ActiveSync_Driver_Horde_Connector_Registry
 {
     /**
-     * Horde registry intance
+     * Horde registry
      *
      * @var Horde_Registry
      */
