@@ -252,7 +252,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             * send all of them.
             */
             $this->_logger->debug('Updating state during ' . $this->_type);
-           foreach ($this->_changes as $key => $value) {
+            foreach ($this->_changes as $key => $value) {
                if ($value['id'] == $change['id']) {
                    if ($this->_type == 'foldersync') {
                        foreach ($this->_state as $fi => $state) {
@@ -260,7 +260,13 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
                                unset($this->_state[$fi]);
                            }
                        }
-                       $this->_state[] = $value;
+                       /* Only save what we need, and ensure we have a mod time */
+                       $stat = array(
+                           'id' => $value['id'],
+                           'mod' => (empty($value['mod']) ? time() : $value['mod']),
+                           'parent' => (empty($value['parent']) ? 0 : $value['parent'])
+                       );
+                       $this->_state[] = $stat;
                        $this->_state = array_values($this->_state);
                    }
                    unset($this->_changes[$key]);
