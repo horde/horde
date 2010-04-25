@@ -38,32 +38,34 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Thrift">
-      <dir name="packages">
-       <dir name="reflection_limited">
-        <file name="reflection_limited_types.php" role="php" />
-       </dir> <!-- /lib/Horde/Thrift/packages/reflection_limited -->
-       <dir name="fb303">
-        <file name="fb303_types.php" role="php" />
-        <file name="FacebookBase.php" role="php" />
-        <file name="FacebookService.php" role="php" />
-       </dir> <!-- /lib/Horde/Thrift/packages/fb303 -->
-      </dir> <!-- /lib/Horde/Thrift/packages -->
-      <dir name="protocol">
-       <file name="TBinaryProtocol.php" role="php" />
-       <file name="TProtocol.php" role="php" />
-      </dir> <!-- /lib/Horde/Thrift/protocol -->
-      <dir name="transport">
-       <file name="TBufferedTransport.php" role="php" />
-       <file name="TFramedTransport.php" role="php" />
-       <file name="TNullTransport.php" role="php" />
-       <file name="TPhpStream.php" role="php" />
-       <file name="THttpClient.php" role="php" />
-       <file name="TMemoryBuffer.php" role="php" />
-       <file name="TSocketPool.php" role="php" />
-       <file name="TSocket.php" role="php" />
-       <file name="TTransport.php" role="php" />
-      </dir> <!-- /lib/Horde/Thrift/transport -->
-      <file name="Thrift.php" role="php" />
+      <dir name="thrift_root">
+       <dir name="packages">
+        <dir name="reflection_limited">
+         <file name="reflection_limited_types.php" role="php" />
+        </dir> <!-- /lib/Horde/Thrift/thrift_root/packages/reflection_limited -->
+        <dir name="fb303">
+         <file name="fb303_types.php" role="php" />
+         <file name="FacebookBase.php" role="php" />
+         <file name="FacebookService.php" role="php" />
+        </dir> <!-- /lib/Horde/Thrift/thrift_root/packages/fb303 -->
+       </dir> <!-- /lib/Horde/Thrift/thrift_root/packages -->
+       <dir name="protocol">
+        <file name="TBinaryProtocol.php" role="php" />
+        <file name="TProtocol.php" role="php" />
+       </dir> <!-- /lib/Horde/Thrift/thrift_root/protocol -->
+       <dir name="transport">
+        <file name="TBufferedTransport.php" role="php" />
+        <file name="TFramedTransport.php" role="php" />
+        <file name="TNullTransport.php" role="php" />
+        <file name="TPhpStream.php" role="php" />
+        <file name="THttpClient.php" role="php" />
+        <file name="TMemoryBuffer.php" role="php" />
+        <file name="TSocketPool.php" role="php" />
+        <file name="TSocket.php" role="php" />
+        <file name="TTransport.php" role="php" />
+       </dir> <!-- /lib/Horde/Thrift/thrift_root/transport -->
+       <file name="Thrift.php" role="php" />
+      </dir> <!-- /lib/Horde/Thrift/thrift_root -->
      </dir> <!-- /lib/Horde/Thrift -->
      <file name="Thrift.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -82,22 +84,22 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Thrift/packages/reflection_limited/reflection_limited_types.php" as="Horde/Thrift/packages/reflection_limited/reflection_limited_types.php" />
-   <install name="lib/Horde/Thrift/packages/fb303/fb303_types.php" as="Horde/Thrift/packages/fb303/fb303_types.php" />
-   <install name="lib/Horde/Thrift/packages/fb303/FacebookBase.php" as="Horde/Thrift/packages/fb303/FacebookBase.php" />
-   <install name="lib/Horde/Thrift/packages/fb303/FacebookService.php" as="Horde/Thrift/packages/fb303/FacebookService.php" />
-   <install name="lib/Horde/Thrift/protocol/TBinaryProtocol.php" as="Horde/Thrift/protocol/TBinaryProtocol.php" />
-   <install name="lib/Horde/Thrift/protocol/TProtocol.php" as="Horde/Thrift/protocol/TProtocol.php" />
-   <install name="lib/Horde/Thrift/transport/TBufferedTransport.php" as="Horde/Thrift/transport/TBufferedTransport.php" />
-   <install name="lib/Horde/Thrift/transport/TFramedTransport.php" as="Horde/Thrift/transport/TFramedTransport.php" />
-   <install name="lib/Horde/Thrift/transport/TNullTransport.php" as="Horde/Thrift/transport/TNullTransport.php" />
-   <install name="lib/Horde/Thrift/transport/TPhpStream.php" as="Horde/Thrift/transport/TPhpStream.php" />
-   <install name="lib/Horde/Thrift/transport/THttpClient.php" as="Horde/Thrift/transport/THttpClient.php" />
-   <install name="lib/Horde/Thrift/transport/TMemoryBuffer.php" as="Horde/Thrift/transport/TMemoryBuffer.php" />
-   <install name="lib/Horde/Thrift/transport/TSocketPool.php" as="Horde/Thrift/transport/TSocketPool.php" />
-   <install name="lib/Horde/Thrift/transport/TSocket.php" as="Horde/Thrift/transport/TSocket.php" />
-   <install name="lib/Horde/Thrift/transport/TTransport.php" as="Horde/Thrift/transport/TTransport.php" />
-   <install name="lib/Horde/Thrift/Thrift.php" as="Horde/Thrift/Thrift.php" />
+   <install name="lib/Horde/Thrift/thrift_root/packages/reflection_limited/reflection_limited_types.php" as="Horde/Thrift/thrift_root/packages/reflection_limited/reflection_limited_types.php" />
+   <install name="lib/Horde/Thrift/thrift_root/packages/fb303/fb303_types.php" as="Horde/Thrift/thrift_root/packages/fb303/fb303_types.php" />
+   <install name="lib/Horde/Thrift/thrift_root/packages/fb303/FacebookBase.php" as="Horde/Thrift/thrift_root/packages/fb303/FacebookBase.php" />
+   <install name="lib/Horde/Thrift/thrift_root/packages/fb303/FacebookService.php" as="Horde/Thrift/thrift_root/packages/fb303/FacebookService.php" />
+   <install name="lib/Horde/Thrift/thrift_root/protocol/TBinaryProtocol.php" as="Horde/Thrift/thrift_root/protocol/TBinaryProtocol.php" />
+   <install name="lib/Horde/Thrift/thrift_root/protocol/TProtocol.php" as="Horde/Thrift/thrift_root/protocol/TProtocol.php" />
+   <install name="lib/Horde/Thrift/thrift_root/transport/TBufferedTransport.php" as="Horde/Thrift/thrift_root/transport/TBufferedTransport.php" />
+   <install name="lib/Horde/Thrift/thrift_root/transport/TFramedTransport.php" as="Horde/Thrift/thrift_root/transport/TFramedTransport.php" />
+   <install name="lib/Horde/Thrift/thrift_root/transport/TNullTransport.php" as="Horde/Thrift/thrift_root/transport/TNullTransport.php" />
+   <install name="lib/Horde/Thrift/thrift_root/transport/TPhpStream.php" as="Horde/Thrift/thrift_root/transport/TPhpStream.php" />
+   <install name="lib/Horde/Thrift/thrift_root/transport/THttpClient.php" as="Horde/Thrift/thrift_root/transport/THttpClient.php" />
+   <install name="lib/Horde/Thrift/thrift_root/transport/TMemoryBuffer.php" as="Horde/Thrift/thrift_root/transport/TMemoryBuffer.php" />
+   <install name="lib/Horde/Thrift/thrift_root/transport/TSocketPool.php" as="Horde/Thrift/thrift_root/transport/TSocketPool.php" />
+   <install name="lib/Horde/Thrift/thrift_root/transport/TSocket.php" as="Horde/Thrift/thrift_root/transport/TSocket.php" />
+   <install name="lib/Horde/Thrift/thrift_root/transport/TTransport.php" as="Horde/Thrift/thrift_root/transport/TTransport.php" />
+   <install name="lib/Horde/Thrift/thrift_root/Thrift.php" as="Horde/Thrift/thrift_root/Thrift.php" />
    <install name="lib/Horde/Thrift.php" as="Horde/Thrift.php" />
   </filelist>
  </phprelease>
