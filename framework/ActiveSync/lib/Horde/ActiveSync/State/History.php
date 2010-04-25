@@ -403,7 +403,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         }
 
         $this->_devId = $devId;
-        $query = 'SELECT device_type, device_agent, device_ping, device_policykey, device_rwstatus, device_user FROM '
+        $query = 'SELECT device_type, device_agent, device_ping, device_policykey, device_rwstatus, device_user, device_supported FROM '
             . $this->_syncDeviceTable . ' WHERE device_id = ?';
         try {
             $result = $this->_db->selectOne($query, array($devId));
@@ -417,7 +417,8 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             $this->_deviceInfo->deviceType = $result['device_type'];
             $this->_deviceInfo->userAgent = $result['device_agent'];
             $this->_deviceInfo->id = $devId;
-            $this->deviceInfo->user = $result['device_user'];
+            $this->_deviceInfo->user = $result['device_user'];
+            $this->_deviceInfo->supported = unserilize($result['device_supported']);
             if ($result['device_ping']) {
                 $this->_pingState = unserialize($result['device_ping']);
             } else {
@@ -455,10 +456,18 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             $this->_db->execute($query, array($devId));
 
             $query = 'INSERT INTO ' . $this->_syncDeviceTable
-                . '(device_type, device_agent, device_ping, device_policykey, device_rwstatus, device_id, device_user)'
-                . ' VALUES(?, ?, ?, ?, ?, ?, ?)';
+                . '(device_type, device_agent, device_ping, device_policykey, device_rwstatus, device_id, device_user, device_supported)'
+                . ' VALUES(?, ?, ?, ?, ?, ?, ?, ?)';
 
-            $values = array($data->deviceType, $data->userAgent, '', $data->policykey, $data->rwstatus, $devId, $data->user);
+            $values = array($data->deviceType,
+                            $data->userAgent,
+                            '',
+                            $data->policykey,
+                            $data->rwstatus,
+                            $devId,
+                            $data->user,
+                            (!empty($data->supported) ? $data->supported : ''));
+
             $this->_devId = $devId;
 
             return $this->_db->insert($query, $values);

@@ -27,6 +27,7 @@ CREATE TABLE horde_activesync_device (
     device_type       VARCHAR(255) NOT NULL,
     device_agent      VARCHAR(255) NOT NULL,
     device_ping       TEXT,
+    device_supported  TEXT,
     device_policykey  BIGINT DEFAULT 0,
     device_rwstatus   INTEGER,
     device_folders    TEXT,

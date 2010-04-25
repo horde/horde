@@ -98,7 +98,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     exit;
                 }
                 while (1) {
-                    $el = $this->_decoder->getElement();
+                    $el = $this->_decoder->getElementContent();
+                    $collection['supported'][] = $el;
                     if ($el[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
                         break;
                     }
@@ -186,7 +187,15 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             if ($this->_statusCode == self::STATUS_SUCCESS) {
                 /* Initialize the state */
                 $state = &$this->_driver->getStateObject($collection);
-                $state->getDeviceInfo($devId);
+                $device = $state->getDeviceInfo($devId);
+                if (!empty($collection['supported'])) {
+                    /* Initial sync and we have SUPPORTED data - save it */
+                    if (empty($device->supported)) {
+                        $device->supported = array();
+                    }
+                    $device->supported[$collection['class']] = $collection['supported'];
+                    $state->setDeviceInfo($devId, $device);
+                }
                 try {
                     $state->loadState($collection['synckey'], 'sync');
                 } catch (Horde_ActiveSync_Exception $e) {
