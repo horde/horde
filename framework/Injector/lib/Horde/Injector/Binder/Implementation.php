@@ -16,9 +16,8 @@ class Horde_Injector_Binder_Implementation implements Horde_Injector_Binder
 
     /**
      * TODO
-     * @var array
      */
-    private $_setters = array();
+    private $_setters;
 
     /**
      * TODO
@@ -63,10 +62,6 @@ class Horde_Injector_Binder_Implementation implements Horde_Injector_Binder
         $reflectionClass = new ReflectionClass($this->_implementation);
         $this->_validateImplementation($reflectionClass);
         $instance = $this->_getInstance($injector, $reflectionClass);
-        $setters = $this->_findSetters($reflectionClass);
-        foreach ($setters as $setter) {
-            $this->bindSetter($setter);
-        }
         $this->_callSetters($injector, $instance);
         return $instance;
     }
@@ -136,25 +131,4 @@ class Horde_Injector_Binder_Implementation implements Horde_Injector_Binder
         }
     }
 
-    /**
-     * Find annotated setters in the class docblock
-     *
-     * @param ReflectionClass $reflectionClass
-     *
-     * @return array
-     */
-    private function _findSetters(ReflectionClass $reflectionClass)
-    {
-        $setters = array();
-        $docBlock = $reflectionClass->getDocComment();
-        if ($docBlock) {
-            if (preg_match_all('/@inject (\w+)/', $docBlock, $matches)) {
-                foreach ($matches[1] as $setter) {
-                    $setters[] = $setter;
-                }
-            }
-        }
-
-        return $setters;
-    }
 }

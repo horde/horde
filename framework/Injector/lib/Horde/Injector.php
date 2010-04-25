@@ -234,4 +234,5 @@ class Horde_Injector implements Horde_Injector_Scope
 
         return $this->_instances[$interface];
     }
+
 }
