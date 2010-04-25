@@ -653,16 +653,29 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
                 /* No existing changes, poll the backend */
                 $changes = $this->_backend->getServerChanges($folderId, $this->_lastSyncTS, $this->_thisSyncTS, $cutoffdate);
             }
+            /* Unfortunately we can't use an empty synckey to detect an initial
+             * sync. The AS protocol doesn't start looking for changes until
+             * after the device/server negotiate a synckey, so we can't use an
+             * empty synckey to determine an initial sync. What we CAN do is
+             * at least query the map table to see if there any entries in it
+             * at all for this device before going through and stating all the
+             * messages. */
             $this->_logger->debug('[' . $this->_devId . '] Found ' . count($changes) . ' message changes, checking for PIM initiated changes.');
-            $this->_changes = array();
-            foreach ($changes as $change) {
-                $stat = $this->_backend->statMessage($folderId, $change['id']);
-                $ts = $this->_getPIMChangeTS($change['id']);
-                if ($ts && $ts >= $stat['mod']) {
-                    $this->_logger->debug('[' . $this->_devId . '] Ignoring PIM initiated change for ' . $change['id'] . '(PIM TS: ' . $ts . ' Stat TS: ' . $stat['mod']);
-                } else {
-                    $this->_changes[] = $change;
+            if ($this->_havePIMChanges()) {
+                $this->_changes = array();
+                foreach ($changes as $change) {
+                    $stat = $this->_backend->statMessage($folderId, $change['id']);
+                    $ts = $this->_getPIMChangeTS($change['id']);
+                    if ($ts && $ts >= $stat['mod']) {
+                        $this->_logger->debug('[' . $this->_devId . '] Ignoring PIM initiated change for ' . $change['id'] . '(PIM TS: ' . $ts . ' Stat TS: ' . $stat['mod']);
+                    } else {
+                        $this->_changes[] = $change;
+                    }
                 }
+            } else {
+                // No known PIM originated changes
+                $this->_logger->debug('[' . $this->_devId . '] No PIM changes present, returning all messages.');
+                $this->_changes = $changes;
             }
         } else {
             $this->_logger->debug('[' . $this->_devId . '] Initializing folder diff engine');
@@ -752,6 +765,25 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         $sql = 'SELECT sync_modtime FROM ' . $this->_syncMapTable . ' WHERE message_uid = ? AND sync_devid = ?';
         try {
             return $this->_db->selectValue($sql, array($uid, $this->_devId));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_ActiveSync_Exception($e);
+        }
+    }
+
+    /**
+     * Check for the existence of ANY entries in the map table for this device.
+     * An extra database query for each sync, but the payoff is that we avoid
+     * having to state every message change we send to the PIM if there are no
+     * PIM generated changes for this sync period.
+     *
+     * @return boolean
+     * @throws Horde_ActiveSync_Exception
+     */
+    protected function _havePIMChanges()
+    {
+        $sql = 'SELECT COUNT(*) FROM ' . $this->_syncMapTable . ' WHERE sync_devid = ?';
+        try {
+            return (bool)$this->_db->selectValue($sql, array($this->_devId));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
