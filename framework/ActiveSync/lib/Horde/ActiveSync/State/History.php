@@ -418,7 +418,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             $this->_deviceInfo->userAgent = $result['device_agent'];
             $this->_deviceInfo->id = $devId;
             $this->_deviceInfo->user = $result['device_user'];
-            $this->_deviceInfo->supported = unserilize($result['device_supported']);
+            $this->_deviceInfo->supported = unserialize($result['device_supported']);
             if ($result['device_ping']) {
                 $this->_pingState = unserialize($result['device_ping']);
             } else {
