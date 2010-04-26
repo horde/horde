@@ -481,7 +481,7 @@ abstract class Horde_ActiveSync_Driver_Base
      * @param string $id
      * @param string $displayname
      * @param string $type
-     * 
+     *
      * @return boolean
      */
     public function changeFolder($parent, $id, $displayname, $type)

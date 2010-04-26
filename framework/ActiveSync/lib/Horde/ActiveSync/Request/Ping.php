@@ -67,29 +67,29 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
      *
      * @return boolean
      */
-    public function handle(Horde_ActiveSync $activeSync, $devId)
+    public function handle()
     {
         $now = time();
-        parent::handle($activeSync, $devId);
+        parent::handle();
 
         /* Get the settings for the server */
         $this->_ping_settings = $this->_driver->getHeartbeatConfig();
         $timeout = $this->_ping_settings['waitinterval'];
 
         /* Notify */
-        $this->_logger->info('[' . $devId . '] PING received at timestamp: ' . $now . '.');
+        $this->_logger->info('[' . $this->_device->id . '] PING received at timestamp: ' . $now . '.');
 
         /* Glass half full kinda guy... */
         $this->_statusCode = self::STATUS_NOCHANGES;
 
         /* Initialize the state machine */
         $this->_state = &$this->_driver->getStateObject();
-        $this->_state->getDeviceInfo($devId);
+        $this->_state->getDeviceInfo($this->_device->id);
 
         /* See if we have an existing PING state. Need to do this here, before
          * we read in the PING request since the PING request is allowed to omit
          * sections if they have been sent previously */
-        $collections = array_values($this->_state->initPingState($this->_devId));
+        $collections = array_values($this->_state->initPingState($this->_device->id));
         $lifetime = $this->_checkHeartbeat($this->_state->getHeartbeatInterval());
 
         /* Build the $collections array if we receive request from PIM */
@@ -138,13 +138,13 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
 
         /* Start waiting for changes, but only if we don't have any errors */
         if ($this->_statusCode == self::STATUS_NOCHANGES) {
-            $this->_logger->info(sprintf('[%s] Waiting for changes (heartbeat interval: %d)', $this->_devId, $lifetime));
+            $this->_logger->info(sprintf('[%s] Waiting for changes (heartbeat interval: %d)', $this->_device->id, $lifetime));
             $expire = $now + $lifetime;
             while (time() <= $expire) {
                 /* Check the remote wipe status and request a foldersync if
                  * we want the device wiped. */
                 if ($this->_provisioning === true) {
-                    $rwstatus = $this->_state->getDeviceRWStatus($this->_devId);
+                    $rwstatus = $this->_state->getDeviceRWStatus($this->_device->id);
                     if ($rwstatus == Horde_ActiveSync::RWSTATUS_PENDING || $rwstatus == Horde_ActiveSync::RWSTATUS_WIPED) {
                         $this->_statusCode = self::STATUS_FOLDERSYNCREQD;
                         break;
@@ -159,7 +159,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
 
                 for ($i = 0; $i < count($collections); $i++) {
                     $collection = $collections[$i];
-                    $collection['synckey'] = $this->_devId;
+                    $collection['synckey'] = $this->_device->id;
                     $sync = $this->_driver->getSyncObject();
                     try {
                         $this->_state->loadPingCollectionState($collection);
@@ -189,7 +189,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 }
 
                 if ($dataavailable) {
-                    $this->_logger->info('[' . $this->_devId . '] Changes available');
+                    $this->_logger->info('[' . $this->_device->id . '] Changes available');
                     break;
                 }
                 /* Wait a bit before trying again */
@@ -198,7 +198,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         }
 
         /* Prepare for response */
-        $this->_logger->info('[' . $this->_devId . '] Sending response for PING.');
+        $this->_logger->info('[' . $this->_device->id . '] Sending response for PING.');
         $this->_encoder->StartWBXML();
 
         $this->_encoder->startTag(self::PING);

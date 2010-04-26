@@ -20,10 +20,10 @@ class Horde_ActiveSync_Request_SendMail extends Horde_ActiveSync_Request_Base
      * @param $protocolversion
      * @return unknown_type
      */
-    public function handle(Horde_ActiveSync $activeSync, $devId)
+    public function handle()
     {
-        $this->_logger->info('[' . $devId . '] Handling SendMail command.');
-        
+        $this->_logger->info('[' . $this->_device->id . '] Handling SendMail command.');
+
         // All that happens here is that we receive an rfc822 message on stdin
         // and just forward it to the backend. We provide no output except for
         // an OK http reply

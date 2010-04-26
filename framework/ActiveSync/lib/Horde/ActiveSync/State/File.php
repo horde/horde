@@ -355,6 +355,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
         $device->rwstatus = Horde_ActiveSync::RWSTATUS_NA;
         $device->deviceType = '';
         $device->userAgent = '';
+        $device->id = $devId;
 
         return $device;
     }
@@ -367,11 +368,11 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
      *
      * @return boolean
      */
-    public function setDeviceInfo($devId, $data)
+    public function setDeviceInfo($data)
     {
         $this->_ensureUserDirectory();
-        $this->_devId = $devId;
-        $file = $this->_stateDir . '/' . $this->_backend->getUser() . '/info-' . $devId;
+        $this->_devId = $data->id;
+        $file = $this->_stateDir . '/' . $this->_backend->getUser() . '/info-' . $this->_devId;
         return file_put_contents($file, serialize($data));
     }
 
@@ -508,7 +509,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
     {
         $info = $this->getDeviceInfo($devId);
         $info->policykey = $key;
-        $this->setDeviceInfo($devId, $info);
+        $this->setDeviceInfo($info);
         $this->_logger->info('[' . $devId . '] New policykey saved: ' . $key);
     }
 
@@ -524,7 +525,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
     {
         $info = $this->getDeviceInfo($devId);
         $info->rwstatus = $status;
-        $this->setDeviceInfo($devId, $info);
+        $this->setDeviceInfo($info);
         $this->_logger->info('[' . $devId . '] Setting DeviceRWStatus: ' . $status);
     }
 

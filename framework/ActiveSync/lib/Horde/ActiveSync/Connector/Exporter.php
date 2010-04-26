@@ -200,7 +200,7 @@ class Horde_ActiveSync_Connector_Exporter
      * Add a folder deletion to the cache (used during FolderSync Requests).
      *
      * @param string $id  The folder id
-     * 
+     *
      * @return boolean
      */
     public function folderDeletion($id)

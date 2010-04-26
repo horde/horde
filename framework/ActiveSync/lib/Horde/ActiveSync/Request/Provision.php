@@ -45,19 +45,17 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
      * the client to perform this PROVISION request...so we are handling phase
      * 2 (download policies) and 3 (acknowledge policies) here.
      *
-     * @param Horde_ActiveSync $activeSync  The activesync object.
-     *
      * @return boolean
      * @throws Horde_ActiveSync_Exception
      */
-    public function handle(Horde_ActiveSync $activeSync, $devId)
+    public function handle()
     {
-        parent::handle($activeSync, $devId);
+        parent::handle();
 
         /* Get the policy key if it was sent */
-        $policykey = $activeSync->getPolicyKey();
+        $policykey = $this->_activeSync->getPolicyKey();
+        $this->_logger->debug('[' . $this->_device->id . '] PIM PolicyKey: ' . $policykey);
 
-        $this->_logger->debug('PIM PolicyKey: ' . $policykey);
         /* Be optimistic */
         $status = self::STATUS_SUCCESS;
         $policyStatus = self::STATUS_SUCCESS;
@@ -67,10 +65,6 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
         if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_PROVISION)) {
             return $this->_globalError(self::STATUS_PROTERROR);
         }
-
-        /* Get state object */
-        $this->_state = $this->_driver->getStateObject();
-        $this->_state->getDeviceInfo($devId);
 
         /* Handle android remote wipe */
         if ($this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_REMOTEWIPE)) {
@@ -112,7 +106,7 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
             /* POLICYKEY is only sent by client in phase 3 */
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_POLICYKEY)) {
                 $policykey = $this->_decoder->getElementContent();
-                $this->_logger->debug('PHASE 3 policykey sent from PIM: ' . $policykey);
+                $this->_logger->debug('[' . $this->_device->id .'] PHASE 3 policykey sent from PIM: ' . $policykey);
                 if (!$this->_decoder->getElementEndTag() ||
                     !$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_STATUS)) {
 

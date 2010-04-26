@@ -60,13 +60,6 @@ abstract class Horde_ActiveSync_Request_Base
     protected $_version;
 
     /**
-     * The device Id
-     *
-     * @var string
-     */
-    protected $_devId;
-
-    /**
      * Used to track what error code to send back to PIM on failure
      *
      * @var integer
@@ -82,8 +75,8 @@ abstract class Horde_ActiveSync_Request_Base
 
     /**
      * ActiveSync server
-     * 
-     * @var Horde_ActiveSync 
+     *
+     * @var Horde_ActiveSync
      */
     protected $_activeSync;
 
@@ -93,6 +86,13 @@ abstract class Horde_ActiveSync_Request_Base
      * @var Horde_Log_Logger
      */
     protected $_logger;
+
+    /**
+     * The device info
+     *
+     * @var stdClass
+     */
+    protected $_device;
 
     /**
      * Const'r
@@ -110,6 +110,7 @@ abstract class Horde_ActiveSync_Request_Base
                                 Horde_ActiveSync_Wbxml_Encoder $encoder,
                                 Horde_Controller_Request_Http $request,
                                 Horde_ActiveSync $as,
+                                $devId,
                                 $provisioning)
     {
         /* Backend driver */
@@ -127,6 +128,12 @@ abstract class Horde_ActiveSync_Request_Base
 
         /* Provisioning support */
         $this->_provisioning = $provisioning;
+
+        /* Get the state object */
+        $this->_state = &$driver->getStateObject();
+
+        /* Device info */
+        $this->_device = $this->_state->getDeviceInfo($devId);
     }
 
     /**
@@ -142,8 +149,11 @@ abstract class Horde_ActiveSync_Request_Base
          * header - which is against the specification. Check the user agent
          * for Android (maybe need version sniffing in the future) and set the
          * policykey to null for those devices. */
+         $this->_device = $this->_state->getDeviceInfo($this->_devId);
+         if (strpos($this->_device->agent, 'Android') !== false) {
+             $sentKey = null;
+         }
 
-        
         /* Don't attempt if we don't care */
         if ($this->_provisioning !== false) {
             $state = $this->_driver->getStateObject();
@@ -173,11 +183,10 @@ abstract class Horde_ActiveSync_Request_Base
      * @param string $version
      * @param string $devId
      */
-    public function handle(Horde_ActiveSync $activeSync, $devId)
+    public function handle()
     {
         $this->_version = $activeSync->getProtocolVersion();
-        $this->_devId = $devId;
-        $this->_logger->info('Request received from device: ' . $devId . ' Supporting protocol version: ' . $this->_version);
+        $this->_logger->info('Request received from device: ' . $this->_device->id . ' Supporting protocol version: ' . $this->_version);
     }
 
 }

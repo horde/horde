@@ -1001,7 +1001,8 @@ class Horde_ActiveSync
             $device->policykey = 0;
             $device->rwstatus = self::RWSTATUS_NA;
             $device->user = $this->_driver->getUser();
-            $state->setDeviceInfo($devId, $device);
+            $device->id = $devId;
+            $state->setDeviceInfo($device);
         }
 
         /* Load the request handler to handle the request */
@@ -1013,10 +1014,11 @@ class Horde_ActiveSync
                                   $this->_encoder,
                                   $this->_request,
                                   $this,
+                                  $devId,
                                   $this->_provisioning);
             $request->setLogger($this->_logger);
 
-            $result = $request->handle($this, $devId);
+            $result = $request->handle();
             $this->_driver->logOff();
 
             return $result;

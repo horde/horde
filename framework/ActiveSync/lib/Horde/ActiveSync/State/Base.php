@@ -541,7 +541,7 @@ abstract class Horde_ActiveSync_State_Base
      *
      * @return boolean
      */
-    abstract public function setDeviceInfo($devId, $data);
+    abstract public function setDeviceInfo($data);
 
     /**
      * Explicitly remove a state from storage.

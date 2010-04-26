@@ -38,19 +38,18 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
      * @return boolean
      * @throws Horde_ActiveSync_Exception
      */
-    public function handle(Horde_ActiveSync $activeSync, $devId)
+    public function handle()
     {
-        parent::handle($activeSync, $devId);
-        $this->_logger->info('[Horde_ActiveSync::handleFolderSync] Beginning GETITEMESTIMATE');
+        parent::handle();
+        $this->_logger->info('[' . $this->_device->id . '] Beginning GETITEMESTIMATE');
 
         /* Check policy */
-        if (!$this->checkPolicyKey($activeSync->getPolicyKey())) {
+        if (!$this->checkPolicyKey($this->_activeSync->getPolicyKey())) {
             return false;
         }
 
         $status = array();
         $collections = array();
-
         if (!$this->_decoder->getElementStartTag(self::GETITEMESTIMATE) ||
             !$this->_decoder->getElementStartTag(self::FOLDERS)) {
 
@@ -115,9 +114,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
 
             /* compatibility mode - get id from state */
             if (!isset($collectionid)) {
-                $this->_state = &$this->_driver->getStateObject();
-                $this->_state->getDeviceInfo($devId);
-                $collectionid = $this->_state>getFolderData($this->_devid, $collection['class']);
+                $collectionid = $this->_state>getFolderData($this->_device->id, $collection['class']);
             }
             $collection['id'] = $collectionid;
             $status[$collection['id']] = $cStatus;
@@ -143,7 +140,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
             $this->_encoder->endTag();
             $this->_encoder->startTag(self::ESTIMATE);
 
-            $this->_state = $this->_driver->getStateObject($collection);
+            $this->_state->init($collection);
             $this->_state->loadState($collection['synckey']);
             $sync = $this->_driver->getSyncObject();
             $sync->init($this->_state, null, $collection);

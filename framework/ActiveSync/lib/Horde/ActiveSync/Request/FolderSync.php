@@ -24,21 +24,18 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
     /**
      * Handle the request.
      *
-     * @param Horde_ActiveSync $activeSync  The activesync server object
-     * @param string $devId                 The device id
-     *
      * @return boolean
      */
-    public function handle(Horde_ActiveSync $activeSync, $devId)
+    public function handle()
     {
-        parent::handle($activeSync, $devId);
+        parent::handle();
 
         /* Be optimistic */
         $this->_statusCode = self::STATUS_SUCCESS;
         $this->_logger->info('[Horde_ActiveSync::handleFolderSync] Beginning FOLDERSYNC');
 
         /* Check policy */
-        if (!$this->checkPolicyKey($activeSync->getPolicyKey())) {
+        if (!$this->checkPolicyKey($this->_activeSync->getPolicyKey())) {
             return false;
         }
 
@@ -70,8 +67,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         $this->_logger->debug('[Horde_ActiveSync::handleFolderSync] syncKey: ' . $synckey);
 
         /* Initialize state engine */
-        $this->_state = &$this->_driver->getStateObject(array('synckey' => $synckey));
-        $this->_state->getDeviceInfo($devId);
+        $this->_state->init(array('synckey' => $synckey));
         try {
             /* Get folders that we know about already */
             $this->_state->loadState($synckey, 'foldersync');

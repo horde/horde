@@ -314,7 +314,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         if (!array_key_exists(Horde_ActiveSync::FOLDER_TYPE_CONTACT, $unique_folders)) {
             $unique_folders[Horde_ActiveSync::FOLDER_TYPE_CONTACT] = Horde_ActiveSync::FOLDER_TYPE_DUMMY;
         }
-        
+
         /* Storage to SQL? */
         $sql = 'UPDATE ' . $this->_syncDeviceTable . ' SET device_folders = ? WHERE device_id = ?';
         try {
@@ -438,7 +438,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             $this->_deviceInfo->userAgent = '';
             $this->_deviceInfo->id = $devId;
             $this->_deviceInfo->user = $this->_backend->getUser();
-            $this->setDeviceInfo($devId, $this->_deviceInfo);
+            $this->setDeviceInfo($this->_deviceInfo);
             $this->resetPingState();
         }
 
@@ -448,18 +448,17 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
     /**
      * Set new device info
      *
-     * @param string $devId   The device id.
      * @param StdClass $data  The device information
      *
      * @return boolean
      */
-    public function setDeviceInfo($devId, $data)
+    public function setDeviceInfo($data)
     {
         /* Delete the old entry, just in case */
         $this->_deviceInfo = $data;
         try {
             $query = 'DELETE FROM ' . $this->_syncDeviceTable . ' WHERE device_id = ?';
-            $this->_db->execute($query, array($devId));
+            $this->_db->execute($query, array($data->id));
 
             $query = 'INSERT INTO ' . $this->_syncDeviceTable
                 . '(device_type, device_agent, device_ping, device_policykey, device_rwstatus, device_id, device_user, device_supported)'
@@ -470,11 +469,11 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
                             '',
                             $data->policykey,
                             $data->rwstatus,
-                            $devId,
+                            $data->id,
                             $data->user,
                             (!empty($data->supported) ? serialize($data->supported) : ''));
 
-            $this->_devId = $devId;
+            $this->_devId = $data->id;
 
             return $this->_db->insert($query, $values);
         } catch (Horde_Db_Exception $e) {
