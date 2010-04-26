@@ -341,13 +341,15 @@ class IMP_Search
         }
 
         /* Make sure we search in the proper charset. */
-        $new_query = clone $query;
-        $imap_charset = $GLOBALS['imp_imap']->ob()->validSearchCharset('UTF-8')
-            ? 'UTF-8'
-            : 'US-ASCII';
-        $new_query->charset($imap_charset, array('Horde_String', 'convertCharset'));
+        if ($query) {
+            $query = clone $query;
+            $imap_charset = $GLOBALS['imp_imap']->ob()->validSearchCharset('UTF-8')
+                ? 'UTF-8'
+                : 'US-ASCII';
+            $query->charset($imap_charset, array('Horde_String', 'convertCharset'));
+        }
 
-        return $GLOBALS['imp_imap']->ob()->search($mailbox, $new_query, $opts);
+        return $GLOBALS['imp_imap']->ob()->search($mailbox, $query, $opts);
     }
 
     /**
