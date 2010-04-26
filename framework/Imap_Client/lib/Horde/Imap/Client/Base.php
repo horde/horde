@@ -72,7 +72,8 @@ abstract class Horde_Imap_Client_Base
      */
     protected $_init = array(
         'enabled' => array(),
-        'namespace' => array()
+        'namespace' => array(),
+        's_charset' => array()
     );
 
     /**
@@ -2714,7 +2715,7 @@ abstract class Horde_Imap_Client_Base
      */
     abstract protected function _setMetadata($mailbox, $data);
 
-    /* Utility functions. */
+    /* Public utility functions. */
 
     /**
      * Returns a unique identifier for the current mailbox status.
@@ -3009,6 +3010,58 @@ abstract class Horde_Imap_Client_Base
 
         return null;
     }
+
+    /**
+     * Determines if the given charset is valid for search-related queries.
+     *
+     * @param string $charset  The query charset.
+     *
+     * @return boolean  True if server supports this charset.
+     */
+    public function validSearchCharset($charset)
+    {
+        if (!isset($this->_init['enabled']['s_charset'][$charset])) {
+            $support = null;
+
+            switch ($charset) {
+            case 'US-ASCII';
+                /* US-ASCII is always supported (RFC 3501 [6.4.4]). */
+                $support = true;
+                break;
+
+            case 'UTF-8':
+                /* SORT (RFC 5266) & ESORT (RFC 5267) require UTF-8
+                 * support. */
+                if ($this->queryCapability('SORT') ||
+                    $this->queryCapability('ESORT')) {
+                    $support = true;
+                }
+                break;
+            }
+
+            /* Use a dummy search query and search for BADCHARSET
+             * response. */
+            if (is_null($support)) {
+                $query = new Horde_Imap_Client_Search_Query();
+                $query->charset($charset);
+                $query->text('a');
+                try {
+                    $this->search('INBOX', $query);
+                    $support = true;
+                } catch (Horde_Imap_Client_Exception $e) {
+                    /* BADCHARSET is only a MAYBE return - but there is no
+                     * other way of determining charset support. */
+                    $support = ($e->getCode() != Horde_Imap_Client_Exception::BADCHARSET);
+                }
+            }
+
+            $this->_init['enabled']['s_charset'][$charset] = $support;
+        }
+
+        return $this->_init['enabled']['s_charset'][$charset];
+    }
+
+    /* Private utility functions. */
 
     /**
      * Returns UIDs for an ALL search, or for a sequence number -> UID lookup.
