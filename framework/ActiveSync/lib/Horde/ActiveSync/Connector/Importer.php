@@ -160,6 +160,7 @@ class Horde_ActiveSync_Connector_Importer
         $change = array();
         $change['id'] = $id;
         $change['mod'] = time();
+        $change['parent'] = $this->_folderId;
         $this->_state->updateState('delete', $change, Horde_ActiveSync::CHANGE_ORIGIN_PIM, $this->_folderId);
 
         /* If server wins the conflict, don't import change - it will be
