@@ -199,7 +199,9 @@ class Horde_Injector implements Horde_Injector_Scope
     public function createInstance($interface)
     {
         $instance = $this->getBinder($interface)->create($this);
-        $this->runFilters($instance);
+        if ($instance) {
+            $this->runFilters($instance);
+        }
         return $instance;
     }
 
