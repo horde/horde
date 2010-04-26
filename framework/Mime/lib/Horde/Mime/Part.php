@@ -921,14 +921,17 @@ class Horde_Mime_Part
             return $headers;
         }
 
-        /* Don't show Content-Disposition for multipart messages unless
-         * there is a name parameter. RFC 2183 [2] indicates that default is
-         * no requested disposition. */
+        /* Don't show Content-Disposition unless a disposition has explicitly
+         * been set or there is a name parameter. If there is a name, but no
+         * disposition, default to 'attachment'.
+         * RFC 2183 [2] indicates that default is no requested disposition -
+         * the receiving MUA is responsible for display choice. */
         $disposition = $this->getDisposition();
         $name = $this->getName();
-        if (($ptype != 'multipart') ||
-            ($disposition || !empty($name))) {
-            $headers->replaceHeader('Content-Disposition', $disposition, array('params' => (!empty($name) ? array('filename' => $name) : array())));
+        if ($disposition || !empty($name)) {
+            $headers->replaceHeader('Content-Disposition', $disposition ? $disposition : 'attachment', array('params' => (!empty($name) ? array('filename' => $name) : array())));
+        } else {
+            $headers->removeHeader('Content-Disposition');
         }
 
         /* Add transfer encoding information. RFC 2045 [6.1] indicates that
