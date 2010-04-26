@@ -70,6 +70,14 @@ class Horde_ActiveSync_Message_Base
     protected $_logger;
 
     /**
+     * An array describing the non-ghosted elements this message supports.
+     *
+     * @var array
+     */
+    protected $_supported = array();
+    protected $_exists = array();
+
+    /**
      * Const'r
      *
      * @param array $mapping  A mapping array from constants -> property names
@@ -107,6 +115,7 @@ class Horde_ActiveSync_Message_Base
             throw new InvalidArgumentException('Unknown property: ' . $property);
         }
         $this->_properties[$property] = $value;
+        $this->_exists[$property] = true;
     }
 
     public function __call($method, $arg)
@@ -122,11 +131,43 @@ class Horde_ActiveSync_Message_Base
         throw new BadMethodCallException('Unknown method: ' . $method . ' in class: ' . __CLASS__);
     }
 
-
-
     public function __isset($property)
     {
         return !empty($this->_properties[$property]);
+    }
+
+    /**
+     * Set the list of non-ghosted fields for this message.
+     *
+     * @param array $fields  The array of fields.
+     */
+    public function setSupported($fields)
+    {
+        $this->_supported = array();
+        foreach ($fields as $field) {
+            $this->_supported[] = $this->_mapping[$field][self::KEY_ATTRIBUTE];
+        }
+    }
+
+    /**
+     * Get the list of non-ghosted properties for this message.
+     *
+     * @return array  The array of non-ghosted properties
+     */
+    public function getSupported()
+    {
+        return $this->_supported;
+    }
+
+    public function isGhosted($property)
+    {
+        if (array_search($property, $this->_supported) !== false) {
+            return false;
+        } elseif (empty($this->_exists[$property])) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

@@ -256,15 +256,16 @@ abstract class Horde_ActiveSync_Driver_Base
     abstract public function deleteMessage($folderid, $id);
 
     /**
-     * Change (i.e. add or edit) a message on the backend
+     * Add/Edit a message
      *
-     * @param string $folderId  Folderid
-     * @param string $id        Message id (maybe reorder parameteres since this may be null)
-     * @param Horde_ActiveSync_Message_Base $message
-     *
-     * @return a stat array of the new message
+     * @param string $folderid  The server id for the folder the message belongs
+     *                          to.
+     * @param string $id        The server's uid for the message if this is a
+     *                          change to an existing message.
+     * @param Horde_ActiveSync_Message_Base $message  The activesync message
+     * @param stdClass $device  The device information
      */
-    abstract public function changeMessage($folderid, $id, $message);
+    abstract public function changeMessage($folderid, $id, $message, $device);
 
     /**
      * Any code needed to authenticate to backend as the actual user.

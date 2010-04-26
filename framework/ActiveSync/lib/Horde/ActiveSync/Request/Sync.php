@@ -98,11 +98,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     exit;
                 }
                 while (1) {
-                    $el = $this->_decoder->getElementContent();
-                    $collection['supported'][] = $el;
+                    $el = $this->_decoder->getElement();
                     if ($el[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
                         break;
                     }
+                    $collection['supported'][] = $el[2];
                 }
             }
 
@@ -295,14 +295,14 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                             if (isset($appdata->read)) {
                                 $importer->importMessageReadFlag($serverid, $appdata->read);
                             } else {
-                                $importer->importMessageChange($serverid, $appdata);
+                                $importer->importMessageChange($serverid, $appdata, $device);
                             }
                             $collection['importedchanges'] = true;
                         }
                         break;
                     case Horde_ActiveSync::SYNC_ADD:
                         if (isset($appdata)) {
-                            $id = $importer->importMessageChange(false, $appdata);
+                            $id = $importer->importMessageChange(false, $appdata, $device);
                             if ($clientid && $id) {
                                 $collection['clientids'][$clientid] = $id;
                                 $collection['importedchanges'] = true;

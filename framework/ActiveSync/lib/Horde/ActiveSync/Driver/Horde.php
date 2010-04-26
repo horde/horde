@@ -433,13 +433,16 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
     /**
      * Add/Edit a message
      *
-     * @param string $folderid
-     * @param string $id
-     * @param Horde_ActiveSync_Message_Base $message
+     * @param string $folderid  The server id for the folder the message belongs
+     *                          to.
+     * @param string $id        The server's uid for the message if this is a
+     *                          change to an existing message.
+     * @param Horde_ActiveSync_Message_Base $message  The activesync message
+     * @param stdClass $device  The device information
      *
      * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#changeMessage($folderid, $id, $message)
      */
-    public function changeMessage($folderid, $id, $message)
+    public function changeMessage($folderid, $id, $message, $device)
     {
         $this->_logger->debug('Horde::changeMessage(' . $folderid . ', ' . $id . ')');
 
@@ -462,6 +465,9 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
                 // ActiveSync messages do NOT contain the serverUID value, put
                 // it in ourselves so we can have it during import/change.
                 $message->setServerUID($id);
+                if (!empty($device->supported[self::APPOINTMENTS_FOLDER])) {
+                    $message->setSupported($device->supported[self::APPOINTMENTS_FOLDER]);
+                }
                 try {
                     $this->_connector->calendar_replace($id, $message);
                 } catch (Horde_Exception $e) {
@@ -483,6 +489,9 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
                 $stat = $this->_smartStatMessage($folderid, $id, false);
                 $stat['mod'] = time();
             } else {
+                if (!empty($device->supported[self::CONTACTS_FOLDER])) {
+                    $message->setSupported($device->supported[self::CONTACTS_FOLDER]);
+                }
                 try {
                     $this->_connector->contacts_replace($id, $message);
                 } catch (Horde_Exception $e) {
@@ -504,6 +513,9 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
                 $stat = $this->_smartStatMessage($folderid, $id, false);
                 $stat['mod'] = time();
             } else {
+                if (!empty($device->supported[self::TASKS_FOLDER])) {
+                    $message->setSupported($device->supported[self::TASKS_FOLDER]);
+                }
                 try {
                     $this->_connector->tasks_replace($id, $message);
                 } catch (Horde_Exception $e) {

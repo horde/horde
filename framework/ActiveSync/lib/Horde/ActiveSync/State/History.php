@@ -472,7 +472,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
                             $data->rwstatus,
                             $devId,
                             $data->user,
-                            (!empty($data->supported) ? $data->supported : ''));
+                            (!empty($data->supported) ? serialize($data->supported) : ''));
 
             $this->_devId = $devId;
 

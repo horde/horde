@@ -94,7 +94,7 @@ class Horde_ActiveSync_Connector_Importer
      *
      * @return mixed The server message id or false
      */
-    public function importMessageChange($id, $message)
+    public function importMessageChange($id, $message, $device)
     {
         /* do nothing if it is in a dummy folder */
         if ($this->_folderId == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
@@ -126,7 +126,7 @@ class Horde_ActiveSync_Connector_Importer
         }
 
         /* Tell the backend about the change */
-        $stat = $this->_backend->changeMessage($this->_folderId, $id, $message);
+        $stat = $this->_backend->changeMessage($this->_folderId, $id, $message, $device);
         $stat['parent'] = $this->_folderId;
         if (!is_array($stat)) {
             return $stat;
