@@ -246,7 +246,7 @@ class Horde_Injector_InjectorTest extends PHPUnit_Framework_TestCase
 }
 
 /**
- * Used by preceeding tests!!!
+ * Used by preceding tests
  */
 class Horde_Injector_Binder_Mock implements Horde_Injector_Binder
 {
