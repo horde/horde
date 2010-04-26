@@ -14,20 +14,16 @@ class Horde_Core_Binder_Cache implements Horde_Injector_Binder
     {
         $params = Horde::getDriverConfig('cache', $driver);
 
-        $app = 'Horde';
+        switch (strtolower($driver)) {
+        case 'memcache':
+            $params['memcache'] = $injector->getInstance('Horde_Memcache');
+            break;
 
-        if (strtolower($app) == 'horde') {
-            switch (strtolower($driver)) {
-            case 'memcache':
-                $params['memcache'] = $injector->getInstance('Horde_Memcache');
-                break;
-
-            case 'sql':
-                if (!empty($params['use_memorycache'])) {
-                    $params['use_memorycache'] = $this->_getCacheInstance($params['use_memorycache'], $injector);
-                }
-                break;
+        case 'sql':
+            if (!empty($params['use_memorycache'])) {
+                $params['use_memorycache'] = $this->_getCacheInstance($params['use_memorycache'], $injector);
             }
+            break;
         }
 
         if (isset($GLOBALS['conf']['cache']['default_lifetime'])) {
