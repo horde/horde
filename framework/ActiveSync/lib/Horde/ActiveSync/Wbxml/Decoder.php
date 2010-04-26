@@ -177,7 +177,6 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     }
 
     /**
-     * @TODO: Do we need?
      * @return unknown_type
      */
     public function getToken()

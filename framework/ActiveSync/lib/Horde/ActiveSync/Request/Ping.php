@@ -18,7 +18,6 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
     const STATUS_NEEDSYNC = 2;
     const STATUS_MISSING = 3;
     const STATUS_PROTERROR = 4;
-    // Hearbeat out of bounds (TODO)
     const STATUS_HBOUTOFBOUNDS = 5;
 
     // Requested more then the max folders (TODO)

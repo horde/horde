@@ -87,11 +87,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 }
             }
 
-            /* Looks like we ignore the SYNC_SUPPORTED Tag? */
-            // @TODO: This needs to be captured and stored in the state so we
-            // can correctly support ghosted properties
+            /* SYNC_SUPPORTED */
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SUPPORTED)) {
-                // SUPPORTED only allowed on initial sync request
+                // Only allowed on initial sync request
                 if ($collection['synckey'] != 0) {
                     $this->_statusCode = Horde_ActiveSync::SYNC_STATUS_PROTERROR;
                     $this->_handleError($collection);
