@@ -2,6 +2,8 @@
 v5.0-git
 --------
 
+[mms] Use CATENATE (RFC 4469), if available, to strip MIME parts (Request
+      #8092).
 [mms] Add preference to show flags created by other MUAs (Request #8882).
 [mms] Added HTML signature support (Request #1406).
 [mms] Simplified date sorting display (Ticket #8936).

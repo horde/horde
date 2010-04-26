@@ -452,63 +452,90 @@ class IMP_Message
             throw new IMP_Exception(_("An error occured while attempting to strip the attachment."));
         }
 
-        /* If more than one index provided, return error. */
+        /* If more than one UID provided, return error. */
         reset($msgList);
-        list($mbox, $index) = each($msgList);
-        if (each($msgList) || (count($index) > 1)) {
+        list($mbox, $uid) = each($msgList);
+        if (each($msgList) || (count($uid) > 1)) {
             throw new IMP_Exception(_("An error occured while attempting to strip the attachment."));
         }
-        $index = implode('', $index);
+        $uid = reset($uid);
 
         if ($GLOBALS['imp_imap']->isReadOnly($mbox)) {
-            throw new IMP_Exception(_("Cannot strip the MIME part as the mailbox is read-only"));
+            throw new IMP_Exception(_("Cannot strip the MIME part as the mailbox is read-only."));
         }
 
-        $GLOBALS['imp_imap']->checkUidvalidity($mbox);
+        $uidvalidity = $GLOBALS['imp_imap']->checkUidvalidity($mbox);
 
-        /* Get a local copy of the message. */
-        $contents = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($mbox, $index);
+        $contents = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($mbox, $uid);
+        $imap_ob = $GLOBALS['imp_imap']->ob();
+        $message = $contents->getMIMEMessage();
+        $boundary = trim($message->getContentTypeParameter('boundary'), '"');
 
-        /* Loop through all to-be-stripped mime parts. */
-        if (is_null($partid)) {
-            /* For stripping all parts, it only makes sense to strip base
-             * parts. Stripping subparts may cause issues with display of the
-             * parent multipart type. */
-            for ($i = 2;; ++$i) {
-                $part = $contents->getMIMEPart($i, array('nocontents' => true));
-                if (!$part) {
-                    break;
-                }
-                $partids[] = $i;
+        $url_array = array(
+            'mailbox' => $mbox,
+            'uid' => $uid ,
+            'uidvalidity' => $uidvalidity
+        );
+
+        /* Always add the header to output. */
+        $parts = array(
+            array(
+                't' => 'url',
+                'v' => $imap_ob->utils->createUrl(array_merge($url_array, array('section' => 'HEADER')))
+            )
+        );
+
+        for ($id = 1; ; ++$id) {
+            $part = $message->getPart($id);
+            if (!$part) {
+                break;
             }
-        } else {
-            $partids = array($partid);
-        }
 
-        $message = $contents->buildMessageContents($partids);
+            $parts[] = array(
+                't' => 'text',
+                'v' => "\r\n--" . $boundary . "\r\n"
+            );
 
-        foreach ($partids as $partid) {
-            $oldPart = $message->getPart($partid);
-            if (!($oldPart instanceof Horde_Mime_Part)) {
-                continue;
+            if (($id != 1) && is_null($partid) || ($id == $partid)) {
+                $newPart = new Horde_Mime_Part();
+                $newPart->setType('text/plain');
+
+                /* Need to make sure all text is in the correct charset. */
+                $part_name = $part->getName(true);
+                $newPart->setCharset(Horde_Nls::getCharset());
+                $newPart->setContents(sprintf(_("[Attachment stripped: Original attachment type: %s, name: %s]"), $part->getType(), $part_name ? $part_name : _("unnamed")));
+
+                $parts[] = array(
+                    't' => 'text',
+                    'v' => $newPart->toString(array(
+                        'canonical' => true,
+                        'headers' => true,
+                        'stream' => true
+                    ))
+                );
+            } else {
+                $parts[] = array(
+                    't' => 'url',
+                    'v' => $imap_ob->utils->createUrl(array_merge($url_array, array('section' => $id . '.MIME')))
+                );
+                $parts[] = array(
+                    't' => 'url',
+                    'v' => $imap_ob->utils->createUrl(array_merge($url_array, array('section' => $id)))
+                );
             }
-            $newPart = new Horde_Mime_Part();
-            $newPart->setType('text/plain');
-            $newPart->setDisposition('attachment');
-
-            /* We need to make sure all text is in the correct charset. */
-            $part_name = $oldPart->getName(true);
-            $newPart->setCharset(Horde_Nls::getCharset());
-            $newPart->setContents(sprintf(_("[Attachment stripped: Original attachment type: %s, name: %s]"), $oldPart->getType(), $part_name ? $part_name : _("unnamed")));
-            $message->alterPart($partid, $newPart);
         }
+
+        $parts[] = array(
+            't' => 'text',
+            'v' => "\r\n--" . $boundary . "--\r\n"
+        );
 
         /* Get the headers for the message. */
         try {
-            $res = $GLOBALS['imp_imap']->ob()->fetch($mbox, array(
-                Horde_Imap_Client::FETCH_HEADERTEXT => array(array('peek' => true)),
+            $res = $imap_ob->fetch($mbox, array(
+                Horde_Imap_Client::FETCH_DATE => true,
                 Horde_Imap_Client::FETCH_FLAGS => true
-            ), array('ids' => array($index)));
+            ), array('ids' => array($uid)));
             $res = reset($res);
 
             /* If in Virtual Inbox, we need to reset flag to unseen so that it
@@ -518,19 +545,25 @@ class IMP_Message
                 unset($res['flags'][$pos]);
             }
 
-            $uid = $GLOBALS['imp_imap']->ob()->append($mbox, array(array('data' => $message->toString(array('headers' => $res['headertext'][0], 'stream' => true)), 'flags' => $res['flags'])));
+            $new_uid = $imap_ob->append($mbox, array(
+                array(
+                    'data' => $parts,
+                    'flags' => $res['flags'],
+                    'internaldate' => $res['date']
+                )
+            ));
+            $new_uid = reset($new_uid);
         } catch (Horde_Imap_Client_Exception $e) {
             throw new IMP_Exception(_("An error occured while attempting to strip the attachment."));
         }
 
         $this->delete($indices, array('nuke' => true, 'keeplog' => true));
 
-        $imp_mailbox = $GLOBALS['injector']->getInstance('IMP_Mailbox')->getOb($mbox);
-        $imp_mailbox->setIndex(reset($uid));
+        $GLOBALS['injector']->getInstance('IMP_Mailbox')->getOb($mbox)->setIndex($new_uid . IMP::IDX_SEP . $mbox);
 
         /* We need to replace the old index in the query string with the
          * new index. */
-        $_SERVER['QUERY_STRING'] = preg_replace('/' . $index . '/', reset($uid), $_SERVER['QUERY_STRING']);
+        $_SERVER['QUERY_STRING'] = str_replace($uid, $new_uid, $_SERVER['QUERY_STRING']);
     }
 
     /**

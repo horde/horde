@@ -162,6 +162,7 @@ case 'strip_all':
 case 'strip_attachment':
     try {
         $imp_message->stripPart($indices_array, ($vars->actionID == 'strip_all') ? null : $vars->imapid);
+        $notification->push(_("Attachment successfully stripped."), 'horde.success');
     } catch (Horde_Exception $e) {
         $notification->push($e);
     }
