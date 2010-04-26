@@ -1397,7 +1397,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (!empty($data[$key]['flags'])) {
                 $tmp = array();
                 foreach ($data[$key]['flags'] as $val) {
-                    $tmp[] = array('t' => Horde_Imap_Client::DATA_ATOM, 'v' => $val);
+                    /* Ignore recent flag. RFC 3501 [9]: flag definition */
+                    if (strcasecmp($val, '\\recent') !== 0) {
+                        $tmp[] = array('t' => Horde_Imap_Client::DATA_ATOM, 'v' => $val);
+                    }
                 }
                 $cmd[] = $tmp;
             }
