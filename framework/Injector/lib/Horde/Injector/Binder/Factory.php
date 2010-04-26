@@ -100,5 +100,4 @@ class Horde_Injector_Binder_Factory implements Horde_Injector_Binder
          * type. */
         return $childInjector->getInstance($this->_factory)->{$this->_method}($childInjector);
     }
-
 }

@@ -79,42 +79,11 @@ class Horde_Injector_Binder_Implementation implements Horde_Injector_Binder
     /**
      * TODO
      */
-    private function _getInstance(Horde_Injector $injector,
-                                  ReflectionClass $class)
+    private function _getInstance(Horde_Injector $injector, ReflectionClass $class)
     {
         return $class->getConstructor()
-            ? $class->newInstanceArgs($this->_getMethodDependencies($injector, $class->getConstructor()))
+            ? $class->newInstanceArgs($injector->getMethodDependencies($class->getConstructor()))
             : $class->newInstance();
-    }
-
-    /**
-     * TODO
-     */
-    private function _getMethodDependencies(Horde_Injector $injector,
-                                            ReflectionMethod $method)
-    {
-        $dependencies = array();
-
-        foreach ($method->getParameters() as $parameter) {
-            $dependencies[] = $this->_getParameterDependency($injector, $parameter);
-        }
-
-        return $dependencies;
-    }
-
-    /**
-     * TODO
-     */
-    private function _getParameterDependency(Horde_Injector $injector,
-                                             ReflectionParameter $parameter)
-    {
-        if ($parameter->getClass()) {
-            return $injector->getInstance($parameter->getClass()->getName());
-        } elseif ($parameter->isOptional()) {
-            return $parameter->getDefaultValue();
-        }
-
-        throw new Horde_Injector_Exception('Unable to instantiate class "' . $this->_implementation . '" because a value could not be determined untyped parameter "$' . $parameter->getName() . '"');
     }
 
     /**
@@ -126,9 +95,8 @@ class Horde_Injector_Binder_Implementation implements Horde_Injector_Binder
             $reflectionMethod = new ReflectionMethod($instance, $setter);
             $reflectionMethod->invokeArgs(
                 $instance,
-                $this->_getMethodDependencies($injector, $reflectionMethod)
+                $injector->getMethodDependencies($reflectionMethod)
             );
         }
     }
-
 }
