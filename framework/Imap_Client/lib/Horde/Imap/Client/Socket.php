@@ -1796,6 +1796,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 }
             }
             $cmd[] = $tmp;
+
+            // Charset is mandatory for SORT (RFC 5256 [3]).
+            $cmd[] = $options['_query']['charset'];
         } else {
             // Check if the server supports ESEARCH (RFC 4731).
             $esearch = $this->queryCapability('ESEARCH');
@@ -1815,7 +1818,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $cmd[] = $results;
             }
 
-            $cmd[] = 'CHARSET';
+            // Charset is optional for SEARCH (RFC 3501 [6.4.4]).
+            if ($options['_query']['charset'] != 'US-ASCII') {
+                $cmd[] = 'CHARSET';
+                $cmd[] = $options['_query']['charset'];
+            }
 
             // SEARCHRES requires ESEARCH
             unset($this->_temp['searchnotsaved']);
@@ -1825,7 +1832,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $sr = &$this->_temp['searchresp'];
         $er = $sr = array();
 
-        $cmd[] = $options['_query']['charset'];
         $cmd = array_merge($cmd, $options['_query']['query']);
 
         $this->_sendLine($cmd);
