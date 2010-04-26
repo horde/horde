@@ -277,7 +277,6 @@ class Horde_Registry
 
         /* Setup injector. */
         $GLOBALS['injector'] = $injector = new Horde_Injector(new Horde_Injector_TopLevel());
-        $injector->addFilter(new Horde_Injector_Filter_AnnotatedSetterInjector());
 
         foreach ($binders as $key => $val) {
             $injector->addBinder($key, $val);
