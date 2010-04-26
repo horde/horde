@@ -28,7 +28,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
 class Horde_Kolab_FreeBusy_Resource_Kolab
-implements Horde_Kolab_FreeBusy_Resource_Interface
+implements Horde_Kolab_FreeBusy_Resource
 {
     /**
      * The link to the folder.
@@ -130,4 +130,17 @@ implements Horde_Kolab_FreeBusy_Resource_Interface
             'There is no generic definition for attribute ACL available!'
         );
     }
+
+    /**
+     * Return the UTF7-IMAP compliant folder name from the request.
+     *
+     * @return string The folder name.
+     */
+    private function _getImapFolderName()
+    {
+        return Horde_String::convertCharset(
+            $this->_getFolderParameter(), 'UTF-8', 'UTF7-IMAP'
+        );
+    }
+
 }

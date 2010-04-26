@@ -31,27 +31,28 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
-class Horde_Kolab_FreeBusy_Export_Freebusy
+class Horde_Kolab_FreeBusy_Export_Freebusy_Base
 {
 
     public function __construct(
-        Horde_Kolab_FreeBusy_Resource_Freebusy_Interface $resource
+        Horde_Kolab_FreeBusy_Export_Freebusy_Backend $backend,
+        Horde_Kolab_FreeBusy_Resource $resource,
+        Horde_Controller_Request_Base $request
     ) {
         $this->_resource = $resource;
-        $this->_owner    = $resource->getOwner();
     }
 
     public function getStart()
     {
         $start = new Horde_Date();
-        $start->mday = $start->mday - $this->_owner->getFreeBusyPast();
+        $start->mday = $start->mday - $this->_resource->getOwner()->getFreeBusyPast();
         return $start;
     }
 
     public function getEnd()
     {
         $end = new Horde_Date();
-        $end->mday = $end->mday - $this->_owner->getFreeBusyFuture();
+        $end->mday = $end->mday - $this->_resource->getOwner()->getFreeBusyFuture();
         return $end;
     }
 
@@ -62,26 +63,22 @@ class Horde_Kolab_FreeBusy_Export_Freebusy
 
     public function getOrganizerMail()
     {
-        return 'MAILTO:' . $this->_owner->getMail();
+        return 'MAILTO:' . $this->_resource->getOwner()->getMail();
     }
 
     public function getOrganizerName()
     {
         $params = array();
-        if (!empty($this->_owner->getName())) {
-            $params['cn'] = $this->_owner->getName();
+        $name = $this->_resource->getOwner()->getName();
+        if (!empty($name)) {
+            $params['cn'] = $name;
         }
         return $params;
     }
 
-    public function getUrl()
-    {
-        return '';
-    }
-
     public function getDateStamp()
     {
-        return $_SERVER['REQUEST_TIME'];
+        return $this->_request->getServer('REQUEST_TIME');
     }
 
     /**
@@ -103,7 +100,7 @@ class Horde_Kolab_FreeBusy_Export_Freebusy
     {
         /* Create the new iCalendar. */
         $vCal = new Horde_iCalendar();
-        $vCal->setAttribute('PRODID', '-//kolab.org//NONSGML Kolab Server 2//EN');
+        $vCal->setAttribute('PRODID', $this->_backend->getProductId());
         $vCal->setAttribute('METHOD', 'PUBLISH');
 
         /* Create the new vFreebusy component. */
@@ -115,7 +112,8 @@ class Horde_Kolab_FreeBusy_Export_Freebusy
         $vFb->setAttribute('DTSTAMP', $this->getDateStamp());
         $vFb->setAttribute('DTSTART', $this->getStart()->timestamp());
         $vFb->setAttribute('DTEND', $this->getEnd()->timestamp());
-        if (!empty($this->getUrl())) {
+        $url = $this->_backend->getUrl();
+        if (!empty($url)) {
             $vFb->setAttribute('URL', $this->getUrl());
         }
 

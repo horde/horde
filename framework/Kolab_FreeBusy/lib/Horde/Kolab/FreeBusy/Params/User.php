@@ -1,21 +1,22 @@
 <?php
 /**
- * This class represents the user accessing the export system.
+ * This class provides the credentials for the user currently accessing
+ * the export system.
  *
  * PHP version 5
  *
  * @category Kolab
  * @package  Kolab_FreeBusy
- * @author   Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
 
 /**
- * This class represents the user accessing the export system.
+ * This class provides the credentials for the user currently accessing
+ * the export system.
  *
- * Copyright 2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
@@ -23,72 +24,78 @@
  *
  * @category Kolab
  * @package  Kolab_FreeBusy
- * @author   Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
- * @since    Horde 3.2
  */
-class Horde_Kolab_FreeBusy_User_Base
+class Horde_Kolab_FreeBusy_Params_User
 {
     /**
-     * The user calling the script.
+     * The request made to the application.
+     *
+     * @var Horde_Controller_Request_Base
+     */
+    private $_request;
+
+    /**
+     * The user id.
      *
      * @var string
      */
-    protected $user;
+    private $_user;
 
     /**
-     * Has the user authenticated successfully?
+     * The user password.
      *
-     * @var boolean
+     * @var string
      */
-    private $_authenticated;
+    private $_pass;
 
     /**
      * Constructor.
      *
-     * @param Horde_Auth_Base  $auth   The authentication driver,
-     * @param Horde_Log_Logger $logger The log driver.
+     * @param Horde_Controller_Request_Base $request The incoming request.
      */
-    public function __construct(Horde_Auth_Base $auth, Horde_Log_Logger $logger)
+    public function __construct(Horde_Controller_Request_Base $request)
     {
-        list($this->user, $pass) = $this->getCredentials();
-
-        if (!empty($this->user)) {
-            $this->authenticate($pass);
-            if ($this->authenticated) {
-                $logger->notice(sprintf('Login success for %s from %s to free/busy.', $this->user, $_SERVER['REMOTE_ADDR']));
-            } else {
-                $logger->err(sprintf('Failed login for %s from %s to free/busy', $this->user, $_SERVER['REMOTE_ADDR']));
-            }
-        } else {
-            $logger->notice(sprintf('Anonymous login from %s to free/busy.', $this->user, $_SERVER['REMOTE_ADDR']));
-        }
+        $this->_request = $request;
     }
 
     /**
-     * Finds out if a set of login credentials are valid.
-     *
-     * @param array $pass The password to check.
-     *
-     * @return boolean  Whether or not the password was correct.
-     */
-    public function authenticate($pass)
-    {
-        $this->authenticated = $auth->authenticate($this->user, array('password' => $pass), false);
-        return $this->authenticated;
-    }
-
-    /**
-     * Extract the user credentials from the request.
+     * Return the user credentials extracted from the request.
      *
      * @return array The user credentials.
      */
-    protected function getCredentials()
+    public function getCredentials()
     {
-        $user = isset($_SERVER['PHP_AUTH_USER']) ? $_SERVER['PHP_AUTH_USER'] : false;
-        $pass = isset($_SERVER['PHP_AUTH_PW']) ? $_SERVER['PHP_AUTH_PW'] : false;
+        if ($this->_user === null) {
+            $this->_extractUserAndPassword();
+        }
+        return array($this->_user, $this->_pass);
+    }
+
+    /**
+     * Return the user id.
+     *
+     * @return array The user id.
+     */
+    public function getId()
+    {
+        if ($this->_user === null) {
+            $this->_extractUserAndPassword();
+        }
+        return $this->_user;
+    }
+
+    /**
+     * Extract user name and password from the request.
+     *
+     * @return NULL
+     */
+    private function _extractUserAndPassword()
+    {
+        $this->_user = $this->_request->getServer('PHP_AUTH_USER');
+        $this->_pass = $this->_request->getServer('PHP_AUTH_PW');
 
         //@todo: Fix!
         // This part allows you to use the PHP scripts with CGI rather than as
@@ -116,12 +123,16 @@ class Horde_Kolab_FreeBusy_User_Base
         //    RewriteRule ^(.+)\.pfb          pfb.php?folder=$1&cache=1             [L]
         //    RewriteRule ^(.+)\.pxfb         pfb.php?folder=$1&cache=1&extended=1  [L]
         //  </IfModule>
-        if (empty($user) && isset($_ENV['REDIRECT_REDIRECT_REMOTE_USER'])) {
-            $a = base64_decode(substr($_ENV['REDIRECT_REDIRECT_REMOTE_USER'], 6)) ;
-            if ((strlen($a) != 0) && (strcasecmp($a, ':') == 0)) {
-                list($user, $pass) = explode(':', $a, 2);
+        if (empty($this->_user)) {
+            $remote_user = $this->_request->getServer('REDIRECT_REDIRECT_REMOTE_USER');
+            if (!empty($remote_user)) {
+                $a = base64_decode(substr($remote_user, 6));
+                if ((strlen($a) != 0) && (strcasecmp($a, ':') == 0)) {
+                    list($this->_user, $this->_pass) = explode(':', $a, 2);
+                }
+            } else {
+                $this->_user = '';
             }
         }
-        return array($user, $pass);
     }
 }

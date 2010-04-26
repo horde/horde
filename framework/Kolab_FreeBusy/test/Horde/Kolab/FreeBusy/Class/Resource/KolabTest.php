@@ -37,7 +37,7 @@ extends PHPUnit_Framework_TestCase
 {
     public function testMethodGetnameHasResultStringTheNameOfTheResource()
     {
-        $folder = $this->getMock('Horde_Kolab_Storage_Folder');
+        $folder = $this->getMock('Horde_Kolab_Storage_Folder_Base');
         $folder->expects($this->once())
             ->method('getName')
             ->will($this->returnValue('name'));

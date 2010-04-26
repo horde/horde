@@ -29,8 +29,8 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
-interface Horde_Kolab_FreeBusy_Resource_Freebusy_Interface
-extends Horde_Kolab_FreeBusy_Resource_Interface
+interface Horde_Kolab_FreeBusy_Resource_Event
+extends Horde_Kolab_FreeBusy_Resource
 {
     /**
      * Lists all events in the given time range.     *

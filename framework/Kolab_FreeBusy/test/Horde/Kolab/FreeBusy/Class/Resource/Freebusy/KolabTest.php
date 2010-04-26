@@ -92,7 +92,7 @@ extends PHPUnit_Framework_TestCase
 
     private function _getFolder()
     {
-        $folder = $this->getMock('Horde_Kolab_Storage_Folder');
+        $folder = $this->getMock('Horde_Kolab_Storage_Folder_Base');
         $folder->expects($this->once())
             ->method('getType')
             ->will($this->returnValue('event'));

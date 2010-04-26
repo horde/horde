@@ -12,11 +12,6 @@
  */
 
 /**
- *  We need the unit test framework
- */
-require_once 'Horde/Kolab/Test/Storage.php';
-
-/**
  * Base for PHPUnit scenarios.
  *
  * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
@@ -30,7 +25,7 @@ require_once 'Horde/Kolab/Test/Storage.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Test_FreeBusy extends Horde_Kolab_Test_Storage
+class Horde_Kolab_Test_FreeBusy //extends Horde_Kolab_Test_Storage
 {
 
     /**

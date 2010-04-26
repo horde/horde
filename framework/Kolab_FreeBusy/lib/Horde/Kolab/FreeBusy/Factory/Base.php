@@ -26,22 +26,35 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
-class Horde_Kolab_FreeBusy_Factory
+class Horde_Kolab_FreeBusy_Factory_Base
 {
+    /**
+     * The injector providing required dependencies.
+     *
+     * @var Horde_Injector
+     */
+    private $_injector;
+
+    /**
+     * Constructor.
+     *
+     * @param Horde_Injector $injector The injector providing required dependencies.
+     */
+    public function __construct(Horde_Injector $injector)
+    {
+        $this->_injector = $injector;
+    }
 
     /**
      * Create the object representing the current request.
-     *
-     * @param Horde_Injector $injector The instance providing required
-     *                                 dependencies.
      *
      * @return Horde_Controller_Request_Base The current request.
      *
      * @throws Horde_Exception
      */
-    static public function getRequest($injector)
+    public function getRequest()
     {
-        $configuration = $injector->getInstance('Horde_Kolab_FreeBusy_Configuration');
+        $configuration = $this->_injector->getInstance('Horde_Kolab_FreeBusy_Configuration');
         $params = isset($configuration['request']) ? $configuration['request'] : array();
         if (!empty($params['class'])) {
             $request_class = $params['class'];
@@ -55,7 +68,7 @@ class Horde_Kolab_FreeBusy_Factory
             $request_params = array();
         }
 
-        /** Set up our request and routing objects */
+        /** Set up our request objects */
         $request = new $request_class($request_params);
 
         /** The HTTP request object would hide errors. Display them. */
@@ -67,126 +80,36 @@ class Horde_Kolab_FreeBusy_Factory
     }
 
     /**
-     * Create the mapper.
+     * Create the object representing the current response.
      *
-     * @param Horde_Injector $injector The instance providing required
-     *                                 dependencies.
-     *
-     * @return Horde_Route_Mapper The mapper.
+     * @return Horde_Controller_Response_Base The current response.
      *
      * @throws Horde_Exception
      */
-    static public function getMapper($injector)
+    public function getResponse()
     {
-        $configuration = $injector->getInstance('Horde_Kolab_FreeBusy_Configuration');
-        $params = isset($configuration['mapper']) ? $configuration['mapper'] : array();
-        if (!empty($params['params'])) {
-            $mapper_params = $params['params'];
+        $configuration = $this->_injector->getInstance('Horde_Kolab_FreeBusy_Configuration');
+        $params = isset($configuration['response']) ? $configuration['response'] : array();
+        if (!empty($params['class'])) {
+            $response_class = $params['class'];
         } else {
-            $mapper_params = array();
-        }
-        $mapper = new Horde_Routes_Mapper($mapper_params);
-
-        /**
-         * Application routes are relative only to the application. Let the
-         * mapper know where they start.
-         */
-        if (!empty($configuration['script'])) {
-            $mapper->prefix = dirname($configuration['script']);
-        } else {
-            $mapper->prefix = dirname($_SERVER['PHP_SELF']);
+            $response_class = 'Horde_Controller_Response_Http';
         }
 
-        // Check for route definitions.
-        if (!empty($configuration['config']['dir'])) {
-            $routeFile = $configuration['config']['dir'] . '/routes.php';
-        }
-        if (empty($params['config']['dir'])
-            || !file_exists($routeFile)) {
-            $mapper->connect(':(callee).:(type)',
-                             array('controller'   => 'freebusy',
-                                   'action'       => 'fetch',
-                                   'requirements' => array('type'   => '(i|x|v)fb',
-                                                           'callee' => '[^/]+'),
-                             ));
-
-            $mapper->connect('trigger/*(folder).pfb',
-                             array('controller'   => 'freebusy',
-                                   'action'       => 'trigger'
-                             ));
-
-            $mapper->connect('*(folder).:(type)',
-                             array('controller'   => 'freebusy',
-                                   'action'       => 'trigger',
-                                   'requirements' => array('type' => '(p|px)fb'),
-                             ));
-
-            $mapper->connect('delete/:(callee)',
-                             array('controller'   => 'freebusy',
-                                   'action'       => 'delete',
-                                   'requirements' => array('callee' => '[^/]+'),
-                             ));
-
-            $mapper->connect('regenerate',
-                             array('controller'   => 'freebusy',
-                                   'action'       => 'regenerate',
-                             ));
-        } else {
-            // Load application routes.
-            include $routeFile;
-        }
-        return $mapper;
-    }
-
-    /**
-     * Create the dispatcher.
-     *
-     * @param Horde_Injector $injector The instance providing required
-     *                                 dependencies.
-     *
-     * @return Horde_Controller_Dispatcher The dispatcher.
-     */
-    static public function getDispatcher($injector)
-    {
-        $configuration = $injector->getInstance('Horde_Kolab_FreeBusy_Configuration');
-        $params = isset($configuration['dispatch']) ? $configuration['dispatch'] : array();
-        if (empty($params['controllerDir'])) {
-            $controllerDir = dirname(__FILE__) . '/Controller';
-        } else {
-            $controllerDir = $params['controllerDir'];
-        }
-
-        if (empty($params['viewsDir'])) {
-            $viewsDir = dirname(__FILE__) . '/View';
-        } else {
-            $viewsDir = $params['viewsDir'];
-        }
-
-        $context = array(
-            'mapper'        => $injector->getInstance('Horde_Routes_Mapper'),
-            'controllerDir' => $controllerDir,
-            'viewsDir'      => $viewsDir,
-            'logger'        => $injector->getInstance('Horde_Log_Logger');
-        );
-
-        $dispatcher = Horde_Controller_Dispatcher::singleton($context);
-
-        return $dispatcher;
+        /** Set up our response object */
+        return new $response_class();
     }
 
     /**
      * Return the logger.
      *
-     * @param Horde_Injector $injector The instance providing required
-     *                                 dependencies.
-     *
      * @return Horde_Log_Logger The logger.
      */
-    static public function getLogger($injector)
+    public function getLogger()
     {
         $logger = new Horde_Log_Logger();
 
-        $configuration = $injector->getInstance('Horde_Kolab_FreeBusy_Configuration');
+        $configuration = $this->_injector->getInstance('Horde_Kolab_FreeBusy_Configuration');
         $logger_params = isset($configuration['logger']) ? $configuration['logger'] : array();
 
         if (empty($params)) {

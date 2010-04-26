@@ -31,7 +31,7 @@ require_once 'Horde/Kolab/Test/FreeBusy.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_FreeBusy_FreeBusyScenarioTest extends Horde_Kolab_Test_FreeBusy
+class Horde_Kolab_FreeBusy_Integration_FreeBusyScenarioTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Test triggering a calendar folder.

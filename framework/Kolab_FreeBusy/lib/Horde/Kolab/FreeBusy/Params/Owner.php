@@ -1,6 +1,6 @@
 <?php
 /**
- * Specific factory methods for the free/busy export from a Kolab backend.
+ * Defines a parameter delivering resource owner information.
  *
  * PHP version 5
  *
@@ -12,9 +12,9 @@
  */
 
 /**
- * Specific factory methods for the free/busy export from a Kolab backend.
+ * Defines a parameter delivering resource owner information.
  *
- * Copyright 2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
@@ -25,21 +25,13 @@
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
- * @since    Horde 3.2
  */
-class Horde_Kolab_FreeBusy_Factory_Freebusy_Kolab
+interface Horde_Kolab_FreeBusy_Params_Owner
 {
     /**
-     * Create the object representing the current user requesting the export.
+     * Extract the resource owner from the request.
      *
-     * @param Horde_Injector $injector The instance providing required
-     *                                 dependencies.
-     *
-     * @return Horde_Kolab_FreeBusy_User_Interface The current user.
-     *
-     * @throws Horde_Exception
+     * @return string The resource owner.
      */
-    static public function getUser($injector)
-    {
-    }
+    public function getOwner();
 }

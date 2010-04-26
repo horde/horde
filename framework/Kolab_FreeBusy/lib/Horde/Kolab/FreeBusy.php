@@ -52,134 +52,19 @@ class Horde_Kolab_FreeBusy
     private $_backend;
 
     /**
+     * The export type.
+     *
+     * @var string
+     */
+    private $_export;
+
+    /**
      * Constructor.
      *
-     * @param array $params The parameters required to initialize the
-     *                      application.
-     */
-    public function __construct($backend, $params = array())
-    {
-        $this->setBackend($backend);
-
-        $this->_injector = new Horde_Injector(
-            new Horde_Injector_TopLevel()
-        );
-        $this->set(
-            'Horde_Kolab_FreeBusy_Configuration_Interface',
-            $params
-        );
-        $this->_injector->bindFactory(
-            'Horde_Controller_Request_Base',
-            'Horde_Kolab_FreeBusy_Factory_Base',
-            'getRequest'
-        );
-        $this->_injector->bindFactory(
-            'Horde_Route_Mapper',
-            'Horde_Kolab_FreeBusy_Factory_Base',
-            'getMapper'
-        );
-        $this->_injector->bindFactory(
-            'Horde_Controller_Dispatcher',
-            'Horde_Kolab_FreeBusy_Factory_Base',
-            'getDispatcher'
-        );
-        $this->_injector->bindFactory(
-            'Horde_Log_Logger',
-            'Horde_Kolab_FreeBusy_Factory_Base',
-            'getLogger'
-        );
-    }
-
-    /**
-     * Sets the export type and prepares the injector for retrieval of the
-     * correct elements required for the export.
-     *
-     * @param string $type The type of the requested export.
-     *
-     * @return NULL
-     */
-    public function setExport($type)
-    {
-        $this->_injector->bindFactory(
-            'Horde_Kolab_FreeBusy_User_Interface',
-            'Horde_Kolab_FreeBusy_Factory_' . $type . '_' . $this->getBackend(),
-            'getUser'
-        );
-        $this->_injector->bindFactory(
-            'Horde_Kolab_FreeBusy_Resource_Interface',
-            'Horde_Kolab_FreeBusy_Factory_' . $type . '_' . $this->getBackend(),
-            'getResource'
-        );
-        $this->_injector->bindImpementation(
-            'Horde_Kolab_FreeBusy_Export_Interface',
-            'Horde_Kolab_FreeBusy_Export_' . $type . '_' . $this->getBackend()
-        );
-    }
-
-    /**
-     * Set the backend the application should use for the export.
-     *
-     * @param string $backend The backend used for the export.
-     *
-     * @return NULL
-     */
-    private function setBackend($backend)
-    {
-        $this->_backend = $backend;
-    }
-
-    /**
-     * Return the backend the application should use for the export.
-     *
-     * @return string The backend used for the export.
-     */
-    private function getBackend()
-    {
-        return $this->_backend;
-    }
-
-    /**
-     * Get an element.
-     *
-     * @param string $interface The element to retrieve.
-     *
-     * @return mixed The element.
-     */
-    public function get($interface)
-    {
-        return $this->_injector->getInstance($interface);
-    }
-
-    /**
-     * Set an element to the given value.
-     *
-     * @param string $interface The element to set.
-     * @param mixed  $instance  The value to set the element to.
-     *
-     * @return NULL
-     */
-    public function set($interface, $instance)
-    {
-        return $this->_injector->setInstance($interface, $instance);
-    }
-
-    /**
-     * Returns a reference to the global Horde_Kolab_FreeBusy object,
-     * only creating it if it doesn't already exist.
-     *
-     * This method must be invoked as:
-     *   $registry = Horde_Kolab_FreeBusy::singleton()
-     *
-     * We expect this method to be invoked *once* on application startup. At
-     * that point the parameters need to be set to correctly initialize the
-     * system.
-     *
-     * The singleton should then later be only used by the Controllers to access
-     * different system components (by using the MVC system we loose connection
-     * to this class within the controllers so we need global state here).
-     *
-     * @param array $params The parameters required to initialize the
-     *                      application.
+     * @param string $backend The chosen backend.
+     * @param string $type    The export type.
+     * @param array  $params  The parameters required to initialize the
+     *                        application.
      * <pre>
      * 'script'  - (string) Script name in relation to the document root.
      *                      [optional]
@@ -216,16 +101,175 @@ class Horde_Kolab_FreeBusy
      *                      passed to the instantiated log handler. [optional]
      *
      * </pre>
-     *
-     * @return Horde_Kolab_FreeBusy  The Horde_Registry instance.
      */
-    static public function singleton($params = array())
+    public function __construct($backend, $type, $params = array())
     {
-        if (!isset(self::$instance)) {
-            self::$instance = new self($params);
-        }
+        $this->_injector = new Horde_Injector(
+            new Horde_Injector_TopLevel()
+        );
 
-        return self::$instance;
+        $this->bindBasics($params);
+        $this->bindBackend($backend);
+        $this->bindExportType($type);
+
+        $this->_injector->setInstance('Horde_Kolab_FreeBusy', $this);
+    }
+
+    /**
+     * Bind basic elements to the injector.
+     *
+     * @param array  $params  The parameters required to initialize the
+     *                        application.
+     *
+     * @return NULL
+     */
+    public function bindBasics($params)
+    {
+        $this->set(
+            'Horde_Kolab_FreeBusy_Configuration',
+            $params
+        );
+        $this->_injector->bindFactory(
+            'Horde_Controller_Request_Base',
+            'Horde_Kolab_FreeBusy_Factory_Base',
+            'getRequest'
+        );
+        $this->_injector->bindFactory(
+            'Horde_Controller_Response_Base',
+            'Horde_Kolab_FreeBusy_Factory_Base',
+            'getResponse'
+        );
+        $this->_injector->bindFactory(
+            'Horde_Log_Logger',
+            'Horde_Kolab_FreeBusy_Factory_Base',
+            'getLogger'
+        );
+    }
+
+    /**
+     * Prepare the specific backend by binding the injector with
+     * the elements required for this backend.
+     *
+     * @param string $backend The backend used for the export.
+     *
+     * @return NULL
+     */
+    private function bindBackend($backend)
+    {
+        $this->_injector->bindFactory(
+            'Horde_Kolab_FreeBusy_User',
+            'Horde_Kolab_FreeBusy_Factory_Backend_' . $backend,
+            'getUser'
+        );
+        $this->_injector->bindFactory(
+            'Horde_Kolab_FreeBusy_Resource',
+            'Horde_Kolab_FreeBusy_Factory_Backend_' . $backend,
+            'getResource'
+        );
+        $this->_backend = $backend;
+    }
+
+    /**
+     * Prepare the specific export type by binding the injector with
+     * the elements required for this export type.
+     *
+     * @param string $type The type of the requested export.
+     *
+     * @return NULL
+     */
+    public function bindExportType($type)
+    {
+        $this->_injector->bindFactory(
+            'Horde_Routes_Mapper',
+            'Horde_Kolab_FreeBusy_Factory_Type_' . $type,
+            'getMapper'
+        );
+        $this->_injector->bindFactory(
+            'Horde_Controller_Dispatcher',
+            'Horde_Kolab_FreeBusy_Factory_Type_' . $type,
+            'getDispatcher'
+        );
+        $this->_injector->bindImplementation(
+            'Horde_Kolab_FreeBusy_Export',
+            'Horde_Kolab_FreeBusy_Export_' . $type . '_Base'
+        );
+        /* $this->_injector->bindImplementation( */
+        /*     'Horde_Kolab_FreeBusy_Export_' . $type . '_Backend', */
+        /*     'Horde_Kolab_FreeBusy_Export_' . $type . '_Backend' . $this->getBackend() */
+        /* ); */
+
+        $this->_export = $type;
+    }
+
+    /**
+     * Return the backend the application uses for the export.
+     *
+     * @return string The backend used for the export.
+     */
+    public function getBackend()
+    {
+        return $this->_backend;
+    }
+
+    /**
+     * Return the export type.
+     *
+     * @return string The export type.
+     */
+    public function getExportType()
+    {
+        return $this->_export;
+    }
+
+    /**
+     * Get an element.
+     *
+     * @param string $interface The element to retrieve.
+     *
+     * @return mixed The element.
+     */
+    public function get($interface)
+    {
+        return $this->_injector->getInstance($interface);
+    }
+
+    /**
+     * Set an element to the given value.
+     *
+     * @param string $interface The element to set.
+     * @param mixed  $instance  The value to set the element to.
+     *
+     * @return NULL
+     */
+    public function set($interface, $instance)
+    {
+        return $this->_injector->setInstance($interface, $instance);
+    }
+
+    /**
+     * Sets the reference to the global Horde_Kolab_FreeBusy object
+     *
+     * @param Horde_Kolab_FreeBusy $instance The Horde_Kolab_FreeBusy instance.
+     *
+     * @return NULL
+     */
+    static public function setInstance($instance)
+    {
+        self::$_instance = $instance;
+    }
+
+    /**
+     * Returns a reference to the global Horde_Kolab_FreeBusy object
+     *
+     * This method should only be used by the Controllers to access
+     * different system components (by using the MVC system we loose connection
+     * to this class within the controllers so we need global state here).
+     *
+     * @return Horde_Kolab_FreeBusy  The Horde_Kolab_FreeBusy instance.
+     */
+    static public function getInstance()
+    {
+        return self::$_instance;
     }
 
     /**
@@ -235,7 +279,7 @@ class Horde_Kolab_FreeBusy
      */
     static public function destroy()
     {
-        self::$instance = null;
+        self::$_instance = null;
     }
 
     /**
@@ -247,7 +291,8 @@ class Horde_Kolab_FreeBusy
     {
         try {
             $this->get('Horde_Controller_Dispatcher')->dispatch(
-                $this->get('Horde_Controller_Request_Base')
+                $this->get('Horde_Controller_Request_Base'),
+                $this->get('Horde_Controller_Response_Base')
             );
         } catch (Exception $e) {
             //@todo: Error view

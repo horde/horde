@@ -12,11 +12,6 @@
  */
 
 /**
- * The Autoloader allows us to omit "require/include" statements.
- */
-require_once 'Horde/Autoloader.php';
-
-/**
  * A mockup for the main application controller.
  *
  * Copyright 2004-2009 Klarälvdalens Datakonsult AB
@@ -31,7 +26,7 @@ require_once 'Horde/Autoloader.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
-class FreeBusyController extends Horde_Controller_Base
+class MockfreebusyController extends Horde_Controller_Base
 {
     /**
      * Trigger regeneration of free/busy data in a calender.

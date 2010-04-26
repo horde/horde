@@ -22,7 +22,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/Autoload.php';
+require_once 'Horde/Test/AllTests.php';
 
 /**
  * @package    Kolab_FreeBusy
@@ -30,28 +30,6 @@ require_once dirname(__FILE__) . '/Autoload.php';
  */
 class Horde_Kolab_FreeBusy_AllTests extends Horde_Test_AllTests
 {
-    public static function suite()
-    {
-        $suite = new PHPUnit_Framework_TestSuite('Horde Framework - Kolab_FreeBusy');
-
-        $basedir    = dirname(__FILE__);
-        $baseregexp = preg_quote($basedir . DIRECTORY_SEPARATOR, '/');
-
-        foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($basedir)) as $file) {
-            if ($file->isFile() && preg_match('/Test.php$/', $file->getFilename())) {
-                $pathname = $file->getPathname();
-                require $pathname;
-
-                $class = str_replace(
-                    DIRECTORY_SEPARATOR, '_',
-                    preg_replace("/^$baseregexp(.*)\.php/", '\\1', $pathname)
-                );
-                $suite->addTestSuite('Horde_Kolab_FreeBusy_' . $class);
-            }
-        }
-
-        return $suite;
-    }
 }
 
 Horde_Kolab_FreeBusy_AllTests::init('Horde_Kolab_FreeBusy', __FILE__);

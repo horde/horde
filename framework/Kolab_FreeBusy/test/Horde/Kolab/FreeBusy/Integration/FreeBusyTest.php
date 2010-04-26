@@ -30,7 +30,7 @@ require_once 'Horde/Autoloader.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
-class Horde_Kolab_FreeBusy_FreeBusyTest extends Horde_Kolab_Test_FreeBusy
+class Horde_Kolab_FreeBusy_Integration_FreeBusyTest extends PHPUnit_Framework_TestCase
 {
 
     /**

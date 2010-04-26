@@ -4,17 +4,18 @@
  *
  * PHP version 5
  *
- * @category Kolab
- * @package  Kolab_FreeBusy
- * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
+ * @category   Kolab
+ * @package    Kolab_FreeBusy
+ * @subpackage UnitTests
+ * @author     Gunnar Wrobel <wrobel@pardus.de>
+ * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link       http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
 
 /**
- * The Autoloader allows us to omit "require/include" statements.
+ * Prepare the test setup.
  */
-require_once 'Horde/Autoloader.php';
+require_once dirname(__FILE__) . '/../Autoload.php';
 
 /**
  * Test triggering the generation/caching of free/busy data.
@@ -24,30 +25,15 @@ require_once 'Horde/Autoloader.php';
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @category Kolab
- * @package  Kolab_FreeBusy
- * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
+ * @category   Kolab
+ * @package    Kolab_FreeBusy
+ * @subpackage UnitTests
+ * @author     Gunnar Wrobel <wrobel@pardus.de>
+ * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link       http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
-class Horde_Kolab_FreeBusy_TriggerTest extends Horde_Kolab_Test_FreeBusy
+class Horde_Kolab_FreeBusy_Integration_TriggerTest extends PHPUnit_Framework_TestCase
 {
-
-    /**
-     * Test setup.
-     *
-     * @return NULL
-     */
-    public function setUp()
-    {
-        /**
-         * The controller automatically starts a session. But we don't want to
-         * send out cookie headers since we are running in PHPUnit.
-         */
-        ini_set('session.use_cookies', 0);
-        ini_set('session.use_only_cookies', 0);
-        session_cache_limiter(null);
-    }
 
     /**
      * Test destruction.
@@ -80,7 +66,8 @@ class Horde_Kolab_FreeBusy_TriggerTest extends Horde_Kolab_Test_FreeBusy
             )
         );
         
-        $application = Horde_Kolab_FreeBusy::singleton($params);
+        $application = new Horde_Kolab_FreeBusy('Kolab', 'Freebusy', $params);
+        Horde_Kolab_FreeBusy::setInstance($application);
 
         $output = '';
 
@@ -91,7 +78,7 @@ class Horde_Kolab_FreeBusy_TriggerTest extends Horde_Kolab_Test_FreeBusy
                 $output = ob_get_contents();
                 ob_end_clean();
             } catch (Horde_Controller_Exception $e) {
-                $this->assertEquals('No routes match the path: "' . trim($key, '/') . '"', $e->getMessage());
+                $this->assertEquals('', $e->getMessage());
             }
             $this->assertEquals('', $output);
         } else {

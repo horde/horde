@@ -14,14 +14,9 @@
  */
 
 /**
- * The Autoloader allows us to omit "require/include" statements.
- */
-require_once 'Horde/Autoloader.php';
-
-/**
  * The core Controller handling the different request types.
  *
- * Copyright 2004-2009 Klarälvdalens Datakonsult AB
+ * Copyright 2004-2010 Klarälvdalens Datakonsult AB
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
@@ -35,7 +30,7 @@ require_once 'Horde/Autoloader.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
-class FreeBusyController extends Horde_Controller_Base
+class FreebusyController extends Horde_Controller_Base
 {
     /**
      * A reference to the application class.
@@ -54,8 +49,7 @@ class FreeBusyController extends Horde_Controller_Base
          * left to fetching our dependencies ourselves. The application class is
          * used as a service locator.
          */
-        $this->_app = Horde_Kolab_FreeBusy::singleton();
-        $this->_app->setExport('Freebusy');
+        $this->_app = Horde_Kolab_FreeBusy::getInstance();
     }
 
     /**
@@ -91,8 +85,11 @@ class FreeBusyController extends Horde_Controller_Base
      */
     public function trigger()
     {
+        //@todo: FIX:: Horde::logMessage(sprintf("Starting generation of partial free/busy data for folder %s", 
+        //                          $req_folder), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+
         $this->export = $this->_app->get(
-            'Horde_Kolab_FreeBusy_Export_Interface'
+            'Horde_Kolab_FreeBusy_Export'
         );
     }
 /*         $this->logger->debug(sprintf("Starting generation of partial free/busy data for folder %s", */
