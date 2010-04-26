@@ -2435,80 +2435,83 @@ class Turba_Driver
         $charset = Horde_Nls::getCharset();
         $formattedname = false;
 
-        /* Name */
-        $hash['name'] = Horde_String::convertCharset($message->fileas, 'utf-8', $charset);
-        $hash['lastname'] = Horde_String::convertCharset($message->lastname, 'utf-8', $charset);
-        $hash['firstname'] = Horde_String::convertCharset($message->firstname, 'utf-8', $charset);
-        $hash['middlenames'] = Horde_String::convertCharset($message->middlename, 'utf-8', $charset);
-        $hash['namePrefix'] = Horde_String::convertCharset($message->title, 'utf-8', $charset);
-        $hash['nameSuffix'] = Horde_String::convertCharset($message->suffix, 'utf-8', $charset);
+        $textMap = array(
+            'fileas' => 'name',
+            'lastname' => 'lastname',
+            'firstname' => 'firstname',
+            'middlename' => 'middlenames',
+            'title' => 'namePrefix',
+            'suffix' => 'nameSuffix',
+            'homestreet' => 'homeStreet',
+            'homecity' => 'homeCity',
+            'homestate' => 'homeProvince',
+            'homepostalcode' => 'homePostalCode',
+            'homecountry' => 'homeCountry',
+            'businessstreet' => 'workStreet',
+            'businesscity' => 'workCity',
+            'businessstate' => 'workProvince',
+            'businesspostalcode' => 'workPostalCode',
+            'businesscountry' => 'workCountry',
+            'jobtitle' => 'title',
+            'companyname' => 'company',
+            'department' => 'department',
+            'spouse' => 'spouse',
+            'body' => 'notes',
+            'webpage' => 'website',
+            'assistantname' => 'assistant'
+        );
+        foreach ($textMap as $asField => $turbaField) {
+            if (!$message->isGhosted($asField)) {
+                $hash[$turbaField] = Horde_String::convertCharset($message->{$asField}, 'utf-8', $charset);
+            }
+        }
+
+        $nonTextMap = array(
+            'homephonenumber' => 'homePhone',
+            'businessphonenumber' => 'workPhone',
+            'businessfaxnumber' => 'fax',
+            'pagernumber' => 'pager',
+            'mobilephonenumber' => 'cellPhone'
+        );
+        foreach ($nonTextMap as $asField => $turbaField) {
+            if (!$message->isGhosted($asField)) {
+                $hash[$turbaField] = $message->{$asField};
+            }
+        }
+
+        /* Requires special handling */
 
         // picture ($message->picture *should* already be base64 encdoed)
-        $hash['photo'] = base64_decode($message->picture);
-
-        /* Home */
-        $hash['homeStreet'] = Horde_String::convertCharset($message->homestreet, 'utf-8', $charset);
-        $hash['homeCity'] = Horde_String::convertCharset($message->homecity, 'utf-8', $charset);
-        $hash['homeProvince'] = Horde_String::convertCharset($message->homestate, 'utf-8', $charset);
-        $hash['homePostalCode'] = $message->homepostalcode;
-        $hash['homeCountry'] = Horde_String::convertCharset($message->homecountry, 'utf-8', $charset);
-
-        /* Business */
-        $hash['workStreet'] = Horde_String::convertCharset($message->businessstreet, 'utf-8', $charset);
-        $hash['workCity'] = Horde_String::convertCharset($message->businesscity, 'utf-8', $charset);
-        $hash['workProvince'] = Horde_String::convertCharset($message->businessstate, 'utf-8', $charset);
-        $hash['workPostalCode'] = $message->businesspostalcode;
-        $hash['workCountry'] = Horde_String::convertCharset($message->businesscountry, 'utf-8', $charset);
-
-        $hash['homePhone'] = $message->homephonenumber;
-        $hash['workPhone'] = $message->businessphonenumber;
-        $hash['fax'] = $message->businessfaxnumber;
-        $hash['pager'] = $message->pagernumber;
-        $hash['cellPhone'] = $message->mobilephonenumber;
+        if (!$message->isGhosted('picture')) {
+            $hash['photo'] = base64_decode($message->picture);
+        }
 
         /* Email addresses */
-        $hash['email'] = Horde_iCalendar_vcard::getBareEmail($message->email1address);
-
-        /* Job title */
-        $hash['title'] = Horde_String::convertCharset($message->jobtitle, 'utf-8', $charset);
-
-        $hash['company'] = Horde_String::convertCharset($message->companyname, 'utf-8', $charset);
-        $hash['department'] = Horde_String::convertCharset($message->department, 'utf-8', $charset);
+        if (!$message->isGhosted('email1address')) {
+            $hash['email'] = Horde_iCalendar_vcard::getBareEmail($message->email1address);
+        }
 
         /* Categories */
         if (count($message->categories)) {
             $hash['category']['value'] = Horde_String::convertCharset(implode(';', $message->categories), 'utf-8', $charset);
             $hash['category']['new'] = true;
+        } elseif (!$message->isGhosted('categories')) {
+            $hash['category']['value'] = '';
         }
-
-        /* Children */
-        // @TODO
-
-        /* Spouse */
-        $hash['spouse'] = Horde_String::convertCharset($message->spouse, 'utf-8', $charset);
-
-        /* Notes */
-        $hash['notes'] = Horde_String::convertCharset($message->body, 'utf-8', $charset);
-
-        /* webpage */
-        $hash['website'] = Horde_String::convertCharset($message->webpage, 'utf-8', $charset);
 
         /* Birthday and Anniversary */
         if (!empty($message->birthday)) {
             $bday = new Horde_Date($message->birthday);
             $hash['birthday'] = $bday->format('Y-m-d');
-        } else {
+        } elseif (!$message->isGhosted('birthday')) {
             $hash['birthday'] = null;
         }
         if (!empty($message->anniversary)) {
             $anniversary = new Horde_Date($message->anniversary);
             $hash['anniversary'] = $anniversary->format('Y-m-d');
-        } else {
+        } elseif (!$message->isGhosted('anniversary')) {
             $hash['anniversary'] = null;
         }
-
-        /* Assistant */
-        $hash['assistant'] = Horde_String::convertCharset($message->assistantname, 'utf-8', $charset);
 
         return $hash;
     }
