@@ -115,9 +115,9 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
 
             /* compatibility mode - get id from state */
             if (!isset($collectionid)) {
-                $state = &$this->_driver->getStateObject();
-                $state->getDeviceInfo($devId);
-                $collectionid = $state>getFolderData($this->_devid, $collection['class']);
+                $this->_state = &$this->_driver->getStateObject();
+                $this->_state->getDeviceInfo($devId);
+                $collectionid = $this->_state>getFolderData($this->_devid, $collection['class']);
             }
             $collection['id'] = $collectionid;
             $status[$collection['id']] = $cStatus;
@@ -143,10 +143,10 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
             $this->_encoder->endTag();
             $this->_encoder->startTag(self::ESTIMATE);
 
-            $state = $this->_driver->getStateObject($collection);
-            $state->loadState($collection['synckey']);
+            $this->_state = $this->_driver->getStateObject($collection);
+            $this->_state->loadState($collection['synckey']);
             $sync = $this->_driver->getSyncObject();
-            $sync->init($state, null, $collection);
+            $sync->init($this->_state, null, $collection);
 
             $this->_encoder->content($sync->GetChangeCount());
             $this->_encoder->endTag();

@@ -184,18 +184,18 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
             if ($this->_statusCode == self::STATUS_SUCCESS) {
                 /* Initialize the state */
-                $state = &$this->_driver->getStateObject($collection);
-                $device = $state->getDeviceInfo($devId);
+                $this->_state = &$this->_driver->getStateObject($collection);
+                $device = $this->_state->getDeviceInfo($devId);
                 if (!empty($collection['supported'])) {
                     /* Initial sync and we have SUPPORTED data - save it */
                     if (empty($device->supported)) {
                         $device->supported = array();
                     }
                     $device->supported[$collection['class']] = $collection['supported'];
-                    $state->setDeviceInfo($devId, $device);
+                    $this->_state->setDeviceInfo($devId, $device);
                 }
                 try {
-                    $state->loadState($collection['synckey'], 'sync');
+                    $this->_state->loadState($collection['synckey'], 'sync');
                 } catch (Horde_ActiveSync_Exception $e) {
                     $this->_statusCode = self::STATUS_KEYMISM;
                     $this->_handleError($collection);
@@ -204,7 +204,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
                 /* compatibility mode - get folderid from the state directory */
                 if (!isset($collection['id'])) {
-                    $collection['id'] = $state->getFolderData($this->_devId, $collection['class']);
+                    $collection['id'] = $this->_state->getFolderData($this->_devId, $collection['class']);
                 }
 
                 /* compatibility mode - set default conflict behavior if no
@@ -217,7 +217,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_COMMANDS)) {
                 /* Configure importer with last state */
                 $importer = $this->_driver->getImporter();
-                $importer->init($state, $collection['id'], $collection['conflict']);
+                $importer->init($this->_state, $collection['id'], $collection['conflict']);
                 $nchanges = 0;
                 while (1) {
                     // MODIFY or REMOVE or ADD or FETCH
@@ -376,7 +376,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 isset($collection['getchanges']) ||
                 $collection['synckey'] == '0') {
                 try {
-                    $collection['newsynckey'] = $state->getNewSyncKey($collection['synckey']);
+                    $collection['newsynckey'] = $this->_state->getNewSyncKey($collection['synckey']);
                 } catch (Horde_ActiveSync_Exception $e) {
                     $this->_statusCode = self::STATUS_KEYMISM;
                 }
@@ -450,7 +450,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 $filtertype = isset($collection['filtertype']) ? $collection['filtertype'] : false;
                 $exporter = new Horde_ActiveSync_Connector_Exporter($this->_encoder, $collection['class']);
                 $sync = $this->_driver->getSyncObject();
-                $sync->init($state, $exporter, $collection);
+                $sync->init($this->_state, $exporter, $collection);
                 $changecount = $sync->getChangeCount();
                 if (!empty($collection['windowsize']) && $changecount > $collection['windowsize']) {
                     $this->_encoder->startTag(Horde_ActiveSync::SYNC_MOREAVAILABLE, false, true);
@@ -481,8 +481,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             /* Save the sync state for the next time */
             if (isset($collection['newsynckey'])) {
                 if (!empty($sync) || !empty($importer) || !empty($exporter) || $collection['synckey'] == 0)  {
-                    $state->setNewSyncKey($collection['newsynckey']);
-                    $state->save();
+                    $this->_state->setNewSyncKey($collection['newsynckey']);
+                    $this->_state->save();
                 } else {
                     $this->_logger->err(sprintf('[%s] Error saving %s - no state information available.', $this->_devId, $collection['newsynckey']));
                 }
@@ -516,8 +516,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
             $collection['newsynckey'] = Horde_ActiveSync_State_Base::getNewSyncKey(($this->_statusCode == self::STATUS_KEYMISM) ? 0 : $collection['synckey']);
             if ($collection['synckey'] != 0) {
-                $state = &$this->_driver->getStateObject($collection);
-                $state->removeState($collection['synckey']);
+                $this->_state = &$this->_driver->getStateObject($collection);
+                $this->_state->removeState($collection['synckey']);
             }
         }
 

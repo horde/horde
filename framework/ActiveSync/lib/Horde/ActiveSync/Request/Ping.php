@@ -37,7 +37,6 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
     const FOLDERTYPE =  'Ping:FolderType';
 
     protected $_ping_settings;
-    protected $_state;
 
     protected function _checkHeartbeat($lifetime)
     {

@@ -1012,6 +1012,7 @@ class Horde_ActiveSync
                                   $this->_decoder,
                                   $this->_encoder,
                                   $this->_request,
+                                  $this,
                                   $this->_provisioning);
             $request->setLogger($this->_logger);
 

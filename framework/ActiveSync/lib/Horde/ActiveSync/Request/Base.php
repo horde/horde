@@ -73,6 +73,25 @@ abstract class Horde_ActiveSync_Request_Base
      */
     protected $_statusCode = 0;
 
+    /**
+     * State object
+     *
+     * @var Horde_ActiveSync_State_Base
+     */
+    protected $_state;
+
+    /**
+     * ActiveSync server
+     * 
+     * @var Horde_ActiveSync 
+     */
+    protected $_activeSync;
+
+    /**
+     * Logger
+     *
+     * @var Horde_Log_Logger
+     */
     protected $_logger;
 
     /**
@@ -90,10 +109,14 @@ abstract class Horde_ActiveSync_Request_Base
                                 Horde_ActiveSync_Wbxml_Decoder $decoder,
                                 Horde_ActiveSync_Wbxml_Encoder $encoder,
                                 Horde_Controller_Request_Http $request,
+                                Horde_ActiveSync $as,
                                 $provisioning)
     {
         /* Backend driver */
         $this->_driver = $driver;
+
+        /* server */
+        $this->_activeSync = $as;
 
         /* Wbxml handlers */
         $this->_encoder = $encoder;
@@ -115,6 +138,12 @@ abstract class Horde_ActiveSync_Request_Base
      */
     public function checkPolicyKey($sentKey)
     {
+        /* Android devices don't support provisioning, but also send a policykey
+         * header - which is against the specification. Check the user agent
+         * for Android (maybe need version sniffing in the future) and set the
+         * policykey to null for those devices. */
+
+        
         /* Don't attempt if we don't care */
         if ($this->_provisioning !== false) {
             $state = $this->_driver->getStateObject();
