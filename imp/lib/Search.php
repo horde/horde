@@ -312,10 +312,9 @@ class IMP_Search
      * because certain configuration parameters may need to be dynamically
      * altered.
      *
-     * @param string $mailbox  The mailbox to search.
-     * @param object $query    The search query object
-     *                         (Horde_Imap_Client_Search_Query).
-     * @param array $opts      Additional search options.
+     * @param string $mailbox                        The mailbox to search.
+     * @param Horde_Imap_Client_Search_Query $query  The search query object.
+     * @param array $opts                            Additional options.
      *
      * @return array  Search results.
      */
