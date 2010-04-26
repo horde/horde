@@ -27,11 +27,11 @@ class Horde_Imap_Client_Search_Query
 
     /**
      * The charset of the search strings.  All text strings must be in
-     * this charset.
+     * this charset. By default, this is 'US-ASCII' (see RFC 3501 [6.4.4]).
      *
      * @var string
      */
-    protected $_charset = 'US-ASCII';
+    protected $_charset = null;
 
     /**
      * The list of defined system flags (see RFC 3501 [2.3.2]).
@@ -61,11 +61,29 @@ class Horde_Imap_Client_Search_Query
     /**
      * Sets the charset of the search text.
      *
-     * @param string $charset  The charset to use for the search.
+     * @param string $charset     The charset to use for the search.
+     * @param callback $callback  A callback function to run on all text
+     *                            values when the charset changes.  It must
+     *                            accept three parameters: the text, the old
+     *                            charset (will be null if no charset was
+     *                            previously given), and the new charset. It
+     *                            should return the converted text value.
      */
-    public function charset($charset)
+    public function charset($charset, $callback = null)
     {
+        $oldcharset = $this->_charset;
         $this->_charset = strtoupper($charset);
+        if (is_null($callback) || ($oldcharset == $this->_charset)) {
+            return;
+        }
+
+        foreach (array('header', 'text') as $item) {
+            if (isset($this->_search[$item])) {
+                foreach (array_keys($this->_search[$item]) as $key) {
+                    $this->_search[$item][$key]['text'] = call_user_func_array($callback, array($this->_search[$item][$key]['text'], $oldcharset, $this->_charset));
+                }
+            }
+        }
     }
 
     /**
@@ -305,7 +323,7 @@ class Horde_Imap_Client_Search_Query
         }
 
         return array(
-            'charset' => $this->_charset,
+            'charset' => (is_null($this->_charset) ? 'US-ASCII' : $this->_charset),
             'exts' => $exts_used,
             'imap4' => $imap4,
             'query' => $cmds
