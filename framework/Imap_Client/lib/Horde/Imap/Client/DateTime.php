@@ -69,7 +69,7 @@ class Horde_Imap_Client_DateTime
                 : new DateTime($this->_string, $this->_tz);
         }
 
-        call_user_func_array(array($this->_datetime, $name), $arguments);
+        return call_user_func_array(array($this->_datetime, $name), $arguments);
     }
 
 }
