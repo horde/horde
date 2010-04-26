@@ -18,7 +18,7 @@ function preview()
 
 <h1 class="header">
  <span class="smallheader rightFloat"><?php printf(_("Last Modified %s by %s"), $page->formatVersionCreated(), $page->author()) ?></span>
- <?php echo _("EditPage") . ': ' . Horde::link($page->pageUrl()) . htmlspecialchars($page->pageName()) . '</a>'; if ($page->isLocked()) echo Horde::img('locked.png', _("Locked")) ?>
+ <?php echo _("Edit Page") . ': ' . Horde::link($page->pageUrl()) . htmlspecialchars($page->pageName()) . '</a>'; if ($page->isLocked()) echo Horde::img('locked.png', _("Locked")) ?>
 </h1>
 
 <div class="control">

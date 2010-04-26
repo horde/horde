@@ -164,7 +164,7 @@ class SyncPages extends Page {
      */
     function pageTitle()
     {
-        return _("SyncPages");
+        return _("Sync Pages");
     }
 
     /**

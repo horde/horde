@@ -84,7 +84,7 @@ class AllPages extends Page {
 
     function pageTitle()
     {
-        return _("AllPages");
+        return _("All Pages");
     }
 
 }

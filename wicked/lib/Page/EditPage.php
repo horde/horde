@@ -122,7 +122,7 @@ class EditPage extends Page {
 
     function pageTitle()
     {
-        return _("EditPage");
+        return _("Edit Page");
     }
 
     function referrer()

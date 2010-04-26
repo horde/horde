@@ -77,7 +77,7 @@ class LikePages extends Page {
 
     function pageTitle()
     {
-        return sprintf(_("LikePages: %s"), $this->referrer());
+        return sprintf(_("Similar Pages: %s"), $this->referrer());
     }
 
     function referrer()

@@ -108,7 +108,7 @@ class RecentChanges extends Page {
 
     function pageTitle()
     {
-        return _("RecentChanges");
+        return _("Recent Changes");
     }
 
 }

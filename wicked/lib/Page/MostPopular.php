@@ -87,7 +87,7 @@ class MostPopular extends Page {
 
     function pageTitle()
     {
-        return _("MostPopular");
+        return _("Most Popular");
     }
 
 }

@@ -17,7 +17,7 @@ function preview()
 <input type="hidden" name="referrer" value="<?php echo htmlspecialchars($this->referrer()) ?>" />
 
 <h1 class="header">
- <?php printf(_("NewPage: %s"), htmlspecialchars($this->referrer())) ?>
+ <?php printf(_("New Page: %s"), htmlspecialchars($this->referrer())) ?>
 </h1>
 
 <div class="control">

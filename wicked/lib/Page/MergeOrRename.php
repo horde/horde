@@ -139,7 +139,7 @@ class MergeOrRename extends Page {
 
     function pageTitle()
     {
-        return sprintf(_("MergeOrRename: %s"), $this->referrer());
+        return sprintf(_("Merge/Rename: %s"), $this->referrer());
     }
 
     function referrer()

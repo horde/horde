@@ -76,7 +76,7 @@ class RevertPage extends Page {
 <input type="hidden" name="referrer" value="<?php echo htmlspecialchars($page->pageName()) ?>" />
 
 <h1 class="header">
- <?php echo _("RevertPage") . ': ' . Horde::link($page->pageUrl(), $page->pageName(), 'header') . $page->pageName() . '</a>'; if ($page->isLocked()) echo Horde::img('locked.png', _("Locked")) ?>
+ <?php echo _("Revert Page") . ': ' . Horde::link($page->pageUrl(), $page->pageName(), 'header') . $page->pageName() . '</a>'; if ($page->isLocked()) echo Horde::img('locked.png', _("Locked")) ?>
 </h1>
 
 <div class="headerbox" style="padding:4px">
@@ -99,7 +99,7 @@ class RevertPage extends Page {
 
     function pageTitle()
     {
-        return _("RevertPage");
+        return _("Revert Page");
     }
 
     function referrer()

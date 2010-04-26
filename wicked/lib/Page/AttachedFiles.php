@@ -162,7 +162,7 @@ class AttachedFiles extends Page {
 
     function pageTitle()
     {
-        return sprintf(_("AttachedFiles: %s"), $this->referrer());
+        return sprintf(_("Attached Files: %s"), $this->referrer());
     }
 
     function referrer()

@@ -75,7 +75,7 @@ class BackLinks extends Page {
 
     function pageTitle()
     {
-        return sprintf(_("BackLinks: %s"), $this->referrer());
+        return sprintf(_("Backlinks: %s"), $this->referrer());
     }
 
     function referrer()

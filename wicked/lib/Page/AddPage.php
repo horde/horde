@@ -102,7 +102,7 @@ class AddPage extends Page {
 
     function pageTitle()
     {
-        return sprintf(_("AddPage: %s"), $this->referrer());
+        return sprintf(_("Add Page: %s"), $this->referrer());
     }
 
     function referrer()

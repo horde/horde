@@ -107,7 +107,7 @@ class NewPage extends Page {
 
     function pageTitle()
     {
-        return _("NewPage");
+        return _("New Page");
     }
 
     function referrer()

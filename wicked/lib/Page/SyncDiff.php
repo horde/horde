@@ -124,7 +124,7 @@ class SyncDiff extends SyncPages {
      */
     function pageTitle()
     {
-        return _("SyncDiff");
+        return _("Sync Diff");
     }
 
     /**
