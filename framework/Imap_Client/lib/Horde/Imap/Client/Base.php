@@ -3265,21 +3265,27 @@ abstract class Horde_Imap_Client_Base
      * Prepares append message data for insertion into the IMAP command
      * string.
      *
-     * @param mixed $data  Either a resource or a string.
+     * @param mixed $data       Either a resource or a string.
+     * @param resource $stream  The stream to append to. If not given, will
+     *                          append to new stream.
      *
      * @param resource  A stream containing the message data.
      */
-    protected function _prepareAppendData($data)
+    protected function _prepareAppendData($data = null, $stream = null)
     {
-        $stream = fopen('php://temp', 'w+');
-        stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
-        stream_filter_append($stream, 'horde_eol', STREAM_FILTER_WRITE);
+        if (is_null($stream)) {
+            $stream = fopen('php://temp', 'w+');
+            stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
+            stream_filter_append($stream, 'horde_eol', STREAM_FILTER_WRITE);
+        }
 
-        if (is_resource($data)) {
-            rewind($data);
-            stream_copy_to_stream($data, $stream);
-        } else {
-            fwrite($stream, $data);
+        if (!is_null($data)) {
+            if (is_resource($data)) {
+                rewind($data);
+                stream_copy_to_stream($data, $stream);
+            } else {
+                fwrite($stream, $data);
+            }
         }
 
         return $stream;
@@ -3296,12 +3302,12 @@ abstract class Horde_Imap_Client_Base
      */
     protected function _buildCatenateData($data)
     {
-        $parts = array();
+        $stream = $this->_prepareAppendData();
 
         foreach (array_keys($data) as $key2) {
             switch ($data[$key2]['t']) {
             case 'text':
-                $parts[] = $this->_prepareAppendData($data[$key2]['v']);
+                $this->_prepareAppendData($data[$key2]['v'], $stream);
                 break;
 
             case 'url':
@@ -3323,16 +3329,15 @@ abstract class Horde_Imap_Client_Base
                 }
 
                 if (is_null($part)) {
-                    throw new Horde_Imap_Client_Exception('Bad IMAP URL given in CATENATE data', Horde_Imap_Client_Exception::CATENATE_BADURL);
+                    throw new Horde_Imap_Client_Exception('Bad IMAP URL given in CATENATE data.', Horde_Imap_Client_Exception::CATENATE_BADURL);
                 } else {
-                    $parts[] = $part;
+                    $this->_prepareAppendData($part, $stream);
                 }
                 break;
             }
         }
 
-        $swrapper = new Horde_Support_CombineStream($parts);
-        return $swrapper->fopen();
+        return $stream;
     }
 
 }

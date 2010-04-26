@@ -118,10 +118,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <name>Stream_Filter</name>
     <channel>pear.horde.org</channel>
    </package>
-   <package>
-     <name>Support</name>
-     <channel>pear.horde.org</channel>
-   </package>
    <extension>
     <name>imap</name>
    </extension>
