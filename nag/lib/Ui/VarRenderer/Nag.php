@@ -11,7 +11,7 @@
 
 /**
  * The Horde_Ui_VarRenderer_Nag class provides additional methods for
- * rendering Horde_Form_Type_alarm fields.
+ * rendering Nag specific fields.
  *
  * @todo    Clean this hack up with Horde_Form/H4
  * @author  Jan Schneider <jan@horde.org>

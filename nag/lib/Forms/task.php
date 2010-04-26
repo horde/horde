@@ -215,8 +215,14 @@ class Horde_Form_Type_nag_alarm extends Horde_Form_Type {
         $info = $var->getValue($vars);
         if (!$info['on']) {
             $info = 0;
+        } else {
+            $value = $info['value'];
+            $unit = $info['unit'];
+            if ($value == 0) {
+                $value = $unit = 1;
+            }
+            $info = $value * $unit;
         }
-        $info = $info['value'] * $info['unit'];
     }
 
     function isValid(&$var, &$vars, $value, &$message)
@@ -224,10 +230,6 @@ class Horde_Form_Type_nag_alarm extends Horde_Form_Type {
         if ($value['on']) {
             if ($vars->get('due_type') == 'none') {
                 $message = _("A due date must be set to enable alarms.");
-                return false;
-            }
-            if (empty($value['value'])) {
-                $message = _("The alarm value must not be empty.");
                 return false;
             }
         }

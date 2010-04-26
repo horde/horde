@@ -15,6 +15,7 @@ v3.0-git
 v2.3.5-cvs
 ----------
 
+[jan] Set an alarm to one minute, if users try to set an alarm without time.
 [jan] Add missing preference for not sending update notifications to yourself
       (Joel Smith <js-horde@jk1.net>, Request #8978).
 [gwr] Fix organizer field not saved in tasks (kolab/issue3888).
