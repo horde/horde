@@ -875,7 +875,6 @@ class IMP_Prefs_Ui
 
             if ($val['t'] == 'imapp') {
                 $tmp['label'] = $label;
-                $tmp['icon'] = $bgstyle;
                 $tmp['imapp'] = true;
                 $tmp['label_name'] = 'label_' . $hash;
                 if ($userflags_locked) {
