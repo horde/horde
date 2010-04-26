@@ -63,12 +63,8 @@
        <file name="Factory.php" role="php" />
        <file name="Implementation.php" role="php" />
       </dir> <!-- /lib/Horde/Injector/Binder -->
-      <dir name="Filter">
-       <file name="AnnotatedSetterInjector.php" role="php" />
-      </dir> <!-- /lib/Horde/Injector/Filter -->
       <file name="Binder.php" role="php" />
       <file name="Exception.php" role="php" />
-      <file name="Filter.php" role="php" />
       <file name="Scope.php" role="php" />
       <file name="TopLevel.php" role="php" />
      </dir> <!-- /lib/Horde/Injector -->
@@ -108,13 +104,11 @@
    <install as="Horde/Injector.php" name="lib/Horde/Injector.php" />
    <install as="Horde/Injector/Binder.php" name="lib/Horde/Injector/Binder.php" />
    <install as="Horde/Injector/Exception.php" name="lib/Horde/Injector/Exception.php" />
-   <install as="Horde/Injector/Filter.php" name="lib/Horde/Injector/Filter.php" />
    <install as="Horde/Injector/Scope.php" name="lib/Horde/Injector/Scope.php" />
    <install as="Horde/Injector/TopLevel.php" name="lib/Horde/Injector/TopLevel.php" />
    <install as="Horde/Injector/Binder/Closure.php" name="lib/Horde/Injector/Binder/Closure.php" />
    <install as="Horde/Injector/Binder/Factory.php" name="lib/Horde/Injector/Binder/Factory.php" />
    <install as="Horde/Injector/Binder/Implementation.php" name="lib/Horde/Injector/Binder/Implementation.php" />
-   <install as="Horde/Injector/Filter/AnnotatedSetterInjector.php" name="lib/Horde/Injector/Filter/AnnotatedSetterInjector.php" />
    <install as="Horde/Injector/AllTests.php" name="test/Horde/Injector/AllTests.php" />
    <install as="Horde/Injector/BinderTest.php" name="test/Horde/Injector/BinderTest.php" />
    <install as="Horde/Injector/InjectorTest.php" name="test/Horde/Injector/InjectorTest.php" />

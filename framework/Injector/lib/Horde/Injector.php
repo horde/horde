@@ -16,7 +16,6 @@ class Horde_Injector implements Horde_Injector_Scope
 {
     private $_parentInjector;
     private $_bindings = array();
-    private $_filters = array();
     private $_instances;
 
     /**
@@ -198,11 +197,7 @@ class Horde_Injector implements Horde_Injector_Scope
      */
     public function createInstance($interface)
     {
-        $instance = $this->getBinder($interface)->create($this);
-        if ($instance) {
-            $this->runFilters($instance);
-        }
-        return $instance;
+        return $this->getBinder($interface)->create($this);
     }
 
     /**
@@ -268,25 +263,5 @@ class Horde_Injector implements Horde_Injector_Scope
         }
 
         throw new Horde_Injector_Exception("Untyped parameter \$" . $parameter->getName() . "can't be fulfilled");
-    }
-
-    /**
-     * Add an object creation filter
-     */
-    public function addFilter(Horde_Injector_Filter $filter)
-    {
-        $this->_filters[] = $filter;
-    }
-
-    /**
-     * Run object creation filters on a new object
-     *
-     * @param object $instance  The new instance to filter.
-     */
-    public function runFilters($instance)
-    {
-        foreach ($this->_filters as $filter) {
-            $filter->filter($this, $instance);
-        }
     }
 }
