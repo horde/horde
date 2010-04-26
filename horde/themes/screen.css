@@ -858,6 +858,9 @@ ul.sound-list {
 #color-picker #color-picker-hex:hover {
     color: #fff;
 }
+#color-picker #color-picker-hex-edit {
+    float: left;
+}
 #color-picker #color-picker-resize {
     float: right;
     top: -14px;
