@@ -140,7 +140,7 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
                     return $this->_globalError(self::STATUS_PROTERROR);
                 }
                 if ($status == self::STATUS_CLIENT_SUCCESS) {
-                    $this->_state->setDeviceRWStatus($this->_devId, Horde_ActiveSync::RWSTATUS_WIPED);
+                    $this->_state->setDeviceRWStatus($this->_device->id, Horde_ActiveSync::RWSTATUS_WIPED);
                 }
             }
         }
@@ -156,17 +156,17 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
         send it to the client. */
         if (!$phase2) {
             /* Verify intermediate key */
-            if ($this->_state->getPolicyKey($this->_devId) != $policykey) {
+            if ($this->_state->getPolicyKey($this->_device->id) != $policykey) {
                 $policyStatus = self::STATUS_POLKEYMISM;
             } else {
                 /* Set the final key */
                 $policykey = $this->_state->generatePolicyKey();
-                $this->_state->setPolicyKey($this->_devId, $policykey);
+                $this->_state->setPolicyKey($this->_device->id, $policykey);
             }
         } elseif (empty($policykey)) {
             // This is phase2 - we need to set the intermediate key
             $policykey = $this->_state->generatePolicyKey();
-            $this->_state->setPolicyKey($this->_devId, $policykey);
+            $this->_state->setPolicyKey($this->_device->id, $policykey);
         }
 
         $this->_encoder->startTag(Horde_ActiveSync::PROVISION_PROVISION);
@@ -175,10 +175,10 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
         $this->_encoder->endTag();
 
         /* Wipe data if status is pending or wiped */
-        $rwstatus = $this->_state->getDeviceRWStatus($this->_devId);
+        $rwstatus = $this->_state->getDeviceRWStatus($this->_device->id);
         if ($rwstatus == Horde_ActiveSync::RWSTATUS_PENDING || $rwstatus == Horde_ActiveSync::RWSTATUS_WIPED) {
             $this->_encoder->startTag(Horde_ActiveSync::PROVISION_REMOTEWIPE, false, true);
-            $this->_state->setDeviceRWStatus($this->_devId, Horde_ActiveSync::RWSTATUS_WIPED);
+            $this->_state->setDeviceRWStatus($this->_device->id, Horde_ActiveSync::RWSTATUS_WIPED);
         } else {
             $this->_encoder->startTag(Horde_ActiveSync::PROVISION_POLICIES);
             $this->_encoder->startTag(Horde_ActiveSync::PROVISION_POLICY);

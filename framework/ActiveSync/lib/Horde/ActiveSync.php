@@ -991,7 +991,18 @@ class Horde_ActiveSync
      */
     public function handleRequest($cmd, $devId)
     {
+        /* Don't bother with everything else if all we want are Options */
+        if ($cmd == 'Options') {
+            self::activeSyncHeader();
+            self::versionHeader();
+            self::commandsHeader();
+            return true;
+        }
+
         /* Check that this device is known */
+        if (is_null($devId)) {
+            throw new Horde_ActiveSync_Exception('Device failed to send device id.');
+        }
         $state = $this->_driver->getStateObject();
         if (!empty($devId) && !$state->deviceExists($devId)) {
             $get = $this->_request->getGetParams();

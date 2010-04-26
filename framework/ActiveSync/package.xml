@@ -68,7 +68,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
          <file name="FolderSync.php" role="php" />
          <file name="Sync.php" role="php" />
          <file name="Ping.php" role="php" />
-         <file name="Options.php" role="php" />
          <file name="Provision.php" role="php" />
          <file name="GetItemEstimate.php" role="php" />
          <file name="SendMail.php" role="php" />
@@ -121,7 +120,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/ActiveSync/Request/FolderSync.php" as="Horde/ActiveSync/Request/FolderSync.php" />
    <install name="lib/Horde/ActiveSync/Request/Sync.php" as="Horde/ActiveSync/Request/Sync.php" />
    <install name="lib/Horde/ActiveSync/Request/Ping.php" as="Horde/ActiveSync/Request/Ping.php" />
-   <install name="lib/Horde/ActiveSync/Request/Options.php" as="Horde/ActiveSync/Request/Options.php" />
    <install name="lib/Horde/ActiveSync/Request/Provision.php" as="Horde/ActiveSync/Request/Provision.php" />
    <install name="lib/Horde/ActiveSync/Request/GetItemEstimate.php" as="Horde/ActiveSync/Request/GetItemEstimate.php" />
    <install name="lib/Horde/ActiveSync/Request/SendMail.php" as="Horde/ActiveSync/Request/SendMail.php" />
