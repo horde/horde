@@ -14,12 +14,8 @@ class Horde_Core_Binder_Cache implements Horde_Injector_Binder
     {
         $params = Horde::getDriverConfig('cache', $driver);
 
-        if (is_array($driver)) {
-            list($app, $driver_name) = $driver;
-        } else {
-            $app = 'Horde';
-            $driver_name = basename($driver);
-        }
+        $app = 'Horde';
+        $driver_name = basename($driver);
 
         if (strtolower($app) == 'horde') {
             switch (strtolower($driver)) {
