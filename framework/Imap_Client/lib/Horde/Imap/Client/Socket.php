@@ -1403,7 +1403,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
 
             if (!empty($data[$key]['internaldate'])) {
-                $cmd[] = $data[$key]['internaldate']->format('j-M-Y H:i:s O');
+                $cmd[] = array(
+                    't' => Horde_Imap_Client::DATA_DATETIME,
+                    'v' => $data[$key]['internaldate']->format('j-M-Y H:i:s O')
+                );
             }
 
             if (is_array($data[$key]['data'])) {

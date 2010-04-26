@@ -153,11 +153,12 @@ class Horde_Imap_Client
     /* IMAP data types (RFC 3501 [4]) */
     const DATA_ASTRING = 1;
     const DATA_ATOM = 2;
-    const DATA_LISTMAILBOX = 3;
-    const DATA_MAILBOX = 4;
-    const DATA_NSTRING = 5;
-    const DATA_NUMBER = 6;
-    const DATA_STRING = 7;
+    const DATA_DATETIME = 3;
+    const DATA_LISTMAILBOX = 4;
+    const DATA_MAILBOX = 5;
+    const DATA_NSTRING = 6;
+    const DATA_NUMBER = 7;
+    const DATA_STRING = 8;
 
     /**
      * The key used to encrypt the password when serializing.

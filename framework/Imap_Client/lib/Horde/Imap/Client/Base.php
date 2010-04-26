@@ -2863,6 +2863,10 @@ abstract class Horde_Imap_Client_Base
                             $out .= $this->utils->escape($val['v'], true);
                             break;
 
+                        case Horde_Imap_Client::DATA_DATETIME:
+                            $out .= '"' . $val['v'] . '"';
+                            break;
+
                         case Horde_Imap_Client::DATA_LISTMAILBOX:
                             $out .= $this->utils->escape($val['v'], preg_match('/[\x00-\x1f\x7f\(\)\{\s"\\\\]/', $val['v']));
                             break;
