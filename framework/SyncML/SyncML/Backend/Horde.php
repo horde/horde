@@ -158,8 +158,8 @@ class SyncML_Backend_Horde extends SyncML_Backend {
                 $database . '/listBy',
                 array('action' => 'add',
                       'timestamp' => $from_ts,
-                      'source' => SyncML_Backend::getParameter($databaseURI,
-                                                               'source')));
+                      'source' => SyncML_Backend::getParameter($databaseURI, 'source'),
+                      'end' => $to_ts));
         }
 
         if (is_a($data, 'PEAR_Error')) {
@@ -212,7 +212,8 @@ class SyncML_Backend_Horde extends SyncML_Backend {
             $database. '/listBy',
             array('action' => 'modify',
                   'timestamp' => $from_ts,
-                  'source' => SyncML_Backend::getParameter($databaseURI,'source')));
+                  'source' => SyncML_Backend::getParameter($databaseURI,'source'),
+                  'end' => $to_ts));
         if (is_a($data, 'PEAR_Error')) {
             $this->logMessage(
                 "$database/listBy failed while retrieving server modifications:"
@@ -260,7 +261,8 @@ class SyncML_Backend_Horde extends SyncML_Backend {
             $database . '/listBy',
             array('action' => 'delete',
                   'timestamp' => $from_ts,
-                  'source' => SyncML_Backend::getParameter($databaseURI, 'source')));
+                  'source' => SyncML_Backend::getParameter($databaseURI, 'source'),
+                  'end' => $to_ts));
 
         if (is_a($data, 'PEAR_Error')) {
             $this->logMessage(
